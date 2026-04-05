@@ -7,7 +7,8 @@ from sqlalchemy import (
     Integer, String, Text, Float, Boolean, DateTime, Date, Time,
     ForeignKey, JSON, event
 )
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import relationship as sa_relationship
 
 
 class Base(DeclarativeBase):
@@ -40,8 +41,8 @@ class User(Base):
     last_active_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # Relationships
-    profiles: Mapped[list["Profile"]] = relationship(back_populates="user", lazy="selectin")
-    conversations: Mapped[list["Conversation"]] = relationship(back_populates="user", lazy="selectin")
+    profiles: Mapped[list["Profile"]] = sa_relationship(back_populates="user", lazy="selectin")
+    conversations: Mapped[list["Conversation"]] = sa_relationship(back_populates="user", lazy="selectin")
 
     @property
     def is_vip(self) -> bool:
@@ -76,10 +77,10 @@ class Profile(Base):
     zodiac_sun: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
     zodiac_moon: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
     zodiac_rising: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
-    relationship: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
+    relation_type: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
-    user: Mapped["User"] = relationship(back_populates="profiles")
+    user: Mapped["User"] = sa_relationship(back_populates="profiles")
 
 
 class Conversation(Base):
@@ -92,7 +93,7 @@ class Conversation(Base):
     tokens_used: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
-    user: Mapped["User"] = relationship(back_populates="conversations")
+    user: Mapped["User"] = sa_relationship(back_populates="conversations")
 
 
 class ConversationSummary(Base):
@@ -160,7 +161,7 @@ class Analytics(Base):
     event_id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.user_id"))
     event_type: Mapped[str] = mapped_column(String(50))
-    metadata: Mapped[Optional[str]] = mapped_column(Text, nullable=True)  # JSON
+    event_metadata: Mapped[Optional[str]] = mapped_column(Text, nullable=True)  # JSON
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
 

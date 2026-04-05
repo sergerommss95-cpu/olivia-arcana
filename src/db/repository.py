@@ -118,7 +118,7 @@ class Repository:
             birth_time=birth_time, birth_location=birth_location,
             birth_lat=lat, birth_lng=lng, zodiac_sun=sun,
             zodiac_moon=moon, zodiac_rising=rising,
-            relationship=relationship,
+            relation_type=relationship,
         )
         async with self.session_factory() as session:
             session.add(profile)
@@ -311,7 +311,7 @@ class Repository:
                         metadata: Optional[dict] = None) -> None:
         event = Analytics(
             user_id=user_id, event_type=event_type,
-            metadata=json.dumps(metadata) if metadata else None,
+            event_metadata=json.dumps(metadata) if metadata else None,
         )
         async with self.session_factory() as session:
             session.add(event)
