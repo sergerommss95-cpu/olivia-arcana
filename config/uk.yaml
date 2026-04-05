@@ -1,0 +1,31 @@
+language: uk
+language_name: Ukrainian
+persona_name: "Олівія Аркана"
+
+pricing:
+  vip_monthly_stars: 250
+  vip_annual_stars: 2500
+  birth_chart_stars: 150
+  compatibility_stars: 150
+  celtic_cross_stars: 75
+  solar_return_stars: 150
+  eclipse_report_stars: 100
+  retrograde_guide_stars: 75
+  year_ahead_stars: 250
+  video_reading_stars: 1500
+  roast_premium_stars: 50
+
+pricing_crypto:
+  vip_monthly_usd: 3.25
+  vip_annual_usd: 32.50
+  birth_chart_usd: 1.95
+  compatibility_usd: 1.95
+  celtic_cross_usd: 0.98
+  solar_return_usd: 1.95
+  eclipse_report_usd: 1.30
+  retrograde_guide_usd: 0.98
+  year_ahead_usd: 3.25
+  video_reading_usd: 19.50
+  roast_premium_usd: 0.65
+
+channel_vip_teaser: "🔑 VIP-передплатники: Ваш персональний прогноз на основі ВАШОЇ точної карти вже у ваших повідомленнях."

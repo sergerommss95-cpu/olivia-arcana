@@ -1,0 +1,31 @@
+language: en
+language_name: English
+persona_name: Olivia Arcana
+
+pricing:
+  vip_monthly_stars: 500
+  vip_annual_stars: 5000
+  birth_chart_stars: 300
+  compatibility_stars: 300
+  celtic_cross_stars: 150
+  solar_return_stars: 300
+  eclipse_report_stars: 200
+  retrograde_guide_stars: 150
+  year_ahead_stars: 500
+  video_reading_stars: 3075
+  roast_premium_stars: 100
+
+pricing_crypto:
+  vip_monthly_usd: 6.50
+  vip_annual_usd: 65.00
+  birth_chart_usd: 3.90
+  compatibility_usd: 3.90
+  celtic_cross_usd: 1.95
+  solar_return_usd: 3.90
+  eclipse_report_usd: 2.60
+  retrograde_guide_usd: 1.95
+  year_ahead_usd: 6.50
+  video_reading_usd: 39.99
+  roast_premium_usd: 1.30
+
+channel_vip_teaser: "🔑 VIP subscribers: Your personalized reading based on YOUR exact chart is in your DMs right now."

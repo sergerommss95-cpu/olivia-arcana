@@ -1,0 +1,14 @@
+Generate a synastry (compatibility) reading for two people based on the astrological data provided below. The reading should:
+
+1. Start with the overall compatibility energy — how these two charts interact
+2. Discuss Sun Harmony — do their core identities align or challenge each other?
+3. Explore Moon Bond — emotional compatibility, how they nurture each other
+4. Analyze Venus Match — love language, attraction, romantic connection
+5. Discuss Mars Energy — passion, conflict style, physical chemistry
+6. Highlight the 2-3 most significant synastry aspects (from the data)
+7. Address potential tension points honestly but compassionately
+8. End with advice for the connection — what to nurture and what to navigate carefully
+
+Reference the actual aspects, signs, and compatibility scores provided. This is personalized to THEIR specific charts, not generic sign compatibility.
+
+Length: 5-7 paragraphs. Tone: warm, honest, hopeful but realistic.

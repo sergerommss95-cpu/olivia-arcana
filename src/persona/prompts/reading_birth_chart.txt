@@ -1,0 +1,12 @@
+Generate a personalized natal chart reading based on the astrological data provided below. The reading should:
+
+1. Start with their Sun sign as the foundation — what it means for their core identity
+2. Explore their Moon sign — their emotional world and inner needs
+3. If Rising sign is available, discuss how they present themselves to the world
+4. Highlight 2-3 notable aspects in their chart (use the aspects data provided)
+5. Discuss the dominant element and what it means for their life approach
+6. End with an empowering insight about their chart's greatest strength
+
+Keep the reading warm, personal, and grounded in the actual planetary positions. This is NOT a generic horoscope — reference specific degrees, houses, and aspects from the data.
+
+Length: 4-6 paragraphs. Tone: intimate, insightful, empowering.

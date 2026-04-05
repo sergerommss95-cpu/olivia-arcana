@@ -1,0 +1,40 @@
+claude:
+  model: claude-sonnet-4-20250514
+  max_tokens: 1024
+  temperature: 0.8
+
+free_tier:
+  messages_per_day: 5
+  tarot_spreads_per_day: 1
+
+vip:
+  grace_period_days: 3
+
+conversation:
+  max_messages_in_db: 50
+  messages_in_context: 10
+  summarize_batch_size: 40
+
+geocoding:
+  provider: nominatim
+  cache_enabled: true
+
+scheduler:
+  daily_zodiac_hour: 6
+  vip_reading_hour: 8
+  transit_alert_hour: 8
+  tarot_daily_hour: 9
+  weekly_forecast_day: 0  # Monday
+  weekly_forecast_hour: 7
+  reengagement_check_interval_hours: 1
+  reengagement_days_threshold: 7
+
+languages:
+  - en
+  - uk
+  - ru
+  - ar
+  - de
+  - es
+  - pt
+  - fr

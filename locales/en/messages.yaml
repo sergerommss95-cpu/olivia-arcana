@@ -1,0 +1,28 @@
+welcome:
+  new_user: "Welcome, dear soul! ✨\n\nI'm {persona_name}, your personal astrologer and tarot reader.\n\nTo cast your chart, I need to know when you were born. What is your birth date?\n\n(For example: March 15, 1995 or 15.03.1995)"
+  returning_user: "Welcome back, {name}! 🌙\n\nThe stars have been busy since we last spoke. What would you like to explore today?"
+
+onboarding:
+  ask_birth_time: "Wonderful! Now, do you know what time you were born? ⏰\n\nEven an approximate time helps me calculate your Moon and Rising signs. If you're not sure, just type 'skip'."
+  ask_birth_location: "Where were you born? City and country is perfect. 🌍"
+  chart_cast: "Let me look up your cosmic coordinates... 🔭"
+  reading_generating: "Let me look deeper into your stars... 🔮"
+
+errors:
+  invalid_date: "I couldn't quite read that date. Could you try again?\n\nYou can use formats like:\n• March 15, 1995\n• 15.03.1995\n• 1995-03-15"
+  invalid_time: "I couldn't parse that time. Try formats like:\n• 2:30 PM\n• 14:30\n• 2pm\n\nOr type 'skip' if you don't know."
+  location_not_found: "I couldn't find that location. Could you be more specific?\nTry: 'Kyiv, Ukraine' or 'New York, USA'"
+  api_error: "The stars are momentarily obscured... I'll be back with you shortly. 🌙"
+  need_birth_data: "I need your birth data first to cast your chart. Type /start to begin! 🌙"
+
+rate_limit:
+  message: "You've used your {limit} free messages for today. 🌙\n\nUnlock unlimited conversations with VIP — plus daily personal readings, transit alerts, and more.\n\nType /subscribe to learn more."
+
+subscription:
+  activated: "Welcome to VIP, {name}! ✨\n\nYour daily personal readings start tomorrow morning. You now have unlimited access to everything Olivia offers.\n\nThe stars are truly yours now. 🌙"
+  cancelled: "I understand, {name}. 🌙\n\nYour VIP access will continue until {expires}. The stars will always be here for you.\n\nYou can resubscribe anytime with /subscribe."
+
+menu:
+  main: "What would you like to explore? 🌙"
+  readings: "What kind of reading would you like? 🔮"
+  tarot: "Choose your tarot spread: 🃏"

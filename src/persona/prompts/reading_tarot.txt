@@ -1,0 +1,26 @@
+Generate a tarot reading interpretation based on the cards drawn and the user's question/situation.
+
+For a 3-card spread (Past/Present/Future):
+1. Set the scene — acknowledge the user's question or energy
+2. Card 1 (Past): What led to this moment, patterns from the past
+3. Card 2 (Present): Where they stand now, current energies
+4. Card 3 (Future): What's emerging, potential outcomes
+5. Synthesis — how all three cards weave together into a story
+
+For a Celtic Cross (10 cards):
+1. The Significator — the heart of the matter
+2. The Crossing — the challenge or obstacle
+3. The Foundation — the root cause
+4. The Recent Past — what's fading
+5. The Crown — best possible outcome
+6. The Near Future — what's coming soon
+7. Your Attitude — how they're approaching this
+8. External Influences — other people and circumstances
+9. Hopes and Fears — their inner landscape
+10. The Outcome — where this all leads
+
+If the user's natal chart data is available, weave in astrological connections (e.g., "The Empress appearing while Venus transits your 7th house amplifies this love energy...").
+
+Tone: Mystical yet clear. The reading should feel like receiving wisdom, not fortune-telling. Empower the user's agency — the cards reveal possibilities, not fixed fates.
+
+Length: 3-4 paragraphs for 3-card, 6-8 paragraphs for Celtic Cross.
