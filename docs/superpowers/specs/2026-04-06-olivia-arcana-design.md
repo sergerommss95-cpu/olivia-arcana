@@ -31,9 +31,15 @@ Olivia Arcana is a fully automated AI-powered astrologer and tarot reader runnin
 3. **VIP chat** — Unlimited conversation, daily personalized insights pushed proactively, transit alerts, priority responses.
 
 **Context management:**
-- Last 10 messages kept in conversation context per user
-- User profile (birth data, zodiac, past reading themes) injected into every Claude call
-- Conversation summaries stored periodically for long-term memory without token burn
+- Database retains last 50 messages per user. On message 51, oldest 40 are batch-summarized by Claude into a conversation_summary, then pruned.
+- Each Claude API call receives: system prompt + conversation summaries + last 10 messages + user profile (birth data, zodiac, past reading themes).
+- This keeps token usage low while maintaining long-term memory.
+
+**Content safety:**
+- Olivia's system prompt includes strict guardrails: she stays in character as an astrologer/tarot reader, does not provide medical/legal/financial advice, and gently redirects off-topic or abusive messages.
+- Claude's built-in content filtering handles explicit/harmful content.
+- Rate limiting (5 msg/day free tier) prevents abuse. Repeated abusive messages trigger a 24-hour cooldown.
+- Prompt injection attempts are mitigated by separating user input from system context (user messages are never interpolated into system prompts).
 
 ---
 
@@ -41,7 +47,7 @@ Olivia Arcana is a fully automated AI-powered astrologer and tarot reader runnin
 
 ### 2.1 System Overview
 
-Single Python codebase powering 8 bot instances (one per language). Each instance runs as a separate async process or all within one process via Aiogram 3's multi-dispatcher support.
+Single Python codebase powering 8 bot instances (one per language). All run within one Python process using Aiogram 3's multi-dispatcher support (simplest for single VPS). Can be split into separate processes later if needed.
 
 ```
 olivia-arcana/
@@ -128,7 +134,21 @@ olivia-arcana/
 └── .env.example
 ```
 
-### 2.2 Runtime Flow
+### 2.2 Error Handling & Degraded Mode
+
+| Dependency | Failure Behavior |
+|-----------|-----------------|
+| **Claude API down** | Queue the message, retry 3x with exponential backoff. If still failing, send: "The stars are momentarily obscured... I'll respond shortly." Retry via background task. |
+| **Claude API rate-limited** | Queue and process in order. VIP messages get priority queue position. |
+| **Kerykeion computation error** | Log error, inform user: "I need a bit more detail about your birth location to cast your chart accurately." Prompt for correction. |
+| **HeyGen API error/timeout** | Notify user: "Your video reading is taking longer than usual. I'll send it as soon as it's ready." Retry up to 3x. If fails, offer text reading as alternative + refund. |
+| **ElevenLabs error** | Fall back to HeyGen's built-in TTS. Lower quality voice but video still delivers. |
+| **CryptoBot API error** | Show only Stars payment option. Log error for operator review. |
+| **SQLite write lock** | WAL mode enabled by default. Async writes with retry. Acceptable for MVP; migrate to PostgreSQL before 500 concurrent users per instance. |
+
+All external API calls use async with timeout (30s for text APIs, 300s for video generation). Failed operations are logged to analytics with error metadata.
+
+### 2.3 Runtime Flow
 
 ```
 User sends DM
@@ -173,7 +193,7 @@ Research shows 3+ tiers cause decision paralysis. Two tiers maximize conversion.
 - Tarot card of the day (public channel)
 - Weekly cosmic weather (public channel)
 - One free mini-reading on first birth data submission
-- 3-card tarot spread via `/tarot` command
+- 3-card tarot spread via `/tarot` command (once per day, does not count against 5-message chat limit)
 - 3-line compatibility summary (Sun + Moon + Rising)
 
 **VIP tier (monthly subscription):**
@@ -185,7 +205,7 @@ Research shows 3+ tiers cause decision paralysis. Two tiers maximize conversion.
 - Full compatibility/synastry report (1 partner profile stored)
 - Eclipse/retrograde personalized impact reports (auto-delivered before events)
 - Birthday Solar Return teaser (full report is separate purchase)
-- Priority response time
+- Priority response: VIP messages skip the rate-limit queue and are processed first when multiple requests are pending
 
 ### 3.2 Premium One-Time Unlocks (Stars or CryptoBot)
 
@@ -210,7 +230,40 @@ Available to all users (free and VIP). VIP users get some of these included.
 
 Annual = ~2 months free discount (45% of astrology subscribers choose annual when discount is visible).
 
-### 3.4 Premium Video Reading
+### 3.4 Subscription Lifecycle
+
+**Activation:**
+- User selects monthly or annual plan → pays via Stars or CryptoBot → subscription_status set to "vip", expires_at set accordingly.
+- Stars subscriptions use Telegram's native recurring Stars Subscription feature (auto-renews unless cancelled).
+- CryptoBot subscriptions: bot sends renewal invoice 3 days before expiry. If unpaid by expiry, downgrade to free.
+
+**Renewal:**
+- Stars: automatic via Telegram (bot receives `pre_checkout_query` → confirms → renewed).
+- CryptoBot: invoice sent at expiry -3 days, reminder at -1 day. On payment, extends expires_at.
+
+**Expiry/Grace:**
+- 3-day grace period after expiry. User keeps VIP access but sees: "Your VIP access expires in [X] days. Renew to keep your daily personal readings."
+- After grace period: downgrade to free tier. Existing readings remain accessible. No data deleted.
+
+**Cancellation:**
+- User sends `/cancel` → subscription marked cancelled, auto_renew disabled. Access continues until expires_at.
+- Olivia responds warmly: "I understand. Your VIP access will continue until [date]. The stars will always be here for you."
+
+**Dunning messages (CryptoBot only):**
+- Expiry -3 days: "Your VIP subscription renews in 3 days. [Pay now]"
+- Expiry -1 day: "Last chance to keep your daily personal readings flowing."
+- Expiry +1 day (grace): "Your VIP access is still active for 2 more days. Renew anytime."
+- Expiry +3 days: "Your VIP access has ended. You can resubscribe anytime — I've saved all your chart data."
+
+### 3.5 Paywall / Lock UX
+
+When a user requests a paid reading:
+1. Claude generates the full reading and stores it in the `readings` table with `is_locked = true`.
+2. User sees: the first 2-3 sentences of the reading as a teaser, followed by "✨ *[reading continues...]*" and a payment button.
+3. On payment: `is_locked = false`, `unlocked_at` set, full reading delivered immediately in the same chat.
+4. If user doesn't pay: reading remains stored and available to unlock later (no regeneration needed).
+
+### 3.6 Premium Video Reading
 
 **"Personal Video Reading by Olivia" — highest-tier product.**
 
@@ -223,9 +276,10 @@ Annual = ~2 months free discount (45% of astrology subscribers choose annual whe
 **Production pipeline (fully automated):**
 1. User describes their situation + pays
 2. Claude generates personalized reading script (~800-1200 words) using user's chart data + current transits + their question
-3. ElevenLabs generates Olivia's voice speaking the script
+3. ElevenLabs generates Olivia's voice speaking the script (fallback: HeyGen built-in TTS)
 4. HeyGen generates video with Olivia avatar + voice
-5. Bot delivers video to user's DM (10-30 minute turnaround)
+5. Bot delivers video to user's DM
+6. **Turnaround: up to 1 hour.** User sees: "I'm preparing your personal video reading now. I'll send it to you as soon as it's ready — usually within 30-60 minutes." Bot sends a notification when video is ready. If generation fails after 3 retries, user is offered a full text reading as alternative + refund.
 
 **Cost per video:** ~$1-3 (ElevenLabs ~$0.30, HeyGen ~$0.50-2.00, Claude ~$0.03). **Margin: 90%+.**
 
@@ -246,7 +300,38 @@ At checkout, user sees:
 
 ---
 
-## 4. Astrology Engine
+## 4. Birth Data & Onboarding
+
+### 4.1 Birth Data Collection
+
+Olivia collects birth data conversationally during onboarding:
+
+1. **Birth date** (required) — Validated as a real date. Olivia asks: "When were you born? (e.g., March 15, 1995)"
+2. **Birth time** (optional) — "Do you know what time you were born? Even approximate is helpful. If not, no worries — I can still read your chart." Without birth time: Moon sign and Rising sign cannot be computed. Readings degrade gracefully — Sun-sign-only readings with a note that adding birth time unlocks deeper insight.
+3. **Birth location** (required) — "Where were you born? City and country is perfect."
+
+### 4.2 Geocoding
+
+City name → lat/lng via **Nominatim API** (OpenStreetMap, free, no API key, no KYC). Rate limited to 1 req/sec.
+
+- If ambiguous (e.g., "Springfield"), Olivia asks: "There are a few places called Springfield — which country/state?"
+- Results cached in a local geocode_cache table to avoid repeated lookups.
+- Fallback: if Nominatim is down, use a bundled cities database (GeoNames, ~50K major cities).
+
+### 4.3 Timezone Detection
+
+User timezone determined from birth location (for chart computation) and Telegram's `language_code` (for content delivery scheduling). Stored as `timezone` field on the user record (IANA format, e.g., "America/New_York"). Editable via `/settings`.
+
+### 4.4 Reading Quality by Data Completeness
+
+| Data Available | Reading Quality | Features Available |
+|---------------|----------------|-------------------|
+| Birth date + location | Good — Sun sign + planetary positions, no houses/rising | Daily zodiac, basic readings, tarot, compatibility (partial) |
+| Birth date + time + location | Full — complete natal chart with houses, rising, Moon | All features including transit alerts, full synastry, solar return |
+
+---
+
+## 5. Astrology Engine
 
 ### 4.1 Kerykeion Integration
 
@@ -344,7 +429,7 @@ Bot tracks: source → bot user → free reading → first payment → VIP conve
 
 ### 6.4 Referral Program
 
-"Share Olivia with a friend — you both get a free reading." Unique referral link per user. Tracked in analytics.
+"Share Olivia with a friend — you both get a free reading." Unique referral link per user (`t.me/OliviaArcanaBot?start=ref_USERID`). Reward: one free full birth chart reading (normally 300 Stars) for both referrer and referee. One reward per unique referral, capped at 5 rewards per user. Tracked in analytics.
 
 ---
 
@@ -380,6 +465,7 @@ One SQLite database per bot instance (8 total). Same schema, separate files.
 | birth_location | TEXT | city name |
 | birth_lat | REAL | latitude |
 | birth_lng | REAL | longitude |
+| timezone | TEXT | IANA format (e.g., "America/New_York"), derived from birth location, editable via /settings |
 | zodiac_sun | TEXT | computed from birth data |
 | zodiac_moon | TEXT | computed |
 | zodiac_rising | TEXT | computed (requires birth_time) |
@@ -419,7 +505,7 @@ One SQLite database per bot instance (8 total). Same schema, separate files.
 | tokens_used | INTEGER | for cost tracking |
 | created_at | DATETIME | |
 
-Auto-pruned: keep last 50 messages per user. Older messages summarized into conversation_summaries.
+Retains last 50 messages per user. On message 51, oldest 40 are batch-summarized by Claude into conversation_summaries, then pruned from this table.
 
 ### conversation_summaries
 | Column | Type | Notes |
@@ -486,6 +572,8 @@ Auto-pruned: keep last 50 messages per user. Older messages summarized into conv
 | created_at | DATETIME | |
 
 **Data access layer:** All DB operations go through a Repository class (SQLAlchemy ORM). No raw SQL in handlers. This abstraction enables SQLite → PostgreSQL migration without rewriting business logic.
+
+**SQLite configuration:** WAL mode enabled for concurrent read/write safety. SQLite is MVP-only — migrate to PostgreSQL before exceeding ~500 concurrent users per instance.
 
 ---
 
@@ -559,12 +647,12 @@ Auto-pruned: keep last 50 messages per user. Older messages summarized into conv
 | Cost | Amount | Notes |
 |------|--------|-------|
 | Claude API | ~$200-400 | Conversations + reading generation |
-| HeyGen API | ~$50-150 | Video readings (~76/month) |
+| HeyGen API | ~$200-500 | Video readings (~76/month, 5-8 min each) |
 | ElevenLabs API | ~$30-50 | Voice for video readings |
 | VPS (Njalla) | ~$15 | Single server |
 | Mullvad VPN | ~$5 | |
 | Silent.link eSIM | ~$5 | Top-up |
-| **Total** | **~$300-625** | **~98% margin** |
+| **Total** | **~$500-1,000** | **~97% margin** |
 
 ---
 
@@ -611,3 +699,5 @@ Auto-pruned: keep last 50 messages per user. Older messages summarized into conv
 | Ongoing | TikTok content grind, cross-promotion, analytics review |
 
 Languages staggered by 1-2 weeks to manage content quality and catch issues early.
+
+**MVP scope note:** Core bot (onboarding, chat, readings, payments, tarot, compatibility, scheduler) is built in EN first (weeks 1-3). Video pipeline is added in week 4. Multi-language is config/locale work in week 5. This sequencing means the core product is testable in EN before adding complexity. The operator dashboard is deferred — use direct SQL queries for MVP analytics.
