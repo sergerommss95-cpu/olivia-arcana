@@ -656,7 +656,156 @@ Retains last 50 messages per user. On message 51, oldest 40 are batch-summarized
 
 ---
 
-## 11. Testing Strategy
+## 11. Website (oliviaarcana.com)
+
+### 11.1 Overview
+
+A Next.js website serving two purposes: marketing landing page (SEO, traffic capture) and web app (readings for non-Telegram users). Hosted on the same anonymous VPS as the bots.
+
+### 11.2 Architecture
+
+```
+website/
+├── src/
+│   ├── app/
+│   │   ├── [locale]/              # i18n routing (en/uk/ru/ar/de/es/pt/fr)
+│   │   │   ├── page.tsx           # Landing page — hero, features, testimonials, CTA
+│   │   │   ├── reading/
+│   │   │   │   └── page.tsx       # Web app — get a reading (onboarding + chat)
+│   │   │   ├── compatibility/
+│   │   │   │   └── page.tsx       # Synastry reading flow
+│   │   │   ├── daily/
+│   │   │   │   └── page.tsx       # Free daily horoscope (12 signs — SEO magnet)
+│   │   │   ├── tarot/
+│   │   │   │   └── page.tsx       # Free daily tarot + premium spreads
+│   │   │   ├── pricing/
+│   │   │   │   └── page.tsx       # VIP plans + one-time purchases
+│   │   │   └── blog/
+│   │   │       └── [slug]/page.tsx # SEO content: "Mercury retrograde guide", etc.
+│   │   └── api/
+│   │       ├── chat/route.ts      # Olivia chat endpoint (Claude API)
+│   │       ├── reading/route.ts   # Generate reading
+│   │       ├── chart/route.ts     # Compute natal chart (kerykeion via Python API)
+│   │       └── payment/
+│   │           ├── ton/route.ts   # TON Connect payment verification
+│   │           └── stars/route.ts # Telegram Stars deep link callback
+│   ├── components/
+│   │   ├── ChatWidget.tsx         # Olivia chat interface
+│   │   ├── ChartVisual.tsx        # Birth chart visualization (SVG)
+│   │   ├── TarotCard.tsx          # Animated tarot card reveal
+│   │   ├── PaymentModal.tsx       # TON Connect + Stars deep link
+│   │   └── LanguageSwitcher.tsx
+│   ├── lib/
+│   │   ├── anthropic.ts           # Claude API client
+│   │   ├── tonconnect.ts          # TON wallet integration
+│   │   └── i18n.ts                # Internationalization config
+│   └── styles/
+│       └── globals.css            # Tailwind CSS
+├── public/
+│   ├── images/                    # Olivia avatar, zodiac icons, tarot cards
+│   └── og/                        # Open Graph images per language
+├── next.config.js
+├── tailwind.config.js
+├── package.json
+└── messages/                      # i18n translation files per locale
+    ├── en.json
+    ├── uk.json
+    ├── ru.json
+    ├── ar.json
+    ├── de.json
+    ├── es.json
+    ├── pt.json
+    └── fr.json
+```
+
+### 11.3 Landing Page
+
+**Purpose:** SEO capture + convert visitors to either Telegram bot or web app users.
+
+**Sections:**
+1. Hero — "Meet Olivia Arcana — Your Personal Astrologer & Tarot Reader" + animated starfield/zodiac background
+2. Free daily horoscope preview — today's reading for all 12 signs (drives organic SEO traffic)
+3. Features — personalized readings, compatibility, tarot, transit alerts, video readings
+4. How it works — 3 steps: share your birth data → get your chart → receive daily guidance
+5. Testimonials — curated user quotes (start with placeholder, replace with real ones)
+6. Pricing — VIP plans + one-time purchase cards
+7. CTA — two buttons: "Start on Telegram" (deep link) / "Get Your Reading Now" (web app)
+8. Blog — SEO articles: "Mercury Retrograde 2026 Guide", "Your Year-Ahead Forecast", "How to Read Your Birth Chart"
+
+**SEO strategy:**
+- Daily horoscope pages auto-generated (same Claude content as Telegram channels) — 12 pages updated daily = fresh content for search engines
+- Blog posts timed to astrological events (retrograde, eclipses) for search spike capture
+- Localized URLs: `oliviaarcana.com/de/daily`, `oliviaarcana.com/ar/reading`, etc.
+- Structured data (JSON-LD) for horoscope content
+
+### 11.4 Web App
+
+**Purpose:** Full reading experience for users who don't use Telegram.
+
+**Features (mirror of bot):**
+- Chat with Olivia (same Claude persona, same prompts)
+- Birth data collection → chart computation → free mini-reading
+- Paid readings: birth chart, compatibility, tarot, solar return, video
+- VIP subscription (monthly/annual)
+- Daily personalized readings (for VIP, delivered via email or web push notifications)
+
+**Shared backend:** The website's API routes call the same Python astrology engine (kerykeion) via an internal HTTP API running on the same VPS. Claude prompts are shared between bot and website.
+
+```
+[Next.js API routes] → HTTP → [Python astrology API (FastAPI)]
+                                  ├── kerykeion (charts, transits)
+                                  ├── Claude API (readings)
+                                  └── SQLite (shared user DB per language)
+```
+
+### 11.5 Web Payments
+
+| Rail | Method | Flow |
+|------|--------|------|
+| **TON Connect** | User connects TON wallet in browser → pays TON/USDT ��� on-chain verification → content unlocks | Native web crypto payment, fully anonymous |
+| **Telegram Stars (deep link)** | User clicks "Pay with Stars" → deep links to `t.me/OliviaArcanaBot?start=web_reading_XYZ` → pays in bot → webhook notifies web app → content unlocks | Bridges web users to Telegram, adds them to bot funnel too |
+
+TON Connect is primary for web. Stars deep link is secondary but has a bonus: every web user who pays via Stars becomes a Telegram bot user too (double conversion).
+
+### 11.6 Domain & Anonymity
+
+- Domain registered via Njalla (they register in their name, paid with XMR)
+- SSL via Let's Encrypt (automatic, no identity required)
+- No analytics that leak identity (no Google Analytics — use self-hosted Plausible or Umami, or simple server-side event logging)
+- No Cloudflare (requires account) — direct HTTPS on VPS, or use anonymous CDN if needed later
+
+### 11.7 Shared Python Astrology API
+
+A lightweight FastAPI service running on the same VPS, consumed by both the Telegram bots and the Next.js website:
+
+```
+astrology-api/
+├── main.py              # FastAPI app
+├── routes/
+│   ├── chart.py         # POST /chart — compute natal chart
+│   ├── synastry.py      # POST /synastry — compatibility
+│   ├─�� transits.py      # GET /transits — current transits
+│   ├── reading.py       # POST /reading — generate Claude reading
+│   └── video.py         # POST /video — trigger video generation
+└── auth.py              # Simple API key auth (internal only, not exposed)
+```
+
+This means the kerykeion + Claude logic is written once in Python and shared. The Next.js website and the Telegram bots are both clients of this API.
+
+**Updated project structure:**
+```
+olivia-arcana/
+├── bot/                 # Telegram bots (Aiogram 3, Python)
+├── api/                 # Shared astrology API (FastAPI, Python)
+├── website/             # Next.js marketing site + web app
+├── config/              # Shared YAML configs
+├─��� locales/             # Shared locale strings
+└── docs/
+```
+
+---
+
+## 12. Testing Strategy
 
 ### 11.1 Local Development
 
@@ -678,6 +827,8 @@ Retains last 50 messages per user. On message 51, oldest 40 are batch-summarized
 | Rate limiting | Free tier 5 msg/day enforcement, reset logic |
 | Multi-language | All handlers work correctly in each language |
 | Funnel | Referral tracking, analytics events logged correctly |
+| Website | Landing page renders all locales, chat widget works, payment flows complete, SEO pages generate |
+| Shared API | FastAPI endpoints return correct chart data, bot and website both consume API successfully |
 
 ---
 
@@ -687,17 +838,18 @@ Retains last 50 messages per user. On message 51, oldest 40 are batch-summarized
 
 | Week | Action |
 |------|--------|
-| 1-2 | Build core bot (EN only): onboarding, chat, readings, payments |
+| 1-2 | Build shared Python astrology API (FastAPI) + core bot (EN only): onboarding, chat, readings, payments |
 | 3 | Add tarot, compatibility, scheduler, content automation |
 | 4 | Add video reading pipeline |
-| 5 | Add remaining 7 languages (config + locales + prompts) |
-| 6 | Testing on Telegram test environment |
-| 7 | Deploy to anonymous VPS, launch EN + UA bots |
-| 8 | Launch RU + AR bots |
-| 9 | Launch DE + ES bots |
-| 10 | Launch PT + FR bots |
-| Ongoing | TikTok content grind, cross-promotion, analytics review |
+| 5 | Build website: Next.js landing page + web app chat + TON Connect payments |
+| 6 | Add remaining 7 languages (config + locales + prompts for bot + website) |
+| 7 | Testing: Telegram test environment + website local testing |
+| 8 | Deploy to anonymous VPS (bots + API + website), launch EN + UA |
+| 9 | Launch RU + AR |
+| 10 | Launch DE + ES |
+| 11 | Launch PT + FR |
+| Ongoing | TikTok content grind, cross-promotion, SEO content, analytics review |
 
 Languages staggered by 1-2 weeks to manage content quality and catch issues early.
 
-**MVP scope note:** Core bot (onboarding, chat, readings, payments, tarot, compatibility, scheduler) is built in EN first (weeks 1-3). Video pipeline is added in week 4. Multi-language is config/locale work in week 5. This sequencing means the core product is testable in EN before adding complexity. The operator dashboard is deferred — use direct SQL queries for MVP analytics.
+**MVP scope note:** Shared astrology API + core bot (onboarding, chat, readings, payments, tarot, compatibility, scheduler) built in EN first (weeks 1-3). Video pipeline in week 4. Website in week 5. Multi-language in week 6. This sequencing means core product is testable in EN before adding complexity. The operator dashboard is deferred — use direct SQL queries for MVP analytics.
