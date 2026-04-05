@@ -161,7 +161,12 @@ User sends DM
       /video           → video reading flow → payment → generate → deliver
       /subscribe       → VIP subscription checkout
       /profile         → manage profiles (add partner/family)
+      /roast           → zodiac roast (humorous brutally honest reading)
+      /now             → cosmic clock (real-time transit snapshot)
+      /lookup [name]   → celebrity chart lookup + compatibility
+      /card            → generate shareable Birth Chart Identity Card
       free text        → Olivia persona chat (Claude API)
+  → Group chat addition → group dynamics analysis (3+ members)
   → Payment callback (Stars or CryptoBot) → unlock content / activate sub
 ```
 
