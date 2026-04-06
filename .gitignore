@@ -8,3 +8,12 @@ venv/
 dist/
 build/
 .pytest_cache/
+
+# Next.js
+website/node_modules/
+website/.next/
+website/out/
+
+# IDE / OS
+.DS_Store
+.claude/

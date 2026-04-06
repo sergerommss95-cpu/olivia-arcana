@@ -1,167 +1,87 @@
+/**
+ * Starfield — Olivia Arcana
+ * ─────────────────────────
+ * Mounts the Three.js WebGL engine with all systems in one unified scene:
+ *   - NebulaPlane: shader-driven background with flowmap displacement
+ *   - StarSystem: GPU instanced star particles
+ *   - FlowmapSystem: mouse displacement field
+ *   - ZodiacGL: constellation lines + nodes + sacred geometry rings
+ *
+ * Everything lives in the same WebGL context — no separate Canvas 2D.
+ */
+
 "use client";
 
-import { useEffect, useRef } from "react";
-
-interface Star {
-  x: number;
-  y: number;
-  z: number;
-  radius: number;
-  opacity: number;
-  twinkleSpeed: number;
-  twinkleOffset: number;
-}
-
-interface ShootingStar {
-  x: number;
-  y: number;
-  length: number;
-  speed: number;
-  angle: number;
-  opacity: number;
-  life: number;
-  maxLife: number;
-}
+import React, { useRef, useEffect } from "react";
 
 export default function Starfield() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const engineRef = useRef<import("./cosmos/engine/WebGLEngine").WebGLEngine | null>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    let disposed = false;
 
-    let animationId: number;
-    let stars: Star[] = [];
-    let shootingStars: ShootingStar[] = [];
-    let time = 0;
+    const init = async () => {
+      try {
+        const [engineMod, nebulaMod, starMod, flowMod, zodiacMod] = await Promise.all([
+          import("./cosmos/engine/WebGLEngine"),
+          import("./cosmos/engine/NebulaPlane"),
+          import("./cosmos/engine/StarSystem"),
+          import("./cosmos/engine/FlowmapSystem"),
+          import("./cosmos/engine/ZodiacGL"),
+        ]);
 
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initStars();
-    };
+        if (disposed || !containerRef.current) return;
+        if (!engineMod.WebGLEngine.isSupported()) return;
 
-    const initStars = () => {
-      const count = Math.floor((canvas.width * canvas.height) / 3000);
-      stars = Array.from({ length: count }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        z: Math.random(),
-        radius: Math.random() * 1.5 + 0.3,
-        opacity: Math.random() * 0.8 + 0.2,
-        twinkleSpeed: Math.random() * 0.02 + 0.005,
-        twinkleOffset: Math.random() * Math.PI * 2,
-      }));
-    };
+        const engine = new engineMod.WebGLEngine(containerRef.current);
+        engineRef.current = engine;
 
-    const spawnShootingStar = () => {
-      if (shootingStars.length >= 2) return;
-      if (Math.random() > 0.003) return;
+        const nebula = new nebulaMod.NebulaPlane();
+        const flowmap = new flowMod.FlowmapSystem();
+        const stars = new starMod.StarSystem();
+        const zodiac = new zodiacMod.ZodiacGL();
 
-      shootingStars.push({
-        x: Math.random() * canvas.width * 0.8,
-        y: Math.random() * canvas.height * 0.3,
-        length: Math.random() * 80 + 40,
-        speed: Math.random() * 4 + 3,
-        angle: Math.PI / 6 + Math.random() * 0.3,
-        opacity: 1,
-        life: 0,
-        maxLife: 60 + Math.random() * 40,
-      });
-    };
+        // Register in render order (with names for cosmic activation)
+        engine.registerSystem(nebula, "nebula");   // layer 0: background
+        engine.registerSystem(flowmap, "flowmap"); // updates flowmap RT each frame
+        engine.registerSystem(stars, "stars");      // layer 1: star particles
+        engine.registerSystem(zodiac, "zodiac");    // layer 2: constellation lines + nodes
 
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      time += 0.016;
-
-      // Draw stars with twinkling
-      for (const star of stars) {
-        const twinkle = Math.sin(time * star.twinkleSpeed * 60 + star.twinkleOffset);
-        const opacity = star.opacity * (0.6 + 0.4 * twinkle);
-        const radius = star.radius * (0.8 + 0.2 * twinkle);
-
-        // Depth-based color: closer stars are warmer
-        const warmth = star.z;
-        const r = Math.floor(200 + warmth * 55);
-        const g = Math.floor(190 + warmth * 40);
-        const b = Math.floor(170 + warmth * 85);
-
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
-        ctx.fill();
-
-        // Subtle glow for brighter stars
-        if (star.radius > 1.2) {
-          ctx.beginPath();
-          ctx.arc(star.x, star.y, radius * 3, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${opacity * 0.08})`;
-          ctx.fill();
-        }
-      }
-
-      // Draw shooting stars
-      spawnShootingStar();
-      for (let i = shootingStars.length - 1; i >= 0; i--) {
-        const ss = shootingStars[i];
-        ss.life++;
-        ss.x += Math.cos(ss.angle) * ss.speed;
-        ss.y += Math.sin(ss.angle) * ss.speed;
-
-        const fadeIn = Math.min(ss.life / 10, 1);
-        const fadeOut = Math.max(0, 1 - (ss.life - ss.maxLife * 0.6) / (ss.maxLife * 0.4));
-        ss.opacity = fadeIn * fadeOut;
-
-        if (ss.life >= ss.maxLife) {
-          shootingStars.splice(i, 1);
-          continue;
+        // Connect flowmap → nebula shader
+        if (nebula.uniforms) {
+          flowmap.connectTo(nebula.uniforms.uFlowmap);
+          nebula.uniforms.uFlowmapEnabled.value = 1.0;
         }
 
-        // Draw shooting star trail
-        const tailX = ss.x - Math.cos(ss.angle) * ss.length;
-        const tailY = ss.y - Math.sin(ss.angle) * ss.length;
-
-        const gradient = ctx.createLinearGradient(tailX, tailY, ss.x, ss.y);
-        gradient.addColorStop(0, `rgba(212, 175, 55, 0)`);
-        gradient.addColorStop(0.6, `rgba(212, 175, 55, ${ss.opacity * 0.3})`);
-        gradient.addColorStop(1, `rgba(245, 240, 232, ${ss.opacity})`);
-
-        ctx.beginPath();
-        ctx.moveTo(tailX, tailY);
-        ctx.lineTo(ss.x, ss.y);
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-
-        // Bright head
-        ctx.beginPath();
-        ctx.arc(ss.x, ss.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(245, 240, 232, ${ss.opacity})`;
-        ctx.fill();
+        engine.start();
+      } catch (err) {
+        console.warn("WebGL init failed:", err);
       }
-
-      animationId = requestAnimationFrame(draw);
     };
 
-    resize();
-    window.addEventListener("resize", resize);
-    draw();
+    init();
 
     return () => {
-      window.removeEventListener("resize", resize);
-      cancelAnimationFrame(animationId);
+      disposed = true;
+      engineRef.current?.dispose();
+      engineRef.current = null;
     };
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: 0 }}
-      aria-hidden="true"
-    />
+    <>
+      <div
+        ref={containerRef}
+        style={{ position: "fixed", inset: 0, zIndex: -1, pointerEvents: "none" }}
+      />
+      {/* Dark fallback if WebGL fails */}
+      <div
+        style={{ position: "fixed", inset: 0, zIndex: -2, backgroundColor: "#04020d" }}
+      />
+    </>
   );
 }

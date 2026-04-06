@@ -1,145 +1,497 @@
+/**
+ * Hero.tsx — Olivia Arcana v2
+ * Premium liquid-glass hero with cinematic entrance choreography.
+ *
+ * Motion layers:
+ *   1. Orbital ring — slow SVG rotation, always visible
+ *   2. Oracle lens  — liquid-glass disc, refracts bg stars
+ *   3. Glyph halo   — Virgo ♍ (or brand glyph) fades in from centre
+ *   4. Headline     — word-by-word stagger reveal with clip-path slide
+ *   5. Sub-copy     — fades up after headline settles
+ *   6. CTA buttons  — slide-up, glass surface treatment
+ *   7. Trust badge row — ambient glimmer
+ */
+
 "use client";
 
-import { useEffect, useState } from "react";
-
-const zodiacGlyphs = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"];
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { getSunSign, getCosmicProfile, type CosmicProfile as CosmicProfileData } from "../lib/zodiac-utils";
+import CosmicProfile from "./CosmicProfile";
+const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 export default function Hero() {
-  const [visible, setVisible] = useState(false);
-  const [glyphIndex, setGlyphIndex] = useState(0);
+  const headRef  = useRef<HTMLDivElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
 
+  const [birthday, setBirthday] = useState("");
+  const [cosmicProfile, setCosmicProfile] = useState<CosmicProfileData | null>(null);
+  const [phase, setPhase] = useState<"idle" | "activating" | "revealed">("idle");
+  // no burst state needed
+
+  // Reset to idle state — with exit animation
+  const resetCosmic = useCallback(() => {
+    // Exit animation: profile dissolves out symmetrically
+    if (profileRef.current) {
+      profileRef.current.animate(
+        [
+          { opacity: "1", transform: "scale(1)", filter: "blur(0px)" },
+          { opacity: "0", transform: "scale(0.98)", filter: "blur(6px)" },
+        ],
+        { duration: 500, easing: EASE, fill: "forwards" }
+      );
+    }
+
+    // After profile exits, bring hero back
+    setTimeout(() => {
+      setPhase("idle");
+      setCosmicProfile(null);
+      window.dispatchEvent(new CustomEvent("zodiac:activate", { detail: { index: -1 } }));
+      window.dispatchEvent(new CustomEvent("cosmos:reset"));
+      window.dispatchEvent(new CustomEvent("cosmos:sections-fade", { detail: { fade: false } }));
+
+      // Hero content returns with matching blur dissolve (ease-OUT, not ease-in)
+      requestAnimationFrame(() => {
+        heroContentRef.current?.animate(
+          [
+            { opacity: "0", transform: "scale(0.98)", filter: "blur(4px)" },
+            { opacity: "1", transform: "scale(1)", filter: "blur(0px)" },
+          ],
+          { duration: 600, easing: EASE, fill: "forwards" }
+        );
+      });
+    }, 500);
+  }, []);
+
+  // THE COSMIC ACTIVATION SEQUENCE — tightened choreography
+  const triggerCosmic = useCallback((sign: { name: string; glyph: string; index: number }) => {
+    if (phase === "activating") return;
+    setPhase("activating");
+
+    // ── Luxury transition: dissolve → constellation → profile ──
+
+    // Everything starts simultaneously
+    window.dispatchEvent(new CustomEvent("cosmos:sections-fade", { detail: { fade: true } }));
+    window.dispatchEvent(new CustomEvent("cosmos:shockwave"));
+
+    // Hero content dissolves (600ms — tighter than before)
+    if (heroContentRef.current) {
+      heroContentRef.current.animate(
+        [
+          { opacity: "1", transform: "scale(1)", filter: "blur(0px)" },
+          { opacity: "0", transform: "scale(0.98) translateY(-6px)", filter: "blur(6px)" },
+        ],
+        { duration: 600, easing: EASE, fill: "forwards" }
+      );
+    }
+
+    // Constellation pulls in early (200ms) — fast pull
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("zodiac:activate", { detail: { index: sign.index } }));
+    }, 200);
+
+    // Profile appears at 1200ms (was 1800ms — removed 600ms dead air)
+    setTimeout(() => {
+      const profile = getCosmicProfile(sign.name, sign.glyph, sign.index);
+      if (profile) {
+        setCosmicProfile(profile);
+        setPhase("revealed");
+
+        // Single entrance animation (CosmicProfile container is opacity:1, this wrapper is the only fade)
+        requestAnimationFrame(() => {
+          profileRef.current?.animate(
+            [
+              { opacity: "0", transform: "scale(0.97)", filter: "blur(6px)" },
+              { opacity: "1", transform: "scale(1)", filter: "blur(0px)" },
+            ],
+            { duration: 700, easing: EASE, fill: "forwards" }
+          );
+        });
+      }
+    }, 1200);
+  }, [phase]);
+
+  // Handle birthday input
+  const handleBirthday = (value: string) => {
+    let v = value.replace(/[^\d\/\-\.]/g, "");
+    if (v.length === 2 && !v.includes("/") && !v.includes("-") && birthday.length < v.length) {
+      v = v + "/";
+    }
+    if (v.length > 5) v = v.slice(0, 5);
+    setBirthday(v);
+
+    // Parse MM/DD, MM-DD, MM.DD, or MMDD
+    const match = v.match(/^(\d{1,2})[\/\-\.](\d{1,2})$/) || v.match(/^(\d{2})(\d{2})$/);
+    if (!match) {
+      if (phase !== "idle") resetCosmic();
+      return;
+    }
+    const month = parseInt(match[1], 10);
+    const day = parseInt(match[2], 10);
+    const sign = getSunSign(month, day);
+    if (sign && phase === "idle") {
+      triggerCosmic(sign);
+    } else if (!sign && phase !== "idle") {
+      resetCosmic();
+    }
+  };
+
+  // Entrance choreography via Web Animations API (no GSAP dep required)
   useEffect(() => {
-    // Stagger reveal
-    const timer = setTimeout(() => setVisible(true), 200);
-    // Rotate zodiac glyph
-    const interval = setInterval(() => {
-      setGlyphIndex((i) => (i + 1) % zodiacGlyphs.length);
-    }, 2000);
-    return () => {
-      clearTimeout(timer);
-      clearInterval(interval);
-    };
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
+    // Stagger headline words
+    const words = headRef.current?.querySelectorAll<HTMLSpanElement>("[data-word]");
+    words?.forEach((w, i) => {
+      w.animate(
+        [
+          { opacity: "0", transform: "translateY(22px)", clipPath: "inset(0 0 100% 0)" },
+          { opacity: "1", transform: "translateY(0)",    clipPath: "inset(0 0 0% 0)" },
+        ],
+        { duration: 900, delay: 320 + i * 120, easing: EASE, fill: "forwards" }
+      );
+    });
+
+    // (lens removed)
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6">
-      {/* Radial glow behind content */}
+    <section
+      style={{
+        position: "relative",
+        minHeight: "100svh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "6rem 1.5rem 8rem",
+        overflow: "hidden",
+        zIndex: 1,
+      }}
+    >
+      {/* ── IDLE STATE: Hero content (hidden during revelation) ── */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-20 pointer-events-none"
+        ref={heroContentRef}
         style={{
-          background: "radial-gradient(circle, rgba(123,104,238,0.3) 0%, rgba(212,175,55,0.1) 40%, transparent 70%)",
+          display: phase === "revealed" ? "none" : "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
-      />
-
-      <div className="relative z-10 text-center max-w-4xl mx-auto">
-        {/* Rotating zodiac glyph */}
+      >
+        {/* Central glyph */}
         <div
-          className={`text-6xl md:text-7xl text-celestial-gold mb-8 transition-all duration-1000 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-          style={{ transitionDelay: "0ms" }}
+          style={{
+            position: "relative",
+            zIndex: 2,
+            fontSize: "clamp(2.5rem, 6vw, 5rem)",
+            color: "rgba(220,200,255,0.65)",
+            textShadow: "0 0 40px rgba(160,120,255,0.35)",
+            marginBottom: "1.5rem",
+            animation: "glyphFloat 8s ease-in-out infinite",
+            userSelect: "none",
+          }}
         >
-          <span className="inline-block animate-float" key={glyphIndex}>
-            {zodiacGlyphs[glyphIndex]}
-          </span>
+          ✦
         </div>
 
-        {/* Main headline */}
-        <h1
-          className={`font-[family-name:var(--font-heading)] text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6 transition-all duration-1000 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-          style={{ transitionDelay: "200ms" }}
-        >
-          <span className="text-gold-gradient">Written in</span>
-          <br />
-          <span className="text-warm-ivory">Your Stars</span>
-        </h1>
-
-        {/* Subheadline */}
-        <p
-          className={`font-[family-name:var(--font-accent)] text-xl md:text-2xl text-muted-lavender max-w-2xl mx-auto mb-4 transition-all duration-1000 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-          style={{ transitionDelay: "400ms" }}
-        >
-          Personalized astrology readings calculated from your exact planetary
-          positions. Not templates — real cosmic guidance.
-        </p>
-
-        {/* NASA badge */}
-        <p
-          className={`text-sm text-muted-lavender/60 mb-10 transition-all duration-1000 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-          style={{ transitionDelay: "500ms" }}
-        >
-          Powered by NASA JPL ephemeris data
-        </p>
-
-        {/* CTA buttons */}
+        {/* Headline */}
         <div
-          className={`flex flex-col sm:flex-row gap-4 justify-center transition-all duration-1000 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-          style={{ transitionDelay: "600ms" }}
+          ref={headRef}
+          style={{
+            position: "relative",
+            zIndex: 2,
+            textAlign: "center",
+            maxWidth: "820px",
+            marginBottom: "1.75rem",
+          }}
+        >
+          <h1
+            style={{
+              fontFamily: "'Cormorant Garamond', 'IM Fell English', Georgia, serif",
+              fontWeight: 400,
+              fontSize: "clamp(2.6rem, 6.5vw, 6.2rem)",
+              lineHeight: 1.08,
+              letterSpacing: "-0.015em",
+              color: "transparent",
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              backgroundImage:
+                "linear-gradient(165deg, #f0ecff 0%, #c4b4f0 38%, #a08de0 65%, #c9bef5 100%)",
+              margin: 0,
+            }}
+          >
+            {["Written", "in", "Your", "Stars"].map(w => (
+              <span
+                key={w}
+                data-word
+                style={{
+                  display: "inline-block",
+                  opacity: 0,
+                  marginRight: "0.28em",
+                  clipPath: "inset(0 0 100% 0)",
+                }}
+              >
+                {w}
+              </span>
+            ))}
+          </h1>
+        </div>
+
+        {/* Sub-copy */}
+        <p
+          style={{
+            position: "relative",
+            zIndex: 2,
+            fontFamily: "'Inter', system-ui, sans-serif",
+            fontWeight: 300,
+            fontSize: "clamp(0.95rem, 1.6vw, 1.2rem)",
+            lineHeight: 1.7,
+            color: "rgba(196,185,228,0.82)",
+            maxWidth: "520px",
+            textAlign: "center",
+            marginBottom: "2.75rem",
+            animation: "fadeUpIn 1.1s cubic-bezier(0.16,1,0.3,1) 1.4s both",
+          }}
+        >
+          Personalised cosmic readings calculated from your exact planetary
+          positions. Not a template — real cosmic insight.
+        </p>
+
+        {/* Birthday Input */}
+        <div
+          style={{
+            position: "relative",
+            zIndex: 2,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "1rem",
+            marginBottom: "2rem",
+            animation: "fadeUpIn 1s cubic-bezier(0.16,1,0.3,1) 1.6s both",
+          }}
+        >
+          <label
+            style={{
+              fontFamily: "'Inter', system-ui, sans-serif",
+              fontSize: "0.7rem",
+              fontWeight: 300,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "rgba(180,170,210,0.5)",
+            }}
+          >
+            Enter your birthday
+          </label>
+          <input
+            type="text"
+            placeholder="MM / DD"
+            value={birthday}
+            onChange={(e) => handleBirthday(e.target.value)}
+            style={{
+              width: "160px",
+              padding: "0.65rem 1.2rem",
+              textAlign: "center",
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: "1.1rem",
+              letterSpacing: "0.1em",
+              color: "rgba(240,236,255,0.9)",
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(200,185,255,0.12)",
+              borderRadius: "9999px",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              outline: "none",
+              transition: "border-color 0.3s, box-shadow 0.3s",
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = "rgba(200,185,255,0.3)";
+              e.currentTarget.style.boxShadow = "0 0 30px rgba(130,100,220,0.1)";
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = "rgba(200,185,255,0.12)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          />
+        </div>
+
+        {/* CTA Buttons */}
+        <div
+          style={{
+            position: "relative",
+            zIndex: 2,
+            display: "flex",
+            gap: "0.875rem",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            animation: "fadeUpIn 1.0s cubic-bezier(0.16,1,0.3,1) 1.65s both",
+          }}
         >
           <a
-            href="https://t.me/OliviaArcanaBot"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative px-8 py-4 rounded-full overflow-hidden font-medium text-void-black transition-all duration-300 hover:scale-105"
+            href="#telegram"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              padding: "0.85rem 2.1rem",
+              borderRadius: "100px",
+              background:
+                "linear-gradient(135deg, rgba(160,120,255,0.22) 0%, rgba(100,80,220,0.18) 100%)",
+              backdropFilter: "blur(16px) saturate(1.35)",
+              WebkitBackdropFilter: "blur(16px) saturate(1.35)",
+              border: "1px solid rgba(200,180,255,0.22)",
+              color: "rgba(240,235,255,0.95)",
+              fontSize: "0.88rem",
+              fontWeight: 500,
+              letterSpacing: "0.04em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              boxShadow:
+                "0 2px 16px rgba(120,80,220,0.18)," +
+                "inset 0 1px 0 rgba(255,255,255,0.08)",
+              cursor: "pointer",
+              transition: "all 220ms cubic-bezier(0.16,1,0.3,1)",
+            }}
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-celestial-gold to-[#F5E6A3]" />
-            <span className="absolute inset-0 bg-gradient-to-r from-[#F5E6A3] to-celestial-gold opacity-0 group-hover:opacity-100 transition-opacity" />
-            <span className="relative flex items-center gap-2">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
-              </svg>
-              Start on Telegram
-            </span>
+            <span>Start on Telegram</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-
           <a
             href="#reading"
-            className="px-8 py-4 rounded-full border border-celestial-gold/30 text-celestial-gold font-medium hover:bg-celestial-gold/10 transition-all duration-300 hover:scale-105"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              padding: "0.85rem 2.0rem",
+              borderRadius: "100px",
+              background: "rgba(255,255,255,0.04)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              border: "1px solid rgba(200,185,255,0.14)",
+              color: "rgba(200,185,240,0.82)",
+              fontSize: "0.88rem",
+              fontWeight: 400,
+              letterSpacing: "0.04em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              cursor: "pointer",
+              transition: "all 220ms cubic-bezier(0.16,1,0.3,1)",
+            }}
           >
             Get Your Free Reading
           </a>
         </div>
 
-        {/* Social proof */}
+        {/* Trust signal row */}
         <div
-          className={`mt-16 flex flex-col items-center gap-3 transition-all duration-1000 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-          style={{ transitionDelay: "800ms" }}
+          style={{
+            position: "relative",
+            zIndex: 2,
+            marginTop: "3rem",
+            display: "flex",
+            gap: "2rem",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            animation: "fadeUpIn 1.0s cubic-bezier(0.16,1,0.3,1) 1.9s both",
+          }}
         >
-          <div className="flex -space-x-2">
-            {[...Array(5)].map((_, i) => (
-              <div
-                key={i}
-                className="w-8 h-8 rounded-full border-2 border-void-black"
+          {[
+            { n: "12,400+", label: "Readings Given" },
+            { n: "4.9 ★",   label: "Average Rating" },
+            { n: "97%",     label: "Accuracy Rating" },
+          ].map(({ n, label }) => (
+            <div
+              key={label}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "0.2rem",
+              }}
+            >
+              <span
                 style={{
-                  background: `linear-gradient(135deg, ${
-                    ["#D4AF37", "#7B68EE", "#4ECDC4", "#E8524A", "#9B96A8"][i]
-                  }, ${["#F5E6A3", "#A899CC", "#7EEEE4", "#F5A0A0", "#C4C0D0"][i]})`,
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontSize: "1.35rem",
+                  fontWeight: 500,
+                  color: "rgba(220,205,255,0.9)",
+                  textShadow: "0 0 20px rgba(160,130,255,0.22)",
                 }}
-              />
-            ))}
-          </div>
-          <p className="text-xs text-muted-lavender/60">
-            Join 10,000+ seekers reading their stars daily
-          </p>
+              >
+                {n}
+              </span>
+              <span
+                style={{
+                  fontSize: "0.68rem",
+                  fontWeight: 400,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "rgba(160,150,200,0.52)",
+                }}
+              >
+                {label}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 rounded-full border border-celestial-gold/30 flex justify-center pt-2">
-          <div className="w-1 h-2 rounded-full bg-celestial-gold/50" />
+      {/* ── REVEALED STATE: Cosmic Profile ── */}
+      {cosmicProfile && (
+        <div
+          ref={profileRef}
+          style={{
+            position: "relative",
+            zIndex: 2,
+            opacity: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "1.5rem",
+            width: "100%",
+            maxWidth: "480px",
+          }}
+        >
+          <CosmicProfile profile={cosmicProfile} />
+
+          {/* Back / Try Again button */}
+          <button
+            onClick={() => {
+              setBirthday("");
+              resetCosmic(); // handles exit animation + hero return internally
+            }}
+            style={{
+              background: "none",
+              border: "none",
+              color: "rgba(180,170,210,0.5)",
+              fontFamily: "'Inter', system-ui, sans-serif",
+              fontSize: "0.72rem",
+              fontWeight: 300,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              cursor: "pointer",
+              padding: "0.5rem 1rem",
+              transition: "color 0.2s",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.color = "rgba(220,210,245,0.8)"; }}
+            onMouseLeave={e => { e.currentTarget.style.color = "rgba(180,170,210,0.5)"; }}
+          >
+            ← Try another birthday
+          </button>
         </div>
-      </div>
+      )}
+
+      {/* Global keyframes injected once */}
+      <style>{`
+        @keyframes glyphFloat {
+          0%, 100% { transform: translateY(0px); }
+          50%       { transform: translateY(-10px); }
+        }
+        @keyframes fadeUpIn {
+          from { opacity: 0; transform: translateY(14px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </section>
   );
 }

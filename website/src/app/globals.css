@@ -1,8 +1,10 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
 
 @theme inline {
-  --color-void-black: #0D0D1A;
-  --color-deep-cosmos: #1A1A3E;
+  --color-void-black: #04020d;
+  --color-deep-cosmos: #090615;
+  --color-nebula: #120c28;
   --color-celestial-gold: #D4AF37;
   --color-slate-blue: #7B68EE;
   --color-warm-ivory: #F5F0E8;
@@ -11,14 +13,47 @@
   --color-mars-red: #E8524A;
 
   --font-heading: "Playfair Display", serif;
-  --font-body: "Inter", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
   --font-accent: "Cormorant Garamond", serif;
+  --font-display: "Cormorant Garamond", "IM Fell English", Georgia, serif;
+}
+
+/* ── Cosmic colour tokens ──────────────────────────────────────────────── */
+:root {
+  --c-void:        #04020d;
+  --c-deep-space:  #090615;
+  --c-nebula:      #120c28;
+  --c-surface:     rgba(255,255,255,0.04);
+  --c-surface-2:   rgba(255,255,255,0.07);
+  --c-border:      rgba(200,185,255,0.10);
+  --c-border-2:    rgba(200,185,255,0.18);
+
+  --c-text-primary: rgba(240,236,255,0.95);
+  --c-text-mid:     rgba(196,185,228,0.80);
+  --c-text-muted:   rgba(155,145,190,0.60);
+
+  --c-accent:      #a07ae0;
+  --c-accent-glow: rgba(130,90,220,0.22);
+
+  --glass-bg:      rgba(255,255,255,0.05);
+  --glass-border:  rgba(255,255,255,0.09);
+  --glass-blur:    blur(18px) saturate(1.25);
+
+  --radius-pill:   9999px;
+  --radius-card:   1.25rem;
+  --radius-sm:     0.5rem;
+}
+
+html {
+  background-color: var(--c-void);
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--color-void-black);
-  color: var(--color-warm-ivory);
+  background-color: transparent;
+  color: var(--c-text-primary);
   font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
@@ -27,13 +62,23 @@ body {
   color: var(--color-warm-ivory);
 }
 
-/* Glass morphism card */
+/* ── Glass card utility ─────────────────────────────────────────────────── */
 .glass-card {
-  background: rgba(26, 26, 62, 0.4);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(212, 175, 55, 0.15);
-  border-radius: 16px;
+  background:        var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter:   var(--glass-blur);
+  border:            1px solid var(--glass-border);
+  border-radius:     var(--radius-card);
+  box-shadow:
+    0 2px 24px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.glass-card:hover {
+  border-color: var(--c-border-2);
+  box-shadow:
+    0 4px 36px rgba(100,70,200,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
 /* Gold gradient text */
@@ -70,10 +115,6 @@ body {
   mask-composite: exclude;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 /* Star divider */
 .star-divider {
   display: flex;
@@ -90,20 +131,17 @@ html {
   background: linear-gradient(90deg, transparent, var(--color-celestial-gold), transparent);
 }
 
+/* ── Accessible focus ───────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 /* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-void-black);
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.3);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(212, 175, 55, 0.5);
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--c-void); }
+::-webkit-scrollbar-thumb { background: rgba(130,90,220,0.28); border-radius: 3px; }
 
 /* Floating animation */
 @keyframes float {
@@ -132,4 +170,12 @@ html {
   background: linear-gradient(90deg, transparent, rgba(212,175,55,0.1), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

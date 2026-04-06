@@ -4,8 +4,8 @@
     {
       "name": "olivia-website",
       "runtimeExecutable": "/Users/macbookpro/.local/bin/npx",
-      "runtimeArgs": ["next", "dev", "--turbopack"],
-      "port": 3000
+      "runtimeArgs": ["next", "dev", "--webpack", "--port", "3333"],
+      "port": 3333
     }
   ]
 }
