@@ -38,10 +38,13 @@ export class WebGLEngine {
   // Cosmic activation animation state (luxury: gentle nebula glow only)
   private brightFlash = 0;
 
+  // Scroll-driven camera
+  scrollProgress = 0; // 0 = top, 1 = one viewport down
+
   // Spring physics state (shader.se-style weighted cursor)
   private springVelocity = new THREE.Vector2(0, 0);
-  private readonly SPRING_STIFFNESS = 0.08;  // how fast it catches up
-  private readonly SPRING_DAMPING = 0.82;    // how much it overshoots (lower = more bounce)
+  private readonly SPRING_STIFFNESS = 0.08;
+  private readonly SPRING_DAMPING = 0.82;
 
   constructor(container: HTMLElement) {
     // Create renderer
@@ -72,6 +75,7 @@ export class WebGLEngine {
     this.handleResize();
     window.addEventListener("resize", this.handleResize);
     window.addEventListener("mousemove", this.handleMouse, { passive: true });
+    window.addEventListener("scroll", this.handleScroll, { passive: true });
     window.addEventListener("cosmos:shockwave", this.handleShockwave as EventListener);
     window.addEventListener("cosmos:reset", this.handleReset as EventListener);
   }
@@ -88,6 +92,11 @@ export class WebGLEngine {
 
   private handleMouse = (e: MouseEvent) => {
     this.mouse.set(e.clientX / window.innerWidth, 1 - e.clientY / window.innerHeight);
+  };
+
+  private handleScroll = () => {
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    this.scrollProgress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
   };
 
   registerSystem(system: EngineSystem, name?: string) {
@@ -140,6 +149,12 @@ export class WebGLEngine {
         nebula.uniforms.uBrightFlash.value = this.brightFlash;
       }
 
+      // Scroll-driven camera: drift deeper into cosmos as user scrolls
+      const targetZ = 1 - this.scrollProgress * 0.3; // 1.0 → 0.7
+      this.camera.position.z += (targetZ - this.camera.position.z) * 0.05;
+      // Subtle tilt based on scroll
+      this.camera.rotation.x = this.scrollProgress * 0.03;
+
       // Update all systems
       for (const sys of this.systems) sys.update(this.time, dt);
 
@@ -156,6 +171,7 @@ export class WebGLEngine {
     cancelAnimationFrame(this.raf);
     window.removeEventListener("resize", this.handleResize);
     window.removeEventListener("mousemove", this.handleMouse);
+    window.removeEventListener("scroll", this.handleScroll);
     window.removeEventListener("cosmos:shockwave", this.handleShockwave as EventListener);
     window.removeEventListener("cosmos:reset", this.handleReset as EventListener);
     for (const sys of this.systems) sys.dispose();

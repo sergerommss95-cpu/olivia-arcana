@@ -25,21 +25,25 @@ export const metadata: Metadata = {
   description:
     "Get personalized astrology readings based on real NASA planetary data. Daily horoscopes, tarot, compatibility reports, and transit alerts — powered by your exact birth chart.",
   keywords: [
-    "astrology",
-    "tarot",
-    "horoscope",
-    "birth chart",
-    "natal chart",
-    "compatibility",
-    "zodiac",
-    "daily horoscope",
-    "personalized astrology",
+    "astrology", "tarot", "horoscope", "birth chart", "natal chart",
+    "compatibility", "zodiac", "daily horoscope", "personalized astrology",
   ],
+  metadataBase: new URL("https://olivia-arcana.netlify.app"),
   openGraph: {
     title: "Olivia Arcana — Written in Your Stars",
-    description:
-      "Personalized astrology readings calculated from your exact planetary positions. Not templates — real cosmic guidance.",
+    description: "Personalized astrology readings calculated from your exact planetary positions. Not templates — real cosmic guidance.",
     type: "website",
+    siteName: "Olivia Arcana",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Olivia Arcana — Written in Your Stars",
+    description: "Personalized cosmic readings from your exact planetary positions.",
+  },
+  robots: { index: true, follow: true },
+  other: {
+    "theme-color": "#04020d",
   },
 };
 

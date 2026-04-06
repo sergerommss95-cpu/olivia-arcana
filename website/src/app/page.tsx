@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import Starfield from "@/components/Starfield";
 import SignLabel from "@/components/SignLabel";
 import ConstellationOverlay from "@/components/ConstellationOverlay";
 import MagneticGlow from "@/components/MagneticGlow";
+import CosmicStatus from "@/components/CosmicStatus";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
@@ -16,6 +18,10 @@ import Footer from "@/components/Footer";
 import DailyHoroscope from "@/components/DailyHoroscope";
 import CompatibilityChecker from "@/components/CompatibilityChecker";
 import ScrollReveal from "@/components/ScrollReveal";
+
+// Lazy-load non-critical components
+const CosmicLoader = dynamic(() => import("@/components/CosmicLoader"), { ssr: false });
+const SoundEngine = dynamic(() => import("@/components/SoundEngine"), { ssr: false });
 
 export default function Home() {
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -34,11 +40,14 @@ export default function Home() {
 
   return (
     <>
+      <CosmicLoader />
       <Starfield />
       <SignLabel />
       <ConstellationOverlay />
       <MagneticGlow />
+      <SoundEngine />
       <Navbar />
+      <CosmicStatus />
 
       <main className="relative z-10">
         <Hero />
