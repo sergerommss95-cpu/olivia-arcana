@@ -360,7 +360,7 @@ export default function CosmicProfile({ profile }: Props) {
 
       {/* CTAs */}
       <div data-r style={{ opacity: 0, display: "flex", gap: "0.6rem", width: "100%", marginTop: "0.25rem" }}>
-        <a href="#chart" style={{
+        <a href="/portrait" style={{
           flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
           padding: "0.7rem 1rem", borderRadius: "100px",
           background: "linear-gradient(135deg, rgba(160,120,255,0.18) 0%, rgba(100,80,220,0.14) 100%)",
@@ -369,7 +369,7 @@ export default function CosmicProfile({ profile }: Props) {
           color: "rgba(240,235,255,0.9)", fontSize: "0.76rem", fontWeight: 500,
           letterSpacing: "0.04em", textTransform: "uppercase" as const,
           textDecoration: "none", cursor: "pointer", transition: `all 300ms ${EASE}`,
-        }}>Get Full Birth Chart</a>
+        }}>Celestial Portrait</a>
         <button onClick={handleShare} disabled={sharing} style={{
           flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
           padding: "0.7rem 1rem", borderRadius: "100px",
