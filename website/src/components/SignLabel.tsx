@@ -45,8 +45,15 @@ export default function SignLabel() {
     return () => clearTimeout(revealTimer.current);
   }, [hover]);
 
+  // Skip entirely on touch devices (no hover = no label)
+  const [isTouch, setIsTouch] = useState(false);
+  useEffect(() => {
+    if ("ontouchstart" in window) setIsTouch(true);
+  }, []);
+
   // Listen for hover events
   useEffect(() => {
+    if (isTouch) return;
     const handle = (e: Event) => {
       const detail = (e as CustomEvent).detail as HoverData | null;
       clearTimeout(exitTimer.current);
@@ -72,9 +79,9 @@ export default function SignLabel() {
       clearTimeout(exitTimer.current);
       clearTimeout(revealTimer.current);
     };
-  }, []);
+  }, [isTouch]);
 
-  if (!displayed) return null;
+  if (isTouch || !displayed) return null;
 
   const left = Math.max(80, Math.min(displayed.x, (typeof window !== "undefined" ? window.innerWidth : 1200) - 80));
   const top = displayed.y + 45;
