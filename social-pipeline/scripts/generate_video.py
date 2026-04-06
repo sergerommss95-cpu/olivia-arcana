@@ -1,4 +1,6 @@
+from __future__ import annotations
 """
+from typing import Optional, List
 Step 4: Generate 9:16 vertical videos using FFmpeg.
 Combines background + audio + animated captions + branding.
 
@@ -58,7 +60,7 @@ def generate_zodiac_video(
     cta_text: str,
     audio_path: Path,
     output_path: Path,
-    duration: float | None = None,
+    duration: Optional[float] = None,
 ) -> Path:
     """
     Generate a complete zodiac TikTok video using FFmpeg.

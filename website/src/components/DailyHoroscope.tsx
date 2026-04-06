@@ -110,15 +110,20 @@ export default function DailyHoroscope() {
               exact birth chart — not just your sun sign — start a conversation with Olivia.
             </p>
 
-            <a
-              href={`https://t.me/OliviaArcanaBot?start=daily_${signs[selected].name.toLowerCase()}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-celestial-gold/10 border border-celestial-gold/30 text-celestial-gold text-sm font-medium hover:bg-celestial-gold/20 transition-all"
-            >
-              Get Your Personal {signs[selected].name} Reading
-              <span>&rarr;</span>
-            </a>
+            <div className="flex gap-3 flex-wrap">
+              <a
+                href={`/daily`}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-celestial-gold/10 border border-celestial-gold/30 text-celestial-gold text-sm font-medium hover:bg-celestial-gold/20 transition-all"
+              >
+                Full {signs[selected].name} Reading &rarr;
+              </a>
+              <a
+                href={`/signs/${signs[selected].name.toLowerCase()}`}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/4 border border-white/10 text-muted-lavender text-sm hover:text-celestial-gold transition-all"
+              >
+                About {signs[selected].name}
+              </a>
+            </div>
           </div>
         )}
 

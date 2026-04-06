@@ -1,3 +1,4 @@
+from __future__ import annotations
 """
 Step 1: Compute today's planetary transits using kerykeion (NASA JPL ephemeris).
 Produces structured transit data for all 12 zodiac signs.

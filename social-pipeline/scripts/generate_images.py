@@ -1,3 +1,4 @@
+from __future__ import annotations
 """
 Step 5: Generate Story cards and Feed cards using Python Pillow.
 Produces PNG images for Instagram Stories, Feed posts, and Carousels.

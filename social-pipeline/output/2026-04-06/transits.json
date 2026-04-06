@@ -1,0 +1,353 @@
+{
+  "date": "2026-04-06",
+  "timestamp": "2026-04-06T23:24:53.471313+00:00",
+  "planets": {
+    "sun": {
+      "sign": "Aries",
+      "degree": 17.5,
+      "abs_degree": 17.5,
+      "retrograde": false
+    },
+    "moon": {
+      "sign": "Virgo",
+      "degree": 12.3,
+      "abs_degree": 162.3,
+      "retrograde": false
+    },
+    "mercury": {
+      "sign": "Aries",
+      "degree": 5.8,
+      "abs_degree": 5.8,
+      "retrograde": false
+    },
+    "venus": {
+      "sign": "Pisces",
+      "degree": 28.2,
+      "abs_degree": 358.2,
+      "retrograde": false
+    },
+    "mars": {
+      "sign": "Cancer",
+      "degree": 8.4,
+      "abs_degree": 98.4,
+      "retrograde": false
+    },
+    "jupiter": {
+      "sign": "Cancer",
+      "degree": 2.1,
+      "abs_degree": 92.1,
+      "retrograde": false
+    },
+    "saturn": {
+      "sign": "Aries",
+      "degree": 1.9,
+      "abs_degree": 1.9,
+      "retrograde": false
+    },
+    "uranus": {
+      "sign": "Gemini",
+      "degree": 0.3,
+      "abs_degree": 60.3,
+      "retrograde": false
+    },
+    "neptune": {
+      "sign": "Aries",
+      "degree": 2.5,
+      "abs_degree": 2.5,
+      "retrograde": false
+    },
+    "pluto": {
+      "sign": "Aquarius",
+      "degree": 4.8,
+      "abs_degree": 304.8,
+      "retrograde": false
+    }
+  },
+  "sign_impacts": {
+    "Aries": [
+      {
+        "planet": "Sun",
+        "aspect": "conjunction",
+        "transit_sign": "Aries",
+        "house": 1,
+        "exact_degree": 17.5,
+        "orb": 2.5,
+        "retrograde": false,
+        "strength": 3.4
+      },
+      {
+        "planet": "Moon",
+        "aspect": "quincunx",
+        "transit_sign": "Virgo",
+        "house": 6,
+        "exact_degree": 12.3,
+        "orb": 2.7,
+        "retrograde": false,
+        "strength": 0.2
+      },
+      {
+        "planet": "Mars",
+        "aspect": "square",
+        "transit_sign": "Cancer",
+        "house": 4,
+        "exact_degree": 8.4,
+        "orb": 6.6,
+        "retrograde": false,
+        "strength": 0.2
+      }
+    ],
+    "Taurus": [
+      {
+        "planet": "Moon",
+        "aspect": "trine",
+        "transit_sign": "Virgo",
+        "house": 5,
+        "exact_degree": 12.3,
+        "orb": 2.7,
+        "retrograde": false,
+        "strength": 1.6
+      }
+    ],
+    "Gemini": [
+      {
+        "planet": "Moon",
+        "aspect": "square",
+        "transit_sign": "Virgo",
+        "house": 4,
+        "exact_degree": 12.3,
+        "orb": 2.7,
+        "retrograde": false,
+        "strength": 1.7
+      },
+      {
+        "planet": "Sun",
+        "aspect": "sextile",
+        "transit_sign": "Aries",
+        "house": 11,
+        "exact_degree": 17.5,
+        "orb": 2.5,
+        "retrograde": false,
+        "strength": 1.5
+      }
+    ],
+    "Cancer": [
+      {
+        "planet": "Sun",
+        "aspect": "square",
+        "transit_sign": "Aries",
+        "house": 10,
+        "exact_degree": 17.5,
+        "orb": 2.5,
+        "retrograde": false,
+        "strength": 2.2
+      },
+      {
+        "planet": "Moon",
+        "aspect": "sextile",
+        "transit_sign": "Virgo",
+        "house": 3,
+        "exact_degree": 12.3,
+        "orb": 2.7,
+        "retrograde": false,
+        "strength": 1.1
+      },
+      {
+        "planet": "Mars",
+        "aspect": "conjunction",
+        "transit_sign": "Cancer",
+        "house": 1,
+        "exact_degree": 8.4,
+        "orb": 6.6,
+        "retrograde": false,
+        "strength": 1.1
+      }
+    ],
+    "Leo": [
+      {
+        "planet": "Sun",
+        "aspect": "trine",
+        "transit_sign": "Aries",
+        "house": 9,
+        "exact_degree": 17.5,
+        "orb": 2.5,
+        "retrograde": false,
+        "strength": 2.1
+      }
+    ],
+    "Virgo": [
+      {
+        "planet": "Moon",
+        "aspect": "conjunction",
+        "transit_sign": "Virgo",
+        "house": 1,
+        "exact_degree": 12.3,
+        "orb": 2.7,
+        "retrograde": false,
+        "strength": 2.7
+      },
+      {
+        "planet": "Sun",
+        "aspect": "quincunx",
+        "transit_sign": "Aries",
+        "house": 8,
+        "exact_degree": 17.5,
+        "orb": 2.5,
+        "retrograde": false,
+        "strength": 0.3
+      }
+    ],
+    "Libra": [
+      {
+        "planet": "Sun",
+        "aspect": "opposition",
+        "transit_sign": "Aries",
+        "house": 7,
+        "exact_degree": 17.5,
+        "orb": 2.5,
+        "retrograde": false,
+        "strength": 2.8
+      },
+      {
+        "planet": "Mars",
+        "aspect": "square",
+        "transit_sign": "Cancer",
+        "house": 10,
+        "exact_degree": 8.4,
+        "orb": 6.6,
+        "retrograde": false,
+        "strength": 0.2
+      }
+    ],
+    "Scorpio": [
+      {
+        "planet": "Moon",
+        "aspect": "sextile",
+        "transit_sign": "Virgo",
+        "house": 11,
+        "exact_degree": 12.3,
+        "orb": 2.7,
+        "retrograde": false,
+        "strength": 1.1
+      },
+      {
+        "planet": "Mars",
+        "aspect": "trine",
+        "transit_sign": "Cancer",
+        "house": 9,
+        "exact_degree": 8.4,
+        "orb": 6.6,
+        "retrograde": false,
+        "strength": 0.6
+      },
+      {
+        "planet": "Sun",
+        "aspect": "quincunx",
+        "transit_sign": "Aries",
+        "house": 6,
+        "exact_degree": 17.5,
+        "orb": 2.5,
+        "retrograde": false,
+        "strength": 0.3
+      }
+    ],
+    "Sagittarius": [
+      {
+        "planet": "Sun",
+        "aspect": "trine",
+        "transit_sign": "Aries",
+        "house": 5,
+        "exact_degree": 17.5,
+        "orb": 2.5,
+        "retrograde": false,
+        "strength": 2.1
+      },
+      {
+        "planet": "Moon",
+        "aspect": "square",
+        "transit_sign": "Virgo",
+        "house": 10,
+        "exact_degree": 12.3,
+        "orb": 2.7,
+        "retrograde": false,
+        "strength": 1.7
+      }
+    ],
+    "Capricorn": [
+      {
+        "planet": "Sun",
+        "aspect": "square",
+        "transit_sign": "Aries",
+        "house": 4,
+        "exact_degree": 17.5,
+        "orb": 2.5,
+        "retrograde": false,
+        "strength": 2.2
+      },
+      {
+        "planet": "Moon",
+        "aspect": "trine",
+        "transit_sign": "Virgo",
+        "house": 9,
+        "exact_degree": 12.3,
+        "orb": 2.7,
+        "retrograde": false,
+        "strength": 1.6
+      },
+      {
+        "planet": "Mars",
+        "aspect": "opposition",
+        "transit_sign": "Cancer",
+        "house": 7,
+        "exact_degree": 8.4,
+        "orb": 6.6,
+        "retrograde": false,
+        "strength": 0.8
+      }
+    ],
+    "Aquarius": [
+      {
+        "planet": "Sun",
+        "aspect": "sextile",
+        "transit_sign": "Aries",
+        "house": 3,
+        "exact_degree": 17.5,
+        "orb": 2.5,
+        "retrograde": false,
+        "strength": 1.5
+      },
+      {
+        "planet": "Moon",
+        "aspect": "quincunx",
+        "transit_sign": "Virgo",
+        "house": 8,
+        "exact_degree": 12.3,
+        "orb": 2.7,
+        "retrograde": false,
+        "strength": 0.2
+      }
+    ],
+    "Pisces": [
+      {
+        "planet": "Moon",
+        "aspect": "opposition",
+        "transit_sign": "Virgo",
+        "house": 7,
+        "exact_degree": 12.3,
+        "orb": 2.7,
+        "retrograde": false,
+        "strength": 2.1
+      },
+      {
+        "planet": "Mars",
+        "aspect": "trine",
+        "transit_sign": "Cancer",
+        "house": 5,
+        "exact_degree": 8.4,
+        "orb": 6.6,
+        "retrograde": false,
+        "strength": 0.6
+      }
+    ]
+  },
+  "moon_phase": "Waxing Crescent"
+}

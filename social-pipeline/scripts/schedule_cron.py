@@ -1,4 +1,6 @@
+from __future__ import annotations
 #!/usr/bin/env python3
+from typing import Optional, List
 """
 Cron-like scheduler that runs the pipeline at optimal times.
 
@@ -29,7 +31,7 @@ SCHEDULE = [
 ]
 
 
-def next_run_time(hour: int, minute: int, days: list[int] | None = None) -> datetime:
+def next_run_time(hour: int, minute: int, days: Optional[List[int]] = None) -> datetime:
     """Calculate the next run time for a scheduled task."""
     now = datetime.now(timezone.utc)
     target = now.replace(hour=hour, minute=minute, second=0, microsecond=0)

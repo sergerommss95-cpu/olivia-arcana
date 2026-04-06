@@ -1,3 +1,4 @@
+from __future__ import annotations
 """
 Step 2: Generate all content scripts using Claude API.
 Produces TikTok scripts, Story texts, Telegram texts, and weekly skit scripts.

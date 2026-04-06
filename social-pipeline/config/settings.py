@@ -104,23 +104,40 @@ AUDIO_CODEC = "aac"
 AUDIO_SAMPLE_RATE = 44100
 
 # ─── Posting Schedule (UTC) ─────────────────────────────────────────────────
-# TikTok: stagger 12 daily clips across the day (1 per hour, 06:00-17:00 UTC)
-TIKTOK_POST_HOURS = list(range(6, 18))  # 06:00 to 17:00 UTC
+# IMPORTANT: 2026 algorithm research shows quality > volume.
+# TikTok: 3-5 posts/day (NOT 12-15). Algorithm penalizes spam.
+# Instagram Reels: 1-2/day max. Per-reel reach drops above 1/day.
+# Instagram Stories: 4-5/day sweet spot.
+# YouTube Shorts: 2-3/day is optimal growth zone.
 
-# Peak hours for weekly skits (highest engagement)
+# TikTok: 3-5 posts staggered at optimal times
+TIKTOK_POST_HOURS = [10, 12, 14, 16, 18]  # 5 slots, use 3-5
+
+# Peak hours (highest engagement)
 PEAK_HOURS = [12, 13, 14, 15]  # 12:00-15:00 UTC = 7-10 AM EST
 
-# Instagram Stories: batch upload at 05:30 UTC
-IG_STORY_POST_HOUR = 5
+# Instagram Stories: batch 4-5 throughout the day
+IG_STORY_POST_HOURS = [6, 9, 12, 15, 18]
 
-# Instagram Reels: post at peak hours
-IG_REEL_POST_HOURS = [7, 12, 18]
+# Instagram Reels: 1-2 per day at peak hours (6+ hours apart)
+IG_REEL_POST_HOURS = [12, 18]
 
 # YouTube Shorts: 2-3 per day
-YT_SHORT_POST_HOURS = [7, 14]
+YT_SHORT_POST_HOURS = [10, 14, 18]
 
-# Telegram: batch post at 05:15 UTC
+# Telegram: batch post at 05:15 UTC (no algorithm, direct push)
 TELEGRAM_POST_HOUR = 5
+
+# How many TikTok videos to produce per day (3-5, not 12)
+TIKTOK_DAILY_VIDEO_COUNT = 4
+
+# How many signs to feature in video content (rotate daily)
+# All 12 signs still get text content (Telegram + Stories), but only
+# 3-5 get full video treatment per day. Rotate so each sign gets video ~every 3 days.
+VIDEO_SIGN_ROTATION_SIZE = 4
+
+# Late.dev API (cheapest cross-posting service, $19/mo)
+LATE_DEV_API_KEY = os.environ.get("LATE_DEV_API_KEY", "")
 
 # ─── Content Types ───────────────────────────────────────────────────────────
 CONTENT_TYPES = {

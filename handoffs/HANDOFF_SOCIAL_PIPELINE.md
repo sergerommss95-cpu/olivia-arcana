@@ -155,30 +155,52 @@ Every piece of content ends with a CTA driving to one of two destinations:
 
 ---
 
+## CRITICAL: Revised Posting Frequency (2026 Algorithm Research)
+
+Research from Buffer (11M+ posts), Sprout Social, and TikTok official data shows:
+
+| Platform | Original Target | Revised Target | Why |
+|----------|----------------|---------------|-----|
+| **TikTok** | 12-15/day | **3-5/day** | Algorithm penalizes spam. 3-5 focused videos > 12 scattered. |
+| **IG Reels** | 3-5/day | **1-2/day** | Per-reel reach drops sharply above 1/day. Space 6+ hours. |
+| **IG Stories** | 12/day | **4-5/day** | Mosseri: 1-2/day. Power users: 4-5/day max. |
+| **YT Shorts** | 2-3/day | **2-3/day** | Already optimal. 2/day = +2,200 subs/month. |
+
+**Sign rotation:** 4 signs get video treatment per day, rotating so every sign gets video every 3 days. All 12 still get text content (Telegram + Story cards).
+
+**Video generation:** Remotion + AWS Lambda ($5-15/month for 400 videos) is the recommended upgrade. FFmpeg pipeline works now as zero-cost starter.
+
+**Cross-posting:** Late.dev ($19/mo) is cheapest unified API for TikTok + IG + YT.
+
+Full research: `docs/POSTING_FREQUENCY_RESEARCH.md`
+
+---
+
 ## What to Do Next
 
 ### Immediate (Today)
 1. `brew install ffmpeg`
 2. Download fonts to `fonts/` directory
-3. Set up API keys (ANTHROPIC_API_KEY, ELEVENLABS_API_KEY, TELEGRAM_BOT_TOKEN)
+3. Set API keys: `ANTHROPIC_API_KEY`, `ELEVENLABS_API_KEY`, `TELEGRAM_BOT_TOKEN`
 4. Run `python3 scripts/daily_pipeline.py daily` for first content batch
 5. Create TikTok account (@oliviaarcana)
 6. Create Instagram account (@oliviaarcana)
 7. Set up Linktree
 
 ### This Week
-8. Upload first 3 days of content manually
+8. Upload first 3 days of content manually (20 min/day with export guide)
 9. Set up cron job for daily automation
 10. Create YouTube channel
-11. Apply for TikTok Content Posting API
-12. Set up Meta Business Suite for Instagram API
+11. Sign up for Late.dev ($19/mo) for cross-posting
+12. Apply for TikTok Content Posting API (5-10 business days)
+13. Set up Meta Business Suite for Instagram API
 
 ### This Month
-13. Achieve consistent daily posting rhythm
-14. First cross-promotion outreach
-15. First paid TikTok boost ($50)
-16. Review analytics and optimize hooks
-17. Enable Remotion for higher-quality weekly skits
+14. Achieve consistent daily posting rhythm
+15. First cross-promotion outreach (DM 10 astrology channel admins)
+16. First paid TikTok Spark Ad ($50 boosting best organic video)
+17. Review analytics and optimize hooks
+18. Set up Remotion for higher-quality weekly skits
 
 ---
 
@@ -186,11 +208,13 @@ Every piece of content ends with a CTA driving to one of two destinations:
 
 | Item | Cost |
 |------|------|
-| Claude API (~400 scripts/mo) | $20-30 |
-| ElevenLabs Starter (30K chars) | $5 |
+| Claude API (~120 video scripts + 360 text scripts/mo) | $15-20 |
+| ElevenLabs Starter (voiceover for ~120 videos) | $5 |
 | FFmpeg / Pillow | $0 |
+| Late.dev (cross-posting) | $19 |
 | Linktree Pro | $5 |
-| Later.com (Phase 1 scheduling) | $25 |
-| **Total** | **$55-65/mo** |
+| **Total** | **$44-49/mo** |
+
+**Upgrade path:** Remotion + Lambda adds ~$10-15/mo for much higher video quality.
 
 Revenue target: $975/mo by Month 3 (break-even in Week 3).

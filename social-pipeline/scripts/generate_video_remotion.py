@@ -1,4 +1,6 @@
+from __future__ import annotations
 """
+from typing import Optional, List
 ALTERNATIVE Step 4: Generate videos using Remotion (React-based video renderer).
 
 Remotion produces MUCH higher quality videos than FFmpeg:
@@ -45,7 +47,7 @@ async def render_zodiac_video_remotion(
     hook: str,
     body: str,
     cta: str,
-    audio_path: Path | None,
+    audio_path: Optional[Path],
     output_path: Path,
 ) -> Path:
     """Render a single zodiac video using Remotion."""

@@ -1,4 +1,6 @@
+from __future__ import annotations
 """
+from typing import Optional, List
 Step 6a: Post to Telegram channels.
 Posts daily zodiac readings + tarot to the public channel.
 """
@@ -87,7 +89,7 @@ async def post_all_daily_readings(telegram_scripts: list, channel: str = "@Olivi
     return success_count
 
 
-async def post_tarot_card(reading_text: str, card_image: Path | None = None, channel: str = "@OliviaArcanaDaily"):
+async def post_tarot_card(reading_text: str, card_image: Optional[Path] = None, channel: str = "@OliviaArcanaDaily"):
     """Post the daily tarot card reading."""
     if card_image and card_image.exists():
         await post_photo_to_channel(card_image, reading_text, channel)

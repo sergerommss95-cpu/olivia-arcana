@@ -1,4 +1,6 @@
+from __future__ import annotations
 """
+from typing import Optional, List
 Step 6b-d: Post to TikTok, Instagram, and YouTube.
 
 This module handles automated posting to all three platforms.
@@ -45,8 +47,8 @@ TIKTOK_UPLOAD_CHUNK_URL = "https://open.tiktokapis.com/v2/post/publish/inbox/vid
 async def post_to_tiktok(
     video_path: Path,
     caption: str,
-    hashtags: list[str] | None = None,
-    schedule_time: datetime | None = None,
+    hashtags: Optional[List[str]] = None,
+    schedule_time: Optional[datetime] = None,
 ) -> dict:
     """
     Post a video to TikTok using the Content Posting API.
@@ -188,7 +190,7 @@ GRAPH_API = "https://graph.facebook.com/v19.0"
 async def post_reel_to_instagram(
     video_path: Path,
     caption: str,
-    hashtags: list[str] | None = None,
+    hashtags: Optional[List[str]] = None,
 ) -> dict:
     """
     Post a Reel to Instagram using the Meta Graph API.
@@ -285,7 +287,7 @@ async def upload_youtube_short(
     video_path: Path,
     title: str,
     description: str,
-    tags: list[str] | None = None,
+    tags: Optional[List[str]] = None,
 ) -> dict:
     """
     Upload a Short to YouTube using the YouTube Data API v3.

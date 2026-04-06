@@ -1,3 +1,4 @@
+from __future__ import annotations
 """
 Step 3: Generate voiceover audio files using ElevenLabs API.
 Produces MP3 files for each TikTok script.
