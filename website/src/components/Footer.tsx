@@ -34,10 +34,15 @@ export default function Footer() {
               Explore
             </h4>
             <ul className="space-y-3">
-              {["Daily Horoscope", "Tarot Readings", "Compatibility", "Birth Chart"].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">
-                    {item}
+              {[
+                { label: "Living Cosmos", href: "/cosmos" },
+                { label: "Celestial Portrait", href: "/portrait" },
+                { label: "Birth Chart", href: "/chart" },
+                { label: "Ask the Stars", href: "/ask" },
+              ].map((item) => (
+                <li key={item.label}>
+                  <a href={item.href} className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">
+                    {item.label}
                   </a>
                 </li>
               ))}
@@ -52,8 +57,8 @@ export default function Footer() {
               {[
                 { label: "Telegram Bot", href: "https://t.me/OliviaArcanaBot" },
                 { label: "Telegram Channel", href: "https://t.me/OliviaArcanaDaily" },
-                { label: "TikTok", href: "#" },
-                { label: "Instagram", href: "#" },
+                { label: "Celestial Portrait", href: "/portrait" },
+                { label: "Onboarding", href: "/onboarding" },
               ].map((item) => (
                 <li key={item.label}>
                   <a

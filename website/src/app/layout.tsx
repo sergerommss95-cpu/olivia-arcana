@@ -57,7 +57,18 @@ export default function RootLayout({
       lang="en"
       className={`${playfair.variable} ${inter.variable} ${cormorant.variable} antialiased`}
     >
-      <body className="min-h-screen">{children}</body>
+      <body className="min-h-screen">
+        {/* Skip to main content — accessibility */}
+        <a href="#main-content" style={{
+          position: "absolute", top: "-100px", left: "50%", transform: "translateX(-50%)",
+          zIndex: 9999, padding: "0.75rem 1.5rem", borderRadius: "0 0 8px 8px",
+          background: "var(--c-accent)", color: "#fff", fontSize: "0.85rem",
+          textDecoration: "none", transition: "top 0.2s",
+        }} className="focus:top-0">
+          Skip to main content
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,0 +1,23 @@
+# Olivia Arcana — Social Media Content Pipeline
+# Install: pip install -r requirements.txt
+
+# Core
+anthropic>=0.39.0          # Claude API for script generation
+elevenlabs>=1.0.0          # ElevenLabs for voiceover audio
+Pillow>=10.0.0             # Image generation (Story/Feed cards)
+httpx>=0.27.0              # Async HTTP client (Telegram + social APIs)
+
+# Astrology
+kerykeion>=4.0.0           # NASA JPL ephemeris for transit computation
+
+# Audio processing (optional, for Whisper captions)
+# openai-whisper>=20231117  # Local transcription (requires torch)
+# Alternative: use ElevenLabs timestamps or manual sync
+
+# YouTube upload (optional)
+# google-api-python-client>=2.0.0
+# google-auth-oauthlib>=1.0.0
+
+# Scheduling (optional, for programmatic cron)
+# schedule>=1.2.0
+# apscheduler>=3.10.0

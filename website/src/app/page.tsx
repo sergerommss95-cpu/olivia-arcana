@@ -49,7 +49,7 @@ export default function Home() {
       <Navbar />
       <CosmicStatus />
 
-      <main className="relative z-10">
+      <main id="main-content" className="relative z-10">
         <Hero />
         <div ref={sectionsRef}>
           <ScrollReveal>

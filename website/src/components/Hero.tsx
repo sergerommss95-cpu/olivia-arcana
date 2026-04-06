@@ -328,7 +328,7 @@ export default function Hero() {
           }}
         >
           <a
-            href="#telegram"
+            href="/portrait"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -353,11 +353,11 @@ export default function Hero() {
               transition: "all 220ms cubic-bezier(0.16,1,0.3,1)",
             }}
           >
-            <span>Start on Telegram</span>
+            <span>Celestial Portrait</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           <a
-            href="#reading"
+            href="/ask"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -378,7 +378,7 @@ export default function Hero() {
               transition: "all 220ms cubic-bezier(0.16,1,0.3,1)",
             }}
           >
-            Get Your Free Reading
+            Ask the Stars
           </a>
         </div>
 
