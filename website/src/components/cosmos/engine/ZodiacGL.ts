@@ -467,19 +467,18 @@ export class ZodiacGL implements EngineSystem {
         const drawTarget = ready && s.hover > 0.08 ? 1 : 0;
         s.draw += (drawTarget - s.draw) * (drawTarget > s.draw ? 0.018 : 0.008);
 
-        // Emit hover label event when constellation is active
-        if (s.hover > 0.15 && this.hoveredSign !== ci) {
+        // Emit hover label — use `near` directly (not slow-decaying s.hover)
+        if (near && ready && this.hoveredSign !== ci) {
           this.hoveredSign = ci;
           window.dispatchEvent(new CustomEvent("zodiac:hover", {
             detail: {
               name: sign.name,
               glyph: sign.glyph,
-              // Screen coords: cx/cy are viewport fractions
               x: sign.cx * this.w,
               y: sign.cy * this.h,
             },
           }));
-        } else if (s.hover < 0.05 && this.hoveredSign === ci) {
+        } else if (!near && this.hoveredSign === ci) {
           this.hoveredSign = -1;
           window.dispatchEvent(new CustomEvent("zodiac:hover", { detail: null }));
         }
