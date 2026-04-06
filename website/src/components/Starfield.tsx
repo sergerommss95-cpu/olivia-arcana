@@ -26,12 +26,13 @@ export default function Starfield() {
 
     const init = async () => {
       try {
-        const [engineMod, nebulaMod, starMod, flowMod, zodiacMod] = await Promise.all([
+        const [engineMod, nebulaMod, starMod, flowMod, zodiacMod, shootMod] = await Promise.all([
           import("./cosmos/engine/WebGLEngine"),
           import("./cosmos/engine/NebulaPlane"),
           import("./cosmos/engine/StarSystem"),
           import("./cosmos/engine/FlowmapSystem"),
           import("./cosmos/engine/ZodiacGL"),
+          import("./cosmos/engine/ShootingStars"),
         ]);
 
         if (disposed || !containerRef.current) return;
@@ -44,12 +45,14 @@ export default function Starfield() {
         const flowmap = new flowMod.FlowmapSystem();
         const stars = new starMod.StarSystem();
         const zodiac = new zodiacMod.ZodiacGL();
+        const shooting = new shootMod.ShootingStars();
 
         // Register in render order (with names for cosmic activation)
-        engine.registerSystem(nebula, "nebula");   // layer 0: background
-        engine.registerSystem(flowmap, "flowmap"); // updates flowmap RT each frame
-        engine.registerSystem(stars, "stars");      // layer 1: star particles
-        engine.registerSystem(zodiac, "zodiac");    // layer 2: constellation lines + nodes
+        engine.registerSystem(nebula, "nebula");     // layer 0: background
+        engine.registerSystem(flowmap, "flowmap");   // updates flowmap RT each frame
+        engine.registerSystem(stars, "stars");        // layer 1: star particles
+        engine.registerSystem(zodiac, "zodiac");      // layer 2: constellation lines + nodes
+        engine.registerSystem(shooting, "shooting");  // layer 3: shooting stars
 
         // Connect flowmap → nebula shader
         if (nebula.uniforms) {

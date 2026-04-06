@@ -230,11 +230,32 @@ export class ZodiacGL implements EngineSystem {
     }
   };
 
+  private onClick = (e: MouseEvent) => {
+    if (this.focusedSign >= 0) return; // already focused
+    const mx = e.clientX / this.w;
+    const my = e.clientY / this.h;
+    for (let ci = 0; ci < ZODIAC.length; ci++) {
+      const sign = ZODIAC[ci];
+      const dx = mx - sign.cx;
+      const dy = my - sign.cy;
+      const dist = Math.hypot(dx, dy);
+      const range = sign.scale / Math.min(this.w, this.h) * 3.0;
+      if (dist < range) {
+        window.dispatchEvent(new CustomEvent("zodiac:click", {
+          detail: { name: sign.name, glyph: sign.glyph, index: ci },
+        }));
+        return;
+      }
+    }
+  };
+
   init(engine: WebGLEngine) {
     this.engine = engine;
     this.w = engine.resolution.x;
     this.h = engine.resolution.y;
     this.buildAll();
+
+    window.addEventListener("click", this.onClick);
 
     // Listen for birthday activation from Hero.tsx
     window.addEventListener("zodiac:activate", this.onActivate);
@@ -510,6 +531,7 @@ export class ZodiacGL implements EngineSystem {
 
   dispose() {
     window.removeEventListener("zodiac:activate", this.onActivate);
+    window.removeEventListener("click", this.onClick);
     for (const s of this.signs) {
       this.engine.scene.remove(s.group);
       s.group.traverse(o => {
