@@ -64,7 +64,7 @@ export default function Pricing() {
             </ul>
 
             <a
-              href="https://t.me/OliviaArcanaBot"
+              href="/onboarding"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-center py-3 rounded-full border border-muted-lavender/30 text-muted-lavender hover:border-celestial-gold/50 hover:text-celestial-gold transition-all duration-300"
@@ -120,7 +120,7 @@ export default function Pricing() {
             </ul>
 
             <a
-              href="https://t.me/OliviaArcanaBot?start=subscribe"
+              href="/portrait"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-center py-3 rounded-full bg-gradient-to-r from-celestial-gold to-[#F5E6A3] text-void-black font-semibold hover:scale-[1.02] transition-all duration-300"

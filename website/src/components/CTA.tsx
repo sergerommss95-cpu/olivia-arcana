@@ -43,7 +43,7 @@ export default function CTA() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="https://t.me/OliviaArcanaBot"
+            href="/portrait"
             target="_blank"
             rel="noopener noreferrer"
             className="group relative px-10 py-4 rounded-full overflow-hidden font-semibold text-void-black transition-all duration-300 hover:scale-105"

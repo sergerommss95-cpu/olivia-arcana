@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import TiltCard from "./TiltCard";
 
 const testimonials = [
   {
@@ -51,8 +52,8 @@ export default function Testimonials() {
 
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((t, i) => (
+            <TiltCard key={t.name} maxTilt={3}>
             <div
-              key={t.name}
               className={`glass-card p-8 transition-all duration-700 ${
                 inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
               }`}
@@ -82,6 +83,7 @@ export default function Testimonials() {
                 </div>
               </div>
             </div>
+            </TiltCard>
           ))}
         </div>
       </div>

@@ -42,8 +42,11 @@ export const metadata: Metadata = {
     description: "Personalized cosmic readings from your exact planetary positions.",
   },
   robots: { index: true, follow: true },
+  manifest: "/manifest.json",
   other: {
     "theme-color": "#04020d",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
   },
 };
 
