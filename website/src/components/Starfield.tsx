@@ -38,27 +38,33 @@ export default function Starfield() {
         if (disposed || !containerRef.current) return;
         if (!engineMod.WebGLEngine.isSupported()) return;
 
+        const isMobile = "ontouchstart" in window || window.innerWidth < 768;
+
         const engine = new engineMod.WebGLEngine(containerRef.current);
         engineRef.current = engine;
 
         const nebula = new nebulaMod.NebulaPlane();
-        const flowmap = new flowMod.FlowmapSystem();
-        const stars = new starMod.StarSystem();
+        const stars = new starMod.StarSystem(isMobile);
         const zodiac = new zodiacMod.ZodiacGL();
         const shooting = new shootMod.ShootingStars();
 
-        // Register in render order (with names for cosmic activation)
-        engine.registerSystem(nebula, "nebula");     // layer 0: background
-        engine.registerSystem(flowmap, "flowmap");   // updates flowmap RT each frame
-        engine.registerSystem(stars, "stars");        // layer 1: star particles
-        engine.registerSystem(zodiac, "zodiac");      // layer 2: constellation lines + nodes
-        engine.registerSystem(shooting, "shooting");  // layer 3: shooting stars
+        // Register in render order
+        engine.registerSystem(nebula, "nebula");
 
-        // Connect flowmap → nebula shader
-        if (nebula.uniforms) {
-          flowmap.connectTo(nebula.uniforms.uFlowmap);
-          nebula.uniforms.uFlowmapEnabled.value = 1.0;
+        // Skip flowmap on mobile (no hover, saves 2 FBOs)
+        if (!isMobile) {
+          const flowmap = new flowMod.FlowmapSystem();
+          engine.registerSystem(flowmap, "flowmap");
+          if (nebula.uniforms) {
+            flowmap.connectTo(nebula.uniforms.uFlowmap);
+            nebula.uniforms.uFlowmapEnabled.value = 1.0;
+          }
         }
+
+        engine.registerSystem(stars, "stars");
+        engine.registerSystem(zodiac, "zodiac");
+        // Fewer shooting stars on mobile (handled inside the system)
+        engine.registerSystem(shooting, "shooting");
 
         engine.start();
       } catch (err) {

@@ -11,7 +11,8 @@
 import * as THREE from "three";
 import { WebGLEngine, type EngineSystem } from "./WebGLEngine";
 
-const STAR_COUNT = 2000;
+const STAR_COUNT_DESKTOP = 2000;
+const STAR_COUNT_MOBILE = 500;
 
 // ── Vertex shader ──
 const vertexShader = /* glsl */ `
@@ -89,10 +90,16 @@ export class StarSystem implements EngineSystem {
   private points!: THREE.Points;
   private material!: THREE.ShaderMaterial;
   private engine!: WebGLEngine;
+  private mobile: boolean;
+
+  constructor(mobile = false) {
+    this.mobile = mobile;
+  }
 
   init(engine: WebGLEngine) {
     this.engine = engine;
 
+    const STAR_COUNT = this.mobile ? STAR_COUNT_MOBILE : STAR_COUNT_DESKTOP;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(STAR_COUNT * 3);
     const sizes = new Float32Array(STAR_COUNT);

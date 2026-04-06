@@ -13,9 +13,10 @@
 
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import type { CosmicProfile as CosmicProfileData } from "../lib/zodiac-utils";
 import { getCosmicEnergy } from "../lib/zodiac-utils";
+import html2canvas from "html2canvas";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -61,6 +62,28 @@ export default function CosmicProfile({ profile }: Props) {
   const energy = getCosmicEnergy(profile.name);
   const [energyWidth, setEnergyWidth] = useState(0);
   const [traitsReady, setTraitsReady] = useState(false);
+  const [sharing, setSharing] = useState(false);
+
+  const handleShare = useCallback(async () => {
+    if (!containerRef.current || sharing) return;
+    setSharing(true);
+    try {
+      const canvas = await html2canvas(containerRef.current, {
+        backgroundColor: "#04020d",
+        scale: 2,
+        useCORS: true,
+        logging: false,
+      });
+      const url = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `cosmic-id-${profile.name.toLowerCase()}.png`;
+      a.click();
+    } catch (err) {
+      console.warn("Share failed:", err);
+    }
+    setSharing(false);
+  }, [sharing, profile.name]);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -347,7 +370,7 @@ export default function CosmicProfile({ profile }: Props) {
           letterSpacing: "0.04em", textTransform: "uppercase" as const,
           textDecoration: "none", cursor: "pointer", transition: `all 300ms ${EASE}`,
         }}>Get Full Birth Chart</a>
-        <a href="#share" style={{
+        <button onClick={handleShare} disabled={sharing} style={{
           flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
           padding: "0.7rem 1rem", borderRadius: "100px",
           background: "rgba(255,255,255,0.03)",
@@ -355,8 +378,9 @@ export default function CosmicProfile({ profile }: Props) {
           border: "1px solid rgba(200,185,255,0.1)",
           color: "rgba(200,185,240,0.75)", fontSize: "0.76rem", fontWeight: 400,
           letterSpacing: "0.04em", textTransform: "uppercase" as const,
-          textDecoration: "none", cursor: "pointer", transition: `all 300ms ${EASE}`,
-        }}>Share Cosmic ID</a>
+          cursor: sharing ? "wait" : "pointer", transition: `all 300ms ${EASE}`,
+          opacity: sharing ? 0.5 : 1,
+        }}>{sharing ? "Saving..." : "Share Cosmic ID"}</button>
       </div>
 
       <style>{`
