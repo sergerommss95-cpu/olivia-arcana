@@ -217,11 +217,17 @@ export class ZodiacGL implements EngineSystem {
   private w = 0;
   private h = 0;
   private focusedSign: number = -1;
+  private hoveredSign: number = -1;
   private focusProgress: number[] = []; // per-sign 0-1 focus animation
   private originalPositions: THREE.Vector3[] = []; // original group positions
   private onActivate = (e: Event) => {
     const idx = (e as CustomEvent).detail?.index ?? -1;
     this.focusedSign = idx;
+    // Clear hover label when a sign is focused
+    if (idx >= 0 && this.hoveredSign >= 0) {
+      this.hoveredSign = -1;
+      window.dispatchEvent(new CustomEvent("zodiac:hover", { detail: null }));
+    }
   };
 
   init(engine: WebGLEngine) {
@@ -460,6 +466,23 @@ export class ZodiacGL implements EngineSystem {
         s.hover += (target - s.hover) * (target > s.hover ? 0.05 : 0.01);
         const drawTarget = ready && s.hover > 0.08 ? 1 : 0;
         s.draw += (drawTarget - s.draw) * (drawTarget > s.draw ? 0.018 : 0.008);
+
+        // Emit hover label event when constellation is active
+        if (s.hover > 0.15 && this.hoveredSign !== ci) {
+          this.hoveredSign = ci;
+          window.dispatchEvent(new CustomEvent("zodiac:hover", {
+            detail: {
+              name: sign.name,
+              glyph: sign.glyph,
+              // Screen coords: cx/cy are viewport fractions
+              x: sign.cx * this.w,
+              y: sign.cy * this.h,
+            },
+          }));
+        } else if (s.hover < 0.05 && this.hoveredSign === ci) {
+          this.hoveredSign = -1;
+          window.dispatchEvent(new CustomEvent("zodiac:hover", { detail: null }));
+        }
       }
 
       // ── Update uniforms ──

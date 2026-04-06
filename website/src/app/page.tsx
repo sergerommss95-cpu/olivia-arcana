@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Starfield from "@/components/Starfield";
+import SignLabel from "@/components/SignLabel";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
@@ -30,6 +31,7 @@ export default function Home() {
   return (
     <>
       <Starfield />
+      <SignLabel />
       <Navbar />
 
       <main className="relative z-10">
