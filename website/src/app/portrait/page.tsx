@@ -13,6 +13,7 @@ import { computeNatalChart, type NatalChart, type BirthInput } from "../../lib/n
 import BirthDatePicker from "../../components/BirthDatePicker";
 import CityAutocomplete from "../../components/CityAutocomplete";
 import { type CityData } from "../../lib/cities";
+import { getPlanetInSign, PLANET_MEANING, HOUSE_MEANING, LIFE_AREAS, PLANET_LIFE_AREA } from "../../lib/planet-interpretations";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -263,158 +264,152 @@ export default function PortraitPage() {
                 }}>{showDecode ? "Hide" : "Full"} Chart Decode</button>
               </div>
 
-              {/* Full decode panel */}
+              {/* Full decode panel — Co-Star inspired, 10x more readable */}
               {showDecode && (
-                <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-                  {/* Summary */}
-                  <div style={{ ...glass, padding: "1.25rem" }}>
-                    <div style={{ ...labelSt, marginBottom: "0.5rem" }}>Chart Summary</div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300, lineHeight: 1.7, color: "rgba(196,185,228,0.75)", margin: 0 }}>
-                      {chart.interpretation.summary}
-                    </p>
-                  </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
 
-                  {/* Core Identity / Emotional / Persona */}
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "0.75rem" }}>
-                    {[
-                      { title: `☉ Sun in ${chart.sunSign}`, subtitle: "Core Identity", text: chart.interpretation.coreIdentity },
-                      { title: `☽ Moon in ${chart.moonSign}`, subtitle: "Emotional Nature", text: chart.interpretation.emotionalNature },
-                      { title: `↑ ${chart.risingSign} Rising`, subtitle: "Outer Persona", text: chart.interpretation.outerPersona },
-                    ].map(({ title, subtitle, text }) => (
-                      <div key={title} style={{ ...glass, padding: "1.25rem" }}>
-                        <div style={{ fontFamily: "var(--font-accent)", fontSize: "1rem", fontWeight: 500, color: "rgba(240,236,255,0.88)", marginBottom: "0.15rem" }}>{title}</div>
-                        <div style={{ ...labelSt, marginBottom: "0.5rem" }}>{subtitle}</div>
-                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 300, lineHeight: 1.7, color: "rgba(196,185,228,0.7)", margin: 0 }}>{text}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Planet positions table */}
-                  <div style={{ ...glass, padding: "1.25rem" }}>
-                    <div style={{ ...labelSt, marginBottom: "0.5rem" }}>Planetary Positions</div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-                      {chart.planets.map(p => (
-                        <div key={p.name} style={{
-                          display: "flex", alignItems: "center", gap: "0.5rem",
-                          padding: "0.4rem 0", borderBottom: "1px solid rgba(200,185,255,0.04)",
-                          fontSize: "0.78rem",
-                        }}>
-                          <span style={{ width: "22px", textAlign: "center", fontSize: "1rem" }}>{p.glyph}</span>
-                          <span style={{ width: "70px", fontFamily: "var(--font-accent)", fontWeight: 500, color: "rgba(230,220,255,0.85)" }}>{p.name}</span>
-                          <span style={{ width: "20px", opacity: 0.5 }}>{p.signGlyph}</span>
-                          <span style={{ flex: 1, color: "rgba(200,190,235,0.65)" }}>{p.sign} {p.degree}°</span>
-                          <span style={{ color: "rgba(180,170,210,0.4)", fontSize: "0.65rem" }}>House {p.house}</span>
-                          {p.retrograde && <span style={{ color: "rgba(232,82,74,0.6)", fontSize: "0.6rem" }}>℞</span>}
-                          <DignityBadge dignity={p.dignity} />
+                  {/* ── THE BIG THREE — most important, most readable ── */}
+                  {[
+                    { glyph: "☉", planet: "Sun", sign: chart.sunSign, label: "Core Identity", sub: PLANET_MEANING.Sun, text: chart.interpretation.coreIdentity, interp: getPlanetInSign("Sun", chart.sunSign) },
+                    { glyph: "☽", planet: "Moon", sign: chart.moonSign, label: "Emotional Nature", sub: PLANET_MEANING.Moon, text: chart.interpretation.emotionalNature, interp: getPlanetInSign("Moon", chart.moonSign) },
+                    { glyph: "↑", planet: "Rising", sign: chart.risingSign, label: "How Others See You", sub: "Your mask. The energy you project before people know you.", text: chart.interpretation.outerPersona, interp: "" },
+                  ].map(({ glyph, planet, sign, label, sub, text, interp }) => (
+                    <div key={planet} style={{
+                      padding: "1.5rem", borderRadius: "1rem",
+                      background: "rgba(255,255,255,0.02)", border: "1px solid rgba(200,185,255,0.06)",
+                    }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.6rem" }}>
+                        <span style={{ fontSize: "1.5rem", color: "rgba(212,175,55,0.6)" }}>{glyph}</span>
+                        <div>
+                          <div style={{ fontFamily: "var(--font-accent)", fontSize: "1.1rem", fontWeight: 500, color: "rgba(240,236,255,0.9)" }}>
+                            {planet} in {sign}
+                          </div>
+                          <div style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 500, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(180,170,210,0.4)" }}>{label}</div>
                         </div>
-                      ))}
+                      </div>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(180,170,210,0.35)", margin: "0 0 0.5rem", fontStyle: "italic" }}>{sub}</p>
+                      {interp && <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", fontWeight: 400, lineHeight: 1.7, color: "rgba(240,236,255,0.8)", margin: "0 0 0.6rem" }}>{interp}</p>}
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300, lineHeight: 1.75, color: "rgba(196,185,228,0.65)", margin: 0 }}>{text}</p>
                     </div>
-                  </div>
+                  ))}
 
-                  {/* Aspects */}
-                  <div style={{ ...glass, padding: "1.25rem" }}>
-                    <div style={{ ...labelSt, marginBottom: "0.5rem" }}>Major Aspects ({chart.aspects.length})</div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-                      {chart.aspects.slice(0, 15).map((a, i) => {
-                        const symbol = { conjunction: "☌", sextile: "⚹", square: "□", trine: "△", opposition: "☍", quincunx: "⚻" }[a.type] || "?";
+                  {/* ── YOUR PLANETS — each one explained ── */}
+                  <div>
+                    <div style={{ ...labelSt, marginBottom: "0.75rem", fontSize: "0.65rem" }}>Your Planets</div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                      {chart.planets.slice(2).map(p => {
+                        const interp = getPlanetInSign(p.name, p.sign);
+                        const meaning = PLANET_MEANING[p.name] || "";
+                        const houseMeaning = HOUSE_MEANING[p.house];
                         return (
-                          <div key={i} style={{
-                            display: "flex", alignItems: "center", gap: "0.4rem",
-                            padding: "0.3rem 0", borderBottom: "1px solid rgba(200,185,255,0.03)",
-                            fontSize: "0.72rem",
+                          <div key={p.name} style={{
+                            padding: "1.25rem", borderRadius: "1rem",
+                            background: "rgba(255,255,255,0.015)", border: "1px solid rgba(200,185,255,0.04)",
                           }}>
-                            <span style={{ width: "18px", textAlign: "center" }}>{a.planet1Glyph}</span>
-                            <span style={{ color: "rgba(200,190,235,0.5)", width: "60px" }}>{a.planet1}</span>
-                            <span style={{ color: a.harmony === "harmonious" ? "rgba(78,205,196,0.6)" : a.harmony === "tense" ? "rgba(232,82,74,0.5)" : "rgba(200,185,255,0.4)" }}>{symbol}</span>
-                            <span style={{ width: "18px", textAlign: "center" }}>{a.planet2Glyph}</span>
-                            <span style={{ color: "rgba(200,190,235,0.5)", flex: 1 }}>{a.planet2}</span>
-                            <span style={{ color: "rgba(180,170,210,0.35)", fontSize: "0.6rem" }}>{a.type} · orb {a.orb}°</span>
+                            <div style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
+                              <span style={{ fontSize: "1.2rem", marginTop: "0.1rem", opacity: 0.6 }}>{p.glyph}</span>
+                              <div style={{ flex: 1 }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.2rem" }}>
+                                  <span style={{ fontFamily: "var(--font-accent)", fontSize: "0.95rem", fontWeight: 500, color: "rgba(230,220,255,0.88)" }}>
+                                    {p.name} in {p.sign}
+                                  </span>
+                                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(180,170,210,0.35)" }}>
+                                    {p.degree}° · House {p.house}
+                                    {p.retrograde && " · ℞ Retrograde"}
+                                  </span>
+                                  <DignityBadge dignity={p.dignity} />
+                                </div>
+                                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(180,170,210,0.3)", margin: "0 0 0.3rem", fontStyle: "italic" }}>{meaning}</p>
+                                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 400, lineHeight: 1.65, color: "rgba(220,210,240,0.75)", margin: "0 0 0.3rem" }}>{interp}</p>
+                                {houseMeaning && (
+                                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "rgba(180,170,210,0.4)", margin: 0 }}>
+                                    In your {houseMeaning.area} house — {houseMeaning.rules.toLowerCase()}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
                           </div>
                         );
                       })}
                     </div>
                   </div>
 
-                  {/* Houses */}
-                  <div style={{ ...glass, padding: "1.25rem" }}>
-                    <div style={{ ...labelSt, marginBottom: "0.5rem" }}>House Cusps</div>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: "0.4rem" }}>
-                      {chart.houses.map(h => (
-                        <div key={h.number} style={{
-                          display: "flex", alignItems: "center", gap: "0.4rem",
-                          padding: "0.35rem 0.5rem", borderRadius: "0.5rem",
-                          background: h.number === 1 ? "rgba(212,175,55,0.06)" : "transparent",
-                          border: h.number === 1 ? "1px solid rgba(212,175,55,0.1)" : "none",
-                        }}>
-                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 600, color: "rgba(180,170,210,0.4)", width: "18px" }}>{h.number}</span>
-                          <span style={{ fontSize: "0.8rem", opacity: 0.5 }}>{h.signGlyph}</span>
-                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "rgba(200,190,235,0.65)" }}>{h.sign} {h.degree}°</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Element + Modality balance */}
+                  {/* ── CHART BALANCE — visual bars ── */}
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
                     <div style={{ ...glass, padding: "1.25rem" }}>
-                      <div style={{ ...labelSt, marginBottom: "0.5rem" }}>Element Balance</div>
+                      <div style={{ ...labelSt, marginBottom: "0.6rem" }}>Element Balance</div>
                       {(["Fire", "Earth", "Air", "Water"] as const).map(el => {
                         const val = chart.elementBalance[el];
                         const max = Math.max(chart.elementBalance.Fire, chart.elementBalance.Earth, chart.elementBalance.Air, chart.elementBalance.Water);
                         const colors = { Fire: "#FF6B35", Earth: "#7CB342", Air: "#B0BEC5", Water: "#4FC3F7" };
                         return (
-                          <div key={el} style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.4rem" }}>
-                            <span style={{ fontSize: "0.7rem", color: "rgba(200,190,235,0.5)", width: "40px" }}>{el}</span>
-                            <div style={{ flex: 1, height: "3px", borderRadius: "2px", background: "rgba(255,255,255,0.04)" }}>
-                              <div style={{ width: `${(val / max) * 100}%`, height: "100%", borderRadius: "2px", background: colors[el], transition: "width 1s ease" }} />
+                          <div key={el} style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                            <span style={{ fontSize: "0.72rem", color: "rgba(200,190,235,0.6)", width: "42px" }}>{el}</span>
+                            <div style={{ flex: 1, height: "4px", borderRadius: "2px", background: "rgba(255,255,255,0.04)" }}>
+                              <div style={{ width: `${(val / max) * 100}%`, height: "100%", borderRadius: "2px", background: colors[el] }} />
                             </div>
-                            <span style={{ fontSize: "0.6rem", color: "rgba(180,170,210,0.4)", width: "24px", textAlign: "right" }}>{Math.round(val)}</span>
                           </div>
                         );
                       })}
                     </div>
                     <div style={{ ...glass, padding: "1.25rem" }}>
-                      <div style={{ ...labelSt, marginBottom: "0.5rem" }}>Modality Balance</div>
+                      <div style={{ ...labelSt, marginBottom: "0.6rem" }}>Modality Balance</div>
                       {(["Cardinal", "Fixed", "Mutable"] as const).map(mod => {
                         const val = chart.modalityBalance[mod] as number;
                         const max = Math.max(chart.modalityBalance.Cardinal as number, chart.modalityBalance.Fixed as number, chart.modalityBalance.Mutable as number);
                         const colors = { Cardinal: "#E8524A", Fixed: "#FFD700", Mutable: "#7B68EE" };
                         return (
-                          <div key={mod} style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.4rem" }}>
-                            <span style={{ fontSize: "0.7rem", color: "rgba(200,190,235,0.5)", width: "55px" }}>{mod}</span>
-                            <div style={{ flex: 1, height: "3px", borderRadius: "2px", background: "rgba(255,255,255,0.04)" }}>
-                              <div style={{ width: `${(val / max) * 100}%`, height: "100%", borderRadius: "2px", background: colors[mod], transition: "width 1s ease" }} />
+                          <div key={mod} style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                            <span style={{ fontSize: "0.72rem", color: "rgba(200,190,235,0.6)", width: "58px" }}>{mod}</span>
+                            <div style={{ flex: 1, height: "4px", borderRadius: "2px", background: "rgba(255,255,255,0.04)" }}>
+                              <div style={{ width: `${(val / max) * 100}%`, height: "100%", borderRadius: "2px", background: colors[mod] }} />
                             </div>
-                            <span style={{ fontSize: "0.6rem", color: "rgba(180,170,210,0.4)", width: "24px", textAlign: "right" }}>{Math.round(val)}</span>
                           </div>
                         );
                       })}
                     </div>
                   </div>
 
-                  {/* Strengths + Challenges + Soul Purpose */}
+                  {/* ── ASPECTS — simplified, readable ── */}
                   <div style={{ ...glass, padding: "1.25rem" }}>
-                    <div style={{ ...labelSt, marginBottom: "0.5rem" }}>Life Theme</div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 300, lineHeight: 1.7, color: "rgba(196,185,228,0.7)", margin: "0 0 1rem" }}>{chart.interpretation.lifeTheme}</p>
+                    <div style={{ ...labelSt, marginBottom: "0.6rem" }}>Key Aspects</div>
+                    {chart.aspects.slice(0, 10).map((a, i) => {
+                      const symbol = { conjunction: "☌", sextile: "⚹", square: "□", trine: "△", opposition: "☍", quincunx: "⚻" }[a.type] || "·";
+                      const isHarmonious = a.harmony === "harmonious";
+                      return (
+                        <div key={i} style={{
+                          display: "flex", alignItems: "center", gap: "0.5rem",
+                          padding: "0.4rem 0", borderBottom: i < 9 ? "1px solid rgba(200,185,255,0.03)" : "none",
+                        }}>
+                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(220,210,240,0.7)", minWidth: "60px" }}>{a.planet1}</span>
+                          <span style={{ fontSize: "0.85rem", color: isHarmonious ? "rgba(78,205,196,0.6)" : "rgba(232,82,74,0.5)" }}>{symbol}</span>
+                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(220,210,240,0.7)", flex: 1 }}>{a.planet2}</span>
+                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(180,170,210,0.3)" }}>{a.type}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
 
-                    <div style={{ ...labelSt, marginBottom: "0.4rem" }}>Strengths</div>
-                    {chart.interpretation.strengths.map((s, i) => (
-                      <div key={i} style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", fontWeight: 300, color: "rgba(78,205,196,0.65)", padding: "0.2rem 0 0.2rem 0.8rem", position: "relative" }}>
-                        <span style={{ position: "absolute", left: 0, color: "rgba(78,205,196,0.4)", fontSize: "0.55rem", top: "0.25em" }}>▸</span>{s}
-                      </div>
-                    ))}
-
-                    <div style={{ ...labelSt, marginTop: "0.75rem", marginBottom: "0.4rem" }}>Growth Edges</div>
-                    {chart.interpretation.challenges.map((c, i) => (
-                      <div key={i} style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", fontWeight: 300, color: "rgba(232,82,74,0.55)", padding: "0.2rem 0 0.2rem 0.8rem", position: "relative" }}>
-                        <span style={{ position: "absolute", left: 0, color: "rgba(232,82,74,0.4)", fontSize: "0.55rem", top: "0.25em" }}>▸</span>{c}
-                      </div>
-                    ))}
-
-                    <div style={{ ...labelSt, marginTop: "0.75rem", marginBottom: "0.4rem" }}>Soul Purpose</div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 300, lineHeight: 1.7, color: "rgba(196,185,228,0.7)", margin: 0, fontStyle: "italic" }}>
+                  {/* ── LIFE THEME ── */}
+                  <div style={{ ...glass, padding: "1.5rem", textAlign: "center" }}>
+                    <div style={{ ...labelSt, marginBottom: "0.6rem" }}>Your Life Theme</div>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", fontWeight: 300, lineHeight: 1.8, color: "rgba(196,185,228,0.75)", margin: "0 0 1rem", maxWidth: "500px", marginLeft: "auto", marginRight: "auto" }}>
+                      {chart.interpretation.lifeTheme}
+                    </p>
+                    <div style={{ ...labelSt, marginBottom: "0.4rem" }}>Soul Direction</div>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300, lineHeight: 1.75, color: "rgba(196,185,228,0.65)", margin: 0, fontStyle: "italic", maxWidth: "500px", marginLeft: "auto", marginRight: "auto" }}>
                       {chart.interpretation.soulPurpose}
                     </p>
+                  </div>
+
+                  {/* Link to full chart */}
+                  <div style={{ textAlign: "center" }}>
+                    <a href="/chart" style={{
+                      display: "inline-block", padding: "0.65rem 1.5rem", borderRadius: "100px",
+                      background: "rgba(255,255,255,0.04)", border: "1px solid rgba(200,185,255,0.1)",
+                      color: "rgba(200,185,240,0.7)", fontSize: "0.72rem", fontWeight: 400,
+                      letterSpacing: "0.06em", textTransform: "uppercase" as const, textDecoration: "none",
+                    }}>View Interactive Chart Wheel →</a>
                   </div>
                 </div>
               )}
