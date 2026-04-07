@@ -9,8 +9,10 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { buildPortraitConfig, PortraitRenderer } from "../../lib/portrait-engine";
-import { computeNatalChart, lookupCity, type NatalChart, type BirthInput } from "../../lib/natal-chart";
+import { computeNatalChart, type NatalChart, type BirthInput } from "../../lib/natal-chart";
 import BirthDatePicker from "../../components/BirthDatePicker";
+import CityAutocomplete from "../../components/CityAutocomplete";
+import { type CityData } from "../../lib/cities";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -51,8 +53,7 @@ export default function PortraitPage() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [timeUnknown, setTimeUnknown] = useState(false);
-  const [city, setCity] = useState("");
-  const [cityError, setCityError] = useState("");
+  const [cityData, setCityData] = useState<CityData | null>(null);
 
   // Result state
   const [chart, setChart] = useState<NatalChart | null>(null);
@@ -68,13 +69,7 @@ export default function PortraitPage() {
     const [y, m, d] = date.split("-").map(Number);
     if (!y || !m || !d) return;
 
-    const coords = lookupCity(city);
-    if (!coords && city.trim()) {
-      setCityError("City not in database — using New York coordinates");
-    } else {
-      setCityError("");
-    }
-    const loc = coords || { lat: 40.71, lon: -74.01, tz: -5 };
+    const loc = cityData || { lat: 40.71, lon: -74.01, tz: -5 };
 
     const hour = timeUnknown ? 12 : parseInt(time.split(":")[0] || "12");
     const minute = timeUnknown ? 0 : parseInt(time.split(":")[1] || "0");
@@ -84,7 +79,7 @@ export default function PortraitPage() {
       hour, minute,
       latitude: loc.lat, longitude: loc.lon, timezone: loc.tz,
       name: name || undefined,
-      city: city || undefined,
+      city: cityData?.name || undefined,
     };
 
     const natalChart = computeNatalChart(input);
@@ -110,7 +105,7 @@ export default function PortraitPage() {
       }
       setPhase("revealed");
     }, 800);
-  }, [name, date, time, timeUnknown, city]);
+  }, [name, date, time, timeUnknown, cityData]);
 
   const download = useCallback(() => {
     if (!rendererRef.current) return;
@@ -191,8 +186,7 @@ export default function PortraitPage() {
           {/* City */}
           <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
             <span style={labelSt}>Birth City</span>
-            <input type="text" placeholder="e.g. Kyiv, New York, Tokyo" value={city} onChange={e => { setCity(e.target.value); setCityError(""); }} style={{ ...inputStyle, textAlign: "left" }} />
-            {cityError && <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(232,82,74,0.5)" }}>{cityError}</span>}
+            <CityAutocomplete onSelect={setCityData} />
           </div>
 
           <button onClick={generate} disabled={!canGenerate} style={{
