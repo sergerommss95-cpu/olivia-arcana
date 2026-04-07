@@ -10,6 +10,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { buildPortraitConfig, PortraitRenderer } from "../../lib/portrait-engine";
 import { computeNatalChart, lookupCity, type NatalChart, type BirthInput } from "../../lib/natal-chart";
+import BirthDatePicker from "../../components/BirthDatePicker";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -170,7 +171,7 @@ export default function PortraitPage() {
           {/* Date */}
           <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
             <span style={labelSt}>Birth Date *</span>
-            <input type="date" value={date} onChange={e => setDate(e.target.value)} style={{ ...inputStyle, colorScheme: "dark" }} />
+            <BirthDatePicker value={date} onChange={setDate} />
           </div>
 
           {/* Time */}

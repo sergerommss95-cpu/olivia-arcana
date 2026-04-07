@@ -1,8 +1,7 @@
 /**
- * CosmicStatus.tsx — Real-time status bar with live celestial data
+ * CosmicStatus.tsx — Real-time celestial status bar
  *
- * Shows below navbar: moon phase, Sun sign, Mercury status, link to /cosmos.
- * Uses the real celestial calculator.
+ * More visible: larger text, brighter colors, glass background, clear contrast.
  */
 
 "use client";
@@ -22,65 +21,81 @@ export default function CosmicStatus() {
   const moonPhase = getMoonPhase(now);
   const nextEvent = getUpcomingEvents(1)[0];
   const nextMeta = nextEvent ? EVENT_TYPE_META[nextEvent.type] : null;
-
-  // Days until next event
   const daysUntil = nextEvent
     ? Math.ceil((new Date(nextEvent.date + "T00:00:00").getTime() - now.getTime()) / 86400000)
     : null;
+
+  const item: React.CSSProperties = {
+    display: "flex", alignItems: "center", gap: "0.4rem",
+    padding: "0.25rem 0.65rem", borderRadius: "100px",
+    background: "rgba(255,255,255,0.04)",
+    border: "1px solid rgba(200,185,255,0.06)",
+  };
+
+  const text: React.CSSProperties = {
+    fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 400,
+    color: "rgba(220,210,240,0.7)", letterSpacing: "0.03em",
+  };
 
   return (
     <div style={{
       position: "relative", zIndex: 10,
       display: "flex", justifyContent: "center", alignItems: "center",
-      gap: "1.25rem", padding: "0.5rem 1.5rem",
+      gap: "0.5rem", padding: "0.6rem 1.5rem",
       flexWrap: "wrap",
-      borderBottom: "1px solid rgba(200,185,255,0.04)",
+      background: "rgba(4,2,13,0.5)",
+      backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+      borderBottom: "1px solid rgba(200,185,255,0.06)",
     }}>
-      {/* Sun position */}
-      <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-        <span style={{ fontSize: "0.75rem", color: "rgba(255,215,0,0.5)" }}>☉</span>
-        <span style={{
-          fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 400,
-          color: "rgba(200,190,235,0.45)", letterSpacing: "0.04em",
-        }}>{sun.signGlyph} {sun.sign} {sun.degree}°</span>
+      {/* Sun */}
+      <div style={item}>
+        <span style={{ fontSize: "0.85rem", color: "rgba(255,215,0,0.7)" }}>☉</span>
+        <span style={text}>{sun.sign} {sun.degree}°</span>
       </div>
 
       {/* Moon */}
-      <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-        <span style={{ fontSize: "0.75rem" }}>{moonPhase.emoji}</span>
-        <span style={{
-          fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 400,
-          color: "rgba(200,190,235,0.45)", letterSpacing: "0.04em",
-        }}>{moon.signGlyph} {moonPhase.phase}</span>
+      <div style={item}>
+        <span style={{ fontSize: "0.85rem" }}>{moonPhase.emoji}</span>
+        <span style={text}>{moonPhase.phase}</span>
       </div>
 
       {/* Next event */}
       {nextEvent && nextMeta && (
         <a href="/cosmos" style={{
-          display: "flex", alignItems: "center", gap: "0.3rem",
+          ...item,
           textDecoration: "none",
-          padding: "0.15rem 0.6rem", borderRadius: "100px",
-          background: `${nextMeta.color}08`, border: `1px solid ${nextMeta.color}12`,
-          transition: "all 0.2s ease",
+          background: `${nextMeta.color}10`,
+          border: `1px solid ${nextMeta.color}20`,
         }}>
-          <span style={{ fontSize: "0.6rem" }}>{nextMeta.emoji}</span>
+          <span style={{ fontSize: "0.75rem" }}>{nextMeta.emoji}</span>
           <span style={{
-            fontFamily: "var(--font-body)", fontSize: "0.55rem", fontWeight: 400,
-            color: `${nextMeta.color}88`, letterSpacing: "0.04em",
+            ...text,
+            color: `${nextMeta.color}bb`,
+            fontWeight: 500,
           }}>
-            {nextEvent.title.split(" ").slice(0, 3).join(" ")}
-            {daysUntil !== null && ` · ${daysUntil}d`}
+            {nextEvent.title.split(" ").slice(0, 4).join(" ")}
+            {daysUntil !== null && daysUntil > 0 && ` · ${daysUntil}d`}
           </span>
         </a>
       )}
 
-      {/* Link to full cosmos page */}
+      {/* Cosmos link */}
       <a href="/cosmos" style={{
-        fontFamily: "var(--font-body)", fontSize: "0.55rem", fontWeight: 500,
-        letterSpacing: "0.12em", textTransform: "uppercase",
-        color: "rgba(212,175,55,0.35)", textDecoration: "none",
-        transition: "color 0.2s",
-      }}>View Cosmos →</a>
+        ...item,
+        textDecoration: "none",
+        background: "rgba(212,175,55,0.06)",
+        border: "1px solid rgba(212,175,55,0.12)",
+      }}>
+        <span style={{ fontSize: "0.7rem", color: "rgba(212,175,55,0.6)" }}>✦</span>
+        <span style={{
+          ...text,
+          color: "rgba(212,175,55,0.65)",
+          fontWeight: 500,
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
+          fontSize: "0.65rem",
+        }}>Cosmos</span>
+      </a>
     </div>
   );
 }

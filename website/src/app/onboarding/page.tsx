@@ -15,6 +15,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { getSunSign, getCosmicProfile, type CosmicProfile as CosmicProfileData } from "../../lib/zodiac-utils";
+import BirthDatePicker from "../../components/BirthDatePicker";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -220,12 +221,9 @@ export default function OnboardingPage() {
               textAlign: "center",
               margin: 0,
             }}>When were you born?</h2>
-            <input
-              type="date"
+            <BirthDatePicker
               value={date}
-              onChange={(e) => setDate(e.target.value)}
-              style={{ ...inputStyle, colorScheme: "dark" }}
-              autoFocus
+              onChange={setDate}
             />
           </>
         )}
