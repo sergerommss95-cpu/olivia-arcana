@@ -7,7 +7,7 @@
 
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface Props {
   value: string;  // YYYY-MM-DD or ""
@@ -64,12 +64,16 @@ export default function BirthDatePicker({ value, onChange }: Props) {
   const [month, setMonth] = useState(initialParts[1] ? String(parseInt(initialParts[1])) : "");
   const [day, setDay] = useState(initialParts[2] ? String(parseInt(initialParts[2])) : "");
 
+  // Stable ref for onChange to avoid infinite loops
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+
   // Emit full date when all three are selected
   useEffect(() => {
     if (year && month && day) {
-      onChange(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`);
+      onChangeRef.current(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`);
     }
-  }, [year, month, day, onChange]);
+  }, [year, month, day]);
 
   // Adjust max days for selected month/year
   const maxDay = month && year
