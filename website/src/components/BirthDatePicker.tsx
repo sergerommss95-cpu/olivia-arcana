@@ -1,14 +1,13 @@
 /**
  * BirthDatePicker.tsx — Custom date picker with separate year/month/day dropdowns
  *
- * Three styled select dropdowns instead of native date input.
- * Dark themed, matches the glass morphism design system.
- * Returns YYYY-MM-DD string via onChange.
+ * Stores partial selections — each dropdown works independently.
+ * Only emits a full YYYY-MM-DD when all three are filled.
  */
 
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 interface Props {
   value: string;  // YYYY-MM-DD or ""
@@ -44,6 +43,7 @@ const selectStyle: React.CSSProperties = {
   backgroundRepeat: "no-repeat",
   backgroundPosition: "right 0.75rem center",
   paddingRight: "2rem",
+  width: "100%",
 };
 
 const labelStyle: React.CSSProperties = {
@@ -57,23 +57,31 @@ const labelStyle: React.CSSProperties = {
 };
 
 export default function BirthDatePicker({ value, onChange }: Props) {
-  const parts = value ? value.split("-") : ["", "", ""];
-  const year = parts[0] || "";
-  const month = parts[1] || "";
-  const day = parts[2] || "";
+  // Parse initial value if provided
+  const initialParts = value ? value.split("-") : ["", "", ""];
 
-  const update = (y: string, m: string, d: string) => {
-    if (y && m && d) {
-      onChange(`${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`);
-    } else {
-      onChange("");
+  const [year, setYear] = useState(initialParts[0] || "");
+  const [month, setMonth] = useState(initialParts[1] ? String(parseInt(initialParts[1])) : "");
+  const [day, setDay] = useState(initialParts[2] ? String(parseInt(initialParts[2])) : "");
+
+  // Emit full date when all three are selected
+  useEffect(() => {
+    if (year && month && day) {
+      onChange(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`);
     }
-  };
+  }, [year, month, day, onChange]);
 
   // Adjust max days for selected month/year
   const maxDay = month && year
     ? new Date(parseInt(year), parseInt(month), 0).getDate()
     : 31;
+
+  // Reset day if it exceeds max for new month
+  useEffect(() => {
+    if (day && parseInt(day) > maxDay) {
+      setDay(String(maxDay));
+    }
+  }, [maxDay, day]);
 
   return (
     <div style={{ display: "flex", gap: "0.5rem", width: "100%" }}>
@@ -82,10 +90,13 @@ export default function BirthDatePicker({ value, onChange }: Props) {
         <span style={labelStyle}>Month</span>
         <select
           value={month}
-          onChange={e => update(year, e.target.value, day)}
-          style={selectStyle}
+          onChange={e => setMonth(e.target.value)}
+          style={{
+            ...selectStyle,
+            borderColor: month ? "rgba(200,185,255,0.2)" : "rgba(200,185,255,0.12)",
+          }}
         >
-          <option value="" style={{ background: "#0a0815", color: "rgba(180,170,210,0.5)" }}>—</option>
+          <option value="" style={{ background: "#0a0815", color: "rgba(180,170,210,0.5)" }}>Month</option>
           {MONTHS.map((name, i) => (
             <option key={i} value={String(i + 1)} style={{ background: "#0a0815" }}>
               {name}
@@ -99,10 +110,13 @@ export default function BirthDatePicker({ value, onChange }: Props) {
         <span style={labelStyle}>Day</span>
         <select
           value={day}
-          onChange={e => update(year, month, e.target.value)}
-          style={selectStyle}
+          onChange={e => setDay(e.target.value)}
+          style={{
+            ...selectStyle,
+            borderColor: day ? "rgba(200,185,255,0.2)" : "rgba(200,185,255,0.12)",
+          }}
         >
-          <option value="" style={{ background: "#0a0815", color: "rgba(180,170,210,0.5)" }}>—</option>
+          <option value="" style={{ background: "#0a0815", color: "rgba(180,170,210,0.5)" }}>Day</option>
           {DAYS.filter(d => d <= maxDay).map(d => (
             <option key={d} value={String(d)} style={{ background: "#0a0815" }}>
               {d}
@@ -116,10 +130,13 @@ export default function BirthDatePicker({ value, onChange }: Props) {
         <span style={labelStyle}>Year</span>
         <select
           value={year}
-          onChange={e => update(e.target.value, month, day)}
-          style={selectStyle}
+          onChange={e => setYear(e.target.value)}
+          style={{
+            ...selectStyle,
+            borderColor: year ? "rgba(200,185,255,0.2)" : "rgba(200,185,255,0.12)",
+          }}
         >
-          <option value="" style={{ background: "#0a0815", color: "rgba(180,170,210,0.5)" }}>—</option>
+          <option value="" style={{ background: "#0a0815", color: "rgba(180,170,210,0.5)" }}>Year</option>
           {YEARS.map(y => (
             <option key={y} value={String(y)} style={{ background: "#0a0815" }}>
               {y}
