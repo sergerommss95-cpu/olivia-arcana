@@ -10,6 +10,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { buildPortraitConfig, PortraitRenderer } from "../../lib/portrait-engine";
 import { computeNatalChart, type NatalChart, type BirthInput } from "../../lib/natal-chart";
+import { saveUser } from "../../lib/user-store";
 import BirthDatePicker from "../../components/BirthDatePicker";
 import CityAutocomplete from "../../components/CityAutocomplete";
 import { type CityData } from "../../lib/cities";
@@ -84,6 +85,7 @@ export default function PortraitPage() {
     };
 
     const natalChart = computeNatalChart(input);
+    saveUser(input, natalChart); // persist for other pages
     setChart(natalChart);
     setPhase("generating");
 

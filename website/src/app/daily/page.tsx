@@ -12,6 +12,7 @@ import { getSunPosition, getMoonPosition, getMoonPhase } from "../../lib/celesti
 import { getTodayHoroscope } from "../../lib/zodiac-utils";
 import { LIFE_AREAS } from "../../lib/planet-interpretations";
 import ZodiacIcon from "../../components/ZodiacIcon";
+import { loadUser } from "../../lib/user-store";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -74,7 +75,15 @@ export default function DailyPage() {
   const [mounted, setMounted] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+    // Auto-select user's sun sign if they have saved data
+    const user = loadUser();
+    if (user) {
+      const idx = SIGNS.findIndex(s => s.name === user.sunSign);
+      if (idx >= 0) setSelected(idx);
+    }
+  }, []);
 
   // Animate content when sign changes
   useEffect(() => {

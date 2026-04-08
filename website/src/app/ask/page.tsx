@@ -9,6 +9,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { loadUser, type StoredUser } from "../../lib/user-store";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -82,8 +83,11 @@ export default function AskPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [waiting, setWaiting] = useState(false);
+  const [user, setUser] = useState<StoredUser | null>(null);
   const chatRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => { setUser(loadUser()); }, []);
 
   const scrollToBottom = () => {
     chatRef.current?.scrollTo({ top: chatRef.current.scrollHeight, behavior: "smooth" });
@@ -146,7 +150,7 @@ export default function AskPage() {
         <p style={{
           fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 300,
           color: "rgba(196,185,228,0.5)", marginTop: "0.3rem",
-        }}>Ask any question — receive cosmic guidance</p>
+        }}>{user ? `Answering as a ${user.sunSign} Sun, ${user.moonSign} Moon` : "Ask any question — receive cosmic guidance"}</p>
       </div>
 
       {/* Chat area */}

@@ -13,6 +13,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { computeNatalChart, type NatalChart, type BirthInput } from "../../lib/natal-chart";
+import { saveUser, loadChart } from "../../lib/user-store";
 import { getPlanetInSign, PLANET_MEANING, HOUSE_MEANING } from "../../lib/planet-interpretations";
 import BirthDatePicker from "../../components/BirthDatePicker";
 import CityAutocomplete from "../../components/CityAutocomplete";
@@ -63,6 +64,12 @@ export default function ChartPage() {
   const [selected, setSelected] = useState<number | null>(null);
   const [view, setView] = useState<"wheel" | "table">("wheel");
 
+  // Auto-load from localStorage if user already entered data elsewhere
+  useEffect(() => {
+    const saved = loadChart();
+    if (saved) setChart(saved);
+  }, []);
+
   const generate = useCallback(() => {
     if (!date) return;
     const [y, m, d] = date.split("-").map(Number);
@@ -75,7 +82,9 @@ export default function ChartPage() {
       year: y, month: m, day: d, hour, minute,
       latitude: loc.lat, longitude: loc.lon, timezone: loc.tz,
     };
-    setChart(computeNatalChart(input));
+    const computed = computeNatalChart(input);
+    saveUser(input, computed);
+    setChart(computed);
     setSelected(null);
   }, [date, time, timeUnknown, cityData]);
 
