@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
-import Starfield from "@/components/Starfield";
 import SignLabel from "@/components/SignLabel";
 import ConstellationOverlay from "@/components/ConstellationOverlay";
 import MagneticGlow from "@/components/MagneticGlow";
@@ -41,7 +40,6 @@ export default function Home() {
   return (
     <>
       <CosmicLoader />
-      <Starfield />
       <SignLabel />
       <ConstellationOverlay />
       <MagneticGlow />

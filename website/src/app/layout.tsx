@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter, Cormorant_Garamond } from "next/font/google";
+import GlobalBackground from "@/components/GlobalBackground";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -70,6 +71,7 @@ export default function RootLayout({
         }} className="focus:top-0">
           Skip to main content
         </a>
+        <GlobalBackground />
         {children}
       </body>
     </html>

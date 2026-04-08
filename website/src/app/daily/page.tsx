@@ -98,11 +98,23 @@ export default function DailyPage() {
 
   return (
     <div style={{ minHeight: "100vh", position: "relative", zIndex: 1 }}>
+      {/* ── Radial element glow — colors the entire page atmosphere ── */}
+      {sign && (
+        <div style={{
+          position: "fixed", top: "15%", left: "50%", transform: "translateX(-50%)",
+          width: "800px", height: "800px", borderRadius: "50%",
+          background: `radial-gradient(circle, ${sign.color}12 0%, ${sign.color}06 30%, transparent 70%)`,
+          pointerEvents: "none", zIndex: 0,
+          transition: "background 1.5s cubic-bezier(0.16, 1, 0.3, 1)",
+          filter: "blur(40px)",
+        }} />
+      )}
+
       {/* ── Hero header ── */}
       <div style={{
         textAlign: "center",
         padding: "3rem 1.5rem 2rem",
-        background: "linear-gradient(to bottom, rgba(4,2,13,0) 0%, rgba(4,2,13,0.5) 100%)",
+        position: "relative", zIndex: 1,
       }}>
         <a href="/" style={{
           fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 400,
@@ -177,10 +189,25 @@ export default function DailyPage() {
         </div>
       </div>
 
-      {/* ── Content ── */}
-      <div style={{ maxWidth: "640px", margin: "0 auto", padding: "0 1.5rem 4rem" }}>
+      {/* ── Content — liquid glass container ── */}
+      <div style={{
+        maxWidth: "680px", margin: "0 auto", padding: "0 1.5rem 4rem",
+        position: "relative", zIndex: 1,
+      }}>
         {sign && doDont ? (
-          <div ref={contentRef} style={{ opacity: 0 }}>
+          <div
+            ref={contentRef}
+            style={{
+              opacity: 0,
+              background: "rgba(8,6,20,0.45)",
+              backdropFilter: "blur(20px) saturate(1.2)",
+              WebkitBackdropFilter: "blur(20px) saturate(1.2)",
+              border: "1px solid rgba(200,185,255,0.06)",
+              borderRadius: "1.5rem",
+              padding: "2rem 1.75rem",
+              boxShadow: "0 8px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)",
+            }}
+          >
             {/* Sign hero */}
             <div style={{
               textAlign: "center", marginBottom: "2.5rem",
@@ -372,15 +399,25 @@ export default function DailyPage() {
             </div>
           </div>
         ) : (
-          <div style={{ textAlign: "center", padding: "4rem 0" }}>
+          <div style={{
+            textAlign: "center", padding: "5rem 2rem",
+            background: "rgba(8,6,20,0.3)",
+            backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+            border: "1px solid rgba(200,185,255,0.04)",
+            borderRadius: "1.5rem",
+          }}>
             <div style={{
-              fontSize: "3rem", color: "rgba(212,175,55,0.12)", marginBottom: "1.5rem",
-              filter: "drop-shadow(0 0 30px rgba(212,175,55,0.05))",
+              fontSize: "3.5rem", color: "rgba(212,175,55,0.15)", marginBottom: "1.5rem",
+              filter: "drop-shadow(0 0 40px rgba(212,175,55,0.08))",
+              animation: "zodiac-float 6s ease-in-out infinite",
             }}>✦</div>
             <p style={{
-              fontFamily: "var(--font-accent)", fontSize: "1.2rem", fontWeight: 400,
-              color: "rgba(180,170,210,0.3)", fontStyle: "italic",
-            }}>Select your sign to reveal today&apos;s reading</p>
+              fontFamily: "var(--font-accent)", fontSize: "1.3rem", fontWeight: 400,
+              color: "rgba(200,190,230,0.35)", fontStyle: "italic",
+              lineHeight: 1.6,
+            }}>Select your sign above<br/>
+              <span style={{ fontSize: "0.85rem", color: "rgba(180,170,210,0.2)" }}>to reveal today&apos;s cosmic guidance</span>
+            </p>
           </div>
         )}
       </div>
