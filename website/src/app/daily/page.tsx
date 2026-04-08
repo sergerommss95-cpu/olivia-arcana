@@ -11,6 +11,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { getSunPosition, getMoonPosition, getMoonPhase } from "../../lib/celestial";
 import { getTodayHoroscope } from "../../lib/zodiac-utils";
 import { LIFE_AREAS } from "../../lib/planet-interpretations";
+import ZodiacIcon from "../../components/ZodiacIcon";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -150,48 +151,29 @@ export default function DailyPage() {
         )}
       </div>
 
-      {/* ── Sign selector — horizontal scroll with glow ── */}
+      {/* ── Sign selector — magical animated icons ── */}
       <div style={{
-        padding: "1rem 1.5rem 1.5rem",
+        padding: "0.5rem 1rem 1rem",
         display: "flex", justifyContent: "center",
       }}>
         <div style={{
-          display: "flex", gap: "0.4rem",
-          overflowX: "auto", padding: "0.5rem 0",
+          display: "flex", gap: "0.15rem",
+          overflowX: "auto", padding: "0.75rem 0.5rem",
           maxWidth: "100%",
           scrollbarWidth: "none",
         }}>
-          {SIGNS.map((s, i) => {
-            const isSelected = selected === i;
-            return (
-              <button
-                key={s.name}
-                onClick={() => setSelected(i)}
-                style={{
-                  display: "flex", flexDirection: "column", alignItems: "center",
-                  gap: "0.3rem", padding: "0.7rem 0.9rem",
-                  borderRadius: "1rem", minWidth: "72px",
-                  background: isSelected ? `${s.color}15` : "rgba(255,255,255,0.02)",
-                  border: `1.5px solid ${isSelected ? `${s.color}40` : "rgba(200,185,255,0.04)"}`,
-                  cursor: "pointer",
-                  transition: `all 0.3s ${EASE}`,
-                  boxShadow: isSelected ? `0 0 20px ${s.color}15, inset 0 0 20px ${s.color}08` : "none",
-                }}
-              >
-                <span style={{
-                  fontSize: "1.4rem",
-                  filter: isSelected ? `drop-shadow(0 0 6px ${s.color}60)` : "none",
-                  transition: `all 0.3s ${EASE}`,
-                }}>{s.glyph}</span>
-                <span style={{
-                  fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: isSelected ? 600 : 400,
-                  letterSpacing: "0.06em",
-                  color: isSelected ? "rgba(240,236,255,0.9)" : "rgba(180,170,210,0.35)",
-                  transition: `all 0.3s ${EASE}`,
-                }}>{s.name}</span>
-              </button>
-            );
-          })}
+          {SIGNS.map((s, i) => (
+            <ZodiacIcon
+              key={s.name}
+              glyph={s.glyph}
+              name={s.name}
+              color={s.color}
+              element={s.element as "Fire" | "Water" | "Air" | "Earth"}
+              selected={selected === i}
+              onClick={() => setSelected(i)}
+              size={68}
+            />
+          ))}
         </div>
       </div>
 
