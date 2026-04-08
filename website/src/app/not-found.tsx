@@ -14,7 +14,7 @@ export default function NotFound() {
       justifyContent: "center",
       padding: "3rem 1.5rem",
       textAlign: "center",
-      background: "#04020d",
+      position: "relative", zIndex: 1,
     }}>
       <div style={{
         fontSize: "4rem",

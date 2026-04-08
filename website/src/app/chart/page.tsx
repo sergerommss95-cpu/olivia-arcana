@@ -52,8 +52,7 @@ export default function ChartPage() {
       alignItems: "center",
       justifyContent: "center",
       padding: "3rem 1.5rem",
-      position: "relative",
-      zIndex: 1,
+      position: "relative", zIndex: 1,
     }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>

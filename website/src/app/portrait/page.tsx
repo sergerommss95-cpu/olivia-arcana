@@ -135,7 +135,7 @@ export default function PortraitPage() {
   const canGenerate = !!date && (timeUnknown || !!time);
 
   return (
-    <div style={{ position: "relative", width: "100vw", minHeight: "100vh", overflow: "hidden", background: "#04020d" }}>
+    <div style={{ position: "relative", width: "100vw", minHeight: "100vh", overflow: "hidden" }}>
       {/* Canvas */}
       <canvas ref={canvasRef} style={{ position: "fixed", inset: 0, width: "100%", height: "100%" }} />
 
@@ -144,7 +144,8 @@ export default function PortraitPage() {
         position: phase === "revealed" ? "absolute" : "fixed", inset: 0,
         display: phase === "revealed" ? "none" : "flex",
         flexDirection: "column", alignItems: "center", justifyContent: "center",
-        gap: "1.5rem", zIndex: 10, background: "rgba(4,2,13,0.92)",
+        gap: "1.5rem", zIndex: 10, background: "rgba(4,2,13,0.4)",
+        backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)",
         padding: "2rem 1.5rem", overflowY: "auto",
       }}>
         <a href="/" style={{ position: "absolute", top: "1.5rem", left: "1.5rem", ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>← Home</a>
@@ -157,7 +158,17 @@ export default function PortraitPage() {
           Enter your complete birth data for a mathematically unique cosmic artwork with full natal chart decode.
         </p>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "100%", maxWidth: "360px" }}>
+        <div style={{
+          display: "flex", flexDirection: "column", gap: "1rem",
+          width: "100%", maxWidth: "400px",
+          padding: "2rem",
+          background: "rgba(8,6,20,0.45)",
+          backdropFilter: "blur(20px) saturate(1.2)",
+          WebkitBackdropFilter: "blur(20px) saturate(1.2)",
+          border: "1px solid rgba(200,185,255,0.08)",
+          borderRadius: "1.5rem",
+          boxShadow: "0 8px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)",
+        }}>
           {/* Name */}
           <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
             <span style={labelSt}>Your Name (optional)</span>

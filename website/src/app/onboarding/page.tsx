@@ -175,10 +175,11 @@ export default function OnboardingPage() {
           maxWidth: "420px",
           width: "100%",
           padding: "2.5rem 2rem",
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid rgba(200,185,255,0.1)",
+          background: "rgba(8,6,20,0.45)",
+          border: "1px solid rgba(200,185,255,0.08)",
           borderRadius: "1.5rem",
-          backdropFilter: "blur(16px)",
+          backdropFilter: "blur(20px) saturate(1.2)",
+          boxShadow: "0 8px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)",
           WebkitBackdropFilter: "blur(16px)",
         }}
       >
