@@ -7,10 +7,7 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 const SUPABASE_URL = "https://ghyzkpcxlnlfjzitdxkk.supabase.co";
-// The anon key needs to be set via env var or hardcoded after getting it from Supabase dashboard
-const SUPABASE_ANON_KEY = typeof process !== "undefined" && process.env?.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  ? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  : "PLACEHOLDER";
+const SUPABASE_ANON_KEY = "sb_publishable_z-zV4pjfHRSkIEbqwxUykA_4lW9zkd7";
 
 let _client: SupabaseClient | null = null;
 
