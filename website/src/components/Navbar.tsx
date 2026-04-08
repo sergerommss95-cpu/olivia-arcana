@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { isLoggedIn } from "../lib/api";
 
 const navLinks = [
   { label: "Cosmos", href: "/cosmos" },
@@ -12,6 +13,9 @@ const navLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => { setLoggedIn(isLoggedIn()); }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
@@ -39,12 +43,10 @@ export default function Navbar() {
               </a>
             ))}
             <a
-              href="https://t.me/OliviaArcanaBot"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={loggedIn ? "/profile" : "/register"}
               className="px-5 py-2 rounded-full bg-celestial-gold/10 border border-celestial-gold/30 text-celestial-gold text-sm font-medium hover:bg-celestial-gold/20 transition-all duration-300"
             >
-              Start on Telegram
+              {loggedIn ? "My Profile" : "Sign Up"}
             </a>
           </div>
 
@@ -78,12 +80,10 @@ export default function Navbar() {
               </a>
             ))}
             <a
-              href="https://t.me/OliviaArcanaBot"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={loggedIn ? "/profile" : "/register"}
               className="block text-center px-5 py-3 rounded-full bg-celestial-gold/10 border border-celestial-gold/30 text-celestial-gold font-medium"
             >
-              Start on Telegram
+              {loggedIn ? "My Profile" : "Sign Up"}
             </a>
           </div>
         )}

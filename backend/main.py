@@ -1,34 +1,33 @@
-"""
-Olivia Arcana — FastAPI Backend
-Wraps the existing astrology engine (kerykeion) with REST endpoints.
-"""
+"""Olivia Arcana — FastAPI Backend with Auth."""
 
-import sys
 import os
-from pathlib import Path
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# Add parent dir to path so we can import src.astrology
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from db.database import init_db
+from api.auth import router as auth_router
 
-from backend.api.chart import router as chart_router
-from backend.api.daily import router as daily_router
-from backend.api.compatibility import router as compat_router
-from backend.api.transits import router as transits_router
-from backend.api.ask import router as ask_router
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_db()
+    yield
+
 
 app = FastAPI(
     title="Olivia Arcana API",
-    description="Astrology engine powered by NASA JPL ephemeris",
-    version="1.0.0",
+    description="Astrology engine + auth",
+    version="2.0.0",
+    lifespan=lifespan,
 )
 
-# CORS — allow frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3333",
+        "https://oliviaarcana.com",
+        "https://www.oliviaarcana.com",
         "https://olivia-arcana.netlify.app",
     ],
     allow_credentials=True,
@@ -36,11 +35,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(chart_router, prefix="/api", tags=["chart"])
-app.include_router(daily_router, prefix="/api", tags=["daily"])
-app.include_router(compat_router, prefix="/api", tags=["compatibility"])
-app.include_router(transits_router, prefix="/api", tags=["transits"])
-app.include_router(ask_router, prefix="/api", tags=["ask"])
+app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
 
 
 @app.get("/api/health")
