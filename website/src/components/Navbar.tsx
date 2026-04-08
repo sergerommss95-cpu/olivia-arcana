@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { isLoggedIn } from "../lib/api";
+import { getSession } from "../lib/supabase";
 
 const navLinks = [
   { label: "Cosmos", href: "/cosmos" },
@@ -15,7 +15,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  useEffect(() => { setLoggedIn(isLoggedIn()); }, []);
+  useEffect(() => { getSession().then(s => setLoggedIn(!!s)); }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">

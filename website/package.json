@@ -12,6 +12,7 @@
     "@fontsource/cormorant-garamond": "^5.2.11",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/playfair-display": "^5.2.8",
+    "@supabase/supabase-js": "^2.102.1",
     "@types/three": "^0.183.1",
     "framer-motion": "^12.38.0",
     "html2canvas": "^1.4.1",
