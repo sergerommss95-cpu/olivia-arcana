@@ -5,10 +5,10 @@ import Link from "next/link";
 import { getSession } from "../lib/supabase";
 
 const navLinks = [
-  { label: "Cosmos", href: "/cosmos" },
+  { label: "Academy", href: "/academy" },
   { label: "Portrait", href: "/portrait" },
-  { label: "Ask the Stars", href: "/ask" },
-  { label: "Birth Chart", href: "/chart" },
+  { label: "Cosmos", href: "/cosmos" },
+  { label: "Daily", href: "/daily" },
 ];
 
 export default function Navbar() {
