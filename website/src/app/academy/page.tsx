@@ -191,6 +191,44 @@ export default function AcademyPage() {
         </div>
       </div>
 
+      {/* Quick Tools */}
+      <div style={{ marginBottom: "3rem" }}>
+        <div style={{
+          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gap: "0.75rem",
+        }}>
+          {[
+            { href: "/academy/card-of-the-day", icon: "🃏", title: "Card of the Day", desc: "Daily tarot draw with meaning" },
+            { href: "/academy/tarot-encyclopedia", icon: "◇", title: "Tarot Encyclopedia", desc: "All 78 cards explained" },
+            { href: "/academy/aspect-guide", icon: "△", title: "Aspect Guide", desc: "How planets talk to each other" },
+            { href: "/cosmos", icon: "☉", title: "Live Cosmos", desc: "Real-time planet positions" },
+          ].map(tool => (
+            <Link key={tool.href} href={tool.href} style={{
+              display: "flex", alignItems: "center", gap: "0.75rem",
+              padding: "1rem 1.25rem",
+              background: "rgba(8,6,20,0.4)",
+              backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
+              border: "1px solid rgba(200,185,255,0.06)",
+              borderRadius: "1rem",
+              textDecoration: "none",
+              transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+            }}>
+              <span style={{ fontSize: "1.5rem", opacity: 0.6 }}>{tool.icon}</span>
+              <div>
+                <div style={{
+                  fontFamily: "var(--font-accent)", fontSize: "0.9rem", fontWeight: 500,
+                  color: "rgba(240,236,255,0.85)",
+                }}>{tool.title}</div>
+                <div style={{
+                  fontFamily: "var(--font-body)", fontSize: "0.65rem",
+                  color: "rgba(180,170,210,0.4)",
+                }}>{tool.desc}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
       {/* Track sections */}
       <TrackSection
         title="Astrology"

@@ -35,10 +35,10 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               {[
-                { label: "Living Cosmos", href: "/cosmos" },
-                { label: "Celestial Portrait", href: "/portrait" },
-                { label: "Birth Chart", href: "/chart" },
-                { label: "Ask the Stars", href: "/ask" },
+                { label: "Academy", href: "/academy" },
+                { label: "Tarot Encyclopedia", href: "/academy/tarot-encyclopedia" },
+                { label: "Card of the Day", href: "/academy/card-of-the-day" },
+                { label: "Aspect Guide", href: "/academy/aspect-guide" },
               ].map((item) => (
                 <li key={item.label}>
                   <a href={item.href} className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">
