@@ -17,12 +17,14 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { getSunSign, getCosmicProfile, type CosmicProfile as CosmicProfileData } from "../lib/zodiac-utils";
 import CosmicProfile from "./CosmicProfile";
+import { useLocale } from "../lib/i18n/useLocale";
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 export default function Hero() {
   const headRef  = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
+  const { t } = useLocale();
 
   const [birthday, setBirthday] = useState("");
   const [cosmicProfile, setCosmicProfile] = useState<CosmicProfileData | null>(null);
@@ -281,7 +283,7 @@ export default function Hero() {
               color: "rgba(180,170,210,0.5)",
             }}
           >
-            Enter your birthday
+            {t("hero_enter_birthday")}
           </label>
           <input
             type="text"
@@ -353,7 +355,7 @@ export default function Hero() {
               transition: "all 220ms cubic-bezier(0.16,1,0.3,1)",
             }}
           >
-            <span>Celestial Portrait</span>
+            <span>{t("hero_portrait_cta")}</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           <a
@@ -378,7 +380,7 @@ export default function Hero() {
               transition: "all 220ms cubic-bezier(0.16,1,0.3,1)",
             }}
           >
-            Ask the Stars
+            {t("hero_ask_cta")}
           </a>
         </div>
 
@@ -396,9 +398,9 @@ export default function Hero() {
           }}
         >
           {[
-            { n: "12,400+", label: "Readings Given" },
-            { n: "4.9 ★",   label: "Average Rating" },
-            { n: "97%",     label: "Accuracy Rating" },
+            { n: "12,400+", label: t("hero_readings_given") },
+            { n: "4.9 ★",   label: t("hero_average_rating") },
+            { n: "97%",     label: t("hero_accuracy") },
           ].map(({ n, label }) => (
             <div
               key={label}
@@ -476,7 +478,7 @@ export default function Hero() {
             onMouseEnter={e => { e.currentTarget.style.color = "rgba(220,210,245,0.8)"; }}
             onMouseLeave={e => { e.currentTarget.style.color = "rgba(180,170,210,0.5)"; }}
           >
-            ← Try another birthday
+            ← {t("profile_try_another")}
           </button>
         </div>
       )}

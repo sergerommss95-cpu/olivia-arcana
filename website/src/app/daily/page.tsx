@@ -13,6 +13,7 @@ import { getTodayHoroscope } from "../../lib/zodiac-utils";
 import { LIFE_AREAS } from "../../lib/planet-interpretations";
 import ZodiacIcon from "../../components/ZodiacIcon";
 import { loadUser } from "../../lib/user-store";
+import { useLocale } from "../../lib/i18n/useLocale";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -74,6 +75,7 @@ export default function DailyPage() {
   const [selected, setSelected] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
+  const { t } = useLocale();
 
   useEffect(() => {
     setMounted(true);
@@ -129,7 +131,7 @@ export default function DailyPage() {
           fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 400,
           letterSpacing: "0.15em", textTransform: "uppercase",
           color: "rgba(180,170,210,0.4)", textDecoration: "none",
-        }}>← Home</a>
+        }}>← {t("common_home")}</a>
 
         <h1 style={{
           fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 5vw, 3rem)",
@@ -137,7 +139,7 @@ export default function DailyPage() {
           backgroundImage: "linear-gradient(165deg, #f0ecff 0%, #c4b4f0 50%, #a08de0 100%)",
           backgroundClip: "text", WebkitBackgroundClip: "text", color: "transparent",
         }}>
-          Your Day
+          {t("daily_title")}
         </h1>
 
         <p style={{
@@ -252,7 +254,7 @@ export default function DailyPage() {
                   display: "flex", alignItems: "center", gap: "0.4rem",
                 }}>
                   <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "rgba(78,205,196,0.5)" }} />
-                  Do
+                  {t("daily_do")}
                 </div>
                 {doDont.dos.map((d, i) => (
                   <p key={i} style={{
@@ -276,7 +278,7 @@ export default function DailyPage() {
                   display: "flex", alignItems: "center", gap: "0.4rem",
                 }}>
                   <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "rgba(232,82,74,0.4)" }} />
-                  Don&apos;t
+                  {t("daily_dont")}
                 </div>
                 {doDont.donts.map((d, i) => (
                   <p key={i} style={{
@@ -296,7 +298,7 @@ export default function DailyPage() {
                 fontFamily: "var(--font-heading)", fontSize: "1.1rem", fontWeight: 400,
                 color: "rgba(240,236,255,0.85)", margin: "0 0 1.25rem",
                 textAlign: "center",
-              }}>By Life Area</h3>
+              }}>{t("daily_by_life_area")}</h3>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                 {LIFE_AREAS.map(area => {
@@ -342,7 +344,7 @@ export default function DailyPage() {
                             <span style={{
                               fontFamily: "var(--font-body)", fontSize: "0.55rem", fontWeight: 600,
                               letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(78,205,196,0.55)",
-                            }}>Power</span>
+                            }}>{t("daily_power")}</span>
                           </div>
                           <p style={{
                             fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
@@ -357,7 +359,7 @@ export default function DailyPage() {
                             <span style={{
                               fontFamily: "var(--font-body)", fontSize: "0.55rem", fontWeight: 600,
                               letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(212,175,55,0.45)",
-                            }}>Pressure</span>
+                            }}>{t("daily_pressure")}</span>
                           </div>
                           <p style={{
                             fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
@@ -402,7 +404,7 @@ export default function DailyPage() {
                 letterSpacing: "0.06em", textTransform: "uppercase",
                 textDecoration: "none", transition: `all 0.3s ${EASE}`,
               }}>
-                Get Your Full Portrait
+                {t("daily_get_portrait")}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
             </div>
@@ -424,7 +426,7 @@ export default function DailyPage() {
               fontFamily: "var(--font-accent)", fontSize: "1.3rem", fontWeight: 400,
               color: "rgba(200,190,230,0.35)", fontStyle: "italic",
               lineHeight: 1.6,
-            }}>Select your sign above<br/>
+            }}>{t("daily_select_sign")}<br/>
               <span style={{ fontSize: "0.85rem", color: "rgba(180,170,210,0.2)" }}>to reveal today&apos;s cosmic guidance</span>
             </p>
           </div>

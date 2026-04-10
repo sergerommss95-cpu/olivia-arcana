@@ -4,17 +4,19 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { getSession } from "../lib/supabase";
 import LanguageSwitcher from "./LanguageSwitcher";
-
-const navLinks = [
-  { label: "Academy", href: "/academy" },
-  { label: "Portrait", href: "/portrait" },
-  { label: "Cosmos", href: "/cosmos" },
-  { label: "Daily", href: "/daily" },
-];
+import { useLocale } from "../lib/i18n/useLocale";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const { t } = useLocale();
+
+  const navLinks = [
+    { label: t("nav_academy"), href: "/academy" },
+    { label: t("nav_portrait"), href: "/portrait" },
+    { label: t("nav_cosmos"), href: "/cosmos" },
+    { label: t("nav_daily"), href: "/daily" },
+  ];
 
   useEffect(() => { getSession().then(s => setLoggedIn(!!s)); }, []);
 
@@ -48,7 +50,7 @@ export default function Navbar() {
               href={loggedIn ? "/profile" : "/register"}
               className="px-5 py-2 rounded-full bg-celestial-gold/10 border border-celestial-gold/30 text-celestial-gold text-sm font-medium hover:bg-celestial-gold/20 transition-all duration-300"
             >
-              {loggedIn ? "My Profile" : "Sign Up"}
+              {loggedIn ? t("nav_profile") : t("nav_signup")}
             </a>
           </div>
 
@@ -85,7 +87,7 @@ export default function Navbar() {
               href={loggedIn ? "/profile" : "/register"}
               className="block text-center px-5 py-3 rounded-full bg-celestial-gold/10 border border-celestial-gold/30 text-celestial-gold font-medium"
             >
-              {loggedIn ? "My Profile" : "Sign Up"}
+              {loggedIn ? t("nav_profile") : t("nav_signup")}
             </a>
           </div>
         )}
