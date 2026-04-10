@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { getSession } from "../lib/supabase";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const navLinks = [
   { label: "Academy", href: "/academy" },
@@ -42,6 +43,7 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
+            <LanguageSwitcher />
             <a
               href={loggedIn ? "/profile" : "/register"}
               className="px-5 py-2 rounded-full bg-celestial-gold/10 border border-celestial-gold/30 text-celestial-gold text-sm font-medium hover:bg-celestial-gold/20 transition-all duration-300"
