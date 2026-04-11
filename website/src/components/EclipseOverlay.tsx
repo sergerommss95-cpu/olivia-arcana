@@ -1,11 +1,11 @@
+"use client";
+
 /**
  * EclipseOverlay.tsx — Global visual overlay for astronomical events
  *
  * Pure CSS effects layer. Activates on eclipses, full/new moons,
  * Mercury retrograde, solstices, and equinoxes. Atmospheric, never intrusive.
  */
-
-"use client";
 
 import React, { useEffect, useState } from "react";
 import { getActiveEffect, type EventEffect } from "@/lib/eclipse-effects";
