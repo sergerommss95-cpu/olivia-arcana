@@ -6,8 +6,9 @@
  * grading, and interactive hold-to-reveal mechanics.
  *
  * Designed for integration into the Olivia Arcana Next.js site.
- * Renders opaque (alpha:false) with its own nebula shader background
- * at scene.background = 0x04020d to match --c-void.
+ * Renders with alpha:true so the site's cosmic CSS background shows
+ * through. EffectComposer uses an RGBAFormat render target to preserve
+ * alpha through bloom + filmic post-processing.
  */
 
 import * as THREE from 'three';
@@ -245,6 +246,9 @@ const FILMIC_FRAGMENT = /* glsl */ `
     vec2 uv = vUv;
     vec2 center = uv - 0.5;
 
+    // Sample centre texel for alpha (preserved through the pipeline)
+    float srcAlpha = texture2D(tDiffuse, uv).a;
+
     // Radial chromatic aberration
     float rad = length(center);
     vec2 dir = normalize(center + 1e-6);
@@ -255,13 +259,13 @@ const FILMIC_FRAGMENT = /* glsl */ `
     float b = texture2D(tDiffuse, uv + dir * caScale * 1.6).b;
     vec3 col = vec3(r, g, b);
 
-    // Vignette
+    // Vignette — applied only where there's content
     float vig = smoothstep(1.0, 0.25, rad * uVignette);
     col *= mix(0.55, 1.0, vig);
 
     // Film grain
     float grain = hash(uv * vec2(1920.0, 1080.0) + uTime * 37.0) - 0.5;
-    col += grain * uGrain;
+    col += grain * uGrain * srcAlpha; // grain only on visible content
 
     // Split-tone: cool shadows, warm highlights
     vec3 shadow    = vec3(0.85, 0.92, 1.08);
@@ -269,7 +273,7 @@ const FILMIC_FRAGMENT = /* glsl */ `
     float lum = dot(col, vec3(0.299, 0.587, 0.114));
     col *= mix(shadow, highlight, smoothstep(0.2, 0.85, lum));
 
-    gl_FragColor = vec4(col, 1.0);
+    gl_FragColor = vec4(col, srcAlpha);
   }
 `;
 
@@ -465,7 +469,8 @@ export class VeilRevealScene {
     // ---------------------------------------------------------------
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
-      alpha: false,
+      alpha: true,
+      premultipliedAlpha: false,
       powerPreference: 'high-performance',
     });
     this.renderer.setSize(width, height);
@@ -475,14 +480,15 @@ export class VeilRevealScene {
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 0.9;
+    this.renderer.setClearColor(0x000000, 0); // transparent clear
     this.renderer.domElement.style.display = 'block';
     container.appendChild(this.renderer.domElement);
 
     // ---------------------------------------------------------------
-    // Scene (opaque -- nebula shader bg, not the site Starfield)
+    // Scene (transparent -- site's cosmic background shows through)
     // ---------------------------------------------------------------
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x04020d); // match site void color
+    // No scene.background — renderer alpha:true lets the site bg show through
 
     // ---------------------------------------------------------------
     // Camera
@@ -523,7 +529,8 @@ export class VeilRevealScene {
     // + emissiveMap are enough for the glass-cloth look.
 
     // ---------------------------------------------------------------
-    // Background nebula plane (dark cosmic backdrop for veil reflections)
+    // Background — transparent (site's cosmic bg shows through)
+    // The custom nebula plane is removed so the veil scene matches the site.
     // ---------------------------------------------------------------
     this.bgMaterial = new THREE.ShaderMaterial({
       uniforms: {
@@ -535,12 +542,7 @@ export class VeilRevealScene {
       fragmentShader: BG_FRAGMENT,
       depthWrite: false,
     });
-    const bgMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(40, 24),
-      this.bgMaterial,
-    );
-    bgMesh.position.z = -8;
-    this.scene.add(bgMesh);
+    // bgMesh not added to scene — site background shows through instead
 
     // ---------------------------------------------------------------
     // Card mesh
@@ -622,13 +624,19 @@ export class VeilRevealScene {
     // ---------------------------------------------------------------
     // Post-processing
     // ---------------------------------------------------------------
-    this.composer = new EffectComposer(this.renderer);
+    const rt = new THREE.WebGLRenderTarget(width, height, {
+      type: THREE.HalfFloatType,
+      format: THREE.RGBAFormat,
+    });
+    this.composer = new EffectComposer(this.renderer, rt);
     this.composer.setPixelRatio(
       Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2),
     );
     this.composer.setSize(width, height);
 
-    this.composer.addPass(new RenderPass(this.scene, this.camera));
+    const renderPass = new RenderPass(this.scene, this.camera);
+    renderPass.clearAlpha = 0; // clear to transparent
+    this.composer.addPass(renderPass);
 
     const dpr = this.renderer.getPixelRatio();
     this.bloomPass = new UnrealBloomPass(
