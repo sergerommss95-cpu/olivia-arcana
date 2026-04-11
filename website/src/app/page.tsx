@@ -16,7 +16,7 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import DailyHoroscope from "@/components/DailyHoroscope";
 import CompatibilityChecker from "@/components/CompatibilityChecker";
-import ScrollReveal from "@/components/ScrollReveal";
+import SectionReveal from "@/components/SectionReveal";
 
 // Lazy-load non-critical components
 const CosmicLoader = dynamic(() => import("@/components/CosmicLoader"), { ssr: false });
@@ -28,7 +28,7 @@ export default function Home() {
     const handleFade = (e: Event) => {
       const fade = (e as CustomEvent).detail?.fade;
       if (!sectionsRef.current) return;
-      sectionsRef.current.style.transition = "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
+      sectionsRef.current.style.transition = "opacity 0.6s var(--ease-ritual)";
       sectionsRef.current.style.opacity = fade ? "0" : "1";
       sectionsRef.current.style.pointerEvents = fade ? "none" : "auto";
     };
@@ -48,27 +48,28 @@ export default function Home() {
       <main id="main-content" className="relative z-10">
         <Hero />
         <div ref={sectionsRef}>
-          <ScrollReveal>
+          {/* Each section rises from darkness with clip-path reveal */}
+          <SectionReveal>
             <DailyHoroscope />
-          </ScrollReveal>
-          <ScrollReveal delay={100} parallax>
+          </SectionReveal>
+          <SectionReveal delay={100}>
             <CompatibilityChecker />
-          </ScrollReveal>
-          <ScrollReveal delay={50}>
+          </SectionReveal>
+          <SectionReveal delay={50}>
             <Features />
-          </ScrollReveal>
-          <ScrollReveal delay={100} parallax>
+          </SectionReveal>
+          <SectionReveal delay={100}>
             <HowItWorks />
-          </ScrollReveal>
-          <ScrollReveal delay={50}>
+          </SectionReveal>
+          <SectionReveal delay={50}>
             <Testimonials />
-          </ScrollReveal>
-          <ScrollReveal delay={100}>
+          </SectionReveal>
+          <SectionReveal delay={100}>
             <Pricing />
-          </ScrollReveal>
-          <ScrollReveal>
+          </SectionReveal>
+          <SectionReveal>
             <CTA />
-          </ScrollReveal>
+          </SectionReveal>
         </div>
       </main>
 

@@ -1,23 +1,25 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "../lib/i18n/useLocale";
 
-const signs = [
-  { name: "Aries", glyph: "♈", dates: "Mar 21 – Apr 19", element: "Fire", color: "#E8524A" },
-  { name: "Taurus", glyph: "♉", dates: "Apr 20 – May 20", element: "Earth", color: "#4ECDC4" },
-  { name: "Gemini", glyph: "♊", dates: "May 21 – Jun 20", element: "Air", color: "#7B68EE" },
-  { name: "Cancer", glyph: "♋", dates: "Jun 21 – Jul 22", element: "Water", color: "#6B8DD6" },
-  { name: "Leo", glyph: "♌", dates: "Jul 23 – Aug 22", element: "Fire", color: "#E8524A" },
-  { name: "Virgo", glyph: "♍", dates: "Aug 23 – Sep 22", element: "Earth", color: "#4ECDC4" },
-  { name: "Libra", glyph: "♎", dates: "Sep 23 – Oct 22", element: "Air", color: "#7B68EE" },
-  { name: "Scorpio", glyph: "♏", dates: "Oct 23 – Nov 21", element: "Water", color: "#6B8DD6" },
-  { name: "Sagittarius", glyph: "♐", dates: "Nov 22 – Dec 21", element: "Fire", color: "#E8524A" },
-  { name: "Capricorn", glyph: "♑", dates: "Dec 22 – Jan 19", element: "Earth", color: "#4ECDC4" },
-  { name: "Aquarius", glyph: "♒", dates: "Jan 20 – Feb 18", element: "Air", color: "#7B68EE" },
-  { name: "Pisces", glyph: "♓", dates: "Feb 19 – Mar 20", element: "Water", color: "#6B8DD6" },
+const signKeys = [
+  { key: "sign_aries" as const, glyph: "♈", dates: "Mar 21 – Apr 19", elKey: "el_fire" as const, color: "#E8524A" },
+  { key: "sign_taurus" as const, glyph: "♉", dates: "Apr 20 – May 20", elKey: "el_earth" as const, color: "#4ECDC4" },
+  { key: "sign_gemini" as const, glyph: "♊", dates: "May 21 – Jun 20", elKey: "el_air" as const, color: "#7B68EE" },
+  { key: "sign_cancer" as const, glyph: "♋", dates: "Jun 21 – Jul 22", elKey: "el_water" as const, color: "#6B8DD6" },
+  { key: "sign_leo" as const, glyph: "♌", dates: "Jul 23 – Aug 22", elKey: "el_fire" as const, color: "#E8524A" },
+  { key: "sign_virgo" as const, glyph: "♍", dates: "Aug 23 – Sep 22", elKey: "el_earth" as const, color: "#4ECDC4" },
+  { key: "sign_libra" as const, glyph: "♎", dates: "Sep 23 – Oct 22", elKey: "el_air" as const, color: "#7B68EE" },
+  { key: "sign_scorpio" as const, glyph: "♏", dates: "Oct 23 – Nov 21", elKey: "el_water" as const, color: "#6B8DD6" },
+  { key: "sign_sagittarius" as const, glyph: "♐", dates: "Nov 22 – Dec 21", elKey: "el_fire" as const, color: "#E8524A" },
+  { key: "sign_capricorn" as const, glyph: "♑", dates: "Dec 22 – Jan 19", elKey: "el_earth" as const, color: "#4ECDC4" },
+  { key: "sign_aquarius" as const, glyph: "♒", dates: "Jan 20 – Feb 18", elKey: "el_air" as const, color: "#7B68EE" },
+  { key: "sign_pisces" as const, glyph: "♓", dates: "Feb 19 – Mar 20", elKey: "el_water" as const, color: "#6B8DD6" },
 ];
 
 export default function DailyHoroscope() {
+  const { t } = useLocale();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
@@ -43,10 +45,10 @@ export default function DailyHoroscope() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <p className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-[0.3em] uppercase mb-4">
-            Daily Horoscope
+            {t("dh_eyebrow")}
           </p>
           <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-warm-ivory mb-4">
-            Today&apos;s Cosmic Weather
+            {t("dh_title")}
           </h2>
           <p className="text-muted-lavender text-sm">{today}</p>
           <div className="star-divider max-w-xs mx-auto mt-6">&#10022;</div>
@@ -54,9 +56,9 @@ export default function DailyHoroscope() {
 
         {/* Zodiac wheel / grid */}
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
-          {signs.map((sign, i) => (
+          {signKeys.map((sign, i) => (
             <button
-              key={sign.name}
+              key={sign.key}
               onClick={() => setSelected(selected === i ? null : i)}
               className={`glass-card p-4 text-center transition-all duration-500 hover:scale-105 cursor-pointer ${
                 inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -77,7 +79,7 @@ export default function DailyHoroscope() {
                 {sign.glyph}
               </div>
               <div className="font-[family-name:var(--font-heading)] text-sm font-semibold text-warm-ivory">
-                {sign.name}
+                {t(sign.key)}
               </div>
               <div className="text-xs text-muted-lavender/60 mt-1">
                 {sign.dates}
@@ -90,24 +92,21 @@ export default function DailyHoroscope() {
         {selected !== null && (
           <div className="mt-8 glass-card p-8 max-w-2xl mx-auto animate-in fade-in duration-500">
             <div className="flex items-center gap-4 mb-4">
-              <span className="text-4xl" style={{ color: signs[selected].color }}>
-                {signs[selected].glyph}
+              <span className="text-4xl" style={{ color: signKeys[selected].color }}>
+                {signKeys[selected].glyph}
               </span>
               <div>
                 <h3 className="font-[family-name:var(--font-heading)] text-xl font-semibold text-warm-ivory">
-                  {signs[selected].name}
+                  {t(signKeys[selected].key)}
                 </h3>
                 <p className="text-xs text-muted-lavender">
-                  {signs[selected].element} Sign &middot; {signs[selected].dates}
+                  {t(signKeys[selected].elKey)} {t("dh_sign_tag")} &middot; {signKeys[selected].dates}
                 </p>
               </div>
             </div>
 
             <p className="text-muted-lavender leading-relaxed mb-6">
-              Today&apos;s planetary alignments bring a shift in energy for {signs[selected].name}.
-              The current transits are activating key areas of your chart, creating opportunities
-              for growth and self-discovery. For your full personalized reading based on YOUR
-              exact birth chart — not just your sun sign — start a conversation with Olivia.
+              {t("dh_reading_text")}
             </p>
 
             <div className="flex gap-3 flex-wrap">
@@ -115,13 +114,13 @@ export default function DailyHoroscope() {
                 href={`/daily`}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-celestial-gold/10 border border-celestial-gold/30 text-celestial-gold text-sm font-medium hover:bg-celestial-gold/20 transition-all"
               >
-                Full {signs[selected].name} Reading &rarr;
+                {t("dh_full_reading")} &rarr;
               </a>
               <a
-                href={`/signs/${signs[selected].name.toLowerCase()}`}
+                href={`/signs/${t(signKeys[selected].key).toLowerCase()}`}
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/4 border border-white/10 text-muted-lavender text-sm hover:text-celestial-gold transition-all"
               >
-                About {signs[selected].name}
+                {t("dh_about")} {t(signKeys[selected].key)}
               </a>
             </div>
           </div>
@@ -131,16 +130,7 @@ export default function DailyHoroscope() {
         {selected === null && (
           <div className="mt-12 text-center">
             <p className="text-muted-lavender/60 text-sm">
-              Select your sign above for today&apos;s preview &mdash; or get your{" "}
-              <a
-                href="https://t.me/OliviaArcanaBot"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-celestial-gold hover:underline"
-              >
-                full personal reading
-              </a>{" "}
-              calculated from your exact birth chart.
+              {t("dh_select")}
             </p>
           </div>
         )}

@@ -1,4 +1,9 @@
+"use client";
+
+import { useLocale } from "../lib/i18n/useLocale";
+
 export default function Footer() {
+  const { t } = useLocale();
   const zodiacSigns = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"];
 
   return (
@@ -23,22 +28,21 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-muted-lavender text-sm leading-relaxed max-w-md">
-              Personalized astrology readings calculated from your exact planetary positions
-              using NASA JPL ephemeris data. Your chart. Your truth.
+              {t("foot_desc")}
             </p>
           </div>
 
           {/* Links */}
           <div>
             <h4 className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-wider uppercase mb-4">
-              Explore
+              {t("foot_explore")}
             </h4>
             <ul className="space-y-3">
               {[
-                { label: "Academy", href: "/academy" },
-                { label: "Tarot Encyclopedia", href: "/academy/tarot-encyclopedia" },
-                { label: "Card of the Day", href: "/academy/card-of-the-day" },
-                { label: "Aspect Guide", href: "/academy/aspect-guide" },
+                { label: t("nav_academy"), href: "/academy" },
+                { label: t("academy_tarot_encyclopedia"), href: "/academy/tarot-encyclopedia" },
+                { label: t("academy_card_of_day"), href: "/academy/card-of-the-day" },
+                { label: t("academy_aspect_guide"), href: "/academy/aspect-guide" },
               ].map((item) => (
                 <li key={item.label}>
                   <a href={item.href} className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">
@@ -51,14 +55,14 @@ export default function Footer() {
 
           <div>
             <h4 className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-wider uppercase mb-4">
-              Connect
+              {t("foot_connect")}
             </h4>
             <ul className="space-y-3">
               {[
-                { label: "Telegram Bot", href: "https://t.me/OliviaArcanaBot" },
-                { label: "Telegram Channel", href: "https://t.me/OliviaArcanaDaily" },
-                { label: "Celestial Portrait", href: "/portrait" },
-                { label: "Onboarding", href: "/onboarding" },
+                { label: t("foot_tg_bot"), href: "https://t.me/OliviaArcanaBot" },
+                { label: t("foot_tg_channel"), href: "https://t.me/OliviaArcanaDaily" },
+                { label: t("profile_celestial_portrait"), href: "/portrait" },
+                { label: t("ask_title"), href: "/ask" },
               ].map((item) => (
                 <li key={item.label}>
                   <a
@@ -78,10 +82,10 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-celestial-gold/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-lavender/50 text-xs">
-            &copy; {new Date().getFullYear()} Olivia Arcana. The stars guide, you decide.
+            &copy; {new Date().getFullYear()} Olivia Arcana. {t("foot_copyright")}
           </p>
           <p className="text-muted-lavender/30 text-xs">
-            Astronomical data: NASA JPL DE440/DE441 Ephemeris
+            {t("foot_data")}
           </p>
         </div>
       </div>

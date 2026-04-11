@@ -5,13 +5,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { COURSES, getCourse } from "../../../lib/academy/courses";
+import LessonList from "../../../components/LessonList";
 
 export function generateStaticParams() {
   return COURSES.map(c => ({ course: c.slug }));
 }
 
-export function generateMetadata({ params }: { params: { course: string } }) {
-  const course = getCourse(params.course);
+export async function generateMetadata({ params }: { params: Promise<{ course: string }> }) {
+  const { course: slug } = await params;
+  const course = getCourse(slug);
   if (!course) return {};
   return {
     title: `${course.title} — Olivia Arcana Academy`,
@@ -35,8 +37,9 @@ const TRACK_LABELS: Record<string, string> = {
   astrology: "Astrology Track", tarot: "Tarot Track", integrated: "Integrated Track",
 };
 
-export default function CourseDetailPage({ params }: { params: { course: string } }) {
-  const course = getCourse(params.course);
+export default async function CourseDetailPage({ params }: { params: Promise<{ course: string }> }) {
+  const { course: slug } = await params;
+  const course = getCourse(slug);
   if (!course) return notFound();
 
   const totalMinutes = course.lessons.reduce((s, l) => s + l.duration, 0);
@@ -145,71 +148,13 @@ export default function CourseDetailPage({ params }: { params: { course: string 
       </div>
 
       {/* Lesson list */}
-      <div>
+      <div id="lessons">
         <div style={{
           fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 500,
           letterSpacing: "0.18em", textTransform: "uppercase",
           color: "rgba(180,170,210,0.35)", marginBottom: "0.75rem",
         }}>Lessons</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-          {course.lessons.map((lesson, i) => {
-            const typeInfo = TYPE_ICONS[lesson.type] || TYPE_ICONS.reading;
-            return (
-              <div
-                key={lesson.slug}
-                style={{
-                  display: "flex", alignItems: "center", gap: "0.75rem",
-                  padding: "0.85rem 1rem",
-                  background: "rgba(255,255,255,0.015)",
-                  border: "1px solid rgba(200,185,255,0.04)",
-                  borderRadius: "0.75rem",
-                  transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
-                }}
-              >
-                {/* Number */}
-                <span style={{
-                  fontFamily: "var(--font-body)", fontSize: "0.65rem", fontWeight: 600,
-                  color: "rgba(180,170,210,0.25)", width: "24px", textAlign: "center",
-                  flexShrink: 0,
-                }}>{i + 1}</span>
-
-                {/* Type icon */}
-                <span style={{
-                  fontSize: "0.75rem", color: typeInfo.color,
-                  width: "20px", textAlign: "center", flexShrink: 0,
-                }}>{typeInfo.icon}</span>
-
-                {/* Content */}
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{
-                    fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 400,
-                    color: "rgba(240,236,255,0.82)",
-                    whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
-                  }}>{lesson.title}</div>
-                  <div style={{
-                    fontFamily: "var(--font-body)", fontSize: "0.68rem", fontWeight: 300,
-                    color: "rgba(180,170,210,0.4)", marginTop: "0.1rem",
-                    whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
-                  }}>{lesson.description}</div>
-                </div>
-
-                {/* Duration + type badge */}
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0 }}>
-                  <span style={{
-                    fontFamily: "var(--font-body)", fontSize: "0.6rem",
-                    color: "rgba(180,170,210,0.3)",
-                  }}>{lesson.duration}m</span>
-                  <span style={{
-                    padding: "0.1rem 0.4rem", borderRadius: "100px",
-                    background: `${typeInfo.color}12`, border: `1px solid ${typeInfo.color}20`,
-                    fontFamily: "var(--font-body)", fontSize: "0.5rem", fontWeight: 600,
-                    letterSpacing: "0.08em", textTransform: "uppercase", color: typeInfo.color,
-                  }}>{typeInfo.label}</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <LessonList lessons={course.lessons} courseSlug={course.slug} />
       </div>
 
       {/* CTA */}
@@ -225,13 +170,13 @@ export default function CourseDetailPage({ params }: { params: { course: string 
             fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 300,
             color: "rgba(196,185,228,0.55)", margin: "0 0 1rem",
           }}>Ready to begin your cosmic education?</p>
-          <Link href="/register" style={{
+          <a href="#lessons" style={{
             display: "inline-block", padding: "0.75rem 2rem", borderRadius: "100px",
             background: "linear-gradient(135deg, rgba(160,120,255,0.2), rgba(100,80,220,0.15))",
             border: "1px solid rgba(200,180,255,0.2)",
             color: "rgba(240,235,255,0.9)", fontSize: "0.8rem", fontWeight: 500,
             letterSpacing: "0.06em", textTransform: "uppercase", textDecoration: "none",
-          }}>Start Learning Free</Link>
+          }}>Start Learning Free</a>
         </div>
       </div>
     </div>

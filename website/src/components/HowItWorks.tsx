@@ -1,29 +1,31 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
-const steps = [
-  {
-    number: "01",
-    title: "Share Your Birth Data",
-    description: "Date, time, and place of birth. Olivia calculates your exact planetary positions using NASA's JPL ephemeris.",
-    icon: "🔭",
-  },
-  {
-    number: "02",
-    title: "Receive Your Chart",
-    description: "Your complete natal chart — Sun, Moon, Rising, all planets, houses, and aspects. The cosmic blueprint of who you are.",
-    icon: "✨",
-  },
-  {
-    number: "03",
-    title: "Get Daily Guidance",
-    description: "Every morning, Olivia overlays today's real transits onto YOUR chart. Personal, timely, and grounded in actual planetary positions.",
-    icon: "🌙",
-  },
-];
+import { useLocale } from "../lib/i18n/useLocale";
 
 export default function HowItWorks() {
+  const { t } = useLocale();
+
+  const steps = [
+    {
+      number: "01",
+      title: t("how_1_title"),
+      description: t("how_1_desc"),
+      icon: "🔭",
+    },
+    {
+      number: "02",
+      title: t("how_2_title"),
+      description: t("how_2_desc"),
+      icon: "✨",
+    },
+    {
+      number: "03",
+      title: t("how_3_title"),
+      description: t("how_3_desc"),
+      icon: "🌙",
+    },
+  ];
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -43,10 +45,10 @@ export default function HowItWorks() {
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-20">
           <p className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-[0.3em] uppercase mb-4">
-            How It Works
+            {t("how_eyebrow")}
           </p>
           <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-warm-ivory mb-6">
-            Three Steps to Your Stars
+            {t("how_title")}
           </h2>
           <div className="star-divider max-w-xs mx-auto">&#10022;</div>
         </div>

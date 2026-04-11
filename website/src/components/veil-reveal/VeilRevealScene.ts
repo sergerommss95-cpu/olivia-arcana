@@ -5,13 +5,12 @@
  * card reveal with top-to-bottom wipe, bloom post-processing, filmic
  * grading, and interactive hold-to-reveal mechanics.
  *
- * Designed for integration into the Olivia Arcana Next.js site where
- * a global Starfield component provides the cosmic background -- this
- * scene renders with alpha:true and scene.background = null.
+ * Designed for integration into the Olivia Arcana Next.js site.
+ * Renders opaque (alpha:false) with its own nebula shader background
+ * at scene.background = 0x04020d to match --c-void.
  */
 
 import * as THREE from 'three';
-import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
@@ -32,25 +31,26 @@ export interface VeilRevealConfig {
   reducedMotion: boolean;
   onRevealComplete: () => void;
   onProgress: (progress: number) => void;
+  onHoldProgress?: (progress: number) => void;
 }
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
-const COLS = 48;
+const BASE_COLS = 48;
 const ROWS = 64;
-const CLOTH_W = 3.6;
-const CLOTH_H = 4.8;
+const BASE_CLOTH_W = 3.6;
+const BASE_CLOTH_H = 4.8;
 const FIXED_DT = 1 / 60;
 const HOLD_THRESHOLD = 1.3; // seconds to hold before reveal triggers
 
 // Reveal choreography timing (seconds)
 const REVEAL_PIN_RELEASE = 1.6;
-const WIND_DURATION = 3.0;
-const CARD_FADE_START = 1.2;
-const CARD_FADE_DURATION = 2.0;
-const VEIL_HIDE_TIME = 5.5;
+const WIND_DURATION = 3.0;   // Faster initial gust
+const CARD_FADE_START    = 1.2;   // Give cloth 1.2s to partially drop first
+const CARD_FADE_DURATION = 2.0;   // Faster wipe
+const VEIL_HIDE_TIME     = 5.5;   // Slightly faster veil exit
 const CAMERA_DOLLY_START = 0.0;
 const CAMERA_DOLLY_END = 5.0;
 const CAMERA_Z_START = 7.4;
@@ -185,7 +185,7 @@ const CARD_FRAGMENT = /* glsl */ `
     float shimmer = sin(uTime * 3.0 + vUv.x * 40.0 + vUv.y * 30.0) * 0.5 + 0.5;
     float goldShimmer = shimmer * luminance * 0.12 * uRevealed;
 
-    // Wipe edge glow - symmetric soft blue-white light from behind the card
+    // Wipe edge glow — symmetric soft blue-white light from behind the card
     float edgeDist = abs(vUv.y - revealLine);
 
     // Two-layer glow: tight inner white core + wider outer blue halo
@@ -273,6 +273,108 @@ const FILMIC_FRAGMENT = /* glsl */ `
   }
 `;
 
+// ---------------------------------------------------------------
+// Veil custom shader (nebula cloth with fresnel + iridescence)
+// ---------------------------------------------------------------
+const VEILVERTEX = /* glsl */`
+  varying vec2 vUv;
+  varying vec3 vWorldPos;
+  varying vec3 vNormal;
+  varying float vFoldIntensity;
+  void main() {
+    vUv = uv;
+    vec4 worldPos = modelMatrix * vec4(position, 1.0);
+    vWorldPos = worldPos.xyz;
+    vNormal = normalize(normalMatrix * normal);
+    vFoldIntensity = 1.0 - abs(dot(vNormal, vec3(0.0, 0.0, 1.0)));
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const VEILFRAGMENT = /* glsl */`
+  precision highp float;
+  uniform float uTime;
+  uniform float uOpacity;
+  uniform vec3 uCamPos;
+  varying vec2 vUv;
+  varying vec3 vWorldPos;
+  varying vec3 vNormal;
+  varying float vFoldIntensity;
+
+  vec3 mod289v(vec3 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
+  vec2 mod289v2(vec2 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
+  vec3 permutev(vec3 x) { return mod289v((x * 34.0 + 1.0) * x); }
+
+  float snoise(vec2 v) {
+    const vec4 C = vec4(0.211325, 0.366025, -0.577350, 0.024390);
+    vec2 i = floor(v + dot(v, C.yy));
+    vec2 x0 = v - i + dot(i, C.xx);
+    vec2 i1 = (x0.x > x0.y) ? vec2(1.0,0.0) : vec2(0.0,1.0);
+    vec4 x12 = x0.xyxy + C.xxzz;
+    x12.xy -= i1;
+    i = mod289v2(i);
+    vec3 p = permutev(permutev(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+    vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+    m = m*m; m = m*m;
+    vec3 x = 2.0 * fract(p * C.www) - 1.0;
+    vec3 h = abs(x) - 0.5;
+    vec3 ox = floor(x + 0.5);
+    vec3 a0 = x - ox;
+    m *= 1.792842 - 0.853734 * (a0*a0 + h*h);
+    vec3 g;
+    g.x = a0.x * x0.x + h.x * x0.y;
+    g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+    return 130.0 * dot(m, g);
+  }
+
+  float fbm(vec2 p) {
+    float v = 0.0; float a = 0.5;
+    for (int i = 0; i < 5; i++) {
+      v += a * snoise(p);
+      p = p * 2.07 + vec2(0.13, -0.21);
+      a *= 0.5;
+    }
+    return v;
+  }
+
+  void main() {
+    float foldAlpha = 0.32 + vFoldIntensity * 0.48;
+    float alpha = foldAlpha * uOpacity;
+
+    vec2 noiseCoord = vWorldPos.xy * 0.38 + uTime * 0.022;
+    float n1 = fbm(noiseCoord);
+    float n2 = fbm(noiseCoord * 1.4 + vec2(2.7, -1.1));
+    float n3 = fbm(noiseCoord * 0.7 + vec2(-1.8, 0.9));
+
+    vec3 deep   = vec3(0.04, 0.03, 0.14);
+    vec3 indigo = vec3(0.18, 0.08, 0.52);
+    vec3 violet = vec3(0.50, 0.16, 0.78);
+    vec3 cyan   = vec3(0.18, 0.70, 0.92);
+    vec3 gold   = vec3(0.88, 0.65, 0.28);
+
+    vec3 nebulaColor = mix(deep, indigo, smoothstep(0.1, 0.6, n1));
+    nebulaColor = mix(nebulaColor, violet, smoothstep(0.3, 0.8, n2) * 0.75);
+    nebulaColor += cyan * smoothstep(0.5, 0.9, n3) * 0.5;
+    nebulaColor += gold * smoothstep(0.75, 1.0, n3) * 0.35;
+
+    vec3 viewDir = normalize(uCamPos - vWorldPos);
+    float fresnel = pow(1.0 - abs(dot(viewDir, vNormal)), 3.2);
+    nebulaColor += vec3(0.55, 0.65, 1.0) * fresnel * 0.8;
+    alpha = clamp(alpha + fresnel * 0.25, 0.0, 1.0);
+
+    vec3 lightDir = normalize(vec3(3.0, 2.0, 5.0));
+    float spec = pow(max(0.0, dot(reflect(-viewDir, vNormal), lightDir)), 18.0);
+    float ridgeHighlight = spec * (0.4 + vFoldIntensity * 1.6);
+    nebulaColor += vec3(0.88, 0.94, 1.0) * ridgeHighlight;
+
+    float irid = sin(vFoldIntensity * 12.0 + uTime * 0.5) * 0.5 + 0.5;
+    vec3 iridColor = mix(vec3(0.3, 0.6, 1.0), vec3(0.9, 0.4, 0.8), irid);
+    nebulaColor += iridColor * vFoldIntensity * 0.12;
+
+    gl_FragColor = vec4(nebulaColor, alpha);
+  }
+`;
+
 // ---------------------------------------------------------------------------
 // Scene class
 // ---------------------------------------------------------------------------
@@ -292,17 +394,19 @@ export class VeilRevealScene {
   private cardMesh: THREE.Mesh;
   private cardMaterial: THREE.ShaderMaterial;
   private veilMesh: THREE.Mesh;
-  private veilMaterial: THREE.MeshPhysicalMaterial;
+  private veilMaterial: THREE.MeshStandardMaterial;
   private veilGeometry: THREE.BufferGeometry;
 
   // Textures
   private cardTexture: THREE.Texture | null = null;
   private veilTexture: THREE.Texture;
   private placeholderTex: THREE.DataTexture;
-  private envTexture: THREE.Texture;
 
   // Physics
   private cloth: PBDCloth;
+  private COLS: number;
+  private CLOTH_W: number;
+  private CLOTH_H: number;
 
   // Audio
   private audio: VeilAudio;
@@ -322,6 +426,15 @@ export class VeilRevealScene {
   private revealStartMs: number | null = null;
   private revealCameraZ = CAMERA_Z_START;
 
+  // Exhale: gentle camera drift after reveal completes
+  private exhaleActive = false;
+  private exhaleStart = 0;
+  private exhaleTargetZ = 0;
+  private exhaleTargetY = 0;
+
+  // Phosphene flash: single-frame white flash at wipe completion
+  private phospheneFired = false;
+
   // Animation loop
   private rafId: number | null = null;
   private accumulator = 0;
@@ -337,7 +450,6 @@ export class VeilRevealScene {
   private onResize: () => void;
 
   // Helpers
-  private pmrem: THREE.PMREMGenerator;
   private bgMaterial: THREE.ShaderMaterial;
 
   constructor(config: VeilRevealConfig) {
@@ -345,15 +457,15 @@ export class VeilRevealScene {
     this.audio = new VeilAudio();
 
     const { container, cardImagePath, isMobile } = config;
-    const width = container.clientWidth || window.innerWidth;
-    const height = container.clientHeight || window.innerHeight;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
 
     // ---------------------------------------------------------------
     // Renderer
     // ---------------------------------------------------------------
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
-      alpha: true,
+      alpha: false,
       powerPreference: 'high-performance',
     });
     this.renderer.setSize(width, height);
@@ -362,11 +474,12 @@ export class VeilRevealScene {
     );
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.1;
+    this.renderer.toneMappingExposure = 0.9;
+    this.renderer.domElement.style.display = 'block';
     container.appendChild(this.renderer.domElement);
 
     // ---------------------------------------------------------------
-    // Scene (no background -- Starfield shows through)
+    // Scene (opaque -- nebula shader bg, not the site Starfield)
     // ---------------------------------------------------------------
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x04020d); // match site void color
@@ -379,25 +492,35 @@ export class VeilRevealScene {
     this.camera.lookAt(0, 0, 0);
 
     // ---------------------------------------------------------------
+    // Cloth dimensions — sized to cover the full camera frustum
+    // ---------------------------------------------------------------
+    const fovRad = (32 / 2) * (Math.PI / 180);
+    const aspect = width / height;
+    const frustumW = 2 * CAMERA_Z_START * Math.tan(fovRad) * aspect;
+    const frustumH = 2 * CAMERA_Z_START * Math.tan(fovRad);
+    // Cloth must cover full frustum + 15% margin. Scale columns to
+    // keep the same particle spacing as the original 48-col / 3.6-unit cloth.
+    this.CLOTH_W = Math.max(BASE_CLOTH_W, frustumW * 1.15);
+    this.CLOTH_H = Math.max(BASE_CLOTH_H, frustumH * 1.15);
+    const spacing = BASE_CLOTH_W / (BASE_COLS - 1);
+    this.COLS = Math.round(this.CLOTH_W / spacing) + 1;
+
+    // ---------------------------------------------------------------
     // Lights
     // ---------------------------------------------------------------
     this.scene.add(new THREE.AmbientLight(0xffffff, 0.25));
 
-    const key = new THREE.DirectionalLight(0xcdd8ff, 1.0);
-    key.position.set(3, 1, 5);
+    const key = new THREE.DirectionalLight(0xcdd8ff, 0.9);
+    key.position.set(3, 2, 5);
     this.scene.add(key);
 
     const rim = new THREE.DirectionalLight(0xc790ff, 0.55);
     rim.position.set(-4, 2, -2);
     this.scene.add(rim);
 
-    // ---------------------------------------------------------------
-    // Environment map (procedural room for glass reflections)
-    // ---------------------------------------------------------------
-    this.pmrem = new THREE.PMREMGenerator(this.renderer);
-    this.pmrem.compileEquirectangularShader();
-    this.envTexture = this.pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-    this.scene.environment = this.envTexture;
+    // No environment map — RoomEnvironment overhead light blows out
+    // the flat top of the cloth in Three.js 0.183+. Directional lights
+    // + emissiveMap are enough for the glass-cloth look.
 
     // ---------------------------------------------------------------
     // Background nebula plane (dark cosmic backdrop for veil reflections)
@@ -452,6 +575,7 @@ export class VeilRevealScene {
     this.cardMesh.position.set(0, 0, -0.1);
     this.cardMesh.renderOrder = -1;
     this.cardMesh.scale.set(0.94, 0.94, 1);
+    this.cardMesh.visible = false; // hidden until reveal wipe starts
     this.scene.add(this.cardMesh);
 
     // Load the card texture
@@ -460,7 +584,7 @@ export class VeilRevealScene {
     // ---------------------------------------------------------------
     // Cloth physics
     // ---------------------------------------------------------------
-    this.cloth = new PBDCloth(COLS, ROWS, CLOTH_W, CLOTH_H);
+    this.cloth = new PBDCloth(this.COLS, ROWS, this.CLOTH_W, this.CLOTH_H);
 
     // Pre-settle: 240 steps for a natural catenary drape
     for (let i = 0; i < 240; i++) {
@@ -477,28 +601,18 @@ export class VeilRevealScene {
     this.veilTexture.colorSpace = THREE.SRGBColorSpace;
     this.veilTexture.anisotropy = 16;
 
-    this.veilMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      map: this.veilTexture,
-      emissive: 0xffffff,
-      emissiveMap: this.veilTexture,
-      emissiveIntensity: 0,
-      roughness: 0.18,
-      metalness: 0.0,
-      transmission: 0,
-      thickness: 0.45,
-      ior: 1.42,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.08,
-      iridescence: 0.85,
-      iridescenceIOR: 1.3,
-      iridescenceThicknessRange: [200, 800],
-      envMapIntensity: 1.0,
-      side: THREE.DoubleSide,
+    this.veilMaterial = new THREE.ShaderMaterial({
+      vertexShader: VEILVERTEX,
+      fragmentShader: VEILFRAGMENT,
+      uniforms: {
+        uTime: { value: 0.0 },
+        uOpacity: { value: 0.0 },
+        uCamPos: { value: this.camera.position.clone() },
+      },
       transparent: true,
-      opacity: 0,
       depthWrite: false,
-    });
+      side: THREE.DoubleSide,
+    }) as unknown as THREE.MeshStandardMaterial;
 
     this.veilMesh = new THREE.Mesh(this.veilGeometry, this.veilMaterial);
     this.veilMesh.frustumCulled = false;
@@ -516,8 +630,9 @@ export class VeilRevealScene {
 
     this.composer.addPass(new RenderPass(this.scene, this.camera));
 
+    const dpr = this.renderer.getPixelRatio();
     this.bloomPass = new UnrealBloomPass(
-      new THREE.Vector2(width, height),
+      new THREE.Vector2(width * dpr, height * dpr), // device pixels, not CSS!
       isMobile ? 0.25 : 0.35,   // strength (tamed for dark bg)
       0.6,                        // radius
       0.85,                       // threshold (higher = only bright peaks bloom)
@@ -583,13 +698,14 @@ export class VeilRevealScene {
     };
 
     this.onResize = () => {
-      const w = container.clientWidth || window.innerWidth;
-      const h = container.clientHeight || window.innerHeight;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const r = this.renderer.getPixelRatio();
       this.camera.aspect = w / h;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(w, h);
       this.composer.setSize(w, h);
-      this.bloomPass.resolution.set(w, h);
+      this.bloomPass.resolution.set(w * r, h * r); // device pixels
     };
 
     container.addEventListener('mousedown', this.onMouseDown);
@@ -618,6 +734,7 @@ export class VeilRevealScene {
   /** Programmatic reveal (for testing or reduced-motion). */
   triggerReveal(): void {
     if (this.revealed) return;
+    if (typeof navigator !== 'undefined' && 'vibrate' in navigator) navigator.vibrate([30, 20, 60]);
     this.revealed = true;
     this.revealStartMs = performance.now();
     this.holdStartMs = null;
@@ -628,7 +745,14 @@ export class VeilRevealScene {
       this.audio.playChimes(2.9);
     }
 
+    // Set up exhale: camera breathes backward after reveal (~3s delay)
+    this.exhaleActive = true;
+    this.exhaleStart = performance.now() + 3000; // start after reveal animation clears
+    this.exhaleTargetZ = this.camera.position.z + 0.06;
+    this.exhaleTargetY = this.camera.position.y + 0.02;
+
     if (this.config.reducedMotion) {
+      this.exhaleActive = false; // skip exhale for reduced motion
       this.cardMaterial.uniforms.uWipe.value = 1.2;
       this.cardMaterial.uniforms.uRevealed.value = 1;
       this.cardMesh.scale.set(1, 1, 1);
@@ -650,6 +774,8 @@ export class VeilRevealScene {
     this.revealed = false;
     this.revealStartMs = null;
     this.revealCameraZ = CAMERA_Z_START;
+    this.exhaleActive = false;
+    this.phospheneFired = false;
 
     // Reset card uniforms
     this.cardMaterial.uniforms.uOpacity.value = 0;
@@ -657,9 +783,11 @@ export class VeilRevealScene {
     this.cardMaterial.uniforms.uRevealed.value = 0;
     this.cardMaterial.uniforms.uWipe.value = -0.2;
     this.cardMesh.scale.set(0.94, 0.94, 1);
+    this.cardMesh.visible = false; // hide until next reveal
 
-    // Show veil
+    // Show veil and reset shader opacity
     this.veilMesh.visible = true;
+    (this.veilMaterial as unknown as THREE.ShaderMaterial).uniforms.uOpacity.value = 0;
 
     // Load new card texture
     this.loadCardTexture(newCardImagePath);
@@ -667,10 +795,10 @@ export class VeilRevealScene {
     // Reset the cloth to its settled state
     const cloth = this.cloth;
     for (let j = 0; j < ROWS; j++) {
-      for (let i = 0; i < COLS; i++) {
-        const idx3 = (j * COLS + i) * 3;
-        const x = (i / (COLS - 1) - 0.5) * CLOTH_W;
-        const y = (0.5 - j / (ROWS - 1)) * CLOTH_H;
+      for (let i = 0; i < this.COLS; i++) {
+        const idx3 = (j * this.COLS + i) * 3;
+        const x = (i / (this.COLS - 1) - 0.5) * this.CLOTH_W;
+        const y = (0.5 - j / (ROWS - 1)) * this.CLOTH_H;
         cloth.positions[idx3] = x;
         cloth.positions[idx3 + 1] = y;
         cloth.positions[idx3 + 2] = 0;
@@ -683,7 +811,7 @@ export class VeilRevealScene {
       }
     }
     cloth.pinned.fill(0);
-    for (let i = 0; i < COLS; i++) cloth.pinned[i] = 1;
+    for (let i = 0; i < this.COLS; i++) cloth.pinned[i] = 1;
     for (let i = 0; i < 240; i++) cloth.step(FIXED_DT, -5.0);
   }
 
@@ -712,8 +840,6 @@ export class VeilRevealScene {
     this.placeholderTex.dispose();
     this.veilTexture.dispose();
     if (this.cardTexture) this.cardTexture.dispose();
-    this.envTexture.dispose();
-    this.pmrem.dispose();
 
     // Dispose post-processing
     this.composer.dispose();
@@ -814,14 +940,14 @@ export class VeilRevealScene {
     // --- Pin release: sweep from centre outward ---
     const progress = Math.min(t / REVEAL_PIN_RELEASE, 1);
     const eased = progress * progress * (3 - 2 * progress); // smoothstep
-    const half = COLS >> 1;
+    const half = this.COLS >> 1;
     const unpinned = Math.floor(half * eased);
     for (let k = 0; k <= unpinned; k++) {
       cloth.pinned[half - k] = 0;
-      cloth.pinned[Math.min(half + k, COLS - 1)] = 0;
+      cloth.pinned[Math.min(half + k, this.COLS - 1)] = 0;
     }
     if (progress >= 1) {
-      for (let i = 0; i < COLS; i++) cloth.pinned[i] = 0;
+      for (let i = 0; i < this.COLS; i++) cloth.pinned[i] = 0;
     }
 
     // Report progress
@@ -846,6 +972,7 @@ export class VeilRevealScene {
 
     // --- Progressive top-to-bottom wipe ---
     if (t > CARD_FADE_START) {
+      this.cardMesh.visible = true; // show card as wipe begins
       const cp = Math.min((t - CARD_FADE_START) / CARD_FADE_DURATION, 1);
       const ce = 1 - Math.pow(1 - cp, 2.5);
 
@@ -860,6 +987,17 @@ export class VeilRevealScene {
       const burstT = Math.max(0, (cp - 0.5) * 2);
       this.cardMaterial.uniforms.uBurst.value =
         Math.exp(-burstT * 4.0) * 0.6 * Math.min(burstT * 8, 1);
+
+      // Phosphene flash: single-frame near-white when wipe is almost complete
+      if (cp >= 0.95 && !this.phospheneFired) {
+        this.phospheneFired = true;
+        const origColor = this.renderer.getClearColor(new THREE.Color());
+        const origAlpha = this.renderer.getClearAlpha();
+        this.renderer.setClearColor(0xf5eedd, 0.88);
+        requestAnimationFrame(() => {
+          this.renderer.setClearColor(origColor, origAlpha);
+        });
+      }
     }
 
     // Hide veil after cloth is fully off-screen
@@ -950,8 +1088,7 @@ export class VeilRevealScene {
       introP < 0.5
         ? 4 * introP * introP * introP
         : 1 - Math.pow(-2 * introP + 2, 3) / 2;
-    this.veilMaterial.opacity = 0.92 * introE;
-    this.veilMaterial.emissiveIntensity = 0.18 * introE;
+    (this.veilMaterial as unknown as THREE.ShaderMaterial).uniforms.uOpacity.value = 0.92 * introE;
 
     // Update background + card time uniforms
     const timeSec = nowMs * 0.001;
@@ -960,14 +1097,24 @@ export class VeilRevealScene {
     this.bgMaterial.uniforms.uMouse.value.set(this.mouseWorld.x, this.mouseWorld.y);
     this.cardMaterial.uniforms.uTime.value = timeSec;
 
+    // Update veil shader uniforms
+    const veilUniforms = (this.veilMaterial as unknown as THREE.ShaderMaterial).uniforms;
+    if (veilUniforms) {
+      veilUniforms.uTime.value = timeSec;
+      veilUniforms.uCamPos.value.copy(this.camera.position);
+    }
+
     // Hold progress -> check threshold
     if (this.holdStartMs !== null && !this.revealed) {
       const hold = Math.min(
         (nowMs - this.holdStartMs) / 1000 / HOLD_THRESHOLD,
         1,
       );
-      this.config.onProgress(hold * 0.15); // pre-reveal progress (0-15%)
-      if (hold >= 1) this.triggerReveal();
+      if (this.config.onHoldProgress) this.config.onHoldProgress(hold);
+      if (hold >= 1) {
+        if (this.config.onHoldProgress) this.config.onHoldProgress(0);
+        this.triggerReveal();
+      }
     }
 
     // Camera parallax + dolly
@@ -980,6 +1127,16 @@ export class VeilRevealScene {
 
     // Choreography
     this.updateReveal(nowMs, frameDt);
+
+    // Exhale: gentle camera backward-and-up drift after reveal
+    if (this.exhaleActive && nowMs >= this.exhaleStart) {
+      const elapsed = (nowMs - this.exhaleStart) / 1000;
+      const t = Math.min(elapsed / 1.4, 1);
+      const ease = 1 - Math.pow(1 - t, 3); // ease-out cubic
+      this.camera.position.z = THREE.MathUtils.lerp(this.camera.position.z, this.exhaleTargetZ, ease * 0.05);
+      this.camera.position.y = THREE.MathUtils.lerp(this.camera.position.y, this.exhaleTargetY, ease * 0.05);
+      if (t >= 1) this.exhaleActive = false;
+    }
 
     // Filmic time
     if (this.filmicPass) {

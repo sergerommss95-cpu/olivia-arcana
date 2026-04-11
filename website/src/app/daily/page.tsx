@@ -12,6 +12,8 @@ import { getSunPosition, getMoonPosition, getMoonPhase } from "../../lib/celesti
 import { getTodayHoroscope } from "../../lib/zodiac-utils";
 import { LIFE_AREAS } from "../../lib/planet-interpretations";
 import ZodiacIcon from "../../components/ZodiacIcon";
+import WhisperText from "../../components/WhisperText";
+import { textWordSpacing } from "../../lib/micro-typography";
 import { loadUser } from "../../lib/user-store";
 import { useLocale } from "../../lib/i18n/useLocale";
 
@@ -383,14 +385,15 @@ export default function DailyPage() {
               marginBottom: "2rem",
             }}>
               <div style={{ fontSize: "1.2rem", color: "rgba(212,175,55,0.3)", marginBottom: "0.75rem" }}>✦</div>
-              <p style={{
-                fontFamily: "var(--font-accent)", fontSize: "1.05rem", fontWeight: 400,
+              <div className="reading-text" style={{
+                fontFamily: "var(--font-body)", fontSize: "1.05rem", fontWeight: 400,
                 lineHeight: 1.85, color: "rgba(220,210,240,0.7)",
                 fontStyle: "italic", margin: 0,
                 maxWidth: "480px", marginLeft: "auto", marginRight: "auto",
+                wordSpacing: textWordSpacing(getTodayHoroscope(sign.name)),
               }}>
-                &ldquo;{getTodayHoroscope(sign.name)}&rdquo;
-              </p>
+                &ldquo;<WhisperText text={getTodayHoroscope(sign.name)} delay={400} wordDelay={60} />&rdquo;
+              </div>
             </div>
 
             {/* CTA */}

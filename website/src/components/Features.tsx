@@ -2,51 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 import TiltCard from "./TiltCard";
+import { useLocale } from "../lib/i18n/useLocale";
 
-const features = [
-  {
-    icon: "☉",
-    title: "Personal Birth Chart",
-    description: "Your natal chart calculated from NASA JPL ephemeris — real planetary positions at the exact moment of your birth. Not a sun-sign template.",
-    color: "#D4AF37",
-  },
-  {
-    icon: "☽",
-    title: "Daily Cosmic Guidance",
-    description: "Every morning, a reading crafted specifically for YOUR chart based on today's real planetary transits. Not generic — deeply personal.",
-    color: "#7B68EE",
-  },
-  {
-    icon: "🃏",
-    title: "Tarot Readings",
-    description: "From daily single-card pulls to deep Celtic Cross spreads. Each interpretation woven with your astrological data for layered insight.",
-    color: "#4ECDC4",
-  },
-  {
-    icon: "💕",
-    title: "Cosmic Compatibility",
-    description: "Full synastry analysis between two birth charts. Venus/Mars dynamics, Moon compatibility, and where the sparks — and friction — live.",
-    color: "#E8524A",
-  },
-  {
-    icon: "⚡",
-    title: "Transit Alerts",
-    description: "Real-time notifications when major planets cross sensitive points in YOUR chart. Saturn hitting your 10th house? You'll know first.",
-    color: "#D4AF37",
-  },
-  {
-    icon: "🎬",
-    title: "Personal Video Reading",
-    description: "A 5-8 minute video of Olivia reading your chart and cards — filmed just for you. The most intimate reading experience available.",
-    color: "#7B68EE",
-  },
-];
+interface FeatureItem {
+  icon: string;
+  title: string;
+  description: string;
+  color: string;
+}
 
 function FeatureCard({
   feature,
   index,
 }: {
-  feature: (typeof features)[0];
+  feature: FeatureItem;
   index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -96,16 +65,57 @@ function FeatureCard({
 }
 
 export default function Features() {
+  const { t } = useLocale();
+
+  const features: FeatureItem[] = [
+    {
+      icon: "☉",
+      title: t("feat_1_title"),
+      description: t("feat_1_desc"),
+      color: "#D4AF37",
+    },
+    {
+      icon: "☽",
+      title: t("feat_2_title"),
+      description: t("feat_2_desc"),
+      color: "#7B68EE",
+    },
+    {
+      icon: "🃏",
+      title: t("feat_3_title"),
+      description: t("feat_3_desc"),
+      color: "#4ECDC4",
+    },
+    {
+      icon: "💕",
+      title: t("feat_4_title"),
+      description: t("feat_4_desc"),
+      color: "#E8524A",
+    },
+    {
+      icon: "⚡",
+      title: t("feat_5_title"),
+      description: t("feat_5_desc"),
+      color: "#D4AF37",
+    },
+    {
+      icon: "🎬",
+      title: t("feat_6_title"),
+      description: t("feat_6_desc"),
+      color: "#7B68EE",
+    },
+  ];
+
   return (
     <section id="features" className="relative py-32 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-20">
           <p className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-[0.3em] uppercase mb-4">
-            What Olivia Offers
+            {t("feat_eyebrow")}
           </p>
           <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-warm-ivory mb-6">
-            Your Chart, Decoded
+            {t("feat_title")}
           </h2>
           <div className="star-divider max-w-xs mx-auto">&#10022;</div>
         </div>

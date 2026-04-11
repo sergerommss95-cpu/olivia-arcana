@@ -17,6 +17,10 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import type { CosmicProfile as CosmicProfileData } from "../lib/zodiac-utils";
 import { getCosmicEnergy } from "../lib/zodiac-utils";
 import html2canvas from "html2canvas";
+import WhisperText from "./WhisperText";
+import { textWordSpacing } from "../lib/micro-typography";
+import ShareCardModal from "./ShareCardModal";
+import { useLocale } from "../lib/i18n/useLocale";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -57,12 +61,14 @@ function Typewriter({ text, delay, speed = 32 }: { text: string; delay: number; 
 }
 
 export default function CosmicProfile({ profile }: Props) {
+  const { t } = useLocale();
   const containerRef = useRef<HTMLDivElement>(null);
   const scanRef = useRef<HTMLDivElement>(null);
   const energy = getCosmicEnergy(profile.name);
   const [energyWidth, setEnergyWidth] = useState(0);
   const [traitsReady, setTraitsReady] = useState(false);
   const [sharing, setSharing] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
 
   const handleShare = useCallback(async () => {
     if (!containerRef.current || sharing) return;
@@ -229,9 +235,9 @@ export default function CosmicProfile({ profile }: Props) {
         gap: "0.6rem", width: "100%",
       }}>
         {[
-          { emoji: profile.elementEmoji, value: profile.element, lbl: "Element" },
-          { emoji: "✧", value: profile.modality, lbl: "Modality" },
-          { emoji: profile.rulerEmoji, value: profile.ruler, lbl: "Ruler" },
+          { emoji: profile.elementEmoji, value: profile.element, lbl: t("common_element") },
+          { emoji: "✧", value: profile.modality, lbl: t("common_modality") },
+          { emoji: profile.rulerEmoji, value: profile.ruler, lbl: t("common_ruler") },
         ].map(({ emoji, value, lbl }) => (
           <div key={lbl} style={{
             ...glass,
@@ -252,7 +258,7 @@ export default function CosmicProfile({ profile }: Props) {
 
       {/* Traits */}
       <div data-r style={{ opacity: 0, width: "100%", padding: "0 0.25rem" }}>
-        <div style={{ ...label, marginBottom: "0.6rem" }}>Your Cosmic Traits</div>
+        <div style={{ ...label, marginBottom: "0.6rem" }}>{t("profile_your_cosmic_traits")}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
           {profile.traits.map((trait, i) => (
             <div key={i} style={{
@@ -276,7 +282,7 @@ export default function CosmicProfile({ profile }: Props) {
       {/* Energy */}
       <div data-r style={{ opacity: 0, width: "100%", padding: "0 0.25rem" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.4rem" }}>
-          <span style={label}>Cosmic Energy Today</span>
+          <span style={label}>{t("profile_cosmic_energy")}</span>
           <span style={{
             fontFamily: "'Cormorant Garamond', Georgia, serif",
             fontSize: "0.95rem", fontWeight: 500, color: "rgba(200,180,255,0.85)",
@@ -297,7 +303,7 @@ export default function CosmicProfile({ profile }: Props) {
 
       {/* Compatibility */}
       <div data-r style={{ opacity: 0, width: "100%", padding: "0 0.25rem" }}>
-        <div style={{ ...label, marginBottom: "0.5rem" }}>Best Cosmic Match</div>
+        <div style={{ ...label, marginBottom: "0.5rem" }}>{t("profile_best_match")}</div>
         <div style={{ display: "flex", gap: "0.5rem" }}>
           {profile.bestMatch.map(m => (
             <div key={m} style={{
@@ -320,10 +326,10 @@ export default function CosmicProfile({ profile }: Props) {
         gridTemplateColumns: "1fr 1fr", gap: "0.5rem", padding: "0 0.25rem",
       }}>
         {[
-          { l: "Lucky Numbers", v: profile.luckyNumbers.join(", ") },
-          { l: "Lucky Day", v: profile.luckyDay },
-          { l: "Lucky Color", v: profile.luckyColor, sw: profile.luckyColorHex },
-          { l: "Gemstone", v: profile.gemstone },
+          { l: t("profile_lucky_numbers"), v: profile.luckyNumbers.join(", ") },
+          { l: t("profile_lucky_day"), v: profile.luckyDay },
+          { l: t("profile_lucky_color"), v: profile.luckyColor, sw: profile.luckyColorHex },
+          { l: t("profile_gemstone"), v: profile.gemstone },
         ].map(({ l, v, sw }) => (
           <div key={l} style={{ display: "flex", flexDirection: "column", gap: "0.12rem" }}>
             <span style={label}>{l}</span>
@@ -348,14 +354,14 @@ export default function CosmicProfile({ profile }: Props) {
           width: "100%", height: "1px", marginBottom: "0.75rem",
           background: "linear-gradient(90deg, transparent, rgba(200,185,255,0.08), transparent)",
         }} />
-        <div style={{ ...label, marginBottom: "0.5rem" }}>Today&apos;s Reading</div>
-        <p style={{
-          fontFamily: "'Inter', system-ui, sans-serif",
-          fontSize: "0.82rem", fontWeight: 300, lineHeight: 1.75,
-          color: "rgba(196,185,228,0.72)", margin: 0, fontStyle: "italic",
+        <div style={{ ...label, marginBottom: "0.5rem" }}>{t("profile_todays_reading")}</div>
+        <div className="reading-text" style={{
+          fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
+          lineHeight: 1.75, color: "rgba(196,185,228,0.72)", margin: 0,
+          fontStyle: "italic", wordSpacing: textWordSpacing(profile.horoscope),
         }}>
-          &ldquo;{profile.horoscope}&rdquo;
-        </p>
+          &ldquo;<WhisperText text={profile.horoscope} delay={1200} wordDelay={55} />&rdquo;
+        </div>
       </div>
 
       {/* CTAs */}
@@ -369,8 +375,8 @@ export default function CosmicProfile({ profile }: Props) {
           color: "rgba(240,235,255,0.9)", fontSize: "0.76rem", fontWeight: 500,
           letterSpacing: "0.04em", textTransform: "uppercase" as const,
           textDecoration: "none", cursor: "pointer", transition: `all 300ms ${EASE}`,
-        }}>Celestial Portrait</a>
-        <button onClick={handleShare} disabled={sharing} style={{
+        }}>{t("profile_celestial_portrait")}</a>
+        <button onClick={() => setShareModalOpen(true)} disabled={sharing} style={{
           flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
           padding: "0.7rem 1rem", borderRadius: "100px",
           background: "rgba(255,255,255,0.03)",
@@ -380,8 +386,26 @@ export default function CosmicProfile({ profile }: Props) {
           letterSpacing: "0.04em", textTransform: "uppercase" as const,
           cursor: sharing ? "wait" : "pointer", transition: `all 300ms ${EASE}`,
           opacity: sharing ? 0.5 : 1,
-        }}>{sharing ? "Saving..." : "Share Cosmic ID"}</button>
+        }}>{sharing ? t("common_loading") : t("profile_share")}</button>
       </div>
+
+      <ShareCardModal
+        data={{
+          signName: profile.name,
+          signGlyph: profile.glyph,
+          bigThree: `Sun in ${profile.name}`,
+          element: profile.element,
+          elementEmoji: profile.elementEmoji,
+          cosmicEnergy: energy,
+          horoscope: profile.horoscope,
+          luckyColor: profile.luckyColor,
+          luckyColorHex: profile.luckyColorHex,
+          dateRange: profile.dateRange,
+          traits: profile.traits,
+        }}
+        open={shareModalOpen}
+        onClose={() => setShareModalOpen(false)}
+      />
 
       <style>{`
         @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }

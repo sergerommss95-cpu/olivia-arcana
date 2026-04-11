@@ -1,0 +1,1554 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Olivia Arcana · Card of the Day</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #04050d;
+        font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+        color: #fff;
+        cursor: none;
+      }
+      #stage { position: fixed; inset: 0; }
+      #stage canvas { display: block; }
+
+      #eyebrow {
+        position: fixed;
+        top: 38px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: 'Cinzel', Georgia, serif;
+        letter-spacing: 0.42em;
+        font-size: 10px;
+        text-transform: uppercase;
+        color: rgba(232, 220, 180, 0.55);
+        z-index: 10;
+        text-shadow: 0 0 24px rgba(140, 150, 220, 0.4);
+        pointer-events: none;
+        user-select: none;
+      }
+
+      #hint {
+        position: fixed;
+        bottom: 56px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: 'Cinzel', Georgia, serif;
+        font-size: 11px;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: rgba(232, 218, 170, 0.55);
+        z-index: 10;
+        pointer-events: none;
+        user-select: none;
+        animation: hintPulse 3.6s ease-in-out infinite;
+        text-shadow: 0 0 18px rgba(140, 150, 220, 0.45);
+      }
+      #hint.fading {
+        animation: none !important;
+        opacity: 0 !important;
+        transition: opacity 1.1s ease-out;
+      }
+      @keyframes hintPulse {
+        0%, 100% { opacity: 0.45; letter-spacing: 0.42em; }
+        50%      { opacity: 1.0;  letter-spacing: 0.50em; }
+      }
+
+      #perfHUD { display: none; }
+
+      #restart {
+        position: fixed;
+        bottom: 56px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: transparent;
+        border: 1px solid rgba(240, 207, 120, 0.35);
+        color: rgba(240, 207, 120, 0.85);
+        font-family: 'Cinzel', Georgia, serif;
+        font-size: 11px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        padding: 14px 32px;
+        cursor: none;
+        z-index: 11;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.9s ease, background 0.3s ease, border-color 0.3s ease, transform 0.9s ease;
+      }
+      #restart.visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+      }
+      #restart:hover {
+        background: rgba(240, 207, 120, 0.08);
+        border-color: rgba(240, 207, 120, 0.7);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        #hint { animation: none !important; }
+      }
+
+      #cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 60px;
+        height: 60px;
+        pointer-events: none;
+        z-index: 100;
+        will-change: transform;
+        transform: translate3d(-200px, -200px, 0) translate(-50%, -50%);
+        mix-blend-mode: screen;
+      }
+      #cursor svg { display: block; overflow: visible; }
+      #cursor .ring-bg {
+        stroke: rgba(220, 230, 255, 0.18);
+        stroke-width: 1;
+        fill: none;
+      }
+      #cursor .ring-progress {
+        stroke: #ffd784;
+        stroke-width: 2;
+        fill: none;
+        stroke-linecap: round;
+        stroke-dasharray: 138.23;
+        stroke-dashoffset: 138.23;
+        transform: rotate(-90deg);
+        transform-origin: 30px 30px;
+        filter: drop-shadow(0 0 8px rgba(255, 215, 132, 0.9));
+        transition: stroke-dashoffset 0.04s linear;
+      }
+      #cursor .core {
+        fill: rgba(255, 240, 200, 0.85);
+        filter: drop-shadow(0 0 10px rgba(255, 220, 150, 1));
+      }
+
+      @font-face {
+        font-family: 'Cinzel';
+        font-style: normal;
+        font-weight: 500;
+        src: url(https://fonts.gstatic.com/s/cinzel/v26/8vIJ7ww63mVu7gt79mT7PkRXMw.woff2) format('woff2');
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stage"></div>
+    <div id="eyebrow" style="opacity: 0; transition: opacity 1.2s ease;">✦  Card  of  the  Day  ✦</div>
+    <div id="hint">Press &amp; Hold to Lift the Veil</div>
+    <button id="restart" aria-label="Draw again">↺ Draw Again</button>
+
+    <div id="cursor">
+      <svg width="60" height="60" viewBox="0 0 60 60">
+        <circle class="ring-bg"       cx="30" cy="30" r="22" />
+        <circle class="ring-progress" cx="30" cy="30" r="22" />
+        <circle class="core"          cx="30" cy="30" r="2.5" />
+      </svg>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module">
+      import * as THREE from 'three'
+      import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
+      import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
+      import { RenderPass }     from 'three/addons/postprocessing/RenderPass.js'
+      import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
+      import { ShaderPass }     from 'three/addons/postprocessing/ShaderPass.js'
+      import { OutputPass }     from 'three/addons/postprocessing/OutputPass.js'
+
+      // ═══════════════════════════════════════════════════════════════
+      //  SCENE / CAMERA / RENDERER
+      // ═══════════════════════════════════════════════════════════════
+      const scene = new THREE.Scene()
+      scene.background = new THREE.Color(0x03030a)
+
+      const camera = new THREE.PerspectiveCamera(
+        32,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        100
+      )
+      camera.position.set(0, 0, 7.4)
+      camera.lookAt(0, 0, 0)
+
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: false,
+        powerPreference: 'high-performance',
+      })
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+      renderer.outputColorSpace = THREE.SRGBColorSpace
+      renderer.toneMapping = THREE.ACESFilmicToneMapping
+      renderer.toneMappingExposure = 1.1
+      document.getElementById('stage').appendChild(renderer.domElement)
+
+      // Image-based lighting — procedural room for real glass reflections
+      const pmrem = new THREE.PMREMGenerator(renderer)
+      pmrem.compileEquirectangularShader()
+      const roomEnv = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
+      scene.environment = roomEnv
+
+      // Lights to complement IBL
+      scene.add(new THREE.AmbientLight(0xffffff, 0.25))
+      const key = new THREE.DirectionalLight(0xcdd8ff, 1.4)
+      key.position.set(3, 4, 5)
+      scene.add(key)
+      const rim = new THREE.DirectionalLight(0xc790ff, 0.55)
+      rim.position.set(-4, 2, -2)
+      scene.add(rim)
+
+      // ═══════════════════════════════════════════════════════════════
+      //  BACKGROUND — cosmic nebula that the glass will refract
+      // ═══════════════════════════════════════════════════════════════
+      const bgMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+          uTime:  { value: 0 },
+          uMouse: { value: new THREE.Vector2(0, 0) },
+          uIntro: { value: 0 }, // 0 → 1 over page-load fade
+        },
+        vertexShader: /* glsl */`
+          varying vec2 vUv;
+          void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: /* glsl */`
+          uniform float uTime;
+          uniform vec2  uMouse;
+          uniform float uIntro;
+          varying vec2  vUv;
+
+          float hash(vec2 p) {
+            return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+          }
+          float noise(vec2 p) {
+            vec2 i = floor(p);
+            vec2 f = fract(p);
+            vec2 u = f * f * (3.0 - 2.0 * f);
+            return mix(
+              mix(hash(i + vec2(0.0, 0.0)), hash(i + vec2(1.0, 0.0)), u.x),
+              mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
+              u.y
+            );
+          }
+          float fbm(vec2 p) {
+            float v = 0.0;
+            float a = 0.5;
+            for (int i = 0; i < 5; i++) {
+              v += a * noise(p);
+              p = p * 2.07 + vec2(0.13, -0.21);
+              a *= 0.5;
+            }
+            return v;
+          }
+          void main() {
+            vec2 p = (vUv - 0.5) * vec2(1.0, 0.85);
+            vec2 m = uMouse * 0.18;
+            float mDist = length(p - m);
+            vec2 warp = normalize(p - m + 0.0001) * exp(-mDist * 1.4) * 0.03;
+            vec2 q = (p - warp) * 2.6 + vec2(uTime * 0.012, uTime * 0.008);
+
+            float n1 = fbm(q);
+            float n2 = fbm(q * 1.6 + vec2(2.7, -1.1));
+            float n3 = fbm(q * 3.1 + vec2(-1.8, 0.9));
+
+            vec3 deep   = vec3(0.012, 0.018, 0.055);
+            vec3 indigo = vec3(0.10, 0.06, 0.30);
+            vec3 violet = vec3(0.32, 0.10, 0.55);
+            vec3 cyan   = vec3(0.10, 0.45, 0.78);
+            vec3 gold   = vec3(0.85, 0.62, 0.28);
+
+            vec3 col = mix(deep, indigo, smoothstep(0.30, 0.75, n1));
+            col = mix(col, violet, smoothstep(0.40, 0.85, n2) * 0.7);
+            col += cyan * smoothstep(0.55, 0.95, n3) * 0.45;
+            col += gold * smoothstep(0.78, 1.0, n3) * 0.30;
+
+            float halo = exp(-mDist * 7.0) * 0.12;
+            col += vec3(0.40, 0.58, 0.95) * halo;
+
+            // Smooth stars
+            vec2 cs1 = vec2(380.0);
+            vec2 c1  = floor(vUv * cs1);
+            vec2 ic1 = fract(vUv * cs1) - 0.5;
+            float h1 = hash(c1);
+            float m1 = step(0.985, h1);
+            col += vec3(0.95, 0.98, 1.0) * exp(-dot(ic1, ic1) * 80.0) * m1 * 0.85;
+
+            vec2 cs2 = vec2(120.0);
+            vec2 c2  = floor(vUv * cs2);
+            vec2 ic2 = fract(vUv * cs2) - 0.5;
+            float h2 = hash(c2 + 0.37);
+            float m2 = step(0.978, h2);
+            col += vec3(1.0, 0.92, 0.78) * exp(-dot(ic2, ic2) * 30.0) * m2 * 1.05;
+
+            float vig = 1.0 - length(vUv - 0.5) * 1.35;
+            col *= clamp(vig, 0.32, 1.0);
+
+            // Page-load intro fade
+            col *= uIntro;
+
+            gl_FragColor = vec4(col, 1.0);
+          }
+        `,
+        depthWrite: false,
+      })
+      const bgMesh = new THREE.Mesh(new THREE.PlaneGeometry(40, 24), bgMaterial)
+      bgMesh.position.z = -8
+      scene.add(bgMesh)
+
+      // ═══════════════════════════════════════════════════════════════
+      //  CARD OF THE DAY — 78-card manifest + daily randomiser
+      // ═══════════════════════════════════════════════════════════════
+      const DECK = [
+        {id:0,name:"The Fool",num:"0",file:"00_the_fool.png"},
+        {id:1,name:"The Magician",num:"I",file:"01_the_magician.png"},
+        {id:2,name:"The High Priestess",num:"II",file:"02_the_high_priestess.png"},
+        {id:3,name:"The Empress",num:"III",file:"03_the_empress.png"},
+        {id:4,name:"The Emperor",num:"IV",file:"04_the_emperor.png"},
+        {id:5,name:"The Hierophant",num:"V",file:"05_the_hierophant.png"},
+        {id:6,name:"The Lovers",num:"VI",file:"06_the_lovers.png"},
+        {id:7,name:"The Chariot",num:"VII",file:"07_the_chariot.png"},
+        {id:8,name:"Strength",num:"VIII",file:"08_strength.png"},
+        {id:9,name:"The Hermit",num:"IX",file:"09_the_hermit.png"},
+        {id:10,name:"Wheel of Fortune",num:"X",file:"10_wheel_of_fortune.png"},
+        {id:11,name:"Justice",num:"XI",file:"11_justice.png"},
+        {id:12,name:"The Hanged Man",num:"XII",file:"12_the_hanged_man.png"},
+        {id:13,name:"Death",num:"XIII",file:"13_death.png"},
+        {id:14,name:"Temperance",num:"XIV",file:"14_temperance.png"},
+        {id:15,name:"The Devil",num:"XV",file:"15_the_devil.png"},
+        {id:16,name:"The Tower",num:"XVI",file:"16_the_tower.png"},
+        {id:17,name:"The Star",num:"XVII",file:"17_the_star.png"},
+        {id:18,name:"The Moon",num:"XVIII",file:"18_the_moon.png"},
+        {id:19,name:"The Sun",num:"XIX",file:"19_the_sun.png"},
+        {id:20,name:"Judgement",num:"XX",file:"20_judgement.png"},
+        {id:21,name:"The World",num:"XXI",file:"21_the_world.png"},
+        {id:22,name:"Ace of Wands",num:"Ace",file:"22_ace_of_wands.png"},
+        {id:23,name:"Two of Wands",num:"Two",file:"23_two_of_wands.png"},
+        {id:24,name:"Three of Wands",num:"Three",file:"24_three_of_wands.png"},
+        {id:25,name:"Four of Wands",num:"Four",file:"25_four_of_wands.png"},
+        {id:26,name:"Five of Wands",num:"Five",file:"26_five_of_wands.png"},
+        {id:27,name:"Six of Wands",num:"Six",file:"27_six_of_wands.png"},
+        {id:28,name:"Seven of Wands",num:"Seven",file:"28_seven_of_wands.png"},
+        {id:29,name:"Eight of Wands",num:"Eight",file:"29_eight_of_wands.png"},
+        {id:30,name:"Nine of Wands",num:"Nine",file:"30_nine_of_wands.png"},
+        {id:31,name:"Ten of Wands",num:"Ten",file:"31_ten_of_wands.png"},
+        {id:32,name:"Page of Wands",num:"Page",file:"32_page_of_wands.png"},
+        {id:33,name:"Knight of Wands",num:"Knight",file:"33_knight_of_wands.png"},
+        {id:34,name:"Queen of Wands",num:"Queen",file:"34_queen_of_wands.png"},
+        {id:35,name:"King of Wands",num:"King",file:"35_king_of_wands.png"},
+        {id:36,name:"Ace of Cups",num:"Ace",file:"36_ace_of_cups.png"},
+        {id:37,name:"Two of Cups",num:"Two",file:"37_two_of_cups.png"},
+        {id:38,name:"Three of Cups",num:"Three",file:"38_three_of_cups.png"},
+        {id:39,name:"Four of Cups",num:"Four",file:"39_four_of_cups.png"},
+        {id:40,name:"Five of Cups",num:"Five",file:"40_five_of_cups.png"},
+        {id:41,name:"Six of Cups",num:"Six",file:"41_six_of_cups.png"},
+        {id:42,name:"Seven of Cups",num:"Seven",file:"42_seven_of_cups.png"},
+        {id:43,name:"Eight of Cups",num:"Eight",file:"43_eight_of_cups.png"},
+        {id:44,name:"Nine of Cups",num:"Nine",file:"44_nine_of_cups.png"},
+        {id:45,name:"Ten of Cups",num:"Ten",file:"45_ten_of_cups.png"},
+        {id:46,name:"Page of Cups",num:"Page",file:"46_page_of_cups.png"},
+        {id:47,name:"Knight of Cups",num:"Knight",file:"47_knight_of_cups.png"},
+        {id:48,name:"Queen of Cups",num:"Queen",file:"48_queen_of_cups.png"},
+        {id:49,name:"King of Cups",num:"King",file:"49_king_of_cups.png"},
+        {id:50,name:"Ace of Swords",num:"Ace",file:"50_ace_of_swords.png"},
+        {id:51,name:"Two of Swords",num:"Two",file:"51_two_of_swords.png"},
+        {id:52,name:"Three of Swords",num:"Three",file:"52_three_of_swords.png"},
+        {id:53,name:"Four of Swords",num:"Four",file:"53_four_of_swords.png"},
+        {id:54,name:"Five of Swords",num:"Five",file:"54_five_of_swords.png"},
+        {id:55,name:"Six of Swords",num:"Six",file:"55_six_of_swords.png"},
+        {id:56,name:"Seven of Swords",num:"Seven",file:"56_seven_of_swords.png"},
+        {id:57,name:"Eight of Swords",num:"Eight",file:"57_eight_of_swords.png"},
+        {id:58,name:"Nine of Swords",num:"Nine",file:"58_nine_of_swords.png"},
+        {id:59,name:"Ten of Swords",num:"Ten",file:"59_ten_of_swords.png"},
+        {id:60,name:"Page of Swords",num:"Page",file:"60_page_of_swords.png"},
+        {id:61,name:"Knight of Swords",num:"Knight",file:"61_knight_of_swords.png"},
+        {id:62,name:"Queen of Swords",num:"Queen",file:"62_queen_of_swords.png"},
+        {id:63,name:"King of Swords",num:"King",file:"63_king_of_swords.png"},
+        {id:64,name:"Ace of Pentacles",num:"Ace",file:"64_ace_of_pentacles.png"},
+        {id:65,name:"Two of Pentacles",num:"Two",file:"65_two_of_pentacles.png"},
+        {id:66,name:"Three of Pentacles",num:"Three",file:"66_three_of_pentacles.png"},
+        {id:67,name:"Four of Pentacles",num:"Four",file:"67_four_of_pentacles.png"},
+        {id:68,name:"Five of Pentacles",num:"Five",file:"68_five_of_pentacles.png"},
+        {id:69,name:"Six of Pentacles",num:"Six",file:"69_six_of_pentacles.png"},
+        {id:70,name:"Seven of Pentacles",num:"Seven",file:"70_seven_of_pentacles.png"},
+        {id:71,name:"Eight of Pentacles",num:"Eight",file:"71_eight_of_pentacles.png"},
+        {id:72,name:"Nine of Pentacles",num:"Nine",file:"72_nine_of_pentacles.png"},
+        {id:73,name:"Ten of Pentacles",num:"Ten",file:"73_ten_of_pentacles.png"},
+        {id:74,name:"Page of Pentacles",num:"Page",file:"74_page_of_pentacles.png"},
+        {id:75,name:"Knight of Pentacles",num:"Knight",file:"75_knight_of_pentacles.png"},
+        {id:76,name:"Queen of Pentacles",num:"Queen",file:"76_queen_of_pentacles.png"},
+        {id:77,name:"King of Pentacles",num:"King",file:"77_king_of_pentacles.png"},
+      ]
+
+      // Daily-seeded pseudo-random: same card all day, new card at midnight
+      function dailySeed() {
+        const d = new Date()
+        return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate()
+      }
+      function seededRandom(seed) {
+        let s = seed
+        return () => { s = (s * 16807 + 0) % 2147483647; return s / 2147483647 }
+      }
+
+      let currentCard = null
+      const eyebrowEl = document.getElementById('eyebrow')
+
+      function pickCard(forceNew = false) {
+        if (forceNew) {
+          // "Draw Again" picks a true random card (different from current)
+          let idx
+          do { idx = Math.floor(Math.random() * DECK.length) }
+          while (DECK[idx] === currentCard && DECK.length > 1)
+          currentCard = DECK[idx]
+        } else {
+          // First draw: daily-seeded
+          const rng = seededRandom(dailySeed())
+          currentCard = DECK[Math.floor(rng() * DECK.length)]
+        }
+        // Format numeral for eyebrow
+        const romanOrRank = currentCard.num
+        const displayName = currentCard.name.replace(/^The /, 'The  ')
+        eyebrowEl.textContent = `\u2726  ${displayName}  \u00b7  ${romanOrRank}  \u2726`
+        return currentCard
+      }
+
+      pickCard()
+
+      // Load card texture from processed PNG
+      const textureLoader = new THREE.TextureLoader()
+      let cardTexture = null
+
+      function loadCardTexture(card) {
+        return new Promise((resolve) => {
+          textureLoader.load(`/cards/${card.file}`, (tex) => {
+            tex.colorSpace = THREE.SRGBColorSpace
+            tex.anisotropy = 16
+            tex.minFilter = THREE.LinearMipmapLinearFilter
+            tex.magFilter = THREE.LinearFilter
+            cardTexture = tex
+            resolve(tex)
+          })
+        })
+      }
+
+      // Load initial card
+      const initialTexPromise = loadCardTexture(currentCard)
+
+      // Legacy stub so the rest of the file still references cardTexture
+      function makeCardTexture() {
+        const W = 640, H = 896
+        const c = document.createElement('canvas')
+        c.width = W; c.height = H
+        const ctx = c.getContext('2d')
+
+        const bg = ctx.createRadialGradient(W / 2, H * 0.45, 30, W / 2, H * 0.5, H * 0.95)
+        bg.addColorStop(0, '#161a48')
+        bg.addColorStop(0.55, '#080826')
+        bg.addColorStop(1, '#02020a')
+        ctx.fillStyle = bg
+        ctx.fillRect(0, 0, W, H)
+
+        for (let i = 0; i < 28; i++) {
+          const x = Math.random() * W
+          const y = Math.random() * H
+          const r = 70 + Math.random() * 180
+          const tints = ['100,70,210', '70,140,235', '40,80,180', '180,110,250', '50,30,120']
+          const tint = tints[(Math.random() * tints.length) | 0]
+          const a = 0.10 + Math.random() * 0.16
+          const g = ctx.createRadialGradient(x, y, 0, x, y, r)
+          g.addColorStop(0, `rgba(${tint},${a})`)
+          g.addColorStop(1, `rgba(${tint},0)`)
+          ctx.fillStyle = g
+          ctx.fillRect(0, 0, W, H)
+        }
+        for (let i = 0; i < 280; i++) {
+          const x = Math.random() * W, y = Math.random() * H
+          const r = Math.random() * 1.3
+          ctx.fillStyle = `rgba(255,255,255,${0.3 + Math.random() * 0.65})`
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill()
+        }
+        for (let i = 0; i < 22; i++) {
+          const x = Math.random() * W, y = Math.random() * H
+          const r = 1.6 + Math.random() * 1.8
+          const glow = ctx.createRadialGradient(x, y, 0, x, y, r * 5)
+          glow.addColorStop(0, 'rgba(255,240,200,0.95)')
+          glow.addColorStop(1, 'rgba(255,240,200,0)')
+          ctx.fillStyle = glow
+          ctx.fillRect(x - r * 5, y - r * 5, r * 10, r * 10)
+          ctx.fillStyle = '#ffffff'
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill()
+        }
+
+        const gradGold = ctx.createLinearGradient(0, 0, W, H)
+        gradGold.addColorStop(0, '#f0cf78')
+        gradGold.addColorStop(0.5, '#a87f30')
+        gradGold.addColorStop(1, '#f0cf78')
+        ctx.strokeStyle = gradGold
+        ctx.lineWidth = 3.2
+        ctx.strokeRect(34, 34, W - 68, H - 68)
+        ctx.lineWidth = 1
+        ctx.strokeRect(46, 46, W - 92, H - 92)
+
+        for (const [x, y, deg] of [[54,54,0],[W-54,54,90],[W-54,H-54,180],[54,H-54,270]]) {
+          ctx.save(); ctx.translate(x,y); ctx.rotate((deg*Math.PI)/180)
+          ctx.strokeStyle='#f0cf78'; ctx.lineWidth=1.2
+          ctx.beginPath(); ctx.moveTo(0,18); ctx.lineTo(0,0); ctx.lineTo(18,0)
+          ctx.moveTo(6,6); ctx.lineTo(12,6); ctx.lineTo(12,12); ctx.lineTo(6,12); ctx.closePath()
+          ctx.stroke(); ctx.restore()
+        }
+
+        ctx.fillStyle = '#f0cf78'
+        ctx.textAlign = 'center'
+        ctx.font = '600 28px Cinzel, Georgia, serif'
+        ctx.fillText('✦   T H E   S T A R   ✦', W / 2, 110)
+
+        // --- Central sky: large 8-point star far up in the card ---
+        ctx.save(); ctx.translate(W / 2, H * 0.32)
+        ctx.strokeStyle = 'rgba(240,207,120,0.35)'
+        ctx.lineWidth = 1
+        for (let i = 0; i < 24; i++) {
+          ctx.save(); ctx.rotate((i / 24) * Math.PI * 2)
+          ctx.beginPath(); ctx.moveTo(0, -40); ctx.lineTo(0, -150); ctx.stroke()
+          ctx.restore()
+        }
+        ctx.strokeStyle = '#f0cf78'; ctx.lineWidth = 2.2
+        for (let i = 0; i < 8; i++) {
+          ctx.save(); ctx.rotate((i / 8) * Math.PI * 2)
+          ctx.beginPath(); ctx.moveTo(0, -22); ctx.lineTo(0, -120); ctx.stroke()
+          ctx.restore()
+        }
+        ctx.lineWidth = 1.2; ctx.globalAlpha = 0.65
+        for (let i = 0; i < 8; i++) {
+          ctx.save(); ctx.rotate(((i + 0.5) / 8) * Math.PI * 2)
+          ctx.beginPath(); ctx.moveTo(0, -30); ctx.lineTo(0, -74); ctx.stroke()
+          ctx.restore()
+        }
+        ctx.globalAlpha = 1; ctx.lineWidth = 1.6
+        ctx.beginPath(); ctx.arc(0, 0, 17, 0, Math.PI * 2); ctx.stroke()
+        ctx.beginPath(); ctx.arc(0, 0, 11, 0, Math.PI * 2); ctx.stroke()
+        ctx.fillStyle = '#f0cf78'
+        ctx.beginPath(); ctx.arc(0, 0, 3.5, 0, Math.PI * 2); ctx.fill()
+        ctx.restore()
+
+        // --- Seven smaller sparkle stars scattered in the upper sky ---
+        ctx.save(); ctx.translate(W / 2, H * 0.32); ctx.fillStyle = '#f0cf78'
+        for (const [sx, sy] of [[-165, -95], [165, -90], [-195, 18], [195, 12], [-145, 85], [140, 95], [0, -168]]) {
+          ctx.save(); ctx.translate(sx, sy)
+          ctx.beginPath()
+          ctx.moveTo(0, -6); ctx.lineTo(1.6, -1.6); ctx.lineTo(6, 0); ctx.lineTo(1.6, 1.6); ctx.lineTo(0, 6); ctx.lineTo(-1.6, 1.6); ctx.lineTo(-6, 0); ctx.lineTo(-1.6, -1.6); ctx.closePath()
+          ctx.fill()
+          const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, 11)
+          glow.addColorStop(0, 'rgba(240,207,120,0.55)'); glow.addColorStop(1, 'rgba(240,207,120,0)')
+          ctx.fillStyle = glow; ctx.fillRect(-11, -11, 22, 22)
+          ctx.fillStyle = '#f0cf78'
+          ctx.restore()
+        }
+        ctx.restore()
+
+        // --- Lower half: horizon of water + descending light beams ---
+        // Symbolic composition instead of a literal figure: the Star pours
+        // light onto the water, beams fall from sky to surface.
+        ctx.save()
+        ctx.translate(W / 2, H * 0.66)
+
+        // Descending light beams from the star above
+        ctx.strokeStyle = 'rgba(240, 207, 120, 0.35)'
+        ctx.lineWidth = 1
+        ctx.lineCap = 'round'
+        for (let k = 0; k < 9; k++) {
+          const t = (k - 4) / 4
+          const topX = t * 12
+          const botX = t * 60
+          const topY = -140
+          const botY = 110
+          ctx.globalAlpha = 0.15 + (1 - Math.abs(t)) * 0.55
+          ctx.beginPath()
+          ctx.moveTo(topX, topY)
+          ctx.lineTo(botX, botY)
+          ctx.stroke()
+        }
+        ctx.globalAlpha = 1
+
+        // Gold starlight dust inside the beam cone
+        ctx.fillStyle = '#f0cf78'
+        const dustPositions = [
+          [-6, -80], [10, -60], [-20, -40], [24, -30],
+          [-30, -10], [18, 6], [-12, 30], [32, 48],
+          [-40, 52], [-4, 68], [22, 80], [-28, 88],
+        ]
+        for (const [dx, dy] of dustPositions) {
+          ctx.globalAlpha = 0.55 + Math.random() * 0.4
+          ctx.beginPath(); ctx.arc(dx, dy, 0.9, 0, Math.PI * 2); ctx.fill()
+        }
+        ctx.globalAlpha = 1
+
+        // Horizon / water line
+        ctx.strokeStyle = '#f0cf78'
+        ctx.lineWidth = 1.6
+        ctx.beginPath(); ctx.moveTo(-230, 118); ctx.lineTo(230, 118); ctx.stroke()
+        ctx.strokeStyle = 'rgba(240, 207, 120, 0.55)'
+        ctx.lineWidth = 0.8
+        ctx.beginPath(); ctx.moveTo(-230, 124); ctx.lineTo(230, 124); ctx.stroke()
+
+        // Water ripples where the beams hit the surface
+        ctx.lineWidth = 0.9
+        const ripplePoints = [-200, -130, -70, 0, 70, 130, 200]
+        for (const rx of ripplePoints) {
+          ctx.beginPath()
+          ctx.moveTo(rx - 14, 122)
+          ctx.quadraticCurveTo(rx, 117, rx + 14, 122)
+          ctx.stroke()
+          // secondary ripple
+          ctx.beginPath()
+          ctx.moveTo(rx - 22, 130)
+          ctx.quadraticCurveTo(rx, 126, rx + 22, 130)
+          ctx.stroke()
+        }
+
+        // Reflected shimmer in the water — soft gold dots
+        ctx.fillStyle = '#f0cf78'
+        for (const [dx, dy] of [[-180, 128], [-115, 132], [-40, 126], [30, 130], [90, 128], [155, 132]]) {
+          ctx.globalAlpha = 0.3 + Math.random() * 0.4
+          ctx.beginPath(); ctx.arc(dx, dy, 1.2, 0, Math.PI * 2); ctx.fill()
+        }
+        ctx.globalAlpha = 1
+
+        // A lotus blossom on the water (symbol of spiritual emergence)
+        ctx.save()
+        ctx.translate(0, 120)
+        ctx.strokeStyle = '#f0cf78'
+        ctx.lineWidth = 1.2
+        for (let i = 0; i < 5; i++) {
+          const a = (i - 2) * 0.38
+          ctx.save()
+          ctx.rotate(a)
+          ctx.beginPath()
+          ctx.moveTo(0, 0)
+          ctx.bezierCurveTo(-8, -16, 8, -16, 0, 0)
+          ctx.stroke()
+          ctx.restore()
+        }
+        ctx.fillStyle = '#f0cf78'
+        ctx.beginPath(); ctx.arc(0, -6, 1.6, 0, Math.PI * 2); ctx.fill()
+        ctx.restore()
+
+        ctx.restore()
+
+        ctx.fillStyle='#f0cf78'
+        ctx.font='500 16px Cinzel, Georgia, serif'
+        ctx.fillText('·  X V I I  ·', W/2, H-80)
+
+        const tex = new THREE.CanvasTexture(c)
+        tex.colorSpace = THREE.SRGBColorSpace
+        tex.anisotropy = 16
+        return tex
+      }
+
+      // cardTexture is loaded async; use a 1x1 placeholder until ready
+      const placeholderTex = new THREE.DataTexture(
+        new Uint8Array([8, 8, 30, 255]), 1, 1, THREE.RGBAFormat
+      )
+      placeholderTex.needsUpdate = true
+
+      const cardMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+          uMap:      { value: placeholderTex },
+          uOpacity:  { value: 0.0 },  // hidden until veil parts
+          uBurst:    { value: 0.0 },
+          uTime:     { value: 0.0 },
+          uRevealed: { value: 0.0 }, // 0→1 after veil drops
+          uWipe:     { value: -0.2 }, // vertical wipe position: -0.2 (hidden) → 1.2 (fully revealed)
+        },
+        vertexShader: /* glsl */`
+          varying vec2 vUv;
+          void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: /* glsl */`
+          uniform sampler2D uMap;
+          uniform float uOpacity;
+          uniform float uBurst;
+          uniform float uTime;
+          uniform float uRevealed;
+          uniform float uWipe;
+          varying vec2 vUv;
+
+          void main() {
+            vec4 c = texture2D(uMap, vUv);
+
+            // --- Top-to-bottom wipe reveal ---
+            // vUv.y: 1.0 = top, 0.0 = bottom
+            // uWipe: -0.2 (hidden) → 1.2 (fully revealed)
+            // --- Top-to-bottom wipe ---
+            // revealLine descends from 1.2 (above card) to -0.2 (below card)
+            // Card visible where vUv.y > revealLine (top of card first)
+            float safeWipe = clamp(uWipe, -0.2, 1.2);
+            float revealLine = 1.0 - safeWipe;
+            float softness = 0.07;
+            // smoothstep(a,b,x): 0 when x<=a, 1 when x>=b (a < b guaranteed)
+            float wipeMask = smoothstep(revealLine - softness, revealLine + softness, vUv.y);
+
+            // --- Animated glass shine: diagonal highlight sweep ---
+            float diag = vUv.x * 0.7 + vUv.y * 0.3;
+            float sweepPos = fract(uTime * 0.08);
+            float sweep = smoothstep(sweepPos - 0.12, sweepPos, diag)
+                        * smoothstep(sweepPos + 0.12, sweepPos, diag);
+            float shineStrength = sweep * 0.18 * uRevealed;
+
+            // Subtle edge specular
+            float edgeX = smoothstep(0.0, 0.06, vUv.x) * smoothstep(1.0, 0.94, vUv.x);
+            float edgeY = smoothstep(0.0, 0.06, vUv.y) * smoothstep(1.0, 0.94, vUv.y);
+            float edgeGlow = (1.0 - edgeX * edgeY) * 0.08 * uRevealed;
+
+            // Gold line shimmer
+            float luminance = dot(c.rgb, vec3(0.299, 0.587, 0.114));
+            float shimmer = sin(uTime * 3.0 + vUv.x * 40.0 + vUv.y * 30.0) * 0.5 + 0.5;
+            float goldShimmer = shimmer * luminance * 0.12 * uRevealed;
+
+            // Soft golden glow at the wipe edge — warm light spilling in
+            float edgeDist = abs(vUv.y - revealLine);
+            float edgeGlowLine = (1.0 - smoothstep(0.0, 0.08, edgeDist)) * 0.5
+                               * (1.0 - wipeMask * 0.3);
+
+            vec3 col = c.rgb;
+            vec3 shineTint = vec3(1.0, 0.95, 0.82);
+            col += shineTint * shineStrength;
+            col += shineTint * edgeGlow;
+            col += vec3(1.0, 0.88, 0.55) * goldShimmer;
+            col += vec3(1.0, 0.85, 0.4) * edgeGlowLine;
+
+            // Burst glow
+            vec3 glow = vec3(1.05, 0.92, 0.65);
+            col += glow * uBurst;
+            float rad = length(vUv - 0.5);
+            float halo = (1.0 - smoothstep(0.0, 0.75, rad)) * uBurst * 1.4;
+            col += glow * halo;
+
+            // Final alpha = wipe mask (top-to-bottom progressive reveal)
+            gl_FragColor = vec4(col, c.a * wipeMask);
+          }
+        `,
+        transparent: true,
+        depthWrite: false,  // card uses wipe mask for alpha — no depth write
+      })
+      const cardMesh = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 3.6), cardMaterial)
+      cardMesh.position.set(0, 0, -0.05)  // slightly behind veil
+      cardMesh.renderOrder = 0             // renders before veil (renderOrder 1)
+      cardMesh.scale.set(0.94, 0.94, 1)
+      scene.add(cardMesh)
+
+      // Swap in the real texture once loaded
+      initialTexPromise.then((tex) => {
+        cardMaterial.uniforms.uMap.value = tex
+      })
+
+      // ═══════════════════════════════════════════════════════════════
+      //  PBD CLOTH — real physics, not fake sinusoids
+      // ═══════════════════════════════════════════════════════════════
+      //
+      // Position-Based Dynamics (Müller 2007 / XPBD Macklin 2016) with:
+      //   • structural constraints  (i↔i+1 horizontal, i↔i+cols vertical)
+      //   • shear constraints       (diagonals across each quad)
+      //   • bending constraints     (skip-one: i↔i+2 along rows AND cols)
+      //
+      // Data layout — typed arrays, no allocations in the hot loop:
+      //   positions  : Float32Array  (3 per particle)
+      //   previous   : Float32Array  (3 per particle)  — for velocity calc
+      //   velocities : Float32Array  (3 per particle)
+      //   pinned     : Uint8Array
+      //   constraints : Int32Array / Float32Array — flat: a, b, rest, stiffness
+      // ═══════════════════════════════════════════════════════════════
+      class PBDCloth {
+        constructor(cols, rows, width, height) {
+          this.cols   = cols
+          this.rows   = rows
+          this.width  = width
+          this.height = height
+          this.n      = cols * rows
+
+          this.positions  = new Float32Array(this.n * 3)
+          this.previous   = new Float32Array(this.n * 3)
+          this.velocities = new Float32Array(this.n * 3)
+          this.pinned     = new Uint8Array(this.n)
+
+          // Initial flat grid
+          const restX = width / (cols - 1)
+          const restY = height / (rows - 1)
+          for (let j = 0; j < rows; j++) {
+            for (let i = 0; i < cols; i++) {
+              const idx3 = (j * cols + i) * 3
+              const x = (i / (cols - 1) - 0.5) * width
+              const y = (0.5 - j / (rows - 1)) * height
+              const z = 0
+              this.positions[idx3]     = x
+              this.positions[idx3 + 1] = y
+              this.positions[idx3 + 2] = z
+              this.previous[idx3]      = x
+              this.previous[idx3 + 1]  = y
+              this.previous[idx3 + 2]  = z
+            }
+          }
+
+          // Pin the top row — every vertex on row 0
+          for (let i = 0; i < cols; i++) this.pinned[i] = 1
+
+          // Build constraints — flat arrays for cache efficiency
+          const cons = []
+          const push = (a, b, rest, stiff) => cons.push(a, b, rest, stiff)
+          const idx = (i, j) => j * cols + i
+          const restD = Math.hypot(restX, restY)
+
+          // Structural — horizontal + vertical (highest stiffness)
+          for (let j = 0; j < rows; j++) {
+            for (let i = 0; i < cols; i++) {
+              if (i < cols - 1) push(idx(i, j), idx(i + 1, j), restX, 1.0)
+              if (j < rows - 1) push(idx(i, j), idx(i, j + 1), restY, 1.0)
+            }
+          }
+          // Shear — both diagonals of every quad (moderate stiffness)
+          for (let j = 0; j < rows - 1; j++) {
+            for (let i = 0; i < cols - 1; i++) {
+              push(idx(i, j),     idx(i + 1, j + 1), restD, 0.55)
+              push(idx(i + 1, j), idx(i, j + 1),     restD, 0.55)
+            }
+          }
+          // Bending — skip-one along rows & columns (soft, resists fold collapse)
+          for (let j = 0; j < rows; j++) {
+            for (let i = 0; i < cols - 2; i++) {
+              push(idx(i, j), idx(i + 2, j), restX * 2, 0.22)
+            }
+          }
+          for (let j = 0; j < rows - 2; j++) {
+            for (let i = 0; i < cols; i++) {
+              push(idx(i, j), idx(i, j + 2), restY * 2, 0.22)
+            }
+          }
+
+          // Flatten to a Float32Array for the hot loop.
+          // Layout: [a0, b0, rest0, stiff0, a1, b1, rest1, stiff1, ...]
+          this.conLen = cons.length / 4
+          this.cons   = new Float32Array(cons.length)
+          this.cons.set(cons)
+
+          console.log(
+            `[PBD] cloth ${cols}×${rows} = ${this.n} particles, ${this.conLen} constraints`
+          )
+        }
+
+        addForce(fx, fy, fz) {
+          const n = this.n
+          const vs = this.velocities
+          const pinned = this.pinned
+          for (let p = 0; p < n; p++) {
+            if (pinned[p]) continue
+            const i = p * 3
+            vs[i]     += fx
+            vs[i + 1] += fy
+            vs[i + 2] += fz
+          }
+        }
+
+        // Apply a spherical repulsive/attractive force around a world-space point
+        applyPointForce(cx, cy, cz, strength, radius) {
+          const n = this.n
+          const ps = this.positions
+          const vs = this.velocities
+          const pinned = this.pinned
+          const r2 = radius * radius
+          for (let p = 0; p < n; p++) {
+            if (pinned[p]) continue
+            const i = p * 3
+            const dx = ps[i]     - cx
+            const dy = ps[i + 1] - cy
+            const dz = ps[i + 2] - cz
+            const d2 = dx * dx + dy * dy + dz * dz
+            if (d2 > r2 || d2 < 1e-6) continue
+            const falloff = 1 - d2 / r2
+            const inv = 1 / Math.sqrt(d2)
+            vs[i]     += dx * inv * falloff * strength
+            vs[i + 1] += dy * inv * falloff * strength
+            vs[i + 2] += dz * inv * falloff * strength
+          }
+        }
+
+        step(dt, gravityY) {
+          const n = this.n
+          const ps = this.positions
+          const prev = this.previous
+          const vs = this.velocities
+          const pinned = this.pinned
+
+          // --- PREDICT (explicit Euler) ---
+          for (let p = 0; p < n; p++) {
+            if (pinned[p]) continue
+            const i = p * 3
+            vs[i + 1] += gravityY * dt
+            prev[i]     = ps[i]
+            prev[i + 1] = ps[i + 1]
+            prev[i + 2] = ps[i + 2]
+            ps[i]     += vs[i]     * dt
+            ps[i + 1] += vs[i + 1] * dt
+            ps[i + 2] += vs[i + 2] * dt
+          }
+
+          // --- SOLVE CONSTRAINTS (Gauss-Seidel, 10 iterations) ---
+          const cons = this.cons
+          const L = this.conLen
+          const ITER = 10
+          for (let iter = 0; iter < ITER; iter++) {
+            for (let k = 0; k < L; k++) {
+              const base = k * 4
+              const a = cons[base]     | 0
+              const b = cons[base + 1] | 0
+              const rest  = cons[base + 2]
+              const stiff = cons[base + 3]
+              const ai = a * 3
+              const bi = b * 3
+              const dx = ps[bi]     - ps[ai]
+              const dy = ps[bi + 1] - ps[ai + 1]
+              const dz = ps[bi + 2] - ps[ai + 2]
+              const d  = Math.sqrt(dx * dx + dy * dy + dz * dz)
+              if (d < 1e-7) continue
+              // Per-iteration stiffness ~ 1 - (1 - k)^(1/iter) approx via simple lerp
+              const diff = ((d - rest) / d) * 0.5 * stiff
+              const ox = dx * diff
+              const oy = dy * diff
+              const oz = dz * diff
+              const pa = pinned[a], pb = pinned[b]
+              if (!pa) {
+                ps[ai]     += ox
+                ps[ai + 1] += oy
+                ps[ai + 2] += oz
+              }
+              if (!pb) {
+                ps[bi]     -= ox
+                ps[bi + 1] -= oy
+                ps[bi + 2] -= oz
+              }
+            }
+          }
+
+          // --- UPDATE VELOCITIES (from position delta) + DAMPING ---
+          const damping = 0.94
+          const invDt = 1 / dt
+          for (let p = 0; p < n; p++) {
+            if (pinned[p]) { vs[p*3]=0; vs[p*3+1]=0; vs[p*3+2]=0; continue }
+            const i = p * 3
+            vs[i]     = (ps[i]     - prev[i])     * invDt * damping
+            vs[i + 1] = (ps[i + 1] - prev[i + 1]) * invDt * damping
+            vs[i + 2] = (ps[i + 2] - prev[i + 2]) * invDt * damping
+          }
+        }
+
+        releasePin(index) {
+          this.pinned[index] = 0
+        }
+
+        releaseAll() {
+          for (let i = 0; i < this.n; i++) this.pinned[i] = 0
+        }
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      //  BUILD THE CLOTH
+      // ═══════════════════════════════════════════════════════════════
+      const COLS = 48
+      const ROWS = 64
+      const CLOTH_W = 3.6
+      const CLOTH_H = 4.8
+      const cloth = new PBDCloth(COLS, ROWS, CLOTH_W, CLOTH_H)
+
+      // Pre-settle: let the cloth hang naturally from its pinned top row.
+      // This gives us an organic catenary drape before the user ever sees it.
+      {
+        const fixedDt = 1 / 60
+        for (let i = 0; i < 240; i++) {
+          cloth.step(fixedDt, -5.0)
+        }
+      }
+
+      // Build a BufferGeometry whose position attribute references the
+      // cloth's Float32Array DIRECTLY — zero-copy updates.
+      function buildClothGeometry(cloth) {
+        const g = new THREE.BufferGeometry()
+        g.setAttribute(
+          'position',
+          new THREE.BufferAttribute(cloth.positions, 3)
+        )
+
+        const uvs = new Float32Array(cloth.n * 2)
+        for (let j = 0; j < cloth.rows; j++) {
+          for (let i = 0; i < cloth.cols; i++) {
+            const idx = (j * cloth.cols + i) * 2
+            uvs[idx]     = i / (cloth.cols - 1)
+            uvs[idx + 1] = 1 - j / (cloth.rows - 1)
+          }
+        }
+        g.setAttribute('uv', new THREE.BufferAttribute(uvs, 2))
+
+        const indices = []
+        for (let j = 0; j < cloth.rows - 1; j++) {
+          for (let i = 0; i < cloth.cols - 1; i++) {
+            const a = j * cloth.cols + i
+            const b = a + 1
+            const c = a + cloth.cols
+            const d = c + 1
+            indices.push(a, c, b, b, c, d)
+          }
+        }
+        g.setIndex(indices)
+        g.computeVertexNormals()
+        return g
+      }
+
+      const veilGeometry = buildClothGeometry(cloth)
+
+      // Original glass material — same look, but transmission: 0 so card stays hidden
+      const veilTexture = new THREE.TextureLoader().load('/textures/veil.jpg')
+      veilTexture.colorSpace = THREE.SRGBColorSpace
+      veilTexture.anisotropy = 16
+
+      const veilMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0xffffff,
+        map: veilTexture,
+        emissive: 0xffffff,
+        emissiveMap: veilTexture,
+        emissiveIntensity: 0.18,
+        roughness: 0.18,
+        metalness: 0.0,
+        transmission: 0.0,   // was 0.60 — zero = card can't bleed through
+        thickness: 0.45,
+        ior: 1.42,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.08,
+        iridescence: 0.85,
+        iridescenceIOR: 1.3,
+        iridescenceThicknessRange: [200, 800],
+        envMapIntensity: 1.0,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.92,
+        depthWrite: false,
+      })
+
+      const veilMesh = new THREE.Mesh(veilGeometry, veilMaterial)
+      veilMesh.frustumCulled = false
+      veilMesh.renderOrder = 1  // always render after (on top of) the card
+      scene.add(veilMesh)
+
+      // Start invisible for the intro fade
+      veilMaterial.opacity = 0
+      veilMaterial.emissiveIntensity = 0
+
+      const pageLoadMs = performance.now()
+      const INTRO_DURATION = 2.2  // seconds
+      const INTRO_DELAY    = 0.25 // seconds before anything starts
+
+      // ═══════════════════════════════════════════════════════════════
+      //  POST-PROCESSING — bloom + chromatic aberration + vignette
+      // ═══════════════════════════════════════════════════════════════
+      const composer = new EffectComposer(renderer)
+      composer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+      composer.setSize(window.innerWidth, window.innerHeight)
+
+      composer.addPass(new RenderPass(scene, camera))
+
+      // UnrealBloom — gentle halation, only on true highlights
+      const dpr = Math.min(window.devicePixelRatio, 2)
+      const bloomPass = new UnrealBloomPass(
+        new THREE.Vector2(window.innerWidth * dpr, window.innerHeight * dpr),
+        0.55,  // strength
+        0.75,  // radius — soft diffusion
+        0.78   // threshold — only catch the brightest specular hits
+      )
+      composer.addPass(bloomPass)
+
+      // Custom chromatic aberration + vignette + film grain combined pass
+      const filmicPass = new ShaderPass({
+        uniforms: {
+          tDiffuse: { value: null },
+          uTime:    { value: 0 },
+          uAmount:  { value: 0.0035 }, // CA strength in UV space
+          uVignette:{ value: 1.1 },    // vignette intensity
+          uGrain:   { value: 0.04 },   // grain amount
+        },
+        vertexShader: /* glsl */`
+          varying vec2 vUv;
+          void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: /* glsl */`
+          uniform sampler2D tDiffuse;
+          uniform float uTime;
+          uniform float uAmount;
+          uniform float uVignette;
+          uniform float uGrain;
+          varying vec2 vUv;
+
+          // Fast hash for film grain
+          float hash(vec2 p) {
+            return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+          }
+
+          void main() {
+            vec2 uv = vUv;
+            vec2 center = uv - 0.5;
+
+            // Radial chromatic aberration — stronger toward edges
+            float rad = length(center);
+            vec2 dir = normalize(center + 1e-6);
+            float caScale = rad * uAmount;
+
+            float r = texture2D(tDiffuse, uv - dir * caScale * 1.6).r;
+            float g = texture2D(tDiffuse, uv                       ).g;
+            float b = texture2D(tDiffuse, uv + dir * caScale * 1.6).b;
+            vec3 col = vec3(r, g, b);
+
+            // Vignette — gentle fall-off, preserves centre
+            float vig = smoothstep(1.0, 0.25, rad * uVignette);
+            col *= mix(0.55, 1.0, vig);
+
+            // Film grain — animated noise
+            float grain = hash(uv * vec2(1920.0, 1080.0) + uTime * 37.0) - 0.5;
+            col += grain * uGrain;
+
+            // Subtle teal/gold split-tone
+            vec3 shadow   = vec3(0.85, 0.92, 1.08); // cool shadows
+            vec3 highlight = vec3(1.08, 1.02, 0.92); // warm highlights
+            float lum = dot(col, vec3(0.299, 0.587, 0.114));
+            col *= mix(shadow, highlight, smoothstep(0.2, 0.85, lum));
+
+            gl_FragColor = vec4(col, 1.0);
+          }
+        `,
+      })
+      composer.addPass(filmicPass)
+
+      composer.addPass(new OutputPass())
+
+      // ═══════════════════════════════════════════════════════════════
+      //  MOUSE INTERACTION
+      // ═══════════════════════════════════════════════════════════════
+      const mouseScreen = new THREE.Vector2(0, 0)
+      const mouseWorld  = new THREE.Vector3(50, 50, 0.3)
+      const raycaster   = new THREE.Raycaster()
+      const veilPlane   = new THREE.Plane(new THREE.Vector3(0, 0, 1), -0.3)
+      let mouseEverMoved = false
+      const cameraParallax       = new THREE.Vector2(0, 0)
+      const cameraParallaxTarget = new THREE.Vector2(0, 0)
+
+      function projectMouseToVeil(clientX, clientY) {
+        const rect = renderer.domElement.getBoundingClientRect()
+        mouseScreen.set(
+          ((clientX - rect.left) / rect.width) * 2 - 1,
+          -((clientY - rect.top) / rect.height) * 2 + 1
+        )
+        raycaster.setFromCamera(mouseScreen, camera)
+        const hit = new THREE.Vector3()
+        raycaster.ray.intersectPlane(veilPlane, hit)
+        mouseWorld.set(hit.x, hit.y, 0.3)
+      }
+
+      const cursorEl   = document.getElementById('cursor')
+      const cursorRing = cursorEl.querySelector('.ring-progress')
+      const restartEl  = document.getElementById('restart')
+      const RING_CIRC  = 138.23
+
+      restartEl.addEventListener('click', (e) => {
+        e.stopPropagation()
+        resetReveal()
+      })
+
+      // Respect user preference — if reduced-motion is requested, kill
+      // the perfume of animation and show a static reveal flow.
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+      window.addEventListener('mousemove', (e) => {
+        cursorEl.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`
+        projectMouseToVeil(e.clientX, e.clientY)
+        if (!mouseEverMoved) mouseEverMoved = true
+        cameraParallaxTarget.set(mouseWorld.x, mouseWorld.y)
+      })
+
+      // Press-and-hold reveal
+      const HOLD_THRESHOLD = 1.3
+      let holdStartMs = null
+      let revealed = false
+      let revealStartMs = null
+      const hintEl = document.getElementById('hint')
+
+      window.addEventListener('mousedown', (e) => {
+        if (revealed) return
+        holdStartMs = performance.now()
+        projectMouseToVeil(e.clientX, e.clientY)
+      })
+      window.addEventListener('mouseup', () => {
+        if (revealed) return
+        if (holdStartMs !== null) {
+          const heldFor = (performance.now() - holdStartMs) / 1000
+          if (heldFor < HOLD_THRESHOLD) holdStartMs = null
+        }
+      })
+
+      // Expose for testing
+      window.__triggerReveal = () => triggerReveal(performance.now())
+      window.__resetReveal = () => resetReveal()
+
+      function triggerReveal(now) {
+        if (revealed) return
+        revealed = true
+        revealStartMs = now
+        holdStartMs = null
+        hintEl.classList.add('fading')
+        if (!reducedMotion) playRevealAudio()
+        if (reducedMotion) {
+          // Instant reveal for users who requested reduced motion.
+          cardMaterial.uniforms.uWipe.value = 1.2
+          cardMaterial.uniforms.uRevealed.value = 1
+          cardMesh.scale.set(1, 1, 1)
+          veilMesh.visible = false
+          eyebrowEl.style.opacity = 1
+          setTimeout(() => restartEl.classList.add('visible'), 900)
+        } else {
+          setTimeout(() => restartEl.classList.add('visible'), 7000)
+        }
+      }
+
+      function resetReveal() {
+        revealed = false
+        revealStartMs = null
+        revealCameraZ = CAMERA_Z_START
+        cardMaterial.uniforms.uOpacity.value = 0
+        cardMaterial.uniforms.uBurst.value = 0
+        cardMaterial.uniforms.uRevealed.value = 0
+        cardMaterial.uniforms.uWipe.value = -0.2
+        cardMesh.scale.set(0.96, 0.96, 1)
+        veilMesh.visible = true
+        hintEl.classList.remove('fading')
+        restartEl.classList.remove('visible')
+
+        // Hide card name + pick new card
+        eyebrowEl.style.opacity = 0
+
+        pickCard(true)
+        loadCardTexture(currentCard).then((tex) => {
+          cardMaterial.uniforms.uMap.value = tex
+        })
+
+        // Reset the cloth to its settled state
+        for (let j = 0; j < ROWS; j++) {
+          for (let i = 0; i < COLS; i++) {
+            const idx3 = (j * COLS + i) * 3
+            const x = (i / (COLS - 1) - 0.5) * CLOTH_W
+            const y = (0.5 - j / (ROWS - 1)) * CLOTH_H
+            cloth.positions[idx3]     = x
+            cloth.positions[idx3 + 1] = y
+            cloth.positions[idx3 + 2] = 0
+            cloth.previous[idx3]      = x
+            cloth.previous[idx3 + 1]  = y
+            cloth.previous[idx3 + 2]  = 0
+            cloth.velocities[idx3]     = 0
+            cloth.velocities[idx3 + 1] = 0
+            cloth.velocities[idx3 + 2] = 0
+          }
+        }
+        cloth.pinned.fill(0)
+        for (let i = 0; i < COLS; i++) cloth.pinned[i] = 1
+        for (let i = 0; i < 240; i++) cloth.step(1 / 60, -5.0)
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      //  AUDIO — Web Audio synthesis for the reveal
+      //  (No autoplay: only fires on user click, satisfies browser policy)
+      // ═══════════════════════════════════════════════════════════════
+      let audioCtx = null
+      function ensureAudio() {
+        if (audioCtx) return audioCtx
+        try {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+        } catch (e) { /* no-op */ }
+        return audioCtx
+      }
+
+      function playWhoosh(duration = 2.4) {
+        const ctx = ensureAudio(); if (!ctx) return
+        const now = ctx.currentTime
+        const bufferSize = Math.max(1, Math.floor(ctx.sampleRate * duration))
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate)
+        const data = buffer.getChannelData(0)
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / bufferSize
+          data[i] = (Math.random() * 2 - 1) * (1 - t)
+        }
+        const source = ctx.createBufferSource()
+        source.buffer = buffer
+
+        const filter = ctx.createBiquadFilter()
+        filter.type = 'lowpass'
+        filter.Q.value = 5
+        filter.frequency.setValueAtTime(2400, now)
+        filter.frequency.exponentialRampToValueAtTime(160, now + duration)
+
+        const gain = ctx.createGain()
+        gain.gain.setValueAtTime(0, now)
+        gain.gain.linearRampToValueAtTime(0.22, now + 0.1)
+        gain.gain.exponentialRampToValueAtTime(0.001, now + duration)
+
+        source.connect(filter).connect(gain).connect(ctx.destination)
+        source.start(now)
+        source.stop(now + duration)
+      }
+
+      function playChime(freq, delay, duration = 1.4, gainPeak = 0.08) {
+        const ctx = ensureAudio(); if (!ctx) return
+        const start = ctx.currentTime + delay
+        const osc = ctx.createOscillator()
+        osc.type = 'sine'
+        osc.frequency.value = freq
+
+        // A fifth-above gentle overtone for warmth
+        const osc2 = ctx.createOscillator()
+        osc2.type = 'sine'
+        osc2.frequency.value = freq * 1.5
+
+        const gain = ctx.createGain()
+        gain.gain.setValueAtTime(0, start)
+        gain.gain.linearRampToValueAtTime(gainPeak, start + 0.04)
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + duration)
+
+        const gain2 = ctx.createGain()
+        gain2.gain.setValueAtTime(0, start)
+        gain2.gain.linearRampToValueAtTime(gainPeak * 0.35, start + 0.04)
+        gain2.gain.exponentialRampToValueAtTime(0.0001, start + duration * 0.8)
+
+        osc.connect(gain).connect(ctx.destination)
+        osc2.connect(gain2).connect(ctx.destination)
+        osc.start(start); osc.stop(start + duration)
+        osc2.start(start); osc2.stop(start + duration)
+      }
+
+      function playRevealAudio() {
+        if (!ensureAudio()) return
+        // Ensure context is resumed (Chrome requires user gesture)
+        if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {})
+
+        playWhoosh(3.4)
+        // Ascending fifths → octave, timed to the card emergence
+        playChime(392.00, 2.9, 1.8, 0.06) // G4
+        playChime(523.25, 3.1, 1.8, 0.07) // C5
+        playChime(659.25, 3.3, 1.8, 0.08) // E5
+        playChime(783.99, 3.5, 2.4, 0.10) // G5
+        playChime(1046.5, 3.9, 3.0, 0.08) // C6 — final bell
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      //  REVEAL CHOREOGRAPHY — pin release, wind, camera dolly, burst
+      // ═══════════════════════════════════════════════════════════════
+      const REVEAL_PIN_RELEASE = 1.6   // seconds to unpin all top-row pins
+      const WIND_DURATION      = 4.0   // wind active during fall
+      const CARD_FADE_START    = 0.6   // just after center pins release
+      const CARD_FADE_DURATION = 2.4   // synced with faster cloth fall
+      const VEIL_HIDE_TIME     = 6.0
+      const CAMERA_DOLLY_START = 0.0
+      const CAMERA_DOLLY_END   = 5.0
+      const CAMERA_Z_START     = 7.4
+      const CAMERA_Z_END       = 6.55
+
+      let revealCameraZ = CAMERA_Z_START
+
+      function updateReveal(now, dtSec) {
+        if (revealStartMs === null) return
+        const t = (now - revealStartMs) / 1000
+
+        // --- Pin release: sweep from centre outward like a curtain parting ---
+        const progress = Math.min(t / REVEAL_PIN_RELEASE, 1)
+        const eased = progress * progress * (3 - 2 * progress)
+        const half = (COLS >> 1)
+        const unpinned = Math.floor(half * eased)
+        for (let k = 0; k <= unpinned; k++) {
+          cloth.pinned[half - k] = 0
+          cloth.pinned[Math.min(half + k, COLS - 1)] = 0
+        }
+        if (progress >= 1) {
+          for (let i = 0; i < COLS; i++) cloth.pinned[i] = 0
+        }
+
+        // --- Wind: big initial gust that tapers, gives the cloth a theatrical billow ---
+        if (t < WIND_DURATION) {
+          const gustEnvelope = Math.exp(-t * 0.7) * (1 - Math.exp(-t * 4))
+          const windX = gustEnvelope * (0.9 + Math.sin(t * 1.8) * 0.35)
+          const windZ = gustEnvelope * (-0.5 + Math.sin(t * 2.3) * 0.25)
+          cloth.addForce(windX * dtSec, 0, windZ * dtSec)
+        }
+
+        // --- Camera dolly-in: slow cinematic push toward the revealed card ---
+        if (t > CAMERA_DOLLY_START && t < CAMERA_DOLLY_END) {
+          const cp = (t - CAMERA_DOLLY_START) / (CAMERA_DOLLY_END - CAMERA_DOLLY_START)
+          const ce = 1 - Math.pow(1 - cp, 2.4) // ease-out-cubic-ish
+          revealCameraZ = CAMERA_Z_START + (CAMERA_Z_END - CAMERA_Z_START) * ce
+        }
+
+        // --- Progressive top-to-bottom wipe synced with cloth fall ---
+        if (t > CARD_FADE_START) {
+          const cp = Math.min((t - CARD_FADE_START) / CARD_FADE_DURATION, 1)
+          const ce = 1 - Math.pow(1 - cp, 2.5) // ease-out
+
+          // Drive the vertical wipe: -0.2 → 1.2 (overshoots ensure full reveal)
+          cardMaterial.uniforms.uWipe.value = -0.2 + ce * 1.4
+          // Shine ramps up with reveal
+          cardMaterial.uniforms.uRevealed.value = ce
+
+          // Gentle scale breathe 0.96 → 1.0
+          const s = 0.96 + ce * 0.04
+          cardMesh.scale.set(s, s, 1)
+
+          // Gold burst peaks at ~60% wipe then decays
+          const burstT = Math.max(0, (cp - 0.5) * 2)
+          cardMaterial.uniforms.uBurst.value =
+            Math.exp(-burstT * 4.0) * 0.6 * Math.min(burstT * 8, 1)
+
+          // Show card name once mostly revealed
+          eyebrowEl.style.opacity = Math.max(0, (cp - 0.6) / 0.4)
+        }
+
+        // Hide veil after cloth is fully off-screen
+        if (t > 6.0) veilMesh.visible = false
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      //  ANIMATION LOOP — fixed-timestep physics
+      // ═══════════════════════════════════════════════════════════════
+      const FIXED_DT = 1 / 60
+      let accumulator = 0
+      let lastMs = performance.now()
+
+      function animate() {
+        requestAnimationFrame(animate)
+        const nowMs = performance.now()
+        const frameDt = Math.min((nowMs - lastMs) / 1000, 0.05)
+        lastMs = nowMs
+        accumulator += frameDt
+
+        // Run physics at fixed 60Hz, up to 3 catch-up steps
+        let steps = 0
+        while (accumulator >= FIXED_DT && steps < 3) {
+          const tSec = nowMs * 0.001
+
+          // --- Idle breathing: ambient wind field so the cloth is never frozen ---
+          // Very gentle low-frequency sway in X and Z — mimics air currents.
+          if (!revealed) {
+            const breathX =
+              Math.sin(tSec * 0.45) * 0.06 +
+              Math.sin(tSec * 0.19 + 1.2) * 0.04
+            const breathZ =
+              Math.sin(tSec * 0.37 + 0.8) * 0.05 +
+              Math.sin(tSec * 0.23 - 0.6) * 0.035
+            cloth.addForce(breathX * FIXED_DT, 0, breathZ * FIXED_DT)
+          }
+
+          // --- Mouse force: cloth is pushed away from the cursor (repel) ---
+          if (mouseEverMoved && !revealed) {
+            cloth.applyPointForce(
+              mouseWorld.x, mouseWorld.y, mouseWorld.z,
+              0.34, // strength — stronger now for clearer interaction
+              0.95  // radius — wider field of influence
+            )
+          }
+
+          // --- Hold-state: attractive tug + pulsing vibration ---
+          if (holdStartMs !== null && !revealed) {
+            const h = Math.min((nowMs - holdStartMs) / 1000 / HOLD_THRESHOLD, 1)
+            cloth.applyPointForce(
+              mouseWorld.x, mouseWorld.y, mouseWorld.z,
+              -0.40 * h * h,
+              1.2
+            )
+            const pulse = Math.sin((nowMs - holdStartMs) * 0.045) * 0.5 * h * h
+            cloth.addForce(pulse * FIXED_DT, pulse * 0.2 * FIXED_DT, 0)
+          }
+
+          cloth.step(FIXED_DT, -18.0)
+          accumulator -= FIXED_DT
+          steps++
+        }
+        // Drop overflow if we fell too far behind
+        if (accumulator > FIXED_DT * 3) accumulator = 0
+
+        // Update geometry normals so the glass material shades correctly
+        veilGeometry.attributes.position.needsUpdate = true
+        veilGeometry.computeVertexNormals()
+        veilGeometry.computeBoundingSphere()
+
+        // --- Intro fade: everything emerges from darkness on first load ---
+        const introElapsed = Math.max(0, (nowMs - pageLoadMs) / 1000 - INTRO_DELAY)
+        const introP = Math.min(introElapsed / INTRO_DURATION, 1)
+        // Smooth cubic ease-in-out
+        const introE = introP < 0.5
+          ? 4 * introP * introP * introP
+          : 1 - Math.pow(-2 * introP + 2, 3) / 2
+        bgMaterial.uniforms.uIntro.value = introE
+        veilMaterial.opacity = 0.92 * introE
+        veilMaterial.emissiveIntensity = 0.18 * introE
+
+        // Background + card uniforms
+        const timeSec = nowMs * 0.001
+        bgMaterial.uniforms.uTime.value = timeSec
+        bgMaterial.uniforms.uMouse.value.set(mouseWorld.x, mouseWorld.y)
+        cardMaterial.uniforms.uTime.value = timeSec
+
+        // Cursor progress ring
+        let hold = 0
+        if (holdStartMs !== null && !revealed) {
+          hold = Math.min((nowMs - holdStartMs) / 1000 / HOLD_THRESHOLD, 1)
+          if (hold >= 1) triggerReveal(nowMs)
+        }
+        cursorRing.style.strokeDashoffset = `${RING_CIRC * (1 - hold)}`
+
+        // Camera parallax + dolly
+        cameraParallax.lerp(cameraParallaxTarget, 0.07)
+        const parallaxScale = revealed ? 0.05 : 0.14
+        camera.position.x = cameraParallax.x * parallaxScale
+        camera.position.y = cameraParallax.y * (parallaxScale * 0.5)
+        camera.position.z = revealed ? revealCameraZ : 7.4
+        camera.lookAt(0, 0, 0)
+
+        updateReveal(nowMs, frameDt)
+
+        filmicPass.uniforms.uTime.value = nowMs * 0.001
+        composer.render()
+
+      }
+      animate()
+
+      window.addEventListener('resize', () => {
+        const w = window.innerWidth
+        const h = window.innerHeight
+        const pr = Math.min(window.devicePixelRatio, 2)
+        camera.aspect = w / h
+        camera.updateProjectionMatrix()
+        renderer.setSize(w, h)
+        composer.setSize(w, h)
+        bloomPass.resolution.set(w * pr, h * pr)
+      })
+    </script>
+  </body>
+</html>

@@ -24,6 +24,7 @@ export default function VeilRevealWrapper({
   const sceneRef = useRef<import("./VeilRevealScene").VeilRevealScene | null>(null);
 
   const [holdProgress, setHoldProgress] = useState(0);
+  const [holdRingProgress, setHoldRingProgress] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [eyebrowOpacity, setEyebrowOpacity] = useState(0);
@@ -65,6 +66,7 @@ export default function VeilRevealWrapper({
           reducedMotion,
           onRevealComplete: handleRevealComplete,
           onProgress: handleProgress,
+          onHoldProgress: (p: number) => setHoldRingProgress(p),
         });
         scene.start();
         sceneRef.current = scene;
@@ -89,6 +91,7 @@ export default function VeilRevealWrapper({
     setShowButton(false);
     setEyebrowOpacity(0);
     setHoldProgress(0);
+    setHoldRingProgress(0);
     onDrawAgain();
   }, [onDrawAgain]);
 
@@ -103,6 +106,12 @@ export default function VeilRevealWrapper({
 
   return (
     <div className="relative w-full" style={{ height: "100dvh" }}>
+      <style>{`
+        @keyframes veil-pulse-ring {
+          0% { transform: scale(1); opacity: 0.4; }
+          100% { transform: scale(1.35); opacity: 0; }
+        }
+      `}</style>
       {/* Three.js canvas container */}
       <div
         ref={containerRef}
@@ -183,14 +192,26 @@ export default function VeilRevealWrapper({
               cx="30" cy="30" r="22"
               fill="none" stroke="rgba(240,207,120,0.7)" strokeWidth="2"
               strokeDasharray={RING_CIRC}
-              strokeDashoffset={RING_CIRC * (1 - holdProgress)}
+              strokeDashoffset={RING_CIRC * (1 - holdRingProgress)}
               strokeLinecap="round"
               style={{
                 transform: "rotate(-90deg)",
                 transformOrigin: "center",
-                transition: holdProgress > 0 ? "none" : "stroke-dashoffset 0.3s ease",
+                transition: holdRingProgress > 0 ? "none" : "stroke-dashoffset 0.3s ease",
               }}
             />
+            {holdRingProgress > 0.95 && (
+              <circle
+                cx="30" cy="30" r="22"
+                fill="none"
+                stroke="rgba(240,207,120,0.4)"
+                strokeWidth="3"
+                style={{
+                  transformOrigin: "center",
+                  animation: "veil-pulse-ring 0.6s ease-out infinite",
+                }}
+              />
+            )}
             <circle cx="30" cy="30" r="3" fill="rgba(240,207,120,0.85)" />
           </svg>
         </div>

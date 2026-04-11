@@ -1,0 +1,7 @@
+[build]
+  command = "npx next build"
+  publish = "out"
+
+[[edge_functions]]
+  path = "/api/chat"
+  function = "chat"

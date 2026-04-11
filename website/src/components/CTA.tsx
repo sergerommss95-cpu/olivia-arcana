@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "../lib/i18n/useLocale";
 
 export default function CTA() {
+  const { t } = useLocale();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -33,12 +35,11 @@ export default function CTA() {
         <div className="text-5xl mb-6 animate-float">☽</div>
 
         <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold mb-6">
-          <span className="text-gold-gradient">Your Stars Are Waiting</span>
+          <span className="text-gold-gradient">{t("cta_title")}</span>
         </h2>
 
         <p className="font-[family-name:var(--font-accent)] text-xl text-muted-lavender mb-10 max-w-xl mx-auto">
-          The cosmos has been writing your story since the moment you were born.
-          It&apos;s time to read it.
+          {t("cta_subtitle")}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -50,12 +51,12 @@ export default function CTA() {
           >
             <span className="absolute inset-0 bg-gradient-to-r from-celestial-gold to-[#F5E6A3]" />
             <span className="absolute inset-0 bg-gradient-to-r from-[#F5E6A3] to-celestial-gold opacity-0 group-hover:opacity-100 transition-opacity" />
-            <span className="relative">Get Your Free Reading</span>
+            <span className="relative">{t("cta_button")}</span>
           </a>
         </div>
 
         <p className="mt-6 text-xs text-muted-lavender/40">
-          Free birth chart reading. No payment required. Takes 2 minutes.
+          {t("cta_note")}
         </p>
       </div>
     </section>

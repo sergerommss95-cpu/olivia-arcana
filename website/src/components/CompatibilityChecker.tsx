@@ -11,6 +11,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { getSunSign } from "../lib/zodiac-utils";
+import { useLocale } from "../lib/i18n/useLocale";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -30,12 +31,7 @@ function getCompatScores(a: number, b: number) {
   };
 }
 
-function getVerdict(overall: number): string {
-  if (overall >= 85) return "A cosmic match written in the stars. This connection transcends the ordinary.";
-  if (overall >= 70) return "Strong gravitational pull. Your energies complement and elevate each other.";
-  if (overall >= 55) return "Intriguing tensions create growth. This pairing challenges you to evolve.";
-  return "Different orbits, but opposites can spark transformation. Requires conscious effort.";
-}
+// getVerdict moved inside component to access t()
 
 const GLYPHS: Record<string, string> = {
   Aries: "♈", Taurus: "♉", Gemini: "♊", Cancer: "♋",
@@ -110,8 +106,16 @@ function ScoreBar({ label, score, delay, color }: { label: string; score: number
 }
 
 export default function CompatibilityChecker() {
+  const { t } = useLocale();
   const [bdayA, setBdayA] = useState("");
   const [bdayB, setBdayB] = useState("");
+
+  const getVerdict = (overall: number): string => {
+    if (overall >= 85) return t("compat_v1");
+    if (overall >= 70) return t("compat_v2");
+    if (overall >= 55) return t("compat_v3");
+    return t("compat_v4");
+  };
   const sectionRef = useRef<HTMLDivElement>(null);
   const resultRef = useRef<HTMLDivElement>(null);
 
@@ -175,13 +179,13 @@ export default function CompatibilityChecker() {
           fontFamily: "var(--font-heading)", fontSize: "clamp(1.6rem, 4vw, 2.2rem)",
           fontWeight: 600, marginBottom: "0.75rem",
         }}>
-          <span className="text-gold-gradient">Cosmic Compatibility</span>
+          <span className="text-gold-gradient">{t("compat_title")}</span>
         </h2>
         <p style={{
           fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 300,
           color: "rgba(196,185,228,0.7)", maxWidth: "400px", margin: "0 auto",
         }}>
-          Enter two birthdays to reveal your celestial connection
+          {t("compat_subtitle")}
         </p>
       </div>
 
@@ -190,11 +194,11 @@ export default function CompatibilityChecker() {
         display: "flex", alignItems: "center", gap: "1rem",
         justifyContent: "center", marginBottom: "2rem",
       }}>
-        <BirthdayInput value={bdayA} onChange={setBdayA} label="Person 1" />
+        <BirthdayInput value={bdayA} onChange={setBdayA} label={t("compat_person1")} />
         <span style={{
           fontSize: "1.2rem", color: "rgba(212,175,55,0.4)", marginTop: "1rem",
         }}>&#10022;</span>
-        <BirthdayInput value={bdayB} onChange={setBdayB} label="Person 2" />
+        <BirthdayInput value={bdayB} onChange={setBdayB} label={t("compat_person2")} />
       </div>
 
       {/* Results */}
@@ -237,7 +241,7 @@ export default function CompatibilityChecker() {
               fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 500,
               letterSpacing: "0.2em", textTransform: "uppercase",
               color: "rgba(180,170,210,0.45)", marginTop: "0.3rem",
-            }}>Overall Compatibility</div>
+            }}>{t("compat_overall")}</div>
           </div>
 
           {/* Score bars */}
@@ -249,10 +253,10 @@ export default function CompatibilityChecker() {
             border: "1px solid rgba(200,185,255,0.08)",
             borderRadius: "1rem",
           }}>
-            <ScoreBar label="Love" score={scores.love} delay={200} color="#E8524A" />
-            <ScoreBar label="Communication" score={scores.communication} delay={400} color="#7B68EE" />
-            <ScoreBar label="Trust" score={scores.trust} delay={600} color="#4ECDC4" />
-            <ScoreBar label="Passion" score={scores.passion} delay={800} color="#D4AF37" />
+            <ScoreBar label={t("compat_love")} score={scores.love} delay={200} color="#E8524A" />
+            <ScoreBar label={t("compat_comm")} score={scores.communication} delay={400} color="#7B68EE" />
+            <ScoreBar label={t("compat_trust")} score={scores.trust} delay={600} color="#4ECDC4" />
+            <ScoreBar label={t("compat_passion")} score={scores.passion} delay={800} color="#D4AF37" />
           </div>
 
           {/* Verdict */}

@@ -11,8 +11,9 @@ export function generateStaticParams() {
   return Object.keys(SIGN_PAGES).map(sign => ({ sign }));
 }
 
-export function generateMetadata({ params }: { params: { sign: string } }) {
-  const data = SIGN_PAGES[params.sign?.toLowerCase()];
+export async function generateMetadata({ params }: { params: Promise<{ sign: string }> }) {
+  const { sign } = await params;
+  const data = SIGN_PAGES[sign?.toLowerCase()];
   if (!data) return {};
   return {
     title: `${data.name} ${data.glyph} — Zodiac Sign Guide | Olivia Arcana`,
@@ -47,8 +48,9 @@ function TagList({ items, color = "rgba(200,185,255,0.15)" }: { items: string[];
   );
 }
 
-export default function SignDetailPage({ params }: { params: { sign: string } }) {
-  const data = SIGN_PAGES[params.sign?.toLowerCase()];
+export default async function SignDetailPage({ params }: { params: Promise<{ sign: string }> }) {
+  const { sign } = await params;
+  const data = SIGN_PAGES[sign?.toLowerCase()];
   if (!data) return notFound();
 
   const glass = {

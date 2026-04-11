@@ -9,8 +9,10 @@
 import React, { useState, useEffect } from "react";
 import { getSunPosition, getMoonPosition, getMoonPhase } from "../lib/celestial";
 import { getUpcomingEvents, EVENT_TYPE_META } from "../lib/astro-events";
+import { useLocale } from "../lib/i18n/useLocale";
 
 export default function CosmicStatus() {
+  const { t } = useLocale();
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
   if (!mounted) return null;
@@ -94,7 +96,7 @@ export default function CosmicStatus() {
           letterSpacing: "0.08em",
           textTransform: "uppercase",
           fontSize: "0.65rem",
-        }}>Cosmos</span>
+        }}>{t("nav_cosmos")}</span>
       </a>
     </div>
   );
