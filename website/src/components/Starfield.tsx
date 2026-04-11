@@ -23,6 +23,8 @@ export default function Starfield() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let disposed = false;
+    let handleScrollRhythm: (() => void) | null = null;
+    let archetypeInterval: ReturnType<typeof setInterval> | null = null;
 
     const init = async () => {
       try {
@@ -66,6 +68,64 @@ export default function Starfield() {
         // Fewer shooting stars on mobile (handled inside the system)
         engine.registerSystem(shooting, "shooting");
 
+        try {
+          const { getVisitorArchetype } = await import("../lib/visitor-archetype");
+          const { getAnniversaryWarmth } = await import("../lib/anniversary");
+          const { loadUser } = await import("../lib/user-store");
+
+          const applyArchetype = () => {
+            const nebulaSystem = engine.getSystem<import("./cosmos/engine/NebulaPlane").NebulaPlane>("nebula");
+            if (!nebulaSystem) return;
+
+            const archetype = getVisitorArchetype();
+            const user = loadUser();
+            const anniversaryWarmth =
+              user?.input?.year && user?.input?.month && user?.input?.day
+                ? getAnniversaryWarmth(
+                    new Date(user.input.year, user.input.month - 1, user.input.day),
+                  )
+                : 0;
+
+            nebulaSystem.setArchetype(
+              archetype.hueShift,
+              archetype.saturation,
+              archetype.warmth + anniversaryWarmth,
+            );
+          };
+
+          applyArchetype();
+          archetypeInterval = setInterval(applyArchetype, 30_000);
+        } catch {
+          // graceful degradation
+        }
+
+        // Breath mirror — detect scroll rhythm and bias nebula frequency toward user cadence
+        let lastScrollTime = 0;
+        const scrollIntervals: number[] = [];
+        const MAX_RHYTHM_SAMPLES = 8;
+
+        handleScrollRhythm = () => {
+          const now = performance.now();
+          const interval = now - lastScrollTime;
+          lastScrollTime = now;
+
+          if (interval > 300 && interval < 3000) {
+            scrollIntervals.push(interval);
+            if (scrollIntervals.length > MAX_RHYTHM_SAMPLES) {
+              scrollIntervals.shift();
+            }
+          }
+
+          if (scrollIntervals.length >= 3 && engineRef.current) {
+            const meanMs = scrollIntervals.reduce((a, b) => a + b, 0) / scrollIntervals.length;
+            const detectedHz = 1000 / meanMs;
+            const clampedHz = Math.max(0.12, Math.min(0.4, detectedHz * 0.5));
+            (engineRef.current as import("./cosmos/engine/WebGLEngine").WebGLEngine & { __breathHz?: number }).__breathHz = clampedHz;
+          }
+        };
+
+        window.addEventListener("scroll", handleScrollRhythm, { passive: true });
+
         engine.start();
       } catch (err) {
         console.warn("WebGL init failed:", err);
@@ -76,6 +136,12 @@ export default function Starfield() {
 
     return () => {
       disposed = true;
+      if (handleScrollRhythm) {
+        window.removeEventListener("scroll", handleScrollRhythm);
+      }
+      if (archetypeInterval) {
+        clearInterval(archetypeInterval);
+      }
       engineRef.current?.dispose();
       engineRef.current = null;
     };

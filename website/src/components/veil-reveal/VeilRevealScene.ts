@@ -47,10 +47,10 @@ const HOLD_THRESHOLD = 1.3; // seconds to hold before reveal triggers
 
 // Reveal choreography timing (seconds)
 const REVEAL_PIN_RELEASE = 1.6;
-const WIND_DURATION = 4.0;
-const CARD_FADE_START = 0.6;
-const CARD_FADE_DURATION = 2.4;
-const VEIL_HIDE_TIME = 6.0;
+const WIND_DURATION = 3.0;
+const CARD_FADE_START = 1.2;
+const CARD_FADE_DURATION = 2.0;
+const VEIL_HIDE_TIME = 5.5;
 const CAMERA_DOLLY_START = 0.0;
 const CAMERA_DOLLY_END = 5.0;
 const CAMERA_Z_START = 7.4;
@@ -185,17 +185,30 @@ const CARD_FRAGMENT = /* glsl */ `
     float shimmer = sin(uTime * 3.0 + vUv.x * 40.0 + vUv.y * 30.0) * 0.5 + 0.5;
     float goldShimmer = shimmer * luminance * 0.12 * uRevealed;
 
-    // Soft golden glow at the wipe edge
+    // Wipe edge glow - symmetric soft blue-white light from behind the card
     float edgeDist = abs(vUv.y - revealLine);
-    float edgeGlowLine = (1.0 - smoothstep(0.0, 0.08, edgeDist)) * 0.5
-                       * (1.0 - wipeMask * 0.3);
+
+    // Two-layer glow: tight inner white core + wider outer blue halo
+    float edgeCore  = (1.0 - smoothstep(0.0, 0.025, edgeDist)) * (1.0 - wipeMask);
+    float edgeHalo  = (1.0 - smoothstep(0.0, 0.09,  edgeDist)) * (1.0 - wipeMask) * 0.45;
+
+    // Chromatic split: red lags, blue leads (gives glassy refraction feel)
+    float edgeR = (1.0 - smoothstep(0.0, 0.04, abs(vUv.y - (revealLine + 0.004)))) * (1.0 - wipeMask);
+    float edgeB = (1.0 - smoothstep(0.0, 0.04, abs(vUv.y - (revealLine - 0.004)))) * (1.0 - wipeMask);
 
     vec3 col = c.rgb;
     vec3 shineTint = vec3(1.0, 0.95, 0.82);
     col += shineTint * shineStrength;
     col += shineTint * edgeGlow;
     col += vec3(1.0, 0.88, 0.55) * goldShimmer;
-    col += vec3(1.0, 0.85, 0.4) * edgeGlowLine;
+
+    // Cool white core + blue-violet halo
+    col += vec3(edgeR * 0.9, edgeCore * 1.0, edgeB * 1.0) * edgeCore * 0.7;
+    col += vec3(0.55, 0.68, 1.0) * edgeHalo * 0.5;
+
+    // Subtle gold line (reduced from original)
+    float edgeGlowLine = edgeHalo * 0.15;
+    col += vec3(1.0, 0.90, 0.65) * edgeGlowLine;
 
     // Burst glow
     vec3 glow = vec3(1.05, 0.92, 0.65);
@@ -817,7 +830,7 @@ export class VeilRevealScene {
     // --- Wind: big initial gust that tapers ---
     if (t < WIND_DURATION) {
       const gustEnvelope = Math.exp(-t * 0.7) * (1 - Math.exp(-t * 4));
-      const windX = gustEnvelope * (0.9 + Math.sin(t * 1.8) * 0.35);
+      const windX = gustEnvelope * 0.9 * Math.sin(t * 1.8) + 0.35;
       const windZ = gustEnvelope * (-0.5 + Math.sin(t * 2.3) * 0.25);
       cloth.addForce(windX * dtSec, 0, windZ * dtSec);
     }
@@ -912,7 +925,10 @@ export class VeilRevealScene {
         this.cloth.addForce(pulse * FIXED_DT, pulse * 0.2 * FIXED_DT, 0);
       }
 
-      this.cloth.step(FIXED_DT, -18.0);
+      const revealGravity = this.revealed
+        ? -(5.0 + Math.min((nowMs - (this.revealStartMs ?? nowMs)) * 0.001 * 4.0, 10.0))
+        : -5.0;
+      this.cloth.step(FIXED_DT, revealGravity);
       this.accumulator -= FIXED_DT;
       steps++;
     }

@@ -12,6 +12,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ALL_CARDS, type TarotCard } from "../../../lib/academy/tarot-cards";
 import { getCardImagePath } from "../../../lib/academy/card-images";
+import { recordDraw } from "../../../lib/deck-memory";
 import VeilRevealWrapper from "../../../components/veil-reveal/VeilRevealWrapper";
 import CardInfoPanel from "../../../components/veil-reveal/CardInfoPanel";
 
@@ -52,15 +53,24 @@ export default function CardOfTheDayPage() {
 
   // Hydration-safe: pick daily card after mount
   useEffect(() => {
-    const daily = getDailyCard();
-    setCard(daily.card);
-    setReversed(daily.reversed);
-    setMounted(true);
+    let cancelled = false;
+    const frame = requestAnimationFrame(() => {
+      if (cancelled) return;
+      const daily = getDailyCard();
+      setCard(daily.card);
+      setReversed(daily.reversed);
+      setMounted(true);
+    });
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   const handleRevealComplete = useCallback(() => {
+    recordDraw(card.name);
     setRevealed(true);
-  }, []);
+  }, [card.name]);
 
   const handleDrawAgain = useCallback(() => {
     // Pick a truly random card (not daily-seeded)

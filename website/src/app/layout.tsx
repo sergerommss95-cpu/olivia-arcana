@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter, Cormorant_Garamond } from "next/font/google";
 import GlobalBackground from "@/components/GlobalBackground";
+import SoundEngine from "@/components/SoundEngine";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -72,6 +73,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <GlobalBackground />
+        <SoundEngine />
         {children}
       </body>
     </html>

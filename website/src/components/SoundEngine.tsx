@@ -14,6 +14,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { playZodiacTone, ZODIACFREQ } from "../lib/zodiac-sounds";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -127,16 +128,20 @@ function getAudio(): CosmicAudio {
 
 export default function SoundEngine() {
   const [enabled, setEnabled] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const enabledRef = useRef(false);
 
   useEffect(() => {
-    setMounted(true);
+    enabledRef.current = enabled;
+  }, [enabled]);
 
+  useEffect(() => {
     // Listen for cosmic events to trigger sounds
     const onShockwave = () => getAudio().playShimmer();
     const onHover = (e: Event) => {
       const detail = (e as CustomEvent).detail;
-      if (detail) getAudio().playChime(660 + Math.random() * 220);
+      if (detail?.name && enabledRef.current) {
+        playZodiacTone(detail.name, ZODIACFREQ[detail.name] ?? 528);
+      }
     };
 
     window.addEventListener("cosmos:shockwave", onShockwave);
@@ -157,8 +162,6 @@ export default function SoundEngine() {
       setEnabled(true);
     }
   }, [enabled]);
-
-  if (!mounted) return null;
 
   return (
     <button

@@ -20,7 +20,6 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 // Lazy-load non-critical components
 const CosmicLoader = dynamic(() => import("@/components/CosmicLoader"), { ssr: false });
-const SoundEngine = dynamic(() => import("@/components/SoundEngine"), { ssr: false });
 
 export default function Home() {
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -43,7 +42,6 @@ export default function Home() {
       <SignLabel />
       <ConstellationOverlay />
       <MagneticGlow />
-      <SoundEngine />
       <Navbar />
       <CosmicStatus />
 

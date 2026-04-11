@@ -32,6 +32,10 @@ uniform vec2 uResolution;
 uniform float uMouseVelocity;
 uniform float uFlowmapEnabled;
 uniform float uBrightFlash;   // 0 = normal, 1 = full flash (gentle nebula glow)
+uniform float uBreath;
+uniform float uHueShift;
+uniform float uSaturation;
+uniform float uWarmth;
 
 varying vec2 vUv;
 
@@ -96,12 +100,22 @@ void main() {
 
   // ── Deep vignette ──
   float vigDist = distance(vUv, vec2(0.5));
-  float vig = 1.0 - smoothstep(0.1, 0.72, vigDist);
-  color *= 0.4 + vig * 0.6;
+  float vigRadius = mix(0.68, 0.74, uBreath);
+  float vig = 1.0 - smoothstep(0.1, vigRadius, vigDist);
+  float breathBrightness = mix(0.96, 1.04, uBreath);
+  color *= (0.4 * vig + 0.6) * breathBrightness;
 
-  // ── Film grain (animated, fract-based) ──
-  float grain = fract(sin(dot(vUv + fract(uTime * 0.37), vec2(127.1, 311.7))) * 43758.5453);
-  color += (grain - 0.5) * 0.03;
+  // Visitor archetype palette shift — hue rotation, saturation, warmth
+  float hCos = cos(uHueShift);
+  float hSin = sin(uHueShift);
+  color = vec3(
+    color.r * (hCos + 0.701 * (1.0 - hCos)) + color.g * (0.587 * (1.0 - hCos) - 0.701 * hSin) + color.b * (0.114 * (1.0 - hCos) + hSin),
+    color.r * (0.299 * (1.0 - hCos) + hSin)  + color.g * (hCos + 0.587 * (1.0 - hCos))         + color.b * (0.114 * (1.0 - hCos) - hSin),
+    color.r * (0.299 * (1.0 - hCos) - hSin)  + color.g * (0.587 * (1.0 - hCos) + hSin)         + color.b * (hCos + 0.114 * (1.0 - hCos))
+  );
+  float lumN = dot(color, vec3(0.299, 0.587, 0.114));
+  color = mix(vec3(lumN), color, uSaturation);
+  color += vec3(uWarmth * 0.6, uWarmth * 0.35, 0.0) * smoothstep(0.1, 0.4, lumN);
 
   // ── Cursor glow — warm, subtle, follows mouse ──
   float md = distance(vUv, uMouse);
@@ -114,6 +128,11 @@ export class NebulaPlane implements EngineSystem {
   private mesh!: THREE.Mesh;
   private material!: THREE.ShaderMaterial;
   private engine!: WebGLEngine;
+  private archetypeTarget = {
+    hueShift: 0,
+    saturation: 1,
+    warmth: 0,
+  };
 
   // Public: other systems can add uniforms (e.g., flowmap adds uFlowmap)
   get uniforms() { return this.material?.uniforms; }
@@ -139,6 +158,10 @@ export class NebulaPlane implements EngineSystem {
         uResolution: { value: engine.resolution.clone() },
         uMouseVelocity: { value: 0 },
         uBrightFlash: { value: 0.0 },
+        uBreath: { value: 0.0 },
+        uHueShift: { value: 0.0 },
+        uSaturation: { value: 1.0 },
+        uWarmth: { value: 0.0 },
       },
       depthTest: false,
       depthWrite: false,
@@ -157,12 +180,23 @@ export class NebulaPlane implements EngineSystem {
     u.uTime.value = time;
     u.uMouse.value.copy(this.engine.smoothMouse);
     u.uMouseVelocity.value = Math.min(this.engine.mouseVelocity, 2.0);
+    const hz = (this.engine as WebGLEngine & { __breathHz?: number }).__breathHz ?? 0.2;
+    u.uBreath.value = Math.sin(time * hz * Math.PI * 2) * 0.5 + 0.5;
+    u.uHueShift.value += (this.archetypeTarget.hueShift - u.uHueShift.value) * 0.004;
+    u.uSaturation.value += (this.archetypeTarget.saturation - u.uSaturation.value) * 0.004;
+    u.uWarmth.value += (this.archetypeTarget.warmth - u.uWarmth.value) * 0.004;
   }
 
   resize(w: number, h: number) {
     if (this.material) {
       this.material.uniforms.uResolution.value.set(w, h);
     }
+  }
+
+  setArchetype(hueShift: number, saturation: number, warmth: number): void {
+    this.archetypeTarget.hueShift = hueShift;
+    this.archetypeTarget.saturation = saturation;
+    this.archetypeTarget.warmth = warmth;
   }
 
   dispose() {
