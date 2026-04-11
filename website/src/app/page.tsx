@@ -16,7 +16,7 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import DailyHoroscope from "@/components/DailyHoroscope";
 import CompatibilityChecker from "@/components/CompatibilityChecker";
-import SectionReveal from "@/components/SectionReveal";
+import ScrollFloat from "@/components/ScrollFloat";
 
 // Lazy-load non-critical components
 const CosmicLoader = dynamic(() => import("@/components/CosmicLoader"), { ssr: false });
@@ -48,28 +48,28 @@ export default function Home() {
       <main id="main-content" className="relative z-10">
         <Hero />
         <div ref={sectionsRef}>
-          {/* Each section rises from darkness with clip-path reveal */}
-          <SectionReveal>
+          {/* Each section floats in with scroll-scrubbed micro-animations */}
+          <ScrollFloat index={0}>
             <DailyHoroscope />
-          </SectionReveal>
-          <SectionReveal delay={100}>
+          </ScrollFloat>
+          <ScrollFloat index={1}>
             <CompatibilityChecker />
-          </SectionReveal>
-          <SectionReveal delay={50}>
+          </ScrollFloat>
+          <ScrollFloat index={2}>
             <Features />
-          </SectionReveal>
-          <SectionReveal delay={100}>
+          </ScrollFloat>
+          <ScrollFloat index={3}>
             <HowItWorks />
-          </SectionReveal>
-          <SectionReveal delay={50}>
+          </ScrollFloat>
+          <ScrollFloat index={4}>
             <Testimonials />
-          </SectionReveal>
-          <SectionReveal delay={100}>
+          </ScrollFloat>
+          <ScrollFloat index={5}>
             <Pricing />
-          </SectionReveal>
-          <SectionReveal>
+          </ScrollFloat>
+          <ScrollFloat index={6}>
             <CTA />
-          </SectionReveal>
+          </ScrollFloat>
         </div>
       </main>
 
