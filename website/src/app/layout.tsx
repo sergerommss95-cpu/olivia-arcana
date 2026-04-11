@@ -9,6 +9,7 @@ import CosmicToast from "@/components/CosmicToast";
 import EclipseOverlay from "@/components/EclipseOverlay";
 import InstallPrompt from "@/components/InstallPrompt";
 import SmoothScroll from "@/components/SmoothScroll";
+import PageTransition from "@/components/transitions/PageTransition";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -105,8 +106,8 @@ export default function RootLayout({
         {/* Smooth scroll (Lenis) */}
         <SmoothScroll />
 
-        {/* Page content */}
-        {children}
+        {/* Page content — with transition choreography */}
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );
