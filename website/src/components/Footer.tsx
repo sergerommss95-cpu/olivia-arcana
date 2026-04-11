@@ -1,5 +1,6 @@
 "use client";
 
+import TransitionLink from "@/components/transitions/TransitionLink";
 import { useLocale } from "../lib/i18n/useLocale";
 
 export default function Footer() {
@@ -45,9 +46,9 @@ export default function Footer() {
                 { label: t("academy_aspect_guide"), href: "/academy/aspect-guide" },
               ].map((item) => (
                 <li key={item.label}>
-                  <a href={item.href} className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">
+                  <TransitionLink href={item.href} className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">
                     {item.label}
-                  </a>
+                  </TransitionLink>
                 </li>
               ))}
             </ul>
@@ -61,18 +62,27 @@ export default function Footer() {
               {[
                 { label: t("foot_tg_bot"), href: "https://t.me/OliviaArcanaBot" },
                 { label: t("foot_tg_channel"), href: "https://t.me/OliviaArcanaDaily" },
-                { label: t("profile_celestial_portrait"), href: "/portrait" },
-                { label: t("ask_title"), href: "/ask" },
+                { label: t("profile_celestial_portrait"), href: "/portrait", internal: true },
+                { label: t("ask_title"), href: "/ask", internal: true },
               ].map((item) => (
                 <li key={item.label}>
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors"
-                  >
-                    {item.label}
-                  </a>
+                  {"internal" in item && item.internal ? (
+                    <TransitionLink
+                      href={item.href}
+                      className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors"
+                    >
+                      {item.label}
+                    </TransitionLink>
+                  ) : (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { getSession } from "../lib/supabase";
 import LanguageSwitcher from "./LanguageSwitcher";
+import TransitionLink from "@/components/transitions/TransitionLink";
 import { useLocale } from "../lib/i18n/useLocale";
 
 export default function Navbar() {
@@ -25,33 +25,33 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-6 py-4">
         <div className="glass-card px-6 py-3 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
+          <TransitionLink href="/" className="flex items-center gap-2 group">
             <span className="text-celestial-gold text-xl">&#10022;</span>
             <span
               className="font-[family-name:var(--font-heading)] text-lg font-semibold tracking-wide text-celestial-gold"
             >
               Olivia Arcana
             </span>
-          </Link>
+          </TransitionLink>
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <TransitionLink
                 key={link.href}
                 href={link.href}
                 className="text-sm text-muted-lavender hover:text-celestial-gold transition-colors duration-300"
               >
                 {link.label}
-              </a>
+              </TransitionLink>
             ))}
             <LanguageSwitcher />
-            <a
+            <TransitionLink
               href={loggedIn ? "/profile" : "/register"}
               className="px-5 py-2 rounded-full bg-celestial-gold/10 border border-celestial-gold/30 text-celestial-gold text-sm font-medium hover:bg-celestial-gold/20 transition-all duration-300"
             >
               {loggedIn ? t("nav_profile") : t("nav_signup")}
-            </a>
+            </TransitionLink>
           </div>
 
           {/* Mobile toggle */}
@@ -74,21 +74,21 @@ export default function Navbar() {
         {open && (
           <div className="md:hidden mt-2 glass-card p-4 space-y-3">
             {navLinks.map((link) => (
-              <a
+              <TransitionLink
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className="block text-muted-lavender hover:text-celestial-gold transition-colors py-2"
               >
                 {link.label}
-              </a>
+              </TransitionLink>
             ))}
-            <a
+            <TransitionLink
               href={loggedIn ? "/profile" : "/register"}
               className="block text-center px-5 py-3 rounded-full bg-celestial-gold/10 border border-celestial-gold/30 text-celestial-gold font-medium"
             >
               {loggedIn ? t("nav_profile") : t("nav_signup")}
-            </a>
+            </TransitionLink>
           </div>
         )}
       </div>
