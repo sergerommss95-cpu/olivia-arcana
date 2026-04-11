@@ -48,12 +48,12 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ c
   return (
     <div style={{
       minHeight: "100vh", position: "relative", zIndex: 1,
-      maxWidth: "750px", margin: "0 auto", padding: "2rem 1.5rem 4rem",
+      maxWidth: "750px", margin: "0 auto", padding: "2rem 1rem 4rem",
     }}>
       {/* Breadcrumb */}
       <div style={{ marginBottom: "2rem" }}>
         <Link href="/academy" style={{
-          fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 400,
+          fontFamily: "var(--font-body)", fontSize: "0.7rem", fontWeight: 400, minHeight: "44px", display: "inline-flex", alignItems: "center",
           letterSpacing: "0.15em", textTransform: "uppercase",
           color: "rgba(180,170,210,0.4)", textDecoration: "none",
         }}>← Academy</Link>

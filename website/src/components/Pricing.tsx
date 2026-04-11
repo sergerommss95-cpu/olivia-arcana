@@ -33,7 +33,7 @@ export default function Pricing() {
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* Free Tier */}
           <div
-            className={`glass-card p-8 transition-all duration-700 ${
+            className={`glass-card p-4 md:p-8 transition-all duration-700 ${
               inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
             }`}
           >
@@ -77,7 +77,7 @@ export default function Pricing() {
 
           {/* VIP Tier */}
           <div
-            className={`relative glass-card p-8 transition-all duration-700 animate-pulse-glow ${
+            className={`relative glass-card p-4 md:p-8 transition-all duration-700 animate-pulse-glow ${
               inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
             }`}
             style={{ transitionDelay: "100ms", border: "1px solid rgba(212, 175, 55, 0.3)" }}

@@ -186,6 +186,34 @@ body {
   animation: shimmer 2s infinite;
 }
 
+/* ── Mobile-first responsive typography ─────────────────────────────────── */
+h1, .text-4xl, .text-5xl { font-size: clamp(1.75rem, 5vw, 3.5rem); }
+h2, .text-3xl { font-size: clamp(1.35rem, 4vw, 2.25rem); }
+h3, .text-2xl { font-size: clamp(1.1rem, 3vw, 1.5rem); }
+
+@media (max-width: 640px) {
+  .glass-card { padding: 1rem; }
+  section { padding-left: 1rem; padding-right: 1rem; }
+
+  /* Enforce minimum touch targets on mobile */
+  button, a, [role="button"], input[type="checkbox"], input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Tighter scrollbar on mobile */
+  ::-webkit-scrollbar { width: 3px; }
+
+  /* Prevent table overflow */
+  table { font-size: 0.7rem; }
+  th, td { padding: 0.35rem 0.5rem; }
+}
+
+@media (max-width: 380px) {
+  body { font-size: 0.9rem; }
+  .glass-card { padding: 0.75rem; }
+}
+
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

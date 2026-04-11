@@ -72,11 +72,19 @@ export default function TransitTimeline({ transits }: Props) {
   const { t } = useLocale();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState<Transit | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const [filters, setFilters] = useState<Record<Significance, boolean>>({
     high: true,
     medium: true,
     low: true,
   });
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const filtered = transits.filter((tr) => filters[tr.significance]);
 
@@ -125,7 +133,8 @@ export default function TransitTimeline({ transits }: Props) {
             key={sig}
             onClick={() => toggleFilter(sig)}
             style={{
-              padding: "0.35rem 0.8rem",
+              padding: "0.5rem 1rem",
+              minHeight: "44px",
               borderRadius: "100px",
               background: filters[sig] ? `${SIGNIFICANCE_COLORS[sig]}18` : "rgba(255,255,255,0.02)",
               border: `1px solid ${filters[sig] ? `${SIGNIFICANCE_COLORS[sig]}40` : "rgba(200,185,255,0.08)"}`,
@@ -151,7 +160,52 @@ export default function TransitTimeline({ transits }: Props) {
         </span>
       </div>
 
-      {/* Timeline scroll container */}
+      {/* Mobile vertical list */}
+      {isMobile && (
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginBottom: "1rem" }}>
+          {filtered.length === 0 && (
+            <p style={{ ...label, textAlign: "center", padding: "2rem 0" }}>No transits match your filter.</p>
+          )}
+          {filtered.sort((a, b) => a.exactDate.getTime() - b.exactDate.getTime()).map((tr) => {
+            const color = SIGNIFICANCE_COLORS[tr.significance];
+            const isSelected = selected === tr;
+            const glyph = ASPECT_GLYPHS[tr.aspectType] || "";
+            return (
+              <button
+                key={`m-${tr.transitPlanet}-${tr.natalPlanet}-${tr.exactDate.getTime()}`}
+                onClick={() => setSelected(isSelected ? null : tr)}
+                style={{
+                  ...glass,
+                  padding: "0.75rem 1rem",
+                  textAlign: "left",
+                  cursor: "pointer",
+                  borderColor: isSelected ? `${color}60` : undefined,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.75rem",
+                  minHeight: "56px",
+                }}
+              >
+                <span style={{ fontSize: "1.2rem", opacity: 0.7 }}>{glyph}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(240,236,255,0.9)", fontWeight: 500 }}>
+                    {tr.transitPlanet} {tr.aspectType} {tr.natalPlanet}
+                  </div>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.65rem", color: "rgba(180,170,210,0.5)", marginTop: "0.15rem" }}>
+                    {formatDateRange(tr.startDate, tr.endDate)} · exact {formatDate(tr.exactDate)}
+                  </div>
+                </div>
+                <div style={{
+                  width: "8px", height: "8px", borderRadius: "50%",
+                  background: color, opacity: 0.6, flexShrink: 0,
+                }} />
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Timeline scroll container (desktop) */}
       <div
         ref={scrollRef}
         style={{
@@ -162,6 +216,7 @@ export default function TransitTimeline({ transits }: Props) {
           scrollSnapType: "x proximity",
           WebkitOverflowScrolling: "touch",
           position: "relative",
+          display: isMobile ? "none" : "block",
         }}
       >
         {/* Month labels */}

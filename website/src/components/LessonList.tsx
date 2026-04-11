@@ -197,7 +197,7 @@ function TarotCardDisplay({ cardName, showReversed }: { cardName: string; showRe
 function CardGrid({ cards }: { cards: string[] }) {
   return (
     <div style={{
-      display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+      display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(200px, 100%), 1fr))",
       gap: "0.5rem", marginBottom: "1rem",
     }}>
       {cards.map(name => {
@@ -221,8 +221,8 @@ function CardGrid({ cards }: { cards: string[] }) {
 
 function ComparisonTable({ headers, rows }: { headers: string[]; rows: string[][] }) {
   return (
-    <div style={{ overflowX: "auto", marginBottom: "1rem" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.78rem" }}>
+    <div style={{ overflowX: "auto", marginBottom: "1rem", WebkitOverflowScrolling: "touch" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "clamp(0.65rem, 2vw, 0.78rem)", minWidth: "320px" }}>
         <thead>
           <tr>
             {headers.map((h, i) => (

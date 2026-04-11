@@ -36,7 +36,7 @@ function FeatureCard({
     <TiltCard maxTilt={3}>
     <div
       ref={ref}
-      className={`glass-card p-8 transition-all duration-700 hover:border-celestial-gold/30 ${
+      className={`glass-card p-4 md:p-8 transition-all duration-700 hover:border-celestial-gold/30 ${
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}

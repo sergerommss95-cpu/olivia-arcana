@@ -140,7 +140,7 @@ export default function VeilRevealWrapper({
         style={{
           fontFamily: "var(--font-accent)",
           letterSpacing: "0.42em",
-          fontSize: "10px",
+          fontSize: "clamp(8px, 2.5vw, 12px)",
           textTransform: "uppercase",
           color: "rgba(232,220,180,0.55)",
           textShadow: "0 0 24px rgba(140,150,220,0.4)",
@@ -158,7 +158,7 @@ export default function VeilRevealWrapper({
             className="fixed bottom-14 left-1/2 -translate-x-1/2 z-10 pointer-events-none select-none"
             style={{
               fontFamily: "var(--font-accent)",
-              fontSize: "11px",
+              fontSize: "clamp(9px, 2.5vw, 12px)",
               letterSpacing: "0.42em",
               textTransform: "uppercase",
               color: "rgba(232,218,170,0.55)",
