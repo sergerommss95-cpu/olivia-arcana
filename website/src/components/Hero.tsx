@@ -17,6 +17,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { getSunSign, getCosmicProfile, type CosmicProfile as CosmicProfileData } from "../lib/zodiac-utils";
 import CosmicProfile from "./CosmicProfile";
+import MagneticButton from "@/components/MagneticButton";
 import { useLocale } from "../lib/i18n/useLocale";
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -329,59 +330,12 @@ export default function Hero() {
             animation: "fadeUpIn 1.0s cubic-bezier(0.16,1,0.3,1) 1.65s both",
           }}
         >
-          <a
-            href="/portrait"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              padding: "0.85rem 2.1rem",
-              borderRadius: "100px",
-              background:
-                "linear-gradient(135deg, rgba(160,120,255,0.22) 0%, rgba(100,80,220,0.18) 100%)",
-              backdropFilter: "blur(16px) saturate(1.35)",
-              WebkitBackdropFilter: "blur(16px) saturate(1.35)",
-              border: "1px solid rgba(200,180,255,0.22)",
-              color: "rgba(240,235,255,0.95)",
-              fontSize: "0.88rem",
-              fontWeight: 500,
-              letterSpacing: "0.04em",
-              textTransform: "uppercase",
-              textDecoration: "none",
-              boxShadow:
-                "0 2px 16px rgba(120,80,220,0.18)," +
-                "inset 0 1px 0 rgba(255,255,255,0.08)",
-              cursor: "pointer",
-              transition: "all 220ms cubic-bezier(0.16,1,0.3,1)",
-            }}
-          >
-            <span>{t("hero_portrait_cta")}</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a
-            href="/ask"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              padding: "0.85rem 2.0rem",
-              borderRadius: "100px",
-              background: "rgba(255,255,255,0.04)",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-              border: "1px solid rgba(200,185,255,0.14)",
-              color: "rgba(200,185,240,0.82)",
-              fontSize: "0.88rem",
-              fontWeight: 400,
-              letterSpacing: "0.04em",
-              textTransform: "uppercase",
-              textDecoration: "none",
-              cursor: "pointer",
-              transition: "all 220ms cubic-bezier(0.16,1,0.3,1)",
-            }}
-          >
+          <MagneticButton href="/portrait" variant="glass" size="md">
+            {t("hero_portrait_cta")} →
+          </MagneticButton>
+          <MagneticButton href="/ask" variant="outline" size="md">
             {t("hero_ask_cta")}
-          </a>
+          </MagneticButton>
         </div>
 
         {/* Trust signal row */}
