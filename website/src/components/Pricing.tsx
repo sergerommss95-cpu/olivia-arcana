@@ -1,24 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import ScrollFloat from "@/components/ScrollFloat";
+import MagneticButton from "@/components/MagneticButton";
 import { useLocale } from "../lib/i18n/useLocale";
 
 export default function Pricing() {
   const { t } = useLocale();
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setInView(true); },
-      { threshold: 0.1 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
 
   return (
-    <section id="pricing" className="relative py-32 px-6" ref={ref}>
+    <section id="pricing" className="relative py-32 px-6">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-20">
           <p className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-[0.3em] uppercase mb-4">
@@ -32,11 +22,8 @@ export default function Pricing() {
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* Free Tier */}
-          <div
-            className={`glass-card p-4 md:p-8 transition-all duration-700 ${
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-            }`}
-          >
+          <ScrollFloat index={0} intensity="subtle">
+          <div className="glass-card p-4 md:p-8">
             <div className="mb-6">
               <h3 className="font-[family-name:var(--font-heading)] text-2xl font-semibold text-warm-ivory mb-2">
                 {t("price_free")}
@@ -65,22 +52,17 @@ export default function Pricing() {
               ))}
             </ul>
 
-            <a
-              href="/onboarding"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-center py-3 rounded-full border border-muted-lavender/30 text-muted-lavender hover:border-celestial-gold/50 hover:text-celestial-gold transition-all duration-300"
-            >
+            <MagneticButton href="/onboarding" variant="glass" size="md" className="w-full justify-center">
               {t("price_start_free")}
-            </a>
+            </MagneticButton>
           </div>
+          </ScrollFloat>
 
           {/* VIP Tier */}
+          <ScrollFloat index={1} intensity="subtle">
           <div
-            className={`relative glass-card p-4 md:p-8 transition-all duration-700 animate-pulse-glow ${
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-            }`}
-            style={{ transitionDelay: "100ms", border: "1px solid rgba(212, 175, 55, 0.3)" }}
+            className="relative glass-card p-4 md:p-8 animate-pulse-glow"
+            style={{ border: "1px solid rgba(212, 175, 55, 0.3)" }}
           >
             {/* Popular badge */}
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-celestial-gold text-void-black text-xs font-semibold">
@@ -121,19 +103,15 @@ export default function Pricing() {
               ))}
             </ul>
 
-            <a
-              href="/portrait"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-center py-3 rounded-full bg-gradient-to-r from-celestial-gold to-[#F5E6A3] text-void-black font-semibold hover:scale-[1.02] transition-all duration-300"
-            >
+            <MagneticButton href="/portrait" variant="gold" size="md" className="w-full justify-center">
               {t("price_start_vip")}
-            </a>
+            </MagneticButton>
 
             <p className="text-center text-xs text-muted-lavender/60 mt-3">
               {t("price_pay")}
             </p>
           </div>
+          </ScrollFloat>
         </div>
 
         {/* One-time purchases */}

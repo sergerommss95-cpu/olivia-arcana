@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import TiltCard from "./TiltCard";
+import ScrollFloat from "@/components/ScrollFloat";
 import { useLocale } from "../lib/i18n/useLocale";
 
 export default function Testimonials() {
@@ -27,20 +27,8 @@ export default function Testimonials() {
       avatar: "#4ECDC4",
     },
   ];
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setInView(true); },
-      { threshold: 0.1 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section className="relative py-32 px-6" ref={ref}>
+    <section className="relative py-32 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-20">
           <p className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-[0.3em] uppercase mb-4">
@@ -54,13 +42,9 @@ export default function Testimonials() {
 
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((item, i) => (
-            <TiltCard key={item.name} maxTilt={3}>
-            <div
-              className={`glass-card p-8 transition-all duration-700 ${
-                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-              }`}
-              style={{ transitionDelay: `${i * 150}ms` }}
-            >
+            <ScrollFloat key={item.name} index={i} intensity="subtle">
+            <TiltCard maxTilt={3}>
+            <div className="glass-card p-8">
               {/* Stars rating */}
               <div className="text-celestial-gold text-sm mb-4 tracking-wider">
                 &#10022; &#10022; &#10022; &#10022; &#10022;
@@ -86,6 +70,7 @@ export default function Testimonials() {
               </div>
             </div>
             </TiltCard>
+            </ScrollFloat>
           ))}
         </div>
       </div>

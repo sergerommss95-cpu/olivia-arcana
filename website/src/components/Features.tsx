@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import TiltCard from "./TiltCard";
+import ScrollFloat from "@/components/ScrollFloat";
 import { useLocale } from "../lib/i18n/useLocale";
 
 interface FeatureItem {
@@ -11,36 +11,10 @@ interface FeatureItem {
   color: string;
 }
 
-function FeatureCard({
-  feature,
-  index,
-}: {
-  feature: FeatureItem;
-  index: number;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setInView(true);
-      },
-      { threshold: 0.2 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
+function FeatureCard({ feature }: { feature: FeatureItem }) {
   return (
     <TiltCard maxTilt={3}>
-    <div
-      ref={ref}
-      className={`glass-card p-4 md:p-8 transition-all duration-700 hover:border-celestial-gold/30 ${
-        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-      }`}
-      style={{ transitionDelay: `${index * 100}ms` }}
-    >
+    <div className="glass-card p-4 md:p-8 transition-all duration-700 hover:border-celestial-gold/30">
       {/* Icon with glow */}
       <div
         className="text-4xl mb-5 w-16 h-16 rounded-2xl flex items-center justify-center"
@@ -123,7 +97,9 @@ export default function Features() {
         {/* Feature grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, i) => (
-            <FeatureCard key={feature.title} feature={feature} index={i} />
+            <ScrollFloat key={feature.title} index={i} intensity="subtle" disableRotate>
+              <FeatureCard feature={feature} />
+            </ScrollFloat>
           ))}
         </div>
       </div>

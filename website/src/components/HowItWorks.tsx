@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import ScrollFloat from "@/components/ScrollFloat";
 import { useLocale } from "../lib/i18n/useLocale";
 
 export default function HowItWorks() {
@@ -26,22 +26,9 @@ export default function HowItWorks() {
       icon: "🌙",
     },
   ];
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setInView(true);
-      },
-      { threshold: 0.1 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
 
   return (
-    <section className="relative py-32 px-6" ref={ref}>
+    <section className="relative py-32 px-6">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-20">
           <p className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-[0.3em] uppercase mb-4">
@@ -55,13 +42,8 @@ export default function HowItWorks() {
 
         <div className="space-y-12 md:space-y-0 md:grid md:grid-cols-3 md:gap-12">
           {steps.map((step, i) => (
-            <div
-              key={step.number}
-              className={`text-center transition-all duration-700 ${
-                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-              }`}
-              style={{ transitionDelay: `${i * 200}ms` }}
-            >
+            <ScrollFloat key={step.number} index={i} intensity="subtle">
+            <div className="text-center">
               {/* Step number */}
               <div className="relative inline-block mb-6">
                 <span className="text-6xl font-[family-name:var(--font-heading)] font-bold text-celestial-gold/10">
@@ -85,6 +67,7 @@ export default function HowItWorks() {
                 <div className="hidden md:block absolute top-20 right-0 w-full h-px bg-gradient-to-r from-transparent via-celestial-gold/20 to-transparent" />
               )}
             </div>
+            </ScrollFloat>
           ))}
         </div>
       </div>
