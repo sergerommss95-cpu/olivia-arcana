@@ -214,6 +214,28 @@ h3, .text-2xl { font-size: clamp(1.1rem, 3vw, 1.5rem); }
   .glass-card { padding: 0.75rem; }
 }
 
+/* ── Page Transition ── */
+.page-enter {
+  animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Magnetic Button Glow ── */
+@keyframes magnetic-glow-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
