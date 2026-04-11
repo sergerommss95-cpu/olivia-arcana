@@ -137,6 +137,7 @@ export default function SoundEngine() {
   useEffect(() => {
     // Listen for cosmic events to trigger sounds
     const onShockwave = () => getAudio().playShimmer();
+    const onChime = () => getAudio().playChime(1200);
     const onHover = (e: Event) => {
       const detail = (e as CustomEvent).detail;
       if (detail?.name && enabledRef.current) {
@@ -145,10 +146,12 @@ export default function SoundEngine() {
     };
 
     window.addEventListener("cosmos:shockwave", onShockwave);
+    window.addEventListener("cosmos:chime", onChime);
     window.addEventListener("zodiac:hover", onHover as EventListener);
 
     return () => {
       window.removeEventListener("cosmos:shockwave", onShockwave);
+      window.removeEventListener("cosmos:chime", onChime);
       window.removeEventListener("zodiac:hover", onHover as EventListener);
     };
   }, []);
