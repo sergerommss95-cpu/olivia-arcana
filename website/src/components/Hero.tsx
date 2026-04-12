@@ -18,6 +18,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { getSunSign, getCosmicProfile, type CosmicProfile as CosmicProfileData } from "../lib/zodiac-utils";
 import CosmicProfile from "./CosmicProfile";
 import MagneticButton from "@/components/MagneticButton";
+import AnimatedCounter from "@/components/AnimatedCounter";
 import { useLocale } from "../lib/i18n/useLocale";
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -352,10 +353,10 @@ export default function Hero() {
           }}
         >
           {[
-            { n: "12,400+", label: t("hero_readings_given") },
-            { n: "4.9 ★",   label: t("hero_average_rating") },
-            { n: "97%",     label: t("hero_accuracy") },
-          ].map(({ n, label }) => (
+            { value: 12400, suffix: "+", decimals: 0, label: t("hero_readings_given"), delay: 0 },
+            { value: 4.9,   suffix: " ★", decimals: 1, label: t("hero_average_rating"), delay: 200 },
+            { value: 97,    suffix: "%",  decimals: 0, label: t("hero_accuracy"), delay: 400 },
+          ].map(({ value, suffix, decimals, label, delay: d }) => (
             <div
               key={label}
               style={{
@@ -374,7 +375,7 @@ export default function Hero() {
                   textShadow: "0 0 20px rgba(160,130,255,0.22)",
                 }}
               >
-                {n}
+                <AnimatedCounter value={value} suffix={suffix} decimals={decimals} duration={2200} delay={d} />
               </span>
               <span
                 style={{

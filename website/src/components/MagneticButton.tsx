@@ -12,6 +12,7 @@ interface MagneticButtonProps {
   external?: boolean;
   sound?: boolean;
   size?: "sm" | "md" | "lg";
+  disabled?: boolean;
 }
 
 const VARIANTS = {
@@ -56,6 +57,7 @@ export default function MagneticButton({
   external = false,
   sound = true,
   size = "md",
+  disabled = false,
 }: MagneticButtonProps) {
   const { ref, x, y, active, pressed } = useMagnetic<HTMLElement>(60, 0.3);
   const v = VARIANTS[variant];

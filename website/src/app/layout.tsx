@@ -10,6 +10,7 @@ import EclipseOverlay from "@/components/EclipseOverlay";
 import InstallPrompt from "@/components/InstallPrompt";
 import SmoothScroll from "@/components/SmoothScroll";
 import PageTransition from "@/components/transitions/PageTransition";
+import FilmGrain from "@/components/FilmGrain";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -105,6 +106,9 @@ export default function RootLayout({
 
         {/* Smooth scroll (Lenis) */}
         <SmoothScroll />
+
+        {/* Film grain + vignette (analog texture) */}
+        <FilmGrain opacity={0.03} vignetteIntensity={0.35} />
 
         {/* Page content — with transition choreography */}
         <PageTransition>{children}</PageTransition>

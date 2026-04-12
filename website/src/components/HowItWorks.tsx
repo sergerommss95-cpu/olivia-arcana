@@ -1,6 +1,6 @@
 "use client";
 
-import ScrollFloat from "@/components/ScrollFloat";
+import SmoothReveal from "@/components/SmoothReveal";
 import { useLocale } from "../lib/i18n/useLocale";
 
 export default function HowItWorks() {
@@ -40,10 +40,9 @@ export default function HowItWorks() {
           <div className="star-divider max-w-xs mx-auto">&#10022;</div>
         </div>
 
-        <div className="space-y-12 md:space-y-0 md:grid md:grid-cols-3 md:gap-12">
+        <SmoothReveal stagger={150} duration={800} direction="up" distance={40} blur className="space-y-12 md:space-y-0 md:grid md:grid-cols-3 md:gap-12">
           {steps.map((step, i) => (
-            <ScrollFloat key={step.number} index={i} intensity="subtle">
-            <div className="text-center">
+            <div key={step.number} className="text-center">
               {/* Step number */}
               <div className="relative inline-block mb-6">
                 <span className="text-6xl font-[family-name:var(--font-heading)] font-bold text-celestial-gold/10">
@@ -67,9 +66,8 @@ export default function HowItWorks() {
                 <div className="hidden md:block absolute top-20 right-0 w-full h-px bg-gradient-to-r from-transparent via-celestial-gold/20 to-transparent" />
               )}
             </div>
-            </ScrollFloat>
           ))}
-        </div>
+        </SmoothReveal>
       </div>
     </section>
   );

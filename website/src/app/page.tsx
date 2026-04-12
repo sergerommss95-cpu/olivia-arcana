@@ -17,9 +17,10 @@ import Footer from "@/components/Footer";
 import DailyHoroscope from "@/components/DailyHoroscope";
 import CompatibilityChecker from "@/components/CompatibilityChecker";
 import ScrollFloat from "@/components/ScrollFloat";
+import InfiniteMarquee from "@/components/InfiniteMarquee";
 
 // Lazy-load non-critical components
-const CosmicLoader = dynamic(() => import("@/components/CosmicLoader"), { ssr: false });
+const CinematicLoader = dynamic(() => import("@/components/CinematicLoader"), { ssr: false });
 
 export default function Home() {
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -38,7 +39,7 @@ export default function Home() {
 
   return (
     <>
-      <CosmicLoader />
+      <CinematicLoader />
       <SignLabel />
       <ConstellationOverlay />
       <MagneticGlow />
@@ -55,6 +56,27 @@ export default function Home() {
           <ScrollFloat index={1}>
             <CompatibilityChecker />
           </ScrollFloat>
+          {/* Infinite marquee strip — trust & capability signal */}
+          <div style={{ padding: "3rem 0" }}>
+            <InfiniteMarquee speed={30} gap={56}>
+              {["Birth Charts", "✦", "Daily Readings", "✦", "Tarot Oracle", "✦", "Synastry", "✦", "Transit Alerts", "✦", "Moon Journal", "✦", "AI Astrologer", "✦"].map((item, i) => (
+                <span
+                  key={i}
+                  style={{
+                    fontFamily: item === "✦" ? "inherit" : "'Cormorant Garamond', Georgia, serif",
+                    fontSize: item === "✦" ? "0.75rem" : "clamp(1rem, 2vw, 1.5rem)",
+                    fontWeight: 300,
+                    letterSpacing: "0.05em",
+                    color: item === "✦" ? "rgba(212,175,55,0.35)" : "rgba(240,236,255,0.2)",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {item}
+                </span>
+              ))}
+            </InfiniteMarquee>
+          </div>
+
           <ScrollFloat index={2}>
             <Features />
           </ScrollFloat>

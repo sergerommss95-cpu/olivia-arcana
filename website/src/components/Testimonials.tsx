@@ -1,7 +1,7 @@
 "use client";
 
-import TiltCard from "./TiltCard";
-import ScrollFloat from "@/components/ScrollFloat";
+import GlowCard from "@/components/GlowCard";
+import SmoothReveal from "@/components/SmoothReveal";
 import { useLocale } from "../lib/i18n/useLocale";
 
 export default function Testimonials() {
@@ -40,10 +40,9 @@ export default function Testimonials() {
           <div className="star-divider max-w-xs mx-auto">&#10022;</div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((item, i) => (
-            <ScrollFloat key={item.name} index={i} intensity="subtle">
-            <TiltCard maxTilt={3}>
+        <SmoothReveal stagger={120} duration={700} direction="up" distance={35} blur className="grid md:grid-cols-3 gap-8">
+          {testimonials.map((item) => (
+            <GlowCard key={item.name} maxTilt={5} glowColor={`${item.avatar}30`}>
             <div className="glass-card p-8">
               {/* Stars rating */}
               <div className="text-celestial-gold text-sm mb-4 tracking-wider">
@@ -69,10 +68,9 @@ export default function Testimonials() {
                 </div>
               </div>
             </div>
-            </TiltCard>
-            </ScrollFloat>
+            </GlowCard>
           ))}
-        </div>
+        </SmoothReveal>
       </div>
     </section>
   );

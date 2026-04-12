@@ -1,6 +1,7 @@
 "use client";
 
-import TiltCard from "./TiltCard";
+import GlowCard from "@/components/GlowCard";
+import SmoothReveal from "@/components/SmoothReveal";
 import ScrollFloat from "@/components/ScrollFloat";
 import { useLocale } from "../lib/i18n/useLocale";
 
@@ -13,7 +14,7 @@ interface FeatureItem {
 
 function FeatureCard({ feature }: { feature: FeatureItem }) {
   return (
-    <TiltCard maxTilt={3}>
+    <GlowCard maxTilt={6} glowColor={`${feature.color}40`} glowIntensity={0.12}>
     <div className="glass-card p-4 md:p-8 transition-all duration-700 hover:border-celestial-gold/30">
       {/* Icon with glow */}
       <div
@@ -34,7 +35,7 @@ function FeatureCard({ feature }: { feature: FeatureItem }) {
         {feature.description}
       </p>
     </div>
-    </TiltCard>
+    </GlowCard>
   );
 }
 
@@ -94,14 +95,19 @@ export default function Features() {
           <div className="star-divider max-w-xs mx-auto">&#10022;</div>
         </div>
 
-        {/* Feature grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, i) => (
-            <ScrollFloat key={feature.title} index={i} intensity="subtle" disableRotate>
-              <FeatureCard feature={feature} />
-            </ScrollFloat>
+        {/* Feature grid with staggered entrance */}
+        <SmoothReveal
+          stagger={100}
+          duration={700}
+          direction="up"
+          distance={35}
+          blur
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {features.map((feature) => (
+            <FeatureCard key={feature.title} feature={feature} />
           ))}
-        </div>
+        </SmoothReveal>
       </div>
     </section>
   );

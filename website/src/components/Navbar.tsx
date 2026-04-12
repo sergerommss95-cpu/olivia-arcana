@@ -16,6 +16,7 @@ export default function Navbar() {
     { label: t("nav_portrait"), href: "/portrait" },
     { label: t("nav_cosmos"), href: "/cosmos" },
     { label: t("nav_daily"), href: "/daily" },
+    { label: "Story", href: "/story" },
   ];
 
   useEffect(() => { getSession().then(s => setLoggedIn(!!s)); }, []);
