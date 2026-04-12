@@ -126,7 +126,7 @@ function TrackSection({ title, description, track, icon }: { title: string; desc
       }}>{description}</p>
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))",
         gap: "1rem",
       }}>
         {courses.map(c => <CourseCard key={c.slug} course={c} />)}
@@ -194,7 +194,7 @@ export default function AcademyPage() {
       {/* Quick Tools */}
       <div style={{ marginBottom: "3rem" }}>
         <div style={{
-          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(200px, 100%), 1fr))",
           gap: "0.75rem",
         }}>
           {[

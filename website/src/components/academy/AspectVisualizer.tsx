@@ -75,14 +75,14 @@ export default function AspectVisualizer() {
       <div style={{ display: "flex", gap: "1rem", justifyContent: "center", marginBottom: "0.5rem", flexWrap: "wrap" }}>
         <div style={{ textAlign: "center" }}>
           <div style={{ fontFamily: "var(--font-body)", fontSize: "0.55rem", color: "rgba(180,170,210,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.25rem" }}>Planet 1</div>
-          <div style={{ display: "flex", gap: "0.25rem" }}>
+          <div style={{ display: "flex", gap: "0.25rem", flexWrap: "wrap", justifyContent: "center" }}>
             {PLANETS.map((p, i) => (
               <button key={p.name} onClick={() => setPlanet1(i)} style={{
-                width: "28px", height: "28px", borderRadius: "50%", cursor: "pointer",
+                width: "36px", height: "36px", borderRadius: "50%", cursor: "pointer",
                 background: planet1 === i ? `${p.color}20` : "rgba(232,230,240,0.02)",
                 border: `1px solid ${planet1 === i ? `${p.color}40` : "rgba(200,185,255,0.06)"}`,
                 color: planet1 === i ? p.color : "rgba(180,170,210,0.4)",
-                fontSize: "0.85rem", display: "flex", alignItems: "center", justifyContent: "center",
+                fontSize: "1rem", display: "flex", alignItems: "center", justifyContent: "center",
                 transition: "all 0.2s ease",
               }} title={p.name}>{p.glyph}</button>
             ))}
@@ -90,14 +90,14 @@ export default function AspectVisualizer() {
         </div>
         <div style={{ textAlign: "center" }}>
           <div style={{ fontFamily: "var(--font-body)", fontSize: "0.55rem", color: "rgba(180,170,210,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.25rem" }}>Planet 2</div>
-          <div style={{ display: "flex", gap: "0.25rem" }}>
+          <div style={{ display: "flex", gap: "0.25rem", flexWrap: "wrap", justifyContent: "center" }}>
             {PLANETS.map((p, i) => (
               <button key={p.name} onClick={() => setPlanet2(i)} style={{
-                width: "28px", height: "28px", borderRadius: "50%", cursor: "pointer",
+                width: "36px", height: "36px", borderRadius: "50%", cursor: "pointer",
                 background: planet2 === i ? `${p.color}20` : "rgba(232,230,240,0.02)",
                 border: `1px solid ${planet2 === i ? `${p.color}40` : "rgba(200,185,255,0.06)"}`,
                 color: planet2 === i ? p.color : "rgba(180,170,210,0.4)",
-                fontSize: "0.85rem", display: "flex", alignItems: "center", justifyContent: "center",
+                fontSize: "1rem", display: "flex", alignItems: "center", justifyContent: "center",
                 transition: "all 0.2s ease",
               }} title={p.name}>{p.glyph}</button>
             ))}
@@ -117,14 +117,14 @@ export default function AspectVisualizer() {
           style={{ width: "80%", maxWidth: "280px", accentColor: lineColor, cursor: "pointer" }}
         />
         {/* Quick-jump buttons */}
-        <div style={{ display: "flex", gap: "0.3rem", justifyContent: "center", marginTop: "0.35rem" }}>
+        <div style={{ display: "flex", gap: "0.3rem", justifyContent: "center", marginTop: "0.35rem", flexWrap: "wrap" }}>
           {ASPECTS.map(asp => (
             <button key={asp.name} onClick={() => setAngle(asp.degrees)} style={{
-              padding: "0.2rem 0.5rem", borderRadius: "100px", cursor: "pointer",
+              padding: "0.4rem 0.65rem", borderRadius: "100px", cursor: "pointer",
               background: angle === asp.degrees ? `${asp.color}15` : "transparent",
               border: `1px solid ${angle === asp.degrees ? `${asp.color}30` : "rgba(200,185,255,0.06)"}`,
               color: angle === asp.degrees ? asp.color : "rgba(180,170,210,0.35)",
-              fontSize: "0.55rem", fontWeight: 500, letterSpacing: "0.04em",
+              fontSize: "0.65rem", fontWeight: 500, letterSpacing: "0.04em",
               transition: "all 0.2s ease",
             }}>
               {asp.symbol} {asp.degrees}°

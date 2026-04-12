@@ -22,8 +22,8 @@ export default function Navbar() {
   useEffect(() => { getSession().then(s => setLoggedIn(!!s)); }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50">
-      <div className="mx-auto max-w-7xl px-6 py-4">
+    <nav className="fixed top-0 left-0 right-0 z-50" style={{ paddingTop: "env(safe-area-inset-top)" }}>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 sm:py-4">
         <div className="glass-card px-6 py-3 flex items-center justify-between">
           {/* Logo */}
           <TransitionLink href="/" className="flex items-center gap-2 group">
@@ -73,19 +73,28 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {open && (
-          <div className="md:hidden mt-2 glass-card p-4 space-y-3">
+          <div
+            className="md:hidden mt-2 glass-card p-4 space-y-3"
+            style={{
+              maxHeight: "calc(100dvh - 5rem)",
+              overflowY: "auto",
+              WebkitOverflowScrolling: "touch",
+              paddingBottom: "calc(1rem + env(safe-area-inset-bottom))",
+            }}
+          >
             {navLinks.map((link) => (
               <TransitionLink
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block text-muted-lavender hover:text-celestial-gold transition-colors py-2"
+                className="block text-muted-lavender hover:text-celestial-gold transition-colors py-3"
               >
                 {link.label}
               </TransitionLink>
             ))}
             <TransitionLink
               href={loggedIn ? "/profile" : "/register"}
+              onClick={() => setOpen(false)}
               className="block text-center px-5 py-3 rounded-full bg-celestial-gold/10 border border-celestial-gold/30 text-celestial-gold font-medium"
             >
               {loggedIn ? t("nav_profile") : t("nav_signup")}

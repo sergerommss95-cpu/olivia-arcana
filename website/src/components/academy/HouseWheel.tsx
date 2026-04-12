@@ -120,7 +120,7 @@ export default function HouseWheel({ highlightHouse }: { highlightHouse?: number
                   {house.num}
                 </text>
                 <text x={pos.x} y={pos.y + 8} textAnchor="middle" style={{
-                  fontSize: "0.32rem", fontWeight: 300,
+                  fontSize: "0.38rem", fontWeight: 300,
                   fill: isSelected ? "rgba(240,236,255,0.7)" : "rgba(180,170,210,0.25)",
                   fontFamily: "var(--font-body)", pointerEvents: "none",
                   letterSpacing: "0.02em",

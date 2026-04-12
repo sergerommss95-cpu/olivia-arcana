@@ -215,7 +215,7 @@ export default function CinematicLoader() {
         {/* Thin progress bar */}
         <div
           style={{
-            width: "120px",
+            width: "min(120px, 30vw)",
             height: "1px",
             background: "rgba(200,185,255,0.1)",
             borderRadius: "1px",

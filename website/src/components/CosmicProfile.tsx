@@ -192,7 +192,7 @@ export default function CosmicProfile({ profile }: Props) {
         position: "relative", zIndex: 2,
         display: "flex", flexDirection: "column", alignItems: "center",
         gap: "1.25rem", maxWidth: "440px", width: "100%",
-        padding: "2.25rem 2rem 1.75rem",
+        padding: "clamp(1.25rem, 4vw, 2.25rem) clamp(1rem, 3vw, 2rem) clamp(1.25rem, 3vw, 1.75rem)",
         // opacity: 1 — Hero wrapper handles the entrance fade
         ...glass,
         border: "1px solid rgba(200,185,255,0.1)",

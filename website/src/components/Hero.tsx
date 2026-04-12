@@ -169,7 +169,7 @@ export default function Hero() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "6rem 1.5rem 8rem",
+        padding: "clamp(4rem, 10vw, 6rem) clamp(1rem, 3vw, 1.5rem) clamp(4rem, 12vw, 8rem)",
         overflow: "hidden",
         zIndex: 1,
       }}
@@ -289,15 +289,16 @@ export default function Hero() {
           </label>
           <input
             type="text"
+            inputMode="numeric"
             placeholder="MM / DD"
             value={birthday}
             onChange={(e) => handleBirthday(e.target.value)}
             style={{
-              width: "160px",
-              padding: "0.65rem 1.2rem",
+              width: "min(160px, 60vw)",
+              padding: "0.75rem 1.2rem",
               textAlign: "center",
               fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontSize: "1.1rem",
+              fontSize: "clamp(1rem, 3vw, 1.1rem)",
               letterSpacing: "0.1em",
               color: "rgba(240,236,255,0.9)",
               background: "rgba(255,255,255,0.04)",
@@ -415,8 +416,9 @@ export default function Hero() {
           <button
             onClick={() => {
               setBirthday("");
-              resetCosmic(); // handles exit animation + hero return internally
+              resetCosmic();
             }}
+            className="try-another-btn"
             style={{
               background: "none",
               border: "none",
@@ -427,11 +429,10 @@ export default function Hero() {
               letterSpacing: "0.12em",
               textTransform: "uppercase",
               cursor: "pointer",
-              padding: "0.5rem 1rem",
-              transition: "color 0.2s",
+              padding: "0.75rem 1.5rem",
+              transition: "color 0.2s, opacity 0.15s",
+              minHeight: "44px",
             }}
-            onMouseEnter={e => { e.currentTarget.style.color = "rgba(220,210,245,0.8)"; }}
-            onMouseLeave={e => { e.currentTarget.style.color = "rgba(180,170,210,0.5)"; }}
           >
             ← {t("profile_try_another")}
           </button>
@@ -448,6 +449,10 @@ export default function Hero() {
           from { opacity: 0; transform: translateY(14px); }
           to   { opacity: 1; transform: translateY(0); }
         }
+        @media (hover: hover) {
+          .try-another-btn:hover { color: rgba(220,210,245,0.8) !important; }
+        }
+        .try-another-btn:active { opacity: 0.7; }
       `}</style>
     </section>
   );

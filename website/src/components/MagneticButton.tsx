@@ -69,6 +69,8 @@ export default function MagneticButton({
     onClick?.();
   };
 
+  // On touch devices, useMagnetic returns static {x:0, y:0, active:false}
+  // so we only need to handle the press/active states for desktop
   const scale = pressed ? 0.97 : active ? 1.06 : 1;
   const translateX = x * 12;
   const translateY = y * 12;

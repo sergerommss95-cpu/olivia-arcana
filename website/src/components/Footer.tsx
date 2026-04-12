@@ -8,10 +8,10 @@ export default function Footer() {
   const zodiacSigns = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"];
 
   return (
-    <footer className="relative py-20 px-6 border-t border-celestial-gold/10">
+    <footer className="relative py-12 sm:py-20 px-4 sm:px-6 border-t border-celestial-gold/10" style={{ paddingBottom: "calc(3rem + env(safe-area-inset-bottom))" }}>
       <div className="max-w-6xl mx-auto">
         {/* Zodiac strip */}
-        <div className="flex justify-center gap-4 mb-12 text-celestial-gold/30 text-lg">
+        <div className="flex justify-center flex-wrap gap-2 sm:gap-4 mb-12 text-celestial-gold/30 text-base sm:text-lg">
           {zodiacSigns.map((sign, i) => (
             <span key={i} className="hover:text-celestial-gold transition-colors cursor-default">
               {sign}

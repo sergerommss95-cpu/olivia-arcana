@@ -1,16 +1,31 @@
 "use client";
 
+import { useState } from "react";
 import ScrollFloat from "@/components/ScrollFloat";
+import CheckoutButton from "@/components/CheckoutButton";
 import MagneticButton from "@/components/MagneticButton";
+import { useSubscription } from "@/hooks/useSubscription";
+import VipBadge from "@/components/VipBadge";
 import { useLocale } from "../lib/i18n/useLocale";
+import type { PriceKey } from "@/lib/payments";
 
 export default function Pricing() {
   const { t } = useLocale();
+  const { isVip, manageSubscription } = useSubscription();
+  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">("monthly");
+
+  const aLaCarteItems: { name: string; price: string; priceKey: PriceKey }[] = [
+    { name: t("price_i1"), price: "$3.90", priceKey: "birth_chart" },
+    { name: t("price_i2"), price: "$3.90", priceKey: "compatibility" },
+    { name: t("price_i3"), price: "$1.95", priceKey: "celtic_cross" },
+    { name: t("price_i4"), price: "$6.50", priceKey: "year_ahead" },
+    { name: t("price_i5"), price: "$39.99", priceKey: "video_reading" },
+  ];
 
   return (
-    <section id="pricing" className="relative py-32 px-6">
+    <section id="pricing" className="relative py-16 sm:py-32 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-20">
+        <div className="text-center mb-10 sm:mb-20">
           <p className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-[0.3em] uppercase mb-4">
             {t("price_eyebrow")}
           </p>
@@ -18,6 +33,33 @@ export default function Pricing() {
             {t("price_title")}
           </h2>
           <div className="star-divider max-w-xs mx-auto">&#10022;</div>
+
+          {/* Billing period toggle */}
+          <div className="mt-8 flex items-center justify-center gap-3">
+            <button
+              onClick={() => setBillingPeriod("monthly")}
+              className={`text-sm px-4 py-1.5 rounded-full transition-all ${
+                billingPeriod === "monthly"
+                  ? "bg-celestial-gold/20 text-celestial-gold border border-celestial-gold/30"
+                  : "text-muted-lavender hover:text-warm-ivory"
+              }`}
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setBillingPeriod("annual")}
+              className={`text-sm px-4 py-1.5 rounded-full transition-all flex items-center gap-2 ${
+                billingPeriod === "annual"
+                  ? "bg-celestial-gold/20 text-celestial-gold border border-celestial-gold/30"
+                  : "text-muted-lavender hover:text-warm-ivory"
+              }`}
+            >
+              Annual
+              <span className="text-xs bg-cosmic-teal/20 text-cosmic-teal px-2 py-0.5 rounded-full">
+                Save 17%
+              </span>
+            </button>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -70,18 +112,30 @@ export default function Pricing() {
             </div>
 
             <div className="mb-6">
-              <h3 className="font-[family-name:var(--font-heading)] text-2xl font-semibold text-celestial-gold mb-2">
-                {t("price_vip")}
-              </h3>
+              <div className="flex items-center gap-2 mb-2">
+                <h3 className="font-[family-name:var(--font-heading)] text-2xl font-semibold text-celestial-gold">
+                  {t("price_vip")}
+                </h3>
+                {isVip && <VipBadge />}
+              </div>
               <p className="text-muted-lavender text-sm">{t("price_vip_desc")}</p>
             </div>
 
             <div className="mb-8">
-              <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-celestial-gold">$6.50</span>
-              <span className="text-muted-lavender text-sm ml-2">{t("price_month")}</span>
-              <p className="text-xs text-muted-lavender/60 mt-1">
-                {t("price_annual")}
-              </p>
+              {billingPeriod === "monthly" ? (
+                <>
+                  <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-celestial-gold">$6.50</span>
+                  <span className="text-muted-lavender text-sm ml-2">{t("price_month")}</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-celestial-gold">$65</span>
+                  <span className="text-muted-lavender text-sm ml-2">/year</span>
+                  <p className="text-xs text-cosmic-teal mt-1">
+                    That&apos;s $5.42/month &mdash; 2 months free
+                  </p>
+                </>
+              )}
             </div>
 
             <ul className="space-y-4 mb-8">
@@ -103,12 +157,28 @@ export default function Pricing() {
               ))}
             </ul>
 
-            <MagneticButton href="/portrait" variant="gold" size="md" className="w-full justify-center">
-              {t("price_start_vip")}
-            </MagneticButton>
+            {isVip ? (
+              <MagneticButton
+                variant="gold"
+                size="md"
+                className="w-full justify-center"
+                onClick={manageSubscription}
+              >
+                Manage Subscription
+              </MagneticButton>
+            ) : (
+              <CheckoutButton
+                priceKey={billingPeriod === "monthly" ? "vip_monthly" : "vip_annual"}
+                variant="gold"
+                size="md"
+                className="w-full justify-center"
+              >
+                {t("price_start_vip")}
+              </CheckoutButton>
+            )}
 
             <p className="text-center text-xs text-muted-lavender/60 mt-3">
-              {t("price_pay")}
+              3-day free trial &middot; Cancel anytime
             </p>
           </div>
           </ScrollFloat>
@@ -120,20 +190,24 @@ export default function Pricing() {
             {t("price_individual")}
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            {[
-              { name: t("price_i1"), price: "$3.90" },
-              { name: t("price_i2"), price: "$3.90" },
-              { name: t("price_i3"), price: "$1.95" },
-              { name: t("price_i4"), price: "$6.50" },
-              { name: t("price_i5"), price: "$39.99" },
-            ].map((item) => (
-              <span
+            {aLaCarteItems.map((item) => (
+              <button
                 key={item.name}
-                className="px-4 py-2 rounded-full glass-card text-sm text-muted-lavender"
+                onClick={async () => {
+                  const token = typeof window !== "undefined" ? localStorage.getItem("olivia_token") : null;
+                  if (!token) {
+                    window.location.href = `/onboarding/?redirect=checkout&price=${item.priceKey}`;
+                    return;
+                  }
+                  const { createCheckoutSession } = await import("@/lib/payments");
+                  const url = await createCheckoutSession(item.priceKey);
+                  window.location.href = url;
+                }}
+                className="px-4 py-2 rounded-full glass-card text-sm text-muted-lavender hover:text-warm-ivory hover:border-celestial-gold/30 transition-all cursor-pointer group"
               >
                 {item.name}{" "}
-                <span className="text-celestial-gold">{item.price}</span>
-              </span>
+                <span className="text-celestial-gold group-hover:underline">{item.price}</span>
+              </button>
             ))}
           </div>
         </div>

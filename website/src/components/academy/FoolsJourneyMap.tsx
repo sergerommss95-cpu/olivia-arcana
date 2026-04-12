@@ -207,12 +207,12 @@ export default function FoolsJourneyMap() {
                 marginBottom: "0.15rem",
               }}>{card.glyph}</div>
               <div style={{
-                fontFamily: "var(--font-body)", fontSize: "0.58rem", fontWeight: isSelected ? 500 : 300,
+                fontFamily: "var(--font-body)", fontSize: "0.65rem", fontWeight: isSelected ? 500 : 300,
                 color: isSelected ? "rgba(240,236,255,0.85)" : "rgba(180,170,210,0.45)",
                 lineHeight: 1.3,
               }}>{card.name.replace("The ", "")}</div>
               <div style={{
-                fontFamily: "var(--font-body)", fontSize: "0.42rem", fontWeight: 300,
+                fontFamily: "var(--font-body)", fontSize: "0.5rem", fontWeight: 300,
                 color: `${actColor}40`, marginTop: "0.15rem",
                 letterSpacing: "0.04em",
               }}>{card.theme}</div>
@@ -275,8 +275,8 @@ export default function FoolsJourneyMap() {
           <div style={{
             marginTop: "0.6rem", paddingTop: "0.5rem",
             borderTop: `1px solid ${ACT_INFO[selectedCard.act - 1].color}10`,
-            display: "flex", justifyContent: "space-between",
-            fontFamily: "var(--font-mono)", fontSize: "0.52rem",
+            display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "0.25rem",
+            fontFamily: "var(--font-mono)", fontSize: "0.55rem",
             color: "rgba(180,170,210,0.3)",
           }}>
             <span>Card {selectedCard.number} of 21</span>
@@ -284,7 +284,7 @@ export default function FoolsJourneyMap() {
             {selectedCard.number < 21 && (
               <span
                 onClick={(e) => { e.stopPropagation(); setSelected(selectedCard.number + 1); }}
-                style={{ cursor: "pointer", color: `${ACT_INFO[selectedCard.act - 1].color}50` }}
+                style={{ cursor: "pointer", color: `${ACT_INFO[selectedCard.act - 1].color}50`, padding: "0.25rem 0" }}
               >
                 Next: {JOURNEY[selectedCard.number + 1].name} →
               </span>

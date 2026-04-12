@@ -114,7 +114,7 @@ export default function ElementMatrix() {
 
       {/* Grid */}
       <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-        <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: "3px", minWidth: "340px" }}>
+        <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: "3px", minWidth: "300px" }}>
           {/* Column headers (Elements) */}
           <thead>
             <tr>
