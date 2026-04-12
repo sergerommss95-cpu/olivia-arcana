@@ -8,6 +8,7 @@
  */
 
 import React, { useRef, useEffect, useCallback } from "react";
+import type * as THREE from "three";
 import type { MaterialPreset } from "./materials/presets";
 
 // Global context counter — Chrome hard-limits ~16, we cap at 8 for safety
