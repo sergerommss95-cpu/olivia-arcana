@@ -2,11 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "olivia-website",
-      "runtimeExecutable": "/Users/macbookpro/.local/bin/npx",
-      "runtimeArgs": ["next", "dev", "--webpack"],
-      "port": 3333,
-      "autoPort": true
+      "name": "dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
     }
   ]
 }

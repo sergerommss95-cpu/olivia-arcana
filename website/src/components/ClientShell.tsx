@@ -23,6 +23,7 @@ import InstallPrompt from "@/components/InstallPrompt";
 import SmoothScroll from "@/components/SmoothScroll";
 import FilmGrain from "@/components/FilmGrain";
 import PageTransition from "@/components/transitions/PageTransition";
+import { SubscriptionProvider } from "@/hooks/useSubscription";
 
 export default function ClientShell({ children }: { children: React.ReactNode }) {
   // Ensure we only render browser-dependent overlays on the client
@@ -63,12 +64,15 @@ export default function ClientShell({ children }: { children: React.ReactNode })
         </>
       )}
 
-      {/* Page content — always rendered (with transition choreography once mounted) */}
-      {mounted ? (
-        <PageTransition>{children}</PageTransition>
-      ) : (
-        <>{children}</>
-      )}
+      {/* Subscription context — provides useSubscription() to all components */}
+      <SubscriptionProvider>
+        {/* Page content — always rendered (with transition choreography once mounted) */}
+        {mounted ? (
+          <PageTransition>{children}</PageTransition>
+        ) : (
+          <>{children}</>
+        )}
+      </SubscriptionProvider>
     </>
   );
 }
