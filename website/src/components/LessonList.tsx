@@ -9,13 +9,23 @@
 
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { generateFullLessonContent } from "../lib/academy/content";
 import type { ContentSection, QuizQuestion, ExerciseStep, LessonContent } from "../lib/academy/content/types";
 import { SIGN_PAGES } from "../lib/sign-data";
 import { PLANET_MEANING, HOUSE_MEANING } from "../lib/planet-interpretations";
 import { ALL_CARDS } from "../lib/academy/tarot-cards";
+
+// Lazy-load interactive academy widgets (heavy SVG components)
+const ZodiacWheel = lazy(() => import("./academy/ZodiacWheel"));
+const ElementMatrix = lazy(() => import("./academy/ElementMatrix"));
+const TarotRevealCard = lazy(() => import("./academy/TarotRevealCard"));
+const SecretReveal = lazy(() => import("./academy/SecretReveal"));
+const HouseWheel = lazy(() => import("./academy/HouseWheel"));
+const AspectVisualizer = lazy(() => import("./academy/AspectVisualizer"));
+const PlanetaryJourney = lazy(() => import("./academy/PlanetaryJourney"));
+const FoolsJourneyMap = lazy(() => import("./academy/FoolsJourneyMap"));
 
 interface Lesson {
   slug: string;
@@ -418,6 +428,23 @@ function ExerciseGuide({ steps }: { steps: ExerciseStep[] }) {
   );
 }
 
+// ── Widget Loading Fallback ────────────────────────────────────
+
+function WidgetLoader() {
+  return (
+    <div style={{
+      padding: "2rem", textAlign: "center", marginBottom: "1rem",
+      borderRadius: "0.75rem", background: "rgba(232,230,240,0.015)",
+      border: "1px solid rgba(200,185,255,0.04)",
+    }}>
+      <div style={{
+        fontFamily: "var(--font-body)", fontSize: "0.72rem",
+        color: "rgba(180,170,210,0.35)", fontStyle: "italic",
+      }}>Loading interactive widget...</div>
+    </div>
+  );
+}
+
 // ── Section Renderer ───────────────────────────────────────────
 
 function SectionRenderer({ section }: { section: ContentSection }) {
@@ -433,6 +460,23 @@ function SectionRenderer({ section }: { section: ContentSection }) {
     case "exercise": return <ExerciseGuide steps={section.steps} />;
     case "comparison-table": return <ComparisonTable headers={section.headers} rows={section.rows} />;
     case "keyword-map": return <KeywordMap items={section.items} />;
+    // Interactive academy widgets
+    case "zodiac-wheel":
+      return <Suspense fallback={<WidgetLoader />}><ZodiacWheel /></Suspense>;
+    case "element-matrix":
+      return <Suspense fallback={<WidgetLoader />}><ElementMatrix /></Suspense>;
+    case "tarot-reveal":
+      return <Suspense fallback={<WidgetLoader />}><TarotRevealCard cardName={section.cardName} /></Suspense>;
+    case "secret-reveal":
+      return <Suspense fallback={<WidgetLoader />}><SecretReveal question={section.question} options={section.options} correctIndex={section.correctIndex} explanation={section.explanation} hint={section.hint} /></Suspense>;
+    case "house-wheel":
+      return <Suspense fallback={<WidgetLoader />}><HouseWheel highlightHouse={section.highlightHouse} /></Suspense>;
+    case "aspect-visualizer":
+      return <Suspense fallback={<WidgetLoader />}><AspectVisualizer /></Suspense>;
+    case "planetary-journey":
+      return <Suspense fallback={<WidgetLoader />}><PlanetaryJourney /></Suspense>;
+    case "fools-journey":
+      return <Suspense fallback={<WidgetLoader />}><FoolsJourneyMap /></Suspense>;
     default: return null;
   }
 }

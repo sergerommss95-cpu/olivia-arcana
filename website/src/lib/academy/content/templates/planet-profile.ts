@@ -316,6 +316,10 @@ export function generatePlanetContent(lessonSlug: string): LessonContent | null 
       planetProfile(lesson.planet),
       callout("insight", lesson.insight),
     ];
+    // Add planetary journey widget to Saturn lesson (Saturn Return AHA moment)
+    if (lesson.planet === "Saturn" || lesson.planet === "Jupiter") {
+      sections.push({ type: "planetary-journey" });
+    }
     const furtherReading = PLANET_FURTHER_READING[lesson.planet];
     if (furtherReading) {
       sections.push(callout("tip", furtherReading));
@@ -340,6 +344,7 @@ export function generatePlanetContent(lessonSlug: string): LessonContent | null 
         "(Uranus, Neptune, Pluto) move so slowly they define entire generations — their effects in your chart " +
         "are felt most strongly through the house they occupy and the aspects they make to personal planets."
       ),
+      { type: "planetary-journey" },
       { type: "keyword-map", items },
       text(
         "Personal vs. Generational Planets",

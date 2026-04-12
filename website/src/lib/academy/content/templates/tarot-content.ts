@@ -60,6 +60,7 @@ function buildPairLesson(
 
   const sections: ContentSection[] = [
     text(`${numA} -- ${cardA} & ${numB} -- ${cardB}`, intro),
+    { type: "tarot-reveal", cardName: cardA },
     cardDisplay(cardA),
     cardDisplay(cardB, true),
     {
@@ -481,6 +482,7 @@ export function generateTarotContent(lessonSlug: string): LessonContent | null {
         "The Major Arcana are the big themes of life — the cards that appear when something truly significant " +
         "is at work."
       ),
+      { type: "fools-journey" },
       cardGrid(majorNames),
       text(
         "Three Acts of the Journey",
@@ -490,6 +492,7 @@ export function generateTarotContent(lessonSlug: string): LessonContent | null {
         "transformation, and balance. Cards 15-21 (The Devil through The World) cover the encounter with " +
         "cosmic forces — bondage, destruction, hope, illusion, clarity, resurrection, and wholeness."
       ),
+      { type: "tarot-reveal", cardName: "The Fool" },
       callout(
         "insight",
         "When multiple Major Arcana appear in a reading, pay close attention. These are not everyday " +

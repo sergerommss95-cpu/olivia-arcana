@@ -27,7 +27,16 @@ export type ContentSection =
   | { type: "quiz"; questions: QuizQuestion[] }
   | { type: "exercise"; steps: ExerciseStep[] }
   | { type: "comparison-table"; headers: string[]; rows: string[][] }
-  | { type: "keyword-map"; items: { term: string; definition: string }[] };
+  | { type: "keyword-map"; items: { term: string; definition: string }[] }
+  // Interactive academy widgets
+  | { type: "zodiac-wheel" }
+  | { type: "element-matrix" }
+  | { type: "tarot-reveal"; cardName?: string }
+  | { type: "secret-reveal"; question: string; options: string[]; correctIndex: number; explanation: string; hint?: string }
+  | { type: "house-wheel"; highlightHouse?: number }
+  | { type: "aspect-visualizer" }
+  | { type: "planetary-journey" }
+  | { type: "fools-journey" };
 
 export interface LessonContent {
   sections: ContentSection[];

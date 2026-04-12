@@ -258,6 +258,7 @@ export function generateHouseContent(lessonSlug: string): LessonContent | null {
     const meaning = HOUSE_MEANING[lesson.house];
     const sections: ContentSection[] = [
       text(lesson.title, lesson.intro),
+      { type: "house-wheel", highlightHouse: lesson.house },
       callout("tip", `${meaning.area}: ${meaning.rules}`),
       houseProfile(lesson.house),
       callout("insight", lesson.insight),
@@ -286,6 +287,7 @@ export function generateHouseContent(lessonSlug: string): LessonContent | null {
         "time and place of birth. This is why birth time matters so much in astrology: without it, the houses " +
         "cannot be accurately calculated."
       ),
+      { type: "house-wheel" },
       { type: "keyword-map", items },
       text(
         "House Systems: How Boundaries Are Drawn",

@@ -205,6 +205,7 @@ export function generateSignContent(lessonSlug: string): LessonContent | null {
         "than almost any other single factor. Two signs that share an element will always have an instinctive " +
         "understanding, even if they express it very differently."
       ),
+      { type: "element-matrix" },
       {
         type: "comparison-table",
         headers: ["Element", "Signs", "Quality", "Drive", "Shadow"],
@@ -263,6 +264,14 @@ export function generateSignContent(lessonSlug: string): LessonContent | null {
         "of firm commitment. The most effective approach, as always in astrology, is balance — though very few " +
         "charts are perfectly balanced, which is precisely what makes each person unique."
       ),
+      {
+        type: "secret-reveal",
+        question: "Which modality marks the beginning of each season?",
+        options: ["Fixed — they anchor the season", "Mutable — they transition into the season", "Cardinal — they initiate the season"],
+        correctIndex: 2,
+        explanation: "Cardinal signs (Aries, Cancer, Libra, Capricorn) begin at the equinoxes and solstices — the astronomical start of each season. They carry the initiating energy of new beginnings.",
+        hint: "Think about which word means 'primary' or 'first in importance.'",
+      },
       callout(
         "insight",
         "Cardinal signs mark the start of each season (equinoxes and solstices). Fixed signs occupy the heart " +
@@ -335,6 +344,14 @@ export function generateSignContent(lessonSlug: string): LessonContent | null {
         "language — one where planets are verbs (what happens), signs are adjectives (how it happens), and houses " +
         "are nouns (where in life it happens). Master these three layers and you can read any chart."
       ),
+      {
+        type: "secret-reveal",
+        question: "In astrology's symbolic language, what role do planets play?",
+        options: ["Nouns (where things happen)", "Verbs (what happens)", "Adjectives (how it happens)", "Adverbs (when it happens)"],
+        correctIndex: 1,
+        explanation: "Planets are the verbs — they describe what function is at work (communication, love, drive, etc). Signs are adjectives (how that function expresses), and houses are nouns (where in life it plays out).",
+        hint: "Think of a sentence: something ACTS in a STYLE within an AREA of life.",
+      },
       text(
         "What Astrology Is Not",
         "Astrology is not fortune-telling. It does not predict specific events with certainty, nor does it " +
@@ -380,6 +397,7 @@ export function generateSignContent(lessonSlug: string): LessonContent | null {
         "arbitrary — it reflects the actual seasonal progression in the Northern Hemisphere, which is why " +
         "the signs carry the qualities they do."
       ),
+      { type: "zodiac-wheel" },
       { type: "keyword-map", items },
       text(
         "Reading the Wheel",

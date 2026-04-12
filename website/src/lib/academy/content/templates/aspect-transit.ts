@@ -705,7 +705,10 @@ export function generateAspectTransitContent(
   const aspectData = ASPECT_CONTENT[lessonSlug];
   if (aspectData) {
     return {
-      sections: aspectData.sections,
+      sections: [
+        { type: "aspect-visualizer" } as ContentSection,
+        ...aspectData.sections,
+      ],
       estimatedMinutes: aspectData.minutes,
       keyTakeaway: aspectData.takeaway,
     };
