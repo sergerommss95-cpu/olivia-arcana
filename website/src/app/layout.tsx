@@ -1,16 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, IBM_Plex_Mono } from "next/font/google";
-import GlobalBackground from "@/components/GlobalBackground";
-import SoundEngine from "@/components/SoundEngine";
-import CosmicCursor from "@/components/CosmicCursor";
-import CosmicIndicators from "@/components/CosmicIndicators";
-import AmbientSound from "@/components/AmbientSound";
-import CosmicToast from "@/components/CosmicToast";
-import EclipseOverlay from "@/components/EclipseOverlay";
-import InstallPrompt from "@/components/InstallPrompt";
-import SmoothScroll from "@/components/SmoothScroll";
-import PageTransition from "@/components/transitions/PageTransition";
-import FilmGrain from "@/components/FilmGrain";
+import ClientShell from "@/components/ClientShell";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -82,36 +72,8 @@ export default function RootLayout({
           Skip to main content
         </a>
 
-        {/* Layer 0 — The Void (persistent WebGL) */}
-        <GlobalBackground />
-
-        {/* Eclipse/astronomical event visual overlay */}
-        <EclipseOverlay />
-
-        {/* Layer 3 — Custom Cursor (desktop only) */}
-        <CosmicCursor />
-
-        {/* Layer 4 — Sound systems */}
-        <SoundEngine />
-        <AmbientSound />
-
-        {/* Live indicators — Moon Phase + Planetary Hour */}
-        <CosmicIndicators />
-
-        {/* Daily cosmic toast notification */}
-        <CosmicToast />
-
-        {/* PWA install prompt */}
-        <InstallPrompt />
-
-        {/* Smooth scroll (Lenis) */}
-        <SmoothScroll />
-
-        {/* Film grain + vignette (analog texture) */}
-        <FilmGrain opacity={0.03} vignetteIntensity={0.35} />
-
-        {/* Page content — with transition choreography */}
-        <PageTransition>{children}</PageTransition>
+        {/* Single client boundary for all global overlays + page transitions */}
+        <ClientShell>{children}</ClientShell>
       </body>
     </html>
   );
