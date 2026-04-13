@@ -27,7 +27,7 @@ Olivia Arcana LLC — Wyoming LLC, registering within days. Registered agent and
 
 | Decision | Choice |
 |----------|--------|
-| Architecture | Middleware + Pages (modular, swappable) |
+| Architecture | Client-side protection modules + Static pages (modular, swappable) |
 | Compliance approach | Hybrid: self-hosted now, iubenda-ready swap points |
 | Jurisdictions | Global maximum: GDPR, CCPA, LGPD, PIPL, UK GDPR, PIPEDA + locale-matched |
 | Legal page language | English binding + translated summary banner per locale |
@@ -74,11 +74,13 @@ website/src/
 
 **Principle:** `lib/legal/` is pure logic (no React, testable standalone). `components/legal/` is UI that consumes it. Legal page content lives in `constants.ts` for easy audit and future iubenda swap.
 
+**Important: Static export constraint.** Next.js is configured with `output: "export"` for Netlify. This means NO server-side rendering, NO Next.js middleware, NO Next.js API routes. All protection logic runs client-side via React components. Route protection (age gate, cookie consent checks) is enforced via client-side JavaScript. The backend is FastAPI — all server-side logic (consent logging, AI wrapping, admin endpoints) lives there.
+
 ---
 
 ## 3. Legal Pages
 
-All 5 pages share `LegalPageLayout.tsx` — dark background (#0a0a12), gold accents (#C9A84C), Cinzel headings, `BindingLanguageBanner` at top for non-English users, table of contents sidebar (desktop) / accordion (mobile), `lastUpdated` date at bottom.
+All 5 pages share `LegalPageLayout.tsx` — dark background (#0a0a12), gold accents (#C9A84C), Cormorant Garamond headings (matches existing `--font-heading` from layout.tsx), `BindingLanguageBanner` at top for non-English users, table of contents sidebar (desktop) / accordion (mobile), `lastUpdated` date at bottom.
 
 ### 3.1 Terms of Service (`/terms`) — 12 Clauses
 
@@ -241,7 +243,9 @@ How to opt out: browser settings, Google Analytics opt-out tool, Cookie Settings
 
 ---
 
-## 4. Protection Middleware — `lib/legal/`
+## 4. Protection Modules — `lib/legal/`
+
+> Note: "protection modules" not "middleware" — Next.js middleware is unavailable with static export. These are pure TypeScript modules consumed by React components client-side.
 
 ### 4.1 Cookie Consent Engine (`cookie-consent.ts`)
 
@@ -272,10 +276,12 @@ AGE_GATE_ROUTES: string[]                // List of protected route prefixes
 needsAgeGate(pathname: string): boolean  // Checks if route requires gate
 ```
 
-**Protected routes:** `/readings`, `/subscribe`, `/cards`, `/oracle`, `/account`, any route starting with `/reading/`
-**Unprotected:** `/`, `/about`, `/contact`, `/terms`, `/privacy`, `/cookies`, `/disclaimer`, `/dmca`, `/unsubscribe`
+**Protected routes:** `/ask`, `/chart`, `/oracle`, `/cosmos`, `/daily`, `/journal`, `/portrait`, `/profile`, `/synastry`, `/timing`, `/transits`, `/account`, `/checkout`, and any dynamic reading delivery routes.
+**Unprotected:** `/`, `/about`, `/contact`, `/terms`, `/privacy`, `/cookies`, `/disclaimer`, `/dmca`, `/unsubscribe`, `/signs`
 
 **Cookie:** `oa_age_verified=true`, 365 days, SameSite=Lax, Secure in production.
+
+**Implementation pattern:** Create a `ProtectedLayout.tsx` wrapper component. It calls `isAgeVerified()` on mount. If false, renders `<AgeGate />` instead of `children`. If true, renders `children`. This component is used in a route group layout — e.g., `app/(protected)/layout.tsx` wrapping all protected routes. Since this is a static export, the gate is purely client-side: content components don't mount until the cookie check passes.
 
 ### 4.3 Checkout Consent Logger (`checkout-consent.ts`)
 
@@ -285,14 +291,15 @@ interface ConsentRecord {
   timestamp: string          // ISO 8601
   checkbox_age: boolean
   checkbox_terms: boolean
-  user_ip: string
-  user_agent: string
+  user_agent: string         // navigator.userAgent
   product_id: string
   stripe_session_id: string
 }
 
 logConsent(record: ConsentRecord): Promise<void>  // POST to backend
 ```
+
+> Note: `user_ip` is NOT collected by the frontend (JavaScript in a static export cannot reliably access client IP). The backend `POST /api/payments/consent-log` endpoint extracts the IP from request headers (`X-Forwarded-For` or `request.client.host`) and stores it alongside the frontend-provided fields.
 
 **Backend:**
 - New endpoint: `POST /api/payments/consent-log`
@@ -377,12 +384,14 @@ getApplicableRights(jurisdiction: Jurisdiction): string[]
 | Locale | Jurisdiction | Primary Privacy Law |
 |--------|-------------|---------------------|
 | `de`, `fr`, `es` | `gdpr` | EU GDPR |
-| `en` | `ccpa` | California CCPA (default for English) |
+| `en` | `general` | Shows all rights equally (English serves US, UK, AU, global) |
 | `pt` | `lgpd` | Brazil LGPD |
 | `zh` | `pipl` | China PIPL |
 | `uk` | `general` | UA Data Protection (general treatment) |
 | `ru` | `general` | Russian 152-FZ (general treatment) |
 | `ar` | `general` | Saudi PDPL / UAE (general treatment) |
+
+> Note: `en` defaults to `general` rather than `ccpa` because the English locale serves a global audience (US, UK, Australia, India, etc.) and CCPA only applies to California residents, which cannot be reliably detected from locale alone. The `general` jurisdiction shows all rights sections equally without highlighting any specific one. All rights are always visible regardless of detected jurisdiction.
 
 **Used by:** Privacy Policy page — highlights the most relevant rights section with a "This applies to you" visual callout based on locale. All rights always visible.
 
@@ -399,6 +408,7 @@ getApplicableRights(jurisdiction: Jurisdiction): string[]
 - Inline links to /privacy and /cookies
 - Mobile: stacks vertically, full-width buttons
 - Footer "Cookie Settings" link calls `window.openCookieBanner()` to re-show
+- CookieBanner registers `window.openCookieBanner` via `useEffect` on mount (sets `window.openCookieBanner = () => setVisible(true)`, cleans up on unmount). Footer.tsx calls this function from the Cookie Settings link's `onClick` handler.
 
 ### 5.2 `AgeGate.tsx`
 
@@ -431,7 +441,7 @@ Two variants via `variant` prop:
 
 ### 5.5 `LegalPageLayout.tsx`
 
-- Dark background (#0a0a12), gold headings in Cinzel, sans-serif body
+- Dark background (#0a0a12), gold headings in Cormorant Garamond (`--font-heading`), sans-serif body
 - `BindingLanguageBanner` at top when `locale !== 'en'`
 - Table of contents: sticky sidebar on desktop, collapsed accordion on mobile
 - `lastUpdated` date at bottom
@@ -476,10 +486,14 @@ Styled: subtle background, info icon, small text, link to English version anchor
 
 | Addition | Location | Purpose |
 |----------|----------|---------|
-| `POST /api/payments/consent-log` | `backend/api/payments.py` | Store checkout consent records |
+| `POST /api/payments/consent-log` | `backend/api/payments.py` | Store checkout consent records (extracts IP from request headers) |
 | `ConsentLog` model | `backend/db/models.py` | consent_logs table |
-| AI wrapper middleware | `backend/api/readings.py` + chat endpoints | Wrap all AI output through `wrapReading()` |
+| AI wrapper | All reading/AI endpoints in backend | Wrap all AI output through `wrapReading()` before returning |
+| `POST /api/contact` | `backend/api/contact.py` (new) | Contact form handler (honeypot, rate limit, sends to support@) |
+| `POST /api/email/unsubscribe` | `backend/api/email.py` (new) | Email unsubscribe (calls email provider API) |
 | `GET /admin/export-data` | `backend/api/admin.py` (new) | Admin-only CSV export, protected by ADMIN_TOKEN |
+
+> Note: The existing Netlify edge function at `/api/chat` (in `netlify.toml`) may also need the AI output wrapper. During implementation, determine if `/api/chat` proxies to the FastAPI backend (where wrapping happens automatically) or handles AI responses directly in the edge function (where wrapping must be added to the edge function code). If the edge function is no longer in use, remove it.
 
 ### 6.3 Footer Update
 
@@ -509,7 +523,8 @@ Styled: subtle background, info icon, small text, link to English version anchor
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' https://js.stripe.com https://www.googletagmanager.com 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://api.stripe.com https://*.supabase.co; frame-src https://js.stripe.com https://hooks.stripe.com; font-src 'self' https://fonts.gstatic.com"
+    # NOTE: Replace BACKEND_DOMAIN with actual backend API domain (e.g., api.oliviaarcana.com)
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://js.stripe.com https://www.googletagmanager.com 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://BACKEND_DOMAIN https://api.stripe.com https://*.supabase.co https://www.google-analytics.com; frame-src https://js.stripe.com https://hooks.stripe.com; font-src 'self' https://fonts.gstatic.com"
 ```
 
 ### 7.2 `robots.txt`
@@ -526,8 +541,8 @@ Sitemap: https://oliviaarcana.com/sitemap.xml
 
 ### 7.3 `sitemap.xml`
 
-Public pages only: `/`, `/about`, `/cards`, `/oracle`, `/subscribe`, `/terms`, `/privacy`, `/cookies`, `/disclaimer`, `/dmca`, `/contact`.
-Exclude: `/admin/*`, `/api/*`, `/dashboard/*`, `/account/*`, `/reading/*`.
+Public pages only: `/`, `/about`, `/oracle`, `/signs`, `/cosmos`, `/daily`, `/ask`, `/terms`, `/privacy`, `/cookies`, `/disclaimer`, `/dmca`, `/contact`.
+Exclude: `/admin/*`, `/api/*`, `/dashboard/*`, `/account/*`, `/checkout/*`.
 
 ### 7.4 Copyright Metadata
 
@@ -573,7 +588,7 @@ Branded HTML email sent within 5 minutes of every purchase:
 - Honeypot field (hidden `website` field) — silently reject if filled
 - Client-side email validation
 - Success message: "Thank you! We'll respond within 24 hours."
-- Sends to support@oliviaarcana.com
+- **Backend:** New endpoint `POST /api/contact` in `backend/api/contact.py`. Receives form data, validates honeypot, sends email to support@oliviaarcana.com via email provider API (env var `EMAIL_API_KEY`). Returns 200 on success. Rate limited: 3 submissions per IP per hour.
 
 ### 8.3 Email Signup Consent
 
@@ -585,7 +600,7 @@ Any email signup/waitlist form includes:
 
 - Accepts `?email=` query parameter
 - Shows confirmation: "You have been unsubscribed from Olivia Arcana marketing emails."
-- Triggers unsubscribe via email provider API (env var for API key)
+- **Backend:** New endpoint `POST /api/email/unsubscribe` in `backend/api/email.py`. Accepts email address, validates format, calls email provider's unsubscribe API (env var `EMAIL_API_KEY`). The frontend `/unsubscribe` page reads the `?email=` parameter and calls this endpoint on mount.
 - CAN-SPAM: processed within 10 business days
 
 ### 8.5 Every Marketing/Transactional Email Footer
@@ -705,25 +720,60 @@ When ready to integrate iubenda:
 - LegalPageLayout + BindingLanguageBanner
 - Footer update with legal links + copyright
 - Cookie consent banner
-- Age gate
-- Checkout consent checkboxes + backend logging
+- Age gate (with ProtectedLayout.tsx route group wrapper)
+- Checkout consent checkboxes + backend consent_logs table + endpoint (these are coupled — the UI logs to the backend)
 - Security headers + robots.txt + sitemap.xml
 - Copyright metadata
 
 **Phase 2 — Payment & Content Protection:**
 - Receipt email template
 - Dispute response template
-- Contact form with consent
+- Contact form with consent + backend `/api/contact` endpoint
 - Email signup consent
-- Unsubscribe page
+- Unsubscribe page + backend `/api/email/unsubscribe` endpoint
 - Safe language static audit
-- AI output wrapper integration
+- AI output wrapper integration (backend + Telegram bot)
 - SafeDisclaimer injection across site
 
 **Phase 3 — Hardening & Operations:**
 - Environment variable audit
-- Admin export endpoint
+- Admin export endpoint (includes consent logs in export)
 - Image watermark
 - Security checklist document
 - Rate limiting on API endpoints
-- Backend consent_logs table + endpoint
+
+---
+
+## 14. Implementation Notes & Edge Cases
+
+### 14.1 Google Analytics Conditional Loading
+
+Since this is a static export (no server-side rendering), GA is loaded conditionally via client-side JavaScript:
+- `CookieBanner.tsx` checks `hasConsent("analytics")` on mount
+- If consent is granted, dynamically inject the gtag.js script via `document.createElement('script')`
+- If consent is later revoked (via Cookie Settings), remove the GA cookies and stop tracking on next page load
+- GA script is NEVER present in the static HTML — it's always injected dynamically after consent check
+
+### 14.2 Locale Preference Cookie vs. Consent
+
+The `oa_locale` cookie is categorized as "Preferences" (consent required). If the user rejects preferences cookies:
+- The locale cookie is NOT set
+- The app falls back to `detectLocale()` on every page load (reads `navigator.language` from browser)
+- This is a graceful degradation — the user gets their browser language but can't persist a manual override
+- The language selector still works within the session (held in React state), just not persisted across visits
+
+### 14.3 Copyright Year in Footer
+
+`{currentYear}` is generated at runtime via `new Date().getFullYear()` in a client component. Since Footer.tsx is already a client component (uses `useLocale()` hook), this works correctly in static export — it renders the current year at view time, not build time.
+
+### 14.4 Free Trial Clause
+
+Clause 5 of the Terms references "3-day free trial." The Stripe integration already supports trials (configurable per product in Stripe Dashboard). The Terms clause covers the legal aspect regardless of whether trials are currently active — if trials are disabled in Stripe, the clause is dormant but not harmful.
+
+### 14.5 Receipt Emails — Sending Mechanism
+
+Receipt emails are sent by the FastAPI backend, triggered by the Stripe `checkout.session.completed` webhook handler (already exists in `backend/services/stripe_service.py`). The handler is extended to render the branded HTML template and send via the email provider API (env var `EMAIL_API_KEY`). This is NOT a Stripe-generated receipt — it's a custom branded email.
+
+### 14.6 Safe Language Filter — Context Sensitivity
+
+The `"psychic"` pattern uses a simple word-boundary regex (`\bpsychic\b`) rather than NLP-level context detection. This means it will replace "psychic" in all contexts, which is the safer approach — if the word appears anywhere on the site, it should be "intuitive" in a service/marketing context. For editorial/educational content (e.g., "the history of psychic practices"), the filter can be bypassed by using the unfiltered version of the text. The filter is a function call, not a global middleware — it's applied intentionally where needed.
