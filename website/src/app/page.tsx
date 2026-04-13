@@ -18,6 +18,7 @@ import DailyHoroscope from "@/components/DailyHoroscope";
 import CompatibilityChecker from "@/components/CompatibilityChecker";
 import ScrollFloat from "@/components/ScrollFloat";
 import InfiniteMarquee from "@/components/InfiniteMarquee";
+import CosmicSelfie from "@/components/CosmicSelfie";
 
 // Lazy-load non-critical components
 const CinematicLoader = dynamic(() => import("@/components/CinematicLoader"), { ssr: false });
@@ -87,9 +88,12 @@ export default function Home() {
             <Testimonials />
           </ScrollFloat>
           <ScrollFloat index={5}>
-            <Pricing />
+            <CosmicSelfie />
           </ScrollFloat>
           <ScrollFloat index={6}>
+            <Pricing />
+          </ScrollFloat>
+          <ScrollFloat index={7}>
             <CTA />
           </ScrollFloat>
         </div>
