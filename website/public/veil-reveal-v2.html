@@ -8,10 +8,14 @@
   <style>
     /* === Reset & Base === */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { background: #060810; color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    html { background: #080c18; color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
     body {
       min-height: 100vh; overflow-x: hidden; position: relative;
-      background: radial-gradient(ellipse at 50% 30%, rgba(15,12,35,1) 0%, #060810 70%);
+      background:
+        radial-gradient(ellipse at 50% 25%, rgba(30,18,65,0.8) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 70%, rgba(15,10,45,0.5) 0%, transparent 45%),
+        radial-gradient(ellipse at 80% 60%, rgba(12,18,50,0.4) 0%, transparent 40%),
+        #080c18;
     }
 
     /* === Ambient Star Field Background === */
@@ -25,28 +29,28 @@
     body::before {
       background: transparent;
       box-shadow:
-        12vw 18vh 0 0.5px rgba(255,255,255,0.25),
-        85vw 12vh 0 0.5px rgba(200,180,255,0.2),
-        45vw 72vh 0 0.8px rgba(212,175,55,0.18),
-        72vw 45vh 0 0.5px rgba(180,200,255,0.22),
-        25vw 88vh 0 0.6px rgba(255,220,180,0.2),
-        92vw 68vh 0 0.5px rgba(180,160,255,0.15),
-        55vw 32vh 0 0.7px rgba(255,255,255,0.2),
-        8vw 55vh 0 0.5px rgba(200,220,255,0.18);
+        12vw 18vh 0 0.8px rgba(255,255,255,0.4),
+        85vw 12vh 0 0.7px rgba(200,180,255,0.35),
+        45vw 72vh 0 1px rgba(212,175,55,0.3),
+        72vw 45vh 0 0.7px rgba(180,200,255,0.35),
+        25vw 88vh 0 0.8px rgba(255,220,180,0.3),
+        92vw 68vh 0 0.7px rgba(180,160,255,0.3),
+        55vw 32vh 0 0.9px rgba(255,255,255,0.35),
+        8vw 55vh 0 0.7px rgba(200,220,255,0.3);
       animation: drift-field-1 40s ease-in-out infinite alternate;
-      opacity: 0.2;
+      opacity: 0.45;
     }
     body::after {
       background: transparent;
       box-shadow:
-        35vw 25vh 0 0.6px rgba(212,175,55,0.2),
-        68vw 82vh 0 0.5px rgba(180,160,255,0.22),
-        15vw 42vh 0 0.8px rgba(255,255,255,0.18),
-        78vw 15vh 0 0.5px rgba(200,180,255,0.2),
-        50vw 60vh 0 0.6px rgba(180,220,255,0.15),
-        28vw 78vh 0 0.5px rgba(255,200,150,0.2);
+        35vw 25vh 0 0.8px rgba(212,175,55,0.35),
+        68vw 82vh 0 0.7px rgba(180,160,255,0.35),
+        15vw 42vh 0 1px rgba(255,255,255,0.3),
+        78vw 15vh 0 0.7px rgba(200,180,255,0.3),
+        50vw 60vh 0 0.8px rgba(180,220,255,0.25),
+        28vw 78vh 0 0.7px rgba(255,200,150,0.3);
       animation: drift-field-2 35s ease-in-out infinite alternate;
-      opacity: 0.18;
+      opacity: 0.4;
     }
     @keyframes drift-field-1 {
       0% { transform: translate(0, 0); }
@@ -351,7 +355,7 @@
       padding: 80px 24px;
       display: flex;
       justify-content: center;
-      background: linear-gradient(180deg, #060810 0%, #0c1020 30%, #0e1225 50%, #0c1020 70%, #060810 100%);
+      background: linear-gradient(180deg, #080c18 0%, #0e1428 30%, #121830 50%, #0e1428 70%, #080c18 100%);
       position: relative;
     }
     .reading::before {
