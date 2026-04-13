@@ -18,6 +18,9 @@ const MAX_CONTEXTS = 8;
 interface Symbol3DProps {
   paths: string[];
   material?: MaterialPreset;
+  materialPreset?: MaterialPreset;
+  color?: string;
+  animate?: "none" | "spin" | "float" | "pulse" | "wobble" | "spinFloat" | "swing";
   size?: number;
   rotationSpeed?: number;
   floatAmplitude?: number;
