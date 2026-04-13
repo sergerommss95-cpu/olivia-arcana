@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import type { TarotCard } from "../../lib/academy/tarot-cards";
+import { useLocale } from "@/lib/i18n/useLocale";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -33,6 +34,7 @@ function Section({
 }
 
 export default function CardInfoPanel({ card, reversed }: CardInfoPanelProps) {
+  const { t } = useLocale();
   const isMajor = card.arcana === "major";
 
   return (
@@ -43,8 +45,8 @@ export default function CardInfoPanel({ card, reversed }: CardInfoPanelProps) {
           className="uppercase tracking-[0.2em] text-[0.55rem] font-semibold mb-2"
           style={{ color: isMajor ? "rgba(212,175,55,0.5)" : "rgba(180,170,210,0.4)" }}
         >
-          {isMajor ? "Major Arcana" : `${card.suit} · Minor Arcana`}
-          {reversed && " · Reversed"}
+          {isMajor ? t("academy_major_arcana") : `${card.suit} · ${t("academy_minor_arcana")}`}
+          {reversed && ` · ${t("academy_reversed")}`}
         </div>
 
         <h2
@@ -81,7 +83,7 @@ export default function CardInfoPanel({ card, reversed }: CardInfoPanelProps) {
           className="uppercase tracking-[0.18em] text-[0.6rem] font-medium mb-2"
           style={{ color: reversed ? "rgba(232,82,74,0.5)" : "rgba(78,205,196,0.5)" }}
         >
-          {reversed ? "Reversed Meaning" : "Upright Meaning"}
+          {reversed ? t("academy_reversed") : t("academy_upright")}
         </div>
         <p
           className="font-[family-name:var(--font-body)] text-[0.9rem] font-light leading-[1.8]"
@@ -97,7 +99,7 @@ export default function CardInfoPanel({ card, reversed }: CardInfoPanelProps) {
           className="uppercase tracking-[0.18em] text-[0.6rem] font-medium mb-1.5"
           style={{ color: "rgba(212,175,55,0.45)" }}
         >
-          Today&apos;s Advice
+          {t("academy_advice")}
         </div>
         <p
           className="font-[family-name:var(--font-accent)] text-base font-normal leading-[1.7] italic"
@@ -115,9 +117,9 @@ export default function CardInfoPanel({ card, reversed }: CardInfoPanelProps) {
         transition={{ duration: 0.6, ease: EASE, delay: 0.4 }}
       >
         {[
-          { label: "Astrology", value: card.astrology },
-          { label: "Element", value: card.element },
-          { label: "Yes / No", value: card.yesNo.charAt(0).toUpperCase() + card.yesNo.slice(1) },
+          { label: t("academy_astrology_label"), value: card.astrology },
+          { label: t("academy_element_label"), value: card.element },
+          { label: t("academy_yesno_label"), value: card.yesNo.charAt(0).toUpperCase() + card.yesNo.slice(1) },
         ].map(({ label, value }) => (
           <div key={label} className="glass-card p-3 text-center">
             <div
@@ -142,7 +144,7 @@ export default function CardInfoPanel({ card, reversed }: CardInfoPanelProps) {
           className="uppercase tracking-[0.18em] text-[0.6rem] font-medium mb-1.5"
           style={{ color: "rgba(180,170,210,0.4)" }}
         >
-          Journal Prompt
+          {t("academy_journal_prompt")}
         </div>
         <p
           className="font-[family-name:var(--font-body)] text-[0.82rem] font-light leading-[1.7]"

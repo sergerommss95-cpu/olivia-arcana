@@ -8,6 +8,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useLocale } from "@/lib/i18n/useLocale";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -116,6 +117,7 @@ function AspectSVG({ angle, color, selected }: { angle: number; color: string; s
 }
 
 export default function AspectGuidePage() {
+  const { t } = useLocale();
   const [selected, setSelected] = useState<number>(0);
   const aspect = ASPECTS[selected];
 
@@ -140,17 +142,17 @@ export default function AspectGuidePage() {
     }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-        <a href="/academy" style={{ ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>← Academy</a>
+        <a href="/academy" style={{ ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>&larr; {t("academy_back")}</a>
         <h1 style={{
           fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem, 4vw, 2rem)",
           fontWeight: 400, marginTop: "0.75rem",
         }}>
-          <span className="text-gold-gradient">Aspect Guide</span>
+          <span className="text-gold-gradient">{t("academy_aspect_guide")}</span>
         </h1>
         <p style={{
           fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
           color: "rgba(196,185,228,0.5)", marginTop: "0.3rem",
-        }}>How planets talk to each other — the geometry of your chart</p>
+        }}>{t("academy_aspect_guide_desc")}</p>
       </div>
 
       {/* Aspect selector */}

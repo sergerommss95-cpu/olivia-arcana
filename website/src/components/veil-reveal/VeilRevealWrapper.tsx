@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocale } from "@/lib/i18n/useLocale";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -20,6 +21,7 @@ export default function VeilRevealWrapper({
   onRevealComplete,
   onDrawAgain,
 }: VeilRevealWrapperProps) {
+  const { t } = useLocale();
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<import("./VeilRevealScene").VeilRevealScene | null>(null);
 
@@ -128,7 +130,7 @@ export default function VeilRevealWrapper({
           >
             <div style={{ fontSize: "2.5rem", animation: "zodiac-float 4s ease-in-out infinite" }}>✦</div>
             <div style={{ fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase", marginTop: "1rem" }}>
-              Preparing the veil...
+              {t("academy_preparing_veil")}
             </div>
           </div>
         </div>
@@ -171,7 +173,7 @@ export default function VeilRevealWrapper({
               opacity: { duration: 3.6, repeat: Infinity, ease: "easeInOut" },
             }}
           >
-            {isMobile ? "Touch & Hold to Lift the Veil" : "Press & Hold to Lift the Veil"}
+            {isMobile ? t("academy_lift_veil_touch") : t("academy_lift_veil_press")}
           </motion.div>
         )}
       </AnimatePresence>
@@ -248,7 +250,7 @@ export default function VeilRevealWrapper({
               e.currentTarget.style.borderColor = "rgba(240,207,120,0.35)";
             }}
           >
-            ↺ Draw Again
+            &#x21BA; {t("academy_draw_again")}
           </motion.button>
         )}
       </AnimatePresence>

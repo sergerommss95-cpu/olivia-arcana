@@ -16,6 +16,7 @@ import type { ContentSection, QuizQuestion, ExerciseStep, LessonContent } from "
 import { SIGN_PAGES } from "../lib/sign-data";
 import { PLANET_MEANING, HOUSE_MEANING } from "../lib/planet-interpretations";
 import { ALL_CARDS } from "../lib/academy/tarot-cards";
+import { useLocale } from "@/lib/i18n/useLocale";
 
 // Lazy-load interactive academy widgets (heavy SVG components)
 const ZodiacWheel = lazy(() => import("./academy/ZodiacWheel"));
@@ -35,11 +36,11 @@ interface Lesson {
   type: string;
 }
 
-const TYPE_ICONS: Record<string, { icon: string; label: string; color: string }> = {
-  reading: { icon: "◇", label: "Lesson", color: "rgba(200,190,235,0.4)" },
-  interactive: { icon: "◈", label: "Interactive", color: "rgba(78,205,196,0.5)" },
-  quiz: { icon: "◉", label: "Quiz", color: "rgba(212,175,55,0.5)" },
-  practice: { icon: "◎", label: "Practice", color: "rgba(123,104,238,0.5)" },
+const TYPE_ICON_DEFS: Record<string, { icon: string; labelKey: "academy_lesson_type" | "academy_interactive_type" | "academy_quiz_type" | "academy_practice_type"; color: string }> = {
+  reading: { icon: "\u25C7", labelKey: "academy_lesson_type", color: "rgba(200,190,235,0.4)" },
+  interactive: { icon: "\u25C8", labelKey: "academy_interactive_type", color: "rgba(78,205,196,0.5)" },
+  quiz: { icon: "\u25C9", labelKey: "academy_quiz_type", color: "rgba(212,175,55,0.5)" },
+  practice: { icon: "\u25CE", labelKey: "academy_practice_type", color: "rgba(123,104,238,0.5)" },
 };
 
 // ── Section Renderers ──────────────────────────────────────────
@@ -64,11 +65,11 @@ function TextSection({ title, body }: { title?: string; body: string }) {
   );
 }
 
-function CalloutBox({ style, body }: { style: "insight" | "warning" | "tip"; body: string }) {
+function CalloutBox({ style, body, labels }: { style: "insight" | "warning" | "tip"; body: string; labels: { insight: string; note: string; tip: string } }) {
   const colors = {
-    insight: { bg: "rgba(200,168,75,0.06)", border: "rgba(200,168,75,0.15)", icon: "✦", label: "Insight" },
-    warning: { bg: "rgba(232,82,74,0.06)", border: "rgba(232,82,74,0.15)", icon: "⚠", label: "Note" },
-    tip: { bg: "rgba(78,205,196,0.06)", border: "rgba(78,205,196,0.15)", icon: "💡", label: "Tip" },
+    insight: { bg: "rgba(200,168,75,0.06)", border: "rgba(200,168,75,0.15)", icon: "\u2726", label: labels.insight },
+    warning: { bg: "rgba(232,82,74,0.06)", border: "rgba(232,82,74,0.15)", icon: "\u26A0", label: labels.note },
+    tip: { bg: "rgba(78,205,196,0.06)", border: "rgba(78,205,196,0.15)", icon: "\uD83D\uDCA1", label: labels.tip },
   };
   const c = colors[style];
   return (
@@ -165,7 +166,7 @@ function HouseProfileCard({ house }: { house: number }) {
   );
 }
 
-function TarotCardDisplay({ cardName, showReversed }: { cardName: string; showReversed?: boolean }) {
+function TarotCardDisplay({ cardName, showReversed, uprightLabel, reversedLabel }: { cardName: string; showReversed?: boolean; uprightLabel: string; reversedLabel: string }) {
   const card = ALL_CARDS.find(c => c.name === cardName);
   if (!card) return <div style={{ color: "rgba(180,170,210,0.4)" }}>Card not found: {cardName}</div>;
   return (
@@ -191,12 +192,12 @@ function TarotCardDisplay({ cardName, showReversed }: { cardName: string; showRe
         ))}
       </div>
       <div style={{ marginBottom: "0.5rem" }}>
-        <div style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(78,205,196,0.5)", marginBottom: "0.25rem" }}>Upright</div>
+        <div style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(78,205,196,0.5)", marginBottom: "0.25rem" }}>{uprightLabel}</div>
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", lineHeight: 1.7, color: "rgba(196,185,228,0.7)", margin: 0 }}>{card.upright}</p>
       </div>
       {showReversed && (
         <div>
-          <div style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(232,82,74,0.5)", marginBottom: "0.25rem" }}>Reversed</div>
+          <div style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(232,82,74,0.5)", marginBottom: "0.25rem" }}>{reversedLabel}</div>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", lineHeight: 1.7, color: "rgba(196,185,228,0.6)", margin: 0 }}>{card.reversed}</p>
         </div>
       )}
@@ -286,7 +287,7 @@ function KeywordMap({ items }: { items: { term: string; definition: string }[] }
   );
 }
 
-function QuizWidget({ questions }: { questions: QuizQuestion[] }) {
+function QuizWidget({ questions, checkLabel, perfectMsg, greatMsg, keepStudyingMsg }: { questions: QuizQuestion[]; checkLabel: string; perfectMsg: string; greatMsg: string; keepStudyingMsg: string }) {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [showResults, setShowResults] = useState(false);
 
@@ -353,7 +354,7 @@ function QuizWidget({ questions }: { questions: QuizQuestion[] }) {
           border: "1px solid rgba(200,180,255,0.2)",
           color: "rgba(240,235,255,0.9)", fontSize: "0.82rem", fontWeight: 500,
           letterSpacing: "0.06em", textTransform: "uppercase", cursor: "pointer",
-        }}>Check Answers</button>
+        }}>{checkLabel}</button>
       )}
       {showResults && (
         <div style={{
@@ -365,9 +366,9 @@ function QuizWidget({ questions }: { questions: QuizQuestion[] }) {
             {score}/{questions.length}
           </span>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(196,185,228,0.6)", margin: "0.25rem 0 0" }}>
-            {score === questions.length ? "Perfect score! You've mastered this material." :
-             score >= questions.length * 0.7 ? "Great work! Review the explanations for any you missed." :
-             "Keep studying — review the lesson content and try again."}
+            {score === questions.length ? perfectMsg :
+             score >= questions.length * 0.7 ? greatMsg :
+             keepStudyingMsg}
           </p>
         </div>
       )}
@@ -375,7 +376,7 @@ function QuizWidget({ questions }: { questions: QuizQuestion[] }) {
   );
 }
 
-function ExerciseGuide({ steps }: { steps: ExerciseStep[] }) {
+function ExerciseGuide({ steps, completeLabel }: { steps: ExerciseStep[]; completeLabel: string }) {
   const [completed, setCompleted] = useState<Set<number>>(new Set());
   const typeIcons: Record<string, string> = {
     reflect: "💭", lookup: "🔍", "draw-card": "🃏", journal: "📝", observe: "👁",
@@ -420,7 +421,7 @@ function ExerciseGuide({ steps }: { steps: ExerciseStep[] }) {
           border: "1px solid rgba(78,205,196,0.1)",
         }}>
           <span style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(78,205,196,0.6)" }}>
-            ✦ Exercise complete
+            &#10022; {completeLabel}
           </span>
         </div>
       )}
@@ -430,7 +431,7 @@ function ExerciseGuide({ steps }: { steps: ExerciseStep[] }) {
 
 // ── Widget Loading Fallback ────────────────────────────────────
 
-function WidgetLoader() {
+function WidgetLoader({ label }: { label: string }) {
   return (
     <div style={{
       padding: "2rem", textAlign: "center", marginBottom: "1rem",
@@ -440,43 +441,66 @@ function WidgetLoader() {
       <div style={{
         fontFamily: "var(--font-body)", fontSize: "0.72rem",
         color: "rgba(180,170,210,0.35)", fontStyle: "italic",
-      }}>Loading interactive widget...</div>
+      }}>{label}</div>
     </div>
   );
 }
 
+// ── I18n bag for section rendering ────────────────────────────
+
+interface I18nBag {
+  upright: string;
+  reversed: string;
+  checkAnswers: string;
+  quizPerfect: string;
+  quizGreat: string;
+  quizKeepStudying: string;
+  exerciseComplete: string;
+  widgetLoading: string;
+  calloutInsight: string;
+  calloutNote: string;
+  calloutTip: string;
+  keyTakeaway: string;
+  minAbbr: string;
+  lessonType: string;
+  interactiveType: string;
+  quizType: string;
+  practiceType: string;
+}
+
 // ── Section Renderer ───────────────────────────────────────────
 
-function SectionRenderer({ section }: { section: ContentSection }) {
+function SectionRenderer({ section, i18n }: { section: ContentSection; i18n: I18nBag }) {
+  const wl = <WidgetLoader label={i18n.widgetLoading} />;
   switch (section.type) {
     case "text": return <TextSection title={section.title} body={section.body} />;
-    case "callout": return <CalloutBox style={section.style} body={section.body} />;
+    case "callout": return <CalloutBox style={section.style} body={section.body} labels={{ insight: i18n.calloutInsight, note: i18n.calloutNote, tip: i18n.calloutTip }} />;
     case "sign-profile": return <SignProfileCard sign={section.sign} />;
     case "planet-profile": return <PlanetProfileCard planet={section.planet} />;
     case "house-profile": return <HouseProfileCard house={section.house} />;
-    case "card-display": return <TarotCardDisplay cardName={section.cardName} showReversed={section.showReversed} />;
+    case "card-display": return <TarotCardDisplay cardName={section.cardName} showReversed={section.showReversed} uprightLabel={i18n.upright} reversedLabel={i18n.reversed} />;
     case "card-grid": return <CardGrid cards={section.cards} />;
-    case "quiz": return <QuizWidget questions={section.questions} />;
-    case "exercise": return <ExerciseGuide steps={section.steps} />;
+    case "quiz": return <QuizWidget questions={section.questions} checkLabel={i18n.checkAnswers} perfectMsg={i18n.quizPerfect} greatMsg={i18n.quizGreat} keepStudyingMsg={i18n.quizKeepStudying} />;
+    case "exercise": return <ExerciseGuide steps={section.steps} completeLabel={i18n.exerciseComplete} />;
     case "comparison-table": return <ComparisonTable headers={section.headers} rows={section.rows} />;
     case "keyword-map": return <KeywordMap items={section.items} />;
     // Interactive academy widgets
     case "zodiac-wheel":
-      return <Suspense fallback={<WidgetLoader />}><ZodiacWheel /></Suspense>;
+      return <Suspense fallback={wl}><ZodiacWheel /></Suspense>;
     case "element-matrix":
-      return <Suspense fallback={<WidgetLoader />}><ElementMatrix /></Suspense>;
+      return <Suspense fallback={wl}><ElementMatrix /></Suspense>;
     case "tarot-reveal":
-      return <Suspense fallback={<WidgetLoader />}><TarotRevealCard cardName={section.cardName} /></Suspense>;
+      return <Suspense fallback={wl}><TarotRevealCard cardName={section.cardName} /></Suspense>;
     case "secret-reveal":
-      return <Suspense fallback={<WidgetLoader />}><SecretReveal question={section.question} options={section.options} correctIndex={section.correctIndex} explanation={section.explanation} hint={section.hint} /></Suspense>;
+      return <Suspense fallback={wl}><SecretReveal question={section.question} options={section.options} correctIndex={section.correctIndex} explanation={section.explanation} hint={section.hint} /></Suspense>;
     case "house-wheel":
-      return <Suspense fallback={<WidgetLoader />}><HouseWheel highlightHouse={section.highlightHouse} /></Suspense>;
+      return <Suspense fallback={wl}><HouseWheel highlightHouse={section.highlightHouse} /></Suspense>;
     case "aspect-visualizer":
-      return <Suspense fallback={<WidgetLoader />}><AspectVisualizer /></Suspense>;
+      return <Suspense fallback={wl}><AspectVisualizer /></Suspense>;
     case "planetary-journey":
-      return <Suspense fallback={<WidgetLoader />}><PlanetaryJourney /></Suspense>;
+      return <Suspense fallback={wl}><PlanetaryJourney /></Suspense>;
     case "fools-journey":
-      return <Suspense fallback={<WidgetLoader />}><FoolsJourneyMap /></Suspense>;
+      return <Suspense fallback={wl}><FoolsJourneyMap /></Suspense>;
     default: return null;
   }
 }
@@ -484,12 +508,41 @@ function SectionRenderer({ section }: { section: ContentSection }) {
 // ── Main Component ─────────────────────────────────────────────
 
 export default function LessonList({ lessons, courseSlug }: { lessons: Lesson[]; courseSlug: string }) {
+  const { t } = useLocale();
   const [expanded, setExpanded] = useState<string | null>(null);
+
+  const i18n: I18nBag = {
+    upright: t("academy_upright"),
+    reversed: t("academy_reversed"),
+    checkAnswers: t("academy_check_answers"),
+    quizPerfect: t("academy_quiz_perfect"),
+    quizGreat: t("academy_quiz_great"),
+    quizKeepStudying: t("academy_quiz_keep_studying"),
+    exerciseComplete: t("academy_exercise_complete"),
+    widgetLoading: t("academy_widget_loading"),
+    calloutInsight: t("academy_callout_insight"),
+    calloutNote: t("academy_callout_note"),
+    calloutTip: t("academy_callout_tip"),
+    keyTakeaway: t("academy_key_takeaway"),
+    minAbbr: t("academy_min_abbr"),
+    lessonType: t("academy_lesson_type"),
+    interactiveType: t("academy_interactive_type"),
+    quizType: t("academy_quiz_type"),
+    practiceType: t("academy_practice_type"),
+  };
+
+  const typeLabels: Record<string, string> = {
+    reading: i18n.lessonType,
+    interactive: i18n.interactiveType,
+    quiz: i18n.quizType,
+    practice: i18n.practiceType,
+  };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
       {lessons.map((lesson, i) => {
-        const typeInfo = TYPE_ICONS[lesson.type] || TYPE_ICONS.reading;
+        const def = TYPE_ICON_DEFS[lesson.type] || TYPE_ICON_DEFS.reading;
+        const typeInfo = { icon: def.icon, label: typeLabels[lesson.type] || i18n.lessonType, color: def.color };
         const isOpen = expanded === lesson.slug;
 
         // Generate content only when expanded (performance)
@@ -535,7 +588,7 @@ export default function LessonList({ lessons, courseSlug }: { lessons: Lesson[];
                 )}
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0 }}>
-                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(180,170,210,0.3)" }}>{lesson.duration}m</span>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(180,170,210,0.3)" }}>{lesson.duration}{i18n.minAbbr}</span>
                 <span style={{
                   padding: "0.1rem 0.4rem", borderRadius: "100px",
                   background: `${typeInfo.color}12`, border: `1px solid ${typeInfo.color}20`,
@@ -568,7 +621,7 @@ export default function LessonList({ lessons, courseSlug }: { lessons: Lesson[];
                     borderRadius: "0 0 0.75rem 0.75rem",
                   }}>
                     {content.sections.map((section, si) => (
-                      <SectionRenderer key={si} section={section} />
+                      <SectionRenderer key={si} section={section} i18n={i18n} />
                     ))}
 
                     {content.keyTakeaway && (
@@ -576,7 +629,7 @@ export default function LessonList({ lessons, courseSlug }: { lessons: Lesson[];
                         marginTop: "1rem", padding: "0.75rem 1rem", borderRadius: "0.5rem",
                         background: "rgba(200,168,75,0.04)", border: "1px solid rgba(200,168,75,0.08)",
                       }}>
-                        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(200,168,75,0.4)" }}>Key Takeaway</span>
+                        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(200,168,75,0.4)" }}>{i18n.keyTakeaway}</span>
                         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", lineHeight: 1.6, color: "rgba(220,210,240,0.7)", margin: "0.25rem 0 0" }}>{content.keyTakeaway}</p>
                       </div>
                     )}
@@ -587,7 +640,7 @@ export default function LessonList({ lessons, courseSlug }: { lessons: Lesson[];
                       display: "flex", justifyContent: "space-between", alignItems: "center",
                     }}>
                       <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", letterSpacing: "0.1em", color: "rgba(180,170,210,0.25)" }}>
-                        {content.estimatedMinutes} min
+                        {content.estimatedMinutes} {i18n.minAbbr}
                       </span>
                       <span style={{ fontFamily: "var(--font-body)", fontSize: "0.65rem", color: "rgba(200,168,75,0.4)" }}>
                         ✦ Lesson {i + 1} of {lessons.length}

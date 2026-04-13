@@ -9,6 +9,7 @@
 
 import React, { useState } from "react";
 import { ALL_CARDS, MAJOR_ARCANA, type TarotCard } from "../../../lib/academy/tarot-cards";
+import { useLocale } from "@/lib/i18n/useLocale";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -33,6 +34,7 @@ const label: React.CSSProperties = {
 };
 
 export default function TarotEncyclopediaPage() {
+  const { t } = useLocale();
   const [filter, setFilter] = useState<"all" | "major" | "wands" | "cups" | "swords" | "pentacles">("all");
   const [selected, setSelected] = useState<TarotCard | null>(null);
   const [search, setSearch] = useState("");
@@ -54,17 +56,17 @@ export default function TarotEncyclopediaPage() {
     }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <a href="/academy" style={{ ...label, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>← Academy</a>
+        <a href="/academy" style={{ ...label, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>&larr; {t("academy_back")}</a>
         <h1 style={{
           fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem, 4vw, 2rem)",
           fontWeight: 400, marginTop: "0.75rem",
         }}>
-          <span className="text-gold-gradient">Tarot Encyclopedia</span>
+          <span className="text-gold-gradient">{t("academy_tarot_encyclopedia")}</span>
         </h1>
         <p style={{
           fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
           color: "rgba(196,185,228,0.5)", marginTop: "0.3rem",
-        }}>All 78 cards — meanings, keywords, correspondences</p>
+        }}>{t("academy_tarot_encyclopedia_desc")}</p>
       </div>
 
       {/* Filters */}
@@ -73,12 +75,12 @@ export default function TarotEncyclopediaPage() {
         flexWrap: "wrap",
       }}>
         {[
-          { key: "all", label: "All (78)" },
-          { key: "major", label: "Major (22)" },
-          { key: "wands", label: "🔥 Wands" },
-          { key: "cups", label: "💧 Cups" },
-          { key: "swords", label: "💨 Swords" },
-          { key: "pentacles", label: "🌿 Pentacles" },
+          { key: "all", label: t("academy_filter_all") },
+          { key: "major", label: t("academy_filter_major") },
+          { key: "wands", label: `\uD83D\uDD25 ${t("academy_filter_wands")}` },
+          { key: "cups", label: `\uD83D\uDCA7 ${t("academy_filter_cups")}` },
+          { key: "swords", label: `\uD83D\uDCA8 ${t("academy_filter_swords")}` },
+          { key: "pentacles", label: `\uD83C\uDF3F ${t("academy_filter_pentacles")}` },
         ].map(f => (
           <button
             key={f.key}
@@ -99,7 +101,7 @@ export default function TarotEncyclopediaPage() {
       <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.5rem" }}>
         <input
           type="text"
-          placeholder="Search by name or keyword..."
+          placeholder={t("academy_search_placeholder")}
           value={search}
           onChange={e => setSearch(e.target.value)}
           style={{
@@ -167,7 +169,7 @@ export default function TarotEncyclopediaPage() {
                 ...label, marginBottom: "0.3rem",
                 color: selected.arcana === "major" ? "rgba(212,175,55,0.5)" : `${SUIT_COLORS[selected.suit || "wands"]}88`,
               }}>
-                {selected.arcana === "major" ? `Major Arcana · ${selected.number}` : SUIT_LABELS[selected.suit || "wands"]}
+                {selected.arcana === "major" ? `${t("academy_major_arcana")} · ${selected.number}` : SUIT_LABELS[selected.suit || "wands"]}
               </div>
               <h2 style={{
                 fontFamily: "var(--font-accent)", fontSize: "1.4rem", fontWeight: 400,
@@ -187,7 +189,7 @@ export default function TarotEncyclopediaPage() {
 
               {/* Upright */}
               <div style={{ marginBottom: "1rem" }}>
-                <div style={{ ...label, marginBottom: "0.3rem", color: "rgba(78,205,196,0.5)" }}>Upright</div>
+                <div style={{ ...label, marginBottom: "0.3rem", color: "rgba(78,205,196,0.5)" }}>{t("academy_upright")}</div>
                 <p style={{
                   fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
                   lineHeight: 1.7, color: "rgba(200,190,235,0.72)", margin: 0,
@@ -196,7 +198,7 @@ export default function TarotEncyclopediaPage() {
 
               {/* Reversed */}
               <div style={{ marginBottom: "1rem" }}>
-                <div style={{ ...label, marginBottom: "0.3rem", color: "rgba(232,82,74,0.5)" }}>Reversed</div>
+                <div style={{ ...label, marginBottom: "0.3rem", color: "rgba(232,82,74,0.5)" }}>{t("academy_reversed")}</div>
                 <p style={{
                   fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
                   lineHeight: 1.7, color: "rgba(200,190,235,0.6)", margin: 0,
@@ -209,7 +211,7 @@ export default function TarotEncyclopediaPage() {
                 background: "rgba(212,175,55,0.04)", border: "1px solid rgba(212,175,55,0.06)",
                 marginBottom: "1rem",
               }}>
-                <div style={{ ...label, marginBottom: "0.2rem", color: "rgba(212,175,55,0.45)", fontSize: "0.5rem" }}>Advice</div>
+                <div style={{ ...label, marginBottom: "0.2rem", color: "rgba(212,175,55,0.45)", fontSize: "0.5rem" }}>{t("academy_advice")}</div>
                 <p style={{
                   fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 400,
                   color: "rgba(220,210,240,0.75)", margin: 0, fontStyle: "italic",
@@ -219,9 +221,9 @@ export default function TarotEncyclopediaPage() {
               {/* Correspondences */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.4rem" }}>
                 {[
-                  { l: "Astrology", v: selected.astrology },
-                  { l: "Element", v: selected.element },
-                  { l: "Yes/No", v: selected.yesNo },
+                  { l: t("academy_astrology_label"), v: selected.astrology },
+                  { l: t("academy_element_label"), v: selected.element },
+                  { l: t("academy_yesno_label"), v: selected.yesNo },
                 ].map(({ l, v }) => (
                   <div key={l} style={{ textAlign: "center" }}>
                     <div style={{ ...label, fontSize: "0.45rem" }}>{l}</div>
@@ -241,7 +243,7 @@ export default function TarotEncyclopediaPage() {
               <p style={{
                 fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
                 color: "rgba(180,170,210,0.35)",
-              }}>Click any card to see<br/>its full meaning</p>
+              }}>{t("academy_select_card_hint")}</p>
             </div>
           )}
         </div>
