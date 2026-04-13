@@ -7,6 +7,7 @@
 
 import type { LessonContent } from "./types";
 import { resolveContent } from "./mapping";
+import { translateContent } from "./translate";
 
 export type { LessonContent, ContentSection, QuizQuestion, ExerciseStep } from "./types";
 
@@ -18,5 +19,6 @@ export function generateFullLessonContent(
   lessonDuration: number,
   locale: string = "en",
 ): LessonContent {
-  return resolveContent(courseSlug, lessonSlug, lessonTitle, lessonDescription, lessonDuration, locale);
+  const content = resolveContent(courseSlug, lessonSlug, lessonTitle, lessonDescription, lessonDuration, locale);
+  return translateContent(content, locale);
 }
