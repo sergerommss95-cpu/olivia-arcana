@@ -325,16 +325,48 @@ h3, .text-2xl { font-size: clamp(1.1rem, 3vw, 1.5rem); }
 @keyframes oracle-canvas-glow {
   0%, 100% {
     box-shadow:
-      0 0 20px rgba(212,175,55,0.06),
-      0 0 60px rgba(160,122,224,0.03),
-      inset 0 0 30px rgba(212,175,55,0.02);
+      0 0 40px rgba(160,122,224,0.08),
+      0 0 100px rgba(212,175,55,0.04);
   }
   50% {
     box-shadow:
-      0 0 35px rgba(212,175,55,0.12),
-      0 0 90px rgba(160,122,224,0.06),
-      inset 0 0 40px rgba(212,175,55,0.04);
+      0 0 70px rgba(160,122,224,0.14),
+      0 0 140px rgba(212,175,55,0.07);
   }
+}
+
+@keyframes oracle-rim-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 30px rgba(160,122,224,0.12),
+      0 0 80px rgba(160,122,224,0.06),
+      0 0 120px rgba(212,175,55,0.03);
+  }
+  50% {
+    box-shadow:
+      0 0 50px rgba(160,122,224,0.20),
+      0 0 110px rgba(160,122,224,0.10),
+      0 0 160px rgba(212,175,55,0.06);
+  }
+}
+
+/* Cosmic Selfie orb — circular mask-image fade */
+.cosmic-selfie-orb {
+  border-radius: 50%;
+  overflow: hidden;
+}
+.cosmic-selfie-orb canvas,
+.cosmic-selfie-orb img {
+  -webkit-mask-image: radial-gradient(circle at 50% 50%,
+    black 0%, black 50%, rgba(0,0,0,0.7) 65%, rgba(0,0,0,0.2) 82%, transparent 100%);
+  mask-image: radial-gradient(circle at 50% 50%,
+    black 0%, black 50%, rgba(0,0,0,0.7) 65%, rgba(0,0,0,0.2) 82%, transparent 100%);
+}
+/* Engine container inside the orb */
+.cosmic-selfie-orb > div {
+  border-radius: 50% !important;
+  border: none !important;
+  background: transparent !important;
 }
 
 @keyframes oracle-aura-breathe {
