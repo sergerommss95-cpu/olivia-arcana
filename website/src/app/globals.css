@@ -34,9 +34,9 @@ html.lenis, html.lenis body {
 
 /* ── Cosmic colour tokens ──────────────────────────────────────────────── */
 :root {
-  --c-void:        #04020d;
-  --c-deep-space:  #090615;
-  --c-nebula:      #120c28;
+  --c-void:        #06041a;
+  --c-deep-space:  #0b081e;
+  --c-nebula:      #160e32;
   --c-surface:     rgba(255,255,255,0.04);
   --c-surface-2:   rgba(255,255,255,0.07);
   --c-border:      rgba(200,185,255,0.10);
@@ -285,4 +285,59 @@ h3, .text-2xl { font-size: clamp(1.1rem, 3vw, 1.5rem); }
     transform: scale(0.97);
     transition: transform 80ms ease, opacity 80ms ease;
   }
+}
+
+/* ── Oracle Preview — "The Threshold" ─────────────────────────────────── */
+
+@keyframes oracle-orbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes oracle-orbit-reverse {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+
+@keyframes oracle-particle-drift {
+  0% {
+    transform: translate(var(--pdx), var(--pdy));
+    opacity: 0;
+  }
+  8%  { opacity: 1; }
+  92% { opacity: 1; }
+  100% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes oracle-twinkle {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.85; }
+}
+
+@keyframes oracle-sacred-pulse {
+  0%, 100% { opacity: 0.06; }
+  50%      { opacity: 0.14; }
+}
+
+@keyframes oracle-canvas-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 20px rgba(212,175,55,0.06),
+      0 0 60px rgba(160,122,224,0.03),
+      inset 0 0 30px rgba(212,175,55,0.02);
+  }
+  50% {
+    box-shadow:
+      0 0 35px rgba(212,175,55,0.12),
+      0 0 90px rgba(160,122,224,0.06),
+      inset 0 0 40px rgba(212,175,55,0.04);
+  }
+}
+
+@keyframes oracle-aura-breathe {
+  0%, 100% { transform: translate(-50%, -55%) scale(1); opacity: 1; }
+  50%      { transform: translate(-50%, -55%) scale(1.06); opacity: 0.8; }
 }

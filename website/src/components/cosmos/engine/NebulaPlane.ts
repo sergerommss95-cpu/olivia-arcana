@@ -92,18 +92,18 @@ void main() {
   float b = texture2D(uTexture, clamp(uv - caDir, 0.005, 0.995)).b;
   vec3 color = vec3(r, g, b);
 
-  // ── Tone curve: VERY DARK. Nebula is atmosphere, not the subject. ──
-  float darkenMul = 0.15 + uBrightFlash * 0.35; // flash brightens temporarily
+  // ── Tone curve: Rich and atmospheric, visible but not overpowering. ──
+  float darkenMul = 0.35 + uBrightFlash * 0.30; // base 35% — visible nebula
   color *= darkenMul;
-  color = color / (color + vec3(0.12));
-  color = pow(color, vec3(1.6));
+  color = color / (color + vec3(0.18));  // softer rolloff — preserves more highlights
+  color = pow(color, vec3(1.25));  // gentler gamma — keeps midtones alive
 
-  // ── Deep vignette ──
+  // ── Soft vignette — frame the nebula, don't bury it ──
   float vigDist = distance(vUv, vec2(0.5));
-  float vigRadius = mix(0.68, 0.74, uBreath);
-  float vig = 1.0 - smoothstep(0.1, vigRadius, vigDist);
-  float breathBrightness = mix(0.96, 1.04, uBreath);
-  color *= (0.4 * vig + 0.6) * breathBrightness;
+  float vigRadius = mix(0.72, 0.80, uBreath);
+  float vig = 1.0 - smoothstep(0.15, vigRadius, vigDist);
+  float breathBrightness = mix(0.97, 1.03, uBreath);
+  color *= (0.55 * vig + 0.45) * breathBrightness;
 
   // Visitor archetype palette shift — hue rotation, saturation, warmth
   float hCos = cos(uHueShift);
