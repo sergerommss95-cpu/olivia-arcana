@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /_internal/
+Allow: /
+Sitemap: https://oliviaarcana.com/sitemap.xml
