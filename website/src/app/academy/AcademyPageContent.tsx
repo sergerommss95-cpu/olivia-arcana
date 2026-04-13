@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { COURSES, getCoursesByTrack, getTotalLessons, type Course } from "../../lib/academy/courses";
+import { translateCourses } from "../../lib/academy/translate-courses";
 import { useLocale } from "@/lib/i18n/useLocale";
 
 const LEVEL_COLORS: Record<string, string> = {
@@ -91,11 +92,11 @@ function CourseCard({ course, levelLabel, lessonsLabel }: { course: Course; leve
   );
 }
 
-function TrackSection({ title, description, track, icon, levelLabels, lessonsLabel }: {
+function TrackSection({ title, description, track, icon, levelLabels, lessonsLabel, locale }: {
   title: string; description: string; track: string; icon: string;
-  levelLabels: Record<string, string>; lessonsLabel: string;
+  levelLabels: Record<string, string>; lessonsLabel: string; locale: string;
 }) {
-  const courses = getCoursesByTrack(track as any);
+  const courses = translateCourses(getCoursesByTrack(track as any), locale);
   return (
     <section style={{ marginBottom: "3rem" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.5rem" }}>
@@ -130,7 +131,7 @@ function TrackSection({ title, description, track, icon, levelLabels, lessonsLab
 }
 
 export function AcademyPageContent() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const totalLessons = getTotalLessons();
 
   const levelLabels: Record<string, string> = {
@@ -239,6 +240,7 @@ export function AcademyPageContent() {
         icon="\u2609"
         levelLabels={levelLabels}
         lessonsLabel={t("academy_lessons").toLowerCase()}
+        locale={locale}
       />
 
       <TrackSection
@@ -248,6 +250,7 @@ export function AcademyPageContent() {
         icon="\uD83C\uDCCF"
         levelLabels={levelLabels}
         lessonsLabel={t("academy_lessons").toLowerCase()}
+        locale={locale}
       />
 
       <TrackSection
@@ -257,6 +260,7 @@ export function AcademyPageContent() {
         icon="\u2726"
         levelLabels={levelLabels}
         lessonsLabel={t("academy_lessons").toLowerCase()}
+        locale={locale}
       />
     </div>
   );

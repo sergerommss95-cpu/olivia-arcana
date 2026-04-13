@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { getCourse } from "../../../lib/academy/courses";
+import { translateCourse } from "../../../lib/academy/translate-courses";
 import LessonList from "../../../components/LessonList";
 import { useLocale } from "@/lib/i18n/useLocale";
 
 export function CourseDetailContent({ courseSlug }: { courseSlug: string }) {
-  const { t } = useLocale();
-  const course = getCourse(courseSlug);
+  const { t, locale } = useLocale();
+  const rawCourse = getCourse(courseSlug);
+  const course = rawCourse ? translateCourse(rawCourse, locale) : null;
   if (!course) return null;
 
   const totalMinutes = course.lessons.reduce((s, l) => s + l.duration, 0);
