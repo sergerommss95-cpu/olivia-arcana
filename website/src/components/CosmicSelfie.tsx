@@ -259,21 +259,27 @@ export default function CosmicSelfie() {
       {/* ── Main content with scroll entrance ── */}
       <div style={entranceStyle}>
         {/* ── Headline ── */}
-        <h2
-          aria-live="polite"
+        <div
           style={{
-            fontFamily: "var(--font-display, 'Cormorant Garamond', serif)",
-            fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
-            fontWeight: 400,
-            color: "var(--c-text-primary, rgba(240,236,255,0.95))",
-            textAlign: "center",
-            letterSpacing: "-0.01em",
-            lineHeight: 1.2,
-            marginBottom: "2rem",
+            transition: "opacity 0.3s ease",
           }}
         >
-          {headline}
-        </h2>
+          <h2
+            aria-live="polite"
+            style={{
+              fontFamily: "var(--font-display, 'Cormorant Garamond', serif)",
+              fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
+              fontWeight: 400,
+              color: "var(--c-text-primary, rgba(240,236,255,0.95))",
+              textAlign: "center",
+              letterSpacing: "-0.01em",
+              lineHeight: 1.2,
+              marginBottom: "2rem",
+            }}
+          >
+            {headline}
+          </h2>
+        </div>
 
         {/* ── Orb wrapper ── */}
         <div
@@ -428,7 +434,14 @@ export default function CosmicSelfie() {
           }}
         >
           {/* Idle / requesting: reveal button */}
-          {!isRevealed && (
+          <div
+            style={{
+              opacity: isRevealed ? 0 : 1,
+              transform: isRevealed ? "translateY(-8px)" : "translateY(0)",
+              transition: "opacity 0.3s ease, transform 0.3s ease",
+              pointerEvents: isRevealed ? "none" : "auto",
+            }}
+          >
             <MagneticButton
               variant="glass"
               size="lg"
@@ -437,104 +450,113 @@ export default function CosmicSelfie() {
             >
               {state === "requesting" ? "Summoning..." : "Reveal Yourself"}
             </MagneticButton>
-          )}
+          </div>
 
           {/* Streaming / denied: feature pills + social proof + CTA */}
-          {isRevealed && (
-            <>
-              {/* Privacy text (streaming only) */}
-              {state === "streaming" && (
-                <p
-                  style={{
-                    fontFamily: "var(--font-body, 'Inter', sans-serif)",
-                    fontSize: "0.75rem",
-                    color: "var(--c-text-muted, rgba(155,145,190,0.60))",
-                    letterSpacing: "0.04em",
-                    textAlign: "center",
-                  }}
-                >
-                  Camera is live &mdash; nothing is recorded
-                </p>
-              )}
-
-              {/* Feature pills */}
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  justifyContent: "center",
-                  gap: "0.75rem",
-                }}
-              >
-                {FEATURES.map((f) => (
-                  <a
-                    key={f.label}
-                    href={f.href}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "0.4rem",
-                      padding: "0.45rem 1rem",
-                      borderRadius: "100px",
-                      border: "1px solid var(--c-border, rgba(200,185,255,0.10))",
-                      background: "var(--c-surface, rgba(255,255,255,0.04))",
-                      color: "var(--c-text-mid, rgba(196,185,228,0.80))",
-                      fontFamily: "var(--font-body, 'Inter', sans-serif)",
-                      fontSize: "0.8rem",
-                      textDecoration: "none",
-                      transition: "border-color 0.3s ease, color 0.3s ease",
-                    }}
-                  >
-                    <span style={{ fontSize: "1rem" }}>{f.icon}</span>
-                    {f.label}
-                  </a>
-                ))}
-              </div>
-
-              {/* Social proof */}
+          <div
+            style={{
+              opacity: isRevealed ? 1 : 0,
+              transform: isRevealed ? "translateY(0)" : "translateY(12px)",
+              transition: "opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s",
+              pointerEvents: isRevealed ? "auto" : "none",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "1.5rem",
+            }}
+          >
+            {/* Privacy text (streaming only) */}
+            {state === "streaming" && (
               <p
                 style={{
                   fontFamily: "var(--font-body, 'Inter', sans-serif)",
-                  fontSize: "0.8rem",
+                  fontSize: "0.75rem",
                   color: "var(--c-text-muted, rgba(155,145,190,0.60))",
+                  letterSpacing: "0.04em",
                   textAlign: "center",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.3rem",
-                  flexWrap: "wrap",
-                  justifyContent: "center",
                 }}
               >
-                Trusted by{" "}
-                <AnimatedCounter
-                  value={12400}
-                  suffix="+"
-                  duration={2200}
-                  style={{ color: "var(--c-text-primary, rgba(240,236,255,0.95))", fontWeight: 600 }}
-                />{" "}
-                seekers{" "}
-                <span style={{ opacity: 0.4 }}>&middot;</span>{" "}
-                <AnimatedCounter
-                  value={4.9}
-                  decimals={1}
-                  duration={1800}
-                  delay={200}
-                  style={{ color: "var(--c-text-primary, rgba(240,236,255,0.95))", fontWeight: 600 }}
-                />
-                <span style={{ color: "rgba(212,175,55,0.9)" }}>&starf;</span> rating
+                Camera is live &mdash; nothing is recorded
               </p>
+            )}
 
-              {/* Gold CTA */}
-              <MagneticButton
-                variant="gold"
-                size="lg"
-                href="/portrait"
-                onClick={() => track("cosmic_selfie_cta_clicked", { destination: "/portrait" })}
-              >
-                Get Your Cosmic Portrait
-              </MagneticButton>
-            </>
-          )}
+            {/* Feature pills */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: "0.75rem",
+              }}
+            >
+              {FEATURES.map((f) => (
+                <a
+                  key={f.label}
+                  href={f.href}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
+                    padding: "0.45rem 1rem",
+                    borderRadius: "100px",
+                    border: "1px solid var(--c-border, rgba(200,185,255,0.10))",
+                    background: "var(--c-surface, rgba(255,255,255,0.04))",
+                    color: "var(--c-text-mid, rgba(196,185,228,0.80))",
+                    fontFamily: "var(--font-body, 'Inter', sans-serif)",
+                    fontSize: "0.8rem",
+                    textDecoration: "none",
+                    transition: "border-color 0.3s ease, color 0.3s ease",
+                  }}
+                >
+                  <span style={{ fontSize: "1rem" }}>{f.icon}</span>
+                  {f.label}
+                </a>
+              ))}
+            </div>
+
+            {/* Social proof */}
+            <p
+              style={{
+                fontFamily: "var(--font-body, 'Inter', sans-serif)",
+                fontSize: "0.8rem",
+                color: "var(--c-text-muted, rgba(155,145,190,0.60))",
+                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.3rem",
+                flexWrap: "wrap",
+                justifyContent: "center",
+              }}
+            >
+              Trusted by{" "}
+              <AnimatedCounter
+                value={12400}
+                suffix="+"
+                duration={2200}
+                style={{ color: "var(--c-text-primary, rgba(240,236,255,0.95))", fontWeight: 600 }}
+              />{" "}
+              seekers{" "}
+              <span style={{ opacity: 0.4 }}>&middot;</span>{" "}
+              <AnimatedCounter
+                value={4.9}
+                decimals={1}
+                duration={1800}
+                delay={200}
+                style={{ color: "var(--c-text-primary, rgba(240,236,255,0.95))", fontWeight: 600 }}
+              />
+              <span style={{ color: "rgba(212,175,55,0.9)" }}>&starf;</span> rating
+            </p>
+
+            {/* Gold CTA */}
+            <MagneticButton
+              variant="gold"
+              size="lg"
+              href="/portrait"
+              onClick={() => track("cosmic_selfie_cta_clicked", { destination: "/portrait" })}
+            >
+              Get Your Cosmic Portrait
+            </MagneticButton>
+          </div>
         </div>
       </div>
 
