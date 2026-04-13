@@ -700,6 +700,7 @@ const TRANSIT_CONTENT: Record<string, TransitData> = {
  */
 export function generateAspectTransitContent(
   lessonSlug: string,
+  locale: string = "en",
 ): LessonContent | null {
   // Check aspects
   const aspectData = ASPECT_CONTENT[lessonSlug];

@@ -16,6 +16,7 @@ export function generateFullLessonContent(
   lessonTitle: string,
   lessonDescription: string,
   lessonDuration: number,
+  locale: string = "en",
 ): LessonContent {
-  return resolveContent(courseSlug, lessonSlug, lessonTitle, lessonDescription, lessonDuration);
+  return resolveContent(courseSlug, lessonSlug, lessonTitle, lessonDescription, lessonDuration, locale);
 }

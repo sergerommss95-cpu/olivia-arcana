@@ -251,7 +251,7 @@ const HOUSE_LESSONS: HouseLesson[] = [
 
 // ── Main generator ──
 
-export function generateHouseContent(lessonSlug: string): LessonContent | null {
+export function generateHouseContent(lessonSlug: string, locale: string = "en"): LessonContent | null {
   // Individual house lessons
   const lesson = HOUSE_LESSONS.find((l) => l.slug === lessonSlug);
   if (lesson) {

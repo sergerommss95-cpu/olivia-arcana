@@ -1618,6 +1618,7 @@ export function generateConceptualContent(
   lessonSlug: string,
   lessonTitle: string,
   lessonDescription: string,
+  locale: string = "en",
 ): LessonContent {
   // Direct match in content map
   const directMatch = CONTENT_MAP[lessonSlug];

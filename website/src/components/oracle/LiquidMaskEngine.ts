@@ -25,6 +25,7 @@ const FRAG = `
   uniform float uFeather;
   uniform float uVelocity;      // cursor speed 0–1
   uniform float uPresence;      // 0 = cursor outside, 1 = inside (animated)
+  uniform float uMirror;        // 1.0 = flip reveal U for selfie mirror, 0.0 = normal
 
   varying vec2 vUv;
 
@@ -65,7 +66,8 @@ const FRAG = `
 
     // ── Sample textures ──
     vec4 base   = texture2D(uBase, uv);
-    vec4 reveal = texture2D(uReveal, uv);
+    vec2 revealUv = uMirror > 0.5 ? vec2(1.0 - uv.x, uv.y) : uv;
+    vec4 reveal = texture2D(uReveal, revealUv);
 
     // ── Blend ──
     vec3 color = mix(base.rgb, reveal.rgb, mask);
@@ -94,8 +96,8 @@ const FRAG = `
     float caAmount = edge * 0.006 * uPresence;
     if (caAmount > 0.001) {
       vec2 caDir = normalize(diff + 0.0001);
-      float rShift = texture2D(uReveal, uv + caDir * caAmount).r;
-      float bShift = texture2D(uReveal, uv - caDir * caAmount).b;
+      float rShift = texture2D(uReveal, revealUv + caDir * caAmount).r;
+      float bShift = texture2D(uReveal, revealUv - caDir * caAmount).b;
       color.r = mix(color.r, rShift, mask * 0.35);
       color.b = mix(color.b, bShift, mask * 0.35);
     }
@@ -125,7 +127,9 @@ const FRAG = `
 // ═══════════════════════════════════════════
 export interface LiquidMaskOptions {
   baseImage: string
-  revealImage: string
+  revealImage?: string
+  revealVideo?: HTMLVideoElement
+  mirror?: boolean
   maskRadius?: number
   feather?: number
   lerpFactor?: number
@@ -160,6 +164,9 @@ export class LiquidMaskEngine {
   private maskRadius: number
   private feather: number
   private onReady?: () => void
+  private revealVideo: HTMLVideoElement | null
+  private revealTex: WebGLTexture | null = null
+  private mirror: boolean
 
   constructor(container: HTMLElement, opts: LiquidMaskOptions) {
     this.container = container
@@ -190,17 +197,31 @@ export class LiquidMaskEngine {
 
     for (const name of [
       'uBase','uReveal','uMouse','uTime','uAspect',
-      'uRadius','uFeather','uVelocity','uPresence'
+      'uRadius','uFeather','uVelocity','uPresence','uMirror'
     ]) {
       this.locs[name] = gl.getUniformLocation(this.program, name)
     }
 
+    this.revealVideo = opts.revealVideo ?? null
+    this.mirror = opts.mirror ?? false
+
     let loaded = 0
-    const check = () => { if (++loaded >= 2) this.onReady?.() }
+    const total = opts.revealVideo ? 1 : 2
+    const check = () => { if (++loaded >= total) this.onReady?.() }
+
     this.loadTexture(opts.baseImage, 0, check)
-    this.loadTexture(opts.revealImage, 1, check)
+
+    if (opts.revealVideo) {
+      this.revealTex = this.createVideoTexture(1)
+    } else if (opts.revealImage) {
+      this.loadTexture(opts.revealImage, 1, check)
+    } else {
+      throw new Error('LiquidMaskEngine: provide revealImage or revealVideo')
+    }
+
     gl.uniform1i(this.locs.uBase, 0)
     gl.uniform1i(this.locs.uReveal, 1)
+    gl.uniform1f(this.locs.uMirror!, this.mirror ? 1.0 : 0.0)
 
     this.resize()
     setTimeout(() => this.resize(), 100)
@@ -260,6 +281,15 @@ export class LiquidMaskEngine {
     gl.uniform1f(this.locs.uVelocity!, this.velocity)
     gl.uniform1f(this.locs.uPresence!, this.presence)
 
+    if (this.revealVideo && this.revealTex && this.revealVideo.readyState >= 2) {
+      const gl2 = this.gl
+      gl2.activeTexture(gl2.TEXTURE0 + 1)
+      gl2.bindTexture(gl2.TEXTURE_2D, this.revealTex)
+      gl2.pixelStorei(gl2.UNPACK_FLIP_Y_WEBGL, true)
+      gl2.texImage2D(gl2.TEXTURE_2D, 0, gl2.RGBA, gl2.RGBA, gl2.UNSIGNED_BYTE, this.revealVideo)
+      gl2.pixelStorei(gl2.UNPACK_FLIP_Y_WEBGL, false)
+    }
+
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
   }
 
@@ -292,6 +322,20 @@ export class LiquidMaskEngine {
     }
     img.onerror = () => onLoad()
     img.src = url
+  }
+
+  private createVideoTexture(unit: number): WebGLTexture {
+    const gl = this.gl
+    const tex = gl.createTexture()!
+    gl.activeTexture(gl.TEXTURE0 + unit)
+    gl.bindTexture(gl.TEXTURE_2D, tex)
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
+      new Uint8Array([10, 8, 20, 255]))
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+    return tex
   }
 
   private createProgram(vSrc: string, fSrc: string): WebGLProgram {

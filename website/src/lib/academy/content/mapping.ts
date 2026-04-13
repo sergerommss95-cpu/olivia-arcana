@@ -21,41 +21,42 @@ export function resolveContent(
   lessonTitle: string,
   lessonDescription: string,
   lessonDuration: number,
+  locale: string = "en",
 ): LessonContent {
   // Try each template in order of specificity
 
   // 1. Quiz lessons
-  const quiz = generateQuizContent(courseSlug, lessonSlug);
+  const quiz = generateQuizContent(courseSlug, lessonSlug, locale);
   if (quiz) return quiz;
 
   // 2. Practice/exercise lessons
-  const practice = generatePracticeContent(courseSlug, lessonSlug);
+  const practice = generatePracticeContent(courseSlug, lessonSlug, locale);
   if (practice) return practice;
 
   // 3. Sign-based lessons
-  const sign = generateSignContent(lessonSlug);
+  const sign = generateSignContent(lessonSlug, locale);
   if (sign) return sign;
 
   // 4. Planet-based lessons
-  const planet = generatePlanetContent(lessonSlug);
+  const planet = generatePlanetContent(lessonSlug, locale);
   if (planet) return planet;
 
   // 5. House-based lessons
-  const house = generateHouseContent(lessonSlug);
+  const house = generateHouseContent(lessonSlug, locale);
   if (house) return house;
 
   // 6. Tarot card lessons
-  const tarot = generateTarotContent(lessonSlug);
+  const tarot = generateTarotContent(lessonSlug, locale);
   if (tarot) return tarot;
 
   // 7. Aspect and transit lessons
-  const aspectTransit = generateAspectTransitContent(lessonSlug);
+  const aspectTransit = generateAspectTransitContent(lessonSlug, locale);
   if (aspectTransit) return aspectTransit;
 
   // 8. Synastry and spread lessons
-  const synastrySpread = generateSynastrySpreadContent(lessonSlug);
+  const synastrySpread = generateSynastrySpreadContent(lessonSlug, locale);
   if (synastrySpread) return synastrySpread;
 
   // 9. Conceptual fallback (always returns content)
-  return generateConceptualContent(courseSlug, lessonSlug, lessonTitle, lessonDescription);
+  return generateConceptualContent(courseSlug, lessonSlug, lessonTitle, lessonDescription, locale);
 }

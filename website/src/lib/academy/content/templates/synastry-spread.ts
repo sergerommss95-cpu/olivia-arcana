@@ -597,6 +597,7 @@ const SLUG_MAP: Record<string, string> = {
  */
 export function generateSynastrySpreadContent(
   lessonSlug: string,
+  locale: string = "en",
 ): LessonContent | null {
   // Direct match in synastry content
   const synastryData = SYNASTRY_CONTENT[lessonSlug];

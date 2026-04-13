@@ -305,7 +305,7 @@ const PLANET_FURTHER_READING: Record<string, string> = {
 
 // ── Main generator ──
 
-export function generatePlanetContent(lessonSlug: string): LessonContent | null {
+export function generatePlanetContent(lessonSlug: string, locale: string = "en"): LessonContent | null {
   // Individual planet lessons
   const lesson = PLANET_LESSONS.find((l) => l.slug === lessonSlug);
   if (lesson) {

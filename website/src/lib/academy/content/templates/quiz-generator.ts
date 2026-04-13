@@ -985,6 +985,7 @@ const QUIZ_MAP: Record<string, Record<string, { questions: QuizQuestion[]; intro
 export function generateQuizContent(
   courseSlug: string,
   lessonSlug: string,
+  locale: string = "en",
 ): LessonContent | null {
   // Only handle quiz-like lessons
   const isQuizLesson =

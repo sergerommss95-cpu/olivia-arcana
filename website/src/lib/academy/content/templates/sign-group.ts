@@ -175,7 +175,7 @@ const POLARITY_PAIRS: { a: string; b: string; axis: string; tension: string }[] 
 
 // ── Main generator ──
 
-export function generateSignContent(lessonSlug: string): LessonContent | null {
+export function generateSignContent(lessonSlug: string, locale: string = "en"): LessonContent | null {
   // Sign group lessons
   const group = SIGN_GROUPS[lessonSlug];
   if (group) {

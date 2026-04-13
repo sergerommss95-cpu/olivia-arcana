@@ -450,7 +450,7 @@ const NUMBER_RANGES: Record<string, { suit: string; range: [number, number]; tit
 
 // ── Main generator ──
 
-export function generateTarotContent(lessonSlug: string): LessonContent | null {
+export function generateTarotContent(lessonSlug: string, locale: string = "en"): LessonContent | null {
   // Card pairs
   const pair = CARD_PAIRS[lessonSlug];
   if (pair) {

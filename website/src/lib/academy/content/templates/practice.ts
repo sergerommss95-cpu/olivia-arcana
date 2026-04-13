@@ -326,6 +326,7 @@ const SLUG_ALIASES: Record<string, string> = {
 export function generatePracticeContent(
   courseSlug: string,
   lessonSlug: string,
+  locale: string = "en",
 ): LessonContent | null {
   // Check if this is a practice-type lesson by slug patterns
   const isPracticeLesson =
