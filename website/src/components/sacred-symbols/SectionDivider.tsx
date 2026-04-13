@@ -2,25 +2,22 @@
 
 /**
  * SectionDivider — Horizontal rule with centered sacred symbol.
- *
- * Replaces the existing .star-divider pattern with a 3D symbol
- * that rotates and floats between page sections.
+ * Uses 3dsvg for 3D rendering.
  */
 
 import React from "react";
 import SymbolElement from "./SymbolElement";
-import type { MaterialPreset } from "./materials/presets";
 
 interface SectionDividerProps {
   symbol?: string;
-  material?: MaterialPreset;
+  color?: string;
   size?: number;
   className?: string;
 }
 
 export default function SectionDivider({
   symbol = "star",
-  material,
+  color,
   size = 60,
   className,
 }: SectionDividerProps) {
@@ -36,30 +33,15 @@ export default function SectionDivider({
         opacity: 0.6,
       }}
     >
-      <div
-        style={{
-          flex: 1,
-          height: "1px",
-          maxWidth: "200px",
-          background: "linear-gradient(to right, transparent, rgba(212,175,55,0.3), transparent)",
-        }}
-      />
-      <SymbolElement
-        symbol={symbol}
-        material={material}
-        size={size}
-        rotationSpeed={0.15}
-        floatAmplitude={0.06}
-        mouseParallax={false}
-      />
-      <div
-        style={{
-          flex: 1,
-          height: "1px",
-          maxWidth: "200px",
-          background: "linear-gradient(to left, transparent, rgba(212,175,55,0.3), transparent)",
-        }}
-      />
+      <div style={{
+        flex: 1, height: "1px", maxWidth: "200px",
+        background: "linear-gradient(to right, transparent, rgba(212,175,55,0.3), transparent)",
+      }} />
+      <SymbolElement symbol={symbol} color={color} size={size} />
+      <div style={{
+        flex: 1, height: "1px", maxWidth: "200px",
+        background: "linear-gradient(to left, transparent, rgba(212,175,55,0.3), transparent)",
+      }} />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import * as THREE from "three";
 import { ALL_SYMBOLS } from "@/components/sacred-symbols/paths";
 
 const SYMBOLS = Object.entries(ALL_SYMBOLS);

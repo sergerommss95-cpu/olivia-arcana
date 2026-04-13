@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card of the Day — Olivia Arcana</title>
+  <!-- No static preload — card path is runtime-determined. JS eager-loads via new Image() on init. -->
+  <style>
+    /* === Reset & Base === */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { background: #060810; color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
+    body {
+      min-height: 100vh; overflow-x: hidden; position: relative;
+      background: radial-gradient(ellipse at 50% 30%, rgba(15,12,35,1) 0%, #060810 70%);
+    }
+
+    /* === Ambient Star Field Background === */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before {
+      background: transparent;
+      box-shadow:
+        12vw 18vh 0 0.5px rgba(255,255,255,0.25),
+        85vw 12vh 0 0.5px rgba(200,180,255,0.2),
+        45vw 72vh 0 0.8px rgba(212,175,55,0.18),
+        72vw 45vh 0 0.5px rgba(180,200,255,0.22),
+        25vw 88vh 0 0.6px rgba(255,220,180,0.2),
+        92vw 68vh 0 0.5px rgba(180,160,255,0.15),
+        55vw 32vh 0 0.7px rgba(255,255,255,0.2),
+        8vw 55vh 0 0.5px rgba(200,220,255,0.18);
+      animation: drift-field-1 40s ease-in-out infinite alternate;
+      opacity: 0.2;
+    }
+    body::after {
+      background: transparent;
+      box-shadow:
+        35vw 25vh 0 0.6px rgba(212,175,55,0.2),
+        68vw 82vh 0 0.5px rgba(180,160,255,0.22),
+        15vw 42vh 0 0.8px rgba(255,255,255,0.18),
+        78vw 15vh 0 0.5px rgba(200,180,255,0.2),
+        50vw 60vh 0 0.6px rgba(180,220,255,0.15),
+        28vw 78vh 0 0.5px rgba(255,200,150,0.2);
+      animation: drift-field-2 35s ease-in-out infinite alternate;
+      opacity: 0.18;
+    }
+    @keyframes drift-field-1 {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(12px, -8px); }
+    }
+    @keyframes drift-field-2 {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-10px, 6px); }
+    }
+
+    /* === Hero Section === */
+    .hero {
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative; padding: 40px 20px;
+    }
+
+    /* === Veil Wrapper (parallax target) === */
+    .veil-wrapper {
+      position: relative;
+      max-width: min(340px, 80vw);
+      width: 100%;
+      aspect-ratio: 2 / 3;
+    }
+
+    /* === Veil Canvas === */
+    .veil {
+      width: 100%; height: 100%;
+      border-radius: 16px;
+      cursor: pointer;
+      display: block;
+      opacity: 1;
+    }
+
+    /* === Breathing === */
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.008); }
+    }
+    .veil.breathing {
+      animation: breathe 4s ease-in-out infinite;
+    }
+
+    /* === Card Container (overlaid on veil) === */
+    .card-container {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+      perspective: 800px;
+    }
+
+    /* === Card Glow === */
+    .card-glow {
+      position: absolute;
+      width: 120%; height: 120%;
+      top: -10%; left: -10%;
+      background: radial-gradient(ellipse, rgba(212,175,55,0.12) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    .card-glow.active {
+      opacity: 1;
+      animation: glow-breathe 6s ease-in-out infinite, glow-pulse 8s ease-in-out infinite;
+    }
+    @keyframes glow-breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    @keyframes glow-pulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; }
+    }
+
+    /* === Card Image === */
+    .card-image {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      opacity: 0;
+      transform: scale(0.92) rotateX(8deg) translateY(10px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 1.4s ease;
+      transition-delay: 0.15s;
+      border: 1px solid rgba(212,175,55,0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 rgba(212,175,55,0);
+      transform-origin: center bottom;
+    }
+    .card-image.revealed {
+      opacity: 1;
+      transform: scale(1) rotateX(0deg) translateY(0px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 80px rgba(212,175,55,0.18), 0 0 160px rgba(212,175,55,0.08);
+    }
+
+    /* === Float Animation (applied AFTER entrance) === */
+    @keyframes card-float {
+      0%, 100% { transform: translateY(0px) rotateX(0deg); }
+      50% { transform: translateY(-4px) rotateX(0.5deg); }
+    }
+    .card-image.floating {
+      animation: card-float 6s ease-in-out infinite;
+    }
+
+    /* === Rising Particles on reveal === */
+    .card-particles {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      overflow: visible;
+      opacity: 0;
+    }
+    .card-particles.active { opacity: 1; }
+    .card-particles span {
+      position: absolute;
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: #d4af37;
+      bottom: 20%;
+      opacity: 0;
+    }
+    .card-particles.active span {
+      animation: particle-rise 2.5s ease-out forwards;
+    }
+    .card-particles span:nth-child(1) { left: 20%; animation-delay: 0s; }
+    .card-particles span:nth-child(2) { left: 35%; animation-delay: 0.15s; width: 2px; height: 2px; }
+    .card-particles span:nth-child(3) { left: 50%; animation-delay: 0.05s; }
+    .card-particles span:nth-child(4) { left: 65%; animation-delay: 0.2s; width: 2px; height: 2px; }
+    .card-particles span:nth-child(5) { left: 80%; animation-delay: 0.1s; }
+    .card-particles span:nth-child(6) { left: 30%; animation-delay: 0.3s; width: 2px; height: 2px; }
+    .card-particles span:nth-child(7) { left: 70%; animation-delay: 0.25s; }
+    .card-particles span:nth-child(8) { left: 45%; animation-delay: 0.35s; width: 2px; height: 2px; }
+    @keyframes particle-rise {
+      0% { opacity: 0; transform: translateY(0) scale(1); }
+      20% { opacity: 0.8; }
+      100% { opacity: 0; transform: translateY(-120px) scale(0.3) translateX(var(--drift, 10px)); }
+    }
+    .card-particles span:nth-child(odd) { --drift: -15px; }
+    .card-particles span:nth-child(even) { --drift: 12px; }
+
+    /* === Veil Glow Border === */
+    .veil-border {
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      border: 1px solid rgba(212,175,55,0.15);
+      box-shadow: 0 0 20px rgba(138,100,255,0.08), inset 0 0 20px rgba(138,100,255,0.05);
+      pointer-events: none;
+      animation: border-pulse 4s ease-in-out infinite;
+    }
+    @keyframes border-pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(138,100,255,0.08), inset 0 0 20px rgba(138,100,255,0.05), 0 0 40px rgba(212,175,55,0.03); border-color: rgba(212,175,55,0.15); }
+      50% { box-shadow: 0 0 30px rgba(138,100,255,0.15), inset 0 0 30px rgba(138,100,255,0.08), 0 0 60px rgba(212,175,55,0.06); border-color: rgba(212,175,55,0.25); }
+    }
+
+    /* === Reveal Flash === */
+    .reveal-flash {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(212,175,55,0.3) 0%, rgba(255,255,255,0.1) 30%, transparent 70%);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 100;
+    }
+    .reveal-flash.active {
+      animation: flash-burst 0.8s ease-out forwards;
+    }
+    @keyframes flash-burst {
+      0% { opacity: 1; transform: scale(0.8); }
+      100% { opacity: 0; transform: scale(2); }
+    }
+
+    /* === Card Shimmer (foil holographic effect) === */
+    .card-shimmer {
+      position: absolute; inset: 0;
+      border-radius: 12px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      overflow: hidden;
+    }
+    .card-shimmer::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(255,220,150,0.06) 40deg,
+        rgba(200,150,255,0.08) 80deg,
+        transparent 120deg,
+        rgba(150,220,255,0.06) 160deg,
+        rgba(255,200,200,0.06) 200deg,
+        transparent 240deg,
+        rgba(200,255,200,0.05) 280deg,
+        rgba(255,220,150,0.06) 320deg,
+        transparent 360deg
+      );
+      mix-blend-mode: overlay;
+      animation: holo-rotate 12s linear infinite;
+    }
+    .card-shimmer::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg,
+        transparent 35%,
+        rgba(255,255,255,0.1) 45%,
+        rgba(255,255,255,0.15) 50%,
+        rgba(255,255,255,0.1) 55%,
+        transparent 65%
+      );
+      background-size: 300% 100%;
+      animation: shimmer 6s ease-in-out infinite;
+    }
+    .card-shimmer.active {
+      opacity: 1;
+    }
+    @keyframes holo-rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -100% 0; }
+    }
+
+    /* === Card Info === */
+    .card-info {
+      text-align: center;
+      margin-top: 24px;
+    }
+    .card-numeral {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #d4af37;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .card-name {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.9);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      margin-top: 4px;
+    }
+    .card-numeral.visible,
+    .card-name.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === Tap Prompt === */
+    .tap-prompt {
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      color: rgba(212,175,55,0.6);
+      font-size: 14px;
+      letter-spacing: 3px;
+      margin-top: 32px;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+    .tap-prompt.visible {
+      opacity: 1;
+      animation: prompt-glow 3s ease-in-out infinite;
+    }
+    @keyframes prompt-glow {
+      0%, 100% { color: rgba(212,175,55,0.5); text-shadow: none; }
+      50% { color: rgba(212,175,55,0.8); text-shadow: 0 0 20px rgba(212,175,55,0.15); }
+    }
+
+    /* === Scroll Indicator === */
+    .scroll-indicator {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.2);
+      font-size: 20px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+    .scroll-indicator.visible {
+      opacity: 0.35;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.15; }
+      50% { opacity: 0.35; }
+    }
+
+    /* === Reading Section === */
+    .reading {
+      min-height: 100vh;
+      padding: 80px 24px;
+      display: flex;
+      justify-content: center;
+      background: linear-gradient(180deg, #060810 0%, #0c1020 30%, #0e1225 50%, #0c1020 70%, #060810 100%);
+      position: relative;
+    }
+    .reading::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 240px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212,175,55,0.4), transparent);
+    }
+    .reading-content {
+      max-width: 540px;
+      width: 100%;
+    }
+    .reading-content > * {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reading-content > .visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reading-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 16px;
+      text-shadow: 0 0 40px rgba(212,175,55,0.1);
+    }
+    .keywords {
+      color: #d4af37;
+      font-size: 16px;
+      letter-spacing: 2px;
+      margin-bottom: 48px;
+      text-shadow: 0 0 10px rgba(212,175,55,0.2);
+    }
+    .meaning-upright,
+    .meaning-reversed {
+      margin-bottom: 48px;
+    }
+    .meaning-upright h3,
+    .meaning-reversed h3 {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #d4af37;
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+    .meaning-upright p,
+    .meaning-reversed p {
+      color: #fff;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+    .reflection {
+      font-style: italic;
+      color: rgba(255,255,255,0.8);
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 48px;
+      padding-left: 20px;
+      border-left: 2px solid rgba(212,175,55,0.4);
+    }
+    .encyclopedia-link {
+      display: inline-block;
+      color: #d4af37;
+      text-decoration: none;
+      font-size: 14px;
+      letter-spacing: 1px;
+      margin-bottom: 48px;
+      transition: opacity 0.2s;
+    }
+    .encyclopedia-link:hover { opacity: 0.7; }
+    .draw-again {
+      display: inline-block;
+      background: none;
+      border: 1px solid rgba(212,175,55,0.25);
+      border-radius: 24px;
+      color: #d4af37;
+      font-size: 14px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      padding: 14px 32px;
+      font-family: inherit;
+      transition: opacity 0.2s;
+    }
+    .draw-again:hover { border-color: rgba(212,175,55,0.5); box-shadow: 0 0 20px rgba(212,175,55,0.1); }
+
+    /* === Card Error Fallback === */
+    .card-container.error { display: flex; align-items: center; justify-content: center; }
+    .card-error {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.5); text-align: center;
+    }
+    .error-numeral { font-size: 12px; letter-spacing: 3px; color: #d4af37; }
+    .error-name { font-family: Georgia, serif; font-size: 20px; color: rgba(255,255,255,0.7); }
+    .error-msg { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 8px; }
+
+    /* === WebGL Fallback (no-webgl or reduced-motion) === */
+    .veil-fallback {
+      width: 100%; height: 100%;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #0a0a2e 0%, #1a0a3e 30%, #0d1b3e 60%, #2a1a4e 100%);
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.6s ease-out;
+    }
+    .veil-fallback.visible { opacity: 1; }
+
+    /* === Section Divider === */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 40px 0;
+    }
+    .section-divider span {
+      display: block;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: rgba(212,175,55,0.4);
+    }
+    .section-divider span:nth-child(2) {
+      width: 6px; height: 6px;
+      background: rgba(212,175,55,0.6);
+    }
+
+    /* === Reduced Motion === */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero section (viewport height) -->
+  <section class="hero">
+    <div class="veil-wrapper">
+      <canvas class="veil" role="img" aria-label="Mystical veil covering your daily tarot card" tabindex="0"></canvas>
+      <div class="veil-border"></div>
+      <div class="card-container">
+        <div class="card-glow"></div>
+        <img class="card-image" alt="" />
+        <div class="card-shimmer"></div>
+        <div class="card-particles"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="card-info" aria-live="polite">
+      <span class="card-numeral"></span>
+      <h1 class="card-name"></h1>
+    </div>
+    <p class="tap-prompt">Tap to reveal your card</p>
+    <div class="scroll-indicator" aria-hidden="true">&#9662;</div>
+    <div class="reveal-flash"></div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- Reading section (below fold) -->
+  <section class="reading">
+    <div class="reading-content">
+      <h2 class="reading-title"></h2>
+      <div class="keywords"></div>
+      <div class="meaning-upright"></div>
+      <div class="meaning-reversed"></div>
+      <p class="reflection"></p>
+      <a class="encyclopedia-link" href="">Full reading &#8594;</a>
+      <button class="draw-again" aria-label="Draw another card">Draw another card &#8594;</button>
+    </div>
+  </section>
+
+  <script type="module">
+    // ═══════════════════════════════════════════════════════════════
+    //  CARD OF THE DAY — 78-card manifest with readings
+    // ═══════════════════════════════════════════════════════════════
+    const DECK = [
+      {id:0,name:"The Fool",num:"0",file:"00_the_fool.png",keywords:["Beginnings","Innocence","Spontaneity"],upright:"A fresh start beckons — trust the unknown and take the leap.",reversed:"Recklessness or fear of change may be holding you back.",reflection:"What new beginning are you being called toward today?"},
+      {id:1,name:"The Magician",num:"I",file:"01_the_magician.png",keywords:["Willpower","Manifestation","Resourcefulness"],upright:"You have all the tools you need — channel your focus and create.",reversed:"Untapped potential or misdirected energy clouds your path.",reflection:"What skill or resource have you been overlooking?"},
+      {id:2,name:"The High Priestess",num:"II",file:"02_the_high_priestess.png",keywords:["Intuition","Mystery","Inner Knowledge"],upright:"Trust the quiet voice within — wisdom lives beneath the surface.",reversed:"Secrets or denial may be blocking your deeper understanding.",reflection:"What does your intuition whisper when you get still?"},
+      {id:3,name:"The Empress",num:"III",file:"03_the_empress.png",keywords:["Abundance","Nurturing","Creativity"],upright:"Creative fertility surrounds you — nurture what wants to grow.",reversed:"Creative blocks or neglecting self-care need your attention.",reflection:"Where can you bring more nurturing energy into your life?"},
+      {id:4,name:"The Emperor",num:"IV",file:"04_the_emperor.png",keywords:["Authority","Structure","Stability"],upright:"Build strong foundations — lead with clarity and discipline.",reversed:"Rigidity or control issues may be creating unnecessary resistance.",reflection:"Where do you need more structure or healthy boundaries?"},
+      {id:5,name:"The Hierophant",num:"V",file:"05_the_hierophant.png",keywords:["Tradition","Guidance","Wisdom"],upright:"Seek knowledge from trusted sources and honor what has come before.",reversed:"Question outdated beliefs — your own truth may differ from convention.",reflection:"What tradition or teaching still serves you, and what can you release?"},
+      {id:6,name:"The Lovers",num:"VI",file:"06_the_lovers.png",keywords:["Love","Harmony","Choices"],upright:"A meaningful connection or pivotal choice brings alignment.",reversed:"Misalignment in values or avoidance of a necessary decision.",reflection:"What choice are you facing that requires listening to your heart?"},
+      {id:7,name:"The Chariot",num:"VII",file:"07_the_chariot.png",keywords:["Determination","Willpower","Victory"],upright:"Harness opposing forces and drive forward with unwavering focus.",reversed:"Scattered energy or lack of direction may stall your progress.",reflection:"What goal demands your full, focused determination right now?"},
+      {id:8,name:"Strength",num:"VIII",file:"08_strength.png",keywords:["Courage","Patience","Inner Power"],upright:"True strength comes from compassion and gentle persistence.",reversed:"Self-doubt or inner conflict undermines your natural power.",reflection:"Where can you meet a challenge with patience instead of force?"},
+      {id:9,name:"The Hermit",num:"IX",file:"09_the_hermit.png",keywords:["Solitude","Reflection","Inner Light"],upright:"Step back from the noise — solitude holds the answers you seek.",reversed:"Isolation has become avoidance — reach out and reconnect.",reflection:"What truth might reveal itself if you spent time in quiet reflection?"},
+      {id:10,name:"Wheel of Fortune",num:"X",file:"10_wheel_of_fortune.png",keywords:["Cycles","Destiny","Turning Points"],upright:"The wheel turns in your favor — embrace change and seize the moment.",reversed:"Resist clinging to what was — the cycle demands forward movement.",reflection:"What cycle in your life is completing or beginning anew?"},
+      {id:11,name:"Justice",num:"XI",file:"11_justice.png",keywords:["Truth","Fairness","Accountability"],upright:"Act with integrity — truth and fairness will prevail.",reversed:"Dishonesty or imbalance calls for honest self-examination.",reflection:"Where in your life does the truth need to be spoken or heard?"},
+      {id:12,name:"The Hanged Man",num:"XII",file:"12_the_hanged_man.png",keywords:["Surrender","New Perspective","Letting Go"],upright:"Release control and see the world from a completely new angle.",reversed:"Stalling or martyrdom prevents the shift in perspective you need.",reflection:"What might you see differently if you simply let go?"},
+      {id:13,name:"Death",num:"XIII",file:"13_death.png",keywords:["Transformation","Endings","Rebirth"],upright:"An ending clears the way for profound renewal and transformation.",reversed:"Resisting an inevitable change only prolongs the transition.",reflection:"What needs to end so something new can begin?"},
+      {id:14,name:"Temperance",num:"XIV",file:"14_temperance.png",keywords:["Balance","Patience","Moderation"],upright:"Find the middle way — blend opposing elements into harmony.",reversed:"Excess or impatience disrupts your natural equilibrium.",reflection:"Where could a more balanced approach serve you better?"},
+      {id:15,name:"The Devil",num:"XV",file:"15_the_devil.png",keywords:["Shadow","Attachment","Liberation"],upright:"Acknowledge what binds you — awareness is the first step to freedom.",reversed:"Breaking free from old patterns or unhealthy attachments.",reflection:"What habit or attachment is ready to be released?"},
+      {id:16,name:"The Tower",num:"XVI",file:"16_the_tower.png",keywords:["Upheaval","Revelation","Breakthrough"],upright:"Sudden change dismantles false structures — truth emerges from rubble.",reversed:"The storm is passing — rebuild on more authentic foundations.",reflection:"What false belief or structure is being cleared from your life?"},
+      {id:17,name:"The Star",num:"XVII",file:"17_the_star.png",keywords:["Hope","Inspiration","Renewal"],upright:"After the storm comes healing — trust that hope is well-placed.",reversed:"Disconnection from hope or inspiration calls for gentle self-care.",reflection:"What fills you with a quiet, steady sense of hope?"},
+      {id:18,name:"The Moon",num:"XVIII",file:"18_the_moon.png",keywords:["Illusion","Intuition","The Unconscious"],upright:"Navigate uncertainty with intuition — not everything is as it seems.",reversed:"Clarity emerges as confusion and fear begin to lift.",reflection:"What fear or illusion is distorting your perception right now?"},
+      {id:19,name:"The Sun",num:"XIX",file:"19_the_sun.png",keywords:["Joy","Vitality","Success"],upright:"Radiant energy surrounds you — celebrate and share your light.",reversed:"Dimmed enthusiasm or delayed joy — the sun will shine again.",reflection:"What brings you pure, uncomplicated joy?"},
+      {id:20,name:"Judgement",num:"XX",file:"20_judgement.png",keywords:["Renewal","Reckoning","Awakening"],upright:"A higher calling awakens — answer with courage and forgiveness.",reversed:"Self-judgment or avoiding accountability holds back your evolution.",reflection:"What part of yourself is ready to be forgiven and renewed?"},
+      {id:21,name:"The World",num:"XXI",file:"21_the_world.png",keywords:["Completion","Integration","Fulfillment"],upright:"A great cycle reaches fulfillment — honor how far you have come.",reversed:"Unfinished business or a lingering sense of incompleteness.",reflection:"What accomplishment deserves your full celebration today?"},
+      {id:22,name:"Ace of Wands",num:"Ace",file:"22_ace_of_wands.png",keywords:["Spark","Inspiration","New Venture"],upright:"A bold new spark ignites — seize this creative or passionate impulse.",reversed:"A stalled idea or misdirected passion needs re-examination.",reflection:"What creative impulse is asking for your attention?"},
+      {id:23,name:"Two of Wands",num:"Two",file:"23_two_of_wands.png",keywords:["Planning","Vision","Discovery"],upright:"The world opens before you — plan boldly and envision your path.",reversed:"Fear of the unknown or lack of planning creates hesitation.",reflection:"What bold vision are you ready to commit to?"},
+      {id:24,name:"Three of Wands",num:"Three",file:"24_three_of_wands.png",keywords:["Expansion","Foresight","Progress"],upright:"Your efforts are bearing fruit — expand your horizons with confidence.",reversed:"Delays in progress or overlooked opportunities call for patience.",reflection:"Where are you beginning to see the results of your hard work?"},
+      {id:25,name:"Four of Wands",num:"Four",file:"25_four_of_wands.png",keywords:["Celebration","Harmony","Homecoming"],upright:"A moment of joy and stability — celebrate your achievements.",reversed:"Tension at home or a delayed celebration needs gentle resolution.",reflection:"What milestone, however small, deserves celebration?"},
+      {id:26,name:"Five of Wands",num:"Five",file:"26_five_of_wands.png",keywords:["Conflict","Competition","Tension"],upright:"Healthy competition sharpens you — engage without losing perspective.",reversed:"Avoiding conflict or exhaustion from petty struggles.",reflection:"Is this conflict teaching you something or just draining you?"},
+      {id:27,name:"Six of Wands",num:"Six",file:"27_six_of_wands.png",keywords:["Victory","Recognition","Confidence"],upright:"Public recognition and triumph — own your success with grace.",reversed:"Fleeting praise or ego inflation — stay grounded in your values.",reflection:"How can you celebrate your wins while staying humble?"},
+      {id:28,name:"Seven of Wands",num:"Seven",file:"28_seven_of_wands.png",keywords:["Perseverance","Defense","Standing Ground"],upright:"Stand firm in your convictions — your position is worth defending.",reversed:"Overwhelm or giving up too easily under external pressure.",reflection:"What do you believe in strongly enough to fight for?"},
+      {id:29,name:"Eight of Wands",num:"Eight",file:"29_eight_of_wands.png",keywords:["Speed","Action","Momentum"],upright:"Things are moving fast — ride the wave and act decisively.",reversed:"Delays, miscommunication, or scattered focus slows your momentum.",reflection:"What action have you been postponing that could move things forward?"},
+      {id:30,name:"Nine of Wands",num:"Nine",file:"30_nine_of_wands.png",keywords:["Resilience","Persistence","Last Stand"],upright:"You are battle-tested and nearly there — don't give up now.",reversed:"Exhaustion or paranoia — know when to rest and when to push.",reflection:"What gives you the strength to keep going when you feel tired?"},
+      {id:31,name:"Ten of Wands",num:"Ten",file:"31_ten_of_wands.png",keywords:["Burden","Responsibility","Hard Work"],upright:"You carry a heavy load — consider what you can delegate or release.",reversed:"Learning to set down burdens that were never yours to carry.",reflection:"What responsibility can you release or share with someone else?"},
+      {id:32,name:"Page of Wands",num:"Page",file:"32_page_of_wands.png",keywords:["Exploration","Enthusiasm","Discovery"],upright:"A new passion or adventure calls — approach it with childlike wonder.",reversed:"Lack of direction or commitment dampens your natural enthusiasm.",reflection:"What new interest or idea excites you most right now?"},
+      {id:33,name:"Knight of Wands",num:"Knight",file:"33_knight_of_wands.png",keywords:["Action","Adventure","Impulsiveness"],upright:"Charge forward with passion — your boldness opens doors.",reversed:"Impulsive action or burnout from reckless energy expenditure.",reflection:"How can you channel your fiery energy more intentionally?"},
+      {id:34,name:"Queen of Wands",num:"Queen",file:"34_queen_of_wands.png",keywords:["Confidence","Warmth","Determination"],upright:"Lead with magnetic confidence and warm, creative authority.",reversed:"Self-doubt or jealousy dims your natural radiance.",reflection:"Where can you show up with more confidence and warmth?"},
+      {id:35,name:"King of Wands",num:"King",file:"35_king_of_wands.png",keywords:["Leadership","Vision","Entrepreneurship"],upright:"Take command of your vision — lead with bold, creative authority.",reversed:"Domineering behavior or a vision that lacks grounding.",reflection:"How are you leading, and does your vision inspire others?"},
+      {id:36,name:"Ace of Cups",num:"Ace",file:"36_ace_of_cups.png",keywords:["Love","New Feelings","Compassion"],upright:"An outpouring of love or emotional renewal washes over you.",reversed:"Blocked emotions or an unwillingness to open your heart.",reflection:"Where is love trying to enter or expand in your life?"},
+      {id:37,name:"Two of Cups",num:"Two",file:"37_two_of_cups.png",keywords:["Partnership","Connection","Mutual Respect"],upright:"A meaningful bond deepens — give and receive in equal measure.",reversed:"Imbalance or miscommunication strains an important connection.",reflection:"Which relationship in your life deserves more of your presence?"},
+      {id:38,name:"Three of Cups",num:"Three",file:"38_three_of_cups.png",keywords:["Friendship","Joy","Community"],upright:"Gather with those who lift you — shared joy multiplies.",reversed:"Overindulgence or feeling excluded from your community.",reflection:"Who in your life truly celebrates your happiness?"},
+      {id:39,name:"Four of Cups",num:"Four",file:"39_four_of_cups.png",keywords:["Contemplation","Apathy","Re-evaluation"],upright:"Pause and reflect — a gift may be right in front of you, unseen.",reversed:"Emerging from withdrawal with renewed appreciation.",reflection:"What blessing might you be taking for granted?"},
+      {id:40,name:"Five of Cups",num:"Five",file:"40_five_of_cups.png",keywords:["Loss","Grief","Perspective"],upright:"Mourn what is lost, but don't overlook what still remains.",reversed:"Healing begins as you turn toward what still stands.",reflection:"What remains standing that you can build upon?"},
+      {id:41,name:"Six of Cups",num:"Six",file:"41_six_of_cups.png",keywords:["Nostalgia","Innocence","Reunion"],upright:"Revisit sweet memories or reconnect with someone from your past.",reversed:"Living in the past or an inability to move forward.",reflection:"What happy memory holds a lesson for your present self?"},
+      {id:42,name:"Seven of Cups",num:"Seven",file:"42_seven_of_cups.png",keywords:["Choices","Fantasy","Illusion"],upright:"Many options shimmer before you — discern what is real and worthy.",reversed:"Clarity cuts through daydreams — commit to one clear path.",reflection:"Which of your many dreams is most grounded in reality?"},
+      {id:43,name:"Eight of Cups",num:"Eight",file:"43_eight_of_cups.png",keywords:["Departure","Searching","Letting Go"],upright:"Walk away from what no longer fulfills you to seek deeper meaning.",reversed:"Fear of abandonment or reluctance to leave the familiar.",reflection:"What are you holding onto that your heart has already left behind?"},
+      {id:44,name:"Nine of Cups",num:"Nine",file:"44_nine_of_cups.png",keywords:["Contentment","Satisfaction","Gratitude"],upright:"A wish fulfilled — savor this moment of deep emotional satisfaction.",reversed:"Complacency or superficial happiness masking deeper needs.",reflection:"What in your life right now fills your cup to overflowing?"},
+      {id:45,name:"Ten of Cups",num:"Ten",file:"45_ten_of_cups.png",keywords:["Harmony","Family","Emotional Fulfillment"],upright:"Emotional wholeness and family harmony bless your world.",reversed:"Domestic discord or unrealistic expectations of perfection.",reflection:"What does emotional fulfillment truly look like for you?"},
+      {id:46,name:"Page of Cups",num:"Page",file:"46_page_of_cups.png",keywords:["Creativity","Intuition","Surprise"],upright:"A delightful surprise or creative message stirs your emotions.",reversed:"Emotional immaturity or creative blocks need gentle tending.",reflection:"What surprising feeling or idea surfaced for you recently?"},
+      {id:47,name:"Knight of Cups",num:"Knight",file:"47_knight_of_cups.png",keywords:["Romance","Charm","Imagination"],upright:"Follow your heart with grace — a romantic or creative pursuit calls.",reversed:"Moodiness or unrealistic expectations cloud your emotional world.",reflection:"Where is your heart leading you, and can you trust it?"},
+      {id:48,name:"Queen of Cups",num:"Queen",file:"48_queen_of_cups.png",keywords:["Compassion","Calm","Emotional Depth"],upright:"Hold space for others with deep empathy and intuitive wisdom.",reversed:"Emotional overwhelm or absorbing others' pain as your own.",reflection:"How can you be compassionate without losing yourself?"},
+      {id:49,name:"King of Cups",num:"King",file:"49_king_of_cups.png",keywords:["Emotional Balance","Wisdom","Diplomacy"],upright:"Master your emotions — lead with calm wisdom and generous heart.",reversed:"Emotional manipulation or repressed feelings demand honesty.",reflection:"Where can you bring more emotional maturity to a situation?"},
+      {id:50,name:"Ace of Swords",num:"Ace",file:"50_ace_of_swords.png",keywords:["Clarity","Truth","Breakthrough"],upright:"A flash of mental clarity cuts through confusion — seize this insight.",reversed:"Confusion, miscommunication, or a truth you are not ready to face.",reflection:"What truth has been trying to reach you?"},
+      {id:51,name:"Two of Swords",num:"Two",file:"51_two_of_swords.png",keywords:["Indecision","Stalemate","Denial"],upright:"A difficult choice awaits — remove the blindfold and face the facts.",reversed:"Information surfaces that breaks the deadlock.",reflection:"What decision are you avoiding, and what do you already know?"},
+      {id:52,name:"Three of Swords",num:"Three",file:"52_three_of_swords.png",keywords:["Heartbreak","Sorrow","Truth"],upright:"Painful truths must be felt before they can heal.",reversed:"The worst has passed — healing and forgiveness begin.",reflection:"What pain are you ready to acknowledge and begin releasing?"},
+      {id:53,name:"Four of Swords",num:"Four",file:"53_four_of_swords.png",keywords:["Rest","Recovery","Contemplation"],upright:"Retreat and restore — your mind needs stillness to find clarity.",reversed:"Restlessness or returning to action before you are truly ready.",reflection:"When did you last give yourself permission to truly rest?"},
+      {id:54,name:"Five of Swords",num:"Five",file:"54_five_of_swords.png",keywords:["Conflict","Defeat","Tension"],upright:"Choose your battles wisely — winning at all costs has a price.",reversed:"Reconciliation is possible if pride steps aside.",reflection:"Is this a battle worth fighting, or is peace more valuable?"},
+      {id:55,name:"Six of Swords",num:"Six",file:"55_six_of_swords.png",keywords:["Transition","Moving On","Healing"],upright:"Leave troubled waters behind — calmer shores await ahead.",reversed:"Resistance to necessary change keeps you in rough seas.",reflection:"What are you transitioning away from, and where are you heading?"},
+      {id:56,name:"Seven of Swords",num:"Seven",file:"56_seven_of_swords.png",keywords:["Strategy","Deception","Stealth"],upright:"A strategic approach is needed — but ensure your methods are ethical.",reversed:"Secrets come to light or a change of heart about a deceptive plan.",reflection:"Are you being fully honest with yourself and others?"},
+      {id:57,name:"Eight of Swords",num:"Eight",file:"57_eight_of_swords.png",keywords:["Restriction","Self-Limitation","Trapped"],upright:"The bonds that hold you are of your own making — freedom is a choice.",reversed:"Breaking free from self-imposed limitations and negative thinking.",reflection:"What belief is keeping you trapped that you could choose to release?"},
+      {id:58,name:"Nine of Swords",num:"Nine",file:"58_nine_of_swords.png",keywords:["Anxiety","Worry","Nightmares"],upright:"Fears loom large in the dark — shine light on what truly troubles you.",reversed:"The worst fears are fading — reality is kinder than your worries.",reflection:"What worry would shrink if you examined it in the light of day?"},
+      {id:59,name:"Ten of Swords",num:"Ten",file:"59_ten_of_swords.png",keywords:["Endings","Rock Bottom","New Dawn"],upright:"The darkest moment before dawn — this ending brings necessary release.",reversed:"Recovery begins — you survived the worst and can rebuild.",reflection:"What has ended that, painful as it is, frees you to begin again?"},
+      {id:60,name:"Page of Swords",num:"Page",file:"60_page_of_swords.png",keywords:["Curiosity","Vigilance","New Ideas"],upright:"A sharp new idea or message arrives — investigate with an open mind.",reversed:"Gossip, hasty words, or unfocused mental energy.",reflection:"What new idea deserves your careful, curious attention?"},
+      {id:61,name:"Knight of Swords",num:"Knight",file:"61_knight_of_swords.png",keywords:["Ambition","Action","Directness"],upright:"Charge toward your goal with intellectual clarity and fearless speed.",reversed:"Rash decisions or cutting words that wound instead of clarify.",reflection:"Are you moving fast with purpose, or just moving fast?"},
+      {id:62,name:"Queen of Swords",num:"Queen",file:"62_queen_of_swords.png",keywords:["Perception","Independence","Clear Communication"],upright:"Speak your truth with precision and compassionate honesty.",reversed:"Coldness or bitterness masks vulnerability underneath.",reflection:"Where can you communicate more clearly and compassionately?"},
+      {id:63,name:"King of Swords",num:"King",file:"63_king_of_swords.png",keywords:["Intellectual Authority","Justice","Ethical Leadership"],upright:"Lead with sharp intellect and unwavering ethical standards.",reversed:"Abuse of mental power or rigid, unfeeling judgments.",reflection:"How can you lead with both your mind and your conscience?"},
+      {id:64,name:"Ace of Pentacles",num:"Ace",file:"64_ace_of_pentacles.png",keywords:["Opportunity","Prosperity","New Foundation"],upright:"A golden opportunity to build something solid and prosperous arrives.",reversed:"A missed opportunity or poor planning undermines material progress.",reflection:"What practical opportunity is presenting itself to you right now?"},
+      {id:65,name:"Two of Pentacles",num:"Two",file:"65_two_of_pentacles.png",keywords:["Balance","Adaptability","Juggling"],upright:"Keep your balance amid competing demands — flexibility is your ally.",reversed:"Overcommitment or dropping important responsibilities.",reflection:"What are you juggling, and is the balance sustainable?"},
+      {id:66,name:"Three of Pentacles",num:"Three",file:"66_three_of_pentacles.png",keywords:["Teamwork","Mastery","Collaboration"],upright:"Skilled collaboration produces masterful results — work together.",reversed:"Lack of teamwork or conflict over roles and contributions.",reflection:"Who could you collaborate with to elevate your work?"},
+      {id:67,name:"Four of Pentacles",num:"Four",file:"67_four_of_pentacles.png",keywords:["Security","Control","Conservation"],upright:"Protect what you have built, but beware of gripping too tightly.",reversed:"Releasing the need to control or hoarding out of fear.",reflection:"What are you holding onto so tightly that it restricts your growth?"},
+      {id:68,name:"Five of Pentacles",num:"Five",file:"68_five_of_pentacles.png",keywords:["Hardship","Loss","Isolation"],upright:"Material or spiritual hardship calls for reaching out and asking for help.",reversed:"Recovery from financial or emotional difficulty begins.",reflection:"Where can you ask for help instead of struggling alone?"},
+      {id:69,name:"Six of Pentacles",num:"Six",file:"69_six_of_pentacles.png",keywords:["Generosity","Charity","Balance"],upright:"Give and receive with open hands — generosity creates abundance.",reversed:"Strings attached to generosity or an imbalance in giving and receiving.",reflection:"Are you giving and receiving in healthy balance?"},
+      {id:70,name:"Seven of Pentacles",num:"Seven",file:"70_seven_of_pentacles.png",keywords:["Patience","Investment","Assessment"],upright:"Step back and assess your progress — patience yields the richest harvest.",reversed:"Impatience with slow growth or questioning your investments.",reflection:"What long-term effort is quietly growing toward fruition?"},
+      {id:71,name:"Eight of Pentacles",num:"Eight",file:"71_eight_of_pentacles.png",keywords:["Diligence","Craftsmanship","Mastery"],upright:"Dedicate yourself to your craft — mastery comes through devoted practice.",reversed:"Perfectionism, monotony, or lack of passion in your work.",reflection:"What skill are you honing that brings you pride?"},
+      {id:72,name:"Nine of Pentacles",num:"Nine",file:"72_nine_of_pentacles.png",keywords:["Abundance","Self-Sufficiency","Luxury"],upright:"Enjoy the fruits of your labor — you have earned this abundance.",reversed:"Overreliance on material comfort or financial insecurity.",reflection:"What abundance in your life deserves more of your gratitude?"},
+      {id:73,name:"Ten of Pentacles",num:"Ten",file:"73_ten_of_pentacles.png",keywords:["Legacy","Wealth","Family"],upright:"Lasting wealth and legacy — build something that endures beyond you.",reversed:"Family financial disputes or an unstable foundation.",reflection:"What legacy are you building for those who come after you?"},
+      {id:74,name:"Page of Pentacles",num:"Page",file:"74_page_of_pentacles.png",keywords:["Ambition","Diligence","New Skills"],upright:"A studious new venture or skill beckons — invest in your growth.",reversed:"Lack of progress or a promising plan that never leaves the page.",reflection:"What new skill or knowledge would most serve your future?"},
+      {id:75,name:"Knight of Pentacles",num:"Knight",file:"75_knight_of_pentacles.png",keywords:["Routine","Reliability","Hard Work"],upright:"Steady, dependable effort moves mountains — trust the process.",reversed:"Stubbornness, boredom, or stagnation from too much routine.",reflection:"Where does your steady effort need just a little more patience?"},
+      {id:76,name:"Queen of Pentacles",num:"Queen",file:"76_queen_of_pentacles.png",keywords:["Practicality","Comfort","Nurturing"],upright:"Create a warm, abundant environment through practical wisdom and care.",reversed:"Neglecting practical matters or losing balance between work and home.",reflection:"How can you nurture both yourself and those around you today?"},
+      {id:77,name:"King of Pentacles",num:"King",file:"77_king_of_pentacles.png",keywords:["Wealth","Business","Leadership"],upright:"Material mastery and generous leadership — build your empire wisely.",reversed:"Greed, materialism, or poor financial stewardship.",reflection:"How can you use your resources to create lasting value?"},
+    ];
+
+    // ═══════════════════════════════════════════════════════════════
+    //  DAILY SEED
+    // ═══════════════════════════════════════════════════════════════
+    function dailySeed() {
+      const d = new Date();
+      return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+    }
+    function hashSeed(seed) {
+      let h = seed | 0;
+      h = Math.imul((h >> 16) ^ h, 0x45d9f3b);
+      h = Math.imul((h >> 16) ^ h, 0x45d9f3b);
+      h = (h >> 16) ^ h;
+      return (h >>> 0) % 78;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  CARD LOADER
+    // ═══════════════════════════════════════════════════════════════
+    let currentCardIndex = -1;
+
+    function getDailyCard() { return DECK[hashSeed(dailySeed())]; }
+
+    function getRandomCard() {
+      let idx;
+      do { idx = Math.floor(Math.random() * 78); } while (idx === currentCardIndex);
+      return DECK[idx];
+    }
+
+    function loadCard(card) {
+      currentCardIndex = card.id;
+      const img = document.querySelector('.card-image');
+      img.alt = card.name;
+      img.src = `cards/${card.file}`;
+      document.querySelector('.reading-title').textContent = card.name;
+      document.querySelector('.card-numeral').textContent = card.num;
+      document.querySelector('.card-name').textContent = card.name;
+      document.querySelector('.keywords').textContent = card.keywords.join(' \u00b7 ');
+      document.querySelector('.meaning-upright').innerHTML = `<h3>Upright</h3><p>${card.upright}</p>`;
+      document.querySelector('.meaning-reversed').innerHTML = `<h3>Reversed</h3><p>${card.reversed}</p>`;
+      document.querySelector('.reflection').textContent = card.reflection;
+      document.querySelector('.encyclopedia-link').href = `/academy/tarot-encyclopedia/${card.file.replace('.png','')}`;
+      // Error handling
+      img.onerror = () => {
+        img.style.display = 'none';
+        const container = document.querySelector('.card-container');
+        container.classList.add('error');
+        let errEl = container.querySelector('.card-error');
+        if (!errEl) {
+          errEl = document.createElement('div');
+          errEl.className = 'card-error';
+          errEl.innerHTML = `<span class="error-numeral">${card.num}</span><span class="error-name">${card.name}</span><span class="error-msg">Card image unavailable</span>`;
+          container.appendChild(errEl);
+        }
+      };
+    }
+
+    // Init card
+    const dailyCard = getDailyCard();
+    loadCard(dailyCard);
+    new Image().src = `cards/${dailyCard.file}`;
+
+    // ═══════════════════════════════════════════════════════════════
+    //  COSMIC VEIL SHADER
+    // ═══════════════════════════════════════════════════════════════
+    const VERT_SRC = `
+attribute vec2 aPos;
+varying vec2 vUv;
+void main() {
+  vUv = aPos * 0.5 + 0.5;
+  gl_Position = vec4(aPos, 0.0, 1.0);
+}`;
+
+    const FRAG_SRC = `
+precision highp float;
+varying vec2 vUv;
+uniform float uTime;
+uniform vec2 uResolution;
+uniform vec2 uMouse;
+
+float hash21(vec2 p) {
+  p = fract(p * vec2(123.34, 456.21));
+  p += dot(p, p + 45.32);
+  return fract(p.x * p.y);
+}
+
+float noise(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  f = f * f * (3.0 - 2.0 * f);
+  float a = hash21(i);
+  float b = hash21(i + vec2(1.0, 0.0));
+  float c = hash21(i + vec2(0.0, 1.0));
+  float d = hash21(i + vec2(1.0, 1.0));
+  return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}
+
+float fbm(vec2 p) {
+  float v = 0.0, a = 0.5;
+  mat2 rot = mat2(0.8, 0.6, -0.6, 0.8);
+  for (int i = 0; i < 4; i++) {
+    v += a * noise(p);
+    p = rot * p * 2.0;
+    a *= 0.5;
+  }
+  return v;
+}
+
+float stars(vec2 uv, float scale, float sharpness) {
+  vec2 id = floor(uv * scale);
+  vec2 gv = fract(uv * scale) - 0.5;
+  float rnd = hash21(id);
+  vec2 offset = vec2(hash21(id + 1.0), hash21(id + 2.0)) - 0.5;
+  float d = length(gv - offset * 0.7);
+  float brightness = exp(-d * d * sharpness);
+  brightness *= 0.5 + 0.5 * sin(uTime * (1.0 + rnd * 2.0) + rnd * 6.2831);
+  brightness *= step(0.6, rnd);
+  return brightness;
+}
+
+void main() {
+  vec2 uv = vUv;
+
+  // Mouse warp
+  vec2 mouseDir = uv - uMouse;
+  float mouseDist = length(mouseDir);
+  uv += mouseDir * 0.02 * smoothstep(0.15, 0.0, mouseDist);
+
+  // Drifting UV
+  vec2 nebulaUV = uv * 3.0 + vec2(uTime * 0.08, uTime * 0.05);
+
+  // FBM nebula
+  float n = fbm(nebulaUV);
+  float n2 = fbm(nebulaUV + vec2(5.2, 1.3) + uTime * 0.03);
+
+  // === NEBULA BASE — vivid, rich colors ===
+  vec3 col = vec3(0.02, 0.01, 0.08); // dark base
+
+  // Primary nebula cloud — deep purple/indigo
+  float cloud1 = smoothstep(0.25, 0.75, n);
+  col += vec3(0.25, 0.10, 0.55) * cloud1;
+
+  // Secondary cloud — violet/magenta highlights
+  float cloud2 = smoothstep(0.35, 0.80, n2);
+  col += vec3(0.50, 0.15, 0.70) * cloud2 * 0.6;
+
+  // Tertiary — teal/cyan accents in gaps
+  float n3 = fbm(nebulaUV * 1.5 + vec2(3.7, 8.1));
+  float tealMask = smoothstep(0.3, 0.7, n3) * (1.0 - cloud1 * 0.5);
+  col += vec3(0.10, 0.35, 0.60) * tealMask * 0.5;
+
+  // Bright nebula cores — hot white-purple spots that pulse
+  float core = smoothstep(0.55, 0.80, n * n2 * 2.5);
+  float corePulse = 0.35 + 0.1 * sin(uTime * 0.8 + n * 5.0); // slow breathing
+  col += vec3(0.6, 0.4, 1.0) * core * corePulse;
+
+  // === IRIDESCENT SHIMMER — oil-on-water ===
+  float hue = n * 3.0 + uTime * 0.12;
+  vec3 iri = 0.5 + 0.5 * cos(6.2831 * (hue + vec3(0.0, 0.33, 0.67)));
+  col = mix(col, iri * 0.35, 0.18 * smoothstep(0.3, 0.7, n));
+
+  // === STARS — bright pinpoints ===
+  float s1 = stars(uv, 250.0, 150.0);
+  float s2 = stars(uv, 100.0, 50.0);
+  col += vec3(1.0, 0.97, 1.0) * s1 * 1.5;
+  col += vec3(0.85, 0.90, 1.0) * s2 * 0.8;
+
+  // === SHOOTING STARS — rare bright streaks ===
+  for (int i = 0; i < 3; i++) {
+    float fi = float(i);
+    float starTime = uTime * (0.3 + fi * 0.1) + fi * 17.3;
+    float cycle = fract(starTime * 0.05);
+    float active = step(0.92, cycle); // only visible 8% of the time
+    if (active > 0.0) {
+      float progress = (cycle - 0.92) / 0.08;
+      vec2 startPos = vec2(hash21(vec2(fi, 1.0)), hash21(vec2(fi, 2.0)));
+      vec2 dir = normalize(vec2(0.7 + fi * 0.2, -0.5 - fi * 0.15));
+      vec2 pos = startPos + dir * progress * 0.4;
+      float d = length(uv - pos);
+      // Streak effect
+      vec2 toPoint = uv - pos;
+      float along = dot(toPoint, dir);
+      float perp = length(toPoint - dir * along);
+      float streak = exp(-perp * perp * 800.0) * smoothstep(0.0, -0.08, along) * smoothstep(-0.15, -0.08, along);
+      streak *= (1.0 - progress) * active;
+      col += vec3(0.9, 0.85, 1.0) * streak * 0.6;
+    }
+  }
+
+  // === COSMIC DUST — golden filaments ===
+  vec2 dustUV = uv * vec2(6.0, 3.0) + vec2(uTime * 0.035, uTime * 0.02);
+  float dust = fbm(dustUV);
+  dust = smoothstep(0.40, 0.60, dust);
+  col += vec3(1.0, 0.78, 0.35) * dust * 0.15;
+
+  // === VIGNETTE — soft framing ===
+  vec2 vc = uv - 0.5;
+  float vig = 1.0 - dot(vc, vc) * 1.2;
+  vig = clamp(vig, 0.25, 1.0);
+  col *= vig;
+
+  // === GOLDEN LIGHT LEAK — warm glow ===
+  float leak = smoothstep(0.6, 0.0, length(uv - vec2(0.2 + sin(uTime * 0.05) * 0.1, 0.8)));
+  col += vec3(1.0, 0.8, 0.35) * leak * 0.10;
+
+  // === AMBIENT GLOW — lift the floor so nothing is pure black ===
+  col += vec3(0.03, 0.02, 0.06);
+
+  gl_FragColor = vec4(col, 1.0);
+}`;
+
+    function initVeil(canvasEl) {
+      const gl = canvasEl.getContext('webgl') || canvasEl.getContext('experimental-webgl');
+      if (!gl) return null;
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio, 2);
+        const rect = canvasEl.getBoundingClientRect();
+        canvasEl.width = rect.width * dpr;
+        canvasEl.height = rect.height * dpr;
+        gl.viewport(0, 0, canvasEl.width, canvasEl.height);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function compileShader(type, src) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+          console.error('Shader error:', gl.getShaderInfoLog(s));
+          return null;
+        }
+        return s;
+      }
+
+      const vs = compileShader(gl.VERTEX_SHADER, VERT_SRC);
+      const fs = compileShader(gl.FRAGMENT_SHADER, FRAG_SRC);
+      if (!vs || !fs) return null;
+
+      const prog = gl.createProgram();
+      gl.attachShader(prog, vs);
+      gl.attachShader(prog, fs);
+      gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        console.error('Program error:', gl.getProgramInfoLog(prog));
+        return null;
+      }
+      gl.useProgram(prog);
+
+      const uTime = gl.getUniformLocation(prog, 'uTime');
+      const uRes = gl.getUniformLocation(prog, 'uResolution');
+      const uMouse = gl.getUniformLocation(prog, 'uMouse');
+
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+      const aPos = gl.getAttribLocation(prog, 'aPos');
+      gl.enableVertexAttribArray(aPos);
+      gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+      let mouse = [0.5, 0.5];
+      const isTouch = 'ontouchstart' in window;
+      if (!isTouch) {
+        canvasEl.addEventListener('mousemove', (e) => {
+          const r = canvasEl.getBoundingClientRect();
+          mouse = [(e.clientX - r.left) / r.width, 1.0 - (e.clientY - r.top) / r.height];
+        });
+      }
+
+      const startTime = performance.now();
+      let rafId = null;
+      let running = false;
+
+      function render() {
+        if (!running) return;
+        const t = (performance.now() - startTime) / 1000;
+        gl.uniform1f(uTime, t);
+        gl.uniform2f(uRes, canvasEl.width, canvasEl.height);
+        gl.uniform2f(uMouse, mouse[0], mouse[1]);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        rafId = requestAnimationFrame(render);
+      }
+
+      return {
+        start() { running = true; render(); },
+        stop() { running = false; if (rafId) { cancelAnimationFrame(rafId); rafId = null; } },
+      };
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  INIT — reduced motion check FIRST
+    // ═══════════════════════════════════════════════════════════════
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canvas = document.querySelector('.veil');
+    let veil = null;
+    let fallbackEl = null;
+
+    if (prefersReducedMotion) {
+      canvas.style.display = 'none';
+      fallbackEl = document.createElement('div');
+      fallbackEl.className = 'veil-fallback';
+      fallbackEl.setAttribute('role', 'img');
+      fallbackEl.setAttribute('aria-label', 'Mystical veil covering your daily tarot card');
+      fallbackEl.setAttribute('tabindex', '0');
+      fallbackEl.style.cursor = 'pointer';
+      canvas.parentNode.insertBefore(fallbackEl, canvas);
+      requestAnimationFrame(() => requestAnimationFrame(() => fallbackEl.classList.add('visible')));
+    } else {
+      veil = initVeil(canvas);
+      if (veil) {
+        veil.start();
+        canvas.classList.add('breathing');
+      } else {
+        canvas.style.display = 'none';
+        fallbackEl = document.createElement('div');
+        fallbackEl.className = 'veil-fallback';
+        fallbackEl.setAttribute('tabindex', '0');
+        fallbackEl.style.cursor = 'pointer';
+        canvas.parentNode.insertBefore(fallbackEl, canvas);
+        requestAnimationFrame(() => requestAnimationFrame(() => fallbackEl.classList.add('visible')));
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  AUDIO
+    // ═══════════════════════════════════════════════════════════════
+    let audioCtx = null;
+
+    function playChime() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      const now = audioCtx.currentTime + 0.3;
+
+      // Helper to create a tone
+      function tone(freq, vol, start, dur, type = 'sine') {
+        const osc = audioCtx.createOscillator();
+        osc.type = type;
+        osc.frequency.value = freq;
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(vol, start);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + dur);
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(start);
+        osc.stop(start + dur);
+      }
+
+      // Fundamental: C5 (523 Hz) — the bell
+      tone(523.25, 0.12, now, 2.0);
+      // Fifth overtone — warmth
+      tone(523.25 * 1.5, 0.04, now, 1.5);
+      // Octave below — depth
+      tone(261.63, 0.05, now, 2.5);
+      // Major third — sweetness (E5)
+      tone(659.25, 0.03, now + 0.05, 1.8);
+      // Ethereal high shimmer — sparkle
+      tone(1046.5, 0.015, now + 0.1, 1.2);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  REVEAL CONTROLLER
+    // ═══════════════════════════════════════════════════════════════
+    let state = 'IDLE';
+
+    function reveal() {
+      if (state !== 'IDLE') return;
+      state = 'REVEALING';
+
+      const img = document.querySelector('.card-image');
+
+      if (prefersReducedMotion) {
+        if (fallbackEl) fallbackEl.style.display = 'none';
+        img.classList.add('revealed');
+        document.querySelector('.card-glow').classList.add('active');
+        document.querySelector('.card-shimmer').classList.add('active');
+        document.querySelector('.card-numeral').classList.add('visible');
+        document.querySelector('.card-name').classList.add('visible');
+        document.querySelector('.tap-prompt').style.display = 'none';
+        document.querySelectorAll('.reading-content > *').forEach(el => el.classList.add('visible'));
+        state = 'REVEALED';
+        return;
+      }
+
+      // Veil exit
+      if (veil) {
+        canvas.classList.remove('breathing');
+        canvas.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+        canvas.style.opacity = '0';
+        canvas.style.transform = 'scale(1.06)';
+        canvas.style.pointerEvents = 'none';
+        setTimeout(() => {
+          canvas.style.display = 'none';
+          veil.stop();
+        }, 850);
+      } else if (fallbackEl) {
+        fallbackEl.style.display = 'none';
+      }
+
+      // Card entrance
+      img.classList.add('revealed');
+      document.querySelector('.card-glow').classList.add('active');
+      // Particles burst on entrance
+      setTimeout(() => document.querySelector('.card-particles').classList.add('active'), 200);
+      img.addEventListener('transitionend', function onCardDone(e) {
+        if (e.propertyName !== 'opacity') return;
+        img.removeEventListener('transitionend', onCardDone);
+        img.classList.add('floating');
+        document.querySelector('.card-shimmer').classList.add('active');
+        state = 'REVEALED';
+      });
+
+      // Staggered card info
+      setTimeout(() => document.querySelector('.card-numeral').classList.add('visible'), 500);
+      setTimeout(() => document.querySelector('.card-name').classList.add('visible'), 700);
+
+      // Hide prompt
+      document.querySelector('.tap-prompt').style.opacity = '0';
+
+      // Scroll indicator
+      setTimeout(() => {
+        if (state === 'REVEALED' || state === 'REVEALING') {
+          document.querySelector('.scroll-indicator').classList.add('visible');
+        }
+      }, 1500);
+
+      // Reveal flash
+      document.querySelector('.reveal-flash').classList.add('active');
+
+      // Chime
+      playChime();
+    }
+
+    // Click handler
+    document.querySelector('.hero').addEventListener('click', reveal);
+
+    // Keyboard
+    document.addEventListener('keydown', (e) => {
+      if ((e.code === 'Space' || e.code === 'Enter') && state === 'IDLE') {
+        e.preventDefault();
+        reveal();
+      }
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    //  DRAW AGAIN
+    // ═══════════════════════════════════════════════════════════════
+    function drawAgain() {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+
+      const doReset = () => {
+        state = 'IDLE';
+        const img = document.querySelector('.card-image');
+        img.classList.remove('revealed', 'floating');
+        img.style.display = '';
+        document.querySelector('.card-glow').classList.remove('active');
+        document.querySelector('.card-shimmer').classList.remove('active');
+        document.querySelector('.card-particles').classList.remove('active');
+        document.querySelector('.card-numeral').classList.remove('visible');
+        document.querySelector('.card-name').classList.remove('visible');
+        document.querySelector('.scroll-indicator').classList.remove('visible');
+        document.querySelector('.tap-prompt').style.opacity = '';
+        document.querySelector('.tap-prompt').style.display = '';
+        document.querySelectorAll('.reading-content > *').forEach(el => el.classList.remove('visible'));
+        // Reset reveal flash
+        const flash = document.querySelector('.reveal-flash');
+        flash.classList.remove('active');
+        // Remove error state if any
+        const container = document.querySelector('.card-container');
+        container.classList.remove('error');
+        const errEl = container.querySelector('.card-error');
+        if (errEl) errEl.remove();
+
+        const newCard = getRandomCard();
+        loadCard(newCard);
+
+        if (veil) {
+          canvas.style.display = '';
+          canvas.style.opacity = '1';
+          canvas.style.transform = '';
+          canvas.style.pointerEvents = '';
+          canvas.style.transition = '';
+          canvas.classList.add('breathing');
+          veil.start();
+        } else if (fallbackEl) {
+          fallbackEl.style.display = '';
+          fallbackEl.classList.add('visible');
+        }
+      };
+
+      if (prefersReducedMotion) {
+        doReset();
+      } else {
+        setTimeout(doReset, 500);
+      }
+    }
+
+    document.querySelector('.draw-again').addEventListener('click', drawAgain);
+
+    // ═══════════════════════════════════════════════════════════════
+    //  SCROLL BEHAVIOR
+    // ═══════════════════════════════════════════════════════════════
+    const readingObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          readingObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reading-content > *').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.1}s`;
+      readingObserver.observe(el);
+    });
+
+    let scrollHideScheduled = false;
+    window.addEventListener('scroll', () => {
+      if (!scrollHideScheduled) {
+        scrollHideScheduled = true;
+        document.querySelector('.scroll-indicator').classList.remove('visible');
+      }
+    }, { passive: true });
+
+    // ═══════════════════════════════════════════════════════════════
+    //  DESKTOP PARALLAX
+    // ═══════════════════════════════════════════════════════════════
+    const isTouchDevice = 'ontouchstart' in window;
+    if (!isTouchDevice && !prefersReducedMotion) {
+      let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+      const veilWrapper = document.querySelector('.veil-wrapper');
+
+      document.addEventListener('mousemove', (e) => {
+        targetX = (e.clientX / window.innerWidth - 0.5) * 8;
+        targetY = (e.clientY / window.innerHeight - 0.5) * 8;
+      });
+
+      (function parallaxLoop() {
+        if (state === 'IDLE') {
+          currentX += (targetX - currentX) * 0.12;
+          currentY += (targetY - currentY) * 0.12;
+          veilWrapper.style.transform = `translate(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px)`;
+        }
+        requestAnimationFrame(parallaxLoop);
+      })();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  TAP PROMPT FADE-IN
+    // ═══════════════════════════════════════════════════════════════
+    setTimeout(() => {
+      document.querySelector('.tap-prompt').classList.add('visible');
+    }, 800);
+  </script>
+</body>
+</html>
