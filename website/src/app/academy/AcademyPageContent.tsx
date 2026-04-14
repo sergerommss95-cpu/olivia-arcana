@@ -201,10 +201,10 @@ export function AcademyPageContent() {
           gap: "0.75rem",
         }}>
           {[
-            { href: "/academy/card-of-the-day", icon: "\uD83C\uDCCF", title: t("academy_card_of_day"), desc: t("academy_card_of_day_desc") },
-            { href: "/academy/tarot-encyclopedia", icon: "\u25C7", title: t("academy_tarot_encyclopedia"), desc: t("academy_tarot_encyclopedia_desc") },
-            { href: "/academy/aspect-guide", icon: "\u25B3", title: t("academy_aspect_guide"), desc: t("academy_aspect_guide_desc") },
-            { href: "/cosmos", icon: "\u2609", title: t("academy_live_cosmos"), desc: t("academy_live_cosmos_desc") },
+            { href: "/academy/card-of-the-day", icon: "🃏", title: t("academy_card_of_day"), desc: t("academy_card_of_day_desc") },
+            { href: "/academy/tarot-encyclopedia", icon: "◇", title: t("academy_tarot_encyclopedia"), desc: t("academy_tarot_encyclopedia_desc") },
+            { href: "/academy/aspect-guide", icon: "△", title: t("academy_aspect_guide"), desc: t("academy_aspect_guide_desc") },
+            { href: "/cosmos", icon: "☉", title: t("academy_live_cosmos"), desc: t("academy_live_cosmos_desc") },
           ].map(tool => (
             <Link key={tool.href} href={tool.href} style={{
               display: "flex", alignItems: "center", gap: "0.75rem",
@@ -237,7 +237,7 @@ export function AcademyPageContent() {
         title={t("academy_track_astrology")}
         description={t("academy_track_astrology_desc")}
         track="astrology"
-        icon="\u2609"
+        icon="☉"
         levelLabels={levelLabels}
         lessonsLabel={t("academy_lessons").toLowerCase()}
         locale={locale}
@@ -247,7 +247,7 @@ export function AcademyPageContent() {
         title={t("academy_track_tarot")}
         description={t("academy_track_tarot_desc")}
         track="tarot"
-        icon="\uD83C\uDCCF"
+        icon="🃏"
         levelLabels={levelLabels}
         lessonsLabel={t("academy_lessons").toLowerCase()}
         locale={locale}
@@ -257,7 +257,7 @@ export function AcademyPageContent() {
         title={t("academy_track_integrated")}
         description={t("academy_track_integrated_desc")}
         track="integrated"
-        icon="\u2726"
+        icon="✦"
         levelLabels={levelLabels}
         lessonsLabel={t("academy_lessons").toLowerCase()}
         locale={locale}
