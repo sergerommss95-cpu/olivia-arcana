@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olivia Arcana — Crystal</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Inter:wght@800;900&display=swap');
+    * { margin: 0; padding: 0; }
+    body { background: #060410; overflow: hidden; }
+    #root { width: 100vw; height: 100vh; }
+    .stamp {
+      position: fixed; top: max(28px, 5vh); left: 0; right: 0; z-index: 10;
+      pointer-events: none; display: flex; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px; letter-spacing: 6px; color: rgba(232,196,160,.55);
+      text-transform: uppercase;
+      opacity: 0; animation: fadeIn 1.5s ease-out 1s forwards;
+    }
+    .stamp .glyph {
+      font-size: 16px; margin-right: 10px; letter-spacing: 0;
+      color: rgba(232,196,160,.8);
+      font-family: 'Times New Roman', 'Noto Serif', serif;
+      font-variant-emoji: text;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <!-- Single top-of-frame stamp: today's date + zodiac. Card IS the message;
+       this is just the identity anchor. -->
+  <div class="stamp">
+    <span class="glyph" id="sign-glyph">&#9800;&#xFE0E;</span>
+    <span id="stamp-text">APR 17 · ARIES</span>
+  </div>
+  <script>
+    (function() {
+      const VS = '\uFE0E';
+      const GLYPHS = {
+        aries: '\u2648' + VS,       taurus: '\u2649' + VS,
+        gemini: '\u264A' + VS,      cancer: '\u264B' + VS,
+        leo: '\u264C' + VS,         virgo: '\u264D' + VS,
+        libra: '\u264E' + VS,       scorpio: '\u264F' + VS,
+        sagittarius: '\u2650' + VS, capricorn: '\u2651' + VS,
+        aquarius: '\u2652' + VS,    pisces: '\u2653' + VS,
+      };
+      const MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+      const key = (new URLSearchParams(location.search).get('zodiac') || 'aries').toLowerCase();
+      const name = key.charAt(0).toUpperCase() + key.slice(1).toUpperCase();
+      const d = new Date();
+      const dateStamp = `${MONTHS[d.getMonth()]} ${d.getDate()}`;
+      if (GLYPHS[key]) {
+        document.getElementById('sign-glyph').textContent = GLYPHS[key];
+        document.getElementById('stamp-text').textContent = `${dateStamp} · ${name.toUpperCase()}`;
+      }
+    })();
+  </script>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
