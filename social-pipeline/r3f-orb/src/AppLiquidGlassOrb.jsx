@@ -240,6 +240,37 @@ function OilFilm({ colorHex, radius = 0.72 }) {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
+// AtmosphericMood — modulates renderer exposure across the narrative.
+// Anticipation pulls the scene darker; impact spikes exposure briefly;
+// reveal settles to a slightly lifted exposure so text reads well.
+// ────────────────────────────────────────────────────────────────────────────
+function AtmosphericMood() {
+  const { gl } = useThree()
+  const base = 1.05
+  useFrame(({ clock }) => {
+    const t = loopTime(clock.getElapsedTime())
+    const anticipT = phase(t, TL.anticipStart, TL.anticipEnd)
+    const impactT = phase(t, TL.impactStart, TL.impactEnd)
+    const revealT = phase(t, TL.revealStart, TL.revealStart + 1.0)
+    const holdEase = phase(t, TL.revealStart + 1.0, TL.holdEnd)
+    const fadeOut = 1 - phase(t, TL.holdEnd, TL.loop)
+
+    // Darken as anticipation builds, but release the instant impact hits.
+    const impactInverse = 1 - phase(t, TL.impactStart, TL.impactStart + 0.2)
+    const darken = easeInOutCubic(anticipT) * impactInverse
+    // Flash spike on impact — subtle, not blown out
+    const flash = Math.sin(impactT * Math.PI) * 0.18
+    // Slight lift during reveal so text reads
+    const lift = easeOutCubic(revealT) * 0.1 * fadeOut
+    // Steady during hold, pull down toward loop end
+    const settle = holdEase * (1 - fadeOut) * -0.05
+
+    gl.toneMappingExposure = base - darken * 0.42 + flash + lift + settle
+  })
+  return null
+}
+
+// ────────────────────────────────────────────────────────────────────────────
 // CameraPushIn — slow cinematic dolly during the reveal phase.
 // Camera eases from 4.3 (wide) → 3.95 (intimate) over the reveal+hold beats,
 // then snaps back to 4.3 before the next loop. The viewer feels drawn in.
@@ -355,8 +386,8 @@ function ImpactFlash({ color }) {
     const env = impactT === 0 ? 0 : impactT === 1 ? 0
       : Math.sin(impactT * Math.PI) ** 1.4
     if (ref.current && ref.current.material) {
-      ref.current.material.opacity = env * 0.85
-      const s = 0.5 + env * 2.2
+      ref.current.material.opacity = env * 0.45
+      const s = 0.5 + env * 1.6
       ref.current.scale.setScalar(s)
     }
   })
@@ -419,10 +450,13 @@ function DailyPrediction({ prediction, color }) {
 
       // Post-reveal undulation — text wavers subtly like it's underwater
       const settled = phase(t, TL.revealStart + lineStart * (TL.revealEnd - TL.revealStart) + 1.0, TL.holdEnd)
-      const wave = Math.sin(time * 1.1 + i * 0.9) * 0.004 * settled
-      const waveX = Math.cos(time * 0.8 + i * 0.7) * 0.003 * settled
+      const wave = Math.sin(time * 0.9 + i * 0.9) * 0.009 * settled
+      const waveX = Math.cos(time * 0.7 + i * 0.7) * 0.006 * settled
       ref.position.y = ref.userData.baseY + wave
       ref.position.x = waveX
+      // Subtle opacity breath in sync with orb pulse so text feels alive
+      const breath = 0.92 + Math.sin(time * 0.5 + i * 0.3) * 0.06 * settled
+      if (ref.material) ref.material.opacity = op * breath
     })
   })
 
@@ -613,6 +647,9 @@ function Scene({ zodiacKey }) {
 
       {/* Cinema — slow dolly inward during reveal, shake at impact */}
       <CameraPushIn />
+
+      {/* Mood — renderer exposure modulates the scene (dark→flash→reveal) */}
+      <AtmosphericMood />
 
       <FloatingParticles count={60} />
 
