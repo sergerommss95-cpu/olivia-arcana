@@ -285,9 +285,7 @@ export class LiquidMaskEngine {
       const gl2 = this.gl
       gl2.activeTexture(gl2.TEXTURE0 + 1)
       gl2.bindTexture(gl2.TEXTURE_2D, this.revealTex)
-      gl2.pixelStorei(gl2.UNPACK_FLIP_Y_WEBGL, true)
       gl2.texImage2D(gl2.TEXTURE_2D, 0, gl2.RGBA, gl2.RGBA, gl2.UNSIGNED_BYTE, this.revealVideo)
-      gl2.pixelStorei(gl2.UNPACK_FLIP_Y_WEBGL, false)
     }
 
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)

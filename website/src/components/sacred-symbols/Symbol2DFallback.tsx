@@ -32,7 +32,7 @@ export default function Symbol2DFallback({
       className={className}
       style={{
         display: "block",
-        filter: `drop-shadow(0 0 6px ${glowColor})`,
+        filter: `drop-shadow(0 0 12px ${glowColor}) drop-shadow(0 0 4px ${glowColor})`,
         ...style,
       }}
       aria-hidden="true"
@@ -43,10 +43,10 @@ export default function Symbol2DFallback({
           d={d}
           fill="none"
           stroke={color}
-          strokeWidth="2.5"
+          strokeWidth="4"
           strokeLinecap="round"
           strokeLinejoin="round"
-          opacity="0.85"
+          opacity="1"
         />
       ))}
     </svg>

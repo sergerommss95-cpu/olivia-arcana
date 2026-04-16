@@ -508,7 +508,7 @@ function SectionRenderer({ section, i18n }: { section: ContentSection; i18n: I18
 // ── Main Component ─────────────────────────────────────────────
 
 export default function LessonList({ lessons, courseSlug }: { lessons: Lesson[]; courseSlug: string }) {
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
   const [expanded, setExpanded] = useState<string | null>(null);
 
   const i18n: I18nBag = {
@@ -547,7 +547,7 @@ export default function LessonList({ lessons, courseSlug }: { lessons: Lesson[];
 
         // Generate content only when expanded (performance)
         const content: LessonContent | null = isOpen
-          ? generateFullLessonContent(courseSlug, lesson.slug, lesson.title, lesson.description, lesson.duration)
+          ? generateFullLessonContent(courseSlug, lesson.slug, lesson.title, lesson.description, lesson.duration, locale)
           : null;
 
         return (

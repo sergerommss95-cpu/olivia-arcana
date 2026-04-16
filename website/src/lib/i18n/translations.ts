@@ -248,6 +248,20 @@ export interface Translations {
   compat_overall: string;
   compat_love: string; compat_comm: string; compat_trust: string; compat_passion: string;
   compat_v1: string; compat_v2: string; compat_v3: string; compat_v4: string;
+
+  // Global search (Cmd+K command palette)
+  search_open: string;
+  search_placeholder: string;
+  search_empty: string;
+  search_hint: string;
+  search_cat_pages: string;
+  search_cat_signs: string;
+  search_cat_cards: string;
+  search_cat_courses: string;
+  search_cat_lessons: string;
+  search_cat_planets: string;
+  search_cat_houses: string;
+  search_cat_aspects: string;
 }
 
 const en: Translations = {
@@ -421,6 +435,18 @@ const en: Translations = {
   compat_v2: "Strong gravitational pull. Your energies complement and elevate each other.",
   compat_v3: "Intriguing tensions create growth. This pairing challenges you to evolve.",
   compat_v4: "Different orbits, but opposites can spark transformation. Requires conscious effort.",
+  search_open: "Search",
+  search_placeholder: "Search the cosmos\u2026",
+  search_empty: "Nothing found. Try another spell.",
+  search_hint: "\u21B5 open \u00B7 \u2191\u2193 navigate \u00B7 esc close",
+  search_cat_pages: "Pages",
+  search_cat_signs: "Zodiac Signs",
+  search_cat_cards: "Tarot Cards",
+  search_cat_courses: "Courses",
+  search_cat_lessons: "Lessons",
+  search_cat_planets: "Planets",
+  search_cat_houses: "Houses",
+  search_cat_aspects: "Aspects",
 };
 
 const uk: Translations = {
@@ -577,6 +603,18 @@ const uk: Translations = {
   compat_v2: "Сильне гравітаційне притягання. Ваші енергії доповнюють і підносять одна одну.",
   compat_v3: "Інтригуючі напруження створюють зростання. Цей союз кидає вам виклик еволюціонувати.",
   compat_v4: "Різні орбіти, але протилежності можуть запалити трансформацію. Потребує свідомих зусиль.",
+  search_open: "Пошук",
+  search_placeholder: "Шукати у всесвіті\u2026",
+  search_empty: "Нічого не знайдено.",
+  search_hint: "\u21B5 обрати \u00B7 \u2191\u2193 навігація \u00B7 esc закрити",
+  search_cat_pages: "Сторінки",
+  search_cat_signs: "Знаки Зодіаку",
+  search_cat_cards: "Карти Таро",
+  search_cat_courses: "Курси",
+  search_cat_lessons: "Уроки",
+  search_cat_planets: "Планети",
+  search_cat_houses: "Доми",
+  search_cat_aspects: "Аспекти",
 };
 
 const ru: Translations = {
@@ -733,6 +771,18 @@ const ru: Translations = {
   compat_v2: "Сильное гравитационное притяжение. Ваши энергии дополняют и возвышают друг друга.",
   compat_v3: "Интригующие напряжения создают рост. Этот союз бросает вам вызов эволюционировать.",
   compat_v4: "Разные орбиты, но противоположности могут зажечь трансформацию. Требует осознанных усилий.",
+  search_open: "Поиск",
+  search_placeholder: "Искать во вселенной\u2026",
+  search_empty: "Ничего не найдено.",
+  search_hint: "\u21B5 открыть \u00B7 \u2191\u2193 навигация \u00B7 esc закрыть",
+  search_cat_pages: "Страницы",
+  search_cat_signs: "Знаки Зодиака",
+  search_cat_cards: "Карты Таро",
+  search_cat_courses: "Курсы",
+  search_cat_lessons: "Уроки",
+  search_cat_planets: "Планеты",
+  search_cat_houses: "Дома",
+  search_cat_aspects: "Аспекты",
 };
 
 const de: Translations = {
@@ -889,6 +939,18 @@ const de: Translations = {
   compat_v2: "Starke Anziehungskraft. Eure Energien ergänzen und erheben einander.",
   compat_v3: "Faszinierende Spannungen fördern Wachstum. Diese Verbindung fordert dich heraus, dich zu entfalten.",
   compat_v4: "Verschiedene Umlaufbahnen, doch Gegensätze können Transformation entfachen. Erfordert bewusste Arbeit.",
+  search_open: "Suchen",
+  search_placeholder: "Durchsuche den Kosmos\u2026",
+  search_empty: "Nichts gefunden.",
+  search_hint: "\u21B5 öffnen \u00B7 \u2191\u2193 navigieren \u00B7 esc schließen",
+  search_cat_pages: "Seiten",
+  search_cat_signs: "Sternzeichen",
+  search_cat_cards: "Tarot-Karten",
+  search_cat_courses: "Kurse",
+  search_cat_lessons: "Lektionen",
+  search_cat_planets: "Planeten",
+  search_cat_houses: "Häuser",
+  search_cat_aspects: "Aspekte",
 };
 
 const fr: Translations = {
@@ -1045,6 +1107,18 @@ const fr: Translations = {
   compat_v2: "Une forte attraction gravitationnelle. Vos énergies se complètent et s’élèvent mutuellement.",
   compat_v3: "Des tensions fascinantes qui nourrissent la croissance. Ce duo vous pousse à évoluer.",
   compat_v4: "Des orbites différentes, mais les contraires peuvent déclencher la transformation. Demande un effort conscient.",
+  search_open: "Rechercher",
+  search_placeholder: "Explorer le cosmos\u2026",
+  search_empty: "Rien trouvé.",
+  search_hint: "\u21B5 ouvrir \u00B7 \u2191\u2193 naviguer \u00B7 esc fermer",
+  search_cat_pages: "Pages",
+  search_cat_signs: "Signes du Zodiaque",
+  search_cat_cards: "Cartes de Tarot",
+  search_cat_courses: "Cours",
+  search_cat_lessons: "Leçons",
+  search_cat_planets: "Planètes",
+  search_cat_houses: "Maisons",
+  search_cat_aspects: "Aspects",
 };
 
 const ar: Translations = {
@@ -1201,6 +1275,18 @@ const ar: Translations = {
   compat_v2: "جاذبية قوية. طاقاتكما تتكامل وترتقي ببعضها.",
   compat_v3: "توترات مثيرة تصنع النمو. هذا الثنائي يتحداك للتطور.",
   compat_v4: "مدارات مختلفة، لكن الأضداد قد تشعل التحوّل. يتطلب جهدًا واعيًا.",
+  search_open: "بحث",
+  search_placeholder: "ابحث في الكون\u2026",
+  search_empty: "لم يتم العثور على شيء.",
+  search_hint: "\u21B5 فتح \u00B7 \u2191\u2193 تنقل \u00B7 esc إغلاق",
+  search_cat_pages: "الصفحات",
+  search_cat_signs: "أبراج",
+  search_cat_cards: "بطاقات التاروت",
+  search_cat_courses: "دورات",
+  search_cat_lessons: "دروس",
+  search_cat_planets: "كواكب",
+  search_cat_houses: "البيوت",
+  search_cat_aspects: "الجوانب",
 };
 
 const es: Translations = {
@@ -1357,6 +1443,18 @@ const es: Translations = {
   compat_v2: "Fuerte atracción gravitacional. Vuestras energías se complementan y elevan mutuamente.",
   compat_v3: "Tensiones intrigantes que generan crecimiento. Esta pareja te desafía a evolucionar.",
   compat_v4: "Órbitas diferentes, pero los opuestos pueden encender la transformación. Requiere esfuerzo consciente.",
+  search_open: "Buscar",
+  search_placeholder: "Buscar en el cosmos\u2026",
+  search_empty: "Nada encontrado.",
+  search_hint: "\u21B5 abrir \u00B7 \u2191\u2193 navegar \u00B7 esc cerrar",
+  search_cat_pages: "Páginas",
+  search_cat_signs: "Signos del Zodiaco",
+  search_cat_cards: "Cartas del Tarot",
+  search_cat_courses: "Cursos",
+  search_cat_lessons: "Lecciones",
+  search_cat_planets: "Planetas",
+  search_cat_houses: "Casas",
+  search_cat_aspects: "Aspectos",
 };
 
 const zh: Translations = {
@@ -1513,6 +1611,18 @@ const zh: Translations = {
   compat_v2: "强烈的引力牵引。你们的能量相互补充，彼此升华。",
   compat_v3: "耐人寻味的张力催生成长。这段组合挑战你不断进化。",
   compat_v4: "不同的轨道，但对立面能点燃蜕变。需要有意识地付出努力。",
+  search_open: "搜索",
+  search_placeholder: "搜索宇宙\u2026",
+  search_empty: "没有找到。",
+  search_hint: "\u21B5 打开 \u00B7 \u2191\u2193 导航 \u00B7 esc 关闭",
+  search_cat_pages: "页面",
+  search_cat_signs: "星座",
+  search_cat_cards: "塔罗牌",
+  search_cat_courses: "课程",
+  search_cat_lessons: "课时",
+  search_cat_planets: "行星",
+  search_cat_houses: "宫位",
+  search_cat_aspects: "相位",
 };
 
 const pt: Translations = {
@@ -1669,6 +1779,18 @@ const pt: Translations = {
   compat_v2: "Forte atração gravitacional. Suas energias se complementam e elevam mutuamente.",
   compat_v3: "Tensões intrigantes geram crescimento. Esta dupla desafia você a evoluir.",
   compat_v4: "Órbitas diferentes, mas opostos podem acender a transformação. Requer esforço consciente.",
+  search_open: "Buscar",
+  search_placeholder: "Buscar no cosmos\u2026",
+  search_empty: "Nada encontrado.",
+  search_hint: "\u21B5 abrir \u00B7 \u2191\u2193 navegar \u00B7 esc fechar",
+  search_cat_pages: "Páginas",
+  search_cat_signs: "Signos do Zodíaco",
+  search_cat_cards: "Cartas do Tarot",
+  search_cat_courses: "Cursos",
+  search_cat_lessons: "Lições",
+  search_cat_planets: "Planetas",
+  search_cat_houses: "Casas",
+  search_cat_aspects: "Aspectos",
 };
 
 export const TRANSLATIONS: Record<Locale, Translations> = { en, uk, ru, de, fr, ar, es, zh, pt };

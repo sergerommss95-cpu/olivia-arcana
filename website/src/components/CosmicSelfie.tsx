@@ -349,14 +349,18 @@ export default function CosmicSelfie() {
               </>
             )}
 
-            {/* Streaming / denied: engine container */}
-            {isRevealed && (
+            {/* Engine container — always in DOM so ref is available when engine creates */}
               <div
                 ref={containerRef}
                 style={{
+                  position: isRevealed ? "relative" : "absolute",
+                  inset: 0,
                   width: "100%",
                   height: "100%",
-                  cursor: isMobile ? "default" : "none",
+                  cursor: isRevealed && !isMobile ? "none" : "default",
+                  opacity: isRevealed ? 1 : 0,
+                  pointerEvents: isRevealed ? "auto" : "none",
+                  transition: "opacity 0.4s ease",
                 }}
               >
                 {/* 3-layer custom cursor (desktop only) */}
@@ -419,7 +423,6 @@ export default function CosmicSelfie() {
                   </>
                 )}
               </div>
-            )}
           </div>
         </div>
 

@@ -23,6 +23,7 @@ import InstallPrompt from "@/components/InstallPrompt";
 import SmoothScroll from "@/components/SmoothScroll";
 import FilmGrain from "@/components/FilmGrain";
 import PageTransition from "@/components/transitions/PageTransition";
+import CommandPalette from "@/components/CommandPalette";
 import { SubscriptionProvider } from "@/hooks/useSubscription";
 
 export default function ClientShell({ children }: { children: React.ReactNode }) {
@@ -61,6 +62,9 @@ export default function ClientShell({ children }: { children: React.ReactNode })
 
           {/* Film grain + vignette (analog texture) */}
           <FilmGrain opacity={0.03} vignetteIntensity={0.35} />
+
+          {/* Global Cmd+K search */}
+          <CommandPalette />
         </>
       )}
 
