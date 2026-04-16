@@ -280,17 +280,34 @@ function CameraPushIn() {
   const baseZ = 4.3
   useFrame(({ clock }) => {
     const t = loopTime(clock.getElapsedTime())
-    // Push-in through reveal+hold, then quick pull-back for loop reset
-    const pushT = phase(t, TL.revealStart - 1, TL.holdEnd)   // starts slightly before reveal
-    const pullback = phase(t, TL.holdEnd, TL.loop)
-    const eased = easeInOutCubic(pushT) * (1 - easeOutCubic(pullback))
-    camera.position.z = baseZ - 0.38 * eased
+    const time = clock.getElapsedTime()
 
-    // Camera shake during impact — small random jitter
+    // Reveal phase: push IN (intimate); Hold phase: pull back gently; Loop: reset.
+    const revealPush = phase(t, TL.revealStart - 1, TL.revealEnd)
+    const holdPull = phase(t, TL.revealEnd, TL.holdEnd)
+    const loopReset = phase(t, TL.holdEnd, TL.loop)
+    const pushEased = easeInOutCubic(revealPush)
+    const pullEased = easeInOutCubic(holdPull)
+    const resetEased = easeOutCubic(loopReset)
+    // Camera ends up at 3.92 during reveal, drifts back to 4.1 during hold, snaps to 4.3 at loop
+    const zOffset = 0.38 * pushEased - 0.18 * pullEased
+    const resetFactor = 1 - resetEased
+    camera.position.z = baseZ - zOffset * resetFactor
+
+    // Subtle lateral parallax during reveal/hold — very slow elliptical drift
+    const driftEnv = Math.min(revealPush + holdPull * 0.5, 1) * resetFactor
+    camera.position.x = Math.sin(time * 0.25) * 0.025 * driftEnv
+    camera.position.y = Math.cos(time * 0.19) * 0.02 * driftEnv
+
+    // Camera shake overrides lateral drift during impact
     const impactT = phase(t, TL.impactStart, TL.impactEnd)
     const impactEnv = Math.sin(impactT * Math.PI)
-    camera.position.x = (Math.sin(clock.getElapsedTime() * 42) * 0.012 * impactEnv)
-    camera.position.y = (Math.cos(clock.getElapsedTime() * 37) * 0.012 * impactEnv)
+    if (impactEnv > 0) {
+      camera.position.x = Math.sin(time * 42) * 0.012 * impactEnv
+      camera.position.y = Math.cos(time * 37) * 0.012 * impactEnv
+    }
+
+    camera.lookAt(0, 0, 0)
     camera.updateProjectionMatrix()
   })
   return null
