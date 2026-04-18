@@ -63,12 +63,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen">
         {/* Skip to main content — accessibility */}
-        <a href="#main-content" style={{
-          position: "absolute", top: "-100px", left: "50%", transform: "translateX(-50%)",
-          zIndex: 9999, padding: "0.75rem 1.5rem", borderRadius: "0 0 8px 8px",
-          background: "var(--c-gold)", color: "var(--c-void)", fontSize: "0.85rem",
-          textDecoration: "none", transition: "top 0.2s",
-        }} className="focus:top-0">
+        <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
 

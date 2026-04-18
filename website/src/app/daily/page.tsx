@@ -16,6 +16,7 @@ import WhisperText from "../../components/WhisperText";
 import { textWordSpacing } from "../../lib/micro-typography";
 import { loadUser } from "../../lib/user-store";
 import { useLocale } from "../../lib/i18n/useLocale";
+import { useProfile, useStreak } from "../../lib/user/profile-store";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -78,15 +79,26 @@ export default function DailyPage() {
   const [mounted, setMounted] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const { t } = useLocale();
+  const { profile } = useProfile();
+  const { streak, tick } = useStreak();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only mount
     setMounted(true);
-    // Auto-select user's sun sign if they have saved data
-    const user = loadUser();
-    if (user) {
-      const idx = SIGNS.findIndex(s => s.name === user.sunSign);
-      if (idx >= 0) setSelected(idx);
+    // Auto-select user's sun sign (prefer new profile-store, fall back to legacy user-store)
+    let idx = -1;
+    if (profile) {
+      idx = SIGNS.findIndex((s) => s.name === profile.signName);
+    } else {
+      const user = loadUser();
+      if (user) idx = SIGNS.findIndex((s) => s.name === user.sunSign);
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync saved sign once at mount
+    if (idx >= 0) setSelected(idx);
+    // Advance the daily-ritual streak exactly once per local day.
+    tick();
+    // only fire on first mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Animate content when sign changes
@@ -123,53 +135,95 @@ export default function DailyPage() {
         }} />
       )}
 
-      {/* ── Hero header ── */}
+      {/* ── Editorial hero ── */}
       <div style={{
-        textAlign: "center",
-        padding: "3rem 1.5rem 2rem",
+        maxWidth: "900px", margin: "0 auto",
+        padding: "calc(var(--nav-height, 5rem) + 2rem) clamp(1.25rem, 4vw, 2rem) 1.5rem",
         position: "relative", zIndex: 1,
+        scrollMarginTop: "var(--nav-height, 5rem)",
       }}>
         <a href="/" style={{
-          fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 400,
-          letterSpacing: "0.15em", textTransform: "uppercase",
-          color: "rgba(180,170,210,0.4)", textDecoration: "none",
+          fontFamily: "var(--font-body, system-ui), sans-serif",
+          fontSize: "0.68rem", fontWeight: 500,
+          letterSpacing: "0.18em", textTransform: "uppercase",
+          color: "rgba(180,170,210,0.55)", textDecoration: "none",
         }}>← {t("common_home")}</a>
 
+        <div style={{
+          display: "flex", alignItems: "center", gap: "0.9rem", flexWrap: "wrap",
+          marginTop: "1.5rem",
+        }}>
+          <div style={{
+            fontFamily: "var(--font-body, system-ui), sans-serif",
+            fontSize: "0.72rem", fontWeight: 500,
+            letterSpacing: "0.28em", textTransform: "uppercase",
+            color: "rgba(232, 201, 106, 0.78)",
+          }}>
+            ✦ Today&apos;s almanac
+          </div>
+          {streak && streak.count > 1 && (
+            <span
+              aria-label={`You're on a ${streak.count}-day ritual streak`}
+              style={{
+                display: "inline-flex", alignItems: "center", gap: "0.35rem",
+                padding: "0.3rem 0.7rem", borderRadius: "100px",
+                background: "rgba(232, 113, 48, 0.14)",
+                border: "1px solid rgba(232, 113, 48, 0.35)",
+                fontFamily: "var(--font-body, system-ui), sans-serif",
+                fontSize: "0.7rem", fontWeight: 600,
+                letterSpacing: "0.1em",
+                color: "rgba(255, 190, 130, 0.95)",
+              }}
+            >
+              <span aria-hidden style={{ fontSize: "0.8rem" }}>🔥</span>
+              {streak.count}-day ritual
+            </span>
+          )}
+        </div>
+
         <h1 style={{
-          fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 5vw, 3rem)",
-          fontWeight: 400, margin: "1rem 0 0.4rem",
-          backgroundImage: "linear-gradient(165deg, #f0ecff 0%, #c4b4f0 50%, #a08de0 100%)",
-          backgroundClip: "text", WebkitBackgroundClip: "text", color: "transparent",
+          fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
+          fontStyle: "italic",
+          fontSize: "clamp(2.4rem, 5.5vw, 4.2rem)",
+          fontWeight: 400, lineHeight: 1.05,
+          color: "#F5F0E8",
+          letterSpacing: "-0.015em",
+          margin: "0.75rem 0 0.5rem",
         }}>
           {t("daily_title")}
         </h1>
 
         <p style={{
-          fontFamily: "var(--font-accent)", fontSize: "1.1rem", fontWeight: 400,
-          color: "rgba(196,185,228,0.6)",
+          fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
+          fontSize: "1.15rem", fontWeight: 400,
+          color: "rgba(220, 212, 240, 0.78)",
+          margin: 0,
         }}>
-          {now.toLocaleDateString("en", { weekday: "long", month: "long", day: "numeric" })}
+          {now.toLocaleDateString("en", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
         </p>
 
-        {/* Transit pills */}
+        {/* Cosmic-weather pills — inline, not cards */}
         {sun && moon && moonPhase && (
           <div style={{
-            display: "flex", justifyContent: "center", gap: "0.5rem",
-            marginTop: "1rem", flexWrap: "wrap",
+            display: "flex", gap: "0.55rem",
+            marginTop: "1.5rem", flexWrap: "wrap",
           }}>
             {[
-              { icon: "☉", text: `Sun in ${sun.sign}`, color: "rgba(255,215,0,0.15)", border: "rgba(255,215,0,0.12)" },
-              { icon: moonPhase.emoji, text: moonPhase.phase, color: "rgba(200,200,220,0.08)", border: "rgba(200,200,220,0.08)" },
-              { icon: "☽", text: `Moon in ${moon.sign}`, color: "rgba(200,200,255,0.08)", border: "rgba(200,200,255,0.08)" },
-            ].map(({ icon, text, color, border }) => (
+              { icon: "☉", text: `Sun in ${sun.sign}`, border: "rgba(232,201,106,0.35)" },
+              { icon: moonPhase.emoji, text: moonPhase.phase, border: "rgba(200,200,220,0.2)" },
+              { icon: "☽", text: `Moon in ${moon.sign}`, border: "rgba(178,150,240,0.32)" },
+            ].map(({ icon, text, border }) => (
               <span key={text} style={{
-                display: "inline-flex", alignItems: "center", gap: "0.35rem",
-                padding: "0.3rem 0.7rem", borderRadius: "100px",
-                background: color, border: `1px solid ${border}`,
-                fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 400,
-                color: "rgba(220,210,240,0.7)",
+                display: "inline-flex", alignItems: "center", gap: "0.4rem",
+                padding: "0.4rem 0.85rem", borderRadius: "100px",
+                background: "rgba(14, 11, 36, 0.65)",
+                border: `1px solid ${border}`,
+                fontFamily: "var(--font-body, system-ui), sans-serif",
+                fontSize: "0.76rem", fontWeight: 500,
+                color: "rgba(240, 232, 220, 0.92)",
+                letterSpacing: "0.02em",
               }}>
-                <span style={{ fontSize: "0.8rem" }}>{icon}</span> {text}
+                <span aria-hidden style={{ fontSize: "0.9rem" }}>{icon}</span> {text}
               </span>
             ))}
           </div>

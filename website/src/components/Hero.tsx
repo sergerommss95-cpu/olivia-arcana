@@ -20,6 +20,7 @@ import CosmicProfile from "./CosmicProfile";
 import MagneticButton from "@/components/MagneticButton";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import { useLocale } from "../lib/i18n/useLocale";
+import { useProfile } from "../lib/user/profile-store";
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 export default function Hero() {
@@ -27,6 +28,7 @@ export default function Hero() {
   const heroContentRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
   const { t } = useLocale();
+  const { saveFromBirthday } = useProfile();
 
   const [birthday, setBirthday] = useState("");
   const [cosmicProfile, setCosmicProfile] = useState<CosmicProfileData | null>(null);
@@ -134,6 +136,8 @@ export default function Hero() {
     const day = parseInt(match[2], 10);
     const sign = getSunSign(month, day);
     if (sign && phase === "idle") {
+      // Persist the user's sun sign — drives the navbar chip, greetings, etc.
+      saveFromBirthday(month, day);
       triggerCosmic(sign);
     } else if (!sign && phase !== "idle") {
       resetCosmic();
@@ -166,73 +170,76 @@ export default function Hero() {
         position: "relative",
         minHeight: "100svh",
         display: "flex",
-        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        padding: "clamp(4rem, 10vw, 6rem) clamp(1rem, 3vw, 1.5rem) clamp(4rem, 12vw, 8rem)",
+        justifyContent: "flex-start",
+        padding: "clamp(6rem, 12vw, 9rem) clamp(1.25rem, 6vw, 6rem) clamp(4rem, 10vw, 6rem)",
         overflow: "hidden",
         zIndex: 1,
       }}
+      aria-labelledby="home-hero-headline"
     >
       {/* ── IDLE STATE: Hero content (hidden during revelation) ── */}
       <div
         ref={heroContentRef}
         style={{
-          display: phase === "revealed" ? "none" : "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: phase === "revealed" ? "none" : "grid",
+          gridTemplateColumns: "minmax(0, 1fr)",
+          gap: "clamp(1.5rem, 3vw, 2.25rem)",
+          width: "100%",
+          maxWidth: "1100px",
         }}
       >
-        {/* Central glyph */}
-        <div
+        {/* Eyebrow — small caps, establishes editorial tone */}
+        <span
+          className="hero-eyebrow"
           style={{
-            position: "relative",
-            zIndex: 2,
-            fontSize: "clamp(2.5rem, 6vw, 5rem)",
-            color: "rgba(220,200,255,0.65)",
-            textShadow: "0 0 40px rgba(160,120,255,0.35)",
-            marginBottom: "1.5rem",
-            animation: "glyphFloat 8s ease-in-out infinite",
-            userSelect: "none",
+            fontFamily: "var(--font-body, system-ui), sans-serif",
+            fontSize: "0.72rem",
+            fontWeight: 500,
+            letterSpacing: "0.28em",
+            textTransform: "uppercase",
+            color: "rgba(232, 201, 106, 0.78)",
+            margin: 0,
+            animation: "fadeUpIn 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s both",
           }}
         >
-          ✦
-        </div>
+          {/* Micro-glyph */}
+          <span aria-hidden style={{ marginRight: "0.6em", opacity: 0.9 }}>✦</span>
+          An editorial cosmic almanac
+        </span>
 
-        {/* Headline */}
+        {/* Headline — solid ivory serif, asymmetric left-aligned, massive scale */}
         <div
           ref={headRef}
           style={{
             position: "relative",
             zIndex: 2,
-            textAlign: "center",
-            maxWidth: "820px",
-            marginBottom: "1.75rem",
+            maxWidth: "920px",
+            marginBottom: "0.25rem",
           }}
         >
           <h1
+            id="home-hero-headline"
             style={{
-              fontFamily: "'Cormorant Garamond', 'IM Fell English', Georgia, serif",
+              fontFamily: "var(--font-heading, 'Cormorant Garamond'), 'IM Fell English', Georgia, serif",
               fontWeight: 400,
-              fontSize: "clamp(2.6rem, 6.5vw, 6.2rem)",
-              lineHeight: 1.08,
-              letterSpacing: "-0.015em",
-              color: "transparent",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              backgroundImage:
-                "linear-gradient(165deg, #f0ecff 0%, #c4b4f0 38%, #a08de0 65%, #c9bef5 100%)",
+              fontStyle: "italic",
+              fontSize: "clamp(2.9rem, 7.2vw, 6.8rem)",
+              lineHeight: 1.02,
+              letterSpacing: "-0.02em",
+              color: "#F5F0E8",
               margin: 0,
+              textShadow: "0 2px 24px rgba(4,2,13,0.55)",
             }}
           >
-            {["Written", "in", "Your", "Stars"].map(w => (
+            {["Written", "in", "Your", "Stars"].map((w) => (
               <span
                 key={w}
                 data-word
                 style={{
                   display: "inline-block",
                   opacity: 0,
-                  marginRight: "0.28em",
+                  marginRight: "0.26em",
                   clipPath: "inset(0 0 100% 0)",
                 }}
               >
@@ -242,156 +249,131 @@ export default function Hero() {
           </h1>
         </div>
 
-        {/* Sub-copy */}
+        {/* Sub-copy — wrapped in a soft scrim so it's always readable */}
         <p
+          className="scrim-text"
           style={{
             position: "relative",
             zIndex: 2,
-            fontFamily: "'Inter', system-ui, sans-serif",
-            fontWeight: 300,
-            fontSize: "clamp(0.95rem, 1.6vw, 1.2rem)",
-            lineHeight: 1.7,
-            color: "rgba(196,185,228,0.82)",
+            fontFamily: "var(--font-body, system-ui), sans-serif",
+            fontWeight: 400,
+            fontSize: "clamp(1rem, 1.5vw, 1.18rem)",
+            lineHeight: 1.65,
+            color: "rgba(238, 232, 220, 0.92)",
             maxWidth: "520px",
-            textAlign: "center",
-            marginBottom: "2.75rem",
-            animation: "fadeUpIn 1.1s cubic-bezier(0.16,1,0.3,1) 1.4s both",
+            margin: 0,
+            animation: "fadeUpIn 1s cubic-bezier(0.16,1,0.3,1) 1.2s both",
           }}
         >
-          Personalised cosmic readings calculated from your exact planetary
-          positions. Not a template — real cosmic insight.
+          Readings calculated from the exact positions of the planets the moment
+          you were born. <em style={{ fontFamily: "var(--font-heading)", fontStyle: "italic", color: "rgba(245, 240, 232, 0.98)" }}>Not templates</em> — real cosmic guidance, written by hand.
         </p>
 
-        {/* Birthday Input */}
-        <div
+        {/* Compact action row — solid input + primary CTA + secondary link */}
+        <form
+          onSubmit={(e) => e.preventDefault()}
           style={{
             position: "relative",
             zIndex: 2,
             display: "flex",
-            flexDirection: "column",
+            gap: "0.75rem",
             alignItems: "center",
-            gap: "1rem",
-            marginBottom: "2rem",
-            animation: "fadeUpIn 1s cubic-bezier(0.16,1,0.3,1) 1.6s both",
-          }}
-        >
-          <label
-            style={{
-              fontFamily: "'Inter', system-ui, sans-serif",
-              fontSize: "0.7rem",
-              fontWeight: 300,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "rgba(180,170,210,0.5)",
-            }}
-          >
-            {t("hero_enter_birthday")}
-          </label>
-          <input
-            type="text"
-            inputMode="numeric"
-            placeholder="MM / DD"
-            value={birthday}
-            onChange={(e) => handleBirthday(e.target.value)}
-            style={{
-              width: "min(160px, 60vw)",
-              padding: "0.75rem 1.2rem",
-              textAlign: "center",
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontSize: "clamp(1rem, 3vw, 1.1rem)",
-              letterSpacing: "0.1em",
-              color: "rgba(240,236,255,0.9)",
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(200,185,255,0.12)",
-              borderRadius: "9999px",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              outline: "none",
-              transition: "border-color 0.3s, box-shadow 0.3s",
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.borderColor = "rgba(200,185,255,0.3)";
-              e.currentTarget.style.boxShadow = "0 0 30px rgba(130,100,220,0.1)";
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.borderColor = "rgba(200,185,255,0.12)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
-          />
-        </div>
-
-        {/* CTA Buttons */}
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-            display: "flex",
-            gap: "0.875rem",
             flexWrap: "wrap",
-            justifyContent: "center",
-            animation: "fadeUpIn 1.0s cubic-bezier(0.16,1,0.3,1) 1.65s both",
+            marginTop: "clamp(0.75rem, 1.5vw, 1.25rem)",
+            animation: "fadeUpIn 1s cubic-bezier(0.16,1,0.3,1) 1.45s both",
           }}
         >
-          <MagneticButton href="/portrait" variant="glass" size="md">
+          <label style={{ position: "relative", display: "flex", alignItems: "center" }}>
+            <span
+              style={{
+                position: "absolute",
+                left: "1.1rem",
+                fontFamily: "var(--font-body, system-ui), sans-serif",
+                fontSize: "0.62rem",
+                fontWeight: 600,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "rgba(190, 178, 225, 0.55)",
+                pointerEvents: "none",
+                top: "0.55rem",
+              }}
+            >
+              {t("hero_enter_birthday")}
+            </span>
+            <input
+              type="text"
+              inputMode="numeric"
+              placeholder="MM / DD"
+              value={birthday}
+              onChange={(e) => handleBirthday(e.target.value)}
+              aria-label={t("hero_enter_birthday")}
+              style={{
+                width: "clamp(180px, 30vw, 240px)",
+                padding: "1.5rem 1.1rem 0.7rem",
+                textAlign: "left",
+                fontFamily: "var(--font-heading, 'Cormorant Garamond'), Georgia, serif",
+                fontSize: "1.35rem",
+                fontStyle: "italic",
+                letterSpacing: "0.08em",
+                color: "#F5F0E8",
+                background: "#0e0b24",
+                border: "1px solid rgba(232, 201, 106, 0.25)",
+                borderRadius: "0.75rem",
+                outline: "none",
+                transition: "border-color 0.25s, box-shadow 0.25s",
+                minHeight: "58px",
+              }}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = "rgba(232, 201, 106, 0.7)";
+                e.currentTarget.style.boxShadow = "0 0 0 4px rgba(232, 201, 106, 0.12)";
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = "rgba(232, 201, 106, 0.25)";
+                e.currentTarget.style.boxShadow = "none";
+              }}
+            />
+          </label>
+          <MagneticButton href="/portrait" variant="gold" size="md">
             {t("hero_portrait_cta")} →
           </MagneticButton>
           <MagneticButton href="/ask" variant="outline" size="md">
             {t("hero_ask_cta")}
           </MagneticButton>
-        </div>
+        </form>
 
-        {/* Trust signal row */}
-        <div
+        {/* Micro-trust line — text list instead of metric boxes */}
+        <p
           style={{
             position: "relative",
             zIndex: 2,
-            marginTop: "3rem",
-            display: "flex",
-            gap: "2rem",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            animation: "fadeUpIn 1.0s cubic-bezier(0.16,1,0.3,1) 1.9s both",
+            marginTop: "clamp(1.5rem, 2.5vw, 2.25rem)",
+            fontFamily: "var(--font-body, system-ui), sans-serif",
+            fontSize: "0.78rem",
+            fontWeight: 400,
+            letterSpacing: "0.02em",
+            color: "rgba(196, 185, 228, 0.55)",
+            maxWidth: "520px",
+            animation: "fadeUpIn 1s cubic-bezier(0.16,1,0.3,1) 1.7s both",
+            margin: 0,
           }}
         >
-          {[
-            { value: 12400, suffix: "+", decimals: 0, label: t("hero_readings_given"), delay: 0 },
-            { value: 4.9,   suffix: " ★", decimals: 1, label: t("hero_average_rating"), delay: 200 },
-            { value: 97,    suffix: "%",  decimals: 0, label: t("hero_accuracy"), delay: 400 },
-          ].map(({ value, suffix, decimals, label, delay: d }) => (
-            <div
-              key={label}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "0.2rem",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontSize: "1.35rem",
-                  fontWeight: 500,
-                  color: "rgba(220,205,255,0.9)",
-                  textShadow: "0 0 20px rgba(160,130,255,0.22)",
-                }}
-              >
-                <AnimatedCounter value={value} suffix={suffix} decimals={decimals} duration={2200} delay={d} />
-              </span>
-              <span
-                style={{
-                  fontSize: "0.68rem",
-                  fontWeight: 400,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "rgba(160,150,200,0.52)",
-                }}
-              >
-                {label}
-              </span>
-            </div>
-          ))}
-        </div>
+          <AnimatedCounter
+            value={12400}
+            suffix="+"
+            style={{ color: "rgba(232, 201, 106, 0.85)", fontFamily: "var(--font-heading, Cormorant Garamond), serif", fontSize: "1rem", fontStyle: "italic", fontWeight: 500 }}
+          />{" "}
+          <span>{t("hero_readings_given").toLowerCase()}</span>
+          {" · "}
+          <AnimatedCounter
+            value={4.9}
+            decimals={1}
+            suffix=" ★"
+            style={{ color: "rgba(232, 201, 106, 0.85)", fontFamily: "var(--font-heading, Cormorant Garamond), serif", fontSize: "1rem", fontStyle: "italic", fontWeight: 500 }}
+          />{" "}
+          {t("hero_average_rating").toLowerCase()}
+          {" · "}
+          <span style={{ color: "rgba(232, 201, 106, 0.85)", fontFamily: "var(--font-heading, Cormorant Garamond), serif", fontSize: "1rem", fontStyle: "italic", fontWeight: 500 }}>9 languages</span>
+        </p>
       </div>
 
       {/* ── REVEALED STATE: Cosmic Profile ── */}

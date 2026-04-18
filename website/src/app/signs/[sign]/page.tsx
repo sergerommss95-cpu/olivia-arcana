@@ -3,6 +3,7 @@
  * Rich SEO content per sign.
  */
 
+import React from "react";
 import { notFound } from "next/navigation";
 import { SIGN_PAGES, type SignPage } from "../../../lib/sign-data";
 
@@ -66,61 +67,150 @@ export default async function SignDetailPage({ params }: { params: Promise<{ sig
     color: "rgba(180,170,210,0.4)",
   };
 
+  // ── Facts rendered as a typographic list, not a card grid ──
+  const facts: { l: string; v: string }[] = [
+    { l: "Element", v: data.element },
+    { l: "Modality", v: data.modality },
+    { l: "Ruler", v: `${data.rulerGlyph} ${data.ruler}` },
+    { l: "Season", v: data.season },
+    { l: "Tarot", v: data.tarotCard },
+    { l: "Crystal", v: data.crystal },
+  ];
+
   return (
     <div style={{
       minHeight: "100vh", position: "relative", zIndex: 1,
-      maxWidth: "750px", margin: "0 auto", padding: "2rem 1.5rem 4rem",
+      maxWidth: "820px", margin: "0 auto",
+      padding: "calc(var(--nav-height, 5rem) + 2rem) clamp(1.25rem, 4vw, 2rem) 4rem",
     }}>
-      {/* Header */}
-      <div style={{ marginBottom: "2.5rem" }}>
-        <a href="/" style={{
-          fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 400,
-          letterSpacing: "0.15em", textTransform: "uppercase",
-          color: "rgba(180,170,210,0.4)", textDecoration: "none",
-        }}>← Home</a>
-
-        <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
-          <div style={{
-            fontSize: "4rem", lineHeight: 1, marginBottom: "0.75rem",
-            textShadow: "0 0 40px rgba(200,180,255,0.2)",
-          }}>{data.glyph}</div>
-          <h1 style={{
-            fontFamily: "var(--font-accent)", fontSize: "2.5rem", fontWeight: 400,
-            letterSpacing: "0.12em", color: "rgba(240,236,255,0.92)",
-            textTransform: "uppercase", margin: "0 0 0.3rem",
-          }}>{data.name}</h1>
-          <p style={label}>{data.dateRange}</p>
-          <p style={{
-            fontFamily: "var(--font-accent)", fontSize: "1.1rem", fontWeight: 400,
-            fontStyle: "italic", color: "rgba(212,175,55,0.6)", marginTop: "0.5rem",
-          }}>&ldquo;{data.motto}&rdquo;</p>
-        </div>
-
-        {/* Quick stats */}
-        <div style={{
-          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
-          gap: "0.5rem", marginTop: "1.5rem",
+      {/* Breadcrumb */}
+      <nav aria-label="Breadcrumb" style={{ marginBottom: "2rem" }}>
+        <ol style={{
+          listStyle: "none", display: "flex", gap: "0.5rem", alignItems: "center",
+          padding: 0, margin: 0, flexWrap: "wrap",
+          fontFamily: "var(--font-body, system-ui), sans-serif",
+          fontSize: "0.7rem", fontWeight: 500,
+          letterSpacing: "0.16em", textTransform: "uppercase",
+          color: "rgba(180,170,210,0.55)",
         }}>
-          {[
-            { l: "Element", v: data.element },
-            { l: "Modality", v: data.modality },
-            { l: "Ruler", v: `${data.rulerGlyph} ${data.ruler}` },
-            { l: "Season", v: data.season },
-            { l: "Tarot Card", v: data.tarotCard },
-            { l: "Crystal", v: data.crystal },
-          ].map(({ l, v }) => (
-            <div key={l} style={glass}>
-              <div style={label}>{l}</div>
-              <div style={{
-                fontFamily: "var(--font-accent)", fontSize: "0.9rem", fontWeight: 500,
-                color: "rgba(230,220,255,0.85)", marginTop: "0.2rem",
-              }}>{v}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+          <li><a href="/" style={{ color: "inherit", textDecoration: "none" }}>Home</a></li>
+          <li aria-hidden style={{ color: "rgba(180,170,210,0.3)" }}>/</li>
+          <li><a href="/signs" style={{ color: "inherit", textDecoration: "none" }}>Signs</a></li>
+          <li aria-hidden style={{ color: "rgba(180,170,210,0.3)" }}>/</li>
+          <li aria-current="page" style={{ color: "rgba(232, 201, 106, 0.92)" }}>{data.name}</li>
+        </ol>
+      </nav>
 
-      <div className="star-divider" style={{ marginBottom: "2rem" }}>&#10022;</div>
+      {/* Editorial hero — glyph as background composition */}
+      <header style={{ position: "relative", marginBottom: "3rem", isolation: "isolate" }}>
+        {/* Oversized glyph as background */}
+        <span
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: "-30px",
+            right: "-20px",
+            fontSize: "clamp(12rem, 28vw, 22rem)",
+            lineHeight: 1,
+            fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
+            color: "rgba(232, 201, 106, 0.08)",
+            userSelect: "none",
+            zIndex: -1,
+            pointerEvents: "none",
+            textShadow: "0 0 50px rgba(232, 201, 106, 0.2)",
+          }}
+        >
+          {data.glyph}
+        </span>
+
+        <div
+          style={{
+            fontFamily: "var(--font-body, system-ui), sans-serif",
+            fontSize: "0.72rem", fontWeight: 500,
+            letterSpacing: "0.28em", textTransform: "uppercase",
+            color: "rgba(232, 201, 106, 0.78)",
+            marginBottom: "1rem",
+          }}
+        >
+          {data.dateRange}
+        </div>
+
+        <h1
+          style={{
+            fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
+            fontStyle: "italic",
+            fontSize: "clamp(3.5rem, 9vw, 7rem)",
+            fontWeight: 400,
+            color: "#F5F0E8",
+            letterSpacing: "-0.02em",
+            lineHeight: 0.95,
+            margin: "0 0 1.25rem",
+            textShadow: "0 2px 24px rgba(4,2,13,0.55)",
+          }}
+        >
+          {data.name}
+        </h1>
+
+        <p
+          style={{
+            fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
+            fontStyle: "italic",
+            fontSize: "clamp(1.25rem, 2vw, 1.6rem)",
+            fontWeight: 400,
+            color: "rgba(232, 201, 106, 0.92)",
+            margin: "0 0 1.75rem",
+            maxWidth: "520px",
+            lineHeight: 1.3,
+            position: "relative",
+            paddingLeft: "1.25rem",
+            borderLeft: "2px solid rgba(232, 201, 106, 0.45)",
+          }}
+        >
+          {data.motto}
+        </p>
+
+        {/* Facts as a prose-style flow, not a grid */}
+        <dl
+          style={{
+            display: "grid",
+            gridTemplateColumns: "max-content 1fr",
+            columnGap: "1.25rem",
+            rowGap: "0.55rem",
+            margin: 0,
+            maxWidth: "520px",
+          }}
+        >
+          {facts.map(({ l, v }) => (
+            <React.Fragment key={l}>
+              <dt
+                style={{
+                  fontFamily: "var(--font-body, system-ui), sans-serif",
+                  fontSize: "0.66rem", fontWeight: 500,
+                  letterSpacing: "0.22em", textTransform: "uppercase",
+                  color: "rgba(180, 170, 210, 0.55)",
+                  alignSelf: "baseline",
+                  paddingTop: "0.35rem",
+                }}
+              >
+                {l}
+              </dt>
+              <dd
+                style={{
+                  margin: 0,
+                  fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
+                  fontStyle: "italic",
+                  fontSize: "1.15rem", fontWeight: 400,
+                  color: "rgba(240, 232, 220, 0.92)",
+                  paddingBottom: "0.55rem",
+                  borderBottom: "1px solid rgba(200, 185, 255, 0.08)",
+                }}
+              >
+                {v}
+              </dd>
+            </React.Fragment>
+          ))}
+        </dl>
+      </header>
 
       {/* Description */}
       <Section title="Overview">

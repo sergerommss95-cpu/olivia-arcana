@@ -82,9 +82,9 @@ void main() {
   // Clamp
   uv = clamp(uv, 0.005, 0.995);
 
-  // ── Chromatic aberration — subtle, only during fast movement ──
+  // ── Chromatic aberration — ultra subtle, almost imperceptible at rest ──
   float flowMag = length(flowDisplace);
-  float aberration = 0.0003 + flowMag * 0.4 + uMouseVelocity * 0.001;
+  float aberration = flowMag * 0.10 + uMouseVelocity * 0.00025;
   vec2 caDir = (uv - 0.5) * aberration;
 
   float r = texture2D(uTexture, clamp(uv + caDir, 0.005, 0.995)).r;

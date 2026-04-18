@@ -6,12 +6,14 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import TransitionLink from "@/components/transitions/TransitionLink";
 import { useLocale } from "../lib/i18n/useLocale";
 import { openCommandPalette } from "./CommandPalette";
+import { useProfile } from "../lib/user/profile-store";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isMac, setIsMac] = useState(false);
   const { t } = useLocale();
+  const { profile } = useProfile();
 
   const navLinks = [
     { label: t("nav_academy"), href: "/academy" },
@@ -72,6 +74,20 @@ export default function Navbar() {
                 {shortcut}
               </kbd>
             </button>
+            {profile && (
+              <TransitionLink
+                href={`/signs/${profile.signSlug}`}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-celestial-gold/25 bg-celestial-gold/5 hover:bg-celestial-gold/10 transition-colors duration-300"
+                aria-label={`Your sign: ${profile.signName}`}
+              >
+                <span aria-hidden className="text-celestial-gold text-base leading-none">
+                  {profile.signGlyph}
+                </span>
+                <span className="font-[family-name:var(--font-heading)] italic text-sm text-celestial-gold">
+                  {profile.signName}
+                </span>
+              </TransitionLink>
+            )}
             <LanguageSwitcher />
             <TransitionLink
               href={loggedIn ? "/profile" : "/register"}

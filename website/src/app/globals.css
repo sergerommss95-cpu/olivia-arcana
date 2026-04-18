@@ -26,10 +26,12 @@ html.lenis, html.lenis body {
   --color-cosmic-teal: #4ECDC4;
   --color-mars-red: #E8524A;
 
-  --font-heading: "Playfair Display", serif;
-  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  /* Font vars are provided by next/font/google on <html> className.
+     We intentionally DO NOT redeclare --font-body here to avoid overriding
+     the DM Sans variable with an Inter fallback. */
+  --font-heading: var(--font-heading);
   --font-accent: "Cormorant Garamond", serif;
-  --font-display: "Cormorant Garamond", "IM Fell English", Georgia, serif;
+  --font-display: var(--font-heading, "Cormorant Garamond"), "IM Fell English", Georgia, serif;
 }
 
 /* ── Cosmic colour tokens ──────────────────────────────────────────────── */
@@ -53,9 +55,19 @@ html.lenis, html.lenis body {
   --glass-border:  rgba(255,255,255,0.09);
   --glass-blur:    blur(18px) saturate(1.25);
 
+  /* Text scrims — for body text that sits on the nebula background.
+     Use behind/around text to guarantee contrast without a solid box. */
+  --scrim-soft:    radial-gradient(ellipse at center, rgba(8,6,20,0.62) 0%, rgba(8,6,20,0.25) 60%, transparent 95%);
+  --scrim-strong:  linear-gradient(180deg, rgba(8,6,20,0.75), rgba(8,6,20,0.55));
+  --surface-solid: #0e0b24;
+  --surface-raised: #151230;
+
   --radius-pill:   9999px;
   --radius-card:   1.25rem;
   --radius-sm:     0.5rem;
+
+  /* Navbar height — consistent page top offset token */
+  --nav-height:    5rem;
 }
 
 html {
@@ -160,9 +172,73 @@ body {
 
 /* ── Accessible focus ───────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid var(--c-accent);
+  outline: 2px solid #E8C96A;
   outline-offset: 3px;
   border-radius: 4px;
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.18);
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Scrim utilities ─────────────────────────────────────────────────────
+   Wrap body copy that sits over the cosmic nebula to guarantee contrast.
+   - .scrim-text    → soft vertical fade behind block of text
+   - .scrim-pill    → rounded pill for short inline labels / eyebrows
+   - .scrim-strong  → near-opaque surface, for inputs / forms */
+.scrim-text {
+  position: relative;
+  isolation: isolate;
+}
+.scrim-text::before {
+  content: "";
+  position: absolute;
+  inset: -0.35em -0.8em;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 50%, rgba(8,6,20,0.55) 0%, rgba(8,6,20,0.22) 70%, transparent 100%);
+  filter: blur(6px);
+  z-index: -1;
+  pointer-events: none;
+}
+.scrim-pill {
+  position: relative;
+  isolation: isolate;
+}
+.scrim-pill::before {
+  content: "";
+  position: absolute;
+  inset: -0.35em -0.9em;
+  background: rgba(8,6,20,0.6);
+  border-radius: 9999px;
+  z-index: -1;
+  pointer-events: none;
+}
+.scrim-strong {
+  background: var(--scrim-strong);
+  backdrop-filter: blur(8px) saturate(1.1);
+  -webkit-backdrop-filter: blur(8px) saturate(1.1);
+}
+
+/* Skip link — make visible when focused */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0 0 10px 10px;
+  background: #E8C96A;
+  color: #06041a;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 200ms var(--ease-smooth, ease);
+}
+.skip-link:focus, .skip-link:focus-visible {
+  top: 0;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(212,175,55,0.35);
 }
 
 /* Custom scrollbar */

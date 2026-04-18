@@ -1,12 +1,14 @@
 /**
  * AnimatedCounter.tsx — Spring-interpolated number counter
  *
- * Counts up from 0 to target value with spring physics,
- * triggered when scrolling into viewport. Supports:
- *   - Integer and decimal values
- *   - Prefix/suffix (e.g., "12,400+" or "4.9 ★" or "97%")
- *   - Custom formatting
- *   - Spring-like deceleration curve
+ * Counts up from 0 → target when the element enters the viewport.
+ *
+ * Key safety rules:
+ *   - The initial render shows the FINAL value (not 0), so the number is
+ *     always meaningful even if the IntersectionObserver never fires or
+ *     the user has prefers-reduced-motion set.
+ *   - When the observer fires we briefly drop to 0 and animate up.
+ *   - With prefers-reduced-motion we skip the animation entirely.
  */
 
 "use client";
@@ -25,6 +27,14 @@ interface AnimatedCounterProps {
   style?: React.CSSProperties;
 }
 
+function formatNumber(n: number, decimals: number, separator: string): string {
+  const fixed = n.toFixed(decimals);
+  if (!separator) return fixed;
+  const [int, dec] = fixed.split(".");
+  const withSep = int.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+  return dec !== undefined ? `${withSep}.${dec}` : withSep;
+}
+
 export default function AnimatedCounter({
   value,
   prefix = "",
@@ -37,69 +47,69 @@ export default function AnimatedCounter({
   style,
 }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const [displayValue, setDisplayValue] = useState("0");
-  const [started, setStarted] = useState(false);
+  // Start with the REAL value — never show 0 by default.
+  const [displayValue, setDisplayValue] = useState(() => formatNumber(value, decimals, separator));
+  const animatedRef = useRef(false);
   const rafRef = useRef(0);
 
-  // Format number with separators
-  const format = (n: number) => {
-    const fixed = n.toFixed(decimals);
-    if (!separator) return fixed;
-    const [int, dec] = fixed.split(".");
-    const withSep = int.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
-    return dec !== undefined ? `${withSep}.${dec}` : withSep;
-  };
-
-  // Viewport detection
+  // Viewport detection → fires the animation exactly once.
+  // IMPORTANT: If the element is already in the viewport on first paint,
+  // we SKIP the animation entirely and just show the final value. This
+  // avoids the ugly "flash from 0" on page-load hero metrics.
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || animatedRef.current) return;
+
+    // Respect reduced-motion — don't animate at all.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      animatedRef.current = true;
+      return;
+    }
+
+    // Skip animation entirely if visible on mount (hero metrics).
+    const rect = el.getBoundingClientRect();
+    const inViewportOnMount =
+      rect.bottom > 0 && rect.top < window.innerHeight;
+    if (inViewportOnMount) {
+      animatedRef.current = true;
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !started) {
-          setStarted(true);
-        }
+        if (!entry.isIntersecting || animatedRef.current) return;
+        animatedRef.current = true;
+
+        // Drop to 0 then animate up.
+        setDisplayValue(formatNumber(0, decimals, separator));
+        let startTime: number | null = null;
+        const animate = (timestamp: number) => {
+          if (startTime === null) startTime = timestamp;
+          const elapsed = timestamp - startTime - delay;
+          if (elapsed < 0) {
+            rafRef.current = requestAnimationFrame(animate);
+            return;
+          }
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3); // ease-out-cubic
+          const current = eased * value;
+          setDisplayValue(formatNumber(current, decimals, separator));
+          if (progress < 1) {
+            rafRef.current = requestAnimationFrame(animate);
+          } else {
+            setDisplayValue(formatNumber(value, decimals, separator));
+          }
+        };
+        rafRef.current = requestAnimationFrame(animate);
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
     observer.observe(el);
-    return () => observer.disconnect();
-  }, [started]);
-
-  // Animate when started
-  useEffect(() => {
-    if (!started) return;
-
-    let startTime: number | null = null;
-    const animate = (timestamp: number) => {
-      if (startTime === null) startTime = timestamp;
-      const elapsed = timestamp - startTime - delay;
-
-      if (elapsed < 0) {
-        rafRef.current = requestAnimationFrame(animate);
-        return;
-      }
-
-      const progress = Math.min(elapsed / duration, 1);
-
-      // Spring-like ease-out: fast start, smooth deceleration
-      // Using exponential ease-out for that satisfying counting feel
-      const eased = 1 - Math.pow(1 - progress, 3);
-
-      const current = eased * value;
-      setDisplayValue(format(current));
-
-      if (progress < 1) {
-        rafRef.current = requestAnimationFrame(animate);
-      } else {
-        setDisplayValue(format(value));
-      }
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(rafRef.current);
     };
-
-    rafRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [started, value, duration, delay, decimals, separator]);
+  }, [value, duration, delay, decimals, separator]);
 
   return (
     <span ref={ref} className={className} style={style}>
