@@ -280,6 +280,13 @@ h1, .text-4xl, .text-5xl { font-size: clamp(1.75rem, 5vw, 3.5rem); }
 h2, .text-3xl { font-size: clamp(1.35rem, 4vw, 2.25rem); }
 h3, .text-2xl { font-size: clamp(1.1rem, 3vw, 1.5rem); }
 
+@media (max-width: 767px) {
+  /* Give content room above the bottom nav so nothing sits under it. */
+  body {
+    padding-bottom: calc(66px + env(safe-area-inset-bottom, 0));
+  }
+}
+
 @media (max-width: 640px) {
   .glass-card { padding: 1rem; }
   section { padding-left: 1rem; padding-right: 1rem; }
@@ -340,6 +347,52 @@ h3, .text-2xl { font-size: clamp(1.1rem, 3vw, 1.5rem); }
   --ease-dramatic:  cubic-bezier(0.075, 0.82, 0.165, 1);
   --ease-snap:      cubic-bezier(0.68, -0.55, 0.265, 1.55);
   --c-gold:         #D4AF37;
+
+  /* ── Time-of-day palette defaults (overridden by <html data-tod> below) ─ */
+  --tod-accent:       #E8C96A;  /* signature gold for the current hour */
+  --tod-accent-soft:  rgba(232, 201, 106, 0.18);
+  --tod-bg-bias:      transparent; /* subtle radial-gradient layered atop the cosmic bg */
+  --tod-greeting:     "evening";
+}
+
+/* DAWN — 5am–9am: warm amber, soft coral */
+html[data-tod="dawn"] {
+  --tod-accent:       #F6B98A;
+  --tod-accent-soft:  rgba(246, 185, 138, 0.22);
+  --tod-bg-bias:      radial-gradient(ellipse 70% 45% at 50% 10%, rgba(255, 168, 120, 0.09) 0%, transparent 70%);
+  --tod-greeting:     "morning";
+}
+/* DAY — 9am–5pm: crisp ivory + muted gold */
+html[data-tod="day"] {
+  --tod-accent:       #E8C96A;
+  --tod-accent-soft:  rgba(232, 201, 106, 0.18);
+  --tod-bg-bias:      radial-gradient(ellipse 70% 40% at 50% 8%, rgba(232, 201, 106, 0.07) 0%, transparent 72%);
+  --tod-greeting:     "afternoon";
+}
+/* DUSK — 5pm–9pm: violet + gold */
+html[data-tod="dusk"] {
+  --tod-accent:       #D8B3E8;
+  --tod-accent-soft:  rgba(216, 179, 232, 0.20);
+  --tod-bg-bias:      radial-gradient(ellipse 70% 50% at 50% 12%, rgba(216, 179, 232, 0.10) 0%, transparent 72%);
+  --tod-greeting:     "evening";
+}
+/* NIGHT — 9pm–5am: cool indigo, quiet silver */
+html[data-tod="night"] {
+  --tod-accent:       #B8C4F0;
+  --tod-accent-soft:  rgba(184, 196, 240, 0.16);
+  --tod-bg-bias:      radial-gradient(ellipse 80% 45% at 50% 5%, rgba(84, 100, 180, 0.12) 0%, transparent 78%);
+  --tod-greeting:     "night";
+}
+
+/* A fixed decorative layer that paints the ToD bias atop the cosmic bg. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: var(--tod-bg-bias);
+  transition: background 3s ease;
 }
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */

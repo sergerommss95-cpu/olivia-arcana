@@ -24,6 +24,8 @@ import SmoothScroll from "@/components/SmoothScroll";
 import FilmGrain from "@/components/FilmGrain";
 import PageTransition from "@/components/transitions/PageTransition";
 import CommandPalette from "@/components/CommandPalette";
+import TimeOfDayTheme from "@/components/TimeOfDayTheme";
+import MobileBottomNav from "@/components/MobileBottomNav";
 import { SubscriptionProvider } from "@/hooks/useSubscription";
 
 export default function ClientShell({ children }: { children: React.ReactNode }) {
@@ -65,6 +67,12 @@ export default function ClientShell({ children }: { children: React.ReactNode })
 
           {/* Global Cmd+K search */}
           <CommandPalette />
+
+          {/* Time-of-day palette shift (dawn/day/dusk/night) */}
+          <TimeOfDayTheme />
+
+          {/* Mobile-only bottom navigation (thumb-reach) */}
+          <MobileBottomNav />
         </>
       )}
 

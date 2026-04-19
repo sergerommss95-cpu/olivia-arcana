@@ -18,7 +18,7 @@
 
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -44,25 +44,64 @@ const STREAK_KEY = "olivia:streak";
 const PROFILE_EVENT = "olivia:profile-change";
 const STREAK_EVENT = "olivia:streak-change";
 
-function readJSON<T>(key: string): T | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = localStorage.getItem(key);
-    return raw ? (JSON.parse(raw) as T) : null;
-  } catch {
-    return null;
-  }
-}
+// ── Cached JSON reader ──────────────────────────────────────────────────
+// useSyncExternalStore calls getSnapshot on every render. If we returned a
+// freshly-parsed object each time, React would bail with "getSnapshot
+// should be cached" and loop.  We keep one cached (raw, value) pair per
+// key. Only when the raw localStorage string changes do we parse again
+// and hand out a new reference.
 
-function writeJSON<T>(key: string, value: T | null, event: string): void {
+// Module-scoped caches — one per key. Re-parse only when the raw string
+// changes (this is what makes useSyncExternalStore stable).
+let profileRaw: string | null | undefined = undefined; // undefined = not yet read
+let profileValue: UserProfile | null = null;
+let streakRaw: string | null | undefined = undefined;
+let streakValue: Streak | null = null;
+
+function readProfile(): UserProfile | null {
+  if (typeof window === "undefined") return null;
+  let raw: string | null = null;
+  try { raw = localStorage.getItem(PROFILE_KEY); } catch { return null; }
+  if (raw === profileRaw) return profileValue;
+  profileRaw = raw;
+  profileValue = null;
+  if (raw !== null) {
+    try { profileValue = JSON.parse(raw) as UserProfile; } catch { profileValue = null; }
+  }
+  return profileValue;
+}
+function readStreak(): Streak | null {
+  if (typeof window === "undefined") return null;
+  let raw: string | null = null;
+  try { raw = localStorage.getItem(STREAK_KEY); } catch { return null; }
+  if (raw === streakRaw) return streakValue;
+  streakRaw = raw;
+  streakValue = null;
+  if (raw !== null) {
+    try { streakValue = JSON.parse(raw) as Streak; } catch { streakValue = null; }
+  }
+  return streakValue;
+}
+function invalidateProfileCache() { profileRaw = undefined; profileValue = null; }
+function invalidateStreakCache() { streakRaw = undefined; streakValue = null; }
+
+function writeProfile(value: UserProfile | null): void {
   if (typeof window === "undefined") return;
   try {
-    if (value === null) localStorage.removeItem(key);
-    else localStorage.setItem(key, JSON.stringify(value));
-    window.dispatchEvent(new CustomEvent(event, { detail: value }));
-  } catch {
-    // quota / private mode — silently ignore
-  }
+    if (value === null) localStorage.removeItem(PROFILE_KEY);
+    else localStorage.setItem(PROFILE_KEY, JSON.stringify(value));
+    invalidateProfileCache();
+    window.dispatchEvent(new CustomEvent(PROFILE_EVENT, { detail: value }));
+  } catch {}
+}
+function writeStreak(value: Streak | null): void {
+  if (typeof window === "undefined") return;
+  try {
+    if (value === null) localStorage.removeItem(STREAK_KEY);
+    else localStorage.setItem(STREAK_KEY, JSON.stringify(value));
+    invalidateStreakCache();
+    window.dispatchEvent(new CustomEvent(STREAK_EVENT, { detail: value }));
+  } catch {}
 }
 
 // ── Profile ───────────────────────────────────────────────────────────────
@@ -102,28 +141,27 @@ export function resolveSunSign(month: number, day: number): { slug: string; name
   return { slug: current[2], name: SIGN_NAMES[current[2]] || current[2], glyph: current[3] };
 }
 
-function profileSubscribe(cb: () => void) {
-  if (typeof window === "undefined") return () => {};
-  const h = () => cb();
-  const s = (e: StorageEvent) => {
-    if (e.key === PROFILE_KEY) cb();
-  };
-  window.addEventListener(PROFILE_EVENT, h);
-  window.addEventListener("storage", s);
-  return () => {
-    window.removeEventListener(PROFILE_EVENT, h);
-    window.removeEventListener("storage", s);
-  };
-}
-function profileSnapshot(): UserProfile | null {
-  return readJSON<UserProfile>(PROFILE_KEY);
-}
-function profileServerSnapshot(): UserProfile | null {
-  return null;
-}
-
 export function useProfile() {
-  const profile = useSyncExternalStore(profileSubscribe, profileSnapshot, profileServerSnapshot);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+
+  useEffect(() => {
+    // Sync once on mount (reads localStorage), then subscribe to changes.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only mirror of localStorage
+    setProfile(readProfile());
+    const onChange = () => {
+      invalidateProfileCache();
+      setProfile(readProfile());
+    };
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === PROFILE_KEY) onChange();
+    };
+    window.addEventListener(PROFILE_EVENT, onChange);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener(PROFILE_EVENT, onChange);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, []);
 
   const saveFromBirthday = useCallback((month: number, day: number) => {
     const { slug, name, glyph } = resolveSunSign(month, day);
@@ -135,38 +173,18 @@ export function useProfile() {
       signGlyph: glyph,
       createdAt: new Date().toISOString(),
     };
-    writeJSON(PROFILE_KEY, next, PROFILE_EVENT);
+    writeProfile(next);
     return next;
   }, []);
 
   const clear = useCallback(() => {
-    writeJSON<UserProfile | null>(PROFILE_KEY, null, PROFILE_EVENT);
+    writeProfile(null);
   }, []);
 
   return { profile, saveFromBirthday, clear };
 }
 
 // ── Streak ────────────────────────────────────────────────────────────────
-
-function streakSubscribe(cb: () => void) {
-  if (typeof window === "undefined") return () => {};
-  const h = () => cb();
-  const s = (e: StorageEvent) => {
-    if (e.key === STREAK_KEY) cb();
-  };
-  window.addEventListener(STREAK_EVENT, h);
-  window.addEventListener("storage", s);
-  return () => {
-    window.removeEventListener(STREAK_EVENT, h);
-    window.removeEventListener("storage", s);
-  };
-}
-function streakSnapshot(): Streak | null {
-  return readJSON<Streak>(STREAK_KEY);
-}
-function streakServerSnapshot(): Streak | null {
-  return null;
-}
 
 function localISODate(d = new Date()): string {
   // YYYY-MM-DD in the local timezone — avoids UTC edge cases on streak math.
@@ -184,15 +202,33 @@ function daysBetween(prev: string, curr: string): number {
 }
 
 export function useStreak() {
-  const streak = useSyncExternalStore(streakSubscribe, streakSnapshot, streakServerSnapshot);
+  const [streak, setStreak] = useState<Streak | null>(null);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only mirror of localStorage
+    setStreak(readStreak());
+    const onChange = () => {
+      invalidateStreakCache();
+      setStreak(readStreak());
+    };
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === STREAK_KEY) onChange();
+    };
+    window.addEventListener(STREAK_EVENT, onChange);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener(STREAK_EVENT, onChange);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, []);
 
   /** Called on /daily visit. Advances or resets the streak. */
   const tick = useCallback(() => {
     const today = localISODate();
-    const prev = readJSON<Streak>(STREAK_KEY);
+    const prev = readStreak();
     if (!prev) {
       const next: Streak = { count: 1, lastVisitISO: today, recordCount: 1 };
-      writeJSON(STREAK_KEY, next, STREAK_EVENT);
+      writeStreak(next);
       return next;
     }
     const delta = daysBetween(prev.lastVisitISO, today);
@@ -203,7 +239,7 @@ export function useStreak() {
       lastVisitISO: today,
       recordCount: Math.max(prev.recordCount, nextCount),
     };
-    writeJSON(STREAK_KEY, next, STREAK_EVENT);
+    writeStreak(next);
     return next;
   }, []);
 

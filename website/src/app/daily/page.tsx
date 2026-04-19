@@ -11,7 +11,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { getSunPosition, getMoonPosition, getMoonPhase } from "../../lib/celestial";
 import { getTodayHoroscope } from "../../lib/zodiac-utils";
 import { LIFE_AREAS } from "../../lib/planet-interpretations";
-import ZodiacIcon from "../../components/ZodiacIcon";
+import ZodiacWheel, { type WheelSign } from "../../components/daily/ZodiacWheel";
 import WhisperText from "../../components/WhisperText";
 import { textWordSpacing } from "../../lib/micro-typography";
 import { loadUser } from "../../lib/user-store";
@@ -20,19 +20,19 @@ import { useProfile, useStreak } from "../../lib/user/profile-store";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
-const SIGNS = [
-  { name: "Aries", glyph: "♈", element: "Fire", color: "#FF6B35" },
-  { name: "Taurus", glyph: "♉", element: "Earth", color: "#7CB342" },
-  { name: "Gemini", glyph: "♊", element: "Air", color: "#B0BEC5" },
-  { name: "Cancer", glyph: "♋", element: "Water", color: "#4FC3F7" },
-  { name: "Leo", glyph: "♌", element: "Fire", color: "#FFB300" },
-  { name: "Virgo", glyph: "♍", element: "Earth", color: "#66BB6A" },
-  { name: "Libra", glyph: "♎", element: "Air", color: "#CE93D8" },
-  { name: "Scorpio", glyph: "♏", element: "Water", color: "#E8524A" },
-  { name: "Sagittarius", glyph: "♐", element: "Fire", color: "#FF7043" },
-  { name: "Capricorn", glyph: "♑", element: "Earth", color: "#8D6E63" },
-  { name: "Aquarius", glyph: "♒", element: "Air", color: "#4FC3F7" },
-  { name: "Pisces", glyph: "♓", element: "Water", color: "#7E57C2" },
+const SIGNS: (WheelSign & { color: string })[] = [
+  { name: "Aries",       glyph: "♈", element: "Fire",  color: "#FF6B35", dateRange: "Mar 21 — Apr 19" },
+  { name: "Taurus",      glyph: "♉", element: "Earth", color: "#7CB342", dateRange: "Apr 20 — May 20" },
+  { name: "Gemini",      glyph: "♊", element: "Air",   color: "#B0BEC5", dateRange: "May 21 — Jun 20" },
+  { name: "Cancer",      glyph: "♋", element: "Water", color: "#4FC3F7", dateRange: "Jun 21 — Jul 22" },
+  { name: "Leo",         glyph: "♌", element: "Fire",  color: "#FFB300", dateRange: "Jul 23 — Aug 22" },
+  { name: "Virgo",       glyph: "♍", element: "Earth", color: "#66BB6A", dateRange: "Aug 23 — Sep 22" },
+  { name: "Libra",       glyph: "♎", element: "Air",   color: "#CE93D8", dateRange: "Sep 23 — Oct 22" },
+  { name: "Scorpio",     glyph: "♏", element: "Water", color: "#E8524A", dateRange: "Oct 23 — Nov 21" },
+  { name: "Sagittarius", glyph: "♐", element: "Fire",  color: "#FF7043", dateRange: "Nov 22 — Dec 21" },
+  { name: "Capricorn",   glyph: "♑", element: "Earth", color: "#8D6E63", dateRange: "Dec 22 — Jan 19" },
+  { name: "Aquarius",    glyph: "♒", element: "Air",   color: "#4FC3F7", dateRange: "Jan 20 — Feb 18" },
+  { name: "Pisces",      glyph: "♓", element: "Water", color: "#7E57C2", dateRange: "Feb 19 — Mar 20" },
 ];
 
 function getLifeAreaReading(sign: string, area: string, dayOfYear: number): { power: string; pressure: string } {
@@ -230,30 +230,19 @@ export default function DailyPage() {
         )}
       </div>
 
-      {/* ── Sign selector — magical animated icons ── */}
+      {/* ── Sign selector — signature zodiac wheel ── */}
       <div style={{
-        padding: "0.5rem 1rem 1rem",
-        display: "flex", justifyContent: "center",
+        padding: "0.75rem clamp(1rem, 3vw, 2rem) 1.5rem",
+        maxWidth: "720px", margin: "0 auto",
+        position: "relative", zIndex: 1,
       }}>
-        <div style={{
-          display: "flex", gap: "0.15rem",
-          overflowX: "auto", padding: "0.75rem 0.5rem",
-          maxWidth: "100%",
-          scrollbarWidth: "none",
-        }}>
-          {SIGNS.map((s, i) => (
-            <ZodiacIcon
-              key={s.name}
-              glyph={s.glyph}
-              name={s.name}
-              color={s.color}
-              element={s.element as "Fire" | "Water" | "Air" | "Earth"}
-              selected={selected === i}
-              onClick={() => setSelected(i)}
-              size={68}
-            />
-          ))}
-        </div>
+        <ZodiacWheel
+          signs={SIGNS}
+          selectedIndex={selected}
+          onSelect={(i) => setSelected(i)}
+          centerGlyph={sign?.glyph}
+          centerLabel={sign?.name}
+        />
       </div>
 
       {/* ── Content — liquid glass container ── */}

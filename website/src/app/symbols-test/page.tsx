@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { notFound } from "next/navigation";
 
 // Inline paths — simple shapes that SVGLoader can fill
 const SYMBOLS: [string, string[]][] = [
@@ -53,6 +54,11 @@ function pathToPoints(d: string, samples = 40): { x: number; y: number }[] {
 }
 
 export default function SymbolsTestPage() {
+  // Dev-only route — never surfaced in production.
+  if (process.env.NODE_ENV === "production") {
+    notFound();
+  }
+
   const [idx, setIdx] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const cleanupRef = useRef<(() => void) | null>(null);

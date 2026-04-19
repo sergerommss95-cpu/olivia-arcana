@@ -7,12 +7,17 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-heading",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+  preload: true,
 });
 
 const dmSans = DM_Sans({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["300", "400", "500"],
+  display: "swap",
+  preload: true,
 });
 
 const ibmPlexMono = IBM_Plex_Mono({

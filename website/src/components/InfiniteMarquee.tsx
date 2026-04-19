@@ -84,7 +84,12 @@ export default function InfiniteMarquee({
         style={{
           display: "flex",
           width: "max-content",
-          animation: `marqueeScroll ${animDuration}s linear infinite`,
+          // Use longhand only — React warns if shorthand `animation` and
+          // longhand `animationDirection` are both set on re-renders.
+          animationName: "marqueeScroll",
+          animationDuration: `${animDuration}s`,
+          animationTimingFunction: "linear",
+          animationIterationCount: "infinite",
           animationDirection: "normal",
         }}
         onMouseEnter={(e) => {
