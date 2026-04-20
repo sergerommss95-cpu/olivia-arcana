@@ -119,6 +119,89 @@ body {
     inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
+/* ── Surface elevation scale ────────────────────────────────────────────
+   Three tiers of emphasis for card surfaces. Pick the right one for the
+   job and let the system do the visual hierarchy:
+
+   .surface-1  Quiet container. No hover. Use for static cards, form
+               wrappers, info panels — anywhere you want structure
+               without drawing attention.
+
+   .surface-2  Interactive / scannable card. Subtle translateY lift +
+               border warmth + purple-tinted shadow on hover. Use for
+               clickable tiles, links presented as cards, feature blocks.
+
+   .surface-3  The single highlight per page. Gold 1px border + soft
+               golden outer glow. Use once — the VIP tier card, a hero
+               promo, the "featured" item in a list. Using it twice
+               flattens the hierarchy. If you need more than one
+               highlight, step them down to .surface-2.
+   ────────────────────────────────────────────────────────────────────── */
+.surface-1,
+.surface-2,
+.surface-3 {
+  background:        var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter:   var(--glass-blur);
+  border-radius:     var(--radius-card);
+}
+
+.surface-1 {
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 2px 24px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.surface-2 {
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 2px 24px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  transition:
+    border-color    300ms var(--ease-ritual, ease),
+    box-shadow      300ms var(--ease-ritual, ease),
+    transform       300ms var(--ease-ritual, ease);
+}
+@media (hover: hover) {
+  .surface-2:hover {
+    border-color: var(--c-border-2);
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 40px rgba(100,70,200,0.16),
+      inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+}
+
+.surface-3 {
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow:
+    0 2px 24px rgba(0,0,0,0.25),
+    0 0 48px rgba(212, 175, 55, 0.08),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  transition:
+    border-color    300ms var(--ease-ritual, ease),
+    box-shadow      300ms var(--ease-ritual, ease);
+}
+@media (hover: hover) {
+  .surface-3:hover {
+    border-color: rgba(212, 175, 55, 0.65);
+    box-shadow:
+      0 4px 36px rgba(212, 175, 55, 0.18),
+      0 0 72px rgba(212, 175, 55, 0.14),
+      inset 0 1px 0 rgba(255,255,255,0.10);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .surface-2, .surface-3 {
+    transition: none !important;
+  }
+  .surface-2:hover {
+    transform: none !important;
+  }
+}
+
 /* Gold gradient text */
 .text-gold-gradient {
   background: linear-gradient(135deg, #D4AF37 0%, #F5E6A3 50%, #D4AF37 100%);
