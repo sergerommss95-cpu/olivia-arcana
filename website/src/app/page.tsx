@@ -19,6 +19,7 @@ import CompatibilityChecker from "@/components/CompatibilityChecker";
 import ScrollFloat from "@/components/ScrollFloat";
 import InfiniteMarquee from "@/components/InfiniteMarquee";
 import CosmicSelfie from "@/components/CosmicSelfie";
+import Faq from "@/components/Faq";
 
 // Lazy-load non-critical components
 const CinematicLoader = dynamic(() => import("@/components/CinematicLoader"), { ssr: false });
@@ -89,6 +90,7 @@ export default function Home() {
           <ScrollFloat index={3} intensity="dramatic">
             <Pricing />
           </ScrollFloat>
+          <Faq />
           <CTA />
         </div>
       </main>
