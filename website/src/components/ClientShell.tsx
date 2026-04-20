@@ -21,6 +21,7 @@
 
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 import GlobalBackground from "@/components/GlobalBackground";
 import CosmicCursor from "@/components/CosmicCursor";
 import SoundEngine from "@/components/SoundEngine";
@@ -54,6 +55,14 @@ export default function ClientShell({ children }: { children: React.ReactNode })
   // Tier 3 gate — user has shown intent (scrolled or pressed a key)
   const [engaged, setEngaged] = useState(false);
 
+  // /v2 is the Sprint 3 preview. Part of that preview is the argument
+  // "too many overlays are fighting for attention" — so on /v2 we
+  // render a reduced set (only Starfield-in-GlobalBackground,
+  // TimeOfDayTheme, SmoothScroll, PageTransition). The rest are
+  // suppressed so the owner can feel the lighter composition.
+  const pathname = usePathname();
+  const isV2 = pathname?.startsWith("/v2") ?? false;
+
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
@@ -80,42 +89,31 @@ export default function ClientShell({ children }: { children: React.ReactNode })
     <>
       {mounted && (
         <>
-          {/* Layer 0 — The Void (persistent WebGL) */}
+          {/* Layer 0 — The Void (persistent WebGL) — always */}
           <GlobalBackground />
 
-          {/* Layer 3 — Custom Cursor (desktop only) */}
-          <CosmicCursor />
-
-          {/* Layer 4 — Sound routing (event bus; lightweight) */}
-          <SoundEngine />
-
-          {/* Live indicators — Moon Phase + Planetary Hour */}
-          <CosmicIndicators />
-
-          {/* Daily cosmic toast notification */}
-          <CosmicToast />
-
-          {/* PWA install prompt */}
-          <InstallPrompt />
-
-          {/* Smooth scroll (Lenis) */}
+          {/* Always-on: palette drift + smooth scroll + page transitions */}
+          <TimeOfDayTheme />
           <SmoothScroll />
 
-          {/* Film grain + vignette (analog texture) */}
-          <FilmGrain opacity={0.03} vignetteIntensity={0.35} />
-
-          {/* Time-of-day palette shift (dawn/day/dusk/night) */}
-          <TimeOfDayTheme />
-
-          {/* Mobile-only bottom navigation (thumb-reach) */}
-          <MobileBottomNav />
-
-          {/* Deferred tier — only mounts once the user engages */}
-          {engaged && (
+          {/* Suppressed on /v2 — the Sprint 3 argument is "fewer overlays" */}
+          {!isV2 && (
             <>
-              <AmbientSoundLazy />
-              <EclipseOverlayLazy />
-              <CommandPaletteLazy />
+              <CosmicCursor />
+              <SoundEngine />
+              <CosmicIndicators />
+              <CosmicToast />
+              <InstallPrompt />
+              <FilmGrain opacity={0.03} vignetteIntensity={0.35} />
+              <MobileBottomNav />
+              {/* Deferred tier — only mounts once the user engages */}
+              {engaged && (
+                <>
+                  <AmbientSoundLazy />
+                  <EclipseOverlayLazy />
+                  <CommandPaletteLazy />
+                </>
+              )}
             </>
           )}
         </>
