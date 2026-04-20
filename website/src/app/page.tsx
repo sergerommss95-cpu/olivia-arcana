@@ -20,6 +20,7 @@ import ScrollFloat from "@/components/ScrollFloat";
 import InfiniteMarquee from "@/components/InfiniteMarquee";
 import CosmicSelfie from "@/components/CosmicSelfie";
 import Faq from "@/components/Faq";
+import AbToggle from "@/components/ab/AbToggle";
 
 // Lazy-load non-critical components
 const CinematicLoader = dynamic(() => import("@/components/CinematicLoader"), { ssr: false });
@@ -217,6 +218,7 @@ export default function Home() {
       </main>
 
       <Footer />
+      <AbToggle mode="a" />
     </>
   );
 }
