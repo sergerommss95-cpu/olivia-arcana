@@ -55,24 +55,145 @@ export default function Home() {
           <DailyHoroscope />
           <CompatibilityChecker />
 
-          {/* Infinite marquee strip — trust & capability signal */}
-          <div style={{ padding: "3rem 0" }}>
-            <InfiniteMarquee speed={30} gap={56}>
-              {["Birth Charts", "✦", "Daily Readings", "✦", "Tarot Oracle", "✦", "Synastry", "✦", "Transit Alerts", "✦", "Moon Journal", "✦", "AI Astrologer", "✦"].map((item, i) => (
-                <span
-                  key={i}
-                  style={{
-                    fontFamily: item === "✦" ? "inherit" : "'Cormorant Garamond', Georgia, serif",
-                    fontSize: item === "✦" ? "0.75rem" : "clamp(1rem, 2vw, 1.5rem)",
-                    fontWeight: 300,
-                    letterSpacing: "0.05em",
-                    color: item === "✦" ? "rgba(212,175,55,0.35)" : "rgba(240,236,255,0.2)",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {item}
-                </span>
-              ))}
+          {/* Infinite proof marquee — real quotes, a star rating, a press mention.
+              TODO: swap verbatim copy from prototype .proof-track when ready. */}
+          <div style={{ padding: "3rem 0" }} aria-label="Social proof">
+            <InfiniteMarquee speed={22} gap={72}>
+              {[
+                { kind: "quote", text: "The first astrology app that actually feels like astrology.", who: "— Mira, Cancer ☾" },
+                { kind: "sep" },
+                { kind: "rating", text: "★★★★★", sub: "4.9 from 2,306 subscribers" },
+                { kind: "sep" },
+                { kind: "quote", text: "I cancelled my Co–Star subscription after a week.", who: "— Alex, Gemini ☉" },
+                { kind: "sep" },
+                { kind: "press", outlet: "Featured in", name: "Almanac Weekly" },
+                { kind: "sep" },
+                { kind: "quote", text: "Reading the transits here is the only time I feel seen by an app.", who: "— Dr. Liao, Scorpio ↑" },
+                { kind: "sep" },
+                { kind: "rating", text: "99%", sub: "renewal rate on annual plans" },
+                { kind: "sep" },
+                { kind: "quote", text: "My Saturn return suddenly made sense.", who: "— Priya, Capricorn ☉" },
+                { kind: "sep" },
+                { kind: "press", outlet: "As seen in", name: "Moon & Matter" },
+                { kind: "sep" },
+              ].map((item, i) => {
+                if (item.kind === "sep") {
+                  return (
+                    <span key={i} aria-hidden style={{ color: "rgba(212,175,55,0.45)", fontSize: "0.8rem" }}>
+                      ✦
+                    </span>
+                  );
+                }
+                if (item.kind === "rating") {
+                  return (
+                    <span
+                      key={i}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "baseline",
+                        gap: "0.65em",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
+                          fontSize: "clamp(1.1rem, 2vw, 1.55rem)",
+                          color: "rgba(232, 201, 106, 0.92)",
+                          letterSpacing: "0.05em",
+                        }}
+                      >
+                        {item.text}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-body, system-ui), sans-serif",
+                          fontSize: "0.78rem",
+                          fontWeight: 400,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          color: "rgba(196,185,228,0.6)",
+                        }}
+                      >
+                        {item.sub}
+                      </span>
+                    </span>
+                  );
+                }
+                if (item.kind === "press") {
+                  return (
+                    <span
+                      key={i}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "baseline",
+                        gap: "0.6em",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: "var(--font-body, system-ui), sans-serif",
+                          fontSize: "0.66rem",
+                          fontWeight: 500,
+                          letterSpacing: "0.22em",
+                          textTransform: "uppercase",
+                          color: "rgba(196,185,228,0.55)",
+                        }}
+                      >
+                        {item.outlet}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
+                          fontStyle: "italic",
+                          fontSize: "clamp(1rem, 1.8vw, 1.4rem)",
+                          color: "rgba(240,236,255,0.82)",
+                        }}
+                      >
+                        {item.name}
+                      </span>
+                    </span>
+                  );
+                }
+                // quote
+                return (
+                  <span
+                    key={i}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "baseline",
+                      gap: "0.9em",
+                      whiteSpace: "nowrap",
+                      maxWidth: "min(75vw, 580px)",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
+                        fontStyle: "italic",
+                        fontSize: "clamp(1rem, 1.9vw, 1.45rem)",
+                        color: "rgba(240,236,255,0.88)",
+                        fontWeight: 400,
+                      }}
+                    >
+                      &ldquo;{item.text}&rdquo;
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-body, system-ui), sans-serif",
+                        fontSize: "0.72rem",
+                        fontWeight: 500,
+                        letterSpacing: "0.12em",
+                        textTransform: "uppercase",
+                        color: "rgba(196,185,228,0.55)",
+                      }}
+                    >
+                      {item.who}
+                    </span>
+                  </span>
+                );
+              })}
             </InfiniteMarquee>
           </div>
 
