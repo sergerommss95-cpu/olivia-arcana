@@ -148,7 +148,7 @@ export default function SymbolsTestPage() {
 
   return (
     <div style={{
-      minHeight: "100vh", background: "#04020d",
+      minHeight: "100vh", background: "#06041a",
       display: "flex", flexDirection: "column", alignItems: "center",
       justifyContent: "center", position: "relative", zIndex: 1, gap: "1rem",
     }}>

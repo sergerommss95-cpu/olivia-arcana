@@ -83,14 +83,14 @@ export default function CardOfTheDayPage() {
   }, [card]);
 
   if (!mounted) {
-    return <div style={{ minHeight: "100vh", background: "var(--c-void, #04020d)" }} />;
+    return <div style={{ minHeight: "100vh", background: "var(--c-void, #06041a)" }} />;
   }
 
   const imagePath = getCardImagePath(card);
   const numeral = getCardNumeral(card);
 
   return (
-    <div style={{ background: "var(--c-void, #04020d)" }}>
+    <div style={{ background: "var(--c-void, #06041a)" }}>
       <VeilRevealWrapper
         cardImagePath={imagePath}
         cardName={card.name}
@@ -111,7 +111,7 @@ export default function CardOfTheDayPage() {
               padding: "2rem 1rem 6rem",
               position: "relative",
               zIndex: 5,
-              background: "var(--c-void, #04020d)",
+              background: "var(--c-void, #06041a)",
             }}
           >
             <CardInfoPanel card={card} reversed={reversed} />

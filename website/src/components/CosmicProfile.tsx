@@ -75,7 +75,7 @@ export default function CosmicProfile({ profile }: Props) {
     setSharing(true);
     try {
       const canvas = await html2canvas(containerRef.current, {
-        backgroundColor: "#04020d",
+        backgroundColor: "#06041a",
         scale: 2,
         useCORS: true,
         logging: false,

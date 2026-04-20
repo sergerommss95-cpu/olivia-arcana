@@ -142,7 +142,7 @@ export default function LiquidMaskCanvas({ className, style, onReady }: Props) {
         cursor: "none",
         borderRadius: "var(--radius-card, 1.25rem)",
         border: "1px solid var(--c-border, rgba(255,255,255,0.08))",
-        background: "var(--c-void, #04020d)",
+        background: "var(--c-void, #06041a)",
         ...style,
       }}
     >

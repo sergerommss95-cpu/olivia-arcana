@@ -64,7 +64,7 @@ export default function CosmicLoader() {
         alignItems: "center",
         justifyContent: "center",
         gap: "1rem",
-        background: "#04020d",
+        background: "#06041a",
         opacity: phase >= 4 ? 0 : 1,
         transition: `opacity 0.6s ${EASE}`,
         pointerEvents: phase >= 4 ? "none" : "auto",

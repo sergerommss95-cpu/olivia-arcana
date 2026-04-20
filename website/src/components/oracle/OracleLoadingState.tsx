@@ -10,7 +10,7 @@ export default function OracleLoadingState() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background: "var(--c-void, #04020d)",
+        background: "var(--c-void, #06041a)",
         borderRadius: "inherit",
         zIndex: 2,
         pointerEvents: "none",

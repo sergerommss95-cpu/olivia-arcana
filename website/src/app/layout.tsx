@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   manifest: "/manifest.json",
   other: {
-    "theme-color": "#060810",
+    "theme-color": "#06041a",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
   },

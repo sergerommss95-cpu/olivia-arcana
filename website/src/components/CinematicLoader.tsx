@@ -85,7 +85,7 @@ export default function CinematicLoader() {
         alignItems: "center",
         justifyContent: "center",
         gap: "1.5rem",
-        background: "#04020d",
+        background: "#06041a",
         opacity: isExiting ? 0 : 1,
         transform: isExiting ? "scale(1.02)" : "scale(1)",
         filter: isExiting ? "blur(8px)" : "blur(0px)",

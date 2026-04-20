@@ -4,8 +4,8 @@
   "description": "Personalized astrology readings from your exact planetary positions",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#04020d",
-  "theme_color": "#04020d",
+  "background_color": "#06041a",
+  "theme_color": "#06041a",
   "orientation": "portrait-primary",
   "icons": [
     { "src": "/favicon.ico", "sizes": "16x16", "type": "image/x-icon" }
