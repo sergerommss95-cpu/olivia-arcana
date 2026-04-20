@@ -12,7 +12,8 @@ import type { PriceKey } from "@/lib/payments";
 export default function Pricing() {
   const { t } = useLocale();
   const { isVip, manageSubscription } = useSubscription();
-  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">("monthly");
+  // Annual-first — most subscribers end up here anyway and it anchors perceived value
+  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">("annual");
 
   const aLaCarteItems: { name: string; price: string; priceKey: PriceKey }[] = [
     { name: t("price_i1"), price: "$3.90", priceKey: "birth_chart" },
@@ -62,53 +63,19 @@ export default function Pricing() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Free Tier */}
+        {/* VIP-first, larger on the left. On mobile both cards stack normally */}
+        <div
+          className="grid gap-8 max-w-4xl mx-auto md:grid-cols-[1.15fr_0.85fr]"
+        >
+          {/* VIP Tier — the highlight */}
           <ScrollFloat index={0} intensity="subtle">
-          <div className="glass-card p-4 md:p-8">
-            <div className="mb-6">
-              <h3 className="font-[family-name:var(--font-heading)] text-2xl font-semibold text-warm-ivory mb-2">
-                {t("price_free")}
-              </h3>
-              <p className="text-muted-lavender text-sm">{t("price_free_desc")}</p>
-            </div>
-
-            <div className="mb-8">
-              <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-warm-ivory">$0</span>
-              <span className="text-muted-lavender text-sm ml-2">{t("price_forever")}</span>
-            </div>
-
-            <ul className="space-y-4 mb-8">
-              {[
-                t("price_free_f1"),
-                t("price_free_f2"),
-                t("price_free_f3"),
-                t("price_free_f4"),
-                t("price_free_f5"),
-                t("price_free_f6"),
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm text-muted-lavender">
-                  <span className="text-cosmic-teal mt-0.5">&#10003;</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <MagneticButton href="/onboarding" variant="glass" size="md" className="w-full justify-center">
-              {t("price_start_free")}
-            </MagneticButton>
-          </div>
-          </ScrollFloat>
-
-          {/* VIP Tier */}
-          <ScrollFloat index={1} intensity="subtle">
           <div
             className="relative glass-card p-4 md:p-8 animate-pulse-glow"
-            style={{ border: "1px solid rgba(212, 175, 55, 0.3)" }}
+            style={{ border: "1px solid rgba(212, 175, 55, 0.45)" }}
           >
-            {/* Popular badge */}
+            {/* Most-chosen chip */}
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-celestial-gold text-void-black text-xs font-semibold">
-              {t("price_popular")}
+              ✦ Most chosen
             </div>
 
             <div className="mb-6">
@@ -122,17 +89,22 @@ export default function Pricing() {
             </div>
 
             <div className="mb-8">
-              {billingPeriod === "monthly" ? (
+              {billingPeriod === "annual" ? (
                 <>
-                  <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-celestial-gold">$6.50</span>
-                  <span className="text-muted-lavender text-sm ml-2">{t("price_month")}</span>
+                  <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-celestial-gold">$65</span>
+                  <span className="text-muted-lavender text-sm ml-2">/ year</span>
+                  <p className="text-xs text-muted-lavender/80 mt-1">
+                    <span className="text-cosmic-teal">$5.42 per month</span>{" "}
+                    <span aria-hidden>·</span> billed annually <span aria-hidden>·</span>{" "}
+                    2 months free
+                  </p>
                 </>
               ) : (
                 <>
-                  <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-celestial-gold">$65</span>
-                  <span className="text-muted-lavender text-sm ml-2">/year</span>
-                  <p className="text-xs text-cosmic-teal mt-1">
-                    That&apos;s $5.42/month &mdash; 2 months free
+                  <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-celestial-gold">$6.50</span>
+                  <span className="text-muted-lavender text-sm ml-2">{t("price_month")}</span>
+                  <p className="text-xs text-muted-lavender/80 mt-1">
+                    Billed monthly <span aria-hidden>·</span> switch to annual any time to save 17%
                   </p>
                 </>
               )}
@@ -177,9 +149,47 @@ export default function Pricing() {
               </CheckoutButton>
             )}
 
-            <p className="text-center text-xs text-muted-lavender/60 mt-3">
-              3-day free trial &middot; Cancel anytime
+            {/* Refund + cancellation microcopy under the gold CTA */}
+            <p className="text-center text-xs text-muted-lavender/80 mt-3">
+              14-day refund <span aria-hidden>·</span> cancel any time <span aria-hidden>·</span> no questions.
             </p>
+          </div>
+          </ScrollFloat>
+
+          {/* Free Tier — secondary */}
+          <ScrollFloat index={1} intensity="subtle">
+          <div className="glass-card p-4 md:p-8">
+            <div className="mb-6">
+              <h3 className="font-[family-name:var(--font-heading)] text-2xl font-semibold text-warm-ivory mb-2">
+                {t("price_free")}
+              </h3>
+              <p className="text-muted-lavender text-sm">{t("price_free_desc")}</p>
+            </div>
+
+            <div className="mb-8">
+              <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-warm-ivory">$0</span>
+              <span className="text-muted-lavender text-sm ml-2">{t("price_forever")}</span>
+            </div>
+
+            <ul className="space-y-4 mb-8">
+              {[
+                t("price_free_f1"),
+                t("price_free_f2"),
+                t("price_free_f3"),
+                t("price_free_f4"),
+                t("price_free_f5"),
+                t("price_free_f6"),
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3 text-sm text-muted-lavender">
+                  <span className="text-cosmic-teal mt-0.5">&#10003;</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <MagneticButton href="/onboarding" variant="glass" size="md" className="w-full justify-center">
+              {t("price_start_free")}
+            </MagneticButton>
           </div>
           </ScrollFloat>
         </div>
