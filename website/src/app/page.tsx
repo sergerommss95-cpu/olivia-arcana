@@ -50,13 +50,10 @@ export default function Home() {
       <main id="main-content" className="relative z-10">
         <Hero />
         <div ref={sectionsRef}>
-          {/* Each section floats in with scroll-scrubbed micro-animations */}
-          <ScrollFloat index={0}>
-            <DailyHoroscope />
-          </ScrollFloat>
-          <ScrollFloat index={1}>
-            <CompatibilityChecker />
-          </ScrollFloat>
+          {/* Quiet sections: no scroll-scrubbed entrance — they breathe on their own */}
+          <DailyHoroscope />
+          <CompatibilityChecker />
+
           {/* Infinite marquee strip — trust & capability signal */}
           <div style={{ padding: "3rem 0" }}>
             <InfiniteMarquee speed={30} gap={56}>
@@ -78,24 +75,21 @@ export default function Home() {
             </InfiniteMarquee>
           </div>
 
-          <ScrollFloat index={2}>
+          {/* Scroll-scrubbed sections — subtle on the journey, dramatic on Pricing */}
+          <ScrollFloat index={0} intensity="subtle">
             <Features />
           </ScrollFloat>
-          <ScrollFloat index={3}>
+          <ScrollFloat index={1} intensity="subtle">
             <HowItWorks />
           </ScrollFloat>
-          <ScrollFloat index={4}>
+          <ScrollFloat index={2} intensity="subtle">
             <Testimonials />
           </ScrollFloat>
-          <ScrollFloat index={5}>
-            <CosmicSelfie />
-          </ScrollFloat>
-          <ScrollFloat index={6}>
+          <CosmicSelfie />
+          <ScrollFloat index={3} intensity="dramatic">
             <Pricing />
           </ScrollFloat>
-          <ScrollFloat index={7}>
-            <CTA />
-          </ScrollFloat>
+          <CTA />
         </div>
       </main>
 
