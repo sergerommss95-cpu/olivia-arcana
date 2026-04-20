@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { getSession } from "../lib/supabase";
 import LanguageSwitcher from "./LanguageSwitcher";
 import TransitionLink from "@/components/transitions/TransitionLink";
+import MagneticButton from "@/components/MagneticButton";
 import { useLocale } from "../lib/i18n/useLocale";
 import { openCommandPalette } from "./CommandPalette";
 import { useProfile } from "../lib/user/profile-store";
@@ -12,6 +13,10 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isMac, setIsMac] = useState(false);
+  // Sticky "Draw today's card" CTA: hidden while Hero is in viewport,
+  // fades in once the hero section has fully scrolled out. On pages other
+  // than home (no #main-content > section:first-child), stays hidden.
+  const [heroVisible, setHeroVisible] = useState(true);
   const { t } = useLocale();
   const { profile } = useProfile();
 
@@ -30,6 +35,23 @@ export default function Navbar() {
       setIsMac(/Mac|iPhone|iPad|iPod/.test(navigator.platform));
     }
   }, []);
+
+  // Observe the first section inside <main id="main-content"> (the Hero)
+  // so we know when the user has scrolled past it. When absent (non-home
+  // pages), the sticky CTA simply stays hidden — safe fallback.
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof IntersectionObserver === "undefined") return;
+    const target = document.querySelector<HTMLElement>("#main-content > section:first-child");
+    if (!target) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setHeroVisible(entry.isIntersecting),
+      { threshold: 0, rootMargin: "0px" }
+    );
+    obs.observe(target);
+    return () => obs.disconnect();
+  }, []);
+
+  const showStickyCta = !heroVisible;
 
   const searchLabel = t("search_open");
   const shortcut = isMac ? "\u2318K" : "Ctrl K";
@@ -74,6 +96,26 @@ export default function Navbar() {
                 {shortcut}
               </kbd>
             </button>
+            {/* Sticky CTA — fades in once the Hero section leaves the viewport */}
+            <div
+              className="sticky-cta"
+              aria-hidden={!showStickyCta}
+              style={{
+                opacity: showStickyCta ? 1 : 0,
+                transform: showStickyCta ? "translateY(0)" : "translateY(-6px)",
+                pointerEvents: showStickyCta ? "auto" : "none",
+                transition:
+                  "opacity 400ms var(--ease-ritual, cubic-bezier(0.16,1,0.3,1)), transform 400ms var(--ease-ritual, cubic-bezier(0.16,1,0.3,1))",
+              }}
+            >
+              <MagneticButton
+                variant="gold"
+                size="sm"
+                href="/academy/card-of-the-day"
+              >
+                Draw today&rsquo;s card →
+              </MagneticButton>
+            </div>
             {profile && (
               <TransitionLink
                 href={`/signs/${profile.signSlug}`}
