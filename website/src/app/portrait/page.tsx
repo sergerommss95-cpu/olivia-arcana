@@ -13,6 +13,7 @@ import { computeNatalChart, type NatalChart, type BirthInput } from "../../lib/n
 import { saveUser } from "../../lib/user-store";
 import BirthDatePicker from "../../components/BirthDatePicker";
 import CityAutocomplete from "../../components/CityAutocomplete";
+import CosmicField from "../../components/CosmicField";
 import { type CityData } from "../../lib/cities";
 import { getPlanetInSign, PLANET_MEANING, HOUSE_MEANING, LIFE_AREAS, PLANET_LIFE_AREA } from "../../lib/planet-interpretations";
 
@@ -172,10 +173,13 @@ export default function PortraitPage() {
           boxShadow: "0 8px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)",
         }}>
           {/* Name */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-            <span style={labelSt}>Your Name (optional)</span>
-            <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} style={{ ...inputStyle, textAlign: "left" }} />
-          </div>
+          <CosmicField
+            label="Your Name (optional)"
+            placeholder="Name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
 
           {/* Date */}
           <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
@@ -184,17 +188,35 @@ export default function PortraitPage() {
           </div>
 
           {/* Time */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-            <span style={labelSt}>Birth Time {timeUnknown ? "(using noon)" : "*"}</span>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem" }}>
             {!timeUnknown && (
-              <input type="time" value={time} onChange={e => setTime(e.target.value)} style={{ ...inputStyle, colorScheme: "dark" }} />
+              <CosmicField
+                label={`Birth Time ${timeUnknown ? "(using noon)" : "*"}`}
+                type="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                style={{ colorScheme: "dark" }}
+              />
             )}
-            <button onClick={() => { setTimeUnknown(!timeUnknown); setTime(""); }} style={{
-              background: "none", border: "none", cursor: "pointer",
-              fontFamily: "var(--font-body)", fontSize: "0.68rem",
-              color: timeUnknown ? "rgba(212,175,55,0.6)" : "rgba(180,170,210,0.35)",
-              transition: "color 0.2s", textAlign: "left",
-            }}>{timeUnknown ? "✓ Using noon — Ascendant will be approximate" : "I don't know my birth time"}</button>
+            <button
+              onClick={() => {
+                setTimeUnknown(!timeUnknown);
+                setTime("");
+              }}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                fontFamily: "var(--font-body)",
+                fontSize: "0.68rem",
+                color: timeUnknown ? "rgba(212,175,55,0.6)" : "rgba(180,170,210,0.45)",
+                transition: "color 0.2s",
+                textAlign: "left",
+                alignSelf: "flex-start",
+              }}
+            >
+              {timeUnknown ? "✓ Using noon — Ascendant will be approximate" : "I don't know my birth time"}
+            </button>
           </div>
 
           {/* City */}

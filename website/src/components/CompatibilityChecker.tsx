@@ -12,6 +12,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { getSunSign } from "../lib/zodiac-utils";
 import { useLocale } from "../lib/i18n/useLocale";
+import CosmicField from "./CosmicField";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -39,7 +40,15 @@ const GLYPHS: Record<string, string> = {
   Sagittarius: "♐", Capricorn: "♑", Aquarius: "♒", Pisces: "♓",
 };
 
-function BirthdayInput({ value, onChange, label }: { value: string; onChange: (v: string) => void; label: string }) {
+function BirthdayInput({
+  value,
+  onChange,
+  label,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  label: string;
+}) {
   const handleChange = (raw: string) => {
     let v = raw.replace(/[^\d\/\-\.]/g, "");
     if (v.length === 2 && !v.includes("/") && !v.includes("-") && value.length < v.length) v += "/";
@@ -48,26 +57,15 @@ function BirthdayInput({ value, onChange, label }: { value: string; onChange: (v
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.4rem", flex: 1 }}>
-      <span style={{
-        fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 500,
-        letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(180,170,210,0.45)",
-      }}>{label}</span>
-      <input
-        type="text"
+    <div style={{ flex: 1, maxWidth: "140px" }}>
+      <CosmicField
+        size="sm"
+        label={label}
         placeholder="MM / DD"
+        inputMode="numeric"
         value={value}
         onChange={(e) => handleChange(e.target.value)}
-        style={{
-          width: "120px", padding: "0.6rem 1rem", textAlign: "center",
-          fontFamily: "var(--font-accent)", fontSize: "1rem", letterSpacing: "0.1em",
-          color: "rgba(240,236,255,0.9)", background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(200,185,255,0.12)", borderRadius: "9999px",
-          backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
-          outline: "none", transition: "border-color 0.3s",
-        }}
-        onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(200,185,255,0.3)"; }}
-        onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(200,185,255,0.12)"; }}
+        style={{ textAlign: "center" }}
       />
     </div>
   );
