@@ -15,10 +15,39 @@
 
 "use client";
 
-import React from "react";
+import React, { useCallback, useRef, useState } from "react";
 import Link from "next/link";
 
 export default function OliviaIntro() {
+  // Portrait is shown by default. When the user clicks the play
+  // overlay, we swap to a <video> element with sound and play it.
+  // When it ends (or the user closes it) we fade back to the portrait.
+  const [playing, setPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handlePlay = useCallback(() => {
+    setPlaying(true);
+    // Give React a frame to mount the <video>, then play with sound
+    requestAnimationFrame(() => {
+      const v = videoRef.current;
+      if (!v) return;
+      v.currentTime = 0;
+      v.muted = false;
+      v.volume = 1;
+      void v.play();
+    });
+  }, []);
+
+  const handleEnded = useCallback(() => {
+    setPlaying(false);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    const v = videoRef.current;
+    if (v) v.pause();
+    setPlaying(false);
+  }, []);
+
   return (
     <section
       aria-labelledby="olivia-heading"
@@ -29,76 +58,73 @@ export default function OliviaIntro() {
       }}
     >
       <div className="olivia-grid">
-        {/* Portrait — editorial photograph frame (Direction 1: Editorial
-            Astrologer). The placeholder shows a faint silhouette inside
-            a portrait-proportioned frame with a hairline gold border, a
-            subtle radial vignette, and a discreet caption underneath
-            that cites the commission path — so the layout visibly
-            reserves space for a real 4:5 photograph rather than
-            suggesting an illustration is the end state. Replace the
-            <svg> below with <Image src="/olivia/portrait.jpg" …/> once
-            the HeyGen source portrait is generated and approved. */}
-        <div className="olivia-portrait-wrap" aria-hidden>
+        {/* Portrait — Direction 1 (Editorial Astrologer), real photograph.
+            Click the gold play pill to swap to her HeyGen intro video
+            with sound. When the video ends or the user closes it, we
+            fade back to the still portrait. */}
+        <div className="olivia-portrait-wrap">
           <div className="olivia-portrait-frame">
-            <svg
-              viewBox="0 0 320 400"
-              className="olivia-portrait"
-              preserveAspectRatio="xMidYMid meet"
-              role="img"
-              aria-label="Olivia portrait — placeholder pending photography"
-            >
-              <defs>
-                <radialGradient id="olivia-bg" cx="50%" cy="40%" r="70%">
-                  <stop offset="0%"  stopColor="rgba(34, 22, 62, 1)" />
-                  <stop offset="65%" stopColor="rgba(14, 10, 36, 1)" />
-                  <stop offset="100%" stopColor="rgba(6, 4, 26, 1)" />
-                </radialGradient>
-                <radialGradient id="olivia-rim" cx="50%" cy="38%" r="55%">
-                  <stop offset="0%"  stopColor="rgba(232, 201, 106, 0.25)" />
-                  <stop offset="70%" stopColor="rgba(232, 201, 106, 0)" />
-                </radialGradient>
-                <linearGradient id="olivia-silhouette" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="rgba(46, 30, 72, 0.9)" />
-                  <stop offset="100%" stopColor="rgba(18, 12, 42, 0.9)" />
-                </linearGradient>
-              </defs>
+            {/* The still portrait is always rendered. The video sits on
+                top and is only visible while playing — gives a clean
+                fade transition between the two. */}
+            <img
+              src="/olivia/portrait.jpg"
+              alt="Olivia — Editorial Astrologer at Olivia Arcana"
+              className="olivia-portrait-img"
+              loading="lazy"
+              decoding="async"
+              width={1280}
+              height={1600}
+            />
 
-              {/* Editorial studio backdrop — warm gold fades into cosmic void */}
-              <rect width="320" height="400" fill="url(#olivia-bg)" />
-              <rect width="320" height="400" fill="url(#olivia-rim)" />
-
-              {/* Faint silhouette of a head-and-shoulders portrait —
-                  signals "a photograph goes here" without cartoonifying. */}
-              <g opacity="0.55">
-                {/* Shoulders */}
-                <path
-                  d="M66 400 L66 330 Q 80 296 110 284 Q 130 278 160 278 Q 190 278 210 284 Q 240 296 254 330 L254 400 Z"
-                  fill="url(#olivia-silhouette)"
-                />
-                {/* Head */}
-                <ellipse cx="160" cy="220" rx="56" ry="68" fill="url(#olivia-silhouette)" />
-                {/* Neck */}
-                <rect x="140" y="275" width="40" height="18" fill="url(#olivia-silhouette)" />
-                {/* Soft loose hair shape */}
-                <path
-                  d="M100 220 Q 96 180 112 158 Q 140 138 160 138 Q 180 138 208 158 Q 224 180 220 220 Q 216 240 204 250 Q 192 252 180 245 Q 160 256 140 245 Q 128 252 116 250 Q 104 240 100 220 Z"
-                  fill="url(#olivia-silhouette)"
-                  opacity="0.72"
-                />
-              </g>
-
-              {/* Hairline gold border just inside the frame */}
-              <rect x="8" y="8" width="304" height="384" rx="6"
-                fill="none"
-                stroke="rgba(232, 201, 106, 0.35)"
-                strokeWidth="0.75"
+            {/* Video — mounted only when playing so we don't pay the
+                metadata download until the user asks for it. */}
+            {playing && (
+              <video
+                ref={videoRef}
+                className="olivia-portrait-video"
+                src="/videos/olivia-intro.mp4"
+                poster="/olivia/portrait.jpg"
+                playsInline
+                preload="auto"
+                onEnded={handleEnded}
+                onClick={handleClose}
+                aria-label="Olivia introducing herself"
               />
-            </svg>
+            )}
+
+            {/* Play pill — fades out while video plays */}
+            <button
+              type="button"
+              className={`olivia-play${playing ? " olivia-play-hidden" : ""}`}
+              onClick={handlePlay}
+              aria-label="Play Olivia's introduction"
+              tabIndex={playing ? -1 : 0}
+            >
+              <svg
+                width="14" height="14" viewBox="0 0 14 14"
+                aria-hidden
+                style={{ marginRight: "0.5em" }}
+              >
+                <path d="M3 1.5 L3 12.5 L12 7 Z" fill="currentColor" />
+              </svg>
+              <span>Hear Olivia&rsquo;s introduction</span>
+              <span className="olivia-play-meta" aria-hidden>· 27s</span>
+            </button>
+
+            {/* Tiny close cross that appears while video plays */}
+            {playing && (
+              <button
+                type="button"
+                className="olivia-video-close"
+                onClick={handleClose}
+                aria-label="Stop video"
+              >
+                <span aria-hidden>×</span>
+              </button>
+            )}
           </div>
 
-          <p className="olivia-portrait-caption">
-            Portrait placeholder · photography commission pending
-          </p>
           <p className="olivia-portrait-signature">
             <span aria-hidden>✦</span> Olivia
           </p>
@@ -201,16 +227,112 @@ export default function OliviaIntro() {
           height: 100%;
           display: block;
         }
-        .olivia-portrait-caption {
-          font-family: var(--font-mono, "IBM Plex Mono"), monospace;
-          font-size: 0.56rem;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-          color: var(--c-text-muted, rgba(190, 180, 225, 0.52));
-          margin: 0;
-          text-align: center;
-          opacity: 0.55;
+        .olivia-portrait-img,
+        .olivia-portrait-video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
         }
+        .olivia-portrait-video {
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          background: var(--c-void, #06041a);
+          animation: oliviaVideoIn 420ms cubic-bezier(0.16,1,0.3,1) both;
+          cursor: pointer;
+        }
+        @keyframes oliviaVideoIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+
+        /* Play pill — bottom-center, gold, semi-transparent */
+        .olivia-play {
+          position: absolute;
+          left: 50%;
+          bottom: 1rem;
+          transform: translateX(-50%);
+          z-index: 3;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.1em;
+          padding: 0.55rem 1.05rem;
+          border-radius: 9999px;
+          border: 1px solid rgba(232, 201, 106, 0.55);
+          background: rgba(6, 4, 26, 0.78);
+          -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(12px);
+          color: rgba(232, 201, 106, 0.98);
+          font-family: var(--font-body, system-ui), sans-serif;
+          font-size: 0.72rem;
+          font-weight: 500;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          cursor: pointer;
+          box-shadow: 0 0 24px rgba(212, 175, 55, 0.28);
+          transition:
+            opacity 360ms cubic-bezier(0.16,1,0.3,1),
+            transform 360ms cubic-bezier(0.16,1,0.3,1),
+            background 200ms ease,
+            border-color 200ms ease;
+        }
+        .olivia-play:hover {
+          background: rgba(6, 4, 26, 0.88);
+          border-color: rgba(255, 220, 130, 0.85);
+          color: rgba(255, 230, 150, 1);
+          transform: translateX(-50%) translateY(-1px);
+        }
+        .olivia-play:focus-visible {
+          outline: 2px solid #E8C96A;
+          outline-offset: 3px;
+        }
+        .olivia-play-hidden {
+          opacity: 0;
+          pointer-events: none;
+          transform: translateX(-50%) translateY(6px);
+        }
+        .olivia-play-meta {
+          margin-left: 0.4em;
+          color: rgba(232, 201, 106, 0.55);
+          font-weight: 400;
+        }
+
+        /* Close × button — top-right of the playing video */
+        .olivia-video-close {
+          position: absolute;
+          top: 0.65rem;
+          right: 0.65rem;
+          z-index: 4;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          border: 1px solid rgba(232, 201, 106, 0.45);
+          background: rgba(6, 4, 26, 0.7);
+          -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+          color: rgba(245, 240, 232, 0.9);
+          font-size: 1.2rem;
+          line-height: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          padding: 0;
+          transition: background 180ms ease, border-color 180ms ease;
+        }
+        .olivia-video-close:hover {
+          background: rgba(6, 4, 26, 0.92);
+          border-color: rgba(255, 220, 130, 0.85);
+        }
+        .olivia-video-close:focus-visible {
+          outline: 2px solid #E8C96A;
+          outline-offset: 3px;
+        }
+        .olivia-video-close span {
+          transform: translateY(-1px);
+        }
+
         .olivia-portrait-signature {
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
           font-style: italic;
