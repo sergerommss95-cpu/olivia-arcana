@@ -38,9 +38,9 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { TarotCard } from "@/lib/academy/tarot-cards";
 import { getCardImagePath } from "@/lib/academy/card-images";
 
-const DROP_DURATION = 2.8;
-const RAISE_DURATION = 1.4;
-const FLASH_DURATION = 0.28; // anticipation flash length
+const DROP_DURATION = 3.2;
+const RAISE_DURATION = 1.8;
+const FLASH_DURATION = 0.32; // anticipation flash length
 
 const VERTEX_SRC = /* glsl */ `
   attribute vec2 aPosition;
@@ -149,8 +149,18 @@ const FRAGMENT_SRC = /* glsl */ `
     // Wispy noise displacement — fabric-edge tearing
     float wispy = (fbm(vec2(uv.x * 5.5, uTime * 0.4 + drop * 5.0)) - 0.5) * 0.17;
 
+    // Fold-aware fall — pleated fabric doesn't fall as a single line.
+    // Fold peaks (where less fabric accumulates) fall slightly faster;
+    // fold valleys (where fabric gathers) lag. The offset varies across
+    // X matching the fold pattern used in the color layer so the edge
+    // reads as the SAME curtain, just seen in profile.
+    float edgeFoldWarp = fbm3(vec2(uv.y * 1.1 + 3.3, 0.7)) * 0.085;
+    float edgeFoldPhase = fbm3(vec2((uv.x + edgeFoldWarp) * 2.3, 0.0)) * 3.2;
+    float edgeFold = sin((uv.x + edgeFoldWarp) * 7.1 + edgeFoldPhase);
+    float foldOffset = edgeFold * 0.032 * smoothstep(0.03, 0.60, drop);
+
     // Combined falling edge
-    float edgeY = baseFall + wispy + arc + sagBoost;
+    float edgeY = baseFall + wispy + arc + sagBoost + foldOffset;
 
     // Primary veil mask — 1 BELOW the falling edge (where veil remains),
     // 0 ABOVE the falling edge (where the card is revealed). At rest
@@ -227,6 +237,42 @@ const FRAGMENT_SRC = /* glsl */ `
     // layers (shimmer, breath modulation). Combine both liquid
     // samples so later layers still key into fluid regions.
     float nebula = (liqA + liqB) * 0.5;
+
+    // ══ LAYER 1b — CURTAIN FOLDS (uneven vertical drape) ═════════════
+    // Real curtains hang in pleats: vertical bands of darker valleys
+    // and lighter peaks, with uneven fold widths because fabric drapes
+    // organically. This is a structural layer — the fold positions are
+    // anchored to X (not time) so they feel like the fabric's geometry,
+    // not a traveling pattern. Very slow sway (0.015 rad/s) hints that
+    // the air moves faintly through the room.
+    float foldXWarp = fbm3(vec2(uv.y * 1.1, 0.7)) * 0.085;
+    float foldX = uv.x + foldXWarp;
+    // Primary drape — 6–8 pleats across the width, phase perturbed by
+    // noise so their widths are UNEVEN (not a regular striped pattern).
+    float foldPhase = fbm3(vec2(foldX * 2.3, 0.0)) * 3.2 + uTime * 0.015;
+    float primaryFold = sin(foldX * 7.1 + foldPhase);
+    // Secondary ripple — finer sub-folds inside each major pleat.
+    float secondaryFold = sin(foldX * 19.0 + fbm3(vec2(uv.y * 4.0, foldX * 3.0)) * 4.2);
+    // Combined fold signal — primary dominates, secondary adds detail.
+    float foldSignal = primaryFold * 1.0 + secondaryFold * 0.35;
+    foldSignal = foldSignal * 0.5 + 0.5;  // 0..1, 0=valley, 1=peak
+    foldSignal = smoothstep(0.10, 0.95, foldSignal); // crisp the contrast
+
+    // Modulate the liquid color:
+    //  • Valleys (foldSignal ≈ 0) → 60% brightness (deep fold shadow)
+    //  • Peaks   (foldSignal ≈ 1) → full brightness (catches light)
+    float foldMultiplier = 0.58 + 0.42 * foldSignal;
+    nebulaCol *= foldMultiplier;
+
+    // Warm highlights on the fold peaks — thin bright seams where the
+    // fabric catches candlelight.
+    float peakRidge = smoothstep(0.78, 0.98, foldSignal);
+    nebulaCol += vec3(0.94, 0.80, 0.46) * peakRidge * 0.22;
+
+    // Darken the bottoms of folds slightly more as they recede — gives
+    // volumetric depth (fabric valleys gather shadow).
+    float valleyGloom = smoothstep(0.0, 0.25, foldSignal);
+    nebulaCol *= 1.0 - (1.0 - valleyGloom) * 0.20;
 
     // ══ LAYER 2 — SILK FABRIC WEAVE ══════════════════════════════════
     // Cross-hatched sine lines with fbm shear. Frequencies chosen to
@@ -349,10 +395,51 @@ function createProgram(gl: WebGLRenderingContext, vs: string, fs: string) {
 }
 
 // ── Eases ─────────────────────────────────────────────────────────────
-// Drop — out-expo: fast initial acceleration (gravity), long tail settlement
-function easeOutExpo(t: number): number { return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t); }
-// Raise — in-out-cubic: intentional, even-paced
-function easeInOutCubic(t: number): number { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; }
+// Drop — "silk fall" four-phase curve: release → gravity → decel → cushion.
+// Standard eases don't feel like real fabric falling: ease-out-expo snaps
+// and drags, ease-in-out is too symmetric. This piecewise curve mimics the
+// physics of a curtain under gravity that then settles — slow release
+// (fabric tension easing), accelerating middle (gravity pulls), deceler-
+// ating late (fabric weight resists), and a gentle cushion at the end.
+function silkFall(t: number): number {
+  if (t <= 0) return 0;
+  if (t >= 1) return 1;
+  // Phase 1 — release (0..15% time → 0..5% distance)
+  // Very slow start: fabric just beginning to give.
+  if (t < 0.15) {
+    const tt = t / 0.15;
+    return tt * tt * tt * 0.05;
+  }
+  // Phase 2 — gravity acceleration (15..65% time → 5..75% distance)
+  // Quadratic ease-in: velocity grows, distance accumulates.
+  if (t < 0.65) {
+    const tt = (t - 0.15) / 0.50;
+    const eased = tt * tt;
+    return 0.05 + eased * 0.70;
+  }
+  // Phase 3 — deceleration (65..92% time → 75..97% distance)
+  // Ease-out-quart: the fabric's weight arrests its fall.
+  if (t < 0.92) {
+    const tt = (t - 0.65) / 0.27;
+    const eased = 1 - Math.pow(1 - tt, 2.5);
+    return 0.75 + eased * 0.22;
+  }
+  // Phase 4 — cushion (92..100% time → 97..100% distance)
+  // Soft ease-out-cubic: the settle, graceful and final.
+  const tt = (t - 0.92) / 0.08;
+  const eased = 1 - Math.pow(1 - tt, 2);
+  return 0.97 + eased * 0.03;
+}
+
+// Raise — "silk pulled" in-out-quart: intentional, graceful draw.
+// Slow initial reach, sustained lift, slow settle at the top.
+function silkRaise(t: number): number {
+  if (t <= 0) return 0;
+  if (t >= 1) return 1;
+  return t < 0.5
+    ? 8 * t * t * t * t
+    : 1 - Math.pow(-2 * t + 2, 4) / 2;
+}
 
 interface CurtainVeilCardProps {
   card: TarotCard;
@@ -463,7 +550,7 @@ export default function CurtainVeilCard({
       if (anim) {
         const duration = anim.direction === "drop" ? DROP_DURATION : RAISE_DURATION;
         const t = Math.min(1, (now - anim.startTime) / (duration * 1000));
-        const eased = anim.direction === "drop" ? easeOutExpo(t) : easeInOutCubic(t);
+        const eased = anim.direction === "drop" ? silkFall(t) : silkRaise(t);
         const target = anim.direction === "drop" ? 1 : 0;
         dropProgress.current = anim.from + (target - anim.from) * eased;
         if (t >= 1) {
