@@ -19,7 +19,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import MagneticButton from "@/components/MagneticButton";
-import CurtainVeilCard from "@/components/shaders/CurtainVeilCard";
+import CinematicVeilCard from "@/components/shaders/CinematicVeilCard";
 import LivingPaperCard from "@/components/shaders/LivingPaperCard";
 import CausticsCard from "@/components/shaders/CausticsCard";
 import SmokeRevealCard from "@/components/shaders/SmokeRevealCard";
@@ -183,7 +183,7 @@ export default function HeroV3() {
               mounts/unmounts when the variant changes (no wrapper-div
               remount → smoother switch). */}
           <div className="heroV3-card-wrap">
-            {variant === "curtain"  && <CurtainVeilCard   key="curtain"  {...cardProps} />}
+            {variant === "curtain"  && <CinematicVeilCard key="curtain"  {...cardProps} />}
             {variant === "paper"    && <LivingPaperCard   key="paper"    {...cardProps} />}
             {variant === "caustics" && <CausticsCard      key="caustics" {...cardProps} />}
             {variant === "smoke"    && <SmokeRevealCard   key="smoke"    {...cardProps} />}

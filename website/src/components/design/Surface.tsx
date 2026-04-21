@@ -83,10 +83,10 @@ export default function Surface({
     };
   } // "bare" → look stays {}
 
-  return (
-    <Tag style={{ ...base, ...look, ...style }} {...rest}>
-      {children}
-    </Tag>
+  return React.createElement(
+    Tag,
+    { style: { ...base, ...look, ...style }, ...rest },
+    children
   );
 }
 
