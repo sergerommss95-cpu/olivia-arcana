@@ -73,16 +73,16 @@ const FRAGMENT_SRC = /* glsl */ `
     );
     float n = fbm(asp * 2.4 + q * 1.2 + vec2(uTime * 0.04, -uTime * 0.03));
 
-    // Cursor attention — clears the veil in a radius around the pointer
+    // Cursor attention — clears the paper in a radius around the pointer
     float dist = distance(asp, cur);
     float lens = 1.0 - smoothstep(0.0, 0.32, dist);
     lens = pow(lens, 1.6) * uAttention;
 
-    // Baseline veil — never fully opaque. Even with no cursor, ~35% visible
-    // card through the paper so the user knows there's something there.
-    float baseVeil = 0.55 + 0.35 * n;     // range 0.55..0.9
-    float veil = clamp(baseVeil - lens * 0.95, 0.0, 1.0);
-    veil = smoothstep(0.04, 0.96, veil);
+    // Baseline paper — subtle living overlay on top of a clearly visible
+    // card. Without the cursor, paper opacity hovers around 12–22% so the
+    // card is always legible. Cursor attention drops it to near-zero.
+    float basePaper = 0.12 + 0.10 * n;       // range 0.12..0.22
+    float paper = clamp(basePaper - lens * 0.22, 0.0, 1.0);
 
     // Paper color — void base with gold shimmer on "folds" (high n regions)
     vec3 paperVoid = vec3(0.024, 0.016, 0.102);     // --c-void
@@ -91,12 +91,12 @@ const FRAGMENT_SRC = /* glsl */ `
     vec3 paperColor = mix(paperVoid, paperGold, shimmer * 0.55);
 
     vec4 card = texture2D(uCard, uv);
-    vec3 final = mix(card.rgb, paperColor, veil);
+    vec3 final = mix(card.rgb, paperColor, paper);
 
     // Soft gold rim glow around the cursor lens — gives feedback that
     // focus is doing something, without being a heavy UI element.
     float rim = smoothstep(0.28, 0.32, dist) - smoothstep(0.32, 0.38, dist);
-    final += vec3(0.92, 0.79, 0.42) * rim * 0.28 * uAttention;
+    final += vec3(0.92, 0.79, 0.42) * rim * 0.22 * uAttention;
 
     gl_FragColor = vec4(final, 1.0);
   }

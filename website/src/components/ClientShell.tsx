@@ -35,13 +35,6 @@ import TimeOfDayTheme from "@/components/TimeOfDayTheme";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import { SubscriptionProvider } from "@/hooks/useSubscription";
 
-// Mesh-gradient atmosphere replaces GlobalBackground + overlay stack on /v3.
-// Dynamic-imported so it doesn't ship on /, /v2, or anything else.
-const MeshAtmosphereLazy = dynamic(() => import("@/components/shaders/MeshAtmosphere"), {
-  ssr: false,
-  loading: () => null,
-});
-
 /* ── Deferred trio — don't matter until first user intent ─────────────── */
 const AmbientSoundLazy = dynamic(() => import("@/components/AmbientSound"), {
   ssr: false,
@@ -64,8 +57,7 @@ export default function ClientShell({ children }: { children: React.ReactNode })
 
   // /v2 and /v3 are Sprint 3 proposals testing the argument
   // "too many overlays are fighting for attention" — so on both we
-  // render a reduced set. /v3 additionally swaps GlobalBackground for
-  // the shader mesh-gradient atmosphere.
+  // render a reduced set. Site background is shared on every route.
   const pathname = usePathname();
   const isV2 = pathname?.startsWith("/v2") ?? false;
   const isV3 = pathname?.startsWith("/v3") ?? false;
@@ -97,10 +89,10 @@ export default function ClientShell({ children }: { children: React.ReactNode })
     <>
       {mounted && (
         <>
-          {/* Background — /v3 uses the shader mesh gradient instead of
-              the GlobalBackground starfield. Everywhere else uses the
-              existing persistent WebGL void. */}
-          {isV3 ? <MeshAtmosphereLazy /> : <GlobalBackground />}
+          {/* Layer 0 — The Void (persistent WebGL). Same on every
+              route, including /v2 and /v3. The shader experiments are
+              scoped to the card area, not the site background. */}
+          <GlobalBackground />
 
           {/* Always-on: palette drift + smooth scroll + page transitions */}
           <TimeOfDayTheme />
