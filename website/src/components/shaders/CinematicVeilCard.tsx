@@ -39,56 +39,28 @@ import { TextureLoader } from "three";
 import gsap from "gsap";
 import type { TarotCard } from "@/lib/academy/tarot-cards";
 import { getCardImagePath } from "@/lib/academy/card-images";
+import { PBDCloth } from "@/components/veil-reveal/PBDCloth";
 
 // ─────────────────────────────────────────────────────────────────────
 //  SHADER MATERIAL — silk veil with iridescent flow + gravity deform
 // ─────────────────────────────────────────────────────────────────────
 
 const VEIL_VERTEX = /* glsl */ `
-  uniform float uFall;
-  uniform float uTime;
+  // Position-Based Dynamics cloth drives the actual vertex positions
+  // (see Veil component — CPU simulation writes the geometry buffer
+  // each frame). This shader just passes through UVs and transformed
+  // normals so the fragment shader can do proper rim lighting and
+  // fresnel based on the cloth's real deformation.
   varying vec2 vUv;
-  varying float vFall;
-  varying float vWind;
-
-  float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
-  float noise(vec2 p) {
-    vec2 i = floor(p); vec2 f = fract(p);
-    vec2 u = f * f * (3.0 - 2.0 * f);
-    return mix(
-      mix(hash(i), hash(i + vec2(1,0)), u.x),
-      mix(hash(i + vec2(0,1)), hash(i + vec2(1,1)), u.x), u.y);
-  }
+  varying vec3 vNormal;
+  varying vec3 vViewPos;
 
   void main() {
-    vec3 pos = position;
-
-    // Accelerating fall — quadratic gravity feel
-    float fallY = uFall * uFall * 4.0;
-    pos.y -= fallY;
-
-    // Wind sway — horizontal noise-perturbed motion during fall
-    float windAmp = uFall * 0.12;
-    float windBase = sin(uTime * 1.6 + position.y * 2.4 + position.x * 1.8) * 0.4;
-    float windNoise = (noise(vec2(position.y * 3.0, uTime * 0.6)) - 0.5) * 0.6;
-    float wind = (windBase + windNoise) * windAmp;
-    pos.x += wind;
-
-    // Subtle outward spread as the cloth catches air
-    pos.x *= 1.0 + uFall * 0.03;
-
-    // Z-wobble — cloth rippling through depth during fall
-    float zWobble = sin(uTime * 2.0 + position.y * 5.0 + position.x * 3.0) * 0.06 * uFall;
-    pos.z += zWobble;
-
-    // Top vertices get slightly more drag — subtle "whipping" at the top
-    float topBias = smoothstep(0.7, 1.5, position.y) * uFall * 0.15;
-    pos.y += topBias;
-
     vUv = uv;
-    vFall = uFall;
-    vWind = wind;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    vNormal = normalize(normalMatrix * normal);
+    vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
+    vViewPos = -mvPos.xyz;
+    gl_Position = projectionMatrix * mvPos;
   }
 `;
 
@@ -97,8 +69,8 @@ const VEIL_FRAGMENT = /* glsl */ `
   uniform float uTime;
   uniform float uFall;
   varying vec2 vUv;
-  varying float vFall;
-  varying float vWind;
+  varying vec3 vNormal;
+  varying vec3 vViewPos;
 
   const float TAU = 6.28318530718;
 
@@ -161,15 +133,26 @@ const VEIL_FRAGMENT = /* glsl */ `
     float peakRidge = smoothstep(0.78, 0.98, foldSignal);
     col += vec3(0.94, 0.80, 0.46) * peakRidge * 0.22;
 
-    // Mid-fall whoosh brightening
-    float whoosh = smoothstep(0.10, 0.40, vFall) * (1.0 - smoothstep(0.45, 0.85, vFall));
+    // Mid-fall whoosh brightening — the reveal moment
+    float whoosh = smoothstep(0.10, 0.40, uFall) * (1.0 - smoothstep(0.45, 0.85, uFall));
     col += vec3(1.0, 0.86, 0.52) * whoosh * 0.40;
 
-    // Wind-driven highlight — the parts being blown brighten slightly
-    col += vec3(1.0, 0.85, 0.55) * abs(vWind) * 1.2;
+    // Rim fresnel — silk sheen, brighter where the cloth faces away
+    // from the camera. As the cloth crumples during its fall, normals
+    // twist and the rim catches light across the folds.
+    vec3 viewDir = normalize(vViewPos);
+    float fresnel = 1.0 - abs(dot(viewDir, vNormal));
+    float rim = pow(fresnel, 2.4);
+    col += vec3(0.98, 0.82, 0.46) * rim * 0.55;
 
-    // Opacity — fades in the last 22% of the fall
-    float alpha = 1.0 - smoothstep(0.78, 1.0, vFall);
+    // Fold highlights — where normals pitch sharply toward the camera,
+    // catch extra gold (cloth peaks on crumples).
+    float crease = smoothstep(0.15, 0.6, abs(vNormal.x)) + smoothstep(0.15, 0.6, abs(vNormal.y));
+    col += vec3(0.92, 0.76, 0.40) * crease * 0.12;
+
+    // Opacity — fades late in the fall so the cloth stays visible while
+    // it's in frame, dissolves as it's leaving.
+    float alpha = 1.0 - smoothstep(0.80, 1.0, uFall);
 
     gl_FragColor = vec4(col, alpha);
   }
@@ -229,20 +212,84 @@ function Card({
   );
 }
 
-/** The veil — tessellated plane with silk shader material. */
+/**
+ * The veil — a tessellated plane mesh driven by real Position-Based
+ * Dynamics cloth physics. The cloth class (PBDCloth) maintains particles,
+ * constraints, gravity, and 10-iteration Gauss-Seidel solve per step.
+ * Each frame we step the sim and copy the particle positions into the
+ * geometry's BufferAttribute, then recompute normals so the shader can
+ * do proper fresnel rim lighting on the crumpled folds.
+ *
+ * Timing: cloth starts pinned along the top row (naturally hanging).
+ * When uFall exceeds ~0.02 (GSAP triggered the drop), all pins release
+ * and gravity takes over. When uFall returns to ~0, the cloth is
+ * rebuilt from scratch so the raise animation starts fresh.
+ */
+const CLOTH_COLS = 32;
+const CLOTH_ROWS = 48;
+const VEIL_W = 2.12;
+const VEIL_H = 3.12;
+const CLOTH_GRAVITY = -2.6;
+
 function Veil({ fallRef }: { fallRef: React.MutableRefObject<{ value: number }> }) {
+  const meshRef = useRef<THREE.Mesh>(null);
   const matRef = useRef<THREE.ShaderMaterial>(null);
+  const clothRef = useRef<PBDCloth | null>(null);
+  const pinsReleasedRef = useRef(false);
+
+  // Initialize cloth on mount
+  useEffect(() => {
+    clothRef.current = new PBDCloth(CLOTH_COLS, CLOTH_ROWS, VEIL_W, VEIL_H);
+    return () => {
+      clothRef.current = null;
+    };
+  }, []);
 
   useFrame((state) => {
+    const cloth = clothRef.current;
+    const mesh = meshRef.current;
+    if (!cloth || !mesh) return;
+
+    const fall = fallRef.current.value;
+
+    // Trigger pin release once, when the drop begins
+    if (fall > 0.02 && !pinsReleasedRef.current) {
+      cloth.releaseAll();
+      pinsReleasedRef.current = true;
+    }
+
+    // On raise back to rest, rebuild a fresh cloth with top-row pins
+    if (fall < 0.005 && pinsReleasedRef.current) {
+      clothRef.current = new PBDCloth(CLOTH_COLS, CLOTH_ROWS, VEIL_W, VEIL_H);
+      pinsReleasedRef.current = false;
+      const posAttr = mesh.geometry.attributes.position as THREE.BufferAttribute;
+      (posAttr.array as Float32Array).set(clothRef.current.positions);
+      posAttr.needsUpdate = true;
+      mesh.geometry.computeVertexNormals();
+      return;
+    }
+
+    // Step the physics — two sub-steps for stability at moderate gravity
+    const dt = 1 / 120; // sub-step
+    cloth.step(dt, CLOTH_GRAVITY);
+    cloth.step(dt, CLOTH_GRAVITY);
+
+    // Copy particle positions into the geometry buffer
+    const posAttr = mesh.geometry.attributes.position as THREE.BufferAttribute;
+    (posAttr.array as Float32Array).set(cloth.positions);
+    posAttr.needsUpdate = true;
+    mesh.geometry.computeVertexNormals();
+
+    // Shader uniforms (for opacity fade + reveal brightening)
     if (matRef.current) {
-      matRef.current.uniforms.uFall.value = fallRef.current.value;
+      matRef.current.uniforms.uFall.value = fall;
       matRef.current.uniforms.uTime.value = state.clock.elapsedTime;
     }
   });
 
   return (
-    <mesh position={[0, 0, 0.01]}>
-      <planeGeometry args={[2.05, 3.05, 48, 72]} />
+    <mesh ref={meshRef} position={[0, 0, 0.01]}>
+      <planeGeometry args={[VEIL_W, VEIL_H, CLOTH_COLS - 1, CLOTH_ROWS - 1]} />
       <veilMaterial
         ref={matRef}
         transparent
