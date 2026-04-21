@@ -7,18 +7,36 @@ to HeyGen.
 
 ---
 
-## Primary prompt (Direction 1 — Editorial Astrologer, Edinburgh)
+## Primary prompt (Direction 1 — soft, deep, conversational)
+
+```
+Soft, deep female voice, mid-thirties. Low contralto register with
+warm chest resonance. Soft Edinburgh accent — educated, gentle,
+never heavy. Conversational pace, like speaking quietly across a
+small table. Natural rhythm with thoughtful pauses. Intimate and
+grounded, like a close friend explaining something complicated, or
+a late-night podcast host. Relaxed warm articulation. Never
+presenting, never theatrical. Perfect studio audio, no effects.
+```
+
+**~430 characters.** Revised from the original "measured literary
+presenter" direction toward something softer, deeper (contralto not
+mezzo), and conversational — so Olivia reads as a friend across the
+table, not a broadcast voice.
+
+### Legacy — measured literary version (if you want broadcast-ier)
 
 ```
 Warm female voice, mid-thirties. Low mezzo-soprano register with
-chest resonance. Soft Edinburgh accent — educated, not heavy
-brogue. Unhurried measured pace with thoughtful pauses. Grounded
-literary tone, like a late-night BBC Radio 3 presenter who reads
-poetry. Precise articulation with gentle warmth. Never theatrical.
-Perfect studio audio, no effects.
+chest resonance. Soft Edinburgh accent — educated, not heavy brogue.
+Unhurried measured pace with thoughtful pauses. Grounded literary
+tone, like a late-night BBC Radio 3 presenter who reads poetry.
+Precise articulation with gentle warmth. Never theatrical. Perfect
+studio audio, no effects.
 ```
 
-**~345 characters** — optimal prompt length for ElevenLabs Voice Design.
+This reads more authoritative and less intimate. Use if the primary
+feels too quiet for the placements you need her in.
 
 ---
 
@@ -41,61 +59,72 @@ So — what would you like to know?
 
 ## Variants if the primary doesn't feel right
 
-### A — Neutral British (BBC Radio 4)
-Drop the Edinburgh specificity; broader audience comprehension.
+### A — Even deeper / pillow-soft
+If the primary isn't quite deep enough or still reads too crisp.
 ```
-Warm female voice, mid-thirties. Low mezzo-soprano register with
-chest resonance. Neutral British accent, like BBC Radio 4.
-Unhurried measured pace with considered pauses. Thoughtful and
-grounded, like a literary radio presenter or audiobook narrator.
-Precise articulation with gentle warmth. Never theatrical. Perfect
+Gentle, deep female voice, mid-thirties. Very low contralto register
+with pillow-soft chest warmth. Light Edinburgh accent, educated and
+kind. Slow conversational pace with natural breath. Intimate and
+unhurried, like a close friend sharing something across a low-lit
+table. Relaxed articulation, no crispness. Never performed. Perfect
 studio audio, no effects.
 ```
 
-### B — American NPR-style
+### B — American equivalent
 For wider US audience accessibility.
 ```
-Warm female voice, mid-thirties. Low alto register with chest
-resonance. Neutral American accent, like an NPR host — measured
-and literary. Unhurried pace with considered pauses. Thoughtful
-and grounded, like a Fresh Air interviewer or a This American Life
-narrator. Precise articulation with gentle warmth. Never
-theatrical. Perfect studio audio, no effects.
+Soft, deep female voice, mid-thirties. Low alto register with warm
+chest resonance. Neutral American accent. Conversational pacing,
+like a late-night podcast host speaking quietly to one listener.
+Natural rhythm with thoughtful pauses. Intimate and grounded, like
+a close friend explaining something complicated. Relaxed warm
+articulation. Never presenting. Perfect studio audio, no effects.
 ```
 
-### C — Drier, more authoritative
-If the primary sounds too soft/warm.
+### C — Neutral British (BBC Radio 4 conversational)
+Drops Edinburgh specificity, keeps the conversational softness.
 ```
-Precise female voice, mid-thirties to early-forties. Low
-mezzo-soprano with clear chest resonance. Soft Edinburgh accent,
-educated. Measured, almost slow pacing with deliberate pauses.
-Authoritative but warm — a scholar who's been generous with her
-time. Clean, sober articulation. Zero theatricality. Perfect
-studio audio, no effects.
+Soft, deep female voice, mid-thirties. Low contralto register with
+warm chest resonance. Neutral British accent — warm, conversational,
+not clipped. Unhurried pace with natural pauses. Intimate and
+grounded, like a trusted friend speaking quietly in a low-lit room.
+Relaxed articulation. Never theatrical. Perfect studio audio, no
+effects.
 ```
 
 ---
 
 ## Evaluation — what to listen for
 
-In order of importance:
+In order of importance for the soft/deep/conversational direction:
 
 | Check | Reject if wrong? |
 |---|---|
-| **Register is LOW** (mezzo/alto, chest, not bright soprano) | Yes — dealbreaker |
-| **Pace is UNHURRIED** (no rushing through "fifteen years", em-dashes are real pauses) | Yes — dealbreaker |
+| **Register is DEEP** (contralto / low alto, NOT mezzo or brighter) | Yes — dealbreaker |
+| **Pace is CONVERSATIONAL** (natural rhythm, not broadcast cadence) | Yes — dealbreaker |
+| **Articulation is RELAXED** (warm, not crisp / clipped) | Yes |
 | **"Astrology isn't entertainment."** lands flat + confident, not preachy | Yes |
 | **"what would you like to know?"** ends warm, curling upward | Yes |
 | **Accent feels educated** (not caricature) | Yes |
 
 ### Red flags (any = reject the take)
 
-- Breathiness or performed mystical softness
-- Whisper quality / ASMR tone
-- Rising intonation on statements
-- Upspeak or vocal fry
-- Audible smile through the whole take (she smiles only at the start and end)
+- Crisp presenter-y consonants ("reading aloud" energy)
+- Rising intonation on statements (sounds like questions)
+- Upspeak or vocal fry at phrase ends
+- Audible smile through the whole take (smile only at start + end)
 - Rushed phrase ends (words eaten by the next clause)
+- ASMR-whisper territory (loses authority — soft ≠ whispered)
+- Performed mysticism / "witchy" affected tone
+
+### Green flags (signals this is the take)
+
+- A slight breath you can hear at the start of phrases
+- Softness around consonants without losing clarity
+- Natural variation in pace — faster on throwaways, slower on key lines
+- Flat confident delivery on *"Astrology isn't entertainment"*
+- Subtle warmth in the final *"what would you like to know?"*
+- Feels like someone speaking *to you*, not *at you*
 
 ---
 
