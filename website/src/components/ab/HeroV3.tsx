@@ -19,6 +19,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import MagneticButton from "@/components/MagneticButton";
+import CurtainVeilCard from "@/components/shaders/CurtainVeilCard";
 import LivingPaperCard from "@/components/shaders/LivingPaperCard";
 import CausticsCard from "@/components/shaders/CausticsCard";
 import SmokeRevealCard from "@/components/shaders/SmokeRevealCard";
@@ -28,9 +29,10 @@ import { recordDraw } from "@/lib/deck-memory";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
-type Variant = "paper" | "caustics" | "smoke" | "edge";
+type Variant = "curtain" | "paper" | "caustics" | "smoke" | "edge";
 
 const VARIANT_LABELS: Record<Variant, string> = {
+  curtain: "Curtain",
   caustics: "Caustics",
   paper: "Paper",
   smoke: "Smoke",
@@ -38,6 +40,7 @@ const VARIANT_LABELS: Record<Variant, string> = {
 };
 
 const VARIANT_BLURBS: Record<Variant, string> = {
+  curtain: "A dense veil covers the card. Tap to drop it and reveal today's card.",
   caustics: "Candlelight across a card on a reading table. Cursor shifts the light.",
   paper: "Gold-ink paper drifts over the card. Cursor clears it locally.",
   smoke: "Smoke covers the card. Press and hold to dissipate it.",
@@ -72,7 +75,7 @@ const wordStyle: React.CSSProperties = {
 export default function HeroV3() {
   const headRef = useRef<HTMLHeadingElement>(null);
   const [card, setCard] = useState<TarotCard>(() => ALL_CARDS[dailyCardIndex()]);
-  const [variant, setVariant] = useState<Variant>("caustics");
+  const [variant, setVariant] = useState<Variant>("curtain");
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -180,6 +183,7 @@ export default function HeroV3() {
               mounts/unmounts when the variant changes (no wrapper-div
               remount → smoother switch). */}
           <div className="heroV3-card-wrap">
+            {variant === "curtain"  && <CurtainVeilCard   key="curtain"  {...cardProps} />}
             {variant === "paper"    && <LivingPaperCard   key="paper"    {...cardProps} />}
             {variant === "caustics" && <CausticsCard      key="caustics" {...cardProps} />}
             {variant === "smoke"    && <SmokeRevealCard   key="smoke"    {...cardProps} />}
