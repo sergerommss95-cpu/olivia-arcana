@@ -1,28 +1,46 @@
 /**
- * CurtainVeilCard.tsx — dense animated veil that drops to reveal the card.
+ * CurtainVeilCard.tsx — a dense, layered, ceremonial shader veil.
  *
- * At rest: the shader covers the card ~90% — obviously a veil, not just
- * ambient texture. Flowing fbm gives it fabric-like density variation;
- * gold shimmer catches on the "folds".
+ * Not a mask-with-noise. A twelve-layer composition meant to feel
+ * MATERIAL and magical.
  *
- * Interaction: tap/click or press Enter/Space — the veil drops. A
- * wispy noise-warped edge falls from top of card past the bottom over
- * ~1.8s, with a warm gold highlight at the leading edge and trailing
- * wisps of veil material. Tap again → veil rises back over ~1.2s.
+ *  1.  Base cosmic nebula — domain-warped fbm, deep void → violet → magenta
+ *  2.  Silk fabric weave — cross-hatched sine patterns with fbm shear
+ *  3.  Gold shimmer — catches on the fabric's high-noise folds
+ *  4.  Stitched constellation — multi-layer twinkling starfield woven in
+ *  5.  Arcing leading edge — not a straight line; a sine-arced, noise-
+ *      wispy seam that falls in a wave, not a wipe
+ *  6.  Plasma hairline — a hot gold line at the leading edge (bloom-feel)
+ *  7.  Edge spark burst — hash-based gold sparks along the seam
+ *  8.  Trailing tendrils — thin vertical gold fibers below the edge
+ *  9.  Anticipation pulse — brief full-veil gold flash at drop trigger
+ * 10.  Card rim aura — soft gold halo around the revealed card
+ * 11.  Ambient motes — post-drop drifting gold dust
+ * 12.  Cursor halo + breath — soft attention glow, gentle brightness throb
  *
- * No hold threshold. Single decisive gesture. GPU-only — one fragment
- * shader, one draw call per frame.
+ * Choreography (5 phases, 2.8s total drop):
+ *
+ *   0.00–0.22s  Anticipation — the fabric "tenses" (golden pulse), cursor
+ *               glow brightens, stars flash
+ *   0.22–1.20s  Initial fall — arcing sine edge begins to descend, gold
+ *               plasma seam, first spark burst, tendrils extend
+ *   1.20–2.00s  Rolling wave — edge sweeps down in an arc, constellation
+ *               stars glow through like they're stepping forward
+ *   2.00–2.60s  Dissolution — remaining veil frays into motes near the
+ *               bottom edge, card's rim-glow fades in
+ *   2.60–2.80s  Settlement — motes drift up and away, card is revealed
+ *               with a golden halo; ambient dust continues forever
  */
 
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import type { TarotCard } from "@/lib/academy/tarot-cards";
 import { getCardImagePath } from "@/lib/academy/card-images";
 
-const DROP_DURATION = 1.8;  // seconds for veil to fall
-const RAISE_DURATION = 1.2; // seconds for veil to return
+const DROP_DURATION = 2.8;
+const RAISE_DURATION = 1.4;
+const FLASH_DURATION = 0.28; // anticipation flash length
 
 const VERTEX_SRC = /* glsl */ `
   attribute vec2 aPosition;
@@ -36,13 +54,23 @@ const VERTEX_SRC = /* glsl */ `
 
 const FRAGMENT_SRC = /* glsl */ `
   precision highp float;
+
   uniform sampler2D uCard;
-  uniform float uDropProgress;   // 0 veil up, 1 veil fully dropped
+  uniform float uDropProgress;    // 0 veiled, 1 fully revealed
+  uniform float uFlash;           // anticipation flash, 0..1, fades after trigger
   uniform float uTime;
-  uniform float uAspect;
+  uniform float uAspect;          // card width / height
+  uniform vec2  uCursor;          // 0..1 UV, for attention halo
+  uniform float uAttention;       // 0..1 smoothed cursor-in-bounds
+
   varying vec2 vUV;
 
+  const float TAU = 6.28318530718;
+
+  // ── Utilities ──────────────────────────────────────────────────────
   float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+  float hash1(float x) { return fract(sin(x * 91.3458) * 43758.5453); }
+
   float noise(vec2 p) {
     vec2 i = floor(p); vec2 f = fract(p);
     vec2 u = f * f * (3.0 - 2.0 * f);
@@ -52,76 +80,187 @@ const FRAGMENT_SRC = /* glsl */ `
   }
   float fbm(vec2 p) {
     float v = 0.0; float a = 0.5;
-    for (int i = 0; i < 5; i++) { v += a * noise(p); p *= 2.1; a *= 0.52; }
+    for (int i = 0; i < 5; i++) { v += a * noise(p); p *= 2.13; a *= 0.52; }
     return v;
+  }
+  float fbm3(vec2 p) {
+    float v = 0.0; float a = 0.5;
+    for (int i = 0; i < 3; i++) { v += a * noise(p); p *= 2.1; a *= 0.5; }
+    return v;
+  }
+
+  // ── Stitched starfield — a hash-based twinkling star layer ─────────
+  float starField(vec2 uv, float density, float seed) {
+    vec2 id = floor(uv);
+    float h = hash(id + seed);
+    if (h > density) return 0.0;
+    vec2 fp = fract(uv) - 0.5;
+    float star = exp(-dot(fp, fp) * 80.0);
+    float twinkle = 0.5 + 0.5 * sin(uTime * 2.5 + h * TAU);
+    return star * twinkle;
+  }
+
+  // ── Gold dust motes drifting upward ────────────────────────────────
+  float motes(vec2 uv, float seed) {
+    // Slow upward drift
+    float driftY = mod(uv.y - uTime * 0.07 + seed, 1.0);
+    vec2 cell = vec2(floor(uv.x * 22.0), floor(driftY * 22.0 + hash1(seed) * 30.0));
+    float h = hash(cell + seed);
+    if (h < 0.982) return 0.0;
+    vec2 fp = vec2(fract(uv.x * 22.0) - 0.5, fract(driftY * 22.0) - 0.5);
+    float m = exp(-dot(fp, fp) * 120.0);
+    float flicker = 0.55 + 0.45 * sin(uTime * 4.0 + h * TAU);
+    return m * flicker;
   }
 
   void main() {
     vec2 uv = vUV;
+    vec2 asp = vec2(uv.x * uAspect, uv.y);
+    float drop = uDropProgress;
 
-    // Falling edge: at drop=0, edge sits above the card (1.15); at
-    // drop=1, it has fallen past the bottom (−0.15). This gives a clean
-    // off-screen start/end so the edge is never visible at either
-    // extreme.
-    float fallY = 1.15 - uDropProgress * 1.30;
+    // ══ EDGE CHOREOGRAPHY ════════════════════════════════════════════
+    // Arc offset — bottom of the falling edge dips lower in the middle,
+    // so it reads as a piece of cloth catching its center on the fall.
+    float arc = sin(uv.x * 3.14159) * 0.07 * (1.0 - smoothstep(0.85, 1.0, drop));
 
-    // Wispy displacement — noise-warped so the edge is fabric-like, not a line
-    float wisp = (fbm(vec2(uv.x * 5.5, uTime * 0.35)) - 0.5) * 0.14;
-    float edgeY = fallY + wisp;
+    // Extra dip as the drop progresses past 50% — the center sags
+    float sagBoost = smoothstep(0.2, 0.85, drop) * 0.05;
 
-    // Veil mask — 1 above edge, 0 below, with a soft 5% gradient so the
-    // edge is a fade, not a hard cut.
-    float veil = smoothstep(edgeY - 0.04, edgeY + 0.03, uv.y);
+    // Core fall line
+    float baseFall = 1.22 - drop * 1.44;
 
-    // Trailing wisps — thin fibers of veil material below the edge
-    if (uv.y < edgeY + 0.12 && uv.y > edgeY - 0.30) {
-      float fibers = fbm(vec2(uv.x * 9.0, uv.y * 18.0 - uTime * 1.6));
-      float fiberMask = smoothstep(edgeY - 0.25, edgeY, uv.y);
-      veil += pow(fibers, 1.5) * fiberMask * 0.45;
+    // Wispy noise displacement — fabric-edge tearing
+    float wispy = (fbm(vec2(uv.x * 5.5, uTime * 0.4 + drop * 5.0)) - 0.5) * 0.17;
+
+    // Combined falling edge
+    float edgeY = baseFall + wispy + arc + sagBoost;
+
+    // Primary veil mask — 1 above, 0 below, softly faded
+    float veilMask = smoothstep(edgeY - 0.04, edgeY + 0.025, uv.y);
+
+    // Dissolution — in the last 25% of the drop, the lower veil starts
+    // fraying into particles rather than falling cleanly. We subtract
+    // a hash-based mask to punch holes in the remaining veil.
+    if (drop > 0.72 && uv.y < edgeY + 0.25) {
+      float dissolve = hash(floor(asp * 55.0) + floor(uTime * 6.0));
+      float dissolveMask = smoothstep(0.72, 0.95, drop) * smoothstep(edgeY - 0.10, edgeY + 0.12, uv.y);
+      if (dissolve < dissolveMask * 0.85) veilMask *= 0.0;
     }
 
-    veil = clamp(veil, 0.0, 1.0);
+    veilMask = clamp(veilMask, 0.0, 1.0);
 
-    // Flowing veil texture — domain-warped fbm so the density pulses
+    // ══ LAYER 1 — BASE COSMIC NEBULA ═════════════════════════════════
+    // Slow, domain-warped fbm. The veil is lit from behind by the void.
     vec2 flow = vec2(
-      fbm(vec2(uv.x * 1.7, uv.y * 1.7 + uTime * 0.04)),
-      fbm(vec2(uv.x * 1.7 + 3.1, uv.y * 1.7 + 1.7 + uTime * 0.05))
+      fbm(vec2(asp.x * 1.1, asp.y * 1.1 + uTime * 0.03)),
+      fbm(vec2(asp.x * 1.1 + 4.7, asp.y * 1.1 + 2.1 + uTime * 0.027))
     );
-    float texture = fbm(uv * vec2(2.4 * uAspect, 2.4) + flow * 0.9 + uTime * 0.06);
+    float nebula = fbm(asp * 1.6 + flow * 1.3 + vec2(uTime * 0.035, -uTime * 0.025));
 
-    // Veil color — deep purple-black with occasional gold shimmer on folds
-    vec3 deep = vec3(0.036, 0.026, 0.082);
-    vec3 nebula = vec3(0.18, 0.08, 0.24);
-    vec3 gold = vec3(0.90, 0.76, 0.40);
-    float shimmer = smoothstep(0.60, 0.92, texture);
-    vec3 veilColor = mix(deep, nebula, smoothstep(0.25, 0.75, texture));
-    veilColor = mix(veilColor, gold, shimmer * 0.45);
+    vec3 cVoid        = vec3(0.022, 0.016, 0.068);
+    vec3 cViolet      = vec3(0.14, 0.07, 0.22);
+    vec3 cMagenta     = vec3(0.28, 0.10, 0.26);
+    vec3 nebulaCol = mix(cVoid, cViolet, smoothstep(0.22, 0.70, nebula));
+    nebulaCol = mix(nebulaCol, cMagenta, smoothstep(0.62, 0.94, nebula));
 
-    // Modulate density so it's not flat
-    float density = 0.90 + 0.10 * texture;
-    veil *= density;
+    // ══ LAYER 2 — SILK FABRIC WEAVE ══════════════════════════════════
+    // Cross-hatched sine lines with fbm shear. Very subtle — adds a
+    // tactile "this is a fabric, not a cloud" quality.
+    float shearX = fbm(asp * 2.4) * 1.4;
+    float shearY = fbm(asp * 2.4 + 3.7) * 1.4;
+    float weaveV = sin(asp.x * 140.0 + shearX) * 0.5 + 0.5;
+    float weaveH = sin(asp.y * 155.0 + shearY) * 0.5 + 0.5;
+    float fabric = pow(weaveV * weaveH, 0.7) * 0.18;
+    nebulaCol += vec3(0.14, 0.11, 0.18) * fabric;
 
-    // Pull card through veil
-    vec4 card = texture2D(uCard, uv);
-    vec3 final = mix(card.rgb, veilColor, veil);
+    // ══ LAYER 3 — GOLD SHIMMER ON FOLDS ══════════════════════════════
+    // Where fbm peaks, gold catches the light.
+    vec3 cGold = vec3(0.95, 0.80, 0.42);
+    float shimmer = smoothstep(0.60, 0.92, nebula);
+    nebulaCol = mix(nebulaCol, cGold, shimmer * 0.50);
 
-    // Leading-edge glow: a warm hairline at the dropping edge,
-    // visible only while dropping (fades in at drop ~0.02 and
-    // out at drop ~0.98 so there's no residual glow at rest).
+    // ══ LAYER 4 — STITCHED CONSTELLATION ═════════════════════════════
+    // Three octaves of starfield, getting brighter during the drop as
+    // the stars "step forward" from behind the veil.
+    float stars = 0.0;
+    stars += starField(asp * 7.0,  0.040, 0.0);
+    stars += starField(asp * 12.0, 0.025, 4.3) * 0.85;
+    stars += starField(asp * 18.0, 0.018, 8.7) * 0.6;
+    // Stars glow brighter during the mid-drop phase (rolling-wave moment)
+    float starBoost = 0.55 + smoothstep(0.15, 0.75, drop) * 1.8;
+    nebulaCol += vec3(1.0, 0.93, 0.68) * stars * starBoost;
+
+    // ══ LAYER 5 — LEADING EDGE PLASMA ════════════════════════════════
+    // Hot gold hairline at the exact falling edge. Bloom-feel via
+    // inverse-square falloff.
     float edgeDist = abs(uv.y - edgeY);
-    float edgeGlow = (1.0 - smoothstep(0.0, 0.028, edgeDist));
-    float glowGate = smoothstep(0.0, 0.05, uDropProgress) * (1.0 - smoothstep(0.94, 1.0, uDropProgress));
-    final += vec3(0.96, 0.82, 0.46) * edgeGlow * glowGate * 0.75;
+    float plasma = exp(-edgeDist * 42.0);
+    // Wider soft bloom beneath the plasma
+    float plasmaBloom = exp(-edgeDist * 12.0) * 0.45;
+    float plasmaGate = smoothstep(0.01, 0.05, drop) * (1.0 - smoothstep(0.94, 1.0, drop));
+    vec3 plasmaCol = vec3(1.0, 0.86, 0.52) * (plasma * 2.4 + plasmaBloom) * plasmaGate;
 
-    // Subtle gold sparkle on the veil while it's present — catches the
-    // eye at rest without being over-busy.
-    float sparkle = step(0.96, hash(floor(uv * 160.0) + floor(uTime * 2.0)));
-    final += vec3(0.95, 0.82, 0.46) * sparkle * veil * 0.08;
+    // ══ LAYER 6 — EDGE SPARK BURST ═══════════════════════════════════
+    // Random gold dust sparks along the seam.
+    float sparkUV = hash(floor(asp * 85.0) + floor(uTime * 6.0));
+    float sparkBand = smoothstep(0.10, 0.0, abs(uv.y - edgeY));
+    float sparkMask = step(0.983, sparkUV) * sparkBand * plasmaGate;
+    plasmaCol += vec3(1.0, 0.90, 0.58) * sparkMask * 1.4;
+
+    // ══ LAYER 7 — TRAILING TENDRILS ══════════════════════════════════
+    // Thin vertical gold streaks BELOW the falling edge — the veil
+    // leaving light behind as it descends.
+    if (uv.y < edgeY && drop > 0.08 && drop < 0.92) {
+      float tendrilNoise = fbm(vec2(uv.x * 22.0, uv.y * 7.0 - uTime * 1.8));
+      float tendrilMask = smoothstep(edgeY - 0.32, edgeY, uv.y);
+      float tendrils = pow(max(tendrilNoise, 0.0), 3.2) * tendrilMask;
+      plasmaCol += vec3(0.95, 0.78, 0.42) * tendrils * 0.55;
+    }
+
+    // ══ LAYER 8 — ANTICIPATION FLASH ═════════════════════════════════
+    // Brief golden pulse over the entire fabric at the moment of
+    // trigger. Driven by uFlash uniform (decays over ~0.28s).
+    vec3 flashCol = vec3(1.0, 0.84, 0.48) * uFlash * 0.55;
+
+    // ══ VEIL DENSITY ═════════════════════════════════════════════════
+    float density = 0.90 + 0.10 * nebula;
+    float veil = veilMask * density;
+
+    // ══ LAYER 12 — BREATH & CURSOR HALO (at-rest only) ═══════════════
+    float breath = sin(uTime * 0.85) * 0.04 * (1.0 - drop);
+    float cursorDist = distance(asp, vec2(uCursor.x * uAspect, uCursor.y));
+    float cursorHalo = exp(-cursorDist * 4.2) * uAttention * (1.0 - drop);
+
+    // Composite veil color
+    vec3 veilColor = nebulaCol + plasmaCol + flashCol;
+    veilColor += vec3(0.22, 0.14, 0.26) * breath;
+    veilColor += vec3(1.0, 0.82, 0.45) * cursorHalo * 0.42;
+
+    // ══ CARD — LAYER 10: RIM AURA ════════════════════════════════════
+    vec4 card = texture2D(uCard, uv);
+
+    // Soft gold rim around the card — grows as the drop reveals it.
+    vec2 cardCenter = uv - 0.5;
+    float cardRadial = length(cardCenter * vec2(uAspect, 1.0));
+    float rim = smoothstep(0.52, 0.44, cardRadial);
+    vec3 cardLit = card.rgb + vec3(0.95, 0.78, 0.40) * rim * 0.18 * drop;
+
+    // ══ FINAL COMPOSITE ══════════════════════════════════════════════
+    vec3 final = mix(cardLit, veilColor, veil);
+
+    // ══ LAYER 11 — AMBIENT MOTES (post-drop only) ════════════════════
+    // Floating gold dust that drifts upward once the card is revealed.
+    float motesStrength = smoothstep(0.70, 1.0, drop);
+    if (motesStrength > 0.01) {
+      float m = motes(asp, 0.0) + motes(asp, 3.1) * 0.7 + motes(asp, 7.3) * 0.5;
+      final += vec3(0.95, 0.82, 0.46) * m * motesStrength * 0.85;
+    }
 
     gl_FragColor = vec4(final, 1.0);
   }
 `;
 
+// ── WebGL boilerplate ──────────────────────────────────────────────────
 function compileShader(gl: WebGLRenderingContext, type: number, src: string) {
   const s = gl.createShader(type); if (!s) throw new Error("shader");
   gl.shaderSource(s, src); gl.compileShader(s);
@@ -141,10 +280,11 @@ function createProgram(gl: WebGLRenderingContext, vs: string, fs: string) {
   return p;
 }
 
-// Ease-out cubic — the drop starts fast (gravity), settles gently
-function easeOutCubic(t: number) { return 1 - Math.pow(1 - t, 3); }
-// Ease-in-out sine for the rise — symmetrical, feels intentional
-function easeInOutSine(t: number) { return -(Math.cos(Math.PI * t) - 1) / 2; }
+// ── Eases ─────────────────────────────────────────────────────────────
+// Drop — out-expo: fast initial acceleration (gravity), long tail settlement
+function easeOutExpo(t: number): number { return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+// Raise — in-out-cubic: intentional, even-paced
+function easeInOutCubic(t: number): number { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; }
 
 interface CurtainVeilCardProps {
   card: TarotCard;
@@ -160,9 +300,15 @@ export default function CurtainVeilCard({
   onAdvance,
 }: CurtainVeilCardProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const dropProgress = useRef(0); // live value passed to uniform
-  const animationRef = useRef<{ direction: "drop" | "raise" | null; startTime: number; from: number } | null>(null);
+  const dropProgress = useRef(0);
+  const flashRef = useRef(0);
+  const cursorRef = useRef({ x: 0.5, y: 0.5 });
+  const attentionRef = useRef(0);
+  const cursorInBounds = useRef(false);
+  const animationRef = useRef<{ direction: "drop" | "raise"; startTime: number; from: number } | null>(null);
+  const flashStartRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
+
   const [ready, setReady] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -176,13 +322,16 @@ export default function CurtainVeilCard({
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  // Reset to veiled state when card changes
+  // Reset on card change
   useEffect(() => {
     dropProgress.current = 0;
     animationRef.current = null;
+    flashRef.current = 0;
+    flashStartRef.current = null;
     setRevealed(false);
   }, [card.name]);
 
+  // Mount WebGL
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -202,15 +351,20 @@ export default function CurtainVeilCard({
     const posBuf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
     gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
     const posLoc = gl.getAttribLocation(program, "aPosition");
-    gl.enableVertexAttribArray(posLoc); gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
     const uvBuf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, uvBuf);
     gl.bufferData(gl.ARRAY_BUFFER, uvs, gl.STATIC_DRAW);
     const uvLoc = gl.getAttribLocation(program, "aUV");
-    gl.enableVertexAttribArray(uvLoc); gl.vertexAttribPointer(uvLoc, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(uvLoc);
+    gl.vertexAttribPointer(uvLoc, 2, gl.FLOAT, false, 0, 0);
 
     const uDropProgress = gl.getUniformLocation(program, "uDropProgress");
+    const uFlash = gl.getUniformLocation(program, "uFlash");
     const uTime = gl.getUniformLocation(program, "uTime");
     const uAspect = gl.getUniformLocation(program, "uAspect");
+    const uCursor = gl.getUniformLocation(program, "uCursor");
+    const uAttention = gl.getUniformLocation(program, "uAttention");
     const uCard = gl.getUniformLocation(program, "uCard");
     gl.uniform1f(uAspect, width / height);
 
@@ -236,26 +390,45 @@ export default function CurtainVeilCard({
       const now = performance.now();
       const elapsed = reducedMotion ? 0 : (now - start) / 1000;
 
-      // Drive the drop/raise animation
+      // Drive drop/raise animation
       const anim = animationRef.current;
-      if (anim && anim.direction) {
+      if (anim) {
         const duration = anim.direction === "drop" ? DROP_DURATION : RAISE_DURATION;
         const t = Math.min(1, (now - anim.startTime) / (duration * 1000));
-        const eased = anim.direction === "drop" ? easeOutCubic(t) : easeInOutSine(t);
-        if (anim.direction === "drop") {
-          dropProgress.current = anim.from + (1 - anim.from) * eased;
-        } else {
-          dropProgress.current = anim.from + (0 - anim.from) * eased;
-        }
+        const eased = anim.direction === "drop" ? easeOutExpo(t) : easeInOutCubic(t);
+        const target = anim.direction === "drop" ? 1 : 0;
+        dropProgress.current = anim.from + (target - anim.from) * eased;
         if (t >= 1) {
-          dropProgress.current = anim.direction === "drop" ? 1 : 0;
+          dropProgress.current = target;
           animationRef.current = null;
         }
       }
 
+      // Anticipation flash — decays over FLASH_DURATION
+      if (flashStartRef.current !== null) {
+        const ft = (now - flashStartRef.current) / (FLASH_DURATION * 1000);
+        if (ft >= 1) {
+          flashRef.current = 0;
+          flashStartRef.current = null;
+        } else {
+          // Up-and-down: peak at ~0.35
+          flashRef.current = ft < 0.35
+            ? ft / 0.35
+            : 1.0 - (ft - 0.35) / 0.65;
+        }
+      }
+
+      // Attention smoothing
+      const target = cursorInBounds.current && dropProgress.current < 0.05 ? 1 : 0;
+      attentionRef.current += (target - attentionRef.current) * 0.08;
+
       gl.useProgram(program);
       gl.uniform1f(uDropProgress, dropProgress.current);
+      gl.uniform1f(uFlash, flashRef.current);
       gl.uniform1f(uTime, elapsed);
+      gl.uniform2f(uCursor, cursorRef.current.x, cursorRef.current.y);
+      gl.uniform1f(uAttention, attentionRef.current);
+
       gl.clearColor(0.024, 0.016, 0.102, 1.0);
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
@@ -265,8 +438,10 @@ export default function CurtainVeilCard({
 
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-      gl.deleteProgram(program); gl.deleteTexture(tex);
-      gl.deleteBuffer(posBuf); gl.deleteBuffer(uvBuf);
+      gl.deleteProgram(program);
+      gl.deleteTexture(tex);
+      gl.deleteBuffer(posBuf);
+      gl.deleteBuffer(uvBuf);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [card.name, width, height, reducedMotion]);
@@ -279,58 +454,69 @@ export default function CurtainVeilCard({
       startTime: performance.now(),
       from: current,
     };
+    // Flash triggers on every toggle — anticipation for the drop,
+    // or a "reseating" flash for the rise.
+    flashStartRef.current = performance.now();
+    flashRef.current = 0;
     setRevealed(goingDown);
   }, []);
 
   const handleClick = useCallback(() => { toggleVeil(); }, [toggleVeil]);
-
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      toggleVeil();
-    } else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-      e.preventDefault();
-      onAdvance?.();
-    }
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleVeil(); }
+    else if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); onAdvance?.(); }
   }, [toggleVeil, onAdvance]);
+
+  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    cursorRef.current = {
+      x: (e.clientX - rect.left) / rect.width,
+      y: 1 - (e.clientY - rect.top) / rect.height,
+    };
+    cursorInBounds.current = true;
+  }, []);
+  const handlePointerLeave = useCallback(() => { cursorInBounds.current = false; }, []);
+  const handlePointerEnter = useCallback(() => { cursorInBounds.current = true; }, []);
 
   return (
     <div className="cv" style={{ width: `${width}px`, maxWidth: "100%" }}>
       <div
-        className="cv-frame"
+        className={`cv-frame${revealed ? " cv-frame-revealed" : ""}`}
         role="button"
         tabIndex={0}
         aria-label={revealed ? `${card.name} revealed. Tap to re-veil.` : `Today's card is beneath the veil. Tap to drop it.`}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
+        onPointerMove={handlePointerMove}
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
         style={{ width: "100%", aspectRatio: `${width} / ${height}` }}
       >
         <canvas ref={canvasRef} width={width} height={height} aria-hidden />
         {!ready && <div className="cv-loading" aria-hidden>✦</div>}
 
-        {/* Hint pill — shown when veiled and at rest */}
-        {ready && !revealed && !animationRef.current && (
+        {/* Hint pill — only at rest when veiled */}
+        {ready && !revealed && (
           <div className="cv-hint" aria-hidden>
             <span className="cv-hint-dot" /> Tap to drop the veil
           </div>
         )}
 
-        {/* Card name pill — shown when revealed */}
+        {/* Card name pill — only after revealed, with stagger entrance */}
         {revealed && (
           <div className="cv-strip" aria-hidden>
-            {numeral && <span className="cv-numeral">{numeral}.</span>}
-            <span>{card.name}</span>
+            {numeral && <span className="cv-numeral" style={{ animationDelay: "0.1s" }}>{numeral}.</span>}
+            {card.name.split(" ").map((word, i) => (
+              <span key={i} className="cv-word" style={{ animationDelay: `${0.2 + i * 0.08}s` }}>
+                {word}{i < card.name.split(" ").length - 1 ? "\u00A0" : ""}
+              </span>
+            ))}
           </div>
         )}
       </div>
 
       <div className="cv-actions">
-        <button
-          type="button"
-          className="cv-toggle"
-          onClick={toggleVeil}
-          aria-label={revealed ? "Re-veil the card" : "Drop the veil"}
-        >
+        <button type="button" className="cv-toggle" onClick={toggleVeil}>
           <span aria-hidden>{revealed ? "✦" : "↓"}</span>
           {revealed ? "Re-veil" : "Drop the veil"}
         </button>
@@ -343,10 +529,25 @@ export default function CurtainVeilCard({
         .cv { display: flex; flex-direction: column; gap: 1.1rem; align-items: stretch; margin: 0 auto; }
         .cv-frame {
           position: relative; border-radius: 18px; overflow: hidden; isolation: isolate;
-          box-shadow: 0 36px 60px rgba(0,0,0,0.5), 0 0 32px rgba(212,175,55,0.1);
+          box-shadow:
+            0 36px 60px rgba(0,0,0,0.5),
+            0 0 32px rgba(212,175,55,0.12),
+            inset 0 0 0 1px rgba(232,201,106,0.18);
           outline: none; cursor: pointer;
+          animation: cvBreath 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          transition: box-shadow 800ms cubic-bezier(0.16,1,0.3,1),
+                      transform 600ms cubic-bezier(0.16,1,0.3,1);
         }
-        .cv-frame:focus-visible { outline: 2px solid rgba(232,201,106,0.85); outline-offset: 3px; }
+        .cv-frame-revealed {
+          box-shadow:
+            0 36px 70px rgba(0,0,0,0.55),
+            0 0 48px rgba(232,201,106,0.28),
+            inset 0 0 0 1px rgba(232,201,106,0.42);
+        }
+        .cv-frame:focus-visible {
+          outline: 2px solid rgba(232,201,106,0.95);
+          outline-offset: 4px;
+        }
         .cv-frame canvas { width: 100%; height: 100%; display: block; }
         .cv-loading {
           position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
@@ -354,70 +555,111 @@ export default function CurtainVeilCard({
           animation: cvFloat 3.6s cubic-bezier(0.16,1,0.3,1) infinite;
           pointer-events: none;
         }
+
+        /* ── Hint & strip ─────────────────────────────────────────── */
         .cv-hint, .cv-strip {
           position: absolute; left: 50%; bottom: 1rem; transform: translateX(-50%);
           display: inline-flex; align-items: center; gap: 0.55em;
           padding: 0.55rem 1.1rem; border-radius: 9999px;
-          background: rgba(6,4,26,0.7); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-          font-family: var(--font-body, system-ui), sans-serif; font-size: 0.7rem; font-weight: 500;
+          background: rgba(6,4,26,0.72);
+          -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+          font-family: var(--font-body, system-ui), sans-serif;
+          font-size: 0.7rem; font-weight: 500;
           letter-spacing: 0.18em; text-transform: uppercase;
           pointer-events: none; z-index: 2;
         }
         .cv-hint {
-          border: 1px solid rgba(232,201,106,0.55);
-          color: rgba(232,201,106,0.95);
-          box-shadow: 0 0 24px rgba(212,175,55,0.22);
-          animation: cvPulse 3.2s cubic-bezier(0.16,1,0.3,1) infinite;
+          border: 1px solid rgba(232,201,106,0.58);
+          color: rgba(232,201,106,0.98);
+          box-shadow: 0 0 24px rgba(212,175,55,0.24);
+          animation: cvHintPulse 3s cubic-bezier(0.16,1,0.3,1) infinite;
         }
         .cv-hint-dot {
           width: 6px; height: 6px; border-radius: 50%;
-          background: rgba(232,201,106,1); box-shadow: 0 0 12px rgba(232,201,106,0.9);
+          background: rgba(232,201,106,1);
+          box-shadow: 0 0 14px rgba(232,201,106,0.95);
+          animation: cvDotPulse 2s cubic-bezier(0.16,1,0.3,1) infinite;
         }
         .cv-strip {
-          border: 1px solid rgba(232,201,106,0.32);
+          border: 1px solid rgba(232,201,106,0.42);
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-style: italic; font-size: 1.05rem; letter-spacing: 0;
-          text-transform: none; color: rgba(245,240,232,0.98);
-          gap: 0.4em; align-items: baseline;
-          animation: cvStripIn 500ms cubic-bezier(0.16,1,0.3,1) both;
+          font-style: italic; font-size: 1.1rem; letter-spacing: 0;
+          text-transform: none;
+          color: rgba(245,240,232,0.98);
+          gap: 0.25em; align-items: baseline;
+          box-shadow: 0 0 28px rgba(212,175,55,0.22);
+        }
+        .cv-numeral, .cv-word {
+          opacity: 0;
+          display: inline-block;
+          animation: cvWordRise 700ms cubic-bezier(0.16,1,0.3,1) forwards;
         }
         .cv-numeral { color: rgba(232,201,106,0.92); margin-right: 0.15em; }
 
+        /* ── Actions ──────────────────────────────────────────────── */
         .cv-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; align-items: center; }
         .cv-toggle, .cv-advance {
           display: inline-flex; align-items: center; gap: 0.45em;
-          padding: 0.6rem 1.1rem; border-radius: 9999px;
+          padding: 0.62rem 1.15rem; border-radius: 9999px;
           font-family: var(--font-body, system-ui), sans-serif;
           font-size: 0.78rem; font-weight: 500;
           letter-spacing: 0.18em; text-transform: uppercase;
           cursor: pointer;
-          transition: all 200ms cubic-bezier(0.16,1,0.3,1);
+          transition: all 220ms cubic-bezier(0.16,1,0.3,1);
         }
         .cv-toggle {
-          background: linear-gradient(135deg, rgba(212,175,55,0.22), rgba(212,175,55,0.10));
-          border: 1px solid rgba(232,201,106,0.5);
-          color: rgba(232,201,106,0.98);
+          background: linear-gradient(135deg, rgba(212,175,55,0.26), rgba(212,175,55,0.12));
+          border: 1px solid rgba(232,201,106,0.52);
+          color: rgba(232,201,106,1);
+          box-shadow: 0 0 22px rgba(212,175,55,0.18);
         }
         .cv-toggle:hover {
-          background: linear-gradient(135deg, rgba(232,201,106,0.35), rgba(212,175,55,0.18));
-          border-color: rgba(255,220,130,0.85);
+          background: linear-gradient(135deg, rgba(232,201,106,0.38), rgba(212,175,55,0.20));
+          border-color: rgba(255,220,130,0.9);
           color: rgba(255,230,150,1);
+          transform: translateY(-1px);
+          box-shadow: 0 0 32px rgba(212,175,55,0.3);
         }
         .cv-toggle:focus-visible { outline: 2px solid #E8C96A; outline-offset: 3px; }
         .cv-advance {
           background: transparent;
-          border: 1px solid rgba(200,185,255,0.18);
+          border: 1px solid rgba(200,185,255,0.20);
           color: rgba(220,210,245,0.72);
         }
-        .cv-advance:hover { color: rgba(245,240,232,0.98); border-color: rgba(200,185,255,0.36); }
+        .cv-advance:hover {
+          color: rgba(245,240,232,0.98);
+          border-color: rgba(200,185,255,0.4);
+        }
         .cv-advance:focus-visible { outline: 2px solid #E8C96A; outline-offset: 3px; }
 
-        @keyframes cvFloat { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-4px); opacity: 0.85; } }
-        @keyframes cvPulse { 0%, 100% { box-shadow: 0 0 20px rgba(212,175,55,0.22); } 50% { box-shadow: 0 0 34px rgba(212,175,55,0.46); } }
-        @keyframes cvStripIn { from { opacity: 0; transform: translateX(-50%) translateY(8px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+        /* ── Keyframes ────────────────────────────────────────────── */
+        @keyframes cvBreath {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.012); }
+        }
+        @keyframes cvFloat {
+          0%, 100% { transform: translateY(0); opacity: 0.5; }
+          50% { transform: translateY(-4px); opacity: 0.85; }
+        }
+        @keyframes cvHintPulse {
+          0%, 100% { box-shadow: 0 0 20px rgba(212,175,55,0.22); opacity: 0.9; }
+          50% { box-shadow: 0 0 36px rgba(212,175,55,0.52); opacity: 1; }
+        }
+        @keyframes cvDotPulse {
+          0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(232,201,106,0.85); }
+          50% { transform: scale(1.35); box-shadow: 0 0 18px rgba(232,201,106,1); }
+        }
+        @keyframes cvWordRise {
+          0% { opacity: 0; transform: translateY(12px) blur(4px); filter: blur(4px); }
+          50% { filter: blur(1.5px); }
+          100% { opacity: 1; transform: translateY(0) blur(0); filter: blur(0); }
+        }
+
         @media (prefers-reduced-motion: reduce) {
-          .cv-loading, .cv-hint { animation: none; }
-          .cv-strip { animation: none; }
+          .cv-frame { animation: none !important; }
+          .cv-loading, .cv-hint, .cv-hint-dot { animation: none !important; }
+          .cv-numeral, .cv-word { animation: none !important; opacity: 1 !important; }
+          .cv-toggle:hover { transform: none !important; }
         }
       `}</style>
     </div>
