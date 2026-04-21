@@ -78,7 +78,9 @@ export default function OliviaIntro() {
             />
 
             {/* Video — mounted only when playing so we don't pay the
-                metadata download until the user asks for it. */}
+                metadata download until the user asks for it. Hand-
+                authored VTT captions (not auto-generated) so the
+                track reads as real content, not an AI byproduct. */}
             {playing && (
               <video
                 ref={videoRef}
@@ -90,7 +92,15 @@ export default function OliviaIntro() {
                 onEnded={handleEnded}
                 onClick={handleClose}
                 aria-label="Olivia introducing herself"
-              />
+              >
+                <track
+                  kind="captions"
+                  srcLang="en"
+                  label="English"
+                  src="/videos/olivia-intro.vtt"
+                  default
+                />
+              </video>
             )}
 
             {/* Play pill — fades out while video plays */}

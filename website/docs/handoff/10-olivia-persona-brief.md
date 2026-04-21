@@ -37,7 +37,7 @@ Grounded in what the brand already says:
 | **Voice note** | Measured, low-register, thoughtful pauses. Not theatrical. Reference: Edith Bowman (BBC), any *NPR*-grade host. |
 | **Why it fits** | Exactly matches "editorial cosmic almanac." Credibility without mysticism theater. Easy to watch speak. Scales across daily card → oracle chat → academy lesson. |
 
-**Midjourney / Flux prompt (copy-paste):**
+**Midjourney / Flux prompt (legacy):**
 ```
 editorial portrait of a thoughtful woman in her mid-30s, soft natural
 beauty, loose dark wavy hair, minimal makeup, warm terracotta lip,
@@ -50,6 +50,51 @@ medium format 85mm f/1.8, shallow depth of field, warm color grade,
 subtle film grain, mystical but grounded, like a New Yorker columnist
 who writes about astrology — --ar 4:5 --style raw
 ```
+
+**Midjourney / Flux prompt — ANTI-AI HARDENED (preferred for next
+regen):**
+
+```
+unretouched editorial photograph, mid-thirties woman with natural
+imperfect skin, visible pores and light texture variation, slight
+facial asymmetry, loose dark wavy hair with a few flyaway strands,
+one errant hair across the forehead, minimal makeup, warm terracotta
+lip slightly cracked, deep violet raw silk turtleneck with visible
+weave, one small tarnished gold pendant, half-smile that catches one
+side more than the other, slight 3/4 angle, one-source Rembrandt key
+light from frame-left at 45 degrees, soft bounce fill, subtle warm
+rim only on the left shoulder not framing the head, plain black
+velvet backdrop with tiny dust specks, atmospheric haze between
+subject and backdrop, shot on Mamiya 645 with Sekor 80mm f/2.8
+Kodak Portra 400, light halation around brightest highlights,
+natural vignette, subtle chromatic aberration at the edges. Frame
+is tight, documentary. Real face, not a rendered one.
+::
+--no: symmetric features, perfect skin, plastic skin, glossy skin,
+waxy skin, porcelain skin, cinematic rim light halo, cosmic
+background, nebula, stars, galaxy, bokeh circles, lens flare,
+dramatic backlight, over-saturated purple, magenta wash, smooth
+airbrushed, rendered, AI-generated, digital painting, matte painting,
+3D, stylized. --ar 4:5 --style raw --stylize 150
+```
+
+**Why the anti-AI version works better:**
+
+- Negative prompt list targets specific AI tells (plastic skin,
+  cinematic rim, cosmic background, bokeh circles).
+- Explicit imperfection requests ("visible pores", "flyaway strands",
+  "slight facial asymmetry", "lip slightly cracked") — these prevent
+  the image model from defaulting to its clean-skin prior.
+- Concrete camera reference ("Mamiya 645 + Sekor 80mm f/2.8 + Kodak
+  Portra 400") grounds the rendering in a known photographic
+  signature rather than a stylized "film look."
+- Simpler backdrop ("plain black velvet") — kills the AI tendency to
+  render a cosmic nebula behind every astrology subject.
+- Lower stylize value (150 vs default 400 on MJ) — reduces
+  MJ's automatic prettification toward cosmetic perfection.
+
+After generation, run through `scripts/deai/portrait.py` regardless.
+Prompt-side + post-processing is how you get a genuinely human result.
 
 ---
 
