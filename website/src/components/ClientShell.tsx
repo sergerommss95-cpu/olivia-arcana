@@ -35,6 +35,13 @@ import TimeOfDayTheme from "@/components/TimeOfDayTheme";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import { SubscriptionProvider } from "@/hooks/useSubscription";
 
+// Mesh-gradient atmosphere replaces GlobalBackground + overlay stack on /v3.
+// Dynamic-imported so it doesn't ship on /, /v2, or anything else.
+const MeshAtmosphereLazy = dynamic(() => import("@/components/shaders/MeshAtmosphere"), {
+  ssr: false,
+  loading: () => null,
+});
+
 /* ── Deferred trio — don't matter until first user intent ─────────────── */
 const AmbientSoundLazy = dynamic(() => import("@/components/AmbientSound"), {
   ssr: false,
@@ -55,13 +62,14 @@ export default function ClientShell({ children }: { children: React.ReactNode })
   // Tier 3 gate — user has shown intent (scrolled or pressed a key)
   const [engaged, setEngaged] = useState(false);
 
-  // /v2 is the Sprint 3 preview. Part of that preview is the argument
-  // "too many overlays are fighting for attention" — so on /v2 we
-  // render a reduced set (only Starfield-in-GlobalBackground,
-  // TimeOfDayTheme, SmoothScroll, PageTransition). The rest are
-  // suppressed so the owner can feel the lighter composition.
+  // /v2 and /v3 are Sprint 3 proposals testing the argument
+  // "too many overlays are fighting for attention" — so on both we
+  // render a reduced set. /v3 additionally swaps GlobalBackground for
+  // the shader mesh-gradient atmosphere.
   const pathname = usePathname();
   const isV2 = pathname?.startsWith("/v2") ?? false;
+  const isV3 = pathname?.startsWith("/v3") ?? false;
+  const isAb = isV2 || isV3;
 
   useEffect(() => setMounted(true), []);
 
@@ -89,15 +97,18 @@ export default function ClientShell({ children }: { children: React.ReactNode })
     <>
       {mounted && (
         <>
-          {/* Layer 0 — The Void (persistent WebGL) — always */}
-          <GlobalBackground />
+          {/* Background — /v3 uses the shader mesh gradient instead of
+              the GlobalBackground starfield. Everywhere else uses the
+              existing persistent WebGL void. */}
+          {isV3 ? <MeshAtmosphereLazy /> : <GlobalBackground />}
 
           {/* Always-on: palette drift + smooth scroll + page transitions */}
           <TimeOfDayTheme />
           <SmoothScroll />
 
-          {/* Suppressed on /v2 — the Sprint 3 argument is "fewer overlays" */}
-          {!isV2 && (
+          {/* Suppressed on /v2 and /v3 — the Sprint 3 argument is
+              "fewer overlays compete for attention". */}
+          {!isAb && (
             <>
               <CosmicCursor />
               <SoundEngine />
