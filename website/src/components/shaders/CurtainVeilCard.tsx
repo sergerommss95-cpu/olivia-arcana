@@ -100,6 +100,21 @@ const FRAGMENT_SRC = /* glsl */ `
     return star * twinkle;
   }
 
+  // ── Iridescent palette — deep violet → magenta → gold → teal cycle ─
+  // A hand-tuned four-stop loop that always resolves through the
+  // brand's primary color positions. Smooth loop (period 1 in t).
+  vec3 iridescence(float t) {
+    t = fract(t) * 4.0;
+    vec3 c0 = vec3(0.14, 0.05, 0.28);  // deep violet
+    vec3 c1 = vec3(0.46, 0.14, 0.44);  // magenta
+    vec3 c2 = vec3(0.92, 0.72, 0.36);  // warm gold
+    vec3 c3 = vec3(0.18, 0.52, 0.60);  // mystic teal
+    if (t < 1.0) return mix(c0, c1, smoothstep(0.0, 1.0, t));
+    if (t < 2.0) return mix(c1, c2, smoothstep(0.0, 1.0, t - 1.0));
+    if (t < 3.0) return mix(c2, c3, smoothstep(0.0, 1.0, t - 2.0));
+    return mix(c3, c0, smoothstep(0.0, 1.0, t - 3.0));
+  }
+
   // ── Gold dust motes drifting upward ────────────────────────────────
   // Tight Gaussian points on a coarse grid. Density threshold is high
   // so only a few cells per layer emit, and the falloff is aggressive
@@ -157,19 +172,61 @@ const FRAGMENT_SRC = /* glsl */ `
 
     veilMask = clamp(veilMask, 0.0, 1.0);
 
-    // ══ LAYER 1 — BASE COSMIC NEBULA ═════════════════════════════════
-    // Slow, domain-warped fbm. The veil is lit from behind by the void.
-    vec2 flow = vec2(
-      fbm(vec2(asp.x * 1.1, asp.y * 1.1 + uTime * 0.03)),
-      fbm(vec2(asp.x * 1.1 + 4.7, asp.y * 1.1 + 2.1 + uTime * 0.027))
-    );
-    float nebula = fbm(asp * 1.6 + flow * 1.3 + vec2(uTime * 0.035, -uTime * 0.025));
+    // ══ LAYER 1 — LIQUID COLOR CURTAIN ═══════════════════════════════
+    // The curtain is an iridescent fluid. Color flows across it in
+    // slow swirls; the cursor stirs it; the hue cycle drifts through
+    // the brand palette (violet → magenta → gold → teal) at a pace
+    // you notice within a few seconds but don't find busy.
 
-    vec3 cVoid        = vec3(0.022, 0.016, 0.068);
-    vec3 cViolet      = vec3(0.14, 0.07, 0.22);
-    vec3 cMagenta     = vec3(0.28, 0.10, 0.26);
-    vec3 nebulaCol = mix(cVoid, cViolet, smoothstep(0.22, 0.70, nebula));
-    nebulaCol = mix(nebulaCol, cMagenta, smoothstep(0.62, 0.94, nebula));
+    // ── Cursor stir: a tangential velocity field around the cursor.
+    // Strength falls off with distance; gated by attention and drop so
+    // the liquid only responds while the veil is up.
+    vec2 toCur = vec2(uCursor.x * uAspect, uCursor.y) - asp;
+    float cursorR = length(toCur) + 0.0001;
+    vec2 swirlDir = vec2(-toCur.y, toCur.x) / cursorR;
+    float cursorStir = exp(-cursorR * 3.8) * uAttention * (1.0 - drop);
+
+    // ── Base flow field — slow organic swirls from low-freq noise.
+    // Centered around 0 (noise is ∈[0,1], we shift to [-0.5, 0.5]).
+    vec2 flowField = vec2(
+      fbm3(asp * 0.95 + vec2(0.0, uTime * 0.14)),
+      fbm3(asp * 0.95 + vec2(5.2, uTime * 0.11))
+    ) - 0.5;
+    vec2 flow = flowField * 1.6 + swirlDir * cursorStir * 0.55;
+
+    // ── Primary liquid sample — advected fbm through iridescent palette.
+    // Two samples at slightly different hue offsets & frequencies,
+    // mixed by a third noise — gives the oil-on-water effect where a
+    // small region can carry multiple colors at once.
+    vec2 liqUV = asp * 1.35 + flow * 1.0 + vec2(uTime * 0.055, uTime * 0.075);
+    float liqA = fbm(liqUV);
+    float liqB = fbm(liqUV * 1.8 + vec2(2.7, 4.1));
+    vec3 hueA = iridescence(liqA * 1.1 + uTime * 0.032);
+    vec3 hueB = iridescence(liqB * 0.85 + uTime * 0.048 + 0.33);
+    float hueMix = fbm3(liqUV * 2.4 + vec2(7.9)) * 0.7 + 0.15;
+    vec3 liquidCol = mix(hueA, hueB, hueMix);
+
+    // ── Gloss streaks — tight diagonal highlights sliding across the
+    // surface, like light catching on a moving wet membrane.
+    vec2 streakUV = asp * vec2(1.0, 0.85) + flow * 0.35
+                  + vec2(uTime * 0.11, uTime * 0.05);
+    float streakBase = fbm3(streakUV * 3.2 + vec2(7.3));
+    float streaks = pow(smoothstep(0.58, 0.88, streakBase), 4.5);
+
+    // ── Deep substrate so the liquid reads as layered on top of void,
+    // not replacing it. The weighted mix biases toward liquid so it
+    // dominates visually but retains cosmic depth.
+    vec3 substrate = vec3(0.018, 0.012, 0.055);
+    vec3 nebulaCol = mix(substrate, liquidCol * 0.82, 0.86);
+
+    // Streak color — near-white with warm gold tint. Additively
+    // composited so streaks brighten without over-saturating.
+    nebulaCol += vec3(1.00, 0.94, 0.78) * streaks * 0.58;
+
+    // ── Re-derive the nebula "density" signal used by downstream
+    // layers (shimmer, breath modulation). Combine both liquid
+    // samples so later layers still key into fluid regions.
+    float nebula = (liqA + liqB) * 0.5;
 
     // ══ LAYER 2 — SILK FABRIC WEAVE ══════════════════════════════════
     // Cross-hatched sine lines with fbm shear. Frequencies chosen to
