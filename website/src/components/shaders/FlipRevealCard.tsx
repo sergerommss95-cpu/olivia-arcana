@@ -35,7 +35,7 @@
 
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import type { TarotCard } from "@/lib/academy/tarot-cards";
 import { getCardImagePath } from "@/lib/academy/card-images";
@@ -48,125 +48,552 @@ interface FlipRevealCardProps {
 }
 
 // ─────────────────────────────────────────────────────────────────────
-//  THE CARD BACK — an editorial SVG, hand-composed
+//  THE CARD BACK — "Astral Portal"
+//  Pure SVG + CSS motion, layered so the back feels like a hole in
+//  space that's pulling you in. Everything the static design had is
+//  still here; now it breathes, drifts, and draws itself.
+//
+//  Layers (from back to front):
+//   1. Nebula base  — radial-gradient with stops that morph on irrational
+//                     periods (never repeats). Plus fractal grain.
+//   2. Dust stream  — ~24 gold particles riding <animateMotion> along 8
+//                     inward-curving arcs toward the central ✦.
+//                     This is the literal "sucks you in."
+//   3. Filigree     — the existing hand-composed sigil. Oval breathes,
+//                     constellation twinkles on irrational periods,
+//                     random star pairs light a hair-thin filament.
+//   4. Central ✦   — slow-rotating aura ring (42s/rev).
+//   5. Foil sweep  — conic-gradient iridescence pass via mix-blend-mode.
+//   6. Vignette    — dark lens edge so the center feels like a well.
+//
+//  Pointer parallax on three depth layers (bg/mid/fore) — the back
+//  tilts subtly toward the cursor, giving depth without disturbing the
+//  flip. Reduced-motion strips all motion to a static elegant back.
 // ─────────────────────────────────────────────────────────────────────
 
+const STAR_POSITIONS: Array<[number, number]> = [
+  [180, 140], [180, 400], [68, 270], [292, 270],
+  [105, 192], [255, 192], [105, 348], [255, 348],
+];
+// Near-prime-ratio periods + phase offsets so the 8 stars never align.
+const STAR_PERIODS = [4.1, 5.3, 6.7, 7.9, 9.1, 4.7, 5.9, 7.3];
+const STAR_PHASES  = [0.0, 1.2, 2.4, 3.6, 0.8, 2.0, 3.2, 4.4];
+
 function CardBack() {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Shared cursor state — read by both the parallax effect and the canvas
+  // loop. Keeps them in sync without React re-renders.
+  const cursorRef = useRef<{ x: number; y: number; active: number }>({
+    x: 180, y: 270, active: 0,
+  });
+
+  // ─── CANVAS STARFIELD + CURL-NOISE SMOKE + CURSOR DUST ───
+  // Runs in a single RAF loop. ~400 ambient micro-stars twinkling on
+  // independent sine phases, ~60 smoke particles on a cheap curl-noise-
+  // like flow field, and a cursor-attractor dust cloud that only appears
+  // when the pointer is on the card.
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const W = 360, H = 540;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    ctx.scale(dpr, dpr);
+
+    // Deterministic PRNG (xorshift) so positions are stable across reloads.
+    let s = 0xC0FFEE;
+    const rnd = () => {
+      s ^= s << 13; s ^= s >>> 17; s ^= s << 5;
+      return ((s >>> 0) / 0xffffffff);
+    };
+
+    // 420 ambient stars — weighted toward small + dim so they feel like depth
+    const stars = Array.from({ length: 420 }, () => {
+      const r = Math.pow(rnd(), 2.4) * 1.1 + 0.15;
+      const bright = rnd() > 0.94; // ~6% are brighter "hero" stars
+      return {
+        x: rnd() * W,
+        y: rnd() * H,
+        r: bright ? r * 1.9 : r,
+        phase: rnd() * Math.PI * 2,
+        period: 1.8 + rnd() * 7,
+        baseOp: (bright ? 0.55 : 0.18) + rnd() * 0.3,
+        hue: bright ? 48 + rnd() * 12 : 42 + rnd() * 18, // warm gold range
+        flickerChance: bright ? 0.002 : 0.0004,
+        flickerUntil: 0,
+      };
+    });
+
+    // 70 smoke puffs — drifting with a cheap curl-field approximation
+    const smoke = Array.from({ length: 70 }, () => ({
+      x: rnd() * W,
+      y: rnd() * H,
+      vx: 0, vy: 0,
+      r: 14 + rnd() * 26,
+      op: 0.02 + rnd() * 0.05,
+      seed: rnd() * 1000,
+    }));
+
+    // 36 cursor-reactive dust particles — orbit/converge on cursor when near
+    const dust = Array.from({ length: 36 }, () => ({
+      x: rnd() * W,
+      y: rnd() * H,
+      vx: (rnd() - 0.5) * 0.2,
+      vy: (rnd() - 0.5) * 0.2,
+      r: 0.35 + rnd() * 0.55,
+      life: rnd(),
+    }));
+
+    // Cheap flow field — sum of sines, looks curl-noise-ish, zero deps
+    const flow = (x: number, y: number, t: number) => {
+      const nx =
+        Math.sin(x * 0.012 + t * 0.00028) +
+        Math.cos(y * 0.017 - t * 0.00019);
+      const ny =
+        Math.sin(y * 0.013 - t * 0.00033) +
+        Math.cos(x * 0.019 + t * 0.00024);
+      return { vx: nx * 0.18, vy: ny * 0.18 };
+    };
+
+    let raf = 0;
+    let lastT = performance.now();
+
+    const tick = (t: number) => {
+      const dt = Math.min(48, t - lastT); // clamp to avoid huge jumps after tab switch
+      lastT = t;
+
+      // Full clear — the canvas itself is transparent and composited over
+      // the SVG via mix-blend-mode: screen. Anything drawn here adds light.
+      ctx.globalCompositeOperation = "source-over";
+      ctx.clearRect(0, 0, W, H);
+
+      // ── SMOKE ── additive purple wash drifting along the flow field
+      ctx.globalCompositeOperation = "lighter";
+      for (const p of smoke) {
+        const { vx, vy } = flow(p.x, p.y, t);
+        p.vx = p.vx * 0.92 + vx * 0.08;
+        p.vy = p.vy * 0.92 + vy * 0.08;
+        p.x += p.vx * dt * 0.04;
+        p.y += p.vy * dt * 0.04;
+        if (p.x < -30) p.x = W + 30;
+        if (p.x > W + 30) p.x = -30;
+        if (p.y < -30) p.y = H + 30;
+        if (p.y > H + 30) p.y = -30;
+
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+        const opBoost = p.op * 1.8;
+        g.addColorStop(0, `rgba(130, 80, 220, ${opBoost})`);
+        g.addColorStop(0.55, `rgba(90, 50, 180, ${opBoost * 0.5})`);
+        g.addColorStop(1, "rgba(60, 30, 130, 0)");
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // ── STARS ── additive gold twinkle with rare flicker events
+      for (const s of stars) {
+        const phase = Math.sin((t / 1000) * ((Math.PI * 2) / s.period) + s.phase);
+        let op = s.baseOp * (0.42 + (phase * 0.5 + 0.5) * 0.58);
+
+        // Rare flicker: brief 80ms-ish bright pulse
+        if (t < s.flickerUntil) {
+          const f = (s.flickerUntil - t) / 140;
+          op = Math.min(1, op + f * 0.8);
+        } else if (!reduced && Math.random() < s.flickerChance) {
+          s.flickerUntil = t + 140;
+        }
+
+        ctx.fillStyle = `hsla(${s.hue}, 85%, 72%, ${op})`;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Halo on brighter stars
+        if (s.r > 1.2 && op > 0.3) {
+          const hg = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 4);
+          hg.addColorStop(0, `hsla(${s.hue}, 80%, 78%, ${op * 0.5})`);
+          hg.addColorStop(1, `hsla(${s.hue}, 80%, 78%, 0)`);
+          ctx.fillStyle = hg;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r * 4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // ── CURSOR DUST ── appears only when pointer is on the card
+      const c = cursorRef.current;
+      if (c.active > 0.01) {
+        const cx = c.x, cy = c.y;
+        for (const d of dust) {
+          // Weak attract toward cursor + flow field wobble
+          const dx = cx - d.x, dy = cy - d.y;
+          const dist = Math.hypot(dx, dy) + 0.01;
+          const pull = Math.min(0.8, 30 / dist) * c.active;
+          const { vx, vy } = flow(d.x, d.y, t);
+          d.vx = d.vx * 0.90 + (dx / dist) * pull * 0.15 + vx * 0.04;
+          d.vy = d.vy * 0.90 + (dy / dist) * pull * 0.15 + vy * 0.04;
+          d.x += d.vx * dt * 0.05;
+          d.y += d.vy * dt * 0.05;
+          d.life += dt * 0.0008;
+          if (d.life > 1) {
+            d.life = 0;
+            d.x = rnd() * W;
+            d.y = rnd() * H;
+          }
+
+          const op = Math.sin(d.life * Math.PI) * 0.85 * c.active;
+          ctx.fillStyle = `rgba(255, 230, 150, ${op})`;
+          ctx.beginPath();
+          ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      ctx.globalCompositeOperation = "source-over";
+      raf = requestAnimationFrame(tick);
+    };
+
+    if (!reduced) raf = requestAnimationFrame(tick);
+    return () => { if (raf) cancelAnimationFrame(raf); };
+  }, []);
+
+  // Pointer parallax — set --px / --py CSS vars on the root (−0.5..0.5).
+  // Only active while the card is visible to the camera (backface-visibility
+  // handles the hide during flip, but we bail on reduced-motion).
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const scene = root.closest<HTMLElement>(".flr-scene");
+    if (!scene) return;
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
+    let raf = 0;
+    let tx = 0, ty = 0;
+    let targetActive = 0;
+    const onMove = (e: PointerEvent) => {
+      const r = scene.getBoundingClientRect();
+      tx = Math.max(-0.5, Math.min(0.5, (e.clientX - r.left) / r.width  - 0.5));
+      ty = Math.max(-0.5, Math.min(0.5, (e.clientY - r.top)  / r.height - 0.5));
+      // Write canvas-space cursor (0..360, 0..540) into the shared ref
+      cursorRef.current.x = Math.max(0, Math.min(360, ((e.clientX - r.left) / r.width ) * 360));
+      cursorRef.current.y = Math.max(0, Math.min(540, ((e.clientY - r.top ) / r.height) * 540));
+      targetActive = 1;
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+    const onEnter = () => {
+      targetActive = 1;
+      root.classList.add("is-hovered");
+    };
+    const onLeave = () => {
+      tx = 0; ty = 0;
+      targetActive = 0;
+      root.classList.remove("is-hovered");
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+
+    // Smooth cursor `active` toward its target (used by canvas dust fade)
+    const smooth = () => {
+      const cur = cursorRef.current.active;
+      const next = cur + (targetActive - cur) * 0.08;
+      cursorRef.current.active = next;
+      if (Math.abs(next - targetActive) > 0.003) {
+        requestAnimationFrame(smooth);
+      }
+    };
+
+    const apply = () => {
+      raf = 0;
+      root.style.setProperty("--px", tx.toFixed(3));
+      root.style.setProperty("--py", ty.toFixed(3));
+      smooth();
+    };
+
+    scene.addEventListener("pointerenter", onEnter);
+    scene.addEventListener("pointermove", onMove);
+    scene.addEventListener("pointerleave", onLeave);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      scene.removeEventListener("pointerenter", onEnter);
+      scene.removeEventListener("pointermove", onMove);
+      scene.removeEventListener("pointerleave", onLeave);
+    };
+  }, []);
+
+  // Dust-particle generator — 8 spiral paths × 3 particles each.
+  // Staggered dur + negative begin so particles stream continuously.
+  const particles = useMemo(() => {
+    const out: Array<{ path: number; dur: number; begin: number; r: number; op: number }> = [];
+    for (let p = 0; p < 8; p++) {
+      for (let i = 0; i < 3; i++) {
+        out.push({
+          path: p,
+          dur: 7.3 + ((p * 1.3 + i * 1.7) % 5.6),
+          begin: -(((p * 2.1 + i * 3.4) * 10) % 100) / 10,
+          r: 0.55 + ((p + i * 2) % 3) * 0.18,
+          op: 0.55 + ((p * 3 + i) % 4) * 0.12,
+        });
+      }
+    }
+    return out;
+  }, []);
+
   return (
-    <svg
-      viewBox="0 0 360 540"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ display: "block", width: "100%", height: "100%" }}
-      aria-hidden
-    >
-      <defs>
-        {/* Deep cosmic base gradient */}
-        <radialGradient id="flip-base" cx="50%" cy="38%" r="70%">
-          <stop offset="0%"  stopColor="#271a48" />
-          <stop offset="55%" stopColor="#140d2c" />
-          <stop offset="100%" stopColor="#080516" />
-        </radialGradient>
-
-        {/* Gold filigree gradient */}
-        <linearGradient id="flip-gold" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%"  stopColor="#f3dd8e" />
-          <stop offset="50%" stopColor="#D4AF37" />
-          <stop offset="100%" stopColor="#8a6818" />
-        </linearGradient>
-
-        {/* Subtle noise filter for the base (fabric look) */}
-        <filter id="flip-grain">
-          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="3" />
-          <feColorMatrix values="0 0 0 0 0.55  0 0 0 0 0.45  0 0 0 0 0.72  0 0 0 0.04 0" />
-          <feComposite in="SourceGraphic" operator="over" />
-        </filter>
-      </defs>
-
-      {/* Base */}
-      <rect width="360" height="540" fill="url(#flip-base)" />
-      <rect width="360" height="540" fill="#271a48" filter="url(#flip-grain)" opacity="0.45" />
-
-      {/* Outer decorative border — double oval with corner florets */}
-      <g fill="none" stroke="url(#flip-gold)" strokeWidth="1.3">
-        <rect x="18" y="18" width="324" height="504" rx="14" strokeOpacity="0.92" />
-        <rect x="26" y="26" width="308" height="488" rx="10" strokeOpacity="0.35" />
-      </g>
-
-      {/* Inner hairline */}
-      <rect x="36" y="36" width="288" height="468" rx="6"
-        fill="none" stroke="rgba(232, 201, 106, 0.28)" strokeWidth="0.5" />
-
-      {/* Central filigree — oval frame */}
-      <g stroke="url(#flip-gold)" fill="none" strokeWidth="0.9" strokeOpacity="0.85">
-        <ellipse cx="180" cy="270" rx="100" ry="150" />
-        <ellipse cx="180" cy="270" rx="88"  ry="134" strokeOpacity="0.35" />
-      </g>
-
-      {/* 8-point star constellation around the mark */}
-      <g fill="url(#flip-gold)">
-        {/* Points of the star — positioned around center */}
-        {[
-          [180, 140], [180, 400], [68, 270], [292, 270],
-          [105, 192], [255, 192], [105, 348], [255, 348],
-        ].map(([cx, cy], i) => (
-          <circle key={i} cx={cx} cy={cy} r="2.8" />
-        ))}
-        {/* Connecting threads */}
-        <g stroke="url(#flip-gold)" strokeWidth="0.55" strokeOpacity="0.35" fill="none">
-          <path d="M180 140 L255 192 L292 270 L255 348 L180 400 L105 348 L68 270 L105 192 Z" />
-          <path d="M180 140 L180 400" strokeOpacity="0.18" />
-          <path d="M68 270 L292 270" strokeOpacity="0.18" />
-        </g>
-      </g>
-
-      {/* Laurel wreath around the center mark */}
-      <g stroke="url(#flip-gold)" fill="none" strokeWidth="0.9" strokeOpacity="0.78">
-        <path d="M130 270 Q 155 240 180 232 Q 205 240 230 270" />
-        <path d="M130 270 Q 155 300 180 308 Q 205 300 230 270" />
-        {/* Leaf veins */}
-        {[140, 155, 168, 192, 205, 220].map((x, i) => (
-          <line key={i} x1={x} y1="270" x2={x} y2={258 - ((i % 2) * 4)} strokeOpacity="0.5" />
-        ))}
-      </g>
-
-      {/* Central ✦ mark (outlined, luminous) */}
-      <g transform="translate(180 270)">
-        <circle r="22" fill="rgba(212, 175, 55, 0.08)" stroke="url(#flip-gold)" strokeWidth="0.7" strokeOpacity="0.9" />
-        <text
-          x="0" y="7"
-          textAnchor="middle"
-          fill="url(#flip-gold)"
-          fontSize="28"
-          fontFamily="'Cormorant Garamond', serif"
-        >
-          ✦
-        </text>
-      </g>
-
-      {/* Corner florets */}
-      {[
-        [40, 40], [320, 40], [40, 500], [320, 500],
-      ].map(([cx, cy], i) => (
-        <g key={i} transform={`translate(${cx} ${cy})`} fill="url(#flip-gold)" opacity="0.88">
-          <circle r="1.6" />
-          <circle r="3.5" fill="none" stroke="url(#flip-gold)" strokeWidth="0.6" strokeOpacity="0.6" />
-        </g>
-      ))}
-
-      {/* Brand mark at the bottom — fine italic "Olivia Arcana" */}
-      <text
-        x="180" y="502"
-        textAnchor="middle"
-        fill="url(#flip-gold)"
-        opacity="0.85"
-        fontSize="10"
-        letterSpacing="3"
-        fontFamily="'Cormorant Garamond', serif"
-        fontStyle="italic"
+    <div ref={rootRef} className="astral-back" aria-hidden>
+      {/* Canvas — ambient starfield + curl-noise smoke + cursor dust */}
+      <canvas ref={canvasRef} className="astral-canvas" />
+      {/* Radial burst on mount — dramatic light bloom from center */}
+      <div className="astral-burst" />
+      {/* Periodic supernova ring — fires every 22s from center */}
+      <div className="astral-nova" />
+      <svg
+        viewBox="0 0 360 540"
+        xmlns="http://www.w3.org/2000/svg"
+        className="astral-svg"
+        preserveAspectRatio="xMidYMid slice"
       >
-        OLIVIA ARCANA
-      </text>
-    </svg>
+        <defs>
+          {/* Animated nebula base — stops morph on different periods.
+              Darker + higher contrast than the page so the card reads
+              as a distinct object, not a window into the page. */}
+          <radialGradient id="flip-base" cx="50%" cy="38%" r="70%">
+            <stop offset="0%" stopColor="#221348">
+              <animate
+                attributeName="stop-color"
+                values="#221348;#2e1a5e;#1a0e3d;#221348"
+                dur="11s"
+                repeatCount="indefinite"
+              />
+            </stop>
+            <stop offset="55%" stopColor="#0c0720">
+              <animate
+                attributeName="stop-color"
+                values="#0c0720;#120a2b;#07051a;#0c0720"
+                dur="13s"
+                repeatCount="indefinite"
+              />
+            </stop>
+            <stop offset="100%" stopColor="#04030c" />
+          </radialGradient>
+
+          {/* Gold filigree gradient */}
+          <linearGradient id="flip-gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"  stopColor="#f3dd8e" />
+            <stop offset="50%" stopColor="#D4AF37" />
+            <stop offset="100%" stopColor="#8a6818" />
+          </linearGradient>
+
+          {/* Central mark aura */}
+          <radialGradient id="flip-aura" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="rgba(232,201,106,0.55)" />
+            <stop offset="55%"  stopColor="rgba(232,201,106,0.12)" />
+            <stop offset="100%" stopColor="rgba(232,201,106,0)" />
+          </radialGradient>
+
+          {/* Subtle noise — fabric texture on the base */}
+          <filter id="flip-grain">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="3" />
+            <feColorMatrix values="0 0 0 0 0.55  0 0 0 0 0.45  0 0 0 0 0.72  0 0 0 0.04 0" />
+            <feComposite in="SourceGraphic" operator="over" />
+          </filter>
+
+          {/* Particle glow */}
+          <filter id="flip-particle-glow" x="-200%" y="-200%" width="500%" height="500%">
+            <feGaussianBlur stdDeviation="0.9" />
+            <feMerge>
+              <feMergeNode />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+
+          {/* 8 inward-curving arcs — each ends at the central ✦ (180,270) */}
+          <path id="sp0" d="M 340,80  A 220,220 0 0,0 180,270" />
+          <path id="sp1" d="M 20,80   A 220,220 0 0,1 180,270" />
+          <path id="sp2" d="M 340,460 A 220,220 0 0,1 180,270" />
+          <path id="sp3" d="M 20,460  A 220,220 0 0,0 180,270" />
+          <path id="sp4" d="M 356,270 A 170,170 0 0,0 180,270" />
+          <path id="sp5" d="M 4,270   A 170,170 0 0,1 180,270" />
+          <path id="sp6" d="M 180,18  A 140,140 0 0,1 180,270" />
+          <path id="sp7" d="M 180,522 A 140,140 0 0,0 180,270" />
+        </defs>
+
+        {/* ─── BG: nebula + dust stream (moves -3px toward cursor) */}
+        <g className="al-bg">
+          <rect width="360" height="540" fill="url(#flip-base)" />
+          <rect width="360" height="540" fill="#271a48" filter="url(#flip-grain)" opacity="0.45" />
+
+          <g className="al-dust" filter="url(#flip-particle-glow)">
+            {particles.map((p, i) => (
+              <circle key={i} r={p.r} fill="#f3dd8e" opacity="0">
+                <animateMotion
+                  dur={`${p.dur}s`}
+                  begin={`${p.begin}s`}
+                  repeatCount="indefinite"
+                  rotate="auto"
+                >
+                  <mpath href={`#sp${p.path}`} />
+                </animateMotion>
+                <animate
+                  attributeName="opacity"
+                  values={`0;${p.op};${p.op * 1.05};0`}
+                  keyTimes="0;0.15;0.72;1"
+                  dur={`${p.dur}s`}
+                  begin={`${p.begin}s`}
+                  repeatCount="indefinite"
+                />
+                <animate
+                  attributeName="r"
+                  values={`${p.r};${(p.r * 0.55).toFixed(2)};0`}
+                  keyTimes="0;0.6;1"
+                  dur={`${p.dur}s`}
+                  begin={`${p.begin}s`}
+                  repeatCount="indefinite"
+                />
+              </circle>
+            ))}
+          </g>
+
+        </g>
+
+        {/* ─── MID: outer frames + breathing oval + laurel + florets (+4px) */}
+        <g className="al-mid">
+          <g fill="none" stroke="url(#flip-gold)" strokeWidth="1.3">
+            <rect x="18" y="18" width="324" height="504" rx="14" strokeOpacity="0.92" />
+            <rect x="26" y="26" width="308" height="488" rx="10" strokeOpacity="0.35" />
+          </g>
+          <rect
+            x="36" y="36" width="288" height="468" rx="6"
+            fill="none" stroke="rgba(232,201,106,0.28)" strokeWidth="0.5"
+          />
+
+          <g
+            stroke="url(#flip-gold)" fill="none" strokeWidth="0.9" strokeOpacity="0.85"
+            className="al-breathe"
+          >
+            <ellipse cx="180" cy="270" rx="100" ry="150" />
+            <ellipse cx="180" cy="270" rx="88"  ry="134" strokeOpacity="0.35" />
+          </g>
+
+          <g stroke="url(#flip-gold)" fill="none" strokeWidth="0.9" className="al-laurel">
+            <path d="M130 270 Q 155 240 180 232 Q 205 240 230 270" strokeOpacity="0.78" />
+            <path d="M130 270 Q 155 300 180 308 Q 205 300 230 270" strokeOpacity="0.78" />
+            {[140, 155, 168, 192, 205, 220].map((x, i) => (
+              <line key={i} x1={x} y1="270" x2={x} y2={258 - ((i % 2) * 4)} strokeOpacity="0.5" />
+            ))}
+          </g>
+
+          {[[40, 40], [320, 40], [40, 500], [320, 500]].map(([cx, cy], i) => (
+            <g key={i} transform={`translate(${cx} ${cy})`} fill="url(#flip-gold)" opacity="0.88">
+              <circle r="1.6" />
+              <circle r="3.5" fill="none" stroke="url(#flip-gold)" strokeWidth="0.6" strokeOpacity="0.6" />
+            </g>
+          ))}
+        </g>
+
+        {/* ─── FORE: constellation + central ✦ + brand mark (+8px) */}
+        <g className="al-fore">
+          {/* Static octagon connectors */}
+          <g stroke="url(#flip-gold)" strokeWidth="0.55" strokeOpacity="0.35" fill="none">
+            <path d="M180 140 L255 192 L292 270 L255 348 L180 400 L105 348 L68 270 L105 192 Z" />
+            <path d="M180 140 L180 400" strokeOpacity="0.18" />
+            <path d="M68 270 L292 270" strokeOpacity="0.18" />
+          </g>
+
+          {/* Filaments — four pairs that light up sequentially on a 22s loop */}
+          <g className="al-filaments" stroke="url(#flip-gold)" strokeWidth="0.75" fill="none">
+            <path d="M180 140 L292 270" className="fil fil-a" pathLength="100" />
+            <path d="M292 270 L180 400" className="fil fil-b" pathLength="100" />
+            <path d="M180 400 L68 270"  className="fil fil-c" pathLength="100" />
+            <path d="M68 270 L180 140"  className="fil fil-d" pathLength="100" />
+          </g>
+
+          {/* Star dots — each pulses on its own prime-ish period */}
+          <g fill="url(#flip-gold)">
+            {STAR_POSITIONS.map(([cx, cy], i) => (
+              <circle key={i} cx={cx} cy={cy} r="2.8">
+                <animate
+                  attributeName="opacity"
+                  values="0.42;1;0.42"
+                  dur={`${STAR_PERIODS[i]}s`}
+                  begin={`${-STAR_PHASES[i]}s`}
+                  repeatCount="indefinite"
+                />
+                <animate
+                  attributeName="r"
+                  values="2.3;3.5;2.3"
+                  dur={`${STAR_PERIODS[i]}s`}
+                  begin={`${-STAR_PHASES[i]}s`}
+                  repeatCount="indefinite"
+                />
+              </circle>
+            ))}
+          </g>
+
+          {/* Central ✦ — rotating aura ring + breathing mark */}
+          <g className="al-center" transform="translate(180 270)">
+            {/* Deep aura — larger, richer gradient */}
+            <g className="al-aura">
+              <circle r="44" fill="url(#flip-aura)" />
+            </g>
+            {/* Counter-rotating inner aura ring */}
+            <g className="al-aura-inner">
+              <circle r="26" fill="url(#flip-aura)" opacity="0.55" />
+            </g>
+            {/* Outer soft-glow ring — pulses with the breath */}
+            <circle className="al-center-glow" r="28" fill="none"
+                    stroke="url(#flip-gold)" strokeWidth="0.5" strokeOpacity="0.7" />
+            <circle
+              r="22" fill="rgba(212,175,55,0.12)"
+              stroke="url(#flip-gold)" strokeWidth="0.9" strokeOpacity="0.95"
+            />
+            {/* Inner accent ring */}
+            <circle
+              r="14" fill="none"
+              stroke="url(#flip-gold)" strokeWidth="0.4" strokeOpacity="0.4"
+            />
+            {/* Custom four-point star path — crisp across all browsers */}
+            <path
+              className="al-center-mark"
+              d="M 0,-14 L 2.8,-2.8 L 14,0 L 2.8,2.8 L 0,14 L -2.8,2.8 L -14,0 L -2.8,-2.8 Z"
+              fill="url(#flip-gold)"
+              stroke="rgba(255, 230, 150, 0.55)"
+              strokeWidth="0.4"
+            />
+            {/* Tiny secondary points to give the ✦ its sparkle quality */}
+            <path
+              className="al-center-mark-aux"
+              d="M 0,-20 L 0.9,-6 L 0,-3 L -0.9,-6 Z  M 0,3 L 0.9,6 L 0,20 L -0.9,6 Z  M -20,0 L -6,-0.9 L -3,0 L -6,0.9 Z  M 3,0 L 6,-0.9 L 20,0 L 6,0.9 Z"
+              fill="url(#flip-gold)"
+              opacity="0.6"
+            />
+          </g>
+
+          <text
+            x="180" y="502" textAnchor="middle" fill="url(#flip-gold)"
+            opacity="0.85" fontSize="10" letterSpacing="3"
+            fontFamily="'Cormorant Garamond', serif" fontStyle="italic"
+          >
+            OLIVIA ARCANA
+          </text>
+        </g>
+      </svg>
+
+      {/* Iridescent foil sweep — conic gradient pass via @property --angle */}
+      <div className="astral-foil" />
+      {/* Dark lens edge — makes the center feel like a well */}
+      <div className="astral-vignette" />
+    </div>
   );
 }
 
@@ -522,6 +949,358 @@ export default function FlipRevealCard({
         }
         .flr-advance:hover { color: rgba(245,240,232,0.98); border-color: rgba(200,185,255,0.4); }
         .flr-advance:focus-visible { outline: 2px solid #E8C96A; outline-offset: 3px; }
+
+        /* ═══════════════════════════════════════════════════════════
+           ASTRAL PORTAL — the animated back (elevated)
+           ═══════════════════════════════════════════════════════════ */
+        .astral-back {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          border-radius: inherit;
+          --px: 0;
+          --py: 0;
+          --hover: 0;
+          /* self-assemble on first mount — the sigil emerges from the void */
+          animation: al-emerge 1.5s cubic-bezier(0.16,1,0.3,1) 0.15s both;
+        }
+        .astral-back.is-hovered { --hover: 1; }
+        @keyframes al-emerge {
+          0%   { opacity: 0; filter: blur(8px) brightness(0.35) contrast(1.2); }
+          50%  { opacity: 1; filter: blur(2px) brightness(1.15) contrast(1.1); }
+          100% { opacity: 1; filter: blur(0)   brightness(1)    contrast(1); }
+        }
+
+        /* Canvas — ambient starfield, smoke, cursor dust.
+           Sits behind the SVG; screens-blend so its light adds to the SVG base. */
+        .astral-canvas {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 0;
+          pointer-events: none;
+          mix-blend-mode: screen;
+          opacity: 0.88;
+        }
+
+        /* Mount burst — a bright radial bloom that expands from center,
+           synced with the emerge. Feels like the sigil being born.
+           Peak is intentionally softer than a stadium floodlight so the
+           card composition stays legible through the burst. */
+        .astral-burst {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          pointer-events: none;
+          border-radius: inherit;
+          background: radial-gradient(
+            circle at 50% 50%,
+            rgba(255, 230, 150, 0.7) 0%,
+            rgba(232, 201, 106, 0.35) 22%,
+            rgba(140, 90, 210, 0.18) 48%,
+            rgba(40, 20, 80, 0) 78%
+          );
+          opacity: 0;
+          mix-blend-mode: screen;
+          animation: al-burst 2.8s cubic-bezier(0.16, 1, 0.3, 1) 0.22s forwards;
+        }
+        @keyframes al-burst {
+          0%   { opacity: 0;    transform: scale(0.22); filter: blur(6px); }
+          18%  { opacity: 0.95; transform: scale(0.7);  filter: blur(0); }
+          55%  { opacity: 0.35; transform: scale(1.15); }
+          100% { opacity: 0;    transform: scale(1.6);  filter: blur(3px); }
+        }
+
+        /* Periodic supernova — a ring of light expands from the center
+           every 15s. Timed so one is always either visible or about to fire. */
+        .astral-nova {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 40px;
+          height: 40px;
+          margin-left: -20px;
+          margin-top: -20px;
+          z-index: 1;
+          pointer-events: none;
+          border-radius: 50%;
+          border: 2px solid rgba(255, 230, 150, 0.95);
+          box-shadow:
+            0 0 34px rgba(255, 230, 150, 0.6),
+            inset 0 0 18px rgba(255, 230, 150, 0.4);
+          opacity: 0;
+          animation: al-nova 15s cubic-bezier(0.2, 0.5, 0.3, 1) 5s infinite;
+          mix-blend-mode: screen;
+        }
+        /* A second, offset nova on a longer cycle so events feel irregular */
+        .astral-back::after {
+          content: "";
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 30px;
+          height: 30px;
+          margin-left: -15px;
+          margin-top: -15px;
+          z-index: 1;
+          pointer-events: none;
+          border-radius: 50%;
+          border: 1.5px solid rgba(180, 145, 230, 0.85);
+          box-shadow: 0 0 26px rgba(180, 145, 230, 0.45);
+          opacity: 0;
+          animation: al-nova 19s cubic-bezier(0.2, 0.5, 0.3, 1) 12s infinite;
+          mix-blend-mode: screen;
+        }
+        @keyframes al-nova {
+          0%    { opacity: 0;    transform: scale(0.2);  border-width: 3px;   }
+          2%    { opacity: 1;    transform: scale(0.5);  border-width: 2.2px; }
+          10%   { opacity: 0.7;  transform: scale(2.5);  border-width: 1.4px; }
+          25%   { opacity: 0.25; transform: scale(6);    border-width: 0.6px; }
+          40%   { opacity: 0;    transform: scale(10);   border-width: 0.2px; }
+          100%  { opacity: 0;    transform: scale(10);   border-width: 0.2px; }
+        }
+
+        .astral-svg {
+          display: block;
+          width: 100%;
+          height: 100%;
+          position: relative;
+          z-index: 2;
+        }
+
+        /* Depth parallax — three layers respond to cursor with different
+           amplitudes. Kept tiny so it reads as depth, not as "the card is
+           rotating independently of the flip." */
+        .astral-svg .al-bg,
+        .astral-svg .al-mid,
+        .astral-svg .al-fore {
+          transform-origin: 180px 270px;
+          transform-box: fill-box;
+          transition: transform 420ms cubic-bezier(0.16,1,0.3,1);
+          will-change: transform;
+        }
+        .astral-svg .al-bg   { transform: translate(calc(var(--px) * -3px), calc(var(--py) * -3px)); }
+        .astral-svg .al-mid  { transform: translate(calc(var(--px) *  4px), calc(var(--py) *  4px)); }
+        .astral-svg .al-fore { transform: translate(calc(var(--px) *  8px), calc(var(--py) *  8px)); }
+
+        /* Slow rotating aura behind the central ✦ — 42s per revolution.
+           Speeds up ~30% on hover for responsive feel. */
+        .astral-svg .al-aura {
+          transform-origin: center;
+          transform-box: fill-box;
+          animation: al-rot 42s linear infinite;
+        }
+        .astral-svg .al-aura-inner {
+          transform-origin: center;
+          transform-box: fill-box;
+          animation: al-rot 28s linear infinite reverse;
+        }
+        .astral-back.is-hovered .astral-svg .al-aura {
+          animation-duration: 28s;
+        }
+        .astral-back.is-hovered .astral-svg .al-aura-inner {
+          animation-duration: 18s;
+        }
+        @keyframes al-rot {
+          from { transform: rotate(0deg);   }
+          to   { transform: rotate(360deg); }
+        }
+
+        /* Central ✦ breathing — gentle scale pulse with a peak glow burst.
+           The whole al-center group scales; the mark text gets a drop-shadow
+           pulse; the outer glow ring pulses stroke-opacity in counter-phase. */
+        .astral-svg .al-center {
+          transform-origin: 180px 270px;
+          transform-box: fill-box;
+          animation: al-breath 7.2s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+        }
+        @keyframes al-breath {
+          0%, 100% { transform: scale(1);    }
+          50%      { transform: scale(1.06); }
+        }
+
+        .astral-svg .al-center-mark {
+          animation: al-breath-mark 7.2s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+          transform-origin: center;
+          transform-box: fill-box;
+        }
+        @keyframes al-breath-mark {
+          0%, 100% {
+            filter: drop-shadow(0 0 4px rgba(255, 220, 130, 0.6));
+          }
+          50% {
+            filter:
+              drop-shadow(0 0 12px rgba(255, 230, 150, 1))
+              drop-shadow(0 0 26px rgba(232, 201, 106, 0.8));
+          }
+        }
+
+        .astral-svg .al-center-mark-aux {
+          animation: al-breath-aux 7.2s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+          transform-origin: center;
+          transform-box: fill-box;
+        }
+        @keyframes al-breath-aux {
+          0%, 100% { transform: scale(0.85); opacity: 0.4; }
+          50%      { transform: scale(1.1);  opacity: 0.85; }
+        }
+
+        .astral-svg .al-center-glow {
+          animation: al-breath-glow 7.2s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+          transform-origin: 180px 270px;
+          transform-box: fill-box;
+        }
+        @keyframes al-breath-glow {
+          0%, 100% { stroke-opacity: 0.2;  transform: scale(0.92); }
+          50%      { stroke-opacity: 0.95; transform: scale(1.18); }
+        }
+
+        .astral-back.is-hovered .astral-svg .al-center {
+          animation-duration: 4.5s;
+        }
+        .astral-back.is-hovered .astral-svg .al-center-mark {
+          animation-duration: 4.5s;
+        }
+        .astral-back.is-hovered .astral-svg .al-center-glow {
+          animation-duration: 4.5s;
+        }
+
+        /* Iridescent gold — very subtle hue-rotation on the whole filigree,
+           slow enough to read as "material richness" not "color shifting". */
+        .astral-svg .al-fore,
+        .astral-svg .al-mid {
+          animation: al-iridesce 18s ease-in-out infinite;
+        }
+        @keyframes al-iridesce {
+          0%, 100% { filter: hue-rotate(0deg)    saturate(1);    }
+          25%      { filter: hue-rotate(-4deg)   saturate(1.08); }
+          50%      { filter: hue-rotate(3deg)    saturate(1.05); }
+          75%      { filter: hue-rotate(-2deg)   saturate(1.1);  }
+        }
+
+        /* Oval frame breathing — soft scale + opacity pulse */
+        .astral-svg .al-breathe {
+          transform-origin: 180px 270px;
+          transform-box: fill-box;
+          animation: al-breathe 9s cubic-bezier(0.42,0,0.58,1) infinite;
+        }
+        @keyframes al-breathe {
+          0%, 100% { transform: scale(1);     opacity: 0.92; }
+          50%      { transform: scale(1.018); opacity: 0.76; }
+        }
+
+        /* Laurel drift */
+        .astral-svg .al-laurel {
+          transform-origin: 180px 270px;
+          transform-box: fill-box;
+          animation: al-laurel 13s ease-in-out infinite;
+        }
+        @keyframes al-laurel {
+          0%, 100% { opacity: 0.78; transform: translateY(0); }
+          50%      { opacity: 0.95; transform: translateY(-0.6px); }
+        }
+
+        /* Filaments — each pair lights up for ~2s then fades, sequenced
+           across a 22s loop so only one is active at a time. */
+        .astral-svg .fil {
+          stroke-dasharray: 100 100;
+          stroke-dashoffset: 100;
+          opacity: 0;
+          filter: drop-shadow(0 0 3px rgba(255, 220, 130, 0.8));
+        }
+        .astral-svg .fil-a { animation: al-filament 22s ease-in-out infinite 0.0s; }
+        .astral-svg .fil-b { animation: al-filament 22s ease-in-out infinite 5.5s; }
+        .astral-svg .fil-c { animation: al-filament 22s ease-in-out infinite 11s; }
+        .astral-svg .fil-d { animation: al-filament 22s ease-in-out infinite 16.5s; }
+        @keyframes al-filament {
+          0%   { stroke-dashoffset: 100; opacity: 0; }
+          6%   { stroke-dashoffset: 0;   opacity: 0.95; }
+          18%  { stroke-dashoffset: 0;   opacity: 0.55; }
+          24%  { stroke-dashoffset: -100; opacity: 0; }
+          100% { stroke-dashoffset: -100; opacity: 0; }
+        }
+
+        /* Iridescent foil sweep — conic gradient rotates via @property */
+        @property --angle {
+          syntax: "<angle>";
+          initial-value: 0deg;
+          inherits: false;
+        }
+        .astral-foil {
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          pointer-events: none;
+          background: conic-gradient(
+            from var(--angle, 0deg) at 52% 48%,
+            transparent 0deg,
+            rgba(232,201,106,0.08) 42deg,
+            transparent 92deg,
+            rgba(180,145,230,0.09) 144deg,
+            transparent 196deg,
+            rgba(120,220,220,0.07) 248deg,
+            transparent 298deg,
+            rgba(232,201,106,0.08) 344deg,
+            transparent 360deg
+          );
+          mix-blend-mode: screen;
+          opacity: 0.55;
+          animation: al-foil 22s linear infinite;
+          z-index: 4;
+          transition: opacity 420ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .astral-back.is-hovered .astral-foil {
+          animation-duration: 14s;
+          opacity: 0.85;
+        }
+        @keyframes al-foil {
+          from { --angle: 0deg;   }
+          to   { --angle: 360deg; }
+        }
+
+        /* Soft lens vignette — deepens the center "well" feel */
+        .astral-vignette {
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          pointer-events: none;
+          background: radial-gradient(
+            ellipse at 52% 42%,
+            transparent 45%,
+            rgba(5, 3, 20, 0.42) 100%
+          );
+          mix-blend-mode: multiply;
+          z-index: 5;
+        }
+
+        /* Reduced motion — strip everything, keep the static composition
+           legible and elegant. */
+        @media (prefers-reduced-motion: reduce) {
+          .astral-back,
+          .astral-burst,
+          .astral-nova,
+          .astral-foil { animation: none !important; opacity: 0 !important; }
+          .astral-canvas { display: none; }
+          .astral-svg *,
+          .astral-foil {
+            animation: none !important;
+          }
+          .astral-svg .al-bg,
+          .astral-svg .al-mid,
+          .astral-svg .al-fore {
+            transform: none !important;
+            transition: none !important;
+            filter: none !important;
+          }
+          .astral-svg .al-center,
+          .astral-svg .al-center-mark,
+          .astral-svg .al-center-glow {
+            transform: none !important;
+            animation: none !important;
+          }
+          .astral-svg .fil { opacity: 0.2; stroke-dashoffset: 0; }
+        }
       `}</style>
     </div>
   );

@@ -29,92 +29,78 @@ export default function OliviaIntro() {
       }}
     >
       <div className="olivia-grid">
-        {/* Portrait — SVG composition */}
+        {/* Portrait — editorial photograph frame (Direction 1: Editorial
+            Astrologer). The placeholder shows a faint silhouette inside
+            a portrait-proportioned frame with a hairline gold border, a
+            subtle radial vignette, and a discreet caption underneath
+            that cites the commission path — so the layout visibly
+            reserves space for a real 4:5 photograph rather than
+            suggesting an illustration is the end state. Replace the
+            <svg> below with <Image src="/olivia/portrait.jpg" …/> once
+            the HeyGen source portrait is generated and approved. */}
         <div className="olivia-portrait-wrap" aria-hidden>
-          <svg
-            viewBox="0 0 320 400"
-            className="olivia-portrait"
-            preserveAspectRatio="xMidYMid meet"
-          >
-            <defs>
-              <radialGradient id="olivia-glow" cx="50%" cy="40%" r="65%">
-                <stop offset="0%" stopColor="rgba(232,201,106,0.32)" />
-                <stop offset="45%" stopColor="rgba(160,122,224,0.18)" />
-                <stop offset="100%" stopColor="rgba(6,4,26,0)" />
-              </radialGradient>
-              <linearGradient id="olivia-face" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#1a1030" />
-                <stop offset="55%" stopColor="#0e0b24" />
-                <stop offset="100%" stopColor="#06041a" />
-              </linearGradient>
-              <linearGradient id="olivia-stroke" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="rgba(232,201,106,0.8)" />
-                <stop offset="100%" stopColor="rgba(160,122,224,0.6)" />
-              </linearGradient>
-            </defs>
-
-            {/* Ambient glow */}
-            <rect x="0" y="0" width="320" height="400" fill="url(#olivia-glow)" />
-
-            {/* Portrait frame — faceted oval evoking a mirror */}
-            <ellipse cx="160" cy="200" rx="118" ry="152" fill="url(#olivia-face)" />
-            <ellipse
-              cx="160" cy="200" rx="118" ry="152"
-              fill="none"
-              stroke="url(#olivia-stroke)"
-              strokeWidth="0.75"
-            />
-
-            {/* Abstract face — no features, just the sense of a figure */}
-            {/* Head */}
-            <circle cx="160" cy="155" r="48"
-              fill="none"
-              stroke="rgba(232,201,106,0.58)"
-              strokeWidth="0.9"
-            />
-            {/* Neck / shoulders arc */}
-            <path
-              d="M110 235 Q 160 270 210 235 Q 218 290 210 330 L 110 330 Q 102 290 110 235 Z"
-              fill="none"
-              stroke="rgba(200,185,255,0.38)"
-              strokeWidth="0.7"
-            />
-
-            {/* Constellation overlay — cosmic alignment on the face */}
-            <g stroke="rgba(232,201,106,0.72)" strokeWidth="0.6" fill="rgba(232,201,106,0.92)">
-              <circle cx="148" cy="140" r="1.6" />
-              <circle cx="172" cy="138" r="1.6" />
-              <circle cx="160" cy="158" r="1.2" />
-              <circle cx="142" cy="170" r="1.4" />
-              <circle cx="178" cy="172" r="1.4" />
-              <circle cx="160" cy="190" r="1.8" />
-              <path d="M148 140 L160 158 L172 138 M142 170 L160 190 L178 172 M160 158 L160 190"
-                fill="none" opacity="0.5" />
-            </g>
-
-            {/* Shoulder glyphs */}
-            <g fill="rgba(232,201,106,0.85)" fontFamily="serif" fontStyle="italic" fontSize="15">
-              <text x="118" y="305" textAnchor="middle" opacity="0.7">♎</text>
-              <text x="202" y="305" textAnchor="middle" opacity="0.7">☾</text>
-            </g>
-
-            {/* Signature under the portrait */}
-            <text
-              x="160" y="378"
-              textAnchor="middle"
-              fontFamily="serif"
-              fontStyle="italic"
-              fontWeight="400"
-              fontSize="22"
-              fill="rgba(232,201,106,0.9)"
+          <div className="olivia-portrait-frame">
+            <svg
+              viewBox="0 0 320 400"
+              className="olivia-portrait"
+              preserveAspectRatio="xMidYMid meet"
+              role="img"
+              aria-label="Olivia portrait — placeholder pending photography"
             >
-              ✦ Olivia
-            </text>
-          </svg>
+              <defs>
+                <radialGradient id="olivia-bg" cx="50%" cy="40%" r="70%">
+                  <stop offset="0%"  stopColor="rgba(34, 22, 62, 1)" />
+                  <stop offset="65%" stopColor="rgba(14, 10, 36, 1)" />
+                  <stop offset="100%" stopColor="rgba(6, 4, 26, 1)" />
+                </radialGradient>
+                <radialGradient id="olivia-rim" cx="50%" cy="38%" r="55%">
+                  <stop offset="0%"  stopColor="rgba(232, 201, 106, 0.25)" />
+                  <stop offset="70%" stopColor="rgba(232, 201, 106, 0)" />
+                </radialGradient>
+                <linearGradient id="olivia-silhouette" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(46, 30, 72, 0.9)" />
+                  <stop offset="100%" stopColor="rgba(18, 12, 42, 0.9)" />
+                </linearGradient>
+              </defs>
 
-          {/* Quiet caption */}
+              {/* Editorial studio backdrop — warm gold fades into cosmic void */}
+              <rect width="320" height="400" fill="url(#olivia-bg)" />
+              <rect width="320" height="400" fill="url(#olivia-rim)" />
+
+              {/* Faint silhouette of a head-and-shoulders portrait —
+                  signals "a photograph goes here" without cartoonifying. */}
+              <g opacity="0.55">
+                {/* Shoulders */}
+                <path
+                  d="M66 400 L66 330 Q 80 296 110 284 Q 130 278 160 278 Q 190 278 210 284 Q 240 296 254 330 L254 400 Z"
+                  fill="url(#olivia-silhouette)"
+                />
+                {/* Head */}
+                <ellipse cx="160" cy="220" rx="56" ry="68" fill="url(#olivia-silhouette)" />
+                {/* Neck */}
+                <rect x="140" y="275" width="40" height="18" fill="url(#olivia-silhouette)" />
+                {/* Soft loose hair shape */}
+                <path
+                  d="M100 220 Q 96 180 112 158 Q 140 138 160 138 Q 180 138 208 158 Q 224 180 220 220 Q 216 240 204 250 Q 192 252 180 245 Q 160 256 140 245 Q 128 252 116 250 Q 104 240 100 220 Z"
+                  fill="url(#olivia-silhouette)"
+                  opacity="0.72"
+                />
+              </g>
+
+              {/* Hairline gold border just inside the frame */}
+              <rect x="8" y="8" width="304" height="384" rx="6"
+                fill="none"
+                stroke="rgba(232, 201, 106, 0.35)"
+                strokeWidth="0.75"
+              />
+            </svg>
+          </div>
+
           <p className="olivia-portrait-caption">
-            Illustration placeholder · commission at Sprint 3 sign-off
+            Portrait placeholder · photography commission pending
+          </p>
+          <p className="olivia-portrait-signature">
+            <span aria-hidden>✦</span> Olivia
           </p>
         </div>
 
@@ -192,22 +178,51 @@ export default function OliviaIntro() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 0.75rem;
+          gap: 0.9rem;
+        }
+        /* A real photo frame. The SVG inside holds space at 4:5.
+           Editorial Astrologer (Direction 1): hairline gold border,
+           subtle radial vignette, warm shadow, no faceted oval.
+           Replace inner <svg> with <img src="/olivia/portrait.jpg" /> once
+           the HeyGen source image lands — CSS stays. */
+        .olivia-portrait-frame {
+          position: relative;
+          width: min(360px, 100%);
+          aspect-ratio: 4 / 5;
+          overflow: hidden;
+          border-radius: 8px;
+          box-shadow:
+            0 28px 56px rgba(0, 0, 0, 0.55),
+            0 0 40px rgba(212, 175, 55, 0.08),
+            inset 0 0 0 1px rgba(232, 201, 106, 0.22);
         }
         .olivia-portrait {
-          width: min(360px, 100%);
-          aspect-ratio: 320 / 400;
-          filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.5));
+          width: 100%;
+          height: 100%;
+          display: block;
         }
         .olivia-portrait-caption {
           font-family: var(--font-mono, "IBM Plex Mono"), monospace;
-          font-size: 0.62rem;
-          letter-spacing: 0.14em;
+          font-size: 0.56rem;
+          letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: var(--c-text-muted, rgba(190, 180, 225, 0.5));
+          color: var(--c-text-muted, rgba(190, 180, 225, 0.52));
           margin: 0;
           text-align: center;
-          opacity: 0.6;
+          opacity: 0.55;
+        }
+        .olivia-portrait-signature {
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-style: italic;
+          font-size: 1.35rem;
+          color: rgba(232, 201, 106, 0.92);
+          margin: 0.1rem 0 0;
+          text-align: center;
+          letter-spacing: 0.01em;
+        }
+        .olivia-portrait-signature span[aria-hidden] {
+          margin-right: 0.2em;
+          color: rgba(232, 201, 106, 1);
         }
 
         .olivia-copy {
