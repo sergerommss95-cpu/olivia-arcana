@@ -3,38 +3,35 @@
  *
  * Two-column editorial layout:
  *   LEFT  — eyebrow, italic-emphasized headline, subcopy, gold CTA,
- *           text-link secondary, trust row (same pattern as HeroV1 so
- *           the delta you feel is structural, not cosmetic).
- *   RIGHT — a "veil poster": the day's card hanging behind a
- *           translucent cloth with an animated shimmer. Tapping it
- *           navigates to /academy/card-of-the-day for the full
- *           room-filling ceremony.
+ *           text-link secondary, trust row.
+ *   RIGHT — the actual interactive veil, mounted INLINE (no redirect).
+ *           Uses the same VeilRevealScene that powers the full-screen
+ *           ceremony, constrained to a 360×540 card.
  *
- * The poster is a stylized SVG+CSS composition — it's NOT the full
- * Three.js scene (that stays in its protected flagship role). The job
- * here is to signal: "there's a ceremony waiting, it lives here on
- * page 1, not behind a click." If Sprint 3 ships we'll decide whether
- * to swap the poster for a miniaturized version of VeilRevealScene.
+ * Gesture: press-and-hold anywhere on the veil to lift it. No
+ * navigation — the ceremony happens in place, the card stays revealed
+ * for the session, and a "draw another" action lets the user cycle
+ * through the deck without leaving the hero.
  */
 
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import MagneticButton from "@/components/MagneticButton";
+import InlineVeilReveal from "@/components/veil-reveal/InlineVeilReveal";
 import { ALL_CARDS, type TarotCard } from "@/lib/academy/tarot-cards";
-import { getCardImagePath } from "@/lib/academy/card-images";
+import { recordDraw } from "@/lib/deck-memory";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
-function getDailyCard(): TarotCard {
+function dailyCardIndex(): number {
   const now = new Date();
   const dayOfYear = Math.floor(
     (now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86400000
   );
   const seed = dayOfYear * 2654435761;
-  const idx = Math.abs(seed) % ALL_CARDS.length;
-  return ALL_CARDS[idx];
+  return Math.abs(seed) % ALL_CARDS.length;
 }
 
 function cardRoman(card: TarotCard): string {
@@ -55,9 +52,7 @@ const wordStyle: React.CSSProperties = {
 
 export default function HeroV2() {
   const headRef = useRef<HTMLHeadingElement>(null);
-  const card = getDailyCard();
-  const cardImage = getCardImagePath(card);
-  const numeral = cardRoman(card);
+  const [card, setCard] = useState<TarotCard>(() => ALL_CARDS[dailyCardIndex()]);
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -73,6 +68,19 @@ export default function HeroV2() {
       );
     });
   }, []);
+
+  const handleRevealComplete = () => {
+    recordDraw(card.name);
+  };
+
+  const handleDrawAnother = () => {
+    const currentIdx = ALL_CARDS.indexOf(card);
+    let nextIdx: number;
+    do {
+      nextIdx = Math.floor(Math.random() * ALL_CARDS.length);
+    } while (nextIdx === currentIdx);
+    setCard(ALL_CARDS[nextIdx]);
+  };
 
   return (
     <section
@@ -115,7 +123,7 @@ export default function HeroV2() {
 
           <div className="heroV2-ctas">
             <MagneticButton variant="gold" href="/academy/card-of-the-day" size="md">
-              ✦ Draw today&rsquo;s card
+              ✦ Full-screen card ceremony
             </MagneticButton>
             <Link href="/sample" className="heroV2-link">
               See a sample reading
@@ -134,88 +142,17 @@ export default function HeroV2() {
           </p>
         </div>
 
-        {/* RIGHT — veil poster */}
-        <Link
-          href="/academy/card-of-the-day"
-          className="heroV2-veil"
-          aria-label={`Reveal today's card — ${card.name}. Opens the full veil ceremony.`}
-        >
-          <div className="heroV2-veil-frame">
-            {/* Card face — partially visible through the cloth */}
-            <div
-              className="heroV2-card"
-              style={{ backgroundImage: `url(${cardImage})` }}
-            />
-
-            {/* The cloth — a layered SVG veil with fabric noise + fold shadows */}
-            <svg
-              className="heroV2-cloth"
-              viewBox="0 0 360 540"
-              preserveAspectRatio="xMidYMid slice"
-              aria-hidden
-            >
-              <defs>
-                <linearGradient id="veil-grad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#0b081e" stopOpacity="0.92" />
-                  <stop offset="28%" stopColor="#1a1030" stopOpacity="0.88" />
-                  <stop offset="62%" stopColor="#2a1a50" stopOpacity="0.82" />
-                  <stop offset="100%" stopColor="#06041a" stopOpacity="0.75" />
-                </linearGradient>
-                <linearGradient id="veil-shimmer" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="rgba(212,175,55,0)" />
-                  <stop offset="45%" stopColor="rgba(232,201,106,0.22)" />
-                  <stop offset="55%" stopColor="rgba(232,201,106,0.22)" />
-                  <stop offset="100%" stopColor="rgba(212,175,55,0)" />
-                </linearGradient>
-                <filter id="veil-noise">
-                  <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" />
-                  <feColorMatrix values="0 0 0 0 0.92  0 0 0 0 0.88  0 0 0 0 1  0 0 0 0.08 0" />
-                </filter>
-              </defs>
-
-              {/* Base cloth fill */}
-              <rect width="360" height="540" fill="url(#veil-grad)" />
-              {/* Fabric noise */}
-              <rect width="360" height="540" filter="url(#veil-noise)" opacity="0.35" />
-              {/* Vertical folds — suggest cloth hanging */}
-              <g opacity="0.35">
-                <path d="M60 0 L68 540" stroke="rgba(255,255,255,0.06)" strokeWidth="1.2" />
-                <path d="M120 0 L130 540" stroke="rgba(0,0,0,0.35)" strokeWidth="1.6" />
-                <path d="M182 0 L188 540" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-                <path d="M240 0 L232 540" stroke="rgba(0,0,0,0.35)" strokeWidth="1.6" />
-                <path d="M300 0 L305 540" stroke="rgba(255,255,255,0.06)" strokeWidth="1.2" />
-              </g>
-              {/* Golden shimmer sweep (animated via CSS) */}
-              <rect
-                className="heroV2-cloth-shimmer"
-                x="-180"
-                y="0"
-                width="180"
-                height="540"
-                fill="url(#veil-shimmer)"
-                style={{ mixBlendMode: "screen" }}
-              />
-              {/* Bottom hem */}
-              <path d="M0 520 L360 528" stroke="rgba(212,175,55,0.28)" strokeWidth="1" />
-            </svg>
-
-            {/* Card badge — peeks out of the top */}
-            <div className="heroV2-badge">
-              <span className="heroV2-badge-label">Today&rsquo;s card</span>
-              <span className="heroV2-badge-name">
-                {numeral && <em className="heroV2-numeral">{numeral}.</em>}
-                {card.name}
-              </span>
-            </div>
-
-            {/* Hold-to-reveal prompt at the bottom */}
-            <div className="heroV2-prompt">
-              <span className="heroV2-prompt-dot" aria-hidden />
-              Hold to reveal
-              <span className="heroV2-prompt-arrow" aria-hidden>→</span>
-            </div>
-          </div>
-        </Link>
+        {/* RIGHT — the actual veil, in place */}
+        <div className="heroV2-veil-slot">
+          <InlineVeilReveal
+            card={card}
+            numeral={cardRoman(card)}
+            onRevealComplete={handleRevealComplete}
+            onDrawAgain={handleDrawAnother}
+            width={360}
+            height={540}
+          />
+        </div>
       </div>
 
       <style>{`
@@ -323,131 +260,12 @@ export default function HeroV2() {
           opacity: 0.5;
         }
 
-        /* ── Veil poster ─────────────────────────────────────────────── */
-        .heroV2-veil {
-          display: block;
-          position: relative;
-          width: min(380px, 100%);
-          aspect-ratio: 360 / 540;
-          margin: 0 auto;
-          border-radius: 16px;
-          text-decoration: none;
-          color: inherit;
-          filter: drop-shadow(0 36px 60px rgba(0, 0, 0, 0.5));
-          animation: v2VeilDrop 1s ${EASE} 0.5s both;
-          cursor: pointer;
-          transform-origin: 50% 15%;
-          transition: transform 400ms ${EASE};
-        }
-        .heroV2-veil:hover {
-          transform: rotate(-0.4deg) translateY(-4px);
-        }
-        .heroV2-veil:focus-visible {
-          outline: 2px solid #E8C96A;
-          outline-offset: 8px;
-          border-radius: 16px;
-        }
-        .heroV2-veil-frame {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          border-radius: 14px;
-          overflow: hidden;
-          background: #06041a;
-        }
-        .heroV2-card {
-          position: absolute;
-          inset: 0;
-          background-size: cover;
-          background-position: center;
-          background-color: #1a0e2e;
-          filter: brightness(0.9) saturate(1.08);
-        }
-        .heroV2-cloth {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-        }
-        .heroV2-cloth-shimmer {
-          animation: v2Shimmer 5.5s ${EASE} infinite;
-        }
-        .heroV2-badge {
-          position: absolute;
-          top: 1.15rem;
-          left: 1.15rem;
-          right: 1.15rem;
+        /* ── Veil slot ────────────────────────────────────────────── */
+        .heroV2-veil-slot {
           display: flex;
-          flex-direction: column;
-          gap: 0.2rem;
-          z-index: 2;
-          padding: 0.7rem 1rem;
-          border-radius: 10px;
-          background: rgba(6, 4, 26, 0.55);
-          -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
-          border: 1px solid rgba(212, 175, 55, 0.22);
-        }
-        .heroV2-badge-label {
-          font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.56rem;
-          font-weight: 500;
-          letter-spacing: 0.28em;
-          text-transform: uppercase;
-          color: rgba(232, 201, 106, 0.85);
-        }
-        .heroV2-badge-name {
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-style: italic;
-          font-size: 1.15rem;
-          font-weight: 500;
-          color: rgba(245, 240, 232, 0.96);
-          line-height: 1.15;
-        }
-        .heroV2-numeral {
-          font-style: italic;
-          color: rgba(232, 201, 106, 0.82);
-          margin-right: 0.3em;
-        }
-        .heroV2-prompt {
-          position: absolute;
-          left: 50%;
-          bottom: 1.15rem;
-          transform: translateX(-50%);
-          display: inline-flex;
+          justify-content: center;
           align-items: center;
-          gap: 0.6em;
-          padding: 0.55rem 1.1rem;
-          border-radius: 9999px;
-          background: rgba(6, 4, 26, 0.7);
-          -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(232, 201, 106, 0.55);
-          font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.7rem;
-          font-weight: 500;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          color: rgba(232, 201, 106, 0.95);
-          z-index: 2;
-          box-shadow: 0 0 24px rgba(212, 175, 55, 0.25);
-          animation: v2PromptPulse 3.6s ${EASE} infinite;
-        }
-        .heroV2-prompt-dot {
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background: rgba(232, 201, 106, 1);
-          box-shadow: 0 0 14px rgba(232, 201, 106, 0.95);
-        }
-        .heroV2-prompt-arrow {
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-style: italic;
-          text-transform: none;
-          letter-spacing: 0;
-          font-size: 0.85rem;
-          color: rgba(232, 201, 106, 0.9);
+          animation: v2VeilDrop 1s ${EASE} 0.5s both;
         }
 
         /* ── Motion ──────────────────────────────────────────────────── */
@@ -456,20 +274,10 @@ export default function HeroV2() {
           to   { opacity: 1; transform: translateY(0); }
         }
         @keyframes v2VeilDrop {
-          from { opacity: 0; transform: translateY(-24px) rotate(-0.8deg); }
-          to   { opacity: 1; transform: translateY(0) rotate(0); }
-        }
-        @keyframes v2Shimmer {
-          0%   { transform: translateX(0); }
-          55%  { transform: translateX(540px); }
-          100% { transform: translateX(540px); }
-        }
-        @keyframes v2PromptPulse {
-          0%, 100% { box-shadow: 0 0 24px rgba(212, 175, 55, 0.25); transform: translateX(-50%) translateY(0); }
-          50%      { box-shadow: 0 0 34px rgba(212, 175, 55, 0.45); transform: translateX(-50%) translateY(-2px); }
+          from { opacity: 0; transform: translateY(-16px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* Reduced motion: strip animations, keep everything visible */
         @media (prefers-reduced-motion: reduce) {
           .heroV2-headline [data-word] {
             opacity: 1 !important;
@@ -479,15 +287,8 @@ export default function HeroV2() {
           .heroV2-sub,
           .heroV2-ctas,
           .heroV2-trust,
-          .heroV2-veil {
+          .heroV2-veil-slot {
             animation: none !important;
-          }
-          .heroV2-cloth-shimmer,
-          .heroV2-prompt {
-            animation: none !important;
-          }
-          .heroV2-veil:hover {
-            transform: none !important;
           }
         }
       `}</style>

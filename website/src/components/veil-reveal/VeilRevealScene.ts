@@ -442,6 +442,11 @@ export class VeilRevealScene {
   // Animation loop
   private rafId: number | null = null;
   private accumulator = 0;
+
+  // Container size observer — keeps the renderer in sync with the
+  // container's box even when the viewport itself hasn't changed
+  // (e.g. grid cell resizes in a responsive hero layout).
+  private containerResizeObserver: ResizeObserver | null = null;
   private lastMs = 0;
   private pageLoadMs = 0;
 
@@ -461,8 +466,12 @@ export class VeilRevealScene {
     this.audio = new VeilAudio();
 
     const { container, cardImagePath, isMobile } = config;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    // Prefer the container's current box over the viewport so the scene
+    // can be mounted inline (e.g. a 360×540 hero card) in addition to
+    // full-screen. Falls back to window if the container hasn't been
+    // measured yet.
+    const width = container.clientWidth || window.innerWidth;
+    const height = container.clientHeight || window.innerHeight;
 
     // ---------------------------------------------------------------
     // Renderer
@@ -706,8 +715,10 @@ export class VeilRevealScene {
     };
 
     this.onResize = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
+      const { container } = this.config;
+      const w = container.clientWidth || window.innerWidth;
+      const h = container.clientHeight || window.innerHeight;
+      if (w === 0 || h === 0) return; // container momentarily detached
       const r = this.renderer.getPixelRatio();
       this.camera.aspect = w / h;
       this.camera.updateProjectionMatrix();
@@ -724,6 +735,12 @@ export class VeilRevealScene {
     });
     container.addEventListener('touchend', this.onTouchEnd);
     window.addEventListener('resize', this.onResize);
+
+    // Track container-local resizes (layout changes, not just viewport)
+    if (typeof ResizeObserver !== 'undefined') {
+      this.containerResizeObserver = new ResizeObserver(() => this.onResize());
+      this.containerResizeObserver.observe(container);
+    }
 
     this.pageLoadMs = performance.now();
     this.lastMs = this.pageLoadMs;
@@ -839,6 +856,8 @@ export class VeilRevealScene {
     container.removeEventListener('touchstart', this.onTouchStart);
     container.removeEventListener('touchend', this.onTouchEnd);
     window.removeEventListener('resize', this.onResize);
+    this.containerResizeObserver?.disconnect();
+    this.containerResizeObserver = null;
 
     // Dispose Three.js objects
     this.cardMaterial.dispose();
