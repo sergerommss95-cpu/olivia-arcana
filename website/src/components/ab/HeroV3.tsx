@@ -1,9 +1,17 @@
 /**
- * HeroV3.tsx — Sprint 3 "come in, it's already happening."
+ * HeroV3.tsx — Sprint 3 hero with a card-shader variant picker.
  *
- * Same editorial copy column as HeroV2. The right column is the new
- * LivingPaperCard: card always visible, cursor focus clears the paper,
- * no hold-gate, no redirect, no ceremony. The page just breathes.
+ * The copy column is identical across variants. The right column
+ * swaps between four card-shader implementations so the owner can
+ * A/B/C/D-compare them in one session:
+ *
+ *   Paper    — gold-ink living page over the card (ambient)
+ *   Caustics — candlelight caustics across the card (ambient)
+ *   Smoke    — smoke cover, hold to dissipate (ceremony)
+ *   Edge     — card untouched, aurora ring around it (conservative)
+ *
+ * The variant choice is local state; persists in sessionStorage so
+ * refresh keeps your pick. Default is Caustics (my recommendation).
  */
 
 "use client";
@@ -12,10 +20,29 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import MagneticButton from "@/components/MagneticButton";
 import LivingPaperCard from "@/components/shaders/LivingPaperCard";
+import CausticsCard from "@/components/shaders/CausticsCard";
+import SmokeRevealCard from "@/components/shaders/SmokeRevealCard";
+import EdgeLitCard from "@/components/shaders/EdgeLitCard";
 import { ALL_CARDS, type TarotCard } from "@/lib/academy/tarot-cards";
 import { recordDraw } from "@/lib/deck-memory";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
+
+type Variant = "paper" | "caustics" | "smoke" | "edge";
+
+const VARIANT_LABELS: Record<Variant, string> = {
+  caustics: "Caustics",
+  paper: "Paper",
+  smoke: "Smoke",
+  edge: "Edge",
+};
+
+const VARIANT_BLURBS: Record<Variant, string> = {
+  caustics: "Candlelight across a card on a reading table. Cursor shifts the light.",
+  paper: "Gold-ink paper drifts over the card. Cursor clears it locally.",
+  smoke: "Smoke covers the card. Press and hold to dissipate it.",
+  edge: "Card untouched. An aurora ribbon plays around its edges.",
+};
 
 function dailyCardIndex(): number {
   const now = new Date();
@@ -45,6 +72,19 @@ const wordStyle: React.CSSProperties = {
 export default function HeroV3() {
   const headRef = useRef<HTMLHeadingElement>(null);
   const [card, setCard] = useState<TarotCard>(() => ALL_CARDS[dailyCardIndex()]);
+  const [variant, setVariant] = useState<Variant>("caustics");
+
+  // Restore the picker choice from sessionStorage (client only)
+  useEffect(() => {
+    const saved = sessionStorage.getItem("v3-card-variant");
+    if (saved === "paper" || saved === "caustics" || saved === "smoke" || saved === "edge") {
+      setVariant(saved);
+    }
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem("v3-card-variant", variant);
+  }, [variant]);
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -62,7 +102,6 @@ export default function HeroV3() {
   }, []);
 
   useEffect(() => {
-    // Record draw when the card changes (including first mount)
     recordDraw(card.name);
   }, [card.name]);
 
@@ -73,6 +112,13 @@ export default function HeroV3() {
       nextIdx = Math.floor(Math.random() * ALL_CARDS.length);
     } while (nextIdx === currentIdx);
     setCard(ALL_CARDS[nextIdx]);
+  };
+
+  const cardProps = {
+    card,
+    numeral: cardRoman(card),
+    width: 360,
+    onAdvance: handleAdvance,
   };
 
   return (
@@ -115,9 +161,8 @@ export default function HeroV3() {
 
           <p className="heroV3-prompt" aria-live="polite">
             <span aria-hidden className="heroV3-prompt-glyph">✦</span>
-            Today&rsquo;s card is{" "}
-            <em>{card.name}</em>
-            . <span className="heroV3-prompt-sub">Move your cursor over it to focus.</span>
+            Today&rsquo;s card is <em>{card.name}</em>.
+            <span className="heroV3-prompt-sub"> {VARIANT_BLURBS[variant]}</span>
           </p>
 
           <div className="heroV3-ctas">
@@ -141,14 +186,35 @@ export default function HeroV3() {
           </p>
         </div>
 
-        {/* RIGHT — the card, always visible, shader-paper over it */}
+        {/* RIGHT — the card + variant picker */}
         <div className="heroV3-card-slot">
-          <LivingPaperCard
-            card={card}
-            numeral={cardRoman(card)}
-            width={360}
-            onAdvance={handleAdvance}
-          />
+          {/* Variant picker */}
+          <div className="heroV3-picker" role="tablist" aria-label="Card shader variant">
+            <span className="heroV3-picker-eyebrow" aria-hidden>Shader</span>
+            <div className="heroV3-picker-cells">
+              {(Object.keys(VARIANT_LABELS) as Variant[]).map((v) => (
+                <button
+                  key={v}
+                  type="button"
+                  className={`heroV3-picker-cell${v === variant ? " heroV3-picker-cell-active" : ""}`}
+                  onClick={() => setVariant(v)}
+                  role="tab"
+                  aria-selected={v === variant}
+                  title={VARIANT_BLURBS[v]}
+                >
+                  {VARIANT_LABELS[v]}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Active card. Key forces full unmount so each shader starts fresh. */}
+          <div key={variant} className="heroV3-card-wrap">
+            {variant === "paper"    && <LivingPaperCard   {...cardProps} />}
+            {variant === "caustics" && <CausticsCard      {...cardProps} />}
+            {variant === "smoke"    && <SmokeRevealCard   {...cardProps} />}
+            {variant === "edge"     && <EdgeLitCard       {...cardProps} />}
+          </div>
         </div>
       </div>
 
@@ -163,87 +229,61 @@ export default function HeroV3() {
           margin: 0 auto;
         }
         @media (max-width: 900px) {
-          .heroV3-grid {
-            grid-template-columns: minmax(0, 1fr);
-            gap: 3rem;
-          }
+          .heroV3-grid { grid-template-columns: minmax(0, 1fr); gap: 3rem; }
         }
 
         .heroV3-copy {
-          display: grid;
-          grid-template-columns: minmax(0, 1fr);
+          display: grid; grid-template-columns: minmax(0, 1fr);
           gap: clamp(1.25rem, 2.5vw, 2rem);
           max-width: 560px;
         }
         .heroV3-eyebrow {
           font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.72rem;
-          font-weight: 500;
-          letter-spacing: 0.28em;
-          text-transform: uppercase;
-          color: rgba(232, 201, 106, 0.78);
-          margin: 0;
-          animation: v3FadeUp 0.8s ${EASE} 0.2s both;
+          font-size: 0.72rem; font-weight: 500; letter-spacing: 0.28em;
+          text-transform: uppercase; color: rgba(232, 201, 106, 0.78);
+          margin: 0; animation: v3FadeUp 0.8s ${EASE} 0.2s both;
         }
         .heroV3-headline {
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-weight: 400;
-          font-style: normal;
+          font-weight: 400; font-style: normal;
           font-size: clamp(2.6rem, 5.6vw, 4.8rem);
-          line-height: 1.02;
-          letter-spacing: 0;
-          word-spacing: 0.15em;
-          color: #F5F0E8;
-          margin: 0;
+          line-height: 1.02; letter-spacing: 0; word-spacing: 0.15em;
+          color: #F5F0E8; margin: 0;
           text-shadow: 0 2px 24px rgba(4, 2, 13, 0.55);
         }
         .heroV3-sub {
           font-family: var(--font-body, system-ui), sans-serif;
           font-size: clamp(1rem, 1.4vw, 1.14rem);
-          line-height: 1.65;
-          color: rgba(238, 232, 220, 0.92);
-          max-width: 520px;
-          margin: 0;
+          line-height: 1.65; color: rgba(238, 232, 220, 0.92);
+          max-width: 520px; margin: 0;
           animation: v3FadeUp 1s ${EASE} 1.2s both;
         }
         .heroV3-prompt {
           font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.95rem;
-          line-height: 1.55;
+          font-size: 0.95rem; line-height: 1.55;
           color: rgba(232, 201, 106, 0.78);
-          margin: 0;
-          animation: v3FadeUp 1s ${EASE} 1.35s both;
-          display: flex;
-          align-items: baseline;
-          gap: 0.55em;
-          flex-wrap: wrap;
+          margin: 0; animation: v3FadeUp 1s ${EASE} 1.35s both;
+          display: flex; align-items: baseline; gap: 0.55em; flex-wrap: wrap;
         }
         .heroV3-prompt em {
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-style: italic;
-          color: rgba(245, 240, 232, 0.98);
+          font-style: italic; color: rgba(245, 240, 232, 0.98);
           font-size: 1.15em;
         }
-        .heroV3-prompt-glyph {
-          color: rgba(232, 201, 106, 0.92);
-          font-size: 0.85rem;
-        }
+        .heroV3-prompt-glyph { color: rgba(232, 201, 106, 0.92); font-size: 0.85rem; }
         .heroV3-prompt-sub {
           color: var(--c-text-muted, rgba(190, 180, 225, 0.72));
-          font-size: 0.88rem;
-          font-style: italic;
+          font-size: 0.88rem; font-style: italic;
+          width: 100%;
         }
         .heroV3-ctas {
-          display: flex;
-          gap: clamp(1rem, 2vw, 1.5rem);
-          align-items: center;
-          flex-wrap: wrap;
+          display: flex; gap: clamp(1rem, 2vw, 1.5rem);
+          align-items: center; flex-wrap: wrap;
           animation: v3FadeUp 1s ${EASE} 1.5s both;
         }
         .heroV3-link {
           font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.95rem;
-          color: rgba(220, 210, 245, 0.78);
+          font-size: 0.95rem; color: rgba(220, 210, 245, 0.78);
           text-decoration: none;
           border-bottom: 1px solid rgba(220, 210, 245, 0.24);
           padding-bottom: 2px;
@@ -254,37 +294,68 @@ export default function HeroV3() {
           border-color: rgba(232, 201, 106, 0.6);
         }
         .heroV3-link:focus-visible {
-          outline: 2px solid #E8C96A;
-          outline-offset: 4px;
-          border-radius: 3px;
+          outline: 2px solid #E8C96A; outline-offset: 4px; border-radius: 3px;
         }
         .heroV3-trust {
           font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.82rem;
-          color: var(--c-text-muted, rgba(190, 180, 225, 0.72));
-          max-width: 620px;
-          margin: 0;
-          line-height: 1.7;
+          font-size: 0.82rem; color: var(--c-text-muted, rgba(190, 180, 225, 0.72));
+          max-width: 620px; margin: 0; line-height: 1.7;
           animation: v3FadeUp 1s ${EASE} 1.75s both;
         }
-        .heroV3-stars {
-          color: rgba(232, 201, 106, 0.92);
-          letter-spacing: 0.05em;
-          margin-right: 0.35em;
-        }
-        .heroV3-trust-strong {
-          color: rgba(235, 225, 255, 0.88);
-        }
-        .heroV3-dot {
-          margin: 0 0.5em;
-          opacity: 0.5;
-        }
+        .heroV3-stars { color: rgba(232, 201, 106, 0.92); letter-spacing: 0.05em; margin-right: 0.35em; }
+        .heroV3-trust-strong { color: rgba(235, 225, 255, 0.88); }
+        .heroV3-dot { margin: 0 0.5em; opacity: 0.5; }
 
         .heroV3-card-slot {
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          display: flex; flex-direction: column;
+          justify-content: center; align-items: center;
+          gap: 1.25rem;
           animation: v3CardSettle 1.2s ${EASE} 0.4s both;
+        }
+        .heroV3-card-wrap {
+          width: 100%; display: flex; justify-content: center;
+        }
+
+        /* Picker */
+        .heroV3-picker {
+          display: inline-flex; align-items: center; gap: 0.55rem;
+          padding: 0.35rem 0.55rem; border-radius: 9999px;
+          background: rgba(6, 4, 26, 0.55);
+          -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+          border: 1px solid rgba(200, 185, 255, 0.14);
+        }
+        .heroV3-picker-eyebrow {
+          font-family: var(--font-body, system-ui), sans-serif;
+          font-size: 0.54rem; font-weight: 600; letter-spacing: 0.22em;
+          text-transform: uppercase; color: rgba(196, 185, 228, 0.6);
+          padding-left: 0.15rem;
+        }
+        .heroV3-picker-cells {
+          display: inline-flex; gap: 0.2rem;
+        }
+        .heroV3-picker-cell {
+          font-family: var(--font-body, system-ui), sans-serif;
+          font-size: 0.72rem; font-weight: 500;
+          letter-spacing: 0.08em;
+          padding: 0.38rem 0.75rem;
+          border-radius: 9999px;
+          background: transparent; border: none;
+          color: rgba(220, 210, 245, 0.6);
+          cursor: pointer;
+          transition: background 200ms ${EASE}, color 200ms ${EASE};
+        }
+        .heroV3-picker-cell:hover {
+          color: rgba(245, 240, 232, 0.95);
+          background: rgba(255, 255, 255, 0.04);
+        }
+        .heroV3-picker-cell-active {
+          background: linear-gradient(135deg, #E8C96A, #D4AF37);
+          color: var(--c-void, #06041a);
+          font-weight: 600;
+          box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+        }
+        .heroV3-picker-cell:focus-visible {
+          outline: 2px solid #E8C96A; outline-offset: 2px;
         }
 
         @keyframes v3FadeUp {
@@ -297,8 +368,7 @@ export default function HeroV3() {
         }
         @media (prefers-reduced-motion: reduce) {
           .heroV3-headline [data-word] {
-            opacity: 1 !important;
-            clip-path: none !important;
+            opacity: 1 !important; clip-path: none !important;
           }
           .heroV3-eyebrow, .heroV3-sub, .heroV3-prompt,
           .heroV3-ctas, .heroV3-trust, .heroV3-card-slot {
