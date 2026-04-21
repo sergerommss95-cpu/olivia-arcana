@@ -61,15 +61,16 @@ const FRAGMENT_SRC = /* glsl */ `
 
     float c = caustics(asp, uTime);
 
-    // Base caustic lighting — subtle at rest. The card is printed; this is
-    // reflected light shimmering across its surface.
-    float base = 0.14 * pow(c, 2.5);
+    // Base caustic lighting — reflected light shimmering across the card
+    // surface. Strong enough to be obviously present, not so strong it
+    // washes out the card art.
+    float base = 0.35 * pow(c, 2.2);
 
-    // Cursor attention — a slightly brighter hotspot where the user looks,
-    // as if they're holding a candle closer to that part of the card.
+    // Cursor attention — brighter hotspot where the user looks, as if
+    // they're holding a candle closer to that part of the card.
     float dist = distance(asp, cur);
-    float lens = 1.0 - smoothstep(0.0, 0.45, dist);
-    float focus = lens * uAttention * 0.22 * pow(c, 2.0);
+    float lens = 1.0 - smoothstep(0.0, 0.50, dist);
+    float focus = lens * uAttention * 0.55 * pow(c, 1.8);
 
     float brighten = base + focus;
 
@@ -77,14 +78,17 @@ const FRAGMENT_SRC = /* glsl */ `
     vec4 card = texture2D(uCard, uv);
     vec3 final = card.rgb * (1.0 + brighten);
 
-    // On the very brightest caustic peaks, add a warm-gold candlelight tint.
-    float peak = smoothstep(0.82, 1.0, c);
-    final = mix(final, final * vec3(1.28, 1.10, 0.76), peak * 0.35);
+    // On the brightest caustic peaks, add a warm-gold candlelight tint.
+    float peak = smoothstep(0.72, 1.0, c);
+    final = mix(final, final * vec3(1.45, 1.15, 0.72), peak * 0.55);
 
-    // A soft cursor highlight — a pale gold dot that follows attention,
-    // only visible when the shader is attending.
-    float halo = (1.0 - smoothstep(0.0, 0.09, dist)) * uAttention;
-    final += vec3(0.92, 0.79, 0.42) * halo * 0.10;
+    // Darker valleys — deepens the contrast so peaks read as light, not noise.
+    float valley = 1.0 - smoothstep(0.0, 0.25, c);
+    final *= (1.0 - valley * 0.12);
+
+    // Cursor halo — pale gold disc that follows attention.
+    float halo = (1.0 - smoothstep(0.0, 0.12, dist)) * uAttention;
+    final += vec3(0.95, 0.82, 0.46) * halo * 0.22;
 
     gl_FragColor = vec4(final, 1.0);
   }
@@ -197,7 +201,6 @@ export default function CausticsCard({
     gl.uniform1i(uCard, 0);
 
     const img = new Image();
-    img.crossOrigin = "anonymous";
     img.src = getCardImagePath(card);
     img.onload = () => {
       gl.bindTexture(gl.TEXTURE_2D, tex);

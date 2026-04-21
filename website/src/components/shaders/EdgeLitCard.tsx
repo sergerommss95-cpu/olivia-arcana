@@ -18,7 +18,6 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import type { TarotCard } from "@/lib/academy/tarot-cards";
 import { getCardImagePath } from "@/lib/academy/card-images";
 
@@ -89,20 +88,23 @@ const FRAGMENT_SRC = /* glsl */ `
     vec3 rib = mix(violet, gold, smoothstep(0.25, 0.65, ribbon));
     rib = mix(rib, teal, smoothstep(0.75, 0.95, ribbon));
 
-    // Fall-off from card edge — strong right at the edge, gone by ~0.08
-    float falloff = 1.0 - smoothstep(0.0, 0.11, d);
-    falloff = pow(falloff, 1.3);
+    // Fall-off from card edge — strong right at the edge, tapers out to
+    // the canvas padding. Wider than before so the ring is obviously
+    // drawn even at rest.
+    float falloff = 1.0 - smoothstep(0.0, 0.16, d);
+    falloff = pow(falloff, 1.1);
 
     // Baseline glow + attention boost
-    float strength = falloff * (0.55 + 0.42 * uAttention);
-    strength *= (0.82 + 0.18 * wobble);
+    float strength = falloff * (0.95 + 0.6 * uAttention);
+    strength *= (0.78 + 0.22 * wobble);
 
     vec3 col = rib * strength;
 
-    // Gentle warm bloom layered on top
-    float bloom = falloff * falloff * 0.5;
-    col += gold * bloom * (0.18 + 0.22 * uAttention);
+    // Warm bloom at the immediate edge — makes the card feel rim-lit.
+    float bloom = falloff * falloff * 0.7;
+    col += gold * bloom * (0.35 + 0.35 * uAttention);
 
+    // Final alpha — pre-multiply for additive blending with the page
     gl_FragColor = vec4(col, strength);
   }
 `;
@@ -167,7 +169,8 @@ export default function EdgeLitCard({
     canvas.height = Math.round(canvasH * dpr);
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    // Additive blend so the aurora adds light on top of the dark page
+    gl.blendFunc(gl.ONE, gl.ONE);
 
     const program = createProgram(gl, VERTEX_SRC, FRAGMENT_SRC);
     gl.useProgram(program);
@@ -252,13 +255,11 @@ export default function EdgeLitCard({
 
         {/* Card image — untouched, centered over the canvas */}
         <div className="el-card-wrap" style={{ width: `${width}px`, height: `${cardHeight}px` }}>
-          <Image
+          <img
             src={getCardImagePath(card)}
             alt={card.name}
             width={width}
             height={cardHeight}
-            priority
-            unoptimized
             className="el-card-img"
           />
           <div className="el-strip" aria-hidden>

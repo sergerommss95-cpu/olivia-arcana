@@ -78,11 +78,11 @@ const FRAGMENT_SRC = /* glsl */ `
     float lens = 1.0 - smoothstep(0.0, 0.32, dist);
     lens = pow(lens, 1.6) * uAttention;
 
-    // Baseline paper — subtle living overlay on top of a clearly visible
-    // card. Without the cursor, paper opacity hovers around 12–22% so the
-    // card is always legible. Cursor attention drops it to near-zero.
-    float basePaper = 0.12 + 0.10 * n;       // range 0.12..0.22
-    float paper = clamp(basePaper - lens * 0.22, 0.0, 1.0);
+    // Baseline paper — visibly present as a living ink texture, but the
+    // card underneath is always readable. Cursor attention thins it
+    // locally so the card crisps up under focus.
+    float basePaper = 0.20 + 0.18 * n;       // range 0.20..0.38
+    float paper = clamp(basePaper - lens * 0.34, 0.0, 1.0);
 
     // Paper color — void base with gold shimmer on "folds" (high n regions)
     vec3 paperVoid = vec3(0.024, 0.016, 0.102);     // --c-void
@@ -233,8 +233,9 @@ export default function LivingPaperCard({
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.uniform1i(uCard, 0);
 
+    // No crossOrigin — same-origin images; setting it can break loading
+    // in some browsers even when the request is same-origin.
     const img = new Image();
-    img.crossOrigin = "anonymous";
     img.src = getCardImagePath(card);
     img.onload = () => {
       gl.bindTexture(gl.TEXTURE_2D, tex);

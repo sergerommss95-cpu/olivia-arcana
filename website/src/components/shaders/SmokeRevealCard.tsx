@@ -205,7 +205,6 @@ export default function SmokeRevealCard({
     gl.uniform1i(uCard, 0);
 
     const img = new Image();
-    img.crossOrigin = "anonymous";
     img.src = getCardImagePath(card);
     img.onload = () => {
       gl.bindTexture(gl.TEXTURE_2D, tex);

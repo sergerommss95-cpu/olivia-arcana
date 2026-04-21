@@ -74,18 +74,6 @@ export default function HeroV3() {
   const [card, setCard] = useState<TarotCard>(() => ALL_CARDS[dailyCardIndex()]);
   const [variant, setVariant] = useState<Variant>("caustics");
 
-  // Restore the picker choice from sessionStorage (client only)
-  useEffect(() => {
-    const saved = sessionStorage.getItem("v3-card-variant");
-    if (saved === "paper" || saved === "caustics" || saved === "smoke" || saved === "edge") {
-      setVariant(saved);
-    }
-  }, []);
-
-  useEffect(() => {
-    sessionStorage.setItem("v3-card-variant", variant);
-  }, [variant]);
-
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
@@ -208,12 +196,14 @@ export default function HeroV3() {
             </div>
           </div>
 
-          {/* Active card. Key forces full unmount so each shader starts fresh. */}
-          <div key={variant} className="heroV3-card-wrap">
-            {variant === "paper"    && <LivingPaperCard   {...cardProps} />}
-            {variant === "caustics" && <CausticsCard      {...cardProps} />}
-            {variant === "smoke"    && <SmokeRevealCard   {...cardProps} />}
-            {variant === "edge"     && <EdgeLitCard       {...cardProps} />}
+          {/* Active card. Each component has its own key so only that one
+              mounts/unmounts when the variant changes (no wrapper-div
+              remount → smoother switch). */}
+          <div className="heroV3-card-wrap">
+            {variant === "paper"    && <LivingPaperCard   key="paper"    {...cardProps} />}
+            {variant === "caustics" && <CausticsCard      key="caustics" {...cardProps} />}
+            {variant === "smoke"    && <SmokeRevealCard   key="smoke"    {...cardProps} />}
+            {variant === "edge"     && <EdgeLitCard       key="edge"     {...cardProps} />}
           </div>
         </div>
       </div>
