@@ -101,15 +101,17 @@ const FRAGMENT_SRC = /* glsl */ `
   }
 
   // ── Gold dust motes drifting upward ────────────────────────────────
+  // Tight Gaussian points on a coarse grid. Density threshold is high
+  // so only a few cells per layer emit, and the falloff is aggressive
+  // enough that each mote reads as an individual spark, not a blob.
   float motes(vec2 uv, float seed) {
-    // Slow upward drift
-    float driftY = mod(uv.y - uTime * 0.07 + seed, 1.0);
-    vec2 cell = vec2(floor(uv.x * 22.0), floor(driftY * 22.0 + hash1(seed) * 30.0));
+    float driftY = mod(uv.y - uTime * 0.065 + seed, 1.0);
+    vec2 cell = vec2(floor(uv.x * 28.0), floor(driftY * 28.0 + hash1(seed) * 30.0));
     float h = hash(cell + seed);
-    if (h < 0.982) return 0.0;
-    vec2 fp = vec2(fract(uv.x * 22.0) - 0.5, fract(driftY * 22.0) - 0.5);
-    float m = exp(-dot(fp, fp) * 120.0);
-    float flicker = 0.55 + 0.45 * sin(uTime * 4.0 + h * TAU);
+    if (h < 0.992) return 0.0;
+    vec2 fp = vec2(fract(uv.x * 28.0) - 0.5, fract(driftY * 28.0) - 0.5);
+    float m = exp(-dot(fp, fp) * 180.0);
+    float flicker = 0.5 + 0.5 * sin(uTime * 3.5 + h * TAU);
     return m * flicker;
   }
 
@@ -135,16 +137,22 @@ const FRAGMENT_SRC = /* glsl */ `
     // Combined falling edge
     float edgeY = baseFall + wispy + arc + sagBoost;
 
-    // Primary veil mask — 1 above, 0 below, softly faded
-    float veilMask = smoothstep(edgeY - 0.04, edgeY + 0.025, uv.y);
+    // Primary veil mask — 1 BELOW the falling edge (where veil remains),
+    // 0 ABOVE the falling edge (where the card is revealed). At rest
+    // (drop=0) edgeY is above the card so veilMask = 1 everywhere (fully
+    // veiled). At full drop edgeY is below the card so veilMask = 0
+    // everywhere (fully revealed).
+    float veilMask = 1.0 - smoothstep(edgeY - 0.04, edgeY + 0.025, uv.y);
 
-    // Dissolution — in the last 25% of the drop, the lower veil starts
-    // fraying into particles rather than falling cleanly. We subtract
-    // a hash-based mask to punch holes in the remaining veil.
-    if (drop > 0.72 && uv.y < edgeY + 0.25) {
-      float dissolve = hash(floor(asp * 55.0) + floor(uTime * 6.0));
-      float dissolveMask = smoothstep(0.72, 0.95, drop) * smoothstep(edgeY - 0.10, edgeY + 0.12, uv.y);
-      if (dissolve < dissolveMask * 0.85) veilMask *= 0.0;
+    // Dissolution — in the last 25% of the drop, the upper veil (just
+    // above the falling edge) frays into particles. Hash-based hole
+    // punching with a noise threshold so the fray feels granular, not
+    // regular-tiled. Tighter cell grid so it reads as dust, not blocks.
+    if (drop > 0.72 && uv.y > edgeY - 0.05 && uv.y < edgeY + 0.35) {
+      float dissolve = hash(floor(asp * 95.0) + floor(uTime * 8.0));
+      float dissolveMask = smoothstep(0.72, 0.95, drop)
+                         * smoothstep(edgeY - 0.05, edgeY + 0.18, uv.y);
+      if (dissolve < dissolveMask * 0.80) veilMask *= 0.0;
     }
 
     veilMask = clamp(veilMask, 0.0, 1.0);
@@ -164,13 +172,14 @@ const FRAGMENT_SRC = /* glsl */ `
     nebulaCol = mix(nebulaCol, cMagenta, smoothstep(0.62, 0.94, nebula));
 
     // ══ LAYER 2 — SILK FABRIC WEAVE ══════════════════════════════════
-    // Cross-hatched sine lines with fbm shear. Very subtle — adds a
-    // tactile "this is a fabric, not a cloud" quality.
-    float shearX = fbm(asp * 2.4) * 1.4;
-    float shearY = fbm(asp * 2.4 + 3.7) * 1.4;
-    float weaveV = sin(asp.x * 140.0 + shearX) * 0.5 + 0.5;
-    float weaveH = sin(asp.y * 155.0 + shearY) * 0.5 + 0.5;
-    float fabric = pow(weaveV * weaveH, 0.7) * 0.18;
+    // Cross-hatched sine lines with fbm shear. Frequencies chosen to
+    // stay well below Nyquist at 2× DPR so there's no moire on the
+    // weave — it reads as a subtle woven texture, not stairsteps.
+    float shearX = fbm(asp * 2.2) * 1.3;
+    float shearY = fbm(asp * 2.2 + 3.7) * 1.3;
+    float weaveV = sin(asp.x * 62.0 + shearX) * 0.5 + 0.5;
+    float weaveH = sin(asp.y * 70.0 + shearY) * 0.5 + 0.5;
+    float fabric = pow(weaveV * weaveH, 0.75) * 0.16;
     nebulaCol += vec3(0.14, 0.11, 0.18) * fabric;
 
     // ══ LAYER 3 — GOLD SHIMMER ON FOLDS ══════════════════════════════
@@ -250,10 +259,12 @@ const FRAGMENT_SRC = /* glsl */ `
 
     // ══ LAYER 11 — AMBIENT MOTES (post-drop only) ════════════════════
     // Floating gold dust that drifts upward once the card is revealed.
-    float motesStrength = smoothstep(0.70, 1.0, drop);
+    // Reduced strength so motes read as individual sparks — never a
+    // blocky cell-grid effect.
+    float motesStrength = smoothstep(0.80, 1.0, drop);
     if (motesStrength > 0.01) {
       float m = motes(asp, 0.0) + motes(asp, 3.1) * 0.7 + motes(asp, 7.3) * 0.5;
-      final += vec3(0.95, 0.82, 0.46) * m * motesStrength * 0.85;
+      final += vec3(0.95, 0.82, 0.46) * m * motesStrength * 0.42;
     }
 
     gl_FragColor = vec4(final, 1.0);
