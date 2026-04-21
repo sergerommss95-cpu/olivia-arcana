@@ -213,74 +213,123 @@ function Card({
 }
 
 /**
- * The veil — a tessellated plane mesh driven by real Position-Based
- * Dynamics cloth physics. The cloth class (PBDCloth) maintains particles,
- * constraints, gravity, and 10-iteration Gauss-Seidel solve per step.
- * Each frame we step the sim and copy the particle positions into the
- * geometry's BufferAttribute, then recompute normals so the shader can
- * do proper fresnel rim lighting on the crumpled folds.
+ * The veil — a silk cloth being PULLED mechanically off the card.
  *
- * Timing: cloth starts pinned along the top row (naturally hanging).
- * When uFall exceeds ~0.02 (GSAP triggered the drop), all pins release
- * and gravity takes over. When uFall returns to ~0, the cloth is
- * rebuilt from scratch so the raise animation starts fresh.
+ * Motion model: the cloth sits flat over the card at rest (every particle
+ * pinned). On trigger, all pins release EXCEPT a small "grip" cluster at
+ * the top-right corner. GSAP animates that grip cluster's position along
+ * a curved path — up, right, and lifting toward the camera. The rest of
+ * the cloth is pulled along via PBD constraints; gravity adds a slight
+ * drape as the cloth trails behind the grip.
+ *
+ * This is not a falling curtain. It's silk being pulled off a reading
+ * table, revealing the card beneath.
  */
 const CLOTH_COLS = 32;
 const CLOTH_ROWS = 48;
 const VEIL_W = 2.12;
 const VEIL_H = 3.12;
-const CLOTH_GRAVITY = -2.6;
+const CLOTH_GRAVITY = -1.4;
 
-function Veil({ fallRef }: { fallRef: React.MutableRefObject<{ value: number }> }) {
+interface PullState {
+  dx: number;
+  dy: number;
+  dz: number;
+}
+
+function Veil({
+  fallRef,
+  pullRef,
+}: {
+  fallRef: React.MutableRefObject<{ value: number }>;
+  pullRef: React.MutableRefObject<PullState>;
+}) {
   const meshRef = useRef<THREE.Mesh>(null);
   const matRef = useRef<THREE.ShaderMaterial>(null);
   const clothRef = useRef<PBDCloth | null>(null);
+  const initialPosRef = useRef<Float32Array | null>(null);
+  const gripIndicesRef = useRef<number[]>([]);
   const pinsReleasedRef = useRef(false);
 
-  // Initialize cloth on mount
+  // ── Mount: build cloth, pin everything, compute grip cluster ─────────
   useEffect(() => {
-    clothRef.current = new PBDCloth(CLOTH_COLS, CLOTH_ROWS, VEIL_W, VEIL_H);
+    const cloth = new PBDCloth(CLOTH_COLS, CLOTH_ROWS, VEIL_W, VEIL_H);
+    // Pin ALL particles — cloth is perfectly flat at rest
+    for (let i = 0; i < cloth.n; i++) cloth.pinned[i] = 1;
+
+    // Grip cluster — top-right 3×3 particles (anchor is top-right corner)
+    const grip: number[] = [];
+    for (let j = 0; j < 3; j++) {
+      for (let i = CLOTH_COLS - 3; i < CLOTH_COLS; i++) {
+        grip.push(j * CLOTH_COLS + i);
+      }
+    }
+    gripIndicesRef.current = grip;
+
+    // Snapshot initial positions for grip-offset math
+    initialPosRef.current = new Float32Array(cloth.positions);
+    clothRef.current = cloth;
+
     return () => {
       clothRef.current = null;
+      initialPosRef.current = null;
     };
   }, []);
 
   useFrame((state) => {
     const cloth = clothRef.current;
     const mesh = meshRef.current;
-    if (!cloth || !mesh) return;
+    const init = initialPosRef.current;
+    if (!cloth || !mesh || !init) return;
 
     const fall = fallRef.current.value;
+    const pull = pullRef.current;
 
-    // Trigger pin release once, when the drop begins
+    // ── On drop trigger: release everything EXCEPT the grip cluster ──
     if (fall > 0.02 && !pinsReleasedRef.current) {
-      cloth.releaseAll();
+      for (let p = 0; p < cloth.n; p++) cloth.pinned[p] = 0;
+      for (const idx of gripIndicesRef.current) cloth.pinned[idx] = 1;
       pinsReleasedRef.current = true;
     }
 
-    // On raise back to rest, rebuild a fresh cloth with top-row pins
+    // ── On raise (fall ≈ 0): rebuild flat cloth with all pins ────────
     if (fall < 0.005 && pinsReleasedRef.current) {
-      clothRef.current = new PBDCloth(CLOTH_COLS, CLOTH_ROWS, VEIL_W, VEIL_H);
+      const fresh = new PBDCloth(CLOTH_COLS, CLOTH_ROWS, VEIL_W, VEIL_H);
+      for (let i = 0; i < fresh.n; i++) fresh.pinned[i] = 1;
+      clothRef.current = fresh;
+      initialPosRef.current = new Float32Array(fresh.positions);
       pinsReleasedRef.current = false;
+
       const posAttr = mesh.geometry.attributes.position as THREE.BufferAttribute;
-      (posAttr.array as Float32Array).set(clothRef.current.positions);
+      (posAttr.array as Float32Array).set(fresh.positions);
       posAttr.needsUpdate = true;
       mesh.geometry.computeVertexNormals();
       return;
     }
 
-    // Step the physics — two sub-steps for stability at moderate gravity
-    const dt = 1 / 120; // sub-step
-    cloth.step(dt, CLOTH_GRAVITY);
-    cloth.step(dt, CLOTH_GRAVITY);
+    // ── While pulled: rewrite grip cluster positions to init + offset ─
+    if (pinsReleasedRef.current) {
+      const ox = pull.dx, oy = pull.dy, oz = pull.dz;
+      for (const idx of gripIndicesRef.current) {
+        const i3 = idx * 3;
+        cloth.positions[i3]     = init[i3]     + ox;
+        cloth.positions[i3 + 1] = init[i3 + 1] + oy;
+        cloth.positions[i3 + 2] = init[i3 + 2] + oz;
+      }
+    }
 
-    // Copy particle positions into the geometry buffer
+    // ── Step physics (two sub-steps for stability) ───────────────────
+    const gravity = pinsReleasedRef.current ? CLOTH_GRAVITY : 0;
+    const dt = 1 / 120;
+    cloth.step(dt, gravity);
+    cloth.step(dt, gravity);
+
+    // ── Push into geometry + recompute normals for lighting ──────────
     const posAttr = mesh.geometry.attributes.position as THREE.BufferAttribute;
     (posAttr.array as Float32Array).set(cloth.positions);
     posAttr.needsUpdate = true;
     mesh.geometry.computeVertexNormals();
 
-    // Shader uniforms (for opacity fade + reveal brightening)
     if (matRef.current) {
       matRef.current.uniforms.uFall.value = fall;
       matRef.current.uniforms.uTime.value = state.clock.elapsedTime;
@@ -315,10 +364,12 @@ function Lights() {
 function VeilScene({
   cardImagePath,
   fallRef,
+  pullRef,
   emissiveRef,
 }: {
   cardImagePath: string;
   fallRef: React.MutableRefObject<{ value: number }>;
+  pullRef: React.MutableRefObject<PullState>;
   emissiveRef: React.MutableRefObject<{ value: number }>;
 }) {
   const texture = useLoader(TextureLoader, cardImagePath);
@@ -332,7 +383,7 @@ function VeilScene({
       <OrthographicCamera makeDefault position={[0, 0, 5]} zoom={180} near={0.1} far={50} />
       <Lights />
       <Card texture={texture} emissiveRef={emissiveRef} />
-      <Veil fallRef={fallRef} />
+      <Veil fallRef={fallRef} pullRef={pullRef} />
       <EffectComposer>
         <Bloom
           intensity={0.75}
@@ -365,6 +416,9 @@ export default function CinematicVeilCard({
   const height = Math.round(width * 1.5);
   const fallRef = useRef({ value: 0 });
   const emissiveRef = useRef({ value: 0 });
+  // GSAP-driven grip-offset: how far the top-right corner has been
+  // pulled from its rest position. Read by <Veil> in useFrame.
+  const pullRef = useRef<PullState>({ dx: 0, dy: 0, dz: 0 });
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   const [revealed, setRevealed] = useState(false);
@@ -382,6 +436,9 @@ export default function CinematicVeilCard({
     timelineRef.current?.kill();
     fallRef.current.value = 0;
     emissiveRef.current.value = 0;
+    pullRef.current.dx = 0;
+    pullRef.current.dy = 0;
+    pullRef.current.dz = 0;
     setRevealed(false);
   }, [card.name]);
 
@@ -392,6 +449,9 @@ export default function CinematicVeilCard({
 
     if (reducedMotion) {
       fallRef.current.value = goingDown ? 1 : 0;
+      pullRef.current.dx = goingDown ? 2.6 : 0;
+      pullRef.current.dy = goingDown ? 3.0 : 0;
+      pullRef.current.dz = goingDown ? 1.2 : 0;
       emissiveRef.current.value = goingDown ? 0.5 : 0;
       return;
     }
@@ -399,36 +459,30 @@ export default function CinematicVeilCard({
     const tl = gsap.timeline();
 
     if (goingDown) {
-      // ── DROP TIMELINE — 2.8s total, choreographed in 4 beats ──
-      tl.to(fallRef.current, {
-        value: 1,
-        duration: 2.8,
-        ease: "power3.in",
-      });
-      // Bloom: card emissive ramps up starting at 0.8s, peaks at 2.4s
-      tl.to(
-        emissiveRef.current,
-        { value: 0.85, duration: 1.6, ease: "power2.out" },
-        "0.8"
-      );
-      // Settle: emissive pulls back to steady rim glow
-      tl.to(
-        emissiveRef.current,
-        { value: 0.45, duration: 0.7, ease: "power2.inOut" },
-        "2.4"
-      );
+      // ── DROP — silk PULLED off the card (not falling) ─────────────
+      // fallRef drives shader uniforms (opacity fade, brightness pulse).
+      tl.to(fallRef.current, { value: 1, duration: 3.2, ease: "power1.inOut" }, 0);
+
+      // Grip-cluster path: top-right corner pulled up, to the right,
+      // and lifting z toward the camera. Three tracks with slightly
+      // different eases so the motion feels hand-driven, not robotic.
+      //   X (rightward):  linear-ish, mechanical pull
+      //   Y (upward):     ease-in-out, matches the hand's arc
+      //   Z (toward cam): power2.in so the cloth stays on the card
+      //                   early and peels up in the second half
+      tl.to(pullRef.current, { dx: 2.6, duration: 3.2, ease: "power1.inOut" }, 0);
+      tl.to(pullRef.current, { dy: 3.0, duration: 3.2, ease: "power1.inOut" }, 0);
+      tl.to(pullRef.current, { dz: 1.25, duration: 3.2, ease: "power2.in"    }, 0);
+
+      // Bloom: card emissive ramps up as the cloth clears, settles to
+      // a persistent rim halo.
+      tl.to(emissiveRef.current, { value: 0.80, duration: 1.8, ease: "power2.out"   }, 1.0);
+      tl.to(emissiveRef.current, { value: 0.42, duration: 0.6, ease: "power2.inOut" }, 2.8);
     } else {
-      // ── RAISE TIMELINE — 1.6s ──
-      tl.to(fallRef.current, {
-        value: 0,
-        duration: 1.6,
-        ease: "power2.inOut",
-      });
-      tl.to(
-        emissiveRef.current,
-        { value: 0, duration: 1.0, ease: "power2.inOut" },
-        "0"
-      );
+      // ── RAISE — snap cloth back to flat rest (1.2s) ───────────────
+      tl.to(fallRef.current, { value: 0, duration: 1.2, ease: "power2.inOut" }, 0);
+      tl.to(pullRef.current, { dx: 0, dy: 0, dz: 0, duration: 1.2, ease: "power2.inOut" }, 0);
+      tl.to(emissiveRef.current, { value: 0, duration: 0.9, ease: "power2.inOut" }, 0);
     }
 
     timelineRef.current = tl;
@@ -471,6 +525,7 @@ export default function CinematicVeilCard({
           <VeilScene
             cardImagePath={getCardImagePath(card)}
             fallRef={fallRef}
+            pullRef={pullRef}
             emissiveRef={emissiveRef}
           />
         </Canvas>
