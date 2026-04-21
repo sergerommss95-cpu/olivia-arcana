@@ -174,28 +174,8 @@ export default function HeroV3() {
           </p>
         </div>
 
-        {/* RIGHT — the card + variant picker */}
+        {/* RIGHT — the card */}
         <div className="heroV3-card-slot">
-          {/* Variant picker */}
-          <div className="heroV3-picker" role="tablist" aria-label="Card shader variant">
-            <span className="heroV3-picker-eyebrow" aria-hidden>Shader</span>
-            <div className="heroV3-picker-cells">
-              {(Object.keys(VARIANT_LABELS) as Variant[]).map((v) => (
-                <button
-                  key={v}
-                  type="button"
-                  className={`heroV3-picker-cell${v === variant ? " heroV3-picker-cell-active" : ""}`}
-                  onClick={() => setVariant(v)}
-                  role="tab"
-                  aria-selected={v === variant}
-                  title={VARIANT_BLURBS[v]}
-                >
-                  {VARIANT_LABELS[v]}
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* Active card. Each component has its own key so only that one
               mounts/unmounts when the variant changes (no wrapper-div
               remount → smoother switch). */}
@@ -204,6 +184,30 @@ export default function HeroV3() {
             {variant === "caustics" && <CausticsCard      key="caustics" {...cardProps} />}
             {variant === "smoke"    && <SmokeRevealCard   key="smoke"    {...cardProps} />}
             {variant === "edge"     && <EdgeLitCard       key="edge"     {...cardProps} />}
+          </div>
+        </div>
+      </div>
+
+      {/* Variant picker — mounted OUTSIDE the hero grid, centered above
+          the layout so it's never obscured by any card component's
+          visual overflow (e.g. EdgeLit's aurora ring). */}
+      <div className="heroV3-picker-bar">
+        <div className="heroV3-picker" role="tablist" aria-label="Card shader variant">
+          <span className="heroV3-picker-eyebrow" aria-hidden>Shader</span>
+          <div className="heroV3-picker-cells">
+            {(Object.keys(VARIANT_LABELS) as Variant[]).map((v) => (
+              <button
+                key={v}
+                type="button"
+                className={`heroV3-picker-cell${v === variant ? " heroV3-picker-cell-active" : ""}`}
+                onClick={() => setVariant(v)}
+                role="tab"
+                aria-selected={v === variant}
+                title={VARIANT_BLURBS[v]}
+              >
+                {VARIANT_LABELS[v]}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -299,53 +303,80 @@ export default function HeroV3() {
         .heroV3-card-slot {
           display: flex; flex-direction: column;
           justify-content: center; align-items: center;
-          gap: 1.25rem;
           animation: v3CardSettle 1.2s ${EASE} 0.4s both;
         }
         .heroV3-card-wrap {
           width: 100%; display: flex; justify-content: center;
         }
 
-        /* Picker */
+        /* Picker bar — sits OUTSIDE the hero grid, above the layout.
+           Sticky-top positioning keeps it accessible as the hero
+           scrolls too; high z-index so no card overflow can cover it. */
+        .heroV3-picker-bar {
+          position: sticky;
+          top: calc(var(--nav-height, 5rem) + 0.5rem);
+          z-index: 40;
+          display: flex;
+          justify-content: center;
+          padding: 0 1rem;
+          margin-top: -2rem;
+          pointer-events: none; /* bar itself is transparent; only picker inside is interactive */
+        }
         .heroV3-picker {
+          pointer-events: auto;
           display: inline-flex; align-items: center; gap: 0.55rem;
           padding: 0.35rem 0.55rem; border-radius: 9999px;
-          background: rgba(6, 4, 26, 0.55);
-          -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-          border: 1px solid rgba(200, 185, 255, 0.14);
+          background: rgba(6, 4, 26, 0.82);
+          -webkit-backdrop-filter: blur(14px) saturate(1.3);
+          backdrop-filter: blur(14px) saturate(1.3);
+          border: 1px solid rgba(232, 201, 106, 0.28);
+          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), 0 0 20px rgba(212, 175, 55, 0.1);
         }
         .heroV3-picker-eyebrow {
           font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.54rem; font-weight: 600; letter-spacing: 0.22em;
-          text-transform: uppercase; color: rgba(196, 185, 228, 0.6);
-          padding-left: 0.15rem;
+          font-size: 0.56rem; font-weight: 600; letter-spacing: 0.24em;
+          text-transform: uppercase; color: rgba(232, 201, 106, 0.8);
+          padding-left: 0.25rem;
         }
         .heroV3-picker-cells {
-          display: inline-flex; gap: 0.2rem;
+          display: inline-flex; gap: 0.15rem;
+          padding: 0.12rem;
+          border-radius: 9999px;
+          background: rgba(0, 0, 0, 0.28);
+          border: 1px solid rgba(200, 185, 255, 0.08);
         }
         .heroV3-picker-cell {
+          position: relative; /* make sure no stacking surprises */
           font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.72rem; font-weight: 500;
+          font-size: 0.74rem; font-weight: 500;
           letter-spacing: 0.08em;
-          padding: 0.38rem 0.75rem;
+          padding: 0.4rem 0.85rem;
           border-radius: 9999px;
           background: transparent; border: none;
-          color: rgba(220, 210, 245, 0.6);
+          color: rgba(220, 210, 245, 0.7);
           cursor: pointer;
-          transition: background 200ms ${EASE}, color 200ms ${EASE};
+          transition: background 180ms ${EASE}, color 180ms ${EASE};
+          /* ensure the button's click-zone is well-defined */
+          min-height: 32px;
         }
         .heroV3-picker-cell:hover {
-          color: rgba(245, 240, 232, 0.95);
-          background: rgba(255, 255, 255, 0.04);
+          color: rgba(245, 240, 232, 1);
+          background: rgba(255, 255, 255, 0.06);
         }
         .heroV3-picker-cell-active {
           background: linear-gradient(135deg, #E8C96A, #D4AF37);
           color: var(--c-void, #06041a);
           font-weight: 600;
-          box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+          box-shadow: 0 0 14px rgba(212, 175, 55, 0.45);
         }
         .heroV3-picker-cell:focus-visible {
           outline: 2px solid #E8C96A; outline-offset: 2px;
+        }
+
+        @media (max-width: 520px) {
+          .heroV3-picker { gap: 0.4rem; padding: 0.3rem 0.4rem; }
+          .heroV3-picker-eyebrow { display: none; }
+          .heroV3-picker-cell { padding: 0.35rem 0.6rem; font-size: 0.68rem; }
         }
 
         @keyframes v3FadeUp {

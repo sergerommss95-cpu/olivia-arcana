@@ -234,6 +234,10 @@ export default function EdgeLitCard({
 
   return (
     <div className="el" style={{ width: `${width}px`, maxWidth: "100%" }}>
+      {/* Container's click-zone is CARD-SIZED. The canvas extends outward
+          via absolute positioning (see .el-canvas CSS), so the aurora
+          ring reaches 80px beyond the card visually but doesn't block
+          clicks on anything above/below this component. */}
       <div
         className="el-container"
         role="button"
@@ -242,18 +246,25 @@ export default function EdgeLitCard({
         onPointerEnter={handlePointerEnter}
         onPointerLeave={handlePointerLeave}
         onKeyDown={handleKeyDown}
-        style={{ width: `${canvasW}px`, height: `${canvasH}px` }}
+        style={{ width: `${width}px`, height: `${cardHeight}px` }}
       >
-        {/* Canvas — absolute, fills container, behind the card */}
+        {/* Canvas — absolute, overflows beyond the container visually,
+            pointer-events: none so it never eats clicks. */}
         <canvas
           ref={canvasRef}
           width={canvasW}
           height={canvasH}
           className="el-canvas"
+          style={{
+            top: `-${PAD}px`,
+            left: `-${PAD}px`,
+            width: `${canvasW}px`,
+            height: `${canvasH}px`,
+          }}
           aria-hidden
         />
 
-        {/* Card image — untouched, centered over the canvas */}
+        {/* Card image — untouched, centered in the container */}
         <div className="el-card-wrap" style={{ width: `${width}px`, height: `${cardHeight}px` }}>
           <img
             src={getCardImagePath(card)}
@@ -282,10 +293,16 @@ export default function EdgeLitCard({
         .el {
           display: flex; flex-direction: column; gap: 1.1rem; align-items: center; margin: 0 auto;
         }
+        /* Container click-zone is exactly card-sized. No negative margin
+           — that would overflow upward and cover elements above (e.g.
+           the Shader picker). The canvas is absolutely positioned and
+           pointer-events:none so it paints outside the container
+           visually without blocking any clicks. */
         .el-container {
           position: relative; outline: none;
           display: flex; align-items: center; justify-content: center;
-          margin: -${PAD}px; /* counteract canvas padding so layout stays card-sized */
+          /* overflow visible so the canvas can paint outside this box */
+          overflow: visible;
         }
         .el-container:focus-visible { outline: none; }
         .el-container:focus-visible .el-card-wrap {
@@ -293,8 +310,7 @@ export default function EdgeLitCard({
           border-radius: 18px;
         }
         .el-canvas {
-          position: absolute; inset: 0;
-          width: 100%; height: 100%;
+          position: absolute;
           display: block; pointer-events: none; z-index: 1;
         }
         .el-card-wrap {
