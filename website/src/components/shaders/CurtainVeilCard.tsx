@@ -135,60 +135,52 @@ const FRAGMENT_SRC = /* glsl */ `
     vec2 asp = vec2(uv.x * uAspect, uv.y);
     float drop = uDropProgress;
 
-    // ══ IGNITION REVEAL ══════════════════════════════════════════════
-    // No falling seam. Each pixel ignites into gold fire at its own
-    // moment, driven by a spatial noise field plus a radial bias
-    // from the card's center. The pattern spreads organically
-    // outward as drop progresses — the card's own light burning
-    // away the veil.
-    //
-    // Three per-pixel values drive the reveal:
-    //   pixelIgnition — when (in drop units) this pixel starts.
-    //   phase         — how far past its ignition the pixel is (0..1).
-    //   opacity       — the veil's alpha at this pixel.
-    //
-    // Computed once here; consumed by downstream layers below.
-    vec2 fromCenter = (uv - 0.5) * vec2(uAspect, 1.0);
-    float radialNorm = length(fromCenter) / 0.70;  // ~0 at center, ~1 at corners
+    // ══ EDGE CHOREOGRAPHY ════════════════════════════════════════════
+    // Arc offset — bottom of the falling edge dips lower in the middle,
+    // so it reads as a piece of cloth catching its center on the fall.
+    float arc = sin(uv.x * 3.14159) * 0.07 * (1.0 - smoothstep(0.85, 1.0, drop));
 
-    // Noise offset — large-scale organic wobble in the ignition pattern
-    float ignNoise = fbm3(asp * 2.2 + vec2(7.3, 4.1)) * 0.28;
-    // Vertical-stripe bias so pleat peaks tend to ignite before valleys
-    // (computed standalone so we don't depend on the fold layer order).
-    float ignStripe = sin(uv.x * 7.1) * 0.035;
+    // Extra dip as the drop progresses past 50% — the center sags
+    float sagBoost = smoothstep(0.2, 0.85, drop) * 0.05;
 
-    float pixelIgnition = radialNorm * 0.42 + ignNoise + ignStripe;
-    pixelIgnition = clamp(pixelIgnition, 0.00, 0.55);
+    // Core fall line
+    float baseFall = 1.22 - drop * 1.44;
 
-    // How far this pixel is past its own ignition point (0..1 over
-    // a 0.40 drop-unit transition window).
-    float transitionWindow = 0.40;
-    float phase = clamp((drop - pixelIgnition) / transitionWindow, 0.0, 1.0);
+    // Wispy noise displacement — fabric-edge tearing
+    float wispy = (fbm(vec2(uv.x * 5.5, uTime * 0.4 + drop * 5.0)) - 0.5) * 0.17;
 
-    // Opacity: stays at 1 until the pixel's fire peaks, then fades to 0.
-    // Phase 0.0–0.55: opaque (burning in place)
-    // Phase 0.55–1.0: fading out
-    float opacity = 1.0 - smoothstep(0.55, 0.98, phase);
+    // Fold-aware fall — pleated fabric doesn't fall as a single line.
+    // Fold peaks (where less fabric accumulates) fall slightly faster;
+    // fold valleys (where fabric gathers) lag. The offset varies across
+    // X matching the fold pattern used in the color layer so the edge
+    // reads as the SAME curtain, just seen in profile.
+    float edgeFoldWarp = fbm3(vec2(uv.y * 1.1 + 3.3, 0.7)) * 0.085;
+    float edgeFoldPhase = fbm3(vec2((uv.x + edgeFoldWarp) * 2.3, 0.0)) * 3.2;
+    float edgeFold = sin((uv.x + edgeFoldWarp) * 7.1 + edgeFoldPhase);
+    float foldOffset = edgeFold * 0.032 * smoothstep(0.03, 0.60, drop);
 
-    // Hash-punch granular edge so the burning-out boundary is gritty,
-    // not a smooth radial gradient. Only active during the fade window.
-    if (phase > 0.55 && phase < 0.95) {
-      float grain = hash(floor(asp * 85.0) + floor(uTime * 7.0));
-      float grainMask = smoothstep(0.55, 0.85, phase);
-      if (grain < grainMask * 0.72) opacity *= 0.0;
+    // Combined falling edge
+    float edgeY = baseFall + wispy + arc + sagBoost + foldOffset;
+
+    // Primary veil mask — 1 BELOW the falling edge (where veil remains),
+    // 0 ABOVE the falling edge (where the card is revealed). At rest
+    // (drop=0) edgeY is above the card so veilMask = 1 everywhere (fully
+    // veiled). At full drop edgeY is below the card so veilMask = 0
+    // everywhere (fully revealed).
+    float veilMask = 1.0 - smoothstep(edgeY - 0.04, edgeY + 0.025, uv.y);
+
+    // Dissolution — in the last 25% of the drop, the upper veil (just
+    // above the falling edge) frays into particles. Hash-based hole
+    // punching with a noise threshold so the fray feels granular, not
+    // regular-tiled. Tighter cell grid so it reads as dust, not blocks.
+    if (drop > 0.72 && uv.y > edgeY - 0.05 && uv.y < edgeY + 0.35) {
+      float dissolve = hash(floor(asp * 95.0) + floor(uTime * 8.0));
+      float dissolveMask = smoothstep(0.72, 0.95, drop)
+                         * smoothstep(edgeY - 0.05, edgeY + 0.18, uv.y);
+      if (dissolve < dissolveMask * 0.80) veilMask *= 0.0;
     }
 
-    float veilMask = clamp(opacity, 0.0, 1.0);
-
-    // Ignition color shift — liquid → gold fire while the pixel burns.
-    float igniteMix = smoothstep(0.0, 0.35, phase);
-    // Additive gold glow peaks in the middle of the transition.
-    float firePeak = smoothstep(0.10, 0.38, phase) * (1.0 - smoothstep(0.52, 0.82, phase));
-
-    // Sparks at the ignition front (pixels currently peaking)
-    float sparkHash = hash(floor(asp * 48.0) + floor(uTime * 9.0));
-    float sparkGate = smoothstep(0.18, 0.35, phase) * (1.0 - smoothstep(0.55, 0.75, phase));
-    float sparkPoint = step(0.988, sparkHash) * sparkGate;
+    veilMask = clamp(veilMask, 0.0, 1.0);
 
     // ══ LAYER 1 — LIQUID COLOR CURTAIN ═══════════════════════════════
     // The curtain is an iridescent fluid. Color flows across it in
@@ -310,25 +302,36 @@ const FRAGMENT_SRC = /* glsl */ `
     float starBoost = 0.55 + smoothstep(0.15, 0.75, drop) * 1.8;
     nebulaCol += vec3(1.0, 0.93, 0.68) * stars * starBoost;
 
-    // ══ LAYER 5 — IGNITION GLOW (burning pixels are hot gold) ═══════
-    // Each pixel currently in its fire window adds additive gold
-    // glow. Peaks in the middle of the phase; tapers out as the
-    // pixel fades to transparent.
-    vec3 fireCol = vec3(1.0, 0.88, 0.50);
-    vec3 plasmaCol = fireCol * firePeak * 0.85;
+    // ══ LAYER 5 — LEADING EDGE PLASMA ════════════════════════════════
+    // Hot gold hairline at the exact falling edge. Bloom-feel via
+    // inverse-square falloff.
+    float edgeDist = abs(uv.y - edgeY);
+    float plasma = exp(-edgeDist * 42.0);
+    // Wider soft bloom beneath the plasma
+    float plasmaBloom = exp(-edgeDist * 12.0) * 0.45;
+    float plasmaGate = smoothstep(0.01, 0.05, drop) * (1.0 - smoothstep(0.94, 1.0, drop));
+    vec3 plasmaCol = vec3(1.0, 0.86, 0.52) * (plasma * 2.4 + plasmaBloom) * plasmaGate;
 
-    // Ignition sparks — brief bright points at the burning front
-    plasmaCol += vec3(1.0, 0.92, 0.62) * sparkPoint * 1.8;
+    // ══ LAYER 6 — EDGE SPARK BURST ═══════════════════════════════════
+    // Random gold dust sparks along the seam.
+    float sparkUV = hash(floor(asp * 85.0) + floor(uTime * 6.0));
+    float sparkBand = smoothstep(0.10, 0.0, abs(uv.y - edgeY));
+    float sparkMask = step(0.983, sparkUV) * sparkBand * plasmaGate;
+    plasmaCol += vec3(1.0, 0.90, 0.58) * sparkMask * 1.4;
 
-    // ══ LAYER 6 — IGNITION COLOR SHIFT ═══════════════════════════════
-    // As a pixel burns, its liquid color shifts toward fire before it
-    // fades to transparent. Applied to nebulaCol so downstream
-    // composition uses the shifted hue.
-    nebulaCol = mix(nebulaCol, fireCol * 0.92, igniteMix * 0.55);
+    // ══ LAYER 7 — TRAILING TENDRILS ══════════════════════════════════
+    // Thin vertical gold streaks BELOW the falling edge — the veil
+    // leaving light behind as it descends.
+    if (uv.y < edgeY && drop > 0.08 && drop < 0.92) {
+      float tendrilNoise = fbm(vec2(uv.x * 22.0, uv.y * 7.0 - uTime * 1.8));
+      float tendrilMask = smoothstep(edgeY - 0.32, edgeY, uv.y);
+      float tendrils = pow(max(tendrilNoise, 0.0), 3.2) * tendrilMask;
+      plasmaCol += vec3(0.95, 0.78, 0.42) * tendrils * 0.55;
+    }
 
     // ══ LAYER 8 — ANTICIPATION FLASH ═════════════════════════════════
     // Brief golden pulse over the entire fabric at the moment of
-    // trigger. Driven by uFlash uniform (decays over FLASH_DURATION).
+    // trigger. Driven by uFlash uniform (decays over ~0.28s).
     vec3 flashCol = vec3(1.0, 0.84, 0.48) * uFlash * 0.55;
 
     // ══ VEIL DENSITY ═════════════════════════════════════════════════
