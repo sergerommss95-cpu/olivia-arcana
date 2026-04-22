@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Olive Mark — Olivia Arcana's primary brand mark.
+  Etymology: "Olivia" is Latin for "olive tree" (Olea europaea).
+  This mark is the seed of the identity system — scales from 16px
+  favicon to 1024px app icon without modification.
+
+  Design: vertical olive sprig. Gentle S-curve stem, 3 filled leaves
+  alternating sides, single olive fruit at the crown.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
+     width="32" height="32" role="img"
+     aria-label="Olivia Arcana — olive mark">
+  <defs>
+    <linearGradient id="olive-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#f7e39a"/>
+      <stop offset="50%"  stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#8a6818"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Olive sprig, centered at (16, 16). Strokes calibrated for crisp
+       rendering at 32px while remaining retina-sharp at 512px. -->
+  <g transform="translate(16 16)">
+    <!-- Stem: vertical S-curve from bottom to crown -->
+    <path d="M 0,12 C 1.6,6 -1.6,0 0,-6 C 1,-10 -0.5,-12 0,-13"
+          fill="none" stroke="url(#olive-gold)"
+          stroke-width="1.3" stroke-linecap="round"/>
+
+    <!-- Three filled leaves, alternating sides, angling up-outward -->
+    <g fill="url(#olive-gold)">
+      <!-- Lower right -->
+      <path d="M 0.5,7 Q 5.5,3 8.5,5 Q 5.5,8 0.5,7 Z"/>
+      <!-- Middle left -->
+      <path d="M -0.5,1 Q -7,-3 -9.5,-1.5 Q -7,1.5 -0.5,1 Z"/>
+      <!-- Upper right -->
+      <path d="M 0.5,-5 Q 5.5,-9 8.5,-7 Q 5.5,-4 0.5,-5 Z"/>
+    </g>
+
+    <!-- Olive fruit, crowning the sprig -->
+    <ellipse cx="0" cy="-13.5" rx="1.7" ry="2.2" fill="url(#olive-gold)"/>
+    <!-- Dew highlight -->
+    <circle cx="-0.5" cy="-14.2" r="0.4" fill="rgba(255,250,220,0.85)"/>
+  </g>
+</svg>
