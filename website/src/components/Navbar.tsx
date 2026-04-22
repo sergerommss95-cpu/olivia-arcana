@@ -60,9 +60,17 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50" style={{ paddingTop: "env(safe-area-inset-top)" }}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 sm:py-4">
         <div className="glass-card px-6 py-3 flex items-center justify-between">
-          {/* Logo */}
-          <TransitionLink href="/" className="flex items-center gap-2 group">
-            <span className="text-celestial-gold text-xl">&#10022;</span>
+          {/* Logo — olive mark (brand) + wordmark */}
+          <TransitionLink href="/" className="flex items-center gap-2 group" aria-label="Olivia Arcana — home">
+            <img
+              src="/olive-mark.svg"
+              alt=""
+              aria-hidden
+              width={22}
+              height={22}
+              className="shrink-0"
+              style={{ display: "block" }}
+            />
             <span
               className="font-[family-name:var(--font-heading)] text-lg font-semibold tracking-wide text-celestial-gold"
             >

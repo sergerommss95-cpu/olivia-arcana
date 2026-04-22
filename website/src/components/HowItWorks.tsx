@@ -11,19 +11,16 @@ export default function HowItWorks() {
       number: "01",
       title: t("how_1_title"),
       description: t("how_1_desc"),
-      icon: "🔭",
     },
     {
       number: "02",
       title: t("how_2_title"),
       description: t("how_2_desc"),
-      icon: "✨",
     },
     {
       number: "03",
       title: t("how_3_title"),
       description: t("how_3_desc"),
-      icon: "🌙",
     },
   ];
 
@@ -43,13 +40,10 @@ export default function HowItWorks() {
         <SmoothReveal stagger={150} duration={800} direction="up" distance={40} blur className="space-y-12 md:space-y-0 md:grid md:grid-cols-3 md:gap-12">
           {steps.map((step, i) => (
             <div key={step.number} className="text-center">
-              {/* Step number */}
+              {/* Step number — the sole visual anchor, italic Cormorant in gold */}
               <div className="relative inline-block mb-6">
-                <span className="text-6xl font-[family-name:var(--font-heading)] font-bold text-celestial-gold/10">
+                <span className="text-6xl md:text-7xl font-[family-name:var(--font-heading)] italic font-medium text-celestial-gold/60">
                   {step.number}
-                </span>
-                <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl">
-                  {step.icon}
                 </span>
               </div>
 

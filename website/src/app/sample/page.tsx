@@ -33,7 +33,15 @@ export default function SamplePage() {
           {/* ── Header ───────────────────────────────────────────── */}
           <header className="sample-masthead">
             <p className="sample-kicker">
-              <span aria-hidden>✦</span> A worked reading
+              <img
+                src="/olive-mark.svg"
+                alt=""
+                aria-hidden
+                width={14}
+                height={14}
+                className="sample-kicker-mark"
+              />
+              A worked reading
             </p>
             <h1 className="sample-title">
               For Eleanor, born <em>into water.</em>
@@ -54,6 +62,14 @@ export default function SamplePage() {
             <h2 className="sample-section-title">
               <span className="sample-numeral">I.</span> Sun in Pisces, 12th house
             </h2>
+            <p className="sample-chart-data zodiac">
+              <span>Sun</span>
+              <span className="sample-chart-sep" aria-hidden>·</span>
+              <span className="zodiac-glyph">♓</span>
+              <span>23° 47&prime;</span>
+              <span className="sample-chart-sep" aria-hidden>·</span>
+              <span>House&nbsp;12</span>
+            </p>
 
             <p>
               <span className="sample-drop">E</span>leanor, you were born with
@@ -115,6 +131,14 @@ export default function SamplePage() {
             <h2 className="sample-section-title">
               <span className="sample-numeral">II.</span> Moon in Cancer on the IC
             </h2>
+            <p className="sample-chart-data zodiac">
+              <span>Moon</span>
+              <span className="sample-chart-sep" aria-hidden>·</span>
+              <span className="zodiac-glyph">♋</span>
+              <span>8° 12&prime;</span>
+              <span className="sample-chart-sep" aria-hidden>·</span>
+              <span>House&nbsp;4&nbsp;(IC)</span>
+            </p>
 
             <p>
               Your Moon is in Cancer, the sign it rules, at the very
@@ -155,6 +179,16 @@ export default function SamplePage() {
             <h2 className="sample-section-title">
               <span className="sample-numeral">III.</span> Sagittarius rising, Jupiter in the 1st
             </h2>
+            <p className="sample-chart-data zodiac">
+              <span>Asc</span>
+              <span className="sample-chart-sep" aria-hidden>·</span>
+              <span className="zodiac-glyph">♐</span>
+              <span>15° 02&prime;</span>
+              <span className="sample-chart-sep" aria-hidden>·</span>
+              <span>Jupiter</span>
+              <span className="sample-chart-sep" aria-hidden>·</span>
+              <span>House&nbsp;1</span>
+            </p>
 
             <p>
               Your Ascendant is in Sagittarius and Jupiter — the ruler
@@ -191,11 +225,35 @@ export default function SamplePage() {
             </aside>
           </section>
 
+          {/* ── Midpoint break — the reader pauses here ───────────── */}
+          <div className="sample-break" role="separator" aria-hidden>
+            <span className="sample-break-rule" />
+            <img
+              src="/olive-mark.svg"
+              alt=""
+              width={22}
+              height={22}
+              className="sample-break-mark"
+            />
+            <span className="sample-break-rule" />
+          </div>
+
           {/* ── Section IV ───────────────────────────────────────── */}
           <section className="sample-section">
             <h2 className="sample-section-title">
               <span className="sample-numeral">IV.</span> The Saturn–Mercury square
             </h2>
+            <p className="sample-chart-data zodiac">
+              <span>Saturn</span>
+              <span className="sample-chart-sep" aria-hidden>·</span>
+              <span className="zodiac-glyph">♓</span>
+              <span>2°</span>
+              <span className="sample-chart-sep" aria-hidden>□</span>
+              <span>Mercury</span>
+              <span className="sample-chart-sep" aria-hidden>·</span>
+              <span className="zodiac-glyph">♊</span>
+              <span>4°</span>
+            </p>
 
             <p>
               Natal Saturn in Pisces at 2° squares your Mercury at 4°
@@ -232,6 +290,15 @@ export default function SamplePage() {
             <h2 className="sample-section-title">
               <span className="sample-numeral">V.</span> A year ahead
             </h2>
+            <p className="sample-chart-data zodiac">
+              <span>Jupiter&nbsp;ingress</span>
+              <span className="sample-chart-sep" aria-hidden>·</span>
+              <span className="zodiac-glyph">♋</span>
+              <span className="sample-chart-sep" aria-hidden>·</span>
+              <span>Summer&nbsp;2026</span>
+              <span className="sample-chart-sep" aria-hidden>·</span>
+              <span>House&nbsp;8</span>
+            </p>
 
             <p>
               The single transit I&rsquo;d mark in your calendar for the
@@ -271,7 +338,15 @@ export default function SamplePage() {
               lives in your library once we make it for you.
             </p>
             <p className="sample-signature">
-              <span className="sample-signature-mark">✦</span> Olivia
+              <img
+                src="/olive-mark.svg"
+                alt=""
+                aria-hidden
+                width={22}
+                height={22}
+                className="sample-signature-mark"
+              />
+              Olivia
               <span className="sample-signature-sub">
                 Written for Eleanor M. · Libra sun · Cancer moon · Sagittarius rising · Edinburgh
               </span>
@@ -317,6 +392,14 @@ export default function SamplePage() {
           text-transform: uppercase;
           color: rgba(232, 201, 106, 0.82);
           margin: 0;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.7em;
+        }
+        .sample-kicker-mark {
+          display: inline-block;
+          vertical-align: middle;
+          opacity: 0.9;
         }
         .sample-title {
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
@@ -363,6 +446,63 @@ export default function SamplePage() {
           font-style: normal;
           color: rgba(232, 201, 106, 0.7);
           font-size: 0.88em;
+        }
+
+        /* ── Chart data chip: appears under each section title to ground
+           the reading in actual astrological values. Monospace, uppercase,
+           small caps-feel; gold zodiac glyphs inline. ─────────────────── */
+        .sample-chart-data {
+          display: inline-flex;
+          flex-wrap: wrap;
+          align-items: baseline;
+          gap: 0.55em;
+          font-family: var(--font-mono, "IBM Plex Mono"), monospace;
+          font-size: 0.68rem;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: rgba(220, 210, 245, 0.65);
+          margin: -0.6rem 0 1.75rem;
+          padding: 0.45rem 0.85rem;
+          border-top: 1px solid rgba(232, 201, 106, 0.22);
+          border-bottom: 1px solid rgba(232, 201, 106, 0.22);
+          background: rgba(232, 201, 106, 0.035);
+        }
+        .sample-chart-data .zodiac-glyph {
+          color: rgba(232, 201, 106, 0.9);
+          font-size: 1rem;
+          letter-spacing: normal;
+          margin: 0 0.1em;
+        }
+        .sample-chart-sep {
+          color: rgba(220, 210, 245, 0.4);
+          font-weight: 400;
+          letter-spacing: normal;
+        }
+
+        /* ── Midpoint break: centered olive mark between two hairlines.
+           Gives the reader a visual reset between the first three sections
+           and the Saturn-Mercury square section. ────────────────────── */
+        .sample-break {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1.25rem;
+          margin: clamp(4rem, 7vw, 6rem) 0;
+          padding: 0 clamp(1rem, 4vw, 4rem);
+        }
+        .sample-break-rule {
+          flex: 1;
+          height: 1px;
+          background: linear-gradient(
+            to right,
+            transparent,
+            rgba(232, 201, 106, 0.32),
+            transparent
+          );
+        }
+        .sample-break-mark {
+          opacity: 0.85;
+          flex: 0 0 auto;
         }
 
         .sample-section p {
@@ -456,17 +596,25 @@ export default function SamplePage() {
           max-width: 60ch;
         }
         .sample-signature {
-          display: flex;
-          flex-direction: column;
-          gap: 0.3rem;
+          display: grid;
+          grid-template-columns: auto auto;
+          align-items: baseline;
+          gap: 0.3rem 0.55em;
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
           font-style: italic;
           font-size: 1.6rem;
           color: rgba(232, 201, 106, 0.95);
           margin: 0;
+          line-height: 1;
         }
         .sample-signature-mark {
-          margin-right: 0.3em;
+          display: inline-block;
+          align-self: center;
+          transform: translateY(-2px);
+          opacity: 0.95;
+        }
+        .sample-signature > .sample-signature-sub {
+          grid-column: 1 / -1;
         }
         .sample-signature-sub {
           font-family: var(--font-body, system-ui), sans-serif;

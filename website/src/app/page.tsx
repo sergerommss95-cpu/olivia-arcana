@@ -209,7 +209,7 @@ export default function Home() {
             <Testimonials />
           </ScrollFloat>
           <CosmicSelfie />
-          <ScrollFloat index={3} intensity="dramatic">
+          <ScrollFloat index={3} intensity="subtle">
             <Pricing />
           </ScrollFloat>
           <Faq />

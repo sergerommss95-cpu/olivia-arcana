@@ -43,7 +43,7 @@ const ROWS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
-    q: "What&rsquo;s the difference between Free and VIP?",
+    q: "What\u2019s the difference between Free and VIP?",
     a: (
       <>
         Free gives you the daily Card of the Day, a basic natal snapshot, and

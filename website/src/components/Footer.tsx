@@ -23,7 +23,14 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-celestial-gold text-xl">&#10022;</span>
+              <img
+                src="/olive-mark.svg"
+                alt=""
+                aria-hidden
+                width={24}
+                height={24}
+                style={{ display: "block" }}
+              />
               <span className="font-[family-name:var(--font-heading)] text-xl font-semibold text-celestial-gold">
                 Olivia Arcana
               </span>
