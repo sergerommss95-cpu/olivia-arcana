@@ -59,13 +59,19 @@ ffmpeg -y -i voice-processed.mp3 -i /tmp/room-tone.wav \
 
 ## Dependencies
 
-- Python 3.9+ with `opencv-python`, `numpy`, `scipy`
+- Python 3.9+ with `opencv-python`, `numpy`, `scipy`, `rembg`, `onnxruntime`
 - `ffmpeg` 6+ (tested on 8.1)
 
 ```bash
-pip install opencv-python numpy scipy
+pip install opencv-python numpy scipy rembg onnxruntime
 brew install ffmpeg
 ```
+
+**rembg + onnxruntime** ship a u2net person-segmentation model that the
+portrait + video scripts use for pixel-accurate subject isolation.
+First run downloads `u2netp.onnx` (~4.6MB) to `~/.u2net/` and caches
+it. Without it the scripts fall back to color-threshold masks which
+leak at hair edges.
 
 ## Full regeneration workflow
 

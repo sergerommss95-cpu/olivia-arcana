@@ -33,8 +33,8 @@ three showed characteristic AI "tells":
 
 | Asset | Version | File | Path |
 |---|---|---|---|
-| Portrait | v6 | 590KB jpg | `public/olivia/portrait.jpg` |
-| Video | v8 | 22.3MB mp4 | `public/videos/olivia-intro.mp4` |
+| Portrait | v7 | 574KB jpg | `public/olivia/portrait.jpg` |
+| Video | v9 | 15.7MB mp4 | `public/videos/olivia-intro.mp4` |
 | Captions | v1 | VTT | `public/videos/olivia-intro.vtt` |
 | Raw portrait | — | 324KB jpg | `public/olivia/portrait-original.jpg` |
 | Voice | (prompt ready) | — | doc 12 |
@@ -54,11 +54,15 @@ mid-page, Act 4 in the narrative).
   Background kill too aggressive.
 - **v3** — editorial (Roversi direction). Face too dark, lost warmth.
 - **v4** — Portra-style warm Portra grade + rolled highlights + lifted
-  blacks + dual-frequency grain + halation. **Shipped as interim.**
+  blacks + dual-frequency grain + halation. Shipped as interim.
 - **v5** — Avedon-pure-black direction. Background darkening didn't
   take because subject mask bled. Rejected.
 - **v6** — Subject mask unified with video v6 (adds hair_ish channel).
-  **Final shipped.**
+  Shipped as interim.
+- **v7** — **u2net person-segmentation** via rembg replaces the
+  color-threshold mask. Pixel-accurate hair + shoulder isolation
+  lets us push the background to near-black (Avedon/Seliger direction)
+  without any halo. **Final shipped.**
 
 ### Video
 
@@ -69,12 +73,16 @@ mid-page, Act 4 in the narrative).
   Rejected.
 - **v4** — tuned grade to match portrait v2. Shipped as interim.
 - **v5** — added hue pulse + brightness breathing + CRF 23.
-- **v6** — **per-frame Python grade** (portrait.py on every frame).
+- **v6** — per-frame Python grade (portrait.py on every frame).
   5-minute processing, 6-core parallel. Massive jump — background
   properly defocused, exact grade match to portrait.
 - **v7** — mixed in synthetic room tone at 15% weight.
 - **v8** — SM7B-emulated EQ curve (broadcast-style low-mid warmth,
-  HF rolloff) + stronger room tone (22%). **Final shipped.**
+  HF rolloff) + stronger room tone (22%). Shipped as interim.
+- **v9** — **u2net per-frame person-segmentation** (matches portrait v7).
+  Each frame gets pixel-accurate subject mask, then the same grade
+  as portrait v7. Background pulled to near-black across all 986
+  frames, no hair halo, face dominates. **Final shipped.** 15.7MB.
 
 ### Voice
 
