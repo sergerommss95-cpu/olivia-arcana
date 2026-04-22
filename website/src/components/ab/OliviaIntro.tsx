@@ -15,7 +15,7 @@
 
 "use client";
 
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 export default function OliviaIntro() {
@@ -47,6 +47,16 @@ export default function OliviaIntro() {
     if (v) v.pause();
     setPlaying(false);
   }, []);
+
+  // Keyboard shortcut: ESC closes the playing video.
+  useEffect(() => {
+    if (!playing) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [playing, handleClose]);
 
   return (
     <section
