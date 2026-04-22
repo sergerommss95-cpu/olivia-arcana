@@ -1,0 +1,2611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Olivia Arcana — Card Back Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --gold-light: #f3dd8e;
+    --gold: #D4AF37;
+    --gold-deep: #8a6818;
+    --indigo-0: #221348;
+    --indigo-1: #0c0720;
+    --void: #04030c;
+    --text: rgba(245, 240, 232, 0.92);
+    --muted: rgba(200, 185, 255, 0.58);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: radial-gradient(ellipse at 50% 20%, #1a0f3d 0%, #0a0618 55%, #04030c 100%);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,230,150,0.35) 0, transparent 2px),
+      radial-gradient(1px 1px at 80% 35%, rgba(255,230,150,0.28) 0, transparent 2px),
+      radial-gradient(0.8px 0.8px at 45% 65%, rgba(255,255,220,0.3) 0, transparent 2px),
+      radial-gradient(1px 1px at 92% 80%, rgba(255,230,150,0.25) 0, transparent 2px),
+      radial-gradient(1px 1px at 20% 85%, rgba(255,230,150,0.22) 0, transparent 2px);
+    background-size: 800px 800px, 600px 600px, 500px 500px, 700px 700px, 900px 900px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  header {
+    position: relative;
+    z-index: 2;
+    padding: 3.5rem 2rem 1.5rem;
+    text-align: center;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  header .eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem; letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(232, 201, 106, 0.78);
+    margin: 0 0 0.8rem;
+  }
+  header h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    margin: 0 0 1rem;
+    font-style: italic;
+    letter-spacing: -0.01em;
+  }
+  header p {
+    font-size: 0.96rem;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  main.grid {
+    position: relative; z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(360px, 90vw), 1fr));
+    gap: clamp(2rem, 4vw, 3.5rem);
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 6rem;
+  }
+
+  .concept {
+    display: flex; flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+  }
+  .card {
+    width: 360px;
+    height: 540px;
+    max-width: 100%;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow:
+      0 30px 60px rgba(0,0,0,0.55),
+      0 0 32px rgba(212,175,55,0.14),
+      inset 0 0 0 1px rgba(232,201,106,0.18);
+    background: #0b0822;
+    position: relative;
+    isolation: isolate;
+  }
+  .card svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .concept-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(232, 201, 106, 0.8);
+    margin: 0;
+  }
+  .concept-title {
+    font-size: 1.35rem;
+    font-style: italic;
+    font-weight: 500;
+    margin: 0.2rem 0 0.4rem;
+    color: rgba(245, 240, 232, 0.98);
+  }
+  .concept-rationale {
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: var(--muted);
+    max-width: 340px;
+    text-align: center;
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     Shared animations
+     ════════════════════════════════════════════════════════════════ */
+  @keyframes rot   { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes rotR  { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+  @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+  @keyframes breathOp { 0%,100% { opacity: 0.75; } 50% { opacity: 1; } }
+  @keyframes blink { 0%, 92%, 100% { opacity: 1; } 94.5%, 96% { opacity: 0.12; } }
+  @keyframes twinkle { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+  @keyframes drift {
+    0%, 100% { transform: translate(0,0); }
+    50%      { transform: translate(4px, -3px); }
+  }
+
+  /* Concept-specific helpers below */
+
+  /* V1 — Eye Distilled */
+  .v1-iris-rays { transform-origin: 180px 270px; transform-box: view-box; animation: rot 72s linear infinite; }
+  .v1-iris-rings { transform-origin: 180px 270px; transform-box: view-box; animation: rotR 52s linear infinite; }
+  .v1-pupil { transform-origin: 180px 270px; transform-box: view-box; animation: breath 5.5s ease-in-out infinite; filter: drop-shadow(0 0 6px rgba(255,230,150,0.7)); }
+  .v1-lids, .v1-iris { animation: blink 5s cubic-bezier(0.5,0,0.5,1) infinite; }
+
+  /* V2 — Singular Star */
+  .v2-star { transform-origin: 180px 270px; transform-box: view-box; animation: breath 4.5s ease-in-out infinite; filter: drop-shadow(0 0 12px rgba(255,230,150,1)) drop-shadow(0 0 28px rgba(232,201,106,0.6)); }
+  .v2-ring-outer { transform-origin: 180px 270px; transform-box: view-box; animation: rot 120s linear infinite; }
+  .v2-ring-inner { transform-origin: 180px 270px; transform-box: view-box; animation: rotR 80s linear infinite; }
+  .v2-halo { animation: breathOp 6s ease-in-out infinite; }
+
+  /* V3 — Celestial Wheel */
+  .v3-wheel { transform-origin: 180px 270px; transform-box: view-box; animation: rot 120s linear infinite; }
+  .v3-star  { transform-origin: 180px 270px; transform-box: view-box; animation: breath 5s ease-in-out infinite; filter: drop-shadow(0 0 8px rgba(255,230,150,0.85)); }
+  .v3-tick  { animation: twinkle 5s ease-in-out infinite; }
+  .v3-tick:nth-child(3n)   { animation-delay: -2s; }
+  .v3-tick:nth-child(3n+1) { animation-delay: -4s; }
+
+  /* V4 — Nocturne */
+  .v4-star { animation: twinkle 4s ease-in-out infinite; filter: drop-shadow(0 0 3px rgba(255,230,150,0.7)); }
+  .v4-star:nth-child(even) { animation-duration: 6s; animation-delay: -2s; }
+  .v4-star:nth-child(3n)   { animation-duration: 5.3s; animation-delay: -3s; }
+  .v4-constellation-line { animation: breathOp 9s ease-in-out infinite; }
+
+  /* V5 — Monogram */
+  .v5-O-inner { transform-origin: center; transform-box: fill-box; animation: breath 7s ease-in-out infinite; }
+  .v5-glow   { animation: breathOp 6s ease-in-out infinite; }
+
+  /* V6 — Third Eye Radiant */
+  .v6-rays { transform-origin: 180px 270px; transform-box: view-box; animation: rot 90s linear infinite; }
+  .v6-star { transform-origin: 180px 270px; transform-box: view-box; animation: breath 5s ease-in-out infinite; filter: drop-shadow(0 0 10px rgba(255,230,150,0.9)); }
+  .v6-vesica { animation: breathOp 8s ease-in-out infinite; }
+
+  /* V7 — Aperture */
+  .v7-blades { transform-origin: 180px 270px; transform-box: view-box; animation: rot 180s linear infinite; }
+  .v7-center-dot { animation: breathOp 4s ease-in-out infinite; filter: drop-shadow(0 0 6px rgba(255,230,150,0.8)); }
+
+  /* V8 — Ephemeris */
+  .v8-type-hero { animation: breathOp 9s ease-in-out infinite; }
+  .v8-dot { animation: twinkle 7s ease-in-out infinite; filter: drop-shadow(0 0 4px rgba(255,230,150,0.9)); }
+
+  /* V9 — Compass Rose */
+  .v9-rose { transform-origin: 180px 270px; transform-box: view-box; animation: rot 240s linear infinite; }
+  .v9-needle { transform-origin: 180px 270px; transform-box: view-box; animation: rotR 30s linear infinite; filter: drop-shadow(0 0 4px rgba(255,230,150,0.75)); }
+
+  /* V10 — Seed of Life */
+  .v10-seed { animation: breathOp 12s ease-in-out infinite; }
+  .v10-star { transform-origin: 180px 270px; transform-box: view-box; animation: breath 6s ease-in-out infinite; filter: drop-shadow(0 0 6px rgba(255,230,150,0.75)); }
+
+  /* V11 — Signet */
+  .v11-mark { animation: breathOp 8s ease-in-out infinite; }
+
+  /* V12 — Horizon */
+  .v12-sun { animation: breath 9s ease-in-out infinite; filter: drop-shadow(0 0 6px rgba(255,230,150,0.9)); }
+  .v12-line { animation: breathOp 12s ease-in-out infinite; }
+
+  /* V13 — Pleiades */
+  .v13-star { animation: twinkle 4.5s ease-in-out infinite; filter: drop-shadow(0 0 5px rgba(255,230,150,0.85)); }
+  .v13-star:nth-child(1) { animation-delay: 0s; animation-duration: 4s; }
+  .v13-star:nth-child(2) { animation-delay: -0.7s; animation-duration: 5.3s; }
+  .v13-star:nth-child(3) { animation-delay: -1.4s; animation-duration: 4.7s; }
+  .v13-star:nth-child(4) { animation-delay: -2.1s; animation-duration: 6.1s; }
+  .v13-star:nth-child(5) { animation-delay: -2.8s; animation-duration: 5s; }
+  .v13-star:nth-child(6) { animation-delay: -3.5s; animation-duration: 4.3s; }
+  .v13-star:nth-child(7) { animation-delay: -4.2s; animation-duration: 5.7s; }
+  .v13-aura { animation: breathOp 7s ease-in-out infinite; }
+
+  /* V14 — Orbit */
+  .v14-orbit-dot { transform-origin: 180px 270px; transform-box: view-box; animation: rot 24s linear infinite; }
+  .v14-center { animation: breathOp 5s ease-in-out infinite; filter: drop-shadow(0 0 5px rgba(255,230,150,0.85)); }
+  .v14-orbit { animation: breathOp 11s ease-in-out infinite; }
+
+  /* V15 — Quill */
+  .v15-quill { transform-origin: 180px 280px; transform-box: view-box; animation: quillDrift 9s ease-in-out infinite; }
+  @keyframes quillDrift {
+    0%, 100% { transform: rotate(-1deg) translateY(0); }
+    50%      { transform: rotate(1deg)  translateY(-2px); }
+  }
+  .v15-ink { animation: twinkle 6s ease-in-out infinite; }
+
+  /* V16 — Ascendant */
+  .v16-diag { animation: breathOp 9s ease-in-out infinite; filter: drop-shadow(0 0 3px rgba(255,230,150,0.55)); }
+  .v16-dot { animation: twinkle 4.5s ease-in-out infinite; filter: drop-shadow(0 0 4px rgba(255,230,150,0.85)); }
+
+  /* V18 — Olive (Olivia's olive branch) */
+  .v18-branch { transform-origin: 180px 285px; transform-box: view-box; animation: breath 8s ease-in-out infinite; }
+  .v18-leaf   { animation: breathOp 6s ease-in-out infinite; filter: drop-shadow(0 0 2px rgba(232,201,106,0.5)); }
+  .v18-leaf:nth-child(3n)   { animation-delay: -1.5s; }
+  .v18-leaf:nth-child(3n+1) { animation-delay: -3s; }
+  .v18-leaf:nth-child(3n+2) { animation-delay: -4.5s; }
+  .v18-fruit  { animation: twinkle 7s ease-in-out infinite; filter: drop-shadow(0 0 4px rgba(255,230,150,0.85)); }
+
+  /* V19 — Owl */
+  .v19-owl    { transform-origin: 180px 280px; transform-box: view-box; animation: breath 7s ease-in-out infinite; }
+  .v19-eyes   { animation: twinkle 5s ease-in-out infinite; filter: drop-shadow(0 0 4px rgba(255,230,150,0.8)); }
+  .v19-eyes:nth-child(2) { animation-delay: -2s; }
+
+  /* V20 — Labyrinth */
+  .v20-path   { transform-origin: 180px 275px; transform-box: view-box; animation: rot 180s linear infinite; }
+  .v20-center { animation: breath 5s ease-in-out infinite; filter: drop-shadow(0 0 6px rgba(255,230,150,0.9)); }
+  .v20-walker { transform-origin: 180px 275px; transform-box: view-box; animation: rotR 60s linear infinite; filter: drop-shadow(0 0 3px rgba(255,230,150,0.9)); }
+
+  /* V21 — Hourglass of Heavens */
+  .v21-hour   { animation: breathOp 11s ease-in-out infinite; }
+  .v21-star-in-glass { animation: twinkle 4s ease-in-out infinite; filter: drop-shadow(0 0 3px rgba(255,230,150,0.85)); }
+  .v21-star-in-glass:nth-child(odd)  { animation-delay: -1.3s; animation-duration: 5.1s; }
+  .v21-star-in-glass:nth-child(even) { animation-delay: -2.8s; animation-duration: 6.3s; }
+
+  /* V22 — The Diviner (profile) */
+  .v22-profile { transform-origin: 180px 285px; transform-box: view-box; animation: breath 9s ease-in-out infinite; }
+  .v22-above-star { animation: twinkle 5s ease-in-out infinite; filter: drop-shadow(0 0 6px rgba(255,230,150,0.9)); }
+
+  /* V17 — The Wheel of Seven (Seed inside Wheel) */
+  .v17-wheel { transform-origin: 180px 270px; transform-box: view-box; animation: rot 180s linear infinite; }
+  .v17-seed  { transform-origin: 180px 270px; transform-box: view-box; animation: rotR 90s linear infinite; }
+  .v17-halo  { animation: breathOp 9s ease-in-out infinite; }
+  .v17-petals { animation: breathOp 7s ease-in-out infinite; }
+  .v17-star  { transform-origin: 180px 270px; transform-box: view-box; animation: breath 5s ease-in-out infinite; filter: drop-shadow(0 0 8px rgba(255,230,150,0.95)) drop-shadow(0 0 18px rgba(232,201,106,0.55)); }
+  .v17-planet { transform-origin: 180px 270px; transform-box: view-box; animation: rot 42s linear infinite; filter: drop-shadow(0 0 5px rgba(255,230,150,0.95)); }
+  /* 7 Seed circles each pulse opacity on its own prime-ish period */
+  .v17-seed circle:nth-child(1) { animation: breathOp 8s  ease-in-out infinite -1.1s; }
+  .v17-seed circle:nth-child(2) { animation: breathOp 6.7s ease-in-out infinite -0.4s; }
+  .v17-seed circle:nth-child(3) { animation: breathOp 9.1s ease-in-out infinite -3.3s; }
+  .v17-seed circle:nth-child(4) { animation: breathOp 5.9s ease-in-out infinite -2.2s; }
+  .v17-seed circle:nth-child(5) { animation: breathOp 7.3s ease-in-out infinite -5.1s; }
+  .v17-seed circle:nth-child(6) { animation: breathOp 10.7s ease-in-out infinite -6.4s; }
+  .v17-seed circle:nth-child(7) { animation: breathOp 4.7s ease-in-out infinite -2.8s; }
+
+  /* Hero treatment — larger + highlighted */
+  .concept.hero .card {
+    width: 420px; height: 630px;
+    max-width: 100%;
+    box-shadow:
+      0 40px 80px rgba(0,0,0,0.6),
+      0 0 48px rgba(212,175,55,0.22),
+      inset 0 0 0 1px rgba(232,201,106,0.22);
+  }
+  .concept.hero .concept-label { color: rgba(255,230,150,0.95); font-size: 0.74rem; }
+  .concept.hero .concept-title { font-size: 1.65rem; }
+  .concept.hero .concept-rationale { max-width: 420px; font-size: 0.9rem; }
+
+  /* Foil sweep — shared across all cards */
+  @property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+  @keyframes foil { from { --angle: 0deg; } to { --angle: 360deg; } }
+  .foil {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: conic-gradient(
+      from var(--angle, 0deg) at 52% 48%,
+      transparent 0deg,
+      rgba(232,201,106,0.08) 42deg,
+      transparent 92deg,
+      rgba(180,145,230,0.09) 144deg,
+      transparent 196deg,
+      rgba(120,220,220,0.07) 248deg,
+      transparent 298deg,
+      rgba(232,201,106,0.08) 344deg,
+      transparent 360deg
+    );
+    mix-blend-mode: screen;
+    opacity: 0.5;
+    animation: foil 24s linear infinite;
+    z-index: 3;
+  }
+  .vignette {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 52% 42%, transparent 48%, rgba(5,3,20,0.4) 100%);
+    mix-blend-mode: multiply;
+    z-index: 4;
+  }
+
+  /* Brand text shared */
+  .brand-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">✦ Olivia Arcana</p>
+  <h1>Twenty-two backs of the deck</h1>
+  <p>
+    Twenty-two directions — the same number as the Major Arcana. The last
+    five (XVIII–XXII) are built for virality: each has a brand-native
+    story someone wants to tell. <em>"Did you know Olivia means olive
+    tree?"</em> <em>"Their logo is Athena's own owl."</em> <em>"It's the
+    oldest labyrinth in the West."</em> A logo without a story is
+    forgotten. A logo with one spreads.
+  </p>
+</header>
+
+<main class="grid">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V1 — THE EYE, DISTILLED
+     Current concept with everything stripped except the eye itself.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v1-base" cx="50%" cy="38%" r="70%">
+          <stop offset="0%" stop-color="#221348" />
+          <stop offset="55%" stop-color="#0c0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v1-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v1-base)" />
+
+      <!-- Frame -->
+      <g fill="none" stroke="url(#v1-gold)" stroke-width="1.3">
+        <rect x="18" y="18" width="324" height="504" rx="14" stroke-opacity="0.92" />
+        <rect x="26" y="26" width="308" height="488" rx="10" stroke-opacity="0.35" />
+      </g>
+
+      <!-- Cat-eye corner flourishes -->
+      <g stroke="url(#v1-gold)" fill="none" stroke-linecap="round">
+        <path d="M 82,270 Q 56,267 34,256" stroke-width="1.05" stroke-opacity="0.88" />
+        <path d="M 80,274 Q 54,283 36,293" stroke-width="0.55" stroke-opacity="0.52" />
+        <path d="M 278,270 Q 304,267 326,256" stroke-width="1.05" stroke-opacity="0.88" />
+        <path d="M 280,274 Q 306,283 324,293" stroke-width="0.55" stroke-opacity="0.52" />
+      </g>
+
+      <!-- Lids -->
+      <g class="v1-lids" fill="none" stroke="url(#v1-gold)" stroke-linecap="round">
+        <path d="M 85,270 Q 180,215 275,270" stroke-width="1.25" stroke-opacity="0.95" />
+        <path d="M 85,270 Q 180,325 275,270" stroke-width="1.1"  stroke-opacity="0.88" />
+        <path d="M 95,270 Q 180,223 265,270" stroke-width="0.35" stroke-opacity="0.45" />
+        <path d="M 95,270 Q 180,317 265,270" stroke-width="0.35" stroke-opacity="0.4" />
+      </g>
+
+      <!-- Iris -->
+      <g class="v1-iris">
+        <g class="v1-iris-rings" fill="none" stroke="url(#v1-gold)">
+          <circle cx="180" cy="270" r="32" stroke-width="0.4" stroke-opacity="0.55" />
+          <circle cx="180" cy="270" r="22" stroke-width="0.3" stroke-opacity="0.35" />
+        </g>
+        <g class="v1-iris-rays" stroke="url(#v1-gold)" stroke-width="0.45" stroke-opacity="0.5">
+          <line x1="204" y1="270" x2="212" y2="270" />
+          <line x1="201" y1="282" x2="208" y2="286" />
+          <line x1="192" y1="291" x2="196" y2="298" />
+          <line x1="180" y1="294" x2="180" y2="302" />
+          <line x1="168" y1="291" x2="164" y2="298" />
+          <line x1="159" y1="282" x2="152" y2="286" />
+          <line x1="156" y1="270" x2="148" y2="270" />
+          <line x1="159" y1="258" x2="152" y2="254" />
+          <line x1="168" y1="249" x2="164" y2="242" />
+          <line x1="180" y1="246" x2="180" y2="238" />
+          <line x1="192" y1="249" x2="196" y2="242" />
+          <line x1="201" y1="258" x2="208" y2="254" />
+        </g>
+      </g>
+
+      <!-- Pupil ✦ -->
+      <g class="v1-pupil">
+        <circle cx="180" cy="270" r="16" fill="none" stroke="url(#v1-gold)" stroke-width="0.4" stroke-opacity="0.5" />
+        <path transform="translate(180 270)"
+              d="M 0,-14 L 3,-3 L 14,0 L 3,3 L 0,14 L -3,3 L -14,0 L -3,-3 Z"
+              fill="url(#v1-gold)" />
+      </g>
+
+      <!-- Corner diamond markers -->
+      <g fill="url(#v1-gold)">
+        <path d="M 50,52 L 55,47 L 60,52 L 55,57 Z" fill="none" stroke="url(#v1-gold)" stroke-width="0.7" stroke-opacity="0.75" />
+        <circle cx="55" cy="52" r="1.1" />
+        <path d="M 300,52 L 305,47 L 310,52 L 305,57 Z" fill="none" stroke="url(#v1-gold)" stroke-width="0.7" stroke-opacity="0.75" />
+        <circle cx="305" cy="52" r="1.1" />
+        <path d="M 50,488 L 55,483 L 60,488 L 55,493 Z" fill="none" stroke="url(#v1-gold)" stroke-width="0.7" stroke-opacity="0.75" />
+        <circle cx="55" cy="488" r="1.1" />
+        <path d="M 300,488 L 305,483 L 310,488 L 305,493 Z" fill="none" stroke="url(#v1-gold)" stroke-width="0.7" stroke-opacity="0.75" />
+        <circle cx="305" cy="488" r="1.1" />
+      </g>
+
+      <!-- Bottom ornament + brand -->
+      <line x1="65" y1="455" x2="137" y2="455" stroke="url(#v1-gold)" stroke-width="0.5" stroke-opacity="0.6" />
+      <g class="v5-glow">
+        <circle cx="143" cy="455" r="0.8" fill="url(#v1-gold)" opacity="0.7" />
+        <path d="M 155,455 L 158.5,450.8 L 162,455 L 158.5,459.2 Z" fill="none" stroke="url(#v1-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <path d="M 172,455 L 180,447.5 L 188,455 L 180,462.5 Z" fill="url(#v1-gold)" />
+        <path d="M 198,455 L 201.5,450.8 L 205,455 L 201.5,459.2 Z" fill="none" stroke="url(#v1-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <circle cx="217" cy="455" r="0.8" fill="url(#v1-gold)" opacity="0.7" />
+      </g>
+      <line x1="223" y1="455" x2="295" y2="455" stroke="url(#v1-gold)" stroke-width="0.5" stroke-opacity="0.6" />
+
+      <text x="180" y="482" text-anchor="middle" fill="url(#v1-gold)" class="brand-text"
+            font-size="13" letter-spacing="4" opacity="0.95">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">I · distilled</p>
+  <h3 class="concept-title">The Eye</h3>
+  <p class="concept-rationale">
+    The original idea, stripped clean. Just the almond, the iris, the
+    ✦ at its heart — nothing between the viewer and the seer. The blink
+    is the only event. Corner diamond markers anchor the composition
+    without pulling focus.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V2 — SINGULAR STAR
+     Patek-Philippe minimalism. The ✦ is the whole identity.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v2-base" cx="50%" cy="45%" r="70%">
+          <stop offset="0%" stop-color="#281652" />
+          <stop offset="55%" stop-color="#0e0926" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v2-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+        <radialGradient id="v2-halo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(255,230,150,0.35)" />
+          <stop offset="60%" stop-color="rgba(232,201,106,0.08)" />
+          <stop offset="100%" stop-color="rgba(232,201,106,0)" />
+        </radialGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v2-base)" />
+
+      <g fill="none" stroke="url(#v2-gold)" stroke-width="1.3">
+        <rect x="18" y="18" width="324" height="504" rx="14" stroke-opacity="0.92" />
+        <rect x="26" y="26" width="308" height="488" rx="10" stroke-opacity="0.35" />
+      </g>
+
+      <!-- Large halo -->
+      <circle class="v2-halo" cx="180" cy="270" r="110" fill="url(#v2-halo)" />
+
+      <!-- Outer orbit ring -->
+      <g class="v2-ring-outer" fill="none" stroke="url(#v2-gold)">
+        <circle cx="180" cy="270" r="85" stroke-width="0.4" stroke-opacity="0.35" />
+        <circle cx="180" cy="274" r="1.4" fill="url(#v2-gold)" opacity="0.9" />
+      </g>
+
+      <!-- Inner orbit ring -->
+      <g class="v2-ring-inner" fill="none" stroke="url(#v2-gold)">
+        <circle cx="180" cy="270" r="58" stroke-width="0.5" stroke-opacity="0.55" stroke-dasharray="0.6 3" />
+      </g>
+
+      <!-- The ✦ — dominant, radiant -->
+      <g class="v2-star">
+        <!-- Outer ray aura - subtle points -->
+        <g fill="url(#v2-gold)" opacity="0.5">
+          <path transform="translate(180 270)"
+                d="M 0,-46 L 1.4,-12 L 0,-8 L -1.4,-12 Z M 0,8 L 1.4,12 L 0,46 L -1.4,12 Z M -46,0 L -12,-1.4 L -8,0 L -12,1.4 Z M 8,0 L 12,-1.4 L 46,0 L 12,1.4 Z" />
+        </g>
+        <!-- The main four-point star, large -->
+        <path transform="translate(180 270)"
+              d="M 0,-30 L 6,-6 L 30,0 L 6,6 L 0,30 L -6,6 L -30,0 L -6,-6 Z"
+              fill="url(#v2-gold)"
+              stroke="rgba(255,230,150,0.55)" stroke-width="0.5" />
+        <!-- Inner accent -->
+        <circle cx="180" cy="270" r="2.5" fill="rgba(20,12,36,0.7)" />
+        <circle cx="180" cy="270" r="1" fill="rgba(255,250,220,0.95)" />
+      </g>
+
+      <!-- Minimal brand — single small line, no rules, no ornament -->
+      <text x="180" y="490" text-anchor="middle" fill="url(#v2-gold)" class="brand-text"
+            font-size="10.5" letter-spacing="6" opacity="0.75">
+        Olivia · Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">II · singular</p>
+  <h3 class="concept-title">The Star</h3>
+  <p class="concept-rationale">
+    No eye, no ornament, no Latin. A single radiant ✦ floating inside
+    two counter-rotating orbit rings, with a planet-dot tracing the
+    outer orbit. The brand <em>is</em> the four-point star. Patek
+    Philippe restraint — confidence through absence.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V3 — CELESTIAL WHEEL
+     12 zodiac positions around a central ✦. Astrology-native.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v3-base" cx="50%" cy="40%" r="70%">
+          <stop offset="0%" stop-color="#1e1342" />
+          <stop offset="55%" stop-color="#0b0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v3-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v3-base)" />
+
+      <g fill="none" stroke="url(#v3-gold)" stroke-width="1.3">
+        <rect x="18" y="18" width="324" height="504" rx="14" stroke-opacity="0.92" />
+        <rect x="26" y="26" width="308" height="488" rx="10" stroke-opacity="0.35" />
+      </g>
+
+      <!-- The wheel -->
+      <g class="v3-wheel">
+        <circle cx="180" cy="270" r="110" fill="none" stroke="url(#v3-gold)" stroke-width="0.45" stroke-opacity="0.55" />
+        <circle cx="180" cy="270" r="100" fill="none" stroke="url(#v3-gold)" stroke-width="0.3" stroke-opacity="0.3" />
+
+        <!-- 12 tick marks with longer cardinal lines at 12/3/6/9 o'clock -->
+        <g stroke="url(#v3-gold)" stroke-width="0.5" stroke-opacity="0.7">
+          <!-- Generated: 12 sectors -->
+          <!-- Cardinal (long) -->
+          <line x1="180" y1="160" x2="180" y2="175" stroke-width="0.8" stroke-opacity="0.95" />
+          <line x1="290" y1="270" x2="275" y2="270" stroke-width="0.8" stroke-opacity="0.95" />
+          <line x1="180" y1="380" x2="180" y2="365" stroke-width="0.8" stroke-opacity="0.95" />
+          <line x1="70"  y1="270" x2="85"  y2="270" stroke-width="0.8" stroke-opacity="0.95" />
+          <!-- Intercardinal (medium, 2/4/5/7/8/10/11) -->
+          <line x1="235" y1="175" x2="228" y2="187" />
+          <line x1="275" y1="215" x2="262" y2="222" />
+          <line x1="275" y1="325" x2="262" y2="318" />
+          <line x1="235" y1="365" x2="228" y2="353" />
+          <line x1="125" y1="365" x2="132" y2="353" />
+          <line x1="85"  y1="325" x2="98"  y2="318" />
+          <line x1="85"  y1="215" x2="98"  y2="222" />
+          <line x1="125" y1="175" x2="132" y2="187" />
+        </g>
+
+        <!-- Tick markers as small dots on outer ring -->
+        <g fill="url(#v3-gold)">
+          <circle class="v3-tick" cx="180" cy="160" r="1.6" />
+          <circle class="v3-tick" cx="235" cy="175" r="1.1" />
+          <circle class="v3-tick" cx="275" cy="215" r="1.1" />
+          <circle class="v3-tick" cx="290" cy="270" r="1.6" />
+          <circle class="v3-tick" cx="275" cy="325" r="1.1" />
+          <circle class="v3-tick" cx="235" cy="365" r="1.1" />
+          <circle class="v3-tick" cx="180" cy="380" r="1.6" />
+          <circle class="v3-tick" cx="125" cy="365" r="1.1" />
+          <circle class="v3-tick" cx="85"  cy="325" r="1.1" />
+          <circle class="v3-tick" cx="70"  cy="270" r="1.6" />
+          <circle class="v3-tick" cx="85"  cy="215" r="1.1" />
+          <circle class="v3-tick" cx="125" cy="175" r="1.1" />
+        </g>
+
+        <!-- Roman numerals at cardinal points -->
+        <g fill="url(#v3-gold)" class="brand-text" font-size="9" font-style="italic" opacity="0.78" text-anchor="middle">
+          <text x="180" y="152">XII</text>
+          <text x="299"  y="273">III</text>
+          <text x="180" y="397">VI</text>
+          <text x="61"  y="273">IX</text>
+        </g>
+
+        <!-- Inner radiating spokes -->
+        <g stroke="url(#v3-gold)" stroke-width="0.25" stroke-opacity="0.2" fill="none">
+          <line x1="180" y1="245" x2="180" y2="215" />
+          <line x1="205" y1="270" x2="235" y2="270" />
+          <line x1="180" y1="295" x2="180" y2="325" />
+          <line x1="155" y1="270" x2="125" y2="270" />
+        </g>
+      </g>
+
+      <!-- Central ✦ -->
+      <g class="v3-star">
+        <circle cx="180" cy="270" r="22" fill="none" stroke="url(#v3-gold)" stroke-width="0.45" stroke-opacity="0.55" />
+        <path transform="translate(180 270)"
+              d="M 0,-18 L 4,-4 L 18,0 L 4,4 L 0,18 L -4,4 L -18,0 L -4,-4 Z"
+              fill="url(#v3-gold)" stroke="rgba(255,230,150,0.7)" stroke-width="0.35" />
+      </g>
+
+      <!-- Almanac-style bottom — inscription + brand -->
+      <text x="180" y="460" text-anchor="middle" fill="url(#v3-gold)" class="brand-text"
+            font-size="8" letter-spacing="4" opacity="0.68" font-style="italic">
+        an almanac of the skies
+      </text>
+      <text x="180" y="485" text-anchor="middle" fill="url(#v3-gold)" class="brand-text"
+            font-size="12" letter-spacing="5" opacity="0.92" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">III · astrological</p>
+  <h3 class="concept-title">The Wheel</h3>
+  <p class="concept-rationale">
+    Twelve zodiac stations around a central ✦. Roman numerals mark the
+    four cardinal angles (ASC / IC / DSC / MC). The most brand-native
+    option: an astrology product whose back <em>is</em> the instrument
+    of astrology. Reads as editorial-almanac.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V4 — NOCTURNE (real constellation: Ursa Major / Big Dipper)
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v4-base" cx="50%" cy="30%" r="80%">
+          <stop offset="0%" stop-color="#1a113b" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v4-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v4-base)" />
+
+      <!-- Scattered background "random" stars -->
+      <g fill="rgba(243,221,142,0.35)">
+        <circle cx="54"  cy="78"  r="0.6" />
+        <circle cx="302" cy="112" r="0.7" />
+        <circle cx="88"  cy="430" r="0.8" />
+        <circle cx="286" cy="460" r="0.5" />
+        <circle cx="154" cy="68"  r="0.4" />
+        <circle cx="238" cy="88"  r="0.6" />
+        <circle cx="318" cy="398" r="0.7" />
+        <circle cx="42"  cy="252" r="0.5" />
+        <circle cx="318" cy="268" r="0.6" />
+        <circle cx="98"  cy="320" r="0.4" />
+        <circle cx="268" cy="378" r="0.5" />
+      </g>
+
+      <g fill="none" stroke="url(#v4-gold)" stroke-width="1.3">
+        <rect x="18" y="18" width="324" height="504" rx="14" stroke-opacity="0.92" />
+        <rect x="26" y="26" width="308" height="488" rx="10" stroke-opacity="0.35" />
+      </g>
+
+      <!-- Constellation: Ursa Major (Big Dipper) — 7 stars + connective lines
+           Star positions scaled to card coords. Pattern: handle (3 stars) curves
+           down-right to the "bowl" (4 stars in a trapezoid shape).  -->
+      <g class="v4-constellation-line" stroke="url(#v4-gold)" stroke-width="0.5" stroke-opacity="0.58" fill="none">
+        <line x1="100" y1="180" x2="140" y2="220" /> <!-- Alkaid → Mizar -->
+        <line x1="140" y1="220" x2="180" y2="255" /> <!-- Mizar → Alioth -->
+        <line x1="180" y1="255" x2="218" y2="280" /> <!-- Alioth → Megrez -->
+        <line x1="218" y1="280" x2="260" y2="245" /> <!-- Megrez → Dubhe -->
+        <line x1="260" y1="245" x2="270" y2="312" /> <!-- Dubhe → Merak -->
+        <line x1="270" y1="312" x2="218" y2="336" /> <!-- Merak → Phecda -->
+        <line x1="218" y1="336" x2="218" y2="280" /> <!-- Phecda → Megrez (closes bowl) -->
+      </g>
+
+      <!-- The 7 stars with glow + different sizes by magnitude -->
+      <g fill="url(#v4-gold)">
+        <!-- Handle tip (Alkaid, dim) -->
+        <circle class="v4-star" cx="100" cy="180" r="2.1" />
+        <!-- Mizar + Alcor (double star) -->
+        <circle class="v4-star" cx="140" cy="220" r="2.8" />
+        <circle class="v4-star" cx="145" cy="215" r="1.1" />
+        <!-- Alioth -->
+        <circle class="v4-star" cx="180" cy="255" r="3.2" />
+        <!-- Megrez -->
+        <circle class="v4-star" cx="218" cy="280" r="2.3" />
+        <!-- Dubhe (bright pointer) -->
+        <circle class="v4-star" cx="260" cy="245" r="3.6" />
+        <!-- Merak -->
+        <circle class="v4-star" cx="270" cy="312" r="3" />
+        <!-- Phecda -->
+        <circle class="v4-star" cx="218" cy="336" r="2.4" />
+      </g>
+
+      <!-- Bright star labels - tiny -->
+      <g fill="url(#v4-gold)" class="brand-text" font-size="6" font-style="italic" opacity="0.68">
+        <text x="267" y="237">· dubhe</text>
+        <text x="280" y="318">· merak</text>
+        <text x="184" y="248">· alioth</text>
+      </g>
+
+      <!-- Title + label -->
+      <text x="180" y="112" text-anchor="middle" fill="url(#v4-gold)" class="brand-text"
+            font-size="7" letter-spacing="4" opacity="0.7" text-transform="uppercase" font-style="italic">
+        ursa major · the great bear
+      </text>
+      <text x="180" y="130" text-anchor="middle" fill="url(#v4-gold)" class="brand-text"
+            font-size="5.5" letter-spacing="2.5" opacity="0.55">
+        RA 11h · DEC +58°
+      </text>
+
+      <!-- Ornament + brand -->
+      <line x1="120" y1="430" x2="170" y2="430" stroke="url(#v4-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+      <path d="M 175,430 L 180,424 L 185,430 L 180,436 Z" fill="url(#v4-gold)" opacity="0.9" />
+      <line x1="190" y1="430" x2="240" y2="430" stroke="url(#v4-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+
+      <text x="180" y="468" text-anchor="middle" fill="url(#v4-gold)" class="brand-text"
+            font-size="12" letter-spacing="5" opacity="0.92" font-style="italic">
+        Olivia Arcana
+      </text>
+      <text x="180" y="488" text-anchor="middle" fill="url(#v4-gold)" class="brand-text"
+            font-size="7" letter-spacing="3" opacity="0.55" font-style="italic">
+        an almanac of the night sky
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">IV · nocturnal</p>
+  <h3 class="concept-title">The Nocturne</h3>
+  <p class="concept-rationale">
+    A real constellation — Ursa Major, drawn to accurate relative
+    positions with proper star labels and RA/DEC coordinates. The
+    most editorial option: tells a story before the card is even
+    flipped. Could rotate through 22 different constellations across
+    the deck, each card's back chosen by the user's birth chart.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V5 — MONOGRAM O (Gucci / Dior haute couture)
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v5-base" cx="50%" cy="40%" r="70%">
+          <stop offset="0%" stop-color="#241447" />
+          <stop offset="55%" stop-color="#0c0724" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v5-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v5-base)" />
+
+      <g fill="none" stroke="url(#v5-gold)" stroke-width="1.3">
+        <rect x="18" y="18" width="324" height="504" rx="14" stroke-opacity="0.92" />
+        <rect x="26" y="26" width="308" height="488" rx="10" stroke-opacity="0.35" />
+      </g>
+
+      <!-- Monogram O with nested ornate rings -->
+      <g class="v5-O-inner" transform="translate(180 270)">
+        <!-- Outer fine ring -->
+        <circle r="95" fill="none" stroke="url(#v5-gold)" stroke-width="0.35" stroke-opacity="0.4" />
+        <!-- The O letterform — bold italic, stroked -->
+        <text x="0" y="35" text-anchor="middle" fill="none"
+              stroke="url(#v5-gold)" stroke-width="1.5" stroke-opacity="0.98"
+              font-family="'Cormorant Garamond', serif" font-style="italic"
+              font-weight="500" font-size="220">
+          O
+        </text>
+        <!-- Inner vertical centering line (✦ mark inside the O) -->
+        <path d="M 0,-18 L 4,-4 L 18,0 L 4,4 L 0,18 L -4,4 L -18,0 L -4,-4 Z"
+              fill="url(#v5-gold)" />
+        <!-- Tiny inner dot -->
+        <circle r="2.5" fill="rgba(20,12,36,0.7)" />
+        <circle r="0.9" fill="rgba(255,250,220,0.95)" />
+        <!-- Laurel-esque flanking leaves -->
+        <g class="v5-glow">
+          <path d="M -110,0 Q -100,-8 -90,-4" fill="none" stroke="url(#v5-gold)" stroke-width="0.6" stroke-opacity="0.6" stroke-linecap="round" />
+          <path d="M -110,0 Q -100,8 -90,4" fill="none" stroke="url(#v5-gold)" stroke-width="0.6" stroke-opacity="0.6" stroke-linecap="round" />
+          <path d="M 110,0 Q 100,-8 90,-4" fill="none" stroke="url(#v5-gold)" stroke-width="0.6" stroke-opacity="0.6" stroke-linecap="round" />
+          <path d="M 110,0 Q 100,8 90,4" fill="none" stroke="url(#v5-gold)" stroke-width="0.6" stroke-opacity="0.6" stroke-linecap="round" />
+        </g>
+      </g>
+
+      <!-- Top flourish -->
+      <g class="v5-glow">
+        <line x1="130" y1="140" x2="160" y2="140" stroke="url(#v5-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+        <path d="M 170,140 L 173,136 L 176,140 L 173,144 Z M 180,140 L 184,134 L 188,140 L 184,146 Z M 192,140 L 195,136 L 198,140 L 195,144 Z"
+              fill="url(#v5-gold)" opacity="0.8" />
+        <line x1="205" y1="140" x2="235" y2="140" stroke="url(#v5-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+      </g>
+
+      <!-- Subscript ARCANA -->
+      <text x="180" y="430" text-anchor="middle" fill="url(#v5-gold)" class="brand-text"
+            font-size="16" letter-spacing="12" opacity="0.88" font-style="italic">
+        ARCANA
+      </text>
+
+      <!-- Maison tagline -->
+      <line x1="115" y1="460" x2="165" y2="460" stroke="url(#v5-gold)" stroke-width="0.35" stroke-opacity="0.4" />
+      <text x="180" y="463" text-anchor="middle" fill="url(#v5-gold)" class="brand-text"
+            font-size="6" letter-spacing="4" opacity="0.6" font-style="italic">
+        maison
+      </text>
+      <line x1="195" y1="460" x2="245" y2="460" stroke="url(#v5-gold)" stroke-width="0.35" stroke-opacity="0.4" />
+
+      <text x="180" y="490" text-anchor="middle" fill="url(#v5-gold)" class="brand-text"
+            font-size="7" letter-spacing="3.5" opacity="0.68" font-style="italic">
+        est · mmxxvi
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">V · haute couture</p>
+  <h3 class="concept-title">The Maison</h3>
+  <p class="concept-rationale">
+    Fashion-house monogram. A large italic <em>"O"</em> in Cormorant
+    Garamond with the ✦ mark set inside, "ARCANA" in wide caps below,
+    "MAISON · MMXXVI" subscript. Reads as a luxury house, not a
+    mystical brand. Premium signal without a single esoteric symbol.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V6 — THIRD EYE RADIANT (vertical vesica)
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v6-base" cx="50%" cy="40%" r="70%">
+          <stop offset="0%" stop-color="#1f1143" />
+          <stop offset="55%" stop-color="#0b0622" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v6-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v6-base)" />
+
+      <g fill="none" stroke="url(#v6-gold)" stroke-width="1.3">
+        <rect x="18" y="18" width="324" height="504" rx="14" stroke-opacity="0.92" />
+        <rect x="26" y="26" width="308" height="488" rx="10" stroke-opacity="0.35" />
+      </g>
+
+      <!-- Outer radiating rays — slow rotation -->
+      <g class="v6-rays" stroke="url(#v6-gold)" stroke-width="0.4" stroke-opacity="0.35" stroke-linecap="round">
+        <line x1="180" y1="145" x2="180" y2="165" stroke-width="0.7" />
+        <line x1="180" y1="375" x2="180" y2="395" stroke-width="0.7" />
+        <line x1="95"  y1="270" x2="115" y2="270" stroke-width="0.7" />
+        <line x1="245" y1="270" x2="265" y2="270" stroke-width="0.7" />
+
+        <line x1="235" y1="195" x2="225" y2="210" />
+        <line x1="235" y1="345" x2="225" y2="330" />
+        <line x1="125" y1="195" x2="135" y2="210" />
+        <line x1="125" y1="345" x2="135" y2="330" />
+
+        <line x1="210" y1="160" x2="205" y2="180" />
+        <line x1="150" y1="160" x2="155" y2="180" />
+        <line x1="210" y1="380" x2="205" y2="360" />
+        <line x1="150" y1="380" x2="155" y2="360" />
+      </g>
+
+      <!-- Vesica piscis — vertical pointed-oval eye (third eye) -->
+      <g class="v6-vesica">
+        <!-- Outer vesica -->
+        <path d="M 180,195 Q 135,270 180,345 Q 225,270 180,195 Z"
+              fill="none" stroke="url(#v6-gold)" stroke-width="1.2" stroke-opacity="0.92" />
+        <!-- Inner vesica accent -->
+        <path d="M 180,208 Q 148,270 180,332 Q 212,270 180,208 Z"
+              fill="none" stroke="url(#v6-gold)" stroke-width="0.4" stroke-opacity="0.45" />
+      </g>
+
+      <!-- Central ✦ radiant -->
+      <g class="v6-star">
+        <circle cx="180" cy="270" r="22" fill="none" stroke="url(#v6-gold)" stroke-width="0.45" stroke-opacity="0.5" />
+        <path transform="translate(180 270)"
+              d="M 0,-20 L 4.5,-4.5 L 20,0 L 4.5,4.5 L 0,20 L -4.5,4.5 L -20,0 L -4.5,-4.5 Z"
+              fill="url(#v6-gold)" stroke="rgba(255,230,150,0.7)" stroke-width="0.45" />
+      </g>
+
+      <!-- Bottom -->
+      <line x1="65" y1="455" x2="137" y2="455" stroke="url(#v6-gold)" stroke-width="0.5" stroke-opacity="0.6" />
+      <g class="v5-glow">
+        <circle cx="143" cy="455" r="0.8" fill="url(#v6-gold)" opacity="0.7" />
+        <path d="M 155,455 L 158.5,450.8 L 162,455 L 158.5,459.2 Z" fill="none" stroke="url(#v6-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <path d="M 172,455 L 180,447.5 L 188,455 L 180,462.5 Z" fill="url(#v6-gold)" />
+        <path d="M 198,455 L 201.5,450.8 L 205,455 L 201.5,459.2 Z" fill="none" stroke="url(#v6-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <circle cx="217" cy="455" r="0.8" fill="url(#v6-gold)" opacity="0.7" />
+      </g>
+      <line x1="223" y1="455" x2="295" y2="455" stroke="url(#v6-gold)" stroke-width="0.5" stroke-opacity="0.6" />
+
+      <text x="180" y="482" text-anchor="middle" fill="url(#v6-gold)" class="brand-text"
+            font-size="13" letter-spacing="4" opacity="0.95" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">VI · radiant</p>
+  <h3 class="concept-title">The Third Eye</h3>
+  <p class="concept-rationale">
+    Vertical vesica piscis — ancient mandorla shape, symbol of
+    intersection between worlds. The ✦ sits in the center as pure
+    radiance; slow gold rays emanate outward. Strong mystical weight
+    without falling into the surveillance-eye read of the horizontal
+    almond. Reads as "revelation," not "observation."
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V7 — THE APERTURE
+     Jony Ive's take on "the eye" — precision iris mechanism drawn
+     in engineering-hairline weight. The mechanical/optical truth of
+     "Olivia sees," stripped of all mysticism.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v7-base" cx="50%" cy="45%" r="70%">
+          <stop offset="0%" stop-color="#1c1137" />
+          <stop offset="55%" stop-color="#0a0620" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v7-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v7-base)" />
+
+      <!-- Single hairline frame - NO inner border line. Less is more. -->
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v7-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- Six-blade aperture. Each blade is a single arc overlapping the next.
+           Drawn in engineering-drawing hairline weight. -->
+      <g class="v7-blades" fill="none" stroke="url(#v7-gold)"
+         stroke-width="0.5" stroke-opacity="0.9" stroke-linecap="round">
+        <!-- 6 blades arranged at 60° intervals -->
+        <path d="M 180,220 A 50,90 0 0,1 222.5,246" />
+        <path d="M 222.5,246 A 50,90 60 0,1 222.5,294" />
+        <path d="M 222.5,294 A 50,90 120 0,1 180,320" />
+        <path d="M 180,320 A 50,90 180 0,1 137.5,294" />
+        <path d="M 137.5,294 A 50,90 240 0,1 137.5,246" />
+        <path d="M 137.5,246 A 50,90 300 0,1 180,220" />
+      </g>
+
+      <!-- Outer reference ring — precisely placed, barely visible -->
+      <circle cx="180" cy="270" r="65" fill="none"
+              stroke="url(#v7-gold)" stroke-width="0.25" stroke-opacity="0.35" />
+
+      <!-- Hexagon construction layer (engineering reference lines) -->
+      <g stroke="url(#v7-gold)" stroke-width="0.2" stroke-opacity="0.2" fill="none">
+        <line x1="180" y1="205" x2="180" y2="335" />
+        <line x1="123" y1="238" x2="237" y2="303" />
+        <line x1="123" y1="302" x2="237" y2="237" />
+      </g>
+
+      <!-- Central aperture dot — the "light through the hole" -->
+      <circle class="v7-center-dot" cx="180" cy="270" r="3.5" fill="url(#v7-gold)" />
+      <circle cx="180" cy="270" r="0.8" fill="rgba(255,250,220,1)" />
+
+      <!-- Bottom: single brand line, no ornament -->
+      <text x="180" y="495" text-anchor="middle" fill="url(#v7-gold)" class="brand-text"
+            font-size="10" letter-spacing="5" opacity="0.72" font-style="italic">
+        Olivia · Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">VII · precision</p>
+  <h3 class="concept-title">The Aperture</h3>
+  <p class="concept-rationale">
+    A camera iris drawn in engineering-hairline geometry, with the
+    light-through-the-aperture as a single dot. The mechanical truth
+    of "Olivia sees" — no mysticism, just optics. Six blades, one
+    reference ring, three construction lines, one central dot.
+    Nothing else. Machined.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V8 — THE EPHEMERIS
+     Typography as the hero. Page-furniture from an editorial astronomy
+     almanac. Minimal, information-dense, confidently typographic.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v8-base" cx="50%" cy="45%" r="75%">
+          <stop offset="0%" stop-color="#1a1138" />
+          <stop offset="55%" stop-color="#0a0620" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v8-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v8-base)" />
+
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v8-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- Top meta — like a magazine colophon -->
+      <g class="brand-text" fill="url(#v8-gold)" text-anchor="start">
+        <text x="46" y="68" font-size="7" letter-spacing="3" opacity="0.65" font-style="italic">
+          vol. i · no. 1
+        </text>
+        <line x1="44" y1="76" x2="120" y2="76"
+              stroke="url(#v8-gold)" stroke-width="0.3" stroke-opacity="0.5" />
+      </g>
+      <g class="brand-text" fill="url(#v8-gold)" text-anchor="end">
+        <text x="314" y="68" font-size="7" letter-spacing="3" opacity="0.65" font-style="italic">
+          mmxxvi
+        </text>
+        <line x1="240" y1="76" x2="316" y2="76"
+              stroke="url(#v8-gold)" stroke-width="0.3" stroke-opacity="0.5" />
+      </g>
+
+      <!-- The hero: coordinates set in layered scale, editorial style -->
+      <g class="v8-type-hero" fill="url(#v8-gold)" class="brand-text">
+        <!-- Object name -->
+        <text x="180" y="210" text-anchor="middle"
+              class="brand-text" font-size="10" letter-spacing="5"
+              opacity="0.78" font-style="italic" text-transform="uppercase">
+          ORIONIS · β
+        </text>
+        <!-- Common name - BIG -->
+        <text x="180" y="262" text-anchor="middle"
+              class="brand-text" font-size="32"
+              font-weight="300" font-style="italic" letter-spacing="2"
+              opacity="0.98">
+          Rigel
+        </text>
+        <!-- Coordinates -->
+        <text x="180" y="295" text-anchor="middle"
+              class="brand-text" font-size="8.5" letter-spacing="3"
+              opacity="0.75" font-style="italic">
+          RA 05h 14m 32s · DEC −08° 12′ 06″
+        </text>
+        <!-- Magnitude -->
+        <text x="180" y="315" text-anchor="middle"
+              class="brand-text" font-size="7" letter-spacing="2.8"
+              opacity="0.58" font-style="italic">
+          m 0.13 · 77.8 pc · 7.24 M☉
+        </text>
+      </g>
+
+      <!-- One single star dot — the fix that the coordinates describe -->
+      <g class="v8-dot">
+        <circle cx="180" cy="370" r="3" fill="url(#v8-gold)" />
+        <circle cx="180" cy="370" r="0.6" fill="rgba(255,250,220,1)" />
+      </g>
+
+      <!-- Bottom: brand -->
+      <line x1="140" y1="455" x2="170" y2="455"
+            stroke="url(#v8-gold)" stroke-width="0.3" stroke-opacity="0.45" />
+      <line x1="190" y1="455" x2="220" y2="455"
+            stroke="url(#v8-gold)" stroke-width="0.3" stroke-opacity="0.45" />
+      <circle cx="180" cy="455" r="0.9" fill="url(#v8-gold)" opacity="0.75" />
+
+      <text x="180" y="485" text-anchor="middle" fill="url(#v8-gold)" class="brand-text"
+            font-size="11" letter-spacing="5" opacity="0.88" font-style="italic">
+        Olivia Arcana
+      </text>
+      <text x="180" y="502" text-anchor="middle" fill="url(#v8-gold)" class="brand-text"
+            font-size="6.5" letter-spacing="3.5" opacity="0.55" font-style="italic">
+        an almanac of the skies
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">VIII · editorial</p>
+  <h3 class="concept-title">The Ephemeris</h3>
+  <p class="concept-rationale">
+    A single catalogued star, rendered as editorial type. Object name in
+    eyebrow caps, common name in italic display, coordinates and magnitude
+    as sub-data. One gold dot marks the fix. Feels like a page of
+    <em>The Monocle Astronomy Issue</em>. The card back as journal entry.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V9 — THE COMPASS ROSE
+     Directional rose / mariner's compass. Navigator's instrument.
+     Reduced to cardinals + one needle. Jony Ive's take on the wheel.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v9-base" cx="50%" cy="42%" r="72%">
+          <stop offset="0%" stop-color="#1e1340" />
+          <stop offset="55%" stop-color="#0b0721" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v9-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v9-base)" />
+
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v9-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- Outer reference ring -->
+      <circle cx="180" cy="270" r="110" fill="none"
+              stroke="url(#v9-gold)" stroke-width="0.3" stroke-opacity="0.4" />
+      <circle cx="180" cy="270" r="96" fill="none"
+              stroke="url(#v9-gold)" stroke-width="0.25" stroke-opacity="0.25" />
+
+      <!-- Rose — 8-point compass, clean geometric construction -->
+      <g class="v9-rose" fill="url(#v9-gold)" stroke="url(#v9-gold)" stroke-width="0.35">
+        <!-- 4 main cardinal arrows (N/E/S/W) — filled triangles -->
+        <path d="M 180,270 L 176,175 L 180,160 L 184,175 Z" fill-opacity="0.88" />
+        <path d="M 180,270 L 275,266 L 290,270 L 275,274 Z" fill-opacity="0.88" />
+        <path d="M 180,270 L 184,365 L 180,380 L 176,365 Z" fill-opacity="0.88" />
+        <path d="M 180,270 L 85,274 L 70,270 L 85,266 Z" fill-opacity="0.88" />
+
+        <!-- 4 intercardinals (NE/SE/SW/NW) — smaller, outlined -->
+        <path d="M 180,270 L 242,210 L 250,202 L 250,218 Z" fill="none" stroke-opacity="0.65" />
+        <path d="M 180,270 L 242,330 L 250,338 L 250,322 Z" fill="none" stroke-opacity="0.65" />
+        <path d="M 180,270 L 118,330 L 110,338 L 110,322 Z" fill="none" stroke-opacity="0.65" />
+        <path d="M 180,270 L 118,210 L 110,202 L 110,218 Z" fill="none" stroke-opacity="0.65" />
+      </g>
+
+      <!-- Letter labels at cardinal ends -->
+      <g class="brand-text" fill="url(#v9-gold)" text-anchor="middle" font-size="10"
+         letter-spacing="2" font-style="italic" opacity="0.82">
+        <text x="180" y="145">N</text>
+        <text x="305" y="274">E</text>
+        <text x="180" y="398">S</text>
+        <text x="55"  y="274">W</text>
+      </g>
+
+      <!-- Micro tick marks between cardinal points — every 30° -->
+      <g stroke="url(#v9-gold)" stroke-width="0.3" stroke-opacity="0.4" fill="none">
+        <g id="v9-tick">
+          <line x1="180" y1="168" x2="180" y2="162" />
+        </g>
+        <!-- 11 more ticks via manual placement (or we could just draw all 12) -->
+        <line x1="180" y1="168" x2="180" y2="162" />
+        <line x1="237" y1="188" x2="241" y2="183" />
+        <line x1="268" y1="230" x2="275" y2="226" />
+        <line x1="278" y1="270" x2="286" y2="270" />
+        <line x1="268" y1="310" x2="275" y2="314" />
+        <line x1="237" y1="352" x2="241" y2="357" />
+        <line x1="180" y1="372" x2="180" y2="378" />
+        <line x1="123" y1="352" x2="119" y2="357" />
+        <line x1="92"  y1="310" x2="85"  y2="314" />
+        <line x1="82"  y1="270" x2="74"  y2="270" />
+        <line x1="92"  y1="230" x2="85"  y2="226" />
+        <line x1="123" y1="188" x2="119" y2="183" />
+      </g>
+
+      <!-- Central needle pivot -->
+      <circle cx="180" cy="270" r="3" fill="url(#v9-gold)" />
+      <circle cx="180" cy="270" r="6" fill="none" stroke="url(#v9-gold)" stroke-width="0.4" stroke-opacity="0.45" />
+
+      <!-- Small moving needle showing "direction" -->
+      <g class="v9-needle">
+        <line x1="180" y1="270" x2="180" y2="235"
+              stroke="url(#v9-gold)" stroke-width="0.7" stroke-opacity="0.95" />
+        <path d="M 180,233 L 177,238 L 183,238 Z" fill="url(#v9-gold)" />
+      </g>
+
+      <!-- Bottom -->
+      <text x="180" y="470" text-anchor="middle" fill="url(#v9-gold)" class="brand-text"
+            font-size="7" letter-spacing="3.5" opacity="0.58" font-style="italic">
+        — the navigator's instrument —
+      </text>
+      <text x="180" y="495" text-anchor="middle" fill="url(#v9-gold)" class="brand-text"
+            font-size="11" letter-spacing="5" opacity="0.88" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">IX · navigation</p>
+  <h3 class="concept-title">The Compass</h3>
+  <p class="concept-rationale">
+    Mariner's compass rose — the navigator's instrument rather than the
+    astrologer's wheel. 4 cardinal arrows, 4 intercardinal outlines,
+    12 tick marks. A micro-needle rotates slowly, always searching.
+    Classical navigation precision: the deck as a tool for finding
+    your bearing.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V10 — THE SEED
+     Sacred geometry: 7-circle Seed of Life. Pure hairline construction.
+     Zero mysticism — just mathematics.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v10-base" cx="50%" cy="42%" r="72%">
+          <stop offset="0%" stop-color="#1d1340" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v10-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v10-base)" />
+
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v10-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- Seed of life: 7 overlapping circles. Center + 6 around at radius r.
+           Classical construction: circles of radius r arranged at 60° around
+           a center circle of the same radius. -->
+      <g class="v10-seed" fill="none" stroke="url(#v10-gold)"
+         stroke-width="0.5" stroke-opacity="0.78">
+        <!-- Central circle -->
+        <circle cx="180" cy="270" r="40" />
+        <!-- 6 surrounding circles at 60° intervals, distance = radius -->
+        <circle cx="180" cy="230" r="40" />       <!-- top -->
+        <circle cx="214.64" cy="250" r="40" />    <!-- top-right -->
+        <circle cx="214.64" cy="290" r="40" />    <!-- bottom-right -->
+        <circle cx="180" cy="310" r="40" />       <!-- bottom -->
+        <circle cx="145.36" cy="290" r="40" />    <!-- bottom-left -->
+        <circle cx="145.36" cy="250" r="40" />    <!-- top-left -->
+      </g>
+
+      <!-- Containing circle (outer reference) — very faint -->
+      <circle cx="180" cy="270" r="80" fill="none"
+              stroke="url(#v10-gold)" stroke-width="0.25" stroke-opacity="0.3" />
+
+      <!-- Central star — single radiant ✦ inside the innermost rosette -->
+      <g class="v10-star">
+        <path transform="translate(180 270)"
+              d="M 0,-12 L 2.5,-2.5 L 12,0 L 2.5,2.5 L 0,12 L -2.5,2.5 L -12,0 L -2.5,-2.5 Z"
+              fill="url(#v10-gold)" />
+      </g>
+
+      <!-- Bottom: restrained brand -->
+      <text x="180" y="460" text-anchor="middle" fill="url(#v10-gold)" class="brand-text"
+            font-size="7" letter-spacing="4" opacity="0.58" font-style="italic">
+        semen vitae
+      </text>
+      <text x="180" y="488" text-anchor="middle" fill="url(#v10-gold)" class="brand-text"
+            font-size="11" letter-spacing="5" opacity="0.88" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">X · geometric</p>
+  <h3 class="concept-title">The Seed</h3>
+  <p class="concept-rationale">
+    Seed of Life: seven circles arranged in classical construction,
+    drawn at pure 0.5pt hairline weight. Central ✦ as the generative
+    point. Ancient sacred geometry with zero mysticism — just the
+    mathematics of the hexagonal close-packing. Could be drawn with
+    a compass on vellum. The cosmos as geometry.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V11 — THE SIGNET
+     Pure maison confidence. Just the brand name, deep-embossed as
+     the sole element. Patek Philippe dial energy.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v11-base" cx="50%" cy="45%" r="72%">
+          <stop offset="0%" stop-color="#221343" />
+          <stop offset="55%" stop-color="#0b0724" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v11-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+        <!-- Deep-emboss effect: gold text with subtle inner shadow -->
+        <filter id="v11-emboss">
+          <feGaussianBlur stdDeviation="0.3" />
+        </filter>
+      </defs>
+      <rect width="360" height="540" fill="url(#v11-base)" />
+
+      <!-- No frame. The card IS the field. -->
+
+      <!-- The entire composition is three lines of type. -->
+      <g class="v11-mark">
+        <!-- Tiny top eyebrow -->
+        <text x="180" y="120" text-anchor="middle" fill="url(#v11-gold)" class="brand-text"
+              font-size="7" letter-spacing="5" opacity="0.52" font-style="italic"
+              font-weight="300">
+          maison
+        </text>
+
+        <!-- Display mark - massive italic O for brand identity -->
+        <text x="180" y="300" text-anchor="middle" fill="url(#v11-gold)" class="brand-text"
+              font-size="80" font-style="italic" font-weight="500"
+              letter-spacing="4" opacity="0.95" filter="url(#v11-emboss)">
+          Olivia
+        </text>
+        <text x="180" y="365" text-anchor="middle" fill="url(#v11-gold)" class="brand-text"
+              font-size="46" font-style="italic" font-weight="300"
+              letter-spacing="14" opacity="0.82" filter="url(#v11-emboss)">
+          ARCANA
+        </text>
+
+        <!-- Centered ornament — single tiny mark, like a signet -->
+        <g transform="translate(180 405)">
+          <path d="M 0,-4 L 4,0 L 0,4 L -4,0 Z"
+                fill="none" stroke="url(#v11-gold)" stroke-width="0.5" stroke-opacity="0.65" />
+          <circle r="0.9" fill="url(#v11-gold)" />
+        </g>
+
+        <!-- Datum -->
+        <text x="180" y="445" text-anchor="middle" fill="url(#v11-gold)" class="brand-text"
+              font-size="7" letter-spacing="4" opacity="0.48" font-style="italic">
+          mmxxvi · volume i
+        </text>
+      </g>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">XI · maison</p>
+  <h3 class="concept-title">The Signet</h3>
+  <p class="concept-rationale">
+    No frame. No symbol. Just the brand name set as three lines of
+    precise type: eyebrow, italic display Olivia, wide caps ARCANA,
+    single signet mark, datum. The entire design is typography at
+    exact proportions. Patek Philippe dial: if the name is enough,
+    everything else is noise.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V12 — THE HORIZON
+     One line. One dot. One number. Absolute reduction.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v12-base" cx="50%" cy="30%" r="90%">
+          <stop offset="0%" stop-color="#1c1140" />
+          <stop offset="40%" stop-color="#14092e" />
+          <stop offset="75%" stop-color="#080516" />
+          <stop offset="100%" stop-color="#030208" />
+        </radialGradient>
+        <linearGradient id="v12-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v12-base)" />
+
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v12-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- The horizon line. Single hairline running ~55% down the card. -->
+      <line class="v12-line" x1="50" y1="305" x2="310" y2="305"
+            stroke="url(#v12-gold)" stroke-width="0.55" stroke-opacity="0.88" />
+
+      <!-- Tiny horizon-edge ticks on both ends — like a ruler -->
+      <line x1="50" y1="301" x2="50" y2="309"
+            stroke="url(#v12-gold)" stroke-width="0.4" stroke-opacity="0.7" />
+      <line x1="310" y1="301" x2="310" y2="309"
+            stroke="url(#v12-gold)" stroke-width="0.4" stroke-opacity="0.7" />
+
+      <!-- The sun on the horizon — a single circle half-risen above the line -->
+      <g class="v12-sun">
+        <circle cx="180" cy="295" r="9" fill="url(#v12-gold)" />
+      </g>
+
+      <!-- A tiny timestamp — one piece of data the card carries -->
+      <text x="180" y="275" text-anchor="middle" fill="url(#v12-gold)" class="brand-text"
+            font-size="8" letter-spacing="4" opacity="0.72" font-style="italic">
+        06 h 47 m
+      </text>
+
+      <!-- Very small meta under the horizon — "sunrise" -->
+      <text x="180" y="325" text-anchor="middle" fill="url(#v12-gold)" class="brand-text"
+            font-size="7" letter-spacing="5" opacity="0.52" font-style="italic">
+        — ortus solis —
+      </text>
+
+      <!-- Bottom — single brand line, no ornament -->
+      <text x="180" y="492" text-anchor="middle" fill="url(#v12-gold)" class="brand-text"
+            font-size="11" letter-spacing="5" opacity="0.82" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">XII · horizon</p>
+  <h3 class="concept-title">The Horizon</h3>
+  <p class="concept-rationale">
+    Absolute reduction. One horizon line, one sun half-risen, one
+    timestamp. Everything the card needs to say — "the moment light
+    returns" — said with 4 elements. Minimalist cinema in gold.
+    The card back as a single frame of a sunrise caught at exactly
+    06h 47m.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V13 — THE PLEIADES (seven sisters)
+     A real stellar cluster, ancient feminine archetype. Not a "star"
+     symbol — an actual specific constellation no AI tool uses.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v13-base" cx="50%" cy="40%" r="75%">
+          <stop offset="0%" stop-color="#1d1340" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v13-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+        <radialGradient id="v13-halo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(140,95,220,0.22)" />
+          <stop offset="70%" stop-color="rgba(140,95,220,0.04)" />
+          <stop offset="100%" stop-color="rgba(140,95,220,0)" />
+        </radialGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v13-base)" />
+
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v13-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- Subtle nebulous halo around the cluster -->
+      <ellipse class="v13-aura" cx="180" cy="268" rx="90" ry="65" fill="url(#v13-halo)" />
+
+      <!-- The Pleiades — 7 visible stars in their actual relative positions.
+           Scaled / translated to card center. Pattern verified against
+           astronomy charts: Alcyone (brightest) at center-left, Atlas &
+           Pleione paired at lower-right, Maia upper-left, etc. -->
+      <g fill="url(#v13-gold)">
+        <!-- Alcyone (η Tauri) — brightest, center-left of cluster -->
+        <circle class="v13-star" cx="178" cy="270" r="3.8" />
+        <!-- Atlas (27 Tauri) — lower right, bright -->
+        <circle class="v13-star" cx="218" cy="294" r="3.2" />
+        <!-- Electra (17 Tauri) — upper left -->
+        <circle class="v13-star" cx="150" cy="246" r="3" />
+        <!-- Maia (20 Tauri) — upper -->
+        <circle class="v13-star" cx="172" cy="235" r="2.8" />
+        <!-- Merope (23 Tauri) — lower left -->
+        <circle class="v13-star" cx="160" cy="298" r="2.6" />
+        <!-- Taygeta (19 Tauri) — far upper left -->
+        <circle class="v13-star" cx="132" cy="252" r="2.3" />
+        <!-- Pleione (28 Tauri) — paired with Atlas, smaller -->
+        <circle class="v13-star" cx="224" cy="286" r="2" />
+      </g>
+
+      <!-- Very faint connective guide — just a whisper, not emphasizing -->
+      <g stroke="url(#v13-gold)" stroke-width="0.2" stroke-opacity="0.18" fill="none">
+        <path d="M 132,252 L 150,246 L 172,235" />
+        <path d="M 150,246 L 178,270 L 218,294" />
+        <path d="M 160,298 L 178,270" />
+        <path d="M 218,294 L 224,286" />
+      </g>
+
+      <!-- Ambient background stars — very few, sparse -->
+      <g fill="rgba(243,221,142,0.4)">
+        <circle cx="70" cy="120" r="0.8" />
+        <circle cx="290" cy="98" r="0.6" />
+        <circle cx="76" cy="400" r="0.5" />
+        <circle cx="282" cy="408" r="0.7" />
+        <circle cx="320" cy="180" r="0.5" />
+        <circle cx="40" cy="220" r="0.4" />
+      </g>
+
+      <!-- Top typography -->
+      <text x="180" y="120" text-anchor="middle" fill="url(#v13-gold)" class="brand-text"
+            font-size="7" letter-spacing="4" opacity="0.7" font-style="italic">
+        — m 45 · the pleiades —
+      </text>
+      <text x="180" y="140" text-anchor="middle" fill="url(#v13-gold)" class="brand-text"
+            font-size="5.5" letter-spacing="2.5" opacity="0.5">
+        RA 03h 47m · DEC +24° 07′ · 444 pc
+      </text>
+
+      <!-- Subtle subtitle under the cluster -->
+      <text x="180" y="365" text-anchor="middle" fill="url(#v13-gold)" class="brand-text"
+            font-size="9" letter-spacing="5" opacity="0.72" font-style="italic">
+        the seven sisters
+      </text>
+
+      <!-- Bottom -->
+      <line x1="100" y1="455" x2="160" y2="455" stroke="url(#v13-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+      <circle cx="180" cy="455" r="1" fill="url(#v13-gold)" opacity="0.8" />
+      <line x1="200" y1="455" x2="260" y2="455" stroke="url(#v13-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+
+      <text x="180" y="488" text-anchor="middle" fill="url(#v13-gold)" class="brand-text"
+            font-size="12" letter-spacing="5" opacity="0.92" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">XIII · constellation</p>
+  <h3 class="concept-title">The Pleiades</h3>
+  <p class="concept-rationale">
+    A real stellar cluster — M45, the Seven Sisters — drawn to the actual
+    relative positions of its seven visible stars. The Pleiades is the
+    oldest feminine asterism in almost every culture (Greek, Aztec, Maori,
+    Chinese, Vedic). Ancient and specific. Unforgettable silhouette. AI
+    products don't claim this — they claim the generic ✦.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V14 — THE ORBIT
+     One thin ellipse, one dot traveling it. Astronomy-native minimalism.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v14-base" cx="50%" cy="45%" r="72%">
+          <stop offset="0%" stop-color="#1c1140" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v14-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+        <path id="v14-orbit-path" d="M 280,270 A 100,40 0 1,1 80,270 A 100,40 0 1,1 280,270" />
+      </defs>
+      <rect width="360" height="540" fill="url(#v14-base)" />
+
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v14-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- The orbit — single thin ellipse -->
+      <ellipse class="v14-orbit" cx="180" cy="270" rx="100" ry="40"
+               fill="none" stroke="url(#v14-gold)"
+               stroke-width="0.5" stroke-opacity="0.72" />
+
+      <!-- Faint outer orbit -->
+      <ellipse cx="180" cy="270" rx="130" ry="52"
+               fill="none" stroke="url(#v14-gold)"
+               stroke-width="0.25" stroke-opacity="0.28" />
+
+      <!-- Central body — the anchor -->
+      <g class="v14-center">
+        <circle cx="180" cy="270" r="5" fill="url(#v14-gold)" />
+        <circle cx="180" cy="270" r="10" fill="none"
+                stroke="url(#v14-gold)" stroke-width="0.3" stroke-opacity="0.4" />
+      </g>
+
+      <!-- Traveling body on the orbit — one small dot, rotating -->
+      <g class="v14-orbit-dot">
+        <circle cx="280" cy="270" r="2.2" fill="url(#v14-gold)"
+                style="filter: drop-shadow(0 0 4px rgba(255,230,150,0.9));" />
+      </g>
+
+      <!-- Tiny meta top -->
+      <text x="180" y="130" text-anchor="middle" fill="url(#v14-gold)" class="brand-text"
+            font-size="7" letter-spacing="4.5" opacity="0.6" font-style="italic">
+        — an orbit in progress —
+      </text>
+
+      <!-- Subtle bottom inscription + brand -->
+      <text x="180" y="400" text-anchor="middle" fill="url(#v14-gold)" class="brand-text"
+            font-size="8" letter-spacing="4" opacity="0.58" font-style="italic">
+        today · your moment
+      </text>
+
+      <line x1="100" y1="455" x2="160" y2="455" stroke="url(#v14-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+      <circle cx="180" cy="455" r="1" fill="url(#v14-gold)" opacity="0.8" />
+      <line x1="200" y1="455" x2="260" y2="455" stroke="url(#v14-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+
+      <text x="180" y="488" text-anchor="middle" fill="url(#v14-gold)" class="brand-text"
+            font-size="12" letter-spacing="5" opacity="0.92" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">XIV · celestial</p>
+  <h3 class="concept-title">The Orbit</h3>
+  <p class="concept-rationale">
+    One ellipse. One central body. One traveling dot. That's it. The
+    orbit is the universal symbol of the moving heavens — pure astronomy,
+    pre-dating any digital sparkle by four thousand years. The dot is
+    today, the ellipse is your cycle. Functions as favicon, loading
+    spinner, and app-icon without modification. Distinctly not AI.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V15 — THE QUILL
+     Direct echo of the brand's positioning: "written by hand."
+     Classical writing instrument, no digital parallel.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v15-base" cx="50%" cy="45%" r="72%">
+          <stop offset="0%" stop-color="#1d1340" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v15-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v15-base)" />
+
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v15-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- The quill — rotated slightly, drawn from lower-left to upper-right -->
+      <g class="v15-quill">
+        <!-- Feather vane: asymmetric teardrop made of paired curves -->
+        <g fill="none" stroke="url(#v15-gold)" stroke-width="0.7" stroke-opacity="0.92" stroke-linecap="round">
+          <!-- Main shaft (rachis) — one long curve from tip to nib -->
+          <path d="M 232,178 Q 200,235 175,295 L 150,355" />
+          <!-- Feather barbs — ribs on one side of the rachis -->
+          <path d="M 225,195 Q 220,205 228,220" stroke-width="0.4" stroke-opacity="0.7" />
+          <path d="M 220,210 Q 215,220 223,235" stroke-width="0.4" stroke-opacity="0.7" />
+          <path d="M 215,225 Q 210,235 218,250" stroke-width="0.4" stroke-opacity="0.7" />
+          <path d="M 210,240 Q 205,250 213,265" stroke-width="0.4" stroke-opacity="0.7" />
+          <path d="M 205,255 Q 200,265 208,280" stroke-width="0.4" stroke-opacity="0.7" />
+          <path d="M 200,270 Q 195,280 203,295" stroke-width="0.4" stroke-opacity="0.7" />
+          <path d="M 195,285 Q 190,295 198,310" stroke-width="0.4" stroke-opacity="0.7" />
+          <path d="M 190,300 Q 185,310 193,325" stroke-width="0.4" stroke-opacity="0.7" />
+
+          <!-- Mirror barbs on other side, shorter -->
+          <path d="M 228,195 Q 234,205 226,218" stroke-width="0.3" stroke-opacity="0.5" />
+          <path d="M 223,210 Q 229,220 221,233" stroke-width="0.3" stroke-opacity="0.5" />
+          <path d="M 218,225 Q 224,235 216,248" stroke-width="0.3" stroke-opacity="0.5" />
+          <path d="M 213,240 Q 219,250 211,263" stroke-width="0.3" stroke-opacity="0.5" />
+          <path d="M 208,255 Q 214,265 206,278" stroke-width="0.3" stroke-opacity="0.5" />
+          <path d="M 203,270 Q 209,280 201,293" stroke-width="0.3" stroke-opacity="0.5" />
+
+          <!-- Nib: a tiny triangular wedge at the bottom of the shaft -->
+          <path d="M 149,353 L 143,365 L 156,362 Z" fill="url(#v15-gold)" stroke="none" />
+          <!-- Nib slit -->
+          <line x1="149" y1="353" x2="150" y2="361" stroke-width="0.35" stroke-opacity="0.9" />
+        </g>
+
+        <!-- Tip highlight — feather soft end -->
+        <circle cx="232" cy="178" r="1.4" fill="url(#v15-gold)" opacity="0.75" />
+      </g>
+
+      <!-- Ink splash — a single drop below the nib -->
+      <g class="v15-ink">
+        <circle cx="155" cy="378" r="1.6" fill="url(#v15-gold)" />
+        <circle cx="162" cy="383" r="0.8" fill="url(#v15-gold)" opacity="0.7" />
+      </g>
+
+      <!-- Top -->
+      <text x="180" y="130" text-anchor="middle" fill="url(#v15-gold)" class="brand-text"
+            font-size="7" letter-spacing="4.5" opacity="0.65" font-style="italic">
+        — scripta manu —
+      </text>
+
+      <!-- Tagline center-low -->
+      <text x="180" y="425" text-anchor="middle" fill="url(#v15-gold)" class="brand-text"
+            font-size="10" letter-spacing="3.5" opacity="0.82" font-style="italic">
+        written by hand
+      </text>
+
+      <!-- Brand -->
+      <text x="180" y="488" text-anchor="middle" fill="url(#v15-gold)" class="brand-text"
+            font-size="12" letter-spacing="5" opacity="0.92" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">XV · handwriting</p>
+  <h3 class="concept-title">The Quill</h3>
+  <p class="concept-rationale">
+    The brand's tagline is literally "real cosmic guidance, <em>written by
+    hand</em>." So make that the sigil. A feathered quill with an ink
+    drop — zero ambiguity about what the brand promises. Deliberate
+    anti-AI statement: this is the one tool a machine can't hold. Latin
+    <em>scripta manu</em> (written by hand) at the top seals the
+    positioning.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V16 — THE ASCENDANT
+     A minimalist natal-chart cross: horizontal (Asc-Dsc axis) and
+     vertical (MC-IC axis), with a single diagonal line at birth angle.
+     The most brand-specific of all the backs — only astrologers
+     recognize it, but they recognize it instantly.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v16-base" cx="50%" cy="42%" r="72%">
+          <stop offset="0%" stop-color="#1c1140" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v16-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v16-base)" />
+
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v16-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- The chart wheel — a single thin circle -->
+      <circle cx="180" cy="270" r="105" fill="none"
+              stroke="url(#v16-gold)" stroke-width="0.4" stroke-opacity="0.45" />
+
+      <!-- Horizontal axis (Ascendant-Descendant): thin with arrowheads at ends -->
+      <g stroke="url(#v16-gold)" stroke-width="0.5" stroke-opacity="0.8" fill="none">
+        <line x1="55" y1="270" x2="305" y2="270" />
+        <!-- Ascendant arrow (left) -->
+        <path d="M 55,270 L 62,266 L 62,274 Z" fill="url(#v16-gold)" stroke="none" />
+        <!-- Descendant ticks (right) -->
+        <line x1="300" y1="266" x2="300" y2="274" />
+      </g>
+
+      <!-- Vertical axis (Midheaven-Imum Coeli): dotted -->
+      <line x1="180" y1="155" x2="180" y2="385" stroke="url(#v16-gold)"
+            stroke-width="0.35" stroke-opacity="0.4" stroke-dasharray="2 3" />
+
+      <!-- THE diagonal: the birth angle, the line that makes THIS chart
+           different from every other. Drawn with weight + glow. -->
+      <g class="v16-diag">
+        <line x1="107" y1="340" x2="253" y2="200"
+              stroke="url(#v16-gold)" stroke-width="0.75" stroke-opacity="0.95" />
+        <!-- Terminator dots at both ends of the diagonal -->
+        <circle cx="107" cy="340" r="1.5" fill="url(#v16-gold)" />
+        <circle cx="253" cy="200" r="1.5" fill="url(#v16-gold)" />
+      </g>
+
+      <!-- The central point where all axes meet: the native -->
+      <g class="v16-dot">
+        <circle cx="180" cy="270" r="3.5" fill="url(#v16-gold)" />
+        <circle cx="180" cy="270" r="7" fill="none"
+                stroke="url(#v16-gold)" stroke-width="0.3" stroke-opacity="0.4" />
+      </g>
+
+      <!-- Angle labels - micro typography at the 4 cardinal directions -->
+      <g fill="url(#v16-gold)" class="brand-text" font-size="7"
+         letter-spacing="2" font-style="italic" opacity="0.75">
+        <text x="50" y="264" text-anchor="end">ASC</text>
+        <text x="310" y="264">DSC</text>
+        <text x="180" y="149" text-anchor="middle">MC</text>
+        <text x="180" y="398" text-anchor="middle">IC</text>
+      </g>
+
+      <!-- Top meta -->
+      <text x="180" y="115" text-anchor="middle" fill="url(#v16-gold)" class="brand-text"
+            font-size="7" letter-spacing="4" opacity="0.58" font-style="italic">
+        — the hour of your birth —
+      </text>
+
+      <!-- Bottom brand -->
+      <text x="180" y="460" text-anchor="middle" fill="url(#v16-gold)" class="brand-text"
+            font-size="7" letter-spacing="4" opacity="0.55" font-style="italic">
+        a chart drawn for one reader
+      </text>
+      <text x="180" y="490" text-anchor="middle" fill="url(#v16-gold)" class="brand-text"
+            font-size="12" letter-spacing="5" opacity="0.92" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">XVI · natal</p>
+  <h3 class="concept-title">The Ascendant</h3>
+  <p class="concept-rationale">
+    A simplified natal chart: horizontal Asc-Dsc axis, dotted vertical
+    MC-IC axis, single diagonal line at the birth angle. The most
+    brand-specific direction — the card back literally <em>is</em> the
+    product's output, stripped to its essential geometry. Not decorative:
+    technical. The chart a real astrologer draws when they sit down with
+    your birth data.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V17 — THE WHEEL OF SEVEN (Seed of Life inside the Zodiac Wheel)
+     Hero. The user's specific ask. Astrological specificity (the
+     product) wrapping sacred geometry (the meaning). Counter-rotation
+     makes it hypnotic. The Seed's 6 outer circles align with 6 of the
+     12 zodiac positions — a geometric coincidence we exploit.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept hero">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v17-base" cx="50%" cy="42%" r="75%">
+          <stop offset="0%" stop-color="#1f1343" />
+          <stop offset="55%" stop-color="#0b0722" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v17-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+        <!-- Central halo — warm gold light spreading from the sigil -->
+        <radialGradient id="v17-halo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="rgba(255,230,150,0.22)" />
+          <stop offset="40%"  stop-color="rgba(232,201,106,0.09)" />
+          <stop offset="100%" stop-color="rgba(232,201,106,0)" />
+        </radialGradient>
+        <!-- Subtle petal wash — very faint, to give the Seed its glow -->
+        <radialGradient id="v17-petal" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="rgba(232,201,106,0.09)" />
+          <stop offset="60%"  stop-color="rgba(232,201,106,0.02)" />
+          <stop offset="100%" stop-color="rgba(232,201,106,0)" />
+        </radialGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v17-base)" />
+
+      <!-- Single refined outer frame — no double rect. Let the sigil breathe. -->
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v17-gold)" stroke-width="0.6" stroke-opacity="0.85" />
+      <rect x="30" y="30" width="300" height="480" rx="5" fill="none"
+            stroke="url(#v17-gold)" stroke-width="0.25" stroke-opacity="0.28" />
+
+      <!-- ═══ HALO LAYER ═══ -->
+      <circle class="v17-halo" cx="180" cy="270" r="120" fill="url(#v17-halo)" />
+
+      <!-- ═══ WHEEL — outer ring, zodiac ticks, numerals ═══ -->
+      <g class="v17-wheel">
+        <!-- Outer + inner reference rings -->
+        <circle cx="180" cy="270" r="115" fill="none" stroke="url(#v17-gold)"
+                stroke-width="0.5" stroke-opacity="0.7" />
+        <circle cx="180" cy="270" r="98"  fill="none" stroke="url(#v17-gold)"
+                stroke-width="0.3" stroke-opacity="0.32" />
+
+        <!-- 12 tick marks — cardinals are longer + bolder -->
+        <g stroke="url(#v17-gold)" fill="none">
+          <!-- Cardinal ticks (N/E/S/W) -->
+          <line x1="180" y1="155" x2="180" y2="175"
+                stroke-width="0.9" stroke-opacity="0.95" />
+          <line x1="295" y1="270" x2="275" y2="270"
+                stroke-width="0.9" stroke-opacity="0.95" />
+          <line x1="180" y1="385" x2="180" y2="365"
+                stroke-width="0.9" stroke-opacity="0.95" />
+          <line x1="65"  y1="270" x2="85"  y2="270"
+                stroke-width="0.9" stroke-opacity="0.95" />
+          <!-- Intermediate ticks (30° offsets) - shorter -->
+          <line x1="238" y1="172" x2="231" y2="187" stroke-width="0.5" stroke-opacity="0.7" />
+          <line x1="278" y1="212" x2="263" y2="219" stroke-width="0.5" stroke-opacity="0.7" />
+          <line x1="278" y1="328" x2="263" y2="321" stroke-width="0.5" stroke-opacity="0.7" />
+          <line x1="238" y1="368" x2="231" y2="353" stroke-width="0.5" stroke-opacity="0.7" />
+          <line x1="122" y1="368" x2="129" y2="353" stroke-width="0.5" stroke-opacity="0.7" />
+          <line x1="82"  y1="328" x2="97"  y2="321" stroke-width="0.5" stroke-opacity="0.7" />
+          <line x1="82"  y1="212" x2="97"  y2="219" stroke-width="0.5" stroke-opacity="0.7" />
+          <line x1="122" y1="172" x2="129" y2="187" stroke-width="0.5" stroke-opacity="0.7" />
+        </g>
+
+        <!-- Small emphasis dots at intermediate ticks -->
+        <g fill="url(#v17-gold)" opacity="0.9">
+          <circle cx="234.5" cy="179" r="1" />
+          <circle cx="270.5" cy="215" r="1" />
+          <circle cx="270.5" cy="325" r="1" />
+          <circle cx="234.5" cy="361" r="1" />
+          <circle cx="125.5" cy="361" r="1" />
+          <circle cx="89.5"  cy="325" r="1" />
+          <circle cx="89.5"  cy="215" r="1" />
+          <circle cx="125.5" cy="179" r="1" />
+        </g>
+
+        <!-- Roman numerals at cardinals — spaced OUTSIDE the outer ring -->
+        <g fill="url(#v17-gold)" class="brand-text" font-size="8.5"
+           font-style="italic" letter-spacing="1.5" opacity="0.82" text-anchor="middle">
+          <text x="180" y="147">XII</text>
+          <text x="308" y="273">III</text>
+          <text x="180" y="400">VI</text>
+          <text x="52"  y="273">IX</text>
+        </g>
+      </g>
+
+      <!-- ═══ SEED OF LIFE — counter-rotating, 7 circles ═══ -->
+      <g class="v17-seed" fill="none" stroke="url(#v17-gold)">
+        <!-- Central circle (r=35) -->
+        <circle cx="180" cy="270" r="35"
+                stroke-width="0.55" stroke-opacity="0.85" />
+        <!-- 6 outer circles — 60° apart, distance 35 from center -->
+        <circle cx="180"    cy="235"    r="35"
+                stroke-width="0.5" stroke-opacity="0.75" />
+        <circle cx="210.31" cy="252.5"  r="35"
+                stroke-width="0.5" stroke-opacity="0.75" />
+        <circle cx="210.31" cy="287.5"  r="35"
+                stroke-width="0.5" stroke-opacity="0.75" />
+        <circle cx="180"    cy="305"    r="35"
+                stroke-width="0.5" stroke-opacity="0.75" />
+        <circle cx="149.69" cy="287.5"  r="35"
+                stroke-width="0.5" stroke-opacity="0.75" />
+        <circle cx="149.69" cy="252.5"  r="35"
+                stroke-width="0.5" stroke-opacity="0.75" />
+      </g>
+
+      <!-- Petal washes — where 3 circles meet, faint gold light glows.
+           These sit UNDER the Seed strokes so the circles cross over them. -->
+      <g class="v17-petals" opacity="0.7">
+        <!-- 6 outer petal glow points at distance 60 from center, angles
+             between adjacent outer-circle pairs (15°, 75°, 135°, 195°, 255°, 315°). -->
+        <circle cx="197.94" cy="212.9"  r="14" fill="url(#v17-petal)" />
+        <circle cx="236.68" cy="270"    r="14" fill="url(#v17-petal)" />
+        <circle cx="197.94" cy="327.1"  r="14" fill="url(#v17-petal)" />
+        <circle cx="162.06" cy="327.1"  r="14" fill="url(#v17-petal)" />
+        <circle cx="123.32" cy="270"    r="14" fill="url(#v17-petal)" />
+        <circle cx="162.06" cy="212.9"  r="14" fill="url(#v17-petal)" />
+      </g>
+
+      <!-- ═══ TRAVELING PLANET on the outer wheel ═══ -->
+      <g class="v17-planet">
+        <circle cx="180" cy="155" r="2.4" fill="url(#v17-gold)" />
+      </g>
+
+      <!-- ═══ CENTRAL ✦ — the still point at the center of everything ═══ -->
+      <g class="v17-star">
+        <!-- Faint jewel-setting ring -->
+        <circle cx="180" cy="270" r="11" fill="none"
+                stroke="url(#v17-gold)" stroke-width="0.35" stroke-opacity="0.45" />
+        <!-- The four-point star -->
+        <path transform="translate(180 270)"
+              d="M 0,-9 L 2,-2 L 9,0 L 2,2 L 0,9 L -2,2 L -9,0 L -2,-2 Z"
+              fill="url(#v17-gold)" stroke="rgba(255,230,150,0.7)" stroke-width="0.3" />
+        <!-- Tiny bright dot -->
+        <circle cx="180" cy="270" r="0.9" fill="rgba(255,250,220,0.95)" />
+      </g>
+
+      <!-- ═══ TYPOGRAPHY — restrained, confident ═══ -->
+      <!-- Top meta: single line, editorial tone -->
+      <text x="180" y="116" text-anchor="middle" fill="url(#v17-gold)" class="brand-text"
+            font-size="7.5" letter-spacing="4.5" opacity="0.65" font-style="italic">
+        — rota septemque —
+      </text>
+
+      <!-- Bottom: refined rule + brand -->
+      <line x1="95"  y1="455" x2="162" y2="455"
+            stroke="url(#v17-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+      <g>
+        <path d="M 170,455 L 174,451 L 178,455 L 174,459 Z"
+              fill="none" stroke="url(#v17-gold)" stroke-width="0.45" stroke-opacity="0.75" />
+        <circle cx="180" cy="455" r="1.5" fill="url(#v17-gold)" />
+        <path d="M 182,455 L 186,451 L 190,455 L 186,459 Z"
+              fill="none" stroke="url(#v17-gold)" stroke-width="0.45" stroke-opacity="0.75" />
+      </g>
+      <line x1="198" y1="455" x2="265" y2="455"
+            stroke="url(#v17-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+
+      <text x="180" y="487" text-anchor="middle" fill="url(#v17-gold)" class="brand-text"
+            font-size="13" letter-spacing="5" opacity="0.95" font-style="italic">
+        Olivia Arcana
+      </text>
+      <text x="180" y="504" text-anchor="middle" fill="url(#v17-gold)" class="brand-text"
+            font-size="6.5" letter-spacing="3.5" opacity="0.55" font-style="italic">
+        a chart drawn for one reader
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">✦ XVII · hero</p>
+  <h3 class="concept-title">The Wheel of Seven</h3>
+  <p class="concept-rationale">
+    <em>Rota septemque</em> — the Wheel of Seven. Sacred geometry nested
+    inside the astrological instrument. Seven Seed-of-Life circles
+    counter-rotate against the twelve zodiac stations, a single planet
+    traverses the outer ring, and the ✦ holds still at the center of it
+    all. The Seed's six outer circles align with six of the twelve zodiac
+    positions — a geometric coincidence the design quietly exploits.
+    Every element earns its place: the product (the Wheel) holds the
+    meaning (the Seed), and the star is the reader at the center.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V18 — THE OLIVE (Olivia = Latin for "olive tree")
+     Etymology-rooted sigil. The brand's own name made visible.
+     Olive branch is Athena's gift, symbol of wisdom, peace, victory.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v18-base" cx="50%" cy="42%" r="72%">
+          <stop offset="0%" stop-color="#1c1140" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v18-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v18-base)" />
+
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v18-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- The olive branch — arched as a wreath-like curve, centered.
+           Drawn as a single flowing stem with 11 leaves and one olive fruit. -->
+      <g class="v18-branch" fill="none" stroke="url(#v18-gold)"
+         stroke-width="0.7" stroke-opacity="0.9" stroke-linecap="round">
+        <!-- Main stem: a long elegant curve from lower-left to upper-right -->
+        <path d="M 90,340 Q 130,260 180,215 Q 230,180 280,200" />
+      </g>
+
+      <!-- Leaves: elongated almond shapes alternating along the stem -->
+      <g fill="none" stroke="url(#v18-gold)" stroke-width="0.55" stroke-opacity="0.88" stroke-linecap="round">
+        <!-- Each leaf: two curves meeting at ends, forming a narrow almond -->
+        <!-- Left side leaves (grouped below stem) -->
+        <path class="v18-leaf" d="M 88,342 Q 70,345 74,365 Q 95,360 88,342 Z" />
+        <path class="v18-leaf" d="M 108,310 Q 88,310 90,332 Q 113,328 108,310 Z" />
+        <path class="v18-leaf" d="M 132,278 Q 112,275 114,298 Q 137,293 132,278 Z" />
+        <path class="v18-leaf" d="M 158,245 Q 139,240 140,263 Q 162,260 158,245 Z" />
+        <path class="v18-leaf" d="M 188,218 Q 170,210 168,232 Q 192,232 188,218 Z" />
+        <!-- Right side leaves (above stem) -->
+        <path class="v18-leaf" d="M 115,328 Q 128,308 148,312 Q 138,335 115,328 Z" />
+        <path class="v18-leaf" d="M 142,296 Q 154,274 174,278 Q 165,301 142,296 Z" />
+        <path class="v18-leaf" d="M 170,260 Q 182,240 204,244 Q 194,266 170,260 Z" />
+        <path class="v18-leaf" d="M 203,225 Q 218,208 242,212 Q 228,236 203,225 Z" />
+        <path class="v18-leaf" d="M 238,203 Q 255,188 280,195 Q 265,220 238,203 Z" />
+      </g>
+
+      <!-- Olives (fruit) — a few small filled ovals on the stem -->
+      <g class="v18-fruit" fill="url(#v18-gold)">
+        <ellipse cx="155" cy="240" rx="2.3" ry="3" />
+        <ellipse cx="215" cy="200" rx="2.3" ry="3" />
+        <ellipse cx="120" cy="295" rx="2" ry="2.6" />
+      </g>
+
+      <!-- A single star above the branch — "wisdom received from the sky" -->
+      <g>
+        <circle cx="275" cy="160" r="2.5" fill="url(#v18-gold)"
+                style="filter: drop-shadow(0 0 6px rgba(255,230,150,0.9));" />
+      </g>
+
+      <!-- Top typography -->
+      <text x="180" y="112" text-anchor="middle" fill="url(#v18-gold)" class="brand-text"
+            font-size="7" letter-spacing="4.5" opacity="0.68" font-style="italic">
+        — olea athenæ —
+      </text>
+
+      <!-- Tagline tying etymology to brand -->
+      <text x="180" y="435" text-anchor="middle" fill="url(#v18-gold)" class="brand-text"
+            font-size="8" letter-spacing="3.5" opacity="0.7" font-style="italic">
+        olivia · from the olive tree
+      </text>
+
+      <!-- Refined brand + rule -->
+      <line x1="100" y1="465" x2="160" y2="465" stroke="url(#v18-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+      <circle cx="180" cy="465" r="1" fill="url(#v18-gold)" opacity="0.8" />
+      <line x1="200" y1="465" x2="260" y2="465" stroke="url(#v18-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+
+      <text x="180" y="495" text-anchor="middle" fill="url(#v18-gold)" class="brand-text"
+            font-size="13" letter-spacing="5" opacity="0.95" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">XVIII · etymology</p>
+  <h3 class="concept-title">The Olive</h3>
+  <p class="concept-rationale">
+    <em>Olivia</em> is Latin for <em>olive tree</em>. Athena's gift to
+    the city that bore her name. Make the brand's own etymology visible:
+    an olive branch with leaves and fruit reaching toward a single star.
+    The most ownable sigil in the set — no one else can name a brand
+    after an olive tree retroactively. Unforgettable silhouette.
+    Virality: "Did you know Olivia's logo is literally her name?"
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V19 — THE OWL
+     Athena's owl. Wisdom + night + divination. Zero AI brands claim it.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v19-base" cx="50%" cy="42%" r="72%">
+          <stop offset="0%" stop-color="#1e1342" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v19-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v19-base)" />
+
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v19-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- Stylized owl — geometric, Greek-vase inspired. Drawn as a single
+           unified form with the eyes and beak emphasized. -->
+      <g class="v19-owl">
+        <!-- Owl body (silhouette) — simplified shield shape -->
+        <path d="M 180,235 C 155,235 130,250 125,285 C 120,320 135,355 165,365 C 175,368 185,368 195,365 C 225,355 240,320 235,285 C 230,250 205,235 180,235 Z"
+              fill="none" stroke="url(#v19-gold)" stroke-width="0.7" stroke-opacity="0.92" />
+        <!-- Head (separate circle on top) -->
+        <circle cx="180" cy="235" r="28" fill="none"
+                stroke="url(#v19-gold)" stroke-width="0.7" stroke-opacity="0.92" />
+        <!-- Ear tufts — two small triangles on top of head -->
+        <path d="M 165,215 L 158,200 L 171,210 Z"
+              fill="url(#v19-gold)" opacity="0.9" />
+        <path d="M 195,215 L 202,200 L 189,210 Z"
+              fill="url(#v19-gold)" opacity="0.9" />
+        <!-- Eyes — large concentric circles -->
+        <g class="v19-eyes">
+          <circle cx="170" cy="234" r="7" fill="none"
+                  stroke="url(#v19-gold)" stroke-width="0.55" stroke-opacity="0.95" />
+          <circle cx="170" cy="234" r="3.5" fill="url(#v19-gold)" />
+          <circle cx="170" cy="233" r="0.9" fill="rgba(20,12,36,0.9)" />
+        </g>
+        <g class="v19-eyes">
+          <circle cx="190" cy="234" r="7" fill="none"
+                  stroke="url(#v19-gold)" stroke-width="0.55" stroke-opacity="0.95" />
+          <circle cx="190" cy="234" r="3.5" fill="url(#v19-gold)" />
+          <circle cx="190" cy="233" r="0.9" fill="rgba(20,12,36,0.9)" />
+        </g>
+        <!-- Beak — small downward triangle between eyes -->
+        <path d="M 177,242 L 180,250 L 183,242 Z"
+              fill="url(#v19-gold)" opacity="0.95" />
+        <!-- Feather pattern — hatching on body -->
+        <g fill="none" stroke="url(#v19-gold)" stroke-width="0.3" stroke-opacity="0.55">
+          <path d="M 155,280 Q 160,285 155,290" />
+          <path d="M 168,280 Q 173,285 168,290" />
+          <path d="M 180,280 Q 185,285 180,290" />
+          <path d="M 192,280 Q 197,285 192,290" />
+          <path d="M 205,280 Q 210,285 205,290" />
+          <path d="M 155,300 Q 160,305 155,310" />
+          <path d="M 168,300 Q 173,305 168,310" />
+          <path d="M 180,300 Q 185,305 180,310" />
+          <path d="M 192,300 Q 197,305 192,310" />
+          <path d="M 205,300 Q 210,305 205,310" />
+          <path d="M 162,320 Q 167,325 162,330" />
+          <path d="M 175,320 Q 180,325 175,330" />
+          <path d="M 187,320 Q 192,325 187,330" />
+          <path d="M 199,320 Q 204,325 199,330" />
+        </g>
+        <!-- Feet — tiny triangular marks -->
+        <path d="M 170,365 L 168,372 L 175,370 Z" fill="url(#v19-gold)" opacity="0.7" />
+        <path d="M 190,365 L 192,372 L 185,370 Z" fill="url(#v19-gold)" opacity="0.7" />
+      </g>
+
+      <!-- Perched on a thin branch -->
+      <line x1="140" y1="370" x2="220" y2="370" stroke="url(#v19-gold)" stroke-width="0.55" stroke-opacity="0.7" />
+
+      <!-- Star above (hint of night sky) -->
+      <circle cx="290" cy="150" r="1.6" fill="url(#v19-gold)" opacity="0.85" />
+      <circle cx="80" cy="180" r="1.2" fill="url(#v19-gold)" opacity="0.65" />
+      <circle cx="300" cy="400" r="1" fill="url(#v19-gold)" opacity="0.55" />
+
+      <!-- Top typography -->
+      <text x="180" y="125" text-anchor="middle" fill="url(#v19-gold)" class="brand-text"
+            font-size="7" letter-spacing="4.5" opacity="0.65" font-style="italic">
+        — noctua minervæ —
+      </text>
+
+      <!-- Bottom -->
+      <text x="180" y="430" text-anchor="middle" fill="url(#v19-gold)" class="brand-text"
+            font-size="8" letter-spacing="3.5" opacity="0.68" font-style="italic">
+        wisdom sees in the dark
+      </text>
+
+      <line x1="120" y1="465" x2="165" y2="465" stroke="url(#v19-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+      <circle cx="180" cy="465" r="1" fill="url(#v19-gold)" opacity="0.8" />
+      <line x1="195" y1="465" x2="240" y2="465" stroke="url(#v19-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+
+      <text x="180" y="495" text-anchor="middle" fill="url(#v19-gold)" class="brand-text"
+            font-size="12" letter-spacing="5" opacity="0.92" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">XIX · wisdom</p>
+  <h3 class="concept-title">The Owl</h3>
+  <p class="concept-rationale">
+    Athena's owl — the oldest Western symbol of wisdom, night, and
+    divination. A geometric owl with two luminous eyes perched on a
+    single branch, watching. <em>Noctua Minervæ</em> — the owl of
+    Minerva, which flies only at dusk. Iconic silhouette. Recognizable
+    at 16px. No AI tool claims this — they're too young to.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V20 — THE LABYRINTH
+     A Cretan 7-circuit labyrinth: the oldest divination / journey symbol.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v20-base" cx="50%" cy="45%" r="72%">
+          <stop offset="0%" stop-color="#1d1340" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v20-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v20-base)" />
+
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v20-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- Cretan 7-circuit labyrinth — concentric semi-circles with
+           connective "turns" that make it a single continuous path. -->
+      <g class="v20-path" fill="none" stroke="url(#v20-gold)"
+         stroke-width="0.7" stroke-opacity="0.88" stroke-linecap="round">
+        <!-- 7 concentric arcs, top half -->
+        <path d="M 90,275 A 90,90 0 0,1 270,275" />
+        <path d="M 105,275 A 75,75 0 0,1 255,275" />
+        <path d="M 120,275 A 60,60 0 0,1 240,275" />
+        <path d="M 135,275 A 45,45 0 0,1 225,275" />
+        <path d="M 150,275 A 30,30 0 0,1 210,275" />
+        <path d="M 165,275 A 15,15 0 0,1 195,275" />
+
+        <!-- Connective turns on the bottom, alternating entry/exit -->
+        <!-- Outer ring bottom-right curve -->
+        <path d="M 270,275 A 90,25 0 0,1 180,275" opacity="0.95" />
+        <!-- Right to left connectors (the characteristic labyrinth turns) -->
+        <!-- These create the single-path construction -->
+
+        <!-- Bottom half — mirrored arcs with offset entries -->
+        <path d="M 90,275 L 90,290" />
+        <path d="M 105,275 L 105,295" />
+        <path d="M 120,275 L 120,300" />
+        <path d="M 135,275 L 135,305" />
+        <path d="M 150,275 L 150,310" />
+        <path d="M 165,275 L 165,315" />
+        <path d="M 195,275 L 195,320" />
+        <path d="M 210,275 L 210,325" />
+        <path d="M 225,275 L 225,330" />
+        <path d="M 240,275 L 240,335" />
+        <path d="M 255,275 L 255,340" />
+        <path d="M 270,275 L 270,345" />
+
+        <!-- Horizontal connectors at bottom -->
+        <path d="M 90,290 A 7.5,7.5 0 0,0 105,290 L 105,295" />
+        <path d="M 120,300 A 7.5,7.5 0 0,0 135,300 L 135,305" />
+        <path d="M 150,310 A 7.5,7.5 0 0,0 165,310 L 165,315" />
+        <path d="M 195,320 A 7.5,7.5 0 0,0 210,320 L 210,325" />
+        <path d="M 225,330 A 7.5,7.5 0 0,0 240,330 L 240,335" />
+        <path d="M 255,340 A 7.5,7.5 0 0,0 270,340 L 270,345" />
+      </g>
+
+      <!-- Path-walker — a tiny gold dot traversing the labyrinth (simplified orbit) -->
+      <g class="v20-walker">
+        <circle cx="180" cy="185" r="1.8" fill="url(#v20-gold)" />
+      </g>
+
+      <!-- Center mark — the "prize" at the center of the journey -->
+      <g class="v20-center">
+        <circle cx="180" cy="275" r="4.5" fill="url(#v20-gold)" />
+        <circle cx="180" cy="275" r="0.9" fill="rgba(255,250,220,1)" />
+      </g>
+
+      <!-- Top typography -->
+      <text x="180" y="125" text-anchor="middle" fill="url(#v20-gold)" class="brand-text"
+            font-size="7" letter-spacing="4.5" opacity="0.65" font-style="italic">
+        — labyrinthus —
+      </text>
+
+      <!-- Tagline -->
+      <text x="180" y="430" text-anchor="middle" fill="url(#v20-gold)" class="brand-text"
+            font-size="8" letter-spacing="3.5" opacity="0.7" font-style="italic">
+        every reading is a journey home
+      </text>
+
+      <!-- Bottom -->
+      <line x1="120" y1="465" x2="165" y2="465" stroke="url(#v20-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+      <circle cx="180" cy="465" r="1" fill="url(#v20-gold)" opacity="0.8" />
+      <line x1="195" y1="465" x2="240" y2="465" stroke="url(#v20-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+
+      <text x="180" y="495" text-anchor="middle" fill="url(#v20-gold)" class="brand-text"
+            font-size="12" letter-spacing="5" opacity="0.92" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">XX · mythic</p>
+  <h3 class="concept-title">The Labyrinth</h3>
+  <p class="concept-rationale">
+    The Cretan labyrinth — oldest divinatory symbol in Western culture,
+    4,000+ years. A single path in, a single path out, with the oracle
+    at the center. A tiny gold walker traces the arc; the viewer's
+    eye follows. No dead-ends, no choices — just a winding inevitable
+    journey to the center. The deepest metaphor for a tarot reading
+    compressed to a single recognizable silhouette.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V21 — THE HOURGLASS OF HEAVENS
+     Time + cosmos in one symbol. Sand = stars.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v21-base" cx="50%" cy="45%" r="72%">
+          <stop offset="0%" stop-color="#1c1140" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v21-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v21-base)" />
+
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v21-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- Hourglass vessel: two triangles meeting at a narrow neck.
+           Drawn as outline only. -->
+      <g class="v21-hour" fill="none" stroke="url(#v21-gold)"
+         stroke-width="0.8" stroke-opacity="0.95" stroke-linecap="round">
+        <!-- Top cap (horizontal stroke) -->
+        <line x1="128" y1="175" x2="232" y2="175" stroke-width="1.1" />
+        <!-- Top triangle — sides meet at center neck -->
+        <path d="M 128,175 L 180,275 L 232,175" />
+        <!-- Bottom triangle — sides meet at center neck, open downward -->
+        <path d="M 128,375 L 180,275 L 232,375" />
+        <!-- Bottom cap -->
+        <line x1="128" y1="375" x2="232" y2="375" stroke-width="1.1" />
+      </g>
+
+      <!-- Stars "inside" the top chamber — many tiny dots scattered in triangle -->
+      <g fill="url(#v21-gold)">
+        <circle class="v21-star-in-glass" cx="150" cy="200" r="0.9" />
+        <circle class="v21-star-in-glass" cx="172" cy="195" r="0.7" />
+        <circle class="v21-star-in-glass" cx="195" cy="210" r="0.8" />
+        <circle class="v21-star-in-glass" cx="160" cy="218" r="0.6" />
+        <circle class="v21-star-in-glass" cx="178" cy="228" r="1" />
+        <circle class="v21-star-in-glass" cx="200" cy="230" r="0.65" />
+        <circle class="v21-star-in-glass" cx="168" cy="240" r="0.8" />
+        <circle class="v21-star-in-glass" cx="185" cy="250" r="0.7" />
+        <circle class="v21-star-in-glass" cx="175" cy="262" r="0.9" />
+      </g>
+
+      <!-- A single star falling through the neck — the "moment" -->
+      <circle class="v21-star-in-glass" cx="180" cy="275" r="1.5" fill="url(#v21-gold)"
+              style="filter: drop-shadow(0 0 6px rgba(255,230,150,0.95));" />
+
+      <!-- Stars accumulated at bottom — fewer, larger (they've "landed") -->
+      <g fill="url(#v21-gold)">
+        <circle class="v21-star-in-glass" cx="175" cy="365" r="1.1" />
+        <circle class="v21-star-in-glass" cx="186" cy="368" r="0.9" />
+        <circle class="v21-star-in-glass" cx="165" cy="368" r="0.8" />
+      </g>
+
+      <!-- Top typography -->
+      <text x="180" y="125" text-anchor="middle" fill="url(#v21-gold)" class="brand-text"
+            font-size="7" letter-spacing="4.5" opacity="0.65" font-style="italic">
+        — horologium cæli —
+      </text>
+
+      <!-- Tagline -->
+      <text x="180" y="430" text-anchor="middle" fill="url(#v21-gold)" class="brand-text"
+            font-size="8" letter-spacing="3.5" opacity="0.7" font-style="italic">
+        the hour the stars fell
+      </text>
+
+      <!-- Bottom -->
+      <line x1="120" y1="465" x2="165" y2="465" stroke="url(#v21-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+      <circle cx="180" cy="465" r="1" fill="url(#v21-gold)" opacity="0.8" />
+      <line x1="195" y1="465" x2="240" y2="465" stroke="url(#v21-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+
+      <text x="180" y="495" text-anchor="middle" fill="url(#v21-gold)" class="brand-text"
+            font-size="12" letter-spacing="5" opacity="0.92" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">XXI · chronological</p>
+  <h3 class="concept-title">The Hourglass of Heavens</h3>
+  <p class="concept-rationale">
+    An hourglass whose sand is stars. Time and cosmos compressed into
+    one unambiguous symbol. The narrow neck is "your moment" —
+    <em>the hour the stars fell</em>. Most visually unusual of all the
+    variants; most instantly meme-able. Universal visual language
+    (time / heavens) with a twist (the grains are constellations).
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V22 — THE DIVINER (profile of a woman looking up)
+     Give the brand a FACE. Stylized Greco-Roman profile, classical
+     line art, looking upward toward a single star.
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="card">
+    <svg viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="v22-base" cx="50%" cy="42%" r="72%">
+          <stop offset="0%" stop-color="#1d1340" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="v22-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3dd8e" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+      </defs>
+      <rect width="360" height="540" fill="url(#v22-base)" />
+
+      <rect x="22" y="22" width="316" height="496" rx="8" fill="none"
+            stroke="url(#v22-gold)" stroke-width="0.6" stroke-opacity="0.8" />
+
+      <!-- Greco-Roman female profile, facing right, looking upward.
+           Drawn as a single continuous line capturing: forehead, nose,
+           lips, chin, neck. Hair swept back in a classical bun. -->
+      <g class="v22-profile">
+        <!-- Main profile line: forehead → nose → philtrum → lips → chin → neck -->
+        <path d="M 120,240 Q 130,230 140,232 Q 148,225 156,215 L 168,205
+                 Q 176,210 178,218 L 178,235 Q 183,238 188,240 L 185,248
+                 L 180,254 L 178,265 Q 184,273 192,276 L 196,280 Q 190,290 175,295
+                 L 168,308 L 160,360"
+              fill="none" stroke="url(#v22-gold)"
+              stroke-width="0.9" stroke-opacity="0.95" stroke-linecap="round" />
+
+        <!-- Back of head + hair -->
+        <path d="M 120,240 Q 105,255 100,278 Q 102,308 115,335 L 148,360"
+              fill="none" stroke="url(#v22-gold)"
+              stroke-width="0.9" stroke-opacity="0.95" stroke-linecap="round" />
+
+        <!-- Classical bun -->
+        <ellipse cx="102" cy="300" rx="12" ry="18" fill="none"
+                 stroke="url(#v22-gold)" stroke-width="0.55" stroke-opacity="0.7" />
+        <path d="M 93,292 Q 108,300 93,308" fill="none"
+              stroke="url(#v22-gold)" stroke-width="0.4" stroke-opacity="0.5" />
+
+        <!-- Eye — a single elegant almond with pupil dot -->
+        <path d="M 150,228 Q 160,225 168,228" fill="none"
+              stroke="url(#v22-gold)" stroke-width="0.6" stroke-opacity="0.9" />
+        <circle cx="159" cy="229" r="1.1" fill="url(#v22-gold)" />
+
+        <!-- Eyebrow -->
+        <path d="M 148,222 Q 158,219 168,222" fill="none"
+              stroke="url(#v22-gold)" stroke-width="0.5" stroke-opacity="0.8" />
+
+        <!-- Subtle cheek contour -->
+        <path d="M 135,260 Q 148,272 155,275" fill="none"
+              stroke="url(#v22-gold)" stroke-width="0.3" stroke-opacity="0.4" />
+
+        <!-- Neck line down to suggestion of robe -->
+        <path d="M 148,360 L 150,380 Q 165,388 180,385 L 175,360"
+              fill="none" stroke="url(#v22-gold)"
+              stroke-width="0.5" stroke-opacity="0.65" />
+      </g>
+
+      <!-- The star she gazes at — upper right -->
+      <g class="v22-above-star">
+        <circle cx="240" cy="180" r="2.8" fill="url(#v22-gold)" />
+        <circle cx="240" cy="180" r="0.8" fill="rgba(255,250,220,1)" />
+        <!-- Faint halo -->
+        <circle cx="240" cy="180" r="8" fill="none" stroke="url(#v22-gold)" stroke-width="0.3" stroke-opacity="0.3" />
+      </g>
+
+      <!-- Implicit line of sight — very faint -->
+      <line x1="175" y1="218" x2="238" y2="182" stroke="url(#v22-gold)"
+            stroke-width="0.25" stroke-opacity="0.28" stroke-dasharray="1 3" />
+
+      <!-- Top typography -->
+      <text x="180" y="120" text-anchor="middle" fill="url(#v22-gold)" class="brand-text"
+            font-size="7" letter-spacing="4.5" opacity="0.65" font-style="italic">
+        — the diviner —
+      </text>
+
+      <!-- Tagline -->
+      <text x="180" y="425" text-anchor="middle" fill="url(#v22-gold)" class="brand-text"
+            font-size="8" letter-spacing="3.5" opacity="0.7" font-style="italic">
+        she who reads the sky
+      </text>
+
+      <!-- Bottom -->
+      <line x1="120" y1="455" x2="165" y2="455" stroke="url(#v22-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+      <circle cx="180" cy="455" r="1" fill="url(#v22-gold)" opacity="0.8" />
+      <line x1="195" y1="455" x2="240" y2="455" stroke="url(#v22-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+
+      <text x="180" y="488" text-anchor="middle" fill="url(#v22-gold)" class="brand-text"
+            font-size="12" letter-spacing="5" opacity="0.92" font-style="italic">
+        Olivia Arcana
+      </text>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <p class="concept-label">XXII · figurative</p>
+  <h3 class="concept-title">The Diviner</h3>
+  <p class="concept-rationale">
+    Give the brand a face. Classical Greco-Roman female profile — hair
+    in a traditional bun, gaze lifted to a single star. The most
+    personal of all the variants; the card back becomes a portrait of
+    <em>Olivia herself</em>. A line drawing in the vein of Picasso's
+    profiles, or the silhouettes on coinage. Becomes the brand's
+    signature figure across every touchpoint.
+  </p>
+</section>
+
+</main>
+
+<footer style="text-align: center; padding: 3rem 2rem; color: var(--muted); font-size: 0.85rem; position: relative; z-index: 2;">
+  <p style="margin: 0 0 0.5rem;">Pick one — or remix across directions.</p>
+  <p style="margin: 0; font-size: 0.75rem; opacity: 0.7;">
+    Each mock is static SVG for concept evaluation. The chosen direction
+    will receive the full motion system (canvas starfield, cursor parallax, mount burst, supernova rings).
+  </p>
+</footer>
+
+</body>
+</html>

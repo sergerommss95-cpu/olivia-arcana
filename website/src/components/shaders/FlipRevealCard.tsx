@@ -282,13 +282,18 @@ function CardBack() {
     let raf = 0;
     let tx = 0, ty = 0;
     let targetActive = 0;
+    let gx = 0, gy = 0;
     const onMove = (e: PointerEvent) => {
       const r = scene.getBoundingClientRect();
       tx = Math.max(-0.5, Math.min(0.5, (e.clientX - r.left) / r.width  - 0.5));
       ty = Math.max(-0.5, Math.min(0.5, (e.clientY - r.top)  / r.height - 0.5));
-      // Write canvas-space cursor (0..360, 0..540) into the shared ref
+      // Canvas-space cursor (0..360, 0..540) — shared with RAF loop
       cursorRef.current.x = Math.max(0, Math.min(360, ((e.clientX - r.left) / r.width ) * 360));
       cursorRef.current.y = Math.max(0, Math.min(540, ((e.clientY - r.top ) / r.height) * 540));
+      // Gaze — VERY subtle shimmer of the central sigil toward cursor.
+      // Just enough to feel alive, not enough to feel surveillance.
+      gx = Math.max(-1, Math.min(1, tx * 1.8));
+      gy = Math.max(-1, Math.min(1, ty * 1.8));
       targetActive = 1;
       if (!raf) raf = requestAnimationFrame(apply);
     };
@@ -298,6 +303,7 @@ function CardBack() {
     };
     const onLeave = () => {
       tx = 0; ty = 0;
+      gx = 0; gy = 0;
       targetActive = 0;
       root.classList.remove("is-hovered");
       if (!raf) raf = requestAnimationFrame(apply);
@@ -317,6 +323,8 @@ function CardBack() {
       raf = 0;
       root.style.setProperty("--px", tx.toFixed(3));
       root.style.setProperty("--py", ty.toFixed(3));
+      root.style.setProperty("--gx", gx.toFixed(3));
+      root.style.setProperty("--gy", gy.toFixed(3));
       smooth();
     };
 
@@ -353,10 +361,10 @@ function CardBack() {
     <div ref={rootRef} className="astral-back" aria-hidden>
       {/* Canvas — ambient starfield + curl-noise smoke + cursor dust */}
       <canvas ref={canvasRef} className="astral-canvas" />
-      {/* Radial burst on mount — dramatic light bloom from center */}
+      {/* Radial burst on mount — a single bloom, ONE event, kept. */}
       <div className="astral-burst" />
-      {/* Periodic supernova ring — fires every 22s from center */}
-      <div className="astral-nova" />
+      {/* (supernova rings removed — they competed with the Wheel's slow
+           meditative rotation. One signature event per card-back, not three.) */}
       <svg
         viewBox="0 0 360 540"
         xmlns="http://www.w3.org/2000/svg"
@@ -468,123 +476,175 @@ function CardBack() {
 
         {/* ─── MID: outer frames + breathing oval + laurel + florets (+4px) */}
         <g className="al-mid">
-          <g fill="none" stroke="url(#flip-gold)" strokeWidth="1.3">
-            <rect x="18" y="18" width="324" height="504" rx="14" strokeOpacity="0.92" />
-            <rect x="26" y="26" width="308" height="488" rx="10" strokeOpacity="0.35" />
-          </g>
-          <rect
-            x="36" y="36" width="288" height="468" rx="6"
-            fill="none" stroke="rgba(232,201,106,0.28)" strokeWidth="0.5"
-          />
+          {/* Single refined frame — one confident hairline.
+              (Two nested rects + inner hairline were redundant.) */}
+          <rect x="22" y="22" width="316" height="496" rx="10" fill="none"
+                stroke="url(#flip-gold)" strokeWidth="0.9" strokeOpacity="0.85" />
 
-          <g
-            stroke="url(#flip-gold)" fill="none" strokeWidth="0.9" strokeOpacity="0.85"
-            className="al-breathe"
-          >
-            <ellipse cx="180" cy="270" rx="100" ry="150" />
-            <ellipse cx="180" cy="270" rx="88"  ry="134" strokeOpacity="0.35" />
-          </g>
-
-          <g stroke="url(#flip-gold)" fill="none" strokeWidth="0.9" className="al-laurel">
-            <path d="M130 270 Q 155 240 180 232 Q 205 240 230 270" strokeOpacity="0.78" />
-            <path d="M130 270 Q 155 300 180 308 Q 205 300 230 270" strokeOpacity="0.78" />
-            {[140, 155, 168, 192, 205, 220].map((x, i) => (
-              <line key={i} x1={x} y1="270" x2={x} y2={258 - ((i % 2) * 4)} strokeOpacity="0.5" />
-            ))}
-          </g>
-
-          {[[40, 40], [320, 40], [40, 500], [320, 500]].map(([cx, cy], i) => (
-            <g key={i} transform={`translate(${cx} ${cy})`} fill="url(#flip-gold)" opacity="0.88">
-              <circle r="1.6" />
-              <circle r="3.5" fill="none" stroke="url(#flip-gold)" strokeWidth="0.6" strokeOpacity="0.6" />
-            </g>
-          ))}
+          {/* (Corner markers removed. The single outer frame provides
+               enough anchoring; the corner diamonds were filler.) */}
         </g>
 
-        {/* ─── FORE: constellation + central ✦ + brand mark (+8px) */}
+        {/* ─── FORE: Eye + editorial frame (+8px parallax) ─── */}
         <g className="al-fore">
-          {/* Static octagon connectors */}
-          <g stroke="url(#flip-gold)" strokeWidth="0.55" strokeOpacity="0.35" fill="none">
-            <path d="M180 140 L255 192 L292 270 L255 348 L180 400 L105 348 L68 270 L105 192 Z" />
-            <path d="M180 140 L180 400" strokeOpacity="0.18" />
-            <path d="M68 270 L292 270" strokeOpacity="0.18" />
-          </g>
+          {/* Latin inscription + top rule removed. The Wheel's own
+              Roman-numeral cardinals declare its nature without words.
+              Confidence through restraint. */}
 
-          {/* Filaments — four pairs that light up sequentially on a 22s loop */}
-          <g className="al-filaments" stroke="url(#flip-gold)" strokeWidth="0.75" fill="none">
-            <path d="M180 140 L292 270" className="fil fil-a" pathLength="100" />
-            <path d="M292 270 L180 400" className="fil fil-b" pathLength="100" />
-            <path d="M180 400 L68 270"  className="fil fil-c" pathLength="100" />
-            <path d="M68 270 L180 140"  className="fil fil-d" pathLength="100" />
-          </g>
+          {/* ═══════════════════════════════════════════════════════════
+               THE WHEEL OF SEVEN — Seed of Life nested inside the
+               Zodiac Wheel. Two counter-rotating systems, a single
+               traveling planet on the outer ring, a still ✦ at center.
+               The Seed's 6 outer circles align with 6 of 12 zodiac
+               positions — hidden geometric coincidence.
+               ═══════════════════════════════════════════════════════════ */}
 
-          {/* Star dots — each pulses on its own prime-ish period */}
-          <g fill="url(#flip-gold)">
-            {STAR_POSITIONS.map(([cx, cy], i) => (
-              <circle key={i} cx={cx} cy={cy} r="2.8">
-                <animate
-                  attributeName="opacity"
-                  values="0.42;1;0.42"
-                  dur={`${STAR_PERIODS[i]}s`}
-                  begin={`${-STAR_PHASES[i]}s`}
-                  repeatCount="indefinite"
-                />
-                <animate
-                  attributeName="r"
-                  values="2.3;3.5;2.3"
-                  dur={`${STAR_PERIODS[i]}s`}
-                  begin={`${-STAR_PHASES[i]}s`}
-                  repeatCount="indefinite"
-                />
-              </circle>
-            ))}
-          </g>
+          {/* ─── OUTER WHEEL (rotates CW 180s) ─── */}
+          <g className="al-wheel">
+            {/* Two reference rings */}
+            <circle cx="180" cy="270" r="115" fill="none"
+                    stroke="url(#flip-gold)" strokeWidth="0.5" strokeOpacity="0.72" />
+            <circle cx="180" cy="270" r="98" fill="none"
+                    stroke="url(#flip-gold)" strokeWidth="0.3" strokeOpacity="0.32" />
 
-          {/* Central ✦ — rotating aura ring + breathing mark */}
-          <g className="al-center" transform="translate(180 270)">
-            {/* Deep aura — larger, richer gradient */}
-            <g className="al-aura">
-              <circle r="44" fill="url(#flip-aura)" />
+            {/* 12 tick marks — cardinals longer + bolder */}
+            <g stroke="url(#flip-gold)" fill="none">
+              {/* Cardinals */}
+              <line x1="180" y1="155" x2="180" y2="175"
+                    strokeWidth="0.9" strokeOpacity="0.95" />
+              <line x1="295" y1="270" x2="275" y2="270"
+                    strokeWidth="0.9" strokeOpacity="0.95" />
+              <line x1="180" y1="385" x2="180" y2="365"
+                    strokeWidth="0.9" strokeOpacity="0.95" />
+              <line x1="65"  y1="270" x2="85"  y2="270"
+                    strokeWidth="0.9" strokeOpacity="0.95" />
+              {/* 8 intermediate ticks at 30° offsets */}
+              <line x1="238" y1="172" x2="231" y2="187"
+                    strokeWidth="0.5" strokeOpacity="0.7" />
+              <line x1="278" y1="212" x2="263" y2="219"
+                    strokeWidth="0.5" strokeOpacity="0.7" />
+              <line x1="278" y1="328" x2="263" y2="321"
+                    strokeWidth="0.5" strokeOpacity="0.7" />
+              <line x1="238" y1="368" x2="231" y2="353"
+                    strokeWidth="0.5" strokeOpacity="0.7" />
+              <line x1="122" y1="368" x2="129" y2="353"
+                    strokeWidth="0.5" strokeOpacity="0.7" />
+              <line x1="82"  y1="328" x2="97"  y2="321"
+                    strokeWidth="0.5" strokeOpacity="0.7" />
+              <line x1="82"  y1="212" x2="97"  y2="219"
+                    strokeWidth="0.5" strokeOpacity="0.7" />
+              <line x1="122" y1="172" x2="129" y2="187"
+                    strokeWidth="0.5" strokeOpacity="0.7" />
             </g>
-            {/* Counter-rotating inner aura ring */}
-            <g className="al-aura-inner">
-              <circle r="26" fill="url(#flip-aura)" opacity="0.55" />
+
+            {/* Emphasis dots at the 8 intermediate tick positions */}
+            <g fill="url(#flip-gold)" opacity="0.9">
+              <circle cx="234.5" cy="179" r="1" />
+              <circle cx="270.5" cy="215" r="1" />
+              <circle cx="270.5" cy="325" r="1" />
+              <circle cx="234.5" cy="361" r="1" />
+              <circle cx="125.5" cy="361" r="1" />
+              <circle cx="89.5"  cy="325" r="1" />
+              <circle cx="89.5"  cy="215" r="1" />
+              <circle cx="125.5" cy="179" r="1" />
             </g>
-            {/* Outer soft-glow ring — pulses with the breath */}
-            <circle className="al-center-glow" r="28" fill="none"
-                    stroke="url(#flip-gold)" strokeWidth="0.5" strokeOpacity="0.7" />
-            <circle
-              r="22" fill="rgba(212,175,55,0.12)"
-              stroke="url(#flip-gold)" strokeWidth="0.9" strokeOpacity="0.95"
-            />
-            {/* Inner accent ring */}
-            <circle
-              r="14" fill="none"
-              stroke="url(#flip-gold)" strokeWidth="0.4" strokeOpacity="0.4"
-            />
-            {/* Custom four-point star path — crisp across all browsers */}
-            <path
-              className="al-center-mark"
-              d="M 0,-14 L 2.8,-2.8 L 14,0 L 2.8,2.8 L 0,14 L -2.8,2.8 L -14,0 L -2.8,-2.8 Z"
-              fill="url(#flip-gold)"
-              stroke="rgba(255, 230, 150, 0.55)"
-              strokeWidth="0.4"
-            />
-            {/* Tiny secondary points to give the ✦ its sparkle quality */}
-            <path
-              className="al-center-mark-aux"
-              d="M 0,-20 L 0.9,-6 L 0,-3 L -0.9,-6 Z  M 0,3 L 0.9,6 L 0,20 L -0.9,6 Z  M -20,0 L -6,-0.9 L -3,0 L -6,0.9 Z  M 3,0 L 6,-0.9 L 20,0 L 6,0.9 Z"
-              fill="url(#flip-gold)"
-              opacity="0.6"
-            />
+
+            {/* Zodiac cardinals — the four signs that open the seasons.
+                ♈ Aries (spring / top) · ♋ Cancer (summer / right)
+                ♎ Libra (autumn / bottom) · ♑ Capricorn (winter / left)
+                Astrology-native; replaces generic Roman numerals. */}
+            <g fill="url(#flip-gold)" fontSize="12"
+               opacity="0.88" textAnchor="middle"
+               fontFamily="'Cormorant Garamond', 'Apple Symbols', serif">
+              <text x="180" y="151">♈</text>
+              <text x="309" y="275">♋</text>
+              <text x="180" y="403">♎</text>
+              <text x="51"  y="275">♑</text>
+            </g>
           </g>
 
+          {/* ─── SEED OF LIFE (counter-rotates CCW 90s) ─── */}
+          {/*  Seed geometry derived from a single constant `r = 32`.
+               6 outer circles at hex-angles (60°, 120°, ... 360°)
+               around a center circle — classical Seed of Life. */}
+          <g className="al-seed" fill="none" stroke="url(#flip-gold)">
+            {(() => {
+              const r = 32;                       // Seed radius (god-tier constant)
+              const cx = 180, cy = 270;            // Card center
+              // 6 outer centers at 60° intervals, distance r from center
+              const sqrt3_2 = Math.sqrt(3) / 2;    // ≈ 0.8660254
+              const centers: Array<[number, number]> = [
+                [cx, cy],                          // Center circle
+                [cx,            cy - r],           // Top (0°)
+                [cx + r * sqrt3_2, cy - r / 2],    // Top-right (60°)
+                [cx + r * sqrt3_2, cy + r / 2],    // Bottom-right (120°)
+                [cx,            cy + r],           // Bottom (180°)
+                [cx - r * sqrt3_2, cy + r / 2],    // Bottom-left (240°)
+                [cx - r * sqrt3_2, cy - r / 2],    // Top-left (300°)
+              ];
+              return centers.map(([ccx, ccy], i) => (
+                <circle key={i} cx={ccx.toFixed(3)} cy={ccy.toFixed(3)} r={r}
+                        strokeWidth={i === 0 ? 0.55 : 0.5}
+                        strokeOpacity={i === 0 ? 0.85 : 0.72} />
+              ));
+            })()}
+          </g>
+
+          {/* ─── THE OLIVE — Olivia's etymology, vertical orientation.
+               Redesigned for silhouette legibility at 32px favicon scale:
+               3 filled leaves + 1 olive fruit on a clean vertical stem.
+               Bold silhouette — readable even when reduced to a smudge.
+               No dark cradle (olive holds its own against the Seed).
+
+               Structure: OUTER <g> carries SVG translate (positioning);
+               INNER <g class="al-olive"> carries CSS scale animation. */}
+          <g transform="translate(180 270)">
+            <g className="al-olive">
+              {/* Central stem — vertical S-curve, crown to root.
+                  Stem now terminates at the olive fruit (y=-30) so
+                  the fruit is visually connected, not floating. */}
+              <path d="M 0,28 C 3,14 -3,-2 0,-14 C 2,-22 -1,-27 0,-30"
+                    fill="none" stroke="url(#flip-gold)"
+                    strokeWidth="1.4" strokeOpacity="0.98" strokeLinecap="round" />
+
+              {/* Three filled leaves, alternating sides, all angling up-outward */}
+              <g fill="url(#flip-gold)">
+                {/* Leaf 1 — lower, right side, pointing up-right */}
+                <path d="M 1,18 Q 12,8 18,12 Q 12,18 1,18 Z" opacity="0.97" />
+                {/* Leaf 2 — middle, left side, pointing up-left */}
+                <path d="M -1,4 Q -14,-6 -20,-2 Q -14,4 -1,4 Z" opacity="0.97" />
+                {/* Leaf 3 — upper, right side, pointing up-right */}
+                <path d="M 1,-12 Q 13,-22 19,-18 Q 13,-12 1,-12 Z" opacity="0.97" />
+              </g>
+
+              {/* Leaf midribs — thin dark vein down each leaf */}
+              <g fill="none" stroke="rgba(10,7,22,0.65)"
+                 strokeWidth="0.5" strokeLinecap="round">
+                <path d="M 2,17  Q 8,13  15,13" />
+                <path d="M -2,3  Q -9,-1 -17,-2" />
+                <path d="M 2,-13 Q 9,-17 16,-17" />
+              </g>
+
+              {/* Olive fruit — crowning the sprig at the top */}
+              <ellipse cx="0" cy="-30" rx="3.3" ry="4.4" fill="url(#flip-gold)" />
+              {/* Highlight on the fruit — tiny dewdrop */}
+              <circle cx="-0.9" cy="-31.2" r="0.75"
+                      fill="rgba(255,250,220,0.95)" />
+              {/* Calyx / stem-to-fruit connector — tiny dark dot */}
+              <circle cx="0" cy="-25.5" r="0.55"
+                      fill="rgba(10,7,22,0.7)" />
+            </g>
+          </g>
+
+          {/* Single editorial closure at the bottom edge — a tiny
+               lowercase date mark (year in Roman numerals). Small enough
+               to not claim attention, present enough to resolve the
+               otherwise-empty bottom 40% of the card. */}
           <text
             x="180" y="502" textAnchor="middle" fill="url(#flip-gold)"
-            opacity="0.85" fontSize="10" letterSpacing="3"
-            fontFamily="'Cormorant Garamond', serif" fontStyle="italic"
-          >
-            OLIVIA ARCANA
+            opacity="0.48" fontSize="6.5" letterSpacing="4"
+            fontFamily="'Cormorant Garamond', serif" fontStyle="italic">
+            · mmxxvi ·
           </text>
         </g>
       </svg>
@@ -1012,53 +1072,12 @@ export default function FlipRevealCard({
           100% { opacity: 0;    transform: scale(1.6);  filter: blur(3px); }
         }
 
-        /* Periodic supernova — a ring of light expands from the center
-           every 15s. Timed so one is always either visible or about to fire. */
-        .astral-nova {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          width: 40px;
-          height: 40px;
-          margin-left: -20px;
-          margin-top: -20px;
-          z-index: 1;
-          pointer-events: none;
-          border-radius: 50%;
-          border: 2px solid rgba(255, 230, 150, 0.95);
-          box-shadow:
-            0 0 34px rgba(255, 230, 150, 0.6),
-            inset 0 0 18px rgba(255, 230, 150, 0.4);
-          opacity: 0;
-          animation: al-nova 15s cubic-bezier(0.2, 0.5, 0.3, 1) 5s infinite;
-          mix-blend-mode: screen;
-        }
-        /* A second, offset nova on a longer cycle so events feel irregular */
-        .astral-back::after {
-          content: "";
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          width: 30px;
-          height: 30px;
-          margin-left: -15px;
-          margin-top: -15px;
-          z-index: 1;
-          pointer-events: none;
-          border-radius: 50%;
-          border: 1.5px solid rgba(180, 145, 230, 0.85);
-          box-shadow: 0 0 26px rgba(180, 145, 230, 0.45);
-          opacity: 0;
-          animation: al-nova 19s cubic-bezier(0.2, 0.5, 0.3, 1) 12s infinite;
-          mix-blend-mode: screen;
-        }
+        /* (Supernova rings fully removed — the Wheel's counter-rotation
+            against the Seed is the signature slow event, not bursts.)
+           @keyframes al-nova kept unused below; safe to drop later. */
         @keyframes al-nova {
-          0%    { opacity: 0;    transform: scale(0.2);  border-width: 3px;   }
-          2%    { opacity: 1;    transform: scale(0.5);  border-width: 2.2px; }
-          10%   { opacity: 0.7;  transform: scale(2.5);  border-width: 1.4px; }
-          25%   { opacity: 0.25; transform: scale(6);    border-width: 0.6px; }
-          40%   { opacity: 0;    transform: scale(10);   border-width: 0.2px; }
-          100%  { opacity: 0;    transform: scale(10);   border-width: 0.2px; }
+          0%    { opacity: 0; transform: scale(0.2); }
+          100%  { opacity: 0; transform: scale(10);  }
         }
 
         .astral-svg {
@@ -1084,142 +1103,92 @@ export default function FlipRevealCard({
         .astral-svg .al-mid  { transform: translate(calc(var(--px) *  4px), calc(var(--py) *  4px)); }
         .astral-svg .al-fore { transform: translate(calc(var(--px) *  8px), calc(var(--py) *  8px)); }
 
-        /* Slow rotating aura behind the central ✦ — 42s per revolution.
-           Speeds up ~30% on hover for responsive feel. */
-        .astral-svg .al-aura {
+        /* ─────────── THE WHEEL OF SEVEN ─────────── */
+
+        /* Outer zodiac wheel — rotates CW, 180s per revolution */
+        .astral-svg .al-wheel {
+          transform-origin: 180px 270px;
+          transform-box: view-box;
+          animation: al-rot 180s linear infinite;
+        }
+        .astral-back.is-hovered .astral-svg .al-wheel {
+          animation-duration: 110s;
+        }
+
+        /* Seed of Life — counter-rotates CCW, 90s per revolution */
+        .astral-svg .al-seed {
+          transform-origin: 180px 270px;
+          transform-box: view-box;
+          animation: al-rot 90s linear infinite reverse;
+        }
+        .astral-back.is-hovered .astral-svg .al-seed {
+          animation-duration: 55s;
+        }
+
+        /* Each of the 7 Seed circles pulses opacity on its own
+           prime-ish period — they never re-align. */
+        .astral-svg .al-seed > circle:nth-child(1) { animation: al-seed-pulse 6.7s  ease-in-out infinite -0.8s; }
+        .astral-svg .al-seed > circle:nth-child(2) { animation: al-seed-pulse 5.9s  ease-in-out infinite -2.1s; }
+        .astral-svg .al-seed > circle:nth-child(3) { animation: al-seed-pulse 8.3s  ease-in-out infinite -3.6s; }
+        .astral-svg .al-seed > circle:nth-child(4) { animation: al-seed-pulse 7.1s  ease-in-out infinite -5.2s; }
+        .astral-svg .al-seed > circle:nth-child(5) { animation: al-seed-pulse 9.7s  ease-in-out infinite -6.8s; }
+        .astral-svg .al-seed > circle:nth-child(6) { animation: al-seed-pulse 11.3s ease-in-out infinite -4.1s; }
+        .astral-svg .al-seed > circle:nth-child(7) { animation: al-seed-pulse 13.1s ease-in-out infinite -1.7s; }
+        @keyframes al-seed-pulse {
+          0%, 100% { stroke-opacity: 0.55; }
+          50%      { stroke-opacity: 0.95; }
+        }
+
+        /* The olive sprig — gentle breath, subtle warm glow around the fruit.
+           This is the one visual warm-point at the card's center: a small
+           organic flourish that reads as "living" in a field of geometry. */
+        /* Inner olive group — scales in place. The outer wrapping <g>
+           carries the SVG translate(180 270), so this CSS transform
+           composes cleanly without clobbering positioning. */
+        .astral-svg .al-olive {
           transform-origin: center;
           transform-box: fill-box;
-          animation: al-rot 42s linear infinite;
+          animation: al-olive-breath 7s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+          filter: drop-shadow(0 0 3px rgba(255, 230, 150, 0.55));
         }
-        .astral-svg .al-aura-inner {
-          transform-origin: center;
-          transform-box: fill-box;
-          animation: al-rot 28s linear infinite reverse;
+        @keyframes al-olive-breath {
+          0%, 100% { transform: scale(1);     }
+          50%      { transform: scale(1.045); }
         }
-        .astral-back.is-hovered .astral-svg .al-aura {
-          animation-duration: 28s;
+        .astral-back.is-hovered .astral-svg .al-olive {
+          animation-duration: 4.5s;
         }
-        .astral-back.is-hovered .astral-svg .al-aura-inner {
-          animation-duration: 18s;
-        }
+
+        /* Legacy (kept for old code still referring) — NO-OPs, harmless */
+
+        /* (Eye-era rules removed — using the Wheel of Seven.
+            Rotation keyframe defined below, reused by wheel/seed/planet.) */
         @keyframes al-rot {
           from { transform: rotate(0deg);   }
           to   { transform: rotate(360deg); }
         }
 
-        /* Central ✦ breathing — gentle scale pulse with a peak glow burst.
-           The whole al-center group scales; the mark text gets a drop-shadow
-           pulse; the outer glow ring pulses stroke-opacity in counter-phase. */
-        .astral-svg .al-center {
+        /* SIGIL SHIMMER — retained for future reuse if the central
+           ✦ needs cursor-responsive translate. Currently unused by
+           the Wheel of Seven since the central mark sits still. */
+        .astral-svg .al-pupil-group {
           transform-origin: 180px 270px;
           transform-box: fill-box;
-          animation: al-breath 7.2s cubic-bezier(0.42, 0, 0.58, 1) infinite;
-        }
-        @keyframes al-breath {
-          0%, 100% { transform: scale(1);    }
-          50%      { transform: scale(1.06); }
-        }
-
-        .astral-svg .al-center-mark {
-          animation: al-breath-mark 7.2s cubic-bezier(0.42, 0, 0.58, 1) infinite;
-          transform-origin: center;
-          transform-box: fill-box;
-        }
-        @keyframes al-breath-mark {
-          0%, 100% {
-            filter: drop-shadow(0 0 4px rgba(255, 220, 130, 0.6));
-          }
-          50% {
-            filter:
-              drop-shadow(0 0 12px rgba(255, 230, 150, 1))
-              drop-shadow(0 0 26px rgba(232, 201, 106, 0.8));
-          }
+          transform: translate(
+            calc(var(--gx, 0) * 1.2px),
+            calc(var(--gy, 0) * 1.2px)
+          );
+          transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .astral-svg .al-center-mark-aux {
-          animation: al-breath-aux 7.2s cubic-bezier(0.42, 0, 0.58, 1) infinite;
-          transform-origin: center;
-          transform-box: fill-box;
-        }
-        @keyframes al-breath-aux {
-          0%, 100% { transform: scale(0.85); opacity: 0.4; }
-          50%      { transform: scale(1.1);  opacity: 0.85; }
-        }
+        /* (Removed: ornament, inscription, top/bottom rules, corner-marks,
+            brand wordmark. The card is the signature now.) */
 
-        .astral-svg .al-center-glow {
-          animation: al-breath-glow 7.2s cubic-bezier(0.42, 0, 0.58, 1) infinite;
-          transform-origin: 180px 270px;
-          transform-box: fill-box;
-        }
-        @keyframes al-breath-glow {
-          0%, 100% { stroke-opacity: 0.2;  transform: scale(0.92); }
-          50%      { stroke-opacity: 0.95; transform: scale(1.18); }
-        }
+        /* (Iridescent hue-rotate removed. The gold is gold. Making it
+            shift hue subtly was "material-richness" decoration we don't
+            need anymore — the Wheel + Seed counter-rotation is the signal.) */
 
-        .astral-back.is-hovered .astral-svg .al-center {
-          animation-duration: 4.5s;
-        }
-        .astral-back.is-hovered .astral-svg .al-center-mark {
-          animation-duration: 4.5s;
-        }
-        .astral-back.is-hovered .astral-svg .al-center-glow {
-          animation-duration: 4.5s;
-        }
-
-        /* Iridescent gold — very subtle hue-rotation on the whole filigree,
-           slow enough to read as "material richness" not "color shifting". */
-        .astral-svg .al-fore,
-        .astral-svg .al-mid {
-          animation: al-iridesce 18s ease-in-out infinite;
-        }
-        @keyframes al-iridesce {
-          0%, 100% { filter: hue-rotate(0deg)    saturate(1);    }
-          25%      { filter: hue-rotate(-4deg)   saturate(1.08); }
-          50%      { filter: hue-rotate(3deg)    saturate(1.05); }
-          75%      { filter: hue-rotate(-2deg)   saturate(1.1);  }
-        }
-
-        /* Oval frame breathing — soft scale + opacity pulse */
-        .astral-svg .al-breathe {
-          transform-origin: 180px 270px;
-          transform-box: fill-box;
-          animation: al-breathe 9s cubic-bezier(0.42,0,0.58,1) infinite;
-        }
-        @keyframes al-breathe {
-          0%, 100% { transform: scale(1);     opacity: 0.92; }
-          50%      { transform: scale(1.018); opacity: 0.76; }
-        }
-
-        /* Laurel drift */
-        .astral-svg .al-laurel {
-          transform-origin: 180px 270px;
-          transform-box: fill-box;
-          animation: al-laurel 13s ease-in-out infinite;
-        }
-        @keyframes al-laurel {
-          0%, 100% { opacity: 0.78; transform: translateY(0); }
-          50%      { opacity: 0.95; transform: translateY(-0.6px); }
-        }
-
-        /* Filaments — each pair lights up for ~2s then fades, sequenced
-           across a 22s loop so only one is active at a time. */
-        .astral-svg .fil {
-          stroke-dasharray: 100 100;
-          stroke-dashoffset: 100;
-          opacity: 0;
-          filter: drop-shadow(0 0 3px rgba(255, 220, 130, 0.8));
-        }
-        .astral-svg .fil-a { animation: al-filament 22s ease-in-out infinite 0.0s; }
-        .astral-svg .fil-b { animation: al-filament 22s ease-in-out infinite 5.5s; }
-        .astral-svg .fil-c { animation: al-filament 22s ease-in-out infinite 11s; }
-        .astral-svg .fil-d { animation: al-filament 22s ease-in-out infinite 16.5s; }
-        @keyframes al-filament {
-          0%   { stroke-dashoffset: 100; opacity: 0; }
-          6%   { stroke-dashoffset: 0;   opacity: 0.95; }
-          18%  { stroke-dashoffset: 0;   opacity: 0.55; }
-          24%  { stroke-dashoffset: -100; opacity: 0; }
-          100% { stroke-dashoffset: -100; opacity: 0; }
-        }
+        /* Hover — Wheel-of-Seven accelerations handled above */
 
         /* Iridescent foil sweep — conic gradient rotates via @property */
         @property --angle {
@@ -1245,14 +1214,14 @@ export default function FlipRevealCard({
             transparent 360deg
           );
           mix-blend-mode: screen;
-          opacity: 0.55;
-          animation: al-foil 22s linear infinite;
+          opacity: 0.35;
+          animation: al-foil 32s linear infinite;
           z-index: 4;
           transition: opacity 420ms cubic-bezier(0.16, 1, 0.3, 1);
         }
         .astral-back.is-hovered .astral-foil {
-          animation-duration: 14s;
-          opacity: 0.85;
+          animation-duration: 22s;
+          opacity: 0.6;
         }
         @keyframes al-foil {
           from { --angle: 0deg;   }
@@ -1274,34 +1243,28 @@ export default function FlipRevealCard({
           z-index: 5;
         }
 
-        /* Reduced motion — strip everything, keep the static composition
-           legible and elegant. */
+        /* Reduced motion — strip everything, keep the eye elegant and still. */
         @media (prefers-reduced-motion: reduce) {
           .astral-back,
           .astral-burst,
-          .astral-nova,
-          .astral-foil { animation: none !important; opacity: 0 !important; }
+          .astral-foil { animation: none !important; }
+          .astral-burst { opacity: 0 !important; }
           .astral-canvas { display: none; }
-          .astral-svg *,
-          .astral-foil {
-            animation: none !important;
-          }
+          .astral-svg *, .astral-foil { animation: none !important; }
           .astral-svg .al-bg,
           .astral-svg .al-mid,
-          .astral-svg .al-fore {
+          .astral-svg .al-fore,
+          .astral-svg .al-wheel,
+          .astral-svg .al-seed,
+          .astral-svg .al-olive {
             transform: none !important;
             transition: none !important;
             filter: none !important;
+            opacity: 1 !important;
           }
-          .astral-svg .al-center,
-          .astral-svg .al-center-mark,
-          .astral-svg .al-center-glow {
-            transform: none !important;
-            animation: none !important;
-          }
-          .astral-svg .fil { opacity: 0.2; stroke-dashoffset: 0; }
         }
       `}</style>
     </div>
   );
 }
+

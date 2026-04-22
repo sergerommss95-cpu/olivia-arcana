@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Olivia Arcana — The Final Five</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --gold-0: #f7e39a;
+    --gold-1: #e8c96a;
+    --gold-2: #D4AF37;
+    --gold-3: #8a6818;
+    --indigo-0: #241447;
+    --indigo-1: #14092e;
+    --indigo-2: #0a0720;
+    --void: #04030c;
+    --text: rgba(245, 240, 232, 0.92);
+    --muted: rgba(200, 185, 255, 0.58);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: radial-gradient(ellipse at 50% 15%, #1f1340 0%, #0b0720 55%, #04030c 100%);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background-image:
+      radial-gradient(0.9px 0.9px at 8% 22%,  rgba(255,230,150,0.38) 50%, transparent 100%),
+      radial-gradient(0.8px 0.8px at 78% 34%, rgba(255,230,150,0.32) 50%, transparent 100%),
+      radial-gradient(0.7px 0.7px at 42% 68%, rgba(255,255,220,0.28) 50%, transparent 100%),
+      radial-gradient(1px 1px at 92% 82%,     rgba(255,230,150,0.28) 50%, transparent 100%),
+      radial-gradient(0.8px 0.8px at 18% 88%, rgba(255,230,150,0.22) 50%, transparent 100%),
+      radial-gradient(0.7px 0.7px at 58% 12%, rgba(255,230,150,0.25) 50%, transparent 100%),
+      radial-gradient(0.8px 0.8px at 28% 48%, rgba(255,230,150,0.18) 50%, transparent 100%);
+    background-size: 900px 900px, 700px 700px, 500px 500px, 800px 800px, 1000px 1000px, 750px 750px, 600px 600px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header {
+    position: relative;
+    z-index: 2;
+    padding: 5rem 2rem 2rem;
+    text-align: center;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  header .eyebrow {
+    font-size: 0.68rem; letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: rgba(232, 201, 106, 0.82);
+    margin: 0 0 1.2rem;
+    font-weight: 500;
+  }
+  header h1 {
+    font-size: clamp(2.5rem, 5.2vw, 4.2rem);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.015em;
+    line-height: 1.02;
+    margin: 0 0 1.5rem;
+  }
+  header .sub {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto;
+    font-style: italic;
+  }
+  header .divider {
+    width: 2px;
+    height: 64px;
+    margin: 3rem auto 0;
+    background: linear-gradient(to bottom,
+      transparent,
+      rgba(232,201,106,0.6),
+      transparent);
+  }
+
+  main.stage {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8rem;
+    padding: 6rem 2rem 10rem;
+  }
+
+  .contender {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    max-width: 620px;
+  }
+  .contender .numeral {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: rgba(232, 201, 106, 0.78);
+    font-weight: 500;
+  }
+  .contender h2 {
+    font-size: 2rem;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: rgba(245, 240, 232, 0.98);
+  }
+  .contender .argument {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--muted);
+    text-align: center;
+    max-width: 520px;
+    font-style: italic;
+  }
+  .contender .argument em {
+    color: rgba(232, 201, 106, 0.95);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .card {
+    width: 480px; height: 720px;
+    max-width: 100%;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow:
+      0 50px 100px rgba(0,0,0,0.6),
+      0 0 60px rgba(212,175,55,0.15),
+      inset 0 0 0 1px rgba(232,201,106,0.2);
+    background: #0b0822;
+    position: relative;
+    isolation: isolate;
+    --px: 0; --py: 0;
+  }
+  .card canvas.bg {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    mix-blend-mode: screen;
+    opacity: 0.88;
+    pointer-events: none;
+  }
+  .card svg.art {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Layered depth — each "layer" class translates by different amount */
+  .card [data-depth="bg"]   { transform: translate(calc(var(--px) * -3px), calc(var(--py) * -3px)); transition: transform 520ms cubic-bezier(0.16,1,0.3,1); }
+  .card [data-depth="mid"]  { transform: translate(calc(var(--px) *  4px), calc(var(--py) *  4px)); transition: transform 520ms cubic-bezier(0.16,1,0.3,1); }
+  .card [data-depth="fg"]   { transform: translate(calc(var(--px) *  8px), calc(var(--py) *  8px)); transition: transform 520ms cubic-bezier(0.16,1,0.3,1); }
+
+  /* Iridescent foil — uses @property for animated conic */
+  @property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+  @keyframes foil { from { --angle: 0deg; } to { --angle: 360deg; } }
+  .card .foil {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: conic-gradient(
+      from var(--angle, 0deg) at 52% 48%,
+      transparent 0deg,
+      rgba(232,201,106,0.06) 40deg,
+      transparent 90deg,
+      rgba(180,145,230,0.08) 150deg,
+      transparent 200deg,
+      rgba(120,220,220,0.05) 250deg,
+      transparent 300deg,
+      rgba(232,201,106,0.06) 350deg,
+      transparent 360deg
+    );
+    mix-blend-mode: screen;
+    opacity: 0.5;
+    animation: foil 28s linear infinite;
+    z-index: 3;
+  }
+  .card .vignette {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 52% 42%, transparent 50%, rgba(5,3,20,0.36) 100%);
+    mix-blend-mode: multiply;
+    z-index: 4;
+  }
+
+  /* Mount emerge animation — fires once per card on first in-viewport */
+  @keyframes mount-emerge {
+    0%   { opacity: 0; filter: blur(8px) brightness(0.4); transform: scale(0.97); }
+    60%  { opacity: 1; filter: blur(1px) brightness(1.1);  transform: scale(1.005); }
+    100% { opacity: 1; filter: blur(0)   brightness(1);    transform: scale(1); }
+  }
+  .card.mounted { animation: mount-emerge 1.6s cubic-bezier(0.16,1,0.3,1) both; }
+
+  /* Shared keyframes */
+  @keyframes rot    { from { transform: rotate(0deg);  } to { transform: rotate(360deg);  } }
+  @keyframes rotR   { from { transform: rotate(0deg);  } to { transform: rotate(-360deg); } }
+  @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+  @keyframes breathOp { 0%,100% { opacity: 0.7; } 50% { opacity: 1; } }
+  @keyframes twinkle { 0%,100% { opacity: 0.35; } 50% { opacity: 1; } }
+  @keyframes sway {
+    0%, 100% { transform: rotate(-0.4deg) translateY(0); }
+    50%      { transform: rotate(0.4deg)  translateY(-1.5px); }
+  }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(3px, -2px); }
+  }
+
+  /* ─── Olive (I) ─── */
+  .olive-branch { transform-origin: 260px 450px; transform-box: view-box; animation: sway 11s ease-in-out infinite; }
+  .olive-leaf { animation: breathOp 8s ease-in-out infinite; filter: drop-shadow(0 0 1px rgba(232,201,106,0.45)); }
+  .olive-leaf:nth-child(2n)   { animation-delay: -1.6s; animation-duration: 6.3s; }
+  .olive-leaf:nth-child(3n)   { animation-delay: -3.4s; animation-duration: 9.1s; }
+  .olive-leaf:nth-child(5n)   { animation-delay: -5.8s; animation-duration: 7.7s; }
+  .olive-fruit { animation: twinkle 8s ease-in-out infinite; filter: drop-shadow(0 0 3px rgba(255,230,150,0.7)); }
+  .olive-fruit:nth-child(2) { animation-delay: -2.3s; }
+  .olive-fruit:nth-child(3) { animation-delay: -4.7s; }
+  .olive-star { animation: breath 5s ease-in-out infinite; filter: drop-shadow(0 0 10px rgba(255,230,150,0.95)) drop-shadow(0 0 22px rgba(232,201,106,0.55)); }
+
+  /* ─── Wheel of Seven (II) ─── */
+  .wos-wheel { transform-origin: 240px 380px; transform-box: view-box; animation: rot 240s linear infinite; }
+  .wos-seed  { transform-origin: 240px 380px; transform-box: view-box; animation: rotR 120s linear infinite; }
+  .wos-planet { transform-origin: 240px 380px; transform-box: view-box; animation: rot 56s linear infinite; filter: drop-shadow(0 0 5px rgba(255,230,150,0.95)); }
+  .wos-star { transform-origin: 240px 380px; transform-box: view-box; animation: breath 5.5s ease-in-out infinite; filter: drop-shadow(0 0 8px rgba(255,230,150,1)) drop-shadow(0 0 22px rgba(232,201,106,0.5)); }
+  .wos-halo { animation: breathOp 11s ease-in-out infinite; }
+  .wos-seed > circle:nth-child(1) { animation: breathOp 6.7s ease-in-out infinite -0.8s; }
+  .wos-seed > circle:nth-child(2) { animation: breathOp 5.9s ease-in-out infinite -2.1s; }
+  .wos-seed > circle:nth-child(3) { animation: breathOp 8.3s ease-in-out infinite -3.6s; }
+  .wos-seed > circle:nth-child(4) { animation: breathOp 7.1s ease-in-out infinite -5.2s; }
+  .wos-seed > circle:nth-child(5) { animation: breathOp 9.7s ease-in-out infinite -6.8s; }
+  .wos-seed > circle:nth-child(6) { animation: breathOp 11.3s ease-in-out infinite -4.1s; }
+  .wos-seed > circle:nth-child(7) { animation: breathOp 13.1s ease-in-out infinite -1.7s; }
+
+  /* ─── Pleiades (III) ─── */
+  .pleiades-star { animation: twinkle 5s ease-in-out infinite; filter: drop-shadow(0 0 4px rgba(255,230,150,0.85)); }
+  .pleiades-star:nth-child(1) { animation-duration: 4.1s; animation-delay:  0.0s; }
+  .pleiades-star:nth-child(2) { animation-duration: 5.7s; animation-delay: -1.2s; }
+  .pleiades-star:nth-child(3) { animation-duration: 6.3s; animation-delay: -2.3s; }
+  .pleiades-star:nth-child(4) { animation-duration: 4.9s; animation-delay: -3.4s; }
+  .pleiades-star:nth-child(5) { animation-duration: 7.1s; animation-delay: -4.5s; }
+  .pleiades-star:nth-child(6) { animation-duration: 8.3s; animation-delay: -0.7s; }
+  .pleiades-star:nth-child(7) { animation-duration: 6.7s; animation-delay: -3.1s; }
+  .pleiades-star:nth-child(8) { animation-duration: 5.3s; animation-delay: -1.8s; filter: drop-shadow(0 0 2px rgba(255,230,150,0.55)); }
+  .pleiades-halo { animation: breathOp 9s ease-in-out infinite; }
+
+  /* ─── Diviner (IV) ─── */
+  .diviner-figure { transform-origin: 240px 420px; transform-box: view-box; animation: breath 11s ease-in-out infinite; }
+  .diviner-star { animation: twinkle 4.5s ease-in-out infinite; filter: drop-shadow(0 0 8px rgba(255,230,150,0.95)) drop-shadow(0 0 18px rgba(232,201,106,0.45)); }
+  .diviner-halo { animation: breathOp 7s ease-in-out infinite; }
+  .diviner-gaze { animation: breathOp 6s ease-in-out infinite; }
+
+  /* ─── Labyrinth (V) ─── */
+  .laby-path { transform-origin: 240px 370px; transform-box: view-box; animation: rot 240s linear infinite; }
+  .laby-center { animation: breath 5s ease-in-out infinite; filter: drop-shadow(0 0 6px rgba(255,230,150,0.95)); }
+  .laby-walker { transform-origin: 240px 370px; transform-box: view-box; animation: rotR 72s linear infinite; filter: drop-shadow(0 0 4px rgba(255,230,150,0.9)); }
+
+  /* Size variants — favicon-scale preview */
+  .scale-row {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-end;
+    margin-top: 1rem;
+  }
+  .scale-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .scale-tile svg { display: block; border: 1px solid rgba(232,201,106,0.18); border-radius: 4px; }
+  .scale-tile span {
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(200,185,255,0.48);
+    font-style: italic;
+  }
+
+  footer {
+    position: relative; z-index: 2;
+    padding: 4rem 2rem 6rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-style: italic;
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  footer em { color: rgba(232,201,106,0.9); font-style: normal; font-weight: 500; }
+
+  .brand-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; }
+
+  @media (max-width: 540px) {
+    .card { width: 100%; height: auto; aspect-ratio: 2/3; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Olivia Arcana · the final round</p>
+  <h1>Five marks seeking one identity</h1>
+  <p class="sub">
+    Twenty-two concepts narrowed by cross-check against four criteria:
+    ownable, legible at any scale, virally storyable, brand-congruent.
+    These are the five that passed all four. Now the work is to look at
+    each long enough to know which is not just good — but inevitable.
+  </p>
+  <div class="divider"></div>
+</header>
+
+<main class="stage">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     I — THE OLIVE (Olivia = olive tree)
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="contender" data-variant="olive">
+  <p class="numeral">I · etymology</p>
+  <div class="card mounted">
+    <canvas class="bg" data-field="olive"></canvas>
+    <svg class="art" viewBox="0 0 480 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="olive-base" cx="50%" cy="40%" r="75%">
+          <stop offset="0%" stop-color="#1c1140" />
+          <stop offset="55%" stop-color="#0a0620" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="olive-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"  stop-color="#f7e39a" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+        <radialGradient id="olive-halo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(232,201,106,0.18)" />
+          <stop offset="70%" stop-color="rgba(232,201,106,0.04)" />
+          <stop offset="100%" stop-color="rgba(232,201,106,0)" />
+        </radialGradient>
+      </defs>
+      <rect width="480" height="720" fill="url(#olive-base)" />
+
+      <!-- Frame: single refined hairline with inner accent -->
+      <g data-depth="mid">
+        <rect x="28" y="28" width="424" height="664" rx="10" fill="none"
+              stroke="url(#olive-gold)" stroke-width="0.7" stroke-opacity="0.88" />
+        <rect x="36" y="36" width="408" height="648" rx="6" fill="none"
+              stroke="url(#olive-gold)" stroke-width="0.3" stroke-opacity="0.32" />
+      </g>
+
+      <!-- Top eyebrow -->
+      <g data-depth="mid">
+        <text x="240" y="128" text-anchor="middle" fill="url(#olive-gold)" class="brand-text"
+              font-size="9" letter-spacing="6" opacity="0.72" font-style="italic">
+          · olea athenæ ·
+        </text>
+        <line x1="180" y1="143" x2="220" y2="143" stroke="url(#olive-gold)" stroke-width="0.3" stroke-opacity="0.4" />
+        <line x1="260" y1="143" x2="300" y2="143" stroke="url(#olive-gold)" stroke-width="0.3" stroke-opacity="0.4" />
+      </g>
+
+      <!-- Halo behind the branch -->
+      <circle class="olive-halo" cx="260" cy="380" r="200" fill="url(#olive-halo)" data-depth="bg" />
+
+      <!-- The Olive Branch — Fibonacci phyllotaxis, hand-refined curve.
+           Stem arcs from lower-left (150, 560) to upper-right (380, 205).
+           13 leaves, 3 ripe olives, single star at new-growth tip.
+           Drawn in precise hairline weight. -->
+      <g class="olive-branch" data-depth="fg">
+        <!-- Main stem: exponential-curve approximation -->
+        <path d="M 148,560 Q 176,480 202,420 Q 234,345 275,285 Q 320,235 380,205"
+              fill="none" stroke="url(#olive-gold)"
+              stroke-width="0.9" stroke-opacity="0.95" stroke-linecap="round" />
+
+        <!-- Leaves arranged on Fibonacci spiral along the stem.
+             Each leaf is an elongated almond (tapered both ends). -->
+        <g fill="none" stroke="url(#olive-gold)" stroke-linecap="round">
+          <!-- Leaf 1 (lowest, left-side) -->
+          <path class="olive-leaf" d="M 148,562 Q 120,570 100,560 Q 118,540 148,562 Z"
+                stroke-width="0.6" stroke-opacity="0.92" />
+          <!-- Leaf 2 (lowest, right-side, above-ish) -->
+          <path class="olive-leaf" d="M 160,540 Q 180,515 210,520 Q 188,548 160,540 Z"
+                stroke-width="0.55" stroke-opacity="0.88" />
+          <!-- Leaf 3 -->
+          <path class="olive-leaf" d="M 170,510 Q 140,500 115,510 Q 138,485 170,510 Z"
+                stroke-width="0.6" stroke-opacity="0.92" />
+          <!-- Leaf 4 -->
+          <path class="olive-leaf" d="M 184,478 Q 210,448 245,455 Q 220,488 184,478 Z"
+                stroke-width="0.55" stroke-opacity="0.88" />
+          <!-- Leaf 5 -->
+          <path class="olive-leaf" d="M 196,448 Q 165,438 138,450 Q 162,420 196,448 Z"
+                stroke-width="0.6" stroke-opacity="0.92" />
+          <!-- Leaf 6 -->
+          <path class="olive-leaf" d="M 212,418 Q 242,385 278,395 Q 250,425 212,418 Z"
+                stroke-width="0.55" stroke-opacity="0.88" />
+          <!-- Leaf 7 -->
+          <path class="olive-leaf" d="M 228,385 Q 195,372 165,388 Q 192,355 228,385 Z"
+                stroke-width="0.6" stroke-opacity="0.92" />
+          <!-- Leaf 8 -->
+          <path class="olive-leaf" d="M 248,352 Q 280,320 318,330 Q 290,358 248,352 Z"
+                stroke-width="0.55" stroke-opacity="0.88" />
+          <!-- Leaf 9 -->
+          <path class="olive-leaf" d="M 265,320 Q 232,305 202,322 Q 228,290 265,320 Z"
+                stroke-width="0.6" stroke-opacity="0.92" />
+          <!-- Leaf 10 -->
+          <path class="olive-leaf" d="M 290,285 Q 322,255 358,268 Q 330,295 290,285 Z"
+                stroke-width="0.55" stroke-opacity="0.88" />
+          <!-- Leaf 11 -->
+          <path class="olive-leaf" d="M 308,258 Q 278,240 250,258 Q 276,228 308,258 Z"
+                stroke-width="0.6" stroke-opacity="0.92" />
+          <!-- Leaf 12 -->
+          <path class="olive-leaf" d="M 335,230 Q 365,208 395,222 Q 368,240 335,230 Z"
+                stroke-width="0.55" stroke-opacity="0.88" />
+          <!-- Leaf 13 (terminal, nearest the star) -->
+          <path class="olive-leaf" d="M 352,213 Q 330,198 308,212 Q 328,190 352,213 Z"
+                stroke-width="0.5" stroke-opacity="0.75" />
+        </g>
+
+        <!-- Olives — 3 ripe fruits at golden-ratio nodes along the stem.
+             Positioned at Fibonacci steps 3, 8, 13 up the branch length. -->
+        <g>
+          <ellipse class="olive-fruit" cx="178" cy="492" rx="3" ry="3.8" fill="url(#olive-gold)" />
+          <ellipse class="olive-fruit" cx="232" cy="392" rx="3" ry="3.8" fill="url(#olive-gold)" />
+          <ellipse class="olive-fruit" cx="296" cy="298" rx="3" ry="3.8" fill="url(#olive-gold)" />
+        </g>
+      </g>
+
+      <!-- The star — emerging from the branch tip.
+           Single luminous point, the "light the branch reaches toward." -->
+      <g data-depth="fg">
+        <g class="olive-star" transform="translate(380 205)">
+          <!-- Glow ring -->
+          <circle r="8" fill="none" stroke="url(#olive-gold)" stroke-width="0.3" stroke-opacity="0.4" />
+          <!-- Four-point star glyph — tight proportions -->
+          <path d="M 0,-6 L 1.5,-1.5 L 6,0 L 1.5,1.5 L 0,6 L -1.5,1.5 L -6,0 L -1.5,-1.5 Z"
+                fill="url(#olive-gold)" stroke="rgba(255,230,150,0.7)" stroke-width="0.25" />
+          <!-- Pinpoint white core -->
+          <circle r="0.5" fill="rgba(255,250,220,1)" />
+        </g>
+      </g>
+
+      <!-- Tagline, centered -->
+      <text x="240" y="585" text-anchor="middle" fill="url(#olive-gold)" class="brand-text"
+            font-size="10" letter-spacing="4.5" opacity="0.7" font-style="italic">
+        olivia · from the olive tree
+      </text>
+
+      <!-- Bottom rule + mark + brand -->
+      <g data-depth="mid">
+        <line x1="130" y1="625" x2="205" y2="625" stroke="url(#olive-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+        <!-- 5-element ornament -->
+        <circle cx="212" cy="625" r="0.9" fill="url(#olive-gold)" opacity="0.8" />
+        <path d="M 224,625 L 228,621 L 232,625 L 228,629 Z" fill="none" stroke="url(#olive-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <path d="M 240,625 L 245,619 L 250,625 L 245,631 Z" fill="url(#olive-gold)" />
+        <path d="M 258,625 L 262,621 L 266,625 L 262,629 Z" fill="none" stroke="url(#olive-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <circle cx="278" cy="625" r="0.9" fill="url(#olive-gold)" opacity="0.8" />
+        <line x1="285" y1="625" x2="360" y2="625" stroke="url(#olive-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+
+        <text x="240" y="660" text-anchor="middle" fill="url(#olive-gold)" class="brand-text"
+              font-size="15" letter-spacing="6" opacity="0.96" font-style="italic">
+          Olivia Arcana
+        </text>
+      </g>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <h2>The Olive</h2>
+  <p class="argument">
+    <em>Olivia</em> means "olive tree" in Latin. The brand's own name made
+    visible — a Fibonacci-spiraling olive branch with three ripe fruits
+    reaching toward a single star. Athena's gift to her city. Peace,
+    wisdom, sacred continuity. <em>The most ownable mark in the set: no
+    competitor can claim this back-story retroactively.</em>
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     II — THE WHEEL OF SEVEN (Seed inside Zodiac Wheel)
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="contender" data-variant="wheel-of-seven">
+  <p class="numeral">II · sacred geometry</p>
+  <div class="card mounted">
+    <canvas class="bg" data-field="wos"></canvas>
+    <svg class="art" viewBox="0 0 480 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="wos-base" cx="50%" cy="42%" r="75%">
+          <stop offset="0%" stop-color="#1f1343" />
+          <stop offset="55%" stop-color="#0b0722" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="wos-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f7e39a" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+        <radialGradient id="wos-halo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(255,230,150,0.22)" />
+          <stop offset="40%" stop-color="rgba(232,201,106,0.08)" />
+          <stop offset="100%" stop-color="rgba(232,201,106,0)" />
+        </radialGradient>
+      </defs>
+      <rect width="480" height="720" fill="url(#wos-base)" />
+
+      <g data-depth="mid">
+        <rect x="28" y="28" width="424" height="664" rx="10" fill="none"
+              stroke="url(#wos-gold)" stroke-width="0.7" stroke-opacity="0.88" />
+        <rect x="36" y="36" width="408" height="648" rx="6" fill="none"
+              stroke="url(#wos-gold)" stroke-width="0.3" stroke-opacity="0.32" />
+      </g>
+
+      <g data-depth="mid">
+        <text x="240" y="128" text-anchor="middle" fill="url(#wos-gold)" class="brand-text"
+              font-size="9" letter-spacing="6" opacity="0.72" font-style="italic">
+          · rota septemque ·
+        </text>
+        <line x1="180" y1="143" x2="220" y2="143" stroke="url(#wos-gold)" stroke-width="0.3" stroke-opacity="0.4" />
+        <line x1="260" y1="143" x2="300" y2="143" stroke="url(#wos-gold)" stroke-width="0.3" stroke-opacity="0.4" />
+      </g>
+
+      <!-- Halo behind the full sigil -->
+      <circle class="wos-halo" cx="240" cy="380" r="180" fill="url(#wos-halo)" data-depth="bg" />
+
+      <!-- WHEEL — zodiac ring (rotates slowly CW) -->
+      <g class="wos-wheel" data-depth="fg">
+        <!-- Outer + inner reference circles -->
+        <circle cx="240" cy="380" r="160" fill="none" stroke="url(#wos-gold)" stroke-width="0.55" stroke-opacity="0.7" />
+        <circle cx="240" cy="380" r="138" fill="none" stroke="url(#wos-gold)" stroke-width="0.3"  stroke-opacity="0.32" />
+
+        <!-- 12 tick marks: 4 cardinals brighter/longer, 8 intermediates smaller -->
+        <g stroke="url(#wos-gold)" fill="none">
+          <!-- Cardinals -->
+          <line x1="240" y1="216" x2="240" y2="240" stroke-width="1" stroke-opacity="0.98" />
+          <line x1="400" y1="380" x2="376" y2="380" stroke-width="1" stroke-opacity="0.98" />
+          <line x1="240" y1="544" x2="240" y2="520" stroke-width="1" stroke-opacity="0.98" />
+          <line x1="80"  y1="380" x2="104" y2="380" stroke-width="1" stroke-opacity="0.98" />
+          <!-- Intermediate ticks at 30° spacings -->
+          <line x1="320" y1="241" x2="311" y2="260" stroke-width="0.55" stroke-opacity="0.72" />
+          <line x1="374" y1="296" x2="354" y2="304" stroke-width="0.55" stroke-opacity="0.72" />
+          <line x1="374" y1="464" x2="354" y2="456" stroke-width="0.55" stroke-opacity="0.72" />
+          <line x1="320" y1="519" x2="311" y2="500" stroke-width="0.55" stroke-opacity="0.72" />
+          <line x1="160" y1="519" x2="169" y2="500" stroke-width="0.55" stroke-opacity="0.72" />
+          <line x1="106" y1="464" x2="126" y2="456" stroke-width="0.55" stroke-opacity="0.72" />
+          <line x1="106" y1="296" x2="126" y2="304" stroke-width="0.55" stroke-opacity="0.72" />
+          <line x1="160" y1="241" x2="169" y2="260" stroke-width="0.55" stroke-opacity="0.72" />
+        </g>
+
+        <!-- Emphasis dots at intermediate ticks -->
+        <g fill="url(#wos-gold)" opacity="0.9">
+          <circle cx="316" cy="251" r="1.1" />
+          <circle cx="364" cy="300" r="1.1" />
+          <circle cx="364" cy="460" r="1.1" />
+          <circle cx="316" cy="509" r="1.1" />
+          <circle cx="164" cy="509" r="1.1" />
+          <circle cx="116" cy="460" r="1.1" />
+          <circle cx="116" cy="300" r="1.1" />
+          <circle cx="164" cy="251" r="1.1" />
+        </g>
+
+        <!-- Roman numerals at cardinals -->
+        <g fill="url(#wos-gold)" class="brand-text" font-size="10"
+           font-style="italic" letter-spacing="2" opacity="0.85" text-anchor="middle">
+          <text x="240" y="207">XII</text>
+          <text x="416" y="384">III</text>
+          <text x="240" y="561">VI</text>
+          <text x="64"  y="384">IX</text>
+        </g>
+      </g>
+
+      <!-- SEED OF LIFE — counter-rotates CCW at half the speed -->
+      <g class="wos-seed" data-depth="fg" fill="none" stroke="url(#wos-gold)">
+        <!-- Central + 6 outer circles (radius 48 each, offset 48 at 60° intervals) -->
+        <circle cx="240"    cy="380"   r="48" stroke-width="0.6"  stroke-opacity="0.85" />
+        <circle cx="240"    cy="332"   r="48" stroke-width="0.55" stroke-opacity="0.75" />
+        <circle cx="281.57" cy="356"   r="48" stroke-width="0.55" stroke-opacity="0.75" />
+        <circle cx="281.57" cy="404"   r="48" stroke-width="0.55" stroke-opacity="0.75" />
+        <circle cx="240"    cy="428"   r="48" stroke-width="0.55" stroke-opacity="0.75" />
+        <circle cx="198.43" cy="404"   r="48" stroke-width="0.55" stroke-opacity="0.75" />
+        <circle cx="198.43" cy="356"   r="48" stroke-width="0.55" stroke-opacity="0.75" />
+      </g>
+
+      <!-- Planet traversing the outer wheel -->
+      <g class="wos-planet" data-depth="fg">
+        <circle cx="240" cy="220" r="2.8" fill="url(#wos-gold)" />
+      </g>
+
+      <!-- Central ✦ — the still point -->
+      <g class="wos-star" data-depth="fg">
+        <circle cx="240" cy="380" r="14" fill="none"
+                stroke="url(#wos-gold)" stroke-width="0.4" stroke-opacity="0.5" />
+        <path transform="translate(240 380)"
+              d="M 0,-11 L 2.4,-2.4 L 11,0 L 2.4,2.4 L 0,11 L -2.4,2.4 L -11,0 L -2.4,-2.4 Z"
+              fill="url(#wos-gold)" stroke="rgba(255,230,150,0.7)" stroke-width="0.3" />
+        <circle cx="240" cy="380" r="1.1" fill="rgba(255,250,220,1)" />
+      </g>
+
+      <!-- Bottom footer -->
+      <g data-depth="mid">
+        <line x1="130" y1="625" x2="205" y2="625" stroke="url(#wos-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+        <circle cx="212" cy="625" r="0.9" fill="url(#wos-gold)" opacity="0.8" />
+        <path d="M 224,625 L 228,621 L 232,625 L 228,629 Z" fill="none" stroke="url(#wos-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <path d="M 240,625 L 245,619 L 250,625 L 245,631 Z" fill="url(#wos-gold)" />
+        <path d="M 258,625 L 262,621 L 266,625 L 262,629 Z" fill="none" stroke="url(#wos-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <circle cx="278" cy="625" r="0.9" fill="url(#wos-gold)" opacity="0.8" />
+        <line x1="285" y1="625" x2="360" y2="625" stroke="url(#wos-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+
+        <text x="240" y="660" text-anchor="middle" fill="url(#wos-gold)" class="brand-text"
+              font-size="15" letter-spacing="6" opacity="0.96" font-style="italic">
+          Olivia Arcana
+        </text>
+      </g>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <h2>The Wheel of Seven</h2>
+  <p class="argument">
+    Sacred geometry inside the astrological instrument. Seven Seed-of-Life
+    circles counter-rotating against twelve zodiac stations, a single
+    planet traversing the outer ring, the ✦ holding still at center. The
+    Seed's six outer circles align with six of the twelve zodiac positions
+    — a <em>geometric coincidence</em> the viewer subconsciously reads.
+    Product (Wheel) holds meaning (Seed); the star is the reader.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     III — THE PLEIADES (The Seven Sisters)
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="contender" data-variant="pleiades">
+  <p class="numeral">III · constellation</p>
+  <div class="card mounted">
+    <canvas class="bg" data-field="pleiades"></canvas>
+    <svg class="art" viewBox="0 0 480 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="pl-base" cx="50%" cy="40%" r="78%">
+          <stop offset="0%" stop-color="#1d1340" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="pl-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f7e39a" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+        <radialGradient id="pl-nebula" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(145,100,220,0.22)" />
+          <stop offset="55%" stop-color="rgba(120,80,200,0.05)" />
+          <stop offset="100%" stop-color="rgba(120,80,200,0)" />
+        </radialGradient>
+      </defs>
+      <rect width="480" height="720" fill="url(#pl-base)" />
+
+      <g data-depth="mid">
+        <rect x="28" y="28" width="424" height="664" rx="10" fill="none"
+              stroke="url(#pl-gold)" stroke-width="0.7" stroke-opacity="0.88" />
+        <rect x="36" y="36" width="408" height="648" rx="6" fill="none"
+              stroke="url(#pl-gold)" stroke-width="0.3" stroke-opacity="0.32" />
+      </g>
+
+      <!-- The characteristic Pleiades nebula haze -->
+      <ellipse class="pleiades-halo" cx="240" cy="360" rx="130" ry="95"
+               fill="url(#pl-nebula)" data-depth="bg" />
+
+      <!-- THE PLEIADES — seven brightest stars in their accurate relative
+           angular positions, scaled to fit within the card.
+           Anchor: Alcyone at slightly below-center, with the cluster
+           fanning up-left toward Electra/Taygeta and down-right toward
+           Atlas/Pleione. -->
+      <g fill="url(#pl-gold)" data-depth="fg">
+        <!-- Alcyone — the brightest, η Tauri -->
+        <circle class="pleiades-star" cx="238" cy="360" r="5.2" />
+        <!-- Atlas — 27 Tauri, bright -->
+        <circle class="pleiades-star" cx="300" cy="405" r="4.4" />
+        <!-- Electra — 17 Tauri, upper-left -->
+        <circle class="pleiades-star" cx="192" cy="320" r="4.2" />
+        <!-- Maia — 20 Tauri, upper -->
+        <circle class="pleiades-star" cx="226" cy="302" r="3.9" />
+        <!-- Merope — 23 Tauri, lower-left -->
+        <circle class="pleiades-star" cx="210" cy="410" r="3.7" />
+        <!-- Taygeta — 19 Tauri, far upper-left -->
+        <circle class="pleiades-star" cx="164" cy="332" r="3.2" />
+        <!-- Pleione — 28 Tauri, near Atlas -->
+        <circle class="pleiades-star" cx="312" cy="392" r="2.8" />
+        <!-- Alcor (a dim companion to Mizar — here as accent, not Pleiades-technical) -->
+        <circle class="pleiades-star" cx="246" cy="355" r="1.4" />
+      </g>
+
+      <!-- Very faint connective lines between the 7 brightest stars.
+           Not emphasized — just a whisper. -->
+      <g stroke="url(#pl-gold)" stroke-width="0.3" stroke-opacity="0.18" fill="none" data-depth="fg">
+        <path d="M 164,332 L 192,320 L 226,302 M 192,320 L 238,360 L 300,405 M 210,410 L 238,360 L 312,392" />
+      </g>
+
+      <!-- Top eyebrow -->
+      <text x="240" y="128" text-anchor="middle" fill="url(#pl-gold)" class="brand-text"
+            font-size="9" letter-spacing="6" opacity="0.72" font-style="italic">
+          · m 45 · the seven sisters ·
+      </text>
+      <text x="240" y="150" text-anchor="middle" fill="url(#pl-gold)" class="brand-text"
+            font-size="6.5" letter-spacing="3.2" opacity="0.55" font-style="italic">
+        RA 03h 47m · DEC +24° 07′ · 444 pc
+      </text>
+
+      <!-- Star name labels — tiny, hand-placed -->
+      <g fill="url(#pl-gold)" class="brand-text" font-size="7"
+         font-style="italic" opacity="0.62" letter-spacing="1.2" text-anchor="start">
+        <text x="248" y="358">· alcyone</text>
+        <text x="316" y="390">· pleione</text>
+        <text x="308" y="415">· atlas</text>
+        <text x="118" y="335">· taygeta</text>
+        <text x="150" y="318">· electra</text>
+        <text x="185" y="295">· maia</text>
+        <text x="170" y="416">· merope</text>
+      </g>
+
+      <!-- Centered subtitle below cluster -->
+      <text x="240" y="500" text-anchor="middle" fill="url(#pl-gold)" class="brand-text"
+            font-size="11" letter-spacing="4.5" opacity="0.78" font-style="italic">
+        olivia among the seven
+      </text>
+
+      <!-- Bottom mark + brand -->
+      <g data-depth="mid">
+        <line x1="130" y1="625" x2="205" y2="625" stroke="url(#pl-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+        <circle cx="212" cy="625" r="0.9" fill="url(#pl-gold)" opacity="0.8" />
+        <path d="M 224,625 L 228,621 L 232,625 L 228,629 Z" fill="none" stroke="url(#pl-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <path d="M 240,625 L 245,619 L 250,625 L 245,631 Z" fill="url(#pl-gold)" />
+        <path d="M 258,625 L 262,621 L 266,625 L 262,629 Z" fill="none" stroke="url(#pl-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <circle cx="278" cy="625" r="0.9" fill="url(#pl-gold)" opacity="0.8" />
+        <line x1="285" y1="625" x2="360" y2="625" stroke="url(#pl-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+
+        <text x="240" y="660" text-anchor="middle" fill="url(#pl-gold)" class="brand-text"
+              font-size="15" letter-spacing="6" opacity="0.96" font-style="italic">
+          Olivia Arcana
+        </text>
+      </g>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <h2>The Pleiades</h2>
+  <p class="argument">
+    <em>M45 — the Seven Sisters.</em> The oldest feminine asterism
+    across every recorded culture: Greek, Aztec, Maori, Vedic, Ancestral
+    Puebloan. Seven brightest stars named; an eighth, Alcor, barely
+    visible as a whisper. The cluster's real astronomical coordinates are
+    printed like a catalogue entry. A tarot brand for a woman named
+    Olivia, signed with the sky's oldest sorority.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     IV — THE DIVINER (classical female profile)
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="contender" data-variant="diviner">
+  <p class="numeral">IV · figurative</p>
+  <div class="card mounted">
+    <canvas class="bg" data-field="diviner"></canvas>
+    <svg class="art" viewBox="0 0 480 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="dv-base" cx="50%" cy="42%" r="75%">
+          <stop offset="0%" stop-color="#1c1140" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="dv-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f7e39a" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+        <radialGradient id="dv-halo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(232,201,106,0.18)" />
+          <stop offset="70%" stop-color="rgba(232,201,106,0.03)" />
+          <stop offset="100%" stop-color="rgba(232,201,106,0)" />
+        </radialGradient>
+      </defs>
+      <rect width="480" height="720" fill="url(#dv-base)" />
+
+      <g data-depth="mid">
+        <rect x="28" y="28" width="424" height="664" rx="10" fill="none"
+              stroke="url(#dv-gold)" stroke-width="0.7" stroke-opacity="0.88" />
+        <rect x="36" y="36" width="408" height="648" rx="6" fill="none"
+              stroke="url(#dv-gold)" stroke-width="0.3" stroke-opacity="0.32" />
+      </g>
+
+      <g data-depth="mid">
+        <text x="240" y="128" text-anchor="middle" fill="url(#dv-gold)" class="brand-text"
+              font-size="9" letter-spacing="6" opacity="0.72" font-style="italic">
+          · vates ·
+        </text>
+        <line x1="180" y1="143" x2="220" y2="143" stroke="url(#dv-gold)" stroke-width="0.3" stroke-opacity="0.4" />
+        <line x1="260" y1="143" x2="300" y2="143" stroke="url(#dv-gold)" stroke-width="0.3" stroke-opacity="0.4" />
+      </g>
+
+      <circle class="diviner-halo" cx="240" cy="360" r="180" fill="url(#dv-halo)" data-depth="bg" />
+
+      <!-- Greco-Roman female profile — classical line-drawing.
+           Refined from prior v22 — cleaner curves, more proportional.
+           Subject faces right, gazes up-right at a star. -->
+      <g class="diviner-figure" data-depth="fg">
+        <!-- Crown of the head + hairline -->
+        <path d="M 155,265 Q 140,240 145,210 Q 155,185 180,175 Q 210,165 238,175"
+              fill="none" stroke="url(#dv-gold)" stroke-width="0.9" stroke-opacity="0.92" stroke-linecap="round" />
+
+        <!-- Profile line: brow → nose bridge → nose tip → philtrum → upper lip → lower lip → chin -->
+        <path d="M 238,175 Q 252,182 254,200 L 252,228
+                 Q 258,235 270,245 L 278,252 Q 275,260 268,265
+                 L 265,280 Q 272,290 285,296 L 288,302
+                 Q 281,315 265,320 L 258,334 L 252,352"
+              fill="none" stroke="url(#dv-gold)" stroke-width="0.95" stroke-opacity="0.98" stroke-linecap="round" />
+
+        <!-- Back of the head curve, falling to shoulder -->
+        <path d="M 155,265 Q 130,290 125,330 Q 128,375 150,410 L 180,450"
+              fill="none" stroke="url(#dv-gold)" stroke-width="0.9" stroke-opacity="0.92" stroke-linecap="round" />
+
+        <!-- Classical hair bun -->
+        <ellipse cx="122" cy="350" rx="16" ry="24" fill="none"
+                 stroke="url(#dv-gold)" stroke-width="0.5" stroke-opacity="0.68" />
+        <path d="M 110,342 Q 130,350 110,358" fill="none"
+              stroke="url(#dv-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+        <!-- Hair ribbon / band detail -->
+        <path d="M 148,245 Q 165,252 185,252"
+              fill="none" stroke="url(#dv-gold)" stroke-width="0.45" stroke-opacity="0.65" />
+
+        <!-- Eye — refined almond with delicate lash -->
+        <path class="diviner-gaze" d="M 216,220 Q 228,215 242,220 Q 228,226 216,220 Z"
+              fill="none" stroke="url(#dv-gold)" stroke-width="0.6" stroke-opacity="0.92" />
+        <circle cx="230" cy="220" r="1.4" fill="url(#dv-gold)" />
+
+        <!-- Eyebrow -->
+        <path d="M 212,210 Q 228,206 244,210" fill="none"
+              stroke="url(#dv-gold)" stroke-width="0.5" stroke-opacity="0.82" />
+
+        <!-- Subtle cheek contour -->
+        <path d="M 196,260 Q 215,278 225,282" fill="none"
+              stroke="url(#dv-gold)" stroke-width="0.32" stroke-opacity="0.42" />
+
+        <!-- Robe suggestion — thin line down from neck -->
+        <path d="M 180,450 L 184,490 Q 220,500 250,490 L 244,448"
+              fill="none" stroke="url(#dv-gold)" stroke-width="0.55" stroke-opacity="0.7" />
+        <!-- Pleat detail -->
+        <line x1="200" y1="455" x2="202" y2="485" stroke="url(#dv-gold)" stroke-width="0.32" stroke-opacity="0.5" />
+        <line x1="220" y1="455" x2="222" y2="485" stroke="url(#dv-gold)" stroke-width="0.32" stroke-opacity="0.5" />
+        <line x1="232" y1="455" x2="230" y2="485" stroke="url(#dv-gold)" stroke-width="0.32" stroke-opacity="0.5" />
+      </g>
+
+      <!-- The star — upper-right, where the eye gazes -->
+      <g data-depth="fg">
+        <g class="diviner-star" transform="translate(330 210)">
+          <circle r="16" fill="none" stroke="url(#dv-gold)" stroke-width="0.25" stroke-opacity="0.28" />
+          <circle r="10" fill="none" stroke="url(#dv-gold)" stroke-width="0.35" stroke-opacity="0.5" />
+          <path d="M 0,-8 L 2,-2 L 8,0 L 2,2 L 0,8 L -2,2 L -8,0 L -2,-2 Z"
+                fill="url(#dv-gold)" stroke="rgba(255,230,150,0.7)" stroke-width="0.3" />
+          <circle r="0.9" fill="rgba(255,250,220,0.98)" />
+        </g>
+      </g>
+
+      <!-- Line of gaze — very faint -->
+      <line x1="244" y1="218" x2="324" y2="212" stroke="url(#dv-gold)"
+            stroke-width="0.22" stroke-opacity="0.25" stroke-dasharray="2 4" data-depth="fg" />
+
+      <!-- Tagline -->
+      <text x="240" y="555" text-anchor="middle" fill="url(#dv-gold)" class="brand-text"
+            font-size="10" letter-spacing="4.5" opacity="0.72" font-style="italic">
+        she who reads the sky
+      </text>
+
+      <g data-depth="mid">
+        <line x1="130" y1="625" x2="205" y2="625" stroke="url(#dv-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+        <circle cx="212" cy="625" r="0.9" fill="url(#dv-gold)" opacity="0.8" />
+        <path d="M 224,625 L 228,621 L 232,625 L 228,629 Z" fill="none" stroke="url(#dv-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <path d="M 240,625 L 245,619 L 250,625 L 245,631 Z" fill="url(#dv-gold)" />
+        <path d="M 258,625 L 262,621 L 266,625 L 262,629 Z" fill="none" stroke="url(#dv-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <circle cx="278" cy="625" r="0.9" fill="url(#dv-gold)" opacity="0.8" />
+        <line x1="285" y1="625" x2="360" y2="625" stroke="url(#dv-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+
+        <text x="240" y="660" text-anchor="middle" fill="url(#dv-gold)" class="brand-text"
+              font-size="15" letter-spacing="6" opacity="0.96" font-style="italic">
+          Olivia Arcana
+        </text>
+      </g>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <h2>The Diviner</h2>
+  <p class="argument">
+    Give the brand a face. Classical Greco-Roman female profile — hair in
+    a traditional bun, gaze lifted to a single star. A contour drawing
+    in the vein of Picasso's line portraits or the silhouettes on ancient
+    coinage. <em>Vates</em> — the Latin word for seer, used in Virgil
+    and Ovid. The brand becomes a figure; the figure becomes iconic.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     V — THE LABYRINTH (Cretan 7-circuit)
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="contender" data-variant="labyrinth">
+  <p class="numeral">V · mythic</p>
+  <div class="card mounted">
+    <canvas class="bg" data-field="laby"></canvas>
+    <svg class="art" viewBox="0 0 480 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="lb-base" cx="50%" cy="45%" r="75%">
+          <stop offset="0%" stop-color="#1d1340" />
+          <stop offset="55%" stop-color="#0a0720" />
+          <stop offset="100%" stop-color="#04030c" />
+        </radialGradient>
+        <linearGradient id="lb-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f7e39a" />
+          <stop offset="50%" stop-color="#D4AF37" />
+          <stop offset="100%" stop-color="#8a6818" />
+        </linearGradient>
+        <radialGradient id="lb-halo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(255,230,150,0.15)" />
+          <stop offset="70%" stop-color="rgba(232,201,106,0.02)" />
+          <stop offset="100%" stop-color="rgba(232,201,106,0)" />
+        </radialGradient>
+      </defs>
+      <rect width="480" height="720" fill="url(#lb-base)" />
+
+      <g data-depth="mid">
+        <rect x="28" y="28" width="424" height="664" rx="10" fill="none"
+              stroke="url(#lb-gold)" stroke-width="0.7" stroke-opacity="0.88" />
+        <rect x="36" y="36" width="408" height="648" rx="6" fill="none"
+              stroke="url(#lb-gold)" stroke-width="0.3" stroke-opacity="0.32" />
+      </g>
+
+      <g data-depth="mid">
+        <text x="240" y="128" text-anchor="middle" fill="url(#lb-gold)" class="brand-text"
+              font-size="9" letter-spacing="6" opacity="0.72" font-style="italic">
+          · labyrinthus ·
+        </text>
+        <line x1="180" y1="143" x2="220" y2="143" stroke="url(#lb-gold)" stroke-width="0.3" stroke-opacity="0.4" />
+        <line x1="260" y1="143" x2="300" y2="143" stroke="url(#lb-gold)" stroke-width="0.3" stroke-opacity="0.4" />
+      </g>
+
+      <circle class="laby-halo" cx="240" cy="370" r="200" fill="url(#lb-halo)" data-depth="bg" />
+
+      <!-- PROPER CRETAN 7-CIRCUIT LABYRINTH — hand-constructed.
+           A single unbroken path from entrance (bottom center) winding
+           through 7 circuits to the center. Classical Bronze Age design
+           found on coins from Knossos c. 400 BC. -->
+      <g class="laby-path" data-depth="fg" fill="none" stroke="url(#lb-gold)"
+         stroke-width="0.9" stroke-opacity="0.95" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Top half: 7 concentric semicircles, centered at (240, 370) -->
+        <path d="M 120,370 A 120,120 0 0,1 360,370" />
+        <path d="M 140,370 A 100,100 0 0,1 340,370" />
+        <path d="M 160,370 A 80,80 0 0,1 320,370" />
+        <path d="M 180,370 A 60,60 0 0,1 300,370" />
+        <path d="M 200,370 A 40,40 0 0,1 280,370" />
+        <path d="M 220,370 A 20,20 0 0,1 260,370" />
+
+        <!-- Characteristic Cretan turns on the bottom half — these are
+             the "walls" between the circuits, each joining two adjacent
+             arc-endpoints to create the single-path structure.
+
+             The entrance is at the bottom center between the
+             two innermost arcs. The path winds outward
+             via the alternating half-moon turns and then
+             inward via the opposite alternating turns. -->
+
+        <!-- LEFT turns (bottom): -->
+        <!-- Turn outside arc-1: connects top's r=120 (leftmost endpoint) to r=100 -->
+        <path d="M 120,370 A 10,10 0 0,0 140,370" />
+        <!-- Turn r=80 to r=60 -->
+        <path d="M 160,370 A 10,10 0 0,0 180,370" />
+        <!-- Turn r=40 to r=20 -->
+        <path d="M 200,370 A 10,10 0 0,0 220,370" />
+
+        <!-- RIGHT turns (bottom): -->
+        <!-- Turn r=100 to r=80 (right) — creates reversal between these walls -->
+        <path d="M 340,370 A 10,10 0 0,1 320,370" />
+        <!-- Turn r=60 to r=40 -->
+        <path d="M 300,370 A 10,10 0 0,1 280,370" />
+        <!-- Turn r=20 to center (innermost) -->
+        <path d="M 260,370 A 10,10 0 0,1 240,370" />
+
+        <!-- Entry gate: vertical lines forming the "door" at center bottom.
+             One wall goes to the r=120 outermost arc, the other to r=100. -->
+        <!-- Left wall of entry: from bottom-center-left up to r=100 inner endpoint -->
+        <line x1="220" y1="370" x2="220" y2="430" />
+        <!-- Right wall of entry: from bottom-center-right up to r=120 outer endpoint -->
+        <line x1="260" y1="370" x2="260" y2="430" />
+        <!-- Connecting arc at the bottom — gate threshold -->
+        <path d="M 220,430 A 20,20 0 0,0 260,430" />
+      </g>
+
+      <!-- Center of the labyrinth — the "prize" -->
+      <g class="laby-center" data-depth="fg">
+        <circle cx="240" cy="370" r="7" fill="none"
+                stroke="url(#lb-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+        <circle cx="240" cy="370" r="3.5" fill="url(#lb-gold)" />
+        <circle cx="240" cy="370" r="1" fill="rgba(255,250,220,1)" />
+      </g>
+
+      <!-- Walker — a single bright dot tracing the path (simplified orbit) -->
+      <g class="laby-walker" data-depth="fg">
+        <circle cx="240" cy="250" r="2.5" fill="url(#lb-gold)" />
+      </g>
+
+      <!-- Tagline -->
+      <text x="240" y="555" text-anchor="middle" fill="url(#lb-gold)" class="brand-text"
+            font-size="10" letter-spacing="4.5" opacity="0.72" font-style="italic">
+        every reading is a journey home
+      </text>
+
+      <g data-depth="mid">
+        <line x1="130" y1="625" x2="205" y2="625" stroke="url(#lb-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+        <circle cx="212" cy="625" r="0.9" fill="url(#lb-gold)" opacity="0.8" />
+        <path d="M 224,625 L 228,621 L 232,625 L 228,629 Z" fill="none" stroke="url(#lb-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <path d="M 240,625 L 245,619 L 250,625 L 245,631 Z" fill="url(#lb-gold)" />
+        <path d="M 258,625 L 262,621 L 266,625 L 262,629 Z" fill="none" stroke="url(#lb-gold)" stroke-width="0.5" stroke-opacity="0.78" />
+        <circle cx="278" cy="625" r="0.9" fill="url(#lb-gold)" opacity="0.8" />
+        <line x1="285" y1="625" x2="360" y2="625" stroke="url(#lb-gold)" stroke-width="0.4" stroke-opacity="0.55" />
+
+        <text x="240" y="660" text-anchor="middle" fill="url(#lb-gold)" class="brand-text"
+              font-size="15" letter-spacing="6" opacity="0.96" font-style="italic">
+          Olivia Arcana
+        </text>
+      </g>
+    </svg>
+    <div class="foil"></div>
+    <div class="vignette"></div>
+  </div>
+  <h2>The Labyrinth</h2>
+  <p class="argument">
+    The Cretan 7-circuit labyrinth — carved on coins of Knossos c. 400 BC,
+    the oldest divinatory symbol in Western culture. A single unbroken
+    path: one way in, one way out, the oracle at center. Not a maze
+    (no choices); a <em>ritual</em>. The deepest visual metaphor for a
+    tarot reading compressed to a silhouette that works at any scale.
+  </p>
+</section>
+
+</main>
+
+<footer>
+  Each card is rendered at <em>480 × 720</em> — the ratio of the physical
+  deck. Motion is choreographed, not layered: each composition has one
+  signature gesture. Reduced-motion users see the static composition.
+  Each mark works as the primary brand identity, the app icon, the
+  favicon, and the card back — without modification. Scroll up, scroll
+  down, take your time. The answer is here.
+</footer>
+
+<script>
+  // ═══════════════════════════════════════════════════════════════
+  //  Canvas starfield per card — ambient stars + cursor parallax
+  // ═══════════════════════════════════════════════════════════════
+
+  function initCanvas(canvas) {
+    const card = canvas.closest('.card');
+    if (!card) return;
+    const ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const W = 480, H = 720;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    ctx.scale(dpr, dpr);
+
+    // Deterministic PRNG (xorshift) so positions are stable across reloads
+    let s = parseInt(canvas.dataset.field.split('').reduce((a, c) => a + c.charCodeAt(0), 0xC0FFEE)) | 0;
+    const rnd = () => { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return ((s >>> 0) / 0xffffffff); };
+
+    const stars = Array.from({ length: 280 }, () => {
+      const r = Math.pow(rnd(), 2.6) * 1.1 + 0.15;
+      const bright = rnd() > 0.94;
+      return {
+        x: rnd() * W, y: rnd() * H,
+        r: bright ? r * 1.9 : r,
+        phase: rnd() * Math.PI * 2,
+        period: 1.8 + rnd() * 7,
+        baseOp: (bright ? 0.6 : 0.2) + rnd() * 0.3,
+        hue: bright ? 48 + rnd() * 12 : 42 + rnd() * 18,
+      };
+    });
+
+    const smoke = Array.from({ length: 50 }, () => ({
+      x: rnd() * W, y: rnd() * H,
+      vx: 0, vy: 0,
+      r: 20 + rnd() * 30,
+      op: 0.02 + rnd() * 0.05,
+    }));
+
+    const flow = (x, y, t) => {
+      const nx = Math.sin(x * 0.012 + t * 0.00028) + Math.cos(y * 0.017 - t * 0.00019);
+      const ny = Math.sin(y * 0.013 - t * 0.00033) + Math.cos(x * 0.019 + t * 0.00024);
+      return { vx: nx * 0.18, vy: ny * 0.18 };
+    };
+
+    let raf = 0;
+    let lastT = performance.now();
+
+    const tick = (t) => {
+      const dt = Math.min(48, t - lastT);
+      lastT = t;
+      ctx.clearRect(0, 0, W, H);
+
+      // Smoke puffs (additive, purple tones)
+      ctx.globalCompositeOperation = 'lighter';
+      for (const p of smoke) {
+        const { vx, vy } = flow(p.x, p.y, t);
+        p.vx = p.vx * 0.92 + vx * 0.08;
+        p.vy = p.vy * 0.92 + vy * 0.08;
+        p.x += p.vx * dt * 0.04;
+        p.y += p.vy * dt * 0.04;
+        if (p.x < -30) p.x = W + 30;
+        if (p.x > W + 30) p.x = -30;
+        if (p.y < -30) p.y = H + 30;
+        if (p.y > H + 30) p.y = -30;
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+        g.addColorStop(0, `rgba(130, 80, 220, ${p.op * 1.6})`);
+        g.addColorStop(0.55, `rgba(90, 50, 180, ${p.op * 0.5})`);
+        g.addColorStop(1, 'rgba(60, 30, 130, 0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Stars (additive, gold tones)
+      for (const st of stars) {
+        const phase = Math.sin((t / 1000) * ((Math.PI * 2) / st.period) + st.phase);
+        const op = st.baseOp * (0.42 + (phase * 0.5 + 0.5) * 0.58);
+        ctx.fillStyle = `hsla(${st.hue}, 85%, 72%, ${op})`;
+        ctx.beginPath();
+        ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
+        ctx.fill();
+        // Halo on brightest stars
+        if (st.r > 1.3 && op > 0.35) {
+          const hg = ctx.createRadialGradient(st.x, st.y, 0, st.x, st.y, st.r * 4);
+          hg.addColorStop(0, `hsla(${st.hue}, 80%, 78%, ${op * 0.45})`);
+          hg.addColorStop(1, `hsla(${st.hue}, 80%, 78%, 0)`);
+          ctx.fillStyle = hg;
+          ctx.beginPath();
+          ctx.arc(st.x, st.y, st.r * 4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      ctx.globalCompositeOperation = 'source-over';
+      if (!reduced) raf = requestAnimationFrame(tick);
+    };
+
+    if (!reduced) raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }
+
+  // Cursor parallax on each card
+  function initParallax(card) {
+    const onMove = (e) => {
+      const r = card.getBoundingClientRect();
+      const x = Math.max(-0.5, Math.min(0.5, (e.clientX - r.left) / r.width  - 0.5));
+      const y = Math.max(-0.5, Math.min(0.5, (e.clientY - r.top)  / r.height - 0.5));
+      card.style.setProperty('--px', x.toFixed(3));
+      card.style.setProperty('--py', y.toFixed(3));
+    };
+    const onLeave = () => {
+      card.style.setProperty('--px', '0');
+      card.style.setProperty('--py', '0');
+    };
+    card.addEventListener('pointermove', onMove);
+    card.addEventListener('pointerleave', onLeave);
+  }
+
+  // Initialize all cards
+  document.querySelectorAll('.card').forEach(card => {
+    const canvas = card.querySelector('canvas.bg');
+    if (canvas) initCanvas(canvas);
+    initParallax(card);
+  });
+</script>
+</body>
+</html>
