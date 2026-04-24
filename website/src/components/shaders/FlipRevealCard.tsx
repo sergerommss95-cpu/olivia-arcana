@@ -38,7 +38,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import type { TarotCard } from "@/lib/academy/tarot-cards";
-import { getCardImagePath } from "@/lib/academy/card-images";
+import { getCardPortalImagePath } from "@/lib/academy/card-images";
 
 interface FlipRevealCardProps {
   card: TarotCard;
@@ -769,15 +769,22 @@ export default function FlipRevealCard({
             <CardBack />
           </div>
 
-          {/* FRONT face — the actual tarot card image */}
+          {/* FRONT face — same cosmic atmosphere as the back, figure on top */}
           <div className="flr-face flr-front">
+            {/* Nebula base matching the back's palette */}
+            <div className="flr-front-nebula" aria-hidden />
+            {/* Iridescent foil sweep (same conic pass as the back) */}
+            <div className="flr-front-foil" aria-hidden />
+            {/* Figure — transparent-bg portal PNG sits over the nebula */}
             <img
-              src={getCardImagePath(card)}
+              src={getCardPortalImagePath(card)}
               alt={card.name}
               width={width}
               height={height}
               className="flr-front-img"
             />
+            {/* Dark lens vignette — same as the back, deepens center "well" */}
+            <div className="flr-front-vignette" aria-hidden />
             {/* Card name strip — lives ON the face */}
             <div className="flr-strip" aria-hidden>
               {numeral && <span className="flr-numeral">{numeral}.</span>}
@@ -880,13 +887,75 @@ export default function FlipRevealCard({
         }
         .flr-front {
           transform: rotateY(180deg);
-          background: #0b0822;
+          background: #04030c;
+        }
+        /* Nebula base — same palette as the back's #flip-base gradient,
+           animated to match its subtle breathing so front/back feel like
+           one continuous cosmic object. */
+        .flr-front-nebula {
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(ellipse at 50% 38%,
+              #221348 0%,
+              #170d38 32%,
+              #0c0720 58%,
+              #04030c 100%);
+          animation: flr-front-breathe 11s ease-in-out infinite;
+          z-index: 0;
+        }
+        @keyframes flr-front-breathe {
+          0%, 100% { filter: brightness(1)    saturate(1); }
+          50%      { filter: brightness(1.08) saturate(1.12); }
+        }
+        /* Iridescent foil sweep — matches the back's conic pass */
+        .flr-front-foil {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: conic-gradient(
+            from var(--angle, 0deg) at 52% 48%,
+            transparent 0deg,
+            rgba(232,201,106,0.08) 42deg,
+            transparent 92deg,
+            rgba(180,145,230,0.09) 144deg,
+            transparent 196deg,
+            rgba(120,220,220,0.07) 248deg,
+            transparent 298deg,
+            rgba(232,201,106,0.08) 344deg,
+            transparent 360deg
+          );
+          mix-blend-mode: screen;
+          opacity: 0.42;
+          animation: al-foil 32s linear infinite;
+          z-index: 1;
+        }
+        /* Dark lens vignette — same as the back */
+        .flr-front-vignette {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: radial-gradient(
+            ellipse at 52% 42%,
+            transparent 45%,
+            rgba(5, 3, 20, 0.42) 100%
+          );
+          mix-blend-mode: multiply;
+          z-index: 3;
         }
         .flr-front-img {
+          position: relative;
           display: block;
           width: 100%;
           height: 100%;
           object-fit: cover;
+          z-index: 2;
+          /* Subtle luminance lift so hairline gold reads over the nebula */
+          filter: drop-shadow(0 0 6px rgba(232, 201, 106, 0.18));
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .flr-front-nebula,
+          .flr-front-foil { animation: none !important; }
         }
 
         .flr-strip {

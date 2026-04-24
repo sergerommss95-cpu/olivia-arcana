@@ -24,3 +24,15 @@ export function getCardImagePath(card: TarotCard): string {
   const padded = String(index).padStart(2, "0");
   return `/cards/${padded}_${slugify(card.name)}.png`;
 }
+
+/**
+ * "Portal" variant — same figure, flat indigo backdrop removed so the card
+ * can sit over a nebula gradient (matching the card back's atmosphere).
+ * Use in contexts that render their own rich backdrop behind the figure.
+ */
+export function getCardPortalImagePath(card: TarotCard): string {
+  const index = ALL_CARDS.indexOf(card);
+  if (index === -1) return "/cards-portal/00_the_fool.png";
+  const padded = String(index).padStart(2, "0");
+  return `/cards-portal/${padded}_${slugify(card.name)}.png`;
+}
