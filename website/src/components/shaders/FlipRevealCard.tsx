@@ -38,6 +38,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import type { TarotCard } from "@/lib/academy/tarot-cards";
+import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 import { getCardPortalImagePath } from "@/lib/academy/card-images";
 
 interface FlipRevealCardProps {
@@ -705,11 +706,28 @@ export default function FlipRevealCard({
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  // Reset on card change
+  // Card change: keep the current face (revealed or not). Don't force
+  // the user back to the card back every time they click "Different card"
+  // — they're browsing faces, not re-doing the flip ceremony each time.
+  // Track the current card name so we can cross-fade the image swap.
+  const [displayedCardName, setDisplayedCardName] = useState(card.name);
   useEffect(() => {
-    setRevealed(false);
-    rotateY.set(0);
-  }, [card.name, rotateY]);
+    if (card.name !== displayedCardName) setDisplayedCardName(card.name);
+  }, [card.name, displayedCardName]);
+
+  // Preload a handful of likely-next cards so "Different card" clicks feel
+  // instant — the random candidate is usually already in the HTTP cache.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    // Pick 5 random other cards, kick off cached fetches; browser decodes in bg.
+    const pool = [...Array(78).keys()].filter(i => i !== ALL_CARDS.indexOf(card));
+    for (let i = 0; i < 5 && pool.length; i++) {
+      const pick = pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
+      const img = new Image();
+      img.decoding = "async";
+      img.src = getCardPortalImagePath(ALL_CARDS[pick]);
+    }
+  }, [card]);
 
   const toggleFlip = useCallback(() => {
     setRevealed(r => !r);
@@ -775,8 +793,11 @@ export default function FlipRevealCard({
             <div className="flr-front-nebula" aria-hidden />
             {/* Iridescent foil sweep (same conic pass as the back) */}
             <div className="flr-front-foil" aria-hidden />
-            {/* Figure — transparent-bg portal PNG sits over the nebula */}
+            {/* Figure — transparent-bg portal PNG sits over the nebula.
+                key={card.name} makes React remount the img on card change,
+                which triggers the flr-front-img-enter fade-in keyframe. */}
             <img
+              key={card.name}
               src={getCardPortalImagePath(card)}
               alt={card.name}
               width={width}
@@ -952,6 +973,16 @@ export default function FlipRevealCard({
           z-index: 2;
           /* Subtle luminance lift so hairline gold reads over the nebula */
           filter: drop-shadow(0 0 6px rgba(232, 201, 106, 0.18));
+          /* Cross-fade on card change (img is key'd by card name so
+             React remounts and this entrance runs each swap). */
+          animation: flr-front-img-enter 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        @keyframes flr-front-img-enter {
+          from { opacity: 0; transform: scale(0.985); }
+          to   { opacity: 1; transform: scale(1);     }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .flr-front-img { animation: none !important; }
         }
         @media (prefers-reduced-motion: reduce) {
           .flr-front-nebula,
