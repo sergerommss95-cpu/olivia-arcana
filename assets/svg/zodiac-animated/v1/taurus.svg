@@ -1,0 +1,239 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Taurus zodiac glyph — Mystic Cartography</title>
+  <desc id="desc">Taurus zodiac glyph rendered in the style of a medieval astrological manuscript: aged parchment-over-navy background with fine gold linework, concentric sacred-geometry circles marked at the twelve zodiac houses, a Latin inscription "TAVRVS · TERRA · FIXA", the Taurus constellation (Hyades V-cluster with Aldebaran) overlaid across the central bull glyph, four Gothic filigree corner flourishes, and a soft gold aura behind the central emblem.</desc>
+
+  <defs>
+    <!-- 1. Deep night radial backdrop -->
+    <radialGradient id="bgNight" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="55%" stop-color="#0d0719"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+
+    <!-- 2. Parchment vignette (darkens toward the edges for the manuscript feel) -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+
+    <!-- 3. Subtle parchment warmth — a thin amber wash over the center -->
+    <radialGradient id="parchmentWash" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#5a1f33" stop-opacity="0.10"/>
+      <stop offset="60%" stop-color="#331953" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#331953" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 4. Gold primary gradient (used for glyph + linework) -->
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 5. Gold primary, vertical orientation (for the horns) -->
+    <linearGradient id="goldPrimaryV" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 6. Gold thin gradient — for fine ring / tick marks -->
+    <linearGradient id="goldThin" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6b4a1f"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 7. Aura behind the central glyph -->
+    <radialGradient id="centralAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="0.35"/>
+      <stop offset="40%" stop-color="#d4a574" stop-opacity="0.18"/>
+      <stop offset="75%" stop-color="#6b4a1f" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#331953" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 8. Aldebaran star glow -->
+    <radialGradient id="aldebaranGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#ffe8a3" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#d4a574" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Path for the Latin inscription along the bottom arc of the outer ring -->
+    <path id="inscriptionArc" d="M 76 256 A 180 180 0 0 0 436 256" fill="none"/>
+      <filter id="ambientGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ============ BACKGROUND ============ -->
+  <g id="background">
+    <rect x="0" y="0" width="512" height="512" fill="url(#bgNight)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#parchmentWash)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#vignette)"/>
+  </g>
+
+  <!-- ============ SACRED GEOMETRY ============ -->
+  <g id="sacred-geometry" fill="none" stroke="url(#goldThin)" stroke-opacity="0.85">
+    <!-- Three concentric circles -->
+    <circle cx="256" cy="256" r="240" stroke-width="0.8"/>
+    <circle cx="256" cy="256" r="220" stroke-width="0.6" stroke-opacity="0.55"/>
+    <circle cx="256" cy="256" r="200" stroke-width="0.8"/>
+
+    <!-- Inner reference circle (reads as a subtle mandala layer) -->
+    <circle cx="256" cy="256" r="150" stroke-width="0.4" stroke-opacity="0.35" stroke-dasharray="2 4"/>
+
+    <!-- 12 tick marks at each 30° around the outer ring (r=240 outward to r=248) -->
+    <g stroke="#d4a574" stroke-width="1.2" stroke-opacity="0.85">
+      <line x1="256" y1="16"  x2="256" y2="8"/>
+      <line x1="376" y1="48"  x2="380" y2="40"/>
+      <line x1="464" y1="136" x2="472" y2="132"/>
+      <line x1="496" y1="256" x2="504" y2="256"/>
+      <line x1="464" y1="376" x2="472" y2="380"/>
+      <line x1="376" y1="464" x2="380" y2="472"/>
+      <line x1="256" y1="496" x2="256" y2="504"/>
+      <line x1="136" y1="464" x2="132" y2="472"/>
+      <line x1="48"  y1="376" x2="40"  y2="380"/>
+      <line x1="16"  y1="256" x2="8"   y2="256"/>
+      <line x1="48"  y1="136" x2="40"  y2="132"/>
+      <line x1="136" y1="48"  x2="132" y2="40"/>
+    </g>
+
+    <!-- 12 tick marks on the inner ring (r=200 inward to r=192) -->
+    <g stroke="#d4a574" stroke-width="1" stroke-opacity="0.7">
+      <line x1="256" y1="56"  x2="256" y2="64"/>
+      <line x1="356" y1="83"  x2="354" y2="90"/>
+      <line x1="429" y1="156" x2="422" y2="158"/>
+      <line x1="456" y1="256" x2="448" y2="256"/>
+      <line x1="429" y1="356" x2="422" y2="354"/>
+      <line x1="356" y1="429" x2="354" y2="422"/>
+      <line x1="256" y1="456" x2="256" y2="448"/>
+      <line x1="156" y1="429" x2="158" y2="422"/>
+      <line x1="83"  y1="356" x2="90"  y2="354"/>
+      <line x1="56"  y1="256" x2="64"  y2="256"/>
+      <line x1="83"  y1="156" x2="90"  y2="158"/>
+      <line x1="156" y1="83"  x2="158" y2="90"/>
+    </g>
+
+    <!-- Four cardinal jewels marking the principal houses -->
+    <g fill="#d4a574" fill-opacity="0.75">
+      <circle cx="256" cy="36" r="2.2"><animate attributeName="opacity" values="0.43;0.92;0.43" dur="4.7s" begin="2.6s" repeatCount="indefinite"/></circle>
+      <circle cx="476" cy="256" r="2.2"><animate attributeName="opacity" values="0.38;0.9;0.38" dur="4.9s" begin="3.2s" repeatCount="indefinite"/></circle>
+      <circle cx="256" cy="476" r="2.2"><animate attributeName="opacity" values="0.54;0.91;0.54" dur="4.1s" begin="1.5s" repeatCount="indefinite"/></circle>
+      <circle cx="36"  cy="256" r="2.2"><animate attributeName="opacity" values="0.43;0.99;0.43" dur="3.2s" begin="0.7s" repeatCount="indefinite"/></circle>
+    </g>
+
+    <!-- Latin-looking inscription on the outer ring, bottom arc -->
+    <g font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#d4a574" letter-spacing="2" font-style="italic">
+      <text>
+        <textPath href="#inscriptionArc" startOffset="50%" text-anchor="middle">♉  TAVRVS  ·  TERRA  ·  FIXA  ·  VENVS  ·  ALDEBARAN</textPath>
+      </text>
+    </g>
+  </g>
+
+  <!-- ============ AURA BEHIND THE GLYPH ============ -->
+  <g id="aura">
+    <circle cx="256" cy="256" r="180" fill="url(#centralAura)"/>
+  </g>
+
+  <!-- ============ MAIN TAURUS GLYPH ============ -->
+  <g id="glyph" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Bull's head — circle — main gradient pass -->
+    <circle cx="256" cy="286" r="55" stroke="url(#goldPrimary)" stroke-width="8"/>
+    <!-- Bull's head — inner cream highlight pass for dimension -->
+    <circle cx="256" cy="286" r="55" stroke="#fff2c6" stroke-width="2.4" stroke-opacity="0.3"/>
+
+    <!-- LEFT HORN — cubic bezier sweeping up and outward, tapering -->
+    <!-- Main gradient stroke (thicker at base, thinner at tip is simulated by two overlaid passes) -->
+    <path d="M 206 236 C 180 210, 150 190, 130 150"
+          stroke="url(#goldPrimaryV)" stroke-width="10"/>
+    <path d="M 130 150 C 122 138, 118 128, 118 118"
+          stroke="url(#goldPrimaryV)" stroke-width="7"/>
+    <!-- Inner cream highlight -->
+    <path d="M 208 238 C 182 212, 152 192, 132 152"
+          stroke="#fff2c6" stroke-width="2.6" stroke-opacity="0.3"/>
+    <!-- Left horn ornamental tip (small curl) -->
+    <circle cx="118" cy="116" r="5" stroke="url(#goldPrimary)" stroke-width="3" fill="#1a0f2e"/>
+    <circle cx="118" cy="116" r="1.6" fill="#fff2c6" fill-opacity="0.85"><animate attributeName="opacity" values="0.37;0.99;0.37" dur="4.4s" begin="2.3s" repeatCount="indefinite"/></circle>
+
+    <!-- RIGHT HORN — mirror of the left -->
+    <path d="M 306 236 C 332 210, 362 190, 382 150"
+          stroke="url(#goldPrimaryV)" stroke-width="10"/>
+    <path d="M 382 150 C 390 138, 394 128, 394 118"
+          stroke="url(#goldPrimaryV)" stroke-width="7"/>
+    <path d="M 304 238 C 330 212, 360 192, 380 152"
+          stroke="#fff2c6" stroke-width="2.6" stroke-opacity="0.3"/>
+    <!-- Right horn ornamental tip -->
+    <circle cx="394" cy="116" r="5" stroke="url(#goldPrimary)" stroke-width="3" fill="#1a0f2e"/>
+    <circle cx="394" cy="116" r="1.6" fill="#fff2c6" fill-opacity="0.85"><animate attributeName="opacity" values="0.48;0.91;0.48" dur="3.5s" begin="3.2s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- ============ CONSTELLATION OVERLAY (Taurus — Hyades V + Aldebaran + horn tips) ============ -->
+  <g id="constellation">
+    <!-- Connecting lines — the V-shape of the Hyades cluster and horn-tip extensions -->
+    <g stroke="url(#goldPrimary)" stroke-width="0.6" stroke-opacity="0.4" fill="none" stroke-linecap="round">
+      <!-- V-cluster forming the bull's face -->
+      <line x1="218" y1="268" x2="240" y2="286"/>  <!-- upper-left branch -->
+      <line x1="240" y1="286" x2="262" y2="300"/>  <!-- down to Aldebaran -->
+      <line x1="262" y1="300" x2="284" y2="282"/>  <!-- up to right branch -->
+      <line x1="284" y1="282" x2="300" y2="264"/>  <!-- to upper-right -->
+      <!-- Horn-tip stars connected to the face cluster -->
+      <line x1="218" y1="268" x2="150" y2="170"/>  <!-- to left horn tip star -->
+      <line x1="300" y1="264" x2="362" y2="170"/>  <!-- to right horn tip star -->
+      <!-- A faint extension toward the brow -->
+      <line x1="240" y1="286" x2="256" y2="270"/>
+    </g>
+
+    <!-- Stars (sized by magnitude) -->
+    <!-- Aldebaran (α Tauri) — brightest -->
+    <circle cx="262" cy="300" r="6" fill="url(#aldebaranGlow)"/>
+    <circle cx="262" cy="300" r="3" fill="#fff2c6"/>
+    <!-- Secondary stars of the Hyades V -->
+    <circle cx="218" cy="268" r="2.2" fill="#fff2c6" fill-opacity="0.95"><animate attributeName="opacity" values="0.45;0.96;0.45" dur="4.1s" begin="1.5s" repeatCount="indefinite"/></circle>
+    <circle cx="240" cy="286" r="1.6" fill="#ffe8a3" fill-opacity="0.9"><animate attributeName="opacity" values="0.38;1.0;0.38" dur="3.6s" begin="0.1s" repeatCount="indefinite"/></circle>
+    <circle cx="284" cy="282" r="1.8" fill="#ffe8a3" fill-opacity="0.9"><animate attributeName="opacity" values="0.41;0.91;0.41" dur="4.2s" begin="0.2s" repeatCount="indefinite"/></circle>
+    <circle cx="300" cy="264" r="2"   fill="#fff2c6" fill-opacity="0.95"><animate attributeName="opacity" values="0.43;0.97;0.43" dur="4.8s" begin="2.6s" repeatCount="indefinite"/></circle>
+    <!-- Horn-tip stars (Elnath β Tauri on the right, ζ Tauri on the left) -->
+    <circle cx="362" cy="170" r="2.4" fill="#fff2c6"><animate attributeName="opacity" values="0.37;0.99;0.37" dur="3.1s" begin="3.2s" repeatCount="indefinite"/></circle>
+    <circle cx="150" cy="170" r="2"   fill="#ffe8a3" fill-opacity="0.95"><animate attributeName="opacity" values="0.37;0.93;0.37" dur="4.9s" begin="2.7s" repeatCount="indefinite"/></circle>
+    <!-- A small 8th star on the brow for narrative density -->
+    <circle cx="256" cy="270" r="1.2" fill="#fff2c6" fill-opacity="0.8"><animate attributeName="opacity" values="0.51;0.95;0.51" dur="3.8s" begin="1.4s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- ============ ORNAMENT — four Gothic filigree corner flourishes ============ -->
+  <g id="ornament" fill="none" stroke="#d4a574" stroke-opacity="0.5" stroke-width="1.2" stroke-linecap="round">
+    <!-- Top-left -->
+    <g transform="translate(40,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.36;0.91;0.36" dur="3.7s" begin="3.4s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Top-right -->
+    <g transform="translate(442,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.52;0.98;0.52" dur="4.0s" begin="3.7s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Bottom-left -->
+    <g transform="translate(40,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.41;0.99;0.41" dur="3.7s" begin="3.1s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Bottom-right -->
+    <g transform="translate(442,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.36;0.91;0.36" dur="4.9s" begin="1.6s" repeatCount="indefinite"/></circle>
+    </g>
+  </g>
+</svg>

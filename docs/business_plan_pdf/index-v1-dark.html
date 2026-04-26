@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Olivia Arcana — Business Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-0:#06031a; --ink-1:#0a0522; --ink-2:#0f0830; --ink-3:#1a1145; --ink-4:#2d1858;
+    --gold-1:#f7e39a; --gold-2:#e8c888; --gold-3:#d4af37; --gold-4:#8a6818;
+    --cream:#f4e9d0; --dim:#a39478; --faint:rgba(244,233,208,.55);
+    --hair:rgba(212,175,55,.32);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  @page{size:A4;margin:0}
+  html,body{background:var(--ink-1);color:var(--cream);font-family:'Inter',sans-serif;font-weight:300;font-size:10pt;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;height:297mm;padding:18mm 16mm;position:relative;page-break-after:always;overflow:hidden;background:var(--ink-1)}
+  .page:last-child{page-break-after:auto}
+  .page.dark{background:radial-gradient(ellipse at 50% 35%, #2d1858 0%, #0f0830 55%, #06031a 100%)}
+  .page.cover{background:radial-gradient(ellipse at 30% 40%, #2d1858 0%, #0f0830 60%, #06031a 100%);padding:0;overflow:hidden}
+  h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:.01em}
+  .gold{color:var(--gold-3)}
+  .cream{color:var(--cream)}
+  .dim{color:var(--dim)}
+  .faint{color:var(--faint)}
+  .gold-grad{background:linear-gradient(135deg,var(--gold-1) 0%,var(--gold-3) 50%,var(--gold-4) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .tiny{font-size:7.5pt;letter-spacing:.14em;text-transform:uppercase}
+  .meta{font-size:8pt;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+  .hair{height:1px;background:linear-gradient(90deg,transparent,var(--gold-3),transparent);margin:8mm 0}
+  .hair-left{height:1px;background:linear-gradient(90deg,var(--gold-3),transparent);margin:6mm 0}
+  .rule-v{width:1px;background:linear-gradient(180deg,transparent,var(--gold-3),transparent)}
+  /* Cover */
+  .cover-frame{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;align-items:center}
+  .cover-left{padding:24mm 12mm 24mm 22mm;z-index:2}
+  .cover-right{position:relative;height:100%;overflow:hidden}
+  .cover-right img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-9deg);width:110%;filter:drop-shadow(0 20mm 30mm rgba(0,0,0,.45))}
+  .cover-right::before{content:"";position:absolute;inset:-10%;background:radial-gradient(circle at 50% 50%,rgba(232,201,136,.22) 0%,rgba(232,201,136,.06) 40%,transparent 70%);pointer-events:none}
+  .cover-title{font-size:58pt;line-height:1;margin:4mm 0 6mm;font-weight:300;letter-spacing:-.01em}
+  .cover-tag{font-size:12pt;font-style:italic;letter-spacing:.08em;color:var(--gold-2);font-family:'Cormorant Garamond',serif;font-weight:400}
+  .cover-subtitle{font-size:11pt;color:var(--faint);margin:10mm 0 0;letter-spacing:.04em;max-width:72mm}
+  .cover-meta{position:absolute;bottom:18mm;left:22mm;right:22mm;display:flex;justify-content:space-between;align-items:flex-end;color:var(--dim);font-size:8pt;letter-spacing:.22em;text-transform:uppercase;z-index:2}
+  .olive-mark{width:10mm;height:10mm;margin-bottom:-1mm;vertical-align:middle}
+  /* Layout helpers */
+  .header{display:flex;justify-content:space-between;align-items:center;padding-bottom:6mm;border-bottom:1px solid var(--hair);margin-bottom:8mm}
+  .header .section-num{font-family:'Cormorant Garamond',serif;font-size:34pt;line-height:1;color:var(--gold-3);font-weight:300}
+  .header .section-title{font-family:'Cormorant Garamond',serif;font-size:22pt;line-height:1;text-align:right;max-width:110mm}
+  .header .section-kicker{font-size:8pt;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);text-align:right;margin-bottom:2mm}
+  .footer{position:absolute;bottom:10mm;left:16mm;right:16mm;display:flex;justify-content:space-between;color:var(--dim);font-size:7.5pt;letter-spacing:.22em;text-transform:uppercase;border-top:1px solid rgba(212,175,55,.18);padding-top:3mm}
+  /* Typography blocks */
+  .lead{font-family:'Cormorant Garamond',serif;font-size:16pt;line-height:1.35;font-weight:300;color:var(--cream);margin:0 0 6mm}
+  h2{font-size:18pt;margin:5mm 0 3mm}
+  h3{font-family:'Cormorant Garamond',serif;font-size:13pt;margin:4mm 0 2mm;color:var(--gold-2)}
+  p{margin:0 0 3mm}
+  ul{margin:0 0 3mm 4mm;padding:0}
+  li{margin:0 0 1mm 0;list-style:none;position:relative;padding-left:4mm}
+  li::before{content:"◆";color:var(--gold-3);position:absolute;left:0;top:0;font-size:7pt;line-height:1.8}
+  strong{color:var(--gold-2);font-weight:500}
+  em{color:var(--cream);font-style:italic}
+  /* Tables */
+  table{width:100%;border-collapse:collapse;font-size:8.5pt;margin:3mm 0 5mm}
+  th,td{text-align:left;padding:2.2mm 2.5mm;border-bottom:1px solid rgba(212,175,55,.16);vertical-align:top}
+  th{color:var(--gold-3);font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:7.5pt;border-bottom:1px solid var(--gold-3)}
+  tr.olivia td{background:rgba(212,175,55,.07);color:var(--cream)}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+  td.c{text-align:center}
+  td.gold{color:var(--gold-2);font-weight:500}
+  /* Cards / grids */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8mm}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5mm}
+  .grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4mm}
+  .stat{padding:5mm;border:1px solid var(--hair);background:rgba(255,255,255,.02)}
+  .stat .label{font-size:7.5pt;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+  .stat .value{font-family:'Cormorant Garamond',serif;font-size:28pt;color:var(--gold-2);line-height:1;margin:2mm 0 1mm;font-weight:300}
+  .stat .sub{font-size:8.5pt;color:var(--faint)}
+  .tier{padding:5mm;border:1px solid var(--hair);position:relative}
+  .tier .t-name{font-family:'Cormorant Garamond',serif;font-size:14pt;color:var(--cream)}
+  .tier .t-price{font-family:'Cormorant Garamond',serif;font-size:22pt;color:var(--gold-2);line-height:1;margin:1mm 0 3mm;font-weight:300}
+  .tier .t-includes{font-size:8pt;color:var(--faint);line-height:1.5}
+  .tier.featured{border-color:var(--gold-3);background:rgba(212,175,55,.06)}
+  .lang-card{padding:4mm 5mm;border:1px solid var(--hair);background:rgba(255,255,255,.02);margin-bottom:3mm}
+  .lang-card .lang-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2mm;padding-bottom:2mm;border-bottom:1px solid rgba(212,175,55,.14)}
+  .lang-card .lang-flag{font-size:14pt}
+  .lang-card .lang-name{font-family:'Cormorant Garamond',serif;font-size:13pt;color:var(--gold-2)}
+  .lang-card .lang-priority{font-size:7pt;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-3);border:1px solid var(--gold-3);padding:.5mm 2mm;border-radius:1mm}
+  .lang-card .lang-meta{font-size:7.5pt;color:var(--dim);letter-spacing:.06em;margin-bottom:1.5mm}
+  .lang-card p{font-size:8.5pt;margin:1mm 0}
+  /* Card thumbs */
+  .deck-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:3mm;margin:4mm 0}
+  .deck-strip img{width:100%;aspect-ratio:2/3;object-fit:cover;box-shadow:0 4mm 8mm rgba(0,0,0,.35)}
+  .deck-strip figcaption{font-size:7pt;letter-spacing:.18em;text-transform:uppercase;text-align:center;color:var(--gold-2);margin-top:1.5mm}
+  /* Quote card / pullout */
+  .pull{border-left:1px solid var(--gold-3);padding:2mm 0 2mm 6mm;margin:4mm 0;font-family:'Cormorant Garamond',serif;font-size:13pt;line-height:1.45;color:var(--cream);font-style:italic}
+  /* Chart bars */
+  .bars{margin:4mm 0}
+  .bar-row{display:grid;grid-template-columns:24mm 1fr 22mm;align-items:center;gap:3mm;margin-bottom:1.8mm;font-size:8pt}
+  .bar-row .label{color:var(--dim);letter-spacing:.08em;text-transform:uppercase;font-size:7.2pt}
+  .bar-row .track{height:3mm;background:rgba(212,175,55,.1);position:relative}
+  .bar-row .fill{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--gold-4),var(--gold-3),var(--gold-2))}
+  .bar-row .val{text-align:right;color:var(--gold-2);font-variant-numeric:tabular-nums}
+  /* Scenario blocks */
+  .scen{border:1px solid var(--hair);padding:5mm}
+  .scen .s-kicker{font-size:7.2pt;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+  .scen .s-name{font-family:'Cormorant Garamond',serif;font-size:15pt;color:var(--gold-2);margin:1mm 0 4mm}
+  .scen.realistic{border-color:var(--gold-3);background:rgba(212,175,55,.06)}
+  .scen .s-row{display:flex;justify-content:space-between;padding:1.8mm 0;border-bottom:1px solid rgba(212,175,55,.12);font-size:8pt}
+  .scen .s-row:last-child{border-bottom:none}
+  .scen .s-big{font-family:'Cormorant Garamond',serif;font-size:20pt;color:var(--cream);line-height:1;margin-top:3mm;font-weight:300}
+  /* Toc */
+  .toc{margin-top:6mm}
+  .toc-row{display:grid;grid-template-columns:14mm 1fr 14mm;align-items:baseline;padding:3mm 0;border-bottom:1px solid rgba(212,175,55,.14);font-size:11pt}
+  .toc-row .n{font-family:'Cormorant Garamond',serif;font-size:15pt;color:var(--gold-3);font-weight:300}
+  .toc-row .t{font-family:'Cormorant Garamond',serif;font-size:14pt;color:var(--cream);font-weight:300}
+  .toc-row .p{text-align:right;color:var(--dim);font-size:9pt;letter-spacing:.18em}
+  /* Flywheel */
+  .flywheel{margin:4mm 0}
+  .flywheel .step{display:grid;grid-template-columns:14mm 1fr;gap:4mm;padding:3mm 0;border-bottom:1px dashed rgba(212,175,55,.18);align-items:center}
+  .flywheel .step:last-child{border-bottom:none}
+  .flywheel .n{font-family:'Cormorant Garamond',serif;font-size:22pt;color:var(--gold-3);line-height:1;font-weight:300}
+  .flywheel .txt{font-size:9pt}
+  .flywheel .txt strong{display:block;font-family:'Cormorant Garamond',serif;font-size:11pt;color:var(--gold-2);margin-bottom:.5mm;font-weight:400}
+  /* Section cover (divider) */
+  .divider{background:radial-gradient(ellipse at 50% 50%, #2d1858 0%, #0f0830 55%, #06031a 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40mm 20mm}
+  .divider img{width:56mm;margin-bottom:8mm;transform:rotate(-8deg);filter:drop-shadow(0 12mm 20mm rgba(0,0,0,.45))}
+  .divider .big{font-family:'Cormorant Garamond',serif;font-size:48pt;color:var(--cream);line-height:1;font-weight:300}
+  .divider .sub{font-size:11pt;color:var(--gold-2);letter-spacing:.2em;text-transform:uppercase;margin-top:4mm}
+  /* Back cover */
+  .back{background:radial-gradient(ellipse at 50% 60%, #2d1858 0%, #0f0830 55%, #06031a 100%);display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:30mm 20mm;text-align:center}
+  .back img.card{width:70mm;transform:rotate(-6deg);filter:drop-shadow(0 10mm 18mm rgba(0,0,0,.4))}
+  .back .tag{font-family:'Cormorant Garamond',serif;font-size:30pt;color:var(--cream);font-weight:300;line-height:1.1;max-width:140mm}
+  .back .sig{font-size:8pt;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+  /* Misc */
+  .pill{display:inline-block;padding:.8mm 2.5mm;border:1px solid var(--gold-3);color:var(--gold-2);font-size:7pt;letter-spacing:.18em;text-transform:uppercase;border-radius:10mm;margin-right:1.5mm}
+  .pill.alt{border-color:var(--dim);color:var(--dim)}
+  .check{color:var(--gold-2)}
+  .x{color:var(--dim);opacity:.5}
+  .warn{color:#e8b866}
+  .split{display:grid;grid-template-columns:54% 46%;gap:7mm}
+  .split.flip{grid-template-columns:46% 54%}
+  .caption{font-size:7.2pt;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:2mm}
+  .card-float{float:right;width:44mm;margin:0 0 4mm 6mm;transform:rotate(-6deg);filter:drop-shadow(0 5mm 10mm rgba(0,0,0,.4))}
+  .card-float-l{float:left;width:44mm;margin:0 6mm 4mm 0;transform:rotate(6deg);filter:drop-shadow(0 5mm 10mm rgba(0,0,0,.4))}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="page cover">
+  <div class="cover-frame">
+    <div class="cover-left">
+      <div class="tiny gold-grad">Olivia Arcana · Business Plan · v1.0</div>
+      <h1 class="cover-title gold-grad">Written<br>in Your<br>Stars.</h1>
+      <div class="cover-tag">A premium omnichannel astrology &amp; tarot platform.</div>
+      <p class="cover-subtitle">Proprietary cinematic 78-card deck · NASA JPL ephemeris · AI Oracle · 8 languages · Web + Telegram + Mobile.</p>
+    </div>
+    <div class="cover-right"><img src="assets/cards/00_the_fool.png" alt=""></div>
+  </div>
+  <div class="cover-meta">
+    <span>oliviaarcana.com</span>
+    <span>April 2026 · Confidential</span>
+  </div>
+</section>
+
+<!-- ============ TOC ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">—</div>
+    <div>
+      <div class="section-kicker">Contents</div>
+      <div class="section-title">What's Inside</div>
+    </div>
+  </div>
+  <div class="lead">A bilingual, fully-costed plan for taking Olivia Arcana from live product to category-defining brand — English first, Ukrainian mirrored at the midpoint.</div>
+  <div class="toc">
+    <div class="toc-row"><div class="n">I</div><div class="t">Executive Summary</div><div class="p">04</div></div>
+    <div class="toc-row"><div class="n">II</div><div class="t">Product &amp; Offer Matrix</div><div class="p">05</div></div>
+    <div class="toc-row"><div class="n">III</div><div class="t">Market Opportunity</div><div class="p">07</div></div>
+    <div class="toc-row"><div class="n">IV</div><div class="t">Target Audience — 8 Languages</div><div class="p">08</div></div>
+    <div class="toc-row"><div class="n">V</div><div class="t">Competitive Comparison</div><div class="p">10</div></div>
+    <div class="toc-row"><div class="n">VI</div><div class="t">Pricing &amp; Viability Cross-Check</div><div class="p">12</div></div>
+    <div class="toc-row"><div class="n">VII</div><div class="t">Revenue Model &amp; Unit Economics</div><div class="p">14</div></div>
+    <div class="toc-row"><div class="n">VIII</div><div class="t">Financial Projections — 3 Scenarios</div><div class="p">15</div></div>
+    <div class="toc-row"><div class="n">IX</div><div class="t">Growth Strategy &amp; Roadmap</div><div class="p">17</div></div>
+    <div class="toc-row"><div class="n">X</div><div class="t">Risks, Capital &amp; Why Now</div><div class="p">18</div></div>
+    <div class="toc-row"><div class="n">—</div><div class="t" style="font-style:italic;color:var(--gold-2)">Частина II · Українська</div><div class="p">19</div></div>
+  </div>
+  <div class="footer"><span>Olivia Arcana</span><span>Contents · 02</span></div>
+</section>
+
+<!-- ============ I — EXEC SUMMARY ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">I</div>
+    <div>
+      <div class="section-kicker">Part One · Executive Summary</div>
+      <div class="section-title">A cinematic astrology platform, priced to win.</div>
+    </div>
+  </div>
+  <img src="assets/cards/02_the_high_priestess.png" class="card-float" alt="">
+  <div class="lead">Olivia Arcana combines NASA-grade astronomical calculations, an AI oracle (Claude-backed), and a proprietary 78-card cinematic tarot deck into an omnichannel platform that no single incumbent has matched.</div>
+  <p>We compete in a <strong>$5.69B global astrology-app market</strong> (2026, CAGR 20.2%) against Co-Star, Chani, Sanctuary and Nebula — but differentiate on three axes they cannot easily copy: proprietary cinematic deck and WebGL experience, multi-rail multi-language distribution (web + Telegram + mobile across 8 languages), and accessible pricing (annual subscription 40–80% below peers).</p>
+  <h3>Twelve-month targets — realistic scenario</h3>
+  <div class="grid-4" style="margin-top:4mm">
+    <div class="stat"><div class="label">Users</div><div class="value">120k</div><div class="sub">across 8 languages</div></div>
+    <div class="stat"><div class="label">VIP Subs</div><div class="value">6,000</div><div class="sub">5% free→paid conv.</div></div>
+    <div class="stat"><div class="label">Revenue</div><div class="value">$204k</div><div class="sub">subs + à la carte + deck</div></div>
+    <div class="stat"><div class="label">Net Profit</div><div class="value">$180k</div><div class="sub">~88% net margin</div></div>
+  </div>
+  <h3 style="margin-top:6mm">What's live today</h3>
+  <ul>
+    <li><strong>Website</strong> at oliviaarcana.com — interactive birth chart, AI Oracle chat, 207-lesson academy, Stripe subscription rails.</li>
+    <li><strong>Telegram bot</strong> @OliviaArcanaBot — 0% platform fee payments via Telegram Stars and crypto.</li>
+    <li><strong>Social pipeline</strong> on GCP Cloud Run — 12 auto-generated zodiac clips/day to TikTok, Instagram, YouTube.</li>
+    <li><strong>78-card v2.7 tarot deck</strong> — locked aesthetic, Gemini "nano-banana" rendered, ready for physical print run.</li>
+  </ul>
+  <div class="pull">Premium quality at accessible price — the first platform to combine a proprietary cinematic deck with AI, multilingual content, and multi-rail payments under one brand.</div>
+  <div class="footer"><span>I · Executive Summary</span><span>03</span></div>
+</section>
+
+<!-- ============ II — PRODUCT / OFFERS ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">II</div>
+    <div>
+      <div class="section-kicker">Part Two · Product</div>
+      <div class="section-title">Four surfaces, one brand.</div>
+    </div>
+  </div>
+  <div class="split">
+    <div>
+      <h3>Live today</h3>
+      <table>
+        <tr><th>Surface</th><th>Status</th></tr>
+        <tr><td><strong>Web app</strong> oliviaarcana.com</td><td>Live</td></tr>
+        <tr><td><strong>Telegram bot</strong> @OliviaArcanaBot</td><td>Live</td></tr>
+        <tr><td><strong>Social pipeline</strong> (GCP Cloud Run)</td><td>Running</td></tr>
+        <tr><td><strong>78-card v2.7 tarot deck</strong></td><td>Generated, print-ready</td></tr>
+        <tr><td><strong>iOS / Android PWA → RN</strong></td><td>Phase 4 (M4-6)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Flagship differentiators</h3>
+      <ul>
+        <li>NASA JPL ephemeris — astronomical accuracy, not approximation.</li>
+        <li>AI Oracle "Olivia" — warm mystical voice, Claude-powered.</li>
+        <li>207-lesson Educational Academy — retention + SEO authority.</li>
+        <li>8-language rollout — EN, UK, RU, AR, DE, ES, PT, FR.</li>
+        <li>Stripe + Telegram Stars + crypto — 3 rails, 0% platform fee on 2 of them.</li>
+        <li>Planned <em>Listening Glass</em> + <em>Cinematic Natal Chart poster</em> + <em>Ritual Rooms</em>.</li>
+      </ul>
+    </div>
+  </div>
+  <h3 style="margin-top:6mm">The deck — v2.7 Cosmos aesthetic</h3>
+  <p class="faint" style="font-size:8.5pt">78 cards · hairline gold on matte indigo · Greco-Roman line-art figures · asymmetric painterly nebula · 8–10° Dutch-angle tilt · cotton cardstock at 400 gsm · rendered via Google Gemini 2.5 Flash Image ("nano banana") on Vertex AI.</p>
+  <div class="deck-strip">
+    <figure><img src="assets/cards/00_the_fool.png" alt=""><figcaption>0 · The Fool</figcaption></figure>
+    <figure><img src="assets/cards/01_the_magician.png" alt=""><figcaption>I · The Magician</figcaption></figure>
+    <figure><img src="assets/cards/17_the_star.png" alt=""><figcaption>XVII · The Star</figcaption></figure>
+    <figure><img src="assets/cards/19_the_sun.png" alt=""><figcaption>XIX · The Sun</figcaption></figure>
+    <figure><img src="assets/cards/21_the_world.png" alt=""><figcaption>XXI · The World</figcaption></figure>
+  </div>
+  <div class="footer"><span>II · Product</span><span>04</span></div>
+</section>
+
+<!-- ============ II — PRICING TIERS ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">II</div>
+    <div>
+      <div class="section-kicker">Part Two · Offers</div>
+      <div class="section-title">Subscription, reading, artifact — three buyer journeys.</div>
+    </div>
+  </div>
+
+  <h3>Subscription tiers</h3>
+  <div class="grid-3">
+    <div class="tier">
+      <div class="t-name">Free</div>
+      <div class="t-price">$0</div>
+      <div class="t-includes">Daily zodiac forecast · card of the day · basic 3-card spreads · 5 AI chat messages/day.</div>
+    </div>
+    <div class="tier featured">
+      <div class="t-name">VIP Monthly</div>
+      <div class="t-price">$6.50 <span style="font-size:10pt;color:var(--dim)">/mo</span></div>
+      <div class="t-includes">Unlimited AI chat · full natal chart · weekly tarot · Celtic Cross · transit alerts · synastry · eclipse &amp; retrograde reports.</div>
+    </div>
+    <div class="tier featured">
+      <div class="t-name">VIP Annual</div>
+      <div class="t-price">$65 <span style="font-size:10pt;color:var(--dim)">/yr</span></div>
+      <div class="t-includes">Everything in Monthly + 2 months free + birthday solar-return reading. Effective <strong>$5.42/mo</strong>.</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:6mm">Premium one-time offers</h3>
+  <div class="grid-3">
+    <div class="tier">
+      <div class="t-name">AI Avatar Reading <span class="pill">1 hour</span></div>
+      <div class="t-price">$35</div>
+      <div class="t-includes">Personalized 1-hour video reading rendered with HeyGen AI avatar + ElevenLabs voice — delivered instantly. <strong>~98.5% margin.</strong></div>
+    </div>
+    <div class="tier">
+      <div class="t-name">Live Expert Video <span class="pill">24 hr</span></div>
+      <div class="t-price">$65</div>
+      <div class="t-includes">Full video reading recorded by a vetted human astrologer, delivered within one business day. <strong>~45% margin after payout.</strong></div>
+    </div>
+    <div class="tier featured">
+      <div class="t-name">Physical Deck — Standard</div>
+      <div class="t-price">$49</div>
+      <div class="t-includes">Premium v2.7 78-card deck in custom tuck box + guidebook. <strong>Free worldwide delivery.</strong> Members pay $35.</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:6mm">Full offer map</h3>
+  <table>
+    <tr><th>Offer</th><th>Price</th><th>Notes</th></tr>
+    <tr><td>Celtic Cross spread</td><td class="gold">$1.95</td><td>Impulse micro-purchase</td></tr>
+    <tr><td>Birth chart reading</td><td class="gold">$3.90</td><td>À la carte</td></tr>
+    <tr><td>Compatibility / synastry</td><td class="gold">$3.90</td><td>À la carte</td></tr>
+    <tr><td>Year-ahead forecast</td><td class="gold">$6.50</td><td>À la carte</td></tr>
+    <tr><td>Ask the Stars Q&amp;A credits</td><td class="gold">$0.99 – $4.99</td><td>1 / 3 / 10 question packs</td></tr>
+    <tr><td>Collector Edition deck</td><td class="gold">$89</td><td>Numbered · deluxe box · 120-page guide · silk pouch</td></tr>
+    <tr><td>Ritual Rooms add-on</td><td class="gold">$14.99/mo</td><td>Premium gated tier (Phase 3)</td></tr>
+    <tr><td>Cinematic Natal Chart poster</td><td class="gold">$29 digital / $49 print</td><td>Shareable viral artifact</td></tr>
+  </table>
+  <div class="footer"><span>II · Offers</span><span>05</span></div>
+</section>
+
+<!-- ============ III — MARKET ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">III</div>
+    <div>
+      <div class="section-kicker">Part Three · Market</div>
+      <div class="section-title">A $5.69B market growing 20% per year.</div>
+    </div>
+  </div>
+  <img src="assets/cards/17_the_star.png" class="card-float-l" alt="">
+  <div class="lead">The astrology-app market tripled between 2020 and 2026 and shows no sign of plateauing — cultural mainstreaming, smartphone saturation, and AI personalization all compound the demand.</div>
+  <div class="grid-2" style="margin-bottom:6mm">
+    <div class="stat"><div class="label">2026 market size</div><div class="value">$5.69B</div><div class="sub">Global astrology-app revenue · Business Research Co.</div></div>
+    <div class="stat"><div class="label">CAGR through 2030</div><div class="value">20.2%</div><div class="sub">Projected tripling to ~$9B</div></div>
+  </div>
+  <h3>Demand signals</h3>
+  <ul>
+    <li><strong>43% of women aged 18-49</strong> in the US identify as astrology-curious or believers (Pew Research).</li>
+    <li>Usage <strong>spikes 650%</strong> during major astrological events — Mercury retrograde, eclipses, solar returns.</li>
+    <li>Personalized natal-chart tools increased engagement by <strong>30-45%</strong> over generic horoscopes.</li>
+    <li>Paid compatibility readings drove <strong>15-25% spending uplift</strong> per user.</li>
+  </ul>
+  <h3>Underserved markets</h3>
+  <p>English-only incumbents ignore ~60% of the addressable base. Ukraine, CIS, MENA (Arabic) and LATAM (Portuguese, Spanish) have <strong>no category-defining native app</strong> — most competitors offer only machine-translated EN content.</p>
+  <div class="pull">Olivia's 8-language rollout captures what Co-Star, Chani and Nebula structurally cannot — the non-English 60% of the global astrology audience.</div>
+  <div class="footer"><span>III · Market</span><span>06</span></div>
+</section>
+
+<!-- ============ IV — AUDIENCE (page 1) ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">IV</div>
+    <div>
+      <div class="section-kicker">Part Four · Target Audience</div>
+      <div class="section-title">Eight languages. Eight distinct profiles.</div>
+    </div>
+  </div>
+  <p class="lead">Olivia is not one product localized — it is a regionally-adapted experience on shared infrastructure. Each language market has a distinct demographic, purchasing pattern, and cultural context.</p>
+  <div class="grid-2">
+    <div>
+      <div class="lang-card">
+        <div class="lang-head"><div><span class="lang-flag">🇬🇧</span> <span class="lang-name">English</span></div><span class="lang-priority">P0 · Flagship</span></div>
+        <div class="lang-meta">US · UK · CA · AU · global ESL · ~280M addressable</div>
+        <p><strong>ARPU:</strong> highest ($6-12/mo WTP). <strong>Our angle:</strong> warm AI voice + cinematic aesthetic at 40-80% lower price than Chani/Nebula. <strong>Channels:</strong> TikTok primary, Instagram, Reddit r/astrology.</p>
+      </div>
+      <div class="lang-card">
+        <div class="lang-head"><div><span class="lang-flag">🇺🇦</span> <span class="lang-name">Ukrainian</span></div><span class="lang-priority">P0 · Native</span></div>
+        <div class="lang-meta">Ukraine + diaspora (PL 1.5M · DE 1.2M · CA 1.4M · US 1M) · ~10M</div>
+        <p><strong>ARPU:</strong> $3-5 local, $5-8 diaspora. <strong>Our angle:</strong> native UA voice (not translation), crypto+card for diaspora, culturally-sensitive content. <strong>Channels:</strong> Telegram dominant.</p>
+      </div>
+      <div class="lang-card">
+        <div class="lang-head"><div><span class="lang-flag">🇷🇺</span> <span class="lang-name">Russian</span></div><span class="lang-priority">P1 · Volume</span></div>
+        <div class="lang-meta">CIS + diaspora (IL 1M · EU 3M · UAE 90k) · ~60M</div>
+        <p><strong>ARPU:</strong> $2-4/mo (ruble volatility). <strong>Our angle:</strong> crypto-native, anonymous by design, Telegram-first. <strong>Payment:</strong> TON/USDT + Telegram Stars (only scalable rails).</p>
+      </div>
+      <div class="lang-card">
+        <div class="lang-head"><div><span class="lang-flag">🇸🇦</span> <span class="lang-name">Arabic</span></div><span class="lang-priority">P1 · High ARPU</span></div>
+        <div class="lang-meta">UAE · KSA · EG · MA · LB · JO · KW · ~50M</div>
+        <p><strong>ARPU:</strong> $8-15 Gulf, $2-4 NA. <strong>Our angle:</strong> proper RTL UI, female-safe voice, Islamic-compatible framing (symbolic reflection, not divination).</p>
+      </div>
+    </div>
+    <div>
+      <div class="lang-card">
+        <div class="lang-head"><div><span class="lang-flag">🇩🇪</span> <span class="lang-name">German</span></div><span class="lang-priority">P2 · Premium EU</span></div>
+        <div class="lang-meta">DE · AT · CH · LI · ~15M</div>
+        <p><strong>ARPU:</strong> highest in EU ($8-15). <strong>Our angle:</strong> NASA JPL rigor appeals to German precision, privacy-first infra (Njalla, no email required), wellness-movement framing.</p>
+      </div>
+      <div class="lang-card">
+        <div class="lang-head"><div><span class="lang-flag">🇪🇸</span> <span class="lang-name">Spanish</span></div><span class="lang-priority">P2 · LatAm Volume</span></div>
+        <div class="lang-meta">ES + MX · CO · AR · CL · PE · US Hispanic 60M · ~120M</div>
+        <p><strong>ARPU:</strong> $5-8 Spain, $2-4 LatAm. <strong>Our angle:</strong> Walter-Mercado warmth + modern tech, crypto for Argentina/Venezuela, TikTok-dominant content.</p>
+      </div>
+      <div class="lang-card">
+        <div class="lang-head"><div><span class="lang-flag">🇧🇷</span> <span class="lang-name">Portuguese</span></div><span class="lang-priority">P3 · Brazil-first</span></div>
+        <div class="lang-meta">BR (95%) + PT + Lusophone Africa · ~90M</div>
+        <p><strong>ARPU:</strong> $2-4 BR, $5-7 PT. <strong>Our angle:</strong> Pix-native payments (Stripe already supports), Telegram 20M+ BR users, viral TikTok reels. Susy Esteves / Monica Buonfiglio cultural seat.</p>
+      </div>
+      <div class="lang-card">
+        <div class="lang-head"><div><span class="lang-flag">🇫🇷</span> <span class="lang-name">French</span></div><span class="lang-priority">P3 · Editorial</span></div>
+        <div class="lang-meta">FR · BE · CH · QC · francophone Africa · ~45M</div>
+        <p><strong>ARPU:</strong> $6-10 FR/BE/QC, $2-3 Africa. <strong>Our angle:</strong> editorial aesthetic (French design sensibility), Elle / Marie Claire PR, premium print-like typography.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>IV · Target Audience</span><span>07</span></div>
+</section>
+
+<!-- ============ IV — AUDIENCE WEIGHTING ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">IV</div>
+    <div>
+      <div class="section-kicker">Part Four · Revenue Weighting</div>
+      <div class="section-title">670M addressable users across 8 languages.</div>
+    </div>
+  </div>
+  <h3>Audience size &amp; revenue share</h3>
+  <table>
+    <tr><th>Language</th><th class="num">Addressable</th><th class="num">Year-1 revenue share</th><th>Priority</th><th>Primary edge</th></tr>
+    <tr class="olivia"><td><span class="lang-flag">🇬🇧</span> English</td><td class="num">~280M</td><td class="num gold">45%</td><td><span class="pill">P0</span></td><td>Warm AI + under-priced vs Chani/Nebula</td></tr>
+    <tr><td><span class="lang-flag">🇺🇦</span> Ukrainian</td><td class="num">~10M</td><td class="num gold">5%</td><td><span class="pill">P0</span></td><td>Native operator, no major UA competitor</td></tr>
+    <tr><td><span class="lang-flag">🇷🇺</span> Russian</td><td class="num">~60M</td><td class="num gold">8%</td><td><span class="pill">P1</span></td><td>Crypto-native, Telegram-dominant</td></tr>
+    <tr><td><span class="lang-flag">🇸🇦</span> Arabic</td><td class="num">~50M</td><td class="num gold">12%</td><td><span class="pill">P1</span></td><td>Highest Gulf ARPU, RTL done right</td></tr>
+    <tr><td><span class="lang-flag">🇩🇪</span> German</td><td class="num">~15M</td><td class="num gold">10%</td><td><span class="pill alt">P2</span></td><td>Premium precision + privacy-first</td></tr>
+    <tr><td><span class="lang-flag">🇪🇸</span> Spanish</td><td class="num">~120M</td><td class="num gold">10%</td><td><span class="pill alt">P2</span></td><td>Walter-Mercado warmth at scale</td></tr>
+    <tr><td><span class="lang-flag">🇧🇷</span> Portuguese</td><td class="num">~90M</td><td class="num gold">6%</td><td><span class="pill alt">P3</span></td><td>Brazil Pix + Telegram native</td></tr>
+    <tr><td><span class="lang-flag">🇫🇷</span> French</td><td class="num">~45M</td><td class="num gold">4%</td><td><span class="pill alt">P3</span></td><td>Editorial sophistication, PR-amplified</td></tr>
+    <tr style="border-top:1px solid var(--gold-3)"><td><strong>Total</strong></td><td class="num gold">~670M</td><td class="num gold">100%</td><td></td><td></td></tr>
+  </table>
+
+  <h3 style="margin-top:4mm">Audience-share visualization</h3>
+  <div class="bars">
+    <div class="bar-row"><div class="label">English</div><div class="track"><div class="fill" style="width:45%"></div></div><div class="val">45%</div></div>
+    <div class="bar-row"><div class="label">Arabic</div><div class="track"><div class="fill" style="width:12%"></div></div><div class="val">12%</div></div>
+    <div class="bar-row"><div class="label">German</div><div class="track"><div class="fill" style="width:10%"></div></div><div class="val">10%</div></div>
+    <div class="bar-row"><div class="label">Spanish</div><div class="track"><div class="fill" style="width:10%"></div></div><div class="val">10%</div></div>
+    <div class="bar-row"><div class="label">Russian</div><div class="track"><div class="fill" style="width:8%"></div></div><div class="val">8%</div></div>
+    <div class="bar-row"><div class="label">Portuguese</div><div class="track"><div class="fill" style="width:6%"></div></div><div class="val">6%</div></div>
+    <div class="bar-row"><div class="label">Ukrainian</div><div class="track"><div class="fill" style="width:5%"></div></div><div class="val">5%</div></div>
+    <div class="bar-row"><div class="label">French</div><div class="track"><div class="fill" style="width:4%"></div></div><div class="val">4%</div></div>
+  </div>
+  <div class="footer"><span>IV · Revenue Weighting</span><span>08</span></div>
+</section>
+
+<!-- ============ V — COMPETITOR MATRIX ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">V</div>
+    <div>
+      <div class="section-kicker">Part Five · Competitors</div>
+      <div class="section-title">Cheaper, broader, more beautiful.</div>
+    </div>
+  </div>
+  <h3>Pricing matrix (USD)</h3>
+  <table>
+    <tr><th>Platform</th><th class="num">Monthly</th><th class="num">Annual</th><th>Free tier</th><th>Primary rail</th></tr>
+    <tr class="olivia"><td><strong>Olivia Arcana</strong></td><td class="num gold">$6.50</td><td class="num gold">$65 <span class="dim">(eff. $5.42)</span></td><td>Generous</td><td>Stripe + Stars + crypto</td></tr>
+    <tr><td>Co-Star</td><td class="num">$9.00</td><td class="num">—</td><td>Yes</td><td>Apple IAP</td></tr>
+    <tr><td>Chani Nicholas</td><td class="num">$11.99</td><td class="num">$40 <span class="dim">(eff. $3.33)</span></td><td>Limited</td><td>Apple IAP · 30-day trial</td></tr>
+    <tr><td>Sanctuary</td><td class="num">pay-per-min</td><td class="num">—</td><td>Limited</td><td>IAP + $4.99/5-min intro</td></tr>
+    <tr><td>Nebula</td><td class="num">$24.99</td><td class="num">3-mo $29.99</td><td>Yes</td><td>IAP + $3.99/min psychics</td></tr>
+    <tr><td>The Pattern</td><td class="num">$19.99</td><td class="num">—</td><td>Yes</td><td>IAP</td></tr>
+    <tr><td>Labyrinthos</td><td class="num">$4.99</td><td class="num">—</td><td>Yes</td><td>IAP</td></tr>
+    <tr><td>Biddy Tarot</td><td class="num">$19.00</td><td class="num">$197</td><td>Blog only</td><td>Web / courses</td></tr>
+  </table>
+  <p class="caption">Olivia's $65 annual is the lowest-priced all-features subscription in the premium tier. Chani is cheaper but single-app, English-only, no AI chat, no tarot.</p>
+
+  <h3 style="margin-top:4mm">Feature matrix</h3>
+  <table>
+    <tr><th>Feature</th><th class="c">Olivia</th><th class="c">Co-Star</th><th class="c">Chani</th><th class="c">Sanctuary</th><th class="c">Nebula</th></tr>
+    <tr><td>NASA JPL ephemeris</td><td class="c check">✓</td><td class="c check">✓</td><td class="c check">✓</td><td class="c check">✓</td><td class="c check">✓</td></tr>
+    <tr><td>AI chat (LLM-powered)</td><td class="c check">✓ Claude</td><td class="c check">✓ Void</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>Proprietary 78-card tarot deck</td><td class="c check">✓</td><td class="c x">—</td><td class="c x">—</td><td class="c">basic</td><td class="c check">✓</td></tr>
+    <tr><td>Celtic Cross spread</td><td class="c check">✓</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>AI-video reading</td><td class="c check">$35</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>Live expert video (24h)</td><td class="c check">$65</td><td class="c x">—</td><td class="c x">—</td><td class="c">per-min</td><td class="c">per-min</td></tr>
+    <tr><td>Educational academy</td><td class="c check">207 lessons</td><td class="c x">—</td><td class="c">workshops</td><td class="c">library</td><td class="c">limited</td></tr>
+    <tr><td>Multi-language</td><td class="c check">8</td><td class="c">EN</td><td class="c">EN</td><td class="c">EN</td><td class="c">EN</td></tr>
+    <tr><td>Telegram bot</td><td class="c check">✓</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>Crypto payments</td><td class="c check">✓</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>Physical deck + free ship</td><td class="c check">$49 / $89</td><td class="c x">—</td><td class="c">shop</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>WebGL cinematic web app</td><td class="c check">✓</td><td class="c">minimal</td><td class="c">standard</td><td class="c">standard</td><td class="c">standard</td></tr>
+    <tr><td>Voice-responsive oracle</td><td class="c check">planned</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+  </table>
+  <div class="footer"><span>V · Competitors</span><span>09</span></div>
+</section>
+
+<!-- ============ VI — PRICING VIABILITY ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">VI</div>
+    <div>
+      <div class="section-kicker">Part Six · Pricing Viability</div>
+      <div class="section-title">Every price point, cross-checked against 2026 benchmarks.</div>
+    </div>
+  </div>
+  <p class="faint" style="font-size:9pt">Verdict key: <span class="gold">🟢 underpriced (room to raise)</span> &nbsp; <span class="check">✅ viable</span> &nbsp; <span class="warn">⚠️ ambitious</span></p>
+  <table>
+    <tr><th>Offer</th><th class="num">Our price</th><th>Benchmark</th><th class="c">Verdict</th><th>Notes</th></tr>
+    <tr><td>VIP Monthly</td><td class="num gold">$6.50</td><td>Co-Star $9 · Chani $11.99 · Pattern $19.99 · Nebula $24.99</td><td class="c">🟢</td><td>30-75% below peers. Hold for launch; A/B $7.99-8.99 in Q3.</td></tr>
+    <tr><td>VIP Annual</td><td class="num gold">$65</td><td>Chani $40 · Nebula ~$80 · Pattern ~$200</td><td class="c">✅</td><td>Feature-set justifies the premium over Chani.</td></tr>
+    <tr><td>AI Avatar Reading (1 hr)</td><td class="num gold">$35</td><td>1-hr human tarot $40-100 · Etsy video $20-75</td><td class="c">✅</td><td>~98.5% margin. Below human, above stock AI.</td></tr>
+    <tr><td>Live Expert Video (24 h)</td><td class="num gold">$65</td><td>Kasamba $4.99/min = $300/hr · Keen $3.99-6.99/min</td><td class="c">✅</td><td>Needs astrologer supply at $30-40/reading; 45% margin.</td></tr>
+    <tr><td>Physical Deck — Standard</td><td class="num gold">$49</td><td>Rider-Waite std $15-25 · Premier $35-50 · indie $45-80</td><td class="c">✅</td><td>Landed cost ~$28 at 1000 qty; <strong>~42% margin.</strong></td></tr>
+    <tr><td>Physical Deck — Collector</td><td class="num gold">$89</td><td>Kickstarter indie $65-95 · Mucha/Thoth $80-120</td><td class="c">✅</td><td>Numbered · deluxe box · silk pouch; <strong>~52% margin.</strong></td></tr>
+    <tr><td>Physical Deck — VIP price</td><td class="num gold">$35</td><td>n/a — loyalty tier</td><td class="c">✅</td><td>25% margin. Converts deck buyer into $65/yr subscriber.</td></tr>
+    <tr><td>À la carte readings</td><td class="num gold">$1.95-6.50</td><td>Peers rarely sell à la carte &lt;$10</td><td class="c">✅</td><td>Impulse-purchase sweet spot.</td></tr>
+    <tr><td>Ask the Stars credits</td><td class="num gold">$0.99-4.99</td><td>Co-Star Void is subscription-gated</td><td class="c">✅</td><td>Micro-txn psychology &lt;$5.</td></tr>
+  </table>
+
+  <h3 style="margin-top:4mm">Tensions &amp; recommendations</h3>
+  <ul>
+    <li><strong>Recommendation 1 — hold then raise.</strong> VIP Monthly at $6.50 is 46% below market median. Hold for acquisition; A/B test $7.99 vs $8.99 in Q3 on new cohorts, grandfather existing subs.</li>
+    <li><strong>Recommendation 2 — deck as 3-SKU ladder.</strong> Standard $49 (headline, 42% margin) · Collector $89 (52% margin) · VIP-member $35 (25% margin, subscription funnel). All with free worldwide shipping as marketing anchor.</li>
+    <li><strong>Recommendation 3 — source $65 live-expert supply via UA/RU astrologer communities</strong> where $30-40/reading is strong freelance income; scale English supply via Upwork/Fiverr partnerships.</li>
+    <li><strong>Recommendation 4 — Stripe Adaptive Pricing (PPP) in Q2.</strong> +20-30% in DE/CH/FR/GB; -30-40% in LatAm, MENA-non-Gulf, UA-domestic.</li>
+    <li><strong>Recommendation 5 — $9.99 / 25-question Ask-the-Stars pack</strong> to unlock mid-elasticity buyer cohort.</li>
+  </ul>
+  <div class="footer"><span>VI · Pricing Viability</span><span>10</span></div>
+</section>
+
+<!-- ============ VII — REVENUE MODEL / UNIT ECONOMICS ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">VII</div>
+    <div>
+      <div class="section-kicker">Part Seven · Unit Economics</div>
+      <div class="section-title">97% gross margin on subscriptions. $8.20 blended ARPU per paid user.</div>
+    </div>
+  </div>
+  <div class="split">
+    <div>
+      <h3>Revenue mix target</h3>
+      <div class="bars">
+        <div class="bar-row"><div class="label">Subscriptions</div><div class="track"><div class="fill" style="width:60%"></div></div><div class="val">60%</div></div>
+        <div class="bar-row"><div class="label">À la carte readings</div><div class="track"><div class="fill" style="width:25%"></div></div><div class="val">25%</div></div>
+        <div class="bar-row"><div class="label">Ask the Stars</div><div class="track"><div class="fill" style="width:15%"></div></div><div class="val">15%</div></div>
+      </div>
+      <h3>Per-user economics</h3>
+      <table>
+        <tr><th></th><th class="c">Free</th><th class="c">VIP</th><th class="c">Buyer</th></tr>
+        <tr><td>CAC</td><td class="num">$0.50-2</td><td class="num">$3-8</td><td class="num">$1-3</td></tr>
+        <tr><td>Monthly revenue</td><td class="num">$0</td><td class="num gold">$6.50</td><td class="num">$2</td></tr>
+        <tr><td>Variable cost</td><td class="num">$0.02</td><td class="num">$0.15</td><td class="num">$0.05</td></tr>
+        <tr><td>Gross margin</td><td class="num">—</td><td class="num gold">~97%</td><td class="num">~90%</td></tr>
+        <tr><td>12-mo LTV</td><td class="num">$0</td><td class="num gold">$65-78</td><td class="num">$15-25</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Average check (ARPU)</h3>
+      <table>
+        <tr><th>Segment</th><th class="num">Avg txn</th><th class="num">$/mo paying</th></tr>
+        <tr><td>VIP Monthly</td><td class="num">$6.50</td><td class="num gold">$6.50</td></tr>
+        <tr><td>VIP Annual</td><td class="num">$65</td><td class="num gold">$5.42</td></tr>
+        <tr><td>À la carte reading</td><td class="num">$4.50</td><td class="num gold">$3.00</td></tr>
+        <tr><td>Ask the Stars</td><td class="num">$2.80</td><td class="num gold">$6.50</td></tr>
+        <tr><td>AI Avatar (1 hr)</td><td class="num">$35</td><td class="num gold">$4.40</td></tr>
+        <tr><td>Live Expert</td><td class="num">$65</td><td class="num gold">$5.42</td></tr>
+        <tr><td>Deck — Standard</td><td class="num">$49</td><td class="num gold">$4.08</td></tr>
+        <tr><td>Deck — Collector</td><td class="num">$89</td><td class="num gold">$7.42</td></tr>
+        <tr class="olivia"><td><strong>Blended paying</strong></td><td class="num gold">$14.60</td><td class="num gold">$8.20</td></tr>
+        <tr><td>Blended all users (5-8%)</td><td class="num">—</td><td class="num">$0.50-0.80</td></tr>
+      </table>
+      <h3>OPEX (monthly)</h3>
+      <table>
+        <tr><th></th><th class="num">@10k users</th><th class="num">@100k users</th></tr>
+        <tr><td>Claude API</td><td class="num">$150</td><td class="num">$1,200</td></tr>
+        <tr><td>ElevenLabs</td><td class="num">$50</td><td class="num">$400</td></tr>
+        <tr><td>HeyGen</td><td class="num">$30</td><td class="num">$250</td></tr>
+        <tr><td>Vertex AI</td><td class="num">$10</td><td class="num">$80</td></tr>
+        <tr><td>Cloud Run + GCS</td><td class="num">$80</td><td class="num">$400</td></tr>
+        <tr><td>Stripe fees</td><td class="num">$120</td><td class="num">$950</td></tr>
+        <tr class="olivia"><td><strong>Total OPEX</strong></td><td class="num gold">$455</td><td class="num gold">$3,340</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="footer"><span>VII · Unit Economics</span><span>11</span></div>
+</section>
+
+<!-- ============ VIII — PROJECTIONS (6mo) ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">VIII</div>
+    <div>
+      <div class="section-kicker">Part Eight · 6-Month Projections</div>
+      <div class="section-title">Three scenarios. One realistic target.</div>
+    </div>
+  </div>
+  <div class="grid-3">
+    <div class="scen">
+      <div class="s-kicker">Scenario A</div>
+      <div class="s-name">Conservative</div>
+      <div class="s-row"><span class="dim">3% free→VIP · organic only</span></div>
+      <div class="s-row"><span>M1 users</span><strong>500</strong></div>
+      <div class="s-row"><span>M6 users</span><strong>15,000</strong></div>
+      <div class="s-row"><span>M6 VIP subs</span><strong>450</strong></div>
+      <div class="s-row"><span>M6 revenue</span><strong>$4,725</strong></div>
+      <div class="s-row"><span>6-mo revenue</span><strong>$11,242</strong></div>
+      <div class="s-row"><span class="gold">6-mo net profit</span><span class="s-big gold">$9,872</span></div>
+    </div>
+    <div class="scen realistic">
+      <div class="s-kicker gold">Scenario B · target</div>
+      <div class="s-name">Realistic</div>
+      <div class="s-row"><span class="dim">5% free→VIP · paid ads from M3</span></div>
+      <div class="s-row"><span>M1 users</span><strong>500</strong></div>
+      <div class="s-row"><span>M6 users</span><strong>30,000</strong></div>
+      <div class="s-row"><span>M6 VIP subs</span><strong>1,500</strong></div>
+      <div class="s-row"><span>M6 revenue</span><strong>$14,250</strong></div>
+      <div class="s-row"><span>6-mo revenue</span><strong>$31,043</strong></div>
+      <div class="s-row"><span class="gold">6-mo net profit</span><span class="s-big gold">$28,703</span></div>
+    </div>
+    <div class="scen">
+      <div class="s-kicker">Scenario C</div>
+      <div class="s-name">Optimistic</div>
+      <div class="s-row"><span class="dim">7% conv · viral loop active</span></div>
+      <div class="s-row"><span>M1 users</span><strong>800</strong></div>
+      <div class="s-row"><span>M6 users</span><strong>90,000</strong></div>
+      <div class="s-row"><span>M6 VIP subs</span><strong>6,300</strong></div>
+      <div class="s-row"><span>M6 revenue</span><strong>$58,950</strong></div>
+      <div class="s-row"><span>6-mo revenue</span><strong>$117,482</strong></div>
+      <div class="s-row"><span class="gold">6-mo net profit</span><span class="s-big gold">$111,622</span></div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:6mm">Realistic scenario — month by month</h3>
+  <table>
+    <tr><th>Month</th><th class="num">Users</th><th class="num">VIP subs</th><th class="num">MRR</th><th class="num">À la carte</th><th class="num">Total revenue</th><th class="num">OPEX</th><th class="num">Net profit</th></tr>
+    <tr><td>M1</td><td class="num">500</td><td class="num">25</td><td class="num">$163</td><td class="num">$75</td><td class="num">$238</td><td class="num">$60</td><td class="num gold">$178</td></tr>
+    <tr><td>M2</td><td class="num">2,000</td><td class="num">100</td><td class="num">$650</td><td class="num">$280</td><td class="num">$930</td><td class="num">$130</td><td class="num gold">$800</td></tr>
+    <tr><td>M3</td><td class="num">5,000</td><td class="num">250</td><td class="num">$1,625</td><td class="num">$720</td><td class="num">$2,345</td><td class="num">$250</td><td class="num gold">$2,095</td></tr>
+    <tr><td>M4</td><td class="num">10,000</td><td class="num">500</td><td class="num">$3,250</td><td class="num">$1,480</td><td class="num">$4,730</td><td class="num">$400</td><td class="num gold">$4,330</td></tr>
+    <tr><td>M5</td><td class="num">18,000</td><td class="num">900</td><td class="num">$5,850</td><td class="num">$2,700</td><td class="num">$8,550</td><td class="num">$600</td><td class="num gold">$7,950</td></tr>
+    <tr><td>M6</td><td class="num">30,000</td><td class="num">1,500</td><td class="num">$9,750</td><td class="num">$4,500</td><td class="num">$14,250</td><td class="num">$900</td><td class="num gold">$13,350</td></tr>
+    <tr class="olivia"><td><strong>Cumulative</strong></td><td></td><td></td><td></td><td></td><td class="num gold">$31,043</td><td class="num gold">$2,340</td><td class="num gold">$28,703</td></tr>
+  </table>
+  <div class="footer"><span>VIII · 6-Month Projections</span><span>12</span></div>
+</section>
+
+<!-- ============ VIII — PROJECTIONS (12mo) ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">VIII</div>
+    <div>
+      <div class="section-kicker">Part Eight · 12-Month Projections</div>
+      <div class="section-title">Year 1 targets across all three scenarios.</div>
+    </div>
+  </div>
+
+  <h3>Year-1 summary</h3>
+  <table>
+    <tr><th>Scenario</th><th class="num">Users (M12)</th><th class="num">VIP subs (M12)</th><th class="num">Year-1 revenue</th><th class="num">Year-1 net profit</th></tr>
+    <tr><td>Conservative</td><td class="num">50,000</td><td class="num">1,500</td><td class="num">$52,000</td><td class="num gold">$46,000</td></tr>
+    <tr class="olivia"><td><strong>Realistic</strong> <span class="pill">target</span></td><td class="num gold">120,000</td><td class="num gold">6,000</td><td class="num gold">$204,000</td><td class="num gold">$180,700</td></tr>
+    <tr><td>Optimistic</td><td class="num">400,000</td><td class="num">28,000</td><td class="num">$847,000</td><td class="num gold">$786,000</td></tr>
+  </table>
+
+  <h3 style="margin-top:5mm">Realistic scenario — half-yearly arc</h3>
+  <div class="grid-2">
+    <div>
+      <h3>H1 (M1–M6)</h3>
+      <ul>
+        <li>Launch EN + UK, stabilize daily 12-clip pipeline.</li>
+        <li>Paid ads activate M3 once organic funnel is proven.</li>
+        <li>Alt-site v1 (Portal + Natal Chart poster) ships M5.</li>
+        <li>Physical deck print run (1,000 units) placed M6.</li>
+        <li><strong>H1 revenue: $31,043 · net profit: $28,703</strong></li>
+      </ul>
+    </div>
+    <div>
+      <h3>H2 (M7–M12)</h3>
+      <ul>
+        <li>All 8 languages operational by M9.</li>
+        <li>iOS/Android PWA launches M8; React Native M11.</li>
+        <li>Live expert video supply network onboarded M7-M8.</li>
+        <li>Ritual Rooms + Listening Glass launch M11-M12.</li>
+        <li><strong>H2 revenue: $172,957 · net profit: $152,000</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin-top:5mm">Sensitivity — levers that move Year-1 revenue</h3>
+  <table>
+    <tr><th>Lever</th><th>Baseline</th><th class="num">±1σ impact</th></tr>
+    <tr><td>Free→VIP conversion</td><td>5%</td><td class="num gold">±40%</td></tr>
+    <tr><td>TikTok virality (visit→signup)</td><td>2%</td><td class="num gold">±60%</td></tr>
+    <tr><td>VIP monthly churn</td><td>15%</td><td class="num gold">±30%</td></tr>
+    <tr><td>À la carte attach rate</td><td>25%</td><td class="num gold">±15%</td></tr>
+    <tr><td>Physical deck sell-through</td><td>10% of active</td><td class="num gold">±20%</td></tr>
+  </table>
+  <p class="faint" style="font-size:8.5pt;margin-top:3mm"><strong>Biggest lever:</strong> TikTok virality. One video &gt;10M views compresses 3 months of paid growth into 2 weeks. The 12-video/day pipeline is designed to maximize viral surface area.</p>
+  <div class="footer"><span>VIII · 12-Month Projections</span><span>13</span></div>
+</section>
+
+<!-- ============ IX — GROWTH STRATEGY ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">IX</div>
+    <div>
+      <div class="section-kicker">Part Nine · Growth</div>
+      <div class="section-title">The acquisition flywheel.</div>
+    </div>
+  </div>
+  <img src="assets/cards/10_wheel_of_fortune.png" class="card-float" alt="">
+  <p class="lead">Every surface compounds. The content pipeline feeds the website and Telegram bot; the bot converts to subscribers; subscribers refer through compatibility loops; every feature is a new vector for organic distribution.</p>
+  <div class="flywheel">
+    <div class="step"><div class="n">01</div><div class="txt"><strong>Daily 12-video TikTok pipeline</strong>Auto-generated clips for each zodiac sign, near-zero marginal cost per video.</div></div>
+    <div class="step"><div class="n">02</div><div class="txt"><strong>Profile visit → Telegram bot link</strong>Friction-free free birth chart hook — no app install, no payment.</div></div>
+    <div class="step"><div class="n">03</div><div class="txt"><strong>Daily habit</strong>5 free AI-chat messages/day build a morning ritual. Users return for their personalized reading.</div></div>
+    <div class="step"><div class="n">04</div><div class="txt"><strong>Upgrade trigger</strong>Message cap hit or VIP-only reading teaser → Stripe (web) or Telegram Stars (bot).</div></div>
+    <div class="step"><div class="n">05</div><div class="txt"><strong>Retention</strong>Daily personalized readings, transit alerts, weekly tarot pulls — every morning, every user.</div></div>
+    <div class="step"><div class="n">06</div><div class="txt"><strong>Premium upsell</strong>AI Avatar reading ($35) · Live Expert ($65) · Physical Deck ($49/$89) · Ritual Rooms ($14.99/mo).</div></div>
+    <div class="step"><div class="n">07</div><div class="txt"><strong>Referral loop</strong>Compatibility checker requires both parties to sign up. Birth chart card is social-shareable. Zodiac roasts are the #1 viral format in astrology.</div></div>
+  </div>
+  <div class="footer"><span>IX · Growth</span><span>14</span></div>
+</section>
+
+<!-- ============ IX — ROADMAP ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">IX</div>
+    <div>
+      <div class="section-kicker">Part Nine · 12-Month Roadmap</div>
+      <div class="section-title">Quarter-by-quarter execution plan.</div>
+    </div>
+  </div>
+  <table>
+    <tr><th>Quarter</th><th>Milestones</th><th class="num">Capital</th></tr>
+    <tr><td><strong>Q1 · M1-3</strong></td><td>Stripe live · EN + UK launch · daily pipeline at full throughput · 30k users</td><td class="num gold">$2,000</td></tr>
+    <tr><td><strong>Q2 · M4-6</strong></td><td>All 8 languages live · alt-site v1 (Portal + Natal Chart poster) shipped · 120k users</td><td class="num gold">$5,000</td></tr>
+    <tr><td><strong>Q3 · M7-9</strong></td><td>Physical deck print run 1,000 units · iOS/Android PWA launch · live expert supply network</td><td class="num gold">$15,000</td></tr>
+    <tr><td><strong>Q4 · M10-12</strong></td><td>Ritual Rooms · Listening Glass · B2B pilot · 400k users (optimistic)</td><td class="num gold">$10,000</td></tr>
+    <tr class="olivia"><td><strong>Year 1 total</strong></td><td>Bootstrappable from M4+ revenue in realistic scenario</td><td class="num gold">~$32,000</td></tr>
+  </table>
+
+  <h3 style="margin-top:5mm">Break-even timeline</h3>
+  <table>
+    <tr><th>Scenario</th><th>OPEX break-even</th><th>Full founder salary ($8k/mo) covered</th></tr>
+    <tr><td>Conservative</td><td>Month 2</td><td>Month 10</td></tr>
+    <tr class="olivia"><td><strong>Realistic</strong></td><td class="gold">Month 1</td><td class="gold">Month 5</td></tr>
+    <tr><td>Optimistic</td><td>Month 1</td><td>Month 2</td></tr>
+  </table>
+
+  <h3 style="margin-top:5mm">Content cadence</h3>
+  <div class="grid-3">
+    <div class="stat"><div class="label">Daily</div><div class="value" style="font-size:18pt">12 + 12</div><div class="sub">12 zodiac clips · 12 Telegram posts (8 langs)</div></div>
+    <div class="stat"><div class="label">Weekly</div><div class="value" style="font-size:18pt">4 drops</div><div class="sub">Deep post · VIP sample · live Q&amp;A · cross-promo</div></div>
+    <div class="stat"><div class="label">Monthly</div><div class="value" style="font-size:18pt">Events</div><div class="sub">Retrograde, eclipse, solar return — 650% spike</div></div>
+  </div>
+  <div class="footer"><span>IX · Roadmap</span><span>15</span></div>
+</section>
+
+<!-- ============ X — RISKS / WHY NOW ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">X</div>
+    <div>
+      <div class="section-kicker">Part Ten · Risks &amp; Why Now</div>
+      <div class="section-title">A 12-18 month competitive window.</div>
+    </div>
+  </div>
+  <h3>Risk register</h3>
+  <table>
+    <tr><th>Risk</th><th class="c">Probability</th><th class="c">Impact</th><th>Mitigation</th></tr>
+    <tr><td>TikTok algorithm change</td><td class="c">Med</td><td class="c warn">High</td><td>8-channel diversification; paid ads ready M3</td></tr>
+    <tr><td>API-cost inflation (Claude, 11Labs)</td><td class="c">Med</td><td class="c">Med</td><td>Cache common readings; Piper TTS fallback validated</td></tr>
+    <tr><td>App Store rejection</td><td class="c">Low</td><td class="c">Med</td><td>Web + Telegram already covers 100% of revenue</td></tr>
+    <tr><td>Chani/Co-Star copies a feature</td><td class="c">Med</td><td class="c">Low</td><td>Proprietary v2.7 deck takes 6-12mo to replicate</td></tr>
+    <tr><td>Payment-rail restrictions</td><td class="c">Low</td><td class="c">Low</td><td>Stripe primary, crypto secondary — redundant</td></tr>
+    <tr><td>Content moderation (tarot)</td><td class="c">Low</td><td class="c">Low</td><td>Prompts hardened; reframe as "symbolic reflection" for KSA</td></tr>
+    <tr><td>Founder bandwidth (solo)</td><td class="c warn">High</td><td class="c">Med</td><td>Full pipeline automation shipped; Claude Code handles ops</td></tr>
+  </table>
+
+  <h3 style="margin-top:5mm">Why now — why us</h3>
+  <ul>
+    <li><strong>78-card v2.7 deck is already generated.</strong> No competitor has a proprietary AI-generated cinematic deck of this quality. Replication cost: 3-6 months + $5k minimum.</li>
+    <li><strong>Social pipeline is deployed to GCP Cloud Run.</strong> 12 videos/day at near-zero marginal cost. Competitors max out at 1-2/day.</li>
+    <li><strong>Stripe + Telegram Stars + crypto wired.</strong> Multi-rail monetization live from day 1.</li>
+    <li><strong>Founder is a solo technical operator</strong> capable of shipping across web, mobile, video, AI — the full stack a team of 5-8 would otherwise require.</li>
+  </ul>
+
+  <div class="pull">The market is growing 20% annually, premium-astrology ARPU is rising, and no incumbent has combined cinematic aesthetic + AI + multilingual + multi-rail monetization. This is a 12-18 month window before Co-Star or a well-funded entrant closes it.</div>
+  <div class="footer"><span>X · Risks &amp; Why Now</span><span>16</span></div>
+</section>
+
+<!-- ============ DIVIDER — UKRAINIAN ============ -->
+<section class="page divider">
+  <img src="assets/cards/03_the_empress.png" alt="">
+  <div class="big">Частина II</div>
+  <div class="sub">Українська · Ukrainian Edition</div>
+</section>
+
+<!-- ============ UA COVER ============ -->
+<section class="page cover">
+  <div class="cover-frame">
+    <div class="cover-left">
+      <div class="tiny gold-grad">Olivia Arcana · Бізнес-план · v1.0</div>
+      <h1 class="cover-title gold-grad">Написано<br>у Ваших<br>Зірках.</h1>
+      <div class="cover-tag">Преміум омніканальна платформа астрології та таро.</div>
+      <p class="cover-subtitle">Власна кінематографічна колода з 78 карт · ефемериди NASA JPL · ШІ-оракул · 8 мов · Веб + Telegram + Мобайл.</p>
+    </div>
+    <div class="cover-right"><img src="assets/cards/21_the_world.png" alt=""></div>
+  </div>
+  <div class="cover-meta">
+    <span>oliviaarcana.com</span>
+    <span>Квітень 2026 · Конфіденційно</span>
+  </div>
+</section>
+
+<!-- ============ UA · I — РЕЗЮМЕ ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">I</div>
+    <div>
+      <div class="section-kicker">Частина 1 · Резюме</div>
+      <div class="section-title">Кінематографічна астрологія з розумною ціною.</div>
+    </div>
+  </div>
+  <img src="assets/cards/09_the_hermit.png" class="card-float" alt="">
+  <div class="lead">Olivia Arcana поєднує астрономічні обчислення рівня NASA, ШІ-оракула (на базі Claude) та власну колоду із 78 таро-карт у кінематографічній естетиці в омніканальну платформу, якій не відповідає жоден конкурент.</div>
+  <p>Ми конкуруємо на <strong>глобальному ринку астрологічних застосунків $5,69 млрд</strong> (2026, CAGR 20,2%) з Co-Star, Chani, Sanctuary і Nebula — але маємо три осі диференціації: власна кінематографічна колода та WebGL-досвід, мульти-рейкова мульти-мовна дистрибуція (веб + Telegram + мобайл · 8 мов), та доступна ціна (річна підписка на 40–80% нижче конкурентів).</p>
+  <h3>Цілі Року 1 — реалістичний сценарій</h3>
+  <div class="grid-4" style="margin-top:4mm">
+    <div class="stat"><div class="label">Користувачі</div><div class="value">120k</div><div class="sub">у 8 мовах</div></div>
+    <div class="stat"><div class="label">VIP-підписки</div><div class="value">6 000</div><div class="sub">5% конверсія free→paid</div></div>
+    <div class="stat"><div class="label">Виручка</div><div class="value">$204k</div><div class="sub">підписки + разові + колода</div></div>
+    <div class="stat"><div class="label">Чистий прибуток</div><div class="value">$180k</div><div class="sub">~88% чиста маржа</div></div>
+  </div>
+  <h3 style="margin-top:6mm">Що вже живе</h3>
+  <ul>
+    <li><strong>Вебсайт</strong> oliviaarcana.com — інтерактивна натальна карта, ШІ-оракул, академія з 207 уроків, Stripe-рейки підписки.</li>
+    <li><strong>Telegram-бот</strong> @OliviaArcanaBot — 0% комісії платформи через Telegram Stars та крипто.</li>
+    <li><strong>Соціальний пайплайн</strong> на GCP Cloud Run — 12 авто-згенерованих зодіакальних кліпів на добу у TikTok, Instagram, YouTube.</li>
+    <li><strong>Колода v2.7 із 78 карт</strong> — зафіксована естетика, Gemini "nano-banana", готова до друку.</li>
+  </ul>
+  <div class="pull">Преміум-якість за доступною ціною — перша платформа, що поєднала власну кінематографічну колоду з ШІ, мультимовним контентом і мульти-рейковою монетизацією під одним брендом.</div>
+  <div class="footer"><span>I · Резюме</span><span>18</span></div>
+</section>
+
+<!-- ============ UA · II — ТАРИФИ ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">II</div>
+    <div>
+      <div class="section-kicker">Частина 2 · Тарифи</div>
+      <div class="section-title">Підписка, читання, артефакт.</div>
+    </div>
+  </div>
+  <h3>Підписки</h3>
+  <div class="grid-3">
+    <div class="tier"><div class="t-name">Free</div><div class="t-price">$0</div><div class="t-includes">Щоденний зодіак · карта дня · базові розклади на 3 карти · 5 ШІ-повідомлень/добу.</div></div>
+    <div class="tier featured"><div class="t-name">VIP Monthly</div><div class="t-price">$6,50 <span style="font-size:10pt;color:var(--dim)">/міс</span></div><div class="t-includes">Безлім ШІ-чат · повна натальна карта · тижневе таро · Кельтський хрест · сповіщення транзитів · синастрія · звіти про затемнення/ретрогради.</div></div>
+    <div class="tier featured"><div class="t-name">VIP Annual</div><div class="t-price">$65 <span style="font-size:10pt;color:var(--dim)">/рік</span></div><div class="t-includes">Все з Monthly + 2 місяці безкоштовно + соляр на день народження. Ефективно <strong>$5,42/міс</strong>.</div></div>
+  </div>
+
+  <h3 style="margin-top:6mm">Преміум-оффери одноразово</h3>
+  <div class="grid-3">
+    <div class="tier"><div class="t-name">ШІ-Аватар читання <span class="pill">1 година</span></div><div class="t-price">$35</div><div class="t-includes">Персональне 1-годинне відео-читання з ШІ-аватаром (HeyGen) + голос ElevenLabs — миттєво. <strong>~98,5% маржа.</strong></div></div>
+    <div class="tier"><div class="t-name">Live-експерт відео <span class="pill">24 год</span></div><div class="t-price">$65</div><div class="t-includes">Повноцінне відео-читання від перевіреного живого астролога, протягом робочого дня. <strong>~45% маржа.</strong></div></div>
+    <div class="tier featured"><div class="t-name">Фізична колода — Стандарт</div><div class="t-price">$49</div><div class="t-includes">Преміум-колода v2.7 із 78 карт у фірмовій коробці + путівник. <strong>Безкоштовна доставка світом.</strong> Ціна для VIP — $35.</div></div>
+  </div>
+
+  <h3 style="margin-top:6mm">Повна карта оферів</h3>
+  <table>
+    <tr><th>Оффер</th><th>Ціна</th><th>Нотатки</th></tr>
+    <tr><td>Кельтський хрест</td><td class="gold">$1,95</td><td>Імпульсивна мікропокупка</td></tr>
+    <tr><td>Натальна карта</td><td class="gold">$3,90</td><td>Разове читання</td></tr>
+    <tr><td>Сумісність / синастрія</td><td class="gold">$3,90</td><td>Разове читання</td></tr>
+    <tr><td>Прогноз на рік</td><td class="gold">$6,50</td><td>Разове читання</td></tr>
+    <tr><td>Ask the Stars — кредити</td><td class="gold">$0,99 – $4,99</td><td>Паки 1/3/10 питань</td></tr>
+    <tr><td>Колекційна колода</td><td class="gold">$89</td><td>Пронумерована · люкс-бокс · путівник 120 стор. · шовк. торбинка</td></tr>
+    <tr><td>Ritual Rooms</td><td class="gold">$14,99/міс</td><td>Преміум-закрите коло (Фаза 3)</td></tr>
+    <tr><td>Постер натальної карти</td><td class="gold">$29 цифра / $49 друк</td><td>Вірусний артефакт</td></tr>
+  </table>
+  <div class="footer"><span>II · Тарифи</span><span>19</span></div>
+</section>
+
+<!-- ============ UA · III — РИНОК ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">III</div>
+    <div>
+      <div class="section-kicker">Частина 3 · Ринок</div>
+      <div class="section-title">Ринок $5,69 млрд, що росте на 20% щороку.</div>
+    </div>
+  </div>
+  <img src="assets/cards/18_the_moon.png" class="card-float-l" alt="">
+  <div class="lead">Ринок астрологічних застосунків потроївся між 2020 і 2026 роками і не показує ознак плато — культурна мейнстримність, смартфон-сатурація та ШІ-персоналізація складаються у попит.</div>
+  <div class="grid-2" style="margin-bottom:6mm">
+    <div class="stat"><div class="label">Розмір ринку 2026</div><div class="value">$5,69B</div><div class="sub">Глобальна виручка астро-застосунків</div></div>
+    <div class="stat"><div class="label">CAGR до 2030</div><div class="value">20,2%</div><div class="sub">Прогноз потроєння до ~$9B</div></div>
+  </div>
+  <h3>Сигнали попиту</h3>
+  <ul>
+    <li><strong>43% жінок 18-49</strong> у США ідентифікують себе як астро-цікаві або віруючі (Pew).</li>
+    <li>Використання <strong>зростає на 650%</strong> під час астро-подій — ретрогради, затемнення, соляри.</li>
+    <li>Персональні натально-карт інструменти підвищують залученість на <strong>30-45%</strong>.</li>
+    <li>Платні читання сумісності дають <strong>+15-25% у витратах</strong> на користувача.</li>
+  </ul>
+  <h3>Недообслуговувані ринки</h3>
+  <p>Лише-англомовні гравці ігнорують ~60% адресної бази. Україна, СНД, MENA, LATAM — <strong>немає категорія-визначального нативного застосунку</strong>.</p>
+  <div class="pull">8-мовна розкатка Olivia захоплює те, що Co-Star, Chani і Nebula структурно не можуть — не-англомовні 60% глобальної астро-аудиторії.</div>
+  <div class="footer"><span>III · Ринок</span><span>20</span></div>
+</section>
+
+<!-- ============ UA · IV — АУДИТОРІЯ ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">IV</div>
+    <div>
+      <div class="section-kicker">Частина 4 · Цільова аудиторія</div>
+      <div class="section-title">Вісім мов. Вісім різних профілів.</div>
+    </div>
+  </div>
+  <p class="lead">Olivia — не один продукт із локалізацією, а регіонально-адаптований досвід на спільній інфраструктурі.</p>
+  <div class="grid-2">
+    <div>
+      <div class="lang-card"><div class="lang-head"><div><span class="lang-flag">🇬🇧</span> <span class="lang-name">Англійська</span></div><span class="lang-priority">P0 · Флагман</span></div><div class="lang-meta">США · UK · CA · AU · ESL · ~280 млн</div><p>ARPU $6-12/міс. Теплий ШІ-голос + кінематографічна естетика за ціною на 40-80% нижчою за Chani/Nebula. TikTok, IG, Reddit.</p></div>
+      <div class="lang-card"><div class="lang-head"><div><span class="lang-flag">🇺🇦</span> <span class="lang-name">Українська</span></div><span class="lang-priority">P0 · Нативна</span></div><div class="lang-meta">Україна + діаспора · ~10 млн</div><p>ARPU $3-5 локально, $5-8 діаспора. Нативний UA-голос, крипто+картка, культурна сенситивність. Telegram домінує.</p></div>
+      <div class="lang-card"><div class="lang-head"><div><span class="lang-flag">🇷🇺</span> <span class="lang-name">Російська</span></div><span class="lang-priority">P1 · Обʼєм</span></div><div class="lang-meta">СНД + діаспора · ~60 млн</div><p>ARPU $2-4/міс. Крипто-нативність, анонімний дизайн, Telegram-first. TON/USDT + Telegram Stars — єдині масштабовані рейки.</p></div>
+      <div class="lang-card"><div class="lang-head"><div><span class="lang-flag">🇸🇦</span> <span class="lang-name">Арабська</span></div><span class="lang-priority">P1 · Високий ARPU</span></div><div class="lang-meta">UAE · KSA · EG · MA · LB · ~50 млн</div><p>ARPU $8-15 Gulf, $2-4 NA. Правильний RTL, безпечний для жінок голос, Іслам-сумісний фреймінг.</p></div>
+    </div>
+    <div>
+      <div class="lang-card"><div class="lang-head"><div><span class="lang-flag">🇩🇪</span> <span class="lang-name">Німецька</span></div><span class="lang-priority">P2 · Преміум ЄС</span></div><div class="lang-meta">DE · AT · CH · LI · ~15 млн</div><p>ARPU найвищий у ЄС ($8-15). NASA-JPL точність, privacy-first, wellness-фреймінг.</p></div>
+      <div class="lang-card"><div class="lang-head"><div><span class="lang-flag">🇪🇸</span> <span class="lang-name">Іспанська</span></div><span class="lang-priority">P2 · Обʼєм LatAm</span></div><div class="lang-meta">ES + MX · CO · AR · CL · PE · ~120 млн</div><p>ARPU $5-8 Іспанія, $2-4 LatAm. Walter-Mercado-тепло + сучасний tech, крипто для AR/VE.</p></div>
+      <div class="lang-card"><div class="lang-head"><div><span class="lang-flag">🇧🇷</span> <span class="lang-name">Португальська</span></div><span class="lang-priority">P3 · Бразилія-first</span></div><div class="lang-meta">BR · PT · Лузофонська Африка · ~90 млн</div><p>ARPU $2-4 BR, $5-7 PT. Pix-нативність, Telegram 20+ млн BR, вірусний TikTok.</p></div>
+      <div class="lang-card"><div class="lang-head"><div><span class="lang-flag">🇫🇷</span> <span class="lang-name">Французька</span></div><span class="lang-priority">P3 · Редакційна</span></div><div class="lang-meta">FR · BE · CH · QC · франкомовна Африка · ~45 млн</div><p>ARPU $6-10 FR/BE/QC, $2-3 Африка. Редакційна естетика, Elle/Marie Claire PR.</p></div>
+    </div>
+  </div>
+  <div class="footer"><span>IV · Аудиторія</span><span>21</span></div>
+</section>
+
+<!-- ============ UA · V — КОНКУРЕНТИ ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">V</div>
+    <div>
+      <div class="section-kicker">Частина 5 · Конкуренти</div>
+      <div class="section-title">Дешевше, ширше, красивіше.</div>
+    </div>
+  </div>
+  <h3>Цінова матриця (USD)</h3>
+  <table>
+    <tr><th>Платформа</th><th class="num">Місяць</th><th class="num">Рік</th><th>Free</th><th>Рейка</th></tr>
+    <tr class="olivia"><td><strong>Olivia Arcana</strong></td><td class="num gold">$6,50</td><td class="num gold">$65 <span class="dim">(еф. $5,42)</span></td><td>Щедрий</td><td>Stripe + Stars + крипто</td></tr>
+    <tr><td>Co-Star</td><td class="num">$9,00</td><td class="num">—</td><td>Є</td><td>Apple IAP</td></tr>
+    <tr><td>Chani Nicholas</td><td class="num">$11,99</td><td class="num">$40 <span class="dim">(еф. $3,33)</span></td><td>Обмежений</td><td>Apple IAP · 30-д триал</td></tr>
+    <tr><td>Sanctuary</td><td class="num">по хвилинах</td><td class="num">—</td><td>Обмежений</td><td>IAP + $4,99/5-хв</td></tr>
+    <tr><td>Nebula</td><td class="num">$24,99</td><td class="num">3-міс $29,99</td><td>Є</td><td>IAP + $3,99/хв</td></tr>
+    <tr><td>The Pattern</td><td class="num">$19,99</td><td class="num">—</td><td>Є</td><td>IAP</td></tr>
+    <tr><td>Labyrinthos</td><td class="num">$4,99</td><td class="num">—</td><td>Є</td><td>IAP</td></tr>
+  </table>
+  <h3 style="margin-top:4mm">Матриця функцій</h3>
+  <table>
+    <tr><th>Функція</th><th class="c">Olivia</th><th class="c">Co-Star</th><th class="c">Chani</th><th class="c">Sanctuary</th><th class="c">Nebula</th></tr>
+    <tr><td>NASA JPL ефемериди</td><td class="c check">✓</td><td class="c check">✓</td><td class="c check">✓</td><td class="c check">✓</td><td class="c check">✓</td></tr>
+    <tr><td>ШІ-чат (LLM)</td><td class="c check">✓ Claude</td><td class="c check">✓ Void</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>Власна колода 78 карт</td><td class="c check">✓</td><td class="c x">—</td><td class="c x">—</td><td class="c">базово</td><td class="c check">✓</td></tr>
+    <tr><td>ШІ-відео читання</td><td class="c check">$35</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>Live-експерт (24 г)</td><td class="c check">$65</td><td class="c x">—</td><td class="c x">—</td><td class="c">поштучно</td><td class="c">поштучно</td></tr>
+    <tr><td>Мультимовність</td><td class="c check">8</td><td class="c">EN</td><td class="c">EN</td><td class="c">EN</td><td class="c">EN</td></tr>
+    <tr><td>Telegram-бот</td><td class="c check">✓</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>Крипто-оплата</td><td class="c check">✓</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>Фізична колода + безкошт. достав.</td><td class="c check">$49 / $89</td><td class="c x">—</td><td class="c">магазин</td><td class="c x">—</td><td class="c x">—</td></tr>
+  </table>
+  <div class="footer"><span>V · Конкуренти</span><span>22</span></div>
+</section>
+
+<!-- ============ UA · VI — ПРОГНОЗ ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">VI</div>
+    <div>
+      <div class="section-kicker">Частина 6 · Прогноз</div>
+      <div class="section-title">Три сценарії. Одна реалістична ціль.</div>
+    </div>
+  </div>
+  <div class="grid-3">
+    <div class="scen">
+      <div class="s-kicker">Сценарій A</div>
+      <div class="s-name">Консервативний</div>
+      <div class="s-row"><span class="dim">3% free→VIP · лише органіка</span></div>
+      <div class="s-row"><span>М6 юзери</span><strong>15 000</strong></div>
+      <div class="s-row"><span>М6 VIP</span><strong>450</strong></div>
+      <div class="s-row"><span>6-міс виручка</span><strong>$11 242</strong></div>
+      <div class="s-row"><span class="gold">6-міс прибуток</span><span class="s-big gold">$9 872</span></div>
+    </div>
+    <div class="scen realistic">
+      <div class="s-kicker gold">Сценарій B · ціль</div>
+      <div class="s-name">Реалістичний</div>
+      <div class="s-row"><span class="dim">5% конв · реклама з М3</span></div>
+      <div class="s-row"><span>М6 юзери</span><strong>30 000</strong></div>
+      <div class="s-row"><span>М6 VIP</span><strong>1 500</strong></div>
+      <div class="s-row"><span>6-міс виручка</span><strong>$31 043</strong></div>
+      <div class="s-row"><span class="gold">6-міс прибуток</span><span class="s-big gold">$28 703</span></div>
+    </div>
+    <div class="scen">
+      <div class="s-kicker">Сценарій C</div>
+      <div class="s-name">Оптимістичний</div>
+      <div class="s-row"><span class="dim">7% · вірусна петля</span></div>
+      <div class="s-row"><span>М6 юзери</span><strong>90 000</strong></div>
+      <div class="s-row"><span>М6 VIP</span><strong>6 300</strong></div>
+      <div class="s-row"><span>6-міс виручка</span><strong>$117 482</strong></div>
+      <div class="s-row"><span class="gold">6-міс прибуток</span><span class="s-big gold">$111 622</span></div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:6mm">Рік 1 — підсумок</h3>
+  <table>
+    <tr><th>Сценарій</th><th class="num">Юзерів М12</th><th class="num">VIP М12</th><th class="num">Виручка Р1</th><th class="num">Прибуток Р1</th></tr>
+    <tr><td>Консервативний</td><td class="num">50 000</td><td class="num">1 500</td><td class="num">$52 000</td><td class="num gold">$46 000</td></tr>
+    <tr class="olivia"><td><strong>Реалістичний</strong> <span class="pill">ціль</span></td><td class="num gold">120 000</td><td class="num gold">6 000</td><td class="num gold">$204 000</td><td class="num gold">$180 700</td></tr>
+    <tr><td>Оптимістичний</td><td class="num">400 000</td><td class="num">28 000</td><td class="num">$847 000</td><td class="num gold">$786 000</td></tr>
+  </table>
+  <div class="footer"><span>VI · Прогноз</span><span>23</span></div>
+</section>
+
+<!-- ============ UA · VII — ROADMAP + РИЗИКИ ============ -->
+<section class="page">
+  <div class="header">
+    <div class="section-num">VII</div>
+    <div>
+      <div class="section-kicker">Частина 7 · Roadmap + Ризики</div>
+      <div class="section-title">12 місяців · $32k капіталу · bootstrap з М4.</div>
+    </div>
+  </div>
+  <h3>Квартальний план</h3>
+  <table>
+    <tr><th>Квартал</th><th>Віхи</th><th class="num">Капітал</th></tr>
+    <tr><td><strong>К1 · М1-3</strong></td><td>Stripe live · запуск EN+UK · пайплайн на повній потужності · 30k юзерів</td><td class="num gold">$2 000</td></tr>
+    <tr><td><strong>К2 · М4-6</strong></td><td>Усі 8 мов · v1 альт-сайту (Portal + Natal Chart) · 120k юзерів</td><td class="num gold">$5 000</td></tr>
+    <tr><td><strong>К3 · М7-9</strong></td><td>Друк колоди 1 000 шт · iOS/Android PWA · мережа live-експертів</td><td class="num gold">$15 000</td></tr>
+    <tr><td><strong>К4 · М10-12</strong></td><td>Ritual Rooms · Listening Glass · B2B-пілот · 400k юзерів (оптимістично)</td><td class="num gold">$10 000</td></tr>
+    <tr class="olivia"><td><strong>Рік 1</strong></td><td>Bootstrap з виручки М4+ у реалістичному сценарії</td><td class="num gold">~$32 000</td></tr>
+  </table>
+
+  <h3 style="margin-top:5mm">Ризики</h3>
+  <table>
+    <tr><th>Ризик</th><th class="c">Імовір.</th><th class="c">Вплив</th><th>Мітигація</th></tr>
+    <tr><td>Зміна алгоритму TikTok</td><td class="c">Серед.</td><td class="c warn">Вис.</td><td>Диверсифікація 8 каналів; реклама з М3</td></tr>
+    <tr><td>Інфляція API-витрат</td><td class="c">Серед.</td><td class="c">Серед.</td><td>Кеш, фолбек на Piper TTS</td></tr>
+    <tr><td>Відмова App Store</td><td class="c">Низ.</td><td class="c">Серед.</td><td>Web+Telegram = 100% виручки</td></tr>
+    <tr><td>Копіювання конкурентами</td><td class="c">Серед.</td><td class="c">Низ.</td><td>Власна v2.7 колода — 6-12 міс. реплікація</td></tr>
+    <tr><td>Пропускна здатність сольного оператора</td><td class="c warn">Вис.</td><td class="c">Серед.</td><td>Повна автоматизація; Claude Code тримає ops</td></tr>
+  </table>
+
+  <div class="pull">Ринок росте на 20% на рік, ARPU у преміум-астрологічних застосунках зростає, і жоден гравець не поєднав кінематографічну естетику + ШІ + мультимовність + мульти-рейкову монетизацію. Це вікно 12-18 місяців, доки його не закрив Co-Star або добре фінансований новачок.</div>
+  <div class="footer"><span>VII · Roadmap + Ризики</span><span>24</span></div>
+</section>
+
+<!-- ============ BACK COVER ============ -->
+<section class="page back">
+  <img src="assets/cards/21_the_world.png" class="card" alt="">
+  <div>
+    <div class="tag gold-grad">Written in Your Stars.</div>
+    <div style="margin-top:6mm" class="tag" style="font-size:18pt;color:var(--gold-2)">Написано у Ваших Зірках.</div>
+  </div>
+  <div class="sig">
+    oliviaarcana.com · @OliviaArcanaBot<br>
+    Olivia Arcana · April 2026 · v1.0 · Confidential
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<style>
+  body { background: #060810; color: #E8E6F0; }
+  h2 { font-family: 'Cormorant Garamond', 'Playfair Display', serif; font-weight: 300; letter-spacing: 0.02em; color: #E8E6F0; font-size: 2rem; margin-bottom: 0.25rem; }
+  .subtitle { color: #8A829A; font-size: 0.95rem; margin-bottom: 2rem; }
+  .label { color: #C8A84B; letter-spacing: 0.2em; font-size: 0.7rem; font-weight: 600; }
+
+  .liked { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 12px; padding: 1rem 1.1rem; margin-bottom: 2rem; }
+  .liked h4 { color: #C8A84B; font-size: 0.7rem; letter-spacing: 0.18em; margin: 0 0 0.6rem 0; font-weight: 600; }
+  .liked-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .chip { background: #1a1628; color: #E2C070; padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.78rem; border: 1px solid #C8A84B33; }
+
+  .options { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+  .option { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 14px; padding: 1.4rem 1.5rem; cursor: pointer; transition: all 220ms ease; }
+  .option:hover { border-color: #C8A84B; background: #131525; transform: translateY(-1px); }
+  .option.selected { border-color: #C8A84B; background: #1a1628; }
+  .option .letter { background: #1c1e30; color: #C8A84B; width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 0.8rem; vertical-align: middle; font-size: 0.9rem; }
+  .option h3 { display: inline; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.35rem; color: #E8E6F0; }
+
+  .dna { margin: 0.85rem 0 0.85rem 0; padding: 0.7rem 0.9rem; background: #06080f; border-left: 2px solid #8A6D2A; color: #a69378; font-size: 0.82rem; font-style: italic; line-height: 1.55; border-radius: 0 4px 4px 0; }
+  .dna strong { color: #E2C070; font-style: normal; letter-spacing: 0.12em; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
+
+  .body-text { color: #B8B0C8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.7rem; }
+  .body-text strong { color: #E2C070; font-weight: 500; }
+
+  .tagline { color: #C8A84B; font-size: 0.7rem; letter-spacing: 0.18em; margin-top: 0.3rem; text-transform: uppercase; font-weight: 500; }
+  .why { color: #6b738a; font-size: 0.8rem; margin-top: 0.55rem; border-left: 2px solid #1c1e30; padding-left: 0.6rem; font-style: italic; }
+
+  .multi-note { background: #0c0d18; border-left: 2px solid #C8A84B; padding: 0.8rem 1rem; margin-top: 2rem; color: #8A829A; font-size: 0.82rem; border-radius: 0 6px 6px 0; }
+</style>
+
+<span class="label">BRAINSTORM · QUESTION 2B · FIVE MORE</span>
+<h2>Five more — stolen from outside the niche</h2>
+<p class="subtitle">Each one transplants a specific move from a jaw-dropping site in another world (game cinematics, data journalism, AR commerce, generative music) into Olivia's cosmic register.</p>
+
+<div class="liked">
+  <h4>YOU LIKE ALL OF THESE FROM BEFORE</h4>
+  <div class="liked-row">
+    <span class="chip">✦ Voice Oracle</span>
+    <span class="chip">✦ The Ceremony</span>
+    <span class="chip">✦ Living Sky</span>
+    <span class="chip">✦ Personal Constellation</span>
+  </div>
+</div>
+
+<div class="options" data-multiselect>
+
+  <div class="option" data-choice="sound-of-stars" onclick="toggleSelect(this)">
+    <span class="letter">E</span><h3>Sound of Your Stars — chart as generative music</h3>
+    <div class="dna"><strong>Intro DNA</strong> &nbsp;·&nbsp; NASA's <em>Chandra sonification project</em> turning galactic X-ray data into symphonies. <em>Earth Orbit Music.</em> Brian Eno's <em>Reflection</em>. What if your birth chart was a song only you ever had?</div>
+    <div class="body-text">
+      Your natal chart becomes a <strong>live generative ambient score</strong> in WebAudio. Each planet is an instrument (Venus = celesta, Saturn = cello drone, Mercury = stereo delay flute, Moon = subharmonic sine). Each aspect is a chord interval. Each house is a rhythm cell. The piece loops endlessly while you browse, subtly shifting with the <strong>current transits of this very moment</strong>. Press a key → downloadable as a 3-min FLAC. Export a 15-second TikTok clip with a visual of your chart animating to it.
+    </div>
+    <div class="tagline">audio signature · every chart sounds unlike any other</div>
+    <div class="why">Why: the niche has zero audio identity. "Here's what your soul sounds like" is screenshot-able <em>as sound</em>.</div>
+  </div>
+
+  <div class="option" data-choice="scrollytelling" onclick="toggleSelect(this)">
+    <span class="letter">F</span><h3>Scrollytelling Oracle Letter — reading as cinema</h3>
+    <div class="dna"><strong>Intro DNA</strong> &nbsp;·&nbsp; NYT's <em>Snow Fall</em>, Pudding.cool's personalized essays, The Pudding's <em>Colorism in High Fashion</em>. What if a tarot reading wasn't a card you scrolled past but a <em>longform cinematic piece</em> that unfolded one scroll-beat at a time?</div>
+    <div class="body-text">
+      The reading presents as a <strong>full-bleed scroll documentary</strong>. Each paragraph occupies one viewport. Handwritten ink trails across aged parchment as you scroll. A wax seal melts on at the midpoint. The nebula behind the page <strong>shifts palette with each section's emotional tone</strong> — hope = warm gold bloom, caution = deep indigo stillness, revelation = sudden light scatter. Optional voiceover (Olivia narrating the reading via ElevenLabs). Lands on a shareable film-poster finale.
+    </div>
+    <div class="tagline">editorial gravitas · a reading becomes a journey</div>
+    <div class="why">Why: turns a disposable artifact (a reading) into a memorable <em>piece</em>. No tarot site has Snow-Fall-level editorial craft.</div>
+  </div>
+
+  <div class="option" data-choice="listening-glass" onclick="toggleSelect(this)">
+    <span class="letter">G</span><h3>The Listening Glass — orb as interface</h3>
+    <div class="dna"><strong>Intro DNA</strong> &nbsp;·&nbsp; Death Stranding's BB-pod — a glowing jar that reacts to your voice. Kojima game-menus-as-theatre. A24 film microsites for <em>Midsommar</em> &amp; <em>The Green Knight</em>. No UI chrome; pure ritual.</div>
+    <div class="body-text">
+      Center of the screen: a <strong>large breathing 3D glass orb</strong>, filled with slow-drifting smoke. You whisper your question into the mic. Your voice becomes <strong>visible inside the glass</strong> — the waveform feeds the orb's shader, smoke parts, shapes form and dissolve. After ~30 seconds of purely visual response, a hushed voice emerges with your reading. <strong>No form fields. No buttons. No text until the final moment.</strong> The opposite of every divination site that looks like a web form.
+    </div>
+    <div class="tagline">ancient oracle · zero UI chrome</div>
+    <div class="why">Why: every competitor looks like a web form. This looks like a Hideo Kojima cutscene.</div>
+  </div>
+
+  <div class="option" data-choice="augmented-altar" onclick="toggleSelect(this)">
+    <span class="letter">H</span><h3>Augmented Altar — physical card recognition</h3>
+    <div class="dna"><strong>Intro DNA</strong> &nbsp;·&nbsp; Warby Parker's virtual try-on. Sephora's Virtual Artist. Ikea Place. Adidas's LockerWave AR. What if your physical Olivia Arcana deck became a <em>key</em> that unlocked digital ceremonies?</div>
+    <div class="body-text">
+      Hold any physical card from your deck up to your webcam. Computer vision (MediaPipe Tasks) recognizes it instantly. The site <strong>augments it live</strong> — a nebula halo wraps the card in AR, cosmic particles drift off its edges, the archetype's glyph materializes behind it, the interpretation streams in <strong>contextualized to your natal chart</strong>. Stack multiple cards for a spread → the site reads the layout (three-card, Celtic cross) automatically. Physical ritual, digital amplification.
+    </div>
+    <div class="tagline">physical × digital bridge · the deck as dongle</div>
+    <div class="why">Why: the Olivia Arcana <em>physical deck</em> already exists (78 cards, nano-banana v2.7). This is the ONE feature that makes owning the physical product feel essential instead of redundant.</div>
+  </div>
+
+  <div class="option" data-choice="theatre" onclick="toggleSelect(this)">
+    <span class="letter">I</span><h3>Reading as Theatre — 15-second AI film per reading</h3>
+    <div class="dna"><strong>Intro DNA</strong> &nbsp;·&nbsp; Kurzgesagt's animated explainers. A24's "Bodies Bodies Bodies" title sequence. Runway Gen-3 &amp; Veo 3 cinematic output. Every reading becomes a <em>tiny personalized cinema</em>.</div>
+    <div class="body-text">
+      At the climax of each reading, generate a <strong>~15-second cinematic film</strong> via Veo 3 / Gemini video. Rendered in a locked "Olivia Arcana" motion style (v2.7 nano-banana aesthetic extended to motion): Greco-Roman figures in hairline gold line art, asymmetric painterly gold nebula wrapping the frame, 8-10° Dutch angle, cotton cardstock texture subtly animated, soft cyan atmospheric backlight. Narrated by Olivia's voice if opted in. <strong>Downloadable. Shareable. Unique to this reading only — no two alike, ever.</strong>
+    </div>
+    <div class="tagline">every reading is a micro-film</div>
+    <div class="why">Why: Olivia's deck aesthetic is production-ready and legendary. Extending it to motion = every reading produces a post people actually WANT to share. Guaranteed viral loop.</div>
+  </div>
+
+</div>
+
+<div class="multi-note">
+  <strong>Multi-select enabled.</strong> You said you liked all 4 before — so now you have 9 candidates total (A–I). Pick the ones that go into the alt site, or reply in terminal with the subset. I can also sequence them (what ships week 1, month 2, etc.) once scope is locked.
+</div>

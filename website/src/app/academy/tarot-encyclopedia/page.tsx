@@ -8,7 +8,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { ALL_CARDS, MAJOR_ARCANA, type TarotCard } from "../../../lib/academy/tarot-cards";
+import Link from "next/link";
+import { ALL_CARDS, type TarotCard } from "../../../lib/academy/tarot-cards";
 import { useLocale } from "@/lib/i18n/useLocale";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
@@ -56,7 +57,7 @@ export default function TarotEncyclopediaPage() {
     }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <a href="/academy" style={{ ...label, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>&larr; {t("academy_back")}</a>
+        <Link href="/academy" style={{ ...label, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>&larr; {t("academy_back")}</Link>
         <h1 style={{
           fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem, 4vw, 2rem)",
           fontWeight: 400, marginTop: "0.75rem",
@@ -84,7 +85,7 @@ export default function TarotEncyclopediaPage() {
         ].map(f => (
           <button
             key={f.key}
-            onClick={() => setFilter(f.key as any)}
+            onClick={() => setFilter(f.key as "all" | "major" | "wands" | "cups" | "swords" | "pentacles")}
             style={{
               padding: "0.4rem 0.9rem", borderRadius: "100px",
               background: filter === f.key ? "rgba(200,185,255,0.1)" : "rgba(255,255,255,0.02)",

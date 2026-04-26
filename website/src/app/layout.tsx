@@ -87,11 +87,43 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Olivia Arcana",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Web, iOS, Android",
+    "description": "Hyper-personalized AI astrology and tarot platform based on real-time NASA planetary data.",
+    "offers": {
+      "@type": "Offer",
+      "price": "4.99",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "NASA-grade natal chart calculation",
+      "AI-driven tarot oracle readings",
+      "Word-by-word cosmic typewriter interface",
+      "Personalized daily almanacs",
+      "Living deck tarot history"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "Olivia Arcana LLC",
+      "url": "https://oliviaarcana.com"
+    }
+  };
+
   return (
     <html
       lang="en"
       className={`${cormorant.variable} ${dmSans.variable} ${ibmPlexMono.variable} antialiased`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-screen">
         {/* Skip to main content — accessibility */}
         <a href="#main-content" className="skip-link">

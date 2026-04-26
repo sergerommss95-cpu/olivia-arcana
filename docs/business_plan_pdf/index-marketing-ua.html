@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>Olivia Arcana — Маркетинг-план головстарту</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fcf6e8; --paper-alt:#f6eedc; --paper-soft:#f1e7cf;
+    --ink-deep:#0a0522; --ink:#1a0f3d; --ink-soft:#5a4c7a; --ink-faint:#9a92a8;
+    --gold-1:#f3dd8e; --gold-2:#d4af37; --gold-3:#a0811f; --gold-4:#6b5410;
+    --gold-bg:rgba(212,175,55,.08);
+    --hair:rgba(138,104,24,.28); --hair-soft:rgba(138,104,24,.14);
+    --link:#6b5410;
+    --phase1:#8b7a3a; --phase2:#a0811f; --phase3:#d4af37;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  @page{size:A4;margin:0}
+  html,body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;font-weight:400;font-size:10pt;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;height:297mm;padding:20mm 22mm;position:relative;page-break-after:always;overflow:hidden;background:var(--paper)}
+  .page:last-child{page-break-after:auto}
+  .cosmic{background:#0a0522 url('assets/brand/nebula-bg.jpg') center/cover no-repeat;color:#f4e9d0;padding:0}
+  .cosmic::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%, rgba(15,8,48,0.4) 0%, rgba(6,3,26,0.75) 70%);pointer-events:none}
+  h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;font-weight:400;color:var(--ink-deep);letter-spacing:.002em}
+  h1{font-size:44pt;line-height:1.05;font-weight:300}
+  h2{font-size:20pt;line-height:1.2;font-weight:400;margin:0 0 3mm}
+  h3{font-size:11pt;font-weight:600;color:var(--gold-3);letter-spacing:.12em;text-transform:uppercase;margin:5mm 0 2mm;font-family:'Inter',sans-serif}
+  h3.serif{font-family:'Cormorant Garamond',serif;font-size:14pt;text-transform:none;color:var(--ink-deep);letter-spacing:0;font-weight:500}
+  p{margin:0 0 3mm;max-width:170mm}
+  p.lead{font-family:'Cormorant Garamond',serif;font-size:14pt;line-height:1.4;color:var(--ink);font-weight:400;font-style:italic;margin:0 0 6mm;max-width:170mm}
+  strong{color:var(--ink-deep);font-weight:600}
+  em{font-style:italic;color:var(--ink)}
+  a{color:var(--link);text-decoration:none;border-bottom:.2mm dotted var(--gold-3)}
+  ul{margin:0 0 4mm 0;padding:0;list-style:none;max-width:170mm}
+  li{position:relative;padding-left:6mm;margin-bottom:1.5mm;line-height:1.5;font-size:9pt}
+  li::before{content:"";position:absolute;left:0;top:2mm;width:3mm;height:.4mm;background:var(--gold-3)}
+  .tiny{font-size:7.5pt;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint)}
+  .caption{font-size:7.8pt;color:var(--ink-soft);font-style:italic;line-height:1.5}
+  .gold{color:var(--gold-3)}
+  .dim{color:var(--ink-faint)}
+  .faint{color:var(--ink-soft)}
+
+  /* Page chrome */
+  .page-header{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:4mm;border-bottom:.2mm solid var(--hair-soft);margin-bottom:7mm}
+  .page-header .kicker{font-size:7.5pt;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-3);font-weight:600}
+  .page-header .roman{font-family:'Cormorant Garamond',serif;font-size:13pt;font-weight:400;color:var(--ink-faint);letter-spacing:.1em}
+  .footer{position:absolute;bottom:10mm;left:22mm;right:22mm;display:flex;justify-content:space-between;align-items:baseline;font-size:7pt;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);border-top:.2mm solid var(--hair-soft);padding-top:3mm}
+  .footer .brand{color:var(--gold-3);font-weight:500;letter-spacing:.22em}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;font-size:8.5pt;margin:2mm 0 4mm;font-feature-settings:"tnum","ss01"}
+  th,td{text-align:left;padding:2.4mm 3mm;border-bottom:.15mm solid var(--hair-soft);vertical-align:top;line-height:1.4}
+  th{color:var(--gold-3);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:7pt;border-bottom:.3mm solid var(--gold-3);padding-bottom:2.5mm}
+  tr.olivia td{background:var(--gold-bg);color:var(--ink-deep);font-weight:500}
+  tr.olivia td strong{color:var(--ink-deep)}
+  tr:nth-child(even):not(.olivia) td{background:rgba(138,104,24,.03)}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  td.c{text-align:center}
+  td.gold{color:var(--gold-3);font-weight:500}
+
+  /* Grids */
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5mm}
+  .g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4mm}
+
+  /* Stat cards */
+  .stat{padding:6mm 5mm;background:var(--paper-alt);border:.15mm solid var(--hair-soft);border-top:.5mm solid var(--gold-2)}
+  .stat .label{font-size:7pt;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-3);font-weight:600;margin-bottom:1.5mm}
+  .stat .value{font-family:'Cormorant Garamond',serif;font-size:28pt;line-height:1;color:var(--ink-deep);font-weight:400;margin:1mm 0 1.5mm}
+  .stat .sub{font-size:8pt;color:var(--ink-soft);line-height:1.4}
+
+  /* Phase card */
+  .phase{padding:6mm;background:var(--paper-alt);border:.2mm solid var(--hair-soft);border-top:.6mm solid var(--gold-2);position:relative;display:flex;flex-direction:column;min-height:78mm}
+  .phase .p-num{font-family:'Cormorant Garamond',serif;font-size:48pt;line-height:1;color:var(--gold-3);font-weight:300;opacity:.4;position:absolute;top:4mm;right:6mm}
+  .phase .p-kicker{font-size:7pt;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-bottom:1mm}
+  .phase .p-name{font-family:'Cormorant Garamond',serif;font-size:18pt;color:var(--ink-deep);font-weight:500;line-height:1.1;margin-bottom:1mm}
+  .phase .p-months{font-size:8pt;color:var(--gold-3);font-weight:600;letter-spacing:.1em;margin-bottom:3mm}
+  .phase .p-price{font-family:'Cormorant Garamond',serif;font-size:30pt;color:var(--gold-3);line-height:1;font-weight:400;margin:2mm 0 4mm}
+  .phase .p-price small{font-family:'Inter',sans-serif;font-size:9pt;color:var(--ink-soft);font-weight:400;letter-spacing:.04em}
+  .phase .p-list{font-size:8pt;color:var(--ink);line-height:1.5;flex:1}
+  .phase .p-list ul{margin:0}
+  .phase .p-list li{padding-left:5mm;margin-bottom:1mm;font-size:8pt}
+
+  /* Pull quotes */
+  .pull{margin:5mm 0;padding:5mm 9mm;background:var(--paper-alt);border-top:.25mm solid var(--gold-2);border-bottom:.25mm solid var(--gold-2);text-align:center}
+  .pull .quote{font-family:'Cormorant Garamond',serif;font-size:13pt;line-height:1.4;color:var(--ink-deep);font-style:italic;font-weight:400;max-width:130mm;margin:0 auto}
+
+  /* Bars */
+  .bars{margin:4mm 0;max-width:170mm}
+  .bar-row{display:grid;grid-template-columns:38mm 1fr 22mm;align-items:center;gap:3mm;margin-bottom:2mm;font-size:8pt}
+  .bar-row .label{color:var(--ink-deep);font-weight:500;font-size:8pt}
+  .bar-row .track{height:4mm;background:var(--paper-soft);border-radius:1.5mm;overflow:hidden;position:relative}
+  .bar-row .fill{height:100%;background:linear-gradient(90deg,var(--gold-4),var(--gold-3),var(--gold-2))}
+  .bar-row .val{text-align:right;color:var(--gold-3);font-variant-numeric:tabular-nums;font-weight:600}
+
+  /* Cover */
+  .cover-layout{position:absolute;inset:0;display:grid;grid-template-columns:62% 38%;align-items:center;z-index:2}
+  .cover-left{padding:30mm 8mm 30mm 22mm;overflow:hidden}
+  .cover-right{position:relative;display:flex;align-items:center;justify-content:center;height:100%}
+  .cover-eyebrow{font-size:7.5pt;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-2);font-weight:500;margin-bottom:8mm;white-space:nowrap}
+  .cover-amount{font-family:'Cormorant Garamond',serif;font-size:90pt;line-height:.95;font-weight:300;letter-spacing:-.015em;color:#f4e9d0;margin:0 0 5mm}
+  .cover-title{font-family:'Cormorant Garamond',serif;font-size:30pt;line-height:1.1;font-weight:300;color:#f4e9d0;margin:0 0 7mm}
+  .cover-tag{font-family:'Cormorant Garamond',serif;font-size:13pt;font-style:italic;color:var(--gold-1);font-weight:400;margin-bottom:7mm}
+  .cover-sub{font-size:10pt;line-height:1.6;color:rgba(244,233,208,.75);max-width:90mm}
+  .cover-meta{position:absolute;bottom:18mm;left:24mm;right:24mm;display:flex;justify-content:space-between;align-items:baseline;color:rgba(244,233,208,.5);font-size:7.5pt;letter-spacing:.28em;text-transform:uppercase;z-index:3}
+  .card-svg{width:75mm;height:auto;filter:drop-shadow(0 18mm 30mm rgba(0,0,0,.5));transform:rotate(-6deg)}
+
+  /* Back */
+  .back-layout{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:35mm 30mm 28mm;text-align:center;z-index:2}
+  .back-tag{font-family:'Cormorant Garamond',serif;font-size:34pt;color:#f4e9d0;font-weight:300;line-height:1.1}
+  .back-sig{font-size:8pt;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,233,208,.55);line-height:1.8}
+
+  .pill{display:inline-block;padding:.6mm 2mm;border:.25mm solid var(--gold-3);color:var(--gold-3);font-size:6.8pt;letter-spacing:.18em;text-transform:uppercase;border-radius:8mm;margin:0 1mm;font-weight:600}
+  .pill.alt{border-color:var(--ink-soft);color:var(--ink-soft)}
+  .pill.filled{background:var(--gold-2);border-color:var(--gold-2);color:#fff}
+  .pill.danger{border-color:#c47832;color:#c47832}
+  .pill.go{background:#5a8d3e;border-color:#5a8d3e;color:#fff}
+
+  /* Channel cards */
+  .channel{padding:5mm;background:var(--paper);border:.2mm solid var(--hair-soft);display:flex;flex-direction:column}
+  .channel .ch-name{font-family:'Cormorant Garamond',serif;font-size:13pt;color:var(--ink-deep);font-weight:500;margin-bottom:1mm}
+  .channel .ch-cpm{font-family:'Cormorant Garamond',serif;font-size:18pt;color:var(--gold-3);font-weight:400;line-height:1;margin:1mm 0 3mm}
+  .channel .ch-cpm small{font-family:'Inter',sans-serif;font-size:8pt;color:var(--ink-soft);font-weight:400}
+  .channel .ch-info{font-size:8pt;color:var(--ink);line-height:1.5;flex:1}
+  .channel .ch-tag{display:inline-block;font-size:6.5pt;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-3);font-weight:600;border:.25mm solid var(--gold-3);padding:.5mm 2mm;border-radius:6mm;margin-top:2mm}
+
+  /* Timeline */
+  .timeline{margin:6mm 0;display:grid;grid-template-columns:repeat(5,1fr);gap:2mm}
+  .tl-month{padding:4mm 3mm;background:var(--paper-alt);border:.2mm solid var(--hair-soft);border-top:.5mm solid var(--gold-3);position:relative}
+  .tl-month .tl-num{font-family:'Cormorant Garamond',serif;font-size:24pt;color:var(--gold-3);line-height:1;font-weight:300}
+  .tl-month .tl-label{font-size:6.5pt;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-top:1mm}
+  .tl-month .tl-budget{font-family:'Cormorant Garamond',serif;font-size:14pt;color:var(--ink-deep);font-weight:500;margin:2mm 0 1mm}
+  .tl-month .tl-focus{font-size:7.5pt;color:var(--ink);line-height:1.4}
+
+  /* KPI box */
+  .kpi-box{padding:5mm;background:var(--paper-alt);border-left:.8mm solid var(--gold-2);margin-bottom:3mm}
+  .kpi-box .kpi-label{font-size:7pt;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-3);font-weight:600;margin-bottom:1mm}
+  .kpi-box .kpi-rule{font-family:'Cormorant Garamond',serif;font-size:13pt;color:var(--ink-deep);font-weight:500;line-height:1.3}
+  .kpi-box .kpi-detail{font-size:8pt;color:var(--ink-soft);font-style:italic;margin-top:1mm}
+</style>
+</head>
+<body>
+
+<!-- ============ 1 · COVER ============ -->
+<section class="page cosmic">
+  <div class="cover-layout">
+    <div class="cover-left">
+      <div class="cover-eyebrow">Olivia Arcana · Маркетинг-план головстарту · 2026</div>
+      <div class="cover-amount" style="color:#f4e9d0">$50,000</div>
+      <h1 class="cover-title" style="color:#f4e9d0">Headstart Plan.<br>5 місяців. 3 фази.<br>3 ринки.</h1>
+      <p class="cover-sub">Реальні ціни рекламних платформ. Реальні CPM. Реальні CAC-цілі. Bootstrap-able з виручки М4+ — далі самофінансування.</p>
+    </div>
+    <div class="cover-right">
+      <svg class="card-svg" viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="c-base" cx="50%" cy="42%" r="75%">
+            <stop offset="0%" stop-color="#1f1343"/><stop offset="55%" stop-color="#0b0722"/><stop offset="100%" stop-color="#04030c"/>
+          </radialGradient>
+          <linearGradient id="c-gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f3dd8e"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#8a6818"/>
+          </linearGradient>
+          <radialGradient id="c-halo" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(255,230,150,0.22)"/><stop offset="40%" stop-color="rgba(232,201,106,0.09)"/><stop offset="100%" stop-color="rgba(232,201,106,0)"/>
+          </radialGradient>
+        </defs>
+        <rect width="360" height="540" fill="url(#c-base)" rx="8"/>
+        <rect x="22" y="22" width="316" height="496" rx="8" fill="none" stroke="url(#c-gold)" stroke-width="0.6" stroke-opacity="0.85"/>
+        <rect x="30" y="30" width="300" height="480" rx="5" fill="none" stroke="url(#c-gold)" stroke-width="0.25" stroke-opacity="0.28"/>
+        <circle cx="180" cy="270" r="120" fill="url(#c-halo)"/>
+        <circle cx="180" cy="270" r="115" fill="none" stroke="url(#c-gold)" stroke-width="0.5" stroke-opacity="0.7"/>
+        <circle cx="180" cy="270" r="98" fill="none" stroke="url(#c-gold)" stroke-width="0.3" stroke-opacity="0.32"/>
+        <g stroke="url(#c-gold)" fill="none">
+          <line x1="180" y1="155" x2="180" y2="175" stroke-width="0.9" stroke-opacity="0.95"/>
+          <line x1="295" y1="270" x2="275" y2="270" stroke-width="0.9" stroke-opacity="0.95"/>
+          <line x1="180" y1="385" x2="180" y2="365" stroke-width="0.9" stroke-opacity="0.95"/>
+          <line x1="65" y1="270" x2="85" y2="270" stroke-width="0.9" stroke-opacity="0.95"/>
+        </g>
+        <g fill="none" stroke="url(#c-gold)">
+          <circle cx="180" cy="270" r="35" stroke-width="0.55" stroke-opacity="0.85"/>
+          <circle cx="180" cy="235" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="210.31" cy="252.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="210.31" cy="287.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="180" cy="305" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="149.69" cy="287.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="149.69" cy="252.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+        </g>
+        <circle cx="180" cy="155" r="2.4" fill="url(#c-gold)"/>
+        <circle cx="180" cy="270" r="11" fill="none" stroke="url(#c-gold)" stroke-width="0.35" stroke-opacity="0.45"/>
+        <path transform="translate(180 270)" d="M 0,-9 L 2,-2 L 9,0 L 2,2 L 0,9 L -2,2 L -9,0 L -2,-2 Z" fill="url(#c-gold)" stroke="rgba(255,230,150,0.7)" stroke-width="0.3"/>
+        <text x="180" y="487" text-anchor="middle" fill="url(#c-gold)" font-family="'Cormorant Garamond',serif" font-size="13" letter-spacing="5" opacity="0.95" font-style="italic">Olivia Arcana</text>
+      </svg>
+    </div>
+  </div>
+  <div class="cover-meta">
+    <span><a href="https://oliviaarcana.com" style="color:inherit;border:none">oliviaarcana.com</a></span>
+    <span>Квітень 2026 · Конфіденційно</span>
+  </div>
+</section>
+
+<!-- ============ 2 · СТРАТЕГІЯ ============ -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">01 · Стратегія</div><h2 style="margin-top:2mm">$50,000 за 5 місяців. Як саме.</h2></div>
+    <div class="roman">I</div>
+  </div>
+
+  <p class="lead">Бюджет розрахований щоб довести модель, знайти 2-3 переможні канали, і досягти $5-12k MRR до М5 — далі самофінансування. Жодних капексу-ставок без даних.</p>
+
+  <div class="g4" style="margin-top:5mm">
+    <div class="stat"><div class="label">Бюджет</div><div class="value">$50k</div><div class="sub">5-місячний головстарт</div></div>
+    <div class="stat"><div class="label">Фази</div><div class="value">3</div><div class="sub">Test → Scale → Sustain</div></div>
+    <div class="stat"><div class="label">Ринки</div><div class="value">3</div><div class="sub">EN · PT · UA+RU</div></div>
+    <div class="stat"><div class="label">Ціль MRR М5</div><div class="value">$12k</div><div class="sub">~1 500 paid (base case)</div></div>
+  </div>
+
+  <h3 class="serif" style="margin-top:8mm">Принципи розподілу</h3>
+  <ul>
+    <li><strong>30% бюджету у Test-фазі</strong> — досить щоб мати дані, замало щоб розорити при поганому креативі.</li>
+    <li><strong>60% у Scale-фазі</strong> — тільки після того, як Phase 1 показав CAC ≤ $25 і LTV:CAC ≥ 3×.</li>
+    <li><strong>10% у Sustain-фазі</strong> — підготовка інфраструктури (email, affiliate, attribution) до М6+ self-funded scaling.</li>
+    <li><strong>$2,000 reserve</strong> — на vir momentум або astro-event tie-in (наприклад, затемнення 12 серпня).</li>
+  </ul>
+
+  <h3 class="serif" style="margin-top:6mm">Чому ці 3 ринки у головстарті</h3>
+  <table>
+    <tr><th>Ринок</th><th>Чому головстарт</th><th class="num">CAC ціль</th></tr>
+    <tr class="olivia"><td>🇬🇧 English (US-first)</td><td>Найбільший пул · найбагатша атрибуція · мова англомовних creator-партнерств</td><td class="num gold">$20-35</td></tr>
+    <tr><td>🇧🇷 Portuguese (Brazil)</td><td>Найдешевші CPM ($0,50-2 на TikTok) · швидке навчання · Pix-нативна оплата</td><td class="num gold">$3-6</td></tr>
+    <tr><td>🇺🇦 + 🇷🇺 Telegram-первинні</td><td>Нативна культура · Telegram Ads дешеві · крипто-оплата для RU</td><td class="num gold">$5-10</td></tr>
+  </table>
+  <p class="caption">Відкладено на post-headstart (М6+): AR Gulf (потребує operator-партнерства), DE/ES/FR (CPM занадто високі для testing-фази).</p>
+
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>01 · Стратегія · 02</span></div>
+</section>
+
+<!-- ============ 3 · 3 ФАЗИ ============ -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">02 · Огляд 3 фаз</div><h2 style="margin-top:2mm">Три фази. Один шлях до самофінансування.</h2></div>
+    <div class="roman">II</div>
+  </div>
+
+  <div class="g3" style="margin-top:4mm">
+    <div class="phase">
+      <div class="p-num">1</div>
+      <div class="p-kicker">Phase 1</div>
+      <div class="p-name">Test &amp; Learn</div>
+      <div class="p-months">М1-М2 · 8 тижнів</div>
+      <div class="p-price">$8,000<small> (16%)</small></div>
+      <div class="p-list">
+        <ul>
+          <li>5 video-стилей TikTok</li>
+          <li>3 audience-test Meta</li>
+          <li>Telegram Ads мін. $2,200</li>
+          <li>5 nano-creators</li>
+          <li>Tools setup</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase" style="border-top-color:var(--gold-2);background:var(--paper-alt)">
+      <div class="p-num">2</div>
+      <div class="p-kicker">Phase 2</div>
+      <div class="p-name">Scale Winners</div>
+      <div class="p-months">М3-М4 · 8 тижнів</div>
+      <div class="p-price">$30,000<small> (60%)</small></div>
+      <div class="p-list">
+        <ul>
+          <li>10× переможні TikTok-кампанії</li>
+          <li>Meta retargeting + lookalikes</li>
+          <li>Telegram scale RU+UA+AR</li>
+          <li>Snapchat AR test ($2k)</li>
+          <li>9 mid-tier creators ($3k)</li>
+          <li>PR push ($1k)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="p-num">3</div>
+      <div class="p-kicker">Phase 3</div>
+      <div class="p-name">Sustain &amp; Prep</div>
+      <div class="p-months">М5 · 4 тижні</div>
+      <div class="p-price">$10,000<small> (20%)</small></div>
+      <div class="p-list">
+        <ul>
+          <li>Sustain-spend на winners</li>
+          <li>Email + SMS automation setup</li>
+          <li>Affiliate program launch</li>
+          <li>Attribution tools (Triple Whale)</li>
+          <li>+ $2k reserve</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="serif" style="margin-top:7mm">Розподіл бюджету</h3>
+  <div class="bars">
+    <div class="bar-row"><div class="label">Phase 2 · Scale</div><div class="track"><div class="fill" style="width:60%"></div></div><div class="val">$30,000</div></div>
+    <div class="bar-row"><div class="label">Phase 3 · Sustain</div><div class="track"><div class="fill" style="width:20%"></div></div><div class="val">$10,000</div></div>
+    <div class="bar-row"><div class="label">Phase 1 · Test</div><div class="track"><div class="fill" style="width:16%"></div></div><div class="val">$8,000</div></div>
+    <div class="bar-row"><div class="label">Reserve</div><div class="track"><div class="fill" style="width:4%"></div></div><div class="val">$2,000</div></div>
+  </div>
+
+  <div class="pull"><div class="quote">"Phase 1 — генерує дані. Phase 2 — використовує дані. Phase 3 — будує інфраструктуру для самофінансування."</div></div>
+
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>02 · 3 Фази · 03</span></div>
+</section>
+
+<!-- ============ 4 · CHANNEL LANDSCAPE ============ -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">03 · Channel Landscape</div><h2 style="margin-top:2mm">Реальні CPM, мінімуми, найкращі use cases.</h2></div>
+    <div class="roman">III</div>
+  </div>
+
+  <p>Усі ціни перевірені проти ad-platform documentation станом на квітень 2026. CAC-цілі обчислені для астрологічного niche (CTR 1-2%, CVR 3-5%).</p>
+
+  <h3 class="serif" style="margin-top:5mm">Платформи у головстарті</h3>
+  <div class="g3" style="gap:4mm">
+    <div class="channel">
+      <div class="ch-name">TikTok Ads</div>
+      <div class="ch-cpm">$1-10<small> CPM</small></div>
+      <div class="ch-info">In-Feed: $2-4 LatAm, $5-10 EN. <strong>Spark Ads</strong> (boost organic) — на 30-40% дешевший. Мін. $20/день per ad set.</div>
+      <div class="ch-tag">Phase 1 + 2 primary</div>
+    </div>
+    <div class="channel">
+      <div class="ch-name">Meta (FB+IG)</div>
+      <div class="ch-cpm">$5-15<small> CPM</small></div>
+      <div class="ch-info">CPM $8-15 EN, $5-10 EU, $2-4 LatAm. CPC $0,50-2 у астро-niche. CTR 1-2%. Мін. $1/день per ad set.</div>
+      <div class="ch-tag">Phase 2 primary</div>
+    </div>
+    <div class="channel">
+      <div class="ch-name">Telegram Ads</div>
+      <div class="ch-cpm">€1.5-3<small> CPM</small></div>
+      <div class="ch-info"><strong>Мін. €2,000 для top-up.</strong> Geographic + bot-based + channel-based. Critical для RU/UA/AR ринків.</div>
+      <div class="ch-tag">Phase 1 + 2</div>
+    </div>
+    <div class="channel">
+      <div class="ch-name">Snapchat Ads</div>
+      <div class="ch-cpm">$5-12<small> CPM</small></div>
+      <div class="ch-info">High в Gulf — UAE/Saudi. Targeting жінок 18-35. <strong>Мін. $5/день, рахунок $500.</strong> Тестується у Phase 2 для AR.</div>
+      <div class="ch-tag">Phase 2 AR-test</div>
+    </div>
+    <div class="channel">
+      <div class="ch-name">Google Search</div>
+      <div class="ch-cpm">$1-3<small> CPC</small></div>
+      <div class="ch-info">"Free birth chart" $1-2 CPC, "natal chart reading" $2-3. High intent але дорого. Тільки для retargeting у Phase 3.</div>
+      <div class="ch-tag">Phase 3 only</div>
+    </div>
+    <div class="channel">
+      <div class="ch-name">Pinterest Ads</div>
+      <div class="ch-cpm">$2-5<small> CPM</small></div>
+      <div class="ch-info">High intent, female-skewed. Astro pins performant у US/UK. Тестування пізніше у Phase 3.</div>
+      <div class="ch-tag">Optional</div>
+    </div>
+  </div>
+
+  <h3 class="serif" style="margin-top:6mm">Реальні CPI / CAC bench</h3>
+  <table>
+    <tr><th>Платформа · Ринок</th><th class="num">CPM</th><th class="num">CTR</th><th class="num">CPI (free signup)</th><th class="num">CAC paid (5% conv)</th></tr>
+    <tr class="olivia"><td>TikTok · Brazil</td><td class="num">$1.50</td><td class="num">1.8%</td><td class="num gold">$0.85</td><td class="num gold">$17</td></tr>
+    <tr><td>TikTok · US</td><td class="num">$6</td><td class="num">1.4%</td><td class="num">$4.30</td><td class="num">$86 (high)</td></tr>
+    <tr class="olivia"><td>Telegram · UA</td><td class="num">€2</td><td class="num">2.2%</td><td class="num gold">€0.91 (~$1)</td><td class="num gold">$20</td></tr>
+    <tr><td>Telegram · RU</td><td class="num">€2.5</td><td class="num">2.0%</td><td class="num">€1.25 (~$1.40)</td><td class="num">$28</td></tr>
+    <tr><td>Meta IG · US</td><td class="num">$10</td><td class="num">1.2%</td><td class="num">$8.30</td><td class="num">$166 (вбити)</td></tr>
+    <tr class="olivia"><td>Meta IG · DE/AT</td><td class="num">$7</td><td class="num">1.5%</td><td class="num gold">$4.70</td><td class="num gold">$94</td></tr>
+    <tr><td>Snapchat · UAE</td><td class="num">$8</td><td class="num">1.6%</td><td class="num">$5</td><td class="num">$100 (Gulf LTV $140 — OK)</td></tr>
+  </table>
+  <p class="caption">Цифри — orientation. Реальний CAC залежить від creative-якості (×2-5) та audience-targeting (×1.5-3).</p>
+
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>03 · Channel Landscape · 04</span></div>
+</section>
+
+<!-- ============ 5 · PHASE 1 PART 1 ============ -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">04 · Phase 1 — Test &amp; Learn</div><h2 style="margin-top:2mm">$8,000 за 8 тижнів.</h2></div>
+    <div class="roman">IV</div>
+  </div>
+
+  <p class="lead">Мета: довести канали, знайти 2-3 переможні креативи, зафіксувати CAC baseline. Жодних великих ставок до Phase 2.</p>
+
+  <h3 class="serif">Розподіл — Phase 1</h3>
+  <table>
+    <tr><th>Канал</th><th class="num">Бюджет</th><th>Мета</th></tr>
+    <tr class="olivia"><td><strong>TikTok Ads</strong></td><td class="num gold">$3,000</td><td>5 video-стилей × 10 ad sets · Spark Ads на топ-3 органічні</td></tr>
+    <tr><td><strong>Meta Ads (IG+FB)</strong></td><td class="num gold">$2,000</td><td>3 креативи × 5 ad sets · Lookalike тести</td></tr>
+    <tr><td><strong>Telegram Ads</strong></td><td class="num gold">$2,000</td><td>Top-up €2,000 · 5-10 каналів RU+UA</td></tr>
+    <tr><td><strong>Influencer (nano)</strong></td><td class="num gold">$700</td><td>5 creators × $100-200 · BR + US + UA</td></tr>
+    <tr><td><strong>Tools setup</strong></td><td class="num gold">$300</td><td>Plausible · Buffer · Canva Pro · UTM/webhook</td></tr>
+    <tr class="olivia"><td><strong>Total Phase 1</strong></td><td class="num gold"><strong>$8,000</strong></td><td>16% від total $50k</td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:6mm">TikTok deep-dive ($3,000)</h3>
+  <table>
+    <tr><th>Кампанія</th><th class="num">Бюджет</th><th>Деталі</th></tr>
+    <tr><td>In-Feed video tests</td><td class="num">$2,000</td><td>10 ad sets × $20/день × 10 днів. Test: zodiac roast · prediction hook · celebrity compatibility · transit alert · "Try Olivia free"</td></tr>
+    <tr><td>Spark Ads (boost organic)</td><td class="num">$750</td><td>Boost top 3 organic posts × $250. Spark Ads CPM на 30-40% дешевший за in-feed</td></tr>
+    <tr><td>TikTok Promote</td><td class="num">$250</td><td>Native creator boost — $20-100 за пост × 5-10 постів</td></tr>
+  </table>
+  <p class="caption">Очікуваний результат TikTok Phase 1: 200-400k показів · 4-12k кліків · 800-2,500 free signups.</p>
+
+  <h3 class="serif" style="margin-top:5mm">Meta deep-dive ($2,000)</h3>
+  <table>
+    <tr><th>Кампанія</th><th class="num">Бюджет</th><th>Деталі</th></tr>
+    <tr><td>Reels video ads</td><td class="num">$1,000</td><td>$20/день × 50 днів. CPM $5-10 EN, $2-4 BR · CTR ~1-2%</td></tr>
+    <tr><td>Carousel ads</td><td class="num">$500</td><td>5 каруселей × $100 · static астро-візуали з натальної карти</td></tr>
+    <tr><td>Lookalike + interest</td><td class="num">$500</td><td>3 LAL: email list, тарот-cтерші, Co-Star/Chani users</td></tr>
+  </table>
+
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>04 · Phase 1 · 05</span></div>
+</section>
+
+<!-- ============ 6 · PHASE 1 PART 2 ============ -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">04 · Phase 1 — Creative Matrix &amp; KPIs</div><h2 style="margin-top:2mm">Що тестуємо · як оцінюємо.</h2></div>
+    <div class="roman">IV</div>
+  </div>
+
+  <h3 class="serif">5 video-стилей TikTok — creative matrix</h3>
+  <table>
+    <tr><th>Стиль</th><th>Hook</th><th>CTA</th><th>Очік. CTR</th></tr>
+    <tr class="olivia"><td><strong>Zodiac Roast</strong></td><td>"Why [sign] is the worst at..." (бренд-safe)</td><td>"Get your full read"</td><td>2.5-4%</td></tr>
+    <tr><td>Prediction Hook</td><td>"Stop scrolling, [your sign] needs to know..."</td><td>"Free reading link"</td><td>1.5-2.5%</td></tr>
+    <tr><td>Celebrity Compatibility</td><td>"I checked Harry Styles' chart and..."</td><td>"Check yours free"</td><td>2-3%</td></tr>
+    <tr><td>Transit Alert</td><td>"Mercury retrograde hits these 3 signs..."</td><td>"Get your transit"</td><td>1.5-2%</td></tr>
+    <tr><td>"Try Olivia"</td><td>"This AI guessed my entire chart..."</td><td>"Try free"</td><td>1-1.8%</td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:5mm">Telegram Ads — канали-цілі</h3>
+  <table>
+    <tr><th>Канал</th><th>Мова</th><th>Аудиторія</th><th class="num">CPM прогноз</th></tr>
+    <tr><td>Олена Курилова · @olenakurilova</td><td>UA</td><td>~80k</td><td class="num">€1.8</td></tr>
+    <tr><td>Astrology channels (mixed)</td><td>UA + RU</td><td>20-150k each</td><td class="num">€2.0-2.5</td></tr>
+    <tr><td>Spiritual / wellness</td><td>RU diaspora (IL, EU)</td><td>30-100k</td><td class="num">€2.2</td></tr>
+    <tr><td>Tarot Telegram-каналі</td><td>UA + RU</td><td>50-200k</td><td class="num">€1.5-2</td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:5mm">Tools у Phase 1 ($300)</h3>
+  <table>
+    <tr><th>Інструмент</th><th class="num">Ціна</th><th>Призначення</th></tr>
+    <tr><td>PostHog</td><td class="num gold">Free (1M events)</td><td>Product analytics, funnel, cohorts</td></tr>
+    <tr><td>Plausible Analytics</td><td class="num">$9/міс</td><td>Privacy-first web analytics</td></tr>
+    <tr><td>Buffer Pro</td><td class="num">$15/міс</td><td>Cross-platform post scheduling</td></tr>
+    <tr><td>Canva Pro</td><td class="num">$13/міс</td><td>Швидкі ad creatives</td></tr>
+    <tr><td>UTM builder + webhook setup</td><td class="num">$100 one-time</td><td>Stripe → PostHog conversion tracking</td></tr>
+    <tr><td>Reserve</td><td class="num">$100</td><td>Несподіване</td></tr>
+  </table>
+
+  <div class="kpi-box" style="margin-top:5mm">
+    <div class="kpi-label">Phase 1 — KPI цілі</div>
+    <div class="kpi-rule">CTR &gt; 1% · CVR free &gt; 3% · CAC paid &lt; $50 · LTV:CAC ≥ 2× по будь-якому каналу</div>
+    <div class="kpi-detail">Якщо канал не досяг — kill після 2 тижнів і $500 spent. Перенаправ бюджет.</div>
+  </div>
+
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>04 · Phase 1 KPIs · 06</span></div>
+</section>
+
+<!-- ============ 7 · PHASE 2 PART 1 ============ -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">05 · Phase 2 — Scale Winners</div><h2 style="margin-top:2mm">$30,000 за 8 тижнів.</h2></div>
+    <div class="roman">V</div>
+  </div>
+
+  <p class="lead">Мета: 10× те, що працює. Вбити те, що ні. Перевірити Snapchat для AR. Запустити PR-push.</p>
+
+  <h3 class="serif">Розподіл — Phase 2</h3>
+  <table>
+    <tr><th>Канал</th><th class="num">Бюджет</th><th>Що масштабуємо</th></tr>
+    <tr class="olivia"><td><strong>TikTok Ads</strong></td><td class="num gold">$12,000</td><td>$6k/міс × 2 · scale winning videos · LAL · custom audiences</td></tr>
+    <tr><td><strong>Meta Ads</strong></td><td class="num gold">$8,000</td><td>$4k/міс × 2 · retargeting + LAL conversions · IG Stories</td></tr>
+    <tr><td><strong>Telegram Ads</strong></td><td class="num gold">$4,000</td><td>$2k/міс × 2 · scale RU+UA · додати GR-channels</td></tr>
+    <tr><td><strong>Snapchat Ads (AR test)</strong></td><td class="num gold">$2,000</td><td>$1k/міс × 2 · UAE+Saudi жінки 18-35</td></tr>
+    <tr><td><strong>Influencer mid-tier</strong></td><td class="num gold">$3,000</td><td>9 creators × $300-500 · TikTok + IG</td></tr>
+    <tr><td><strong>PR push</strong></td><td class="num gold">$1,000</td><td>Press release + outreach + backlinks</td></tr>
+    <tr class="olivia"><td><strong>Total Phase 2</strong></td><td class="num gold"><strong>$30,000</strong></td><td>60% від total $50k</td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:6mm">TikTok scaling deep-dive ($12,000)</h3>
+  <table>
+    <tr><th>Кампанія</th><th class="num">Бюджет</th><th>Деталі</th></tr>
+    <tr><td>Scale winning videos</td><td class="num">$7,000</td><td>$50-200/день на 3-5 проvenних креативів. Geographic expansion: US → UK + CA + AU</td></tr>
+    <tr><td>Custom audiences (retarget)</td><td class="num">$3,000</td><td>Phase 1 visitors + LAL of paid converters · вищий conversion rate</td></tr>
+    <tr><td>New creative testing</td><td class="num">$2,000</td><td>5 нових креативів/тиждень · saturation kills CTR за 2-3 тижні — нон-стоп refresh</td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:5mm">Meta scaling deep-dive ($8,000)</h3>
+  <table>
+    <tr><th>Кампанія</th><th class="num">Бюджет</th><th>Деталі</th></tr>
+    <tr><td>Retargeting (Phase 1 visitors)</td><td class="num">$3,000</td><td>$50/день × 60 днів · conversion-focused creatives · 7-day trial offer</td></tr>
+    <tr><td>Conversion campaigns на LAL</td><td class="num">$4,000</td><td>1%, 3%, 5% LAL з paid converters · scale переможні audience</td></tr>
+    <tr><td>IG Stories ads</td><td class="num">$1,000</td><td>Шорт-формат · "swipe up to read your chart" · high CTR formats</td></tr>
+  </table>
+
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>05 · Phase 2 · 07</span></div>
+</section>
+
+<!-- ============ 8 · PHASE 2 PART 2 ============ -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">05 · Phase 2 — Influencer &amp; PR</div><h2 style="margin-top:2mm">Створці + преса = виручка з нульовим CAC.</h2></div>
+    <div class="roman">V</div>
+  </div>
+
+  <h3 class="serif">Influencer tier structure ($3,000)</h3>
+  <table>
+    <tr><th>Tier</th><th>Followers</th><th class="num">Ціна за пост</th><th class="num">Кількість</th><th class="num">Total</th></tr>
+    <tr class="olivia"><td>Mid-tier TikTok</td><td>100-500k</td><td class="num">$300-500</td><td class="num">6</td><td class="num gold">$2,400</td></tr>
+    <tr><td>IG astro-account</td><td>50-200k</td><td class="num">$100-300</td><td class="num">3</td><td class="num gold">$600</td></tr>
+  </table>
+  <p class="caption">Структура: flat fee + 20% affiliate commission. Робить творців "вкладеними" у конверсію — їх метрика стає твоєю метрикою.</p>
+
+  <h3 class="serif" style="margin-top:5mm">PR push ($1,000)</h3>
+  <table>
+    <tr><th>Активність</th><th class="num">Ціна</th><th>Деталі</th></tr>
+    <tr><td>Press release distribution (PRWeb / Newswire)</td><td class="num gold">$300</td><td>"Solo founder ships AI tarot platform у 8 мовах"</td></tr>
+    <tr><td>Pitch до Refinery29, Bustle, Cosmopolitan astro-editors</td><td class="num gold">Free</td><td>Cold outreach × 20-30 editors · персоналізовані пітчі</td></tr>
+    <tr><td>Reddit AMA у r/astrology (2.1M members)</td><td class="num gold">Free</td><td>"I built an AI astrologer with NASA data — AMA"</td></tr>
+    <tr><td>Product Hunt launch</td><td class="num gold">Free</td><td>Top-of-day shot для US tech-aware audience</td></tr>
+    <tr><td>Backlink outreach (5-10 sites)</td><td class="num gold">$700</td><td>Guest posts, link exchanges, podcast appearances</td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:5mm">Snapchat AR-test deep-dive ($2,000)</h3>
+  <table>
+    <tr><th>Параметр</th><th>Значення</th></tr>
+    <tr><td>Платформа</td><td>Snap Ads (Snapchat)</td></tr>
+    <tr><td>Geo target</td><td>UAE + Saudi Arabia</td></tr>
+    <tr><td>Demo target</td><td>Жінки 18-35</td></tr>
+    <tr><td>Очікуваний CPM</td><td>$8-12</td></tr>
+    <tr><td>Очікуваний CAC</td><td>$15-25 (Gulf LTV $140 — robust LTV:CAC 5-9×)</td></tr>
+    <tr><td>Мін. рахунок Snap</td><td>$500 deposit</td></tr>
+    <tr><td>Daily budget</td><td>$30-60/день × 30 днів × 1 міс</td></tr>
+    <tr class="olivia"><td><strong>Decision rule</strong></td><td><strong>Якщо CAC ≤ $25 — масштабувати у Phase 3 до $5k/міс. Якщо &gt; $30 — kill, чекати Gulf operator.</strong></td></tr>
+  </table>
+
+  <div class="kpi-box" style="margin-top:5mm">
+    <div class="kpi-label">Phase 2 — KPI цілі</div>
+    <div class="kpi-rule">CAC paid &lt; $25 на winning channels · MRR М4 ≥ $5k · LTV:CAC ≥ 3× · 750+ paid конверсій</div>
+    <div class="kpi-detail">Якщо MRR М4 &lt; $3k — пауза на Phase 3, переглянути pricing/voice/funnel.</div>
+  </div>
+
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>05 · Phase 2 KPIs · 08</span></div>
+</section>
+
+<!-- ============ 9 · PHASE 3 ============ -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">06 · Phase 3 — Sustain &amp; Prep</div><h2 style="margin-top:2mm">$10,000 за 4 тижні.</h2></div>
+    <div class="roman">VI</div>
+  </div>
+
+  <p class="lead">Мета: утримати ріст, побудувати інфраструктуру для self-funded scaling з М6+. Це фаза, де ти переходиш з "плати за ріст" до "ріст платить сам за себе".</p>
+
+  <h3 class="serif">Розподіл — Phase 3</h3>
+  <table>
+    <tr><th>Категорія</th><th class="num">Бюджет</th><th>Призначення</th></tr>
+    <tr class="olivia"><td><strong>TikTok + Meta sustain</strong></td><td class="num gold">$7,000</td><td>$3.5k кожна · ТІЛЬКИ переможні креативи · aggressive cut на низькоeffective</td></tr>
+    <tr><td><strong>Email + SMS automation</strong></td><td class="num gold">$1,500</td><td>Klaviyo setup + 4 automation flows</td></tr>
+    <tr><td><strong>Affiliate program setup</strong></td><td class="num gold">$1,000</td><td>Tapfiliate · 20+ ambassador onboarding</td></tr>
+    <tr><td><strong>Attribution &amp; tools</strong></td><td class="num gold">$500</td><td>Triple Whale (3 міс. передплата)</td></tr>
+    <tr class="olivia"><td><strong>Total Phase 3</strong></td><td class="num gold"><strong>$10,000</strong></td><td>20% від $50k</td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:6mm">Email + SMS automation ($1,500)</h3>
+  <table>
+    <tr><th>Інструмент</th><th class="num">Ціна</th><th>Альтернатива</th></tr>
+    <tr><td>Klaviyo (email + SMS)</td><td class="num">$20-200/міс залежно від list size</td><td>SendGrid + Twilio ($20+$30/міс)</td></tr>
+    <tr><td>Setup automation flows</td><td class="num">$500 one-time</td><td>Ручний setup OR Upwork freelancer</td></tr>
+  </table>
+  <p>4 критичні flow до setup-ити:</p>
+  <ul>
+    <li><strong>7-day trial reminder sequence</strong> — D5 reminder, D7 "trial ends tomorrow", post-charge welcome</li>
+    <li><strong>Day-30 churn win-back</strong> — 50% off перший місяць після cancel</li>
+    <li><strong>Birthday trigger</strong> — 3 дні до, 1 день до, день після · "free solar return reading"</li>
+    <li><strong>Mercury retrograde / eclipse flash sale</strong> — event-triggered за 24 години</li>
+  </ul>
+
+  <h3 class="serif" style="margin-top:5mm">Affiliate program ($1,000)</h3>
+  <table>
+    <tr><th>Компонент</th><th class="num">Ціна</th></tr>
+    <tr><td>Tapfiliate (affiliate platform)</td><td class="num gold">$89-149/міс</td></tr>
+    <tr><td>OR Refersion</td><td class="num gold">$99-249/міс</td></tr>
+    <tr><td>Ambassador onboarding kit (Notion + email templates + landing)</td><td class="num gold">$300 one-time</td></tr>
+    <tr><td>Initial 20 ambassador outreach + activation</td><td class="num gold">$400 (часи + tools)</td></tr>
+    <tr class="olivia"><td><strong>Sub-total</strong></td><td class="num gold"><strong>~$1,000</strong></td></tr>
+  </table>
+  <p class="caption">Comission structure: 20% lifetime на subscription · 15% на one-time products · cookie 30 днів. Це робить ambassador-програму self-sustaining з М6+.</p>
+
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>06 · Phase 3 · 09</span></div>
+</section>
+
+<!-- ============ 10 · TOOLS & STACK ============ -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">07 · Tools &amp; Stack</div><h2 style="margin-top:2mm">Що використовуємо · скільки коштує.</h2></div>
+    <div class="roman">VII</div>
+  </div>
+
+  <h3 class="serif">Аналітика &amp; атрибуція</h3>
+  <table>
+    <tr><th>Tool</th><th class="num">Ціна</th><th>Phase</th><th>Призначення</th></tr>
+    <tr><td>PostHog</td><td class="num gold">Free до 1M events</td><td>1+</td><td>Product analytics · funnels · cohorts · heatmaps</td></tr>
+    <tr><td>Plausible Analytics</td><td class="num">$9/міс</td><td>1+</td><td>Privacy-first веб-аналітика · simple dashboards</td></tr>
+    <tr><td>Triple Whale</td><td class="num">$129-299/міс</td><td>3+</td><td>Cross-platform attribution · post-iOS14.5 fix</td></tr>
+    <tr><td>Stripe (Reports)</td><td class="num gold">Free</td><td>1+</td><td>Revenue, MRR, churn analytics</td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:5mm">Email &amp; SMS</h3>
+  <table>
+    <tr><th>Tool</th><th class="num">Ціна</th><th>Phase</th><th>Призначення</th></tr>
+    <tr><td>Klaviyo (recommended)</td><td class="num">$20-200/міс</td><td>3+</td><td>All-in-one email + SMS + automation</td></tr>
+    <tr><td>SendGrid (alt)</td><td class="num">$20/міс</td><td>3+</td><td>Transactional + marketing email</td></tr>
+    <tr><td>Twilio (SMS, alt)</td><td class="num">$0.0079/SMS US</td><td>3+</td><td>SMS-канал для VIP-сповіщень</td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:5mm">Контент &amp; ads creative</h3>
+  <table>
+    <tr><th>Tool</th><th class="num">Ціна</th><th>Phase</th><th>Призначення</th></tr>
+    <tr><td>Canva Pro</td><td class="num">$13/міс</td><td>1+</td><td>Швидкі ad creatives · IG/TikTok templates</td></tr>
+    <tr><td>CapCut Pro</td><td class="num">$8/міс</td><td>1+</td><td>TikTok video editing з Spark Ads-підтримкою</td></tr>
+    <tr><td>Buffer Pro</td><td class="num">$15/міс</td><td>1+</td><td>Cross-platform scheduling (TikTok, IG, FB)</td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:5mm">Affiliate &amp; partnerships</h3>
+  <table>
+    <tr><th>Tool</th><th class="num">Ціна</th><th>Phase</th><th>Призначення</th></tr>
+    <tr><td>Tapfiliate</td><td class="num">$89-149/міс</td><td>3+</td><td>Affiliate program · tracking · payout</td></tr>
+    <tr><td>Refersion (alt)</td><td class="num">$99-249/міс</td><td>3+</td><td>Альтернатива з Stripe-нативною інтеграцією</td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:5mm">Total monthly tool stack</h3>
+  <table>
+    <tr><th>Phase</th><th class="num">Mandatory</th><th class="num">Recommended</th></tr>
+    <tr><td>Phase 1 (M1-M2)</td><td class="num gold">$37/міс</td><td class="num">$50/міс</td></tr>
+    <tr><td>Phase 2 (M3-M4)</td><td class="num gold">$50/міс</td><td class="num">$80/міс</td></tr>
+    <tr class="olivia"><td><strong>Phase 3 (M5+) sustained</strong></td><td class="num gold"><strong>$200-400/міс</strong></td><td class="num"><strong>~$500/міс</strong></td></tr>
+  </table>
+
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>07 · Tools &amp; Stack · 10</span></div>
+</section>
+
+<!-- ============ 11 · KILL CRITERIA + KPIs ============ -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">08 · Kill Criteria &amp; KPIs</div><h2 style="margin-top:2mm">Коли стопити · що моніторити.</h2></div>
+    <div class="roman">VIII</div>
+  </div>
+
+  <p class="lead">Ці правила — захист від $50k втрат на одну погану ставку. Жодного "ще потерпимо тиждень-два".</p>
+
+  <h3 class="serif">Stop rules — apply immediately</h3>
+
+  <div class="kpi-box">
+    <div class="kpi-label">Rule 1 · Channel CAC</div>
+    <div class="kpi-rule">Будь-який канал з CAC &gt; $50 після 2 тижнів і &gt; $500 spent → STOP</div>
+    <div class="kpi-detail">Перенаправ бюджет на winning channels. Не "ще тиждень" — алгоритми не "вчаться" після цього порогу для нашого niche.</div>
+  </div>
+
+  <div class="kpi-box">
+    <div class="kpi-label">Rule 2 · Creative CTR</div>
+    <div class="kpi-rule">Будь-який креатив з CTR &lt; 0.8% після 5,000 показів → PAUSE</div>
+    <div class="kpi-detail">Ремікснути або вбити. CTR &lt; 0.8% = audience не engages, ніколи не conv-ить.</div>
+  </div>
+
+  <div class="kpi-box">
+    <div class="kpi-label">Rule 3 · LTV:CAC ratio</div>
+    <div class="kpi-rule">Будь-яка LTV:CAC &lt; 2× після 60 днів → STOP scaling того канала</div>
+    <div class="kpi-detail">Переглянути pricing OR voice OR funnel. Не вкидати ще $$$ без зміни одного з трьох.</div>
+  </div>
+
+  <div class="kpi-box">
+    <div class="kpi-label">Rule 4 · MRR Phase 2 milestone</div>
+    <div class="kpi-rule">MRR М4 &lt; $3,000 → пауза на Phase 3 · переглянути fundamental fit</div>
+    <div class="kpi-detail">Не cтартувати tools/affiliate setup якщо MRR не доказує product-market fit.</div>
+  </div>
+
+  <div class="kpi-box">
+    <div class="kpi-label">Rule 5 · Snap AR-test</div>
+    <div class="kpi-rule">Snap CAC &gt; $30 → kill, чекати Gulf operator-партнерство</div>
+    <div class="kpi-detail">Не тягни Gulf без локального партнера — regulatory complexity і culture nuances занадто складні.</div>
+  </div>
+
+  <h3 class="serif" style="margin-top:6mm">Weekly KPI dashboard</h3>
+  <table>
+    <tr><th>Метрика</th><th class="num">Phase 1 цiль</th><th class="num">Phase 2 цiль</th><th class="num">Phase 3 цiль</th></tr>
+    <tr><td>Cumulative spend</td><td class="num">$8k</td><td class="num">$38k</td><td class="num">$48k</td></tr>
+    <tr><td>Free signups (cumulative)</td><td class="num">5,000</td><td class="num">25,000</td><td class="num">45,000</td></tr>
+    <tr><td>Paid conversions (cumulative)</td><td class="num">200</td><td class="num">1,300</td><td class="num">2,400</td></tr>
+    <tr><td>Avg CAC paid</td><td class="num">$40</td><td class="num">$23</td><td class="num">$20</td></tr>
+    <tr><td>MRR end of phase</td><td class="num gold">$1.5k</td><td class="num gold">$8k</td><td class="num gold">$12k</td></tr>
+    <tr><td>LTV:CAC ratio</td><td class="num">2×+</td><td class="num">3×+</td><td class="num">4×+</td></tr>
+  </table>
+
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>08 · Kill Criteria · 11</span></div>
+</section>
+
+<!-- ============ 12 · EXPECTED OUTCOMES ============ -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">09 · Expected Outcomes</div><h2 style="margin-top:2mm">3 сценарії після $50k головстарту.</h2></div>
+    <div class="roman">IX</div>
+  </div>
+
+  <h3 class="serif">Метрики на кінці Phase 3 (М5)</h3>
+  <table>
+    <tr><th>Метрика</th><th class="num">Conservative</th><th class="num">Base case</th><th class="num">Optimistic</th></tr>
+    <tr><td>Free signups (cumulative)</td><td class="num">25,000</td><td class="num">50,000</td><td class="num">100,000</td></tr>
+    <tr class="olivia"><td><strong>Paid conversions</strong></td><td class="num gold">1,000 (4%)</td><td class="num gold">2,500 (5%)</td><td class="num gold">7,000 (7%)</td></tr>
+    <tr><td>Blended CAC</td><td class="num">$50</td><td class="num">$20</td><td class="num">$7</td></tr>
+    <tr><td>MRR (М5)</td><td class="num">$5,000</td><td class="num">$12,000</td><td class="num">$30,000</td></tr>
+    <tr><td>Y1 revenue (extrapolated)</td><td class="num">$80,000</td><td class="num">$160,000</td><td class="num">$400,000</td></tr>
+    <tr class="olivia"><td><strong>ROAS на $50k headstart</strong></td><td class="num gold"><strong>1.6×</strong></td><td class="num gold"><strong>3.2×</strong></td><td class="num gold"><strong>8.0×</strong></td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:6mm">Розшифровка ROAS</h3>
+  <p>ROAS (Return on Ad Spend) = Y1 revenue / total marketing spend. При <strong>base case</strong>:</p>
+  <ul>
+    <li>$50,000 витрачено за 5 місяців на acquisition</li>
+    <li>$160,000 виручки за наступні 12 місяців від тих самих юзерів</li>
+    <li>ROAS = 3.2× — індустрія вважає &gt; 3× як healthy</li>
+    <li>Plus: ці юзери продовжують платити у Y2 (residual LTV $50-80 на головку)</li>
+  </ul>
+
+  <h3 class="serif" style="margin-top:5mm">Що НЕ покривається у $50k</h3>
+  <ul>
+    <li><strong>Production високобюджетного контенту</strong> — використовуй existing 12-clip/day pipeline. Не наймати videographer.</li>
+    <li><strong>Фізичний друк колоди</strong> — окремий капекс ~$10k у Q3 (поза marketing budget).</li>
+    <li><strong>Команда (part-time content куратори)</strong> — $25k Y1 OPEX окремо.</li>
+    <li><strong>AR Gulf full-scale кампанії</strong> — потребують Gulf operator-партнерства, не headstart-приоритет.</li>
+    <li><strong>Production high-budget creator collaborations</strong> ($1,000+ за пост) — після Phase 3, коли є дані з $300-creator deals.</li>
+  </ul>
+
+  <div class="pull"><div class="quote">"$50k головстарт — це інвестиція у дані, а не у виручку. Дані з Phase 1+2 цінніші за $50k тому що вони визначають що працює у Y1 self-funded scaling до $642k Y2 marketing-бюджету."</div></div>
+
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>09 · Expected Outcomes · 12</span></div>
+</section>
+
+<!-- ============ 13 · BACK COVER ============ -->
+<section class="page cosmic">
+  <div class="back-layout">
+    <div style="flex:1;display:flex;align-items:center;justify-content:center">
+      <svg class="card-svg" style="width:80mm" viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="b-base" cx="50%" cy="42%" r="75%">
+            <stop offset="0%" stop-color="#1f1343"/><stop offset="55%" stop-color="#0b0722"/><stop offset="100%" stop-color="#04030c"/>
+          </radialGradient>
+          <linearGradient id="b-gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f3dd8e"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#8a6818"/>
+          </linearGradient>
+          <radialGradient id="b-halo" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(255,230,150,0.22)"/><stop offset="40%" stop-color="rgba(232,201,106,0.09)"/><stop offset="100%" stop-color="rgba(232,201,106,0)"/>
+          </radialGradient>
+        </defs>
+        <rect width="360" height="540" fill="url(#b-base)" rx="8"/>
+        <rect x="22" y="22" width="316" height="496" rx="8" fill="none" stroke="url(#b-gold)" stroke-width="0.6" stroke-opacity="0.85"/>
+        <rect x="30" y="30" width="300" height="480" rx="5" fill="none" stroke="url(#b-gold)" stroke-width="0.25" stroke-opacity="0.28"/>
+        <circle cx="180" cy="270" r="120" fill="url(#b-halo)"/>
+        <circle cx="180" cy="270" r="115" fill="none" stroke="url(#b-gold)" stroke-width="0.5" stroke-opacity="0.7"/>
+        <circle cx="180" cy="270" r="98" fill="none" stroke="url(#b-gold)" stroke-width="0.3" stroke-opacity="0.32"/>
+        <g fill="none" stroke="url(#b-gold)">
+          <circle cx="180" cy="270" r="35" stroke-width="0.55" stroke-opacity="0.85"/>
+          <circle cx="180" cy="235" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="210.31" cy="252.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="210.31" cy="287.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="180" cy="305" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="149.69" cy="287.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="149.69" cy="252.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+        </g>
+        <circle cx="180" cy="155" r="2.4" fill="url(#b-gold)"/>
+        <circle cx="180" cy="270" r="11" fill="none" stroke="url(#b-gold)" stroke-width="0.35" stroke-opacity="0.45"/>
+        <path transform="translate(180 270)" d="M 0,-9 L 2,-2 L 9,0 L 2,2 L 0,9 L -2,2 L -9,0 L -2,-2 Z" fill="url(#b-gold)" stroke="rgba(255,230,150,0.7)" stroke-width="0.3"/>
+        <text x="180" y="487" text-anchor="middle" fill="url(#b-gold)" font-family="'Cormorant Garamond',serif" font-size="13" letter-spacing="5" opacity="0.95" font-style="italic">Olivia Arcana</text>
+      </svg>
+    </div>
+    <div>
+      <div class="back-tag" style="color:#f4e9d0">$50k → 3.2× ROAS<br><span style="font-size:18pt;color:var(--gold-1);font-style:italic">$160k Y1 revenue</span></div>
+    </div>
+    <div class="back-sig">
+      <a href="https://oliviaarcana.com" style="color:inherit;border:none">oliviaarcana.com</a> · <a href="https://t.me/OliviaArcanaBot" style="color:inherit;border:none">@OliviaArcanaBot</a><br>
+      Olivia Arcana · Маркетинг-план головстарту · Квітень 2026
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

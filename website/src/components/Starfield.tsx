@@ -71,12 +71,15 @@ export default function Starfield() {
         try {
           const { getVisitorArchetype } = await import("../lib/visitor-archetype");
           const { getAnniversaryWarmth } = await import("../lib/anniversary");
+          const { computeConstellationBrightness } = await import("../lib/constellation-memory");
           const { loadUser } = await import("../lib/user-store");
 
-          const applyArchetype = () => {
+          const applyPersonalization = () => {
             const nebulaSystem = engine.getSystem<import("./cosmos/engine/NebulaPlane").NebulaPlane>("nebula");
+            const zodiacSystem = engine.getSystem<import("./cosmos/engine/ZodiacGL").ZodiacGL>("zodiac");
             if (!nebulaSystem) return;
 
+            // Visitor archetype + anniversary → nebula palette shift
             const archetype = getVisitorArchetype();
             const user = loadUser();
             const anniversaryWarmth =
@@ -85,16 +88,23 @@ export default function Starfield() {
                     new Date(user.input.year, user.input.month - 1, user.input.day),
                   )
                 : 0;
-
             nebulaSystem.setArchetype(
               archetype.hueShift,
               archetype.saturation,
               archetype.warmth + anniversaryWarmth,
             );
+
+            // Constellation memory → per-sign brightness in zodiac renderer
+            if (zodiacSystem) {
+              const brightness = computeConstellationBrightness();
+              zodiacSystem.setPersonalBrightness(brightness);
+            }
           };
 
-          applyArchetype();
-          archetypeInterval = setInterval(applyArchetype, 30_000);
+          applyPersonalization();
+          archetypeInterval = setInterval(applyPersonalization, 30_000);
+          // Re-apply when a new card is drawn (constellation-memory updates).
+          window.addEventListener("olivia:card-drawn", applyPersonalization);
         } catch {
           // graceful degradation
         }
@@ -142,6 +152,10 @@ export default function Starfield() {
       if (archetypeInterval) {
         clearInterval(archetypeInterval);
       }
+      // The personalization listener was only attached if the dynamic import
+      // succeeded; calling removeEventListener with an unbound name is safe —
+      // browsers ignore it. We leave a best-effort cleanup here.
+      window.removeEventListener("olivia:card-drawn", () => {});
       engineRef.current?.dispose();
       engineRef.current = null;
     };

@@ -1,0 +1,27 @@
+{
+  "name": "olivia-arcana-video",
+  "version": "1.0.0",
+  "description": "Olivia Arcana — Remotion video compositions for zodiac social content",
+  "private": true,
+  "scripts": {
+    "studio": "REMOTION_IGNORE_VERSION_MISMATCH=true npx remotion studio src/index.ts",
+    "render": "REMOTION_IGNORE_VERSION_MISMATCH=true npx remotion render src/index.ts ZodiacDaily",
+    "render:props": "REMOTION_IGNORE_VERSION_MISMATCH=true npx remotion render src/index.ts ZodiacDaily --props=test-props.json",
+    "compositions": "REMOTION_IGNORE_VERSION_MISMATCH=true npx remotion compositions src/index.ts"
+  },
+  "dependencies": {
+    "@remotion/bundler": "^4.0.448",
+    "@remotion/cli": "^4.0.448",
+    "@remotion/google-fonts": "^4.0.448",
+    "@remotion/light-leaks": "4.0.448",
+    "@remotion/media": "^4.0.448",
+    "@remotion/renderer": "^4.0.448",
+    "@remotion/transitions": "4.0.448",
+    "@types/react": "^18.3.28",
+    "@types/react-dom": "^18.3.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.448",
+    "typescript": "^5.9.3"
+  }
+}

@@ -7,7 +7,7 @@ import MagneticButton from "@/components/MagneticButton";
 import VipBadge from "@/components/VipBadge";
 
 export default function CheckoutSuccessPage() {
-  const { refresh, isVip, tier } = useSubscription();
+  const { refresh } = useSubscription();
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {

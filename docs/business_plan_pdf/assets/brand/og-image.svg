@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  OG Image — 1200×630, social-share card. Optimized for:
+  - Twitter / X card (summary_large_image)
+  - Facebook / LinkedIn / Slack / iMessage previews
+  - Left: the card back (Wheel of Seven + Olive Heart)
+  - Right: brand wordmark + tagline in editorial typography
+  - Background: deep indigo cosmic wash
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630"
+     width="1200" height="630" role="img"
+     aria-label="Olivia Arcana — Written in Your Stars">
+  <defs>
+    <linearGradient id="og-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#f7e39a"/>
+      <stop offset="50%"  stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#8a6818"/>
+    </linearGradient>
+    <radialGradient id="og-bg" cx="50%" cy="35%" r="80%">
+      <stop offset="0%"  stop-color="#2d1858"/>
+      <stop offset="55%" stop-color="#0f0830"/>
+      <stop offset="100%" stop-color="#06031a"/>
+    </radialGradient>
+    <radialGradient id="og-halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="rgba(232,201,106,0.22)"/>
+      <stop offset="60%" stop-color="rgba(232,201,106,0.05)"/>
+      <stop offset="100%" stop-color="rgba(232,201,106,0)"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Cosmic wash background -->
+  <rect width="1200" height="630" fill="url(#og-bg)"/>
+
+  <!-- Scattered starfield -->
+  <g fill="rgba(243,221,142,0.55)">
+    <circle cx="90"   cy="100"  r="1.4"/>
+    <circle cx="220"  cy="140"  r="0.9"/>
+    <circle cx="340"  cy="85"   r="1.2"/>
+    <circle cx="1080" cy="120"  r="1.5"/>
+    <circle cx="940"  cy="180"  r="0.8"/>
+    <circle cx="1140" cy="260"  r="1.1"/>
+    <circle cx="110"  cy="510"  r="1.0"/>
+    <circle cx="230"  cy="570"  r="0.7"/>
+    <circle cx="1020" cy="520"  r="1.3"/>
+    <circle cx="1150" cy="470"  r="0.8"/>
+    <circle cx="560"  cy="75"   r="0.9"/>
+    <circle cx="700"  cy="560"  r="1.0"/>
+    <circle cx="420"  cy="600"  r="0.7"/>
+    <circle cx="810"  cy="90"   r="0.9"/>
+    <circle cx="50"   cy="320"  r="1.1"/>
+    <circle cx="1170" cy="350"  r="1.0"/>
+  </g>
+
+  <!-- LEFT: card preview at actual aspect ratio 2:3, ~300×450.
+       Positioned left-center with a 60px margin. -->
+  <g transform="translate(80 90)">
+    <!-- Card body: rounded rect with soft shadow via stroke + inner fills -->
+    <rect x="0" y="0" width="300" height="450" rx="14"
+          fill="#0c0722"
+          stroke="url(#og-gold)" stroke-width="1.4" stroke-opacity="0.9"/>
+    <!-- Card nebula body-fill -->
+    <rect x="1" y="1" width="298" height="448" rx="13" fill="#14092e"/>
+
+    <!-- Stars inside the card -->
+    <g fill="rgba(243,221,142,0.42)">
+      <circle cx="30"  cy="30"  r="0.7"/>
+      <circle cx="270" cy="50"  r="0.9"/>
+      <circle cx="45"  cy="390" r="0.8"/>
+      <circle cx="260" cy="410" r="0.7"/>
+      <circle cx="130" cy="80"  r="0.6"/>
+      <circle cx="210" cy="380" r="0.8"/>
+    </g>
+
+    <!-- Central halo -->
+    <circle cx="150" cy="225" r="100" fill="url(#og-halo)"/>
+
+    <!-- Zodiac Wheel -->
+    <g transform="translate(150 225)">
+      <circle r="96"  fill="none" stroke="url(#og-gold)"
+              stroke-width="0.6" stroke-opacity="0.72"/>
+      <circle r="82"  fill="none" stroke="url(#og-gold)"
+              stroke-width="0.35" stroke-opacity="0.34"/>
+      <!-- Cardinal ticks -->
+      <line x1="0"  y1="-96" x2="0"   y2="-82" stroke="url(#og-gold)" stroke-width="0.95" stroke-opacity="0.95"/>
+      <line x1="96" y1="0"   x2="82"  y2="0"   stroke="url(#og-gold)" stroke-width="0.95" stroke-opacity="0.95"/>
+      <line x1="0"  y1="96"  x2="0"   y2="82"  stroke="url(#og-gold)" stroke-width="0.95" stroke-opacity="0.95"/>
+      <line x1="-96" y1="0"  x2="-82" y2="0"   stroke="url(#og-gold)" stroke-width="0.95" stroke-opacity="0.95"/>
+      <!-- Cardinal marker glyphs — small filled gold dots at outer ring
+           (avoids emoji-font fallback that renders Unicode zodiac
+           chars as colored squares in headless browsers) -->
+      <g fill="url(#og-gold)" opacity="0.9">
+        <circle cx="0"    cy="-110" r="3"/>
+        <circle cx="110"  cy="0"    r="3"/>
+        <circle cx="0"    cy="110"  r="3"/>
+        <circle cx="-110" cy="0"    r="3"/>
+      </g>
+    </g>
+
+    <!-- Seed of Life — 7 circles -->
+    <g fill="none" stroke="url(#og-gold)" transform="translate(150 225)">
+      <circle r="28" stroke-width="0.55" stroke-opacity="0.78"/>
+      <circle cx="0"     cy="-28"  r="28" stroke-width="0.45" stroke-opacity="0.6"/>
+      <circle cx="24.25" cy="-14"  r="28" stroke-width="0.45" stroke-opacity="0.6"/>
+      <circle cx="24.25" cy="14"   r="28" stroke-width="0.45" stroke-opacity="0.6"/>
+      <circle cx="0"     cy="28"   r="28" stroke-width="0.45" stroke-opacity="0.6"/>
+      <circle cx="-24.25" cy="14"  r="28" stroke-width="0.45" stroke-opacity="0.6"/>
+      <circle cx="-24.25" cy="-14" r="28" stroke-width="0.45" stroke-opacity="0.6"/>
+    </g>
+
+    <!-- Olive at center -->
+    <g transform="translate(150 225)">
+      <path d="M 0,14 C 1.8,7 -1.8,0 0,-7 C 1.2,-12 -0.5,-14 0,-15"
+            fill="none" stroke="url(#og-gold)"
+            stroke-width="1.3" stroke-linecap="round"/>
+      <g fill="url(#og-gold)">
+        <path d="M 0.5,9 Q 6,5 9,7 Q 6,10 0.5,9 Z"/>
+        <path d="M -0.5,2 Q -8,-3 -11,-1 Q -8,2 -0.5,2 Z"/>
+        <path d="M 0.5,-6 Q 6,-10 9,-8 Q 6,-5 0.5,-6 Z"/>
+      </g>
+      <ellipse cx="0" cy="-15.5" rx="1.9" ry="2.5" fill="url(#og-gold)"/>
+    </g>
+
+    <!-- Card bottom mark -->
+    <text x="150" y="425" text-anchor="middle"
+          fill="url(#og-gold)" opacity="0.5"
+          font-size="7" letter-spacing="3.5"
+          font-family="'Cormorant Garamond', serif" font-style="italic">
+      · mmxxvi ·
+    </text>
+  </g>
+
+  <!-- RIGHT: wordmark + tagline -->
+  <g transform="translate(480 0)">
+    <!-- Top eyebrow -->
+    <text x="0" y="200" fill="url(#og-gold)"
+          font-size="14" letter-spacing="6"
+          font-family="'Cormorant Garamond', serif"
+          font-style="italic" opacity="0.78">
+      An editorial cosmic almanac
+    </text>
+
+    <!-- Thin divider line -->
+    <line x1="0" y1="225" x2="380" y2="225"
+          stroke="url(#og-gold)" stroke-width="1" stroke-opacity="0.55"/>
+
+    <!-- Brand name, display-italic, massive -->
+    <text x="0" y="330" fill="#f5f0e8"
+          font-size="88" font-style="italic" font-weight="400"
+          font-family="'Cormorant Garamond', serif" letter-spacing="-1.2">
+      Olivia
+    </text>
+    <text x="0" y="420" fill="url(#og-gold)"
+          font-size="60" font-weight="300" letter-spacing="12"
+          font-family="'Cormorant Garamond', serif">
+      ARCANA
+    </text>
+
+    <!-- Tagline -->
+    <text x="0" y="500" fill="rgba(245,240,232,0.78)"
+          font-size="22" font-style="italic"
+          font-family="'Cormorant Garamond', serif">
+      Written in your stars.
+    </text>
+    <text x="0" y="530" fill="rgba(200,185,255,0.55)"
+          font-size="16"
+          font-family="'Cormorant Garamond', serif" font-style="italic">
+      Real cosmic guidance — calculated from NASA ephemeris,
+    </text>
+    <text x="0" y="555" fill="rgba(200,185,255,0.55)"
+          font-size="16"
+          font-family="'Cormorant Garamond', serif" font-style="italic">
+      written by hand. Not templates.
+    </text>
+  </g>
+</svg>

@@ -138,22 +138,13 @@ export default function MobileBottomNav() {
 
   return (
     <nav
-      className="olivia-mobile-nav"
+      className="fixed bottom-0 left-0 right-0 z-40 block md:hidden bg-void-black/82 backdrop-blur-2xl saturate-[1.1] border-t border-celestial-gold/18"
       aria-label="Primary"
       style={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: 40,
         paddingBottom: "env(safe-area-inset-bottom, 0)",
-        background: "rgba(6, 4, 26, 0.82)",
-        backdropFilter: "blur(20px) saturate(1.1)",
-        WebkitBackdropFilter: "blur(20px) saturate(1.1)",
-        borderTop: "1px solid rgba(232, 201, 106, 0.18)",
       }}
     >
-      <div style={{ display: "flex", maxWidth: "600px", margin: "0 auto" }}>
+      <div className="flex max-w-[600px] mx-auto">
         <Tab label={t("common_home") || "Home"} icon={<IconHome />} href="/" active={path === "/"} />
         <Tab label={t("nav_daily")} icon={<IconDaily />} href="/daily" active={path.startsWith("/daily")} />
         <Tab label={t("nav_academy")} icon={<IconAcademy />} href="/academy" active={path.startsWith("/academy")} />
@@ -169,16 +160,6 @@ export default function MobileBottomNav() {
           <Tab label="Stars" icon={<span aria-hidden style={{ fontSize: "1rem" }}>✦</span>} href="/portrait" active={path.startsWith("/portrait")} />
         )}
       </div>
-      <style jsx>{`
-        .olivia-mobile-nav {
-          display: none;
-        }
-        @media (max-width: 767px) {
-          .olivia-mobile-nav {
-            display: block;
-          }
-        }
-      `}</style>
     </nav>
   );
 }

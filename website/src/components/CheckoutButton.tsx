@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSubscription } from "@/hooks/useSubscription";
 import type { PriceKey } from "@/lib/payments";
+import { isNativeShell, externalUpgradeUrl } from "@/lib/platform";
 import MagneticButton from "@/components/MagneticButton";
 
 interface CheckoutButtonProps {
@@ -22,12 +23,22 @@ export default function CheckoutButton({
 }: CheckoutButtonProps) {
   const { subscribe, isVip, manageSubscription, error } = useSubscription();
   const [loading, setLoading] = useState(false);
+  const [native, setNative] = useState(false);
+
+  // Hydrate native-shell flag on the client only — keeps SSR + static export
+  // outputs identical for Safari and the native app.
+  useEffect(() => { setNative(isNativeShell()); }, []);
 
   const handleClick = async () => {
-    // Check if user is logged in
-    const token = localStorage.getItem("olivia_token");
+    // Inside iOS/Android native shell: Apple/Google bills 30% of any digital
+    // sale. Send the user to the open web to subscribe via Paddle (5%).
+    if (native) {
+      window.location.href = externalUpgradeUrl();
+      return;
+    }
+
+    const token = localStorage.getItem("olivia-token");
     if (!token) {
-      // Redirect to onboarding/login first
       window.location.href = `/onboarding/?redirect=checkout&price=${priceKey}`;
       return;
     }
@@ -40,8 +51,8 @@ export default function CheckoutButton({
     }
   };
 
-  // If already VIP and this is a subscription product, show manage button
-  if (isVip && (priceKey === "vip_monthly" || priceKey === "vip_annual")) {
+  const isSubscriptionKey = priceKey.endsWith("_monthly") || priceKey.endsWith("_annual");
+  if (isVip && isSubscriptionKey) {
     return (
       <MagneticButton
         variant={variant}
@@ -53,6 +64,11 @@ export default function CheckoutButton({
       </MagneticButton>
     );
   }
+
+  // Inside the native shell, frame the CTA as an outbound link, not a buy.
+  // Apple's App Store guidelines (3.1.3) allow "out-of-app" pricing links;
+  // we are explicit about the destination.
+  const label = native ? "Continue on web →" : null;
 
   return (
     <>
@@ -72,7 +88,7 @@ export default function CheckoutButton({
             Processing...
           </span>
         ) : (
-          children
+          label || children
         )}
       </MagneticButton>
       {error && (

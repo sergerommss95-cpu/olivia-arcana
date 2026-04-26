@@ -1,0 +1,275 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Aries zodiac glyph</title>
+  <desc id="desc">Ram head symbol, Mars ruled, first sign of zodiac</desc>
+
+  <defs>
+    <!-- Deep night radial backdrop -->
+    <radialGradient id="bgNight" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="55%" stop-color="#0d0719"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+
+    <!-- Parchment vignette -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+
+    <!-- Subtle Mars-warmth wash -->
+    <radialGradient id="parchmentWash" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#6b1f1f" stop-opacity="0.12"/>
+      <stop offset="60%" stop-color="#331953" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#331953" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Gold primary gradient (diagonal) -->
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- Gold primary vertical -->
+    <linearGradient id="goldPrimaryV" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- Gold thin gradient for rings/ticks -->
+    <linearGradient id="goldThin" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6b4a1f"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- Left horn gradient (mirror-flow) -->
+    <linearGradient id="goldHornL" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- Right horn gradient -->
+    <linearGradient id="goldHornR" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- Aura behind glyph -->
+    <radialGradient id="centralAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="0.35"/>
+      <stop offset="40%" stop-color="#d4a574" stop-opacity="0.18"/>
+      <stop offset="75%" stop-color="#6b4a1f" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#331953" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Hamal glow (brightest Aries star) -->
+    <radialGradient id="hamalGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#ffe8a3" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#d4a574" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Inscription arc (bottom) -->
+    <path id="inscriptionArc" d="M 76 256 A 180 180 0 0 0 436 256" fill="none"/>
+      <filter id="ambientGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ============ BACKGROUND ============ -->
+  <g id="background">
+    <rect x="0" y="0" width="512" height="512" fill="url(#bgNight)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#parchmentWash)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#vignette)"/>
+  </g>
+
+  <!-- ============ STARFIELD ============ -->
+  <g id="starfield" fill="#ffe8a3">
+    <circle cx="72"  cy="108" r="1.1" fill-opacity="0.7"><animate attributeName="opacity" values="0.43;0.98;0.43" dur="4.7s" begin="0.2s" repeatCount="indefinite"/></circle>
+    <circle cx="128" cy="64"  r="0.8" fill-opacity="0.5"><animate attributeName="opacity" values="0.49;0.93;0.49" dur="3.2s" begin="3.5s" repeatCount="indefinite"/></circle>
+    <circle cx="196" cy="44"  r="1.3" fill-opacity="0.75"><animate attributeName="opacity" values="0.4;0.95;0.4" dur="3.7s" begin="1.7s" repeatCount="indefinite"/></circle>
+    <circle cx="312" cy="58"  r="0.9" fill-opacity="0.55"><animate attributeName="opacity" values="0.46;0.91;0.46" dur="3.7s" begin="0.2s" repeatCount="indefinite"/></circle>
+    <circle cx="404" cy="82"  r="1.2" fill-opacity="0.65"><animate attributeName="opacity" values="0.49;0.94;0.49" dur="3.5s" begin="0.8s" repeatCount="indefinite"/></circle>
+    <circle cx="448" cy="168" r="0.9" fill-opacity="0.5"><animate attributeName="opacity" values="0.51;0.94;0.51" dur="4.3s" begin="2.2s" repeatCount="indefinite"/></circle>
+    <circle cx="470" cy="296" r="1.1" fill-opacity="0.6"><animate attributeName="opacity" values="0.55;0.98;0.55" dur="3.3s" begin="0.3s" repeatCount="indefinite"/></circle>
+    <circle cx="412" cy="408" r="0.8" fill-opacity="0.45"><animate attributeName="opacity" values="0.46;0.99;0.46" dur="4.3s" begin="1.4s" repeatCount="indefinite"/></circle>
+    <circle cx="94"  cy="356" r="1.2" fill-opacity="0.7"><animate attributeName="opacity" values="0.38;0.92;0.38" dur="4.9s" begin="1.8s" repeatCount="indefinite"/></circle>
+    <circle cx="48"  cy="220" r="0.9" fill-opacity="0.5"><animate attributeName="opacity" values="0.5;0.96;0.5" dur="3.2s" begin="2.2s" repeatCount="indefinite"/></circle>
+    <circle cx="62"  cy="430" r="1" fill-opacity="0.6"><animate attributeName="opacity" values="0.39;0.99;0.39" dur="3.8s" begin="2.7s" repeatCount="indefinite"/></circle>
+    <circle cx="336" cy="450" r="0.9" fill-opacity="0.55"><animate attributeName="opacity" values="0.4;0.96;0.4" dur="4.3s" begin="2.6s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- ============ SACRED GEOMETRY ============ -->
+  <g id="sacred-geometry" fill="none" stroke="url(#goldThin)">
+    <!-- Three concentric gold circles -->
+    <circle cx="256" cy="256" r="260" stroke-width="0.7" stroke-opacity="0.35"/>
+    <circle cx="256" cy="256" r="240" stroke-width="0.9" stroke-opacity="0.5"/>
+    <circle cx="256" cy="256" r="200" stroke-width="0.8" stroke-opacity="0.45"/>
+
+    <!-- Inner mandala dashed ring -->
+    <circle cx="256" cy="256" r="150" stroke-width="0.4" stroke-opacity="0.32" stroke-dasharray="2 4"/>
+
+    <!-- 12 tick marks at each 30° on outer ring r=240 -->
+    <g stroke="#d4a574" stroke-width="1.2" stroke-opacity="0.85">
+      <line x1="256" y1="16"  x2="256" y2="8"/>
+      <line x1="376" y1="48"  x2="380" y2="40"/>
+      <line x1="464" y1="136" x2="472" y2="132"/>
+      <line x1="496" y1="256" x2="504" y2="256"/>
+      <line x1="464" y1="376" x2="472" y2="380"/>
+      <line x1="376" y1="464" x2="380" y2="472"/>
+      <line x1="256" y1="496" x2="256" y2="504"/>
+      <line x1="136" y1="464" x2="132" y2="472"/>
+      <line x1="48"  y1="376" x2="40"  y2="380"/>
+      <line x1="16"  y1="256" x2="8"   y2="256"/>
+      <line x1="48"  y1="136" x2="40"  y2="132"/>
+      <line x1="136" y1="48"  x2="132" y2="40"/>
+    </g>
+
+    <!-- 12 inner tick marks on inner ring r=200 -->
+    <g stroke="#d4a574" stroke-width="1" stroke-opacity="0.7">
+      <line x1="256" y1="56"  x2="256" y2="64"/>
+      <line x1="356" y1="83"  x2="354" y2="90"/>
+      <line x1="429" y1="156" x2="422" y2="158"/>
+      <line x1="456" y1="256" x2="448" y2="256"/>
+      <line x1="429" y1="356" x2="422" y2="354"/>
+      <line x1="356" y1="429" x2="354" y2="422"/>
+      <line x1="256" y1="456" x2="256" y2="448"/>
+      <line x1="156" y1="429" x2="158" y2="422"/>
+      <line x1="83"  y1="356" x2="90"  y2="354"/>
+      <line x1="56"  y1="256" x2="64"  y2="256"/>
+      <line x1="83"  y1="156" x2="90"  y2="158"/>
+      <line x1="156" y1="83"  x2="158" y2="90"/>
+    </g>
+
+    <!-- Cardinal jewels marking the principal houses -->
+    <g fill="#d4a574" fill-opacity="0.75" stroke="none">
+      <circle cx="256" cy="36" r="2.2"><animate attributeName="opacity" values="0.51;0.92;0.51" dur="4.2s" begin="3.2s" repeatCount="indefinite"/></circle>
+      <circle cx="476" cy="256" r="2.2"><animate attributeName="opacity" values="0.53;0.97;0.53" dur="4.9s" begin="1.9s" repeatCount="indefinite"/></circle>
+      <circle cx="256" cy="476" r="2.2"><animate attributeName="opacity" values="0.37;0.9;0.37" dur="3.1s" begin="3.6s" repeatCount="indefinite"/></circle>
+      <circle cx="36"  cy="256" r="2.2"><animate attributeName="opacity" values="0.55;0.97;0.55" dur="4.6s" begin="3.0s" repeatCount="indefinite"/></circle>
+    </g>
+
+    <!-- Four cardinal-point four-pointed stars (N / S / E / W) -->
+    <g fill="#fff2c6" fill-opacity="0.85" stroke="none">
+      <!-- North -->
+      <path d="M 256 22 L 259 34 L 271 37 L 259 40 L 256 52 L 253 40 L 241 37 L 253 34 Z"/>
+      <!-- East -->
+      <path d="M 490 256 L 478 259 L 475 271 L 472 259 L 460 256 L 472 253 L 475 241 L 478 253 Z"/>
+      <!-- South -->
+      <path d="M 256 490 L 259 478 L 271 475 L 259 472 L 256 460 L 253 472 L 241 475 L 253 478 Z"/>
+      <!-- West -->
+      <path d="M 22 256 L 34 259 L 37 271 L 40 259 L 52 256 L 40 253 L 37 241 L 34 253 Z"/>
+    </g>
+  </g>
+
+  <!-- ============ AURA BEHIND THE GLYPH ============ -->
+  <g id="aura">
+    <circle cx="256" cy="220" r="180" fill="url(#centralAura)"/>
+  </g>
+
+  <!-- ============ CONSTELLATION — Aries (Hamal, Sheratan, Mesarthim) ============ -->
+  <g id="constellation">
+    <!-- Connecting lines — the classic three-star arc of Aries -->
+    <g stroke="url(#goldPrimary)" stroke-width="0.7" stroke-opacity="0.4" fill="none" stroke-linecap="round">
+      <line x1="168" y1="332" x2="228" y2="300"/>  <!-- Mesarthim (γ) to Sheratan (β) -->
+      <line x1="228" y1="300" x2="340" y2="244"/>  <!-- Sheratan (β) to Hamal (α) -->
+      <line x1="340" y1="244" x2="396" y2="188"/>  <!-- Hamal extending to 41 Arietis -->
+    </g>
+
+    <!-- Hamal (α Arietis) — brightest, magnitude 2.0 -->
+    <circle cx="340" cy="244" r="6" fill="url(#hamalGlow)"/>
+    <circle cx="340" cy="244" r="3" fill="#fff2c6"/>
+
+    <!-- Sheratan (β Arietis) — magnitude 2.6 -->
+    <circle cx="228" cy="300" r="2.4" fill="#fff2c6" fill-opacity="0.95"><animate attributeName="opacity" values="0.38;0.95;0.38" dur="3.7s" begin="1.2s" repeatCount="indefinite"/></circle>
+
+    <!-- Mesarthim (γ Arietis) — double star, magnitude 3.9 -->
+    <circle cx="168" cy="332" r="1.9" fill="#ffe8a3" fill-opacity="0.9"><animate attributeName="opacity" values="0.48;0.96;0.48" dur="4.7s" begin="1.1s" repeatCount="indefinite"/></circle>
+    <circle cx="172" cy="329" r="1.2" fill="#fff2c6" fill-opacity="0.8"><animate attributeName="opacity" values="0.42;0.97;0.42" dur="3.4s" begin="2.2s" repeatCount="indefinite"/></circle>
+
+    <!-- 41 Arietis / extension star -->
+    <circle cx="396" cy="188" r="1.8" fill="#ffe8a3" fill-opacity="0.9"><animate attributeName="opacity" values="0.43;0.95;0.43" dur="4.3s" begin="0.2s" repeatCount="indefinite"/></circle>
+
+    <!-- Minor narrative stars -->
+    <circle cx="284" cy="276" r="1.1" fill="#fff2c6" fill-opacity="0.7"><animate attributeName="opacity" values="0.46;0.91;0.46" dur="3.9s" begin="3.4s" repeatCount="indefinite"/></circle>
+    <circle cx="202" cy="218" r="1.0" fill="#ffe8a3" fill-opacity="0.6"><animate attributeName="opacity" values="0.41;0.92;0.41" dur="4.7s" begin="0.3s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- ============ MAIN ARIES GLYPH — canonical Unicode ♈ shape ============ -->
+  <g id="glyph" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Canonical ♈: two curved horns meeting at a central top apex (256,130),
+         each sweeping down-and-outward with a gentle outward hook at the tip.
+         No central stem. No spirals. -->
+
+    <!-- LEFT HORN — primary gradient pass -->
+    <path d="M 256 130 Q 210 170, 180 230 Q 160 265, 150 280"
+          stroke="url(#goldHornL)" stroke-width="14"/>
+
+    <!-- LEFT HORN — cream highlight -->
+    <path d="M 256 130 Q 210 170, 180 230 Q 160 265, 150 280"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- RIGHT HORN — primary gradient pass -->
+    <path d="M 256 130 Q 302 170, 332 230 Q 352 265, 362 280"
+          stroke="url(#goldHornR)" stroke-width="14"/>
+
+    <!-- RIGHT HORN — cream highlight -->
+    <path d="M 256 130 Q 302 170, 332 230 Q 352 265, 362 280"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- Polished pearl at the apex meeting point -->
+    <circle cx="256" cy="130" r="3" fill="#fff2c6"/>
+
+    <!-- Ornamental sphere caps at horn tips -->
+    <circle cx="150" cy="280" r="2.5" fill="#fff2c6"><animate attributeName="opacity" values="0.41;0.97;0.41" dur="4.2s" begin="3.1s" repeatCount="indefinite"/></circle>
+    <circle cx="362" cy="280" r="2.5" fill="#fff2c6"><animate attributeName="opacity" values="0.5;0.98;0.5" dur="3.9s" begin="3.6s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- ============ INSCRIPTION ============ -->
+  <g id="inscription" font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#d4a574" letter-spacing="2" font-style="italic">
+    <text>
+      <textPath href="#inscriptionArc" startOffset="50%" text-anchor="middle">♈  ARIES  ·  IGNIS  CARDINALIS  ·  MARS  ·  HAMAL</textPath>
+    </text>
+  </g>
+
+  <!-- ============ ORNAMENT — four Gothic filigree corners ============ -->
+  <g id="ornament" fill="none" stroke="#d4a574" stroke-opacity="0.5" stroke-width="1.2" stroke-linecap="round">
+    <!-- Top-left -->
+    <g transform="translate(40,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.42;0.99;0.42" dur="4.1s" begin="1.6s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Top-right -->
+    <g transform="translate(442,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.35;0.98;0.35" dur="3.5s" begin="3.5s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Bottom-left -->
+    <g transform="translate(40,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.38;0.92;0.38" dur="4.2s" begin="3.6s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Bottom-right -->
+    <g transform="translate(442,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.39;0.99;0.39" dur="3.4s" begin="2.9s" repeatCount="indefinite"/></circle>
+    </g>
+  </g>
+</svg>

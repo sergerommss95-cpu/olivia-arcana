@@ -7,7 +7,7 @@
 
 "use client";
 
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import html2canvas from "html2canvas";
 
@@ -37,6 +37,13 @@ export default function OracleLetterPage({
   const letterRef = useRef<HTMLDivElement>(null);
   const [sealBroken, setSealBroken] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [irisOpen, setIrisOpen] = useState(false);
+
+  // Portal Iris trigger
+  useEffect(() => {
+    const timer = setTimeout(() => setIrisOpen(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Break the seal after animation
   const handleSealComplete = useCallback(() => {
@@ -71,8 +78,18 @@ export default function OracleLetterPage({
 
   return (
     <>
-      {/* Print styles */}
+      {/* Portal Iris + Print styles */}
       <style>{`
+        .portal-iris-mask {
+          clip-path: circle(0% at 50% 50%);
+          transition: clip-path 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .portal-iris-mask.open {
+          clip-path: circle(150% at 50% 50%);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .portal-iris-mask { clip-path: none !important; transition: none !important; }
+        }
         @media print {
           body > *:not(.oracle-letter-overlay) { display: none !important; }
           .oracle-letter-overlay {
@@ -91,7 +108,7 @@ export default function OracleLetterPage({
 
       <AnimatePresence>
         <motion.div
-          className="oracle-letter-overlay"
+          className={`oracle-letter-overlay portal-iris-mask ${irisOpen ? "open" : ""}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

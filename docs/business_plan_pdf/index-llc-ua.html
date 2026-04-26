@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>LLC + Paddle + App Store — Практичний Гід</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fcf6e8;--paper-alt:#f6eedc;--paper-soft:#f1e7cf;
+  --ink-deep:#0a0522;--ink:#1a0f3d;--ink-soft:#5a4c7a;--ink-faint:#9a92a8;
+  --gold-1:#f3dd8e;--gold-2:#d4af37;--gold-3:#a0811f;--gold-4:#6b5410;
+  --gold-bg:rgba(212,175,55,.08);--hair:rgba(138,104,24,.28);--hair-soft:rgba(138,104,24,.14);
+  --red:#c0392b;--red-bg:rgba(192,57,43,.05);
+  --yellow:#c8860a;--yellow-bg:rgba(200,134,10,.06);
+  --green:#1a7a45;--green-bg:rgba(26,122,69,.05);
+  --blue:#1a4a7a;--blue-bg:rgba(26,74,122,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:A4;margin:0}
+html,body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;font-weight:400;font-size:9.5pt;line-height:1.6;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;padding:20mm 22mm;position:relative;page-break-after:always;overflow:hidden;background:var(--paper)}
+.page:last-child{page-break-after:auto}
+.cosmic{background:#0a0522 url('assets/brand/nebula-bg.jpg') center/cover no-repeat;color:#f4e9d0;padding:0}
+.cosmic::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 25% 50%,rgba(15,8,48,.35) 0%,rgba(6,3,26,.78) 70%);pointer-events:none}
+h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;font-weight:400;color:var(--ink-deep)}
+h1{font-size:38pt;line-height:1.05;font-weight:300}
+h2{font-size:18pt;line-height:1.2;font-weight:400;margin:0 0 3mm}
+h3{font-size:9.5pt;font-weight:700;color:var(--gold-3);letter-spacing:.12em;text-transform:uppercase;margin:4mm 0 2mm;font-family:'Inter',sans-serif}
+h3.serif{font-family:'Cormorant Garamond',serif;font-size:13pt;text-transform:none;color:var(--ink-deep);letter-spacing:0;font-weight:500;margin:4mm 0 2mm}
+p{margin:0 0 3mm;max-width:170mm}
+p.lead{font-family:'Cormorant Garamond',serif;font-size:14pt;line-height:1.4;color:var(--ink);font-style:italic;margin:0 0 5mm;max-width:170mm}
+strong{color:var(--ink-deep);font-weight:600}
+a{color:var(--gold-4);text-decoration:none;border-bottom:.15mm dotted var(--gold-3)}
+ul{margin:0 0 3mm;padding:0;list-style:none}
+li{position:relative;padding-left:5mm;margin-bottom:1.5mm;line-height:1.5}
+li::before{content:"";position:absolute;left:0;top:2.5mm;width:2.5mm;height:.4mm;background:var(--gold-3)}
+.caption{font-size:7.5pt;color:var(--ink-soft);font-style:italic;line-height:1.5}
+.gold{color:var(--gold-3)}
+.page-header{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:4mm;border-bottom:.2mm solid var(--hair-soft);margin-bottom:7mm}
+.page-header .kicker{font-size:7pt;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-3);font-weight:700}
+.page-header .roman{font-family:'Cormorant Garamond',serif;font-size:13pt;color:var(--ink-faint);letter-spacing:.1em}
+.footer{position:absolute;bottom:9mm;left:22mm;right:22mm;display:flex;justify-content:space-between;font-size:6.5pt;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);border-top:.2mm solid var(--hair-soft);padding-top:2.5mm}
+.footer .brand{color:var(--gold-3);font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:8.5pt;margin:2mm 0 4mm}
+th,td{text-align:left;padding:2.2mm 3mm;border-bottom:.15mm solid var(--hair-soft);vertical-align:top;line-height:1.4}
+th{color:var(--gold-3);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:6.8pt;border-bottom:.3mm solid var(--gold-3);padding-bottom:2mm}
+tr.hi td{background:var(--gold-bg);font-weight:500;color:var(--ink-deep)}
+tr:nth-child(even):not(.hi) td{background:rgba(138,104,24,.025)}
+td.gold{color:var(--gold-3);font-weight:600}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+td.c{text-align:center}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm}
+.stat{padding:5mm 4mm;background:var(--paper-alt);border:.15mm solid var(--hair-soft);border-top:.5mm solid var(--gold-2)}
+.stat .label{font-size:6.5pt;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-3);font-weight:700;margin-bottom:1mm}
+.stat .value{font-family:'Cormorant Garamond',serif;font-size:24pt;line-height:1;color:var(--ink-deep);margin:1mm 0 1mm}
+.stat .sub{font-size:7.5pt;color:var(--ink-soft);line-height:1.4}
+
+/* Steps */
+.step-row{display:grid;grid-template-columns:7mm 1fr;gap:4mm;margin-bottom:3.5mm;padding-bottom:3.5mm;border-bottom:.12mm solid var(--hair-soft);align-items:start}
+.step-row:last-child{border:none;margin-bottom:0;padding-bottom:0}
+.step-num{width:7mm;height:7mm;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:8pt;flex-shrink:0;margin-top:.5mm;background:var(--gold-2)}
+.step-num.dark{background:var(--ink-soft)}
+.step-body .s-title{font-weight:600;color:var(--ink-deep);font-size:9.5pt;margin-bottom:1mm}
+.step-body .s-desc{font-size:8.5pt;color:var(--ink);line-height:1.5}
+.step-body .s-cost{display:inline-block;background:var(--gold-bg);border:.15mm solid var(--hair);color:var(--gold-4);font-weight:700;font-size:7.5pt;padding:.5mm 2mm;border-radius:.8mm;margin-top:1mm}
+.step-body .s-time{display:inline-block;background:rgba(90,76,122,.07);color:var(--ink-soft);font-size:7.5pt;padding:.5mm 2mm;border-radius:.8mm;margin-top:1mm;margin-left:1.5mm}
+
+/* Risk / callout cards */
+.risk{padding:3.5mm 4mm;margin-bottom:2.5mm;border-left:1mm solid;border-radius:0 1mm 1mm 0}
+.risk.red{border-color:var(--red);background:var(--red-bg)}
+.risk.yellow{border-color:var(--yellow);background:var(--yellow-bg)}
+.risk.green{border-color:var(--green);background:var(--green-bg)}
+.risk.blue{border-color:var(--blue);background:var(--blue-bg)}
+.risk .r-sev{font-size:6.5pt;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:1mm}
+.risk.red .r-sev{color:var(--red)}
+.risk.yellow .r-sev{color:var(--yellow)}
+.risk.green .r-sev{color:var(--green)}
+.risk.blue .r-sev{color:var(--blue)}
+.risk .r-title{font-weight:600;color:var(--ink-deep);font-size:9pt;margin-bottom:1mm}
+.risk .r-fix{font-size:7.8pt;color:var(--ink-soft);line-height:1.45}
+.risk .r-fix strong{color:var(--ink-deep)}
+
+.warn{background:rgba(192,57,43,.06);border:.25mm solid rgba(192,57,43,.35);padding:4mm 5mm;margin:3mm 0;border-radius:.8mm}
+.warn .w-title{font-weight:700;color:var(--red);font-size:9pt;margin-bottom:1mm}
+.warn .w-body{font-size:8.5pt;color:var(--ink);line-height:1.5}
+.info{background:var(--gold-bg);border:.2mm solid var(--hair);padding:3.5mm 5mm;margin:3mm 0;border-radius:.8mm}
+.info .i-title{font-weight:700;color:var(--gold-4);font-size:8.5pt;margin-bottom:1.5mm}
+.info .i-body{font-size:8.5pt;color:var(--ink);line-height:1.5}
+.pull{margin:4mm 0;padding:4mm 8mm;background:var(--paper-alt);border-top:.25mm solid var(--gold-2);border-bottom:.25mm solid var(--gold-2);text-align:center}
+.pull .quote{font-family:'Cormorant Garamond',serif;font-size:12pt;line-height:1.4;color:var(--ink-deep);font-style:italic;max-width:130mm;margin:0 auto}
+
+/* Link card */
+.link-card{display:flex;align-items:start;gap:3mm;padding:2.5mm 3mm;background:var(--paper-alt);border:.15mm solid var(--hair-soft);margin-bottom:2mm;border-radius:.8mm}
+.link-card .lc-icon{font-size:12pt;flex-shrink:0;margin-top:.5mm}
+.link-card .lc-body .lc-name{font-weight:600;color:var(--ink-deep);font-size:9pt}
+.link-card .lc-body .lc-url{font-size:7.5pt;color:var(--gold-4);border-bottom:.12mm dotted var(--gold-3)}
+.link-card .lc-body .lc-desc{font-size:7.8pt;color:var(--ink-soft);margin-top:.5mm;line-height:1.4}
+.link-card .lc-cost{margin-left:auto;font-weight:700;color:var(--gold-3);font-size:9pt;flex-shrink:0;align-self:center;padding-left:3mm}
+
+/* Flow diagram */
+.flow{display:flex;align-items:center;gap:0;margin:4mm 0;flex-wrap:nowrap}
+.flow-box{background:var(--paper-alt);border:.2mm solid var(--hair-soft);border-top:.4mm solid var(--gold-2);padding:3mm 4mm;text-align:center;flex:1;min-width:0}
+.flow-box .fb-num{font-size:7pt;color:var(--gold-3);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1mm}
+.flow-box .fb-title{font-family:'Cormorant Garamond',serif;font-size:11pt;color:var(--ink-deep);line-height:1.2;margin-bottom:1mm}
+.flow-box .fb-cost{font-size:7.5pt;color:var(--ink-soft)}
+.flow-arrow{color:var(--gold-2);font-size:12pt;flex-shrink:0;padding:0 1.5mm;line-height:1}
+
+/* Timeline */
+.tl-row{display:grid;grid-template-columns:18mm 6mm 1fr;gap:0 3mm;align-items:start;margin-bottom:3mm;font-size:8.5pt}
+.tl-label{text-align:right;color:var(--ink-soft);font-size:7.5pt;padding-top:.5mm}
+.tl-dot{width:4mm;height:4mm;border-radius:50%;background:var(--gold-2);margin:1mm auto 0;position:relative;flex-shrink:0}
+.tl-dot::after{content:"";position:absolute;left:50%;top:100%;width:.3mm;height:5mm;background:var(--hair);transform:translateX(-50%)}
+.tl-row:last-child .tl-dot::after{display:none}
+.tl-content{color:var(--ink-deep);font-weight:500;line-height:1.4}
+.tl-content small{color:var(--ink-soft);font-weight:400;font-size:7.5pt;display:block;margin-top:.5mm}
+
+/* Cover */
+.cover-layout{position:absolute;inset:0;display:grid;grid-template-columns:58% 42%;align-items:center;z-index:2}
+.cover-left{padding:26mm 8mm 26mm 22mm}
+.cover-eyebrow{font-size:7pt;letter-spacing:.3em;text-transform:uppercase;color:#d4af37;margin-bottom:5mm;font-weight:700}
+.cover-title{color:#f4e9d0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36pt;line-height:1.08;margin-bottom:5mm}
+.cover-tag{font-size:9pt;color:rgba(244,233,208,.75);line-height:1.6;margin-bottom:5mm}
+.cover-pills{display:flex;flex-wrap:wrap;gap:2mm}
+.cover-pill{background:rgba(212,175,55,.15);border:.2mm solid rgba(212,175,55,.35);color:#f3dd8e;font-size:6.5pt;letter-spacing:.14em;text-transform:uppercase;padding:1.2mm 3mm;border-radius:10mm;font-weight:700}
+.cover-right{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4mm;height:100%;padding-right:14mm}
+.stack-item{width:48mm;background:rgba(212,175,55,.1);border:.2mm solid rgba(212,175,55,.3);padding:3mm 4mm;border-radius:1mm;text-align:center}
+.stack-item .si-label{font-size:6.5pt;letter-spacing:.18em;text-transform:uppercase;color:rgba(212,175,55,.7);margin-bottom:1mm}
+.stack-item .si-val{font-family:'Cormorant Garamond',serif;font-size:16pt;color:#f3dd8e;line-height:1}
+.stack-arrow{color:rgba(212,175,55,.4);font-size:10pt;text-align:center}
+.cover-footer{position:absolute;bottom:10mm;left:22mm;right:22mm;display:flex;justify-content:space-between;z-index:3;font-size:7pt;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,233,208,.35);border-top:.2mm solid rgba(212,175,55,.15);padding-top:3mm}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER -->
+<section class="page cosmic">
+  <div class="cover-layout">
+    <div class="cover-left">
+      <div class="cover-eyebrow">Практичний гід · 2026</div>
+      <h1 class="cover-title">LLC · Paddle<br>App Store.<br>Від $100.</h1>
+      <div class="cover-tag">Повний процес для українського<br>засновника SaaS — без зайвого.</div>
+      <div class="cover-pills">
+        <span class="cover-pill">Wyoming LLC</span>
+        <span class="cover-pill">EIN · BOI</span>
+        <span class="cover-pill">Paddle MoR</span>
+        <span class="cover-pill">Apple Dev</span>
+        <span class="cover-pill">DUNS</span>
+        <span class="cover-pill">Mercury</span>
+        <span class="cover-pill">Ризики</span>
+        <span class="cover-pill">Податки</span>
+      </div>
+    </div>
+    <div class="cover-right">
+      <div class="stack-item"><div class="si-label">Wyoming LLC</div><div class="si-val">$100</div></div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-item"><div class="si-label">EIN + BOI</div><div class="si-val">$0</div></div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-item"><div class="si-label">Paddle MoR</div><div class="si-val">5%</div></div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-item"><div class="si-label">Apple Developer</div><div class="si-val">$99/рік</div></div>
+    </div>
+  </div>
+  <div class="cover-footer">
+    <span>Конфіденційно · 2026</span>
+    <span>LLC + Paddle + App Store Guide</span>
+  </div>
+</section>
+
+<!-- PAGE 2: OVERVIEW FLOW -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">00 · Огляд</div><h2 style="margin-top:2mm">Вся структура одним поглядом.</h2></div>
+    <div class="roman">0</div>
+  </div>
+  <p class="lead">6 кроків від нуля до прийому платежів у веб і App Store. Мінімум документів, максимум результату.</p>
+
+  <div class="flow" style="margin-bottom:5mm">
+    <div class="flow-box"><div class="fb-num">01</div><div class="fb-title">Wyoming LLC</div><div class="fb-cost">$100 · 1-2 дні</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box"><div class="fb-num">02</div><div class="fb-title">EIN + BOI</div><div class="fb-cost">$0 · 1 день</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box"><div class="fb-num">03</div><div class="fb-title">Mercury Bank</div><div class="fb-cost">$0 · 1-3 дні</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box"><div class="fb-num">04</div><div class="fb-title">Paddle MoR</div><div class="fb-cost">$0 · 1-5 днів</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box"><div class="fb-num">05</div><div class="fb-title">DUNS + Apple Dev</div><div class="fb-cost">$99 · 5-7 днів</div></div>
+  </div>
+
+  <div class="g3" style="margin-bottom:5mm">
+    <div class="stat"><div class="label">Старт від</div><div class="value">$199</div><div class="sub">LLC $100 + Apple Dev $99 · перший рік</div></div>
+    <div class="stat"><div class="label">Щороку після</div><div class="value">$419</div><div class="sub">Annual Report $60 + Agent $49 + Apple $99 + CPA $211</div></div>
+    <div class="stat"><div class="label">Комісія Paddle</div><div class="value">5%</div><div class="sub">+$0.50/tx · включає весь глобальний VAT</div></div>
+  </div>
+
+  <h3>Чому Paddle, а не Stripe?</h3>
+  <table>
+    <tr><th>Критерій</th><th>Stripe</th><th>Paddle (наш вибір)</th></tr>
+    <tr><td>Таро / Астрологія</td><td style="color:var(--red)">🔴 Явно заборонено</td><td class="gold">✅ Приймають</td></tr>
+    <tr><td>VAT/ПДВ 30+ країн</td><td>Ти реєструєшся сам</td><td class="gold">✅ Paddle робить все</td></tr>
+    <tr><td>Потрібен US LLC</td><td>Так</td><td class="gold">Ні (ФОП підходить)</td></tr>
+    <tr><td>Виплата на UA рахунок</td><td>Ні (тільки US банк)</td><td class="gold">✅ SWIFT напряму</td></tr>
+    <tr><td>Apple Pay / Google Pay</td><td>✅</td><td class="gold">✅</td></tr>
+    <tr><td>Комісія</td><td>2.9% + $0.30</td><td>5% + $0.50</td></tr>
+  </table>
+
+  <div class="info">
+    <div class="i-title">Stripe — тримай як backup, не основний</div>
+    <div class="i-body">Stripe корисний для B2B клієнтів які хочуть invoice, для US корп-клієнтів з Net30, і як резерв якщо Paddle тимчасово недоступний. Але основний потік — Paddle.</div>
+  </div>
+
+  <div class="footer"><span class="brand">LLC + Paddle Guide</span><span>00 · Огляд · 02</span></div>
+</section>
+
+<!-- PAGE 3: LLC REGISTRATION -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">01 · Wyoming LLC</div><h2 style="margin-top:2mm">Реєстрація компанії. $100 одноразово.</h2></div>
+    <div class="roman">I</div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="s-title">Перевір назву</div>
+      <div class="s-desc">Зайди на <a href="https://wyobiz.wyo.gov/Business/FilingSearch.aspx">wyobiz.wyo.gov</a> → перевір що "Olivia Arcana LLC" вільна. Назва обов'язково закінчується на LLC або L.L.C.</div>
+      <span class="s-cost">$0</span><span class="s-time">5 хвилин</span>
+    </div>
+  </div>
+  <div class="step-row">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="s-title">Обери Registered Agent ($49–99/рік)</div>
+      <div class="s-desc">Обов'язкова фізична адреса у Wyoming для отримання пошти від IRS і судів. Обирай агента з <strong>цифровим forwarding</strong> — сканує і надсилає листи на email. Інакше пропустиш critical notices від IRS.</div>
+      <span class="s-cost">$49–99/рік</span>
+    </div>
+  </div>
+  <div class="step-row">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="s-title">Подай Articles of Organization</div>
+      <div class="s-desc"><strong>Варіант A (сам):</strong> <a href="https://wyos.wyo.gov">wyos.wyo.gov</a> → Online Services → File Articles of Organization → $100 карткою.<br>
+      <strong>Варіант B (через сервіс):</strong> Northwest Registered Agent — $39 + $100 держмито, реєструють замість тебе + перший рік agent безкоштовно.</div>
+      <span class="s-cost">$100 держмито</span><span class="s-time">1–2 дні</span>
+    </div>
+  </div>
+  <div class="step-row">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <div class="s-title">Підпиши Operating Agreement</div>
+      <div class="s-desc">Не вимагається законом Wyoming, але <strong>обов'язково потрібен</strong> для Mercury, Paddle і деяких клієнтів. Безкоштовний шаблон: <a href="https://www.northwestregisteredagent.com">northwestregisteredagent.com</a> → Resources → Operating Agreement. Підпиши і збережи PDF.</div>
+      <span class="s-cost">$0</span><span class="s-time">10 хвилин</span>
+    </div>
+  </div>
+
+  <h3>Рекомендовані сервіси</h3>
+  <div class="link-card">
+    <div class="lc-icon">🏛</div>
+    <div class="lc-body"><div class="lc-name">Wyoming Secretary of State (DIY)</div><a href="https://wyos.wyo.gov" class="lc-url">wyos.wyo.gov</a><div class="lc-desc">Офіційний сайт. Тільки держмито $100. Потрібно окремо знайти registered agent.</div></div>
+    <div class="lc-cost">$100</div>
+  </div>
+  <div class="link-card">
+    <div class="lc-icon">📋</div>
+    <div class="lc-body"><div class="lc-name">Northwest Registered Agent</div><a href="https://www.northwestregisteredagent.com" class="lc-url">northwestregisteredagent.com</a><div class="lc-desc">Реєструють самі + registered agent 1 рік безкоштовно + Operating Agreement шаблон. Найкращий баланс ціна/якість.</div></div>
+    <div class="lc-cost">$139</div>
+  </div>
+
+  <div class="warn">
+    <div class="w-title">⚠ Stripe Atlas ($500) і FirstBase ($400) — переплата</div>
+    <div class="w-body">Дають ті самі документи що і $139 сервіс. Якщо основний процесор — Paddle (а не Stripe), Atlas не дає жодних переваг.</div>
+  </div>
+
+  <div class="footer"><span class="brand">LLC + Paddle Guide</span><span>01 · LLC Реєстрація · 03</span></div>
+</section>
+
+<!-- PAGE 4: EIN + BOI -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">02 · EIN + BOI</div><h2 style="margin-top:2mm">Два номери. Обидва критичні.</h2></div>
+    <div class="roman">II</div>
+  </div>
+
+  <h3 class="serif">EIN — податковий номер бізнесу</h3>
+
+  <div class="step-row">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="s-title">Телефон IRS International Line — безкоштовно</div>
+      <div class="s-desc">Номер: <strong>+1 (267) 941-1099</strong> · Пн–Пт 06:00–23:00 EST<br>
+      Дзвони <strong>о 6:00 ранку EST (13:00 Київ)</strong> — черга мінімальна. В піковий сезон (лют–квіт) очікування <strong>1–3 години</strong> в будь-який час.<br>
+      Кажи: <em>"I'm a foreign individual calling to obtain an EIN for my Wyoming LLC. I do not have a US SSN."</em></div>
+      <span class="s-cost">$0</span><span class="s-time">Очікування 1–3 год · EIN одразу</span>
+    </div>
+  </div>
+  <div class="step-row">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="s-title">Що мати під рукою</div>
+      <div class="s-desc">— Назва LLC точно як в Articles of Organization<br>
+      — Штат: <strong>Wyoming</strong> · Дата реєстрації LLC<br>
+      — Твоє ім'я як у паспорті · UA домашня адреса<br>
+      — Мета бізнесу: <em>"online software subscription service"</em></div>
+    </div>
+  </div>
+  <div class="step-row">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="s-title">Альтернатива — сервіс якщо не хочеш чекати</div>
+      <div class="s-desc"><a href="https://www.govdocfiling.com">govdocfiling.com</a> (~$85) або <a href="https://irs-ein-tax-id.com">irs-ein-tax-id.com</a> (~$99). EIN за 1–3 дні без дзвінка. Варто якщо час важливіший за $85.</div>
+      <span class="s-cost">$85–99</span><span class="s-time">1–3 дні</span>
+    </div>
+  </div>
+
+  <div style="height:3mm"></div>
+  <h3 class="serif">BOI Report — НОВА вимога з 2024 року</h3>
+
+  <div class="warn">
+    <div class="w-title">⚠ BOI/FinCEN Report — штраф $500/день + кримінал за непоавку</div>
+    <div class="w-body">Corporate Transparency Act (2024): всі нові LLC зобов'язані подати Beneficial Ownership Information report до FinCEN протягом <strong>90 днів</strong> після реєстрації. Старі LLC (до 2024) — дедлайн минув. Нові — рахуй з дня реєстрації.<br><br>
+    <strong>Важливо:</strong> у 2024-2025 кілька федеральних судів видавали тимчасові injunctions блокуючи вимогу. Статус може змінюватись. <strong>Перевір поточний статус на fincen.gov/boi перед поданням.</strong></div>
+  </div>
+
+  <div class="step-row" style="margin-top:2mm">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="s-title">Подай BOI Report онлайн</div>
+      <div class="s-desc">Зайди на <a href="https://fincen.gov/boi">fincen.gov/boi</a> → BOIR E-Filing System. Заповни: дані LLC, дані власника (ім'я, дата народження, адреса, номер паспорту). Безкоштовно. Займає ~15 хвилин.</div>
+      <span class="s-cost">$0</span><span class="s-time">15 хвилин · протягом 90 днів від реєстрації</span>
+    </div>
+  </div>
+
+  <div class="info">
+    <div class="i-title">Порядок: LLC → EIN (телефон) → BOI (fincen.gov) → далі</div>
+    <div class="i-body">Не чекай EIN лист поштою (4-6 тижнів) — номер EIN дають одразу по телефону. Записуй. BOI можна подати одразу після реєстрації LLC навіть без EIN.</div>
+  </div>
+
+  <div class="footer"><span class="brand">LLC + Paddle Guide</span><span>02 · EIN + BOI · 04</span></div>
+</section>
+
+<!-- PAGE 5: MERCURY BANK -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">03 · Банк</div><h2 style="margin-top:2mm">Mercury — US рахунок для LLC.</h2></div>
+    <div class="roman">III</div>
+  </div>
+
+  <p class="lead">Mercury — стандарт для стартапів-нерезидентів. Безкоштовно, онлайн, пряма інтеграція з Paddle і Stripe.</p>
+
+  <h3>Документи для Mercury</h3>
+  <table>
+    <tr><th>Документ</th><th>Деталі</th></tr>
+    <tr class="hi"><td><strong>Articles of Organization</strong></td><td>PDF з підтвердженням штату Wyoming</td></tr>
+    <tr class="hi"><td><strong>EIN Confirmation</strong></td><td>Номер EIN (усно з IRS) або лист CP 575</td></tr>
+    <tr class="hi"><td><strong>Закордонний паспорт</strong></td><td>Чинний</td></tr>
+    <tr><td>Operating Agreement</td><td>Бажано — іноді запитують</td></tr>
+    <tr><td>Особиста адреса</td><td>UA адреса підходить</td></tr>
+    <tr><td>US телефон для 2FA</td><td><strong>Потрібен!</strong> Mercury вимагає US номер. Рішення: <a href="https://voice.google.com">Google Voice</a> — безкоштовний US номер за 5 хвилин</td></tr>
+  </table>
+
+  <div class="warn">
+    <div class="w-title">⚠ Mercury відмовляє ~20-30% нерезидентів без пояснень</div>
+    <div class="w-body">Якщо відмовили — подай одразу на <strong>Relay.fi</strong>. Вони приймають нерезидентів лояльніше. Для Paddle виплат US банк не обов'язковий — Paddle платить напряму на UA/Wise рахунок.</div>
+  </div>
+
+  <h3>Варіанти банків</h3>
+  <div class="link-card">
+    <div class="lc-icon">🏦</div>
+    <div class="lc-body"><div class="lc-name">Mercury (основний)</div><a href="https://mercury.com" class="lc-url">mercury.com</a><div class="lc-desc">Найкращий UI, SWIFT безкоштовно, Paddle/Stripe інтеграція. Потрібен Google Voice для 2FA.</div></div>
+    <div class="lc-cost">$0/міс</div>
+  </div>
+  <div class="link-card">
+    <div class="lc-icon">🔄</div>
+    <div class="lc-body"><div class="lc-name">Relay (backup)</div><a href="https://relay.fi" class="lc-url">relay.fi</a><div class="lc-desc">Якщо Mercury відмовив. Більш лояльний до нерезидентів. Гарний для multi-account структури.</div></div>
+    <div class="lc-cost">$0/міс</div>
+  </div>
+  <div class="link-card">
+    <div class="lc-icon">💱</div>
+    <div class="lc-body"><div class="lc-name">Wise Business (для виплат в UA)</div><a href="https://wise.com/business" class="lc-url">wise.com/business</a><div class="lc-desc">Mercury → Wise → UA банк. Менше блокувань ніж прямий SWIFT. Конвертація за міжбанківським курсом.</div></div>
+    <div class="lc-cost">~0.5%</div>
+  </div>
+
+  <h3 class="serif" style="margin-top:3mm">Схеми виводу грошей в Україну</h3>
+  <div class="g2">
+    <div>
+      <div style="font-weight:600;font-size:8.5pt;color:var(--ink-deep);margin-bottom:1.5mm">Схема A — через Mercury (прямо)</div>
+      <div style="font-size:8pt;color:var(--ink);background:var(--paper-alt);padding:3mm;border-radius:.8mm;line-height:1.8">Paddle → Mercury → SWIFT → UA банк<br><span style="color:var(--ink-soft)">Комісія: $0 Mercury · ~$15-25 UA банк за SWIFT</span><br><span style="color:var(--ink-soft)">Ризик: ПриватБанк / Mono можуть затримати</span></div>
+    </div>
+    <div>
+      <div style="font-weight:600;font-size:8.5pt;color:var(--ink-deep);margin-bottom:1.5mm">Схема B — через Wise (надійніше)</div>
+      <div style="font-size:8pt;color:var(--ink);background:var(--paper-alt);padding:3mm;border-radius:.8mm;line-height:1.8">Paddle → Wise Business → UA банк<br><span style="color:var(--ink-soft)">Комісія: ~0.5% Wise · менше блокувань</span><br><span style="color:var(--green)">✅ Рекомендована схема</span></div>
+    </div>
+  </div>
+
+  <div class="info" style="margin-top:3mm">
+    <div class="i-title">НБУ валютний контроль — важливо</div>
+    <div class="i-body">При отриманні SWIFT з-за кордону UA банк зобов'язаний запросити підтверджуючі документи: <strong>інвойс або контракт з клієнтом / платіжна платформа</strong>. Тримай Paddle payment statement або export з Dashboard як підтвердження. Перший переказ — тест на $50-100.</div>
+  </div>
+
+  <div class="footer"><span class="brand">LLC + Paddle Guide</span><span>03 · Mercury · 05</span></div>
+</section>
+
+<!-- PAGE 6: PADDLE -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">04 · Paddle</div><h2 style="margin-top:2mm">Merchant of Record. Податки — їх проблема.</h2></div>
+    <div class="roman">IV</div>
+  </div>
+
+  <p class="lead">Paddle стає юридичним продавцем замість тебе. Вони збирають VAT у 30+ країнах, борються з чарджбеками, і платять тобі чистими.</p>
+
+  <h3>Що потрібно для реєстрації Paddle</h3>
+  <table>
+    <tr><th>Документ</th><th>Обов'язково?</th><th>Деталі</th></tr>
+    <tr class="hi"><td><strong>Паспорт</strong></td><td class="gold">Так</td><td>Закордонний, чинний</td></tr>
+    <tr class="hi"><td><strong>Сайт (живий)</strong></td><td class="gold">Так</td><td>oliviaarcana.com — не "coming soon"</td></tr>
+    <tr class="hi"><td><strong>ToS + Privacy + Refund</strong></td><td class="gold">Так</td><td>Мають бути на сайті до подачі заявки</td></tr>
+    <tr><td>Банківський рахунок</td><td class="gold">Так</td><td>Mercury, Wise, UA банк — будь-який</td></tr>
+    <tr><td>Wyoming LLC документи</td><td>Бажано</td><td>Articles of Organization + EIN</td></tr>
+    <tr><td>US LLC взагалі</td><td style="color:var(--green)"><strong>Ні</strong></td><td>Paddle приймає ФОП, індивідуалів, іноземні компанії</td></tr>
+  </table>
+
+  <div class="step-row" style="margin-top:2mm">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="s-title">Реєстрація на paddle.com</div>
+      <div class="s-desc">Зайди на <a href="https://paddle.com">paddle.com</a> → Get Started → заповни дані бізнесу. Business type: <strong>Software / SaaS</strong>. Опис: <em>"AI-powered personalized astrology and horoscope subscription platform"</em> — НЕ "tarot readings" або "psychic".</div>
+      <span class="s-time">15 хвилин</span>
+    </div>
+  </div>
+  <div class="step-row">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="s-title">Manual review від Paddle</div>
+      <div class="s-desc">Paddle вручну переглядає кожну заявку. Перевіряють: чи сайт живий, чи ToS/Privacy/Refund є, чи продукт реальний, чи категорія прийнятна. Час: <strong>1–5 робочих днів</strong>. Можуть запросити додаткові документи.</div>
+      <span class="s-time">1–5 днів</span>
+    </div>
+  </div>
+  <div class="step-row">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="s-title">Налаштуй після схвалення</div>
+      <div class="s-desc">
+        — <strong>Catalog → Products</strong>: додай підписки (Insight $4.99, Premium $14.99, VIP $34.99)<br>
+        — <strong>Checkout</strong>: Apple Pay і Google Pay вмикаються автоматично<br>
+        — <strong>Payout</strong>: вкажи Mercury або Wise реквізити<br>
+        — <strong>Tax</strong>: Paddle автоматично збирає VAT — нічого не налаштовуєш<br>
+        — <strong>Localisation</strong>: PPP знижки для UA/BR/TR — в Catalog → Pricing
+      </div>
+    </div>
+  </div>
+
+  <div class="info">
+    <div class="i-title">Apple Pay і Google Pay — є з коробки</div>
+    <div class="i-body">Paddle підтримує Apple Pay, Google Pay, картки, PayPal. Увімкнені за замовчуванням у всіх Paddle Checkout. Окремих налаштувань не потрібно.</div>
+  </div>
+
+  <div class="warn">
+    <div class="w-title">⚠ Stripe — тримай як backup, не основний</div>
+    <div class="w-body">Зареєструй Stripe акаунт з описом "AI software subscription". Використовуй для: B2B клієнтів з invoice, US корп. з Net30, резервний канал. Таро/астро як основний опис — ризик freeze.</div>
+  </div>
+
+  <div class="footer"><span class="brand">LLC + Paddle Guide</span><span>04 · Paddle · 06</span></div>
+</section>
+
+<!-- PAGE 7: APPLE APP STORE + DUNS -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">05 · Apple App Store</div><h2 style="margin-top:2mm">DUNS + Developer Account + 30% стратегія.</h2></div>
+    <div class="roman">V</div>
+  </div>
+
+  <h3 class="serif">DUNS номер — потрібен для App Store Organization акаунту</h3>
+
+  <div class="step-row">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="s-title">Подай на DUNS номер (безкоштовно)</div>
+      <div class="s-desc">Зайди на <a href="https://fedgov.dnb.com/webform">fedgov.dnb.com/webform</a> → Apple Developer DUNS Request. Вкажи: назва LLC, адреса registered agent, телефон (Google Voice підходить), ім'я власника. <strong>Мета: "Apple Developer Program"</strong>.</div>
+      <span class="s-cost">$0</span><span class="s-time">1–5 днів</span>
+    </div>
+  </div>
+  <div class="step-row">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="s-title">Подай на Apple Developer Organization</div>
+      <div class="s-desc">Зайди на <a href="https://developer.apple.com/programs/enroll/">developer.apple.com/programs/enroll</a> → Organization. Вкажи DUNS номер, назву LLC, адресу. Apple верифікує LLC через публічні записи Wyoming. Оплати $99/рік карткою.</div>
+      <span class="s-cost">$99/рік</span><span class="s-time">2–5 днів після DUNS</span>
+    </div>
+  </div>
+
+  <h3 style="margin-top:3mm">Individual vs Organization акаунт</h3>
+  <table>
+    <tr><th>Параметр</th><th>Individual</th><th>Organization (наш вибір)</th></tr>
+    <tr><td>Потрібна компанія</td><td>Ні</td><td class="gold">Так (LLC ✓)</td></tr>
+    <tr><td>Ім'я в App Store</td><td style="color:var(--red)">Твоє особисте</td><td class="gold">"Olivia Arcana LLC"</td></tr>
+    <tr><td>Команда розробників</td><td>Тільки ти</td><td class="gold">Необмежено</td></tr>
+    <tr><td>In-App Purchases</td><td>✅</td><td class="gold">✅</td></tr>
+    <tr><td>Вартість</td><td>$99/рік</td><td>$99/рік</td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:2mm">Стратегія Apple 30% — Spotify модель</h3>
+
+  <div class="warn">
+    <div class="w-title">⚠ Apple бере 30% (15% з 2-го року) з кожної iOS підписки — без варіантів</div>
+    <div class="w-body">Якщо юзер підписується через iOS app → Apple забирає $4.50 з $14.99 Premium. Це не tax withholding — це комісія App Store. Не залежить від юрисдикції компанії.</div>
+  </div>
+
+  <div class="g2" style="margin-top:3mm">
+    <div>
+      <div style="font-weight:600;font-size:8.5pt;color:var(--red);margin-bottom:2mm">❌ Не роби так</div>
+      <div style="font-size:8pt;background:var(--paper-alt);padding:3mm;border-radius:.8mm;line-height:1.8;color:var(--ink)">
+        Кнопка "Subscribe" в iOS app<br>
+        → Apple IAP → Apple 30%<br>
+        → $14.99 Premium = $10.49 тобі
+      </div>
+    </div>
+    <div>
+      <div style="font-weight:600;font-size:8.5pt;color:var(--green);margin-bottom:2mm">✅ Роби так (Spotify/Netflix модель)</div>
+      <div style="font-size:8pt;background:var(--paper-alt);padding:3mm;border-radius:.8mm;line-height:1.8;color:var(--ink)">
+        iOS app: <em>"Subscribe at oliviaarcana.com"</em><br>
+        → Сайт → Paddle → 5%<br>
+        → $14.99 Premium = $13.74 тобі
+      </div>
+    </div>
+  </div>
+
+  <div class="info" style="margin-top:3mm">
+    <div class="i-title">Apple дозволяє "зовнішній" лінк для підписок з серпня 2024</div>
+    <div class="i-body">Після судового рішення Apple vs Epic, iOS apps у США можуть мати кнопку-лінк на зовнішній сайт для підписки. Apple все ще бере 27% якщо юзер перейшов через цей лінк і підписався. Стратегія: не давай лінку в app — просто кажи "visit website to subscribe".</div>
+  </div>
+
+  <div class="footer"><span class="brand">LLC + Paddle Guide</span><span>05 · App Store · 07</span></div>
+</section>
+
+<!-- PAGE 8: TAXES -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">06 · Податки</div><h2 style="margin-top:2mm">US форми, UA схема, валютний контроль.</h2></div>
+    <div class="roman">VI</div>
+  </div>
+
+  <h3 class="serif">США — Form 5472. Єдина обов'язкова форма.</h3>
+
+  <div class="warn">
+    <div class="w-title">⚠ Form 5472 + Form 1120 — штраф $25,000 за непоавку. Автоматично.</div>
+    <div class="w-body">Single-member LLC з іноземним власником = зобов'язана подавати щороку. Навіть нульовий дохід. Навіть якщо всі клієнти поза США. IRS не попереджає — просто виставляє штраф.</div>
+  </div>
+
+  <table style="margin-top:2mm">
+    <tr><th>Форма</th><th>Дедлайн</th><th>Що</th><th>Вартість CPA</th></tr>
+    <tr class="hi"><td><strong>Form 5472 + 1120</strong></td><td>15 квітня (ext: 15 жовтня)</td><td>Інформаційна. Транзакції між тобою і LLC</td><td class="gold">$200–400</td></tr>
+    <tr><td>FBAR (FinCEN 114)</td><td>15 квітня</td><td>Якщо баланс Mercury перевищував $10k будь-який день року</td><td>Часто включено</td></tr>
+    <tr><td>BOI Report (FinCEN)</td><td>90 днів від реєстрації</td><td>Beneficial ownership — одноразово при реєстрації</td><td>$0 самостійно</td></tr>
+  </table>
+
+  <h3 class="serif" style="margin-top:3mm">Україна — юридично сіра зона</h3>
+
+  <div class="risk yellow">
+    <div class="r-sev">🟡 Юридична невизначеність</div>
+    <div class="r-title">Схема "Paddle → Mercury → SWIFT → ФОП 5%" — немає чіткого роз'яснення від ДПС</div>
+    <div class="r-fix">Більшість українських засновників використовують цю схему, але ДПС може трактувати кошти від власної іноземної компанії як:<br>
+    <strong>А)</strong> Доходи ФОП (3 гр.) → 5% ЄП ✓<br>
+    <strong>Б)</strong> Дивіденди від іноземної компанії → 9% ПДФО + 1.5% ВЗ<br>
+    <strong>В)</strong> Іноземний дохід фізособи → 18% ПДФО + 1.5% ВЗ<br>
+    <strong>Рішення:</strong> консультація з українським податковим адвокатом до першого великого переказу. Вартість консультації: $100–300.</div>
+  </div>
+
+  <h3 class="serif" style="margin-top:2mm">Валютний контроль НБУ</h3>
+  <ul>
+    <li>При отриманні SWIFT банк <strong>зобов'язаний запросити підтверджуючі документи</strong></li>
+    <li>Тримай: Paddle transaction export, скріншот Dashboard, інвойс або опис сервісу</li>
+    <li>НБУ може вимагати обов'язковий продаж частини валюти (вимоги змінювались — перевір актуальні правила)</li>
+    <li>Перший переказ: <strong>тест $50-100</strong> щоб перевірити чи банк приймає</li>
+    <li>Лояльні банки: <strong>ПУМБ, Укрексімбанк</strong>. Проблемні: ПриватБанк, Монобанк</li>
+  </ul>
+
+  <h3>Рекомендований CPA (Form 5472)</h3>
+  <div class="link-card">
+    <div class="lc-icon">🧾</div>
+    <div class="lc-body"><div class="lc-name">Greenback Expat Tax Services</div><a href="https://www.greenbacktaxservices.com" class="lc-url">greenbacktaxservices.com</a><div class="lc-desc">Спеціалізуються на нерезидентах. Form 5472 + 1120. Фіксована ціна.</div></div>
+    <div class="lc-cost">від $299</div>
+  </div>
+
+  <div class="footer"><span class="brand">LLC + Paddle Guide</span><span>06 · Податки · 08</span></div>
+</section>
+
+<!-- PAGE 9: RISKS -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">07 · Ризики</div><h2 style="margin-top:2mm">Що може піти не так і як захиститись.</h2></div>
+    <div class="roman">VII</div>
+  </div>
+
+  <div class="risk red">
+    <div class="r-sev">🔴 Критично</div>
+    <div class="r-title">Form 5472 не подана → автоматичний штраф $25,000</div>
+    <div class="r-fix"><strong>Рішення:</strong> CPA щороку ($200–400). Нагадування на 1 лютого. Без винятків.</div>
+  </div>
+  <div class="risk red">
+    <div class="r-sev">🔴 Критично</div>
+    <div class="r-title">BOI Report не поданий → $500/день + кримінальна відповідальність</div>
+    <div class="r-fix"><strong>Рішення:</strong> fincen.gov/boi протягом 90 днів від реєстрації LLC. Безкоштовно, 15 хвилин. Перевір поточний статус вимоги на сайті — у 2024-2025 судові injunctions змінювали правила.</div>
+  </div>
+  <div class="risk red">
+    <div class="r-sev">🔴 Критично</div>
+    <div class="r-title">Змішування особистих і бізнес коштів</div>
+    <div class="r-fix">Mercury тільки для бізнесу. Особисті витрати з LLC рахунку → "pierce the corporate veil" → LLC не захищає від позовів. <strong>Рішення:</strong> окремий рахунок для особистого.</div>
+  </div>
+  <div class="risk yellow">
+    <div class="r-sev">🟡 Середнє</div>
+    <div class="r-title">Paddle відмовляє у реєстрації (рідко, але буває)</div>
+    <div class="r-fix"><strong>Рішення:</strong> опиши бізнес як "AI software", переконайся що ToS/Privacy/Refund є на сайті. Якщо відмовили — LemonSqueezy.com як альтернатива MoR. Stripe як останній варіант (ризик freeze).</div>
+  </div>
+  <div class="risk yellow">
+    <div class="r-sev">🟡 Середнє</div>
+    <div class="r-title">Mercury відмовляє (~20-30% нерезидентів)</div>
+    <div class="r-fix"><strong>Рішення:</strong> одразу подай на Relay.fi. Для Paddle — US банк не обов'язковий, можеш отримувати виплати напряму на Wise.</div>
+  </div>
+  <div class="risk yellow">
+    <div class="r-sev">🟡 Середнє</div>
+    <div class="r-title">UA банк блокує SWIFT переказ без документів</div>
+    <div class="r-fix"><strong>Рішення:</strong> тримай Paddle Dashboard export як підтвердження доходу. Перший переказ — тест $50. ПУМБ і Укрексімбанк лояльніші.</div>
+  </div>
+  <div class="risk yellow">
+    <div class="r-sev">🟡 Середнє</div>
+    <div class="r-title">Ukrainian tax — ДПС перекваліфікує ФОП дохід → 18%+1.5%</div>
+    <div class="r-fix"><strong>Рішення:</strong> консультація податкового адвоката до першого великого переказу. Документуй схему заздалегідь.</div>
+  </div>
+  <div class="risk green">
+    <div class="r-sev">🟢 Незначне</div>
+    <div class="r-title">Annual Report забув → статус Delinquent</div>
+    <div class="r-fix">Нагадування на 15 лютого. $60 онлайн на wyos.wyo.gov. Grace period ~2 місяці після 1 березня.</div>
+  </div>
+  <div class="risk green">
+    <div class="r-sev">🟢 Незначне</div>
+    <div class="r-title">Apple 30% з'їдає маржу iOS підписок</div>
+    <div class="r-fix">Spotify модель: не ставь кнопку Subscribe в iOS app. "Visit oliviaarcana.com to subscribe" → Paddle 5% замість Apple 30%.</div>
+  </div>
+
+  <div class="footer"><span class="brand">LLC + Paddle Guide</span><span>07 · Ризики · 09</span></div>
+</section>
+
+<!-- PAGE 10: MAINTENANCE + ANNUAL COSTS -->
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">08 · Обслуговування</div><h2 style="margin-top:2mm">Щорічний ритм і повні витрати.</h2></div>
+    <div class="roman">VIII</div>
+  </div>
+
+  <h3 class="serif">Щорічний календар</h3>
+  <div class="tl">
+    <div class="tl-row"><div class="tl-label">15 Лют</div><div class="tl-dot"></div><div class="tl-content">Зберери документи для CPA<small>Paddle exports, Mercury statements, список транзакцій між тобою і LLC</small></div></div>
+    <div class="tl-row"><div class="tl-label">1 Берез</div><div class="tl-dot"></div><div class="tl-content"><strong>Wyoming Annual Report — $60</strong><small>wyos.wyo.gov → Online Services → Annual Report. 5 хвилин онлайн.</small></div></div>
+    <div class="tl-row"><div class="tl-label">15 Квіт</div><div class="tl-dot"></div><div class="tl-content"><strong>Form 5472 + 1120 дедлайн (CPA подає)</strong><small>Або extension Form 7004 → продовження до 15 жовтня. $0 за extension.</small></div></div>
+    <div class="tl-row"><div class="tl-label">15 Квіт</div><div class="tl-dot"></div><div class="tl-content">FBAR якщо баланс Mercury перевищував $10k<small>fincen.gov → BSA E-Filing. Безкоштовно, 10 хвилин.</small></div></div>
+    <div class="tl-row"><div class="tl-label">Щокварт.</div><div class="tl-dot"></div><div class="tl-content">Перевір Paddle dispute rate — тримай &lt;1%<small>Paddle Dashboard → Disputes. Відповідай протягом 10 днів.</small></div></div>
+    <div class="tl-row"><div class="tl-label">Щороку</div><div class="tl-dot"></div><div class="tl-content">Оновлення BOI якщо змінились дані власника<small>fincen.gov/boi → Update report. Обов'язково протягом 30 днів від змін.</small></div></div>
+  </div>
+
+  <h3 class="serif" style="margin-top:3mm">Повні щорічні витрати</h3>
+  <table>
+    <tr><th>Стаття</th><th class="num">Рік 1</th><th class="num">Рік 2+</th></tr>
+    <tr><td>Wyoming LLC реєстрація (one-time)</td><td class="num gold">$100</td><td class="num">—</td></tr>
+    <tr><td>Registered Agent</td><td class="num">$49–99</td><td class="num">$49–99</td></tr>
+    <tr><td>Wyoming Annual Report</td><td class="num">$60</td><td class="num">$60</td></tr>
+    <tr><td>CPA (Form 5472 + 1120)</td><td class="num">$200–400</td><td class="num">$200–400</td></tr>
+    <tr><td>Apple Developer Program</td><td class="num">$99</td><td class="num">$99</td></tr>
+    <tr><td>Mercury / Relay / Wise</td><td class="num">$0</td><td class="num">$0</td></div></tr>
+    <tr><td>Paddle</td><td class="num">5%+$0.50/tx</td><td class="num">5%+$0.50/tx</td></tr>
+    <tr class="hi"><td><strong>Разом фіксовані (без Paddle %)</strong></td><td class="num gold"><strong>$508–758</strong></td><td class="num gold"><strong>$408–658</strong></td></tr>
+  </table>
+
+  <h3 class="serif">Як закрити LLC</h3>
+  <div class="g2">
+    <div class="step-row" style="grid-column:1/-1;display:grid;grid-template-columns:7mm 1fr 7mm 1fr 7mm 1fr;gap:3mm;border:none;padding:0;margin:0">
+      <div class="step-num dark">1</div>
+      <div class="step-body"><div class="s-title">Закрий рахунки</div><div class="s-desc" style="font-size:7.8pt">Виведи Paddle → Wise → UA. Деактивуй Stripe. Закрий Mercury.</div></div>
+      <div class="step-num dark">2</div>
+      <div class="step-body"><div class="s-title">Articles of Dissolution</div><div class="s-desc" style="font-size:7.8pt">wyos.wyo.gov → Dissolution. <strong>$0</strong> держмито.</div></div>
+      <div class="step-num dark">3</div>
+      <div class="step-body"><div class="s-title">Фінальна Form 5472</div><div class="s-desc" style="font-size:7.8pt">CPA позначає "Final Return". Все. 1-2 тижні загалом.</div></div>
+    </div>
+  </div>
+
+  <div class="footer"><span class="brand">LLC + Paddle Guide</span><span>08 · Обслуговування · 10</span></div>
+</section>
+
+<!-- PAGE 11: BACK COVER / CHEAT SHEET -->
+<section class="page cosmic">
+  <div style="position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;padding:22mm">
+    <div style="font-size:7pt;letter-spacing:.3em;text-transform:uppercase;color:#d4af37;margin-bottom:6mm;font-weight:700">Шпаргалка · Весь процес</div>
+
+    <div class="g2" style="gap:6mm;margin-bottom:6mm">
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:14pt;color:#f4e9d0;margin-bottom:3mm">6 кроків</div>
+        <div style="font-size:8pt;color:rgba(244,233,208,.85);line-height:2.1">
+          <span style="color:#d4af37;font-weight:700">1</span> Wyoming LLC → wyos.wyo.gov ($100)<br>
+          <span style="color:#d4af37;font-weight:700">2</span> EIN → IRS +1(267)941-1099 · 6:00 EST ($0)<br>
+          <span style="color:#d4af37;font-weight:700">3</span> BOI → fincen.gov/boi · 90 днів ($0)<br>
+          <span style="color:#d4af37;font-weight:700">4</span> Mercury → mercury.com + Google Voice ($0)<br>
+          <span style="color:#d4af37;font-weight:700">5</span> Paddle → paddle.com · "AI software" ($0+5%)<br>
+          <span style="color:#d4af37;font-weight:700">6</span> DUNS → fedgov.dnb.com → Apple Dev $99
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:14pt;color:#f4e9d0;margin-bottom:3mm">4 правила</div>
+        <div style="font-size:8pt;color:rgba(244,233,208,.85);line-height:2.1">
+          <span style="color:#c0392b;font-weight:700">!</span> Form 5472 щороку → CPA $300 (без винятків)<br>
+          <span style="color:#c0392b;font-weight:700">!</span> Mercury — тільки бізнес, не особисте<br>
+          <span style="color:#c0392b;font-weight:700">!</span> Paddle: опис "AI software", не "psychic"<br>
+          <span style="color:#c0392b;font-weight:700">!</span> iOS підписка: Spotify модель, не Apple IAP
+        </div>
+      </div>
+    </div>
+
+    <div style="border-top:.2mm solid rgba(212,175,55,.25);padding-top:4mm;margin-bottom:4mm">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:14pt;color:#f4e9d0;margin-bottom:3mm">Посилання</div>
+      <div class="g2" style="gap:4mm">
+        <div style="font-size:7.5pt;color:rgba(244,233,208,.7);line-height:2">
+          wyos.wyo.gov — LLC реєстрація<br>
+          northwestregisteredagent.com — Agent<br>
+          fincen.gov/boi — BOI Report<br>
+          IRS +1(267)941-1099 — EIN
+        </div>
+        <div style="font-size:7.5pt;color:rgba(244,233,208,.7);line-height:2">
+          mercury.com / relay.fi — Банк<br>
+          paddle.com — MoR процесор<br>
+          wise.com/business — Виплати UA<br>
+          fedgov.dnb.com/webform — DUNS<br>
+          greenbacktaxservices.com — CPA
+        </div>
+      </div>
+    </div>
+
+    <div style="border-top:.2mm solid rgba(212,175,55,.2);padding-top:3.5mm">
+      <div style="font-size:7.5pt;color:rgba(244,233,208,.5);line-height:1.7">
+        Рік 1: LLC $100 + Registered Agent $49-99 + Annual Report $60 + CPA $200-400 + Apple Dev $99 = <strong style="color:rgba(212,175,55,.7)">$508–758</strong><br>
+        Paddle: 5%+$0.50/tx · включає весь глобальний VAT · Apple Pay · Google Pay · виплата напряму на UA банк<br>
+        <span style="color:rgba(244,233,208,.35)">Цей документ — інформаційний. Не є юридичною або податковою консультацією. Перевіряй актуальний статус BOI на fincen.gov.</span>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;bottom:10mm;left:22mm;right:22mm;display:flex;justify-content:space-between;z-index:3;font-size:7pt;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,233,208,.3);border-top:.2mm solid rgba(212,175,55,.12);padding-top:3mm">
+    <span>LLC + Paddle + App Store Guide</span>
+    <span>Квітень 2026</span>
+  </div>
+</section>
+
+</body>
+</html>

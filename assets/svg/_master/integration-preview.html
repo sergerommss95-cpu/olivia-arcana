@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>oliviaarcana.com · Integration Preview · Unicode vs Mystic Cartography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #04020D;
+    --ivory: #F5F0E8;
+    --gold: #E8C96A;
+    --gold-dim: rgba(232, 201, 106, 0.78);
+    --gold-ghost: rgba(232, 201, 106, 0.12);
+    --text: rgba(240, 236, 255, 0.9);
+    --text-dim: rgba(200, 190, 230, 0.6);
+    --surface: rgba(255, 255, 255, 0.03);
+    --surface-border: rgba(200, 185, 255, 0.08);
+    --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-heading: 'Cormorant Garamond', serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-body);
+    background: radial-gradient(ellipse at top, #0a0517 0%, var(--bg) 60%);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 3rem 2rem;
+  }
+  .wrap { max-width: 1400px; margin: 0 auto; }
+
+  h1 {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 400;
+    color: var(--ivory);
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+    margin-bottom: 0.5rem;
+  }
+  .eyebrow {
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 1rem;
+  }
+  .meta {
+    opacity: 0.72;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    margin-bottom: 2.5rem;
+    max-width: 72ch;
+  }
+
+  .section {
+    border: 1px solid rgba(232,201,106,0.15);
+    border-radius: 14px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    background: rgba(10, 5, 23, 0.4);
+  }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(232,201,106,0.12);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+  .section-head h2 {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--ivory);
+  }
+  .section-head .badge {
+    font-size: 0.68rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    background: var(--gold-ghost);
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .section-sub {
+    font-size: 0.88rem;
+    opacity: 0.7;
+    line-height: 1.55;
+    margin-bottom: 1.5rem;
+  }
+  .section-sub code {
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 0.85em;
+    background: rgba(232,201,106,0.1);
+    padding: 0.08rem 0.35rem;
+    border-radius: 3px;
+  }
+
+  /* ── COMPARISON GRID ── */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  @media (max-width: 900px) { .compare { grid-template-columns: 1fr; } }
+  .cell {
+    border: 1px solid rgba(200,185,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .cell.old { opacity: 0.85; }
+  .cell.new { border-color: rgba(232,201,106,0.4); box-shadow: 0 0 24px rgba(232,201,106,0.06); }
+  .cell-label {
+    padding: 0.6rem 1rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(14,11,36,0.6);
+    border-bottom: 1px solid rgba(200,185,255,0.08);
+  }
+  .cell.old .cell-label { color: var(--text-dim); }
+  .cell.new .cell-label { color: var(--gold); }
+
+  /* ── SURFACE 1: ZodiacIcon 72px ── */
+  .icon-panel {
+    padding: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    background: rgba(14, 11, 36, 0.4);
+    flex-grow: 1;
+  }
+  .zi-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem;
+  }
+  .zi-outer {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .zi-glass {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.02);
+    border: 1.5px solid rgba(200,185,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .zi-selected .zi-glass {
+    background: linear-gradient(135deg, rgba(232,201,106,0.18), rgba(232,201,106,0.08));
+    border-color: rgba(232,201,106,0.35);
+    box-shadow: 0 0 20px rgba(232,201,106,0.15), inset 0 0 15px rgba(232,201,106,0.08);
+    transform: scale(1.08);
+  }
+  .zi-selected .zi-glass::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid rgba(232,201,106,0.25);
+    pointer-events: none;
+  }
+  .zi-glyph-unicode {
+    font-family: var(--font-heading);
+    font-size: 27px;
+    line-height: 1;
+    color: rgba(200,190,230,0.5);
+    font-weight: 500;
+  }
+  .zi-selected .zi-glyph-unicode { color: rgba(255,255,255,0.95); }
+  .zi-glyph-svg { width: 48px; height: 48px; filter: brightness(0.85); }
+  .zi-selected .zi-glyph-svg { filter: brightness(1); }
+  .zi-name {
+    font-size: 0.58rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: rgba(180,170,210,0.3);
+    text-transform: uppercase;
+  }
+  .zi-selected .zi-name {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: rgba(240,236,255,0.9);
+  }
+
+  /* ── SURFACE 2: ZodiacWheel ── */
+  .wheel-panel {
+    padding: 2rem;
+    background: rgba(14, 11, 36, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 460px;
+  }
+  .wheel {
+    width: 400px;
+    max-width: 100%;
+    aspect-ratio: 1;
+  }
+
+  /* ── SURFACE 3: /signs/aries hero ── */
+  .signs-hero {
+    padding: 2.5rem 2rem;
+    background: rgba(14, 11, 36, 0.4);
+    position: relative;
+    isolation: isolate;
+    min-height: 420px;
+    overflow: hidden;
+  }
+  .signs-breadcrumb {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(180,170,210,0.55);
+    margin-bottom: 1.5rem;
+  }
+  .signs-breadcrumb .current { color: var(--gold-dim); }
+  .signs-date {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 0.8rem;
+  }
+  .signs-name {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 400;
+    color: var(--ivory);
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+    margin-bottom: 1rem;
+  }
+  .signs-motto {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--text);
+    border-left: 2px solid var(--gold);
+    padding-left: 1rem;
+    max-width: 48ch;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+  .signs-bg-glyph-unicode {
+    position: absolute;
+    top: -30px;
+    right: -20px;
+    font-family: var(--font-heading);
+    font-size: clamp(12rem, 28vw, 20rem);
+    line-height: 1;
+    color: rgba(232,201,106,0.08);
+    text-shadow: 0 0 50px rgba(232,201,106,0.2);
+    user-select: none;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .signs-bg-glyph-svg {
+    position: absolute;
+    top: -30px;
+    right: -40px;
+    width: min(80vw, 480px);
+    height: auto;
+    opacity: 0.28;
+    user-select: none;
+    pointer-events: none;
+    z-index: -1;
+    filter: drop-shadow(0 0 60px rgba(232,201,106,0.2));
+  }
+
+  /* ── footer ── */
+  footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(200,185,255,0.1);
+    font-size: 0.82rem;
+    opacity: 0.7;
+    line-height: 1.7;
+  }
+  footer code {
+    font-family: ui-monospace, Menlo, monospace;
+    background: rgba(232,201,106,0.12);
+    padding: 0.08rem 0.35rem;
+    border-radius: 3px;
+    font-size: 0.92em;
+  }
+  .verdict-ask {
+    background: rgba(232,201,106,0.08);
+    border-left: 3px solid var(--gold);
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+  .verdict-ask b { color: var(--gold); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">oliviaarcana.com · Integration Preview</div>
+    <h1>Mystic Cartography vs Unicode — the swap, visualized</h1>
+    <div class="meta">
+      The website currently renders zodiac glyphs as Unicode characters (<code>♈</code>, <code>♉</code>…) in three components: <code>ZodiacIcon</code> (72px icon), <code>daily/ZodiacWheel</code> (SVG wheel), and <code>/signs/[sign]</code> (oversized background). This page mocks each surface with the OLD Unicode rendering on the left and the proposed NEW Mystic Cartography SVG swap on the right — using the actual website styling (same DM Sans + Cormorant Garamond fonts, same color palette, same scrim utilities, same measurements).
+    </div>
+
+    <div class="verdict-ask">
+      <b>What to judge:</b> at the icon scale (72px), does the SVG carry its weight vs the typographic Unicode glyph? On the wheel, do the 12 SVGs read as a cohesive family at small size? On the /signs/aries hero, does the oversized background illustration upgrade or compete with the editorial Cormorant italic headline?
+    </div>
+
+    <!-- ────────────────────────────────────────────────────────────
+         SURFACE 1 — ZodiacIcon (72px, with selection state)
+         ──────────────────────────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-head">
+        <h2>Surface 1 · ZodiacIcon (72px)</h2>
+        <span class="badge">components/ZodiacIcon.tsx</span>
+      </div>
+      <div class="section-sub">
+        Used wherever the site shows a sign with optional selection state — navbar sun-sign chip when profile exists, daily page signature wheel, zodiac-signs index. Existing component has pulsing glow aura, orbit rings with orbiting dots, shimmer sweep, sparkle dots — all preserved. Only the glyph itself is swapped.
+      </div>
+
+      <div class="compare">
+        <div class="cell old">
+          <div class="cell-label"><span>OLD · Unicode glyph</span><span>current</span></div>
+          <div class="icon-panel">
+            <div class="zi-wrapper">
+              <div class="zi-outer"><div class="zi-glass"><span class="zi-glyph-unicode">♈</span></div></div>
+              <div class="zi-name">Aries</div>
+            </div>
+            <div class="zi-wrapper zi-selected">
+              <div class="zi-outer"><div class="zi-glass"><span class="zi-glyph-unicode">♉</span></div></div>
+              <div class="zi-name">Taurus</div>
+            </div>
+            <div class="zi-wrapper">
+              <div class="zi-outer"><div class="zi-glass"><span class="zi-glyph-unicode">♊</span></div></div>
+              <div class="zi-name">Gemini</div>
+            </div>
+            <div class="zi-wrapper">
+              <div class="zi-outer"><div class="zi-glass"><span class="zi-glyph-unicode">♋</span></div></div>
+              <div class="zi-name">Cancer</div>
+            </div>
+            <div class="zi-wrapper">
+              <div class="zi-outer"><div class="zi-glass"><span class="zi-glyph-unicode">♌</span></div></div>
+              <div class="zi-name">Leo</div>
+            </div>
+            <div class="zi-wrapper">
+              <div class="zi-outer"><div class="zi-glass"><span class="zi-glyph-unicode">♍</span></div></div>
+              <div class="zi-name">Virgo</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cell new">
+          <div class="cell-label"><span>NEW · Mystic Cartography SVG</span><span>proposed</span></div>
+          <div class="icon-panel">
+            <div class="zi-wrapper">
+              <div class="zi-outer"><div class="zi-glass"><img class="zi-glyph-svg" src="../zodiac/v1/aries.svg" alt="Aries"></div></div>
+              <div class="zi-name">Aries</div>
+            </div>
+            <div class="zi-wrapper zi-selected">
+              <div class="zi-outer"><div class="zi-glass"><img class="zi-glyph-svg" src="../zodiac/v1/taurus.svg" alt="Taurus"></div></div>
+              <div class="zi-name">Taurus</div>
+            </div>
+            <div class="zi-wrapper">
+              <div class="zi-outer"><div class="zi-glass"><img class="zi-glyph-svg" src="../zodiac/v1/gemini.svg" alt="Gemini"></div></div>
+              <div class="zi-name">Gemini</div>
+            </div>
+            <div class="zi-wrapper">
+              <div class="zi-outer"><div class="zi-glass"><img class="zi-glyph-svg" src="../zodiac/v1/cancer.svg" alt="Cancer"></div></div>
+              <div class="zi-name">Cancer</div>
+            </div>
+            <div class="zi-wrapper">
+              <div class="zi-outer"><div class="zi-glass"><img class="zi-glyph-svg" src="../zodiac/v1/leo.svg" alt="Leo"></div></div>
+              <div class="zi-name">Leo</div>
+            </div>
+            <div class="zi-wrapper">
+              <div class="zi-outer"><div class="zi-glass"><img class="zi-glyph-svg" src="../zodiac/v1/virgo.svg" alt="Virgo"></div></div>
+              <div class="zi-name">Virgo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ────────────────────────────────────────────────────────────
+         SURFACE 2 — daily/ZodiacWheel (SVG 12-wedge wheel, signature of Wave 4)
+         ──────────────────────────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-head">
+        <h2>Surface 2 · daily/ZodiacWheel (400px signature)</h2>
+        <span class="badge">components/daily/ZodiacWheel.tsx</span>
+      </div>
+      <div class="section-sub">
+        Wave 4 signature navigator on <code>/daily</code>. 12 wedges + gold selection ring + center glyph = user's sun sign (Taurus shown). Existing implementation renders Unicode as <code>&lt;text&gt;</code> inside SVG. New: <code>&lt;image href&gt;</code> tags pointing at <code>/icons/zodiac/{sign}.svg</code>. Wedge geometry + tick marks + outer ring glow + gold selection stroke all preserved verbatim.
+      </div>
+
+      <div class="compare">
+        <!-- OLD WHEEL — Unicode text inside SVG -->
+        <div class="cell old">
+          <div class="cell-label"><span>OLD · Unicode &lt;text&gt;</span><span>current</span></div>
+          <div class="wheel-panel">
+            <svg class="wheel" viewBox="0 0 400 400">
+              <defs>
+                <radialGradient id="ctr-old" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="rgba(232,201,106,0.22)"/>
+                  <stop offset="60%" stop-color="rgba(14,11,36,0.4)"/>
+                  <stop offset="100%" stop-color="rgba(14,11,36,0)"/>
+                </radialGradient>
+              </defs>
+              <circle cx="200" cy="200" r="201" fill="none" stroke="rgba(232,201,106,0.12)" stroke-width="1"/>
+              <circle cx="200" cy="200" r="195" fill="none" stroke="rgba(232,201,106,0.32)" stroke-width="1"/>
+              <circle cx="200" cy="200" r="108" fill="none" stroke="rgba(232,201,106,0.18)" stroke-width="1"/>
+              <g id="old-wedges"></g>
+              <circle cx="200" cy="200" r="100" fill="url(#ctr-old)"/>
+              <text x="200" y="195" text-anchor="middle" dominant-baseline="central"
+                font-family="Cormorant Garamond, serif" font-size="56" fill="rgba(232,201,106,0.88)">♉</text>
+              <text x="200" y="238" text-anchor="middle" dominant-baseline="central"
+                font-family="DM Sans, sans-serif" font-size="10" letter-spacing="3"
+                fill="rgba(200,190,230,0.6)" style="text-transform:uppercase;">YOUR SIGN</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- NEW WHEEL — SVG <image href> to Mystic Cartography glyphs -->
+        <div class="cell new">
+          <div class="cell-label"><span>NEW · Mystic Cartography &lt;image href&gt;</span><span>proposed</span></div>
+          <div class="wheel-panel">
+            <svg class="wheel" viewBox="0 0 400 400">
+              <defs>
+                <radialGradient id="ctr-new" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="rgba(232,201,106,0.22)"/>
+                  <stop offset="60%" stop-color="rgba(14,11,36,0.4)"/>
+                  <stop offset="100%" stop-color="rgba(14,11,36,0)"/>
+                </radialGradient>
+              </defs>
+              <circle cx="200" cy="200" r="201" fill="none" stroke="rgba(232,201,106,0.12)" stroke-width="1"/>
+              <circle cx="200" cy="200" r="195" fill="none" stroke="rgba(232,201,106,0.32)" stroke-width="1"/>
+              <circle cx="200" cy="200" r="108" fill="none" stroke="rgba(232,201,106,0.18)" stroke-width="1"/>
+              <g id="new-wedges"></g>
+              <circle cx="200" cy="200" r="100" fill="url(#ctr-new)"/>
+              <image href="../zodiac/v1/taurus.svg" x="152" y="145" width="96" height="96" opacity="0.95"/>
+              <text x="200" y="248" text-anchor="middle" dominant-baseline="central"
+                font-family="DM Sans, sans-serif" font-size="10" letter-spacing="3"
+                fill="rgba(200,190,230,0.6)" style="text-transform:uppercase;">YOUR SIGN</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:0.78rem; opacity:0.55; margin-top:1rem;">Note: tick marks + selection wedge highlights rendered live in this preview via JS below. Open browser DevTools if anything is off.</div>
+    </div>
+
+    <!-- ────────────────────────────────────────────────────────────
+         SURFACE 3 — /signs/aries hero
+         ──────────────────────────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-head">
+        <h2>Surface 3 · /signs/aries hero</h2>
+        <span class="badge">app/signs/[sign]/page.tsx</span>
+      </div>
+      <div class="section-sub">
+        Per-sign detail page. Wave 2 editorial treatment: breadcrumbs + date range eyebrow + huge italic sign name + motto as gold-bordered pull quote + facts as definition list + <b>oversized glyph as background composition</b>. Currently the background glyph is a CSS-styled Unicode <code>&lt;span&gt;</code> at <code>28vw</code>. New: an <code>&lt;img&gt;</code> of the Mystic Cartography Aries SVG at similar scale + opacity 0.28.
+      </div>
+
+      <div class="compare">
+        <div class="cell old">
+          <div class="cell-label"><span>OLD · Unicode background glyph</span><span>current</span></div>
+          <div class="signs-hero">
+            <span class="signs-bg-glyph-unicode">♈</span>
+            <nav class="signs-breadcrumb">Home / Signs / <span class="current">Aries</span></nav>
+            <div class="signs-date">Mar 21 – Apr 19</div>
+            <div class="signs-name">Aries</div>
+            <div class="signs-motto">I am the spark before the fire — the first breath of the turning year.</div>
+            <div style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.5;">Element · Fire · Cardinal · Ruled by Mars</div>
+          </div>
+        </div>
+
+        <div class="cell new">
+          <div class="cell-label"><span>NEW · Mystic Cartography background SVG</span><span>proposed</span></div>
+          <div class="signs-hero">
+            <img class="signs-bg-glyph-svg" src="../zodiac/v1/aries.svg" alt="">
+            <nav class="signs-breadcrumb">Home / Signs / <span class="current">Aries</span></nav>
+            <div class="signs-date">Mar 21 – Apr 19</div>
+            <div class="signs-name">Aries</div>
+            <div class="signs-motto">I am the spark before the fire — the first breath of the turning year.</div>
+            <div style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.5;">Element · Fire · Cardinal · Ruled by Mars</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ────────────────────────────────────────────────────────────
+         Family strip — all 12 new glyphs at icon scale, as they'd appear in aggregate
+         ──────────────────────────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-head">
+        <h2>Family coherence · all 12 at icon scale</h2>
+        <span class="badge">aggregate check</span>
+      </div>
+      <div class="section-sub">
+        All 12 Mystic Cartography glyphs at 64px. Do they read as a cohesive family? Each has an elemental wash (fire/earth/air/water tints) but the same gold ornamental ring + 4-cardinal-point stars + radial aura — the visual signature of the system.
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(12,1fr); gap:0.4rem; padding:1.25rem; background:rgba(14,11,36,0.5); border-radius:10px;">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;"><img src="../zodiac/v1/aries.svg" width="64" height="64" style="background:#07040f; padding:2px; border-radius:4px;"><span style="font-size:0.64rem; opacity:0.6;">♈</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;"><img src="../zodiac/v1/taurus.svg" width="64" height="64" style="background:#07040f; padding:2px; border-radius:4px;"><span style="font-size:0.64rem; opacity:0.6;">♉</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;"><img src="../zodiac/v1/gemini.svg" width="64" height="64" style="background:#07040f; padding:2px; border-radius:4px;"><span style="font-size:0.64rem; opacity:0.6;">♊</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;"><img src="../zodiac/v1/cancer.svg" width="64" height="64" style="background:#07040f; padding:2px; border-radius:4px;"><span style="font-size:0.64rem; opacity:0.6;">♋</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;"><img src="../zodiac/v1/leo.svg" width="64" height="64" style="background:#07040f; padding:2px; border-radius:4px;"><span style="font-size:0.64rem; opacity:0.6;">♌</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;"><img src="../zodiac/v1/virgo.svg" width="64" height="64" style="background:#07040f; padding:2px; border-radius:4px;"><span style="font-size:0.64rem; opacity:0.6;">♍</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;"><img src="../zodiac/v1/libra.svg" width="64" height="64" style="background:#07040f; padding:2px; border-radius:4px;"><span style="font-size:0.64rem; opacity:0.6;">♎</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;"><img src="../zodiac/v1/scorpio.svg" width="64" height="64" style="background:#07040f; padding:2px; border-radius:4px;"><span style="font-size:0.64rem; opacity:0.6;">♏</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;"><img src="../zodiac/v1/sagittarius.svg" width="64" height="64" style="background:#07040f; padding:2px; border-radius:4px;"><span style="font-size:0.64rem; opacity:0.6;">♐</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;"><img src="../zodiac/v1/capricorn.svg" width="64" height="64" style="background:#07040f; padding:2px; border-radius:4px;"><span style="font-size:0.64rem; opacity:0.6;">♑</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;"><img src="../zodiac/v1/aquarius.svg" width="64" height="64" style="background:#07040f; padding:2px; border-radius:4px;"><span style="font-size:0.64rem; opacity:0.6;">♒</span></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;"><img src="../zodiac/v1/pisces.svg" width="64" height="64" style="background:#07040f; padding:2px; border-radius:4px;"><span style="font-size:0.64rem; opacity:0.6;">♓</span></div>
+      </div>
+
+      <div style="font-size:0.78rem; opacity:0.65; margin-top:1.25rem; line-height:1.5;">
+        At this density you can judge: does the family feel like 12 variations of ONE system, or like 12 standalone illustrations? If the former → ship. If the latter → style-calibration pass before deploy.
+      </div>
+    </div>
+
+    <footer>
+      Preview path: <code>/Users/macbookpro/olivia-arcana/assets/svg/_master/integration-preview.html</code><br>
+      Asset source: <code>olivia-arcana/assets/svg/zodiac/v1/*.svg</code> (12 glyphs, ~160 KB total)<br>
+      Target integration: 3 Next.js 16 components on <code>oliviaarcana.com</code> — surgical glyph swap, no other changes to layout, typography, scrim, or Wave 4-6 overhaul patterns.<br>
+      Proposed Phase 1 time: ~45 min local implementation + build validation. Phase 2: visual review with <code>npm run dev</code>. Phase 3: <code>netlify deploy --prod</code> after your approval.
+    </footer>
+  </div>
+
+  <!-- Live wedge rendering for both wheels -->
+  <script>
+    (function () {
+      const N = 12, CX = 200, CY = 200, OUTER = 195, INNER = 108, GLYPH_R = 152;
+      const ELEMENT_TINT = {
+        fire: '#FF6B35', water: '#4FC3F7', air: '#CEB5F0', earth: '#7CB342',
+      };
+      const signs = [
+        { name:'aries', glyph:'♈', element:'fire' },
+        { name:'taurus', glyph:'♉', element:'earth' },  // SELECTED
+        { name:'gemini', glyph:'♊', element:'air' },
+        { name:'cancer', glyph:'♋', element:'water' },
+        { name:'leo', glyph:'♌', element:'fire' },
+        { name:'virgo', glyph:'♍', element:'earth' },
+        { name:'libra', glyph:'♎', element:'air' },
+        { name:'scorpio', glyph:'♏', element:'water' },
+        { name:'sagittarius', glyph:'♐', element:'fire' },
+        { name:'capricorn', glyph:'♑', element:'earth' },
+        { name:'aquarius', glyph:'♒', element:'air' },
+        { name:'pisces', glyph:'♓', element:'water' },
+      ];
+      const selIdx = 1;
+      const SLICE = 360 / N;
+
+      function polar(deg, r) {
+        const rad = ((deg - 90) * Math.PI) / 180;
+        return { x: CX + r * Math.cos(rad), y: CY + r * Math.sin(rad) };
+      }
+      function wedgePath(s, e, rO, rI) {
+        const p1 = polar(s, rO), p2 = polar(e, rO), p3 = polar(e, rI), p4 = polar(s, rI);
+        const la = e - s <= 180 ? 0 : 1;
+        return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${rO} ${rO} 0 ${la} 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} L ${p3.x.toFixed(2)} ${p3.y.toFixed(2)} A ${rI} ${rI} 0 ${la} 0 ${p4.x.toFixed(2)} ${p4.y.toFixed(2)} Z`;
+      }
+
+      function buildWedges(container, mode) {
+        const svgNS = 'http://www.w3.org/2000/svg';
+        signs.forEach((s, i) => {
+          const startDeg = i * SLICE - SLICE / 2, endDeg = startDeg + SLICE, midDeg = i * SLICE;
+          const selected = i === selIdx;
+          const tint = ELEMENT_TINT[s.element];
+          const path = document.createElementNS(svgNS, 'path');
+          path.setAttribute('d', wedgePath(startDeg, endDeg, OUTER, INNER));
+          path.setAttribute('fill', selected ? tint + '22' : 'rgba(14,11,36,0.38)');
+          path.setAttribute('stroke', selected ? 'rgba(232,201,106,0.9)' : 'rgba(200,185,255,0.08)');
+          path.setAttribute('stroke-width', selected ? 1.4 : 0.75);
+          container.appendChild(path);
+
+          if (mode === 'text') {
+            const gp = polar(midDeg, GLYPH_R);
+            const txt = document.createElementNS(svgNS, 'text');
+            txt.setAttribute('x', gp.x); txt.setAttribute('y', gp.y);
+            txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('dominant-baseline', 'central');
+            txt.setAttribute('font-family', 'Cormorant Garamond, serif');
+            txt.setAttribute('font-size', selected ? 22 : 18);
+            txt.setAttribute('font-weight', 500);
+            txt.setAttribute('fill', selected ? '#F5F0E8' : 'rgba(220,210,240,0.7)');
+            txt.textContent = s.glyph;
+            container.appendChild(txt);
+          } else if (mode === 'svg') {
+            const gp = polar(midDeg, GLYPH_R);
+            const size = selected ? 42 : 32;
+            const img = document.createElementNS(svgNS, 'image');
+            img.setAttribute('href', `../zodiac/v1/${s.name}.svg`);
+            img.setAttribute('x', gp.x - size / 2);
+            img.setAttribute('y', gp.y - size / 2);
+            img.setAttribute('width', size);
+            img.setAttribute('height', size);
+            img.setAttribute('opacity', selected ? 1 : 0.75);
+            container.appendChild(img);
+          }
+
+          // Tick marks
+          const outer = polar(startDeg, OUTER), inner = polar(startDeg, INNER);
+          const line = document.createElementNS(svgNS, 'line');
+          line.setAttribute('x1', inner.x); line.setAttribute('y1', inner.y);
+          line.setAttribute('x2', outer.x); line.setAttribute('y2', outer.y);
+          line.setAttribute('stroke', 'rgba(232,201,106,0.16)');
+          line.setAttribute('stroke-width', 0.6);
+          container.appendChild(line);
+        });
+      }
+
+      buildWedges(document.getElementById('old-wedges'), 'text');
+      buildWedges(document.getElementById('new-wedges'), 'svg');
+    })();
+  </script>
+</body>
+</html>

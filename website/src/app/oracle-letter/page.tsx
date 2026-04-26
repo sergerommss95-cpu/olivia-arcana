@@ -8,6 +8,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import OracleLetterPage from "@/components/OracleLetterPage";
 
 interface SavedReading {
@@ -30,19 +31,22 @@ export default function OracleLetterRoute() {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("olivia-last-reading");
-      if (raw) {
-        const parsed = JSON.parse(raw) as SavedReading;
-        // Basic validation
-        if (parsed.cardName && parsed.reading && parsed.cosmicMoment) {
-          setData(parsed);
+    const timer = setTimeout(() => {
+      try {
+        const raw = localStorage.getItem("olivia-last-reading");
+        if (raw) {
+          const parsed = JSON.parse(raw) as SavedReading;
+          // Basic validation
+          if (parsed.cardName && parsed.reading && parsed.cosmicMoment) {
+            setData(parsed);
+          }
         }
+      } catch {
+        // Invalid data — fall through to empty state
       }
-    } catch {
-      // Invalid data — fall through to empty state
-    }
-    setChecked(true);
+      setChecked(true);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   // Loading state
@@ -121,7 +125,7 @@ export default function OracleLetterRoute() {
         Draw a card from the Oracle to receive your sealed letter.
         The cosmos has something to say — but first, you must ask.
       </p>
-      <a
+      <Link
         href="/oracle"
         style={{
           fontFamily: "var(--font-body, sans-serif)",
@@ -144,7 +148,7 @@ export default function OracleLetterRoute() {
         }}
       >
         Draw a Card
-      </a>
+      </Link>
     </div>
   );
 }

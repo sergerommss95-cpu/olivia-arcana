@@ -1,0 +1,263 @@
+<style>
+  body { background: #060810; color: #E8E6F0; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2.1rem; margin-bottom: 0.2rem; letter-spacing: -0.008em; }
+  .subtitle { color: #8A829A; font-size: 0.95rem; margin-bottom: 1.6rem; font-family: 'Cormorant Garamond', serif; font-style: italic; }
+  .label { color: #C8A84B; letter-spacing: 0.2em; font-size: 0.7rem; font-weight: 600; }
+
+  .pitch { background: linear-gradient(180deg, #1a1628 0%, #0c0d18 100%); border: 1px solid rgba(200,168,75,0.4); border-radius: 14px; padding: 1.4rem 1.6rem; margin-bottom: 2rem; }
+  .pitch h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.5rem; color: #E8E6F0; margin: 0 0 0.3rem 0; }
+  .pitch h3 em { color: #C8A84B; font-style: italic; }
+  .pitch .tagline { color: #E2C070; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; margin-bottom: 0.85rem; }
+  .pitch p { color: #B8B0C8; font-size: 0.92rem; line-height: 1.65; margin: 0 0 0.5rem 0; }
+  .pitch p:last-child { margin-bottom: 0; }
+
+  .three-pillars { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.7rem; margin: 1rem 0 1.8rem 0; }
+  .pillar { padding: 0.85rem 1rem; background: #0c0d18; border-radius: 8px; border-left: 2px solid #C8A84B; }
+  .pillar h4 { color: #C8A84B; font-family: 'IBM Plex Mono', 'SF Mono', monospace; font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; margin: 0 0 0.35rem 0; font-weight: 600; }
+  .pillar p { margin: 0; color: #B8B0C8; font-size: 0.78rem; line-height: 1.5; }
+
+  .section { margin-bottom: 1.8rem; }
+  .section h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.25rem; color: #E8E6F0; margin: 0 0 0.55rem 0; display: flex; align-items: center; gap: 0.6rem; }
+  .section h3::before { content: ""; display: inline-block; width: 24px; height: 1px; background: #C8A84B; }
+  .section p { color: #B8B0C8; font-size: 0.88rem; line-height: 1.65; margin: 0 0 0.6rem 0; }
+  .section em { color: #E2C070; font-style: italic; }
+  .section strong { color: #E2C070; font-weight: 500; }
+
+  /* User flow */
+  .flow { background: #0c0d18; border-radius: 12px; padding: 1.2rem 1.4rem; border: 1px solid #1c1e30; }
+  .flow-step { display: flex; gap: 0.9rem; padding: 0.7rem 0; border-bottom: 1px dashed rgba(200,168,75,0.14); }
+  .flow-step:last-child { border-bottom: none; padding-bottom: 0; }
+  .flow-step:first-child { padding-top: 0; }
+  .flow-time { color: #8A6D2A; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; flex-shrink: 0; width: 54px; padding-top: 0.15rem; }
+  .flow-label { color: #C8A84B; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; flex-shrink: 0; width: 130px; }
+  .flow-desc { color: #B8B0C8; font-size: 0.85rem; line-height: 1.55; flex: 1; }
+  .flow-desc strong { color: #E2C070; }
+
+  /* Mockup zones */
+  .mockup-frame { border: 1px solid rgba(200,168,75,0.25); border-radius: 10px; overflow: hidden; margin-top: 0.8rem; background: #04050a; }
+  .mockup-zone { padding: 1.6rem 1.8rem; border-bottom: 1px dashed rgba(200,168,75,0.14); min-height: 100px; position: relative; }
+  .mockup-zone:last-child { border-bottom: none; }
+  .mockup-zone .z-label { position: absolute; top: 10px; right: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: #8A6D2A; }
+
+  .mk-hud { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.18em; color: #8A6D2A; text-transform: uppercase; }
+  .mk-hero { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2.6rem; color: #E8E6F0; line-height: 1.08; margin: 0.6rem 0 0.4rem 0; letter-spacing: -0.015em; }
+  .mk-hero em { color: #C8A84B; font-style: italic; }
+  .mk-meta { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95rem; color: #a8a0b8; }
+
+  .mk-card-row { display: grid; grid-template-columns: 180px 1fr; gap: 1.4rem; align-items: start; }
+  .mk-card { background: linear-gradient(180deg, #1a1730 0%, #0c0b18 100%); border: 1px solid rgba(200,168,75,0.3); aspect-ratio: 2/3; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #C8A84B; font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; }
+  .mk-card-side h4 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.6rem; color: #E8E6F0; margin: 0 0 0.2rem 0; letter-spacing: -0.01em; }
+  .mk-card-side .mk-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em; color: #C8A84B; text-transform: uppercase; }
+  .mk-card-side p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 1rem; line-height: 1.55; color: #d4cce0; margin: 0.6rem 0; }
+  .mk-card-side .mk-action { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; color: #E2C070; text-transform: uppercase; margin-top: 0.7rem; display: inline-block; border-bottom: 1px solid #C8A84B; padding-bottom: 3px; }
+
+  .mk-sky { display: flex; gap: 1.2rem; align-items: center; }
+  .mk-sky-circle { width: 120px; height: 120px; border: 1px solid rgba(200,168,75,0.35); border-radius: 50%; position: relative; flex-shrink: 0; }
+  .mk-sky-circle::before { content: "☿"; position: absolute; top: 16%; left: 36%; color: #E2C070; }
+  .mk-sky-circle::after { content: "♀"; position: absolute; top: 62%; left: 62%; color: #E2C070; }
+  .mk-sky-text { flex: 1; }
+  .mk-sky-text h4 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.2rem; color: #E8E6F0; margin: 0 0 0.4rem 0; }
+  .mk-sky-text p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; line-height: 1.55; color: #a8a0b8; margin: 0; }
+  .mk-sky-text strong { color: #E2C070; font-style: normal; }
+
+  .mk-ritual { font-family: 'Cormorant Garamond', serif; font-weight: 300; }
+  .mk-ritual .mk-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.3em; color: #C8A84B; text-transform: uppercase; }
+  .mk-ritual blockquote { font-size: 1.3rem; line-height: 1.35; color: #E8E6F0; margin: 0.5rem 0 0 0; padding-left: 1.2rem; border-left: 2px solid #C8A84B; font-style: italic; }
+
+  /* Aesthetic references */
+  .refs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 0.6rem; }
+  .ref-card { padding: 0.7rem 0.9rem; background: #06080f; border-radius: 6px; border-left: 2px solid #8A6D2A; }
+  .ref-card .ref-title { color: #E2C070; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 0.92rem; margin-bottom: 0.15rem; }
+  .ref-card .ref-desc { color: #8A829A; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.78rem; line-height: 1.45; }
+
+  /* Alternates */
+  .alt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+  .alt { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 10px; padding: 0.9rem 1rem; cursor: pointer; transition: all 200ms; }
+  .alt:hover { border-color: #C8A84B; background: #131525; }
+  .alt.selected { border-color: #C8A84B; background: #1a1628; }
+  .alt h4 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.1rem; color: #E8E6F0; margin: 0 0 0.2rem 0; }
+  .alt .alt-hook { color: #E2C070; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.82rem; margin-bottom: 0.4rem; }
+  .alt p { color: #8A829A; font-size: 0.76rem; line-height: 1.55; margin: 0; }
+
+  .primary-option { background: #0c0d18; border: 2px solid #C8A84B; border-radius: 10px; padding: 0.95rem 1.1rem; cursor: pointer; transition: all 200ms; margin-bottom: 0.6rem; position: relative; }
+  .primary-option:hover { background: #1a1628; }
+  .primary-option.selected { background: #1a1628; }
+  .primary-option::before { content: "RECOMMENDED"; position: absolute; top: 10px; right: 12px; background: #C8A84B; color: #060810; padding: 2px 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.16em; border-radius: 3px; font-weight: 600; }
+  .primary-option h4 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.2rem; color: #E8E6F0; margin: 0 0 0.2rem 0; }
+  .primary-option .alt-hook { color: #E2C070; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  .primary-option p { color: #B8B0C8; font-size: 0.8rem; line-height: 1.55; margin: 0; }
+
+  .footer-note { background: #0c0d18; border-left: 2px solid #C8A84B; padding: 0.85rem 1rem; margin-top: 1.8rem; color: #8A829A; font-size: 0.82rem; border-radius: 0 6px 6px 0; }
+  .footer-note strong { color: #E2C070; }
+</style>
+
+<span class="label">PIVOT · PROPOSAL · V2</span>
+<h2>The Daily — a two-minute editorial ritual, anchored to your real sky</h2>
+<p class="subtitle">Not an experience. A habit. Something you open every morning and close with something specific for your day.</p>
+
+<div class="pitch">
+  <h3>Why <em>this</em> — the reasoning before the design</h3>
+  <div class="tagline">"what did I learn?" — beats — "what did I see?"</div>
+  <p>The site ranked 15/100 because it was <em>beautiful with nothing to take away</em>. Users closed it with nothing for themselves. The top astrology/tarot products — <strong>Co-Star, Chani, The Pattern</strong> — are all <em>ugly</em> but <strong>daily habits</strong> that deliver specific personal insight. Users return because they get something.</p>
+  <p>The opportunity: <strong>be both.</strong> Editorial-magazine beautiful <em>and</em> specific-daily-utility. Nobody in the space owns that intersection. Today's editorial sites (Chani web) are pretty but shallow; today's real tools (Astro-Seek) are functional but brutal.</p>
+  <p><em>This direction pairs a real, novel utility — a reading from YOUR current sky — with print-magazine craft. It's the one combination that doesn't exist yet.</em></p>
+</div>
+
+<div class="three-pillars">
+  <div class="pillar">
+    <h4>AESTHETIC</h4>
+    <p>The Gentlewoman × MoMA exhibition catalog. Print-quality typography, full-bleed card photography, earned whitespace. Zero "web animation tricks."</p>
+  </div>
+  <div class="pillar">
+    <h4>VALUE</h4>
+    <p>A 2-minute ritual. One card pulled from YOUR current sky. One reading specific to this moment. One concrete ritual action for today.</p>
+  </div>
+  <div class="pillar">
+    <h4>USEFUL</h4>
+    <p>Daily habit. Personal (location + time + optional birth). Archived (your month builds a record). Shareable (auto-generated image per reading).</p>
+  </div>
+</div>
+
+<div class="section">
+  <h3>The user flow — under two minutes end to end</h3>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-time">T+0</div>
+      <div class="flow-label">Arrival</div>
+      <div class="flow-desc">Near-black page. One line: <strong><em>"good morning. Reykjavík, 07:42."</em></strong> Subtle sunrise gradient at the horizon below the fold.</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-time">T+3s</div>
+      <div class="flow-label">The moment</div>
+      <div class="flow-desc">Massive editorial headline — today's cosmic thesis in one sentence. <em>"A tender patience is the day's medicine. The moon draws slowly full."</em> 60-90px italic serif.</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-time">T+8s</div>
+      <div class="flow-label">The card</div>
+      <div class="flow-desc">Scroll. Full-bleed real v2.7 card on the left half (e.g. The Hermit). Right half: card name in 70px serif, 2 sentences of reading <strong>specific to this moment and your optional chart</strong>, and one concrete action.</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-time">T+25s</div>
+      <div class="flow-label">Your sky</div>
+      <div class="flow-desc">Scroll. Clean scientific sky diagram (SVG-drawn, museum quality) — current planet positions at your location. Small italic annotations: <strong>"Venus ⚻ Saturn · 14°32′ — a pause, not a stop."</strong></div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-time">T+45s</div>
+      <div class="flow-label">The ritual</div>
+      <div class="flow-desc">Scroll. A single concrete action for today in 28px italic serif, framed like a printed instruction card. <em>"Write one letter you won't send. Seal it. The Hermit keeps."</em></div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-time">T+70s</div>
+      <div class="flow-label">Share · save · deeper</div>
+      <div class="flow-desc">Scroll. Four understated links: <em>save to your record · share this reading · browse the deck · book a real reading.</em> No signup required; cookie-based archive grows locally or syncs if user signs up.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Mockup — the five zones the user scrolls through</h3>
+  <div class="mockup-frame">
+
+    <div class="mockup-zone">
+      <div class="z-label">I — arrival</div>
+      <div class="mk-hud">OLIVIA ARCANA &nbsp;·&nbsp; THE DAILY &nbsp;·&nbsp; WEDNESDAY · ❯ · REYKJAVÍK 07.42</div>
+      <div class="mk-hero">a tender patience <em>is the day's medicine.</em></div>
+      <div class="mk-meta">the moon draws slowly full, and the hermit keeps the lamp.</div>
+    </div>
+
+    <div class="mockup-zone">
+      <div class="z-label">II — the card</div>
+      <div class="mk-card-row">
+        <div class="mk-card">☾</div>
+        <div class="mk-card-side">
+          <div class="mk-kicker">arcana · ix</div>
+          <h4>The Hermit</h4>
+          <p>A figure walking inward with a single steady light. What returns today does so from your own quiet — not from the outside world. Saturn supports; Mercury is careful.</p>
+          <div class="mk-action">— your action · keep quiet counsel</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup-zone">
+      <div class="z-label">III — your sky</div>
+      <div class="mk-sky">
+        <div class="mk-sky-circle"></div>
+        <div class="mk-sky-text">
+          <h4>07.42 · Reykjavík · 64°09′N</h4>
+          <p><strong>Moon ☽</strong> waxing gibbous in Cancer — <strong>Venus ♀</strong> stationing direct in Pisces — <strong>Mercury ☿</strong> in late Libra, weighing. The sky's key aspect for you today: <strong>Venus ⚻ Saturn (quincunx)</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup-zone">
+      <div class="z-label">IV — the ritual</div>
+      <div class="mk-ritual">
+        <div class="mk-kicker">today · a ritual offered</div>
+        <blockquote>Write one letter you won't send. Seal it. The Hermit keeps — and what you can finally say to yourself is what matters.</blockquote>
+      </div>
+    </div>
+
+    <div class="mockup-zone">
+      <div class="z-label">V — the footer (understated)</div>
+      <div class="mk-meta">— save to record · share · browse the deck · book a reading · get the physical deck</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <h3>Aesthetic references — the craft bar</h3>
+  <div class="refs">
+    <div class="ref-card">
+      <div class="ref-title">The Gentlewoman magazine</div>
+      <div class="ref-desc">Print-grade typography, full-bleed photography, generous whitespace. The "intellect + beauty" template.</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-title">Aesop.com</div>
+      <div class="ref-desc">Restraint. Serif + long lines + photography. Zero web tricks. Luxury through editorial control.</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-title">NYT Morning Briefing</div>
+      <div class="ref-desc">The pattern of daily-ritual reading. 2-minute consumption, specific takeaway, archive built over time.</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-title">Are.na + Cereal</div>
+      <div class="ref-desc">Editorial confidence. Slow pacing. Real content. No particles, no glow, no "cosmic AI."</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>What makes this actually <em>useful</em> (not ornamental)</h3>
+  <p>• <strong>Real ephemeris calculation.</strong> Current planet positions are real, pulled from astronomy-engine (MIT-licensed library). Not "mystical illustration."</p>
+  <p>• <strong>Reading is deterministic by your sky</strong>, not random. Same moment + same location = same card. If you add birth info, it personalizes via transits-to-natal aspects.</p>
+  <p>• <strong>Shareable artifact</strong> — auto-generated poster (Open Graph image) per reading. Friends clicking the link see your reading preserved.</p>
+  <p>• <strong>Local archive</strong>. Every reading you see stays in your browser. After 30 days, a pattern emerges — your personal cosmic record.</p>
+  <p>• <strong>Bridge to the real product.</strong> Deck browsing + physical deck purchase + human reading booking are one tap away, always.</p>
+</div>
+
+<div class="section">
+  <h3>Lock this direction, or redirect?</h3>
+  <div class="primary-option" data-choice="daily" onclick="toggleSelect(this)">
+    <h4>1. The Daily <span style="color:#8A829A;font-size:0.9em">— what I described above</span></h4>
+    <div class="alt-hook">editorial magazine + real ephemeris + daily habit + personal specificity</div>
+    <p>Aesthetic ceiling: Awwwards SOTY potential. Value: daily ritual, personal insight. Useful: 2-min habit, archived, shareable, bridges to product.</p>
+  </div>
+
+  <div class="alt-grid">
+    <div class="alt" data-choice="oracle" onclick="toggleSelect(this)">
+      <h4>2. The Oracle — ask anything</h4>
+      <div class="alt-hook">conversational reading, AI + tarot + astrology</div>
+      <p>You type a question, a personalized spread is drawn and narrated. Lower daily frequency, higher per-session depth. Risk: AI-chat aesthetic may feel cheap.</p>
+    </div>
+    <div class="alt" data-choice="atlas" onclick="toggleSelect(this)">
+      <h4>3. The Atlas — living reference</h4>
+      <div class="alt-hook">beautiful encyclopedia of tarot + astrology</div>
+      <p>Apple-grade reference: every card, planet, aspect, house — their own page. Deep, slow-burn utility. Risk: not a daily habit; more search-driven.</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer-note">
+  <strong>If you lock The Daily</strong> I write the full design spec next (not code) — every zone's typography, motion, data model, accessibility, mobile behavior — and you review the doc before I touch a file. <strong>If you want to redirect</strong>, pick alt 2 or 3, or tell me the gap and I'll re-propose.
+</div>

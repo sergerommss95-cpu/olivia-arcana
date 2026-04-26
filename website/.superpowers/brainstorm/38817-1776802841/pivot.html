@@ -1,0 +1,146 @@
+<style>
+  body { background: #060810; color: #E8E6F0; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2rem; margin-bottom: 0.25rem; letter-spacing: -0.005em; }
+  .subtitle { color: #8A829A; font-size: 0.95rem; margin-bottom: 2rem; }
+  .label { color: #C8A84B; letter-spacing: 0.2em; font-size: 0.7rem; font-weight: 600; }
+
+  .gaps { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 12px; padding: 1.1rem 1.25rem; margin-bottom: 2rem; }
+  .gaps h4 { color: #C8A84B; font-size: 0.7rem; letter-spacing: 0.2em; margin: 0 0 0.7rem 0; font-weight: 600; }
+  .gaps ul { margin: 0; padding-left: 1.2rem; color: #a8a0b8; font-size: 0.88rem; line-height: 1.7; }
+
+  .options { display: grid; grid-template-columns: 1fr; gap: 1.2rem; }
+  .option { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 14px; padding: 1.5rem 1.75rem; cursor: pointer; transition: all 220ms ease; position: relative; }
+  .option:hover { border-color: #C8A84B; background: #131525; transform: translateY(-1px); }
+  .option.selected { border-color: #C8A84B; background: #1a1628; }
+  .option.recommended::before { content: "RECOMMENDED"; position: absolute; top: 14px; right: 14px; background: #C8A84B; color: #060810; padding: 3px 10px; font-size: 0.65rem; letter-spacing: 0.18em; border-radius: 3px; font-weight: 600; }
+  .option .letter { background: #1c1e30; color: #C8A84B; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 0.9rem; vertical-align: middle; font-size: 0.95rem; }
+  .option h3 { display: inline; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.55rem; color: #E8E6F0; }
+  .option .hook { color: #E2C070; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; margin-top: 0.3rem; margin-bottom: 0.85rem; }
+
+  .ref { padding: 0.7rem 0.9rem; background: #06080f; border-left: 2px solid #8A6D2A; color: #a69378; font-size: 0.82rem; font-style: italic; line-height: 1.55; border-radius: 0 4px 4px 0; margin-bottom: 0.85rem; }
+  .ref strong { color: #E2C070; font-style: normal; letter-spacing: 0.1em; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+
+  .body-text { color: #B8B0C8; font-size: 0.89rem; line-height: 1.6; margin-bottom: 0.65rem; }
+  .body-text strong { color: #E2C070; font-weight: 500; }
+
+  .sig { margin-top: 0.8rem; padding: 0.75rem 0.95rem; background: #1a1628; border: 1px solid rgba(200,168,75,0.3); color: #E8E6F0; font-size: 0.88rem; border-radius: 6px; }
+  .sig strong { color: #C8A84B; letter-spacing: 0.12em; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 0.35rem; }
+
+  .gap-matrix { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid #1c1e30; }
+  .gap-item { font-size: 0.72rem; }
+  .gap-item .k { color: #6b738a; letter-spacing: 0.1em; font-size: 0.62rem; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 0.2rem; }
+  .gap-item .v { color: #E8E6F0; }
+  .gap-item .v.solved { color: #6bb58d; }
+  .gap-item .v.partial { color: #d4b56b; }
+
+  .footer-note { background: #0c0d18; border-left: 2px solid #C8A84B; padding: 0.85rem 1rem; margin-top: 2rem; color: #8A829A; font-size: 0.82rem; border-radius: 0 6px 6px 0; }
+</style>
+
+<span class="label">PIVOT · 3 FUNDAMENTAL DIRECTIONS</span>
+<h2>Where do we rebuild from?</h2>
+<p class="subtitle">Everything I've built so far is capped at 15. Below: three radically different directions, none of them variations on what we had.</p>
+
+<div class="gaps">
+  <h4>THE FOUR GAPS</h4>
+  <ul>
+    <li><strong>Structure:</strong> click-through acts = 2005 slideshow, can't reach Awwwards</li>
+    <li><strong>Aesthetic:</strong> orb + shader + dark-gold-purple = generic mystical AI slop</li>
+    <li><strong>Content:</strong> placeholder fortune-cookie text, no real product visible</li>
+    <li><strong>Signature:</strong> no single mechanic anyone would share or remember</li>
+  </ul>
+</div>
+
+<div class="options">
+
+  <!-- OPTION A — RECOMMENDED -->
+  <div class="option recommended" data-choice="spread" onclick="toggleSelect(this)">
+    <span class="letter">A</span><h3>The Living Spread — interactive 3D deck</h3>
+    <div class="hook">all 78 real cards, arranged in real 3D space, pulled by hand</div>
+
+    <div class="ref"><strong>REFERENCE DNA</strong>
+      Bruno Simon's <em>Folio</em> (drive-around portfolio). Active Theory's <em>Once Upon a Time in Hollywood</em>. Apple's Vision Pro scroll. What if the entire site IS the deck you can reach into?
+    </div>
+
+    <div class="body-text">
+      You arrive. Instead of landing on a hero, you find the full <strong>78-card Olivia Arcana deck</strong> fanned across the viewport in true 3D (WebGL). Cards float slightly, lit by ambient gold; hovering lifts one toward you, drag-select pulls three for a spread. Release and the cards <strong>flip with real physics</strong> — the v2.7 faces revealed. An AI reading streams live, specific to the cards you drew. No navigation menu. No acts. The deck itself IS the site.
+    </div>
+
+    <div class="sig"><strong>THE SIGNATURE MOVE</strong>
+      Every visitor pulls a unique 3-card spread in 3D. Shareable as a generated image. Every session is different. No competitor has their physical deck manifested as an interactive 3D object on the web.
+    </div>
+
+    <div class="gap-matrix">
+      <div class="gap-item"><span class="k">Structure</span><span class="v solved">✓ interactive</span></div>
+      <div class="gap-item"><span class="k">Aesthetic</span><span class="v solved">✓ deck IS the art</span></div>
+      <div class="gap-item"><span class="k">Content</span><span class="v solved">✓ real cards, real reading</span></div>
+      <div class="gap-item"><span class="k">Signature</span><span class="v solved">✓ 3D deck pull</span></div>
+    </div>
+  </div>
+
+  <!-- OPTION B -->
+  <div class="option" data-choice="observatory" onclick="toggleSelect(this)">
+    <span class="letter">B</span><h3>The Celestial Observatory — real astronomy instrument</h3>
+    <div class="hook">live current sky at your location, with tarot as an overlay</div>
+
+    <div class="ref"><strong>REFERENCE DNA</strong>
+      <em>Stellarium</em> (astronomy sim). NASA's <em>Eyes on the Solar System</em>. Timeline.com's live news maps. What if the site was a <em>real tool</em> that happens to be gorgeous?
+    </div>
+
+    <div class="body-text">
+      Site asks geolocation once, then renders the <strong>current actual sky above you</strong> — real planet positions, real moon phase, real transits — at the exact moment you're visiting. Drag to rotate. Scrub time forward or back. Each planetary transit is annotated with its tarot resonance: "Venus ♀ in Pisces ♓ → The Star rises." Birth chart mode lets you input your date/time and overlays your personal transits. Real astronomy, specific to you.
+    </div>
+
+    <div class="sig"><strong>THE SIGNATURE MOVE</strong>
+      It's a <em>genuine astronomical instrument</em> that stays useful. Users return daily to check "what's happening in the sky right now." Olivia Arcana becomes the cosmically-literate brand — not mystical decoration.
+    </div>
+
+    <div class="gap-matrix">
+      <div class="gap-item"><span class="k">Structure</span><span class="v solved">✓ exploratory</span></div>
+      <div class="gap-item"><span class="k">Aesthetic</span><span class="v solved">✓ scientific grace</span></div>
+      <div class="gap-item"><span class="k">Content</span><span class="v solved">✓ real data</span></div>
+      <div class="gap-item"><span class="k">Signature</span><span class="v solved">✓ live sky tool</span></div>
+    </div>
+  </div>
+
+  <!-- OPTION C -->
+  <div class="option" data-choice="register" onclick="toggleSelect(this)">
+    <span class="letter">C</span><h3>The Register — editorial magazine (radical restraint)</h3>
+    <div class="hook">zero shader effects, print-quality typography, cards as still-lifes</div>
+
+    <div class="ref"><strong>REFERENCE DNA</strong>
+      Pentagram portfolio sites. MoMA exhibition catalogs. <em>The Gentlewoman</em> magazine. Apple's AirPods Max page. Zero web tricks — pure craft.
+    </div>
+
+    <div class="body-text">
+      Kill everything: the orb, the shader nebula, the particles, the click-through acts. Replace with a <strong>vertical editorial magazine</strong>. Massive Didot-scale typography. Full-bleed still-life photography of each v2.7 card on a linen backdrop. Generous whitespace. One accent color. Sections: <em>The Deck · The Reading · The Register · The Rituals</em>. Scroll reveals sections like turning a printed page. No shaders, no particles, no orb. Confidence comes from the restraint itself.
+    </div>
+
+    <div class="sig"><strong>THE SIGNATURE MOVE</strong>
+      The <em>confidence to have zero web-animation tricks</em>. Everyone else in the mystical space is doing WebGL; Olivia Arcana feels like a museum publication. Reads as luxury, not "digital magic."
+    </div>
+
+    <div class="gap-matrix">
+      <div class="gap-item"><span class="k">Structure</span><span class="v solved">✓ editorial scroll</span></div>
+      <div class="gap-item"><span class="k">Aesthetic</span><span class="v solved">✓ print-quality</span></div>
+      <div class="gap-item"><span class="k">Content</span><span class="v solved">✓ real cards as art</span></div>
+      <div class="gap-item"><span class="k">Signature</span><span class="v partial">✓ the restraint itself</span></div>
+    </div>
+  </div>
+
+  <!-- OPTION D — let me combine -->
+  <div class="option" data-choice="combine" onclick="toggleSelect(this)">
+    <span class="letter">D</span><h3>Combination — I'll tell you which two blend</h3>
+    <div class="hook">e.g. Living Spread built inside Editorial frame — best of both</div>
+    <div class="body-text">
+      Say which two to blend (and which one leads). Common useful combinations:
+      <br>• <strong>A inside C</strong> — editorial magazine with one jaw-dropping 3D deck moment
+      <br>• <strong>B + A</strong> — observatory gives current sky, then pulls a card for the current moment
+      <br>• <strong>C + B</strong> — editorial magazine with a working live-sky instrument section
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  Click a card to lock direction, or type your pick in terminal. Once you choose, I'll <em>stop</em> — present the full design of that direction first, get your approval on the design, then implement. No more "just keep iterating."
+</div>

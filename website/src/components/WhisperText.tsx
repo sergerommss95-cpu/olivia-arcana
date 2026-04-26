@@ -35,11 +35,14 @@ export default function WhisperText({
   const reducedMotion = useRef(false);
   const words = text.split(/\s+/).filter(Boolean);
 
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
+
   useEffect(() => {
     reducedMotion.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion.current) {
       setVisibleCount(words.length);
-      onComplete?.();
+      onCompleteRef.current?.();
       return;
     }
 
@@ -49,7 +52,7 @@ export default function WhisperText({
 
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !started) {
+        if (entry.isIntersecting) {
           setStarted(true);
           obs.disconnect();
         }
@@ -58,7 +61,7 @@ export default function WhisperText({
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, []);
+  }, [words.length]);
 
   useEffect(() => {
     if (!started || reducedMotion.current) return;
@@ -70,7 +73,7 @@ export default function WhisperText({
         setVisibleCount(i);
         if (i >= words.length) {
           clearInterval(interval);
-          onComplete?.();
+          onCompleteRef.current?.();
         }
       }, wordDelay);
       return () => clearInterval(interval);
@@ -89,8 +92,13 @@ export default function WhisperText({
             marginRight: "0.3em",
             opacity: i < visibleCount ? 1 : 0,
             transform: i < visibleCount ? "translateY(0)" : "translateY(4px)",
-            transition: `opacity 0.3s var(--ease-ritual), transform 0.3s var(--ease-ritual)`,
-            willChange: i < visibleCount ? "auto" : "opacity, transform",
+            fontWeight: i < visibleCount ? "inherit" : 300,
+            transition: `
+              opacity 0.4s var(--ease-ritual), 
+              transform 0.4s var(--ease-ritual), 
+              font-weight 0.6s var(--ease-ritual)
+            `,
+            willChange: i < visibleCount ? "auto" : "opacity, transform, font-weight",
           }}
         >
           {word}

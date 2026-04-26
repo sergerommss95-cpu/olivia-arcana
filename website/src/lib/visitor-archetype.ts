@@ -7,11 +7,13 @@
  */
 
 import { getAllMemories, getTotalDraws } from "./deck-memory";
+import { loadUser } from "./user-store";
 
 export interface VisitorArchetype {
   hueShift: number;
   saturation: number;
   warmth: number;
+  isSolarReturn?: boolean;
 }
 
 // Major Arcana archetype groupings
@@ -61,6 +63,22 @@ for (const [archetype, cards] of Object.entries(ARCHETYPE_GROUPS)) {
  * have been drawn, and returns the dominant palette.
  */
 export function getVisitorArchetype(): VisitorArchetype {
+  // ── Solar Return Check ──
+  const user = loadUser();
+  if (user && typeof window !== "undefined") {
+    const now = new Date();
+    const bMonth = user.input.month;
+    const bDay = user.input.day;
+    if (now.getMonth() + 1 === bMonth && now.getDate() === bDay) {
+      return {
+        hueShift: 18 * (Math.PI / 180), // Golden/Amber shift
+        saturation: 1.35,              // High vibrancy
+        warmth: 0.12,                  // Significant warmth boost
+        isSolarReturn: true,
+      };
+    }
+  }
+
   const totalDraws = getTotalDraws();
   if (totalDraws < 5) return { hueShift: 0, saturation: 1, warmth: 0 };
 

@@ -1,0 +1,74 @@
+<style>
+  body { background: #060810; color: #E8E6F0; }
+  h2 { font-family: 'Cormorant Garamond', 'Playfair Display', serif; font-weight: 300; letter-spacing: 0.02em; color: #E8E6F0; font-size: 2rem; margin-bottom: 0.25rem; }
+  .subtitle { color: #8A829A; font-size: 0.95rem; margin-bottom: 2rem; }
+  .label { color: #C8A84B; letter-spacing: 0.2em; font-size: 0.7rem; font-weight: 600; }
+  .options { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
+  .option { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 12px; padding: 1.1rem 1.25rem; cursor: pointer; transition: all 180ms ease; }
+  .option:hover { border-color: #C8A84B; background: #131525; }
+  .option.selected { border-color: #C8A84B; background: #1a1628; }
+  .option .letter { background: #1c1e30; color: #C8A84B; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 0.75rem; vertical-align: middle; font-size: 0.85rem; }
+  .option h3 { display: inline; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.2rem; color: #E8E6F0; }
+  .option .content { margin-top: 0.6rem; color: #A8A0B8; font-size: 0.88rem; line-height: 1.5; }
+  .option .content strong { color: #E2C070; font-weight: 500; }
+  .meta { margin-top: 1.5rem; padding: 0.9rem 1rem; background: #0c0d18; border-left: 2px solid #C8A84B; color: #8A829A; font-size: 0.82rem; line-height: 1.5; border-radius: 0 6px 6px 0; }
+</style>
+
+<span class="label">BRAINSTORM · QUESTION 1 / N</span>
+<h2>What are we actually elevating?</h2>
+<p class="subtitle">The site is already deep — the right answer depends on <em>which</em> kind of elevation we want.</p>
+
+<div class="options">
+
+  <div class="option" data-choice="backlog" onclick="toggleSelect(this)">
+    <span class="letter">A</span><h3>Ship the cinematic backlog</h3>
+    <div class="content">
+      Finish what's already specced but unshipped: <strong>Cosmic Awakening</strong> (post-birthday 5-phase reveal), <strong>gravity card draw</strong>, <strong>portal iris</strong> for oracle letter, plus wire the four dormant systems (constellation-memory → ZodiacGL, visitor-archetype → nebula palette, anniversary warmth, etc.).
+      <br>→ Lowest risk, highest "finish what you started" value.
+    </div>
+  </div>
+
+  <div class="option" data-choice="gaps" onclick="toggleSelect(this)">
+    <span class="letter">B</span><h3>Plug the missing Awwwards effects</h3>
+    <div class="content">
+      Add the 6 techniques from the docs the site doesn't have yet: <strong>scroll-distortion images</strong>, <strong>shader circle-SDF image reveals</strong>, <strong>WebGL depth gallery</strong> for services, <strong>full-screen shader page transitions</strong>, <strong>3D card flip</strong> inside service cards, <strong>fluid ink CTA hover</strong>.
+      <br>→ Tactical polish on top of what exists.
+    </div>
+  </div>
+
+  <div class="option" data-choice="hero" onclick="toggleSelect(this)">
+    <span class="letter">C</span><h3>Rebuild the entry moment</h3>
+    <div class="content">
+      First impression decides everything. Rebuild the landing arc as a single <strong>portal moment</strong> — depth gallery of signs orbiting the viewer, gravity card, shader dissolve into a Cosmic Identity panel. Not "add effects to hero"; <em>redesign the story arc</em> from first second to sign-up.
+      <br>→ Strategic redesign, not incremental polish.
+    </div>
+  </div>
+
+  <div class="option" data-choice="features" onclick="toggleSelect(this)">
+    <span class="letter">D</span><h3>Leap into new features</h3>
+    <div class="content">
+      Net-new product surface. Candidates: <strong>voice-read horoscope</strong> (Olivia speaks), <strong>3D globe birth chart</strong> navigable in space, <strong>live astrology radar</strong> showing current planetary energy, <strong>paid ritual rooms</strong> (gated immersive experiences), <strong>cinematic film-poster natal charts</strong> for sharing.
+      <br>→ Expand what the site <em>does</em>, not just how it feels.
+    </div>
+  </div>
+
+  <div class="option" data-choice="funnel" onclick="toggleSelect(this)">
+    <span class="letter">E</span><h3>Conversion-as-ceremony</h3>
+    <div class="content">
+      The design is extraordinary, but is anyone <strong>buying</strong>? Redesign the money path: pricing page, VIP tier, checkout flow, post-purchase "anointing" sequence, retention rituals. Turn the funnel itself into a ceremony.
+      <br>→ Design serving revenue, not just awe.
+    </div>
+  </div>
+
+  <div class="option" data-choice="mix" onclick="toggleSelect(this)">
+    <span class="letter">F</span><h3>Mix of the above</h3>
+    <div class="content">
+      A curated blend — e.g. "ship the Cosmic Awakening backlog AND rebuild the hero AND add the shader page transition." Say which ones and in what order and I'll weave them into one plan.
+    </div>
+  </div>
+
+</div>
+
+<div class="meta">
+  <strong>Context:</strong> Site is live at oliviaarcana.com. Stack = Next 16 + R3F + GSAP + framer-motion + Lenis + Paper Design shaders. Already shipped: custom GLSL veil, breathing nebula, gold magnetic cursor, procedural audio, haptics, gyroscope, PWA, 9 languages, 26 routes. The two Downloads docs assume vanilla HTML — their <em>ideas</em> port, their <em>scaffolds</em> don't.
+</div>

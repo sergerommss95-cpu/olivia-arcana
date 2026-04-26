@@ -366,17 +366,55 @@ function VeilScene({
   fallRef,
   pullRef,
   emissiveRef,
+  revealed,
+  reducedMotion,
 }: {
   cardImagePath: string;
   fallRef: React.MutableRefObject<{ value: number }>;
   pullRef: React.MutableRefObject<PullState>;
   emissiveRef: React.MutableRefObject<{ value: number }>;
+  revealed: boolean;
+  reducedMotion: boolean;
 }) {
-  const texture = useLoader(TextureLoader, cardImagePath);
-  useEffect(() => {
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 16;
-  }, [texture]);
+  const texture = useLoader(TextureLoader, cardImagePath, (tex) => {
+    if (tex instanceof THREE.Texture) {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = 16;
+    }
+  });
+  const isHoveringGrip = useRef(false);
+
+  // Magnetic hover pull logic: as the mouse approaches the top-right corner,
+  // we apply a small physical "tease" pull to the veil before it's clicked.
+  useFrame((state) => {
+    if (revealed || reducedMotion) return;
+
+    const mx = state.mouse.x; // -1 to 1
+    const my = state.mouse.y; // -1 to 1
+
+    // Top-right corner in NDC is approx (0.65, 0.75)
+    const dx = mx - 0.65;
+    const dy = my - 0.75;
+    const dist = Math.hypot(dx, dy);
+
+    if (dist < 0.5) {
+      const pull = Math.pow(1.0 - dist / 0.5, 2.0) * 0.15;
+      pullRef.current.dx = pull * 0.8;
+      pullRef.current.dy = pull * 1.2;
+      pullRef.current.dz = pull * 0.5;
+      isHoveringGrip.current = true;
+    } else if (isHoveringGrip.current) {
+      pullRef.current.dx *= 0.9;
+      pullRef.current.dy *= 0.9;
+      pullRef.current.dz *= 0.9;
+      if (pullRef.current.dx < 0.001) {
+        pullRef.current.dx = 0;
+        pullRef.current.dy = 0;
+        pullRef.current.dz = 0;
+        isHoveringGrip.current = false;
+      }
+    }
+  });
 
   return (
     <>
@@ -527,6 +565,8 @@ export default function CinematicVeilCard({
             fallRef={fallRef}
             pullRef={pullRef}
             emissiveRef={emissiveRef}
+            revealed={revealed}
+            reducedMotion={reducedMotion}
           />
         </Canvas>
 

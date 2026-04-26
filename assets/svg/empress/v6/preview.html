@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Empress v6 — 32-color final attempt</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 2rem; background: #0a0517; color: #eee; min-height: 100vh; }
+  h1 { font-size: 1.6rem; font-weight: 600; margin-bottom: 0.5rem; }
+  h1 small { font-weight: 400; opacity: 0.6; font-size: 1rem; margin-left: 0.5rem; }
+  .meta { opacity: 0.65; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.5rem; max-width: 72ch; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+  .card { border: 1px solid rgba(128,128,128,0.25); border-radius: 12px; overflow: hidden; }
+  .card.hero { border: 2px solid #d4a574; }
+  .card.ghost { opacity: 0.5; }
+  .card-img { display: flex; align-items: center; justify-content: center; padding: 1rem; min-height: 620px; background: #0a0517; }
+  .card-img img { max-width: 100%; max-height: 600px; display: block; }
+  .card-label { padding: 0.75rem 1rem; font-size: 0.85rem; background: #13081f; border-top: 1px solid rgba(128,128,128,0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+  .card-label .size { opacity: 0.55; font-size: 0.7rem; }
+  .card-label .verdict { font-size: 0.68rem; padding: 0.2rem 0.5rem; border-radius: 4px; }
+  .verdict.ref { background: rgba(212,165,116,0.25); color: #fff2c6; }
+  .verdict.new { background: rgba(212,165,116,0.3); color: #fff2c6; }
+  .verdict.fail { background: rgba(204,34,34,0.15); color: #ff9090; }
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(128,128,128,0.2); font-size: 0.8rem; opacity: 0.6; line-height: 1.6; }
+  footer code { font-family: ui-monospace, Menlo, monospace; background: rgba(212,165,116,0.12); padding: 0.1rem 0.35rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <h1>The Empress — v6 <small>final vectorize attempt · 32 colors</small></h1>
+  <div class="meta">
+    Last shot at vector. 32 colors (4× v5), full resolution (no thumbnail), photo preset, filter_speckle=2, color_precision=8, path_precision=8. If this still loses too much vs the source JPG, SVG is confirmed wrong tool for painterly tarot and we commit to raster.
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-img"><img src="_source-flux.jpg" alt="source"></div>
+      <div class="card-label">source · FLUX JPG <span class="verdict ref">reference</span><span class="size">737 KB · painterly detail</span></div>
+    </div>
+    <div class="card ghost">
+      <div class="card-img"><img src="../v5/empress-vectorized.svg" alt="v5"></div>
+      <div class="card-label">v5 · 8-color vector <span class="verdict fail">muddy</span><span class="size">1.8 MB</span></div>
+    </div>
+    <div class="card hero">
+      <div class="card-img"><img src="empress-vectorized.svg" alt="v6"></div>
+      <div class="card-label">v6 · 32-color vector <span class="verdict new">new</span><span class="size">3.7 MB · photo preset</span></div>
+    </div>
+  </div>
+
+  <footer>
+    v6 path: <code>/Users/macbookpro/olivia-arcana/assets/svg/empress/v6/</code><br>
+    If v6 still trashes the source, ship the raster FLUX JPG directly. Tarot cards are illustrations — SVG is not required.
+  </footer>
+</body>
+</html>

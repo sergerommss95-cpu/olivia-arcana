@@ -12,11 +12,13 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { computeNatalChart, type NatalChart, type BirthInput } from "../../lib/natal-chart";
 import { saveUser, loadChart } from "../../lib/user-store";
 import { getPlanetInSign, PLANET_MEANING, HOUSE_MEANING } from "../../lib/planet-interpretations";
 import BirthDatePicker from "../../components/BirthDatePicker";
 import CityAutocomplete from "../../components/CityAutocomplete";
+import Paywall from "../../components/Paywall";
 import { type CityData } from "../../lib/cities";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
@@ -27,7 +29,6 @@ function polarToCart(cx: number, cy: number, r: number, deg: number) {
 }
 
 const SIGN_GLYPHS = ["♈","♉","♊","♋","♌","♍","♎","♏","♐","♑","♒","♓"];
-const SIGN_NAMES = ["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"];
 
 const glass: React.CSSProperties = {
   background: "rgba(8,6,20,0.45)",
@@ -66,8 +67,11 @@ export default function ChartPage() {
 
   // Auto-load from localStorage if user already entered data elsewhere
   useEffect(() => {
-    const saved = loadChart();
-    if (saved) setChart(saved);
+    const timer = setTimeout(() => {
+      const saved = loadChart();
+      if (saved) setChart(saved);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   const generate = useCallback(() => {
@@ -97,7 +101,7 @@ export default function ChartPage() {
       <div style={{ maxWidth: "900px", margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <a href="/" style={{ ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>← Home</a>
+          <Link href="/" style={{ ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>&larr; Home</Link>
           <h1 style={{
             fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem, 4vw, 2.2rem)",
             fontWeight: 400, marginTop: "0.75rem",
@@ -146,9 +150,9 @@ export default function ChartPage() {
           </div>
         )}
 
-        {/* ── CHART VIEW ── */}
+        {/* ── CHART VIEW (Insight tier and above) ── */}
         {chart && (
-          <>
+          <Paywall requires="insight" priceKey="insight_monthly" featureName="your full natal chart">
             {/* View toggle + reset */}
             <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginBottom: "1.5rem" }}>
               {(["wheel", "table"] as const).map(v => (
@@ -373,14 +377,14 @@ export default function ChartPage() {
 
             {/* CTA to portrait */}
             <div style={{ textAlign: "center", marginTop: "2rem" }}>
-              <a href="/portrait" style={{
+              <Link href="/portrait" style={{
                 display: "inline-block", padding: "0.65rem 1.5rem", borderRadius: "100px",
                 background: "rgba(255,255,255,0.03)", border: "1px solid rgba(200,185,255,0.08)",
                 color: "rgba(200,185,240,0.6)", fontSize: "0.72rem",
                 letterSpacing: "0.06em", textTransform: "uppercase", textDecoration: "none",
-              }}>Get Your Celestial Portrait →</a>
+              }}>Get Your Celestial Portrait &rarr;</Link>
             </div>
-          </>
+          </Paywall>
         )}
       </div>
     </div>

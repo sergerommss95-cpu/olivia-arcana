@@ -56,14 +56,17 @@ export default function SmoothReveal({
   const hasTriggered = useRef(false);
 
   useEffect(() => {
-    setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const timer = setTimeout(() => {
+      setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   // Viewport trigger
   useEffect(() => {
     if (reducedMotion) {
-      setVisible(true);
-      return;
+      const timer = setTimeout(() => setVisible(true), 0);
+      return () => clearTimeout(timer);
     }
     const el = containerRef.current;
     if (!el) return;

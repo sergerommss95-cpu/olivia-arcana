@@ -1,0 +1,104 @@
+<style>
+  body { background: #060810; color: #E8E6F0; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2rem; margin-bottom: 0.25rem; }
+  .subtitle { color: #8A829A; font-size: 0.95rem; margin-bottom: 2rem; }
+  .label { color: #C8A84B; letter-spacing: 0.2em; font-size: 0.7rem; font-weight: 600; }
+
+  .hint { background: #0c0d18; border-left: 2px solid #C8A84B; padding: 0.75rem 1rem; margin-bottom: 2rem; color: #B8B0C8; font-size: 0.85rem; border-radius: 0 6px 6px 0; }
+  .hint code { color: #E2C070; background: #1c1e30; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.8rem; }
+
+  .options { display: grid; grid-template-columns: 1fr; gap: 1.1rem; }
+  .option { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 14px; padding: 1.4rem 1.5rem; cursor: pointer; transition: all 220ms ease; position: relative; }
+  .option:hover { border-color: #C8A84B; background: #131525; transform: translateY(-1px); }
+  .option.selected { border-color: #C8A84B; background: #1a1628; }
+  .option .letter { background: #1c1e30; color: #C8A84B; width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 0.8rem; vertical-align: middle; font-size: 0.9rem; }
+  .option h3 { display: inline; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.35rem; color: #E8E6F0; }
+
+  .hook { color: #C8A84B; font-size: 0.72rem; letter-spacing: 0.18em; margin-top: 0.5rem; text-transform: uppercase; font-weight: 500; }
+
+  .moment { margin-top: 0.85rem; padding: 0.7rem 0.9rem; background: #06080f; border-left: 2px solid #8A6D2A; color: #B8B0C8; font-size: 0.85rem; font-style: italic; line-height: 1.55; border-radius: 0 4px 4px 0; }
+  .moment strong { color: #E2C070; font-style: normal; letter-spacing: 0.12em; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+
+  .cta-row { margin-top: 1rem; display: flex; gap: 0.5rem; align-items: center; }
+  .cta-link { display: inline-block; background: transparent; color: #C8A84B; border: 1px solid #C8A84B; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; transition: all 180ms ease; }
+  .cta-link:hover { background: #C8A84B; color: #060810; }
+  .spec { color: #6b738a; font-size: 0.75rem; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; margin-left: auto; }
+
+  .vs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.4rem; margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px solid #1c1e30; }
+  .vs-item { font-size: 0.75rem; }
+  .vs-item .k { color: #6b738a; letter-spacing: 0.12em; font-size: 0.65rem; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; display: block; margin-bottom: 0.2rem; }
+  .vs-item .v { color: #B8B0C8; }
+</style>
+
+<span class="label">BRAINSTORM · QUESTION 3 · LIVE PROTOTYPES</span>
+<h2>Three flows. Three live prototypes. Pick the one that feels right.</h2>
+<p class="subtitle">Each prototype is a working interactive HTML file with Three.js + GSAP. Open them in new tabs, spend a minute with each, come back and tell me which one wins.</p>
+
+<div class="hint">
+  <strong>How to open:</strong> Click <code>OPEN PROTOTYPE</code> below each card. Each prototype runs at <code>http://localhost:58000/</code>. For the best feel: open all 3 in separate tabs, spend ~60 seconds in each. Move the mouse, scroll, type something into the text input when it appears.
+</div>
+
+<div class="options">
+
+  <!-- FLOW 1 -->
+  <div class="option" data-choice="flow1" onclick="toggleSelect(this)">
+    <span class="letter">1</span><h3>The Descent — linear staircase</h3>
+    <div class="hook">5 scenes · discrete clicks · nebula dissolves between</div>
+    <div class="moment">
+      <strong>THE MOMENT</strong>
+      Portal → dissolve → Film-poster chart → dissolve → Glass + text input → dissolve → Locked ritual rooms → dissolve → Return. Each scene holds so the awe doesn't bleed into the next.
+    </div>
+    <div class="vs">
+      <div class="vs-item"><span class="k">Build cost</span><span class="v">lowest</span></div>
+      <div class="vs-item"><span class="k">Cinematic feel</span><span class="v">structured</span></div>
+      <div class="vs-item"><span class="k">Funnel clarity</span><span class="v">highest</span></div>
+    </div>
+    <div class="cta-row">
+      <a href="http://localhost:58000/prototype-flow1-descent.html" target="_blank" class="cta-link" onclick="event.stopPropagation()">Open prototype →</a>
+      <span class="spec">735 lines · 38KB</span>
+    </div>
+  </div>
+
+  <!-- FLOW 2 -->
+  <div class="option" data-choice="flow2" onclick="toggleSelect(this)">
+    <span class="letter">2</span><h3>The Altar — orb at center, never leaves</h3>
+    <div class="hook">single page · scroll dollies camera · orb contains everything</div>
+    <div class="moment">
+      <strong>THE MOMENT</strong>
+      The Glass is on screen from second one. Scroll doesn't scroll the page — it moves the camera around the orb. Chart crystallizes <em>inside</em> the orb at the climax. Ritual rooms orbit like moons.
+    </div>
+    <div class="vs">
+      <div class="vs-item"><span class="k">Build cost</span><span class="v">highest</span></div>
+      <div class="vs-item"><span class="k">Cinematic feel</span><span class="v">maximal</span></div>
+      <div class="vs-item"><span class="k">Funnel clarity</span><span class="v">medium</span></div>
+    </div>
+    <div class="cta-row">
+      <a href="http://localhost:58000/prototype-flow2-altar.html" target="_blank" class="cta-link" onclick="event.stopPropagation()">Open prototype →</a>
+      <span class="spec">604 lines · 33KB</span>
+    </div>
+  </div>
+
+  <!-- FLOW 3 -->
+  <div class="option" data-choice="flow3" onclick="toggleSelect(this)">
+    <span class="letter">3</span><h3>One Unbroken Ritual — 90-second cinema, no nav</h3>
+    <div class="hook">locked GSAP timeline · silence → portal → glass → reading → chart → deeper</div>
+    <div class="moment">
+      <strong>THE MOMENT</strong>
+      You open the page and <em>receive</em> an experience. No clicks except speaking + final CTA. Every beat is choreographed on one master timeline. The website as a short film.
+    </div>
+    <div class="vs">
+      <div class="vs-item"><span class="k">Build cost</span><span class="v">medium-high</span></div>
+      <div class="vs-item"><span class="k">Cinematic feel</span><span class="v">most controlled</span></div>
+      <div class="vs-item"><span class="k">Funnel clarity</span><span class="v">single CTA</span></div>
+    </div>
+    <div class="cta-row">
+      <a href="http://localhost:58000/prototype-flow3-ritual.html" target="_blank" class="cta-link" onclick="event.stopPropagation()">Open prototype →</a>
+      <span class="spec">657 lines · 31KB</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="hint" style="margin-top:2rem">
+  <strong>After you've seen all three:</strong> click the card of the winning flow above (or tell me in terminal). You can also say "mix 1 + 2" or "re-do flow 3 with X change" and I'll iterate.
+</div>

@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Taurus zodiac glyph — Stellar Cathedral</title>
+  <desc id="desc">Olivia Arcana Taurus glyph rendered as a gothic rose window. A luminous gold bull's head with horns sits within a sacred geometry lattice — hexagram, vesica piscis, flower of life segments, and a twelve-pointed inner mandala — radiating cream light against deep indigo. Thirteen stars pinned at lattice intersections. Illuminated manuscript meets Notre-Dame at midnight.</desc>
+
+  <defs>
+    <!-- Deep indigo backdrop with bright emanating core -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="60%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#2a1850"/>
+      <stop offset="45%" stop-color="#1a0f2e"/>
+      <stop offset="100%" stop-color="#07030f"/>
+    </radialGradient>
+
+    <!-- Halo of cream light behind the glyph -->
+    <radialGradient id="haloGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f9e4b7" stop-opacity="0.35"/>
+      <stop offset="45%" stop-color="#f9e4b7" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#f9e4b7" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Primary gold for main glyph strokes -->
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="55%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#8a6d2f"/>
+    </linearGradient>
+
+    <!-- Vertical gold variant for horns -->
+    <linearGradient id="goldVert" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#8a6d2f"/>
+    </linearGradient>
+
+    <!-- Subtle gold for lattice strokes -->
+    <linearGradient id="goldLattice" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="100%" stop-color="#8a6d2f"/>
+    </linearGradient>
+
+    <!-- Gradient for the rose-window outer ring -->
+    <linearGradient id="goldRing" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#8a6d2f"/>
+    </linearGradient>
+
+    <!-- Light ray gradient (center bright to edge transparent) -->
+    <linearGradient id="rayGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#f9e4b7" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#f9e4b7" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#f9e4b7" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Sphere cap gradient for horn tips -->
+    <radialGradient id="sphereCap" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="70%" stop-color="#ffe8a3"/>
+      <stop offset="100%" stop-color="#d4a574"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 1. BACKGROUND -->
+  <g id="background">
+    <rect width="512" height="512" fill="#07030f"/>
+    <rect width="512" height="512" fill="url(#bgGrad)"/>
+  </g>
+
+  <!-- 2. LIGHT SOURCE HALO -->
+  <g id="lightsource">
+    <circle cx="256" cy="256" r="200" fill="url(#haloGrad)"/>
+    <!-- 12 radiating light rays at 30° intervals -->
+    <g stroke="#f9e4b7" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.9">
+      <g transform="rotate(0 256 256)"><line x1="256" y1="96" x2="256" y2="246" stroke="url(#rayGrad)"/></g>
+      <g transform="rotate(30 256 256)"><line x1="256" y1="96" x2="256" y2="246" stroke="url(#rayGrad)"/></g>
+      <g transform="rotate(60 256 256)"><line x1="256" y1="96" x2="256" y2="246" stroke="url(#rayGrad)"/></g>
+      <g transform="rotate(90 256 256)"><line x1="256" y1="96" x2="256" y2="246" stroke="url(#rayGrad)"/></g>
+      <g transform="rotate(120 256 256)"><line x1="256" y1="96" x2="256" y2="246" stroke="url(#rayGrad)"/></g>
+      <g transform="rotate(150 256 256)"><line x1="256" y1="96" x2="256" y2="246" stroke="url(#rayGrad)"/></g>
+      <g transform="rotate(180 256 256)"><line x1="256" y1="96" x2="256" y2="246" stroke="url(#rayGrad)"/></g>
+      <g transform="rotate(210 256 256)"><line x1="256" y1="96" x2="256" y2="246" stroke="url(#rayGrad)"/></g>
+      <g transform="rotate(240 256 256)"><line x1="256" y1="96" x2="256" y2="246" stroke="url(#rayGrad)"/></g>
+      <g transform="rotate(270 256 256)"><line x1="256" y1="96" x2="256" y2="246" stroke="url(#rayGrad)"/></g>
+      <g transform="rotate(300 256 256)"><line x1="256" y1="96" x2="256" y2="246" stroke="url(#rayGrad)"/></g>
+      <g transform="rotate(330 256 256)"><line x1="256" y1="96" x2="256" y2="246" stroke="url(#rayGrad)"/></g>
+    </g>
+  </g>
+
+  <!-- 3. SACRED GEOMETRY LATTICE -->
+  <g id="lattice" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Rose-window outer ring at r=245 -->
+    <circle cx="256" cy="256" r="245" stroke="url(#goldRing)" stroke-width="1.6" opacity="0.4"/>
+    <circle cx="256" cy="256" r="238" stroke="url(#goldLattice)" stroke-width="0.6" opacity="0.35"/>
+
+    <!-- Inner mandala: 12-pointed star (two overlapping hexagrams offset by 30°) -->
+    <g stroke="url(#goldLattice)" stroke-width="0.8" opacity="0.35">
+      <!-- 12 triangles radiating from center to outer ring -->
+      <g transform="rotate(0 256 256)"><polygon points="256,56 242,256 270,256" fill="none"/></g>
+      <g transform="rotate(30 256 256)"><polygon points="256,56 242,256 270,256" fill="none"/></g>
+      <g transform="rotate(60 256 256)"><polygon points="256,56 242,256 270,256" fill="none"/></g>
+      <g transform="rotate(90 256 256)"><polygon points="256,56 242,256 270,256" fill="none"/></g>
+      <g transform="rotate(120 256 256)"><polygon points="256,56 242,256 270,256" fill="none"/></g>
+      <g transform="rotate(150 256 256)"><polygon points="256,56 242,256 270,256" fill="none"/></g>
+      <g transform="rotate(180 256 256)"><polygon points="256,56 242,256 270,256" fill="none"/></g>
+      <g transform="rotate(210 256 256)"><polygon points="256,56 242,256 270,256" fill="none"/></g>
+      <g transform="rotate(240 256 256)"><polygon points="256,56 242,256 270,256" fill="none"/></g>
+      <g transform="rotate(270 256 256)"><polygon points="256,56 242,256 270,256" fill="none"/></g>
+      <g transform="rotate(300 256 256)"><polygon points="256,56 242,256 270,256" fill="none"/></g>
+      <g transform="rotate(330 256 256)"><polygon points="256,56 242,256 270,256" fill="none"/></g>
+    </g>
+
+    <!-- Hexagram (Star of David) — two overlapping triangles, radius ~200 -->
+    <g stroke="url(#goldLattice)" stroke-width="1.2" opacity="0.5">
+      <!-- Upward triangle: apex at (256, 56), base corners (83.2, 356) and (428.8, 356) -->
+      <polygon points="256,56 83.2,356 428.8,356" fill="none"/>
+      <!-- Downward triangle: apex at (256, 456), top corners (83.2, 156) and (428.8, 156) -->
+      <polygon points="256,456 83.2,156 428.8,156" fill="none"/>
+    </g>
+
+    <!-- Vesica piscis: two overlapping circles creating vertical almond -->
+    <g stroke="url(#goldLattice)" stroke-width="1.1" opacity="0.45">
+      <circle cx="256" cy="186" r="140"/>
+      <circle cx="256" cy="326" r="140"/>
+    </g>
+
+    <!-- Flower of Life: 6 circles at 60° intervals around center, radius 40 -->
+    <g stroke="url(#goldLattice)" stroke-width="0.9" opacity="0.55">
+      <circle cx="256" cy="216" r="40"/>
+      <circle cx="281.98" cy="231" r="40"/>
+      <circle cx="281.98" cy="281" r="40"/>
+      <circle cx="256" cy="296" r="40"/>
+      <circle cx="230.02" cy="281" r="40"/>
+      <circle cx="230.02" cy="231" r="40"/>
+      <!-- Center circle to complete the seed -->
+      <circle cx="256" cy="256" r="40" opacity="0.8"/>
+    </g>
+  </g>
+
+  <!-- 4. TAURUS GLYPH -->
+  <g id="glyph" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Central bull's head circle — radius 58, thick gold gradient stroke -->
+    <circle cx="256" cy="296" r="58" stroke="url(#goldPrimary)" stroke-width="10"/>
+
+    <!-- Left horn arcing outward and upward from top-left of circle -->
+    <path d="M 206 264 C 186 222, 158 188, 128 170 C 110 160, 96 156, 84 158"
+          stroke="url(#goldVert)" stroke-width="9"/>
+
+    <!-- Right horn mirrored -->
+    <path d="M 306 264 C 326 222, 354 188, 384 170 C 402 160, 416 156, 428 158"
+          stroke="url(#goldVert)" stroke-width="9"/>
+
+    <!-- Inner highlight pass — cream, lower opacity for dimensional lift -->
+    <g stroke="#fff2c6" stroke-width="1.4" opacity="0.5">
+      <circle cx="256" cy="296" r="58"/>
+      <path d="M 206 264 C 186 222, 158 188, 128 170 C 110 160, 96 156, 84 158"/>
+      <path d="M 306 264 C 326 222, 354 188, 384 170 C 402 160, 416 156, 428 158"/>
+    </g>
+
+    <!-- Polished sphere caps at horn tips -->
+    <circle cx="84" cy="158" r="4.5" fill="url(#sphereCap)" stroke="#fff2c6" stroke-width="0.6"/>
+    <circle cx="428" cy="158" r="4.5" fill="url(#sphereCap)" stroke="#fff2c6" stroke-width="0.6"/>
+
+    <!-- Tiny inner luminous dot at bull's head center for focus -->
+    <circle cx="256" cy="296" r="3" fill="#fff2c6" opacity="0.85"/>
+  </g>
+
+  <!-- 5. STARS — exactly 13, pinned at lattice intersections -->
+  <g id="stars">
+    <!-- Hexagram outer vertices (6 points) -->
+    <circle cx="256" cy="56" r="1.8" fill="#fff2c6" opacity="0.95"/>
+    <g transform="translate(256 56)" fill="#fff2c6" opacity="0.9">
+      <path d="M 0,-3 L 0.6,-0.6 L 3,0 L 0.6,0.6 L 0,3 L -0.6,0.6 L -3,0 L -0.6,-0.6 Z"/>
+    </g>
+
+    <circle cx="428.8" cy="156" r="1.6" fill="#ffe8a3" opacity="0.9"/>
+    <circle cx="428.8" cy="356" r="1.4" fill="#ffe8a3" opacity="0.85"/>
+
+    <circle cx="256" cy="456" r="1.8" fill="#fff2c6" opacity="0.95"/>
+    <g transform="translate(256 456)" fill="#fff2c6" opacity="0.85">
+      <path d="M 0,-3 L 0.6,-0.6 L 3,0 L 0.6,0.6 L 0,3 L -0.6,0.6 L -3,0 L -0.6,-0.6 Z"/>
+    </g>
+
+    <circle cx="83.2" cy="356" r="1.4" fill="#ffe8a3" opacity="0.85"/>
+    <circle cx="83.2" cy="156" r="1.6" fill="#ffe8a3" opacity="0.9"/>
+
+    <!-- Hexagram inner intersection points (6 intersection crossings of the two triangles) -->
+    <circle cx="256" cy="156" r="1.2" fill="#ffe8a3" opacity="0.8"/>
+    <circle cx="342.4" cy="206" r="1.0" fill="#ffe8a3" opacity="0.75"/>
+    <circle cx="342.4" cy="306" r="1.0" fill="#ffe8a3" opacity="0.75"/>
+    <circle cx="256" cy="356" r="1.2" fill="#ffe8a3" opacity="0.8"/>
+    <circle cx="169.6" cy="306" r="1.0" fill="#ffe8a3" opacity="0.75"/>
+    <circle cx="169.6" cy="206" r="1.0" fill="#ffe8a3" opacity="0.75"/>
+
+    <!-- 13th star: top of outer ring, with cross highlight -->
+    <circle cx="256" cy="11" r="1.4" fill="#fff2c6" opacity="0.95"/>
+    <g transform="translate(256 11)" fill="#fff2c6" opacity="0.9">
+      <path d="M 0,-2.6 L 0.5,-0.5 L 2.6,0 L 0.5,0.5 L 0,2.6 L -0.5,0.5 L -2.6,0 L -0.5,-0.5 Z"/>
+    </g>
+  </g>
+</svg>

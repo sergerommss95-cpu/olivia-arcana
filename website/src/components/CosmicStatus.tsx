@@ -10,6 +10,7 @@ import React, { useState, useEffect } from "react";
 import { getSunPosition, getMoonPosition, getMoonPhase } from "../lib/celestial";
 import { getUpcomingEvents, EVENT_TYPE_META } from "../lib/astro-events";
 import { useLocale } from "../lib/i18n/useLocale";
+import { getCosmicMoment } from "../lib/cosmic-time";
 
 export default function CosmicStatus() {
   const { t } = useLocale();
@@ -18,6 +19,7 @@ export default function CosmicStatus() {
   if (!mounted) return null;
 
   const now = new Date();
+  const moment = getCosmicMoment(now);
   const sun = getSunPosition(now);
   const moon = getMoonPosition(now);
   const moonPhase = getMoonPhase(now);
@@ -53,6 +55,16 @@ export default function CosmicStatus() {
       <div style={item}>
         <span style={{ fontSize: "0.85rem", color: "rgba(255,215,0,0.7)" }}>☉</span>
         <span style={text}>{sun.sign} {sun.degree}°</span>
+      </div>
+
+      {/* Planetary Hour */}
+      <div style={{
+        ...item,
+        background: "rgba(232,201,106,0.08)",
+        border: "1px solid rgba(232,201,106,0.15)",
+      }}>
+        <span style={{ fontSize: "0.85rem", color: "#E8C96A" }}>{moment.planetaryHourGlyph}</span>
+        <span style={{ ...text, color: "#F4E9D0", fontWeight: 500 }}>{moment.planetaryHour}</span>
       </div>
 
       {/* Moon */}

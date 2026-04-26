@@ -56,6 +56,12 @@ export function recordDraw(cardId: string): void {
   }
 
   save(data);
+
+  // Notify the cosmos renderer so it can re-apply per-sign brightness
+  // (Constellation of Return — drawn cards brighten matching zodiacs).
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("olivia:card-drawn", { detail: { cardId } }));
+  }
 }
 
 /** Get memory for a specific card */

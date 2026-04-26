@@ -45,7 +45,7 @@ interface FlipRevealCardProps {
   card: TarotCard;
   numeral?: string;
   width?: number;
-  onAdvance?: () => void;
+  onFlip?: (revealed: boolean) => void;
 }
 
 // ─────────────────────────────────────────────────────────────────────
@@ -669,7 +669,7 @@ export default function FlipRevealCard({
   card,
   numeral,
   width = 360,
-  onAdvance,
+  onFlip,
 }: FlipRevealCardProps) {
   const height = Math.round(width * 1.5);
 
@@ -730,18 +730,19 @@ export default function FlipRevealCard({
   }, [card]);
 
   const toggleFlip = useCallback(() => {
-    setRevealed(r => !r);
-  }, []);
+    const next = !revealed;
+    setRevealed(next);
+    onFlip?.(next);
+  }, [revealed, onFlip]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleFlip(); }
-      else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-        e.preventDefault(); onAdvance?.();
-      }
     },
-    [toggleFlip, onAdvance]
+    [toggleFlip]
   );
+
+  const shadowScale = useTransform(shadowStrength, [0, 1], [0.8, 1.02]);
 
   return (
     <div className="flr" style={{ width: `${width}px`, maxWidth: "100%" }}>
@@ -765,7 +766,7 @@ export default function FlipRevealCard({
           className="flr-shadow"
           style={{
             opacity: reducedMotion ? 0.55 : shadowStrength,
-            scale: reducedMotion ? 1 : useTransform(shadowStrength, [0, 1], [0.8, 1.02]),
+            scale: reducedMotion ? 1 : shadowScale,
           }}
         />
 
@@ -846,16 +847,6 @@ export default function FlipRevealCard({
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: revealed ? 0.55 : 0 }}
         />
       </motion.div>
-
-      <div className="flr-actions">
-        <button type="button" className="flr-toggle" onClick={toggleFlip}>
-          <span aria-hidden>{revealed ? "↺" : "✦"}</span>
-          {revealed ? "Flip back" : "Flip the card"}
-        </button>
-        <button type="button" className="flr-advance" onClick={() => onAdvance?.()}>
-          Different card →
-        </button>
-      </div>
 
       <style>{`
         .flr { display: flex; flex-direction: column; gap: 1.1rem; align-items: stretch; margin: 0 auto; }
@@ -1073,42 +1064,6 @@ export default function FlipRevealCard({
           background: rgba(232, 201, 106, 1);
           box-shadow: 0 0 14px rgba(232, 201, 106, 0.95);
         }
-
-        /* Actions row */
-        .flr-actions {
-          display: flex; flex-wrap: wrap; gap: 0.9rem;
-          justify-content: center; align-items: center;
-        }
-        .flr-toggle, .flr-advance {
-          display: inline-flex; align-items: center; gap: 0.45em;
-          padding: 0.62rem 1.15rem; border-radius: 9999px;
-          font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.78rem; font-weight: 500;
-          letter-spacing: 0.18em; text-transform: uppercase;
-          cursor: pointer;
-          transition: all 220ms cubic-bezier(0.16,1,0.3,1);
-        }
-        .flr-toggle {
-          background: linear-gradient(135deg, rgba(212,175,55,0.26), rgba(212,175,55,0.12));
-          border: 1px solid rgba(232,201,106,0.52);
-          color: rgba(232,201,106,1);
-          box-shadow: 0 0 22px rgba(212,175,55,0.18);
-        }
-        .flr-toggle:hover {
-          background: linear-gradient(135deg, rgba(232,201,106,0.38), rgba(212,175,55,0.20));
-          border-color: rgba(255,220,130,0.9);
-          color: rgba(255,230,150,1);
-          transform: translateY(-1px);
-          box-shadow: 0 0 32px rgba(212,175,55,0.3);
-        }
-        .flr-toggle:focus-visible { outline: 2px solid #E8C96A; outline-offset: 3px; }
-        .flr-advance {
-          background: transparent;
-          border: 1px solid rgba(200,185,255,0.20);
-          color: rgba(220,210,245,0.72);
-        }
-        .flr-advance:hover { color: rgba(245,240,232,0.98); border-color: rgba(200,185,255,0.4); }
-        .flr-advance:focus-visible { outline: 2px solid #E8C96A; outline-offset: 3px; }
 
         /* ═══════════════════════════════════════════════════════════
            ASTRAL PORTAL — the animated back (elevated)

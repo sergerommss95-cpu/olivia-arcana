@@ -137,6 +137,12 @@ export default function OnboardingPage() {
       position: "relative",
       zIndex: 1,
     }}>
+      {/* Visually hidden h1 — every route needs one for a11y + SEO */}
+      <h1 style={{
+        position: "absolute", width: 1, height: 1, padding: 0, margin: -1,
+        overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0,
+      }}>Onboarding — set up your cosmic profile</h1>
+
       {/* Progress bar */}
       <div style={{
         position: "fixed",

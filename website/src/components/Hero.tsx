@@ -93,6 +93,7 @@ export default function Hero() {
           ref={headRef}
           id="home-hero-headline"
           style={{
+            position: "relative",
             fontFamily: "var(--font-heading, 'Cormorant Garamond'), 'IM Fell English', Georgia, serif",
             fontWeight: 400,
             fontStyle: "normal",
@@ -103,9 +104,23 @@ export default function Hero() {
             color: "#F5F0E8",
             margin: 0,
             maxWidth: "920px",
-            textShadow: "0 2px 24px rgba(4,2,13,0.55)",
+            // Layered text-shadow + backdrop scrim for AA contrast on every nebula frame
+            textShadow:
+              "0 2px 28px rgba(4,2,13,0.78), 0 1px 4px rgba(4,2,13,0.55), 0 0 64px rgba(4,2,13,0.45)",
           }}
         >
+          <span
+            aria-hidden
+            style={{
+              position: "absolute",
+              inset: "-0.4em -0.6em",
+              zIndex: -1,
+              background:
+                "radial-gradient(ellipse at 30% 50%, rgba(6,4,26,0.70) 0%, rgba(6,4,26,0.42) 45%, transparent 78%)",
+              filter: "blur(8px)",
+              pointerEvents: "none",
+            }}
+          />
           <span data-word style={wordStyle}>Your</span>{" "}
           <span data-word style={wordStyle}>chart,</span>{" "}
           <em style={{ fontStyle: "italic" }}>
@@ -192,23 +207,13 @@ export default function Hero() {
             lineHeight: 1.7,
           }}
         >
-          <span
-            aria-hidden
-            style={{
-              color: "rgba(232, 201, 106, 0.92)",
-              letterSpacing: "0.05em",
-              marginRight: "0.35em",
-            }}
-          >
-            ★★★★★
-          </span>
-          <span style={{ color: "rgba(235, 225, 255, 0.88)" }}>4.9</span> from{" "}
-          <span style={{ color: "rgba(235, 225, 255, 0.88)" }}>2,306 subscribers</span>
+          <span aria-hidden style={{ color: "rgba(232, 201, 106, 0.92)", marginRight: "0.4em" }}>✦</span>
+          Computed from{" "}
+          <span style={{ color: "rgba(235, 225, 255, 0.88)" }}>NASA JPL DE440/DE441 ephemeris</span>
           <span aria-hidden style={{ margin: "0 0.5em", opacity: 0.5 }}>·</span>
-          Built on{" "}
-          <span style={{ color: "rgba(235, 225, 255, 0.88)" }}>real NASA ephemeris data</span>
+          <span style={{ color: "rgba(235, 225, 255, 0.88)" }}>9 languages</span>
           <span aria-hidden style={{ margin: "0 0.5em", opacity: 0.5 }}>·</span>
-          <span style={{ color: "rgba(235, 225, 255, 0.88)" }}>12,400+</span> readings given
+          <span style={{ color: "rgba(235, 225, 255, 0.88)" }}>14-day refund</span>, cancel any time
         </p>
       </div>
 

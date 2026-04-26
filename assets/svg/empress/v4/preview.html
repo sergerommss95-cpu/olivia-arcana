@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Empress v4 — Source-Vectorize Pivot</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 2rem; background: #0a0517; color: #eee; min-height: 100vh; }
+  h1 { font-size: 1.6rem; font-weight: 600; margin-bottom: 0.5rem; }
+  h1 small { font-weight: 400; opacity: 0.6; font-size: 1rem; margin-left: 0.5rem; }
+  h2 { font-size: 1.1rem; font-weight: 600; margin: 2rem 0 1rem; }
+  .meta { opacity: 0.65; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.5rem; max-width: 72ch; }
+  .feedback { background: rgba(204,34,34,0.1); border-left: 3px solid #cc2222; padding: 0.75rem 1rem; margin: 1rem 0; font-size: 0.85rem; border-radius: 4px; line-height: 1.5; }
+  .fix { background: rgba(212,165,116,0.08); border-left: 3px solid #d4a574; padding: 0.75rem 1rem; margin: 1rem 0; font-size: 0.85rem; border-radius: 4px; line-height: 1.5; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .card { border: 1px solid rgba(128,128,128,0.25); border-radius: 12px; overflow: hidden; }
+  .card.hero { border: 2px solid #d4a574; }
+  .card.ghost { opacity: 0.55; }
+  .card-img { display: flex; align-items: center; justify-content: center; padding: 1.5rem; min-height: 600px; background: #0a0517; }
+  .card-img img { max-width: 100%; max-height: 560px; display: block; }
+  .card-label { padding: 0.85rem 1rem; font-size: 0.9rem; background: #13081f; border-top: 1px solid rgba(128,128,128,0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+  .card-label .size { opacity: 0.55; font-size: 0.72rem; }
+  .card-label .verdict { font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; }
+  .verdict.fail { background: rgba(204,34,34,0.15); color: #ff9090; }
+  .verdict.new { background: rgba(212,165,116,0.3); color: #fff2c6; }
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(128,128,128,0.2); font-size: 0.8rem; opacity: 0.6; line-height: 1.6; }
+  footer code { font-family: ui-monospace, Menlo, monospace; background: rgba(212,165,116,0.12); padding: 0.1rem 0.35rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <h1>The Empress — v4 <small>Source + Vectorize pivot</small></h1>
+  <div class="meta">
+    Abandoned "sculpt from prompt" approach. Pivoted to: download Pamela Colman Smith's 1910 Rider-Waite-Smith Empress (public domain, Wikimedia Commons) → quantize to 8 colors → VTracer polygon-to-spline → 806 KB flat-vector SVG. No agent invented any illustration; we vectorized a century-old masterpiece.
+  </div>
+  <div class="feedback"><b>v3 failed:</b> "still looks bald" — sculpt-from-prompt hit its ceiling after three iterations.</div>
+  <div class="fix"><b>v4 approach:</b> source the illustration (master illustrator, 1910), don't invent it. Vectorize the raster. Optional later: remap to Mystic Cartography gold-on-navy palette via color substitution.</div>
+
+  <h2>Evolution</h2>
+  <div class="grid">
+    <div class="card ghost">
+      <div class="card-img"><img src="../v3/concept-with-hair.svg" alt="v3 bald"></div>
+      <div class="card-label">v3 · hair pass <span class="verdict fail">bald</span><span class="size">17 KB · 66 paths</span></div>
+    </div>
+    <div class="card">
+      <div class="card-img"><img src="_source-rws-original.jpg" alt="source: original RWS 1910 by Pamela Colman Smith"></div>
+      <div class="card-label">source · RWS 1910 JPG <span class="size">927 KB · 1123×1920 · PD</span></div>
+    </div>
+    <div class="card">
+      <div class="card-img" style="background:#fff;"><img src="_source-rws-q8.png" alt="quantized"></div>
+      <div class="card-label">quantized · 8 colors PNG <span class="size">275 KB · 600×1025</span></div>
+    </div>
+    <div class="card hero">
+      <div class="card-img" style="background:#fff;"><img src="empress-vectorized.svg" alt="v4 vectorized SVG"></div>
+      <div class="card-label">v4 · vectorized SVG <span class="verdict new">new</span><span class="size">806 KB · flat vector</span></div>
+    </div>
+  </div>
+
+  <h2>What's next if this lands</h2>
+  <ul style="margin-left:1.5rem; line-height:1.9; opacity:0.8;">
+    <li>Color remap to Olivia Mystic Cartography palette (gold on navy) — replace RWS reds/greens/flesh with <code>#1a0f2e / #d4a574 / #5a1f33</code>. Done via regex sweep over the fill attrs. ~10 min.</li>
+    <li>Repeat for remaining 77 Major + Minor Arcana — Pamela Colman Smith did the full deck; all 78 are public-domain on Wikimedia. Batch script vectorizes all overnight.</li>
+    <li>Replace the sculpt-from-prompt workflow for all tarot card illustration in <code>brain/SVG Protocol.md</code>. Glyphs remain sculpted (they work — see Taurus); figure illustrations pivot to vectorize-from-PD.</li>
+  </ul>
+
+  <footer>
+    v4 path: <code>/Users/macbookpro/olivia-arcana/assets/svg/empress/v4/</code><br>
+    Source: Pamela Colman Smith, 1910 · public domain (author died 1951, published pre-1931) · Wikimedia Commons<br>
+    Tool: VTracer 0.6.5 via cargo install · PIL 8-color quantize + poster preset + spline mode
+  </footer>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 700" role="img">
+  <title>The Empress — Major Arcana III (Animated: Card Reveal)</title>
+  <desc>Choreographed card-reveal summon sequence (0-3s) transitioning into ambient loop. Gold-on-navy engraving.</desc>
+
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="65%" stop-color="#0a0618"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="45%" stop-color="#ffe8a3"/>
+      <stop offset="75%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+    <radialGradient id="haloGrad" cx="50%" cy="38%" r="35%">
+      <stop offset="0%" stop-color="#ffe8a3" stop-opacity="0.10"/>
+      <stop offset="60%" stop-color="#ffe8a3" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#ffe8a3" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="summonGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ============ BACKGROUND (step 1: 0.0s) ============ -->
+  <g id="background" opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="0s" dur="0.3s" fill="freeze"/>
+    <rect x="0" y="0" width="400" height="700" fill="url(#bgGrad)"/>
+    <rect x="0" y="0" width="400" height="700" fill="url(#haloGrad)"/>
+    <circle cx="55" cy="90" r="1.2" fill="#ffe8a3" opacity="0.7"/>
+    <circle cx="345" cy="120" r="1.4" fill="#ffe8a3" opacity="0.75"/>
+    <circle cx="70" cy="540" r="1" fill="#ffe8a3" opacity="0.55"/>
+    <circle cx="330" cy="500" r="1.2" fill="#ffe8a3" opacity="0.65"/>
+    <circle cx="40" cy="300" r="1" fill="#ffe8a3" opacity="0.5"/>
+    <circle cx="360" cy="340" r="1" fill="#ffe8a3" opacity="0.55"/>
+    <circle cx="200" cy="60" r="1.3" fill="#fff2c6" opacity="0.7"/>
+  </g>
+
+  <!-- ============ BORDER (step 2: 0.3s) ============ -->
+  <g id="border" fill="none" stroke="url(#goldGrad)" stroke-linecap="round" opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="0.3s" dur="0.4s" fill="freeze"/>
+    <rect x="15" y="15" width="370" height="670" stroke-width="1.6"/>
+    <rect x="22" y="22" width="356" height="656" stroke-width="0.8" opacity="0.8"/>
+    <path d="M200 10 L203 18 L211 21 L203 24 L200 32 L197 24 L189 21 L197 18 Z" fill="url(#goldGrad)" stroke="none"/>
+    <path d="M200 668 L203 676 L211 679 L203 682 L200 690 L197 682 L189 679 L197 676 Z" fill="url(#goldGrad)" stroke="none"/>
+    <path d="M10 350 L18 353 L21 361 L24 353 L32 350 L24 347 L21 339 L18 347 Z" fill="url(#goldGrad)" stroke="none"/>
+    <path d="M368 350 L376 353 L379 361 L382 353 L390 350 L382 347 L379 339 L376 347 Z" fill="url(#goldGrad)" stroke="none"/>
+  </g>
+
+  <!-- ============ THRONE (step 3: 0.7s, stroke-dashoffset draw-in) ============ -->
+  <g id="throne" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round">
+    <!-- back rail: length ~180 -->
+    <path d="M110 200 L290 200" stroke-width="4" stroke-dasharray="200" stroke-dashoffset="200">
+      <animate attributeName="stroke-dashoffset" from="200" to="0" begin="0.7s" dur="0.6s" fill="freeze"/>
+    </path>
+    <!-- left vertical post: length ~360 -->
+    <path d="M110 200 L110 560" stroke-dasharray="380" stroke-dashoffset="380">
+      <animate attributeName="stroke-dashoffset" from="380" to="0" begin="0.7s" dur="0.6s" fill="freeze"/>
+    </path>
+    <!-- right vertical post -->
+    <path d="M290 200 L290 560" stroke-dasharray="380" stroke-dashoffset="380">
+      <animate attributeName="stroke-dashoffset" from="380" to="0" begin="0.7s" dur="0.6s" fill="freeze"/>
+    </path>
+    <!-- finial orbs: fade in -->
+    <circle cx="110" cy="195" r="6" fill="url(#goldGrad)" stroke="none" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.2s" dur="0.2s" fill="freeze"/>
+    </circle>
+    <circle cx="290" cy="195" r="6" fill="url(#goldGrad)" stroke="none" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.2s" dur="0.2s" fill="freeze"/>
+    </circle>
+    <!-- seat platform base: length ~230 -->
+    <path d="M85 560 L315 560" stroke-width="4" stroke-dasharray="240" stroke-dashoffset="240">
+      <animate attributeName="stroke-dashoffset" from="240" to="0" begin="0.95s" dur="0.35s" fill="freeze"/>
+    </path>
+    <path d="M95 575 L305 575" stroke-width="2" opacity="0.7" stroke-dasharray="220" stroke-dashoffset="220">
+      <animate attributeName="stroke-dashoffset" from="220" to="0" begin="1.05s" dur="0.25s" fill="freeze"/>
+    </path>
+  </g>
+
+  <!-- ============ HALO / AURA (step 4: 1.0s, scale + opacity) ============ -->
+  <g id="halo" opacity="0">
+    <animate attributeName="opacity" from="0" to="0.5" begin="1.0s" dur="0.8s" fill="freeze"/>
+    <g transform="translate(200 265)">
+      <g transform="scale(0.001)">
+        <animateTransform attributeName="transform" type="scale" from="0" to="1" begin="1.0s" dur="0.8s" fill="freeze"/>
+        <circle cx="0" cy="0" r="160" fill="url(#haloGrad)"/>
+        <circle cx="0" cy="0" r="120" fill="url(#haloGrad)"/>
+      </g>
+    </g>
+    <!-- Ambient halo breath -->
+    <animate attributeName="opacity" values="0.35;0.55;0.35" dur="10s" begin="3s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- ============ FIGURE ============ -->
+  <g id="figure">
+    <!-- Robe silhouette (step 5: 1.3s) -->
+    <path d="M155 260
+             C 150 290, 140 330, 135 380
+             C 130 430, 125 480, 115 560
+             C 105 610, 100 630, 95 640
+             L 305 640
+             C 300 630, 295 610, 285 560
+             C 275 480, 270 430, 265 380
+             C 260 330, 250 290, 245 260
+             C 235 250, 220 248, 200 248
+             C 180 248, 165 250, 155 260 Z"
+          fill="#0a0618" stroke="url(#goldGrad)" stroke-width="6" stroke-linejoin="round" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.3s" dur="0.5s" fill="freeze"/>
+    </path>
+
+    <!-- Robe inner fold lines -->
+    <path d="M200 260 L200 640" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" opacity="0">
+      <animate attributeName="opacity" from="0" to="0.55" begin="1.4s" dur="0.45s" fill="freeze"/>
+    </path>
+    <path d="M170 290 C 160 380, 150 480, 140 600" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0">
+      <animate attributeName="opacity" from="0" to="0.45" begin="1.45s" dur="0.45s" fill="freeze"/>
+    </path>
+    <path d="M230 290 C 240 380, 250 480, 260 600" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0">
+      <animate attributeName="opacity" from="0" to="0.45" begin="1.45s" dur="0.45s" fill="freeze"/>
+    </path>
+
+    <!-- Body core: shoulders -> hair-framing robe tops (step 6: 1.5s) -->
+    <path d="M170 175
+             C 155 195, 150 230, 155 260
+             L 170 258
+             C 168 230, 172 205, 182 185 Z"
+          fill="#0a0618" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linejoin="round" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.5s" dur="0.4s" fill="freeze"/>
+    </path>
+    <path d="M230 175
+             C 245 195, 250 230, 245 260
+             L 230 258
+             C 232 230, 228 205, 218 185 Z"
+          fill="#0a0618" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linejoin="round" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.5s" dur="0.4s" fill="freeze"/>
+    </path>
+    <!-- Right arm (step 6) -->
+    <path d="M160 275
+             C 140 300, 130 340, 138 385
+             L 152 385
+             C 150 345, 160 310, 175 285 Z"
+          fill="#0a0618" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linejoin="round" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.5s" dur="0.4s" fill="freeze"/>
+    </path>
+    <ellipse cx="145" cy="390" rx="10" ry="12" fill="#ead0a8" stroke="url(#goldGrad)" stroke-width="2" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.55s" dur="0.4s" fill="freeze"/>
+    </ellipse>
+    <path d="M140 385 Q 145 382, 150 385" fill="none" stroke="#a57a4a" stroke-width="1" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.6s" dur="0.3s" fill="freeze"/>
+    </path>
+    <!-- Left arm -->
+    <path d="M240 275
+             C 260 300, 272 340, 268 390
+             L 254 390
+             C 253 345, 243 310, 225 285 Z"
+          fill="#0a0618" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linejoin="round" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.5s" dur="0.4s" fill="freeze"/>
+    </path>
+    <ellipse cx="261" cy="395" rx="10" ry="12" fill="#ead0a8" stroke="url(#goldGrad)" stroke-width="2" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.55s" dur="0.4s" fill="freeze"/>
+    </ellipse>
+
+    <!-- ============ HAIR (step 9: 2.0s staggered cascade top-to-bottom) ============ -->
+    <g id="hair">
+      <!-- Left silhouette mass (starts at top of head) -->
+      <path d="M178 155
+               C 162 162, 148 180, 142 210
+               C 136 245, 138 285, 135 330
+               C 132 370, 130 405, 128 430
+               C 134 418, 142 400, 150 380
+               C 148 345, 152 305, 160 270
+               C 165 245, 172 220, 180 200
+               C 182 185, 181 170, 178 155 Z"
+            fill="#0a0618" stroke="url(#goldGrad)" stroke-width="5" stroke-linejoin="round" opacity="0">
+        <animate attributeName="opacity" from="0" to="1" begin="2.0s" dur="0.35s" fill="freeze"/>
+      </path>
+      <!-- Right silhouette mass -->
+      <path d="M222 155
+               C 238 162, 252 180, 258 210
+               C 264 245, 262 285, 265 330
+               C 268 370, 270 405, 272 430
+               C 266 418, 258 400, 250 380
+               C 252 345, 248 305, 240 270
+               C 235 245, 228 220, 220 200
+               C 218 185, 219 170, 222 155 Z"
+            fill="#0a0618" stroke="url(#goldGrad)" stroke-width="5" stroke-linejoin="round" opacity="0">
+        <animate attributeName="opacity" from="0" to="1" begin="2.0s" dur="0.35s" fill="freeze"/>
+      </path>
+      <!-- Internal wave lines — cascade top-to-bottom, with stroke draw + subtle ambient rotate wrapper -->
+      <g id="hair-waves">
+        <!-- Left wave 1: approx length 300 -->
+        <path d="M172 175 C 162 210, 155 260, 150 320 C 147 360, 145 400, 146 425"
+              fill="none" stroke="url(#goldGrad)" stroke-width="2" opacity="0.85" stroke-linecap="round"
+              stroke-dasharray="310" stroke-dashoffset="310">
+          <animate attributeName="stroke-dashoffset" from="310" to="0" begin="2.08s" dur="0.35s" fill="freeze"/>
+        </path>
+        <path d="M180 185 C 172 220, 168 270, 165 330 C 163 375, 162 410, 164 430"
+              fill="none" stroke="url(#goldGrad)" stroke-width="1.6" opacity="0.7" stroke-linecap="round"
+              stroke-dasharray="300" stroke-dashoffset="300">
+          <animate attributeName="stroke-dashoffset" from="300" to="0" begin="2.15s" dur="0.35s" fill="freeze"/>
+        </path>
+        <path d="M160 195 C 150 230, 144 280, 141 340 C 139 380, 138 410, 140 428"
+              fill="none" stroke="url(#goldGrad)" stroke-width="1.4" opacity="0.6" stroke-linecap="round"
+              stroke-dasharray="300" stroke-dashoffset="300">
+          <animate attributeName="stroke-dashoffset" from="300" to="0" begin="2.22s" dur="0.35s" fill="freeze"/>
+        </path>
+        <!-- Right waves -->
+        <path d="M228 175 C 238 210, 245 260, 250 320 C 253 360, 255 400, 254 425"
+              fill="none" stroke="url(#goldGrad)" stroke-width="2" opacity="0.85" stroke-linecap="round"
+              stroke-dasharray="310" stroke-dashoffset="310">
+          <animate attributeName="stroke-dashoffset" from="310" to="0" begin="2.08s" dur="0.35s" fill="freeze"/>
+        </path>
+        <path d="M220 185 C 228 220, 232 270, 235 330 C 237 375, 238 410, 236 430"
+              fill="none" stroke="url(#goldGrad)" stroke-width="1.6" opacity="0.7" stroke-linecap="round"
+              stroke-dasharray="300" stroke-dashoffset="300">
+          <animate attributeName="stroke-dashoffset" from="300" to="0" begin="2.15s" dur="0.35s" fill="freeze"/>
+        </path>
+        <path d="M240 195 C 250 230, 256 280, 259 340 C 261 380, 262 410, 260 428"
+              fill="none" stroke="url(#goldGrad)" stroke-width="1.4" opacity="0.6" stroke-linecap="round"
+              stroke-dasharray="300" stroke-dashoffset="300">
+          <animate attributeName="stroke-dashoffset" from="300" to="0" begin="2.22s" dur="0.35s" fill="freeze"/>
+        </path>
+      </g>
+      <!-- Loose strand tips: lowest — wrapped in group for ambient sway -->
+      <g id="hair-strand-tips">
+        <animateTransform attributeName="transform" type="rotate"
+                          values="-1.5 200 430; 1.5 200 430; -1.5 200 430"
+                          dur="8s" begin="3s" repeatCount="indefinite"/>
+        <path d="M128 430 C 122 440, 120 448, 124 455"
+              fill="none" stroke="url(#goldGrad)" stroke-width="1.8" opacity="0" stroke-linecap="round"
+              stroke-dasharray="40" stroke-dashoffset="40">
+          <animate attributeName="opacity" from="0" to="0.75" begin="2.28s" dur="0.3s" fill="freeze"/>
+          <animate attributeName="stroke-dashoffset" from="40" to="0" begin="2.28s" dur="0.3s" fill="freeze"/>
+        </path>
+        <path d="M272 430 C 278 440, 280 448, 276 455"
+              fill="none" stroke="url(#goldGrad)" stroke-width="1.8" opacity="0" stroke-linecap="round"
+              stroke-dasharray="40" stroke-dashoffset="40">
+          <animate attributeName="opacity" from="0" to="0.75" begin="2.28s" dur="0.3s" fill="freeze"/>
+          <animate attributeName="stroke-dashoffset" from="40" to="0" begin="2.28s" dur="0.3s" fill="freeze"/>
+        </path>
+        <path d="M146 425 C 144 438, 144 448, 148 456"
+              fill="none" stroke="url(#goldGrad)" stroke-width="1.4" opacity="0" stroke-linecap="round"
+              stroke-dasharray="40" stroke-dashoffset="40">
+          <animate attributeName="opacity" from="0" to="0.6" begin="2.32s" dur="0.3s" fill="freeze"/>
+          <animate attributeName="stroke-dashoffset" from="40" to="0" begin="2.32s" dur="0.3s" fill="freeze"/>
+        </path>
+        <path d="M254 425 C 256 438, 256 448, 252 456"
+              fill="none" stroke="url(#goldGrad)" stroke-width="1.4" opacity="0" stroke-linecap="round"
+              stroke-dasharray="40" stroke-dashoffset="40">
+          <animate attributeName="opacity" from="0" to="0.6" begin="2.32s" dur="0.3s" fill="freeze"/>
+          <animate attributeName="stroke-dashoffset" from="40" to="0" begin="2.32s" dur="0.3s" fill="freeze"/>
+        </path>
+      </g>
+    </g>
+
+    <!-- Face oval (step 7: 1.7s) -->
+    <path d="M200 150
+             C 178 150, 168 170, 168 195
+             C 168 220, 182 240, 200 240
+             C 218 240, 232 220, 232 195
+             C 232 170, 222 150, 200 150 Z"
+          fill="#ead0a8" stroke="url(#goldGrad)" stroke-width="2.5" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.7s" dur="0.3s" fill="freeze"/>
+    </path>
+
+    <!-- Face features (step 8: 1.9s) -->
+    <g id="face-features" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.9s" dur="0.25s" fill="freeze"/>
+      <path d="M183 188 Q 189 184, 195 188" fill="none" stroke="#3a2410" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M210 188 Q 218 185, 225 189" fill="none" stroke="#3a2410" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M184 198 Q 189 202, 194 199" fill="none" stroke="#3a2410" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M211 199 Q 217 203, 224 200" fill="none" stroke="#3a2410" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M203 200 Q 206 213, 204 220" fill="none" stroke="#a57a4a" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M201 222 Q 205 224, 209 222" fill="none" stroke="#a57a4a" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M194 229 Q 202 232, 212 229" fill="none" stroke="#8a3a3a" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M192 236 Q 202 240, 214 236" fill="none" stroke="#c49a6c" stroke-width="1" opacity="0.6"/>
+    </g>
+
+    <!-- Neck (appears with face features) -->
+    <path d="M188 240 L188 258 L212 258 L212 240" fill="#ead0a8" stroke="url(#goldGrad)" stroke-width="2" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="1.8s" dur="0.3s" fill="freeze"/>
+    </path>
+
+    <!-- ============ POMEGRANATES (step 13: 2.75s, scale bloom stagger) ============ -->
+    <g id="pomegranates">
+      <!-- pom 1 upper left — begin 2.75s -->
+      <g transform="translate(165 320)">
+        <g transform="scale(0.001)">
+          <animateTransform attributeName="transform" type="scale" from="0" to="1" begin="2.75s" dur="0.2s" fill="freeze"/>
+          <circle r="11" fill="#5a1f33" stroke="url(#goldGrad)" stroke-width="1.5"/>
+          <path d="M-3 -11 L-3 -15 M0 -11 L0 -16 M3 -11 L3 -15 M-4 -11 L4 -11" stroke="url(#goldGrad)" stroke-width="1.3" fill="none"/>
+        </g>
+        <animate attributeName="opacity" values="0.85;1;0.85" dur="5s" begin="3s" repeatCount="indefinite"/>
+      </g>
+      <!-- pom 2 upper right — begin 2.79s -->
+      <g transform="translate(235 320)">
+        <g transform="scale(0.001)">
+          <animateTransform attributeName="transform" type="scale" from="0" to="1" begin="2.79s" dur="0.2s" fill="freeze"/>
+          <circle r="11" fill="#5a1f33" stroke="url(#goldGrad)" stroke-width="1.5"/>
+          <path d="M-3 -11 L-3 -15 M0 -11 L0 -16 M3 -11 L3 -15 M-4 -11 L4 -11" stroke="url(#goldGrad)" stroke-width="1.3" fill="none"/>
+        </g>
+        <animate attributeName="opacity" values="0.85;1;0.85" dur="5.5s" begin="3.15s" repeatCount="indefinite"/>
+      </g>
+      <!-- pom 3 center — begin 2.83s -->
+      <g transform="translate(200 395)">
+        <g transform="scale(0.001)">
+          <animateTransform attributeName="transform" type="scale" from="0" to="1" begin="2.83s" dur="0.2s" fill="freeze"/>
+          <circle r="12" fill="#5a1f33" stroke="url(#goldGrad)" stroke-width="1.6"/>
+          <path d="M-3 -12 L-3 -16 M0 -12 L0 -17 M3 -12 L3 -16 M-5 -12 L5 -12" stroke="url(#goldGrad)" stroke-width="1.3" fill="none"/>
+        </g>
+        <animate attributeName="opacity" values="0.85;1;0.85" dur="4.5s" begin="3.3s" repeatCount="indefinite"/>
+      </g>
+      <!-- pom 4 mid left — begin 2.87s -->
+      <g transform="translate(155 470)">
+        <g transform="scale(0.001)">
+          <animateTransform attributeName="transform" type="scale" from="0" to="1" begin="2.87s" dur="0.2s" fill="freeze"/>
+          <circle r="11" fill="#5a1f33" stroke="url(#goldGrad)" stroke-width="1.5"/>
+          <path d="M-3 -11 L-3 -15 M0 -11 L0 -16 M3 -11 L3 -15 M-4 -11 L4 -11" stroke="url(#goldGrad)" stroke-width="1.3" fill="none"/>
+        </g>
+        <animate attributeName="opacity" values="0.85;1;0.85" dur="6s" begin="3.5s" repeatCount="indefinite"/>
+      </g>
+      <!-- pom 5 mid right — begin 2.91s -->
+      <g transform="translate(245 470)">
+        <g transform="scale(0.001)">
+          <animateTransform attributeName="transform" type="scale" from="0" to="1" begin="2.91s" dur="0.2s" fill="freeze"/>
+          <circle r="11" fill="#5a1f33" stroke="url(#goldGrad)" stroke-width="1.5"/>
+          <path d="M-3 -11 L-3 -15 M0 -11 L0 -16 M3 -11 L3 -15 M-4 -11 L4 -11" stroke="url(#goldGrad)" stroke-width="1.3" fill="none"/>
+        </g>
+        <animate attributeName="opacity" values="0.85;1;0.85" dur="6.5s" begin="3.7s" repeatCount="indefinite"/>
+      </g>
+      <!-- pom 6 lower center — begin 2.95s -->
+      <g transform="translate(200 555)">
+        <g transform="scale(0.001)">
+          <animateTransform attributeName="transform" type="scale" from="0" to="1" begin="2.95s" dur="0.2s" fill="freeze"/>
+          <circle r="11" fill="#5a1f33" stroke="url(#goldGrad)" stroke-width="1.5"/>
+          <path d="M-3 -11 L-3 -15 M0 -11 L0 -16 M3 -11 L3 -15 M-4 -11 L4 -11" stroke="url(#goldGrad)" stroke-width="1.3" fill="none"/>
+        </g>
+        <animate attributeName="opacity" values="0.85;1;0.85" dur="5.2s" begin="3.9s" repeatCount="indefinite"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============ CROWN (step 10: 2.3s cascade stars) ============ -->
+  <g id="crown">
+    <!-- circlet base fades in first -->
+    <path d="M172 158 Q 200 148, 228 158" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="2.3s" dur="0.2s" fill="freeze"/>
+    </path>
+    <!-- 12 stars cascading in ~0.06s apart -->
+    <g fill="url(#goldGrad)" filter="url(#summonGlow)">
+      <!-- Star 1: begin 2.3s -->
+      <path d="M172 145 L173.5 149 L177.5 150.5 L173.5 152 L172 156 L170.5 152 L166.5 150.5 L170.5 149 Z" opacity="0">
+        <animate attributeName="opacity" from="0" to="1" begin="2.3s" dur="0.2s" fill="freeze"/>
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="3.4s" begin="3.2s" repeatCount="indefinite"/>
+      </path>
+      <!-- Star 2: begin 2.36s -->
+      <path d="M180 138 L181.5 142 L185.5 143.5 L181.5 145 L180 149 L178.5 145 L174.5 143.5 L178.5 142 Z" opacity="0">
+        <animate attributeName="opacity" from="0" to="1" begin="2.36s" dur="0.2s" fill="freeze"/>
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="3.8s" begin="3.5s" repeatCount="indefinite"/>
+      </path>
+      <!-- Star 3: begin 2.42s -->
+      <path d="M189 133 L190.5 137 L194.5 138.5 L190.5 140 L189 144 L187.5 140 L183.5 138.5 L187.5 137 Z" opacity="0">
+        <animate attributeName="opacity" from="0" to="1" begin="2.42s" dur="0.2s" fill="freeze"/>
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="4.2s" begin="3.8s" repeatCount="indefinite"/>
+      </path>
+      <!-- Star 4: begin 2.48s (center) -->
+      <path d="M200 130 L201.5 134 L205.5 135.5 L201.5 137 L200 141 L198.5 137 L194.5 135.5 L198.5 134 Z" opacity="0">
+        <animate attributeName="opacity" from="0" to="1" begin="2.48s" dur="0.2s" fill="freeze"/>
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="4.6s" begin="4.1s" repeatCount="indefinite"/>
+      </path>
+      <!-- Star 5: begin 2.54s -->
+      <path d="M211 133 L212.5 137 L216.5 138.5 L212.5 140 L211 144 L209.5 140 L205.5 138.5 L209.5 137 Z" opacity="0">
+        <animate attributeName="opacity" from="0" to="1" begin="2.54s" dur="0.2s" fill="freeze"/>
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="3.6s" begin="4.4s" repeatCount="indefinite"/>
+      </path>
+      <!-- Star 6: begin 2.60s -->
+      <path d="M220 138 L221.5 142 L225.5 143.5 L221.5 145 L220 149 L218.5 145 L214.5 143.5 L218.5 142 Z" opacity="0">
+        <animate attributeName="opacity" from="0" to="1" begin="2.60s" dur="0.2s" fill="freeze"/>
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="4.0s" begin="4.7s" repeatCount="indefinite"/>
+      </path>
+      <!-- Star 7: begin 2.66s -->
+      <path d="M228 145 L229.5 149 L233.5 150.5 L229.5 152 L228 156 L226.5 152 L222.5 150.5 L226.5 149 Z" opacity="0">
+        <animate attributeName="opacity" from="0" to="1" begin="2.66s" dur="0.2s" fill="freeze"/>
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="4.4s" begin="3.1s" repeatCount="indefinite"/>
+      </path>
+      <!-- Star 8: begin 2.72s (small, behind) -->
+      <path d="M164 152 L165 155 L168 156 L165 157 L164 160 L163 157 L160 156 L163 155 Z" opacity="0">
+        <animate attributeName="opacity" from="0" to="0.85" begin="2.72s" dur="0.2s" fill="freeze"/>
+        <animate attributeName="opacity" values="0.45;0.9;0.45" dur="4.8s" begin="3.3s" repeatCount="indefinite"/>
+      </path>
+      <!-- Star 9: begin 2.78s -->
+      <path d="M236 152 L237 155 L240 156 L237 157 L236 160 L235 157 L232 156 L235 155 Z" opacity="0">
+        <animate attributeName="opacity" from="0" to="0.85" begin="2.78s" dur="0.2s" fill="freeze"/>
+        <animate attributeName="opacity" values="0.45;0.9;0.45" dur="3.2s" begin="3.6s" repeatCount="indefinite"/>
+      </path>
+      <!-- Star 10: begin 2.84s -->
+      <path d="M184 128 L185 131 L188 132 L185 133 L184 136 L183 133 L180 132 L183 131 Z" opacity="0">
+        <animate attributeName="opacity" from="0" to="0.85" begin="2.84s" dur="0.2s" fill="freeze"/>
+        <animate attributeName="opacity" values="0.45;0.9;0.45" dur="4.1s" begin="3.9s" repeatCount="indefinite"/>
+      </path>
+      <!-- Star 11: begin 2.90s -->
+      <path d="M216 128 L217 131 L220 132 L217 133 L216 136 L215 133 L212 132 L215 131 Z" opacity="0">
+        <animate attributeName="opacity" from="0" to="0.85" begin="2.90s" dur="0.2s" fill="freeze"/>
+        <animate attributeName="opacity" values="0.45;0.9;0.45" dur="4.9s" begin="4.2s" repeatCount="indefinite"/>
+      </path>
+      <!-- Star 12: begin 2.96s (top center crowning star) -->
+      <path d="M200 122 L201 125 L204 126 L201 127 L200 130 L199 127 L196 126 L199 125 Z" opacity="0">
+        <animate attributeName="opacity" from="0" to="0.85" begin="2.96s" dur="0.2s" fill="freeze"/>
+        <animate attributeName="opacity" values="0.45;0.9;0.45" dur="3.7s" begin="4.9s" repeatCount="indefinite"/>
+      </path>
+    </g>
+  </g>
+
+  <!-- ============ SCEPTER (step 11: 2.55s shaft draw, 2.85s orb scale) ============ -->
+  <g id="scepter" fill="none" stroke="url(#goldGrad)" stroke-linecap="round">
+    <!-- shaft: length ~180 -->
+    <path d="M145 390 L130 210" stroke-width="3.5" stroke-dasharray="185" stroke-dashoffset="185">
+      <animate attributeName="stroke-dashoffset" from="185" to="0" begin="2.55s" dur="0.4s" fill="freeze"/>
+    </path>
+    <!-- sphere cap: scale from 0 to 1 at 2.85s with ambient pulse -->
+    <g transform="translate(130 200)" filter="url(#summonGlow)">
+      <g transform="scale(0.001)">
+        <animateTransform attributeName="transform" type="scale" from="0" to="1" begin="2.85s" dur="0.25s" fill="freeze"/>
+        <circle cx="0" cy="0" r="9" fill="url(#goldGrad)" stroke="#6b4a1f" stroke-width="1">
+          <animate attributeName="r" values="9;9.8;9" dur="4s" begin="3s" repeatCount="indefinite"/>
+        </circle>
+        <path d="M-9 0 L9 0 M0 -9 L0 9" stroke="#6b4a1f" stroke-width="1"/>
+        <path d="M0 -9 L0 -15 M-3 -12 L3 -12" stroke="url(#goldGrad)" stroke-width="1.8"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============ VENUS SHIELD (step 12: 2.65s) ============ -->
+  <g id="venus-shield" opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="2.65s" dur="0.3s" fill="freeze"/>
+    <path d="M305 420
+             C 290 400, 265 405, 265 430
+             C 265 455, 305 485, 305 485
+             C 305 485, 345 455, 345 430
+             C 345 405, 320 400, 305 420 Z"
+          fill="#0a0618" stroke="url(#goldGrad)" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="305" cy="435" r="10" fill="none" stroke="url(#goldGrad)" stroke-width="2.2"/>
+    <path d="M305 445 L305 468 M297 458 L313 458" stroke="url(#goldGrad)" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- ============ WHEAT AT FEET (appears with robe base) ============ -->
+  <g id="wheat" fill="none" stroke="url(#goldGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="1.8s" dur="0.4s" fill="freeze"/>
+    <path d="M175 645 L170 620 M185 645 L183 618 M195 645 L196 615 M205 645 L206 615 M215 645 L217 618 M225 645 L230 620"/>
+    <path d="M170 620 L166 614 M170 620 L174 614 M170 620 L168 610 M183 618 L179 612 M183 618 L187 612 M183 618 L183 608 M196 615 L192 609 M196 615 L200 609 M196 615 L196 605 M206 615 L202 609 M206 615 L210 609 M206 615 L206 605 M217 618 L213 612 M217 618 L221 612 M217 618 L217 608 M230 620 L226 614 M230 620 L234 614 M230 620 L232 610"/>
+  </g>
+
+  <!-- ============ INSCRIPTION (step 14: 2.95s) ============ -->
+  <g id="inscription" opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin="2.95s" dur="0.25s" fill="freeze"/>
+    <text x="200" y="670" text-anchor="middle"
+          font-family="Georgia, 'Times New Roman', serif"
+          font-size="16" font-style="italic" letter-spacing="3"
+          fill="url(#goldGrad)">III  ·  THE EMPRESS</text>
+  </g>
+</svg>

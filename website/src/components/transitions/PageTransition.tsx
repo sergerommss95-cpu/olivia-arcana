@@ -46,11 +46,9 @@ export default function PageTransition({ children }: Props) {
 
   // When pathname changes (new page loaded), animate in
   useEffect(() => {
-    setDisplayChildren(children);
-    setAnimationKey(pathname);
-
-    // Hide overlay after new page content is ready
     const timer = setTimeout(() => {
+      setDisplayChildren(children);
+      setAnimationKey(pathname);
       setOverlayVisible(false);
     }, 100);
 

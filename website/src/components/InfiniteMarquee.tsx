@@ -41,7 +41,10 @@ export default function InfiniteMarquee({
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
-    setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const timer = setTimeout(() => {
+      setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   // Calculate animation duration based on content width
@@ -51,7 +54,10 @@ export default function InfiniteMarquee({
     const firstSet = trackRef.current.querySelector("[data-marquee-set]") as HTMLElement;
     if (!firstSet) return;
     const width = firstSet.offsetWidth;
-    setAnimDuration(width / speed);
+    const timer = setTimeout(() => {
+      setAnimDuration(width / speed);
+    }, 0);
+    return () => clearTimeout(timer);
   }, [speed, children]);
 
   if (reducedMotion) {

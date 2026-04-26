@@ -1,0 +1,306 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Leo zodiac glyph</title>
+  <desc id="desc">Lion symbol, Sun ruled, fixed fire sign</desc>
+
+  <defs>
+    <!-- 1. Deep night radial backdrop -->
+    <radialGradient id="bgNight" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="55%" stop-color="#0d0719"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+
+    <!-- 2. Vignette (darkens edges — manuscript feel) -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+
+    <!-- 3. Parchment wash — warm amber center (sun-sign tinted warmer for Leo) -->
+    <radialGradient id="parchmentWash" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#6b3a1a" stop-opacity="0.14"/>
+      <stop offset="60%" stop-color="#331953" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#331953" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 4. Gold primary gradient (diagonal) — main glyph -->
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 5. Gold primary, vertical — for curves flowing top-to-bottom -->
+    <linearGradient id="goldPrimaryV" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 6. Gold thin — for ring + tick marks -->
+    <linearGradient id="goldThin" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6b4a1f"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 7. Aura behind glyph — Leo gets a slightly hotter core (sun-ruled) -->
+    <radialGradient id="centralAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="0.42"/>
+      <stop offset="40%" stop-color="#d4a574" stop-opacity="0.20"/>
+      <stop offset="75%" stop-color="#6b4a1f" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#331953" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 8. Regulus star glow — heart of the lion -->
+    <radialGradient id="regulusGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#ffe8a3" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#d4a574" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Inscription arc along the bottom of the outer ring -->
+    <path id="inscriptionArc" d="M 76 256 A 180 180 0 0 0 436 256" fill="none"/>
+      <filter id="ambientGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ============ BACKGROUND ============ -->
+  <g id="background">
+    <rect x="0" y="0" width="512" height="512" fill="url(#bgNight)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#parchmentWash)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#vignette)"/>
+  </g>
+
+  <!-- ============ STARFIELD (scattered field stars behind the mandala) ============ -->
+  <g id="starfield" fill="#fff2c6">
+    <circle cx="62"  cy="92"  r="0.9" fill-opacity="0.75"><animate attributeName="opacity" values="0.53;0.96;0.53" dur="3.7s" begin="3.8s" repeatCount="indefinite"/></circle>
+    <circle cx="108" cy="428" r="1.1" fill-opacity="0.7"><animate attributeName="opacity" values="0.35;1.0;0.35" dur="3.7s" begin="3.7s" repeatCount="indefinite"/></circle>
+    <circle cx="446" cy="78"  r="0.8" fill-opacity="0.65"><animate attributeName="opacity" values="0.49;0.95;0.49" dur="3.6s" begin="2.3s" repeatCount="indefinite"/></circle>
+    <circle cx="412" cy="402" r="1.0" fill-opacity="0.75"><animate attributeName="opacity" values="0.45;0.94;0.45" dur="3.5s" begin="0.9s" repeatCount="indefinite"/></circle>
+    <circle cx="80"  cy="312" r="0.7" fill-opacity="0.6"><animate attributeName="opacity" values="0.43;0.93;0.43" dur="4.9s" begin="0.1s" repeatCount="indefinite"/></circle>
+    <circle cx="470" cy="188" r="0.9" fill-opacity="0.7"><animate attributeName="opacity" values="0.55;0.92;0.55" dur="4.6s" begin="3.7s" repeatCount="indefinite"/></circle>
+    <circle cx="150" cy="58"  r="0.8" fill-opacity="0.55"><animate attributeName="opacity" values="0.38;0.92;0.38" dur="3.8s" begin="3.2s" repeatCount="indefinite"/></circle>
+    <circle cx="360" cy="452" r="0.9" fill-opacity="0.7"><animate attributeName="opacity" values="0.49;0.91;0.49" dur="4.5s" begin="0.0s" repeatCount="indefinite"/></circle>
+    <circle cx="34"  cy="210" r="0.7" fill-opacity="0.55"><animate attributeName="opacity" values="0.53;0.96;0.53" dur="3.9s" begin="4.0s" repeatCount="indefinite"/></circle>
+    <circle cx="484" cy="342" r="0.8" fill-opacity="0.6"><animate attributeName="opacity" values="0.43;0.97;0.43" dur="3.6s" begin="1.5s" repeatCount="indefinite"/></circle>
+    <circle cx="232" cy="40"  r="0.6" fill-opacity="0.5"><animate attributeName="opacity" values="0.46;0.96;0.46" dur="3.5s" begin="3.9s" repeatCount="indefinite"/></circle>
+    <circle cx="284" cy="478" r="0.7" fill-opacity="0.55"><animate attributeName="opacity" values="0.38;0.92;0.38" dur="4.2s" begin="3.4s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- ============ SACRED GEOMETRY ============ -->
+  <g id="sacred-geometry" fill="none" stroke="url(#goldThin)" stroke-opacity="0.85">
+    <!-- Three concentric circles -->
+    <circle cx="256" cy="256" r="240" stroke-width="0.8"/>
+    <circle cx="256" cy="256" r="220" stroke-width="0.6" stroke-opacity="0.55"/>
+    <circle cx="256" cy="256" r="200" stroke-width="0.8"/>
+
+    <!-- Inner mandala reference (dashed) -->
+    <circle cx="256" cy="256" r="150" stroke-width="0.4" stroke-opacity="0.35" stroke-dasharray="2 4"/>
+
+    <!-- 12 tick marks at 30° on the outer ring (r=240 outward to r=248) -->
+    <g stroke="#d4a574" stroke-width="1.2" stroke-opacity="0.85">
+      <line x1="256" y1="16"  x2="256" y2="8"/>
+      <line x1="376" y1="48"  x2="380" y2="40"/>
+      <line x1="464" y1="136" x2="472" y2="132"/>
+      <line x1="496" y1="256" x2="504" y2="256"/>
+      <line x1="464" y1="376" x2="472" y2="380"/>
+      <line x1="376" y1="464" x2="380" y2="472"/>
+      <line x1="256" y1="496" x2="256" y2="504"/>
+      <line x1="136" y1="464" x2="132" y2="472"/>
+      <line x1="48"  y1="376" x2="40"  y2="380"/>
+      <line x1="16"  y1="256" x2="8"   y2="256"/>
+      <line x1="48"  y1="136" x2="40"  y2="132"/>
+      <line x1="136" y1="48"  x2="132" y2="40"/>
+    </g>
+
+    <!-- 12 tick marks on the inner ring (r=200 inward to r=192) -->
+    <g stroke="#d4a574" stroke-width="1" stroke-opacity="0.7">
+      <line x1="256" y1="56"  x2="256" y2="64"/>
+      <line x1="356" y1="83"  x2="354" y2="90"/>
+      <line x1="429" y1="156" x2="422" y2="158"/>
+      <line x1="456" y1="256" x2="448" y2="256"/>
+      <line x1="429" y1="356" x2="422" y2="354"/>
+      <line x1="356" y1="429" x2="354" y2="422"/>
+      <line x1="256" y1="456" x2="256" y2="448"/>
+      <line x1="156" y1="429" x2="158" y2="422"/>
+      <line x1="83"  y1="356" x2="90"  y2="354"/>
+      <line x1="56"  y1="256" x2="64"  y2="256"/>
+      <line x1="83"  y1="156" x2="90"  y2="158"/>
+      <line x1="156" y1="83"  x2="158" y2="90"/>
+    </g>
+
+    <!-- Ornamental double-ring (inner decorative ring at r=210) -->
+    <circle cx="256" cy="256" r="210" fill="none" stroke="#d4a574" stroke-opacity="0.3" stroke-width="0.4" stroke-dasharray="1 3"/>
+
+    <!-- Four cardinal 4-pointed stars (jewels marking N/E/S/W) -->
+    <g fill="#d4a574" fill-opacity="0.85">
+      <path d="M 256 30 L 259 36 L 265 39 L 259 42 L 256 48 L 253 42 L 247 39 L 253 36 Z"/>
+      <path d="M 482 256 L 485 259 L 491 262 L 485 265 L 482 268 L 479 265 L 473 262 L 479 259 Z" transform="translate(-6 -6)"/>
+      <path d="M 256 464 L 259 470 L 265 473 L 259 476 L 256 482 L 253 476 L 247 473 L 253 470 Z"/>
+      <path d="M 30 256 L 33 253 L 39 250 L 33 247 L 30 244 L 27 247 L 21 250 L 27 253 Z" transform="translate(6 6)"/>
+    </g>
+  </g>
+
+  <!-- ============ LATIN INSCRIPTION (bottom arc) ============ -->
+  <g id="inscription">
+    <g font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#d4a574" letter-spacing="2" font-style="italic">
+      <text>
+        <textPath href="#inscriptionArc" startOffset="50%" text-anchor="middle">♌  LEO  ·  IGNIS  FIXVS  ·  SOL  ·  REGVLVS</textPath>
+      </text>
+    </g>
+  </g>
+
+  <!-- ============ AURA BEHIND GLYPH ============ -->
+  <g id="aura">
+    <circle cx="256" cy="256" r="180" fill="url(#centralAura)"/>
+  </g>
+
+  <!-- ============ CONSTELLATION (Leo — the Sickle + body: Regulus, Algieba, Adhafera, Ras Elased, Zosma, Denebola) ============ -->
+  <g id="constellation">
+    <!-- Connecting lines (thin, low opacity) — Sickle (reversed question mark) then body triangle to Denebola -->
+    <g stroke="url(#goldPrimary)" stroke-width="0.6" stroke-opacity="0.4" fill="none" stroke-linecap="round">
+      <!-- Sickle curve: Regulus -> Algieba -> Adhafera -> Ras Elased Australis -> Ras Elased Borealis -> Algenubi -->
+      <line x1="278" y1="300" x2="258" y2="236"/>  <!-- Regulus to Algieba -->
+      <line x1="258" y1="236" x2="236" y2="196"/>  <!-- Algieba to Adhafera -->
+      <line x1="236" y1="196" x2="200" y2="180"/>  <!-- Adhafera to Ras Elased Australis -->
+      <line x1="200" y1="180" x2="172" y2="168"/>  <!-- to Ras Elased Borealis -->
+      <line x1="172" y1="168" x2="158" y2="192"/>  <!-- curl back -->
+      <!-- Body: Regulus -> Zosma -> Denebola; and Algieba -> Zosma (triangle) -->
+      <line x1="278" y1="300" x2="340" y2="286"/>  <!-- Regulus to Chertan/midbody -->
+      <line x1="340" y1="286" x2="374" y2="246"/>  <!-- midbody to Zosma -->
+      <line x1="374" y1="246" x2="410" y2="282"/>  <!-- Zosma to Denebola -->
+      <line x1="410" y1="282" x2="340" y2="286"/>  <!-- Denebola back -->
+      <line x1="258" y1="236" x2="374" y2="246"/>  <!-- Algieba to Zosma (diagonal) -->
+    </g>
+
+    <!-- Stars (sized by magnitude) -->
+    <!-- Regulus (α Leo) — brightest, the "heart of the lion" — r=3 with halo -->
+    <circle cx="278" cy="300" r="7" fill="url(#regulusGlow)"/>
+    <circle cx="278" cy="300" r="3" fill="#fff2c6"/>
+    <!-- Algieba (γ Leo) — second brightest -->
+    <circle cx="258" cy="236" r="2.4" fill="#fff2c6"><animate attributeName="opacity" values="0.39;0.9;0.39" dur="4.1s" begin="3.5s" repeatCount="indefinite"/></circle>
+    <!-- Denebola (β Leo) — tail -->
+    <circle cx="410" cy="282" r="2.2" fill="#fff2c6" fill-opacity="0.95"><animate attributeName="opacity" values="0.43;0.92;0.43" dur="3.7s" begin="3.9s" repeatCount="indefinite"/></circle>
+    <!-- Zosma (δ Leo) — back -->
+    <circle cx="374" cy="246" r="1.8" fill="#ffe8a3" fill-opacity="0.9"><animate attributeName="opacity" values="0.47;0.95;0.47" dur="3.3s" begin="2.1s" repeatCount="indefinite"/></circle>
+    <!-- Adhafera (ζ Leo) — mane -->
+    <circle cx="236" cy="196" r="1.5" fill="#ffe8a3" fill-opacity="0.85"><animate attributeName="opacity" values="0.37;0.9;0.37" dur="3.6s" begin="1.7s" repeatCount="indefinite"/></circle>
+    <!-- Ras Elased Australis (ε Leo) -->
+    <circle cx="200" cy="180" r="1.6" fill="#fff2c6" fill-opacity="0.9"><animate attributeName="opacity" values="0.39;0.98;0.39" dur="4.7s" begin="1.4s" repeatCount="indefinite"/></circle>
+    <!-- Ras Elased Borealis (μ Leo) -->
+    <circle cx="172" cy="168" r="1.3" fill="#ffe8a3" fill-opacity="0.8"><animate attributeName="opacity" values="0.4;0.97;0.4" dur="4.8s" begin="2.6s" repeatCount="indefinite"/></circle>
+    <!-- Algenubi (curl tip) -->
+    <circle cx="158" cy="192" r="1.2" fill="#ffe8a3" fill-opacity="0.75"><animate attributeName="opacity" values="0.49;0.94;0.49" dur="4.7s" begin="2.5s" repeatCount="indefinite"/></circle>
+    <!-- Chertan / midbody reference -->
+    <circle cx="340" cy="286" r="1.4" fill="#fff2c6" fill-opacity="0.85"><animate attributeName="opacity" values="0.36;0.93;0.36" dur="4.1s" begin="4.0s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- ============ MAIN LEO GLYPH — stylized mane-and-tail curve ============ -->
+  <!--
+    Anatomy of the Leo astrological symbol:
+    - A small circle / loop on the left (the lion's maned head)
+    - A tall rising curve that arcs up and right (the back / mane swoop)
+    - Curves down on the right and finishes with a small flourish curling back up (the tail tip)
+    Composed as a single calligraphic gesture, drawn in two primary strokes + loop + tail cap.
+  -->
+  <g id="glyph" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Subtle lion-face silhouette INSIDE the head loop (very low opacity suggestion) -->
+    <g opacity="0.35" fill="none" stroke="url(#goldPrimary)" stroke-width="0.8" stroke-linecap="round">
+      <!-- Tiny mane rays radiating from the head loop center -->
+      <g transform="translate(198 232)">
+        <line x1="0" y1="-18" x2="0" y2="-24"/>
+        <line x1="13" y1="-13" x2="17" y2="-17"/>
+        <line x1="18" y1="0" x2="24" y2="0"/>
+        <line x1="13" y1="13" x2="17" y2="17"/>
+        <line x1="-13" y1="-13" x2="-17" y2="-17"/>
+        <line x1="-18" y1="0" x2="-24" y2="0"/>
+        <line x1="-13" y1="13" x2="-17" y2="17"/>
+        <line x1="0" y1="18" x2="0" y2="24"/>
+      </g>
+    </g>
+
+    <!-- === HEAD LOOP (the maned head of the lion — small circle on the left) === -->
+    <!-- Main gradient pass -->
+    <circle cx="198" cy="232" r="22" stroke="url(#goldPrimary)" stroke-width="14"/>
+    <!-- Inner cream highlight -->
+    <circle cx="198" cy="232" r="22" stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- === MANE ARC — a tall, bold calligraphic sweep from head loop up-and-over to the right ===
+         Starts at the top-right of the head loop (~220,232), rises up across the center
+         peaking near y=120, descends on the right side to ~(360,240), then curls down to start the tail -->
+    <path d="M 220 232
+             C 236 158, 300 100, 340 118
+             C 378 136, 380 200, 360 240"
+          stroke="url(#goldPrimaryV)" stroke-width="14"/>
+    <!-- Inner cream highlight (offset slightly inward) -->
+    <path d="M 221 233
+             C 237 160, 301 104, 340 121
+             C 376 138, 377 200, 358 239"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- === BODY / HINDQUARTER DESCENT — from end of mane arc down to the tail flourish origin === -->
+    <path d="M 360 240
+             C 372 268, 366 294, 346 304
+             C 326 314, 306 308, 300 288"
+          stroke="url(#goldPrimary)" stroke-width="14"/>
+    <!-- Inner highlight -->
+    <path d="M 361 241
+             C 372 268, 366 293, 346 302
+             C 326 311, 307 306, 301 289"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- === TAIL FLOURISH — curls back up and outward to the right (the signature Leo tail) === -->
+    <path d="M 300 288
+             C 302 272, 320 264, 340 272
+             C 360 280, 374 298, 378 320"
+          stroke="url(#goldPrimaryV)" stroke-width="13"/>
+    <!-- Inner highlight -->
+    <path d="M 301 288
+             C 303 273, 320 266, 339 273
+             C 358 280, 372 298, 376 319"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- === Ornamental sphere cap at the tail tip === -->
+    <circle cx="378" cy="320" r="2.5" fill="#fff2c6"><animate attributeName="opacity" values="0.53;0.99;0.53" dur="3.2s" begin="0.3s" repeatCount="indefinite"/></circle>
+    <circle cx="378" cy="320" r="4.5" fill="none" stroke="url(#goldPrimary)" stroke-width="1.2" stroke-opacity="0.85"/>
+  </g>
+
+  <!-- ============ ORNAMENT — four Gothic filigree corners ============ -->
+  <g id="ornament" fill="none" stroke="#d4a574" stroke-opacity="0.5" stroke-width="1.2" stroke-linecap="round">
+    <!-- Top-left -->
+    <g transform="translate(40,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.44;0.96;0.44" dur="4.6s" begin="4.0s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Top-right -->
+    <g transform="translate(442,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.53;0.97;0.53" dur="4.2s" begin="2.5s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Bottom-left -->
+    <g transform="translate(40,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.53;0.92;0.53" dur="4.6s" begin="3.1s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Bottom-right -->
+    <g transform="translate(442,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.5;0.96;0.5" dur="4.0s" begin="1.3s" repeatCount="indefinite"/></circle>
+    </g>
+  </g>
+</svg>

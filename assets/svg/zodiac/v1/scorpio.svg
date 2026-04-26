@@ -1,0 +1,292 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Scorpio zodiac glyph</title>
+  <desc id="desc">Scorpion symbol with stinger tail, Pluto and Mars co-ruled, fixed water sign — gold linework on deep navy with Antares constellation, sacred geometry, and Gothic filigree.</desc>
+
+  <defs>
+    <!-- 1. Deep night radial backdrop -->
+    <radialGradient id="bgNight" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="55%" stop-color="#0d0719"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+
+    <!-- 2. Parchment vignette -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+
+    <!-- 3. Pluto/Mars blood-red wash — intense tint over the center -->
+    <radialGradient id="plutoWash" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#5a1f33" stop-opacity="0.22"/>
+      <stop offset="55%" stop-color="#3a1424" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#2a0f18" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 4. Gold primary gradient (glyph + linework, diagonal) -->
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 5. Gold vertical gradient (for the main glyph strokes) -->
+    <linearGradient id="goldPrimaryV" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 6. Gold thin gradient — fine ring / tick marks -->
+    <linearGradient id="goldThin" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6b4a1f"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 7. Aura behind the central glyph — slightly blood-tinged for Scorpio -->
+    <radialGradient id="centralAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="0.35"/>
+      <stop offset="40%" stop-color="#d4a574" stop-opacity="0.18"/>
+      <stop offset="75%" stop-color="#6b4a1f" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#5a1f33" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 8. Antares star glow — warm red-cream for the RED giant -->
+    <radialGradient id="antaresGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="1"/>
+      <stop offset="35%" stop-color="#f5c79a" stop-opacity="0.85"/>
+      <stop offset="70%" stop-color="#d4a574" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#5a1f33" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Path for the bottom-arc inscription -->
+    <path id="inscriptionArc" d="M 76 256 A 180 180 0 0 0 436 256" fill="none"/>
+  </defs>
+
+  <!-- ============ BACKGROUND ============ -->
+  <g id="background">
+    <rect x="0" y="0" width="512" height="512" fill="url(#bgNight)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#plutoWash)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#vignette)"/>
+  </g>
+
+  <!-- ============ STARFIELD — 12 scattered background stars ============ -->
+  <g id="starfield" fill="#fff2c6">
+    <circle cx="72"  cy="88"  r="1.1" fill-opacity="0.75"/>
+    <circle cx="132" cy="58"  r="0.9" fill-opacity="0.6"/>
+    <circle cx="214" cy="100" r="1.3" fill-opacity="0.85"/>
+    <circle cx="426" cy="82"  r="1"   fill-opacity="0.7"/>
+    <circle cx="470" cy="172" r="1.4" fill-opacity="0.9"/>
+    <circle cx="50"  cy="210" r="1.1" fill-opacity="0.75"/>
+    <circle cx="94"  cy="398" r="1.2" fill-opacity="0.8"/>
+    <circle cx="162" cy="442" r="0.9" fill-opacity="0.6"/>
+    <circle cx="404" cy="430" r="1.3" fill-opacity="0.85"/>
+    <circle cx="458" cy="378" r="1"   fill-opacity="0.7"/>
+    <circle cx="344" cy="62"  r="0.8" fill-opacity="0.55"/>
+    <circle cx="70"  cy="332" r="1"   fill-opacity="0.7"/>
+  </g>
+
+  <!-- ============ SACRED GEOMETRY ============ -->
+  <g id="sacred-geometry" fill="none" stroke="url(#goldThin)" stroke-opacity="0.85">
+    <!-- Three concentric circles -->
+    <circle cx="256" cy="256" r="240" stroke-width="0.8"/>
+    <circle cx="256" cy="256" r="220" stroke-width="0.6" stroke-opacity="0.55"/>
+    <circle cx="256" cy="256" r="200" stroke-width="0.8"/>
+
+    <!-- Inner dashed mandala reference ring -->
+    <circle cx="256" cy="256" r="150" stroke-width="0.4" stroke-opacity="0.35" stroke-dasharray="2 4"/>
+
+    <!-- Ornamental double-ring just inside outer — denser tick feel -->
+    <circle cx="256" cy="256" r="230" stroke-width="0.35" stroke-opacity="0.45" stroke-dasharray="1 3"/>
+
+    <!-- 12 tick marks on outer ring (r=240 → r=248), every 30° -->
+    <g stroke="#d4a574" stroke-width="1.2" stroke-opacity="0.85">
+      <line x1="256" y1="16"  x2="256" y2="8"/>
+      <line x1="376" y1="48"  x2="380" y2="40"/>
+      <line x1="464" y1="136" x2="472" y2="132"/>
+      <line x1="496" y1="256" x2="504" y2="256"/>
+      <line x1="464" y1="376" x2="472" y2="380"/>
+      <line x1="376" y1="464" x2="380" y2="472"/>
+      <line x1="256" y1="496" x2="256" y2="504"/>
+      <line x1="136" y1="464" x2="132" y2="472"/>
+      <line x1="48"  y1="376" x2="40"  y2="380"/>
+      <line x1="16"  y1="256" x2="8"   y2="256"/>
+      <line x1="48"  y1="136" x2="40"  y2="132"/>
+      <line x1="136" y1="48"  x2="132" y2="40"/>
+    </g>
+
+    <!-- 12 tick marks on inner ring (r=200 → r=192) -->
+    <g stroke="#d4a574" stroke-width="1" stroke-opacity="0.7">
+      <line x1="256" y1="56"  x2="256" y2="64"/>
+      <line x1="356" y1="83"  x2="354" y2="90"/>
+      <line x1="429" y1="156" x2="422" y2="158"/>
+      <line x1="456" y1="256" x2="448" y2="256"/>
+      <line x1="429" y1="356" x2="422" y2="354"/>
+      <line x1="356" y1="429" x2="354" y2="422"/>
+      <line x1="256" y1="456" x2="256" y2="448"/>
+      <line x1="156" y1="429" x2="158" y2="422"/>
+      <line x1="83"  y1="356" x2="90"  y2="354"/>
+      <line x1="56"  y1="256" x2="64"  y2="256"/>
+      <line x1="83"  y1="156" x2="90"  y2="158"/>
+      <line x1="156" y1="83"  x2="158" y2="90"/>
+    </g>
+
+    <!-- 4 cardinal-point 4-pointed stars (compass jewels) -->
+    <g fill="#d4a574" fill-opacity="0.85" stroke="none">
+      <!-- North -->
+      <path d="M 256 22 L 259 36 L 273 39 L 259 42 L 256 56 L 253 42 L 239 39 L 253 36 Z"/>
+      <!-- East -->
+      <path d="M 490 256 L 476 259 L 473 273 L 470 259 L 456 256 L 470 253 L 473 239 L 476 253 Z"/>
+      <!-- South -->
+      <path d="M 256 490 L 259 476 L 273 473 L 259 470 L 256 456 L 253 470 L 239 473 L 253 476 Z"/>
+      <!-- West -->
+      <path d="M 22 256 L 36 259 L 39 273 L 42 259 L 56 256 L 42 253 L 39 239 L 36 253 Z"/>
+    </g>
+  </g>
+
+  <!-- ============ INSCRIPTION (bottom arc) ============ -->
+  <g id="inscription">
+    <g font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#d4a574" letter-spacing="2" font-style="italic">
+      <text>
+        <textPath href="#inscriptionArc" startOffset="50%" text-anchor="middle">♏  SCORPIO  ·  AQUA  FIXA  ·  PLUTO  ·  ANTARES</textPath>
+      </text>
+    </g>
+  </g>
+
+  <!-- ============ AURA BEHIND THE GLYPH ============ -->
+  <g id="aura">
+    <circle cx="256" cy="210" r="175" fill="url(#centralAura)"/>
+  </g>
+
+  <!-- ============ CONSTELLATION — Scorpius key stars ============ -->
+  <!-- Antares prominent in heart; Graffias/Dschubba at head; Sargas/Shaula/Lesath at stinger tail -->
+  <g id="constellation">
+    <!-- Connecting lines — the J-curve of Scorpius -->
+    <g stroke="url(#goldPrimary)" stroke-width="0.7" stroke-opacity="0.4" fill="none" stroke-linecap="round">
+      <!-- Head claws: Dschubba center, Graffias above -->
+      <line x1="138" y1="108" x2="172" y2="140"/>  <!-- Graffias to Dschubba -->
+      <line x1="172" y1="140" x2="206" y2="172"/>  <!-- Dschubba down toward heart -->
+      <!-- Heart: Antares -->
+      <line x1="206" y1="172" x2="232" y2="208"/>  <!-- into Antares -->
+      <!-- Body curve descending right then curling -->
+      <line x1="232" y1="208" x2="282" y2="260"/>
+      <line x1="282" y1="260" x2="338" y2="304"/>
+      <line x1="338" y1="304" x2="384" y2="334"/>  <!-- Sargas region -->
+      <!-- Stinger pair: Shaula + Lesath -->
+      <line x1="384" y1="334" x2="410" y2="316"/>  <!-- to Shaula -->
+      <line x1="410" y1="316" x2="424" y2="304"/>  <!-- to Lesath (close double) -->
+    </g>
+
+    <!-- Stars (sized by magnitude) -->
+    <!-- Antares (α Scorpii) — RED giant, brightest, warm cream-red tinted glow -->
+    <circle cx="232" cy="208" r="8" fill="url(#antaresGlow)"/>
+    <circle cx="232" cy="208" r="3.5" fill="#f5d5a8"/>
+    <!-- Graffias (β) — head, a double star -->
+    <circle cx="138" cy="108" r="2.4" fill="#fff2c6"/>
+    <!-- Dschubba (δ) — forehead -->
+    <circle cx="172" cy="140" r="2.2" fill="#ffe8a3"/>
+    <!-- Pi Scorpii node between head and heart -->
+    <circle cx="206" cy="172" r="1.8" fill="#fff2c6" fill-opacity="0.9"/>
+    <!-- Body curve node -->
+    <circle cx="282" cy="260" r="1.6" fill="#ffe8a3" fill-opacity="0.85"/>
+    <!-- Tail bend node -->
+    <circle cx="338" cy="304" r="1.8" fill="#fff2c6" fill-opacity="0.9"/>
+    <!-- Sargas (θ) — tail -->
+    <circle cx="384" cy="334" r="2.4" fill="#fff2c6"/>
+    <!-- Shaula (λ) — the stinger, bright -->
+    <circle cx="410" cy="316" r="2.8" fill="#fff2c6"/>
+    <!-- Lesath (υ) — the stinger companion -->
+    <circle cx="424" cy="304" r="2" fill="#ffe8a3"/>
+  </g>
+
+  <!-- ============ MAIN SCORPIO GLYPH — the "M" with stinger-arrow tail ============ -->
+  <!-- Three vertical strokes connected at top; rightmost stroke extends below baseline, then curves UP-AND-RIGHT into an arrowhead stinger -->
+  <g id="glyph" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Top connector — curves linking tops of strokes (two small arches) -->
+    <!-- Left arch: top of stroke 1 to top of stroke 2 -->
+    <path d="M 170 140 Q 198 116, 226 140"
+          stroke="url(#goldPrimary)" stroke-width="14"/>
+    <!-- Right arch: top of stroke 2 to top of stroke 3 -->
+    <path d="M 226 140 Q 254 116, 282 140"
+          stroke="url(#goldPrimary)" stroke-width="14"/>
+
+    <!-- Vertical stroke 1 (leftmost) — hook foot curls slightly inward -->
+    <path d="M 170 140 L 170 262 Q 170 278, 184 278"
+          stroke="url(#goldPrimaryV)" stroke-width="14"/>
+
+    <!-- Vertical stroke 2 (middle) — hook foot curls slightly inward -->
+    <path d="M 226 140 L 226 262 Q 226 278, 240 278"
+          stroke="url(#goldPrimaryV)" stroke-width="14"/>
+
+    <!-- Vertical stroke 3 (rightmost) — EXTENDS BELOW then sweeps UP-AND-RIGHT into stinger -->
+    <!-- Descending stem past baseline -->
+    <path d="M 282 140 L 282 290"
+          stroke="url(#goldPrimaryV)" stroke-width="14"/>
+    <!-- Sweeping curve down, around, and back up-and-right -->
+    <path d="M 282 290 Q 288 318, 316 322 Q 346 326, 372 308 Q 392 294, 398 272"
+          stroke="url(#goldPrimary)" stroke-width="14"/>
+
+    <!-- STINGER ARROWHEAD — two short backward barb strokes at the tail tip -->
+    <!-- Barb 1: upper-left stroke -->
+    <path d="M 398 272 L 378 278"
+          stroke="url(#goldPrimary)" stroke-width="10"/>
+    <!-- Barb 2: lower-left stroke -->
+    <path d="M 398 272 L 394 292"
+          stroke="url(#goldPrimary)" stroke-width="10"/>
+    <!-- Pointed tip cap of the stinger — tiny triangular gold tip -->
+    <path d="M 398 272 L 408 260 L 404 276 Z"
+          fill="url(#goldPrimary)" stroke="url(#goldPrimary)" stroke-width="2"/>
+
+    <!-- Inner cream highlight pass (adds dimensional sheen) -->
+    <g stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55" fill="none">
+      <path d="M 172 142 Q 198 118, 224 142"/>
+      <path d="M 228 142 Q 254 118, 280 142"/>
+      <path d="M 172 142 L 172 262 Q 172 276, 184 276"/>
+      <path d="M 228 142 L 228 262 Q 228 276, 240 276"/>
+      <path d="M 280 142 L 280 290"/>
+      <path d="M 280 290 Q 288 316, 316 320 Q 346 324, 370 306 Q 390 292, 396 272"/>
+    </g>
+
+    <!-- Ornamental sphere caps at the tops of each of the three strokes -->
+    <circle cx="170" cy="140" r="2.5" fill="#fff2c6"/>
+    <circle cx="226" cy="140" r="2.5" fill="#fff2c6"/>
+    <circle cx="282" cy="140" r="2.5" fill="#fff2c6"/>
+
+    <!-- Inner pearl at the stinger arrow-tip for focal accent -->
+    <circle cx="402" cy="268" r="2" fill="#fff2c6"/>
+  </g>
+
+  <!-- ============ ORNAMENT — four Gothic filigree corner flourishes ============ -->
+  <g id="ornament" fill="none" stroke="#d4a574" stroke-opacity="0.5" stroke-width="1.2" stroke-linecap="round">
+    <!-- Top-left -->
+    <g transform="translate(40,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Top-right -->
+    <g transform="translate(442,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Bottom-left -->
+    <g transform="translate(40,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Bottom-right -->
+    <g transform="translate(442,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+  </g>
+</svg>

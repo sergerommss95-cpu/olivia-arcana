@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Empress v8 — Flat-graphic FLUX, clean vectorize</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 2rem; background: #0a0517; color: #eee; min-height: 100vh; }
+  h1 { font-size: 1.6rem; font-weight: 600; margin-bottom: 0.5rem; }
+  h1 small { font-weight: 400; opacity: 0.6; font-size: 1rem; margin-left: 0.5rem; }
+  .meta { opacity: 0.65; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.5rem; max-width: 72ch; }
+  .insight { background: rgba(212,165,116,0.08); border-left: 3px solid #d4a574; padding: 0.75rem 1rem; margin: 1rem 0; font-size: 0.85rem; border-radius: 4px; line-height: 1.5; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+  .card { border: 1px solid rgba(128,128,128,0.25); border-radius: 12px; overflow: hidden; }
+  .card.ref { border: 2px solid rgba(212,165,116,0.4); }
+  .card.hero { border: 2px solid #d4a574; }
+  .card-img { display: flex; align-items: center; justify-content: center; padding: 1rem; min-height: 700px; background: #0a0517; }
+  .card-img img { max-width: 100%; max-height: 680px; display: block; }
+  .card-label { padding: 0.75rem 1rem; font-size: 0.85rem; background: #13081f; border-top: 1px solid rgba(128,128,128,0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+  .card-label .size { opacity: 0.55; font-size: 0.7rem; }
+  .card-label .tag { font-size: 0.68rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(212,165,116,0.2); color: #fff2c6; }
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(128,128,128,0.2); font-size: 0.8rem; opacity: 0.6; line-height: 1.6; }
+  footer code { font-family: ui-monospace, Menlo, monospace; background: rgba(212,165,116,0.12); padding: 0.1rem 0.35rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <h1>The Empress — v8 <small>flat-first FLUX prompt · clean vectorize</small></h1>
+  <div class="meta">
+    Your insight: prompt FLUX for flat-graphic source (risograph / Saul Bass / mid-century modern tarot) instead of painterly (Mucha / illuminated manuscript). Flat-graphic inputs vectorize cleanly. Everything smaller, crisper, infinitely scalable.
+  </div>
+  <div class="insight">
+    <b>File size comparison:</b> v5 (painterly 8-color): 1.8 MB · v6 (painterly 32-color): 3.7 MB · v7 (max settings): 3.8 MB · <b>v8 (flat source + 20-color): 314 KB</b>. Flat-first is 12× smaller than max-precision on painterly source.
+  </div>
+
+  <div class="grid">
+    <div class="card ref">
+      <div class="card-img"><img src="_source-flat.jpg" alt="flat source"></div>
+      <div class="card-label">source · FLUX flat-graphic <span class="tag">JPG</span><span class="size">312 KB</span></div>
+    </div>
+    <div class="card hero">
+      <div class="card-img"><img src="A-10colors-poster.svg" alt="A"></div>
+      <div class="card-label">A · 10-color poster <span class="tag">vector</span><span class="size">320 KB</span></div>
+    </div>
+    <div class="card hero">
+      <div class="card-img"><img src="B-20colors-photo.svg" alt="B"></div>
+      <div class="card-label">B · 20-color photo <span class="tag">vector</span><span class="size">314 KB</span></div>
+    </div>
+  </div>
+
+  <footer>
+    v8 path: <code>/Users/macbookpro/olivia-arcana/assets/svg/empress/v8/</code><br>
+    Prompt family: Saul Bass · risograph · Tara McPherson · mid-century modern tarot · flat color regions · thick uniform outlines · no fine detail<br>
+    If v8 ships: this prompt template becomes the canonical one for all 77 remaining Major + Minor Arcana. Flat-graphic FLUX input → clean VTracer output → ~300 KB SVG per card. Whole deck ≈ 23 MB total, 77× FLUX calls ≈ $2.31 (~$0.03/image per brain/BFL Flux API.md).
+  </footer>
+</body>
+</html>

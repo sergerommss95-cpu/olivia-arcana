@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect } from "react";
+import LivingOliveMark from "./LivingOliveMark";
 import { getSession } from "../lib/supabase";
 import LanguageSwitcher from "./LanguageSwitcher";
 import TransitionLink from "@/components/transitions/TransitionLink";
@@ -59,26 +61,16 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50" style={{ paddingTop: "env(safe-area-inset-top)" }}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 sm:py-4">
-        <div className="glass-card px-6 py-3 flex items-center justify-between">
+        <div className="glass-card px-6 py-3 flex items-center justify-between" style={{ background: "rgba(8, 6, 20, 0.92)" }}>
           {/* Logo — olive mark (brand) + wordmark */}
           <TransitionLink href="/" className="flex items-center gap-2 group" aria-label="Olivia Arcana — home">
-            <img
-              src="/olive-mark.svg"
-              alt=""
-              aria-hidden
-              width={22}
-              height={22}
-              className="shrink-0"
-              style={{ display: "block" }}
-            />
+            <LivingOliveMark size={22} className="shrink-0" />
             <span
               className="font-[family-name:var(--font-heading)] text-lg font-semibold tracking-wide text-celestial-gold"
             >
               Olivia Arcana
             </span>
           </TransitionLink>
-
-          {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <TransitionLink
@@ -179,8 +171,9 @@ export default function Navbar() {
         {/* Mobile menu */}
         {open && (
           <div
-            className="md:hidden mt-2 glass-card p-4 space-y-3"
+            className="md:hidden mt-2 glass-card p-4 space-y-3 animate-in fade-in slide-in-from-top-4 duration-500"
             style={{
+              background: "rgba(8, 6, 20, 0.96)",
               maxHeight: "calc(100dvh - 5rem)",
               overflowY: "auto",
               WebkitOverflowScrolling: "touch",

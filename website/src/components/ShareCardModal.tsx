@@ -24,6 +24,7 @@ interface CardData {
   luckyColorHex: string;
   dateRange: string;
   traits: string[];
+  roast?: { tagline: string; roast: string };
 }
 
 interface Props {

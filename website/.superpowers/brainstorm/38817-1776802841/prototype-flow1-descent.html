@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Olivia Arcana — The Descent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style>
+  :root{
+    --void:#060810;
+    --s0:#0c0d18;
+    --s1:#131525;
+    --s2:#1c1e30;
+    --gold:#C8A84B;
+    --gold-light:#E2C070;
+    --gold-dark:#8A6D2A;
+    --purple:#6b3fa0;
+    --nebula:#9b59b6;
+    --text:#E8E6F0;
+    --body:#B8B0C8;
+    --muted:#8A829A;
+    --display:"Cormorant Garamond", serif;
+    --sans:"DM Sans", system-ui, sans-serif;
+    --mono:"IBM Plex Mono", ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--void);color:var(--body);font-family:var(--sans);overflow:hidden;cursor:default}
+  body{font-size:15px;line-height:1.6;letter-spacing:.005em}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;letter-spacing:inherit}
+
+  /* stage + scenes -------------------------------------------------- */
+  #stage{position:fixed;inset:0}
+  .scene{position:absolute;inset:0;opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
+  .scene.active{opacity:1;pointer-events:auto}
+
+  /* persistent grain over everything to keep it filmic */
+  #grain{position:fixed;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.09;z-index:50;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9  0 0 0 0 0.88  0 0 0 0 0.95  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+
+  /* very faint starfield behind everything */
+  #stars{position:fixed;inset:0;pointer-events:none;z-index:0;background:
+    radial-gradient(1px 1px at 22% 18%, rgba(232,230,240,.45), transparent 60%),
+    radial-gradient(1px 1px at 68% 12%, rgba(232,230,240,.35), transparent 60%),
+    radial-gradient(1px 1px at 41% 77%, rgba(232,230,240,.30), transparent 60%),
+    radial-gradient(1px 1px at 88% 62%, rgba(232,230,240,.40), transparent 60%),
+    radial-gradient(1.5px 1.5px at 9% 66%, rgba(200,168,75,.45), transparent 60%),
+    radial-gradient(1px 1px at 57% 34%, rgba(232,230,240,.28), transparent 60%),
+    radial-gradient(1px 1px at 79% 88%, rgba(232,230,240,.32), transparent 60%)}
+
+  /* HUD ------------------------------------------------------------- */
+  .hud{position:fixed;z-index:40;color:var(--muted)}
+  .hud.tl{top:24px;left:28px;font-family:var(--display);font-weight:300;font-size:15px;letter-spacing:.32em;text-transform:uppercase;color:var(--text)}
+  .hud.tl small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.32em;color:var(--gold-dark);margin-top:4px;font-weight:400}
+  .hud.br{bottom:22px;right:28px;font-family:var(--mono);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase}
+  .hud.br .bar{display:inline-block;vertical-align:middle;width:90px;height:1px;background:var(--s2);margin:0 14px;position:relative;overflow:hidden}
+  .hud.br .bar i{position:absolute;left:0;top:0;height:100%;background:var(--gold);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+
+  /* continue cue (reused across scenes) ----------------------------- */
+  .continue{position:absolute;bottom:64px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);opacity:0;pointer-events:none;cursor:pointer;user-select:none;transition:color .3s}
+  .continue.on{opacity:1;pointer-events:auto}
+  .continue:hover{color:var(--gold-light)}
+  .continue .glyph{display:inline-block;margin-left:14px;width:18px;height:18px;vertical-align:middle;border:1px solid var(--gold);border-radius:50%;position:relative}
+  .continue .glyph::before{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--gold);opacity:.25;animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(.55);opacity:.15}50%{transform:scale(1);opacity:.75}}
+
+  /* dissolve overlay ------------------------------------------------ */
+  #dissolve{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:0;background:
+    radial-gradient(ellipse at 30% 40%, rgba(107,63,160,.65), transparent 55%),
+    radial-gradient(ellipse at 70% 60%, rgba(155,89,182,.55), transparent 60%),
+    radial-gradient(ellipse at 50% 50%, rgba(6,8,16,.95), rgba(6,8,16,.6) 45%, rgba(6,8,16,0) 75%),
+    #060810;
+    filter:blur(0px)}
+
+  /* scene 1: portal ------------------------------------------------- */
+  #s1 canvas{position:absolute;inset:0}
+  #s1-intro{position:absolute;top:28%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
+  #s1-intro h1{font-family:var(--display);font-weight:300;font-size:clamp(40px,5.6vw,88px);letter-spacing:-.01em;line-height:1.04;color:var(--text)}
+  #s1-intro h1 em{font-style:italic;color:var(--gold-light)}
+  #s1-intro p{margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:var(--muted)}
+  .gcard{position:absolute;width:180px;height:270px;left:0;top:0;pointer-events:none;will-change:transform;z-index:5}
+  .gcard .face{
+    position:absolute;inset:0;border-radius:3px;
+    background:
+      radial-gradient(140% 90% at 30% 18%, rgba(226,192,112,.22), transparent 55%),
+      radial-gradient(120% 80% at 70% 90%, rgba(107,63,160,.35), transparent 60%),
+      linear-gradient(155deg, #1a1930 0%, #0e0c1b 55%, #07070f 100%);
+    border:1px solid rgba(200,168,75,.42);
+    box-shadow:0 30px 70px rgba(0,0,0,.65), inset 0 0 50px rgba(226,192,112,.05);
+  }
+  .gcard .face::before{
+    content:"";position:absolute;inset:8px;border:1px solid rgba(200,168,75,.22);border-radius:2px;
+  }
+  .gcard .mark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:54px;color:var(--gold-light);opacity:.82;text-shadow:0 0 20px rgba(226,192,112,.35)}
+  .gcard .label{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:8.5px;letter-spacing:.42em;text-transform:uppercase;color:var(--gold-dark)}
+  .gcard .top{position:absolute;top:16px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:8.5px;letter-spacing:.42em;text-transform:uppercase;color:var(--gold-dark)}
+
+  /* scene 2: poster ------------------------------------------------- */
+  #s2{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px}
+  .poster-wrap{position:relative;width:min(620px,74vh);aspect-ratio:2/3;transform:rotate(-8deg);opacity:0;will-change:transform,opacity}
+  .poster{
+    position:absolute;inset:0;border-radius:2px;overflow:hidden;
+    background:
+      radial-gradient(60% 40% at 70% 20%, rgba(155,89,182,.55), transparent 65%),
+      radial-gradient(90% 70% at 20% 85%, rgba(200,168,75,.28), transparent 70%),
+      radial-gradient(50% 30% at 90% 75%, rgba(107,63,160,.55), transparent 70%),
+      linear-gradient(165deg, #221a2c 0%, #15182a 45%, #0a0814 100%);
+    box-shadow:0 40px 100px rgba(0,0,0,.8), inset 0 0 120px rgba(0,0,0,.6);
+  }
+  .poster .paper{position:absolute;inset:0;mix-blend-mode:overlay;opacity:.4;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.78  0 0 0 0 0.66  0 0 0 0 0.42  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>")}
+  .poster .border{position:absolute;inset:22px;border:1px solid rgba(226,192,112,.35);border-radius:1px;pointer-events:none}
+  .poster .wheel{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:74%;aspect-ratio:1/1;color:rgba(226,192,112,.85)}
+  .poster .head{position:absolute;top:8.5%;left:0;right:0;text-align:center;font-family:var(--display);font-weight:300;font-size:clamp(22px,2.6vw,38px);letter-spacing:.02em;color:var(--text)}
+  .poster .head em{font-style:italic;color:var(--gold-light)}
+  .poster .sub{position:absolute;top:15%;left:0;right:0;text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-dark)}
+  .poster .credits{position:absolute;bottom:9%;left:0;right:0;text-align:center;font-family:var(--display);font-weight:300;font-style:italic;font-size:clamp(14px,1.4vw,18px);color:var(--body);padding:0 40px;line-height:1.35}
+  .poster .credits b{font-style:normal;font-family:var(--mono);font-weight:400;font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);display:block;margin-top:14px}
+  .poster .tag{position:absolute;bottom:3.5%;left:0;right:0;text-align:center;font-family:var(--mono);font-size:8px;letter-spacing:.46em;text-transform:uppercase;color:var(--muted)}
+  #s2-cta{margin-top:46px;opacity:0}
+  .gold-cta{
+    font-family:var(--mono);font-size:11px;letter-spacing:.42em;text-transform:uppercase;
+    padding:16px 32px;color:var(--gold);border:1px solid rgba(200,168,75,.5);
+    background:linear-gradient(180deg, rgba(200,168,75,.06), rgba(200,168,75,0));
+    position:relative;overflow:hidden;transition:color .6s ease, border-color .6s ease, letter-spacing .6s ease
+  }
+  .gold-cta::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 120% at 50% 50%, rgba(226,192,112,.22), transparent 65%);opacity:0;transition:opacity .8s ease}
+  .gold-cta:hover{color:var(--gold-light);border-color:var(--gold-light);letter-spacing:.48em}
+  .gold-cta:hover::after{opacity:1}
+
+  /* scene 3: glass -------------------------------------------------- */
+  #s3{display:flex;flex-direction:column;align-items:center;justify-content:center}
+  #s3 canvas{position:absolute;inset:0}
+  #s3-ui{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;pointer-events:none}
+  #s3-prompt{font-family:var(--mono);font-size:10.5px;letter-spacing:.46em;text-transform:uppercase;color:var(--gold);margin-top:46vh;opacity:0}
+  #s3-input-wrap{margin-top:22px;opacity:0;pointer-events:auto}
+  #s3-input{
+    width:min(520px,62vw);font-family:var(--display);font-weight:300;font-size:22px;
+    text-align:center;background:transparent;border:0;border-bottom:1px solid rgba(200,168,75,.35);
+    color:var(--text);padding:12px 4px;outline:none;letter-spacing:.01em;caret-color:var(--gold)
+  }
+  #s3-input::placeholder{color:var(--muted);font-style:italic}
+  #s3-hint{margin-top:14px;font-family:var(--mono);font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--muted)}
+  #s3-reading{
+    margin-top:48px;max-width:min(720px,80vw);text-align:center;
+    font-family:var(--display);font-weight:300;font-style:italic;font-size:clamp(22px,2.1vw,28px);
+    line-height:1.45;color:var(--text);min-height:140px;opacity:0
+  }
+  #s3-reading::after{content:"|";color:var(--gold);margin-left:4px;opacity:0}
+  #s3-reading.typing::after{opacity:1;animation:blink 1s steps(2) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* scene 4: ritual rooms ------------------------------------------- */
+  #s4{display:flex;flex-direction:column;align-items:center;justify-content:center}
+  #s4-head{position:absolute;top:14%;left:0;right:0;text-align:center}
+  #s4-head h2{font-family:var(--display);font-weight:300;font-size:clamp(28px,3.4vw,46px);color:var(--text);letter-spacing:.01em}
+  #s4-head h2 em{font-style:italic;color:var(--gold-light)}
+  #s4-head p{margin-top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--muted)}
+  .doors{display:grid;grid-template-columns:repeat(3,1fr);gap:38px;padding:0 60px;width:min(1040px,92vw);margin-top:60px}
+  .door{
+    position:relative;aspect-ratio:5/8;border:1px solid rgba(200,168,75,.22);
+    background:
+      radial-gradient(120% 90% at 50% 15%, rgba(200,168,75,.05), transparent 55%),
+      linear-gradient(180deg, #121328 0%, #0a0a15 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+    padding:36px 22px 30px;overflow:hidden;cursor:pointer;transition:border-color .9s ease, transform .9s ease
+  }
+  .door::before{
+    content:"";position:absolute;inset:-1px;border:1px solid transparent;pointer-events:none;
+    background:linear-gradient(180deg, rgba(226,192,112,.45), transparent 60%) border-box;
+    -webkit-mask:linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .9s ease
+  }
+  .door .shimmer{
+    position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 1s ease;
+    background:
+      radial-gradient(80% 40% at 50% 25%, rgba(226,192,112,.24), transparent 60%),
+      radial-gradient(90% 60% at 50% 95%, rgba(155,89,182,.35), transparent 65%);
+    mix-blend-mode:screen
+  }
+  .door:hover{border-color:rgba(200,168,75,.55);transform:translateY(-3px)}
+  .door:hover::before{opacity:1}
+  .door:hover .shimmer{opacity:1}
+  .door:hover .sigil{color:var(--gold-light);text-shadow:0 0 30px rgba(226,192,112,.5),0 0 60px rgba(226,192,112,.25)}
+  .door .tag{font-family:var(--mono);font-size:9px;letter-spacing:.42em;text-transform:uppercase;color:var(--muted);z-index:2}
+  .door .sigil{font-family:var(--display);font-weight:300;font-size:clamp(72px,8vw,120px);color:var(--gold-dark);transition:color .9s ease, text-shadow .9s ease;z-index:2;line-height:1}
+  .door .meta{text-align:center;z-index:2}
+  .door .meta h3{font-family:var(--display);font-weight:300;font-size:22px;color:var(--text);letter-spacing:.02em}
+  .door .meta .row{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:14px;font-family:var(--mono);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+  .door .meta .row svg{opacity:.8}
+  .door .meta .row .sep{width:14px;height:1px;background:rgba(200,168,75,.4)}
+
+  /* scene 5: sign-off ---------------------------------------------- */
+  #s5{display:flex;align-items:center;justify-content:center;flex-direction:column}
+  #s5 canvas{position:absolute;inset:0}
+  #s5-ui{position:relative;z-index:2;text-align:center;padding:0 40px}
+  #s5 h2{font-family:var(--display);font-weight:300;font-size:clamp(42px,5.6vw,88px);letter-spacing:-.005em;color:var(--text);line-height:1.05;opacity:0}
+  #s5 h2 em{font-style:italic;color:var(--gold-light)}
+  #s5 .sub{margin-top:26px;font-family:var(--mono);font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:var(--muted);opacity:0}
+  #s5 .ctas{margin-top:54px;display:flex;flex-direction:column;align-items:center;gap:22px;opacity:0}
+  #s5 .remain{font-family:var(--display);font-weight:300;font-style:italic;font-size:16px;color:var(--muted);border-bottom:1px solid rgba(138,130,154,.35);padding-bottom:2px;transition:color .6s}
+  #s5 .remain:hover{color:var(--gold-light)}
+
+  /* selection */
+  ::selection{background:rgba(200,168,75,.35);color:var(--text)}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div id="stage">
+
+  <!-- ==================== SCENE 1: PORTAL ==================== -->
+  <section id="s1" class="scene active">
+    <canvas id="s1-canvas"></canvas>
+    <div id="s1-intro">
+      <h1>Below the threshold, <em>the stars remember.</em></h1>
+      <p>A descent in five passages</p>
+    </div>
+    <div class="gcard" id="gcard">
+      <div class="face">
+        <div class="top">Arcanum · I</div>
+        <div class="mark">✧</div>
+        <div class="label">Olivia Arcana</div>
+      </div>
+    </div>
+    <div class="continue" data-next="s2">Begin the descent<span class="glyph"></span></div>
+  </section>
+
+  <!-- ==================== SCENE 2: POSTER ==================== -->
+  <section id="s2" class="scene">
+    <div class="poster-wrap" id="poster">
+      <div class="poster">
+        <div class="paper"></div>
+        <div class="border"></div>
+        <div class="head">The Natal <em>Cartography</em></div>
+        <div class="sub">An Olivia Arcana Film</div>
+        <svg class="wheel" viewBox="-100 -100 200 200" aria-hidden="true">
+          <!-- outer circle -->
+          <circle cx="0" cy="0" r="92" fill="none" stroke="currentColor" stroke-width="0.4"/>
+          <circle cx="0" cy="0" r="76" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="1 2"/>
+          <circle cx="0" cy="0" r="54" fill="none" stroke="currentColor" stroke-width="0.3"/>
+          <circle cx="0" cy="0" r="22" fill="none" stroke="currentColor" stroke-width="0.35"/>
+          <!-- 12 divisions -->
+          <g stroke="currentColor" stroke-width="0.3">
+            <line x1="0" y1="-92" x2="0" y2="-22"/>
+            <line x1="46" y1="-79.7" x2="11" y2="-19"/>
+            <line x1="79.7" y1="-46" x2="19" y2="-11"/>
+            <line x1="92" y1="0" x2="22" y2="0"/>
+            <line x1="79.7" y1="46" x2="19" y2="11"/>
+            <line x1="46" y1="79.7" x2="11" y2="19"/>
+            <line x1="0" y1="92" x2="0" y2="22"/>
+            <line x1="-46" y1="79.7" x2="-11" y2="19"/>
+            <line x1="-79.7" y1="46" x2="-19" y2="11"/>
+            <line x1="-92" y1="0" x2="-22" y2="0"/>
+            <line x1="-79.7" y1="-46" x2="-19" y2="-11"/>
+            <line x1="-46" y1="-79.7" x2="-11" y2="-19"/>
+          </g>
+          <!-- zodiac glyphs on outer ring -->
+          <g fill="currentColor" font-family="Cormorant Garamond" font-size="10" text-anchor="middle" dominant-baseline="central">
+            <text x="0" y="-84">♈</text><text x="42" y="-72.7">♉</text>
+            <text x="72.7" y="-42">♊</text><text x="84" y="0">♋</text>
+            <text x="72.7" y="42">♌</text><text x="42" y="72.7">♍</text>
+            <text x="0" y="84">♎</text><text x="-42" y="72.7">♏</text>
+            <text x="-72.7" y="42">♐</text><text x="-84" y="0">♑</text>
+            <text x="-72.7" y="-42">♒</text><text x="-42" y="-72.7">♓</text>
+          </g>
+          <!-- 7 planet glyphs across inner rings -->
+          <g fill="#E2C070" font-family="Cormorant Garamond" font-size="8.5" text-anchor="middle" dominant-baseline="central">
+            <text x="-32" y="-42">☉</text>
+            <text x="46" y="-28">☽</text>
+            <text x="34" y="36">☿</text>
+            <text x="-48" y="18">♀</text>
+            <text x="12" y="-60">♂</text>
+            <text x="-58" y="-14">♃</text>
+            <text x="8" y="62">♄</text>
+          </g>
+          <!-- center sigil -->
+          <circle cx="0" cy="0" r="4" fill="#C8A84B"/>
+          <circle cx="0" cy="0" r="10" fill="none" stroke="#E2C070" stroke-width="0.3"/>
+        </svg>
+        <div class="credits">
+          A reading cast against the night of your birth — longitude, hour, the breath of a room.
+          <b>Starring · Your Chart · Directed by · The Sky</b>
+        </div>
+        <div class="tag">In ceremony — <span style="color:var(--gold)">MMXXVI</span> — Arcanum II / V</div>
+      </div>
+    </div>
+    <button id="s2-cta" class="gold-cta" data-next="s3">Ask the Glass</button>
+  </section>
+
+  <!-- ==================== SCENE 3: GLASS ==================== -->
+  <section id="s3" class="scene">
+    <canvas id="s3-canvas"></canvas>
+    <div id="s3-ui">
+      <div id="s3-prompt">What do you seek?</div>
+      <div id="s3-input-wrap">
+        <input id="s3-input" type="text" maxlength="140" placeholder="Speak into the glass…" autocomplete="off" spellcheck="false" />
+        <div id="s3-hint">Press enter to pose the question</div>
+      </div>
+      <div id="s3-reading"></div>
+    </div>
+    <div class="continue" data-next="s4">Descend further<span class="glyph"></span></div>
+  </section>
+
+  <!-- ==================== SCENE 4: RITUAL ROOMS ==================== -->
+  <section id="s4" class="scene">
+    <div id="s4-head">
+      <h2>Three doors open for the <em>initiated</em>.</h2>
+      <p>Entry is by rite, not by key</p>
+    </div>
+    <div class="doors">
+      <div class="door">
+        <div class="shimmer"></div>
+        <div class="tag">Arcanum · III</div>
+        <div class="sigil">☽</div>
+        <div class="meta">
+          <h3>The Moon Rite</h3>
+          <div class="row">
+            <svg width="11" height="14" viewBox="0 0 11 14" fill="none"><path d="M2 6V4a3.5 3.5 0 0 1 7 0v2" stroke="#C8A84B" stroke-width="0.9"/><rect x="1" y="6" width="9" height="7.2" rx="1" stroke="#C8A84B" stroke-width="0.9"/></svg>
+            <span>$44</span><span class="sep"></span><span>17 min</span>
+          </div>
+        </div>
+      </div>
+      <div class="door">
+        <div class="shimmer"></div>
+        <div class="tag">Arcanum · IV</div>
+        <div class="sigil">♄</div>
+        <div class="meta">
+          <h3>The Saturn Vigil</h3>
+          <div class="row">
+            <svg width="11" height="14" viewBox="0 0 11 14" fill="none"><path d="M2 6V4a3.5 3.5 0 0 1 7 0v2" stroke="#C8A84B" stroke-width="0.9"/><rect x="1" y="6" width="9" height="7.2" rx="1" stroke="#C8A84B" stroke-width="0.9"/></svg>
+            <span>$88</span><span class="sep"></span><span>33 min</span>
+          </div>
+        </div>
+      </div>
+      <div class="door">
+        <div class="shimmer"></div>
+        <div class="tag">Arcanum · V</div>
+        <div class="sigil">♀</div>
+        <div class="meta">
+          <h3>The Venus Anointing</h3>
+          <div class="row">
+            <svg width="11" height="14" viewBox="0 0 11 14" fill="none"><path d="M2 6V4a3.5 3.5 0 0 1 7 0v2" stroke="#C8A84B" stroke-width="0.9"/><rect x="1" y="6" width="9" height="7.2" rx="1" stroke="#C8A84B" stroke-width="0.9"/></svg>
+            <span>$122</span><span class="sep"></span><span>one hour</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="continue" data-next="s5">Ascend to the altar<span class="glyph"></span></div>
+  </section>
+
+  <!-- ==================== SCENE 5: SIGN-OFF ==================== -->
+  <section id="s5" class="scene">
+    <canvas id="s5-canvas"></canvas>
+    <div id="s5-ui">
+      <h2>The stars <em>remember</em> you.</h2>
+      <div class="sub">Return when the question ripens</div>
+      <div class="ctas">
+        <button class="gold-cta" data-next="s1">Return to the Glass</button>
+        <a href="#" class="remain" id="remain">remain at the altar</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div id="dissolve"></div>
+<div id="grain"></div>
+
+<div class="hud tl">Olivia Arcana<small>Alt · The Descent</small></div>
+<div class="hud br"><span id="scene-label">Scene I / V</span><span class="bar"><i id="scene-bar" style="width:20%"></i></span><span id="scene-name">Portal</span></div>
+
+<script type="module">
+import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+
+// --- state ---------------------------------------------------------
+const scenes = ["s1","s2","s3","s4","s5"];
+const sceneNames = {s1:"Portal", s2:"Cartography", s3:"Glass", s4:"Rites", s5:"Altar"};
+const sceneRomans = {s1:"I", s2:"II", s3:"III", s4:"IV", s5:"V"};
+let current = "s1";
+let busy = false;
+
+const $ = (id) => document.getElementById(id);
+const dissolve = $("dissolve");
+
+function updateHud(id){
+  $("scene-label").textContent = `Scene ${sceneRomans[id]} / V`;
+  $("scene-name").textContent = sceneNames[id];
+  const pct = (scenes.indexOf(id)+1)/5*100;
+  $("scene-bar").style.width = pct+"%";
+}
+
+function goTo(id){
+  if(busy || id===current) return;
+  busy = true;
+  const from = $(current), to = $(id);
+  // dissolve wipe — nebula mask fades in, scenes swap under it, fades out
+  gsap.timeline({onComplete:()=>{busy=false}})
+    .to(dissolve, {opacity:1, duration:0.55, ease:"power2.inOut"})
+    .add(()=>{
+      from.classList.remove("active");
+      to.classList.add("active");
+      current = id;
+      updateHud(id);
+      sceneEnter[id] && sceneEnter[id]();
+    })
+    .to(dissolve, {opacity:0, duration:0.75, ease:"power2.out"}, "+=0.08");
+}
+
+// hook up CONTINUE / CTA clicks
+document.querySelectorAll("[data-next]").forEach(el=>{
+  el.addEventListener("click", (e)=>{ e.preventDefault(); goTo(el.dataset.next); });
+});
+$("remain").addEventListener("click", (e)=>{ e.preventDefault(); gsap.to("#s5-ui",{opacity:.25,duration:1.4,ease:"power2.out"}); });
+
+// --- scene 1: portal (three.js zodiac glyphs + gravity card) ------
+const zodiac = ["♈","♉","♊","♋","♌","♍","♎","♏","♐","♑","♒","♓"];
+const s1canvas = $("s1-canvas");
+const s1renderer = new THREE.WebGLRenderer({canvas:s1canvas, alpha:true, antialias:true});
+s1renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+s1renderer.toneMapping = THREE.ACESFilmicToneMapping;
+s1renderer.toneMappingExposure = 2.0;
+const s1scene = new THREE.Scene();
+// transparent — CSS void shows through, but a faint tint when content is on
+const s1cam = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+s1cam.position.z = 8;
+s1scene.add(new THREE.AmbientLight(0xffeedd, 1.2));
+s1scene.add(new THREE.HemisphereLight(0xffd4a0, 0x4466aa, 0.8));
+
+// generate glyph sprites via canvas textures
+function glyphTexture(glyph, color="#E2C070"){
+  const c = document.createElement("canvas"); c.width=c.height=256;
+  const ctx = c.getContext("2d");
+  ctx.clearRect(0,0,256,256);
+  ctx.font = "300 150px 'Cormorant Garamond', serif";
+  ctx.textAlign="center"; ctx.textBaseline="middle";
+  ctx.shadowColor = "rgba(226,192,112,0.7)"; ctx.shadowBlur = 24;
+  ctx.fillStyle = color;
+  ctx.fillText(glyph, 128, 132);
+  ctx.shadowBlur = 0;
+  ctx.font = "300 150px 'Cormorant Garamond', serif";
+  ctx.fillStyle = color;
+  ctx.fillText(glyph, 128, 132);
+  const t = new THREE.CanvasTexture(c); t.anisotropy = 8; return t;
+}
+const glyphSprites = zodiac.map((g, i)=>{
+  const mat = new THREE.SpriteMaterial({map:glyphTexture(g), transparent:true, opacity:0.85, depthWrite:false});
+  const sp = new THREE.Sprite(mat);
+  const theta = (i/12)*Math.PI*2;
+  const radius = 4.2 + Math.random()*1.8;
+  const depth = -3 + Math.random()*5;
+  sp.userData = {theta, radius, depth, phase:Math.random()*Math.PI*2, scale:0.9+Math.random()*0.5};
+  sp.scale.set(sp.userData.scale, sp.userData.scale, 1);
+  s1scene.add(sp);
+  return sp;
+});
+
+function s1resize(){
+  const w = innerWidth, h = innerHeight;
+  s1renderer.setSize(w,h,false);
+  s1cam.aspect = w/h; s1cam.updateProjectionMatrix();
+}
+s1resize(); addEventListener("resize", s1resize);
+
+// gravity card with spring lag
+const gcard = $("gcard");
+let mx = innerWidth/2, my = innerHeight/2;
+addEventListener("pointermove", (e)=>{ mx=e.clientX; my=e.clientY; });
+const cardX = gsap.quickTo(gcard, "x", {duration:0.8, ease:"power3.out"});
+const cardY = gsap.quickTo(gcard, "y", {duration:0.8, ease:"power3.out"});
+const cardR = gsap.quickTo(gcard, "rotation", {duration:1.2, ease:"power3.out"});
+
+let t0 = performance.now();
+function s1tick(){
+  const t = (performance.now()-t0)*0.0001;
+  glyphSprites.forEach((sp, i)=>{
+    const d = sp.userData;
+    const a = d.theta + t * (0.6 + i*0.02);
+    sp.position.x = Math.cos(a) * d.radius;
+    sp.position.y = Math.sin(a) * d.radius * 0.55 + Math.sin(t*3 + d.phase)*0.15;
+    sp.position.z = d.depth + Math.sin(t*2 + d.phase)*0.4;
+    const scaleMod = 0.9 + (sp.position.z+3)/8 * 0.4;
+    sp.scale.set(d.scale*scaleMod, d.scale*scaleMod, 1);
+    sp.material.opacity = 0.55 + (sp.position.z+3)/8 * 0.35;
+  });
+  // gravity card aims from cursor outward with lag
+  const cx = innerWidth/2, cy = innerHeight/2;
+  const offX = (mx - cx)*0.55, offY = (my - cy)*0.55;
+  cardX(cx + offX - 90);
+  cardY(cy + offY - 135);
+  cardR( (mx-cx)/innerWidth * 0.25 );
+  s1renderer.render(s1scene, s1cam);
+}
+
+// --- scene 3: glass (three.js transmissive sphere + particles) ----
+const s3canvas = $("s3-canvas");
+const s3renderer = new THREE.WebGLRenderer({canvas:s3canvas, alpha:true, antialias:true});
+s3renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+s3renderer.toneMapping = THREE.ACESFilmicToneMapping;
+s3renderer.toneMappingExposure = 2.0;
+const s3scene = new THREE.Scene();
+s3scene.background = null; // CSS void shows through
+const s3cam = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+s3cam.position.z = 6.5;
+s3scene.add(new THREE.AmbientLight(0xffeedd, 1.2));
+s3scene.add(new THREE.HemisphereLight(0xffd4a0, 0x4466aa, 0.8));
+const keyLight = new THREE.PointLight(0xE2C070, 22, 20);
+keyLight.position.set(2.5, 2, 3);
+s3scene.add(keyLight);
+const rimLight = new THREE.PointLight(0x9b59b6, 14, 20);
+rimLight.position.set(-3, -1.5, 2);
+s3scene.add(rimLight);
+
+const glassMat = new THREE.MeshPhysicalMaterial({
+  transmission:1, roughness:0.05, ior:1.5, thickness:1, metalness:0,
+  color:0xE8E6F0, transparent:true, opacity:1, clearcoat:1, clearcoatRoughness:0.1,
+  attenuationColor:0xC8A84B, attenuationDistance:3.5
+});
+const orb = new THREE.Mesh(new THREE.SphereGeometry(1.35, 96, 96), glassMat);
+s3scene.add(orb);
+
+// inner particle cloud — visible through transmission
+const particleCount = 260;
+const pPos = new Float32Array(particleCount*3);
+for(let i=0;i<particleCount;i++){
+  // spherical distribution, clustered inside orb radius
+  const r = Math.pow(Math.random(),0.6) * 0.95;
+  const th = Math.random()*Math.PI*2;
+  const ph = Math.acos(2*Math.random()-1);
+  pPos[i*3]   = r*Math.sin(ph)*Math.cos(th);
+  pPos[i*3+1] = r*Math.sin(ph)*Math.sin(th);
+  pPos[i*3+2] = r*Math.cos(ph);
+}
+const pGeo = new THREE.BufferGeometry();
+pGeo.setAttribute("position", new THREE.BufferAttribute(pPos, 3));
+const pMat = new THREE.PointsMaterial({
+  color:0xE2C070, size:0.032, transparent:true, opacity:0.85,
+  blending:THREE.AdditiveBlending, depthWrite:false, sizeAttenuation:true
+});
+const particles = new THREE.Points(pGeo, pMat);
+s3scene.add(particles);
+
+// inner ember core — glows and pulses when a question is posed
+const core = new THREE.Mesh(
+  new THREE.SphereGeometry(0.22, 32, 32),
+  new THREE.MeshBasicMaterial({color:0xE2C070, transparent:true, opacity:0.5})
+);
+s3scene.add(core);
+
+let glassIntensity = 0.5; // 0..1 pulse state
+function s3resize(){
+  const w = innerWidth, h = innerHeight;
+  s3renderer.setSize(w,h,false);
+  s3cam.aspect = w/h; s3cam.updateProjectionMatrix();
+}
+s3resize(); addEventListener("resize", s3resize);
+
+function s3tick(){
+  const t = performance.now()*0.0001;
+  orb.rotation.y = t*2;
+  orb.rotation.x = Math.sin(t*3)*0.1;
+  particles.rotation.y = -t*1.5;
+  particles.rotation.x = Math.sin(t*2)*0.15;
+  // breathe scale with current intensity
+  const s = 1 + Math.sin(t*6)*0.015 + glassIntensity*0.04;
+  orb.scale.setScalar(s);
+  core.material.opacity = 0.25 + Math.sin(t*9)*0.1 + glassIntensity*0.55;
+  core.scale.setScalar(0.6 + glassIntensity*1.2 + Math.sin(t*10)*0.05);
+  keyLight.intensity = 18 + glassIntensity*14;
+  s3renderer.render(s3scene, s3cam);
+}
+
+// --- scene 5: sign-off (drifting cosmic still via three.js) -------
+const s5canvas = $("s5-canvas");
+const s5renderer = new THREE.WebGLRenderer({canvas:s5canvas, alpha:true, antialias:true});
+s5renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+s5renderer.toneMapping = THREE.ACESFilmicToneMapping;
+s5renderer.toneMappingExposure = 1.8;
+const s5scene = new THREE.Scene();
+const s5cam = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
+s5cam.position.z = 10;
+// 600 deep-space points drifting slowly
+const starCount = 600;
+const sPos = new Float32Array(starCount*3);
+const sCol = new Float32Array(starCount*3);
+for(let i=0;i<starCount;i++){
+  sPos[i*3]   = (Math.random()-0.5)*30;
+  sPos[i*3+1] = (Math.random()-0.5)*20;
+  sPos[i*3+2] = -Math.random()*25;
+  const warm = Math.random();
+  sCol[i*3]   = warm>0.92 ? 0.88 : 0.9;
+  sCol[i*3+1] = warm>0.92 ? 0.75 : 0.88;
+  sCol[i*3+2] = warm>0.92 ? 0.46 : 0.94;
+}
+const sGeo = new THREE.BufferGeometry();
+sGeo.setAttribute("position", new THREE.BufferAttribute(sPos, 3));
+sGeo.setAttribute("color", new THREE.BufferAttribute(sCol, 3));
+const sMat = new THREE.PointsMaterial({size:0.05, vertexColors:true, transparent:true, opacity:0.8, blending:THREE.AdditiveBlending, depthWrite:false});
+const starfield = new THREE.Points(sGeo, sMat);
+s5scene.add(starfield);
+
+// nebula billboard
+const nebCanvas = document.createElement("canvas");
+nebCanvas.width = nebCanvas.height = 512;
+const nctx = nebCanvas.getContext("2d");
+const grd = nctx.createRadialGradient(256,256,20,256,256,256);
+grd.addColorStop(0, "rgba(226,192,112,0.35)");
+grd.addColorStop(0.25, "rgba(155,89,182,0.35)");
+grd.addColorStop(0.55, "rgba(107,63,160,0.18)");
+grd.addColorStop(1, "rgba(6,8,16,0)");
+nctx.fillStyle = grd; nctx.fillRect(0,0,512,512);
+const nebTex = new THREE.CanvasTexture(nebCanvas);
+const neb = new THREE.Mesh(
+  new THREE.PlaneGeometry(26, 26),
+  new THREE.MeshBasicMaterial({map:nebTex, transparent:true, opacity:0.6, blending:THREE.AdditiveBlending, depthWrite:false})
+);
+neb.position.z = -8;
+s5scene.add(neb);
+
+function s5resize(){
+  const w = innerWidth, h = innerHeight;
+  s5renderer.setSize(w,h,false);
+  s5cam.aspect = w/h; s5cam.updateProjectionMatrix();
+}
+s5resize(); addEventListener("resize", s5resize);
+
+function s5tick(){
+  const t = performance.now()*0.00005;
+  starfield.rotation.y = t*0.5;
+  starfield.rotation.x = Math.sin(t)*0.1;
+  neb.rotation.z = t*0.3;
+  s5renderer.render(s5scene, s5cam);
+}
+
+// master raf
+function loop(){
+  if(current==="s1") s1tick();
+  if(current==="s3") s3tick();
+  if(current==="s5") s5tick();
+  requestAnimationFrame(loop);
+}
+loop();
+
+// --- scene enter hooks --------------------------------------------
+const sceneEnter = {
+  s1(){
+    // reveal intro + show continue after 6s
+    gsap.fromTo("#s1-intro", {opacity:0, y:16}, {opacity:1, y:0, duration:1.8, ease:"power3.out"});
+    gsap.fromTo("#gcard", {opacity:0}, {opacity:1, duration:1.6, ease:"power2.out", delay:0.4});
+    const cue = document.querySelector("#s1 .continue");
+    gsap.delayedCall(6, ()=>cue.classList.add("on"));
+  },
+  s2(){
+    const wrap = $("poster");
+    gsap.set(wrap, {opacity:0, scale:0.88, rotation:-8});
+    gsap.to(wrap, {opacity:1, scale:1, duration:1.6, ease:"power3.out"});
+    gsap.fromTo("#s2-cta", {opacity:0, y:10}, {opacity:1, y:0, duration:1.2, ease:"power2.out", delay:3});
+  },
+  s3(){
+    // reset
+    $("s3-input").value="";
+    $("s3-reading").textContent="";
+    $("s3-reading").classList.remove("typing");
+    gsap.set("#s3-reading",{opacity:0});
+    document.querySelector("#s3 .continue").classList.remove("on");
+    gsap.fromTo("#s3-prompt", {opacity:0, y:10}, {opacity:1, y:0, duration:1.6, ease:"power3.out", delay:0.3});
+    gsap.fromTo("#s3-input-wrap", {opacity:0, y:10}, {opacity:1, y:0, duration:1.6, ease:"power3.out", delay:0.9,
+      onComplete:()=>$("s3-input").focus()});
+    glassIntensity = 0.35;
+  },
+  s4(){
+    gsap.fromTo("#s4-head", {opacity:0, y:16}, {opacity:1, y:0, duration:1.6, ease:"power3.out"});
+    gsap.fromTo("#s4 .door", {opacity:0, y:40}, {opacity:1, y:0, duration:1.6, ease:"power3.out", stagger:0.22, delay:0.5});
+    gsap.delayedCall(2.8, ()=>document.querySelector("#s4 .continue").classList.add("on"));
+  },
+  s5(){
+    gsap.fromTo("#s5 h2", {opacity:0, y:20}, {opacity:1, y:0, duration:2.4, ease:"power3.out", delay:0.3});
+    gsap.fromTo("#s5 .sub", {opacity:0}, {opacity:1, duration:1.6, ease:"power2.out", delay:1.6});
+    gsap.fromTo("#s5 .ctas", {opacity:0, y:10}, {opacity:1, y:0, duration:1.4, ease:"power2.out", delay:2.6});
+  }
+};
+
+// trigger the first scene entry now
+sceneEnter.s1();
+updateHud("s1");
+
+// --- scene 3 interaction: submit question → orb reacts → reading ---
+const readings = [
+  "The thread you have been following was never yours alone. What arrives at dusk is a returning, not a beginning. Hold the question until the answer becomes unnecessary.",
+  "Somewhere a door you closed has been quietly re-opened by the wind. The star you were born under has kept its promise. What seemed lost is only waiting to be addressed by name.",
+  "You are nearer than fear has led you to believe. The moon has been rehearsing this exact silence for months. Speak less, listen to the pause between your breaths, and the shape of it will arrive.",
+  "The ground beneath the question is older than the question itself. Two small things you refused this week were correct refusals. Let the third one change its mind before you answer it.",
+  "What you call hesitation, the sky calls timing. A name you have not said aloud in years is already on its way toward you. Meet it without apology."
+];
+
+function typewrite(el, text, speed=28){
+  return new Promise((res)=>{
+    el.textContent = "";
+    el.classList.add("typing");
+    gsap.to(el, {opacity:1, duration:0.6, ease:"power2.out"});
+    let i=0;
+    const step = ()=>{
+      if(i>=text.length){ el.classList.remove("typing"); res(); return; }
+      el.textContent += text[i++];
+      const ch = text[i-1];
+      const d = ch==="." || ch==="," ? speed*10 : speed + Math.random()*22;
+      setTimeout(step, d);
+    };
+    step();
+  });
+}
+
+$("s3-input").addEventListener("keydown", (e)=>{
+  if(e.key!=="Enter") return;
+  const q = e.target.value.trim();
+  if(!q) return;
+  e.target.blur();
+  // orb reacts — pulse intensity ramps, ripples through surface via scale breathe
+  gsap.to({v:glassIntensity}, {v:1, duration:0.6, ease:"power2.out", onUpdate(){glassIntensity=this.targets()[0].v}});
+  gsap.to("#s3-input-wrap",{opacity:0.25, duration:1.2, ease:"power2.out"});
+  gsap.to("#s3-prompt",{opacity:0.35, duration:1.2, ease:"power2.out"});
+  gsap.delayedCall(2.0, async ()=>{
+    const pick = readings[Math.floor(Math.random()*readings.length)];
+    await typewrite($("s3-reading"), pick, 26);
+    gsap.to({v:glassIntensity}, {v:0.5, duration:2.4, ease:"power2.out", onUpdate(){glassIntensity=this.targets()[0].v}});
+    document.querySelector("#s3 .continue").classList.add("on");
+  });
+});
+
+// --- intro dissolve fade on first load ----------------------------
+gsap.fromTo(dissolve, {opacity:1}, {opacity:0, duration:1.8, ease:"power2.out", delay:0.1});
+</script>
+</body>
+</html>

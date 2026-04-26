@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { loadChart } from "../../lib/user-store";
 import { computeLifeTransits, type LifeTransit } from "../../lib/life-timing-engine";
 import LifeTimingCard from "../../components/LifeTimingCard";
+import Paywall from "../../components/Paywall";
 import { useLocale } from "../../lib/i18n/useLocale";
 import type { NatalChart } from "../../lib/natal-chart";
 
@@ -49,18 +51,19 @@ export default function TimingPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setMounted(true);
-    const storedChart = loadChart();
-    if (storedChart) {
-      setChart(storedChart);
-      setTimeout(() => {
+    const timer = setTimeout(() => {
+      setMounted(true);
+      const storedChart = loadChart();
+      if (storedChart) {
+        setChart(storedChart);
         const result = computeLifeTransits(storedChart);
         setTransits(result);
         setLoading(false);
-      }, 50);
-    } else {
-      setLoading(false);
-    }
+      } else {
+        setLoading(false);
+      }
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   if (!mounted) return null;
@@ -82,7 +85,7 @@ export default function TimingPage() {
           justifyContent: "center",
         }}
       >
-        <a
+        <Link
           href="/"
           style={{
             fontFamily: "var(--font-body)",
@@ -98,7 +101,7 @@ export default function TimingPage() {
           }}
         >
           &larr; Home
-        </a>
+        </Link>
 
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: "2.5rem", marginBottom: "1rem", opacity: 0.5 }}>&#9790;</div>
@@ -126,7 +129,7 @@ export default function TimingPage() {
             To reveal your major life transits, we need your birth chart first.
             Enter your birth data to see what the cosmos has planned for you.
           </p>
-          <a
+          <Link
             href="/portrait"
             style={{
               display: "inline-block",
@@ -144,7 +147,7 @@ export default function TimingPage() {
             }}
           >
             Create Your Portrait
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -198,7 +201,7 @@ export default function TimingPage() {
     >
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <a
+        <Link
           href="/"
           style={{
             fontFamily: "var(--font-body)",
@@ -211,7 +214,7 @@ export default function TimingPage() {
           }}
         >
           &larr; Home
-        </a>
+        </Link>
         <h1
           style={{
             fontFamily: "var(--font-heading)",
@@ -290,11 +293,13 @@ export default function TimingPage() {
         </div>
       </div>
 
-      {/* Hero — nearest transit */}
+      {/* Hero — nearest transit (Premium+) */}
       {nearest && (
         <div style={{ marginBottom: "2.5rem" }}>
           <div style={{ ...label, marginBottom: "0.75rem" }}>Next Major Transit</div>
-          <LifeTimingCard transit={nearest} />
+          <Paywall requires="premium" priceKey="premium_monthly" featureName="major life-transit forecasts">
+            <LifeTimingCard transit={nearest} />
+          </Paywall>
         </div>
       )}
 

@@ -7,31 +7,33 @@ import {
   createPortalSession,
   type PriceKey,
   type SubscriptionStatus,
+  type Tier,
 } from "@/lib/payments";
 
 interface SubscriptionContext {
-  /** Current subscription data. Null while loading. */
   data: SubscriptionStatus | null;
-  /** True while the initial fetch is in progress. */
   isLoading: boolean;
-  /** True if the user has an active VIP subscription. */
+  /** True if user has any paid tier (insight/premium/vip). */
+  isPaid: boolean;
+  /** True only on VIP tier. */
   isVip: boolean;
-  /** Current tier string. */
-  tier: "free" | "vip";
-  /** Start a checkout flow for a given price. Redirects to Stripe. */
+  /** True on premium or vip. */
+  isPremiumOrAbove: boolean;
+  tier: Tier;
+  /** Start a Paddle checkout flow for a given price. */
   subscribe: (priceKey: PriceKey) => Promise<void>;
-  /** Open Stripe Customer Portal for billing management. */
+  /** Open Paddle billing portal. */
   manageSubscription: () => Promise<void>;
-  /** Re-fetch subscription status (e.g., after returning from checkout). */
   refresh: () => Promise<void>;
-  /** Error message if the last operation failed. */
   error: string | null;
 }
 
 const defaultContext: SubscriptionContext = {
   data: null,
   isLoading: true,
+  isPaid: false,
   isVip: false,
+  isPremiumOrAbove: false,
   tier: "free",
   subscribe: async () => {},
   manageSubscription: async () => {},
@@ -41,6 +43,8 @@ const defaultContext: SubscriptionContext = {
 
 const SubCtx = createContext<SubscriptionContext>(defaultContext);
 
+const TOKEN_KEY = "olivia-token";
+
 export function SubscriptionProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<SubscriptionStatus | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -48,7 +52,7 @@ export function SubscriptionProvider({ children }: { children: React.ReactNode }
 
   const refresh = useCallback(async () => {
     try {
-      const token = typeof window !== "undefined" ? localStorage.getItem("olivia_token") : null;
+      const token = typeof window !== "undefined" ? localStorage.getItem(TOKEN_KEY) : null;
       if (!token) {
         setData(null);
         setIsLoading(false);
@@ -57,17 +61,14 @@ export function SubscriptionProvider({ children }: { children: React.ReactNode }
       const status = await getSubscriptionStatus();
       setData(status);
       setError(null);
-    } catch (e) {
-      // Not logged in or network error — treat as free
+    } catch {
       setData(null);
     } finally {
       setIsLoading(false);
     }
   }, []);
 
-  useEffect(() => {
-    refresh();
-  }, [refresh]);
+  useEffect(() => { refresh(); }, [refresh]);
 
   const subscribe = useCallback(async (priceKey: PriceKey) => {
     setError(null);
@@ -75,8 +76,7 @@ export function SubscriptionProvider({ children }: { children: React.ReactNode }
       const url = await createCheckoutSession(priceKey);
       window.location.href = url;
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : "Checkout failed";
-      setError(msg);
+      setError(e instanceof Error ? e.message : "Checkout failed");
     }
   }, []);
 
@@ -86,20 +86,18 @@ export function SubscriptionProvider({ children }: { children: React.ReactNode }
       const url = await createPortalSession();
       window.location.href = url;
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : "Could not open billing portal";
-      setError(msg);
+      setError(e instanceof Error ? e.message : "Could not open billing portal");
     }
   }, []);
 
+  const tier: Tier = data?.tier ?? "free";
+  const isPaid = tier !== "free";
+  const isVip = tier === "vip";
+  const isPremiumOrAbove = tier === "premium" || tier === "vip";
+
   const value: SubscriptionContext = {
-    data,
-    isLoading,
-    isVip: data?.is_vip ?? false,
-    tier: data?.tier ?? "free",
-    subscribe,
-    manageSubscription,
-    refresh,
-    error,
+    data, isLoading, isPaid, isVip, isPremiumOrAbove, tier,
+    subscribe, manageSubscription, refresh, error,
   };
 
   return <SubCtx.Provider value={value}>{children}</SubCtx.Provider>;

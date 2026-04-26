@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Olivia Arcana — The Altar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --void:#060810; --d1:#0c0d18; --d2:#131525; --d3:#1c1e30;
+    --gold:#C8A84B; --gold-l:#E2C070; --gold-d:#8A6D2A;
+    --purple:#6b3fa0; --nebula:#9b59b6;
+    --text:#E8E6F0; --body:#B8B0C8; --muted:#8A829A;
+    --serif:'Cormorant Garamond', serif;
+    --sans:'DM Sans', system-ui, sans-serif;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { background: var(--void); color: var(--body); font-family: var(--sans); overflow: hidden; -webkit-font-smoothing: antialiased; }
+  #stage { position: fixed; inset: 0; z-index: 1; }
+  #stage canvas { display: block; width: 100%; height: 100%; }
+  #overlay { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
+  #overlay .pe { pointer-events: auto; }
+  #vignette { position: fixed; inset: 0; z-index: 3; pointer-events: none;
+    background: radial-gradient(120% 80% at 50% 50%, transparent 45%, rgba(6,8,16,0.75) 100%); mix-blend-mode: multiply; }
+
+  .hud { position: fixed; z-index: 5; }
+  .hud.tl { top: 28px; left: 36px; font-family: var(--serif); font-weight: 300; letter-spacing: 0.42em;
+    font-size: 13px; text-transform: uppercase; color: var(--text); opacity: 0.92; }
+  .hud.tl b { color: var(--gold-l); font-weight: 400; }
+  .hud.tr, .hud.bl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em;
+    text-transform: uppercase; color: var(--muted); }
+  .hud.tr { top: 30px; right: 36px; }
+  .hud.tr i { color: var(--gold); font-style: normal; margin: 0 8px; }
+  .hud.bl { bottom: 28px; left: 36px; }
+  .hud.bl .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold); box-shadow: 0 0 10px var(--gold); margin-right: 10px;
+    vertical-align: middle; animation: pulse 2.8s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
+
+  .whisper-wrap { position: fixed; left: 50%; bottom: 52px; z-index: 6; transform: translateX(-50%);
+    width: min(560px, 78vw); pointer-events: auto; }
+  .whisper-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--gold); opacity: 0.78; text-align: center; margin-bottom: 14px; }
+  .whisper-label span { color: var(--muted); margin: 0 10px; }
+  .whisper { width: 100%; background: rgba(12,13,24,0.42); border: 1px solid rgba(200,168,75,0.34);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); color: var(--text);
+    font-family: var(--serif); font-weight: 300; font-size: 22px; padding: 18px 26px; border-radius: 2px;
+    outline: none; text-align: center; letter-spacing: 0.01em;
+    transition: border-color 0.8s ease, box-shadow 0.8s ease; }
+  .whisper::placeholder { color: var(--muted); font-style: italic; }
+  .whisper:focus { border-color: rgba(226,192,112,0.7); box-shadow: 0 0 38px rgba(200,168,75,0.22); }
+  .whisper.listening { border-color: rgba(226,192,112,0.9); box-shadow: 0 0 48px rgba(200,168,75,0.32); }
+  .hint { font-family: var(--mono); font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--muted); text-align: center; margin-top: 12px; opacity: 0.6; }
+
+  .reading-line { position: absolute; transform: translate(-50%, -50%); font-family: var(--serif);
+    font-weight: 300; color: var(--text); letter-spacing: 0.02em;
+    text-shadow: 0 0 24px rgba(0,0,0,0.9), 0 0 60px rgba(107,63,160,0.25);
+    white-space: nowrap; opacity: 0; pointer-events: none; will-change: transform, opacity; }
+  .reading-line em { color: var(--gold-l); font-style: normal; }
+
+  .glyph { position: absolute; transform: translate(-50%, -50%); font-family: var(--serif);
+    font-weight: 300; color: var(--gold);
+    text-shadow: 0 0 12px rgba(200,168,75,0.55), 0 0 28px rgba(155,89,182,0.2);
+    pointer-events: none; will-change: transform, opacity; user-select: none; }
+
+  .door { position: absolute; transform: translate(-50%, -50%); pointer-events: auto; cursor: pointer;
+    width: 168px; padding: 14px 16px;
+    background: linear-gradient(180deg, rgba(19,21,37,0.82), rgba(12,13,24,0.82));
+    border: 1px solid rgba(200,168,75,0.32); border-radius: 2px;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    opacity: 0; text-align: center;
+    transition: border-color 0.8s ease, box-shadow 0.8s ease; }
+  .door:hover { border-color: rgba(226,192,112,0.85); box-shadow: 0 0 34px rgba(200,168,75,0.28); }
+  .door .sig { font-family: var(--serif); color: var(--gold-l); font-size: 26px; line-height: 1;
+    margin-bottom: 8px; letter-spacing: 0.04em; }
+  .door .name { font-family: var(--serif); color: var(--text); font-weight: 300; font-size: 15px;
+    letter-spacing: 0.04em; margin-bottom: 8px; }
+  .door .meta { display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--muted); }
+  .door .meta .price { color: var(--gold); }
+  .door .lock { position: absolute; top: 6px; right: 8px; font-family: var(--mono);
+    font-size: 8px; letter-spacing: 0.22em; color: var(--muted); opacity: 0.7; }
+
+  #chart-stage { position: fixed; inset: 0; z-index: 8; display: flex; align-items: center;
+    justify-content: center; pointer-events: none; opacity: 0; }
+  .chart-card { position: relative; width: min(620px, 78vw); aspect-ratio: 3/4;
+    background:
+      radial-gradient(120% 60% at 75% 10%, rgba(155,89,182,0.22), transparent 60%),
+      radial-gradient(80% 50% at 15% 85%, rgba(200,168,75,0.12), transparent 65%),
+      linear-gradient(180deg, #0f1226 0%, #0a0b17 100%);
+    border: 1px solid rgba(200,168,75,0.3); transform: rotate(-8deg) scale(0.9);
+    box-shadow: 0 40px 120px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,0,0,0.4); overflow: hidden; }
+  .chart-card::before { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(200,168,75,0.06) 1px, transparent 1px);
+    background-size: 3px 3px; mix-blend-mode: screen; opacity: 0.5; }
+  .chart-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .chart-label { position: absolute; font-family: var(--mono); letter-spacing: 0.24em;
+    text-transform: uppercase; font-size: 9px; color: var(--muted); }
+  .chart-label.top { top: 22px; left: 24px; }
+  .chart-label.tr  { top: 22px; right: 24px; color: var(--gold); }
+  .chart-label.bl  { bottom: 22px; left: 24px; color: var(--gold-l); font-family: var(--serif);
+    font-weight: 300; font-size: 20px; text-transform: none; letter-spacing: 0.04em; }
+  .chart-label.br  { bottom: 22px; right: 24px; }
+
+  .reveal-cta { position: fixed; left: 50%; top: 50%; transform: translate(-50%, calc(-50% + 170px));
+    z-index: 6; pointer-events: auto; opacity: 0; cursor: pointer;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold-l); padding: 12px 22px; border: 1px solid rgba(200,168,75,0.5);
+    background: rgba(12,13,24,0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    transition: border-color 0.6s ease, color 0.6s ease, background 0.6s ease; }
+  .reveal-cta:hover { border-color: var(--gold-l); color: var(--text); background: rgba(200,168,75,0.08); }
+  .reveal-cta .arrow { display: inline-block; margin-left: 12px; color: var(--gold); }
+
+  #ritual-preview { position: fixed; inset: 0; z-index: 9; display: flex; align-items: center;
+    justify-content: center; pointer-events: none; opacity: 0;
+    background: radial-gradient(80% 60% at 50% 50%, rgba(6,8,16,0.55), rgba(6,8,16,0.9)); }
+  .preview-card { width: min(440px, 76vw); padding: 38px 36px;
+    background: linear-gradient(180deg, #101226 0%, #0a0b17 100%);
+    border: 1px solid rgba(200,168,75,0.42); text-align: center; transform: scale(0.94); }
+  .preview-card .sig { font-family: var(--serif); font-weight: 300; color: var(--gold-l);
+    font-size: 58px; line-height: 1; margin-bottom: 18px; }
+  .preview-card h3 { font-family: var(--serif); font-weight: 300; color: var(--text);
+    font-size: 30px; margin: 0 0 10px; letter-spacing: 0.02em; }
+  .preview-card p { color: var(--body); font-size: 13px; line-height: 1.7; margin: 0 0 24px; }
+  .preview-card .price { font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--gold); }
+  .preview-card .lock { font-family: var(--mono); font-size: 9px; letter-spacing: 0.24em;
+    text-transform: uppercase; color: var(--muted); margin-top: 18px;
+    border-top: 1px solid rgba(200,168,75,0.15); padding-top: 18px; }
+</style>
+</head>
+<body>
+  <div id="stage"></div>
+  <div id="vignette"></div>
+  <div id="overlay"></div>
+
+  <div class="hud tl">Olivia <b>Arcana</b></div>
+  <div class="hud tr">The Altar <i>·</i> I</div>
+  <div class="hud bl"><span class="dot"></span>Listening</div>
+
+  <div class="whisper-wrap">
+    <div class="whisper-label">Whisper <span>·</span> to the Glass</div>
+    <input id="whisper" class="whisper pe" type="text" autocomplete="off" spellcheck="false"
+      placeholder="Ask what you came here to ask" />
+    <div class="hint" id="hint">Press enter to offer your question</div>
+  </div>
+
+  <div class="reveal-cta" id="reveal"><span>Reveal the Chart</span><span class="arrow">→</span></div>
+
+  <div id="chart-stage" aria-hidden="true">
+    <div class="chart-card">
+      <div class="chart-label top">Natal · Rectified</div>
+      <div class="chart-label tr">☉ 24° ♏</div>
+      <svg class="chart-svg" viewBox="0 0 400 520" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="neb" cx="78%" cy="18%" r="68%">
+            <stop offset="0%" stop-color="#9b59b6" stop-opacity="0.55"/>
+            <stop offset="40%" stop-color="#6b3fa0" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#6b3fa0" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="neb2" cx="18%" cy="82%" r="60%">
+            <stop offset="0%" stop-color="#C8A84B" stop-opacity="0.4"/>
+            <stop offset="60%" stop-color="#8A6D2A" stop-opacity="0.1"/>
+            <stop offset="100%" stop-color="#8A6D2A" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="400" height="520" fill="url(#neb)"/>
+        <rect width="400" height="520" fill="url(#neb2)"/>
+        <g transform="translate(200,260)" fill="none" stroke="#C8A84B" stroke-width="0.8">
+          <circle r="170" stroke-opacity="0.75"/><circle r="140" stroke-opacity="0.5"/>
+          <circle r="108" stroke-opacity="0.35"/><circle r="62"  stroke-opacity="0.7"/>
+          <g stroke-opacity="0.55">
+            <line x1="0" y1="-170" x2="0" y2="170"/><line x1="-170" y1="0" x2="170" y2="0"/>
+            <line x1="-147" y1="-85" x2="147" y2="85"/><line x1="-85" y1="-147" x2="85" y2="147"/>
+            <line x1="85" y1="-147" x2="-85" y2="147"/><line x1="147" y1="-85" x2="-147" y2="85"/>
+          </g>
+          <g font-family="Cormorant Garamond" font-size="16" fill="#E2C070" text-anchor="middle" dominant-baseline="middle">
+            <text x="0" y="-155">♈</text><text x="78" y="-135">♉</text><text x="135" y="-78">♊</text>
+            <text x="155" y="0">♋</text><text x="135" y="78">♌</text><text x="78" y="135">♍</text>
+            <text x="0" y="155">♎</text><text x="-78" y="135">♏</text><text x="-135" y="78">♐</text>
+            <text x="-155" y="0">♑</text><text x="-135" y="-78">♒</text><text x="-78" y="-135">♓</text>
+          </g>
+          <g font-family="Cormorant Garamond" font-size="18" fill="#E8E6F0" text-anchor="middle" dominant-baseline="middle">
+            <text x="-40" y="-95" fill="#E2C070">☉</text><text x="72" y="-40">☽</text>
+            <text x="36" y="66">☿</text><text x="-78" y="44">♀</text>
+            <text x="92" y="20" fill="#E2C070">♂</text><text x="-12" y="-40">♃</text><text x="-60" y="-20">♄</text>
+          </g>
+          <g stroke="#E2C070" stroke-opacity="0.4" stroke-width="0.5">
+            <line x1="-40" y1="-95" x2="92" y2="20"/><line x1="72" y1="-40" x2="-78" y2="44"/>
+            <line x1="36"  y1="66"  x2="-60" y2="-20"/>
+          </g>
+        </g>
+        <g stroke="#C8A84B" stroke-opacity="0.6" stroke-width="0.6" fill="none">
+          <path d="M20 20 L20 46 M20 20 L46 20"/><path d="M380 20 L380 46 M380 20 L354 20"/>
+          <path d="M20 500 L20 474 M20 500 L46 500"/><path d="M380 500 L380 474 M380 500 L354 500"/>
+        </g>
+      </svg>
+      <div class="chart-label bl">Olivia Arcana</div>
+      <div class="chart-label br">MMXXVI · I</div>
+    </div>
+  </div>
+
+  <div id="ritual-preview" aria-hidden="true">
+    <div class="preview-card">
+      <div class="sig" id="rp-sig">☽</div>
+      <h3 id="rp-name">The Moon Rite</h3>
+      <p id="rp-desc">A nine-night tending of the inner tide.</p>
+      <div class="price" id="rp-price">$ 188 · Nine Nights</div>
+      <div class="lock">Locked · Complete Your Reading to Unveil</div>
+    </div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script type="module">
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+
+const stage = document.getElementById('stage'), overlay = document.getElementById('overlay');
+const whisper = document.getElementById('whisper'), hint = document.getElementById('hint');
+const revealCta = document.getElementById('reveal');
+const chartStage = document.getElementById('chart-stage'), ritualPreview = document.getElementById('ritual-preview');
+const W = () => innerWidth, H = () => innerHeight;
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(W(), H());
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 2.0;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x060810);
+scene.fog = new THREE.FogExp2(0x060810, 0.055);
+
+const camera = new THREE.PerspectiveCamera(42, W()/H(), 0.1, 100);
+camera.position.set(0, 0, 8);
+const camParallax = new THREE.Vector3();
+
+scene.add(new THREE.AmbientLight(0xffeedd, 1.2));
+scene.add(new THREE.HemisphereLight(0xffd4a0, 0x4466aa, 0.8));
+const keyLight = new THREE.PointLight(0xE2C070, 3.2, 18, 2.0); keyLight.position.set(2.2, 1.4, 2.2); scene.add(keyLight);
+const rimLight = new THREE.PointLight(0x9b59b6, 2.4, 20, 2.2); rimLight.position.set(-2.6, -1.4, -2); scene.add(rimLight);
+
+// nebula shader backdrop — 3-octave fBm
+const nebUniforms = { uTime: { value: 0 },
+  uColorA: { value: new THREE.Color(0x0a0c1e) }, uColorB: { value: new THREE.Color(0x261335) },
+  uColorC: { value: new THREE.Color(0x6b3fa0) }, uColorD: { value: new THREE.Color(0xC8A84B) } };
+const nebula = new THREE.Mesh(new THREE.SphereGeometry(40, 48, 32), new THREE.ShaderMaterial({
+  uniforms: nebUniforms, side: THREE.BackSide, depthWrite: false,
+  vertexShader: `varying vec3 vP; void main(){ vP=position; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+  fragmentShader: `varying vec3 vP; uniform float uTime; uniform vec3 uColorA,uColorB,uColorC,uColorD;
+    float hash(vec3 p){ return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453); }
+    float noise(vec3 p){ vec3 i=floor(p), f=fract(p); f=f*f*(3.-2.*f);
+      return mix(mix(mix(hash(i),hash(i+vec3(1,0,0)),f.x),mix(hash(i+vec3(0,1,0)),hash(i+vec3(1,1,0)),f.x),f.y),
+                 mix(mix(hash(i+vec3(0,0,1)),hash(i+vec3(1,0,1)),f.x),mix(hash(i+vec3(0,1,1)),hash(i+vec3(1,1,1)),f.x),f.y),f.z); }
+    float fbm(vec3 p){ float v=0., a=0.5; for(int i=0;i<3;i++){ v+=a*noise(p); p*=2.05; a*=0.5; } return v; }
+    void main(){ vec3 p=normalize(vP); float t=uTime*0.012;
+      float n1=fbm(p*1.6+vec3(t,t*0.7,-t*0.5)), n2=fbm(p*3.2+vec3(-t*0.4,t,t*0.6)+n1);
+      vec3 c=mix(uColorA,uColorB,n1); c=mix(c,uColorC,smoothstep(0.45,0.8,n2)*0.55);
+      c+=uColorD*pow(smoothstep(0.75,0.98,n2),3.0)*0.22; c*=0.85+0.15*fbm(p*6.0);
+      gl_FragColor=vec4(c,1.0); }`
+}));
+scene.add(nebula);
+
+// star field — BufferGeometry points
+const STAR_N = 1500, starPos = new Float32Array(STAR_N*3), starAlpha = new Float32Array(STAR_N);
+for (let i=0; i<STAR_N; i++) {
+  const r = 12 + Math.random()*14, th = Math.random()*Math.PI*2, ph = Math.acos(2*Math.random()-1);
+  starPos[i*3]=r*Math.sin(ph)*Math.cos(th); starPos[i*3+1]=r*Math.sin(ph)*Math.sin(th); starPos[i*3+2]=r*Math.cos(ph);
+  starAlpha[i]=0.25+Math.random()*0.75;
+}
+const starGeo = new THREE.BufferGeometry();
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+starGeo.setAttribute('aAlpha', new THREE.BufferAttribute(starAlpha, 1));
+const starMat = new THREE.ShaderMaterial({ transparent: true, depthWrite: false,
+  uniforms: { uTime:{value:0}, uSize:{value:1.2*renderer.getPixelRatio()} },
+  vertexShader: `attribute float aAlpha; varying float vA; uniform float uTime,uSize;
+    void main(){ vA=aAlpha*(0.6+0.4*sin(uTime*0.9+aAlpha*13.));
+      vec4 mv=modelViewMatrix*vec4(position,1.); gl_PointSize=uSize*(1.+aAlpha*1.4)*(10./-mv.z);
+      gl_Position=projectionMatrix*mv; }`,
+  fragmentShader: `varying float vA; void main(){ vec2 p=gl_PointCoord-0.5;
+    float a=smoothstep(0.5,0.,length(p))*vA; gl_FragColor=vec4(vec3(1.,0.96,0.85),a); }`
+});
+scene.add(new THREE.Points(starGeo, starMat));
+
+// The Listening Glass — MeshPhysicalMaterial with transmission
+const glass = new THREE.Mesh(new THREE.SphereGeometry(1.0, 96, 96), new THREE.MeshPhysicalMaterial({
+  color: 0xe8e6f0, transmission: 1.0, roughness: 0.05, ior: 1.5, thickness: 1.0, metalness: 0.0,
+  attenuationColor: new THREE.Color(0x9b59b6), attenuationDistance: 2.4,
+  clearcoat: 1.0, clearcoatRoughness: 0.08, envMapIntensity: 1.4, side: THREE.DoubleSide
+}));
+scene.add(glass);
+
+// inner luminous core
+const coreMat = new THREE.ShaderMaterial({ transparent: true,
+  uniforms: { uTime:{value:0}, uIntensity:{value:1.0},
+    uGold:{value:new THREE.Color(0xE2C070)}, uPurple:{value:new THREE.Color(0x9b59b6)} },
+  vertexShader: `varying vec3 vN,vP; void main(){ vN=normalize(normalMatrix*normal); vP=position;
+    gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+  fragmentShader: `varying vec3 vN,vP; uniform float uTime,uIntensity; uniform vec3 uGold,uPurple;
+    void main(){ float f=0.5+0.5*sin(uTime*1.2+vP.x*3.+vP.y*2.2);
+      vec3 c=mix(uPurple,uGold,f); float rim=pow(1.-abs(vN.z),2.);
+      gl_FragColor=vec4(c*(0.6+0.7*rim)*uIntensity,0.92); }`
+});
+const core = new THREE.Mesh(new THREE.SphereGeometry(0.32, 48, 48), coreMat);
+scene.add(core);
+
+// interior particle cloud — swirl intensifies on response
+const INT_N = 420, intPos = new Float32Array(INT_N*3), intPhase = new Float32Array(INT_N);
+for (let i=0; i<INT_N; i++) {
+  const r = 0.12 + Math.pow(Math.random(),0.6)*0.78, th = Math.random()*Math.PI*2, ph = Math.acos(2*Math.random()-1);
+  intPos[i*3]=r*Math.sin(ph)*Math.cos(th); intPos[i*3+1]=r*Math.sin(ph)*Math.sin(th); intPos[i*3+2]=r*Math.cos(ph);
+  intPhase[i]=Math.random()*1000;
+}
+const intGeo = new THREE.BufferGeometry();
+intGeo.setAttribute('position', new THREE.BufferAttribute(intPos, 3));
+intGeo.setAttribute('aPhase', new THREE.BufferAttribute(intPhase, 1));
+const intMat = new THREE.ShaderMaterial({ transparent: true, depthWrite: false,
+  uniforms: { uTime:{value:0}, uSwirl:{value:0.0}, uSize:{value:renderer.getPixelRatio()*1.8} },
+  vertexShader: `attribute float aPhase; varying float vA; uniform float uTime,uSwirl,uSize;
+    void main(){ float t=uTime*(0.5+uSwirl*2.); float s=sin(t+aPhase); vec3 p=position;
+      float ang=s*0.4*(1.+uSwirl); mat2 R=mat2(cos(ang),-sin(ang),sin(ang),cos(ang)); p.xz=R*p.xz;
+      p*=1.+0.06*sin(t*1.3+aPhase*0.7); vA=0.45+0.55*(0.5+0.5*s);
+      vec4 mv=modelViewMatrix*vec4(p,1.); gl_PointSize=uSize*(5./-mv.z); gl_Position=projectionMatrix*mv; }`,
+  fragmentShader: `varying float vA; void main(){ vec2 p=gl_PointCoord-0.5;
+    float a=smoothstep(0.5,0.,length(p))*vA;
+    vec3 c=mix(vec3(0.78,0.35,0.72),vec3(0.89,0.75,0.44),vA); gl_FragColor=vec4(c,a*0.9); }`
+});
+scene.add(new THREE.Points(intGeo, intMat));
+
+// outer halo billboard
+const haloMat = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+  uniforms: { uTime:{value:0}, uIntensity:{value:0.7} },
+  vertexShader: `varying vec2 vU; void main(){ vU=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+  fragmentShader: `varying vec2 vU; uniform float uTime,uIntensity;
+    void main(){ float g=smoothstep(0.5,0.12,length(vU-0.5));
+      float pu=0.7+0.3*sin(uTime*0.8); vec3 c=mix(vec3(0.42,0.25,0.63),vec3(0.89,0.75,0.44),g*0.6);
+      gl_FragColor=vec4(c*uIntensity*pu, g*0.55); }`
+});
+const halo = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 3.2), haloMat);
+halo.renderOrder = -1; scene.add(halo);
+
+// Zodiac glyphs — HTML labels projected from 3D anchors at varied radii/speeds
+const zodiacChars = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+const zodiacData = zodiacChars.map((ch, i) => {
+  const el = document.createElement('div');
+  el.className = 'glyph';
+  el.style.fontSize = (14 + (i % 3) * 4) + 'px';
+  el.textContent = ch;
+  overlay.appendChild(el);
+  return { el, radius: 2.9 + (i % 3) * 0.55, speed: 0.03 + (i % 4) * 0.008,
+           phase: (i / zodiacChars.length) * Math.PI * 2, tilt: (i % 5 - 2) * 0.24,
+           anchor: new THREE.Vector3() };
+});
+
+// Gravity card — magnet to cursor via gsap.quickTo (duration 0.8)
+const gravityCard = document.createElement('div');
+gravityCard.className = 'glyph pe';
+gravityCard.style.cssText = `width:82px;height:110px;border:1px solid rgba(200,168,75,0.55);
+  background:linear-gradient(180deg,rgba(28,30,48,0.85),rgba(12,13,24,0.85));
+  color:var(--gold-l);font-size:30px;line-height:110px;text-align:center;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  box-shadow:0 10px 30px rgba(0,0,0,0.5),inset 0 0 20px rgba(200,168,75,0.08);border-radius:2px;`;
+gravityCard.textContent = '☽';
+overlay.appendChild(gravityCard);
+const quickSetCardX = gsap.quickTo(gravityCard, 'x', { duration: 0.8, ease: 'power2.out' });
+const quickSetCardY = gsap.quickTo(gravityCard, 'y', { duration: 0.8, ease: 'power2.out' });
+const quickSetCardRot = gsap.quickTo(gravityCard, 'rotation', { duration: 1.4, ease: 'power2.out' });
+
+// Ritual doors — orbital HTML moons
+const doorData = [
+  { sig:'☽', name:'The Moon Rite',      price:'188 USD', nights:'Nine Nights',
+    desc:'A nine-night tending of the inner tide. Candle, water, and the asking of one question each dusk.' },
+  { sig:'♄', name:'The Saturn Vigil',   price:'312 USD', nights:'Twenty-Eight Nights',
+    desc:'For the long winter of a soul. A disciplined vigil across twenty-eight nights, built on ink, silence, and restraint.' },
+  { sig:'♀', name:'The Venus Anointing',price:'244 USD', nights:'Seven Mornings',
+    desc:'Oil, rose, and first light. Seven mornings to open what has been quietly closed for too long.' }
+];
+const doors = doorData.map((d, i) => {
+  const el = document.createElement('div');
+  el.className = 'door';
+  el.innerHTML = `<div class="lock">Locked</div><div class="sig">${d.sig}</div>
+    <div class="name">${d.name}</div>
+    <div class="meta"><span>${d.nights}</span><span class="price">${d.price}</span></div>`;
+  overlay.appendChild(el);
+  el.addEventListener('click', () => openRitual(d));
+  return { el, d, angle: (i / doorData.length) * Math.PI * 2 - Math.PI / 2, anchor: new THREE.Vector3() };
+});
+
+// Floating reading lines — each at a different 3D anchor around the orb
+const readingText = [
+  'The thread you have been following was never yours alone.',
+  'What arrives at dusk is a <em>returning</em>.',
+  'Hold the question until the answer becomes unnecessary.',
+  'Saturn moves against you; <em>Venus turns toward</em>.',
+  'The hour you were afraid of has already passed.'
+];
+const readingAnchors = [
+  new THREE.Vector3(-2.4,  1.6,  0.3), new THREE.Vector3( 2.6,  1.2, -0.4),
+  new THREE.Vector3(-2.2, -1.5,  0.2), new THREE.Vector3( 2.8, -0.8,  0.5),
+  new THREE.Vector3( 0.1,  2.3, -0.6)
+];
+const readingEls = readingText.map((t, i) => {
+  const el = document.createElement('div');
+  el.className = 'reading-line';
+  el.innerHTML = t;
+  el.style.fontSize = (20 + (i % 2) * 4) + 'px';
+  overlay.appendChild(el);
+  return el;
+});
+
+// project: world Vector3 → screen px
+const _tmp = {};
+function project(v, out) {
+  const p = v.clone().project(camera);
+  out.x = (p.x * 0.5 + 0.5) * W();
+  out.y = (-p.y * 0.5 + 0.5) * H();
+  out.z = p.z;
+  out.visible = p.z < 1;
+  return out;
+}
+
+// mouse: drives parallax + magnet cursor
+const mouse = { nx: 0, ny: 0 };
+addEventListener('mousemove', (e) => {
+  mouse.nx = (e.clientX / W()) * 2 - 1;
+  mouse.ny = -((e.clientY / H()) * 2 - 1);
+  const orbScreen = project(new THREE.Vector3(0,0,0), {});
+  const dx = e.clientX - orbScreen.x, dy = e.clientY - orbScreen.y;
+  const dist = Math.hypot(dx, dy);
+  const maxPull = Math.min(W(), H()) * 0.34;
+  const k = Math.min(1, maxPull / Math.max(dist, 1));
+  quickSetCardX(orbScreen.x + dx * 0.78 * k - 41);
+  quickSetCardY(orbScreen.y + dy * 0.78 * k - 55);
+  quickSetCardRot(((e.clientX / W()) - 0.5) * 0.18);
+});
+
+// wheel drives camera Z (3..8), page does NOT scroll
+let wheelTarget = 8, camZ = 8;
+addEventListener('wheel', (e) => {
+  e.preventDefault();
+  wheelTarget = THREE.MathUtils.clamp(wheelTarget + e.deltaY * 0.003, 3, 8);
+}, { passive: false });
+
+addEventListener('resize', () => {
+  camera.aspect = W()/H(); camera.updateProjectionMatrix(); renderer.setSize(W(), H());
+});
+
+// Whisper → reading → chart reveal
+let isResponding = false;
+whisper.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && whisper.value.trim().length > 2 && !isResponding) offerQuestion();
+});
+whisper.addEventListener('focus', () => hint.textContent = 'Offer a single true question');
+whisper.addEventListener('blur',  () => hint.textContent = 'Press enter to offer your question');
+
+function offerQuestion() {
+  isResponding = true;
+  whisper.classList.add('listening');
+  whisper.blur();
+  gsap.to(coreMat.uniforms.uIntensity, { value: 2.4, duration: 0.9, ease: 'power2.out' });
+  gsap.to(haloMat.uniforms.uIntensity, { value: 1.6, duration: 1.2, ease: 'power2.out' });
+  gsap.to(intMat.uniforms.uSwirl,      { value: 1.2, duration: 1.0, ease: 'power2.out' });
+  gsap.to(glass.material, { thickness: 1.8, duration: 1.2, ease: 'power2.out' });
+  gsap.to(glass.scale, { x: 1.08, y: 1.08, z: 1.08, duration: 1.4, ease: 'power3.out' });
+  gsap.delayedCall(2.6, revealReading);
+}
+
+function revealReading() {
+  gsap.to(whisper, { opacity: 0.55, duration: 1.0 });
+  readingEls.forEach((el, i) => {
+    gsap.fromTo(el, { opacity: 0 }, { opacity: 0.95, duration: 1.6, delay: 0.2 + i * 1.4, ease: 'power2.out' });
+  });
+  gsap.delayedCall(0.4 + readingEls.length * 1.4, () => {
+    gsap.to(revealCta, { opacity: 1, duration: 1.2, ease: 'power2.out' });
+  });
+  gsap.to(coreMat.uniforms.uIntensity, { value: 1.5, duration: 2.8, ease: 'power2.out' });
+  gsap.to(haloMat.uniforms.uIntensity, { value: 1.1, duration: 2.8, ease: 'power2.out' });
+  gsap.to(glass.scale, { x: 1, y: 1, z: 1, duration: 2.2, ease: 'power3.out' });
+  gsap.to(glass.material, { thickness: 1.0, duration: 2.2, ease: 'power2.out' });
+}
+
+// CLIMAX: orb unfolds → chart crystallizes → folds back → doors unveil
+revealCta.addEventListener('click', () => {
+  revealCta.style.pointerEvents = 'none';
+  gsap.to(revealCta, { opacity: 0, duration: 0.4 });
+  readingEls.forEach(el => gsap.to(el, { opacity: 0, duration: 0.9 }));
+  gsap.to(glass.scale, { x: 2, y: 2, z: 2, duration: 1.8, ease: 'power3.out' });
+  gsap.to(core.scale,  { x: 2.4, y: 2.4, z: 2.4, duration: 1.8, ease: 'power3.out' });
+  gsap.to(coreMat.uniforms.uIntensity, { value: 3.6, duration: 1.4, ease: 'power2.out' });
+  gsap.to(haloMat.uniforms.uIntensity, { value: 2.4, duration: 1.4, ease: 'power2.out' });
+  gsap.to(glass.material, { thickness: 2.8, transmission: 0.82, duration: 1.4, ease: 'power2.out' });
+  gsap.to(glass.rotation, { y: glass.rotation.y + Math.PI, duration: 2.2, ease: 'power3.out' });
+  gsap.to(chartStage, { opacity: 1, duration: 1.6, delay: 0.9, ease: 'power2.out' });
+  gsap.fromTo('.chart-card', { scale: 0.7, rotate: -14 },
+    { scale: 1, rotate: -8, duration: 2.0, delay: 0.9, ease: 'power3.out' });
+  gsap.delayedCall(5.2, () => {
+    gsap.to(chartStage, { opacity: 0, duration: 1.2, ease: 'power2.in' });
+    gsap.to(glass.scale, { x: 1, y: 1, z: 1, duration: 1.8, ease: 'power3.inOut' });
+    gsap.to(core.scale,  { x: 1, y: 1, z: 1, duration: 1.8, ease: 'power3.inOut' });
+    gsap.to(coreMat.uniforms.uIntensity, { value: 1.2, duration: 1.8, ease: 'power2.inOut' });
+    gsap.to(haloMat.uniforms.uIntensity, { value: 0.7, duration: 1.8, ease: 'power2.inOut' });
+    gsap.to(glass.material, { thickness: 1.0, transmission: 1.0, duration: 1.8, ease: 'power2.inOut' });
+    gsap.delayedCall(1.8, unveilDoors);
+  });
+});
+
+let doorsRevealed = false;
+function unveilDoors() {
+  doorsRevealed = true;
+  doors.forEach((dr, i) => {
+    gsap.fromTo(dr.el, { opacity: 0, scale: 0.8 },
+      { opacity: 1, scale: 1, duration: 1.6, delay: i * 0.35, ease: 'power3.out' });
+  });
+  gsap.to(whisper, { opacity: 1, duration: 1.2 });
+  hint.textContent = 'Approach a rite to see what lies within';
+}
+
+function openRitual(d) {
+  document.getElementById('rp-sig').textContent = d.sig;
+  document.getElementById('rp-name').textContent = d.name;
+  document.getElementById('rp-desc').textContent = d.desc;
+  document.getElementById('rp-price').textContent = `${d.price} · ${d.nights}`;
+  const prev = wheelTarget;
+  gsap.to({ v: wheelTarget }, { v: 2.4, duration: 1.2, ease: 'power3.out',
+    onUpdate(){ wheelTarget = this.targets()[0].v; } });
+  gsap.to(ritualPreview, { opacity: 1, duration: 1.2, delay: 0.3, ease: 'power2.out' });
+  gsap.fromTo('.preview-card', { scale: 0.9 }, { scale: 1, duration: 1.4, delay: 0.3, ease: 'power3.out' });
+  gsap.delayedCall(3.8, () => {
+    gsap.to(ritualPreview, { opacity: 0, duration: 1.0, ease: 'power2.in' });
+    gsap.to({ v: wheelTarget }, { v: prev, duration: 1.4, ease: 'power3.inOut',
+      onUpdate(){ wheelTarget = this.targets()[0].v; } });
+  });
+}
+
+// render loop
+const clock = new THREE.Clock();
+if (!coreMat.uniforms.uTime) coreMat.uniforms.uTime = { value: 0 };
+function tick() {
+  const dt = clock.getDelta(), t = clock.getElapsedTime();
+  nebUniforms.uTime.value = t; starMat.uniforms.uTime.value = t;
+  intMat.uniforms.uTime.value = t; coreMat.uniforms.uTime.value = t; haloMat.uniforms.uTime.value = t;
+
+  nebula.rotation.y = t * 0.008; nebula.rotation.x = t * 0.004;
+  if (!isResponding && !doorsRevealed) glass.scale.setScalar(1 + Math.sin(t * 0.6) * 0.012);
+  glass.rotation.y += dt * 0.08; core.rotation.y -= dt * 0.12;
+  halo.quaternion.copy(camera.quaternion);
+
+  camZ += (wheelTarget - camZ) * 0.08;
+  camParallax.x += (mouse.nx * 0.6 - camParallax.x) * 0.05;
+  camParallax.y += (mouse.ny * 0.4 - camParallax.y) * 0.05;
+  camera.position.set(camParallax.x, camParallax.y, camZ);
+  camera.lookAt(0, 0, 0);
+
+  zodiacData.forEach((z) => {
+    const a = z.phase + t * z.speed * 2;
+    z.anchor.set(Math.cos(a) * z.radius,
+                 Math.sin(a * 0.7 + z.tilt) * z.radius * 0.55 + z.tilt,
+                 Math.sin(a) * z.radius * 0.9);
+    const p = project(z.anchor, _tmp);
+    if (p.visible) {
+      z.el.style.opacity = THREE.MathUtils.clamp((1 - p.z) * 1.1 - 0.1, 0.15, 0.9).toFixed(3);
+      z.el.style.left = p.x + 'px'; z.el.style.top = p.y + 'px';
+    } else z.el.style.opacity = 0;
+  });
+
+  readingAnchors.forEach((v, i) => {
+    const w = readingEls[i]; if (!w) return;
+    const d = new THREE.Vector3(v.x + Math.sin(t * 0.3 + i) * 0.08,
+                                v.y + Math.cos(t * 0.25 + i * 1.3) * 0.06,
+                                v.z + Math.sin(t * 0.2 + i * 0.7) * 0.1);
+    const p = project(d, _tmp);
+    if (p.visible) { w.style.left = p.x + 'px'; w.style.top = p.y + 'px'; }
+  });
+
+  if (doorsRevealed) {
+    doors.forEach((dr) => {
+      const a = dr.angle + t * 0.07;
+      dr.anchor.set(Math.cos(a) * 4.2, Math.sin(a * 0.6) * 0.6, Math.sin(a) * 3.4);
+      const p = project(dr.anchor, _tmp);
+      if (p.visible) { dr.el.style.left = p.x + 'px'; dr.el.style.top = p.y + 'px'; }
+    });
+  }
+
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+}
+
+// entrance
+gsap.fromTo(renderer.domElement, { opacity: 0 }, { opacity: 1, duration: 2.4, ease: 'power2.out' });
+gsap.fromTo('.hud', { opacity: 0, y: -6 }, { opacity: 1, y: 0, duration: 1.4, delay: 0.9, stagger: 0.08, ease: 'power2.out' });
+gsap.fromTo('.whisper-wrap', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 1.6, delay: 1.4, ease: 'power3.out' });
+gsap.fromTo(gravityCard, { opacity: 0 }, { opacity: 1, duration: 2.0, delay: 1.8 });
+
+tick();
+</script>
+</body>
+</html>

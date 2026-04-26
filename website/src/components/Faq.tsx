@@ -6,18 +6,12 @@
  *
  * Uses native <details>/<summary> for zero-JS keyboard accessibility:
  * space/enter toggles, focus ring inherits from globals.css.
- *
- * Copy: placeholder that matches the editorial-almanac voice. Swap in the
- * verbatim copy from Olivia Arcana v2.html <section id="faq"> when ready —
- * the ROW data array below is the single source of truth, no structural
- * changes needed.
  */
 
 "use client";
 
 import React from "react";
 
-// TODO: swap in verbatim copy from the prototype's <section id="faq">
 const ROWS: { q: string; a: React.ReactNode }[] = [
   {
     q: "Is this actually astrology, or just generic horoscopes?",
@@ -43,13 +37,21 @@ const ROWS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
-    q: "What\u2019s the difference between Free and VIP?",
+    q: "What\u2019s on each plan?",
     a: (
       <>
-        Free gives you the daily Card of the Day, a basic natal snapshot, and
-        the public academy lessons. VIP unlocks unlimited AI oracle, the full
-        natal chart reading, transit alerts tuned to your chart, synastry
-        reports, and every course in the academy.
+        Four tiers. <strong>Free</strong> ($0){" "}{"\u2014"} daily Card of the Day,
+        basic sun-sign profile, first 12 academy lessons.{" "}
+        <strong>Insight</strong> ($4.99/mo){" "}{"\u2014"} personalized daily horoscope
+        from your chart, full natal breakdown, 30 oracle questions a month.{" "}
+        <strong>Premium</strong> ($14.99/mo){" "}{"\u2014"} unlimited oracle, synastry,
+        year-ahead forecast, full 207-lesson academy, weekly audio briefing.{" "}
+        <strong>VIP</strong> ($34.99/mo){" "}{"\u2014"} voice readings, monthly video
+        reading, priority human astrologer line. See the{" "}
+        <a href="/#pricing" style={{ color: "var(--c-gold, #D4AF37)" }}>
+          full feature matrix
+        </a>{" "}
+        for the side-by-side.
       </>
     ),
   },
@@ -65,15 +67,20 @@ const ROWS: { q: string; a: React.ReactNode }[] = [
     ),
   },
   {
-    q: "How do cancellations work?",
+    q: "How do cancellations and refunds work?",
     a: (
       <>
-        You can cancel any time from{" "}
+        Cancel any time from{" "}
         <a href="/account/billing" style={{ color: "var(--c-gold, #D4AF37)" }}>
           Account &rarr; Billing
         </a>
-        . Cancellation takes effect at the end of your current billing period
-        — you keep VIP until then. No retention calls, no dark patterns.
+        . Your tier stays active until the end of the current billing period.
+        Within 14 days of your first charge you can request a full refund —{" "}
+        <a href="/refund" style={{ color: "var(--c-gold, #D4AF37)" }}>
+          refund policy
+        </a>
+        . Web payments are billed by Paddle (Merchant of Record); in-Telegram
+        purchases use Stars. No retention calls, no dark patterns.
       </>
     ),
   },

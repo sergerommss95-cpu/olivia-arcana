@@ -21,7 +21,6 @@
 
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { usePathname } from "next/navigation";
 import GlobalBackground from "@/components/GlobalBackground";
 import CosmicCursor from "@/components/CosmicCursor";
 import SoundEngine from "@/components/SoundEngine";
@@ -55,14 +54,6 @@ export default function ClientShell({ children }: { children: React.ReactNode })
   // Tier 3 gate — user has shown intent (scrolled or pressed a key)
   const [engaged, setEngaged] = useState(false);
 
-  // /v2 and /v3 are Sprint 3 proposals testing the argument
-  // "too many overlays are fighting for attention" — so on both we
-  // render a reduced set. Site background is shared on every route.
-  const pathname = usePathname();
-  const isV2 = pathname?.startsWith("/v2") ?? false;
-  const isV3 = pathname?.startsWith("/v3") ?? false;
-  const isAb = isV2 || isV3;
-
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
@@ -89,34 +80,26 @@ export default function ClientShell({ children }: { children: React.ReactNode })
     <>
       {mounted && (
         <>
-          {/* Layer 0 — The Void (persistent WebGL). Same on every
-              route, including /v2 and /v3. The shader experiments are
-              scoped to the card area, not the site background. */}
+          {/* Layer 0 — The Void (persistent WebGL background). */}
           <GlobalBackground />
 
           {/* Always-on: palette drift + smooth scroll + page transitions */}
           <TimeOfDayTheme />
           <SmoothScroll />
 
-          {/* Suppressed on /v2 and /v3 — the Sprint 3 argument is
-              "fewer overlays compete for attention". */}
-          {!isAb && (
+          <CosmicCursor />
+          <SoundEngine />
+          <CosmicIndicators />
+          <CosmicToast />
+          <InstallPrompt />
+          <FilmGrain opacity={0.03} vignetteIntensity={0.35} />
+          <MobileBottomNav />
+          {/* Deferred tier — only mounts once the user engages */}
+          {engaged && (
             <>
-              <CosmicCursor />
-              <SoundEngine />
-              <CosmicIndicators />
-              <CosmicToast />
-              <InstallPrompt />
-              <FilmGrain opacity={0.03} vignetteIntensity={0.35} />
-              <MobileBottomNav />
-              {/* Deferred tier — only mounts once the user engages */}
-              {engaged && (
-                <>
-                  <AmbientSoundLazy />
-                  <EclipseOverlayLazy />
-                  <CommandPaletteLazy />
-                </>
-              )}
+              <AmbientSoundLazy />
+              <EclipseOverlayLazy />
+              <CommandPaletteLazy />
             </>
           )}
         </>

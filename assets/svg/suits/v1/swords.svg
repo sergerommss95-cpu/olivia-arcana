@@ -1,0 +1,294 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Swords suit glyph</title>
+  <desc id="desc">Ace of Swords — upright crowned blade, air element, Minor Arcana</desc>
+
+  <defs>
+    <!-- 1. Deep night radial backdrop -->
+    <radialGradient id="bgNight" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="55%" stop-color="#0d0719"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+
+    <!-- 2. Parchment vignette -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+
+    <!-- 3. Air-element silver-cyan wash — Swords is the air suit, cool intellect tint -->
+    <radialGradient id="airWash" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#4466aa" stop-opacity="0.16"/>
+      <stop offset="60%" stop-color="#2c4a7a" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#1a2448" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 4. Gold primary gradient (glyph + linework, diagonal) -->
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 5. Gold vertical gradient (for the blade & hilt) -->
+    <linearGradient id="goldPrimaryV" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 6. Gold thin gradient — fine ring / tick marks -->
+    <linearGradient id="goldThin" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6b4a1f"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 7. Aura behind the central glyph -->
+    <radialGradient id="centralAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="0.38"/>
+      <stop offset="40%" stop-color="#d4a574" stop-opacity="0.2"/>
+      <stop offset="75%" stop-color="#6b4a1f" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#1a2448" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 8. Blade interior fill gradient — soft pale gold sheen -->
+    <linearGradient id="bladeFill" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#ffe8a3" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#d4a574" stop-opacity="0.18"/>
+    </linearGradient>
+
+    <!-- 9. Pommel sphere gradient -->
+    <radialGradient id="pommelGold" cx="40%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </radialGradient>
+
+    <!-- Path for the bottom-arc inscription -->
+    <path id="inscriptionArc" d="M 76 256 A 180 180 0 0 0 436 256" fill="none"/>
+  </defs>
+
+  <!-- ============ BACKGROUND ============ -->
+  <g id="background">
+    <rect x="0" y="0" width="512" height="512" fill="url(#bgNight)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#airWash)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#vignette)"/>
+  </g>
+
+  <!-- ============ STARFIELD — scattered background stars ============ -->
+  <g id="starfield" fill="#fff2c6">
+    <circle cx="68"  cy="92"  r="1.1" fill-opacity="0.75"/>
+    <circle cx="128" cy="54"  r="0.9" fill-opacity="0.6"/>
+    <circle cx="210" cy="104" r="1.3" fill-opacity="0.85"/>
+    <circle cx="430" cy="78"  r="1"   fill-opacity="0.7"/>
+    <circle cx="468" cy="168" r="1.4" fill-opacity="0.9"/>
+    <circle cx="52"  cy="206" r="1.1" fill-opacity="0.75"/>
+    <circle cx="96"  cy="394" r="1.2" fill-opacity="0.8"/>
+    <circle cx="158" cy="446" r="0.9" fill-opacity="0.6"/>
+    <circle cx="402" cy="432" r="1.3" fill-opacity="0.85"/>
+    <circle cx="456" cy="376" r="1"   fill-opacity="0.7"/>
+    <circle cx="340" cy="60"  r="0.8" fill-opacity="0.55"/>
+    <circle cx="72"  cy="330" r="1"   fill-opacity="0.7"/>
+  </g>
+
+  <!-- ============ SACRED GEOMETRY ============ -->
+  <g id="sacred-geometry" fill="none" stroke="url(#goldThin)" stroke-opacity="0.85">
+    <!-- Three concentric circles -->
+    <circle cx="256" cy="256" r="240" stroke-width="0.8"/>
+    <circle cx="256" cy="256" r="220" stroke-width="0.6" stroke-opacity="0.55"/>
+    <circle cx="256" cy="256" r="200" stroke-width="0.8"/>
+
+    <!-- Inner dashed mandala reference ring -->
+    <circle cx="256" cy="256" r="150" stroke-width="0.4" stroke-opacity="0.35" stroke-dasharray="2 4"/>
+
+    <!-- Ornamental double-ring (mid-inner) -->
+    <circle cx="256" cy="256" r="178" stroke-width="0.7" stroke-opacity="0.55"/>
+    <circle cx="256" cy="256" r="174" stroke-width="0.4" stroke-opacity="0.35"/>
+
+    <!-- 12 tick marks on outer ring (r=240 → r=248), every 30° -->
+    <g stroke="#d4a574" stroke-width="1.2" stroke-opacity="0.85">
+      <line x1="256" y1="16"  x2="256" y2="8"/>
+      <line x1="376" y1="48"  x2="380" y2="40"/>
+      <line x1="464" y1="136" x2="472" y2="132"/>
+      <line x1="496" y1="256" x2="504" y2="256"/>
+      <line x1="464" y1="376" x2="472" y2="380"/>
+      <line x1="376" y1="464" x2="380" y2="472"/>
+      <line x1="256" y1="496" x2="256" y2="504"/>
+      <line x1="136" y1="464" x2="132" y2="472"/>
+      <line x1="48"  y1="376" x2="40"  y2="380"/>
+      <line x1="16"  y1="256" x2="8"   y2="256"/>
+      <line x1="48"  y1="136" x2="40"  y2="132"/>
+      <line x1="136" y1="48"  x2="132" y2="40"/>
+    </g>
+
+    <!-- 12 tick marks on inner ring (r=200 → r=192) -->
+    <g stroke="#d4a574" stroke-width="1" stroke-opacity="0.7">
+      <line x1="256" y1="56"  x2="256" y2="64"/>
+      <line x1="356" y1="83"  x2="354" y2="90"/>
+      <line x1="429" y1="156" x2="422" y2="158"/>
+      <line x1="456" y1="256" x2="448" y2="256"/>
+      <line x1="429" y1="356" x2="422" y2="354"/>
+      <line x1="356" y1="429" x2="354" y2="422"/>
+      <line x1="256" y1="456" x2="256" y2="448"/>
+      <line x1="156" y1="429" x2="158" y2="422"/>
+      <line x1="83"  y1="356" x2="90"  y2="354"/>
+      <line x1="56"  y1="256" x2="64"  y2="256"/>
+      <line x1="83"  y1="156" x2="90"  y2="158"/>
+      <line x1="156" y1="83"  x2="158" y2="90"/>
+    </g>
+
+    <!-- 4 cardinal-point 4-pointed stars (compass jewels) -->
+    <g fill="#d4a574" fill-opacity="0.85" stroke="none">
+      <!-- North -->
+      <path d="M 256 22 L 259 36 L 273 39 L 259 42 L 256 56 L 253 42 L 239 39 L 253 36 Z"/>
+      <!-- East -->
+      <path d="M 490 256 L 476 259 L 473 273 L 470 259 L 456 256 L 470 253 L 473 239 L 476 253 Z"/>
+      <!-- South -->
+      <path d="M 256 490 L 259 476 L 273 473 L 259 470 L 256 456 L 253 470 L 239 473 L 253 476 Z"/>
+      <!-- West -->
+      <path d="M 22 256 L 36 259 L 39 273 L 42 259 L 56 256 L 42 253 L 39 239 L 36 253 Z"/>
+    </g>
+
+    <!-- Bottom-arc inscription: Swords · Aer · Veritas · Intellectus -->
+    <g font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#d4a574" letter-spacing="2" font-style="italic">
+      <text>
+        <textPath href="#inscriptionArc" startOffset="50%" text-anchor="middle">SWORDS  ·  AER  ·  VERITAS  ·  INTELLECTUS</textPath>
+      </text>
+    </g>
+  </g>
+
+  <!-- ============ AURA BEHIND THE GLYPH ============ -->
+  <g id="aura">
+    <circle cx="256" cy="245" r="170" fill="url(#centralAura)"/>
+  </g>
+
+  <!-- ============ AIR-ELEMENT DECORATION — wind streaks flanking the blade ============ -->
+  <g id="ornament-wind" stroke="url(#goldThin)" stroke-linecap="round" fill="none" stroke-opacity="0.35">
+    <!-- Left-side wind lines radiating outward from the blade -->
+    <line x1="168" y1="180" x2="118" y2="176" stroke-width="1.4"/>
+    <line x1="174" y1="210" x2="108" y2="208" stroke-width="1.6"/>
+    <line x1="170" y1="240" x2="112" y2="242" stroke-width="1.4"/>
+    <line x1="176" y1="270" x2="122" y2="272" stroke-width="1.2"/>
+    <line x1="180" y1="300" x2="134" y2="302" stroke-width="1"/>
+
+    <!-- Right-side wind lines radiating outward -->
+    <line x1="344" y1="180" x2="394" y2="176" stroke-width="1.4"/>
+    <line x1="338" y1="210" x2="404" y2="208" stroke-width="1.6"/>
+    <line x1="342" y1="240" x2="400" y2="242" stroke-width="1.4"/>
+    <line x1="336" y1="270" x2="390" y2="272" stroke-width="1.2"/>
+    <line x1="332" y1="300" x2="378" y2="302" stroke-width="1"/>
+  </g>
+
+  <!-- ============ MAIN GLYPH — Ace of Swords: crowned upright blade ============ -->
+  <g id="glyph" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- BLADE interior fill (behind outline) -->
+    <path d="M 256 130 L 268 332 L 244 332 Z" fill="url(#bladeFill)" stroke="none"/>
+
+    <!-- BLADE outline — double-edged, tapering to point at top -->
+    <path d="M 256 130 L 268 332 L 244 332 Z"
+          fill="none" stroke="url(#goldPrimaryV)" stroke-width="14"/>
+
+    <!-- Central fuller (blood groove) — thin vertical line down the blade -->
+    <line x1="256" y1="148" x2="256" y2="326"
+          stroke="url(#goldPrimaryV)" stroke-width="1.8" stroke-opacity="0.65"/>
+
+    <!-- Blade left-edge cream highlight -->
+    <path d="M 256 136 L 246 330"
+          fill="none" stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- CROSS-GUARD — horizontal bar, 100px wide, at y=332 -->
+    <line x1="206" y1="332" x2="306" y2="332"
+          stroke="url(#goldPrimary)" stroke-width="12" stroke-linecap="round"/>
+
+    <!-- Cross-guard cream highlight -->
+    <line x1="210" y1="330" x2="302" y2="330"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- Ornamental sphere caps at cross-guard endpoints -->
+    <circle cx="206" cy="332" r="5" fill="url(#pommelGold)" stroke="#6b4a1f" stroke-width="0.8"/>
+    <circle cx="306" cy="332" r="5" fill="url(#pommelGold)" stroke="#6b4a1f" stroke-width="0.8"/>
+    <circle cx="206" cy="330" r="2.5" fill="#fff2c6" stroke="none"/>
+    <circle cx="306" cy="330" r="2.5" fill="#fff2c6" stroke="none"/>
+
+    <!-- HILT — short vertical section below cross-guard -->
+    <line x1="256" y1="338" x2="256" y2="378"
+          stroke="url(#goldPrimaryV)" stroke-width="11" stroke-linecap="round"/>
+
+    <!-- Hilt wrap bands — three thin horizontal ticks -->
+    <g stroke="#6b4a1f" stroke-width="1" stroke-opacity="0.85">
+      <line x1="251" y1="348" x2="261" y2="348"/>
+      <line x1="251" y1="358" x2="261" y2="358"/>
+      <line x1="251" y1="368" x2="261" y2="368"/>
+    </g>
+
+    <!-- POMMEL — sphere at the bottom of the hilt -->
+    <circle cx="256" cy="388" r="8" fill="url(#pommelGold)" stroke="url(#goldPrimary)" stroke-width="1.5"/>
+    <circle cx="253" cy="385" r="2" fill="#fff2c6" stroke="none"/>
+
+    <!-- CROWN on top of the blade — diagnostic Ace of Swords detail -->
+    <!-- Crown base ring -->
+    <ellipse cx="256" cy="126" rx="34" ry="6"
+             fill="none" stroke="url(#goldPrimary)" stroke-width="6"/>
+    <ellipse cx="256" cy="125" rx="30" ry="3"
+             fill="none" stroke="#fff2c6" stroke-width="1" stroke-opacity="0.55"/>
+
+    <!-- Crown prongs — 5 pointed points rising from the ring -->
+    <path d="M 224 126 L 220 104 L 228 120 L 236 98 L 244 120 L 256 92 L 268 120 L 276 98 L 284 120 L 292 104 L 288 126"
+          fill="none" stroke="url(#goldPrimaryV)" stroke-width="6"
+          stroke-linejoin="round" stroke-linecap="round"/>
+
+    <!-- Small jewel dots on each crown prong tip -->
+    <circle cx="220" cy="104" r="2.2" fill="#fff2c6"/>
+    <circle cx="236" cy="98"  r="2.6" fill="#fff2c6"/>
+    <circle cx="256" cy="92"  r="3"   fill="#fff2c6"/>
+    <circle cx="276" cy="98"  r="2.6" fill="#fff2c6"/>
+    <circle cx="292" cy="104" r="2.2" fill="#fff2c6"/>
+
+    <!-- Central crown jewel -->
+    <circle cx="256" cy="118" r="3.5" fill="#fff2c6"/>
+    <circle cx="256" cy="118" r="5" fill="none" stroke="url(#goldPrimary)" stroke-width="1" stroke-opacity="0.75"/>
+
+  </g>
+
+  <!-- ============ INSCRIPTION RIBBON — subtle laurel-tick decoration beneath pommel ============ -->
+  <g id="inscription" fill="none" stroke="#d4a574" stroke-opacity="0.5" stroke-linecap="round">
+    <path d="M 224 402 Q 256 412 288 402" stroke-width="1.2"/>
+    <path d="M 230 410 Q 256 418 282 410" stroke-width="0.9" stroke-opacity="0.35"/>
+  </g>
+
+  <!-- ============ ORNAMENT — four Gothic filigree corner flourishes ============ -->
+  <g id="ornament" fill="none" stroke="#d4a574" stroke-opacity="0.5" stroke-width="1.2" stroke-linecap="round">
+    <!-- Top-left -->
+    <g transform="translate(40,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Top-right -->
+    <g transform="translate(442,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Bottom-left -->
+    <g transform="translate(40,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Bottom-right -->
+    <g transform="translate(442,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+  </g>
+</svg>

@@ -37,7 +37,10 @@ export default function MorphingText({
   const text2Ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const timer = setTimeout(() => {
+      setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {

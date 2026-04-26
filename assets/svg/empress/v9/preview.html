@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Empress v9 — Ornate flat · the middle ground</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 2rem; background: #0a0517; color: #eee; min-height: 100vh; }
+  h1 { font-size: 1.6rem; font-weight: 600; margin-bottom: 0.5rem; }
+  h1 small { font-weight: 400; opacity: 0.6; font-size: 1rem; margin-left: 0.5rem; }
+  .meta { opacity: 0.65; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.5rem; max-width: 72ch; }
+  .insight { background: rgba(212,165,116,0.08); border-left: 3px solid #d4a574; padding: 0.75rem 1rem; margin: 1rem 0; font-size: 0.85rem; border-radius: 4px; line-height: 1.6; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+  .card { border: 1px solid rgba(128,128,128,0.25); border-radius: 12px; overflow: hidden; }
+  .card.ref { border: 2px solid rgba(212,165,116,0.4); }
+  .card.hero { border: 2px solid #d4a574; }
+  .card-img { display: flex; align-items: center; justify-content: center; padding: 1rem; min-height: 700px; background: #0a0517; }
+  .card-img img { max-width: 100%; max-height: 680px; display: block; }
+  .card-label { padding: 0.75rem 1rem; font-size: 0.85rem; background: #13081f; border-top: 1px solid rgba(128,128,128,0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+  .card-label .size { opacity: 0.55; font-size: 0.7rem; }
+  .card-label .tag { font-size: 0.68rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(212,165,116,0.2); color: #fff2c6; }
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(128,128,128,0.2); font-size: 0.8rem; opacity: 0.6; line-height: 1.6; }
+  footer code { font-family: ui-monospace, Menlo, monospace; background: rgba(212,165,116,0.12); padding: 0.1rem 0.35rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <h1>The Empress — v9 <small>ornate flat · the middle ground</small></h1>
+  <div class="meta">
+    Threading the needle between v7 (painterly Mucha — 3.8 MB, unvectorizable quality loss) and v8 (reductive Saul Bass — 314 KB but too simple / childlike). v9 prompts FLUX for Mucha's COMMERCIAL POSTER style + Beardsley ink + ukiyo-e woodblock: "luxurious decorative maximalism through flat color + thick outlines only". Ornate detail preserved; painterly texture banned.
+  </div>
+  <div class="insight">
+    <b>Style aimed for:</b> Art Nouveau poster (not painting), Beardsley, ukiyo-e woodblock — detail comes from PATTERN REPETITION and LINEWORK, not from painterly shading. That's the intersection where detail + flat-vectorizability live.
+  </div>
+
+  <div class="grid">
+    <div class="card ref">
+      <div class="card-img"><img src="_source.jpg" alt="FLUX source"></div>
+      <div class="card-label">source · FLUX ornate-flat <span class="tag">JPG</span><span class="size">625 KB</span></div>
+    </div>
+    <div class="card hero">
+      <div class="card-img"><img src="empress-vectorized.svg" alt="detailed vector"></div>
+      <div class="card-label">detailed · 24-color <span class="tag">vector</span><span class="size">5.0 MB</span></div>
+    </div>
+    <div class="card hero">
+      <div class="card-img"><img src="empress-vectorized-compact.svg" alt="compact vector"></div>
+      <div class="card-label">compact · 14-color <span class="tag">vector</span><span class="size">3.6 MB</span></div>
+    </div>
+  </div>
+
+  <footer>
+    v9 path: <code>/Users/macbookpro/olivia-arcana/assets/svg/empress/v9/</code><br>
+    Prompt template locked: Mucha commercial poster + Beardsley ink + ukiyo-e + thick dark outlines + flat colors only. Same prompt structure applies to all 77 remaining cards with subject substitution.<br>
+    Full deck FLUX cost: 77 × $0.03 ≈ <b>$2.31</b>. Vectorization batch runs locally, unlimited.
+  </footer>
+</body>
+</html>

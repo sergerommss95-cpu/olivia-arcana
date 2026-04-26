@@ -1,8 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+import Image from "next/image";
 import { getUser, getSession, signOut } from "../../lib/supabase";
 import type { User } from "@supabase/supabase-js";
+
+// DeckStats reads localStorage so client-only render avoids SSR mismatch.
+const DeckStats = dynamic(() => import("../../components/DeckStats"), { ssr: false });
 
 const glass: React.CSSProperties = {
   background: "rgba(8,6,20,0.45)", backdropFilter: "blur(20px) saturate(1.2)",
@@ -18,20 +24,62 @@ const labelSt: React.CSSProperties = {
 export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [signedOut, setSignedOut] = useState(false);
 
   useEffect(() => {
     (async () => {
       const session = await getSession();
-      if (!session) { window.location.href = "/login"; return; }
+      if (!session) {
+        setTimeout(() => {
+          setSignedOut(true);
+          setLoading(false);
+        }, 0);
+        return;
+      }
       const u = await getUser();
-      setUser(u);
-      setLoading(false);
+      setTimeout(() => {
+        setUser(u);
+        setLoading(false);
+      }, 0);
     })();
   }, []);
 
   if (loading) return (
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", zIndex: 1 }}>
       <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(180,170,210,0.4)" }}>Loading your cosmic profile...</p>
+    </div>
+  );
+
+  if (signedOut) return (
+    <div style={{ minHeight: "100vh", position: "relative", zIndex: 1, padding: "2rem 1.5rem 4rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ maxWidth: "440px", margin: "0 auto", textAlign: "center" }}>
+        <div style={{ fontSize: "2.5rem", color: "rgba(232,201,106,0.55)", marginBottom: "1rem" }}>✦</div>
+        <h1 style={{ fontFamily: "var(--font-heading)", fontStyle: "italic", fontSize: "clamp(1.6rem, 5vw, 2.4rem)", fontWeight: 400, color: "rgba(245,240,232,0.96)", margin: 0 }}>
+          Your profile lives here
+        </h1>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", fontWeight: 300, color: "rgba(220,212,240,0.72)", marginTop: "1rem", lineHeight: 1.6 }}>
+          Sign in to see your sun sign, draw history, daily streak, and the readings Olivia has written for you.
+        </p>
+        <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", marginTop: "1.75rem", flexWrap: "wrap" }}>
+          <Link href="/login" style={{
+            display: "inline-block", padding: "0.75rem 1.75rem", borderRadius: "100px",
+            background: "linear-gradient(135deg, #E8C96A, #D4AF37)",
+            color: "var(--c-void, #06041a)", fontSize: "0.78rem", fontWeight: 600,
+            letterSpacing: "0.08em", textTransform: "uppercase", textDecoration: "none",
+          }}>Sign in</Link>
+          <Link href="/register" style={{
+            display: "inline-block", padding: "0.75rem 1.75rem", borderRadius: "100px",
+            background: "rgba(255,255,255,0.04)", border: "1px solid rgba(200,185,255,0.12)",
+            color: "rgba(220,210,240,0.85)", fontSize: "0.78rem", fontWeight: 500,
+            letterSpacing: "0.08em", textTransform: "uppercase", textDecoration: "none",
+          }}>Create account</Link>
+        </div>
+        <Link href="/" style={{
+          display: "inline-block", marginTop: "1.5rem",
+          fontFamily: "var(--font-body)", fontSize: "0.7rem", color: "rgba(180,170,210,0.5)",
+          textDecoration: "none", letterSpacing: "0.16em", textTransform: "uppercase",
+        }}>&larr; Back home</Link>
+      </div>
     </div>
   );
 
@@ -45,7 +93,7 @@ export default function ProfilePage() {
     <div style={{ minHeight: "100vh", position: "relative", zIndex: 1, padding: "2rem 1.5rem 4rem" }}>
       <div style={{ maxWidth: "600px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <a href="/" style={{ ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>← Home</a>
+          <Link href="/" style={{ ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>&larr; Home</Link>
           <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem, 4vw, 2rem)", fontWeight: 400, marginTop: "0.75rem" }}>
             <span className="text-gold-gradient">{name ? `${name}'s Profile` : "Your Profile"}</span>
           </h1>
@@ -83,13 +131,13 @@ export default function ProfilePage() {
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300, color: "rgba(196,185,228,0.6)", margin: "0.4rem 0 0.75rem", lineHeight: 1.6 }}>
             Generate your celestial portrait to unlock personalized readings.
           </p>
-          <a href="/portrait" style={{
+          <Link href="/portrait" style={{
             display: "inline-block", padding: "0.6rem 1.5rem", borderRadius: "100px",
             background: "linear-gradient(135deg, rgba(160,120,255,0.2), rgba(100,80,220,0.15))",
             border: "1px solid rgba(200,180,255,0.2)",
             color: "rgba(240,235,255,0.9)", fontSize: "0.76rem", fontWeight: 500,
             letterSpacing: "0.06em", textTransform: "uppercase", textDecoration: "none",
-          }}>Generate Your Portrait</a>
+          }}>Generate Your Portrait</Link>
         </div>
 
         {/* Quick links */}
@@ -100,11 +148,16 @@ export default function ProfilePage() {
             { href: "/daily", label: "Daily Reading", icon: "☉" },
             { href: "/cosmos", label: "Living Cosmos", icon: "◈" },
           ].map(({ href, label, icon }) => (
-            <a key={href} href={href} style={{ ...glass, padding: "1.25rem", textDecoration: "none", display: "flex", alignItems: "center", gap: "0.6rem" }}>
+            <Link key={href} href={href} style={{ ...glass, padding: "1.25rem", textDecoration: "none", display: "flex", alignItems: "center", gap: "0.6rem" }}>
               <span style={{ fontSize: "1.2rem", color: "rgba(212,175,55,0.5)" }}>{icon}</span>
               <span style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 400, color: "rgba(220,210,240,0.75)" }}>{label}</span>
-            </a>
+            </Link>
           ))}
+        </div>
+
+        {/* Living deck — most-drawn cards + draw history */}
+        <div style={{ marginBottom: "1.5rem" }}>
+          <DeckStats />
         </div>
 
         {/* Sign out */}

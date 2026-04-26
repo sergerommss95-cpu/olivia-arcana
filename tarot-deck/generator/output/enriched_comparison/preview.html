@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olivia Arcana — Enriched Symbolism · 5-Card A/B</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 2rem; background: #0a0517; color: #eee; min-height: 100vh; }
+  h1 { font-size: 1.7rem; font-weight: 600; margin-bottom: 0.3rem; }
+  h1 small { font-weight: 400; opacity: 0.6; font-size: 1rem; margin-left: 0.5rem; }
+  h2 { font-size: 1.2rem; font-weight: 600; margin: 2.5rem 0 1rem; color: #ffe8a3; }
+  .meta { opacity: 0.7; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; max-width: 72ch; }
+  .decision { background: rgba(232,165,75,0.08); border-left: 3px solid #E8A54B; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 0.92rem; border-radius: 6px; line-height: 1.7; }
+  .decision b { color: #ffe8a3; }
+
+  .pair-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+  @media (max-width: 900px) { .pair-row { grid-template-columns: 1fr; } }
+  .cell { border: 1px solid rgba(128,128,128,0.25); border-radius: 12px; overflow: hidden; }
+  .cell.old { border-color: rgba(128,128,128,0.3); }
+  .cell.new { border: 2px solid #d4a574; box-shadow: 0 8px 24px rgba(212,165,116,0.08); }
+  .cell-img { display: flex; align-items: center; justify-content: center; padding: 1rem; min-height: 560px; background: #0a0517; }
+  .cell-img img { max-width: 100%; max-height: 540px; display: block; box-shadow: 0 4px 24px rgba(0,0,0,0.6); }
+  .cell-label { padding: 0.75rem 1rem; font-size: 0.85rem; background: #13081f; border-top: 1px solid rgba(128,128,128,0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+  .cell-label .tag { font-size: 0.68rem; padding: 0.2rem 0.5rem; border-radius: 4px; }
+  .tag.old { background: rgba(128,128,128,0.2); color: #bbb; }
+  .tag.new { background: rgba(212,165,116,0.25); color: #fff2c6; }
+  .tag.size { opacity: 0.55; }
+
+  .symbols { font-size: 0.82rem; opacity: 0.85; line-height: 1.6; padding: 0.6rem 1rem; background: rgba(212,165,116,0.05); border-left: 2px solid rgba(212,165,116,0.3); }
+
+  footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid rgba(128,128,128,0.2); font-size: 0.8rem; opacity: 0.6; line-height: 1.7; }
+  footer code { font-family: ui-monospace, Menlo, monospace; background: rgba(212,165,116,0.12); padding: 0.1rem 0.35rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <h1>Olivia Arcana — Enriched Symbolism A/B <small>5 cards · Gemini 2.5 Flash Image (nano banana)</small></h1>
+  <div class="meta">
+    Per <code>tarot-deck/generator/HANDOFF.md</code> pending work: 5 cards had enriched-symbolism prompts updated in <code>prompts.py</code> (Fool gets rose+cliff+star+horizon; Magician gets lemniscate+ouroboros+altar; High Priestess gets pillars+pomegranate veil+triple moon; Lovers gets angel+trees of knowledge/life+mountain; Star gets 1+7 stars + ibis + 5 rivulets). Old minimalist versions from Apr 10 vs new enriched versions regenerated 2026-04-19 02:07–02:13. Goal of this A/B: decide whether to extend enriched symbolism to all 78 cards (~$3 + ~1h) or ship minimalist v2.7 as-is.
+  </div>
+
+  <div class="decision">
+    <b>Decision criterion for the morning:</b> does the enriched version make the card MORE READABLE as its narrative meaning (educational tarot brand) WITHOUT sacrificing the "luxury emblem" / quiet-center feel that the minimalist v2.7 established? If yes to both on all 5 → extend to all 78 cards. If mixed → cherry-pick which cards get enriched. If no → revert via <code>cp nano_banana_v2_minimalist_backup/* nano_banana_v2/</code> and ship minimalist.
+  </div>
+
+  <h2>00 · The Fool</h2>
+  <div class="symbols">Enriched adds: white rose of purity · cliff edge line · eight-pointed guiding star · rising sun on horizon</div>
+  <div class="pair-row">
+    <div class="cell old"><div class="cell-img"><img src="00_the_fool_OLD_minimalist.png" alt="old Fool"></div><div class="cell-label"><span>OLD · minimalist v2.7</span><span class="tag old">Apr 10</span><span class="tag size">1350 KB</span></div></div>
+    <div class="cell new"><div class="cell-img"><img src="00_the_fool_NEW_enriched.png" alt="new enriched Fool"></div><div class="cell-label"><span>NEW · enriched v2.8</span><span class="tag new">tonight</span><span class="tag size">1240 KB</span></div></div>
+  </div>
+
+  <h2>01 · The Magician</h2>
+  <div class="symbols">Enriched adds: infinity lemniscate above head · ouroboros belt · roses+lilies at feet · four-element altar (cup, sword, coin, wand)</div>
+  <div class="pair-row">
+    <div class="cell old"><div class="cell-img"><img src="01_the_magician_OLD_minimalist.png" alt="old Magician"></div><div class="cell-label"><span>OLD · minimalist</span><span class="tag old">Apr 10</span><span class="tag size">1365 KB</span></div></div>
+    <div class="cell new"><div class="cell-img"><img src="01_the_magician_NEW_enriched.png" alt="new enriched Magician"></div><div class="cell-label"><span>NEW · enriched</span><span class="tag new">tonight</span><span class="tag size">1346 KB</span></div></div>
+  </div>
+
+  <h2>02 · The High Priestess</h2>
+  <div class="symbols">Enriched adds: dual light/dark pillars · pomegranate-patterned veil · triple-moon crown (waxing/full/waning) · water at feet</div>
+  <div class="pair-row">
+    <div class="cell old"><div class="cell-img"><img src="02_the_high_priestess_OLD_minimalist.png" alt="old Priestess"></div><div class="cell-label"><span>OLD · minimalist</span><span class="tag old">Apr 10</span><span class="tag size">1319 KB</span></div></div>
+    <div class="cell new"><div class="cell-img"><img src="02_the_high_priestess_NEW_enriched.png" alt="new enriched Priestess"></div><div class="cell-label"><span>NEW · enriched</span><span class="tag new">tonight</span><span class="tag size">1421 KB</span></div></div>
+  </div>
+
+  <h2>06 · The Lovers</h2>
+  <div class="symbols">Enriched adds: angel above with spread wings · sun behind angel · tree of knowledge with serpent · tree of life with flame-fruit · mountain peak</div>
+  <div class="pair-row">
+    <div class="cell old"><div class="cell-img"><img src="06_the_lovers_OLD_minimalist.png" alt="old Lovers"></div><div class="cell-label"><span>OLD · minimalist</span><span class="tag old">Apr 10</span><span class="tag size">1375 KB</span></div></div>
+    <div class="cell new"><div class="cell-img"><img src="06_the_lovers_NEW_enriched.png" alt="new enriched Lovers"></div><div class="cell-label"><span>NEW · enriched</span><span class="tag new">tonight</span><span class="tag size">1247 KB</span></div></div>
+  </div>
+
+  <h2>17 · The Star</h2>
+  <div class="symbols">Enriched adds: one large 8-pointed star + seven smaller 7-pointed stars · ibis bird in tree · water pouring to pool and to earth (5 rivulets)</div>
+  <div class="pair-row">
+    <div class="cell old"><div class="cell-img"><img src="17_the_star_OLD_minimalist.png" alt="old Star"></div><div class="cell-label"><span>OLD · minimalist</span><span class="tag old">Apr 10</span><span class="tag size">1381 KB</span></div></div>
+    <div class="cell new"><div class="cell-img"><img src="17_the_star_NEW_enriched.png" alt="new enriched Star"></div><div class="cell-label"><span>NEW · enriched</span><span class="tag new">tonight</span><span class="tag size">1363 KB</span></div></div>
+  </div>
+
+  <footer>
+    Page path: <code>/Users/macbookpro/olivia-arcana/tarot-deck/generator/output/enriched_comparison/preview.html</code><br>
+    Active deck: <code>output/nano_banana_v2/</code> (current files updated tonight for these 5 cards). Minimalist backup intact at <code>output/nano_banana_v2_minimalist_backup/</code>.<br>
+    Extend to all 78: <code>for id in $(seq 0 77); do if [[ "$id" != "0" && "$id" != "1" && "$id" != "2" && "$id" != "6" && "$id" != "17" ]]; then python3 gemini_client.py card $id --v2 --ref default --force; sleep 8; fi; done</code> · est. 60 min, ~$3.<br>
+    Revert if needed: <code>cp output/nano_banana_v2_minimalist_backup/* output/nano_banana_v2/</code>
+  </footer>
+</body>
+</html>

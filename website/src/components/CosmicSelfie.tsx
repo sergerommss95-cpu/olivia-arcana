@@ -531,23 +531,19 @@ export default function CosmicSelfie() {
                 justifyContent: "center",
               }}
             >
-              Trusted by{" "}
-              <AnimatedCounter
-                value={12400}
-                suffix="+"
-                duration={2200}
-                style={{ color: "var(--c-text-primary, rgba(240,236,255,0.95))", fontWeight: 600 }}
-              />{" "}
-              seekers{" "}
+              Computed from{" "}
+              <span style={{ color: "var(--c-text-primary, rgba(240,236,255,0.95))", fontWeight: 600 }}>
+                NASA JPL DE440/DE441
+              </span>{" "}
+              ephemeris{" "}
               <span style={{ opacity: 0.4 }}>&middot;</span>{" "}
               <AnimatedCounter
-                value={4.9}
-                decimals={1}
-                duration={1800}
+                value={9}
+                duration={1500}
                 delay={200}
                 style={{ color: "var(--c-text-primary, rgba(240,236,255,0.95))", fontWeight: 600 }}
-              />
-              <span style={{ color: "rgba(212,175,55,0.9)" }}>&starf;</span> rating
+              />{" "}
+              languages
             </p>
 
             {/* Gold CTA */}

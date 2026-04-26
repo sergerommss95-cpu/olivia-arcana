@@ -1,0 +1,625 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 700" role="img" aria-labelledby="title desc">
+  <title id="title">The Empress — Major Arcana III</title>
+  <desc id="desc">Mystic Cartography tarot illustration of The Empress: a seated crowned female figure on a carved throne, rendered in fine gold linework engraving on deep navy. Twelve-star crown, scepter, Venus shield, pomegranate-motif robe, wheat sheaf and crescent moon at her feet, cypress grove archway and constellation behind her. Latin inscription above, title inscription below.</desc>
+
+  <defs>
+    <!-- Deep navy radial background -->
+    <radialGradient id="bgRadial" cx="50%" cy="45%" r="75%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="55%" stop-color="#0c0720"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+
+    <!-- Primary gold gradient for linework -->
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- Gold gradient angled for robe / architectural depth -->
+    <linearGradient id="goldAngled" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#7a5626"/>
+    </linearGradient>
+
+    <!-- Soft gold highlight gradient -->
+    <linearGradient id="goldHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="100%" stop-color="#d4a574"/>
+    </linearGradient>
+
+    <!-- Rose gradient for pomegranate accents -->
+    <linearGradient id="roseAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8a3a54"/>
+      <stop offset="100%" stop-color="#3e0f22"/>
+    </linearGradient>
+
+    <!-- Faint gold for sacred geometry -->
+    <linearGradient id="goldFaint" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="100%" stop-color="#8a6a30"/>
+    </linearGradient>
+
+    <!-- Small star symbol shape fragment patterns not allowed via <use>; drawn inline -->
+  </defs>
+
+  <!-- ============================================================= -->
+  <!-- 1. BACKGROUND                                                   -->
+  <!-- ============================================================= -->
+  <g id="background">
+    <rect x="0" y="0" width="400" height="700" fill="url(#bgRadial)"/>
+    <!-- Subtle starfield dots -->
+    <g fill="#ffe8a3" opacity="0.35">
+      <circle cx="38" cy="92" r="0.9"/>
+      <circle cx="74" cy="160" r="0.7"/>
+      <circle cx="118" cy="68" r="0.6"/>
+      <circle cx="162" cy="120" r="0.5"/>
+      <circle cx="252" cy="94" r="0.7"/>
+      <circle cx="306" cy="142" r="0.6"/>
+      <circle cx="342" cy="88" r="0.9"/>
+      <circle cx="368" cy="180" r="0.5"/>
+      <circle cx="22" cy="240" r="0.6"/>
+      <circle cx="376" cy="264" r="0.7"/>
+      <circle cx="48" cy="360" r="0.5"/>
+      <circle cx="364" cy="420" r="0.6"/>
+      <circle cx="28" cy="504" r="0.7"/>
+      <circle cx="372" cy="540" r="0.5"/>
+      <circle cx="66" cy="612" r="0.6"/>
+      <circle cx="334" cy="628" r="0.5"/>
+    </g>
+  </g>
+
+  <!-- ============================================================= -->
+  <!-- 2. BORDER FRAME with corner flourishes                          -->
+  <!-- ============================================================= -->
+  <g id="border" fill="none" stroke="url(#goldPrimary)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer thin line -->
+    <rect x="14" y="14" width="372" height="672" stroke-width="1.2"/>
+    <!-- Inner double line -->
+    <rect x="20" y="20" width="360" height="660" stroke-width="2"/>
+    <rect x="24" y="24" width="352" height="652" stroke-width="0.7" opacity="0.8"/>
+
+    <!-- Corner filigree — top-left -->
+    <g stroke-width="1.2">
+      <path d="M20 44 Q32 44 32 32 Q32 20 44 20"/>
+      <path d="M28 28 L36 36"/>
+      <path d="M32 20 L32 24 M20 32 L24 32"/>
+      <!-- 4-point star -->
+      <path d="M32 30 L33 32 L35 33 L33 34 L32 36 L31 34 L29 33 L31 32 Z" fill="url(#goldHighlight)" stroke="none"/>
+    </g>
+    <!-- Corner filigree — top-right -->
+    <g stroke-width="1.2">
+      <path d="M380 44 Q368 44 368 32 Q368 20 356 20"/>
+      <path d="M372 28 L364 36"/>
+      <path d="M368 20 L368 24 M380 32 L376 32"/>
+      <path d="M368 30 L369 32 L371 33 L369 34 L368 36 L367 34 L365 33 L367 32 Z" fill="url(#goldHighlight)" stroke="none"/>
+    </g>
+    <!-- Corner filigree — bottom-left -->
+    <g stroke-width="1.2">
+      <path d="M20 656 Q32 656 32 668 Q32 680 44 680"/>
+      <path d="M28 672 L36 664"/>
+      <path d="M32 680 L32 676 M20 668 L24 668"/>
+      <path d="M32 666 L33 668 L35 669 L33 670 L32 672 L31 670 L29 669 L31 668 Z" fill="url(#goldHighlight)" stroke="none"/>
+    </g>
+    <!-- Corner filigree — bottom-right -->
+    <g stroke-width="1.2">
+      <path d="M380 656 Q368 656 368 668 Q368 680 356 680"/>
+      <path d="M372 672 L364 664"/>
+      <path d="M368 680 L368 676 M380 668 L376 668"/>
+      <path d="M368 666 L369 668 L371 669 L369 670 L368 672 L367 670 L365 669 L367 668 Z" fill="url(#goldHighlight)" stroke="none"/>
+    </g>
+
+    <!-- Midpoint ornaments (top/bottom/left/right) -->
+    <g stroke-width="0.9" opacity="0.9">
+      <path d="M196 20 L196 28 M204 20 L204 28"/>
+      <path d="M200 22 L201 24 L203 25 L201 26 L200 28 L199 26 L197 25 L199 24 Z" fill="url(#goldHighlight)" stroke="none"/>
+      <path d="M196 672 L196 680 M204 672 L204 680"/>
+      <path d="M200 674 L201 676 L203 677 L201 678 L200 680 L199 678 L197 677 L199 676 Z" fill="url(#goldHighlight)" stroke="none"/>
+      <path d="M20 346 L28 346 M20 354 L28 354"/>
+      <path d="M22 350 L24 351 L25 353 L26 351 L28 350 L26 349 L25 347 L24 349 Z" fill="url(#goldHighlight)" stroke="none"/>
+      <path d="M372 346 L380 346 M372 354 L380 354"/>
+      <path d="M374 350 L376 351 L377 353 L378 351 L380 350 L378 349 L377 347 L376 349 Z" fill="url(#goldHighlight)" stroke="none"/>
+    </g>
+  </g>
+
+  <!-- ============================================================= -->
+  <!-- 3. SACRED GEOMETRY underlay (concentric arcs, low opacity)      -->
+  <!-- ============================================================= -->
+  <g id="sacredGeometry" fill="none" stroke="url(#goldFaint)" opacity="0.2">
+    <circle cx="200" cy="360" r="170" stroke-width="0.8"/>
+    <circle cx="200" cy="360" r="140" stroke-width="0.8"/>
+    <circle cx="200" cy="360" r="110" stroke-width="0.8"/>
+    <!-- Radiating rays -->
+    <g stroke-width="0.5" opacity="0.9">
+      <line x1="200" y1="360" x2="200" y2="180"/>
+      <line x1="200" y1="360" x2="360" y2="360"/>
+      <line x1="200" y1="360" x2="40" y2="360"/>
+      <line x1="200" y1="360" x2="326" y2="234"/>
+      <line x1="200" y1="360" x2="74" y2="234"/>
+      <line x1="200" y1="360" x2="326" y2="486"/>
+      <line x1="200" y1="360" x2="74" y2="486"/>
+    </g>
+  </g>
+
+  <!-- ============================================================= -->
+  <!-- TOP INSCRIPTION — Latin motto                                   -->
+  <!-- ============================================================= -->
+  <g id="inscriptionTop">
+    <text x="200" y="52" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+          font-size="10" letter-spacing="3" fill="url(#goldHighlight)" font-style="italic">·✦· DOMINA FERTILITATIS ·✦·</text>
+    <text x="200" y="66" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+          font-size="6" letter-spacing="6" fill="url(#goldPrimary)" opacity="0.75">VENVS · REGINA · TERRAE</text>
+  </g>
+
+  <!-- ============================================================= -->
+  <!-- TOP ZODIAC WHEEL                                                -->
+  <!-- ============================================================= -->
+  <g id="zodiacWheel" fill="none" stroke="url(#goldPrimary)" stroke-linecap="round">
+    <circle cx="200" cy="96" r="18" stroke-width="1.3"/>
+    <circle cx="200" cy="96" r="12" stroke-width="0.8" opacity="0.85"/>
+    <circle cx="200" cy="96" r="5" fill="url(#goldHighlight)" stroke="none"/>
+    <!-- 12 spokes -->
+    <g stroke-width="0.6">
+      <line x1="200" y1="78" x2="200" y2="86"/>
+      <line x1="209" y1="81" x2="206" y2="87"/>
+      <line x1="216" y1="87" x2="211" y2="91"/>
+      <line x1="218" y1="96" x2="212" y2="96"/>
+      <line x1="216" y1="105" x2="211" y2="101"/>
+      <line x1="209" y1="111" x2="206" y2="105"/>
+      <line x1="200" y1="114" x2="200" y2="106"/>
+      <line x1="191" y1="111" x2="194" y2="105"/>
+      <line x1="184" y1="105" x2="189" y2="101"/>
+      <line x1="182" y1="96" x2="188" y2="96"/>
+      <line x1="184" y1="87" x2="189" y2="91"/>
+      <line x1="191" y1="81" x2="194" y2="87"/>
+    </g>
+    <!-- 12 outer points -->
+    <g fill="url(#goldHighlight)" stroke="none">
+      <circle cx="200" cy="78" r="1.1"/>
+      <circle cx="209" cy="81" r="1"/>
+      <circle cx="216" cy="87" r="1"/>
+      <circle cx="218" cy="96" r="1"/>
+      <circle cx="216" cy="105" r="1"/>
+      <circle cx="209" cy="111" r="1"/>
+      <circle cx="200" cy="114" r="1.1"/>
+      <circle cx="191" cy="111" r="1"/>
+      <circle cx="184" cy="105" r="1"/>
+      <circle cx="182" cy="96" r="1"/>
+      <circle cx="184" cy="87" r="1"/>
+      <circle cx="191" cy="81" r="1"/>
+    </g>
+  </g>
+
+  <!-- ============================================================= -->
+  <!-- ARCHWAY / PORTAL with cypress grove and constellation          -->
+  <!-- ============================================================= -->
+  <g id="archway" fill="none" stroke="url(#goldPrimary)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Archway inner frame -->
+    <path d="M110 380 L110 220 Q110 140 200 140 Q290 140 290 220 L290 380" stroke-width="2.2"/>
+    <path d="M118 380 L118 224 Q118 148 200 148 Q282 148 282 224 L282 380" stroke-width="0.8" opacity="0.75"/>
+    <!-- Keystone ornament -->
+    <path d="M188 148 L200 136 L212 148 Z" stroke-width="1.2" fill="url(#goldAngled)"/>
+    <path d="M200 136 L200 148" stroke="#05020e" stroke-width="0.6"/>
+
+    <!-- Cypress grove silhouettes behind figure -->
+    <g stroke-width="1" opacity="0.85">
+      <!-- left cypresses -->
+      <path d="M140 378 L140 252 Q134 244 140 236 Q134 228 140 220 Q136 214 140 208"/>
+      <path d="M140 378 C132 360 132 320 138 260 C144 320 148 360 140 378 Z" fill="url(#goldFaint)" opacity="0.35" stroke="none"/>
+      <path d="M158 378 L158 268 Q154 260 158 252 Q154 244 158 236 Q154 230 158 224"/>
+      <path d="M158 378 C150 360 150 324 156 276 C162 324 166 360 158 378 Z" fill="url(#goldFaint)" opacity="0.3" stroke="none"/>
+      <!-- right cypresses -->
+      <path d="M260 378 L260 268 Q256 260 260 252 Q256 244 260 236 Q256 230 260 224"/>
+      <path d="M260 378 C252 360 252 324 258 276 C264 324 268 360 260 378 Z" fill="url(#goldFaint)" opacity="0.3" stroke="none"/>
+      <path d="M242 378 L242 252 Q236 244 242 236 Q236 228 242 220 Q238 214 242 208"/>
+      <path d="M242 378 C234 360 234 320 240 260 C246 320 250 360 242 378 Z" fill="url(#goldFaint)" opacity="0.35" stroke="none"/>
+    </g>
+
+    <!-- Horizon / ground line inside arch -->
+    <line x1="118" y1="378" x2="282" y2="378" stroke-width="1.2"/>
+    <line x1="118" y1="374" x2="282" y2="374" stroke-width="0.5" opacity="0.7"/>
+
+    <!-- Rising sun disc behind figure's head -->
+    <circle cx="200" cy="232" r="44" fill="none" stroke="url(#goldFaint)" stroke-width="0.8" opacity="0.55"/>
+    <circle cx="200" cy="232" r="54" fill="none" stroke="url(#goldFaint)" stroke-width="0.5" opacity="0.35"/>
+
+    <!-- Constellation dots behind head, 7 stars + lines -->
+    <g id="constellation" stroke="url(#goldHighlight)" stroke-width="0.6" opacity="0.55">
+      <line x1="150" y1="196" x2="172" y2="210"/>
+      <line x1="172" y1="210" x2="188" y2="188"/>
+      <line x1="188" y1="188" x2="214" y2="196"/>
+      <line x1="214" y1="196" x2="230" y2="214"/>
+      <line x1="230" y1="214" x2="250" y2="198"/>
+      <line x1="250" y1="198" x2="258" y2="222"/>
+    </g>
+    <g fill="url(#goldHighlight)" stroke="none">
+      <circle cx="150" cy="196" r="1.4"/>
+      <circle cx="172" cy="210" r="1.6"/>
+      <circle cx="188" cy="188" r="1.3"/>
+      <circle cx="214" cy="196" r="1.7"/>
+      <circle cx="230" cy="214" r="1.4"/>
+      <circle cx="250" cy="198" r="1.5"/>
+      <circle cx="258" cy="222" r="1.3"/>
+    </g>
+  </g>
+
+  <!-- ============================================================= -->
+  <!-- 4. THRONE                                                       -->
+  <!-- ============================================================= -->
+  <g id="throne" fill="none" stroke="url(#goldPrimary)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Throne back, tall arched panel -->
+    <path d="M140 404 L140 298 Q140 260 200 254 Q260 260 260 298 L260 404 Z" stroke-width="2.4"/>
+    <!-- Inner panel -->
+    <path d="M148 398 L148 302 Q148 268 200 262 Q252 268 252 302 L252 398 Z" stroke-width="0.9" opacity="0.75"/>
+
+    <!-- Carved ornament on throne back: Venus shield -->
+    <g id="venusShield">
+      <!-- Shield outline -->
+      <path d="M180 320 L220 320 L220 348 Q220 364 200 374 Q180 364 180 348 Z" stroke-width="1.6" fill="url(#goldAngled)" opacity="0.25"/>
+      <path d="M180 320 L220 320 L220 348 Q220 364 200 374 Q180 364 180 348 Z" stroke-width="1.3"/>
+      <!-- Venus symbol ♀ -->
+      <circle cx="200" cy="340" r="7" stroke-width="1.6"/>
+      <line x1="200" y1="347" x2="200" y2="362" stroke-width="1.6"/>
+      <line x1="194" y1="356" x2="206" y2="356" stroke-width="1.6"/>
+    </g>
+
+    <!-- Throne arms -->
+    <path d="M140 404 L118 404 L118 456 L140 456" stroke-width="2"/>
+    <path d="M260 404 L282 404 L282 456 L260 456" stroke-width="2"/>
+    <!-- Arm scroll ornament -->
+    <path d="M118 410 Q112 416 118 422" stroke-width="1.2"/>
+    <path d="M282 410 Q288 416 282 422" stroke-width="1.2"/>
+
+    <!-- Base / seat -->
+    <path d="M118 456 L282 456 L296 510 L104 510 Z" stroke-width="2.2" fill="url(#goldAngled)" opacity="0.12"/>
+    <path d="M118 456 L282 456 L296 510 L104 510 Z" stroke-width="1.8"/>
+    <line x1="110" y1="492" x2="290" y2="492" stroke-width="0.8" opacity="0.8"/>
+
+    <!-- Decorative knobs atop throne back corners -->
+    <circle cx="144" cy="296" r="3.5" stroke-width="1" fill="url(#goldHighlight)"/>
+    <circle cx="256" cy="296" r="3.5" stroke-width="1" fill="url(#goldHighlight)"/>
+    <circle cx="144" cy="296" r="1.2" fill="#05020e" stroke="none"/>
+    <circle cx="256" cy="296" r="1.2" fill="#05020e" stroke="none"/>
+
+    <!-- Small carved vines on panel sides -->
+    <g stroke-width="0.7" opacity="0.8">
+      <path d="M156 316 Q162 326 156 336 Q162 346 156 356 Q162 366 156 376"/>
+      <path d="M244 316 Q238 326 244 336 Q238 346 244 356 Q238 366 244 376"/>
+    </g>
+  </g>
+
+  <!-- ============================================================= -->
+  <!-- 5. EMPRESS FIGURE                                               -->
+  <!-- ============================================================= -->
+  <g id="figure" fill="none" stroke="url(#goldPrimary)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Robe / body shape (seated, wide at bottom) — engraved silhouette -->
+    <path d="M168 302
+             C164 296 164 288 170 282
+             L176 270
+             L184 266
+             L200 262
+             L216 266
+             L224 270
+             L230 282
+             C236 288 236 296 232 302
+             L236 320
+             L244 360
+             L256 420
+             L274 490
+             L290 540
+             L300 580
+             L260 584
+             L216 586
+             L184 586
+             L140 584
+             L100 580
+             L110 540
+             L126 490
+             L144 420
+             L156 360
+             L164 320 Z"
+          stroke-width="2.6" fill="url(#roseAccent)" opacity="0.55"/>
+    <!-- Secondary outline for engraved double-line effect -->
+    <path d="M168 302
+             C164 296 164 288 170 282
+             L176 270
+             L184 266
+             L200 262
+             L216 266
+             L224 270
+             L230 282
+             C236 288 236 296 232 302
+             L236 320
+             L244 360
+             L256 420
+             L274 490
+             L290 540
+             L300 580
+             L260 584
+             L216 586
+             L184 586
+             L140 586
+             L100 580
+             L110 540
+             L126 490
+             L144 420
+             L156 360
+             L164 320 Z"
+          stroke-width="6" opacity="0.95"/>
+
+    <!-- Inner robe fold lines -->
+    <g stroke-width="1.1" opacity="0.95">
+      <path d="M200 302 L198 360 L196 420 L192 490 L186 560"/>
+      <path d="M184 308 L178 360 L170 420 L158 490 L144 560"/>
+      <path d="M216 308 L222 360 L230 420 L242 490 L256 560"/>
+      <path d="M172 330 Q200 344 228 330"/>
+      <path d="M166 370 Q200 388 234 370"/>
+      <path d="M158 420 Q200 442 242 420"/>
+      <path d="M146 480 Q200 510 254 480"/>
+      <path d="M132 540 Q200 572 268 540"/>
+    </g>
+
+    <!-- Stylized pomegranate fruit pattern on robe -->
+    <g id="pomegranates" stroke-width="0.9">
+      <!-- helper: each pomegranate = circle + crown + tiny seeds -->
+      <!-- left column -->
+      <g transform="translate(160 388)">
+        <circle r="6" fill="url(#roseAccent)" stroke="url(#goldHighlight)"/>
+        <path d="M-2 -6 L-2 -9 M0 -6 L0 -10 M2 -6 L2 -9" stroke="url(#goldHighlight)"/>
+        <circle r="1" cx="-2" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1" cx="2" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1" cx="0" cy="3" fill="url(#goldHighlight)" stroke="none"/>
+      </g>
+      <g transform="translate(148 456)">
+        <circle r="6" fill="url(#roseAccent)" stroke="url(#goldHighlight)"/>
+        <path d="M-2 -6 L-2 -9 M0 -6 L0 -10 M2 -6 L2 -9" stroke="url(#goldHighlight)"/>
+        <circle r="1" cx="-2" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1" cx="2" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1" cx="0" cy="3" fill="url(#goldHighlight)" stroke="none"/>
+      </g>
+      <g transform="translate(134 524)">
+        <circle r="6.5" fill="url(#roseAccent)" stroke="url(#goldHighlight)"/>
+        <path d="M-2 -6 L-2 -10 M0 -6 L0 -11 M2 -6 L2 -10" stroke="url(#goldHighlight)"/>
+        <circle r="1" cx="-2" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1" cx="2" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1" cx="0" cy="3" fill="url(#goldHighlight)" stroke="none"/>
+      </g>
+      <!-- center column -->
+      <g transform="translate(200 412)">
+        <circle r="7" fill="url(#roseAccent)" stroke="url(#goldHighlight)"/>
+        <path d="M-2 -7 L-2 -11 M0 -7 L0 -12 M2 -7 L2 -11" stroke="url(#goldHighlight)"/>
+        <circle r="1.1" cx="-2.5" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1.1" cx="2.5" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1.1" cx="0" cy="3.5" fill="url(#goldHighlight)" stroke="none"/>
+      </g>
+      <g transform="translate(200 490)">
+        <circle r="7.5" fill="url(#roseAccent)" stroke="url(#goldHighlight)"/>
+        <path d="M-2 -7 L-2 -11 M0 -7 L0 -12 M2 -7 L2 -11" stroke="url(#goldHighlight)"/>
+        <circle r="1.1" cx="-2.5" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1.1" cx="2.5" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1.1" cx="0" cy="3.5" fill="url(#goldHighlight)" stroke="none"/>
+      </g>
+      <!-- right column -->
+      <g transform="translate(240 388)">
+        <circle r="6" fill="url(#roseAccent)" stroke="url(#goldHighlight)"/>
+        <path d="M-2 -6 L-2 -9 M0 -6 L0 -10 M2 -6 L2 -9" stroke="url(#goldHighlight)"/>
+        <circle r="1" cx="-2" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1" cx="2" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1" cx="0" cy="3" fill="url(#goldHighlight)" stroke="none"/>
+      </g>
+      <g transform="translate(252 456)">
+        <circle r="6" fill="url(#roseAccent)" stroke="url(#goldHighlight)"/>
+        <path d="M-2 -6 L-2 -9 M0 -6 L0 -10 M2 -6 L2 -9" stroke="url(#goldHighlight)"/>
+        <circle r="1" cx="-2" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1" cx="2" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1" cx="0" cy="3" fill="url(#goldHighlight)" stroke="none"/>
+      </g>
+      <g transform="translate(266 524)">
+        <circle r="6.5" fill="url(#roseAccent)" stroke="url(#goldHighlight)"/>
+        <path d="M-2 -6 L-2 -10 M0 -6 L0 -11 M2 -6 L2 -10" stroke="url(#goldHighlight)"/>
+        <circle r="1" cx="-2" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1" cx="2" cy="1" fill="url(#goldHighlight)" stroke="none"/>
+        <circle r="1" cx="0" cy="3" fill="url(#goldHighlight)" stroke="none"/>
+      </g>
+    </g>
+
+    <!-- NECK / BODICE -->
+    <g stroke-width="1.3">
+      <path d="M184 268 L184 278 Q200 284 216 278 L216 268" fill="#ead0a8" opacity="0.35"/>
+      <path d="M184 268 L184 278 Q200 284 216 278 L216 268"/>
+      <path d="M186 288 L200 300 L214 288" stroke-width="1" opacity="0.9"/>
+      <!-- necklace with central pendant -->
+      <path d="M182 282 Q200 294 218 282" stroke-width="0.8"/>
+      <circle cx="200" cy="296" r="2.2" fill="url(#goldHighlight)" stroke-width="0.7"/>
+    </g>
+
+    <!-- HEAD (3/4 view) -->
+    <g id="head">
+      <!-- face oval, ivory fill very subtle -->
+      <ellipse cx="200" cy="240" rx="18" ry="22" fill="#ead0a8" opacity="0.22" stroke-width="1.8"/>
+      <ellipse cx="200" cy="240" rx="18" ry="22" stroke-width="2.2" fill="none"/>
+      <!-- jawline accent -->
+      <path d="M184 244 Q200 262 216 244" stroke-width="0.9" opacity="0.9"/>
+      <!-- hair flowing behind / around -->
+      <path d="M182 228 Q168 246 178 268 Q186 262 184 246" stroke-width="1.3"/>
+      <path d="M218 228 Q232 246 222 268 Q214 262 216 246" stroke-width="1.3"/>
+      <path d="M186 222 Q180 214 178 206" stroke-width="0.9" opacity="0.85"/>
+      <path d="M214 222 Q220 214 222 206" stroke-width="0.9" opacity="0.85"/>
+      <!-- facial features (very fine, serene) -->
+      <path d="M193 236 Q195 234 197 236" stroke-width="0.9"/>
+      <path d="M203 236 Q205 234 207 236" stroke-width="0.9"/>
+      <!-- nose -->
+      <path d="M200 240 L198 248 L201 250" stroke-width="0.8" opacity="0.9"/>
+      <!-- lips -->
+      <path d="M196 254 Q200 256 204 254" stroke-width="1" opacity="0.95"/>
+      <!-- subtle cheek highlight -->
+      <path d="M188 248 Q190 252 192 250" stroke-width="0.5" opacity="0.6"/>
+    </g>
+
+    <!-- 12-STAR CROWN -->
+    <g id="crown">
+      <!-- crown band -->
+      <path d="M178 218 Q200 214 222 218 L220 224 Q200 220 180 224 Z" stroke-width="1.6" fill="url(#goldAngled)"/>
+      <path d="M178 218 Q200 214 222 218" stroke-width="1.2"/>
+      <!-- 12 stars arranged as halo -->
+      <g fill="url(#goldHighlight)" stroke="url(#goldPrimary)" stroke-width="0.5">
+        <!-- helper 4-point asterisk star function replicated inline -->
+        <!-- Star 1 -->
+        <path d="M200 196 L202 200 L206 202 L202 204 L200 208 L198 204 L194 202 L198 200 Z"/>
+        <!-- Star 2 -->
+        <path d="M214 198 L215.5 201.2 L218.8 202.6 L215.5 204 L214 207 L212.5 204 L209.2 202.6 L212.5 201.2 Z"/>
+        <!-- Star 3 -->
+        <path d="M186 198 L187.5 201.2 L190.8 202.6 L187.5 204 L186 207 L184.5 204 L181.2 202.6 L184.5 201.2 Z"/>
+        <!-- Star 4 -->
+        <path d="M226 204 L227.3 206.7 L230.2 207.9 L227.3 209 L226 211.6 L224.7 209 L221.8 207.9 L224.7 206.7 Z"/>
+        <!-- Star 5 -->
+        <path d="M174 204 L175.3 206.7 L178.2 207.9 L175.3 209 L174 211.6 L172.7 209 L169.8 207.9 L172.7 206.7 Z"/>
+        <!-- Star 6 -->
+        <path d="M234 214 L235.2 216.5 L237.8 217.6 L235.2 218.6 L234 221 L232.8 218.6 L230.2 217.6 L232.8 216.5 Z"/>
+        <!-- Star 7 -->
+        <path d="M166 214 L167.2 216.5 L169.8 217.6 L167.2 218.6 L166 221 L164.8 218.6 L162.2 217.6 L164.8 216.5 Z"/>
+        <!-- Star 8 (outer right) -->
+        <path d="M240 198 L241.2 200.5 L243.8 201.6 L241.2 202.6 L240 205 L238.8 202.6 L236.2 201.6 L238.8 200.5 Z"/>
+        <!-- Star 9 (outer left) -->
+        <path d="M160 198 L161.2 200.5 L163.8 201.6 L161.2 202.6 L160 205 L158.8 202.6 L156.2 201.6 L158.8 200.5 Z"/>
+        <!-- Star 10 -->
+        <path d="M208 192 L209.2 194.3 L211.6 195.2 L209.2 196.1 L208 198.4 L206.8 196.1 L204.4 195.2 L206.8 194.3 Z"/>
+        <!-- Star 11 -->
+        <path d="M192 192 L193.2 194.3 L195.6 195.2 L193.2 196.1 L192 198.4 L190.8 196.1 L188.4 195.2 L190.8 194.3 Z"/>
+        <!-- Star 12 (top center, larger) -->
+        <path d="M200 180 L202 184 L206 186 L202 188 L200 192 L198 188 L194 186 L198 184 Z"/>
+      </g>
+      <!-- connecting halo arc -->
+      <path d="M160 200 Q200 184 240 200" stroke="url(#goldHighlight)" stroke-width="0.6" fill="none" opacity="0.55"/>
+    </g>
+
+    <!-- RIGHT ARM holding SCEPTER -->
+    <g id="armScepter">
+      <!-- Arm outline -->
+      <path d="M228 284 Q250 300 260 326 Q266 348 258 368" stroke-width="2.2"/>
+      <path d="M232 286 Q250 298 256 322" stroke-width="0.9" opacity="0.85"/>
+      <!-- Hand (simplified) -->
+      <circle cx="258" cy="368" r="5" stroke-width="1.4"/>
+      <path d="M254 366 L252 370 M258 372 L258 376 M262 370 L264 374" stroke-width="0.8"/>
+      <!-- Scepter shaft extending up -->
+      <line x1="260" y1="368" x2="290" y2="200" stroke-width="2.2"/>
+      <line x1="262" y1="368" x2="292" y2="200" stroke-width="0.9" opacity="0.75"/>
+      <!-- scepter grip -->
+      <path d="M275 280 L277 280 M273 290 L278 290 M272 300 L279 300 M273 310 L278 310" stroke-width="0.8" opacity="0.9"/>
+      <!-- Scepter top sphere (orb of sovereignty) -->
+      <circle cx="290" cy="194" r="8" stroke-width="1.6" fill="url(#goldHighlight)"/>
+      <circle cx="290" cy="194" r="8" stroke-width="1.2"/>
+      <circle cx="288" cy="192" r="2.2" fill="#fff2c6" stroke="none"/>
+      <!-- cross / equator lines on orb -->
+      <path d="M282 194 L298 194 M290 186 L290 202" stroke="#05020e" stroke-width="0.6" opacity="0.7"/>
+      <!-- small cross on top -->
+      <line x1="290" y1="182" x2="290" y2="186" stroke-width="1.2"/>
+      <line x1="288" y1="184" x2="292" y2="184" stroke-width="1.2"/>
+    </g>
+
+    <!-- LEFT ARM resting on throne arm -->
+    <g id="armRest">
+      <path d="M172 284 Q150 300 140 326 Q136 348 142 368" stroke-width="2.2"/>
+      <path d="M168 286 Q148 300 144 322" stroke-width="0.9" opacity="0.85"/>
+      <!-- Hand on lap edge -->
+      <path d="M142 368 Q136 376 140 386" stroke-width="1.4"/>
+      <circle cx="140" cy="386" r="4.5" stroke-width="1.3"/>
+      <path d="M136 386 L134 388 M140 390 L140 394 M144 388 L146 390" stroke-width="0.7"/>
+    </g>
+
+    <!-- Belt / girdle with ornament -->
+    <g id="belt" stroke-width="1.2">
+      <path d="M156 370 Q200 384 244 370" />
+      <path d="M158 376 Q200 388 242 376" opacity="0.75"/>
+      <!-- central buckle / medallion -->
+      <circle cx="200" cy="380" r="5" stroke-width="1.3" fill="url(#goldHighlight)"/>
+      <circle cx="200" cy="380" r="1.6" fill="#3e0f22" stroke="none"/>
+      <!-- radiating rays -->
+      <g stroke-width="0.6" opacity="0.8">
+        <line x1="200" y1="372" x2="200" y2="368"/>
+        <line x1="200" y1="388" x2="200" y2="392"/>
+        <line x1="208" y1="380" x2="212" y2="380"/>
+        <line x1="192" y1="380" x2="188" y2="380"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================================================= -->
+  <!-- 6. ICONOGRAPHY — wheat sheaf + crescent moon at feet            -->
+  <!-- ============================================================= -->
+  <g id="iconography" fill="none" stroke="url(#goldPrimary)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- WHEAT SHEAF — right side of feet -->
+    <g id="wheatSheaf">
+      <!-- tied bundle -->
+      <path d="M306 578 Q310 560 312 540 Q316 520 320 506" stroke-width="1.6"/>
+      <path d="M314 578 Q316 560 318 540 Q322 520 326 506" stroke-width="1.6"/>
+      <path d="M322 578 Q322 560 324 540 Q326 520 330 506" stroke-width="1.6"/>
+      <path d="M298 578 Q302 560 304 540 Q306 520 308 506" stroke-width="1.6"/>
+      <!-- wheat grains (stylized) -->
+      <g stroke-width="0.7" fill="url(#goldHighlight)">
+        <ellipse cx="308" cy="506" rx="2" ry="4" transform="rotate(-12 308 506)"/>
+        <ellipse cx="320" cy="500" rx="2" ry="4" transform="rotate(-4 320 500)"/>
+        <ellipse cx="330" cy="502" rx="2" ry="4" transform="rotate(8 330 502)"/>
+        <ellipse cx="312" cy="516" rx="2" ry="4" transform="rotate(-14 312 516)"/>
+        <ellipse cx="324" cy="512" rx="2" ry="4" transform="rotate(-2 324 512)"/>
+        <ellipse cx="316" cy="528" rx="2" ry="4" transform="rotate(-10 316 528)"/>
+        <ellipse cx="328" cy="524" rx="2" ry="4" transform="rotate(4 328 524)"/>
+        <ellipse cx="320" cy="542" rx="2" ry="4" transform="rotate(-6 320 542)"/>
+        <ellipse cx="312" cy="552" rx="2" ry="4" transform="rotate(-12 312 552)"/>
+        <ellipse cx="326" cy="554" rx="2" ry="4" transform="rotate(4 326 554)"/>
+      </g>
+      <!-- Binding ribbon -->
+      <path d="M296 564 Q314 560 332 564 L332 570 Q314 566 296 570 Z" stroke-width="1.2" fill="url(#goldAngled)" opacity="0.7"/>
+      <path d="M296 564 Q314 560 332 564 L332 570 Q314 566 296 570 Z" stroke-width="1.1"/>
+      <!-- tiny detail on band -->
+      <path d="M308 566 L308 568 M316 566 L316 568 M324 566 L324 568" stroke-width="0.6" opacity="0.9"/>
+    </g>
+
+    <!-- CRESCENT MOON — left side at feet -->
+    <g id="crescentMoon">
+      <path d="M84 540 Q68 554 84 574 Q72 558 84 540 Z" stroke-width="1.6" fill="url(#goldHighlight)" opacity="0.88"/>
+      <path d="M84 540 Q68 554 84 574" stroke-width="1.3"/>
+      <!-- small stars beside moon -->
+      <g fill="url(#goldHighlight)" stroke="none">
+        <path d="M96 548 L97 550 L99 551 L97 552 L96 554 L95 552 L93 551 L95 550 Z"/>
+        <path d="M68 584 L68.8 585.6 L70.4 586.4 L68.8 587.2 L68 588.8 L67.2 587.2 L65.6 586.4 L67.2 585.6 Z"/>
+      </g>
+    </g>
+
+    <!-- Flower at feet (subtle fertility flora) -->
+    <g id="flora" stroke-width="1">
+      <path d="M188 600 Q192 594 196 600 Q200 594 204 600 Q208 594 212 600" />
+      <circle cx="196" cy="602" r="2" fill="url(#goldHighlight)" stroke-width="0.6"/>
+      <circle cx="204" cy="602" r="2" fill="url(#goldHighlight)" stroke-width="0.6"/>
+      <path d="M170 612 Q180 606 190 612" stroke-width="0.8" opacity="0.8"/>
+      <path d="M210 612 Q220 606 230 612" stroke-width="0.8" opacity="0.8"/>
+    </g>
+
+    <!-- Ground line -->
+    <g stroke-width="0.9" opacity="0.75">
+      <line x1="60" y1="624" x2="340" y2="624"/>
+      <line x1="60" y1="628" x2="340" y2="628" stroke-width="0.5" opacity="0.65"/>
+    </g>
+  </g>
+
+  <!-- ============================================================= -->
+  <!-- BOTTOM INSCRIPTION                                              -->
+  <!-- ============================================================= -->
+  <g id="inscription">
+    <!-- ornamental divider -->
+    <g stroke="url(#goldPrimary)" fill="none" stroke-linecap="round">
+      <line x1="80" y1="642" x2="150" y2="642" stroke-width="0.8"/>
+      <line x1="250" y1="642" x2="320" y2="642" stroke-width="0.8"/>
+      <path d="M200 638 L202 641 L205 642 L202 643 L200 646 L198 643 L195 642 L198 641 Z" fill="url(#goldHighlight)" stroke="none"/>
+      <path d="M160 640 L164 642 L160 644 Z" fill="url(#goldHighlight)" stroke="none"/>
+      <path d="M240 640 L236 642 L240 644 Z" fill="url(#goldHighlight)" stroke="none"/>
+    </g>
+    <text x="200" y="658" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+          font-size="13" letter-spacing="4" fill="url(#goldHighlight)" font-style="italic" font-weight="400">III · THE EMPRESS · ♀</text>
+    <text x="200" y="672" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+          font-size="6" letter-spacing="5" fill="url(#goldPrimary)" opacity="0.75">FERTILITY · ABUNDANCE · SOVEREIGNTY</text>
+  </g>
+
+</svg>

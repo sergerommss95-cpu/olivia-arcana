@@ -1,0 +1,41 @@
+# Build and deploy the daily pipeline to Cloud Run
+# Usage: gcloud builds submit --config=cloudbuild.yaml .
+steps:
+  # Build pipeline image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/olivia-arcana/daily-pipeline:latest'
+      - '-f'
+      - 'Dockerfile'
+      - '.'
+
+  # Push pipeline image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/olivia-arcana/daily-pipeline:latest'
+
+  # Build poster image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/olivia-arcana/poster:latest'
+      - '-f'
+      - 'poster/Dockerfile'
+      - '.'
+
+  # Push poster image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/olivia-arcana/poster:latest'
+
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/olivia-arcana/daily-pipeline:latest'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/olivia-arcana/poster:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

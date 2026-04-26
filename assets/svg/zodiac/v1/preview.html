@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olivia Arcana — 12 Zodiac Glyph Family</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 2rem; background: #0a0517; color: #eee; min-height: 100vh; }
+  h1 { font-size: 1.9rem; font-weight: 600; margin-bottom: 0.3rem; letter-spacing: -0.01em; }
+  h1 small { font-weight: 400; opacity: 0.55; font-size: 1rem; margin-left: 0.5rem; }
+  h2 { font-size: 1.2rem; font-weight: 600; margin: 2.5rem 0 1rem; color: #ffe8a3; }
+  .meta { opacity: 0.7; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; max-width: 72ch; }
+  .fact-strip { display: flex; gap: 2rem; padding: 1rem 1.25rem; background: rgba(212,165,116,0.06); border-left: 3px solid #d4a574; border-radius: 6px; margin-bottom: 2rem; flex-wrap: wrap; font-size: 0.85rem; }
+  .fact-strip b { color: #ffe8a3; display: block; margin-bottom: 0.2rem; font-size: 0.76rem; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.9; }
+  .grid12 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  @media (max-width: 1100px) { .grid12 { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 800px)  { .grid12 { grid-template-columns: repeat(2, 1fr); } }
+  .cell { border: 1px solid rgba(212,165,116,0.25); border-radius: 10px; overflow: hidden; background: #13081f; }
+  .cell-img { display: flex; align-items: center; justify-content: center; padding: 0.5rem; aspect-ratio: 1; background: #0a0517; }
+  .cell-img img { max-width: 100%; max-height: 100%; display: block; }
+  .cell-label { padding: 0.6rem 0.85rem; font-size: 0.78rem; font-weight: 500; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+  .cell-label .sign { color: #ffe8a3; font-weight: 600; letter-spacing: 0.03em; }
+  .cell-label .el { font-size: 0.68rem; padding: 0.15rem 0.45rem; border-radius: 3px; opacity: 0.85; }
+  .el.fire  { background: rgba(232,100,75,0.2); color: #ffb090; }
+  .el.earth { background: rgba(140,180,120,0.15); color: #b0d090; }
+  .el.air   { background: rgba(120,180,232,0.15); color: #a0c8ff; }
+  .el.water { background: rgba(120,180,220,0.18); color: #9cc8e8; }
+
+  h3 { font-size: 1rem; font-weight: 600; margin: 2rem 0 0.8rem; color: #fff2c6; }
+  .size-strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.6rem; padding: 1rem; background: rgba(128,128,128,0.06); border-radius: 8px; }
+  @media (max-width: 800px) { .size-strip { grid-template-columns: repeat(3, 1fr); } }
+  .size-strip .cell-img { aspect-ratio: 1; padding: 0.25rem; border-radius: 6px; }
+  .size-strip .cell-img img { max-width: 100%; max-height: 100%; }
+  .size-strip .label { font-size: 0.72rem; text-align: center; opacity: 0.65; margin-top: 0.4rem; }
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(128,128,128,0.2); font-size: 0.8rem; opacity: 0.65; line-height: 1.7; }
+  footer code { font-family: ui-monospace, Menlo, monospace; background: rgba(212,165,116,0.12); padding: 0.1rem 0.35rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <h1>Zodiac Glyph Family <small>Mystic Cartography · v1 · 12 signs</small></h1>
+  <div class="meta">
+    Full 12-sign Olivia Arcana zodiac glyph set, rendered as inline SVG in the Mystic Cartography philosophy — gold-on-navy with ornamental ring frame, 4 cardinal-point stars, constellation overlay, elemental wash tint, and Latin inscription. Generated via parallel Task-agent dispatch per <code>brain/SVG Protocol.md</code> Explore phase. Every glyph composed to the same template as Taurus v2 (the winning concept) for family consistency.
+  </div>
+
+  <div class="fact-strip">
+    <div><b>Assets</b>12 glyphs, ~12–15 KB each, ~160 KB total</div>
+    <div><b>Template</b>viewBox 512×512 · self-contained · role=img + title + desc</div>
+    <div><b>Colors</b>jewel-tone gold on navy · 8 gradients avg</div>
+    <div><b>Cost</b>$0 — pure Claude-native SVG authoring</div>
+    <div><b>Time</b>~10 min wall, 3 parallel waves</div>
+  </div>
+
+  <h2>Full family · wheel of the year order</h2>
+  <div class="grid12">
+    <div class="cell"><div class="cell-img"><img src="aries.svg" alt="Aries"></div><div class="cell-label"><span class="sign">♈ Aries</span><span class="el fire">Fire · Cardinal</span></div></div>
+    <div class="cell"><div class="cell-img"><img src="taurus.svg" alt="Taurus"></div><div class="cell-label"><span class="sign">♉ Taurus</span><span class="el earth">Earth · Fixed</span></div></div>
+    <div class="cell"><div class="cell-img"><img src="gemini.svg" alt="Gemini"></div><div class="cell-label"><span class="sign">♊ Gemini</span><span class="el air">Air · Mutable</span></div></div>
+    <div class="cell"><div class="cell-img"><img src="cancer.svg" alt="Cancer"></div><div class="cell-label"><span class="sign">♋ Cancer</span><span class="el water">Water · Cardinal</span></div></div>
+    <div class="cell"><div class="cell-img"><img src="leo.svg" alt="Leo"></div><div class="cell-label"><span class="sign">♌ Leo</span><span class="el fire">Fire · Fixed</span></div></div>
+    <div class="cell"><div class="cell-img"><img src="virgo.svg" alt="Virgo"></div><div class="cell-label"><span class="sign">♍ Virgo</span><span class="el earth">Earth · Mutable</span></div></div>
+    <div class="cell"><div class="cell-img"><img src="libra.svg" alt="Libra"></div><div class="cell-label"><span class="sign">♎ Libra</span><span class="el air">Air · Cardinal</span></div></div>
+    <div class="cell"><div class="cell-img"><img src="scorpio.svg" alt="Scorpio"></div><div class="cell-label"><span class="sign">♏ Scorpio</span><span class="el water">Water · Fixed</span></div></div>
+    <div class="cell"><div class="cell-img"><img src="sagittarius.svg" alt="Sagittarius"></div><div class="cell-label"><span class="sign">♐ Sagittarius</span><span class="el fire">Fire · Mutable</span></div></div>
+    <div class="cell"><div class="cell-img"><img src="capricorn.svg" alt="Capricorn"></div><div class="cell-label"><span class="sign">♑ Capricorn</span><span class="el earth">Earth · Cardinal</span></div></div>
+    <div class="cell"><div class="cell-img"><img src="aquarius.svg" alt="Aquarius"></div><div class="cell-label"><span class="sign">♒ Aquarius</span><span class="el air">Air · Fixed</span></div></div>
+    <div class="cell"><div class="cell-img"><img src="pisces.svg" alt="Pisces"></div><div class="cell-label"><span class="sign">♓ Pisces</span><span class="el water">Water · Mutable</span></div></div>
+  </div>
+
+  <h3>Legibility gate · 256 px preview row</h3>
+  <div class="size-strip">
+    <div><div class="cell-img" style="background:#0a0517;"><img src="aries.svg" width="128" height="128"></div><div class="label">Aries</div></div>
+    <div><div class="cell-img" style="background:#0a0517;"><img src="taurus.svg" width="128" height="128"></div><div class="label">Taurus</div></div>
+    <div><div class="cell-img" style="background:#0a0517;"><img src="gemini.svg" width="128" height="128"></div><div class="label">Gemini</div></div>
+    <div><div class="cell-img" style="background:#0a0517;"><img src="cancer.svg" width="128" height="128"></div><div class="label">Cancer</div></div>
+    <div><div class="cell-img" style="background:#0a0517;"><img src="leo.svg" width="128" height="128"></div><div class="label">Leo</div></div>
+    <div><div class="cell-img" style="background:#0a0517;"><img src="virgo.svg" width="128" height="128"></div><div class="label">Virgo</div></div>
+    <div><div class="cell-img" style="background:#0a0517;"><img src="libra.svg" width="128" height="128"></div><div class="label">Libra</div></div>
+    <div><div class="cell-img" style="background:#0a0517;"><img src="scorpio.svg" width="128" height="128"></div><div class="label">Scorpio</div></div>
+    <div><div class="cell-img" style="background:#0a0517;"><img src="sagittarius.svg" width="128" height="128"></div><div class="label">Sagittarius</div></div>
+    <div><div class="cell-img" style="background:#0a0517;"><img src="capricorn.svg" width="128" height="128"></div><div class="label">Capricorn</div></div>
+    <div><div class="cell-img" style="background:#0a0517;"><img src="aquarius.svg" width="128" height="128"></div><div class="label">Aquarius</div></div>
+    <div><div class="cell-img" style="background:#0a0517;"><img src="pisces.svg" width="128" height="128"></div><div class="label">Pisces</div></div>
+  </div>
+
+  <h3>Favicon / social-icon size · 48 px</h3>
+  <div class="size-strip" style="grid-template-columns: repeat(12, 1fr);">
+    <div><div style="padding:2px; background:#0a0517; border-radius:3px;"><img src="aries.svg" width="48" height="48"></div><div class="label">♈</div></div>
+    <div><div style="padding:2px; background:#0a0517; border-radius:3px;"><img src="taurus.svg" width="48" height="48"></div><div class="label">♉</div></div>
+    <div><div style="padding:2px; background:#0a0517; border-radius:3px;"><img src="gemini.svg" width="48" height="48"></div><div class="label">♊</div></div>
+    <div><div style="padding:2px; background:#0a0517; border-radius:3px;"><img src="cancer.svg" width="48" height="48"></div><div class="label">♋</div></div>
+    <div><div style="padding:2px; background:#0a0517; border-radius:3px;"><img src="leo.svg" width="48" height="48"></div><div class="label">♌</div></div>
+    <div><div style="padding:2px; background:#0a0517; border-radius:3px;"><img src="virgo.svg" width="48" height="48"></div><div class="label">♍</div></div>
+    <div><div style="padding:2px; background:#0a0517; border-radius:3px;"><img src="libra.svg" width="48" height="48"></div><div class="label">♎</div></div>
+    <div><div style="padding:2px; background:#0a0517; border-radius:3px;"><img src="scorpio.svg" width="48" height="48"></div><div class="label">♏</div></div>
+    <div><div style="padding:2px; background:#0a0517; border-radius:3px;"><img src="sagittarius.svg" width="48" height="48"></div><div class="label">♐</div></div>
+    <div><div style="padding:2px; background:#0a0517; border-radius:3px;"><img src="capricorn.svg" width="48" height="48"></div><div class="label">♑</div></div>
+    <div><div style="padding:2px; background:#0a0517; border-radius:3px;"><img src="aquarius.svg" width="48" height="48"></div><div class="label">♒</div></div>
+    <div><div style="padding:2px; background:#0a0517; border-radius:3px;"><img src="pisces.svg" width="48" height="48"></div><div class="label">♓</div></div>
+  </div>
+
+  <footer>
+    Path: <code>/Users/macbookpro/olivia-arcana/assets/svg/zodiac/v1/</code><br>
+    Source of truth for style: <code>taurus.svg</code> (imported from <code>../taurus/v2/concept-1-mystic-cartography.svg</code> — the user-approved Mystic Cartography winner).<br>
+    Each glyph has a per-sign elemental wash: fire signs warm-parchment, earth signs cool-slate/rose/saturn, air signs electric-indigo/rose, water signs lunar-silver/deep-green/blood-red. Constellation overlay per sign uses the actual bright-star catalog positions. Latin inscription identifies sign + quality + ruling planet + brightest star.<br>
+    Use cases: website astrology section, daily-horoscope asset set, social-icon family, Telegram bot per-sign pings, email-campaign header art, favicon (per user's sign). Drop-in replaceable with animated SMIL via same protocol.
+  </footer>
+</body>
+</html>

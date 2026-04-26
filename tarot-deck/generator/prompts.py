@@ -212,15 +212,14 @@ GLOBAL_COSMOS_V2_STYLE_PREFIX = (
     "The nebula is ORGANIC and ASYMMETRIC — never symmetric, never "
     "forming a diamond or bow-tie or cross pattern, never mirrored "
     "across any axis. Soft layered warm-gold and amber cloud forms "
-    "drift irregularly through the scene, heavier on one random side "
-    "than the other, with uneven wispy edges and natural cosmic "
-    "turbulence. Rich violet and indigo depths between the gold "
-    "clouds, dense scatter of pinpoint stars of varying brightness, "
-    "subtle volumetric dust, and saturated purple-and-gold atmosphere "
-    "with shallow depth of field softening the nebula behind the "
-    "sharply rendered card. The gold clouds are painterly and restrained "
-    "— present enough to frame asymmetrically, never dominant enough "
-    "to steal focus from the card. "
+    "drift irregularly BEHIND the card only, in the deep background "
+    "space, with uneven wispy edges and natural cosmic turbulence. "
+    "The nebula atmosphere is ENTIRELY BEHIND the card — no cloud "
+    "wisps, no haze, no atmospheric elements appear IN FRONT OF the "
+    "card or overlapping the card face. Rich violet and indigo depths, "
+    "dense scatter of pinpoint stars, subtle volumetric dust, and "
+    "saturated purple-and-gold atmosphere with shallow depth of field "
+    "softening the nebula behind the sharply rendered card. "
 
     "The card is a TRADITIONAL PHYSICAL TAROT PLAYING CARD — standard "
     "tarot card proportions (2.75 inches wide by 4.75 inches tall), "
@@ -272,11 +271,10 @@ SIGIL_V2_INTRO_TEMPLATE = (
 )
 
 SIGIL_V2_OUTRO = (
-    " The figure occupies ONLY about FORTY PERCENT of the card "
-    "interior height — small, intimate, quiet, sitting in the upper-"
-    "middle of the card, with very generous matte indigo breathing "
-    "room above and especially below the figure. The negative space "
-    "is a feature, not an absence. Hairline luminous lines only, no "
+    " The figure occupies about SIXTY-FIVE PERCENT of the card "
+    "interior height — tall, clear, commanding, centered vertically "
+    "within the card, with moderate matte indigo breathing room "
+    "above and below the figure. Hairline luminous lines only, no "
     "thick strokes, no color fills. No circular frame, no medallion, "
     "no seal — the figure floats freely inside the card. "
 )
@@ -1300,4 +1298,737 @@ def build_prompt_v2(card: dict) -> str:
         GLOBAL_COSMOS_V2_STYLE_PREFIX,
         intro + sigil_body + SIGIL_V2_OUTRO,
         LIQUID_GLASS_V2_PERIMETER_SUFFIX,
+    ])
+
+
+# ═════════════════════════════════════════════════════════════
+# V3 — FLAT DIGITAL CARD ART (no physical card simulation)
+#
+# Purpose: generate the card illustration itself, not a photo
+# of a physical card. Output is edge-to-edge art ready to be
+# displayed directly in a web app with CSS rounding/shimmer.
+# ═════════════════════════════════════════════════════════════
+
+GLOBAL_V3_STYLE_PREFIX = (
+    "A flat 2D digital illustration filling the ENTIRE image edge-to-edge "
+    "with NO borders, NO margins, NO physical card depicted, NO 3D object, "
+    "NO photograph of a card, and NO cosmic background scene outside the art. "
+    "The image IS the card face itself — not a photo of a card. "
+
+    "BACKGROUND: Deep matte navy-indigo (#1a1a3e) filling the entire image, "
+    "perfectly uniform, no gradients, no vignettes, no lighting variation, "
+    "no paper texture, no camera reflections, no glossy sheen. Pure flat "
+    "digital color. "
+
+    "ART STYLE: Precise hairline illustrations in luminous warm gold (#d4af37) "
+    "on the navy background. Classical Greco-Roman engraving aesthetic — "
+    "fine crosshatching for shading, delicate linework for detail, anatomically "
+    "proportioned figures with classical drapery. The gold lines glow softly "
+    "as if lit from within. Think antique intaglio printing in gold leaf on "
+    "midnight paper — but rendered digitally with perfect precision. "
+
+    "COMPOSITION: A thin gold rectangular border line runs 3% inside the image "
+    "edges, framing the central illustration. The figure/scene is centered "
+    "within this border with generous breathing room. "
+
+    "The illustration depicts a traditional Rider-Waite-Smith tarot scene: "
+)
+
+SIGIL_V3_INTRO_TEMPLATE = (
+    "The card is '{card_name}' — {essence}. "
+    "The scene shows: "
+)
+
+SIGIL_V3_OUTRO = (
+    " All elements rendered in the same warm gold hairline engraving style "
+    "on the flat navy background. Rich detail in the linework — visible "
+    "crosshatching on shaded areas, fine parallel lines for texture, "
+    "delicate stippling for tone. The illustration reads as a premium "
+    "digitally-rendered classical engraving, NOT a photograph, NOT a "
+    "3D render, NOT a photo of a physical card. "
+
+    "ABSOLUTE CONSTRAINTS: The image contains NO text, NO letters, NO "
+    "numerals, NO words of any kind. NO physical card edges, NO rounded "
+    "corners, NO card thickness, NO shadow beneath a card, NO cosmic "
+    "nebula background, NO floating card in space, NO camera reflection, "
+    "NO glossy surface, NO paper texture. The image is FLAT — purely 2D "
+    "illustration, perfectly crisp, no depth-of-field blur, no bokeh. "
+    "NO sparkles, NO particles, NO lens flares, NO watermark."
+)
+
+
+def build_prompt_v3(card: dict) -> str:
+    """
+    Assemble the v3 flat-digital prompt for clean card art generation.
+    Uses v2 sigil bodies (traditional RWS symbolism) with a completely
+    new style wrapper that produces flat digital art instead of product
+    photography of a physical card.
+    """
+    intro = SIGIL_V3_INTRO_TEMPLATE.format(
+        card_name=card["card_name"],
+        essence=card["essence"],
+    )
+    sigil_body = V2_SIGIL_BODIES.get(card["id"], card["sigil_body"])
+    return " ".join([
+        GLOBAL_V3_STYLE_PREFIX,
+        intro + sigil_body,
+        SIGIL_V3_OUTRO,
+    ])
+
+
+# ═════════════════════════════════════════════════════════════
+# V4 — STRAIGHT CARD, PLAIN DARK STUDIO (no tilt, no nebula)
+#
+# Portrait-straight physical card on pure dark studio backdrop.
+# The physical card look (laminate, rounded corners, paper edge)
+# is preserved. No Dutch angle. No cosmic nebula background.
+# ═════════════════════════════════════════════════════════════
+
+GLOBAL_V4_STYLE_PREFIX = (
+    "Ultra-luxury editorial dark-studio product photography of a single "
+    "premium physical tarot card. The card is PERFECTLY UPRIGHT — "
+    "portrait orientation, vertically centered, zero tilt, zero rotation, "
+    "zero Dutch angle. The card faces directly toward the camera with its "
+    "long axis perfectly vertical. "
+
+    "The card floats centered against a PURE DEEP BLACK studio backdrop — "
+    "no nebula, no clouds, no atmospheric haze, no cosmic scene outside "
+    "the card. Background is solid deep black (#050508). The card casts "
+    "a soft blurred drop shadow directly beneath it. "
+
+    "The card is a TRADITIONAL PHYSICAL TAROT PLAYING CARD — standard "
+    "tarot proportions (2.75 × 4.75 inches), printed on THICK 400gsm matte "
+    "deep-indigo COTTON CARDSTOCK with a subtle glossy UV laminate finish. "
+    "Corners are gently rounded with a small 3mm radius like a poker card. "
+    "The cardstock has visible paper thickness where the edge catches light "
+    "(approximately 0.35mm thick). The UV laminate catches studio light "
+    "softly: a thin diagonal specular highlight across the upper-right "
+    "corner, restrained — mostly matte printed cardstock with only faint "
+    "laminate sheen suggested. "
+
+    # Card face: subtle depth + micro star field
+    "The card face is deep indigo (#130d2e) with a VERY SUBTLE radial "
+    "glow at the center — the indigo is fractionally lighter at the "
+    "exact compositional center where the figure stands, deepening to "
+    "near-black at the card edges, drawing the eye inward. On this "
+    "indigo surface, extremely faint micro-scale star field: scattered "
+    "tiny pinpoint dots in pale silver-white, barely visible, like "
+    "stars seen through deep water — present but never competing with "
+    "the figure. "
+
+    # Thin single hairline gold border
+    "A single precise HAIRLINE GOLD BORDER runs as a thin rectangle "
+    "inset exactly 5% from each card edge — one clean line only, no "
+    "double border, no ornate corners, no filigree. This is a minimal "
+    "classic tarot framing line. "
+)
+
+SIGIL_V4_INTRO_TEMPLATE = (
+    "At the compositional center of the card face sits a single refined "
+    "CLASSICAL LINE-ART FIGURE optimized for clean vector reproduction — "
+    "the figure has clear classical proportions rendered primarily in "
+    "CLEAN SINGLE-WEIGHT CONTINUOUS OUTLINES. The figure conveys — {essence}. "
+
+    "HATCHING RULE: use sparse parallel hatching ONLY on the two or three "
+    "deepest shadow zones (inside major clothing folds, underside of arms, "
+    "cast shadow on ground). Everywhere else: clean single outlines only. "
+    "No crosshatching, no stippling, no texture fills anywhere. Each line "
+    "is a single distinct stroke — never doubled, never overlapping. "
+    "The result reads like a clean woodcut print: bold clear outlines, "
+    "minimal shadow lines, maximum legibility at any size. "
+
+    # Two-tone color system
+    "TWO-TONE COLOR SYSTEM: The figure's body, clothing, and all primary "
+    "structural lines are drawn in WARM PALE GOLD (#d4af37) hairlines. "
+    "All celestial and symbolic secondary elements — stars, sun disc, "
+    "moon, sacred objects, nature elements — are drawn in BRIGHT "
+    "SILVER-WHITE (#e8e8f0) hairlines with a very faint soft glow, "
+    "creating clear visual hierarchy: gold for human, silver for cosmic. "
+    "Both colors glow softly against the deep indigo. "
+    "No filled shapes, no photorealism, no color fills. "
+)
+
+SIGIL_V4_OUTRO = (
+    " The figure occupies about SIXTY-FIVE PERCENT of the card "
+    "interior height — tall, clear, commanding, centered vertically "
+    "within the card, with moderate indigo breathing room above and "
+    "below. Engraving hatching visible on all shaded areas. "
+    "No medallion frame, no circular seal — the figure floats freely "
+    "inside the hairline border rectangle. "
+)
+
+LIQUID_GLASS_V4_SUFFIX = (
+    "Studio lighting: one soft key light from upper-left, one cool "
+    "rim light from behind-right creating a thin bright edge along "
+    "the right and top of the card. The card edge shows visible paper "
+    "thickness of laminated cardstock catching that rim light. "
+    "Interior artwork stays sharp and matte. "
+
+    "Hasselblad medium format editorial product photography, 8K "
+    "detail, shot on black seamless in a dark studio. The card is "
+    "the ONLY object in the image. Pure black infinity background. "
+
+    "ABSOLUTE CONSTRAINTS: no text, no letters, no numerals, no roman "
+    "numerals, no words, no typography anywhere. No ornate filigree "
+    "frame — ONLY the single clean hairline border rectangle. No neon "
+    "outline, no glowing rim stroke on card edge. No lens flares, no "
+    "watermark. No nebula or cosmic background outside the card. "
+    "Card is perfectly upright portrait — zero tilt, zero Dutch angle. "
+)
+
+
+def build_prompt_v4(card: dict) -> str:
+    """
+    V4: straight portrait card on pure black studio backdrop.
+    No tilt, no nebula. Physical card look preserved.
+    """
+    intro = SIGIL_V4_INTRO_TEMPLATE.format(essence=card["essence"])
+    sigil_body = V2_SIGIL_BODIES.get(card["id"], card["sigil_body"])
+    return " ".join([
+        GLOBAL_V4_STYLE_PREFIX,
+        intro + sigil_body + SIGIL_V4_OUTRO,
+        LIQUID_GLASS_V4_SUFFIX,
+    ])
+
+
+# ═════════════════════════════════════════════════════════════
+# V5 — 15th-CENTURY ITALIAN MANUSCRIPT ILLUMINATION
+#
+# Museum-quality vellum illumination. No physical card sim.
+# This IS the card face art — web component adds the border.
+# Selective gouache + gold bole + underdrawing visible.
+# ═════════════════════════════════════════════════════════════
+
+GLOBAL_V5_STYLE_PREFIX = (
+    "A single tarot card rendered as a 15th-century Italian manuscript "
+    "illumination, combining museum-quality artistry with CLEAR symbolic "
+    "storytelling essential for divination. "
+
+    "This is a FLAT 2D ILLUSTRATION filling the ENTIRE image edge-to-edge "
+    "— NOT a photograph of a physical card, NO card edges visible, "
+    "NO rounded corners, NO drop shadow, NO 3D object. "
+    "The image IS the card face artwork itself. "
+
+    "SUBSTRATE: Aged vellum with authentic warm cream (#f5edd4) base. "
+    "Visible fine parchment texture. Subtle foxing and aging at corners. "
+    "Faint hand-ruled border lines 4% from each edge in sepia ink. "
+
+    "TECHNIQUE: 15th-century Flemish-Italian manuscript illumination. "
+    "Visible graphite/silverpoint underdrawing construction lines "
+    "(especially for geometric elements — sun rays, star, halos). "
+    "Selective gouache color: rich vermillion, ultramarine, ochre, "
+    "forest green, burnt sienna. Gold applied as raised gold bole on "
+    "sun center, halos, sacred objects, key symbolic elements. "
+    "Linework in sepia ink with a fine quill — varying weight, "
+    "confident strokes, delicate hatching for shadow and volume. "
+
+    "COMPOSITION: Full-figure narrative scene. Central figure occupies "
+    "55-65% of card height. Upper 30% contains sky, celestial symbols "
+    "(sun, star, moon). Lower 15% shows ground or cliff edge. "
+    "Distant mountains in pale grisaille violet-gray in background. "
+    "Sky graduates from warm cream-gold near celestial bodies to "
+    "pale cerulean blue. "
+
+    "ATMOSPHERE: The illustration should feel like you are looking at "
+    "an original Visconti-Sforza tarot card in a museum — luminous, "
+    "deeply considered, every element placed with symbolic intention. "
+    "Rich color but never garish. Gold that truly glows. "
+    "Human figures rendered with genuine psychological depth in their "
+    "expression and posture. "
+)
+
+V5_SIGIL_INTRO_TEMPLATE = (
+    "THIS CARD IS {card_name} — {essence}. "
+    "The scene depicts: "
+)
+
+V5_SIGIL_OUTRO = (
+    " CELESTIAL SYMBOLS in upper region: large geometric sun with "
+    "12-16 precise radiating rays upper-right (gold bole center, "
+    "gold-ink rays), 8-pointed navigation star upper-left in silver "
+    "with soft glow. "
+
+    "MANUSCRIPT BORDER: Hand-ruled sepia lines creating a thin "
+    "rectangular frame 4% inset from edges. Four small fleur-de-lis "
+    "or trefoil ornaments at corners in sepia+gold. "
+    "Faint Latin annotation in bottom margin: 1-3 words in Carolingian "
+    "script, barely legible, adding scholarly mystique. "
+
+    "SYMBOLIC COLOR LANGUAGE: white/cream = purity and new beginnings, "
+    "vermillion/red = life force and passion, gold = divine presence, "
+    "blue = spirit and transcendence, earth tones = material world. "
+
+    "ABSOLUTE: No modern typography. No photorealistic rendering. "
+    "No digital smoothness — every line has the slight irregularity of "
+    "a human hand. No text except the faint Latin annotation. "
+    "No physical card frame, no rounded corners, no shadow. "
+    "Pure flat illumination filling the entire image. "
+)
+
+# Per-card V5 scene descriptions — rich, symbolically specific
+V5_SIGIL_BODIES = {
+    0: (  # The Fool
+        "Young androgynous traveler (18-20 years) mid-stride approaching "
+        "cliff edge with total faith — ONE FOOT LIFTED over the void, "
+        "gaze directed UPWARD toward the sun, NOT at the path. "
+        "White/cream inner tunic. Outer cloak richly decorated with "
+        "floral pattern in vermillion and orange. Simple rope belt. "
+        "Left hand holds a single white rose loosely — 8-petal sacred "
+        "geometry, gold bole center. Right hand rests on slender walking "
+        "staff over shoulder, small white cloth bundle tied to its end. "
+        "Small alert dog at lower-left — ochre/brown, one paw raised "
+        "in warning posture, looking up at the fool. "
+        "CLIFF EDGE clearly visible: solid ochre ground breaks sharply "
+        "into empty pale blue sky. "
+        "Tiny butterfly near rose. Single white feather visible in bundle. "
+        "Figure head tilted upward, expression of blissful obliviousness. "
+    ),
+    1: (  # The Magician
+        "Standing male figure at a table covered with ritual objects, "
+        "one arm raised high pointing toward heaven, one arm pointing "
+        "down toward earth — the classic 'as above, so below' posture. "
+        "White inner robe. Red outer cloak or mantle. "
+        "Lemniscate (infinity symbol) hovering as golden halo above head. "
+        "On the table: chalice (cups), sword (swords), wand (wands), "
+        "pentacle disc (pentacles) — all four suits clearly rendered. "
+        "Figure gazes directly outward with confident, penetrating eyes. "
+        "Belt of a serpent eating its tail (ouroboros). "
+        "Roses and lilies in foreground and background. "
+        "Expression of total mastery and conscious will. "
+    ),
+    2: (  # The High Priestess
+        "Serene female figure seated on a cubic throne between two "
+        "columns — one black (Boaz), one white (Jachin). "
+        "Blue robes that flow down and pool at her feet, becoming water "
+        "and crescent moon imagery. White veil behind her. "
+        "Crown: large central sphere flanked by crescent horns (Isis crown). "
+        "Holds a partially unrolled scroll in her lap inscribed TORA "
+        "(or show it rolled and sealed). "
+        "Pomegranate-patterned veil behind her (fertility, mystery). "
+        "Large crescent moon at her feet. "
+        "Expression of absolute stillness and deep inner knowing. "
+        "Veil parts to reveal a glimpse of still water and distant trees. "
+    ),
+    3: (  # The Empress
+        "Crowned woman seated on a comfortable throne in lush outdoor "
+        "garden setting, surrounded by abundant nature. "
+        "Golden crown with 12 stars (12 signs of zodiac). "
+        "White gown with pomegranate pattern (fertility). "
+        "Red velvet cushions on throne. "
+        "Holds a scepter in right hand (topped with orb). "
+        "Heart-shaped shield bearing the symbol of Venus near throne. "
+        "Lush wheat field in foreground. Waterfall and forest behind. "
+        "Expression of serene abundance, maternal warmth, creative power. "
+        "Pregnant or voluptuous form suggesting fertility and growth. "
+    ),
+    4: (  # The Emperor
+        "Stern male ruler seated rigidly on stone throne adorned with "
+        "ram's heads at the four corners (Aries). "
+        "Full suit of armor beneath red robes (power beneath authority). "
+        "Long white beard (ancient wisdom, experience). "
+        "Golden crown. Holds an ankh-topped scepter in right hand, "
+        "an orb in left hand. "
+        "Barren orange/red mountains behind (Mars, dry masculine power). "
+        "Small river barely visible in distant background. "
+        "Expression of absolute authority, stability, worldly dominion. "
+        "Upright posture, square shoulders, commanding presence. "
+    ),
+}
+
+
+def build_prompt_v5(card: dict) -> str:
+    """
+    V5: 15th-century Italian manuscript illumination.
+    Museum-quality flat illustration, no physical card sim.
+    """
+    card_name = card.get("card_name", card.get("name", f"Card {card['id']}"))
+    intro = V5_SIGIL_INTRO_TEMPLATE.format(
+        card_name=card_name.upper(),
+        essence=card["essence"],
+    )
+    # Use V5-specific body if available, else fall back to V2 body
+    sigil_body = V5_SIGIL_BODIES.get(card["id"], V2_SIGIL_BODIES.get(card["id"], card["sigil_body"]))
+    return " ".join([
+        GLOBAL_V5_STYLE_PREFIX,
+        intro + sigil_body + V5_SIGIL_OUTRO,
+    ])
+
+
+# ═════════════════════════════════════════════════════════════
+# V6 — ENAMEL MINIATURE WITH GEOMETRIC GOLD STAR
+#
+# Target: the reference aesthetic — medieval enamel plaque on
+# ivory/polished stone. Botticelli-quality painted figures with
+# REAL raised metallic gold geometric compass-rose star dominating
+# the upper composition. Atmospheric watercolor sky. Luminous
+# precious-object quality. NOT vellum, NOT flat illustration.
+# ═════════════════════════════════════════════════════════════
+
+GLOBAL_V6_STYLE_PREFIX = (
+    "A tarot card painted as a MEDIEVAL ENAMEL MINIATURE — the luminosity "
+    "and preciousness of a 15th-century Flemish or Italian enamel plaque on "
+    "polished ivory. NOT a printed card, NOT paper, NOT vellum. "
+    "The image fills the ENTIRE frame edge-to-edge with NO physical card "
+    "edges, NO rounded corners, NO drop shadow. The image IS the painting. "
+
+    "SURFACE: Smooth polished ivory or enamel on copper — luminous, slightly "
+    "translucent in highlights, warm white base. NOT grainy or textured. "
+    "The surface has the precious smooth quality of antique enamel work. "
+
+    "FIGURE PAINTING: Flemish-Italian Renaissance master quality — Botticelli, "
+    "Gentile Bellini, or Lucas Cranach. Figures have FULL THREE-DIMENSIONAL "
+    "VOLUME with realistic tonal shading. Fabric and clothing have genuine "
+    "textile richness: silk catches light in crisp folds, embroidered cloaks "
+    "show raised decorative detail, armor has metallic sheen. Flesh is warm "
+    "and luminous. Faces hold genuine psychological depth — eyes convey "
+    "meaning, posture carries emotion. This is PAINTING not illustration. "
+    "Full tonal range from deep shadow to brilliant highlight. "
+
+    "THE DOMINANT GOLD STAR — THE MOST IMPORTANT VISUAL ELEMENT: "
+    "A LARGE GEOMETRIC STAR-SUN in REAL METALLIC GOLD dominates the upper "
+    "quarter of the composition. This is a complex compass-rose or astrolabe "
+    "star: an 8-to-12-pointed star with its central body as a faceted "
+    "geometric solid (like an octahedron or brilliant-cut diamond seen from "
+    "above), inscribed within one or two concentric circles. From this star, "
+    "LONG STRAIGHT RADIATING GOLD LINES extend outward through the entire "
+    "upper sky — like the spokes of an enormous wheel or the rays of a "
+    "compass rose — reaching toward the frame edges. "
+    "Every element of this star assembly is TRUE RAISED METALLIC GOLD — "
+    "self-luminous, slightly three-dimensional, reflecting light differently "
+    "from any angle, like actual gold leaf or cloisonné metalwork. NOT "
+    "painted yellow. REAL GOLD that appears to physically emanate warm light "
+    "downward onto the figure and landscape. The star occupies the upper "
+    "25-35% of the image height. It is the crown of the composition. "
+
+    "SKY: Atmospheric painted sky. Warm cream-gold immediately surrounding "
+    "the star, gradually transitioning to pale cerulean blue at the card "
+    "edges and corners. Wispy clouds in soft blue-white. Sky has depth and "
+    "atmospheric recession — NOT flat solid color. "
+
+    "LANDSCAPE: Richly detailed background appropriate to each card. "
+    "Mountains rendered in cool atmospheric grisaille (blue-violet), "
+    "receding into hazy distance. Ground in warm ochre and sienna tones. "
+    "Vegetation, cliffs, water — whatever serves the card's symbolism. "
+    "Every landscape element adds to the symbolic reading. "
+
+    "COLORS: Rich, harmonious, jewel-like palette. Vermillion red, "
+    "ultramarine blue, deep ochre, forest green, warm sienna — the colors "
+    "of medieval enamel work, saturated but harmonious. The gold star "
+    "provides the dominant luminosity. "
+)
+
+V6_SIGIL_INTRO_TEMPLATE = (
+    "THIS CARD DEPICTS {card_name} — {essence}. "
+    "The scene shows: "
+)
+
+V6_SIGIL_OUTRO = (
+    " The large geometric gold star-sun described above MUST be prominent "
+    "in the upper portion — this is the defining visual signature of this "
+    "card series. Its radiating gold lines should fill the sky. "
+
+    "THIN BORDER: A single fine sepia or gold hairline rectangle framing "
+    "the composition, 3% inset from edges. Very thin — purely containing. "
+    "Small fleur-de-lis or cross ornament at each corner in gold. "
+    "Optional: 1-3 Latin words in tiny Carolingian script at bottom margin. "
+
+    "ABSOLUTE CONSTRAINTS: No modern typography. No digital smoothness or "
+    "airbrushing — painted quality throughout. No text except optional faint "
+    "Latin annotation. No physical card frame, rounded corners, or shadow. "
+    "The final impression: a luminous painted artifact belonging in a museum "
+    "— precious, intentional, deeply beautiful, rich with symbolic meaning. "
+)
+
+
+def build_prompt_v6(card: dict) -> str:
+    """
+    V6: Medieval enamel miniature with dominant geometric gold star.
+    Botticelli-quality painted figures on luminous ivory/enamel surface.
+    Real raised metallic gold compass-rose star dominates upper composition.
+    """
+    card_name = card.get("card_name", card.get("name", f"Card {card['id']}"))
+    intro = V6_SIGIL_INTRO_TEMPLATE.format(
+        card_name=card_name.upper(),
+        essence=card["essence"],
+    )
+    # Use V5 scene bodies (already symbolically rich), fall back to V2
+    sigil_body = V5_SIGIL_BODIES.get(card["id"], V2_SIGIL_BODIES.get(card["id"], card["sigil_body"]))
+    return " ".join([
+        GLOBAL_V6_STYLE_PREFIX,
+        intro + sigil_body + V6_SIGIL_OUTRO,
+    ])
+
+
+# ═════════════════════════════════════════════════════════════
+# V7 — MARBLE & PORCELAIN: LUMINOUS PRECIOUS MATERIAL SURFACE
+#
+# Target: tarot cards that look like they are carved from solid
+# polished marble OR formed from fine bone china/porcelain.
+# Realistic material rendering — you can see the polish, the
+# veining, the translucency of thin ceramic edges.
+# ═════════════════════════════════════════════════════════════
+
+GLOBAL_V7_STYLE_PREFIX = (
+    "A single tarot card that appears to be carved from POLISHED MARBLE "
+    "or formed from FINE BONE CHINA — a precious physical object with "
+    "unmistakable material presence. This is NOT a painting, NOT vellum, "
+    "NOT a photograph of a card. The card itself IS the material. "
+
+    "MATERIAL REALISM — CRITICAL: The card surface must show the honest "
+    "properties of its substance: if marble, you see polished stone with "
+    "natural veining patterns in cool grays and whites, subtle crystalline "
+    "sparkle where light catches the polished surface, depth below the "
+    "surface. If china/porcelain, you see smooth glazed ceramic with "
+    "warm ivory base, delicate hairline crackle glaze, luminous "
+    "translucency at thin edges catching backlight. The material looks "
+    "LIKE SOMETHING YOU COULD HOLD AND FEEL — cold polished stone or "
+    "smooth glazed ceramic. "
+
+    "SURFACE TREATMENT: Polished to a soft sheen. Subtle specular "
+    "highlights show the direction of the light source. The glaze or "
+    "polish creates gentle reflectivity — not mirror-bright, but clearly "
+    "lustrous. On porcelain: fine crackle glaze texture visible at close "
+    "inspection. On marble: natural stone veining in subtle cool grays. "
+
+    "THE SCENE: The image appears to be INLAID INTO or PAINTED ONTO "
+    "the polished material surface — not printed, not a separate layer. "
+    "On marble: the figures and scene are carved in bas-relief with "
+    "gold leaf inlay following the carved lines, or painted with "
+    "luminous pigments that sit ON the stone surface. On porcelain: "
+    "classic hand-painted Limoges or Meissen decoration in rich "
+    "enamel colors with 22-karat gold outlines and accents. The "
+    "decoration and the material feel like one object. "
+
+    "ASPECT: Vertical portrait tarot card proportions (2:3 ratio), "
+    "viewed slightly from above so you see the polished surface catching "
+    "light. The card sits on a dark velvet surface or in a velvet-lined "
+    "presentation box. "
+
+    "LIGHTING: Studio lighting that reveals the material honestly — "
+    "a single soft key light from the upper-left creates gentle specular "
+    "highlights on the polished surface. Subtle warm fill light "
+    "prevents harsh shadows. The material glows softly. "
+)
+
+V7_SIGIL_INTRO_TEMPLATE = (
+    "THIS TAROT CARD DEPICTS {card_name} — {essence}. "
+    "The decorative scene shows: "
+)
+
+V7_SIGIL_OUTRO = (
+    " DECORATIVE FINISH: Delicate ornamental details in 22-karat gold "
+    "outline the scene — thin gold border lines, corner ornaments, "
+    "subtle decorative flourishes around the central composition. "
+    "On marble cards: fine gold inlay follows the carved relief lines. "
+    "On porcelain cards: gold enamel brushwork in classic fine-china style. "
+
+    "SURFACE DETAILS: If marble: natural gray-white veining patterns "
+    "weave naturally through the card, adding texture without obscuring "
+    "the painted scene. If porcelain: hairline crackle glaze visible in "
+    "raking light, warm ivory base showing through thin glazed areas. "
+    "The edges of the card are clean-cut, showing the full cross-section "
+    "of the material — polished marble edge or glazed porcelain rim. "
+
+    "PRESENTATION: The card rests on dark navy or burgundy velvet, "
+    "photographed from directly above at a slight angle showing the "
+    "lustrous surface. A soft circular light falls on the card creating "
+    "a gentle spotlight effect. "
+
+    "ABSOLUTE CONSTRAINTS: No text, no typography, no labels. "
+    "No rough texture or unfinished appearance. No modern digital "
+    "aesthetic — this must feel like an heirloom object from a "
+    "grand European palace collection. The material quality is "
+    "undeniable — polished marble or fine porcelain. "
+)
+
+
+def build_prompt_v7(card: dict) -> str:
+    """
+    V7: Marble or fine porcelain tarot cards with luminous precious
+    material surface. Realistic material rendering — polished stone
+    or glazed ceramic with inlaid or painted scene.
+    """
+    card_name = card.get("card_name", card.get("name", f"Card {card['id']}"))
+    intro = V7_SIGIL_INTRO_TEMPLATE.format(
+        card_name=card_name.upper(),
+        essence=card["essence"],
+    )
+    sigil_body = V5_SIGIL_BODIES.get(card["id"], V2_SIGIL_BODIES.get(card["id"], card["sigil_body"]))
+    return " ".join([
+        GLOBAL_V7_STYLE_PREFIX,
+        intro + sigil_body + V7_SIGIL_OUTRO,
+    ])
+
+
+# ═════════════════════════════════════════════════════════════
+# V8 — CLASSICAL OIL PAINTING: RENAISSANCE MASTER QUALITY
+#
+# Match the reference: rich painted classical tarot with painterly
+# brushwork, realistic proportions, atmospheric depth, rich vermillion/
+# gold/ultramarine palette. NOT flat illustration, NOT stylized.
+# ═════════════════════════════════════════════════════════════
+
+GLOBAL_V8_STYLE_PREFIX = (
+    "A tarot card rendered as a RICH OIL PAINTING in the tradition of "
+    "Italian Renaissance or Flemish master painting — the quality and "
+    "depth of a Visconti-Sforza or Visconti-Baggeo tarot card, with the "
+    "artistic refinement of Botticelli, Mantegna, or the Limbourg Brothers. "
+
+    "PAINTING QUALITY: This is a full PAINTING — visible brushwork texture, "
+    "layered translucent glazes, impasto highlights, visible canvas weave "
+    "underneath. NOT flat digital illustration, NOT clean vector lines. "
+    "The paint has weight and depth. Rich variation in brushwork — "
+    "loose painterly passages in the sky and background, tighter detail "
+    "on the central figures. "
+
+    "FIGURE RENDERING: Classical human figures with REALISTIC PROPORTIONS "
+    "and ANATOMY — not stylized silhouettes. Warm skin tones with visible "
+    "form and shadow. Classical robes with genuine textile richness: "
+    "gathering folds, embroidered borders, velvet textures. Hair rendered "
+    " strand by strand with individual highlights. Eyes with depth and gaze. "
+    "Postures carry genuine emotion and meaning. "
+
+    "COLOR PALETTE: Rich, saturated, jewel-like. Deep vermillion red, "
+    "ultramarine blue, warm ochre gold, forest green, burnt sienna, "
+    "ivory white. Gold that truly GLOWS with luminosity. Colors are "
+    "harmonious but bold — the confident palette of Renaissance masters. "
+
+    "ATMOSPHERE & DEPTH: Full scenic environment. NOT a floating figure "
+    "on blank background. Rich backgrounds: classical garden with roses "
+    "and marble columns, architectural interiors with stone floors and "
+    "vaulted ceilings, dramatic landscapes with mountains and rivers, "
+    "atmospheric skyscapes with clouds and celestial light. Sky has "
+    "genuine depth — graded washes from warm near-horizon to cool zenith. "
+    "Foreground, midground, background with proper atmospheric perspective. "
+
+    "SYMBOLIC RICHNESS: Every element placed with intention. Classical "
+    "architecture frames scenes. Gardens are lush with identifiable plants. "
+    "Light sources create dramatic chiaroscuro. "
+
+    "FRAMING: Vertical portrait format filling the composition with the "
+    "narrative scene. Classical pictorial balance. The entire image edge-"
+    "to-edge is the painting — no borders, no frames, just the artwork. "
+)
+
+V8_SIGIL_INTRO_TEMPLATE = (
+    "THIS PAINTING DEPICTS {card_name} — {essence}. "
+    "The scene shows: "
+)
+
+V8_SIGIL_OUTRO = (
+    " PAINTING STYLE NOTES: Visible brushwork throughout — not airbrushed "
+    "or digitally smoothed. Rich impasto on highlights and gold accents. "
+    "Translucent glazes in shadows creating depth. Canvas texture subtly "
+    "visible in broad passages. The overall effect is of a precious "
+    "hand-painted artwork from a grand collection, not a printed card. "
+
+    "ABSOLUTE CONSTRAINTS: No text, no typography. No flat graphic aesthetic. "
+    "No cartoon or stylized illustration. No digital smoothness. "
+    "The painting must feel like it was made by a skilled hand with "
+    "real paint on real canvas — the weight and presence of fine art. "
+)
+
+
+def build_prompt_v8(card: dict) -> str:
+    """
+    V8: Rich classical oil painting matching Renaissance master quality.
+    Painterly brushwork, realistic anatomy, atmospheric depth, rich palette.
+    """
+    card_name = card.get("card_name", card.get("name", f"Card {card['id']}"))
+    intro = V8_SIGIL_INTRO_TEMPLATE.format(
+        card_name=card_name.upper(),
+        essence=card["essence"],
+    )
+    sigil_body = V5_SIGIL_BODIES.get(card["id"], V2_SIGIL_BODIES.get(card["id"], card["sigil_body"]))
+    return " ".join([
+        GLOBAL_V8_STYLE_PREFIX,
+        intro + sigil_body + V8_SIGIL_OUTRO,
+    ])
+
+
+# ═════════════════════════════════════════════════════════════
+# V9 — MARBLE + OIL PAINTING: MATERIAL MEETS MASTERPIECE
+#
+# Combine: polished marble/fine china surface + painterly brushwork + rich gold.
+# The best of V7 (material) + V8 (painting) + your reference.
+# ═════════════════════════════════════════════════════════════
+
+GLOBAL_V9_STYLE_PREFIX = (
+    "A tarot card rendered as a PRECIOUS MARBLE SLAB with HAND-PAINTED "
+    "CLASSICAL SCENE — the fusion of fine Italian marble sculpture "
+    "with Renaissance master oil painting. This is NOT flat illustration, NOT "
+    "paper. The card IS a solid polished marble or fine porcelain "
+    "surface with rich oil-painted imagery inlaid into it. "
+
+    "MATERIAL SURFACE: POLISHED MARBLE or FINE BONE CHINA. The surface "
+    "has genuine material presence — you can see the polish, the natural "
+    "stone veining in cool whites and grays, subtle crystalline sparkle "
+    "where light catches the polished surface. The edges show the full "
+    "cross-section of the material — thick marble slab edge, not paper. "
+    "The surface is COLD TO THE IMAGINATION. "
+
+    "PAINTED SCENE: The classical imagery is HAND-PAINTED onto the "
+    "marble surface using rich OIL PAINT technique — visible brushwork "
+    "texture, layered glazes, impasto highlights. The paint sits ON "
+    "the marble like a precious inlay, not printed on top. Rich "
+    "vermillion red, ultramarine blue, warm ochre gold, forest green, "
+    "burnt sienna — the jewel palette of Renaissance masters. "
+
+    "GOLD: Rich 22-karat gold details throughout — gold leaf "
+    "halos around sacred figures, gilded architectural elements, golden "
+    "light rays from celestial sources, intricate gold ornamental borders. "
+    "The gold is REAL METALLIC GOLD with genuine luminosity, not yellow "
+    "paint. Glowing, radiating, precious. "
+
+    "COMPOSITION: Full atmospheric depth with classical architecture, "
+    "lush gardens, dramatic landscapes. The painted scene has proper "
+    "foreground, midground, background with atmospheric recession. "
+    "Sky with graded washes from warm near-horizon to cool zenith. "
+    "Figures have realistic anatomy with warm skin tones, visible form "
+    "and shadow. Rich textile folds in robes. Eyes with depth and gaze. "
+
+    "FRAMING: A thin raised gold frame borders the inner composition "
+    " — like a gilded marble altar frame. The entire composition "
+    "fits within this elegant frame. "
+)
+
+V9_SIGIL_INTRO_TEMPLATE = (
+    "THIS PRECIOUS MARBLE CARD DEPICTS {card_name} — {essence}. "
+    "The hand-painted scene shows: "
+)
+
+V9_SIGIL_OUTRO = (
+    " MATERIAL NOTES: Polished marble surface showing natural veining "
+    "patterns beneath the painted scene. The paint is inlaid INTO the stone "
+    "like a Renaissance marble altar inlay. Gold leaf accents catch "
+    "light with metallic luminosity. The edges show the full "
+    "depth of the marble slab. "
+
+    "PAINTING QUALITY: Visible brushwork — loose painterly passages "
+    "in sky and background, tighter detail on central figures. "
+    "Translucent glazes in shadows. Rich impasto on highlights "
+    "and gold elements. Canvas/paint texture visible in broad areas. "
+
+    "ABSOLUTE CONSTRAINTS: No flat graphic aesthetic. No cartoon or "
+    "stylized illustration. The card must feel like a precious hand-cut "
+    "and hand-painted object from a grand Italian workshop — the "
+    "material质量 AND the artistic quality together. "
+    "No text, no typography. "
+)
+
+
+def build_prompt_v9(card: dict) -> str:
+    """
+    V9: Precious marble/fine china with hand-painted classical scene.
+    Combines material surface + painterly quality + rich gold.
+    """
+    card_name = card.get("card_name", card.get("name", f"Card {card['id']}"))
+    intro = V9_SIGIL_INTRO_TEMPLATE.format(
+        card_name=card_name.upper(),
+        essence=card["essence"],
+    )
+    sigil_body = V5_SIGIL_BODIES.get(card["id"], V2_SIGIL_BODIES.get(card["id"], card["sigil_body"]))
+    return " ".join([
+        GLOBAL_V9_STYLE_PREFIX,
+        intro + sigil_body + V9_SIGIL_OUTRO,
     ])

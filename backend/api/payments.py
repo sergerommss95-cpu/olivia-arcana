@@ -1,20 +1,31 @@
-"""Payment endpoints — Stripe checkout, webhooks, billing portal, status."""
+"""
+Payment endpoints — Paddle (web) + Telegram Stars (in-bot).
 
+Stripe is BANNED for tarot/psychic/occult. See LLC Guide.
+"""
+
+import json
 import logging
+
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db.database import get_db
-from db.models import User, Payment, Purchase
+from db.models import User, Purchase
 from api.auth import get_current_user
-from services.stripe_service import (
-    create_checkout_session,
-    create_portal_session,
-    verify_webhook,
-    process_webhook_event,
-    SUBSCRIPTION_PRODUCTS,
+from services.paddle_service import (
+    create_checkout_session as paddle_create_checkout,
+    create_portal_session as paddle_create_portal,
+    verify_webhook as paddle_verify_webhook,
+    process_webhook_event as paddle_process_webhook,
+    SUBSCRIPTION_KEYS,
+)
+from services.telegram_stars_service import (
+    send_invoice as stars_send_invoice,
+    STAR_PRICES,
+    PRODUCT_TITLES as STAR_PRODUCT_TITLES,
 )
 
 logger = logging.getLogger(__name__)
@@ -25,7 +36,7 @@ router = APIRouter()
 # ── Schemas ──
 
 class CheckoutRequest(BaseModel):
-    price_key: str  # "vip_monthly" | "vip_annual" | "birth_chart" | etc.
+    price_key: str
     success_url: str | None = None
     cancel_url: str | None = None
 
@@ -38,131 +49,168 @@ class PortalResponse(BaseModel):
     portal_url: str
 
 
-class SubscriptionStatus(BaseModel):
-    tier: str               # "free" | "vip"
-    status: str             # "none" | "active" | "trialing" | "past_due" | "canceled"
-    is_vip: bool
-    period_end: str | None  # ISO datetime
+class StarsInvoiceRequest(BaseModel):
+    price_key: str
+    chat_id: int
+
+
+class SubscriptionStatusResponse(BaseModel):
+    tier: str
+    status: str
+    is_paid: bool
+    period_end: str | None
     cancel_at_period_end: bool
+    provider: str | None
     purchases: list[dict]
 
 
 # ── Helpers ──
 
 async def _get_authenticated_user(authorization: str, db: AsyncSession) -> User:
-    """Extract and validate JWT from Authorization header."""
     token = authorization.replace("Bearer ", "").strip() if authorization else ""
     if not token:
         raise HTTPException(status_code=401, detail="No token provided")
     return await get_current_user(token, db)
 
 
-# ── Endpoints ──
+# ── Paddle: web checkout ──
 
-@router.post("/checkout", response_model=CheckoutResponse)
-async def checkout(
+@router.post("/paddle/checkout", response_model=CheckoutResponse)
+async def paddle_checkout(
     req: CheckoutRequest,
     authorization: str = "",
     db: AsyncSession = Depends(get_db),
 ):
-    """Create a Stripe Checkout session and return the URL."""
+    """Create a Paddle hosted-checkout session."""
     user = await _get_authenticated_user(authorization, db)
 
-    # Prevent duplicate active subscriptions
-    if req.price_key in SUBSCRIPTION_PRODUCTS and user.is_vip:
+    if req.price_key in SUBSCRIPTION_KEYS and (user.tier or "free") != "free":
         raise HTTPException(
             status_code=400,
-            detail="You already have an active VIP subscription. Use the billing portal to manage it.",
+            detail="You already have an active subscription. Use the billing portal to change plan.",
         )
 
     try:
-        checkout_url = await create_checkout_session(
+        checkout_url = await paddle_create_checkout(
             user=user,
             price_key=req.price_key,
-            success_url=req.success_url,
-            cancel_url=req.cancel_url,
+            success_url=req.success_url or "",
+            cancel_url=req.cancel_url or "",
             db=db,
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        logger.error(f"Checkout creation failed: {e}")
-        raise HTTPException(status_code=500, detail="Could not create checkout session")
+        logger.exception("Paddle checkout failed")
+        raise HTTPException(status_code=500, detail=str(e))
 
     return CheckoutResponse(checkout_url=checkout_url)
 
 
-@router.post("/webhook")
-async def webhook(request: Request, db: AsyncSession = Depends(get_db)):
-    """Handle Stripe webhook events. No auth — verified by Stripe signature."""
+@router.post("/paddle/portal", response_model=PortalResponse)
+async def paddle_portal(
+    authorization: str = "",
+    db: AsyncSession = Depends(get_db),
+):
+    """Generate a Paddle customer portal link."""
+    user = await _get_authenticated_user(authorization, db)
+    if not getattr(user, "paddle_customer_id", None):
+        raise HTTPException(status_code=400, detail="No Paddle customer record yet.")
+    try:
+        portal_url = await paddle_create_portal(user=user, db=db)
+    except Exception as e:
+        logger.exception("Paddle portal failed")
+        raise HTTPException(status_code=500, detail=str(e))
+    return PortalResponse(portal_url=portal_url)
+
+
+@router.post("/paddle/webhook")
+async def paddle_webhook(request: Request, db: AsyncSession = Depends(get_db)):
+    """Receive Paddle webhooks. Verified by HMAC signature."""
     payload = await request.body()
-    sig_header = request.headers.get("stripe-signature", "")
-
-    try:
-        event = verify_webhook(payload, sig_header)
-    except Exception as e:
-        logger.warning(f"Webhook signature verification failed: {e}")
+    sig = request.headers.get("paddle-signature", "")
+    if not paddle_verify_webhook(payload, sig):
         raise HTTPException(status_code=400, detail="Invalid signature")
-
     try:
-        await process_webhook_event(event, db)
-    except Exception as e:
-        logger.error(f"Webhook processing error: {e}")
+        event = json.loads(payload)
+        await paddle_process_webhook(event, db)
+    except Exception:
+        logger.exception("Paddle webhook processing error")
         raise HTTPException(status_code=500, detail="Webhook processing failed")
-
     return {"status": "ok"}
 
 
-@router.get("/status", response_model=SubscriptionStatus)
+# ── Telegram Stars: in-bot invoice trigger ──
+
+@router.post("/stars/invoice")
+async def stars_invoice(
+    req: StarsInvoiceRequest,
+    authorization: str = "",
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Trigger a Telegram Stars invoice for the authenticated user.
+
+    The bot receives this and dispatches sendInvoice. The actual successful_payment
+    handling lives in the bot itself (it calls services.telegram_stars_service.mark_payment_complete).
+    """
+    user = await _get_authenticated_user(authorization, db)
+
+    if req.price_key not in STAR_PRICES:
+        raise HTTPException(status_code=400, detail="Unknown price_key")
+
+    try:
+        await stars_send_invoice(chat_id=req.chat_id, user_id=user.id, price_key=req.price_key)
+    except Exception as e:
+        logger.exception("Stars invoice failed")
+        raise HTTPException(status_code=500, detail=str(e))
+
+    return {"ok": True, "title": STAR_PRODUCT_TITLES[req.price_key], "stars": STAR_PRICES[req.price_key]}
+
+
+# ── Subscription status (provider-agnostic) ──
+
+@router.get("/status", response_model=SubscriptionStatusResponse)
 async def status(
     authorization: str = "",
     db: AsyncSession = Depends(get_db),
 ):
-    """Return the current user's subscription status and purchases."""
+    """Return the current user's subscription status + purchases."""
     user = await _get_authenticated_user(authorization, db)
 
-    # Get purchases
     result = await db.execute(
         select(Purchase).where(Purchase.user_id == user.id).order_by(Purchase.created_at.desc())
     )
     purchases = result.scalars().all()
 
-    return SubscriptionStatus(
-        tier=user.subscription_tier or "free",
+    tier = user.tier or "free"
+    is_paid = tier != "free"
+
+    # Provider hint — paddle if a paddle id is set, else telegram_stars if a TG one is set.
+    provider: str | None = None
+    if getattr(user, "paddle_customer_id", None):
+        provider = "paddle"
+    elif getattr(user, "telegram_user_id", None):
+        provider = "telegram_stars"
+
+    period_end = getattr(user, "subscription_period_end", None)
+    if hasattr(period_end, "isoformat"):
+        period_end = period_end.isoformat()
+
+    return SubscriptionStatusResponse(
+        tier=tier,
         status=user.subscription_status or "none",
-        is_vip=user.is_vip,
-        period_end=user.subscription_current_period_end.isoformat() if user.subscription_current_period_end else None,
-        cancel_at_period_end=user.subscription_cancel_at_period_end or False,
+        is_paid=is_paid,
+        period_end=period_end,
+        cancel_at_period_end=bool(getattr(user, "cancel_at_period_end", False)),
+        provider=provider,
         purchases=[
             {
                 "id": p.id,
                 "reading_type": p.reading_type,
-                "has_content": p.reading_data is not None,
+                "has_content": getattr(p, "has_content", None) if hasattr(p, "has_content") else (p.reading_data is not None if hasattr(p, "reading_data") else False),
                 "created_at": p.created_at.isoformat() if p.created_at else None,
             }
             for p in purchases
         ],
     )
-
-
-@router.post("/portal", response_model=PortalResponse)
-async def portal(
-    authorization: str = "",
-    db: AsyncSession = Depends(get_db),
-):
-    """Create a Stripe Customer Portal session for billing management."""
-    user = await _get_authenticated_user(authorization, db)
-
-    if not user.stripe_customer_id:
-        raise HTTPException(
-            status_code=400,
-            detail="No billing account found. Subscribe first.",
-        )
-
-    try:
-        portal_url = await create_portal_session(user, db)
-    except Exception as e:
-        logger.error(f"Portal creation failed: {e}")
-        raise HTTPException(status_code=500, detail="Could not create billing portal")
-
-    return PortalResponse(portal_url=portal_url)

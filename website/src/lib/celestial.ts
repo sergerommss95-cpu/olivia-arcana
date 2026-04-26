@@ -144,7 +144,7 @@ function getPlanetPosition(
   const sunLong = getSunPosition(date).longitude;
   // For outer planets, geocentric ≈ heliocentric + 180 when opposition
   // This is a rough approximation — proper calculation needs distances
-  let geocentric = trueLong;
+  const geocentric = trueLong;
 
   // Very rough retrograde detection based on elongation
   const elongation = deg(trueLong - sunLong);

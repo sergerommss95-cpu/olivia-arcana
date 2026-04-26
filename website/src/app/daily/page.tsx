@@ -8,6 +8,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { getSunPosition, getMoonPosition, getMoonPhase } from "../../lib/celestial";
 import { getTodayHoroscope } from "../../lib/zodiac-utils";
 import { LIFE_AREAS } from "../../lib/planet-interpretations";
@@ -83,21 +84,23 @@ export default function DailyPage() {
   const { streak, tick } = useStreak();
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only mount
-    setMounted(true);
-    // Auto-select user's sun sign (prefer new profile-store, fall back to legacy user-store)
-    let idx = -1;
-    if (profile) {
-      idx = SIGNS.findIndex((s) => s.name === profile.signName);
-    } else {
-      const user = loadUser();
-      if (user) idx = SIGNS.findIndex((s) => s.name === user.sunSign);
-    }
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync saved sign once at mount
-    if (idx >= 0) setSelected(idx);
+    const timer = setTimeout(() => {
+      setMounted(true);
+      // Auto-select user's sun sign (prefer new profile-store, fall back to legacy user-store)
+      let idx = -1;
+      if (profile) {
+        idx = SIGNS.findIndex((s) => s.name === profile.signName);
+      } else {
+        const user = loadUser();
+        if (user) idx = SIGNS.findIndex((s) => s.name === user.sunSign);
+      }
+      if (idx >= 0) setSelected(idx);
+    }, 0);
+
     // Advance the daily-ritual streak exactly once per local day.
     tick();
     // only fire on first mount
+    return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -142,12 +145,12 @@ export default function DailyPage() {
         position: "relative", zIndex: 1,
         scrollMarginTop: "var(--nav-height, 5rem)",
       }}>
-        <a href="/" style={{
+        <Link href="/" style={{
           fontFamily: "var(--font-body, system-ui), sans-serif",
           fontSize: "0.68rem", fontWeight: 500,
           letterSpacing: "0.18em", textTransform: "uppercase",
           color: "rgba(180,170,210,0.55)", textDecoration: "none",
-        }}>← {t("common_home")}</a>
+        }}>← {t("common_home")}</Link>
 
         <div style={{
           display: "flex", alignItems: "center", gap: "0.9rem", flexWrap: "wrap",
@@ -255,35 +258,93 @@ export default function DailyPage() {
             ref={contentRef}
             style={{
               opacity: 0,
-              background: "rgba(8,6,20,0.45)",
-              backdropFilter: "blur(20px) saturate(1.2)",
-              WebkitBackdropFilter: "blur(20px) saturate(1.2)",
-              border: "1px solid rgba(200,185,255,0.06)",
-              borderRadius: "1.5rem",
-              padding: "2rem 1.75rem",
-              boxShadow: "0 8px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)",
+              position: "relative",
+              padding: "0",
+              isolation: "isolate",
             }}
           >
-            {/* Sign hero */}
-            <div style={{
-              textAlign: "center", marginBottom: "2.5rem",
-              padding: "2rem 0",
-            }}>
-              <div style={{
-                fontSize: "3.5rem", lineHeight: 1, marginBottom: "0.5rem",
-                filter: `drop-shadow(0 0 20px ${sign.color}40)`,
-              }}>{sign.glyph}</div>
-              <h2 style={{
-                fontFamily: "var(--font-accent)", fontSize: "1.8rem", fontWeight: 400,
-                letterSpacing: "0.12em", textTransform: "uppercase",
-                color: "rgba(240,236,255,0.9)", margin: "0 0 0.25rem",
-              }}>{sign.name}</h2>
-              <span style={{
-                fontFamily: "var(--font-body)", fontSize: "0.65rem", fontWeight: 500,
-                letterSpacing: "0.15em", textTransform: "uppercase",
-                color: `${sign.color}88`,
-              }}>{sign.element} Sign</span>
-            </div>
+            {/* ── Editorial sign hero ── oversized glyph as composition,
+                left-aligned italic name, gold rule, element + date as eyebrow */}
+            <header
+              style={{
+                position: "relative",
+                padding: "3.5rem 0 2.5rem",
+                marginBottom: "2.5rem",
+                borderBottom: "1px solid rgba(200,185,255,0.08)",
+                overflow: "hidden",
+              }}
+            >
+              {/* Background glyph — atmospheric, doesn't compete */}
+              <div
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  right: "-0.4em",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  fontSize: "clamp(11rem, 28vw, 18rem)",
+                  lineHeight: 1,
+                  color: `${sign.color}1a`,
+                  filter: `drop-shadow(0 0 60px ${sign.color}26)`,
+                  fontFamily: "var(--font-accent)",
+                  pointerEvents: "none",
+                  zIndex: 0,
+                  userSelect: "none",
+                }}
+              >
+                {sign.glyph}
+              </div>
+
+              <div style={{ position: "relative", zIndex: 1 }}>
+                <div
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "0.62rem",
+                    fontWeight: 600,
+                    letterSpacing: "0.32em",
+                    textTransform: "uppercase",
+                    color: `${sign.color}c4`,
+                    marginBottom: "0.65rem",
+                  }}
+                >
+                  <span style={{ color: "rgba(232,201,106,0.85)" }}>✦</span>{" "}
+                  {sign.element} sign
+                  <span aria-hidden style={{ margin: "0 0.55em", color: "rgba(180,170,210,0.4)" }}>·</span>
+                  Today&apos;s almanac
+                </div>
+
+                <h2
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontStyle: "italic",
+                    fontWeight: 400,
+                    fontSize: "clamp(2.6rem, 7vw, 4.4rem)",
+                    lineHeight: 1,
+                    color: "rgba(245,240,232,0.96)",
+                    margin: 0,
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {sign.name}
+                </h2>
+
+                {/* Brief tagline using sign's element character — replaces
+                    the old "♈ ARIES SIGN" tile feel */}
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "0.92rem",
+                    fontWeight: 300,
+                    color: "rgba(220,210,240,0.62)",
+                    marginTop: "0.85rem",
+                    maxWidth: "32em",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Today&apos;s reading written for the chart of {sign.name}.
+                </p>
+              </div>
+            </header>
 
             {/* ── Do / Don't — side by side, prominent ── */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem", marginBottom: "2.5rem" }}>

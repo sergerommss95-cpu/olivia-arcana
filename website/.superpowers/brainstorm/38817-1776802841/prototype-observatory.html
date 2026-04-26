@@ -1,0 +1,2917 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Olivia Arcana — The Living Observatory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" />
+<link rel="preload" as="image" href="assets/17_the_star.png" />
+<link rel="preload" as="image" href="assets/09_the_hermit.png" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style>
+:root {
+  --void: #050610;
+  --void-1: #0a0b16;
+  --void-2: #10111e;
+  --ink: #1a1528;
+  --paper: #E8E0CC;
+  --paper-2: #D4CCB8;
+  --paper-muted: #A69C85;
+  --paper-deep: #6E6558;
+  --gold: #C8A84B;
+  --gold-light: #E2C070;
+  --gold-deep: #8A6D2A;
+  --gold-dark: #5A4518;
+  --purple: #6B3FA0;
+  --nebula: #9B59B6;
+  --rule: rgba(200, 168, 75, 0.18);
+  --rule-strong: rgba(200, 168, 75, 0.44);
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--void);
+  color: var(--paper);
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.58;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ==========================================================================
+   COSMOS — the fixed WebGL canvas sits behind everything. Only visible where
+   sections have transparent backgrounds. This gives the effect of the sky
+   being "always there, behind the page."
+   ========================================================================== */
+#cosmos {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  display: block;
+}
+
+/* Subtle global paper grain over everything, so the cosmic feel isn't "CGI-clean" */
+body::after {
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: 0.11;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.85  0 0 0 0 0.78  0 0 0 0 0.55  0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+/* ==========================================================================
+   HUD — sticky mark + current-time meta. Cormorant only, no monospace.
+   ========================================================================== */
+.hud {
+  position: fixed;
+  top: 28px; left: 0; right: 0;
+  z-index: 40;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 clamp(24px, 4vw, 56px);
+  pointer-events: none;
+  mix-blend-mode: normal;
+}
+.hud-mark, .hud-meta {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--paper);
+  pointer-events: auto;
+}
+.hud-mark {
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+}
+.hud-mark .bar {
+  display: inline-block; width: 12px; height: 1px;
+  background: var(--gold); vertical-align: middle; margin: 0 14px;
+}
+.hud-meta {
+  font-style: italic;
+  font-size: 14px;
+  color: var(--paper-muted);
+  letter-spacing: 0.01em;
+}
+@media (max-width: 640px) {
+  .hud-mark { font-size: 11px; letter-spacing: 0.24em; }
+  .hud-meta { font-size: 12px; }
+}
+
+/* ==========================================================================
+   SHARED TYPOGRAPHY & UTILITIES
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 4vw, 64px);
+}
+.eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 22px 0;
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 22px; height: 1px;
+  background: var(--gold-deep);
+  vertical-align: middle;
+  margin-right: 14px;
+}
+.sectitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(42px, 6vw, 92px);
+  line-height: 1.0;
+  letter-spacing: -0.022em;
+  margin: 0 0 28px 0;
+  color: var(--paper);
+}
+.sectitle em {
+  font-style: italic; color: var(--gold); font-weight: 400;
+}
+
+/* ==========================================================================
+   HERO — rebuild: one massive card (left) + editorial typography (right).
+   Planet labels hidden by default — appear only when cursor approaches.
+   Aspect line subtle by default — brighter near the two key planets.
+   ========================================================================== */
+section.hero {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  background: transparent;
+  overflow: hidden;
+  padding: 96px 0 72px;
+}
+
+.hero-stage {
+  position: relative; z-index: 2;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 4vw, 72px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 96px);
+  align-items: center;
+  flex: 1;
+}
+@media (max-width: 880px) {
+  .hero-stage { grid-template-columns: 1fr; gap: 40px; padding-top: 60px; padding-bottom: 60px; }
+}
+
+/* Card column — reserves space where the WebGL card is projected.
+   The card is rendered at world x=-1.8 so it visually centers in this left column. */
+.hero-card-column {
+  position: relative;
+  aspect-ratio: 2/3;
+  width: 100%;
+  max-height: 68vh;
+  max-width: 480px;
+  /* The 3D card renders over this area via the fixed canvas — this just reserves layout. */
+}
+@media (max-width: 880px) {
+  .hero-card-column { max-height: 52vh; max-width: 340px; margin: 0 auto; }
+}
+
+/* Text column — massive editorial typography */
+.hero-text-column {
+  display: flex; flex-direction: column; gap: 26px;
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1) 1.2s,
+              transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 1.2s;
+}
+.hero-text-column.in { opacity: 1; transform: none; }
+
+.hero-dateline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 400; font-size: 15px;
+  color: var(--paper-muted); letter-spacing: 0.03em;
+}
+.hero-dateline::before { content: "❦ "; color: var(--gold); margin-right: 6px; }
+
+.hero-card-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500; font-size: 12px; letter-spacing: 0.42em;
+  text-transform: uppercase; color: var(--gold);
+  display: flex; align-items: center; gap: 16px;
+}
+.hero-card-mark::before { content: "";
+  display: inline-block; width: 28px; height: 1px; background: var(--gold-deep); }
+
+.hero-card-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(72px, 14.8vw, 232px);
+  line-height: 0.86;
+  letter-spacing: -0.028em;
+  color: var(--paper);
+  margin: -4px 0 0;
+  word-break: normal; overflow-wrap: break-word;
+}
+.hero-card-name em { color: var(--gold); font-style: italic; font-weight: 400; }
+
+.hero-card-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-style: italic;
+  font-size: clamp(20px, 2vw, 30px);
+  line-height: 1.34;
+  color: var(--paper);
+  margin: 4px 0 0;
+  max-width: 30ch;
+}
+.hero-card-line em { color: var(--gold-light); font-style: italic; }
+
+/* Hero footer — transit note (left) + scroll hint (right) */
+.hero-foot {
+  position: relative; z-index: 2;
+  width: 100%; max-width: 1440px; margin: 0 auto;
+  padding: 0 clamp(24px, 4vw, 72px);
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 40px;
+  opacity: 0; transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero-foot.in { opacity: 1; }
+.hero-transit-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-style: italic; font-size: 14px;
+  color: var(--paper-muted); line-height: 1.55;
+  max-width: 46ch;
+  padding-top: 14px; border-top: 1px solid var(--rule);
+}
+.hero-transit-line .planet { color: var(--gold-light); font-style: italic; font-weight: 500; }
+.hero-scroll-hint {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 13px;
+  color: var(--paper-muted); letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.hero-scroll-hint::after { content: " ↓"; color: var(--gold); margin-left: 12px; }
+@media (max-width: 880px) {
+  .hero-foot { flex-direction: column; align-items: flex-start; }
+}
+
+/* Sub-nav — fades in after hero. Small, italic serif. */
+.subnav {
+  position: fixed; top: 64px; left: 50%; transform: translateX(-50%);
+  z-index: 39;
+  display: flex; gap: clamp(22px, 2.2vw, 36px);
+  padding: 10px 26px;
+  background: var(--void);
+  border: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule-strong);
+  border-radius: 0;  /* no pill — a hairline panel, not a glass bubble */
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+.subnav.shown { opacity: 1; pointer-events: auto; }
+.subnav a {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 400; font-size: 14px;
+  color: var(--paper); text-decoration: none; letter-spacing: 0.02em;
+  transition: color 0.3s;
+  white-space: nowrap;
+  position: relative; padding: 4px 0;
+}
+.subnav a:hover { color: var(--gold-light); }
+.subnav a.active { color: var(--gold); }
+.subnav a.active::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+  height: 1px; background: var(--gold);
+}
+@media (max-width: 680px) {
+  .subnav { top: 52px; gap: 14px; padding: 8px 16px; }
+  .subnav a { font-size: 12px; }
+}
+
+/* Aspect overlay — subtle, single line, fades out below hero. */
+.aspect-overlay {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 2;
+  width: 100vw; height: 100vh;
+}
+.aspect-overlay line {
+  stroke: var(--gold); stroke-width: 0.8;
+  filter: drop-shadow(0 0 4px rgba(200, 168, 75, 0.45));
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+.aspect-overlay.in line { opacity: 0.22; /* subtle by default */ }
+.aspect-overlay.active line { opacity: 0.7; /* when cursor is near a key planet */ }
+
+/* Planet HTML labels — hidden by default, fade in on proximity */
+.planet-layer {
+  position: fixed; inset: 0; pointer-events: none; z-index: 2;
+}
+.planet-label {
+  position: absolute; transform: translate(-50%, -50%);
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--gold-light);
+  text-shadow: 0 0 12px rgba(200, 168, 75, 0.6), 0 0 26px rgba(107, 63, 160, 0.25);
+  opacity: 0; /* Default HIDDEN — JS sets opacity based on cursor proximity. */
+  white-space: nowrap;
+  text-align: center;
+  user-select: none;
+  will-change: opacity;
+}
+.planet-label .glyph { font-size: 24px; font-weight: 400; line-height: 1; display: block; }
+.planet-label .sign {
+  font-style: italic; font-size: 11px; letter-spacing: 0.08em;
+  color: var(--paper-muted); margin-top: 4px; text-shadow: none;
+}
+.planet-label .planet-name {
+  font-weight: 500; font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold);
+  margin-top: 2px; text-shadow: none; display: block;
+}
+
+/* ==========================================================================
+   SECTION WRAPPER — solid backgrounds so content sits above cosmos.
+   ========================================================================== */
+section.solid {
+  position: relative;
+  z-index: 1;
+  background: var(--void);
+  border-top: 1px solid var(--rule);
+}
+
+/* ==========================================================================
+   SECTION — TODAY'S READING (detailed card + full interpretation)
+   ========================================================================== */
+.s-today {
+  padding: clamp(80px, 12vh, 160px) 0;
+  background: radial-gradient(ellipse at 70% 20%, #15121f 0%, var(--void) 68%);
+}
+.today-grid {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+@media (max-width: 940px) {
+  .today-grid { grid-template-columns: 1fr; gap: 56px; }
+}
+.today-card-image {
+  aspect-ratio: 2/3;
+  background: var(--ink);
+  overflow: hidden;
+  position: relative;
+  transform: rotate(-1.4deg);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(200, 168, 75, 0.1);
+  border: 1px solid var(--rule-strong);
+}
+.today-card-image img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.today-card-caption {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-style: italic; font-size: 13px;
+  color: var(--paper-muted); margin: 18px 0 0;
+  letter-spacing: 0.02em;
+}
+.today-card-caption::before { content: "— "; color: var(--gold-deep); }
+
+.today-text .card-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500; font-size: 12px; letter-spacing: 0.42em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 18px;
+}
+.today-text .card-mark::before {
+  content: ""; display: inline-block; width: 22px; height: 1px;
+  background: var(--gold-deep); vertical-align: middle; margin-right: 14px;
+}
+.today-text h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(54px, 7vw, 108px);
+  line-height: 0.96; letter-spacing: -0.024em;
+  margin: 0 0 36px 0; color: var(--paper);
+}
+.today-text .card-intro {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 400;
+  font-size: clamp(22px, 1.9vw, 30px);
+  line-height: 1.42; color: var(--paper);
+  margin: 0 0 26px 0;
+  max-width: 34ch;
+}
+.today-text .card-intro::first-letter {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500; font-style: normal;
+  font-size: 2.6em; line-height: 0.88; float: left;
+  color: var(--gold); padding: 0.06em 0.14em 0 0;
+}
+.today-text .card-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; line-height: 1.68;
+  color: var(--paper-2); margin: 0 0 20px 0;
+  max-width: 42ch;
+}
+.today-text .card-body em { color: var(--gold-light); font-style: italic; font-weight: 500; }
+
+.today-transit {
+  margin-top: 44px;
+  padding: 22px 26px;
+  background: rgba(10, 11, 22, 0.55);
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--gold);
+}
+.today-transit h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500; font-size: 12px; letter-spacing: 0.38em;
+  text-transform: uppercase; color: var(--gold);
+  margin: 0 0 14px 0;
+}
+.today-transit p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px; line-height: 1.65;
+  color: var(--paper-muted); margin: 0;
+}
+.today-transit .planet { color: var(--gold-light); font-style: italic; font-weight: 500; }
+
+/* ==========================================================================
+   SECTION — YOUR KEY ASPECT
+   ========================================================================== */
+.s-aspect {
+  padding: clamp(80px, 12vh, 160px) 0;
+  background: linear-gradient(180deg, var(--void) 0%, #0a0915 100%);
+}
+.aspect-head { text-align: center; max-width: 820px; margin: 0 auto 64px; }
+.aspect-head .eyebrow { justify-content: center; }
+.aspect-head h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(40px, 5.2vw, 78px);
+  line-height: 1.02; letter-spacing: -0.022em;
+  margin: 0 0 22px 0;
+}
+.aspect-head h2 em { color: var(--gold); font-style: italic; font-weight: 400; }
+.aspect-head p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 400;
+  font-size: clamp(18px, 1.5vw, 23px);
+  line-height: 1.55; color: var(--paper-muted);
+  max-width: 58ch; margin: 0 auto;
+}
+
+.aspect-diagram {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+  max-width: 1100px; margin: 0 auto;
+}
+@media (max-width: 880px) {
+  .aspect-diagram { grid-template-columns: 1fr; }
+}
+
+.aspect-svg-wrap {
+  aspect-ratio: 1/1;
+  max-width: 440px; width: 100%; margin: 0 auto;
+  position: relative;
+}
+.aspect-svg { width: 100%; height: 100%; display: block; }
+.aspect-svg .ring { fill: none; stroke: var(--rule-strong); stroke-width: 1; }
+.aspect-svg .inner-ring { fill: none; stroke: var(--rule); stroke-width: 0.6; }
+.aspect-svg .aspect-line {
+  stroke: var(--gold); stroke-width: 1;
+  filter: drop-shadow(0 0 6px rgba(200, 168, 75, 0.7));
+}
+.aspect-svg .planet-glyph { font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-size: 28px; fill: var(--gold-light); }
+.aspect-svg .sign-label { font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 12px; fill: var(--paper-muted); letter-spacing: 0.04em; }
+.aspect-svg .glyph-dot { fill: var(--gold); }
+
+.aspect-body h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-size: 22px;
+  color: var(--paper); margin: 0 0 16px 0; letter-spacing: 0.02em;
+}
+.aspect-body p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px; line-height: 1.7;
+  color: var(--paper-2); margin: 0 0 18px 0; max-width: 46ch;
+}
+.aspect-body p em { color: var(--gold-light); font-style: italic; font-weight: 500; }
+
+.do-dont {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 24px; margin-top: 36px;
+}
+.do-dont-col {
+  padding: 22px 24px;
+  border: 1px solid var(--rule);
+}
+.do-dont-col.do { border-left: 2px solid var(--gold); }
+.do-dont-col.dont { border-left: 2px solid #8B5A4E; }
+.do-dont-col h5 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500; font-size: 11px; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--gold);
+  margin: 0 0 16px 0;
+}
+.do-dont-col.dont h5 { color: #C88A7A; }
+.do-dont-col ul { list-style: none; padding: 0; margin: 0; }
+.do-dont-col li {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 15px; line-height: 1.5;
+  color: var(--paper-2);
+  padding: 8px 0;
+}
+.do-dont-col li + li { border-top: 1px solid rgba(200, 168, 75, 0.08); }
+.do-dont-col li::before {
+  content: "— "; color: var(--gold-deep); margin-right: 6px; font-style: normal;
+}
+.do-dont-col.dont li::before { color: #8B5A4E; }
+
+/* ==========================================================================
+   SECTION — THE RITUAL (PATTERN BREAK)
+   Warm paper cream, deep indigo ink, muted gold. A deliberate visual pause
+   from the surrounding night. Feels like entering a printed journal.
+   ========================================================================== */
+.s-ritual {
+  --paper-cream: #F0E8D0;
+  --paper-cream-2: #E8DEC0;
+  --paper-ink: #1A1322;
+  --paper-ink-soft: #4D3F5E;
+  --paper-gold: #8A6D2A;
+  --paper-gold-deep: #5A4518;
+  padding: clamp(120px, 18vh, 220px) 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(138, 109, 42, 0.08), transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(107, 63, 160, 0.07), transparent 60%),
+    var(--paper-cream);
+  text-align: center;
+  color: var(--paper-ink);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(138, 109, 42, 0.22);
+  border-bottom: 1px solid rgba(138, 109, 42, 0.22);
+}
+/* Paper grain texture — stronger on the light section for print feel */
+.s-ritual::before {
+  content: "";
+  position: absolute; inset: 0; pointer-events: none; opacity: 0.35;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12  0 0 0 0 0.08  0 0 0 0 0.18  0 0 0 0.3 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
+}
+.ritual-wrap {
+  max-width: 1040px; margin: 0 auto;
+  padding: 0 clamp(24px, 4vw, 72px);
+  position: relative; z-index: 1;
+}
+.ritual-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500; font-style: italic; font-size: 13px;
+  letter-spacing: 0.36em; text-transform: uppercase; color: var(--paper-gold);
+  margin: 0 0 60px 0;
+}
+.ritual-eyebrow::before, .ritual-eyebrow::after {
+  content: ""; display: inline-block; width: 38px; height: 1px;
+  background: var(--paper-gold-deep); vertical-align: middle; margin: 0 22px; opacity: 0.7;
+}
+.ritual-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 300;
+  font-size: clamp(32px, 4.2vw, 62px);
+  line-height: 1.24; letter-spacing: -0.012em;
+  margin: 0; color: var(--paper-ink);
+  position: relative;
+  padding: 0 clamp(24px, 4vw, 68px);
+}
+.ritual-quote::before, .ritual-quote::after {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.1em; line-height: 1;
+  color: var(--paper-gold); opacity: 0.6;
+  font-weight: 400; font-style: normal;
+  position: absolute;
+}
+.ritual-quote::before { content: "\201C"; left: 0; top: -0.2em; }
+.ritual-quote::after { content: "\201D"; right: 0; bottom: -0.5em; }
+
+/* Ritual blockquote words — each word fades in on stagger */
+.ritual-word {
+  display: inline-block; opacity: 0; transform: translateY(10px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ritual-word.in { opacity: 1; transform: none; }
+
+.ritual-attribution {
+  margin-top: 60px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-style: italic; font-size: 15px;
+  color: var(--paper-ink-soft); letter-spacing: 0.12em;
+}
+.ritual-attribution::before, .ritual-attribution::after {
+  content: "—"; margin: 0 12px; color: var(--paper-gold-deep);
+}
+
+.ritual-action {
+  margin-top: 68px;
+  display: inline-flex; gap: 48px;
+}
+.ritual-action button {
+  background: transparent; border: none;
+  color: var(--paper-ink);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 400;
+  font-size: 17px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  padding: 10px 0;
+  position: relative;
+  transition: color 0.4s;
+}
+.ritual-action button::after {
+  content: ""; display: block;
+  width: 32px; height: 1px; background: var(--paper-gold);
+  margin-top: 6px;
+  transition: width 0.5s ease-out, background 0.5s;
+}
+.ritual-action button:hover { color: var(--paper-gold-deep); }
+.ritual-action button:hover::after { width: 74px; background: var(--paper-gold-deep); }
+
+/* ==========================================================================
+   SECTION — BILLBOARD (the massive typography moment)
+   A full-viewport pull-quote at display scale. Black, italic, one phrase.
+   Functions as a cinematic pause between the ritual and the deck.
+   ========================================================================== */
+.s-billboard {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(120px, 18vh, 220px) 0;
+  background: var(--void);
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+.billboard-frame {
+  max-width: 1640px; width: 100%;
+  padding: 0 clamp(24px, 5vw, 96px);
+  position: relative;
+}
+.billboard-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500; font-size: 12px; letter-spacing: 0.42em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: clamp(32px, 5vh, 64px);
+  display: flex; align-items: center; gap: 16px;
+}
+.billboard-eyebrow::before {
+  content: ""; display: inline-block; width: 30px; height: 1px; background: var(--gold);
+}
+.billboard-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-style: italic;
+  font-size: clamp(80px, 17vw, 288px);
+  line-height: 0.86;
+  letter-spacing: -0.028em;
+  color: var(--paper);
+  margin: 0;
+  white-space: normal;
+  hyphens: none;
+}
+.billboard-line em { color: var(--gold); font-style: italic; font-weight: 400; }
+.billboard-line + .billboard-line { margin-top: -0.02em; text-align: right; padding-left: clamp(60px, 18vw, 320px); }
+.billboard-attrib {
+  margin-top: clamp(40px, 6vh, 72px);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 400; font-size: clamp(15px, 1.2vw, 18px);
+  color: var(--paper-muted); letter-spacing: 0.02em;
+  max-width: 44ch;
+}
+.billboard-attrib::before { content: "— "; color: var(--gold); }
+@media (max-width: 880px) {
+  .billboard-line + .billboard-line { padding-left: clamp(20px, 8vw, 80px); }
+}
+
+/* Word-stagger reveal on billboard */
+.bb-word {
+  display: inline-block; opacity: 0; transform: translateY(20px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bb-word.in { opacity: 1; transform: none; }
+
+/* ==========================================================================
+   SECTION — BROWSE THE DECK
+   ========================================================================== */
+.s-deck {
+  padding: clamp(80px, 12vh, 160px) 0;
+  background: var(--void);
+}
+.deck-head { text-align: center; max-width: 820px; margin: 0 auto 72px; }
+.deck-head .eyebrow { justify-content: center; }
+.deck-head h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(44px, 5.8vw, 88px);
+  line-height: 1.0; letter-spacing: -0.022em;
+  margin: 0 0 22px 0;
+}
+.deck-head h2 em { color: var(--gold); font-style: italic; font-weight: 400; }
+.deck-head p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 400; font-size: clamp(17px, 1.4vw, 22px);
+  line-height: 1.55; color: var(--paper-muted);
+  max-width: 58ch; margin: 0 auto;
+}
+
+/* Deck filter — italic nav above the grid */
+.deck-filter {
+  display: flex; gap: clamp(14px, 2vw, 36px);
+  justify-content: center; flex-wrap: wrap;
+  margin-bottom: clamp(44px, 6vh, 72px);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: clamp(15px, 1.2vw, 17px);
+}
+.deck-filter a {
+  color: var(--paper-muted); text-decoration: none;
+  padding: 6px 2px; position: relative; transition: color 0.3s;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+}
+.deck-filter a .count {
+  font-style: normal; font-size: 0.72em; letter-spacing: 0.08em;
+  color: var(--paper-deep); margin-left: 6px; font-weight: 500;
+}
+.deck-filter a.active, .deck-filter a:hover { color: var(--gold-light); }
+.deck-filter a.active .count { color: var(--gold); }
+.deck-filter a.active::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -4px;
+  height: 1px; background: var(--gold);
+}
+
+.deck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(110px, 14vw, 180px), 1fr));
+  gap: clamp(12px, 1.6vw, 22px);
+}
+.deck-card.filtered-out { display: none !important; }
+.deck-card {
+  aspect-ratio: 2/3;
+  background: var(--ink);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--rule);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.5s ease,
+              border-color 0.5s;
+  cursor: pointer;
+}
+.deck-card img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.4s ease;
+  filter: brightness(0.92) saturate(0.95);
+}
+.deck-card:hover {
+  transform: translateY(-6px) rotate(-0.6deg);
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.55), 0 0 38px rgba(200, 168, 75, 0.25);
+  border-color: var(--gold);
+}
+.deck-card:hover img { filter: brightness(1.05) saturate(1.05); transform: scale(1.04); }
+.deck-card-name {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 12px 12px 10px;
+  background: linear-gradient(180deg, transparent, rgba(6, 7, 16, 0.92));
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 400; font-size: 13px;
+  color: var(--paper); letter-spacing: 0.02em;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+.deck-card:hover .deck-card-name { opacity: 1; transform: none; }
+
+/* ==========================================================================
+   SECTION — BOOK A READING (paid tier)
+   ========================================================================== */
+.s-booking {
+  padding: clamp(80px, 12vh, 160px) 0;
+  background: linear-gradient(180deg, var(--void) 0%, #10101c 100%);
+}
+.booking-head { text-align: center; max-width: 760px; margin: 0 auto 72px; }
+.booking-head .eyebrow { justify-content: center; }
+.booking-head h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(42px, 5.5vw, 84px);
+  line-height: 1.0; letter-spacing: -0.022em;
+  margin: 0 0 22px 0;
+}
+.booking-head h2 em { color: var(--gold); font-style: italic; font-weight: 400; }
+.booking-head p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 400; font-size: clamp(17px, 1.4vw, 22px);
+  line-height: 1.55; color: var(--paper-muted);
+  max-width: 56ch; margin: 0 auto;
+}
+
+.booking-tiers {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 2.4vw, 32px);
+  max-width: 1100px; margin: 0 auto;
+}
+@media (max-width: 880px) { .booking-tiers { grid-template-columns: 1fr; } }
+
+.tier {
+  padding: 44px 36px 36px;
+  background: rgba(10, 11, 22, 0.65);
+  border: 1px solid var(--rule);
+  transition: border-color 0.4s, background 0.4s;
+  display: flex; flex-direction: column;
+}
+.tier.featured {
+  border-color: var(--gold);
+  animation: tierBreath 4.8s ease-in-out infinite;
+}
+@keyframes tierBreath {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200, 168, 75, 0.0), inset 0 0 0 0 rgba(200, 168, 75, 0.0); }
+  50%      { box-shadow: 0 0 42px rgba(200, 168, 75, 0.18), inset 0 0 22px rgba(200, 168, 75, 0.04); }
+}
+.tier.featured::before {
+  content: "— most chosen"; display: block;
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 12px; letter-spacing: 0.22em; color: var(--gold);
+  text-transform: lowercase; margin-bottom: 20px; letter-spacing: 0.18em;
+}
+.tier-glyph {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 54px; color: var(--gold); margin-bottom: 18px; line-height: 1;
+}
+.tier-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-size: 28px; color: var(--paper);
+  margin: 0 0 8px 0; letter-spacing: -0.008em;
+}
+.tier-duration {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 13px; color: var(--paper-muted); margin-bottom: 22px;
+  letter-spacing: 0.06em;
+}
+.tier-price {
+  font-family: 'Cormorant Garamond', serif; font-weight: 400;
+  font-size: 42px; color: var(--gold-light);
+  line-height: 1; margin-bottom: 22px; letter-spacing: -0.015em;
+}
+.tier-desc {
+  font-family: 'Cormorant Garamond', serif; font-size: 15px;
+  line-height: 1.6; color: var(--paper-2); margin: 0 0 28px 0;
+  flex: 1;
+}
+.tier-cta {
+  font-family: 'Cormorant Garamond', serif;
+  background: transparent; border: 1px solid var(--rule-strong);
+  color: var(--paper); font-style: italic; font-weight: 400;
+  font-size: 15px; letter-spacing: 0.02em;
+  padding: 14px 24px; cursor: pointer;
+  transition: border-color 0.4s, background 0.4s, color 0.4s;
+}
+.tier-cta:hover { border-color: var(--gold); color: var(--gold-light); background: rgba(200, 168, 75, 0.05); }
+.tier.featured .tier-cta { background: var(--gold); color: var(--void); border-color: var(--gold); }
+.tier.featured .tier-cta:hover { background: var(--gold-light); border-color: var(--gold-light); color: var(--void); }
+
+/* ==========================================================================
+   SECTION — TESTIMONIALS (asymmetric editorial layout, not a 3-column grid)
+   ========================================================================== */
+.s-testimonials {
+  padding: clamp(80px, 12vh, 160px) 0;
+  background: var(--void);
+}
+.testimonials-head { max-width: 860px; margin: 0 auto clamp(56px, 8vh, 96px); }
+.testimonials-head h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(40px, 5.2vw, 80px);
+  line-height: 1.02; letter-spacing: -0.022em;
+  margin: 0;
+}
+.testimonials-head h2 em { color: var(--gold); font-style: italic; font-weight: 400; }
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(24px, 3.5vw, 56px);
+  max-width: 1200px; margin: 0 auto;
+}
+@media (max-width: 880px) {
+  .testimonials-grid { grid-template-columns: 1fr; }
+}
+.testimonial {
+  font-family: 'Cormorant Garamond', serif;
+  margin: 0;
+}
+.testimonial blockquote {
+  font-style: italic; font-weight: 300;
+  font-size: clamp(22px, 2vw, 32px);
+  line-height: 1.4; letter-spacing: -0.008em;
+  color: var(--paper); margin: 0 0 22px 0;
+  position: relative; padding-left: 20px;
+  border-left: 2px solid var(--gold);
+}
+.testimonial figcaption {
+  font-style: italic; font-weight: 400; font-size: 14px;
+  color: var(--paper-muted); letter-spacing: 0.02em;
+  padding-left: 22px;
+}
+.testimonial figcaption strong { color: var(--paper); font-weight: 500; font-style: normal; }
+/* Asymmetric placement so it doesn't read as a pricing-card triptych */
+.testimonial-1 { grid-column: 1 / span 7; }
+.testimonial-2 { grid-column: 6 / span 7; margin-top: clamp(40px, 6vh, 80px); }
+.testimonial-3 { grid-column: 2 / span 7; margin-top: clamp(20px, 4vh, 60px); }
+@media (max-width: 880px) {
+  .testimonial-1, .testimonial-2, .testimonial-3 { grid-column: 1; margin-top: 0; }
+}
+
+/* ==========================================================================
+   SECTION — PHYSICAL DECK
+   ========================================================================== */
+.s-product {
+  padding: clamp(80px, 12vh, 160px) 0;
+  background: radial-gradient(ellipse at 30% 80%, #1a1628 0%, var(--void) 68%);
+}
+.product-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+@media (max-width: 880px) { .product-grid { grid-template-columns: 1fr; gap: 48px; } }
+.product-image {
+  aspect-ratio: 5/6;
+  background: var(--ink); position: relative; overflow: hidden;
+  border: 1px solid var(--rule-strong);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6);
+}
+.product-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.product-image-tag {
+  position: absolute; top: 18px; left: 18px;
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 12px; color: var(--paper); letter-spacing: 0.12em;
+  padding: 6px 12px; background: rgba(6, 7, 16, 0.7);
+  border: 1px solid var(--gold-deep);
+}
+
+.product-text .eyebrow { color: var(--gold); }
+.product-text h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(42px, 5.5vw, 80px);
+  line-height: 1.0; letter-spacing: -0.022em;
+  margin: 0 0 24px 0;
+}
+.product-text h2 em { color: var(--gold); font-style: italic; font-weight: 400; }
+.product-text p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; line-height: 1.7;
+  color: var(--paper-2); margin: 0 0 18px 0; max-width: 44ch;
+}
+.product-text p em { color: var(--gold-light); font-style: italic; font-weight: 500; }
+
+.product-spec {
+  margin: 30px 0; padding: 20px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.product-spec-row { display: flex; justify-content: space-between; padding: 8px 0; }
+.product-spec-row .k {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 14px; color: var(--paper-muted); letter-spacing: 0.04em;
+}
+.product-spec-row .v {
+  font-family: 'Cormorant Garamond', serif; font-weight: 400;
+  font-size: 14px; color: var(--paper);
+}
+
+.product-buy {
+  display: flex; gap: 24px; align-items: center; margin-top: 36px;
+}
+.product-price {
+  font-family: 'Cormorant Garamond', serif; font-weight: 400;
+  font-size: 44px; color: var(--gold-light); line-height: 1;
+  letter-spacing: -0.012em;
+}
+.product-buy-btn {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-weight: 400; font-size: 17px; letter-spacing: 0.02em;
+  padding: 14px 30px;
+  background: var(--gold); color: var(--void);
+  border: 1px solid var(--gold); cursor: pointer;
+  transition: background 0.4s, color 0.4s, letter-spacing 0.4s;
+}
+.product-buy-btn:hover { background: var(--gold-light); letter-spacing: 0.08em; }
+
+/* Scarcity strip — subtle editorial cue that this is a limited edition */
+.product-scarcity { margin-top: 28px; max-width: 380px; }
+.scarcity-line {
+  height: 3px; background: rgba(200, 168, 75, 0.18); border-radius: 0;
+  overflow: hidden; position: relative; margin-bottom: 12px;
+}
+.scarcity-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold));
+  box-shadow: 0 0 10px rgba(200, 168, 75, 0.5);
+}
+.scarcity-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 13px; color: var(--paper-muted);
+  letter-spacing: 0.03em;
+}
+.scarcity-text strong { font-style: normal; font-weight: 500; color: var(--gold-light); }
+.scarcity-text em { color: var(--paper); font-weight: 400; font-style: italic; }
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+footer {
+  padding: clamp(60px, 10vh, 120px) 0 40px;
+  background: var(--void);
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--rule);
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: clamp(24px, 4vw, 60px);
+  margin-bottom: 60px;
+}
+@media (max-width: 720px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+
+.footer-mark {
+  font-family: 'Cormorant Garamond', serif; font-weight: 400;
+  font-size: 26px; color: var(--paper);
+  letter-spacing: 0.05em; line-height: 1.1; margin: 0 0 12px 0;
+}
+.footer-mark em { font-style: italic; color: var(--gold); }
+.footer-tag {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 14px; color: var(--paper-muted); max-width: 36ch;
+  line-height: 1.55; margin: 0;
+}
+
+.footer-col h5 {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--gold); margin: 0 0 18px 0;
+}
+.footer-col ul { list-style: none; padding: 0; margin: 0; }
+.footer-col li { margin-bottom: 10px; }
+.footer-col a {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 15px; color: var(--paper); text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--gold-light); }
+
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 28px; border-top: 1px solid var(--rule);
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 13px; color: var(--paper-muted);
+}
+
+/* Newsletter — a small letter form */
+.footer-newsletter {
+  margin: 48px 0 32px;
+  padding: 28px 0 32px;
+  border-top: 1px solid var(--rule);
+}
+.footer-newsletter .nl-eyebrow {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: 11px; letter-spacing: 0.34em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 20px;
+}
+.footer-newsletter .nl-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 20px;
+}
+.footer-newsletter .nl-desc {
+  flex: 1; min-width: 260px;
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 17px; color: var(--paper); line-height: 1.5;
+  max-width: 46ch;
+}
+.footer-newsletter input[type="email"] {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 300;
+  font-size: 17px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--rule-strong);
+  color: var(--paper);
+  padding: 12px 0;
+  min-width: 240px;
+  outline: none;
+  transition: border-bottom-color 0.3s;
+}
+.footer-newsletter input[type="email"]::placeholder { color: var(--paper-muted); font-style: italic; }
+.footer-newsletter input[type="email"]:focus { border-bottom-color: var(--gold); }
+.footer-newsletter button {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 400; font-size: 16px;
+  letter-spacing: 0.02em;
+  background: transparent; border: 1px solid var(--gold);
+  color: var(--gold-light); padding: 12px 28px; cursor: pointer;
+  transition: background 0.4s, color 0.4s;
+}
+.footer-newsletter button:hover { background: var(--gold); color: var(--void); }
+.footer-newsletter .nl-msg {
+  margin-top: 14px; font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 14px; color: var(--gold-light);
+  letter-spacing: 0.02em; min-height: 18px;
+}
+
+/* ==========================================================================
+   CUSTOM CURSOR — gold dot + ring, desktop only
+   ========================================================================== */
+.cursor-dot,
+.cursor-ring {
+  position: fixed; top: 0; left: 0;
+  pointer-events: none;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  display: none;
+}
+.cursor-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--gold);
+  opacity: 0.5;
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.35s,
+              border-color 0.3s;
+}
+.cursor-ring.hover {
+  width: 64px; height: 64px;
+  opacity: 0.8;
+  border-color: var(--gold-light);
+}
+@media (pointer: fine) {
+  html, body, a, button, [role="button"], input, label, * { cursor: none; }
+  .cursor-dot, .cursor-ring { display: block; }
+}
+
+/* ==========================================================================
+   AUDIO TOGGLE — opt-in ambient drone
+   ========================================================================== */
+.audio-toggle {
+  position: fixed; bottom: 28px; right: 32px; z-index: 41;
+  background: transparent; border: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 400; font-size: 13px;
+  color: var(--paper-muted); letter-spacing: 0.02em;
+  cursor: pointer; padding: 6px 10px;
+  transition: color 0.3s;
+}
+.audio-toggle::before { content: "—"; color: var(--gold-deep); margin-right: 6px; font-style: normal; }
+.audio-toggle:hover { color: var(--gold-light); }
+.audio-toggle.on { color: var(--gold); }
+.audio-toggle.on::before { color: var(--gold); }
+
+/* ==========================================================================
+   DECK DETAIL MODAL — click a card to open
+   ========================================================================== */
+.deck-modal {
+  position: fixed; inset: 0; z-index: 80;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.deck-modal.open { opacity: 1; pointer-events: auto; }
+.deck-modal-scrim {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(12, 13, 26, 0.92) 0%, rgba(6, 7, 16, 0.98) 72%);
+}
+.deck-modal-content {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(40px, 5vw, 80px);
+}
+.deck-modal-close {
+  position: absolute; top: clamp(24px, 3vh, 44px); right: clamp(28px, 3vw, 52px);
+  background: transparent; border: none;
+  color: var(--paper-muted); font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 400; font-size: 16px; cursor: pointer;
+  padding: 10px 14px; letter-spacing: 0.02em;
+  transition: color 0.3s; z-index: 2;
+}
+.deck-modal-close:hover { color: var(--gold-light); }
+.deck-modal-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 110px);
+  align-items: center;
+  max-width: 1200px; width: 100%;
+  transform: translateY(40px); opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
+}
+.deck-modal.open .deck-modal-grid { transform: translateY(0); opacity: 1; }
+@media (max-width: 880px) {
+  .deck-modal-grid { grid-template-columns: 1fr; max-height: 88vh; overflow-y: auto; }
+}
+.deck-modal-image {
+  aspect-ratio: 2/3; overflow: hidden;
+  border: 1px solid var(--rule-strong);
+  box-shadow: 0 50px 120px rgba(0,0,0,0.8), 0 0 80px rgba(200, 168, 75, 0.18);
+  transform: rotate(-1.8deg);
+  max-height: 82vh; max-width: 100%; justify-self: end;
+}
+.deck-modal-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 880px) {
+  .deck-modal-image { max-height: 55vh; justify-self: center; max-width: 320px; width: 100%; }
+}
+.deck-modal-kicker {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500; font-size: 12px; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--gold);
+  margin: 0 0 22px 0;
+}
+.deck-modal-kicker::before {
+  content: ""; display: inline-block; width: 22px; height: 1px;
+  background: var(--gold-deep); vertical-align: middle; margin-right: 14px;
+}
+.deck-modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(48px, 5.8vw, 108px);
+  line-height: 0.94; letter-spacing: -0.024em;
+  margin: 0 0 30px 0;
+}
+.deck-modal-title em { color: var(--gold); font-style: italic; font-weight: 400; }
+.deck-modal-meaning {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 300;
+  font-size: clamp(19px, 1.6vw, 26px);
+  line-height: 1.45; color: var(--paper); margin: 0 0 22px 0;
+  max-width: 36ch;
+}
+.deck-modal-meaning::first-letter { color: var(--gold); font-weight: 500; font-style: normal; font-size: 1.3em; }
+.deck-modal-keywords {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px; letter-spacing: 0.04em;
+  color: var(--paper-muted); margin: 0 0 36px 0;
+  padding-top: 18px; border-top: 1px solid var(--rule);
+}
+.deck-modal-keywords .label {
+  color: var(--gold); font-style: italic; margin-right: 10px;
+}
+.deck-modal-actions { display: flex; gap: 20px; flex-wrap: wrap; }
+.deck-modal-actions button {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 400; font-size: 16px; letter-spacing: 0.02em;
+  background: transparent; border: 1px solid var(--rule-strong);
+  color: var(--paper); padding: 14px 24px; cursor: pointer;
+  transition: border-color 0.4s, color 0.4s, background 0.4s;
+}
+.deck-modal-actions button:hover {
+  border-color: var(--gold); color: var(--gold-light);
+  background: rgba(200, 168, 75, 0.05);
+}
+.deck-modal-actions button.primary {
+  background: var(--gold); color: var(--void); border-color: var(--gold);
+}
+.deck-modal-actions button.primary:hover {
+  background: var(--gold-light); border-color: var(--gold-light); color: var(--void);
+}
+
+/* Scroll reveal — universal pattern */
+.reveal { opacity: 0; transform: translateY(36px);
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+.reveal-delay-3 { transition-delay: 0.36s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ COSMOS -->
+<canvas id="cosmos"></canvas>
+
+<!-- Custom cursor (desktop only) -->
+<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+<!-- Opt-in ambient audio toggle -->
+<button class="audio-toggle" id="audio-toggle" type="button">sound off</button>
+
+<!-- ================================================================ HUD -->
+<div class="hud">
+  <div class="hud-mark">Olivia Arcana<span class="bar"></span>The Daily</div>
+  <div class="hud-meta" id="hud-meta"><em>loading the hour…</em></div>
+</div>
+
+<!-- =========================== PLANET LAYER (HTML labels projected from 3D) -->
+<div class="planet-layer" id="planet-layer" aria-hidden="true"></div>
+
+<!-- =========================== ASPECT OVERLAY (SVG gold lines between planets) -->
+<svg class="aspect-overlay" id="aspect-overlay" aria-hidden="true"></svg>
+
+<!-- ============================================================ HERO -->
+<!-- SUB-NAV — hidden until scrolled past hero -->
+<nav class="subnav" id="subnav" aria-label="Section navigation">
+  <a href="#today">The Card</a>
+  <a href="#aspect">The Sky</a>
+  <a href="#ritual">The Ritual</a>
+  <a href="#deck">The Deck</a>
+  <a href="#booking">Readings</a>
+  <a href="#buy">Buy</a>
+</nav>
+
+<section class="hero" aria-label="Today's reading, drawn from the sky">
+  <div class="hero-stage">
+    <div class="hero-card-column" id="hero-card-column" aria-hidden="true"></div>
+    <div class="hero-text-column" id="hero-text-column">
+      <div class="hero-dateline" id="hero-dateline"><em>loading the sky…</em></div>
+      <div class="hero-card-mark">today <span style="color:var(--gold-deep); margin: 0 10px;">·</span> arcana <span id="hero-card-num">XVII</span></div>
+      <h1 class="hero-card-name" id="hero-card-name">The Star</h1>
+      <p class="hero-card-line" id="hero-card-line"><em>A wider sky, if you let it.</em> What you feel today carries farther than you expect.</p>
+    </div>
+  </div>
+
+  <div class="hero-foot" id="hero-foot">
+    <div class="hero-transit-line" id="hero-transit-note">
+      <span id="transit-note-text">Loading the current sky…</span>
+    </div>
+    <div class="hero-scroll-hint">tap the card <span style="color:var(--gold-deep); margin: 0 8px;">·</span> or scroll for the full reading</div>
+  </div>
+</section>
+
+<!-- =============================================== TODAY'S READING -->
+<section class="s-today solid" id="today" aria-label="Today's card — full reading">
+  <div class="container today-grid">
+    <figure class="reveal">
+      <div class="today-card-image">
+        <img id="today-card-img" src="assets/17_the_star.png" alt="The Star — Olivia Arcana v2.7" draggable="false" />
+      </div>
+      <figcaption class="today-card-caption" id="today-card-caption">
+        The Star · Olivia Arcana v2.7 · gold line on cotton cardstock, 400gsm
+      </figcaption>
+    </figure>
+
+    <div class="today-text reveal reveal-delay-1">
+      <div class="card-mark">Today's Card <span style="color:var(--gold-deep);">·</span> Arcana <span id="today-card-num">XVII</span></div>
+      <h2 id="today-card-title">The Star</h2>
+      <p class="card-intro" id="today-card-intro">
+        A figure kneeling beside water, pouring. The crisis is gone; what remains is a wider sky — and the quiet sense that things are possible again.
+      </p>
+      <p class="card-body" id="today-card-body-1">
+        <em>The Star does not arrive at the beginning of the story.</em> She arrives after. She is what hope looks like once it has already survived something, once it has learned to travel without the need to be believed.
+      </p>
+      <p class="card-body" id="today-card-body-2">
+        Today, let your speech be generous. What you usually keep to yourself is the thing the day wants you to say — and the day has arranged the sky to receive it.
+      </p>
+
+      <div class="today-transit">
+        <h4 id="why-card-heading">Why this card today</h4>
+        <p id="why-card-body">Loading the reason from the current sky…</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================== KEY ASPECT -->
+<section class="s-aspect solid" id="aspect" aria-label="Today's key aspect">
+  <div class="container">
+    <div class="aspect-head reveal">
+      <div class="eyebrow">Your Key Aspect <span style="color:var(--gold-deep);">·</span> Today</div>
+      <h2 id="aspect-headline">Loading the tightest aspect from the sky…</h2>
+      <p id="aspect-subtitle"></p>
+    </div>
+
+    <div class="aspect-diagram">
+      <div class="aspect-svg-wrap reveal">
+        <svg class="aspect-svg" id="aspect-svg" viewBox="-220 -220 440 440" preserveAspectRatio="xMidYMid meet">
+          <!-- Rendered by JS: rings, zodiac spokes, two planets + aspect line -->
+        </svg>
+      </div>
+
+      <div class="aspect-body reveal reveal-delay-1">
+        <h3 id="aspect-body-heading">What it means for today</h3>
+        <p id="aspect-body-p1"></p>
+        <p id="aspect-body-p2"></p>
+
+        <div class="do-dont">
+          <div class="do-dont-col do">
+            <h5>Do</h5>
+            <ul id="aspect-do-list"></ul>
+          </div>
+          <div class="do-dont-col dont">
+            <h5>Don't</h5>
+            <ul id="aspect-dont-list"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================== RITUAL -->
+<section class="s-ritual solid" id="ritual" aria-label="Today's ritual">
+  <div class="ritual-wrap">
+    <div class="ritual-eyebrow reveal">A Ritual Offered</div>
+    <blockquote class="ritual-quote reveal reveal-delay-1" id="ritual-quote">
+      Tell one person something you usually keep to yourself. The sky is generous today — let your speech be also.
+    </blockquote>
+    <div class="ritual-attribution reveal reveal-delay-2">for today, ordered by the sky</div>
+    <div class="ritual-action reveal reveal-delay-2">
+      <button type="button">save to your record</button>
+      <button type="button">share this reading</button>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================== BILLBOARD — massive typography pause -->
+<section class="s-billboard solid" aria-label="Today's pull-quote at display scale">
+  <div class="billboard-frame">
+    <div class="billboard-eyebrow reveal">the sky — today</div>
+    <h2 class="billboard-line reveal reveal-delay-1" id="billboard-line-1">a <em>wider</em> sky,</h2>
+    <h2 class="billboard-line reveal reveal-delay-2" id="billboard-line-2">if you let it.</h2>
+    <div class="billboard-attrib reveal reveal-delay-3" id="billboard-attrib">drawn from today's real transits — not a database, not a generic forecast.</div>
+  </div>
+</section>
+
+<!-- =============================================== BROWSE THE DECK -->
+<section class="s-deck solid" id="deck" aria-label="Browse the deck">
+  <div class="container">
+    <div class="deck-head reveal">
+      <div class="eyebrow">The Full Deck</div>
+      <h2>Seventy-eight cards, in <em>your hand</em>.</h2>
+      <p>The Olivia Arcana deck — v2.7 edition. Gold line-art figures on deep indigo. Cotton cardstock, 400gsm, with subtle UV laminate.</p>
+    </div>
+    <div class="deck-filter reveal" id="deck-filter">
+      <a href="#" data-filter="all" class="active">all<span class="count">78</span></a>
+      <a href="#" data-filter="major">Major Arcana<span class="count">22</span></a>
+      <a href="#" data-filter="wands">Wands<span class="count">14</span></a>
+      <a href="#" data-filter="cups">Cups<span class="count">14</span></a>
+      <a href="#" data-filter="swords">Swords<span class="count">14</span></a>
+      <a href="#" data-filter="pentacles">Pentacles<span class="count">14</span></a>
+    </div>
+    <div class="deck-grid reveal reveal-delay-1" id="deck-grid">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- =============================================== BOOK A READING -->
+<section class="s-booking solid" id="booking" aria-label="Book a reading">
+  <div class="container">
+    <div class="booking-head reveal">
+      <div class="eyebrow">Book a Reading</div>
+      <h2>An hour inside <em>a specific question</em>.</h2>
+      <p>A reading with Olivia — the deck is drawn for you, interpreted against your natal chart, delivered as a written letter, a video, or a live conversation.</p>
+    </div>
+
+    <div class="booking-tiers">
+      <div class="tier reveal">
+        <div class="tier-glyph">☽</div>
+        <h3 class="tier-name">Single Card</h3>
+        <div class="tier-duration">one-question reading · written</div>
+        <div class="tier-price">$44</div>
+        <p class="tier-desc">One card pulled for your specific question. Returned as a handwritten digital letter within 48 hours. For a question that does not need a conversation.</p>
+        <button class="tier-cta" type="button">— choose this reading</button>
+      </div>
+
+      <div class="tier featured reveal reveal-delay-1">
+        <div class="tier-glyph">✦</div>
+        <h3 class="tier-name">Three-Card Spread</h3>
+        <div class="tier-duration">full situation · 30-minute live call</div>
+        <div class="tier-price">$88</div>
+        <p class="tier-desc">Past, present, and becoming — a three-card spread read against your natal chart, in a 30-minute live conversation. Recording included. For a decision or a situation you are inside.</p>
+        <button class="tier-cta" type="button">— choose this reading</button>
+      </div>
+
+      <div class="tier reveal reveal-delay-2">
+        <div class="tier-glyph">♃</div>
+        <h3 class="tier-name">Natal Arcana</h3>
+        <div class="tier-duration">your full chart through the deck · 90 min</div>
+        <div class="tier-price">$222</div>
+        <p class="tier-desc">A ninety-minute deep reading. Your full natal chart interpreted through the deck, with a printed chart, a written appendix, and a recording. For once a year — or once a life.</p>
+        <button class="tier-cta" type="button">— choose this reading</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================== TESTIMONIALS -->
+<section class="s-testimonials solid" aria-label="From readers">
+  <div class="container">
+    <div class="testimonials-head reveal">
+      <div class="eyebrow">Readers</div>
+      <h2>Told by those <em>who returned</em>.</h2>
+    </div>
+    <div class="testimonials-grid">
+      <figure class="testimonial testimonial-1 reveal">
+        <blockquote>
+          I have never had a reading that felt so specific. She drew the Hermit; I had told no one about the letter. I don't know exactly what the deck is — but I believe it.
+        </blockquote>
+        <figcaption>— <strong>Leonie M.</strong> · Berlin · subscriber since <em>iv.mmxxv</em></figcaption>
+      </figure>
+      <figure class="testimonial testimonial-2 reveal reveal-delay-1">
+        <blockquote>
+          The reading for the day Saturn entered my eighth house arrived before I knew Saturn had done anything. I sat with it for an hour. It had already happened.
+        </blockquote>
+        <figcaption>— <strong>Antonin R.</strong> · Lisbon · three-card spread, <em>xi.mmxxv</em></figcaption>
+      </figure>
+      <figure class="testimonial testimonial-3 reveal reveal-delay-2">
+        <blockquote>
+          I asked one question. The spread answered three — and the one I hadn't known I needed was the one I needed most. The deck arrived hand-numbered. Plate 284.
+        </blockquote>
+        <figcaption>— <strong>S. Okonkwo</strong> · London · natal arcana, <em>ii.mmxxvi</em></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================== PHYSICAL DECK -->
+<section class="s-product solid" id="buy" aria-label="The physical deck">
+  <div class="container product-grid">
+    <div class="product-image reveal">
+      <img src="assets/02_the_high_priestess.png" alt="The Olivia Arcana deck — the High Priestess, shown" draggable="false" />
+      <div class="product-image-tag"><em>the v2.7 edition · hand-numbered</em></div>
+    </div>
+    <div class="product-text reveal reveal-delay-1">
+      <div class="eyebrow">The Physical Deck</div>
+      <h2>The Deck, in <em>your hands</em>.</h2>
+      <p>
+        Seventy-eight cards, <em>gold foil on deep indigo</em>, hand-numbered edition. Printed on cotton-linen stock with subtle UV laminate — the surface you can feel before you see it.
+      </p>
+      <p>
+        Accompanied by a letterpress guidebook in our typeface, sewn-bound, with readings for each card and a ritual calendar for the year ahead.
+      </p>
+
+      <div class="product-spec">
+        <div class="product-spec-row"><span class="k">cards</span><span class="v">78 · major + minor arcana</span></div>
+        <div class="product-spec-row"><span class="k">stock</span><span class="v">400gsm cotton-linen · UV laminate</span></div>
+        <div class="product-spec-row"><span class="k">size</span><span class="v">70mm × 121mm · tarot proportion</span></div>
+        <div class="product-spec-row"><span class="k">guidebook</span><span class="v">letterpress · sewn-bound · 112 pages</span></div>
+        <div class="product-spec-row"><span class="k">edition</span><span class="v">hand-numbered · limited to 500</span></div>
+      </div>
+
+      <div class="product-buy">
+        <div class="product-price">$158</div>
+        <button class="product-buy-btn" type="button">reserve a deck</button>
+      </div>
+      <div class="product-scarcity">
+        <div class="scarcity-line"><span class="scarcity-fill" style="width: 90.6%"></span></div>
+        <div class="scarcity-text">
+          <strong>453</strong> of <strong>500</strong> reserved &nbsp;·&nbsp; <em>47 numbered plates remain</em>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================== DECK DETAIL MODAL -->
+<div class="deck-modal" id="deck-modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="deck-modal-scrim" id="deck-modal-scrim"></div>
+  <button class="deck-modal-close" id="deck-modal-close" aria-label="Close">— close</button>
+  <div class="deck-modal-content">
+    <div class="deck-modal-grid">
+      <div class="deck-modal-image"><img id="deck-modal-img" src="" alt="" draggable="false" /></div>
+      <div>
+        <div class="deck-modal-kicker" id="deck-modal-kicker">Arcana · IX</div>
+        <h2 class="deck-modal-title" id="deck-modal-title">The Hermit</h2>
+        <p class="deck-modal-meaning" id="deck-modal-meaning">A figure walking inward with a single steady light — withdrawal into the world, not from it.</p>
+        <div class="deck-modal-keywords" id="deck-modal-keywords">
+          <span class="label">keywords</span>
+          <span>introspection · solitude · inner guidance · patience</span>
+        </div>
+        <div class="deck-modal-actions">
+          <button class="primary" type="button">book a reading with this card</button>
+          <button type="button">— add to favourites</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =============================================== FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4 class="footer-mark">Olivia <em>Arcana</em></h4>
+        <p class="footer-tag">A daily reading drawn from the sky above you — and a deck for your hands. Celestial Register, MMXXVI.</p>
+      </div>
+      <div class="footer-col">
+        <h5>The Daily</h5>
+        <ul>
+          <li><a href="#">Today's card</a></li>
+          <li><a href="#">Archive</a></li>
+          <li><a href="#">My record</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Readings</h5>
+        <ul>
+          <li><a href="#">Single card</a></li>
+          <li><a href="#">Three-card spread</a></li>
+          <li><a href="#">Natal arcana</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Studio</h5>
+        <ul>
+          <li><a href="#">About Olivia</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">Journal</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Newsletter line — once a week, a letter -->
+    <form class="footer-newsletter" onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.querySelector('.nl-msg').textContent='— subscribed. the next letter arrives on the new moon.';">
+      <div class="nl-eyebrow">A letter from Olivia</div>
+      <div class="nl-row">
+        <span class="nl-desc">Once a week, on the new moon. On the sky to come, and one quiet ritual.</span>
+        <input type="email" placeholder="your email" required aria-label="email" />
+        <button type="submit">subscribe</button>
+      </div>
+      <div class="nl-msg"></div>
+    </form>
+    <div class="footer-bottom">
+      <div>Olivia Arcana · MMXXVI · All rights reserved</div>
+      <div><em>— Celestial Register since iii.mmxxiv</em></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================ SCRIPTS -->
+
+<script type="module">
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+
+/* ==========================================================================
+   THE COSMOS — hero scene
+   - Full-bleed canvas, fixed behind everything.
+   - Shader nebula (fBm noise) far background.
+   - Star field.
+   - Planet markers at real current longitudes (HTML projected).
+   - Today's card: real v2.7 image on a 3D plane, floating center.
+   - Gold aspect line between Venus and Saturn (drawn in SVG overlay).
+   ========================================================================== */
+
+/* ---------- RENDERER ---------- */
+const canvas   = document.getElementById('cosmos');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.25;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x050610);
+scene.fog = new THREE.FogExp2(0x050610, 0.035);
+
+const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(0, 0, 7);
+
+// Lights — restrained product-shot setup. Previous values (Ambient 1.2, gold key 1.4,
+// purple rim 0.8) were washing the card in additional purple/gold, rhyming with its own art.
+scene.add(new THREE.AmbientLight(0xf5efe0, 0.55));
+scene.add(new THREE.HemisphereLight(0xffe8c8, 0x20223a, 0.38));
+const keyLight = new THREE.PointLight(0xd4b470, 0.55, 28);
+keyLight.position.set(3.5, 4.5, 4);
+scene.add(keyLight);
+
+/* ---------- NEBULA SHADER PLANE (far background) ---------- */
+const nebulaMat = new THREE.ShaderMaterial({
+  uniforms: {
+    uTime: { value: 0 },
+    uMouse: { value: new THREE.Vector2(0, 0) },
+    uWarmth: { value: 0.18 },
+  },
+  depthWrite: false,
+  side: THREE.DoubleSide,
+  vertexShader: `
+    varying vec2 vUv;
+    void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
+  `,
+  fragmentShader: `
+    varying vec2 vUv;
+    uniform float uTime;
+    uniform vec2  uMouse;
+    uniform float uWarmth;
+
+    float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+    float noise(vec2 p){
+      vec2 i = floor(p), f = fract(p);
+      float a = hash(i), b = hash(i + vec2(1.0, 0.0));
+      float c = hash(i + vec2(0.0, 1.0)), d = hash(i + vec2(1.0, 1.0));
+      vec2 u = f * f * (3.0 - 2.0 * f);
+      return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+    }
+    float fbm(vec2 p){
+      float v = 0.0, a = 0.5;
+      for (int i = 0; i < 5; i++) { v += a * noise(p); p *= 2.07; a *= 0.52; }
+      return v;
+    }
+
+    void main(){
+      vec2 uv = vUv * 2.0 - 1.0;
+      uv.x *= 1.6;
+      float r = length(uv);
+
+      vec2 q = vec2(
+        fbm(vUv * 2.0 + uTime * 0.015),
+        fbm(vUv * 2.0 - uTime * 0.012 + 12.3)
+      );
+      float n = fbm(vUv * 3.2 + q * 0.9 + uTime * 0.018);
+
+      // MUCH darker palette — the card is the brand asset; the backdrop must not compete with it.
+      // Previous version used bright purple which visually rhymed with the card's own nebula.
+      vec3 voidC  = vec3(0.014, 0.017, 0.028);
+      vec3 deep   = vec3(0.08,  0.05,  0.15);    // deep indigo, barely perceptible
+      vec3 nebula = vec3(0.16,  0.09,  0.24);    // muted aubergine, reads as shadow
+      vec3 gold   = vec3(0.28,  0.22,  0.12);    // very muted warm
+
+      float gMask = smoothstep(0.55, 0.82, n) * (0.25 + uWarmth * 0.4);
+      vec3 col = mix(voidC, deep, smoothstep(0.15, 0.7, n));
+      col      = mix(col, nebula, smoothstep(0.5, 0.78, n) * 0.3);
+      col      = mix(col, gold,   gMask * smoothstep(1.5, 0.2, r));
+
+      // Strong vignette — pushes eye to center, darkens the edges aggressively
+      float vig = smoothstep(1.35, 0.05, r);
+      col *= 0.18 + vig * 0.68;
+
+      col += vec3(uMouse.x * 0.006, 0.0, uMouse.y * 0.008);
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `,
+});
+// NOT added to scene — the v2.7 cards have their own nebula baked into the artwork,
+// so rendering a second one behind them created visual redundancy ("card inside card").
+// Keeping nebulaMat defined so any later code that references its uniforms still works.
+const nebulaPlane = null;
+
+/* ---------- STAR FIELD — quieter, fewer bokeh blobs, sharper dots ---------- */
+const STAR_COUNT = 800;
+const starGeo = new THREE.BufferGeometry();
+const starPos = new Float32Array(STAR_COUNT * 3);
+const starCol = new Float32Array(STAR_COUNT * 3);
+for (let i = 0; i < STAR_COUNT; i++) {
+  const r = 16 + Math.random() * 30;
+  const theta = Math.random() * Math.PI * 2;
+  const phi   = Math.acos(2 * Math.random() - 1);
+  starPos[i*3]   = r * Math.sin(phi) * Math.cos(theta);
+  starPos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+  starPos[i*3+2] = -8 - Math.random() * 24;
+  const warm = Math.random() > 0.78;
+  // Much dimmer than before — no "bokeh ball" look
+  starCol[i*3]   = warm ? 0.75 : 0.55;
+  starCol[i*3+1] = warm ? 0.62 : 0.58;
+  starCol[i*3+2] = warm ? 0.38 : 0.68;
+}
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+starGeo.setAttribute('color',    new THREE.BufferAttribute(starCol, 3));
+const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({
+  size: 0.022, vertexColors: true, transparent: true, opacity: 0.55,
+  depthWrite: false, blending: THREE.NormalBlending, // NOT additive — prevents bokeh bloom
+}));
+scene.add(stars);
+
+/* ==========================================================================
+   PLANETS — real current positions (simplified but accurate to ±1-5°)
+   ========================================================================== */
+const EPOCH = Date.UTC(2025, 0, 1);
+const DAY_MS = 86400000;
+const now = new Date();
+const daysFromEpoch = (now.getTime() - EPOCH) / DAY_MS;
+
+// [key, mean longitude at epoch (deg), mean motion (deg/day), glyph, display name]
+const PLANET_DATA = [
+  ['sun',     280.47,  0.98561,  '☉',  'Sun'    ],
+  ['moon',    218.32, 13.17640,  '☽',  'Moon'   ],
+  ['mercury', 252.25,  4.09234,  '☿',  'Mercury'],
+  ['venus',   181.98,  1.60213,  '♀',  'Venus'  ],
+  ['mars',    355.45,  0.52403,  '♂',  'Mars'   ],
+  ['jupiter',  34.40,  0.08308,  '♃',  'Jupiter'],
+  ['saturn',  337.51,  0.03346,  '♄',  'Saturn' ],
+];
+
+const ZODIAC_NAMES = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces'];
+const ZODIAC_GLYPHS = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+
+function lon(p) { return ((p[1] + p[2] * daysFromEpoch) % 360 + 360) % 360; }
+function signIndex(l) { return Math.floor(l / 30); }
+function signName(l)  { return ZODIAC_NAMES[signIndex(l)]; }
+function signGlyph(l) { return ZODIAC_GLYPHS[signIndex(l)]; }
+
+// Build planet objects — distribute them on a ring around camera, depth varies by planet order.
+const planets = PLANET_DATA.map((p, i) => {
+  const L = lon(p);
+  // Convert ecliptic longitude to 3D position on a tilted ring around center.
+  // Astrological convention: 0° Aries at top, increases counterclockwise.
+  const a = -Math.PI / 2 + (-L * Math.PI / 180);
+  const radius = 4.4;
+  // Depth variation: inner bodies closer, outer planets farther back — subtle 3D feel.
+  const zOffsets = { sun: 0.5, moon: 0.8, mercury: 0.2, venus: 0.0, mars: -0.2, jupiter: -0.6, saturn: -1.0 };
+  const ellipseYScale = 0.82;
+  const x = Math.cos(a) * radius;
+  const y = Math.sin(a) * radius * ellipseYScale;
+  const z = zOffsets[p[0]] || 0;
+  return {
+    key: p[0], glyph: p[3], name: p[4], lon: L, sign: signName(L), signGlyph: signGlyph(L),
+    position: new THREE.Vector3(x, y, z),
+  };
+});
+
+// 3D glow sprites for each planet (additive circular sprites)
+function makeGlowTexture() {
+  const c = document.createElement('canvas'); c.width = 128; c.height = 128;
+  const g = c.getContext('2d');
+  const grd = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+  grd.addColorStop(0, 'rgba(255, 230, 160, 0.95)');
+  grd.addColorStop(0.35, 'rgba(200, 168, 75, 0.45)');
+  grd.addColorStop(1, 'rgba(200, 168, 75, 0)');
+  g.fillStyle = grd; g.fillRect(0, 0, 128, 128);
+  return new THREE.CanvasTexture(c);
+}
+const glowTex = makeGlowTexture();
+for (const p of planets) {
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: glowTex, transparent: true, opacity: 0.9,
+    blending: THREE.AdditiveBlending, depthWrite: false,
+  }));
+  sprite.scale.set(0.9, 0.9, 1);
+  sprite.position.copy(p.position);
+  scene.add(sprite);
+  p.sprite = sprite;
+}
+
+// HTML planet labels — projected from 3D each frame.
+const planetLayer = document.getElementById('planet-layer');
+for (const p of planets) {
+  const el = document.createElement('div');
+  el.className = 'planet-label';
+  el.innerHTML = `
+    <span class="glyph">${p.glyph}</span>
+    <span class="planet-name">${p.name}</span>
+    <span class="sign"><em>${p.sign}</em></span>
+  `;
+  planetLayer.appendChild(el);
+  p.el = el;
+}
+
+/* ==========================================================================
+   TODAY'S CARD — a 3D plane with the real Hermit image, floating center.
+   ========================================================================== */
+const textureLoader = new THREE.TextureLoader();
+// The card file is chosen by the sky-report logic in the plain-script block below,
+// which runs before this module (plain scripts are synchronous; module scripts are deferred).
+// Read the chosen card file, or fall back to The Star.
+const cardFile = (window.__cardFile) || '17_the_star.png';
+const cardTexture = textureLoader.load(`assets/${cardFile}`);
+cardTexture.colorSpace = THREE.SRGBColorSpace;
+
+// Card scales up, dominates the left column. World x=-1.8 aligns with hero-card-column center
+// in a 50/50 CSS grid at standard aspect ratios.
+const CARD_W = 2.4, CARD_H = CARD_W * 1.5;
+const CARD_X = -1.8;
+const cardGeo = new THREE.PlaneGeometry(CARD_W, CARD_H, 4, 4);
+const cardMat = new THREE.MeshStandardMaterial({
+  map: cardTexture,
+  emissive: 0xC8A84B,
+  emissiveIntensity: 0.0,
+  roughness: 0.6,
+  metalness: 0.05,
+  transparent: true,     // CLEAN card PNGs have transparent backgrounds — respect alpha
+  alphaTest: 0.02,
+});
+const card = new THREE.Mesh(cardGeo, cardMat);
+card.position.set(CARD_X, -0.2, 0);
+card.rotation.set(0, 0, 0);
+card.scale.setScalar(0.0001);
+scene.add(card);
+
+// Card glow sprite — REMOVED per user feedback. The card has its own visual presence.
+// Keeping the variable defined (with a dummy material) so tween code doesn't error.
+const cardGlow = { material: { opacity: 0 }, position: { copy: () => {}, z: 0 } };
+
+/* ==========================================================================
+   ASPECT LINE — Venus ⚻ Saturn, drawn as an SVG line in the aspect-overlay
+   between their projected screen positions. Kept up-to-date each frame.
+   ========================================================================== */
+const aspectOverlay = document.getElementById('aspect-overlay');
+const aspectLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+aspectOverlay.appendChild(aspectLine);
+
+function project3(v3) {
+  const v = v3.clone().project(camera);
+  return {
+    x: (v.x * 0.5 + 0.5) * window.innerWidth,
+    y: (-v.y * 0.5 + 0.5) * window.innerHeight,
+  };
+}
+
+/* ==========================================================================
+   STATE + MOUSE
+   ========================================================================== */
+const state = {
+  mouse: new THREE.Vector2(0, 0),
+  mousePx: { x: window.innerWidth / 2, y: window.innerHeight / 2 },
+  scrollY: 0,
+};
+window.addEventListener('pointermove', (e) => {
+  state.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+  state.mouse.y = -((e.clientY / window.innerHeight) * 2 - 1);
+  state.mousePx.x = e.clientX;
+  state.mousePx.y = e.clientY;
+});
+// Sub-nav shows when scrolled past ~60% of the hero, hides back near the top
+const subnavEl = document.getElementById('subnav');
+window.addEventListener('scroll', () => {
+  state.scrollY = window.scrollY;
+  if (subnavEl) {
+    if (state.scrollY > window.innerHeight * 0.6) subnavEl.classList.add('shown');
+    else subnavEl.classList.remove('shown');
+  }
+}, { passive: true });
+function onResize() {
+  const w = window.innerWidth, h = window.innerHeight;
+  renderer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix();
+  // On mobile the card re-centers (hero stacks, card is in its own row)
+  const mobile = w < 880;
+  const targetX = mobile ? 0 : CARD_X;
+  card.position.x = targetX;
+  // cardGlow removed — no position sync needed
+}
+window.addEventListener('resize', onResize);
+// Also call once at load so initial positioning is correct for mobile
+setTimeout(onResize, 0);
+
+/* ==========================================================================
+   HERO INTRO CHOREOGRAPHY
+   ========================================================================== */
+// Card rises and scales up to its full size
+gsap.to(card.scale, { x: 1, y: 1, z: 1, duration: 2.8, delay: 1.0, ease: 'power3.out' });
+gsap.to(card.position, { y: 0, duration: 2.8, delay: 1.0, ease: 'power3.out' });
+
+// Restrained materialization flash — no bright bloom, just a subtle emissive lift
+gsap.to(cardMat, {
+  emissiveIntensity: 0.14, duration: 0.5,
+  delay: 3.6, yoyo: true, repeat: 1, ease: 'power2.out'
+});
+gsap.to(cardGlow.material, {
+  opacity: 0.28, duration: 0.55,
+  delay: 3.6, yoyo: true, repeat: 1, ease: 'power2.out'
+});
+
+// Barely-there breath on the rim glow — signals interactivity without competing with the card art
+gsap.to(cardGlow.material, {
+  opacity: 0.18, duration: 3.4, yoyo: true, repeat: -1,
+  ease: 'sine.inOut', delay: 5.4
+});
+
+// Reading text column (massive typography on the right)
+setTimeout(() => document.getElementById('hero-text-column').classList.add('in'), 1600);
+
+// Aspect overlay — subtle line appears
+setTimeout(() => aspectOverlay.classList.add('in'), 2600);
+
+// Hero foot (transit note + scroll hint)
+setTimeout(() => document.getElementById('hero-foot').classList.add('in'), 2800);
+
+/* ---------- CARD IS CLICKABLE ----------
+   Click the card (or its reserved space) → card gives a brief golden flourish
+   then smooth-scrolls to the full reading below. This is the signature mechanic. */
+const heroCardCol = document.getElementById('hero-card-column');
+if (heroCardCol) {
+  heroCardCol.style.pointerEvents = 'auto';
+  heroCardCol.style.cursor = 'pointer';
+  heroCardCol.setAttribute('tabindex', '0');
+  heroCardCol.setAttribute('role', 'button');
+  heroCardCol.setAttribute('aria-label', 'Open today\'s full reading');
+
+  const flourishAndScroll = () => {
+    gsap.to(card.scale,       { x: 1.08, y: 1.08, z: 1.08, duration: 0.55, yoyo: true, repeat: 1, ease: 'power2.inOut' });
+    gsap.to(cardMat,          { emissiveIntensity: 0.22,   duration: 0.6,  yoyo: true, repeat: 1, ease: 'power2.inOut' });
+    gsap.to(cardGlow.material,{ opacity: 0.85,             duration: 0.55, yoyo: true, repeat: 1, ease: 'power2.inOut' });
+    setTimeout(() => {
+      const t = document.getElementById('today');
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 420);
+  };
+  heroCardCol.addEventListener('click', flourishAndScroll);
+  heroCardCol.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flourishAndScroll(); }
+  });
+  // Hover: gentle card tilt + glow pulse (for cursor discoverability)
+  heroCardCol.addEventListener('mouseenter', () => {
+    gsap.to(card.rotation, { y: 0.12, duration: 0.8, ease: 'power2.out' });
+    gsap.to(cardGlow.material, { opacity: 0.55, duration: 0.5, ease: 'power2.out' });
+  });
+  heroCardCol.addEventListener('mouseleave', () => {
+    gsap.to(card.rotation, { y: 0, duration: 1.2, ease: 'power2.inOut' });
+    gsap.to(cardGlow.material, { opacity: 0.38, duration: 0.6, ease: 'power2.out' });
+  });
+}
+
+/* ==========================================================================
+   RENDER LOOP
+   ========================================================================== */
+const clock = new THREE.Clock();
+// The two planets forming today's tightest aspect. Line is drawn between them.
+const keyA = window.__sky ? planets.find(p => p.key === window.__sky.key.a) : planets.find(p => p.key === 'moon');
+const keyB = window.__sky ? planets.find(p => p.key === window.__sky.key.b) : planets.find(p => p.key === 'jupiter');
+
+function render() {
+  const dt = clock.getDelta();
+  const t  = clock.getElapsedTime();
+
+  nebulaMat.uniforms.uTime.value = t;
+  nebulaMat.uniforms.uMouse.value.x += (state.mouse.x - nebulaMat.uniforms.uMouse.value.x) * 0.03;
+  nebulaMat.uniforms.uMouse.value.y += (state.mouse.y - nebulaMat.uniforms.uMouse.value.y) * 0.03;
+
+  // Subtle site breath — tone mapping sine wobble (narrowed to match lower base exposure)
+  renderer.toneMappingExposure = 1.25 + Math.sin(t * 0.23) * 0.05;
+
+  // Stars drift
+  stars.rotation.y += dt * 0.006;
+  stars.rotation.x += dt * 0.002;
+
+  // Card breathing: slow sway + slight rotation
+  card.rotation.y = Math.sin(t * 0.22) * 0.07;
+  card.rotation.x = Math.sin(t * 0.17) * 0.04;
+  card.position.y = 0 + Math.sin(t * 0.4) * 0.04;
+  // cardGlow position sync removed — sprite was removed entirely
+
+  // Planet sprites breath
+  for (const p of planets) {
+    const phase = Math.sin(t * 0.6 + p.lon * 0.01) * 0.1 + 1.0;
+    p.sprite.scale.set(0.9 * phase, 0.9 * phase, 1);
+  }
+
+  // Mouse parallax on camera — subtle
+  const mouseX = state.mouse.x * 0.28;
+  const mouseY = state.mouse.y * 0.2;
+  // Scroll dolly: crane move — pulls back AND rises, looking down at the card as user exits
+  const heroProgress = Math.min(1, state.scrollY / window.innerHeight);
+  const craneEase = heroProgress * heroProgress; // ease-in — accelerate the crane lift near the end
+  camera.position.x += ((mouseX - camera.position.x) * 0.04);
+  camera.position.y += ((mouseY + craneEase * 1.8 - camera.position.y) * 0.04);
+  camera.position.z = 7 + heroProgress * 4.2;
+  camera.lookAt(0, craneEase * -0.4, 0);
+
+  // Project planet labels to screen + proximity-based reveal.
+  // Labels fade in as the cursor approaches (within ~140px), creating a discoverable sky.
+  let anyKeyNear = false;
+  for (const p of planets) {
+    const s = project3(p.position);
+    p.el.style.left = `${s.x}px`;
+    p.el.style.top  = `${s.y + 30}px`; // offset below the glow
+    // Scale labels by depth — farther planets appear smaller.
+    const depthScale = Math.max(0.65, 1.0 - Math.max(0, -p.position.z) * 0.08);
+    // Proximity-based opacity
+    const dx = state.mousePx.x - s.x;
+    const dy = state.mousePx.y - (s.y + 30);
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const proximity = Math.max(0, 1 - dist / 140);
+    const alpha = Math.pow(proximity, 1.5) * 0.98;
+    p.el.style.opacity = alpha.toFixed(3);
+    p.el.style.transform = `translate(-50%,-50%) scale(${depthScale * (0.85 + alpha * 0.25)})`;
+    // Is this a key aspect planet and cursor is close?
+    if ((p === keyA || p === keyB) && dist < 180) anyKeyNear = true;
+  }
+
+  // Toggle aspect overlay "active" state — brightens the line when cursor is near a key planet
+  if (anyKeyNear) aspectOverlay.classList.add('active');
+  else            aspectOverlay.classList.remove('active');
+
+  // Update aspect line between today's tightest-aspect pair
+  if (keyA && keyB) {
+    const a = project3(keyA.position);
+    const b = project3(keyB.position);
+    aspectLine.setAttribute('x1', a.x); aspectLine.setAttribute('y1', a.y + 30);
+    aspectLine.setAttribute('x2', b.x); aspectLine.setAttribute('y2', b.y + 30);
+  }
+
+  // Fade cosmos overlays below hero (so they don't cover content sections)
+  const heroFade = 1 - Math.min(1, state.scrollY / (window.innerHeight * 0.9));
+  planetLayer.style.opacity = heroFade;
+  aspectOverlay.style.opacity = heroFade;
+
+  renderer.render(scene, camera);
+  requestAnimationFrame(render);
+}
+render();
+</script>
+
+<script>
+/* ==========================================================================
+   PAGE-LEVEL: HUD time, aspect SVG, deck grid, scroll reveal.
+   (Plain script, not module — no need for imports.)
+   ========================================================================== */
+
+/* ==========================================================================
+   SKY REPORT — one computation, used by every section. All narrative text is
+   generated from the current planet positions + tightest current aspect.
+   ========================================================================== */
+const ZODIAC_NAMES  = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces'];
+const ZODIAC_GLYPHS = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+const PLANET_GLYPHS = { sun:'☉', moon:'☽', mercury:'☿', venus:'♀', mars:'♂', jupiter:'♃', saturn:'♄' };
+const PLANET_PROPER = { sun:'Sun', moon:'Moon', mercury:'Mercury', venus:'Venus', mars:'Mars', jupiter:'Jupiter', saturn:'Saturn' };
+const PLANET_LOWER  = { sun:'sun', moon:'moon', mercury:'mercury', venus:'venus', mars:'mars', jupiter:'jupiter', saturn:'saturn' };
+const ASPECT_INFO = {
+  conjunction: { angle: 0,   glyph: '☌', ease: 'fused',       short: 'conjunction' },
+  sextile:     { angle: 60,  glyph: '⚹', ease: 'helpful',     short: 'sextile' },
+  square:      { angle: 90,  glyph: '□', ease: 'tension',     short: 'square' },
+  trine:       { angle: 120, glyph: '△', ease: 'flowing',     short: 'trine' },
+  quincunx:    { angle: 150, glyph: '⚻', ease: 'adjusting',   short: 'quincunx' },
+  opposition:  { angle: 180, glyph: '☍', ease: 'polarising',  short: 'opposition' },
+};
+
+// Card mapping by aspect "ease" type — matches archetypal energy to arcana
+const CARD_BY_ASPECT = {
+  flowing:      { num: 'XVII', name: 'The Star',           file: '17_the_star.png' },
+  helpful:      { num: 'VI',   name: 'The Lovers',          file: '06_the_lovers.png' },
+  fused:        { num: 'I',    name: 'The Magician',        file: '01_the_magician.png' },
+  tension:      { num: 'XVI',  name: 'The Tower',           file: '16_the_tower.png' },
+  adjusting:    { num: 'XII',  name: 'The Hanged Man',      file: '12_the_hanged_man.png' },
+  polarising:   { num: 'II',   name: 'The High Priestess',  file: '02_the_high_priestess.png' },
+};
+
+function computeSky() {
+  const EPOCH = Date.UTC(2025, 0, 1);
+  const days = (Date.now() - EPOCH) / 86400000;
+  const PLANETS = [
+    ['sun',     280.47,  0.98561],
+    ['moon',    218.32, 13.17640],
+    ['mercury', 252.25,  4.09234],
+    ['venus',   181.98,  1.60213],
+    ['mars',    355.45,  0.52403],
+    ['jupiter',  34.40,  0.08308],
+    ['saturn',  337.51,  0.03346],
+  ];
+  const lons = {};
+  for (const p of PLANETS) lons[p[0]] = ((p[1] + p[2] * days) % 360 + 360) % 360;
+
+  function signOf(l)     { return ZODIAC_NAMES[Math.floor(l / 30)]; }
+  function signGlyphOf(l){ return ZODIAC_GLYPHS[Math.floor(l / 30)]; }
+
+  // Moon phase — elongation from Sun
+  const elong = ((lons.moon - lons.sun) + 360) % 360;
+  const phaseName = (() => {
+    if (elong < 22.5)  return 'new';
+    if (elong < 67.5)  return 'waxing crescent';
+    if (elong < 112.5) return 'first quarter';
+    if (elong < 157.5) return 'waxing gibbous';
+    if (elong < 202.5) return 'full';
+    if (elong < 247.5) return 'waning gibbous';
+    if (elong < 292.5) return 'last quarter';
+    if (elong < 337.5) return 'waning crescent';
+    return 'new';
+  })();
+
+  // Find all aspects with orb < 6°, pick tightest
+  const keys = Object.keys(lons);
+  const candidates = [];
+  for (let i = 0; i < keys.length; i++) {
+    for (let j = i + 1; j < keys.length; j++) {
+      const a = keys[i], b = keys[j];
+      const raw = Math.abs((lons[a] - lons[b] + 540) % 360 - 180);
+      const sep = 180 - raw;
+      for (const [name, info] of Object.entries(ASPECT_INFO)) {
+        const orb = Math.abs(sep - info.angle);
+        if (orb < 6) candidates.push({ a, b, aspect: name, orb, sep, info });
+      }
+    }
+  }
+  candidates.sort((x, y) => x.orb - y.orb);
+  const key = candidates[0] || { a: 'sun', b: 'moon', aspect: 'conjunction', orb: 0, info: ASPECT_INFO.conjunction };
+
+  return { lons, signOf, signGlyphOf, phaseName, key, days };
+}
+const sky = computeSky();
+window.__sky = sky;
+
+/* ---------- Narrative generator — keyed off aspect ease type ---------- */
+function makeNarrative(sky) {
+  const aName = sky.key.a, bName = sky.key.b;
+  const aPlanet = PLANET_PROPER[aName], bPlanet = PLANET_PROPER[bName];
+  const aGlyph  = PLANET_GLYPHS[aName], bGlyph  = PLANET_GLYPHS[bName];
+  const aSign   = sky.signOf(sky.lons[aName]), bSign = sky.signOf(sky.lons[bName]);
+  const aspectName = sky.key.aspect;
+  const aspectGlyph = sky.key.info.glyph;
+  const orb = sky.key.orb.toFixed(1);
+  const ease = sky.key.info.ease;
+  const card = CARD_BY_ASPECT[ease] || CARD_BY_ASPECT.flowing;
+
+  // Templates per aspect ease
+  const T = {
+    flowing: {
+      heroLine: `<em>A wider sky, if you let it.</em> What you feel today carries farther than you expect.`,
+      heroTransit: `Drawn while the <span class="planet">${aPlanet} ${aGlyph}</span> in ${aSign} trines <span class="planet">${bPlanet} ${bGlyph}</span> in ${bSign} — emotional abundance meets a wider horizon.`,
+      cardIntro: `A figure kneeling beside water, pouring. The crisis is gone; what remains is a wider sky — and the quiet sense that things are possible again.`,
+      cardBody1: `<em>${card.name} does not arrive at the beginning of the story.</em> ${card.name} arrives after. It is what hope looks like once it has already survived something, once it has learned to travel without the need to be believed.`,
+      cardBody2: `Today, let your speech be generous. What you usually keep to yourself is the thing the day wants you to say — and the sky has arranged itself to receive it.`,
+      whyBody: `<span class="planet">${aPlanet}</span> in ${aSign} trines <span class="planet">${bPlanet}</span> in ${bSign} with ${orb}° of orb — an unusually tight trine. The trine is <em>ease</em>; its two planets, in compatible elements, reinforce rather than resist. The sky names this card, not randomness.`,
+      aspectHead: `${aPlanet} <em>△</em> ${bPlanet} <em>— the wider sky opens.</em>`,
+      aspectSub: `The trine is the aspect of ease. Two forces 120° apart, in compatible elements, reinforce each other. Today, ${orb}° of orb — a rare and quiet reinforcement.`,
+      aspectP1: `<em>${aPlanet} (${aspectDomainOf(aName)})</em> sits 120° from <em>${bPlanet} (${aspectDomainOf(bName)})</em>. Both in harmonious signs — a quick-moving agreement. Today, what you feel and what you believe amplify one another.`,
+      aspectP2: `The effect is subtle but benevolent. Lean toward the generous interpretation. You will be right more often than wrong.`,
+      doList:   ['Say the generous thing', 'Trust emotional insight', 'Take the larger view', 'Reach outward'],
+      dontList: ['Squeeze the moment too tight', 'Hoard today\'s warmth', 'Wait for certainty', 'Over-qualify what you feel'],
+      ritual:   `Tell one person something you usually keep to yourself. The sky is generous today — let your speech be also.`,
+      billboardL1: `a <em>wider</em> sky,`,
+      billboardL2: `if you let it.`,
+    },
+    helpful: {
+      heroLine: `<em>A small door stands open.</em> Today's ease is not accident — it's an invitation to walk through.`,
+      heroTransit: `Drawn while <span class="planet">${aPlanet} ${aGlyph}</span> in ${aSign} sextiles <span class="planet">${bPlanet} ${bGlyph}</span> in ${bSign} — a gentle alignment offers a choice.`,
+      cardIntro: `Two figures meeting beneath a sky. This is the card of aligned opposites — the moment when what seemed separate becomes mutual.`,
+      cardBody1: `<em>${card.name} does not ask permanence.</em> It asks attention. A sextile is an offered hand, and an offered hand requires an answering one.`,
+      cardBody2: `Today, say yes to the smaller thing the day is offering. It is often the smaller thing that opens the larger one.`,
+      whyBody: `<span class="planet">${aPlanet}</span> in ${aSign} sextiles <span class="planet">${bPlanet}</span> in ${bSign} with ${orb}° of orb. The sextile is the aspect of <em>opportunity</em> — not guaranteed, but made available. The sky names this card.`,
+      aspectHead: `${aPlanet} <em>⚹</em> ${bPlanet} <em>— a small door stands open.</em>`,
+      aspectSub: `The sextile is the aspect of opportunity. Sixty degrees of compatible tension — enough difference to stay interesting, enough agreement to work together.`,
+      aspectP1: `<em>${aPlanet} (${aspectDomainOf(aName)})</em> sixty degrees from <em>${bPlanet} (${aspectDomainOf(bName)})</em>. Today, a small opening exists between what you want and what is possible. It will not stay open.`,
+      aspectP2: `The effect is invitational. You are being asked to do something, not forced to. The door you walk through today may or may not still be there tomorrow.`,
+      doList:   ['Accept the small offer', 'Initiate the conversation', 'Commit to the simpler path', 'Make the first move'],
+      dontList: ['Wait for a bigger sign', 'Overthink the decision', 'Hesitate past the moment', 'Expect the door to knock again'],
+      ritual:   `Walk through one door you would usually hesitate at. Small or large. The day is brief — doors are briefer.`,
+      billboardL1: `a <em>small</em> door`,
+      billboardL2: `stands open.`,
+    },
+    fused: {
+      heroLine: `<em>Two become one, for a moment.</em> Today's energy is concentrated — hold it carefully.`,
+      heroTransit: `Drawn while <span class="planet">${aPlanet} ${aGlyph}</span> and <span class="planet">${bPlanet} ${bGlyph}</span> conjoin in ${aSign} — a single voice speaks twice.`,
+      cardIntro: `A figure at a table, all four elements arranged. Today is a day when intention becomes material — when what you concentrate on takes form.`,
+      cardBody1: `<em>${card.name} is not magic as trick.</em> It is the focused attention of two forces on one place — and the thing that appears in that place as a result.`,
+      cardBody2: `Choose one thing. Give it your full attention today. The day will make of it what a distracted year could not.`,
+      whyBody: `<span class="planet">${aPlanet}</span> and <span class="planet">${bPlanet}</span> meet in ${aSign} with ${orb}° of orb — a conjunction, where two forces become a single signal. The sky names this card.`,
+      aspectHead: `${aPlanet} <em>☌</em> ${bPlanet} <em>— two become one.</em>`,
+      aspectSub: `The conjunction is the aspect of fusion. Two planets at the same degree lose their separateness — for a day, they speak with one voice.`,
+      aspectP1: `<em>${aPlanet} (${aspectDomainOf(aName)})</em> meets <em>${bPlanet} (${aspectDomainOf(bName)})</em> at the same place in the sky. What one wants, the other wants. What one fears, the other fears.`,
+      aspectP2: `The effect is concentrated. Do not divide your attention today — the day will only reward what you fully face.`,
+      doList:   ['Choose one thing', 'Give it your full attention', 'Write the clear sentence', 'Name the intention aloud'],
+      dontList: ['Split your focus', 'Multitask the meaningful', 'Diffuse the energy', 'Negotiate with yourself'],
+      ritual:   `Choose one thing today. Do it as if nothing else exists. The conjunction is a door, but it only opens for single-minded ones.`,
+      billboardL1: `two <em>become</em>`,
+      billboardL2: `one.`,
+    },
+    tension: {
+      heroLine: `<em>Friction is the sound of change arriving.</em> Today's difficulty is not wrong — it is news.`,
+      heroTransit: `Drawn while <span class="planet">${aPlanet} ${aGlyph}</span> in ${aSign} squares <span class="planet">${bPlanet} ${bGlyph}</span> in ${bSign} — two forces meet at a corner.`,
+      cardIntro: `A structure in collapse. This is the card of the honest break — the moment when a thing you had built reveals what it was actually built of.`,
+      cardBody1: `<em>${card.name} is not punishment.</em> It is unmasking. What falls today was already falling; the sky simply made the falling visible.`,
+      cardBody2: `Do not rebuild immediately. Sit with what was shown. The second lesson of the tower is that you did not need the tower.`,
+      whyBody: `<span class="planet">${aPlanet}</span> in ${aSign} squares <span class="planet">${bPlanet}</span> in ${bSign} with ${orb}° of orb. The square is <em>friction</em> — and friction is how sleeping systems wake up. The sky names this card.`,
+      aspectHead: `${aPlanet} <em>□</em> ${bPlanet} <em>— the honest friction.</em>`,
+      aspectSub: `The square is the aspect of tension. Two planets at ninety degrees, in incompatible elements — the friction forces action that ease would not.`,
+      aspectP1: `<em>${aPlanet} (${aspectDomainOf(aName)})</em> at a right angle to <em>${bPlanet} (${aspectDomainOf(bName)})</em>. Today's irritation is not a sign of something wrong — it is the sound of a real change trying to enter.`,
+      aspectP2: `Do not resolve the friction too quickly. The discomfort is carrying information. Let it finish its sentence.`,
+      doList:   ['Name the friction honestly', 'Move decisively', 'Let the break break', 'Welcome the discomfort'],
+      dontList: ['Smooth it over', 'Avoid the confrontation', 'Pretend the tension is not there', 'Rebuild the same thing'],
+      ritual:   `Write down the one thing you have been avoiding. Just write it. The square is honest — honor that honesty today.`,
+      billboardL1: `friction <em>is</em>`,
+      billboardL2: `the change.`,
+    },
+    adjusting: {
+      heroLine: `<em>The wanted thing takes an unexpected route.</em> Today is not denial — it is indirection.`,
+      heroTransit: `Drawn while <span class="planet">${aPlanet} ${aGlyph}</span> in ${aSign} quincunxes <span class="planet">${bPlanet} ${bGlyph}</span> in ${bSign} — two forces that don't quite speak the same language.`,
+      cardIntro: `A figure suspended, upside down, looking at the world from another angle. Today is a day when the direct path does not work — but the angled one does.`,
+      cardBody1: `<em>${card.name} is the patience of the longer route.</em> The quincunx asks for adjustment — the thing you want is still available, but not through the door you expected.`,
+      cardBody2: `Delay the obvious ask. Take the slower path. What returns to you today will do so sideways — which is still returning.`,
+      whyBody: `<span class="planet">${aPlanet}</span> in ${aSign} quincunxes <span class="planet">${bPlanet}</span> in ${bSign} with ${orb}° of orb. The quincunx is <em>adjustment</em> — two planets that don't share an element, must share a room. The sky names this card.`,
+      aspectHead: `${aPlanet} <em>⚻</em> ${bPlanet} <em>— a pause, not a stop.</em>`,
+      aspectSub: `The quincunx is the aspect of adjustment. Two forces 150° apart don't speak the same language — they must live in the same room anyway.`,
+      aspectP1: `<em>${aPlanet} (${aspectDomainOf(aName)})</em> at an awkward angle to <em>${bPlanet} (${aspectDomainOf(bName)})</em>. Today's pull: the thing you want is available — but not through the path you'd normally take to get it.`,
+      aspectP2: `Delay the direct ask. Take the slower meeting. Write the letter and do not send it yet. The yes is coming; it just won't arrive at the loudest hour.`,
+      doList:   ['Write instead of speak', 'Take the slower meeting', 'Sleep on the decision', 'Choose depth over breadth'],
+      dontList: ['Push for a yes today', 'Publish the letter', 'Pick the obvious path', 'Commit before tomorrow'],
+      ritual:   `Write one letter you won't send. Seal it. The quincunx asks for the longer route — honor it with the private version of the clear thing.`,
+      billboardL1: `the <em>wanted</em> thing`,
+      billboardL2: `takes the long route.`,
+    },
+    polarising: {
+      heroLine: `<em>Two halves that must both be held.</em> Today is not a choice — it is a posture.`,
+      heroTransit: `Drawn while <span class="planet">${aPlanet} ${aGlyph}</span> in ${aSign} opposes <span class="planet">${bPlanet} ${bGlyph}</span> in ${bSign} — two forces across a threshold.`,
+      cardIntro: `A veiled figure at a threshold. Today is a day of two truths that must both be believed — when one without the other becomes a lie.`,
+      cardBody1: `<em>${card.name} holds the tension without resolving it.</em> The opposition is not the demand to pick a side — it is the demand to stand between them without collapsing toward either.`,
+      cardBody2: `Do not collapse. The answer is not one of the two. The answer is the quality of the standing.`,
+      whyBody: `<span class="planet">${aPlanet}</span> in ${aSign} opposes <span class="planet">${bPlanet}</span> in ${bSign} with ${orb}° of orb. The opposition is <em>polarity</em> — and polarity needs both poles to exist. The sky names this card.`,
+      aspectHead: `${aPlanet} <em>☍</em> ${bPlanet} <em>— both halves must be held.</em>`,
+      aspectSub: `The opposition is the aspect of polarity. Two planets exactly across the chart. Neither can be forgotten; neither can be chosen alone.`,
+      aspectP1: `<em>${aPlanet} (${aspectDomainOf(aName)})</em> directly across from <em>${bPlanet} (${aspectDomainOf(bName)})</em>. Today's task: recognise that both need to be true at once.`,
+      aspectP2: `Resist the urge to choose. The answer is not either. The answer is the capacity to hold both without resolving them.`,
+      doList:   ['Hold both sides', 'Refuse the easy collapse', 'Speak from the middle', 'Let both be true'],
+      dontList: ['Pick a side today', 'Flatten the polarity', 'Rush to resolution', 'Deny one half'],
+      ritual:   `Write down the two truths today that contradict. Do not resolve them. Leave the page open overnight.`,
+      billboardL1: `both halves`,
+      billboardL2: `must be <em>held</em>.`,
+    },
+  };
+
+  function aspectDomainOf(p) {
+    return ({
+      sun: 'identity, purpose, center',
+      moon: 'feelings, memory, the present moment',
+      mercury: 'mind, speech, daily motion',
+      venus: 'desire, value, softness',
+      mars: 'action, drive, boundary',
+      jupiter: 'meaning, expansion, the larger view',
+      saturn: 'restraint, time, the slow way',
+    })[p] || '';
+  }
+  // (defined as function for use in the template strings above)
+  window.__aspectDomainOf = aspectDomainOf;
+
+  return Object.assign({}, T[ease] || T.flowing, { card, aName, bName, aspectName, aspectGlyph, aGlyph, bGlyph, aSign, bSign, orb, ease });
+}
+// The closure above used aspectDomainOf — redefine so the templates have it in scope:
+function aspectDomainOf(p) {
+  return ({
+    sun: 'identity, purpose, center',
+    moon: 'feelings, memory, the present moment',
+    mercury: 'mind, speech, daily motion',
+    venus: 'desire, value, softness',
+    mars: 'action, drive, boundary',
+    jupiter: 'meaning, expansion, the larger view',
+    saturn: 'restraint, time, the slow way',
+  })[p] || '';
+}
+const N = makeNarrative(sky);
+window.__N = N;
+
+/* ---------- Hero transit-note + reading ---------- */
+document.getElementById('hero-card-num').textContent  = N.card.num;
+document.getElementById('hero-card-name').textContent = N.card.name;
+document.getElementById('hero-card-line').innerHTML   = N.heroLine;
+document.getElementById('transit-note-text').innerHTML = N.heroTransit;
+
+// Dateline under the masthead — the ceremonial register
+function romanLower(n) {
+  const map = [['m',1000],['cm',900],['d',500],['cd',400],['c',100],['xc',90],['l',50],['xl',40],['x',10],['ix',9],['v',5],['iv',4],['i',1]];
+  let out = ''; for (const [s, v] of map) { while (n >= v) { out += s; n -= v; } } return out;
+}
+const MONTH_LOWER = ['january','february','march','april','may','june','july','august','september','october','november','december'];
+const d0 = new Date();
+const dl = document.getElementById('hero-dateline');
+if (dl) {
+  const moonPhaseTitle = N.phase || 'waxing';
+  dl.innerHTML = `the daily · ${romanLower(d0.getDate())} ${MONTH_LOWER[d0.getMonth()]} ${romanLower(d0.getFullYear())} · <em>${sky.phaseName} moon</em>`;
+}
+
+/* ---------- Hero card image swap ---------- */
+// The hero 3D card is loaded inside the module script from an image URL.
+// To avoid rewriting that module, we set a global that the module can read BEFORE loading texture.
+// (The module already chose 09_the_hermit.png — we switch to the correct card here.)
+window.__cardFile = N.card.file;
+
+/* ---------- Today's card section ---------- */
+document.getElementById('today-card-img').src    = `assets/${N.card.file}`;
+document.getElementById('today-card-img').alt    = `${N.card.name} — Olivia Arcana v2.7`;
+document.getElementById('today-card-caption').textContent =
+  `${N.card.name} · Olivia Arcana v2.7 · gold line on cotton cardstock, 400gsm`;
+document.getElementById('today-card-num').textContent  = N.card.num;
+document.getElementById('today-card-title').textContent = N.card.name;
+document.getElementById('today-card-intro').innerHTML  = N.cardIntro;
+document.getElementById('today-card-body-1').innerHTML = N.cardBody1;
+document.getElementById('today-card-body-2').innerHTML = N.cardBody2;
+document.getElementById('why-card-body').innerHTML = N.whyBody;
+
+/* ---------- Key aspect section ---------- */
+document.getElementById('aspect-headline').innerHTML = N.aspectHead;
+document.getElementById('aspect-subtitle').innerHTML = N.aspectSub;
+document.getElementById('aspect-body-p1').innerHTML  = N.aspectP1;
+document.getElementById('aspect-body-p2').innerHTML  = N.aspectP2;
+const doList   = document.getElementById('aspect-do-list');
+const dontList = document.getElementById('aspect-dont-list');
+doList.innerHTML   = N.doList.map(s => `<li>${s}</li>`).join('');
+dontList.innerHTML = N.dontList.map(s => `<li>${s}</li>`).join('');
+
+/* ---------- Ritual ---------- */
+document.getElementById('ritual-quote').textContent = N.ritual;
+
+/* ---------- Billboard (the massive typography moment) ---------- */
+(function () {
+  const l1 = document.getElementById('billboard-line-1');
+  const l2 = document.getElementById('billboard-line-2');
+  if (!l1 || !l2) return;
+  // Wrap each word in a span for staggered reveal — keep <em> tags intact
+  function splitForReveal(html) {
+    // Keep any <em>…</em> segments together
+    return html.replace(/(<em>[^<]+<\/em>|[^\s<]+)/g, m => `<span class="bb-word">${m}</span>`);
+  }
+  l1.innerHTML = splitForReveal(N.billboardL1);
+  l2.innerHTML = splitForReveal(N.billboardL2);
+  // Stagger reveal when the section enters view
+  const bbObs = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        const allWords = e.target.querySelectorAll('.bb-word');
+        allWords.forEach((w, i) => setTimeout(() => w.classList.add('in'), 120 * i));
+        bbObs.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.25 });
+  bbObs.observe(document.querySelector('.s-billboard'));
+})();
+
+/* ---------- HUD current time ---------- */
+const WEEKDAY = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+const hudMeta = document.getElementById('hud-meta');
+function updateHud() {
+  const d = new Date();
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mm = String(d.getMinutes()).padStart(2, '0');
+  hudMeta.innerHTML = `<em>${WEEKDAY[d.getDay()]} · ${hh}:${mm} · Reykjavík</em>`;
+}
+updateHud();
+setInterval(updateHud, 30000);
+
+// Try geolocation + reverse-geocode for city
+if (navigator.geolocation && (location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.protocol === 'https:')) {
+  navigator.geolocation.getCurrentPosition((pos) => {
+    fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${pos.coords.latitude}&longitude=${pos.coords.longitude}&localityLanguage=en`)
+      .then(r => r.ok ? r.json() : null)
+      .then(j => {
+        if (!j) return;
+        const city = j.city || j.locality || 'Reykjavík';
+        const d = new Date();
+        const hh = String(d.getHours()).padStart(2, '0');
+        const mm = String(d.getMinutes()).padStart(2, '0');
+        hudMeta.innerHTML = `<em>${WEEKDAY[d.getDay()]} · ${hh}:${mm} · ${city}</em>`;
+      }).catch(() => {});
+  }, () => {}, { timeout: 4000, maximumAge: 600000 });
+}
+
+/* ---------- KEY ASPECT DIAGRAM — drawn dynamically from today's tightest aspect ---------- */
+function renderAspectSvg() {
+  const svg = document.getElementById('aspect-svg');
+  if (!svg || !window.__sky) return;
+  const parts = [];
+
+  const R = 180, R_INNER = 120, R_CORE = 50;
+
+  parts.push(`<circle class="ring" cx="0" cy="0" r="${R}"/>`);
+  parts.push(`<circle class="inner-ring" cx="0" cy="0" r="${R_INNER}"/>`);
+  parts.push(`<circle class="inner-ring" cx="0" cy="0" r="${R_CORE}"/>`);
+
+  // 12 zodiac spokes
+  for (let i = 0; i < 12; i++) {
+    const a = -Math.PI / 2 + (i / 12) * Math.PI * 2;
+    const x1 = Math.cos(a) * R_INNER, y1 = Math.sin(a) * R_INNER;
+    const x2 = Math.cos(a) * R, y2 = Math.sin(a) * R;
+    parts.push(`<line class="inner-ring" stroke-width="0.5" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`);
+  }
+
+  const sky = window.__sky;
+  const aLon = sky.lons[sky.key.a];
+  const bLon = sky.lons[sky.key.b];
+
+  function pos(l, r) {
+    const a = -Math.PI / 2 + (-l * Math.PI / 180);
+    return { x: Math.cos(a) * r, y: Math.sin(a) * r };
+  }
+  const ap = pos(aLon, 155);
+  const bp = pos(bLon, 155);
+
+  // Aspect line between the two key planets — hidden initially (stroke-draw reveals it)
+  const lineLength = Math.hypot(bp.x - ap.x, bp.y - ap.y);
+  parts.push(`<line class="aspect-line" x1="${ap.x.toFixed(1)}" y1="${ap.y.toFixed(1)}" x2="${bp.x.toFixed(1)}" y2="${bp.y.toFixed(1)}" style="stroke-dasharray:${lineLength.toFixed(1)};stroke-dashoffset:${lineLength.toFixed(1)};transition:stroke-dashoffset 2.2s cubic-bezier(0.22, 1, 0.36, 1);"/>`);
+
+  // Dots
+  parts.push(`<circle class="glyph-dot" cx="${ap.x.toFixed(1)}" cy="${ap.y.toFixed(1)}" r="2.6"/>`);
+  parts.push(`<circle class="glyph-dot" cx="${bp.x.toFixed(1)}" cy="${bp.y.toFixed(1)}" r="2.6"/>`);
+
+  // Planet glyphs
+  parts.push(`<text class="planet-glyph" text-anchor="middle" x="${ap.x.toFixed(1)}" y="${(ap.y - 12).toFixed(1)}">${PLANET_GLYPHS[sky.key.a]}</text>`);
+  parts.push(`<text class="planet-glyph" text-anchor="middle" x="${bp.x.toFixed(1)}" y="${(bp.y - 12).toFixed(1)}">${PLANET_GLYPHS[sky.key.b]}</text>`);
+
+  // Sign glyph labels beneath the planets
+  parts.push(`<text class="sign-label" text-anchor="middle" x="${ap.x.toFixed(1)}" y="${(ap.y + 22).toFixed(1)}">${sky.signGlyphOf(aLon)}</text>`);
+  parts.push(`<text class="sign-label" text-anchor="middle" x="${bp.x.toFixed(1)}" y="${(bp.y + 22).toFixed(1)}">${sky.signGlyphOf(bLon)}</text>`);
+
+  // 12 zodiac glyphs around the outside
+  for (let i = 0; i < 12; i++) {
+    const aMid = -Math.PI / 2 + ((i + 0.5) / 12) * Math.PI * 2;
+    const x = Math.cos(aMid) * (R + 14), y = Math.sin(aMid) * (R + 14) + 6;
+    parts.push(`<text class="sign-label" text-anchor="middle" x="${x.toFixed(1)}" y="${y.toFixed(1)}" style="font-size:13px;fill:var(--gold-deep);">${ZODIAC_GLYPHS[i]}</text>`);
+  }
+
+  svg.innerHTML = parts.join('\n');
+}
+renderAspectSvg();
+
+/* ---------- DECK GRID — render all 78 card thumbnails ---------- */
+const DECK = [
+  ['00_the_fool.png',             'The Fool'],
+  ['01_the_magician.png',         'The Magician'],
+  ['02_the_high_priestess.png',   'The High Priestess'],
+  ['03_the_empress.png',          'The Empress'],
+  ['04_the_emperor.png',          'The Emperor'],
+  ['05_the_hierophant.png',       'The Hierophant'],
+  ['06_the_lovers.png',           'The Lovers'],
+  ['07_the_chariot.png',          'The Chariot'],
+  ['08_strength.png',             'Strength'],
+  ['09_the_hermit.png',           'The Hermit'],
+  ['10_wheel_of_fortune.png',     'Wheel of Fortune'],
+  ['11_justice.png',              'Justice'],
+  ['12_the_hanged_man.png',       'The Hanged Man'],
+  ['13_death.png',                'Death'],
+  ['14_temperance.png',           'Temperance'],
+  ['15_the_devil.png',            'The Devil'],
+  ['16_the_tower.png',            'The Tower'],
+  ['17_the_star.png',             'The Star'],
+  ['18_the_moon.png',             'The Moon'],
+  ['19_the_sun.png',              'The Sun'],
+  ['20_judgement.png',            'Judgement'],
+  ['21_the_world.png',            'The World'],
+  // Minors (placeholder filenames — common naming convention)
+  ['22_ace_of_wands.png',         'Ace of Wands'],
+  ['23_two_of_wands.png',         'Two of Wands'],
+  ['24_three_of_wands.png',       'Three of Wands'],
+  ['25_four_of_wands.png',        'Four of Wands'],
+  ['26_five_of_wands.png',        'Five of Wands'],
+  ['27_six_of_wands.png',         'Six of Wands'],
+  ['28_seven_of_wands.png',       'Seven of Wands'],
+  ['29_eight_of_wands.png',       'Eight of Wands'],
+  ['30_nine_of_wands.png',        'Nine of Wands'],
+  ['31_ten_of_wands.png',         'Ten of Wands'],
+  ['32_page_of_wands.png',        'Page of Wands'],
+  ['33_knight_of_wands.png',      'Knight of Wands'],
+  ['34_queen_of_wands.png',       'Queen of Wands'],
+  ['35_king_of_wands.png',        'King of Wands'],
+  ['36_ace_of_cups.png',          'Ace of Cups'],
+  ['37_two_of_cups.png',          'Two of Cups'],
+  ['38_three_of_cups.png',        'Three of Cups'],
+  ['39_four_of_cups.png',         'Four of Cups'],
+  ['40_five_of_cups.png',         'Five of Cups'],
+  ['41_six_of_cups.png',          'Six of Cups'],
+  ['42_seven_of_cups.png',        'Seven of Cups'],
+  ['43_eight_of_cups.png',        'Eight of Cups'],
+  ['44_nine_of_cups.png',         'Nine of Cups'],
+  ['45_ten_of_cups.png',          'Ten of Cups'],
+  ['46_page_of_cups.png',         'Page of Cups'],
+  ['47_knight_of_cups.png',       'Knight of Cups'],
+  ['48_queen_of_cups.png',        'Queen of Cups'],
+  ['49_king_of_cups.png',         'King of Cups'],
+  ['50_ace_of_swords.png',        'Ace of Swords'],
+  ['51_two_of_swords.png',        'Two of Swords'],
+  ['52_three_of_swords.png',      'Three of Swords'],
+  ['53_four_of_swords.png',       'Four of Swords'],
+  ['54_five_of_swords.png',       'Five of Swords'],
+  ['55_six_of_swords.png',        'Six of Swords'],
+  ['56_seven_of_swords.png',      'Seven of Swords'],
+  ['57_eight_of_swords.png',      'Eight of Swords'],
+  ['58_nine_of_swords.png',       'Nine of Swords'],
+  ['59_ten_of_swords.png',        'Ten of Swords'],
+  ['60_page_of_swords.png',       'Page of Swords'],
+  ['61_knight_of_swords.png',     'Knight of Swords'],
+  ['62_queen_of_swords.png',      'Queen of Swords'],
+  ['63_king_of_swords.png',       'King of Swords'],
+  ['64_ace_of_pentacles.png',     'Ace of Pentacles'],
+  ['65_two_of_pentacles.png',     'Two of Pentacles'],
+  ['66_three_of_pentacles.png',   'Three of Pentacles'],
+  ['67_four_of_pentacles.png',    'Four of Pentacles'],
+  ['68_five_of_pentacles.png',    'Five of Pentacles'],
+  ['69_six_of_pentacles.png',     'Six of Pentacles'],
+  ['70_seven_of_pentacles.png',   'Seven of Pentacles'],
+  ['71_eight_of_pentacles.png',   'Eight of Pentacles'],
+  ['72_nine_of_pentacles.png',    'Nine of Pentacles'],
+  ['73_ten_of_pentacles.png',     'Ten of Pentacles'],
+  ['74_page_of_pentacles.png',    'Page of Pentacles'],
+  ['75_knight_of_pentacles.png',  'Knight of Pentacles'],
+  ['76_queen_of_pentacles.png',   'Queen of Pentacles'],
+  ['77_king_of_pentacles.png',    'King of Pentacles'],
+];
+const deckGrid = document.getElementById('deck-grid');
+if (deckGrid) {
+  const frag = document.createDocumentFragment();
+  DECK.forEach(([file, name], i) => {
+    const thumb = `assets/thumbs/${file.replace('.png', '.jpg')}`;
+    const el = document.createElement('div');
+    el.className = 'deck-card';
+    el.innerHTML = `
+      <img src="${thumb}" alt="${name}" loading="lazy" draggable="false" width="180" height="270" />
+      <div class="deck-card-name">${name}</div>
+    `;
+    frag.appendChild(el);
+  });
+  deckGrid.appendChild(frag);
+}
+
+/* ---------- SCROLL REVEAL (universal) ---------- */
+const io = new IntersectionObserver((entries) => {
+  for (const e of entries) {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ---------- RITUAL QUOTE — word-by-word reveal ---------- */
+const ritualQuoteEl = document.getElementById('ritual-quote');
+if (ritualQuoteEl) {
+  const raw = ritualQuoteEl.textContent.trim();
+  const words = raw.split(/\s+/);
+  ritualQuoteEl.innerHTML = words.map(w => `<span class="ritual-word">${w}</span>`).join(' ');
+  const rObs = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        const ws = ritualQuoteEl.querySelectorAll('.ritual-word');
+        ws.forEach((w, i) => setTimeout(() => w.classList.add('in'), 70 * i));
+        rObs.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.35 });
+  rObs.observe(ritualQuoteEl);
+}
+
+/* ---------- ASPECT SVG — stroke-draw when the section enters view ---------- */
+// The inline style on .aspect-line already sets dasharray/dashoffset to hide the line
+// initially. We just need to flip dashoffset to 0 when the section becomes visible.
+const aspectSvgSection = document.getElementById('aspect-svg');
+if (aspectSvgSection) {
+  const sObs = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        const line = aspectSvgSection.querySelector('.aspect-line');
+        if (line) line.style.strokeDashoffset = '0';
+        sObs.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.4 });
+  sObs.observe(aspectSvgSection);
+}
+
+/* ---------- DECK GRID — cascade reveal + click-to-open modal ---------- */
+function wireDeckReveal() {
+  const cards = document.querySelectorAll('.deck-card');
+  if (!cards.length) return;
+  cards.forEach((card, i) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translate3d(0, 28px, 0)';
+    const stagger = (i % 8) * 50;
+    card.style.transition = `opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) ${stagger}ms, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) ${stagger}ms`;
+  });
+  const dObs = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'none';
+        dObs.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  cards.forEach(c => dObs.observe(c));
+}
+wireDeckReveal();
+
+/* ---------- DECK MODAL — open on card click ---------- */
+// Short-form meanings per major arcana (index 0-21). Minors get a generic line.
+const DECK_MEANINGS = [
+  { kw: 'new beginnings · innocence · the leap',       body: 'The figure steps off the edge of a cliff holding a white rose — the soul about to enter the world. The Fool is before knowledge, and therefore before fear.' },
+  { kw: 'will · focus · manifestation',                body: 'All four elements arranged on the table. The Magician is the moment of pure intention — when attention itself becomes the thing that shapes.' },
+  { kw: 'silence · intuition · the inner voice',        body: 'The veiled figure sits between the pillars. The Priestess knows without speaking; she is the threshold between what can be said and what can be felt.' },
+  { kw: 'abundance · nurture · fertility of form',      body: 'A throned figure in the garden. The Empress is form in its most generous mood — the mother-field in which ideas take root.' },
+  { kw: 'structure · authority · the enduring frame',   body: 'The Emperor holds the kingdom in place. He is the shape of things — what stays when the winds have finished.' },
+  { kw: 'tradition · teaching · the shared rite',       body: 'A priest at the altar of accumulated knowing. The Hierophant transmits what cannot be invented from scratch.' },
+  { kw: 'alignment · covenant · the meeting of two',    body: 'Two figures beneath a watching angel. The Lovers is the moment when what seemed separate becomes mutually true.' },
+  { kw: 'drive · victory · the held reins',             body: 'A charioteer between two sphinxes of opposite colour. Discipline pointed toward a place. The Chariot does not hesitate.' },
+  { kw: 'gentle power · inner calm · quiet courage',    body: 'A woman gently closing the mouth of a lion. Strength is not force — it is the quality that needs no force to prevail.' },
+  { kw: 'introspection · solitude · the inner lantern', body: 'A figure walking inward with a single steady light. The Hermit is withdrawal into the world, not from it.' },
+  { kw: 'turning · fortune · cycle',                    body: 'The wheel of the heavens moves on. The Wheel of Fortune is the reminder that nothing stays; also that nothing leaves.' },
+  { kw: 'truth · balance · consequence',                body: 'A seated figure with sword and scales. Justice weighs what is, not what is wanted. Its gaze is level.' },
+  { kw: 'surrender · new angle · willing pause',         body: 'A figure suspended, upside-down, calm. The Hanged Man sees the room from another ceiling. Suspension is a method.' },
+  { kw: 'ending · transformation · what must pass',     body: 'The figure on horseback. Death is not the end of the story — it is the end of what was true until today.' },
+  { kw: 'moderation · blend · the third thing',         body: 'An angel pouring water between two cups. Temperance makes the mixture that was not possible in either alone.' },
+  { kw: 'bondage · attachment · the known shadow',       body: 'A horned figure over two chained humans — but the chains are loose. The Devil is the trap one could leave at any time.' },
+  { kw: 'upheaval · revelation · the honest break',      body: 'Lightning splits a tower. The Tower is not punishment — it is unmasking. What falls was already falling.' },
+  { kw: 'hope · renewal · the wider sky',                body: 'A figure kneeling beside water, pouring. The Star is what hope looks like after it has already survived something.' },
+  { kw: 'dream · illusion · the oblique path',           body: 'Two towers under a moon. The Moon lights the way the sun would not — uncertain, indirect, but still a way.' },
+  { kw: 'vitality · clarity · the unhidden self',        body: 'A child on a horse under a full sun. The Sun is not the absence of shadow — it is the thing strong enough that shadow does not matter.' },
+  { kw: 'awakening · calling · the final weighing',      body: 'An angel above rising figures. Judgement is the moment the old self is at last heard, and at last answered.' },
+  { kw: 'completion · wholeness · the good ending',      body: 'A dancer in a laurel wreath, the four creatures at the corners. The World is not only arrival — it is the return of everything with its meaning.' },
+];
+function meaningFor(idx) {
+  if (idx < 22) return DECK_MEANINGS[idx];
+  // Minors — generic by suit
+  const suit = ['wands (fire · will)', 'cups (water · feeling)', 'swords (air · mind)', 'pentacles (earth · body)'][Math.floor((idx - 22) / 14)];
+  return { kw: `${suit} · arcana minor`, body: 'A minor arcana card — pulled when the question is specific, not archetypal. The scene speaks in the everyday register of the soul.' };
+}
+
+const modal       = document.getElementById('deck-modal');
+const modalImg    = document.getElementById('deck-modal-img');
+const modalKick   = document.getElementById('deck-modal-kicker');
+const modalTitle  = document.getElementById('deck-modal-title');
+const modalBody   = document.getElementById('deck-modal-meaning');
+const modalKwords = document.getElementById('deck-modal-keywords');
+function openDeckModal(idx) {
+  const [file, name] = DECK[idx];
+  const meaning = meaningFor(idx);
+  modalImg.src = `assets/${file}`;
+  modalImg.alt = name;
+  modalTitle.textContent = name;
+  modalKick.textContent = idx < 22 ? `Arcana · ${romanLower(idx).toUpperCase()}` : 'Arcana Minor';
+  modalBody.textContent = meaning.body;
+  modalKwords.innerHTML = `<span class="label">keywords</span><span>${meaning.kw}</span>`;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+function closeDeckModal() {
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+document.getElementById('deck-modal-close').addEventListener('click', closeDeckModal);
+document.getElementById('deck-modal-scrim').addEventListener('click', closeDeckModal);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDeckModal(); });
+
+// Wire all deck-card clicks + keyboard
+document.querySelectorAll('#deck-grid .deck-card').forEach((el, i) => {
+  el.addEventListener('click', () => openDeckModal(i));
+  el.setAttribute('tabindex', '0');
+  el.setAttribute('role', 'button');
+  el.dataset.deckIdx = String(i);
+  el.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDeckModal(i); }
+  });
+});
+
+/* ---------- DECK FILTER — filter by category ---------- */
+function categoryOf(i) {
+  if (i < 22) return 'major';
+  if (i < 36) return 'wands';
+  if (i < 50) return 'cups';
+  if (i < 64) return 'swords';
+  return 'pentacles';
+}
+document.querySelectorAll('.deck-filter a').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelectorAll('.deck-filter a').forEach(x => x.classList.remove('active'));
+    a.classList.add('active');
+    const filter = a.dataset.filter;
+    document.querySelectorAll('#deck-grid .deck-card').forEach((card) => {
+      const i = parseInt(card.dataset.deckIdx, 10);
+      const cat = categoryOf(i);
+      const show = filter === 'all' || cat === filter;
+      card.classList.toggle('filtered-out', !show);
+    });
+  });
+});
+
+/* ---------- CUSTOM CURSOR — desktop only ---------- */
+(function () {
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  if (!dot || !ring) return;
+  // Only wire on fine-pointer devices
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  const dotX  = gsap.quickTo(dot,  'x', { duration: 0.06, ease: 'power2' });
+  const dotY  = gsap.quickTo(dot,  'y', { duration: 0.06, ease: 'power2' });
+  const ringX = gsap.quickTo(ring, 'x', { duration: 0.32, ease: 'power2' });
+  const ringY = gsap.quickTo(ring, 'y', { duration: 0.32, ease: 'power2' });
+  window.addEventListener('pointermove', (e) => {
+    dotX(e.clientX); dotY(e.clientY); ringX(e.clientX); ringY(e.clientY);
+  });
+  // Hover states — ring grows over interactive elements
+  const hoverTargets = 'a, button, [role="button"], .deck-card, .hero-card-column, .tier, .testimonial, input, .footer-nav a, .subnav a';
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest(hoverTargets)) ring.classList.add('hover');
+  });
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest(hoverTargets)) ring.classList.remove('hover');
+  });
+})();
+
+/* ---------- AUDIO TOGGLE — opt-in ambient drone ---------- */
+(function () {
+  const btn = document.getElementById('audio-toggle');
+  if (!btn) return;
+  let ctx = null, master = null, on = false;
+  btn.addEventListener('click', () => {
+    if (!ctx) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      master = ctx.createGain(); master.gain.value = 0;
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass'; lp.frequency.value = 480; lp.Q.value = 1.2;
+      lp.connect(master); master.connect(ctx.destination);
+      const voice = (f, g) => {
+        const o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = f;
+        const gn = ctx.createGain(); gn.gain.value = g;
+        o.connect(gn); gn.connect(lp); o.start();
+      };
+      voice(110, 0.9); voice(164.81, 0.5); voice(220, 0.38); voice(113.5, 0.22);
+      setInterval(() => {
+        const t = ctx.currentTime;
+        lp.frequency.cancelScheduledValues(t);
+        lp.frequency.linearRampToValueAtTime(360 + Math.random() * 360, t + 5);
+      }, 4800);
+    }
+    on = !on;
+    const target = on ? 0.085 : 0;
+    master.gain.cancelScheduledValues(ctx.currentTime);
+    master.gain.linearRampToValueAtTime(target, ctx.currentTime + (on ? 2.4 : 1.4));
+    btn.classList.toggle('on', on);
+    btn.textContent = on ? 'sound on' : 'sound off';
+  });
+})();
+
+/* ---------- SMOOTH SCROLL for subnav anchor links ---------- */
+const subnavAnchors = document.querySelectorAll('.subnav a');
+subnavAnchors.forEach(a => {
+  a.addEventListener('click', (e) => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Active subnav state — highlight the section currently in view
+const sectionIds = ['today', 'aspect', 'ritual', 'deck', 'booking', 'buy'];
+const navObs = new IntersectionObserver((entries) => {
+  for (const e of entries) {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      subnavAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    }
+  }
+}, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+sectionIds.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) navObs.observe(el);
+});
+
+/* ---------- BUTTON FEEDBACK ---------- */
+// Ritual action buttons — "save to record" and "share this reading"
+document.querySelectorAll('.ritual-action button').forEach(btn => {
+  const original = btn.textContent;
+  btn.addEventListener('click', async () => {
+    if (btn.disabled) return;
+    btn.disabled = true;
+    if (original.includes('share')) {
+      try { await navigator.clipboard.writeText(location.href); }
+      catch (_) {}
+      btn.textContent = '— link copied';
+    } else {
+      btn.textContent = '— saved';
+    }
+    setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2400);
+  });
+});
+
+// Tier CTAs — scroll to booking section when already there, or soft placeholder
+document.querySelectorAll('.tier-cta').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const original = btn.textContent;
+    btn.textContent = '— reservation begun';
+    btn.disabled = true;
+    setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2400);
+  });
+});
+
+// Product reserve — placeholder
+const reserveBtn = document.querySelector('.product-buy-btn');
+if (reserveBtn) {
+  const original = reserveBtn.textContent;
+  reserveBtn.addEventListener('click', () => {
+    reserveBtn.textContent = '— plate reserved';
+    reserveBtn.disabled = true;
+    setTimeout(() => { reserveBtn.textContent = original; reserveBtn.disabled = false; }, 2400);
+  });
+}
+
+// Deck modal CTA — scroll to booking + close
+document.querySelectorAll('.deck-modal-actions button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.classList.contains('primary')) {
+      closeDeckModal();
+      setTimeout(() => {
+        document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    } else {
+      const original = btn.textContent;
+      btn.textContent = '— added';
+      btn.disabled = true;
+      setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 2000);
+    }
+  });
+});
+</script>
+
+</body>
+</html>

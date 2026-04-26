@@ -2,7 +2,6 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLocale } from "../lib/i18n/useLocale";
 import type { Transit, Significance } from "../lib/transit-calculator";
 
 // ── Styling constants ──
@@ -69,7 +68,6 @@ interface Props {
 }
 
 export default function TransitTimeline({ transits }: Props) {
-  const { t } = useLocale();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState<Transit | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -89,17 +87,23 @@ export default function TransitTimeline({ transits }: Props) {
   const filtered = transits.filter((tr) => filters[tr.significance]);
 
   // Compute timeline range
-  const now = new Date();
-  const earliest = filtered.length > 0
-    ? new Date(Math.min(...filtered.map((tr) => tr.startDate.getTime()), now.getTime()))
-    : now;
-  const latest = filtered.length > 0
-    ? new Date(Math.max(...filtered.map((tr) => tr.endDate.getTime())))
-    : new Date(now.getTime() + 180 * 24 * 60 * 60 * 1000);
+  const { now, earliest, latest, totalDays, timelineWidth } = React.useMemo(() => {
+    const nowVal = new Date();
+    const e = filtered.length > 0
+      ? new Date(Math.min(...filtered.map((tr) => tr.startDate.getTime()), nowVal.getTime()))
+      : nowVal;
+    const l = filtered.length > 0
+      ? new Date(Math.max(...filtered.map((tr) => tr.endDate.getTime())))
+      : new Date(nowVal.getTime() + 180 * 24 * 60 * 60 * 1000);
 
-  const totalDays = Math.max(daysBetween(earliest, latest), 30);
+    const td = Math.max(daysBetween(e, l), 30);
+    const pxPerDay = 6;
+    const tw = td * pxPerDay;
+    
+    return { now: nowVal, earliest: e, latest: l, totalDays: td, timelineWidth: tw };
+  }, [filtered]);
+
   const pxPerDay = 6;
-  const timelineWidth = totalDays * pxPerDay;
 
   // Scroll to "now" on mount
   useEffect(() => {
@@ -107,7 +111,7 @@ export default function TransitTimeline({ transits }: Props) {
       const nowOffset = daysBetween(earliest, now) * pxPerDay;
       scrollRef.current.scrollLeft = Math.max(0, nowOffset - 120);
     }
-  }, [filtered.length]);
+  }, [filtered.length, earliest, now]);
 
   function toggleFilter(sig: Significance) {
     setFilters((prev) => ({ ...prev, [sig]: !prev[sig] }));

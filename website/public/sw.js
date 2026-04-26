@@ -6,7 +6,7 @@
  * Pre-caches the app shell on install.
  */
 
-const CACHE = "olivia-v1";
+const CACHE = "olivia-v3";
 const SHELL = [
   "/",
   "/daily",
@@ -16,6 +16,13 @@ const SHELL = [
   "/cosmos",
   "/journal",
   "/synastry",
+  "/portrait",
+  "/oracle",
+  "/sample",
+  "/story",
+  "/transits",
+  "/timing",
+  "/signs",
 ];
 
 // ── Install: pre-cache app shell ──

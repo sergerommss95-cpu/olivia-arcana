@@ -38,7 +38,10 @@ export default function ScrollFloat({
   // Detect reduced motion safely (avoids SSR hydration mismatch)
   const [reducedMotion, setReducedMotion] = useState(false);
   useEffect(() => {
-    setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const timer = setTimeout(() => {
+      setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   const eased = useMemo(() => {

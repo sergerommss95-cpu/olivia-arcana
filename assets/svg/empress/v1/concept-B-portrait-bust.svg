@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 700" role="img" aria-labelledby="title desc">
+  <title id="title">The Empress — Portrait Bust · Major Arcana III</title>
+  <desc id="desc">The Empress rendered as an intimate icon portrait: a crowned priestess in three-quarter view with a twelve-star crown, gold engraving linework, a radiant halo, the Venus symbol at her breast, and a band of fertility iconography below. Rendered on deep navy in jewel-tone gold, in the Mystic Cartography style — medieval astrological manuscript meets Byzantine icon panel.</desc>
+
+  <defs>
+    <!-- Background radial -->
+    <radialGradient id="bgRadial" cx="50%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="55%" stop-color="#0d0720"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+
+    <!-- Primary gold linear -->
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- Gold horizontal for bands -->
+    <linearGradient id="goldBand" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6b4a1f"/>
+      <stop offset="50%" stop-color="#ffe8a3"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- Halo radial -->
+    <radialGradient id="haloGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="0.55"/>
+      <stop offset="35%" stop-color="#d4a574" stop-opacity="0.35"/>
+      <stop offset="70%" stop-color="#6b4a1f" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#6b4a1f" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Soft inner glow for face -->
+    <radialGradient id="faceGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ead0a8" stop-opacity="0.28"/>
+      <stop offset="70%" stop-color="#ead0a8" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ead0a8" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Star symbol path (4-pointed asterisk) -->
+    <symbol id="star4" viewBox="-10 -10 20 20" overflow="visible">
+      <path d="M0 -9 L1.6 -1.6 L9 0 L1.6 1.6 L0 9 L-1.6 1.6 L-9 0 L-1.6 -1.6 Z" fill="url(#goldPrimary)" stroke="#fff2c6" stroke-width="0.5"/>
+      <circle cx="0" cy="0" r="1.2" fill="#fff2c6"/>
+    </symbol>
+  </defs>
+
+  <!-- BACKGROUND -->
+  <g id="background">
+    <rect x="0" y="0" width="400" height="700" fill="url(#bgRadial)"/>
+    <!-- subtle noise stipple (gold specks) -->
+    <g fill="#d4a574" opacity="0.22">
+      <circle cx="38" cy="72" r="0.7"/>
+      <circle cx="362" cy="118" r="0.6"/>
+      <circle cx="54" cy="220" r="0.5"/>
+      <circle cx="348" cy="260" r="0.8"/>
+      <circle cx="72" cy="420" r="0.6"/>
+      <circle cx="322" cy="468" r="0.7"/>
+      <circle cx="44" cy="560" r="0.5"/>
+      <circle cx="356" cy="600" r="0.7"/>
+      <circle cx="200" cy="78" r="0.5"/>
+      <circle cx="120" cy="310" r="0.6"/>
+      <circle cx="280" cy="330" r="0.6"/>
+      <circle cx="90" cy="640" r="0.5"/>
+      <circle cx="310" cy="660" r="0.5"/>
+    </g>
+  </g>
+
+  <!-- BORDER -->
+  <g id="border" fill="none" stroke="url(#goldPrimary)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Double frame -->
+    <rect x="20" y="20" width="360" height="660" stroke-width="1.4"/>
+    <rect x="26" y="26" width="348" height="648" stroke-width="0.7" opacity="0.85"/>
+
+    <!-- Corner filigree crosses (TL, TR, BL, BR) -->
+    <!-- Top-Left -->
+    <g stroke-width="1.1">
+      <path d="M20 44 L44 20"/>
+      <path d="M34 20 L20 34"/>
+      <path d="M28 28 L40 28 M28 28 L28 40 M40 28 L40 40 M28 40 L40 40"/>
+      <circle cx="34" cy="34" r="2.4" stroke-width="1"/>
+      <path d="M34 30.5 L34 37.5 M30.5 34 L37.5 34"/>
+    </g>
+    <!-- Top-Right -->
+    <g stroke-width="1.1">
+      <path d="M380 44 L356 20"/>
+      <path d="M366 20 L380 34"/>
+      <path d="M360 28 L372 28 M360 28 L360 40 M372 28 L372 40 M360 40 L372 40"/>
+      <circle cx="366" cy="34" r="2.4" stroke-width="1"/>
+      <path d="M366 30.5 L366 37.5 M362.5 34 L369.5 34"/>
+    </g>
+    <!-- Bottom-Left -->
+    <g stroke-width="1.1">
+      <path d="M20 656 L44 680"/>
+      <path d="M34 680 L20 666"/>
+      <path d="M28 660 L40 660 M28 660 L28 672 M40 660 L40 672 M28 672 L40 672"/>
+      <circle cx="34" cy="666" r="2.4" stroke-width="1"/>
+      <path d="M34 662.5 L34 669.5 M30.5 666 L37.5 666"/>
+    </g>
+    <!-- Bottom-Right -->
+    <g stroke-width="1.1">
+      <path d="M380 656 L356 680"/>
+      <path d="M366 680 L380 666"/>
+      <path d="M360 660 L372 660 M360 660 L360 672 M372 660 L372 672 M360 672 L372 672"/>
+      <circle cx="366" cy="666" r="2.4" stroke-width="1"/>
+      <path d="M366 662.5 L366 669.5 M362.5 666 L369.5 666"/>
+    </g>
+
+    <!-- Midline tick ornaments -->
+    <g stroke-width="0.9" opacity="0.85">
+      <path d="M200 20 L196 30 L204 30 Z" fill="url(#goldPrimary)" stroke="none"/>
+      <path d="M200 680 L196 670 L204 670 Z" fill="url(#goldPrimary)" stroke="none"/>
+      <path d="M20 350 L30 346 L30 354 Z" fill="url(#goldPrimary)" stroke="none"/>
+      <path d="M380 350 L370 346 L370 354 Z" fill="url(#goldPrimary)" stroke="none"/>
+    </g>
+  </g>
+
+  <!-- TOP INSCRIPTION -->
+  <g id="inscription-top">
+    <text x="200" y="54" text-anchor="middle" font-family="'Cormorant Garamond','EB Garamond','Garamond','Times New Roman',serif" font-size="14" letter-spacing="4" fill="url(#goldPrimary)" font-style="italic">·✦· III ·✦·</text>
+  </g>
+
+  <!-- CONSTELLATION (Virgo) behind halo -->
+  <g id="constellation" stroke="#d4a574" stroke-width="0.5" fill="#fff2c6" opacity="0.85">
+    <!-- Connecting lines (faint) -->
+    <g stroke="#d4a574" stroke-width="0.35" opacity="0.55" fill="none">
+      <path d="M88 130 L132 160 L168 138 L210 120 L250 150 L286 130 L322 168"/>
+      <path d="M168 138 L190 186"/>
+      <path d="M250 150 L238 200"/>
+    </g>
+    <!-- Stars (radius 0.8 - 2) -->
+    <circle cx="88" cy="130" r="1.2"/>
+    <circle cx="132" cy="160" r="1.6"/>
+    <circle cx="168" cy="138" r="1.0"/>
+    <circle cx="210" cy="120" r="2.0"/>
+    <circle cx="250" cy="150" r="1.4"/>
+    <circle cx="286" cy="130" r="1.1"/>
+    <circle cx="322" cy="168" r="1.7"/>
+    <circle cx="190" cy="186" r="0.9"/>
+    <circle cx="238" cy="200" r="0.8"/>
+    <circle cx="110" cy="96" r="0.9"/>
+  </g>
+
+  <!-- HALO -->
+  <g id="halo">
+    <circle cx="200" cy="240" r="135" fill="url(#haloGrad)"/>
+    <!-- outer thin halo ring -->
+    <circle cx="200" cy="240" r="122" fill="none" stroke="url(#goldPrimary)" stroke-width="0.8" opacity="0.75"/>
+    <!-- inner halo ring -->
+    <circle cx="200" cy="240" r="108" fill="none" stroke="#fff2c6" stroke-width="0.45" stroke-dasharray="2 3" opacity="0.7"/>
+    <!-- radiating rays -->
+    <g stroke="url(#goldPrimary)" stroke-width="0.6" opacity="0.55">
+      <path d="M200 240 L200 108"/>
+      <path d="M200 240 L268 134"/>
+      <path d="M200 240 L132 134"/>
+      <path d="M200 240 L320 178"/>
+      <path d="M200 240 L80 178"/>
+      <path d="M200 240 L98 270"/>
+      <path d="M200 240 L302 270"/>
+    </g>
+  </g>
+
+  <!-- SACRED GEOMETRY (vesica piscis) -->
+  <g id="sacred-geometry" fill="none" stroke="url(#goldPrimary)" stroke-width="0.6" opacity="0.42">
+    <circle cx="170" cy="300" r="110"/>
+    <circle cx="230" cy="300" r="110"/>
+    <!-- triangle inscribed within the vesica -->
+    <path d="M200 200 L118 356 L282 356 Z" opacity="0.35"/>
+  </g>
+
+  <!-- FIGURE -->
+  <g id="figure">
+    <!-- Face soft glow underlay -->
+    <ellipse cx="200" cy="250" rx="48" ry="62" fill="url(#faceGlow)"/>
+
+    <!-- SHOULDERS / MANTLE silhouette -->
+    <g stroke="url(#goldPrimary)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Outer mantle shape -->
+      <path d="M96 440 C 108 400, 128 372, 156 354
+               C 168 372, 180 382, 200 386
+               C 220 382, 232 372, 244 354
+               C 272 372, 292 400, 304 440
+               L 304 500
+               L 96 500 Z" stroke-width="6" fill="#0d0720"/>
+      <!-- Inner mantle trim (engraving) -->
+      <path d="M108 440 C 120 406, 136 384, 160 368" stroke-width="1.2"/>
+      <path d="M292 440 C 280 406, 264 384, 240 368" stroke-width="1.2"/>
+      <!-- Vertical mantle pleats -->
+      <g stroke-width="0.8" opacity="0.85">
+        <path d="M124 432 L124 500"/>
+        <path d="M140 440 L140 500"/>
+        <path d="M260 440 L260 500"/>
+        <path d="M276 432 L276 500"/>
+      </g>
+      <!-- Pleats inside (diagonal banknote shading) -->
+      <g stroke-width="0.55" opacity="0.7">
+        <path d="M112 470 L148 434"/>
+        <path d="M118 484 L158 444"/>
+        <path d="M288 470 L252 434"/>
+        <path d="M282 484 L242 444"/>
+      </g>
+    </g>
+
+    <!-- NECK -->
+    <g stroke="url(#goldPrimary)" fill="none" stroke-linecap="round">
+      <path d="M182 332 L178 360" stroke-width="2.4"/>
+      <path d="M218 332 L222 360" stroke-width="2.4"/>
+      <!-- Neck engraved shading -->
+      <path d="M190 344 C 200 350, 210 350, 218 346" stroke-width="0.8"/>
+    </g>
+
+    <!-- COLLAR / neckline with geometric pattern -->
+    <g id="collar" stroke="url(#goldPrimary)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Collar arc -->
+      <path d="M150 372 C 170 354, 186 352, 200 356 C 214 352, 230 354, 250 372" stroke-width="3"/>
+      <path d="M146 378 C 168 358, 188 356, 200 360 C 212 356, 232 358, 254 378" stroke-width="1.2"/>
+      <!-- Geometric pattern diamonds -->
+      <g stroke-width="1">
+        <path d="M162 372 L168 366 L174 372 L168 378 Z"/>
+        <path d="M180 368 L186 362 L192 368 L186 374 Z"/>
+        <path d="M200 364 L206 358 L212 364 L206 370 Z" transform="translate(-6,0)"/>
+        <path d="M214 368 L220 362 L226 368 L220 374 Z"/>
+        <path d="M232 372 L238 366 L244 372 L238 378 Z"/>
+      </g>
+      <!-- Tiny dots between diamonds -->
+      <g fill="#fff2c6" stroke="none">
+        <circle cx="177" cy="372" r="0.9"/>
+        <circle cx="195" cy="368" r="0.9"/>
+        <circle cx="207" cy="368" r="0.9"/>
+        <circle cx="225" cy="372" r="0.9"/>
+      </g>
+    </g>
+
+    <!-- HAIR (flowing waves, parallel gold lines) -->
+    <g id="hair" stroke="url(#goldPrimary)" fill="none" stroke-linecap="round">
+      <!-- Hair outer silhouette (left) -->
+      <path d="M148 216 C 134 240, 130 278, 140 318 C 146 338, 152 348, 158 354" stroke-width="6"/>
+      <!-- Hair outer silhouette (right) -->
+      <path d="M252 216 C 266 240, 270 278, 260 318 C 254 338, 248 348, 242 354" stroke-width="6"/>
+      <!-- Top of hair / parting beneath crown -->
+      <path d="M160 196 C 176 182, 224 182, 240 196" stroke-width="3"/>
+      <!-- Wave shading LEFT (parallel banknote curves) -->
+      <g stroke-width="0.7" opacity="0.88">
+        <path d="M150 226 C 142 250, 140 282, 148 314"/>
+        <path d="M156 228 C 148 252, 146 284, 154 316"/>
+        <path d="M162 232 C 156 256, 154 286, 162 318"/>
+        <path d="M168 238 C 164 260, 162 288, 170 320"/>
+        <path d="M174 244 C 172 262, 172 290, 178 322"/>
+      </g>
+      <!-- Wave shading RIGHT -->
+      <g stroke-width="0.7" opacity="0.88">
+        <path d="M250 226 C 258 250, 260 282, 252 314"/>
+        <path d="M244 228 C 252 252, 254 284, 246 316"/>
+        <path d="M238 232 C 244 256, 246 286, 238 318"/>
+        <path d="M232 238 C 236 260, 238 288, 230 320"/>
+        <path d="M226 244 C 228 262, 228 290, 222 322"/>
+      </g>
+      <!-- Cross-wave undulations -->
+      <g stroke-width="0.5" opacity="0.6">
+        <path d="M144 260 C 158 256, 170 260, 180 258"/>
+        <path d="M142 290 C 158 286, 170 290, 182 288"/>
+        <path d="M256 260 C 242 256, 230 260, 220 258"/>
+        <path d="M258 290 C 242 286, 230 290, 218 288"/>
+      </g>
+      <!-- Loose strands escaping by temple -->
+      <path d="M158 226 C 152 232, 150 238, 152 246" stroke-width="0.6"/>
+      <path d="M242 226 C 248 232, 250 238, 248 246" stroke-width="0.6"/>
+    </g>
+
+    <!-- FACE (oval) -->
+    <g id="face" stroke="url(#goldPrimary)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Face oval -->
+      <path d="M200 192
+               C 174 192, 160 214, 160 246
+               C 160 282, 180 312, 202 316
+               C 222 312, 238 282, 238 248
+               C 238 216, 224 192, 200 192 Z" stroke-width="6"/>
+      <!-- Jawline shade -->
+      <path d="M176 282 C 188 304, 212 306, 224 288" stroke-width="0.7" opacity="0.7"/>
+      <!-- Cheek contour (3/4 view, slight turn to viewer's right) -->
+      <path d="M228 240 C 232 258, 228 276, 218 290" stroke-width="0.9"/>
+      <!-- Forehead shading (subtle banknote) -->
+      <g stroke-width="0.4" opacity="0.55">
+        <path d="M176 218 C 188 214, 204 212, 218 216"/>
+        <path d="M178 224 C 190 220, 206 218, 220 222"/>
+      </g>
+      <!-- Brow ridge -->
+      <path d="M176 232 C 184 228, 194 228, 202 232" stroke-width="1.1"/>
+      <path d="M208 232 C 216 228, 226 228, 232 232" stroke-width="1.1"/>
+      <!-- Eyes (closed / downcast) -->
+      <path d="M178 244 C 184 248, 194 248, 200 244" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M210 244 C 216 248, 226 248, 232 244" stroke-width="1.6" stroke-linecap="round"/>
+      <!-- Lashes suggestion -->
+      <g stroke-width="0.5" opacity="0.9">
+        <path d="M182 247 L181 251"/>
+        <path d="M188 248 L187.5 252"/>
+        <path d="M194 247 L194 251"/>
+        <path d="M214 247 L214 251"/>
+        <path d="M220 248 L220.5 252"/>
+        <path d="M226 247 L227 251"/>
+      </g>
+      <!-- Nose (3/4 bridge) -->
+      <path d="M204 242 C 203 256, 201 270, 206 278" stroke-width="0.9"/>
+      <path d="M206 278 C 210 282, 212 282, 214 280" stroke-width="0.7"/>
+      <!-- Nostril shade -->
+      <path d="M208 278 C 210 279, 212 279, 213 278" stroke-width="0.5" opacity="0.7"/>
+      <!-- Face centerline highlight -->
+      <path d="M202 200 L204 232" stroke-width="0.4" opacity="0.55"/>
+      <!-- Cheek engraving (subtle) -->
+      <g stroke-width="0.35" opacity="0.5">
+        <path d="M172 258 C 180 264, 186 268, 188 272"/>
+        <path d="M170 264 C 178 270, 184 274, 186 278"/>
+        <path d="M232 258 C 226 266, 222 272, 220 276"/>
+      </g>
+      <!-- Chin dimple -->
+      <path d="M202 298 L202 302" stroke-width="0.5"/>
+    </g>
+
+    <!-- LIPS (small, rose accent) -->
+    <g id="lips">
+      <path d="M194 290 C 200 286, 208 286, 214 290" fill="none" stroke="#5a1f33" stroke-width="1.3" stroke-linecap="round"/>
+      <path d="M194 290 C 200 294, 208 294, 214 290" fill="#5a1f33" opacity="0.85"/>
+      <path d="M194 290 C 200 286, 208 286, 214 290" fill="none" stroke="url(#goldPrimary)" stroke-width="0.4" opacity="0.9"/>
+    </g>
+
+    <!-- EARRINGS (tiny gold discs) -->
+    <g id="earrings" fill="url(#goldPrimary)" stroke="#fff2c6" stroke-width="0.3">
+      <circle cx="158" cy="266" r="2.2"/>
+      <circle cx="158" cy="272" r="1.2"/>
+      <circle cx="242" cy="266" r="2.2"/>
+      <circle cx="242" cy="272" r="1.2"/>
+    </g>
+  </g>
+
+  <!-- ICONOGRAPHY -->
+  <g id="iconography">
+    <!-- VENUS PENDANT CHAIN -->
+    <g stroke="url(#goldPrimary)" fill="none" stroke-linecap="round">
+      <path d="M170 384 C 178 404, 190 416, 200 420" stroke-width="0.8"/>
+      <path d="M230 384 C 222 404, 210 416, 200 420" stroke-width="0.8"/>
+      <!-- Chain beads -->
+      <g fill="url(#goldPrimary)" stroke="none">
+        <circle cx="178" cy="396" r="0.9"/>
+        <circle cx="186" cy="410" r="0.9"/>
+        <circle cx="194" cy="418" r="0.9"/>
+        <circle cx="222" cy="396" r="0.9"/>
+        <circle cx="214" cy="410" r="0.9"/>
+        <circle cx="206" cy="418" r="0.9"/>
+      </g>
+    </g>
+
+    <!-- Venus symbol (♀) at ~y=350 area (chest / pendant) -->
+    <g id="venus" transform="translate(200 432)">
+      <!-- Ornamental backing -->
+      <circle r="32" fill="none" stroke="url(#goldPrimary)" stroke-width="0.6" opacity="0.8"/>
+      <circle r="27" fill="none" stroke="url(#goldPrimary)" stroke-width="0.4" stroke-dasharray="1.5 2" opacity="0.7"/>
+      <!-- Venus circle -->
+      <circle cx="0" cy="-8" r="14" fill="none" stroke="url(#goldPrimary)" stroke-width="3.2"/>
+      <circle cx="0" cy="-8" r="11" fill="none" stroke="#fff2c6" stroke-width="0.6"/>
+      <!-- Venus cross -->
+      <path d="M0 6 L0 28" stroke="url(#goldPrimary)" stroke-width="3.2" stroke-linecap="round"/>
+      <path d="M-10 18 L10 18" stroke="url(#goldPrimary)" stroke-width="3.2" stroke-linecap="round"/>
+      <!-- Decorative dots -->
+      <g fill="#fff2c6">
+        <circle cx="0" cy="-22" r="1"/>
+        <circle cx="0" cy="6" r="0.9"/>
+        <circle cx="-12" cy="18" r="0.8"/>
+        <circle cx="12" cy="18" r="0.8"/>
+      </g>
+    </g>
+
+    <!-- Iconographic band (y ~ 510 - 560) -->
+    <g id="iconband">
+      <!-- Band baseline -->
+      <path d="M56 520 L344 520" stroke="url(#goldBand)" stroke-width="1.1"/>
+      <path d="M56 574 L344 574" stroke="url(#goldBand)" stroke-width="1.1"/>
+      <!-- Band ornament dots -->
+      <g fill="url(#goldPrimary)">
+        <circle cx="56" cy="520" r="1.6"/>
+        <circle cx="344" cy="520" r="1.6"/>
+        <circle cx="56" cy="574" r="1.6"/>
+        <circle cx="344" cy="574" r="1.6"/>
+      </g>
+
+      <!-- WHEAT STALK (left) -->
+      <g transform="translate(90 547)" stroke="url(#goldPrimary)" fill="none" stroke-linecap="round">
+        <path d="M0 22 L0 -22" stroke-width="1.4"/>
+        <!-- wheat kernels - pairs along stalk -->
+        <g stroke-width="1.1">
+          <path d="M0 -18 C -6 -20, -9 -16, -8 -10"/>
+          <path d="M0 -18 C 6 -20, 9 -16, 8 -10"/>
+          <path d="M0 -10 C -7 -12, -10 -8, -9 -2"/>
+          <path d="M0 -10 C 7 -12, 10 -8, 9 -2"/>
+          <path d="M0 -2 C -8 -4, -11 0, -10 6"/>
+          <path d="M0 -2 C 8 -4, 11 0, 10 6"/>
+          <path d="M0 6 C -7 4, -10 8, -9 14"/>
+          <path d="M0 6 C 7 4, 10 8, 9 14"/>
+        </g>
+        <!-- tiny kernel line detail -->
+        <g stroke-width="0.4" opacity="0.85">
+          <path d="M-4 -14 L-2 -12"/>
+          <path d="M4 -14 L2 -12"/>
+          <path d="M-4 -6 L-2 -4"/>
+          <path d="M4 -6 L2 -4"/>
+          <path d="M-4 2 L-2 4"/>
+          <path d="M4 2 L2 4"/>
+        </g>
+      </g>
+
+      <!-- POMEGRANATE (left-center, rose accent) -->
+      <g transform="translate(148 547)">
+        <!-- Crown of pomegranate -->
+        <path d="M-6 -18 L-3 -22 L 0 -18 L 3 -22 L 6 -18" fill="none" stroke="url(#goldPrimary)" stroke-width="1.1" stroke-linejoin="round"/>
+        <!-- Body -->
+        <path d="M0 -18 C -14 -16, -18 -4, -14 10 C -10 20, 0 22, 0 22 C 0 22, 10 20, 14 10 C 18 -4, 14 -16, 0 -18 Z"
+              fill="#5a1f33" stroke="url(#goldPrimary)" stroke-width="1.4"/>
+        <!-- Seeds (tiny gold dots) -->
+        <g fill="#ffe8a3">
+          <circle cx="-6" cy="-6" r="0.9"/>
+          <circle cx="-2" cy="-4" r="0.9"/>
+          <circle cx="2" cy="-6" r="0.9"/>
+          <circle cx="6" cy="-4" r="0.9"/>
+          <circle cx="-8" cy="2" r="0.9"/>
+          <circle cx="-4" cy="4" r="0.9"/>
+          <circle cx="0" cy="2" r="0.9"/>
+          <circle cx="4" cy="4" r="0.9"/>
+          <circle cx="8" cy="2" r="0.9"/>
+          <circle cx="-5" cy="12" r="0.9"/>
+          <circle cx="0" cy="14" r="0.9"/>
+          <circle cx="5" cy="12" r="0.9"/>
+        </g>
+        <!-- Highlight -->
+        <path d="M-10 -8 C -8 -4, -8 0, -10 4" stroke="#ead0a8" stroke-width="0.4" fill="none" opacity="0.85"/>
+      </g>
+
+      <!-- CENTRAL SIGIL — rose + cross (fertility / earth) -->
+      <g transform="translate(200 547)" stroke="url(#goldPrimary)" fill="none" stroke-linecap="round">
+        <circle r="18" stroke-width="1.1"/>
+        <circle r="12" stroke-width="0.6" stroke-dasharray="1 1.5" opacity="0.8"/>
+        <!-- Rose petals -->
+        <path d="M0 -10 C 6 -8, 6 -2, 0 0 C -6 -2, -6 -8, 0 -10" stroke-width="0.9" fill="#5a1f33" opacity="0.85"/>
+        <path d="M0 0 C 6 2, 6 8, 0 10 C -6 8, -6 2, 0 0" stroke-width="0.9"/>
+        <circle cx="0" cy="0" r="1.4" fill="#ffe8a3" stroke="none"/>
+        <!-- Cardinal ticks -->
+        <path d="M0 -18 L0 -14"/>
+        <path d="M0 18 L0 14"/>
+        <path d="M-18 0 L-14 0"/>
+        <path d="M18 0 L14 0"/>
+      </g>
+
+      <!-- CRESCENT MOON (right-center) -->
+      <g transform="translate(252 547)">
+        <path d="M-6 -16 C -16 -10, -16 10, -6 16 C -2 14, 2 10, 4 4 C -4 4, -10 -2, -6 -16 Z"
+              fill="none" stroke="url(#goldPrimary)" stroke-width="1.6" stroke-linejoin="round"/>
+        <!-- inner shading -->
+        <path d="M-2 -8 C -8 -4, -8 6, -2 10" stroke="url(#goldPrimary)" stroke-width="0.5" fill="none" opacity="0.7"/>
+        <!-- face suggestion -->
+        <circle cx="-6" cy="-4" r="0.8" fill="#ffe8a3"/>
+        <!-- tiny accent star next to moon -->
+        <g transform="translate(8 -12)">
+          <path d="M0 -4 L0.8 -0.8 L4 0 L0.8 0.8 L0 4 L-0.8 0.8 L-4 0 L-0.8 -0.8 Z" fill="url(#goldPrimary)"/>
+        </g>
+      </g>
+
+      <!-- WHEAT STALK (right mirror) -->
+      <g transform="translate(310 547)" stroke="url(#goldPrimary)" fill="none" stroke-linecap="round">
+        <path d="M0 22 L0 -22" stroke-width="1.4"/>
+        <g stroke-width="1.1">
+          <path d="M0 -18 C -6 -20, -9 -16, -8 -10"/>
+          <path d="M0 -18 C 6 -20, 9 -16, 8 -10"/>
+          <path d="M0 -10 C -7 -12, -10 -8, -9 -2"/>
+          <path d="M0 -10 C 7 -12, 10 -8, 9 -2"/>
+          <path d="M0 -2 C -8 -4, -11 0, -10 6"/>
+          <path d="M0 -2 C 8 -4, 11 0, 10 6"/>
+          <path d="M0 6 C -7 4, -10 8, -9 14"/>
+          <path d="M0 6 C 7 4, 10 8, 9 14"/>
+        </g>
+        <g stroke-width="0.4" opacity="0.85">
+          <path d="M-4 -14 L-2 -12"/>
+          <path d="M4 -14 L2 -12"/>
+          <path d="M-4 -6 L-2 -4"/>
+          <path d="M4 -6 L2 -4"/>
+          <path d="M-4 2 L-2 4"/>
+          <path d="M4 2 L2 4"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- CROWN BAND (base of crown, thin gold band on forehead) -->
+    <g id="crown-band" stroke="url(#goldPrimary)" fill="none" stroke-linecap="round">
+      <path d="M156 206 C 176 194, 224 194, 244 206" stroke-width="3"/>
+      <path d="M152 212 C 174 198, 226 198, 248 212" stroke-width="1"/>
+      <!-- band gem dots -->
+      <g fill="#fff2c6" stroke="none">
+        <circle cx="172" cy="204" r="1.2"/>
+        <circle cx="186" cy="200" r="1.2"/>
+        <circle cx="200" cy="198" r="1.5"/>
+        <circle cx="214" cy="200" r="1.2"/>
+        <circle cx="228" cy="204" r="1.2"/>
+      </g>
+      <!-- central cabochon -->
+      <circle cx="200" cy="198" r="2.6" fill="none" stroke="url(#goldPrimary)" stroke-width="0.6"/>
+    </g>
+
+    <!-- 12-STAR CROWN arc -->
+    <g id="crown">
+      <!-- 12 stars along arc above head -->
+      <g transform="translate(200 196)">
+        <!-- 12 stars, arc of radius ~128, spanning ~180° across top -->
+        <g transform="rotate(-75) translate(0 -128)"><use href="#star4"/></g>
+        <g transform="rotate(-62) translate(0 -128)"><use href="#star4"/></g>
+        <g transform="rotate(-48) translate(0 -128)"><use href="#star4"/></g>
+        <g transform="rotate(-33) translate(0 -128)"><use href="#star4"/></g>
+        <g transform="rotate(-18) translate(0 -128)"><use href="#star4"/></g>
+        <g transform="rotate(-5)  translate(0 -128)"><use href="#star4"/></g>
+        <g transform="rotate(8)   translate(0 -128)"><use href="#star4"/></g>
+        <g transform="rotate(22)  translate(0 -128)"><use href="#star4"/></g>
+        <g transform="rotate(37)  translate(0 -128)"><use href="#star4"/></g>
+        <g transform="rotate(52)  translate(0 -128)"><use href="#star4"/></g>
+        <g transform="rotate(65)  translate(0 -128)"><use href="#star4"/></g>
+        <g transform="rotate(78)  translate(0 -128)"><use href="#star4"/></g>
+      </g>
+      <!-- Arc line under stars -->
+      <path d="M110 178 C 140 120, 260 120, 290 178" fill="none" stroke="url(#goldPrimary)" stroke-width="0.7" opacity="0.6"/>
+    </g>
+
+    <!-- Scepter hint (small, behind shoulder) -->
+    <g stroke="url(#goldPrimary)" fill="none" stroke-linecap="round" opacity="0.9">
+      <path d="M310 410 L332 360" stroke-width="2"/>
+      <circle cx="334" cy="356" r="4" fill="#0d0720" stroke-width="1.2"/>
+      <path d="M334 352 L334 360 M330 356 L338 356" stroke-width="0.8"/>
+    </g>
+  </g>
+
+  <!-- BOTTOM INSCRIPTION -->
+  <g id="inscription">
+    <!-- Decorative divider above -->
+    <g stroke="url(#goldPrimary)" fill="none" stroke-linecap="round" opacity="0.9">
+      <path d="M80 620 L168 620" stroke-width="0.7"/>
+      <path d="M232 620 L320 620" stroke-width="0.7"/>
+      <circle cx="200" cy="620" r="2.2" stroke-width="0.7"/>
+      <path d="M200 614 L200 626 M194 620 L206 620" stroke-width="0.6"/>
+    </g>
+    <text x="200" y="655" text-anchor="middle"
+          font-family="'Cormorant Garamond','EB Garamond','Garamond','Times New Roman',serif"
+          font-size="12" letter-spacing="3.2" fill="url(#goldPrimary)">
+      DOMINA · FERTILITATIS · TERRAE
+    </text>
+    <!-- tiny gold caps ornament -->
+    <g fill="url(#goldPrimary)">
+      <circle cx="88" cy="655" r="1.2"/>
+      <circle cx="312" cy="655" r="1.2"/>
+    </g>
+  </g>
+</svg>

@@ -51,7 +51,7 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" className="relative py-32 px-6">
+    <section id="features" className="relative py-16 md:py-32 px-6">
       <div
         style={{
           maxWidth: "780px",
@@ -65,7 +65,7 @@ export default function Features() {
           aria-hidden
           style={{
             position: "absolute",
-            inset: "-4rem -6rem",
+            inset: "-2rem -2rem",
             background:
               "radial-gradient(ellipse at center, rgba(8,6,20,0.7) 0%, rgba(8,6,20,0.45) 55%, rgba(8,6,20,0) 95%)",
             pointerEvents: "none",
@@ -74,17 +74,17 @@ export default function Features() {
         />
 
         {/* Section header */}
-        <div style={{ textAlign: "center", marginBottom: "clamp(3rem, 6vw, 5rem)" }}>
+        <div style={{ textAlign: "center", marginBottom: "clamp(2rem, 5vw, 4rem)" }}>
           <p
             style={{
               fontFamily: "var(--font-body, system-ui), sans-serif",
-              fontSize: "0.72rem",
+              fontSize: "0.65rem",
               fontWeight: 500,
               letterSpacing: "0.28em",
               textTransform: "uppercase",
               color: "rgba(232, 201, 106, 0.82)",
               margin: 0,
-              marginBottom: "0.9rem",
+              marginBottom: "0.75rem",
             }}
           >
             {t("feat_eyebrow")}
@@ -92,7 +92,7 @@ export default function Features() {
           <h2
             style={{
               fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-              fontSize: "clamp(2rem, 4.6vw, 3rem)",
+              fontSize: "clamp(1.75rem, 4.6vw, 2.75rem)",
               fontWeight: 500,
               fontStyle: "italic",
               color: "rgba(245, 240, 232, 0.98)",
@@ -181,6 +181,17 @@ export default function Features() {
           .feature-row {
             grid-template-columns: 3rem 1fr;
             gap: 0.9rem;
+          }
+        }
+        @media (max-width: 440px) {
+          .feature-row {
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+            padding: 1.5rem 0.25rem;
+          }
+          .feature-num {
+            font-size: 1.2rem;
+            opacity: 0.5;
           }
         }
       `}</style>

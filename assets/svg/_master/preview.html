@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olivia Arcana — Icon System v1 · Mystic Cartography</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 2.5rem 2rem; background: #0a0517; color: #eee; min-height: 100vh; }
+  h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+  h1 small { font-weight: 400; opacity: 0.55; font-size: 1rem; margin-left: 0.5rem; letter-spacing: 0; }
+  h2 { font-size: 1.25rem; font-weight: 600; margin: 3rem 0 1.25rem; color: #ffe8a3; letter-spacing: -0.01em; }
+  h3 { font-size: 1rem; font-weight: 600; margin: 1.75rem 0 0.8rem; color: #fff2c6; opacity: 0.9; }
+  .meta { opacity: 0.7; font-size: 0.92rem; line-height: 1.65; margin-bottom: 1.5rem; max-width: 76ch; }
+  .stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem; padding: 1.25rem 1.5rem; background: rgba(212,165,116,0.07);
+    border-left: 3px solid #d4a574; border-radius: 8px; margin-bottom: 2rem;
+  }
+  .stat { font-size: 0.88rem; }
+  .stat b { display: block; color: #ffe8a3; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; opacity: 0.9; }
+  .stat .big { font-size: 1.3rem; font-weight: 600; color: #fff2c6; line-height: 1.2; }
+
+  .family { display: grid; gap: 1.25rem; }
+  .section { border: 1px solid rgba(212,165,116,0.2); border-radius: 14px; overflow: hidden; background: #0f0723; }
+  .section-header { padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px solid rgba(212,165,116,0.12); background: rgba(212,165,116,0.03); }
+  .section-header h3 { margin: 0; }
+  .section-header .count { font-size: 0.78rem; opacity: 0.6; padding: 0.2rem 0.6rem; background: rgba(128,128,128,0.15); border-radius: 4px; }
+
+  .grid { display: grid; padding: 1rem; gap: 1rem; }
+  .grid-zodiac { grid-template-columns: repeat(6, 1fr); }
+  .grid-suit   { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 1100px) { .grid-zodiac { grid-template-columns: repeat(4, 1fr); } .grid-suit { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 700px)  { .grid-zodiac { grid-template-columns: repeat(3, 1fr); } }
+
+  .cell { border: 1px solid rgba(212,165,116,0.18); border-radius: 10px; overflow: hidden; background: #13081f; transition: transform 0.15s, border-color 0.15s; }
+  .cell:hover { transform: translateY(-2px); border-color: rgba(212,165,116,0.6); }
+  .cell-img { display: flex; align-items: center; justify-content: center; padding: 0.4rem; aspect-ratio: 1; background: #07040f; }
+  .cell-img img { max-width: 100%; max-height: 100%; display: block; }
+  .cell-label { padding: 0.45rem 0.7rem; font-size: 0.74rem; font-weight: 500; text-align: center; color: #ffe8a3; letter-spacing: 0.02em; }
+
+  .thumb-band { padding: 1.25rem 1.5rem; background: rgba(128,128,128,0.05); border-radius: 10px; margin-top: 1rem; }
+  .thumb-row { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-start; align-items: center; }
+  .thumb-row img { background: #07040f; padding: 2px; border-radius: 4px; display: block; }
+  .thumb-label { font-size: 0.78rem; opacity: 0.6; margin-bottom: 0.5rem; letter-spacing: 0.02em; }
+
+  .usage { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.25rem; margin-top: 1rem; }
+  .usage-card { padding: 1rem 1.15rem; border: 1px solid rgba(212,165,116,0.15); border-radius: 10px; background: #0f0723; font-size: 0.88rem; line-height: 1.55; }
+  .usage-card h4 { font-size: 0.95rem; margin-bottom: 0.5rem; color: #fff2c6; }
+  .usage-card p { opacity: 0.75; }
+
+  footer { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(128,128,128,0.2); font-size: 0.8rem; opacity: 0.65; line-height: 1.75; }
+  footer code { font-family: ui-monospace, Menlo, monospace; background: rgba(212,165,116,0.12); padding: 0.1rem 0.35rem; border-radius: 4px; }
+  footer a { color: #ffe8a3; text-decoration: none; }
+</style>
+</head>
+<body>
+  <h1>Olivia Arcana · Icon System <small>Mystic Cartography v1 · 16 pieces</small></h1>
+  <div class="meta">
+    Complete vector icon family for the Olivia Arcana brand: 12 zodiac glyphs + 4 Minor Arcana suit symbols, unified under the Mystic Cartography aesthetic (gold-on-navy with ornamental ring frame, 4 cardinal-point stars, constellation/symbolism overlay, elemental wash tint, Latin inscription). Every piece follows the same template so they read as a family across web, social, print, and in-video overlay use.
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>Total assets</b><span class="big">16</span> SVG files</div>
+    <div class="stat"><b>Total weight</b><span class="big">~215 KB</span> across the system</div>
+    <div class="stat"><b>Per-piece</b><span class="big">11–15 KB</span> average</div>
+    <div class="stat"><b>Per-piece cost</b><span class="big">$0</span> Claude-native authoring</div>
+    <div class="stat"><b>Wall time</b><span class="big">~25 min</span> via parallel Task dispatch</div>
+    <div class="stat"><b>Philosophy</b><span class="big">Mystic Cartography</span> (locked)</div>
+  </div>
+
+  <h2>The 12 Zodiac Glyphs</h2>
+  <div class="section">
+    <div class="section-header"><h3>Wheel of the year · wheel order</h3><span class="count">12 glyphs · ~160 KB</span></div>
+    <div class="grid grid-zodiac">
+      <div class="cell"><div class="cell-img"><img src="../zodiac/v1/aries.svg"></div><div class="cell-label">♈ Aries</div></div>
+      <div class="cell"><div class="cell-img"><img src="../zodiac/v1/taurus.svg"></div><div class="cell-label">♉ Taurus</div></div>
+      <div class="cell"><div class="cell-img"><img src="../zodiac/v1/gemini.svg"></div><div class="cell-label">♊ Gemini</div></div>
+      <div class="cell"><div class="cell-img"><img src="../zodiac/v1/cancer.svg"></div><div class="cell-label">♋ Cancer</div></div>
+      <div class="cell"><div class="cell-img"><img src="../zodiac/v1/leo.svg"></div><div class="cell-label">♌ Leo</div></div>
+      <div class="cell"><div class="cell-img"><img src="../zodiac/v1/virgo.svg"></div><div class="cell-label">♍ Virgo</div></div>
+      <div class="cell"><div class="cell-img"><img src="../zodiac/v1/libra.svg"></div><div class="cell-label">♎ Libra</div></div>
+      <div class="cell"><div class="cell-img"><img src="../zodiac/v1/scorpio.svg"></div><div class="cell-label">♏ Scorpio</div></div>
+      <div class="cell"><div class="cell-img"><img src="../zodiac/v1/sagittarius.svg"></div><div class="cell-label">♐ Sagittarius</div></div>
+      <div class="cell"><div class="cell-img"><img src="../zodiac/v1/capricorn.svg"></div><div class="cell-label">♑ Capricorn</div></div>
+      <div class="cell"><div class="cell-img"><img src="../zodiac/v1/aquarius.svg"></div><div class="cell-label">♒ Aquarius</div></div>
+      <div class="cell"><div class="cell-img"><img src="../zodiac/v1/pisces.svg"></div><div class="cell-label">♓ Pisces</div></div>
+    </div>
+  </div>
+
+  <h2>The 4 Minor Arcana Suit Symbols</h2>
+  <div class="section">
+    <div class="section-header"><h3>Four elements · four tools</h3><span class="count">4 icons · ~56 KB</span></div>
+    <div class="grid grid-suit">
+      <div class="cell"><div class="cell-img"><img src="../suits/v1/cups.svg"></div><div class="cell-label">Cups · Water · Emotion</div></div>
+      <div class="cell"><div class="cell-img"><img src="../suits/v1/wands.svg"></div><div class="cell-label">Wands · Fire · Will</div></div>
+      <div class="cell"><div class="cell-img"><img src="../suits/v1/swords.svg"></div><div class="cell-label">Swords · Air · Truth</div></div>
+      <div class="cell"><div class="cell-img"><img src="../suits/v1/pentacles.svg"></div><div class="cell-label">Pentacles · Earth · Matter</div></div>
+    </div>
+  </div>
+
+  <h2>Scale test · 128 → 48 → 24 → 16 px</h2>
+  <div class="thumb-band">
+    <div class="thumb-label">Favicon + social-icon scale · 48 px</div>
+    <div class="thumb-row">
+      <img src="../zodiac/v1/aries.svg" width="48" height="48"><img src="../zodiac/v1/taurus.svg" width="48" height="48"><img src="../zodiac/v1/gemini.svg" width="48" height="48"><img src="../zodiac/v1/cancer.svg" width="48" height="48"><img src="../zodiac/v1/leo.svg" width="48" height="48"><img src="../zodiac/v1/virgo.svg" width="48" height="48"><img src="../zodiac/v1/libra.svg" width="48" height="48"><img src="../zodiac/v1/scorpio.svg" width="48" height="48"><img src="../zodiac/v1/sagittarius.svg" width="48" height="48"><img src="../zodiac/v1/capricorn.svg" width="48" height="48"><img src="../zodiac/v1/aquarius.svg" width="48" height="48"><img src="../zodiac/v1/pisces.svg" width="48" height="48">
+      <span style="width: 1rem;"></span>
+      <img src="../suits/v1/cups.svg" width="48" height="48"><img src="../suits/v1/wands.svg" width="48" height="48"><img src="../suits/v1/swords.svg" width="48" height="48"><img src="../suits/v1/pentacles.svg" width="48" height="48">
+    </div>
+    <div class="thumb-label" style="margin-top:1rem;">Tiny favicon scale · 24 px</div>
+    <div class="thumb-row">
+      <img src="../zodiac/v1/aries.svg" width="24" height="24"><img src="../zodiac/v1/taurus.svg" width="24" height="24"><img src="../zodiac/v1/gemini.svg" width="24" height="24"><img src="../zodiac/v1/cancer.svg" width="24" height="24"><img src="../zodiac/v1/leo.svg" width="24" height="24"><img src="../zodiac/v1/virgo.svg" width="24" height="24"><img src="../zodiac/v1/libra.svg" width="24" height="24"><img src="../zodiac/v1/scorpio.svg" width="24" height="24"><img src="../zodiac/v1/sagittarius.svg" width="24" height="24"><img src="../zodiac/v1/capricorn.svg" width="24" height="24"><img src="../zodiac/v1/aquarius.svg" width="24" height="24"><img src="../zodiac/v1/pisces.svg" width="24" height="24">
+      <span style="width: 1rem;"></span>
+      <img src="../suits/v1/cups.svg" width="24" height="24"><img src="../suits/v1/wands.svg" width="24" height="24"><img src="../suits/v1/swords.svg" width="24" height="24"><img src="../suits/v1/pentacles.svg" width="24" height="24">
+    </div>
+  </div>
+
+  <h2>Use cases</h2>
+  <div class="usage">
+    <div class="usage-card"><h4>Website / landing pages</h4><p>Per-sign astrology section icons, horoscope cards, footer zodiac wheel, interactive sign picker. Infinite scale, native to CSS hover/focus animation.</p></div>
+    <div class="usage-card"><h4>Social (TikTok / IG / YT)</h4><p>Daily zodiac post header, story stickers, reel transitions. Swap to any palette at runtime via CSS var. Composes with SMIL animation for kinetic variants.</p></div>
+    <div class="usage-card"><h4>Telegram bot</h4><p>Per-sign command avatars, subscription pack icons, reading-completion badges. All under 15 KB → instant load on mobile.</p></div>
+    <div class="usage-card"><h4>Email campaigns</h4><p>Personalized sign-of-month header, subscription-tier badge, reading-available notification. Inline SVG renders in most modern mail clients.</p></div>
+    <div class="usage-card"><h4>Print / merch</h4><p>Zodiac-sign necklace / pin designs, greeting card backs, journal covers. Vector → infinite print DPI. Suit icons for premium deck box.</p></div>
+    <div class="usage-card"><h4>Animated variants</h4><p>Apply SMIL overlay per <code>brain/SVG Protocol.md</code> (Taurus animated v1 proved the pattern — star twinkle, ring rotation, aura breathing). ~$0 extra to animate.</p></div>
+  </div>
+
+  <footer>
+    Working paths: <code>/Users/macbookpro/olivia-arcana/assets/svg/zodiac/v1/</code> + <code>/suits/v1/</code><br>
+    Philosophy: <code>brain/SVG Protocol.md</code> · Mystic Cartography (locked for Olivia auxiliary assets, not the deck which uses v2.7 Gemini at <code>tarot-deck/output/nano_banana_v2/</code>)<br>
+    Generation method: parallel Task-agent dispatch (4 per wave, 3 waves for zodiac + 1 wave for suits). No FLUX, no VTracer, no external model — pure Claude-native SVG authoring against the locked Taurus template.<br>
+    Next candidates: 78 pip-card glyphs (Ace–10 of each suit) using same template; Major Arcana numeral glyphs; animated variants per sign.
+  </footer>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Capricorn zodiac glyph</title>
+  <desc id="desc">Sea-goat symbol, Saturn ruled, cardinal earth sign</desc>
+
+  <defs>
+    <!-- 1. Deep night radial backdrop -->
+    <radialGradient id="bgNight" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="55%" stop-color="#0d0719"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+
+    <!-- 2. Parchment vignette -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+
+    <!-- 3. Saturnian cool-slate wash — Capricorn is Saturn-ruled, a subtle cold tint over the center -->
+    <radialGradient id="saturnWash" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#3a4a66" stop-opacity="0.14"/>
+      <stop offset="60%" stop-color="#2a3450" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#2a3450" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 4. Gold primary gradient (glyph + linework, diagonal) -->
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 5. Gold vertical gradient (for the V-spiral main strokes) -->
+    <linearGradient id="goldPrimaryV" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 6. Gold thin gradient — fine ring / tick marks -->
+    <linearGradient id="goldThin" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6b4a1f"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 7. Aura behind the central glyph -->
+    <radialGradient id="centralAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="0.35"/>
+      <stop offset="40%" stop-color="#d4a574" stop-opacity="0.18"/>
+      <stop offset="75%" stop-color="#6b4a1f" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#2a3450" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 8. Deneb Algedi star glow (delta Capricorni, brightest) -->
+    <radialGradient id="denebGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#ffe8a3" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#d4a574" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Path for the bottom-arc inscription -->
+    <path id="inscriptionArc" d="M 76 256 A 180 180 0 0 0 436 256" fill="none"/>
+      <filter id="ambientGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ============ BACKGROUND ============ -->
+  <g id="background">
+    <rect x="0" y="0" width="512" height="512" fill="url(#bgNight)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#saturnWash)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#vignette)"/>
+  </g>
+
+  <!-- ============ STARFIELD — scattered background stars ============ -->
+  <g id="starfield" fill="#fff2c6">
+    <circle cx="68"  cy="92"  r="1.1" fill-opacity="0.75"><animate attributeName="opacity" values="0.49;0.96;0.49" dur="3.7s" begin="2.2s" repeatCount="indefinite"/></circle>
+    <circle cx="128" cy="54"  r="0.9" fill-opacity="0.6"><animate attributeName="opacity" values="0.43;0.91;0.43" dur="4.0s" begin="1.7s" repeatCount="indefinite"/></circle>
+    <circle cx="210" cy="104" r="1.3" fill-opacity="0.85"><animate attributeName="opacity" values="0.41;0.91;0.41" dur="4.3s" begin="3.2s" repeatCount="indefinite"/></circle>
+    <circle cx="430" cy="78"  r="1"   fill-opacity="0.7"><animate attributeName="opacity" values="0.39;0.97;0.39" dur="4.0s" begin="3.8s" repeatCount="indefinite"/></circle>
+    <circle cx="468" cy="168" r="1.4" fill-opacity="0.9"><animate attributeName="opacity" values="0.46;0.98;0.46" dur="4.1s" begin="0.8s" repeatCount="indefinite"/></circle>
+    <circle cx="52"  cy="206" r="1.1" fill-opacity="0.75"><animate attributeName="opacity" values="0.54;0.94;0.54" dur="4.5s" begin="3.4s" repeatCount="indefinite"/></circle>
+    <circle cx="96"  cy="394" r="1.2" fill-opacity="0.8"><animate attributeName="opacity" values="0.44;0.92;0.44" dur="3.4s" begin="1.9s" repeatCount="indefinite"/></circle>
+    <circle cx="158" cy="446" r="0.9" fill-opacity="0.6"><animate attributeName="opacity" values="0.48;0.97;0.48" dur="4.7s" begin="1.9s" repeatCount="indefinite"/></circle>
+    <circle cx="402" cy="432" r="1.3" fill-opacity="0.85"><animate attributeName="opacity" values="0.41;0.99;0.41" dur="5.0s" begin="2.1s" repeatCount="indefinite"/></circle>
+    <circle cx="456" cy="376" r="1"   fill-opacity="0.7"><animate attributeName="opacity" values="0.53;0.91;0.53" dur="3.3s" begin="0.2s" repeatCount="indefinite"/></circle>
+    <circle cx="340" cy="60"  r="0.8" fill-opacity="0.55"><animate attributeName="opacity" values="0.52;0.96;0.52" dur="3.4s" begin="2.7s" repeatCount="indefinite"/></circle>
+    <circle cx="72"  cy="330" r="1"   fill-opacity="0.7"><animate attributeName="opacity" values="0.54;0.95;0.54" dur="3.2s" begin="0.1s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- ============ SACRED GEOMETRY ============ -->
+  <g id="sacred-geometry" fill="none" stroke="url(#goldThin)" stroke-opacity="0.85">
+    <!-- Three concentric circles -->
+    <circle cx="256" cy="256" r="240" stroke-width="0.8"/>
+    <circle cx="256" cy="256" r="220" stroke-width="0.6" stroke-opacity="0.55"/>
+    <circle cx="256" cy="256" r="200" stroke-width="0.8"/>
+
+    <!-- Inner dashed mandala reference ring -->
+    <circle cx="256" cy="256" r="150" stroke-width="0.4" stroke-opacity="0.35" stroke-dasharray="2 4"/>
+
+    <!-- Ornamental double-ring -->
+    <circle cx="256" cy="256" r="188" stroke-width="0.5" stroke-opacity="0.5"/>
+    <circle cx="256" cy="256" r="184" stroke-width="0.3" stroke-opacity="0.35"/>
+
+    <!-- 12 tick marks on outer ring (r=240 → r=248), every 30° -->
+    <g stroke="#d4a574" stroke-width="1.2" stroke-opacity="0.85">
+      <line x1="256" y1="16"  x2="256" y2="8"/>
+      <line x1="376" y1="48"  x2="380" y2="40"/>
+      <line x1="464" y1="136" x2="472" y2="132"/>
+      <line x1="496" y1="256" x2="504" y2="256"/>
+      <line x1="464" y1="376" x2="472" y2="380"/>
+      <line x1="376" y1="464" x2="380" y2="472"/>
+      <line x1="256" y1="496" x2="256" y2="504"/>
+      <line x1="136" y1="464" x2="132" y2="472"/>
+      <line x1="48"  y1="376" x2="40"  y2="380"/>
+      <line x1="16"  y1="256" x2="8"   y2="256"/>
+      <line x1="48"  y1="136" x2="40"  y2="132"/>
+      <line x1="136" y1="48"  x2="132" y2="40"/>
+    </g>
+
+    <!-- 12 tick marks on inner ring (r=200 → r=192) -->
+    <g stroke="#d4a574" stroke-width="1" stroke-opacity="0.7">
+      <line x1="256" y1="56"  x2="256" y2="64"/>
+      <line x1="356" y1="83"  x2="354" y2="90"/>
+      <line x1="429" y1="156" x2="422" y2="158"/>
+      <line x1="456" y1="256" x2="448" y2="256"/>
+      <line x1="429" y1="356" x2="422" y2="354"/>
+      <line x1="356" y1="429" x2="354" y2="422"/>
+      <line x1="256" y1="456" x2="256" y2="448"/>
+      <line x1="156" y1="429" x2="158" y2="422"/>
+      <line x1="83"  y1="356" x2="90"  y2="354"/>
+      <line x1="56"  y1="256" x2="64"  y2="256"/>
+      <line x1="83"  y1="156" x2="90"  y2="158"/>
+      <line x1="156" y1="83"  x2="158" y2="90"/>
+    </g>
+
+    <!-- 4 cardinal-point 4-pointed stars (compass jewels) -->
+    <g fill="#d4a574" fill-opacity="0.85" stroke="none">
+      <!-- North -->
+      <path d="M 256 22 L 259 36 L 273 39 L 259 42 L 256 56 L 253 42 L 239 39 L 253 36 Z"/>
+      <!-- East -->
+      <path d="M 490 256 L 476 259 L 473 273 L 470 259 L 456 256 L 470 253 L 473 239 L 476 253 Z"/>
+      <!-- South -->
+      <path d="M 256 490 L 259 476 L 273 473 L 259 470 L 256 456 L 253 470 L 239 473 L 253 476 Z"/>
+      <!-- West -->
+      <path d="M 22 256 L 36 259 L 39 273 L 42 259 L 56 256 L 42 253 L 39 239 L 36 253 Z"/>
+    </g>
+
+    <!-- Bottom-arc inscription: Capricornus · Terra Cardinalis -->
+    <g font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#d4a574" letter-spacing="2" font-style="italic">
+      <text>
+        <textPath href="#inscriptionArc" startOffset="50%" text-anchor="middle">♑  CAPRICORNUS  ·  TERRA  CARDINALIS  ·  SATURNUS  ·  DENEB  ALGEDI</textPath>
+      </text>
+    </g>
+  </g>
+
+  <!-- ============ AURA BEHIND THE GLYPH ============ -->
+  <g id="aura">
+    <circle cx="256" cy="205" r="170" fill="url(#centralAura)"/>
+  </g>
+
+  <!-- ============ MAIN CAPRICORN GLYPH — the V-spiral (goat horns + fish-tail curl) ============ -->
+  <g id="glyph" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- LEFT LEG of the V — descending diagonal from upper-left to the central point -->
+    <path d="M 150 130 L 256 280"
+          stroke="url(#goldPrimaryV)" stroke-width="14"/>
+
+    <!-- RIGHT LEG of the V — descending diagonal from upper-right, continuing INTO the spiral curl -->
+    <!-- First: the descending right leg mirrored to the central point -->
+    <path d="M 362 130 L 256 280"
+          stroke="url(#goldPrimaryV)" stroke-width="14"/>
+
+    <!-- Then the RIGHT LEG continues out and down into a clockwise fish-tail spiral -->
+    <!-- Sweep out from the V-point toward the lower-right, then curling clockwise inward -->
+    <path d="M 256 280 C 278 300, 312 304, 336 288 C 360 272, 370 244, 354 224 C 340 208, 312 210, 302 230 C 294 246, 308 262, 324 258"
+          stroke="url(#goldPrimaryV)" stroke-width="14"/>
+
+    <!-- Inner cream highlight pass (left leg) -->
+    <path d="M 152 132 L 256 278"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+    <!-- Inner cream highlight pass (right leg) -->
+    <path d="M 360 132 L 256 278"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+    <!-- Inner cream highlight pass (spiral curl) -->
+    <path d="M 256 278 C 278 298, 312 302, 336 286 C 358 270, 368 244, 352 225 C 338 210, 312 212, 302 231 C 295 245, 308 260, 322 257"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- Ornamental sphere cap at the left V endpoint -->
+    <circle cx="150" cy="130" r="5" fill="none" stroke="url(#goldPrimary)" stroke-width="2"/>
+    <circle cx="150" cy="130" r="2.5" fill="#fff2c6"><animate attributeName="opacity" values="0.37;0.97;0.37" dur="3.8s" begin="1.6s" repeatCount="indefinite"/></circle>
+
+    <!-- Small cream pearl at the center of the spiral curl -->
+    <circle cx="330" cy="245" r="3" fill="#fff2c6"/>
+    <circle cx="330" cy="245" r="5" fill="none" stroke="url(#goldPrimary)" stroke-width="1.2" stroke-opacity="0.7"/>
+  </g>
+
+  <!-- ============ CONSTELLATION — Capricornus (Deneb Algedi, Dabih, Algedi, Nashira) ============ -->
+  <g id="constellation" opacity="0.4">
+    <!-- Connecting lines — Capricornus triangular shape -->
+    <g stroke="url(#goldPrimary)" stroke-width="0.7" fill="none" stroke-linecap="round">
+      <!-- Algedi (α, upper-left) down to Dabih (β) -->
+      <line x1="142" y1="368" x2="178" y2="398"/>
+      <!-- Dabih across bottom to Nashira (γ) -->
+      <line x1="178" y1="398" x2="344" y2="410"/>
+      <!-- Nashira up to Deneb Algedi (δ, brightest) -->
+      <line x1="344" y1="410" x2="390" y2="360"/>
+      <!-- Deneb Algedi back up to Algedi, closing the outline -->
+      <line x1="390" y1="360" x2="142" y2="368"/>
+    </g>
+
+    <!-- Stars (sized by magnitude) -->
+    <!-- Deneb Algedi (δ Capricorni) — brightest, with halo -->
+    <circle cx="390" cy="360" r="6" fill="url(#denebGlow)"/>
+    <circle cx="390" cy="360" r="3" fill="#fff2c6"/>
+    <!-- Dabih (β Capricorni) -->
+    <circle cx="178" cy="398" r="2.4" fill="#fff2c6"><animate attributeName="opacity" values="0.43;0.96;0.43" dur="3.3s" begin="0.3s" repeatCount="indefinite"/></circle>
+    <!-- Algedi (α Capricorni) -->
+    <circle cx="142" cy="368" r="2.2" fill="#ffe8a3"><animate attributeName="opacity" values="0.42;0.99;0.42" dur="3.1s" begin="2.6s" repeatCount="indefinite"/></circle>
+    <!-- Nashira (γ Capricorni) -->
+    <circle cx="344" cy="410" r="2" fill="#ffe8a3"><animate attributeName="opacity" values="0.38;0.97;0.38" dur="4.7s" begin="2.6s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- ============ ORNAMENT — four Gothic filigree corner flourishes ============ -->
+  <g id="ornament" fill="none" stroke="#d4a574" stroke-opacity="0.5" stroke-width="1.2" stroke-linecap="round">
+    <!-- Top-left -->
+    <g transform="translate(40,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.47;0.92;0.47" dur="4.3s" begin="3.2s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Top-right -->
+    <g transform="translate(442,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.54;0.96;0.54" dur="4.7s" begin="3.5s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Bottom-left -->
+    <g transform="translate(40,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.36;0.98;0.36" dur="4.4s" begin="2.9s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Bottom-right -->
+    <g transform="translate(442,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.54;1.0;0.54" dur="4.4s" begin="0.7s" repeatCount="indefinite"/></circle>
+    </g>
+  </g>
+</svg>

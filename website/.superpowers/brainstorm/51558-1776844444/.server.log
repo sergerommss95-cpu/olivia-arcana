@@ -1,0 +1,5 @@
+{"type":"server-started","port":64709,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:64709","screen_dir":"/Users/macbookpro/olivia-arcana/website/.superpowers/brainstorm/51558-1776844444"}
+{"type":"screen-added","file":"/Users/macbookpro/olivia-arcana/website/.superpowers/brainstorm/51558-1776844444/pivot.html"}
+{"type":"screen-added","file":"/Users/macbookpro/olivia-arcana/website/.superpowers/brainstorm/51558-1776844444/blend.html"}
+{"type":"screen-added","file":"/Users/macbookpro/olivia-arcana/website/.superpowers/brainstorm/51558-1776844444/proposal.html"}
+{"type":"server-stopped","reason":"idle timeout"}

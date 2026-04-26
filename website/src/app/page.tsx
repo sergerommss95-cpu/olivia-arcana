@@ -7,7 +7,7 @@ import ConstellationOverlay from "@/components/ConstellationOverlay";
 import MagneticGlow from "@/components/MagneticGlow";
 import CosmicStatus from "@/components/CosmicStatus";
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
+import HeroV3 from "@/components/HeroV3";
 import Features from "@/components/Features";
 import HowItWorks from "@/components/HowItWorks";
 import Pricing from "@/components/Pricing";
@@ -20,7 +20,6 @@ import ScrollFloat from "@/components/ScrollFloat";
 import InfiniteMarquee from "@/components/InfiniteMarquee";
 import CosmicSelfie from "@/components/CosmicSelfie";
 import Faq from "@/components/Faq";
-import AbToggle from "@/components/ab/AbToggle";
 
 // Lazy-load non-critical components
 const CinematicLoader = dynamic(() => import("@/components/CinematicLoader"), { ssr: false });
@@ -50,32 +49,32 @@ export default function Home() {
       <CosmicStatus />
 
       <main id="main-content" className="relative z-10">
-        <Hero />
+        <HeroV3 />
         <div ref={sectionsRef}>
           {/* Quiet sections: no scroll-scrubbed entrance — they breathe on their own */}
           <DailyHoroscope />
           <CompatibilityChecker />
 
-          {/* Infinite proof marquee — real quotes, a star rating, a press mention.
-              TODO: swap verbatim copy from prototype .proof-track when ready. */}
-          <div style={{ padding: "3rem 0" }} aria-label="Social proof">
+          {/* Infinite proof marquee — what the product actually offers.
+              Pre-launch: no fake testimonials, no invented star ratings, no
+              fictional press mentions. Each item is a verifiable claim about
+              the product. Replace with real quotes once we have them. */}
+          <div style={{ padding: "3rem 0" }} aria-label="What's inside">
             <InfiniteMarquee speed={22} gap={72}>
               {[
-                { kind: "quote", text: "The first astrology app that actually feels like astrology.", who: "— Mira, Cancer ☾" },
+                { kind: "rating", text: "9", sub: "languages — EN · UK · RU · DE · FR · AR · ES · ZH · PT" },
                 { kind: "sep" },
-                { kind: "rating", text: "★★★★★", sub: "4.9 from 2,306 subscribers" },
+                { kind: "press", outlet: "Powered by", name: "NASA JPL DE440/DE441 ephemeris" },
                 { kind: "sep" },
-                { kind: "quote", text: "I cancelled my Co–Star subscription after a week.", who: "— Alex, Gemini ☉" },
+                { kind: "rating", text: "207", sub: "academy lessons across 14 courses" },
                 { kind: "sep" },
-                { kind: "press", outlet: "Featured in", name: "Almanac Weekly" },
+                { kind: "press", outlet: "Voice readings via", name: "ElevenLabs (VIP tier)" },
                 { kind: "sep" },
-                { kind: "quote", text: "Reading the transits here is the only time I feel seen by an app.", who: "— Dr. Liao, Scorpio ↑" },
+                { kind: "rating", text: "78", sub: "tarot cards · full Rider-Waite + Marseille" },
                 { kind: "sep" },
-                { kind: "rating", text: "99%", sub: "renewal rate on annual plans" },
+                { kind: "press", outlet: "Web payments by", name: "Paddle (5% MoR — not Stripe)" },
                 { kind: "sep" },
-                { kind: "quote", text: "My Saturn return suddenly made sense.", who: "— Priya, Capricorn ☉" },
-                { kind: "sep" },
-                { kind: "press", outlet: "As seen in", name: "Moon & Matter" },
+                { kind: "rating", text: "14-day", sub: "refund · cancel any time" },
                 { kind: "sep" },
               ].map((item, i) => {
                 if (item.kind === "sep") {
@@ -157,43 +156,8 @@ export default function Home() {
                     </span>
                   );
                 }
-                // quote
-                return (
-                  <span
-                    key={i}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "baseline",
-                      gap: "0.9em",
-                      whiteSpace: "nowrap",
-                      maxWidth: "min(75vw, 580px)",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-                        fontStyle: "italic",
-                        fontSize: "clamp(1rem, 1.9vw, 1.45rem)",
-                        color: "rgba(240,236,255,0.88)",
-                        fontWeight: 400,
-                      }}
-                    >
-                      &ldquo;{item.text}&rdquo;
-                    </span>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-body, system-ui), sans-serif",
-                        fontSize: "0.72rem",
-                        fontWeight: 500,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                        color: "rgba(196,185,228,0.55)",
-                      }}
-                    >
-                      {item.who}
-                    </span>
-                  </span>
-                );
+                // No quote items pre-launch (avoid fake testimonials).
+                return null;
               })}
             </InfiniteMarquee>
           </div>
@@ -218,7 +182,6 @@ export default function Home() {
       </main>
 
       <Footer />
-      <AbToggle mode="a" />
     </>
   );
 }

@@ -23,6 +23,7 @@ interface CardData {
   luckyColorHex: string;
   dateRange: string;
   traits: string[];
+  roast?: { tagline: string; roast: string };
 }
 
 const FORMAT_SIZES: Record<CardFormat, { w: number; h: number }> = {

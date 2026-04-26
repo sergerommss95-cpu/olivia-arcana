@@ -1,0 +1,1568 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Olivia Arcana · The Mix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style>
+  :root {
+    /* tint all "neutrals" toward indigo — v2.7 deck's base tone */
+    --void:#06070f; --void-1:#0a0c17; --void-2:#12121f;
+    --ink:#1a1730;                       /* the v2.7 indigo */
+    --gold:#C8A84B; --gold-soft:#b69b50; --gold-deep:#7a6128;
+    --paper:#EFE8D7;                     /* cotton cardstock — rarely used, for one cinematic inversion */
+    --text:#E8E3EC; --body:#AEA8BF; --muted:#6E6880;
+    --hair: rgba(200,168,75,0.22);
+    --hair-strong: rgba(200,168,75,0.5);
+    --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:var(--void); color:var(--text);
+    font-family:var(--serif); font-weight:300; line-height:1.55; letter-spacing:0.005em;
+    overflow:hidden; height:100vh; cursor:default; -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale; }
+  canvas#bg{ position:fixed; inset:0; z-index:0; width:100vw; height:100vh; display:block; }
+
+  /* Global silence curtain — full-screen ink that blacks out between acts */
+  .curtain{ position:fixed; inset:0; background:#04050a; z-index:30; pointer-events:none;
+    opacity:1; will-change:opacity; }
+
+  /* HUD — all Cormorant Garamond, italic or small-caps. No monospace. */
+  .hud{ position:fixed; z-index:20; font-family:var(--serif); font-style:italic;
+    font-weight:400; font-size:14px; letter-spacing:0.04em;
+    color:var(--muted); pointer-events:none; user-select:none; }
+  .hud-tl{ top:32px; left:36px; font-style:normal; font-weight:400; font-size:13px;
+    letter-spacing:0.32em; text-transform:uppercase; color:var(--gold-soft); }
+  .hud-tl .bar{ display:inline-block; width:14px; height:1px; background:var(--gold-deep);
+    vertical-align:middle; margin:0 12px; }
+  .hud-tr{ top:32px; right:36px; font-size:12px; letter-spacing:0.08em; font-style:normal;
+    font-weight:400; font-variant:small-caps; }
+  .hud-bl{ bottom:32px; left:36px; font-size:13px; letter-spacing:0.05em; font-style:italic; }
+  .hud-br{ display:none; /* the dev flow indicator — kill it */ }
+
+  /* Overture — the typographic opening */
+  .overture{ position:fixed; inset:0; z-index:22; pointer-events:none;
+    display:flex; align-items:center; justify-content:center; opacity:0; }
+  .overture-stack{ text-align:center; line-height:0.88; }
+  .overture-title{ font-weight:300; font-size: clamp(78px, 18vw, 280px); letter-spacing:-0.018em;
+    color:var(--text); font-variant:small-caps; }
+  .overture-title .amp{ color:var(--gold); font-style:italic; font-weight:400; margin:0 0.08em; }
+  .overture-sub{ font-size: clamp(13px, 1.2vw, 17px); letter-spacing:0.52em; margin-top:28px;
+    color:var(--gold-soft); font-variant:small-caps; font-weight:400; }
+
+  /* Scene layers */
+  .zodiac-layer,.reading-layer,.doors-layer{ position:fixed; inset:0; pointer-events:none; z-index:5; }
+  .doors-layer > *{ pointer-events:auto; }
+  .zodiac{ position:absolute; font-family:var(--serif); font-weight:300; color:#F0E9F5;
+    text-shadow:
+      0 0 6px rgba(232,224,208,0.9),
+      0 0 22px rgba(226,192,112,0.55),
+      0 0 50px rgba(155,89,182,0.3),
+      0 0 90px rgba(107,63,160,0.16);
+    will-change:transform,opacity; letter-spacing:0.02em; user-select:none; pointer-events:none; opacity:0; }
+
+  /* Gravity card — the REAL Fool from the Olivia Arcana v2.7 deck. No synthetic glyphs. */
+  .g-card{ position:fixed; left:0; top:0; width:168px; height:252px; z-index:8;
+    pointer-events:none; will-change:transform,opacity; opacity:0; }
+  .g-card-img{ width:100%; height:100%; object-fit:cover; display:block;
+    filter: drop-shadow(0 14px 40px rgba(0,0,0,0.55)); }
+  .g-card-shade{ position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(ellipse at 50% 100%, transparent 55%, rgba(6,7,15,0.4));
+    mix-blend-mode:multiply; }
+
+  /* CTA — an italic line of serif with a hairline. No button shape. No blur. */
+  .cta{ position:fixed; left:50%; transform:translateX(-50%); z-index:15;
+    display:inline-flex; flex-direction:column; align-items:center; gap:6px;
+    padding:10px 28px 14px;
+    font-family:var(--serif); font-weight:400; font-style:italic; font-size:22px;
+    letter-spacing:0.04em; color:var(--text); background:transparent; border:none;
+    cursor:pointer; opacity:0; transition:color .6s, letter-spacing .6s; user-select:none; }
+  .cta::after{ content:""; display:block; width:28px; height:1px; background:var(--gold);
+    margin-top:6px; transition:width .6s, background .6s; }
+  .cta:hover{ color:var(--gold-soft); letter-spacing:0.1em; }
+  .cta:hover::after{ width:68px; background:var(--gold-soft); }
+  .cta-primary{ bottom:9%; }
+  .cta-secondary{ bottom:3.8%; font-size:14px; color:var(--muted); letter-spacing:0.04em;
+    font-style:italic; padding:6px 16px; }
+  .cta-secondary::after{ display:none; }
+  .cta-secondary:hover{ color:var(--gold-soft); }
+
+  /* Chart — a THREE-CARD SPREAD using real v2.7 deck imagery. Past · Present · Becoming. */
+  .chart-stack{ position:fixed; left:50%; top:50%;
+    width:min(820px, 92vw); height:min(680px, 92vh);
+    transform:translate(-50%,-50%); z-index:11; opacity:0; pointer-events:none;
+    will-change:opacity,transform; }
+  .chart-title{ position:absolute; top:32px; left:0; right:0; text-align:center;
+    font-family:var(--serif); font-weight:400; font-style:italic; font-size:14px;
+    letter-spacing:0.32em; color:var(--gold-deep); }
+  .spread{ position:absolute; left:50%; top:46%; transform:translate(-50%,-50%);
+    display:flex; align-items:center; justify-content:center; gap:clamp(8px, 1.4vw, 22px); }
+  .spread-card{ position:relative; width:clamp(128px, 13vw, 180px);
+    aspect-ratio: 2 / 3; will-change:transform,opacity; }
+  .spread-card img{ width:100%; height:100%; object-fit:cover; display:block;
+    border:1px solid rgba(200,168,75,0.35);
+    box-shadow:0 24px 54px rgba(0,0,0,0.55); }
+  .spread-past    { transform:rotate(-10deg) translateY(20px); }
+  .spread-becoming{ transform:rotate(10deg)  translateY(20px); }
+  .spread-present { width:clamp(160px, 16vw, 224px); z-index:2;
+    transform:translateY(-8px) rotate(-1deg);
+    filter: drop-shadow(0 0 36px rgba(200,168,75,0.22)); }
+  .spread-present img{ border-color:rgba(200,168,75,0.65); }
+  .spread-card-label{ position:absolute; left:0; right:0; bottom:-28px; text-align:center;
+    font-family:var(--serif); font-style:italic; font-weight:400; font-size:13px;
+    letter-spacing:0.04em; color:var(--gold-soft); }
+  .spread-present .spread-card-label{ font-size:14px; color:var(--gold); bottom:-30px; }
+  .chart-connector{ position:absolute; left:50%; top:46%; width:420px; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(200,168,75,0.35), transparent);
+    transform:translate(-50%,-50%); pointer-events:none; opacity:0.55; }
+  .chart-name{ position:absolute; bottom:110px; left:0; right:0; text-align:center;
+    font-family:var(--serif); font-weight:300; font-size:clamp(42px, 6vw, 84px);
+    color:var(--text); letter-spacing:-0.015em; line-height:1; }
+  .chart-name em{ color:var(--gold); font-style:italic; font-weight:400; }
+  .chart-date{ position:absolute; bottom:74px; left:0; right:0; text-align:center;
+    font-family:var(--serif); font-style:italic; font-weight:400; font-size:14px;
+    letter-spacing:0.06em; color:var(--body); }
+  .chart-coords{ position:absolute; bottom:52px; left:0; right:0; text-align:center;
+    font-family:var(--serif); font-style:italic; font-weight:400; font-size:12px;
+    letter-spacing:0.05em; color:var(--muted); }
+  .chart-credit{ position:absolute; bottom:28px; left:0; right:0; text-align:center;
+    font-family:var(--serif); font-weight:400; font-size:10px; letter-spacing:0.44em;
+    color:var(--gold-deep); text-transform:uppercase; }
+  .chart-seal{ position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+    color:var(--gold); font-size:14px; opacity:0.65; }
+  .chart-crop{ position:absolute; width:14px; height:14px; opacity:0.6; }
+  .chart-crop::before,.chart-crop::after{ content:""; position:absolute; background:var(--gold-deep); }
+  .chart-crop::before{ width:100%; height:1px; }
+  .chart-crop::after{ width:1px; height:100%; }
+  .chart-crop-tl{ top:14px; left:14px; }
+  .chart-crop-tl::before{ top:0; left:0; } .chart-crop-tl::after{ top:0; left:0; }
+  .chart-crop-tr{ top:14px; right:14px; }
+  .chart-crop-tr::before{ top:0; right:0; } .chart-crop-tr::after{ top:0; right:0; }
+  .chart-crop-bl{ bottom:14px; left:14px; }
+  .chart-crop-bl::before{ bottom:0; left:0; } .chart-crop-bl::after{ bottom:0; left:0; }
+  .chart-crop-br{ bottom:14px; right:14px; }
+  .chart-crop-br::before{ bottom:0; right:0; } .chart-crop-br::after{ bottom:0; right:0; }
+  .chart-crop{ position:absolute; width:14px; height:14px; opacity:0.55; }
+  .chart-crop::before,.chart-crop::after{ content:""; position:absolute; background:var(--gold-dark); }
+  .chart-crop::before{ width:100%; height:1px; }
+  .chart-crop::after{ width:1px; height:100%; }
+  .chart-crop-tl{ top:18px; left:18px; }
+  .chart-crop-tl::before{ top:0; left:0; } .chart-crop-tl::after{ top:0; left:0; }
+  .chart-crop-tr{ top:18px; right:18px; }
+  .chart-crop-tr::before{ top:0; right:0; } .chart-crop-tr::after{ top:0; right:0; }
+  .chart-crop-bl{ bottom:18px; left:18px; }
+  .chart-crop-bl::before{ bottom:0; left:0; } .chart-crop-bl::after{ bottom:0; left:0; }
+  .chart-crop-br{ bottom:18px; right:18px; }
+  .chart-crop-br::before{ bottom:0; right:0; } .chart-crop-br::after{ bottom:0; right:0; }
+
+  /* Whisper — a single italic line, centered, hairline below. */
+  .whisper-wrap{ position:fixed; left:50%; top:72%; transform:translateX(-50%); z-index:16;
+    width:min(640px,78vw); opacity:0; pointer-events:none; }
+  .whisper{ width:100%; font-family:var(--serif); font-style:italic; font-weight:300;
+    font-size:32px; color:var(--text); background:transparent; border:none;
+    border-bottom:1px solid var(--hair-strong); padding:18px 0; text-align:center;
+    outline:none; letter-spacing:0.01em; transition: border-bottom-color .6s; }
+  .whisper::placeholder{ color:var(--muted); font-style:italic; opacity:0.6; }
+  .whisper:focus{ border-bottom-color:var(--gold); }
+  .whisper-hint{ font-family:var(--serif); font-style:italic; font-weight:400;
+    font-size:14px; color:var(--muted); text-align:center; margin-top:22px; opacity:0.75; }
+  .whisper-hint span{ color:var(--gold-deep); margin:0 8px; font-style:normal; }
+
+  /* Ingest particle — each keystroke spawns one, arcs into the orb */
+  .ingest-particle{ position:fixed; width:3px; height:3px; border-radius:50%;
+    background:var(--gold); box-shadow:0 0 8px rgba(200,168,75,0.85);
+    pointer-events:none; z-index:17; will-change:transform,opacity;
+    transform:translate(-50%,-50%); }
+
+  /* Reading — legacy center-stage paragraphs (dormant, replaced by hero-card moment). */
+  .reading-p{ position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+    max-width:min(880px, 82vw); opacity:0; pointer-events:none; z-index:14;
+    font-family:var(--serif); font-style:italic; font-size:28px; color:var(--text); }
+  .r-cursor{ color:var(--gold); margin-left:3px; font-style:normal;
+    animation: cursorBlink 0.72s step-end infinite; }
+  @keyframes cursorBlink{ 0%,50%{ opacity:1; } 50.1%,100%{ opacity:0; } }
+
+  /* HERO CARD — the signature Act 3 moment. A real tarot card fills half the screen
+     while the reading types out beside it. Editorial composition: image | typography. */
+  .hero-card{ position:fixed; inset:0; z-index:13; opacity:0; pointer-events:none;
+    display:flex; align-items:center; justify-content:center; gap:5vw;
+    padding: 5vh 6vw; }
+  .hero-card-img{ height:min(78vh, 680px); aspect-ratio: 2/3; object-fit:cover; display:block;
+    transform:rotate(-5deg); border:1px solid rgba(200,168,75,0.4);
+    box-shadow:0 40px 110px rgba(0,0,0,0.7); will-change:transform,opacity; }
+  .hero-card-side{ display:flex; flex-direction:column; max-width:min(560px, 42vw); }
+  .hero-card-eyebrow{ font-family:var(--serif); font-weight:400; font-style:normal;
+    font-size:13px; letter-spacing:0.42em; color:var(--gold);
+    text-transform:uppercase; margin-bottom:30px; }
+  .hero-card-eyebrow::before{ content:"— "; color:var(--gold-deep); }
+  .hero-card-title{ font-family:var(--serif); font-weight:300;
+    font-size:clamp(44px, 6.4vw, 110px); color:var(--text); line-height:0.98;
+    letter-spacing:-0.018em; margin:0 0 32px 0; min-height:1em; }
+  .hero-card-title em{ color:var(--gold); font-style:italic; font-weight:400; }
+  .hero-card-sub{ font-family:var(--serif); font-style:italic; font-weight:300;
+    font-size:clamp(18px, 1.7vw, 26px); color:var(--body); line-height:1.5; margin:0; }
+  .hero-card-sub::first-letter{ color:var(--gold); font-weight:400; font-size:1.12em; }
+
+  @media (max-width:880px){
+    .hero-card{ flex-direction:column; gap:28px; padding:3vh 5vw; justify-content:flex-start; }
+    .hero-card-img{ height:46vh; }
+    .hero-card-side{ max-width:92vw; }
+  }
+
+  /* Doors — redesigned as occult diagrams, not pricing cards.
+     No fill. No shadow. Just a hairline circle, a sigil at center, the name in italic serif below. */
+  .door{ position:absolute; width:200px; height:280px;
+    will-change:transform,opacity,filter; cursor:pointer; opacity:0; }
+  .door-inner{ position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:flex-start; padding-top:24px;
+    transition: filter .5s; background:transparent; border:none; }
+  .door-ring{ position:relative; width:144px; height:144px; border:1px solid var(--hair);
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    transition: border-color .5s, transform .8s ease-out; }
+  .door-ring::before,.door-ring::after{ content:""; position:absolute;
+    width:168px; height:168px; border:1px dashed rgba(200,168,75,0.14); border-radius:50%;
+    pointer-events:none; transition:opacity .5s, transform 1.6s linear; }
+  .door-ring::after{ width:112px; height:112px; border-style:solid; border-color:rgba(200,168,75,0.08); }
+  .door:hover .door-ring{ border-color:var(--gold); }
+  .door:hover .door-ring::before{ transform:rotate(26deg); opacity:0.5; }
+  .door:hover .door-ring::after{  transform:rotate(-18deg); opacity:0.7; }
+  .door-sigil{ font-family:var(--serif); font-weight:300; font-size:64px; color:var(--gold);
+    line-height:1; z-index:1; transition: color .5s, transform .6s; }
+  .door:hover .door-sigil{ color:var(--gold-soft); transform:scale(1.06); }
+  .door-name{ font-family:var(--serif); font-weight:400; font-style:italic; font-size:22px;
+    color:var(--text); text-align:center; margin-top:22px; letter-spacing:0.01em;
+    line-height:1.2; max-width:180px; }
+  .door-price{ font-family:var(--serif); font-weight:400; font-style:italic; font-size:14px;
+    color:var(--muted); margin-top:8px; letter-spacing:0.06em; }
+  .door-price::before{ content:"—"; color:var(--gold-deep); margin-right:8px; }
+  .door-price::after{  content:"—"; color:var(--gold-deep); margin-left:8px; }
+
+  /* Preview — full-bleed editorial takeover. No card. No blur. The ritual IS the screen. */
+  .preview-scrim{ position:fixed; inset:0; background:#04050a; z-index:22; opacity:0; pointer-events:none; }
+  .preview{ position:fixed; inset:0; z-index:23; opacity:0; pointer-events:none;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:60px 40px; }
+  .preview-close{ position:absolute; top:32px; right:36px; background:transparent; border:none;
+    color:var(--muted); font-family:var(--serif); font-style:italic; font-size:16px;
+    cursor:pointer; padding:6px 10px; transition:color .3s; }
+  .preview-close:hover{ color:var(--gold-soft); }
+  .preview-kind{ font-family:var(--serif); font-weight:400; font-style:normal; font-size:12px;
+    letter-spacing:0.4em; color:var(--gold-deep); text-transform:uppercase;
+    text-align:center; margin-bottom:40px; }
+  .preview-sigil{ font-family:var(--serif); font-weight:300; font-size:clamp(180px, 22vw, 340px);
+    color:var(--gold); text-align:center; line-height:0.8; margin:0; }
+  .preview-title{ font-family:var(--serif); font-weight:300; font-size:clamp(34px, 4.5vw, 68px);
+    color:var(--text); text-align:center; letter-spacing:-0.01em; margin:28px 0 16px; line-height:1.05; }
+  .preview-body{ font-family:var(--serif); font-weight:300; font-style:italic; font-size:clamp(18px, 1.6vw, 24px);
+    line-height:1.55; color:var(--body); text-align:center; margin:0 auto 48px;
+    max-width:min(640px, 82vw); }
+  .preview-unlock{ background:transparent; border:none;
+    color:var(--gold); font-family:var(--serif); font-weight:400; font-style:italic; font-size:22px;
+    letter-spacing:0.04em; cursor:pointer; padding:14px 32px;
+    transition:color .4s, letter-spacing .4s; }
+  .preview-unlock::after{ content:""; display:block; width:40px; height:1px; background:var(--gold);
+    margin:10px auto 0; transition: width .6s, background .6s; }
+  .preview-unlock:hover{ color:var(--gold-soft); letter-spacing:0.1em; }
+  .preview-unlock:hover::after{ width:110px; background:var(--gold-soft); }
+
+  /* Act 5 sign-off — editorial massive typography */
+  .remembered{ position:fixed; left:50%; top:22%; transform:translateX(-50%);
+    font-family:var(--serif); font-weight:300; font-size: clamp(54px, 8.5vw, 140px);
+    letter-spacing:-0.02em; color:var(--text); line-height:1;
+    opacity:0; z-index:12; pointer-events:none; text-align:center; }
+  .remembered em{ color:var(--gold); font-style:italic; font-weight:400; }
+  .remembered-sub{ position:fixed; left:50%; top:calc(22% + clamp(62px, 10vw, 160px));
+    transform:translateX(-50%);
+    font-family:var(--serif); font-style:italic; font-weight:300; font-size:clamp(18px, 1.8vw, 26px);
+    color:var(--body); letter-spacing:0.03em; opacity:0; z-index:12;
+    pointer-events:none; text-align:center; max-width:min(560px, 82vw); }
+
+  /* Audio toggle — a single italic word, no icon, no letter-spaced mono */
+  .audio-toggle{ position:fixed; top:32px; right:180px; z-index:25;
+    background:transparent; border:none; color:var(--muted);
+    font-family:var(--serif); font-style:italic; font-weight:400; font-size:14px;
+    letter-spacing:0.02em; cursor:pointer; padding:6px 10px;
+    transition:color .4s; pointer-events:auto; }
+  .audio-toggle::before{ content:"—"; color:var(--gold-deep); margin-right:8px; font-style:normal; }
+  .audio-toggle:hover{ color:var(--gold-soft); }
+  .audio-toggle.on{ color:var(--gold); }
+  .audio-toggle.on::before{ color:var(--gold); }
+  @media (max-width:720px){
+    .audio-toggle{ right:18px; top:56px; font-size:13px; }
+  }
+
+  /* Signature constellation — Act 5 */
+  .signature{ position:fixed; left:50%; top:50%; width:500px; height:500px;
+    transform:translate(-50%,-50%) rotate(-6deg); z-index:9; opacity:0; pointer-events:none;
+    will-change:opacity,transform; }
+  .signature svg{ width:100%; height:100%; overflow:visible; }
+  .sig-line{ fill:none; stroke:#C8A84B; stroke-width:0.6;
+    filter: drop-shadow(0 0 6px rgba(200,168,75,0.45)); }
+  .sig-dot{ fill:#E2C070; opacity:0; filter: drop-shadow(0 0 8px rgba(200,168,75,0.6)); }
+  .sig-glyph{ font-family:var(--serif); font-weight:300; font-size:12px; fill:#E2C070; opacity:0;
+    filter: drop-shadow(0 0 6px rgba(200,168,75,0.35)); text-anchor:middle; dominant-baseline:middle; }
+  @media (max-width:720px){
+    .signature{ width:340px; height:340px; }
+  }
+
+  @media (max-width:720px){
+    .hud-tl{ font-size:11px; top:20px; left:20px; letter-spacing:0.24em; }
+    .hud-tr,.hud-bl{ font-size:11px; }
+    .hud-tr{ top:20px; right:20px; }
+    .hud-bl{ bottom:22px; left:20px; }
+    .chart-stack{ width:min(340px, 88vw); height:min(460px, 84vh); }
+    .chart-wheel{ width:240px; height:240px; }
+    .door{ width:150px; height:220px; }
+    .door-ring{ width:110px; height:110px; }
+    .door-sigil{ font-size:48px; }
+    .door-name{ font-size:17px; }
+    .g-card{ width:124px; height:186px; }
+    .g-card-mark{ font-size:56px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<!-- Silence curtain — blacks out briefly between acts. Opens the experience too. -->
+<div class="curtain" id="curtain"></div>
+
+<!-- HUD -->
+<div class="hud hud-tl">Olivia<span class="bar"></span>Arcana</div>
+<div class="hud hud-tr" id="act-ind">i<span style="color:var(--gold-deep); margin:0 10px;">/</span>v</div>
+<div class="hud hud-bl" id="hud-bl">the altar</div>
+<button class="audio-toggle" id="audio-toggle" type="button"><span id="audio-label">silent</span></button>
+
+<!-- Typographic overture — the opening line. Massive. Then collapses down. -->
+<div class="overture" id="overture">
+  <div class="overture-stack">
+    <div class="overture-title">Olivia<span class="amp">&amp;</span>Arcana</div>
+    <div class="overture-sub">a celestial register</div>
+  </div>
+</div>
+
+<!-- Chart — a three-card spread using the real v2.7 deck. -->
+<div class="chart-stack" id="chart-stack" aria-hidden="true">
+  <div class="chart-crop chart-crop-tl"></div>
+  <div class="chart-crop chart-crop-tr"></div>
+  <div class="chart-crop chart-crop-bl"></div>
+  <div class="chart-crop chart-crop-br"></div>
+  <div class="chart-title">a reading — three cards drawn</div>
+  <div class="chart-connector"></div>
+  <div class="spread" id="spread">
+    <div class="spread-card spread-past">
+      <img src="assets/09_the_hermit.png" alt="The Hermit" draggable="false" />
+      <div class="spread-card-label">past — the hermit</div>
+    </div>
+    <div class="spread-card spread-present">
+      <img src="assets/02_the_high_priestess.png" alt="The High Priestess" draggable="false" />
+      <div class="spread-card-label">present — the high priestess</div>
+    </div>
+    <div class="spread-card spread-becoming">
+      <img src="assets/17_the_star.png" alt="The Star" draggable="false" />
+      <div class="spread-card-label">becoming — the star</div>
+    </div>
+  </div>
+  <!-- KEEPING the underlying SVG chart below the spread — hidden for now, can toggle later -->
+  <div style="display:none" aria-hidden="true">
+    <svg viewBox="0 0 400 400">
+      <defs>
+        <radialGradient id="nebG" cx="28%" cy="24%" r="62%">
+          <stop offset="0%" stop-color="#C8A84B" stop-opacity="0.48" />
+          <stop offset="100%" stop-color="#C8A84B" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient id="nebP" cx="76%" cy="72%" r="58%">
+          <stop offset="0%" stop-color="#9b59b6" stop-opacity="0.44" />
+          <stop offset="100%" stop-color="#9b59b6" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      <!-- atmospheric gradients (always visible) -->
+      <circle cx="200" cy="200" r="195" fill="url(#nebG)" />
+      <circle cx="200" cy="200" r="195" fill="url(#nebP)" />
+      <!-- outer ring draws first, then inner rings -->
+      <circle class="cd" pathLength="1" cx="200" cy="200" r="185" fill="none" stroke="#C8A84B" stroke-width="0.7" opacity="0.72" />
+      <circle class="cd" pathLength="1" cx="200" cy="200" r="168" fill="none" stroke="#C8A84B" stroke-width="0.4" opacity="0.48" />
+      <circle class="cd" pathLength="1" cx="200" cy="200" r="120" fill="none" stroke="#C8A84B" stroke-width="0.3" opacity="0.38" />
+      <circle class="cd" pathLength="1" cx="200" cy="200" r="60"  fill="none" stroke="#C8A84B" stroke-width="0.3" opacity="0.32" />
+      <!-- house spokes — 12 radial divisions -->
+      <g stroke="#C8A84B" stroke-width="0.3" opacity="0.3">
+        <line class="cd" pathLength="1" x1="200" y1="15"  x2="200" y2="385" />
+        <line class="cd" pathLength="1" x1="15"  y1="200" x2="385" y2="200" />
+        <line class="cd" pathLength="1" x1="66"  y1="66"  x2="334" y2="334" />
+        <line class="cd" pathLength="1" x1="334" y1="66"  x2="66"  y2="334" />
+        <line class="cd" pathLength="1" x1="108" y1="28"  x2="292" y2="372" />
+        <line class="cd" pathLength="1" x1="292" y1="28"  x2="108" y2="372" />
+        <line class="cd" pathLength="1" x1="28"  y1="108" x2="372" y2="292" />
+        <line class="cd" pathLength="1" x1="28"  y1="292" x2="372" y2="108" />
+      </g>
+      <!-- zodiac glyphs around perimeter -->
+      <g font-family="Cormorant Garamond, serif" font-size="16" font-weight="300" fill="#E2C070" text-anchor="middle">
+        <text class="cf" x="200" y="28">♈</text>
+        <text class="cf" x="295" y="54">♉</text>
+        <text class="cf" x="356" y="122">♊</text>
+        <text class="cf" x="378" y="207">♋</text>
+        <text class="cf" x="356" y="287">♌</text>
+        <text class="cf" x="295" y="357">♍</text>
+        <text class="cf" x="200" y="387">♎</text>
+        <text class="cf" x="105" y="357">♏</text>
+        <text class="cf" x="44"  y="287">♐</text>
+        <text class="cf" x="22"  y="207">♑</text>
+        <text class="cf" x="44"  y="122">♒</text>
+        <text class="cf" x="105" y="54">♓</text>
+      </g>
+      <!-- aspect lines — the relationships between planets -->
+      <g stroke="#C8A84B" fill="none">
+        <line class="cd" pathLength="1" x1="130" y1="140" x2="280" y2="250" stroke-width="0.75" opacity="0.7" />
+        <line class="cd" pathLength="1" x1="95"  y1="210" x2="310" y2="180" stroke-width="0.4"  opacity="0.4" stroke-dasharray="2 3" />
+        <line class="cd" pathLength="1" x1="160" y1="290" x2="260" y2="118" stroke-width="0.55" opacity="0.65" />
+        <line class="cd" pathLength="1" x1="140" y1="110" x2="280" y2="280" stroke-width="0.4"  opacity="0.42" stroke-dasharray="1 2" />
+        <line class="cd" pathLength="1" x1="115" y1="245" x2="295" y2="150" stroke-width="0.55" opacity="0.65" />
+      </g>
+      <!-- planet glyphs land last -->
+      <g font-family="Cormorant Garamond, serif" font-size="19" font-weight="300" fill="#E8E6F0" text-anchor="middle">
+        <text class="cf cp" x="148" y="112">☉</text>
+        <text class="cf cp" x="268" y="142">☽</text>
+        <text class="cf cp" x="298" y="220">☿</text>
+        <text class="cf cp" x="246" y="290">♀</text>
+        <text class="cf cp" x="130" y="258">♂</text>
+        <text class="cf cp" x="108" y="180">♃</text>
+        <text class="cf cp" x="200" y="210">♄</text>
+      </g>
+      <!-- planet node dots — placed under each glyph -->
+      <g fill="#C8A84B">
+        <circle class="cf cpd" cx="148" cy="112" r="1.6" />
+        <circle class="cf cpd" cx="268" cy="142" r="1.6" />
+        <circle class="cf cpd" cx="298" cy="220" r="1.4" />
+        <circle class="cf cpd" cx="246" cy="290" r="1.4" />
+        <circle class="cf cpd" cx="130" cy="258" r="1.4" />
+        <circle class="cf cpd" cx="108" cy="180" r="1.8" />
+        <circle class="cf cpd" cx="200" cy="210" r="1.8" />
+      </g>
+    </svg>
+  </div>
+  <div class="chart-name"><em>A.</em> Evander</div>
+  <div class="chart-date">Reykjavík, 19.24 — ix. iii. mcmxcvii</div>
+  <div class="chart-coords">64°09′N &nbsp;·&nbsp; 21°57′W</div>
+  <div class="chart-credit">OLIVIA ARCANA</div>
+  <div class="chart-seal">✦</div>
+</div>
+
+<!-- Scene layers -->
+<div class="zodiac-layer" id="zodiac-layer"></div>
+<div class="reading-layer" id="reading-layer"></div>
+<div class="doors-layer" id="doors-layer"></div>
+
+<!-- Gravity card (Act 1) — the actual Fool card from the Olivia Arcana deck -->
+<div class="g-card" id="g-card">
+  <img class="g-card-img" src="assets/00_the_fool.png" alt="The Fool" draggable="false" />
+  <div class="g-card-shade"></div>
+</div>
+
+<!-- HERO CARD (Act 3) — the Priestess speaks. Real v2.7 card + editorial typography. -->
+<div class="hero-card" id="hero-card" aria-hidden="true">
+  <img class="hero-card-img" id="hero-card-img" src="assets/02_the_high_priestess.png" alt="The High Priestess" draggable="false" />
+  <div class="hero-card-side">
+    <div class="hero-card-eyebrow">arcana &nbsp;·&nbsp; ii</div>
+    <div class="hero-card-title" id="hero-card-title"></div>
+    <p class="hero-card-sub" id="hero-card-sub">Hold the question until the answer becomes unnecessary. The sky does not insist — it offers.</p>
+  </div>
+</div>
+
+<!-- Whisper input (Act 3) -->
+<div class="whisper-wrap" id="whisper-wrap">
+  <input class="whisper" id="whisper" type="text" placeholder="whisper to the glass" autocomplete="off" />
+  <div class="whisper-hint">ASK A QUESTION <span>⎯</span> PRESS ENTER WHEN READY</div>
+</div>
+
+<!-- Signature constellation (Act 5) -->
+<div class="signature" id="signature" aria-hidden="true">
+  <svg viewBox="-260 -260 520 520" preserveAspectRatio="xMidYMid meet">
+    <polygon class="sig-line" id="sig-line"
+      points="0,-230 115,-199.19 199.19,-115 230,0 199.19,115 115,199.19 0,230 -115,199.19 -199.19,115 -230,0 -199.19,-115 -115,-199.19"
+      pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" />
+    <g id="sig-dots">
+      <circle class="sig-dot" cx="0" cy="-230" r="1.8"/>
+      <circle class="sig-dot" cx="115" cy="-199.19" r="1.8"/>
+      <circle class="sig-dot" cx="199.19" cy="-115" r="1.8"/>
+      <circle class="sig-dot" cx="230" cy="0" r="2.0"/>
+      <circle class="sig-dot" cx="199.19" cy="115" r="1.8"/>
+      <circle class="sig-dot" cx="115" cy="199.19" r="1.8"/>
+      <circle class="sig-dot" cx="0" cy="230" r="2.0"/>
+      <circle class="sig-dot" cx="-115" cy="199.19" r="1.8"/>
+      <circle class="sig-dot" cx="-199.19" cy="115" r="1.8"/>
+      <circle class="sig-dot" cx="-230" cy="0" r="2.0"/>
+      <circle class="sig-dot" cx="-199.19" cy="-115" r="1.8"/>
+      <circle class="sig-dot" cx="-115" cy="-199.19" r="1.8"/>
+    </g>
+    <g id="sig-glyphs">
+      <text class="sig-glyph" x="0" y="-252" dy="5">♈</text>
+      <text class="sig-glyph" x="126" y="-218" dy="5">♉</text>
+      <text class="sig-glyph" x="218" y="-126" dy="5">♊</text>
+      <text class="sig-glyph" x="252" y="0" dy="5">♋</text>
+      <text class="sig-glyph" x="218" y="126" dy="5">♌</text>
+      <text class="sig-glyph" x="126" y="218" dy="5">♍</text>
+      <text class="sig-glyph" x="0" y="252" dy="5">♎</text>
+      <text class="sig-glyph" x="-126" y="218" dy="5">♏</text>
+      <text class="sig-glyph" x="-218" y="126" dy="5">♐</text>
+      <text class="sig-glyph" x="-252" y="0" dy="5">♑</text>
+      <text class="sig-glyph" x="-218" y="-126" dy="5">♒</text>
+      <text class="sig-glyph" x="-126" y="-218" dy="5">♓</text>
+    </g>
+  </svg>
+</div>
+
+<!-- Remembered caption (Act 5) -->
+<div class="remembered" id="remembered">the stars <em>remember</em> you</div>
+<div class="remembered-sub" id="remembered-sub">your constellation is named — and is carried, now, by the sky</div>
+
+<!-- CTAs — italic serif. No dot pulse. One line, one rule beneath. -->
+<button class="cta cta-primary" id="cta-1">enter the altar</button>
+<button class="cta cta-primary" id="cta-2">ask the glass</button>
+<button class="cta cta-primary" id="cta-3">go deeper</button>
+<button class="cta cta-primary" id="cta-4">remain</button>
+<button class="cta cta-primary" id="cta-5a">return to the glass</button>
+<button class="cta cta-secondary" id="cta-5b">— remain at the altar</button>
+
+<!-- Door preview — full-bleed editorial takeover -->
+<div class="preview-scrim" id="preview-scrim"></div>
+<div class="preview" id="preview" role="dialog" aria-hidden="true">
+  <button class="preview-close" id="preview-close" aria-label="Close">— close</button>
+  <div class="preview-kind" id="preview-kind">a ritual · under seal</div>
+  <div class="preview-sigil" id="preview-sigil">☽</div>
+  <h2 class="preview-title" id="preview-title">The Moon Rite</h2>
+  <p class="preview-body" id="preview-body"></p>
+  <button class="preview-unlock" id="preview-unlock">unlock — $44</button>
+</div>
+
+<script type="module">
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+
+/* ------------------------------------------------------------------
+   THREE.JS — persistent nebula + orb.
+   The orb materializes at end of Act 1 and REMAINS VISIBLE through
+   every subsequent act. Scenes fade in/out AROUND it.
+------------------------------------------------------------------ */
+
+const canvas = document.getElementById('bg');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 2.0;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0a14);
+scene.fog = new THREE.FogExp2(0x060810, 0.030);
+
+const camera = new THREE.PerspectiveCamera(46, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(0, 0, 7);
+
+// Lights — hardcoded bright (Three.js defaults render pitch black).
+scene.add(new THREE.AmbientLight(0xffeedd, 1.2));
+scene.add(new THREE.HemisphereLight(0xffd4a0, 0x4466aa, 0.8));
+const keyLight = new THREE.PointLight(0xC8A84B, 1.5, 40);
+keyLight.position.set(4, 5, 4);
+scene.add(keyLight);
+const rimLight = new THREE.PointLight(0x9b59b6, 0.9, 30);
+rimLight.position.set(-4, -2, 3);
+scene.add(rimLight);
+
+/* ---------- VOLUMETRIC NEBULA — fBm shader plane behind everything ---------- */
+const nebulaShader = new THREE.ShaderMaterial({
+  uniforms: {
+    uTime: { value: 0 },
+    uMouse: { value: new THREE.Vector2(0, 0) },
+    uWarmth: { value: 0.0 },   // raises gold bleed during Act 2+
+  },
+  transparent: false,
+  depthWrite: false,
+  side: THREE.DoubleSide,
+  vertexShader: `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    varying vec2 vUv;
+    uniform float uTime;
+    uniform vec2  uMouse;
+    uniform float uWarmth;
+
+    // classic 2D hash noise
+    float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+    float noise(vec2 p){
+      vec2 i = floor(p), f = fract(p);
+      float a = hash(i), b = hash(i + vec2(1.0,0.0));
+      float c = hash(i + vec2(0.0,1.0)), d = hash(i + vec2(1.0,1.0));
+      vec2 u = f*f*(3.0-2.0*f);
+      return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+    }
+    float fbm(vec2 p){
+      float v = 0.0, a = 0.5;
+      for (int i = 0; i < 5; i++) { v += a * noise(p); p *= 2.07; a *= 0.52; }
+      return v;
+    }
+
+    void main(){
+      vec2 uv = vUv * 2.0 - 1.0;
+      uv.x *= 1.6; // landscape-lean
+      float r = length(uv);
+
+      // two-scale domain warp — gives the clouds a sense of turning inside themselves
+      vec2 q = vec2(fbm(vUv * 2.0 + uTime * 0.015),
+                    fbm(vUv * 2.0 - uTime * 0.012 + 12.3));
+      float n = fbm(vUv * 3.4 + q * 0.9 + uTime * 0.018);
+
+      // color stops (match brand palette)
+      vec3 voidC   = vec3(0.020, 0.028, 0.052);
+      vec3 purple  = vec3(0.28,  0.14,  0.42);
+      vec3 nebula  = vec3(0.43,  0.22,  0.58);
+      vec3 gold    = vec3(0.78,  0.66,  0.30);
+
+      float gMask  = smoothstep(0.45, 0.72, n) * (0.55 + uWarmth * 0.5);
+      vec3  col    = mix(voidC, purple, smoothstep(0.1, 0.7, n));
+      col          = mix(col, nebula, smoothstep(0.45, 0.75, n) * 0.6);
+      col          = mix(col, gold,   gMask * smoothstep(1.4, 0.2, r));
+
+      // radial vignette — viewer is inside the cloud
+      float vig = smoothstep(1.45, 0.2, r);
+      col *= 0.32 + vig * 0.95;
+
+      // subtle mouse parallax tint
+      col += vec3(uMouse.x * 0.01, 0.0, uMouse.y * 0.015);
+
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `,
+});
+const nebulaPlane = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), nebulaShader);
+nebulaPlane.position.z = -18;
+scene.add(nebulaPlane);
+
+/* ---------- starfield ---------- */
+const STAR_COUNT = 900;
+const starGeo = new THREE.BufferGeometry();
+const starPos = new Float32Array(STAR_COUNT * 3);
+const starCol = new Float32Array(STAR_COUNT * 3);
+for (let i = 0; i < STAR_COUNT; i++) {
+  const r = 18 + Math.random() * 25;
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos(2 * Math.random() - 1);
+  starPos[i*3]   = r * Math.sin(phi) * Math.cos(theta);
+  starPos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+  starPos[i*3+2] = -8 - Math.random() * 22;
+  const warm = Math.random() > 0.7;
+  starCol[i*3]   = warm ? 0.95 : 0.82;
+  starCol[i*3+1] = warm ? 0.82 : 0.80;
+  starCol[i*3+2] = warm ? 0.55 : 0.92;
+}
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+starGeo.setAttribute('color',    new THREE.BufferAttribute(starCol, 3));
+const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({
+  size: 0.05, vertexColors: true, transparent: true, opacity: 0.85,
+  depthWrite: false, blending: THREE.AdditiveBlending,
+}));
+scene.add(stars);
+
+/* ---------- nebula particles (converge into orb center in Act 1) ---------- */
+const NEB_COUNT = 520;
+const nebGeo = new THREE.BufferGeometry();
+const nebPos = new Float32Array(NEB_COUNT * 3);
+const nebHome = new Float32Array(NEB_COUNT * 3);
+const nebCol = new Float32Array(NEB_COUNT * 3);
+for (let i = 0; i < NEB_COUNT; i++) {
+  const r = 4 + Math.random() * 8;
+  const theta = Math.random() * Math.PI * 2;
+  const phi = (Math.random() - 0.5) * Math.PI * 0.9;
+  const x = r * Math.cos(phi) * Math.cos(theta);
+  const y = r * Math.cos(phi) * Math.sin(theta) * 0.6;
+  const z = r * Math.sin(phi) - 2;
+  nebHome[i*3] = x; nebHome[i*3+1] = y; nebHome[i*3+2] = z;
+  nebPos[i*3]  = x; nebPos[i*3+1]  = y; nebPos[i*3+2]  = z;
+  if (Math.random() > 0.55) {
+    nebCol[i*3] = 0.78; nebCol[i*3+1] = 0.66; nebCol[i*3+2] = 0.28;
+  } else {
+    nebCol[i*3] = 0.61; nebCol[i*3+1] = 0.35; nebCol[i*3+2] = 0.71;
+  }
+}
+nebGeo.setAttribute('position', new THREE.BufferAttribute(nebPos, 3));
+nebGeo.setAttribute('color',    new THREE.BufferAttribute(nebCol, 3));
+const nebMat = new THREE.PointsMaterial({
+  size: 0.085, vertexColors: true, transparent: true, opacity: 0.95,
+  depthWrite: false, blending: THREE.AdditiveBlending,
+});
+const nebula = new THREE.Points(nebGeo, nebMat);
+scene.add(nebula);
+
+/* ---------- orb + halo + interior particle cloud ---------- */
+const orbGroup = new THREE.Group();
+scene.add(orbGroup);
+
+const orbMat = new THREE.MeshPhysicalMaterial({
+  color: 0xE8E6F0,
+  transmission: 1.0,
+  roughness: 0.05,
+  ior: 1.5,
+  thickness: 1.0,
+  metalness: 0.0,
+  clearcoat: 1.0,
+  clearcoatRoughness: 0.08,
+  transparent: true,
+  opacity: 0.88,
+});
+const orb = new THREE.Mesh(new THREE.SphereGeometry(1, 72, 72), orbMat);
+orb.scale.setScalar(0.0001);
+orbGroup.add(orb);
+
+// Faint gold halo — additive BackSide sphere slightly larger than orb
+const halo = new THREE.Mesh(
+  new THREE.SphereGeometry(1.12, 48, 48),
+  new THREE.MeshBasicMaterial({
+    color: 0xC8A84B, transparent: true, opacity: 0.05,
+    side: THREE.BackSide, blending: THREE.AdditiveBlending, depthWrite: false,
+  })
+);
+halo.scale.setScalar(0.0001);
+orbGroup.add(halo);
+
+// Interior — TWO particle layers for volumetric depth.
+// Inner core: dense + warm gold, concentrated near center.
+// Outer veil: sparse + cool purple, pushed toward edge.
+function buildInterior(count, config) {
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(count * 3);
+  const col = new Float32Array(count * 3);
+  for (let i = 0; i < count; i++) {
+    const r = Math.pow(Math.random(), config.rPow) * config.rMax;
+    const t = Math.random() * Math.PI * 2;
+    const p = Math.acos(2 * Math.random() - 1);
+    pos[i*3]   = r * Math.sin(p) * Math.cos(t);
+    pos[i*3+1] = r * Math.sin(p) * Math.sin(t);
+    pos[i*3+2] = r * Math.cos(p);
+    const d = r / config.rMax; // 0 center → 1 edge
+    const warm = 1 - d, cool = d;
+    // gently perturb each particle's color
+    const n = (Math.random() - 0.5) * 0.12;
+    col[i*3]   = config.warm[0] * warm + config.cool[0] * cool + n;
+    col[i*3+1] = config.warm[1] * warm + config.cool[1] * cool + n * 0.5;
+    col[i*3+2] = config.warm[2] * warm + config.cool[2] * cool + n * 0.3;
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('color',    new THREE.BufferAttribute(col, 3));
+  return geo;
+}
+// Core: warm, dense, tight. Warm = gold-light (#E2C070-ish), cool = gold-dark (#8A6D2A-ish)
+const coreGeo = buildInterior(260, {
+  rPow: 0.72, rMax: 0.6,
+  warm: [0.95, 0.80, 0.38],
+  cool: [0.70, 0.48, 0.28],
+});
+// Veil: cool, sparse, wide. Warm = nebula-pink, cool = deep purple
+const veilGeo = buildInterior(280, {
+  rPow: 0.5,  rMax: 0.86,
+  warm: [0.78, 0.48, 0.72],
+  cool: [0.42, 0.22, 0.62],
+});
+const coreMat = new THREE.PointsMaterial({
+  size: 0.055, vertexColors: true, transparent: true, opacity: 0.92,
+  depthWrite: false, blending: THREE.AdditiveBlending,
+});
+const veilMat = new THREE.PointsMaterial({
+  size: 0.04, vertexColors: true, transparent: true, opacity: 0.72,
+  depthWrite: false, blending: THREE.AdditiveBlending,
+});
+const core = new THREE.Points(coreGeo, coreMat);
+const veil = new THREE.Points(veilGeo, veilMat);
+core.scale.setScalar(0.0001);
+veil.scale.setScalar(0.0001);
+orbGroup.add(core);
+orbGroup.add(veil);
+// Back-compat alias for existing tween targets
+const interior = core;
+const intMat = coreMat;
+
+window.addEventListener('resize', () => {
+  const w = window.innerWidth, h = window.innerHeight;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+});
+
+/* ------------------------------------------------------------------
+   STATE
+------------------------------------------------------------------ */
+const state = {
+  act: 1,
+  swirl: 1.0,            // interior rotation multiplier
+  glow: 1.0,             // interior brightness multiplier
+  keystroke: 0,          // 0..1, adds to glow when user types during Act 3 (decays each frame)
+  nebulaConverge: 0,     // 0..1, pull home→center
+  mouse: { x: 0, y: 0 }, // normalized -1..1
+};
+const mousePx = { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 };
+window.addEventListener('pointermove', (e) => {
+  mousePx.x = e.clientX; mousePx.y = e.clientY;
+  state.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+  state.mouse.y = -((e.clientY / window.innerHeight) * 2 - 1);
+});
+
+const HUD_BL_TEXT = ['', 'the altar', 'a nativity', 'the glass listens', 'the rooms', 'remembered'];
+const hudBL = document.getElementById('hud-bl');
+function setAct(n) {
+  state.act = n;
+  const roman = ['', 'i', 'ii', 'iii', 'iv', 'v'][n] || 'v';
+  document.getElementById('act-ind').innerHTML = `${roman}<span style="color:var(--gold-deep); margin:0 10px;">/</span>v`;
+  if (hudBL) hudBL.textContent = HUD_BL_TEXT[n] || 'the altar';
+}
+const show = (el, opts={}) => gsap.to(el, { autoAlpha: 1, duration: opts.duration ?? 1.2, ease: 'power2.out', ...opts });
+const hide = (el, opts={}) => gsap.to(el, { autoAlpha: 0, duration: opts.duration ?? 1.0, ease: 'power2.in',  ...opts });
+
+/* ------------------------------------------------------------------
+   ZODIAC GLYPHS — 12 HTML labels projected from 3D positions
+------------------------------------------------------------------ */
+const ZODIAC_CHARS = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+const zodiacLayer = document.getElementById('zodiac-layer');
+const zodiacs = ZODIAC_CHARS.map((ch, i) => {
+  const el = document.createElement('div');
+  el.className = 'zodiac';
+  el.textContent = ch;
+  el.style.fontSize = (30 + Math.random() * 26) + 'px';
+  zodiacLayer.appendChild(el);
+  const angle = (i / 12) * Math.PI * 2;
+  const radius = 3.0 + (i % 3) * 0.9;
+  const baseOrig = new THREE.Vector3(
+    Math.cos(angle) * radius,
+    Math.sin(angle) * radius * 0.6 + (Math.random() - 0.5) * 1.2,
+    -1 - Math.random() * 3.5,
+  );
+  return {
+    el,
+    baseOrig,
+    base: baseOrig.clone(),
+    orbit: 0.12 + Math.random() * 0.2,
+    phase: Math.random() * Math.PI * 2,
+    alive: true,
+    alpha: 0,
+  };
+});
+function updateZodiacs(t) {
+  for (const z of zodiacs) {
+    if (!z.alive && z.alpha <= 0.001) { z.el.style.display = 'none'; continue; }
+    z.el.style.display = '';
+    const x = z.base.x + Math.cos(t * z.orbit + z.phase) * 0.5;
+    const y = z.base.y + Math.sin(t * z.orbit * 1.2 + z.phase) * 0.35;
+    const z3 = z.base.z + Math.sin(t * 0.2 + z.phase) * 0.4;
+    const v = new THREE.Vector3(x, y, z3).project(camera);
+    const sx = (v.x * 0.5 + 0.5) * window.innerWidth;
+    const sy = (-v.y * 0.5 + 0.5) * window.innerHeight;
+    const depth = 1.0 - Math.min(1, Math.max(0, v.z));
+    z.el.style.transform = `translate(${sx}px, ${sy}px) translate(-50%,-50%) scale(${0.6 + depth * 0.7})`;
+    z.el.style.opacity = z.alpha.toFixed(3);
+  }
+}
+
+/* ------------------------------------------------------------------
+   GRAVITY CARD — magnetic cursor follow
+------------------------------------------------------------------ */
+const gCard = document.getElementById('g-card');
+gsap.set(gCard, { transformPerspective: 900, transformOrigin: '50% 50%', xPercent: -50, yPercent: -50 });
+const cardX    = gsap.quickTo(gCard, 'x',         { duration: 0.8, ease: 'power3.out' });
+const cardY    = gsap.quickTo(gCard, 'y',         { duration: 0.8, ease: 'power3.out' });
+const cardRotY = gsap.quickTo(gCard, 'rotationY', { duration: 0.9, ease: 'power3.out' });
+const cardRotX = gsap.quickTo(gCard, 'rotationX', { duration: 0.9, ease: 'power3.out' });
+function tickCard() {
+  cardX(mousePx.x + 90);
+  cardY(mousePx.y + 40);
+  cardRotY(state.mouse.x * 14);
+  cardRotX(-state.mouse.y * 10);
+}
+
+/* ------------------------------------------------------------------
+   READING PARAGRAPHS — float around the orb in 3D
+------------------------------------------------------------------ */
+const READINGS = [
+  { anchor: new THREE.Vector3(-2.7,  1.5, 0.5), text: 'The thread you have been following was never yours alone.', side: 'left'  },
+  { anchor: new THREE.Vector3( 2.8,  1.0, 0.7), text: 'What arrives at dusk is a returning, not a beginning.',     side: 'right' },
+  { anchor: new THREE.Vector3(-2.3, -1.5, 0.4), text: 'Saturn moves against you; Venus turns toward.',              side: 'left'  },
+  { anchor: new THREE.Vector3( 2.4, -1.4, 0.6), text: 'Hold the question until the answer becomes unnecessary.',    side: 'right' },
+  { anchor: new THREE.Vector3( 0.0,  2.4, -0.2), text: 'The sky does not insist. It offers.',                       side: 'left'  },
+];
+const readingLayer = document.getElementById('reading-layer');
+const readingEls = READINGS.map((r, i) => {
+  const el = document.createElement('div');
+  // First paragraph gets a gold first-letter, like a drop-cap in a book
+  el.className = 'reading-p' + (i === 0 ? ' first-letter' : '');
+  el.textContent = r.text;
+  readingLayer.appendChild(el);
+  return { ...r, el };
+});
+// readings no longer follow 3D anchors — they own center stage one at a time
+
+/* ------------------------------------------------------------------
+   DOORS — orbit the orb like moons (radius ~4, 20s period)
+------------------------------------------------------------------ */
+const DOORS = [
+  { sigil: '☽', name: 'The Moon Rite',      price: '$44',
+    teaser: 'A threefold invocation drawn across a single waxing night — silvered thread, an offering of salt, a name you once refused to speak.' },
+  { sigil: '♄', name: 'The Saturn Vigil',   price: '$88',
+    teaser: 'Seven nights at the edge of discipline. The vigil breaks the patterns Saturn has grown fond of protecting you from.' },
+  { sigil: '♀', name: 'The Venus Anointing', price: '$122',
+    teaser: 'An anointing for what returns softly. Rose, oil, gold — and a letter to the body that has been waiting to be chosen.' },
+];
+const doorsLayer = document.getElementById('doors-layer');
+const doors = DOORS.map((d, i) => {
+  const el = document.createElement('div');
+  el.className = 'door';
+  el.innerHTML = `
+    <div class="door-inner">
+      <div class="door-ring"><div class="door-sigil">${d.sigil}</div></div>
+      <div class="door-name">${d.name}</div>
+      <div class="door-price">${d.price}</div>
+    </div>`;
+  doorsLayer.appendChild(el);
+  return {
+    ...d, el,
+    angle: (i / 3) * Math.PI * 2,
+    radius: 4.6,
+    elevation: 0.4,
+  };
+});
+// Saturn-ring tilt — doors never cross the orb's silhouette at z=0
+const DOOR_TILT = 0.46; // ~26°
+const DOOR_TILT_SIN = Math.sin(DOOR_TILT);
+const DOOR_TILT_COS = Math.cos(DOOR_TILT);
+function updateDoors(t) {
+  // 20s orbit period ≈ 0.314 rad/s, tilted plane so doors arc above/below the orb, never through it
+  for (const d of doors) {
+    const a = d.angle + t * 0.314;
+    const cosa = Math.cos(a), sina = Math.sin(a);
+    const rx = cosa * d.radius;
+    const ry = sina * d.radius * DOOR_TILT_SIN;
+    const rz = sina * d.radius * DOOR_TILT_COS - 0.3;
+    const y = d.elevation + ry + Math.sin(t * 0.4 + d.angle) * 0.12;
+    const v = new THREE.Vector3(rx, y, rz).project(camera);
+    const sx = (v.x * 0.5 + 0.5) * window.innerWidth;
+    const sy = (-v.y * 0.5 + 0.5) * window.innerHeight;
+    const depth = Math.max(0, 1 - v.z);
+    d.el.style.left = sx + 'px';
+    d.el.style.top  = sy + 'px';
+    d.el.style.transform = `translate(-50%,-50%) scale(${0.68 + depth * 0.55})`;
+    d.el.style.filter = `brightness(${0.55 + depth * 0.75})`;
+    d.el.style.zIndex = String(Math.round(depth * 10) + 5);
+  }
+}
+doors.forEach((d) => d.el.addEventListener('click', () => openPreview(d)));
+
+/* ------------------------------------------------------------------
+   PREVIEW overlay
+------------------------------------------------------------------ */
+const preview = document.getElementById('preview');
+const scrim   = document.getElementById('preview-scrim');
+const pSigil  = document.getElementById('preview-sigil');
+const pTitle  = document.getElementById('preview-title');
+const pBody   = document.getElementById('preview-body');
+const pUnlock = document.getElementById('preview-unlock');
+const pClose  = document.getElementById('preview-close');
+
+gsap.set(preview, { xPercent: -50, yPercent: -50, scale: 0.6, autoAlpha: 0 });
+gsap.set(scrim, { autoAlpha: 0 });
+
+function openPreview(d) {
+  pSigil.textContent = d.sigil;
+  pTitle.textContent = d.name;
+  pBody.textContent = d.teaser;
+  pUnlock.textContent = `unlock — ${d.price}`;
+  gsap.to(scrim,   { autoAlpha: 1, duration: 0.7, ease: 'power2.out' });
+  gsap.fromTo(preview, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 1.1, ease: 'power3.out' });
+  preview.style.pointerEvents = 'auto';
+  scrim.style.pointerEvents = 'auto';
+  playTone(261.63, 1.2, 0.05, 'sine');
+  playTone(392.00, 1.2, 0.035, 'sine');
+}
+function closePreview() {
+  gsap.to(scrim,   { autoAlpha: 0, duration: 0.6, ease: 'power2.in' });
+  gsap.to(preview, { autoAlpha: 0, y: 12, duration: 0.6, ease: 'power2.in',
+    onComplete: () => { preview.style.pointerEvents = 'none'; scrim.style.pointerEvents = 'none'; } });
+}
+pClose.addEventListener('click', closePreview);
+scrim.addEventListener('click', closePreview);
+
+/* ------------------------------------------------------------------
+   AMBIENT DRONE — opt-in. Three sine voices on a slow-swept lowpass.
+------------------------------------------------------------------ */
+let audioCtx = null;
+let drone = null;
+const audioToggle = document.getElementById('audio-toggle');
+const audioLabel  = document.getElementById('audio-label');
+audioToggle.addEventListener('click', () => {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const master = audioCtx.createGain();
+    master.gain.value = 0;
+    const lp = audioCtx.createBiquadFilter();
+    lp.type = 'lowpass'; lp.frequency.value = 480; lp.Q.value = 1.3;
+    lp.connect(master);
+    master.connect(audioCtx.destination);
+    const voice = (freq, gain) => {
+      const o = audioCtx.createOscillator();
+      o.type = 'sine'; o.frequency.value = freq;
+      const g = audioCtx.createGain(); g.gain.value = gain;
+      o.connect(g); g.connect(lp); o.start();
+      return { o, g };
+    };
+    voice(110, 0.95);        // low A (root)
+    voice(164.81, 0.5);      // perfect fifth (E)
+    voice(220, 0.38);        // octave
+    voice(113.5, 0.22);      // detuned beat against root — subtle shimmer
+    // slow filter sweep, never the same twice
+    setInterval(() => {
+      const t = audioCtx.currentTime;
+      lp.frequency.cancelScheduledValues(t);
+      lp.frequency.linearRampToValueAtTime(360 + Math.random() * 360, t + 5);
+    }, 4800);
+    drone = { master, on: false };
+  }
+  drone.on = !drone.on;
+  const target = drone.on ? 0.085 : 0;
+  drone.master.gain.cancelScheduledValues(audioCtx.currentTime);
+  drone.master.gain.linearRampToValueAtTime(target, audioCtx.currentTime + (drone.on ? 2.4 : 1.4));
+  audioToggle.classList.toggle('on', drone.on);
+  audioLabel.textContent = drone.on ? 'drone' : 'silent';
+});
+
+// One-shot punctuation tones for key beats (orb arrival, crystallize, keystroke, etc).
+// Silent unless the user has enabled the drone — no surprise noise.
+function playTone(freq, duration, volume = 0.04, type = 'sine', attack = 0.04) {
+  if (!audioCtx || !drone || !drone.on) return;
+  const now = audioCtx.currentTime;
+  const o = audioCtx.createOscillator();
+  o.type = type; o.frequency.value = freq;
+  const g = audioCtx.createGain(); g.gain.value = 0;
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(now);
+  g.gain.linearRampToValueAtTime(volume, now + attack);
+  g.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+  o.stop(now + duration + 0.1);
+}
+
+/* ------------------------------------------------------------------
+   ACT CHOREOGRAPHY
+------------------------------------------------------------------ */
+const ctas = {
+  c1:  document.getElementById('cta-1'),
+  c2:  document.getElementById('cta-2'),
+  c3:  document.getElementById('cta-3'),
+  c4:  document.getElementById('cta-4'),
+  c5a: document.getElementById('cta-5a'),
+  c5b: document.getElementById('cta-5b'),
+};
+Object.values(ctas).forEach((el) => gsap.set(el, { autoAlpha: 0 }));
+
+const overture  = document.getElementById('overture');
+const curtain   = document.getElementById('curtain');
+const hudTL     = document.querySelector('.hud-tl');
+const hudTR     = document.querySelector('.hud-tr');
+const chartStack = document.getElementById('chart-stack');
+const heroCard      = document.getElementById('hero-card');
+const heroCardImg   = document.getElementById('hero-card-img');
+const heroCardTitle = document.getElementById('hero-card-title');
+const whisperWrap= document.getElementById('whisper-wrap');
+const whisperInput = document.getElementById('whisper');
+const remembered = document.getElementById('remembered');
+const rememberedSub = document.getElementById('remembered-sub');
+
+// Chart — a three-card spread using real v2.7 deck imagery.
+const spreadCards       = chartStack.querySelectorAll('.spread-card');
+const spreadPresent     = chartStack.querySelector('.spread-present');
+const spreadCardLabels  = chartStack.querySelectorAll('.spread-card-label');
+const chartConnector    = chartStack.querySelector('.chart-connector');
+
+/* ------ ACT 1 ------
+   Structure:
+     1. SILENCE (curtain opaque, black)                          [0 → 1.4]
+     2. OVERTURE   (massive "Olivia & Arcana" title fades up)    [1.4 → 4.0]
+     3. COMPRESSION (title shrinks, migrates to top-left HUD)    [4.0 → 5.6]
+     4. ORBIT      (zodiac glyphs + gravity card emerge)         [4.8 → 6.8]
+     5. CONVERGENCE (nebula pulls toward center)                 [6.0 → 9.0]
+     6. MATERIALIZATION (orb condenses)                          [7.5 → 9.8]
+     7. INVITATION (the first CTA — "enter the altar")           [10.2 →  ]
+   Replay skips 1–3 (~5s), starts at orbit.
+*/
+function playAct1(isReplay = false) {
+  setAct(1);
+
+  // Reset zodiac base positions (Act 2 drained them to origin)
+  zodiacs.forEach((z) => {
+    z.base.copy(z.baseOrig);
+    z.alive = true;
+    z.el.style.display = '';
+  });
+
+  const T = isReplay ? {
+    curtain: 0, overture: 0, compression: 0,
+    glyphs: 0.2, card: 0.4, converge: 0.8, orb: -1,     // -1 = skip orb materialize
+    warmth: 0.4, cta: 3.2,
+  } : {
+    curtain: 0.8, overture: 1.8, compression: 4.0,
+    glyphs: 4.8, card: 5.0, converge: 6.0,
+    orb: 7.5, warmth: 7.6, cta: 10.2,
+  };
+
+  // 1) SILENCE → 2) OVERTURE (first-time only)
+  if (!isReplay) {
+    gsap.set(overture, { autoAlpha: 0 });
+    gsap.set(curtain,  { autoAlpha: 1 });
+    gsap.set([hudTL, hudTR, hudBL, audioToggle], { autoAlpha: 0 });
+
+    // Curtain lifts
+    gsap.to(curtain, { autoAlpha: 0, duration: 1.4, delay: T.curtain, ease: 'power2.inOut' });
+    gsap.delayedCall(T.curtain + 0.1, () => playTone(55, 5.0, 0.06, 'sine')); // sub-bass warmth
+    gsap.delayedCall(T.curtain + 0.2, () => playTone(164.81, 4.0, 0.025, 'sine'));
+
+    // Overture title rises
+    gsap.fromTo(overture,
+      { autoAlpha: 0, scale: 1.04 },
+      { autoAlpha: 1, scale: 1, duration: 2.0, delay: T.overture, ease: 'power3.out' });
+
+    // 3) COMPRESSION — title dissolves and is "replaced" by the HUD mark
+    gsap.to(overture, {
+      autoAlpha: 0, scale: 0.88, filter: 'blur(4px)',
+      duration: 1.4, delay: T.compression, ease: 'power2.in',
+    });
+    // HUD pieces fade in as the overture fades
+    gsap.to([hudTL, hudTR, hudBL, audioToggle],
+      { autoAlpha: 1, duration: 1.2, delay: T.compression + 0.8, stagger: 0.08, ease: 'power2.out' });
+  } else {
+    // keep HUD visible on replay
+    gsap.set([hudTL, hudTR, hudBL, audioToggle], { autoAlpha: 1 });
+    gsap.set(overture, { autoAlpha: 0 });
+  }
+
+  // 4) ORBIT — zodiac glyphs and gravity card
+  zodiacs.forEach((z) => {
+    gsap.to(z, { alpha: 0.82, duration: 2.0, delay: T.glyphs + Math.random() * 0.6, ease: 'power2.out' });
+  });
+  gsap.to(gCard, { autoAlpha: 1, duration: 1.8, delay: T.card, ease: 'power2.out' });
+  gsap.to(camera.position, { z: 7, duration: 2.0, ease: 'power2.out' });
+
+  // 5) CONVERGENCE — nebula flows toward center
+  gsap.to(state, { nebulaConverge: 0, duration: 0.1 });
+  gsap.to(state, { nebulaConverge: 1, duration: 3.0, delay: T.converge, ease: 'power2.inOut' });
+
+  // 6) MATERIALIZATION — orb condenses out of the convergence (first time only)
+  if (T.orb >= 0) {
+    gsap.to(orb.scale,  { x: 1, y: 1, z: 1, duration: 2.2, delay: T.orb, ease: 'power3.out' });
+    gsap.to(halo.scale, { x: 1, y: 1, z: 1, duration: 2.4, delay: T.orb + 0.2, ease: 'power3.out' });
+    gsap.to(core.scale, { x: 1, y: 1, z: 1, duration: 2.6, delay: T.orb + 0.3, ease: 'power3.out' });
+    gsap.to(veil.scale, { x: 1, y: 1, z: 1, duration: 2.8, delay: T.orb + 0.4, ease: 'power3.out' });
+    gsap.to(nebulaShader.uniforms.uWarmth, { value: 0.35, duration: 1.6, delay: T.warmth, ease: 'power2.out' });
+    gsap.to(nebulaShader.uniforms.uWarmth, { value: 0.15, duration: 2.4, delay: T.warmth + 1.8, ease: 'power2.inOut' });
+    gsap.delayedCall(T.orb + 0.1, () => { playTone(110, 4.5, 0.10, 'sine'); playTone(164.81, 3.8, 0.05, 'sine'); });
+  }
+
+  // 7) INVITATION
+  gsap.to(ctas.c1, { autoAlpha: 1, duration: 1.4, delay: T.cta, ease: 'power2.out' });
+}
+ctas.c1.addEventListener('click', () => goAct2());
+
+/* ------ ACT 1 → ACT 2 ------ */
+function goAct2() {
+  setAct(2);
+  hide(ctas.c1,  { duration: 0.6 });
+  hide(gCard,    { duration: 0.9 });
+  // zodiac DRAIN into the orb — base positions animate toward origin while fading.
+  // Each glyph's arrival at the orb sparks a tiny bump on the interior glow.
+  zodiacs.forEach((z, i) => {
+    z.alive = false;
+    const d = i * 0.07;
+    gsap.to(z.base, {
+      x: 0, y: 0, z: 0, duration: 1.8, delay: d, ease: 'power2.in',
+      onComplete: () => { state.keystroke = Math.min(1.0, state.keystroke + 0.18); },
+    });
+    gsap.to(z, { alpha: 0, duration: 2.0, delay: d + 0.4, ease: 'power2.in' });
+  });
+  // sustained orb pulse as the constellation is fully absorbed
+  gsap.to(orb.scale, { x: 1.06, y: 1.06, z: 1.06, duration: 1.1, delay: 1.6, ease: 'power2.out', yoyo: true, repeat: 1 });
+  gsap.to(state,     { glow:    1.7,                 duration: 1.1, delay: 1.6, ease: 'power2.out', yoyo: true, repeat: 1 });
+  // camera dolly z=7 → z=5
+  gsap.to(camera.position, { z: 5, duration: 2.4, ease: 'power2.inOut' });
+
+  // Poster frame materializes (container fade-in)
+  gsap.fromTo(chartStack,
+    { autoAlpha: 0, scale: 0.96 },
+    { autoAlpha: 1, scale: 1, duration: 1.8, delay: 0.4, ease: 'power3.out' });
+  // connector line draws beneath the cards
+  gsap.fromTo(chartConnector, { scaleX: 0 }, { scaleX: 1, duration: 1.4, delay: 0.6, ease: 'power2.out' });
+
+  // Three real cards drop into place — past, present, becoming — as though dealt on a table.
+  // Stagger: past → present (larger, stronger drop) → becoming.
+  // Each comes from above with slight rotation, settles into its Dutch-angled rest position.
+  const pastCard    = chartStack.querySelector('.spread-past');
+  const presentCard = chartStack.querySelector('.spread-present');
+  const becomingCard = chartStack.querySelector('.spread-becoming');
+
+  gsap.set(spreadCards, { autoAlpha: 0 });
+  gsap.set(spreadCardLabels, { opacity: 0, y: -6 });
+
+  // Each card: slide down and settle to its rest rotation. Using separate tweens per card
+  // because each has its own rest rotation (-10, -1, +10).
+  gsap.fromTo(pastCard,
+    { y: -120, rotate: -28, autoAlpha: 0 },
+    { y: 20, rotate: -10, autoAlpha: 1, duration: 1.4, delay: 1.2,
+      ease: 'power3.out', onStart: () => playTone(523.25, 0.6, 0.035, 'sine') });
+  gsap.fromTo(presentCard,
+    { y: -160, rotate: -14, scale: 0.94, autoAlpha: 0 },
+    { y: -8, rotate: -1, scale: 1, autoAlpha: 1, duration: 1.8, delay: 1.7,
+      ease: 'power3.out', onStart: () => playTone(659.25, 0.9, 0.05, 'sine') });
+  gsap.fromTo(becomingCard,
+    { y: -120, rotate: 28, autoAlpha: 0 },
+    { y: 20, rotate: 10, autoAlpha: 1, duration: 1.4, delay: 2.2,
+      ease: 'power3.out', onStart: () => playTone(783.99, 0.6, 0.035, 'sine') });
+
+  // Labels fade in after all three cards have landed
+  gsap.to(spreadCardLabels, { opacity: 1, y: 0, duration: 1.0, stagger: 0.1, delay: 3.6, ease: 'power2.out' });
+
+  // orb pulses in time with each card landing
+  gsap.to(orb.scale, { x: 1.04, y: 1.04, z: 1.04, duration: 1.0, delay: 1.2, ease: 'sine.inOut', yoyo: true, repeat: 2 });
+
+  // CTA after the spread is laid out
+  gsap.to(ctas.c2, { autoAlpha: 1, duration: 1.2, delay: 4.8, ease: 'power2.out' });
+}
+ctas.c2.addEventListener('click', () => goAct3());
+
+/* ------ ACT 2 → ACT 3 ------ */
+function goAct3() {
+  setAct(3);
+  hide(ctas.c2, { duration: 0.6 });
+  gsap.to(chartStack, { autoAlpha: 0, scale: 0.85, duration: 1.6, ease: 'power2.inOut' });
+
+  gsap.to(whisperWrap, { autoAlpha: 1, duration: 1.4, delay: 1.0, ease: 'power2.out',
+    onComplete: () => {
+      whisperWrap.style.pointerEvents = 'auto';
+      whisperInput.disabled = false;
+      whisperInput.focus();
+    },
+  });
+}
+whisperInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && state.act === 3) {
+    e.preventDefault();
+    revealReading();
+  }
+});
+// Orb listens while you type — glow bump + a gold particle streams from the input into the orb.
+// Each character the user writes is carried visibly into the glass.
+whisperInput.addEventListener('input', () => {
+  if (state.act !== 3 || whisperInput.disabled) return;
+  state.keystroke = Math.min(1.0, state.keystroke + 0.14);
+  spawnIngestParticle();
+  // soft type tone — slight pitch randomization keeps it from droning
+  playTone(880 + Math.random() * 180, 0.08, 0.018, 'sine', 0.008);
+});
+
+function spawnIngestParticle() {
+  const rect = whisperInput.getBoundingClientRect();
+  const startX = rect.left + rect.width / 2 + (Math.random() - 0.5) * rect.width * 0.8;
+  const startY = rect.top + rect.height / 2;
+
+  // Orb screen position
+  const orbScreen = orb.position.clone().project(camera);
+  const targetX = (orbScreen.x * 0.5 + 0.5) * window.innerWidth;
+  const targetY = (-orbScreen.y * 0.5 + 0.5) * window.innerHeight;
+
+  const p = document.createElement('div');
+  p.className = 'ingest-particle';
+  p.style.left = startX + 'px';
+  p.style.top  = startY + 'px';
+  document.body.appendChild(p);
+
+  // Arc: rise above the midpoint, then fall into orb
+  const midX = (startX + targetX) / 2 + (Math.random() - 0.5) * 100;
+  const midY = Math.min(startY, targetY) - 80 - Math.random() * 60;
+
+  const tl = gsap.timeline({ onComplete: () => {
+    p.remove();
+    // small kiss of glow each particle lands
+    state.keystroke = Math.min(1.0, state.keystroke + 0.05);
+  }});
+  tl.to(p, { left: midX,    top: midY,    duration: 0.55, ease: 'power2.out' })
+    .to(p, { left: targetX, top: targetY, duration: 0.75, ease: 'power2.in' })
+    .to(p, { opacity: 0,    scale: 0.3,   duration: 0.25, ease: 'power2.in' }, '-=0.25');
+}
+
+function revealReading() {
+  if (whisperInput.disabled) return;
+  whisperInput.disabled = true;
+
+  // Orb swallows the question
+  playTone(82.41, 3.4, 0.09, 'sine');
+  playTone(164.81, 3.0, 0.045, 'sine');
+  gsap.to(state,  { swirl: 3.0, glow: 1.8, duration: 1.0, ease: 'power2.out' });
+  gsap.to(orbMat, { transmission: 0.86, duration: 1.0, yoyo: true, repeat: 1, ease: 'power2.inOut' });
+  gsap.to(orb.scale, { x: 1.12, y: 1.12, z: 1.12, duration: 1.2, ease: 'power2.out', yoyo: true, repeat: 1 });
+  gsap.to(nebulaShader.uniforms.uWarmth, { value: 0.55, duration: 1.2, ease: 'power2.out' });
+  gsap.to(nebulaShader.uniforms.uWarmth, { value: 0.22, duration: 3.0, delay: 1.4, ease: 'power2.inOut' });
+
+  // Whisper input dismissed
+  gsap.to(whisperWrap, { autoAlpha: 0, duration: 0.8, delay: 0.8, ease: 'power2.in',
+    onComplete: () => { whisperWrap.style.pointerEvents = 'none'; } });
+
+  // Dim the orb — the Priestess takes the stage
+  gsap.to(camera.position, { z: 8.5, duration: 3.0, delay: 0.9, ease: 'power2.inOut' });
+
+  // HERO CARD — the signature moment
+  const DELAY_IN = 1.4;
+  const readingText = 'The thread you have been following was never yours <em>alone</em>.';
+  gsap.set(heroCardTitle, { autoAlpha: 1 });
+  heroCardTitle.textContent = '';
+  gsap.to(heroCard, { autoAlpha: 1, duration: 0.1, delay: DELAY_IN });
+
+  // Card slides in from off-frame right, settles into rest rotation
+  gsap.fromTo(heroCardImg,
+    { x: '45vw', rotate: -18, scale: 0.82, filter: 'blur(8px)', autoAlpha: 0 },
+    { x: 0, rotate: -5, scale: 1, filter: 'blur(0px)', autoAlpha: 1,
+      duration: 2.2, delay: DELAY_IN, ease: 'power3.out' });
+
+  // Eyebrow, subtitle
+  const eyebrow = document.querySelector('.hero-card-eyebrow');
+  const sub = document.querySelector('.hero-card-sub');
+  gsap.set([eyebrow, sub], { autoAlpha: 0 });
+  gsap.fromTo(eyebrow, { y: 20 }, { y: 0, autoAlpha: 1, duration: 1.0, delay: DELAY_IN + 1.2, ease: 'power2.out' });
+
+  // Typewriter the big title line
+  const plain = readingText.replace(/<[^>]+>/g, ''); // stripped for tone triggering
+  const TEMPO = 0.045;
+  const proxy = { c: 0 };
+  let lastC = 0;
+  gsap.to(proxy, {
+    c: plain.length, duration: plain.length * TEMPO, delay: DELAY_IN + 1.8, ease: 'none',
+    onUpdate: () => {
+      const n = Math.floor(proxy.c);
+      if (n > lastC) {
+        const ch = plain[n-1];
+        if (ch && ch !== ' ' && ch !== ',' && ch !== '.') {
+          playTone(1250 + Math.random() * 300, 0.03, 0.008, 'sine', 0.005);
+        }
+        lastC = n;
+      }
+      // Rebuild with markup: count plain chars up to n, then splice into readingText
+      let out = ''; let seen = 0;
+      for (let i = 0; i < readingText.length && seen < n; i++) {
+        const c = readingText[i];
+        if (c === '<') {
+          const end = readingText.indexOf('>', i);
+          out += readingText.slice(i, end + 1);
+          i = end;
+        } else {
+          out += c; seen++;
+        }
+      }
+      heroCardTitle.innerHTML = out + '<span class="r-cursor">|</span>';
+    },
+    onComplete: () => { heroCardTitle.innerHTML = readingText; },
+  });
+
+  // Sub paragraph fades in after the title is well underway
+  gsap.fromTo(sub,
+    { y: 16 },
+    { y: 0, autoAlpha: 1, duration: 1.6, delay: DELAY_IN + 1.8 + plain.length * TEMPO * 0.7, ease: 'power2.out' });
+
+  // Hero card holds, then fades as CTA appears
+  const titleDur = plain.length * TEMPO;
+  const heroTotal = DELAY_IN + 1.8 + titleDur + 3.8;
+  gsap.to(heroCard, { autoAlpha: 0, duration: 1.2, delay: heroTotal, ease: 'power2.inOut' });
+
+  // After hero fades, bring orb back, reveal CTA
+  gsap.to(state, { swirl: 1.4, glow: 1.25, duration: 1.8, delay: heroTotal, ease: 'power2.inOut' });
+  gsap.to(camera.position, { z: 7, duration: 2.0, delay: heroTotal, ease: 'power2.inOut' });
+  gsap.to(ctas.c3, { autoAlpha: 1, duration: 1.4, delay: heroTotal + 0.8, ease: 'power2.out' });
+}
+ctas.c3.addEventListener('click', () => goAct4());
+
+/* ------ ACT 3 → ACT 4 ------ */
+function goAct4() {
+  setAct(4);
+  hide(ctas.c3, { duration: 0.6 });
+  readingEls.forEach((r, i) => {
+    gsap.to(r.el, { autoAlpha: 0, filter: 'blur(6px)', duration: 1.2, delay: i * 0.2, ease: 'power2.in' });
+  });
+  // camera z=5 → z=7 (orb shrinks to give doors room)
+  gsap.to(camera.position, { z: 7, duration: 2.4, delay: 0.6, ease: 'power2.inOut' });
+
+  doors.forEach((d, i) => {
+    gsap.fromTo(d.el, { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.6, delay: 1.6 + i * 0.4, ease: 'power2.out' });
+  });
+  gsap.to(ctas.c4, { autoAlpha: 1, duration: 1.2, delay: 3.6, ease: 'power2.out' });
+}
+ctas.c4.addEventListener('click', () => goAct5());
+
+/* ------ ACT 4 → ACT 5 ------ */
+const signature = document.getElementById('signature');
+const sigLine   = document.getElementById('sig-line');
+const sigDots   = document.querySelectorAll('#sig-dots .sig-dot');
+const sigGlyphs = document.querySelectorAll('#sig-glyphs .sig-glyph');
+
+function goAct5() {
+  setAct(5);
+  hide(ctas.c4, { duration: 0.6 });
+  closePreview();
+
+  doors.forEach((d, i) => {
+    gsap.to(d.el, { autoAlpha: 0, duration: 1.4, delay: i * 0.12, ease: 'power2.in' });
+  });
+  gsap.to(camera.position, { z: 5, duration: 2.4, ease: 'power2.inOut' });
+
+  // orb breath — subtle inhale/exhale forever
+  gsap.to(orb.scale, {
+    x: 1.05, y: 1.05, z: 1.05,
+    duration: 3.2, ease: 'sine.inOut',
+    yoyo: true, repeat: -1,
+  });
+
+  // Signature constellation: dots → ring → glyphs. Each star chimes softly as it lands.
+  gsap.set(sigLine, { strokeDashoffset: 1 });
+  gsap.set(sigDots, { opacity: 0 });
+  gsap.set(sigGlyphs, { opacity: 0 });
+  gsap.to(signature, { autoAlpha: 1, duration: 1.0, delay: 1.4, ease: 'power2.out' });
+  gsap.to(sigDots,   { opacity: 0.95, duration: 0.35, delay: 1.8, stagger: 0.18, ease: 'power2.out' });
+  // ascending chime sequence as each of the 12 stars locks in
+  const chimeRoot = [523.25, 587.33, 659.25, 698.46, 783.99, 880.00, 987.77, 1046.50, 1174.66, 1318.51, 1396.91, 1567.98];
+  for (let i = 0; i < 12; i++) {
+    gsap.delayedCall(1.85 + i * 0.18, () => playTone(chimeRoot[i], 0.8, 0.018, 'sine'));
+  }
+  gsap.to(sigLine,   { strokeDashoffset: 0, duration: 4.2, delay: 2.2, ease: 'power2.inOut' });
+  gsap.to(sigGlyphs, { opacity: 0.75, duration: 1.0, delay: 5.2, stagger: 0.12, ease: 'power2.out' });
+  // final held bell as the ring closes
+  gsap.delayedCall(6.4, () => {
+    playTone(261.63, 5.0, 0.06, 'sine');   // low C
+    playTone(392.00, 5.0, 0.04, 'sine');   // fifth G
+    playTone(523.25, 5.0, 0.03, 'sine');   // octave C
+  });
+
+  gsap.fromTo(remembered,
+    { autoAlpha: 0, letterSpacing: '0.8em' },
+    { autoAlpha: 1, letterSpacing: '0.42em', duration: 2.6, delay: 1.0, ease: 'power2.out' });
+
+  gsap.fromTo(rememberedSub,
+    { autoAlpha: 0, y: -4 },
+    { autoAlpha: 1, y: 0, duration: 2.0, delay: 3.2, ease: 'power2.out' });
+
+  gsap.to(ctas.c5a, { autoAlpha: 1, duration: 1.2, delay: 6.4, ease: 'power2.out' });
+  gsap.to(ctas.c5b, { autoAlpha: 1, duration: 1.2, delay: 6.8, ease: 'power2.out' });
+}
+ctas.c5a.addEventListener('click', () => replayAll());
+// c5b stays at altar (no handler)
+
+function replayAll() {
+  gsap.killTweensOf(orb.scale);
+  gsap.set(orb.scale, { x: 1, y: 1, z: 1 });
+  hide(ctas.c5a, { duration: 0.6 });
+  hide(ctas.c5b, { duration: 0.6 });
+  hide(remembered, { duration: 0.9 });
+  hide(rememberedSub, { duration: 0.9 });
+  hide(signature, { duration: 1.0 });
+  whisperInput.disabled = false;
+  whisperInput.value = '';
+  readingEls.forEach((r) => {
+    gsap.set(r.el, { autoAlpha: 0 });
+    r.el.textContent = r.text;
+  });
+  // reset hero card and spread
+  gsap.set(heroCard, { autoAlpha: 0 });
+  gsap.set(spreadCards, { autoAlpha: 0 });
+  gsap.set(spreadCardLabels, { opacity: 0 });
+  gsap.set(chartConnector, { scaleX: 0 });
+  playAct1(true);
+}
+
+/* ------------------------------------------------------------------
+   MAIN LOOP
+------------------------------------------------------------------ */
+const clock = new THREE.Clock();
+function render() {
+  const dt = clock.getDelta();
+  const t  = clock.getElapsedTime();
+
+  // Slow site-wide breath via tone mapping (unnoticeable but felt — adds life)
+  renderer.toneMappingExposure = 2.0 + Math.sin(t * 0.24) * 0.08;
+
+  // Volumetric nebula shader: advance time, feed mouse
+  nebulaShader.uniforms.uTime.value  = t;
+  nebulaShader.uniforms.uMouse.value.x += (state.mouse.x - nebulaShader.uniforms.uMouse.value.x) * 0.03;
+  nebulaShader.uniforms.uMouse.value.y += (state.mouse.y - nebulaShader.uniforms.uMouse.value.y) * 0.03;
+
+  stars.rotation.y += dt * 0.008;
+  stars.rotation.x += dt * 0.003;
+  nebula.rotation.y += dt * 0.012;
+  nebula.rotation.z += dt * 0.004;
+
+  // nebula converge: lerp between home and swirl-around-orb
+  const conv = state.nebulaConverge;
+  if (conv > 0) {
+    const pos = nebula.geometry.attributes.position.array;
+    for (let i = 0; i < NEB_COUNT; i++) {
+      const hx = nebHome[i*3], hy = nebHome[i*3+1], hz = nebHome[i*3+2];
+      const angle = t * 0.3 + i * 0.11;
+      const tr = 0.9 + (i % 5) * 0.12;
+      const tx = Math.cos(angle) * tr;
+      const ty = Math.sin(angle * 1.2) * tr * 0.5;
+      const tz = Math.sin(angle * 0.8) * tr * 0.6;
+      pos[i*3]   = hx + (tx - hx) * conv;
+      pos[i*3+1] = hy + (ty - hy) * conv;
+      pos[i*3+2] = hz + (tz - hz) * conv;
+    }
+    nebMat.opacity = 0.95 - conv * 0.6;
+    nebula.geometry.attributes.position.needsUpdate = true;
+  }
+
+  // orb idle rotation (Act 2 gets slightly extra on y so chart "swims")
+  orbGroup.rotation.y += dt * 0.08;
+  if (state.act === 2) orb.rotation.y += 0.003;
+  halo.rotation.y -= dt * 0.03;
+
+  // Two-layer interior swirl (core fast + warm, veil slower + cool)
+  core.rotation.y += dt * 0.28 * state.swirl;
+  core.rotation.x += dt * 0.09 * state.swirl;
+  veil.rotation.y -= dt * 0.18 * state.swirl;
+  veil.rotation.z += dt * 0.05 * state.swirl;
+  // Effective glow includes decaying keystroke bump — the orb "listens" while you type
+  const eg = state.glow + state.keystroke * 0.55;
+  state.keystroke *= 0.93;
+  coreMat.opacity = 0.55 + 0.40 * eg;
+  coreMat.size    = 0.055 * (0.82 + eg * 0.22);
+  veilMat.opacity = 0.38 + 0.30 * eg;
+  veilMat.size    = 0.040 * (0.88 + eg * 0.15);
+
+  // subtle cursor parallax — don't fight dolly tweens
+  camera.position.x += ((state.mouse.x * 0.35) - camera.position.x) * 0.02;
+  camera.position.y += ((state.mouse.y * 0.25) - camera.position.y) * 0.02;
+  camera.lookAt(0, 0, 0);
+
+  tickCard();
+  updateZodiacs(t);
+  updateDoors(t);
+
+  renderer.render(scene, camera);
+  requestAnimationFrame(render);
+}
+
+/* ------------------------------------------------------------------
+   BOOT
+------------------------------------------------------------------ */
+gsap.set([chartStack, whisperWrap, remembered, rememberedSub, gCard, signature, heroCard], { autoAlpha: 0 });
+// Spread cards start hidden — they drop into place in Act 2
+gsap.set(spreadCards, { autoAlpha: 0 });
+gsap.set(spreadCardLabels, { opacity: 0 });
+gsap.set(chartConnector, { scaleX: 0, transformOrigin: '50% 50%' });
+playAct1(false);
+render();
+</script>
+</body>
+</html>

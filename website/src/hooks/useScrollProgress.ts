@@ -26,8 +26,8 @@ export function useScrollProgress<T extends HTMLElement = HTMLDivElement>(
 
     // Respect reduced motion
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setProgress(1);
-      return;
+      const timer = setTimeout(() => setProgress(1), 0);
+      return () => clearTimeout(timer);
     }
 
     const update = () => {

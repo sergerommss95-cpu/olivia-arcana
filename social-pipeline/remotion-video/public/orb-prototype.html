@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><title>Olivia Arcana</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Inter:wght@800;900&display=swap');
+  *{margin:0;padding:0}body{background:#0a0610;overflow:hidden}
+  #scene{display:block;width:100vw;height:100vh}
+  .t{position:fixed;inset:0;z-index:10;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:max(50px,8vh)}
+  .h{font-family:'Inter',sans-serif;font-size:clamp(22px,4.2vw,50px);font-weight:900;color:#fff;text-align:center;line-height:1.08;padding:0 8%;text-shadow:0 4px 30px rgba(0,0,0,.95);opacity:0;animation:ti 1.5s ease-out 2s forwards}
+  .h em{font-style:normal;color:#e8c4a0;text-shadow:0 0 40px rgba(232,196,160,.3),0 4px 30px rgba(0,0,0,.95)}
+  .s{margin-top:14px;font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:8px;color:rgba(232,196,160,.3);text-transform:uppercase;opacity:0;animation:ti 1s ease-out 3s forwards}
+  @keyframes ti{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<div class="t"><div class="h">the universe has<br><em>a message for you</em></div><div class="s">Aries</div></div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+const canvas = document.getElementById('scene');
+const R = new THREE.WebGLRenderer({canvas, antialias:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));
+R.setSize(innerWidth,innerHeight);
+R.toneMapping = THREE.ACESFilmicToneMapping;
+R.toneMappingExposure = 0.85;
+
+const S = new THREE.Scene();
+S.background = new THREE.Color('#060410');
+const C = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, .1, 100);
+C.position.set(0, 0, 3.5);
+
+// ═══ HDR ENV ═══
+const pmrem = new THREE.PMREMGenerator(R);
+new RGBELoader().load(
+  'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/studio_small_09_1k.hdr',
+  (hdr) => {
+    hdr.mapping = THREE.EquirectangularReflectionMapping;
+    S.environment = pmrem.fromEquirectangular(hdr).texture;
+    hdr.dispose();
+  }
+);
+
+// ═══ LIGHTS — softer, warmer ═══
+S.add(new THREE.AmbientLight(0x251530, 1.0));
+const kL = new THREE.DirectionalLight(0xffd8b8, 1.2); kL.position.set(4,5,6); S.add(kL);
+const fL = new THREE.DirectionalLight(0x7050a0, 0.6); fL.position.set(-5,-2,4); S.add(fL);
+const rL = new THREE.DirectionalLight(0xc09070, 0.7); rL.position.set(-1,3,-5); S.add(rL);
+
+// ═══ NOISE ═══
+function h3(x,y,z){let h=x*127.1+y*311.7+z*74.7;h=Math.sin(h)*43758.5453;return h-Math.floor(h)}
+function n3(x,y,z){const i=Math.floor(x),j=Math.floor(y),k=Math.floor(z);let fx=x-i,fy=y-j,fz=z-k;fx=fx*fx*(3-2*fx);fy=fy*fy*(3-2*fy);fz=fz*fz*(3-2*fz);const a=h3(i,j,k),b=h3(i+1,j,k),c=h3(i,j+1,k),d=h3(i+1,j+1,k),e=h3(i,j,k+1),f=h3(i+1,j,k+1),g=h3(i,j+1,k+1),hh=h3(i+1,j+1,k+1);return(a+(b-a)*fx+(c-a)*fy+(d-c-b+a)*fx*fy)*(1-fz)+(e+(f-e)*fx+(g-e)*fy+(hh-g-f+e)*fx*fy)*fz}
+function fbm(x,y,z){let v=0,a=.5;for(let i=0;i<4;i++){v+=a*n3(x,y,z);x*=2;y*=2;z*=2;a*=.5}return v}
+
+// ═══ OUTER ORB — glass shell with transmission, see-through ═══
+const oG = new THREE.SphereGeometry(.55, 96, 96);
+const oP = oG.attributes.position.array.slice();
+const oM = new THREE.MeshPhysicalMaterial({
+  color: '#b090c8',
+  metalness: 0.0,
+  roughness: 0.02,
+  transmission: 0.8,
+  thickness: 1.5,
+  ior: 1.4,
+  clearcoat: 0.4,
+  clearcoatRoughness: 0.1,
+  iridescence: 0.7,
+  iridescenceIOR: 2.0,
+  iridescenceThicknessRange: [100, 700],
+  envMapIntensity: 1.5,
+  specularIntensity: 0.3,
+  specularColor: new THREE.Color('#d0c0e0'),
+  attenuationColor: new THREE.Color('#8050a0'),
+  attenuationDistance: 1.5,
+  transparent: true,
+  opacity: 0.92,
+});
+const orb = new THREE.Mesh(oG, oM);
+orb.position.set(0, .1, 0);
+S.add(orb);
+
+// ═══ MORPH — bigger, slower, liquid ═══
+function morphOrb(t){
+  const p=oG.attributes.position,a=p.array;
+  for(let i=0;i<p.count;i++){
+    const ox=oP[i*3],oy=oP[i*3+1],oz=oP[i*3+2];
+    const d = 1
+      + fbm(ox*1.5+t*.12, oy*1.5+t*.1, oz*1.5) * .15
+      + fbm(ox*3-t*.08, oy*3+t*.06, oz*3) * .05;
+    const l=Math.sqrt(ox*ox+oy*oy+oz*oz);
+    a[i*3]=(ox/l)*d; a[i*3+1]=(oy/l)*d; a[i*3+2]=(oz/l)*d;
+  }
+  p.needsUpdate=true; oG.computeVertexNormals();
+}
+
+// ═══ INNER SWIRL — visible through the glass, gives it life ═══
+const swirlMat = new THREE.ShaderMaterial({
+  transparent: true, depthWrite: false,
+  uniforms: { uTime: {value:0} },
+  vertexShader: `varying vec3 vPos; varying vec3 vNorm;
+    void main(){ vPos=position; vNorm=normal; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+  fragmentShader: `
+    uniform float uTime; varying vec3 vPos; varying vec3 vNorm;
+    float h(vec3 p){p=fract(p*vec3(123.34,456.21,789.53));p+=dot(p,p+45.32);return fract(p.x*p.y*p.z);}
+    float n(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+      return mix(mix(mix(h(i),h(i+vec3(1,0,0)),f.x),mix(h(i+vec3(0,1,0)),h(i+vec3(1,1,0)),f.x),f.y),
+        mix(mix(h(i+vec3(0,0,1)),h(i+vec3(1,0,1)),f.x),mix(h(i+vec3(0,1,1)),h(i+vec3(1,1,1)),f.x),f.y),f.z);}
+    float fb(vec3 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*n(p);p*=2.1;a*=.5;}return v;}
+    void main(){
+      vec3 p = vPos*3. + vec3(0., -uTime*.2, uTime*.12);
+      float n1 = fb(p);
+      float n2 = fb(p + vec3(5.2,1.3,0.) + uTime*.08);
+      // Colors: warm gold core → cool violet edges
+      vec3 col = mix(vec3(.6,.3,.1), vec3(.3,.1,.5), smoothstep(.3,.7,n1));
+      col = mix(col, vec3(.1,.3,.4), smoothstep(.4,.75,n2)*.5);
+      // Hot bright swirling cores
+      col += vec3(.8,.5,.15) * smoothstep(.6,.82, n1*n2*2.5) * .6;
+      // Fresnel edge glow
+      float fresnel = pow(1.-abs(dot(normalize(vNorm), vec3(0,0,1))), 3.);
+      float alpha = .25 + fresnel*.15;
+      alpha *= smoothstep(.2,.55,n1);
+      alpha += smoothstep(.65,.85, n1*n2*2.) * .2;
+      gl_FragColor = vec4(col, alpha);
+    }`
+});
+const swirl = new THREE.Mesh(new THREE.SphereGeometry(.38, 48, 48), swirlMat);
+swirl.position.copy(orb.position);
+S.add(swirl);
+
+// ═══ OUTER SHELL — faint iridescent membrane ═══
+const shG = new THREE.SphereGeometry(.68, 48, 48);
+const shP = shG.attributes.position.array.slice();
+const shM = new THREE.MeshPhysicalMaterial({
+  color:'#c0a0d8', metalness:0.05, roughness:0.0,
+  clearcoat:0.8, clearcoatRoughness:0.05,
+  iridescence:1.0, iridescenceIOR:2.5, iridescenceThicknessRange:[50,500],
+  envMapIntensity:2.0, transparent:true, opacity:.15,
+  side:THREE.DoubleSide, depthWrite:false
+});
+const shell = new THREE.Mesh(shG, shM);
+shell.position.copy(orb.position); S.add(shell);
+
+function morphShell(t){
+  const p=shG.attributes.position,a=p.array;
+  for(let i=0;i<p.count;i++){
+    const ox=shP[i*3],oy=shP[i*3+1],oz=shP[i*3+2];
+    const d=1+fbm(ox*1.2+t*.08,oy*1.2+t*.06,oz*1.2)*.1;
+    const l=Math.sqrt(ox*ox+oy*oy+oz*oz);
+    a[i*3]=(ox/l)*d;a[i*3+1]=(oy/l)*d;a[i*3+2]=(oz/l)*d;
+  }
+  p.needsUpdate=true; shG.computeVertexNormals();
+}
+
+// ═══ FLOATING PARTICLES — tiny luminous dots orbiting ═══
+const particles = [];
+const particleGeo = new THREE.BufferGeometry();
+const pCount = 60;
+const pPositions = new Float32Array(pCount * 3);
+const pSizes = new Float32Array(pCount);
+const pData = []; // phase, orbit radius, speed, y-offset
+for (let i = 0; i < pCount; i++) {
+  const phase = Math.random() * Math.PI * 2;
+  const r = .8 + Math.random() * .6;
+  const speed = .1 + Math.random() * .15;
+  const yOff = (Math.random() - .5) * .6;
+  pData.push({phase, r, speed, yOff, ySpeed: .15 + Math.random() * .1});
+  pPositions[i*3] = Math.cos(phase) * r;
+  pPositions[i*3+1] = yOff + .1;
+  pPositions[i*3+2] = Math.sin(phase) * r;
+  pSizes[i] = 1.5 + Math.random() * 2.5;
+}
+particleGeo.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
+particleGeo.setAttribute('size', new THREE.BufferAttribute(pSizes, 1));
+
+const particleMat = new THREE.ShaderMaterial({
+  transparent: true, depthWrite: false,
+  blending: THREE.AdditiveBlending,
+  uniforms: { uTime: {value:0} },
+  vertexShader: `
+    attribute float size;
+    varying float vAlpha;
+    uniform float uTime;
+    void main(){
+      vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
+      gl_PointSize = size * (200.0 / -mvPos.z);
+      gl_Position = projectionMatrix * mvPos;
+      vAlpha = .3 + .3 * sin(uTime * 1.2 + position.x * 5.);
+    }`,
+  fragmentShader: `
+    varying float vAlpha;
+    void main(){
+      float d = length(gl_PointCoord - .5) * 2.;
+      float alpha = smoothstep(1., .0, d) * vAlpha;
+      vec3 col = mix(vec3(.85,.7,.5), vec3(.7,.5,.8), gl_PointCoord.y);
+      gl_FragColor = vec4(col, alpha);
+    }`
+});
+const particleMesh = new THREE.Points(particleGeo, particleMat);
+particleMesh.position.set(0, 0, 0);
+S.add(particleMesh);
+
+// ═══ GROUND CAUSTIC — golden light pool beneath ═══
+const causticGeo = new THREE.PlaneGeometry(3, 3);
+const causticMat = new THREE.ShaderMaterial({
+  transparent: true, depthWrite: false,
+  uniforms: { uTime: {value:0} },
+  vertexShader: `varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+  fragmentShader: `
+    varying vec2 vUv; uniform float uTime;
+    void main(){
+      vec2 c = vUv - .5;
+      float d = length(c);
+      float ring = sin(d * 20. - uTime * 1.5) * .5 + .5;
+      ring *= exp(-d*d*8.);
+      float glow = exp(-d*d*4.) * .15;
+      float alpha = glow + ring * .04;
+      vec3 col = vec3(.6,.4,.15);
+      gl_FragColor = vec4(col, alpha);
+    }`
+});
+const caustic = new THREE.Mesh(causticGeo, causticMat);
+caustic.rotation.x = -Math.PI / 2;
+caustic.position.set(0, -.55, 0);
+S.add(caustic);
+
+// ═══ BACKGROUND — flowing color shader ═══
+const bgMat = new THREE.ShaderMaterial({
+  uniforms:{uTime:{value:0}},
+  vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+  fragmentShader:`varying vec2 vUv;uniform float uTime;
+    float h(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+    float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+    float fb(vec2 p){return n(p)*.55+n(p*2.1)*.3+n(p*4.3)*.15;}
+    void main(){
+      vec2 p=vUv*2.5;
+      float f1=fb(p+vec2(uTime*.04,uTime*.03));
+      float f2=fb(p+vec2(uTime*.03,-uTime*.025)+f1*1.5);
+      vec3 col=vec3(.012,.008,.025);
+      col+=vec3(.08,.04,.15)*smoothstep(.2,.6,f1);
+      col+=vec3(.18,.07,.1)*smoothstep(.3,.65,f2)*.7;
+      col+=vec3(.04,.12,.14)*smoothstep(.35,.7,fb(p*1.3+vec2(-uTime*.02,uTime*.04)+f2*1.2))*.4;
+      col+=vec3(.35,.24,.12)*smoothstep(.5,.75,f1*f2*2.)*.25;
+      vec2 vc=vUv-.5; col*=smoothstep(0.,.7,1.-dot(vc,vc)*1.4);
+      gl_FragColor=vec4(col,1.);
+    }`
+});
+const bg = new THREE.Mesh(new THREE.PlaneGeometry(20,20), bgMat);
+bg.position.z = -4; S.add(bg);
+
+// ═══ BLOOM ═══
+const comp = new EffectComposer(R);
+comp.addPass(new RenderPass(S, C));
+comp.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight), .5, .5, .82));
+
+addEventListener('resize',()=>{C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix();R.setSize(innerWidth,innerHeight);comp.setSize(innerWidth,innerHeight)});
+
+// ═══ ANIMATE ═══
+const clock = new THREE.Clock();
+(function animate(){
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+
+  // Morph orb — liquid deformation
+  morphOrb(t);
+  orb.rotation.y = t * .06;
+  orb.rotation.x = Math.sin(t * .15) * .04;
+
+  // Inner swirl rotates independently
+  swirlMat.uniforms.uTime.value = t;
+  swirl.rotation.y = t * .12;
+  swirl.rotation.z = t * .06;
+
+  // Shell morphs on offset timing
+  morphShell(t * .6 + 3);
+  shell.rotation.y = -t * .04;
+  shM.opacity = .1 + Math.sin(t * .25) * .06;
+
+  // Iridescence shifts
+  oM.iridescenceThicknessRange = [100+Math.sin(t*.3)*80, 700+Math.cos(t*.25)*100];
+
+  // Particles orbit
+  const pp = particleGeo.attributes.position.array;
+  for (let i = 0; i < pCount; i++) {
+    const d = pData[i];
+    const angle = d.phase + t * d.speed;
+    pp[i*3] = Math.cos(angle) * d.r;
+    pp[i*3+1] = d.yOff + Math.sin(t * d.ySpeed + d.phase) * .12 + .1;
+    pp[i*3+2] = Math.sin(angle) * d.r;
+  }
+  particleGeo.attributes.position.needsUpdate = true;
+  particleMat.uniforms.uTime.value = t;
+
+  // Caustic
+  causticMat.uniforms.uTime.value = t;
+
+  // Camera drift
+  C.position.x = Math.sin(t * .06) * .2;
+  C.position.y = Math.sin(t * .08) * .1 + .1;
+  C.lookAt(0, .06, 0);
+
+  // Light drift
+  kL.position.x = 4 + Math.sin(t * .12) * .5;
+
+  bgMat.uniforms.uTime.value = t;
+  comp.render();
+})();
+</script>
+</body>
+</html>

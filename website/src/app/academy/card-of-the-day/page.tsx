@@ -13,7 +13,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import VeilRevealWrapper from "../../../components/veil-reveal/VeilRevealWrapper";
+import FlipRevealCard from "../../../components/shaders/FlipRevealCard";
 import CardInfoPanel from "../../../components/veil-reveal/CardInfoPanel";
 import { ALL_CARDS, type TarotCard } from "../../../lib/academy/tarot-cards";
 import { getCardImagePath } from "../../../lib/academy/card-images";
@@ -56,10 +56,14 @@ export default function CardOfTheDayPage() {
   const infoPanelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const daily = getDailyCard();
-    setCard(daily.card);
-    setReversed(daily.reversed);
-    setMounted(true);
+    // Defer to avoid synchronous cascading render warning
+    const timer = setTimeout(() => {
+      const daily = getDailyCard();
+      setCard(daily.card);
+      setReversed(daily.reversed);
+      setMounted(true);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleRevealComplete = useCallback(() => {
@@ -90,13 +94,20 @@ export default function CardOfTheDayPage() {
   const numeral = getCardNumeral(card);
 
   return (
-    <div style={{ background: "var(--c-void, #06041a)" }}>
-      <VeilRevealWrapper
-        cardImagePath={imagePath}
-        cardName={card.name}
-        cardNumeral={numeral}
-        onRevealComplete={handleRevealComplete}
-        onDrawAgain={handleDrawAgain}
+    <div style={{ background: "var(--c-void, #06041a)", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", padding: "6rem 1.5rem" }}>
+      {/* Visually hidden h1 for a11y + SEO */}
+      <h1 style={{
+        position: "absolute", width: 1, height: 1, padding: 0, margin: -1,
+        overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0,
+      }}>Card of the Day — {card.name}</h1>
+
+      <FlipRevealCard
+        card={card}
+        numeral={numeral}
+        width={340}
+        onFlip={(rev) => {
+          if (rev) handleRevealComplete();
+        }}
       />
 
       <AnimatePresence>
@@ -108,13 +119,35 @@ export default function CardOfTheDayPage() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.3 }}
             style={{
-              padding: "2rem 1rem 6rem",
+              padding: "2rem 0 6rem",
               position: "relative",
               zIndex: 5,
               background: "var(--c-void, #06041a)",
+              width: "100%",
+              maxWidth: "680px",
             }}
           >
             <CardInfoPanel card={card} reversed={reversed} />
+
+            <div style={{ textAlign: "center", marginTop: "4rem" }}>
+              <button
+                onClick={handleDrawAgain}
+                style={{
+                  background: "transparent",
+                  border: "1px solid rgba(240,207,120,0.35)",
+                  color: "rgba(240,207,120,0.85)",
+                  fontFamily: "var(--font-accent)",
+                  fontSize: "11px",
+                  letterSpacing: "0.32em",
+                  textTransform: "uppercase",
+                  padding: "14px 32px",
+                  cursor: "pointer",
+                  borderRadius: "9999px",
+                }}
+              >
+                &#x21BA; Draw Again
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

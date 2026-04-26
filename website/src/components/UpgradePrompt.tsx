@@ -58,8 +58,8 @@ export default function UpgradePrompt({
       >
         <p className="text-celestial-gold text-sm font-medium mb-1">{msg.title}</p>
         <p className="text-muted-lavender text-xs mb-4">{msg.subtitle}</p>
-        <CheckoutButton priceKey="vip_monthly" variant="gold" size="sm">
-          Start VIP &mdash; $6.50/mo
+        <CheckoutButton priceKey="premium_monthly" variant="gold" size="sm">
+          Start Premium &mdash; $14.99/mo
         </CheckoutButton>
       </motion.div>
     );
@@ -82,7 +82,7 @@ export default function UpgradePrompt({
               <p className="text-muted-lavender text-xs">{msg.subtitle}</p>
             </div>
             <div className="flex items-center gap-3 shrink-0">
-              <CheckoutButton priceKey="vip_monthly" variant="gold" size="sm">
+              <CheckoutButton priceKey="premium_monthly" variant="gold" size="sm">
                 Upgrade
               </CheckoutButton>
               <button
@@ -154,11 +154,11 @@ export default function UpgradePrompt({
             ))}
           </ul>
 
-          <CheckoutButton priceKey="vip_monthly" variant="gold" size="md" className="w-full justify-center">
-            Start VIP &mdash; $6.50/mo
+          <CheckoutButton priceKey="premium_monthly" variant="gold" size="md" className="w-full justify-center">
+            Start Premium &mdash; $14.99/mo
           </CheckoutButton>
           <p className="text-muted-lavender/50 text-xs mt-3">
-            3-day free trial &middot; Cancel anytime
+            14-day refund &middot; Cancel anytime
           </p>
 
           <button

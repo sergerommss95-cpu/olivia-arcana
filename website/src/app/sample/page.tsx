@@ -21,7 +21,6 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MagneticButton from "@/components/MagneticButton";
-import AbToggle from "@/components/ab/AbToggle";
 
 export default function SamplePage() {
   return (
@@ -365,7 +364,6 @@ export default function SamplePage() {
       </main>
 
       <Footer />
-      <AbToggle mode="b" />
 
       <style>{`
         .sample {

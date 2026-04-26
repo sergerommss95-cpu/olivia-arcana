@@ -239,7 +239,7 @@ export function computeTransits(natalChart: NatalChart, months: number = 6): Tra
     const current = allHits[i];
     const key = transitKey(current.transitPlanet, current.natalPlanet, current.aspectType);
 
-    let startDate = current.date;
+    const startDate = current.date;
     let endDateHit = current.date;
     let exactDate = current.date;
     let minOrb = current.orb;

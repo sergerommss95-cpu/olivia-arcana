@@ -1,0 +1,89 @@
+<style>
+  body { background: #060810; color: #E8E6F0; }
+  h2 { font-family: 'Cormorant Garamond', 'Playfair Display', serif; font-weight: 300; letter-spacing: 0.02em; color: #E8E6F0; font-size: 2rem; margin-bottom: 0.25rem; }
+  .subtitle { color: #8A829A; font-size: 0.95rem; margin-bottom: 2rem; }
+  .label { color: #C8A84B; letter-spacing: 0.2em; font-size: 0.7rem; font-weight: 600; }
+
+  .locked { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 12px; padding: 1rem 1.1rem; margin-bottom: 2rem; }
+  .locked h4 { color: #C8A84B; font-size: 0.7rem; letter-spacing: 0.18em; margin: 0 0 0.6rem 0; font-weight: 600; }
+  .locked-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .chip { background: #1a1628; color: #E2C070; padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.78rem; border: 1px solid #C8A84B33; }
+
+  .options { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
+  .option { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 12px; padding: 1.1rem 1.25rem; cursor: pointer; transition: all 180ms ease; }
+  .option:hover { border-color: #C8A84B; background: #131525; }
+  .option.selected { border-color: #C8A84B; background: #1a1628; }
+  .option .letter { background: #1c1e30; color: #C8A84B; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 0.75rem; vertical-align: middle; font-size: 0.85rem; }
+  .option h3 { display: inline; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.25rem; color: #E8E6F0; }
+  .option .content { margin-top: 0.65rem; color: #A8A0B8; font-size: 0.88rem; line-height: 1.55; }
+  .option .content strong { color: #E2C070; font-weight: 500; }
+  .option .tagline { color: #C8A84B; font-size: 0.72rem; letter-spacing: 0.15em; margin-top: 0.5rem; text-transform: uppercase; }
+  .option .why { color: #6b738a; font-size: 0.8rem; margin-top: 0.55rem; font-style: italic; border-left: 2px solid #1c1e30; padding-left: 0.6rem; }
+
+  .multi-note { background: #0c0d18; border-left: 2px solid #C8A84B; padding: 0.8rem 1rem; margin-top: 1.5rem; color: #8A829A; font-size: 0.82rem; border-radius: 0 6px 6px 0; }
+</style>
+
+<span class="label">BRAINSTORM · QUESTION 2 / N</span>
+<h2>What's the missing fourth element?</h2>
+<p class="subtitle">Your three picks cover the narrative awe → identity → paid depth. One layer is still open.</p>
+
+<div class="locked">
+  <h4>LOCKED SO FAR</h4>
+  <div class="locked-row">
+    <span class="chip">✦ Portal entry moment</span>
+    <span class="chip">✦ Film-poster natal chart</span>
+    <span class="chip">✦ Paid ritual rooms</span>
+    <span class="chip" style="opacity:0.4">? fourth element</span>
+  </div>
+</div>
+
+<div class="options" data-multiselect>
+
+  <div class="option" data-choice="voice" onclick="toggleSelect(this)">
+    <span class="letter">A</span><h3>Voice Oracle — Olivia speaks</h3>
+    <div class="content">
+      Mic input + streaming TTS (ElevenLabs) + Claude 4.7 streaming. You <strong>speak</strong> your question. Olivia's voice responds in real time — a low, warm, deliberate cadence. The nebula pulses to her voice waveform. Optional 3D avatar with subtle lip-sync. No site in tarot/astrology has this.
+      <div class="tagline">adds the conversational layer</div>
+      <div class="why">Why: the site is visual + ambient audio, but silent in dialogue. Voice closes the loop and is 10× more shareable on TikTok.</div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="ceremony" onclick="toggleSelect(this)">
+    <span class="letter">B</span><h3>The Ceremony — 90-second first ritual</h3>
+    <div class="content">
+      The onboarding itself IS the hero ritual. One unbroken flow: <strong>breath</strong> (4-7-8 cycle with waveform feedback) → <strong>intention</strong> (typed or voice) → <strong>shuffle</strong> (gravity physics on a 3D deck, cursor-reactive) → <strong>cut</strong> → <strong>pull</strong> (one card rises out of the deck) → <strong>AI-written reading</strong>, typewritten live. First-time visitors don't click around — they go through the ceremony.
+      <div class="tagline">converts awe into first ritual (and first purchase)</div>
+      <div class="why">Why: the portal gets the user to "wow." The Ceremony converts that into a transactional moment they remember.</div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="livesky" onclick="toggleSelect(this)">
+    <span class="letter">C</span><h3>Living Sky — site responds to real cosmos</h3>
+    <div class="content">
+      Current planetary positions and lunar phase drive the <strong>entire site's palette, motion, and tone in real time</strong>. Full moon at 11pm = site is radiant, gold-rich, slow, reflective. New moon at 8am = deep void, cold blue, stillness. Mercury retrograde = subtle text stutters. Venus direct = more gold bloom. A visit at different moments is a different site.
+      <div class="tagline">turns the site into a cosmic instrument</div>
+      <div class="why">Why: extends "cosmic timestamp + eclipse overlay" already shipped — takes it from a corner indicator to a whole-site environmental system.</div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="constellation" onclick="toggleSelect(this)">
+    <span class="letter">D</span><h3>Your Personal Constellation — growing cosmology</h3>
+    <div class="content">
+      Every reading, journal entry, ritual draw, mood tag, and return visit is a <strong>star in YOUR personal sky</strong>. Over weeks, a unique constellation builds — visible only to you. On the anniversary of your first visit, the full shape appears and is named. Shareable as a cinematic poster.
+      <div class="tagline">retention hook + personal cosmology</div>
+      <div class="why">Why: makes returning a habit. Extends the existing <em>constellation-memory.ts</em> system that's already partially built but not rendered.</div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="other" onclick="toggleSelect(this)">
+    <span class="letter">E</span><h3>Something else entirely — I'll tell you</h3>
+    <div class="content">
+      Type your own in the terminal. Or pick 1-2 of the above and add your own twist.
+    </div>
+  </div>
+
+</div>
+
+<div class="multi-note">
+  <strong>Multi-select enabled.</strong> You can pick up to 2 if you want both a sensory layer (A or C) AND a ritual layer (B or D). I'll also reply to something typed in terminal.
+</div>

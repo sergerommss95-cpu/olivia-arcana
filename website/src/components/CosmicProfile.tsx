@@ -21,6 +21,8 @@ import WhisperText from "./WhisperText";
 import { textWordSpacing } from "../lib/micro-typography";
 import ShareCardModal from "./ShareCardModal";
 import { useLocale } from "../lib/i18n/useLocale";
+import { getZodiacRoast, type ZodiacRoast } from "../lib/viral-roast";
+import { loadUser } from "../lib/user-store";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -69,6 +71,19 @@ export default function CosmicProfile({ profile }: Props) {
   const [traitsReady, setTraitsReady] = useState(false);
   const [sharing, setSharing] = useState(false);
   const [shareModalOpen, setShareModalOpen] = useState(false);
+  const [roast, setRoast] = useState<ZodiacRoast | null>(null);
+  const [isBirthday, setIsBirthday] = useState(false);
+
+  useEffect(() => {
+    setRoast(getZodiacRoast(profile.name));
+    const user = loadUser();
+    if (user) {
+      const now = new Date();
+      if (now.getMonth() + 1 === user.input.month && now.getDate() === user.input.day) {
+        setIsBirthday(true);
+      }
+    }
+  }, [profile.name]);
 
   const handleShare = useCallback(async () => {
     if (!containerRef.current || sharing) return;
@@ -207,6 +222,19 @@ export default function CosmicProfile({ profile }: Props) {
         background: "linear-gradient(90deg, transparent, rgba(212,175,55,0.4), rgba(255,230,150,0.5), rgba(212,175,55,0.4), transparent)",
         boxShadow: "0 0 12px rgba(212,175,55,0.2)",
       }} />
+
+      {/* Solar Return Banner */}
+      {isBirthday && (
+        <div data-r style={{
+          width: "calc(100% + 4rem)", margin: "-1rem -2rem 0.5rem",
+          padding: "0.6rem", textAlign: "center",
+          background: "linear-gradient(90deg, transparent, rgba(212,175,55,0.2), rgba(255,230,150,0.3), rgba(212,175,55,0.2), transparent)",
+          borderTop: "1px solid rgba(212,175,55,0.2)",
+          borderBottom: "1px solid rgba(212,175,55,0.2)",
+        }}>
+          <span style={{ ...label, color: "#F4E9D0", letterSpacing: "0.25em" }}>Solar Return Peak &bull; Happy Birthday</span>
+        </div>
+      )}
 
       {/* Glyph + Name */}
       <div data-r style={{ opacity: 0, textAlign: "center" }}>
@@ -348,6 +376,30 @@ export default function CosmicProfile({ profile }: Props) {
         ))}
       </div>
 
+      {/* Zodiac Roast */}
+      {roast && (
+        <div data-r style={{ opacity: 0, width: "100%", padding: "0 0.25rem" }}>
+          <div style={{ ...label, marginBottom: "0.5rem", color: "rgba(232,82,74,0.6)" }}>Cosmic Reality Check</div>
+          <div style={{
+            ...glass, padding: "1rem", background: "rgba(232,82,74,0.03)",
+            border: "1px solid rgba(232,82,74,0.12)",
+          }}>
+            <div style={{
+              fontFamily: "var(--font-heading)", fontSize: "0.95rem", fontStyle: "italic",
+              color: "rgba(245,240,232,0.9)", marginBottom: "0.4rem",
+            }}>{roast.tagline}</div>
+            <p style={{
+              fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 300,
+              lineHeight: 1.6, color: "rgba(220,210,240,0.65)", margin: 0,
+            }}>{roast.roast}</p>
+            <div style={{
+              marginTop: "0.6rem", fontSize: "0.65rem", fontFamily: "var(--font-mono)",
+              color: "rgba(212,175,55,0.5)", textTransform: "uppercase", letterSpacing: "0.1em",
+            }}>Advice: {roast.advice}</div>
+          </div>
+        </div>
+      )}
+
       {/* Reading */}
       <div data-r style={{ opacity: 0, width: "100%", padding: "0 0.25rem" }}>
         <div style={{
@@ -402,6 +454,7 @@ export default function CosmicProfile({ profile }: Props) {
           luckyColorHex: profile.luckyColorHex,
           dateRange: profile.dateRange,
           traits: profile.traits,
+          roast: roast ? { tagline: roast.tagline, roast: roast.roast } : undefined,
         }}
         open={shareModalOpen}
         onClose={() => setShareModalOpen(false)}

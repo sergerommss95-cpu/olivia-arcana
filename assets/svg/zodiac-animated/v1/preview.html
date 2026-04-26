@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olivia Arcana — Zodiac Animated · SMIL v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 2.5rem 2rem; background: #0a0517; color: #eee; min-height: 100vh; }
+  h1 { font-size: 1.9rem; font-weight: 600; margin-bottom: 0.3rem; letter-spacing: -0.01em; }
+  h1 small { font-weight: 400; opacity: 0.55; font-size: 1rem; margin-left: 0.5rem; }
+  h2 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 1rem; color: #ffe8a3; }
+  .meta { opacity: 0.7; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; max-width: 72ch; }
+  .note { background: rgba(212,165,116,0.08); border-left: 3px solid #d4a574; padding: 0.75rem 1rem; margin: 1rem 0 1.5rem; font-size: 0.85rem; border-radius: 4px; line-height: 1.55; }
+  .note b { color: #ffe8a3; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 800px)  { .grid { grid-template-columns: repeat(2, 1fr); } }
+  .cell { border: 1px solid rgba(212,165,116,0.2); border-radius: 10px; overflow: hidden; background: #13081f; }
+  .cell-img { display: flex; align-items: center; justify-content: center; padding: 0.5rem; aspect-ratio: 1; background: #07040f; }
+  .cell-img object { width: 100%; height: 100%; border: 0; background: transparent; display: block; }
+  .cell-label { padding: 0.55rem 0.85rem; font-size: 0.78rem; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+  .cell-label .sign { color: #ffe8a3; font-weight: 600; letter-spacing: 0.03em; }
+  .cell-label .n { opacity: 0.55; font-size: 0.68rem; font-variant-numeric: tabular-nums; }
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(128,128,128,0.2); font-size: 0.8rem; opacity: 0.65; line-height: 1.7; }
+  footer code { font-family: ui-monospace, Menlo, monospace; background: rgba(212,165,116,0.12); padding: 0.1rem 0.35rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <h1>Zodiac Animated <small>SMIL · 12 signs · ambient twinkle</small></h1>
+  <div class="meta">
+    Programmatically injected ambient-breath SMIL layer over the 12 static zodiac glyphs. 297 star animations total across the family, each starfield dot with its own deterministic stagger (begin 0–4s, duration 3–5s, opacity range 0.35–1.0) seeded by the sign name. Loops infinitely, seamlessly. +37 KB overhead across the whole family for the animation layer.
+  </div>
+  <div class="note">
+    <b>SMIL note:</b> Using <code>&lt;object&gt;</code> tags so animations play (some browsers freeze SMIL when SVG loads via <code>&lt;img&gt;</code>). If one pane looks frozen, opening the file directly in Chrome/Safari confirms motion.
+  </div>
+
+  <h2>12 signs · ambient twinkle loop</h2>
+  <div class="grid">
+    <div class="cell"><div class="cell-img"><object type="image/svg+xml" data="aries.svg"></object></div><div class="cell-label"><span class="sign">♈ Aries</span><span class="n">30★</span></div></div>
+    <div class="cell"><div class="cell-img"><object type="image/svg+xml" data="taurus.svg"></object></div><div class="cell-label"><span class="sign">♉ Taurus</span><span class="n">17★</span></div></div>
+    <div class="cell"><div class="cell-img"><object type="image/svg+xml" data="gemini.svg"></object></div><div class="cell-label"><span class="sign">♊ Gemini</span><span class="n">30★</span></div></div>
+    <div class="cell"><div class="cell-img"><object type="image/svg+xml" data="cancer.svg"></object></div><div class="cell-label"><span class="sign">♋ Cancer</span><span class="n">25★</span></div></div>
+    <div class="cell"><div class="cell-img"><object type="image/svg+xml" data="leo.svg"></object></div><div class="cell-label"><span class="sign">♌ Leo</span><span class="n">25★</span></div></div>
+    <div class="cell"><div class="cell-img"><object type="image/svg+xml" data="virgo.svg"></object></div><div class="cell-label"><span class="sign">♍ Virgo</span><span class="n">26★</span></div></div>
+    <div class="cell"><div class="cell-img"><object type="image/svg+xml" data="libra.svg"></object></div><div class="cell-label"><span class="sign">♎ Libra</span><span class="n">23★</span></div></div>
+    <div class="cell"><div class="cell-img"><object type="image/svg+xml" data="scorpio.svg"></object></div><div class="cell-label"><span class="sign">♏ Scorpio</span><span class="n">27★</span></div></div>
+    <div class="cell"><div class="cell-img"><object type="image/svg+xml" data="sagittarius.svg"></object></div><div class="cell-label"><span class="sign">♐ Sagittarius</span><span class="n">26★</span></div></div>
+    <div class="cell"><div class="cell-img"><object type="image/svg+xml" data="capricorn.svg"></object></div><div class="cell-label"><span class="sign">♑ Capricorn</span><span class="n">20★</span></div></div>
+    <div class="cell"><div class="cell-img"><object type="image/svg+xml" data="aquarius.svg"></object></div><div class="cell-label"><span class="sign">♒ Aquarius</span><span class="n">24★</span></div></div>
+    <div class="cell"><div class="cell-img"><object type="image/svg+xml" data="pisces.svg"></object></div><div class="cell-label"><span class="sign">♓ Pisces</span><span class="n">24★</span></div></div>
+  </div>
+
+  <footer>
+    Path: <code>/Users/macbookpro/olivia-arcana/assets/svg/zodiac-animated/v1/</code><br>
+    Generator: <code>/tmp/animate_zodiac.py</code> — deterministic injection via <code>hash(sign)</code> seed. Re-runs produce identical output. No FLUX, no agents, no paid API.<br>
+    Use cases: website hero "sign of the day" block · Telegram bot per-sign greeting loop · email newsletter header animation · TikTok background element.<br>
+    Next variants possible: ring rotation, aura breathing, glyph subtle pulse — additional ambient layers the script can add in future passes.
+  </footer>
+</body>
+</html>

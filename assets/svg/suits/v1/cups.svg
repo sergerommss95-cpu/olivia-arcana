@@ -1,0 +1,305 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Cups suit glyph</title>
+  <desc id="desc">Chalice symbol, water element Minor Arcana suit of emotion and intuition</desc>
+
+  <defs>
+    <!-- 1. Deep night radial backdrop -->
+    <radialGradient id="bgNight" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="55%" stop-color="#0d0719"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+
+    <!-- 2. Parchment vignette -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+
+    <!-- 3. Aquamarine water wash — Water element triplicity tint at center -->
+    <radialGradient id="waterWash" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#2a5f9a" stop-opacity="0.14"/>
+      <stop offset="60%" stop-color="#1f3a3a" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#1f3a3a" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 4. Gold primary gradient (glyph + linework, diagonal) -->
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 5. Gold vertical gradient (for the chalice bowl + stem) -->
+    <linearGradient id="goldPrimaryV" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 6. Gold thin gradient — fine ring / tick marks -->
+    <linearGradient id="goldThin" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6b4a1f"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 7. Aura behind the central glyph -->
+    <radialGradient id="centralAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="0.35"/>
+      <stop offset="40%" stop-color="#d4a574" stop-opacity="0.18"/>
+      <stop offset="75%" stop-color="#6b4a1f" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#1f3a3a" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 8. Droplet highlight glow -->
+    <radialGradient id="dropletGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#ffe8a3" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#d4a574" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Path for the bottom-arc inscription -->
+    <path id="inscriptionArc" d="M 76 256 A 180 180 0 0 0 436 256" fill="none"/>
+  </defs>
+
+  <!-- ============ BACKGROUND ============ -->
+  <g id="background">
+    <rect x="0" y="0" width="512" height="512" fill="url(#bgNight)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#waterWash)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#vignette)"/>
+  </g>
+
+  <!-- ============ STARFIELD — scattered background stars ============ -->
+  <g id="starfield" fill="#fff2c6">
+    <circle cx="68"  cy="92"  r="1.1" fill-opacity="0.75"/>
+    <circle cx="128" cy="54"  r="0.9" fill-opacity="0.6"/>
+    <circle cx="210" cy="104" r="1.3" fill-opacity="0.85"/>
+    <circle cx="430" cy="78"  r="1"   fill-opacity="0.7"/>
+    <circle cx="468" cy="168" r="1.4" fill-opacity="0.9"/>
+    <circle cx="52"  cy="206" r="1.1" fill-opacity="0.75"/>
+    <circle cx="96"  cy="394" r="1.2" fill-opacity="0.8"/>
+    <circle cx="158" cy="446" r="0.9" fill-opacity="0.6"/>
+    <circle cx="402" cy="432" r="1.3" fill-opacity="0.85"/>
+    <circle cx="456" cy="376" r="1"   fill-opacity="0.7"/>
+    <circle cx="340" cy="60"  r="0.8" fill-opacity="0.55"/>
+    <circle cx="72"  cy="330" r="1"   fill-opacity="0.7"/>
+  </g>
+
+  <!-- ============ SACRED GEOMETRY ============ -->
+  <g id="sacred-geometry" fill="none" stroke="url(#goldThin)" stroke-opacity="0.85">
+    <!-- Three concentric circles -->
+    <circle cx="256" cy="256" r="240" stroke-width="0.8"/>
+    <circle cx="256" cy="256" r="220" stroke-width="0.6" stroke-opacity="0.55"/>
+    <circle cx="256" cy="256" r="200" stroke-width="0.8"/>
+
+    <!-- Inner dashed mandala reference ring -->
+    <circle cx="256" cy="256" r="150" stroke-width="0.4" stroke-opacity="0.35" stroke-dasharray="2 4"/>
+
+    <!-- 12 tick marks on outer ring (r=240 → r=248), every 30° -->
+    <g stroke="#d4a574" stroke-width="1.2" stroke-opacity="0.85">
+      <line x1="256" y1="16"  x2="256" y2="8"/>
+      <line x1="376" y1="48"  x2="380" y2="40"/>
+      <line x1="464" y1="136" x2="472" y2="132"/>
+      <line x1="496" y1="256" x2="504" y2="256"/>
+      <line x1="464" y1="376" x2="472" y2="380"/>
+      <line x1="376" y1="464" x2="380" y2="472"/>
+      <line x1="256" y1="496" x2="256" y2="504"/>
+      <line x1="136" y1="464" x2="132" y2="472"/>
+      <line x1="48"  y1="376" x2="40"  y2="380"/>
+      <line x1="16"  y1="256" x2="8"   y2="256"/>
+      <line x1="48"  y1="136" x2="40"  y2="132"/>
+      <line x1="136" y1="48"  x2="132" y2="40"/>
+    </g>
+
+    <!-- 12 tick marks on inner ring (r=200 → r=192) -->
+    <g stroke="#d4a574" stroke-width="1" stroke-opacity="0.7">
+      <line x1="256" y1="56"  x2="256" y2="64"/>
+      <line x1="356" y1="83"  x2="354" y2="90"/>
+      <line x1="429" y1="156" x2="422" y2="158"/>
+      <line x1="456" y1="256" x2="448" y2="256"/>
+      <line x1="429" y1="356" x2="422" y2="354"/>
+      <line x1="356" y1="429" x2="354" y2="422"/>
+      <line x1="256" y1="456" x2="256" y2="448"/>
+      <line x1="156" y1="429" x2="158" y2="422"/>
+      <line x1="83"  y1="356" x2="90"  y2="354"/>
+      <line x1="56"  y1="256" x2="64"  y2="256"/>
+      <line x1="83"  y1="156" x2="90"  y2="158"/>
+      <line x1="156" y1="83"  x2="158" y2="90"/>
+    </g>
+
+    <!-- 4 cardinal-point 4-pointed stars (compass jewels) -->
+    <g fill="#d4a574" fill-opacity="0.85" stroke="none">
+      <!-- North -->
+      <path d="M 256 22 L 259 36 L 273 39 L 259 42 L 256 56 L 253 42 L 239 39 L 253 36 Z"/>
+      <!-- East -->
+      <path d="M 490 256 L 476 259 L 473 273 L 470 259 L 456 256 L 470 253 L 473 239 L 476 253 Z"/>
+      <!-- South -->
+      <path d="M 256 490 L 259 476 L 273 473 L 259 470 L 256 456 L 253 470 L 239 473 L 253 476 Z"/>
+      <!-- West -->
+      <path d="M 22 256 L 36 259 L 39 273 L 42 259 L 56 256 L 42 253 L 39 239 L 36 253 Z"/>
+    </g>
+
+    <!-- Bottom-arc inscription: Cups · Aqua · Emotio · Intuitio -->
+    <g font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#d4a574" letter-spacing="2" font-style="italic">
+      <text>
+        <textPath href="#inscriptionArc" startOffset="50%" text-anchor="middle">CUPS  ·  AQUA  ·  EMOTIO  ·  INTUITIO</textPath>
+      </text>
+    </g>
+  </g>
+
+  <!-- ============ AURA BEHIND THE GLYPH ============ -->
+  <g id="aura">
+    <circle cx="256" cy="240" r="170" fill="url(#centralAura)"/>
+  </g>
+
+  <!-- ============ WATER DECORATION — sinusoidal gold wave across the bottom ============ -->
+  <g id="water-wave" opacity="0.4">
+    <!-- Primary sinus wave (under the chalice base) -->
+    <path d="M 110 400 C 140 388, 170 388, 200 400 S 260 412, 290 400 S 350 388, 380 400 S 440 412, 470 400"
+          fill="none" stroke="url(#goldPrimary)" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- Secondary offset wave (lower, fainter) -->
+    <path d="M 110 414 C 140 402, 170 402, 200 414 S 260 426, 290 414 S 350 402, 380 414 S 440 426, 470 414"
+          fill="none" stroke="#d4a574" stroke-width="1" stroke-opacity="0.55" stroke-linecap="round"/>
+    <!-- Tiny ripple accents on the wave crests -->
+    <g fill="#fff2c6" fill-opacity="0.7">
+      <circle cx="170" cy="395" r="0.9"/>
+      <circle cx="260" cy="395" r="0.9"/>
+      <circle cx="350" cy="395" r="0.9"/>
+      <circle cx="440" cy="395" r="0.9"/>
+    </g>
+  </g>
+
+  <!-- ============ MAIN CUPS GLYPH — the stylized chalice ============ -->
+  <g id="glyph" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- BOWL — wide elliptical bowl with surface-tension curve at rim -->
+    <!-- Outer bowl silhouette: rim is wider (cx=256, rx=78 at y=172), tapers to stem junction (rx=24 at y=280) -->
+    <path d="M 178 172
+             C 178 172, 192 210, 204 236
+             C 216 260, 232 276, 256 280
+             C 280 276, 296 260, 308 236
+             C 320 210, 334 172, 334 172"
+          stroke="url(#goldPrimaryV)" stroke-width="14" fill="url(#centralAura)" fill-opacity="0.3"/>
+
+    <!-- RIM — the top opening of the bowl (wide ellipse with surface-tension curve) -->
+    <!-- Front-facing rim (slightly dipped meniscus — concave water surface tension) -->
+    <path d="M 178 172 C 204 184, 236 188, 256 184 C 276 180, 308 180, 334 172"
+          stroke="url(#goldPrimaryV)" stroke-width="14"/>
+    <!-- Back of the rim (ellipse top half, faint for depth) -->
+    <path d="M 178 172 C 204 160, 308 160, 334 172"
+          stroke="url(#goldPrimaryV)" stroke-width="6" stroke-opacity="0.65"/>
+
+    <!-- OVERFLOW — water rising/spilling at the bowl's center rim (Ace of Cups hint) -->
+    <path d="M 238 172 C 244 162, 250 158, 256 158 C 262 158, 268 162, 274 172"
+          stroke="url(#goldPrimaryV)" stroke-width="8" stroke-linecap="round"/>
+    <!-- Overflow crest droplet -->
+    <circle cx="256" cy="152" r="4" fill="#fff2c6"/>
+    <circle cx="256" cy="152" r="6.5" fill="none" stroke="url(#goldPrimary)" stroke-width="1.2" stroke-opacity="0.75"/>
+
+    <!-- STEM — vertical stroke from bowl base to foot -->
+    <path d="M 256 280 L 256 348"
+          stroke="url(#goldPrimaryV)" stroke-width="10"/>
+    <!-- Stem collar / knop — ornamental node halfway down -->
+    <circle cx="256" cy="314" r="8" fill="none" stroke="url(#goldPrimaryV)" stroke-width="4"/>
+    <circle cx="256" cy="314" r="2.5" fill="#fff2c6"/>
+
+    <!-- BASE — elliptical foot -->
+    <!-- Foot plate (wide ellipse) -->
+    <ellipse cx="256" cy="356" rx="62" ry="10" fill="none" stroke="url(#goldPrimaryV)" stroke-width="10"/>
+    <!-- Base pedestal bridge — short vertical that connects stem to foot plate -->
+    <path d="M 238 348 Q 256 344 274 348"
+          stroke="url(#goldPrimaryV)" stroke-width="8"/>
+    <!-- Lower foot ring (thinner, decorative) -->
+    <ellipse cx="256" cy="366" rx="54" ry="5" fill="none" stroke="url(#goldPrimary)" stroke-width="2.5" stroke-opacity="0.7"/>
+
+    <!-- RIM TIP ORNAMENTAL SPHERE CAPS — small champagne pearls at the rim extremes -->
+    <circle cx="178" cy="172" r="2.5" fill="#fff2c6"/>
+    <circle cx="334" cy="172" r="2.5" fill="#fff2c6"/>
+
+    <!-- INNER CREAM HIGHLIGHT PASS — follows bowl outline -->
+    <path d="M 180 172
+             C 180 172, 194 210, 206 236
+             C 218 260, 234 276, 256 278
+             C 278 276, 294 260, 306 236
+             C 318 210, 332 172, 332 172"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+    <!-- Highlight along stem -->
+    <path d="M 254 282 L 254 346"
+          stroke="#fff2c6" stroke-width="1.2" stroke-opacity="0.5"/>
+    <!-- Highlight along front rim meniscus -->
+    <path d="M 180 173 C 206 185, 236 189, 256 185 C 276 181, 306 181, 332 173"
+          stroke="#fff2c6" stroke-width="1.2" stroke-opacity="0.55"/>
+  </g>
+
+  <!-- ============ FALLING DROPLETS — five gold droplets spilling from the bowl exterior ============ -->
+  <g id="droplets">
+    <!-- Droplet 1 — left, high -->
+    <g transform="translate(162, 244)">
+      <circle cx="0" cy="0" r="5.5" fill="url(#dropletGlow)"/>
+      <circle cx="0" cy="0" r="3" fill="#fff2c6"/>
+      <!-- Trailing tail -->
+      <path d="M 0 -4 Q 2 -10 0 -14" stroke="url(#goldPrimaryV)" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-opacity="0.7"/>
+    </g>
+
+    <!-- Droplet 2 — left, mid-low -->
+    <g transform="translate(180, 296)">
+      <circle cx="0" cy="0" r="4" fill="url(#dropletGlow)"/>
+      <circle cx="0" cy="0" r="2" fill="#fff2c6"/>
+      <path d="M 0 -3 Q 1 -9 -1 -13" stroke="url(#goldPrimaryV)" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-opacity="0.65"/>
+    </g>
+
+    <!-- Droplet 3 — right, high -->
+    <g transform="translate(352, 248)">
+      <circle cx="0" cy="0" r="5" fill="url(#dropletGlow)"/>
+      <circle cx="0" cy="0" r="2.6" fill="#fff2c6"/>
+      <path d="M 0 -4 Q -2 -10 0 -14" stroke="url(#goldPrimaryV)" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-opacity="0.7"/>
+    </g>
+
+    <!-- Droplet 4 — right, mid -->
+    <g transform="translate(334, 300)">
+      <circle cx="0" cy="0" r="4" fill="url(#dropletGlow)"/>
+      <circle cx="0" cy="0" r="2" fill="#fff2c6"/>
+      <path d="M 0 -3 Q -1 -9 1 -13" stroke="url(#goldPrimaryV)" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-opacity="0.65"/>
+    </g>
+
+    <!-- Droplet 5 — center-low, between stem and foot -->
+    <g transform="translate(256, 388)">
+      <circle cx="0" cy="0" r="3.5" fill="url(#dropletGlow)"/>
+      <circle cx="0" cy="0" r="1.8" fill="#fff2c6"/>
+      <path d="M 0 -2.5 Q 0 -8 0 -12" stroke="url(#goldPrimaryV)" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-opacity="0.6"/>
+    </g>
+  </g>
+
+  <!-- ============ ORNAMENT — four Gothic filigree corner flourishes ============ -->
+  <g id="ornament" fill="none" stroke="#d4a574" stroke-opacity="0.5" stroke-width="1.2" stroke-linecap="round">
+    <!-- Top-left -->
+    <g transform="translate(40,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Top-right -->
+    <g transform="translate(442,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Bottom-left -->
+    <g transform="translate(40,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Bottom-right -->
+    <g transform="translate(442,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+  </g>
+</svg>

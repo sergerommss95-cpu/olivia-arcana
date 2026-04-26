@@ -207,7 +207,7 @@ export default function StoryPage() {
                 fontWeight: 300,
                 color: "rgba(212,175,55,0.8)",
               }}>
-                <AnimatedCounter value={12400} suffix="+" duration={2500} />
+                <AnimatedCounter value={207} duration={2500} />
               </div>
               <p style={{
                 fontSize: "0.7rem",
@@ -216,7 +216,7 @@ export default function StoryPage() {
                 color: "rgba(160,150,200,0.5)",
                 marginTop: "0.5rem",
               }}>
-                Readings Given
+                Academy Lessons
               </p>
             </div>
             <div className="text-center">
@@ -264,7 +264,7 @@ export default function StoryPage() {
                 fontWeight: 300,
                 color: "rgba(212,175,55,0.8)",
               }}>
-                <AnimatedCounter value={4.9} decimals={1} duration={2000} delay={600} />
+                <AnimatedCounter value={14} duration={2000} delay={600} />
               </div>
               <p style={{
                 fontSize: "0.7rem",
@@ -273,7 +273,7 @@ export default function StoryPage() {
                 color: "rgba(160,150,200,0.5)",
                 marginTop: "0.5rem",
               }}>
-                Average Rating
+                Academy Courses
               </p>
             </div>
           </SmoothReveal>

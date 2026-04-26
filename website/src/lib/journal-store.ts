@@ -103,7 +103,7 @@ export function getStreak(): number {
   const dates = new Set(entries.map(e => e.date));
   const today = new Date();
   let streak = 0;
-  let current = new Date(today);
+  const current = new Date(today);
 
   // Check today first
   const todayStr = formatDate(current);

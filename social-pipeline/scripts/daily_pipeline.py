@@ -110,6 +110,19 @@ async def run_daily_pipeline():
     export_dir = export_for_manual_upload(video_files, tiktok_scripts, story_cards, feed_cards, today)
     print(f"  Done ({time.time()-t8:.1f}s). Export: {export_dir}")
 
+    # ─── Step 9: Upload to Cloud Storage (if running in cloud) ─────────
+    gcs_bucket = __import__('os').environ.get("GCS_BUCKET")
+    if gcs_bucket:
+        print(f"\n[Step 9/9] Uploading to Cloud Storage (gs://{gcs_bucket})...")
+        t9 = time.time()
+        from scripts.gcs_client import upload_daily_output
+        gcs_manifest = upload_daily_output(str(day_dir))
+        print(f"  Done ({time.time()-t9:.1f}s). "
+              f"{len(gcs_manifest.get('videos',[]))} videos + "
+              f"{len(gcs_manifest.get('stories',[]))} stories uploaded")
+    else:
+        print(f"\n[Step 9/9] Skipping GCS upload (no GCS_BUCKET env var)")
+
     # ─── Summary ─────────────────────────────────────────────────────────
     total_time = time.time() - start_time
     total_content = (

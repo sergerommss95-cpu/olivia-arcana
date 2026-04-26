@@ -28,6 +28,20 @@ import {
 const LOCALE_CHANGE_EVENT = "olivia:locale-change";
 const STORAGE_KEY = "olivia-locale";
 
+// RTL locales — set <html dir="rtl"> so the entire layout flips bidi.
+const RTL_LOCALES: ReadonlySet<Locale> = new Set(["ar"] as Locale[]);
+
+function applyDocumentLocale(next: Locale): void {
+  if (typeof document === "undefined") return;
+  if (document.documentElement.lang !== next) {
+    document.documentElement.lang = next;
+  }
+  const dir = RTL_LOCALES.has(next) ? "rtl" : "ltr";
+  if (document.documentElement.dir !== dir) {
+    document.documentElement.dir = dir;
+  }
+}
+
 export function useLocale() {
   // MARKER_V2_NEW_IMPL_USE_STATE
   const [locale, setLocaleState] = useState<Locale>("en");
@@ -36,9 +50,7 @@ export function useLocale() {
     const syncFromStorage = () => {
       const next = detectLocale();
       setLocaleState((prev) => (prev === next ? prev : next));
-      if (typeof document !== "undefined" && document.documentElement.lang !== next) {
-        document.documentElement.lang = next;
-      }
+      applyDocumentLocale(next);
     };
 
     // Initial sync
@@ -66,9 +78,7 @@ export function useLocale() {
 
   const setLocale = useCallback((next: Locale) => {
     persistLocale(next);
-    if (typeof document !== "undefined") {
-      document.documentElement.lang = next;
-    }
+    applyDocumentLocale(next);
     setLocaleState(next);
     if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent(LOCALE_CHANGE_EVENT, { detail: { locale: next } }));

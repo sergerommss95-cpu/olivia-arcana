@@ -8,6 +8,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { getAllPositions, getMoonPhase, type CelestialBody } from "../../lib/celestial";
 import {
   getUpcomingEvents, getRecentEvents, EVENTS_2026, EVENT_TYPE_META,
@@ -235,14 +236,19 @@ export default function CosmosPage() {
   const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    setPositions(getAllPositions(new Date()));
+    const timer = setTimeout(() => {
+      setMounted(true);
+      setPositions(getAllPositions(new Date()));
+    }, 0);
 
     // Update positions every minute
     const interval = setInterval(() => {
       setPositions(getAllPositions(new Date()));
     }, 60000);
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(timer);
+      clearInterval(interval);
+    };
   }, []);
 
   if (!mounted) return null;
@@ -259,11 +265,11 @@ export default function CosmosPage() {
     }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-        <a href="/" style={{
+        <Link href="/" style={{
           fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 400,
           letterSpacing: "0.15em", textTransform: "uppercase",
           color: "rgba(180,170,210,0.4)", textDecoration: "none",
-        }}>← Home</a>
+        }}>← Home</Link>
         <h1 style={{
           fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem, 4vw, 2.2rem)",
           fontWeight: 400, marginTop: "0.75rem",

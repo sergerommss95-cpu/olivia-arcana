@@ -1,0 +1,308 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Pentacles suit glyph</title>
+  <desc id="desc">Pentacle coin, earth element, Minor Arcana suit of Pentacles</desc>
+
+  <defs>
+    <!-- 1. Deep night radial backdrop -->
+    <radialGradient id="bgNight" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="55%" stop-color="#0d0719"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+
+    <!-- 2. Parchment vignette -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+
+    <!-- 3. Earth wash — subtle pearlescent-sage over the center -->
+    <radialGradient id="earthWash" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#1f3a3a" stop-opacity="0.16"/>
+      <stop offset="60%" stop-color="#1f3a3a" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#1f3a3a" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 4. Gold primary gradient (glyph + linework, diagonal) -->
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 5. Gold vertical gradient (for disc and pentagram) -->
+    <linearGradient id="goldPrimaryV" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 6. Gold thin gradient — fine ring / tick marks -->
+    <linearGradient id="goldThin" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6b4a1f"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 7. Aura behind the central glyph -->
+    <radialGradient id="centralAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="0.35"/>
+      <stop offset="40%" stop-color="#d4a574" stop-opacity="0.18"/>
+      <stop offset="75%" stop-color="#6b4a1f" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#1f3a3a" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 8. Earth/vine gradient — muted sage-to-gold for foliage flourishes -->
+    <linearGradient id="vineGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#1f3a3a"/>
+      <stop offset="60%" stop-color="#6b4a1f"/>
+      <stop offset="100%" stop-color="#d4a574"/>
+    </linearGradient>
+
+    <!-- Path for the bottom-arc inscription -->
+    <path id="inscriptionArc" d="M 76 256 A 180 180 0 0 0 436 256" fill="none"/>
+  </defs>
+
+  <!-- ============ BACKGROUND ============ -->
+  <g id="background">
+    <rect x="0" y="0" width="512" height="512" fill="url(#bgNight)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#earthWash)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#vignette)"/>
+  </g>
+
+  <!-- ============ STARFIELD — scattered background stars ============ -->
+  <g id="starfield" fill="#fff2c6">
+    <circle cx="68"  cy="92"  r="1.1" fill-opacity="0.75"/>
+    <circle cx="128" cy="54"  r="0.9" fill-opacity="0.6"/>
+    <circle cx="210" cy="104" r="1.3" fill-opacity="0.85"/>
+    <circle cx="430" cy="78"  r="1"   fill-opacity="0.7"/>
+    <circle cx="468" cy="168" r="1.4" fill-opacity="0.9"/>
+    <circle cx="52"  cy="206" r="1.1" fill-opacity="0.75"/>
+    <circle cx="96"  cy="394" r="1.2" fill-opacity="0.8"/>
+    <circle cx="158" cy="446" r="0.9" fill-opacity="0.6"/>
+    <circle cx="402" cy="432" r="1.3" fill-opacity="0.85"/>
+    <circle cx="456" cy="376" r="1"   fill-opacity="0.7"/>
+    <circle cx="340" cy="60"  r="0.8" fill-opacity="0.55"/>
+    <circle cx="72"  cy="330" r="1"   fill-opacity="0.7"/>
+  </g>
+
+  <!-- ============ SACRED GEOMETRY ============ -->
+  <g id="sacred-geometry" fill="none" stroke="url(#goldThin)" stroke-opacity="0.85">
+    <!-- Three concentric circles -->
+    <circle cx="256" cy="256" r="240" stroke-width="0.8"/>
+    <circle cx="256" cy="256" r="220" stroke-width="0.6" stroke-opacity="0.55"/>
+    <circle cx="256" cy="256" r="200" stroke-width="0.8"/>
+
+    <!-- Inner dashed mandala reference ring -->
+    <circle cx="256" cy="256" r="150" stroke-width="0.4" stroke-opacity="0.35" stroke-dasharray="2 4"/>
+
+    <!-- 12 tick marks on outer ring -->
+    <g stroke="#d4a574" stroke-width="1.2" stroke-opacity="0.85">
+      <line x1="256" y1="16"  x2="256" y2="8"/>
+      <line x1="376" y1="48"  x2="380" y2="40"/>
+      <line x1="464" y1="136" x2="472" y2="132"/>
+      <line x1="496" y1="256" x2="504" y2="256"/>
+      <line x1="464" y1="376" x2="472" y2="380"/>
+      <line x1="376" y1="464" x2="380" y2="472"/>
+      <line x1="256" y1="496" x2="256" y2="504"/>
+      <line x1="136" y1="464" x2="132" y2="472"/>
+      <line x1="48"  y1="376" x2="40"  y2="380"/>
+      <line x1="16"  y1="256" x2="8"   y2="256"/>
+      <line x1="48"  y1="136" x2="40"  y2="132"/>
+      <line x1="136" y1="48"  x2="132" y2="40"/>
+    </g>
+
+    <!-- 12 tick marks on inner ring -->
+    <g stroke="#d4a574" stroke-width="1" stroke-opacity="0.7">
+      <line x1="256" y1="56"  x2="256" y2="64"/>
+      <line x1="356" y1="83"  x2="354" y2="90"/>
+      <line x1="429" y1="156" x2="422" y2="158"/>
+      <line x1="456" y1="256" x2="448" y2="256"/>
+      <line x1="429" y1="356" x2="422" y2="354"/>
+      <line x1="356" y1="429" x2="354" y2="422"/>
+      <line x1="256" y1="456" x2="256" y2="448"/>
+      <line x1="156" y1="429" x2="158" y2="422"/>
+      <line x1="83"  y1="356" x2="90"  y2="354"/>
+      <line x1="56"  y1="256" x2="64"  y2="256"/>
+      <line x1="83"  y1="156" x2="90"  y2="158"/>
+      <line x1="156" y1="83"  x2="158" y2="90"/>
+    </g>
+
+    <!-- Ornamental double-ring (between mandala and main rings) -->
+    <circle cx="256" cy="256" r="178" stroke-width="0.5" stroke-opacity="0.55"/>
+    <circle cx="256" cy="256" r="174" stroke-width="0.4" stroke-opacity="0.4"/>
+
+    <!-- 4 cardinal-point 4-pointed stars (compass jewels) -->
+    <g fill="#d4a574" fill-opacity="0.85" stroke="none">
+      <!-- North -->
+      <path d="M 256 22 L 259 36 L 273 39 L 259 42 L 256 56 L 253 42 L 239 39 L 253 36 Z"/>
+      <!-- East -->
+      <path d="M 490 256 L 476 259 L 473 273 L 470 259 L 456 256 L 470 253 L 473 239 L 476 253 Z"/>
+      <!-- South -->
+      <path d="M 256 490 L 259 476 L 273 473 L 259 470 L 256 456 L 253 470 L 239 473 L 253 476 Z"/>
+      <!-- West -->
+      <path d="M 22 256 L 36 259 L 39 273 L 42 259 L 56 256 L 42 253 L 39 239 L 36 253 Z"/>
+    </g>
+
+    <!-- Bottom-arc inscription -->
+    <g font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#d4a574" letter-spacing="2" font-style="italic">
+      <text>
+        <textPath href="#inscriptionArc" startOffset="50%" text-anchor="middle">PENTACLES  ·  TERRA  ·  MATERIA  ·  ABUNDANTIA</textPath>
+      </text>
+    </g>
+  </g>
+
+  <!-- ============ AURA BEHIND THE GLYPH ============ -->
+  <g id="aura">
+    <circle cx="256" cy="230" r="170" fill="url(#centralAura)"/>
+  </g>
+
+  <!-- ============ EARTH-ELEMENT DECORATION — ground line + vine flourishes ============ -->
+  <g id="earth-ornament" opacity="0.35">
+    <!-- Thin horizontal ground line beneath the pentacle coin -->
+    <line x1="140" y1="338" x2="372" y2="338"
+          stroke="url(#goldThin)" stroke-width="1.1" stroke-linecap="round"/>
+    <!-- Soft secondary ground shadow, slightly below -->
+    <line x1="170" y1="343" x2="342" y2="343"
+          stroke="#6b4a1f" stroke-width="0.7" stroke-opacity="0.6" stroke-linecap="round"/>
+
+    <!-- Left vine curling up from ground -->
+    <g fill="none" stroke="url(#vineGradient)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 168 338 C 160 322, 150 312, 142 300 C 138 292, 140 284, 148 282"/>
+      <!-- Left leaf pair -->
+      <path d="M 150 318 C 144 316, 138 318, 136 324 C 140 324, 146 322, 150 318 Z" fill="#1f3a3a" fill-opacity="0.5"/>
+      <path d="M 156 306 C 162 304, 168 306, 170 312 C 166 312, 160 310, 156 306 Z" fill="#1f3a3a" fill-opacity="0.5"/>
+      <!-- Small curl -->
+      <path d="M 148 282 C 146 278, 144 276, 146 272 C 150 272, 152 276, 150 280"/>
+    </g>
+
+    <!-- Right vine curling up from ground (mirror) -->
+    <g fill="none" stroke="url(#vineGradient)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 344 338 C 352 322, 362 312, 370 300 C 374 292, 372 284, 364 282"/>
+      <!-- Right leaf pair -->
+      <path d="M 362 318 C 368 316, 374 318, 376 324 C 372 324, 366 322, 362 318 Z" fill="#1f3a3a" fill-opacity="0.5"/>
+      <path d="M 356 306 C 350 304, 344 306, 342 312 C 346 312, 352 310, 356 306 Z" fill="#1f3a3a" fill-opacity="0.5"/>
+      <!-- Small curl -->
+      <path d="M 364 282 C 366 278, 368 276, 366 272 C 362 272, 360 276, 362 280"/>
+    </g>
+
+    <!-- Tiny seed dots along ground line -->
+    <g fill="#d4a574" fill-opacity="0.7">
+      <circle cx="210" cy="340" r="0.9"/>
+      <circle cx="236" cy="341" r="0.7"/>
+      <circle cx="256" cy="340" r="1"/>
+      <circle cx="278" cy="341" r="0.7"/>
+      <circle cx="302" cy="340" r="0.9"/>
+    </g>
+  </g>
+
+  <!-- ============ MAIN GLYPH — Pentacle coin (disc + pentagram point-up) ============ -->
+  <g id="glyph" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- OUTER DISC — the coin body -->
+    <circle cx="256" cy="230" r="85"
+            stroke="url(#goldPrimaryV)" stroke-width="14"/>
+
+    <!-- Cream inner highlight on outer disc -->
+    <circle cx="256" cy="230" r="85"
+            stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- INNER RING — coin rim -->
+    <circle cx="256" cy="230" r="72"
+            stroke="url(#goldPrimary)" stroke-width="2" stroke-opacity="0.7"/>
+
+    <!-- Subtle outer edge hairline -->
+    <circle cx="256" cy="230" r="92"
+            stroke="url(#goldThin)" stroke-width="0.6" stroke-opacity="0.5"/>
+
+    <!-- PENTAGRAM INNER PENTAGON — low-opacity fill for dimensional lift.
+         Pentagon vertices (the inner points of the pentagram, point-up), radius ≈ 23 around (256,230):
+         T  (256, 207)
+         TR (278, 223)
+         BR (269, 249)
+         BL (243, 249)
+         TL (234, 223) -->
+    <path d="M 256 207 L 278 223 L 269 249 L 243 249 L 234 223 Z"
+          fill="url(#goldPrimaryV)" fill-opacity="0.2" stroke="none"/>
+
+    <!-- PENTAGRAM — 5-pointed star, POINT UP (Rider-Waite standard),
+         drawn as a single continuous path tracing all 5 tip points.
+         Tips (radius 60 from center 256,230):
+          TOP        : (256, 170)
+          UPPER-RIGHT: (313, 211)  → (256 + 60·sin72°, 230 - 60·cos72°) ≈ (313.06, 211.46)
+          LOWER-RIGHT: (291, 279)  → (256 + 60·sin144°, 230 + 60·cos36°·-... ) ≈ (291.27, 278.54)
+          LOWER-LEFT : (220, 279)  ≈ (220.73, 278.54)
+          UPPER-LEFT : (198, 211)  ≈ (198.94, 211.46)
+         Star order (continuous): TOP → LOWER-RIGHT → UPPER-LEFT → UPPER-RIGHT → LOWER-LEFT → TOP -->
+    <path d="M 256 170
+             L 291.27 278.54
+             L 198.94 211.46
+             L 313.06 211.46
+             L 220.73 278.54
+             Z"
+          stroke="url(#goldPrimaryV)" stroke-width="8"/>
+
+    <!-- Cream inner highlight on pentagram (subtle inner glow line) -->
+    <path d="M 256 170
+             L 291.27 278.54
+             L 198.94 211.46
+             L 313.06 211.46
+             L 220.73 278.54
+             Z"
+          stroke="#fff2c6" stroke-width="1.2" stroke-opacity="0.5"/>
+
+    <!-- Cream pearl at pentagram center — the "seed of growth" -->
+    <circle cx="256" cy="230" r="4" fill="#fff2c6"/>
+    <circle cx="256" cy="230" r="6" fill="none" stroke="url(#goldPrimary)" stroke-width="1.2" stroke-opacity="0.7"/>
+
+    <!-- Five small accent pearls at each pentagram inner-pentagon vertex (subtle) -->
+    <g fill="#ffe8a3" fill-opacity="0.75">
+      <circle cx="256" cy="207" r="1.2"/>
+      <circle cx="278" cy="223" r="1.2"/>
+      <circle cx="269" cy="249" r="1.2"/>
+      <circle cx="243" cy="249" r="1.2"/>
+      <circle cx="234" cy="223" r="1.2"/>
+    </g>
+  </g>
+
+  <!-- ============ INSCRIPTION — top arc accent (tiny elemental mark) ============ -->
+  <g id="inscription">
+    <!-- Tiny earth-element mark above the coin: down-pointing triangle with bar (alchemical earth glyph) -->
+    <g transform="translate(256,116)" fill="none" stroke="#d4a574" stroke-opacity="0.6" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M -9 -7 L 9 -7 L 0 8 Z"/>
+      <line x1="-6" y1="2" x2="6" y2="2"/>
+    </g>
+  </g>
+
+  <!-- ============ ORNAMENT — four Gothic filigree corner flourishes ============ -->
+  <g id="ornament" fill="none" stroke="#d4a574" stroke-opacity="0.5" stroke-width="1.2" stroke-linecap="round">
+    <!-- Top-left -->
+    <g transform="translate(40,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Top-right -->
+    <g transform="translate(442,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Bottom-left -->
+    <g transform="translate(40,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Bottom-right -->
+    <g transform="translate(442,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+  </g>
+</svg>

@@ -4,7 +4,7 @@ export function toJulianDate(date: Date): number {
 
 export function greenwichSiderealTime(jd: number): number {
   const T = (jd - 2451545.0) / 36525.0;
-  let gmst = 280.46061837 + 360.98564736629 * (jd - 2451545.0) + T*T*0.000387933 - T*T*T/38710000.0;
+  const gmst = 280.46061837 + 360.98564736629 * (jd - 2451545.0) + T*T*0.000387933 - T*T*T/38710000.0;
   return ((gmst % 360) + 360) % 360;
 }
 
@@ -17,6 +17,6 @@ export function ascendantDegree(lst: number, latitudeDeg: number): number {
   const latRad = latitudeDeg * Math.PI / 180;
   const y = -Math.cos(lstRad);
   const x = Math.sin(lstRad) * Math.cos(latRad);
-  let asc = Math.atan2(y, x) * 180 / Math.PI;
+  const asc = Math.atan2(y, x) * 180 / Math.PI;
   return ((asc % 360) + 360) % 360;
 }

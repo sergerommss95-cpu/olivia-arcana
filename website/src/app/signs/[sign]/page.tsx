@@ -6,6 +6,22 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { SIGN_PAGES, type SignPage } from "../../../lib/sign-data";
+import ShareSignButton from "../../../components/ShareSignButton";
+
+// Element decoration for the share card. Kept here (not in sign-data) so the
+// data file stays purely textual.
+const ELEMENT_EMOJI: Record<string, string> = {
+  Fire: "🔥",
+  Earth: "🌿",
+  Air: "💨",
+  Water: "💧",
+};
+const ELEMENT_COLOR: Record<string, string> = {
+  Fire: "#E8524A",
+  Earth: "#9CB37A",
+  Air: "#C9C0E0",
+  Water: "#4FC3F7",
+};
 
 // Generate static params for all 12 signs
 export function generateStaticParams() {
@@ -16,9 +32,48 @@ export async function generateMetadata({ params }: { params: Promise<{ sign: str
   const { sign } = await params;
   const data = SIGN_PAGES[sign?.toLowerCase()];
   if (!data) return {};
+  const url = `https://oliviaarcana.com/signs/${sign.toLowerCase()}/`;
+  const title = `${data.name} ${data.glyph} — Zodiac Sign Guide | Olivia Arcana`;
+  const description = data.description.slice(0, 155) + "…";
   return {
-    title: `${data.name} ${data.glyph} — Zodiac Sign Guide | Olivia Arcana`,
-    description: data.description.slice(0, 155) + "...",
+    title,
+    description,
+    keywords: [
+      `${data.name} zodiac`,
+      `${data.name} sign`,
+      `${data.name} astrology`,
+      `${data.name} ${data.element}`,
+      `${data.name} ${data.modality}`,
+      `${data.name} traits`,
+      `${data.name} compatibility`,
+    ],
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "article",
+      siteName: "Olivia Arcana",
+      images: [
+        {
+          // Per-sign social card. Falls back to the site OG until a per-sign
+          // image generator ships. Once generated, store at
+          // /og/signs/<sign>.png (1200x630).
+          url: `https://oliviaarcana.com/og/signs/${sign.toLowerCase()}.png`,
+          secureUrl: `https://oliviaarcana.com/og/signs/${sign.toLowerCase()}.png`,
+          width: 1200,
+          height: 630,
+          alt: `${data.name} ${data.glyph} — ${data.motto}. ${data.element} ${data.modality} sign ruled by ${data.ruler}.`,
+          type: "image/png",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [`https://oliviaarcana.com/og/signs/${sign.toLowerCase()}.png`],
+    },
   };
 }
 
@@ -210,6 +265,21 @@ export default async function SignDetailPage({ params }: { params: Promise<{ sig
             </React.Fragment>
           ))}
         </dl>
+
+        {/* Share — surfaces ShareCardModal (square / story / twitter card) */}
+        <div style={{ marginTop: "2rem" }}>
+          <ShareSignButton
+            signName={data.name}
+            signGlyph={data.glyph}
+            element={data.element}
+            elementEmoji={ELEMENT_EMOJI[data.element] || "✦"}
+            dateRange={data.dateRange}
+            traits={data.lightTraits.slice(0, 4)}
+            horoscope={data.description}
+            luckyColor={data.crystal}
+            luckyColorHex={ELEMENT_COLOR[data.element] || "#D4AF37"}
+          />
+        </div>
       </header>
 
       {/* Description */}

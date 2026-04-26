@@ -22,6 +22,7 @@ const lineVert = /* glsl */ `
 uniform float uDraw;
 uniform float uHover;
 uniform float uTime;
+uniform float uBrightness;
 attribute float aT; // 0-1 position along line
 
 varying float vAlpha;
@@ -40,9 +41,9 @@ void main() {
               * uHover;
 
   // Base line visibility — nearly invisible at idle
-  float baseLine = drawn * (0.01 + uHover * 0.28);
+  float baseLine = drawn * (0.01 + uHover * 0.28 * uBrightness);
 
-  vAlpha = baseLine + trace * 0.7;
+  vAlpha = (baseLine + trace * 0.7) * uBrightness;
   vGlow = trace;
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
@@ -101,6 +102,7 @@ const nodeVert = /* glsl */ `
 uniform float uHover;
 uniform float uDraw;
 uniform float uTime;
+uniform float uBrightness;
 attribute float aOrder; // 0-1, when this star appears in the sequence
 
 varying float vAlpha;
@@ -117,9 +119,9 @@ void main() {
 
   float breath = 0.85 + 0.15 * sin(uTime * 1.5 + aOrder * 6.28);
 
-  vAlpha = revealed * (0.02 + uHover * 0.55 + igniteFlash * 0.7) * breath;
-  vIgnite = igniteFlash * uHover;
-  vSize = (1.5 + uHover * 2.5 + igniteFlash * 4.0) * revealed;
+  vAlpha = revealed * (0.02 + uHover * 0.55 * uBrightness + igniteFlash * 0.7) * breath * uBrightness;
+  vIgnite = igniteFlash * uHover * uBrightness;
+  vSize = (1.5 + uHover * 2.5 * uBrightness + igniteFlash * 4.0) * revealed;
 
   vec4 mv = modelViewMatrix * vec4(position, 1.0);
   gl_Position = projectionMatrix * mv;
@@ -220,6 +222,10 @@ export class ZodiacGL implements EngineSystem {
   private hoveredSign: number = -1;
   private focusProgress: number[] = []; // per-sign 0-1 focus animation
   private originalPositions: THREE.Vector3[] = []; // original group positions
+  // Personal brightness multiplier per sign (constellation-memory).
+  // 1.0 = default. >1.0 = sign brightens because user draws cards mapped to it.
+  // Range typically 0.85 → 1.6.
+  private personalMul: number[] = [];
   private onActivate = (e: Event) => {
     const idx = (e as CustomEvent).detail?.index ?? -1;
     this.focusedSign = idx;
@@ -264,12 +270,28 @@ export class ZodiacGL implements EngineSystem {
   private buildAll() {
     this.focusProgress = [];
     this.originalPositions = [];
+    this.personalMul = ZODIAC.map(() => 1.0);
     for (const sign of ZODIAC) {
       const state = this.buildSign(sign);
       this.signs.push(state);
       this.engine.scene.add(state.group);
       this.focusProgress.push(0);
       this.originalPositions.push(state.group.position.clone());
+    }
+  }
+
+  /**
+   * Scale per-sign brightness based on the user's draw history.
+   * Caller passes a Record<signNameLower, brightness 0.3-1.0> from
+   * computeConstellationBrightness(). We rescale to a multiplier centered on 1.
+   */
+  setPersonalBrightness(brightnessByName: Record<string, number>): void {
+    if (!this.personalMul.length) return;
+    for (let i = 0; i < ZODIAC.length; i++) {
+      const key = ZODIAC[i].name.toLowerCase();
+      const b = brightnessByName[key];
+      // 0.3-1.0 input → 0.85-1.55 output. Default 1.0 if missing.
+      this.personalMul[i] = b == null ? 1.0 : 0.85 + b * 0.7;
     }
   }
 
@@ -318,7 +340,7 @@ export class ZodiacGL implements EngineSystem {
     const glowMats: THREE.ShaderMaterial[] = [];
 
     const uniforms = () => ({
-      uDraw: { value: 0 }, uHover: { value: 0 }, uTime: { value: 0 },
+      uDraw: { value: 0 }, uHover: { value: 0 }, uTime: { value: 0 }, uBrightness: { value: 1.0 },
     });
 
     // ── Connection lines + glow points along lines ──
@@ -380,7 +402,7 @@ export class ZodiacGL implements EngineSystem {
 
     const nodeMat = new THREE.ShaderMaterial({
       vertexShader: nodeVert, fragmentShader: nodeFrag,
-      uniforms: { uHover: { value: 0 }, uDraw: { value: 0 }, uTime: { value: 0 } },
+      uniforms: { uHover: { value: 0 }, uDraw: { value: 0 }, uTime: { value: 0 }, uBrightness: { value: 1.0 } },
       transparent: true, blending: THREE.AdditiveBlending,
       depthTest: false, depthWrite: false,
     });
@@ -410,12 +432,13 @@ export class ZodiacGL implements EngineSystem {
       vertexShader: /* glsl */ `
         uniform float uHover;
         uniform float uTime;
+        uniform float uBrightness;
         attribute float aAngle;
         varying float vA;
         void main() {
           float dash = step(0.4, fract(aAngle * 6.0 / 6.2832));
           float tick = smoothstep(0.02, 0.0, abs(mod(aAngle, 1.5708)));
-          vA = uHover * (dash * 0.08 + tick * 0.2) * smoothstep(0.3, 0.6, uHover);
+          vA = uHover * (dash * 0.08 + tick * 0.2) * smoothstep(0.3, 0.6, uHover) * uBrightness;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }`,
       fragmentShader: /* glsl */ `
@@ -424,7 +447,7 @@ export class ZodiacGL implements EngineSystem {
           if (vA < 0.003) discard;
           gl_FragColor = vec4(0.8, 0.83, 0.95, vA);
         }`,
-      uniforms: { uHover: { value: 0 }, uTime: { value: 0 } },
+      uniforms: { uHover: { value: 0 }, uTime: { value: 0 }, uBrightness: { value: 1.0 } },
       transparent: true, depthTest: false, depthWrite: false,
     });
     const ring = new THREE.LineLoop(ringGeo, ringMat);
@@ -505,20 +528,26 @@ export class ZodiacGL implements EngineSystem {
         }
       }
 
-      // ── Update uniforms ──
+      // ── Update uniforms — apply per-sign personal brightness ──
+      const mul = this.personalMul[ci] ?? 1.0;
+      const drawScaled = Math.min(1.0, s.draw * mul);
       for (let i = 0; i < s.lineMats.length; i++) {
-        s.lineMats[i].uniforms.uDraw.value = s.draw;
+        s.lineMats[i].uniforms.uDraw.value = drawScaled;
         s.lineMats[i].uniforms.uHover.value = s.hover;
         s.lineMats[i].uniforms.uTime.value = time;
-        s.glowMats[i].uniforms.uDraw.value = s.draw;
+        s.lineMats[i].uniforms.uBrightness.value = mul;
+        s.glowMats[i].uniforms.uDraw.value = drawScaled;
         s.glowMats[i].uniforms.uHover.value = s.hover;
         s.glowMats[i].uniforms.uTime.value = time;
+        s.glowMats[i].uniforms.uBrightness.value = mul;
       }
       s.nodeMat.uniforms.uHover.value = s.hover;
-      s.nodeMat.uniforms.uDraw.value = s.draw;
+      s.nodeMat.uniforms.uDraw.value = drawScaled;
       s.nodeMat.uniforms.uTime.value = time;
+      s.nodeMat.uniforms.uBrightness.value = mul;
       s.ringMat.uniforms.uHover.value = s.hover;
       s.ringMat.uniforms.uTime.value = time;
+      s.ringMat.uniforms.uBrightness.value = mul;
     }
   }
 

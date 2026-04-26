@@ -9,13 +9,16 @@
 "use client";
 
 import React, { useState, useCallback, useEffect, useRef } from "react";
+import Link from "next/link";
 import { computeNatalChart, type BirthInput } from "../../lib/natal-chart";
 import { computeSynastry, type SynastryResult } from "../../lib/synastry-engine";
 import { loadUser, loadChart } from "../../lib/user-store";
 import BirthDatePicker from "../../components/BirthDatePicker";
 import CityAutocomplete from "../../components/CityAutocomplete";
+import Paywall from "../../components/Paywall";
 import { type CityData } from "../../lib/cities";
 import { useLocale } from "../../lib/i18n/useLocale";
+import { readInviteFromUrl, buildInviteUrl } from "../../lib/compatibility-invite";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -158,21 +161,44 @@ export default function SynastryPage() {
 
   const [result, setResult] = useState<SynastryResult | null>(null);
   const [computing, setComputing] = useState(false);
+  const [fromInvite, setFromInvite] = useState(false);
+  const [inviterName, setInviterName] = useState<string | null>(null);
+  const [inviteUrl, setInviteUrl] = useState<string | null>(null);
+  const [inviteCopied, setInviteCopied] = useState(false);
 
-  // Auto-fill Person A from localStorage
+  // Auto-fill Person A — first try the URL invite (?invite=...), then localStorage.
   useEffect(() => {
+    const invited = readInviteFromUrl();
+    if (invited) {
+      setTimeout(() => {
+        setNameA(invited.name || "");
+        setInviterName(invited.name || "Someone");
+        setDateA(`${invited.year}-${String(invited.month).padStart(2, "0")}-${String(invited.day).padStart(2, "0")}`);
+        if (invited.hour !== 12 || invited.minute !== 0) {
+          setTimeA(`${String(invited.hour).padStart(2, "0")}:${String(invited.minute).padStart(2, "0")}`);
+        } else {
+          setTimeUnknownA(true);
+        }
+        setCityA({ name: invited.city || "Unknown", country: "", lat: invited.latitude, lon: invited.longitude, tz: invited.timezone });
+        setPrefilledA(true);
+        setFromInvite(true);
+      }, 0);
+      return;
+    }
     const user = loadUser();
     if (user) {
-      setNameA(user.name || "");
-      const inp = user.input;
-      setDateA(`${inp.year}-${String(inp.month).padStart(2, "0")}-${String(inp.day).padStart(2, "0")}`);
-      if (inp.hour !== 12 || inp.minute !== 0) {
-        setTimeA(`${String(inp.hour).padStart(2, "0")}:${String(inp.minute).padStart(2, "0")}`);
-      } else {
-        setTimeUnknownA(true);
-      }
-      setCityA({ name: inp.city || "Unknown", country: "", lat: inp.latitude, lon: inp.longitude, tz: inp.timezone });
-      setPrefilledA(true);
+      setTimeout(() => {
+        setNameA(user.name || "");
+        const inp = user.input;
+        setDateA(`${inp.year}-${String(inp.month).padStart(2, "0")}-${String(inp.day).padStart(2, "0")}`);
+        if (inp.hour !== 12 || inp.minute !== 0) {
+          setTimeA(`${String(inp.hour).padStart(2, "0")}:${String(inp.minute).padStart(2, "0")}`);
+        } else {
+          setTimeUnknownA(true);
+        }
+        setCityA({ name: inp.city || "Unknown", country: "", lat: inp.latitude, lon: inp.longitude, tz: inp.timezone });
+        setPrefilledA(true);
+      }, 0);
     }
   }, []);
 
@@ -221,10 +247,10 @@ export default function SynastryPage() {
       minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center",
       padding: "2rem 1.5rem 4rem", position: "relative", zIndex: 1,
     }}>
-      <a href="/" style={{
+      <Link href="/" style={{
         position: "absolute", top: "1.5rem", left: "1.5rem",
         ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)",
-      }}>{"\u2190"} {t("common_home")}</a>
+      }}>{"\u2190"} {t("common_home")}</Link>
 
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "2rem", marginTop: "1rem" }}>
@@ -242,6 +268,36 @@ export default function SynastryPage() {
         }}>
           Compare two birth charts to reveal the cosmic chemistry between souls
         </p>
+
+        {/* Inviter banner \u2014 shown when arriving via ?invite=... */}
+        {fromInvite && inviterName && (
+          <div style={{
+            margin: "1.5rem auto 0",
+            maxWidth: "480px",
+            padding: "1rem 1.25rem",
+            borderRadius: "1rem",
+            background: "linear-gradient(135deg, rgba(212,175,55,0.10), rgba(160,120,255,0.08))",
+            border: "1px solid rgba(212,175,55,0.32)",
+            textAlign: "left",
+            display: "flex", gap: "0.85rem", alignItems: "flex-start",
+          }}>
+            <span aria-hidden style={{ fontSize: "1.5rem", color: "rgba(232,201,106,0.92)", lineHeight: 1 }}>\u2726</span>
+            <div>
+              <div style={{
+                fontFamily: "var(--font-body)", fontSize: "0.9rem",
+                color: "rgba(245,240,232,0.96)", fontWeight: 500,
+              }}>
+                {inviterName} wants to know if your stars are aligned.
+              </div>
+              <div style={{
+                fontFamily: "var(--font-body)", fontSize: "0.78rem",
+                color: "rgba(220,210,240,0.72)", marginTop: "0.3rem", lineHeight: 1.5,
+              }}>
+                Their birth data is already filled in. Add yours below \u2014 both of you will see the result.
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {!result ? (
@@ -367,6 +423,8 @@ export default function SynastryPage() {
             }}>{result.verdict}</p>
           </div>
 
+          {/* Premium-gated: detailed breakdown + cross-chart aspects */}
+          <Paywall requires="premium" priceKey="premium_monthly" featureName="the full synastry breakdown">
           {/* Sub-scores */}
           <div style={{ ...glass, padding: "1.5rem" }}>
             <div style={{ ...labelSt, marginBottom: "0.8rem" }}>Compatibility Breakdown</div>
@@ -378,7 +436,7 @@ export default function SynastryPage() {
           </div>
 
           {/* Top aspects */}
-          <div style={{ ...glass, padding: "1.5rem" }}>
+          <div style={{ ...glass, padding: "1.5rem", marginTop: "1.5rem" }}>
             <div style={{ ...labelSt, marginBottom: "0.8rem" }}>Key Cross-Chart Aspects</div>
             {result.topAspects.map((asp, i) => (
               <div key={i} style={{
@@ -416,6 +474,85 @@ export default function SynastryPage() {
               </div>
             ))}
           </div>
+          </Paywall>
+
+          {/* Cosmic Compatibility Link — viral mechanic.
+              Person A generates a shareable URL; Person B opens it, sees the
+              inviter banner, and is auto-filled. */}
+          {!fromInvite && (
+            <div style={{
+              padding: "1.5rem", marginTop: "0.5rem",
+              borderRadius: "1.25rem",
+              background: "linear-gradient(135deg, rgba(160,120,255,0.10), rgba(212,175,55,0.08))",
+              border: "1px solid rgba(212,175,55,0.30)",
+              textAlign: "center",
+            }}>
+              <p style={{
+                fontFamily: "var(--font-heading)", fontStyle: "italic",
+                fontSize: "1.1rem", color: "rgba(245,240,232,0.96)",
+                margin: "0 0 0.6rem",
+              }}>
+                Want them to see this too?
+              </p>
+              <p style={{
+                fontFamily: "var(--font-body)", fontSize: "0.82rem",
+                color: "rgba(220,210,240,0.72)", margin: "0 auto 1rem",
+                maxWidth: "32em", lineHeight: 1.55,
+              }}>
+                Send a private link. They open it and the cosmos auto-fills your half — they only need to add their own birthday.
+              </p>
+              <button
+                type="button"
+                onClick={async () => {
+                  const [yA, mA, dA] = dateA.split("-").map(Number);
+                  const locA = cityA || { lat: 40.71, lon: -74.01, tz: -5, name: "Unknown" };
+                  const inputA: BirthInput = {
+                    year: yA, month: mA, day: dA,
+                    hour: timeUnknownA ? 12 : parseInt(timeA.split(":")[0] || "12"),
+                    minute: timeUnknownA ? 0 : parseInt(timeA.split(":")[1] || "0"),
+                    latitude: locA.lat, longitude: locA.lon, timezone: locA.tz,
+                    name: nameA || undefined,
+                    city: cityA?.name,
+                  };
+                  const url = buildInviteUrl(inputA);
+                  setInviteUrl(url);
+                  try {
+                    if (navigator.share) {
+                      await navigator.share({
+                        title: "Are our stars aligned?",
+                        text: `${nameA || "Someone"} wants to know if your stars are aligned. Open the link to find out.`,
+                        url,
+                      });
+                    } else {
+                      await navigator.clipboard.writeText(url);
+                      setInviteCopied(true);
+                      setTimeout(() => setInviteCopied(false), 2400);
+                    }
+                  } catch { /* user dismissed share sheet */ }
+                }}
+                style={{
+                  padding: "0.7rem 2rem", borderRadius: "100px",
+                  background: "linear-gradient(135deg, #E8C96A, #D4AF37)",
+                  border: "none",
+                  color: "var(--c-void, #06041a)",
+                  fontFamily: "var(--font-body)", fontSize: "0.82rem",
+                  fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase",
+                  cursor: "pointer",
+                }}
+              >
+                {inviteCopied ? "Link copied" : "Generate share link"}
+              </button>
+              {inviteUrl && !inviteCopied && (
+                <div style={{
+                  marginTop: "0.8rem", fontSize: "0.72rem",
+                  color: "rgba(180,170,210,0.55)",
+                  wordBreak: "break-all", fontFamily: "var(--font-mono, monospace)",
+                }}>
+                  {inviteUrl}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Reset */}
           <div style={{ textAlign: "center" }}>

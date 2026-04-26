@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="taurus-title taurus-desc">
+  <title id="taurus-title">Taurus zodiac glyph — Arcane Minimal</title>
+  <desc id="taurus-desc">Arcane Minimal Taurus glyph. Deep void background with three intentionally placed gold stars and a single bold hand-drawn Taurus symbol centered: a circle crowned by two outward-arcing horns in diagonal gold gradient. Restraint over ornament.</desc>
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1B1B2F"/>
+      <stop offset="100%" stop-color="#0a0517"/>
+    </radialGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+  </defs>
+  <g id="background">
+    <rect x="0" y="0" width="512" height="512" fill="url(#bgGrad)"/>
+  </g>
+  <g id="stars" fill="#ffe8a3">
+    <circle cx="380" cy="130" r="1.4"/>
+    <circle cx="100" cy="280" r="1.0"/>
+    <circle cx="420" cy="440" r="0.8"/>
+  </g>
+  <g id="glyph" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="256" cy="296" r="70" stroke="url(#goldGrad)" stroke-width="14"/>
+    <path d="M 192 232 C 176 186, 150 150, 116 138" stroke="url(#goldGrad)" stroke-width="18" fill="none"/>
+    <path d="M 320 232 C 338 188, 366 152, 400 142" stroke="url(#goldGrad)" stroke-width="18" fill="none"/>
+    <path d="M 192 292 C 182 240, 156 198, 120 182 M 256 222 L 256 230 M 320 292 C 332 242, 360 202, 396 186" stroke="#fff2c6" stroke-width="2" opacity="0.55" fill="none"/>
+    <circle cx="116" cy="138" r="4" fill="#fff2c6"/>
+    <circle cx="400" cy="142" r="4" fill="#fff2c6"/>
+  </g>
+</svg>

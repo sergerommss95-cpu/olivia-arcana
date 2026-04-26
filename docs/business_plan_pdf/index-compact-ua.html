@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>Olivia Arcana — Бізнес-план · Компактний</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fcf6e8; --paper-alt:#f6eedc; --paper-soft:#f1e7cf;
+    --ink-deep:#0a0522; --ink:#1a0f3d; --ink-soft:#5a4c7a; --ink-faint:#9a92a8;
+    --gold-1:#f3dd8e; --gold-2:#d4af37; --gold-3:#a0811f; --gold-4:#6b5410;
+    --gold-bg:rgba(212,175,55,.08);
+    --hair:rgba(138,104,24,.28); --hair-soft:rgba(138,104,24,.14);
+    --link:#6b5410;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  @page{size:A4;margin:0}
+  html,body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;font-weight:400;font-size:10pt;line-height:1.6;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-feature-settings:"ss01","cv01","cv02"}
+  .page{width:210mm;height:297mm;padding:22mm 22mm;position:relative;page-break-after:always;overflow:hidden;background:var(--paper)}
+  .page:last-child{page-break-after:auto}
+  .cosmic{background:#0a0522 url('assets/brand/nebula-bg.jpg') center/cover no-repeat;color:#f4e9d0;padding:0}
+  .cosmic::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%, rgba(15,8,48,0.4) 0%, rgba(6,3,26,0.75) 70%);pointer-events:none}
+  h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;font-weight:400;color:var(--ink-deep);letter-spacing:.002em}
+  h1{font-size:44pt;line-height:1.05;font-weight:300}
+  h2{font-size:20pt;line-height:1.2;font-weight:400;margin:0 0 3mm}
+  h3{font-size:11pt;font-weight:600;color:var(--gold-3);letter-spacing:.12em;text-transform:uppercase;margin:5mm 0 2mm;font-family:'Inter',sans-serif}
+  h3.serif{font-family:'Cormorant Garamond',serif;font-size:14pt;text-transform:none;color:var(--ink-deep);letter-spacing:0;font-weight:500}
+  p{margin:0 0 3mm;max-width:170mm}
+  p.lead{font-family:'Cormorant Garamond',serif;font-size:15pt;line-height:1.4;color:var(--ink);font-weight:400;font-style:italic;margin:0 0 6mm;max-width:170mm}
+  strong{color:var(--ink-deep);font-weight:600}
+  em{font-style:italic;color:var(--ink)}
+  a{color:var(--link);text-decoration:none;border-bottom:.2mm dotted var(--gold-3)}
+  ul{margin:0 0 4mm 0;padding:0;list-style:none;max-width:170mm}
+  li{position:relative;padding-left:6mm;margin-bottom:2mm;line-height:1.55}
+  li::before{content:"";position:absolute;left:0;top:2.5mm;width:3mm;height:.4mm;background:var(--gold-3)}
+  .tiny{font-size:7.5pt;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint)}
+  .caption{font-size:7.8pt;color:var(--ink-soft);font-style:italic;line-height:1.5}
+  .gold{color:var(--gold-3)}
+  .gold-grad{background:linear-gradient(135deg,#f7e39a,#d4af37,#8a6818);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .dim{color:var(--ink-faint)}
+  .faint{color:var(--ink-soft)}
+  .page-header{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:4mm;border-bottom:.2mm solid var(--hair-soft);margin-bottom:8mm}
+  .page-header .kicker{font-size:7.5pt;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-3);font-weight:600}
+  .page-header .roman{font-family:'Cormorant Garamond',serif;font-size:13pt;font-weight:400;color:var(--ink-faint);letter-spacing:.1em}
+  .footer{position:absolute;bottom:10mm;left:22mm;right:22mm;display:flex;justify-content:space-between;align-items:baseline;font-size:7pt;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);border-top:.2mm solid var(--hair-soft);padding-top:3mm}
+  .footer .brand{color:var(--gold-3);font-weight:500;letter-spacing:.22em}
+  table{width:100%;border-collapse:collapse;font-size:8.5pt;margin:2mm 0 4mm;font-feature-settings:"tnum","ss01"}
+  th,td{text-align:left;padding:2.4mm 3mm;border-bottom:.15mm solid var(--hair-soft);vertical-align:top;line-height:1.4}
+  th{color:var(--gold-3);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:7pt;border-bottom:.3mm solid var(--gold-3);padding-bottom:2.5mm}
+  tr.olivia td{background:var(--gold-bg);color:var(--ink-deep);font-weight:500}
+  tr.olivia td strong{color:var(--ink-deep)}
+  tr:nth-child(even):not(.olivia) td{background:rgba(138,104,24,.03)}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  td.c{text-align:center}
+  td.gold{color:var(--gold-3);font-weight:500}
+  a.comp{font-weight:600}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5mm}
+  .g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4mm}
+  .stat{padding:6mm 5mm;background:var(--paper-alt);border:.15mm solid var(--hair-soft);border-top:.5mm solid var(--gold-2)}
+  .stat .label{font-size:7pt;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-3);font-weight:600;margin-bottom:1.5mm}
+  .stat .value{font-family:'Cormorant Garamond',serif;font-size:28pt;line-height:1;color:var(--ink-deep);font-weight:400;margin:1mm 0 1.5mm}
+  .stat .sub{font-size:8pt;color:var(--ink-soft);line-height:1.4}
+  .tier{padding:5mm;background:var(--paper);border:.2mm solid var(--hair-soft);display:flex;flex-direction:column}
+  .tier.featured{background:var(--paper-alt);border:.35mm solid var(--gold-2)}
+  .tier .t-name{font-family:'Cormorant Garamond',serif;font-size:12pt;color:var(--ink-deep);font-weight:500;margin-bottom:1mm}
+  .tier .t-price{font-family:'Cormorant Garamond',serif;font-size:22pt;color:var(--gold-3);line-height:1;margin:1mm 0 3mm;font-weight:400}
+  .tier .t-price small{font-family:'Inter',sans-serif;font-size:8pt;color:var(--ink-soft);font-weight:400;letter-spacing:.04em}
+  .tier .t-includes{font-size:8pt;color:var(--ink);line-height:1.5;flex:1}
+  .lang-row{display:grid;grid-template-columns:18mm 1fr 24mm 18mm;align-items:baseline;gap:3mm;padding:2.5mm 0;border-bottom:.15mm solid var(--hair-soft);font-size:8.5pt}
+  .lang-row:last-child{border:none}
+  .lang-row .flag{font-size:14pt;line-height:1}
+  .lang-row .nm{font-family:'Cormorant Garamond',serif;font-size:13pt;color:var(--ink-deep);font-weight:500}
+  .lang-row .nm small{font-family:'Inter',sans-serif;font-size:7.5pt;color:var(--ink-soft);display:block;font-style:italic;margin-top:.5mm}
+  .lang-row .arpu{color:var(--gold-3);font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+  .lang-row .p{text-align:right;font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-3);font-weight:600}
+  .pull{margin:6mm 0;padding:6mm 10mm;background:var(--paper-alt);border-top:.25mm solid var(--gold-2);border-bottom:.25mm solid var(--gold-2);text-align:center}
+  .pull .quote{font-family:'Cormorant Garamond',serif;font-size:13pt;line-height:1.4;color:var(--ink-deep);font-style:italic;font-weight:400;max-width:130mm;margin:0 auto}
+  .bars{margin:4mm 0;max-width:170mm}
+  .bar-row{display:grid;grid-template-columns:26mm 1fr 18mm;align-items:center;gap:3mm;margin-bottom:2mm;font-size:8pt}
+  .bar-row .label{color:var(--ink-deep);font-weight:500;font-size:8pt}
+  .bar-row .track{height:3mm;background:var(--paper-soft);border-radius:1.5mm;overflow:hidden}
+  .bar-row .fill{height:100%;background:linear-gradient(90deg,var(--gold-4),var(--gold-3),var(--gold-2))}
+  .bar-row .val{text-align:right;color:var(--gold-3);font-variant-numeric:tabular-nums;font-weight:600}
+  .scen{background:var(--paper-alt);border:.2mm solid var(--hair-soft);padding:5mm 4mm;display:flex;flex-direction:column}
+  .scen.realistic{border:.35mm solid var(--gold-2);position:relative}
+  .scen.realistic::before{content:"ЦІЛЬ";position:absolute;top:-2mm;right:4mm;background:var(--gold-2);color:#fff;font-size:6.5pt;letter-spacing:.22em;font-weight:700;padding:.8mm 2.5mm;border-radius:.8mm}
+  .scen .s-kicker{font-size:6.8pt;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-bottom:1mm}
+  .scen .s-name{font-family:'Cormorant Garamond',serif;font-size:15pt;color:var(--ink-deep);line-height:1.1;margin-bottom:2mm;font-weight:500}
+  .scen .s-assum{font-size:7.5pt;color:var(--ink-soft);font-style:italic;margin-bottom:3mm;line-height:1.4}
+  .scen .s-row{display:flex;justify-content:space-between;padding:1.5mm 0;border-bottom:.12mm solid var(--hair-soft);font-size:8pt}
+  .scen .s-row:last-child{border:none}
+  .scen .s-row strong{font-variant-numeric:tabular-nums;color:var(--ink-deep)}
+  .scen .s-total{margin-top:3mm;padding-top:3mm;border-top:.25mm solid var(--gold-3)}
+  .scen .s-total .label{font-size:6.5pt;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-3);font-weight:600}
+  .scen .s-total .val{font-family:'Cormorant Garamond',serif;font-size:22pt;color:var(--ink-deep);line-height:1;font-weight:500;margin-top:.5mm}
+  .cover-layout{position:absolute;inset:0;display:grid;grid-template-columns:62% 38%;align-items:center;z-index:2}
+  .cover-left{padding:30mm 8mm 30mm 22mm;overflow:hidden}
+  .cover-right{position:relative;display:flex;align-items:center;justify-content:center;height:100%}
+  .cover-eyebrow{font-size:7.5pt;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-1);font-weight:500;margin-bottom:8mm;white-space:nowrap}
+  .cover-title{font-family:'Cormorant Garamond',serif;font-size:44pt;line-height:1;font-weight:300;letter-spacing:-.005em;color:#f4e9d0;margin:0 0 7mm;max-width:100%;white-space:nowrap}
+  .cover-tag{font-family:'Cormorant Garamond',serif;font-size:12pt;font-style:italic;color:var(--gold-1);font-weight:400;margin-bottom:7mm;max-width:105mm;line-height:1.35}
+  .cover-sub{font-size:10pt;line-height:1.6;color:rgba(244,233,208,.75);max-width:90mm}
+  .cover-meta{position:absolute;bottom:18mm;left:24mm;right:24mm;display:flex;justify-content:space-between;align-items:baseline;color:rgba(244,233,208,.5);font-size:7.5pt;letter-spacing:.28em;text-transform:uppercase;z-index:3}
+  .card-svg{width:75mm;height:auto;filter:drop-shadow(0 18mm 30mm rgba(0,0,0,.5));transform:rotate(-6deg)}
+  .back-layout{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:35mm 30mm 28mm;text-align:center;z-index:2}
+  .back-tag{font-family:'Cormorant Garamond',serif;font-size:34pt;color:#f4e9d0;font-weight:300;line-height:1.1}
+  .back-sig{font-size:8pt;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,233,208,.55);line-height:1.8}
+  .pill{display:inline-block;padding:.6mm 2mm;border:.25mm solid var(--gold-3);color:var(--gold-3);font-size:6.8pt;letter-spacing:.18em;text-transform:uppercase;border-radius:8mm;margin:0 1mm;font-weight:600}
+  .pill.alt{border-color:var(--ink-soft);color:var(--ink-soft)}
+  .pill.filled{background:var(--gold-2);border-color:var(--gold-2);color:#fff}
+  .check{color:var(--gold-3);font-weight:600}
+  .x{color:var(--ink-faint);opacity:.4}
+</style>
+</head>
+<body>
+
+<section class="page cosmic">
+  <div class="cover-layout">
+    <div class="cover-left">
+      <div class="cover-eyebrow" style="color:#d4af37">Olivia Arcana · Бізнес-план · 2026–2027</div>
+      <h1 class="cover-title" style="color:#f4e9d0">Написано<br>у Ваших<br>Зірках.</h1>
+      <div class="cover-tag">Преміум омніканальна платформа астрології та таро.</div>
+      <p class="cover-sub">Ціль Року 1: <strong style="color:#f4e9d0">$100k чистого прибутку</strong>. &nbsp; Ціль Року 2: <strong style="color:#f4e9d0">$545k</strong>. &nbsp; Разом за 2 роки: <strong style="color:#f4e9d0">$645k</strong>. &nbsp; Headstart-план $50k · 3 фази · Bootstrap без фулфілменту.</p>
+    </div>
+    <div class="cover-right">
+      <svg class="card-svg" viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="c-base" cx="50%" cy="42%" r="75%">
+            <stop offset="0%" stop-color="#1f1343"/><stop offset="55%" stop-color="#0b0722"/><stop offset="100%" stop-color="#04030c"/>
+          </radialGradient>
+          <linearGradient id="c-gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f3dd8e"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#8a6818"/>
+          </linearGradient>
+          <radialGradient id="c-halo" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(255,230,150,0.22)"/><stop offset="40%" stop-color="rgba(232,201,106,0.09)"/><stop offset="100%" stop-color="rgba(232,201,106,0)"/>
+          </radialGradient>
+        </defs>
+        <rect width="360" height="540" fill="url(#c-base)" rx="8"/>
+        <rect x="22" y="22" width="316" height="496" rx="8" fill="none" stroke="url(#c-gold)" stroke-width="0.6" stroke-opacity="0.85"/>
+        <rect x="30" y="30" width="300" height="480" rx="5" fill="none" stroke="url(#c-gold)" stroke-width="0.25" stroke-opacity="0.28"/>
+        <circle cx="180" cy="270" r="120" fill="url(#c-halo)"/>
+        <circle cx="180" cy="270" r="115" fill="none" stroke="url(#c-gold)" stroke-width="0.5" stroke-opacity="0.7"/>
+        <circle cx="180" cy="270" r="98" fill="none" stroke="url(#c-gold)" stroke-width="0.3" stroke-opacity="0.32"/>
+        <g stroke="url(#c-gold)" fill="none">
+          <line x1="180" y1="155" x2="180" y2="175" stroke-width="0.9" stroke-opacity="0.95"/>
+          <line x1="295" y1="270" x2="275" y2="270" stroke-width="0.9" stroke-opacity="0.95"/>
+          <line x1="180" y1="385" x2="180" y2="365" stroke-width="0.9" stroke-opacity="0.95"/>
+          <line x1="65" y1="270" x2="85" y2="270" stroke-width="0.9" stroke-opacity="0.95"/>
+          <line x1="238" y1="172" x2="231" y2="187" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="278" y1="212" x2="263" y2="219" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="278" y1="328" x2="263" y2="321" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="238" y1="368" x2="231" y2="353" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="122" y1="368" x2="129" y2="353" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="82" y1="328" x2="97" y2="321" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="82" y1="212" x2="97" y2="219" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="122" y1="172" x2="129" y2="187" stroke-width="0.5" stroke-opacity="0.7"/>
+        </g>
+        <g fill="url(#c-gold)" opacity="0.9">
+          <circle cx="234.5" cy="179" r="1"/><circle cx="270.5" cy="215" r="1"/><circle cx="270.5" cy="325" r="1"/><circle cx="234.5" cy="361" r="1"/>
+          <circle cx="125.5" cy="361" r="1"/><circle cx="89.5" cy="325" r="1"/><circle cx="89.5" cy="215" r="1"/><circle cx="125.5" cy="179" r="1"/>
+        </g>
+        <g fill="url(#c-gold)" font-family="'Cormorant Garamond',serif" font-size="8.5" font-style="italic" letter-spacing="1.5" opacity="0.82" text-anchor="middle">
+          <text x="180" y="147">XII</text><text x="308" y="273">III</text><text x="180" y="400">VI</text><text x="52" y="273">IX</text>
+        </g>
+        <g fill="none" stroke="url(#c-gold)">
+          <circle cx="180" cy="270" r="35" stroke-width="0.55" stroke-opacity="0.85"/>
+          <circle cx="180" cy="235" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="210.31" cy="252.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="210.31" cy="287.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="180" cy="305" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="149.69" cy="287.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="149.69" cy="252.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+        </g>
+        <circle cx="180" cy="155" r="2.4" fill="url(#c-gold)"/>
+        <circle cx="180" cy="270" r="11" fill="none" stroke="url(#c-gold)" stroke-width="0.35" stroke-opacity="0.45"/>
+        <path transform="translate(180 270)" d="M 0,-9 L 2,-2 L 9,0 L 2,2 L 0,9 L -2,2 L -9,0 L -2,-2 Z" fill="url(#c-gold)" stroke="rgba(255,230,150,0.7)" stroke-width="0.3"/>
+        <circle cx="180" cy="270" r="0.9" fill="rgba(255,250,220,0.95)"/>
+        <text x="180" y="116" text-anchor="middle" fill="url(#c-gold)" font-family="'Cormorant Garamond',serif" font-size="7.5" letter-spacing="4.5" opacity="0.65" font-style="italic">— rota septemque —</text>
+        <line x1="95" y1="455" x2="162" y2="455" stroke="url(#c-gold)" stroke-width="0.4" stroke-opacity="0.55"/>
+        <g>
+          <path d="M 170,455 L 174,451 L 178,455 L 174,459 Z" fill="none" stroke="url(#c-gold)" stroke-width="0.45" stroke-opacity="0.75"/>
+          <circle cx="180" cy="455" r="1.5" fill="url(#c-gold)"/>
+          <path d="M 182,455 L 186,451 L 190,455 L 186,459 Z" fill="none" stroke="url(#c-gold)" stroke-width="0.45" stroke-opacity="0.75"/>
+        </g>
+        <line x1="198" y1="455" x2="265" y2="455" stroke="url(#c-gold)" stroke-width="0.4" stroke-opacity="0.55"/>
+        <text x="180" y="487" text-anchor="middle" fill="url(#c-gold)" font-family="'Cormorant Garamond',serif" font-size="13" letter-spacing="5" opacity="0.95" font-style="italic">Olivia Arcana</text>
+        <text x="180" y="504" text-anchor="middle" fill="url(#c-gold)" font-family="'Cormorant Garamond',serif" font-size="6.5" letter-spacing="3.5" opacity="0.55" font-style="italic">a chart drawn for one reader</text>
+      </svg>
+    </div>
+  </div>
+  <div class="cover-meta">
+    <span><a href="https://oliviaarcana.com" style="color:inherit;border:none">oliviaarcana.com</a></span>
+    <span>Квітень 2026 · Конфіденційно</span>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">01 · Що це</div><h2 style="margin-top:2mm">Проєкт на одній сторінці.</h2></div>
+    <div class="roman">I</div>
+  </div>
+  <p class="lead">Olivia Arcana — преміум омніканальна платформа астрології та таро: астрономія рівня NASA, ШІ-оракул, власна колода з 78 кінематографічних таро-карт, вісім мов — під одним брендом. Живе сьогодні на <a href="https://oliviaarcana.com">oliviaarcana.com</a> та <a href="https://t.me/OliviaArcanaBot">@OliviaArcanaBot</a>.</p>
+  <div class="g4" style="margin:6mm 0">
+    <div class="stat"><div class="label">Ринок · 2026</div><div class="value">$5,69B</div><div class="sub">Астро-застосунки, CAGR 20,2%</div></div>
+    <div class="stat"><div class="label">Ціль · Р1</div><div class="value">70k</div><div class="sub">Юзерів · headstart $50k + органіка</div></div>
+    <div class="stat"><div class="label">Ціль · Р2</div><div class="value">250k</div><div class="sub">Усі 8 мов · колода Р2 Н2 · B2B</div></div>
+    <div class="stat"><div class="label">2-річний прибуток</div><div class="value">$645k</div><div class="sub">Реалістичний сценарій · 3-фазний маркетинг · POD-колода Р2</div></div>
+  </div>
+  <div class="g2" style="gap:8mm">
+    <div>
+      <h3>Що вже живе</h3>
+      <ul>
+        <li><strong>Вебзастосунок</strong> — live, 70% готовності: натальна карта, ШІ-Оракул, академія з 207 уроків, Stripe-рейки</li>
+        <li><strong>Telegram-бот</strong> — 0% комісії через Stars + крипто</li>
+        <li><strong>Соціальний пайплайн</strong> — 5 авто-кліпів на добу (старт за 2 тижні), TikTok, IG, YouTube на GCP Cloud Run</li>
+        <li><strong>Колода v2.7</strong> — 78 карт, зафіксована естетика, готова до друку</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Чому ми виграємо</h3>
+      <ul>
+        <li><strong>Власна кінематографічна колода</strong> — жоден конкурент не має цієї естетичної стелі</li>
+        <li><strong>Мульти-рейки + 8 мов</strong> — 3 платіжні рейки, 8 ринків, 4 поверхні</li>
+        <li><strong>Доступна ціна</strong> — річна підписка на 40–80% нижче Chani, Nebula, Pattern</li>
+        <li><strong>Сольний оператор + автоматизація</strong> — щоденний контент при майже нульовій маржинальній вартості</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pull"><div class="quote">"Преміум-якість за доступною ціною — перша платформа, що поєднала власну кінематографічну колоду, ШІ, мультимовний контент і мульти-рейкову монетизацію під одним брендом."</div></div>
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>01 · Що це · 02</span></div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">02 · Цільова Аудиторія</div><h2 style="margin-top:2mm">Вісім мов · 670 млн адресних.</h2></div>
+    <div class="roman">II</div>
+  </div>
+  <p>Ядро: жінки 22-40 (~70% зсув), міленіали + старші Gen Z, mobile-first, духовно-цікаві, активні у соцмережах. 43% жінок 18-49 у США ідентифікують себе як астро-цікаві (Pew). Використання зростає на 650% під час ретроградів, затемнень, солярів.</p>
+  <h3 style="margin-top:7mm">Мовні ринки — пріоритет та ARPU</h3>
+  <div style="margin-top:2mm">
+    <div class="lang-row"><div class="flag">🇬🇧</div><div class="nm">Англійська<small>США · UK · CA · AU · ESL · ~280M</small></div><div class="arpu">$6-12 /міс</div><div class="p"><span class="pill">P0</span></div></div>
+    <div class="lang-row"><div class="flag">🇺🇦</div><div class="nm">Українська<small>UA + діаспора (PL · DE · CA · US) · ~10M</small></div><div class="arpu">$3-8 /міс</div><div class="p"><span class="pill">P0</span></div></div>
+    <div class="lang-row"><div class="flag">🇷🇺</div><div class="nm">Російська<small>СНД + діаспора (IL · ЄС · UAE) · ~60M</small></div><div class="arpu">$2-4 /міс</div><div class="p"><span class="pill">P1</span></div></div>
+    <div class="lang-row"><div class="flag">🇸🇦</div><div class="nm">Арабська<small>UAE · KSA · EG · MA · LB · ~50M — найвищий Gulf ARPU</small></div><div class="arpu">$8-15 /міс</div><div class="p"><span class="pill">P1</span></div></div>
+    <div class="lang-row"><div class="flag">🇩🇪</div><div class="nm">Німецька<small>DE · AT · CH · LI · ~15M — найвищий у ЄС</small></div><div class="arpu">$8-15 /міс</div><div class="p"><span class="pill alt">P2</span></div></div>
+    <div class="lang-row"><div class="flag">🇪🇸</div><div class="nm">Іспанська<small>ES + LatAm + Hispanic US · ~120M</small></div><div class="arpu">$2-8 /міс</div><div class="p"><span class="pill alt">P2</span></div></div>
+    <div class="lang-row"><div class="flag">🇧🇷</div><div class="nm">Португальська<small>Бразилія (95%) + PT + Лусофонська Африка · ~90M</small></div><div class="arpu">$2-7 /міс</div><div class="p"><span class="pill alt">P3</span></div></div>
+    <div class="lang-row"><div class="flag">🇫🇷</div><div class="nm">Французька<small>FR · BE · CH · QC · франкомовна Африка · ~45M</small></div><div class="arpu">$6-10 /міс</div><div class="p"><span class="pill alt">P3</span></div></div>
+  </div>
+  <h3 style="margin-top:7mm">Частка виручки — Рік 1</h3>
+  <div class="bars">
+    <div class="bar-row"><div class="label">🇬🇧 Англійська</div><div class="track"><div class="fill" style="width:90%"></div></div><div class="val">45%</div></div>
+    <div class="bar-row"><div class="label">🇸🇦 Арабська</div><div class="track"><div class="fill" style="width:24%"></div></div><div class="val">12%</div></div>
+    <div class="bar-row"><div class="label">🇩🇪 Німецька</div><div class="track"><div class="fill" style="width:20%"></div></div><div class="val">10%</div></div>
+    <div class="bar-row"><div class="label">🇪🇸 Іспанська</div><div class="track"><div class="fill" style="width:20%"></div></div><div class="val">10%</div></div>
+    <div class="bar-row"><div class="label">🇷🇺 Російська</div><div class="track"><div class="fill" style="width:16%"></div></div><div class="val">8%</div></div>
+    <div class="bar-row"><div class="label">🇧🇷 Португальська</div><div class="track"><div class="fill" style="width:12%"></div></div><div class="val">6%</div></div>
+    <div class="bar-row"><div class="label">🇺🇦 Українська</div><div class="track"><div class="fill" style="width:10%"></div></div><div class="val">5%</div></div>
+    <div class="bar-row"><div class="label">🇫🇷 Французька</div><div class="track"><div class="fill" style="width:8%"></div></div><div class="val">4%</div></div>
+  </div>
+  <p class="caption" style="margin-top:4mm">Не-англомовні ринки = 55% виручки Року 1 — структурно недосяжні для Co-Star, Chani, Nebula, які лише англомовні.</p>
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>02 · Цільова Аудиторія · 03</span></div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">03 · Ціни та Оффери</div><h2 style="margin-top:2mm">4 рівні підписки + 5 add-on. Один продукт.</h2></div>
+    <div class="roman">III</div>
+  </div>
+
+  <h3 class="serif">Чотири рівні підписки</h3>
+  <div class="g4" style="margin-top:3mm;gap:3mm">
+    <div class="tier" style="min-height:56mm">
+      <div class="t-name">Free</div>
+      <div class="t-price">$0</div>
+      <div class="t-includes">Щоденний зодіак · карта дня · базовий 3-card розклад · 5 ШІ-повідомлень/день.</div>
+    </div>
+    <div class="tier" style="min-height:56mm">
+      <div class="t-name">Insight <span class="pill" style="background:var(--gold-2);border-color:var(--gold-2);color:#fff">7-day trial</span></div>
+      <div class="t-price">$4,99<small> /міс</small><br><small style="font-size:9pt">$39 / рік</small></div>
+      <div class="t-includes">Все Free + безлім ШІ-чат · повна натальна · тижневе таро · транзити · сумісність · 1 спец-читання/міс.</div>
+    </div>
+    <div class="tier featured" style="min-height:56mm">
+      <div class="t-name">Premium ★</div>
+      <div class="t-price">$14,99<small> /міс</small><br><small style="font-size:9pt">$119 / рік</small></div>
+      <div class="t-includes">Все Insight + безлім спец-читання · Celtic Cross · Year Ahead безкошт. · 1 AI Avatar/міс · 207 уроків Academy.</div>
+    </div>
+    <div class="tier featured" style="min-height:56mm">
+      <div class="t-name">VIP</div>
+      <div class="t-price">$34,99<small> /міс</small><br><small style="font-size:9pt">$299 / рік</small></div>
+      <div class="t-includes">Все Premium + безлім AI Avatar · 8 Live Expert/рік · 1 фіз. колода/рік · Cinematic Print · Listening Glass · concierge.</div>
+    </div>
+  </div>
+
+  <h3 class="serif" style="margin-top:6mm">Add-ons (5 SKU поза підпискою)</h3>
+  <table>
+    <tr><th>Add-on</th><th>Ціна</th><th>Кому · як</th></tr>
+    <tr class="olivia"><td><strong>Фізична колода Standard</strong></td><td class="gold">$49</td><td>Усім · безкошт. доставка світом · VIP отримує 1/рік безкошт.</td></tr>
+    <tr><td>Колекційна колода</td><td class="gold">$89</td><td>Пронумерована · люкс-бокс · <strong>VIP — $49</strong> (50% off)</td></tr>
+    <tr><td>Live Expert Reading (24 год)</td><td class="gold">$65</td><td>VIP — 8/рік включено · решта купують поштучно</td></tr>
+    <tr><td>Cinematic Natal Chart Print</td><td class="gold">$49</td><td>VIP — 1/рік фіз. поштою · решта купують</td></tr>
+    <tr><td>Year Ahead Report (Гру-Лют)</td><td class="gold">$39</td><td>Free / Insight купують · <strong>Premium / VIP — безкошт.</strong></td></tr>
+    <tr><td>Gift Cards</td><td class="gold">$25 / $50 / $100</td><td>Подарунковий use case · Stripe-нативно</td></tr>
+  </table>
+
+  <p class="caption" style="margin-top:3mm">Зважений ARPU платного: <strong>$11,20/міс</strong> (+37% vs стара структура $8,20). Free→Paid конверсія: <strong>5% → 7%</strong> завдяки 7-day trial. Існуючі підписники — grandfathered у відповідний tier. Gap Premium→VIP: <strong>2,3×</strong> (психологічно комфортний, було 3,5×). Замість 17+ SKU — <strong>10 SKU</strong> (4 підписки + 6 add-ons), 36 Stripe price IDs з PPP-локалізацією (було 60+).</p>
+
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>03 · Ціни та Оффери · 04</span></div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">04 · Конкуренти · Ціни</div><h2 style="margin-top:2mm">Де ми на ринку.</h2></div>
+    <div class="roman">IV</div>
+  </div>
+  <p class="lead">Наш Insight $39/рік ($3,25 ефективно) — найдешевший вхід у повнофункціональний преміум. Premium $119/рік нижче CHANI, The Pattern, Nebula при вдвічі більшому функціоналі. VIP $299/рік — luxury-tier із фізичним продуктом.</p>
+  <table>
+    <tr><th>Платформа</th><th class="num">Місяць</th><th class="num">Рік</th><th>Free-тариф</th><th>Основна рейка</th></tr>
+    <tr class="olivia"><td><strong>Olivia Arcana</strong> · <a href="https://oliviaarcana.com" class="comp">oliviaarcana.com</a></td><td class="num gold"><strong>$4,99–34,99</strong></td><td class="num gold"><strong>$39–299</strong> <span class="dim">(Insight еф. $3,25)</span></td><td>Щедрий</td><td>Stripe + Stars + крипто</td></tr>
+    <tr><td><a href="https://www.costarastrology.com" class="comp">Co-Star</a></td><td class="num">$9,00</td><td class="num">—</td><td>Є</td><td>Apple IAP</td></tr>
+    <tr><td><a href="https://www.chani.com" class="comp">Chani Nicholas</a></td><td class="num">$11,99</td><td class="num">$40 <span class="dim">(еф. $3,33)</span></td><td>Обмежений</td><td>Apple IAP · 30-д триал</td></tr>
+    <tr><td><a href="https://www.sanctuaryworld.co" class="comp">Sanctuary</a></td><td class="num">по хвилинах</td><td class="num">—</td><td>Обмежений</td><td>IAP + $4,99 / 5-хв інтро</td></tr>
+    <tr><td><a href="https://asknebula.com" class="comp">Nebula</a></td><td class="num">$24,99</td><td class="num">3-міс $29,99</td><td>Є</td><td>IAP + $3,99/хв медіуми</td></tr>
+    <tr><td><a href="https://www.thepattern.com" class="comp">The Pattern</a></td><td class="num">$19,99</td><td class="num">—</td><td>Є</td><td>IAP</td></tr>
+    <tr><td><a href="https://labyrinthos.co" class="comp">Labyrinthos</a></td><td class="num">$4,99</td><td class="num">—</td><td>Є</td><td>IAP</td></tr>
+    <tr><td><a href="https://www.biddytarot.com" class="comp">Biddy Tarot</a></td><td class="num">$19,00</td><td class="num">$197</td><td>Лише блог</td><td>Web / курси</td></tr>
+    <tr><td><a href="https://www.kasamba.com" class="comp">Kasamba</a></td><td class="num">сер. $4,99/хв</td><td class="num">—</td><td>—</td><td>Маркетплейс медіумів</td></tr>
+    <tr><td><a href="https://www.keen.com" class="comp">Keen</a></td><td class="num">$3,99-6,99/хв</td><td class="num">—</td><td>—</td><td>Маркетплейс медіумів</td></tr>
+  </table>
+  <p class="caption" style="margin-top:4mm">Посилання клікабельні у цифровому PDF. Усі ціни конкурентів перевірені проти App Store та публічних цінових сторінок — квітень 2026.</p>
+  <h3 class="serif" style="margin-top:6mm">Рів на трьох осях</h3>
+  <div class="g3" style="margin-top:3mm">
+    <div class="stat"><div class="label">Вісь 1</div><div class="value" style="font-size:18pt;line-height:1.1">Власна<br>естетика</div><div class="sub">Колода v2.7 + WebGL — 6-12 міс. на репліку.</div></div>
+    <div class="stat"><div class="label">Вісь 2</div><div class="value" style="font-size:18pt;line-height:1.1">Мульти-рейки<br>мульти-мови</div><div class="sub">8 мов, 3 рейки, 4 поверхні.</div></div>
+    <div class="stat"><div class="label">Вісь 3</div><div class="value" style="font-size:18pt;line-height:1.1">Доступна<br>ціна</div><div class="sub">40-80% нижче преміум-конкурентів.</div></div>
+  </div>
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>04 · Конкуренти · Ціни · 05</span></div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">04 · Конкуренти · Функції</div><h2 style="margin-top:2mm">Де ми виграємо на ширині.</h2></div>
+    <div class="roman">IV</div>
+  </div>
+  <table>
+    <tr>
+      <th>Функція</th>
+      <th class="c">Olivia</th>
+      <th class="c"><a href="https://www.costarastrology.com" style="color:var(--gold-3);border:none">Co-Star</a></th>
+      <th class="c"><a href="https://www.chani.com" style="color:var(--gold-3);border:none">Chani</a></th>
+      <th class="c"><a href="https://www.sanctuaryworld.co" style="color:var(--gold-3);border:none">Sanctuary</a></th>
+      <th class="c"><a href="https://asknebula.com" style="color:var(--gold-3);border:none">Nebula</a></th>
+      <th class="c"><a href="https://www.thepattern.com" style="color:var(--gold-3);border:none">Pattern</a></th>
+    </tr>
+    <tr><td>NASA JPL ефемериди</td><td class="c check">✓</td><td class="c check">✓</td><td class="c check">✓</td><td class="c check">✓</td><td class="c check">✓</td><td class="c check">✓</td></tr>
+    <tr><td>ШІ-чат (LLM)</td><td class="c check">✓ Claude</td><td class="c check">✓ Void</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>Власна колода 78 карт</td><td class="c check">✓</td><td class="c x">—</td><td class="c x">—</td><td class="c">базово</td><td class="c check">✓</td><td class="c x">—</td></tr>
+    <tr><td>Кельтський хрест</td><td class="c check">✓</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>ШІ-відео читання</td><td class="c check">$35</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>Live-експерт (24 год)</td><td class="c check">$65</td><td class="c x">—</td><td class="c x">—</td><td class="c">поштучно</td><td class="c">поштучно</td><td class="c x">—</td></tr>
+    <tr><td>Освітня академія</td><td class="c check">207 уроків</td><td class="c x">—</td><td class="c">майстерні</td><td class="c">бібліотека</td><td class="c">обмежена</td><td class="c x">—</td></tr>
+    <tr><td>Мультимовність</td><td class="c check">8</td><td class="c">EN</td><td class="c">EN</td><td class="c">EN</td><td class="c">EN</td><td class="c">EN</td></tr>
+    <tr><td>Telegram-бот</td><td class="c check">✓</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>Крипто-оплата</td><td class="c check">✓</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>Фізична колода + безкошт. достав.</td><td class="c check">$49 / $89</td><td class="c x">—</td><td class="c">магазин</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>WebGL кінематографічний застосунок</td><td class="c check">✓</td><td class="c">мінімум</td><td class="c">стандарт</td><td class="c">стандарт</td><td class="c">стандарт</td><td class="c">стандарт</td></tr>
+    <tr><td>Голосовий оракул</td><td class="c check">заплан.</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+    <tr><td>Постер натальної карти</td><td class="c check">заплан.</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+  </table>
+  <div class="pull"><div class="quote">"Кожен конкурент сильний в одному вимірі та слабкий у чотирьох. Наша комбінація — а не окрема функція — це рів."</div></div>
+  <p class="caption">Джерела: <a href="https://apps.apple.com/us/app/co-star-personalized-astrology/id1264782561">Co-Star App Store</a> · <a href="https://chaninicholas.zendesk.com/hc/en-us/articles/1500001732281-App-Pricing">Ціни Chani</a> · <a href="https://www.sanctuaryworld.co/faq/">Sanctuary FAQ</a> · <a href="https://apps.apple.com/us/app/nebula-horoscope-astrology/id1459969523">Nebula App Store</a>. Перевірено у квітні 2026.</p>
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>04 · Конкуренти · Функції · 06</span></div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">05 · Воронка Зростання</div><h2 style="margin-top:2mm">Від нуля до 1k. Механіка.</h2></div>
+    <div class="roman">V</div>
+  </div>
+
+  <p style="margin-bottom:4mm">Два двигуни паралельно: <strong>органіка</strong> — 5 відео/день GCP Cloud Run (старт за 2 тижні) + <strong>платний headstart</strong> — $50k / 5 місяців / 3 фази (Test $8k → Scale $30k → Sustain $10k). Phase 2 масштабує переможні канали 10×. З М6 — самофінансування з виручки. Нижче — точна механіка від нуля до першої тисячі платних.</p>
+
+  <div class="g3" style="margin:0 0 4mm">
+    <div class="stat"><div class="label">Контент · Olivia</div><div class="value" style="font-size:22pt">1 825</div><div class="sub">відео/рік · 5/день · 4 формати × 12 знаків · 8 мов</div></div>
+    <div class="stat"><div class="label">Контент · конкурент</div><div class="value" style="font-size:22pt">365</div><div class="sub">відео/рік · ручне виробництво · 1 мова · 1 формат</div></div>
+    <div class="stat"><div class="label">Структурна перевага</div><div class="value" style="font-size:22pt">5×</div><div class="sub">більше точок контакту · швидший A/B · перші у будь-якому тренді</div></div>
+  </div>
+
+  <div class="g2" style="gap:7mm">
+    <div>
+      <h3>Конверсійна воронка TikTok → платна підписка</h3>
+      <table>
+        <tr><th>Етап</th><th class="num">Конверсія</th><th class="num">При 100k views</th></tr>
+        <tr><td>TikTok перегляди</td><td class="num dim">—</td><td class="num">100 000</td></tr>
+        <tr><td>→ Відвідування профілю</td><td class="num gold">2–3%</td><td class="num">2 500</td></tr>
+        <tr><td>→ Клік bio-посилання</td><td class="num gold">15%</td><td class="num">375</td></tr>
+        <tr><td>→ Старт 7-day trial</td><td class="num gold">8%</td><td class="num">30</td></tr>
+        <tr><td>→ Конверсія в платне</td><td class="num gold">30%</td><td class="num">9</td></tr>
+        <tr class="olivia"><td><strong>Ціна 1 000 платних</strong></td><td></td><td class="num gold"><strong>~11M переглядів</strong></td></tr>
+      </table>
+      <p class="caption" style="margin-top:2mm">Органіка: 5 відео/день × avg 10k views = 50k/день → 11M переглядів ≈ М9–10 без paid. З headstart $50k paid plan — <strong>1k платних до М4–5</strong> (Phase 2 Scale). Один вірусний пост (ретроград / затемнення) дає 100k–2M — прискорює ще на 1–2 міс.</p>
+
+      <h3 style="margin-top:4mm">Три вбудовані вірусні петлі</h3>
+      <table>
+        <tr><th>Петля</th><th>Тригер</th><th>Ефект</th></tr>
+        <tr><td><strong>Натальна карта</strong></td><td>«Поділитись карткою»</td><td>Картка з лого у Stories → trial без CAC</td></tr>
+        <tr><td><strong>Таро-читання</strong></td><td>«Надіслати подрузі»</td><td>Curiosity → клік → trial. Астро репости 3–5× вище lifestyle</td></tr>
+        <tr><td><strong>Астро-момент</strong></td><td>Ретроград / затемнення</td><td>+650% пошуків. Шаблон деплоїться за 1 год — конкурент за дні</td></tr>
+      </table>
+    </div>
+
+    <div>
+      <h3>Шлях до 1 000 платних — помісячно</h3>
+      <table>
+        <tr><th>Місяць</th><th>Що відбувається</th><th class="num">Платних</th><th class="num">TikTok</th></tr>
+        <tr><td><strong>М1</strong></td><td>Phase 1 старт. TikTok + Meta + Telegram Ads ($8k). Органіка + перші кампанії паралельно.</td><td class="num dim">20–80</td><td class="num dim">0–500</td></tr>
+        <tr><td><strong>М2</strong></td><td>Phase 1 фінал. Переможні креативи знайдені. ~$1.5k MRR target. 25k free signups (paid).</td><td class="num">150–250</td><td class="num">2–5k</td></tr>
+        <tr><td><strong>М3</strong></td><td>Phase 2 старт. Scale winners 10×. TikTok $12k/2міс. Meta retargeting. ~$4–5k MRR.</td><td class="num">350–550</td><td class="num">10–20k</td></tr>
+        <tr><td><strong>М4</strong></td><td>Phase 2 пік. ~$8k MRR (target). LAL conversions. Snap AR-test. 45k+ free signups.</td><td class="num">650–900</td><td class="num">30–50k</td></tr>
+        <tr class="olivia"><td><strong>М5</strong></td><td><strong>Phase 3 Sustain. ~$12k MRR. Email + affiliate infra. Самофінансування з М6.</strong></td><td class="num gold"><strong>1 000–1 200</strong></td><td class="num gold"><strong>50–80k</strong></td></tr>
+        <tr><td><strong>М6</strong></td><td>Self-funded. Органіка + email automation compound. PPP-ціна UA/RU activated.</td><td class="num">1,100–1,400</td><td class="num">70–100k</td></tr>
+        <tr><td><strong>М7–8</strong></td><td>Arabic + Spanish + Telegram Ads. Birthday / win-back automation → LTV up.</td><td class="num">1,400–1,600</td><td class="num">100–150k</td></tr>
+        <tr><td><strong>М9–12</strong></td><td>Year Ahead Q4 · Gift Cards сезон · Р2 planning · колода print decision.</td><td class="num gold">1,600–1,800</td><td class="num gold">150k+</td></tr>
+      </table>
+      <p class="caption" style="margin-top:2mm">Paid headstart стискає 1k до М5. Ризик: Phase 1 CAC &gt; $50 на всіх каналах → перерозподіл у Telegram/TikTok BR, зсуває 1k до М7–8. Органіка підстрахує — план не рухається.</p>
+    </div>
+  </div>
+
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>05 · Воронка Зростання · 07</span></div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">06 · Виручка та Прибуток</div><h2 style="margin-top:2mm">Рік 1 — усі потоки.</h2></div>
+    <div class="roman">V</div>
+  </div>
+  <h3 class="serif">Виручка за потоком — Рік 1 (структура v2.0, реалістичний сценарій)</h3>
+  <table>
+    <tr><th>Потік виручки</th><th class="num">H1</th><th class="num">H2</th><th class="num">Разом Р1</th></tr>
+    <tr><td>Підписки (Insight + Premium + VIP, ARPU $11,20/міс)</td><td class="num">$40 000</td><td class="num">$110 000</td><td class="num gold">$150 000</td></tr>
+    <tr><td>Live Expert add-on (поза VIP-квотою)</td><td class="num">$0</td><td class="num">$12 000</td><td class="num gold">$12 000</td></tr>
+    <tr><td>AI Avatar / Cinematic Print add-on</td><td class="num">$2 000</td><td class="num">$8 000</td><td class="num gold">$10 000</td></tr>
+    <tr><td>Year Ahead Report (Free/Insight; Premium+ безкошт.)</td><td class="num">$0</td><td class="num">$15 000</td><td class="num gold">$15 000</td></tr>
+    <tr><td>Birthday / flash / win-back автоматизації</td><td class="num">$2 000</td><td class="num">$16 000</td><td class="num gold">$18 000</td></tr>
+    <tr><td>Корпоративні подарунки (К4) <small style="color:var(--ink-faint)">перші контакти — дуже консерв.</small></td><td class="num">$0</td><td class="num">$8 000</td><td class="num gold">$8 000</td></tr>
+    <tr><td>Регіональна PPP-ціна uplift</td><td class="num">$0</td><td class="num">$10 000</td><td class="num gold">$10 000</td></tr>
+    <tr><td>Gift Cards (подарунковий потік)</td><td class="num">$0</td><td class="num">$7 000</td><td class="num gold">$7 000</td></tr>
+    <tr class="olivia"><td><strong>Разом виручка</strong></td><td class="num gold"><strong>$44 000</strong></td><td class="num gold"><strong>$186 000</strong></td><td class="num gold"><strong>$230 000</strong></td></tr>
+  </table>
+  <h3 class="serif" style="margin-top:5mm">OPEX Року 1</h3>
+  <table>
+    <tr><th>Стаття</th><th class="num">Рік 1</th><th>%</th></tr>
+    <tr><td>Маркетинг <small style="color:var(--ink-faint)">(Phase 1 $8k · Phase 2 $30k · Phase 3 $10k · reserve $2k)</small></td><td class="num">$50 000</td><td>38%</td></tr>
+    <tr><td>AI/LLM API <small style="color:var(--ink-faint)">(Gemini Flash → Haiku → Sonnet, рівнева маршрутизація за tier)</small></td><td class="num">$20 000</td><td>15%</td></tr>
+    <tr><td>Інфраструктура (GCP, CDN, Cloudflare Workers)</td><td class="num">$10 000</td><td>8%</td></tr>
+    <tr><td>Голос + відео (ElevenLabs TTS, HeyGen аватар — лише add-on)</td><td class="num">$5 000</td><td>4%</td></tr>
+    <tr><td>VIP-perks (Live Expert виплати — без фізичної доставки)</td><td class="num">$14 000</td><td>11%</td></tr>
+    <tr><td>Частково-зайнята команда (з H2)</td><td class="num">$20 000</td><td>15%</td></tr>
+    <tr><td>Підтримка клієнтів <small style="color:var(--ink-faint)">(AI-перший: Claude API + Intercom bot)</small></td><td class="num">$3 000</td><td>2%</td></tr>
+    <tr><td>VAT / Stripe Tax (ЄС/UK)</td><td class="num">$8 000</td><td>6%</td></tr>
+    <tr class="olivia"><td><strong>Разом OPEX</strong></td><td class="num gold"><strong>$130 000</strong></td><td></td></tr>
+    <tr class="olivia"><td><strong>Чистий прибуток Року 1</strong></td><td class="num gold"><strong>$100 000</strong></td><td><strong>43% маржа</strong></td></tr>
+  </table>
+  <p class="caption">Маркетинг у 3 фазах (Test→Scale→Sustain) — $50k stacked front-loaded M1-M5. Підписки 65% виручки. Підтримка AI-перша (Claude API + Intercom bot). Беззбитковість з М5–М6 (Phase 3 Sustain). Self-funded з М6+. Зовнішній капітал не потрібен.</p>
+  <table style="margin-top:4mm">
+    <tr><th>API-маршрутизація по рівнях</th><th class="num">COGS/юзер/міс</th><th class="num">Маржа підписки</th></tr>
+    <tr><td>Free → Gemini Flash (кеш daily horoscopes, 10 читань/міс ліміт)</td><td class="num">$0,07</td><td class="num">—</td></tr>
+    <tr><td>Insight $4,99 → Gemini Flash paid</td><td class="num">$0,28</td><td class="num gold">94%</td></tr>
+    <tr><td>Premium $14,99 → Claude Haiku (prompt caching −90%)</td><td class="num">$0,42</td><td class="num gold">97%</td></tr>
+    <tr><td>VIP $34,99 → Claude Sonnet + ElevenLabs voice</td><td class="num">$2,50</td><td class="num gold">93%</td></tr>
+    <tr class="olivia"><td><strong>Зважена маржа підписки (blended)</strong></td><td class="num"></td><td class="num gold"><strong>~94%</strong></td></tr>
+  </table>
+  <p class="caption" style="margin-top:2mm">Daily horoscopes кешуються на CDN — 12 API-дзвінків/день на 12 знаків замість per-user. З М7 — fine-tune Llama 3 8B на астро-контенті (≈$150 one-time) → COGS free/Insight рівнів падає ще на 40%.</p>
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>06 · Рік 1 · 08</span></div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">06 · Виручка та Прибуток</div><h2 style="margin-top:2mm">Рік 2 — стратегічні ставки складаються.</h2></div>
+    <div class="roman">VI</div>
+  </div>
+  <h3 class="serif">Виручка за потоком — Рік 2 (структура v2.0, реалістичний сценарій)</h3>
+  <table>
+    <tr><th>Потік виручки</th><th class="num">Рік 2</th><th class="num">vs Р1</th></tr>
+    <tr><td>Підписки (Insight + Premium + VIP, ARPU $11,20/міс)</td><td class="num">$630 000</td><td class="gold">4,2×</td></tr>
+    <tr><td>Колода Standard + Колекційна <small style="color:var(--ink-faint)">(H2 Р2 · POD без власного фулфілменту)</small></td><td class="num">$80 000</td><td class="gold">НОВЕ Н2</td></tr>
+    <tr><td>Live Expert + AI Avatar add-on (поза VIP-квотою)</td><td class="num">$40 000</td><td class="gold">3,3×</td></tr>
+    <tr><td>Year Ahead звіти (Free / Insight)</td><td class="num">$45 000</td><td class="gold">3,0×</td></tr>
+    <tr><td>Birthday / flash / win-back автоматизації</td><td class="num">$75 000</td><td class="gold">4,2×</td></tr>
+    <tr><td>Корп. подарунки + B2B white-label <small style="color:var(--ink-faint)">(enterprise-цикл М13+; угоди 12-18 міс.)</small></td><td class="num">$100 000</td><td class="gold">12,5×</td></tr>
+    <tr><td>Регіональна PPP-ціна (всі рівні)</td><td class="num">$30 000</td><td class="gold">3,0×</td></tr>
+    <tr><td>Gift Cards (gifting flywheel)</td><td class="num">$15 000</td><td class="gold">2,1×</td></tr>
+    <tr class="olivia"><td><strong>Дейтинг-інтеграція</strong> (Hinge / Bumble / Feeld)</td><td class="num gold">$70 000</td><td class="gold">НОВЕ</td></tr>
+    <tr class="olivia"><td><strong>Живі події + медіа + ambassador</strong></td><td class="num gold">$60 000</td><td class="gold">НОВЕ</td></tr>
+    <tr class="olivia"><td><strong>Разом виручка Р2</strong></td><td class="num gold"><strong>$1 145 000</strong></td><td class="gold"><strong>5,0×</strong></td></tr>
+    <tr><td>AI/LLM + інфра + голос Р2 <small style="color:var(--ink-faint)">(fine-tuned Llama 3 + Sonnet + GCP scale)</small></td><td class="num">$90 000</td><td></td></tr>
+    <tr><td>Разом OPEX Р2 ($180k маркетинг + 3-4 FTE + VIP perks + AI platform + POD deck)</td><td class="num">$600 000</td><td></td></tr>
+    <tr class="olivia"><td><strong>Чистий прибуток Р2</strong></td><td class="num gold"><strong>$545 000</strong></td><td><strong>48% маржа</strong></td></tr>
+  </table>
+  <h3 class="serif" style="margin-top:5mm">Три сценарії — чистий прибуток за 2 роки (структура v2.0)</h3>
+  <div class="g3" style="margin-top:3mm">
+    <div class="scen">
+      <div class="s-kicker">Сценарій A</div>
+      <div class="s-name">Консервативний</div>
+      <div class="s-assum">Phase 1 CAC &gt;$50 · перерозподіл бюджету · 1k платних до М8</div>
+      <div class="s-row"><span>Р1 прибуток</span><strong>$35k</strong></div>
+      <div class="s-row"><span>Р2 прибуток</span><strong>$220k</strong></div>
+      <div class="s-total"><div class="label">Разом за 2 роки</div><div class="val">$255k</div></div>
+    </div>
+    <div class="scen realistic">
+      <div class="s-kicker">Сценарій B</div>
+      <div class="s-name">Реалістичний</div>
+      <div class="s-assum">3-фазний headstart · 1k платних М5 · колода H2 Р2 · B2B Р2</div>
+      <div class="s-row"><span>Р1 прибуток</span><strong>$100k</strong></div>
+      <div class="s-row"><span>Р2 прибуток</span><strong>$545k</strong></div>
+      <div class="s-total"><div class="label">Разом за 2 роки</div><div class="val gold">$645k</div></div>
+    </div>
+    <div class="scen">
+      <div class="s-kicker">Сценарій C</div>
+      <div class="s-name">Стрейч</div>
+      <div class="s-assum">Вірусна петля · Gulf-партнер · Hinge · колода хіт · trial 9%</div>
+      <div class="s-row"><span>Р1 прибуток</span><strong>$220k</strong></div>
+      <div class="s-row"><span>Р2 прибуток</span><strong>$1,1M</strong></div>
+      <div class="s-total"><div class="label">Разом за 2 роки</div><div class="val">$1,32M</div></div>
+    </div>
+  </div>
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>06 · Рік 2 та Сценарії · 09</span></div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">07 · 2-Річне Резюме</div><h2 style="margin-top:2mm">Два роки, одна дуга.</h2></div>
+    <div class="roman">VII</div>
+  </div>
+  <h3 class="serif">Зведена 2-річна фінансова картина (структура v2.0)</h3>
+  <table>
+    <tr><th></th><th class="num">Рік 1</th><th class="num">Рік 2</th><th class="num">Разом 2 роки</th></tr>
+    <tr><td>Юзерів (на кінець року)</td><td class="num">70 000</td><td class="num">250 000</td><td class="num">—</td></tr>
+    <tr><td>Платні підписники (кінець року)</td><td class="num">1 800</td><td class="num">8 000</td><td class="num">—</td></tr>
+    <tr><td>Зважений ARPU платного / міс</td><td class="num">$11,20</td><td class="num">$10,40</td><td class="num">—</td></tr>
+    <tr><td>Виручка</td><td class="num">$230 000</td><td class="num">$1 145 000</td><td class="num gold">$1 375 000</td></tr>
+    <tr><td>Частка підписок у виручці</td><td class="num">65%</td><td class="num">55%</td><td class="num">—</td></tr>
+    <tr><td>Маркетинг-бюджет</td><td class="num">$50 000</td><td class="num">$180 000</td><td class="num">$230 000</td></tr>
+    <tr><td>Разом OPEX</td><td class="num">$130 000</td><td class="num">$600 000</td><td class="num">$730 000</td></tr>
+    <tr class="olivia"><td><strong>Чистий прибуток</strong></td><td class="num gold"><strong>$100 000</strong></td><td class="num gold"><strong>$545 000</strong></td><td class="num gold"><strong>$645 000</strong></td></tr>
+    <tr><td>Чиста маржа</td><td class="num">43%</td><td class="num">48%</td><td class="num gold">47%</td></tr>
+  </table>
+  <h3 class="serif" style="margin-top:5mm">Маркетинг-бюджет — за аудиторією</h3>
+  <table>
+    <tr><th>Мова</th><th class="num">Цільовий CAC</th><th class="num">Разом Р1</th><th class="num">Разом Р2</th></tr>
+    <tr class="olivia"><td>🇬🇧 Англійська</td><td class="num">$20-35</td><td class="num gold">$18 000</td><td class="num gold">$55 000</td></tr>
+    <tr><td>🇸🇦 Арабська (Gulf + NA)</td><td class="num">$10-20</td><td class="num gold">$8 000</td><td class="num gold">$30 000</td></tr>
+    <tr><td>🇪🇸 Іспанська (ES + LatAm)</td><td class="num">$8-15</td><td class="num gold">$5 000</td><td class="num gold">$25 000</td></tr>
+    <tr><td>🇷🇺 Російська</td><td class="num">$4-8</td><td class="num gold">$5 000</td><td class="num gold">$18 000</td></tr>
+    <tr><td>🇺🇦 Українська</td><td class="num">$5-10</td><td class="num gold">$3 000</td><td class="num gold">$12 000</td></tr>
+    <tr><td>🇩🇪 Німецька</td><td class="num">$20-35</td><td class="num gold">$3 000</td><td class="num gold">$14 000</td></tr>
+    <tr><td>🇧🇷 Португальська (Бразилія)</td><td class="num">$3-6</td><td class="num gold">$2 000</td><td class="num gold">$12 000</td></tr>
+    <tr><td>🇫🇷 Французька</td><td class="num">$12-20</td><td class="num gold">$2 000</td><td class="num gold">$6 000</td></tr>
+    <tr class="olivia"><td><strong>Платне залучення</strong></td><td></td><td class="num gold"><strong>$46 000</strong></td><td class="num gold"><strong>$172 000</strong></td></tr>
+    <tr><td>+ Tools, analytics, мінімум контенту</td><td></td><td class="num">$4 000</td><td class="num">$8 000</td></tr>
+    <tr class="olivia"><td><strong>Разом маркетинг-бюджет</strong></td><td></td><td class="num gold"><strong>$50 000</strong></td><td class="num gold"><strong>$180 000</strong></td></tr>
+  </table>
+  <p class="caption">Канальний мікс: TikTok 40% · Meta 30% · Telegram Ads 15% · Snapchat (Gulf) 8% · Google/YouTube 5% · Reddit 2%. Маркетинг = ~22% виручки Р1, ~16% Р2 — суттєво нижче галузевого середнього 35-45%.</p>
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>07 · 2-Річне Резюме · 10</span></div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">08 · Стратегічні Ставки Року 2</div><h2 style="margin-top:2mm">Сім ставок, що 5× бізнес.</h2></div>
+    <div class="roman">VIII</div>
+  </div>
+  <table>
+    <tr><th>Ставка</th><th>Механізм</th><th class="num">Виручка Р2</th></tr>
+    <tr class="olivia"><td><strong>1 · B2B white-label</strong></td><td>Ліцензія Olivia як embed для <a href="https://www.calm.com">Calm</a> / <a href="https://www.headspace.com">Headspace</a> / Insight Timer. $0,50-1,50 на юзера/міс.</td><td class="num gold">$100-200k</td></tr>
+    <tr><td><strong>2 · Дейтинг-апп інтеграція</strong></td><td>Партнерство з <a href="https://hinge.co">Hinge</a>, <a href="https://bumble.com">Bumble</a>, <a href="https://feeld.co">Feeld</a>. Астро-преміум add-on, revenue share.</td><td class="num gold">$100-300k</td></tr>
+    <tr><td><strong>3 · Gulf-оператор партнерство</strong></td><td>Локальний оператор в ОАЕ або KSA · 70/30 розподіл. Відкриває Gulf без регуляторного тягаря.</td><td class="num gold">$80-250k</td></tr>
+    <tr><td><strong>4 · Сертифікація астрологів + matchmaking</strong></td><td>$199-499 програма вирішує пропозицію live-експертів. Matchmaking $499-999 для топ-1%.</td><td class="num gold">$100-300k</td></tr>
+    <tr><td><strong>5 · Амбасадор + креатор-афілейт</strong></td><td>20% комісії астро-креаторам у TikTok / IG. Складається при нульовому CAC.</td><td class="num gold">$50-150k</td></tr>
+    <tr><td><strong>6 · Живі події та retreats</strong></td><td>2-3 retreats/рік · $1,5-4k з учасника. Віртуальні новомісячні церемонії $29-49.</td><td class="num gold">$60-180k</td></tr>
+    <tr><td><strong>7 · Медіа + API ефемерид</strong></td><td>Квартальний друкований журнал · тижневий подкаст · річна Year-Ahead книга · API ефемерид.</td><td class="num gold">$60-200k</td></tr>
+  </table>
+  <h3 class="serif" style="margin-top:5mm">24-місячний Roadmap</h3>
+  <table>
+    <tr><th>Квартал</th><th>Ключові віхи</th><th class="num">Капітал</th></tr>
+    <tr><td><strong>К1 · М1-3</strong></td><td>Stripe live · запуск EN + UK · повний пайплайн · 30k юзерів</td><td class="num gold">$2 000</td></tr>
+    <tr><td><strong>К2 · М4-6</strong></td><td>PPP-ціна · запуск RU + AR · iOS/Android PWA · 60k юзерів</td><td class="num gold">$10 000</td></tr>
+    <tr><td><strong>К3 · М7-9</strong></td><td>Друк колоди · запуск продуктової лінії · мережа live-експертів · 90k юзерів</td><td class="num gold">$20 000</td></tr>
+    <tr><td><strong>К4 · М10-12</strong></td><td>Корп. подарунки · Year Ahead звіти · запуск DE + ES · 120k юзерів</td><td class="num gold">$10 000</td></tr>
+    <tr><td><strong>К5 · М13-15</strong></td><td>B2B white-label пілот · запуск PT + FR · перший retreat · 200k юзерів</td><td class="num gold">$50 000</td></tr>
+    <tr><td><strong>К6 · М16-18</strong></td><td>Gulf-оператор · сертифікаційна програма · подкаст · 300k юзерів</td><td class="num gold">$60 000</td></tr>
+    <tr><td><strong>К7 · М19-21</strong></td><td>Дейтинг-інтеграція · matchmaking преміум · журнал #1 · 380k юзерів</td><td class="num gold">$80 000</td></tr>
+    <tr><td><strong>К8 · М22-24</strong></td><td>Публічний API ефемерид · Year-Ahead книга · 2-й retreat · 450k юзерів</td><td class="num gold">$40 000</td></tr>
+    <tr class="olivia"><td><strong>Разом капіталу за 2 роки</strong></td><td>Bootstrap з виручки М4+; зовнішній капітал опціональний</td><td class="num gold"><strong>~$272 000</strong></td></tr>
+  </table>
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>08 · Ставки Р2 та Roadmap · 11</span></div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div><div class="kicker">09 · Чому Зараз</div><h2 style="margin-top:2mm">Вікно конкурентної переваги — 12-18 місяців.</h2></div>
+    <div class="roman">IX</div>
+  </div>
+  <p class="lead">Ринок росте на 20% на рік, ARPU преміум-астрологічних застосунків зростає, і жоден гравець не поєднав кінематографічну естетику + ШІ + мультимовний контент + мульти-рейкову монетизацію. Це вікно, доки Co-Star або добре фінансований новачок його не закрив.</p>
+  <div class="g2" style="gap:8mm;margin-top:6mm">
+    <div>
+      <h3>Що вже задеплоєне</h3>
+      <ul>
+        <li><strong>Колода v2.7 із 78 карт згенерована.</strong> Власна ШІ-рендерена кінематографічна естетика. Вартість реплікації: 3-6 місяців + мінімум $5k.</li>
+        <li><strong>Соц. пайплайн задеплоєний</strong> у GCP Cloud Run — 5 відео/день (старт за 2 тижні) при майже нульовій маржинальній вартості. Конкуренти — максимум 1-2/день.</li>
+        <li><strong>Stripe + Telegram Stars + крипто</strong> — усе підʼєднано. Мульти-рейкова монетизація з дня 1.</li>
+        <li><strong>Сольний технічний засновник</strong>, здатний доставляти по веб, мобайл, відео, ШІ — повний стек, який зазвичай потребує команди з 5-8 людей.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Ризики та мітигації</h3>
+      <ul>
+        <li><strong>Зміна алгоритму TikTok</strong> → диверсифікація 8 каналів; реклама готова з М3.</li>
+        <li><strong>Інфляція API-витрат</strong> → кеш частих читань; Piper TTS фолбек.</li>
+        <li><strong>Копіювання конкурентами</strong> → власна колода v2.7 — 6-12 міс. реплікації.</li>
+        <li><strong>Пропускна здатність засновника</strong> → повна автоматизація; найми з К5+.</li>
+      </ul>
+    </div>
+  </div>
+  <h3 class="serif" style="margin-top:6mm">Три осі нашого рова</h3>
+  <table>
+    <tr><th>Вісь</th><th>Що</th><th>Чому важко копіювати</th></tr>
+    <tr><td>1 · Власна естетика</td><td>Колода v2.7 із 78 карт Gemini-рендеру + WebGL Portal</td><td>6-12 місяців + мінімум $5k для репліки якості</td></tr>
+    <tr><td>2 · Мульти-рейки, мульти-мови</td><td>3 платіжні рейки × 8 мов × 4 поверхні</td><td>Потребує перебудови архітектури продукту</td></tr>
+    <tr><td>3 · Доступна ціна</td><td>$65/рік · на 40-80% нижче Chani / Nebula / Pattern</td><td>Маржа працює лише при ~94% підписка + ~45% чиста</td></tr>
+  </table>
+  <div class="pull"><div class="quote">"Рік 1 доводить модель — 3-фазний headstart $50k, самофінансування з М6. Рік 2 захоплює ринок — колода Н2, B2B, Gulf. 2-річна ціль: $645k. Bootstrap без зовнішнього капіталу."</div></div>
+  <div class="footer"><span class="brand">Olivia Arcana</span><span>09 · Чому Зараз · 12</span></div>
+</section>
+
+<section class="page cosmic">
+  <div class="back-layout">
+    <div style="flex:1;display:flex;align-items:center;justify-content:center">
+      <svg class="card-svg" style="width:80mm" viewBox="0 0 360 540" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="b-base" cx="50%" cy="42%" r="75%">
+            <stop offset="0%" stop-color="#1f1343"/><stop offset="55%" stop-color="#0b0722"/><stop offset="100%" stop-color="#04030c"/>
+          </radialGradient>
+          <linearGradient id="b-gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f3dd8e"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#8a6818"/>
+          </linearGradient>
+          <radialGradient id="b-halo" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(255,230,150,0.22)"/><stop offset="40%" stop-color="rgba(232,201,106,0.09)"/><stop offset="100%" stop-color="rgba(232,201,106,0)"/>
+          </radialGradient>
+        </defs>
+        <rect width="360" height="540" fill="url(#b-base)" rx="8"/>
+        <rect x="22" y="22" width="316" height="496" rx="8" fill="none" stroke="url(#b-gold)" stroke-width="0.6" stroke-opacity="0.85"/>
+        <rect x="30" y="30" width="300" height="480" rx="5" fill="none" stroke="url(#b-gold)" stroke-width="0.25" stroke-opacity="0.28"/>
+        <circle cx="180" cy="270" r="120" fill="url(#b-halo)"/>
+        <circle cx="180" cy="270" r="115" fill="none" stroke="url(#b-gold)" stroke-width="0.5" stroke-opacity="0.7"/>
+        <circle cx="180" cy="270" r="98" fill="none" stroke="url(#b-gold)" stroke-width="0.3" stroke-opacity="0.32"/>
+        <g stroke="url(#b-gold)" fill="none">
+          <line x1="180" y1="155" x2="180" y2="175" stroke-width="0.9" stroke-opacity="0.95"/>
+          <line x1="295" y1="270" x2="275" y2="270" stroke-width="0.9" stroke-opacity="0.95"/>
+          <line x1="180" y1="385" x2="180" y2="365" stroke-width="0.9" stroke-opacity="0.95"/>
+          <line x1="65" y1="270" x2="85" y2="270" stroke-width="0.9" stroke-opacity="0.95"/>
+          <line x1="238" y1="172" x2="231" y2="187" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="278" y1="212" x2="263" y2="219" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="278" y1="328" x2="263" y2="321" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="238" y1="368" x2="231" y2="353" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="122" y1="368" x2="129" y2="353" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="82" y1="328" x2="97" y2="321" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="82" y1="212" x2="97" y2="219" stroke-width="0.5" stroke-opacity="0.7"/>
+          <line x1="122" y1="172" x2="129" y2="187" stroke-width="0.5" stroke-opacity="0.7"/>
+        </g>
+        <g fill="url(#b-gold)" opacity="0.9">
+          <circle cx="234.5" cy="179" r="1"/><circle cx="270.5" cy="215" r="1"/><circle cx="270.5" cy="325" r="1"/><circle cx="234.5" cy="361" r="1"/>
+          <circle cx="125.5" cy="361" r="1"/><circle cx="89.5" cy="325" r="1"/><circle cx="89.5" cy="215" r="1"/><circle cx="125.5" cy="179" r="1"/>
+        </g>
+        <g fill="url(#b-gold)" font-family="'Cormorant Garamond',serif" font-size="8.5" font-style="italic" letter-spacing="1.5" opacity="0.82" text-anchor="middle">
+          <text x="180" y="147">XII</text><text x="308" y="273">III</text><text x="180" y="400">VI</text><text x="52" y="273">IX</text>
+        </g>
+        <g fill="none" stroke="url(#b-gold)">
+          <circle cx="180" cy="270" r="35" stroke-width="0.55" stroke-opacity="0.85"/>
+          <circle cx="180" cy="235" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="210.31" cy="252.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="210.31" cy="287.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="180" cy="305" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="149.69" cy="287.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+          <circle cx="149.69" cy="252.5" r="35" stroke-width="0.5" stroke-opacity="0.75"/>
+        </g>
+        <circle cx="180" cy="155" r="2.4" fill="url(#b-gold)"/>
+        <circle cx="180" cy="270" r="11" fill="none" stroke="url(#b-gold)" stroke-width="0.35" stroke-opacity="0.45"/>
+        <path transform="translate(180 270)" d="M 0,-9 L 2,-2 L 9,0 L 2,2 L 0,9 L -2,2 L -9,0 L -2,-2 Z" fill="url(#b-gold)" stroke="rgba(255,230,150,0.7)" stroke-width="0.3"/>
+        <circle cx="180" cy="270" r="0.9" fill="rgba(255,250,220,0.95)"/>
+        <text x="180" y="116" text-anchor="middle" fill="url(#b-gold)" font-family="'Cormorant Garamond',serif" font-size="7.5" letter-spacing="4.5" opacity="0.65" font-style="italic">— rota septemque —</text>
+        <line x1="95" y1="455" x2="162" y2="455" stroke="url(#b-gold)" stroke-width="0.4" stroke-opacity="0.55"/>
+        <g>
+          <path d="M 170,455 L 174,451 L 178,455 L 174,459 Z" fill="none" stroke="url(#b-gold)" stroke-width="0.45" stroke-opacity="0.75"/>
+          <circle cx="180" cy="455" r="1.5" fill="url(#b-gold)"/>
+          <path d="M 182,455 L 186,451 L 190,455 L 186,459 Z" fill="none" stroke="url(#b-gold)" stroke-width="0.45" stroke-opacity="0.75"/>
+        </g>
+        <line x1="198" y1="455" x2="265" y2="455" stroke="url(#b-gold)" stroke-width="0.4" stroke-opacity="0.55"/>
+        <text x="180" y="487" text-anchor="middle" fill="url(#b-gold)" font-family="'Cormorant Garamond',serif" font-size="13" letter-spacing="5" opacity="0.95" font-style="italic">Olivia Arcana</text>
+        <text x="180" y="504" text-anchor="middle" fill="url(#b-gold)" font-family="'Cormorant Garamond',serif" font-size="6.5" letter-spacing="3.5" opacity="0.55" font-style="italic">a chart drawn for one reader</text>
+      </svg>
+    </div>
+    <div class="back-tag gold-grad">Написано у Ваших Зірках.</div>
+    <div class="back-sig">
+      <a href="https://oliviaarcana.com" style="color:inherit;border:none">oliviaarcana.com</a> · <a href="https://t.me/OliviaArcanaBot" style="color:inherit;border:none">@OliviaArcanaBot</a><br>
+      Olivia Arcana · Квітень 2026 · Конфіденційно
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<style>
+  body { background: #060810; color: #E8E6F0; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2rem; margin-bottom: 0.25rem; }
+  .subtitle { color: #8A829A; font-size: 0.95rem; margin-bottom: 2rem; }
+  .label { color: #C8A84B; letter-spacing: 0.2em; font-size: 0.7rem; font-weight: 600; }
+
+  .options { display: grid; grid-template-columns: 1fr; gap: 1.1rem; }
+  .option { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 14px; padding: 1.4rem 1.5rem; cursor: pointer; transition: all 220ms ease; }
+  .option:hover { border-color: #C8A84B; background: #131525; transform: translateY(-1px); }
+  .option.selected { border-color: #C8A84B; background: #1a1628; }
+  .option .letter { background: #1c1e30; color: #C8A84B; width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 0.8rem; vertical-align: middle; font-size: 0.9rem; }
+  .option h3 { display: inline; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.35rem; color: #E8E6F0; }
+
+  .diagram { margin: 1rem 0 0.9rem 0; padding: 1rem; background: #06080f; border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: #B8B0C8; line-height: 1.65; white-space: pre; overflow-x: auto; }
+  .diagram .hi { color: #E2C070; font-weight: 600; }
+  .diagram .fade { color: #5a5368; }
+  .diagram .act { color: #C8A84B; font-style: italic; }
+
+  .body-text { color: #B8B0C8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.65rem; }
+  .body-text strong { color: #E2C070; font-weight: 500; }
+
+  .props { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 0.9rem; }
+  .pro, .con { padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 0.82rem; line-height: 1.45; }
+  .pro { background: #0f1a15; border-left: 2px solid #6bb58d; color: #a8d4b8; }
+  .con { background: #1a0f12; border-left: 2px solid #c67a7a; color: #d4a8a8; }
+  .pro strong, .con strong { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+  .pro strong { color: #8fd4a8; }
+  .con strong { color: #d48f8f; }
+
+  .meta { background: #0c0d18; border-left: 2px solid #C8A84B; padding: 0.8rem 1rem; margin-top: 1.8rem; color: #8A829A; font-size: 0.82rem; border-radius: 0 6px 6px 0; }
+</style>
+
+<span class="label">BRAINSTORM · QUESTION 3 / N</span>
+<h2>How do the four elements connect?</h2>
+<p class="subtitle">Same ingredients. Three very different meals.</p>
+
+<div class="options">
+
+  <!-- FLOW 1 -->
+  <div class="option" data-choice="linear" onclick="toggleSelect(this)">
+    <span class="letter">1</span><h3>The Descent — linear staircase</h3>
+    <div class="diagram"><span class="act">[landing]</span>
+<span class="hi">PORTAL</span>   depth gallery, gravity card, signs orbit
+   │
+   │ click / auto-advance after awe (~4s)
+   ▼
+<span class="hi">IDENTITY</span>  film-poster natal chart emerges
+   │
+   │ CTA: "Ask the Glass"
+   ▼
+<span class="hi">GLASS</span>    listening orb appears, speak or type
+   │
+   │ reading unfolds (voice + text)
+   ▼
+<span class="hi">RITUAL</span>   paid rooms revealed as "go deeper" <span class="fade">(gate)</span></div>
+    <div class="body-text">
+      Each element is a discrete act. The user moves <strong>through</strong> them in sequence. Feels like the stations of a cathedral — each space reveals the next. Navigation is possible but the intended flow is linear.
+    </div>
+    <div class="props">
+      <div class="pro"><strong>Pros</strong>Easiest to build. Every element has room to breathe. Clear conversion funnel. Analytics clean.</div>
+      <div class="con"><strong>Cons</strong>Feels web-site-y. The awe of each act drops on the handoff. No single "centerpiece."</div>
+    </div>
+  </div>
+
+  <!-- FLOW 2 -->
+  <div class="option" data-choice="orb-center" onclick="toggleSelect(this)">
+    <span class="letter">2</span><h3>The Altar — orb at center from second one</h3>
+    <div class="diagram"><span class="act">[landing]</span>
+         <span class="fade">♈ ♉ ♊ ♋ ♌</span>  signs orbit the
+       <span class="hi">◌ GLASS ◌</span>     Glass from moment 1
+         <span class="fade">♎ ♏ ♐ ♑ ♓</span>  portal IS the altar
+   │
+   │ user speaks OR types OR clicks a sign
+   ▼
+<span class="hi">READING</span>  response streams out of the orb
+   │
+   │ identity chart materializes <em>inside</em> the Glass
+   ▼
+<span class="hi">FILM</span>     poster extracted from the orb as a tangible artifact
+   │
+   │ chart folds open → revealing doorways
+   ▼
+<span class="hi">RITUAL</span>   rooms lie behind glyph-doors around the altar</div>
+    <div class="body-text">
+      The <strong>Listening Glass is the site</strong> — everything else orbits it. The portal wraps around the Glass instead of preceding it. Scrolling doesn't advance pages; it moves the camera through space around a single ceremonial object. The orb contains readings, charts, and ritual-room portals.
+    </div>
+    <div class="props">
+      <div class="pro"><strong>Pros</strong>Unmistakable centerpiece. One "postcard image" for the whole site. Maximally cinematic. A24 / Kojima-tier.</div>
+      <div class="con"><strong>Cons</strong>Hardest to build. Risk: if the Glass fails to captivate, there's nothing else. All eggs in one orb.</div>
+    </div>
+  </div>
+
+  <!-- FLOW 3 -->
+  <div class="option" data-choice="unbroken" onclick="toggleSelect(this)">
+    <span class="letter">3</span><h3>One Unbroken Ritual — 3-minute cinema, no nav</h3>
+    <div class="diagram"><span class="act">[enter]</span>    silence, darkness, 2s
+   │
+   ▼
+<span class="hi">PORTAL</span>   light, signs, gravity card (4s)
+   │
+   ▼
+<span class="hi">GLASS</span>    orb condenses from the nebula (3s)
+   │        "What do you seek?" — mic primed OR text fallback
+   ▼
+<span class="hi">VOICE</span>    user speaks (or types), waveform enters orb
+   │
+   ▼
+<span class="hi">READING</span>  unfolds inside & around the orb (90s)
+   │
+   ▼
+<span class="hi">CHART</span>    film-poster crystallizes at the reading's climax
+   │
+   ▼
+<span class="hi">DEEPER</span>   a single door appears — "Enter the rooms"
+              <span class="fade">(paid tier revealed, not pushed)</span></div>
+    <div class="body-text">
+      <strong>No pages. No clicks. No nav.</strong> From first second to final CTA, one continuous 3-minute cinematic experience choreographed beat by beat. The user <em>receives</em> it, doesn't navigate it. Replay or explore-free-mode available <em>after</em> the first pass. This is the "make the website a film" option.
+    </div>
+    <div class="props">
+      <div class="pro"><strong>Pros</strong>Most jaw-dropping in raw terms. Every beat is considered. Memorable as a single piece. Shareable as a video.</div>
+      <div class="con"><strong>Cons</strong>Highest choreography cost. Restrictive for return visits (needs an "explore" mode after first pass). Skippers feel trapped.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="meta">
+  <strong>Note on routing:</strong> All three flows can ship at <code style="color:#C8A84B">/v4</code> or <code style="color:#C8A84B">/portal</code> or a subdomain like <code style="color:#C8A84B">alt.oliviaarcana.com</code>. The live site stays untouched. I'll ask about the exact route next, once the flow is locked. Click one above or respond in terminal.
+</div>

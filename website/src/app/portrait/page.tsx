@@ -8,6 +8,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { buildPortraitConfig, PortraitRenderer } from "../../lib/portrait-engine";
 import { computeNatalChart, type NatalChart, type BirthInput } from "../../lib/natal-chart";
 import { saveUser } from "../../lib/user-store";
@@ -90,6 +91,29 @@ export default function PortraitPage() {
     setChart(natalChart);
     setPhase("generating");
 
+    // Fire the Cosmic Identity Panel reveal — ConstellationOverlay listens
+    // for `zodiac:click` and renders the CosmicProfile (element/modality/
+    // ruler trio, traits, energy, compatibility, lucky stats, share card).
+    // 1.4s delay so the user sees their portrait paint first; the panel
+    // then layers on top as the "who you are" reveal.
+    {
+      const ZODIAC_NAMES = [
+        "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
+        "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces",
+      ];
+      const idx = ZODIAC_NAMES.findIndex(
+        (n) => n.toLowerCase() === (natalChart.sunSign || "").toLowerCase(),
+      );
+      const glyph = ["♈","♉","♊","♋","♌","♍","♎","♏","♐","♑","♒","♓"][idx] || "✦";
+      if (idx >= 0) {
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent("zodiac:click", {
+            detail: { name: ZODIAC_NAMES[idx], glyph, index: idx },
+          }));
+        }, 1400);
+      }
+    }
+
     // Fade out form
     overlayRef.current?.animate(
       [{ opacity: "1" }, { opacity: "0" }],
@@ -151,7 +175,7 @@ export default function PortraitPage() {
         backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)",
         padding: "2rem 1.5rem", overflowY: "auto",
       }}>
-        <a href="/" style={{ position: "absolute", top: "1.5rem", left: "1.5rem", ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>← Home</a>
+        <Link href="/" style={{ position: "absolute", top: "1.5rem", left: "1.5rem", ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>&larr; Home</Link>
 
         <div style={{ fontSize: "2rem", color: "rgba(212,175,55,0.5)", textShadow: "0 0 40px rgba(212,175,55,0.2)" }}>✦</div>
         <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem, 4vw, 2.2rem)", fontWeight: 400, textAlign: "center" }}>
@@ -242,7 +266,7 @@ export default function PortraitPage() {
         <div style={{ position: "relative", zIndex: 10, minHeight: "100vh", display: "flex", flexDirection: "column" }}>
           {/* Top bar */}
           <div style={{ display: "flex", justifyContent: "space-between", padding: "1.5rem", pointerEvents: "auto" }}>
-            <a href="/" style={{ ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.35)" }}>← Home</a>
+            <Link href="/" style={{ ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.35)" }}>&larr; Home</Link>
             <button onClick={reset} style={{ ...labelSt, background: "none", border: "none", cursor: "pointer", color: "rgba(180,170,210,0.35)" }}>New Portrait</button>
           </div>
 
@@ -439,12 +463,12 @@ export default function PortraitPage() {
 
                   {/* Link to full chart */}
                   <div style={{ textAlign: "center" }}>
-                    <a href="/chart" style={{
+                    <Link href="/chart" style={{
                       display: "inline-block", padding: "0.65rem 1.5rem", borderRadius: "100px",
                       background: "rgba(255,255,255,0.04)", border: "1px solid rgba(200,185,255,0.1)",
                       color: "rgba(200,185,240,0.7)", fontSize: "0.72rem", fontWeight: 400,
                       letterSpacing: "0.06em", textTransform: "uppercase" as const, textDecoration: "none",
-                    }}>View Interactive Chart Wheel →</a>
+                    }}>View Interactive Chart Wheel &rarr;</Link>
                   </div>
                 </div>
               )}

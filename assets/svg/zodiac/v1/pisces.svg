@@ -1,0 +1,258 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Pisces zodiac glyph</title>
+  <desc id="desc">Two fish bound by a cord, Neptune and Jupiter co-ruled, mutable water sign</desc>
+
+  <defs>
+    <!-- 1. Deep night radial backdrop -->
+    <radialGradient id="bgNight" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="55%" stop-color="#0d0719"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+
+    <!-- 2. Parchment vignette -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+
+    <!-- 3. Neptunian deep-sea wash — Pisces is Neptune-ruled, a faint abyssal green tint over the center -->
+    <radialGradient id="neptuneWash" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#1f3a3a" stop-opacity="0.16"/>
+      <stop offset="60%" stop-color="#12292b" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#12292b" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 4. Gold primary gradient (glyph + linework, diagonal) -->
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 5. Gold vertical gradient (for the twin crescents) -->
+    <linearGradient id="goldPrimaryV" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 6. Gold horizontal gradient (for the connecting bar) -->
+    <linearGradient id="goldPrimaryH" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#6b4a1f"/>
+      <stop offset="50%" stop-color="#fff2c6"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 7. Gold thin gradient — fine ring / tick marks -->
+    <linearGradient id="goldThin" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6b4a1f"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 8. Aura behind the central glyph -->
+    <radialGradient id="centralAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="0.35"/>
+      <stop offset="40%" stop-color="#d4a574" stop-opacity="0.18"/>
+      <stop offset="75%" stop-color="#6b4a1f" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#12292b" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 9. Alrescha star glow (α Piscium, "the knot") -->
+    <radialGradient id="alreschaGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#ffe8a3" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#d4a574" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Path for the bottom-arc inscription -->
+    <path id="inscriptionArc" d="M 76 256 A 180 180 0 0 0 436 256" fill="none"/>
+  </defs>
+
+  <!-- ============ BACKGROUND ============ -->
+  <g id="background">
+    <rect x="0" y="0" width="512" height="512" fill="url(#bgNight)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#neptuneWash)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#vignette)"/>
+  </g>
+
+  <!-- ============ STARFIELD — scattered background stars ============ -->
+  <g id="starfield" fill="#fff2c6">
+    <circle cx="70"  cy="88"  r="1.1" fill-opacity="0.75"/>
+    <circle cx="134" cy="56"  r="0.9" fill-opacity="0.6"/>
+    <circle cx="216" cy="100" r="1.3" fill-opacity="0.85"/>
+    <circle cx="432" cy="76"  r="1"   fill-opacity="0.7"/>
+    <circle cx="470" cy="172" r="1.4" fill-opacity="0.9"/>
+    <circle cx="50"  cy="210" r="1.1" fill-opacity="0.75"/>
+    <circle cx="94"  cy="392" r="1.2" fill-opacity="0.8"/>
+    <circle cx="160" cy="448" r="0.9" fill-opacity="0.6"/>
+    <circle cx="400" cy="430" r="1.3" fill-opacity="0.85"/>
+    <circle cx="454" cy="378" r="1"   fill-opacity="0.7"/>
+    <circle cx="342" cy="62"  r="0.8" fill-opacity="0.55"/>
+    <circle cx="74"  cy="328" r="1"   fill-opacity="0.7"/>
+  </g>
+
+  <!-- ============ SACRED GEOMETRY ============ -->
+  <g id="sacred-geometry" fill="none" stroke="url(#goldThin)" stroke-opacity="0.85">
+    <!-- Three concentric circles -->
+    <circle cx="256" cy="256" r="240" stroke-width="0.8"/>
+    <circle cx="256" cy="256" r="220" stroke-width="0.6" stroke-opacity="0.55"/>
+    <circle cx="256" cy="256" r="200" stroke-width="0.8"/>
+
+    <!-- Inner dashed mandala reference ring -->
+    <circle cx="256" cy="256" r="150" stroke-width="0.4" stroke-opacity="0.35" stroke-dasharray="2 4"/>
+
+    <!-- 12 tick marks on outer ring (r=240 → r=248), every 30° -->
+    <g stroke="#d4a574" stroke-width="1.2" stroke-opacity="0.85">
+      <line x1="256" y1="16"  x2="256" y2="8"/>
+      <line x1="376" y1="48"  x2="380" y2="40"/>
+      <line x1="464" y1="136" x2="472" y2="132"/>
+      <line x1="496" y1="256" x2="504" y2="256"/>
+      <line x1="464" y1="376" x2="472" y2="380"/>
+      <line x1="376" y1="464" x2="380" y2="472"/>
+      <line x1="256" y1="496" x2="256" y2="504"/>
+      <line x1="136" y1="464" x2="132" y2="472"/>
+      <line x1="48"  y1="376" x2="40"  y2="380"/>
+      <line x1="16"  y1="256" x2="8"   y2="256"/>
+      <line x1="48"  y1="136" x2="40"  y2="132"/>
+      <line x1="136" y1="48"  x2="132" y2="40"/>
+    </g>
+
+    <!-- 12 tick marks on inner ring (r=200 → r=192) -->
+    <g stroke="#d4a574" stroke-width="1" stroke-opacity="0.7">
+      <line x1="256" y1="56"  x2="256" y2="64"/>
+      <line x1="356" y1="83"  x2="354" y2="90"/>
+      <line x1="429" y1="156" x2="422" y2="158"/>
+      <line x1="456" y1="256" x2="448" y2="256"/>
+      <line x1="429" y1="356" x2="422" y2="354"/>
+      <line x1="356" y1="429" x2="354" y2="422"/>
+      <line x1="256" y1="456" x2="256" y2="448"/>
+      <line x1="156" y1="429" x2="158" y2="422"/>
+      <line x1="83"  y1="356" x2="90"  y2="354"/>
+      <line x1="56"  y1="256" x2="64"  y2="256"/>
+      <line x1="83"  y1="156" x2="90"  y2="158"/>
+      <line x1="156" y1="83"  x2="158" y2="90"/>
+    </g>
+
+    <!-- 4 cardinal-point 4-pointed stars (compass jewels) -->
+    <g fill="#d4a574" fill-opacity="0.85" stroke="none">
+      <!-- North -->
+      <path d="M 256 22 L 259 36 L 273 39 L 259 42 L 256 56 L 253 42 L 239 39 L 253 36 Z"/>
+      <!-- East -->
+      <path d="M 490 256 L 476 259 L 473 273 L 470 259 L 456 256 L 470 253 L 473 239 L 476 253 Z"/>
+      <!-- South -->
+      <path d="M 256 490 L 259 476 L 273 473 L 259 470 L 256 456 L 253 470 L 239 473 L 253 476 Z"/>
+      <!-- West -->
+      <path d="M 22 256 L 36 259 L 39 273 L 42 259 L 56 256 L 42 253 L 39 239 L 36 253 Z"/>
+    </g>
+
+    <!-- Bottom-arc inscription: Pisces · Aqua Mutabilis -->
+    <g font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#d4a574" letter-spacing="2" font-style="italic">
+      <text>
+        <textPath href="#inscriptionArc" startOffset="50%" text-anchor="middle">♓  PISCES  ·  AQUA  MUTABILIS  ·  NEPTUNUS  ·  ALRESCHA</textPath>
+      </text>
+    </g>
+  </g>
+
+  <!-- ============ AURA BEHIND THE GLYPH ============ -->
+  <g id="aura">
+    <circle cx="256" cy="205" r="170" fill="url(#centralAura)"/>
+  </g>
+
+  <!-- ============ MAIN PISCES GLYPH — two outward-facing crescents tied by a horizontal cord ============ -->
+  <g id="glyph" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- LEFT CRESCENT — opens to the LEFT, like "(" — main gold pass -->
+    <!-- A vertical arc bowing to the right, spanning roughly y=130 → y=280, peaking near x=188 -->
+    <path d="M 196 130 C 150 160, 150 250, 196 280"
+          stroke="url(#goldPrimaryV)" stroke-width="14"/>
+    <!-- LEFT CRESCENT — cream inner highlight pass -->
+    <path d="M 196 132 C 152 162, 152 248, 196 278"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- RIGHT CRESCENT — opens to the RIGHT, like ")" — main gold pass -->
+    <path d="M 316 130 C 362 160, 362 250, 316 280"
+          stroke="url(#goldPrimaryV)" stroke-width="14"/>
+    <!-- RIGHT CRESCENT — cream inner highlight pass -->
+    <path d="M 316 132 C 360 162, 360 248, 316 278"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- CONNECTING HORIZONTAL BAR — the "cord" that ties the two fish -->
+    <path d="M 188 205 L 324 205"
+          stroke="url(#goldPrimaryH)" stroke-width="10"/>
+    <!-- Bar — cream inner highlight -->
+    <path d="M 190 205 L 322 205"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- Ornamental sphere caps at the four crescent endpoints -->
+    <circle cx="196" cy="130" r="2.5" fill="#fff2c6"/>
+    <circle cx="196" cy="280" r="2.5" fill="#fff2c6"/>
+    <circle cx="316" cy="130" r="2.5" fill="#fff2c6"/>
+    <circle cx="316" cy="280" r="2.5" fill="#fff2c6"/>
+
+    <!-- Central knot jewel at the intersection of the bar and the crescent planes -->
+    <circle cx="256" cy="205" r="4" fill="#fff2c6"/>
+    <circle cx="256" cy="205" r="6" fill="none" stroke="url(#goldPrimary)" stroke-width="1.2" stroke-opacity="0.7"/>
+  </g>
+
+  <!-- ============ CONSTELLATION — Pisces key stars (Alrescha α, Eta, Gamma, Omega) ============ -->
+  <g id="constellation" opacity="0.9">
+    <!-- Connecting lines — faint gold cord between the stars -->
+    <g stroke="url(#goldPrimary)" stroke-width="0.7" stroke-opacity="0.4" fill="none" stroke-linecap="round">
+      <!-- Alrescha at the knot center → Eta Psc upper-right -->
+      <line x1="256" y1="330" x2="336" y2="270"/>
+      <!-- Alrescha → Gamma Psc upper-left -->
+      <line x1="256" y1="330" x2="176" y2="258"/>
+      <!-- Eta Psc → Omega Psc (far upper-right branch) -->
+      <line x1="336" y1="270" x2="388" y2="186"/>
+      <!-- Gamma → a faint western trailing star -->
+      <line x1="176" y1="258" x2="128" y2="200"/>
+    </g>
+
+    <!-- Stars (sized by magnitude) -->
+    <!-- Alrescha (α Piscium) — "the knot" — brightest anchor, sits at the cord's center-south -->
+    <circle cx="256" cy="330" r="6" fill="url(#alreschaGlow)"/>
+    <circle cx="256" cy="330" r="3" fill="#fff2c6"/>
+    <!-- Eta Piscium (η) — brightest of the eastern fish -->
+    <circle cx="336" cy="270" r="2.4" fill="#fff2c6"/>
+    <!-- Gamma Piscium (γ) — western fish head -->
+    <circle cx="176" cy="258" r="2.2" fill="#ffe8a3"/>
+    <!-- Omega Piscium (ω) — outer eastern reach -->
+    <circle cx="388" cy="186" r="2" fill="#ffe8a3"/>
+    <!-- Western trailing star -->
+    <circle cx="128" cy="200" r="1.6" fill="#fff2c6" fill-opacity="0.85"/>
+  </g>
+
+  <!-- ============ ORNAMENT — four Gothic filigree corner flourishes ============ -->
+  <g id="ornament" fill="none" stroke="#d4a574" stroke-opacity="0.5" stroke-width="1.2" stroke-linecap="round">
+    <!-- Top-left -->
+    <g transform="translate(40,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Top-right -->
+    <g transform="translate(442,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Bottom-left -->
+    <g transform="translate(40,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <!-- Bottom-right -->
+    <g transform="translate(442,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+  </g>
+</svg>

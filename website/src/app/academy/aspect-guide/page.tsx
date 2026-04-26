@@ -8,6 +8,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useLocale } from "@/lib/i18n/useLocale";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
@@ -76,14 +77,19 @@ const ASPECTS: Aspect[] = [
   },
 ];
 
+// Round to 3 decimal places so SSR + client emit identical strings.
+// Without this, JS float serialization differs across runtimes and React 19
+// throws hydration mismatch warnings on every <line> coord.
+const r3 = (n: number) => Number(n.toFixed(3));
+
 function AspectSVG({ angle, color, selected }: { angle: number; color: string; selected: boolean }) {
   const cx = 80, cy = 80, r = 65;
   const rad1 = (-90) * Math.PI / 180;
   const rad2 = (angle - 90) * Math.PI / 180;
-  const x1 = cx + r * Math.cos(rad1);
-  const y1 = cy + r * Math.sin(rad1);
-  const x2 = cx + r * Math.cos(rad2);
-  const y2 = cy + r * Math.sin(rad2);
+  const x1 = r3(cx + r * Math.cos(rad1));
+  const y1 = r3(cy + r * Math.sin(rad1));
+  const x2 = r3(cx + r * Math.cos(rad2));
+  const y2 = r3(cy + r * Math.sin(rad2));
 
   return (
     <svg viewBox="0 0 160 160" style={{ width: "120px", height: "120px" }}>
@@ -93,8 +99,9 @@ function AspectSVG({ angle, color, selected }: { angle: number; color: string; s
         const a = (i * 30 - 90) * Math.PI / 180;
         const inner = r - 4;
         const outer = r;
-        return <line key={i} x1={cx + inner * Math.cos(a)} y1={cy + inner * Math.sin(a)}
-          x2={cx + outer * Math.cos(a)} y2={cy + outer * Math.sin(a)}
+        return <line key={i}
+          x1={r3(cx + inner * Math.cos(a))} y1={r3(cy + inner * Math.sin(a))}
+          x2={r3(cx + outer * Math.cos(a))} y2={r3(cy + outer * Math.sin(a))}
           stroke="rgba(200,185,255,0.1)" strokeWidth="0.5" />;
       })}
       {/* Aspect line */}
@@ -142,9 +149,10 @@ export default function AspectGuidePage() {
     }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-        <a href="/academy" style={{ ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>&larr; {t("academy_back")}</a>
+        <Link href="/academy" style={{ ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>&larr; {t("academy_back")}</Link>
         <h1 style={{
           fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem, 4vw, 2rem)",
+
           fontWeight: 400, marginTop: "0.75rem",
         }}>
           <span className="text-gold-gradient">{t("academy_aspect_guide")}</span>
@@ -268,12 +276,12 @@ export default function AspectGuidePage() {
 
       {/* Link to course */}
       <div style={{ textAlign: "center", marginTop: "2rem" }}>
-        <a href="/academy/conversation-between-planets" style={{
+        <Link href="/academy/conversation-between-planets" style={{
           display: "inline-block", padding: "0.65rem 1.5rem", borderRadius: "100px",
           background: "rgba(255,255,255,0.03)", border: "1px solid rgba(200,185,255,0.08)",
           color: "rgba(200,185,240,0.6)", fontSize: "0.72rem",
           letterSpacing: "0.06em", textTransform: "uppercase", textDecoration: "none",
-        }}>Take the Full Aspects Course →</a>
+        }}>Take the Full Aspects Course →</Link>
       </div>
     </div>
   );

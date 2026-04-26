@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olivia Arcana — Empress · Mystic Cartography · v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 2rem;
+    transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+  }
+  body.dark { background: #0a0517; color: #eee; }
+  body.light { background: #f5f5f5; color: #333; }
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem; }
+  h1 { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.01em; }
+  h1 small { font-weight: 400; opacity: 0.6; font-size: 1rem; margin-left: 0.5rem; }
+  h2 { font-size: 1.15rem; font-weight: 600; margin: 2.5rem 0 1rem; }
+  .meta { opacity: 0.65; font-size: 0.85rem; margin-bottom: 2rem; max-width: 68ch; line-height: 1.5; }
+  .toggle { padding: 0.5rem 1rem; border: 1px solid currentColor; border-radius: 6px; background: transparent; color: inherit; cursor: pointer; font-size: 0.875rem; }
+  .toggle:hover { opacity: 0.75; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+  .card { border: 1px solid rgba(128, 128, 128, 0.25); border-radius: 12px; overflow: hidden; transition: transform 0.15s, border-color 0.15s; }
+  .card:hover { transform: translateY(-2px); border-color: rgba(212, 165, 116, 0.6); }
+  .card-img { display: flex; align-items: center; justify-content: center; padding: 1.5rem; min-height: 600px; background: #0a0517; }
+  body.light .card-img { background: #1a0f2e; }
+  .card-img img { max-width: 100%; max-height: 560px; display: block; }
+  .card-label { padding: 0.85rem 1rem; font-size: 0.9rem; font-weight: 500; border-top: 1px solid rgba(128, 128, 128, 0.2); display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  body.dark .card-label { background: #13081f; }
+  body.light .card-label { background: #fafafa; }
+  .card-label .size { opacity: 0.55; font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+  .size-check { display: flex; gap: 2.5rem; flex-wrap: wrap; align-items: flex-end; padding: 1.5rem; background: rgba(128, 128, 128, 0.06); border-radius: 12px; }
+  .size-block { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+  .size-block .label { font-size: 0.8rem; font-weight: 500; opacity: 0.85; }
+  .size-block .sizes { display: flex; gap: 1rem; align-items: flex-end; }
+  .size-block .sz { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+  .size-block .sz img { display: block; background: #0a0517; padding: 2px; border-radius: 3px; }
+  .size-block .sz div { font-size: 0.7rem; opacity: 0.55; font-variant-numeric: tabular-nums; }
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(128, 128, 128, 0.2); font-size: 0.8rem; opacity: 0.6; line-height: 1.6; }
+  footer code { font-family: ui-monospace, "SF Mono", Menlo, monospace; background: rgba(212, 165, 116, 0.12); padding: 0.1rem 0.35rem; border-radius: 4px; }
+</style>
+</head>
+<body class="dark">
+  <div class="header">
+    <h1>The Empress — Major Arcana III <small>Mystic Cartography · 2 concepts</small></h1>
+    <button class="toggle" onclick="document.body.classList.toggle('dark');document.body.classList.toggle('light');this.textContent=document.body.classList.contains('dark')?'☀ Light':'☾ Dark';">☀ Light</button>
+  </div>
+  <div class="meta">
+    Tarot card illustration, 400×700 viewBox, gold-on-navy manuscript engraving. Generated under the locked "Mystic Cartography" philosophy. Pick one as the reference for the remaining 77 Major & Minor Arcana — the winner defines the whole deck's compositional language.
+  </div>
+
+  <h2>Concepts</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-img"><img src="concept-A-full-body-throne.svg" alt="A · full-body seated on throne"></div>
+      <div class="card-label">A · full-body on throne <span class="size">32.4 KB · 123 paths · 6 gradients</span></div>
+    </div>
+    <div class="card">
+      <div class="card-img"><img src="concept-B-portrait-bust.svg" alt="B · portrait bust with halo"></div>
+      <div class="card-label">B · portrait bust <span class="size">25.3 KB · 154 paths · 5 gradients</span></div>
+    </div>
+  </div>
+
+  <h2>Legibility gate · 140 / 70 / 35 px (tarot-card thumbnail scale)</h2>
+  <div class="size-check">
+    <div class="size-block">
+      <div class="label">A · full-body</div>
+      <div class="sizes">
+        <div class="sz"><img src="concept-A-full-body-throne.svg" width="80" height="140"><div>140h</div></div>
+        <div class="sz"><img src="concept-A-full-body-throne.svg" width="40" height="70"><div>70h</div></div>
+        <div class="sz"><img src="concept-A-full-body-throne.svg" width="20" height="35"><div>35h</div></div>
+      </div>
+    </div>
+    <div class="size-block">
+      <div class="label">B · portrait bust</div>
+      <div class="sizes">
+        <div class="sz"><img src="concept-B-portrait-bust.svg" width="80" height="140"><div>140h</div></div>
+        <div class="sz"><img src="concept-B-portrait-bust.svg" width="40" height="70"><div>70h</div></div>
+        <div class="sz"><img src="concept-B-portrait-bust.svg" width="20" height="35"><div>35h</div></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Working path: <code>/Users/macbookpro/olivia-arcana/assets/svg/empress/v1/</code><br>
+    Protocol: <code>~/Desktop/SerhiiVault/brain/SVG Protocol.md</code> · Philosophy: <b>Mystic Cartography</b> (locked)<br>
+    Winner becomes the compositional template for the remaining 77 cards. Thumbnails fail at 35h = deck won't work as social preview; re-engrave at bolder linework.
+  </footer>
+</body>
+</html>

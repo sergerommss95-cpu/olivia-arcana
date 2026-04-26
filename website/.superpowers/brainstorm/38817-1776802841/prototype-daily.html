@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Olivia Arcana — The Daily</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  /* Warm paper light-mode. The editorial direction: cream paper, deep ink, gold accent.
+     Radically different from the previous prototype's dark-mystical mode — this is The Gentlewoman,
+     not a mystical-cosmic AI site. */
+  --paper: #F1E8D2;
+  --paper-2: #E8DEC4;     /* slightly deeper for section breaks */
+  --ink: #1A1426;         /* deep indigo — NEVER pure black */
+  --ink-2: #2E2742;
+  --ink-soft: #5A5068;
+  --ink-muted: #8A7F98;
+  --gold: #8A6D2A;
+  --gold-deep: #5A4518;
+  --gold-soft: #B49650;
+  --rule: rgba(26, 20, 38, 0.15);
+  --rule-strong: rgba(138, 109, 42, 0.5);
+  --night: #0E0A16;       /* only the sky panel inverts to night */
+  --night-ink: #E8E0CC;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+body { text-rendering: optimizeLegibility; }
+
+/* ----------------------------------------------------------- */
+/* Global paper texture — very subtle grain, so it feels printed. */
+body::before {
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: 50;
+  background-image:
+    radial-gradient(circle at 12% 8%,  rgba(138, 109, 42, 0.02), transparent 58%),
+    radial-gradient(circle at 88% 22%, rgba(26, 20, 38, 0.025), transparent 62%),
+    radial-gradient(circle at 28% 92%, rgba(26, 20, 38, 0.02), transparent 58%);
+  mix-blend-mode: multiply;
+}
+body::after {
+  /* Paper grain — SVG fractalNoise inlined via data URI */
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: 51; opacity: 0.22;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.08  0 0 0 0 0.15  0 0 0 0.18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
+}
+
+/* Containers and rhythm */
+.container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 64px); }
+
+/* Section rhythm */
+section { position: relative; }
+section + section { border-top: 1px solid var(--rule); }
+
+/* ----------------------------------------------------------- */
+/* HEADER — masthead-style, printed magazine feel. */
+.masthead {
+  position: sticky; top: 0; z-index: 40;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  font-family: 'Cormorant Garamond', serif;
+}
+.masthead-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1240px; margin: 0 auto; padding: 16px clamp(20px, 4vw, 64px);
+  gap: 24px;
+}
+.masthead-mark {
+  font-weight: 500; font-size: 14px; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--ink);
+}
+.masthead-mark .bar { display: inline-block; width: 10px; height: 1px;
+  background: var(--gold); vertical-align: middle; margin: 0 10px; }
+.masthead-meta { font-style: italic; font-weight: 400; font-size: 14px;
+  color: var(--ink-soft); letter-spacing: 0.02em; }
+@media (max-width: 640px) {
+  .masthead-mark { font-size: 11px; letter-spacing: 0.22em; }
+  .masthead-meta { font-size: 12px; }
+}
+
+/* Small italic kickers used throughout */
+.kicker {
+  font-style: italic; font-weight: 400;
+  font-size: 13px; letter-spacing: 0.04em;
+  color: var(--gold); margin: 0 0 24px 0;
+}
+.kicker::before { content: "— "; color: var(--gold-deep); }
+
+/* ----------------------------------------------------------- */
+/* ZONE I — ARRIVAL. A single quiet moment at the top of the day. */
+.s-arrival {
+  min-height: 92vh; display: flex; align-items: center;
+  padding: clamp(64px, 12vh, 180px) 0;
+}
+.s-arrival .arrival-dateline {
+  font-style: italic; font-weight: 400; font-size: 16px;
+  color: var(--ink-soft); margin: 0 0 52px 0; letter-spacing: 0.01em;
+}
+.s-arrival .arrival-dateline::before { content: "❦ "; color: var(--gold); margin-right: 10px; }
+.arrival-title {
+  font-weight: 300;
+  font-size: clamp(48px, 9.2vw, 156px);
+  line-height: 0.96;
+  letter-spacing: -0.022em;
+  color: var(--ink);
+  margin: 0 0 36px 0;
+  max-width: 18ch;
+}
+.arrival-title em {
+  color: var(--gold); font-weight: 400; font-style: italic;
+  font-feature-settings: "ss01" on;
+}
+.arrival-sub {
+  font-style: italic; font-weight: 300;
+  font-size: clamp(20px, 2.2vw, 30px);
+  line-height: 1.3;
+  color: var(--ink-soft);
+  max-width: 32ch; margin: 0;
+}
+.arrival-scroll-hint {
+  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px;
+  color: var(--ink-muted); letter-spacing: 0.05em;
+}
+.arrival-scroll-hint::after { content: "↓"; margin-left: 14px; color: var(--gold); }
+
+/* ----------------------------------------------------------- */
+/* ZONE II — THE CARD. Large card image on the left, reading on the right. */
+.s-card {
+  padding: clamp(80px, 14vh, 160px) 0;
+  background: var(--paper);
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: clamp(32px, 6vw, 96px);
+  align-items: center;
+}
+@media (max-width: 880px) {
+  .card-grid { grid-template-columns: 1fr; gap: 48px; }
+}
+.card-image-wrap { position: relative; }
+.card-image {
+  width: 100%;
+  aspect-ratio: 2/3;
+  background: var(--ink);
+  overflow: hidden;
+  position: relative;
+  transform: rotate(-1.2deg);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.04),
+    0 24px 70px rgba(26, 20, 38, 0.24),
+    0 50px 140px rgba(26, 20, 38, 0.12);
+}
+.card-image img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.card-caption {
+  font-style: italic; font-weight: 400; font-size: 13px;
+  color: var(--ink-muted); margin: 18px 0 0 2px; letter-spacing: 0.02em;
+}
+.card-caption::before { content: "— "; color: var(--gold-deep); margin-right: 4px; }
+
+.card-eyebrow {
+  font-weight: 500; font-size: 13px; letter-spacing: 0.38em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 18px 0;
+}
+.card-eyebrow::before { content: ""; display: inline-block; width: 24px; height: 1px;
+  background: var(--gold-deep); vertical-align: middle; margin-right: 14px; }
+.card-title {
+  font-weight: 300; font-size: clamp(52px, 7vw, 108px);
+  line-height: 0.96; letter-spacing: -0.025em;
+  color: var(--ink); margin: 0 0 32px 0;
+}
+.card-intro {
+  font-weight: 400; font-style: italic; font-size: clamp(21px, 1.8vw, 28px);
+  line-height: 1.42; color: var(--ink); margin: 0 0 24px 0; max-width: 32ch;
+}
+.card-intro::first-letter {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: 2.6em; line-height: 0.88; float: left;
+  color: var(--gold); padding: 0.05em 0.12em 0 0; font-style: normal;
+}
+.card-body {
+  font-weight: 400; font-size: 18px; line-height: 1.68;
+  color: var(--ink-2); max-width: 38ch; margin: 0 0 36px 0;
+}
+.card-body em { color: var(--gold-deep); font-style: italic; font-weight: 500; }
+.card-action {
+  font-style: italic; font-weight: 500; font-size: 14px;
+  color: var(--gold); letter-spacing: 0.18em; text-transform: lowercase;
+  border-top: 1px solid var(--rule-strong); padding-top: 18px;
+  display: inline-block;
+}
+.card-action::before { content: "your action "; color: var(--ink-muted); margin-right: 10px; }
+
+/* ----------------------------------------------------------- */
+/* ZONE III — YOUR SKY. Inverts to a night-mode panel. The only dark section. */
+.s-sky {
+  padding: clamp(96px, 18vh, 200px) 0;
+  background: var(--night);
+  color: var(--night-ink);
+  position: relative;
+  overflow: hidden;
+}
+.s-sky::before {
+  /* soft starfield, generated once in CSS as a background gradient noise */
+  content: "";
+  position: absolute; inset: 0; opacity: 0.4;
+  background-image:
+    radial-gradient(1px 1px at 8% 14%, #f4ecd4 50%, transparent 51%),
+    radial-gradient(1px 1px at 23% 42%, #f4ecd4 50%, transparent 51%),
+    radial-gradient(1px 1px at 41% 18%, #f4ecd4 50%, transparent 51%),
+    radial-gradient(1px 1px at 62% 58%, #f4ecd4 50%, transparent 51%),
+    radial-gradient(1px 1px at 78% 30%, #f4ecd4 50%, transparent 51%),
+    radial-gradient(1px 1px at 92% 72%, #f4ecd4 50%, transparent 51%),
+    radial-gradient(1px 1px at 14% 78%, #f4ecd4 50%, transparent 51%),
+    radial-gradient(1px 1px at 33% 88%, #f4ecd4 50%, transparent 51%),
+    radial-gradient(1px 1px at 55% 12%, #f4ecd4 50%, transparent 51%),
+    radial-gradient(1px 1px at 68% 82%, #f4ecd4 50%, transparent 51%),
+    radial-gradient(1px 1px at 87% 8%, #f4ecd4 50%, transparent 51%);
+}
+.s-sky .kicker { color: var(--gold-soft); }
+.s-sky .kicker::before { color: var(--gold); }
+
+.sky-header { position: relative; z-index: 2; margin-bottom: clamp(48px, 8vh, 96px); }
+.sky-title {
+  font-weight: 300; font-size: clamp(40px, 5.8vw, 88px);
+  line-height: 1; letter-spacing: -0.02em; color: var(--night-ink);
+  margin: 0 0 18px 0;
+}
+.sky-title em { color: var(--gold-soft); font-style: italic; font-weight: 400; }
+.sky-meta {
+  font-style: italic; font-weight: 400; font-size: clamp(18px, 1.7vw, 24px);
+  color: rgba(232, 224, 204, 0.7); max-width: 44ch; margin: 0;
+}
+
+.sky-body {
+  display: grid; grid-template-columns: 1.2fr 1fr;
+  gap: clamp(40px, 6vw, 100px); align-items: start;
+  position: relative; z-index: 2;
+}
+@media (max-width: 880px) {
+  .sky-body { grid-template-columns: 1fr; gap: 48px; }
+}
+
+/* The sky diagram — clean, scientific, museum quality. */
+.sky-diagram-wrap {
+  aspect-ratio: 1 / 1; max-width: 520px; width: 100%; position: relative;
+}
+.sky-diagram {
+  width: 100%; height: 100%; display: block;
+}
+.sky-diagram .sky-disc     { fill: #0b0813; stroke: rgba(200, 170, 90, 0.18); stroke-width: 1; }
+.sky-diagram .sky-inner    { fill: none; stroke: rgba(200, 170, 90, 0.12); stroke-width: 1; }
+.sky-diagram .sky-spoke    { stroke: rgba(200, 170, 90, 0.1); stroke-width: 0.6; }
+.sky-diagram .zodiac-glyph { font-family: 'Cormorant Garamond', serif; font-style: italic;
+                              font-size: 16px; font-weight: 400; fill: #b49650; opacity: 0.85; }
+.sky-diagram .planet-glyph { font-family: 'Cormorant Garamond', serif; font-weight: 400;
+                              font-size: 20px; fill: #e8e0cc; }
+.sky-diagram .planet-dot   { fill: #d4b56b; }
+.sky-diagram .planet-label { font-family: 'Cormorant Garamond', serif; font-style: italic;
+                              font-size: 11px; fill: #8a7f70; letter-spacing: 0.05em; }
+.sky-diagram .horizon      { stroke: rgba(200, 170, 90, 0.35); stroke-width: 0.6; stroke-dasharray: 2 4; }
+
+.sky-aspects {
+  font-family: 'Cormorant Garamond', serif;
+}
+.sky-aspects h4 {
+  font-weight: 500; font-size: 13px; letter-spacing: 0.36em;
+  color: var(--gold); text-transform: uppercase; margin: 0 0 22px 0;
+}
+.sky-aspects ul {
+  list-style: none; padding: 0; margin: 0;
+}
+.sky-aspects li {
+  padding: 18px 0; border-top: 1px solid rgba(200, 170, 90, 0.18);
+  display: grid; grid-template-columns: 42px 1fr; gap: 18px; align-items: baseline;
+}
+.sky-aspects li:last-child { border-bottom: 1px solid rgba(200, 170, 90, 0.18); }
+.sky-aspects .sigil {
+  font-size: 22px; color: var(--gold-soft); line-height: 1;
+  font-weight: 400;
+}
+.sky-aspects .body-text {
+  font-weight: 400; font-size: 17px; line-height: 1.5;
+  color: rgba(232, 224, 204, 0.88);
+}
+.sky-aspects .body-text strong {
+  color: var(--night-ink); font-weight: 500;
+}
+.sky-aspects .body-text em {
+  color: var(--gold-soft); font-style: italic;
+}
+
+/* ----------------------------------------------------------- */
+/* ZONE IV — THE RITUAL. A single offered action. Breathing room. */
+.s-ritual {
+  padding: clamp(96px, 16vh, 200px) 0;
+  background: var(--paper-2);
+}
+.ritual-wrap { max-width: 920px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 64px); }
+.ritual-kicker {
+  font-style: italic; font-size: 14px; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--gold);
+  margin: 0 0 38px 0; text-align: center;
+}
+.ritual-kicker::before, .ritual-kicker::after {
+  content: ""; display: inline-block; width: 38px; height: 1px;
+  background: var(--gold-deep); vertical-align: middle; margin: 0 22px; opacity: 0.5;
+}
+.ritual-blockquote {
+  font-style: italic; font-weight: 300;
+  font-size: clamp(28px, 3.6vw, 52px);
+  line-height: 1.28; letter-spacing: -0.01em;
+  color: var(--ink); text-align: center;
+  margin: 0; padding: 0 clamp(20px, 4vw, 64px);
+  position: relative;
+}
+.ritual-blockquote::before, .ritual-blockquote::after {
+  font-family: 'Cormorant Garamond', serif; font-style: normal;
+  font-size: 2em; line-height: 1; color: var(--gold); opacity: 0.5;
+  font-weight: 400; position: absolute;
+}
+.ritual-blockquote::before { content: "\201C"; left: 0; top: -0.2em; }
+.ritual-blockquote::after  { content: "\201D"; right: 0; bottom: -0.6em; }
+.ritual-attrib {
+  font-style: italic; font-weight: 400; font-size: 14px;
+  color: var(--ink-muted); margin: 44px 0 0 0; text-align: center;
+  letter-spacing: 0.08em;
+}
+.ritual-attrib::before { content: "— "; color: var(--gold); }
+
+/* ----------------------------------------------------------- */
+/* ZONE V — FOOTER. Understated nav + brand mark. */
+.s-footer {
+  padding: clamp(72px, 12vh, 140px) 0 48px;
+  background: var(--paper);
+}
+.footer-nav {
+  display: flex; flex-wrap: wrap; gap: clamp(16px, 3vw, 40px);
+  justify-content: center; margin: 0 0 60px 0; padding: 0; list-style: none;
+}
+.footer-nav a {
+  font-style: italic; font-weight: 400; font-size: 17px;
+  color: var(--ink); text-decoration: none; letter-spacing: 0.01em;
+  transition: color 0.3s;
+  position: relative;
+}
+.footer-nav a::after {
+  content: ""; position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s ease-out;
+}
+.footer-nav a:hover { color: var(--gold); }
+.footer-nav a:hover::after { transform: scaleX(1); }
+.footer-credit {
+  text-align: center; font-size: 12px; letter-spacing: 0.3em;
+  color: var(--ink-muted); text-transform: uppercase; font-weight: 500;
+}
+.footer-credit .dot { color: var(--gold); margin: 0 10px; }
+
+/* ----------------------------------------------------------- */
+/* Scroll-entry animation — elements fade and rise as they enter the viewport. */
+.reveal { opacity: 0; transform: translate3d(0, 36px, 0);
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.reveal.in { opacity: 1; transform: translate3d(0, 0, 0); }
+.reveal-slow { transition-duration: 1.8s; }
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+.reveal-delay-3 { transition-delay: 0.36s; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD — sticky printed magazine header -->
+<header class="masthead" role="banner">
+  <div class="masthead-inner">
+    <div class="masthead-mark">Olivia Arcana<span class="bar"></span>The Daily</div>
+    <div class="masthead-meta" id="masthead-meta"><em>loading the hour…</em></div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== I — ARRIVAL ===== -->
+  <section class="s-arrival" aria-label="Today's opening">
+    <div class="container">
+      <div class="arrival-dateline reveal" id="arrival-dateline">
+        <em>loading the date…</em>
+      </div>
+      <h1 class="arrival-title reveal reveal-delay-1">
+        a tender patience <em>is the day's medicine.</em>
+      </h1>
+      <p class="arrival-sub reveal reveal-delay-2">
+        the moon draws slowly full, and the hermit keeps the lamp.
+      </p>
+    </div>
+    <div class="arrival-scroll-hint reveal reveal-delay-3">scroll to read</div>
+  </section>
+
+  <!-- ===== II — TODAY'S CARD ===== -->
+  <section class="s-card" aria-label="Today's card">
+    <div class="container">
+      <div class="card-grid">
+        <div class="card-image-wrap reveal reveal-slow">
+          <figure class="card-image">
+            <img src="assets/09_the_hermit.png" alt="The Hermit, Olivia Arcana 2026 deck" draggable="false" />
+          </figure>
+          <figcaption class="card-caption">
+            The Hermit · Olivia Arcana · v2.7 edition · gold line on cotton cardstock
+          </figcaption>
+        </div>
+        <div class="card-text reveal reveal-delay-1">
+          <div class="card-eyebrow">Today's Card &nbsp;·&nbsp; Arcana IX</div>
+          <h2 class="card-title">The Hermit</h2>
+          <p class="card-intro">
+            A figure walking inward with a single steady light. What returns today does so from your own quiet — not from the outside world.
+          </p>
+          <p class="card-body">
+            <em>Saturn supports; Mercury in late Libra is careful.</em> The Hermit does not withdraw from the world. He withdraws <em>into</em> it — and what you finally hear there, you could not have heard at a louder hour.
+          </p>
+          <div class="card-action">keep quiet counsel · do not publish</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== III — YOUR SKY ===== -->
+  <section class="s-sky" aria-label="Your sky, right now">
+    <div class="container">
+      <div class="kicker reveal">Your Sky &nbsp;·&nbsp; Right Now</div>
+      <div class="sky-header">
+        <h2 class="sky-title reveal reveal-delay-1">
+          <span id="sky-time">07:42</span> &nbsp;·&nbsp; <em id="sky-city">Reykjavík</em> &nbsp;·&nbsp; <span id="sky-coords">64°09′N</span>
+        </h2>
+        <p class="sky-meta reveal reveal-delay-2" id="sky-meta">
+          spring — <em>waxing gibbous moon</em>, Venus stationing direct
+        </p>
+      </div>
+      <div class="sky-body">
+        <div class="sky-diagram-wrap reveal reveal-slow" id="sky-diagram-wrap">
+          <svg class="sky-diagram" id="sky-diagram" viewBox="-240 -240 480 480" preserveAspectRatio="xMidYMid meet">
+            <!-- Rendered by JS: zodiac ring, planet positions, horizon line -->
+          </svg>
+        </div>
+        <div class="sky-aspects reveal reveal-delay-2">
+          <h4>current aspects &nbsp;·&nbsp; today</h4>
+          <ul id="sky-aspects-list">
+            <!-- Populated by JS -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IV — THE RITUAL ===== -->
+  <section class="s-ritual" aria-label="A ritual offered">
+    <div class="ritual-wrap">
+      <div class="ritual-kicker reveal">A Ritual Offered</div>
+      <blockquote class="ritual-blockquote reveal reveal-delay-1">
+        Write one letter you won't send. Seal it. The Hermit keeps — and what you can finally say to yourself is what matters.
+      </blockquote>
+      <div class="ritual-attrib reveal reveal-delay-2">for today, 22 april · take it or leave it</div>
+    </div>
+  </section>
+
+  <!-- ===== V — FOOTER ===== -->
+  <footer class="s-footer" role="contentinfo">
+    <div class="container">
+      <nav class="footer-nav" aria-label="Further reading">
+        <a href="#">save to record</a>
+        <a href="#">share this reading</a>
+        <a href="#">browse the deck</a>
+        <a href="#">book a reading</a>
+        <a href="#">get the physical deck</a>
+      </nav>
+      <div class="footer-credit">
+        Olivia Arcana <span class="dot">·</span> MMXXVI <span class="dot">·</span> Celestial Register
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+/* ============================================================================
+   THE DAILY — logic
+   - Get current local time + location (geo optional, fallback Reykjavík)
+   - Compute simplified-but-plausible planet longitudes for right now
+   - Render the sky disc SVG with zodiac ring + plotted planets
+   - Populate aspects list and masthead meta
+   - Handle scroll-reveal animations
+   ============================================================================ */
+
+/* ---------- Time + date ---------- */
+const WEEKDAY = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTH   = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function romanLower(n) {
+  const map = [['m',1000],['cm',900],['d',500],['cd',400],['c',100],['xc',90],['l',50],['xl',40],['x',10],['ix',9],['v',5],['iv',4],['i',1]];
+  let out = ''; for (const [s, v] of map) { while (n >= v) { out += s; n -= v; } } return out;
+}
+
+const now = new Date();
+const hh = String(now.getHours()).padStart(2, '0');
+const mm = String(now.getMinutes()).padStart(2, '0');
+const weekday = WEEKDAY[now.getDay()];
+const month   = MONTH[now.getMonth()];
+const dayNum  = now.getDate();
+const dayRoman = romanLower(dayNum);
+const yearRoman = romanLower(now.getFullYear());
+
+document.getElementById('masthead-meta').innerHTML =
+  `${weekday.toLowerCase()} <span style="color:var(--gold-deep)">·</span> ${hh}:${mm} <span style="color:var(--gold-deep)">·</span> <em id="masthead-city">—</em>`;
+
+document.getElementById('arrival-dateline').innerHTML =
+  `today · ${weekday.toLowerCase()}, the ${dayRoman} of ${month.toLowerCase()} · <em>${yearRoman}</em>`;
+
+document.getElementById('sky-time').textContent = `${hh}:${mm}`;
+
+/* ---------- Simplified planet longitudes ----------
+   Not a full ephemeris, but better than random. Uses mean orbital motion
+   from an epoch. Accuracy: ±2–5° on outer planets, ±1° inner — good enough
+   for a visualization. Real astronomy-engine can swap in later.
+---------------------------------------------------- */
+// Reference epoch: 2025-01-01 00:00 UTC. Mean longitudes at that moment (degrees).
+const EPOCH = Date.UTC(2025, 0, 1);
+const DAY_MS = 86400000;
+const daysFromEpoch = (now.getTime() - EPOCH) / DAY_MS;
+
+// Planet: [mean longitude at epoch (deg), mean motion (deg/day), glyph, name, shortDesc]
+const PLANETS = [
+  ['sun',     280.47,    0.98561,   '☉',  'Sun'     ],
+  ['moon',    218.32,   13.17640,   '☽',  'Moon'    ],
+  ['mercury', 252.25,    4.09234,   '☿',  'Mercury' ],
+  ['venus',   181.98,    1.60213,   '♀',  'Venus'   ],
+  ['mars',    355.45,    0.52403,   '♂',  'Mars'    ],
+  ['jupiter',  34.40,    0.08308,   '♃',  'Jupiter' ],
+  ['saturn',  337.51,    0.03346,   '♄',  'Saturn'  ],
+];
+const ZODIAC = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+const ZODIAC_NAMES = ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
+
+function planetLongitude(p) {
+  return ((p[1] + p[2] * daysFromEpoch) % 360 + 360) % 360;
+}
+function signOf(lon) { return ZODIAC_NAMES[Math.floor(lon / 30)]; }
+function signGlyph(lon) { return ZODIAC[Math.floor(lon / 30)]; }
+
+const positions = PLANETS.map(p => ({
+  key: p[0], glyph: p[3], name: p[4],
+  lon: planetLongitude(p),
+}));
+
+/* ---------- Sky diagram SVG ---------- */
+function renderSky() {
+  const svg = document.getElementById('sky-diagram');
+  const R_OUTER = 220;
+  const R_RING  = 205;
+  const R_INNER = 150;
+  const R_CORE  = 60;
+  const parts = [];
+
+  // Outer disc (night) and inner rings
+  parts.push(`<circle class="sky-disc"  cx="0" cy="0" r="${R_OUTER}"/>`);
+  parts.push(`<circle class="sky-inner" cx="0" cy="0" r="${R_RING}"/>`);
+  parts.push(`<circle class="sky-inner" cx="0" cy="0" r="${R_INNER}"/>`);
+  parts.push(`<circle class="sky-inner" cx="0" cy="0" r="${R_CORE}"/>`);
+
+  // 12 zodiac spokes + glyphs
+  for (let i = 0; i < 12; i++) {
+    const a = -Math.PI / 2 + (i / 12) * Math.PI * 2;     // start at top (Aries)
+    const aMid = a + (Math.PI / 12);                     // glyph in middle of sector
+    const x1 = Math.cos(a) * R_INNER, y1 = Math.sin(a) * R_INNER;
+    const x2 = Math.cos(a) * R_OUTER, y2 = Math.sin(a) * R_OUTER;
+    parts.push(`<line class="sky-spoke" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`);
+    const gx = Math.cos(aMid) * (R_OUTER - 14), gy = Math.sin(aMid) * (R_OUTER - 14) + 6;
+    parts.push(`<text class="zodiac-glyph" x="${gx.toFixed(1)}" y="${gy.toFixed(1)}" text-anchor="middle">${ZODIAC[i]}</text>`);
+  }
+
+  // Horizon line (subtle dashed)
+  parts.push(`<line class="horizon" x1="${-R_OUTER}" y1="0" x2="${R_OUTER}" y2="0"/>`);
+
+  // Planets
+  for (const p of positions) {
+    // Astrological convention: 0° Aries at top, increases counterclockwise.
+    // In SVG with -Math.PI/2 base and positive y = down, we use -longitude to go counterclockwise.
+    const a = -Math.PI / 2 + (-p.lon * Math.PI / 180);
+    const r = 180;
+    const x = Math.cos(a) * r;
+    const y = Math.sin(a) * r;
+    parts.push(`<circle class="planet-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.4"/>`);
+    parts.push(`<text class="planet-glyph" x="${x.toFixed(1)}" y="${(y - 12).toFixed(1)}" text-anchor="middle">${p.glyph}</text>`);
+    // label the sign below the glyph — small italic
+    parts.push(`<text class="planet-label" x="${x.toFixed(1)}" y="${(y + 18).toFixed(1)}" text-anchor="middle">${signOf(p.lon).toLowerCase()}</text>`);
+  }
+
+  svg.innerHTML = parts.join('\n');
+}
+renderSky();
+
+/* ---------- Aspects list ---------- */
+const sun     = positions.find(p => p.key === 'sun');
+const moon    = positions.find(p => p.key === 'moon');
+const venus   = positions.find(p => p.key === 'venus');
+const mars    = positions.find(p => p.key === 'mars');
+const mercury = positions.find(p => p.key === 'mercury');
+const saturn  = positions.find(p => p.key === 'saturn');
+const jupiter = positions.find(p => p.key === 'jupiter');
+
+// Moon phase — elongation from Sun
+function moonPhaseName(sunLon, moonLon) {
+  let d = (moonLon - sunLon + 360) % 360;
+  if (d < 22.5)   return 'new';
+  if (d < 67.5)   return 'waxing crescent';
+  if (d < 112.5)  return 'first quarter';
+  if (d < 157.5)  return 'waxing gibbous';
+  if (d < 202.5)  return 'full';
+  if (d < 247.5)  return 'waning gibbous';
+  if (d < 292.5)  return 'last quarter';
+  if (d < 337.5)  return 'waning crescent';
+  return 'new';
+}
+const phase = moonPhaseName(sun.lon, moon.lon);
+
+// Key aspect — simple quincunx/sextile/trine between Venus and Saturn
+function aspectBetween(a, b) {
+  const d = Math.abs((a.lon - b.lon + 540) % 360 - 180);
+  // return {name, orb}
+  const aspects = [
+    { name: 'conjunction', exact: 0   },
+    { name: 'sextile',     exact: 60  },
+    { name: 'square',      exact: 90  },
+    { name: 'trine',       exact: 120 },
+    { name: 'quincunx',    exact: 150 },
+    { name: 'opposition',  exact: 180 },
+  ];
+  let best = null, orb = 10;
+  for (const asp of aspects) {
+    const diff = Math.abs(d - Math.min(asp.exact, 180 - asp.exact));
+    if (diff < orb) { orb = diff; best = asp; }
+  }
+  return best ? { ...best, orb: orb.toFixed(1) } : null;
+}
+
+function tone(sigil, strong, rest) {
+  return `<li><span class="sigil">${sigil}</span><span class="body-text"><strong>${strong}</strong> ${rest}</span></li>`;
+}
+const list = document.getElementById('sky-aspects-list');
+const bits = [];
+bits.push(tone('☽', `Moon`, `— ${phase} in ${signOf(moon.lon).toLowerCase()}, a long breath toward fullness.`));
+bits.push(tone('♀', `Venus`, `in ${signOf(venus.lon).toLowerCase()}, <em>slow and weighted</em> — she favors what softens.`));
+bits.push(tone('☿', `Mercury`, `in ${signOf(mercury.lon).toLowerCase()}, careful with what it chooses to speak.`));
+const keyAsp = aspectBetween(venus, saturn);
+if (keyAsp) {
+  bits.push(tone('✶', `key aspect today`, `Venus ${keyAsp.name} Saturn &nbsp;·&nbsp; orb ${keyAsp.orb}° — <em>a pause, not a stop.</em>`));
+}
+list.innerHTML = bits.join('\n');
+
+// Update subtitle meta line to reflect real phase
+document.getElementById('sky-meta').innerHTML =
+  `spring — <em>${phase} moon</em> in ${signOf(moon.lon).toLowerCase()}, with Venus in ${signOf(venus.lon).toLowerCase()} and the slow company of Saturn`;
+
+/* ---------- Geolocation (optional, non-blocking) ---------- */
+function setCity(name, coords) {
+  document.getElementById('sky-city').innerHTML = name;
+  if (coords) document.getElementById('sky-coords').textContent = coords;
+  const mc = document.getElementById('masthead-city'); if (mc) mc.textContent = name;
+}
+setCity('Reykjavík', '64°09′N'); // default
+
+// Only try geolocation on https/localhost — browsers block it otherwise, silently.
+if ('geolocation' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+      const hemi = lat >= 0 ? 'N' : 'S';
+      const latStr = `${Math.abs(lat).toFixed(2)}°${hemi}`;
+      // reverse-geocode the name via a lightweight public service (best-effort)
+      fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`)
+        .then(r => r.ok ? r.json() : null)
+        .then(j => {
+          if (j && j.city) setCity(j.city, latStr);
+          else if (j && j.locality) setCity(j.locality, latStr);
+        })
+        .catch(() => {/* silent */});
+    },
+    () => {/* user denied — keep default */},
+    { timeout: 4000, maximumAge: 600000 }
+  );
+}
+
+/* ---------- Scroll reveal ---------- */
+const io = new IntersectionObserver((entries) => {
+  for (const e of entries) {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }
+}, { threshold: 0.15, rootMargin: '0px 0px -80px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ---------- Keyboard: press R to refresh current sky (dev affordance) ---------- */
+// (prototype convenience — kept out of production)
+</script>
+
+</body>
+</html>

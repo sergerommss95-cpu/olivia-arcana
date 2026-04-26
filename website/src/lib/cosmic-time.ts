@@ -141,3 +141,21 @@ export function getCosmicMoment(date: Date = new Date()): CosmicMoment {
     fullStamp,
   };
 }
+
+/**
+ * Returns a design palette adjustment based on the planetary hour.
+ * Used for 2026 'Atmospheric Contrast' trend.
+ */
+export function getAtmosphericPalette(planetName: string) {
+  switch (planetName) {
+    case "Mars":    return { hue: 12,  sat: 1.15, warmth: 0.08 }; // Warmer, more active
+    case "Venus":   return { hue: 320, sat: 1.1,  warmth: 0.04 }; // Soft rose/indigo tint
+    case "Saturn":  return { hue: 240, sat: 0.85, warmth: -0.05 }; // Cold, structured, desaturated
+    case "Jupiter": return { hue: 45,  sat: 1.2,  warmth: 0.06 }; // Golden, expansive
+    case "Mercury": return { hue: 190, sat: 1.05, warmth: -0.02 }; // Clear, mental, blue-tinted
+    case "Moon":    return { hue: 260, sat: 0.9,  warmth: -0.04 }; // Deep, reflective
+    case "Sun":     return { hue: 40,  sat: 1.25, warmth: 0.1 };  // Radiant, golden
+    default:        return { hue: 0,   sat: 1.0,  warmth: 0 };
+  }
+}
+

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { useLocale } from "../lib/i18n/useLocale";
 
 const signKeys = [
@@ -41,21 +42,21 @@ export default function DailyHoroscope() {
   });
 
   return (
-    <section id="daily" className="relative py-32 px-6" ref={ref}>
+    <section id="daily" className="relative py-16 md:py-32 px-6" ref={ref}>
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-[0.3em] uppercase mb-4">
+        <div className="text-center mb-10 md:mb-16">
+          <p className="font-[family-name:var(--font-accent)] text-celestial-gold text-[0.65rem] md:text-sm tracking-[0.3em] uppercase mb-3 md:mb-4">
             {t("dh_eyebrow")}
           </p>
-          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-warm-ivory mb-4">
+          <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-5xl font-bold text-warm-ivory mb-3 md:mb-4">
             {t("dh_title")}
           </h2>
-          <p className="text-muted-lavender text-sm">{today}</p>
+          <p className="text-muted-lavender text-xs md:text-sm">{today}</p>
           <div className="star-divider max-w-xs mx-auto mt-6">&#10022;</div>
         </div>
 
         {/* Zodiac wheel / grid */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
           {signKeys.map((sign, i) => (
             <button
               key={sign.key}
@@ -110,18 +111,18 @@ export default function DailyHoroscope() {
             </p>
 
             <div className="flex gap-3 flex-wrap">
-              <a
+              <Link
                 href={`/daily`}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-celestial-gold/10 border border-celestial-gold/30 text-celestial-gold text-sm font-medium hover:bg-celestial-gold/20 transition-all"
               >
                 {t("dh_full_reading")} &rarr;
-              </a>
-              <a
+              </Link>
+              <Link
                 href={`/signs/${t(signKeys[selected].key).toLowerCase()}`}
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/4 border border-white/10 text-muted-lavender text-sm hover:text-celestial-gold transition-all"
               >
                 {t("dh_about")} {t(signKeys[selected].key)}
-              </a>
+              </Link>
             </div>
           </div>
         )}

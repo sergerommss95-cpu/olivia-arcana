@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Empress Animated v2 — auxiliary asset</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 2rem; background: #0a0517; color: #eee; min-height: 100vh; }
+  h1 { font-size: 1.6rem; font-weight: 600; margin-bottom: 0.3rem; }
+  h1 small { font-weight: 400; opacity: 0.55; font-size: 0.95rem; margin-left: 0.5rem; }
+  h2 { font-size: 1.1rem; font-weight: 600; margin: 2rem 0 1rem; }
+  .meta { opacity: 0.65; font-size: 0.88rem; line-height: 1.55; margin-bottom: 1.5rem; max-width: 72ch; }
+  .warn { background: rgba(232,165,75,0.1); border-left: 3px solid #E8A54B; padding: 0.75rem 1rem; margin: 1rem 0 1.5rem; font-size: 0.85rem; border-radius: 4px; line-height: 1.55; }
+  .warn b { color: #ffe8a3; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+  .card { border: 1px solid rgba(128,128,128,0.25); border-radius: 12px; overflow: hidden; }
+  .card.ref { border: 2px solid rgba(212,165,116,0.3); }
+  .card.hero { border: 2px solid #d4a574; }
+  .card-img { display: flex; align-items: center; justify-content: center; padding: 1rem; min-height: 700px; background: #0a0517; }
+  .card-img object, .card-img img { width: 100%; max-width: 380px; max-height: 680px; border: 0; background: transparent; }
+  .card-label { padding: 0.75rem 1rem; font-size: 0.85rem; background: #13081f; border-top: 1px solid rgba(128,128,128,0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+  .card-label .size { opacity: 0.55; font-size: 0.7rem; }
+  .card-label .tag { font-size: 0.68rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(212,165,116,0.2); color: #fff2c6; }
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(128,128,128,0.2); font-size: 0.8rem; opacity: 0.6; line-height: 1.7; }
+  footer code { font-family: ui-monospace, Menlo, monospace; background: rgba(212,165,116,0.12); padding: 0.1rem 0.35rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <h1>Empress Animated v2 <small>auxiliary asset · not the deck</small></h1>
+  <div class="meta">
+    Two SMIL-animated overlays on the v10 Empress vector (Mucha poster + Beardsley + ukiyo-e style). Use cases: landing-page hero, product-detail page, desktop wallpaper, static web art — NOT the Olivia tarot deck itself (which lives at <code>tarot-deck/generator/output/nano_banana_v2/</code> at v2.7 Gemini aesthetic).
+  </div>
+  <div class="warn">
+    <b>Positioning:</b> this Empress is a parallel-style exploration under the "Mystic Cartography" aesthetic, not the canonical deck aesthetic (v2.7 Greco-Roman line-art on matte indigo with gold nebula wrap, Dutch-angle tilt). If you want animated cards for the real deck, overlay SMIL on top of the nano_banana_v2 raster PNGs instead.
+  </div>
+
+  <h2>Variants</h2>
+  <div class="grid">
+    <div class="card ref">
+      <div class="card-img"><object type="image/svg+xml" data="../../empress/v10/empress-optimized.svg"></object></div>
+      <div class="card-label">v10 static · reference <span class="tag">base</span><span class="size">2.3 MB</span></div>
+    </div>
+    <div class="card hero">
+      <div class="card-img"><object type="image/svg+xml" data="variant-1-ambient-presence.svg"></object></div>
+      <div class="card-label">1 · Ambient Presence <span class="tag">SMIL</span><span class="size">2.32 MB · 13 animates · 1 transform · 1 filter</span></div>
+    </div>
+    <div class="card hero">
+      <div class="card-img"><object type="image/svg+xml" data="variant-2-card-reveal.svg"></object></div>
+      <div class="card-label">2 · Card Reveal <span class="tag">SMIL</span><span class="size">2.46 MB · 311 animates · 9 transforms · full summon</span></div>
+    </div>
+  </div>
+
+  <footer>
+    Path: <code>/Users/macbookpro/olivia-arcana/assets/svg/empress-animated/v2/</code><br>
+    Base: v10 Empress (FLUX hi-res ornate-flat + VTracer + SVGO). Animation layer: pure SMIL, no JS/CSS deps.<br>
+    For the REAL deck, see <code>tarot-deck/generator/HANDOFF.md</code> — deck lives at v2.7 via Gemini nano banana + multi-image ref input.
+  </footer>
+</body>
+</html>

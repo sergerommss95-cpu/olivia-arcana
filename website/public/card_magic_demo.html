@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #02010a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: 'Georgia', serif;
+}
+
+.card {
+  position: relative;
+  width: 320px;
+  height: 480px;
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* ── 1. Base: deep midnight ── */
+.bg {
+  position: absolute; inset: 0; border-radius: 16px;
+  background: #050210;
+}
+
+/* ── 2. Figure light source — warm radial emanating from figure center ── */
+.figure-light {
+  position: absolute;
+  left: 50%; top: 44%;
+  transform: translate(-50%, -50%);
+  width: 260px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 50%,
+    rgba(180,130,20,0.18) 0%,
+    rgba(120,80,10,0.10) 35%,
+    rgba(60,30,5,0.05)   60%,
+    transparent          80%);
+  animation: emanate 9s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes emanate {
+  from { opacity: .7; transform: translate(-50%,-50%) scale(.95); }
+  to   { opacity: 1;  transform: translate(-50%,-50%) scale(1.05); }
+}
+
+/* ── 3. Edge vignette ── */
+.vignette {
+  position: absolute; inset: 0; border-radius: 16px;
+  background: radial-gradient(ellipse at 50% 48%,
+    transparent 38%,
+    rgba(2,1,10,0.55) 70%,
+    rgba(2,1,10,0.85) 100%);
+  pointer-events: none; z-index: 10;
+}
+
+/* ── 4. Star canvas ── */
+canvas.stars { position:absolute; inset:0; border-radius:16px; z-index:2; }
+
+/* ── 5. Figure image ── */
+.fig {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; border-radius:16px;
+  mix-blend-mode: screen;
+  z-index: 5;
+  filter:
+    drop-shadow(0 0 7px  rgba(230,180,40,.80))
+    drop-shadow(0 0 20px rgba(230,180,40,.42))
+    drop-shadow(0 0 48px rgba(230,180,40,.18))
+    saturate(1.22) brightness(1.07) sepia(0.08);
+  animation: goldBreathe 9s ease-in-out infinite alternate;
+}
+@keyframes goldBreathe {
+  from { filter:
+    drop-shadow(0 0 4px  rgba(230,180,40,.55))
+    drop-shadow(0 0 12px rgba(230,180,40,.28))
+    drop-shadow(0 0 30px rgba(230,180,40,.10))
+    saturate(1.15) brightness(1.03) sepia(0.06); }
+  to { filter:
+    drop-shadow(0 0 10px rgba(230,180,40,.90))
+    drop-shadow(0 0 28px rgba(230,180,40,.55))
+    drop-shadow(0 0 60px rgba(230,180,40,.22))
+    saturate(1.30) brightness(1.12) sepia(0.10); }
+}
+
+/* ── 6. Double border ── */
+.border-outer {
+  position:absolute; inset: 0;
+  border: 1px solid rgba(212,175,55,0.50);
+  border-radius: 16px;
+  pointer-events:none; z-index:12;
+}
+.border-inner {
+  position:absolute; inset: 14px;
+  border: 1px solid rgba(212,175,55,0.22);
+  border-radius: 10px;
+  pointer-events:none; z-index:12;
+}
+
+/* ── 7. Corner ornaments ── */
+.corners { position:absolute; inset:14px; z-index:13; pointer-events:none; }
+.corners svg { position:absolute; width:14px; height:14px; opacity:.65; }
+.corners svg.tl { top:-7px;  left:-7px;  }
+.corners svg.tr { top:-7px;  right:-7px; }
+.corners svg.bl { bottom:-7px; left:-7px; }
+.corners svg.br { bottom:-7px; right:-7px; }
+
+/* ── 8. Foil sweep ── */
+.foil {
+  position:absolute; inset:0; border-radius:16px; z-index:11;
+  background: linear-gradient(
+    108deg,
+    transparent   35%,
+    rgba(255,240,150,.11) 48%,
+    rgba(255,255,200,.07) 52%,
+    transparent   65%
+  );
+  background-size: 300% 300%;
+  animation: foil 12s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes foil {
+  0%   { background-position: 260% 50%; opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { background-position: -80% 50%; }
+  90%  { opacity: 1; }
+  100% { background-position: -80% 50%; opacity: 0; }
+}
+
+/* ── 9. Particle canvas ── */
+canvas.dust { position:absolute; inset:0; border-radius:16px; z-index:8; pointer-events:none; }
+
+/* ── Card name strip ── */
+.name {
+  position:absolute; bottom:0; left:0; right:0; z-index:20;
+  text-align:center; padding: 12px 8px 14px;
+  font-size: 9.5px; letter-spacing: 4px;
+  color: rgba(212,175,55,0.55);
+  text-transform: uppercase;
+  background: linear-gradient(transparent, rgba(2,1,10,0.85) 60%);
+  border-radius: 0 0 16px 16px;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <!-- Layers back→front -->
+  <div class="bg"></div>
+  <div class="figure-light"></div>
+  <canvas class="stars" width="320" height="480"></canvas>
+  <img class="fig" src="/v4_fool.png">
+  <canvas class="dust"  width="320" height="480"></canvas>
+  <div class="foil"></div>
+  <div class="vignette"></div>
+  <div class="border-outer"></div>
+  <div class="border-inner"></div>
+  <div class="corners">
+    <!-- 4-pointed star at each corner -->
+    <svg class="tl" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7 1 L7.6 6.4 L13 7 L7.6 7.6 L7 13 L6.4 7.6 L1 7 L6.4 6.4 Z" fill="#d4af37"/>
+    </svg>
+    <svg class="tr" viewBox="0 0 14 14" fill="none">
+      <path d="M7 1 L7.6 6.4 L13 7 L7.6 7.6 L7 13 L6.4 7.6 L1 7 L6.4 6.4 Z" fill="#d4af37"/>
+    </svg>
+    <svg class="bl" viewBox="0 0 14 14" fill="none">
+      <path d="M7 1 L7.6 6.4 L13 7 L7.6 7.6 L7 13 L6.4 7.6 L1 7 L6.4 6.4 Z" fill="#d4af37"/>
+    </svg>
+    <svg class="br" viewBox="0 0 14 14" fill="none">
+      <path d="M7 1 L7.6 6.4 L13 7 L7.6 7.6 L7 13 L6.4 7.6 L1 7 L6.4 6.4 Z" fill="#d4af37"/>
+    </svg>
+  </div>
+  <div class="name">The Fool</div>
+</div>
+
+<script>
+// ── Stars ──────────────────────────────────────────────────────────────
+const sc = document.querySelector('canvas.stars');
+const sctx = sc.getContext('2d');
+const W = sc.width, H = sc.height;
+const stars = Array.from({length:110}, () => ({
+  x: Math.random()*W, y: Math.random()*H,
+  r: Math.random()*.75+.1,
+  a: Math.random()*.6+.1,
+  sp: Math.random()*.0025+.0006,
+  ph: Math.random()*Math.PI*2
+}));
+
+// ── Gold dust particles ────────────────────────────────────────────────
+const dc = document.querySelector('canvas.dust');
+const dctx = dc.getContext('2d');
+const particles = Array.from({length:22}, () => resetParticle({}));
+
+function resetParticle(p) {
+  // Start from figure area (center-ish)
+  p.x  = W*.2 + Math.random()*W*.6;
+  p.y  = H*.3 + Math.random()*H*.5;
+  p.vy = -(Math.random()*.35 + .08);   // drift upward
+  p.vx = (Math.random()-.5)*.12;
+  p.life = 0;
+  p.maxLife = 180 + Math.random()*140;
+  p.r  = Math.random()*1.2 + .3;
+  p.hue = 38 + Math.random()*14;       // warm gold
+  return p;
+}
+
+let t = 0;
+function draw() {
+  t++;
+
+  // Stars
+  sctx.clearRect(0,0,W,H);
+  stars.forEach(s => {
+    const a = s.a*(.3+.7*Math.sin(t*s.sp+s.ph));
+    sctx.beginPath();
+    sctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    sctx.fillStyle = `rgba(255,248,230,${a})`;
+    sctx.fill();
+  });
+
+  // Dust
+  dctx.clearRect(0,0,W,H);
+  particles.forEach(p => {
+    p.life++;
+    if (p.life > p.maxLife) resetParticle(p);
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vx += (Math.random()-.5)*.02;
+    const progress = p.life / p.maxLife;
+    const a = progress < .2
+      ? progress/.2 * .7
+      : progress > .75
+        ? (1-progress)/.25 * .7
+        : .7;
+    dctx.beginPath();
+    dctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    dctx.fillStyle = `hsla(${p.hue},85%,68%,${a})`;
+    dctx.fill();
+    // tiny glow
+    dctx.beginPath();
+    dctx.arc(p.x, p.y, p.r*2.5, 0, Math.PI*2);
+    dctx.fillStyle = `hsla(${p.hue},85%,68%,${a*.25})`;
+    dctx.fill();
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>

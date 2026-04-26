@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Three of Pentacles pip glyph</title>
+  <desc id="desc">Three pentacle coins in an upward triangle — opus, the craftsman's emblem.</desc>
+
+  <defs>
+    <radialGradient id="bgNight" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="55%" stop-color="#0d0719"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+    <radialGradient id="earthWash" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#1f3a3a" stop-opacity="0.16"/>
+      <stop offset="60%" stop-color="#1f3a3a" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#1f3a3a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+    <linearGradient id="goldPrimaryV" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+    <linearGradient id="goldThin" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6b4a1f"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+    <radialGradient id="centralAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="0.35"/>
+      <stop offset="40%" stop-color="#d4a574" stop-opacity="0.18"/>
+      <stop offset="75%" stop-color="#6b4a1f" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#1f3a3a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="vineGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#1f3a3a"/>
+      <stop offset="60%" stop-color="#6b4a1f"/>
+      <stop offset="100%" stop-color="#d4a574"/>
+    </linearGradient>
+    <path id="inscriptionArc" d="M 76 256 A 180 180 0 0 0 436 256" fill="none"/>
+  </defs>
+
+  <g id="background">
+    <rect x="0" y="0" width="512" height="512" fill="url(#bgNight)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#earthWash)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#vignette)"/>
+  </g>
+
+  <g id="starfield" fill="#fff2c6">
+    <circle cx="68"  cy="92"  r="1.1" fill-opacity="0.75"/>
+    <circle cx="128" cy="54"  r="0.9" fill-opacity="0.6"/>
+    <circle cx="210" cy="104" r="1.3" fill-opacity="0.85"/>
+    <circle cx="430" cy="78"  r="1"   fill-opacity="0.7"/>
+    <circle cx="468" cy="168" r="1.4" fill-opacity="0.9"/>
+    <circle cx="52"  cy="206" r="1.1" fill-opacity="0.75"/>
+    <circle cx="96"  cy="394" r="1.2" fill-opacity="0.8"/>
+    <circle cx="158" cy="446" r="0.9" fill-opacity="0.6"/>
+    <circle cx="402" cy="432" r="1.3" fill-opacity="0.85"/>
+    <circle cx="456" cy="376" r="1"   fill-opacity="0.7"/>
+    <circle cx="340" cy="60"  r="0.8" fill-opacity="0.55"/>
+    <circle cx="72"  cy="330" r="1"   fill-opacity="0.7"/>
+  </g>
+
+  <g id="sacred-geometry" fill="none" stroke="url(#goldThin)" stroke-opacity="0.85">
+    <circle cx="256" cy="256" r="240" stroke-width="0.8"/>
+    <circle cx="256" cy="256" r="220" stroke-width="0.6" stroke-opacity="0.55"/>
+    <circle cx="256" cy="256" r="200" stroke-width="0.8"/>
+    <circle cx="256" cy="256" r="150" stroke-width="0.4" stroke-opacity="0.35" stroke-dasharray="2 4"/>
+    <g stroke="#d4a574" stroke-width="1.2" stroke-opacity="0.85">
+      <line x1="256" y1="16"  x2="256" y2="8"/>
+      <line x1="376" y1="48"  x2="380" y2="40"/>
+      <line x1="464" y1="136" x2="472" y2="132"/>
+      <line x1="496" y1="256" x2="504" y2="256"/>
+      <line x1="464" y1="376" x2="472" y2="380"/>
+      <line x1="376" y1="464" x2="380" y2="472"/>
+      <line x1="256" y1="496" x2="256" y2="504"/>
+      <line x1="136" y1="464" x2="132" y2="472"/>
+      <line x1="48"  y1="376" x2="40"  y2="380"/>
+      <line x1="16"  y1="256" x2="8"   y2="256"/>
+      <line x1="48"  y1="136" x2="40"  y2="132"/>
+      <line x1="136" y1="48"  x2="132" y2="40"/>
+    </g>
+    <circle cx="256" cy="256" r="178" stroke-width="0.5" stroke-opacity="0.55"/>
+    <circle cx="256" cy="256" r="174" stroke-width="0.4" stroke-opacity="0.4"/>
+    <g fill="#d4a574" fill-opacity="0.85" stroke="none">
+      <path d="M 256 22 L 259 36 L 273 39 L 259 42 L 256 56 L 253 42 L 239 39 L 253 36 Z"/>
+      <path d="M 490 256 L 476 259 L 473 273 L 470 259 L 456 256 L 470 253 L 473 239 L 476 253 Z"/>
+      <path d="M 256 490 L 259 476 L 273 473 L 259 470 L 256 456 L 253 470 L 239 473 L 253 476 Z"/>
+      <path d="M 22 256 L 36 259 L 39 273 L 42 259 L 56 256 L 42 253 L 39 239 L 36 253 Z"/>
+    </g>
+    <g font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#d4a574" letter-spacing="2" font-style="italic">
+      <text>
+        <textPath href="#inscriptionArc" startOffset="50%" text-anchor="middle">III  PENTACLES  ·  TERRA  ·  OPUS</textPath>
+      </text>
+    </g>
+  </g>
+
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="#d4a574" font-style="italic" text-anchor="middle" letter-spacing="3">
+    <text x="256" y="55">III</text>
+  </g>
+
+  <g id="aura">
+    <circle cx="256" cy="215" r="120" fill="url(#centralAura)"/>
+  </g>
+
+  <g id="earth-ornament" opacity="0.35">
+    <line x1="140" y1="338" x2="372" y2="338"
+          stroke="url(#goldThin)" stroke-width="1.1" stroke-linecap="round"/>
+    <line x1="170" y1="343" x2="342" y2="343"
+          stroke="#6b4a1f" stroke-width="0.7" stroke-opacity="0.6" stroke-linecap="round"/>
+    <g fill="none" stroke="url(#vineGradient)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 168 338 C 160 322, 150 312, 142 300 C 138 292, 140 284, 148 282"/>
+      <path d="M 150 318 C 144 316, 138 318, 136 324 C 140 324, 146 322, 150 318 Z" fill="#1f3a3a" fill-opacity="0.5"/>
+      <path d="M 156 306 C 162 304, 168 306, 170 312 C 166 312, 160 310, 156 306 Z" fill="#1f3a3a" fill-opacity="0.5"/>
+      <path d="M 148 282 C 146 278, 144 276, 146 272 C 150 272, 152 276, 150 280"/>
+    </g>
+    <g fill="none" stroke="url(#vineGradient)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 344 338 C 352 322, 362 312, 370 300 C 374 292, 372 284, 364 282"/>
+      <path d="M 362 318 C 368 316, 374 318, 376 324 C 372 324, 366 322, 362 318 Z" fill="#1f3a3a" fill-opacity="0.5"/>
+      <path d="M 356 306 C 350 304, 344 306, 342 312 C 346 312, 352 310, 356 306 Z" fill="#1f3a3a" fill-opacity="0.5"/>
+      <path d="M 364 282 C 366 278, 368 276, 366 272 C 362 272, 360 276, 362 280"/>
+    </g>
+    <g fill="#d4a574" fill-opacity="0.7">
+      <circle cx="210" cy="340" r="0.9"/>
+      <circle cx="236" cy="341" r="0.7"/>
+      <circle cx="256" cy="340" r="1"/>
+      <circle cx="278" cy="341" r="0.7"/>
+      <circle cx="302" cy="340" r="0.9"/>
+    </g>
+  </g>
+
+  <!-- ============ CENTRAL PENTACLE COIN ============ -->
+  <g id="central-glyph" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="256" cy="215" r="50" stroke="url(#goldPrimaryV)" stroke-width="8"/>
+    <circle cx="256" cy="215" r="50" stroke="#fff2c6" stroke-width="1" stroke-opacity="0.55"/>
+    <circle cx="256" cy="215" r="42" stroke="url(#goldPrimary)" stroke-width="1.4" stroke-opacity="0.7"/>
+    <circle cx="256" cy="215" r="55" stroke="url(#goldThin)" stroke-width="0.5" stroke-opacity="0.5"/>
+    <path d="M 256 201 L 269 210.6 L 264 226 L 248 226 L 243 210.6 Z"
+          fill="url(#goldPrimaryV)" fill-opacity="0.2" stroke="none"/>
+    <path d="M 256 180 L 276.6 248.3 L 222.7 190.2 L 289.3 190.2 L 235.4 248.3 Z"
+          stroke="url(#goldPrimaryV)" stroke-width="5"/>
+    <path d="M 256 180 L 276.6 248.3 L 222.7 190.2 L 289.3 190.2 L 235.4 248.3 Z"
+          stroke="#fff2c6" stroke-width="0.9" stroke-opacity="0.5"/>
+    <circle cx="256" cy="215" r="2.5" fill="#fff2c6"/>
+    <circle cx="256" cy="215" r="4" fill="none" stroke="url(#goldPrimary)" stroke-width="0.9" stroke-opacity="0.7"/>
+    <g fill="#ffe8a3" fill-opacity="0.75">
+      <circle cx="256" cy="201" r="0.9"/>
+      <circle cx="269" cy="210.6" r="0.9"/>
+      <circle cx="264" cy="226" r="0.9"/>
+      <circle cx="248" cy="226" r="0.9"/>
+      <circle cx="243" cy="210.6" r="0.9"/>
+    </g>
+  </g>
+
+  <!-- ============ THREE MINI COINS — upward triangle above center ============ -->
+  <!-- Craftsman's emblem: apex top, two lower flanks framing the central coin above it -->
+  <!-- Positions: top (256,90), lower-left (178,400), lower-right (334,400) ... using classic triangle below -->
+  <g id="arc-vine" fill="none" stroke="url(#vineGradient)" stroke-width="1.5" stroke-opacity="0.6" stroke-linecap="round">
+    <path d="M 160 408 Q 256 430 352 408"/>
+    <line x1="256" y1="408" x2="256" y2="372"/>
+  </g>
+
+  <!-- mini pentacle: bottom-left (160,408) -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="160" cy="408" r="20" stroke="url(#goldPrimaryV)" stroke-width="4"/>
+    <circle cx="160" cy="408" r="24" stroke="url(#goldThin)" stroke-width="0.4" stroke-opacity="0.5"/>
+    <path d="M 160 394 L 168.2 427.3 L 146.7 403.7 L 173.3 403.7 L 151.8 427.3 Z"
+          stroke="url(#goldPrimaryV)" stroke-width="2"/>
+    <circle cx="160" cy="408" r="1.3" fill="#fff2c6"/>
+  </g>
+
+  <!-- mini pentacle: top-center (256,370) -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="256" cy="372" r="20" stroke="url(#goldPrimaryV)" stroke-width="4"/>
+    <circle cx="256" cy="372" r="24" stroke="url(#goldThin)" stroke-width="0.4" stroke-opacity="0.5"/>
+    <path d="M 256 358 L 264.2 391.3 L 242.7 367.7 L 269.3 367.7 L 247.8 391.3 Z"
+          stroke="url(#goldPrimaryV)" stroke-width="2"/>
+    <circle cx="256" cy="372" r="1.3" fill="#fff2c6"/>
+  </g>
+
+  <!-- mini pentacle: bottom-right (352,408) -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="352" cy="408" r="20" stroke="url(#goldPrimaryV)" stroke-width="4"/>
+    <circle cx="352" cy="408" r="24" stroke="url(#goldThin)" stroke-width="0.4" stroke-opacity="0.5"/>
+    <path d="M 352 394 L 360.2 427.3 L 338.7 403.7 L 365.3 403.7 L 343.8 427.3 Z"
+          stroke="url(#goldPrimaryV)" stroke-width="2"/>
+    <circle cx="352" cy="408" r="1.3" fill="#fff2c6"/>
+  </g>
+
+  <g id="inscription">
+    <g transform="translate(256,116)" fill="none" stroke="#d4a574" stroke-opacity="0.6" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M -9 -7 L 9 -7 L 0 8 Z"/>
+      <line x1="-6" y1="2" x2="6" y2="2"/>
+    </g>
+  </g>
+
+  <g id="ornament" fill="none" stroke="#d4a574" stroke-opacity="0.5" stroke-width="1.2" stroke-linecap="round">
+    <g transform="translate(40,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <g transform="translate(442,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <g transform="translate(40,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+    <g transform="translate(442,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"/>
+    </g>
+  </g>
+</svg>

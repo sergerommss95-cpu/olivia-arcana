@@ -31,8 +31,8 @@ export default function SectionReveal({ children, delay = 0, className = "" }: P
 
     // Respect reduced motion
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setProgress(1);
-      return;
+      const timer = setTimeout(() => setProgress(1), 0);
+      return () => clearTimeout(timer);
     }
 
     const observer = new IntersectionObserver(

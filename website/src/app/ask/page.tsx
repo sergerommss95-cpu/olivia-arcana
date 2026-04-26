@@ -9,6 +9,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { loadUser, type StoredUser } from "../../lib/user-store";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
@@ -87,7 +88,12 @@ export default function AskPage() {
   const chatRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => { setUser(loadUser()); }, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setUser(loadUser());
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   const scrollToBottom = () => {
     chatRef.current?.scrollTo({ top: chatRef.current.scrollHeight, behavior: "smooth" });
@@ -136,11 +142,11 @@ export default function AskPage() {
         textAlign: "center",
         borderBottom: "1px solid rgba(200,185,255,0.06)",
       }}>
-        <a href="/" style={{
+        <Link href="/" style={{
           fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 400,
           letterSpacing: "0.15em", textTransform: "uppercase",
           color: "rgba(180,170,210,0.4)", textDecoration: "none",
-        }}>← Home</a>
+        }}>← Home</Link>
         <h1 style={{
           fontFamily: "var(--font-heading)", fontSize: "1.5rem",
           fontWeight: 400, marginTop: "0.75rem",

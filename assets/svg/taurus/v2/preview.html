@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olivia Arcana — Taurus Concepts v2</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 2rem;
+    transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+  }
+  body.dark { background: #0a0517; color: #eee; }
+  body.light { background: #f5f5f5; color: #333; }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  h1 { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.01em; }
+  h1 small { font-weight: 400; opacity: 0.6; font-size: 1rem; margin-left: 0.5rem; }
+  h2 { font-size: 1.15rem; font-weight: 600; margin: 2.5rem 0 1rem; letter-spacing: -0.01em; }
+  .meta {
+    opacity: 0.65;
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+    max-width: 68ch;
+    line-height: 1.5;
+  }
+  .toggle {
+    padding: 0.5rem 1rem;
+    border: 1px solid currentColor;
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font-size: 0.875rem;
+  }
+  .toggle:hover { opacity: 0.75; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    border: 1px solid rgba(128, 128, 128, 0.25);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.15s, border-color 0.15s;
+  }
+  .card:hover { transform: translateY(-2px); border-color: rgba(212, 165, 116, 0.6); }
+  .card-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    min-height: 300px;
+    background: #0a0517;
+  }
+  body.light .card-img { background: #1a0f2e; }
+  .card-img img { max-width: 100%; max-height: 260px; display: block; }
+  .card-label {
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-top: 1px solid rgba(128, 128, 128, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  body.dark .card-label { background: #13081f; }
+  body.light .card-label { background: #fafafa; }
+  .card-label .size { opacity: 0.55; font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+
+  .size-check {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    padding: 1.5rem;
+    background: rgba(128, 128, 128, 0.06);
+    border-radius: 12px;
+  }
+  .size-block { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+  .size-block .label { font-size: 0.8rem; font-weight: 500; opacity: 0.85; }
+  .size-block .sizes { display: flex; gap: 1rem; align-items: flex-end; }
+  .size-block .sz { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+  .size-block .sz img { display: block; background: #0a0517; padding: 2px; border-radius: 3px; }
+  .size-block .sz div { font-size: 0.7rem; opacity: 0.55; font-variant-numeric: tabular-nums; }
+
+  footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(128, 128, 128, 0.2);
+    font-size: 0.8rem;
+    opacity: 0.6;
+    line-height: 1.6;
+  }
+  footer code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    background: rgba(212, 165, 116, 0.12);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body class="dark">
+  <div class="header">
+    <h1>Olivia Arcana — Taurus Concepts <small>v2 · 4 variants</small></h1>
+    <button class="toggle" onclick="
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+      this.textContent = document.body.classList.contains('dark') ? '☀ Light' : '☾ Dark';
+    ">☀ Light</button>
+  </div>
+  <div class="meta">
+    Generated via the SVG Protocol (Interview → Explore → Refine → Export, parallel Task-agent dispatch, brand validators applied). Compare the three philosophy-driven concepts against the v1 first-attempt baseline. Winner becomes the template for the Empress tarot illustration and the Humaaans figure for Mirror.
+  </div>
+
+  <h2>Concepts</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-img"><img src="concept-0-first-attempt.svg" alt="v1 first attempt"></div>
+      <div class="card-label">v1 · first attempt <span class="size">2.0 KB · single-shot</span></div>
+    </div>
+    <div class="card">
+      <div class="card-img"><img src="concept-1-mystic-cartography.svg" alt="Mystic Cartography"></div>
+      <div class="card-label">1 · Mystic Cartography <span class="size">11.7 KB · 8 gradients</span></div>
+    </div>
+    <div class="card">
+      <div class="card-img"><img src="concept-2-stellar-cathedral.svg" alt="Stellar Cathedral"></div>
+      <div class="card-label">2 · Stellar Cathedral <span class="size">10.9 KB · 8 gradients · 13 stars</span></div>
+    </div>
+    <div class="card">
+      <div class="card-img"><img src="concept-3-arcane-minimal.svg" alt="Arcane Minimal"></div>
+      <div class="card-label">3 · Arcane Minimal <span class="size">1.9 KB · 24 elements · 2 gradients</span></div>
+    </div>
+  </div>
+
+  <h2>Legibility gate · 64 / 32 / 16 px</h2>
+  <div class="size-check">
+    <div class="size-block">
+      <div class="label">v1 first attempt</div>
+      <div class="sizes">
+        <div class="sz"><img src="concept-0-first-attempt.svg" width="64" height="64"><div>64</div></div>
+        <div class="sz"><img src="concept-0-first-attempt.svg" width="32" height="32"><div>32</div></div>
+        <div class="sz"><img src="concept-0-first-attempt.svg" width="16" height="16"><div>16</div></div>
+      </div>
+    </div>
+    <div class="size-block">
+      <div class="label">1 · Mystic Cartography</div>
+      <div class="sizes">
+        <div class="sz"><img src="concept-1-mystic-cartography.svg" width="64" height="64"><div>64</div></div>
+        <div class="sz"><img src="concept-1-mystic-cartography.svg" width="32" height="32"><div>32</div></div>
+        <div class="sz"><img src="concept-1-mystic-cartography.svg" width="16" height="16"><div>16</div></div>
+      </div>
+    </div>
+    <div class="size-block">
+      <div class="label">2 · Stellar Cathedral</div>
+      <div class="sizes">
+        <div class="sz"><img src="concept-2-stellar-cathedral.svg" width="64" height="64"><div>64</div></div>
+        <div class="sz"><img src="concept-2-stellar-cathedral.svg" width="32" height="32"><div>32</div></div>
+        <div class="sz"><img src="concept-2-stellar-cathedral.svg" width="16" height="16"><div>16</div></div>
+      </div>
+    </div>
+    <div class="size-block">
+      <div class="label">3 · Arcane Minimal</div>
+      <div class="sizes">
+        <div class="sz"><img src="concept-3-arcane-minimal.svg" width="64" height="64"><div>64</div></div>
+        <div class="sz"><img src="concept-3-arcane-minimal.svg" width="32" height="32"><div>32</div></div>
+        <div class="sz"><img src="concept-3-arcane-minimal.svg" width="16" height="16"><div>16</div></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Working path: <code>/Users/macbookpro/olivia-arcana/assets/svg/taurus/v2/</code><br>
+    Protocol: <code>~/Desktop/SerhiiVault/brain/SVG Protocol.md</code> — Interview → Explore → Refine → Export<br>
+    Reject at 32px = refine before moving on. Pass at 16px = Olivia-favicon-safe.
+  </footer>
+</body>
+</html>

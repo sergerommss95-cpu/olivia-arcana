@@ -1,0 +1,361 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 700" role="img">
+  <title>The Empress — Major Arcana III (Ambient Presence)</title>
+  <desc>Animated variant: ambient presence. A crowned woman seated on a throne holding a scepter, wearing a robe embroidered with pomegranates. Subtle SMIL motion layers — crown twinkle, halo breath, hair drift, pomegranate shimmer, scepter orb pulse.</desc>
+
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="65%" stop-color="#0a0618"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="45%" stop-color="#ffe8a3"/>
+      <stop offset="75%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+    <radialGradient id="haloGrad" cx="50%" cy="38%" r="35%">
+      <stop offset="0%" stop-color="#ffe8a3" stop-opacity="0.10"/>
+      <stop offset="60%" stop-color="#ffe8a3" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#ffe8a3" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ============ BACKGROUND ============ -->
+  <g id="background">
+    <rect x="0" y="0" width="400" height="700" fill="url(#bgGrad)"/>
+    <!-- Halo aura: slow breath, longest cadence -->
+    <rect x="0" y="0" width="400" height="700" fill="url(#haloGrad)">
+      <animate attributeName="opacity" values="0.35;0.55;0.35" dur="10s" repeatCount="indefinite"/>
+    </rect>
+    <!-- a few subtle stars, nothing else -->
+    <circle cx="55" cy="90" r="1.2" fill="#ffe8a3" opacity="0.7">
+      <animate attributeName="opacity" values="0.35;0.7;0.35" dur="6s" begin="0s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="345" cy="120" r="1.4" fill="#ffe8a3" opacity="0.75">
+      <animate attributeName="opacity" values="0.4;0.75;0.4" dur="6.5s" begin="1.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="70" cy="540" r="1" fill="#ffe8a3" opacity="0.55">
+      <animate attributeName="opacity" values="0.25;0.55;0.25" dur="5.5s" begin="2.1s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="330" cy="500" r="1.2" fill="#ffe8a3" opacity="0.65">
+      <animate attributeName="opacity" values="0.3;0.65;0.3" dur="7s" begin="0.6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="40" cy="300" r="1" fill="#ffe8a3" opacity="0.5">
+      <animate attributeName="opacity" values="0.22;0.5;0.22" dur="6.2s" begin="3.4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="360" cy="340" r="1" fill="#ffe8a3" opacity="0.55">
+      <animate attributeName="opacity" values="0.25;0.55;0.25" dur="5.8s" begin="2.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="200" cy="60" r="1.3" fill="#fff2c6" opacity="0.7">
+      <animate attributeName="opacity" values="0.35;0.7;0.35" dur="7s" begin="1.7s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- ============ BORDER ============ -->
+  <g id="border" fill="none" stroke="url(#goldGrad)" stroke-linecap="round">
+    <rect x="15" y="15" width="370" height="670" stroke-width="1.6"/>
+    <rect x="22" y="22" width="356" height="656" stroke-width="0.8" opacity="0.8"/>
+    <!-- 4 cardinal 4-point star accents -->
+    <path d="M200 10 L203 18 L211 21 L203 24 L200 32 L197 24 L189 21 L197 18 Z" fill="url(#goldGrad)" stroke="none"/>
+    <path d="M200 668 L203 676 L211 679 L203 682 L200 690 L197 682 L189 679 L197 676 Z" fill="url(#goldGrad)" stroke="none"/>
+    <path d="M10 350 L18 353 L21 361 L24 353 L32 350 L24 347 L21 339 L18 347 Z" fill="url(#goldGrad)" stroke="none"/>
+    <path d="M368 350 L376 353 L379 361 L382 353 L390 350 L382 347 L379 339 L376 347 Z" fill="url(#goldGrad)" stroke="none"/>
+  </g>
+
+  <!-- ============ THRONE ============ -->
+  <g id="throne" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round">
+    <!-- back rail / headrest -->
+    <path d="M110 200 L290 200" stroke-width="4"/>
+    <!-- vertical posts -->
+    <path d="M110 200 L110 560"/>
+    <path d="M290 200 L290 560"/>
+    <!-- finials (simple orbs on post tops) -->
+    <circle cx="110" cy="195" r="6" fill="url(#goldGrad)" stroke="none"/>
+    <circle cx="290" cy="195" r="6" fill="url(#goldGrad)" stroke="none"/>
+    <!-- seat platform base -->
+    <path d="M85 560 L315 560" stroke-width="4"/>
+    <path d="M95 575 L305 575" stroke-width="2" opacity="0.7"/>
+  </g>
+
+  <!-- ============ FIGURE ============ -->
+  <g id="figure">
+    <!-- Robe: big flowing shape, pooling at feet. Drawn as filled shape with gold outline. -->
+    <path d="M155 260
+             C 150 290, 140 330, 135 380
+             C 130 430, 125 480, 115 560
+             C 105 610, 100 630, 95 640
+             L 305 640
+             C 300 630, 295 610, 285 560
+             C 275 480, 270 430, 265 380
+             C 260 330, 250 290, 245 260
+             C 235 250, 220 248, 200 248
+             C 180 248, 165 250, 155 260 Z"
+          fill="#0a0618" stroke="url(#goldGrad)" stroke-width="6" stroke-linejoin="round"/>
+
+    <!-- Robe inner fold lines (engraving hints) -->
+    <path d="M200 260 L200 640" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" opacity="0.55"/>
+    <path d="M170 290 C 160 380, 150 480, 140 600" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0.45"/>
+    <path d="M230 290 C 240 380, 250 480, 260 600" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0.45"/>
+
+    <!-- Pomegranates on robe — obvious fruit silhouettes: round body + tiny crown tip -->
+    <g id="pomegranates">
+      <!-- pom 1 upper left -->
+      <g transform="translate(165 320)">
+        <circle r="11" fill="#5a1f33" stroke="url(#goldGrad)" stroke-width="1.5"/>
+        <path d="M-3 -11 L-3 -15 M0 -11 L0 -16 M3 -11 L3 -15 M-4 -11 L4 -11" stroke="url(#goldGrad)" stroke-width="1.3" fill="none"/>
+        <animate attributeName="opacity" values="0.85;1;0.85" dur="5.2s" begin="0s" repeatCount="indefinite"/>
+      </g>
+      <!-- pom 2 upper right -->
+      <g transform="translate(235 320)">
+        <circle r="11" fill="#5a1f33" stroke="url(#goldGrad)" stroke-width="1.5"/>
+        <path d="M-3 -11 L-3 -15 M0 -11 L0 -16 M3 -11 L3 -15 M-4 -11 L4 -11" stroke="url(#goldGrad)" stroke-width="1.3" fill="none"/>
+        <animate attributeName="opacity" values="0.85;1;0.85" dur="6.1s" begin="1.1s" repeatCount="indefinite"/>
+      </g>
+      <!-- pom 3 center -->
+      <g transform="translate(200 395)">
+        <circle r="12" fill="#5a1f33" stroke="url(#goldGrad)" stroke-width="1.6"/>
+        <path d="M-3 -12 L-3 -16 M0 -12 L0 -17 M3 -12 L3 -16 M-5 -12 L5 -12" stroke="url(#goldGrad)" stroke-width="1.3" fill="none"/>
+        <animate attributeName="opacity" values="0.85;1;0.85" dur="4.7s" begin="2.3s" repeatCount="indefinite"/>
+      </g>
+      <!-- pom 4 mid left -->
+      <g transform="translate(155 470)">
+        <circle r="11" fill="#5a1f33" stroke="url(#goldGrad)" stroke-width="1.5"/>
+        <path d="M-3 -11 L-3 -15 M0 -11 L0 -16 M3 -11 L3 -15 M-4 -11 L4 -11" stroke="url(#goldGrad)" stroke-width="1.3" fill="none"/>
+        <animate attributeName="opacity" values="0.85;1;0.85" dur="5.8s" begin="0.6s" repeatCount="indefinite"/>
+      </g>
+      <!-- pom 5 mid right -->
+      <g transform="translate(245 470)">
+        <circle r="11" fill="#5a1f33" stroke="url(#goldGrad)" stroke-width="1.5"/>
+        <path d="M-3 -11 L-3 -15 M0 -11 L0 -16 M3 -11 L3 -15 M-4 -11 L4 -11" stroke="url(#goldGrad)" stroke-width="1.3" fill="none"/>
+        <animate attributeName="opacity" values="0.85;1;0.85" dur="6.4s" begin="3.0s" repeatCount="indefinite"/>
+      </g>
+      <!-- pom 6 lower center -->
+      <g transform="translate(200 555)">
+        <circle r="11" fill="#5a1f33" stroke="url(#goldGrad)" stroke-width="1.5"/>
+        <path d="M-3 -11 L-3 -15 M0 -11 L0 -16 M3 -11 L3 -15 M-4 -11 L4 -11" stroke="url(#goldGrad)" stroke-width="1.3" fill="none"/>
+        <animate attributeName="opacity" values="0.85;1;0.85" dur="4.9s" begin="1.8s" repeatCount="indefinite"/>
+      </g>
+    </g>
+
+    <!-- Hair: flowing behind shoulders -->
+    <path d="M170 175
+             C 155 195, 150 230, 155 260
+             L 170 258
+             C 168 230, 172 205, 182 185 Z"
+          fill="#0a0618" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M230 175
+             C 245 195, 250 230, 245 260
+             L 230 258
+             C 232 230, 228 205, 218 185 Z"
+          fill="#0a0618" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linejoin="round"/>
+
+    <!-- ============ HAIR (new in v3) ============ -->
+    <!-- Pre-Raphaelite flowing hair: emerges from under the crown circlet,
+         frames the face on both sides, cascades past shoulders to mid-torso.
+         Placed BEFORE the face path so the face features sit visibly on top.
+         The crown group later in z-order paints on top of the hair at the head. -->
+    <g id="hair">
+      <!-- Left silhouette: mass of hair flowing down viewer's left side of head -->
+      <path d="M178 155
+               C 162 162, 148 180, 142 210
+               C 136 245, 138 285, 135 330
+               C 132 370, 130 405, 128 430
+               C 134 418, 142 400, 150 380
+               C 148 345, 152 305, 160 270
+               C 165 245, 172 220, 180 200
+               C 182 185, 181 170, 178 155 Z"
+            fill="#0a0618" stroke="url(#goldGrad)" stroke-width="5" stroke-linejoin="round"/>
+      <!-- Right silhouette: mirror mass on viewer's right -->
+      <path d="M222 155
+               C 238 162, 252 180, 258 210
+               C 264 245, 262 285, 265 330
+               C 268 370, 270 405, 272 430
+               C 266 418, 258 400, 250 380
+               C 252 345, 248 305, 240 270
+               C 235 245, 228 220, 220 200
+               C 218 185, 219 170, 222 155 Z"
+            fill="#0a0618" stroke="url(#goldGrad)" stroke-width="5" stroke-linejoin="round"/>
+      <!-- Internal wave lines, left side — suggests flowing strands -->
+      <path d="M172 175 C 162 210, 155 260, 150 320 C 147 360, 145 400, 146 425"
+            fill="none" stroke="url(#goldGrad)" stroke-width="2" opacity="0.85" stroke-linecap="round"/>
+      <path d="M180 185 C 172 220, 168 270, 165 330 C 163 375, 162 410, 164 430"
+            fill="none" stroke="url(#goldGrad)" stroke-width="1.6" opacity="0.7" stroke-linecap="round"/>
+      <path d="M160 195 C 150 230, 144 280, 141 340 C 139 380, 138 410, 140 428"
+            fill="none" stroke="url(#goldGrad)" stroke-width="1.4" opacity="0.6" stroke-linecap="round"/>
+      <!-- Internal wave lines, right side -->
+      <path d="M228 175 C 238 210, 245 260, 250 320 C 253 360, 255 400, 254 425"
+            fill="none" stroke="url(#goldGrad)" stroke-width="2" opacity="0.85" stroke-linecap="round"/>
+      <path d="M220 185 C 228 220, 232 270, 235 330 C 237 375, 238 410, 236 430"
+            fill="none" stroke="url(#goldGrad)" stroke-width="1.6" opacity="0.7" stroke-linecap="round"/>
+      <path d="M240 195 C 250 230, 256 280, 259 340 C 261 380, 262 410, 260 428"
+            fill="none" stroke="url(#goldGrad)" stroke-width="1.4" opacity="0.6" stroke-linecap="round"/>
+      <!-- Loose wave strand tips at edges (organic pre-Raphaelite detail)
+           Wrapped in small rotation groups pivoting near the top of each strand
+           for ambient airflow drift (±1.5°, 8s). -->
+      <g transform="translate(128 430)">
+        <animateTransform attributeName="transform" type="rotate" values="-1.5;0;1.5;0;-1.5" dur="8s" repeatCount="indefinite" additive="sum"/>
+        <path d="M0 0 C -6 10, -8 18, -4 25"
+              fill="none" stroke="url(#goldGrad)" stroke-width="1.8" opacity="0.75" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(272 430)">
+        <animateTransform attributeName="transform" type="rotate" values="1.5;0;-1.5;0;1.5" dur="8.4s" repeatCount="indefinite" additive="sum"/>
+        <path d="M0 0 C 6 10, 8 18, 4 25"
+              fill="none" stroke="url(#goldGrad)" stroke-width="1.8" opacity="0.75" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(146 425)">
+        <animateTransform attributeName="transform" type="rotate" values="-1.5;0;1.5;0;-1.5" dur="9s" begin="-1.5s" repeatCount="indefinite" additive="sum"/>
+        <path d="M0 0 C -2 13, -2 23, 2 31"
+              fill="none" stroke="url(#goldGrad)" stroke-width="1.4" opacity="0.6" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(254 425)">
+        <animateTransform attributeName="transform" type="rotate" values="1.5;0;-1.5;0;1.5" dur="8.6s" begin="-2.2s" repeatCount="indefinite" additive="sum"/>
+        <path d="M0 0 C 2 13, 2 23, -2 31"
+              fill="none" stroke="url(#goldGrad)" stroke-width="1.4" opacity="0.6" stroke-linecap="round"/>
+      </g>
+    </g>
+
+    <!-- Face: 3/4 view oval with features -->
+    <path d="M200 150
+             C 178 150, 168 170, 168 195
+             C 168 220, 182 240, 200 240
+             C 218 240, 232 220, 232 195
+             C 232 170, 222 150, 200 150 Z"
+          fill="#ead0a8" stroke="url(#goldGrad)" stroke-width="2.5"/>
+
+    <!-- Facial features (3/4 view, gaze down) -->
+    <!-- brows -->
+    <path d="M183 188 Q 189 184, 195 188" fill="none" stroke="#3a2410" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M210 188 Q 218 185, 225 189" fill="none" stroke="#3a2410" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- eyes (downcast — short curves, no pupils) -->
+    <path d="M184 198 Q 189 202, 194 199" fill="none" stroke="#3a2410" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M211 199 Q 217 203, 224 200" fill="none" stroke="#3a2410" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- nose bridge (3/4 hint) -->
+    <path d="M203 200 Q 206 213, 204 220" fill="none" stroke="#a57a4a" stroke-width="1.4" stroke-linecap="round"/>
+    <!-- nostril hint -->
+    <path d="M201 222 Q 205 224, 209 222" fill="none" stroke="#a57a4a" stroke-width="1.2" stroke-linecap="round"/>
+    <!-- mouth -->
+    <path d="M194 229 Q 202 232, 212 229" fill="none" stroke="#8a3a3a" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- chin shadow -->
+    <path d="M192 236 Q 202 240, 214 236" fill="none" stroke="#c49a6c" stroke-width="1" opacity="0.6"/>
+
+    <!-- Neck -->
+    <path d="M188 240 L188 258 L212 258 L212 240" fill="#ead0a8" stroke="url(#goldGrad)" stroke-width="2"/>
+
+    <!-- Right arm + hand holding scepter (viewer's left side of figure = her right) -->
+    <path d="M160 275
+             C 140 300, 130 340, 138 385
+             L 152 385
+             C 150 345, 160 310, 175 285 Z"
+          fill="#0a0618" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linejoin="round"/>
+    <!-- right hand -->
+    <ellipse cx="145" cy="390" rx="10" ry="12" fill="#ead0a8" stroke="url(#goldGrad)" stroke-width="2"/>
+    <path d="M140 385 Q 145 382, 150 385" fill="none" stroke="#a57a4a" stroke-width="1"/>
+
+    <!-- Left arm resting toward shield (viewer's right) -->
+    <path d="M240 275
+             C 260 300, 272 340, 268 390
+             L 254 390
+             C 253 345, 243 310, 225 285 Z"
+          fill="#0a0618" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linejoin="round"/>
+    <!-- left hand -->
+    <ellipse cx="261" cy="395" rx="10" ry="12" fill="#ead0a8" stroke="url(#goldGrad)" stroke-width="2"/>
+  </g>
+
+  <!-- ============ CROWN ============ -->
+  <g id="crown">
+    <!-- circlet base on head -->
+    <path d="M172 158 Q 200 148, 228 158" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+    <!-- 12 small 4-point stars arced above head — asynchronous twinkle -->
+    <g fill="url(#goldGrad)">
+      <path d="M172 145 L173.5 149 L177.5 150.5 L173.5 152 L172 156 L170.5 152 L166.5 150.5 L170.5 149 Z" filter="url(#softGlow)">
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="3.2s" begin="0s" repeatCount="indefinite"/>
+      </path>
+      <path d="M180 138 L181.5 142 L185.5 143.5 L181.5 145 L180 149 L178.5 145 L174.5 143.5 L178.5 142 Z">
+        <animate attributeName="opacity" values="0.55;1;0.55" dur="4.1s" begin="0.4s" repeatCount="indefinite"/>
+      </path>
+      <path d="M189 133 L190.5 137 L194.5 138.5 L190.5 140 L189 144 L187.5 140 L183.5 138.5 L187.5 137 Z">
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="3.7s" begin="0.9s" repeatCount="indefinite"/>
+      </path>
+      <path d="M200 130 L201.5 134 L205.5 135.5 L201.5 137 L200 141 L198.5 137 L194.5 135.5 L198.5 134 Z" filter="url(#softGlow)">
+        <animate attributeName="opacity" values="0.55;1;0.55" dur="4.8s" begin="1.3s" repeatCount="indefinite"/>
+      </path>
+      <path d="M211 133 L212.5 137 L216.5 138.5 L212.5 140 L211 144 L209.5 140 L205.5 138.5 L209.5 137 Z">
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="3.4s" begin="1.8s" repeatCount="indefinite"/>
+      </path>
+      <path d="M220 138 L221.5 142 L225.5 143.5 L221.5 145 L220 149 L218.5 145 L214.5 143.5 L218.5 142 Z">
+        <animate attributeName="opacity" values="0.55;1;0.55" dur="5.2s" begin="2.2s" repeatCount="indefinite"/>
+      </path>
+      <path d="M228 145 L229.5 149 L233.5 150.5 L229.5 152 L228 156 L226.5 152 L222.5 150.5 L226.5 149 Z" filter="url(#softGlow)">
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="3.9s" begin="2.7s" repeatCount="indefinite"/>
+      </path>
+      <!-- a second row, smaller, behind - to make 12 -->
+      <path d="M164 152 L165 155 L168 156 L165 157 L164 160 L163 157 L160 156 L163 155 Z" opacity="0.85">
+        <animate attributeName="opacity" values="0.45;0.95;0.45" dur="4.5s" begin="3.1s" repeatCount="indefinite"/>
+      </path>
+      <path d="M236 152 L237 155 L240 156 L237 157 L236 160 L235 157 L232 156 L235 155 Z" opacity="0.85">
+        <animate attributeName="opacity" values="0.55;0.95;0.55" dur="5.5s" begin="3.6s" repeatCount="indefinite"/>
+      </path>
+      <path d="M184 128 L185 131 L188 132 L185 133 L184 136 L183 133 L180 132 L183 131 Z" opacity="0.85">
+        <animate attributeName="opacity" values="0.45;0.95;0.45" dur="3.6s" begin="4.0s" repeatCount="indefinite"/>
+      </path>
+      <path d="M216 128 L217 131 L220 132 L217 133 L216 136 L215 133 L212 132 L215 131 Z" opacity="0.85">
+        <animate attributeName="opacity" values="0.55;0.95;0.55" dur="4.3s" begin="4.5s" repeatCount="indefinite"/>
+      </path>
+      <path d="M200 122 L201 125 L204 126 L201 127 L200 130 L199 127 L196 126 L199 125 Z" opacity="0.85" filter="url(#softGlow)">
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="5.0s" begin="4.9s" repeatCount="indefinite"/>
+      </path>
+    </g>
+  </g>
+
+  <!-- ============ SCEPTER ============ -->
+  <g id="scepter" fill="none" stroke="url(#goldGrad)" stroke-linecap="round">
+    <!-- shaft, held by right hand at ~y=390, rising up past face height -->
+    <path d="M145 390 L130 210" stroke-width="3.5"/>
+    <!-- sphere cap (the world) — soft glow + gentle radius pulse -->
+    <circle cx="130" cy="200" r="9" fill="url(#goldGrad)" stroke="#6b4a1f" stroke-width="1" filter="url(#softGlow)">
+      <animate attributeName="r" values="9;10.08;9" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <!-- cross/meridian on sphere -->
+    <path d="M121 200 L139 200 M130 191 L130 209" stroke="#6b4a1f" stroke-width="1"/>
+    <!-- small tiny cross on top (world scepter) -->
+    <path d="M130 191 L130 185 M127 188 L133 188" stroke="url(#goldGrad)" stroke-width="1.8"/>
+  </g>
+
+  <!-- ============ VENUS SHIELD ============ -->
+  <g id="venus-shield">
+    <!-- heart-shaped shield beside her (viewer's right), held near left hand -->
+    <path d="M305 420
+             C 290 400, 265 405, 265 430
+             C 265 455, 305 485, 305 485
+             C 305 485, 345 455, 345 430
+             C 345 405, 320 400, 305 420 Z"
+          fill="#0a0618" stroke="url(#goldGrad)" stroke-width="3" stroke-linejoin="round"/>
+    <!-- Venus symbol: circle + cross below — soft glow whisper, no rotation -->
+    <circle cx="305" cy="435" r="10" fill="none" stroke="url(#goldGrad)" stroke-width="2.2" filter="url(#softGlow)"/>
+    <path d="M305 445 L305 468 M297 458 L313 458" stroke="url(#goldGrad)" stroke-width="2.2" stroke-linecap="round" fill="none" filter="url(#softGlow)"/>
+  </g>
+
+  <!-- ============ WHEAT AT FEET ============ -->
+  <g id="wheat" fill="none" stroke="url(#goldGrad)" stroke-width="1.6" stroke-linecap="round">
+    <!-- 5 stalks combined -->
+    <path d="M175 645 L170 620 M185 645 L183 618 M195 645 L196 615 M205 645 L206 615 M215 645 L217 618 M225 645 L230 620"/>
+    <!-- seed heads (all combined) -->
+    <path d="M170 620 L166 614 M170 620 L174 614 M170 620 L168 610 M183 618 L179 612 M183 618 L187 612 M183 618 L183 608 M196 615 L192 609 M196 615 L200 609 M196 615 L196 605 M206 615 L202 609 M206 615 L210 609 M206 615 L206 605 M217 618 L213 612 M217 618 L221 612 M217 618 L217 608 M230 620 L226 614 M230 620 L234 614 M230 620 L232 610"/>
+  </g>
+
+  <!-- ============ INSCRIPTION ============ -->
+  <g id="inscription">
+    <text x="200" y="670" text-anchor="middle"
+          font-family="Georgia, 'Times New Roman', serif"
+          font-size="16" font-style="italic" letter-spacing="3"
+          fill="url(#goldGrad)">III  ·  THE EMPRESS</text>
+  </g>
+</svg>

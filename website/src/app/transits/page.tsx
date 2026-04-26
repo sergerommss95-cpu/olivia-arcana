@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { loadChart } from "../../lib/user-store";
 import { computeTransits, type Transit } from "../../lib/transit-calculator";
 import TransitTimeline from "../../components/TransitTimeline";
+import Paywall from "../../components/Paywall";
 import { useLocale } from "../../lib/i18n/useLocale";
 import type { NatalChart } from "../../lib/natal-chart";
 
@@ -276,8 +277,10 @@ export default function TransitsPage() {
         </div>
       </div>
 
-      {/* Timeline */}
-      <TransitTimeline transits={transits} />
+      {/* Timeline — gated for Insight+ */}
+      <Paywall requires="insight" priceKey="insight_monthly" featureName="your transit timeline">
+        <TransitTimeline transits={transits} />
+      </Paywall>
 
       {/* Responsive */}
       <style>{`

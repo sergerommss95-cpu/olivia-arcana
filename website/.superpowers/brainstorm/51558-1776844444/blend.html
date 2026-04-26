@@ -1,0 +1,136 @@
+<style>
+  body { background: #060810; color: #E8E6F0; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2rem; margin-bottom: 0.25rem; letter-spacing: -0.005em; }
+  .subtitle { color: #8A829A; font-size: 0.95rem; margin-bottom: 2rem; }
+  .label { color: #C8A84B; letter-spacing: 0.2em; font-size: 0.7rem; font-weight: 600; }
+
+  .locked { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 12px; padding: 1rem 1.15rem; margin-bottom: 2rem; }
+  .locked h4 { color: #C8A84B; font-size: 0.7rem; letter-spacing: 0.2em; margin: 0 0 0.55rem 0; font-weight: 600; }
+  .locked-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+  .chip { background: #1a1628; color: #E2C070; padding: 0.35rem 0.85rem; border-radius: 999px; font-size: 0.78rem; border: 1px solid rgba(200,168,75,0.3); }
+  .locked-text { color: #a8a0b8; font-size: 0.84rem; margin-top: 0.6rem; line-height: 1.5; }
+
+  .options { display: grid; grid-template-columns: 1fr; gap: 1.2rem; }
+  .option { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 14px; padding: 1.5rem 1.75rem; cursor: pointer; transition: all 220ms ease; position: relative; }
+  .option:hover { border-color: #C8A84B; background: #131525; transform: translateY(-1px); }
+  .option.selected { border-color: #C8A84B; background: #1a1628; }
+  .option.recommended::before { content: "RECOMMENDED"; position: absolute; top: 14px; right: 14px; background: #C8A84B; color: #060810; padding: 3px 10px; font-size: 0.65rem; letter-spacing: 0.18em; border-radius: 3px; font-weight: 600; }
+  .option .letter { background: #1c1e30; color: #C8A84B; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 0.85rem; vertical-align: middle; font-size: 0.95rem; }
+  .option h3 { display: inline; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.5rem; color: #E8E6F0; }
+  .option .hook { color: #E2C070; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; margin: 0.35rem 0 0.85rem 0; }
+
+  .arrival { padding: 0.75rem 0.95rem; background: #06080f; border-left: 2px solid #8A6D2A; color: #B8B0C8; font-size: 0.85rem; line-height: 1.6; border-radius: 0 4px 4px 0; margin-bottom: 0.9rem; }
+  .arrival strong { color: #E2C070; letter-spacing: 0.1em; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+
+  .mechanics { color: #B8B0C8; font-size: 0.88rem; line-height: 1.65; }
+  .mechanics ul { padding-left: 1.1rem; margin: 0.4rem 0 0 0; }
+  .mechanics li { margin-bottom: 0.35rem; }
+  .mechanics strong { color: #E2C070; font-weight: 500; }
+
+  .trade { margin-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .pro, .con { padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 0.82rem; line-height: 1.45; }
+  .pro { background: #0f1a15; border-left: 2px solid #6bb58d; color: #a8d4b8; }
+  .con { background: #1a0f12; border-left: 2px solid #c67a7a; color: #d4a8a8; }
+  .pro strong, .con strong { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-bottom: 0.25rem; }
+  .pro strong { color: #8fd4a8; }
+  .con strong { color: #d48f8f; }
+
+  .footer-note { background: #0c0d18; border-left: 2px solid #C8A84B; padding: 0.85rem 1rem; margin-top: 2rem; color: #8A829A; font-size: 0.82rem; border-radius: 0 6px 6px 0; }
+</style>
+
+<span class="label">PIVOT LOCKED · A + B · NOW BLEND</span>
+<h2>How do the 3D deck and the live sky actually blend?</h2>
+<p class="subtitle">Same ingredients. Three very different sites. Pick one — I'll design it in detail before writing any code.</p>
+
+<div class="locked">
+  <h4>WHAT YOU LOCKED</h4>
+  <div class="locked-row">
+    <span class="chip">A · interactive 3D deck (78 real cards)</span>
+    <span class="chip">B · live astronomy at viewer's location</span>
+  </div>
+  <div class="locked-text">Both of these are confirmed. Below: three ways they combine into one coherent site.</div>
+</div>
+
+<div class="options">
+
+  <!-- BLEND 1 — RECOMMENDED -->
+  <div class="option recommended" data-choice="sky-is-deck" onclick="toggleSelect(this)">
+    <span class="letter">1</span><h3>The Sky Is the Deck</h3>
+    <div class="hook">the 78 cards live IN the sky — pluck a card like plucking a star</div>
+
+    <div class="arrival"><strong>ARRIVAL</strong>
+      Geolocation → the live current sky above you fills the viewport. Real stars. Real planets at their current positions. Moon at its current phase. Quiet and dark.
+    </div>
+
+    <div class="mechanics">
+      <strong>CORE MECHANIC:</strong> all 78 Olivia Arcana cards are distributed across the sky, each anchored to an astrological region (zodiac sign × modality). <strong>Current transiting planets cast light onto specific cards</strong> — those cards glow faintly, drift forward. Cards outside current transits sit farther back, dimmer.
+      <ul>
+        <li>Drag to pan the sky. Scroll zooms in/out.</li>
+        <li>Hover a card — it floats to the viewer, tilts, shows its face.</li>
+        <li>Click to pull: card rises out of the sky, flips, reveals the reading with a note: <em>"drawn from the 9th house of Sagittarius, while Jupiter transits."</em></li>
+        <li>Pull 3 cards for a full spread. Each flagged by where in the sky it came from.</li>
+      </ul>
+    </div>
+
+    <div class="trade">
+      <div class="pro"><strong>Pros</strong>Completely signature. One-line pitch: <em>"the sky above you is the deck."</em> Every visitor's sky is different. Massive Awwwards ceiling.</div>
+      <div class="con"><strong>Cons</strong>Most technically ambitious (real astronomy math + 78 cards in 3D + interaction). Most time to build right.</div>
+    </div>
+  </div>
+
+  <!-- BLEND 2 -->
+  <div class="option" data-choice="now-reading" onclick="toggleSelect(this)">
+    <span class="letter">2</span><h3>The Reading from Now</h3>
+    <div class="hook">the sky reads for you — an hourly oracle, shareable as a card</div>
+
+    <div class="arrival"><strong>ARRIVAL</strong>
+      A single line: <em>"The sky is reading for you. [time at your location]."</em> Three cards float down from the sky, pre-selected by the current transits. The sky is visible but subtle — the CARDS and the reading are centerstage.
+    </div>
+
+    <div class="mechanics">
+      <strong>CORE MECHANIC:</strong> every hour, the transiting planets choose 3 cards for the collective. <strong>Everyone who visits in the same hour gets the same 3 cards</strong> (a shared cosmic event), but the reading is contextualized to the viewer's local sunrise/sunset. Tomorrow at 3pm, totally different cards. Six times a day the world's reading changes.
+      <ul>
+        <li>Three cards centerstage with the sky as backdrop.</li>
+        <li>Each card labeled: <em>"Venus → The Star · Mars → The Tower · Moon → The Priestess"</em></li>
+        <li>Shareable: permalink + auto-generated image of your hour's spread.</li>
+        <li>Option: enter birth info → get a personal layer on top of the collective one.</li>
+      </ul>
+    </div>
+
+    <div class="trade">
+      <div class="pro"><strong>Pros</strong>Viral mechanic (shared hourly spreads = Twitter-style cohort). Easier build. Returns daily ("what did the sky say today?"). Less 3D complexity.</div>
+      <div class="con"><strong>Cons</strong>Less exploration — you receive the reading rather than pull one. Sky is context, not centerpiece.</div>
+    </div>
+  </div>
+
+  <!-- BLEND 3 -->
+  <div class="option" data-choice="observatory" onclick="toggleSelect(this)">
+    <span class="letter">3</span><h3>The Observatory — navigable tool</h3>
+    <div class="hook">multiple modes: live sky, your chart, the full deck, the rituals</div>
+
+    <div class="arrival"><strong>ARRIVAL</strong>
+      Dark viewport with four anchors visible in the distance: <em>The Sky · The Chart · The Deck · The Rooms</em>. Camera can fly between them in 3D. Each is its own destination.
+    </div>
+
+    <div class="mechanics">
+      <strong>CORE MECHANIC:</strong> the site is an instrument with <strong>4 modes</strong> navigable via camera fly-through (no page navigation).
+      <ul>
+        <li><strong>Sky mode</strong> — current sky above your location (from B)</li>
+        <li><strong>Chart mode</strong> — input birth info, see your personal natal chart as a 3D space</li>
+        <li><strong>Deck mode</strong> — all 78 cards fanned in 3D, pick any (from A)</li>
+        <li><strong>Rooms mode</strong> — paid ritual rooms (from earlier scope)</li>
+      </ul>
+      Camera transitions between modes feel like traveling through cosmic space. Each mode is independently rich.
+    </div>
+
+    <div class="trade">
+      <div class="pro"><strong>Pros</strong>Most product-complete. Everything lives in one experience. Supports the previous scope (rituals, chart). Tool people return to.</div>
+      <div class="con"><strong>Cons</strong>Least focused signature. Four modes = four things to polish. Risk of feeling like a "cosmic Framer template."</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  Click a blend or type 1 / 2 / 3 in terminal. Once locked, I'll <strong>present the full design spec</strong> — every user action, every visual beat, every technical decision — for your approval <em>before</em> writing code.
+</div>

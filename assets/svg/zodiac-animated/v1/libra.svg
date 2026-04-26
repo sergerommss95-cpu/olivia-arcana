@@ -1,0 +1,250 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Libra zodiac glyph</title>
+  <desc id="desc">Scales symbol, Venus ruled, cardinal air sign</desc>
+
+  <defs>
+    <!-- 1. Deep night radial backdrop -->
+    <radialGradient id="bgNight" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="55%" stop-color="#0d0719"/>
+      <stop offset="100%" stop-color="#05020e"/>
+    </radialGradient>
+
+    <!-- 2. Parchment vignette -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+
+    <!-- 3. Venus rose wash — Libra is Venus-ruled, a subtle rose tint over the center -->
+    <radialGradient id="venusWash" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#b56a7a" stop-opacity="0.12"/>
+      <stop offset="60%" stop-color="#6a2a3f" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#6a2a3f" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 4. Gold primary gradient (glyph + linework, diagonal) -->
+    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3"/>
+      <stop offset="45%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 5. Gold vertical gradient (used for the dome + base line) -->
+    <linearGradient id="goldPrimaryV" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c6"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 6. Gold thin gradient — fine ring / tick marks -->
+    <linearGradient id="goldThin" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6b4a1f"/>
+      <stop offset="50%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#6b4a1f"/>
+    </linearGradient>
+
+    <!-- 7. Aura behind the central glyph -->
+    <radialGradient id="centralAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="0.35"/>
+      <stop offset="40%" stop-color="#d4a574" stop-opacity="0.18"/>
+      <stop offset="75%" stop-color="#6b4a1f" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#6a2a3f" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 8. Zubeneschamali glow (β Librae — notably emerald-tinted, but kept in gold family for palette unity) -->
+    <radialGradient id="zubenGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff2c6" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#ffe8a3" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#d4a574" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Path for the bottom-arc inscription -->
+    <path id="inscriptionArc" d="M 76 256 A 180 180 0 0 0 436 256" fill="none"/>
+      <filter id="ambientGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ============ BACKGROUND ============ -->
+  <g id="background">
+    <rect x="0" y="0" width="512" height="512" fill="url(#bgNight)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#venusWash)"/>
+    <rect x="0" y="0" width="512" height="512" fill="url(#vignette)"/>
+  </g>
+
+  <!-- ============ STARFIELD — scattered background stars ============ -->
+  <g id="starfield" fill="#fff2c6">
+    <circle cx="72"  cy="88"  r="1.1" fill-opacity="0.75"><animate attributeName="opacity" values="0.47;0.96;0.47" dur="3.0s" begin="0.5s" repeatCount="indefinite"/></circle>
+    <circle cx="132" cy="58"  r="0.9" fill-opacity="0.6"><animate attributeName="opacity" values="0.47;1.0;0.47" dur="3.1s" begin="1.8s" repeatCount="indefinite"/></circle>
+    <circle cx="214" cy="108" r="1.3" fill-opacity="0.85"><animate attributeName="opacity" values="0.43;0.95;0.43" dur="4.0s" begin="1.7s" repeatCount="indefinite"/></circle>
+    <circle cx="434" cy="82"  r="1"   fill-opacity="0.7"><animate attributeName="opacity" values="0.53;0.99;0.53" dur="4.4s" begin="2.5s" repeatCount="indefinite"/></circle>
+    <circle cx="472" cy="172" r="1.4" fill-opacity="0.9"><animate attributeName="opacity" values="0.49;0.91;0.49" dur="3.2s" begin="1.5s" repeatCount="indefinite"/></circle>
+    <circle cx="48"  cy="210" r="1.1" fill-opacity="0.75"><animate attributeName="opacity" values="0.52;0.9;0.52" dur="4.2s" begin="3.3s" repeatCount="indefinite"/></circle>
+    <circle cx="100" cy="390" r="1.2" fill-opacity="0.8"><animate attributeName="opacity" values="0.41;0.99;0.41" dur="3.5s" begin="2.5s" repeatCount="indefinite"/></circle>
+    <circle cx="162" cy="442" r="0.9" fill-opacity="0.6"><animate attributeName="opacity" values="0.45;0.93;0.45" dur="4.0s" begin="2.7s" repeatCount="indefinite"/></circle>
+    <circle cx="406" cy="436" r="1.3" fill-opacity="0.85"><animate attributeName="opacity" values="0.42;0.98;0.42" dur="3.7s" begin="3.5s" repeatCount="indefinite"/></circle>
+    <circle cx="460" cy="372" r="1"   fill-opacity="0.7"><animate attributeName="opacity" values="0.51;0.91;0.51" dur="4.9s" begin="1.9s" repeatCount="indefinite"/></circle>
+    <circle cx="344" cy="64"  r="0.8" fill-opacity="0.55"><animate attributeName="opacity" values="0.41;0.99;0.41" dur="3.6s" begin="0.4s" repeatCount="indefinite"/></circle>
+    <circle cx="68"  cy="334" r="1"   fill-opacity="0.7"><animate attributeName="opacity" values="0.51;0.95;0.51" dur="4.5s" begin="2.0s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- ============ SACRED GEOMETRY ============ -->
+  <g id="sacred-geometry" fill="none" stroke="url(#goldThin)" stroke-opacity="0.85">
+    <!-- Three concentric circles -->
+    <circle cx="256" cy="256" r="240" stroke-width="0.8"/>
+    <circle cx="256" cy="256" r="220" stroke-width="0.6" stroke-opacity="0.55"/>
+    <circle cx="256" cy="256" r="200" stroke-width="0.8"/>
+
+    <!-- Inner dashed mandala reference ring -->
+    <circle cx="256" cy="256" r="150" stroke-width="0.4" stroke-opacity="0.35" stroke-dasharray="2 4"/>
+
+    <!-- Ornamental double-ring -->
+    <circle cx="256" cy="256" r="184" stroke-width="0.5" stroke-opacity="0.45"/>
+    <circle cx="256" cy="256" r="180" stroke-width="0.5" stroke-opacity="0.45"/>
+
+    <!-- 12 tick marks on outer ring (r=240 → r=248), every 30° -->
+    <g stroke="#d4a574" stroke-width="1.2" stroke-opacity="0.85">
+      <line x1="256" y1="16"  x2="256" y2="8"/>
+      <line x1="376" y1="48"  x2="380" y2="40"/>
+      <line x1="464" y1="136" x2="472" y2="132"/>
+      <line x1="496" y1="256" x2="504" y2="256"/>
+      <line x1="464" y1="376" x2="472" y2="380"/>
+      <line x1="376" y1="464" x2="380" y2="472"/>
+      <line x1="256" y1="496" x2="256" y2="504"/>
+      <line x1="136" y1="464" x2="132" y2="472"/>
+      <line x1="48"  y1="376" x2="40"  y2="380"/>
+      <line x1="16"  y1="256" x2="8"   y2="256"/>
+      <line x1="48"  y1="136" x2="40"  y2="132"/>
+      <line x1="136" y1="48"  x2="132" y2="40"/>
+    </g>
+
+    <!-- 12 tick marks on inner ring (r=200 → r=192) -->
+    <g stroke="#d4a574" stroke-width="1" stroke-opacity="0.7">
+      <line x1="256" y1="56"  x2="256" y2="64"/>
+      <line x1="356" y1="83"  x2="354" y2="90"/>
+      <line x1="429" y1="156" x2="422" y2="158"/>
+      <line x1="456" y1="256" x2="448" y2="256"/>
+      <line x1="429" y1="356" x2="422" y2="354"/>
+      <line x1="356" y1="429" x2="354" y2="422"/>
+      <line x1="256" y1="456" x2="256" y2="448"/>
+      <line x1="156" y1="429" x2="158" y2="422"/>
+      <line x1="83"  y1="356" x2="90"  y2="354"/>
+      <line x1="56"  y1="256" x2="64"  y2="256"/>
+      <line x1="83"  y1="156" x2="90"  y2="158"/>
+      <line x1="156" y1="83"  x2="158" y2="90"/>
+    </g>
+
+    <!-- 4 cardinal-point 4-pointed stars (compass jewels) -->
+    <g fill="#d4a574" fill-opacity="0.85" stroke="none">
+      <!-- North -->
+      <path d="M 256 22 L 259 36 L 273 39 L 259 42 L 256 56 L 253 42 L 239 39 L 253 36 Z"/>
+      <!-- East -->
+      <path d="M 490 256 L 476 259 L 473 273 L 470 259 L 456 256 L 470 253 L 473 239 L 476 253 Z"/>
+      <!-- South -->
+      <path d="M 256 490 L 259 476 L 273 473 L 259 470 L 256 456 L 253 470 L 239 473 L 253 476 Z"/>
+      <!-- West -->
+      <path d="M 22 256 L 36 259 L 39 273 L 42 259 L 56 256 L 42 253 L 39 239 L 36 253 Z"/>
+    </g>
+
+    <!-- Bottom-arc inscription: Libra · Aer Cardinalis · Venus · Libratio -->
+    <g font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#d4a574" letter-spacing="2" font-style="italic">
+      <text>
+        <textPath href="#inscriptionArc" startOffset="50%" text-anchor="middle">♎  LIBRA  ·  AER  CARDINALIS  ·  VENUS  ·  LIBRATIO</textPath>
+      </text>
+    </g>
+  </g>
+
+  <!-- ============ AURA BEHIND THE GLYPH ============ -->
+  <g id="aura">
+    <circle cx="256" cy="210" r="175" fill="url(#centralAura)"/>
+  </g>
+
+  <!-- ============ MAIN LIBRA GLYPH — canonical ♎ horizon + dome ============ -->
+  <g id="glyph" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- LOWER ELEMENT — the base horizontal line of the scale -->
+    <path d="M 140 280 L 372 280"
+          stroke="url(#goldPrimaryV)" stroke-width="14"/>
+
+    <!-- UPPER ELEMENT — simple dome sitting directly on the baseline (Option B) -->
+    <path d="M 200 280 A 56 56 0 0 1 312 280"
+          stroke="url(#goldPrimaryV)" stroke-width="14"/>
+
+    <!-- Cream inner highlight pass — base line -->
+    <path d="M 140 280 L 372 280"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- Cream inner highlight pass — dome -->
+    <path d="M 200 280 A 56 56 0 0 1 312 280"
+          stroke="#fff2c6" stroke-width="1.5" stroke-opacity="0.55"/>
+
+    <!-- Ornamental sphere caps at base-line endpoints -->
+    <circle cx="140" cy="280" r="2.5" fill="#fff2c6"><animate attributeName="opacity" values="0.51;0.98;0.51" dur="3.0s" begin="0.8s" repeatCount="indefinite"/></circle>
+    <circle cx="372" cy="280" r="2.5" fill="#fff2c6"><animate attributeName="opacity" values="0.42;0.95;0.42" dur="4.1s" begin="3.8s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- ============ CONSTELLATION — Libra (Zubenelgenubi, Zubeneschamali, Zubenelakrab, Brachium) ============ -->
+  <g id="constellation" opacity="0.95">
+    <!-- Connecting lines — the broken kite of Libra -->
+    <g stroke="url(#goldPrimary)" stroke-width="0.7" stroke-opacity="0.4" fill="none" stroke-linecap="round">
+      <!-- Zubenelgenubi (α, southern claw) ↔ Zubeneschamali (β, northern claw) — the two claws -->
+      <line x1="170" y1="340" x2="330" y2="300"/>
+      <!-- Zubeneschamali ↔ Zubenelakrab (γ) -->
+      <line x1="330" y1="300" x2="380" y2="388"/>
+      <!-- Zubenelakrab ↔ Brachium (σ) -->
+      <line x1="380" y1="388" x2="220" y2="410"/>
+      <!-- Brachium ↔ Zubenelgenubi (close the figure) -->
+      <line x1="220" y1="410" x2="170" y2="340"/>
+    </g>
+
+    <!-- Stars (sized by magnitude) -->
+    <!-- Zubeneschamali (β Librae) — the northern claw, historically described as emerald-tinted; brightest anchor -->
+    <circle cx="330" cy="300" r="6" fill="url(#zubenGlow)"/>
+    <circle cx="330" cy="300" r="3" fill="#fff2c6"/>
+    <!-- Zubenelgenubi (α Librae) — the southern claw -->
+    <circle cx="170" cy="340" r="2.6" fill="#fff2c6"/>
+    <!-- Zubenelakrab (γ Librae) -->
+    <circle cx="380" cy="388" r="2.2" fill="#ffe8a3"><animate attributeName="opacity" values="0.38;0.98;0.38" dur="4.2s" begin="2.6s" repeatCount="indefinite"/></circle>
+    <!-- Brachium (σ Librae) -->
+    <circle cx="220" cy="410" r="2.2" fill="#ffe8a3"><animate attributeName="opacity" values="0.45;0.99;0.45" dur="4.9s" begin="3.2s" repeatCount="indefinite"/></circle>
+    <!-- A faint accessory star for narrative density -->
+    <circle cx="278" cy="356" r="1.3" fill="#fff2c6" fill-opacity="0.85"><animate attributeName="opacity" values="0.55;0.96;0.55" dur="3.7s" begin="1.7s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- ============ ORNAMENT — four Gothic filigree corner flourishes ============ -->
+  <g id="ornament" fill="none" stroke="#d4a574" stroke-opacity="0.5" stroke-width="1.2" stroke-linecap="round">
+    <!-- Top-left -->
+    <g transform="translate(40,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.7s" begin="1.5s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Top-right -->
+    <g transform="translate(442,40)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.54;1.0;0.54" dur="3.8s" begin="0.4s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Bottom-left -->
+    <g transform="translate(40,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.49;0.97;0.49" dur="3.9s" begin="2.5s" repeatCount="indefinite"/></circle>
+    </g>
+    <!-- Bottom-right -->
+    <g transform="translate(442,442)">
+      <path d="M 0 15 L 30 15 M 15 0 L 15 30"/>
+      <path d="M 4 4 Q 15 10 26 4"/>
+      <path d="M 4 26 Q 15 20 26 26"/>
+      <circle cx="15" cy="15" r="2.5" fill="#d4a574" fill-opacity="0.5" stroke="none"><animate attributeName="opacity" values="0.36;1.0;0.36" dur="5.0s" begin="2.8s" repeatCount="indefinite"/></circle>
+    </g>
+  </g>
+</svg>

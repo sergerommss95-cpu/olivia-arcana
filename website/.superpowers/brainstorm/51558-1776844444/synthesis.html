@@ -1,0 +1,161 @@
+<style>
+  body { background: #060810; color: #E8E6F0; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2.1rem; margin-bottom: 0.2rem; letter-spacing: -0.008em; }
+  .subtitle { color: #a8a0b8; font-size: 1rem; margin-bottom: 1.8rem; font-family: 'Cormorant Garamond', serif; font-style: italic; line-height: 1.5; }
+  .label { color: #C8A84B; letter-spacing: 0.2em; font-size: 0.7rem; font-weight: 600; }
+
+  /* Synthesis summary */
+  .pitch { background: linear-gradient(180deg, #1a1628 0%, #0c0d18 100%); border: 1px solid rgba(200,168,75,0.4); border-radius: 14px; padding: 1.3rem 1.6rem; margin-bottom: 1.6rem; }
+  .pitch h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.45rem; color: #E8E6F0; margin: 0 0 0.45rem 0; }
+  .pitch h3 em { color: #C8A84B; font-style: italic; }
+  .pitch .quote { color: #E2C070; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.08rem; line-height: 1.45; border-left: 2px solid #C8A84B; padding: 0.3rem 0.9rem; margin: 0.4rem 0 0.6rem 0; }
+  .pitch p { color: #B8B0C8; font-size: 0.88rem; line-height: 1.65; margin: 0 0 0.5rem 0; }
+  .pitch p:last-child { margin-bottom: 0; }
+
+  /* The "what's different" matrix */
+  .diff { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.6rem; margin: 1.1rem 0 1.8rem 0; }
+  .diff-card { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 8px; padding: 0.9rem 1rem; }
+  .diff-card h4 { color: #C8A84B; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.85rem; margin: 0 0 0.5rem 0; letter-spacing: 0.02em; }
+  .diff-card .before { color: #6e6580; font-size: 0.76rem; line-height: 1.5; text-decoration: line-through; margin-bottom: 0.35rem; }
+  .diff-card .after { color: #E8E6F0; font-size: 0.82rem; line-height: 1.52; }
+  .diff-card .after strong { color: #E2C070; font-weight: 500; }
+
+  /* Mockup — rendered as a fake scene */
+  .mockup { background: radial-gradient(ellipse at 50% 40%, #1a1730 0%, #060810 72%);
+    border: 1px solid rgba(200,168,75,0.25); border-radius: 12px;
+    padding: 0; overflow: hidden; margin: 1rem 0 1.5rem 0; position: relative;
+    aspect-ratio: 16/10; min-height: 420px; }
+  .mk-hud { position: absolute; top: 16px; left: 22px; font-family: 'Cormorant Garamond', serif;
+    font-size: 11px; letter-spacing: 0.28em; color: #7a6f88; text-transform: uppercase; }
+  .mk-hud-r { left: auto; right: 22px; font-style: italic; letter-spacing: 0.05em;
+    text-transform: none; font-size: 13px; color: #a8a0b8; }
+  .mk-stars { position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 11% 16%, #e8e0cc 60%, transparent 61%),
+      radial-gradient(1px 1px at 28% 44%, #e8e0cc 60%, transparent 61%),
+      radial-gradient(1px 1px at 46% 20%, #e8e0cc 60%, transparent 61%),
+      radial-gradient(1px 1px at 62% 62%, #e8e0cc 60%, transparent 61%),
+      radial-gradient(1px 1px at 81% 32%, #e8e0cc 60%, transparent 61%),
+      radial-gradient(1px 1px at 93% 78%, #e8e0cc 60%, transparent 61%),
+      radial-gradient(1px 1px at 19% 78%, #e8e0cc 60%, transparent 61%),
+      radial-gradient(1px 1px at 76% 12%, #e8e0cc 60%, transparent 61%);
+    opacity: 0.5; }
+  .mk-planet { position: absolute; font-family: 'Cormorant Garamond', serif; color: #E2C070;
+    font-size: 22px; text-shadow: 0 0 14px rgba(200,168,75,0.7); }
+  .mk-planet .mk-sign { display: block; font-style: italic; font-size: 10px; color: #8a7f98;
+    letter-spacing: 0.08em; margin-top: 2px; text-shadow: none; }
+  .mk-aspect-line { position: absolute; height: 1px; background: linear-gradient(90deg, transparent, #C8A84B, transparent); opacity: 0.55; transform-origin: 0 50%; }
+  .mk-card-wrap { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-4deg); width: 140px; height: 210px;
+    background: linear-gradient(180deg, #1a1730, #0c0b18);
+    border: 1px solid rgba(200,168,75,0.5);
+    box-shadow: 0 0 50px rgba(200,168,75,0.22), 0 30px 60px rgba(0,0,0,0.55);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; color: #C8A84B; font-size: 3.5rem; }
+  .mk-card-label { position: absolute; top: calc(50% + 118px); left: 50%; transform: translateX(-50%) rotate(-4deg);
+    font-family: 'Cormorant Garamond', serif; font-style: italic; color: #E2C070; font-size: 14px;
+    letter-spacing: 0.1em; white-space: nowrap; }
+  .mk-reading-side { position: absolute; left: calc(50% + 110px); top: 42%;
+    max-width: 240px; font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 14px; color: #d4cce0; line-height: 1.45; }
+  .mk-reading-side .mk-eyebrow { color: #C8A84B; font-size: 10px; letter-spacing: 0.3em;
+    text-transform: uppercase; font-style: normal; margin-bottom: 8px; }
+
+  /* Options */
+  .options { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.2rem; }
+  .option { background: #0c0d18; border: 1px solid #1c1e30; border-radius: 12px; padding: 1.3rem 1.5rem; cursor: pointer; transition: all 200ms; position: relative; }
+  .option:hover { border-color: #C8A84B; background: #131525; transform: translateY(-1px); }
+  .option.selected { border-color: #C8A84B; background: #1a1628; }
+  .option.recommended::before { content: "RECOMMENDED"; position: absolute; top: 14px; right: 14px; background: #C8A84B; color: #060810; padding: 3px 10px; font-size: 0.62rem; letter-spacing: 0.18em; border-radius: 3px; font-weight: 600; font-family: 'Cormorant Garamond', serif; font-style: normal; }
+  .option .letter { background: #1c1e30; color: #C8A84B; width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 0.85rem; vertical-align: middle; font-size: 0.95rem; }
+  .option h3 { display: inline; font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.4rem; color: #E8E6F0; }
+  .option .hook { color: #E2C070; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.98rem; margin: 0.35rem 0 0.85rem 0; }
+  .option p { color: #B8B0C8; font-size: 0.88rem; line-height: 1.62; margin: 0.45rem 0 0.5rem 0; }
+  .option p strong { color: #E2C070; font-weight: 500; }
+
+  .footer-note { background: #0c0d18; border-left: 2px solid #C8A84B; padding: 0.85rem 1rem; margin-top: 1.8rem; color: #8A829A; font-size: 0.82rem; border-radius: 0 6px 6px 0; }
+  .footer-note strong { color: #E2C070; }
+</style>
+
+<span class="label">SYNTHESIS · CINEMATIC DARK × REAL DAILY UTILITY</span>
+<h2>The scene IS your current sky. The reading happens inside it.</h2>
+<p class="subtitle">Not a dark page with a card beside it. A live cosmic space where the planets you see are actually where they are right now — and the card for today emerges from that sky.</p>
+
+<div class="pitch">
+  <h3>The direction in one sentence</h3>
+  <div class="quote">A cinematic dark cosmos rendered in real astronomy, in which today's card <em>materializes out of the sky</em> — with gold hairlines tying the card to the specific planets that chose it.</div>
+  <p>Everything the editorial magazine delivered (real time · real location · real planet positions · real aspects · today's card · today's ritual) is preserved — but delivered <em>inside one continuous living cosmic scene</em> instead of on a scroll of printed pages. The magazine was restraint; this is ceremony with teeth.</p>
+</div>
+
+<div class="diff">
+  <div class="diff-card">
+    <h4>the backdrop</h4>
+    <div class="before">static shader nebula (ornament)</div>
+    <div class="after"><strong>real sky</strong> — planets plotted at actual current positions, your local horizon, your moon phase, all computed live</div>
+  </div>
+  <div class="diff-card">
+    <h4>the card</h4>
+    <div class="before">tarot card on a printed page</div>
+    <div class="after">real v2.7 card <strong>emerges from the sky</strong> — rises, tilts, lights from within, at the center of the scene</div>
+  </div>
+  <div class="diff-card">
+    <h4>the aspect</h4>
+    <div class="before">bullet list of transits</div>
+    <div class="after"><strong>hairline gold lines</strong> draw between the two planets making today's key aspect — visible geometry, not text</div>
+  </div>
+</div>
+
+<div class="section" style="color:#B8B0C8">
+  <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.95rem;line-height:1.55;color:#a8a0b8;margin:0 0 0.4rem 0">Rough mockup of the single scene (not pixel-perfect — conceptual):</p>
+</div>
+
+<div class="mockup" aria-hidden="true">
+  <div class="mk-stars"></div>
+  <div class="mk-hud">Olivia Arcana <span style="color:#5a4e2a;margin:0 10px;">·</span> The Daily</div>
+  <div class="mk-hud mk-hud-r"><em>wednesday · 07:42 · Reykjavík</em></div>
+  <!-- fake aspect line between two planets -->
+  <div class="mk-aspect-line" style="left:26%; top:32%; width:280px; transform:rotate(18deg);"></div>
+  <div class="mk-planet" style="left:22%; top:30%;">♀<span class="mk-sign">venus · pisces</span></div>
+  <div class="mk-planet" style="left:72%; top:44%;">♄<span class="mk-sign">saturn · pisces</span></div>
+  <div class="mk-planet" style="left:10%; top:66%;">☽<span class="mk-sign">moon · cancer</span></div>
+  <div class="mk-planet" style="left:84%; top:72%;">☿<span class="mk-sign">mercury · libra</span></div>
+  <div class="mk-card-wrap">☾</div>
+  <div class="mk-card-label"><em>— arcana ix · the hermit</em></div>
+  <div class="mk-reading-side">
+    <div class="mk-eyebrow">— today's reading</div>
+    <em>A tender patience is the day's medicine.</em> What returns today does so from your own quiet. Venus ⚻ Saturn <em>— a pause, not a stop.</em>
+  </div>
+</div>
+
+<!-- THE 3 DIRECTIONS -->
+
+<h2 style="margin-top:2.5rem">Pick the exact flavor</h2>
+<p class="subtitle">All three deliver the daily utility inside a cinematic dark scene. They differ in how alive, how immersive, and how much the user can <em>do</em>.</p>
+
+<div class="options">
+
+  <div class="option recommended" data-choice="live-observatory" onclick="toggleSelect(this)">
+    <span class="letter">1</span><h3>The Living Observatory</h3>
+    <div class="hook">one cinematic live scene · real sky · the card rises from it · scroll zooms the camera</div>
+    <p>You land inside a dark cinematic sky. <strong>Planets are at their actual current positions</strong>, drawn as glowing glyphs over a slow-drifting shader nebula and a star field. As the scene settles, <strong>today's card rises from the sky center</strong> — real v2.7 artwork, tilted, lit from within, with hairline gold lines drawing from it to the planets that chose it. A typewritten reading appears beside it. Scroll advances the camera (zoom in for the card, pull back for the aspects, down for the ritual). The whole site is <em>one living scene</em>.</p>
+    <p><strong>Aesthetic:</strong> Death Stranding + Kurzgesagt + Stellarium. <strong>Utility:</strong> same as the magazine (real time/place/cards/aspects/ritual). <strong>Signature:</strong> the sky is literally your sky, and the card is literally drawn from it.</p>
+  </div>
+
+  <div class="option" data-choice="live-altar" onclick="toggleSelect(this)">
+    <span class="letter">2</span><h3>The Altar Under the Sky</h3>
+    <div class="hook">a dark room with a lit altar — the sky is visible through a skylight above</div>
+    <p>You see a low dark foreground: a stone altar with <strong>today's real card placed upon it</strong>, a single candle flame. Above: the real live sky visible through an architectural opening. The card is the focal object; the sky is the atmosphere. Planetary glyphs drift above. Reading appears beside the altar. Ritual below. More <em>chamber</em>, less <em>cosmos</em>. Feels like entering a specific place at the same time every day.</p>
+    <p><strong>Aesthetic:</strong> Kojima chapel + Tarkovsky interior. <strong>Different from 1:</strong> lower, closer, more architectural. <strong>Risk:</strong> less "wow" entry than 1.</p>
+  </div>
+
+  <div class="option" data-choice="live-depth" onclick="toggleSelect(this)">
+    <span class="letter">3</span><h3>The Living Depth — interactive 3D sky</h3>
+    <div class="hook">the whole site is a navigable 3D cosmos · drag to rotate · scroll is camera dolly</div>
+    <p>Like 1, but the user has real agency. The sky is a navigable 3D space. Drag to rotate the celestial sphere around you. Today's card floats in the middle; orbit around it. Planets you pass near pop with their current aspect. Scroll is camera dolly (not page scroll). Full-spectacle, most Awwwards-y, <strong>highest build complexity</strong>. Risk: users might get lost / not know what to do.</p>
+    <p><strong>Aesthetic:</strong> Bruno Simon Folio × Olivia Arcana. <strong>Utility:</strong> exploration tool. <strong>Signature:</strong> you can <em>fly through your own sky</em>.</p>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  Click one or type 1/2/3. <strong>My pick is 1 — The Living Observatory</strong>: it's the straightest line between "live cinematic" and "real daily utility" without adding agency complexity. Once you lock, I build — no more brainstorm screens.
+</div>

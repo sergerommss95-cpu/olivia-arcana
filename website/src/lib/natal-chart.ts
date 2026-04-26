@@ -246,7 +246,7 @@ function computeHouses(ascendantLon: number): HouseData[] {
 function getHouse(longitude: number, houses: HouseData[]): number {
   for (let i = 0; i < 12; i++) {
     const nextIdx = (i + 1) % 12;
-    let start = houses[i].cusp;
+    const start = houses[i].cusp;
     let end = houses[nextIdx].cusp;
     if (end < start) end += 360;
     let lon = longitude;

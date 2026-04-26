@@ -53,7 +53,10 @@ export default function ParallaxSection({
   const rafRef = useRef(0);
 
   useEffect(() => {
-    setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const timer = setTimeout(() => {
+      setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   // Scroll tracking

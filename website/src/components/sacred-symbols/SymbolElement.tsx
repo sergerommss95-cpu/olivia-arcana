@@ -50,9 +50,12 @@ export default function SymbolElement({
 
   // Detect 3D capability
   useEffect(() => {
-    const isMobile = "ontouchstart" in window || window.innerWidth < 768;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setUse3D(!isMobile && !reducedMotion);
+    const timer = setTimeout(() => {
+      const isMobile = "ontouchstart" in window || window.innerWidth < 768;
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      setUse3D(!isMobile && !reducedMotion);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   // IntersectionObserver — only mount SVG3D when visible
@@ -92,7 +95,7 @@ export default function SymbolElement({
         <Symbol3D
           paths={data.paths}
           color={color ?? catStyle.color}
-          materialPreset={(material ?? catStyle.material) as any}
+          materialPreset={(material ?? catStyle.material) as "gold" | "glass" | "holo"}
           size={size}
           animate={animate}
         />

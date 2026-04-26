@@ -10,12 +10,14 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import Link from "next/link";
 import { getMoonPhase } from "../../lib/celestial";
 import { getDailyPrompt } from "../../lib/journal-prompts";
 import {
   saveEntry, loadEntry, getStreak, getEntryCount, exportJSON, todayString, deleteEntry,
 } from "../../lib/journal-store";
 import JournalCalendar from "../../components/JournalCalendar";
+import Paywall from "../../components/Paywall";
 import { useLocale } from "../../lib/i18n/useLocale";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
@@ -51,18 +53,21 @@ export default function JournalPage() {
   // Prompt for selected date
   const prompt = useMemo(() => getDailyPrompt(moonData.phase, selectedDate), [moonData.phase, selectedDate]);
 
-  // Load entry when date changes
-  useEffect(() => {
-    const entry = loadEntry(selectedDate);
-    setText(entry?.text || "");
-    setSaved(false);
-    refreshStats();
-  }, [selectedDate]);
-
   const refreshStats = useCallback(() => {
     setStreak(getStreak());
     setTotalEntries(getEntryCount());
   }, []);
+
+  // Load entry when date changes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const entry = loadEntry(selectedDate);
+      setText(entry?.text || "");
+      setSaved(false);
+      refreshStats();
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [selectedDate, refreshStats]);
 
   // Debounced auto-save
   const handleTextChange = useCallback((val: string) => {
@@ -120,10 +125,10 @@ export default function JournalPage() {
       minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center",
       padding: "2rem 1.5rem 4rem", position: "relative", zIndex: 1,
     }}>
-      <a href="/" style={{
+      <Link href="/" style={{
         position: "absolute", top: "1.5rem", left: "1.5rem",
         ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)",
-      }}>{"\u2190"} {t("common_home")}</a>
+      }}>&larr; {t("common_home")}</Link>
 
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "1.5rem", marginTop: "1rem" }}>
@@ -167,6 +172,10 @@ export default function JournalPage() {
         </div>
       </div>
 
+      {/* Insight-tier and above */}
+      <div style={{ width: "100%", maxWidth: "600px" }}>
+      <Paywall requires="insight" priceKey="insight_monthly" featureName="the cosmic journal">
+
       {/* Tabs */}
       <div style={{
         display: "flex", gap: "0.5rem", marginBottom: "1.5rem",
@@ -186,7 +195,7 @@ export default function JournalPage() {
         ))}
       </div>
 
-      <div style={{ width: "100%", maxWidth: "600px" }}>
+      <div>
         {tab === "write" ? (
           /* ── WRITE TAB ── */
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
@@ -281,6 +290,9 @@ export default function JournalPage() {
             />
           </div>
         )}
+      </div>
+
+      </Paywall>
       </div>
     </div>
   );
