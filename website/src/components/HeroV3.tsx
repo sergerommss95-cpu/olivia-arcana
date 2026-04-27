@@ -12,6 +12,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import FlipRevealCard from "@/components/shaders/FlipRevealCard";
+import TheWitness from "@/components/cosmos/TheWitness";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 import MagneticButton from "@/components/MagneticButton";
 
@@ -19,6 +20,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function HeroV3() {
   const [mounted, setMounted] = useState(false);
+  const [revealed, setRevealed] = useState(false);
   const headRef = useRef<HTMLHeadingElement>(null);
 
   // Daily-seeded card for the hero
@@ -34,6 +36,9 @@ export default function HeroV3() {
   useEffect(() => {
     setMounted(true);
 
+    const handleWitness = () => setRevealed(true);
+    window.addEventListener("witness:activated", handleWitness);
+
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
 
@@ -47,6 +52,10 @@ export default function HeroV3() {
         { duration: 800, delay: 300 + i * 100, easing: "cubic-bezier(0.16,1,0.3,1)", fill: "forwards" }
       );
     });
+
+    return () => {
+      window.removeEventListener("witness:activated", handleWitness);
+    };
   }, []);
 
   return (
@@ -108,21 +117,35 @@ export default function HeroV3() {
           </motion.div>
         </div>
 
-        {/* Right: The Wheel of Seven (Visual Centerpiece) */}
-        <div className="relative flex items-center justify-center lg:justify-end py-8 md:py-0">
+        {/* Right: The Witness + Hidden Card (Visual Centerpiece) */}
+        <div className="relative flex items-center justify-center lg:justify-end py-12 md:py-0">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, rotate: -2 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.4, delay: 0.5, ease: EASE }}
-            className="relative z-20"
+            className="relative z-20 flex flex-col items-center gap-12"
           >
-            {/* Ambient glow behind card */}
-            <div className="absolute inset-0 bg-celestial-gold/5 blur-[80px] rounded-full -z-10 animate-pulse" />
-            
-            <FlipRevealCard
-              card={dailyCard}
-              width={340}
-            />
+            {/* The Witness — Intelligent Navigation */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-celestial-gold/10 blur-[60px] rounded-full group-hover:bg-celestial-gold/20 transition-colors" />
+              <TheWitness />
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                <span className="font-[family-name:var(--font-mono)] text-[0.6rem] tracking-[0.4em] uppercase text-celestial-gold/40 animate-pulse">
+                  {revealed ? "Path Revealed" : "Give Attention"}
+                </span>
+              </div>
+            </div>
+
+            {/* The Hidden Card — Connected to the Witness */}
+            <motion.div 
+              animate={revealed ? { y: 0, opacity: 1 } : { y: 20, opacity: 0.4 }}
+              className="relative"
+            >
+              <FlipRevealCard
+                card={dailyCard}
+                width={280}
+              />
+            </motion.div>
           </motion.div>
 
           {/* Decorative floating sigils for desktop only */}

@@ -8,6 +8,7 @@ import MagneticGlow from "@/components/MagneticGlow";
 import CosmicStatus from "@/components/CosmicStatus";
 import Navbar from "@/components/Navbar";
 import HeroV3 from "@/components/HeroV3";
+import StoryMarkers from "@/components/StoryMarkers";
 import Features from "@/components/Features";
 import HowItWorks from "@/components/HowItWorks";
 import Pricing from "@/components/Pricing";
@@ -47,12 +48,17 @@ export default function Home() {
       <MagneticGlow />
       <Navbar />
       <CosmicStatus />
+      <StoryMarkers />
 
       <main id="main-content" className="relative z-10">
-        <HeroV3 />
+        <div id="hero">
+          <HeroV3 />
+        </div>
         <div ref={sectionsRef}>
           {/* Quiet sections: no scroll-scrubbed entrance — they breathe on their own */}
-          <DailyHoroscope />
+          <div id="daily">
+            <DailyHoroscope />
+          </div>
           <CompatibilityChecker />
 
           {/* Infinite proof marquee — what the product actually offers.
@@ -163,20 +169,28 @@ export default function Home() {
           </div>
 
           {/* Scroll-scrubbed sections — subtle on the journey, dramatic on Pricing */}
-          <ScrollFloat index={0} intensity="subtle">
-            <Features />
-          </ScrollFloat>
-          <ScrollFloat index={1} intensity="subtle">
-            <HowItWorks />
-          </ScrollFloat>
+          <div id="features">
+            <ScrollFloat index={0} intensity="subtle">
+              <Features />
+            </ScrollFloat>
+          </div>
+          <div id="how-it-works">
+            <ScrollFloat index={1} intensity="subtle">
+              <HowItWorks />
+            </ScrollFloat>
+          </div>
           <ScrollFloat index={2} intensity="subtle">
             <Testimonials />
           </ScrollFloat>
           <CosmicSelfie />
-          <ScrollFloat index={3} intensity="subtle">
-            <Pricing />
-          </ScrollFloat>
-          <Faq />
+          <div id="pricing">
+            <ScrollFloat index={3} intensity="subtle">
+              <Pricing />
+            </ScrollFloat>
+          </div>
+          <div id="faq">
+            <Faq />
+          </div>
           <CTA />
         </div>
       </main>

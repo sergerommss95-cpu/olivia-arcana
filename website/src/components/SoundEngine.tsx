@@ -33,42 +33,68 @@ class CosmicAudio {
     this.masterGain.connect(this.ctx.destination);
   }
 
-  async start() {
+  async start(planetName = "Sun") {
     await this.init();
     if (!this.ctx || !this.masterGain || this.active) return;
     this.active = true;
 
-    // Ambient drone: two detuned sine waves at very low frequency
+    // Frequencies based on planetary archetypes
+    const baseFreqs: Record<string, number> = {
+      Mars: 43.65,    // F1 - low, grounding
+      Venus: 221.23,  // A3 - harmonious
+      Saturn: 73.42,  // D2 - structured, somber
+      Jupiter: 183.58, // F#3 - expansive
+      Mercury: 141.27, // C#3 - mental
+      Moon: 210.42,   // G#3 - reflective
+      Sun: 126.22,    // B2 - warm, center
+    };
+    const base = baseFreqs[planetName] || 126.22;
+
+    // Ambient drone: two detuned oscillators for richness
     this.droneGain = this.ctx.createGain();
     this.droneGain.gain.value = 0;
     this.droneGain.connect(this.masterGain);
 
     const osc1 = this.ctx.createOscillator();
     osc1.type = "sine";
-    osc1.frequency.value = 55; // A1
+    osc1.frequency.value = base;
     osc1.connect(this.droneGain);
     osc1.start();
 
     const osc2 = this.ctx.createOscillator();
     osc2.type = "sine";
-    osc2.frequency.value = 55.5; // slightly detuned → beating
+    osc2.frequency.value = base * 1.005; // slightly detuned → beating
     osc2.connect(this.droneGain);
     osc2.start();
 
-    // Third higher harmonic for richness
-    const osc3 = this.ctx.createOscillator();
-    osc3.type = "sine";
-    osc3.frequency.value = 110;
-    const g3 = this.ctx.createGain();
-    g3.gain.value = 0.3;
-    osc3.connect(g3);
-    g3.connect(this.droneGain);
-    osc3.start();
-
-    this.droneOsc = osc1;
-
     // Fade in drone
-    this.droneGain.gain.linearRampToValueAtTime(0.4, this.ctx.currentTime + 2);
+    this.droneGain.gain.linearRampToValueAtTime(0.35, this.ctx.currentTime + 3);
+  }
+
+  /** The Witness — Deep, magnetic pulse on activation */
+  playWitnessActivation() {
+    if (!this.ctx || !this.masterGain || !this.active) return;
+    const osc = this.ctx.createOscillator();
+    const g = this.ctx.createGain();
+    const filter = this.ctx.createBiquadFilter();
+
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(80, this.ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(40, this.ctx.currentTime + 0.4);
+
+    filter.type = "lowpass";
+    filter.frequency.value = 400;
+
+    g.gain.setValueAtTime(0, this.ctx.currentTime);
+    g.gain.linearRampToValueAtTime(0.3, this.ctx.currentTime + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.8);
+
+    osc.connect(filter);
+    filter.connect(g);
+    g.connect(this.masterGain);
+
+    osc.start();
+    osc.stop(this.ctx.currentTime + 0.85);
   }
 
   stop() {
@@ -138,6 +164,7 @@ export default function SoundEngine() {
     // Listen for cosmic events to trigger sounds
     const onShockwave = () => getAudio().playShimmer();
     const onChime = () => getAudio().playChime(1200);
+    const onWitness = () => getAudio().playWitnessActivation();
     const onHover = (e: Event) => {
       const detail = (e as CustomEvent).detail;
       if (detail?.name && enabledRef.current) {
@@ -147,21 +174,26 @@ export default function SoundEngine() {
 
     window.addEventListener("cosmos:shockwave", onShockwave);
     window.addEventListener("cosmos:chime", onChime);
+    window.addEventListener("witness:activated", onWitness);
     window.addEventListener("zodiac:hover", onHover as EventListener);
 
     return () => {
       window.removeEventListener("cosmos:shockwave", onShockwave);
       window.removeEventListener("cosmos:chime", onChime);
+      window.removeEventListener("witness:activated", onWitness);
       window.removeEventListener("zodiac:hover", onHover as EventListener);
     };
   }, []);
 
-  const toggle = useCallback(() => {
+  const toggle = useCallback(async () => {
     if (enabled) {
       getAudio().stop();
       setEnabled(false);
     } else {
-      getAudio().start();
+      const { getCosmicMoment } = await import("../lib/cosmic-time");
+      const moment = getCosmicMoment(new Date());
+      const planet = moment.planetaryHour.replace("Hour of ", "");
+      getAudio().start(planet);
       setEnabled(true);
     }
   }, [enabled]);
