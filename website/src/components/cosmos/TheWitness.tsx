@@ -22,15 +22,30 @@ const ELEMENT_COLORS = {
   None:  { primary: "#D4AF37", light: "#D4AF37", speed: 1.0 },
 };
 
+type ElementKey = keyof typeof ELEMENT_COLORS;
+
+function resolveElement(sign?: string): ElementKey {
+  if (!sign) return "None";
+  if (["Aries", "Leo", "Sagittarius"].includes(sign)) return "Fire";
+  if (["Cancer", "Scorpio", "Pisces"].includes(sign)) return "Water";
+  if (["Gemini", "Libra", "Aquarius"].includes(sign)) return "Air";
+  if (["Taurus", "Virgo", "Capricorn"].includes(sign)) return "Earth";
+  return "None";
+}
+
 function WitnessOrbInner() {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const { mouse } = useThree();
   const { profile } = useProfile();
   
-  const element = (profile?.element as keyof typeof ELEMENT_COLORS) || "None";
+  const element = resolveElement(profile?.signName);
   const elementStyle = ELEMENT_COLORS[element];
-...
+
+  // Spring-smoothed vectors for internal trace alignment
+  const smoothCursor = useRef(new THREE.Vector3(0, 0, 1));
+  const targetCursor = useRef(new THREE.Vector3(0, 0, 1));
+
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
     uColor: { value: new THREE.Color("#06041a") },
@@ -46,7 +61,6 @@ function WitnessOrbInner() {
     
     const time = state.clock.getElapsedTime() * elementStyle.speed;
     uniforms.uTime.value = time;
-...
     
     // Proximity logic: how close is the mouse to the center (0,0)?
     const dist = Math.sqrt(mouse.x * mouse.x + mouse.y * mouse.y);
@@ -83,8 +97,6 @@ function WitnessOrbInner() {
     <mesh 
       ref={meshRef} 
       onClick={handleClick}
-      onPointerOver={() => setAttention(1)}
-      onPointerOut={() => setAttention(0)}
     >
       <icosahedronGeometry args={[1, 15]} />
       <shaderMaterial
