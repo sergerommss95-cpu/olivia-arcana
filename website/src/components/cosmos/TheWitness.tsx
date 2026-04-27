@@ -12,34 +12,41 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { WitnessVertexShader, WitnessFragmentShader } from "./engine/WitnessShader";
 
+import { useProfile } from "../../lib/user/profile-store";
+
+const ELEMENT_COLORS = {
+  Fire:  { primary: "#D4AF37", light: "#f79a9a", speed: 2.8 },
+  Water: { primary: "#D4AF37", light: "#9ac4f7", speed: 0.8 },
+  Air:   { primary: "#D4AF37", light: "#c8b4ff", speed: 1.8 },
+  Earth: { primary: "#D4AF37", light: "#9af7c4", speed: 0.5 },
+  None:  { primary: "#D4AF37", light: "#D4AF37", speed: 1.0 },
+};
+
 function WitnessOrbInner() {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
-  const { mouse, viewport } = useThree();
+  const { mouse } = useThree();
+  const { profile } = useProfile();
   
-  // Interaction states
-  const [attention, setAttention] = useState(0); // Proximity weight
-  const [active, setActive] = useState(0);       // Click pulse
-  
-  // Spring-smoothed vectors
-  const smoothCursor = useRef(new THREE.Vector3(0, 0, 1));
-  const targetCursor = useRef(new THREE.Vector3(0, 0, 1));
-
+  const element = (profile?.element as keyof typeof ELEMENT_COLORS) || "None";
+  const elementStyle = ELEMENT_COLORS[element];
+...
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
     uColor: { value: new THREE.Color("#06041a") },
-    uLightColor: { value: new THREE.Color("#D4AF37") },
+    uLightColor: { value: new THREE.Color(elementStyle.light) },
     uAttention: { value: 0 },
     uCursorDir: { value: new THREE.Vector3(0, 0, 1) },
     uDistortion: { value: 0.2 },
     uBeam: { value: 0 },
-  }), []);
+  }), [elementStyle]);
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
     if (!materialRef.current) return;
     
-    const time = state.clock.getElapsedTime();
+    const time = state.clock.getElapsedTime() * elementStyle.speed;
     uniforms.uTime.value = time;
+...
     
     // Proximity logic: how close is the mouse to the center (0,0)?
     const dist = Math.sqrt(mouse.x * mouse.x + mouse.y * mouse.y);
