@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, IBM_Plex_Mono } from "next/font/google";
 import ClientShell from "@/components/ClientShell";
+import GlobalGuide from "@/components/GlobalGuide";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -137,7 +138,10 @@ export default function RootLayout({
         </a>
 
         {/* Single client boundary for all global overlays + page transitions */}
-        <ClientShell>{children}</ClientShell>
+        <ClientShell>
+          {children}
+          <GlobalGuide />
+        </ClientShell>
       </body>
     </html>
   );

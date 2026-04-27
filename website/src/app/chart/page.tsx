@@ -176,77 +176,122 @@ export default function ChartPage() {
 
             <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", justifyContent: "center", alignItems: "flex-start" }}>
 
-              {/* ── WHEEL VIEW ── */}
+              {/* ── WHEEL VIEW — reimagined as a 3D-feeling Astrolabe ── */}
               {view === "wheel" && (
-                <div style={{ ...glass, padding: "1.5rem" }}>
-                  <svg viewBox="0 0 440 440" style={{ width: "min(80vw, 400px)", height: "min(80vw, 400px)" }}>
-                    {/* Outer zodiac ring */}
-                    <circle cx={cx} cy={cy} r={outerR} fill="none" stroke="rgba(200,185,255,0.06)" strokeWidth="1" />
-                    <circle cx={cx} cy={cy} r={innerR} fill="none" stroke="rgba(200,185,255,0.06)" strokeWidth="1" />
+                <div style={{ ...glass, padding: "2rem", overflow: "hidden" }}>
+                  <svg viewBox="0 0 500 500" style={{ width: "min(90vw, 460px)", height: "min(90vw, 460px)" }}>
+                    <defs>
+                      <filter id="astrolabe-glow">
+                        <feGaussianBlur stdDeviation="2.5" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                      </filter>
+                      <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#D4AF37" />
+                        <stop offset="50%" stopColor="#F5E6A3" />
+                        <stop offset="100%" stopColor="#D4AF37" />
+                      </linearGradient>
+                    </defs>
 
-                    {/* Zodiac sign divisions + glyphs */}
-                    {SIGN_GLYPHS.map((glyph, i) => {
-                      const angle = i * 30;
-                      const s = polarToCart(cx, cy, innerR, angle);
-                      const e = polarToCart(cx, cy, outerR, angle);
-                      const l = polarToCart(cx, cy, (outerR + innerR) / 2, angle + 15);
-                      return (
-                        <g key={i}>
-                          <line x1={s.x} y1={s.y} x2={e.x} y2={e.y} stroke="rgba(200,185,255,0.04)" strokeWidth="0.5" />
-                          <text x={l.x} y={l.y} textAnchor="middle" dominantBaseline="central"
-                            fill="rgba(212,175,55,0.3)" fontSize="13" style={{ fontFamily: "serif" }}>{glyph}</text>
-                        </g>
-                      );
-                    })}
+                    {/* Outer frame */}
+                    <circle cx={250} cy={250} r={240} fill="none" stroke="rgba(212,175,55,0.1)" strokeWidth="0.5" />
+                    <circle cx={250} cy={250} r={232} fill="none" stroke="rgba(212,175,55,0.05)" strokeWidth="1" />
 
-                    {/* House lines */}
-                    {chart.houses.map((h, i) => {
-                      const s = polarToCart(cx, cy, 30, h.cusp);
-                      const e = polarToCart(cx, cy, innerR, h.cusp);
-                      return <line key={`h${i}`} x1={s.x} y1={s.y} x2={e.x} y2={e.y}
-                        stroke="rgba(200,185,255,0.03)" strokeWidth="0.5" strokeDasharray="3 3" />;
-                    })}
+                    {/* 1. Zodiac Ring (Outer) */}
+                    <g className="animate-spin-astrolabe" style={{ transformOrigin: "250px 250px" }}>
+                      <circle cx={250} cy={250} r={220} fill="rgba(8,6,20,0.3)" stroke="rgba(212,175,55,0.15)" strokeWidth="40" />
+                      {SIGN_GLYPHS.map((glyph, i) => {
+                        const angle = i * 30 + 15;
+                        const pos = polarToCart(250, 250, 220, angle);
+                        return (
+                          <text key={i} x={pos.x} y={pos.y} textAnchor="middle" dominantBaseline="central"
+                            fill="rgba(212,175,55,0.6)" fontSize="16" style={{ fontFamily: "serif", pointerEvents: "none" }}>{glyph}</text>
+                        );
+                      })}
+                    </g>
 
-                    {/* Aspect lines */}
-                    {chart.aspects.slice(0, 12).map((a, i) => {
-                      const p1 = chart.planets.find(p => p.name === a.planet1);
-                      const p2 = chart.planets.find(p => p.name === a.planet2);
-                      if (!p1 || !p2) return null;
-                      const pos1 = polarToCart(cx, cy, planetR, p1.longitude);
-                      const pos2 = polarToCart(cx, cy, planetR, p2.longitude);
-                      const tense = a.harmony === "tense";
-                      return <line key={`a${i}`} x1={pos1.x} y1={pos1.y} x2={pos2.x} y2={pos2.y}
-                        stroke={tense ? "rgba(232,82,74,0.12)" : "rgba(78,205,196,0.12)"}
-                        strokeWidth="0.5" strokeDasharray={tense ? "3 3" : "none"} />;
-                    })}
+                    {/* 2. House Ring (Inner) */}
+                    <g style={{ opacity: 0.8 }}>
+                      <circle cx={250} cy={250} r={180} fill="none" stroke="rgba(200,185,255,0.08)" strokeWidth="1" />
+                      {chart.houses.map((h, i) => {
+                        const angle = h.cusp;
+                        const s = polarToCart(250, 250, 60, angle);
+                        const e = polarToCart(250, 250, 180, angle);
+                        const labelPos = polarToCart(250, 250, 195, angle + 15);
+                        return (
+                          <g key={i}>
+                            <line x1={s.x} y1={s.y} x2={e.x} y2={e.y} stroke="rgba(200,185,255,0.06)" strokeWidth="0.5" strokeDasharray="2 4" />
+                            <text x={labelPos.x} y={labelPos.y} textAnchor="middle" dominantBaseline="central"
+                              fill="rgba(180,170,210,0.3)" fontSize="8" style={{ fontFamily: "var(--font-mono)" }}>{i + 1}</text>
+                          </g>
+                        );
+                      })}
+                    </g>
 
-                    {/* Planet markers */}
+                    {/* 3. The Physical Aspects (The Machine) */}
+                    <g opacity={0.6}>
+                      {chart.aspects.slice(0, 15).map((a, i) => {
+                        const p1 = chart.planets.find(p => p.name === a.planet1);
+                        const p2 = chart.planets.find(p => p.name === a.planet2);
+                        if (!p1 || !p2) return null;
+                        const pos1 = polarToCart(250, 250, 140, p1.longitude);
+                        const pos2 = polarToCart(250, 250, 140, p2.longitude);
+                        const tense = a.harmony === "tense";
+                        const strength = Math.max(0.2, 1 - a.orb / 10);
+                        return (
+                          <path key={i} d={`M ${pos1.x} ${pos1.y} Q 250 250 ${pos2.x} ${pos2.y}`} 
+                            fill="none" 
+                            stroke={tense ? "rgba(232,82,74,0.15)" : "rgba(78,205,196,0.15)"} 
+                            strokeWidth={strength * 2} 
+                            strokeDasharray={tense ? "2 2" : "none"} 
+                          />
+                        );
+                      })}
+                    </g>
+
+                    {/* 4. Planet Interaction Nodes */}
                     {chart.planets.map((p, i) => {
-                      const pos = polarToCart(cx, cy, planetR, p.longitude);
+                      const pos = polarToCart(250, 250, 140, p.longitude);
                       const isSel = selected === i;
                       const colors: Record<string, string> = {
                         Sun: "#FFD700", Moon: "#C0C0C0", Mercury: "#7B68EE", Venus: "#FF69B4",
                         Mars: "#E8524A", Jupiter: "#4ECDC4", Saturn: "#8B7355", Uranus: "#00BFFF",
                         Neptune: "#9370DB", Pluto: "#800020",
                       };
-                      const col = colors[p.name] || "#999";
+                      const col = colors[p.name] || "#D4AF37";
+                      
                       return (
                         <g key={p.name} onClick={() => setSelected(isSel ? null : i)} style={{ cursor: "pointer" }}>
-                          {isSel && <circle cx={pos.x} cy={pos.y} r={18} fill="none" stroke={col} strokeWidth="1.5" opacity={0.4} />}
-                          <circle cx={pos.x} cy={pos.y} r={isSel ? 14 : 11}
-                            fill="rgba(4,2,13,0.8)" stroke={col}
-                            strokeWidth={isSel ? 2 : 1} opacity={isSel ? 1 : 0.7} />
+                          {/* Laser focal line */}
+                          <line x1={250} y1={250} x2={pos.x} y2={pos.y} stroke={col} strokeWidth="0.5" opacity={isSel ? 0.4 : 0.05} />
+                          
+                          {/* The Node */}
+                          <circle cx={pos.x} cy={pos.y} r={isSel ? 16 : 10} 
+                            fill="rgba(4,2,13,0.9)" 
+                            stroke={col} 
+                            strokeWidth={isSel ? 2 : 1}
+                            style={{ filter: isSel ? "url(#astrolabe-glow)" : "none", transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)" }}
+                          />
                           <text x={pos.x} y={pos.y + 1} textAnchor="middle" dominantBaseline="central"
-                            fill={col} fontSize={isSel ? 13 : 10} style={{ pointerEvents: "none" }}>{p.glyph}</text>
+                            fill={col} fontSize={isSel ? 14 : 10} style={{ pointerEvents: "none" }}>{p.glyph}</text>
                         </g>
                       );
                     })}
 
-                    {/* Center glyph */}
-                    <circle cx={cx} cy={cy} r="22" fill="rgba(4,2,13,0.9)" stroke="rgba(200,185,255,0.06)" strokeWidth="0.5" />
-                    <text x={cx} y={cy + 1} textAnchor="middle" dominantBaseline="central"
-                      fill="rgba(212,175,55,0.4)" fontSize="14" style={{ fontFamily: "serif" }}>✦</text>
+                    {/* Center Core */}
+                    <circle cx={250} cy={250} r="20" fill="rgba(8,6,20,0.95)" stroke="url(#gold-gradient)" strokeWidth="1" />
+                    <text x={250} y={251} textAnchor="middle" dominantBaseline="central"
+                      fill="#F5E6A3" fontSize="14" style={{ fontFamily: "serif", filter: "url(#astrolabe-glow)" }}>✦</text>
                   </svg>
+                  
+                  <style jsx>{`
+                    @keyframes spin-astrolabe {
+                      from { transform: rotate(0deg); }
+                      to { transform: rotate(360deg); }
+                    }
+                    .animate-spin-astrolabe {
+                      animation: spin-astrolabe 120s linear infinite;
+                    }
+                  `}</style>
                 </div>
               )}
 

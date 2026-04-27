@@ -7,8 +7,9 @@
 
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useProfile } from "../lib/user/profile-store";
+import { getMissionProgress } from "../lib/missions";
 
 interface Props {
   size?: number;
@@ -36,20 +37,43 @@ function resolveElement(sign: string): ElementKey {
 
 export default function LivingOliveMark({ size = 32, className, animate = true }: Props) {
   const { profile } = useProfile();
+  const [bloom, setBloom] = useState(false);
+  const [points, setPoints] = useState(0);
   
+  useEffect(() => {
+    // Initial load
+    setPoints(getMissionProgress().totalPoints);
+
+    // Listen for growth events
+    const onMission = () => {
+      setPoints(getMissionProgress().totalPoints);
+      setBloom(true);
+      setTimeout(() => setBloom(false), 2000);
+    };
+    window.addEventListener("mission:completed", onMission);
+    return () => window.removeEventListener("mission:completed", onMission);
+  }, []);
+
   const element = profile ? resolveElement(profile.signName) : "None";
   const style = ELEMENT_STYLES[element];
+  
+  // Complexity factor based on points (0-100)
+  const growth = 1.0 + (points / 200); // Max 50% larger
 
   const gradientId = useMemo(() => `olive-grad-${element.toLowerCase()}`, [element]);
 
   return (
     <svg 
-      width={size} 
-      height={size} 
+      width={size * growth} 
+      height={size * growth} 
       viewBox="0 0 32 32" 
       className={className}
       role="img"
       aria-label={`Olivia Arcana — ${element} olive mark`}
+      style={{
+        transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1)",
+        filter: bloom ? "drop-shadow(0 0 15px white)" : "none"
+      }}
     >
       <defs>
         <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">

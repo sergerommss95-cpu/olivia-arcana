@@ -8,6 +8,7 @@ import MagneticGlow from "@/components/MagneticGlow";
 import CosmicStatus from "@/components/CosmicStatus";
 import Navbar from "@/components/Navbar";
 import HeroV3 from "@/components/HeroV3";
+import CelestialAltar from "@/components/CelestialAltar";
 import StoryMarkers from "@/components/StoryMarkers";
 import Features from "@/components/Features";
 import HowItWorks from "@/components/HowItWorks";
@@ -54,6 +55,9 @@ export default function Home() {
         <div id="hero">
           <HeroV3 />
         </div>
+
+        <CelestialAltar />
+
         <div ref={sectionsRef}>
           {/* Quiet sections: no scroll-scrubbed entrance — they breathe on their own */}
           <div id="daily">

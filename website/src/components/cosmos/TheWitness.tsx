@@ -145,31 +145,48 @@ function InnerIntelligence({ style, isAsking, isProcessing }: { style: typeof EL
 
 function OuterGlassShell({ style, isProcessing }: { style: typeof ELEMENT_STYLES.None, isProcessing?: boolean }) {
   const meshRef = useRef<THREE.Mesh>(null);
+  const materialRef = useRef<any>(null);
+  const lastScrollY = useRef(0);
+  const scrollVelocity = useRef(0);
   
   useFrame((state) => {
-    if (!meshRef.current) return;
+    if (!meshRef.current || !materialRef.current) return;
     const time = state.clock.getElapsedTime();
-    const breath = 1.0 + Math.sin(time * 0.2) * 0.015;
-    const scale = isProcessing ? breath * 1.05 : breath;
+    
+    // 1. Calculate Scroll Velocity for Physical Reaction
+    const currentScrollY = window.scrollY;
+    scrollVelocity.current += (Math.abs(currentScrollY - lastScrollY.current) - scrollVelocity.current) * 0.1;
+    lastScrollY.current = currentScrollY;
+    
+    // 2. Active Morphing (Liquid Transformation)
+    // We modulate distortion and thickness based on velocity + time
+    const morphIntensity = 0.05 + (Math.sin(time * 0.4) * 0.02) + (scrollVelocity.current * 0.002);
+    materialRef.current.distortion = style.tension + morphIntensity;
+    materialRef.current.thickness = 0.8 + (Math.sin(time * 0.2) * 0.1);
+    
+    // 3. Breathing Animation
+    const breath = 1.0 + Math.sin(time * 0.2) * 0.015 + (scrollVelocity.current * 0.0005);
+    const scale = isProcessing ? breath * 1.08 : breath;
     meshRef.current.scale.set(scale, scale, scale);
-    meshRef.current.rotation.y = time * 0.05;
+    meshRef.current.rotation.y = time * 0.05 + (scrollVelocity.current * 0.001);
   });
 
   return (
     <mesh ref={meshRef}>
       <sphereGeometry args={[1, 64, 64]} />
       <MeshTransmissionMaterial
+        ref={materialRef}
         backside
         samples={8}
         thickness={0.8}
-        roughness={0.08}
+        roughness={0.06}
         transmission={1.0}
         ior={1.45}
-        chromaticAberration={0.06}
-        anisotropy={0.2}
+        chromaticAberration={0.08}
+        anisotropy={0.3}
         distortion={style.tension}
-        distortionScale={0.2}
-        temporalDistortion={0.1}
+        distortionScale={0.3}
+        temporalDistortion={0.2}
         clearcoat={1}
         attenuationDistance={0.5}
         attenuationColor="#ffffff"

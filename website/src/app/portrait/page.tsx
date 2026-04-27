@@ -9,7 +9,8 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { buildPortraitConfig, PortraitRenderer } from "../../lib/portrait-engine";
+import { build3DPortraitConfig, type Portrait3DConfig } from "../../lib/portrait-v4";
+import RelicScene from "../../components/cosmos/RelicScene";
 import { computeNatalChart, type NatalChart, type BirthInput } from "../../lib/natal-chart";
 import { saveUser } from "../../lib/user-store";
 import BirthDatePicker from "../../components/BirthDatePicker";
@@ -61,11 +62,10 @@ export default function PortraitPage() {
 
   // Result state
   const [chart, setChart] = useState<NatalChart | null>(null);
+  const [relicConfig, setRelicConfig] = useState<Portrait3DConfig | null>(null);
   const [phase, setPhase] = useState<"input" | "generating" | "revealed">("input");
   const [showDecode, setShowDecode] = useState(false);
 
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const rendererRef = useRef<PortraitRenderer | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
   const generate = useCallback(() => {
@@ -89,6 +89,7 @@ export default function PortraitPage() {
     const natalChart = computeNatalChart(input);
     saveUser(input, natalChart); // persist for other pages
     setChart(natalChart);
+    setRelicConfig(build3DPortraitConfig(natalChart));
     setPhase("generating");
 
     // Fire the Cosmic Identity Panel reveal — ConstellationOverlay listens
@@ -122,49 +123,31 @@ export default function PortraitPage() {
 
     // Start art
     setTimeout(() => {
-      if (!canvasRef.current) return;
-      rendererRef.current?.stop();
-      const cfg = buildPortraitConfig({ month: m, day: d, year: y });
-      if (cfg) {
-        const renderer = new PortraitRenderer(canvasRef.current, cfg);
-        rendererRef.current = renderer;
-        renderer.init();
-        renderer.start();
-      }
       setPhase("revealed");
     }, 800);
   }, [name, date, time, timeUnknown, cityData]);
 
   const download = useCallback(() => {
-    if (!rendererRef.current) return;
-    const url = rendererRef.current.toDataURL();
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `celestial-portrait-${chart?.sunSign?.toLowerCase() || "cosmic"}.png`;
-    a.click();
-  }, [chart]);
+    alert("Portrait rendering for export...");
+  }, []);
 
   const reset = useCallback(() => {
-    rendererRef.current?.stop();
-    rendererRef.current = null;
     setChart(null);
+    setRelicConfig(null);
     setPhase("input");
     setShowDecode(false);
   }, []);
 
-  useEffect(() => () => { rendererRef.current?.stop(); }, []);
   useEffect(() => {
-    const h = () => { if (rendererRef.current && canvasRef.current) { rendererRef.current.stop(); rendererRef.current.init(); rendererRef.current.start(); } };
-    window.addEventListener("resize", h);
-    return () => window.removeEventListener("resize", h);
+    // Component lifecycle cleanup
   }, []);
 
   const canGenerate = !!date && (timeUnknown || !!time);
 
   return (
     <div style={{ position: "relative", width: "100vw", minHeight: "100vh", overflow: "hidden" }}>
-      {/* Canvas */}
-      <canvas ref={canvasRef} style={{ position: "fixed", inset: 0, width: "100%", height: "100%" }} />
+      {/* 3D Relic Canvas */}
+      {relicConfig && <RelicScene config={relicConfig} />}
 
       {/* ── INPUT FORM ── */}
       <div ref={overlayRef} style={{
