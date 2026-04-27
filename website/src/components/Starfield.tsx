@@ -28,32 +28,39 @@ export default function Starfield() {
 
     const init = async () => {
       try {
-        const [engineMod, nebulaMod, starMod, flowMod, zodiacMod, shootMod] = await Promise.all([
+        // 1. Priority load: Core engine + background
+        const [engineMod, nebulaMod] = await Promise.all([
           import("./cosmos/engine/WebGLEngine"),
           import("./cosmos/engine/NebulaPlane"),
+        ]);
+
+        if (disposed || !containerRef.current) return;
+        if (!engineMod.WebGLEngine.isSupported()) return;
+
+        const engine = new engineMod.WebGLEngine(containerRef.current);
+        engineRef.current = engine;
+
+        const nebula = new nebulaMod.NebulaPlane();
+        engine.registerSystem(nebula, "nebula");
+
+        // Start engine immediately with just background
+        engine.start();
+
+        // 2. Secondary load: Remaining systems (progressive)
+        const [starMod, flowMod, zodiacMod, shootMod] = await Promise.all([
           import("./cosmos/engine/StarSystem"),
           import("./cosmos/engine/FlowmapSystem"),
           import("./cosmos/engine/ZodiacGL"),
           import("./cosmos/engine/ShootingStars"),
         ]);
 
-        if (disposed || !containerRef.current) return;
-        if (!engineMod.WebGLEngine.isSupported()) return;
+        if (disposed) return;
 
         const isMobile = "ontouchstart" in window || window.innerWidth < 768;
-
-        const engine = new engineMod.WebGLEngine(containerRef.current);
-        engineRef.current = engine;
-
-        const nebula = new nebulaMod.NebulaPlane();
         const stars = new starMod.StarSystem(isMobile);
         const zodiac = new zodiacMod.ZodiacGL();
         const shooting = new shootMod.ShootingStars();
 
-        // Register in render order
-        engine.registerSystem(nebula, "nebula");
-
-        // Skip flowmap on mobile (no hover, saves 2 FBOs)
         if (!isMobile) {
           const flowmap = new flowMod.FlowmapSystem();
           engine.registerSystem(flowmap, "flowmap");
@@ -65,26 +72,29 @@ export default function Starfield() {
 
         engine.registerSystem(stars, "stars");
         engine.registerSystem(zodiac, "zodiac");
-        // Fewer shooting stars on mobile (handled inside the system)
         engine.registerSystem(shooting, "shooting");
 
+        // 3. Last load: Personalization logic
         try {
-          const { getVisitorArchetype } = await import("../lib/visitor-archetype");
-          const { getAnniversaryWarmth } = await import("../lib/anniversary");
-          const { computeConstellationBrightness } = await import("../lib/constellation-memory");
-          const { loadUser } = await import("../lib/user-store");
+          const [archMod, anniMod, memMod, userMod] = await Promise.all([
+            import("../lib/visitor-archetype"),
+            import("../lib/anniversary"),
+            import("../lib/constellation-memory"),
+            import("../lib/user-store"),
+          ]);
 
           const applyPersonalization = () => {
-            const nebulaSystem = engine.getSystem<import("./cosmos/engine/NebulaPlane").NebulaPlane>("nebula");
-            const zodiacSystem = engine.getSystem<import("./cosmos/engine/ZodiacGL").ZodiacGL>("zodiac");
+            if (!engineRef.current) return;
+            const nebulaSystem = engineRef.current.getSystem<import("./cosmos/engine/NebulaPlane").NebulaPlane>("nebula");
+            const zodiacSystem = engineRef.current.getSystem<import("./cosmos/engine/ZodiacGL").ZodiacGL>("zodiac");
             if (!nebulaSystem) return;
 
             // Visitor archetype + anniversary → nebula palette shift
-            const archetype = getVisitorArchetype();
-            const user = loadUser();
+            const archetype = archMod.getVisitorArchetype();
+            const user = userMod.loadUser();
             const anniversaryWarmth =
               user?.input?.year && user?.input?.month && user?.input?.day
-                ? getAnniversaryWarmth(
+                ? anniMod.getAnniversaryWarmth(
                     new Date(user.input.year, user.input.month - 1, user.input.day),
                   )
                 : 0;
@@ -96,7 +106,7 @@ export default function Starfield() {
 
             // Constellation memory → per-sign brightness in zodiac renderer
             if (zodiacSystem) {
-              const brightness = computeConstellationBrightness();
+              const brightness = memMod.computeConstellationBrightness();
               zodiacSystem.setPersonalBrightness(brightness);
             }
           };

@@ -17,7 +17,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
-const TOTAL_DURATION = 4200;
+const TOTAL_DURATION = 3200;
 
 export default function CinematicLoader() {
   const [show, setShow] = useState(false);
@@ -36,13 +36,13 @@ export default function CinematicLoader() {
     document.body.style.overflow = "hidden";
     startTime.current = performance.now();
 
-    // Phase timeline
+    // Tightened phase timeline
     const timers = [
-      setTimeout(() => setPhase(1), 300),
-      setTimeout(() => setPhase(2), 1200),
-      setTimeout(() => setPhase(3), 2200),
-      setTimeout(() => setPhase(4), 3000),
-      setTimeout(() => setPhase(5), 3600),
+      setTimeout(() => setPhase(1), 200),
+      setTimeout(() => setPhase(2), 800),
+      setTimeout(() => setPhase(3), 1600),
+      setTimeout(() => setPhase(4), 2200),
+      setTimeout(() => setPhase(5), 2600),
       setTimeout(() => {
         setShow(false);
         document.body.style.overflow = "";

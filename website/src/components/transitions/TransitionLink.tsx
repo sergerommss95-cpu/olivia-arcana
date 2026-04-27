@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback } from "react";
+import { useRouter } from "next/navigation";
 
 interface TransitionLinkProps {
   href: string;
@@ -24,6 +25,17 @@ export default function TransitionLink({
   style,
   onClick,
 }: TransitionLinkProps) {
+  const router = useRouter();
+
+  const handleMouseEnter = useCallback(() => {
+    // Only prefetch if it's an internal link
+    const isExternal = href.startsWith("http") || href.startsWith("//");
+    const isAnchor = href.startsWith("#");
+    if (!isExternal && !isAnchor) {
+      router.prefetch(href);
+    }
+  }, [href, router]);
+
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>) => {
       // Don't intercept external links, modifier clicks, or same-page anchors
@@ -46,7 +58,13 @@ export default function TransitionLink({
   );
 
   return (
-    <a href={href} onClick={handleClick} className={className} style={style}>
+    <a 
+      href={href} 
+      onClick={handleClick} 
+      onMouseEnter={handleMouseEnter} 
+      className={className} 
+      style={style}
+    >
       {children}
     </a>
   );

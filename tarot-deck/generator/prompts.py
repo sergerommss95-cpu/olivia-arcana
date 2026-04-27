@@ -2032,3 +2032,81 @@ def build_prompt_v9(card: dict) -> str:
         GLOBAL_V9_STYLE_PREFIX,
         intro + sigil_body + V9_SIGIL_OUTRO,
     ])
+
+
+# ═════════════════════════════════════════════════════════════
+# V10 — FINE CHINA / PORCELAIN: HAND-PAINTED TREASURE
+#
+# Like a precious Limoges box or fine Ming porcelain vase.
+# The card IS made of fine china/porcelain - the painted design
+# is part of the object, not printed on top.
+# ═════════════════════════════════════════════════════════════
+
+GLOBAL_V10_STYLE_PREFIX = (
+    "A tarot card rendered as a PIECE OF FINE CHINA / PORCELAIN — "
+    "like a precious hand-painted Limoges box, Meissen figurine, or "
+    "antique Ming dynasty vase. The entire card is made of fine "
+    "glazed porcelain, not paper or marble. "
+
+    "PORCELAIN BODY: Smooth glazed ivory-white ceramic body. When "
+    "light hits the edges, you see the slight translucency of fine "
+    "bone china — the thin edges catch light and glow warmly. The "
+    "surface is perfectly smooth with a glass-like glaze. Not matte, "
+    "not rough — silky smooth like a museum-quality porcelain piece. "
+
+    "HAND-PAINTED DECORATION: The classical scene is painted DIRECTLY "
+    "ONTO the glazed porcelain surface using enamel paints, then "
+    "fire-fired so the colors become part of the glaze. Rich, vibrant, "
+    "glossy colors: cobalt blue, ruby red, emerald green, gold, "
+    "ivory-white. The paint has a slight raised feel — you can "
+    "almost sense the brushwork in the glaze. "
+
+    "GOLD ACCENTS: 24-karat gold leaf applied to key elements — halos, "
+    "architectural details, ornamental borders. The gold is REAL "
+    "gilded gold, shiny and metallic, fired onto the porcelain. It "
+    "catches light with a warm glow. Fine gold line borders frame "
+    "the composition elegantly. "
+
+    "ORIENTAL MEETS OCCIDENTAL: The aesthetic of fine antique porcelain "
+    "— Chinese export porcelain quality, European Limoges craftsmanship. "
+    "A fusion of East and West tarot symbolism rendered in the "
+    "language of fine porcelain art. "
+
+    "THE ENTIRE CARD IS PORCELAIN: Front faces you with the painted "
+    "scene. The edges show the white ceramic body. The back is also "
+    "glazed white porcelain. This is a tangible object you could "
+    "hold — cold, smooth, precious. "
+)
+
+V10_SIGIL_INTRO_TEMPLATE = (
+    "THIS FINE CHINA TAROT CARD DEPICTS {card_name} — {essence}. "
+    "The hand-painted porcelain scene shows: "
+)
+
+V10_SIGIL_OUTRO = (
+    " PORCELAIN QUALITY: Smooth glazed surface with subtle translucency "
+    "at thin edges. The painted design is fired INTO the glaze — rich "
+    "enamel colors with glossy finish. 24-karat gold accents catch "
+    "light metallically. The entire object feels smooth, cold, precious "
+    "— like holding a fine antique porcelain card from a grand collection. "
+
+    "PRESENTATION: The porcelain card rests on dark velvet, photographed "
+    "with soft studio lighting that reveals the glaze sheen and gold glow. "
+
+    "ABSOLUTE: No flat print look. No paper texture. The card must feel "
+    "like a real glazed porcelain object. No text. "
+)
+
+
+def build_prompt_v10(card: dict) -> str:
+    """V10: Fine china/porcelain with hand-painted enamel design."""
+    card_name = card.get("card_name", card.get("name", f"Card {card['id']}"))
+    intro = V10_SIGIL_INTRO_TEMPLATE.format(
+        card_name=card_name.upper(),
+        essence=card["essence"],
+    )
+    sigil_body = V5_SIGIL_BODIES.get(card["id"], V2_SIGIL_BODIES.get(card["id"], card["sigil_body"]))
+    return " ".join([
+        GLOBAL_V10_STYLE_PREFIX,
+        intro + sigil_body + V10_SIGIL_OUTRO,
+    ])

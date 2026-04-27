@@ -2,8 +2,10 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import type { TarotCard } from "../../lib/academy/tarot-cards";
 import { useLocale } from "@/lib/i18n/useLocale";
+import { getSuggestedAction } from "../../lib/ritual-continuity";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -36,6 +38,7 @@ function Section({
 export default function CardInfoPanel({ card, reversed }: CardInfoPanelProps) {
   const { t } = useLocale();
   const isMajor = card.arcana === "major";
+  const action = getSuggestedAction(card.name, card.element);
 
   return (
     <div className="w-full max-w-[500px] mx-auto space-y-4 pb-12">
@@ -154,6 +157,36 @@ export default function CardInfoPanel({ card, reversed }: CardInfoPanelProps) {
           up in your life right now? What is it asking you to pay attention to
           today?
         </p>
+      </Section>
+
+      {/* Ritual Continuity — Next Step */}
+      <Section delay={0.6} className="p-5 border-[rgba(160,120,255,0.15)] bg-gradient-to-br from-void-black to-[rgba(160,120,224,0.03)]">
+        <div
+          className="uppercase tracking-[0.2em] text-[0.55rem] font-semibold mb-3"
+          style={{ color: "rgba(212,175,55,0.5)" }}
+        >
+          ✦ Next Logical Action
+        </div>
+        <div>
+          <p className="font-[family-name:var(--font-body)] text-[0.78rem] font-light text-[rgba(196,185,228,0.9)] leading-[1.6]">
+            {action.reason}
+          </p>
+          <Link 
+            href={action.href}
+            style={{ 
+              display: "inline-block",
+              marginTop: "0.75rem",
+              textDecoration: "none",
+              fontSize: "0.68rem",
+              fontWeight: 500,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "#D4AF37"
+            }}
+          >
+            {action.label} &rarr;
+          </Link>
+        </div>
       </Section>
     </div>
   );

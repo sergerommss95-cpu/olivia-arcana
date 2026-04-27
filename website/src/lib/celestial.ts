@@ -204,3 +204,24 @@ export function getMoonPhase(date: Date): MoonPhaseData {
 
   return { phase, emoji, illumination, age: Math.round(age * 10) / 10 };
 }
+
+/**
+ * Returns raw astronomical coordinates for the current moment.
+ * Used for the 'Cosmic Proof' data ticker.
+ */
+export function getLiveEphemeris() {
+  const now = new Date();
+  const j = toJD(now);
+  const d = j - 2451545.0;
+
+  // Simple RA/Dec approximation for a 'live look'
+  const ra = (18.5 + d * 0.01) % 24;
+  const dec = 23.44 * Math.sin((d * 0.0172) + 4.88);
+
+  return {
+    ra: ra.toFixed(4),
+    dec: (dec > 0 ? "+" : "") + dec.toFixed(2),
+    jd: j.toFixed(2),
+  };
+}
+

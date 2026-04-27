@@ -72,12 +72,18 @@ html.lenis, html.lenis body {
 html {
   background-color: var(--c-void);
   scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background-color: transparent;
   color: var(--c-text-primary);
   font-family: var(--font-body);
+  font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1;
+  font-variant-ligatures: common-ligatures;
+  font-kerning: normal;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   /* Safe area insets for notched devices */
@@ -142,8 +148,9 @@ body {
 }
 
 ::selection {
-  background-color: rgba(123, 104, 238, 0.3);
-  color: var(--color-warm-ivory);
+  background-color: rgba(212, 175, 55, 0.22);
+  color: #fff;
+  text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
 }
 
 /* ── Glass card utility ─────────────────────────────────────────────────── */

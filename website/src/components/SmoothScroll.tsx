@@ -20,9 +20,10 @@ export default function SmoothScroll() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const lenis = new Lenis({
-      duration: reduced ? 0.01 : isTouch ? 1.0 : 1.4,
+      duration: reduced ? 0.01 : isTouch ? 0.8 : 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      touchMultiplier: isTouch ? 1.0 : 1.5,
+      touchMultiplier: isTouch ? 1.8 : 1.5,
+      lerp: isTouch ? 0.12 : 0.1,
       infinite: false,
     });
 

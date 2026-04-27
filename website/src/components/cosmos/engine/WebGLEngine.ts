@@ -53,19 +53,20 @@ export class WebGLEngine {
   private readonly SPRING_DAMPING = 0.82;
 
   constructor(container: HTMLElement) {
-    // Create renderer
+    // High-end renderer config: favor quality on high-DPI, performance on mobile
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     this.renderer = new THREE.WebGLRenderer({
-      antialias: false,
+      antialias: dpr < 2, // only use native antialias on low-dpi screens
       alpha: false,
-      powerPreference: "default",
+      powerPreference: "high-performance",
       stencil: false,
       depth: false,
+      precision: "highp",
     });
 
     this.canvas = this.renderer.domElement;
     this.canvas.style.cssText = "position:fixed;inset:0;z-index:-1;pointer-events:none;width:100%;height:100%";
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     this.renderer.setPixelRatio(dpr);
     this.renderer.setClearColor(0x04020d, 1);
     this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace;

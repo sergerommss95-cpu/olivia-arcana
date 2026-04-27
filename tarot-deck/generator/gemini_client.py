@@ -30,7 +30,7 @@ import sys
 import time
 from pathlib import Path
 
-from prompts import build_prompt, build_prompt_v2, build_prompt_v9
+from prompts import build_prompt, build_prompt_v2, build_prompt_v9, build_prompt_v10
 
 # ─────────────────────────────────────────────────────────────
 # Paths & config
@@ -40,9 +40,11 @@ MANIFEST_PATH = HERE / "deck_manifest.json"
 NB_OUTPUT_DIR = HERE / "output" / "nano_banana"
 NB_V2_OUTPUT_DIR = HERE / "output" / "nano_banana_v2"
 NB_V9_OUTPUT_DIR = HERE / "output" / "nano_banana_v9"
+NB_V10_OUTPUT_DIR = HERE / "output" / "nano_banana_v10"
 NB_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 NB_V2_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 NB_V9_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+NB_V10_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 REFERENCES_DIR = HERE / "references"
 
 # Default reference images for v2 style guidance (nano banana accepts
@@ -159,11 +161,15 @@ def generate_one(
     model_id: str = DEFAULT_MODEL,
     use_v2: bool = False,
     use_v9: bool = False,
+    use_v10: bool = False,
     ref_paths: list = None,
 ) -> dict:
     """Generate a single card."""
     client = _make_client()
-    if use_v9:
+    if use_v10:
+        prompt = build_prompt_v10(card)
+        prompt_label = "v10 fine china porcelain"
+    elif use_v9:
         prompt = build_prompt_v9(card)
         prompt_label = "v9 marble + oil"
     elif use_v2:
@@ -306,6 +312,7 @@ def generate_card_by_id(
     model: str = DEFAULT_MODEL,
     use_v2: bool = False,
     use_v9: bool = False,
+    use_v10: bool = False,
     ref_arg: str = None,
 ) -> None:
     manifest = load_manifest()
@@ -314,7 +321,7 @@ def generate_card_by_id(
         sys.exit(f"Card id {card_id} not found")
 
     filename = card["output_filename"]
-    out_dir = NB_V9_OUTPUT_DIR if use_v9 else (NB_V2_OUTPUT_DIR if use_v2 else NB_OUTPUT_DIR)
+    out_dir = NB_V10_OUTPUT_DIR if use_v10 else (NB_V9_OUTPUT_DIR if use_v9 else (NB_V2_OUTPUT_DIR if use_v2 else NB_OUTPUT_DIR))
     output_path = out_dir / filename
     if output_path.exists() and not force:
         print(f"Skip {card['card_name']} — already exists (use --force to overwrite)")
@@ -323,7 +330,7 @@ def generate_card_by_id(
     ref_paths = _resolve_refs(ref_arg)
     print(f"\n═══ [{card['id']:02d}] {card['card_name']} ({model}) ═══")
     result = generate_one(
-        card, output_path, model_id=model, use_v2=use_v2, use_v9=use_v9, ref_paths=ref_paths
+        card, output_path, model_id=model, use_v2=use_v2, use_v9=use_v9, use_v10=use_v10, ref_paths=ref_paths
     )
     if result["status"] != "ok":
         sys.exit(1)
@@ -347,7 +354,7 @@ def run_ab_set(
         output_path = out_dir / card["output_filename"]
         print(f"\n═══ [{card['id']:02d}] {card['card_name']} ({model}) ═══")
         result = generate_one(
-            card, output_path, model_id=model, use_v2=use_v2, use_v9=use_v9, ref_paths=ref_paths
+            card, output_path, model_id=model, use_v2=use_v2, use_v9=use_v9, use_v10=use_v10, ref_paths=ref_paths
         )
         if result["status"] != "ok":
             print(f"  ⚠ failed: {result}")
@@ -403,7 +410,7 @@ def run_deck(
         try:
             result = generate_one(
                 card, output_path, model_id=model,
-                use_v2=use_v2, use_v9=use_v9, ref_paths=ref_paths,
+                use_v2=use_v2, use_v9=use_v9, use_v10=use_v10, ref_paths=ref_paths,
             )
             return (card["id"], card["card_name"], result)
         except Exception as e:
@@ -452,6 +459,7 @@ def _add_gen_flags(sp):
     sp.add_argument("--model", default=DEFAULT_MODEL, help=f"Model id (default {DEFAULT_MODEL})")
     sp.add_argument("--v2", action="store_true", help="Use v2 tilted-glass prompt template")
     sp.add_argument("--v9", action="store_true", help="Use v9 marble + oil painting")
+    sp.add_argument("--v10", action="store_true", help="Use v10 fine china porcelain")
     sp.add_argument(
         "--ref",
         default=None,
@@ -488,13 +496,13 @@ def main():
     if args.command == "card":
         generate_card_by_id(
             args.id, force=args.force, model=args.model,
-            use_v2=args.v2, use_v9=args.v9, ref_arg=args.ref,
+            use_v2=args.v2, use_v9=args.v9, use_v10=args.v10, ref_arg=args.ref,
         )
     elif args.command == "ab":
         run_ab_set(model=args.model, use_v2=args.v2, use_v9=args.v9, ref_arg=args.ref)
     elif args.command == "deck":
         run_deck(
-            model=args.model, use_v2=args.v2, use_v9=args.v9, ref_arg=args.ref,
+            model=args.model, use_v2=args.v2, use_v9=args.v9, use_v10=args.v10, ref_arg=args.ref,
             batch_size=args.batch_size, batch_pause=args.batch_pause,
             skip_existing=not args.force,
         )

@@ -7,7 +7,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { getSunPosition, getMoonPosition, getMoonPhase } from "../lib/celestial";
+import { getSunPosition, getMoonPosition, getMoonPhase, getLiveEphemeris } from "../lib/celestial";
 import { getUpcomingEvents, EVENT_TYPE_META } from "../lib/astro-events";
 import { useLocale } from "../lib/i18n/useLocale";
 import { getCosmicMoment } from "../lib/cosmic-time";
@@ -15,12 +15,19 @@ import { getCosmicMoment } from "../lib/cosmic-time";
 export default function CosmicStatus() {
   const { t } = useLocale();
   const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => { 
+    setMounted(true); 
+    const timer = setInterval(() => setTick(prev => prev + 1), 1000);
+    return () => clearInterval(timer);
+  }, []);
   if (!mounted) return null;
 
   const now = new Date();
   const moment = getCosmicMoment(now);
   const sun = getSunPosition(now);
+  const eph = getLiveEphemeris();
   const moon = getMoonPosition(now);
   const moonPhase = getMoonPhase(now);
   const nextEvent = getUpcomingEvents(1)[0];
@@ -37,8 +44,18 @@ export default function CosmicStatus() {
   };
 
   const text: React.CSSProperties = {
-    fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 400,
-    color: "rgba(220,210,240,0.7)", letterSpacing: "0.03em",
+    fontFamily: "var(--font-body)",
+    fontSize: "0.72rem",
+    fontWeight: 400,
+    color: "rgba(220, 210, 240, 0.7)",
+    letterSpacing: "0.03em",
+  };
+
+  const divider: React.CSSProperties = {
+    width: "1px",
+    height: "12px",
+    background: "rgba(200, 185, 255, 0.12)",
+    margin: "0 0.25rem",
   };
 
   return (
@@ -51,6 +68,33 @@ export default function CosmicStatus() {
       backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
       borderBottom: "1px solid rgba(200,185,255,0.06)",
     }}>
+      {/* Ephemeris Ticker — Scientific Proof */}
+      <div className="hidden lg:flex" style={{
+        ...item,
+        fontFamily: "var(--font-mono)",
+        fontSize: "0.58rem",
+        color: "rgba(180, 170, 210, 0.35)",
+        background: "transparent",
+        border: "none",
+        gap: "0.8rem",
+        letterSpacing: "0.05em",
+      }}>
+        <div style={{ display: "flex", gap: "0.3rem" }}>
+          <span style={{ color: "rgba(212,175,55,0.4)" }}>RA</span>
+          <span>{eph.ra}h</span>
+        </div>
+        <div style={{ display: "flex", gap: "0.3rem" }}>
+          <span style={{ color: "rgba(212,175,55,0.4)" }}>DEC</span>
+          <span>{eph.dec}&deg;</span>
+        </div>
+        <div style={{ display: "flex", gap: "0.3rem" }}>
+          <span style={{ color: "rgba(212,175,55,0.4)" }}>JD</span>
+          <span>{eph.jd}</span>
+        </div>
+      </div>
+
+      <div style={divider} className="hidden lg:block" />
+
       {/* Sun */}
       <div style={item}>
         <span style={{ fontSize: "0.85rem", color: "rgba(255,215,0,0.7)" }}>☉</span>

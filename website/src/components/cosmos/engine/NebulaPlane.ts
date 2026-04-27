@@ -31,6 +31,7 @@ uniform vec2 uMouse;
 uniform vec2 uResolution;
 uniform float uMouseVelocity;
 uniform float uFlowmapEnabled;
+uniform float uOpacity;
 uniform float uBrightFlash;   // 0 = normal, 1 = full flash (gentle nebula glow)
 uniform float uBreath;
 uniform float uHueShift;
@@ -121,13 +122,15 @@ void main() {
   float md = distance(vUv, uMouse);
   color += vec3(0.04, 0.025, 0.008) * smoothstep(0.22, 0.0, md) * 0.8;
 
-  gl_FragColor = vec4(color, 1.0);
+  gl_FragColor = vec4(color, uOpacity);
 }`;
 
 export class NebulaPlane implements EngineSystem {
   private mesh!: THREE.Mesh;
   private material!: THREE.ShaderMaterial;
   private engine!: WebGLEngine;
+  private opacity = 0;
+  private textureReady = false;
   private archetypeTarget = {
     hueShift: 0,
     saturation: 1,
@@ -142,7 +145,9 @@ export class NebulaPlane implements EngineSystem {
 
     // Load nebula texture
     const loader = new THREE.TextureLoader();
-    const texture = loader.load("/nebula-bg.jpg");
+    const texture = loader.load("/nebula-bg.jpg", () => {
+      this.textureReady = true;
+    });
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
 
@@ -151,6 +156,7 @@ export class NebulaPlane implements EngineSystem {
       fragmentShader,
       uniforms: {
         uTexture: { value: texture },
+        uOpacity: { value: 0.0 },
         uFlowmap: { value: null }, // set by FlowmapSystem
         uFlowmapEnabled: { value: 0 }, // 0 until flowmap is connected
         uTime: { value: 0 },
@@ -163,6 +169,7 @@ export class NebulaPlane implements EngineSystem {
         uSaturation: { value: 1.0 },
         uWarmth: { value: 0.0 },
       },
+      transparent: true,
       depthTest: false,
       depthWrite: false,
     });
@@ -180,6 +187,11 @@ export class NebulaPlane implements EngineSystem {
     u.uTime.value = time;
     u.uMouse.value.copy(this.engine.smoothMouse);
     u.uMouseVelocity.value = Math.min(this.engine.mouseVelocity, 2.0);
+
+    const targetOpacity = this.textureReady ? 1.0 : 0.0;
+    this.opacity += (targetOpacity - this.opacity) * 0.05;
+    u.uOpacity.value = this.opacity;
+
     const hz = (this.engine as WebGLEngine & { __breathHz?: number }).__breathHz ?? 0.2;
     u.uBreath.value = Math.sin(time * hz * Math.PI * 2) * 0.5 + 0.5;
     u.uHueShift.value += (this.archetypeTarget.hueShift - u.uHueShift.value) * 0.004;
