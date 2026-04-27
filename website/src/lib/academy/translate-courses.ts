@@ -7,10 +7,9 @@ import { dict as de } from "./course-locales/de";
 import { dict as fr } from "./course-locales/fr";
 import { dict as ar } from "./course-locales/ar";
 import { dict as es } from "./course-locales/es";
-import { dict as zh } from "./course-locales/zh";
 import { dict as pt } from "./course-locales/pt";
 
-const DICTS: Record<string, Record<string, string>> = { uk, ru, de, fr, ar, es, zh, pt };
+const DICTS: Record<string, Record<string, string>> = { uk, ru, de, fr, ar, es, pt };
 
 export function translateCourse(course: Course, locale: string): Course {
   if (locale === "en") return course;

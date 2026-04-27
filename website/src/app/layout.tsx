@@ -119,6 +119,12 @@ export default function RootLayout({
       className={`${cormorant.variable} ${dmSans.variable} ${ibmPlexMono.variable} antialiased`}
     >
       <head>
+        {/* Performance: preconnect to third-party domains used at hot paths */}
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.paddle.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://checkout.paddle.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://api.elevenlabs.io" />
+        <link rel="dns-prefetch" href="https://api.anthropic.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

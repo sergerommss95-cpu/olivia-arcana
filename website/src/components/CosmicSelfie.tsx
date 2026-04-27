@@ -538,7 +538,7 @@ export default function CosmicSelfie() {
               ephemeris{" "}
               <span style={{ opacity: 0.4 }}>&middot;</span>{" "}
               <AnimatedCounter
-                value={9}
+                value={8}
                 duration={1500}
                 delay={200}
                 style={{ color: "var(--c-text-primary, rgba(240,236,255,0.95))", fontWeight: 600 }}

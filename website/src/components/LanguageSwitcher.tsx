@@ -2,7 +2,7 @@
  * LanguageSwitcher.tsx — Dropdown language selector
  *
  * Shows the current language flag + ISO code. Click opens a dropdown with
- * all 9 languages. Selecting one persists via useLocale() — no full page
+ * all 8 languages. Selecting one persists via useLocale() — no full page
  * reload needed; the hook updates the external store and all consumers
  * re-render.
  */
@@ -13,7 +13,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { LOCALE_NAMES, LOCALE_FLAGS, type Locale } from "../lib/i18n/translations";
 import { useLocale } from "../lib/i18n/useLocale";
 
-const LOCALES: Locale[] = ["en", "uk", "ru", "de", "fr", "ar", "es", "zh", "pt"];
+const LOCALES: Locale[] = ["en", "uk", "ru", "de", "fr", "ar", "es", "pt"];
 
 export default function LanguageSwitcher() {
   const { locale: current, setLocale } = useLocale();

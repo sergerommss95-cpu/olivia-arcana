@@ -14,7 +14,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import FlipRevealCard from "../../../components/shaders/FlipRevealCard";
-import CardInfoPanel from "../../../components/veil-reveal/CardInfoPanel";
+import CardInfoPanel from "../../../components/daily/CardInfoPanel";
 import { ALL_CARDS, type TarotCard } from "../../../lib/academy/tarot-cards";
 import { getCardImagePath } from "../../../lib/academy/card-images";
 import { recordDraw } from "../../../lib/deck-memory";

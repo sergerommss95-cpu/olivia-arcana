@@ -19,10 +19,9 @@ import { dict as de } from "./locales/de";
 import { dict as fr } from "./locales/fr";
 import { dict as ar } from "./locales/ar";
 import { dict as es } from "./locales/es";
-import { dict as zh } from "./locales/zh";
 import { dict as pt } from "./locales/pt";
 
-const DICTIONARIES: Record<string, Record<string, string>> = { uk, ru, de, fr, ar, es, zh, pt };
+const DICTIONARIES: Record<string, Record<string, string>> = { uk, ru, de, fr, ar, es, pt };
 
 /**
  * Translates a LessonContent object from English to the target locale.

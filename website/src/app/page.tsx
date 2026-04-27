@@ -62,7 +62,7 @@ export default function Home() {
           <div style={{ padding: "3rem 0" }} aria-label="What's inside">
             <InfiniteMarquee speed={22} gap={72}>
               {[
-                { kind: "rating", text: "9", sub: "languages — EN · UK · RU · DE · FR · AR · ES · ZH · PT" },
+                { kind: "rating", text: "8", sub: "languages — EN · UK · RU · DE · FR · AR · ES · PT" },
                 { kind: "sep" },
                 { kind: "press", outlet: "Powered by", name: "NASA JPL DE440/DE441 ephemeris" },
                 { kind: "sep" },

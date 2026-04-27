@@ -211,7 +211,7 @@ export default function Hero() {
           Computed from{" "}
           <span style={{ color: "rgba(235, 225, 255, 0.88)" }}>NASA JPL DE440/DE441 ephemeris</span>
           <span aria-hidden style={{ margin: "0 0.5em", opacity: 0.5 }}>·</span>
-          <span style={{ color: "rgba(235, 225, 255, 0.88)" }}>9 languages</span>
+          <span style={{ color: "rgba(235, 225, 255, 0.88)" }}>8 languages</span>
           <span aria-hidden style={{ margin: "0 0.5em", opacity: 0.5 }}>·</span>
           <span style={{ color: "rgba(235, 225, 255, 0.88)" }}>14-day refund</span>, cancel any time
         </p>

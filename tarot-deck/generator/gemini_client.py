@@ -30,7 +30,7 @@ import sys
 import time
 from pathlib import Path
 
-from prompts import build_prompt, build_prompt_v2
+from prompts import build_prompt, build_prompt_v2, build_prompt_v9
 
 # ─────────────────────────────────────────────────────────────
 # Paths & config
@@ -39,9 +39,11 @@ HERE = Path(__file__).parent
 MANIFEST_PATH = HERE / "deck_manifest.json"
 NB_OUTPUT_DIR = HERE / "output" / "nano_banana"
 NB_V2_OUTPUT_DIR = HERE / "output" / "nano_banana_v2"
-REFERENCES_DIR = HERE / "references"
+NB_V9_OUTPUT_DIR = HERE / "output" / "nano_banana_v9"
 NB_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 NB_V2_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+NB_V9_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+REFERENCES_DIR = HERE / "references"
 
 # Default reference images for v2 style guidance (nano banana accepts
 # up to 14 reference images). Using only the 2 classical figure refs —
@@ -156,22 +158,22 @@ def generate_one(
     output_path: Path,
     model_id: str = DEFAULT_MODEL,
     use_v2: bool = False,
+    use_v9: bool = False,
     ref_paths: list = None,
 ) -> dict:
-    """Generate a single card. Routes to Imagen or Gemini-Image API as appropriate.
-
-    When use_v2=True, uses build_prompt_v2 (tilted-glass classical aesthetic).
-    When ref_paths is provided, attaches reference images to the request (nano
-    banana multi-image reference feature — gives ~3-5x better style lock than
-    text-only prompts).
-
-    Returns a dict with {status, path, bytes, attempts} for logging.
-    """
+    """Generate a single card."""
     client = _make_client()
-    prompt = build_prompt_v2(card) if use_v2 else build_prompt(card)
+    if use_v9:
+        prompt = build_prompt_v9(card)
+        prompt_label = "v9 marble + oil"
+    elif use_v2:
+        prompt = build_prompt_v2(card)
+        prompt_label = "v2 tilted-glass"
+    else:
+        prompt = build_prompt(card)
+        prompt_label = "v1 COSMOS"
 
     backend = "Vertex AI" if USE_VERTEX else "AI Studio"
-    prompt_label = "v2 tilted-glass" if use_v2 else "v1 COSMOS"
     print(f"  backend: {backend}  model: {model_id}  aspect: {ASPECT_RATIO}  prompt: {prompt_label}")
     print(f"  prompt length: {len(prompt)} chars, ~{len(prompt.split())} words")
 
@@ -303,6 +305,7 @@ def generate_card_by_id(
     force: bool = False,
     model: str = DEFAULT_MODEL,
     use_v2: bool = False,
+    use_v9: bool = False,
     ref_arg: str = None,
 ) -> None:
     manifest = load_manifest()
@@ -311,7 +314,7 @@ def generate_card_by_id(
         sys.exit(f"Card id {card_id} not found")
 
     filename = card["output_filename"]
-    out_dir = NB_V2_OUTPUT_DIR if use_v2 else NB_OUTPUT_DIR
+    out_dir = NB_V9_OUTPUT_DIR if use_v9 else (NB_V2_OUTPUT_DIR if use_v2 else NB_OUTPUT_DIR)
     output_path = out_dir / filename
     if output_path.exists() and not force:
         print(f"Skip {card['card_name']} — already exists (use --force to overwrite)")
@@ -320,7 +323,7 @@ def generate_card_by_id(
     ref_paths = _resolve_refs(ref_arg)
     print(f"\n═══ [{card['id']:02d}] {card['card_name']} ({model}) ═══")
     result = generate_one(
-        card, output_path, model_id=model, use_v2=use_v2, ref_paths=ref_paths
+        card, output_path, model_id=model, use_v2=use_v2, use_v9=use_v9, ref_paths=ref_paths
     )
     if result["status"] != "ok":
         sys.exit(1)
@@ -344,7 +347,7 @@ def run_ab_set(
         output_path = out_dir / card["output_filename"]
         print(f"\n═══ [{card['id']:02d}] {card['card_name']} ({model}) ═══")
         result = generate_one(
-            card, output_path, model_id=model, use_v2=use_v2, ref_paths=ref_paths
+            card, output_path, model_id=model, use_v2=use_v2, use_v9=use_v9, ref_paths=ref_paths
         )
         if result["status"] != "ok":
             print(f"  ⚠ failed: {result}")
@@ -400,7 +403,7 @@ def run_deck(
         try:
             result = generate_one(
                 card, output_path, model_id=model,
-                use_v2=use_v2, ref_paths=ref_paths,
+                use_v2=use_v2, use_v9=use_v9, ref_paths=ref_paths,
             )
             return (card["id"], card["card_name"], result)
         except Exception as e:
@@ -448,6 +451,7 @@ def show_status() -> None:
 def _add_gen_flags(sp):
     sp.add_argument("--model", default=DEFAULT_MODEL, help=f"Model id (default {DEFAULT_MODEL})")
     sp.add_argument("--v2", action="store_true", help="Use v2 tilted-glass prompt template")
+    sp.add_argument("--v9", action="store_true", help="Use v9 marble + oil painting")
     sp.add_argument(
         "--ref",
         default=None,
@@ -484,13 +488,13 @@ def main():
     if args.command == "card":
         generate_card_by_id(
             args.id, force=args.force, model=args.model,
-            use_v2=args.v2, ref_arg=args.ref,
+            use_v2=args.v2, use_v9=args.v9, ref_arg=args.ref,
         )
     elif args.command == "ab":
-        run_ab_set(model=args.model, use_v2=args.v2, ref_arg=args.ref)
+        run_ab_set(model=args.model, use_v2=args.v2, use_v9=args.v9, ref_arg=args.ref)
     elif args.command == "deck":
         run_deck(
-            model=args.model, use_v2=args.v2, ref_arg=args.ref,
+            model=args.model, use_v2=args.v2, use_v9=args.v9, ref_arg=args.ref,
             batch_size=args.batch_size, batch_pause=args.batch_pause,
             skip_existing=not args.force,
         )
