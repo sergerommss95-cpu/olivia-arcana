@@ -22,6 +22,14 @@ import {
 import * as THREE from "three";
 import { useProfile } from "../../lib/user/profile-store";
 
+const ELEMENT_COLORS = {
+  Fire:  { color: "#e8524a", glow: "#f79a9a", speed: 2.8 },
+  Water: { color: "#6b8dd6", glow: "#9ac4f7", speed: 0.8 },
+  Air:   { primary: "#D4AF37", light: "#c8b4ff", speed: 1.8 },
+  Earth: { primary: "#D4AF37", light: "#9af7c4", speed: 0.5 },
+  None:  { primary: "#D4AF37", light: "#D4AF37", speed: 1.0 },
+};
+
 const ELEMENT_STYLES = {
   Fire:  { color: "#e8524a", glow: "#f79a9a", speed: 2.5, tension: 0.2 },
   Water: { color: "#6b8dd6", glow: "#9ac4f7", speed: 0.6, tension: 0.05 },
@@ -41,8 +49,15 @@ function resolveElement(sign?: string): ElementKey {
   return "None";
 }
 
-function InnerIntelligence({ style }: { style: typeof ELEMENT_STYLES.None }) {
+interface WitnessProps {
+  isAsking?: boolean;
+  isProcessing?: boolean;
+}
+
+function InnerIntelligence({ style, isAsking, isProcessing }: { style: typeof ELEMENT_STYLES.None } & WitnessProps) {
   const coreRef = useRef<THREE.Group>(null);
+  const ring1Ref = useRef<THREE.Group>(null);
+  const ring2Ref = useRef<THREE.Group>(null);
   const sentinelRef = useRef<THREE.Mesh>(null);
   const lightRef = useRef<THREE.PointLight>(null);
   const { mouse } = useThree();
@@ -56,49 +71,65 @@ function InnerIntelligence({ style }: { style: typeof ELEMENT_STYLES.None }) {
     const time = state.clock.getElapsedTime();
 
     // 1. Calculate Cursor Intent
-    smoothTarget.current.set(mouse.x * 2, mouse.y * 2, 1).normalize();
-    currentDir.current.lerp(smoothTarget.current, 0.08);
+    smoothTarget.current.set(mouse.x * 2.5, mouse.y * 2.5, 1).normalize();
+    currentDir.current.lerp(smoothTarget.current, isAsking ? 0.15 : 0.08);
     
     // 2. Physical Look-At
     coreRef.current.lookAt(currentDir.current.clone().multiplyScalar(5));
     
     // 3. Ambient Vibration
-    coreRef.current.position.y = Math.sin(time * 0.8) * 0.02;
+    coreRef.current.position.y = Math.sin(time * 0.8) * (isProcessing ? 0.08 : 0.02);
     
-    // 4. Sentinel Orbit (The tiny moving point of light)
+    // 4. Ring Rotation (Sacred Geometry feel)
+    const ringSpeed = isProcessing ? 4.0 : isAsking ? 1.2 : 0.4;
+    if (ring1Ref.current) ring1Ref.current.rotation.z = time * ringSpeed;
+    if (ring2Ref.current) ring2Ref.current.rotation.x = time * -ringSpeed * 1.5;
+
+    // 5. Sentinel Orbit (The tiny moving point of light)
     if (sentinelRef.current) {
-      sentinelRef.current.position.x = Math.cos(time * 2) * 0.45;
-      sentinelRef.current.position.z = Math.sin(time * 2) * 0.45;
-      sentinelRef.current.position.y = Math.sin(time * 1.5) * 0.2;
+      const orbSpeed = isProcessing ? 10.0 : 2.5;
+      sentinelRef.current.position.x = Math.cos(time * orbSpeed) * 0.45;
+      sentinelRef.current.position.z = Math.sin(time * orbSpeed) * 0.45;
+      sentinelRef.current.position.y = Math.sin(time * (orbSpeed * 0.75)) * 0.2;
     }
 
-    // 5. Reactive Light Pulse
+    // 6. Reactive Light Pulse
     if (lightRef.current) {
-      const pulse = 0.8 + Math.sin(time * 2.0 * style.speed) * 0.2;
-      lightRef.current.intensity = pulse * 15;
+      const basePulse = isProcessing ? 2.5 : isAsking ? 1.2 : 0.8;
+      const pulse = basePulse + Math.sin(time * 3.0 * style.speed) * (isProcessing ? 1.0 : 0.2);
+      lightRef.current.intensity = pulse * (isProcessing ? 45 : 15);
     }
   });
 
   return (
     <group ref={coreRef}>
-      {/* The "Brain" — a thin, glowing, molten filament */}
+      {/* The Core — Concentric Golden Rings */}
+      <group ref={ring1Ref}>
+        <mesh>
+          <torusGeometry args={[0.35, 0.003, 16, 100]} />
+          <meshStandardMaterial color={style.color} emissive={style.glow} emissiveIntensity={isProcessing ? 50 : 10} toneMapped={false} />
+        </mesh>
+      </group>
+      <group ref={ring2Ref}>
+        <mesh rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[0.3, 0.003, 16, 100]} />
+          <meshStandardMaterial color={style.color} emissive={style.glow} emissiveIntensity={isProcessing ? 50 : 10} toneMapped={false} />
+        </mesh>
+      </group>
+
+      {/* The Central Seed */}
       <mesh>
-        <torusKnotGeometry args={[0.3, 0.005, 128, 16]} />
-        <meshStandardMaterial 
-          color={style.color} 
-          emissive={style.glow} 
-          emissiveIntensity={12} 
-          toneMapped={false} 
-        />
+        <sphereGeometry args={[0.04, 32, 32]} />
+        <meshStandardMaterial color={style.color} emissive={style.glow} emissiveIntensity={isProcessing ? 60 : 20} toneMapped={false} />
       </mesh>
 
       {/* The Sentinel — one tiny moving point of light */}
       <mesh ref={sentinelRef}>
-        <sphereGeometry args={[0.02, 16, 16]} />
+        <sphereGeometry args={[0.015, 16, 16]} />
         <meshStandardMaterial 
           color="#ffffff" 
           emissive={style.glow} 
-          emissiveIntensity={20} 
+          emissiveIntensity={isProcessing ? 100 : 20} 
           toneMapped={false} 
         />
       </mesh>
@@ -107,19 +138,20 @@ function InnerIntelligence({ style }: { style: typeof ELEMENT_STYLES.None }) {
       <pointLight ref={lightRef} color={style.glow} distance={2} decay={2} />
       
       {/* Micro-sparkles representing data-points (Intelligence) */}
-      <Sparkles count={12} scale={0.6} size={1} speed={0.4} color={style.glow} />
+      <Sparkles count={isProcessing ? 30 : 12} scale={0.6} size={1} speed={isProcessing ? 2.0 : 0.4} color={style.glow} />
     </group>
   );
 }
 
-function OuterGlassShell({ style }: { style: typeof ELEMENT_STYLES.None }) {
+function OuterGlassShell({ style, isProcessing }: { style: typeof ELEMENT_STYLES.None, isProcessing?: boolean }) {
   const meshRef = useRef<THREE.Mesh>(null);
   
   useFrame((state) => {
     if (!meshRef.current) return;
     const time = state.clock.getElapsedTime();
     const breath = 1.0 + Math.sin(time * 0.2) * 0.015;
-    meshRef.current.scale.set(breath, breath, breath);
+    const scale = isProcessing ? breath * 1.05 : breath;
+    meshRef.current.scale.set(scale, scale, scale);
     meshRef.current.rotation.y = time * 0.05;
   });
 
@@ -147,27 +179,20 @@ function OuterGlassShell({ style }: { style: typeof ELEMENT_STYLES.None }) {
   );
 }
 
-function WitnessScene() {
+function WitnessScene({ isAsking, isProcessing }: WitnessProps) {
   const { profile } = useProfile();
   
   const element = resolveElement(profile?.signName);
   const style = ELEMENT_STYLES[element];
 
-  const handleClick = () => {
-    window.dispatchEvent(new CustomEvent("witness:activated"));
-    if ("vibrate" in navigator) window.navigator.vibrate(25);
-  };
-
   return (
     <>
       <Environment preset="night" />
       
-      <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
-        <group 
-          onClick={handleClick}
-        >
-          <InnerIntelligence style={style} />
-          <OuterGlassShell style={style} />
+      <Float speed={isProcessing ? 8 : 2} rotationIntensity={0.5} floatIntensity={0.5}>
+        <group>
+          <InnerIntelligence style={style} isAsking={isAsking} isProcessing={isProcessing} />
+          <OuterGlassShell style={style} isProcessing={isProcessing} />
         </group>
       </Float>
 
@@ -183,7 +208,7 @@ function WitnessScene() {
   );
 }
 
-export default function TheWitness() {
+export default function TheWitness({ isAsking, isProcessing }: WitnessProps) {
   return (
     <div className="witness-orb-container" style={{ width: "320px", height: "320px", cursor: "pointer" }}>
       <Canvas 
@@ -194,19 +219,17 @@ export default function TheWitness() {
           alpha: true 
         }}
       >
-        <color attach="background" args={["transparent"]} />
         <ambientLight intensity={0.1} />
-        
-        <WitnessScene />
+        <WitnessScene isAsking={isAsking} isProcessing={isProcessing} />
       </Canvas>
 
       <style jsx>{`
         .witness-orb-container {
-          filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
+          filter: drop-shadow(0 0 30px rgba(0,0,0,0.6));
           transition: transform 0.6s var(--ease-ritual);
         }
         .witness-orb-container:hover {
-          transform: scale(1.04);
+          transform: scale(1.05);
         }
       `}</style>
     </div>

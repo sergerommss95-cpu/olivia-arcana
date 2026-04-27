@@ -1,15 +1,15 @@
 /**
- * HeroV3.tsx — The "Wheel of Seven" iteration.
+ * HeroV3.tsx — The "Wheel of Seven" iteration with The Witness Intelligence.
  *
  * Implements the v3 design language:
  *   - Editorial, hand-written typography
- *   - The "Wheel of Seven" FlipRevealCard as the visual centerpiece
- *   - Direct path to "Draw today's card" without friction
+ *   - The "Witness" Intelligent Orb as the Oracle Gate
+ *   - Attention-based interaction (Voice/Text Input)
  */
 
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import FlipRevealCard from "@/components/shaders/FlipRevealCard";
 import TheWitness from "@/components/cosmos/TheWitness";
@@ -21,7 +21,12 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export default function HeroV3() {
   const [mounted, setMounted] = useState(false);
   const [revealed, setRevealed] = useState(false);
+  const [isAsking, setIsAsking] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [question, setQuestion] = useState("");
+  
   const headRef = useRef<HTMLHeadingElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Daily-seeded card for the hero
   const dailyCard = useMemo(() => {
@@ -36,7 +41,12 @@ export default function HeroV3() {
   useEffect(() => {
     setMounted(true);
 
-    const handleWitness = () => setRevealed(true);
+    const handleWitness = () => {
+      if (!isAsking && !revealed) {
+        setIsAsking(true);
+        setTimeout(() => inputRef.current?.focus(), 100);
+      }
+    };
     window.addEventListener("witness:activated", handleWitness);
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -56,7 +66,23 @@ export default function HeroV3() {
     return () => {
       window.removeEventListener("witness:activated", handleWitness);
     };
-  }, []);
+  }, [isAsking, revealed]);
+
+  const handleSubmit = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    if (!question.trim() || isProcessing) return;
+    
+    setIsProcessing(true);
+    setIsAsking(false);
+
+    // Simulate "Celestial Processing"
+    setTimeout(() => {
+      setIsProcessing(false);
+      setRevealed(true);
+      // Haptic feedback
+      if ("vibrate" in navigator) window.navigator.vibrate([30, 50, 30]);
+    }, 1800);
+  }, [question, isProcessing]);
 
   return (
     <section
@@ -96,7 +122,7 @@ export default function HeroV3() {
             transition={{ duration: 1, delay: 0.8, ease: EASE }}
             className="max-w-md md:max-w-lg font-[family-name:var(--font-body)] text-base md:text-lg leading-relaxed text-muted-lavender/90 font-light"
           >
-            Personalized astrology and tarot readings computed from real NASA planetary positions. Not templates — real guidance.
+            Ask the Witness what seeks clarity. Personalized astrology and tarot readings computed from real NASA planetary positions.
           </motion.p>
 
           <motion.div
@@ -105,55 +131,125 @@ export default function HeroV3() {
             transition={{ duration: 1, delay: 1.1, ease: EASE }}
             className="flex flex-col sm:flex-row items-center gap-6"
           >
-            <MagneticButton variant="gold" href="/academy/card-of-the-day" size="lg">
-              Draw Your Daily Card
+            <MagneticButton variant="gold" onClick={() => setIsAsking(true)} size="lg">
+              Consult the Witness
             </MagneticButton>
             <a
-              href="/portrait"
+              href="/sample"
               className="text-sm font-medium text-celestial-gold/60 hover:text-celestial-gold transition-colors duration-300 tracking-wide uppercase"
             >
-              Get Your Portrait &rarr;
+              See a sample reading &rarr;
             </a>
           </motion.div>
         </div>
 
-        {/* Right: The Witness + Hidden Card (Visual Centerpiece) */}
+        {/* Right: The Witness + Oracle Gate (Masterpiece UI) */}
         <div className="relative flex items-center justify-center lg:justify-end py-12 md:py-0">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.4, delay: 0.5, ease: EASE }}
-            className="relative z-20 flex flex-col items-center gap-12"
+            className="relative z-20 flex flex-col items-center gap-8"
           >
-            {/* The Witness — Intelligent Navigation */}
+            {/* The Witness Orb */}
             <div className="relative group">
-              <div className="absolute inset-0 bg-celestial-gold/10 blur-[60px] rounded-full group-hover:bg-celestial-gold/20 transition-colors" />
-              <TheWitness />
+              <div className={`absolute inset-0 blur-[80px] rounded-full transition-all duration-1000 ${
+                isProcessing ? "bg-celestial-gold/40 scale-150" : "bg-celestial-gold/10 group-hover:bg-celestial-gold/20"
+              }`} />
+              
+              <TheWitness isAsking={isAsking} isProcessing={isProcessing} />
+              
               <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                <span className="font-[family-name:var(--font-mono)] text-[0.6rem] tracking-[0.4em] uppercase text-celestial-gold/40 animate-pulse">
-                  {revealed ? "Path Revealed" : "Give Attention"}
-                </span>
+                <AnimatePresence mode="wait">
+                  {!revealed && !isAsking && !isProcessing && (
+                    <motion.span 
+                      key="idle"
+                      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                      className="font-[family-name:var(--font-mono)] text-[0.6rem] tracking-[0.4em] uppercase text-celestial-gold/40 animate-pulse"
+                    >
+                      Give Attention
+                    </motion.span>
+                  )}
+                  {isAsking && (
+                    <motion.span 
+                      key="asking"
+                      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                      className="font-[family-name:var(--font-mono)] text-[0.6rem] tracking-[0.4em] uppercase text-celestial-gold animate-pulse"
+                    >
+                      Listening...
+                    </motion.span>
+                  )}
+                  {isProcessing && (
+                    <motion.span 
+                      key="proc"
+                      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                      className="font-[family-name:var(--font-mono)] text-[0.6rem] tracking-[0.4em] uppercase text-white font-bold"
+                    >
+                      Connecting to Sky
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
 
-            {/* The Hidden Card — Connected to the Witness */}
-            <motion.div 
-              animate={revealed ? { y: 0, opacity: 1 } : { y: 20, opacity: 0.4 }}
-              className="relative"
-            >
-              <FlipRevealCard
-                card={dailyCard}
-                width={280}
-              />
-            </motion.div>
+            {/* The Oracle Gate — Input Field */}
+            <div className="relative w-full max-w-[340px]">
+              <AnimatePresence mode="wait">
+                {isAsking && (
+                  <motion.form
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.05, filter: "blur(8px)" }}
+                    transition={{ duration: 0.5, ease: EASE }}
+                    onSubmit={handleSubmit}
+                    className="glass-card p-1 flex items-center gap-2 overflow-hidden border-celestial-gold/30 bg-black/40 backdrop-blur-xl shadow-2xl"
+                  >
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      autoFocus
+                      placeholder="What seeking clarity?"
+                      value={question}
+                      onChange={(e) => setQuestion(e.target.value)}
+                      className="flex-1 bg-transparent border-none outline-none px-4 py-3 text-sm text-warm-ivory placeholder:text-muted-lavender/40 font-[family-name:var(--font-body)]"
+                    />
+                    <button 
+                      type="submit"
+                      className="p-3 text-celestial-gold hover:text-white transition-colors"
+                      aria-label="Submit question"
+                    >
+                      &rarr;
+                    </button>
+                  </motion.form>
+                )}
+
+                {revealed && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="relative"
+                  >
+                    <FlipRevealCard
+                      card={dailyCard}
+                      width={280}
+                      revealedOverride={revealed}
+                    />
+                    {question && (
+                      <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-full text-center">
+                        <p className="text-[0.65rem] italic text-muted-lavender/60 font-light max-w-[200px] mx-auto line-clamp-1">
+                          &ldquo;{question}&quot;
+                        </p>
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </motion.div>
 
-          {/* Decorative floating sigils for desktop only */}
+          {/* Decorative floating sigils */}
           <div className="hidden xl:block absolute -top-10 -right-10 w-24 h-24 opacity-20 animate-spin-slow">
             <span className="text-4xl text-celestial-gold">✦</span>
-          </div>
-          <div className="hidden xl:block absolute -bottom-20 -left-10 w-32 h-32 opacity-10 animate-reverse-spin">
-            <span className="text-2xl text-celestial-gold">⊹</span>
           </div>
         </div>
       </div>
@@ -163,17 +259,8 @@ export default function HeroV3() {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
-        @keyframes reverse-spin {
-          from { transform: rotate(360deg); }
-          to { transform: rotate(0deg); }
-        }
         .animate-spin-slow { animation: spin-slow 60s linear infinite; }
-        .animate-reverse-spin { animation: reverse-spin 85s linear infinite; }
       `}</style>
     </section>
   );
-}
-
-function useMemo(fn: () => any, deps: any[]) {
-  return React.useMemo(fn, deps);
 }

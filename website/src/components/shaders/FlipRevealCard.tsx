@@ -36,7 +36,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
 import type { TarotCard } from "@/lib/academy/tarot-cards";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 import { getCardPortalImagePath } from "@/lib/academy/card-images";
@@ -46,6 +46,7 @@ interface FlipRevealCardProps {
   numeral?: string;
   width?: number;
   onFlip?: (revealed: boolean) => void;
+  revealedOverride?: boolean;
 }
 
 // ─────────────────────────────────────────────────────────────────────
@@ -670,10 +671,13 @@ export default function FlipRevealCard({
   numeral,
   width = 360,
   onFlip,
+  revealedOverride,
 }: FlipRevealCardProps) {
   const height = Math.round(width * 1.5);
 
-  const [revealed, setRevealed] = useState(false);
+  const [internalRevealed, setInternalRevealed] = useState(false);
+  const revealed = revealedOverride ?? internalRevealed;
+
   const [reducedMotion, setReducedMotion] = useState(false);
 
   // Rotation is tracked as a motion value so we can derive edge-flash
@@ -731,9 +735,21 @@ export default function FlipRevealCard({
 
   const toggleFlip = useCallback(() => {
     const next = !revealed;
-    setRevealed(next);
+    setInternalRevealed(next);
     onFlip?.(next);
   }, [revealed, onFlip]);
+
+  // Sync animation if revealed state changes from outside
+  useEffect(() => {
+    const target = revealed ? 180 : 0;
+    if (rotateY.get() !== target) {
+      animate(rotateY, target, {
+        type: "spring",
+        stiffness: 260,
+        damping: 24,
+      });
+    }
+  }, [revealed, rotateY]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
