@@ -57,13 +57,11 @@ interface WitnessProps {
 
 function InnerIntelligence({ style, isAsking, isProcessing, userInputLength = 0 }: { style: typeof ELEMENT_STYLES.None } & WitnessProps) {
   const coreRef = useRef<THREE.Group>(null);
-  const ring1Ref = useRef<THREE.Group>(null);
-  const ring2Ref = useRef<THREE.Group>(null);
-  const sentinelRef = useRef<THREE.Mesh>(null);
+  const seedRef = useRef<THREE.Group>(null);
+  const oliveRef = useRef<THREE.Group>(null);
   const lightRef = useRef<THREE.PointLight>(null);
   const { mouse } = useThree();
   
-  // Spring vectors for intelligent rotation
   const smoothTarget = useRef(new THREE.Vector3(0, 0, 1));
   const currentDir = useRef(new THREE.Vector3(0, 0, 1));
 
@@ -71,76 +69,91 @@ function InnerIntelligence({ style, isAsking, isProcessing, userInputLength = 0 
     if (!coreRef.current) return;
     const time = state.clock.getElapsedTime();
 
-    // 1. Calculate Cursor Intent
     smoothTarget.current.set(mouse.x * 2.5, mouse.y * 2.5, 1).normalize();
     currentDir.current.lerp(smoothTarget.current, isAsking ? 0.15 : 0.08);
-    
-    // 2. Physical Look-At
     coreRef.current.lookAt(currentDir.current.clone().multiplyScalar(5));
     
-    // 3. Ambient Vibration + Typing Reaction
     const typingVibe = userInputLength * 0.01;
-    coreRef.current.position.y = Math.sin(time * 0.8) * (isProcessing ? 0.08 : 0.02) + (Math.random() * typingVibe * 0.1);
-    
-    // 4. Ring Rotation (Sacred Geometry feel)
-    const ringSpeed = isProcessing ? 4.0 : isAsking ? (1.2 + typingVibe * 2) : 0.4;
-    if (ring1Ref.current) ring1Ref.current.rotation.z = time * ringSpeed;
-    if (ring2Ref.current) ring2Ref.current.rotation.x = time * -ringSpeed * 1.5;
+    const activitySpeed = isProcessing ? 4.0 : isAsking ? (1.5 + typingVibe * 2) : 0.5;
 
-    // 5. Sentinel Orbit (The tiny moving point of light)
-    if (sentinelRef.current) {
-      const orbSpeed = isProcessing ? 10.0 : (2.5 + typingVibe * 5);
-      sentinelRef.current.position.x = Math.cos(time * orbSpeed) * 0.45;
-      sentinelRef.current.position.z = Math.sin(time * orbSpeed) * 0.45;
-      sentinelRef.current.position.y = Math.sin(time * (orbSpeed * 0.75)) * 0.2;
+    // 1. Seed of Life Counter-Rotation
+    if (seedRef.current) {
+      seedRef.current.rotation.z = time * activitySpeed;
+      seedRef.current.rotation.y = Math.sin(time * 0.5) * 0.2;
     }
 
-    // 6. Reactive Light Pulse
+    // 2. Olive Sprig Breathing
+    if (oliveRef.current) {
+      const breath = 1 + Math.sin(time * 2) * 0.05;
+      oliveRef.current.scale.set(breath, breath, breath);
+      oliveRef.current.rotation.z = Math.sin(time * 0.8) * 0.1;
+    }
+
     if (lightRef.current) {
-      const basePulse = isProcessing ? 2.5 : isAsking ? (1.2 + typingVibe) : 0.8;
-      const pulse = basePulse + Math.sin(time * 3.0 * style.speed) * (isProcessing ? 1.0 : 0.2);
-      lightRef.current.intensity = pulse * (isProcessing ? 45 : 15);
+      const basePulse = isProcessing ? 3.5 : isAsking ? (1.5 + typingVibe) : 1.0;
+      lightRef.current.intensity = (basePulse + Math.sin(time * 3) * 0.5) * (isProcessing ? 60 : 20);
     }
   });
 
   return (
     <group ref={coreRef}>
-      {/* The Core — Concentric Golden Rings */}
-      <group ref={ring1Ref}>
+      {/* ── THE SEED OF LIFE RINGS ── */}
+      <group ref={seedRef}>
+        {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+          <group key={i} rotation={[0, 0, (angle * Math.PI) / 180]}>
+            <mesh position={[0.15, 0, 0]}>
+              <torusGeometry args={[0.15, 0.002, 16, 64]} />
+              <meshStandardMaterial 
+                color={style.color} 
+                emissive={style.glow} 
+                emissiveIntensity={isProcessing ? 40 : 10} 
+                toneMapped={false} 
+              />
+            </mesh>
+          </group>
+        ))}
+        {/* Center Ring */}
         <mesh>
-          <torusGeometry args={[0.35, 0.003, 16, 100]} />
-          <meshStandardMaterial color={style.color} emissive={style.glow} emissiveIntensity={isProcessing ? 50 : 10} toneMapped={false} />
-        </mesh>
-      </group>
-      <group ref={ring2Ref}>
-        <mesh rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[0.3, 0.003, 16, 100]} />
-          <meshStandardMaterial color={style.color} emissive={style.glow} emissiveIntensity={isProcessing ? 50 : 10} toneMapped={false} />
+          <torusGeometry args={[0.15, 0.003, 16, 64]} />
+          <meshStandardMaterial 
+            color={style.color} 
+            emissive={style.glow} 
+            emissiveIntensity={isProcessing ? 50 : 15} 
+            toneMapped={false} 
+          />
         </mesh>
       </group>
 
-      {/* The Central Seed */}
-      <mesh>
-        <sphereGeometry args={[0.04, 32, 32]} />
-        <meshStandardMaterial color={style.color} emissive={style.glow} emissiveIntensity={isProcessing ? 60 : 20} toneMapped={false} />
-      </mesh>
-
-      {/* The Sentinel — one tiny moving point of light */}
-      <mesh ref={sentinelRef}>
-        <sphereGeometry args={[0.015, 16, 16]} />
-        <meshStandardMaterial 
-          color="#ffffff" 
-          emissive={style.glow} 
-          emissiveIntensity={isProcessing ? 100 : 20} 
-          toneMapped={false} 
-        />
-      </mesh>
+      {/* ── THE OLIVE SPRIG (Stylized Centerpiece) ── */}
+      <group ref={oliveRef} scale={0.4}>
+        {/* Stem */}
+        <mesh>
+          <cylinderGeometry args={[0.01, 0.01, 0.6, 8]} />
+          <meshStandardMaterial color={style.color} emissive={style.glow} emissiveIntensity={20} />
+        </mesh>
+        {/* Leaves */}
+        <mesh position={[0.12, 0.1, 0]} rotation={[0, 0, -Math.PI / 4]}>
+          <sphereGeometry args={[0.08, 16, 16]} scale={[1, 0.3, 0.5]} />
+          <meshStandardMaterial color={style.color} emissive={style.glow} emissiveIntensity={15} />
+        </mesh>
+        <mesh position={[-0.12, -0.05, 0]} rotation={[0, 0, Math.PI / 4]}>
+          <sphereGeometry args={[0.08, 16, 16]} scale={[1, 0.3, 0.5]} />
+          <meshStandardMaterial color={style.color} emissive={style.glow} emissiveIntensity={15} />
+        </mesh>
+        {/* The Fruit (Crowning Jewel) */}
+        <mesh position={[0, 0.35, 0]}>
+          <sphereGeometry args={[0.05, 32, 32]} scale={[0.8, 1.2, 0.8]} />
+          <meshStandardMaterial 
+            color="#ffffff" 
+            emissive={style.glow} 
+            emissiveIntensity={isProcessing ? 100 : 30} 
+            toneMapped={false} 
+          />
+        </mesh>
+      </group>
       
-      {/* Tiny internal light source to illuminate the glass shell from within */}
       <pointLight ref={lightRef} color={style.glow} distance={2} decay={2} />
-      
-      {/* Micro-sparkles representing data-points (Intelligence) */}
-      <Sparkles count={isProcessing ? 30 : 12} scale={0.6} size={1} speed={isProcessing ? 2.0 : 0.4} color={style.glow} />
+      <Sparkles count={isProcessing ? 40 : 15} scale={0.8} size={2} speed={isProcessing ? 2.5 : 0.6} color={style.glow} />
     </group>
   );
 }
@@ -155,52 +168,69 @@ function OuterGlassShell({ style, isAsking, isProcessing, userInputLength = 0 }:
     if (!meshRef.current || !materialRef.current) return;
     const time = state.clock.getElapsedTime();
     
-    // 1. Calculate Scroll & Mouse Velocity for Physical Reaction
     const currentScrollY = window.scrollY;
     scrollVelocity.current += (Math.abs(currentScrollY - lastScrollY.current) - scrollVelocity.current) * 0.1;
     lastScrollY.current = currentScrollY;
     
-    // 2. Multi-Layered Morphing (The Liquid Effect)
-    // base distortion + noise modulation
-    const idleMorph = Math.sin(time * 0.5) * 0.05;
-    const typingDistortion = userInputLength * 0.015;
-    const activityMorph = isProcessing ? 0.3 : isAsking ? (0.15 + typingDistortion) : 0;
-    const velocityMorph = scrollVelocity.current * 0.003;
+    const typingDistortion = userInputLength * 0.012;
+    const activityMorph = isProcessing ? 0.4 : isAsking ? (0.2 + typingDistortion) : 0.1;
+    const velocityMorph = scrollVelocity.current * 0.004;
     
-    materialRef.current.distortion = style.tension + idleMorph + activityMorph + velocityMorph;
-    materialRef.current.distortionScale = 0.4 + (Math.sin(time * 0.2) * 0.1) + typingDistortion;
-    materialRef.current.temporalDistortion = 0.2 + activityMorph;
+    materialRef.current.distortion = style.tension + activityMorph + velocityMorph + Math.sin(time * 0.5) * 0.1;
+    materialRef.current.distortionScale = 0.5 + (Math.sin(time * 0.2) * 0.2) + typingDistortion;
+    materialRef.current.temporalDistortion = 0.3 + activityMorph;
     
-    // 3. Physical Scale Pulse
-    const breath = 1.0 + Math.sin(time * 0.4) * 0.02 + (scrollVelocity.current * 0.0005) + (typingDistortion * 0.1);
-    const scale = isProcessing ? breath * 1.15 : isAsking ? breath * 1.05 : breath;
+    const breath = 1.0 + Math.sin(time * 1.5) * 0.02 + (velocityMorph * 0.1);
+    const scale = isProcessing ? breath * 1.12 : isAsking ? breath * 1.05 : breath;
     meshRef.current.scale.set(scale, scale, scale);
     
-    // 4. Atmospheric Rotation
-    meshRef.current.rotation.y = time * 0.08 + (scrollVelocity.current * 0.001);
-    meshRef.current.rotation.z = Math.sin(time * 0.1) * 0.1;
+    meshRef.current.rotation.y = time * 0.1 + (scrollVelocity.current * 0.002);
+    meshRef.current.rotation.z = Math.sin(time * 0.2) * 0.05;
   });
 
   return (
     <mesh ref={meshRef}>
-      <sphereGeometry args={[1, 128, 128]} /> {/* Higher resolution for smoother morphing */}
+      <sphereGeometry args={[1, 128, 128]} />
       <MeshTransmissionMaterial
         ref={materialRef}
         backside
         samples={16}
-        thickness={1.2}
-        roughness={0.04}
+        thickness={1.5}
+        roughness={0.02}
         transmission={1.0}
-        ior={1.5}
-        chromaticAberration={0.12}
-        anisotropy={0.5}
-        distortion={style.tension}
+        ior={1.6}
+        chromaticAberration={0.6} // High dispersion for diamond-like look
+        anisotropy={0.8}
+        distortion={0.2}
         distortionScale={0.5}
         temporalDistortion={0.2}
         clearcoat={1}
-        attenuationDistance={0.5}
-        attenuationColor="#ffffff"
-        color="#06041a" 
+        attenuationDistance={1.0}
+        attenuationColor={style.color}
+        color="#100b2e" // Deep cosmic indigo instead of black
+      />
+    </mesh>
+  );
+}
+
+function NebulaCore({ style }: { style: any }) {
+  const meshRef = useRef<THREE.Mesh>(null);
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.15;
+      meshRef.current.rotation.z = Math.sin(state.clock.getElapsedTime() * 0.1) * 0.5;
+    }
+  });
+  return (
+    <mesh ref={meshRef}>
+      <sphereGeometry args={[0.7, 32, 32]} />
+      <meshStandardMaterial 
+        color={style.color} 
+        emissive={style.color}
+        emissiveIntensity={1.5}
+        transparent 
+        opacity={0.1} 
+        side={THREE.BackSide}
       />
     </mesh>
   );
@@ -208,7 +238,6 @@ function OuterGlassShell({ style, isAsking, isProcessing, userInputLength = 0 }:
 
 function WitnessScene({ isAsking, isProcessing, userInputLength }: WitnessProps) {
   const { profile } = useProfile();
-  
   const element = resolveElement(profile?.signName);
   const style = ELEMENT_STYLES[element];
 
@@ -216,18 +245,19 @@ function WitnessScene({ isAsking, isProcessing, userInputLength }: WitnessProps)
     <>
       <Environment preset="night" />
       
-      <Float speed={isProcessing ? 8 : 2} rotationIntensity={0.5} floatIntensity={0.5}>
+      <Float speed={isProcessing ? 6 : 1.5} rotationIntensity={0.2} floatIntensity={0.5}>
         <group>
           <InnerIntelligence style={style} isAsking={isAsking} isProcessing={isProcessing} userInputLength={userInputLength} />
+          <NebulaCore style={style} />
           <OuterGlassShell style={style} isAsking={isAsking} isProcessing={isProcessing} userInputLength={userInputLength} />
         </group>
       </Float>
 
       <ContactShadows 
         position={[0, -1.5, 0]} 
-        opacity={0.4} 
-        scale={4} 
-        blur={2} 
+        opacity={0.6} 
+        scale={5} 
+        blur={2.5} 
         far={2} 
         color="#000000" 
       />
