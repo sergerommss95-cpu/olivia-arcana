@@ -91,16 +91,16 @@ void main() {
   vec3 texColor = vec3(r, g, b);
 
   // ── Composition: Mix Texture with Generative Clouds ──
-  vec3 color = mix(texColor, vec3(0.08, 0.05, 0.18), cloudPattern * 0.45);
-  color += vec3(0.9, 0.7, 0.4) * pow(cloudPattern, 5.0) * 0.25; // Stellar nurseries
+  vec3 color = mix(texColor, vec3(0.06, 0.04, 0.12), cloudPattern * 0.4);
+  color += vec3(0.8, 0.6, 0.3) * pow(cloudPattern, 6.0) * 0.08; // Tamed nurseries
 
   // ── Brightness & Tonemapping ──
-  float brightness = 0.45 + uBrightFlash * 0.5 + uBreath * 0.15;
+  float brightness = 0.4 + uBrightFlash * 0.4 + uBreath * 0.1;
   color *= brightness;
   
-  // Event Horizon Glow (Brilliant Gold)
-  float horizon = 1.0 - smoothstep(0.0, 0.25 * uSingularityStrength, dist);
-  color += vec3(1.0, 0.85, 0.5) * horizon * uSingularityStrength * 0.8;
+  // Event Horizon Glow (Softer Ivory Gold)
+  float horizon = 1.0 - smoothstep(0.0, 0.3 * uSingularityStrength, dist);
+  color += vec3(0.9, 0.75, 0.5) * horizon * uSingularityStrength * 0.35;
 
   color = color / (color + vec3(0.12));
   color = pow(color, vec3(1.05));

@@ -33,14 +33,27 @@ export interface Translations {
   nav_profile: string;
 
   // Hero
+  hero_almanac_badge: string;
   hero_title: string;
   hero_subtitle: string;
+  hero_consult_cta: string;
+  hero_sample_cta: string;
   hero_enter_birthday: string;
   hero_portrait_cta: string;
   hero_ask_cta: string;
   hero_readings_given: string;
   hero_average_rating: string;
   hero_accuracy: string;
+
+  // Witness
+  witness_node_consult: string;
+  witness_node_daily: string;
+  witness_node_relic: string;
+  witness_status_idle: string;
+  witness_status_listening: string;
+  witness_status_computing: string;
+  witness_input_placeholder: string;
+  witness_universe_prompt: string;
 
   // Cosmic Profile
   profile_your_cosmic_traits: string;
@@ -183,6 +196,16 @@ export interface Translations {
   common_element: string;
   common_modality: string;
   common_ruler: string;
+  common_about: string;
+  common_contact: string;
+
+  legal_title: string;
+  legal_terms: string;
+  legal_privacy: string;
+  legal_cookies: string;
+  legal_refund: string;
+  legal_disclaimer: string;
+  legal_dmca: string;
 
   // Signs
   sign_aries: string; sign_taurus: string; sign_gemini: string; sign_cancer: string;
@@ -221,15 +244,16 @@ export interface Translations {
   // Pricing
   price_eyebrow: string; price_title: string;
   price_free: string; price_free_desc: string; price_forever: string;
-  price_free_f1: string; price_free_f2: string; price_free_f3: string;
-  price_free_f4: string; price_free_f5: string; price_free_f6: string;
-  price_start_free: string;
+  price_insight: string; price_insight_desc: string;
+  price_premium: string; price_premium_desc: string;
   price_vip: string; price_vip_desc: string; price_popular: string;
   price_month: string; price_annual: string;
-  price_vip_f1: string; price_vip_f2: string; price_vip_f3: string;
-  price_vip_f4: string; price_vip_f5: string; price_vip_f6: string;
-  price_vip_f7: string; price_vip_f8: string; price_vip_f9: string;
-  price_start_vip: string; price_pay: string;
+  price_f_free: string[];
+  price_f_insight: string[];
+  price_f_premium: string[];
+  price_f_vip: string[];
+  price_start_free: string; price_start_insight: string; price_start_premium: string; price_start_vip: string;
+  price_pay: string;
   price_individual: string;
   price_i1: string; price_i2: string; price_i3: string; price_i4: string; price_i5: string;
 
@@ -265,12 +289,26 @@ export interface Translations {
 
 const en: Translations = {
   nav_academy: "Academy", nav_portrait: "Portrait", nav_cosmos: "Cosmos", nav_daily: "Daily",
-  nav_signup: "Sign Up", nav_profile: "My Profile",
-  hero_title: "Written in Your Stars",
-  hero_subtitle: "Personalised cosmic readings calculated from your exact planetary positions. Not a template — real cosmic insight.",
+  nav_signup: "Join", nav_profile: "Profile",
+
+  hero_almanac_badge: "✦ An editorial cosmic almanac",
+  hero_title: "Your stars, read for you.",
+  hero_subtitle: "Ask the Witness what seeks clarity. Personalized astrology and tarot readings computed from real NASA planetary positions.",
+  hero_consult_cta: "Consult the Witness",
+  hero_sample_cta: "See a sample reading",
   hero_enter_birthday: "Enter your birthday",
   hero_portrait_cta: "Celestial Portrait", hero_ask_cta: "Ask the Stars",
   hero_readings_given: "Readings Given", hero_average_rating: "Average Rating", hero_accuracy: "Accuracy Rating",
+
+  witness_node_consult: "Consult",
+  witness_node_daily: "Daily",
+  witness_node_relic: "Relic",
+  witness_status_idle: "Concentrate",
+  witness_status_listening: "Listening...",
+  witness_status_computing: "Computing Fate",
+  witness_input_placeholder: "What seeks clarity?",
+  witness_universe_prompt: "What does the universe want me to know?",
+
   profile_your_cosmic_traits: "Your Cosmic Traits", profile_cosmic_energy: "Cosmic Energy Today",
   profile_best_match: "Best Cosmic Match", profile_lucky_numbers: "Lucky Numbers",
   profile_lucky_day: "Lucky Day", profile_lucky_color: "Lucky Color", profile_gemstone: "Gemstone",
@@ -360,6 +398,14 @@ const en: Translations = {
   common_home: "Home", common_back: "Back", common_sign_in: "Sign In", common_sign_up: "Create Account",
   common_sign_out: "Sign Out", common_loading: "Loading...",
   common_element: "Element", common_modality: "Modality", common_ruler: "Ruler",
+  common_about: "About", common_contact: "Contact",
+  legal_title: "Legal",
+  legal_terms: "Terms of Service",
+  legal_privacy: "Privacy Policy",
+  legal_cookies: "Cookies",
+  legal_refund: "Refund Policy",
+  legal_disclaimer: "Disclaimer",
+  legal_dmca: "DMCA",
   sign_aries: "Aries", sign_taurus: "Taurus", sign_gemini: "Gemini", sign_cancer: "Cancer",
   sign_leo: "Leo", sign_virgo: "Virgo", sign_libra: "Libra", sign_scorpio: "Scorpio",
   sign_sagittarius: "Sagittarius", sign_capricorn: "Capricorn", sign_aquarius: "Aquarius", sign_pisces: "Pisces",
@@ -393,23 +439,49 @@ const en: Translations = {
   test_3_name: "Elena K.", test_3_sign: "\u2652 Aquarius Sun, \u264B Cancer Moon",
   // Pricing
   price_eyebrow: "Pricing", price_title: "Unlock Your Full Chart",
-  price_free: "Free", price_free_desc: "Start exploring the cosmos", price_forever: "forever",
-  price_free_f1: "5 messages per day with Olivia", price_free_f2: "Daily zodiac forecast (all 12 signs)",
-  price_free_f3: "Tarot card of the day", price_free_f4: "3-card tarot spread (once daily)",
-  price_free_f5: "Basic compatibility summary", price_free_f6: "Weekly cosmic weather",
-  price_start_free: "Start Free",
-  price_vip: "VIP", price_vip_desc: "The full cosmic experience", price_popular: "Most Popular",
+  price_free: "Free", price_free_desc: "Begin the journey", price_forever: "forever",
+  price_insight: "Insight", price_insight_desc: "Daily companionship",
+  price_premium: "Premium", price_premium_desc: "The full chart, the full story",
+  price_vip: "VIP", price_vip_desc: "A real astrologer in your pocket", price_popular: "Most Popular",
   price_month: "/month", price_annual: "or $65/year (2 months free)",
-  price_vip_f1: "Unlimited chat with Olivia",
-  price_vip_f2: "Daily personal reading (YOUR chart + today\u2019s transits)",
-  price_vip_f3: "Real-time transit alerts on your natal points",
-  price_vip_f4: "Weekly personalized tarot pull",
-  price_vip_f5: "Monthly Celtic Cross reading included",
-  price_vip_f6: "Full compatibility/synastry reports",
-  price_vip_f7: "Eclipse & retrograde impact reports",
-  price_vip_f8: "Birthday Solar Return reading",
-  price_vip_f9: "Priority response \u2014 never wait in line",
-  price_start_vip: "Start VIP", price_pay: "Pay with Telegram Stars or Crypto (TON/USDT)",
+  price_f_free: [
+    "Daily Card of the Day (veil reveal)",
+    "Basic sun-sign profile",
+    "Academy — first 12 lessons",
+    "3 AI oracle questions / month",
+    "Live cosmic weather (current sky)"
+  ],
+  price_f_insight: [
+    "Everything in Free",
+    "Personalized daily horoscope from your chart",
+    "Full natal chart breakdown (Sun/Moon/Rising + houses)",
+    "30 AI oracle questions / month",
+    "Transit alerts for major aspects",
+    "Tarot encyclopedia (full 78-card)",
+    "Cosmic journal with moon-phase prompts"
+  ],
+  price_f_premium: [
+    "Everything in Insight",
+    "Unlimited AI oracle (Claude Haiku-powered)",
+    "Synastry / compatibility reports (unlimited)",
+    "Year-ahead forecast & solar return",
+    "Full Academy — all 207 lessons + quizzes",
+    "Celtic Cross & advanced tarot spreads",
+    "Weekly transit briefing (audio + text)",
+    "Priority access to new features"
+  ],
+  price_f_vip: [
+    "Everything in Premium",
+    "Unlimited AI oracle on Claude Sonnet (deeper synthesis)",
+    "Voice readings — ElevenLabs narration of your chart",
+    "Live planetary hour notifications",
+    "Custom video reading (30-min, monthly)",
+    "Direct line: priority email to a human astrologer",
+    "Early access to new decks & rituals",
+    "VIP-only constellation events & livestreams"
+  ],
+  price_start_free: "Start Free", price_start_insight: "Choose Insight", price_start_premium: "Get Premium", price_start_vip: "Go VIP",
+  price_pay: "Pay with Telegram Stars or Crypto (TON/USDT)",
   price_individual: "Or try individual premium readings:",
   price_i1: "Birth Chart", price_i2: "Compatibility", price_i3: "Celtic Cross",
   price_i4: "Year-Ahead", price_i5: "Video Reading",
@@ -450,12 +522,26 @@ const en: Translations = {
 
 const uk: Translations = {
   nav_academy: "Академія", nav_portrait: "Портрет", nav_cosmos: "Космос", nav_daily: "Щоденно",
-  nav_signup: "Реєстрація", nav_profile: "Мій профіль",
-  hero_title: "Написано у ваших зірках",
-  hero_subtitle: "Персоналізовані космічні читання, розраховані за вашими точними планетарними позиціями. Не шаблон — справжній космічний інсайт.",
+  nav_signup: "Приєднатися", nav_profile: "Профіль",
+
+  hero_almanac_badge: "✦ Редакційний космічний альманах",
+  hero_title: "Ваші зірки, прочитані для вас.",
+  hero_subtitle: "Запитайте Свідка про те, що потребує ясності. Персоналізовані астрологічні та таро-прогнози, розраховані на основі реальних планетарних позицій NASA.",
+  hero_consult_cta: "Звернутися до Свідка",
+  hero_sample_cta: "Переглянути зразок читання",
   hero_enter_birthday: "Введіть дату народження",
   hero_portrait_cta: "Небесний портрет", hero_ask_cta: "Запитай зірки",
   hero_readings_given: "Читань проведено", hero_average_rating: "Середній рейтинг", hero_accuracy: "Точність",
+
+  witness_node_consult: "Запитати",
+  witness_node_daily: "Прогноз",
+  witness_node_relic: "Реліквія",
+  witness_status_idle: "Зосередьтеся",
+  witness_status_listening: "Слухаю...",
+  witness_status_computing: "Обчислення Долі",
+  witness_input_placeholder: "Що потребує ясності?",
+  witness_universe_prompt: "Що всесвіт хоче мені повідомити?",
+
   profile_your_cosmic_traits: "Ваші космічні риси", profile_cosmic_energy: "Космічна енергія сьогодні",
   profile_best_match: "Найкраща космічна пара", profile_lucky_numbers: "Щасливі числа",
   profile_lucky_day: "Щасливий день", profile_lucky_color: "Щасливий колір", profile_gemstone: "Камінь",
@@ -545,6 +631,14 @@ const uk: Translations = {
   common_home: "Головна", common_back: "Назад", common_sign_in: "Увійти", common_sign_up: "Створити акаунт",
   common_sign_out: "Вийти", common_loading: "Завантаження...",
   common_element: "Стихія", common_modality: "Модальність", common_ruler: "Управитель",
+  common_about: "Про нас", common_contact: "Контакти",
+  legal_title: "Правова інформація",
+  legal_terms: "Умови надання послуг",
+  legal_privacy: "Політика конфіденційності",
+  legal_cookies: "Файли cookie",
+  legal_refund: "Політика повернення",
+  legal_disclaimer: "Відмова від відповідальності",
+  legal_dmca: "DMCA",
   sign_aries: "Овен", sign_taurus: "Телець", sign_gemini: "Близнюки", sign_cancer: "Рак",
   sign_leo: "Лев", sign_virgo: "Діва", sign_libra: "Терези", sign_scorpio: "Скорпіон",
   sign_sagittarius: "Стрілець", sign_capricorn: "Козеріг", sign_aquarius: "Водолій", sign_pisces: "Риби",
@@ -573,21 +667,52 @@ const uk: Translations = {
   test_3_quote: "Мій ранковий ритуал: кава, потім щоденне читання від Olivia. Це стало моєю медитацією. Сповіщення про транзити врятували мене під час ретроградного Меркурія — я нарешті підготувалася.",
   test_3_name: "Elena K.", test_3_sign: "♒ Водолій Сонце, ♋ Рак Місяць",
   price_eyebrow: "Тарифи", price_title: "Відкрийте свою повну карту",
-  price_free: "Безкоштовно", price_free_desc: "Почніть досліджувати космос", price_forever: "назавжди",
-  price_free_f1: "5 повідомлень на день з Olivia", price_free_f2: "Щоденний прогноз за знаками зодіаку (усі 12 знаків)",
-  price_free_f3: "Карта Таро дня", price_free_f4: "Розклад на 3 карти (раз на день)",
-  price_free_f5: "Базовий звіт сумісності", price_free_f6: "Тижнева космічна погода",
-  price_start_free: "Почати безкоштовно",
-  price_vip: "VIP", price_vip_desc: "Повний космічний досвід", price_popular: "Найпопулярніший",
+  price_free: "Безкоштовно", price_free_desc: "Почніть подорож", price_forever: "назавжди",
+  price_insight: "Insight", price_insight_desc: "Щоденний супровід",
+  price_premium: "Premium", price_premium_desc: "Повна карта, повна історія",
+  price_vip: "VIP", price_vip_desc: "Справжній астролог у вашій кишені", price_popular: "Найпопулярніший",
   price_month: "/місяць", price_annual: "або $65/рік (2 місяці безкоштовно)",
-  price_vip_f1: "Необмежений чат з Olivia", price_vip_f2: "Щоденне персональне читання (ВАША карта + транзити сьогодні)",
-  price_vip_f3: "Сповіщення про транзити в реальному часі по вашій натальній карті", price_vip_f4: "Щотижневе персоналізоване витягування Таро",
-  price_vip_f5: "Щомісячне читання Кельтський Хрест включено", price_vip_f6: "Повні звіти сумісності / синастрії",
-  price_vip_f7: "Звіти впливу затемнень та ретроградів", price_vip_f8: "Читання Соняного повернення на день народження",
-  price_vip_f9: "Пріоритетна відповідь — ніколи не чекайте в черзі", price_start_vip: "Почати VIP",
+  price_f_free: [
+    "Щоденна карта дня (відкриття завіси)",
+    "Базовий профіль за сонячним знаком",
+    "Академія — перші 12 уроків",
+    "3 AI-запитання оракулу на місяць",
+    "Жива космічна погода (поточне небо)"
+  ],
+  price_f_insight: [
+    "Усе в безкоштовному тарифі",
+    "Персоналізований гороскоп за вашою картою",
+    "Повна розшифровка натальної карти (Сонце/Місяць/Асцендент + доми)",
+    "30 AI-запитань оракулу на місяць",
+    "Сповіщення про транзити для основних аспектів",
+    "Енциклопедія Таро (усі 78 карт)",
+    "Космічний щоденник із підказками за фазами Місяця"
+  ],
+  price_f_premium: [
+    "Усе в Insight",
+    "Безлімітний AI-оракул (на базі Claude Haiku)",
+    "Звіти про синастрію / сумісність (безліміт)",
+    "Прогноз на рік та Соляр",
+    "Повна Академія — усі 207 уроків + тести",
+    "Кельтський хрест та складні розклади Таро",
+    "Щотижневий транзитний брифінг (аудіо + текст)",
+    "Пріоритетний доступ до нових функцій"
+  ],
+  price_f_vip: [
+    "Усе в Premium",
+    "Безлімітний AI-оракул на Claude Sonnet (глибший синтез)",
+    "Голосові читання — озвучка вашої карти від ElevenLabs",
+    "Сповіщення про планетарні години в реальному часі",
+    "Персональне відеочитання (30 хв, щомісяця)",
+    "Пряма лінія: пріоритетний email до живого астролога",
+    "Ранній доступ до нових колод та ритуалів",
+    "Тільки для VIP: заходи та стріми по сузір’ях"
+  ],
+  price_start_free: "Почати безкоштовно", price_start_insight: "Обрати Insight", price_start_premium: "Отримати Premium", price_start_vip: "Стати VIP",
   price_pay: "Оплата Telegram Stars або Crypto (TON/USDT)",
   price_individual: "Або спробуйте окремі преміум-читання:",
-  price_i1: "Натальна карта", price_i2: "Сумісність", price_i3: "Кельтський Хрест", price_i4: "Прогноз на рік", price_i5: "Відеочитання",
+  price_i1: "Натальна карта", price_i2: "Сумісність", price_i3: "Кельтський Хрест",
+  price_i4: "Прогноз на рік", price_i5: "Відеочитання",
   cta_title: "Ваші зірки чекають",
   cta_subtitle: "Космос писав вашу історію з моменту народження. Час її прочитати.",
   cta_button: "Отримати безкоштовне читання", cta_note: "Безкоштовне читання натальної карти. Оплата не потрібна. Займає 2 хвилини.",
@@ -618,12 +743,26 @@ const uk: Translations = {
 
 const ru: Translations = {
   nav_academy: "Академия", nav_portrait: "Портрет", nav_cosmos: "Космос", nav_daily: "Ежедневно",
-  nav_signup: "Регистрация", nav_profile: "Мой профиль",
-  hero_title: "Написано в ваших звёздах",
-  hero_subtitle: "Персонализированные космические чтения, рассчитанные по вашим точным планетарным позициям. Не шаблон — настоящий космический инсайт.",
+  nav_signup: "Присоединиться", nav_profile: "Профиль",
+
+  hero_almanac_badge: "✦ Редакционный космический альманах",
+  hero_title: "Ваши звёзды, прочитанные для вас.",
+  hero_subtitle: "Спросите Свидетеля о том, что требует ясности. Персонализированные астрологические и таро-прогнозы, рассчитанные на основе реальных планетарных позиций NASA.",
+  hero_consult_cta: "Обратиться к Свидетелю",
+  hero_sample_cta: "Посмотреть образец чтения",
   hero_enter_birthday: "Введите дату рождения",
   hero_portrait_cta: "Небесный портрет", hero_ask_cta: "Спроси звёзды",
   hero_readings_given: "Чтений проведено", hero_average_rating: "Средний рейтинг", hero_accuracy: "Точность",
+
+  witness_node_consult: "Запитать",
+  witness_node_daily: "Прогноз",
+  witness_node_relic: "Реликвия",
+  witness_status_idle: "Сосредоточьтесь",
+  witness_status_listening: "Слушаю...",
+  witness_status_computing: "Вычисление Судьбы",
+  witness_input_placeholder: "Что требует ясности?",
+  witness_universe_prompt: "Что вселенная хочет мне сообщить?",
+
   profile_your_cosmic_traits: "Ваши космические черты", profile_cosmic_energy: "Космическая энергия сегодня",
   profile_best_match: "Лучшая космическая пара", profile_lucky_numbers: "Счастливые числа",
   profile_lucky_day: "Счастливый день", profile_lucky_color: "Счастливый цвет", profile_gemstone: "Камень",
@@ -713,6 +852,14 @@ const ru: Translations = {
   common_home: "Главная", common_back: "Назад", common_sign_in: "Войти", common_sign_up: "Создать аккаунт",
   common_sign_out: "Выйти", common_loading: "Загрузка...",
   common_element: "Стихия", common_modality: "Модальность", common_ruler: "Управитель",
+  common_about: "О нас", common_contact: "Контакты",
+  legal_title: "Правовая информация",
+  legal_terms: "Условия использования",
+  legal_privacy: "Политика конфиденциальности",
+  legal_cookies: "Файлы cookie",
+  legal_refund: "Политика возврата",
+  legal_disclaimer: "Отказ от ответственности",
+  legal_dmca: "DMCA",
   sign_aries: "Овен", sign_taurus: "Телец", sign_gemini: "Близнецы", sign_cancer: "Рак",
   sign_leo: "Лев", sign_virgo: "Дева", sign_libra: "Весы", sign_scorpio: "Скорпион",
   sign_sagittarius: "Стрелец", sign_capricorn: "Козерог", sign_aquarius: "Водолей", sign_pisces: "Рыбы",
@@ -741,21 +888,52 @@ const ru: Translations = {
   test_3_quote: "Мой утренний ритуал: кофе, затем ежедневное чтение от Olivia. Это стало моей медитацией. Уведомления о транзитах спасли меня во время ретроградного Меркурия — я наконец подготовилась.",
   test_3_name: "Elena K.", test_3_sign: "♒ Водолей Солнце, ♋ Рак Луна",
   price_eyebrow: "Тарифы", price_title: "Откройте свою полную карту",
-  price_free: "Бесплатно", price_free_desc: "Начните исследовать космос", price_forever: "навсегда",
-  price_free_f1: "5 сообщений в день с Olivia", price_free_f2: "Ежедневный прогноз по знакам зодиака (все 12 знаков)",
-  price_free_f3: "Карта Таро дня", price_free_f4: "Расклад на 3 карты (раз в день)",
-  price_free_f5: "Базовый отчёт совместимости", price_free_f6: "Еженедельная космическая погода",
-  price_start_free: "Начать бесплатно",
-  price_vip: "VIP", price_vip_desc: "Полный космический опыт", price_popular: "Самый популярный",
+  price_free: "Бесплатно", price_free_desc: "Начните путешествие", price_forever: "навсегда",
+  price_insight: "Insight", price_insight_desc: "Ежедневное сопровождение",
+  price_premium: "Premium", price_premium_desc: "Полная карта, полная история",
+  price_vip: "VIP", price_vip_desc: "Настоящий астролог в вашем кармане", price_popular: "Самый популярный",
   price_month: "/месяц", price_annual: "или $65/год (2 месяца бесплатно)",
-  price_vip_f1: "Безлимитный чат с Olivia", price_vip_f2: "Ежедневное персональное чтение (ВАША карта + транзиты сегодня)",
-  price_vip_f3: "Уведомления о транзитах в реальном времени по вашей натальной карте", price_vip_f4: "Еженедельное персонализированное вытягивание Таро",
-  price_vip_f5: "Ежемесячное чтение Кельтский Крест включено", price_vip_f6: "Полные отчёты совместимости / синастрии",
-  price_vip_f7: "Отчёты влияния затмений и ретроградов", price_vip_f8: "Чтение Солнечного возвращения на день рождения",
-  price_vip_f9: "Приоритетный ответ — никогда не ждите в очереди", price_start_vip: "Начать VIP",
+  price_f_free: [
+    "Ежедневная карта дня (открытие завесы)",
+    "Базовый профиль по солнечному знаку",
+    "Академия — первые 12 уроков",
+    "3 AI-вопроса оракулу в месяц",
+    "Живая космическая погода (текущее небо)"
+  ],
+  price_f_insight: [
+    "Всё в бесплатном тарифе",
+    "Персонализированный гороскоп по вашей карте",
+    "Полная расшифровка натальной карты (Солнце/Луна/Асцендент + дома)",
+    "30 AI-вопросов оракулу в месяц",
+    "Уведомления о транзитах для основных аспектов",
+    "Энциклопедия Таро (все 78 карт)",
+    "Космический журнал с подсказками по фазам Луны"
+  ],
+  price_f_premium: [
+    "Всё в Insight",
+    "Безлимитный AI-оракул (на базе Claude Haiku)",
+    "Отчёты о синастрии / совместимости (безлимит)",
+    "Прогноз на год и Соляр",
+    "Полная Академия — все 207 уроков + тесты",
+    "Кельтский крест и сложные расклады Таро",
+    "Еженедельный транзитный брифинг (аудио + текст)",
+    "Приоритетный доступ к новым функциям"
+  ],
+  price_f_vip: [
+    "Всё в Premium",
+    "Безлимитный AI-оракул на Claude Sonnet (более глубокий синтез)",
+    "Голосовые чтения — озвучка вашей карты от ElevenLabs",
+    "Уведомления о планетарных часах в реальном времени",
+    "Персональное видеочтение (30 мин, ежемесячно)",
+    "Прямая линия: приоритетный email к живому астрологу",
+    "Ранний доступ к новым колодам и ритуалам",
+    "Только для VIP: мероприятия и стримы по созвездиям"
+  ],
+  price_start_free: "Начать бесплатно", price_start_insight: "Выбрать Insight", price_start_premium: "Получить Premium", price_start_vip: "Стать VIP",
   price_pay: "Оплата Telegram Stars или Crypto (TON/USDT)",
   price_individual: "Или попробуйте отдельные премиум-чтения:",
-  price_i1: "Натальная карта", price_i2: "Совместимость", price_i3: "Кельтский Крест", price_i4: "Прогноз на год", price_i5: "Видеочтение",
+  price_i1: "Натальная карта", price_i2: "Совместимость", price_i3: "Кельтский Крест",
+  price_i4: "Прогноз на год", price_i5: "Видеочтение",
   cta_title: "Ваши звёзды ждут",
   cta_subtitle: "Космос писал вашу историю с момента рождения. Пора её прочитать.",
   cta_button: "Получить бесплатное чтение", cta_note: "Бесплатное чтение натальной карты. Оплата не требуется. Займёт 2 минуты.",
@@ -786,12 +964,26 @@ const ru: Translations = {
 
 const de: Translations = {
   nav_academy: "Akademie", nav_portrait: "Porträt", nav_cosmos: "Kosmos", nav_daily: "Täglich",
-  nav_signup: "Registrieren", nav_profile: "Mein Profil",
-  hero_title: "In deinen Sternen geschrieben",
-  hero_subtitle: "Personalisierte kosmische Deutungen, berechnet aus deinen exakten Planetenpositionen. Keine Vorlage — echte kosmische Einsicht.",
+  nav_signup: "Beitreten", nav_profile: "Profil",
+
+  hero_almanac_badge: "✦ Ein redaktioneller kosmischer Almanach",
+  hero_title: "Deine Sterne, für dich gelesen.",
+  hero_subtitle: "Frage den Zeugen, was Klarheit sucht. Personalisierte Astrologie- und Tarot-Lesungen, berechnet aus echten NASA-Planetenpositionen.",
+  hero_consult_cta: "Den Zeugen befragen",
+  hero_sample_cta: "Eine Beispiel-Lesung ansehen",
   hero_enter_birthday: "Geburtstag eingeben",
   hero_portrait_cta: "Himmlisches Porträt", hero_ask_cta: "Frag die Sterne",
   hero_readings_given: "Deutungen", hero_average_rating: "Bewertung", hero_accuracy: "Genauigkeit",
+
+  witness_node_consult: "Beraten",
+  witness_node_daily: "Täglich",
+  witness_node_relic: "Relikt",
+  witness_status_idle: "Konzentriere dich",
+  witness_status_listening: "Zuhören...",
+  witness_status_computing: "Schicksal berechnen",
+  witness_input_placeholder: "Was sucht Klarheit?",
+  witness_universe_prompt: "Was möchte das Universum mir mitteilen?",
+
   profile_your_cosmic_traits: "Deine kosmischen Eigenschaften", profile_cosmic_energy: "Kosmische Energie heute",
   profile_best_match: "Bestes kosmisches Match", profile_lucky_numbers: "Glückszahlen",
   profile_lucky_day: "Glückstag", profile_lucky_color: "Glücksfarbe", profile_gemstone: "Edelstein",
@@ -881,6 +1073,14 @@ const de: Translations = {
   common_home: "Startseite", common_back: "Zurück", common_sign_in: "Anmelden", common_sign_up: "Konto erstellen",
   common_sign_out: "Abmelden", common_loading: "Laden...",
   common_element: "Element", common_modality: "Modalität", common_ruler: "Herrscher",
+  common_about: "Über uns", common_contact: "Kontakt",
+  legal_title: "Rechtliches",
+  legal_terms: "Nutzungsbedingungen",
+  legal_privacy: "Datenschutzerklärung",
+  legal_cookies: "Cookies",
+  legal_refund: "Rückerstattungsrichtlinie",
+  legal_disclaimer: "Haftungsausschluss",
+  legal_dmca: "DMCA",
   sign_aries: "Widder", sign_taurus: "Stier", sign_gemini: "Zwillinge", sign_cancer: "Krebs",
   sign_leo: "Löwe", sign_virgo: "Jungfrau", sign_libra: "Waage", sign_scorpio: "Skorpion",
   sign_sagittarius: "Schütze", sign_capricorn: "Steinbock", sign_aquarius: "Wassermann", sign_pisces: "Fische",
@@ -909,21 +1109,52 @@ const de: Translations = {
   test_3_quote: "Meine Morgenroutine: Kaffee, dann Olivias tägliches Reading. Es ist zu meiner Meditation geworden. Die Transit-Benachrichtigungen haben mich während der Merkur-Rückläufigkeit gerettet — ich war tatsächlich einmal vorbereitet.",
   test_3_name: "Elena K.", test_3_sign: "♒ Wassermann Sonne, ♋ Krebs Mond",
   price_eyebrow: "Preise", price_title: "Schalte dein vollständiges Horoskop frei",
-  price_free: "Kostenlos", price_free_desc: "Beginne deine Reise durch den Kosmos", price_forever: "für immer",
-  price_free_f1: "5 Nachrichten pro Tag mit Olivia", price_free_f2: "Tägliche Sternzeichen-Vorhersage (alle 12 Zeichen)",
-  price_free_f3: "Tarot-Karte des Tages", price_free_f4: "3-Karten-Tarot-Legung (einmal täglich)",
-  price_free_f5: "Einfache Kompatibilitäts-Zusammenfassung", price_free_f6: "Wöchentliches kosmisches Wetter",
-  price_start_free: "Kostenlos starten",
-  price_vip: "VIP", price_vip_desc: "Das vollständige kosmische Erlebnis", price_popular: "Am beliebtesten",
+  price_free: "Kostenlos", price_free_desc: "Beginne die Reise", price_forever: "für immer",
+  price_insight: "Insight", price_insight_desc: "Tägliche Begleitung",
+  price_premium: "Premium", price_premium_desc: "Das volle Horoskop, die ganze Geschichte",
+  price_vip: "VIP", price_vip_desc: "Ein echter Astrologe in deiner Tasche", price_popular: "Am beliebtesten",
   price_month: "/Monat", price_annual: "oder $65/Jahr (2 Monate gratis)",
-  price_vip_f1: "Unbegrenzter Chat mit Olivia", price_vip_f2: "Tägliches persönliches Reading (DEIN Horoskop + heutige Transite)",
-  price_vip_f3: "Echtzeit-Transit-Benachrichtigungen auf deinen Natalpunkten", price_vip_f4: "Wöchentliche personalisierte Tarot-Ziehung",
-  price_vip_f5: "Monatliches Keltisches Kreuz Reading inklusive", price_vip_f6: "Vollständige Kompatibilitäts-/Synastrie-Berichte",
-  price_vip_f7: "Eklipsen- & Rückläufigkeits-Berichte", price_vip_f8: "Geburtstags-Solarhoroskop-Reading",
-  price_vip_f9: "Prioritäts-Antworten — nie warten müssen", price_start_vip: "VIP starten",
-  price_pay: "Bezahle mit Telegram Stars oder Krypto (TON/USDT)",
+  price_f_free: [
+    "Tägliche Karte des Tages (Schleierenthüllung)",
+    "Basis-Sonnenzeichen-Profil",
+    "Akademie — die ersten 12 Lektionen",
+    "3 AI-Orakelfragen / Monat",
+    "Live-Kosmos-Wetter (aktueller Himmel)"
+  ],
+  price_f_insight: [
+    "Alles in Kostenlos",
+    "Personalisiertes Tageshoroskop aus deinem Chart",
+    "Vollständige Horoskop-Analyse (Sonne/Mond/Aszendent + Häuser)",
+    "30 AI-Orakelfragen / Monat",
+    "Transit-Benachrichtigungen für wichtige Aspekte",
+    "Tarot-Enzyklopädie (alle 78 Karten)",
+    "Kosmisches Journal mit Mondphasen-Impulsen"
+  ],
+  price_f_premium: [
+    "Alles in Insight",
+    "Unbegrenztes AI-Orakel (powered by Claude Haiku)",
+    "Synastrie- / Kompatibilitätsberichte (unbegrenzt)",
+    "Jahresvorausschau & Solarhoroskop",
+    "Volle Akademie — alle 207 Lektionen + Quizze",
+    "Keltisches Kreuz & fortgeschrittene Tarot-Legungen",
+    "Wöchentliches Transit-Briefing (Audio + Text)",
+    "Priorisierter Zugang zu neuen Features"
+  ],
+  price_f_vip: [
+    "Alles in Premium",
+    "Unbegrenztes AI-Orakel auf Claude Sonnet (tiefere Synthese)",
+    "Voice Readings — ElevenLabs Vertonung deines Horoskops",
+    "Live-Benachrichtigungen zu Planetenstunden",
+    "Individuelles Video-Reading (30 Min, monatlich)",
+    "Direkter Draht: Prioritäts-E-Mail an einen echten Astrologen",
+    "Früher Zugang zu neuen Decks & Ritualen",
+    "Nur für VIP: Konstellations-Events & Livestreams"
+  ],
+  price_start_free: "Kostenlos starten", price_start_insight: "Insight wählen", price_start_premium: "Premium holen", price_start_vip: "VIP werden",
+  price_pay: "Zahle mit Telegram Stars oder Krypto (TON/USDT)",
   price_individual: "Oder probiere einzelne Premium-Readings:",
-  price_i1: "Geburtshoroskop", price_i2: "Kompatibilität", price_i3: "Keltisches Kreuz", price_i4: "Jahresvorausschau", price_i5: "Video-Reading",
+  price_i1: "Geburtshoroskop", price_i2: "Kompatibilität", price_i3: "Keltisches Kreuz",
+  price_i4: "Jahresvorausschau", price_i5: "Video-Reading",
   cta_title: "Deine Sterne warten",
   cta_subtitle: "Der Kosmos schreibt deine Geschichte seit dem Moment deiner Geburt. Es ist Zeit, sie zu lesen.",
   cta_button: "Kostenloses Reading erhalten", cta_note: "Kostenloses Geburtshoroskop-Reading. Keine Zahlung nötig. Dauert 2 Minuten.",
@@ -954,12 +1185,26 @@ const de: Translations = {
 
 const fr: Translations = {
   nav_academy: "Académie", nav_portrait: "Portrait", nav_cosmos: "Cosmos", nav_daily: "Quotidien",
-  nav_signup: "S'inscrire", nav_profile: "Mon profil",
-  hero_title: "Écrit dans vos étoiles",
-  hero_subtitle: "Lectures cosmiques personnalisées calculées à partir de vos positions planétaires exactes. Pas un modèle — une vraie vision cosmique.",
+  nav_signup: "Rejoindre", nav_profile: "Profil",
+
+  hero_almanac_badge: "✦ Un almanach cosmique éditorial",
+  hero_title: "Vos étoiles, lues pour vous.",
+  hero_subtitle: "Demandez au Témoin ce qui cherche la clarté. Lectures astrologiques et de tarot personnalisées calculées à partir des positions planétaires réelles de la NASA.",
+  hero_consult_cta: "Consulter le Témoin",
+  hero_sample_cta: "Voir un exemple de lecture",
   hero_enter_birthday: "Entrez votre date de naissance",
   hero_portrait_cta: "Portrait céleste", hero_ask_cta: "Demandez aux étoiles",
   hero_readings_given: "Lectures données", hero_average_rating: "Note moyenne", hero_accuracy: "Précision",
+
+  witness_node_consult: "Consulter",
+  witness_node_daily: "Quotidien",
+  witness_node_relic: "Relique",
+  witness_status_idle: "Concentrez-vous",
+  witness_status_listening: "À l'écoute...",
+  witness_status_computing: "Calcul du Destin",
+  witness_input_placeholder: "Qu'est-ce qui cherche la clarté ?",
+  witness_universe_prompt: "Que veut me faire savoir l'univers ?",
+
   profile_your_cosmic_traits: "Vos traits cosmiques", profile_cosmic_energy: "Énergie cosmique aujourd'hui",
   profile_best_match: "Meilleur match cosmique", profile_lucky_numbers: "Chiffres porte-bonheur",
   profile_lucky_day: "Jour de chance", profile_lucky_color: "Couleur porte-bonheur", profile_gemstone: "Pierre précieuse",
@@ -1049,6 +1294,14 @@ const fr: Translations = {
   common_home: "Accueil", common_back: "Retour", common_sign_in: "Se connecter", common_sign_up: "Créer un compte",
   common_sign_out: "Se déconnecter", common_loading: "Chargement...",
   common_element: "Élément", common_modality: "Modalité", common_ruler: "Maître",
+  common_about: "À propos", common_contact: "Contact",
+  legal_title: "Légal",
+  legal_terms: "Conditions d'utilisation",
+  legal_privacy: "Politique de confidentialité",
+  legal_cookies: "Cookies",
+  legal_refund: "Politique de remboursement",
+  legal_disclaimer: "Avis de non-responsabilité",
+  legal_dmca: "DMCA",
   sign_aries: "Bélier", sign_taurus: "Taureau", sign_gemini: "Gémeaux", sign_cancer: "Cancer",
   sign_leo: "Lion", sign_virgo: "Vierge", sign_libra: "Balance", sign_scorpio: "Scorpion",
   sign_sagittarius: "Sagittaire", sign_capricorn: "Capricorne", sign_aquarius: "Verseau", sign_pisces: "Poissons",
@@ -1077,21 +1330,52 @@ const fr: Translations = {
   test_3_quote: "Ma routine matinale : café, puis la lecture quotidienne d’Olivia. C’est devenu ma méditation. Les alertes de transit m’ont sauvé pendant la rétrograde de Mercure — je m’étais enfin préparé pour une fois.",
   test_3_name: "Elena K.", test_3_sign: "♒ Verseau Soleil, ♋ Cancer Lune",
   price_eyebrow: "Tarifs", price_title: "Débloquez votre thème complet",
-  price_free: "Gratuit", price_free_desc: "Commencez à explorer le cosmos", price_forever: "pour toujours",
-  price_free_f1: "5 messages par jour avec Olivia", price_free_f2: "Prévision zodiacale quotidienne (les 12 signes)",
-  price_free_f3: "Carte de tarot du jour", price_free_f4: "Tirage 3 cartes (une fois par jour)",
-  price_free_f5: "Résumé de compatibilité basique", price_free_f6: "Météo cosmique hebdomadaire",
-  price_start_free: "Commencer gratuitement",
-  price_vip: "VIP", price_vip_desc: "L’expérience cosmique complète", price_popular: "Le plus populaire",
+  price_free: "Gratuit", price_free_desc: "Commencez le voyage", price_forever: "pour toujours",
+  price_insight: "Insight", price_insight_desc: "Compagnonnage quotidien",
+  price_premium: "Premium", price_premium_desc: "Le thème complet, toute l'histoire",
+  price_vip: "VIP", price_vip_desc: "Un vrai astrologue dans votre poche", price_popular: "Le plus populaire",
   price_month: "/mois", price_annual: "ou $65/an (2 mois offerts)",
-  price_vip_f1: "Chat illimité avec Olivia", price_vip_f2: "Lecture personnelle quotidienne (VOTRE thème + transits du jour)",
-  price_vip_f3: "Alertes de transit en temps réel sur vos points natals", price_vip_f4: "Tirage de tarot personnalisé hebdomadaire",
-  price_vip_f5: "Lecture Croix Celtique mensuelle incluse", price_vip_f6: "Rapports de compatibilité/synastrie complets",
-  price_vip_f7: "Rapports d’impact des éclipses et rétrogrades", price_vip_f8: "Lecture de Révolution Solaire d’anniversaire",
-  price_vip_f9: "Réponse prioritaire — ne faites jamais la queue", price_start_vip: "Commencer VIP",
+  price_f_free: [
+    "Carte du Jour quotidienne (révélation du voile)",
+    "Profil de signe solaire de base",
+    "Académie — les 12 premières leçons",
+    "3 questions à l'oracle IA / mois",
+    "Météo cosmique en direct (ciel actuel)"
+  ],
+  price_f_insight: [
+    "Tout ce qui est dans Gratuit",
+    "Horoscope quotidien personnalisé depuis votre thème",
+    "Analyse complète du thème natal (Soleil/Lune/Ascendant + maisons)",
+    "30 questions à l'oracle IA / mois",
+    "Alertes de transit pour les aspects majeurs",
+    "Encyclopédie du Tarot (78 cartes complètes)",
+    "Journal cosmique avec suggestions selon les phases lunaires"
+  ],
+  price_f_premium: [
+    "Tout ce qui est dans Insight",
+    "Oracle IA illimité (propulsé par Claude Haiku)",
+    "Rapports de synastrie / compatibilité (illimités)",
+    "Prévisions pour l'année & révolution solaire",
+    "Académie complète — les 207 leçons + quiz",
+    "Croix Celtique & tirages de tarot avancés",
+    "Briefing hebdomadaire des transits (audio + texte)",
+    "Accès prioritaire aux nouvelles fonctionnalités"
+  ],
+  price_f_vip: [
+    "Tout ce qui est dans Premium",
+    "Oracle IA illimité sur Claude Sonnet (synthèse plus profonde)",
+    "Lectures vocales — narration de votre thème par ElevenLabs",
+    "Notifications des heures planétaires en direct",
+    "Lecture vidéo personnalisée (30 min, mensuelle)",
+    "Ligne directe : email prioritaire à un astrologue humain",
+    "Accès anticipé aux nouveaux jeux & rituels",
+    "VIP uniquement : événements de constellation & livestreams"
+  ],
+  price_start_free: "Commencer gratuitement", price_start_insight: "Choisir Insight", price_start_premium: "Passer au Premium", price_start_vip: "Devenir VIP",
   price_pay: "Payez avec Telegram Stars ou Crypto (TON/USDT)",
   price_individual: "Ou essayez des lectures premium individuelles :",
-  price_i1: "Thème natal", price_i2: "Compatibilité", price_i3: "Croix Celtique", price_i4: "Prévision annuelle", price_i5: "Lecture vidéo",
+  price_i1: "Thème natal", price_i2: "Compatibilité", price_i3: "Croix Celtique",
+  price_i4: "Prévision annuelle", price_i5: "Lecture vidéo",
   cta_title: "Vos étoiles vous attendent",
   cta_subtitle: "Le cosmos écrit votre histoire depuis l’instant de votre naissance. Il est temps de la lire.",
   cta_button: "Obtenez votre lecture gratuite", cta_note: "Lecture de thème natal gratuite. Aucun paiement requis. Prend 2 minutes.",
@@ -1122,12 +1406,26 @@ const fr: Translations = {
 
 const ar: Translations = {
   nav_academy: "الأكاديمية", nav_portrait: "الصورة", nav_cosmos: "الكون", nav_daily: "يومي",
-  nav_signup: "تسجيل", nav_profile: "ملفي",
-  hero_title: "مكتوب في نجومك",
-  hero_subtitle: "قراءات كونية مخصصة محسوبة من مواقعك الكوكبية الدقيقة. ليست قالبًا — بصيرة كونية حقيقية.",
+  nav_signup: "انضمام", nav_profile: "الحساب",
+
+  hero_almanac_badge: "✦ تقويم كوني تحريري",
+  hero_title: "نجومك، تُقرأ لأجلك.",
+  hero_subtitle: "اسأل الشاهد عما يبحث عن الوضوح. قراءات فلكية وتاروت مخصصة محسوبة من مواقع الكواكب الحقيقية لوكالة ناسا.",
+  hero_consult_cta: "استشارة الشاهد",
+  hero_sample_cta: "مشاهدة قراءة عينة",
   hero_enter_birthday: "أدخل تاريخ ميلادك",
   hero_portrait_cta: "الصورة السماوية", hero_ask_cta: "اسأل النجوم",
   hero_readings_given: "قراءات أجريت", hero_average_rating: "التقييم المتوسط", hero_accuracy: "الدقة",
+
+  witness_node_consult: "استشارة",
+  witness_node_daily: "يومي",
+  witness_node_relic: "أثر",
+  witness_status_idle: "تركيز",
+  witness_status_listening: "جاري الاستماع...",
+  witness_status_computing: "حساب القدر",
+  witness_input_placeholder: "ما الذي يبحث عن الوضوح؟",
+  witness_universe_prompt: "ماذا يريد الكون أن يخبرني؟",
+
   profile_your_cosmic_traits: "سماتك الكونية", profile_cosmic_energy: "الطاقة الكونية اليوم",
   profile_best_match: "أفضل توافق كوني", profile_lucky_numbers: "أرقام الحظ",
   profile_lucky_day: "يوم الحظ", profile_lucky_color: "لون الحظ", profile_gemstone: "الحجر الكريم",
@@ -1217,6 +1515,14 @@ const ar: Translations = {
   common_home: "الرئيسية", common_back: "رجوع", common_sign_in: "تسجيل الدخول", common_sign_up: "إنشاء حساب",
   common_sign_out: "تسجيل الخروج", common_loading: "جاري التحميل...",
   common_element: "العنصر", common_modality: "النمط", common_ruler: "الحاكم",
+  common_about: "حول", common_contact: "اتصل بنا",
+  legal_title: "قانوني",
+  legal_terms: "شروط الخدمة",
+  legal_privacy: "سياسة الخصوصية",
+  legal_cookies: "ملفات تعريف الارتباط",
+  legal_refund: "سياسة الاسترداد",
+  legal_disclaimer: "إخلاء المسؤولية",
+  legal_dmca: "DMCA",
   sign_aries: "الحمل", sign_taurus: "الثور", sign_gemini: "الجوزاء", sign_cancer: "السرطان",
   sign_leo: "الأسد", sign_virgo: "العذراء", sign_libra: "الميزان", sign_scorpio: "العقرب",
   sign_sagittarius: "القوس", sign_capricorn: "الجدي", sign_aquarius: "الدلو", sign_pisces: "الحوت",
@@ -1245,21 +1551,52 @@ const ar: Translations = {
   test_3_quote: "روتيني الصباحي: قهوة، ثم قراءة Olivia اليومية. أصبحت تأمّلي اليومي. تنبيهات العبور أنقذتني أثناء تراجع عطارد — استعددت فعلًا لأول مرة.",
   test_3_name: "Elena K.", test_3_sign: "♒ دلو شمسي، ♋ سرطان قمري",
   price_eyebrow: "الأسعار", price_title: "افتح خريطتك الكاملة",
-  price_free: "مجاني", price_free_desc: "ابدأ استكشاف الكون", price_forever: "للأبد",
-  price_free_f1: "٥ رسائل يوميًا مع Olivia", price_free_f2: "توقعات الأبراج اليومية (جميع الأبراج الـ١٢)",
-  price_free_f3: "بطاقة تاروت اليوم", price_free_f4: "نشرة تاروت ثلاثية البطاقات (مرة يوميًا)",
-  price_free_f5: "ملخص توافق أساسي", price_free_f6: "طقس كوني أسبوعي",
-  price_start_free: "ابدأ مجانًا",
-  price_vip: "VIP", price_vip_desc: "التجربة الكونية الكاملة", price_popular: "الأكثر شعبية",
+  price_free: "مجاني", price_free_desc: "ابدأ الرحلة", price_forever: "للأبد",
+  price_insight: "Insight", price_insight_desc: "رفقة يومية",
+  price_premium: "Premium", price_premium_desc: "الخريطة الكاملة، القصة الكاملة",
+  price_vip: "VIP", price_vip_desc: "منجم حقيقي في جيبك", price_popular: "الأكثر شعبية",
   price_month: "/شهريًا", price_annual: "أو $65/سنويًا (شهران مجانًا)",
-  price_vip_f1: "محادثة غير محدودة مع Olivia", price_vip_f2: "قراءة شخصية يومية (خريطتك + عبور اليوم)",
-  price_vip_f3: "تنبيهات عبور فورية على نقاط خريطتك", price_vip_f4: "سحب تاروت شخصي أسبوعي",
-  price_vip_f5: "قراءة Celtic Cross شهرية مضمّنة", price_vip_f6: "تقارير توافق وسيناستري كاملة",
-  price_vip_f7: "تقارير تأثير الكسوف والتراجع", price_vip_f8: "قراءة العودة الشمسية لعيد ميلادك",
-  price_vip_f9: "أولوية الرد — لن تنتظر أبدًا", price_start_vip: "ابدأ VIP",
+  price_f_free: [
+    "بطاقة اليوم اليومية (كشف الحجاب)",
+    "ملف البرج الشمسي الأساسي",
+    "الأكاديمية — أول ١٢ درسًا",
+    "٣ أسئلة للأوراكل بالذكاء الاصطناعي / شهريًا",
+    "طقس كوني مباشر (السماء الحالية)"
+  ],
+  price_f_insight: [
+    "كل ما في الباقة المجانية",
+    "توقعات يومية مخصصة من خريطتك",
+    "تحليل كامل لخريطة الميلاد (الشمس/القمر/الطالع + البيوت)",
+    "٣٠ سؤالًا للأوراكل بالذكاء الاصطناعي / شهريًا",
+    "تنبيهات العبور للجوانب الرئيسية",
+    "موسوعة التاروت (٧٨ بطاقة كاملة)",
+    "يوميات كونية مع مطالبات مراحل القمر"
+  ],
+  price_f_premium: [
+    "كل ما في باقة Insight",
+    "أوراكل ذكاء اصطناعي غير محدود (بدعم Claude Haiku)",
+    "تقارير التوافق / السيناستري (غير محدودة)",
+    "توقعات السنة القادمة والعودة الشمسية",
+    "الأكاديمية الكاملة — جميع الدروس الـ ٢٠٧ + الاختبارات",
+    "قراءات سلتيك كروس وتخطيطات تاروت متقدمة",
+    "إيجاز أسبوعي للعبور (صوتي + نصي)",
+    "وصول ذو أولوية للميزات الجديدة"
+  ],
+  price_f_vip: [
+    "كل ما في باقة Premium",
+    "أوراكل ذكاء اصطناعي غير محدود على Claude Sonnet (تحليل أعمق)",
+    "قراءات صوتية — سرد خريطتك بواسطة ElevenLabs",
+    "إشعارات الساعات الكوكبية المباشرة",
+    "قراءة فيديو مخصصة (٣٠ دقيقة، شهريًا)",
+    "خط مباشر: بريد إلكتروني ذو أولوية لمنجم بشري",
+    "وصول مبكر للمجموعات والطقوس الجديدة",
+    "حصري لكبار الشخصيات: فعاليات وبث مباشر للأبراج"
+  ],
+  price_start_free: "ابدأ مجانًا", price_start_insight: "اختر Insight", price_start_premium: "احصل على Premium", price_start_vip: "اشترك في VIP",
   price_pay: "ادفع بنجوم Telegram أو العملات الرقمية (TON/USDT)",
   price_individual: "أو جرّب القراءات المميزة الفردية:",
-  price_i1: "خريطة الميلاد", price_i2: "التوافق", price_i3: "Celtic Cross", price_i4: "توقعات السنة", price_i5: "قراءة فيديو",
+  price_i1: "خريطة الميلاد", price_i2: "التوافق", price_i3: "Celtic Cross",
+  price_i4: "توقعات السنة", price_i5: "قراءة فيديو",
   cta_title: "نجومك في انتظارك",
   cta_subtitle: "الكون يكتب قصتك منذ لحظة ولادتك. حان الوقت لقراءتها.",
   cta_button: "احصل على قراءتك المجانية", cta_note: "قراءة خريطة ميلاد مجانية. لا حاجة للدفع. تستغرق دقيقتين.",
@@ -1290,12 +1627,26 @@ const ar: Translations = {
 
 const es: Translations = {
   nav_academy: "Academia", nav_portrait: "Retrato", nav_cosmos: "Cosmos", nav_daily: "Diario",
-  nav_signup: "Registrarse", nav_profile: "Mi perfil",
-  hero_title: "Escrito en tus estrellas",
-  hero_subtitle: "Lecturas cósmicas personalizadas calculadas a partir de tus posiciones planetarias exactas. No es una plantilla — visión cósmica real.",
+  nav_signup: "Unirse", nav_profile: "Perfil",
+
+  hero_almanac_badge: "✦ Un almanaque cósmico editorial",
+  hero_title: "Tus estrellas, leídas para ti.",
+  hero_subtitle: "Pregunta al Testigo lo que busca claridad. Lecturas de astrología y tarot personalizadas calculadas a partir de posiciones planetarias reales de la NASA.",
+  hero_consult_cta: "Consultar al Testigo",
+  hero_sample_cta: "Ver una lectura de muestra",
   hero_enter_birthday: "Ingresa tu fecha de nacimiento",
   hero_portrait_cta: "Retrato celestial", hero_ask_cta: "Pregunta a las estrellas",
   hero_readings_given: "Lecturas realizadas", hero_average_rating: "Calificación promedio", hero_accuracy: "Precisión",
+
+  witness_node_consult: "Consultar",
+  witness_node_daily: "Diario",
+  witness_node_relic: "Reliquia",
+  witness_status_idle: "Concéntrate",
+  witness_status_listening: "Escuchando...",
+  witness_status_computing: "Calculando Destino",
+  witness_input_placeholder: "¿Qué busca claridad?",
+  witness_universe_prompt: "¿Qué quiere el universo hacerme saber?",
+
   profile_your_cosmic_traits: "Tus rasgos cósmicos", profile_cosmic_energy: "Energía cósmica hoy",
   profile_best_match: "Mejor coincidencia cósmica", profile_lucky_numbers: "Números de la suerte",
   profile_lucky_day: "Día de la suerte", profile_lucky_color: "Color de la suerte", profile_gemstone: "Piedra preciosa",
@@ -1385,6 +1736,14 @@ const es: Translations = {
   common_home: "Inicio", common_back: "Volver", common_sign_in: "Iniciar sesión", common_sign_up: "Crear cuenta",
   common_sign_out: "Cerrar sesión", common_loading: "Cargando...",
   common_element: "Elemento", common_modality: "Modalidad", common_ruler: "Regente",
+  common_about: "Acerca de", common_contact: "Contacto",
+  legal_title: "Legal",
+  legal_terms: "Términos de servicio",
+  legal_privacy: "Política de privacidad",
+  legal_cookies: "Cookies",
+  legal_refund: "Política de reembolso",
+  legal_disclaimer: "Aviso legal",
+  legal_dmca: "DMCA",
   sign_aries: "Aries", sign_taurus: "Tauro", sign_gemini: "Géminis", sign_cancer: "Cáncer",
   sign_leo: "Leo", sign_virgo: "Virgo", sign_libra: "Libra", sign_scorpio: "Escorpio",
   sign_sagittarius: "Sagitario", sign_capricorn: "Capricornio", sign_aquarius: "Acuario", sign_pisces: "Piscis",
@@ -1413,21 +1772,52 @@ const es: Translations = {
   test_3_quote: "Mi rutina matutina: café, luego la lectura diaria de Olivia. Se ha convertido en mi meditación. Las alertas de tránsito me salvaron durante Mercurio retrógrado — por primera vez me preparé de verdad.",
   test_3_name: "Elena K.", test_3_sign: "♒ Sol en Acuario, ♋ Luna en Cáncer",
   price_eyebrow: "Precios", price_title: "Desbloquea tu carta completa",
-  price_free: "Gratis", price_free_desc: "Empieza a explorar el cosmos", price_forever: "para siempre",
-  price_free_f1: "5 mensajes diarios con Olivia", price_free_f2: "Pronóstico zodiacal diario (los 12 signos)",
-  price_free_f3: "Carta del tarot del día", price_free_f4: "Tirada de 3 cartas (una vez al día)",
-  price_free_f5: "Resumen básico de compatibilidad", price_free_f6: "Clima cósmico semanal",
-  price_start_free: "Empezar gratis",
-  price_vip: "VIP", price_vip_desc: "La experiencia cósmica completa", price_popular: "Más popular",
+  price_free: "Gratis", price_free_desc: "Comienza el viaje", price_forever: "para siempre",
+  price_insight: "Insight", price_insight_desc: "Compañía diaria",
+  price_premium: "Premium", price_premium_desc: "La carta completa, toda la historia",
+  price_vip: "VIP", price_vip_desc: "Un astrólogo real en tu bolsillo", price_popular: "Más popular",
   price_month: "/mes", price_annual: "o $65/año (2 meses gratis)",
-  price_vip_f1: "Chat ilimitado con Olivia", price_vip_f2: "Lectura personal diaria (TU carta + tránsitos del día)",
-  price_vip_f3: "Alertas de tránsito en tiempo real sobre tus puntos natales", price_vip_f4: "Tirada de tarot personalizada semanal",
-  price_vip_f5: "Lectura Celtic Cross mensual incluida", price_vip_f6: "Informes completos de compatibilidad/sinastría",
-  price_vip_f7: "Informes de impacto de eclipses y retrógrados", price_vip_f8: "Lectura de Revolución Solar de cumpleaños",
-  price_vip_f9: "Respuesta prioritaria — nunca esperes en fila", price_start_vip: "Empezar VIP",
+  price_f_free: [
+    "Carta del Día diaria (revelación del velo)",
+    "Perfil de signo solar básico",
+    "Academia — primeras 12 lecciones",
+    "3 preguntas al oráculo IA / mes",
+    "Clima cósmico en vivo (cielo actual)"
+  ],
+  price_f_insight: [
+    "Todo lo de Gratis",
+    "Horóscopo diario personalizado desde tu carta",
+    "Desglose completo de carta natal (Sol/Luna/Ascendente + casas)",
+    "30 preguntas al oráculo IA / mes",
+    "Alertas de tránsito para aspectos mayores",
+    "Enciclopedia del Tarot (78 cartas completas)",
+    "Diario cósmico con temas según las fases lunares"
+  ],
+  price_f_premium: [
+    "Todo lo de Insight",
+    "Oráculo IA ilimitado (potenciado por Claude Haiku)",
+    "Informes de sinastría / compatibilidad (ilimitados)",
+    "Pronóstico anual y retorno solar",
+    "Academia completa — las 207 lecciones + cuestionarios",
+    "Cruz Celta y lecturas de tarot avanzadas",
+    "Resumen de tránsito semanal (audio + texto)",
+    "Acceso prioritario a nuevas funciones"
+  ],
+  price_f_vip: [
+    "Todo lo de Premium",
+    "Oráculo IA ilimitado en Claude Sonnet (síntesis más profunda)",
+    "Lecturas de voz — narración de tu carta por ElevenLabs",
+    "Notificaciones de horas planetarias en vivo",
+    "Lectura de video personalizada (30 min, mensual)",
+    "Línea directa: email prioritario a un astrólogo humano",
+    "Acceso anticipado a nuevos mazos y rituales",
+    "Solo VIP: eventos de constelaciones y transmisiones en vivo"
+  ],
+  price_start_free: "Empezar gratis", price_start_insight: "Elegir Insight", price_start_premium: "Obtener Premium", price_start_vip: "Ser VIP",
   price_pay: "Paga con Telegram Stars o Cripto (TON/USDT)",
   price_individual: "O prueba lecturas premium individuales:",
-  price_i1: "Carta natal", price_i2: "Compatibilidad", price_i3: "Celtic Cross", price_i4: "Año completo", price_i5: "Lectura en video",
+  price_i1: "Carta natal", price_i2: "Compatibilidad", price_i3: "Celtic Cross",
+  price_i4: "Año completo", price_i5: "Lectura en video",
   cta_title: "Tus estrellas te esperan",
   cta_subtitle: "El cosmos ha estado escribiendo tu historia desde el momento en que naciste. Es hora de leerla.",
   cta_button: "Obtén tu lectura gratuita", cta_note: "Lectura de carta natal gratuita. Sin pago requerido. Toma 2 minutos.",
@@ -1458,12 +1848,26 @@ const es: Translations = {
 
 const pt: Translations = {
   nav_academy: "Academia", nav_portrait: "Retrato", nav_cosmos: "Cosmos", nav_daily: "Diário",
-  nav_signup: "Registrar", nav_profile: "Meu perfil",
-  hero_title: "Escrito nas suas estrelas",
-  hero_subtitle: "Leituras cósmicas personalizadas calculadas a partir das suas posições planetárias exatas. Não é um modelo — visão cósmica real.",
+  nav_signup: "Participar", nav_profile: "Perfil",
+
+  hero_almanac_badge: "✦ Um almanaque cósmico editorial",
+  hero_title: "Suas estrelas, lidas para você.",
+  hero_subtitle: "Pergunte ao Testemunha o que busca clareza. Leituras de astrologia e tarô personalizadas calculadas a partir das posições planetárias reais da NASA.",
+  hero_consult_cta: "Consultar a Testemunha",
+  hero_sample_cta: "Ver uma leitura de amostra",
   hero_enter_birthday: "Digite sua data de nascimento",
   hero_portrait_cta: "Retrato celestial", hero_ask_cta: "Pergunte às estrelas",
   hero_readings_given: "Leituras realizadas", hero_average_rating: "Avaliação média", hero_accuracy: "Precisão",
+
+  witness_node_consult: "Consultar",
+  witness_node_daily: "Diário",
+  witness_node_relic: "Relíquia",
+  witness_status_idle: "Concentre-se",
+  witness_status_listening: "Ouvindo...",
+  witness_status_computing: "Calculando o Destino",
+  witness_input_placeholder: "O que busca clareza?",
+  witness_universe_prompt: "O que o universo quer me dizer?",
+
   profile_your_cosmic_traits: "Seus traços cósmicos", profile_cosmic_energy: "Energia cósmica hoje",
   profile_best_match: "Melhor combinação cósmica", profile_lucky_numbers: "Números da sorte",
   profile_lucky_day: "Dia de sorte", profile_lucky_color: "Cor da sorte", profile_gemstone: "Pedra preciosa",
@@ -1553,6 +1957,14 @@ const pt: Translations = {
   common_home: "Início", common_back: "Voltar", common_sign_in: "Entrar", common_sign_up: "Criar conta",
   common_sign_out: "Sair", common_loading: "Carregando...",
   common_element: "Elemento", common_modality: "Modalidade", common_ruler: "Regente",
+  common_about: "Sobre", common_contact: "Contato",
+  legal_title: "Jurídico",
+  legal_terms: "Termos de serviço",
+  legal_privacy: "Política de privacidade",
+  legal_cookies: "Cookies",
+  legal_refund: "Política de reembolso",
+  legal_disclaimer: "Isenção de responsabilidade",
+  legal_dmca: "DMCA",
   sign_aries: "Áries", sign_taurus: "Touro", sign_gemini: "Gêmeos", sign_cancer: "Câncer",
   sign_leo: "Leão", sign_virgo: "Virgem", sign_libra: "Libra", sign_scorpio: "Escorpião",
   sign_sagittarius: "Sagitário", sign_capricorn: "Capricórnio", sign_aquarius: "Aquário", sign_pisces: "Peixes",
@@ -1581,21 +1993,52 @@ const pt: Translations = {
   test_3_quote: "Minha rotina matinal: café, depois a leitura diária da Olivia. Virou minha meditação. Os alertas de trânsito me salvaram durante Mercúrio retrógrado — pela primeira vez eu realmente me preparei.",
   test_3_name: "Elena K.", test_3_sign: "♒ Sol em Aquário, ♋ Lua em Câncer",
   price_eyebrow: "Preços", price_title: "Desbloqueie seu mapa completo",
-  price_free: "Grátis", price_free_desc: "Comece a explorar o cosmos", price_forever: "para sempre",
-  price_free_f1: "5 mensagens por dia com Olivia", price_free_f2: "Previsão zodiacal diária (todos os 12 signos)",
-  price_free_f3: "Carta do tarot do dia", price_free_f4: "Tiragem de 3 cartas (uma vez por dia)",
-  price_free_f5: "Resumo básico de compatibilidade", price_free_f6: "Clima cósmico semanal",
-  price_start_free: "Começar grátis",
-  price_vip: "VIP", price_vip_desc: "A experiência cósmica completa", price_popular: "Mais popular",
+  price_free: "Grátis", price_free_desc: "Comece a jornada", price_forever: "para sempre",
+  price_insight: "Insight", price_insight_desc: "Companhia diária",
+  price_premium: "Premium", price_premium_desc: "O mapa completo, a história completa",
+  price_vip: "VIP", price_vip_desc: "Um astrólogo real no seu bolso", price_popular: "Mais popular",
   price_month: "/mês", price_annual: "ou $65/ano (2 meses grátis)",
-  price_vip_f1: "Chat ilimitado com Olivia", price_vip_f2: "Leitura pessoal diária (SEU mapa + trânsitos do dia)",
-  price_vip_f3: "Alertas de trânsito em tempo real nos seus pontos natais", price_vip_f4: "Puxada de tarot personalizada semanal",
-  price_vip_f5: "Leitura Celtic Cross mensal incluída", price_vip_f6: "Relatórios completos de compatibilidade/sinastria",
-  price_vip_f7: "Relatórios de impacto de eclipses e retrógrados", price_vip_f8: "Leitura de Revolução Solar de aniversário",
-  price_vip_f9: "Resposta prioritária — nunca espere na fila", price_start_vip: "Começar VIP",
+  price_f_free: [
+    "Carta do Dia diária (revelação do véu)",
+    "Perfil de signo solar básico",
+    "Academia — primeiras 12 aulas",
+    "3 perguntas ao oráculo IA / mês",
+    "Clima cósmico ao vivo (céu atual)"
+  ],
+  price_f_insight: [
+    "Tudo do Grátis",
+    "Horóscopo diário personalizado do seu mapa",
+    "Análise completa do mapa natal (Sol/Lua/Ascendente + casas)",
+    "30 perguntas ao oráculo IA / mês",
+    "Alertas de trânsito para aspectos importantes",
+    "Enciclopédia do Tarot (78 cartas completas)",
+    "Diário cósmico com temas baseados nas fases da lua"
+  ],
+  price_f_premium: [
+    "Tudo do Insight",
+    "Oráculo IA ilimitado (alimentado por Claude Haiku)",
+    "Relatórios de sinastria / compatibilidade (ilimitados)",
+    "Previsão para o ano & retorno solar",
+    "Academia completa — todas as 207 aulas + quizzes",
+    "Cruz Celta & tiragens de tarot avançadas",
+    "Briefing de trânsito semanal (áudio + texto)",
+    "Acesso prioritário a novos recursos"
+  ],
+  price_f_vip: [
+    "Tudo do Premium",
+    "Oráculo IA ilimitado no Claude Sonnet (síntese mais profunda)",
+    "Leituras de voz — narração do seu mapa por ElevenLabs",
+    "Notificações de horas planetárias ao vivo",
+    "Leitura de vídeo personalizada (30 min, mensal)",
+    "Linha direta: e-mail prioritário para um astrólogo humano",
+    "Acesso antecipado a novos baralhos & rituais",
+    "Apenas VIP: eventos de constelações & transmissões ao vivo"
+  ],
+  price_start_free: "Começar grátis", price_start_insight: "Escolher Insight", price_start_premium: "Obter Premium", price_start_vip: "Ser VIP",
   price_pay: "Pague com Telegram Stars ou Cripto (TON/USDT)",
   price_individual: "Ou experimente leituras premium individuais:",
-  price_i1: "Mapa natal", price_i2: "Compatibilidade", price_i3: "Celtic Cross", price_i4: "Ano à frente", price_i5: "Leitura em vídeo",
+  price_i1: "Mapa natal", price_i2: "Compatibilidade", price_i3: "Celtic Cross",
+  price_i4: "Ano à frente", price_i5: "Leitura em vídeo",
   cta_title: "Suas estrelas estão esperando",
   cta_subtitle: "O cosmos escreve sua história desde o momento em que você nasceu. É hora de lê-la.",
   cta_button: "Receba sua leitura gratuita", cta_note: "Leitura de mapa natal gratuita. Sem necessidade de pagamento. Leva 2 minutos.",
@@ -1627,7 +2070,7 @@ const pt: Translations = {
 export const TRANSLATIONS: Record<Locale, Translations> = { en, uk, ru, de, fr, ar, es, pt };
 
 /** Get translation for current locale */
-export function t(locale: Locale, key: keyof Translations): string {
+export function t(locale: Locale, key: keyof Translations): any {
   return TRANSLATIONS[locale]?.[key] || TRANSLATIONS.en[key] || key;
 }
 

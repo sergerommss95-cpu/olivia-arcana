@@ -70,7 +70,7 @@ export function useLocale() {
   }, []);
 
   const t = useCallback(
-    (key: keyof Translations): string => {
+    (key: keyof Translations): any => {
       return TRANSLATIONS[locale]?.[key] || TRANSLATIONS.en[key] || String(key);
     },
     [locale],

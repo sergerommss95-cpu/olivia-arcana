@@ -14,6 +14,11 @@ website/node_modules/
 website/.next/
 website/out/
 
+# Remotion
+social-pipeline/remotion-video/node_modules/
+social-pipeline/remotion-video/out/
+social-pipeline/remotion-video/.remotion/
+
 # Netlify
 website/.netlify/
 

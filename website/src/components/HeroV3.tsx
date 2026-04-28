@@ -18,6 +18,7 @@ import MagneticButton from "@/components/MagneticButton";
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useLocale } from "@/lib/i18n/useLocale";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -26,6 +27,7 @@ if (typeof window !== "undefined") {
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function HeroV3() {
+  const { t } = useLocale();
   const [mounted, setMounted] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [isAsking, setIsAsking] = useState(false);
@@ -79,24 +81,25 @@ export default function HeroV3() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: "70% top",
+          end: "60% top",
           scrub: true,
         },
         opacity: 0,
-        y: -100,
+        y: -150,
         pointerEvents: "none",
         ease: "power2.inOut"
       });
 
-      // Cull the entire hero once we're deep enough to prevent z-index/overlap issues
+      // Aggressive Cull: Move the entire Hero out of the layout flow
       gsap.to(sectionRef.current, {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "85% top",
+          start: "75% top",
           end: "100% top",
           scrub: true,
         },
-        autoAlpha: 0, // visibility: hidden + opacity: 0
+        y: -500, // Physically push it up
+        autoAlpha: 0, 
         pointerEvents: "none"
       });
     }, sectionRef);
@@ -162,7 +165,7 @@ export default function HeroV3() {
             transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
             className="font-[family-name:var(--font-body)] text-[0.7rem] md:text-xs font-medium tracking-[0.3em] uppercase text-celestial-gold/80"
           >
-            ✦ An editorial cosmic almanac
+            {t("hero_almanac_badge")}
           </motion.span>
 
           <h1
@@ -170,11 +173,14 @@ export default function HeroV3() {
             id="hero-headline"
             className="font-[family-name:var(--font-heading)] text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[0.95] text-warm-ivory glint-text"
           >
-            <span data-word className="inline-block opacity-0">Your</span>{" "}
-            <span data-word className="inline-block opacity-0 italic">stars,</span><br />
-            <span data-word className="inline-block opacity-0">read</span>{" "}
-            <span data-word className="inline-block opacity-0">for</span>{" "}
-            <span data-word className="inline-block opacity-0 italic underline decoration-celestial-gold/30 underline-offset-8">you.</span>
+            {(t("hero_title") as string).split(" ").map((word, i) => (
+              <React.Fragment key={i}>
+                <span data-word className={`inline-block opacity-0 ${word.endsWith(",") || word.endsWith(".") ? "italic" : ""}`}>
+                  {word}
+                </span>{" "}
+                {i === 1 && <br className="hidden md:block" />}
+              </React.Fragment>
+            ))}
           </h1>
 
           <motion.p
@@ -183,7 +189,7 @@ export default function HeroV3() {
             transition={{ duration: 1, delay: 0.8, ease: EASE }}
             className="max-w-md md:max-w-lg font-[family-name:var(--font-body)] text-base md:text-lg leading-relaxed text-muted-lavender/90 font-light"
           >
-            Ask the Witness what seeks clarity. Personalized astrology and tarot readings computed from real NASA planetary positions.
+            {t("hero_subtitle")}
           </motion.p>
 
           <motion.div
@@ -193,13 +199,13 @@ export default function HeroV3() {
             className="flex flex-col sm:flex-row items-center gap-6"
           >
             <MagneticButton variant="gold" onClick={() => setIsAsking(true)} size="lg">
-              Consult the Witness
+              {t("hero_consult_cta")}
             </MagneticButton>
             <a
               href="/sample"
               className="text-sm font-medium text-celestial-gold/60 hover:text-celestial-gold transition-colors duration-300 tracking-wide uppercase"
             >
-              See a sample reading &rarr;
+              {t("hero_sample_cta")} &rarr;
             </a>
           </motion.div>
         </div>
@@ -218,7 +224,7 @@ export default function HeroV3() {
               <div 
                 className="absolute inset-0 z-30 cursor-pointer rounded-full" 
                 onClick={() => { if (!isAsking && !isProcessing && !revealed) setIsAsking(true); }}
-                aria-label="Consult the Witness"
+                aria-label={t("hero_consult_cta")}
               />
 
               <div className={`absolute inset-0 blur-[80px] rounded-full transition-all duration-1000 ${
@@ -243,13 +249,13 @@ export default function HeroV3() {
                     className="absolute inset-0 pointer-events-none"
                   >
                     {/* Node 1: Oracle (Top Left) */}
-                    <div className="absolute top-[0%] left-[-35%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); setIsAsking(true); setQuestion("What does the universe want me to know?"); }}>
+                    <div className="absolute top-[0%] left-[-35%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); setIsAsking(true); setQuestion(t("witness_universe_prompt")); }}>
                       <motion.div 
                         whileHover={{ scale: 1.1, x: -5, y: -5 }}
                         className="glass-card px-4 py-2 flex items-center gap-2 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl"
                       >
                         <span className="text-celestial-gold text-xs">✦</span>
-                        <span className="text-[10px] font-bold text-warm-ivory font-[family-name:var(--font-mono)] uppercase tracking-[0.25em]">Consult</span>
+                        <span className="text-[10px] font-bold text-warm-ivory font-[family-name:var(--font-mono)] uppercase tracking-[0.25em]">{t("witness_node_consult")}</span>
                       </motion.div>
                     </div>
 
@@ -260,7 +266,7 @@ export default function HeroV3() {
                         className="glass-card px-4 py-2 flex items-center gap-2 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl"
                       >
                         <span className="text-celestial-gold text-xs">☉</span>
-                        <span className="text-[10px] font-bold text-warm-ivory font-[family-name:var(--font-mono)] uppercase tracking-[0.25em]">Daily</span>
+                        <span className="text-[10px] font-bold text-warm-ivory font-[family-name:var(--font-mono)] uppercase tracking-[0.25em]">{t("witness_node_daily")}</span>
                       </motion.div>
                     </div>
 
@@ -271,7 +277,7 @@ export default function HeroV3() {
                         className="glass-card px-4 py-2 flex items-center gap-2 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl"
                       >
                         <span className="text-celestial-gold text-xs">✧</span>
-                        <span className="text-[10px] font-bold text-warm-ivory font-[family-name:var(--font-mono)] uppercase tracking-[0.25em]">Relic</span>
+                        <span className="text-[10px] font-bold text-warm-ivory font-[family-name:var(--font-mono)] uppercase tracking-[0.25em]">{t("witness_node_relic")}</span>
                       </motion.div>
                     </div>
                   </motion.div>
@@ -286,7 +292,7 @@ export default function HeroV3() {
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                       className="font-[family-name:var(--font-mono)] text-[0.65rem] tracking-[0.5em] uppercase text-celestial-gold/60 font-medium"
                     >
-                      Concentrate
+                      {t("witness_status_idle")}
                     </motion.span>
                   )}
                   {isAsking && (
@@ -295,7 +301,7 @@ export default function HeroV3() {
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                       className="font-[family-name:var(--font-mono)] text-[0.65rem] tracking-[0.5em] uppercase text-celestial-gold font-bold animate-pulse"
                     >
-                      Listening...
+                      {t("witness_status_listening")}
                     </motion.span>
                   )}
                   {isProcessing && (
@@ -304,7 +310,7 @@ export default function HeroV3() {
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                       className="font-[family-name:var(--font-mono)] text-[0.65rem] tracking-[0.5em] uppercase text-white font-black"
                     >
-                      Computing Fate
+                      {t("witness_status_computing")}
                     </motion.span>
                   )}
                 </AnimatePresence>
@@ -327,7 +333,7 @@ export default function HeroV3() {
                       ref={inputRef}
                       type="text"
                       autoFocus
-                      placeholder="What seeks clarity?"
+                      placeholder={t("witness_input_placeholder")}
                       value={question}
                       onChange={(e) => setQuestion(e.target.value)}
                       className="w-full bg-transparent px-5 py-4 text-warm-ivory placeholder:text-warm-ivory/20 outline-none font-[family-name:var(--font-mono)] text-sm tracking-tight"
@@ -376,21 +382,12 @@ export default function HeroV3() {
 
       <style jsx>{`
         .glint-text {
-          background: linear-gradient(
-            110deg,
-            #f5f2e1 45%,
-            rgba(212, 175, 55, 0.8) 50%,
-            #f5f2e1 55%
-          );
-          background-size: 200% 100%;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: glint 8s linear infinite;
+          color: #f5f2e1;
+          text-shadow: 0 0 20px rgba(245, 242, 225, 0.1);
+          transition: text-shadow 0.6s var(--ease-ritual);
         }
-
-        @keyframes glint {
-          0% { background-position: 100% 0; }
-          100% { background-position: -100% 0; }
+        .glint-text:hover {
+          text-shadow: 0 0 35px rgba(212, 175, 55, 0.3);
         }
 
         @keyframes spin-slow {

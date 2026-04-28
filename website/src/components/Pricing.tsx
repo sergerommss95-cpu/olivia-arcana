@@ -8,6 +8,7 @@ import MagneticButton from "@/components/MagneticButton";
 import { useSubscription } from "@/hooks/useSubscription";
 import VipBadge from "@/components/VipBadge";
 import { useLocale } from "../lib/i18n/useLocale";
+import { TRANSLATIONS, type Translations } from "../lib/i18n/translations";
 import { PRICING, ADDONS, type PriceKey, type Tier, telegramStarsLink } from "@/lib/payments";
 
 type BillingPeriod = "monthly" | "annual";
@@ -18,75 +19,43 @@ interface TierDef {
   tagline: string;
   monthlyKey: PriceKey | null;
   annualKey: PriceKey | null;
-  features: string[];
+  features: string; // Key to the string array
   highlight?: boolean;
 }
 
 const TIERS: TierDef[] = [
   {
     id: "free",
-    name: "Free",
-    tagline: "Begin the journey",
+    name: "price_free",
+    tagline: "price_free_desc",
     monthlyKey: null,
     annualKey: null,
-    features: [
-      "Daily Card of the Day (veil reveal)",
-      "Basic sun-sign profile",
-      "Academy — first 12 lessons",
-      "3 AI oracle questions / month",
-      "Live cosmic weather (current sky)",
-    ],
+    features: "price_f_free",
   },
   {
     id: "insight",
-    name: "Insight",
-    tagline: "Daily companionship",
+    name: "price_insight",
+    tagline: "price_insight_desc",
     monthlyKey: "insight_monthly",
     annualKey: "insight_annual",
-    features: [
-      "Everything in Free",
-      "Personalized daily horoscope from your chart",
-      "Full natal chart breakdown (Sun/Moon/Rising + houses)",
-      "30 AI oracle questions / month",
-      "Transit alerts for major aspects",
-      "Tarot encyclopedia (full 78-card)",
-      "Cosmic journal with moon-phase prompts",
-    ],
+    features: "price_f_insight",
   },
   {
     id: "premium",
-    name: "Premium",
-    tagline: "The full chart, the full story",
+    name: "price_premium",
+    tagline: "price_premium_desc",
     monthlyKey: "premium_monthly",
     annualKey: "premium_annual",
     highlight: true,
-    features: [
-      "Everything in Insight",
-      "Unlimited AI oracle (Claude Haiku-powered)",
-      "Synastry / compatibility reports (unlimited)",
-      "Year-ahead forecast & solar return",
-      "Full Academy — all 207 lessons + quizzes",
-      "Celtic Cross & advanced tarot spreads",
-      "Weekly transit briefing (audio + text)",
-      "Priority access to new features",
-    ],
+    features: "price_f_premium",
   },
   {
     id: "vip",
-    name: "VIP",
-    tagline: "A real astrologer in your pocket",
+    name: "price_vip",
+    tagline: "price_vip_desc",
     monthlyKey: "vip_monthly",
     annualKey: "vip_annual",
-    features: [
-      "Everything in Premium",
-      "Unlimited AI oracle on Claude Sonnet (deeper synthesis)",
-      "Voice readings — ElevenLabs narration of your chart",
-      "Live planetary hour notifications",
-      "Custom video reading (30-min, monthly)",
-      "Direct line: priority email to a human astrologer",
-      "Early access to new decks & rituals",
-      "VIP-only constellation events & livestreams",
-    ],
+    features: "price_f_vip",
   },
 ];
 
@@ -105,7 +74,7 @@ function fmtPrice(n: number): string {
 }
 
 export default function Pricing() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const { isVip, manageSubscription, tier: currentTier } = useSubscription();
   const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("annual");
 
@@ -191,18 +160,18 @@ export default function Pricing() {
                   <div className="mb-4">
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="font-[family-name:var(--font-heading)] text-2xl font-semibold text-celestial-gold">
-                        {tier.name}
+                        {t(tier.name as any)}
                       </h3>
                       {tier.id === "vip" && isVip && <VipBadge />}
                     </div>
-                    <p className="text-muted-lavender text-xs leading-relaxed">{tier.tagline}</p>
+                    <p className="text-muted-lavender text-xs leading-relaxed">{t(tier.tagline as any)}</p>
                   </div>
 
                   <div className="mb-5">
                     {price === 0 ? (
                       <>
                         <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-warm-ivory">$0</span>
-                        <span className="text-muted-lavender text-sm ml-2">forever</span>
+                        <span className="text-muted-lavender text-sm ml-2">{t("price_forever")}</span>
                       </>
                     ) : (
                       <>
@@ -210,11 +179,11 @@ export default function Pricing() {
                           {fmtPrice(price)}
                         </span>
                         <span className="text-muted-lavender text-sm ml-2">
-                          / {billingPeriod === "annual" ? "year" : "month"}
+                          / {billingPeriod === "annual" ? (t("price_annual") as string).replace("or ", "").split(" ")[0] : (t("price_month") as string).replace("/", "")}
                         </span>
                         {monthlyEquivalent && (
                           <p className="text-xs text-cosmic-teal/90 mt-1">
-                            ${monthlyEquivalent} / month · billed annually
+                            ${monthlyEquivalent} / {(t("price_month") as string).replace("/", "")} · {(t("price_annual") as string).split("(")[1]?.replace(")", "") || "billed annually"}
                           </p>
                         )}
                       </>
@@ -222,7 +191,7 @@ export default function Pricing() {
                   </div>
 
                   <ul className="space-y-2.5 mb-6 flex-1">
-                    {tier.features.map((f) => (
+                    {((TRANSLATIONS[locale as keyof typeof TRANSLATIONS] || TRANSLATIONS.en)[tier.features as keyof Translations] as string[]).map((f) => (
                       <li key={f} className="flex items-start gap-2 text-[0.82rem] text-warm-ivory/90 leading-snug">
                         <span className="text-celestial-gold mt-0.5 shrink-0">&#10022;</span>
                         <span>{f}</span>
@@ -233,7 +202,7 @@ export default function Pricing() {
                   {/* CTA */}
                   {tier.id === "free" ? (
                     <MagneticButton href="/onboarding" variant="glass" size="md" className="w-full justify-center">
-                      Start free
+                      {t("price_start_free")}
                     </MagneticButton>
                   ) : isCurrent ? (
                     <MagneticButton variant="gold" size="md" className="w-full justify-center" onClick={manageSubscription}>
@@ -247,7 +216,7 @@ export default function Pricing() {
                         size="md"
                         className="w-full justify-center"
                       >
-                        Choose {tier.name}
+                        {t(`price_start_${tier.id}` as any)}
                       </CheckoutButton>
                       <a
                         href={telegramStarsLink(priceKey)}
@@ -268,7 +237,7 @@ export default function Pricing() {
 
         {/* Refund note */}
         <p className="text-center text-xs text-muted-lavender/70 mt-8">
-          14-day refund · cancel any time · pricing in USD · billed via Paddle (your local currency, taxes included)
+          {t("cta_note")}
         </p>
 
         {/* Full feature matrix */}
@@ -347,11 +316,12 @@ function Cell({ value, gold = false }: { value: string | boolean; gold?: boolean
 }
 
 function FeatureMatrix() {
+  const { t, locale } = useLocale();
   return (
     <div className="mt-20 sm:mt-24">
       <p className="text-center text-xs tracking-[0.28em] uppercase text-celestial-gold/75 mb-6">
         <span aria-hidden className="mr-2">✦</span>
-        Full feature matrix
+        {t("nav_cosmos" as any)}
       </p>
 
       <div
@@ -361,13 +331,13 @@ function FeatureMatrix() {
         <div className="matrix" role="table" aria-label="Plan feature comparison">
           {/* Header */}
           <div className="matrix-row matrix-head" role="row">
-            <div className="matrix-cell matrix-cell-feature" role="columnheader">Feature</div>
-            <div className="matrix-cell matrix-cell-center" role="columnheader">Free</div>
-            <div className="matrix-cell matrix-cell-center" role="columnheader">Ins.</div>
+            <div className="matrix-cell matrix-cell-feature" role="columnheader">{t("nav_cosmos" as any) /* Or any key for Feature */}</div>
+            <div className="matrix-cell matrix-cell-center" role="columnheader">{t("price_free")}</div>
+            <div className="matrix-cell matrix-cell-center" role="columnheader">{(t("price_insight") as string).substring(0, 4)}.</div>
             <div className="matrix-cell matrix-cell-center matrix-cell-vip" role="columnheader">
-              <span className="text-celestial-gold font-[family-name:var(--font-heading)] italic">Pre.</span>
+              <span className="text-celestial-gold font-[family-name:var(--font-heading)] italic">{(t("price_premium") as string).substring(0, 4)}.</span>
             </div>
-            <div className="matrix-cell matrix-cell-center" role="columnheader">VIP</div>
+            <div className="matrix-cell matrix-cell-center" role="columnheader">{t("price_vip")}</div>
           </div>
 
           {MATRIX.map((row, i) => (
@@ -474,14 +444,28 @@ function FeatureMatrix() {
  * À-la-carte addons — buy without subscribing
  * ─────────────────────────────────────────────────────────────────── */
 function Addons() {
+  const { t } = useLocale();
+
+  const getAddonName = (key: string) => {
+    const map: Record<string, string> = {
+      addon_birth_chart: "price_i1",
+      addon_compatibility: "price_i2",
+      addon_celtic_cross: "price_i3",
+      addon_year_ahead: "price_i4",
+      addon_solar_return: "price_i4", // Reusing year ahead for now or needs a new key
+      addon_video_reading: "price_i5",
+    };
+    return t(map[key] as any);
+  };
+
   return (
     <div className="mt-16 sm:mt-20">
       <p className="text-center text-xs tracking-[0.28em] uppercase text-celestial-gold/75 mb-3">
         <span aria-hidden className="mr-2">✦</span>
-        One-time readings
+        {t("price_individual")}
       </p>
       <p className="text-center text-muted-lavender/80 text-sm mb-8 max-w-xl mx-auto">
-        No subscription? Buy individual readings as you need them. Each is yours forever once purchased.
+        {t("cta_subtitle")}
       </p>
       <div className="addons-grid">
         {ADDON_KEYS.map((key) => {
@@ -494,14 +478,14 @@ function Addons() {
             >
               <div className="flex items-baseline justify-between gap-3">
                 <h4 className="font-[family-name:var(--font-heading)] text-lg text-warm-ivory">
-                  {addon.name}
+                  {getAddonName(key)}
                 </h4>
                 <span className="text-celestial-gold font-semibold whitespace-nowrap">
                   {fmtPrice(addon.price)}
                 </span>
               </div>
               <CheckoutButton priceKey={key} variant="glass" size="sm" className="w-full justify-center">
-                Buy reading
+                {(t("price_pay") as string).split(" ")[0]} {fmtPrice(addon.price)}
               </CheckoutButton>
             </div>
           );
