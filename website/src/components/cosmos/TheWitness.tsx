@@ -52,9 +52,10 @@ function resolveElement(sign?: string): ElementKey {
 interface WitnessProps {
   isAsking?: boolean;
   isProcessing?: boolean;
+  userInputLength?: number;
 }
 
-function InnerIntelligence({ style, isAsking, isProcessing }: { style: typeof ELEMENT_STYLES.None } & WitnessProps) {
+function InnerIntelligence({ style, isAsking, isProcessing, userInputLength = 0 }: { style: typeof ELEMENT_STYLES.None } & WitnessProps) {
   const coreRef = useRef<THREE.Group>(null);
   const ring1Ref = useRef<THREE.Group>(null);
   const ring2Ref = useRef<THREE.Group>(null);
@@ -77,17 +78,18 @@ function InnerIntelligence({ style, isAsking, isProcessing }: { style: typeof EL
     // 2. Physical Look-At
     coreRef.current.lookAt(currentDir.current.clone().multiplyScalar(5));
     
-    // 3. Ambient Vibration
-    coreRef.current.position.y = Math.sin(time * 0.8) * (isProcessing ? 0.08 : 0.02);
+    // 3. Ambient Vibration + Typing Reaction
+    const typingVibe = userInputLength * 0.01;
+    coreRef.current.position.y = Math.sin(time * 0.8) * (isProcessing ? 0.08 : 0.02) + (Math.random() * typingVibe * 0.1);
     
     // 4. Ring Rotation (Sacred Geometry feel)
-    const ringSpeed = isProcessing ? 4.0 : isAsking ? 1.2 : 0.4;
+    const ringSpeed = isProcessing ? 4.0 : isAsking ? (1.2 + typingVibe * 2) : 0.4;
     if (ring1Ref.current) ring1Ref.current.rotation.z = time * ringSpeed;
     if (ring2Ref.current) ring2Ref.current.rotation.x = time * -ringSpeed * 1.5;
 
     // 5. Sentinel Orbit (The tiny moving point of light)
     if (sentinelRef.current) {
-      const orbSpeed = isProcessing ? 10.0 : 2.5;
+      const orbSpeed = isProcessing ? 10.0 : (2.5 + typingVibe * 5);
       sentinelRef.current.position.x = Math.cos(time * orbSpeed) * 0.45;
       sentinelRef.current.position.z = Math.sin(time * orbSpeed) * 0.45;
       sentinelRef.current.position.y = Math.sin(time * (orbSpeed * 0.75)) * 0.2;
@@ -95,7 +97,7 @@ function InnerIntelligence({ style, isAsking, isProcessing }: { style: typeof EL
 
     // 6. Reactive Light Pulse
     if (lightRef.current) {
-      const basePulse = isProcessing ? 2.5 : isAsking ? 1.2 : 0.8;
+      const basePulse = isProcessing ? 2.5 : isAsking ? (1.2 + typingVibe) : 0.8;
       const pulse = basePulse + Math.sin(time * 3.0 * style.speed) * (isProcessing ? 1.0 : 0.2);
       lightRef.current.intensity = pulse * (isProcessing ? 45 : 15);
     }
@@ -143,7 +145,7 @@ function InnerIntelligence({ style, isAsking, isProcessing }: { style: typeof EL
   );
 }
 
-function OuterGlassShell({ style, isAsking, isProcessing }: WitnessProps & { style: typeof ELEMENT_STYLES.None }) {
+function OuterGlassShell({ style, isAsking, isProcessing, userInputLength = 0 }: WitnessProps & { style: typeof ELEMENT_STYLES.None }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<any>(null);
   const lastScrollY = useRef(0);
@@ -161,15 +163,16 @@ function OuterGlassShell({ style, isAsking, isProcessing }: WitnessProps & { sty
     // 2. Multi-Layered Morphing (The Liquid Effect)
     // base distortion + noise modulation
     const idleMorph = Math.sin(time * 0.5) * 0.05;
-    const activityMorph = isProcessing ? 0.3 : isAsking ? 0.15 : 0;
+    const typingDistortion = userInputLength * 0.015;
+    const activityMorph = isProcessing ? 0.3 : isAsking ? (0.15 + typingDistortion) : 0;
     const velocityMorph = scrollVelocity.current * 0.003;
     
     materialRef.current.distortion = style.tension + idleMorph + activityMorph + velocityMorph;
-    materialRef.current.distortionScale = 0.4 + (Math.sin(time * 0.2) * 0.1);
+    materialRef.current.distortionScale = 0.4 + (Math.sin(time * 0.2) * 0.1) + typingDistortion;
     materialRef.current.temporalDistortion = 0.2 + activityMorph;
     
     // 3. Physical Scale Pulse
-    const breath = 1.0 + Math.sin(time * 0.4) * 0.02 + (scrollVelocity.current * 0.0005);
+    const breath = 1.0 + Math.sin(time * 0.4) * 0.02 + (scrollVelocity.current * 0.0005) + (typingDistortion * 0.1);
     const scale = isProcessing ? breath * 1.15 : isAsking ? breath * 1.05 : breath;
     meshRef.current.scale.set(scale, scale, scale);
     
@@ -203,7 +206,7 @@ function OuterGlassShell({ style, isAsking, isProcessing }: WitnessProps & { sty
   );
 }
 
-function WitnessScene({ isAsking, isProcessing }: WitnessProps) {
+function WitnessScene({ isAsking, isProcessing, userInputLength }: WitnessProps) {
   const { profile } = useProfile();
   
   const element = resolveElement(profile?.signName);
@@ -215,8 +218,8 @@ function WitnessScene({ isAsking, isProcessing }: WitnessProps) {
       
       <Float speed={isProcessing ? 8 : 2} rotationIntensity={0.5} floatIntensity={0.5}>
         <group>
-          <InnerIntelligence style={style} isAsking={isAsking} isProcessing={isProcessing} />
-          <OuterGlassShell style={style} isProcessing={isProcessing} />
+          <InnerIntelligence style={style} isAsking={isAsking} isProcessing={isProcessing} userInputLength={userInputLength} />
+          <OuterGlassShell style={style} isAsking={isAsking} isProcessing={isProcessing} userInputLength={userInputLength} />
         </group>
       </Float>
 
@@ -232,7 +235,7 @@ function WitnessScene({ isAsking, isProcessing }: WitnessProps) {
   );
 }
 
-export default function TheWitness({ isAsking, isProcessing }: WitnessProps) {
+export default function TheWitness({ isAsking, isProcessing, userInputLength }: WitnessProps) {
   return (
     <div className="witness-orb-container" style={{ width: "320px", height: "320px", cursor: "pointer" }}>
       <Canvas 
@@ -244,7 +247,7 @@ export default function TheWitness({ isAsking, isProcessing }: WitnessProps) {
         }}
       >
         <ambientLight intensity={0.1} />
-        <WitnessScene isAsking={isAsking} isProcessing={isProcessing} />
+        <WitnessScene isAsking={isAsking} isProcessing={isProcessing} userInputLength={userInputLength} />
       </Canvas>
 
       <style jsx>{`

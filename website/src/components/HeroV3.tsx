@@ -15,6 +15,7 @@ import FlipRevealCard from "@/components/shaders/FlipRevealCard";
 import TheWitness from "@/components/cosmos/TheWitness";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 import MagneticButton from "@/components/MagneticButton";
+import { ArrowRight } from "lucide-react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -151,30 +152,80 @@ export default function HeroV3() {
             transition={{ duration: 1.4, delay: 0.5, ease: EASE }}
             className="relative z-20 flex flex-col items-center gap-8"
           >
-            {/* The Witness Orb */}
-            <div className="relative group">
+            {/* The Witness Orb with Quick Intent Nodes */}
+            <div className="relative group flex items-center justify-center">
               <div className={`absolute inset-0 blur-[80px] rounded-full transition-all duration-1000 ${
                 isProcessing ? "bg-celestial-gold/40 scale-150" : "bg-celestial-gold/10 group-hover:bg-celestial-gold/20"
               }`} />
               
-              <TheWitness isAsking={isAsking} isProcessing={isProcessing} />
+              <TheWitness 
+                isAsking={isAsking} 
+                isProcessing={isProcessing} 
+                userInputLength={question.length} 
+              />
+
+              {/* Quick Intent Orbitals (Immediate Value) */}
+              <AnimatePresence>
+                {!isAsking && !isProcessing && !revealed && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.8, ease: EASE }}
+                    className="absolute inset-0 pointer-events-none"
+                  >
+                    {/* Node 1: Oracle */}
+                    <div className="absolute top-[5%] left-[-25%] pointer-events-auto cursor-pointer" onClick={() => { setIsAsking(true); setQuestion("What does the universe want me to know?"); }}>
+                      <motion.div 
+                        whileHover={{ scale: 1.1, x: -5 }}
+                        className="glass-card px-4 py-2 flex items-center gap-2 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl"
+                      >
+                        <span className="text-celestial-gold text-xs">✦</span>
+                        <span className="text-[10px] font-bold text-warm-ivory font-[family-name:var(--font-mono)] uppercase tracking-[0.25em]">Consult</span>
+                      </motion.div>
+                    </div>
+
+                    {/* Node 2: Daily */}
+                    <div className="absolute top-[0%] right-[-20%] pointer-events-auto cursor-pointer" onClick={() => document.getElementById("daily")?.scrollIntoView({ behavior: "smooth" })}>
+                      <motion.div 
+                        whileHover={{ scale: 1.1, x: 5 }}
+                        className="glass-card px-4 py-2 flex items-center gap-2 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl"
+                      >
+                        <span className="text-celestial-gold text-xs">☉</span>
+                        <span className="text-[10px] font-bold text-warm-ivory font-[family-name:var(--font-mono)] uppercase tracking-[0.25em]">Daily</span>
+                      </motion.div>
+                    </div>
+
+                    {/* Node 3: Portrait */}
+                    <div className="absolute bottom-[5%] right-[-25%] pointer-events-auto cursor-pointer" onClick={() => window.location.href = "/portrait"}>
+                      <motion.div 
+                        whileHover={{ scale: 1.1, x: 5 }}
+                        className="glass-card px-4 py-2 flex items-center gap-2 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl"
+                      >
+                        <span className="text-celestial-gold text-xs">✧</span>
+                        <span className="text-[10px] font-bold text-warm-ivory font-[family-name:var(--font-mono)] uppercase tracking-[0.25em]">Relic</span>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
               
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
+              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
                 <AnimatePresence mode="wait">
                   {!revealed && !isAsking && !isProcessing && (
                     <motion.span 
                       key="idle"
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                      className="font-[family-name:var(--font-mono)] text-[0.6rem] tracking-[0.4em] uppercase text-celestial-gold/40 animate-pulse"
+                      className="font-[family-name:var(--font-mono)] text-[0.65rem] tracking-[0.5em] uppercase text-celestial-gold/60 font-medium"
                     >
-                      Give Attention
+                      Concentrate
                     </motion.span>
                   )}
                   {isAsking && (
                     <motion.span 
                       key="asking"
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                      className="font-[family-name:var(--font-mono)] text-[0.6rem] tracking-[0.4em] uppercase text-celestial-gold animate-pulse"
+                      className="font-[family-name:var(--font-mono)] text-[0.65rem] tracking-[0.5em] uppercase text-celestial-gold font-bold animate-pulse"
                     >
                       Listening...
                     </motion.span>
@@ -183,43 +234,44 @@ export default function HeroV3() {
                     <motion.span 
                       key="proc"
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                      className="font-[family-name:var(--font-mono)] text-[0.6rem] tracking-[0.4em] uppercase text-white font-bold"
+                      className="font-[family-name:var(--font-mono)] text-[0.65rem] tracking-[0.5em] uppercase text-white font-black"
                     >
-                      Connecting to Sky
+                      Computing Fate
                     </motion.span>
                   )}
                 </AnimatePresence>
               </div>
             </div>
 
-            {/* The Oracle Gate — Input Field */}
-            <div className="relative w-full max-w-[340px]">
+            {/* The Oracle Gate — Input Field Redesign */}
+            <div className="relative w-full max-w-[400px]">
               <AnimatePresence mode="wait">
                 {isAsking && (
                   <motion.form
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    initial={{ opacity: 0, y: 20, scale: 0.9 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, scale: 1.05, filter: "blur(8px)" }}
-                    transition={{ duration: 0.5, ease: EASE }}
+                    exit={{ opacity: 0, scale: 1.1, filter: "blur(15px)" }}
+                    transition={{ duration: 0.6, ease: EASE }}
                     onSubmit={handleSubmit}
-                    className="glass-card p-1 flex items-center gap-2 overflow-hidden border-celestial-gold/30 bg-black/40 backdrop-blur-xl shadow-2xl"
+                    className="relative p-1 flex items-center gap-3 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden ring-1 ring-white/5"
                   >
                     <input
                       ref={inputRef}
                       type="text"
                       autoFocus
-                      placeholder="What seeking clarity?"
+                      placeholder="What seeks clarity?"
                       value={question}
                       onChange={(e) => setQuestion(e.target.value)}
-                      className="flex-1 bg-transparent border-none outline-none px-4 py-3 text-sm text-warm-ivory placeholder:text-muted-lavender/40 font-[family-name:var(--font-body)]"
+                      className="w-full bg-transparent px-5 py-4 text-warm-ivory placeholder:text-warm-ivory/20 outline-none font-[family-name:var(--font-mono)] text-sm tracking-tight"
                     />
-                    <button 
+                    <motion.button
+                      whileHover={{ scale: 1.1, backgroundColor: "rgba(212, 175, 55, 0.2)" }}
+                      whileTap={{ scale: 0.9 }}
                       type="submit"
-                      className="p-3 text-celestial-gold hover:text-white transition-colors"
-                      aria-label="Submit question"
+                      className="mr-2 p-3 rounded-xl bg-celestial-gold/10 text-celestial-gold transition-colors"
                     >
-                      &rarr;
-                    </button>
+                      <ArrowRight size={18} strokeWidth={2.5} />
+                    </motion.button>
                   </motion.form>
                 )}
 
