@@ -1,129 +1,115 @@
 /**
- * InfiniteMarquee.tsx — Smooth infinite scrolling text/element strip
- *
- * Used for trust signals, partner logos, testimonial quotes, or
- * any content that should flow continuously. Supports:
- *   - Configurable speed and direction
- *   - Pause on hover
- *   - Gradient fade edges
- *   - Reverse direction option
+ * InfiniteMarquee.tsx — God Mode proof system.
+ * 
+ * Performance Refinements:
+ * - GSAP-driven infinite loop
+ * - Scroll-velocity skew (kinetic physics)
+ * - Motion-blur simulation on fast scroll
+ * - Editorial style consistency
  */
 
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface InfiniteMarqueeProps {
   children: React.ReactNode;
-  /** Speed in pixels per second (default: 40) */
   speed?: number;
-  /** Scroll direction (default: "left") */
-  direction?: "left" | "right";
-  /** Pause on hover (default: true) */
-  pauseOnHover?: boolean;
-  /** Show gradient fade on edges (default: true) */
-  fadeEdges?: boolean;
-  /** Gap between repeated items in px (default: 48) */
   gap?: number;
+  direction?: "left" | "right";
   className?: string;
 }
 
 export default function InfiniteMarquee({
   children,
-  speed = 40,
+  speed = 30, // seconds per full loop
+  gap = 64,
   direction = "left",
-  pauseOnHover = true,
-  fadeEdges = true,
-  gap = 48,
   className = "",
 }: InfiniteMarqueeProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const [reducedMotion, setReducedMotion] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Calculate animation duration based on content width
-  const [animDuration, setAnimDuration] = useState(20);
   useEffect(() => {
     if (!trackRef.current) return;
-    const firstSet = trackRef.current.querySelector("[data-marquee-set]") as HTMLElement;
-    if (!firstSet) return;
-    const width = firstSet.offsetWidth;
-    const timer = setTimeout(() => {
-      setAnimDuration(width / speed);
-    }, 0);
-    return () => clearTimeout(timer);
-  }, [speed, children]);
 
-  if (reducedMotion) {
-    return (
-      <div className={`overflow-hidden ${className}`}>
-        <div style={{ display: "flex", gap: `${gap}px`, justifyContent: "center" }}>
-          {children}
-        </div>
-      </div>
-    );
-  }
+    const track = trackRef.current;
+    const scrollDirection = direction === "left" ? -1 : 1;
 
-  const directionValue = direction === "left" ? "-50%" : "0%";
-  const directionFrom = direction === "left" ? "0%" : "-50%";
+    // Animation timeline
+    const tl = gsap.timeline({
+      repeat: -1,
+      defaults: { ease: "none" }
+    });
+
+    const totalWidth = track.scrollWidth / 2;
+    
+    tl.to(track, {
+      x: scrollDirection * totalWidth,
+      duration: speed,
+    });
+
+    // Velocity Skew & Blur (God Mode)
+    let proxy = { skew: 0 };
+    let skewSetter = gsap.quickSetter(track, "skewX", "deg");
+    let clamp = gsap.utils.clamp(-12, 12);
+
+    const scrollTrigger = ScrollTrigger.create({
+      onUpdate: (self) => {
+        const velocity = self.getVelocity();
+        const skew = clamp(velocity / 180);
+        
+        if (Math.abs(skew) > Math.abs(proxy.skew)) {
+          proxy.skew = skew;
+          gsap.to(proxy, {
+            skew: 0,
+            duration: 0.8,
+            ease: "power3",
+            overwrite: true,
+            onUpdate: () => {
+              skewSetter(proxy.skew);
+              // Simulated motion blur based on skew
+              track.style.filter = `blur(${Math.abs(proxy.skew) * 0.5}px)`;
+            }
+          });
+        }
+      }
+    });
+
+    return () => {
+      tl.kill();
+      scrollTrigger.kill();
+    };
+  }, [speed, direction]);
 
   return (
     <div
-      className={`relative overflow-hidden ${className}`}
+      ref={containerRef}
+      className={`relative w-full overflow-hidden py-12 border-y border-white/5 bg-void-black/10 backdrop-blur-sm ${className}`}
       style={{
-        maskImage: fadeEdges
-          ? "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-          : undefined,
-        WebkitMaskImage: fadeEdges
-          ? "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
-          : undefined,
+        maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+        WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
       }}
     >
       <div
         ref={trackRef}
-        style={{
-          display: "flex",
-          width: "max-content",
-          // Use longhand only — React warns if shorthand `animation` and
-          // longhand `animationDirection` are both set on re-renders.
-          animationName: "marqueeScroll",
-          animationDuration: `${animDuration}s`,
-          animationTimingFunction: "linear",
-          animationIterationCount: "infinite",
-          animationDirection: "normal",
-        }}
-        onMouseEnter={(e) => {
-          if (pauseOnHover) {
-            (e.currentTarget as HTMLElement).style.animationPlayState = "paused";
-          }
-        }}
-        onMouseLeave={(e) => {
-          if (pauseOnHover) {
-            (e.currentTarget as HTMLElement).style.animationPlayState = "running";
-          }
-        }}
+        className="flex items-center whitespace-nowrap will-change-transform"
+        style={{ gap: `${gap}px` }}
       >
-        {/* Two copies for seamless loop */}
-        <div data-marquee-set style={{ display: "flex", gap: `${gap}px`, paddingRight: `${gap}px` }}>
+        <div className="flex items-center gap-[inherit]">
           {children}
         </div>
-        <div aria-hidden="true" style={{ display: "flex", gap: `${gap}px`, paddingRight: `${gap}px` }}>
+        {/* Duplicate for infinite effect */}
+        <div className="flex items-center gap-[inherit]" aria-hidden="true">
           {children}
         </div>
       </div>
-
-      <style>{`
-        @keyframes marqueeScroll {
-          from { transform: translateX(${directionFrom}); }
-          to   { transform: translateX(${directionValue}); }
-        }
-      `}</style>
     </div>
   );
 }

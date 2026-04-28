@@ -42,7 +42,21 @@ uniform float uSingularityStrength; // New: Strength of the pull
 
 varying vec2 vUv;
 
-// ... (Simplex noise functions remain the same) ...
+// ── Fractional Brownian Motion for Volumetric Clouds ──
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
+float noise(vec2 p) {
+    vec2 i = floor(p); vec2 f = fract(p);
+    vec2 u = f*f*(3.0-2.0*f);
+    return mix(mix(hash(i + vec2(0.0,0.0)), hash(i + vec2(1.0,0.0)), u.x),
+               mix(hash(i + vec2(0.0,1.0)), hash(i + vec2(1.0,1.0)), u.x), u.y);
+}
+float fbm(vec2 p) {
+    float v = 0.0; float a = 0.5;
+    for (int i = 0; i < 5; i++) {
+        v += a * noise(p); p *= 2.0; a *= 0.5;
+    }
+    return v;
+}
 
 void main() {
   vec2 uv = vUv;
@@ -50,52 +64,54 @@ void main() {
   float aspect = res.x / res.y;
   
   // ── Gravitational Lensing (Singularity) ──
-  // Calculate distance in aspect-corrected space
   vec2 singDir = uv - uSingularity;
   singDir.x *= aspect;
   float dist = length(singDir);
-  
-  // Create a refractive pull: the closer to the center, the more the UV is sucked in
-  // Using an inverse-square-ish falloff for 'God Mode' weight
-  float pull = uSingularityStrength * (1.0 / (dist * 15.0 + 0.8));
-  uv -= normalize(uv - uSingularity) * pull * 0.12;
+  float pull = uSingularityStrength * (1.0 / (dist * 12.0 + 0.6));
+  uv -= normalize(uv - uSingularity) * pull * 0.15;
 
+  // ── Generative Volumetric Clouds ──
+  vec2 cloudUv = uv * 2.5 + uTime * 0.015;
+  float cloudPattern = fbm(cloudUv + fbm(cloudUv * 0.6));
+  
   // ── Flowmap displacement ──
   vec3 flow = texture2D(uFlowmap, uv).rgb;
-  vec2 flowDisplace = (flow.rg - 0.5) * 0.14 * uFlowmapEnabled;
+  vec2 flowDisplace = (flow.rg - 0.5) * 0.18 * uFlowmapEnabled;
   uv += flowDisplace;
-
-  // ── Subtler noise drift ──
-  float n1 = snoise(uv * 1.8 + uTime * 0.02);
-  uv += vec2(n1, snoise(uv * 2.2 + uTime * 0.02 + 50.0)) * 0.0025;
 
   // ── Chromatic aberration (Gravity-induced) ──
   float gravityAberration = pull * 0.15;
   float flowMag = length(flowDisplace);
-  float aberration = gravityAberration + flowMag * 0.08 + uMouseVelocity * 0.0002;
+  float aberration = gravityAberration + flowMag * 0.1 + uMouseVelocity * 0.0003;
   vec2 caDir = (uv - uSingularity) * aberration * 0.5;
 
   float r = texture2D(uTexture, clamp(uv + caDir, 0.001, 0.999)).r;
   float g = texture2D(uTexture, uv).g;
   float b = texture2D(uTexture, clamp(uv - caDir, 0.001, 0.999)).b;
-  vec3 color = vec3(r, g, b);
+  vec3 texColor = vec3(r, g, b);
 
-  // ── Tone curve & Singularity Darkening ──
-  float darkness = smoothstep(0.0, 0.45 * uSingularityStrength, dist);
-  float darkenMul = (0.35 + uBrightFlash * 0.30) * darkness;
-  color *= darkenMul;
+  // ── Composition: Mix Texture with Generative Clouds ──
+  vec3 color = mix(texColor, vec3(0.08, 0.05, 0.18), cloudPattern * 0.45);
+  color += vec3(0.9, 0.7, 0.4) * pow(cloudPattern, 5.0) * 0.25; // Stellar nurseries
+
+  // ── Brightness & Tonemapping ──
+  float brightness = 0.45 + uBrightFlash * 0.5 + uBreath * 0.15;
+  color *= brightness;
   
-  // ... (rest of the color logic) ...
-  color = color / (color + vec3(0.18));
-  color = pow(color, vec3(1.25));
+  // Event Horizon Glow (Brilliant Gold)
+  float horizon = 1.0 - smoothstep(0.0, 0.25 * uSingularityStrength, dist);
+  color += vec3(1.0, 0.85, 0.5) * horizon * uSingularityStrength * 0.8;
+
+  color = color / (color + vec3(0.12));
+  color = pow(color, vec3(1.05));
 
   // ── Soft vignette ──
   float vigDist = distance(vUv, vec2(0.5));
-  float vigRadius = mix(0.72, 0.80, uBreath);
-  float vig = 1.0 - smoothstep(0.15, vigRadius, vigDist);
-  color *= (0.55 * vig + 0.45);
+  float vigRadius = mix(0.75, 0.85, uBreath);
+  float vig = 1.0 - smoothstep(0.2, vigRadius, vigDist);
+  color *= (0.6 * vig + 0.4);
 
-  // ... (archetype shift) ...
+  // ... (Persona logic remains the same) ...
   float hCos = cos(uHueShift);
   float hSin = sin(uHueShift);
   color = vec3(
@@ -109,13 +125,11 @@ void main() {
 
   // ── Final 'God Mode' Glow ──
   float md = distance(vUv, uMouse);
-  color += vec3(0.06, 0.04, 0.01) * smoothstep(0.25, 0.0, md);
-  
-  // Singularity glow (event horizon)
-  color += vec3(0.1, 0.08, 0.05) * (1.0 - smoothstep(0.0, 0.15 * uSingularityStrength, dist)) * uSingularityStrength;
+  color += vec3(0.08, 0.05, 0.02) * smoothstep(0.25, 0.0, md);
 
   gl_FragColor = vec4(color, uOpacity);
 }
+
 `;
 
 export class NebulaPlane implements EngineSystem {

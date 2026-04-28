@@ -79,12 +79,25 @@ export default function HeroV3() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: "50% top",
+          end: "70% top",
           scrub: true,
         },
         opacity: 0,
-        y: -50,
+        y: -100,
+        pointerEvents: "none",
         ease: "power2.inOut"
+      });
+
+      // Cull the entire hero once we're deep enough to prevent z-index/overlap issues
+      gsap.to(sectionRef.current, {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "85% top",
+          end: "100% top",
+          scrub: true,
+        },
+        autoAlpha: 0, // visibility: hidden + opacity: 0
+        pointerEvents: "none"
       });
     }, sectionRef);
 
