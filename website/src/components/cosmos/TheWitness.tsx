@@ -143,7 +143,7 @@ function InnerIntelligence({ style, isAsking, isProcessing }: { style: typeof EL
   );
 }
 
-function OuterGlassShell({ style, isProcessing }: { style: typeof ELEMENT_STYLES.None, isProcessing?: boolean }) {
+function OuterGlassShell({ style, isAsking, isProcessing }: WitnessProps & { style: typeof ELEMENT_STYLES.None }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<any>(null);
   const lastScrollY = useRef(0);
@@ -153,44 +153,51 @@ function OuterGlassShell({ style, isProcessing }: { style: typeof ELEMENT_STYLES
     if (!meshRef.current || !materialRef.current) return;
     const time = state.clock.getElapsedTime();
     
-    // 1. Calculate Scroll Velocity for Physical Reaction
+    // 1. Calculate Scroll & Mouse Velocity for Physical Reaction
     const currentScrollY = window.scrollY;
     scrollVelocity.current += (Math.abs(currentScrollY - lastScrollY.current) - scrollVelocity.current) * 0.1;
     lastScrollY.current = currentScrollY;
     
-    // 2. Active Morphing (Liquid Transformation)
-    // We modulate distortion and thickness based on velocity + time
-    const morphIntensity = 0.05 + (Math.sin(time * 0.4) * 0.02) + (scrollVelocity.current * 0.002);
-    materialRef.current.distortion = style.tension + morphIntensity;
-    materialRef.current.thickness = 0.8 + (Math.sin(time * 0.2) * 0.1);
+    // 2. Multi-Layered Morphing (The Liquid Effect)
+    // base distortion + noise modulation
+    const idleMorph = Math.sin(time * 0.5) * 0.05;
+    const activityMorph = isProcessing ? 0.3 : isAsking ? 0.15 : 0;
+    const velocityMorph = scrollVelocity.current * 0.003;
     
-    // 3. Breathing Animation
-    const breath = 1.0 + Math.sin(time * 0.2) * 0.015 + (scrollVelocity.current * 0.0005);
-    const scale = isProcessing ? breath * 1.08 : breath;
+    materialRef.current.distortion = style.tension + idleMorph + activityMorph + velocityMorph;
+    materialRef.current.distortionScale = 0.4 + (Math.sin(time * 0.2) * 0.1);
+    materialRef.current.temporalDistortion = 0.2 + activityMorph;
+    
+    // 3. Physical Scale Pulse
+    const breath = 1.0 + Math.sin(time * 0.4) * 0.02 + (scrollVelocity.current * 0.0005);
+    const scale = isProcessing ? breath * 1.15 : isAsking ? breath * 1.05 : breath;
     meshRef.current.scale.set(scale, scale, scale);
-    meshRef.current.rotation.y = time * 0.05 + (scrollVelocity.current * 0.001);
+    
+    // 4. Atmospheric Rotation
+    meshRef.current.rotation.y = time * 0.08 + (scrollVelocity.current * 0.001);
+    meshRef.current.rotation.z = Math.sin(time * 0.1) * 0.1;
   });
 
   return (
     <mesh ref={meshRef}>
-      <sphereGeometry args={[1, 64, 64]} />
+      <sphereGeometry args={[1, 128, 128]} /> {/* Higher resolution for smoother morphing */}
       <MeshTransmissionMaterial
         ref={materialRef}
         backside
-        samples={8}
-        thickness={0.8}
-        roughness={0.06}
+        samples={16}
+        thickness={1.2}
+        roughness={0.04}
         transmission={1.0}
-        ior={1.45}
-        chromaticAberration={0.08}
-        anisotropy={0.3}
+        ior={1.5}
+        chromaticAberration={0.12}
+        anisotropy={0.5}
         distortion={style.tension}
-        distortionScale={0.3}
+        distortionScale={0.5}
         temporalDistortion={0.2}
         clearcoat={1}
         attenuationDistance={0.5}
         attenuationColor="#ffffff"
-        color="#050310" 
+        color="#06041a" 
       />
     </mesh>
   );
