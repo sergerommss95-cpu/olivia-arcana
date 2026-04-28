@@ -154,6 +154,13 @@ export default function HeroV3() {
           >
             {/* The Witness Orb with Quick Intent Nodes */}
             <div className="relative group flex items-center justify-center">
+              {/* Central Click Target (The Orb itself) */}
+              <div 
+                className="absolute inset-0 z-30 cursor-pointer rounded-full" 
+                onClick={() => { if (!isAsking && !isProcessing && !revealed) setIsAsking(true); }}
+                aria-label="Consult the Witness"
+              />
+
               <div className={`absolute inset-0 blur-[80px] rounded-full transition-all duration-1000 ${
                 isProcessing ? "bg-celestial-gold/40 scale-150" : "bg-celestial-gold/10 group-hover:bg-celestial-gold/20"
               }`} />
@@ -164,7 +171,7 @@ export default function HeroV3() {
                 userInputLength={question.length} 
               />
 
-              {/* Quick Intent Orbitals (Immediate Value) */}
+              {/* Quick Intent Orbitals (Immediate Value) — positioned clearly to avoid overlap */}
               <AnimatePresence>
                 {!isAsking && !isProcessing && !revealed && (
                   <motion.div
@@ -174,10 +181,10 @@ export default function HeroV3() {
                     transition={{ duration: 0.8, ease: EASE }}
                     className="absolute inset-0 pointer-events-none"
                   >
-                    {/* Node 1: Oracle */}
-                    <div className="absolute top-[5%] left-[-25%] pointer-events-auto cursor-pointer" onClick={() => { setIsAsking(true); setQuestion("What does the universe want me to know?"); }}>
+                    {/* Node 1: Oracle (Top Left) */}
+                    <div className="absolute top-[0%] left-[-35%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); setIsAsking(true); setQuestion("What does the universe want me to know?"); }}>
                       <motion.div 
-                        whileHover={{ scale: 1.1, x: -5 }}
+                        whileHover={{ scale: 1.1, x: -5, y: -5 }}
                         className="glass-card px-4 py-2 flex items-center gap-2 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl"
                       >
                         <span className="text-celestial-gold text-xs">✦</span>
@@ -185,10 +192,10 @@ export default function HeroV3() {
                       </motion.div>
                     </div>
 
-                    {/* Node 2: Daily */}
-                    <div className="absolute top-[0%] right-[-20%] pointer-events-auto cursor-pointer" onClick={() => document.getElementById("daily")?.scrollIntoView({ behavior: "smooth" })}>
+                    {/* Node 2: Daily (Top Right) */}
+                    <div className="absolute top-[-10%] right-[-15%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); document.getElementById("daily")?.scrollIntoView({ behavior: "smooth" }); }}>
                       <motion.div 
-                        whileHover={{ scale: 1.1, x: 5 }}
+                        whileHover={{ scale: 1.1, x: 5, y: -5 }}
                         className="glass-card px-4 py-2 flex items-center gap-2 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl"
                       >
                         <span className="text-celestial-gold text-xs">☉</span>
@@ -196,10 +203,10 @@ export default function HeroV3() {
                       </motion.div>
                     </div>
 
-                    {/* Node 3: Portrait */}
-                    <div className="absolute bottom-[5%] right-[-25%] pointer-events-auto cursor-pointer" onClick={() => window.location.href = "/portrait"}>
+                    {/* Node 3: Portrait (Bottom Right) */}
+                    <div className="absolute bottom-[0%] right-[-35%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); window.location.href = "/portrait"; }}>
                       <motion.div 
-                        whileHover={{ scale: 1.1, x: 5 }}
+                        whileHover={{ scale: 1.1, x: 5, y: 5 }}
                         className="glass-card px-4 py-2 flex items-center gap-2 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl"
                       >
                         <span className="text-celestial-gold text-xs">✧</span>

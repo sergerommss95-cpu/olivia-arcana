@@ -196,18 +196,19 @@ function OuterGlassShell({ style, isAsking, isProcessing, userInputLength = 0 }:
         backside
         samples={16}
         thickness={1.5}
-        roughness={0.02}
+        roughness={0.01}
         transmission={1.0}
-        ior={1.6}
-        chromaticAberration={0.6} // High dispersion for diamond-like look
-        anisotropy={0.8}
+        ior={1.5}
+        chromaticAberration={0.3}
+        anisotropy={1.0}
         distortion={0.2}
         distortionScale={0.5}
         temporalDistortion={0.2}
         clearcoat={1}
         attenuationDistance={1.0}
-        attenuationColor={style.color}
-        color="#100b2e" // Deep cosmic indigo instead of black
+        attenuationColor="#ffffff"
+        color="#08061a" // Darker, matching the site background
+        transparent
       />
     </mesh>
   );
@@ -223,13 +224,13 @@ function NebulaCore({ style }: { style: any }) {
   });
   return (
     <mesh ref={meshRef}>
-      <sphereGeometry args={[0.7, 32, 32]} />
+      <sphereGeometry args={[0.75, 32, 32]} />
       <meshStandardMaterial 
         color={style.color} 
         emissive={style.color}
-        emissiveIntensity={1.5}
+        emissiveIntensity={1.2}
         transparent 
-        opacity={0.1} 
+        opacity={0.05} 
         side={THREE.BackSide}
       />
     </mesh>
@@ -243,7 +244,10 @@ function WitnessScene({ isAsking, isProcessing, userInputLength }: WitnessProps)
 
   return (
     <>
-      <Environment preset="night" />
+      {/* Remove global environment to avoid 'random photo' reflections. 
+          Instead, use specific point lights to simulate website atmosphere. */}
+      <pointLight position={[5, 5, 5]} intensity={0.5} color="#ffffff" />
+      <pointLight position={[-5, -5, -5]} intensity={0.2} color={style.glow} />
       
       <Float speed={isProcessing ? 6 : 1.5} rotationIntensity={0.2} floatIntensity={0.5}>
         <group>
@@ -255,7 +259,7 @@ function WitnessScene({ isAsking, isProcessing, userInputLength }: WitnessProps)
 
       <ContactShadows 
         position={[0, -1.5, 0]} 
-        opacity={0.6} 
+        opacity={0.4} 
         scale={5} 
         blur={2.5} 
         far={2} 
