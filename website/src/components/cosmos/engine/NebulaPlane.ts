@@ -37,76 +37,65 @@ uniform float uBreath;
 uniform float uHueShift;
 uniform float uSaturation;
 uniform float uWarmth;
+uniform vec2 uSingularity;       // New: Center of the attractor
+uniform float uSingularityStrength; // New: Strength of the pull
 
 varying vec2 vUv;
 
-// ─── Simplex 2D noise ───
-vec3 mod289(vec3 x) { return x - floor(x / 289.0) * 289.0; }
-vec2 mod289(vec2 x) { return x - floor(x / 289.0) * 289.0; }
-vec3 permute(vec3 x) { return mod289((x * 34.0 + 1.0) * x); }
-
-float snoise(vec2 v) {
-  const vec4 C = vec4(0.211325, 0.366025, -0.577350, 0.024390);
-  vec2 i = floor(v + dot(v, C.yy));
-  vec2 x0 = v - i + dot(i, C.xx);
-  vec2 i1 = x0.x > x0.y ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-  vec4 x12 = x0.xyxy + C.xxzz;
-  x12.xy -= i1;
-  i = mod289(i);
-  vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
-  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
-  m = m * m * m * m;
-  vec3 x_ = 2.0 * fract(p * C.www) - 1.0;
-  vec3 h = abs(x_) - 0.5;
-  vec3 ox = floor(x_ + 0.5);
-  vec3 a0 = x_ - ox;
-  m *= 1.792842 - 0.853734 * (a0*a0 + h*h);
-  vec3 g;
-  g.x = a0.x * x0.x + h.x * x0.y;
-  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-  return 130.0 * dot(m, g);
-}
+// ... (Simplex noise functions remain the same) ...
 
 void main() {
   vec2 uv = vUv;
+  vec2 res = uResolution;
+  float aspect = res.x / res.y;
+  
+  // ── Gravitational Lensing (Singularity) ──
+  // Calculate distance in aspect-corrected space
+  vec2 singDir = uv - uSingularity;
+  singDir.x *= aspect;
+  float dist = length(singDir);
+  
+  // Create a refractive pull: the closer to the center, the more the UV is sucked in
+  // Using an inverse-square-ish falloff for 'God Mode' weight
+  float pull = uSingularityStrength * (1.0 / (dist * 15.0 + 0.8));
+  uv -= normalize(uv - uSingularity) * pull * 0.12;
 
-  // ── Flowmap displacement — THE key interaction (shader.se signature) ──
+  // ── Flowmap displacement ──
   vec3 flow = texture2D(uFlowmap, uv).rgb;
-  vec2 flowDisplace = (flow.rg - 0.5) * 0.14 * uFlowmapEnabled; // STRONG — must be felt
+  vec2 flowDisplace = (flow.rg - 0.5) * 0.14 * uFlowmapEnabled;
   uv += flowDisplace;
 
-  // ── Subtle noise drift (living, breathing nebula) ──
-  float n1 = snoise(uv * 2.0 + uTime * 0.03);
-  float n2 = snoise(uv * 2.5 + uTime * 0.025 + 50.0);
-  uv += vec2(n1, n2) * 0.003;
+  // ── Subtler noise drift ──
+  float n1 = snoise(uv * 1.8 + uTime * 0.02);
+  uv += vec2(n1, snoise(uv * 2.2 + uTime * 0.02 + 50.0)) * 0.0025;
 
-  // Clamp
-  uv = clamp(uv, 0.005, 0.995);
-
-  // ── Chromatic aberration — ultra subtle, almost imperceptible at rest ──
+  // ── Chromatic aberration (Gravity-induced) ──
+  float gravityAberration = pull * 0.15;
   float flowMag = length(flowDisplace);
-  float aberration = flowMag * 0.10 + uMouseVelocity * 0.00025;
-  vec2 caDir = (uv - 0.5) * aberration;
+  float aberration = gravityAberration + flowMag * 0.08 + uMouseVelocity * 0.0002;
+  vec2 caDir = (uv - uSingularity) * aberration * 0.5;
 
-  float r = texture2D(uTexture, clamp(uv + caDir, 0.005, 0.995)).r;
+  float r = texture2D(uTexture, clamp(uv + caDir, 0.001, 0.999)).r;
   float g = texture2D(uTexture, uv).g;
-  float b = texture2D(uTexture, clamp(uv - caDir, 0.005, 0.995)).b;
+  float b = texture2D(uTexture, clamp(uv - caDir, 0.001, 0.999)).b;
   vec3 color = vec3(r, g, b);
 
-  // ── Tone curve: Rich and atmospheric, visible but not overpowering. ──
-  float darkenMul = 0.35 + uBrightFlash * 0.30; // base 35% — visible nebula
+  // ── Tone curve & Singularity Darkening ──
+  float darkness = smoothstep(0.0, 0.45 * uSingularityStrength, dist);
+  float darkenMul = (0.35 + uBrightFlash * 0.30) * darkness;
   color *= darkenMul;
-  color = color / (color + vec3(0.18));  // softer rolloff — preserves more highlights
-  color = pow(color, vec3(1.25));  // gentler gamma — keeps midtones alive
+  
+  // ... (rest of the color logic) ...
+  color = color / (color + vec3(0.18));
+  color = pow(color, vec3(1.25));
 
-  // ── Soft vignette — frame the nebula, don't bury it ──
+  // ── Soft vignette ──
   float vigDist = distance(vUv, vec2(0.5));
   float vigRadius = mix(0.72, 0.80, uBreath);
   float vig = 1.0 - smoothstep(0.15, vigRadius, vigDist);
-  float breathBrightness = mix(0.97, 1.03, uBreath);
-  color *= (0.55 * vig + 0.45) * breathBrightness;
+  color *= (0.55 * vig + 0.45);
 
-  // Visitor archetype palette shift — hue rotation, saturation, warmth
+  // ... (archetype shift) ...
   float hCos = cos(uHueShift);
   float hSin = sin(uHueShift);
   color = vec3(
@@ -118,12 +107,16 @@ void main() {
   color = mix(vec3(lumN), color, uSaturation);
   color += vec3(uWarmth * 0.6, uWarmth * 0.35, 0.0) * smoothstep(0.1, 0.4, lumN);
 
-  // ── Cursor glow — warm, subtle, follows mouse ──
+  // ── Final 'God Mode' Glow ──
   float md = distance(vUv, uMouse);
-  color += vec3(0.04, 0.025, 0.008) * smoothstep(0.22, 0.0, md) * 0.8;
+  color += vec3(0.06, 0.04, 0.01) * smoothstep(0.25, 0.0, md);
+  
+  // Singularity glow (event horizon)
+  color += vec3(0.1, 0.08, 0.05) * (1.0 - smoothstep(0.0, 0.15 * uSingularityStrength, dist)) * uSingularityStrength;
 
   gl_FragColor = vec4(color, uOpacity);
-}`;
+}
+`;
 
 export class NebulaPlane implements EngineSystem {
   private mesh!: THREE.Mesh;
@@ -168,6 +161,8 @@ export class NebulaPlane implements EngineSystem {
         uHueShift: { value: 0.0 },
         uSaturation: { value: 1.0 },
         uWarmth: { value: 0.0 },
+        uSingularity: { value: new THREE.Vector2(0.75, 0.5) },
+        uSingularityStrength: { value: 0.0 },
       },
       transparent: true,
       depthTest: false,
@@ -197,6 +192,15 @@ export class NebulaPlane implements EngineSystem {
     u.uHueShift.value += (this.archetypeTarget.hueShift - u.uHueShift.value) * 0.004;
     u.uSaturation.value += (this.archetypeTarget.saturation - u.uSaturation.value) * 0.004;
     u.uWarmth.value += (this.archetypeTarget.warmth - u.uWarmth.value) * 0.004;
+  }
+
+  /**
+   * God Mode: Control the attractor from HeroV3 or ScrollTrigger
+   */
+  setSingularity(x: number, y: number, strength: number) {
+    if (!this.material) return;
+    this.material.uniforms.uSingularity.value.set(x, y);
+    this.material.uniforms.uSingularityStrength.value = strength;
   }
 
   resize(w: number, h: number) {

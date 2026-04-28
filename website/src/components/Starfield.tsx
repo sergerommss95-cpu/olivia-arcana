@@ -39,6 +39,7 @@ export default function Starfield() {
 
         const engine = new engineMod.WebGLEngine(containerRef.current);
         engineRef.current = engine;
+        (window as any).celestialEngine = engine; // God Mode: Global Access
 
         const nebula = new nebulaMod.NebulaPlane();
         engine.registerSystem(nebula, "nebula");

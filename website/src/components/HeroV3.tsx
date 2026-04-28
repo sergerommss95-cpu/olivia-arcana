@@ -16,6 +16,12 @@ import TheWitness from "@/components/cosmos/TheWitness";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 import MagneticButton from "@/components/MagneticButton";
 import { ArrowRight } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -25,7 +31,10 @@ export default function HeroV3() {
   const [isAsking, setIsAsking] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [question, setQuestion] = useState("");
+  const [heroScroll, setHeroScroll] = useState(0);
   
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const headRef = useRef<HTMLHeadingElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,6 +50,43 @@ export default function HeroV3() {
 
   useEffect(() => {
     setMounted(true);
+
+    // Infinite Descent Timeline
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: 1,
+        onUpdate: (self) => {
+          const p = self.progress;
+          setHeroScroll(p);
+          
+          // God Mode: Drive the Nebula Singularity
+          const engine = (window as any).celestialEngine;
+          if (engine) {
+            const nebula = engine.getSystem("nebula");
+            if (nebula) {
+              // Pull stars toward the Witness (centered-right)
+              nebula.setSingularity(0.75, 0.5, p * 1.5);
+            }
+          }
+        }
+      });
+
+      // Fade content as we descend into the orb
+      gsap.to(contentRef.current, {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "50% top",
+          scrub: true,
+        },
+        opacity: 0,
+        y: -50,
+        ease: "power2.inOut"
+      });
+    }, sectionRef);
 
     const handleWitness = () => {
       if (!isAsking && !revealed) {
@@ -87,6 +133,7 @@ export default function HeroV3() {
 
   return (
     <section
+      ref={sectionRef}
       className="relative min-h-[110svh] md:min-h-screen flex flex-col md:flex-row items-center justify-center px-6 pt-24 pb-12 overflow-hidden z-10"
       aria-labelledby="hero-headline"
     >
@@ -95,7 +142,7 @@ export default function HeroV3() {
 
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Left: Editorial Copy */}
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 md:space-y-8">
+        <div ref={contentRef} className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 md:space-y-8">
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -108,7 +155,7 @@ export default function HeroV3() {
           <h1
             ref={headRef}
             id="hero-headline"
-            className="font-[family-name:var(--font-heading)] text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[0.95] text-warm-ivory"
+            className="font-[family-name:var(--font-heading)] text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[0.95] text-warm-ivory glint-text"
           >
             <span data-word className="inline-block opacity-0">Your</span>{" "}
             <span data-word className="inline-block opacity-0 italic">stars,</span><br />
@@ -169,6 +216,7 @@ export default function HeroV3() {
                 isAsking={isAsking} 
                 isProcessing={isProcessing} 
                 userInputLength={question.length} 
+                scrollProgress={heroScroll}
               />
 
               {/* Quick Intent Orbitals (Immediate Value) — positioned clearly to avoid overlap */}
@@ -314,6 +362,24 @@ export default function HeroV3() {
       </div>
 
       <style jsx>{`
+        .glint-text {
+          background: linear-gradient(
+            110deg,
+            #f5f2e1 45%,
+            rgba(212, 175, 55, 0.8) 50%,
+            #f5f2e1 55%
+          );
+          background-size: 200% 100%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: glint 8s linear infinite;
+        }
+
+        @keyframes glint {
+          0% { background-position: 100% 0; }
+          100% { background-position: -100% 0; }
+        }
+
         @keyframes spin-slow {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }

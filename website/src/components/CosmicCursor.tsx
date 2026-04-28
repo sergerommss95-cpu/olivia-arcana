@@ -78,8 +78,16 @@ export default function CosmicCursor() {
 
       // Check for interactive elements
       const el = document.elementFromPoint(e.clientX, e.clientY);
+      const isWitness = el?.closest(".witness-orb-container");
       const isInteractive = el?.closest("a, button, [role='button'], input, select, textarea, [data-cursor='interactive']");
-      stateRef.current = isInteractive ? "interactive" : "default";
+      
+      if (isWitness) {
+        stateRef.current = "reading";
+      } else if (isInteractive) {
+        stateRef.current = "interactive";
+      } else {
+        stateRef.current = "default";
+      }
     };
 
     // Magnetic pull toward interactive elements
@@ -121,22 +129,38 @@ export default function CosmicCursor() {
 
       applyMagnetic();
 
+      // Update cursor elements
       const { x, y } = posRef.current;
       const state = stateRef.current;
 
+      const eye = cursor.querySelector("svg");
+      if (eye) {
+        eye.style.opacity = state === "reading" ? "1" : "0";
+      }
+
       // Update cursor elements
-      const size = state === "interactive" ? 36 : 8;
-      const ringSize = state === "interactive" ? 38 : 24;
+      const size = state === "interactive" ? 40 : state === "reading" ? 52 : 8;
+      const ringSize = state === "interactive" ? 44 : state === "reading" ? 64 : 24;
       cursor.style.transform = `translate(${x - size / 2}px, ${y - size / 2}px)`;
       cursor.style.width = `${size}px`;
       cursor.style.height = `${size}px`;
-      cursor.style.opacity = state === "reading" ? "0" : "1";
+      cursor.style.opacity = "1";
 
       ring.style.transform = `translate(${x - ringSize / 2}px, ${y - ringSize / 2}px)`;
       ring.style.width = `${ringSize}px`;
       ring.style.height = `${ringSize}px`;
-      ring.style.opacity = state === "reading" ? "0" : "0.4";
+      ring.style.opacity = state === "reading" ? "0.8" : "0.4";
       ring.style.borderWidth = state === "interactive" ? "1px" : "1.5px";
+
+      // Focus Distortion (God Mode)
+      if (state === "reading") {
+        const pulse = Math.sin(now * 0.005) * 5;
+        ring.style.width = `${ringSize + pulse}px`;
+        ring.style.height = `${ringSize + pulse}px`;
+        ring.style.borderRadius = `${50 + Math.sin(now * 0.002) * 8}% ${50 + Math.cos(now * 0.002) * 8}%`;
+      } else {
+        ring.style.borderRadius = "50%";
+      }
 
       // Emit particles
       if (now - lastEmit.current > 30 && state !== "reading") {
@@ -224,9 +248,26 @@ export default function CosmicCursor() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          overflow: "hidden"
         }}
         aria-hidden="true"
-      />
+      >
+        <svg 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          style={{ 
+            width: "65%", height: "65%", 
+            opacity: 0,
+            transition: "opacity 0.3s"
+          }}
+        >
+          <path 
+            d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z" 
+            stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+          />
+          <circle cx="12" cy="12" r="3" fill="black" />
+        </svg>
+      </div>
 
       {/* Cursor ring */}
       <div

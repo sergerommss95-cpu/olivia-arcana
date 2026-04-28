@@ -53,9 +53,10 @@ interface WitnessProps {
   isAsking?: boolean;
   isProcessing?: boolean;
   userInputLength?: number;
+  scrollProgress?: number;
 }
 
-function InnerIntelligence({ style, isAsking, isProcessing, userInputLength = 0 }: { style: typeof ELEMENT_STYLES.None } & WitnessProps) {
+function InnerIntelligence({ style, isAsking, isProcessing, userInputLength = 0, scrollProgress = 0 }: { style: typeof ELEMENT_STYLES.None } & WitnessProps) {
   const coreRef = useRef<THREE.Group>(null);
   const seedRef = useRef<THREE.Group>(null);
   const oliveRef = useRef<THREE.Group>(null);
@@ -75,11 +76,12 @@ function InnerIntelligence({ style, isAsking, isProcessing, userInputLength = 0 
     
     const typingVibe = userInputLength * 0.01;
     const activitySpeed = isProcessing ? 4.0 : isAsking ? (1.5 + typingVibe * 2) : 0.5;
+    const scrollSpin = scrollProgress * 8.0;
 
     // 1. Seed of Life Counter-Rotation
     if (seedRef.current) {
-      seedRef.current.rotation.z = time * activitySpeed;
-      seedRef.current.rotation.y = Math.sin(time * 0.5) * 0.2;
+      seedRef.current.rotation.z = time * activitySpeed + scrollSpin;
+      seedRef.current.rotation.y = Math.sin(time * 0.5) * 0.2 + scrollSpin * 0.5;
     }
 
     // 2. Olive Sprig Breathing
@@ -158,7 +160,7 @@ function InnerIntelligence({ style, isAsking, isProcessing, userInputLength = 0 
   );
 }
 
-function OuterGlassShell({ style, isAsking, isProcessing, userInputLength = 0 }: WitnessProps & { style: typeof ELEMENT_STYLES.None }) {
+function OuterGlassShell({ style, isAsking, isProcessing, userInputLength = 0, scrollProgress = 0 }: WitnessProps & { style: typeof ELEMENT_STYLES.None }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<any>(null);
   const lastScrollY = useRef(0);
@@ -173,19 +175,22 @@ function OuterGlassShell({ style, isAsking, isProcessing, userInputLength = 0 }:
     lastScrollY.current = currentScrollY;
     
     const typingDistortion = userInputLength * 0.012;
+    const scrollImpact = scrollProgress * 2.0;
     const activityMorph = isProcessing ? 0.4 : isAsking ? (0.2 + typingDistortion) : 0.1;
     const velocityMorph = scrollVelocity.current * 0.004;
     
-    materialRef.current.distortion = style.tension + activityMorph + velocityMorph + Math.sin(time * 0.5) * 0.1;
-    materialRef.current.distortionScale = 0.5 + (Math.sin(time * 0.2) * 0.2) + typingDistortion;
-    materialRef.current.temporalDistortion = 0.3 + activityMorph;
+    materialRef.current.distortion = style.tension + activityMorph + velocityMorph + scrollImpact + Math.sin(time * 0.5) * 0.1;
+    materialRef.current.distortionScale = 0.5 + (Math.sin(time * 0.2) * 0.2) + typingDistortion + scrollImpact;
+    materialRef.current.temporalDistortion = 0.3 + activityMorph + scrollImpact * 0.5;
     
     const breath = 1.0 + Math.sin(time * 1.5) * 0.02 + (velocityMorph * 0.1);
-    const scale = isProcessing ? breath * 1.12 : isAsking ? breath * 1.05 : breath;
+    // Exponential descent scale for 'Infinite Descent'
+    const descentScale = 1.0 + Math.pow(scrollProgress, 2) * 8.0;
+    const scale = (isProcessing ? breath * 1.12 : isAsking ? breath * 1.05 : breath) * descentScale;
     meshRef.current.scale.set(scale, scale, scale);
     
-    meshRef.current.rotation.y = time * 0.1 + (scrollVelocity.current * 0.002);
-    meshRef.current.rotation.z = Math.sin(time * 0.2) * 0.05;
+    meshRef.current.rotation.y = time * 0.1 + (scrollVelocity.current * 0.002) + scrollProgress * 4.0;
+    meshRef.current.rotation.z = Math.sin(time * 0.2) * 0.05 + scrollProgress * 2.0;
   });
 
   return (
@@ -237,7 +242,7 @@ function NebulaCore({ style }: { style: any }) {
   );
 }
 
-function WitnessScene({ isAsking, isProcessing, userInputLength }: WitnessProps) {
+function WitnessScene({ isAsking, isProcessing, userInputLength, scrollProgress = 0 }: WitnessProps) {
   const { profile } = useProfile();
   const element = resolveElement(profile?.signName);
   const style = ELEMENT_STYLES[element];
@@ -247,13 +252,13 @@ function WitnessScene({ isAsking, isProcessing, userInputLength }: WitnessProps)
       {/* Remove global environment to avoid 'random photo' reflections. 
           Instead, use specific point lights to simulate website atmosphere. */}
       <pointLight position={[5, 5, 5]} intensity={0.5} color="#ffffff" />
-      <pointLight position={[-5, -5, -5]} intensity={0.2} color={style.glow} />
+      <pointLight position={[-5, -5, -5]} intensity={0.2 + scrollProgress * 0.5} color={style.glow} />
       
       <Float speed={isProcessing ? 6 : 1.5} rotationIntensity={0.2} floatIntensity={0.5}>
         <group>
-          <InnerIntelligence style={style} isAsking={isAsking} isProcessing={isProcessing} userInputLength={userInputLength} />
+          <InnerIntelligence style={style} isAsking={isAsking} isProcessing={isProcessing} userInputLength={userInputLength} scrollProgress={scrollProgress} />
           <NebulaCore style={style} />
-          <OuterGlassShell style={style} isAsking={isAsking} isProcessing={isProcessing} userInputLength={userInputLength} />
+          <OuterGlassShell style={style} isAsking={isAsking} isProcessing={isProcessing} userInputLength={userInputLength} scrollProgress={scrollProgress} />
         </group>
       </Float>
 
@@ -269,7 +274,7 @@ function WitnessScene({ isAsking, isProcessing, userInputLength }: WitnessProps)
   );
 }
 
-export default function TheWitness({ isAsking, isProcessing, userInputLength }: WitnessProps) {
+export default function TheWitness({ isAsking, isProcessing, userInputLength, scrollProgress = 0 }: WitnessProps) {
   return (
     <div className="witness-orb-container" style={{ width: "320px", height: "320px", cursor: "pointer" }}>
       <Canvas 
@@ -281,7 +286,12 @@ export default function TheWitness({ isAsking, isProcessing, userInputLength }: 
         }}
       >
         <ambientLight intensity={0.1} />
-        <WitnessScene isAsking={isAsking} isProcessing={isProcessing} userInputLength={userInputLength} />
+        <WitnessScene 
+          isAsking={isAsking} 
+          isProcessing={isProcessing} 
+          userInputLength={userInputLength} 
+          scrollProgress={scrollProgress}
+        />
       </Canvas>
 
       <style jsx>{`
