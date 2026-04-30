@@ -31,6 +31,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import FilmGrain from "@/components/FilmGrain";
 import PageTransition from "@/components/transitions/PageTransition";
 import TimeOfDayTheme from "@/components/TimeOfDayTheme";
+import Navbar from "@/components/Navbar";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import { SubscriptionProvider } from "@/hooks/useSubscription";
 
@@ -85,6 +86,7 @@ export default function ClientShell({ children }: { children: React.ReactNode })
 
           {/* Always-on: palette drift + smooth scroll + page transitions */}
           <TimeOfDayTheme />
+          <Navbar />
           <SmoothScroll />
 
           <CosmicCursor />
@@ -92,7 +94,7 @@ export default function ClientShell({ children }: { children: React.ReactNode })
           <CosmicIndicators />
           <CosmicToast />
           <InstallPrompt />
-          <FilmGrain opacity={0.03} vignetteIntensity={0.35} />
+          <FilmGrain opacity={0.02} vignetteIntensity={0.35} />
           <MobileBottomNav />
           {/* Deferred tier — only mounts once the user engages */}
           {engaged && (

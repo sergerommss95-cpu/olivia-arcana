@@ -32,6 +32,8 @@ interface SurfaceProps extends React.HTMLAttributes<HTMLDivElement> {
   pad?: "none" | "sm" | "md" | "lg";
   as?: React.ElementType;
   children?: React.ReactNode;
+  href?: any;
+  [key: string]: any;
 }
 
 const RADIUS: Record<NonNullable<SurfaceProps["radius"]>, string> = {
@@ -97,11 +99,14 @@ export function Eyebrow({
   children,
   tone = "gold",
   style,
+  as: Tag = "span",
   ...rest
 }: {
   children: React.ReactNode;
   tone?: "gold" | "violet" | "muted";
   style?: React.CSSProperties;
+  as?: React.ElementType;
+  [key: string]: any;
 } & React.HTMLAttributes<HTMLSpanElement>) {
   const toneColor =
     tone === "gold"
@@ -109,8 +114,9 @@ export function Eyebrow({
       : tone === "violet"
       ? "rgba(178, 150, 240, 0.78)"
       : "rgba(180, 170, 210, 0.55)";
+  const CustomTag = Tag as any;
   return (
-    <span
+    <CustomTag
       style={{
         display: "inline-block",
         fontFamily: "var(--font-body, system-ui), sans-serif",
@@ -124,7 +130,7 @@ export function Eyebrow({
       {...rest}
     >
       {children}
-    </span>
+    </CustomTag>
   );
 }
 

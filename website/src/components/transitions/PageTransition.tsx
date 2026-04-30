@@ -2,25 +2,16 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import TransitionOverlay from "./TransitionOverlay";
 
 interface Props {
   children: React.ReactNode;
 }
 
-/**
- * Page transition orchestrator.
- *
- * Lifecycle:
- * 1. TransitionLink dispatches 'page:transition' event
- * 2. PageTransition shows overlay (wipe in: 600ms)
- * 3. At midpoint, navigates to new URL
- * 4. New page mounts — overlay wipes out (600ms)
- * 5. Page content fades in (400ms)
- */
 export default function PageTransition({ children }: Props) {
   const pathname = usePathname() ?? "/";
+  const router = useRouter();
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [displayChildren, setDisplayChildren] = useState(children);
   const [animationKey, setAnimationKey] = useState(pathname);
@@ -36,8 +27,11 @@ export default function PageTransition({ children }: Props) {
 
       // Phase 2: Navigate after overlay covers screen
       setTimeout(() => {
-        window.location.href = href;
-      }, 600); // Match overlay animation duration
+        router.push(href);
+      }, 600);
+
+      // Safety: If navigation hasn't occurred in 2s, force close overlay
+      setTimeout(() => setOverlayVisible(false), 2000);
     };
 
     window.addEventListener("page:transition", handleTransition);

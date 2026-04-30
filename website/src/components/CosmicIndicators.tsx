@@ -11,6 +11,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { getMoonPhase } from "../lib/celestial";
 import { sunriseHour } from "../lib/sunrise";
 
@@ -47,9 +48,12 @@ function getPlanetaryHour(): { planet: string; hourNum: number } {
 }
 
 export default function CosmicIndicators() {
+  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [moonHover, setMoonHover] = useState(false);
   const [planetHover, setPlanetHover] = useState(false);
+
+  if (pathname?.startsWith("/oracle")) return null;
 
   useEffect(() => { setMounted(true); }, []);
   if (!mounted) return null;

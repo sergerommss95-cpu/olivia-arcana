@@ -21,6 +21,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MagneticButton from "@/components/MagneticButton";
+import Surface, { Eyebrow, Rule } from "@/components/design/Surface";
 
 export default function SamplePage() {
   return (

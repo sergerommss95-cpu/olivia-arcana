@@ -81,7 +81,7 @@ const STAR_POSITIONS: Array<[number, number]> = [
 const STAR_PERIODS = [4.1, 5.3, 6.7, 7.9, 9.1, 4.7, 5.9, 7.3];
 const STAR_PHASES  = [0.0, 1.2, 2.4, 3.6, 0.8, 2.0, 3.2, 4.4];
 
-function CardBack() {
+export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean } = {}) {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -360,9 +360,9 @@ function CardBack() {
   }, []);
 
   return (
-    <div ref={rootRef} className="astral-back" aria-hidden>
+    <div ref={rootRef} className="astral-back" aria-hidden style={{ transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
       {/* Canvas — ambient starfield + curl-noise smoke + cursor dust */}
-      <canvas ref={canvasRef} className="astral-canvas" />
+      <canvas ref={canvasRef} className="astral-canvas" style={{ transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', willChange: 'transform' }} />
       {/* Radial burst on mount — a single bloom, ONE event, kept. */}
       <div className="astral-burst" />
       {/* (supernova rings removed — they competed with the Wheel's slow

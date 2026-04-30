@@ -43,14 +43,22 @@ function applyDocumentLocale(next: Locale): void {
 }
 
 export function useLocale() {
-  // MARKER_V2_NEW_IMPL_USE_STATE
-  const [locale, setLocaleState] = useState<Locale>("en");
+  // Synchronous read for the client, default to "en" for the server
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    if (typeof window === "undefined") return "en";
+    return detectLocale();
+  });
 
   useEffect(() => {
+    // Sync document attributes on mount/change
+    applyDocumentLocale(locale);
+
     const syncFromStorage = () => {
       const next = detectLocale();
-      setLocaleState((prev) => (prev === next ? prev : next));
-      applyDocumentLocale(next);
+      if (next !== locale) {
+        setLocaleState(next);
+        applyDocumentLocale(next);
+      }
     };
 
     // Initial sync

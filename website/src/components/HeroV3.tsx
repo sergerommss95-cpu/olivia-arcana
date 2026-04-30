@@ -15,6 +15,7 @@ import FlipRevealCard from "@/components/shaders/FlipRevealCard";
 import TheWitness from "@/components/cosmos/TheWitness";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 import MagneticButton from "@/components/MagneticButton";
+import Surface, { Eyebrow } from "@/components/design/Surface";
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -153,25 +154,28 @@ export default function HeroV3() {
       className="relative min-h-[110svh] md:min-h-screen flex flex-col md:flex-row items-center justify-center px-6 pt-24 pb-12 overflow-hidden z-10"
       aria-labelledby="hero-headline"
     >
-      {/* Background shadow depth for contrast */}
-      <div className="absolute inset-0 bg-radial-gradient from-void-black/40 via-void-black/10 to-transparent pointer-events-none -z-10" />
-
+      {/* Editorial Scrim — Apple-grade readability engine */}
+      <div className="absolute inset-0 bg-gradient-to-r from-void-black/80 via-void-black/20 to-transparent pointer-events-none -z-10" />
+      
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Left: Editorial Copy */}
-        <div ref={contentRef} className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 md:space-y-8">
-          <motion.span
+        <div ref={contentRef} className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 md:space-y-8 relative">
+          {/* Internal scrim for mobile centered text */}
+          <div className="absolute inset-x-[-2rem] inset-y-[-2rem] bg-void-black/40 blur-3xl lg:hidden -z-10" />
+          
+          <Eyebrow
+            as={motion.span}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
-            className="font-[family-name:var(--font-body)] text-[0.7rem] md:text-xs font-medium tracking-[0.3em] uppercase text-celestial-gold/80"
           >
             {t("hero_almanac_badge")}
-          </motion.span>
+          </Eyebrow>
 
           <h1
             ref={headRef}
             id="hero-headline"
-            className="font-[family-name:var(--font-heading)] text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[0.95] text-warm-ivory glint-text"
+            className="font-[family-name:var(--font-heading)] text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[0.95] text-warm-ivory tracking-tight"
           >
             {(t("hero_title") as string).split(" ").map((word, i) => (
               <React.Fragment key={i}>
@@ -187,7 +191,7 @@ export default function HeroV3() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8, ease: EASE }}
-            className="max-w-md md:max-w-lg font-[family-name:var(--font-body)] text-base md:text-lg leading-relaxed text-muted-lavender/90 font-light"
+            className="max-w-md md:max-w-lg font-[family-name:var(--font-body)] text-base md:text-lg leading-relaxed text-warm-ivory/60 font-light"
           >
             {t("hero_subtitle")}
           </motion.p>
@@ -203,7 +207,7 @@ export default function HeroV3() {
             </MagneticButton>
             <a
               href="/sample"
-              className="text-sm font-medium text-celestial-gold/60 hover:text-celestial-gold transition-colors duration-300 tracking-wide uppercase"
+              className="text-sm font-medium text-warm-ivory/40 hover:text-warm-ivory transition-colors duration-300 tracking-widest uppercase"
             >
               {t("hero_sample_cta")} &rarr;
             </a>
@@ -250,35 +254,47 @@ export default function HeroV3() {
                   >
                     {/* Node 1: Oracle (Top Left) */}
                     <div className="absolute top-[0%] left-[-35%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); setIsAsking(true); setQuestion(t("witness_universe_prompt")); }}>
-                      <motion.div 
+                      <Surface
+                        as={motion.div}
                         whileHover={{ scale: 1.1, x: -5, y: -5 }}
-                        className="glass-card px-4 py-2 flex items-center gap-2 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl"
+                        variant="veil"
+                        radius="pill"
+                        pad="none"
+                        className="px-4 py-2 flex items-center gap-2 shadow-2xl"
                       >
                         <span className="text-celestial-gold text-xs">✦</span>
                         <span className="text-[10px] font-bold text-warm-ivory font-[family-name:var(--font-mono)] uppercase tracking-[0.25em]">{t("witness_node_consult")}</span>
-                      </motion.div>
+                      </Surface>
                     </div>
 
                     {/* Node 2: Daily (Top Right) */}
                     <div className="absolute top-[-10%] right-[-15%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); document.getElementById("daily")?.scrollIntoView({ behavior: "smooth" }); }}>
-                      <motion.div 
+                      <Surface
+                        as={motion.div}
                         whileHover={{ scale: 1.1, x: 5, y: -5 }}
-                        className="glass-card px-4 py-2 flex items-center gap-2 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl"
+                        variant="veil"
+                        radius="pill"
+                        pad="none"
+                        className="px-4 py-2 flex items-center gap-2 shadow-2xl"
                       >
                         <span className="text-celestial-gold text-xs">☉</span>
                         <span className="text-[10px] font-bold text-warm-ivory font-[family-name:var(--font-mono)] uppercase tracking-[0.25em]">{t("witness_node_daily")}</span>
-                      </motion.div>
+                      </Surface>
                     </div>
 
                     {/* Node 3: Portrait (Bottom Right) */}
                     <div className="absolute bottom-[0%] right-[-35%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); window.location.href = "/portrait"; }}>
-                      <motion.div 
+                      <Surface
+                        as={motion.div}
                         whileHover={{ scale: 1.1, x: 5, y: 5 }}
-                        className="glass-card px-4 py-2 flex items-center gap-2 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl"
+                        variant="veil"
+                        radius="pill"
+                        pad="none"
+                        className="px-4 py-2 flex items-center gap-2 shadow-2xl"
                       >
                         <span className="text-celestial-gold text-xs">✧</span>
                         <span className="text-[10px] font-bold text-warm-ivory font-[family-name:var(--font-mono)] uppercase tracking-[0.25em]">{t("witness_node_relic")}</span>
-                      </motion.div>
+                      </Surface>
                     </div>
                   </motion.div>
                 )}
@@ -321,13 +337,18 @@ export default function HeroV3() {
             <div className="relative w-full max-w-[400px]">
               <AnimatePresence mode="wait">
                 {isAsking && (
-                  <motion.form
+                  <Surface
+                    as={motion.form}
+                    variant="solid"
+                    raised
+                    radius="lg"
+                    pad="none"
                     initial={{ opacity: 0, y: 20, scale: 0.9 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.1, filter: "blur(15px)" }}
                     transition={{ duration: 0.6, ease: EASE }}
                     onSubmit={handleSubmit}
-                    className="relative p-1 flex items-center gap-3 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden ring-1 ring-white/5"
+                    className="relative p-1 flex items-center gap-3 shadow-2xl overflow-hidden ring-1 ring-white/5"
                   >
                     <input
                       ref={inputRef}
@@ -336,7 +357,7 @@ export default function HeroV3() {
                       placeholder={t("witness_input_placeholder")}
                       value={question}
                       onChange={(e) => setQuestion(e.target.value)}
-                      className="w-full bg-transparent px-5 py-4 text-warm-ivory placeholder:text-warm-ivory/20 outline-none font-[family-name:var(--font-mono)] text-sm tracking-tight"
+                      className="w-full bg-transparent px-5 py-4 text-warm-ivory placeholder:text-warm-ivory/10 outline-none font-[family-name:var(--font-mono)] text-sm tracking-tight"
                     />
                     <motion.button
                       whileHover={{ scale: 1.1, backgroundColor: "rgba(212, 175, 55, 0.2)" }}
@@ -346,7 +367,7 @@ export default function HeroV3() {
                     >
                       <ArrowRight size={18} strokeWidth={2.5} />
                     </motion.button>
-                  </motion.form>
+                  </Surface>
                 )}
 
                 {revealed && (

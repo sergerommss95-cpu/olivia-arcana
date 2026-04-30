@@ -51,11 +51,8 @@ export default function AnimatedCounter({
   const [displayValue, setDisplayValue] = useState(() => formatNumber(value, decimals, separator));
   const animatedRef = useRef(false);
   const rafRef = useRef(0);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // Viewport detection → fires the animation exactly once.
-  // IMPORTANT: If the element is already in the viewport on first paint,
-  // we SKIP the animation entirely and just show the final value. This
-  // avoids the ugly "flash from 0" on page-load hero metrics.
   useEffect(() => {
     const el = ref.current;
     if (!el || animatedRef.current) return;
@@ -66,47 +63,54 @@ export default function AnimatedCounter({
       return;
     }
 
-    // Skip animation entirely if visible on mount (hero metrics).
-    const rect = el.getBoundingClientRect();
-    const inViewportOnMount =
-      rect.bottom > 0 && rect.top < window.innerHeight;
-    if (inViewportOnMount) {
-      animatedRef.current = true;
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting || animatedRef.current) return;
+    // Small delay to allow mobile layout to settle before checking viewport
+    const timer = setTimeout(() => {
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const inViewportOnMount =
+        rect.bottom > 0 && rect.top < window.innerHeight;
+      
+      if (inViewportOnMount) {
         animatedRef.current = true;
+        return;
+      }
 
-        // Drop to 0 then animate up.
-        setDisplayValue(formatNumber(0, decimals, separator));
-        let startTime: number | null = null;
-        const animate = (timestamp: number) => {
-          if (startTime === null) startTime = timestamp;
-          const elapsed = timestamp - startTime - delay;
-          if (elapsed < 0) {
-            rafRef.current = requestAnimationFrame(animate);
-            return;
-          }
-          const progress = Math.min(elapsed / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3); // ease-out-cubic
-          const current = eased * value;
-          setDisplayValue(formatNumber(current, decimals, separator));
-          if (progress < 1) {
-            rafRef.current = requestAnimationFrame(animate);
-          } else {
-            setDisplayValue(formatNumber(value, decimals, separator));
-          }
-        };
-        rafRef.current = requestAnimationFrame(animate);
-      },
-      { threshold: 0.3 },
-    );
-    observer.observe(el);
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting || animatedRef.current) return;
+          animatedRef.current = true;
+
+          // Drop to 0 then animate up.
+          setDisplayValue(formatNumber(0, decimals, separator));
+          let startTime: number | null = null;
+          const animate = (timestamp: number) => {
+            if (startTime === null) startTime = timestamp;
+            const elapsed = timestamp - startTime - delay;
+            if (elapsed < 0) {
+              rafRef.current = requestAnimationFrame(animate);
+              return;
+            }
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out-cubic
+            const current = eased * value;
+            setDisplayValue(formatNumber(current, decimals, separator));
+            if (progress < 1) {
+              rafRef.current = requestAnimationFrame(animate);
+            } else {
+              setDisplayValue(formatNumber(value, decimals, separator));
+            }
+          };
+          rafRef.current = requestAnimationFrame(animate);
+        },
+        { threshold: 0.1 }, // Lower threshold for more reliable trigger
+      );
+      observerRef.current = observer;
+      observer.observe(el);
+    }, 100);
+
     return () => {
-      observer.disconnect();
+      clearTimeout(timer);
+      if (observerRef.current) observerRef.current.disconnect();
       cancelAnimationFrame(rafRef.current);
     };
   }, [value, duration, delay, decimals, separator]);

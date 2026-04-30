@@ -7,6 +7,7 @@ import React from "react";
 import { notFound } from "next/navigation";
 import { SIGN_PAGES, type SignPage } from "../../../lib/sign-data";
 import ShareSignButton from "../../../components/ShareSignButton";
+import Surface, { Eyebrow, Rule } from "../../../components/design/Surface";
 
 // Element decoration for the share card. Kept here (not in sign-data) so the
 // data file stays purely textual.
@@ -79,10 +80,11 @@ export async function generateMetadata({ params }: { params: Promise<{ sign: str
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div style={{ marginBottom: "2rem" }}>
+    <div style={{ marginBottom: "2.5rem" }}>
       <h2 style={{
-        fontFamily: "var(--font-heading)", fontSize: "1.2rem", fontWeight: 400,
-        color: "rgba(240,236,255,0.9)", marginBottom: "0.75rem",
+        fontFamily: "var(--font-heading)", fontStyle: "italic", fontSize: "1.45rem", fontWeight: 400,
+        color: "rgba(240,236,255,0.95)", marginBottom: "1rem",
+        letterSpacing: "-0.01em",
       }}>{title}</h2>
       {children}
     </div>
@@ -91,14 +93,18 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function TagList({ items, color = "rgba(200,185,255,0.15)" }: { items: string[]; color?: string }) {
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
       {items.map(item => (
-        <span key={item} style={{
-          padding: "0.3rem 0.75rem", borderRadius: "100px",
-          background: color, border: "1px solid rgba(200,185,255,0.1)",
-          fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 400,
-          color: "rgba(200,190,235,0.75)",
-        }}>{item}</span>
+        <Surface key={item} variant="solid" radius="pill" pad="none" style={{
+          padding: "0.4rem 0.85rem",
+          background: color,
+          borderColor: "rgba(200,185,255,0.1)",
+        }}>
+          <span style={{
+            fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 400,
+            color: "rgba(240,235,255,0.85)", letterSpacing: "0.02em",
+          }}>{item}</span>
+        </Surface>
       ))}
     </div>
   );
@@ -157,50 +163,41 @@ export default async function SignDetailPage({ params }: { params: Promise<{ sig
       </nav>
 
       {/* Editorial hero — glyph as background composition */}
-      <header style={{ position: "relative", marginBottom: "3rem", isolation: "isolate" }}>
+      <header style={{ position: "relative", marginBottom: "4rem", isolation: "isolate" }}>
         {/* Oversized glyph as background */}
         <span
           aria-hidden
           style={{
             position: "absolute",
-            top: "-30px",
-            right: "-20px",
-            fontSize: "clamp(12rem, 28vw, 22rem)",
+            top: "-40px",
+            right: "-30px",
+            fontSize: "clamp(12rem, 32vw, 26rem)",
             lineHeight: 1,
             fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-            color: "rgba(232, 201, 106, 0.08)",
+            color: "rgba(232, 201, 106, 0.06)",
             userSelect: "none",
             zIndex: -1,
             pointerEvents: "none",
-            textShadow: "0 0 50px rgba(232, 201, 106, 0.2)",
+            filter: "blur(2px)",
           }}
         >
           {data.glyph}
         </span>
 
-        <div
-          style={{
-            fontFamily: "var(--font-body, system-ui), sans-serif",
-            fontSize: "0.72rem", fontWeight: 500,
-            letterSpacing: "0.28em", textTransform: "uppercase",
-            color: "rgba(232, 201, 106, 0.78)",
-            marginBottom: "1rem",
-          }}
-        >
+        <Eyebrow tone="gold" style={{ marginBottom: "1rem" }}>
           {data.dateRange}
-        </div>
+        </Eyebrow>
 
         <h1
           style={{
             fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
             fontStyle: "italic",
-            fontSize: "clamp(3.5rem, 9vw, 7rem)",
+            fontSize: "clamp(3.5rem, 9vw, 7.5rem)",
             fontWeight: 400,
             color: "#F5F0E8",
-            letterSpacing: "-0.02em",
-            lineHeight: 0.95,
-            margin: "0 0 1.25rem",
-            textShadow: "0 2px 24px rgba(4,2,13,0.55)",
+            letterSpacing: "-0.03em",
+            lineHeight: 0.9,
+            margin: "0 0 1.5rem",
           }}
         >
           {data.name}
@@ -210,19 +207,21 @@ export default async function SignDetailPage({ params }: { params: Promise<{ sig
           style={{
             fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
             fontStyle: "italic",
-            fontSize: "clamp(1.25rem, 2vw, 1.6rem)",
+            fontSize: "clamp(1.3rem, 2.2vw, 1.7rem)",
             fontWeight: 400,
-            color: "rgba(232, 201, 106, 0.92)",
-            margin: "0 0 1.75rem",
-            maxWidth: "520px",
-            lineHeight: 1.3,
+            color: "rgba(232, 201, 106, 0.95)",
+            margin: "0 0 2rem",
+            maxWidth: "540px",
+            lineHeight: 1.35,
             position: "relative",
-            paddingLeft: "1.25rem",
-            borderLeft: "2px solid rgba(232, 201, 106, 0.45)",
+            paddingLeft: "1.5rem",
+            borderLeft: "1px solid rgba(232, 201, 106, 0.35)",
           }}
         >
           {data.motto}
         </p>
+
+        <Rule tone="gold" style={{ margin: "2rem 0", maxWidth: "540px" }} />
 
         {/* Facts as a prose-style flow, not a grid */}
         <dl
@@ -305,33 +304,35 @@ export default async function SignDetailPage({ params }: { params: Promise<{ sig
       </Section>
 
       {/* Light & Shadow */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "2rem" }}>
-        <div style={glass}>
-          <div style={{ ...label, marginBottom: "0.5rem", color: "rgba(78,205,196,0.5)" }}>Light Traits</div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem", marginBottom: "3rem" }}>
+        <Surface variant="solid" raised>
+          <Eyebrow tone="muted" style={{ marginBottom: "1rem", color: "rgba(78,205,196,0.7)" }}>Light Traits</Eyebrow>
           {data.lightTraits.map((t, i) => (
             <p key={i} style={{
-              fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 300,
-              color: "rgba(196,185,228,0.7)", lineHeight: 1.6,
-              padding: "0.2rem 0 0.2rem 0.8rem", position: "relative",
+              fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
+              color: "rgba(210,210,240,0.85)", lineHeight: 1.7,
+              padding: "0.25rem 0 0.25rem 1rem", position: "relative",
+              margin: 0,
             }}>
-              <span style={{ position: "absolute", left: 0, color: "rgba(78,205,196,0.4)", fontSize: "0.5rem", top: "0.3em" }}>▸</span>
+              <span style={{ position: "absolute", left: 0, color: "rgba(78,205,196,0.6)", fontSize: "0.55rem", top: "0.3em" }}>✦</span>
               {t}
             </p>
           ))}
-        </div>
-        <div style={glass}>
-          <div style={{ ...label, marginBottom: "0.5rem", color: "rgba(232,82,74,0.5)" }}>Shadow Traits</div>
+        </Surface>
+        <Surface variant="solid" raised>
+          <Eyebrow tone="muted" style={{ marginBottom: "1rem", color: "rgba(232,82,74,0.7)" }}>Shadow Traits</Eyebrow>
           {data.shadowTraits.map((t, i) => (
             <p key={i} style={{
-              fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 300,
-              color: "rgba(196,185,228,0.7)", lineHeight: 1.6,
-              padding: "0.2rem 0 0.2rem 0.8rem", position: "relative",
+              fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
+              color: "rgba(210,210,240,0.8)", lineHeight: 1.7,
+              padding: "0.25rem 0 0.25rem 1rem", position: "relative",
+              margin: 0,
             }}>
-              <span style={{ position: "absolute", left: 0, color: "rgba(232,82,74,0.4)", fontSize: "0.5rem", top: "0.3em" }}>▸</span>
+              <span style={{ position: "absolute", left: 0, color: "rgba(232,82,74,0.5)", fontSize: "0.55rem", top: "0.3em" }}>✦</span>
               {t}
             </p>
           ))}
-        </div>
+        </Surface>
       </div>
 
       <Section title="Best Careers">

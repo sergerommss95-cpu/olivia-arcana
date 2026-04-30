@@ -1,0 +1,747 @@
+"use client";
+
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import Image from "next/image";
+import { 
+  LazyMotion, 
+  domAnimation, 
+  m, 
+  useMotionValue, 
+  useSpring, 
+  useTransform, 
+  AnimatePresence, 
+  useReducedMotion,
+  useTime,
+  type MotionValue
+} from "framer-motion";
+import { useRouter, useSearchParams } from "next/navigation";
+import { CardBack } from "@/components/shaders/FlipRevealCard";
+import AstralBackground from "./AstralBackground";
+import { ALL_CARDS } from "@/lib/academy/tarot-cards";
+import { getCardPortalImagePath } from "@/lib/academy/card-images";
+
+// ── AUDIO ENGINE (Web Audio API) — Pure Harmony Edition ──
+class AstralAudio {
+  ctx: AudioContext | null = null;
+  isMuted = true; // Muted by default to respect user's "awful" feedback
+
+  init() {
+    if (!this.ctx) {
+      this.ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+  }
+
+  toggleMute() {
+    this.isMuted = !this.isMuted;
+    return this.isMuted;
+  }
+
+  playHover() {
+    if (!this.ctx || this.isMuted) return;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    
+    // Low-volume harmonic sine
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(660, this.ctx.currentTime); 
+    
+    gain.gain.setValueAtTime(0, this.ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.015, this.ctx.currentTime + 0.1);
+    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.6);
+    
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start();
+    osc.stop(this.ctx.currentTime + 0.6);
+  }
+
+  playSelect() {
+    if (!this.ctx || this.isMuted) return;
+    const osc = this.ctx.createOscillator();
+    const osc2 = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    
+    // Dual harmonic sine (Gong/Bowl style, very soft)
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(440, this.ctx.currentTime);
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(659.25, this.ctx.currentTime); // Perfect fifth
+    
+    gain.gain.setValueAtTime(0, this.ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.04, this.ctx.currentTime + 0.2);
+    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 2.5);
+    
+    osc.connect(gain);
+    osc2.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start();
+    osc2.start();
+    osc.stop(this.ctx.currentTime + 2.5);
+    osc2.stop(this.ctx.currentTime + 2.5);
+  }
+
+  playReveal() {
+    if (!this.ctx || this.isMuted) return;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(110, this.ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(55, this.ctx.currentTime + 1.0);
+    
+    gain.gain.setValueAtTime(0, this.ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.06, this.ctx.currentTime + 0.5);
+    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 4.0);
+    
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start();
+    osc.stop(this.ctx.currentTime + 4.0);
+  }
+}
+const audio = new AstralAudio();
+
+// ── DATA ──
+// Use a deterministic subset of cards to prevent hydration mismatches.
+const ORACLE_DATA = ALL_CARDS.slice(0, 24);
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return isMobile;
+}
+
+type MachineState = "idle" | "drawing" | "spread" | "result";
+
+export default function FramerTarotOracle() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  
+  const [state, setState] = useState<MachineState>("idle");
+  const [selectedCards, setSelectedCards] = useState<number[]>([]);
+  const [isMuted, setIsMuted] = useState(true);
+  const isMobile = useIsMobile();
+
+  const toggleMute = useCallback(() => {
+    const muted = audio.toggleMute();
+    setIsMuted(muted);
+  }, []);
+
+  // Motion value for hover tracking (bypasses React re-renders)
+  const hoveredIndexMV = useMotionValue<number>(-1);
+
+  // Sync with URL safely
+  useEffect(() => {
+    const drawParam = searchParams.get("draw");
+    if (drawParam) {
+      const indices = drawParam.split(",").map(Number).filter(n => !isNaN(n) && n < 24);
+      if (indices.length === 3) {
+        setSelectedCards(indices);
+        setState("result"); 
+      }
+    }
+  }, [searchParams]);
+
+  const updateUrl = useCallback((cards: number[]) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (cards.length > 0) {
+      params.set("draw", cards.join(","));
+    } else {
+      params.delete("draw");
+    }
+    router.replace(`?${params.toString()}`, { scroll: false });
+  }, [router, searchParams]);
+
+  const handleCardClick = useCallback((id: number) => {
+    if (state !== "drawing") return;
+    setSelectedCards(prev => {
+      if (prev.includes(id)) return prev.filter(c => c !== id);
+      if (prev.length < 3) {
+        const newSelected = [...prev, id];
+        if (newSelected.length === 3) {
+          setTimeout(() => {
+            setState("spread");
+            updateUrl(newSelected);
+          }, 600);
+        }
+        return newSelected;
+      }
+      return prev;
+    });
+  }, [state, updateUrl]);
+
+  const reset = useCallback(() => {
+    setState("idle");
+    setSelectedCards([]);
+    updateUrl([]);
+    hoveredIndexMV.set(-1);
+  }, [updateUrl, hoveredIndexMV]);
+
+  const reveal = useCallback(() => {
+    audio.playReveal();
+    setState("result");
+  }, []);
+
+  return (
+    <LazyMotion features={domAnimation}>
+      <div className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center bg-[#020104] perspective-[2000px]">
+
+        {/* ── CINEMATIC AMBIENCE (Hybrid God Mode) ── */}
+        <AstralBackground />
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(30,15,60,0.2)_0%,_transparent_70%)] pointer-events-none" />
+        <div className="absolute inset-0 z-0 bg-[url('/grain.png')] opacity-[0.03] pointer-events-none" />
+
+        {/* SVG Refraction Filter (Lite God Mode) */}
+        <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+          <filter id="glass-refraction">
+            <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </svg>
+
+        {/* ── TOP NAV ── */}
+        <div className="absolute top-0 inset-x-0 z-50 pt-[7.5rem] pb-8 px-8 flex justify-between items-start pointer-events-none">
+           <div className="pointer-events-auto flex flex-col gap-4">
+              {state !== "idle" && (
+                 <button 
+                   onClick={reset}
+                   className="text-[10px] tracking-[0.3em] uppercase text-white/30 hover:text-[#d4af37] transition-all duration-500 hover:tracking-[0.4em]"
+                 >
+                   &larr; Collapse Time
+                 </button>
+              )}
+              <button 
+                onClick={toggleMute}
+                className="text-[10px] tracking-[0.3em] uppercase text-white/20 hover:text-white/60 transition-all text-left"
+              >
+                {isMuted ? "Audio: Off" : "Audio: On"}
+              </button>
+           </div>
+           <div className="text-right pointer-events-none">
+              <h2 className="font-serif text-2xl text-[#f5f0e8] opacity-60">The Oracle</h2>
+              <div className="h-px w-8 bg-[#d4af37]/30 ml-auto mt-2 mb-1" />
+              <p className="text-[9px] tracking-[0.4em] uppercase text-[#d4af37]/50">Synastry Engine</p>
+           </div>
+        </div>
+
+        {/* ── PROMPT TYPOGRAPHY ── */}
+        <AnimatePresence mode="wait">
+          {state === "idle" && (
+            <m.div 
+              key="idle"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 1.05 }}
+              transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute z-40 flex flex-col items-center mt-[-25vh] pointer-events-none"
+            >
+              <h1 className="font-serif text-6xl md:text-8xl text-transparent bg-clip-text bg-gradient-to-b from-[#f5f0e8] to-[#888] mb-8 font-light tracking-tight">
+                Draw the <span className="italic text-[#d4af37]">Threads</span>
+              </h1>
+              <button 
+                onClick={() => { audio.init(); setState("drawing"); }}
+                className="pointer-events-auto group relative px-10 py-5 rounded-full overflow-hidden border border-[#d4af37]/20 bg-black/60 backdrop-blur-md transition-all duration-500 hover:border-[#d4af37]/60"
+              >
+                <span className="relative z-10 text-xs tracking-[0.3em] uppercase text-[#d4af37] group-hover:text-white transition-colors duration-500">
+                  Awaken the Deck
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#d4af37]/10 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+              </button>
+            </m.div>
+          )}
+
+          {state === "drawing" && (
+            <m.div 
+              key="drawing"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="absolute top-[18%] z-40 text-center pointer-events-none"
+            >
+              <p className="text-[10px] tracking-[0.5em] uppercase text-white/40">
+                Draw {3 - selectedCards.length} more resonance{3 - selectedCards.length !== 1 ? 's' : ''}
+              </p>
+              <div className="flex justify-center gap-2 mt-4">
+                {[0, 1, 2].map(i => (
+                  <div key={i} className={`w-1 h-1 rounded-full transition-all duration-500 ${i < selectedCards.length ? 'bg-[#d4af37] shadow-[0_0_10px_#d4af37] scale-150' : 'bg-white/20'}`} />
+                ))}
+              </div>
+            </m.div>
+          )}
+
+          {state === "spread" && (
+            <m.div 
+              key="spread"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute bottom-[20%] z-40 text-center"
+            >
+              <button 
+                onClick={() => { audio.playReveal(); reveal(); }}
+                className="px-12 py-5 bg-gradient-to-b from-[#f5f0e8] to-[#d4af37] text-black text-[10px] font-bold tracking-[0.4em] uppercase rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_10px_30px_rgba(212,175,55,0.3)]"
+              >
+                Reveal Truth
+              </button>
+            </m.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── THE ORACLE DECK ENGINE ── */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="relative w-0 h-0 pointer-events-auto [transform-style:preserve-3d]">
+            {ORACLE_DATA.map((card, i) => (
+              <GodModeCard 
+                key={card.name}
+                card={card}
+                index={i}
+                total={ORACLE_DATA.length}
+                machineState={state}
+                selectedCards={selectedCards}
+                hoveredIndexMV={hoveredIndexMV}
+                isMobile={isMobile}
+                onClick={() => handleCardClick(i)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* ── RESULT TYPOGRAPHY ── */}
+        <AnimatePresence>
+          {state === "result" && (
+            <m.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2.0, duration: 1.0 }}
+              className="absolute bottom-0 inset-x-0 h-[40vh] bg-gradient-to-t from-black via-[#030208]/90 to-transparent z-40 flex items-end justify-center pb-16 pointer-events-none"
+            >
+               <div className="flex gap-4 md:gap-24 pointer-events-auto text-center px-4">
+                  {selectedCards.map((id, idx) => {
+                    const card = ORACLE_DATA[id];
+                    const label = idx === 0 ? "The Past" : idx === 1 ? "The Present" : "The Path";
+                    return (
+                      <div key={id} className="flex flex-col items-center w-[110px] md:w-[180px]">
+                        <span className="text-[8px] md:text-[9px] tracking-[0.3em] uppercase text-[#d4af37] mb-3 opacity-80">{label}</span>
+                        <div className="h-px w-8 md:w-12 bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent mb-3" />
+                        <h3 className="font-serif text-base md:text-2xl text-white mb-1 leading-tight">{card?.name}</h3>
+                        <p className="text-[8px] md:text-[10px] tracking-widest text-white/40 uppercase">{card?.arcana} Arcana</p>
+                      </div>
+                    );
+                  })}
+               </div>
+            </m.div>
+          )}
+        </AnimatePresence>
+
+        {/* Global CSS for CardBack injection and specific performance properties */}
+        <style>{`
+          .astral-back { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; --px: 0; --py: 0; --hover: 0; }
+          .astral-back.is-hovered { --hover: 1; }
+          .astral-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; mix-blend-mode: screen; opacity: 0.88; }
+          
+          /* Glass Edge Lighting */
+          .glass-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: conic-gradient(from var(--angle, 0deg) at 50% 50%, transparent, rgba(212, 175, 55, 0.4), transparent);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+          }
+          .glass-card:hover::before { opacity: 1; }
+
+          .astral-burst { position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit; background: radial-gradient(circle at 50% 50%, rgba(255, 230, 150, 0.7) 0%, rgba(232, 201, 106, 0.35) 22%, rgba(140, 90, 210, 0.18) 48%, rgba(40, 20, 80, 0) 78%); opacity: 0; mix-blend-mode: screen; animation: al-burst 2.8s cubic-bezier(0.16, 1, 0.3, 1) 0.22s forwards; }
+          @keyframes al-burst { 0% { opacity: 0; transform: scale(0.22); filter: blur(6px); } 18% { opacity: 0.95; transform: scale(0.7); filter: blur(0); } 55% { opacity: 0.35; transform: scale(1.15); } 100% { opacity: 0; transform: scale(1.6); filter: blur(3px); } }
+          .astral-svg { display: block; width: 100%; height: 100%; position: relative; z-index: 2; }
+          .astral-svg .al-bg, .astral-svg .al-mid, .astral-svg .al-fore { transform-origin: 180px 270px; transform-box: fill-box; transition: transform 420ms cubic-bezier(0.16,1,0.3,1); will-change: transform; }
+          .astral-svg .al-bg { transform: translate(calc(var(--px) * -3px), calc(var(--py) * -3px)); }
+          .astral-svg .al-mid { transform: translate(calc(var(--px) * 4px), calc(var(--py) * 4px)); }
+          .astral-svg .al-fore { transform: translate(calc(var(--px) * 8px), calc(var(--py) * 8px)); }
+          .astral-svg .al-wheel { transform-origin: 180px 270px; transform-box: view-box; animation: al-rot 180s linear infinite; }
+          .astral-back.is-hovered .astral-svg .al-wheel { animation-duration: 110s; }
+          .astral-svg .al-seed { transform-origin: 180px 270px; transform-box: view-box; animation: al-rot 90s linear infinite reverse; }
+          .astral-back.is-hovered .astral-svg .al-seed { animation-duration: 55s; }
+          .astral-svg .al-seed > circle:nth-child(1) { animation: al-seed-pulse 6.7s ease-in-out infinite -0.8s; }
+          .astral-svg .al-seed > circle:nth-child(2) { animation: al-seed-pulse 5.9s ease-in-out infinite -2.1s; }
+          .astral-svg .al-seed > circle:nth-child(3) { animation: al-seed-pulse 8.3s ease-in-out infinite -3.6s; }
+          .astral-svg .al-seed > circle:nth-child(4) { animation: al-seed-pulse 7.1s ease-in-out infinite -5.2s; }
+          .astral-svg .al-seed > circle:nth-child(5) { animation: al-seed-pulse 9.7s ease-in-out infinite -6.8s; }
+          .astral-svg .al-seed > circle:nth-child(6) { animation: al-seed-pulse 11.3s ease-in-out infinite -4.1s; }
+          .astral-svg .al-seed > circle:nth-child(7) { animation: al-seed-pulse 13.1s ease-in-out infinite -1.7s; }
+          @keyframes al-seed-pulse { 0%, 100% { stroke-opacity: 0.55; } 50% { stroke-opacity: 0.95; } }
+          .astral-svg .al-olive { transform-origin: center; transform-box: fill-box; animation: al-olive-breath 7s cubic-bezier(0.42, 0, 0.58, 1) infinite; filter: drop-shadow(0 0 3px rgba(255, 230, 150, 0.55)); }
+          @keyframes al-olive-breath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+          .astral-back.is-hovered .astral-svg .al-olive { animation-duration: 4.5s; }
+          @keyframes al-rot { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+          @property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+          .astral-foil { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: conic-gradient(from var(--angle, 0deg) at 52% 48%, transparent 0deg, rgba(232,201,106,0.08) 42deg, transparent 92deg, rgba(180,145,230,0.09) 144deg, transparent 196deg, rgba(120,220,220,0.07) 248deg, transparent 298deg, rgba(232,201,106,0.08) 344deg, transparent 360deg); mix-blend-mode: screen; opacity: 0.18; animation: al-foil 32s linear infinite; z-index: 4; }
+          .astral-back.is-hovered .astral-foil { animation-duration: 22s; opacity: 0.35; }
+          @keyframes al-foil { from { --angle: 0deg; } to { --angle: 360deg; } }
+          .astral-vignette { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(ellipse at 52% 42%, transparent 55%, rgba(5, 3, 20, 0.26) 100%); mix-blend-mode: multiply; z-index: 5; }
+          .front-nebula { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 38%, #221348 0%, #170d38 32%, #0c0720 58%, #04030c 100%); z-index: 0; }
+          .pause-animations * { animation-play-state: paused !important; transition: none !important; }
+
+          /* Glass Refraction (God Mode Lite) */
+          .is-flipping { filter: url(#glass-refraction); }
+        `}</style>
+      </div>
+    </LazyMotion>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ⚡ HIGH-PERFORMANCE CARD: Memoized, Transform-Only, GPU Accelerated
+// ─────────────────────────────────────────────────────────────────────────────
+
+const GodModeCard = React.memo(function GodModeCard({ 
+  card, 
+  index, 
+  total, 
+  machineState, 
+  selectedCards, 
+  hoveredIndexMV,
+  isMobile,
+  onClick
+}: {
+  card: typeof ORACLE_DATA[0],
+  index: number,
+  total: number,
+  machineState: MachineState,
+  selectedCards: number[],
+  hoveredIndexMV: MotionValue<number>,
+  isMobile: boolean,
+  onClick: () => void
+}) {
+  const isReducedMotion = useReducedMotion();
+  const cardId = index; // Use index as ID
+  
+  const isSelected = selectedCards.includes(cardId);
+  const selectionIndex = selectedCards.indexOf(cardId);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  
+  // Local state for the canvas - avoids parent re-rendering
+  const [isHovered, setIsHovered] = useState(false);
+
+  const cardWidth = isMobile ? 120 : 140; 
+  const cardHeight = isMobile ? 210 : 245;
+
+  // ── ARC MATHEMATICS (Computed once) ──
+  const { baseArcX, baseArcY, baseArcRotateZ } = useMemo(() => {
+    const arcRadius = isMobile ? 700 : 1000; 
+    const span = Math.PI * (isMobile ? 0.35 : 0.45); 
+    const angle = -span / 2 + (span / (total - 1)) * index;
+    return {
+      baseArcX: Math.sin(angle) * arcRadius,
+      baseArcY: (1 - Math.cos(angle)) * arcRadius * (isMobile ? 0.9 : 1.1) + 80,
+      baseArcRotateZ: angle * (180 / Math.PI)
+    };
+  }, [index, total, isMobile]);
+
+  // ── REACTIVE DOCK PHYSICS (Pure MotionValues, NO re-renders) ──
+  const dockOffsetX = useTransform(hoveredIndexMV, (h) => {
+    if (h === -1 || isSelected || machineState !== "drawing") return 0;
+    const dist = index - h;
+    if (dist === 0) return 0;
+    const pushFactor = 1 / (Math.abs(dist) + 0.5);
+    return Math.sign(dist) * pushFactor * 50;
+  });
+
+  const dockOffsetY = useTransform(hoveredIndexMV, (h) => {
+    if (h === -1 || isSelected || machineState !== "drawing") return 0;
+    const dist = index - h;
+    if (dist === 0) return -60; // Hovered card pulls up
+    return Math.abs(dist) * 10; // Others push down
+  });
+
+  const dockOffsetZ = useTransform(hoveredIndexMV, (h) => {
+    if (h === -1 || isSelected || machineState !== "drawing") return 0;
+    const dist = index - h;
+    if (dist === 0) return 150; // Pop hovered card out
+    // Create a smooth convex curve out of the screen for neighbors to avoid 3D clipping
+    const pushFactor = 1 / (Math.abs(dist) + 0.5);
+    return pushFactor * 60; 
+  });
+
+  const dockRotateZ = useTransform(hoveredIndexMV, (h) => {
+    if (h === -1 || isSelected || machineState !== "drawing") return 0;
+    const dist = index - h;
+    if (dist === 0) return -baseArcRotateZ; // Hovered card straightens
+    return Math.sign(dist) * (1 / (Math.abs(dist) + 0.5)) * 4;
+  });
+
+  const dockScale = useTransform(hoveredIndexMV, (h) => {
+    if (isSelected || machineState !== "drawing") return 1; // overridden by layout target
+    if (h === index) return 1.2;
+    return 1;
+  });
+
+  const dockZIndex = useTransform(hoveredIndexMV, (h) => {
+    if (isSelected) return 100 + selectionIndex;
+    if (h === index) return 50;
+    return index;
+  });
+
+  // ── CALCULATE TARGET LAYOUT STATE ──
+  let targetX = 0;
+  let targetY = 0;
+  let targetZ = 0;
+  let targetRotateZ = 0;
+  let targetRotateY = 0; 
+  let targetScale = 1;
+  let targetOpacity = 1;
+
+  if (machineState === "idle") {
+    targetX = 0;
+    targetY = 0;
+    targetZ = index * -1; 
+    targetRotateZ = 0;
+    targetScale = 0.8;
+    targetOpacity = 0; 
+  } 
+  else if (machineState === "drawing") {
+    targetX = baseArcX;
+    targetY = baseArcY;
+    targetRotateZ = baseArcRotateZ;
+    targetScale = 1;
+    targetOpacity = 1;
+
+    if (isSelected) {
+      // Fixed overlapping: cards move to selection zone with proper spacing
+      // We use a larger multiplier (100-140) to ensure they don't clip.
+      const spacing = isMobile ? 80 : 150; 
+      const meltOffset = (selectionIndex - 1) * spacing;
+      targetX = meltOffset; 
+      targetY -= 280;
+      targetZ = 300 + selectionIndex * 10;
+      targetRotateZ = (selectionIndex - 1) * 5;
+      targetScale = 1.1;
+    }
+  } 
+  else if (machineState === "spread" || machineState === "result") {
+    if (isSelected) {
+      // The Triad Formation: Ensure spacing is > cardWidth
+      const spacing = isMobile ? 130 : 210;
+      const offset = (selectionIndex - 1) * spacing;
+      targetX = offset;
+      targetY = -80;
+      targetZ = 200;
+      targetRotateZ = (selectionIndex - 1) * 2; 
+      targetScale = isMobile ? 1.0 : 1.25;
+
+      if (machineState === "result") {
+        targetRotateY = 180; 
+        targetScale = isMobile ? 1.1 : 1.35;
+        targetY = -100;
+      }
+    } else {
+      targetX = baseArcX * 1.5;
+      targetY = 1200; 
+      targetRotateZ = baseArcRotateZ * 2;
+      targetOpacity = 0;
+    }
+  }
+
+  // ── MERGE DOCK PHYSICS WITH LAYOUT TARGETS ──
+  // Layout targets are animated via `animate` prop (React state).
+  // Dock offsets are added directly in the `style` prop via `useTransform` composition.
+  
+  // Cinematic "Time Dilation" configs
+  const uiConfig = { stiffness: 80, damping: 16, mass: 1.2 };
+  const revealConfig = { stiffness: 40, damping: 24, mass: 3 }; // Heavy, cinematic slow-mo
+  const activeConfig = machineState === "result" ? revealConfig : uiConfig;
+
+  const layoutX = useSpring(targetX, activeConfig);
+  const layoutY = useSpring(targetY, activeConfig);
+  const layoutZ = useSpring(targetZ, activeConfig);
+  const layoutRotateZ = useSpring(targetRotateZ, activeConfig);
+
+  useEffect(() => { layoutX.set(targetX); }, [targetX, layoutX]);
+  useEffect(() => { layoutY.set(targetY); }, [targetY, layoutY]);
+  useEffect(() => { layoutZ.set(targetZ); }, [targetZ, layoutZ]);
+  useEffect(() => { layoutRotateZ.set(targetRotateZ); }, [targetRotateZ, layoutRotateZ]);
+
+  const time = useTime();
+  const waveY = useTransform(time, (t) => {
+    if (machineState !== "drawing" || isSelected || isReducedMotion) return 0;
+    return Math.sin(t / 1000 + index * 0.4) * 8; // Subtle breathing wave
+  });
+
+  const finalX = useTransform([layoutX, dockOffsetX], ([l, d]) => Number(l) + Number(d));
+  const finalY = useTransform([layoutY, dockOffsetY, waveY], ([l, d, w]) => Number(l) + Number(d) + Number(w));
+  const finalZ = useTransform([layoutZ, dockOffsetZ], ([l, d]) => Number(l) + Number(d));
+  const finalRotateZ = useTransform([layoutRotateZ, dockRotateZ], ([l, d]) => Number(l) + Number(d));
+
+  // ── APPLE TV LOCAL PHYSICS (Only on desktop/hover) ──
+  const localX = useMotionValue(cardWidth / 2);
+  const localY = useMotionValue(cardHeight / 2);
+  
+  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
+  const smoothX = useSpring(localX, springConfig);
+  const smoothY = useSpring(localY, springConfig);
+
+  const rotateX = useTransform(smoothY, [0, cardHeight], [15, -15]);
+  const rotateY = useTransform(smoothX, [0, cardWidth], [-15, 15]);
+
+  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isHovered && !isSelected) return;
+    if (isReducedMotion || isMobile) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    localX.set(e.clientX - rect.left);
+    localY.set(e.clientY - rect.top);
+  }, [isHovered, isSelected, isReducedMotion, localX, localY, isMobile]);
+
+  const handlePointerEnter = useCallback(() => {
+    if (machineState === "drawing" && !isSelected) {
+      hoveredIndexMV.set(index);
+      audio.playHover();
+    }
+    setIsHovered(true);
+  }, [machineState, isSelected, hoveredIndexMV, index]);
+
+  const handlePointerLeave = useCallback(() => {
+    if (hoveredIndexMV.get() === index) {
+      hoveredIndexMV.set(-1);
+    }
+    setIsHovered(false);
+    localX.set(cardWidth / 2);
+    localY.set(cardHeight / 2);
+  }, [hoveredIndexMV, index, localX, localY, cardWidth, cardHeight]);
+
+  const handleInteraction = () => {
+    audio.init();
+    if (machineState === "drawing" && !isSelected && selectedCards.length < 3) {
+      audio.playSelect();
+    }
+    onClick();
+  };
+
+  // ── THE REVEAL EDGE GLARE ──
+  const motionRotateY = useSpring(0, activeConfig);
+  useEffect(() => { motionRotateY.set(targetRotateY); }, [targetRotateY, motionRotateY]);
+
+  const edgeGlareOpacity = useTransform(motionRotateY, [0, 80, 90, 100, 180], [0, 0, 1, 0, 0]);
+
+  // Disable canvas for off-screen/unhovered cards to save 1000x battery/CPU
+  const disableCanvas = useTransform(hoveredIndexMV, (h) => {
+     if (machineState !== 'drawing' && machineState !== 'idle') return true;
+     return h !== index && !isSelected;
+  });
+  
+  // React state sync for canvas (Canvas needs boolean, not MotionValue)
+  const [canvasDisabled, setCanvasDisabled] = useState(true);
+  useEffect(() => {
+    return disableCanvas.on("change", (latest) => setCanvasDisabled(latest));
+  }, [disableCanvas]);
+
+  const staggerDelay = machineState === "drawing" && !isSelected ? 0.2 + index * 0.03 : 0;
+
+  const edgeAngle = useTransform(time, (t) => `${(t / 20) % 360}deg`);
+
+  return (
+    <m.div
+      onPointerEnter={handlePointerEnter}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      onClick={handleInteraction}
+      className={`absolute top-1/2 left-1/2 cursor-pointer flr-scene glass-card ${isSelected ? "is-flipping" : ""}`}
+      style={{
+        width: cardWidth,
+        height: cardHeight,
+        marginLeft: -cardWidth / 2,
+        marginTop: -cardHeight / 2,
+        zIndex: dockZIndex,
+        x: finalX,
+        y: finalY,
+        z: finalZ,
+        rotateZ: finalRotateZ,
+        rotateX: (isHovered || (isSelected && machineState !== 'drawing')) ? rotateX : 0,
+        rotateY: motionRotateY,
+        scale: isSelected || machineState !== "drawing" ? targetScale : dockScale,
+        transformStyle: "preserve-3d",
+        WebkitTransformStyle: "preserve-3d",
+        backfaceVisibility: "hidden",
+        WebkitBackfaceVisibility: "hidden",
+        willChange: "transform, opacity",
+        //@ts-ignore
+        "--angle": edgeAngle
+      }}
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: targetOpacity }}
+      transition={
+        isReducedMotion 
+          ? { duration: 0.1 } 
+          : { duration: 0.4, delay: staggerDelay }
+      }
+    >
+      <div className="relative w-full h-full rounded-[14px] shadow-[0_20px_40px_rgba(0,0,0,0.6)]" style={{ transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
+        
+        {/* EDGE GLARE */}
+        <m.div 
+          className="absolute inset-y-0 left-1/2 w-[2px] bg-white -ml-[1px] shadow-[0_0_20px_#fff] z-50 pointer-events-none"
+          style={{ opacity: edgeGlareOpacity }}
+        />
+
+        {/* BACK: EXACT 100% MATCH TO FLIP_REVEAL_CARD */}
+        <div className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] border border-[#d4af37]/30 bg-[#0b0822] will-change-transform" style={{ transform: 'translateZ(0.1px)', transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
+          <CardBack disableCanvas={canvasDisabled} />
+        </div>
+
+        {/* FRONT: LAZY LOADED ACTUAL IMAGES */}
+        <div 
+          className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] border border-[#d4af37]/50 bg-[#04030c] will-change-transform"
+          style={{ transform: 'rotateY(180deg) translateZ(0.1px)', transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+        >
+           <div className="front-nebula" />
+           <div className="astral-foil" />
+           
+           {/* Only load the image when it's selected (about to flip) or flipped to save massive network requests */}
+           {(isSelected || machineState === "result") && (
+             <div className="relative w-full h-full">
+               <Image
+                 src={getCardPortalImagePath(card)}
+                 alt={card.name}
+                 fill
+                 quality={100}
+                 sizes={isMobile ? "180px" : "240px"}
+                 loading={isSelected || machineState === "result" ? "eager" : "lazy"}
+                 className={`absolute inset-0 w-full h-full object-cover z-[2] transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                 onLoadingComplete={() => setImageLoaded(true)}
+                 style={{
+                   filter: "drop-shadow(0 0 6px rgba(232, 201, 106, 0.18))",
+                   imageRendering: "auto",
+                   transform: "translateZ(0)",
+                   backfaceVisibility: "hidden",
+                   WebkitBackfaceVisibility: "hidden",
+                   transformStyle: "preserve-3d",
+                   WebkitTransformStyle: "preserve-3d"
+                 }}
+               />
+             </div>
+           )}
+           
+           <div className="astral-vignette" />
+           
+           {/* Fallback typography while image loads or if it fails */}
+           <div className="absolute inset-3 border-[0.5px] border-[#d4af37]/40 rounded-lg flex flex-col items-center justify-between py-4 px-2 z-[1] opacity-50">
+              <div className="text-[#d4af37] text-[6px] tracking-[0.4em] uppercase text-center">{card.arcana} Arcana</div>
+              <div className="text-center">
+                <div className="text-[#f5f0e8] font-serif text-sm leading-tight tracking-wide">{card.name}</div>
+              </div>
+           </div>
+        </div>
+      </div>
+    </m.div>
+  );
+});

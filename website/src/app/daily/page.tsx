@@ -14,6 +14,7 @@ import { getTodayHoroscope } from "../../lib/zodiac-utils";
 import { LIFE_AREAS } from "../../lib/planet-interpretations";
 import ZodiacWheel, { type WheelSign } from "../../components/daily/ZodiacWheel";
 import WhisperText from "../../components/WhisperText";
+import Surface, { Eyebrow, Rule } from "../../components/design/Surface";
 import { textWordSpacing } from "../../lib/micro-typography";
 import { loadUser } from "../../lib/user-store";
 import { useLocale } from "../../lib/i18n/useLocale";
@@ -141,9 +142,8 @@ export default function DailyPage() {
       {/* ── Editorial hero ── */}
       <div style={{
         maxWidth: "900px", margin: "0 auto",
-        padding: "calc(var(--nav-height, 5rem) + 2rem) clamp(1.25rem, 4vw, 2rem) 1.5rem",
+        padding: "calc(var(--nav-height, 5rem) + 2.5rem) clamp(1.25rem, 4vw, 2rem) 1.5rem",
         position: "relative", zIndex: 1,
-        scrollMarginTop: "var(--nav-height, 5rem)",
       }}>
         <Link href="/" style={{
           fontFamily: "var(--font-body, system-ui), sans-serif",
@@ -156,31 +156,27 @@ export default function DailyPage() {
           display: "flex", alignItems: "center", gap: "0.9rem", flexWrap: "wrap",
           marginTop: "1.5rem",
         }}>
-          <div style={{
-            fontFamily: "var(--font-body, system-ui), sans-serif",
-            fontSize: "0.72rem", fontWeight: 500,
-            letterSpacing: "0.28em", textTransform: "uppercase",
-            color: "rgba(232, 201, 106, 0.78)",
-          }}>
-            ✦ Today&apos;s almanac
-          </div>
+          <Eyebrow tone="gold">✦ Today&apos;s almanac</Eyebrow>
           {streak && streak.count > 1 && (
-            <span
-              aria-label={`You're on a ${streak.count}-day ritual streak`}
-              style={{
-                display: "inline-flex", alignItems: "center", gap: "0.35rem",
-                padding: "0.3rem 0.7rem", borderRadius: "100px",
-                background: "rgba(232, 113, 48, 0.14)",
-                border: "1px solid rgba(232, 113, 48, 0.35)",
-                fontFamily: "var(--font-body, system-ui), sans-serif",
-                fontSize: "0.7rem", fontWeight: 600,
-                letterSpacing: "0.1em",
-                color: "rgba(255, 190, 130, 0.95)",
-              }}
-            >
-              <span aria-hidden style={{ fontSize: "0.8rem" }}>🔥</span>
-              {streak.count}-day ritual
-            </span>
+            <Surface variant="solid" radius="pill" pad="none" style={{
+              background: "rgba(232, 113, 48, 0.1)",
+              borderColor: "rgba(232, 113, 48, 0.3)",
+              padding: "0.3rem 0.75rem",
+            }}>
+              <span
+                aria-label={`You're on a ${streak.count}-day ritual streak`}
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: "0.35rem",
+                  fontFamily: "var(--font-body, system-ui), sans-serif",
+                  fontSize: "0.7rem", fontWeight: 600,
+                  letterSpacing: "0.1em",
+                  color: "rgba(255, 190, 130, 0.95)",
+                }}
+              >
+                <span aria-hidden style={{ fontSize: "0.8rem" }}>🔥</span>
+                {streak.count}-day ritual
+              </span>
+            </Surface>
           )}
         </div>
 
@@ -256,6 +252,7 @@ export default function DailyPage() {
         {sign && doDont ? (
           <div
             ref={contentRef}
+            aria-live="polite"
             style={{
               opacity: 0,
               position: "relative",
@@ -263,14 +260,11 @@ export default function DailyPage() {
               isolation: "isolate",
             }}
           >
-            {/* ── Editorial sign hero ── oversized glyph as composition,
-                left-aligned italic name, gold rule, element + date as eyebrow */}
             <header
               style={{
                 position: "relative",
                 padding: "3.5rem 0 2.5rem",
                 marginBottom: "2.5rem",
-                borderBottom: "1px solid rgba(200,185,255,0.08)",
                 overflow: "hidden",
               }}
             >
@@ -296,22 +290,12 @@ export default function DailyPage() {
               </div>
 
               <div style={{ position: "relative", zIndex: 1 }}>
-                <div
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "0.62rem",
-                    fontWeight: 600,
-                    letterSpacing: "0.32em",
-                    textTransform: "uppercase",
-                    color: `${sign.color}c4`,
-                    marginBottom: "0.65rem",
-                  }}
-                >
+                <Eyebrow style={{ color: `${sign.color}c4`, marginBottom: "0.65rem" }}>
                   <span style={{ color: "rgba(232,201,106,0.85)" }}>✦</span>{" "}
                   {sign.element} sign
                   <span aria-hidden style={{ margin: "0 0.55em", color: "rgba(180,170,210,0.4)" }}>·</span>
                   Today&apos;s almanac
-                </div>
+                </Eyebrow>
 
                 <h2
                   style={{
@@ -344,24 +328,16 @@ export default function DailyPage() {
                   Today&apos;s reading written for the chart of {sign.name}.
                 </p>
               </div>
+              <Rule tone="gold" style={{ marginTop: "1rem" }} />
             </header>
 
             {/* ── Do / Don't — side by side, prominent ── */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem", marginBottom: "2.5rem" }}>
-              <div style={{
-                padding: "1.5rem",
-                background: "rgba(78,205,196,0.04)",
-                border: "1px solid rgba(78,205,196,0.1)",
-                borderRadius: "1.25rem",
-              }}>
-                <div style={{
-                  fontFamily: "var(--font-heading)", fontSize: "0.9rem", fontWeight: 400,
-                  color: "rgba(78,205,196,0.8)", marginBottom: "1rem",
-                  display: "flex", alignItems: "center", gap: "0.4rem",
-                }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "3rem" }}>
+              <Surface variant="solid" raised radius="lg">
+                <Eyebrow style={{ color: "rgba(78,205,196,0.8)", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
                   <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "rgba(78,205,196,0.5)" }} />
                   {t("daily_do")}
-                </div>
+                </Eyebrow>
                 {doDont.dos.map((d, i) => (
                   <p key={i} style={{
                     fontFamily: "var(--font-body)", fontSize: "0.88rem", fontWeight: 300,
@@ -371,21 +347,12 @@ export default function DailyPage() {
                     borderBottom: i < 2 ? "1px solid rgba(78,205,196,0.06)" : "none",
                   }}>{d}</p>
                 ))}
-              </div>
-              <div style={{
-                padding: "1.5rem",
-                background: "rgba(232,82,74,0.03)",
-                border: "1px solid rgba(232,82,74,0.08)",
-                borderRadius: "1.25rem",
-              }}>
-                <div style={{
-                  fontFamily: "var(--font-heading)", fontSize: "0.9rem", fontWeight: 400,
-                  color: "rgba(232,82,74,0.7)", marginBottom: "1rem",
-                  display: "flex", alignItems: "center", gap: "0.4rem",
-                }}>
+              </Surface>
+              <Surface variant="solid" raised radius="lg">
+                <Eyebrow style={{ color: "rgba(232,82,74,0.7)", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
                   <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "rgba(232,82,74,0.4)" }} />
                   {t("daily_dont")}
-                </div>
+                </Eyebrow>
                 {doDont.donts.map((d, i) => (
                   <p key={i} style={{
                     fontFamily: "var(--font-body)", fontSize: "0.88rem", fontWeight: 300,
@@ -395,14 +362,14 @@ export default function DailyPage() {
                     borderBottom: i < 2 ? "1px solid rgba(232,82,74,0.05)" : "none",
                   }}>{d}</p>
                 ))}
-              </div>
+              </Surface>
             </div>
 
             {/* ── Life areas ── */}
-            <div style={{ marginBottom: "2.5rem" }}>
+            <div style={{ marginBottom: "3rem" }}>
               <h3 style={{
-                fontFamily: "var(--font-heading)", fontSize: "1.1rem", fontWeight: 400,
-                color: "rgba(240,236,255,0.85)", margin: "0 0 1.25rem",
+                fontFamily: "var(--font-heading)", fontStyle: "italic", fontSize: "1.35rem", fontWeight: 400,
+                color: "rgba(240,236,255,0.85)", margin: "0 0 1.5rem",
                 textAlign: "center",
               }}>{t("daily_by_life_area")}</h3>
 
@@ -410,95 +377,87 @@ export default function DailyPage() {
                 {LIFE_AREAS.map(area => {
                   const reading = getLifeAreaReading(sign.name, area.key, dayOfYear);
                   return (
-                    <div key={area.key} style={{
+                    <Surface key={area.key} variant="solid" radius="md" style={{
                       padding: "1.25rem 1.5rem",
-                      background: "rgba(255,255,255,0.015)",
-                      border: "1px solid rgba(200,185,255,0.04)",
-                      borderRadius: "1rem",
                       transition: `all 0.3s ${EASE}`,
                     }}>
                       {/* Area header */}
                       <div style={{
-                        display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem",
+                        display: "flex", alignItems: "center", gap: "0.65rem", marginBottom: "1.25rem",
                       }}>
                         <span style={{
-                          fontSize: "1.1rem",
-                          width: "32px", height: "32px", borderRadius: "8px",
-                          background: "rgba(212,175,55,0.06)",
+                          fontSize: "1.2rem",
+                          width: "36px", height: "36px", borderRadius: "10px",
+                          background: "rgba(212,175,55,0.08)",
                           display: "flex", alignItems: "center", justifyContent: "center",
-                          color: "rgba(212,175,55,0.6)",
+                          color: "rgba(212,175,55,0.65)",
+                          border: "1px solid rgba(212,175,55,0.15)",
                         }}>{area.icon}</span>
                         <div>
                           <div style={{
-                            fontFamily: "var(--font-accent)", fontSize: "0.95rem", fontWeight: 500,
-                            color: "rgba(240,236,255,0.88)",
+                            fontFamily: "var(--font-heading)", fontStyle: "italic", fontSize: "1.05rem", fontWeight: 400,
+                            color: "rgba(245,240,232,0.95)",
                           }}>{area.label}</div>
                           <div style={{
-                            fontFamily: "var(--font-body)", fontSize: "0.6rem",
-                            color: "rgba(180,170,210,0.3)",
+                            fontFamily: "var(--font-body)", fontSize: "0.62rem",
+                            color: "rgba(180,170,210,0.35)", letterSpacing: "0.05em",
+                            textTransform: "uppercase",
                           }}>{area.desc}</div>
                         </div>
                       </div>
 
                       {/* Power + Pressure side by side */}
-                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
                         <div>
-                          <div style={{
-                            display: "flex", alignItems: "center", gap: "0.3rem", marginBottom: "0.35rem",
-                          }}>
+                          <Eyebrow tone="muted" style={{ color: "rgba(78,205,196,0.6)", marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.35rem" }}>
                             <div style={{ width: "5px", height: "5px", borderRadius: "50%", background: "rgba(78,205,196,0.6)" }} />
-                            <span style={{
-                              fontFamily: "var(--font-body)", fontSize: "0.55rem", fontWeight: 600,
-                              letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(78,205,196,0.55)",
-                            }}>{t("daily_power")}</span>
-                          </div>
+                            {t("daily_power")}
+                          </Eyebrow>
                           <p style={{
-                            fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
-                            lineHeight: 1.7, color: "rgba(200,190,235,0.72)", margin: 0,
+                            fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 300,
+                            lineHeight: 1.7, color: "rgba(210,200,245,0.8)", margin: 0,
                           }}>{reading.power}</p>
                         </div>
                         <div>
-                          <div style={{
-                            display: "flex", alignItems: "center", gap: "0.3rem", marginBottom: "0.35rem",
-                          }}>
+                          <Eyebrow tone="muted" style={{ color: "rgba(212,175,55,0.5)", marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.35rem" }}>
                             <div style={{ width: "5px", height: "5px", borderRadius: "50%", background: "rgba(212,175,55,0.5)" }} />
-                            <span style={{
-                              fontFamily: "var(--font-body)", fontSize: "0.55rem", fontWeight: 600,
-                              letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(212,175,55,0.45)",
-                            }}>{t("daily_pressure")}</span>
-                          </div>
+                            {t("daily_pressure")}
+                          </Eyebrow>
                           <p style={{
-                            fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
-                            lineHeight: 1.7, color: "rgba(200,190,235,0.6)", margin: 0,
+                            fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 300,
+                            lineHeight: 1.7, color: "rgba(210,200,245,0.7)", margin: 0,
                           }}>{reading.pressure}</p>
                         </div>
                       </div>
-                    </div>
+                    </Surface>
                   );
                 })}
               </div>
             </div>
 
             {/* ── Today's message ── */}
-            <div style={{
-              padding: "2rem",
-              background: "rgba(212,175,55,0.03)",
-              border: "1px solid rgba(212,175,55,0.06)",
-              borderRadius: "1.25rem",
-              textAlign: "center",
-              marginBottom: "2rem",
-            }}>
-              <div style={{ fontSize: "1.2rem", color: "rgba(212,175,55,0.3)", marginBottom: "0.75rem" }}>✦</div>
+            <Surface
+              variant="solid"
+              raised
+              style={{
+                padding: "2.5rem 2rem",
+                textAlign: "center",
+                marginBottom: "3rem",
+                background: "rgba(212,175,55,0.03)",
+                borderColor: "rgba(212,175,55,0.1)",
+              }}
+            >
+              <div style={{ fontSize: "1.4rem", color: "rgba(212,175,55,0.4)", marginBottom: "1rem" }}>✦</div>
               <div className="reading-text" style={{
-                fontFamily: "var(--font-body)", fontSize: "1.05rem", fontWeight: 400,
-                lineHeight: 1.85, color: "rgba(220,210,240,0.7)",
+                fontFamily: "var(--font-body)", fontSize: "1.1rem", fontWeight: 400,
+                lineHeight: 1.85, color: "rgba(220,210,240,0.85)",
                 fontStyle: "italic", margin: 0,
-                maxWidth: "480px", marginLeft: "auto", marginRight: "auto",
+                maxWidth: "520px", marginLeft: "auto", marginRight: "auto",
                 wordSpacing: textWordSpacing(getTodayHoroscope(sign.name)),
               }}>
                 &ldquo;<WhisperText text={getTodayHoroscope(sign.name)} delay={400} wordDelay={60} />&rdquo;
               </div>
-            </div>
+            </Surface>
 
             {/* CTA */}
             <div style={{ textAlign: "center" }}>

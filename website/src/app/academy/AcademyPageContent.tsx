@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getCoursesByTrack, type Course } from "../../lib/academy/courses";
 import { translateCourses } from "../../lib/academy/translate-courses";
 import { useLocale } from "@/lib/i18n/useLocale";
-import { Eyebrow, Rule } from "@/components/design/Surface";
+import Surface, { Eyebrow, Rule } from "@/components/design/Surface";
 
 const LEVEL_COLORS: Record<string, string> = {
   beginner: "rgba(78,205,196,0.55)",
@@ -28,24 +28,24 @@ function CourseCard({
   startHere?: string;
 }) {
   return (
-    <Link
+    <Surface
+      as={Link}
       href={`/academy/${course.slug}`}
+      variant={featured ? "solid" : "solid"}
+      raised={featured}
+      radius="lg"
+      pad="none"
       className="academy-course-card"
       style={{
         display: "flex",
         flexDirection: "column",
         gap: featured ? "1rem" : "0.6rem",
         padding: featured ? "1.75rem 1.75rem 1.5rem" : "1.25rem 1.35rem",
-        background: featured ? "#0e0b24" : "transparent",
-        border: featured
-          ? "1px solid rgba(232, 201, 106, 0.25)"
-          : "1px solid rgba(200, 185, 255, 0.08)",
-        borderRadius: featured ? "1.25rem" : "1rem",
         textDecoration: "none",
         transition: "border-color 260ms ease, transform 260ms cubic-bezier(0.16,1,0.3,1)",
         gridColumn: featured ? "span 2" : "span 1",
         minHeight: featured ? "240px" : "auto",
-        position: "relative",
+        borderColor: featured ? "rgba(232, 201, 106, 0.25)" : undefined,
       }}
     >
       {startHere && (
@@ -173,7 +173,7 @@ function CourseCard({
           {course.duration}
         </span>
       </div>
-    </Link>
+    </Surface>
   );
 }
 
@@ -260,8 +260,13 @@ function TrackSection({
 // ── Quick tool tile — varied sizes (1 featured + 3 utility) ────────────
 function FeaturedTool({ href, title, description, kicker }: { href: string; title: string; description: string; kicker: string }) {
   return (
-    <Link
+    <Surface
+      as={Link}
       href={href}
+      variant="solid"
+      raised
+      radius="lg"
+      pad="none"
       style={{
         gridColumn: "span 2",
         display: "flex",
@@ -270,12 +275,10 @@ function FeaturedTool({ href, title, description, kicker }: { href: string; titl
         gap: "1rem",
         padding: "1.75rem 1.75rem 1.5rem",
         minHeight: "180px",
-        background: "linear-gradient(160deg, rgba(232,201,106,0.15) 0%, rgba(20,14,44,0.88) 55%, rgba(8,6,20,0.92))",
-        border: "1px solid rgba(232, 201, 106, 0.3)",
-        borderRadius: "1.25rem",
+        background: "linear-gradient(160deg, rgba(232,201,106,0.1) 0%, rgba(20,14,44,0.4) 55%, rgba(8,6,20,0.5))",
+        borderColor: "rgba(232, 201, 106, 0.3)",
         textDecoration: "none",
         transition: "border-color 260ms ease",
-        position: "relative",
         overflow: "hidden",
       }}
     >
@@ -331,22 +334,23 @@ function FeaturedTool({ href, title, description, kicker }: { href: string; titl
       >
         Draw today&apos;s card →
       </span>
-    </Link>
+    </Surface>
   );
 }
 
 function UtilityTool({ href, icon, title, desc }: { href: string; icon: string; title: string; desc: string }) {
   return (
-    <Link
+    <Surface
+      as={Link}
       href={href}
+      variant="solid"
+      radius="md"
+      pad="none"
       style={{
         display: "flex",
         alignItems: "flex-start",
         gap: "0.75rem",
         padding: "1rem 1.1rem",
-        background: "transparent",
-        border: "1px solid rgba(200,185,255,0.10)",
-        borderRadius: "0.9rem",
         textDecoration: "none",
         transition: "border-color 240ms ease, background 240ms ease",
         minHeight: "90px",
@@ -387,7 +391,7 @@ function UtilityTool({ href, icon, title, desc }: { href: string; icon: string; 
           {desc}
         </div>
       </div>
-    </Link>
+    </Surface>
   );
 }
 

@@ -1,639 +1,147 @@
 @import "tailwindcss";
 
-/* Lenis smooth scroll */
-html.lenis, html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-@theme inline {
-  --color-void-black: #06041a;
-  --color-deep-cosmos: #090615;
-  --color-nebula: #120c28;
-  --color-celestial-gold: #D4AF37;
-  --color-slate-blue: #7B68EE;
-  --color-warm-ivory: #F5F0E8;
-  --color-muted-lavender: #9B96A8;
-  --color-cosmic-teal: #4ECDC4;
-  --color-mars-red: #E8524A;
-
-  /* Font vars are provided by next/font/google on <html> className.
-     We intentionally DO NOT redeclare --font-body here to avoid overriding
-     the DM Sans variable with an Inter fallback. */
+@theme {
+  /* ─── TYPOGRAPHY: OPTICAL SIZING ─── */
   --font-heading: var(--font-heading);
-  --font-accent: "Cormorant Garamond", serif;
-  --font-display: var(--font-heading, "Cormorant Garamond"), "IM Fell English", Georgia, serif;
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+
+  /* ─── COLORS: CELESTIAL OBSIDIAN ─── */
+  --color-void-black: #08061a;
+  --color-warm-ivory: #f5f2e1;
+  --color-celestial-gold: #d4af37;
+  --color-muted-lavender: #9b91be;
+  
+  /* ─── ANIMATIONS: HAPTIC PHYSICS ─── */
+  --animate-shimmer: shimmer 3s infinite linear;
+  --animate-portal: portal-expand 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes portal-expand {
+    0% { transform: scale(0.9); opacity: 0; filter: blur(10px); }
+    100% { transform: scale(1); opacity: 1; filter: blur(0px); }
+  }
 }
 
-/* ── Cosmic colour tokens ──────────────────────────────────────────────── */
 :root {
-  --c-void:        #06041a;
-  --c-deep-space:  #0b081e;
-  --c-nebula:      #160e32;
-  --c-surface:     rgba(255,255,255,0.04);
-  --c-surface-2:   rgba(255,255,255,0.07);
-  --c-border:      rgba(200,185,255,0.10);
-  --c-border-2:    rgba(200,185,255,0.18);
-
-  --c-text-primary: rgba(240,236,255,0.95);
-  --c-text-mid:     rgba(196,185,228,0.80);
-  --c-text-muted:   rgba(190,180,225,0.72);
-
-  --c-accent:      #a07ae0;
-  --c-accent-glow: rgba(130,90,220,0.22);
-
-  --glass-bg:      rgba(255,255,255,0.05);
-  --glass-border:  rgba(255,255,255,0.09);
-  --glass-blur:    blur(18px) saturate(1.25);
-
-  /* Text scrims — for body text that sits on the nebula background.
-     Use behind/around text to guarantee contrast without a solid box. */
-  --scrim-soft:    radial-gradient(ellipse at center, rgba(8,6,20,0.62) 0%, rgba(8,6,20,0.25) 60%, transparent 95%);
-  --scrim-strong:  linear-gradient(180deg, rgba(8,6,20,0.75), rgba(8,6,20,0.55));
-  --surface-solid: #0e0b24;
-  --surface-raised: #151230;
-
-  --radius-pill:   9999px;
-  --radius-card:   1.25rem;
-  --radius-sm:     0.5rem;
-
-  /* Navbar height — consistent page top offset token */
-  --nav-height:    5rem;
-}
-
-html {
-  background-color: var(--c-void);
-  scroll-behavior: smooth;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --background: #08061a;
+  --foreground: #f5f2e1;
+  --c-gold: #d4af37;
+  --c-void: #08061a;
+  --c-text-mid: rgba(196, 185, 228, 0.78);
+  --c-text-muted: rgba(190, 180, 225, 0.72);
+  --c-border: rgba(200, 185, 255, 0.12);
+  --c-scrim: rgba(8, 6, 26, 0.85);
+  
+  --nav-height: 5rem;
+  
+  /* Multi-layer Shadow (Stripe Style) */
+  --shadow-celestial: rgba(0, 0, 0, 0.5) 0px 20px 50px -10px, rgba(212, 175, 55, 0.1) 0px 10px 30px -15px;
+  
+  --ease-ritual: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-breathe: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
-  background-color: transparent;
-  color: var(--c-text-primary);
+  background-color: var(--background);
+  color: var(--foreground);
   font-family: var(--font-body);
-  font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1;
-  font-variant-ligatures: common-ligatures;
-  font-kerning: normal;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  /* Safe area insets for notched devices */
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-
-  /* Force text-presentation for glyphs that default to color-emoji on
-     macOS/iOS (zodiac ♈–♓, sun ☉, moon ☾, alchemical ☿♀♂♃♄, etc).
-     Modern browsers (Chrome 124+ / Safari 17+ / Firefox 129+) honor this. */
-  font-variant-emoji: text;
+  scroll-behavior: smooth;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════
-   ZODIAC GLYPH RENDERING — fix for ♈–♓ rendering as color emoji boxes.
+/* ─── ACCESSIBILITY: FOCUS & NAVIGATION ─── */
 
-   Two-layer defense:
-   1. The virtual "zodiac-text" font maps the zodiac Unicode block
-      (U+2648–U+2653) + common astrology glyphs (planets, nodes) to
-      whichever installed symbol font is available. Browsers prefer
-      these local fonts over color-emoji fonts when picking a glyph.
-   2. The .zodiac utility class re-asserts font-variant-emoji: text
-      + explicit font-family for use on zodiac-bearing elements.
-   ═══════════════════════════════════════════════════════════════════════ */
-@font-face {
-  font-family: "zodiac-text";
-  src:
-    local("Apple Symbols"),
-    local("Segoe UI Symbol"),
-    local("DejaVu Sans"),
-    local("Symbola"),
-    local("Arial Unicode MS");
-  /* Zodiac signs (U+2648–U+2653), planetary symbols (U+263C–U+2653),
-     sun/moon (U+2609, U+263D, U+263E), mercury/venus/mars/jupiter/saturn
-     (U+263F, U+2640, U+2642, U+2643, U+2644), uranus/neptune/pluto
-     (U+2645–U+2647), nodes (U+260A, U+260B). */
-  unicode-range: U+2609, U+260A-260B, U+263C-264F, U+2648-2653;
-  font-display: swap;
-}
-
-/* Utility class for any element containing zodiac / astrology glyphs.
-   Apply as <span class="zodiac">♈</span> or on a parent of such content. */
-.zodiac,
-.zodiac-glyph {
-  font-variant-emoji: text;
-  font-family:
-    "zodiac-text",
-    var(--font-heading, "Cormorant Garamond"),
-    "Apple Symbols",
-    "Segoe UI Symbol",
-    "Symbola",
-    serif;
-}
-
-/* Disable hover effects on touch devices */
-@media (hover: none) {
-  .glass-card:hover {
-    border-color: var(--glass-border);
-    box-shadow:
-      0 2px 24px rgba(0,0,0,0.25),
-      inset 0 1px 0 rgba(255,255,255,0.05);
-  }
-}
-
-::selection {
-  background-color: rgba(212, 175, 55, 0.22);
-  color: #fff;
-  text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
-}
-
-/* ── Glass card utility ─────────────────────────────────────────────────── */
-.glass-card {
-  background:        var(--glass-bg);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter:   var(--glass-blur);
-  border:            1px solid var(--glass-border);
-  border-radius:     var(--radius-card);
-  box-shadow:
-    0 2px 24px rgba(0,0,0,0.25),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-}
-
-.glass-card:hover {
-  border-color: var(--c-border-2);
-  box-shadow:
-    0 4px 36px rgba(100,70,200,0.12),
-    inset 0 1px 0 rgba(255,255,255,0.08);
-}
-
-/* ── Surface elevation scale ────────────────────────────────────────────
-   Three tiers of emphasis for card surfaces. Pick the right one for the
-   job and let the system do the visual hierarchy:
-
-   .surface-1  Quiet container. No hover. Use for static cards, form
-               wrappers, info panels — anywhere you want structure
-               without drawing attention.
-
-   .surface-2  Interactive / scannable card. Subtle translateY lift +
-               border warmth + purple-tinted shadow on hover. Use for
-               clickable tiles, links presented as cards, feature blocks.
-
-   .surface-3  The single highlight per page. Gold 1px border + soft
-               golden outer glow. Use once — the VIP tier card, a hero
-               promo, the "featured" item in a list. Using it twice
-               flattens the hierarchy. If you need more than one
-               highlight, step them down to .surface-2.
-   ────────────────────────────────────────────────────────────────────── */
-.surface-1,
-.surface-2,
-.surface-3 {
-  background:        var(--glass-bg);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter:   var(--glass-blur);
-  border-radius:     var(--radius-card);
-}
-
-.surface-1 {
-  border: 1px solid var(--glass-border);
-  box-shadow:
-    0 2px 24px rgba(0,0,0,0.25),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-}
-
-.surface-2 {
-  border: 1px solid var(--glass-border);
-  box-shadow:
-    0 2px 24px rgba(0,0,0,0.25),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-  transition:
-    border-color    300ms var(--ease-ritual, ease),
-    box-shadow      300ms var(--ease-ritual, ease),
-    transform       300ms var(--ease-ritual, ease);
-}
-@media (hover: hover) {
-  .surface-2:hover {
-    border-color: var(--c-border-2);
-    transform: translateY(-2px);
-    box-shadow:
-      0 8px 40px rgba(100,70,200,0.16),
-      inset 0 1px 0 rgba(255,255,255,0.08);
-  }
-}
-
-.surface-3 {
-  border: 1px solid rgba(212, 175, 55, 0.45);
-  box-shadow:
-    0 2px 24px rgba(0,0,0,0.25),
-    0 0 48px rgba(212, 175, 55, 0.08),
-    inset 0 1px 0 rgba(255,255,255,0.06);
-  transition:
-    border-color    300ms var(--ease-ritual, ease),
-    box-shadow      300ms var(--ease-ritual, ease);
-}
-@media (hover: hover) {
-  .surface-3:hover {
-    border-color: rgba(212, 175, 55, 0.65);
-    box-shadow:
-      0 4px 36px rgba(212, 175, 55, 0.18),
-      0 0 72px rgba(212, 175, 55, 0.14),
-      inset 0 1px 0 rgba(255,255,255,0.10);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .surface-2, .surface-3 {
-    transition: none !important;
-  }
-  .surface-2:hover {
-    transform: none !important;
-  }
-}
-
-/* Gold gradient text */
-.text-gold-gradient {
-  background: linear-gradient(135deg, #D4AF37 0%, #F5E6A3 50%, #D4AF37 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Glow effects */
-.glow-gold {
-  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3), 0 0 40px rgba(212, 175, 55, 0.1);
-}
-
-.glow-blue {
-  text-shadow: 0 0 20px rgba(123, 104, 238, 0.3), 0 0 40px rgba(123, 104, 238, 0.1);
-}
-
-/* Animated gradient border */
-.gradient-border {
-  position: relative;
-}
-.gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(212,175,55,0.4), rgba(123,104,238,0.4), rgba(212,175,55,0.1));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-
-/* Star divider */
-.star-divider {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  color: var(--color-celestial-gold);
-  opacity: 0.5;
-}
-.star-divider::before,
-.star-divider::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-celestial-gold), transparent);
-}
-
-/* ── Accessible focus ───────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid #E8C96A;
-  outline-offset: 3px;
-  border-radius: 4px;
-  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.18);
-}
-:focus:not(:focus-visible) {
-  outline: none;
+  outline: 2px solid var(--c-gold);
+  outline-offset: 4px;
 }
 
-/* ── Scrim utilities ─────────────────────────────────────────────────────
-   Wrap body copy that sits over the cosmic nebula to guarantee contrast.
-   - .scrim-text    → soft vertical fade behind block of text
-   - .scrim-pill    → rounded pill for short inline labels / eyebrows
-   - .scrim-strong  → near-opaque surface, for inputs / forms */
-.scrim-text {
-  position: relative;
-  isolation: isolate;
-}
-.scrim-text::before {
-  content: "";
-  position: absolute;
-  inset: -0.35em -0.8em;
-  background:
-    radial-gradient(ellipse 80% 70% at 50% 50%, rgba(8,6,20,0.55) 0%, rgba(8,6,20,0.22) 70%, transparent 100%);
-  filter: blur(6px);
-  z-index: -1;
-  pointer-events: none;
-}
-.scrim-pill {
-  position: relative;
-  isolation: isolate;
-}
-.scrim-pill::before {
-  content: "";
-  position: absolute;
-  inset: -0.35em -0.9em;
-  background: rgba(8,6,20,0.6);
-  border-radius: 9999px;
-  z-index: -1;
-  pointer-events: none;
-}
-.scrim-strong {
-  background: var(--scrim-strong);
-  backdrop-filter: blur(8px) saturate(1.1);
-  -webkit-backdrop-filter: blur(8px) saturate(1.1);
-}
-
-/* Skip link — make visible when focused */
 .skip-link {
   position: absolute;
   top: -100px;
-  left: 1rem;
-  z-index: 9999;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--c-gold);
+  color: var(--c-void);
   padding: 0.75rem 1.5rem;
-  border-radius: 0 0 10px 10px;
-  background: #E8C96A;
-  color: #06041a;
-  font-family: var(--font-body), system-ui, sans-serif;
-  font-size: 0.85rem;
+  border-radius: 0 0 12px 12px;
+  font-family: var(--font-body);
   font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  z-index: 10001;
+  transition: top 0.3s var(--ease-ritual);
   text-decoration: none;
-  transition: top 200ms var(--ease-smooth, ease);
 }
-.skip-link:focus, .skip-link:focus-visible {
+
+.skip-link:focus {
   top: 0;
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(212,175,55,0.35);
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--c-void); }
-::-webkit-scrollbar-thumb { background: rgba(130,90,220,0.28); border-radius: 3px; }
-
-/* Floating animation */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+/* Global scroll margin for all hash anchors to account for fixed navbar */
+* {
+  scroll-margin-top: var(--nav-height);
 }
 
-/* Pulse glow */
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); }
-  50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.3); }
-}
-.animate-pulse-glow {
-  animation: pulse-glow 4s ease-in-out infinite;
+/* ─── LINEAR/VERCEL GRADE COMPONENTS ─── */
+
+.celestial-border {
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
 }
 
-/* Shimmer for loading states */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-.animate-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.1), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
+.glass-portal {
+  background: rgba(8, 6, 26, 0.4);
+  backdrop-filter: blur(32px) saturate(1.5);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: var(--shadow-celestial);
 }
 
-/* ── Mobile-first responsive typography ─────────────────────────────────── */
-h1, .text-4xl, .text-5xl { font-size: clamp(1.75rem, 5vw, 3.5rem); }
-h2, .text-3xl { font-size: clamp(1.35rem, 4vw, 2.25rem); }
-h3, .text-2xl { font-size: clamp(1.1rem, 3vw, 1.5rem); }
-
-@media (max-width: 767px) {
-  /* Give content room above the bottom nav so nothing sits under it. */
-  body {
-    padding-bottom: calc(66px + env(safe-area-inset-bottom, 0));
-  }
+/* ─── OPTICAL SIZING HEADLINES ─── */
+h1, .display-large {
+  font-family: var(--font-heading);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  font-weight: 300;
 }
 
-@media (max-width: 640px) {
-  .glass-card { padding: 1rem; }
-  section { padding-left: 1rem; padding-right: 1rem; }
-
-  /* Enforce minimum touch targets on mobile */
-  button, a, [role="button"], input[type="checkbox"], input[type="radio"] {
-    min-height: 44px;
-    min-width: 44px;
-  }
-
-  /* Tighter scrollbar on mobile */
-  ::-webkit-scrollbar { width: 3px; }
-
-  /* Prevent table overflow */
-  table { font-size: 0.7rem; }
-  th, td { padding: 0.35rem 0.5rem; }
-
-  /* Prevent horizontal overflow on all containers */
-  .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl {
-    overflow-x: hidden;
-  }
+h2, .display-medium {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-weight: 400;
 }
 
-@media (max-width: 380px) {
-  body { font-size: 0.9rem; }
-  .glass-card { padding: 0.75rem; }
-  section { padding-left: 0.75rem; padding-right: 0.75rem; }
-  h1, .text-4xl, .text-5xl { font-size: clamp(1.5rem, 5vw, 3.5rem); }
+.label-mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-celestial-gold);
 }
 
-/* ── Page Transition ── */
-.page-enter {
-  animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* ─── READABILITY ENGINE ─── */
+.editorial-scrim {
+  background: var(--c-scrim);
 }
 
-@keyframes pageEnter {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.text-scrim {
+  text-shadow: 0 2px 40px var(--c-void), 0 0 20px var(--c-void);
 }
 
-/* ── Magnetic Button Glow ── */
-@keyframes magnetic-glow-pulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
-/* ── Motion tokens (Awwwards-grade timing) ─────────────────────────────── */
-:root {
-  --ease-ritual:    cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-smooth:    cubic-bezier(0.25, 0.1, 0.25, 1);
-  --ease-dramatic:  cubic-bezier(0.075, 0.82, 0.165, 1);
-  --ease-snap:      cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  --c-gold:         #D4AF37;
-
-  /* ── Time-of-day palette defaults (overridden by <html data-tod> below) ─ */
-  --tod-accent:       #E8C96A;  /* signature gold for the current hour */
-  --tod-accent-soft:  rgba(232, 201, 106, 0.18);
-  --tod-bg-bias:      transparent; /* subtle radial-gradient layered atop the cosmic bg */
-  --tod-greeting:     "evening";
-}
-
-/* DAWN — 5am–9am: warm amber, soft coral */
-html[data-tod="dawn"] {
-  --tod-accent:       #F6B98A;
-  --tod-accent-soft:  rgba(246, 185, 138, 0.22);
-  --tod-bg-bias:      radial-gradient(ellipse 70% 45% at 50% 10%, rgba(255, 168, 120, 0.09) 0%, transparent 70%);
-  --tod-greeting:     "morning";
-}
-/* DAY — 9am–5pm: crisp ivory + muted gold */
-html[data-tod="day"] {
-  --tod-accent:       #E8C96A;
-  --tod-accent-soft:  rgba(232, 201, 106, 0.18);
-  --tod-bg-bias:      radial-gradient(ellipse 70% 40% at 50% 8%, rgba(232, 201, 106, 0.07) 0%, transparent 72%);
-  --tod-greeting:     "afternoon";
-}
-/* DUSK — 5pm–9pm: violet + gold */
-html[data-tod="dusk"] {
-  --tod-accent:       #D8B3E8;
-  --tod-accent-soft:  rgba(216, 179, 232, 0.20);
-  --tod-bg-bias:      radial-gradient(ellipse 70% 50% at 50% 12%, rgba(216, 179, 232, 0.10) 0%, transparent 72%);
-  --tod-greeting:     "evening";
-}
-/* NIGHT — 9pm–5am: cool indigo, quiet silver */
-html[data-tod="night"] {
-  --tod-accent:       #B8C4F0;
-  --tod-accent-soft:  rgba(184, 196, 240, 0.16);
-  --tod-bg-bias:      radial-gradient(ellipse 80% 45% at 50% 5%, rgba(84, 100, 180, 0.12) 0%, transparent 78%);
-  --tod-greeting:     "night";
-}
-
-/* A fixed decorative layer that paints the ToD bias atop the cosmic bg. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  background: var(--tod-bg-bias);
-  transition: background 3s ease;
-}
-
-/* ── Reduced motion ─────────────────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  .animate-float, .animate-pulse-glow, .animate-shimmer {
-    animation: none !important;
-  }
-}
-
-/* ── Touch-device active states ────────────────────────────────────────── */
-@media (hover: none) and (pointer: coarse) {
-  button:active, a:active, [role="button"]:active {
-    opacity: 0.85;
-    transform: scale(0.97);
-    transition: transform 80ms ease, opacity 80ms ease;
-  }
-}
-
-/* ── Oracle Preview — "The Threshold" ─────────────────────────────────── */
-
-@keyframes oracle-orbit {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-@keyframes oracle-orbit-reverse {
-  from { transform: rotate(360deg); }
-  to   { transform: rotate(0deg); }
-}
-
-@keyframes oracle-particle-drift {
-  0% {
-    transform: translate(var(--pdx), var(--pdy));
-    opacity: 0;
-  }
-  8%  { opacity: 1; }
-  92% { opacity: 1; }
-  100% {
-    transform: translate(0, 0);
-    opacity: 0;
-  }
-}
-
-@keyframes oracle-twinkle {
-  0%, 100% { opacity: 0.35; }
-  50%      { opacity: 0.85; }
-}
-
-@keyframes oracle-sacred-pulse {
-  0%, 100% { opacity: 0.06; }
-  50%      { opacity: 0.14; }
-}
-
-@keyframes oracle-canvas-glow {
-  0%, 100% {
-    box-shadow:
-      0 0 40px rgba(160,122,224,0.08),
-      0 0 100px rgba(212,175,55,0.04);
-  }
-  50% {
-    box-shadow:
-      0 0 70px rgba(160,122,224,0.14),
-      0 0 140px rgba(212,175,55,0.07);
-  }
-}
-
-@keyframes oracle-rim-pulse {
-  0%, 100% {
-    box-shadow:
-      0 0 30px rgba(160,122,224,0.12),
-      0 0 80px rgba(160,122,224,0.06),
-      0 0 120px rgba(212,175,55,0.03);
-  }
-  50% {
-    box-shadow:
-      0 0 50px rgba(160,122,224,0.20),
-      0 0 110px rgba(160,122,224,0.10),
-      0 0 160px rgba(212,175,55,0.06);
-  }
-}
-
-/* Cosmic Selfie orb — circular mask-image fade */
-.cosmic-selfie-orb {
-  border-radius: 50%;
-  overflow: hidden;
-}
-.cosmic-selfie-orb canvas,
-.cosmic-selfie-orb img {
-  -webkit-mask-image: radial-gradient(circle at 50% 50%,
-    black 0%, black 50%, rgba(0,0,0,0.7) 65%, rgba(0,0,0,0.2) 82%, transparent 100%);
-  mask-image: radial-gradient(circle at 50% 50%,
-    black 0%, black 50%, rgba(0,0,0,0.7) 65%, rgba(0,0,0,0.2) 82%, transparent 100%);
-}
-/* Engine container inside the orb */
-.cosmic-selfie-orb > div {
-  border-radius: 50% !important;
-  border: none !important;
-  background: transparent !important;
-}
-
-@keyframes oracle-aura-breathe {
-  0%, 100% { transform: translate(-50%, -55%) scale(1); opacity: 1; }
-  50%      { transform: translate(-50%, -55%) scale(1.06); opacity: 0.8; }
+.radial-focus {
+  background: radial-gradient(
+    circle at center,
+    rgba(40, 30, 100, 0.15) 0%,
+    transparent 70%
+  );
 }
