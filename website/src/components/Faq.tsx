@@ -18,81 +18,62 @@ const ROWS: { q: string; a: React.ReactNode }[] = [
     q: "Is this actually astrology, or just generic horoscopes?",
     a: (
       <>
-        Real astrology. Every reading is calculated from NASA ephemeris data
-        for the exact minute and location of your birth — planets, houses,
-        aspects, dignities, the full chart. Nothing is pulled from a
-        pre-written template.
+        Real astrology. Every reading is calculated from precise astronomical 
+        ephemeris data for the exact minute and location of your birth — planets, 
+        houses, aspects, and dignities. Nothing is pulled from a pre-written template.
       </>
     ),
   },
   {
-    q: "Do I need to know my birth time?",
+    q: "What do I get in a deeper reading?",
     a: (
       <>
-        You&rsquo;ll get the most accurate reading with birth time down to the
-        hour. Without it, your Sun, Moon, and planetary placements are still
-        correct — only the houses and rising sign are unknown. We&rsquo;ll
-        note the uncertainty in your portrait and skip claims we can&rsquo;t
-        stand behind.
+        Your free reading shows the &ldquo;Surface Pattern.&rdquo; A deeper resonance 
+        unlocks your full natal chart synthesis, personal transit overlays, and 
+        unlimited AI Oracle access that remembers your history and connects your 
+        questions to your specific planetary cycles.
       </>
     ),
   },
   {
-    q: "What\u2019s on each plan?",
+    q: "Is this a prediction?",
     a: (
       <>
-        Four tiers. <strong>Free</strong> ($0){" "}{"\u2014"} daily Card of the Day,
-        basic sun-sign profile, first 12 academy lessons.{" "}
-        <strong>Insight</strong> ($4.99/mo){" "}{"\u2014"} personalized daily horoscope
-        from your chart, full natal breakdown, 30 oracle questions a month.{" "}
-        <strong>Premium</strong> ($14.99/mo){" "}{"\u2014"} unlimited oracle, synastry,
-        year-ahead forecast, full 207-lesson academy, weekly audio briefing.{" "}
-        <strong>VIP</strong> ($34.99/mo){" "}{"\u2014"} voice readings, monthly video
-        reading, priority human astrologer line. See the{" "}
-        <Link href="/#pricing" style={{ color: "var(--c-gold, #D4AF37)" }}>
-          full feature matrix
-        </Link>{" "}
-        for the side-by-side.
+        No. We do not provide &ldquo;fortunes&rdquo; or fixed predictions. Astrology 
+        is a symbolic language for self-reflection. We show you the celestial 
+        weather and the quality of the time, but the decisions and outcomes are 
+        always yours.
       </>
     ),
   },
   {
-    q: "Is the AI oracle just ChatGPT with a costume?",
+    q: "Is my information private?",
     a: (
       <>
-        No. The oracle is given your actual chart data as context — current
-        transits, natal placements, aspects — so answers are grounded in your
-        astrology, not vibes. If it can&rsquo;t answer from the chart, it
-        says so instead of making things up.
+        Yes. Your birth data and Oracle conversations are private to your account. 
+        We use secure encryption in transit and at rest. We never sell your data 
+        and never share your personal readings with third-party advertisers.
       </>
     ),
   },
   {
-    q: "How do cancellations and refunds work?",
+    q: "Can I cancel my plan?",
     a: (
       <>
-        Cancel any time from{" "}
-        <a href="/account/billing" style={{ color: "var(--c-gold, #D4AF37)" }}>
-          Account &rarr; Billing
-        </a>
-        . Your tier stays active until the end of the current billing period.
-        Within 14 days of your first charge you can request a full refund —{" "}
-        <a href="/refund" style={{ color: "var(--c-gold, #D4AF37)" }}>
-          refund policy
-        </a>
-        . Web payments are billed by Paddle (Merchant of Record); in-Telegram
-        purchases use Stars. No retention calls, no dark patterns.
+        Yes, you can cancel any time with one click from your billing dashboard. 
+        You will retain access until the end of your current period. No hidden fees, 
+        no retention calls, and no dark patterns.
       </>
     ),
   },
   {
-    q: "What about my data?",
+    q: "Is the free reading still useful?",
     a: (
       <>
-        Your birth data lives in your account and is used only to generate
-        your readings. We never sell it and never share it with advertisers.
-        You can export or permanently delete everything from your profile
-        page.
+        Absolutely. We believe everyone should have access to their basic celestial 
+        blueprint. The free tier includes the daily Card of the Day, sun-sign 
+        insights, and the first tracks of our Academy. It is built to be helpful, 
+        not just a teaser.
       </>
     ),
   },

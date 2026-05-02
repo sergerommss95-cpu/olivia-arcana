@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, Suspense } from "react";
 import dynamic from "next/dynamic";
 import SignLabel from "@/components/SignLabel";
 import ConstellationOverlay from "@/components/ConstellationOverlay";
@@ -187,7 +187,9 @@ export default function Home() {
           <CosmicSelfie />
           <div id="pricing">
             <ScrollFloat index={3} intensity="subtle">
-              <Pricing />
+              <Suspense fallback={<div className="h-[600px] animate-pulse bg-white/5 rounded-3xl" />}>
+                <Pricing />
+              </Suspense>
             </ScrollFloat>
           </div>
           <div id="faq">

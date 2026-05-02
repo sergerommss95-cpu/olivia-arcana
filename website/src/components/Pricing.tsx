@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import ScrollFloat from "@/components/ScrollFloat";
 import CheckoutButton from "@/components/CheckoutButton";
 import MagneticButton from "@/components/MagneticButton";
@@ -74,20 +75,59 @@ function fmtPrice(n: number): string {
 }
 export default function Pricing() {
   const { t, locale } = useLocale();
+  const searchParams = useSearchParams();
+  const fromOracle = searchParams.get("from") === "oracle";
   const { isVip, manageSubscription, tier: currentTier } = useSubscription();
   const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("annual");
+
+  const getTierTagline = (id: Tier) => {
+    if (id === "free") return "Surface Pattern";
+    if (id === "insight") return "Expanded Interpretation";
+    if (id === "premium") return "Full Celestial Resonance";
+    if (id === "vip") return "Direct Cosmic Guidance";
+    return "";
+  };
 
   return (
     <section id="pricing" className="relative py-16 sm:py-32 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-10 sm:mb-16">
-          <p className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-[0.3em] uppercase mb-4">
-            {t("price_eyebrow")}
-          </p>
-          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-warm-ivory mb-6">
-            Choose your orbit
-          </h2>
+          <AnimatePresence mode="wait">
+            {fromOracle ? (
+              <motion.div
+                key="oracle-header"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-8"
+              >
+                <p className="font-[family-name:var(--font-mono)] text-[#d4af37] text-[10px] tracking-[0.4em] uppercase mb-4">
+                  The pattern is forming
+                </p>
+                <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-warm-ivory italic">
+                  Continue your Oracle reading
+                </h2>
+                <p className="mt-4 text-muted-lavender/60 text-sm max-w-lg mx-auto leading-relaxed">
+                  Your first reading shows the surface pattern. Choose a deeper resonance to reveal timing, 
+                  celestial context, and symbolic connections across your entire birth chart.
+                </p>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="default-header"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <p className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-[0.3em] uppercase mb-4">
+                  {t("price_eyebrow")}
+                </p>
+                <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-warm-ivory mb-6">
+                  Choose your depth
+                </h2>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          
           <div className="star-divider max-w-xs mx-auto">&#10022;</div>
 
           {/* Billing toggle */}
@@ -127,32 +167,36 @@ export default function Pricing() {
               : null;
             const isCurrent = currentTier === tier.id;
             const priceKey = billingPeriod === "monthly" ? tier.monthlyKey : tier.annualKey;
+            
+            // Highlight the recommended path from Oracle
+            const isHighlighted = tier.highlight || (fromOracle && tier.id === "premium");
 
             return (
               <ScrollFloat key={tier.id} index={idx} intensity="subtle">
                 <motion.div
                   whileHover={{ 
-                    y: -8, 
-                    rotateY: idx % 2 === 0 ? 1.5 : -1.5, 
-                    rotateX: 1,
-                    z: 20 
+                    y: -12, 
+                    rotateY: idx % 2 === 0 ? 2 : -2, 
+                    rotateX: 1.5,
+                    z: 30 
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   className="relative h-full"
                   style={{ perspective: "1200px" }}
                 >
                   <div
-                    className="relative glass-card p-5 md:p-6 h-full flex flex-col"
+                    className="relative glass-card p-5 md:p-6 h-full flex flex-col transition-all duration-700"
                     style={{
-                      border: tier.highlight
+                      border: isHighlighted
                         ? "1px solid rgba(212, 175, 55, 0.5)"
                         : "1px solid rgba(200,185,255,0.10)",
                       transformStyle: "preserve-3d",
+                      boxShadow: isHighlighted ? "0 0 60px rgba(212, 175, 55, 0.08)" : undefined
                     }}
                   >
-                  {tier.highlight && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-celestial-gold text-void-black text-[10px] tracking-[0.18em] uppercase font-semibold whitespace-nowrap">
-                      ✦ Most chosen
+                  {isHighlighted && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-celestial-gold text-void-black text-[10px] tracking-[0.18em] uppercase font-semibold whitespace-nowrap shadow-lg">
+                      ✦ {fromOracle && tier.id === "premium" ? "Deeper Resonance" : "Most chosen"}
                     </div>
                   )}
 
@@ -163,7 +207,7 @@ export default function Pricing() {
                       </h3>
                       {tier.id === "vip" && isVip && <VipBadge />}
                     </div>
-                    <p className="text-muted-lavender text-xs leading-relaxed">{t(tier.tagline as keyof Translations)}</p>
+                    <p className="text-muted-lavender/40 font-mono text-[9px] uppercase tracking-widest">{getTierTagline(tier.id)}</p>
                   </div>
 
                   <div className="mb-5">
@@ -255,6 +299,94 @@ export default function Pricing() {
               <span className="text-cosmic-teal">✦</span> Astronomical Ephemeris
             </div>
           </div>
+        </div>
+
+        {/* Value explanation section */}
+        <div className="mt-24 sm:mt-32">
+          <div className="text-center mb-12">
+            <p className="font-mono text-[9px] uppercase tracking-[0.4em] text-celestial-gold/50 mb-3">Expanding the circle</p>
+            <h3 className="font-[family-name:var(--font-heading)] text-3xl text-warm-ivory italic">What deeper readings add</h3>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="glass-card p-8 border-white/5 relative overflow-hidden group hover:border-celestial-gold/20 transition-colors">
+              <div className="text-2xl mb-4 group-hover:scale-110 transition-transform duration-500">🔭</div>
+              <h4 className="font-[family-name:var(--font-heading)] text-xl text-celestial-gold mb-3">Celestial Context</h4>
+              <p className="text-sm text-muted-lavender/70 leading-relaxed">
+                A surface reading identifies the signs. A deeper resonance looks at the <strong>aspects</strong> — how your planets talk to each other across time.
+              </p>
+            </div>
+            
+            <div className="glass-card p-8 border-white/5 relative overflow-hidden group hover:border-celestial-gold/20 transition-colors">
+              <div className="text-2xl mb-4 group-hover:scale-110 transition-transform duration-500">⏳</div>
+              <h4 className="font-[family-name:var(--font-heading)] text-xl text-celestial-gold mb-3">Precise Timing</h4>
+              <p className="text-sm text-muted-lavender/70 leading-relaxed">
+                Free readings are current-moment only. Paid interpretations overlay your <strong>personal transits</strong>, revealing when cycles open and close.
+              </p>
+            </div>
+
+            <div className="glass-card p-8 border-white/5 relative overflow-hidden group hover:border-celestial-gold/20 transition-colors">
+              <div className="text-2xl mb-4 group-hover:scale-110 transition-transform duration-500">🕯️</div>
+              <h4 className="font-[family-name:var(--font-heading)] text-xl text-celestial-gold mb-3">Actionable Resonance</h4>
+              <p className="text-sm text-muted-lavender/70 leading-relaxed">
+                Beyond description, we provide specific <strong>symbolic bridges</strong> to help you apply the celestial geometry to your actual life decisions.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Sample reading preview */}
+        <div className="mt-24 sm:mt-32 max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="font-mono text-[9px] uppercase tracking-[0.4em] text-celestial-gold/50 mb-3">Tangible Resonance</p>
+            <h3 className="font-[family-name:var(--font-heading)] text-3xl text-warm-ivory italic">The difference in depth</h3>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* The "Before" - Surface */}
+            <div className="opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700">
+               <div className="glass-card p-6 border-white/5 relative overflow-hidden">
+                  <div className="text-[8px] font-mono tracking-widest text-white/20 mb-4 uppercase">Surface Reading</div>
+                  <h4 className="font-serif text-lg text-white mb-4 italic">Eight of Pentacles</h4>
+                  <p className="text-sm text-white/60 leading-relaxed italic">
+                    &ldquo;You are entering a period of diligent work and skill development. Focus on the details of your craft.&rdquo;
+                  </p>
+                  <div className="mt-6 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                  <p className="mt-4 text-[10px] text-white/20 italic">End of interpretation.</p>
+               </div>
+            </div>
+
+            {/* The "After" - Deeper Resonance */}
+            <div className="relative">
+               <div className="absolute -inset-4 bg-celestial-gold/5 blur-3xl rounded-full" />
+               <div className="relative glass-card p-8 border-celestial-gold/20 shadow-[0_0_50px_rgba(212,175,55,0.1)]">
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="text-[9px] font-mono tracking-widest text-celestial-gold uppercase">Deeper Resonance</div>
+                    <div className="text-[10px] text-cosmic-teal font-mono">✦ SYNCHRONIZED</div>
+                  </div>
+                  <h4 className="font-serif text-2xl text-warm-ivory mb-4 italic">Eight of Pentacles</h4>
+                  <div className="space-y-4">
+                    <p className="text-sm text-warm-ivory/80 leading-relaxed">
+                      &ldquo;As Saturn (Structure) squares your Natal Mercury, this work is not just about skill — it is about <strong>reclaiming your voice.</strong>&rdquo;
+                    </p>
+                    <p className="text-sm text-warm-ivory/80 leading-relaxed border-l border-celestial-gold/20 pl-4 py-1 italic">
+                      The current transit of Jupiter suggests that this focus will yield an unexpected expansion in your 10th house by late September.
+                    </p>
+                    <p className="text-sm text-warm-ivory/80 leading-relaxed">
+                      This is the moment to transition from practice into public mastery. The stars suggest the structure is now ready to hold the weight of your ambition.
+                    </p>
+                  </div>
+                  <div className="mt-8 flex items-center gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-celestial-gold animate-pulse" />
+                    <p className="text-[10px] font-mono text-celestial-gold/40 uppercase tracking-widest">Interpretation continues...</p>
+                  </div>
+               </div>
+            </div>
+          </div>
+          
+          <p className="text-center mt-12 text-[10px] text-muted-lavender/40 italic">
+            Sample shown for illustrative purposes. Actual readings vary based on your specific birth moment.
+          </p>
         </div>
 
         {/* Full feature matrix */}

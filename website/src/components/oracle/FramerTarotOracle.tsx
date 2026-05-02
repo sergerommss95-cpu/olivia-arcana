@@ -419,7 +419,7 @@ export default function FramerTarotOracle() {
                    className="pointer-events-auto flex flex-col items-center gap-6"
                  >
                     <div className="flex flex-col items-center gap-4">
-                      <MagneticButton variant="gold" href="/pricing" size="md" className="shadow-[0_0_50px_rgba(212,175,55,0.15)]">
+                      <MagneticButton variant="gold" href="/pricing?from=oracle" size="md" className="shadow-[0_0_50px_rgba(212,175,55,0.15)]">
                         Reveal the deeper resonance &rarr;
                       </MagneticButton>
                       <p className="text-[0.65rem] font-mono uppercase tracking-[0.25em] text-[#d4af37]/40">
