@@ -648,12 +648,6 @@ const GodModeCard = React.memo(function GodModeCard({
      return h !== index && !isSelected;
   });
   
-  // React state sync for canvas (Canvas needs boolean, not MotionValue)
-  const [canvasDisabled, setCanvasDisabled] = useState(true);
-  useEffect(() => {
-    return disableCanvas.on("change", (latest) => setCanvasDisabled(latest));
-  }, [disableCanvas]);
-
   const staggerDelay = machineState === "drawing" && !isSelected ? 0.2 + index * 0.03 : 0;
 
   const edgeAngle = useTransform(time, (t) => `${(t / 20) % 360}deg`);
@@ -703,7 +697,7 @@ const GodModeCard = React.memo(function GodModeCard({
 
         {/* BACK: EXACT 100% MATCH TO FLIP_REVEAL_CARD */}
         <div className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] border border-[#d4af37]/30 bg-[#0b0822] will-change-transform" style={{ transform: 'translateZ(0.1px)', transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
-          <CardBack disableCanvas={canvasDisabled} />
+          <CardBack disableCanvas={disableCanvas} />
         </div>
 
         {/* FRONT: LAZY LOADED ACTUAL IMAGES */}

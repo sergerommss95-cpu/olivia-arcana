@@ -9,7 +9,18 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import FramerTarotOracle from "@/components/oracle/FramerTarotOracle";
+import dynamic from "next/dynamic";
+
+const FramerTarotOracle = dynamic(() => import("@/components/oracle/FramerTarotOracle"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-full">
+      <div className="text-[#f5f2e1]/20 font-mono text-xs tracking-widest animate-pulse uppercase">
+        Concentrate
+      </div>
+    </div>
+  ),
+});
 
 export default function OraclePage() {
   const [mounted, setMounted] = useState(false);

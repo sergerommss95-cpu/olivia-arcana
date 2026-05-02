@@ -37,7 +37,7 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import NextImage from "next/image";
-import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform, animate, type MotionValue } from "framer-motion";
 import type { TarotCard } from "@/lib/academy/tarot-cards";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 import { getCardPortalImagePath } from "@/lib/academy/card-images";
@@ -74,7 +74,7 @@ interface FlipRevealCardProps {
 //  flip. Reduced-motion strips all motion to a static elegant back.
 // ─────────────────────────────────────────────────────────────────────
 
-export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean } = {}) {
+export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | MotionValue<boolean> } = {}) {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -90,7 +90,11 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean } 
   // like flow field, and a cursor-attractor dust cloud that only appears
   // when the pointer is on the card.
   useEffect(() => {
-    if (disableCanvas) return;
+    const isMV = typeof disableCanvas !== "boolean";
+    
+    // If it's a fixed boolean and true, don't even start
+    if (!isMV && disableCanvas) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d", { alpha: true });
@@ -162,8 +166,23 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean } 
 
     let raf = 0;
     let lastT = performance.now();
+    let isActive = !disableCanvas;
+
+    // If it's a MotionValue, sync isActive without React re-renders
+    let unsubscribe = () => {};
+    if (isMV) {
+      unsubscribe = (disableCanvas as MotionValue<boolean>).on("change", (v) => {
+        isActive = !v;
+        if (isActive && !raf) raf = requestAnimationFrame(tick);
+      });
+      isActive = !(disableCanvas as MotionValue<boolean>).get();
+    }
 
     const tick = (t: number) => {
+      if (!isActive) {
+        raf = 0;
+        return;
+      }
       const dt = Math.min(48, t - lastT); // clamp to avoid huge jumps after tab switch
       lastT = t;
 
@@ -259,8 +278,12 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean } 
       raf = requestAnimationFrame(tick);
     };
 
-    if (!reduced) raf = requestAnimationFrame(tick);
-    return () => { if (raf) cancelAnimationFrame(raf); };
+    if (!reduced && isActive) raf = requestAnimationFrame(tick);
+    
+    return () => { 
+      if (raf) cancelAnimationFrame(raf); 
+      unsubscribe();
+    };
   }, [disableCanvas]);
 
   // Pointer parallax — set --px / --py CSS vars on the root (−0.5..0.5).

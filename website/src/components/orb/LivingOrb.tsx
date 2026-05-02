@@ -102,7 +102,9 @@ function LivingOrbCanvas({ hover, pressed, reducedMotion }: { hover: boolean; pr
 }
 
 export default function LivingOrb({ className = "" }: LivingOrbProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const reducedMotion = useReducedMotion() ?? false;
   const [hovered, setHovered] = useState(false);
   const [pressed, setPressed] = useState(false);
@@ -123,6 +125,14 @@ export default function LivingOrb({ className = "" }: LivingOrbProps) {
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => setMounted(true));
+    
+    // Intersection Observer for visibility gating
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting);
+    }, { threshold: 0.1 });
+    
+    if (containerRef.current) observer.observe(containerRef.current);
+
     const pointerQuery = window.matchMedia("(pointer: fine)");
     const updatePointer = () => setFinePointer(pointerQuery.matches);
     pointerQuery.addEventListener("change", updatePointer);
@@ -132,12 +142,13 @@ export default function LivingOrb({ className = "" }: LivingOrbProps) {
 
     return () => {
       cancelAnimationFrame(frame);
+      observer.disconnect();
       pointerQuery.removeEventListener("change", updatePointer);
       document.removeEventListener("visibilitychange", updateVisibility);
     };
   }, []);
 
-  const showCanvas = mounted && supportsWebGL && finePointer && !reducedMotion && tabVisible;
+  const showCanvas = mounted && isVisible && supportsWebGL && finePointer && !reducedMotion && tabVisible;
 
   const handleTap = () => {
     setPressed(true);
@@ -146,6 +157,7 @@ export default function LivingOrb({ className = "" }: LivingOrbProps) {
 
   return (
     <div
+      ref={containerRef}
       className={`living-orb-root ${className} ${hovered ? "hovered" : ""} ${pressed ? "pressed" : ""}`}
       onPointerEnter={() => setHovered(true)}
       onPointerLeave={() => {

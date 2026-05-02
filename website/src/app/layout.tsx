@@ -134,6 +134,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://checkout.paddle.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://api.elevenlabs.io" />
         <link rel="dns-prefetch" href="https://api.anthropic.com" />
+        
+        {/* LCP Optimization: Preload primary background */}
+        <link rel="preload" href="/nebula-bg.webp" as="image" type="image/webp" />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
