@@ -119,13 +119,13 @@ function useIsMobile() {
   return isMobile;
 }
 
-type MachineState = "idle" | "focusing" | "drawing" | "preparing" | "spread" | "result";
+type MachineState = "focusing" | "drawing" | "preparing" | "spread" | "result";
 
 export default function FramerTarotOracle() {
   const searchParams = useSearchParams();
   const router = useRouter();
   
-  const [state, setState] = useState<MachineState>("idle");
+  const [state, setState] = useState<MachineState>("focusing");
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
   const [isMuted, setIsMuted] = useState(true);
   const isMobile = useIsMobile();
@@ -137,6 +137,11 @@ export default function FramerTarotOracle() {
 
   // Motion value for hover tracking (bypasses React re-renders)
   const hoveredIndexMV = useMotionValue<number>(-1);
+
+  // Auto-init audio when engine mounts since the user already clicked "Awaken the Deck" in the shell
+  useEffect(() => {
+    audio.init();
+  }, []);
 
   // Sync with URL safely
   useEffect(() => {
@@ -182,7 +187,7 @@ export default function FramerTarotOracle() {
   }, [state, updateUrl]);
 
   const reset = useCallback(() => {
-    setState("idle");
+    setState("focusing");
     setSelectedCards([]);
     updateUrl([]);
     hoveredIndexMV.set(-1);
@@ -220,7 +225,7 @@ export default function FramerTarotOracle() {
         {/* ── TOP NAV ── */}
         <div className="absolute top-0 inset-x-0 z-50 pt-[7.5rem] pb-8 px-8 flex justify-between items-start pointer-events-none">
            <div className="pointer-events-auto flex flex-col gap-4">
-              {state !== "idle" && (
+              {state !== "focusing" && (
                  <button 
                    onClick={reset}
                    className="min-h-11 text-[10px] tracking-[0.3em] uppercase text-white/30 hover:text-[#d4af37] transition-all duration-500 hover:tracking-[0.4em]"
@@ -245,30 +250,6 @@ export default function FramerTarotOracle() {
 
         {/* ── PROMPT TYPOGRAPHY ── */}
         <AnimatePresence mode="wait">
-          {state === "idle" && (
-            <m.div 
-              key="idle"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute z-40 flex flex-col items-center mt-[-25vh] pointer-events-none"
-            >
-              <h1 className="font-serif text-6xl md:text-8xl text-transparent bg-clip-text bg-gradient-to-b from-[#f5f0e8] to-[#888] mb-8 font-light tracking-tight">
-                Draw the <span className="italic text-[#d4af37]">Threads</span>
-              </h1>
-              <button 
-                onClick={() => { audio.init(); setState("focusing"); }}
-                className="pointer-events-auto group relative px-10 py-5 rounded-full overflow-hidden border border-[#d4af37]/20 bg-black/60 backdrop-blur-md transition-all duration-500 hover:border-[#d4af37]/60"
-              >
-                <span className="relative z-10 text-xs tracking-[0.3em] uppercase text-[#d4af37] group-hover:text-white transition-colors duration-500">
-                  Awaken the Deck
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#d4af37]/10 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
-              </button>
-            </m.div>
-          )}
-
           {state === "focusing" && (
             <m.div 
               key="focusing"
@@ -613,13 +594,13 @@ const GodModeCard = React.memo(function GodModeCard({
   let targetScale = 1;
   let targetOpacity = 1;
 
-  if (machineState === "idle" || machineState === "focusing") {
+  if (machineState === "focusing") {
     targetX = 0;
     targetY = 0;
     targetZ = index * -2; 
     targetRotateZ = 0;
     targetScale = 0.8;
-    targetOpacity = machineState === "idle" ? 0 : 0.4; 
+    targetOpacity = 0.4; 
   } 
   else if (machineState === "drawing" || machineState === "preparing") {
     targetX = baseArcX;
@@ -743,7 +724,7 @@ const GodModeCard = React.memo(function GodModeCard({
 
   // Disable canvas for off-screen/unhovered cards to save 1000x battery/CPU
   const disableCanvas = useTransform(hoveredIndexMV, (h) => {
-     if (machineState !== 'drawing' && machineState !== 'idle') return true;
+     if (machineState !== 'drawing') return true;
      return h !== index && !isSelected;
   });
   

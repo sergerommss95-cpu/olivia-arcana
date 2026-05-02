@@ -7,20 +7,55 @@
 
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { useSearchParams } from "next/navigation";
 
 const FramerTarotOracle = dynamic(() => import("@/components/oracle/FramerTarotOracle"), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-full">
-      <div className="text-[#f5f2e1]/20 font-mono text-xs tracking-widest animate-pulse uppercase">
-        Concentrate
+      <div className="text-[#d4af37]/40 font-mono text-[10px] tracking-[0.6em] animate-pulse uppercase">
+        Calibrating the stars…
       </div>
     </div>
   ),
 });
+
+function OracleContainer() {
+  const searchParams = useSearchParams();
+  const hasDraw = searchParams.get("draw") !== null;
+  const [started, setStarted] = useState(hasDraw);
+
+  return (
+    <>
+      {!started && (
+        <div className="absolute inset-0 z-40 flex flex-col items-center justify-center">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(30,15,60,0.2)_0%,_transparent_70%)] pointer-events-none" />
+          <h1 className="font-serif text-6xl md:text-8xl text-transparent bg-clip-text bg-gradient-to-b from-[#f5f0e8] to-[#888] mb-8 font-light tracking-tight">
+            Draw the <span className="italic text-[#d4af37]">Threads</span>
+          </h1>
+          <button 
+            onClick={() => setStarted(true)}
+            className="pointer-events-auto group relative px-10 py-5 rounded-full overflow-hidden border border-[#d4af37]/20 bg-black/60 backdrop-blur-md transition-all duration-500 hover:border-[#d4af37]/60 shadow-[0_0_40px_rgba(212,175,55,0.05)]"
+          >
+            <span className="relative z-10 text-xs tracking-[0.3em] uppercase text-[#d4af37] group-hover:text-white transition-colors duration-500">
+              Awaken the Deck
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#d4af37]/10 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+          </button>
+        </div>
+      )}
+
+      {started && (
+        <div className="absolute inset-0 z-10">
+          <FramerTarotOracle />
+        </div>
+      )}
+    </>
+  );
+}
 
 export default function OraclePage() {
   const [mounted, setMounted] = useState(false);
@@ -47,9 +82,9 @@ export default function OraclePage() {
       </nav>
 
       {/* ── THE ORACLE ENGINE (DOM-BASED) ── */}
-      <div className="absolute inset-0 z-10">
-        <FramerTarotOracle />
-      </div>
+      <Suspense fallback={<div />}>
+        <OracleContainer />
+      </Suspense>
 
       <style jsx global>{`
         body { background: #08061a; cursor: crosshair; overflow: hidden; }
