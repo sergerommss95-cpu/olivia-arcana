@@ -126,6 +126,71 @@ function useDeviceTier() {
 
 type MachineState = "focusing" | "drawing" | "preparing" | "spread" | "result";
 
+// ── GHOST DECK (Non-interactive silhouettes for the "Full Deck" illusion) ──
+const GhostCard = React.memo(function GhostCard({ 
+  index, 
+  total, 
+  device, 
+  breathing, 
+  machineState 
+}: { 
+  index: number, 
+  total: number, 
+  device: "mobile" | "tablet" | "desktop",
+  breathing: MotionValue<number>,
+  machineState: MachineState
+}) {
+  const isMobile = device === "mobile";
+  const isTablet = device === "tablet";
+  
+  const cardWidth = isMobile ? 90 : isTablet ? 115 : 125; 
+  const cardHeight = isMobile ? 155 : isTablet ? 200 : 215;
+
+  const { x, y, rotateZ } = useMemo(() => {
+    const arcRadius = isMobile ? 850 : isTablet ? 1100 : 1400; 
+    const span = Math.PI * (isMobile ? 0.45 : isTablet ? 0.55 : 0.65); 
+    const angle = -span / 2 + (span / (total - 1)) * index;
+    return {
+      x: Math.sin(angle) * arcRadius,
+      y: (1 - Math.cos(angle)) * arcRadius * 0.7 + (isMobile ? 140 : 120),
+      rotateZ: angle * (180 / Math.PI)
+    };
+  }, [index, total, isMobile, isTablet]);
+
+  const driftPhase = (index * 0.77) % (Math.PI * 2);
+  const finalY = useTransform(breathing, (b) => y + Number(b) + Math.sin(driftPhase) * 2);
+  
+  // Ghost cards recede when ritual moves forward
+  const opacity = machineState === "drawing" ? 0.18 : 0;
+
+  return (
+    <m.div
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        width: cardWidth,
+        height: cardHeight,
+        marginLeft: -cardWidth / 2,
+        marginTop: -cardHeight / 2,
+        x,
+        y: finalY,
+        rotateZ,
+        opacity,
+        zIndex: 0,
+        pointerEvents: "none",
+        border: "1px solid rgba(212, 175, 55, 0.15)",
+        background: "rgba(11, 8, 34, 0.4)",
+        borderRadius: "14px",
+      }}
+      initial={false}
+      animate={{ opacity }}
+      transition={{ duration: 1.5 }}
+    />
+  );
+});
+
 export default function FramerTarotOracle() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -142,6 +207,10 @@ export default function FramerTarotOracle() {
   // Luxury Dealer Spread: 7 (mobile), 9 (tablet), 11 (desktop)
   const poolSize = device === "mobile" ? 7 : device === "tablet" ? 9 : 11;
   const oracleData = useMemo(() => ALL_CARDS.slice(0, poolSize), [poolSize]);
+
+  // Ghost Deck Pool: 6 (mobile), 10 (tablet), 14 (desktop)
+  const ghostSize = device === "mobile" ? 6 : device === "tablet" ? 10 : 14;
+  const ghostIndices = useMemo(() => Array.from({ length: ghostSize }, (_, i) => i), [ghostSize]);
 
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
   const [isMuted, setIsMuted] = useState(true);
@@ -225,6 +294,10 @@ export default function FramerTarotOracle() {
 
         {/* ── CINEMATIC AMBIENCE (Hybrid God Mode) ── */}
         <AstralBackground isMobile={isMobile} />
+        
+        {/* Selection Scrim (Focus focus) */}
+        <div className={`absolute inset-0 z-0 bg-black/40 transition-opacity duration-1000 pointer-events-none ${state === "drawing" ? "opacity-100" : "opacity-0"}`} />
+        
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(30,15,60,0.2)_0%,_transparent_70%)] pointer-events-none" />
         <div
           className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
@@ -363,6 +436,19 @@ export default function FramerTarotOracle() {
         {/* ── THE ORACLE DECK ENGINE ── */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="relative w-0 h-0 pointer-events-auto [transform-style:preserve-3d]">
+            {/* 1. GHOST DECK (Wave illusion) */}
+            {ghostIndices.map((i) => (
+              <GhostCard 
+                key={`ghost-${i}`}
+                index={i}
+                total={ghostSize}
+                device={device}
+                breathing={breathing}
+                machineState={state}
+              />
+            ))}
+
+            {/* 2. HERO CARDS (Selectable) */}
             {oracleData.map((card, i) => (
               <GodModeCard 
                 key={card.name}
