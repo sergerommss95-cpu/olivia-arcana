@@ -161,7 +161,8 @@ const GhostCard = React.memo(function GhostCard({
   const finalY = useTransform(breathing, (b) => y + Number(b) + Math.sin(driftPhase) * 2);
   
   // Ghost cards recede when ritual moves forward
-  const opacity = machineState === "drawing" ? 0.18 : 0;
+  const baseOpacity = isMobile ? 0.12 : isTablet ? 0.22 : 0.28;
+  const opacity = (machineState === "drawing" || machineState === "focusing") ? baseOpacity : 0;
 
   return (
     <m.div
@@ -178,11 +179,12 @@ const GhostCard = React.memo(function GhostCard({
         y: finalY,
         rotateZ,
         opacity,
-        zIndex: 0,
+        zIndex: 1,
         pointerEvents: "none",
-        border: "1px solid rgba(212, 175, 55, 0.15)",
-        background: "rgba(11, 8, 34, 0.4)",
+        border: "1px solid rgba(212, 175, 55, 0.25)",
+        background: "rgba(20, 15, 60, 0.15)",
         borderRadius: "14px",
+        boxShadow: "0 0 20px rgba(0,0,0,0.5)",
       }}
       initial={false}
       animate={{ opacity }}
