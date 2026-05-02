@@ -108,15 +108,20 @@ const audio = new AstralAudio();
 // Use a deterministic subset of cards to prevent hydration mismatches.
 const ORACLE_DATA = ALL_CARDS.slice(0, 15);
 
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
+function useDeviceTier() {
+  const [tier, setTier] = useState<"mobile" | "tablet" | "desktop">("desktop");
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
+    const check = () => {
+      const w = window.innerWidth;
+      if (w < 768) setTier("mobile");
+      else if (w < 1100) setTier("tablet");
+      else setTier("desktop");
+    };
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
-  return isMobile;
+  return tier;
 }
 
 type MachineState = "focusing" | "drawing" | "preparing" | "spread" | "result";
@@ -127,11 +132,12 @@ export default function FramerTarotOracle() {
   const time = useTime();
   
   const [state, setState] = useState<MachineState>("focusing");
-  const isMobile = useIsMobile();
+  const device = useDeviceTier();
+  const isMobile = device === "mobile";
   
   // Use a deterministic subset of cards to prevent hydration mismatches.
-  // Mobile only gets 8 cards for maximum performance; desktop gets 15 for a luxury fan.
-  const poolSize = isMobile ? 8 : 15;
+  // Pool sizes optimized for visual separation: 7 (mobile), 11 (tablet), 13 (desktop)
+  const poolSize = device === "mobile" ? 7 : device === "tablet" ? 11 : 13;
   const oracleData = useMemo(() => ALL_CARDS.slice(0, poolSize), [poolSize]);
 
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
@@ -364,7 +370,7 @@ export default function FramerTarotOracle() {
                 isSelected={selectedCards.includes(i)}
                 selectionIndex={selectedCards.indexOf(i)}
                 hoveredIndexMV={hoveredIndexMV}
-                isMobile={isMobile}
+                device={device}
                 time={time}
                 canSelect={selectedCards.length < 3}
                 onClick={() => handleCardClick(i)}
@@ -523,7 +529,7 @@ const GodModeCard = React.memo(function GodModeCard({
   isSelected,
   selectionIndex,
   hoveredIndexMV,
-  isMobile,
+  device,
   time,
   canSelect,
   onClick
@@ -535,7 +541,7 @@ const GodModeCard = React.memo(function GodModeCard({
   isSelected: boolean,
   selectionIndex: number,
   hoveredIndexMV: MotionValue<number>,
-  isMobile: boolean,
+  device: "mobile" | "tablet" | "desktop",
   time: MotionValue<number>,
   canSelect: boolean,
   onClick: () => void
@@ -543,20 +549,28 @@ const GodModeCard = React.memo(function GodModeCard({
   const isReducedMotion = useReducedMotion();
   const [imageLoaded, setImageLoaded] = useState(false);
   
-  const cardWidth = isMobile ? 120 : 140; 
-  const cardHeight = isMobile ? 210 : 245;
+  const isMobile = device === "mobile";
+  const isTablet = device === "tablet";
+  
+  // Refined card sizes for better separation
+  const cardWidth = isMobile ? 95 : isTablet ? 120 : 130; 
+  const cardHeight = isMobile ? 165 : isTablet ? 210 : 225;
 
-  // ── ARC MATHEMATICS (Computed once) ──
+  // ── ARC MATHEMATICS (Optimized for Separation) ──
   const { baseArcX, baseArcY, baseArcRotateZ } = useMemo(() => {
-    const arcRadius = isMobile ? 700 : 1000; 
-    const span = Math.PI * (isMobile ? 0.35 : 0.45); 
+    // Desktop: Flatter arc, wider horizontal span
+    // Mobile: Tighter arc, narrow horizontal span
+    const arcRadius = isMobile ? 800 : isTablet ? 1000 : 1200; 
+    const span = Math.PI * (isMobile ? 0.35 : isTablet ? 0.38 : 0.4); 
+    
     const angle = -span / 2 + (span / (total - 1)) * index;
     return {
       baseArcX: Math.sin(angle) * arcRadius,
-      baseArcY: (1 - Math.cos(angle)) * arcRadius * (isMobile ? 0.9 : 1.1) + 80,
+      // baseArcY multiplier 0.8 = shallower arc for better separation
+      baseArcY: (1 - Math.cos(angle)) * arcRadius * 0.8 + (isMobile ? 120 : 100),
       baseArcRotateZ: angle * (180 / Math.PI)
     };
-  }, [index, total, isMobile]);
+  }, [index, total, isMobile, isTablet]);
 
   // ── REACTIVE DOCK PHYSICS (Pure MotionValues, NO re-renders) ──
   const dockOffsetX = useTransform(hoveredIndexMV, (h) => {
@@ -564,42 +578,44 @@ const GodModeCard = React.memo(function GodModeCard({
     const dist = index - h;
     if (dist === 0) return 0;
     const pushFactor = 1 / (Math.abs(dist) + 0.5);
-    return Math.sign(dist) * pushFactor * 50;
+    return Math.sign(dist) * pushFactor * 60;
   });
 
   const dockOffsetY = useTransform(hoveredIndexMV, (h) => {
     if (h === -1 || isSelected || machineState !== "drawing") return 0;
     const dist = index - h;
-    if (dist === 0) return -60; // Hovered card pulls up
-    return Math.abs(dist) * 10; // Others push down
+    if (dist === 0) return -80; // Hovered card pulls up significantly
+    return Math.abs(dist) * 12; // Others push down slightly
   });
 
   const dockOffsetZ = useTransform(hoveredIndexMV, (h) => {
     if (h === -1 || isSelected || machineState !== "drawing") return 0;
     const dist = index - h;
-    if (dist === 0) return 150; // Pop hovered card out
-    // Create a smooth convex curve out of the screen for neighbors to avoid 3D clipping
+    if (dist === 0) return 200; // Pop hovered card out
     const pushFactor = 1 / (Math.abs(dist) + 0.5);
-    return pushFactor * 60; 
+    return pushFactor * 80; 
   });
 
   const dockRotateZ = useTransform(hoveredIndexMV, (h) => {
     if (h === -1 || isSelected || machineState !== "drawing") return 0;
     const dist = index - h;
     if (dist === 0) return -baseArcRotateZ; // Hovered card straightens
-    return Math.sign(dist) * (1 / (Math.abs(dist) + 0.5)) * 4;
+    return Math.sign(dist) * (1 / (Math.abs(dist) + 0.5)) * 6;
   });
 
   const dockScale = useTransform(hoveredIndexMV, (h) => {
-    if (isSelected || machineState !== "drawing") return 1; // overridden by layout target
-    if (h === index) return 1.2;
+    if (isSelected || machineState !== "drawing") return 1; 
+    if (h === index) return 1.15;
     return 1;
   });
 
   const dockZIndex = useTransform(hoveredIndexMV, (h) => {
     if (isSelected) return 100 + selectionIndex;
     if (h === index) return 50;
-    return index;
+    
+    // Depth-stacking: Center cards sit on top of neighbors
+    const centerIndex = (total - 1) / 2;
+    return Math.round(total - Math.abs(index - centerIndex));
   });
 
   // ── CALCULATE TARGET LAYOUT STATE ──
@@ -630,7 +646,7 @@ const GodModeCard = React.memo(function GodModeCard({
       const spacing = isMobile ? 80 : 150; 
       const meltOffset = (selectionIndex - 1) * spacing;
       targetX = meltOffset; 
-      targetY -= 280;
+      targetY -= isMobile ? 220 : 280;
       targetZ = 300 + selectionIndex * 10;
       targetRotateZ = (selectionIndex - 1) * 5;
       targetScale = 1.1;
@@ -639,17 +655,17 @@ const GodModeCard = React.memo(function GodModeCard({
   else if (machineState === "spread" || machineState === "result") {
     if (isSelected) {
       // The Triad Formation
-      const spacing = isMobile ? 125 : 220;
+      const spacing = isMobile ? 110 : 220;
       const offset = (selectionIndex - 1) * spacing;
       targetX = offset;
-      targetY = isMobile ? -60 : -80;
+      targetY = isMobile ? -40 : -80;
       targetZ = 200;
       targetRotateZ = (selectionIndex - 1) * 2; 
-      targetScale = isMobile ? 1.05 : 1.35;
+      targetScale = isMobile ? 1.0 : 1.35;
 
       if (machineState === "result") {
         targetRotateY = 180; 
-        targetY = isMobile ? -80 : -120;
+        targetY = isMobile ? -60 : -120;
       }
     } else {
       targetX = baseArcX * 1.2;
@@ -816,13 +832,13 @@ const GodModeCard = React.memo(function GodModeCard({
         />
 
         {/* BACK: EXACT 100% MATCH TO FLIP_REVEAL_CARD */}
-        <div className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] border border-[#d4af37]/30 bg-[#0b0822] will-change-transform" style={{ transform: 'translateZ(0.1px)', transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
+        <div className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] border border-[#d4af37]/40 bg-[#0b0822] will-change-transform" style={{ transform: 'translateZ(0.1px)', transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
           <CardBack disableCanvas={disableCanvas} />
         </div>
 
         {/* FRONT: LAZY LOADED ACTUAL IMAGES */}
         <div 
-          className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] border border-[#d4af37]/50 bg-[#04030c] will-change-transform"
+          className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] border border-[#d4af37]/60 bg-[#04030c] will-change-transform"
           style={{ transform: 'rotateY(180deg) translateZ(0.1px)', transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
         >
            <div className="front-nebula" />
