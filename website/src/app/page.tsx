@@ -72,7 +72,7 @@ export default function Home() {
               {[
                 { kind: "rating", text: "8", sub: "languages — EN · UK · RU · DE · FR · AR · ES · PT" },
                 { kind: "sep" },
-                { kind: "press", outlet: "Powered by", name: "NASA JPL DE440/DE441 ephemeris" },
+                { kind: "press", outlet: "Powered by", name: "High-precision astronomical ephemeris" },
                 { kind: "sep" },
                 { kind: "rating", text: "207", sub: "academy lessons across 14 courses" },
                 { kind: "sep" },

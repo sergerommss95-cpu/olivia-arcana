@@ -150,14 +150,10 @@ export default function HeroV3() {
     }, 1800);
   }, [question, isProcessing]);
 
-  if (!mounted) {
-    return <section ref={sectionRef} className="relative min-h-[110svh] md:min-h-screen bg-[#08061a]" />;
-  }
-
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[110svh] md:min-h-screen flex flex-col md:flex-row items-center justify-center px-6 pt-24 pb-12 overflow-hidden z-10"
+      className={`relative min-h-[110svh] md:min-h-screen flex flex-col md:flex-row items-center justify-center px-6 pt-24 pb-12 overflow-hidden z-10 ${!mounted ? 'is-loading' : ''}`}
       aria-labelledby="hero-headline"
     >
       {/* Editorial Scrim — Apple-grade readability engine */}
@@ -447,6 +443,12 @@ export default function HeroV3() {
           to { transform: rotate(360deg); }
         }
         .animate-spin-slow { animation: spin-slow 60s linear infinite; }
+
+        /* Ensure text is visible if JS fails/is slow */
+        .is-loading [data-word] {
+          opacity: 1 !important;
+          transform: none !important;
+        }
       `}</style>
     </section>
   );
