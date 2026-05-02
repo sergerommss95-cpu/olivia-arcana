@@ -38,6 +38,11 @@ function ensureVeilStyles() {
   0%   { background-position: 200% 0; }
   100% { background-position: -100% 0; }
 }
+@keyframes mb-pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+  30% { transform: scale(0.96); box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
 @media (prefers-reduced-motion: reduce) {
   .mb-holo, .mb-foil { animation: none !important; }
 }
@@ -104,6 +109,7 @@ export default function MagneticButton({
 }: MagneticButtonProps) {
   const { ref, x, y, active, pressed } = useMagnetic<HTMLElement>(60, 0.3);
   const v = VARIANTS[variant];
+  const [clicked, setClicked] = useState(false);
 
   // Default veil on for gold/glass, off for outline (outline is the "quiet" variant).
   const veilEnabled = veil ?? variant !== "outline";
@@ -120,6 +126,8 @@ export default function MagneticButton({
 
   const handleClick = () => {
     if (disabled) return;
+    setClicked(true);
+    setTimeout(() => setClicked(false), 400);
     if (sound) {
       window.dispatchEvent(new CustomEvent("cosmos:chime"));
     }
@@ -155,6 +163,7 @@ export default function MagneticButton({
     transition: pressed
       ? "transform 100ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 100ms ease"
       : "transform 400ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+    animation: clicked ? "mb-pulse 0.4s cubic-bezier(0.16, 1, 0.3, 1)" : undefined,
     willChange: active ? "transform, box-shadow" : "auto",
     minHeight: "46px",
     minWidth: "44px",

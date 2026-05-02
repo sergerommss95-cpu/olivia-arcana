@@ -234,10 +234,24 @@ export default function Pricing() {
         })}
         </div>
 
-        {/* Refund note */}
-        <p className="text-center text-xs text-muted-lavender/70 mt-8">
-          {t("cta_note")}
-        </p>
+        {/* Refund and Trust note */}
+        <div className="mt-12 flex flex-col items-center gap-6">
+          <p className="text-center text-xs text-muted-lavender/60 max-w-lg leading-relaxed">
+            {t("cta_note")}
+          </p>
+
+          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 py-6 border-y border-white/5 w-full max-w-4xl">
+            <div className="flex items-center gap-2 text-[0.65rem] font-mono uppercase tracking-widest text-warm-ivory/30">
+              <span className="text-cosmic-teal">✦</span> Secure SSL Checkout
+            </div>
+            <div className="flex items-center gap-2 text-[0.65rem] font-mono uppercase tracking-widest text-warm-ivory/30">
+              <span className="text-cosmic-teal">✦</span> Privacy First Experience
+            </div>
+            <div className="flex items-center gap-2 text-[0.65rem] font-mono uppercase tracking-widest text-warm-ivory/30">
+              <span className="text-cosmic-teal">✦</span> NASA Ephemeris Data
+            </div>
+          </div>
+        </div>
 
         {/* Full feature matrix */}
         <FeatureMatrix />

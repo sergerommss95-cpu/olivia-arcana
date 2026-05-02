@@ -16,6 +16,7 @@ import {
 } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CardBack } from "@/components/shaders/FlipRevealCard";
+import MagneticButton from "@/components/MagneticButton";
 import AstralBackground from "./AstralBackground";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 import { getCardPortalImagePath } from "@/lib/academy/card-images";
@@ -333,19 +334,35 @@ export default function FramerTarotOracle() {
               transition={{ delay: 2.0, duration: 1.0 }}
               className="absolute bottom-0 inset-x-0 h-[40vh] bg-gradient-to-t from-black via-[#030208]/90 to-transparent z-40 flex items-end justify-center pb-16 pointer-events-none"
             >
-               <div className="flex gap-4 md:gap-24 pointer-events-auto text-center px-4">
-                  {selectedCards.map((id, idx) => {
-                    const card = ORACLE_DATA[id];
-                    const label = idx === 0 ? "The Past" : idx === 1 ? "The Present" : "The Path";
-                    return (
-                      <div key={id} className="flex flex-col items-center w-[110px] md:w-[180px]">
-                        <span className="text-[8px] md:text-[9px] tracking-[0.3em] uppercase text-[#d4af37] mb-3 opacity-80">{label}</span>
-                        <div className="h-px w-8 md:w-12 bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent mb-3" />
-                        <h3 className="font-serif text-base md:text-2xl text-white mb-1 leading-tight">{card?.name}</h3>
-                        <p className="text-[8px] md:text-[10px] tracking-widest text-white/40 uppercase">{card?.arcana} Arcana</p>
-                      </div>
-                    );
-                  })}
+               <div className="flex flex-col items-center gap-12 w-full max-w-6xl">
+                 <div className="flex gap-4 md:gap-24 pointer-events-auto text-center px-4 justify-center">
+                    {selectedCards.map((id, idx) => {
+                      const card = ORACLE_DATA[id];
+                      const label = idx === 0 ? "The Past" : idx === 1 ? "The Present" : "The Path";
+                      return (
+                        <div key={id} className="flex flex-col items-center w-[110px] md:w-[180px]">
+                          <span className="text-[8px] md:text-[9px] tracking-[0.3em] uppercase text-[#d4af37] mb-3 opacity-80">{label}</span>
+                          <div className="h-px w-8 md:w-12 bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent mb-3" />
+                          <h3 className="font-serif text-base md:text-2xl text-white mb-1 leading-tight">{card?.name}</h3>
+                          <p className="text-[8px] md:text-[10px] tracking-widest text-white/40 uppercase">{card?.arcana} Arcana</p>
+                        </div>
+                      );
+                    })}
+                 </div>
+
+                 <m.div 
+                   initial={{ opacity: 0, y: 10 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   transition={{ delay: 3.2, duration: 1.0 }}
+                   className="pointer-events-auto flex flex-col items-center gap-4"
+                 >
+                    <MagneticButton variant="gold" href="/pricing" size="md" className="shadow-[0_0_50px_rgba(212,175,55,0.15)]">
+                      Reveal the deeper pattern &rarr;
+                    </MagneticButton>
+                    <p className="text-[0.6rem] font-mono uppercase tracking-[0.3em] text-[#d4af37]/40">
+                      Continue the interpretation
+                    </p>
+                 </m.div>
                </div>
             </m.div>
           )}

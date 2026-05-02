@@ -18,10 +18,11 @@ export default function OracleLoadingState() {
     >
       <div
         style={{
-          fontSize: "2rem",
+          fontSize: "2.5rem",
           color: "var(--color-celestial-gold, #D4AF37)",
+          textShadow: "0 0 40px rgba(212,175,55,0.4)",
           animation: "float 3s ease-in-out infinite",
-          marginBottom: "1rem",
+          marginBottom: "1.5rem",
         }}
       >
         ✦
@@ -29,14 +30,21 @@ export default function OracleLoadingState() {
       <p
         style={{
           fontFamily: "var(--font-accent, 'Cormorant Garamond', serif)",
-          fontSize: "0.8rem",
-          letterSpacing: "0.35em",
+          fontSize: "0.75rem",
+          letterSpacing: "0.45em",
           textTransform: "uppercase" as const,
-          color: "var(--c-text-muted, rgba(155,145,190,0.6))",
+          color: "rgba(196,185,228,0.35)",
+          textAlign: "center",
         }}
       >
-        Summoning the Oracle…
+        Calibrating the stars…
       </p>
+      <div style={{
+        marginTop: "2rem",
+        width: "60px",
+        height: "1px",
+        background: "linear-gradient(to right, transparent, rgba(212,175,55,0.3), transparent)"
+      }} />
     </div>
   )
 }
