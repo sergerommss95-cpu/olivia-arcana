@@ -204,7 +204,7 @@ export default function HeroV3() {
               {t("hero_subtitle")}
             </p>
             <p className="text-[0.65rem] font-[family-name:var(--font-mono)] uppercase tracking-[0.25em] text-celestial-gold/40">
-              Private, reflective readings. Built for clarity, not noise.
+              Personal, reflective readings. Built for clarity, not noise.
             </p>
           </motion.div>
 

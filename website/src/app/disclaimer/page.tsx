@@ -46,9 +46,11 @@ export default function DisclaimerPage() {
 
       <h2>Astronomical data</h2>
       <p>
-        Planetary positions are computed from <strong>NASA JPL DE440/DE441
-        Ephemeris</strong>. The astronomy is precise; the astrological
-        interpretation built on top is symbolic and traditional, not science.
+        Planetary positions are computed from the <strong>JPL DE440/DE441
+        Ephemeris</strong>. The astronomy is precise based on scientific 
+        models; the astrological interpretation built on top is symbolic 
+        and traditional. Olivia Arcana is not affiliated with, endorsed by,
+        or connected to NASA or the Jet Propulsion Laboratory.
       </p>
 
       <h2>No guarantee of results</h2>

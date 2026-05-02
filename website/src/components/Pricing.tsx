@@ -242,13 +242,13 @@ export default function Pricing() {
 
           <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 py-6 border-y border-white/5 w-full max-w-4xl">
             <div className="flex items-center gap-2 text-[0.65rem] font-mono uppercase tracking-widest text-warm-ivory/30">
-              <span className="text-cosmic-teal">✦</span> Secure SSL Checkout
+              <span className="text-cosmic-teal">✦</span> Secure Encrypted Checkout
             </div>
             <div className="flex items-center gap-2 text-[0.65rem] font-mono uppercase tracking-widest text-warm-ivory/30">
-              <span className="text-cosmic-teal">✦</span> Privacy First Experience
+              <span className="text-cosmic-teal">✦</span> Privacy-Conscious Reading
             </div>
             <div className="flex items-center gap-2 text-[0.65rem] font-mono uppercase tracking-widest text-warm-ivory/30">
-              <span className="text-cosmic-teal">✦</span> NASA Ephemeris Data
+              <span className="text-cosmic-teal">✦</span> Astronomical Ephemeris
             </div>
           </div>
         </div>

@@ -30,8 +30,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Olivia Arcana — Your Personal Astrologer & Tarot Reader",
   description:
-    "Get personalized astrology readings based on real NASA planetary data. Daily horoscopes, tarot, compatibility reports, and transit alerts — powered by your exact birth chart.",
-  keywords: [
+    "Get personalized astrology readings based on precise astronomical data. Daily horoscopes, tarot, compatibility reports, and transit alerts — powered by your exact birth chart.",  keywords: [
     "astrology", "tarot", "horoscope", "birth chart", "natal chart",
     "compatibility", "zodiac", "daily horoscope", "personalized astrology",
   ],
@@ -102,14 +101,14 @@ export default function RootLayout({
     "name": "Olivia Arcana",
     "applicationCategory": "LifestyleApplication",
     "operatingSystem": "Web, iOS, Android",
-    "description": "Hyper-personalized AI astrology and tarot platform based on real-time NASA planetary data.",
+    "description": "Hyper-personalized AI astrology and tarot platform based on high-precision astronomical data.",
     "offers": {
       "@type": "Offer",
       "price": "4.99",
       "priceCurrency": "USD"
     },
     "featureList": [
-      "NASA-grade natal chart calculation",
+      "High-precision natal chart calculation",
       "AI-driven tarot oracle readings",
       "Word-by-word cosmic typewriter interface",
       "Personalized daily almanacs",
