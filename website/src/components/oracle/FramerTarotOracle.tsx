@@ -442,9 +442,6 @@ const GodModeCard = React.memo(function GodModeCard({
   const selectionIndex = selectedCards.indexOf(cardId);
   const [imageLoaded, setImageLoaded] = useState(false);
   
-  // Local state for the canvas - avoids parent re-rendering
-  const [isHovered, setIsHovered] = useState(false);
-
   const cardWidth = isMobile ? 120 : 140; 
   const cardHeight = isMobile ? 210 : 245;
 
@@ -603,30 +600,32 @@ const GodModeCard = React.memo(function GodModeCard({
 
   const rotateX = useTransform(smoothY, [0, cardHeight], [15, -15]);
 
+  const isHoveredMV = useMotionValue(0);
+
   const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isHovered && !isSelected) return;
+    if (isHoveredMV.get() === 0 && !isSelected) return;
     if (isReducedMotion || isMobile) return;
     const rect = e.currentTarget.getBoundingClientRect();
     localX.set(e.clientX - rect.left);
     localY.set(e.clientY - rect.top);
-  }, [isHovered, isSelected, isReducedMotion, localX, localY, isMobile]);
+  }, [isSelected, isReducedMotion, localX, localY, isMobile, isHoveredMV]);
 
   const handlePointerEnter = useCallback(() => {
     if (machineState === "drawing" && !isSelected) {
       hoveredIndexMV.set(index);
       audio.playHover();
     }
-    setIsHovered(true);
-  }, [machineState, isSelected, hoveredIndexMV, index]);
+    isHoveredMV.set(1);
+  }, [machineState, isSelected, hoveredIndexMV, index, isHoveredMV]);
 
   const handlePointerLeave = useCallback(() => {
     if (hoveredIndexMV.get() === index) {
       hoveredIndexMV.set(-1);
     }
-    setIsHovered(false);
+    isHoveredMV.set(0);
     localX.set(cardWidth / 2);
     localY.set(cardHeight / 2);
-  }, [hoveredIndexMV, index, localX, localY, cardWidth, cardHeight]);
+  }, [hoveredIndexMV, index, localX, localY, cardWidth, cardHeight, isHoveredMV]);
 
   const handleInteraction = () => {
     audio.init();
@@ -652,6 +651,11 @@ const GodModeCard = React.memo(function GodModeCard({
 
   const edgeAngle = useTransform(time, (t) => `${(t / 20) % 360}deg`);
 
+  const finalRotateX = useTransform([isHoveredMV, rotateX], ([h, rx]) => {
+    if (isSelected && machineState !== 'drawing') return rx;
+    return Number(h) > 0.5 ? rx : 0;
+  });
+
   return (
     <m.div
       onPointerEnter={handlePointerEnter}
@@ -669,7 +673,7 @@ const GodModeCard = React.memo(function GodModeCard({
         y: finalY,
         z: finalZ,
         rotateZ: finalRotateZ,
-        rotateX: (isHovered || (isSelected && machineState !== 'drawing')) ? rotateX : 0,
+        rotateX: finalRotateX,
         rotateY: motionRotateY,
         scale: isSelected || machineState !== "drawing" ? targetScale : dockScale,
         transformStyle: "preserve-3d",
