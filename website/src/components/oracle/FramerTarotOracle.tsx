@@ -119,7 +119,7 @@ function useIsMobile() {
   return isMobile;
 }
 
-type MachineState = "idle" | "drawing" | "spread" | "result";
+type MachineState = "idle" | "focusing" | "drawing" | "preparing" | "spread" | "result";
 
 export default function FramerTarotOracle() {
   const searchParams = useSearchParams();
@@ -169,10 +169,11 @@ export default function FramerTarotOracle() {
       if (prev.length < 3) {
         const newSelected = [...prev, id];
         if (newSelected.length === 3) {
+          setState("preparing");
+          updateUrl(newSelected);
           setTimeout(() => {
             setState("spread");
-            updateUrl(newSelected);
-          }, 600);
+          }, 2400); // 2.4s of "listening for the pattern"
         }
         return newSelected;
       }
@@ -257,13 +258,35 @@ export default function FramerTarotOracle() {
                 Draw the <span className="italic text-[#d4af37]">Threads</span>
               </h1>
               <button 
-                onClick={() => { audio.init(); setState("drawing"); }}
+                onClick={() => { audio.init(); setState("focusing"); }}
                 className="pointer-events-auto group relative px-10 py-5 rounded-full overflow-hidden border border-[#d4af37]/20 bg-black/60 backdrop-blur-md transition-all duration-500 hover:border-[#d4af37]/60"
               >
                 <span className="relative z-10 text-xs tracking-[0.3em] uppercase text-[#d4af37] group-hover:text-white transition-colors duration-500">
                   Awaken the Deck
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#d4af37]/10 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+              </button>
+            </m.div>
+          )}
+
+          {state === "focusing" && (
+            <m.div 
+              key="focusing"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.05 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute z-40 flex flex-col items-center text-center px-6"
+            >
+              <h2 className="font-serif text-3xl md:text-5xl text-warm-ivory/80 mb-6 italic">Hold one question in mind.</h2>
+              <p className="text-[10px] tracking-[0.4em] uppercase text-[#d4af37]/60 mb-10">Choose the thread you want to follow.</p>
+              <button 
+                onClick={() => setState("drawing")}
+                className="pointer-events-auto group relative px-12 py-4 rounded-full overflow-hidden border border-white/10 bg-black/40 backdrop-blur-sm transition-all duration-700 hover:border-[#d4af37]/40"
+              >
+                <span className="relative z-10 text-[10px] tracking-[0.5em] uppercase text-white/40 group-hover:text-[#d4af37] transition-colors duration-500">
+                  Begin the Draw
+                </span>
               </button>
             </m.div>
           )}
@@ -278,11 +301,39 @@ export default function FramerTarotOracle() {
               className="absolute top-[18%] z-40 text-center pointer-events-none"
             >
               <p className="text-[10px] tracking-[0.5em] uppercase text-white/40">
-                Draw {3 - selectedCards.length} more resonance{3 - selectedCards.length !== 1 ? 's' : ''}
+                Select {3 - selectedCards.length} more resonance{3 - selectedCards.length !== 1 ? 's' : ''}
               </p>
               <div className="flex justify-center gap-2 mt-4">
                 {[0, 1, 2].map(i => (
                   <div key={i} className={`w-1 h-1 rounded-full transition-all duration-500 ${i < selectedCards.length ? 'bg-[#d4af37] shadow-[0_0_10px_#d4af37] scale-150' : 'bg-white/20'}`} />
+                ))}
+              </div>
+            </m.div>
+          )}
+
+          {state === "preparing" && (
+            <m.div 
+              key="preparing"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute z-40 flex flex-col items-center text-center pointer-events-none"
+            >
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-[#d4af37]/20 blur-xl rounded-full animate-pulse" />
+                <div className="relative text-3xl text-[#d4af37] animate-spin-slow">✦</div>
+              </div>
+              <p className="text-[10px] tracking-[0.6em] uppercase text-[#d4af37]/40">
+                Listening for the pattern…
+              </p>
+              <div className="mt-8 flex gap-1">
+                {[0, 1, 2].map(i => (
+                  <m.div 
+                    key={i}
+                    animate={{ opacity: [0.2, 1, 0.2] }}
+                    transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.2 }}
+                    className="w-1 h-1 rounded-full bg-[#d4af37]/40" 
+                  />
                 ))}
               </div>
             </m.div>
@@ -296,6 +347,7 @@ export default function FramerTarotOracle() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="absolute bottom-[20%] z-40 text-center"
             >
+              <p className="text-[9px] tracking-[0.4em] uppercase text-white/20 mb-8">The pattern is forming.</p>
               <button 
                 onClick={() => { audio.playReveal(); reveal(); }}
                 className="px-12 py-5 bg-gradient-to-b from-[#f5f0e8] to-[#d4af37] text-black text-[10px] font-bold tracking-[0.4em] uppercase rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_10px_30px_rgba(212,175,55,0.3)]"
@@ -334,8 +386,18 @@ export default function FramerTarotOracle() {
               transition={{ delay: 2.0, duration: 1.0 }}
               className="absolute bottom-0 inset-x-0 h-[40vh] bg-gradient-to-t from-black via-[#030208]/90 to-transparent z-40 flex items-end justify-center pb-16 pointer-events-none"
             >
-               <div className="flex flex-col items-center gap-12 w-full max-w-6xl">
-                 <div className="flex gap-4 md:gap-24 pointer-events-auto text-center px-4 justify-center">
+                 <div className="flex flex-col items-center gap-12 w-full max-w-6xl">
+                   <m.div
+                     initial={{ opacity: 0, y: 10 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     transition={{ delay: 2.5, duration: 1.0 }}
+                     className="flex flex-col items-center gap-2"
+                   >
+                     <span className="text-[10px] font-mono tracking-[0.4em] uppercase text-[#d4af37]/60">Surface Pattern</span>
+                     <h2 className="font-serif text-3xl md:text-5xl text-warm-ivory italic">The reading is clear.</h2>
+                   </m.div>
+
+                   <div className="flex gap-4 md:gap-24 pointer-events-auto text-center px-4 justify-center">
                     {selectedCards.map((id, idx) => {
                       const card = ORACLE_DATA[id];
                       const label = idx === 0 ? "The Past" : idx === 1 ? "The Present" : "The Path";
@@ -353,14 +415,19 @@ export default function FramerTarotOracle() {
                  <m.div 
                    initial={{ opacity: 0, y: 10 }}
                    animate={{ opacity: 1, y: 0 }}
-                   transition={{ delay: 3.2, duration: 1.0 }}
-                   className="pointer-events-auto flex flex-col items-center gap-4"
+                   transition={{ delay: 3.5, duration: 1.0 }}
+                   className="pointer-events-auto flex flex-col items-center gap-6"
                  >
-                    <MagneticButton variant="gold" href="/pricing" size="md" className="shadow-[0_0_50px_rgba(212,175,55,0.15)]">
-                      Reveal the deeper pattern &rarr;
-                    </MagneticButton>
-                    <p className="text-[0.6rem] font-mono uppercase tracking-[0.3em] text-[#d4af37]/40">
-                      Continue the interpretation
+                    <div className="flex flex-col items-center gap-4">
+                      <MagneticButton variant="gold" href="/pricing" size="md" className="shadow-[0_0_50px_rgba(212,175,55,0.15)]">
+                        Reveal the deeper resonance &rarr;
+                      </MagneticButton>
+                      <p className="text-[0.65rem] font-mono uppercase tracking-[0.25em] text-[#d4af37]/40">
+                        Go deeper into this pattern
+                      </p>
+                    </div>
+                    <p className="text-[0.7rem] text-warm-ivory/30 max-w-sm text-center leading-relaxed">
+                      Expanded readings add celestial context, precise timing, and the symbolic connections between your cards and your birth chart.
                     </p>
                  </m.div>
                </div>
@@ -412,6 +479,22 @@ export default function FramerTarotOracle() {
           .astral-svg .al-olive { transform-origin: center; transform-box: fill-box; animation: al-olive-breath 7s cubic-bezier(0.42, 0, 0.58, 1) infinite; filter: drop-shadow(0 0 3px rgba(255, 230, 150, 0.55)); }
           @keyframes al-olive-breath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }
           .astral-back.is-hovered .astral-svg .al-olive { animation-duration: 4.5s; }
+          
+          /* Selected Card Aura */
+          .is-flipping::after {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+            z-index: -1;
+            border-radius: 50%;
+            animation: aura-pulse 3s ease-in-out infinite;
+          }
+          @keyframes aura-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(0.9); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+          }
+          
           @keyframes al-rot { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
           @property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
           .astral-foil { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: conic-gradient(from var(--angle, 0deg) at 52% 48%, transparent 0deg, rgba(232,201,106,0.08) 42deg, transparent 92deg, rgba(180,145,230,0.09) 144deg, transparent 196deg, rgba(120,220,220,0.07) 248deg, transparent 298deg, rgba(232,201,106,0.08) 344deg, transparent 360deg); mix-blend-mode: screen; opacity: 0.18; animation: al-foil 32s linear infinite; z-index: 4; }
@@ -420,6 +503,9 @@ export default function FramerTarotOracle() {
           .astral-vignette { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(ellipse at 52% 42%, transparent 55%, rgba(5, 3, 20, 0.26) 100%); mix-blend-mode: multiply; z-index: 5; }
           .front-nebula { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 38%, #221348 0%, #170d38 32%, #0c0720 58%, #04030c 100%); z-index: 0; }
           .pause-animations * { animation-play-state: paused !important; transition: none !important; }
+
+          @keyframes al-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+          .animate-spin-slow { animation: al-spin 40s linear infinite; }
 
           /* Glass Refraction (God Mode Lite) */
           .is-flipping { filter: url(#glass-refraction); }
@@ -527,15 +613,15 @@ const GodModeCard = React.memo(function GodModeCard({
   let targetScale = 1;
   let targetOpacity = 1;
 
-  if (machineState === "idle") {
+  if (machineState === "idle" || machineState === "focusing") {
     targetX = 0;
     targetY = 0;
-    targetZ = index * -1; 
+    targetZ = index * -2; 
     targetRotateZ = 0;
     targetScale = 0.8;
-    targetOpacity = 0; 
+    targetOpacity = machineState === "idle" ? 0 : 0.4; 
   } 
-  else if (machineState === "drawing") {
+  else if (machineState === "drawing" || machineState === "preparing") {
     targetX = baseArcX;
     targetY = baseArcY;
     targetRotateZ = baseArcRotateZ;
@@ -543,8 +629,6 @@ const GodModeCard = React.memo(function GodModeCard({
     targetOpacity = 1;
 
     if (isSelected) {
-      // Fixed overlapping: cards move to selection zone with proper spacing
-      // We use a larger multiplier (100-140) to ensure they don't clip.
       const spacing = isMobile ? 80 : 150; 
       const meltOffset = (selectionIndex - 1) * spacing;
       targetX = meltOffset; 
@@ -556,24 +640,23 @@ const GodModeCard = React.memo(function GodModeCard({
   } 
   else if (machineState === "spread" || machineState === "result") {
     if (isSelected) {
-      // The Triad Formation: Ensure spacing is > cardWidth
-      const spacing = isMobile ? 130 : 210;
+      // The Triad Formation
+      const spacing = isMobile ? 125 : 220;
       const offset = (selectionIndex - 1) * spacing;
       targetX = offset;
-      targetY = -80;
+      targetY = isMobile ? -60 : -80;
       targetZ = 200;
       targetRotateZ = (selectionIndex - 1) * 2; 
-      targetScale = isMobile ? 1.0 : 1.25;
+      targetScale = isMobile ? 1.05 : 1.35;
 
       if (machineState === "result") {
         targetRotateY = 180; 
-        targetScale = isMobile ? 1.1 : 1.35;
-        targetY = -100;
+        targetY = isMobile ? -80 : -120;
       }
     } else {
-      targetX = baseArcX * 1.5;
-      targetY = 1200; 
-      targetRotateZ = baseArcRotateZ * 2;
+      targetX = baseArcX * 1.2;
+      targetY = 1000; 
+      targetRotateZ = baseArcRotateZ * 1.5;
       targetOpacity = 0;
     }
   }

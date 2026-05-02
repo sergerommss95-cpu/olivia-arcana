@@ -190,6 +190,10 @@ export default function Pricing() {
                   </div>
 
                   <ul className="space-y-2.5 mb-6 flex-1">
+                    <li className="text-[0.6rem] font-mono uppercase tracking-[0.25em] text-[#d4af37]/40 mb-4 flex items-center gap-2">
+                       <span className="w-4 h-px bg-[#d4af37]/20" />
+                       {tier.id === 'free' ? "Celestial Basics" : tier.id === 'insight' ? "Full Resonance" : "Total Mastery"}
+                    </li>
                     {((TRANSLATIONS[locale as keyof typeof TRANSLATIONS] || TRANSLATIONS.en)[tier.features as keyof Translations] as string[]).map((f) => (
                       <li key={f} className="flex items-start gap-2 text-[0.82rem] text-warm-ivory/90 leading-snug">
                         <span className="text-celestial-gold mt-0.5 shrink-0">&#10022;</span>
