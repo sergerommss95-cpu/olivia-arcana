@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import Image from "next/image";
 import { 
   LazyMotion, 
@@ -106,7 +106,7 @@ const audio = new AstralAudio();
 
 // ── DATA ──
 // Use a deterministic subset of cards to prevent hydration mismatches.
-const ORACLE_DATA = ALL_CARDS.slice(0, 24);
+const ORACLE_DATA = ALL_CARDS.slice(0, 15);
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -124,11 +124,18 @@ type MachineState = "focusing" | "drawing" | "preparing" | "spread" | "result";
 export default function FramerTarotOracle() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const time = useTime();
   
   const [state, setState] = useState<MachineState>("focusing");
+  const isMobile = useIsMobile();
+  
+  // Use a deterministic subset of cards to prevent hydration mismatches.
+  // Mobile only gets 8 cards for maximum performance; desktop gets 15 for a luxury fan.
+  const poolSize = isMobile ? 8 : 15;
+  const oracleData = useMemo(() => ALL_CARDS.slice(0, poolSize), [poolSize]);
+
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
   const [isMuted, setIsMuted] = useState(true);
-  const isMobile = useIsMobile();
 
   const toggleMute = useCallback(() => {
     const muted = audio.toggleMute();
@@ -137,6 +144,7 @@ export default function FramerTarotOracle() {
 
   // Motion value for hover tracking (bypasses React re-renders)
   const hoveredIndexMV = useMotionValue<number>(-1);
+  const isTransitioning = useRef(false);
 
   // Auto-init audio when engine mounts since the user already clicked "Awaken the Deck" in the shell
   useEffect(() => {
@@ -168,16 +176,19 @@ export default function FramerTarotOracle() {
   }, [router, searchParams]);
 
   const handleCardClick = useCallback((id: number) => {
-    if (state !== "drawing") return;
+    if (state !== "drawing" || isTransitioning.current) return;
+    
     setSelectedCards(prev => {
       if (prev.includes(id)) return prev.filter(c => c !== id);
       if (prev.length < 3) {
         const newSelected = [...prev, id];
         if (newSelected.length === 3) {
+          isTransitioning.current = true;
           setState("preparing");
           updateUrl(newSelected);
           setTimeout(() => {
             setState("spread");
+            isTransitioning.current = false;
           }, 2400); // 2.4s of "listening for the pattern"
         }
         return newSelected;
@@ -187,6 +198,7 @@ export default function FramerTarotOracle() {
   }, [state, updateUrl]);
 
   const reset = useCallback(() => {
+    isTransitioning.current = false;
     setState("focusing");
     setSelectedCards([]);
     updateUrl([]);
@@ -203,7 +215,7 @@ export default function FramerTarotOracle() {
       <div className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center bg-[#020104] perspective-[2000px]">
 
         {/* ── CINEMATIC AMBIENCE (Hybrid God Mode) ── */}
-        <AstralBackground />
+        <AstralBackground isMobile={isMobile} />
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(30,15,60,0.2)_0%,_transparent_70%)] pointer-events-none" />
         <div
           className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
@@ -342,16 +354,19 @@ export default function FramerTarotOracle() {
         {/* ── THE ORACLE DECK ENGINE ── */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="relative w-0 h-0 pointer-events-auto [transform-style:preserve-3d]">
-            {ORACLE_DATA.map((card, i) => (
+            {oracleData.map((card, i) => (
               <GodModeCard 
                 key={card.name}
                 card={card}
                 index={i}
-                total={ORACLE_DATA.length}
+                total={oracleData.length}
                 machineState={state}
-                selectedCards={selectedCards}
+                isSelected={selectedCards.includes(i)}
+                selectionIndex={selectedCards.indexOf(i)}
                 hoveredIndexMV={hoveredIndexMV}
                 isMobile={isMobile}
+                time={time}
+                canSelect={selectedCards.length < 3}
                 onClick={() => handleCardClick(i)}
               />
             ))}
@@ -380,7 +395,7 @@ export default function FramerTarotOracle() {
 
                    <div className="flex gap-4 md:gap-24 pointer-events-auto text-center px-4 justify-center">
                     {selectedCards.map((id, idx) => {
-                      const card = ORACLE_DATA[id];
+                      const card = oracleData[id];
                       const label = idx === 0 ? "The Past" : idx === 1 ? "The Present" : "The Path";
                       return (
                         <div key={id} className="flex flex-col items-center w-[110px] md:w-[180px]">
@@ -488,8 +503,8 @@ export default function FramerTarotOracle() {
           @keyframes al-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
           .animate-spin-slow { animation: al-spin 40s linear infinite; }
 
-          /* Glass Refraction (God Mode Lite) */
-          .is-flipping { filter: url(#glass-refraction); }
+          /* Glass Refraction (God Mode Lite) — Disabled on mobile for perf */
+          .is-flipping { filter: ${isMobile ? 'none' : 'url(#glass-refraction)'}; }
         `}</style>
       </div>
     </LazyMotion>
@@ -505,25 +520,27 @@ const GodModeCard = React.memo(function GodModeCard({
   index, 
   total, 
   machineState, 
-  selectedCards, 
+  isSelected,
+  selectionIndex,
   hoveredIndexMV,
   isMobile,
+  time,
+  canSelect,
   onClick
 }: {
   card: typeof ORACLE_DATA[0],
   index: number,
   total: number,
   machineState: MachineState,
-  selectedCards: number[],
+  isSelected: boolean,
+  selectionIndex: number,
   hoveredIndexMV: MotionValue<number>,
   isMobile: boolean,
+  time: MotionValue<number>,
+  canSelect: boolean,
   onClick: () => void
 }) {
   const isReducedMotion = useReducedMotion();
-  const cardId = index; // Use index as ID
-  
-  const isSelected = selectedCards.includes(cardId);
-  const selectionIndex = selectedCards.indexOf(cardId);
   const [imageLoaded, setImageLoaded] = useState(false);
   
   const cardWidth = isMobile ? 120 : 140; 
@@ -646,31 +663,41 @@ const GodModeCard = React.memo(function GodModeCard({
   // Layout targets are animated via `animate` prop (React state).
   // Dock offsets are added directly in the `style` prop via `useTransform` composition.
   
-  // Cinematic "Time Dilation" configs
-  const uiConfig = { stiffness: 80, damping: 16, mass: 1.2 };
-  const revealConfig = { stiffness: 40, damping: 24, mass: 3 }; // Heavy, cinematic slow-mo
-  const activeConfig = machineState === "result" ? revealConfig : uiConfig;
+  // ── OPTIMIZATION: Only use springs for the selected cards to avoid Main Thread overload ──
+  const uiConfig = { stiffness: 120, damping: 20, mass: 1.0 };
+  const springX = useSpring(targetX, uiConfig);
+  const springY = useSpring(targetY, uiConfig);
+  const springZ = useSpring(targetZ, uiConfig);
+  const springRotZ = useSpring(targetRotateZ, uiConfig);
 
-  const layoutX = useSpring(targetX, activeConfig);
-  const layoutY = useSpring(targetY, activeConfig);
-  const layoutZ = useSpring(targetZ, activeConfig);
-  const layoutRotateZ = useSpring(targetRotateZ, activeConfig);
+  const staticX = useMotionValue(targetX);
+  const staticY = useMotionValue(targetY);
+  const staticZ = useMotionValue(targetZ);
+  const staticRotZ = useMotionValue(targetRotateZ);
 
-  useEffect(() => { layoutX.set(targetX); }, [targetX, layoutX]);
-  useEffect(() => { layoutY.set(targetY); }, [targetY, layoutY]);
-  useEffect(() => { layoutZ.set(targetZ); }, [targetZ, layoutZ]);
-  useEffect(() => { layoutRotateZ.set(targetRotateZ); }, [targetRotateZ, layoutRotateZ]);
+  useEffect(() => {
+    if (isSelected || machineState === "result") {
+      springX.set(targetX);
+      springY.set(targetY);
+      springZ.set(targetZ);
+      springRotZ.set(targetRotateZ);
+    } else {
+      staticX.set(targetX);
+      staticY.set(targetY);
+      staticZ.set(targetZ);
+      staticRotZ.set(targetRotateZ);
+    }
+  }, [targetX, targetY, targetZ, targetRotateZ, isSelected, machineState, springX, springY, springZ, springRotZ, staticX, staticY, staticZ, staticRotZ]);
 
-  const time = useTime();
   const waveY = useTransform(time, (t) => {
     if (machineState !== "drawing" || isSelected || isReducedMotion) return 0;
     return Math.sin(t / 1000 + index * 0.4) * 8; // Subtle breathing wave
   });
 
-  const finalX = useTransform([layoutX, dockOffsetX], ([l, d]) => Number(l) + Number(d));
-  const finalY = useTransform([layoutY, dockOffsetY, waveY], ([l, d, w]) => Number(l) + Number(d) + Number(w));
-  const finalZ = useTransform([layoutZ, dockOffsetZ], ([l, d]) => Number(l) + Number(d));
-  const finalRotateZ = useTransform([layoutRotateZ, dockRotateZ], ([l, d]) => Number(l) + Number(d));
+  const finalX = useTransform([isSelected ? springX : staticX, dockOffsetX], ([l, d]) => Number(l) + Number(d));
+  const finalY = useTransform([isSelected ? springY : staticY, dockOffsetY, waveY], ([l, d, w]) => Number(l) + Number(d) + Number(w));
+  const finalZ = useTransform([isSelected ? springZ : staticZ, dockOffsetZ], ([l, d]) => Number(l) + Number(d));
+  const finalRotateZ = useTransform([isSelected ? springRotZ : staticRotZ, dockRotateZ], ([l, d]) => Number(l) + Number(d));
 
   // ── APPLE TV LOCAL PHYSICS (Only on desktop/hover) ──
   const localX = useMotionValue(cardWidth / 2);
@@ -710,14 +737,14 @@ const GodModeCard = React.memo(function GodModeCard({
 
   const handleInteraction = () => {
     audio.init();
-    if (machineState === "drawing" && !isSelected && selectedCards.length < 3) {
+    if (machineState === "drawing" && !isSelected && canSelect) {
       audio.playSelect();
     }
     onClick();
   };
 
   // ── THE REVEAL EDGE GLARE ──
-  const motionRotateY = useSpring(0, activeConfig);
+  const motionRotateY = useSpring(0, uiConfig);
   useEffect(() => { motionRotateY.set(targetRotateY); }, [targetRotateY, motionRotateY]);
 
   const edgeGlareOpacity = useTransform(motionRotateY, [0, 80, 90, 100, 180], [0, 0, 1, 0, 0]);
@@ -725,6 +752,7 @@ const GodModeCard = React.memo(function GodModeCard({
   // Disable canvas for off-screen/unhovered cards to save 1000x battery/CPU
   const disableCanvas = useTransform(hoveredIndexMV, (h) => {
      if (machineState !== 'drawing') return true;
+     if (isMobile && !isSelected) return true; // Be ruthless on mobile
      return h !== index && !isSelected;
   });
   
@@ -750,26 +778,33 @@ const GodModeCard = React.memo(function GodModeCard({
         marginLeft: -cardWidth / 2,
         marginTop: -cardHeight / 2,
         zIndex: dockZIndex,
-        x: finalX,
-        y: finalY,
-        z: finalZ,
-        rotateZ: finalRotateZ,
-        rotateX: finalRotateX,
-        rotateY: motionRotateY,
+        x: isSelected ? finalX : targetX,
+        y: isSelected ? finalY : targetY,
+        z: isMobile ? 0 : (isSelected ? finalZ : targetZ),
+        rotateZ: isSelected ? finalRotateZ : targetRotateZ,
+        rotateX: isMobile ? 0 : finalRotateX,
+        rotateY: isMobile && !isSelected ? 0 : motionRotateY,
         scale: isSelected || machineState !== "drawing" ? targetScale : dockScale,
-        transformStyle: "preserve-3d",
-        WebkitTransformStyle: "preserve-3d",
+        transformStyle: isMobile ? "flat" : "preserve-3d",
+        WebkitTransformStyle: isMobile ? "flat" : "preserve-3d",
         backfaceVisibility: "hidden",
         WebkitBackfaceVisibility: "hidden",
-        willChange: "transform, opacity",
+        willChange: isSelected || machineState === "drawing" ? "transform" : "auto",
         // @ts-expect-error - Custom CSS properties for motion values are not yet fully typed in React
         "--angle": edgeAngle
-        }}      initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: targetOpacity }}
+        }}      
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ 
+        opacity: targetOpacity,
+        x: isSelected ? undefined : targetX,
+        y: isSelected ? undefined : targetY,
+        z: isSelected ? undefined : targetZ,
+        rotateZ: isSelected ? undefined : targetRotateZ,
+      }}
       transition={
         isReducedMotion 
           ? { duration: 0.1 } 
-          : { duration: 0.4, delay: staggerDelay }
+          : { duration: 0.5, delay: staggerDelay, ease: [0.16, 1, 0.3, 1] }
       }
     >
       <div className="relative w-full h-full rounded-[14px] shadow-[0_20px_40px_rgba(0,0,0,0.6)]" style={{ transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
@@ -806,7 +841,6 @@ const GodModeCard = React.memo(function GodModeCard({
                  className={`absolute inset-0 w-full h-full object-cover z-[2] transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
                  onLoadingComplete={() => setImageLoaded(true)}
                  style={{
-                   filter: "drop-shadow(0 0 6px rgba(232, 201, 106, 0.18))",
                    imageRendering: "auto",
                    transform: "translateZ(0)",
                    backfaceVisibility: "hidden",

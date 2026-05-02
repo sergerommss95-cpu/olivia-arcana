@@ -77,6 +77,7 @@ interface FlipRevealCardProps {
 export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | MotionValue<boolean> } = {}) {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [paused, setPaused] = useState(typeof disableCanvas === "boolean" ? disableCanvas : (disableCanvas as MotionValue<boolean>).get());
 
   // Shared cursor state — read by both the parallax effect and the canvas
   // loop. Keeps them in sync without React re-renders.
@@ -173,9 +174,12 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
     if (isMV) {
       unsubscribe = (disableCanvas as MotionValue<boolean>).on("change", (v) => {
         isActive = !v;
+        requestAnimationFrame(() => setPaused(v));
         if (isActive && !raf) raf = requestAnimationFrame(tick);
       });
       isActive = !(disableCanvas as MotionValue<boolean>).get();
+      const initialV = !isActive;
+      requestAnimationFrame(() => setPaused(initialV));
     }
 
     const tick = (t: number) => {
@@ -377,7 +381,7 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
   }, []);
 
   return (
-    <div ref={rootRef} className="astral-back" aria-hidden style={{ transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
+    <div ref={rootRef} className={`astral-back ${paused ? 'pause-animations' : ''}`} aria-hidden style={{ transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
       {/* Canvas — ambient starfield + curl-noise smoke + cursor dust */}
       <canvas ref={canvasRef} className="astral-canvas" style={{ transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', willChange: 'transform' }} />
       {/* Radial burst on mount — a single bloom, ONE event, kept. */}
@@ -396,20 +400,24 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
               as a distinct object, not a window into the page. */}
           <radialGradient id="flip-base" cx="50%" cy="38%" r="70%">
             <stop offset="0%" stopColor="#221348">
-              <animate
-                attributeName="stop-color"
-                values="#221348;#2e1a5e;#1a0e3d;#221348"
-                dur="11s"
-                repeatCount="indefinite"
-              />
+              {!paused && (
+                <animate
+                  attributeName="stop-color"
+                  values="#221348;#2e1a5e;#1a0e3d;#221348"
+                  dur="11s"
+                  repeatCount="indefinite"
+                />
+              )}
             </stop>
             <stop offset="55%" stopColor="#0c0720">
-              <animate
-                attributeName="stop-color"
-                values="#0c0720;#120a2b;#07051a;#0c0720"
-                dur="13s"
-                repeatCount="indefinite"
-              />
+              {!paused && (
+                <animate
+                  attributeName="stop-color"
+                  values="#0c0720;#120a2b;#07051a;#0c0720"
+                  dur="13s"
+                  repeatCount="indefinite"
+                />
+              )}
             </stop>
             <stop offset="100%" stopColor="#04030c" />
           </radialGradient>
@@ -461,7 +469,7 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
           <rect width="360" height="540" fill="#271a48" filter="url(#flip-grain)" opacity="0.45" />
 
           <g className="al-dust" filter="url(#flip-particle-glow)">
-            {particles.map((p, i) => (
+            {!paused && particles.map((p, i) => (
               <circle key={i} r={p.r} fill="#f3dd8e" opacity="0">
                 <animateMotion
                   dur={`${p.dur}s`}
@@ -1241,6 +1249,12 @@ export default function FlipRevealCard({
           animation: al-olive-breath 7s cubic-bezier(0.42, 0, 0.58, 1) infinite;
           filter: drop-shadow(0 0 3px rgba(255, 230, 150, 0.55));
         }
+        .pause-animations .al-wheel,
+        .pause-animations .al-seed,
+        .pause-animations .al-seed > circle,
+        .pause-animations .al-olive {
+          animation-play-state: paused !important;
+        }
         @keyframes al-olive-breath {
           0%, 100% { transform: scale(1);     }
           50%      { transform: scale(1.045); }
@@ -1331,6 +1345,10 @@ export default function FlipRevealCard({
           );
           mix-blend-mode: multiply;
           z-index: 5;
+        }
+
+        .pause-animations *, .pause-animations .astral-foil {
+          animation-play-state: paused !important;
         }
 
         /* Reduced motion — strip everything, keep the eye elegant and still. */

@@ -89,7 +89,22 @@ const FluidShader = () => {
   );
 };
 
-export default function AstralBackground() {
+export default function AstralBackground({ isMobile }: { isMobile?: boolean }) {
+  if (isMobile) {
+    return (
+      <div 
+        className="absolute inset-0 z-0 bg-[#020104]"
+        style={{
+          backgroundImage: `
+            radial-gradient(circle at 50% 30%, rgba(34, 19, 72, 0.4) 0%, transparent 60%),
+            radial-gradient(circle at 10% 80%, rgba(20, 10, 45, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 90% 90%, rgba(15, 8, 35, 0.3) 0%, transparent 50%)
+          `
+        }}
+      />
+    );
+  }
+
   return (
     <div className="absolute inset-0 pointer-events-none z-0">
       <Canvas camera={{ position: [0, 0, 1] }} dpr={[1, 1.5]} gl={{ alpha: true, antialias: false }}>
