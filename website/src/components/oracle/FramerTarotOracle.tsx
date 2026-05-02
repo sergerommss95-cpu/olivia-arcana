@@ -126,7 +126,46 @@ function useDeviceTier() {
 
 type MachineState = "focusing" | "drawing" | "preparing" | "spread" | "result";
 
-// ── GHOST DECK (Non-interactive silhouettes for the "Full Deck" illusion) ──
+// ── LAYER 1: DEEP ECHO (Subconscious depth) ──
+const DeepEchoCard = React.memo(function DeepEchoCard({ 
+  index, total, device, breathing, machineState 
+}: { 
+  index: number, total: number, device: "mobile" | "tablet" | "desktop", breathing: MotionValue<number>, machineState: MachineState 
+}) {
+  const isMobile = device === "mobile";
+  const { x, y, rotateZ } = useMemo(() => {
+    const arcRadius = isMobile ? 900 : 1600; 
+    const span = Math.PI * (isMobile ? 0.6 : 0.85); 
+    const angle = -span / 2 + (span / (total - 1)) * index;
+    return {
+      x: Math.sin(angle) * arcRadius,
+      y: (1 - Math.cos(angle)) * arcRadius * 0.7 + (isMobile ? 160 : 140),
+      rotateZ: angle * (180 / Math.PI)
+    };
+  }, [index, total, isMobile]);
+
+  const finalY = useTransform(breathing, (b) => y + Number(b) * 0.5);
+  const opacity = (machineState === "drawing" || machineState === "focusing") ? (isMobile ? 0.04 : 0.08) : 0;
+
+  return (
+    <m.div
+      style={{
+        position: "absolute", top: "50%", left: "50%",
+        width: isMobile ? 80 : 120, height: isMobile ? 140 : 210,
+        marginLeft: isMobile ? -40 : -60, marginTop: isMobile ? -70 : -105,
+        x, y: finalY, z: -250, rotateZ, opacity,
+        zIndex: 1, pointerEvents: "none",
+        border: "0.5px solid rgba(212, 175, 55, 0.1)",
+        background: "rgba(5, 3, 20, 0.3)", borderRadius: "12px",
+        transformStyle: "preserve-3d", WebkitTransformStyle: "preserve-3d"
+      }}
+      animate={{ opacity }}
+      transition={{ duration: 2 }}
+    />
+  );
+});
+
+// ── LAYER 2: GHOST DECK (Magical abundance) ──
 const GhostCard = React.memo(function GhostCard({ 
   index, 
   total, 
@@ -143,12 +182,10 @@ const GhostCard = React.memo(function GhostCard({
   const isMobile = device === "mobile";
   const isTablet = device === "tablet";
   
-  // Slightly larger than before to ensure they fill the gaps
   const cardWidth = isMobile ? 95 : isTablet ? 120 : 130; 
   const cardHeight = isMobile ? 165 : isTablet ? 210 : 225;
 
   const { x, y, rotateZ } = useMemo(() => {
-    // Wider span than hero cards to create the peripheral wave effect
     const arcRadius = isMobile ? 800 : isTablet ? 1100 : 1400; 
     const span = Math.PI * (isMobile ? 0.5 : isTablet ? 0.65 : 0.75); 
     const angle = -span / 2 + (span / (total - 1)) * index;
@@ -163,8 +200,7 @@ const GhostCard = React.memo(function GhostCard({
   const finalY = useTransform(breathing, (b) => y + Number(b) + Math.sin(driftPhase) * 6);
   const finalScale = useTransform(breathing, (b) => 1 + (Number(b) / 1000) + Math.cos(driftPhase) * 0.01);
   
-  // High visibility boost: Ghost cards must be obvious
-  const baseOpacity = isMobile ? 0.18 : isTablet ? 0.4 : 0.55;
+  const baseOpacity = isMobile ? 0.12 : isTablet ? 0.22 : 0.28;
   const opacity = (machineState === "drawing" || machineState === "focusing") ? baseOpacity : 0;
 
   return (
@@ -180,16 +216,16 @@ const GhostCard = React.memo(function GhostCard({
         marginTop: -cardHeight / 2,
         x,
         y: finalY,
-        z: -100, // Deep behind hero cards
+        z: -120, 
         rotateZ,
         scale: finalScale,
         opacity,
-        zIndex: 5, // Above scrims
+        zIndex: 2, 
         pointerEvents: "none",
-        border: "1px solid rgba(212, 175, 55, 0.8)", // High contrast border
-        background: "rgba(10, 8, 30, 0.75)", // Solid silhouette
+        border: "1px solid rgba(212, 175, 55, 0.4)", 
+        background: "rgba(10, 8, 30, 0.6)", 
         borderRadius: "14px",
-        boxShadow: "0 10px 40px rgba(0,0,0,0.8)",
+        boxShadow: "0 10px 40px rgba(0,0,0,0.6)",
         transformStyle: "preserve-3d",
         WebkitTransformStyle: "preserve-3d"
       }}
@@ -197,6 +233,36 @@ const GhostCard = React.memo(function GhostCard({
       animate={{ opacity }}
       transition={{ duration: 1.5, ease: "easeOut" }}
     />
+  );
+});
+
+const DecorativeRitualField = React.memo(function DecorativeRitualField({ machineState }: { machineState: MachineState }) {
+  const isVisible = machineState === "focusing" || machineState === "drawing" || machineState === "preparing";
+  return (
+    <div className={`absolute inset-0 pointer-events-none z-0 transition-opacity duration-[2000ms] ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+       {/* ── THE SACRED CENTER (Focal Field) ── */}
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[60vh] bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.07)_0%,_rgba(120,80,220,0.04)_45%,_transparent_75%)] opacity-60" />
+       
+       {/* ── THE CELESTIAL ORBIT (SVG Thread) ── */}
+       <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+         <path 
+           d="M 100 650 Q 500 450 900 650" 
+           fill="none" 
+           stroke="url(#thread-grad)" 
+           strokeWidth="0.5" 
+           strokeDasharray="2 10"
+         >
+           <animate attributeName="stroke-dashoffset" from="100" to="0" dur="60s" repeatCount="indefinite" />
+         </path>
+         <defs>
+           <linearGradient id="thread-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+             <stop offset="0%" stopColor="transparent" />
+             <stop offset="50%" stopColor="#d4af37" />
+             <stop offset="100%" stopColor="transparent" />
+           </linearGradient>
+         </defs>
+       </svg>
+    </div>
   );
 });
 
@@ -217,9 +283,13 @@ export default function FramerTarotOracle() {
   const poolSize = device === "mobile" ? 7 : device === "tablet" ? 9 : 11;
   const oracleData = useMemo(() => ALL_CARDS.slice(0, poolSize), [poolSize]);
 
-  // Ghost Deck Pool: 6 (mobile), 10 (tablet), 14 (desktop)
-  const ghostSize = device === "mobile" ? 6 : device === "tablet" ? 10 : 14;
+  // Ghost Deck Pool
+  const ghostSize = device === "mobile" ? 6 : device === "tablet" ? 10 : 12;
   const ghostIndices = useMemo(() => Array.from({ length: ghostSize }, (_, i) => i), [ghostSize]);
+  
+  // Deep Echo Pool
+  const echoSize = device === "mobile" ? 4 : 8;
+  const echoIndices = useMemo(() => Array.from({ length: echoSize }, (_, i) => i), [echoSize]);
 
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
   const [isMuted, setIsMuted] = useState(true);
@@ -324,6 +394,9 @@ export default function FramerTarotOracle() {
             <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
           </filter>
         </svg>
+
+        {/* ── DECORATIVE FIELD (Orbit & Center) ── */}
+        <DecorativeRitualField machineState={state} />
 
         {/* ── TOP NAV ── */}
         <div className="absolute top-0 inset-x-0 z-50 pt-[7.5rem] pb-8 px-8 flex justify-between items-start pointer-events-none">
@@ -542,6 +615,12 @@ export default function FramerTarotOracle() {
           .astral-back.is-hovered { --hover: 1; }
           .astral-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; mix-blend-mode: screen; opacity: 0.88; }
           
+          /* Glass Card Material Base */
+          .glass-card {
+            background: linear-gradient(135deg, rgba(15, 10, 50, 0.45) 0%, rgba(5, 3, 20, 0.7) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+          }
+
           /* Glass Edge Lighting */
           .glass-card::before {
             content: '';
@@ -558,14 +637,16 @@ export default function FramerTarotOracle() {
           }
           .glass-card:hover::before { opacity: 1; }
 
-          /* Premium Foil Sheen */
+          /* Premium Foil Sheen & Corner Glint */
           .glass-card::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, transparent 40%, rgba(255, 215, 130, 0.3) 50%, transparent 60%);
-            background-size: 250% 250%;
-            background-position: calc(var(--hover, 0) * 100%) center;
+            background: 
+              radial-gradient(circle at 0% 0%, rgba(255, 230, 150, 0.08) 0%, transparent 50%),
+              linear-gradient(135deg, transparent 40%, rgba(255, 215, 130, 0.25) 50%, transparent 60%);
+            background-size: 100% 100%, 250% 250%;
+            background-position: 0 0, calc(var(--hover, 0) * 100%) center;
             opacity: var(--sheen-opacity, 0);
             pointer-events: none;
             z-index: 11;
@@ -952,20 +1033,40 @@ const GodModeCard = React.memo(function GodModeCard({
         
         {/* EDGE GLARE */}
         <m.div 
-          className="absolute inset-y-0 left-1/2 w-[2px] bg-white -ml-[1px] shadow-[0_0_20px_#fff] z-50 pointer-events-none"
+          className="absolute inset-y-0 left-1/2 w-[2px] bg-white/20 -ml-[1px] shadow-[0_0_20px_rgba(255,255,255,0.4)] z-50 pointer-events-none"
           style={{ opacity: edgeGlareOpacity }}
         />
 
         {/* BACK: EXACT 100% MATCH TO FLIP_REVEAL_CARD */}
-        <div className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] border border-[#d4af37]/40 bg-[#0b0822] will-change-transform" style={{ transform: 'translateZ(0.1px)', transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
+        <div 
+          className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] border border-[#d4af37]/40 will-change-transform" 
+          style={{ 
+            transform: 'translateZ(0.1px)', 
+            transformStyle: 'preserve-3d', 
+            WebkitTransformStyle: 'preserve-3d', 
+            backfaceVisibility: 'hidden', 
+            WebkitBackfaceVisibility: 'hidden',
+            background: 'linear-gradient(135deg, #0b0822 0%, #050314 100%)'
+          }}
+        >
+          {/* Inner Highlight */}
+          <div className="absolute inset-0 border-[0.5px] border-white/5 rounded-[14px] pointer-events-none" />
           <CardBack disableCanvas={disableCanvas} />
         </div>
 
         {/* FRONT: LAZY LOADED ACTUAL IMAGES */}
         <div 
-          className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] border border-[#d4af37]/60 bg-[#04030c] will-change-transform"
-          style={{ transform: 'rotateY(180deg) translateZ(0.1px)', transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+          className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] border border-[#d4af37]/60 will-change-transform"
+          style={{ 
+            transform: 'rotateY(180deg) translateZ(0.1px)', 
+            transformStyle: 'preserve-3d', 
+            WebkitTransformStyle: 'preserve-3d', 
+            backfaceVisibility: 'hidden', 
+            WebkitBackfaceVisibility: 'hidden',
+            background: 'linear-gradient(135deg, #04030c 0%, #08061a 100%)'
+          }}
         >
+           <div className="absolute inset-0 border-[0.5px] border-white/10 rounded-[14px] pointer-events-none" />
            <div className="front-nebula" />
            <div className="astral-foil" />
            
