@@ -131,13 +131,16 @@ export default function FramerTarotOracle() {
   const router = useRouter();
   const time = useTime();
   
+  // Shared breathing motion (subtle global pulse)
+  const breathing = useTransform(time, (t) => Math.sin(t / 2000) * 5);
+  
   const [state, setState] = useState<MachineState>("focusing");
   const device = useDeviceTier();
   const isMobile = device === "mobile";
   
   // Use a deterministic subset of cards to prevent hydration mismatches.
-  // Pool sizes optimized for visual separation: 7 (mobile), 11 (tablet), 13 (desktop)
-  const poolSize = device === "mobile" ? 7 : device === "tablet" ? 11 : 13;
+  // Luxury Dealer Spread: 7 (mobile), 9 (tablet), 11 (desktop)
+  const poolSize = device === "mobile" ? 7 : device === "tablet" ? 9 : 11;
   const oracleData = useMemo(() => ALL_CARDS.slice(0, poolSize), [poolSize]);
 
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
@@ -372,6 +375,7 @@ export default function FramerTarotOracle() {
                 hoveredIndexMV={hoveredIndexMV}
                 device={device}
                 time={time}
+                breathing={breathing}
                 canSelect={selectedCards.length < 3}
                 onClick={() => handleCardClick(i)}
               />
@@ -459,6 +463,20 @@ export default function FramerTarotOracle() {
           }
           .glass-card:hover::before { opacity: 1; }
 
+          /* Premium Foil Sheen */
+          .glass-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255, 215, 130, 0.3) 50%, transparent 60%);
+            background-size: 250% 250%;
+            background-position: calc(var(--hover, 0) * 100%) center;
+            opacity: var(--sheen-opacity, 0);
+            pointer-events: none;
+            z-index: 11;
+            transition: opacity 0.4s ease, background-position 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          }
+
           .astral-burst { position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit; background: radial-gradient(circle at 50% 50%, rgba(255, 230, 150, 0.7) 0%, rgba(232, 201, 106, 0.35) 22%, rgba(140, 90, 210, 0.18) 48%, rgba(40, 20, 80, 0) 78%); opacity: 0; mix-blend-mode: screen; animation: al-burst 2.8s cubic-bezier(0.16, 1, 0.3, 1) 0.22s forwards; }
           @keyframes al-burst { 0% { opacity: 0; transform: scale(0.22); filter: blur(6px); } 18% { opacity: 0.95; transform: scale(0.7); filter: blur(0); } 55% { opacity: 0.35; transform: scale(1.15); } 100% { opacity: 0; transform: scale(1.6); filter: blur(3px); } }
           .astral-svg { display: block; width: 100%; height: 100%; position: relative; z-index: 2; }
@@ -531,6 +549,7 @@ const GodModeCard = React.memo(function GodModeCard({
   hoveredIndexMV,
   device,
   time,
+  breathing,
   canSelect,
   onClick
 }: {
@@ -543,6 +562,7 @@ const GodModeCard = React.memo(function GodModeCard({
   hoveredIndexMV: MotionValue<number>,
   device: "mobile" | "tablet" | "desktop",
   time: MotionValue<number>,
+  breathing: MotionValue<number>,
   canSelect: boolean,
   onClick: () => void
 }) {
@@ -552,7 +572,13 @@ const GodModeCard = React.memo(function GodModeCard({
   const isMobile = device === "mobile";
   const isTablet = device === "tablet";
   
-  // Refined card sizes for better separation
+  // Stable deterministic drift phase (based on index)
+  const driftPhase = (index * 1.37) % (Math.PI * 2);
+  const driftY = useTransform(time, (t) => {
+    if (machineState !== "drawing" || isSelected || isReducedMotion || isMobile) return 0;
+    return Math.sin(t / 2500 + driftPhase) * 3;
+  });
+
   const cardWidth = isMobile ? 95 : isTablet ? 120 : 130; 
   const cardHeight = isMobile ? 165 : isTablet ? 210 : 225;
 
@@ -560,14 +586,14 @@ const GodModeCard = React.memo(function GodModeCard({
   const { baseArcX, baseArcY, baseArcRotateZ } = useMemo(() => {
     // Desktop: Flatter arc, wider horizontal span
     // Mobile: Tighter arc, narrow horizontal span
-    const arcRadius = isMobile ? 800 : isTablet ? 1000 : 1200; 
-    const span = Math.PI * (isMobile ? 0.35 : isTablet ? 0.38 : 0.4); 
+    const arcRadius = isMobile ? 800 : isTablet ? 1000 : 1300; 
+    const span = Math.PI * (isMobile ? 0.35 : isTablet ? 0.38 : 0.42); 
     
     const angle = -span / 2 + (span / (total - 1)) * index;
     return {
       baseArcX: Math.sin(angle) * arcRadius,
-      // baseArcY multiplier 0.8 = shallower arc for better separation
-      baseArcY: (1 - Math.cos(angle)) * arcRadius * 0.8 + (isMobile ? 120 : 100),
+      // baseArcY multiplier 0.75 = shallower arc for better separation
+      baseArcY: (1 - Math.cos(angle)) * arcRadius * 0.75 + (isMobile ? 120 : 100),
       baseArcRotateZ: angle * (180 / Math.PI)
     };
   }, [index, total, isMobile, isTablet]);
@@ -577,41 +603,41 @@ const GodModeCard = React.memo(function GodModeCard({
     if (h === -1 || isSelected || machineState !== "drawing") return 0;
     const dist = index - h;
     if (dist === 0) return 0;
-    const pushFactor = 1 / (Math.abs(dist) + 0.5);
-    return Math.sign(dist) * pushFactor * 60;
+    const pushFactor = 1 / (Math.abs(dist) + 0.4);
+    return Math.sign(dist) * pushFactor * 50;
   });
 
   const dockOffsetY = useTransform(hoveredIndexMV, (h) => {
     if (h === -1 || isSelected || machineState !== "drawing") return 0;
     const dist = index - h;
-    if (dist === 0) return -80; // Hovered card pulls up significantly
-    return Math.abs(dist) * 12; // Others push down slightly
+    if (dist === 0) return -90; // Hovered card pulls up significantly
+    return Math.abs(dist) * 14; // Others push down slightly
   });
 
   const dockOffsetZ = useTransform(hoveredIndexMV, (h) => {
     if (h === -1 || isSelected || machineState !== "drawing") return 0;
     const dist = index - h;
-    if (dist === 0) return 200; // Pop hovered card out
+    if (dist === 0) return 220; // Pop hovered card out
     const pushFactor = 1 / (Math.abs(dist) + 0.5);
-    return pushFactor * 80; 
+    return pushFactor * 100; 
   });
 
   const dockRotateZ = useTransform(hoveredIndexMV, (h) => {
     if (h === -1 || isSelected || machineState !== "drawing") return 0;
     const dist = index - h;
-    if (dist === 0) return -baseArcRotateZ; // Hovered card straightens
-    return Math.sign(dist) * (1 / (Math.abs(dist) + 0.5)) * 6;
+    if (dist === 0) return -baseArcRotateZ * 0.8; // Straighten slightly but not fully
+    return Math.sign(dist) * (1 / (Math.abs(dist) + 0.5)) * 8;
   });
 
   const dockScale = useTransform(hoveredIndexMV, (h) => {
     if (isSelected || machineState !== "drawing") return 1; 
-    if (h === index) return 1.15;
+    if (h === index) return 1.12;
     return 1;
   });
 
   const dockZIndex = useTransform(hoveredIndexMV, (h) => {
     if (isSelected) return 100 + selectionIndex;
-    if (h === index) return 50;
+    if (h === index) return 80;
     
     // Depth-stacking: Center cards sit on top of neighbors
     const centerIndex = (total - 1) / 2;
@@ -651,6 +677,13 @@ const GodModeCard = React.memo(function GodModeCard({
       targetRotateZ = (selectionIndex - 1) * 5;
       targetScale = 1.1;
     }
+    
+    // Recede unselected cards during "preparing"
+    if (machineState === "preparing" && !isSelected) {
+       targetOpacity = 0;
+       targetY += 200;
+       targetScale = 0.8;
+    }
   } 
   else if (machineState === "spread" || machineState === "result") {
     if (isSelected) {
@@ -668,18 +701,13 @@ const GodModeCard = React.memo(function GodModeCard({
         targetY = isMobile ? -60 : -120;
       }
     } else {
-      targetX = baseArcX * 1.2;
-      targetY = 1000; 
-      targetRotateZ = baseArcRotateZ * 1.5;
+      targetX = baseArcX * 1.5;
+      targetY = 1200; 
       targetOpacity = 0;
     }
   }
 
   // ── MERGE DOCK PHYSICS WITH LAYOUT TARGETS ──
-  // Layout targets are animated via `animate` prop (React state).
-  // Dock offsets are added directly in the `style` prop via `useTransform` composition.
-  
-  // ── OPTIMIZATION: Only use springs for the selected cards to avoid Main Thread overload ──
   const uiConfig = { stiffness: 120, damping: 20, mass: 1.0 };
   const springX = useSpring(targetX, uiConfig);
   const springY = useSpring(targetY, uiConfig);
@@ -692,7 +720,7 @@ const GodModeCard = React.memo(function GodModeCard({
   const staticRotZ = useMotionValue(targetRotateZ);
 
   useEffect(() => {
-    if (isSelected || machineState === "result") {
+    if (isSelected || machineState === "result" || machineState === "preparing") {
       springX.set(targetX);
       springY.set(targetY);
       springZ.set(targetZ);
@@ -705,34 +733,38 @@ const GodModeCard = React.memo(function GodModeCard({
     }
   }, [targetX, targetY, targetZ, targetRotateZ, isSelected, machineState, springX, springY, springZ, springRotZ, staticX, staticY, staticZ, staticRotZ]);
 
-  const waveY = useTransform(time, (t) => {
-    if (machineState !== "drawing" || isSelected || isReducedMotion) return 0;
-    return Math.sin(t / 1000 + index * 0.4) * 8; // Subtle breathing wave
-  });
-
   const finalX = useTransform([isSelected ? springX : staticX, dockOffsetX], ([l, d]) => Number(l) + Number(d));
-  const finalY = useTransform([isSelected ? springY : staticY, dockOffsetY, waveY], ([l, d, w]) => Number(l) + Number(d) + Number(w));
+  const finalY = useTransform([isSelected ? springY : staticY, dockOffsetY, breathing, driftY], ([l, d, b, dr]) => Number(l) + Number(d) + Number(b) + Number(dr));
   const finalZ = useTransform([isSelected ? springZ : staticZ, dockOffsetZ], ([l, d]) => Number(l) + Number(d));
   const finalRotateZ = useTransform([isSelected ? springRotZ : staticRotZ, dockRotateZ], ([l, d]) => Number(l) + Number(d));
 
-  // ── APPLE TV LOCAL PHYSICS (Only on desktop/hover) ──
+  // ── MAGNETIC PHYSICS (Non-rendering) ──
   const localX = useMotionValue(cardWidth / 2);
   const localY = useMotionValue(cardHeight / 2);
+  const isHoveredMV = useMotionValue(0);
   
   const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
+  const smoothX = useSpring(localX, springConfig);
   const smoothY = useSpring(localY, springConfig);
 
-  const rotateX = useTransform(smoothY, [0, cardHeight], [15, -15]);
+  const rotateX = useTransform(smoothY, [0, cardHeight], [12, -12]);
+  const rotateY_tilt = useTransform(smoothX, [0, cardWidth], [-12, 12]);
+  
+  // Combine magnetic tilt with machine-state rotation
+  const motionRotateY = useSpring(targetRotateY, uiConfig);
+  useEffect(() => { motionRotateY.set(targetRotateY); }, [targetRotateY, motionRotateY]);
 
-  const isHoveredMV = useMotionValue(0);
+  const finalRotateY = useTransform([isHoveredMV, rotateY_tilt, motionRotateY], ([h, rt, my]) => {
+     if (Number(my) > 90) return my; // Reveal flip takes precedence
+     return Number(h) > 0.5 ? Number(rt) : Number(my);
+  });
 
   const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if (isHoveredMV.get() === 0 && !isSelected) return;
     if (isReducedMotion || isMobile) return;
     const rect = e.currentTarget.getBoundingClientRect();
     localX.set(e.clientX - rect.left);
     localY.set(e.clientY - rect.top);
-  }, [isSelected, isReducedMotion, localX, localY, isMobile, isHoveredMV]);
+  }, [isReducedMotion, localX, localY, isMobile]);
 
   const handlePointerEnter = useCallback(() => {
     if (machineState === "drawing" && !isSelected) {
@@ -760,20 +792,17 @@ const GodModeCard = React.memo(function GodModeCard({
   };
 
   // ── THE REVEAL EDGE GLARE ──
-  const motionRotateY = useSpring(0, uiConfig);
-  useEffect(() => { motionRotateY.set(targetRotateY); }, [targetRotateY, motionRotateY]);
-
   const edgeGlareOpacity = useTransform(motionRotateY, [0, 80, 90, 100, 180], [0, 0, 1, 0, 0]);
 
   // Disable canvas for off-screen/unhovered cards to save 1000x battery/CPU
   const disableCanvas = useTransform(hoveredIndexMV, (h) => {
      if (machineState !== 'drawing') return true;
-     if (isMobile && !isSelected) return true; // Be ruthless on mobile
+     if (isMobile && !isSelected) return true; 
      return h !== index && !isSelected;
   });
   
+  const sheenOpacity = useTransform(isHoveredMV, [0, 1], [0, 0.15]);
   const staggerDelay = machineState === "drawing" && !isSelected ? 0.2 + index * 0.03 : 0;
-
   const edgeAngle = useTransform(time, (t) => `${(t / 20) % 360}deg`);
 
   const finalRotateX = useTransform([isHoveredMV, rotateX], ([h, rx]) => {
@@ -794,12 +823,12 @@ const GodModeCard = React.memo(function GodModeCard({
         marginLeft: -cardWidth / 2,
         marginTop: -cardHeight / 2,
         zIndex: dockZIndex,
-        x: isSelected ? finalX : targetX,
-        y: isSelected ? finalY : targetY,
+        x: isSelected || machineState === "preparing" ? finalX : targetX,
+        y: isSelected || machineState === "preparing" ? finalY : targetY,
         z: isMobile ? 0 : (isSelected ? finalZ : targetZ),
-        rotateZ: isSelected ? finalRotateZ : targetRotateZ,
+        rotateZ: isSelected || machineState === "preparing" ? finalRotateZ : targetRotateZ,
         rotateX: isMobile ? 0 : finalRotateX,
-        rotateY: isMobile && !isSelected ? 0 : motionRotateY,
+        rotateY: finalRotateY,
         scale: isSelected || machineState !== "drawing" ? targetScale : dockScale,
         transformStyle: isMobile ? "flat" : "preserve-3d",
         WebkitTransformStyle: isMobile ? "flat" : "preserve-3d",
@@ -807,15 +836,16 @@ const GodModeCard = React.memo(function GodModeCard({
         WebkitBackfaceVisibility: "hidden",
         willChange: isSelected || machineState === "drawing" ? "transform" : "auto",
         // @ts-expect-error - Custom CSS properties for motion values are not yet fully typed in React
-        "--angle": edgeAngle
+        "--angle": edgeAngle,
+        "--sheen-opacity": sheenOpacity
         }}      
       initial={{ opacity: 0, scale: 0 }}
       animate={{ 
         opacity: targetOpacity,
-        x: isSelected ? undefined : targetX,
-        y: isSelected ? undefined : targetY,
-        z: isSelected ? undefined : targetZ,
-        rotateZ: isSelected ? undefined : targetRotateZ,
+        x: isSelected || machineState === "preparing" ? undefined : targetX,
+        y: isSelected || machineState === "preparing" ? undefined : targetY,
+        z: isSelected || machineState === "preparing" ? undefined : targetZ,
+        rotateZ: isSelected || machineState === "preparing" ? undefined : targetRotateZ,
       }}
       transition={
         isReducedMotion 
