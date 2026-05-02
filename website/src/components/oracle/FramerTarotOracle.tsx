@@ -200,7 +200,7 @@ const GhostCard = React.memo(function GhostCard({
   const finalY = useTransform(breathing, (b) => y + Number(b) + Math.sin(driftPhase) * 6);
   const finalScale = useTransform(breathing, (b) => 1 + (Number(b) / 1000) + Math.cos(driftPhase) * 0.01);
   
-  const baseOpacity = isMobile ? 0.12 : isTablet ? 0.22 : 0.28;
+  const baseOpacity = isMobile ? 0.12 : isTablet ? 0.28 : 0.38;
   const opacity = (machineState === "drawing" || machineState === "focusing") ? baseOpacity : 0;
 
   return (
@@ -220,12 +220,12 @@ const GhostCard = React.memo(function GhostCard({
         rotateZ,
         scale: finalScale,
         opacity,
-        zIndex: 2, 
+        zIndex: 5, 
         pointerEvents: "none",
-        border: "1px solid rgba(212, 175, 55, 0.4)", 
-        background: "rgba(10, 8, 30, 0.6)", 
+        border: "1px solid rgba(212, 175, 55, 0.6)", 
+        background: "rgba(10, 8, 30, 0.75)", 
         borderRadius: "14px",
-        boxShadow: "0 10px 40px rgba(0,0,0,0.6)",
+        boxShadow: "0 10px 40px rgba(0,0,0,0.8)",
         transformStyle: "preserve-3d",
         WebkitTransformStyle: "preserve-3d"
       }}
@@ -236,32 +236,34 @@ const GhostCard = React.memo(function GhostCard({
   );
 });
 
-const DecorativeRitualField = React.memo(function DecorativeRitualField({ machineState }: { machineState: MachineState }) {
+const DecorativeRitualField = React.memo(function DecorativeRitualField({ machineState, isMobile }: { machineState: MachineState, isMobile: boolean }) {
   const isVisible = machineState === "focusing" || machineState === "drawing" || machineState === "preparing";
   return (
     <div className={`absolute inset-0 pointer-events-none z-0 transition-opacity duration-[2000ms] ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
        {/* ── THE SACRED CENTER (Focal Field) ── */}
-       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[60vh] bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.07)_0%,_rgba(120,80,220,0.04)_45%,_transparent_75%)] opacity-60" />
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[60vh] bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.06)_0%,_rgba(120,80,220,0.03)_45%,_transparent_75%)] opacity-60" />
        
        {/* ── THE CELESTIAL ORBIT (SVG Thread) ── */}
-       <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-         <path 
-           d="M 100 650 Q 500 450 900 650" 
-           fill="none" 
-           stroke="url(#thread-grad)" 
-           strokeWidth="0.5" 
-           strokeDasharray="2 10"
-         >
-           <animate attributeName="stroke-dashoffset" from="100" to="0" dur="60s" repeatCount="indefinite" />
-         </path>
-         <defs>
-           <linearGradient id="thread-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-             <stop offset="0%" stopColor="transparent" />
-             <stop offset="50%" stopColor="#d4af37" />
-             <stop offset="100%" stopColor="transparent" />
-           </linearGradient>
-         </defs>
-       </svg>
+       {!isMobile && (
+         <svg className="absolute inset-0 w-full h-full opacity-12" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+           <path 
+             d="M 100 650 Q 500 450 900 650" 
+             fill="none" 
+             stroke="url(#thread-grad)" 
+             strokeWidth="0.5" 
+             strokeDasharray="2 12"
+           >
+             <animate attributeName="stroke-dashoffset" from="100" to="0" dur="80s" repeatCount="indefinite" />
+           </path>
+           <defs>
+             <linearGradient id="thread-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+               <stop offset="0%" stopColor="transparent" />
+               <stop offset="50%" stopColor="#d4af37" />
+               <stop offset="100%" stopColor="transparent" />
+             </linearGradient>
+           </defs>
+         </svg>
+       )}
     </div>
   );
 });
@@ -396,7 +398,7 @@ export default function FramerTarotOracle() {
         </svg>
 
         {/* ── DECORATIVE FIELD (Orbit & Center) ── */}
-        <DecorativeRitualField machineState={state} />
+        <DecorativeRitualField machineState={state} isMobile={isMobile} />
 
         {/* ── TOP NAV ── */}
         <div className="absolute top-0 inset-x-0 z-50 pt-[7.5rem] pb-8 px-8 flex justify-between items-start pointer-events-none">
@@ -977,7 +979,7 @@ const GodModeCard = React.memo(function GodModeCard({
      return h !== index && !isSelected;
   });
   
-  const sheenOpacity = useTransform(isHoveredMV, [0, 1], [0, 0.15]);
+  const sheenOpacity = useTransform(isHoveredMV, [0, 1], [0, isMobile ? 0 : 0.08]);
   const staggerDelay = machineState === "drawing" && !isSelected ? 0.2 + index * 0.03 : 0;
   const edgeAngle = useTransform(time, (t) => `${(t / 20) % 360}deg`);
 
@@ -1003,7 +1005,7 @@ const GodModeCard = React.memo(function GodModeCard({
         y: isSelected || machineState === "preparing" ? finalY : targetY,
         z: isMobile ? 0 : (isSelected ? finalZ : targetZ),
         rotateZ: isSelected || machineState === "preparing" ? finalRotateZ : targetRotateZ,
-        rotateX: isMobile ? 0 : finalRotateX,
+        rotateX: finalRotateX,
         rotateY: finalRotateY,
         scale: isSelected || machineState !== "drawing" ? targetScale : dockScale,
         transformStyle: isMobile ? "flat" : "preserve-3d",
