@@ -143,25 +143,28 @@ const GhostCard = React.memo(function GhostCard({
   const isMobile = device === "mobile";
   const isTablet = device === "tablet";
   
-  const cardWidth = isMobile ? 90 : isTablet ? 115 : 125; 
-  const cardHeight = isMobile ? 155 : isTablet ? 200 : 215;
+  // Slightly larger than before to ensure they fill the gaps
+  const cardWidth = isMobile ? 95 : isTablet ? 120 : 130; 
+  const cardHeight = isMobile ? 165 : isTablet ? 210 : 225;
 
   const { x, y, rotateZ } = useMemo(() => {
-    const arcRadius = isMobile ? 850 : isTablet ? 1100 : 1400; 
-    const span = Math.PI * (isMobile ? 0.45 : isTablet ? 0.55 : 0.65); 
+    // Wider span than hero cards to create the peripheral wave effect
+    const arcRadius = isMobile ? 800 : isTablet ? 1100 : 1400; 
+    const span = Math.PI * (isMobile ? 0.5 : isTablet ? 0.65 : 0.75); 
     const angle = -span / 2 + (span / (total - 1)) * index;
     return {
       x: Math.sin(angle) * arcRadius,
-      y: (1 - Math.cos(angle)) * arcRadius * 0.7 + (isMobile ? 140 : 120),
+      y: (1 - Math.cos(angle)) * arcRadius * 0.75 + (isMobile ? 140 : 120),
       rotateZ: angle * (180 / Math.PI)
     };
   }, [index, total, isMobile, isTablet]);
 
   const driftPhase = (index * 0.77) % (Math.PI * 2);
-  const finalY = useTransform(breathing, (b) => y + Number(b) + Math.sin(driftPhase) * 2);
+  const finalY = useTransform(breathing, (b) => y + Number(b) + Math.sin(driftPhase) * 6);
+  const finalScale = useTransform(breathing, (b) => 1 + (Number(b) / 1000) + Math.cos(driftPhase) * 0.01);
   
-  // Ghost cards recede when ritual moves forward
-  const baseOpacity = isMobile ? 0.12 : isTablet ? 0.22 : 0.28;
+  // High visibility boost: Ghost cards must be obvious
+  const baseOpacity = isMobile ? 0.18 : isTablet ? 0.4 : 0.55;
   const opacity = (machineState === "drawing" || machineState === "focusing") ? baseOpacity : 0;
 
   return (
@@ -177,18 +180,22 @@ const GhostCard = React.memo(function GhostCard({
         marginTop: -cardHeight / 2,
         x,
         y: finalY,
+        z: -100, // Deep behind hero cards
         rotateZ,
+        scale: finalScale,
         opacity,
-        zIndex: 1,
+        zIndex: 5, // Above scrims
         pointerEvents: "none",
-        border: "1px solid rgba(212, 175, 55, 0.25)",
-        background: "rgba(20, 15, 60, 0.15)",
+        border: "1px solid rgba(212, 175, 55, 0.8)", // High contrast border
+        background: "rgba(10, 8, 30, 0.75)", // Solid silhouette
         borderRadius: "14px",
-        boxShadow: "0 0 20px rgba(0,0,0,0.5)",
+        boxShadow: "0 10px 40px rgba(0,0,0,0.8)",
+        transformStyle: "preserve-3d",
+        WebkitTransformStyle: "preserve-3d"
       }}
-      initial={false}
+      initial={{ opacity: 0 }}
       animate={{ opacity }}
-      transition={{ duration: 1.5 }}
+      transition={{ duration: 1.5, ease: "easeOut" }}
     />
   );
 });

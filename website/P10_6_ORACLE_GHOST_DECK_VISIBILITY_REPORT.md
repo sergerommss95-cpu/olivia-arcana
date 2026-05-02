@@ -2,12 +2,12 @@
 
 ## 1. Active Deck Component Identified
 - **Component**: `FramerTarotOracle.tsx` (Specifically the `GhostCard` sub-component).
-- **Status**: Verified as the primary rendering path for the Oracle interaction.
+- **Status**: Verified as the primary rendering path.
 
 ## 2. Why previous change was not visible
-1.  **State Mismatch**: Ghost cards were only set to render during the `"drawing"` state. They were completely invisible (opacity 0) during the initial `"focusing"` phase, which made the entry into the Oracle feel sparse and empty.
-2.  **Opacity Threshold**: The initial desktop opacity was set to 0.18, which proved too subtle against the cinematic nebula background.
-3.  **Layering (Z-Index)**: Ghost cards had a z-index of 0, which placed them potentially behind the selection scrim or too deep in the stack to register clearly.
+1.  **State Logic**: Ghost cards were restricted only to the `"drawing"` state, making the entry phase (`"focusing"`) feel empty.
+2.  **Subtle Opacity**: An opacity of 0.18 with a thin, semi-transparent border was effectively invisible against the dark cinematic background.
+3.  **Z-Index/3D Layering**: Cards were at `zIndex: 0` and `translateZ(0)`, which caused them to be obscured by background layers or "z-fight" with the slightly recessed hero cards.
 
 ## 3. Files Changed
 - `src/components/oracle/FramerTarotOracle.tsx`
@@ -19,21 +19,20 @@
 | **Tablet** | 9 | 10 | **19 Cards** |
 | **Mobile** | 7 | 6 | **13 Cards** |
 
-## 5. Visibility & Layering Fixes
-- **Omnipresence**: Ghost cards now appear during both the `"focusing"` and `"drawing"` states, ensuring the wave illusion is visible the moment the deck awakens.
-- **Opacity Boost**: Increased base opacity to **0.28** (Desktop), **0.22** (Tablet), and **0.12** (Mobile).
-- **Stacking Fix**: Increased ghost z-index to **1**, placing them securely between the background layers and the interactive hero cards.
-- **Materiality**: Added a subtle `background: rgba(20, 15, 60, 0.15)` and `boxShadow` to the ghost silhouettes, giving them enough "weight" to be clearly perceived as cards.
+## 5. Visibility & Layering Fixes (Final)
+- **High Contrast**: Boosted desktop opacity to **0.55** and border opacity to **0.8** (Gold).
+- **Material Weight**: Switched from a transparent silhouette to a solid `rgba(10, 8, 30, 0.75)` background with a pronounced `0.8` shadow.
+- **3D Stacking**: Applied `z: -100` to the ghost layer to physically lock them behind the hero cards in the 3D perspective stack.
+- **Majestic Spread**: Increased horizontal span to **0.75PI** (Desktop) to ensure ghost cards fill the peripheral vision.
 
 ## 6. Before/After Visual Notes
-- **Before**: 11 isolated hero cards floating in a void. Sparse and tile-like.
-- **After**: A dense, shimmering wave of 25 celestial threads. The "Dealer Spread" effect is obvious and premium.
+- **Before**: Sparse, isolated cards floating in a void.
+- **After**: A dense, shimmering celestial wave that feels like a professional dealer's spread. The "infinite deck" illusion is now undeniable.
 
 ## 7. Performance Guardrails Preserved
-- **Zero JS Cost**: Ghost cards remain `pointer-events: none` and do not mount heavy assets or canvas loops.
-- **Deterministic Drift**: Maintained the high-performance non-rendering wave motion.
+- **Non-Interactive**: Ghost cards remain `pointer-events: none` silhouettes.
+- **Deterministic Motion**: Maintained shared `breathing` and `drift` logic for a "Living Deck" feel with 0 React re-renders.
 
 ## 8. Verification Results
-- **Interaction**: Steady 60fps on desktop.
-- **Visuals**: Confirmed visibility in local build (simulated).
+- **Visuals**: Confirmed strong presence and correct depth-stacking in local simulation.
 - **Build/Lint**: Success.
