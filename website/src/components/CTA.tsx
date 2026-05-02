@@ -7,10 +7,10 @@ export default function CTA() {
   const { t } = useLocale();
 
   return (
-    <section className="relative py-32 px-6">
+    <section className="relative overflow-hidden py-32 px-6">
       {/* Background glow */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        className="absolute top-1/2 left-1/2 h-[min(600px,calc(100vw-2rem))] w-[min(600px,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
         style={{
           background: "radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%)",
         }}

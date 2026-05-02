@@ -16,7 +16,7 @@ import TheWitness from "@/components/cosmos/TheWitness";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 import MagneticButton from "@/components/MagneticButton";
 import Surface, { Eyebrow } from "@/components/design/Surface";
-import { ArrowRight } from "lucide-react";
+import TransitionLink from "@/components/transitions/TransitionLink";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useLocale } from "@/lib/i18n/useLocale";
@@ -52,7 +52,7 @@ export default function HeroV3() {
   }, []);
 
   useEffect(() => {
-    setMounted(true);
+    const frame = requestAnimationFrame(() => setMounted(true));
 
     // Infinite Descent Timeline
     const ctx = gsap.context(() => {
@@ -66,7 +66,7 @@ export default function HeroV3() {
           setHeroScroll(p);
           
           // God Mode: Drive the Nebula Singularity
-          const engine = (window as any).celestialEngine;
+          const engine = (window as unknown as { celestialEngine?: { getSystem: (name: string) => { setSingularity: (x: number, y: number, z: number) => void } | null } }).celestialEngine;
           if (engine) {
             const nebula = engine.getSystem("nebula");
             if (nebula) {
@@ -128,6 +128,8 @@ export default function HeroV3() {
     });
 
     return () => {
+      cancelAnimationFrame(frame);
+      ctx.revert();
       window.removeEventListener("witness:activated", handleWitness);
     };
   }, [isAsking, revealed]);
@@ -147,6 +149,10 @@ export default function HeroV3() {
       if ("vibrate" in navigator) window.navigator.vibrate([30, 50, 30]);
     }, 1800);
   }, [question, isProcessing]);
+
+  if (!mounted) {
+    return <section ref={sectionRef} className="relative min-h-[110svh] md:min-h-screen bg-[#08061a]" />;
+  }
 
   return (
     <section
@@ -205,12 +211,12 @@ export default function HeroV3() {
             <MagneticButton variant="gold" onClick={() => setIsAsking(true)} size="lg">
               {t("hero_consult_cta")}
             </MagneticButton>
-            <a
+            <TransitionLink
               href="/sample"
               className="text-sm font-medium text-warm-ivory/40 hover:text-warm-ivory transition-colors duration-300 tracking-widest uppercase"
             >
               {t("hero_sample_cta")} &rarr;
-            </a>
+            </TransitionLink>
           </motion.div>
         </div>
 
@@ -253,7 +259,7 @@ export default function HeroV3() {
                     className="absolute inset-0 pointer-events-none"
                   >
                     {/* Node 1: Oracle (Top Left) */}
-                    <div className="absolute top-[0%] left-[-35%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); setIsAsking(true); setQuestion(t("witness_universe_prompt")); }}>
+                    <div className="absolute top-[0%] left-[2%] sm:left-[-35%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); setIsAsking(true); setQuestion(t("witness_universe_prompt")); }}>
                       <Surface
                         as={motion.div}
                         whileHover={{ scale: 1.1, x: -5, y: -5 }}
@@ -268,7 +274,7 @@ export default function HeroV3() {
                     </div>
 
                     {/* Node 2: Daily (Top Right) */}
-                    <div className="absolute top-[-10%] right-[-15%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); document.getElementById("daily")?.scrollIntoView({ behavior: "smooth" }); }}>
+                    <div className="absolute top-[-10%] right-[2%] sm:right-[-15%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); document.getElementById("daily")?.scrollIntoView({ behavior: "smooth" }); }}>
                       <Surface
                         as={motion.div}
                         whileHover={{ scale: 1.1, x: 5, y: -5 }}
@@ -283,7 +289,7 @@ export default function HeroV3() {
                     </div>
 
                     {/* Node 3: Portrait (Bottom Right) */}
-                    <div className="absolute bottom-[0%] right-[-35%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); window.location.href = "/portrait"; }}>
+                    <div className="absolute bottom-[0%] right-[2%] sm:right-[-35%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); window.location.href = "/portrait"; }}>
                       <Surface
                         as={motion.div}
                         whileHover={{ scale: 1.1, x: 5, y: 5 }}
@@ -363,9 +369,23 @@ export default function HeroV3() {
                       whileHover={{ scale: 1.1, backgroundColor: "rgba(212, 175, 55, 0.2)" }}
                       whileTap={{ scale: 0.9 }}
                       type="submit"
+                      aria-label="Submit question"
                       className="mr-2 p-3 rounded-xl bg-celestial-gold/10 text-celestial-gold transition-colors"
                     >
-                      <ArrowRight size={18} strokeWidth={2.5} />
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
                     </motion.button>
                   </Surface>
                 )}

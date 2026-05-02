@@ -9,7 +9,6 @@ import { Canvas } from "@react-three/fiber";
 import { 
   OrbitControls, 
   PerspectiveCamera, 
-  Environment, 
   ContactShadows,
   Stage
 } from "@react-three/drei";

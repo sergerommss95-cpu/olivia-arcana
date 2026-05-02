@@ -39,7 +39,7 @@ const ELEMENT_GRADIENTS: Record<string, [string, string, string]> = {
   Earth: ["#0a1005", "#0d1a08", "#0d0615"],
 };
 
-function wrapText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, lineHeight: number): string[] {
+function wrapText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): string[] {
   const words = text.split(" ");
   const lines: string[] = [];
   let line = "";
@@ -150,7 +150,7 @@ export async function renderChartCard(data: CardData, format: CardFormat): Promi
 
   ctx.font = `400 ${(isWide ? 18 : 20) * scale}px 'Cormorant Garamond', Georgia, serif`;
   ctx.fillStyle = "rgba(240,236,255,0.85)";
-  const bigThreeLines = wrapText(ctx, data.bigThree, contentW, 28 * scale);
+  const bigThreeLines = wrapText(ctx, data.bigThree, contentW);
   for (const line of bigThreeLines) {
     ctx.fillText(line, isWide ? contentX + contentW / 2 : w / 2, cursorY);
     cursorY += 28 * scale;
@@ -202,7 +202,7 @@ export async function renderChartCard(data: CardData, format: CardFormat): Promi
     ctx.fillStyle = "rgba(200,190,235,0.7)";
     const maxTraits = isTall ? 4 : 3;
     for (let i = 0; i < Math.min(data.traits.length, maxTraits); i++) {
-      const traitLines = wrapText(ctx, `▸ ${data.traits[i]}`, contentW, 20 * scale);
+      const traitLines = wrapText(ctx, `▸ ${data.traits[i]}`, contentW);
       for (const tl of traitLines) {
         ctx.fillText(tl, isWide ? contentX + contentW / 2 : w / 2, cursorY);
         cursorY += 20 * scale;
@@ -223,7 +223,7 @@ export async function renderChartCard(data: CardData, format: CardFormat): Promi
 
     ctx.font = `italic 300 ${15 * scale}px 'Inter', system-ui, sans-serif`;
     ctx.fillStyle = "rgba(196,185,228,0.65)";
-    const readingLines = wrapText(ctx, `"${data.horoscope}"`, contentW, 24 * scale);
+    const readingLines = wrapText(ctx, `"${data.horoscope}"`, contentW);
     for (const rl of readingLines.slice(0, 6)) {
       ctx.fillText(rl, w / 2, cursorY);
       cursorY += 24 * scale;

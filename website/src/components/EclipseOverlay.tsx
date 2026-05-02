@@ -14,7 +14,7 @@ export default function EclipseOverlay() {
   const [effect, setEffect] = useState<EventEffect>(null);
 
   useEffect(() => {
-    setEffect(getActiveEffect());
+    requestAnimationFrame(() => setEffect(getActiveEffect()));
   }, []);
 
   if (!effect) return null;

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Pricing from "@/components/Pricing";
 import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
 import { PRICING } from "@/lib/payments";
 
 export const metadata: Metadata = {
@@ -38,12 +37,12 @@ export default function PricingPage() {
 
   return (
     <>
-      <Navbar />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
       <main id="main-content" className="relative z-10 pt-20">
+        <h1 className="sr-only">Olivia Arcana pricing</h1>
         <Pricing />
       </main>
       <Footer />

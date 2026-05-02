@@ -8,13 +8,15 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import FramerTarotOracle from "@/components/oracle/FramerTarotOracle";
 
 export default function OraclePage() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const frame = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   if (!mounted) return <div className="min-h-screen bg-[#08061a]" />;
@@ -23,14 +25,14 @@ export default function OraclePage() {
     <main className="fixed inset-0 bg-[#08061a] overflow-hidden select-none">
       {/* ── MINIMALIST PORTAL EXIT ── */}
       <nav className="absolute top-12 left-12 z-[100]">
-        <a href="/" className="group flex items-center gap-4 no-underline">
+        <Link href="/" className="group flex items-center gap-4 no-underline">
           <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#d4af37]/50 transition-all duration-500 bg-black/20 backdrop-blur-md">
              <span className="text-[#f5f2e1]/40 group-hover:text-[#d4af37] text-lg leading-none">&larr;</span>
           </div>
           <span className="font-mono text-[10px] tracking-[0.2em] uppercase opacity-20 group-hover:opacity-100 transition-opacity duration-500 text-[#f5f2e1]">
             Exit Oracle
           </span>
-        </a>
+        </Link>
       </nav>
 
       {/* ── THE ORACLE ENGINE (DOM-BASED) ── */}

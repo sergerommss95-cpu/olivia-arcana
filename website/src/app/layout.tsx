@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, DM_Sans, IBM_Plex_Mono } from "next/font/google";
 import ClientShell from "@/components/ClientShell";
 import GlobalGuide from "@/components/GlobalGuide";
@@ -76,11 +76,19 @@ export const metadata: Metadata = {
     shortcut: [{ url: "/favicon.ico" }],
   },
   other: {
-    "theme-color": "#d4af37",
+    "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
     "apple-mobile-web-app-title": "Olivia Arcana",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#d4af37",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({

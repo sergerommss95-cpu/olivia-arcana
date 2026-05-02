@@ -20,9 +20,9 @@ function slugify(name: string): string {
 /** Get the image path for a card. */
 export function getCardImagePath(card: TarotCard): string {
   const index = ALL_CARDS.indexOf(card);
-  if (index === -1) return "/cards/00_the_fool.png";
+  if (index === -1) return "/cards/00_the_fool.webp";
   const padded = String(index).padStart(2, "0");
-  return `/cards/${padded}_${slugify(card.name)}.png`;
+  return `/cards/${padded}_${slugify(card.name)}.webp`;
 }
 
 /**
@@ -32,7 +32,7 @@ export function getCardImagePath(card: TarotCard): string {
  */
 export function getCardPortalImagePath(card: TarotCard): string {
   const index = ALL_CARDS.indexOf(card);
-  if (index === -1) return "/cards-portal/00_the_fool.png";
+  if (index === -1) return "/cards-portal/00_the_fool.webp";
   const padded = String(index).padStart(2, "0");
-  return `/cards-portal/${padded}_${slugify(card.name)}.png`;
+  return `/cards-portal/${padded}_${slugify(card.name)}.webp`;
 }

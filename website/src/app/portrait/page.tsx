@@ -17,18 +17,10 @@ import BirthDatePicker from "../../components/BirthDatePicker";
 import CityAutocomplete from "../../components/CityAutocomplete";
 import CosmicField from "../../components/CosmicField";
 import { type CityData } from "../../lib/cities";
-import { getPlanetInSign, PLANET_MEANING, HOUSE_MEANING, LIFE_AREAS, PLANET_LIFE_AREA } from "../../lib/planet-interpretations";
+import { getPlanetInSign, PLANET_MEANING, HOUSE_MEANING } from "../../lib/planet-interpretations";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
-const inputStyle: React.CSSProperties = {
-  padding: "0.65rem 1rem", textAlign: "center",
-  fontFamily: "var(--font-accent)", fontSize: "1rem", letterSpacing: "0.06em",
-  color: "rgba(240,236,255,0.9)", background: "rgba(255,255,255,0.04)",
-  border: "1px solid rgba(200,185,255,0.12)", borderRadius: "9999px",
-  backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
-  outline: "none", transition: "border-color 0.3s",
-};
 const labelSt: React.CSSProperties = {
   fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 500,
   letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(180,170,210,0.4)",

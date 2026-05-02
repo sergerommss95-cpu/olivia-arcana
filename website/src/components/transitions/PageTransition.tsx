@@ -36,7 +36,7 @@ export default function PageTransition({ children }: Props) {
 
     window.addEventListener("page:transition", handleTransition);
     return () => window.removeEventListener("page:transition", handleTransition);
-  }, []);
+  }, [router]);
 
   // When pathname changes (new page loaded), animate in
   useEffect(() => {

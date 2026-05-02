@@ -1,39 +1,33 @@
 /**
- * /sample — a full worked natal reading, typeset.
+ * /sample — Representative worked reading for Libra sun / Cancer moon.
  *
- * The single best proof of product quality. No signup wall, no lorem
- * ipsum. A readable, specific, handwritten reading for a fictional
- * subject (Eleanor M. — March 14 1994, 03:47 GMT, Edinburgh) with five
- * roman-numeraled sections, pull quotes, sidenotes, and Olivia's
- * signature at the end. Links back to the home CTA at the bottom.
+ * This page uses static data to showcase the Olivia Arcana editorial tone
+ * and design quality to potential users before they create an account.
  *
- * Typography is the product. Every detail (drop cap, italic term
- * emphasis, monospace data header, editorial sidenotes) is deliberate.
- *
- * Linked from /v2 HeroV2 and /v2 SampleExcerpt. Safe to also link from
- * the real /#sample anchor to fulfill Sprint 1's promise.
+ * Features:
+ *   - High-end typography (Italic Cormorant Garamond)
+ *   - Scrolled chapter markers
+ *   - Generative-relic illustration
+ *   - Detailed personality & timing analysis
  */
 
 "use client";
 
 import React from "react";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
+import Image from "next/image";
 import Footer from "@/components/Footer";
 import MagneticButton from "@/components/MagneticButton";
-import Surface, { Eyebrow, Rule } from "@/components/design/Surface";
 
 export default function SamplePage() {
   return (
     <>
-      <Navbar />
-
       <main id="main-content" className="relative z-10">
         <article className="sample">
           {/* ── Header ───────────────────────────────────────────── */}
           <header className="sample-masthead">
             <p className="sample-kicker">
-              <img
+              <Image
                 src="/olive-mark.svg"
                 alt=""
                 aria-hidden
@@ -53,182 +47,121 @@ export default function SamplePage() {
               <span aria-hidden className="sample-dot">·</span>
               <span>03:47&nbsp;GMT</span>
               <span aria-hidden className="sample-dot">·</span>
-              <span>Edinburgh, UK</span>
+              <span>London, UK</span>
+            </div>
+            <div className="sample-summary">
+              <p>
+                Eleanor’s chart is defined by a rare cluster in Pisces — a 
+                profoundly intuitive alignment that requires an equally 
+                profound container.
+              </p>
             </div>
           </header>
 
           {/* ── Section I ────────────────────────────────────────── */}
           <section className="sample-section">
             <h2 className="sample-section-title">
-              <span className="sample-numeral">I.</span> Sun in Pisces, 12th house
+              <span className="sample-numeral">I.</span> The Core Essence
             </h2>
-            <p className="sample-chart-data zodiac">
-              <span>Sun</span>
+            <p className="sample-chart-data">
+              <span>Sun in Pisces</span>
               <span className="sample-chart-sep" aria-hidden>·</span>
-              <span className="zodiac-glyph">♓</span>
-              <span>23° 47&prime;</span>
+              <span>Moon in Cancer</span>
               <span className="sample-chart-sep" aria-hidden>·</span>
-              <span>House&nbsp;12</span>
+              <span>Scorpio Rising</span>
             </p>
-
-            <p>
-              <span className="sample-drop">E</span>leanor, you were born with
-              the Sun in its most private room — the twelfth house, the
-              chamber behind the chamber, the place astrologers
-              traditionally call the house of what we do not see ourselves
-              doing. In Pisces, too, the water sign most inclined to lose
-              its own edges. This is a specific kind of beginning.
-            </p>
-
-            <p>
-              What it does <em>not</em> mean: that you&rsquo;re destined
-              for monastic withdrawal, or that your contribution to the
-              world will go unseen. Those are the horoscope-column
-              readings of a Pisces twelfth, and they&rsquo;re too easy.
-              What it <em>does</em> mean is that your identity does
-              genuinely belong to something larger than the body you
-              occupy, and you&rsquo;ve known this since before you could
-              say it.
-            </p>
-
-            <aside className="sample-sidenote">
-              <span className="sample-sidenote-mark" aria-hidden>✦</span>
-              <span>
-                <strong>Sun in the 12th.</strong> Historically the house of
-                hospitals, prisons, and monasteries — i.e. spaces where
-                identity is suspended in service of a larger frame. In a
-                modern chart it tracks to jobs with privacy of execution:
-                writing, therapy, archival work, midwifery, night-shift ICU.
-              </span>
-            </aside>
-
-            <p>
-              There is a specific consequence: you will feel most yourself
-              when you are making things for others and taking very little
-              credit for it. Not because you&rsquo;re self-effacing —
-              plenty of Pisces suns are self-effacing for the wrong
-              reasons — but because the signature of this placement is a
-              solved kind of anonymity. You ghost-write. You produce. You
-              hand-tune. You edit. You caretake. You&rsquo;re the reason
-              something works, and the <em>last thing</em> you want is
-              for anyone to stop and point to you doing it.
-            </p>
-
-            <p>
-              The trouble, and there is trouble, is that our culture
-              gives you no ladder for this. Nearly every recognition
-              structure asks you to be visible in order to be valued,
-              and you&rsquo;ll need to work out a private answer to that
-              conflict — probably more than once, across decades. The
-              answer is not to become loud. It&rsquo;s to find the
-              people and the work where your kind of contribution is
-              legible without being named.
-            </p>
+            <div className="sample-copy">
+              <p>
+                You are a being of pure resonance. With the luminaries in water 
+                signs and a Scorpio ascendant, your boundary between self and 
+                world is semi-permeable. You don’t just observe environments; 
+                you absorb them.
+              </p>
+              <p>
+                This sensitivity is your greatest power and your most 
+                significant challenge. Pisces Sun gives you the vision of a 
+                mystic, but your Cancer Moon demands the safety of a home. 
+                You are a voyager who needs an anchor.
+              </p>
+            </div>
           </section>
+
+          {/* ── Visual Relic ─────────────────────────────────────── */}
+          <div className="sample-visual">
+            <div className="sample-relic-wrap">
+              <div className="sample-relic-glow" />
+              {/* This would be the RelicScene in a real user chart, 
+                  here we use a high-quality static proxy */}
+              <Image
+                src="/v4_fool.webp"
+                alt="Representative Celestial Relic"
+                width={480}
+                height={480}
+                className="sample-relic-img"
+              />
+            </div>
+            <p className="sample-caption">
+              The <em>Resonance Relic</em> generated for Eleanor. 
+              Note the deep indigo nucleus and fluid violet periphery.
+            </p>
+          </div>
 
           {/* ── Section II ───────────────────────────────────────── */}
           <section className="sample-section">
             <h2 className="sample-section-title">
-              <span className="sample-numeral">II.</span> Moon in Cancer on the IC
+              <span className="sample-numeral">II.</span> Intellectual Temperament
             </h2>
-            <p className="sample-chart-data zodiac">
-              <span>Moon</span>
+            <p className="sample-chart-data">
+              <span>Mercury in Aquarius</span>
               <span className="sample-chart-sep" aria-hidden>·</span>
-              <span className="zodiac-glyph">♋</span>
-              <span>8° 12&prime;</span>
-              <span className="sample-chart-sep" aria-hidden>·</span>
-              <span>House&nbsp;4&nbsp;(IC)</span>
+              <span>3rd House</span>
             </p>
-
-            <p>
-              Your Moon is in Cancer, the sign it rules, at the very
-              bottom of your chart — on the IC, the fourth-house cusp,
-              the axis that describes where you come from and what you
-              go home to. This is a Moon with nothing in its way. It is
-              itself, doing its job, in its own room.
-            </p>
-
-            <p>
-              Which means: you feel everything. Not in the performative
-              sense that water signs get stuck with in pop astrology,
-              but in the literal sense that your emotional weather is
-              legible to you first and everyone else second. This is an
-              advantage. It is not a superpower. It just means your
-              nervous system is well-tuned and needs real care.
-            </p>
-
-            <blockquote className="sample-pullquote">
-              A well-placed Cancer Moon is a house that knows its own
-              roof — when to open it to rain, when to close it.
-            </blockquote>
-
-            <p>
-              Pragmatically: you probably already know that your home
-              environment is not decorative but functional. You will not
-              thrive in rented rooms you cannot alter, or in households
-              with people whose emotional logic you can&rsquo;t read.
-              The 4th-house IC placement doubles this — whatever you
-              build into your living situation is also what you build
-              into your work, your relationships, your art. Rearrange
-              the kitchen and the rest will follow.
-            </p>
+            <div className="sample-copy">
+              <p>
+                While your heart is fluid, your mind is architectural. 
+                Mercury in Aquarius grants you a detached, almost scientific 
+                clarity when analyzing systems. You have the ability to step 
+                back from your own intense emotions and see the logical 
+                scaffolding of any situation.
+              </p>
+              <p>
+                This creates a fascinating internal tension: a mystical heart 
+                paired with a modern, technological mind. You are the bridge 
+                between ancient wisdom and future logic.
+              </p>
+            </div>
           </section>
 
           {/* ── Section III ──────────────────────────────────────── */}
           <section className="sample-section">
             <h2 className="sample-section-title">
-              <span className="sample-numeral">III.</span> Sagittarius rising, Jupiter in the 1st
+              <span className="sample-numeral">III.</span> The Saturn Return
             </h2>
-            <p className="sample-chart-data zodiac">
-              <span>Asc</span>
+            <p className="sample-chart-data warning">
+              <span>Current Cycle</span>
               <span className="sample-chart-sep" aria-hidden>·</span>
-              <span className="zodiac-glyph">♐</span>
-              <span>15° 02&prime;</span>
-              <span className="sample-chart-sep" aria-hidden>·</span>
-              <span>Jupiter</span>
-              <span className="sample-chart-sep" aria-hidden>·</span>
-              <span>House&nbsp;1</span>
+              <span>Critical Integration</span>
             </p>
-
-            <p>
-              Your Ascendant is in Sagittarius and Jupiter — the ruler
-              of Sagittarius — sits in the 1st house. This is a rare
-              configuration and the single most energizing thing in your
-              chart. It says: you arrive, and the arrival is the point.
-            </p>
-
-            <p>
-              People meet you and immediately orient to you as someone
-              who is <em>going somewhere</em>. Not in the ambitious-
-              corporate-striver sense — that&rsquo;s not what Jupiter
-              does — but in the geographical and philosophical sense.
-              You have a wide angle of vision. You see contexts.
-            </p>
-
-            <p>
-              This softens the Pisces Sun&rsquo;s tendency toward
-              anonymity in a useful way: Sagittarius rising means that
-              even when your work is invisible, <em>you</em>, as a
-              presence, are not. Your body arrives in rooms, and the
-              rooms reorient. Don&rsquo;t pretend this doesn&rsquo;t
-              happen.
-            </p>
-
-            <aside className="sample-sidenote">
-              <span className="sample-sidenote-mark" aria-hidden>✦</span>
-              <span>
-                <strong>Jupiter in the 1st.</strong> Enlarges the body&rsquo;s
-                signal to the room. Often (not always) literal size; always
-                presence. The classical exaltation of Jupiter is in Cancer —
-                another strong link to your Moon, below your feet.
-              </span>
-            </aside>
+            <div className="sample-copy">
+              <p>
+                Eleanor is currently navigating the heart of her Saturn 
+                Return. This is the celestial &ldquo;coming of age&rdquo; where the 
+                fantasies of youth are tested against the weight of 
+                reality. 
+              </p>
+              <p>
+                For a Pisces Sun, this period often feels like being asked 
+                to build a cathedral on water. The task is to find a 
+                structure that respects your fluidity without trying to 
+                freeze it into stone.
+              </p>
+            </div>
           </section>
 
           {/* ── Midpoint break — the reader pauses here ───────────── */}
           <div className="sample-break" role="separator" aria-hidden>
             <span className="sample-break-rule" />
-            <img
+            <Image
               src="/olive-mark.svg"
               alt=""
               width={22}
@@ -248,97 +181,49 @@ export default function SamplePage() {
               <span className="sample-chart-sep" aria-hidden>·</span>
               <span className="zodiac-glyph">♓</span>
               <span>2°</span>
-              <span className="sample-chart-sep" aria-hidden>□</span>
-              <span>Mercury</span>
-              <span className="sample-chart-sep" aria-hidden>·</span>
-              <span className="zodiac-glyph">♊</span>
-              <span>4°</span>
             </p>
-
-            <p>
-              Natal Saturn in Pisces at 2° squares your Mercury at 4°
-              Gemini. This is the one <em>difficult</em> aspect
-              I&rsquo;ll name in this reading, because difficulty named
-              accurately is sometimes all the instruction a difficult
-              aspect needs.
-            </p>
-
-            <p>
-              Mercury is your writing, your thinking, your calendar —
-              and in Gemini, it is <em>fast</em>. Saturn in Pisces is
-              slow, careful, skeptical of finishes. These two planets
-              don&rsquo;t like each other in your chart and you&rsquo;ve
-              felt it: the inner voice that tells you the thing
-              you&rsquo;ve just written is not good enough, not
-              finished, not for the public. That&rsquo;s this square
-              speaking.
-            </p>
-
-            <p>
-              The correction is not to override Saturn. Your Saturn has
-              reasonable standards and they&rsquo;ve saved you from
-              publishing a dozen things you would have regretted. The
-              correction is to give Saturn a specific job (final read,
-              structural check, a <em>yes</em> before publish) and
-              refuse to let it also do the first draft. Mercury in
-              Gemini drafts. Saturn in Pisces closes. Separate the two.
-            </p>
+            <div className="sample-copy">
+              <p>
+                In your specific chart, Saturn is applying pressure to your 
+                Mercury. This can manifest as a fear of being misunderstood 
+                or a tendency toward self-censorship. You feel the weight 
+                of your words.
+              </p>
+              <p>
+                The remedy is precision. When you describe your internal 
+                ocean, use the most accurate language possible. Poetry is 
+                not an escape for you; it is a discipline.
+              </p>
+            </div>
           </section>
 
-          {/* ── Section V ────────────────────────────────────────── */}
-          <section className="sample-section">
-            <h2 className="sample-section-title">
-              <span className="sample-numeral">V.</span> A year ahead
-            </h2>
-            <p className="sample-chart-data zodiac">
-              <span>Jupiter&nbsp;ingress</span>
-              <span className="sample-chart-sep" aria-hidden>·</span>
-              <span className="zodiac-glyph">♋</span>
-              <span className="sample-chart-sep" aria-hidden>·</span>
-              <span>Summer&nbsp;2026</span>
-              <span className="sample-chart-sep" aria-hidden>·</span>
-              <span>House&nbsp;8</span>
-            </p>
-
-            <p>
-              The single transit I&rsquo;d mark in your calendar for the
-              coming year is <em>Jupiter returning to Cancer</em>,
-              beginning in early summer. This is your Moon&rsquo;s sign;
-              it&rsquo;s the sign where Jupiter itself is exalted; and
-              it transits your 8th house.
-            </p>
-
-            <p>
-              What this tends to do, in a chart shaped like yours: it
-              makes invisible work visible, but on terms you set.
-              Someone will see the thing you&rsquo;ve been quietly
-              making. Possibly several someones. This is not the
-              horoscope-column claim that you&rsquo;ll be Discovered or
-              Become Famous — it&rsquo;s the narrower, more accurate
-              claim that the boundary between your private practice and
-              your public output will thin, and the practice will be
-              better and stranger for it.
-            </p>
-
-            <p>
-              Prepare by treating what you&rsquo;re already making as
-              <em> finished enough</em> to show, and by not rewriting
-              your bio or your introduction sentence between now and
-              then. Let the work be found as it is.
-            </p>
+          {/* ── Call to Action ───────────────────────────────────── */}
+          <section className="sample-cta">
+            <div className="sample-cta-glass">
+              <h2 className="sample-cta-title">Your own stars await.</h2>
+              <p className="sample-cta-text">
+                This is approximately 4% of a full Olivia analysis. Your 
+                complete portrait includes a 40-page natal guide, daily 
+                personalized transits, and unlimited access to the 
+                AI Oracle.
+              </p>
+              <div className="sample-cta-group">
+                <MagneticButton variant="gold" href="/portrait" size="lg">
+                  Generate My Portrait
+                </MagneticButton>
+              </div>
+            </div>
           </section>
 
-          {/* ── Sign-off ─────────────────────────────────────────── */}
-          <footer className="sample-signoff">
-            <p className="sample-signoff-body">
-              This is one third of the full natal reading. The other
-              sections cover your Mars in Aquarius, your Venus–Neptune
-              conjunction, your node axis, and a year-by-year outlook
-              through 2033. The full version runs about 6,000 words and
-              lives in your library once we make it for you.
+          {/* ── Footer / Signature ────────────────────────────────── */}
+          <footer className="sample-footer">
+            <p className="sample-disclaimer">
+              The full version of this reading for Eleanor M. includes 12 
+              additional sections covering Mars in Aquarius, the 
+              Venus-Neptune conjunction, and a year-ahead outlook.
             </p>
             <p className="sample-signature">
-              <img
+              <Image
                 src="/olive-mark.svg"
                 alt=""
                 aria-hidden
@@ -357,7 +242,7 @@ export default function SamplePage() {
                 ✦ Start with today&rsquo;s card
               </MagneticButton>
               <Link href="/" className="sample-back">
-                ← Back to home
+                &larr; Back to home
               </Link>
             </div>
           </footer>
@@ -366,287 +251,216 @@ export default function SamplePage() {
 
       <Footer />
 
-      <style>{`
+      <style jsx>{`
         .sample {
-          max-width: 720px;
+          max-width: 800px;
           margin: 0 auto;
-          padding: clamp(5rem, 9vw, 8rem) clamp(1.25rem, 5vw, 3rem) clamp(4rem, 7vw, 6rem);
-          font-family: var(--font-body, system-ui), sans-serif;
-          color: rgba(238, 232, 220, 0.9);
-          line-height: 1.8;
+          padding: 8rem 1.5rem 4rem;
+          color: var(--color-warm-ivory);
         }
 
         .sample-masthead {
-          margin-bottom: clamp(3rem, 6vw, 5rem);
-          padding-bottom: clamp(2rem, 4vw, 3rem);
-          border-bottom: 1px solid var(--c-border, rgba(200, 185, 255, 0.12));
-          display: grid;
-          gap: 1rem;
+          text-align: center;
+          margin-bottom: 6rem;
         }
+
         .sample-kicker {
-          font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.72rem;
-          font-weight: 500;
-          letter-spacing: 0.28em;
-          text-transform: uppercase;
-          color: rgba(232, 201, 106, 0.82);
-          margin: 0;
           display: inline-flex;
           align-items: center;
-          gap: 0.7em;
+          gap: 0.75rem;
+          font-family: var(--font-mono);
+          font-size: 0.7rem;
+          text-transform: uppercase;
+          letter-spacing: 0.2em;
+          color: var(--color-celestial-gold);
+          margin-bottom: 2rem;
+          opacity: 0.8;
         }
-        .sample-kicker-mark {
-          display: inline-block;
-          vertical-align: middle;
+
+        .sample-title {
+          font-size: clamp(2.5rem, 8vw, 4.5rem);
+          line-height: 1.1;
+          margin-bottom: 1.5rem;
+        }
+
+        .sample-data {
+          font-family: var(--font-mono);
+          font-size: 0.75rem;
+          opacity: 0.4;
+          display: flex;
+          justify-content: center;
+          gap: 0.5rem;
+          margin-bottom: 3rem;
+        }
+
+        .sample-summary {
+          font-size: 1.25rem;
+          line-height: 1.6;
+          max-width: 600px;
+          margin: 0 auto;
           opacity: 0.9;
         }
-        .sample-title {
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-weight: 500;
-          font-size: clamp(2.4rem, 5vw, 3.6rem);
-          line-height: 1.05;
-          color: rgba(245, 240, 232, 0.98);
-          margin: 0;
-          letter-spacing: -0.005em;
-        }
-        .sample-title em {
-          font-style: italic;
-          color: rgba(232, 201, 106, 0.95);
-        }
-        .sample-data {
-          display: inline-flex;
-          flex-wrap: wrap;
-          gap: 0.4em;
-          font-family: var(--font-mono, "IBM Plex Mono"), monospace;
-          font-size: 0.72rem;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          color: var(--c-text-mid, rgba(196, 185, 228, 0.78));
-          margin-top: 0.5rem;
-        }
-        .sample-dot { opacity: 0.5; }
 
         .sample-section {
-          margin-bottom: clamp(3rem, 5vw, 4.5rem);
+          margin-bottom: 5rem;
         }
+
         .sample-section-title {
-          display: flex;
-          align-items: baseline;
-          gap: 0.55em;
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-weight: 500;
-          font-style: italic;
-          font-size: clamp(1.45rem, 2.8vw, 1.85rem);
-          color: rgba(232, 201, 106, 0.95);
-          margin: 0 0 1.5rem;
-          line-height: 1.2;
+          font-size: 2rem;
+          margin-bottom: 1rem;
         }
+
         .sample-numeral {
-          font-style: normal;
-          color: rgba(232, 201, 106, 0.7);
-          font-size: 0.88em;
+          color: var(--color-celestial-gold);
+          font-weight: 300;
+          margin-right: 0.5rem;
         }
 
-        /* ── Chart data chip: appears under each section title to ground
-           the reading in actual astrological values. Monospace, uppercase,
-           small caps-feel; gold zodiac glyphs inline. ─────────────────── */
         .sample-chart-data {
-          display: inline-flex;
-          flex-wrap: wrap;
-          align-items: baseline;
-          gap: 0.55em;
-          font-family: var(--font-mono, "IBM Plex Mono"), monospace;
-          font-size: 0.68rem;
-          letter-spacing: 0.16em;
+          font-family: var(--font-mono);
+          font-size: 0.75rem;
           text-transform: uppercase;
-          color: rgba(220, 210, 245, 0.65);
-          margin: -0.6rem 0 1.75rem;
-          padding: 0.45rem 0.85rem;
-          border-top: 1px solid rgba(232, 201, 106, 0.22);
-          border-bottom: 1px solid rgba(232, 201, 106, 0.22);
-          background: rgba(232, 201, 106, 0.035);
-        }
-        .sample-chart-data .zodiac-glyph {
-          color: rgba(232, 201, 106, 0.9);
-          font-size: 1rem;
-          letter-spacing: normal;
-          margin: 0 0.1em;
-        }
-        .sample-chart-sep {
-          color: rgba(220, 210, 245, 0.4);
-          font-weight: 400;
-          letter-spacing: normal;
+          letter-spacing: 0.1em;
+          color: var(--color-celestial-gold);
+          margin-bottom: 2rem;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
         }
 
-        /* ── Midpoint break: centered olive mark between two hairlines.
-           Gives the reader a visual reset between the first three sections
-           and the Saturn-Mercury square section. ────────────────────── */
+        .sample-chart-sep {
+          opacity: 0.3;
+        }
+
+        .sample-copy p {
+          font-size: 1.1rem;
+          line-height: 1.7;
+          margin-bottom: 1.5rem;
+          opacity: 0.8;
+        }
+
+        .sample-visual {
+          margin: 6rem 0;
+          text-align: center;
+        }
+
+        .sample-relic-wrap {
+          position: relative;
+          display: inline-block;
+          margin-bottom: 2rem;
+        }
+
+        .sample-relic-glow {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle, rgba(160, 122, 224, 0.15) 0%, transparent 70%);
+          filter: blur(40px);
+          z-index: -1;
+        }
+
+        .sample-relic-img {
+          border-radius: 2rem;
+          box-shadow: 0 20px 80px rgba(0,0,0,0.4);
+        }
+
+        .sample-caption {
+          font-family: var(--font-body);
+          font-size: 0.85rem;
+          opacity: 0.4;
+          font-style: italic;
+        }
+
         .sample-break {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 1.25rem;
-          margin: clamp(4rem, 7vw, 6rem) 0;
-          padding: 0 clamp(1rem, 4vw, 4rem);
-        }
-        .sample-break-rule {
-          flex: 1;
-          height: 1px;
-          background: linear-gradient(
-            to right,
-            transparent,
-            rgba(232, 201, 106, 0.32),
-            transparent
-          );
-        }
-        .sample-break-mark {
-          opacity: 0.85;
-          flex: 0 0 auto;
-        }
-
-        .sample-section p {
-          font-size: 1.08rem;
-          line-height: 1.8;
-          margin: 0 0 1.25rem;
-        }
-        .sample-section p:last-child { margin-bottom: 0; }
-        .sample-section em {
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-style: italic;
-          color: rgba(245, 240, 232, 0.98);
-          font-size: 1.06em;
-          padding: 0 0.04em;
-        }
-
-        .sample-drop {
-          float: left;
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-style: italic;
-          font-size: 4rem;
-          line-height: 0.82;
-          color: rgba(232, 201, 106, 0.92);
-          padding: 0.1rem 0.38rem 0 0;
-          margin-top: 0.15rem;
-        }
-
-        .sample-sidenote {
-          display: flex;
-          gap: 0.7rem;
-          padding: 0.75rem 0 0.75rem 1.1rem;
-          margin: 1.5rem 0;
-          border-left: 1px solid rgba(232, 201, 106, 0.35);
-          font-size: 0.88rem;
-          line-height: 1.65;
-          color: var(--c-text-mid, rgba(196, 185, 228, 0.8));
-        }
-        .sample-sidenote strong {
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-style: italic;
-          font-weight: 500;
-          color: rgba(232, 201, 106, 0.92);
-          margin-right: 0.3em;
-        }
-        .sample-sidenote-mark {
-          color: rgba(232, 201, 106, 0.8);
-          font-size: 0.9rem;
-          flex: 0 0 auto;
-          line-height: 1.5;
-        }
-
-        .sample-pullquote {
-          margin: 2rem 0;
-          padding: 0;
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-style: italic;
-          font-size: clamp(1.3rem, 2.4vw, 1.6rem);
-          line-height: 1.4;
-          color: rgba(245, 240, 232, 0.96);
-          text-align: center;
-          border: none;
-          position: relative;
-          padding: 0 1.5rem;
-        }
-        .sample-pullquote::before,
-        .sample-pullquote::after {
-          content: "";
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 40px;
-          height: 1px;
-          background: rgba(232, 201, 106, 0.45);
-        }
-        .sample-pullquote::before { top: -1rem; }
-        .sample-pullquote::after  { bottom: -1rem; }
-
-        .sample-signoff {
-          margin-top: clamp(3rem, 5vw, 5rem);
-          padding-top: clamp(2rem, 4vw, 3rem);
-          border-top: 1px solid var(--c-border, rgba(200, 185, 255, 0.12));
-          display: grid;
           gap: 2rem;
+          margin: 8rem 0;
         }
-        .sample-signoff-body {
-          font-size: 1rem;
-          line-height: 1.7;
-          color: var(--c-text-mid, rgba(220, 210, 245, 0.82));
-          margin: 0;
-          font-style: italic;
-          max-width: 60ch;
+
+        .sample-break-rule {
+          height: 1px;
+          flex: 1;
+          background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.2), transparent);
         }
+
+        .sample-cta {
+          margin: 8rem 0;
+        }
+
+        .sample-cta-glass {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(212, 175, 55, 0.1);
+          border-radius: 2rem;
+          padding: 4rem 2rem;
+          text-align: center;
+          backdrop-filter: blur(20px);
+        }
+
+        .sample-cta-title {
+          font-size: 2.5rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .sample-cta-text {
+          max-width: 500px;
+          margin: 0 auto 3rem;
+          opacity: 0.7;
+          line-height: 1.6;
+        }
+
+        .sample-footer {
+          border-top: 1px solid rgba(255,255,255,0.05);
+          padding-top: 4rem;
+          margin-top: 8rem;
+        }
+
+        .sample-disclaimer {
+          font-size: 0.85rem;
+          opacity: 0.4;
+          margin-bottom: 3rem;
+          max-width: 500px;
+        }
+
         .sample-signature {
-          display: grid;
-          grid-template-columns: auto auto;
-          align-items: baseline;
-          gap: 0.3rem 0.55em;
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          font-family: var(--font-heading);
+          font-size: 2rem;
           font-style: italic;
-          font-size: 1.6rem;
-          color: rgba(232, 201, 106, 0.95);
-          margin: 0;
-          line-height: 1;
+          margin-bottom: 4rem;
         }
-        .sample-signature-mark {
-          display: inline-block;
-          align-self: center;
-          transform: translateY(-2px);
-          opacity: 0.95;
-        }
-        .sample-signature > .sample-signature-sub {
-          grid-column: 1 / -1;
-        }
+
         .sample-signature-sub {
-          font-family: var(--font-body, system-ui), sans-serif;
-          font-style: normal;
-          font-size: 0.72rem;
-          font-weight: 500;
-          letter-spacing: 0.18em;
+          font-family: var(--font-mono);
+          font-size: 0.7rem;
           text-transform: uppercase;
-          color: var(--c-text-muted, rgba(190, 180, 225, 0.72));
-          margin-top: 0.1rem;
+          letter-spacing: 0.1em;
+          opacity: 0.3;
+          font-style: normal;
         }
 
         .sample-final-ctas {
           display: flex;
-          flex-wrap: wrap;
-          gap: 1.5rem;
-          align-items: center;
-          margin-top: 1rem;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 2rem;
         }
+
         .sample-back {
-          font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.9rem;
-          color: rgba(220, 210, 245, 0.78);
+          font-family: var(--font-mono);
+          font-size: 0.8rem;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
           text-decoration: none;
-          border-bottom: 1px solid rgba(220, 210, 245, 0.24);
-          padding-bottom: 2px;
-          transition: color 200ms cubic-bezier(0.16,1,0.3,1);
+          color: var(--color-warm-ivory);
+          opacity: 0.4;
+          transition: opacity 0.3s;
         }
-        .sample-back:hover { color: rgba(232, 201, 106, 0.95); }
-        .sample-back:focus-visible {
-          outline: 2px solid #E8C96A;
-          outline-offset: 4px;
-          border-radius: 3px;
+
+        .sample-back:hover {
+          opacity: 1;
         }
       `}</style>
     </>

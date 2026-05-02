@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, useMemo } from "react";
+import Image from "next/image";
 import MagneticButton from "@/components/MagneticButton";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
@@ -84,10 +85,10 @@ export default function CosmicSelfie() {
 
       const { LiquidMaskEngine } = await import("./oracle/LiquidMaskEngine");
       const engine = new LiquidMaskEngine(el, {
-        baseImage: "/cosmic-selfie/nebula.png",
+        baseImage: "/cosmic-selfie/nebula.webp",
         ...(opts.video
           ? { revealVideo: opts.video, mirror: true }
-          : { revealImage: "/liquid-mask/reveal.png" }),
+          : { revealImage: "/liquid-mask/reveal.webp" }),
         maskRadius: isMobile ? 0.32 : 0.26,
         feather: 0.09,
         lerpFactor: 0.09,
@@ -322,17 +323,15 @@ export default function CosmicSelfie() {
             {/* Idle / requesting: static nebula image */}
             {!isRevealed && (
               <>
-                <img
-                  src="/cosmic-selfie/nebula.png"
-                  alt="Cosmic nebula void"
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                {/* Shimmer overlay during requesting */}
+                <div style={{ position: "absolute", inset: 0, opacity: 0.6 }}>
+                  <Image
+                    src="/cosmic-selfie/nebula.webp"
+                    alt="Cosmic nebula void"
+                    fill
+                    className="object-cover"
+                    unoptimized
+                  />
+                </div>
                 {state === "requesting" && (
                   <div
                     aria-hidden

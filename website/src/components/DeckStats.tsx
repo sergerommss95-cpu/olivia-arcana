@@ -13,13 +13,14 @@ import {
   getAllMemories,
   getMostDrawn,
   getTotalDraws,
-  type CardMemory,
 } from "@/lib/deck-memory";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 
 export default function DeckStats() {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => { 
+    requestAnimationFrame(() => setMounted(true)); 
+  }, []);
 
   const stats = useMemo(() => {
     if (!mounted) return null;

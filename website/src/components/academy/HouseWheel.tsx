@@ -29,7 +29,6 @@ const HOUSES: { num: number; area: string; rules: string; keywords: string[] }[]
 ];
 
 const ANGULAR = new Set([1, 4, 7, 10]);
-const SUCCEDENT = new Set([2, 5, 8, 11]);
 
 export default function HouseWheel({ highlightHouse }: { highlightHouse?: number }) {
   const [selected, setSelected] = useState<number | null>(highlightHouse ?? null);

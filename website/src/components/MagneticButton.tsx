@@ -115,11 +115,11 @@ export default function MagneticButton({
   useEffect(() => {
     if (!veilEnabled) return;
     ensureVeilStyles();
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- canonical client-only hydration gate
-    setMounted(true);
+    requestAnimationFrame(() => setMounted(true));
   }, [veilEnabled]);
 
   const handleClick = () => {
+    if (disabled) return;
     if (sound) {
       window.dispatchEvent(new CustomEvent("cosmos:chime"));
     }
@@ -146,7 +146,9 @@ export default function MagneticButton({
     letterSpacing: "0.02em",
     textDecoration: "none",
     cursor: "pointer",
+    opacity: disabled ? 0.55 : undefined,
     overflow: "hidden",
+    pointerEvents: disabled ? "none" : undefined,
     backdropFilter: variant === "glass" ? "blur(16px) saturate(1.35)" : undefined,
     transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
     boxShadow: active ? v.shadowHover : v.shadow,
@@ -154,7 +156,7 @@ export default function MagneticButton({
       ? "transform 100ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 100ms ease"
       : "transform 400ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 400ms cubic-bezier(0.16, 1, 0.3, 1)",
     willChange: active ? "transform, box-shadow" : "auto",
-    minHeight: "44px",
+    minHeight: "46px",
     minWidth: "44px",
   };
 
@@ -221,6 +223,8 @@ export default function MagneticButton({
         onClick={handleClick}
         className={`${SIZES[size]} ${className}`}
         style={style}
+        aria-disabled={disabled || undefined}
+        tabIndex={disabled ? -1 : undefined}
         target={external ? "_blank" : undefined}
         rel={external ? "noopener noreferrer" : undefined}
       >
@@ -236,6 +240,7 @@ export default function MagneticButton({
       className={`${SIZES[size]} ${className}`}
       style={style}
       type="button"
+      disabled={disabled}
     >
       {content}
     </button>

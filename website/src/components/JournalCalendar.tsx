@@ -38,7 +38,7 @@ export default function JournalCalendar({ selectedDate, onSelectDate }: Props) {
   const [viewYear, setViewYear] = useState(selY);
   const [viewMonth, setViewMonth] = useState(selM - 1); // 0-indexed
 
-  const entryDates = useMemo(() => getEntryDates(), [selectedDate]);
+  const entryDates = useMemo(() => getEntryDates(), []);
 
   // Build calendar grid
   const calendarDays = useMemo(() => {

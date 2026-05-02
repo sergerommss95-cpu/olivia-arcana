@@ -52,7 +52,7 @@ export function PostFX() {
     <EffectComposer enableNormalPass={false}>
       <Bloom intensity={0.4} luminanceThreshold={0.9} radius={0.6} mipmapBlur />
       <Vignette offset={0.3} darkness={0.7} />
-      <ChromaticAberration offset={[0.0005, 0.0005] as any} />
+      <ChromaticAberration offset={[0.0005, 0.0005]} />
       <Noise opacity={0.04} />
     </EffectComposer>
   );

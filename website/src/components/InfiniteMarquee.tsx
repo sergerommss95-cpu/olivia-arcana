@@ -38,6 +38,7 @@ export default function InfiniteMarquee({
 
   useEffect(() => {
     if (!trackRef.current) return;
+    if (window.matchMedia("(max-width: 640px)").matches) return;
 
     const track = trackRef.current;
     const scrollDirection = direction === "left" ? -1 : 1;
@@ -56,9 +57,9 @@ export default function InfiniteMarquee({
     });
 
     // Velocity Skew & Blur (God Mode)
-    let proxy = { skew: 0 };
-    let skewSetter = gsap.quickSetter(track, "skewX", "deg");
-    let clamp = gsap.utils.clamp(-12, 12);
+    const proxy = { skew: 0 };
+    const skewSetter = gsap.quickSetter(track, "skewX", "deg");
+    const clamp = gsap.utils.clamp(-12, 12);
 
     const scrollTrigger = ScrollTrigger.create({
       onUpdate: (self) => {
@@ -93,23 +94,47 @@ export default function InfiniteMarquee({
       ref={containerRef}
       className={`relative w-full overflow-hidden py-12 border-y border-white/5 bg-void-black/10 backdrop-blur-sm ${className}`}
       style={{
+        contain: "layout paint",
+        maxWidth: "100vw",
         maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
         WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
       }}
     >
       <div
         ref={trackRef}
-        className="flex items-center whitespace-nowrap will-change-transform"
+        className="marquee-track flex items-center whitespace-nowrap will-change-transform"
         style={{ gap: `${gap}px` }}
       >
-        <div className="flex items-center gap-[inherit]">
+        <div className="marquee-set flex items-center gap-[inherit]">
           {children}
         </div>
         {/* Duplicate for infinite effect */}
-        <div className="flex items-center gap-[inherit]" aria-hidden="true">
+        <div className="marquee-set marquee-duplicate flex items-center gap-[inherit]" aria-hidden="true">
           {children}
         </div>
       </div>
+      <style jsx>{`
+        @media (max-width: 640px) {
+          .marquee-track {
+            transform: none !important;
+            filter: none !important;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.1rem !important;
+            white-space: normal;
+            will-change: auto;
+            padding-inline: 1rem;
+          }
+          .marquee-set {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.1rem !important;
+          }
+          .marquee-duplicate {
+            display: none !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

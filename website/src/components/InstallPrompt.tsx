@@ -67,7 +67,7 @@ export default function InstallPrompt() {
   return (
     <div style={{
       position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 9998,
-      padding: "0.75rem 1rem",
+      padding: "0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px))",
       background: "rgba(8,6,20,0.92)",
       backdropFilter: "blur(20px) saturate(1.2)",
       WebkitBackdropFilter: "blur(20px) saturate(1.2)",
@@ -97,12 +97,15 @@ export default function InstallPrompt() {
         letterSpacing: "0.06em", textTransform: "uppercase",
         cursor: "pointer", transition: `all 0.3s ${EASE}`,
         whiteSpace: "nowrap",
+        minHeight: "44px",
       }}>Install</button>
 
       <button onClick={handleDismiss} style={{
         background: "none", border: "none", cursor: "pointer",
         color: "rgba(180,170,210,0.35)", fontSize: "1rem",
         padding: "0.2rem 0.4rem", lineHeight: 1,
+        minWidth: "44px",
+        minHeight: "44px",
         transition: "color 0.2s",
       }} aria-label="Dismiss">{"\u2715"}</button>
     </div>

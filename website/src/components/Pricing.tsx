@@ -72,7 +72,6 @@ const ADDON_KEYS: AddonKey[] = [
 function fmtPrice(n: number): string {
   return n === Math.floor(n) ? `$${n}` : `$${n.toFixed(2)}`;
 }
-
 export default function Pricing() {
   const { t, locale } = useLocale();
   const { isVip, manageSubscription, tier: currentTier } = useSubscription();
@@ -95,7 +94,7 @@ export default function Pricing() {
           <div className="mt-8 flex items-center justify-center gap-3">
             <button
               onClick={() => setBillingPeriod("monthly")}
-              className={`text-sm px-4 py-1.5 rounded-full transition-all ${
+              className={`min-h-[52px] text-sm px-4 py-1.5 rounded-full transition-all ${
                 billingPeriod === "monthly"
                   ? "bg-celestial-gold/20 text-celestial-gold border border-celestial-gold/30"
                   : "text-muted-lavender hover:text-warm-ivory"
@@ -105,7 +104,7 @@ export default function Pricing() {
             </button>
             <button
               onClick={() => setBillingPeriod("annual")}
-              className={`text-sm px-4 py-1.5 rounded-full transition-all flex items-center gap-2 ${
+              className={`min-h-[52px] text-sm px-4 py-1.5 rounded-full transition-all flex items-center gap-2 ${
                 billingPeriod === "annual"
                   ? "bg-celestial-gold/20 text-celestial-gold border border-celestial-gold/30"
                   : "text-muted-lavender hover:text-warm-ivory"
@@ -160,11 +159,11 @@ export default function Pricing() {
                   <div className="mb-4">
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="font-[family-name:var(--font-heading)] text-2xl font-semibold text-celestial-gold">
-                        {t(tier.name as any)}
+                        {t(tier.name as keyof Translations)}
                       </h3>
                       {tier.id === "vip" && isVip && <VipBadge />}
                     </div>
-                    <p className="text-muted-lavender text-xs leading-relaxed">{t(tier.tagline as any)}</p>
+                    <p className="text-muted-lavender text-xs leading-relaxed">{t(tier.tagline as keyof Translations)}</p>
                   </div>
 
                   <div className="mb-5">
@@ -216,7 +215,7 @@ export default function Pricing() {
                         size="md"
                         className="w-full justify-center"
                       >
-                        {t(`price_start_${tier.id}` as any)}
+                        {t(`price_start_${tier.id}` as keyof Translations)}
                       </CheckoutButton>
                       <a
                         href={telegramStarsLink(priceKey)}
@@ -321,7 +320,7 @@ function FeatureMatrix() {
     <div className="mt-20 sm:mt-24">
       <p className="text-center text-xs tracking-[0.28em] uppercase text-celestial-gold/75 mb-6">
         <span aria-hidden className="mr-2">✦</span>
-        {t("nav_cosmos" as any)}
+        {t("nav_cosmos")}
       </p>
 
       <div
@@ -331,7 +330,7 @@ function FeatureMatrix() {
         <div className="matrix" role="table" aria-label="Plan feature comparison">
           {/* Header */}
           <div className="matrix-row matrix-head" role="row">
-            <div className="matrix-cell matrix-cell-feature" role="columnheader">{t("nav_cosmos" as any) /* Or any key for Feature */}</div>
+            <div className="matrix-cell matrix-cell-feature" role="columnheader">{t("nav_cosmos")}</div>
             <div className="matrix-cell matrix-cell-center" role="columnheader">{t("price_free")}</div>
             <div className="matrix-cell matrix-cell-center" role="columnheader">{(t("price_insight") as string).substring(0, 4)}.</div>
             <div className="matrix-cell matrix-cell-center matrix-cell-vip" role="columnheader">
@@ -455,7 +454,7 @@ function Addons() {
       addon_solar_return: "price_i4", // Reusing year ahead for now or needs a new key
       addon_video_reading: "price_i5",
     };
-    return t(map[key] as any);
+    return t(map[key] as keyof Translations);
   };
 
   return (
@@ -505,22 +504,6 @@ function Addons() {
         }
         @media (min-width: 1024px) {
           .addons-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (max-width: 540px) {
-          .addons-grid {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding: 0 1.5rem 1.5rem;
-            margin: 0 -1.5rem;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-          }
-          .addons-grid::-webkit-scrollbar { display: none; }
-          .addon-card {
-            flex: 0 0 85%;
-            scroll-snap-align: center;
-          }
         }
       `}</style>
     </div>

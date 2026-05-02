@@ -14,7 +14,7 @@
 
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 const TOTAL_DURATION = 3200;
@@ -32,7 +32,7 @@ export default function CinematicLoader() {
     if (typeof window === "undefined") return;
     if (sessionStorage.getItem("olivia-loaded")) return;
 
-    setShow(true);
+    requestAnimationFrame(() => setShow(true));
     document.body.style.overflow = "hidden";
     startTime.current = performance.now();
 

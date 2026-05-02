@@ -16,6 +16,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import TransitionLink from "@/components/transitions/TransitionLink";
 import { openCommandPalette } from "@/components/CommandPalette";
 import { useProfile } from "@/lib/user/profile-store";
@@ -127,7 +128,9 @@ function Tab({
 export default function MobileBottomNav() {
   const { profile } = useProfile();
   const { t } = useLocale();
+  const pathname = usePathname();
   const [path, setPath] = useState("");
+
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reflect pathname on mount
     setPath(window.location.pathname.replace(/\/$/, "") || "/");
@@ -136,9 +139,11 @@ export default function MobileBottomNav() {
     return () => window.removeEventListener("popstate", onChange);
   }, []);
 
+  if (pathname?.startsWith("/oracle")) return null;
+
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-40 block md:hidden bg-void-black/82 backdrop-blur-2xl saturate-[1.1] border-t border-celestial-gold/18"
+      className="fixed bottom-0 left-0 right-0 z-40 block md:hidden bg-void-black/82 backdrop-blur-xl saturate-[1.1] border-t border-celestial-gold/18"
       aria-label="Primary"
       style={{
         paddingBottom: "env(safe-area-inset-bottom, 0)",

@@ -15,7 +15,6 @@
 "use client";
 
 import React from "react";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TextReveal from "@/components/TextReveal";
 import MorphingText from "@/components/MorphingText";
@@ -28,7 +27,6 @@ import GlowCard from "@/components/GlowCard";
 export default function StoryPage() {
   return (
     <>
-      <Navbar />
       <main id="main-content">
         {/* ── SECTION 1: Full-screen Hero ── */}
         <section

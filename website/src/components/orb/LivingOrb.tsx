@@ -7,7 +7,7 @@ import { MeshDistortMaterial, Sparkles, Preload } from "@react-three/drei";
 import { useReducedMotion } from "framer-motion";
 import type { Object3D } from "three";
 
-const ORB_IMAGE = "/orb/your-orb-image.jpg";
+const ORB_IMAGE = "/orb/your-orb-image.webp";
 
 interface LivingOrbProps {
   isAsking?: boolean;
@@ -122,7 +122,7 @@ export default function LivingOrb({ className = "" }: LivingOrbProps) {
   const [tabVisible, setTabVisible] = useState(true);
 
   useEffect(() => {
-    setMounted(true);
+    const frame = requestAnimationFrame(() => setMounted(true));
     const pointerQuery = window.matchMedia("(pointer: fine)");
     const updatePointer = () => setFinePointer(pointerQuery.matches);
     pointerQuery.addEventListener("change", updatePointer);
@@ -131,6 +131,7 @@ export default function LivingOrb({ className = "" }: LivingOrbProps) {
     document.addEventListener("visibilitychange", updateVisibility);
 
     return () => {
+      cancelAnimationFrame(frame);
       pointerQuery.removeEventListener("change", updatePointer);
       document.removeEventListener("visibilitychange", updateVisibility);
     };

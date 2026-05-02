@@ -44,7 +44,10 @@ export default function HorizontalScroll({
   const itemCount = React.Children.count(children);
 
   useEffect(() => {
-    setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const frame = requestAnimationFrame(() => {
+      setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    });
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   // Calculate scroll progress within the pinned section

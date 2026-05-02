@@ -66,7 +66,10 @@ export default function BirthDatePicker({ value, onChange }: Props) {
 
   // Stable ref for onChange to avoid infinite loops
   const onChangeRef = useRef(onChange);
-  onChangeRef.current = onChange;
+  
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  });
 
   // Emit full date when all three are selected
   useEffect(() => {
@@ -83,7 +86,7 @@ export default function BirthDatePicker({ value, onChange }: Props) {
   // Reset day if it exceeds max for new month
   useEffect(() => {
     if (day && parseInt(day) > maxDay) {
-      setDay(String(maxDay));
+      requestAnimationFrame(() => setDay(String(maxDay)));
     }
   }, [maxDay, day]);
 

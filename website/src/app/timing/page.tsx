@@ -44,7 +44,6 @@ const PLANET_GLYPHS: Record<string, string> = {
 };
 
 export default function TimingPage() {
-  const { t } = useLocale();
   const [mounted, setMounted] = useState(false);
   const [chart, setChart] = useState<NatalChart | null>(null);
   const [transits, setTransits] = useState<LifeTransit[] | null>(null);

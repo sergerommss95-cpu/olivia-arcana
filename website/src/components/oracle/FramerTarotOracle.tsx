@@ -27,7 +27,8 @@ class AstralAudio {
 
   init() {
     if (!this.ctx) {
-      this.ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      this.ctx = new AudioCtx();
     }
     if (this.ctx.state === 'suspended') this.ctx.resume();
   }
@@ -142,8 +143,10 @@ export default function FramerTarotOracle() {
     if (drawParam) {
       const indices = drawParam.split(",").map(Number).filter(n => !isNaN(n) && n < 24);
       if (indices.length === 3) {
-        setSelectedCards(indices);
-        setState("result"); 
+        requestAnimationFrame(() => {
+          setSelectedCards(indices);
+          setState("result"); 
+        });
       }
     }
   }, [searchParams]);
@@ -195,7 +198,14 @@ export default function FramerTarotOracle() {
         {/* ── CINEMATIC AMBIENCE (Hybrid God Mode) ── */}
         <AstralBackground />
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(30,15,60,0.2)_0%,_transparent_70%)] pointer-events-none" />
-        <div className="absolute inset-0 z-0 bg-[url('/grain.png')] opacity-[0.03] pointer-events-none" />
+        <div
+          className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, rgba(255,255,255,0.75) 0 1px, transparent 1px)",
+            backgroundSize: "4px 4px",
+          }}
+        />
 
         {/* SVG Refraction Filter (Lite God Mode) */}
         <svg style={{ position: 'absolute', width: 0, height: 0 }}>
@@ -211,14 +221,15 @@ export default function FramerTarotOracle() {
               {state !== "idle" && (
                  <button 
                    onClick={reset}
-                   className="text-[10px] tracking-[0.3em] uppercase text-white/30 hover:text-[#d4af37] transition-all duration-500 hover:tracking-[0.4em]"
+                   className="min-h-11 text-[10px] tracking-[0.3em] uppercase text-white/30 hover:text-[#d4af37] transition-all duration-500 hover:tracking-[0.4em]"
                  >
                    &larr; Collapse Time
                  </button>
               )}
               <button 
                 onClick={toggleMute}
-                className="text-[10px] tracking-[0.3em] uppercase text-white/20 hover:text-white/60 transition-all text-left"
+                aria-pressed={!isMuted}
+                className="min-h-11 min-w-11 text-[10px] tracking-[0.3em] uppercase text-white/20 hover:text-white/60 transition-all text-left"
               >
                 {isMuted ? "Audio: Off" : "Audio: On"}
               </button>
@@ -588,11 +599,9 @@ const GodModeCard = React.memo(function GodModeCard({
   const localY = useMotionValue(cardHeight / 2);
   
   const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
-  const smoothX = useSpring(localX, springConfig);
   const smoothY = useSpring(localY, springConfig);
 
   const rotateX = useTransform(smoothY, [0, cardHeight], [15, -15]);
-  const rotateY = useTransform(smoothX, [0, cardWidth], [-15, 15]);
 
   const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     if (!isHovered && !isSelected) return;
@@ -674,10 +683,9 @@ const GodModeCard = React.memo(function GodModeCard({
         backfaceVisibility: "hidden",
         WebkitBackfaceVisibility: "hidden",
         willChange: "transform, opacity",
-        //@ts-ignore
+        // @ts-expect-error - Custom CSS properties for motion values are not yet fully typed in React
         "--angle": edgeAngle
-      }}
-      initial={{ opacity: 0, scale: 0 }}
+        }}      initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: targetOpacity }}
       transition={
         isReducedMotion 

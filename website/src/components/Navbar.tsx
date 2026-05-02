@@ -11,14 +11,11 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import LivingOliveMark from "./LivingOliveMark";
 import TransitionLink from "@/components/transitions/TransitionLink";
-import MagneticButton from "@/components/MagneticButton";
-import { useLocale } from "../lib/i18n/useLocale";
 import { openCommandPalette } from "./CommandPalette";
 import { useProfile } from "../lib/user/profile-store";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { t } = useLocale();
   const { profile } = useProfile();
   const pathname = usePathname();
   const pagePath = typeof window !== "undefined" ? window.location.pathname : pathname;
@@ -73,6 +70,7 @@ export default function Navbar() {
           
           <button
             onClick={openCommandPalette}
+            aria-label="Open search"
             className="px-6 py-2 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-celestial-gold/60 hover:text-celestial-gold hover:bg-celestial-gold/5 transition-all duration-300 flex items-center gap-2"
           >
             Search <span className="opacity-30">⌘K</span>

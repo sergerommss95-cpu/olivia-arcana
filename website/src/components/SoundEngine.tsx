@@ -199,16 +199,19 @@ export default function SoundEngine() {
   }, [enabled]);
 
   return (
+    <>
     <button
+      className="sound-engine-toggle"
       onClick={toggle}
       aria-label={enabled ? "Mute cosmic sounds" : "Enable cosmic sounds"}
+      aria-pressed={enabled}
       style={{
         position: "fixed",
         bottom: "1.5rem",
         right: "1.5rem",
         zIndex: 40,
-        width: "36px",
-        height: "36px",
+        width: "44px",
+        height: "44px",
         borderRadius: "50%",
         background: "rgba(255,255,255,0.04)",
         border: "1px solid rgba(200,185,255,0.1)",
@@ -225,5 +228,13 @@ export default function SoundEngine() {
     >
       {enabled ? "♪" : "♪̸"}
     </button>
+    <style jsx>{`
+      @media (max-width: 767px) {
+        .sound-engine-toggle {
+          bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px)) !important;
+        }
+      }
+    `}</style>
+    </>
   );
 }

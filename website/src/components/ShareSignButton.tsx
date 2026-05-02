@@ -8,7 +8,7 @@
  * Instagram card → share via Web Share API or download PNG.
  */
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import type { CSSProperties } from "react";
 
@@ -47,21 +47,24 @@ const buttonStyle: CSSProperties = {
 export default function ShareSignButton(props: Props) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [cosmicEnergy, setCosmicEnergy] = useState(75);
 
   useEffect(() => {
-    setMounted(true);
+    requestAnimationFrame(() => setMounted(true));
   }, []);
 
   // Synthesize the cosmic-energy bar from day-of-year + sign hash
   // (deterministic, matches what /onboarding shows so the share card looks
   // identical to what the user already saw inside the app).
-  const cosmicEnergy = useMemo(() => {
-    if (!mounted) return 75; // stable fallback for SSR
-    const now = Date.now();
-    const day = Math.floor((now - new Date(new Date(now).getFullYear(), 0, 0).getTime()) / 86_400_000);
-    let h = 0;
-    for (const c of props.signName) h = (h * 31 + c.charCodeAt(0)) | 0;
-    return 60 + (Math.abs((day + h) % 41));
+  useEffect(() => {
+    if (!mounted) return;
+    requestAnimationFrame(() => {
+      const now = Date.now();
+      const dayOfYr = Math.floor((now - new Date(new Date(now).getFullYear(), 0, 0).getTime()) / 86_400_000);
+      let h = 0;
+      for (const c of props.signName) h = (h * 31 + c.charCodeAt(0)) | 0;
+      setCosmicEnergy(60 + (Math.abs((dayOfYr + h) % 41)));
+    });
   }, [mounted, props.signName]);
 
   return (

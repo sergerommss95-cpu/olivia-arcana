@@ -31,8 +31,10 @@ export default function CosmicToast() {
       Sagittarius: "♐", Capricorn: "♑", Aquarius: "♒", Pisces: "♓",
     };
 
-    setMessage(toast);
-    setSignGlyph(GLYPHS[user.sunSign] || "✦");
+    requestAnimationFrame(() => {
+      setMessage(toast);
+      setSignGlyph(GLYPHS[user.sunSign] || "✦");
+    });
 
     // Delay appearance for smooth entry
     const showTimer = setTimeout(() => setVisible(true), 1500);

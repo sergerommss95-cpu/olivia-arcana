@@ -172,12 +172,12 @@ export class StarSystem implements EngineSystem {
     engine.scene.add(this.points);
   }
 
-  update(time: number, _dt: number) {
+  update(time: number) {
     this.material.uniforms.uTime.value = time;
     this.material.uniforms.uMouse.value.copy(this.engine.smoothMouse);
   }
 
-  resize(_w: number, _h: number) {
+  resize() {
     // Stars are in world space, no resize needed
   }
 

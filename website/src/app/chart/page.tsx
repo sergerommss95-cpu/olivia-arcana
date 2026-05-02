@@ -93,7 +93,6 @@ export default function ChartPage() {
   }, [date, time, timeUnknown, cityData]);
 
   const canGenerate = !!date && (timeUnknown || !!time);
-  const cx = 220, cy = 220, outerR = 195, innerR = 155, planetR = 130;
   const selectedPlanet = selected !== null ? chart?.planets[selected] : null;
 
   return (

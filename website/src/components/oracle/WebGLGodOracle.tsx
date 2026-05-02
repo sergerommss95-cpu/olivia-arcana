@@ -2,17 +2,19 @@
 
 import React, { useState, useEffect, useCallback, useMemo, useRef, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useSpring, a, config } from "@react-spring/three";
-import { MeshTransmissionMaterial, RoundedBox, Environment, useTexture, Html } from "@react-three/drei";
+import { useSpring, a } from "@react-spring/three";
+import { MeshTransmissionMaterial, RoundedBox, Environment, useTexture } from "@react-three/drei";
 import { EffectComposer, Bloom, Noise, ChromaticAberration, Vignette } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import * as THREE from "three";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ALL_CARDS } from "@/lib/academy/tarot-cards";
+import { ALL_CARDS, type TarotCard } from "@/lib/academy/tarot-cards";
 import { getCardPortalImagePath } from "@/lib/academy/card-images";
 
 // Fix for React 19 / Three 183 deep type instantiation
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AnimatedMeshBasicMaterial = a.meshBasicMaterial as any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AnimatedGroup = a.group as any;
 
 // ── AUDIO ENGINE (Web Audio API) ──
@@ -20,7 +22,8 @@ class AstralAudio {
   ctx: AudioContext | null = null;
   init() {
     if (!this.ctx) {
-      this.ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      this.ctx = new AudioCtx();
     }
     if (this.ctx.state === 'suspended') this.ctx.resume();
   }
@@ -155,23 +158,36 @@ const FluidBackground = () => {
 };
 
 // ── LAZY CARD FRONT TEXTURE ──
-const CardFrontTexture = ({ url, opacity }: { url: string, opacity: any }) => {
-  const texture = useTexture(url);
-  texture.colorSpace = THREE.SRGBColorSpace;
+const CardFrontTexture = ({ url, opacity }: { url: string, opacity: unknown }) => {
+  const texture = useTexture(url, (tex) => {
+    tex.colorSpace = THREE.SRGBColorSpace;
+  });
+  
   return (
     <AnimatedMeshBasicMaterial 
       map={texture} 
       transparent 
-      opacity={opacity}
+      opacity={opacity as number}
       toneMapped={false}
     />
   );
 };
 
+interface GodModeCardProps {
+  card: TarotCard;
+  index: number;
+  total: number;
+  machineState: "idle" | "drawing" | "spread" | "result";
+  selectedCards: number[];
+  hoveredIndex: number | null;
+  setHoveredIndex: (idx: number | null) => void;
+  onClick: () => void;
+}
+
 // ── THE GOD TIER CARD ──
 const GodModeCard3D = ({ 
   card, index, total, machineState, selectedCards, hoveredIndex, setHoveredIndex, onClick
-}: any) => {
+}: GodModeCardProps) => {
   const isSelected = selectedCards.includes(index);
   const selectionIndex = selectedCards.indexOf(index);
   const isHovered = hoveredIndex === index;
@@ -185,7 +201,8 @@ const GodModeCard3D = ({
   const baseArcRotateZ = -angle;
 
   // Dock Push
-  let dockX = 0, dockY = 0, dockZ = 0, dockRotZ = 0;
+  let dockX = 0, dockY = 0, dockRotZ = 0;
+  const dockZ = 0;
   if (machineState === "drawing" && hoveredIndex !== null && !isSelected) {
     const dist = index - hoveredIndex;
     if (dist !== 0) {
@@ -197,7 +214,8 @@ const GodModeCard3D = ({
   }
 
   // Targets
-  let tX = 0, tY = 0, tZ = 0, tRotX = 0, tRotY = 0, tRotZ = 0, tScale = 1;
+  let tX = 0, tY = 0, tZ = 0, tRotY = 0, tRotZ = 0, tScale = 1;
+  const tRotX = 0;
 
   if (machineState === "idle") {
     tZ = index * -0.02;
@@ -265,7 +283,7 @@ const GodModeCard3D = ({
       position={position} 
       rotation={rotation} 
       scale={scale}
-      onPointerOver={(e: any) => {
+      onPointerOver={(e: { stopPropagation: () => void }) => {
         e.stopPropagation();
         if (machineState === "drawing" && !isSelected) {
           setHoveredIndex(index);
@@ -275,7 +293,7 @@ const GodModeCard3D = ({
       onPointerOut={() => {
         if (hoveredIndex === index) setHoveredIndex(null);
       }}
-      onClick={(e: any) => {
+      onClick={(e: { stopPropagation: () => void }) => {
         e.stopPropagation();
         onClick();
       }}
@@ -346,8 +364,10 @@ export default function WebGLGodOracle() {
     if (drawParam) {
       const indices = drawParam.split(",").map(Number).filter(n => !isNaN(n) && n < 24);
       if (indices.length === 3) {
-        setSelectedCards(indices);
-        setState("result"); 
+        requestAnimationFrame(() => {
+          setSelectedCards(indices);
+          setState("result"); 
+        });
       }
     }
   }, [searchParams]);

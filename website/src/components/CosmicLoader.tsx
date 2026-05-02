@@ -25,10 +25,10 @@ export default function CosmicLoader() {
     // Only show once per session
     if (typeof window === "undefined") return;
     if (sessionStorage.getItem("olivia-loaded")) {
-      setShow(false);
+      requestAnimationFrame(() => setShow(false));
       return;
     }
-    setShow(true);
+    requestAnimationFrame(() => setShow(true));
     // Prevent scroll during loader
     document.body.style.overflow = "hidden";
 

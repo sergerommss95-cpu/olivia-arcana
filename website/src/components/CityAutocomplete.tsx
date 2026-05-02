@@ -7,7 +7,7 @@
 
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { searchCities, type CityData } from "../lib/cities";
 
 interface Props {
@@ -17,26 +17,20 @@ interface Props {
 
 export default function CityAutocomplete({ onSelect, placeholder = "e.g. Kyiv, New York, Tokyo" }: Props) {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<CityData[]>([]);
-  const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<CityData | null>(null);
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (selected) {
-      setResults([]);
-      setOpen(false);
-      return;
-    }
-    const r = searchCities(query);
-    setResults(r);
-    setOpen(r.length > 0 && query.length >= 2);
+  const results = useMemo(() => {
+    if (selected) return [];
+    return searchCities(query);
   }, [query, selected]);
 
+  const [isOpen, setIsOpen] = useState(false);
+  
   // Close on click outside
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (ref.current && !ref.current.contains(e.target as Node)) setIsOpen(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -45,12 +39,13 @@ export default function CityAutocomplete({ onSelect, placeholder = "e.g. Kyiv, N
   const handleSelect = (city: CityData) => {
     setSelected(city);
     setQuery(`${city.name}, ${city.country}`);
-    setOpen(false);
+    setIsOpen(false);
     onSelect(city);
   };
 
   const handleChange = (val: string) => {
     setQuery(val);
+    setIsOpen(true);
     if (selected) {
       setSelected(null);
       onSelect(null);
@@ -63,7 +58,7 @@ export default function CityAutocomplete({ onSelect, placeholder = "e.g. Kyiv, N
         type="text"
         value={query}
         onChange={e => handleChange(e.target.value)}
-        onFocus={() => { if (results.length > 0 && !selected) setOpen(true); }}
+        onFocus={() => { if (results.length > 0 && !selected) setIsOpen(true); }}
         placeholder={placeholder}
         style={{
           width: "100%",
@@ -83,7 +78,7 @@ export default function CityAutocomplete({ onSelect, placeholder = "e.g. Kyiv, N
       />
 
       {/* Dropdown */}
-      {open && (
+      {isOpen && results.length > 0 && (
         <div style={{
           position: "absolute",
           top: "calc(100% + 4px)",
@@ -99,7 +94,7 @@ export default function CityAutocomplete({ onSelect, placeholder = "e.g. Kyiv, N
           overflowY: "auto",
           boxShadow: "0 8px 30px rgba(0,0,0,0.4)",
         }}>
-          {results.map((city, i) => (
+          {results.map((city: CityData, i: number) => (
             <button
               key={`${city.name}-${city.country}-${i}`}
               onClick={() => handleSelect(city)}

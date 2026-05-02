@@ -6,7 +6,6 @@ import SignLabel from "@/components/SignLabel";
 import ConstellationOverlay from "@/components/ConstellationOverlay";
 import MagneticGlow from "@/components/MagneticGlow";
 import CosmicStatus from "@/components/CosmicStatus";
-import Navbar from "@/components/Navbar";
 import HeroV3 from "@/components/HeroV3";
 import CelestialAltar from "@/components/CelestialAltar";
 import StoryMarkers from "@/components/StoryMarkers";
@@ -47,7 +46,6 @@ export default function Home() {
       <SignLabel />
       <ConstellationOverlay />
       <MagneticGlow />
-      <Navbar />
       <CosmicStatus />
       <StoryMarkers />
 

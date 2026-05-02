@@ -36,6 +36,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import NextImage from "next/image";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
 import type { TarotCard } from "@/lib/academy/tarot-cards";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
@@ -73,14 +74,6 @@ interface FlipRevealCardProps {
 //  flip. Reduced-motion strips all motion to a static elegant back.
 // ─────────────────────────────────────────────────────────────────────
 
-const STAR_POSITIONS: Array<[number, number]> = [
-  [180, 140], [180, 400], [68, 270], [292, 270],
-  [105, 192], [255, 192], [105, 348], [255, 348],
-];
-// Near-prime-ratio periods + phase offsets so the 8 stars never align.
-const STAR_PERIODS = [4.1, 5.3, 6.7, 7.9, 9.1, 4.7, 5.9, 7.3];
-const STAR_PHASES  = [0.0, 1.2, 2.4, 3.6, 0.8, 2.0, 3.2, 4.4];
-
 export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean } = {}) {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -97,6 +90,7 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean } 
   // like flow field, and a cursor-attractor dust cloud that only appears
   // when the pointer is on the card.
   useEffect(() => {
+    if (disableCanvas) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d", { alpha: true });
@@ -267,7 +261,7 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean } 
 
     if (!reduced) raf = requestAnimationFrame(tick);
     return () => { if (raf) cancelAnimationFrame(raf); };
-  }, []);
+  }, [disableCanvas]);
 
   // Pointer parallax — set --px / --py CSS vars on the root (−0.5..0.5).
   // Only active while the card is visible to the camera (backface-visibility
@@ -664,7 +658,6 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean } 
 // ─────────────────────────────────────────────────────────────────────
 
 const FLIP_SPRING = { type: "spring" as const, stiffness: 58, damping: 13, mass: 1.1 };
-const ANTICIPATION = { duration: 0.22, ease: [0.2, 0, 0.4, 1] as const };
 
 export default function FlipRevealCard({
   card,
@@ -716,7 +709,9 @@ export default function FlipRevealCard({
   // Track the current card name so we can cross-fade the image swap.
   const [displayedCardName, setDisplayedCardName] = useState(card.name);
   useEffect(() => {
-    if (card.name !== displayedCardName) setDisplayedCardName(card.name);
+    if (card.name !== displayedCardName) {
+      requestAnimationFrame(() => setDisplayedCardName(card.name));
+    }
   }, [card.name, displayedCardName]);
 
   // Preload a handful of likely-next cards so "Different card" clicks feel
@@ -813,13 +808,14 @@ export default function FlipRevealCard({
             {/* Figure — transparent-bg portal PNG sits over the nebula.
                 key={card.name} makes React remount the img on card change,
                 which triggers the flr-front-img-enter fade-in keyframe. */}
-            <img
+            <NextImage
               key={card.name}
               src={getCardPortalImagePath(card)}
               alt={card.name}
               width={width}
               height={height}
               className="flr-front-img"
+              priority
             />
             {/* Dark lens vignette — same as the back, deepens center "well" */}
             <div className="flr-front-vignette" aria-hidden />

@@ -55,7 +55,10 @@ export default function ClientShell({ children }: { children: React.ReactNode })
   // Tier 3 gate — user has shown intent (scrolled or pressed a key)
   const [engaged, setEngaged] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;

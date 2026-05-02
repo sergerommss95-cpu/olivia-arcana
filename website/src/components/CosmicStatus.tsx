@@ -7,7 +7,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { getSunPosition, getMoonPosition, getMoonPhase, getLiveEphemeris } from "../lib/celestial";
+import { getSunPosition, getMoonPhase, getLiveEphemeris } from "../lib/celestial";
 import { getUpcomingEvents, EVENT_TYPE_META } from "../lib/astro-events";
 import { useLocale } from "../lib/i18n/useLocale";
 import { getCosmicMoment } from "../lib/cosmic-time";
@@ -15,10 +15,10 @@ import { getCosmicMoment } from "../lib/cosmic-time";
 export default function CosmicStatus() {
   const { t } = useLocale();
   const [mounted, setMounted] = useState(false);
-  const [tick, setTick] = useState(0);
+  const [, setTick] = useState(0);
 
   useEffect(() => { 
-    setMounted(true); 
+    requestAnimationFrame(() => setMounted(true)); 
     const timer = setInterval(() => setTick(prev => prev + 1), 1000);
     return () => clearInterval(timer);
   }, []);
@@ -28,7 +28,6 @@ export default function CosmicStatus() {
   const moment = getCosmicMoment(now);
   const sun = getSunPosition(now);
   const eph = getLiveEphemeris();
-  const moon = getMoonPosition(now);
   const moonPhase = getMoonPhase(now);
   const nextEvent = getUpcomingEvents(1)[0];
   const nextMeta = nextEvent ? EVENT_TYPE_META[nextEvent.type] : null;

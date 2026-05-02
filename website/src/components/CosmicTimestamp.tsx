@@ -30,7 +30,7 @@ export default function CosmicTimestamp({ variant }: CosmicTimestampProps) {
   const [moment, setMoment] = useState<CosmicMoment | null>(null);
 
   useEffect(() => {
-    setMoment(getCosmicMoment());
+    requestAnimationFrame(() => setMoment(getCosmicMoment()));
 
     // Refresh every 60s (planetary hours change on the hour,
     // but moon illumination drifts slowly)

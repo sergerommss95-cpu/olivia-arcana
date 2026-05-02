@@ -87,7 +87,7 @@ export default function TransitTimeline({ transits }: Props) {
   const filtered = transits.filter((tr) => filters[tr.significance]);
 
   // Compute timeline range
-  const { now, earliest, latest, totalDays, timelineWidth } = React.useMemo(() => {
+  const { now, earliest, totalDays, timelineWidth } = React.useMemo(() => {
     const nowVal = new Date();
     const e = filtered.length > 0
       ? new Date(Math.min(...filtered.map((tr) => tr.startDate.getTime()), nowVal.getTime()))
@@ -100,7 +100,7 @@ export default function TransitTimeline({ transits }: Props) {
     const pxPerDay = 6;
     const tw = td * pxPerDay;
     
-    return { now: nowVal, earliest: e, latest: l, totalDays: td, timelineWidth: tw };
+    return { now: nowVal, earliest: e, totalDays: td, timelineWidth: tw };
   }, [filtered]);
 
   const pxPerDay = 6;

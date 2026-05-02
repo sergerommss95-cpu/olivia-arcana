@@ -13,10 +13,9 @@
 
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { CosmicProfile as CosmicProfileData } from "../lib/zodiac-utils";
 import { getCosmicEnergy } from "../lib/zodiac-utils";
-import html2canvas from "html2canvas";
 import WhisperText from "./WhisperText";
 import { textWordSpacing } from "../lib/micro-typography";
 import ShareCardModal from "./ShareCardModal";
@@ -35,8 +34,10 @@ function Typewriter({ text, delay, speed = 32 }: { text: string; delay: number; 
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    setDisplayed("");
-    setStarted(false);
+    requestAnimationFrame(() => {
+      setDisplayed("");
+      setStarted(false);
+    });
     const t = setTimeout(() => setStarted(true), delay);
     return () => clearTimeout(t);
   }, [text, delay]);
@@ -69,42 +70,22 @@ export default function CosmicProfile({ profile }: Props) {
   const energy = getCosmicEnergy(profile.name);
   const [energyWidth, setEnergyWidth] = useState(0);
   const [traitsReady, setTraitsReady] = useState(false);
-  const [sharing, setSharing] = useState(false);
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const [roast, setRoast] = useState<ZodiacRoast | null>(null);
   const [isBirthday, setIsBirthday] = useState(false);
 
   useEffect(() => {
-    setRoast(getZodiacRoast(profile.name));
-    const user = loadUser();
-    if (user) {
-      const now = new Date();
-      if (now.getMonth() + 1 === user.input.month && now.getDate() === user.input.day) {
-        setIsBirthday(true);
+    requestAnimationFrame(() => {
+      setRoast(getZodiacRoast(profile.name));
+      const user = loadUser();
+      if (user) {
+        const now = new Date();
+        if (now.getMonth() + 1 === user.input.month && now.getDate() === user.input.day) {
+          setIsBirthday(true);
+        }
       }
-    }
+    });
   }, [profile.name]);
-
-  const handleShare = useCallback(async () => {
-    if (!containerRef.current || sharing) return;
-    setSharing(true);
-    try {
-      const canvas = await html2canvas(containerRef.current, {
-        backgroundColor: "#06041a",
-        scale: 2,
-        useCORS: true,
-        logging: false,
-      });
-      const url = canvas.toDataURL("image/png");
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `cosmic-id-${profile.name.toLowerCase()}.png`;
-      a.click();
-    } catch (err) {
-      console.warn("Share failed:", err);
-    }
-    setSharing(false);
-  }, [sharing, profile.name]);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -428,7 +409,7 @@ export default function CosmicProfile({ profile }: Props) {
           letterSpacing: "0.04em", textTransform: "uppercase" as const,
           textDecoration: "none", cursor: "pointer", transition: `all 300ms ${EASE}`,
         }}>{t("profile_celestial_portrait")}</a>
-        <button onClick={() => setShareModalOpen(true)} disabled={sharing} style={{
+        <button onClick={() => setShareModalOpen(true)} style={{
           flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
           padding: "0.7rem 1rem", borderRadius: "100px",
           background: "rgba(255,255,255,0.03)",
@@ -436,9 +417,8 @@ export default function CosmicProfile({ profile }: Props) {
           border: "1px solid rgba(200,185,255,0.1)",
           color: "rgba(200,185,240,0.75)", fontSize: "0.76rem", fontWeight: 400,
           letterSpacing: "0.04em", textTransform: "uppercase" as const,
-          cursor: sharing ? "wait" : "pointer", transition: `all 300ms ${EASE}`,
-          opacity: sharing ? 0.5 : 1,
-        }}>{sharing ? t("common_loading") : t("profile_share")}</button>
+          cursor: "pointer", transition: `all 300ms ${EASE}`,
+        }}>{t("profile_share")}</button>
       </div>
 
       <ShareCardModal

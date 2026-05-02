@@ -12,7 +12,7 @@ import React, { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import { computeNatalChart, type BirthInput } from "../../lib/natal-chart";
 import { computeSynastry, type SynastryResult } from "../../lib/synastry-engine";
-import { loadUser, loadChart } from "../../lib/user-store";
+import { loadUser } from "../../lib/user-store";
 import BirthDatePicker from "../../components/BirthDatePicker";
 import CityAutocomplete from "../../components/CityAutocomplete";
 import Paywall from "../../components/Paywall";
@@ -246,6 +246,7 @@ export default function SynastryPage() {
     <div style={{
       minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center",
       padding: "2rem 1.5rem 4rem", position: "relative", zIndex: 1,
+      overflowX: "hidden",
     }}>
       <Link href="/" style={{
         position: "absolute", top: "1.5rem", left: "1.5rem",
@@ -303,8 +304,12 @@ export default function SynastryPage() {
       {!result ? (
         /* ── INPUT FORMS ── */
         <div style={{
-          display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem",
-          width: "100%", maxWidth: "820px",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
+          gap: "1rem",
+          width: "100%",
+          maxWidth: "820px",
+          boxSizing: "border-box",
         }}>
           {/* Person A */}
           <div style={formCard}>
@@ -329,6 +334,7 @@ export default function SynastryPage() {
                 fontFamily: "var(--font-body)", fontSize: "0.65rem",
                 color: timeUnknownA ? "rgba(212,175,55,0.6)" : "rgba(180,170,210,0.35)",
                 transition: "color 0.2s", textAlign: "left",
+                minHeight: "44px", display: "flex", alignItems: "center",
               }}>{timeUnknownA ? "\u2713 Using noon" : "I don\u2019t know the time"}</button>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
@@ -360,6 +366,7 @@ export default function SynastryPage() {
                 fontFamily: "var(--font-body)", fontSize: "0.65rem",
                 color: timeUnknownB ? "rgba(212,175,55,0.6)" : "rgba(180,170,210,0.35)",
                 transition: "color 0.2s", textAlign: "left",
+                minHeight: "44px", display: "flex", alignItems: "center",
               }}>{timeUnknownB ? "\u2713 Using noon" : "I don\u2019t know the time"}</button>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>

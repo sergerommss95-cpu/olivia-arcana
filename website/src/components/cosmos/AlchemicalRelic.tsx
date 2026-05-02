@@ -17,7 +17,6 @@ import {
   MeshTransmissionMaterial, 
   Float, 
   Text,
-  Cylinder,
   Torus
 } from "@react-three/drei";
 import * as THREE from "three";
@@ -103,7 +102,7 @@ export default function AlchemicalRelic({ config }: { config: Portrait3DConfig }
       ))}
 
       {/* ── PLANETARY GEMS (The Celestial Players) ── */}
-      {config.planetPositions.map((p, i) => {
+      {config.planetPositions.map((p) => {
         const x = Math.cos(p.angle) * 2.4;
         const z = Math.sin(p.angle) * 2.4;
         const isSun = p.name === "Sun";

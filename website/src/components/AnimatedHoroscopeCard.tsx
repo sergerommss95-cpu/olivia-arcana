@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useAnimationControls } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 // ── Element-based gradients ──
 
@@ -68,12 +68,12 @@ export default function AnimatedHoroscopeCard({
   luckyColorHex,
 }: AnimatedHoroscopeCardProps) {
   const [cycle, setCycle] = useState(0);
-  const particles = useRef(generateParticles(element));
+  const [particles, setParticles] = useState<Particle[]>([]);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Re-generate particles when element changes
   useEffect(() => {
-    particles.current = generateParticles(element);
+    setParticles(generateParticles(element));
   }, [element]);
 
   // Loop the animation cycle every 12 seconds
@@ -110,7 +110,7 @@ export default function AnimatedHoroscopeCard({
     >
       {/* Floating particles */}
       <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
-        {particles.current.map((p) => (
+        {particles.map((p) => (
           <motion.div
             key={p.id}
             style={{

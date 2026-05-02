@@ -70,7 +70,7 @@ export default function CommandPalette() {
   const listRef = useRef<HTMLDivElement>(null);
 
   // Build the index once per locale.
-  const index = useMemo(() => buildSearchIndex(t, locale), [t, locale]);
+  const index = useMemo(() => buildSearchIndex(t as (key: keyof Translations) => string, locale), [t, locale]);
 
   // Resolve suggestions / results.
   const results: SearchResult[] = useMemo(() => {

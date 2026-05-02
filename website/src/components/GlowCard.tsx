@@ -47,7 +47,10 @@ export default function GlowCard({
   const targetRef = useRef({ rotateX: 0, rotateY: 0, lightX: 50, lightY: 50 });
 
   useEffect(() => {
-    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+    const frame = requestAnimationFrame(() => {
+      setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+    });
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   const lerp = (a: number, b: number, t: number) => a + (b - a) * t;

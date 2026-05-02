@@ -42,7 +42,9 @@ export default function LivingOliveMark({ size = 32, className, animate = true }
   
   useEffect(() => {
     // Initial load
-    setPoints(getMissionProgress().totalPoints);
+    requestAnimationFrame(() => {
+      setPoints(getMissionProgress().totalPoints);
+    });
 
     // Listen for growth events
     const onMission = () => {

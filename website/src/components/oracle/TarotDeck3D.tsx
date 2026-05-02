@@ -38,7 +38,7 @@ export default function TarotDeck3D() {
     const drawParam = searchParams.get("draw");
     if (drawParam) {
       const indices = drawParam.split(",").map(Number).filter(n => !isNaN(n) && n < totalCards);
-      setSelectedCards(indices.slice(0, 3)); 
+      requestAnimationFrame(() => setSelectedCards(indices.slice(0, 3))); 
     }
   }, [searchParams]);
 

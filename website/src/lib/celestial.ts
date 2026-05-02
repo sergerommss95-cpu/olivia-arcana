@@ -71,7 +71,6 @@ function toT(date: Date): number {
 function deg(d: number): number { return ((d % 360) + 360) % 360; }
 function rad(d: number): number { return d * Math.PI / 180; }
 function sin(d: number): number { return Math.sin(rad(d)); }
-function cos(d: number): number { return Math.cos(rad(d)); }
 
 /** Sun position — accurate to ~0.01° */
 export function getSunPosition(date: Date): CelestialBody {

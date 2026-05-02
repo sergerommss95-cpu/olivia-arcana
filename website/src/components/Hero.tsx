@@ -17,6 +17,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import Link from "next/link";
 import MagneticButton from "@/components/MagneticButton";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
@@ -171,7 +172,7 @@ export default function Hero() {
             ✦ Draw today&rsquo;s card
           </MagneticButton>
 
-          <a
+          <Link
             href="/#sample"
             className="hero-secondary-link"
             style={{
@@ -186,8 +187,8 @@ export default function Hero() {
                 "color 200ms var(--ease-ritual, cubic-bezier(0.16,1,0.3,1)), border-color 200ms var(--ease-ritual, cubic-bezier(0.16,1,0.3,1))",
             }}
           >
-            See a sample reading
-          </a>
+            Explore Sample
+          </Link>
         </div>
 
         {/* Trust row — social proof, data provenance, volume */}

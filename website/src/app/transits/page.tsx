@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { loadChart } from "../../lib/user-store";
 import { computeTransits, type Transit } from "../../lib/transit-calculator";
 import TransitTimeline from "../../components/TransitTimeline";
@@ -32,26 +33,27 @@ function daysBetween(a: Date, b: Date): number {
 }
 
 export default function TransitsPage() {
-  const { t } = useLocale();
   const [mounted, setMounted] = useState(false);
   const [chart, setChart] = useState<NatalChart | null>(null);
   const [transits, setTransits] = useState<Transit[] | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setMounted(true);
-    const storedChart = loadChart();
-    if (storedChart) {
-      setChart(storedChart);
-      // Compute transits (can be CPU-intensive, so defer a tick)
-      setTimeout(() => {
-        const result = computeTransits(storedChart, 6);
-        setTransits(result);
+    requestAnimationFrame(() => {
+      setMounted(true);
+      const storedChart = loadChart();
+      if (storedChart) {
+        setChart(storedChart);
+        // Compute transits (can be CPU-intensive, so defer a tick)
+        setTimeout(() => {
+          const result = computeTransits(storedChart, 6);
+          setTransits(result);
+          setLoading(false);
+        }, 50);
+      } else {
         setLoading(false);
-      }, 50);
-    } else {
-      setLoading(false);
-    }
+      }
+    });
   }, []);
 
   if (!mounted) return null;
@@ -71,7 +73,7 @@ export default function TransitsPage() {
         alignItems: "center",
         justifyContent: "center",
       }}>
-        <a href="/" style={{
+        <Link href="/" style={{
           fontFamily: "var(--font-body)",
           fontSize: "0.6rem",
           fontWeight: 400,
@@ -84,7 +86,7 @@ export default function TransitsPage() {
           left: "1.5rem",
         }}>
           &larr; Home
-        </a>
+        </Link>
 
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: "2.5rem", marginBottom: "1rem", opacity: 0.5 }}>&#9795;</div>
@@ -184,7 +186,7 @@ export default function TransitsPage() {
     }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <a href="/" style={{
+        <Link href="/" style={{
           fontFamily: "var(--font-body)",
           fontSize: "0.6rem",
           fontWeight: 400,
@@ -194,7 +196,7 @@ export default function TransitsPage() {
           textDecoration: "none",
         }}>
           &larr; Home
-        </a>
+        </Link>
         <h1 style={{
           fontFamily: "var(--font-heading)",
           fontSize: "clamp(1.5rem, 4vw, 2.2rem)",

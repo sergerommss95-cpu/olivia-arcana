@@ -4,8 +4,9 @@
  */
 
 import React from "react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { SIGN_PAGES, type SignPage } from "../../../lib/sign-data";
+import { SIGN_PAGES } from "../../../lib/sign-data";
 import ShareSignButton from "../../../components/ShareSignButton";
 import Surface, { Eyebrow, Rule } from "../../../components/design/Surface";
 
@@ -115,13 +116,6 @@ export default async function SignDetailPage({ params }: { params: Promise<{ sig
   const data = SIGN_PAGES[sign?.toLowerCase()];
   if (!data) return notFound();
 
-  const glass = {
-    background: "rgba(255,255,255,0.03)",
-    border: "1px solid rgba(200,185,255,0.08)",
-    borderRadius: "1rem",
-    padding: "1.25rem",
-  };
-
   const label = {
     fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 500,
     letterSpacing: "0.18em", textTransform: "uppercase" as const,
@@ -154,9 +148,9 @@ export default async function SignDetailPage({ params }: { params: Promise<{ sig
           letterSpacing: "0.16em", textTransform: "uppercase",
           color: "rgba(180,170,210,0.55)",
         }}>
-          <li><a href="/" style={{ color: "inherit", textDecoration: "none" }}>Home</a></li>
+          <li><Link href="/" style={{ color: "inherit", textDecoration: "none" }}>Home</Link></li>
           <li aria-hidden style={{ color: "rgba(180,170,210,0.3)" }}>/</li>
-          <li><a href="/signs" style={{ color: "inherit", textDecoration: "none" }}>Signs</a></li>
+          <li><Link href="/signs" style={{ color: "inherit", textDecoration: "none" }}>Signs</Link></li>
           <li aria-hidden style={{ color: "rgba(180,170,210,0.3)" }}>/</li>
           <li aria-current="page" style={{ color: "rgba(232, 201, 106, 0.92)" }}>{data.name}</li>
         </ol>

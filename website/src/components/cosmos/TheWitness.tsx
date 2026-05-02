@@ -51,7 +51,14 @@ interface WitnessProps {
 
 export default function TheWitness({ isAsking, isProcessing, userInputLength, scrollProgress = 0 }: WitnessProps) {
   return (
-    <div className="witness-orb-container" style={{ width: "400px", height: "400px", cursor: "pointer" }}>
+    <div
+      className="witness-orb-container"
+      style={{
+        width: "min(400px, 72vw)",
+        height: "min(400px, 72vw)",
+        cursor: "pointer",
+      }}
+    >
       <LivingOrb
         isAsking={isAsking}
         isProcessing={isProcessing}
@@ -66,6 +73,12 @@ export default function TheWitness({ isAsking, isProcessing, userInputLength, sc
           backdrop-filter: blur(4px) saturate(1.2);
           border-radius: 50%;
           mask-image: radial-gradient(circle at center, black 40%, transparent 70%);
+        }
+
+        @media (max-width: 768px) {
+          .witness-orb-container {
+            backdrop-filter: blur(2px) saturate(1.1);
+          }
         }
 
         .witness-orb-container:hover {

@@ -8,16 +8,14 @@
 "use client";
 
 import React, { useMemo } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import FlipRevealCard from "./shaders/FlipRevealCard";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
-import { useLocale } from "@/lib/i18n/useLocale";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function CelestialAltar() {
-  const { t } = useLocale();
-
   // Daily-seeded card logic (consistent with Hero)
   const card = useMemo(() => {
     const now = new Date();
@@ -98,12 +96,12 @@ export default function CelestialAltar() {
           <p className="font-[family-name:var(--font-body)] text-sm text-muted-lavender/40 italic max-w-sm mx-auto">
             Focus on the archetype above. What is the cosmos trying to communicate to you in this specific hour?
           </p>
-          <a 
+          <Link 
             href="/academy/card-of-the-day"
             className="inline-block mt-8 text-[0.7rem] font-medium tracking-[0.2em] uppercase text-celestial-gold border-b border-celestial-gold/20 pb-1 hover:border-celestial-gold transition-colors"
           >
             View Full Significance &rarr;
-          </a>
+          </Link>
         </motion.div>
       </div>
 

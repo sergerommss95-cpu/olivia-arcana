@@ -7,13 +7,12 @@
 
 "use client";
 
-import React, { useRef, useMemo } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
+import React, { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import { 
   MeshTransmissionMaterial, 
   Float, 
-  Text,
-  Cylinder
+  Text
 } from "@react-three/drei";
 import * as THREE from "three";
 import { type Portrait3DConfig } from "../../lib/portrait-v4";
@@ -56,7 +55,7 @@ export default function LivingRelic({ config }: { config: Portrait3DConfig }) {
       </Float>
 
       {/* ── PLANETS (Floating Gemstones) ── */}
-      {config.planetPositions.map((p, i) => {
+      {config.planetPositions.map((p) => {
         const x = Math.cos(p.angle) * 2.2;
         const z = Math.sin(p.angle) * 2.2;
         return (

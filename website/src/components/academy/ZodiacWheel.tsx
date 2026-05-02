@@ -59,7 +59,6 @@ export default function ZodiacWheel({ highlightElement, highlightModality }: {
   const [overlay, setOverlay] = useState<OverlayMode>(
     highlightElement ? "elements" : highlightModality ? "modalities" : "none"
   );
-  const [revealed, setRevealed] = useState(false);
 
   const CX = 180, CY = 180, R = 150, INNER_R = 85;
 
@@ -184,7 +183,7 @@ export default function ZodiacWheel({ highlightElement, highlightModality }: {
         {(["none", "elements", "modalities", "polarities"] as OverlayMode[]).map(mode => (
           <button
             key={mode}
-            onClick={() => { setOverlay(mode); if (mode !== "none") setRevealed(true); }}
+            onClick={() => setOverlay(mode)}
             style={{
               padding: "0.4rem 0.9rem", borderRadius: "100px", cursor: "pointer",
               background: overlay === mode ? "rgba(200,168,75,0.12)" : "rgba(232,230,240,0.03)",

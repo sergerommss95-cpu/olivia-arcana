@@ -75,11 +75,11 @@ export function useLocale() {
       window.removeEventListener(LOCALE_CHANGE_EVENT, onCustom);
       window.removeEventListener("storage", onStorage);
     };
-  }, []);
+  }, [locale]);
 
   const t = useCallback(
-    (key: keyof Translations): any => {
-      return TRANSLATIONS[locale]?.[key] || TRANSLATIONS.en[key] || String(key);
+    <K extends keyof Translations>(key: K): Translations[K] => {
+      return (TRANSLATIONS[locale]?.[key] || TRANSLATIONS.en[key] || String(key)) as Translations[K];
     },
     [locale],
   );

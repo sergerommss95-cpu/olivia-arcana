@@ -7,7 +7,8 @@
 
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { renderChartCard, shareChartCard, type CardFormat } from "../lib/chart-card-renderer";
 import { useLocale } from "../lib/i18n/useLocale";
@@ -49,7 +50,7 @@ export default function ShareCardModal({ data, open, onClose }: Props) {
   useEffect(() => {
     if (!open) return;
     let cancelled = false;
-    setPreview(null);
+    requestAnimationFrame(() => setPreview(null));
     renderChartCard(data, format).then((blob) => {
       if (cancelled) return;
       setPreview(URL.createObjectURL(blob));
@@ -68,12 +69,6 @@ export default function ShareCardModal({ data, open, onClose }: Props) {
   }, [data, format]);
 
   if (!open) return null;
-
-  const previewAspects: Record<CardFormat, string> = {
-    square: "aspect-square",
-    story: "aspect-[9/16]",
-    twitter: "aspect-[1.91/1]",
-  };
 
   return (
     <AnimatePresence>
@@ -134,10 +129,11 @@ export default function ShareCardModal({ data, open, onClose }: Props) {
               }}
             >
               {preview ? (
-                <img
+                <Image
                   src={preview}
                   alt="Chart card preview"
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               ) : (
                 <div className="w-full h-full bg-white/3 flex items-center justify-center">

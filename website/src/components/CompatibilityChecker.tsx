@@ -34,12 +34,6 @@ function getCompatScores(a: number, b: number) {
 
 // getVerdict moved inside component to access t()
 
-const GLYPHS: Record<string, string> = {
-  Aries: "♈", Taurus: "♉", Gemini: "♊", Cancer: "♋",
-  Leo: "♌", Virgo: "♍", Libra: "♎", Scorpio: "♏",
-  Sagittarius: "♐", Capricorn: "♑", Aquarius: "♒", Pisces: "♓",
-};
-
 function BirthdayInput({
   value,
   onChange,

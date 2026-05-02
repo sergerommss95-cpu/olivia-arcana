@@ -27,7 +27,7 @@ interface Props {
 }
 
 export default function SecretReveal({
-  question, options, correctIndex, explanation, hint, revealTitle,
+  question, options, correctIndex, explanation, hint,
 }: Props) {
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);

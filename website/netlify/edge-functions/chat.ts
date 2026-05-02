@@ -49,7 +49,7 @@ Keep responses warm, empowering, and personal. End with something the querent ca
 
 // ── Handler ──
 
-export default async (request: Request) => {
+const chatHandler = async (request: Request) => {
   // Only accept POST
   if (request.method !== "POST") {
     return new Response(JSON.stringify({ error: "Method not allowed" }), {
@@ -182,5 +182,7 @@ export default async (request: Request) => {
     );
   }
 };
+
+export default chatHandler;
 
 export const config = { path: "/api/chat" };

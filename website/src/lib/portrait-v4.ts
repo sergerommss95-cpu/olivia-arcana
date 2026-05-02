@@ -55,8 +55,8 @@ export function build3DPortraitConfig(chart: NatalChart): Portrait3DConfig {
   });
 
   return {
-    element: element as any,
-    modality: chart.modalityBalance.dominant as any,
+    element: element as "Fire" | "Water" | "Air" | "Earth",
+    modality: chart.modalityBalance.dominant as "Cardinal" | "Fixed" | "Mutable",
     complexity: chart.aspects.length,
     innerRadius: 0.5,
     outerRadius: 2.2,

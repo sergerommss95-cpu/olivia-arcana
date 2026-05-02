@@ -14,11 +14,8 @@ import { CosmicSynthesizer, computeCosmicConfig } from "@/lib/procedural-audio";
 
 export default function AmbientSound() {
   const [playing, setPlaying] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const synthRef = useRef<CosmicSynthesizer | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  useEffect(() => { setMounted(true); }, []);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -63,20 +60,21 @@ export default function AmbientSound() {
     setPlaying(!playing);
   }, [playing, startAudio, stopAudio]);
 
-  if (!mounted) return null;
-
   return (
+    <>
     <button
+      className="ambient-sound-toggle"
       onClick={toggle}
       aria-label={playing ? "Disable ambient sound" : "Enable ambient sound"}
+      aria-pressed={playing}
       title={playing ? "Sound on" : "Sound off"}
       style={{
         position: "fixed",
         bottom: "1.25rem",
         right: "1.25rem",
         zIndex: 45,
-        width: "36px",
-        height: "36px",
+        width: "44px",
+        height: "44px",
         borderRadius: "50%",
         background: playing ? "rgba(200,168,75,0.12)" : "rgba(12,13,24,0.6)",
         border: `1px solid ${playing ? "rgba(200,168,75,0.3)" : "rgba(200,168,75,0.1)"}`,
@@ -93,5 +91,13 @@ export default function AmbientSound() {
     >
       {playing ? "\u266B" : "\u266A"}
     </button>
+    <style jsx>{`
+      @media (max-width: 767px) {
+        .ambient-sound-toggle {
+          bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px)) !important;
+        }
+      }
+    `}</style>
+    </>
   );
 }

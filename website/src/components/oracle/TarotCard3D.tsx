@@ -91,7 +91,6 @@ export default function TarotCard3D({
   onHover
 }: CardProps) {
   const groupRef = useRef<THREE.Group>(null);
-  const meshRef = useRef<THREE.Mesh>(null);
   
   const isSelected = selectedCards.includes(index);
   const selIdx = selectedCards.indexOf(index);
@@ -176,10 +175,10 @@ export default function TarotCard3D({
         ease: "power3.inOut"
       }, "-=0.6");
     } else {
-      let tx = Math.sin(angle) * radius;
+      const tx = Math.sin(angle) * radius;
       let tz = Math.cos(angle) * radius;
       let ty = 0;
-      let ry = angle + (8 * Math.PI) / 180; 
+      const ry = angle + (8 * Math.PI) / 180; 
 
       if (hoveredIndex === index) {
         ty += 0.15;
@@ -198,7 +197,7 @@ export default function TarotCard3D({
         ease: "power4.out"
       });
     }
-  }, [relativeIndex, activeTotal, isSelected, hoveredIndex, angle, selIdx]);
+  }, [relativeIndex, activeTotal, isSelected, hoveredIndex, angle, selIdx, index]);
 
   useFrame((state) => {
     if (!groupRef.current || isSelected) return;

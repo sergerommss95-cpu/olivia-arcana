@@ -1,6 +1,5 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 interface LegalShellProps {
@@ -12,7 +11,6 @@ interface LegalShellProps {
 export default function LegalShell({ title, updated, children }: LegalShellProps) {
   return (
     <>
-      <Navbar />
       <main id="main-content" className="relative z-10" style={{ paddingTop: "8rem", paddingBottom: "6rem" }}>
         <article
           className="max-w-3xl mx-auto px-5 sm:px-8"

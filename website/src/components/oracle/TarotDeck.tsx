@@ -10,7 +10,7 @@
 
 "use client";
 
-import React, { useRef, useState, useCallback, useMemo } from "react";
+import React, { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -47,7 +47,7 @@ export default function TarotDeck() {
       let rotation = angle;
       let zIndex = i;
       let scale = 1;
-      let opacity = 1;
+      const opacity = 1;
 
       // 2. Selection Physics
       if (isSelected) {

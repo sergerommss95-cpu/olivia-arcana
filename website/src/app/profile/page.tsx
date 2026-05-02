@@ -103,7 +103,7 @@ export default function ProfilePage() {
         <div style={{ ...glass, padding: "2rem", marginBottom: "1.5rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.5rem" }}>
             {avatar ? (
-              <img src={avatar} alt="" style={{ width: 56, height: 56, borderRadius: "50%", border: "2px solid rgba(200,180,255,0.15)" }} />
+              <Image src={avatar} alt="" width={56} height={56} style={{ borderRadius: "50%", border: "2px solid rgba(200,180,255,0.15)" }} />
             ) : (
               <div style={{
                 width: 56, height: 56, borderRadius: "50%",

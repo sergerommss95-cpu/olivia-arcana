@@ -6,8 +6,8 @@
  * Groups consecutive days of the same transit into a single Transit object.
  */
 
-import { getAllPositions, type CelestialBody } from "./celestial";
-import type { NatalChart, NatalPlanet } from "./natal-chart";
+import { getAllPositions } from "./celestial";
+import type { NatalChart } from "./natal-chart";
 
 // ── Types ──
 

@@ -8,16 +8,14 @@
 
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import TheWitness from "./cosmos/TheWitness";
 import { usePathname } from "next/navigation";
-import { useLocale } from "../lib/i18n/useLocale";
 import { getCosmicMoment } from "../lib/cosmic-time";
 import TransitionLink from "./transitions/TransitionLink";
 
 export default function GlobalGuide() {
-  const { t } = useLocale();
   const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
   const [moment] = useState(() => getCosmicMoment());

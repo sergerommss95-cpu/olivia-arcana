@@ -265,7 +265,6 @@ function detectPattern(longitudes: number[]): ChartPattern {
     gaps.push(next - sorted[i]);
   }
   const maxGap = Math.max(...gaps);
-  const minGap = Math.min(...gaps);
   const spread = 360 - maxGap;
 
   if (maxGap > 180) {
@@ -341,7 +340,7 @@ const PATTERN_THEMES: Record<ChartPattern, string> = {
 function computeInterpretation(
   sunSign: string, moonSign: string, risingSign: string,
   pattern: ChartPattern, elementBal: ElementBalance, modalityBal: ModalityBalance,
-  planets: NatalPlanet[], aspects: NatalAspect[],
+  planets: NatalPlanet[],
 ): ChartInterpretation {
   const summary = `${sunSign} Sun, ${moonSign} Moon, ${risingSign} Rising — a ${elementBal.dominant}-dominant chart with ${modalityBal.dominant} energy and a ${pattern} pattern. This is a person who ${elementBal.dominant === "Fire" ? "leads with passion" : elementBal.dominant === "Earth" ? "builds with patience" : elementBal.dominant === "Air" ? "connects through ideas" : "navigates through feeling"}.`;
 
@@ -486,7 +485,7 @@ export function computeNatalChart(input: BirthInput): NatalChart {
   const interpretation = computeInterpretation(
     sunSign, moonSign, risingSign,
     chartPattern, elementBalance, modalityBalance,
-    planets, aspects,
+    planets,
   );
 
   return {

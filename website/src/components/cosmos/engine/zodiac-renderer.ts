@@ -78,7 +78,7 @@ export function updateZodiacStates(
   states: ZodiacState[],
   mx: number, my: number,
   w: number, h: number,
-  dt: number, time: number,
+  dt: number,
 ) {
   for (let ci = 0; ci < ZODIAC.length; ci++) {
     const sign = ZODIAC[ci];

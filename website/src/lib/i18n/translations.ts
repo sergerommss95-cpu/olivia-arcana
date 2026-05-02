@@ -2070,8 +2070,8 @@ const pt: Translations = {
 export const TRANSLATIONS: Record<Locale, Translations> = { en, uk, ru, de, fr, ar, es, pt };
 
 /** Get translation for current locale */
-export function t(locale: Locale, key: keyof Translations): any {
-  return TRANSLATIONS[locale]?.[key] || TRANSLATIONS.en[key] || key;
+export function t<K extends keyof Translations>(locale: Locale, key: K): Translations[K] {
+  return (TRANSLATIONS[locale]?.[key] || TRANSLATIONS.en[key] || key) as Translations[K];
 }
 
 /** Get default locale from browser */

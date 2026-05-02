@@ -70,21 +70,21 @@ export default function Footer() {
               <li><a href="https://t.me/OliviaArcanaDaily" target="_blank" rel="noopener noreferrer" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("foot_tg_channel")}</a></li>
               <li><TransitionLink href="/about" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("common_about")}</TransitionLink></li>
               <li><TransitionLink href="/contact" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("common_contact")}</TransitionLink></li>
-              ...
-              {/* Legal */}
-              <div>
-              <h4 className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-wider uppercase mb-4">
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h4 className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-wider uppercase mb-4">
               {t("legal_title")}
-              </h4>
-              <ul className="space-y-3">
+            </h4>
+            <ul className="space-y-3">
               <li><TransitionLink href="/terms" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("legal_terms")}</TransitionLink></li>
               <li><TransitionLink href="/privacy" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("legal_privacy")}</TransitionLink></li>
               <li><TransitionLink href="/cookies" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("legal_cookies")}</TransitionLink></li>
               <li><TransitionLink href="/refund" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("legal_refund")}</TransitionLink></li>
               <li><TransitionLink href="/disclaimer" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("legal_disclaimer")}</TransitionLink></li>
               <li><TransitionLink href="/dmca" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("legal_dmca")}</TransitionLink></li>
-              </ul>
-              </div>
             </ul>
           </div>
         </div>

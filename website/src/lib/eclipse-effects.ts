@@ -5,7 +5,7 @@
  * solstices, and equinoxes. Returns effect config consumed by EclipseOverlay.
  */
 
-import { EVENTS_2026, type AstroEvent } from "./astro-events";
+import { EVENTS_2026 } from "./astro-events";
 import { getMoonPhase } from "./celestial";
 
 // ── Effect types ──

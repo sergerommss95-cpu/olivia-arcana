@@ -165,40 +165,6 @@ void main() {
 }`;
 
 // ═══════════════════════════════════════════════════════════════════════════
-// RING SHADER — sacred geometry circle, appears at full activation
-// ═══════════════════════════════════════════════════════════════════════════
-
-const ringVert = /* glsl */ `
-uniform float uHover;
-uniform float uTime;
-attribute float aAngle;
-
-varying float vAlpha;
-
-void main() {
-  float rot = uTime * 0.1;
-  float a = aAngle + rot;
-
-  // Dashed pattern: segments visible, gaps invisible
-  float dash = smoothstep(0.3, 0.35, fract(aAngle * 3.0 / 6.2832));
-  // Tick marks at cardinal positions
-  float tick = smoothstep(0.015, 0.0, abs(mod(aAngle, 1.5708) - 0.0));
-
-  vAlpha = uHover * (dash * 0.12 + tick * 0.25);
-
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(
-    cos(a), sin(a), 0.0, 1.0
-  );
-}`;
-
-const ringFrag = /* glsl */ `
-varying float vAlpha;
-void main() {
-  if (vAlpha < 0.005) discard;
-  gl_FragColor = vec4(0.85, 0.88, 1.0, vAlpha);
-}`;
-
-// ═══════════════════════════════════════════════════════════════════════════
 // SYSTEM
 // ═══════════════════════════════════════════════════════════════════════════
 

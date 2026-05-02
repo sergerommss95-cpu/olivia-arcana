@@ -90,7 +90,6 @@ export default function CardOfTheDayPage() {
     return <div style={{ minHeight: "100vh", background: "var(--c-void, #06041a)" }} />;
   }
 
-  const imagePath = getCardImagePath(card);
   const numeral = getCardNumeral(card);
 
   return (

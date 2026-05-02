@@ -152,7 +152,7 @@ export class NebulaPlane implements EngineSystem {
 
     // Load nebula texture
     const loader = new THREE.TextureLoader();
-    const texture = loader.load("/nebula-bg.jpg", () => {
+    const texture = loader.load("/nebula-bg.webp", () => {
       this.textureReady = true;
     });
     texture.minFilter = THREE.LinearFilter;
@@ -191,7 +191,7 @@ export class NebulaPlane implements EngineSystem {
     engine.scene.add(this.mesh);
   }
 
-  update(time: number, _dt: number) {
+  update(time: number) {
     const u = this.material.uniforms;
     u.uTime.value = time;
     u.uMouse.value.copy(this.engine.smoothMouse);

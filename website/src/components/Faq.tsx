@@ -11,6 +11,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 const ROWS: { q: string; a: React.ReactNode }[] = [
   {
@@ -48,9 +49,9 @@ const ROWS: { q: string; a: React.ReactNode }[] = [
         year-ahead forecast, full 207-lesson academy, weekly audio briefing.{" "}
         <strong>VIP</strong> ($34.99/mo){" "}{"\u2014"} voice readings, monthly video
         reading, priority human astrologer line. See the{" "}
-        <a href="/#pricing" style={{ color: "var(--c-gold, #D4AF37)" }}>
+        <Link href="/#pricing" style={{ color: "var(--c-gold, #D4AF37)" }}>
           full feature matrix
-        </a>{" "}
+        </Link>{" "}
         for the side-by-side.
       </>
     ),

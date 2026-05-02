@@ -14,7 +14,7 @@
 
 "use client";
 
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef } from "react";
 
 const TRAIL_COUNT = 24;
 const TRAIL_LIFETIME = 800;

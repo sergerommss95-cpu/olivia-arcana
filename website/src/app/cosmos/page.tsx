@@ -256,7 +256,6 @@ export default function CosmosPage() {
   const moonPhase = getMoonPhase(new Date());
   const upcoming = getUpcomingEvents(6);
   const recent = getRecentEvents(2);
-  const allEvents = showAll ? EVENTS_2026 : null;
 
   return (
     <div style={{
