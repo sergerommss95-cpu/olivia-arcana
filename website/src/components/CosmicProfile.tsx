@@ -154,11 +154,11 @@ export default function CosmicProfile({ profile }: Props) {
   }, [profile.name, energy]);
 
   const glass: React.CSSProperties = {
-    background: "rgba(10, 8, 30, 0.85)",
+    background: "rgba(10, 8, 30, 0.95)",
     border: "1px solid rgba(255, 255, 255, 0.12)",
     borderRadius: "1rem",
-    backdropFilter: "blur(24px) saturate(1.2)",
-    WebkitBackdropFilter: "blur(24px) saturate(1.2)",
+    backdropFilter: "blur(8px)",
+    WebkitBackdropFilter: "blur(8px)",
   };
 
   const label: React.CSSProperties = {
@@ -419,7 +419,7 @@ export default function CosmicProfile({ profile }: Props) {
           flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
           padding: "0.85rem 1rem", borderRadius: "100px",
           background: "rgba(255,255,255,0.08)",
-          backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+          backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)",
           border: "1px solid rgba(255,255,255,0.15)",
           color: "#f5f2e1", fontSize: "0.8rem", fontWeight: 700,
           letterSpacing: "0.08em", textTransform: "uppercase" as const,

@@ -103,10 +103,10 @@ export default function StoryPage() {
           >
             <MorphingText
               texts={[
-                "Personalised readings from real planetary data",
-                "Ancient wisdom meets modern astronomy",
-                "Your birth chart, decoded with precision",
-                "Not templates — real cosmic insight",
+                "Personal readings from your birth chart",
+                "Astrology and tarot, translated clearly",
+                "Your questions, held with context",
+                "Reflective guidance, not fixed predictions",
               ]}
               interval={3500}
               morphDuration={1000}
@@ -175,7 +175,7 @@ export default function StoryPage() {
               color: "rgba(240,236,255,0.9)",
             }}
           >
-            Every person carries a celestial blueprint — the exact positions of every planet at the moment of their first breath. We decode that blueprint with the precision of modern astronomy and the depth of ancient tradition.
+            Every person brings a different chart, question, and moment in time. Olivia Arcana uses that context to make astrology and tarot feel personal without turning mystery into noise.
           </TextReveal>
 
           {/* Divider */}
@@ -328,18 +328,18 @@ export default function StoryPage() {
             >
               {[
                 {
-                  title: "Real Astronomy",
-                  description: "Built on NASA JPL ephemeris data — the same calculations used to navigate spacecraft. No approximations, no sun-sign-only shortcuts.",
+                  title: "Chart Context",
+                  description: "Readings begin with your birth details when you share them, so the guidance is not reduced to a generic sun-sign paragraph.",
                   glyph: "◎",
                 },
                 {
-                  title: "Living System",
-                  description: "Your sky changes every moment. Transit alerts, lunar phases, planetary hours — the site breathes with the actual cosmos above you.",
+                  title: "Current Timing",
+                  description: "Transits and moon phases add timing cues, while the reading stays clear that your choices remain yours.",
                   glyph: "◑",
                 },
                 {
-                  title: "Ritual Experience",
-                  description: "Every interaction is designed as a micro-ritual. Custom sounds, haptic feedback, ceremonial card reveals — technology serving the sacred.",
+                  title: "Ritual Ease",
+                  description: "The interface keeps the celestial feeling, but the copy and actions stay direct enough to help you decide what to do next.",
                   glyph: "✦",
                 },
               ].map((principle) => (

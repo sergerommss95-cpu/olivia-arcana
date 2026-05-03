@@ -153,7 +153,7 @@ export default function HeroV3() {
   return (
     <section
       ref={sectionRef}
-      className={`relative min-h-[110svh] md:min-h-screen flex flex-col md:flex-row items-center justify-center px-6 pt-24 pb-12 overflow-hidden z-10 ${!mounted ? 'is-loading' : ''}`}
+      className={`relative min-h-[92svh] md:min-h-screen flex flex-col md:flex-row items-center justify-center px-5 sm:px-6 pt-24 pb-10 overflow-hidden z-10 ${!mounted ? 'is-loading' : ''}`}
       aria-labelledby="hero-headline"
     >
       {/* Editorial Scrim — Apple-grade readability engine */}
@@ -161,7 +161,7 @@ export default function HeroV3() {
       
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Left: Editorial Copy */}
-        <div ref={contentRef} className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 md:space-y-8 relative">
+        <div ref={contentRef} className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-5 md:space-y-7 relative">
           {/* Internal scrim for mobile centered text */}
           <div className="absolute inset-x-[-2rem] inset-y-[-2rem] bg-void-black/40 blur-3xl lg:hidden -z-10" />
           
@@ -178,7 +178,7 @@ export default function HeroV3() {
           <h1
             ref={headRef}
             id="hero-headline"
-            className="font-[family-name:var(--font-heading)] text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[1.02] text-warm-ivory tracking-tight mb-4"
+            className="font-[family-name:var(--font-heading)] text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[1.02] text-warm-ivory tracking-tight mb-2"
           >
             {(t("hero_title") as string).split(" ").map((word, i) => (
               <React.Fragment key={i}>
@@ -194,13 +194,13 @@ export default function HeroV3() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8, ease: EASE }}
-            className="flex flex-col gap-2 mb-8 relative z-10"
+            className="flex flex-col gap-2 mb-5 md:mb-8 relative z-10"
           >
             <p className="max-w-md md:max-w-lg font-[family-name:var(--font-body)] text-base md:text-lg leading-relaxed text-warm-ivory/85 font-medium drop-shadow-md">
               {t("hero_subtitle")}
             </p>
             <p className="text-[0.65rem] font-[family-name:var(--font-mono)] uppercase tracking-[0.25em] text-celestial-gold/75 font-bold">
-              Personal, reflective readings. Built for clarity, not noise.
+              {t("hero_trust_line")}
             </p>
           </motion.div>
 
@@ -208,7 +208,7 @@ export default function HeroV3() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.1, ease: EASE }}
-            className="flex flex-col sm:flex-row items-center gap-8 relative z-10"
+            className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 relative z-10"
           >
             <div className="relative group">
               <div className="absolute inset-0 bg-celestial-gold/20 blur-2xl rounded-full scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
@@ -218,8 +218,8 @@ export default function HeroV3() {
             </div>
             
             <TransitionLink
-              href="/sample"
-              className="group text-sm font-bold text-warm-ivory/70 hover:text-celestial-gold transition-colors duration-500 tracking-[0.2em] uppercase flex items-center gap-3"
+              href="/daily"
+              className="hidden sm:flex group min-h-[44px] text-sm font-bold text-warm-ivory/70 hover:text-celestial-gold transition-colors duration-500 tracking-[0.2em] uppercase items-center gap-3"
             >
               <span className="w-6 h-px bg-warm-ivory/30 group-hover:bg-celestial-gold/50 transition-colors" />
               {t("hero_sample_cta")}
@@ -263,7 +263,7 @@ export default function HeroV3() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
                     transition={{ duration: 0.8, ease: EASE }}
-                    className="absolute inset-0 pointer-events-none"
+                    className="absolute inset-0 pointer-events-none hidden sm:block"
                   >
                     {/* Node 1: Oracle (Top Left) */}
                     <div className="absolute top-[0%] left-[2%] sm:left-[-35%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); setIsAsking(true); setQuestion(t("witness_universe_prompt")); }}>
@@ -281,7 +281,7 @@ export default function HeroV3() {
                     </div>
 
                     {/* Node 2: Daily (Top Right) */}
-                    <div className="absolute top-[-10%] right-[2%] sm:right-[-15%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); document.getElementById("daily")?.scrollIntoView({ behavior: "smooth" }); }}>
+                    <div className="absolute top-[-10%] right-[2%] sm:right-[-15%] pointer-events-auto cursor-pointer z-40" onClick={(e) => { e.stopPropagation(); window.location.href = "/daily"; }}>
                       <Surface
                         as={motion.div}
                         whileHover={{ scale: 1.1, x: 5, y: -5 }}

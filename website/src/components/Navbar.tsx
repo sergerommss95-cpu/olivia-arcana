@@ -44,7 +44,7 @@ export default function Navbar() {
     >
       <div className="max-w-screen-2xl mx-auto flex items-center justify-between">
         {/* ── BRAND: THE MARK ── */}
-        <TransitionLink href="/" className="group flex items-center gap-4 no-underline">
+        <TransitionLink href="/" className="group flex min-h-[44px] items-center gap-4 no-underline">
           <div className="relative">
              <div className="absolute inset-0 bg-celestial-gold/20 blur-xl rounded-full scale-0 group-hover:scale-150 transition-transform duration-700" />
              <LivingOliveMark size={24} className="relative z-10 text-celestial-gold" />
@@ -55,12 +55,12 @@ export default function Navbar() {
         </TransitionLink>
 
         {/* ── CENTER: NAVIGATION ── */}
-        <div className="hidden md:flex items-center gap-1 bg-void-black/40 backdrop-blur-3xl px-2 py-1.5 rounded-full border border-white/10 shadow-2xl">
+        <div className="hidden md:flex items-center gap-1 bg-void-black/60 backdrop-blur-md px-2 py-1.5 rounded-full border border-white/10 shadow-2xl">
           {navLinks.map((link) => (
             <TransitionLink
               key={link.href}
               href={link.href}
-              className="px-6 py-2 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase text-warm-ivory/85 hover:text-warm-ivory hover:bg-white/5 transition-all duration-300"
+              className="min-h-[44px] px-6 py-2 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase text-warm-ivory/85 hover:text-warm-ivory hover:bg-white/5 transition-all duration-300 flex items-center"
             >
               {link.label}
             </TransitionLink>
@@ -71,7 +71,7 @@ export default function Navbar() {
           <button
             onClick={openCommandPalette}
             aria-label="Open search"
-            className="px-6 py-2 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase text-celestial-gold hover:text-white hover:bg-celestial-gold/10 transition-all duration-300 flex items-center gap-2"
+            className="min-h-[44px] px-6 py-2 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase text-celestial-gold hover:text-white hover:bg-celestial-gold/10 transition-all duration-300 flex items-center gap-2"
           >
             Search <span className="opacity-40 font-mono">⌘K</span>
           </button>
@@ -81,7 +81,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <TransitionLink
             href="/oracle"
-            className="group relative px-8 py-3 rounded-full overflow-hidden transition-all duration-500 hover:scale-[1.05] active:scale-[0.98] shadow-xl"
+            className="group relative min-h-[44px] px-8 py-3 rounded-full overflow-hidden transition-all duration-500 hover:scale-[1.05] active:scale-[0.98] shadow-xl flex items-center"
           >
              <div className="absolute inset-0 bg-celestial-gold/20 group-hover:bg-celestial-gold transition-colors duration-500" />
              <div className="absolute inset-0 border border-celestial-gold/40 group-hover:border-celestial-gold/0 rounded-full" />

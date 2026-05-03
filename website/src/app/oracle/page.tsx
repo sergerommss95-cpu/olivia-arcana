@@ -71,7 +71,7 @@ export default function OraclePage() {
     <main className="fixed inset-0 bg-[#08061a] overflow-hidden select-none">
       {/* ── MINIMALIST PORTAL EXIT ── */}
       <nav className="absolute top-12 left-12 z-[100]">
-        <Link href="/" className="group flex items-center gap-4 no-underline">
+        <Link href="/" className="group flex min-h-[44px] items-center gap-4 no-underline">
           <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#d4af37]/50 transition-all duration-500 bg-black/20 backdrop-blur-md">
              <span className="text-[#f5f2e1]/40 group-hover:text-[#d4af37] text-lg leading-none">&larr;</span>
           </div>

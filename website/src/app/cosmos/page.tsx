@@ -268,17 +268,18 @@ export default function CosmosPage() {
           fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 400,
           letterSpacing: "0.15em", textTransform: "uppercase",
           color: "rgba(180,170,210,0.4)", textDecoration: "none",
+          minHeight: "44px", display: "inline-flex", alignItems: "center",
         }}>← Home</Link>
         <h1 style={{
           fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem, 4vw, 2.2rem)",
           fontWeight: 400, marginTop: "0.75rem",
         }}>
-          <span className="text-gold-gradient">The Living Cosmos</span>
+          <span className="text-gold-gradient">Current Sky</span>
         </h1>
         <p style={{
           fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
           color: "rgba(196,185,228,0.55)", marginTop: "0.4rem",
-        }}>Real-time celestial positions and upcoming astrological events</p>
+        }}>Moon phase, planet positions, and upcoming astrological events</p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>

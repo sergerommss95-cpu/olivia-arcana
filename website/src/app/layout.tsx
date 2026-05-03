@@ -28,16 +28,16 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Olivia Arcana — Your Personal Astrologer & Tarot Reader",
+  title: "Olivia Arcana — Personal Astrology & Tarot Readings",
   description:
-    "Get personalized astrology readings based on precise astronomical data. Daily horoscopes, tarot, compatibility reports, and transit alerts — powered by your exact birth chart.",  keywords: [
+    "Personal astrology and tarot readings shaped by your birth chart, current transits, and the question you bring. Built for reflective clarity, not generic horoscopes.",  keywords: [
     "astrology", "tarot", "horoscope", "birth chart", "natal chart",
     "compatibility", "zodiac", "daily horoscope", "personalized astrology",
   ],
   metadataBase: new URL("https://oliviaarcana.com"),
   openGraph: {
-    title: "Olivia Arcana — Written in Your Stars",
-    description: "Personalized astrology readings calculated from your exact planetary positions. Not templates — real cosmic guidance.",
+    title: "Olivia Arcana — Your stars, translated clearly",
+    description: "Personal astrology and tarot readings shaped by your birth chart, current transits, and your question.",
     type: "website",
     siteName: "Olivia Arcana",
     locale: "en_US",
@@ -53,8 +53,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Olivia Arcana — Written in Your Stars",
-    description: "Personalized cosmic readings from your exact planetary positions.",
+    title: "Olivia Arcana — Your stars, translated clearly",
+    description: "Personal astrology and tarot readings shaped by your chart and your question.",
     images: ["/og-image.png"],
   },
   robots: { index: true, follow: true },
@@ -101,18 +101,18 @@ export default function RootLayout({
     "name": "Olivia Arcana",
     "applicationCategory": "LifestyleApplication",
     "operatingSystem": "Web, iOS, Android",
-    "description": "Hyper-personalized AI astrology and tarot platform based on high-precision astronomical data.",
+    "description": "Personal astrology and tarot readings for reflection, clarity, and self-understanding.",
     "offers": {
       "@type": "Offer",
       "price": "4.99",
       "priceCurrency": "USD"
     },
     "featureList": [
-      "High-precision natal chart calculation",
-      "AI-driven tarot oracle readings",
-      "Word-by-word cosmic typewriter interface",
-      "Personalized daily almanacs",
-      "Living deck tarot history"
+      "Birth chart readings",
+      "Tarot oracle readings",
+      "Compatibility reports",
+      "Transit timing",
+      "Astrology and tarot academy"
     ],
     "author": {
       "@type": "Organization",
@@ -134,9 +134,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://api.elevenlabs.io" />
         <link rel="dns-prefetch" href="https://api.anthropic.com" />
         
-        {/* LCP Optimization: Preload primary background */}
-        <link rel="preload" href="/nebula-bg.webp" as="image" type="image/webp" />
-
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

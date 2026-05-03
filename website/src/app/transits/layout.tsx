@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Transits — When the Sky Speaks | Olivia Arcana",
+  title: "Transits — Personal Timing | Olivia Arcana",
   description:
-    "6-month timeline of transiting planets meeting your natal chart. Major aspects, peaks, decisions — see what's coming before it lands.",
+    "See how current and upcoming transits relate to your natal chart, with reflective timing prompts instead of fixed predictions.",
   alternates: { canonical: "https://oliviaarcana.com/transits" },
   openGraph: {
     title: "Transits Timeline",
-    description: "When the sky meets your natal chart.",
+    description: "Current and upcoming transits for reflective timing.",
     url: "https://oliviaarcana.com/transits",
   },
 };

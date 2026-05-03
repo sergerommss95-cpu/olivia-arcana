@@ -3,11 +3,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Compatibility Reading — Two Charts, One Story | Olivia Arcana",
   description:
-    "Full synastry analysis. 100 cross-aspect pairs computed from both birth charts. Love, communication, trust, passion — read deep, not surface.",
+    "Compare two birth charts for a clear compatibility reading with love, emotion, communication, growth, and challenge themes.",
   alternates: { canonical: "https://oliviaarcana.com/synastry" },
   openGraph: {
-    title: "Synastry — Two Charts, One Reading",
-    description: "Full astrological compatibility from real birth data.",
+    title: "Compatibility Reading — Two Charts",
+    description: "A clear compatibility reading from two birth charts.",
     url: "https://oliviaarcana.com/synastry",
   },
 };

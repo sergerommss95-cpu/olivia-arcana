@@ -13,12 +13,14 @@ import React, { useState, useEffect, useRef } from "react";
 
 const DISMISS_KEY = "olivia-arcana-install-dismissed";
 const DISMISS_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
+const PROMPT_DELAY = 12000;
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 export default function InstallPrompt() {
   const [show, setShow] = useState(false);
   const deferredPromptRef = useRef<Event | null>(null);
+  const showTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     // Register service worker
@@ -40,22 +42,28 @@ export default function InstallPrompt() {
     const handler = (e: Event) => {
       e.preventDefault();
       deferredPromptRef.current = e;
-      setShow(true);
+      if (showTimerRef.current) clearTimeout(showTimerRef.current);
+      showTimerRef.current = setTimeout(() => setShow(true), PROMPT_DELAY);
     };
 
     window.addEventListener("beforeinstallprompt", handler);
-    return () => window.removeEventListener("beforeinstallprompt", handler);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handler);
+      if (showTimerRef.current) clearTimeout(showTimerRef.current);
+    };
   }, []);
 
   const handleInstall = async () => {
     const prompt = deferredPromptRef.current as (Event & { prompt?: () => Promise<void> }) | null;
     if (!prompt?.prompt) return;
     await prompt.prompt();
+    if (showTimerRef.current) clearTimeout(showTimerRef.current);
     setShow(false);
     deferredPromptRef.current = null;
   };
 
   const handleDismiss = () => {
+    if (showTimerRef.current) clearTimeout(showTimerRef.current);
     setShow(false);
     try {
       localStorage.setItem(DISMISS_KEY, String(Date.now()));

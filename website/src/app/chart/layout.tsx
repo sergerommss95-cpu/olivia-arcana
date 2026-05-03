@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Birth Chart — Your Cosmic Blueprint | Olivia Arcana",
+  title: "Birth Chart — Your Natal Chart | Olivia Arcana",
   description:
-    "Interactive natal chart computed from NASA JPL DE440 ephemeris. Sun, Moon, Rising, all planets and houses — click any to see what it means in YOUR chart.",
+    "Create an interactive natal chart with Sun, Moon, Rising, planets, houses, and plain-language context.",
   alternates: { canonical: "https://oliviaarcana.com/chart" },
   openGraph: {
     title: "Your Birth Chart — Decoded",
-    description: "Real NASA planetary data, computed live for your exact birth moment.",
+    description: "An interactive natal chart with clear context for your key placements.",
     url: "https://oliviaarcana.com/chart",
   },
 };

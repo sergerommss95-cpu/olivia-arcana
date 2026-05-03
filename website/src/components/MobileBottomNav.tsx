@@ -145,7 +145,7 @@ export default function MobileBottomNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-40 block md:hidden bg-void-black/95 backdrop-blur-3xl saturate-[1.1] border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]"
+      className="fixed bottom-0 left-0 right-0 z-40 block md:hidden bg-void-black/98 backdrop-blur-md border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]"
       aria-label="Primary"
       style={{
         paddingBottom: "env(safe-area-inset-bottom, 0)",

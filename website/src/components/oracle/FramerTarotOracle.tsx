@@ -126,45 +126,6 @@ function useDeviceTier() {
 
 type MachineState = "focusing" | "drawing" | "preparing" | "spread" | "result";
 
-// ── LAYER 1: DEEP ECHO (Subconscious depth) ──
-const DeepEchoCard = React.memo(function DeepEchoCard({ 
-  index, total, device, breathing, machineState 
-}: { 
-  index: number, total: number, device: "mobile" | "tablet" | "desktop", breathing: MotionValue<number>, machineState: MachineState 
-}) {
-  const isMobile = device === "mobile";
-  const { x, y, rotateZ } = useMemo(() => {
-    const arcRadius = isMobile ? 900 : 1600; 
-    const span = Math.PI * (isMobile ? 0.6 : 0.85); 
-    const angle = -span / 2 + (span / (total - 1)) * index;
-    return {
-      x: Math.sin(angle) * arcRadius,
-      y: (1 - Math.cos(angle)) * arcRadius * 0.7 + (isMobile ? 160 : 140),
-      rotateZ: angle * (180 / Math.PI)
-    };
-  }, [index, total, isMobile]);
-
-  const finalY = useTransform(breathing, (b) => y + Number(b) * 0.5);
-  const opacity = (machineState === "drawing" || machineState === "focusing") ? (isMobile ? 0.04 : 0.08) : 0;
-
-  return (
-    <m.div
-      style={{
-        position: "absolute", top: "50%", left: "50%",
-        width: isMobile ? 80 : 120, height: isMobile ? 140 : 210,
-        marginLeft: isMobile ? -40 : -60, marginTop: isMobile ? -70 : -105,
-        x, y: finalY, z: -250, rotateZ, opacity,
-        zIndex: 1, pointerEvents: "none",
-        border: "0.5px solid rgba(212, 175, 55, 0.1)",
-        background: "rgba(5, 3, 20, 0.3)", borderRadius: "12px",
-        transformStyle: "preserve-3d", WebkitTransformStyle: "preserve-3d"
-      }}
-      animate={{ opacity }}
-      transition={{ duration: 2 }}
-    />
-  );
-});
-
 // ── LAYER 2: GHOST DECK (Magical abundance) ──
 const GhostCard = React.memo(function GhostCard({ 
   index, 
@@ -196,10 +157,7 @@ const GhostCard = React.memo(function GhostCard({
     };
   }, [index, total, isMobile, isTablet]);
 
-  const driftPhase = (index * 0.77) % (Math.PI * 2);
-  const finalY = useTransform(breathing, (b) => y + Number(b) + Math.sin(driftPhase) * 6);
-  const finalScale = useTransform(breathing, (b) => 1 + (Number(b) / 1000) + Math.cos(driftPhase) * 0.01);
-  
+  // Ghost cards recede when ritual moves forward
   const baseOpacity = isMobile ? 0.12 : isTablet ? 0.28 : 0.38;
   const opacity = (machineState === "drawing" || machineState === "focusing") ? baseOpacity : 0;
 
@@ -215,17 +173,15 @@ const GhostCard = React.memo(function GhostCard({
         marginLeft: -cardWidth / 2,
         marginTop: -cardHeight / 2,
         x,
-        y: finalY,
-        z: -120, 
+        y,
+        z: -120,
         rotateZ,
-        scale: finalScale,
         opacity,
-        zIndex: 5, 
+        zIndex: 2,
         pointerEvents: "none",
-        border: "1px solid rgba(212, 175, 55, 0.6)", 
-        background: "rgba(10, 8, 30, 0.75)", 
+        border: "1px solid rgba(212, 175, 55, 0.2)",
+        background: "rgba(10, 8, 30, 0.4)",
         borderRadius: "14px",
-        boxShadow: "0 10px 40px rgba(0,0,0,0.8)",
         transformStyle: "preserve-3d",
         WebkitTransformStyle: "preserve-3d"
       }}
@@ -281,18 +237,14 @@ export default function FramerTarotOracle() {
   const isMobile = device === "mobile";
   
   // Use a deterministic subset of cards to prevent hydration mismatches.
-  // Luxury Dealer Spread: 7 (mobile), 9 (tablet), 11 (desktop)
-  const poolSize = device === "mobile" ? 7 : device === "tablet" ? 9 : 11;
+  // Luxury Dealer Spread: 5 (mobile), 7 (tablet), 9 (desktop)
+  const poolSize = device === "mobile" ? 5 : device === "tablet" ? 7 : 9;
   const oracleData = useMemo(() => ALL_CARDS.slice(0, poolSize), [poolSize]);
 
-  // Ghost Deck Pool
-  const ghostSize = device === "mobile" ? 6 : device === "tablet" ? 10 : 12;
+  // Ghost Deck Pool: 4 (mobile), 6 (tablet), 8 (desktop)
+  const ghostSize = device === "mobile" ? 4 : device === "tablet" ? 6 : 8;
   const ghostIndices = useMemo(() => Array.from({ length: ghostSize }, (_, i) => i), [ghostSize]);
   
-  // Deep Echo Pool
-  const echoSize = device === "mobile" ? 4 : 8;
-  const echoIndices = useMemo(() => Array.from({ length: echoSize }, (_, i) => i), [echoSize]);
-
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
   const [isMuted, setIsMuted] = useState(true);
 
@@ -422,7 +374,7 @@ export default function FramerTarotOracle() {
            <div className="text-right pointer-events-none">
               <h2 className="font-serif text-2xl text-[#f5f0e8] opacity-60">The Oracle</h2>
               <div className="h-px w-8 bg-[#d4af37]/30 ml-auto mt-2 mb-1" />
-              <p className="text-[9px] tracking-[0.4em] uppercase text-[#d4af37]/50">Synastry Engine</p>
+              <p className="text-[9px] tracking-[0.4em] uppercase text-[#d4af37]/50">Tarot Reading</p>
            </div>
         </div>
 
@@ -1031,7 +983,7 @@ const GodModeCard = React.memo(function GodModeCard({
           : { duration: 0.5, delay: staggerDelay, ease: [0.16, 1, 0.3, 1] }
       }
     >
-      <div className="relative w-full h-full rounded-[14px] shadow-[0_20px_40px_rgba(0,0,0,0.6)]" style={{ transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
+      <div className="relative w-full h-full rounded-[14px] shadow-[0_10px_30px_rgba(0,0,0,0.5)]" style={{ transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
         
         {/* EDGE GLARE */}
         <m.div 
@@ -1048,7 +1000,7 @@ const GodModeCard = React.memo(function GodModeCard({
             WebkitTransformStyle: 'preserve-3d', 
             backfaceVisibility: 'hidden', 
             WebkitBackfaceVisibility: 'hidden',
-            background: 'linear-gradient(135deg, #0b0822 0%, #050314 100%)'
+            background: 'rgba(11, 8, 34, 0.98)'
           }}
         >
           {/* Inner Highlight */}
@@ -1065,7 +1017,7 @@ const GodModeCard = React.memo(function GodModeCard({
             WebkitTransformStyle: 'preserve-3d', 
             backfaceVisibility: 'hidden', 
             WebkitBackfaceVisibility: 'hidden',
-            background: 'linear-gradient(135deg, #04030c 0%, #08061a 100%)'
+            background: '#04030c'
           }}
         >
            <div className="absolute inset-0 border-[0.5px] border-white/10 rounded-[14px] pointer-events-none" />

@@ -236,6 +236,7 @@ function TrackSection({
         {description}
       </p>
       <div
+        className="academy-track-grid"
         style={{
           display: "grid",
           gridTemplateColumns: featureFirst ? "repeat(4, 1fr)" : "repeat(auto-fill, minmax(min(280px, 100%), 1fr))",
@@ -267,6 +268,7 @@ function FeaturedTool({ href, title, description, kicker }: { href: string; titl
       raised
       radius="lg"
       pad="none"
+      className="academy-featured-tool"
       style={{
         gridColumn: "span 2",
         display: "flex",
@@ -430,6 +432,9 @@ export function AcademyPageContent() {
             textTransform: "uppercase",
             color: "rgba(180,170,210,0.55)",
             textDecoration: "none",
+            minHeight: "44px",
+            display: "inline-flex",
+            alignItems: "center",
           }}
         >
           ← {t("academy_home_link")}
@@ -462,14 +467,15 @@ export function AcademyPageContent() {
             maxWidth: "58ch",
           }}
         >
-          A long-form school of the cosmos — 14 courses, 207 lessons, 3 braided tracks.
-          Begin with <em style={{ fontStyle: "italic", color: "rgba(232, 201, 106, 0.95)" }}>The Cosmic Alphabet</em> and
-          read at your own pace.
+          Learn astrology and tarot at your own pace. Begin with{" "}
+          <em style={{ fontStyle: "italic", color: "rgba(232, 201, 106, 0.95)" }}>The Cosmic Alphabet</em>
+          {" "}or draw today&apos;s card.
         </p>
       </header>
 
       {/* ── Tools row: 1 featured + 3 utility ── */}
       <section
+        className="academy-tools-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
@@ -483,7 +489,7 @@ export function AcademyPageContent() {
           title={t("academy_card_of_day")}
           description={t("academy_card_of_day_desc")}
         />
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem", gridColumn: "span 2" }}>
+        <div className="academy-tools-stack" style={{ display: "flex", flexDirection: "column", gap: "0.7rem", gridColumn: "span 2" }}>
           <UtilityTool href="/academy/tarot-encyclopedia" icon="◇" title={t("academy_tarot_encyclopedia")} desc={t("academy_tarot_encyclopedia_desc")} />
           <UtilityTool href="/academy/aspect-guide" icon="△" title={t("academy_aspect_guide")} desc={t("academy_aspect_guide_desc")} />
           <UtilityTool href="/cosmos" icon="☉" title={t("academy_live_cosmos")} desc={t("academy_live_cosmos_desc")} />
@@ -528,8 +534,14 @@ export function AcademyPageContent() {
           transform: translateY(-2px);
         }
         @media (max-width: 900px) {
-          section :global([style*="grid-template-columns: repeat(4"]) {
+          .academy-tools-grid,
+          .academy-track-grid {
             grid-template-columns: 1fr !important;
+          }
+          :global(.academy-featured-tool),
+          .academy-tools-stack,
+          :global(.academy-course-card) {
+            grid-column: 1 / -1 !important;
           }
         }
       `}</style>

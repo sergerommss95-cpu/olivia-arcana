@@ -157,7 +157,7 @@ export default function MagneticButton({
     opacity: disabled ? 0.55 : undefined,
     overflow: "hidden",
     pointerEvents: disabled ? "none" : undefined,
-    backdropFilter: variant === "glass" ? "blur(16px) saturate(1.35)" : undefined,
+    backdropFilter: variant === "glass" ? "blur(8px)" : undefined,
     transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
     boxShadow: active ? v.shadowHover : v.shadow,
     transition: pressed

@@ -84,6 +84,9 @@ export default function TransitsPage() {
           position: "absolute",
           top: "2rem",
           left: "1.5rem",
+          minHeight: "44px",
+          display: "inline-flex",
+          alignItems: "center",
         }}>
           &larr; Home
         </Link>
@@ -194,6 +197,9 @@ export default function TransitsPage() {
           textTransform: "uppercase",
           color: "rgba(180,170,210,0.4)",
           textDecoration: "none",
+          minHeight: "44px",
+          display: "inline-flex",
+          alignItems: "center",
         }}>
           &larr; Home
         </Link>

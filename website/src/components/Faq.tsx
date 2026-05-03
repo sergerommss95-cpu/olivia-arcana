@@ -11,27 +11,34 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 
 const ROWS: { q: string; a: React.ReactNode }[] = [
   {
     q: "Is this actually astrology, or just generic horoscopes?",
     a: (
       <>
-        Real astrology. Every reading is calculated from precise astronomical 
-        ephemeris data for the exact minute and location of your birth — planets, 
-        houses, aspects, and dignities. Nothing is pulled from a pre-written template.
+        It uses your birth data when you provide it, then reads chart patterns,
+        current timing, and tarot symbols together. It is reflective guidance,
+        not a fixed prediction.
       </>
     ),
   },
   {
-    q: "What do I get in a deeper reading?",
+    q: "What is free?",
     a: (
       <>
-        Your free reading shows the &ldquo;Surface Pattern.&rdquo; A deeper resonance 
-        unlocks your full natal chart synthesis, personal transit overlays, and 
-        unlimited AI Oracle access that remembers your history and connects your 
-        questions to your specific planetary cycles.
+        You can start with the Card of the Day, basic chart context, starter
+        lessons, and a few Oracle questions. No payment is required to try it.
+      </>
+    ),
+  },
+  {
+    q: "What changes when I pay?",
+    a: (
+      <>
+        Paid plans add more Oracle questions, fuller natal chart readings,
+        compatibility, transit timing, deeper tarot spreads, and saved context
+        depending on the plan you choose.
       </>
     ),
   },
@@ -39,10 +46,8 @@ const ROWS: { q: string; a: React.ReactNode }[] = [
     q: "Is this a prediction?",
     a: (
       <>
-        No. We do not provide &ldquo;fortunes&rdquo; or fixed predictions. Astrology 
-        is a symbolic language for self-reflection. We show you the celestial 
-        weather and the quality of the time, but the decisions and outcomes are 
-        always yours.
+        No. Olivia Arcana does not promise outcomes or tell you what must happen.
+        The readings are symbolic prompts for self-reflection and decision-making.
       </>
     ),
   },
@@ -50,9 +55,8 @@ const ROWS: { q: string; a: React.ReactNode }[] = [
     q: "Is my information private?",
     a: (
       <>
-        Yes. Your birth data and Oracle conversations are private to your account. 
-        We use secure encryption in transit and at rest. We never sell your data 
-        and never share your personal readings with third-party advertisers.
+        Your birth data and Oracle conversations stay private to your account.
+        We do not sell your personal readings to advertisers.
       </>
     ),
   },
@@ -60,20 +64,8 @@ const ROWS: { q: string; a: React.ReactNode }[] = [
     q: "Can I cancel my plan?",
     a: (
       <>
-        Yes, you can cancel any time with one click from your billing dashboard. 
-        You will retain access until the end of your current period. No hidden fees, 
-        no retention calls, and no dark patterns.
-      </>
-    ),
-  },
-  {
-    q: "Is the free reading still useful?",
-    a: (
-      <>
-        Absolutely. We believe everyone should have access to their basic celestial 
-        blueprint. The free tier includes the daily Card of the Day, sun-sign 
-        insights, and the first tracks of our Academy. It is built to be helpful, 
-        not just a teaser.
+        Yes. You can cancel from your billing dashboard and keep access until
+        the end of the current billing period.
       </>
     ),
   },
@@ -103,7 +95,7 @@ export default function Faq() {
           }}
         >
           <span aria-hidden style={{ marginRight: "0.6em" }}>✦</span>
-          Questions asked in advance
+          Questions before you start
         </p>
         <h2
           id="faq-heading"
@@ -118,7 +110,7 @@ export default function Faq() {
             letterSpacing: "-0.01em"
           }}
         >
-          Things people want to know before they stay.
+          Simple answers before you choose.
         </h2>
       </div>
 

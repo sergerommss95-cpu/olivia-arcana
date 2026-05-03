@@ -79,8 +79,8 @@ export default function Surface({
     look = {
       background: "rgba(8, 6, 26, 0.65)",
       border: "1px solid rgba(255, 255, 255, 0.15)",
-      backdropFilter: "blur(24px) saturate(1.2)",
-      WebkitBackdropFilter: "blur(24px) saturate(1.2)",
+      backdropFilter: "blur(8px) saturate(1.1)",
+      WebkitBackdropFilter: "blur(8px) saturate(1.1)",
       boxShadow: "0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)",
     };
   } // "bare" → look stays {}

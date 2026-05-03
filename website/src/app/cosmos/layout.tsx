@@ -3,11 +3,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Living Cosmos — Real-Time Sky | Olivia Arcana",
   description:
-    "Watch the sky right now. Real-time planetary positions, current transits, upcoming eclipses and retrogrades — computed from NASA JPL ephemeris.",
+    "A calm view of the current sky: moon phase, planet positions, and upcoming astrological events.",
   alternates: { canonical: "https://oliviaarcana.com/cosmos" },
   openGraph: {
     title: "The Living Cosmos",
-    description: "The sky, right now. Real planetary data.",
+    description: "Moon phase, planet positions, and upcoming astrological events.",
     url: "https://oliviaarcana.com/cosmos",
   },
 };

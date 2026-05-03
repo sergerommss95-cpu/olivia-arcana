@@ -101,7 +101,7 @@ function ScoreRing({ score, size = 180 }: { score: number; size?: number }) {
           fontFamily: "var(--font-accent)", fontSize: "2.5rem", fontWeight: 400,
           color: "rgba(240,236,255,0.95)", letterSpacing: "0.02em",
         }}>{animated}</span>
-        <span style={{ ...labelSt, fontSize: "0.5rem" }}>COSMIC COMPATIBILITY</span>
+        <span style={{ ...labelSt, fontSize: "0.5rem" }}>Compatibility score</span>
       </div>
     </div>
   );
@@ -251,6 +251,7 @@ export default function SynastryPage() {
       <Link href="/" style={{
         position: "absolute", top: "1.5rem", left: "1.5rem",
         ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)",
+        minHeight: "44px", display: "inline-flex", alignItems: "center",
       }}>{"\u2190"} {t("common_home")}</Link>
 
       {/* Header */}
@@ -261,13 +262,13 @@ export default function SynastryPage() {
         <h1 style={{
           fontFamily: "var(--font-heading)", fontSize: "clamp(1.4rem, 4vw, 2rem)", fontWeight: 400,
         }}>
-          <span className="text-gold-gradient">Cosmic Synastry</span>
+          <span className="text-gold-gradient">Compatibility Reading</span>
         </h1>
         <p style={{
           fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
           color: "rgba(196,185,228,0.5)", maxWidth: "450px", margin: "0.5rem auto 0",
         }}>
-          Compare two birth charts to reveal the cosmic chemistry between souls
+          Enter two birth dates. Add birth times and cities when you know them for a more useful comparison.
         </p>
 
         {/* Inviter banner \u2014 shown when arriving via ?invite=... */}
@@ -288,13 +289,13 @@ export default function SynastryPage() {
                 fontFamily: "var(--font-body)", fontSize: "0.9rem",
                 color: "rgba(245,240,232,0.96)", fontWeight: 500,
               }}>
-                {inviterName} wants to know if your stars are aligned.
+                {inviterName} wants to compare charts with you.
               </div>
               <div style={{
                 fontFamily: "var(--font-body)", fontSize: "0.78rem",
                 color: "rgba(220,210,240,0.72)", marginTop: "0.3rem", lineHeight: 1.5,
               }}>
-                Their birth data is already filled in. Add yours below \u2014 both of you will see the result.
+                Their birth data is already filled in. Add yours below to see the compatibility reading.
               </div>
             </div>
           </div>
@@ -387,7 +388,7 @@ export default function SynastryPage() {
               opacity: canCompute && !computing ? 1 : 0.3,
               transition: `all 0.3s ${EASE}`,
             }}>
-              {computing ? "Calculating..." : "Calculate Synastry"}
+              {computing ? "Comparing..." : "Compare charts"}
             </button>
           </div>
         </div>
@@ -506,7 +507,7 @@ export default function SynastryPage() {
                 color: "rgba(220,210,240,0.72)", margin: "0 auto 1rem",
                 maxWidth: "32em", lineHeight: 1.55,
               }}>
-                Send a private link. They open it and the cosmos auto-fills your half — they only need to add their own birthday.
+                Send a private link. Your half is filled in, and they only need to add their own birth details.
               </p>
               <button
                 type="button"
@@ -526,8 +527,8 @@ export default function SynastryPage() {
                   try {
                     if (navigator.share) {
                       await navigator.share({
-                        title: "Are our stars aligned?",
-                        text: `${nameA || "Someone"} wants to know if your stars are aligned. Open the link to find out.`,
+                        title: "Compare our charts",
+                        text: `${nameA || "Someone"} wants to compare charts with you. Open the link to add your birth details.`,
                         url,
                       });
                     } else {
