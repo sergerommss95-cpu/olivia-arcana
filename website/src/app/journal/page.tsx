@@ -29,7 +29,7 @@ const labelSt: React.CSSProperties = {
 
 const glass: React.CSSProperties = {
   background: "rgba(255,255,255,0.03)", border: "1px solid rgba(200,185,255,0.08)",
-  borderRadius: "1rem", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
+  borderRadius: "1rem", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)",
 };
 
 type Tab = "write" | "calendar";
@@ -242,7 +242,7 @@ export default function JournalPage() {
                   fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.8,
                   color: "rgba(240,236,255,0.85)", background: "rgba(255,255,255,0.02)",
                   border: "1px solid rgba(200,185,255,0.08)", borderRadius: "1rem",
-                  backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+                  backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)",
                   outline: "none", resize: "vertical",
                   transition: "border-color 0.3s",
                 }}

@@ -238,8 +238,8 @@ export default function CommandPalette() {
         paddingInline: "16px",
         background:
           "radial-gradient(ellipse at 50% 0%, rgba(80,40,140,0.35), rgba(8,6,20,0.88) 60%, rgba(4,2,13,0.95))",
-        backdropFilter: "blur(18px) saturate(1.15)",
-        WebkitBackdropFilter: "blur(18px) saturate(1.15)",
+        backdropFilter: "blur(6px) ",
+        WebkitBackdropFilter: "blur(6px) ",
         animation: reduced ? undefined : "cp-fade-in 180ms ease-out both",
       }}
     >

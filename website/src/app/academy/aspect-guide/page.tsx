@@ -130,8 +130,8 @@ export default function AspectGuidePage() {
 
   const glass: React.CSSProperties = {
     background: "rgba(8,6,20,0.45)",
-    backdropFilter: "blur(20px) saturate(1.2)",
-    WebkitBackdropFilter: "blur(20px) saturate(1.2)",
+    backdropFilter: "blur(8px) ",
+    WebkitBackdropFilter: "blur(8px) ",
     border: "1px solid rgba(200,185,255,0.06)",
     borderRadius: "1.25rem",
     boxShadow: "0 4px 20px rgba(0,0,0,0.15)",

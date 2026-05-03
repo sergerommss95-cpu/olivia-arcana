@@ -108,8 +108,8 @@ export default function DeckStats() {
 
 const glassCard: React.CSSProperties = {
   background: "rgba(12, 13, 24, 0.45)",
-  backdropFilter: "blur(24px)",
-  WebkitBackdropFilter: "blur(24px)",
+  backdropFilter: "blur(8px)",
+  WebkitBackdropFilter: "blur(8px)",
   border: "1px solid rgba(200, 168, 75, 0.1)",
   borderRadius: "1rem",
   padding: "1.5rem 1.75rem",

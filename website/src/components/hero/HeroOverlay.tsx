@@ -25,7 +25,7 @@ export default function HeroOverlay() {
             <input 
               type="text" 
               placeholder="Your birthday (MM/DD/YYYY)"
-              className="w-72 px-8 py-4 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-full text-[#f5f0e8] placeholder:text-white/20 focus:outline-none focus:border-[#d4af37]/50 transition-all duration-500"
+              className="w-72 px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-[#f5f0e8] placeholder:text-white/20 focus:outline-none focus:border-[#d4af37]/50 transition-all duration-500"
             />
           </div>
           <button className="px-10 py-4 bg-[#f5f0e8] text-black font-semibold rounded-full hover:bg-[#d4af37] transition-all duration-500 transform hover:scale-105">

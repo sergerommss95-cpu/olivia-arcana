@@ -66,7 +66,7 @@ export default function LanguageSwitcher() {
             background: "rgba(10,8,21,0.96)",
             border: "1px solid rgba(200,185,255,0.12)",
             borderRadius: "0.85rem",
-            backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
+            backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)",
             boxShadow: "0 18px 44px rgba(0,0,0,0.55)",
             padding: "0.35rem",
           }}

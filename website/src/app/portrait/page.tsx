@@ -27,7 +27,7 @@ const labelSt: React.CSSProperties = {
 };
 const glass: React.CSSProperties = {
   background: "rgba(255,255,255,0.03)", border: "1px solid rgba(200,185,255,0.08)",
-  borderRadius: "1rem", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
+  borderRadius: "1rem", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)",
 };
 
 function DignityBadge({ dignity }: { dignity: string }) {
@@ -165,8 +165,8 @@ export default function PortraitPage() {
           width: "100%", maxWidth: "400px",
           padding: "2rem",
           background: "rgba(8,6,20,0.45)",
-          backdropFilter: "blur(20px) saturate(1.2)",
-          WebkitBackdropFilter: "blur(20px) saturate(1.2)",
+          backdropFilter: "blur(8px) ",
+          WebkitBackdropFilter: "blur(8px) ",
           border: "1px solid rgba(200,185,255,0.08)",
           borderRadius: "1.5rem",
           boxShadow: "0 8px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)",
@@ -282,7 +282,7 @@ export default function PortraitPage() {
                 <button onClick={download} style={{
                   padding: "0.6rem 1.5rem", borderRadius: "100px",
                   background: "linear-gradient(135deg, rgba(160,120,255,0.2), rgba(100,80,220,0.15))",
-                  border: "1px solid rgba(200,180,255,0.2)", backdropFilter: "blur(12px)",
+                  border: "1px solid rgba(200,180,255,0.2)", backdropFilter: "blur(4px)",
                   color: "rgba(240,235,255,0.9)", fontSize: "0.72rem", fontWeight: 500,
                   letterSpacing: "0.06em", textTransform: "uppercase", cursor: "pointer",
                   transition: `all 0.3s ${EASE}`,
@@ -291,7 +291,7 @@ export default function PortraitPage() {
                   padding: "0.6rem 1.5rem", borderRadius: "100px",
                   background: showDecode ? "rgba(160,120,255,0.12)" : "rgba(255,255,255,0.04)",
                   border: `1px solid ${showDecode ? "rgba(200,180,255,0.2)" : "rgba(200,185,255,0.1)"}`,
-                  backdropFilter: "blur(12px)",
+                  backdropFilter: "blur(4px)",
                   color: "rgba(200,185,240,0.8)", fontSize: "0.72rem", fontWeight: 400,
                   letterSpacing: "0.06em", textTransform: "uppercase", cursor: "pointer",
                   transition: `all 0.3s ${EASE}`,

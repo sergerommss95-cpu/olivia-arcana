@@ -47,7 +47,7 @@ export function CourseDetailContent({ courseSlug }: { courseSlug: string }) {
         textAlign: "center", marginBottom: "2.5rem",
         padding: "2rem",
         background: "rgba(8,6,20,0.4)",
-        backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
+        backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)",
         border: "1px solid rgba(200,185,255,0.06)",
         borderRadius: "1.5rem",
       }}>
@@ -145,7 +145,7 @@ export function CourseDetailContent({ courseSlug }: { courseSlug: string }) {
         <div style={{
           padding: "1.5rem",
           background: "rgba(8,6,20,0.3)",
-          backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+          backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)",
           border: "1px solid rgba(200,185,255,0.05)",
           borderRadius: "1rem",
         }}>

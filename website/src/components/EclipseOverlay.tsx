@@ -125,8 +125,8 @@ function MercuryRetrogradeEffect() {
 function SolsticeEffect({ season }: { season: "winter" | "summer" }) {
   const filter =
     season === "winter"
-      ? "saturate(0.95) brightness(0.97) hue-rotate(-5deg)"
-      : "saturate(1.05) brightness(1.02) sepia(0.04)";
+      ? " brightness(0.97) hue-rotate(-5deg)"
+      : " brightness(1.02) sepia(0.04)";
 
   return (
     <style>{`
@@ -139,8 +139,8 @@ function SolsticeEffect({ season }: { season: "winter" | "summer" }) {
 function EquinoxEffect({ season }: { season: "spring" | "fall" }) {
   const filter =
     season === "spring"
-      ? "saturate(1.03) brightness(1.01)"
-      : "saturate(0.97) brightness(0.99) sepia(0.02)";
+      ? " brightness(1.01)"
+      : " brightness(0.99) sepia(0.02)";
 
   return (
     <style>{`

@@ -64,7 +64,7 @@ export default function CosmicStatus() {
       gap: "0.5rem", padding: "0.6rem 1.5rem",
       flexWrap: "wrap",
       background: "rgba(4,2,13,0.5)",
-      backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+      backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)",
       borderBottom: "1px solid rgba(200,185,255,0.06)",
     }}>
       {/* Ephemeris Ticker — Scientific Proof */}

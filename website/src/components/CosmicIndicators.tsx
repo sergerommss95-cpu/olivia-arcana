@@ -91,7 +91,7 @@ export default function CosmicIndicators() {
           borderRadius: "100px",
           background: moonHover ? "rgba(12,13,24,0.8)" : "transparent",
           border: moonHover ? "1px solid rgba(200,168,75,0.15)" : "1px solid transparent",
-          backdropFilter: moonHover ? "blur(12px)" : "none",
+          backdropFilter: moonHover ? "blur(4px)" : "none",
           transition: "all 0.3s var(--ease-ritual)",
           cursor: "default",
         }}
@@ -122,7 +122,7 @@ export default function CosmicIndicators() {
           borderRadius: "100px",
           background: planetHover ? "rgba(12,13,24,0.8)" : "transparent",
           border: planetHover ? `1px solid ${planetColor}25` : "1px solid transparent",
-          backdropFilter: planetHover ? "blur(12px)" : "none",
+          backdropFilter: planetHover ? "blur(4px)" : "none",
           transition: "all 0.3s var(--ease-ritual)",
           cursor: "default",
         }}

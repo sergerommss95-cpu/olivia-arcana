@@ -155,7 +155,7 @@ export default function AnimatedHoroscopeCard({
         >
           {/* Sign glyph */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, filter: "blur(12px)" }}
+            initial={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             style={{

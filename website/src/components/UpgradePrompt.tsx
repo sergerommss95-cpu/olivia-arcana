@@ -74,7 +74,7 @@ export default function UpgradePrompt({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           className="fixed top-0 left-0 right-0 z-50 px-4 py-3"
-          style={{ background: "linear-gradient(135deg, rgba(212,175,55,0.15), rgba(90,50,150,0.15))", backdropFilter: "blur(12px)" }}
+          style={{ background: "linear-gradient(135deg, rgba(212,175,55,0.15), rgba(90,50,150,0.15))", backdropFilter: "blur(4px)" }}
         >
           <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
             <div>

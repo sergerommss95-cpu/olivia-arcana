@@ -479,7 +479,7 @@ export default function DailyPage() {
           <div style={{
             textAlign: "center", padding: "5rem 2rem",
             background: "rgba(8,6,20,0.3)",
-            backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+            backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)",
             border: "1px solid rgba(200,185,255,0.04)",
             borderRadius: "1.5rem",
           }}>

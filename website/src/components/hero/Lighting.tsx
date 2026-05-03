@@ -76,7 +76,7 @@ export function HeroOverlay() {
         </p>
 
         {/* GLASSMORPHIC CTA */}
-        <div className="flex items-center gap-2 p-1.5 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-full pointer-events-auto">
+        <div className="flex items-center gap-2 p-1.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full pointer-events-auto">
           <input 
             type="email" 
             placeholder="Work email" 

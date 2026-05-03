@@ -89,8 +89,8 @@ export default function CosmicToast() {
           <div
             style={{
               background: "rgba(8,6,20,0.75)",
-              backdropFilter: "blur(20px) saturate(1.3)",
-              WebkitBackdropFilter: "blur(20px) saturate(1.3)",
+              backdropFilter: "blur(8px) ",
+              WebkitBackdropFilter: "blur(8px) ",
               border: "1px solid rgba(212,175,55,0.15)",
               borderRadius: "1rem",
               padding: "1rem 1.25rem",

@@ -125,8 +125,8 @@ const CosmicField = forwardRef<HTMLInputElement, CosmicFieldProps>(function Cosm
           padding: 0.75rem 1.15rem;
           min-height: 48px;
           outline: none;
-          -webkit-backdrop-filter: blur(12px);
-          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
           transition:
             border-color 240ms var(--ease-ritual, cubic-bezier(0.16, 1, 0.3, 1)),
             box-shadow 240ms var(--ease-ritual, cubic-bezier(0.16, 1, 0.3, 1)),

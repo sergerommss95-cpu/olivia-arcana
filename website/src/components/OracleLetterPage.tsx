@@ -137,7 +137,7 @@ export default function OracleLetterPage({
               borderRadius: "50%",
               border: "1px solid var(--c-border, rgba(255,255,255,0.1))",
               background: "var(--glass-bg, rgba(12,13,24,0.6))",
-              backdropFilter: "blur(12px)",
+              backdropFilter: "blur(4px)",
               color: "var(--c-text-muted, #8A87A0)",
               fontSize: "1.25rem",
               cursor: "pointer",

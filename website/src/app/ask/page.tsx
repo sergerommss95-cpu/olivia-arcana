@@ -225,8 +225,8 @@ export default function AskPage() {
                 ? "linear-gradient(135deg, rgba(160,120,255,0.15), rgba(100,80,220,0.1))"
                 : "rgba(255,255,255,0.03)",
               border: `1px solid ${msg.role === "user" ? "rgba(200,180,255,0.15)" : "rgba(200,185,255,0.06)"}`,
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
+              backdropFilter: "blur(4px)",
+              WebkitBackdropFilter: "blur(4px)",
             }}
           >
             {msg.role === "oracle" && (
@@ -280,8 +280,8 @@ export default function AskPage() {
             background: "rgba(255,255,255,0.04)",
             border: "1px solid rgba(200,185,255,0.1)",
             borderRadius: "9999px",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
+            backdropFilter: "blur(4px)",
+            WebkitBackdropFilter: "blur(4px)",
             outline: "none",
             transition: "border-color 0.3s",
             opacity: waiting ? 0.5 : 1,

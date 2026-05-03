@@ -59,7 +59,7 @@ export default function SignsIndex() {
               borderRadius: "1rem",
               textDecoration: "none",
               transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-              backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+              backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)",
             }}
           >
             <span style={{ fontSize: "2rem" }}>{sign.glyph}</span>

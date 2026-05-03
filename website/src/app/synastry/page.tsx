@@ -32,21 +32,21 @@ const inputStyle: React.CSSProperties = {
   fontFamily: "var(--font-accent)", fontSize: "0.95rem", letterSpacing: "0.04em",
   color: "rgba(240,236,255,0.9)", background: "rgba(255,255,255,0.04)",
   border: "1px solid rgba(200,185,255,0.12)", borderRadius: "0.75rem",
-  backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+  backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)",
   outline: "none", transition: "border-color 0.3s", width: "100%",
 };
 
 const glass: React.CSSProperties = {
   background: "rgba(255,255,255,0.03)", border: "1px solid rgba(200,185,255,0.08)",
-  borderRadius: "1rem", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
+  borderRadius: "1rem", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)",
 };
 
 const formCard: React.CSSProperties = {
   display: "flex", flexDirection: "column", gap: "0.8rem",
   padding: "1.5rem",
   background: "rgba(8,6,20,0.45)",
-  backdropFilter: "blur(20px) saturate(1.2)",
-  WebkitBackdropFilter: "blur(20px) saturate(1.2)",
+  backdropFilter: "blur(8px) ",
+  WebkitBackdropFilter: "blur(8px) ",
   border: "1px solid rgba(200,185,255,0.08)",
   borderRadius: "1.25rem",
   boxShadow: "0 8px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)",

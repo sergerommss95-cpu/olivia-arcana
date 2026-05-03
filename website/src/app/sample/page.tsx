@@ -394,7 +394,7 @@ export default function SamplePage() {
           border-radius: 2rem;
           padding: 4rem 2rem;
           text-align: center;
-          backdrop-filter: blur(20px);
+          backdrop-filter: blur(8px);
         }
 
         .sample-cta-title {

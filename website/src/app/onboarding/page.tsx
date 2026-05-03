@@ -34,8 +34,8 @@ const inputStyle: React.CSSProperties = {
   background: "rgba(255,255,255,0.04)",
   border: "1px solid rgba(200,185,255,0.12)",
   borderRadius: "9999px",
-  backdropFilter: "blur(12px)",
-  WebkitBackdropFilter: "blur(12px)",
+  backdropFilter: "blur(4px)",
+  WebkitBackdropFilter: "blur(4px)",
   outline: "none",
   transition: "border-color 0.3s, box-shadow 0.3s",
 };
@@ -54,8 +54,8 @@ const btnPrimary: React.CSSProperties = {
   padding: "0.75rem 2.5rem",
   borderRadius: "100px",
   background: "linear-gradient(135deg, rgba(160,120,255,0.22), rgba(100,80,220,0.18))",
-  backdropFilter: "blur(16px)",
-  WebkitBackdropFilter: "blur(16px)",
+  backdropFilter: "blur(6px)",
+  WebkitBackdropFilter: "blur(6px)",
   border: "1px solid rgba(200,180,255,0.22)",
   color: "rgba(240,235,255,0.95)",
   fontSize: "0.82rem",
@@ -184,9 +184,9 @@ export default function OnboardingPage() {
           background: "rgba(8,6,20,0.45)",
           border: "1px solid rgba(200,185,255,0.08)",
           borderRadius: "1.5rem",
-          backdropFilter: "blur(20px) saturate(1.2)",
+          backdropFilter: "blur(8px) ",
           boxShadow: "0 8px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)",
-          WebkitBackdropFilter: "blur(16px)",
+          WebkitBackdropFilter: "blur(6px)",
         }}
       >
         {step === "name" && (

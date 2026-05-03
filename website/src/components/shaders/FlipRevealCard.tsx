@@ -960,8 +960,8 @@ export default function FlipRevealCard({
           z-index: 0;
         }
         @keyframes flr-front-breathe {
-          0%, 100% { filter: brightness(1)    saturate(1); }
-          50%      { filter: brightness(1.08) saturate(1.12); }
+          0%, 100% { filter: brightness(1)    ; }
+          50%      { filter: brightness(1.08) ; }
         }
         /* Iridescent foil sweep — matches the back's conic pass */
         .flr-front-foil {
@@ -1033,8 +1033,8 @@ export default function FlipRevealCard({
           padding: 0.5rem 1rem;
           border-radius: 9999px;
           background: rgba(6, 4, 26, 0.72);
-          -webkit-backdrop-filter: blur(12px);
-          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
           border: 1px solid rgba(232, 201, 106, 0.42);
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
           font-style: italic;
@@ -1074,7 +1074,7 @@ export default function FlipRevealCard({
           z-index: -1;
           background:
             radial-gradient(ellipse at center, rgba(212,175,55,0.28) 0%, rgba(212,175,55,0) 65%);
-          filter: blur(12px);
+          filter: blur(4px);
         }
 
         /* Hint pill */
@@ -1088,8 +1088,8 @@ export default function FlipRevealCard({
           padding: 0.55rem 1.1rem;
           border-radius: 9999px;
           background: rgba(6, 4, 26, 0.72);
-          -webkit-backdrop-filter: blur(12px);
-          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
           border: 1px solid rgba(232, 201, 106, 0.58);
           font-family: var(--font-body, system-ui), sans-serif;
           font-size: 0.7rem;

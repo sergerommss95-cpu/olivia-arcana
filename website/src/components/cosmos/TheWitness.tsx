@@ -70,14 +70,14 @@ export default function TheWitness({ isAsking, isProcessing, userInputLength, sc
         .witness-orb-container {
           filter: drop-shadow(0 0 50px rgba(0, 0, 0, 0.45));
           transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-          backdrop-filter: blur(4px) saturate(1.2);
+          backdrop-filter: blur(4px) ;
           border-radius: 50%;
           mask-image: radial-gradient(circle at center, black 40%, transparent 70%);
         }
 
         @media (max-width: 768px) {
           .witness-orb-container {
-            backdrop-filter: blur(2px) saturate(1.1);
+            backdrop-filter: blur(2px) ;
           }
         }
 

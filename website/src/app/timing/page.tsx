@@ -16,8 +16,8 @@ const glass: React.CSSProperties = {
   background: "rgba(255,255,255,0.03)",
   border: "1px solid rgba(200,185,255,0.08)",
   borderRadius: "1rem",
-  backdropFilter: "blur(16px)",
-  WebkitBackdropFilter: "blur(16px)",
+  backdropFilter: "blur(6px)",
+  WebkitBackdropFilter: "blur(6px)",
 };
 
 const label: React.CSSProperties = {
