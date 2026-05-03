@@ -51,9 +51,9 @@ export default function Testimonials() {
           aria-hidden
           style={{
             position: "absolute",
-            inset: "-3rem -4rem",
+            inset: "-4rem -6rem",
             background:
-              "radial-gradient(ellipse at center, rgba(8,6,20,0.68) 0%, rgba(8,6,20,0.4) 55%, rgba(8,6,20,0) 95%)",
+              "radial-gradient(ellipse at center, rgba(5,3,20,0.85) 0%, rgba(5,3,20,0.5) 65%, transparent 100%)",
             pointerEvents: "none",
             zIndex: -1,
           }}
@@ -61,30 +61,19 @@ export default function Testimonials() {
 
         {/* Section header */}
         <div style={{ textAlign: "center", marginBottom: "clamp(3rem, 6vw, 5rem)" }}>
-          <p
-            style={{
-              fontFamily: "var(--font-body, system-ui), sans-serif",
-              fontSize: "0.72rem",
-              fontWeight: 500,
-              letterSpacing: "0.28em",
-              textTransform: "uppercase",
-              color: "rgba(232, 201, 106, 0.82)",
-              margin: 0,
-              marginBottom: "0.9rem",
-            }}
-          >
+          <p className="readable-label mb-3">
             {t("test_eyebrow")}
           </p>
           <h2
             style={{
               fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-              fontSize: "clamp(2rem, 4.6vw, 3rem)",
+              fontSize: "clamp(2.2rem, 4.4vw, 3.2rem)",
               fontWeight: 500,
               fontStyle: "italic",
-              color: "rgba(245, 240, 232, 0.98)",
+              color: "#f5f2e1",
               lineHeight: 1.1,
               margin: 0,
-              letterSpacing: "-0.005em",
+              letterSpacing: "-0.01em",
             }}
           >
             {t("test_title")}
@@ -140,44 +129,47 @@ export default function Testimonials() {
         .testimonial-quote {
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
           font-style: italic;
-          font-weight: 400;
-          font-size: clamp(1.2rem, 2.1vw, 1.45rem);
-          line-height: 1.45;
-          color: rgba(245, 240, 232, 0.95);
+          font-weight: 500;
+          font-size: clamp(1.45rem, 2.1vw, 1.8rem);
+          line-height: 1.6;
+          color: #f5f2e1;
           margin: 0;
           padding: 0;
-          letter-spacing: 0.003em;
+          letter-spacing: 0.005em;
+          text-shadow: 0 0 20px rgba(255,255,255,0.05);
         }
         .testimonial-attr {
           display: inline-flex;
           flex-wrap: wrap;
           justify-content: center;
           align-items: center;
-          gap: 0.55em;
+          gap: 0.65em;
           font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.72rem;
-          font-weight: 500;
-          letter-spacing: 0.18em;
+          font-size: 0.78rem;
+          font-weight: 600;
+          letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(196, 185, 228, 0.78);
+          color: var(--c-text-secondary);
         }
         .testimonial-rule {
           display: inline-block;
-          width: 28px;
+          width: 32px;
           height: 1px;
-          background: rgba(232, 201, 106, 0.55);
-          margin-right: 0.4em;
+          background: rgba(212, 175, 55, 0.4);
+          margin-right: 0.5em;
           vertical-align: middle;
         }
         .testimonial-name {
-          color: rgba(232, 201, 106, 0.92);
+          color: var(--c-gold);
+          opacity: 1;
         }
         .testimonial-dot {
-          opacity: 0.5;
-          font-size: 0.82rem;
+          opacity: 0.4;
+          font-size: 0.9rem;
         }
         .testimonial-sign {
-          color: rgba(220, 212, 240, 0.78);
+          color: var(--c-text-secondary);
+          opacity: 0.85;
         }
       `}</style>
     </section>

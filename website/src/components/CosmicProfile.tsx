@@ -154,20 +154,21 @@ export default function CosmicProfile({ profile }: Props) {
   }, [profile.name, energy]);
 
   const glass: React.CSSProperties = {
-    background: "rgba(255,255,255,0.03)",
-    border: "1px solid rgba(200,185,255,0.08)",
+    background: "rgba(10, 8, 30, 0.85)",
+    border: "1px solid rgba(255, 255, 255, 0.12)",
     borderRadius: "1rem",
-    backdropFilter: "blur(16px)",
-    WebkitBackdropFilter: "blur(16px)",
+    backdropFilter: "blur(24px) saturate(1.2)",
+    WebkitBackdropFilter: "blur(24px) saturate(1.2)",
   };
 
   const label: React.CSSProperties = {
-    fontFamily: "'Inter', system-ui, sans-serif",
-    fontSize: "0.6rem",
-    fontWeight: 500,
-    letterSpacing: "0.18em",
+    fontFamily: "var(--font-mono)",
+    fontSize: "0.7rem",
+    fontWeight: 700,
+    letterSpacing: "0.2em",
     textTransform: "uppercase",
-    color: "rgba(180,170,210,0.45)",
+    color: "var(--c-gold)",
+    opacity: 0.85,
   };
 
   const elBg: Record<string, string> = {
@@ -220,28 +221,28 @@ export default function CosmicProfile({ profile }: Props) {
       {/* Glyph + Name */}
       <div data-r style={{ opacity: 0, textAlign: "center" }}>
         <div style={{
-          fontSize: "3rem", lineHeight: 1, marginBottom: "0.6rem",
-          textShadow: "0 0 30px rgba(200,180,255,0.25)",
+          fontSize: "3.5rem", lineHeight: 1, marginBottom: "0.75rem",
+          textShadow: "0 0 40px rgba(212,175,55,0.2)",
         }}>
           {profile.glyph}
         </div>
         <div style={{
-          fontFamily: "'Cormorant Garamond', Georgia, serif",
-          fontSize: "1.5rem", fontWeight: 400, letterSpacing: "0.14em",
-          color: "rgba(240,236,255,0.92)", textTransform: "uppercase",
+          fontFamily: "var(--font-heading)",
+          fontSize: "1.75rem", fontWeight: 500, letterSpacing: "0.14em",
+          color: "#f5f2e1", textTransform: "uppercase",
         }}>
           {profile.name}
         </div>
-        <div style={{ ...label, marginTop: "0.35rem" }}>{profile.dateRange}</div>
+        <div style={{ ...label, marginTop: "0.5rem", opacity: 1 }}>{profile.dateRange}</div>
       </div>
 
       {/* Divider */}
-      <div data-r style={{ opacity: 0, width: "60px", height: "1px", background: "rgba(200,185,255,0.1)" }} />
+      <div data-r style={{ opacity: 0, width: "80px", height: "1.5px", background: "rgba(212,175,55,0.3)" }} />
 
       {/* Trio */}
       <div data-r style={{
         opacity: 0, display: "grid", gridTemplateColumns: "1fr 1fr 1fr",
-        gap: "0.6rem", width: "100%",
+        gap: "0.75rem", width: "100%",
       }}>
         {[
           { emoji: profile.elementEmoji, value: profile.element, lbl: t("common_element") },
@@ -250,35 +251,36 @@ export default function CosmicProfile({ profile }: Props) {
         ].map(({ emoji, value, lbl }) => (
           <div key={lbl} style={{
             ...glass,
-            background: lbl === "Element" ? elBg[profile.element] : glass.background,
-            padding: "0.85rem 0.5rem", textAlign: "center",
-            display: "flex", flexDirection: "column", alignItems: "center", gap: "0.3rem",
+            background: lbl === "Element" ? elBg[profile.element] : "rgba(255,255,255,0.03)",
+            padding: "1rem 0.5rem", textAlign: "center",
+            display: "flex", flexDirection: "column", alignItems: "center", gap: "0.4rem",
+            border: "1px solid rgba(255,255,255,0.08)"
           }}>
-            <span style={{ fontSize: "1.1rem", opacity: 0.8 }}>{emoji}</span>
+            <span style={{ fontSize: "1.25rem", opacity: 0.9 }}>{emoji}</span>
             <span style={{
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontSize: "0.85rem", fontWeight: 500,
-              color: "rgba(230,220,255,0.88)", letterSpacing: "0.04em",
+              fontFamily: "var(--font-heading)",
+              fontSize: "0.95rem", fontWeight: 600,
+              color: "#f5f2e1", letterSpacing: "0.04em",
             }}>{value}</span>
-            <span style={label}>{lbl}</span>
+            <span style={{ ...label, fontSize: '0.55rem' }}>{lbl}</span>
           </div>
         ))}
       </div>
 
       {/* Traits */}
       <div data-r style={{ opacity: 0, width: "100%", padding: "0 0.25rem" }}>
-        <div style={{ ...label, marginBottom: "0.6rem" }}>{t("profile_your_cosmic_traits")}</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+        <div style={{ ...label, marginBottom: "0.75rem", opacity: 1 }}>{t("profile_your_cosmic_traits")}</div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           {profile.traits.map((trait, i) => (
             <div key={i} style={{
-              fontFamily: "'Inter', system-ui, sans-serif",
-              fontSize: "0.8rem", fontWeight: 300, lineHeight: 1.55,
-              color: "rgba(200,190,235,0.78)", paddingLeft: "0.9rem", position: "relative",
+              fontFamily: "var(--font-body)",
+              fontSize: "0.85rem", fontWeight: 500, lineHeight: 1.6,
+              color: "var(--c-text-secondary)", paddingLeft: "1rem", position: "relative",
               minHeight: "1.25em",
             }}>
               <span style={{
                 position: "absolute", left: 0, top: "0.15em",
-                color: "rgba(180,160,240,0.4)", fontSize: "0.55rem",
+                color: "var(--c-gold)", fontSize: "0.6rem", opacity: 0.8
               }}>▸</span>
               {traitsReady ? (
                 <Typewriter text={trait} delay={i * 400} speed={i === 0 ? 36 : 28} />
@@ -290,39 +292,42 @@ export default function CosmicProfile({ profile }: Props) {
 
       {/* Energy */}
       <div data-r style={{ opacity: 0, width: "100%", padding: "0 0.25rem" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.4rem" }}>
-          <span style={label}>{t("profile_cosmic_energy")}</span>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
+          <span style={{ ...label, opacity: 1 }}>{t("profile_cosmic_energy")}</span>
           <span style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: "0.95rem", fontWeight: 500, color: "rgba(200,180,255,0.85)",
+            fontFamily: "var(--font-heading)",
+            fontSize: "1.1rem", fontWeight: 600, color: "#f5f2e1",
           }}>{energy}%</span>
         </div>
         <div style={{
-          width: "100%", height: "4px", borderRadius: "2px",
-          background: "rgba(255,255,255,0.04)", overflow: "hidden",
+          width: "100%", height: "6px", borderRadius: "3px",
+          background: "rgba(255,255,255,0.06)", overflow: "hidden",
         }}>
           <div style={{
-            width: `${energyWidth}%`, height: "100%", borderRadius: "2px",
-            background: `linear-gradient(90deg, ${profile.luckyColorHex}66, ${profile.luckyColorHex})`,
+            width: `${energyWidth}%`, height: "100%", borderRadius: "3px",
+            background: `linear-gradient(90deg, ${profile.luckyColorHex}88, ${profile.luckyColorHex})`,
             transition: `width 2s ${EASE}`,
-            boxShadow: `0 0 8px ${profile.luckyColorHex}33`,
+            boxShadow: `0 0 12px ${profile.luckyColorHex}44`,
           }} />
         </div>
       </div>
 
       {/* Compatibility */}
       <div data-r style={{ opacity: 0, width: "100%", padding: "0 0.25rem" }}>
-        <div style={{ ...label, marginBottom: "0.5rem" }}>{t("profile_best_match")}</div>
-        <div style={{ display: "flex", gap: "0.5rem" }}>
+        <div style={{ ...label, marginBottom: "0.75rem", opacity: 1 }}>{t("profile_best_match")}</div>
+        <div style={{ display: "flex", gap: "0.6rem" }}>
           {profile.bestMatch.map(m => (
             <div key={m} style={{
-              ...glass, padding: "0.5rem 0.9rem",
-              display: "flex", alignItems: "center", gap: "0.35rem",
+              ...glass, padding: "0.6rem 1rem",
+              display: "flex", alignItems: "center", gap: "0.5rem",
+              background: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.1)'
             }}>
-              <span style={{ fontSize: "0.9rem", opacity: 0.7 }}>{GLYPHS[m]}</span>
+              <span style={{ fontSize: "1rem", opacity: 0.9 }}>{GLYPHS[m]}</span>
               <span style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontSize: "0.82rem", color: "rgba(220,210,245,0.8)", letterSpacing: "0.04em",
+                fontFamily: "var(--font-heading)",
+                fontSize: "0.9rem", color: "#f5f2e1", letterSpacing: "0.04em",
+                fontWeight: 600
               }}>{m}</span>
             </div>
           ))}
@@ -332,7 +337,7 @@ export default function CosmicProfile({ profile }: Props) {
       {/* Lucky Stats */}
       <div data-r style={{
         opacity: 0, width: "100%", display: "grid",
-        gridTemplateColumns: "1fr 1fr", gap: "0.5rem", padding: "0 0.25rem",
+        gridTemplateColumns: "1fr 1fr", gap: "0.75rem", padding: "0 0.25rem",
       }}>
         {[
           { l: t("profile_lucky_numbers"), v: profile.luckyNumbers.join(", ") },
@@ -340,16 +345,16 @@ export default function CosmicProfile({ profile }: Props) {
           { l: t("profile_lucky_color"), v: profile.luckyColor, sw: profile.luckyColorHex },
           { l: t("profile_gemstone"), v: profile.gemstone },
         ].map(({ l, v, sw }) => (
-          <div key={l} style={{ display: "flex", flexDirection: "column", gap: "0.12rem" }}>
-            <span style={label}>{l}</span>
+          <div key={l} style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}>
+            <span style={{ ...label, fontSize: '0.55rem', opacity: 0.7 }}>{l}</span>
             <span style={{
-              fontFamily: "'Inter', system-ui, sans-serif", fontSize: "0.78rem",
-              fontWeight: 400, color: "rgba(210,200,240,0.78)",
-              display: "flex", alignItems: "center", gap: "0.35rem",
+              fontFamily: "var(--font-body)", fontSize: "0.85rem",
+              fontWeight: 600, color: "var(--c-text-primary)",
+              display: "flex", alignItems: "center", gap: "0.4rem",
             }}>
               {sw && <span style={{
-                display: "inline-block", width: "8px", height: "8px",
-                borderRadius: "50%", background: sw, boxShadow: `0 0 6px ${sw}44`,
+                display: "inline-block", width: "10px", height: "10px",
+                borderRadius: "50%", background: sw, boxShadow: `0 0 8px ${sw}66`,
               }} />}
               {v}
             </span>
@@ -360,22 +365,23 @@ export default function CosmicProfile({ profile }: Props) {
       {/* Zodiac Roast */}
       {roast && (
         <div data-r style={{ opacity: 0, width: "100%", padding: "0 0.25rem" }}>
-          <div style={{ ...label, marginBottom: "0.5rem", color: "rgba(232,82,74,0.6)" }}>Cosmic Reality Check</div>
+          <div style={{ ...label, marginBottom: "0.75rem", color: "#E8524A", opacity: 1 }}>Cosmic Reality Check</div>
           <div style={{
-            ...glass, padding: "1rem", background: "rgba(232,82,74,0.03)",
-            border: "1px solid rgba(232,82,74,0.12)",
+            ...glass, padding: "1.25rem", background: "rgba(232,82,74,0.06)",
+            border: "1px solid rgba(232,82,74,0.25)",
           }}>
             <div style={{
-              fontFamily: "var(--font-heading)", fontSize: "0.95rem", fontStyle: "italic",
-              color: "rgba(245,240,232,0.9)", marginBottom: "0.4rem",
+              fontFamily: "var(--font-heading)", fontSize: "1.1rem", fontStyle: "italic",
+              color: "#f5f2e1", marginBottom: "0.6rem", fontWeight: 600
             }}>{roast.tagline}</div>
             <p style={{
-              fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 300,
-              lineHeight: 1.6, color: "rgba(220,210,240,0.65)", margin: 0,
+              fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 400,
+              lineHeight: 1.6, color: "var(--c-text-secondary)", margin: 0,
             }}>{roast.roast}</p>
             <div style={{
-              marginTop: "0.6rem", fontSize: "0.65rem", fontFamily: "var(--font-mono)",
-              color: "rgba(212,175,55,0.5)", textTransform: "uppercase", letterSpacing: "0.1em",
+              marginTop: "0.75rem", fontSize: "0.7rem", fontFamily: "var(--font-mono)",
+              color: "var(--c-gold)", textTransform: "uppercase", letterSpacing: "0.12em",
+              fontWeight: 700
             }}>Advice: {roast.advice}</div>
           </div>
         </div>
@@ -384,39 +390,39 @@ export default function CosmicProfile({ profile }: Props) {
       {/* Reading */}
       <div data-r style={{ opacity: 0, width: "100%", padding: "0 0.25rem" }}>
         <div style={{
-          width: "100%", height: "1px", marginBottom: "0.75rem",
-          background: "linear-gradient(90deg, transparent, rgba(200,185,255,0.08), transparent)",
+          width: "100%", height: "1px", marginBottom: "1rem",
+          background: "linear-gradient(90deg, transparent, rgba(212,175,55,0.2), transparent)",
         }} />
-        <div style={{ ...label, marginBottom: "0.5rem" }}>{t("profile_todays_reading")}</div>
+        <div style={{ ...label, marginBottom: "0.75rem", opacity: 1 }}>{t("profile_todays_reading")}</div>
         <div className="reading-text" style={{
-          fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
-          lineHeight: 1.75, color: "rgba(196,185,228,0.72)", margin: 0,
+          fontFamily: "var(--font-body)", fontSize: "0.95rem", fontWeight: 400,
+          lineHeight: 1.7, color: "var(--c-text-primary)", margin: 0,
           fontStyle: "italic", wordSpacing: textWordSpacing(profile.horoscope),
+          textShadow: '0 2px 20px rgba(0,0,0,0.5)'
         }}>
           &ldquo;<WhisperText text={profile.horoscope} delay={1200} wordDelay={55} />&rdquo;
         </div>
       </div>
 
       {/* CTAs */}
-      <div data-r style={{ opacity: 0, display: "flex", gap: "0.6rem", width: "100%", marginTop: "0.25rem" }}>
+      <div data-r style={{ opacity: 0, display: "flex", gap: "0.75rem", width: "100%", marginTop: "0.5rem" }}>
         <a href="/portrait" style={{
           flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
-          padding: "0.7rem 1rem", borderRadius: "100px",
-          background: "linear-gradient(135deg, rgba(160,120,255,0.18) 0%, rgba(100,80,220,0.14) 100%)",
-          backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
-          border: "1px solid rgba(200,180,255,0.18)",
-          color: "rgba(240,235,255,0.9)", fontSize: "0.76rem", fontWeight: 500,
-          letterSpacing: "0.04em", textTransform: "uppercase" as const,
+          padding: "0.85rem 1rem", borderRadius: "100px",
+          background: "linear-gradient(135deg, #d4af37 0%, #f3dd8e 100%)",
+          color: "var(--c-void)", fontSize: "0.8rem", fontWeight: 800,
+          letterSpacing: "0.08em", textTransform: "uppercase" as const,
           textDecoration: "none", cursor: "pointer", transition: `all 300ms ${EASE}`,
+          boxShadow: '0 10px 30px rgba(212,175,55,0.25)'
         }}>{t("profile_celestial_portrait")}</a>
         <button onClick={() => setShareModalOpen(true)} style={{
           flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
-          padding: "0.7rem 1rem", borderRadius: "100px",
-          background: "rgba(255,255,255,0.03)",
-          backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)",
-          border: "1px solid rgba(200,185,255,0.1)",
-          color: "rgba(200,185,240,0.75)", fontSize: "0.76rem", fontWeight: 400,
-          letterSpacing: "0.04em", textTransform: "uppercase" as const,
+          padding: "0.85rem 1rem", borderRadius: "100px",
+          background: "rgba(255,255,255,0.08)",
+          backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+          border: "1px solid rgba(255,255,255,0.15)",
+          color: "#f5f2e1", fontSize: "0.8rem", fontWeight: 700,
+          letterSpacing: "0.08em", textTransform: "uppercase" as const,
           cursor: "pointer", transition: `all 300ms ${EASE}`,
         }}>{t("profile_share")}</button>
       </div>

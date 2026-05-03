@@ -65,9 +65,9 @@ export default function Features() {
           aria-hidden
           style={{
             position: "absolute",
-            inset: "-2rem -2rem",
+            inset: "-4rem -4rem",
             background:
-              "radial-gradient(ellipse at center, rgba(8,6,20,0.7) 0%, rgba(8,6,20,0.45) 55%, rgba(8,6,20,0) 95%)",
+              "radial-gradient(ellipse at center, rgba(5,3,20,0.85) 0%, rgba(5,3,20,0.6) 60%, transparent 100%)",
             pointerEvents: "none",
             zIndex: -1,
           }}
@@ -75,30 +75,19 @@ export default function Features() {
 
         {/* Section header */}
         <div style={{ textAlign: "center", marginBottom: "clamp(2rem, 5vw, 4rem)" }}>
-          <p
-            style={{
-              fontFamily: "var(--font-body, system-ui), sans-serif",
-              fontSize: "0.65rem",
-              fontWeight: 500,
-              letterSpacing: "0.28em",
-              textTransform: "uppercase",
-              color: "rgba(232, 201, 106, 0.82)",
-              margin: 0,
-              marginBottom: "0.75rem",
-            }}
-          >
+          <p className="readable-label mb-3">
             {t("feat_eyebrow")}
           </p>
           <h2
             style={{
               fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-              fontSize: "clamp(1.75rem, 4.6vw, 2.75rem)",
+              fontSize: "clamp(2.2rem, 4.6vw, 3.2rem)",
               fontWeight: 500,
               fontStyle: "italic",
-              color: "rgba(245, 240, 232, 0.98)",
+              color: "#f5f2e1",
               lineHeight: 1.1,
               margin: 0,
-              letterSpacing: "-0.005em",
+              letterSpacing: "-0.01em",
             }}
           >
             {t("feat_title")}
@@ -153,8 +142,9 @@ export default function Features() {
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
           font-style: italic;
           font-weight: 500;
-          font-size: clamp(1.6rem, 2.8vw, 2.1rem);
-          color: rgba(232, 201, 106, 0.6);
+          font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+          color: var(--c-gold);
+          opacity: 0.95;
           line-height: 1;
           text-align: left;
           letter-spacing: 0.02em;
@@ -162,20 +152,21 @@ export default function Features() {
         .feature-title {
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
           font-style: italic;
-          font-weight: 500;
-          font-size: clamp(1.45rem, 2.6vw, 1.85rem);
-          color: rgba(245, 240, 232, 0.98);
+          font-weight: 600;
+          font-size: clamp(1.6rem, 2.6vw, 2rem);
+          color: #f5f2e1;
           line-height: 1.2;
-          margin: 0 0 0.75rem 0;
-          letter-spacing: -0.002em;
+          margin: 0 0 0.85rem 0;
+          letter-spacing: 0.01em;
         }
         .feature-desc {
           font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 1rem;
-          line-height: 1.7;
-          color: rgba(220, 212, 240, 0.82);
+          font-size: 1.05rem;
+          line-height: 1.65;
+          color: var(--c-text-secondary);
           margin: 0;
-          max-width: 52ch;
+          max-width: 55ch;
+          font-weight: 400;
         }
         @media (max-width: 520px) {
           .feature-row {
