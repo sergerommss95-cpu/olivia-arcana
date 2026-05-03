@@ -87,7 +87,7 @@ export default function Home() {
               ].map((item, i) => {
                 if (item.kind === "sep") {
                   return (
-                    <span key={i} aria-hidden style={{ color: "rgba(212,175,55,0.45)", fontSize: "0.8rem" }}>
+                    <span key={i} aria-hidden className="text-celestial-gold/60 text-sm">
                       ✦
                     </span>
                   );
@@ -106,21 +106,22 @@ export default function Home() {
                       <span
                         style={{
                           fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-                          fontSize: "clamp(1.1rem, 2vw, 1.55rem)",
-                          color: "rgba(232, 201, 106, 0.92)",
+                          fontSize: "clamp(1.2rem, 2vw, 1.7rem)",
+                          color: "#f3dd8e",
                           letterSpacing: "0.05em",
+                          fontWeight: 500
                         }}
                       >
                         {item.text}
                       </span>
                       <span
+                        className="readable-secondary"
                         style={{
                           fontFamily: "var(--font-body, system-ui), sans-serif",
-                          fontSize: "0.78rem",
-                          fontWeight: 400,
+                          fontSize: "0.82rem",
+                          fontWeight: 600,
                           letterSpacing: "0.1em",
                           textTransform: "uppercase",
-                          color: "rgba(196,185,228,0.6)",
                         }}
                       >
                         {item.sub}
@@ -140,13 +141,13 @@ export default function Home() {
                       }}
                     >
                       <span
+                        className="readable-muted"
                         style={{
                           fontFamily: "var(--font-body, system-ui), sans-serif",
-                          fontSize: "0.66rem",
-                          fontWeight: 500,
+                          fontSize: "0.7rem",
+                          fontWeight: 700,
                           letterSpacing: "0.22em",
                           textTransform: "uppercase",
-                          color: "rgba(196,185,228,0.55)",
                         }}
                       >
                         {item.outlet}
@@ -155,8 +156,9 @@ export default function Home() {
                         style={{
                           fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
                           fontStyle: "italic",
-                          fontSize: "clamp(1rem, 1.8vw, 1.4rem)",
-                          color: "rgba(240,236,255,0.82)",
+                          fontSize: "clamp(1.1rem, 1.8vw, 1.5rem)",
+                          color: "#f5f2e1",
+                          fontWeight: 400
                         }}
                       >
                         {item.name}

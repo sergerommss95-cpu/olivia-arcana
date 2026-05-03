@@ -89,8 +89,11 @@ export default function Pricing() {
   };
 
   return (
-    <section id="pricing" className="relative py-16 sm:py-32 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto">
+    <section id="pricing" className="relative py-16 sm:py-32 px-4 sm:px-6 overflow-hidden">
+      {/* Readability Scrims */}
+      <div className="absolute inset-0 section-scrim pointer-events-none z-0" />
+      
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Heading */}
         <div className="text-center mb-10 sm:mb-16">
           <AnimatePresence mode="wait">
@@ -101,13 +104,13 @@ export default function Pricing() {
                 animate={{ opacity: 1, y: 0 }}
                 className="mb-8"
               >
-                <p className="font-[family-name:var(--font-mono)] text-[#d4af37] text-[10px] tracking-[0.4em] uppercase mb-4">
+                <p className="readable-label mb-4">
                   The pattern is forming
                 </p>
                 <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-warm-ivory italic">
                   Continue your Oracle reading
                 </h2>
-                <p className="mt-4 text-muted-lavender/60 text-sm max-w-lg mx-auto leading-relaxed">
+                <p className="mt-4 text-muted-lavender readable-secondary text-sm max-w-lg mx-auto leading-relaxed">
                   Your first reading shows the surface pattern. Choose a deeper resonance to reveal timing, 
                   celestial context, and symbolic connections across your entire birth chart.
                 </p>
@@ -118,7 +121,7 @@ export default function Pricing() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               >
-                <p className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-[0.3em] uppercase mb-4">
+                <p className="readable-label mb-4">
                   {t("price_eyebrow")}
                 </p>
                 <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-warm-ivory mb-6">
@@ -128,30 +131,30 @@ export default function Pricing() {
             )}
           </AnimatePresence>
           
-          <div className="star-divider max-w-xs mx-auto">&#10022;</div>
+          <div className="star-divider max-w-xs mx-auto text-celestial-gold">&#10022;</div>
 
           {/* Billing toggle */}
           <div className="mt-8 flex items-center justify-center gap-3">
             <button
               onClick={() => setBillingPeriod("monthly")}
-              className={`min-h-[52px] text-sm px-4 py-1.5 rounded-full transition-all ${
+              className={`min-h-[52px] text-sm px-4 py-1.5 rounded-full transition-all font-semibold ${
                 billingPeriod === "monthly"
-                  ? "bg-celestial-gold/20 text-celestial-gold border border-celestial-gold/30"
-                  : "text-muted-lavender hover:text-warm-ivory"
+                  ? "bg-celestial-gold text-void-black"
+                  : "text-warm-ivory/60 hover:text-warm-ivory bg-white/5 border border-white/10"
               }`}
             >
               Monthly
             </button>
             <button
               onClick={() => setBillingPeriod("annual")}
-              className={`min-h-[52px] text-sm px-4 py-1.5 rounded-full transition-all flex items-center gap-2 ${
+              className={`min-h-[52px] text-sm px-4 py-1.5 rounded-full transition-all flex items-center gap-2 font-semibold ${
                 billingPeriod === "annual"
-                  ? "bg-celestial-gold/20 text-celestial-gold border border-celestial-gold/30"
-                  : "text-muted-lavender hover:text-warm-ivory"
+                  ? "bg-celestial-gold text-void-black shadow-[0_0_20px_rgba(212,175,55,0.3)]"
+                  : "text-warm-ivory/60 hover:text-warm-ivory bg-white/5 border border-white/10"
               }`}
             >
               Annual
-              <span className="text-xs bg-cosmic-teal/20 text-cosmic-teal px-2 py-0.5 rounded-full">
+              <span className={`text-[10px] px-2 py-0.5 rounded-full ${billingPeriod === 'annual' ? 'bg-void-black/20 text-void-black' : 'bg-cosmic-teal/20 text-cosmic-teal'}`}>
                 Save up to 35%
               </span>
             </button>
@@ -185,17 +188,15 @@ export default function Pricing() {
                   style={{ perspective: "1200px" }}
                 >
                   <div
-                    className="relative glass-card p-5 md:p-6 h-full flex flex-col transition-all duration-700"
+                    className={`relative readable-card p-5 md:p-6 h-full flex flex-col transition-all duration-700 ${isHighlighted ? 'border-[#d4af37]' : ''}`}
                     style={{
-                      border: isHighlighted
-                        ? "1px solid rgba(212, 175, 55, 0.5)"
-                        : "1px solid rgba(200,185,255,0.10)",
                       transformStyle: "preserve-3d",
-                      boxShadow: isHighlighted ? "0 0 60px rgba(212, 175, 55, 0.08)" : undefined
+                      boxShadow: isHighlighted ? "0 0 60px rgba(212, 175, 55, 0.15)" : undefined,
+                      background: isHighlighted ? "linear-gradient(135deg, rgba(20, 15, 60, 0.95) 0%, rgba(10, 8, 30, 0.98) 100%)" : undefined
                     }}
                   >
                   {isHighlighted && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-celestial-gold text-void-black text-[10px] tracking-[0.18em] uppercase font-semibold whitespace-nowrap shadow-lg">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-celestial-gold text-void-black text-[10px] tracking-[0.18em] uppercase font-bold whitespace-nowrap shadow-lg z-20">
                       ✦ {fromOracle && tier.id === "premium" ? "Deeper Resonance" : "Most chosen"}
                     </div>
                   )}
@@ -207,25 +208,25 @@ export default function Pricing() {
                       </h3>
                       {tier.id === "vip" && isVip && <VipBadge />}
                     </div>
-                    <p className="text-muted-lavender/40 font-mono text-[9px] uppercase tracking-widest">{getTierTagline(tier.id)}</p>
+                    <p className="readable-label text-[9px]">{getTierTagline(tier.id)}</p>
                   </div>
 
                   <div className="mb-5">
                     {price === 0 ? (
                       <>
                         <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-warm-ivory">$0</span>
-                        <span className="text-muted-lavender text-sm ml-2">{t("price_forever")}</span>
+                        <span className="readable-muted text-sm ml-2">{t("price_forever")}</span>
                       </>
                     ) : (
                       <>
                         <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-celestial-gold">
                           {fmtPrice(price)}
                         </span>
-                        <span className="text-muted-lavender text-sm ml-2">
+                        <span className="readable-secondary text-sm ml-2">
                           / {billingPeriod === "annual" ? (t("price_annual") as string).replace("or ", "").split(" ")[0] : (t("price_month") as string).replace("/", "")}
                         </span>
                         {monthlyEquivalent && (
-                          <p className="text-xs text-cosmic-teal/90 mt-1">
+                          <p className="text-xs text-cosmic-teal font-medium mt-1">
                             ${monthlyEquivalent} / {(t("price_month") as string).replace("/", "")} · {(t("price_annual") as string).split("(")[1]?.replace(")", "") || "billed annually"}
                           </p>
                         )}
@@ -233,14 +234,14 @@ export default function Pricing() {
                     )}
                   </div>
 
-                  <ul className="space-y-2.5 mb-6 flex-1">
-                    <li className="text-[0.6rem] font-mono uppercase tracking-[0.25em] text-[#d4af37]/40 mb-4 flex items-center gap-2">
-                       <span className="w-4 h-px bg-[#d4af37]/20" />
+                  <ul className="space-y-3 mb-8 flex-1">
+                    <li className="readable-label text-[9px] mb-4 flex items-center gap-2">
+                       <span className="w-4 h-px bg-[#d4af37]/40" />
                        {tier.id === 'free' ? "Celestial Basics" : tier.id === 'insight' ? "Full Resonance" : "Total Mastery"}
                     </li>
                     {((TRANSLATIONS[locale as keyof typeof TRANSLATIONS] || TRANSLATIONS.en)[tier.features as keyof Translations] as string[]).map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-[0.82rem] text-warm-ivory/90 leading-snug">
-                        <span className="text-celestial-gold mt-0.5 shrink-0">&#10022;</span>
+                      <li key={f} className="flex items-start gap-2 text-[0.85rem] readable-primary leading-snug">
+                        <span className="text-celestial-gold mt-1 shrink-0 text-[10px]">&#10022;</span>
                         <span>{f}</span>
                       </li>
                     ))}
@@ -248,20 +249,20 @@ export default function Pricing() {
 
                   {/* CTA */}
                   {tier.id === "free" ? (
-                    <MagneticButton href="/onboarding" variant="glass" size="md" className="w-full justify-center">
+                    <MagneticButton href="/onboarding" variant="glass" size="md" className="w-full justify-center shadow-lg border-white/20">
                       {t("price_start_free")}
                     </MagneticButton>
                   ) : isCurrent ? (
-                    <MagneticButton variant="gold" size="md" className="w-full justify-center" onClick={manageSubscription}>
+                    <MagneticButton variant="gold" size="md" className="w-full justify-center shadow-lg" onClick={manageSubscription}>
                       Manage plan
                     </MagneticButton>
                   ) : priceKey ? (
-                    <>
+                    <div className="flex flex-col gap-3">
                       <CheckoutButton
                         priceKey={priceKey}
-                        variant={tier.highlight ? "gold" : "glass"}
+                        variant={isHighlighted ? "gold" : "glass"}
                         size="md"
-                        className="w-full justify-center"
+                        className="w-full justify-center shadow-lg"
                       >
                         {t(`price_start_${tier.id}` as keyof Translations)}
                       </CheckoutButton>
@@ -269,11 +270,11 @@ export default function Pricing() {
                         href={telegramStarsLink(priceKey)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block text-center mt-2 text-[0.7rem] text-muted-lavender/70 hover:text-celestial-gold transition-colors"
+                        className="block text-center text-[0.7rem] readable-secondary hover:text-celestial-gold transition-colors font-medium"
                       >
                         or pay with Telegram Stars ↗
                       </a>
-                    </>
+                    </div>
                   ) : null}
                 </div>
               </motion.div>
@@ -283,52 +284,52 @@ export default function Pricing() {
         </div>
 
         {/* Refund and Trust note */}
-        <div className="mt-12 flex flex-col items-center gap-6">
-          <p className="text-center text-xs text-muted-lavender/60 max-w-lg leading-relaxed">
+        <div className="mt-16 flex flex-col items-center gap-8">
+          <p className="text-center text-[0.8rem] readable-secondary max-w-lg leading-relaxed font-medium">
             {t("cta_note")}
           </p>
 
-          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 py-6 border-y border-white/5 w-full max-w-4xl">
-            <div className="flex items-center gap-2 text-[0.65rem] font-mono uppercase tracking-widest text-warm-ivory/30">
-              <span className="text-cosmic-teal">✦</span> Secure Encrypted Checkout
+          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6 py-8 border-y border-white/10 w-full max-w-4xl bg-white/[0.02] rounded-xl px-4">
+            <div className="flex items-center gap-3 text-[0.7rem] readable-label">
+              <span className="text-cosmic-teal text-base">✦</span> Secure Encrypted Checkout
             </div>
-            <div className="flex items-center gap-2 text-[0.65rem] font-mono uppercase tracking-widest text-warm-ivory/30">
-              <span className="text-cosmic-teal">✦</span> Privacy-Conscious Reading
+            <div className="flex items-center gap-3 text-[0.7rem] readable-label">
+              <span className="text-cosmic-teal text-base">✦</span> Privacy-Conscious Reading
             </div>
-            <div className="flex items-center gap-2 text-[0.65rem] font-mono uppercase tracking-widest text-warm-ivory/30">
-              <span className="text-cosmic-teal">✦</span> Astronomical Ephemeris
+            <div className="flex items-center gap-3 text-[0.7rem] readable-label">
+              <span className="text-cosmic-teal text-base">✦</span> Astronomical Ephemeris
             </div>
           </div>
         </div>
 
         {/* Value explanation section */}
-        <div className="mt-24 sm:mt-32">
-          <div className="text-center mb-12">
-            <p className="font-mono text-[9px] uppercase tracking-[0.4em] text-celestial-gold/50 mb-3">Expanding the circle</p>
-            <h3 className="font-[family-name:var(--font-heading)] text-3xl text-warm-ivory italic">What deeper readings add</h3>
+        <div className="mt-24 sm:mt-40">
+          <div className="text-center mb-16">
+            <p className="readable-label mb-3">Expanding the circle</p>
+            <h3 className="font-[family-name:var(--font-heading)] text-4xl text-warm-ivory italic">What deeper readings add</h3>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="glass-card p-8 border-white/5 relative overflow-hidden group hover:border-celestial-gold/20 transition-colors">
-              <div className="text-2xl mb-4 group-hover:scale-110 transition-transform duration-500">🔭</div>
-              <h4 className="font-[family-name:var(--font-heading)] text-xl text-celestial-gold mb-3">Celestial Context</h4>
-              <p className="text-sm text-muted-lavender/70 leading-relaxed">
+            <div className="readable-card p-8 group hover:border-celestial-gold/40 transition-colors">
+              <div className="text-3xl mb-6 group-hover:scale-110 transition-transform duration-500">🔭</div>
+              <h4 className="font-[family-name:var(--font-heading)] text-2xl text-celestial-gold mb-4 font-semibold">Celestial Context</h4>
+              <p className="text-[0.95rem] readable-secondary leading-relaxed">
                 A surface reading identifies the signs. A deeper resonance looks at the <strong>aspects</strong> — how your planets talk to each other across time.
               </p>
             </div>
             
-            <div className="glass-card p-8 border-white/5 relative overflow-hidden group hover:border-celestial-gold/20 transition-colors">
-              <div className="text-2xl mb-4 group-hover:scale-110 transition-transform duration-500">⏳</div>
-              <h4 className="font-[family-name:var(--font-heading)] text-xl text-celestial-gold mb-3">Precise Timing</h4>
-              <p className="text-sm text-muted-lavender/70 leading-relaxed">
+            <div className="readable-card p-8 group hover:border-celestial-gold/40 transition-colors">
+              <div className="text-3xl mb-6 group-hover:scale-110 transition-transform duration-500">⏳</div>
+              <h4 className="font-[family-name:var(--font-heading)] text-2xl text-celestial-gold mb-4 font-semibold">Precise Timing</h4>
+              <p className="text-[0.95rem] readable-secondary leading-relaxed">
                 Free readings are current-moment only. Paid interpretations overlay your <strong>personal transits</strong>, revealing when cycles open and close.
               </p>
             </div>
 
-            <div className="glass-card p-8 border-white/5 relative overflow-hidden group hover:border-celestial-gold/20 transition-colors">
-              <div className="text-2xl mb-4 group-hover:scale-110 transition-transform duration-500">🕯️</div>
-              <h4 className="font-[family-name:var(--font-heading)] text-xl text-celestial-gold mb-3">Actionable Resonance</h4>
-              <p className="text-sm text-muted-lavender/70 leading-relaxed">
+            <div className="readable-card p-8 group hover:border-celestial-gold/40 transition-colors">
+              <div className="text-3xl mb-6 group-hover:scale-110 transition-transform duration-500">🕯️</div>
+              <h4 className="font-[family-name:var(--font-heading)] text-2xl text-celestial-gold mb-4 font-semibold">Actionable Resonance</h4>
+              <p className="text-[0.95rem] readable-secondary leading-relaxed">
                 Beyond description, we provide specific <strong>symbolic bridges</strong> to help you apply the celestial geometry to your actual life decisions.
               </p>
             </div>
@@ -336,55 +337,55 @@ export default function Pricing() {
         </div>
 
         {/* Sample reading preview */}
-        <div className="mt-24 sm:mt-32 max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="font-mono text-[9px] uppercase tracking-[0.4em] text-celestial-gold/50 mb-3">Tangible Resonance</p>
-            <h3 className="font-[family-name:var(--font-heading)] text-3xl text-warm-ivory italic">The difference in depth</h3>
+        <div className="mt-24 sm:mt-40 max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="readable-label mb-3">Tangible Resonance</p>
+            <h3 className="font-[family-name:var(--font-heading)] text-4xl text-warm-ivory italic">The difference in depth</h3>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* The "Before" - Surface */}
-            <div className="opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700">
-               <div className="glass-card p-6 border-white/5 relative overflow-hidden">
-                  <div className="text-[8px] font-mono tracking-widest text-white/20 mb-4 uppercase">Surface Reading</div>
-                  <h4 className="font-serif text-lg text-white mb-4 italic">Eight of Pentacles</h4>
-                  <p className="text-sm text-white/60 leading-relaxed italic">
+            <div className="opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700">
+               <div className="readable-card p-8 relative overflow-hidden bg-black/40 border-white/10">
+                  <div className="readable-label text-[10px] mb-6 opacity-40">Surface Reading</div>
+                  <h4 className="font-serif text-xl text-white mb-4 italic">Eight of Pentacles</h4>
+                  <p className="text-base text-white/70 leading-relaxed italic">
                     &ldquo;You are entering a period of diligent work and skill development. Focus on the details of your craft.&rdquo;
                   </p>
-                  <div className="mt-6 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                  <p className="mt-4 text-[10px] text-white/20 italic">End of interpretation.</p>
+                  <div className="mt-8 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                  <p className="mt-4 text-[10px] readable-muted italic">End of interpretation.</p>
                </div>
             </div>
 
             {/* The "After" - Deeper Resonance */}
             <div className="relative">
-               <div className="absolute -inset-4 bg-celestial-gold/5 blur-3xl rounded-full" />
-               <div className="relative glass-card p-8 border-celestial-gold/20 shadow-[0_0_50px_rgba(212,175,55,0.1)]">
-                  <div className="flex justify-between items-start mb-6">
-                    <div className="text-[9px] font-mono tracking-widest text-celestial-gold uppercase">Deeper Resonance</div>
-                    <div className="text-[10px] text-cosmic-teal font-mono">✦ SYNCHRONIZED</div>
+               <div className="absolute -inset-6 bg-celestial-gold/5 blur-[80px] rounded-full" />
+               <div className="relative readable-card p-10 border-celestial-gold/40 shadow-[0_0_60px_rgba(212,175,55,0.15)] bg-void-black/90">
+                  <div className="flex justify-between items-start mb-8">
+                    <div className="readable-label text-[10px]">Deeper Resonance</div>
+                    <div className="text-[11px] text-cosmic-teal font-mono font-bold tracking-widest">✦ SYNCHRONIZED</div>
                   </div>
-                  <h4 className="font-serif text-2xl text-warm-ivory mb-4 italic">Eight of Pentacles</h4>
-                  <div className="space-y-4">
-                    <p className="text-sm text-warm-ivory/80 leading-relaxed">
+                  <h4 className="font-serif text-3xl text-warm-ivory mb-6 italic">Eight of Pentacles</h4>
+                  <div className="space-y-6">
+                    <p className="text-[0.95rem] readable-primary leading-relaxed">
                       &ldquo;As Saturn (Structure) squares your Natal Mercury, this work is not just about skill — it is about <strong>reclaiming your voice.</strong>&rdquo;
                     </p>
-                    <p className="text-sm text-warm-ivory/80 leading-relaxed border-l border-celestial-gold/20 pl-4 py-1 italic">
+                    <p className="text-[0.95rem] readable-secondary leading-relaxed border-l-2 border-celestial-gold/30 pl-5 py-1 italic">
                       The current transit of Jupiter suggests that this focus will yield an unexpected expansion in your 10th house by late September.
                     </p>
-                    <p className="text-sm text-warm-ivory/80 leading-relaxed">
+                    <p className="text-[0.95rem] readable-primary leading-relaxed">
                       This is the moment to transition from practice into public mastery. The stars suggest the structure is now ready to hold the weight of your ambition.
                     </p>
                   </div>
-                  <div className="mt-8 flex items-center gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-celestial-gold animate-pulse" />
-                    <p className="text-[10px] font-mono text-celestial-gold/40 uppercase tracking-widest">Interpretation continues...</p>
+                  <div className="mt-10 flex items-center gap-4">
+                    <div className="w-2 h-2 rounded-full bg-celestial-gold animate-pulse" />
+                    <p className="readable-label text-[10px] opacity-40">Interpretation continues...</p>
                   </div>
                </div>
             </div>
           </div>
           
-          <p className="text-center mt-12 text-[10px] text-muted-lavender/40 italic">
+          <p className="text-center mt-16 text-xs readable-muted italic">
             Sample shown for illustrative purposes. Actual readings vary based on your specific birth moment.
           </p>
         </div>
@@ -467,39 +468,40 @@ function Cell({ value, gold = false }: { value: string | boolean; gold?: boolean
 function FeatureMatrix() {
   const { t, locale } = useLocale();
   return (
-    <div className="mt-20 sm:mt-24">
-      <p className="text-center text-xs tracking-[0.28em] uppercase text-celestial-gold/75 mb-6">
+    <div className="mt-20 sm:mt-24 relative z-10">
+      <div className="absolute inset-0 content-scrim -z-10" />
+      <p className="text-center readable-label mb-6">
         <span aria-hidden className="mr-2">✦</span>
         {t("nav_cosmos")}
       </p>
 
       <div
-        className="glass-card overflow-x-auto"
-        style={{ border: "1px solid var(--c-border, rgba(200,185,255,0.10))" }}
+        className="readable-panel overflow-x-auto rounded-2xl"
+        style={{ background: 'rgba(5, 3, 20, 0.8)' }}
       >
-        <div className="matrix" role="table" aria-label="Plan feature comparison">
+        <div className="matrix readable-table" role="table" aria-label="Plan feature comparison">
           {/* Header */}
-          <div className="matrix-row matrix-head" role="row">
-            <div className="matrix-cell matrix-cell-feature" role="columnheader">{t("nav_cosmos")}</div>
-            <div className="matrix-cell matrix-cell-center" role="columnheader">{t("price_free")}</div>
-            <div className="matrix-cell matrix-cell-center" role="columnheader">{(t("price_insight") as string).substring(0, 4)}.</div>
+          <div className="matrix-row matrix-head" role="row" style={{ background: 'rgba(255,255,255,0.05)' }}>
+            <div className="matrix-cell matrix-cell-feature readable-label text-[9px]" role="columnheader">{t("nav_cosmos")}</div>
+            <div className="matrix-cell matrix-cell-center readable-label text-[9px]" role="columnheader">{t("price_free")}</div>
+            <div className="matrix-cell matrix-cell-center readable-label text-[9px]" role="columnheader">{(t("price_insight") as string).substring(0, 4)}.</div>
             <div className="matrix-cell matrix-cell-center matrix-cell-vip" role="columnheader">
-              <span className="text-celestial-gold font-[family-name:var(--font-heading)] italic">{(t("price_premium") as string).substring(0, 4)}.</span>
+              <span className="text-celestial-gold font-[family-name:var(--font-heading)] italic font-bold">{(t("price_premium") as string).substring(0, 4)}.</span>
             </div>
-            <div className="matrix-cell matrix-cell-center" role="columnheader">{t("price_vip")}</div>
+            <div className="matrix-cell matrix-cell-center readable-label text-[9px]" role="columnheader">{t("price_vip")}</div>
           </div>
 
           {MATRIX.map((row, i) => (
             <div key={i} style={{ display: "contents" }}>
               {row.category && (
-                <div className="matrix-row matrix-category" role="row">
-                  <div className="matrix-cell" role="cell" style={{ gridColumn: "1 / -1" }}>
+                <div className="matrix-row matrix-category" role="row" style={{ background: 'rgba(212, 175, 55, 0.03)' }}>
+                  <div className="matrix-cell font-bold" role="cell" style={{ gridColumn: "1 / -1" }}>
                     {row.category}
                   </div>
                 </div>
               )}
-              <div className="matrix-row" role="row">
-                <div className="matrix-cell matrix-cell-feature" role="cell">{row.feature}</div>
+              <div className="matrix-row hover:bg-white/[0.02] transition-colors" role="row">
+                <div className="matrix-cell matrix-cell-feature font-medium readable-primary" role="cell">{row.feature}</div>
                 <div className="matrix-cell matrix-cell-center" role="cell"><Cell value={row.free} /></div>
                 <div className="matrix-cell matrix-cell-center" role="cell"><Cell value={row.insight} /></div>
                 <div className="matrix-cell matrix-cell-center matrix-cell-vip" role="cell"><Cell value={row.premium} gold /></div>
@@ -513,76 +515,63 @@ function FeatureMatrix() {
       <style>{`
         .matrix {
           width: 100%;
+          min-width: 600px;
           font-family: var(--font-body, system-ui), sans-serif;
         }
         .matrix-row {
           display: grid;
           grid-template-columns: 2.2fr repeat(4, 1fr);
           align-items: center;
-          border-bottom: 1px solid var(--c-border, rgba(200,185,255,0.10));
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         .matrix-row:last-of-type { border-bottom: none; }
-        .matrix-head {
-          background: rgba(255,255,255,0.02);
-        }
-        .matrix-head .matrix-cell {
-          font-size: 0.62rem;
-          font-weight: 600;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: rgba(196,185,228,0.75);
-          padding: 1rem 0.75rem;
-        }
+        
         .matrix-category .matrix-cell {
-          padding: 1.1rem 1rem 0.4rem;
+          padding: 1.25rem 1.25rem 0.5rem;
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
           font-style: italic;
-          font-size: 0.78rem;
+          font-size: 0.9rem;
           letter-spacing: 0.04em;
-          color: rgba(232, 201, 106, 0.85);
+          color: var(--c-gold);
         }
         .matrix-cell {
-          padding: 0.85rem 0.75rem;
-          font-size: 0.78rem;
+          padding: 1rem 0.75rem;
+          font-size: 0.82rem;
           line-height: 1.35;
-          color: var(--c-text-mid, rgba(196,185,228,0.85));
         }
         .matrix-cell-feature {
-          color: var(--c-text-primary, rgba(240,236,255,0.95));
+          color: var(--c-text-primary);
         }
         .matrix-cell-center { text-align: center; }
         .matrix-cell-vip { background: rgba(212, 175, 55, 0.04); }
 
         .compare-yes {
           display: inline-block;
-          font-size: 1rem;
-          color: rgba(78, 205, 196, 0.9);
-          font-weight: 600;
+          font-size: 1.1rem;
+          color: #4ECDC4;
+          font-weight: bold;
         }
         .compare-yes-gold {
-          color: rgba(232, 201, 106, 0.95);
-          text-shadow: 0 0 10px rgba(212, 175, 55, 0.28);
+          color: var(--c-gold);
+          text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
         }
         .compare-no {
-          color: var(--c-text-muted, rgba(190,180,225,0.42));
-          opacity: 0.7;
+          color: var(--c-text-tertiary);
+          font-weight: 300;
         }
-        .compare-text { font-size: 0.72rem; }
-        .compare-text-muted { color: var(--c-text-muted, rgba(190,180,225,0.78)); }
+        .compare-text { font-size: 0.75rem; font-weight: 500; }
+        .compare-text-muted { color: var(--c-text-secondary); }
         .compare-text-vip {
-          color: rgba(232, 201, 106, 0.95);
+          color: var(--c-gold);
           font-family: var(--font-heading, 'Cormorant Garamond'), serif;
           font-style: italic;
+          font-size: 0.9rem;
+          font-weight: 600;
         }
         @media (max-width: 640px) {
           .matrix-head .matrix-cell { font-size: 0.55rem; padding: 0.8rem 0.4rem; }
           .matrix-cell { font-size: 0.7rem; padding: 0.7rem 0.4rem; }
           .matrix-cell-feature { font-size: 0.68rem; }
-        }
-        @media (max-width: 720px) {
-          .matrix-cell, .matrix-head .matrix-cell { padding: 0.7rem 0.7rem; font-size: 0.78rem; }
-          .matrix-head .matrix-cell { font-size: 0.6rem; }
-          .matrix-category .matrix-cell { font-size: 0.72rem; }
         }
       `}</style>
     </div>
@@ -601,19 +590,20 @@ function Addons() {
       addon_compatibility: "price_i2",
       addon_celtic_cross: "price_i3",
       addon_year_ahead: "price_i4",
-      addon_solar_return: "price_i4", // Reusing year ahead for now or needs a new key
+      addon_solar_return: "price_i4", 
       addon_video_reading: "price_i5",
     };
     return t(map[key] as keyof Translations);
   };
 
   return (
-    <div className="mt-16 sm:mt-20">
-      <p className="text-center text-xs tracking-[0.28em] uppercase text-celestial-gold/75 mb-3">
+    <div className="mt-16 sm:mt-24 relative z-10">
+      <div className="absolute inset-0 content-scrim -z-10" />
+      <p className="text-center readable-label mb-3">
         <span aria-hidden className="mr-2">✦</span>
         {t("price_individual")}
       </p>
-      <p className="text-center text-muted-lavender/80 text-sm mb-8 max-w-xl mx-auto">
+      <p className="text-center readable-secondary text-sm mb-12 max-w-xl mx-auto font-medium">
         {t("cta_subtitle")}
       </p>
       <div className="addons-grid">
@@ -622,18 +612,17 @@ function Addons() {
           return (
             <div
               key={key}
-              className="glass-card p-5 flex flex-col gap-3 addon-card"
-              style={{ border: "1px solid rgba(200,185,255,0.10)" }}
+              className="readable-card p-6 flex flex-col gap-4 addon-card hover:border-celestial-gold/40 transition-colors"
             >
               <div className="flex items-baseline justify-between gap-3">
-                <h4 className="font-[family-name:var(--font-heading)] text-lg text-warm-ivory">
+                <h4 className="font-[family-name:var(--font-heading)] text-xl text-warm-ivory font-semibold">
                   {getAddonName(key)}
                 </h4>
-                <span className="text-celestial-gold font-semibold whitespace-nowrap">
+                <span className="text-celestial-gold font-bold text-lg whitespace-nowrap">
                   {fmtPrice(addon.price)}
                 </span>
               </div>
-              <CheckoutButton priceKey={key} variant="glass" size="sm" className="w-full justify-center">
+              <CheckoutButton priceKey={key} variant="glass" size="md" className="w-full justify-center shadow-md border-white/20">
                 {(t("price_pay") as string).split(" ")[0]} {fmtPrice(addon.price)}
               </CheckoutButton>
             </div>
@@ -645,7 +634,7 @@ function Addons() {
         .addons-grid {
           display: grid;
           grid-template-columns: repeat(1, 1fr);
-          gap: 1rem;
+          gap: 1.5rem;
           max-width: 1000px;
           margin: 0 auto;
         }

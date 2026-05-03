@@ -155,6 +155,7 @@ export default function CompatibilityChecker() {
     <section
       ref={sectionRef}
       id="compatibility"
+      className="relative overflow-hidden"
       style={{
         padding: "5rem 1.5rem",
         maxWidth: "600px",
@@ -164,18 +165,21 @@ export default function CompatibilityChecker() {
         transition: `opacity 0.8s ${EASE}, transform 0.8s ${EASE}`,
       }}
     >
+      {/* Readability Backing */}
+      <div className="absolute inset-0 content-scrim pointer-events-none -z-10" />
+
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-        <div className="star-divider" style={{ marginBottom: "1.5rem" }}>&#10022;</div>
+        <div className="star-divider text-celestial-gold" style={{ marginBottom: "1.5rem" }}>&#10022;</div>
         <h2 style={{
           fontFamily: "var(--font-heading)", fontSize: "clamp(1.6rem, 4vw, 2.2rem)",
-          fontWeight: 600, marginBottom: "0.75rem",
+          fontWeight: 600, marginBottom: "1rem",
         }}>
-          <span className="text-gold-gradient">{t("compat_title")}</span>
+          <span className="text-gold-gradient drop-shadow-sm">{t("compat_title")}</span>
         </h2>
-        <p style={{
-          fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 300,
-          color: "rgba(196,185,228,0.7)", maxWidth: "400px", margin: "0 auto",
+        <p className="readable-secondary" style={{
+          fontFamily: "var(--font-body)", fontSize: "0.95rem", fontWeight: 400,
+          maxWidth: "400px", margin: "0 auto", lineHeight: 1.6
         }}>
           {t("compat_subtitle")}
         </p>
@@ -183,12 +187,12 @@ export default function CompatibilityChecker() {
 
       {/* Inputs */}
       <div style={{
-        display: "flex", alignItems: "center", gap: "1rem",
-        justifyContent: "center", marginBottom: "2rem",
+        display: "flex", alignItems: "center", gap: "1.25rem",
+        justifyContent: "center", marginBottom: "2.5rem",
       }}>
         <BirthdayInput value={bdayA} onChange={setBdayA} label={t("compat_person1")} />
         <span style={{
-          fontSize: "1.2rem", color: "rgba(212,175,55,0.4)", marginTop: "1rem",
+          fontSize: "1.2rem", color: "rgba(212,175,55,0.6)", marginTop: "1.5rem",
         }}>&#10022;</span>
         <BirthdayInput value={bdayB} onChange={setBdayB} label={t("compat_person2")} />
       </div>
@@ -199,52 +203,45 @@ export default function CompatibilityChecker() {
           {/* Sign badges */}
           <div style={{
             display: "flex", alignItems: "center", justifyContent: "center",
-            gap: "1.5rem", marginBottom: "2rem",
+            gap: "2rem", marginBottom: "2.5rem",
           }}>
-            <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: "2rem", marginBottom: "0.25rem" }}>{signA.glyph}</div>
-              <div style={{
-                fontFamily: "var(--font-accent)", fontSize: "0.9rem",
-                color: "rgba(230,220,255,0.85)", letterSpacing: "0.06em",
-              }}>{signA.name}</div>
+            <div className="readable-panel p-4 rounded-2xl flex flex-col items-center min-w-[100px] border-[#d4af37]/30 shadow-xl" style={{ background: 'rgba(255,255,255,0.03)' }}>
+              <div style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>{signA.glyph}</div>
+              <div className="readable-label text-[9px]">{signA.name}</div>
             </div>
             <div style={{
-              fontFamily: "var(--font-accent)", fontSize: "1.8rem", fontWeight: 300,
-              color: "rgba(212,175,55,0.5)",
+              fontFamily: "var(--font-accent)", fontSize: "2rem", fontWeight: 300,
+              color: "rgba(212,175,55,0.7)",
             }}>&times;</div>
-            <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: "2rem", marginBottom: "0.25rem" }}>{signB.glyph}</div>
-              <div style={{
-                fontFamily: "var(--font-accent)", fontSize: "0.9rem",
-                color: "rgba(230,220,255,0.85)", letterSpacing: "0.06em",
-              }}>{signB.name}</div>
+            <div className="readable-panel p-4 rounded-2xl flex flex-col items-center min-w-[100px] border-[#d4af37]/30 shadow-xl" style={{ background: 'rgba(255,255,255,0.03)' }}>
+              <div style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>{signB.glyph}</div>
+              <div className="readable-label text-[9px]">{signB.name}</div>
             </div>
           </div>
 
           {/* Overall score */}
-          <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+          <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
             <div style={{
-              fontFamily: "var(--font-accent)", fontSize: "3.5rem", fontWeight: 300,
-              color: "rgba(240,236,255,0.92)",
-              textShadow: "0 0 30px rgba(200,180,255,0.2)",
+              fontFamily: "var(--font-heading)", fontSize: "4.5rem", fontWeight: 400,
+              color: "#f5f2e1",
+              textShadow: "0 0 40px rgba(212,175,55,0.25)",
               lineHeight: 1,
+              fontStyle: 'italic'
             }}>{overall}%</div>
-            <div style={{
-              fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 500,
-              letterSpacing: "0.2em", textTransform: "uppercase",
-              color: "rgba(180,170,210,0.45)", marginTop: "0.3rem",
-            }}>{t("compat_overall")}</div>
+            <div className="readable-label mt-4" style={{ fontSize: '11px', opacity: 1 }}>{t("compat_overall")}</div>
           </div>
 
           {/* Score bars */}
-          <div style={{
-            display: "flex", flexDirection: "column", gap: "0.75rem",
-            marginBottom: "2rem",
-            padding: "1.25rem 1.5rem",
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(200,185,255,0.08)",
-            borderRadius: "1rem",
-          }}>
+          <div 
+            className="readable-panel"
+            style={{
+              display: "flex", flexDirection: "column", gap: "1rem",
+              marginBottom: "2.5rem",
+              padding: "1.75rem 2rem",
+              background: "rgba(5, 3, 20, 0.65)",
+              borderRadius: "1.25rem",
+            }}
+          >
             <ScoreBar label={t("compat_love")} score={scores.love} delay={200} color="#E8524A" />
             <ScoreBar label={t("compat_comm")} score={scores.communication} delay={400} color="#7B68EE" />
             <ScoreBar label={t("compat_trust")} score={scores.trust} delay={600} color="#4ECDC4" />
@@ -252,10 +249,11 @@ export default function CompatibilityChecker() {
           </div>
 
           {/* Verdict */}
-          <p style={{
-            fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 300,
-            lineHeight: 1.7, color: "rgba(196,185,228,0.72)",
+          <p className="text-scrim" style={{
+            fontFamily: "var(--font-body)", fontSize: "1rem", fontWeight: 400,
+            lineHeight: 1.7, color: "var(--c-text-primary)",
             textAlign: "center", fontStyle: "italic",
+            padding: '0 1rem'
           }}>
             &ldquo;{getVerdict(overall)}&rdquo;
           </p>

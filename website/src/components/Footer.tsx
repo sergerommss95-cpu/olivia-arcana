@@ -29,11 +29,11 @@ export default function Footer() {
                 Olivia Arcana
               </span>
             </div>
-            <p className="text-muted-lavender text-sm leading-relaxed max-w-md">
+            <p className="readable-secondary text-sm leading-relaxed max-w-md">
               {t("foot_desc")}
             </p>
-            <p className="text-muted-lavender/40 text-xs mt-4 leading-relaxed">
-              Astrology and tarot for entertainment & self-reflection. <a href="/disclaimer" className="hover:text-celestial-gold/70 transition-colors">Read the full disclaimer</a>.
+            <p className="readable-muted text-xs mt-4 leading-relaxed">
+              Astrology and tarot for entertainment & self-reflection. <a href="/disclaimer" className="text-celestial-gold/80 hover:text-celestial-gold transition-colors font-medium underline underline-offset-4 decoration-white/10">Read the full disclaimer</a>.
             </p>
           </div>
 
@@ -90,11 +90,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-celestial-gold/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-muted-lavender/50 text-xs">
+        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="readable-muted text-xs font-medium">
             &copy; {new Date().getFullYear()} Olivia Arcana LLC. {t("foot_copyright")}
           </p>
-          <p className="text-muted-lavender/30 text-xs">
+          <p className="readable-muted text-[10px] opacity-60">
             {t("foot_data")}
           </p>
         </div>

@@ -71,17 +71,17 @@ export default function Surface({
   let look: React.CSSProperties = {};
   if (variant === "solid") {
     look = {
-      background: raised ? "var(--surface-raised, #151230)" : "var(--surface-solid, #0e0b24)",
-      border: "1px solid rgba(200,185,255,0.08)",
-      boxShadow: "0 2px 28px rgba(0,0,0,0.35)",
+      background: raised ? "rgba(21, 18, 48, 0.95)" : "rgba(14, 11, 36, 0.98)",
+      border: "1px solid rgba(255, 255, 255, 0.12)",
+      boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
     };
   } else if (variant === "veil") {
     look = {
-      background: "var(--glass-bg, rgba(255,255,255,0.05))",
-      border: "1px solid var(--glass-border, rgba(255,255,255,0.09))",
-      backdropFilter: "var(--glass-blur, blur(18px) saturate(1.25))",
-      WebkitBackdropFilter: "var(--glass-blur, blur(18px) saturate(1.25))",
-      boxShadow: "0 2px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05)",
+      background: "rgba(8, 6, 26, 0.65)",
+      border: "1px solid rgba(255, 255, 255, 0.15)",
+      backdropFilter: "blur(24px) saturate(1.2)",
+      WebkitBackdropFilter: "blur(24px) saturate(1.2)",
+      boxShadow: "0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)",
     };
   } // "bare" → look stays {}
 
@@ -110,10 +110,10 @@ export function Eyebrow({
 } & React.HTMLAttributes<HTMLSpanElement>) {
   const toneColor =
     tone === "gold"
-      ? "rgba(232, 201, 106, 0.82)"
+      ? "rgba(232, 201, 106, 0.95)"
       : tone === "violet"
-      ? "rgba(178, 150, 240, 0.78)"
-      : "rgba(180, 170, 210, 0.55)";
+      ? "rgba(178, 150, 240, 0.88)"
+      : "rgba(196, 185, 228, 0.82)";
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const CustomTag = Tag as any;
   return (
@@ -149,16 +149,16 @@ export function Rule({
 }) {
   const lineColor =
     tone === "gold"
-      ? "rgba(212, 175, 55, 0.28)"
+      ? "rgba(212, 175, 55, 0.4)"
       : tone === "violet"
-      ? "rgba(160, 120, 255, 0.22)"
-      : "rgba(200, 190, 235, 0.14)";
+      ? "rgba(160, 120, 255, 0.35)"
+      : "rgba(200, 190, 235, 0.22)";
   const glyphColor =
     tone === "gold"
-      ? "rgba(232, 201, 106, 0.85)"
+      ? "rgba(232, 201, 106, 0.95)"
       : tone === "violet"
-      ? "rgba(178, 150, 240, 0.82)"
-      : "rgba(200, 190, 235, 0.55)";
+      ? "rgba(178, 150, 240, 0.88)"
+      : "rgba(196, 185, 228, 0.82)";
   return (
     <div
       aria-hidden

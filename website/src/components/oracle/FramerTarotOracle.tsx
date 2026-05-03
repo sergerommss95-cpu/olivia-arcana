@@ -560,7 +560,7 @@ export default function FramerTarotOracle() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.0, duration: 1.0 }}
-              className="absolute bottom-0 inset-x-0 h-[40vh] bg-gradient-to-t from-black via-[#030208]/90 to-transparent z-40 flex items-end justify-center pb-16 pointer-events-none"
+              className="absolute bottom-0 inset-x-0 h-[45vh] bg-gradient-to-t from-black via-[#030208]/95 to-transparent z-40 flex items-end justify-center pb-16 pointer-events-none"
             >
                  <div className="flex flex-col items-center gap-12 w-full max-w-6xl">
                    <m.div
@@ -569,8 +569,8 @@ export default function FramerTarotOracle() {
                      transition={{ delay: 2.5, duration: 1.0 }}
                      className="flex flex-col items-center gap-2"
                    >
-                     <span className="text-[10px] font-mono tracking-[0.4em] uppercase text-[#d4af37]/60">Surface Pattern</span>
-                     <h2 className="font-serif text-3xl md:text-5xl text-warm-ivory italic">The reading is clear.</h2>
+                     <span className="readable-label text-[#d4af37] opacity-100">Surface Pattern</span>
+                     <h2 className="font-serif text-3xl md:text-5xl text-[#f5f2e1] italic drop-shadow-2xl">The reading is clear.</h2>
                    </m.div>
 
                    <div className="flex gap-4 md:gap-24 pointer-events-auto text-center px-4 justify-center">
@@ -579,10 +579,10 @@ export default function FramerTarotOracle() {
                       const label = idx === 0 ? "The Past" : idx === 1 ? "The Present" : "The Path";
                       return (
                         <div key={id} className="flex flex-col items-center w-[110px] md:w-[180px]">
-                          <span className="text-[8px] md:text-[9px] tracking-[0.3em] uppercase text-[#d4af37] mb-3 opacity-80">{label}</span>
-                          <div className="h-px w-8 md:w-12 bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent mb-3" />
-                          <h3 className="font-serif text-base md:text-2xl text-white mb-1 leading-tight">{card?.name}</h3>
-                          <p className="text-[8px] md:text-[10px] tracking-widest text-white/40 uppercase">{card?.arcana} Arcana</p>
+                          <span className="readable-label text-[9px] mb-3 !opacity-100">{label}</span>
+                          <div className="h-px w-8 md:w-12 bg-gradient-to-r from-transparent via-[#d4af37]/60 to-transparent mb-3" />
+                          <h3 className="font-serif text-lg md:text-2xl text-white mb-1 leading-tight drop-shadow-lg">{card?.name}</h3>
+                          <p className="readable-label text-[8px] md:text-[10px] !text-white/40">{card?.arcana} Arcana</p>
                         </div>
                       );
                     })}
@@ -595,10 +595,10 @@ export default function FramerTarotOracle() {
                    className="pointer-events-auto flex flex-col items-center gap-6"
                  >
                     <div className="flex flex-col items-center gap-4">
-                      <MagneticButton variant="gold" href="/pricing?from=oracle" size="md" className="shadow-[0_0_50px_rgba(212,175,55,0.15)]">
+                      <MagneticButton variant="gold" href="/pricing?from=oracle" size="md" className="shadow-[0_0_50px_rgba(212,175,55,0.25)] font-bold">
                         Reveal the deeper resonance &rarr;
                       </MagneticButton>
-                      <p className="text-[0.65rem] font-mono uppercase tracking-[0.25em] text-[#d4af37]/40">
+                      <p className="readable-label text-[10px] !text-[#d4af37]/60">
                         Go deeper into this pattern
                       </p>
                     </div>

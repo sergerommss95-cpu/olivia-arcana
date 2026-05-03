@@ -59,15 +59,17 @@ function Tab({
   onClick?: () => void;
   active?: boolean;
 }) {
-  const activeColor = active ? "rgba(232, 201, 106, 0.95)" : "rgba(220, 212, 240, 0.6)";
+  const activeColor = active ? "rgba(245, 242, 225, 1)" : "rgba(196, 185, 228, 0.78)";
+  const indicatorColor = active ? "rgba(232, 201, 106, 1)" : "transparent";
+  
   const content = (
     <>
       <span style={{ color: activeColor, display: "inline-flex", alignItems: "center" }}>{icon}</span>
       <span
         style={{
           fontFamily: "var(--font-body, system-ui), sans-serif",
-          fontSize: "0.56rem",
-          fontWeight: 600,
+          fontSize: "0.62rem",
+          fontWeight: 700,
           letterSpacing: "0.14em",
           textTransform: "uppercase",
           color: activeColor,
@@ -86,8 +88,8 @@ function Tab({
             width: "4px",
             height: "4px",
             borderRadius: "50%",
-            background: "rgba(232, 201, 106, 0.95)",
-            boxShadow: "0 0 8px rgba(232, 201, 106, 0.6)",
+            background: indicatorColor,
+            boxShadow: "0 0 10px rgba(232, 201, 106, 0.8)",
           }}
         />
       )}
@@ -143,7 +145,7 @@ export default function MobileBottomNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-40 block md:hidden bg-void-black/82 backdrop-blur-xl saturate-[1.1] border-t border-celestial-gold/18"
+      className="fixed bottom-0 left-0 right-0 z-40 block md:hidden bg-void-black/95 backdrop-blur-3xl saturate-[1.1] border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]"
       aria-label="Primary"
       style={{
         paddingBottom: "env(safe-area-inset-bottom, 0)",

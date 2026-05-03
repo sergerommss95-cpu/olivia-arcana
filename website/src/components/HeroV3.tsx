@@ -194,12 +194,12 @@ export default function HeroV3() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8, ease: EASE }}
-            className="flex flex-col gap-2 mb-8"
+            className="flex flex-col gap-2 mb-8 relative z-10"
           >
-            <p className="max-w-md md:max-w-lg font-[family-name:var(--font-body)] text-base md:text-lg leading-relaxed text-warm-ivory/60 font-light">
+            <p className="max-w-md md:max-w-lg font-[family-name:var(--font-body)] text-base md:text-lg leading-relaxed text-warm-ivory/85 font-medium drop-shadow-md">
               {t("hero_subtitle")}
             </p>
-            <p className="text-[0.65rem] font-[family-name:var(--font-mono)] uppercase tracking-[0.25em] text-celestial-gold/40">
+            <p className="text-[0.65rem] font-[family-name:var(--font-mono)] uppercase tracking-[0.25em] text-celestial-gold/75 font-bold">
               Personal, reflective readings. Built for clarity, not noise.
             </p>
           </motion.div>
@@ -208,20 +208,20 @@ export default function HeroV3() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.1, ease: EASE }}
-            className="flex flex-col sm:flex-row items-center gap-8"
+            className="flex flex-col sm:flex-row items-center gap-8 relative z-10"
           >
             <div className="relative group">
-              <div className="absolute inset-0 bg-celestial-gold/10 blur-2xl rounded-full scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
-              <MagneticButton variant="gold" onClick={() => setIsAsking(true)} size="lg" className="relative z-10">
+              <div className="absolute inset-0 bg-celestial-gold/20 blur-2xl rounded-full scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+              <MagneticButton variant="gold" onClick={() => setIsAsking(true)} size="lg" className="relative z-10 shadow-2xl font-bold">
                 {t("hero_consult_cta")}
               </MagneticButton>
             </div>
             
             <TransitionLink
               href="/sample"
-              className="group text-sm font-medium text-warm-ivory/30 hover:text-celestial-gold transition-colors duration-500 tracking-[0.2em] uppercase flex items-center gap-3"
+              className="group text-sm font-bold text-warm-ivory/70 hover:text-celestial-gold transition-colors duration-500 tracking-[0.2em] uppercase flex items-center gap-3"
             >
-              <span className="w-6 h-px bg-warm-ivory/10 group-hover:bg-celestial-gold/30 transition-colors" />
+              <span className="w-6 h-px bg-warm-ivory/30 group-hover:bg-celestial-gold/50 transition-colors" />
               {t("hero_sample_cta")}
             </TransitionLink>
           </motion.div>
@@ -370,7 +370,7 @@ export default function HeroV3() {
                       placeholder={t("witness_input_placeholder")}
                       value={question}
                       onChange={(e) => setQuestion(e.target.value)}
-                      className="w-full bg-transparent px-5 py-4 text-warm-ivory placeholder:text-warm-ivory/10 outline-none font-[family-name:var(--font-mono)] text-sm tracking-tight"
+                      className="w-full bg-transparent px-5 py-4 text-warm-ivory placeholder:text-warm-ivory/40 outline-none font-[family-name:var(--font-mono)] text-sm tracking-tight"
                     />
                     <motion.button
                       whileHover={{ scale: 1.1, backgroundColor: "rgba(212, 175, 55, 0.2)" }}

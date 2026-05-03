@@ -95,11 +95,12 @@ const CosmicField = forwardRef<HTMLInputElement, CosmicFieldProps>(function Cosm
         }
         .cosmic-field-label {
           font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.6rem;
-          font-weight: 500;
-          letter-spacing: 0.18em;
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: var(--c-text-muted, rgba(190, 180, 225, 0.72));
+          color: var(--c-gold);
+          opacity: 0.85;
         }
         .cosmic-field-label-sr {
           position: absolute;
@@ -115,11 +116,11 @@ const CosmicField = forwardRef<HTMLInputElement, CosmicFieldProps>(function Cosm
         .cosmic-field-input {
           width: 100%;
           font-family: var(--font-heading, "Cormorant Garamond"), Georgia, serif;
-          font-size: 1.05rem;
+          font-size: 1.1rem;
           letter-spacing: 0.04em;
           color: rgba(245, 240, 232, 0.95);
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid var(--c-border, rgba(200, 185, 255, 0.12));
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
           border-radius: 9999px;
           padding: 0.75rem 1.15rem;
           min-height: 48px;
@@ -141,7 +142,7 @@ const CosmicField = forwardRef<HTMLInputElement, CosmicFieldProps>(function Cosm
           border-radius: 0.9rem;
         }
         .cosmic-field-input::placeholder {
-          color: rgba(245, 240, 232, 0.38);
+          color: rgba(245, 240, 232, 0.5);
           font-style: italic;
         }
         .cosmic-field-input:focus-visible {
@@ -156,9 +157,9 @@ const CosmicField = forwardRef<HTMLInputElement, CosmicFieldProps>(function Cosm
         }
         .cosmic-field-hint {
           font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.78rem;
+          font-size: 0.82rem;
           line-height: 1.4;
-          color: var(--c-text-muted, rgba(190, 180, 225, 0.72));
+          color: var(--c-text-secondary);
           margin: 0;
         }
         .cosmic-field-error {

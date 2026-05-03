@@ -94,30 +94,28 @@ export default function Faq() {
     >
       <div style={{ textAlign: "center", marginBottom: "clamp(2.5rem, 5vw, 4rem)" }}>
         <p
+          className="readable-label"
           style={{
-            fontFamily: "var(--font-body, system-ui), sans-serif",
             fontSize: "0.72rem",
-            fontWeight: 500,
-            letterSpacing: "0.28em",
-            textTransform: "uppercase",
-            color: "rgba(232, 201, 106, 0.78)",
-            margin: 0,
-            marginBottom: "0.75rem",
+            color: "var(--c-gold)",
+            opacity: 1,
+            marginBottom: "1rem",
           }}
         >
-          <span aria-hidden style={{ marginRight: "0.6em", opacity: 0.9 }}>✦</span>
+          <span aria-hidden style={{ marginRight: "0.6em" }}>✦</span>
           Questions asked in advance
         </p>
         <h2
           id="faq-heading"
           style={{
             fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-            fontSize: "clamp(2rem, 4.4vw, 2.9rem)",
+            fontSize: "clamp(2.2rem, 4.4vw, 3.2rem)",
             fontWeight: 500,
             fontStyle: "italic",
-            color: "var(--c-text-primary, #F5F0E8)",
+            color: "#f5f2e1",
             lineHeight: 1.1,
             margin: 0,
+            letterSpacing: "-0.01em"
           }}
         >
           Things people want to know before they stay.
@@ -127,32 +125,31 @@ export default function Faq() {
       <div role="list">
         {ROWS.map((row, i) => (
           <details key={i} role="listitem" className="faq-row">
-            <summary>
+            <summary className="hover:bg-white/[0.02] transition-colors px-2 -mx-2 rounded-lg">
               <span className="faq-q">{row.q}</span>
               <span aria-hidden className="faq-plus">+</span>
             </summary>
-            <div className="faq-a">{row.a}</div>
+            <div className="faq-a readable-secondary text-scrim">{row.a}</div>
           </details>
         ))}
       </div>
 
       <style>{`
         .faq-row {
-          border-top: 1px solid var(--c-border, rgba(200,185,255,0.10));
-          padding: 1.25rem 0.25rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 1.5rem 0.25rem;
         }
         .faq-row:last-of-type {
-          border-bottom: 1px solid var(--c-border, rgba(200,185,255,0.10));
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
         .faq-row summary {
           list-style: none;
           display: flex;
-          align-items: baseline;
+          align-items: center;
           justify-content: space-between;
           gap: 1.5rem;
           cursor: pointer;
-          padding: 0.25rem 0;
-          min-height: 44px;
+          min-height: 48px;
         }
         .faq-row summary::-webkit-details-marker {
           display: none;
@@ -160,18 +157,18 @@ export default function Faq() {
         .faq-q {
           font-family: var(--font-heading, 'Cormorant Garamond'), serif;
           font-style: italic;
-          font-weight: 500;
-          font-size: 1.2rem;
+          font-weight: 600;
+          font-size: 1.35rem;
           line-height: 1.35;
-          color: var(--c-text-primary, #F5F0E8);
-          letter-spacing: 0.002em;
+          color: #f5f2e1;
+          letter-spacing: 0.01em;
         }
         .faq-plus {
           flex: 0 0 auto;
           font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 1.4rem;
+          font-size: 1.6rem;
           font-weight: 300;
-          color: rgba(232, 201, 106, 0.85);
+          color: var(--c-gold);
           line-height: 1;
           transform: rotate(0deg);
           transition: transform 300ms ${EASE}, color 200ms ${EASE};
@@ -179,15 +176,15 @@ export default function Faq() {
         }
         .faq-row[open] .faq-plus {
           transform: rotate(45deg); /* plus → x */
-          color: rgba(232, 201, 106, 1);
+          color: #fff;
         }
         .faq-a {
-          margin-top: 0.9rem;
+          margin-top: 1.25rem;
           font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.98rem;
-          line-height: 1.7;
-          color: var(--c-text-mid, rgba(196,185,228,0.85));
-          max-width: 62ch;
+          font-size: 1.05rem;
+          line-height: 1.65;
+          max-width: 65ch;
+          padding-bottom: 0.5rem;
         }
         .faq-row summary:focus-visible {
           outline: 2px solid #E8C96A;
