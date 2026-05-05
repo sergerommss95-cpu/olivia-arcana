@@ -56,6 +56,38 @@ export interface Translations {
   witness_input_placeholder: string;
   witness_universe_prompt: string;
 
+  // Oracle Ritual
+  oracle_ritual_focus: string;
+  oracle_ritual_calibrating: string;
+  oracle_ritual_drawing: string;
+  oracle_ritual_interpreting: string;
+  oracle_focus_title: string;
+  oracle_focus_subtitle: string;
+  oracle_focus_cta: string;
+  oracle_preparing_pattern: string;
+  oracle_spread_forming: string;
+  oracle_spread_cta: string;
+  oracle_result_title: string;
+  oracle_result_cta: string;
+  oracle_result_subtitle: string;
+  oracle_result_disclaimer: string;
+
+  // FAQ
+  faq_eyebrow: string;
+  faq_title: string;
+  faq_q1: string;
+  faq_a1: string;
+  faq_q2: string;
+  faq_a2: string;
+  faq_q3: string;
+  faq_a3: string;
+  faq_q4: string;
+  faq_a4: string;
+  faq_q5: string;
+  faq_a5: string;
+  faq_q6: string;
+  faq_a6: string;
+
   // Cosmic Profile
   profile_your_cosmic_traits: string;
   profile_cosmic_energy: string;
@@ -295,7 +327,7 @@ const en: Translations = {
   hero_almanac_badge: "✦ Personal oracle",
   hero_title: "Your stars, translated clearly.",
   hero_subtitle: "Personal astrology and tarot readings shaped by your birth chart, current transits, and the question you bring.",
-  hero_trust_line: "Personal, reflective readings. Built for clarity, not noise.",
+  hero_trust_line: "Personal readings for clarity — without the noise.",
   hero_consult_cta: "Ask the Oracle",
   hero_sample_cta: "See today's reading",
   hero_enter_birthday: "Enter your birthday",
@@ -310,6 +342,38 @@ const en: Translations = {
   witness_status_computing: "Reading...",
   witness_input_placeholder: "What seeks clarity?",
   witness_universe_prompt: "What does the universe want me to know?",
+
+  // Oracle Ritual
+  oracle_ritual_focus: "Focus",
+  oracle_ritual_calibrating: "Calibrating",
+  oracle_ritual_drawing: "Drawing",
+  oracle_ritual_interpreting: "Interpreting",
+  oracle_focus_title: "Hold one question in mind.",
+  oracle_focus_subtitle: "Choose the thread you want to follow.",
+  oracle_focus_cta: "Begin the Draw",
+  oracle_preparing_pattern: "Listening for the pattern…",
+  oracle_spread_forming: "The pattern is forming.",
+  oracle_spread_cta: "Reveal Truth",
+  oracle_result_title: "The reading is clear.",
+  oracle_result_cta: "Reveal the deeper resonance",
+  oracle_result_subtitle: "Go deeper into this pattern",
+  oracle_result_disclaimer: "Expanded readings add celestial context, precise timing, and the symbolic connections between your cards and your birth chart.",
+
+  // FAQ
+  faq_eyebrow: "Questions",
+  faq_title: "Simple answers before you choose.",
+  faq_q1: "Is this actually astrology, or just generic horoscopes?",
+  faq_a1: "It uses your birth data when you provide it, then reads chart patterns, current timing, and tarot symbols together. It is reflective guidance, not a fixed prediction.",
+  faq_q2: "What is free?",
+  faq_a2: "You can start with the Card of the Day, basic chart context, and a few Oracle questions. No payment is required to try it.",
+  faq_q3: "What changes when I pay?",
+  faq_a3: "Paid plans add more Oracle questions, fuller natal chart readings, compatibility, transit timing, and deeper tarot spreads.",
+  faq_q4: "Is this a prediction?",
+  faq_a4: "No. Olivia Arcana does not promise outcomes. The readings are symbolic prompts for self-reflection and decision-making.",
+  faq_q5: "Is my information private?",
+  faq_a5: "Your birth data and Oracle conversations stay private to your account. We do not sell your personal readings.",
+  faq_q6: "Can I cancel my plan?",
+  faq_a6: "Yes. You can cancel from your billing dashboard and keep access until the end of the current billing period.",
 
   profile_your_cosmic_traits: "Your Cosmic Traits", profile_cosmic_energy: "Cosmic Energy Today",
   profile_best_match: "Best Cosmic Match", profile_lucky_numbers: "Lucky Numbers",
@@ -441,46 +505,34 @@ const en: Translations = {
   test_3_name: "Elena K.", test_3_sign: "\u2652 Aquarius Sun, \u264B Cancer Moon",
   // Pricing
   price_eyebrow: "Pricing", price_title: "Unlock Your Full Chart",
-  price_free: "Free", price_free_desc: "Begin the journey", price_forever: "forever",
-  price_insight: "Insight", price_insight_desc: "Daily companionship",
-  price_premium: "Premium", price_premium_desc: "The full chart, the full story",
-  price_vip: "VIP", price_vip_desc: "A real astrologer in your pocket", price_popular: "Most Popular",
+  price_free: "Surface Reading", price_free_desc: "Begin the journey", price_forever: "forever",
+  price_insight: "Deeper Pattern", price_insight_desc: "Daily companionship",
+  price_premium: "Celestial Resonance", price_premium_desc: "The full story",
+  price_vip: "Direct Cosmic Guidance", price_vip_desc: "Direct expert line", price_popular: "Most Popular",
   price_month: "/month", price_annual: "or $65/year (2 months free)",
   price_f_free: [
-    "Card of the Day",
-    "Basic sign profile",
-    "Starter Academy lessons",
-    "3 oracle questions / month",
-    "Current sky overview"
+    "Daily Card of the Day",
+    "Basic birth chart context",
+    "3 Oracle questions per month",
+    "Real-time cosmic weather"
   ],
   price_f_insight: [
-    "Everything in Free",
-    "Daily reading shaped by your chart",
-    "Natal chart: Sun, Moon, Rising, and houses",
-    "30 AI oracle questions / month",
-    "Major transit reminders",
-    "Tarot card guide",
-    "Moon-phase journal prompts"
+    "Personalized daily readings",
+    "Full natal chart decode",
+    "30 Oracle questions per month",
+    "Major transit notifications"
   ],
   price_f_premium: [
-    "Everything in Insight",
-    "Unlimited Oracle readings",
-    "Unlimited compatibility reports",
-    "Year-ahead and solar return readings",
-    "Full Academy access",
-    "Celtic Cross and advanced tarot spreads",
-    "Weekly transit briefing",
-    "Priority access to new features"
+    "Unlimited Oracle & Compatibility",
+    "Year-ahead & Solar returns",
+    "Full Academy & Advanced Tarot",
+    "Weekly transit briefings"
   ],
   price_f_vip: [
-    "Everything in Premium",
-    "Deeper Oracle synthesis",
-    "Voice narration for selected readings",
-    "Planetary hour reminders",
     "Custom monthly video reading",
-    "Priority support line",
-    "Early access to new decks",
-    "VIP events when available"
+    "Voice-narrated horoscope",
+    "Priority line to an astrologer",
+    "Early access to rituals & decks"
   ],
   price_start_free: "Start Free", price_start_insight: "Choose Insight", price_start_premium: "Get Premium", price_start_vip: "Go VIP",
   price_pay: "Pay with Telegram Stars or Crypto (TON/USDT)",
@@ -528,8 +580,8 @@ const uk: Translations = {
 
   hero_almanac_badge: "✦ Особистий оракул",
   hero_title: "Ваші зірки — людською мовою.",
-  hero_subtitle: "Персональні астрологічні й таро-читання на основі вашої натальної карти, поточних транзитів і запитання, яке ви приносите.",
-  hero_trust_line: "Особисті, рефлексивні читання. Створено для ясності, не шуму.",
+  hero_subtitle: "Персональні астрологічні й таро-читання на основі вашої карти, транзитів і запитання.",
+  hero_trust_line: "Особисті читання для ясності — без шуму.",
   hero_consult_cta: "Запитати Оракула",
   hero_sample_cta: "Переглянути читання на сьогодні",
   hero_enter_birthday: "Введіть дату народження",
@@ -544,6 +596,38 @@ const uk: Translations = {
   witness_status_computing: "Читаю...",
   witness_input_placeholder: "Що потребує ясності?",
   witness_universe_prompt: "Що всесвіт хоче мені повідомити?",
+
+  // Oracle Ritual
+  oracle_ritual_focus: "Зосередження",
+  oracle_ritual_calibrating: "Калібрування",
+  oracle_ritual_drawing: "Витягування",
+  oracle_ritual_interpreting: "Тлумачення",
+  oracle_focus_title: "Утримуйте одне запитання в думках.",
+  oracle_focus_subtitle: "Оберіть нитку, за якою хочете піти.",
+  oracle_focus_cta: "Почати читання",
+  oracle_preparing_pattern: "Прислухаємось до патернів...",
+  oracle_spread_forming: "Патерн формується.",
+  oracle_spread_cta: "Відкрити істину",
+  oracle_result_title: "Читання завершено.",
+  oracle_result_cta: "Відкрити глибший резонанс",
+  oracle_result_subtitle: "Зазирніть глибше у цей патерн",
+  oracle_result_disclaimer: "Повні читання додають небесний контекст, точний час та символічні зв'язки між вашими картами та натальною картою.",
+
+  // FAQ
+  faq_eyebrow: "Запитання",
+  faq_title: "Прості відповіді перед вибором.",
+  faq_q1: "Це справжня астрологія чи просто загальні гороскопи?",
+  faq_a1: "Ми використовуємо ваші дані про народження, щоб аналізувати патерни карти, поточні транзити та символи Таро. Це рефлексивне керівництво, а не жорстке передбачення.",
+  faq_q2: "Що є безкоштовним?",
+  faq_a2: "Ви можете почати з Карти Дня, базового контексту карти та кількох запитань до Оракула. Оплата не потрібна для спроби.",
+  faq_q3: "Що змінюється при оплаті?",
+  faq_a3: "Платні плани додають більше запитань, повні читання карти народження, сумісність, аналіз транзитів та складніші розклади Таро.",
+  faq_q4: "Це передбачення майбутнього?",
+  faq_a4: "Ні. Olivia Arcana не обіцяє конкретних результатів. Читання — це символічні підказки для саморефлексії та прийняття рішень.",
+  faq_q5: "Чи приватні мої дані?",
+  faq_a5: "Ваші дані та розмови з Оракулом залишаються приватними. Ми не продаємо ваші особисті читання.",
+  faq_q6: "Чи можна скасувати підписку?",
+  faq_a6: "Так. Ви можете скасувати підписку в особистому кабінеті й користуватися нею до кінця оплаченого періоду.",
 
   profile_your_cosmic_traits: "Ваші космічні риси", profile_cosmic_energy: "Космічна енергія сьогодні",
   profile_best_match: "Найкраща космічна пара", profile_lucky_numbers: "Щасливі числа",
@@ -669,47 +753,35 @@ const uk: Translations = {
   test_2_name: "Marcus T.", test_2_sign: "♌ Лев Сонце, ♎ Терези Асцендент",
   test_3_quote: "Мій ранковий ритуал: кава, потім щоденне читання від Olivia. Це стало моєю медитацією. Сповіщення про транзити врятували мене під час ретроградного Меркурія — я нарешті підготувалася.",
   test_3_name: "Elena K.", test_3_sign: "♒ Водолій Сонце, ♋ Рак Місяць",
-  price_eyebrow: "Тарифи", price_title: "Відкрийте свою повну карту",
-  price_free: "Безкоштовно", price_free_desc: "Почніть подорож", price_forever: "назавжди",
-  price_insight: "Insight", price_insight_desc: "Щоденний супровід",
-  price_premium: "Premium", price_premium_desc: "Повна карта, повна історія",
-  price_vip: "VIP", price_vip_desc: "Справжній астролог у вашій кишені", price_popular: "Найпопулярніший",
+  price_eyebrow: "Тарифи", price_title: "Відкрийте свій шлях",
+  price_free: "Поверхневе читання", price_free_desc: "Початок подорожі", price_forever: "назавжди",
+  price_insight: "Глибокий патерн", price_insight_desc: "Щоденний супровід",
+  price_premium: "Небесний резонанс", price_premium_desc: "Повна історія",
+  price_vip: "Пряме керівництво", price_vip_desc: "Пряма лінія з експертом", price_popular: "Найпопулярніший",
   price_month: "/місяць", price_annual: "або $65/рік (2 місяці безкоштовно)",
   price_f_free: [
-    "Карта дня",
-    "Базовий профіль знака",
-    "Перші уроки Академії",
-    "3 запитання до оракула на місяць",
-    "Огляд поточного неба"
+    "Щоденна Карта Дня",
+    "Базовий контекст карти",
+    "3 запитання до Оракула на місяць",
+    "Космічна погода в реальному часі"
   ],
   price_f_insight: [
-    "Усе в безкоштовному тарифі",
-    "Щоденне читання з контекстом вашої карти",
-    "Натальна карта: Сонце, Місяць, Асцендент і доми",
-    "30 запитань до оракула на місяць",
-    "Нагадування про важливі транзити",
-    "Гід по картах Таро",
-    "Підказки для щоденника за фазами Місяця"
+    "Персональні щоденні читання",
+    "Повна розшифровка натальної карти",
+    "30 запитань до Оракула на місяць",
+    "Сповіщення про важливі транзити"
   ],
   price_f_premium: [
-    "Усе в Insight",
-    "Безлімітні читання Оракула",
-    "Безлімітні читання сумісності",
-    "Прогноз на рік і соляр",
-    "Повний доступ до Академії",
-    "Кельтський хрест та глибші розклади Таро",
-    "Щотижневий транзитний брифінг",
-    "Пріоритетний доступ до нових функцій"
+    "Безлімітний Оракул та Сумісність",
+    "Прогноз на рік та Соляр",
+    "Повна Академія та складні розклади",
+    "Щотижневі транзитні брифінги"
   ],
   price_f_vip: [
-    "Усе в Premium",
-    "Глибший синтез від Оракула",
-    "Озвучення вибраних читань",
-    "Нагадування про планетарні години",
-    "Щомісячне персональне відеочитання",
-    "Пріоритетна підтримка",
-    "Ранній доступ до нових колод",
-    "VIP-події, коли вони доступні"
+    "Персональне відеочитання щомісяця",
+    "Озвучений щоденний гороскоп",
+    "Пріоритетний зв'язок з астрологом",
+    "Ранній доступ до ритуалів та колод"
   ],
   price_start_free: "Почати безкоштовно", price_start_insight: "Обрати Insight", price_start_premium: "Отримати Premium", price_start_vip: "Стати VIP",
   price_pay: "Оплата Telegram Stars або Crypto (TON/USDT)",
@@ -766,6 +838,38 @@ const ru: Translations = {
   witness_status_computing: "Читаю...",
   witness_input_placeholder: "Что требует ясности?",
   witness_universe_prompt: "Что вселенная хочет мне сообщить?",
+
+  // Oracle Ritual
+  oracle_ritual_focus: "Focus",
+  oracle_ritual_calibrating: "Calibrating",
+  oracle_ritual_drawing: "Drawing",
+  oracle_ritual_interpreting: "Interpreting",
+  oracle_focus_title: "Hold one question in mind.",
+  oracle_focus_subtitle: "Choose the thread you want to follow.",
+  oracle_focus_cta: "Begin the Draw",
+  oracle_preparing_pattern: "Listening for the pattern…",
+  oracle_spread_forming: "The pattern is forming.",
+  oracle_spread_cta: "Reveal Truth",
+  oracle_result_title: "The reading is clear.",
+  oracle_result_cta: "Reveal the deeper resonance",
+  oracle_result_subtitle: "Go deeper into this pattern",
+  oracle_result_disclaimer: "Expanded readings add celestial context, precise timing, and the symbolic connections between your cards and your birth chart.",
+
+  // FAQ
+  faq_eyebrow: "Вопросы",
+  faq_title: "Простые ответы перед выбором.",
+  faq_q1: "Это действительно астрология или просто общие гороскопы?",
+  faq_a1: "Используются ваши данные о рождении, анализируются паттерны карты, текущие транзиты и символы Таро. Это рефлексивное руководство, а не фиксированное предсказание.",
+  faq_q2: "Что бесплатно?",
+  faq_a2: "Вы можете начать с Карты дня, базового контекста карты и нескольких вопросов Оракулу. Для пробы оплата не требуется.",
+  faq_q3: "Что изменится после оплаты?",
+  faq_a3: "Платные тарифы добавляют больше вопросов Оракулу, полные чтения натальной карты, совместимость, анализ транзитов и глубокие расклады Таро.",
+  faq_q4: "Это предсказание?",
+  faq_a4: "Нет. Olivia Arcana не обещает конкретных результатов. Чтения — это символические подсказки для саморефлексии и принятия решений.",
+  faq_q5: "Конфиденциальна ли моя информация?",
+  faq_a5: "Ваши данные о рождении и разговоры с Оракулом остаются приватными. Мы не продаем ваши личные чтения.",
+  faq_q6: "Могу ли я отменить подписку?",
+  faq_a6: "Да. Вы можете отменить подписку в личном кабинете и сохранить доступ до конца текущего расчетного периода.",
 
   profile_your_cosmic_traits: "Ваши космические черты", profile_cosmic_energy: "Космическая энергия сегодня",
   profile_best_match: "Лучшая космическая пара", profile_lucky_numbers: "Счастливые числа",
@@ -989,6 +1093,38 @@ const de: Translations = {
   witness_input_placeholder: "Was sucht Klarheit?",
   witness_universe_prompt: "Was möchte das Universum mir mitteilen?",
 
+  // Oracle Ritual
+  oracle_ritual_focus: "Focus",
+  oracle_ritual_calibrating: "Calibrating",
+  oracle_ritual_drawing: "Drawing",
+  oracle_ritual_interpreting: "Interpreting",
+  oracle_focus_title: "Hold one question in mind.",
+  oracle_focus_subtitle: "Choose the thread you want to follow.",
+  oracle_focus_cta: "Begin the Draw",
+  oracle_preparing_pattern: "Listening for the pattern…",
+  oracle_spread_forming: "The pattern is forming.",
+  oracle_spread_cta: "Reveal Truth",
+  oracle_result_title: "The reading is clear.",
+  oracle_result_cta: "Reveal the deeper resonance",
+  oracle_result_subtitle: "Go deeper into this pattern",
+  oracle_result_disclaimer: "Expanded readings add celestial context, precise timing, and the symbolic connections between your cards and your birth chart.",
+
+  // FAQ
+  faq_eyebrow: "Fragen",
+  faq_title: "Einfache Antworten, bevor Sie wählen.",
+  faq_q1: "Ist das wirklich Astrologie oder nur allgemeine Horoskope?",
+  faq_a1: "Es verwendet Ihre Geburtsdaten, liest dann Chart-Muster, das aktuelle Timing und Tarot-Symbole zusammen. Es ist eine reflektierende Orientierungshilfe, keine feste Vorhersage.",
+  faq_q2: "Was ist kostenlos?",
+  faq_a2: "Sie können mit der Karte des Tages, dem grundlegenden Chart-Kontext und ein paar Orakelfragen beginnen. Es ist keine Zahlung erforderlich, um es auszuprobieren.",
+  faq_q3: "Was ändert sich, wenn ich bezahle?",
+  faq_a3: "Bezahlte Pläne bieten mehr Orakelfragen, umfassendere Horoskop-Deutungen, Kompatibilität, Transit-Timing und tiefere Tarot-Legungen.",
+  faq_q4: "Ist das eine Vorhersage?",
+  faq_a4: "Nein. Olivia Arcana verspricht keine Ergebnisse. Die Deutungen sind symbolische Anstöße zur Selbstreflexion und Entscheidungsfindung.",
+  faq_q5: "Sind meine Informationen privat?",
+  faq_a5: "Ihre Geburtsdaten und Orakel-Gespräche bleiben privat in Ihrem Konto. Wir verkaufen Ihre persönlichen Deutungen nicht.",
+  faq_q6: "Kann ich meinen Plan kündigen?",
+  faq_a6: "Ja. Sie können über Ihr Dashboard kündigen und behalten den Zugriff bis zum Ende des aktuellen Abrechnungszeitraums.",
+
   profile_your_cosmic_traits: "Deine kosmischen Eigenschaften", profile_cosmic_energy: "Kosmische Energie heute",
   profile_best_match: "Bestes kosmisches Match", profile_lucky_numbers: "Glückszahlen",
   profile_lucky_day: "Glückstag", profile_lucky_color: "Glücksfarbe", profile_gemstone: "Edelstein",
@@ -1210,6 +1346,38 @@ const fr: Translations = {
   witness_status_computing: "Lecture...",
   witness_input_placeholder: "Qu'est-ce qui cherche la clarté ?",
   witness_universe_prompt: "Que veut me faire savoir l'univers ?",
+
+  // Oracle Ritual
+  oracle_ritual_focus: "Focus",
+  oracle_ritual_calibrating: "Calibrating",
+  oracle_ritual_drawing: "Drawing",
+  oracle_ritual_interpreting: "Interpreting",
+  oracle_focus_title: "Hold one question in mind.",
+  oracle_focus_subtitle: "Choose the thread you want to follow.",
+  oracle_focus_cta: "Begin the Draw",
+  oracle_preparing_pattern: "Listening for the pattern…",
+  oracle_spread_forming: "The pattern is forming.",
+  oracle_spread_cta: "Reveal Truth",
+  oracle_result_title: "The reading is clear.",
+  oracle_result_cta: "Reveal the deeper resonance",
+  oracle_result_subtitle: "Go deeper into this pattern",
+  oracle_result_disclaimer: "Expanded readings add celestial context, precise timing, and the symbolic connections between your cards and your birth chart.",
+
+  // FAQ
+  faq_eyebrow: "Questions",
+  faq_title: "Des réponses simples avant de choisir.",
+  faq_q1: "Est-ce vraiment de l'astrologie ou juste des horoscopes génériques ?",
+  faq_a1: "Elle utilise vos données de naissance, puis lit les modèles de thèmes, le timing actuel et les symboles du tarot ensemble. C'est une guidance réflexive, pas une prédiction figée.",
+  faq_q2: "Qu'est-ce qui est gratuit ?",
+  faq_a2: "Vous pouvez commencer par la Carte du Jour, le contexte de base du thème et quelques questions à l'Oracle. Aucun paiement n'est requis pour essayer.",
+  faq_q3: "Qu'est-ce qui change quand je paie ?",
+  faq_a3: "Les forfaits payants ajoutent plus de questions à l'Oracle, des lectures de thèmes natals plus complètes, la compatibilité, le timing des transits et des tirages de tarot plus profonds.",
+  faq_q4: "Est-ce une prédiction ?",
+  faq_a4: "Non. Olivia Arcana ne promet pas de résultats. Les lectures sont des incitations symboliques à l'autoréflexion et à la prise de décision.",
+  faq_q5: "Mes informations sont-elles privées ?",
+  faq_a5: "Vos données de naissance et vos conversations avec l'Oracle restent privées. Nous ne vendons pas vos lectures personnelles.",
+  faq_q6: "Puis-je annuler mon forfait ?",
+  faq_a6: "Oui. Vous pouvez annuler depuis votre tableau de bord et conserver l'accès jusqu'à la fin de la période de facturation en cours.",
 
   profile_your_cosmic_traits: "Vos traits cosmiques", profile_cosmic_energy: "Énergie cosmique aujourd'hui",
   profile_best_match: "Meilleur match cosmique", profile_lucky_numbers: "Chiffres porte-bonheur",
@@ -1433,6 +1601,38 @@ const ar: Translations = {
   witness_input_placeholder: "ما الذي يبحث عن الوضوح؟",
   witness_universe_prompt: "ماذا يريد الكون أن يخبرني؟",
 
+  // Oracle Ritual
+  oracle_ritual_focus: "Focus",
+  oracle_ritual_calibrating: "Calibrating",
+  oracle_ritual_drawing: "Drawing",
+  oracle_ritual_interpreting: "Interpreting",
+  oracle_focus_title: "Hold one question in mind.",
+  oracle_focus_subtitle: "Choose the thread you want to follow.",
+  oracle_focus_cta: "Begin the Draw",
+  oracle_preparing_pattern: "Listening for the pattern…",
+  oracle_spread_forming: "The pattern is forming.",
+  oracle_spread_cta: "Reveal Truth",
+  oracle_result_title: "The reading is clear.",
+  oracle_result_cta: "Reveal the deeper resonance",
+  oracle_result_subtitle: "Go deeper into this pattern",
+  oracle_result_disclaimer: "Expanded readings add celestial context, precise timing, and the symbolic connections between your cards and your birth chart.",
+
+  // FAQ
+  faq_eyebrow: "الأسئلة",
+  faq_title: "إجابات بسيطة قبل الاختيار.",
+  faq_q1: "هل هذا علم فلك حقيقي أم مجرد أبراج عامة؟",
+  faq_a1: "يستخدم بيانات ميلادك، ثم يقرأ أنماط الخريطة، والتوقيت الحالي، ورموز التاروت معًا. إنه إرشاد تأملي، وليس تنبؤًا ثابتًا.",
+  faq_q2: "ما هو المجاني؟",
+  faq_a2: "يمكنك البدء ببطاقة اليوم، وسياق الخريطة الأساسي، وبعض أسئلة الأوراكل. لا يلزم الدفع للتجربة.",
+  faq_q3: "ما الذي يتغير عندما أدفع؟",
+  faq_a3: "تضيف الخطط المدفوعة المزيد من أسئلة الأوراكل، وقراءات أكمل لخريطة الميلاد، والتوافق، وتوقيت العبور، وانتشارات تاروت أعمق.",
+  faq_q4: "هل هذا تنبؤ؟",
+  faq_a4: "لا. Olivia Arcana لا تعد بنتائج. القراءات هي محفزات رمزية للتأمل الذاتي واتخاذ القرار.",
+  faq_q5: "هل معلوماتي خاصة؟",
+  faq_a5: "تبقى بيانات ميلادك ومحادثات الأوراكل خاصة بحسابك. نحن لا نبيع قراءاتك الشخصية.",
+  faq_q6: "هل يمكنني إلغاء خطتي؟",
+  faq_a6: "نعم. يمكنك الإلغاء من لوحة التحكم الخاصة بالفواتير والاحتفاظ بالوصول حتى نهاية فترة الفاتورة الحالية.",
+
   profile_your_cosmic_traits: "سماتك الكونية", profile_cosmic_energy: "الطاقة الكونية اليوم",
   profile_best_match: "أفضل توافق كوني", profile_lucky_numbers: "أرقام الحظ",
   profile_lucky_day: "يوم الحظ", profile_lucky_color: "لون الحظ", profile_gemstone: "الحجر الكريم",
@@ -1655,6 +1855,38 @@ const es: Translations = {
   witness_input_placeholder: "¿Qué busca claridad?",
   witness_universe_prompt: "¿Qué quiere el universo hacerme saber?",
 
+  // Oracle Ritual
+  oracle_ritual_focus: "Focus",
+  oracle_ritual_calibrating: "Calibrating",
+  oracle_ritual_drawing: "Drawing",
+  oracle_ritual_interpreting: "Interpreting",
+  oracle_focus_title: "Hold one question in mind.",
+  oracle_focus_subtitle: "Choose the thread you want to follow.",
+  oracle_focus_cta: "Begin the Draw",
+  oracle_preparing_pattern: "Listening for the pattern…",
+  oracle_spread_forming: "The pattern is forming.",
+  oracle_spread_cta: "Reveal Truth",
+  oracle_result_title: "The reading is clear.",
+  oracle_result_cta: "Reveal the deeper resonance",
+  oracle_result_subtitle: "Go deeper into this pattern",
+  oracle_result_disclaimer: "Expanded readings add celestial context, precise timing, and the symbolic connections between your cards and your birth chart.",
+
+  // FAQ
+  faq_eyebrow: "Preguntas",
+  faq_title: "Respuestas simples antes de elegir.",
+  faq_q1: "¿Es esto realmente astrología o solo horóscopos genéricos?",
+  faq_a1: "Utiliza tus datos de nacimiento, luego lee los patrones de la carta, el tiempo actual y los símbolos del tarot en conjunto. Es una guía reflexiva, no una predicción fija.",
+  faq_q2: "¿Qué es gratis?",
+  faq_a2: "Puedes empezar con la Carta del Día, el contexto básico de la carta y algunas preguntas al Oráculo. No se requiere pago para probarlo.",
+  faq_q3: "¿Qué cambia cuando pago?",
+  faq_a3: "Los planes de pago añaden más preguntas al Oráculo, lecturas más completas de la carta natal, compatibilidad, tiempo de tránsito y tiradas de tarot más profundas.",
+  faq_q4: "¿Es esto una predicción?",
+  faq_a4: "No. Olivia Arcana no promete resultados. Las lecturas son estímulos simbólicos para la autorreflexión y la toma de decisiones.",
+  faq_q5: "¿Es privada mi información?",
+  faq_a5: "Tus datos de nacimiento y las conversaciones con el Oráculo se mantienen privados en tu cuenta. No vendemos tus lecturas personales.",
+  faq_q6: "¿Puedo cancelar mi plan?",
+  faq_a6: "Sí. Puedes cancelar desde tu panel de facturación y mantener el acceso hasta el final del periodo de facturación actual.",
+
   profile_your_cosmic_traits: "Tus rasgos cósmicos", profile_cosmic_energy: "Energía cósmica hoy",
   profile_best_match: "Mejor coincidencia cósmica", profile_lucky_numbers: "Números de la suerte",
   profile_lucky_day: "Día de la suerte", profile_lucky_color: "Color de la suerte", profile_gemstone: "Piedra preciosa",
@@ -1876,6 +2108,38 @@ const pt: Translations = {
   witness_status_computing: "Lendo...",
   witness_input_placeholder: "O que busca clareza?",
   witness_universe_prompt: "O que o universo quer me dizer?",
+
+  // Oracle Ritual
+  oracle_ritual_focus: "Focus",
+  oracle_ritual_calibrating: "Calibrating",
+  oracle_ritual_drawing: "Drawing",
+  oracle_ritual_interpreting: "Interpreting",
+  oracle_focus_title: "Hold one question in mind.",
+  oracle_focus_subtitle: "Choose the thread you want to follow.",
+  oracle_focus_cta: "Begin the Draw",
+  oracle_preparing_pattern: "Listening for the pattern…",
+  oracle_spread_forming: "The pattern is forming.",
+  oracle_spread_cta: "Reveal Truth",
+  oracle_result_title: "The reading is clear.",
+  oracle_result_cta: "Reveal the deeper resonance",
+  oracle_result_subtitle: "Go deeper into this pattern",
+  oracle_result_disclaimer: "Expanded readings add celestial context, precise timing, and the symbolic connections between your cards and your birth chart.",
+
+  // FAQ
+  faq_eyebrow: "Perguntas",
+  faq_title: "Respostas simples antes de escolher.",
+  faq_q1: "Isto é realmente astrologia ou apenas horóscopos genéricos?",
+  faq_a1: "Utiliza os seus dados de nascimento, lê os padrões do mapa, o tempo atual e os símbolos do tarot em conjunto. É uma orientação reflexiva, não uma previsão fixa.",
+  faq_q2: "O que é gratuito?",
+  faq_a2: "Pode começar com a Carta do Dia, o contexto básico do mapa e algumas perguntas ao Oráculo. Não é necessário pagamento para experimentar.",
+  faq_q3: "O que muda quando eu pago?",
+  faq_a3: "Os planos pagos adicionam mais perguntas ao Oráculo, leituras mais completas do mapa natal, compatibilidade, tempo de trânsito e tiragens de tarot mais profundas.",
+  faq_q4: "Isto é uma previsão?",
+  faq_a4: "Não. A Olivia Arcana não promete resultados. As leituras são estímulos simbólicos para a autorreflexão e tomada de decisão.",
+  faq_q5: "A minha informação é privada?",
+  faq_a5: "Os seus dados de nascimento e as conversas com o Oráculo permanecem privados na sua conta. Não vendemos as suas leituras pessoais.",
+  faq_q6: "Posso cancelar o meu plano?",
+  faq_a6: "Sim. Pode cancelar a partir do seu painel de faturação e manter o acesso até ao fim do período de faturação atual.",
 
   profile_your_cosmic_traits: "Seus traços cósmicos", profile_cosmic_energy: "Energia cósmica hoje",
   profile_best_match: "Melhor combinação cósmica", profile_lucky_numbers: "Números da sorte",

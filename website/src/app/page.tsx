@@ -3,88 +3,89 @@
 import ConstellationOverlay from "@/components/ConstellationOverlay";
 import MagneticGlow from "@/components/MagneticGlow";
 import HeroV3 from "@/components/HeroV3";
+import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import TransitionLink from "@/components/transitions/TransitionLink";
 import { useLocale } from "@/lib/i18n/useLocale";
 
 const HOME_COPY = {
   en: {
-    actionsTitle: "What you can do here",
+    actionsTitle: "What you can do",
     actionsSubtitle: "Choose the path that matches the question you have today.",
     actions: [
       {
         title: "Ask the Oracle",
-        body: "Bring a question. Draw cards. Get a concise reading shaped by your chart.",
+        body: "Ask any question and receive a reading rooted in your birth chart and current transits.",
         href: "/oracle",
         cta: "Ask now",
       },
       {
         title: "Read your chart",
-        body: "Create your natal chart and see the patterns that make the reading personal.",
+        body: "Explore your natal chart to understand the baseline patterns that shape your life's narrative.",
         href: "/portrait",
         cta: "Create chart",
       },
       {
         title: "Check compatibility",
-        body: "Compare two birth dates and see the relationship dynamics in plain language.",
+        body: "Enter two birth dates to see how your celestial energies interact in plain language.",
         href: "/synastry",
         cta: "Compare charts",
       },
     ],
     whyTitle: "Why it feels personal",
     why: [
-      ["Birth chart context", "Your reading starts with your date, time, and place of birth."],
-      ["Current timing", "Transits add the mood of the moment without pretending to predict your life."],
-      ["Tarot interpretation", "Cards turn the pattern into reflective guidance you can act on."],
+      ["Birth chart context", "Your date, time, and place of birth define your unique baseline."],
+      ["Current timing", "Transits reflect the mood of now without generic, predictive noise."],
+      ["Symbolic narrative", "Tarot turns astronomical patterns into reflective guidance you can use."],
     ],
-    sampleEyebrow: "A lighter preview",
-    sampleTitle: "Clear guidance, not a wall of symbols",
-    sample:
-      "A reading might connect the Eight of Pentacles with a practical question: what deserves steady attention now, and what can wait until the timing is clearer?",
-    sampleCta: "See a sample reading",
-    pricingTitle: "Start free. Go deeper when you are ready.",
+    sampleEyebrow: "Personal vs. Generic",
+    sampleTitle: "Context is the magic",
+    sampleGeneric: "Generic: 'You will have good luck today. Stay positive and open to new opportunities.'",
+    samplePersonal: "Personal: 'With Jupiter crossing your Ascendant, your presence feels expanded—this is the time to initiate, not wait.'",
+    sampleCta: "See a full sample",
+    pricingTitle: "Start free. Go deeper when ready.",
     pricingBody:
-      "Try the daily card, basic chart context, and a few oracle questions first. Paid plans add fuller chart readings, compatibility, transits, and deeper tarot spreads.",
+      "Try the daily card and basic chart context first. Paid plans add full readings, compatibility, and deep tarot spreads.",
     pricingCta: "Compare plans",
     oracleCta: "Ask the Oracle",
   },
   uk: {
-    actionsTitle: "Що тут можна зробити",
-    actionsSubtitle: "Оберіть шлях під запитання, з яким ви прийшли сьогодні.",
+    actionsTitle: "Що можна зробити",
+    actionsSubtitle: "Оберіть шлях, що відповідає вашому сьогоднішньому запитанню.",
     actions: [
       {
         title: "Запитати Оракула",
-        body: "Принесіть запитання, витягніть карти й отримайте коротке читання з контекстом вашої карти.",
+        body: "Ставте будь-яке запитання й отримайте відповідь на основі вашої карти та поточних транзитів.",
         href: "/oracle",
         cta: "Запитати",
       },
       {
-        title: "Прочитати натальну карту",
-        body: "Створіть карту народження й побачте головні патерни без зайвого шуму.",
+        title: "Читати карту",
+        body: "Дослідіть свою натальну карту, щоб зрозуміти фундаментальні патерни, що формують ваше життя.",
         href: "/portrait",
         cta: "Створити карту",
       },
       {
-        title: "Перевірити сумісність",
-        body: "Порівняйте дві дати народження й побачте динаміку стосунків простою мовою.",
+        title: "Сумісність",
+        body: "Введіть дві дати народження, щоб побачити взаємодію ваших енергій простою мовою.",
         href: "/synastry",
         cta: "Порівняти",
       },
     ],
-    whyTitle: "Чому це відчувається особистим",
+    whyTitle: "Чому це особисте",
     why: [
-      ["Контекст натальної карти", "Читання починається з дати, часу й місця народження."],
-      ["Поточний момент", "Транзити додають настрій часу, не видаючи його за гарантований прогноз."],
-      ["Таро-інтерпретація", "Карти перетворюють патерн на рефлексивну підказку для дії."],
+      ["Контекст карти", "Ваша дата, час і місце народження визначають унікальну базу."],
+      ["Поточний момент", "Транзити відображають настрій 'зараз' без загального передбачуваного шуму."],
+      ["Символізм", "Таро перетворює астрономію на рефлексивні підказки, які можна використати."],
     ],
-    sampleEyebrow: "Легкий приклад",
-    sampleTitle: "Ясність замість стіни символів",
-    sample:
-      "Читання може поєднати Вісімку Пентаклів із практичним запитанням: що зараз варте стабільної уваги, а що може зачекати?",
-    sampleCta: "Переглянути приклад",
-    pricingTitle: "Почніть безкоштовно. Заглиблюйтесь, коли будете готові.",
+    sampleEyebrow: "Особисте vs Загальне",
+    sampleTitle: "Контекст — це магія",
+    sampleGeneric: "Загальне: 'Сьогодні вам пощастить. Будьте позитивними та відкритими до нових можливостей.'",
+    samplePersonal: "Особисте: 'Юпітер перетинає ваш Асцендент — ваша присутність посилюється. Час діяти, а не чекати.'",
+    sampleCta: "Повний приклад",
+    pricingTitle: "Безкоштовно для старту",
     pricingBody:
-      "Спершу спробуйте карту дня, базовий контекст і кілька запитань до оракула. Платні плани додають повніші читання, сумісність, транзити й глибші розклади.",
+      "Спробуйте карту дня та базовий контекст. Платні плани додають повні читання, сумісність та глибокі розклади.",
     pricingCta: "Порівняти плани",
     oracleCta: "Запитати Оракула",
   },
@@ -106,9 +107,8 @@ export default function Home() {
 
         <section className="home-clarity-section" aria-labelledby="home-actions">
           <div className="home-section-heading">
-            <p className="readable-label">Start here</p>
+            <p className="readable-label">Services</p>
             <h2 id="home-actions">{copy.actionsTitle}</h2>
-            <p>{copy.actionsSubtitle}</p>
           </div>
 
           <div className="home-action-grid">
@@ -127,7 +127,7 @@ export default function Home() {
 
         <section className="home-clarity-section home-why-section" aria-labelledby="home-why">
           <div className="home-section-heading">
-            <p className="readable-label">Personal context</p>
+            <p className="readable-label">The approach</p>
             <h2 id="home-why">{copy.whyTitle}</h2>
           </div>
 
@@ -144,11 +144,24 @@ export default function Home() {
         <section className="home-clarity-section home-sample-section" aria-labelledby="home-sample">
           <div className="readable-panel home-sample-card">
             <p className="readable-label">{copy.sampleEyebrow}</p>
-            <h2 id="home-sample">{copy.sampleTitle}</h2>
-            <p>{copy.sample}</p>
-            <TransitionLink href="/sample" className="home-inline-link">
-              {copy.sampleCta}
-            </TransitionLink>
+            <h2 id="home-sample" className="mb-8">{copy.sampleTitle}</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+              <div className="opacity-50">
+                <p className="text-xs uppercase tracking-widest mb-2 font-bold">Generic</p>
+                <p className="italic text-sm leading-relaxed">{copy.sampleGeneric}</p>
+              </div>
+              <div className="border-l border-celestial-gold/20 pl-8">
+                <p className="text-xs uppercase tracking-widest mb-2 font-bold text-celestial-gold">Personalized</p>
+                <p className="text-warm-ivory font-medium leading-relaxed">{copy.samplePersonal}</p>
+              </div>
+            </div>
+
+            <div className="mt-10 pt-6 border-t border-white/5">
+              <TransitionLink href="/sample" className="home-inline-link">
+                {copy.sampleCta}
+              </TransitionLink>
+            </div>
           </div>
         </section>
 
@@ -167,6 +180,8 @@ export default function Home() {
             </TransitionLink>
           </div>
         </section>
+
+        <Faq />
       </main>
 
       <Footer />

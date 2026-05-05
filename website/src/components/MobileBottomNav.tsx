@@ -51,45 +51,54 @@ const IconProfile = ({ glyph }: { glyph: string }) => (
 );
 
 function Tab({
-  label, icon, href, onClick, active,
+  label, icon, href, onClick, active, primary,
 }: {
   label: string;
   icon: React.ReactNode;
   href?: string;
   onClick?: () => void;
   active?: boolean;
+  primary?: boolean;
 }) {
-  const activeColor = active ? "rgba(245, 242, 225, 1)" : "rgba(196, 185, 228, 0.78)";
+  const activeColor = active ? "rgba(245, 242, 225, 1)" : "rgba(196, 185, 228, 0.75)";
   const indicatorColor = active ? "rgba(232, 201, 106, 1)" : "transparent";
   
   const content = (
     <>
-      <span style={{ color: activeColor, display: "inline-flex", alignItems: "center" }}>{icon}</span>
+      <span style={{ 
+        color: primary ? "#d4af37" : activeColor, 
+        display: "inline-flex", 
+        alignItems: "center",
+        transform: primary ? "scale(1.2)" : "none",
+        filter: primary ? "drop-shadow(0 0 8px rgba(212,175,55,0.4))" : "none"
+      }}>
+        {icon}
+      </span>
       <span
         style={{
           fontFamily: "var(--font-body, system-ui), sans-serif",
-          fontSize: "0.62rem",
-          fontWeight: 700,
-          letterSpacing: "0.14em",
+          fontSize: "0.6rem",
+          fontWeight: active || primary ? 800 : 600,
+          letterSpacing: "0.1em",
           textTransform: "uppercase",
-          color: activeColor,
+          color: primary ? "#d4af37" : activeColor,
         }}
       >
         {label}
       </span>
-      {active && (
+      {active && !primary && (
         <span
           aria-hidden
           style={{
             position: "absolute",
-            top: "4px",
+            bottom: "6px",
             left: "50%",
             transform: "translateX(-50%)",
-            width: "4px",
-            height: "4px",
+            width: "3px",
+            height: "3px",
             borderRadius: "50%",
             background: indicatorColor,
-            boxShadow: "0 0 10px rgba(232, 201, 106, 0.8)",
+            boxShadow: "0 0 8px rgba(232, 201, 106, 0.6)",
           }}
         />
       )}
@@ -102,15 +111,16 @@ function Tab({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    gap: "0.25rem",
-    padding: "0.55rem 0.5rem",
-    minHeight: "56px",
+    gap: "0.3rem",
+    padding: "0.6rem 0.4rem",
+    minHeight: "64px",
     textDecoration: "none",
     background: "transparent",
     border: "none",
     cursor: "pointer",
     color: "inherit",
     flex: 1,
+    transition: "all 0.3s ease",
   };
 
   if (href) {
@@ -145,26 +155,36 @@ export default function MobileBottomNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-40 block md:hidden bg-void-black/98 backdrop-blur-md border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]"
+      className="fixed bottom-0 left-0 right-0 z-[100] block md:hidden bg-void-black/95 backdrop-blur-xl border-t border-white/5 shadow-[0_-15px_40px_rgba(0,0,0,0.6)]"
       aria-label="Primary"
       style={{
         paddingBottom: "env(safe-area-inset-bottom, 0)",
       }}
     >
-      <div className="flex max-w-[600px] mx-auto">
+      <div className="flex max-w-[600px] mx-auto items-end">
         <Tab label={t("common_home") || "Home"} icon={<IconHome />} href="/" active={path === "/"} />
         <Tab label={t("nav_daily")} icon={<IconDaily />} href="/daily" active={path.startsWith("/daily")} />
+        
+        {/* Primary CTA: Ask the Oracle — Center-positioned for thumb reach */}
+        <Tab 
+          label="Oracle" 
+          icon={<span className="text-xl">✦</span>} 
+          href="/oracle" 
+          primary 
+          active={path.startsWith("/oracle")} 
+        />
+        
         <Tab label={t("nav_academy")} icon={<IconAcademy />} href="/academy" active={path.startsWith("/academy")} />
-        <Tab label={t("search_open")} icon={<IconSearch />} onClick={openCommandPalette} />
+        
         {profile ? (
           <Tab
-            label={profile.signName}
+            label="You"
             icon={<IconProfile glyph={profile.signGlyph} />}
             href={`/signs/${profile.signSlug}`}
             active={path.startsWith(`/signs/${profile.signSlug}`)}
           />
         ) : (
-          <Tab label="Stars" icon={<span aria-hidden style={{ fontSize: "1rem" }}>✦</span>} href="/portrait" active={path.startsWith("/portrait")} />
+          <Tab label="Search" icon={<IconSearch />} onClick={openCommandPalette} />
         )}
       </div>
     </nav>

@@ -20,6 +20,8 @@ import MagneticButton from "@/components/MagneticButton";
 import AstralBackground from "./AstralBackground";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 import { getCardPortalImagePath } from "@/lib/academy/card-images";
+import { type Translations } from "@/lib/i18n/translations";
+import { useLocale } from "@/lib/i18n/useLocale";
 
 // ── AUDIO ENGINE (Web Audio API) — Pure Harmony Edition ──
 class AstralAudio {
@@ -126,19 +128,81 @@ function useDeviceTier() {
 
 type MachineState = "focusing" | "drawing" | "preparing" | "spread" | "result";
 
+const RITUAL_PHASES = (t: (key: keyof Translations) => string | string[]) => [
+  { id: "focusing", label: t("oracle_ritual_focus") },
+  { id: "drawing", label: t("oracle_ritual_calibrating") },
+  { id: "preparing", label: t("oracle_ritual_drawing") },
+  { id: "result", label: t("oracle_ritual_interpreting") }
+];
+
+const RitualTimeline = React.memo(function RitualTimeline({ state, isMobile }: { state: MachineState, isMobile: boolean }) {
+  const { t } = useLocale();
+  const phases = RITUAL_PHASES(t);
+  const activeIndex = phases.findIndex(p => p.id === state || (state === "spread" && p.id === "preparing"));
+  
+  if (isMobile) {
+    return (
+      <div className="absolute left-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-6 items-center">
+        {phases.map((phase, i) => (
+          <div key={phase.id} className="flex flex-col items-center gap-2">
+            <m.div 
+              animate={{ 
+                scale: i <= activeIndex ? 1 : 0.8,
+                backgroundColor: i <= activeIndex ? "#d4af37" : "rgba(255,255,255,0.1)"
+              }}
+              className="w-1.5 h-1.5 rounded-full shadow-[0_0_10px_rgba(212,175,55,0.3)]" 
+            />
+            {i < phases.length - 1 && <div className="w-px h-8 bg-white/5" />}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-4">
+      <div className="flex items-center gap-16 relative">
+        {/* Connecting Line */}
+        <div className="absolute top-1/2 left-0 w-full h-px bg-white/5 -translate-y-1/2" />
+        <m.div 
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: activeIndex / (phases.length - 1) }}
+          className="absolute top-1/2 left-0 w-full h-px bg-celestial-gold/40 -translate-y-1/2 origin-left"
+        />
+
+        {phases.map((phase, i) => (
+          <div key={phase.id} className="relative flex flex-col items-center gap-3">
+            <m.div 
+              animate={{ 
+                scale: i === activeIndex ? 1.5 : 1,
+                backgroundColor: i <= activeIndex ? "#d4af37" : "rgba(255,255,255,0.1)",
+                boxShadow: i === activeIndex ? "0 0 15px rgba(212,175,55,0.5)" : "none"
+              }}
+              className="w-2 h-2 rounded-full z-10 transition-colors duration-700" 
+            />
+            <span className={`text-[8px] uppercase tracking-[0.3em] transition-all duration-700 ${i === activeIndex ? "text-celestial-gold font-bold" : "text-white/20"}`}>
+              {phase.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+});
+
 // ── LAYER 2: GHOST DECK (Magical abundance) ──
 const GhostCard = React.memo(function GhostCard({ 
   index, 
   total, 
   device, 
-  breathing, 
-  machineState 
+  machineState,
+  breathing
 }: { 
   index: number, 
   total: number, 
   device: "mobile" | "tablet" | "desktop",
-  breathing: MotionValue<number>,
-  machineState: MachineState
+  machineState: MachineState,
+  breathing: MotionValue<number>
 }) {
   const isMobile = device === "mobile";
   const isTablet = device === "tablet";
@@ -148,7 +212,7 @@ const GhostCard = React.memo(function GhostCard({
 
   const { x, y, rotateZ } = useMemo(() => {
     const arcRadius = isMobile ? 800 : isTablet ? 1100 : 1400; 
-    const span = Math.PI * (isMobile ? 0.5 : isTablet ? 0.65 : 0.75); 
+    const span = Math.PI * (isMobile ? 0.6 : isTablet ? 0.75 : 0.85); 
     const angle = -span / 2 + (span / (total - 1)) * index;
     return {
       x: Math.sin(angle) * arcRadius,
@@ -157,8 +221,10 @@ const GhostCard = React.memo(function GhostCard({
     };
   }, [index, total, isMobile, isTablet]);
 
+  const finalY = useTransform(breathing, (b) => y + b);
+
   // Ghost cards recede when ritual moves forward
-  const baseOpacity = isMobile ? 0.12 : isTablet ? 0.28 : 0.38;
+  const baseOpacity = isMobile ? 0.16 : isTablet ? 0.22 : 0.28;
   const opacity = (machineState === "drawing" || machineState === "focusing") ? baseOpacity : 0;
 
   return (
@@ -173,21 +239,19 @@ const GhostCard = React.memo(function GhostCard({
         marginLeft: -cardWidth / 2,
         marginTop: -cardHeight / 2,
         x,
-        y,
-        z: -120,
+        y: finalY,
+        z: -150,
         rotateZ,
         opacity,
         zIndex: 2,
         pointerEvents: "none",
-        border: "1px solid rgba(212, 175, 55, 0.2)",
-        background: "rgba(10, 8, 30, 0.4)",
+        border: "1px solid rgba(212, 175, 55, 0.15)",
+        background: "rgba(8, 6, 24, 0.35)",
         borderRadius: "14px",
-        transformStyle: "preserve-3d",
-        WebkitTransformStyle: "preserve-3d"
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity }}
-      transition={{ duration: 1.5, ease: "easeOut" }}
+      transition={{ duration: 2, ease: "easeOut" }}
     />
   );
 });
@@ -225,24 +289,25 @@ const DecorativeRitualField = React.memo(function DecorativeRitualField({ machin
 });
 
 export default function FramerTarotOracle() {
+  const { t } = useLocale();
   const searchParams = useSearchParams();
   const router = useRouter();
   const time = useTime();
-  
+
   // Shared breathing motion (subtle global pulse)
   const breathing = useTransform(time, (t) => Math.sin(t / 2000) * 5);
-  
+
   const [state, setState] = useState<MachineState>("focusing");
   const device = useDeviceTier();
   const isMobile = device === "mobile";
   
   // Use a deterministic subset of cards to prevent hydration mismatches.
-  // Luxury Dealer Spread: 5 (mobile), 7 (tablet), 9 (desktop)
-  const poolSize = device === "mobile" ? 5 : device === "tablet" ? 7 : 9;
+  // Luxury Dealer Spread: 7 (mobile), 9 (tablet), 11 (desktop)
+  const poolSize = device === "mobile" ? 7 : device === "tablet" ? 9 : 11;
   const oracleData = useMemo(() => ALL_CARDS.slice(0, poolSize), [poolSize]);
 
-  // Ghost Deck Pool: 4 (mobile), 6 (tablet), 8 (desktop)
-  const ghostSize = device === "mobile" ? 4 : device === "tablet" ? 6 : 8;
+  // Ghost Deck Pool: 10 (mobile), 12 (tablet), 15 (desktop)
+  const ghostSize = device === "mobile" ? 10 : device === "tablet" ? 12 : 15;
   const ghostIndices = useMemo(() => Array.from({ length: ghostSize }, (_, i) => i), [ghostSize]);
   
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
@@ -352,6 +417,9 @@ export default function FramerTarotOracle() {
         {/* ── DECORATIVE FIELD (Orbit & Center) ── */}
         <DecorativeRitualField machineState={state} isMobile={isMobile} />
 
+        {/* ── RITUAL TIMELINE ── */}
+        <RitualTimeline state={state} isMobile={isMobile} />
+
         {/* ── TOP NAV ── */}
         <div className="absolute top-0 inset-x-0 z-50 pt-[7.5rem] pb-8 px-8 flex justify-between items-start pointer-events-none">
            <div className="pointer-events-auto flex flex-col gap-4">
@@ -389,14 +457,14 @@ export default function FramerTarotOracle() {
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className="absolute z-40 flex flex-col items-center text-center px-6"
             >
-              <h2 className="font-serif text-3xl md:text-5xl text-warm-ivory/80 mb-6 italic">Hold one question in mind.</h2>
-              <p className="text-[10px] tracking-[0.4em] uppercase text-[#d4af37]/60 mb-10">Choose the thread you want to follow.</p>
+              <h2 className="font-serif text-3xl md:text-5xl text-warm-ivory/80 mb-6 italic">{t("oracle_focus_title")}</h2>
+              <p className="text-[10px] tracking-[0.4em] uppercase text-[#d4af37]/60 mb-10">{t("oracle_focus_subtitle")}</p>
               <button 
                 onClick={() => setState("drawing")}
                 className="pointer-events-auto group relative px-12 py-4 rounded-full overflow-hidden border border-white/10 bg-black/40 backdrop-blur-sm transition-all duration-700 hover:border-[#d4af37]/40"
               >
                 <span className="relative z-10 text-[10px] tracking-[0.5em] uppercase text-white/40 group-hover:text-[#d4af37] transition-colors duration-500">
-                  Begin the Draw
+                  {t("oracle_focus_cta")}
                 </span>
               </button>
             </m.div>
@@ -412,7 +480,7 @@ export default function FramerTarotOracle() {
               className="absolute top-[18%] z-40 text-center pointer-events-none"
             >
               <p className="text-[10px] tracking-[0.5em] uppercase text-white/40">
-                Select {3 - selectedCards.length} more resonance{3 - selectedCards.length !== 1 ? 's' : ''}
+                {t("oracle_ritual_drawing")} {3 - selectedCards.length}
               </p>
               <div className="flex justify-center gap-2 mt-4">
                 {[0, 1, 2].map(i => (
@@ -435,7 +503,7 @@ export default function FramerTarotOracle() {
                 <div className="relative text-3xl text-[#d4af37] animate-spin-slow">✦</div>
               </div>
               <p className="text-[10px] tracking-[0.6em] uppercase text-[#d4af37]/40">
-                Listening for the pattern…
+                {t("oracle_preparing_pattern")}
               </p>
               <div className="mt-8 flex gap-1">
                 {[0, 1, 2].map(i => (
@@ -458,12 +526,12 @@ export default function FramerTarotOracle() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="absolute bottom-[20%] z-40 text-center"
             >
-              <p className="text-[9px] tracking-[0.4em] uppercase text-white/20 mb-8">The pattern is forming.</p>
+              <p className="text-[9px] tracking-[0.4em] uppercase text-white/20 mb-8">{t("oracle_spread_forming")}</p>
               <button 
                 onClick={() => { audio.playReveal(); reveal(); }}
                 className="px-12 py-5 bg-gradient-to-b from-[#f5f0e8] to-[#d4af37] text-black text-[10px] font-bold tracking-[0.4em] uppercase rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_10px_30px_rgba(212,175,55,0.3)]"
               >
-                Reveal Truth
+                {t("oracle_spread_cta")}
               </button>
             </m.div>
           )}
@@ -522,7 +590,7 @@ export default function FramerTarotOracle() {
                      className="flex flex-col items-center gap-2"
                    >
                      <span className="readable-label text-[#d4af37] opacity-100">Surface Pattern</span>
-                     <h2 className="font-serif text-3xl md:text-5xl text-[#f5f2e1] italic drop-shadow-2xl">The reading is clear.</h2>
+                     <h2 className="font-serif text-3xl md:text-5xl text-[#f5f2e1] italic drop-shadow-2xl">{t("oracle_result_title")}</h2>
                    </m.div>
 
                    <div className="flex gap-4 md:gap-24 pointer-events-auto text-center px-4 justify-center">
@@ -548,14 +616,14 @@ export default function FramerTarotOracle() {
                  >
                     <div className="flex flex-col items-center gap-4">
                       <MagneticButton variant="gold" href="/pricing?from=oracle" size="md" className="shadow-[0_0_50px_rgba(212,175,55,0.25)] font-bold">
-                        Reveal the deeper resonance &rarr;
+                        {t("oracle_result_cta")} &rarr;
                       </MagneticButton>
                       <p className="readable-label text-[10px] !text-[#d4af37]/60">
-                        Go deeper into this pattern
+                        {t("oracle_result_subtitle")}
                       </p>
                     </div>
                     <p className="text-[0.7rem] text-warm-ivory/30 max-w-sm text-center leading-relaxed">
-                      Expanded readings add celestial context, precise timing, and the symbolic connections between your cards and your birth chart.
+                      {t("oracle_result_disclaimer")}
                     </p>
                  </m.div>
                </div>

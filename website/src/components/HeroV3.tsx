@@ -20,6 +20,9 @@ import TransitionLink from "@/components/transitions/TransitionLink";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useLocale } from "@/lib/i18n/useLocale";
+import dynamic from "next/dynamic";
+
+const CelestialObservatory = dynamic(() => import("./CelestialObservatory"), { ssr: false });
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -156,14 +159,18 @@ export default function HeroV3() {
       className={`relative min-h-[92svh] md:min-h-screen flex flex-col md:flex-row items-center justify-center px-5 sm:px-6 pt-24 pb-10 overflow-hidden z-10 ${!mounted ? 'is-loading' : ''}`}
       aria-labelledby="hero-headline"
     >
-      {/* Editorial Scrim — Apple-grade readability engine */}
-      <div className="absolute inset-0 bg-gradient-to-r from-void-black/80 via-void-black/20 to-transparent pointer-events-none -z-10" />
+      {/* Dynamic Cosmic Background */}
+      <CelestialObservatory />
+
+      {/* Editorial Scrim — Darkened for high contrast (WCAG AA) */}
+      <div className="absolute inset-0 bg-void-black/70 md:bg-gradient-to-r md:from-void-black/85 md:via-void-black/40 md:to-transparent pointer-events-none -z-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(0,0,0,0.8),transparent_70%)] pointer-events-none -z-10" />
       
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Left: Editorial Copy */}
         <div ref={contentRef} className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-5 md:space-y-7 relative">
-          {/* Internal scrim for mobile centered text */}
-          <div className="absolute inset-x-[-2rem] inset-y-[-2rem] bg-void-black/40 blur-3xl lg:hidden -z-10" />
+          {/* Internal scrim for mobile centered text — increased opacity */}
+          <div className="absolute inset-x-[-2rem] inset-y-[-2rem] bg-void-black/60 blur-3xl lg:hidden -z-10" />
           
           <Eyebrow
             as={motion.span}
@@ -178,7 +185,7 @@ export default function HeroV3() {
           <h1
             ref={headRef}
             id="hero-headline"
-            className="font-[family-name:var(--font-heading)] text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[1.02] text-warm-ivory tracking-tight mb-2"
+            className="font-[family-name:var(--font-heading)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[1.05] text-warm-ivory tracking-tight mb-2"
           >
             {(t("hero_title") as string).split(" ").map((word, i) => (
               <React.Fragment key={i}>
@@ -196,10 +203,10 @@ export default function HeroV3() {
             transition={{ duration: 1, delay: 0.8, ease: EASE }}
             className="flex flex-col gap-2 mb-5 md:mb-8 relative z-10"
           >
-            <p className="max-w-md md:max-w-lg font-[family-name:var(--font-body)] text-base md:text-lg leading-relaxed text-warm-ivory/85 font-medium drop-shadow-md">
+            <p className="max-w-md md:max-w-lg font-[family-name:var(--font-body)] text-base md:text-lg leading-relaxed text-warm-ivory/90 font-medium drop-shadow-md">
               {t("hero_subtitle")}
             </p>
-            <p className="text-[0.65rem] font-[family-name:var(--font-mono)] uppercase tracking-[0.25em] text-celestial-gold/75 font-bold">
+            <p className="text-[0.65rem] font-[family-name:var(--font-mono)] uppercase tracking-[0.15em] text-celestial-gold/85 font-bold">
               {t("hero_trust_line")}
             </p>
           </motion.div>
@@ -219,7 +226,7 @@ export default function HeroV3() {
             
             <TransitionLink
               href="/daily"
-              className="hidden sm:flex group min-h-[44px] text-sm font-bold text-warm-ivory/70 hover:text-celestial-gold transition-colors duration-500 tracking-[0.2em] uppercase items-center gap-3"
+              className="hidden md:flex group min-h-[44px] text-sm font-bold text-warm-ivory/70 hover:text-celestial-gold transition-colors duration-500 tracking-[0.2em] uppercase items-center gap-3"
             >
               <span className="w-6 h-px bg-warm-ivory/30 group-hover:bg-celestial-gold/50 transition-colors" />
               {t("hero_sample_cta")}

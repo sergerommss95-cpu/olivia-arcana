@@ -81,21 +81,22 @@ export default function Pricing() {
   const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("annual");
 
   const getTierTagline = (id: Tier) => {
-    if (id === "free") return "Best for trying it";
-    if (id === "insight") return "Best for daily guidance";
-    if (id === "premium") return "Best for full readings";
-    if (id === "vip") return "Best for personal support";
+    if (id === "free") return t("price_free_desc");
+    if (id === "insight") return t("price_insight_desc");
+    if (id === "premium") return t("price_premium_desc");
+    if (id === "vip") return t("price_vip_desc");
     return "";
   };
 
   return (
     <section id="pricing" className="relative py-16 sm:py-32 px-4 sm:px-6 overflow-hidden">
-      {/* Readability Scrims */}
-      <div className="absolute inset-0 section-scrim pointer-events-none z-0" />
+      {/* Readability Scrims — Deeper for a high-end sanctuary feel */}
+      <div className="absolute inset-0 bg-void-black/60 pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.08),transparent_50%)] pointer-events-none z-0" />
       
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Heading */}
-        <div className="text-center mb-10 sm:mb-16">
+        <div className="text-center mb-10 sm:mb-20">
           <AnimatePresence mode="wait">
             {fromOracle ? (
               <motion.div
@@ -104,13 +105,13 @@ export default function Pricing() {
                 animate={{ opacity: 1, y: 0 }}
                 className="mb-8"
               >
-                <p className="readable-label mb-4">Keep reading</p>
-                <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-warm-ivory italic">
+                <p className="readable-label mb-4 tracking-[0.2em]">The Next Step</p>
+                <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl lg:text-6xl font-normal text-warm-ivory italic leading-[1.1]">
                   Continue your Oracle reading
                 </h2>
-                <p className="mt-4 text-muted-lavender readable-secondary text-sm max-w-lg mx-auto leading-relaxed">
-                  Free readings are useful for a first answer. Paid plans add more context, saved history,
-                  compatibility, transits, and deeper tarot spreads.
+                <p className="mt-6 text-warm-ivory/80 text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
+                  Free readings provide a starting point. Paid plans add the full context of your birth chart, 
+                  compatibility, and deeper patterns.
                 </p>
               </motion.div>
             ) : (
@@ -119,52 +120,52 @@ export default function Pricing() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               >
-                <p className="readable-label mb-4">
+                <p className="readable-label mb-4 tracking-[0.2em]">
                   {t("price_eyebrow")}
                 </p>
-                <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-warm-ivory mb-6">
-                  Choose your reading plan
+                <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl lg:text-6xl font-normal text-warm-ivory mb-6 leading-[1.1]">
+                  Choose your level of insight
                 </h2>
-                <p className="text-muted-lavender readable-secondary text-sm max-w-xl mx-auto leading-relaxed">
-                  Start free. Upgrade only when you want fuller chart context, more oracle questions,
-                  compatibility, or deeper tarot spreads.
+                <p className="text-warm-ivory/80 text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
+                  Start free. Step into deeper pattern recognition only when you seek fuller clarity
+                  on your chart, transits, or compatibility.
                 </p>
               </motion.div>
             )}
           </AnimatePresence>
           
-          <div className="star-divider max-w-xs mx-auto text-celestial-gold">&#10022;</div>
+          <div className="star-divider max-w-xs mx-auto text-celestial-gold opacity-40 my-8">&#10022;</div>
 
-          {/* Billing toggle */}
-          <div className="mt-8 flex items-center justify-center gap-3">
+          {/* Billing toggle — More subtle, minimal */}
+          <div className="mt-8 flex items-center justify-center gap-6">
             <button
               onClick={() => setBillingPeriod("monthly")}
-              className={`min-h-[52px] text-sm px-4 py-1.5 rounded-full transition-all font-semibold ${
+              className={`text-sm tracking-[0.15em] uppercase transition-all font-bold ${
                 billingPeriod === "monthly"
-                  ? "bg-celestial-gold text-void-black"
-                  : "text-warm-ivory/60 hover:text-warm-ivory bg-white/5 border border-white/10"
-              }`}
+                  ? "text-celestial-gold border-b border-celestial-gold"
+                  : "text-warm-ivory/40 hover:text-warm-ivory/60"
+              } pb-2`}
             >
               Monthly
             </button>
             <button
               onClick={() => setBillingPeriod("annual")}
-              className={`min-h-[52px] text-sm px-4 py-1.5 rounded-full transition-all flex items-center gap-2 font-semibold ${
+              className={`text-sm tracking-[0.15em] uppercase transition-all flex items-center gap-2 font-bold ${
                 billingPeriod === "annual"
-                  ? "bg-celestial-gold text-void-black shadow-[0_0_20px_rgba(212,175,55,0.3)]"
-                  : "text-warm-ivory/60 hover:text-warm-ivory bg-white/5 border border-white/10"
-              }`}
+                  ? "text-celestial-gold border-b border-celestial-gold shadow-[0_4px_12px_-4px_rgba(212,175,55,0.4)]"
+                  : "text-warm-ivory/40 hover:text-warm-ivory/60"
+              } pb-2`}
             >
               Annual
-              <span className={`text-[10px] px-2 py-0.5 rounded-full ${billingPeriod === 'annual' ? 'bg-void-black/20 text-void-black' : 'bg-cosmic-teal/20 text-cosmic-teal'}`}>
-                Save up to 35%
+              <span className="text-[9px] px-2 py-0.5 rounded-full bg-celestial-gold/10 text-celestial-gold ml-1">
+                -35%
               </span>
             </button>
           </div>
         </div>
 
-        {/* 4-tier grid */}
-        <div className="grid gap-5 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        {/* 4-tier grid — Increased contrast and spacing */}
+        <div className="grid gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {TIERS.map((tier, idx) => {
             const price = PRICING[tier.id][billingPeriod];
             const monthlyEquivalent = billingPeriod === "annual" && price > 0
@@ -173,109 +174,93 @@ export default function Pricing() {
             const isCurrent = currentTier === tier.id;
             const priceKey = billingPeriod === "monthly" ? tier.monthlyKey : tier.annualKey;
             
-            // Highlight the recommended path from Oracle
             const isHighlighted = tier.highlight || (fromOracle && tier.id === "premium");
 
             return (
               <ScrollFloat key={tier.id} index={idx} intensity="subtle">
                 <motion.div
                   whileHover={{ 
-                    y: -12, 
-                    rotateY: idx % 2 === 0 ? 2 : -2, 
-                    rotateX: 1.5,
-                    z: 30 
+                    y: -8, 
+                    z: 20 
                   }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
                   className="relative h-full"
-                  style={{ perspective: "1200px" }}
                 >
                   <div
-                    className={`relative readable-card p-5 md:p-6 h-full flex flex-col transition-all duration-700 ${isHighlighted ? 'border-[#d4af37]' : ''}`}
+                    className={`relative bg-void-black/80 backdrop-blur-xl border ${isHighlighted ? 'border-celestial-gold/40 ring-1 ring-celestial-gold/20' : 'border-white/10'} p-6 sm:p-8 h-full flex flex-col transition-all duration-700 rounded-3xl`}
                     style={{
-                      transformStyle: "preserve-3d",
-                      boxShadow: isHighlighted ? "0 0 60px rgba(212, 175, 55, 0.15)" : undefined,
-                      background: isHighlighted ? "linear-gradient(135deg, rgba(20, 15, 60, 0.95) 0%, rgba(10, 8, 30, 0.98) 100%)" : undefined
+                      boxShadow: isHighlighted ? "0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.05)" : "0 20px 40px rgba(0, 0, 0, 0.3)",
                     }}
                   >
                   {isHighlighted && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-celestial-gold text-void-black text-[10px] tracking-[0.18em] uppercase font-bold whitespace-nowrap shadow-lg z-20">
-                      ✦ {fromOracle && tier.id === "premium" ? "Deeper Resonance" : "Most chosen"}
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-celestial-gold text-void-black text-[9px] tracking-[0.2em] uppercase font-black whitespace-nowrap shadow-xl z-20">
+                      Recommended
                     </div>
                   )}
 
-                  <div className="mb-4">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-[family-name:var(--font-heading)] text-2xl font-semibold text-celestial-gold">
+                  <div className="mb-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h3 className="font-[family-name:var(--font-heading)] text-2xl font-normal text-warm-ivory italic">
                         {t(tier.name as keyof Translations)}
                       </h3>
                       {tier.id === "vip" && isVip && <VipBadge />}
                     </div>
-                    <p className="readable-label text-[9px]">{getTierTagline(tier.id)}</p>
+                    <p className="text-[0.65rem] font-bold text-celestial-gold/60 uppercase tracking-[0.15em]">{getTierTagline(tier.id)}</p>
                   </div>
 
-                  <div className="mb-5">
+                  <div className="mb-8">
                     {price === 0 ? (
-                      <>
-                        <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-warm-ivory">$0</span>
-                        <span className="readable-muted text-sm ml-2">{t("price_forever")}</span>
-                      </>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-4xl font-[family-name:var(--font-heading)] font-normal text-warm-ivory">$0</span>
+                        <span className="text-warm-ivory/40 text-[0.65rem] uppercase tracking-widest font-bold ml-2">Free</span>
+                      </div>
                     ) : (
-                      <>
-                        <span className="text-4xl font-[family-name:var(--font-heading)] font-bold text-celestial-gold">
-                          {fmtPrice(price)}
-                        </span>
-                        <span className="readable-secondary text-sm ml-2">
-                          / {billingPeriod === "annual" ? (t("price_annual") as string).replace("or ", "").split(" ")[0] : (t("price_month") as string).replace("/", "")}
-                        </span>
+                      <div className="flex flex-col">
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-4xl font-[family-name:var(--font-heading)] font-normal text-warm-ivory">
+                            {fmtPrice(price)}
+                          </span>
+                          <span className="text-warm-ivory/40 text-[0.65rem] uppercase tracking-widest font-bold ml-2">
+                            / {billingPeriod === "annual" ? "yr" : "mo"}
+                          </span>
+                        </div>
                         {monthlyEquivalent && (
-                          <p className="text-xs text-cosmic-teal font-medium mt-1">
-                            ${monthlyEquivalent} / {(t("price_month") as string).replace("/", "")} · {(t("price_annual") as string).split("(")[1]?.replace(")", "") || "billed annually"}
+                          <p className="text-[0.65rem] text-cosmic-teal font-bold uppercase tracking-widest mt-2">
+                            ${monthlyEquivalent} / month
                           </p>
                         )}
-                      </>
+                      </div>
                     )}
                   </div>
 
-                  <ul className="space-y-3 mb-8 flex-1">
-                    <li className="readable-label text-[9px] mb-4 flex items-center gap-2">
-                       <span className="w-4 h-px bg-[#d4af37]/40" />
-                       {tier.id === 'free' ? "Free includes" : tier.id === 'insight' ? "Daily guidance" : tier.id === 'premium' ? "Full readings" : "VIP support"}
-                    </li>
+                  <ul className="space-y-4 mb-10 flex-1">
                     {((TRANSLATIONS[locale as keyof typeof TRANSLATIONS] || TRANSLATIONS.en)[tier.features as keyof Translations] as string[]).map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-[0.85rem] readable-primary leading-snug">
-                        <span className="text-celestial-gold mt-1 shrink-0 text-[10px]">&#10022;</span>
+                      <li key={f} className="flex items-start gap-3 text-sm text-warm-ivory/90 leading-relaxed font-medium">
+                        <span className="text-celestial-gold shrink-0 mt-1">✦</span>
                         <span>{f}</span>
                       </li>
                     ))}
                   </ul>
 
-                  {/* CTA */}
+                  {/* CTA — Minimal, high-quality button */}
                   {tier.id === "free" ? (
-                    <MagneticButton href="/onboarding" variant="glass" size="md" className="w-full justify-center shadow-lg border-white/20">
+                    <MagneticButton href="/onboarding" variant="glass" size="md" className="w-full justify-center shadow-lg border-white/10 rounded-2xl hover:bg-white/5">
                       {t("price_start_free")}
                     </MagneticButton>
                   ) : isCurrent ? (
-                    <MagneticButton variant="gold" size="md" className="w-full justify-center shadow-lg" onClick={manageSubscription}>
+                    <MagneticButton variant="gold" size="md" className="w-full justify-center shadow-lg rounded-2xl" onClick={manageSubscription}>
                       Manage plan
                     </MagneticButton>
                   ) : priceKey ? (
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-4">
                       <CheckoutButton
                         priceKey={priceKey}
                         variant={isHighlighted ? "gold" : "glass"}
                         size="md"
-                        className="w-full justify-center shadow-lg"
+                        className="w-full justify-center shadow-lg rounded-2xl"
                       >
                         {t(`price_start_${tier.id}` as keyof Translations)}
                       </CheckoutButton>
-                      <a
-                        href={telegramStarsLink(priceKey)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block text-center text-[0.7rem] readable-secondary hover:text-celestial-gold transition-colors font-medium"
-                      >
-                        or pay with Telegram Stars ↗
-                      </a>
                     </div>
                   ) : null}
                 </div>
@@ -285,222 +270,45 @@ export default function Pricing() {
         })}
         </div>
 
-        {/* Refund and Trust note */}
-        <div className="mt-16 flex flex-col items-center gap-8">
-          <p className="text-center text-[0.8rem] readable-secondary max-w-lg leading-relaxed font-medium">
-            {t("cta_note")}
-          </p>
-
-          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6 py-8 border-y border-white/10 w-full max-w-4xl bg-white/[0.02] rounded-xl px-4">
-            <div className="flex items-center gap-3 text-[0.7rem] readable-label">
-              <span className="text-cosmic-teal text-base">✦</span> Secure checkout
-            </div>
-            <div className="flex items-center gap-3 text-[0.7rem] readable-label">
-              <span className="text-cosmic-teal text-base">✦</span> Private readings
-            </div>
-            <div className="flex items-center gap-3 text-[0.7rem] readable-label">
-              <span className="text-cosmic-teal text-base">✦</span> Cancel anytime
-            </div>
-          </div>
-        </div>
-
-        {/* Full feature matrix */}
-        <FeatureMatrix />
-
-        {/* Addons */}
-        <Addons />
-      </div>
-    </section>
-  );
-}
-
-/* ──────────────────────────────────────────────────────────────────────
- * Feature comparison matrix — 4 tiers, full breakdown
- * ─────────────────────────────────────────────────────────────────── */
-
-interface MatrixRow {
-  category?: string;
-  feature: string;
-  free: string | boolean;
-  insight: string | boolean;
-  premium: string | boolean;
-  vip: string | boolean;
-}
-
-const MATRIX: MatrixRow[] = [
-  // — Daily ritual
-  { category: "Daily ritual", feature: "Card of the Day (veil reveal)", free: true, insight: true, premium: true, vip: true },
-  { feature: "Personalized daily horoscope", free: false, insight: true, premium: true, vip: true },
-  { feature: "Live planetary hour notifications", free: false, insight: false, premium: false, vip: true },
-  { feature: "Weekly audio briefing", free: false, insight: false, premium: true, vip: true },
-
-  // — Charts
-  { category: "Your chart", feature: "Basic sun-sign profile", free: true, insight: true, premium: true, vip: true },
-  { feature: "Full natal chart (Sun/Moon/Rising + houses)", free: false, insight: true, premium: true, vip: true },
-  { feature: "Synastry / compatibility reports", free: false, insight: "1 / month", premium: "Unlimited", vip: "Unlimited" },
-  { feature: "Solar return reading", free: false, insight: false, premium: true, vip: true },
-  { feature: "Year-ahead forecast", free: false, insight: false, premium: true, vip: true },
-
-  // — Oracle (AI)
-  { category: "Olivia AI oracle", feature: "AI oracle questions", free: "3 / mo", insight: "30 / mo", premium: "Unlimited", vip: "Unlimited" },
-  { feature: "Model used", free: "Haiku", insight: "Haiku", premium: "Haiku (deep)", vip: "Sonnet" },
-  { feature: "Voice readings (ElevenLabs)", free: false, insight: false, premium: false, vip: true },
-
-  // — Academy
-  { category: "Academy", feature: "First-track lessons", free: "12 lessons", insight: true, premium: true, vip: true },
-  { feature: "Full 207-lesson curriculum", free: false, insight: false, premium: true, vip: true },
-  { feature: "Tarot encyclopedia (78 cards)", free: false, insight: true, premium: true, vip: true },
-  { feature: "Quizzes + progress tracking", free: false, insight: true, premium: true, vip: true },
-
-  // — Tarot
-  { category: "Tarot", feature: "Single-card draws", free: true, insight: true, premium: true, vip: true },
-  { feature: "Three-card spread", free: false, insight: true, premium: true, vip: true },
-  { feature: "Celtic Cross (10-card)", free: false, insight: false, premium: true, vip: true },
-
-  // — Transits
-  { category: "Transits", feature: "Major-aspect alerts", free: false, insight: true, premium: true, vip: true },
-  { feature: "Custom transit timeline", free: false, insight: false, premium: true, vip: true },
-
-  // — Human touch
-  { category: "Human touch", feature: "Custom video reading (monthly)", free: false, insight: false, premium: false, vip: "30 min" },
-  { feature: "Priority human astrologer line", free: false, insight: false, premium: false, vip: true },
-
-  // — Other
-  { category: "Other", feature: "Cosmic journal", free: false, insight: true, premium: true, vip: true },
-  { feature: "Early access to new features", free: false, insight: false, premium: true, vip: true },
-  { feature: "VIP-only events & livestreams", free: false, insight: false, premium: false, vip: true },
-];
-
-function Cell({ value, gold = false }: { value: string | boolean; gold?: boolean }) {
-  if (typeof value === "string") {
-    return <span className={`compare-text ${gold ? "compare-text-vip" : "compare-text-muted"}`}>{value}</span>;
-  }
-  if (value) return <span className={`compare-yes ${gold ? "compare-yes-gold" : ""}`} aria-label="Included">✓</span>;
-  return <span className="compare-no" aria-label="Not included">—</span>;
-}
-
-function FeatureMatrix() {
-  const { t } = useLocale();
-  return (
-    <div className="mt-14 sm:mt-20 relative z-10">
-      <div className="absolute inset-0 content-scrim -z-10" />
-      <p className="text-center readable-label mb-6">
-        <span aria-hidden className="mr-2">✦</span>
-        Plan details
-      </p>
-
-      <details className="md:hidden readable-card p-5">
-        <summary className="cursor-pointer readable-label text-[10px]">
-          Compare detailed features
-        </summary>
-        <ul className="mt-4 space-y-3 text-sm readable-secondary leading-relaxed">
-          <li><strong className="text-warm-ivory">Free:</strong> daily card, basic sign profile, starter lessons, and a few oracle questions.</li>
-          <li><strong className="text-warm-ivory">Insight:</strong> fuller natal chart context, daily guidance, and more oracle questions.</li>
-          <li><strong className="text-warm-ivory">Premium:</strong> unlimited oracle, compatibility, year-ahead readings, and advanced tarot spreads.</li>
-          <li><strong className="text-warm-ivory">VIP:</strong> premium features plus voice/video support and priority help.</li>
-        </ul>
-      </details>
-
-      <div
-        className="hidden md:block readable-panel overflow-x-auto rounded-2xl"
-        style={{ background: 'rgba(5, 3, 20, 0.8)' }}
-      >
-        <div className="matrix readable-table" role="table" aria-label="Plan feature comparison">
-          {/* Header */}
-          <div className="matrix-row matrix-head" role="row" style={{ background: 'rgba(255,255,255,0.05)' }}>
-            <div className="matrix-cell matrix-cell-feature readable-label text-[9px]" role="columnheader">Feature</div>
-            <div className="matrix-cell matrix-cell-center readable-label text-[9px]" role="columnheader">{t("price_free")}</div>
-            <div className="matrix-cell matrix-cell-center readable-label text-[9px]" role="columnheader">{(t("price_insight") as string).substring(0, 4)}.</div>
-            <div className="matrix-cell matrix-cell-center matrix-cell-vip" role="columnheader">
-              <span className="text-celestial-gold font-[family-name:var(--font-heading)] italic font-bold">{(t("price_premium") as string).substring(0, 4)}.</span>
-            </div>
-            <div className="matrix-cell matrix-cell-center readable-label text-[9px]" role="columnheader">{t("price_vip")}</div>
-          </div>
-
-          {MATRIX.map((row, i) => (
-            <div key={i} style={{ display: "contents" }}>
-              {row.category && (
-                <div className="matrix-row matrix-category" role="row" style={{ background: 'rgba(212, 175, 55, 0.03)' }}>
-                  <div className="matrix-cell font-bold" role="cell" style={{ gridColumn: "1 / -1" }}>
-                    {row.category}
-                  </div>
-                </div>
-              )}
-              <div className="matrix-row hover:bg-white/[0.02] transition-colors" role="row">
-                <div className="matrix-cell matrix-cell-feature font-medium readable-primary" role="cell">{row.feature}</div>
-                <div className="matrix-cell matrix-cell-center" role="cell"><Cell value={row.free} /></div>
-                <div className="matrix-cell matrix-cell-center" role="cell"><Cell value={row.insight} /></div>
-                <div className="matrix-cell matrix-cell-center matrix-cell-vip" role="cell"><Cell value={row.premium} gold /></div>
-                <div className="matrix-cell matrix-cell-center" role="cell"><Cell value={row.vip} gold /></div>
+        {/* Trust markers & Disclaimer — Streamlined */}
+        <div className="mt-20 flex flex-col items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-16 py-10 border-y border-white/5 w-full max-w-4xl px-4 mb-12">
+            <div className="flex flex-col items-center text-center gap-3">
+              <span className="text-celestial-gold text-2xl opacity-60">✦</span>
+              <div>
+                <p className="text-[0.7rem] uppercase tracking-[0.2em] font-bold text-warm-ivory/80">Secure Checkout</p>
+                <p className="text-[0.6rem] text-warm-ivory/40 mt-1">Encrypted encryption via Paddle</p>
               </div>
             </div>
-          ))}
+            <div className="flex flex-col items-center text-center gap-3">
+              <span className="text-celestial-gold text-2xl opacity-60">✦</span>
+              <div>
+                <p className="text-[0.7rem] uppercase tracking-[0.2em] font-bold text-warm-ivory/80">Privacy First</p>
+                <p className="text-[0.6rem] text-warm-ivory/40 mt-1">Your data is never sold or shared</p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center text-center gap-3">
+              <span className="text-celestial-gold text-2xl opacity-60">✦</span>
+              <div>
+                <p className="text-[0.7rem] uppercase tracking-[0.2em] font-bold text-warm-ivory/80">Precise Ephemeris</p>
+                <p className="text-[0.6rem] text-warm-ivory/40 mt-1">Real-time astronomical data</p>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-center text-[0.65rem] text-warm-ivory/30 max-w-2xl leading-relaxed italic px-4">
+            Readings are for symbolic reflection and self-understanding. They are not predictive and do not substitute for professional medical, legal, or financial advice. Olivia Arcana is an independent application; astronomical data is sourced from open ephemerides and is not endorsed by any government agency.
+          </p>
+        </div>
+
+        {/* Individual Addons — Renamed for clarity */}
+        <div className="mt-24">
+          <p className="text-center readable-label mb-4 tracking-[0.2em]">Individual Reports</p>
+          <h3 className="text-center font-[family-name:var(--font-heading)] text-3xl text-warm-ivory italic mb-12">Try a single reading</h3>
+          <Addons />
         </div>
       </div>
-
-      <style>{`
-        .matrix {
-          width: 100%;
-          min-width: 600px;
-          font-family: var(--font-body, system-ui), sans-serif;
-        }
-        .matrix-row {
-          display: grid;
-          grid-template-columns: 2.2fr repeat(4, 1fr);
-          align-items: center;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .matrix-row:last-of-type { border-bottom: none; }
-        
-        .matrix-category .matrix-cell {
-          padding: 1.25rem 1.25rem 0.5rem;
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-style: italic;
-          font-size: 0.9rem;
-          letter-spacing: 0.04em;
-          color: var(--c-gold);
-        }
-        .matrix-cell {
-          padding: 1rem 0.75rem;
-          font-size: 0.82rem;
-          line-height: 1.35;
-        }
-        .matrix-cell-feature {
-          color: var(--c-text-primary);
-        }
-        .matrix-cell-center { text-align: center; }
-        .matrix-cell-vip { background: rgba(212, 175, 55, 0.04); }
-
-        .compare-yes {
-          display: inline-block;
-          font-size: 1.1rem;
-          color: #4ECDC4;
-          font-weight: bold;
-        }
-        .compare-yes-gold {
-          color: var(--c-gold);
-          text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
-        }
-        .compare-no {
-          color: var(--c-text-tertiary);
-          font-weight: 300;
-        }
-        .compare-text { font-size: 0.75rem; font-weight: 500; }
-        .compare-text-muted { color: var(--c-text-secondary); }
-        .compare-text-vip {
-          color: var(--c-gold);
-          font-family: var(--font-heading, 'Cormorant Garamond'), serif;
-          font-style: italic;
-          font-size: 0.9rem;
-          font-weight: 600;
-        }
-        @media (max-width: 640px) {
-          .matrix-head .matrix-cell { font-size: 0.55rem; padding: 0.8rem 0.4rem; }
-          .matrix-cell { font-size: 0.7rem; padding: 0.7rem 0.4rem; }
-          .matrix-cell-feature { font-size: 0.68rem; }
-        }
-      `}</style>
-    </div>
+    </section>
   );
 }
 
@@ -523,33 +331,25 @@ function Addons() {
   };
 
   return (
-    <div className="mt-16 sm:mt-24 relative z-10">
-      <div className="absolute inset-0 content-scrim -z-10" />
-      <p className="text-center readable-label mb-3">
-        <span aria-hidden className="mr-2">✦</span>
-        {t("price_individual")}
-      </p>
-      <p className="text-center readable-secondary text-sm mb-12 max-w-xl mx-auto font-medium">
-        {t("cta_subtitle")}
-      </p>
+    <>
       <div className="addons-grid">
         {ADDON_KEYS.map((key) => {
           const addon = ADDONS[key];
           return (
             <div
               key={key}
-              className="readable-card p-6 flex flex-col gap-4 addon-card hover:border-celestial-gold/40 transition-colors"
+              className="bg-void-black/40 border border-white/5 rounded-2xl p-6 flex flex-col gap-5 hover:border-celestial-gold/30 transition-all duration-500"
             >
               <div className="flex items-baseline justify-between gap-3">
-                <h4 className="font-[family-name:var(--font-heading)] text-xl text-warm-ivory font-semibold">
+                <h4 className="font-[family-name:var(--font-heading)] text-xl text-warm-ivory font-medium italic">
                   {getAddonName(key)}
                 </h4>
                 <span className="text-celestial-gold font-bold text-lg whitespace-nowrap">
                   {fmtPrice(addon.price)}
                 </span>
               </div>
-              <CheckoutButton priceKey={key} variant="glass" size="md" className="w-full justify-center shadow-md border-white/20">
-                {(t("price_pay") as string).split(" ")[0]} {fmtPrice(addon.price)}
+              <CheckoutButton priceKey={key} variant="glass" size="md" className="w-full justify-center shadow-md border-white/10 rounded-xl hover:bg-white/5">
+                Get {getAddonName(key)}
               </CheckoutButton>
             </div>
           );
@@ -571,6 +371,6 @@ function Addons() {
           .addons-grid { grid-template-columns: repeat(3, 1fr); }
         }
       `}</style>
-    </div>
+    </>
   );
 }

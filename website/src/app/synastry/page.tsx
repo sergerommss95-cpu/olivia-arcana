@@ -254,22 +254,28 @@ export default function SynastryPage() {
         minHeight: "44px", display: "inline-flex", alignItems: "center",
       }}>{"\u2190"} {t("common_home")}</Link>
 
-      {/* Header */}
-      <div style={{ textAlign: "center", marginBottom: "2rem", marginTop: "1rem" }}>
-        <div style={{ fontSize: "2rem", color: "rgba(212,175,55,0.5)", textShadow: "0 0 40px rgba(212,175,55,0.2)", marginBottom: "0.5rem" }}>
-          {"\u2727"}
-        </div>
+      {/* Header — Streamlined for clarity */}
+      <div style={{ textAlign: "center", marginBottom: "3rem", marginTop: "1rem" }}>
         <h1 style={{
-          fontFamily: "var(--font-heading)", fontSize: "clamp(1.4rem, 4vw, 2rem)", fontWeight: 400,
+          fontFamily: "var(--font-heading)", fontSize: "clamp(1.8rem, 5vw, 3rem)", fontWeight: 400,
+          color: "rgba(240,236,255,0.95)", marginBottom: "0.75rem",
         }}>
-          <span className="text-gold-gradient">Compatibility Reading</span>
+          Check compatibility
         </h1>
         <p style={{
-          fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
-          color: "rgba(196,185,228,0.5)", maxWidth: "450px", margin: "0.5rem auto 0",
+          fontFamily: "var(--font-body)", fontSize: "0.95rem", fontWeight: 400,
+          color: "rgba(196,185,228,0.7)", maxWidth: "480px", margin: "0 auto",
+          lineHeight: 1.6,
         }}>
-          Enter two birth dates. Add birth times and cities when you know them for a more useful comparison.
+          Enter two birth dates to explore relationship dynamics in plain, actionable language.
         </p>
+        <Link href="/faq#synastry" style={{
+          display: "inline-block", marginTop: "1rem", ...labelSt, 
+          color: "rgba(212,175,55,0.5)", textDecoration: "underline",
+          textUnderlineOffset: "4px",
+        }}>
+          How it works
+        </Link>
 
         {/* Inviter banner \u2014 shown when arriving via ?invite=... */}
         {fromInvite && inviterName && (
@@ -306,89 +312,111 @@ export default function SynastryPage() {
         /* ── INPUT FORMS ── */
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
-          gap: "1rem",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
+          gap: "2rem",
           width: "100%",
-          maxWidth: "820px",
+          maxWidth: "860px",
           boxSizing: "border-box",
         }}>
           {/* Person A */}
           <div style={formCard}>
-            <div style={{ ...labelSt, marginBottom: "0.2rem", fontSize: "0.65rem", color: "rgba(78,205,196,0.6)" }}>
-              Person A {prefilledA && "(auto-filled)"}
+            <div style={{ ...labelSt, marginBottom: "1rem", fontSize: "0.7rem", color: "rgba(232,201,106,0.8)" }}>
+              First Person {prefilledA && "(You)"}
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-              <span style={labelSt}>Name</span>
-              <input type="text" placeholder="Name" value={nameA} onChange={e => setNameA(e.target.value)} style={inputStyle} />
+            
+            <div style={{ position: "relative", marginBottom: "1.5rem" }}>
+              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>Name</span>
+              <input type="text" placeholder="Optional" value={nameA} onChange={e => setNameA(e.target.value)} style={inputStyle} />
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-              <span style={labelSt}>Birth Date *</span>
+
+            <div style={{ position: "relative", marginBottom: "1.5rem" }}>
+              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>Birth Date</span>
               <BirthDatePicker value={dateA} onChange={setDateA} />
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-              <span style={labelSt}>Birth Time {timeUnknownA ? "(using noon)" : "*"}</span>
+
+            <div style={{ position: "relative", marginBottom: "0.5rem" }}>
+              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>
+                Birth Time {timeUnknownA && "(Noon)"}
+              </span>
               {!timeUnknownA && (
                 <input type="time" value={timeA} onChange={e => setTimeA(e.target.value)} style={{ ...inputStyle, colorScheme: "dark" }} />
               )}
               <button onClick={() => { setTimeUnknownA(!timeUnknownA); setTimeA(""); }} style={{
                 background: "none", border: "none", cursor: "pointer",
                 fontFamily: "var(--font-body)", fontSize: "0.65rem",
-                color: timeUnknownA ? "rgba(212,175,55,0.6)" : "rgba(180,170,210,0.35)",
-                transition: "color 0.2s", textAlign: "left",
-                minHeight: "44px", display: "flex", alignItems: "center",
-              }}>{timeUnknownA ? "\u2713 Using noon" : "I don\u2019t know the time"}</button>
+                color: timeUnknownA ? "rgba(212,175,55,0.6)" : "rgba(180,170,210,0.4)",
+                marginTop: "0.5rem", padding: "4px 12px",
+              }}>
+                {timeUnknownA ? "✦ Known time" : "Don't know exact time?"}
+              </button>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-              <span style={labelSt}>Birth City</span>
+
+            <div style={{ position: "relative" }}>
+              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>Birth City</span>
               <CityAutocomplete onSelect={setCityA} />
             </div>
           </div>
 
           {/* Person B */}
           <div style={formCard}>
-            <div style={{ ...labelSt, marginBottom: "0.2rem", fontSize: "0.65rem", color: "rgba(232,82,74,0.6)" }}>
-              Person B
+            <div style={{ ...labelSt, marginBottom: "1rem", fontSize: "0.7rem", color: "rgba(232,201,106,0.8)" }}>
+              Second Person
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-              <span style={labelSt}>Name</span>
-              <input type="text" placeholder="Name" value={nameB} onChange={e => setNameB(e.target.value)} style={inputStyle} />
+
+            <div style={{ position: "relative", marginBottom: "1.5rem" }}>
+              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>Name</span>
+              <input type="text" placeholder="Optional" value={nameB} onChange={e => setNameB(e.target.value)} style={inputStyle} />
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-              <span style={labelSt}>Birth Date *</span>
+
+            <div style={{ position: "relative", marginBottom: "1.5rem" }}>
+              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>Birth Date</span>
               <BirthDatePicker value={dateB} onChange={setDateB} />
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-              <span style={labelSt}>Birth Time {timeUnknownB ? "(using noon)" : "*"}</span>
+
+            <div style={{ position: "relative", marginBottom: "0.5rem" }}>
+              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>
+                Birth Time {timeUnknownB && "(Noon)"}
+              </span>
               {!timeUnknownB && (
                 <input type="time" value={timeB} onChange={e => setTimeB(e.target.value)} style={{ ...inputStyle, colorScheme: "dark" }} />
               )}
               <button onClick={() => { setTimeUnknownB(!timeUnknownB); setTimeB(""); }} style={{
                 background: "none", border: "none", cursor: "pointer",
                 fontFamily: "var(--font-body)", fontSize: "0.65rem",
-                color: timeUnknownB ? "rgba(212,175,55,0.6)" : "rgba(180,170,210,0.35)",
-                transition: "color 0.2s", textAlign: "left",
-                minHeight: "44px", display: "flex", alignItems: "center",
-              }}>{timeUnknownB ? "\u2713 Using noon" : "I don\u2019t know the time"}</button>
+                color: timeUnknownB ? "rgba(212,175,55,0.6)" : "rgba(180,170,210,0.4)",
+                marginTop: "0.5rem", padding: "4px 12px",
+              }}>
+                {timeUnknownB ? "✦ Known time" : "Don't know exact time?"}
+              </button>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-              <span style={labelSt}>Birth City</span>
+
+            <div style={{ position: "relative" }}>
+              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>Birth City</span>
               <CityAutocomplete onSelect={setCityB} />
             </div>
           </div>
 
           {/* Calculate button — full width */}
-          <div style={{ gridColumn: "1 / -1", textAlign: "center", marginTop: "0.5rem" }}>
-            <button onClick={compute} disabled={!canCompute || computing} style={{
-              padding: "0.8rem 3rem", borderRadius: "100px",
-              background: "linear-gradient(135deg, rgba(160,120,255,0.22), rgba(100,80,220,0.18))",
-              border: "1px solid rgba(200,180,255,0.22)",
-              color: "rgba(240,235,255,0.95)", fontSize: "0.85rem", fontWeight: 500,
-              letterSpacing: "0.06em", textTransform: "uppercase",
-              cursor: canCompute && !computing ? "pointer" : "not-allowed",
-              opacity: canCompute && !computing ? 1 : 0.3,
-              transition: `all 0.3s ${EASE}`,
-            }}>
-              {computing ? "Comparing..." : "Compare charts"}
+          <div style={{ gridColumn: "1 / -1", textAlign: "center", marginTop: "1rem" }}>
+            <button 
+              onClick={compute} 
+              disabled={!canCompute || computing} 
+              className="group relative"
+              style={{
+                padding: "1rem 4rem", borderRadius: "100px",
+                background: canCompute && !computing 
+                  ? "linear-gradient(135deg, #E8C96A, #D4AF37)" 
+                  : "rgba(255,255,255,0.05)",
+                border: "none",
+                color: canCompute && !computing ? "#08061a" : "rgba(255,255,255,0.2)",
+                fontSize: "0.9rem", fontWeight: 700,
+                letterSpacing: "0.12em", textTransform: "uppercase",
+                cursor: canCompute && !computing ? "pointer" : "not-allowed",
+                transition: `all 0.4s ${EASE}`,
+                boxShadow: canCompute && !computing ? "0 15px 35px rgba(212,175,55,0.25)" : "none",
+              }}
+            >
+              {computing ? "Comparing..." : "Check compatibility"}
             </button>
           </div>
         </div>

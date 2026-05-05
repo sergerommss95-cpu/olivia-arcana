@@ -11,115 +11,70 @@
 "use client";
 
 import React from "react";
-
-const ROWS: { q: string; a: React.ReactNode }[] = [
-  {
-    q: "Is this actually astrology, or just generic horoscopes?",
-    a: (
-      <>
-        It uses your birth data when you provide it, then reads chart patterns,
-        current timing, and tarot symbols together. It is reflective guidance,
-        not a fixed prediction.
-      </>
-    ),
-  },
-  {
-    q: "What is free?",
-    a: (
-      <>
-        You can start with the Card of the Day, basic chart context, starter
-        lessons, and a few Oracle questions. No payment is required to try it.
-      </>
-    ),
-  },
-  {
-    q: "What changes when I pay?",
-    a: (
-      <>
-        Paid plans add more Oracle questions, fuller natal chart readings,
-        compatibility, transit timing, deeper tarot spreads, and saved context
-        depending on the plan you choose.
-      </>
-    ),
-  },
-  {
-    q: "Is this a prediction?",
-    a: (
-      <>
-        No. Olivia Arcana does not promise outcomes or tell you what must happen.
-        The readings are symbolic prompts for self-reflection and decision-making.
-      </>
-    ),
-  },
-  {
-    q: "Is my information private?",
-    a: (
-      <>
-        Your birth data and Oracle conversations stay private to your account.
-        We do not sell your personal readings to advertisers.
-      </>
-    ),
-  },
-  {
-    q: "Can I cancel my plan?",
-    a: (
-      <>
-        Yes. You can cancel from your billing dashboard and keep access until
-        the end of the current billing period.
-      </>
-    ),
-  },
-];
-
-const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
+import { useLocale } from "../lib/i18n/useLocale";
+import { type Translations } from "../lib/i18n/translations";
 
 export default function Faq() {
+  const { t } = useLocale();
+
+  const ROWS = [
+    { q: t("faq_q1"), a: t("faq_a1") },
+    { q: t("faq_q2"), a: t("faq_a2") },
+    { q: t("faq_q3"), a: t("faq_a3") },
+    { q: t("faq_q4"), a: t("faq_a4") },
+    { q: t("faq_q5"), a: t("faq_a5") },
+    { q: t("faq_q6"), a: t("faq_a6") },
+  ];
+
+  const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
+
   return (
     <section
       id="faq"
       aria-labelledby="faq-heading"
       style={{
-        padding: "clamp(4rem, 9vw, 7rem) clamp(1.25rem, 6vw, 6rem)",
-        maxWidth: "820px",
+        padding: "clamp(6rem, 12vw, 10rem) clamp(1.5rem, 6vw, 6rem)",
+        maxWidth: "860px",
         margin: "0 auto",
       }}
     >
-      <div style={{ textAlign: "center", marginBottom: "clamp(2.5rem, 5vw, 4rem)" }}>
+      <div style={{ textAlign: "center", marginBottom: "clamp(3rem, 6vw, 5rem)" }}>
         <p
           className="readable-label"
           style={{
-            fontSize: "0.72rem",
+            fontSize: "0.7rem",
             color: "var(--c-gold)",
             opacity: 1,
-            marginBottom: "1rem",
+            marginBottom: "1.2rem",
+            letterSpacing: "0.4em"
           }}
         >
-          <span aria-hidden style={{ marginRight: "0.6em" }}>✦</span>
-          Questions before you start
+          <span aria-hidden style={{ marginRight: "0.8em" }}>✦</span>
+          {t("faq_eyebrow")}
         </p>
         <h2
           id="faq-heading"
           style={{
             fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-            fontSize: "clamp(2.2rem, 4.4vw, 3.2rem)",
-            fontWeight: 500,
+            fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
+            fontWeight: 400,
             fontStyle: "italic",
             color: "#f5f2e1",
-            lineHeight: 1.1,
+            lineHeight: 1.05,
             margin: 0,
-            letterSpacing: "-0.01em"
+            letterSpacing: "-0.02em"
           }}
         >
-          Simple answers before you choose.
+          {t("faq_title")}
         </h2>
       </div>
 
       <div role="list">
         {ROWS.map((row, i) => (
-          <details key={i} role="listitem" className="faq-row">
-            <summary className="hover:bg-white/[0.02] transition-colors px-2 -mx-2 rounded-lg">
+          <details key={i} role="listitem" className="faq-row group">
+            <summary className="hover:bg-white/[0.03] transition-all duration-500 px-4 -mx-4 rounded-xl">
               <span className="faq-q">{row.q}</span>
-              <span aria-hidden className="faq-plus">+</span>
+              <span aria-hidden className="faq-plus">✦</span>
             </summary>
             <div className="faq-a readable-secondary text-scrim">{row.a}</div>
           </details>
@@ -158,17 +113,23 @@ export default function Faq() {
         .faq-plus {
           flex: 0 0 auto;
           font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 1.6rem;
+          font-size: 1.2rem;
           font-weight: 300;
           color: var(--c-gold);
           line-height: 1;
-          transform: rotate(0deg);
-          transition: transform 300ms ${EASE}, color 200ms ${EASE};
+          transform: rotate(0deg) scale(0.8);
+          transition: all 400ms ${EASE};
           will-change: transform;
+          opacity: 0.4;
         }
         .faq-row[open] .faq-plus {
-          transform: rotate(45deg); /* plus → x */
+          transform: rotate(180deg) scale(1.1);
           color: #fff;
+          opacity: 1;
+        }
+        .group:hover .faq-plus {
+          opacity: 0.8;
+          transform: scale(1);
         }
         .faq-a {
           margin-top: 1.25rem;
