@@ -180,7 +180,7 @@ export default function Starfield() {
       />
       {/* Dark fallback if WebGL fails */}
       <div
-        style={{ position: "fixed", inset: 0, zIndex: -2, backgroundColor: "#06041a" }}
+        style={{ position: "fixed", inset: 0, zIndex: -2, backgroundColor: "#0a0d38" }}
       />
     </>
   );

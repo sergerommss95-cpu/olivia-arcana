@@ -32,11 +32,12 @@ const FORMAT_SIZES: Record<CardFormat, { w: number; h: number }> = {
   twitter: { w: 1200, h: 628 },
 };
 
+// Night-family grounds only — element mood carried by depth, not hue.
 const ELEMENT_GRADIENTS: Record<string, [string, string, string]> = {
-  Fire: ["#1a0a00", "#2d1200", "#0d0615"],
-  Water: ["#000a1a", "#001030", "#0d0615"],
-  Air: ["#0a0a14", "#12122a", "#0d0615"],
-  Earth: ["#0a1005", "#0d1a08", "#0d0615"],
+  Fire: ["#10134d", "#20279b", "#0a0d38"],
+  Water: ["#0a0d38", "#10134d", "#0a0d38"],
+  Air: ["#10134d", "#181d7a", "#0a0d38"],
+  Earth: ["#0a0d38", "#181d7a", "#0a0d38"],
 };
 
 function wrapText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): string[] {
@@ -88,7 +89,7 @@ export async function renderChartCard(data: CardData, format: CardFormat): Promi
     const alpha = 0.15 + (i % 7) * 0.05;
     ctx.beginPath();
     ctx.arc(sx, sy, sr * scale, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(200,190,240,${alpha})`;
+    ctx.fillStyle = `rgba(183,188,233,${alpha})`;
     ctx.fill();
   }
 
@@ -111,15 +112,15 @@ export async function renderChartCard(data: CardData, format: CardFormat): Promi
   // ── Sign Name ──
   const nameY = glyphY + (isWide ? 70 : 90) * scale;
   ctx.font = `300 ${(isWide ? 44 : 52) * scale}px 'Cormorant Garamond', Georgia, serif`;
-  ctx.fillStyle = "rgba(240,236,255,0.92)";
+  ctx.fillStyle = "rgba(232,233,255,0.92)";
   ctx.letterSpacing = `${6 * scale}px`;
   ctx.fillText(data.signName.toUpperCase(), isWide ? glyphX : w / 2, nameY);
   ctx.letterSpacing = "0px";
 
   // ── Date Range ──
   const rangeY = nameY + 30 * scale;
-  ctx.font = `400 ${12 * scale}px 'Inter', system-ui, sans-serif`;
-  ctx.fillStyle = "rgba(180,170,210,0.45)";
+  ctx.font = `400 ${12 * scale}px 'IBM Plex Mono', ui-monospace, monospace`;
+  ctx.fillStyle = "rgba(183,188,233,0.5)";
   ctx.letterSpacing = `${3 * scale}px`;
   ctx.fillText(data.dateRange.toUpperCase(), isWide ? glyphX : w / 2, rangeY);
   ctx.letterSpacing = "0px";
@@ -130,7 +131,7 @@ export async function renderChartCard(data: CardData, format: CardFormat): Promi
   ctx.beginPath();
   ctx.moveTo((isWide ? glyphX : w / 2) - divW, divY);
   ctx.lineTo((isWide ? glyphX : w / 2) + divW, divY);
-  ctx.strokeStyle = "rgba(212,175,55,0.3)";
+  ctx.strokeStyle = "rgba(224,183,104,0.3)";
   ctx.lineWidth = 1;
   ctx.stroke();
 
@@ -141,15 +142,15 @@ export async function renderChartCard(data: CardData, format: CardFormat): Promi
 
   // Big Three
   ctx.textAlign = isWide ? "left" : "center";
-  ctx.font = `500 ${11 * scale}px 'Inter', system-ui, sans-serif`;
-  ctx.fillStyle = "rgba(212,175,55,0.6)";
+  ctx.font = `500 ${11 * scale}px 'IBM Plex Mono', ui-monospace, monospace`;
+  ctx.fillStyle = "rgba(224,183,104,0.6)";
   ctx.letterSpacing = `${2.5 * scale}px`;
   ctx.fillText("YOUR BIG THREE", isWide ? contentX : w / 2, cursorY);
   ctx.letterSpacing = "0px";
   cursorY += 28 * scale;
 
   ctx.font = `400 ${(isWide ? 18 : 20) * scale}px 'Cormorant Garamond', Georgia, serif`;
-  ctx.fillStyle = "rgba(240,236,255,0.85)";
+  ctx.fillStyle = "rgba(232,233,255,0.85)";
   const bigThreeLines = wrapText(ctx, data.bigThree, contentW);
   for (const line of bigThreeLines) {
     ctx.fillText(line, isWide ? contentX + contentW / 2 : w / 2, cursorY);
@@ -159,8 +160,8 @@ export async function renderChartCard(data: CardData, format: CardFormat): Promi
   cursorY += 20 * scale;
 
   // Element + Energy row
-  ctx.font = `500 ${11 * scale}px 'Inter', system-ui, sans-serif`;
-  ctx.fillStyle = "rgba(212,175,55,0.6)";
+  ctx.font = `500 ${11 * scale}px 'IBM Plex Mono', ui-monospace, monospace`;
+  ctx.fillStyle = "rgba(224,183,104,0.6)";
   ctx.letterSpacing = `${2.5 * scale}px`;
   ctx.fillText("ELEMENT", isWide ? contentX : w * 0.3, cursorY);
   ctx.fillText("COSMIC ENERGY", isWide ? contentX + contentW * 0.5 : w * 0.7, cursorY);
@@ -168,7 +169,7 @@ export async function renderChartCard(data: CardData, format: CardFormat): Promi
   cursorY += 24 * scale;
 
   ctx.font = `400 ${16 * scale}px 'Cormorant Garamond', Georgia, serif`;
-  ctx.fillStyle = "rgba(240,236,255,0.85)";
+  ctx.fillStyle = "rgba(232,233,255,0.85)";
   ctx.fillText(`${data.elementEmoji} ${data.element}`, isWide ? contentX : w * 0.3, cursorY);
   ctx.fillText(`${data.cosmicEnergy}%`, isWide ? contentX + contentW * 0.5 : w * 0.7, cursorY);
 
@@ -176,7 +177,7 @@ export async function renderChartCard(data: CardData, format: CardFormat): Promi
   cursorY += 18 * scale;
   const barX = isWide ? contentX + contentW * 0.35 : w * 0.55;
   const barW = isWide ? contentW * 0.28 : w * 0.28;
-  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  ctx.fillStyle = "rgba(232,233,255,0.08)";
   ctx.beginPath();
   ctx.roundRect(barX, cursorY - 3 * scale, barW, 6 * scale, 3 * scale);
   ctx.fill();
@@ -191,15 +192,15 @@ export async function renderChartCard(data: CardData, format: CardFormat): Promi
 
   // Traits (if space)
   if (!isWide || isTall) {
-    ctx.font = `500 ${11 * scale}px 'Inter', system-ui, sans-serif`;
-    ctx.fillStyle = "rgba(212,175,55,0.6)";
+    ctx.font = `500 ${11 * scale}px 'IBM Plex Mono', ui-monospace, monospace`;
+    ctx.fillStyle = "rgba(224,183,104,0.6)";
     ctx.letterSpacing = `${2.5 * scale}px`;
     ctx.fillText("COSMIC TRAITS", isWide ? contentX : w / 2, cursorY);
     ctx.letterSpacing = "0px";
     cursorY += 22 * scale;
 
-    ctx.font = `300 ${14 * scale}px 'Inter', system-ui, sans-serif`;
-    ctx.fillStyle = "rgba(200,190,235,0.7)";
+    ctx.font = `300 ${14 * scale}px 'DM Sans', system-ui, sans-serif`;
+    ctx.fillStyle = "rgba(183,188,233,0.7)";
     const maxTraits = isTall ? 4 : 3;
     for (let i = 0; i < Math.min(data.traits.length, maxTraits); i++) {
       const traitLines = wrapText(ctx, `▸ ${data.traits[i]}`, contentW);
@@ -214,15 +215,15 @@ export async function renderChartCard(data: CardData, format: CardFormat): Promi
 
   // Today's Reading (story format has space)
   if (isTall) {
-    ctx.font = `500 ${11 * scale}px 'Inter', system-ui, sans-serif`;
-    ctx.fillStyle = "rgba(212,175,55,0.6)";
+    ctx.font = `500 ${11 * scale}px 'IBM Plex Mono', ui-monospace, monospace`;
+    ctx.fillStyle = "rgba(224,183,104,0.6)";
     ctx.letterSpacing = `${2.5 * scale}px`;
     ctx.fillText("TODAY'S READING", w / 2, cursorY);
     ctx.letterSpacing = "0px";
     cursorY += 24 * scale;
 
-    ctx.font = `italic 300 ${15 * scale}px 'Inter', system-ui, sans-serif`;
-    ctx.fillStyle = "rgba(196,185,228,0.65)";
+    ctx.font = `italic 300 ${15 * scale}px 'DM Sans', system-ui, sans-serif`;
+    ctx.fillStyle = "rgba(232,233,255,0.7)";
     const readingLines = wrapText(ctx, `"${data.horoscope}"`, contentW);
     for (const rl of readingLines.slice(0, 6)) {
       ctx.fillText(rl, w / 2, cursorY);
@@ -233,18 +234,18 @@ export async function renderChartCard(data: CardData, format: CardFormat): Promi
   // ── Watermark ──
   const wmY = h - 40 * scale;
   ctx.textAlign = "center";
-  ctx.font = `500 ${11 * scale}px 'Inter', system-ui, sans-serif`;
-  ctx.fillStyle = "rgba(212,175,55,0.35)";
+  ctx.font = `500 ${11 * scale}px 'IBM Plex Mono', ui-monospace, monospace`;
+  ctx.fillStyle = "rgba(224,183,104,0.35)";
   ctx.letterSpacing = `${3 * scale}px`;
   ctx.fillText("✦  OLIVIA ARCANA", w / 2, wmY);
   ctx.letterSpacing = "0px";
 
-  ctx.font = `300 ${9 * scale}px 'Inter', system-ui, sans-serif`;
-  ctx.fillStyle = "rgba(180,170,210,0.2)";
+  ctx.font = `300 ${9 * scale}px 'DM Sans', system-ui, sans-serif`;
+  ctx.fillStyle = "rgba(183,188,233,0.3)";
   ctx.fillText("oliviaarcana.com", w / 2, wmY + 18 * scale);
 
   // ── Border ──
-  ctx.strokeStyle = "rgba(212,175,55,0.1)";
+  ctx.strokeStyle = "rgba(224,183,104,0.1)";
   ctx.lineWidth = 1;
   ctx.strokeRect(20 * scale, 20 * scale, w - 40 * scale, h - 40 * scale);
 

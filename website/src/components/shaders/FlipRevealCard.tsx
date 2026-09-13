@@ -128,7 +128,7 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
         phase: rnd() * Math.PI * 2,
         period: 1.8 + rnd() * 7,
         baseOp: (bright ? 0.55 : 0.18) + rnd() * 0.3,
-        hue: bright ? 48 + rnd() * 12 : 42 + rnd() * 18, // warm gold range
+        hue: bright ? 38 + rnd() * 6 : 230 + rnd() * 10, // gilt heroes, cool moonstone field
         flickerChance: bright ? 0.002 : 0.0004,
         flickerUntil: 0,
       };
@@ -210,9 +210,9 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
 
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
         const opBoost = p.op * 1.8;
-        g.addColorStop(0, `rgba(130, 80, 220, ${opBoost})`);
-        g.addColorStop(0.55, `rgba(90, 50, 180, ${opBoost * 0.5})`);
-        g.addColorStop(1, "rgba(60, 30, 130, 0)");
+        g.addColorStop(0, `rgba(141, 151, 255, ${opBoost})`);
+        g.addColorStop(0.55, `rgba(47, 56, 184, ${opBoost * 0.5})`);
+        g.addColorStop(1, "rgba(32, 39, 155, 0)");
         ctx.fillStyle = g;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -232,7 +232,7 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
           s.flickerUntil = t + 140;
         }
 
-        ctx.fillStyle = `hsla(${s.hue}, 85%, 72%, ${op})`;
+        ctx.fillStyle = `hsla(${s.hue}, ${s.hue < 100 ? 62 : 72}%, ${s.hue < 100 ? 66 : 84}%, ${op})`;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
         ctx.fill();
@@ -240,8 +240,8 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
         // Halo on brighter stars
         if (s.r > 1.2 && op > 0.3) {
           const hg = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 4);
-          hg.addColorStop(0, `hsla(${s.hue}, 80%, 78%, ${op * 0.5})`);
-          hg.addColorStop(1, `hsla(${s.hue}, 80%, 78%, 0)`);
+          hg.addColorStop(0, `hsla(${s.hue}, ${s.hue < 100 ? 60 : 75}%, ${s.hue < 100 ? 70 : 86}%, ${op * 0.5})`);
+          hg.addColorStop(1, `hsla(${s.hue}, ${s.hue < 100 ? 60 : 75}%, ${s.hue < 100 ? 70 : 86}%, 0)`);
           ctx.fillStyle = hg;
           ctx.beginPath();
           ctx.arc(s.x, s.y, s.r * 4, 0, Math.PI * 2);
@@ -271,7 +271,7 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
           }
 
           const op = Math.sin(d.life * Math.PI) * 0.85 * c.active;
-          ctx.fillStyle = `rgba(255, 230, 150, ${op})`;
+          ctx.fillStyle = `rgba(237, 202, 139, ${op})`;
           ctx.beginPath();
           ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
           ctx.fill();
@@ -399,47 +399,47 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
               Darker + higher contrast than the page so the card reads
               as a distinct object, not a window into the page. */}
           <radialGradient id="flip-base" cx="50%" cy="38%" r="70%">
-            <stop offset="0%" stopColor="#221348">
+            <stop offset="0%" stopColor="#181d7a">
               {!paused && (
                 <animate
                   attributeName="stop-color"
-                  values="#221348;#2e1a5e;#1a0e3d;#221348"
+                  values="#181d7a;#20279b;#121656;#181d7a"
                   dur="11s"
                   repeatCount="indefinite"
                 />
               )}
             </stop>
-            <stop offset="55%" stopColor="#0c0720">
+            <stop offset="55%" stopColor="#10134d">
               {!paused && (
                 <animate
                   attributeName="stop-color"
-                  values="#0c0720;#120a2b;#07051a;#0c0720"
+                  values="#10134d;#121656;#0a0d38;#10134d"
                   dur="13s"
                   repeatCount="indefinite"
                 />
               )}
             </stop>
-            <stop offset="100%" stopColor="#04030c" />
+            <stop offset="100%" stopColor="#0a0d38" />
           </radialGradient>
 
-          {/* Gold filigree gradient */}
+          {/* Gilt filigree gradient */}
           <linearGradient id="flip-gold" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%"  stopColor="#f3dd8e" />
-            <stop offset="50%" stopColor="#D4AF37" />
-            <stop offset="100%" stopColor="#8a6818" />
+            <stop offset="0%"  stopColor="#edca8b" />
+            <stop offset="50%" stopColor="#e0b768" />
+            <stop offset="100%" stopColor="#e0b768" />
           </linearGradient>
 
           {/* Central mark aura */}
           <radialGradient id="flip-aura" cx="50%" cy="50%" r="50%">
-            <stop offset="0%"   stopColor="rgba(232,201,106,0.55)" />
-            <stop offset="55%"  stopColor="rgba(232,201,106,0.12)" />
-            <stop offset="100%" stopColor="rgba(232,201,106,0)" />
+            <stop offset="0%"   stopColor="rgba(224,183,104,0.55)" />
+            <stop offset="55%"  stopColor="rgba(224,183,104,0.12)" />
+            <stop offset="100%" stopColor="rgba(224,183,104,0)" />
           </radialGradient>
 
           {/* Subtle noise — fabric texture on the base */}
           <filter id="flip-grain">
             <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="3" />
-            <feColorMatrix values="0 0 0 0 0.55  0 0 0 0 0.45  0 0 0 0 0.72  0 0 0 0.04 0" />
+            <feColorMatrix values="0 0 0 0 0.553  0 0 0 0 0.592  0 0 0 0 1  0 0 0 0.04 0" />
             <feComposite in="SourceGraphic" operator="over" />
           </filter>
 
@@ -466,11 +466,11 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
         {/* ─── BG: nebula + dust stream (moves -3px toward cursor) */}
         <g className="al-bg">
           <rect width="360" height="540" fill="url(#flip-base)" />
-          <rect width="360" height="540" fill="#271a48" filter="url(#flip-grain)" opacity="0.45" />
+          <rect width="360" height="540" fill="#181d7a" filter="url(#flip-grain)" opacity="0.45" />
 
           <g className="al-dust" filter="url(#flip-particle-glow)">
             {!paused && particles.map((p, i) => (
-              <circle key={i} r={p.r} fill="#f3dd8e" opacity="0">
+              <circle key={i} r={p.r} fill="#edca8b" opacity="0">
                 <animateMotion
                   dur={`${p.dur}s`}
                   begin={`${p.begin}s`}
@@ -645,7 +645,7 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
               </g>
 
               {/* Leaf midribs — thin dark vein down each leaf */}
-              <g fill="none" stroke="rgba(10,7,22,0.65)"
+              <g fill="none" stroke="rgba(10,13,56,0.85)"
                  strokeWidth="0.5" strokeLinecap="round">
                 <path d="M 2,17  Q 8,13  15,13" />
                 <path d="M -2,3  Q -9,-1 -17,-2" />
@@ -656,10 +656,10 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
               <ellipse cx="0" cy="-30" rx="3.3" ry="4.4" fill="url(#flip-gold)" />
               {/* Highlight on the fruit — tiny dewdrop */}
               <circle cx="-0.9" cy="-31.2" r="0.75"
-                      fill="rgba(255,250,220,0.95)" />
+                      fill="rgba(232,233,255,0.95)" />
               {/* Calyx / stem-to-fruit connector — tiny dark dot */}
               <circle cx="0" cy="-25.5" r="0.55"
-                      fill="rgba(10,7,22,0.7)" />
+                      fill="rgba(10,13,56,0.9)" />
             </g>
           </g>
 
@@ -900,13 +900,13 @@ export default function FlipRevealCard({
           outline: none;
           perspective: 1400px;
           perspective-origin: 50% 40%;
-          border-radius: 18px;
+          border-radius: 6px;
           isolation: isolate;
         }
         .flr-scene:focus-visible {
-          outline: 2px solid rgba(232, 201, 106, 0.95);
+          outline: 2px solid #e0b768;
           outline-offset: 6px;
-          border-radius: 22px;
+          border-radius: 8px;
         }
 
         .flr-shadow {
@@ -922,7 +922,7 @@ export default function FlipRevealCard({
         }
 
         .flr-inner {
-          border-radius: 18px;
+          border-radius: 6px;
         }
 
         .flr-face {
@@ -930,19 +930,18 @@ export default function FlipRevealCard({
           inset: 0;
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
-          border-radius: 18px;
+          border-radius: 6px;
           overflow: hidden;
           box-shadow:
-            0 30px 50px rgba(0, 0, 0, 0.55),
-            0 0 32px rgba(212, 175, 55, 0.14),
-            inset 0 0 0 1px rgba(232, 201, 106, 0.18);
+            0 30px 50px rgba(0, 0, 0, 0.45),
+            inset 0 0 0 1px rgba(232, 233, 255, 0.16);
         }
         .flr-back {
-          background: #0b0822;
+          background: #10134d;
         }
         .flr-front {
           transform: rotateY(180deg);
-          background: #04030c;
+          background: #0a0d38;
         }
         /* Nebula base — same palette as the back's #flip-base gradient,
            animated to match its subtle breathing so front/back feel like
@@ -952,10 +951,10 @@ export default function FlipRevealCard({
           inset: 0;
           background:
             radial-gradient(ellipse at 50% 38%,
-              #221348 0%,
-              #170d38 32%,
-              #0c0720 58%,
-              #04030c 100%);
+              #181d7a 0%,
+              #121656 32%,
+              #10134d 58%,
+              #0a0d38 100%);
           animation: flr-front-breathe 11s ease-in-out infinite;
           z-index: 0;
         }
@@ -971,13 +970,13 @@ export default function FlipRevealCard({
           background: conic-gradient(
             from var(--angle, 0deg) at 52% 48%,
             transparent 0deg,
-            rgba(232,201,106,0.08) 42deg,
+            rgba(224,183,104,0.08) 42deg,
             transparent 92deg,
-            rgba(180,145,230,0.09) 144deg,
+            rgba(141,151,255,0.09) 144deg,
             transparent 196deg,
-            rgba(120,220,220,0.07) 248deg,
+            rgba(141,151,255,0.07) 248deg,
             transparent 298deg,
-            rgba(232,201,106,0.08) 344deg,
+            rgba(224,183,104,0.08) 344deg,
             transparent 360deg
           );
           mix-blend-mode: screen;
@@ -993,7 +992,7 @@ export default function FlipRevealCard({
           background: radial-gradient(
             ellipse at 52% 42%,
             transparent 45%,
-            rgba(5, 3, 20, 0.42) 100%
+            rgba(10, 13, 56, 0.5) 100%
           );
           mix-blend-mode: multiply;
           z-index: 3;
@@ -1005,8 +1004,8 @@ export default function FlipRevealCard({
           height: 100%;
           object-fit: cover;
           z-index: 2;
-          /* Subtle luminance lift so hairline gold reads over the nebula */
-          filter: drop-shadow(0 0 6px rgba(232, 201, 106, 0.18));
+          /* Subtle luminance lift so hairline gilt reads over the nebula */
+          filter: drop-shadow(0 0 6px rgba(224, 183, 104, 0.18));
           /* Cross-fade on card change (img is key'd by card name so
              React remounts and this entrance runs each swap). */
           animation: flr-front-img-enter 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -1031,21 +1030,18 @@ export default function FlipRevealCard({
           align-items: baseline;
           gap: 0.35em;
           padding: 0.5rem 1rem;
-          border-radius: 9999px;
-          background: rgba(6, 4, 26, 0.72);
-          -webkit-backdrop-filter: blur(4px);
-          backdrop-filter: blur(4px);
-          border: 1px solid rgba(232, 201, 106, 0.42);
+          border-radius: 3px;
+          background: rgba(16, 19, 77, 0.85);
+          border: 1px solid rgba(232, 233, 255, 0.16);
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
           font-style: italic;
           font-size: 1.05rem;
-          color: rgba(245, 240, 232, 0.98);
+          color: rgba(232, 233, 255, 0.95);
           pointer-events: none;
-          box-shadow: 0 0 22px rgba(212, 175, 55, 0.22);
         }
-        .flr-numeral { color: rgba(232, 201, 106, 0.92); margin-right: 0.1em; }
+        .flr-numeral { color: #e0b768; margin-right: 0.1em; }
 
-        /* Edge highlight — thin vertical golden seam (card edge catching light) */
+        /* Edge highlight — thin vertical gilt seam (card edge catching light) */
         .flr-edge {
           position: absolute;
           left: 50%;
@@ -1055,12 +1051,12 @@ export default function FlipRevealCard({
           transform: translateX(-50%);
           background: linear-gradient(180deg,
             transparent 0%,
-            rgba(255, 220, 130, 0.85) 25%,
-            rgba(255, 240, 180, 1) 50%,
-            rgba(255, 220, 130, 0.85) 75%,
+            rgba(224, 183, 104, 0.85) 25%,
+            rgba(237, 202, 139, 1) 50%,
+            rgba(224, 183, 104, 0.85) 75%,
             transparent 100%
           );
-          box-shadow: 0 0 24px rgba(255, 220, 130, 0.9);
+          box-shadow: 0 0 24px rgba(224, 183, 104, 0.7);
           pointer-events: none;
           z-index: 3;
         }
@@ -1069,15 +1065,15 @@ export default function FlipRevealCard({
         .flr-rim {
           position: absolute;
           inset: -8px;
-          border-radius: 22px;
+          border-radius: 10px;
           pointer-events: none;
           z-index: -1;
           background:
-            radial-gradient(ellipse at center, rgba(212,175,55,0.28) 0%, rgba(212,175,55,0) 65%);
+            radial-gradient(ellipse at center, rgba(224,183,104,0.22) 0%, rgba(224,183,104,0) 65%);
           filter: blur(4px);
         }
 
-        /* Hint pill */
+        /* Hint label — flat night plate, mono kicker type */
         .flr-hint {
           position: absolute;
           left: 50%; bottom: 1rem;
@@ -1086,26 +1082,22 @@ export default function FlipRevealCard({
           align-items: center;
           gap: 0.55em;
           padding: 0.55rem 1.1rem;
-          border-radius: 9999px;
-          background: rgba(6, 4, 26, 0.72);
-          -webkit-backdrop-filter: blur(4px);
-          backdrop-filter: blur(4px);
-          border: 1px solid rgba(232, 201, 106, 0.58);
-          font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.7rem;
+          border-radius: 3px;
+          background: rgba(16, 19, 77, 0.85);
+          border: 1px solid rgba(232, 233, 255, 0.16);
+          font-family: var(--font-mono, "IBM Plex Mono"), monospace;
+          font-size: 0.6875rem;
           font-weight: 500;
-          letter-spacing: 0.18em;
+          letter-spacing: 0.16em;
           text-transform: uppercase;
-          color: rgba(232, 201, 106, 0.98);
-          box-shadow: 0 0 24px rgba(212, 175, 55, 0.24);
+          color: #b7bce9;
           pointer-events: none;
           z-index: 4;
         }
         .flr-hint-dot {
           width: 6px; height: 6px;
           border-radius: 50%;
-          background: rgba(232, 201, 106, 1);
-          box-shadow: 0 0 14px rgba(232, 201, 106, 0.95);
+          background: #e0b768;
         }
 
         /* ═══════════════════════════════════════════════════════════
@@ -1154,10 +1146,10 @@ export default function FlipRevealCard({
           border-radius: inherit;
           background: radial-gradient(
             circle at 50% 50%,
-            rgba(255, 230, 150, 0.7) 0%,
-            rgba(232, 201, 106, 0.35) 22%,
-            rgba(140, 90, 210, 0.18) 48%,
-            rgba(40, 20, 80, 0) 78%
+            rgba(237, 202, 139, 0.6) 0%,
+            rgba(224, 183, 104, 0.3) 22%,
+            rgba(141, 151, 255, 0.14) 48%,
+            rgba(24, 29, 122, 0) 78%
           );
           opacity: 0;
           mix-blend-mode: screen;
@@ -1247,7 +1239,7 @@ export default function FlipRevealCard({
           transform-origin: center;
           transform-box: fill-box;
           animation: al-olive-breath 7s cubic-bezier(0.42, 0, 0.58, 1) infinite;
-          filter: drop-shadow(0 0 3px rgba(255, 230, 150, 0.55));
+          filter: drop-shadow(0 0 3px rgba(224, 183, 104, 0.5));
         }
         .pause-animations .al-wheel,
         .pause-animations .al-seed,
@@ -1308,13 +1300,13 @@ export default function FlipRevealCard({
           background: conic-gradient(
             from var(--angle, 0deg) at 52% 48%,
             transparent 0deg,
-            rgba(232,201,106,0.08) 42deg,
+            rgba(224,183,104,0.08) 42deg,
             transparent 92deg,
-            rgba(180,145,230,0.09) 144deg,
+            rgba(141,151,255,0.09) 144deg,
             transparent 196deg,
-            rgba(120,220,220,0.07) 248deg,
+            rgba(141,151,255,0.07) 248deg,
             transparent 298deg,
-            rgba(232,201,106,0.08) 344deg,
+            rgba(224,183,104,0.08) 344deg,
             transparent 360deg
           );
           mix-blend-mode: screen;
@@ -1341,7 +1333,7 @@ export default function FlipRevealCard({
           background: radial-gradient(
             ellipse at 52% 42%,
             transparent 45%,
-            rgba(5, 3, 20, 0.42) 100%
+            rgba(10, 13, 56, 0.5) 100%
           );
           mix-blend-mode: multiply;
           z-index: 5;

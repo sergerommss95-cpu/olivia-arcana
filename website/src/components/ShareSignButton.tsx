@@ -26,22 +26,23 @@ interface Props {
   luckyColorHex: string;
 }
 
+/* Almanac register: ink pill on paper, oxblood on hover (handled inline). */
 const buttonStyle: CSSProperties = {
   display: "inline-flex",
   alignItems: "center",
   gap: "0.55em",
-  padding: "0.7rem 1.4rem",
+  padding: "0.75rem 1.6rem",
   borderRadius: "9999px",
-  background: "linear-gradient(135deg, rgba(232,201,106,0.18), rgba(212,175,55,0.12))",
-  border: "1px solid rgba(232,201,106,0.45)",
-  color: "rgba(245,240,232,0.96)",
+  background: "#0f1240",
+  border: "1px solid #e8dcc8",
+  color: "#f6f1e5",
   fontFamily: "var(--font-body, system-ui), sans-serif",
   fontSize: "0.78rem",
-  fontWeight: 500,
-  letterSpacing: "0.06em",
+  fontWeight: 700,
+  letterSpacing: "0.12em",
   textTransform: "uppercase",
   cursor: "pointer",
-  transition: "transform 220ms cubic-bezier(0.16,1,0.3,1), background 220ms",
+  transition: "background 220ms cubic-bezier(0.16,1,0.3,1)",
 };
 
 export default function ShareSignButton(props: Props) {
@@ -85,7 +86,7 @@ export default function ShareSignButton(props: Props) {
           (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)";
         }}
       >
-        <span aria-hidden style={{ fontSize: "0.95em", color: "rgba(232,201,106,0.92)" }}>✦</span>
+        <span aria-hidden style={{ fontSize: "0.95em", color: "rgba(246, 241, 229, 0.9)" }}>✦</span>
         Share your {props.signName} card
       </button>
 

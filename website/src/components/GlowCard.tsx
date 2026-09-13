@@ -109,7 +109,7 @@ export default function GlowCard({
 
       // Border glow
       if (borderRef.current && borderGlow) {
-        borderRef.current.style.background = `radial-gradient(circle at ${c.lightX}% ${c.lightY}%, rgba(212,175,55,0.4) 0%, rgba(160,122,224,0.2) 40%, transparent 70%)`;
+        borderRef.current.style.background = `radial-gradient(circle at ${c.lightX}% ${c.lightY}%, rgba(224,183,104,0.4) 0%, rgba(160,122,224,0.2) 40%, transparent 70%)`;
         borderRef.current.style.opacity = isHovered ? "1" : "0";
       }
 

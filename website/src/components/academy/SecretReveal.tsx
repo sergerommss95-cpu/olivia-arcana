@@ -56,7 +56,7 @@ export default function SecretReveal({
       border: `1px solid ${
         revealed
           ? isCorrect ? "rgba(78,205,196,0.15)" : "rgba(200,168,75,0.15)"
-          : "rgba(200,185,255,0.06)"
+          : "rgba(184,190,240,0.06)"
       }`,
       transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
     }}>
@@ -65,7 +65,7 @@ export default function SecretReveal({
         <div style={{
           fontFamily: "var(--font-body)", fontSize: "0.55rem", fontWeight: 600,
           letterSpacing: "0.12em", textTransform: "uppercase",
-          color: revealed ? (isCorrect ? "rgba(78,205,196,0.5)" : "rgba(200,168,75,0.5)") : "rgba(200,185,255,0.3)",
+          color: revealed ? (isCorrect ? "rgba(78,205,196,0.5)" : "rgba(200,168,75,0.5)") : "rgba(184,190,240,0.3)",
           marginBottom: "0.4rem",
         }}>
           {revealed ? (isCorrect ? "✦ YOU GOT IT" : "✦ SECRET REVEALED") : "✦ TEST YOUR KNOWLEDGE"}
@@ -96,7 +96,7 @@ export default function SecretReveal({
             const isThis = selected === i;
             const isAnswer = i === correctIndex;
             let bg = "rgba(232,230,240,0.025)";
-            let border = "rgba(200,185,255,0.06)";
+            let border = "rgba(184,190,240,0.06)";
             let textColor = "rgba(220,210,240,0.7)";
 
             if (revealed && isAnswer) {
@@ -110,7 +110,7 @@ export default function SecretReveal({
             } else if (isThis && !revealed) {
               bg = "rgba(200,168,75,0.08)";
               border = "rgba(200,168,75,0.2)";
-              textColor = "rgba(212,175,55,0.9)";
+              textColor = "rgba(224,183,104,0.9)";
             }
 
             return (
@@ -149,7 +149,7 @@ export default function SecretReveal({
                 padding: "0.55rem 1.5rem", borderRadius: "100px", cursor: "pointer",
                 background: "linear-gradient(135deg, rgba(200,168,75,0.15), rgba(160,120,80,0.1))",
                 border: "1px solid rgba(200,168,75,0.2)",
-                color: "rgba(212,175,55,0.9)", fontSize: "0.75rem", fontWeight: 600,
+                color: "rgba(224,183,104,0.9)", fontSize: "0.75rem", fontWeight: 600,
                 letterSpacing: "0.06em", textTransform: "uppercase",
                 transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
               }}

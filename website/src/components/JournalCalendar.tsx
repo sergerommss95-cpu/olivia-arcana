@@ -88,7 +88,7 @@ export default function JournalCalendar({ selectedDate, onSelectDate }: Props) {
   return (
     <div style={{
       background: "rgba(255,255,255,0.02)",
-      border: "1px solid rgba(200,185,255,0.06)",
+      border: "1px solid rgba(184,190,240,0.06)",
       borderRadius: "1rem",
       padding: "1.25rem",
     }}>
@@ -155,7 +155,7 @@ export default function JournalCalendar({ selectedDate, onSelectDate }: Props) {
               {cell.hasEntry && (
                 <div style={{
                   width: "4px", height: "4px", borderRadius: "50%",
-                  background: "rgba(212,175,55,0.6)", marginTop: "2px",
+                  background: "rgba(224,183,104,0.6)", marginTop: "2px",
                 }} />
               )}
             </button>

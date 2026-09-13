@@ -55,18 +55,17 @@ export default function ScrollFloat({
   const rotateY = disableRotate || reducedMotion ? 0 : (1 - eased) * cfg.rotate * 0.5;
   const scale = disableScale || reducedMotion ? 1 : 1 - (1 - eased) * cfg.scale;
   const translateY = disableParallax || reducedMotion ? 0 : (1 - eased) * cfg.parallax;
-  const opacity = reducedMotion ? 1 : 1 - (1 - eased) * cfg.opacity;
-  const clipInset = reducedMotion ? 0 : (1 - eased) * 100;
+  const opacity = 1;
 
   return (
     <div
-      ref={ref}
+        ref={ref}
       className={className}
       style={{
         transform: `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale}) translateY(${translateY}px)`,
-        clipPath: eased < 0.99 ? `inset(${clipInset}% 0 0 0)` : "none",
+        clipPath: "none",
         opacity,
-        willChange: eased < 0.99 && !reducedMotion ? "transform, clip-path, opacity" : "auto",
+        willChange: eased < 0.99 && !reducedMotion ? "transform" : "auto",
         transformOrigin: "center bottom",
       }}
     >

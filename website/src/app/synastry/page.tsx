@@ -1,6 +1,9 @@
 /**
  * Synastry — Full compatibility analysis between two birth charts.
  *
+ * Night plate register: two ledger sheets on near-black paper, bone ink,
+ * hairlines, one ember accent, an engraved vesica as the header figure.
+ *
  * Person A auto-fills from stored user data.
  * Person B: name + BirthDatePicker + time + CityAutocomplete.
  * Results: animated score ring, sub-score bars, top aspects list.
@@ -8,7 +11,8 @@
 
 "use client";
 
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect } from "react";
+import NightShell from "@/components/almanac/NightShell";
 import Link from "next/link";
 import { computeNatalChart, type BirthInput } from "../../lib/natal-chart";
 import { computeSynastry, type SynastryResult } from "../../lib/synastry-engine";
@@ -22,44 +26,66 @@ import { readInviteFromUrl, buildInviteUrl } from "../../lib/compatibility-invit
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
-const labelSt: React.CSSProperties = {
-  fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 500,
-  letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(180,170,210,0.4)",
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Mono ledger caption — inline for the small components below.
+const capSt: React.CSSProperties = {
+  fontFamily: "var(--font-mono, ui-monospace), monospace",
+  fontSize: "0.6rem",
+  fontWeight: 500,
+  letterSpacing: "0.2em",
+  textTransform: "uppercase",
+  color: "var(--bone-faint)",
 };
 
-const inputStyle: React.CSSProperties = {
-  padding: "0.65rem 1rem", textAlign: "left",
-  fontFamily: "var(--font-accent)", fontSize: "0.95rem", letterSpacing: "0.04em",
-  color: "rgba(240,236,255,0.9)", background: "rgba(255,255,255,0.04)",
-  border: "1px solid rgba(200,185,255,0.12)", borderRadius: "0.75rem",
-  backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)",
-  outline: "none", transition: "border-color 0.3s", width: "100%",
-};
-
-const glass: React.CSSProperties = {
-  background: "rgba(255,255,255,0.03)", border: "1px solid rgba(200,185,255,0.08)",
-  borderRadius: "1rem", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)",
-};
-
-const formCard: React.CSSProperties = {
-  display: "flex", flexDirection: "column", gap: "0.8rem",
-  padding: "1.5rem",
-  background: "rgba(8,6,20,0.45)",
-  backdropFilter: "blur(8px) ",
-  WebkitBackdropFilter: "blur(8px) ",
-  border: "1px solid rgba(200,185,255,0.08)",
-  borderRadius: "1.25rem",
-  boxShadow: "0 8px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)",
-};
+// ── Engraved vesica — two overlapping bone circles, hatched lens ──
+function VesicaFigure() {
+  return (
+    <svg
+      viewBox="0 0 320 220"
+      width="170"
+      aria-hidden="true"
+      style={{ display: "block", margin: "0 auto 1.4rem", color: "var(--bone)", maxWidth: "100%" }}
+    >
+      <defs>
+        <clipPath id="syn-lens">
+          <path d="M160 47.6 A72 72 0 0 1 160 172.4 A72 72 0 0 1 160 47.6 Z" />
+        </clipPath>
+      </defs>
+      <g fill="none" stroke="currentColor">
+        <circle cx="124" cy="110" r="72" strokeWidth="1" opacity="0.55" />
+        <circle cx="196" cy="110" r="72" strokeWidth="1" opacity="0.55" />
+        <circle cx="124" cy="110" r="52" strokeWidth="0.5" strokeDasharray="2 4" opacity="0.3" />
+        <circle cx="196" cy="110" r="52" strokeWidth="0.5" strokeDasharray="2 4" opacity="0.3" />
+        {/* hatching inside the lens — engraver's shade */}
+        <g clipPath="url(#syn-lens)" strokeWidth="0.4" opacity="0.28">
+          {Array.from({ length: 16 }, (_, i) => (
+            <line key={i} x1="118" y1={44 + i * 8.4} x2="202" y2={36 + i * 8.4} />
+          ))}
+        </g>
+      </g>
+      <g fill="currentColor" textAnchor="middle" dominantBaseline="central" fontFamily="serif">
+        <text x="100" y="110" fontSize="16" opacity="0.75">&#x2609;</text>
+        <text x="220" y="110" fontSize="16" opacity="0.75">&#x263D;</text>
+        <text x="160" y="110" fontSize="12" fill="var(--ember)">&#x2726;</text>
+      </g>
+    </svg>
+  );
+}
 
 // ── Animated SVG score ring ──
 function ScoreRing({ score, size = 180 }: { score: number; size?: number }) {
   const radius = (size - 16) / 2;
   const circumference = 2 * Math.PI * radius;
   const [animated, setAnimated] = useState(0);
-  const ref = useRef<SVGCircleElement>(null);
 
   useEffect(() => {
+    if (prefersReducedMotion()) {
+      const f = requestAnimationFrame(() => setAnimated(score));
+      return () => cancelAnimationFrame(f);
+    }
     let frame: number;
     const start = performance.now();
     const duration = 1200;
@@ -74,23 +100,20 @@ function ScoreRing({ score, size = 180 }: { score: number; size?: number }) {
   }, [score]);
 
   const offset = circumference - (animated / 100) * circumference;
-  const color = animated >= 70 ? "#4ECDC4" : animated >= 45 ? "#FFD700" : "#E8524A";
 
   return (
     <div style={{ position: "relative", width: size, height: size }}>
       <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
         <circle
           cx={size / 2} cy={size / 2} r={radius}
-          fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="8"
+          fill="none" stroke="rgba(238,242,255,0.12)" strokeWidth="1"
         />
         <circle
-          ref={ref}
           cx={size / 2} cy={size / 2} r={radius}
-          fill="none" stroke={color} strokeWidth="8"
-          strokeLinecap="round"
+          fill="none" stroke="var(--ember)" strokeWidth="3"
+          strokeLinecap="butt"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
-          style={{ transition: "stroke 0.3s" }}
         />
       </svg>
       <div style={{
@@ -98,17 +121,18 @@ function ScoreRing({ score, size = 180 }: { score: number; size?: number }) {
         alignItems: "center", justifyContent: "center",
       }}>
         <span style={{
-          fontFamily: "var(--font-accent)", fontSize: "2.5rem", fontWeight: 400,
-          color: "rgba(240,236,255,0.95)", letterSpacing: "0.02em",
+          fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
+          fontSize: "2.8rem", fontWeight: 400,
+          color: "var(--bone)", lineHeight: 1,
         }}>{animated}</span>
-        <span style={{ ...labelSt, fontSize: "0.5rem" }}>Compatibility score</span>
+        <span style={{ ...capSt, fontSize: "0.5rem", marginTop: "0.45rem" }}>Compatibility score</span>
       </div>
     </div>
   );
 }
 
-// ── Sub-score bar ──
-function ScoreBar({ label, value, color }: { label: string; value: number; color: string }) {
+// ── Sub-score bar — one bone rule against a hairline track ──
+function ScoreBar({ label, value }: { label: string; value: number }) {
   const [width, setWidth] = useState(0);
   useEffect(() => {
     const t = setTimeout(() => setWidth(value), 100);
@@ -116,33 +140,49 @@ function ScoreBar({ label, value, color }: { label: string; value: number; color
   }, [value]);
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "0.5rem" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "0.6rem" }}>
       <span style={{
-        fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "rgba(200,190,235,0.7)",
-        width: "100px", textAlign: "right",
+        fontFamily: "var(--font-body, system-ui), sans-serif", fontSize: "0.72rem",
+        color: "var(--bone-soft)",
+        width: "100px", textAlign: "right", flexShrink: 0,
       }}>{label}</span>
-      <div style={{ flex: 1, height: "6px", borderRadius: "3px", background: "rgba(255,255,255,0.04)" }}>
-        <div style={{
-          width: `${width}%`, height: "100%", borderRadius: "3px",
-          background: color, transition: `width 1s ${EASE}`,
-        }} />
+      <div className="bar-track">
+        <div className="bar-fill" style={{ width: `${width}%` }} />
       </div>
       <span style={{
-        fontFamily: "var(--font-accent)", fontSize: "0.82rem", color: "rgba(240,236,255,0.8)",
-        width: "32px",
+        fontFamily: "var(--font-mono, ui-monospace), monospace", fontSize: "0.72rem",
+        color: "var(--bone)", width: "32px", flexShrink: 0,
       }}>{value}</span>
+      <style jsx>{`
+        .bar-track {
+          flex: 1;
+          height: 3px;
+          background: rgba(232, 233, 255, 0.1);
+        }
+        .bar-fill {
+          height: 100%;
+          background: var(--bone);
+          transition: width 1s ${EASE};
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .bar-fill {
+            transition: none;
+          }
+        }
+      `}</style>
     </div>
   );
 }
 
 // ── Aspect harmony symbols ──
 const ASPECT_SYMBOL: Record<string, string> = {
-  conjunction: "\u260C", trine: "\u25B3", square: "\u25A1",
-  opposition: "\u260D", sextile: "\u2739",
+  conjunction: "☌", trine: "△", square: "□",
+  opposition: "☍", sextile: "✹",
 };
 
 export default function SynastryPage() {
-  const { t } = useLocale();
+  const { locale } = useLocale();
+  const isUk = locale === "uk";
 
   // Person A — auto-fill from stored data
   const [nameA, setNameA] = useState("");
@@ -186,6 +226,22 @@ export default function SynastryPage() {
       return;
     }
     const user = loadUser();
+    if (!user) {
+      // Third fallback: the Inscription — the almanac's own single ask.
+      try {
+        const b = localStorage.getItem("olivia-birth");
+        if (b && /^\d{4}-\d{2}-\d{2}$/.test(b)) {
+          setTimeout(() => {
+            setDateA(b);
+            setTimeUnknownA(true);
+            setPrefilledA(true);
+          }, 0);
+        }
+      } catch {
+        /* unlettered */
+      }
+      return;
+    }
     if (user) {
       setTimeout(() => {
         setNameA(user.name || "");
@@ -242,366 +298,611 @@ export default function SynastryPage() {
     setResult(null);
   }, []);
 
+  // One ledger sheet — shared by Person A / Person B.
+  const renderSheet = (opts: {
+    heading: React.ReactNode;
+    name: string; setName: (v: string) => void;
+    date: string; setDate: (v: string) => void;
+    time: string; setTime: (v: string) => void;
+    timeUnknown: boolean; setTimeUnknown: (v: boolean) => void;
+    setCity: (c: CityData | null) => void;
+  }) => (
+    <div className="night-card syn-sheet">
+      <div className="syn-sheet-head night-caption">{opts.heading}</div>
+
+      <div className="syn-row">
+        <span className="syn-label">Name</span>
+        <input
+          type="text" placeholder="Optional" value={opts.name}
+          onChange={e => opts.setName(e.target.value)}
+          className="night-input"
+        />
+      </div>
+
+      <div className="syn-row syn-field syn-picker">
+        <span className="syn-label">Birth Date</span>
+        <BirthDatePicker value={opts.date} onChange={opts.setDate} />
+      </div>
+
+      <div className="syn-row">
+        <span className="syn-label">Birth Time {opts.timeUnknown && "(Noon)"}</span>
+        {!opts.timeUnknown && (
+          <input
+            type="time" value={opts.time}
+            onChange={e => opts.setTime(e.target.value)}
+            className="night-input"
+            style={{ colorScheme: "dark" }}
+          />
+        )}
+        <button
+          type="button"
+          onClick={() => { opts.setTimeUnknown(!opts.timeUnknown); opts.setTime(""); }}
+          className={`syn-time-toggle${opts.timeUnknown ? " is-on" : ""}`}
+        >
+          {opts.timeUnknown ? "✦ Known time" : "Don't know exact time?"}
+        </button>
+      </div>
+
+      <div className="syn-row syn-field syn-city">
+        <span className="syn-label">Birth City</span>
+        <CityAutocomplete onSelect={opts.setCity} />
+      </div>
+    </div>
+  );
+
   return (
-    <div style={{
-      minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center",
-      padding: "2rem 1.5rem 4rem", position: "relative", zIndex: 1,
-      overflowX: "hidden",
-    }}>
-      <Link href="/" style={{
-        position: "absolute", top: "1.5rem", left: "1.5rem",
-        ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)",
-        minHeight: "44px", display: "inline-flex", alignItems: "center",
-      }}>{"\u2190"} {t("common_home")}</Link>
+    <NightShell room={locale === "uk" ? "Кімната порівнянь" : "The Comparing Room"}>
+      <div className="syn-page">
+        {/* Header */}
+        <header className="syn-header">
+          <VesicaFigure />
+          <p className="night-kicker">{isUk ? "Дві карти · одне читання" : "Two charts · one reading"}</p>
+          <h1 className="night-h1">Check compatibility</h1>
+          <p className="night-lead syn-lead">
+            Enter two birth dates to explore relationship dynamics in plain, actionable language.
+          </p>
+          <Link href="/#faq" className="night-link">How it works</Link>
 
-      {/* Header — Streamlined for clarity */}
-      <div style={{ textAlign: "center", marginBottom: "3rem", marginTop: "1rem" }}>
-        <h1 style={{
-          fontFamily: "var(--font-heading)", fontSize: "clamp(1.8rem, 5vw, 3rem)", fontWeight: 400,
-          color: "rgba(240,236,255,0.95)", marginBottom: "0.75rem",
-        }}>
-          Check compatibility
-        </h1>
-        <p style={{
-          fontFamily: "var(--font-body)", fontSize: "0.95rem", fontWeight: 400,
-          color: "rgba(196,185,228,0.7)", maxWidth: "480px", margin: "0 auto",
-          lineHeight: 1.6,
-        }}>
-          Enter two birth dates to explore relationship dynamics in plain, actionable language.
-        </p>
-        <Link href="/faq#synastry" style={{
-          display: "inline-block", marginTop: "1rem", ...labelSt, 
-          color: "rgba(212,175,55,0.5)", textDecoration: "underline",
-          textUnderlineOffset: "4px",
-        }}>
-          How it works
-        </Link>
+          {/* Inviter banner — shown when arriving via ?invite=... */}
+          {fromInvite && inviterName && (
+            <div className="night-card syn-invite-banner">
+              <span aria-hidden className="syn-invite-star">&#x2726;</span>
+              <div>
+                <div className="syn-invite-title">
+                  {inviterName} wants to compare charts with you.
+                </div>
+                <div className="syn-invite-body">
+                  Their birth data is already filled in. Add yours below to see the compatibility reading.
+                </div>
+              </div>
+            </div>
+          )}
+        </header>
 
-        {/* Inviter banner \u2014 shown when arriving via ?invite=... */}
-        {fromInvite && inviterName && (
-          <div style={{
-            margin: "1.5rem auto 0",
-            maxWidth: "480px",
-            padding: "1rem 1.25rem",
-            borderRadius: "1rem",
-            background: "linear-gradient(135deg, rgba(212,175,55,0.10), rgba(160,120,255,0.08))",
-            border: "1px solid rgba(212,175,55,0.32)",
-            textAlign: "left",
-            display: "flex", gap: "0.85rem", alignItems: "flex-start",
-          }}>
-            <span aria-hidden style={{ fontSize: "1.5rem", color: "rgba(232,201,106,0.92)", lineHeight: 1 }}>\u2726</span>
-            <div>
-              <div style={{
-                fontFamily: "var(--font-body)", fontSize: "0.9rem",
-                color: "rgba(245,240,232,0.96)", fontWeight: 500,
-              }}>
-                {inviterName} wants to compare charts with you.
+        {!result ? (
+          /* ── INPUT FORMS — two ledger sheets side by side ── */
+          <div className="syn-forms">
+            {renderSheet({
+              heading: <>First Person {prefilledA && "(You)"}</>,
+              name: nameA, setName: setNameA,
+              date: dateA, setDate: setDateA,
+              time: timeA, setTime: setTimeA,
+              timeUnknown: timeUnknownA, setTimeUnknown: setTimeUnknownA,
+              setCity: setCityA,
+            })}
+            {renderSheet({
+              heading: <>Second Person</>,
+              name: nameB, setName: setNameB,
+              date: dateB, setDate: setDateB,
+              time: timeB, setTime: setTimeB,
+              timeUnknown: timeUnknownB, setTimeUnknown: setTimeUnknownB,
+              setCity: setCityB,
+            })}
+
+            {/* Calculate button — full width */}
+            <div className="syn-submit">
+              <button
+                type="button"
+                onClick={compute}
+                disabled={!canCompute || computing}
+                className="night-btn"
+              >
+                {computing ? "Comparing..." : "Check compatibility"}
+              </button>
+            </div>
+          </div>
+        ) : (
+          /* ── RESULTS ── */
+          <div className="syn-results">
+            {/* Header with names */}
+            <div className="syn-pair">
+              <div className="syn-person">
+                <div className="syn-person-name">{result.personA.name || result.personA.sunSign}</div>
+                <div className="syn-person-signs">
+                  {result.personA.sunSign} / {result.personA.moonSign} / {result.personA.risingSign}
+                </div>
               </div>
-              <div style={{
-                fontFamily: "var(--font-body)", fontSize: "0.78rem",
-                color: "rgba(220,210,240,0.72)", marginTop: "0.3rem", lineHeight: 1.5,
-              }}>
-                Their birth data is already filled in. Add yours below to see the compatibility reading.
+              <span className="syn-pair-star" aria-hidden>&#x2726;</span>
+              <div className="syn-person">
+                <div className="syn-person-name">{result.personB.name || result.personB.sunSign}</div>
+                <div className="syn-person-signs">
+                  {result.personB.sunSign} / {result.personB.moonSign} / {result.personB.risingSign}
+                </div>
               </div>
+            </div>
+
+            {/* Score ring */}
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <ScoreRing score={result.overall} />
+            </div>
+
+            {/* Verdict */}
+            <div className="night-card syn-verdict">
+              <p>{result.verdict}</p>
+            </div>
+
+            {/* Premium-gated: detailed breakdown + cross-chart aspects */}
+            <div className="syn-paywall">
+              <Paywall requires="premium" priceKey="premium_monthly" featureName="the full synastry breakdown">
+                {/* Sub-scores */}
+                <div className="night-card">
+                  <div className="night-caption syn-card-head">Compatibility Breakdown</div>
+                  <ScoreBar label="Love & Passion" value={result.scores.love} />
+                  <ScoreBar label="Emotion" value={result.scores.emotion} />
+                  <ScoreBar label="Communication" value={result.scores.communication} />
+                  <ScoreBar label="Growth" value={result.scores.growth} />
+                  <ScoreBar label="Challenge" value={result.scores.challenge} />
+                </div>
+
+                {/* Top aspects */}
+                <div className="night-card" style={{ marginTop: "1.5rem" }}>
+                  <div className="night-caption syn-card-head">Key Cross-Chart Aspects</div>
+                  {result.topAspects.map((asp, i) => (
+                    <div
+                      key={i}
+                      className={i < result.topAspects.length - 1 ? "syn-aspect night-hairline-row" : "syn-aspect"}
+                    >
+                      <div className="syn-aspect-line">
+                        <span className="syn-aspect-body">{asp.planetA} in {asp.signA}</span>
+                        <span
+                          className="syn-aspect-symbol"
+                          data-harmony={asp.harmony}
+                        >
+                          {ASPECT_SYMBOL[asp.aspectType] || "·"}
+                        </span>
+                        <span className="syn-aspect-body">{asp.planetB} in {asp.signB}</span>
+                        <span className="syn-aspect-orb">
+                          {asp.aspectType} ({asp.orb}{"°"})
+                        </span>
+                      </div>
+                      <p className="syn-aspect-text">{asp.interpretation}</p>
+                    </div>
+                  ))}
+                </div>
+              </Paywall>
+            </div>
+
+            {/* Cosmic Compatibility Link — viral mechanic.
+                Person A generates a shareable URL; Person B opens it, sees the
+                inviter banner, and is auto-filled. */}
+            {!fromInvite && (
+              <div className="night-card syn-share">
+                <p className="syn-share-title">Want them to see this too?</p>
+                <p className="syn-share-body">
+                  Send a private link. Your half is filled in, and they only need to add their own birth details.
+                </p>
+                <button
+                  type="button"
+                  className="night-btn"
+                  onClick={async () => {
+                    const [yA, mA, dA] = dateA.split("-").map(Number);
+                    const locA = cityA || { lat: 40.71, lon: -74.01, tz: -5, name: "Unknown" };
+                    const inputA: BirthInput = {
+                      year: yA, month: mA, day: dA,
+                      hour: timeUnknownA ? 12 : parseInt(timeA.split(":")[0] || "12"),
+                      minute: timeUnknownA ? 0 : parseInt(timeA.split(":")[1] || "0"),
+                      latitude: locA.lat, longitude: locA.lon, timezone: locA.tz,
+                      name: nameA || undefined,
+                      city: cityA?.name,
+                    };
+                    const url = buildInviteUrl(inputA);
+                    setInviteUrl(url);
+                    try {
+                      if (navigator.share) {
+                        await navigator.share({
+                          title: "Compare our charts",
+                          text: `${nameA || "Someone"} wants to compare charts with you. Open the link to add your birth details.`,
+                          url,
+                        });
+                      } else {
+                        await navigator.clipboard.writeText(url);
+                        setInviteCopied(true);
+                        setTimeout(() => setInviteCopied(false), 2400);
+                      }
+                    } catch { /* user dismissed share sheet */ }
+                  }}
+                >
+                  {inviteCopied ? "Link copied" : "Generate share link"}
+                </button>
+                {inviteUrl && !inviteCopied && (
+                  <div className="syn-share-url">{inviteUrl}</div>
+                )}
+              </div>
+            )}
+
+            {/* Reset */}
+            <div style={{ textAlign: "center" }}>
+              <button type="button" onClick={reset} className="night-btn ghost">
+                Compare New Pair
+              </button>
             </div>
           </div>
         )}
       </div>
 
-      {!result ? (
-        /* ── INPUT FORMS ── */
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
-          gap: "2rem",
-          width: "100%",
-          maxWidth: "860px",
-          boxSizing: "border-box",
-        }}>
-          {/* Person A */}
-          <div style={formCard}>
-            <div style={{ ...labelSt, marginBottom: "1rem", fontSize: "0.7rem", color: "rgba(232,201,106,0.8)" }}>
-              First Person {prefilledA && "(You)"}
-            </div>
-            
-            <div style={{ position: "relative", marginBottom: "1.5rem" }}>
-              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>Name</span>
-              <input type="text" placeholder="Optional" value={nameA} onChange={e => setNameA(e.target.value)} style={inputStyle} />
-            </div>
+      <style jsx global>{`
+        .syn-page {
+          max-width: 60rem;
+          margin: 0 auto;
+        }
 
-            <div style={{ position: "relative", marginBottom: "1.5rem" }}>
-              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>Birth Date</span>
-              <BirthDatePicker value={dateA} onChange={setDateA} />
-            </div>
+        .syn-header {
+          text-align: center;
+          margin-bottom: clamp(2.4rem, 5vw, 3.6rem);
+        }
 
-            <div style={{ position: "relative", marginBottom: "0.5rem" }}>
-              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>
-                Birth Time {timeUnknownA && "(Noon)"}
-              </span>
-              {!timeUnknownA && (
-                <input type="time" value={timeA} onChange={e => setTimeA(e.target.value)} style={{ ...inputStyle, colorScheme: "dark" }} />
-              )}
-              <button onClick={() => { setTimeUnknownA(!timeUnknownA); setTimeA(""); }} style={{
-                background: "none", border: "none", cursor: "pointer",
-                fontFamily: "var(--font-body)", fontSize: "0.65rem",
-                color: timeUnknownA ? "rgba(212,175,55,0.6)" : "rgba(180,170,210,0.4)",
-                marginTop: "0.5rem", padding: "4px 12px",
-              }}>
-                {timeUnknownA ? "✦ Known time" : "Don't know exact time?"}
-              </button>
-            </div>
+        .syn-lead {
+          max-width: 30em;
+          margin: 0.9rem auto 1.3rem;
+        }
 
-            <div style={{ position: "relative" }}>
-              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>Birth City</span>
-              <CityAutocomplete onSelect={setCityA} />
-            </div>
-          </div>
+        /* ── Inviter banner ── */
+        .syn-invite-banner {
+          margin: 1.6rem auto 0;
+          max-width: 30rem;
+          border-left: 2px solid var(--ember);
+          text-align: left;
+          display: flex;
+          gap: 0.85rem;
+          align-items: flex-start;
+        }
 
-          {/* Person B */}
-          <div style={formCard}>
-            <div style={{ ...labelSt, marginBottom: "1rem", fontSize: "0.7rem", color: "rgba(232,201,106,0.8)" }}>
-              Second Person
-            </div>
+        .syn-invite-star {
+          color: var(--ember);
+          font-size: 1.2rem;
+          line-height: 1;
+        }
 
-            <div style={{ position: "relative", marginBottom: "1.5rem" }}>
-              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>Name</span>
-              <input type="text" placeholder="Optional" value={nameB} onChange={e => setNameB(e.target.value)} style={inputStyle} />
-            </div>
+        .syn-invite-title {
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: var(--bone);
+        }
 
-            <div style={{ position: "relative", marginBottom: "1.5rem" }}>
-              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>Birth Date</span>
-              <BirthDatePicker value={dateB} onChange={setDateB} />
-            </div>
+        .syn-invite-body {
+          font-size: 0.78rem;
+          color: var(--bone-soft);
+          margin-top: 0.3rem;
+          line-height: 1.5;
+        }
 
-            <div style={{ position: "relative", marginBottom: "0.5rem" }}>
-              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>
-                Birth Time {timeUnknownB && "(Noon)"}
-              </span>
-              {!timeUnknownB && (
-                <input type="time" value={timeB} onChange={e => setTimeB(e.target.value)} style={{ ...inputStyle, colorScheme: "dark" }} />
-              )}
-              <button onClick={() => { setTimeUnknownB(!timeUnknownB); setTimeB(""); }} style={{
-                background: "none", border: "none", cursor: "pointer",
-                fontFamily: "var(--font-body)", fontSize: "0.65rem",
-                color: timeUnknownB ? "rgba(212,175,55,0.6)" : "rgba(180,170,210,0.4)",
-                marginTop: "0.5rem", padding: "4px 12px",
-              }}>
-                {timeUnknownB ? "✦ Known time" : "Don't know exact time?"}
-              </button>
-            </div>
+        /* ── Ledger sheets ── */
+        .syn-forms {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+          gap: clamp(1.2rem, 3vw, 2rem);
+          width: 100%;
+          max-width: 54rem;
+          margin: 0 auto;
+          box-sizing: border-box;
+        }
 
-            <div style={{ position: "relative" }}>
-              <span style={{ ...labelSt, position: "absolute", top: "-12px", left: "12px", background: "rgba(8,6,20,0.9)", padding: "0 4px", zIndex: 1, color: "rgba(212,175,55,0.6)" }}>Birth City</span>
-              <CityAutocomplete onSelect={setCityB} />
-            </div>
-          </div>
+        .syn-sheet {
+          display: flex;
+          flex-direction: column;
+          gap: 1.1rem;
+        }
 
-          {/* Calculate button — full width */}
-          <div style={{ gridColumn: "1 / -1", textAlign: "center", marginTop: "1rem" }}>
-            <button 
-              onClick={compute} 
-              disabled={!canCompute || computing} 
-              className="group relative"
-              style={{
-                padding: "1rem 4rem", borderRadius: "100px",
-                background: canCompute && !computing 
-                  ? "linear-gradient(135deg, #E8C96A, #D4AF37)" 
-                  : "rgba(255,255,255,0.05)",
-                border: "none",
-                color: canCompute && !computing ? "#08061a" : "rgba(255,255,255,0.2)",
-                fontSize: "0.9rem", fontWeight: 700,
-                letterSpacing: "0.12em", textTransform: "uppercase",
-                cursor: canCompute && !computing ? "pointer" : "not-allowed",
-                transition: `all 0.4s ${EASE}`,
-                boxShadow: canCompute && !computing ? "0 15px 35px rgba(212,175,55,0.25)" : "none",
-              }}
-            >
-              {computing ? "Comparing..." : "Check compatibility"}
-            </button>
-          </div>
-        </div>
-      ) : (
-        /* ── RESULTS ── */
-        <div style={{ width: "100%", maxWidth: "700px", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-          {/* Header with names */}
-          <div style={{ textAlign: "center" }}>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
-              <div>
-                <div style={{ fontFamily: "var(--font-accent)", fontSize: "1.1rem", color: "rgba(240,236,255,0.9)" }}>
-                  {result.personA.name || result.personA.sunSign}
-                </div>
-                <div style={{ ...labelSt, fontSize: "0.5rem" }}>
-                  {result.personA.sunSign} / {result.personA.moonSign} / {result.personA.risingSign}
-                </div>
-              </div>
-              <span style={{ fontSize: "1.5rem", color: "rgba(212,175,55,0.4)" }}>{"\u2727"}</span>
-              <div>
-                <div style={{ fontFamily: "var(--font-accent)", fontSize: "1.1rem", color: "rgba(240,236,255,0.9)" }}>
-                  {result.personB.name || result.personB.sunSign}
-                </div>
-                <div style={{ ...labelSt, fontSize: "0.5rem" }}>
-                  {result.personB.sunSign} / {result.personB.moonSign} / {result.personB.risingSign}
-                </div>
-              </div>
-            </div>
-          </div>
+        .syn-sheet-head {
+          color: var(--bone-soft);
+          padding-bottom: 0.7rem;
+          border-bottom: 1px solid var(--hairline);
+        }
 
-          {/* Score ring */}
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <ScoreRing score={result.overall} />
-          </div>
+        .syn-row {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
+        }
 
-          {/* Verdict */}
-          <div style={{ ...glass, padding: "1.5rem", textAlign: "center" }}>
-            <p style={{
-              fontFamily: "var(--font-body)", fontSize: "0.88rem", fontWeight: 300,
-              lineHeight: 1.8, color: "rgba(196,185,228,0.75)", margin: 0,
-            }}>{result.verdict}</p>
-          </div>
+        .syn-label {
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.58rem;
+          font-weight: 500;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: var(--bone-faint);
+        }
 
-          {/* Premium-gated: detailed breakdown + cross-chart aspects */}
-          <Paywall requires="premium" priceKey="premium_monthly" featureName="the full synastry breakdown">
-          {/* Sub-scores */}
-          <div style={{ ...glass, padding: "1.5rem" }}>
-            <div style={{ ...labelSt, marginBottom: "0.8rem" }}>Compatibility Breakdown</div>
-            <ScoreBar label="Love & Passion" value={result.scores.love} color="#E8524A" />
-            <ScoreBar label="Emotion" value={result.scores.emotion} color="#4FC3F7" />
-            <ScoreBar label="Communication" value={result.scores.communication} color="#FFD700" />
-            <ScoreBar label="Growth" value={result.scores.growth} color="#4ECDC4" />
-            <ScoreBar label="Challenge" value={result.scores.challenge} color="#7B68EE" />
-          </div>
+        .syn-time-toggle {
+          align-self: flex-start;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0.25rem 0;
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.6rem;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--bone-faint);
+          transition: color 200ms var(--ease);
+        }
 
-          {/* Top aspects */}
-          <div style={{ ...glass, padding: "1.5rem", marginTop: "1.5rem" }}>
-            <div style={{ ...labelSt, marginBottom: "0.8rem" }}>Key Cross-Chart Aspects</div>
-            {result.topAspects.map((asp, i) => (
-              <div key={i} style={{
-                padding: "0.8rem 0",
-                borderBottom: i < result.topAspects.length - 1 ? "1px solid rgba(200,185,255,0.04)" : "none",
-              }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.3rem" }}>
-                  <span style={{
-                    fontFamily: "var(--font-accent)", fontSize: "0.88rem", color: "rgba(240,236,255,0.85)",
-                  }}>
-                    {asp.planetA} in {asp.signA}
-                  </span>
-                  <span style={{
-                    fontSize: "0.9rem",
-                    color: asp.harmony === "harmonious" ? "rgba(78,205,196,0.7)" : asp.harmony === "tense" ? "rgba(232,82,74,0.6)" : "rgba(212,175,55,0.5)",
-                  }}>
-                    {ASPECT_SYMBOL[asp.aspectType] || "\u00B7"}
-                  </span>
-                  <span style={{
-                    fontFamily: "var(--font-accent)", fontSize: "0.88rem", color: "rgba(240,236,255,0.85)",
-                  }}>
-                    {asp.planetB} in {asp.signB}
-                  </span>
-                  <span style={{
-                    fontFamily: "var(--font-body)", fontSize: "0.55rem", color: "rgba(180,170,210,0.35)",
-                    marginLeft: "auto",
-                  }}>
-                    {asp.aspectType} ({asp.orb}{"\u00B0"})
-                  </span>
-                </div>
-                <p style={{
-                  fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 300,
-                  lineHeight: 1.7, color: "rgba(196,185,228,0.6)", margin: 0,
-                }}>{asp.interpretation}</p>
-              </div>
-            ))}
-          </div>
-          </Paywall>
+        .syn-time-toggle:hover {
+          color: var(--bone);
+        }
 
-          {/* Cosmic Compatibility Link — viral mechanic.
-              Person A generates a shareable URL; Person B opens it, sees the
-              inviter banner, and is auto-filled. */}
-          {!fromInvite && (
-            <div style={{
-              padding: "1.5rem", marginTop: "0.5rem",
-              borderRadius: "1.25rem",
-              background: "linear-gradient(135deg, rgba(160,120,255,0.10), rgba(212,175,55,0.08))",
-              border: "1px solid rgba(212,175,55,0.30)",
-              textAlign: "center",
-            }}>
-              <p style={{
-                fontFamily: "var(--font-heading)", fontStyle: "italic",
-                fontSize: "1.1rem", color: "rgba(245,240,232,0.96)",
-                margin: "0 0 0.6rem",
-              }}>
-                Want them to see this too?
-              </p>
-              <p style={{
-                fontFamily: "var(--font-body)", fontSize: "0.82rem",
-                color: "rgba(220,210,240,0.72)", margin: "0 auto 1rem",
-                maxWidth: "32em", lineHeight: 1.55,
-              }}>
-                Send a private link. Your half is filled in, and they only need to add their own birth details.
-              </p>
-              <button
-                type="button"
-                onClick={async () => {
-                  const [yA, mA, dA] = dateA.split("-").map(Number);
-                  const locA = cityA || { lat: 40.71, lon: -74.01, tz: -5, name: "Unknown" };
-                  const inputA: BirthInput = {
-                    year: yA, month: mA, day: dA,
-                    hour: timeUnknownA ? 12 : parseInt(timeA.split(":")[0] || "12"),
-                    minute: timeUnknownA ? 0 : parseInt(timeA.split(":")[1] || "0"),
-                    latitude: locA.lat, longitude: locA.lon, timezone: locA.tz,
-                    name: nameA || undefined,
-                    city: cityA?.name,
-                  };
-                  const url = buildInviteUrl(inputA);
-                  setInviteUrl(url);
-                  try {
-                    if (navigator.share) {
-                      await navigator.share({
-                        title: "Compare our charts",
-                        text: `${nameA || "Someone"} wants to compare charts with you. Open the link to add your birth details.`,
-                        url,
-                      });
-                    } else {
-                      await navigator.clipboard.writeText(url);
-                      setInviteCopied(true);
-                      setTimeout(() => setInviteCopied(false), 2400);
-                    }
-                  } catch { /* user dismissed share sheet */ }
-                }}
-                style={{
-                  padding: "0.7rem 2rem", borderRadius: "100px",
-                  background: "linear-gradient(135deg, #E8C96A, #D4AF37)",
-                  border: "none",
-                  color: "var(--c-void, #06041a)",
-                  fontFamily: "var(--font-body)", fontSize: "0.82rem",
-                  fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase",
-                  cursor: "pointer",
-                }}
-              >
-                {inviteCopied ? "Link copied" : "Generate share link"}
-              </button>
-              {inviteUrl && !inviteCopied && (
-                <div style={{
-                  marginTop: "0.8rem", fontSize: "0.72rem",
-                  color: "rgba(180,170,210,0.55)",
-                  wordBreak: "break-all", fontFamily: "var(--font-mono, monospace)",
-                }}>
-                  {inviteUrl}
-                </div>
-              )}
-            </div>
-          )}
+        .syn-time-toggle.is-on {
+          color: var(--ember);
+        }
 
-          {/* Reset */}
-          <div style={{ textAlign: "center" }}>
-            <button onClick={reset} style={{
-              padding: "0.65rem 2rem", borderRadius: "100px",
-              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(200,185,255,0.1)",
-              color: "rgba(200,185,240,0.7)", fontSize: "0.72rem", fontWeight: 400,
-              letterSpacing: "0.06em", textTransform: "uppercase", cursor: "pointer",
-              transition: `all 0.3s ${EASE}`,
-            }}>Compare New Pair</button>
-          </div>
-        </div>
-      )}
-    </div>
+        .syn-submit {
+          grid-column: 1 / -1;
+          text-align: center;
+          margin-top: 0.6rem;
+        }
+
+        /* ── Re-ink shared form children (inline-styled) ─────────
+           BirthDatePicker selects + CityAutocomplete input carry the
+           old cosmic inline styles; night tokens win via !important. */
+        .syn-field input,
+        .syn-field select {
+          background-color: var(--night-deep) !important;
+          border: 1px solid var(--hairline) !important;
+          border-radius: 0.35rem !important;
+          color: var(--bone) !important;
+          font-family: var(--font-body, system-ui), sans-serif !important;
+          letter-spacing: 0.01em !important;
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
+        }
+
+        .syn-field input:focus-visible,
+        .syn-field select:focus-visible {
+          outline: 2px solid var(--ember);
+          outline-offset: 2px;
+        }
+
+        .syn-picker select {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(238,242,255,0.45)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") !important;
+          background-repeat: no-repeat !important;
+          background-position: right 0.75rem center !important;
+        }
+
+        .syn-picker option {
+          background: var(--night-deep) !important;
+          color: var(--bone) !important;
+        }
+
+        /* Month/Day/Year micro-labels inside BirthDatePicker */
+        .syn-picker span {
+          font-family: var(--font-mono, ui-monospace), monospace !important;
+          font-size: 0.52rem !important;
+          letter-spacing: 0.2em !important;
+          color: var(--bone-faint) !important;
+        }
+
+        /* CityAutocomplete dropdown panel */
+        .syn-city input + div {
+          background: var(--sheet) !important;
+          border: 1px solid var(--hairline) !important;
+          border-radius: 0.35rem !important;
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
+          box-shadow: 0 0.6rem 1.6rem rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .syn-city button {
+          border-bottom-color: var(--hairline) !important;
+        }
+
+        .syn-city button:hover,
+        .syn-city button:focus-visible {
+          background: rgba(232, 233, 255, 0.07) !important;
+        }
+
+        .syn-city button span:first-child {
+          font-family: var(--font-body, system-ui), sans-serif !important;
+          color: var(--bone) !important;
+        }
+
+        .syn-city button span:last-child {
+          font-family: var(--font-mono, ui-monospace), monospace !important;
+          font-size: 0.58rem !important;
+          letter-spacing: 0.16em !important;
+          text-transform: uppercase;
+          color: var(--bone-faint) !important;
+        }
+
+        /* ── Results ── */
+        .syn-results {
+          width: 100%;
+          max-width: 44rem;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .syn-pair {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1.4rem;
+          text-align: center;
+        }
+
+        .syn-person-name {
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-size: 1.4rem;
+          color: var(--bone);
+          line-height: 1.15;
+        }
+
+        .syn-person-signs {
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.55rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: var(--bone-faint);
+          margin-top: 0.35rem;
+        }
+
+        .syn-pair-star {
+          color: var(--ember);
+          font-size: 1.1rem;
+        }
+
+        .syn-verdict {
+          text-align: center;
+        }
+
+        .syn-verdict p {
+          margin: 0;
+          font-size: 0.92rem;
+          line-height: 1.75;
+          color: var(--bone-soft);
+        }
+
+        .syn-card-head {
+          margin-bottom: 1rem;
+        }
+
+        /* ── Aspects ledger ── */
+        .syn-aspect {
+          padding: 0.8rem 0;
+        }
+
+        .syn-aspect-line {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          margin-bottom: 0.3rem;
+        }
+
+        .syn-aspect-body {
+          font-size: 0.86rem;
+          color: var(--bone);
+        }
+
+        .syn-aspect-symbol {
+          font-size: 0.9rem;
+          color: var(--bone-faint);
+        }
+
+        .syn-aspect-symbol[data-harmony="harmonious"] {
+          color: var(--bone);
+        }
+
+        .syn-aspect-symbol[data-harmony="tense"] {
+          color: var(--ember);
+        }
+
+        .syn-aspect-orb {
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.55rem;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--bone-faint);
+          margin-left: auto;
+        }
+
+        .syn-aspect-text {
+          margin: 0;
+          font-size: 0.8rem;
+          line-height: 1.65;
+          color: var(--bone-soft);
+        }
+
+        /* ── Paywall re-ink (shared component, scoped overrides) ── */
+        .syn-paywall .glass-card {
+          background: var(--sheet) !important;
+          border: 1px solid var(--hairline) !important;
+          border-radius: 0 !important;
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
+          box-shadow: none !important;
+        }
+
+        .syn-paywall .text-warm-ivory {
+          color: var(--bone) !important;
+        }
+
+        .syn-paywall [class*="text-muted-lavender"] {
+          color: var(--bone-soft) !important;
+        }
+
+        .syn-paywall .glass-card button,
+        .syn-paywall .glass-card a {
+          background: var(--bone) !important;
+          color: var(--night) !important;
+          border: none !important;
+          border-radius: 999px !important;
+          box-shadow: none !important;
+          font-size: 0.8rem !important;
+          font-weight: 700 !important;
+          letter-spacing: 0.12em !important;
+          text-transform: uppercase;
+        }
+
+        .syn-paywall .glass-card button:hover,
+        .syn-paywall .glass-card a:hover {
+          background: var(--ember) !important;
+          color: var(--bone) !important;
+        }
+
+        /* kill the holo/foil/glow veil layers inside checkout buttons */
+        .syn-paywall .glass-card button span[aria-hidden],
+        .syn-paywall .glass-card a span[aria-hidden] {
+          display: none !important;
+        }
+
+        /* ── Share card ── */
+        .syn-share {
+          text-align: center;
+        }
+
+        .syn-share-title {
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-style: italic;
+          font-size: 1.3rem;
+          color: var(--bone);
+          margin: 0 0 0.6rem;
+        }
+
+        .syn-share-body {
+          font-size: 0.82rem;
+          color: var(--bone-soft);
+          margin: 0 auto 1.2rem;
+          max-width: 32em;
+          line-height: 1.55;
+        }
+
+        .syn-share-url {
+          margin-top: 0.9rem;
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.68rem;
+          color: var(--bone-faint);
+          word-break: break-all;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .syn-time-toggle {
+            transition: none !important;
+          }
+        }
+      `}</style>
+    </NightShell>
   );
 }

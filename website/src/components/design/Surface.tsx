@@ -77,7 +77,7 @@ export default function Surface({
     };
   } else if (variant === "veil") {
     look = {
-      background: "rgba(8, 6, 26, 0.65)",
+      background: "rgba(13, 16, 77, 0.65)",
       border: "1px solid rgba(255, 255, 255, 0.15)",
       backdropFilter: "blur(8px) ",
       WebkitBackdropFilter: "blur(8px) ",
@@ -113,7 +113,7 @@ export function Eyebrow({
       ? "rgba(232, 201, 106, 0.95)"
       : tone === "violet"
       ? "rgba(178, 150, 240, 0.88)"
-      : "rgba(196, 185, 228, 0.82)";
+      : "rgba(206, 210, 245, 0.82)";
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const CustomTag = Tag as any;
   return (
@@ -149,7 +149,7 @@ export function Rule({
 }) {
   const lineColor =
     tone === "gold"
-      ? "rgba(212, 175, 55, 0.4)"
+      ? "rgba(224, 183, 104, 0.4)"
       : tone === "violet"
       ? "rgba(160, 120, 255, 0.35)"
       : "rgba(200, 190, 235, 0.22)";
@@ -158,7 +158,7 @@ export function Rule({
       ? "rgba(232, 201, 106, 0.95)"
       : tone === "violet"
       ? "rgba(178, 150, 240, 0.88)"
-      : "rgba(196, 185, 228, 0.82)";
+      : "rgba(206, 210, 245, 0.82)";
   return (
     <div
       aria-hidden

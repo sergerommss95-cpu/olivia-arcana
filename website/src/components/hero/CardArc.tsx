@@ -62,7 +62,7 @@ export default function Card({ index, total, radius, span }: CardProps) {
     ctx.fillRect(0, 0, 512, 819);
 
     // Gold Border
-    ctx.strokeStyle = "#D4AF37";
+    ctx.strokeStyle = "#e0b768";
     ctx.lineWidth = 4;
     ctx.strokeRect(30, 30, 452, 759);
     ctx.lineWidth = 1.5;

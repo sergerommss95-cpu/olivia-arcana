@@ -19,7 +19,7 @@ import { ALL_CARDS } from "../../lib/academy/tarot-cards";
  */
 
 const SUIT_COLORS: Record<string, string> = {
-  wands: "#E8524A", cups: "#7B68EE", swords: "#D4AF37", pentacles: "#4ECDC4",
+  wands: "#E8524A", cups: "#7B68EE", swords: "#e0b768", pentacles: "#8d97ff",
 };
 
 const ELEMENT_MAP: Record<string, string> = {
@@ -35,7 +35,7 @@ export default function TarotRevealCard({ cardName }: { cardName?: string }) {
   if (!card) return <div style={{ color: "rgba(180,170,210,0.4)" }}>Card not found: {cardName ?? "unknown"}</div>;
 
   const maxLayers = 5;
-  const accentColor = card.suit ? SUIT_COLORS[card.suit] : "#D4AF37";
+  const accentColor = card.suit ? SUIT_COLORS[card.suit] : "#e0b768";
   const progress = layer / maxLayers;
 
   const advance = () => {
@@ -52,7 +52,7 @@ export default function TarotRevealCard({ cardName }: { cardName?: string }) {
         background: layer === 0
           ? "linear-gradient(135deg, rgba(18,12,40,0.95) 0%, rgba(4,2,13,0.98) 100%)"
           : `linear-gradient(135deg, ${accentColor}08 0%, rgba(4,2,13,0.95) 100%)`,
-        border: `1px solid ${layer === 0 ? "rgba(200,185,255,0.08)" : `${accentColor}20`}`,
+        border: `1px solid ${layer === 0 ? "rgba(184,190,240,0.08)" : `${accentColor}20`}`,
         transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
         position: "relative",
       }}
@@ -72,14 +72,14 @@ export default function TarotRevealCard({ cardName }: { cardName?: string }) {
           <div style={{ textAlign: "center", padding: "1.5rem 0" }}>
             <div style={{
               fontSize: "2.5rem", marginBottom: "0.5rem",
-              color: "rgba(200,185,255,0.15)",
+              color: "rgba(184,190,240,0.15)",
               textShadow: "0 0 30px rgba(160,130,255,0.1)",
             }}>
               🂠
             </div>
             <div style={{
               fontFamily: "var(--font-accent)", fontSize: "0.85rem", fontStyle: "italic",
-              color: "rgba(200,185,255,0.3)",
+              color: "rgba(184,190,240,0.3)",
             }}>
               Tap to reveal this card...
             </div>

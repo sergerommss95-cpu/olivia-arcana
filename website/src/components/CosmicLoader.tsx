@@ -64,7 +64,7 @@ export default function CosmicLoader() {
         alignItems: "center",
         justifyContent: "center",
         gap: "1rem",
-        background: "#06041a",
+        background: "#0a0d38",
         opacity: phase >= 4 ? 0 : 1,
         transition: `opacity 0.6s ${EASE}`,
         pointerEvents: phase >= 4 ? "none" : "auto",
@@ -74,8 +74,8 @@ export default function CosmicLoader() {
       <div
         style={{
           fontSize: "2.5rem",
-          color: "rgba(212,175,55,0.8)",
-          textShadow: "0 0 40px rgba(212,175,55,0.3), 0 0 80px rgba(212,175,55,0.1)",
+          color: "rgba(224,183,104,0.8)",
+          textShadow: "0 0 40px rgba(224,183,104,0.3), 0 0 80px rgba(224,183,104,0.1)",
           opacity: phase >= 1 ? 1 : 0,
           transform: phase >= 1 ? "scale(1)" : "scale(0.8)",
           transition: `all 0.8s ${EASE}`,
@@ -146,7 +146,7 @@ export default function CosmicLoader() {
               width: "4px",
               height: "4px",
               borderRadius: "50%",
-              background: phase >= i ? "rgba(212,175,55,0.6)" : "rgba(200,185,255,0.15)",
+              background: phase >= i ? "rgba(224,183,104,0.6)" : "rgba(184,190,240,0.15)",
               transition: `background 0.4s ${EASE}`,
             }}
           />

@@ -1,50 +1,348 @@
 /**
- * Celestial Portrait — Full natal chart generative artwork + decode
+ * The Birth Chart — night room.
  *
- * Full birth data: year, month, day, hour, minute, city.
- * Computes real natal chart → maps to generative art + personality decode.
+ * Full birth data: year, month, day, hour, minute, city. Computes the real
+ * natal chart client-side and engraves it as a wheel of houses — bone
+ * strokes on the night plate, the homepage's WheelDiagram language
+ * inverted. No shaders, no glass: hairlines, hatching, one ember accent.
  */
 
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useCallback, useMemo } from "react";
 import Link from "next/link";
-import { build3DPortraitConfig, type Portrait3DConfig } from "../../lib/portrait-v4";
-import RelicScene from "../../components/cosmos/RelicScene";
-import { computeNatalChart, type NatalChart, type BirthInput } from "../../lib/natal-chart";
-import { saveUser } from "../../lib/user-store";
-import BirthDatePicker from "../../components/BirthDatePicker";
-import CityAutocomplete from "../../components/CityAutocomplete";
-import CosmicField from "../../components/CosmicField";
-import { type CityData } from "../../lib/cities";
-import { getPlanetInSign, PLANET_MEANING, HOUSE_MEANING } from "../../lib/planet-interpretations";
+import NightShell from "@/components/almanac/NightShell";
+import { computeNatalChart, type NatalChart, type BirthInput } from "@/lib/natal-chart";
+import { engineChart, engineEnabled, fmtLongitude, type EngineChart } from "@/lib/engine";
+import { saveUser } from "@/lib/user-store";
+import { moonPath } from "@/lib/almanac-today";
+import BirthDatePicker from "@/components/BirthDatePicker";
+import CityAutocomplete from "@/components/CityAutocomplete";
+import { type CityData, utcOffsetHours, fmtUtcOffset, isSummerTime } from "@/lib/cities";
+import { getPlanetInSign, PLANET_MEANING, HOUSE_MEANING } from "@/lib/planet-interpretations";
+import { useLocale } from "@/lib/i18n/useLocale";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
-const labelSt: React.CSSProperties = {
-  fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 500,
-  letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(180,170,210,0.4)",
-};
-const glass: React.CSSProperties = {
-  background: "rgba(255,255,255,0.03)", border: "1px solid rgba(200,185,255,0.08)",
-  borderRadius: "1rem", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)",
+const SIGN_NAMES = [
+  "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
+  "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces",
+];
+const SIGN_GLYPHS = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"];
+
+const COPY = {
+  en: {
+    room: "The Meridian Glass",
+    kicker: "Plate II · The Birth Chart",
+    title: "Draw your birth chart.",
+    lead: "Date, hour, and place, drawn as a wheel — the baseline every personal reading in this almanac stands on.",
+    nameLabel: "Your name (optional)",
+    namePlaceholder: "Name",
+    dateLabel: "Birth date *",
+    timeLabel: "Birth time *",
+    timeUnknownOn: "✓ Using noon — the rising sign is left unmarked",
+    timeUnknownOff: "I don't know my birth time",
+    cityLabel: "Birth city *",
+    cityPlaceholder: "e.g. Kyiv, New York, Tokyo",
+    generate: "Draw your portrait",
+    figCaption: "Fig. 2 — the wheel of houses",
+    wheelAria: "Natal chart wheel",
+    chartOwn: "Your birth chart",
+    chartOf: (name: string) => `${name}'s birth chart`,
+    metaDominant: (v: string) => `${v} dominant`,
+    metaEnergy: (v: string) => `${v} energy`,
+    metaPattern: (v: string) => `${v} pattern`,
+    metaMoon: (v: string) => `${v} at birth`,
+    download: "Download the plate",
+    exportFailed: "The plate would not press — try again, or take a screenshot.",
+    tzLine: (city: string, off: string, summer: boolean) =>
+      `computed for ${city} · ${off}${summer ? " (summer time)" : ""}`,
+    decodeShow: "Full chart decode",
+    decodeHide: "Hide chart decode",
+    newChart: "New chart",
+    bigThree: [
+      { label: "Core identity" },
+      { label: "Emotional nature" },
+      { label: "How others see you" },
+    ],
+    risingSub: "Your mask. The energy you project before people know you.",
+    planetsLabel: "Your planets",
+    houseWord: "House",
+    retro: "℞ retrograde",
+    inHouse: (area: string, rules: string) => `In your ${area} house — ${rules}`,
+    elementLabel: "Element balance",
+    modalityLabel: "Modality balance",
+    aspectsLabel: "Key aspects",
+    lifeThemeLabel: "Your life theme",
+    soulLabel: "Soul direction",
+    viewChart: "Open the interactive wheel",
+  },
+  uk: {
+    room: "Меридіанне скло",
+    kicker: "Таблиця II · Натальна карта",
+    title: "Накресліть свою натальну карту.",
+    lead: "Дата, година й місце, накреслені колесом — основа кожного особистого читання в цьому альманасі.",
+    nameLabel: "Ваше ім'я (необов'язково)",
+    namePlaceholder: "Ім'я",
+    dateLabel: "Дата народження *",
+    timeLabel: "Час народження *",
+    timeUnknownOn: "✓ Береться полудень — знак Асценденту не позначається",
+    timeUnknownOff: "Я не знаю часу свого народження",
+    cityLabel: "Місто народження *",
+    cityPlaceholder: "напр. Київ, Нью-Йорк, Токіо",
+    generate: "Накреслити карту",
+    figCaption: "Мал. 2 — колесо домів",
+    wheelAria: "Колесо натальної карти",
+    chartOwn: "Ваша натальна карта",
+    chartOf: (name: string) => `Натальна карта — ${name}`,
+    metaDominant: (v: string) => `Домінанта — ${v}`,
+    metaEnergy: (v: string) => `Енергія — ${v}`,
+    metaPattern: (v: string) => `Патерн — ${v}`,
+    metaMoon: (v: string) => `${v} при народженні`,
+    download: "Завантажити гравюру",
+    exportFailed: "Не вдалося відтиснути гравюру — спробуйте ще раз або зробіть знімок екрана.",
+    tzLine: (city: string, off: string, summer: boolean) =>
+      `обчислено для: ${city} · ${off}${summer ? " (літній час)" : ""}`,
+    decodeShow: "Повне тлумачення карти",
+    decodeHide: "Сховати тлумачення",
+    newChart: "Нова карта",
+    bigThree: [
+      { label: "Ядро особистості" },
+      { label: "Емоційна природа" },
+      { label: "Як вас бачать інші" },
+    ],
+    risingSub: "Ваша маска. Енергія, яку ви випромінюєте, перш ніж вас упізнають.",
+    planetsLabel: "Ваші планети",
+    houseWord: "Дім",
+    retro: "℞ ретроградний",
+    inHouse: (area: string, rules: string) => `У домі «${area}» — ${rules}`,
+    elementLabel: "Баланс стихій",
+    modalityLabel: "Баланс модальностей",
+    aspectsLabel: "Ключові аспекти",
+    lifeThemeLabel: "Тема вашого життя",
+    soulLabel: "Напрям душі",
+    viewChart: "Відкрити інтерактивне колесо",
+  },
 };
 
+/* ── DignityBadge — mono chip on a hairline ─────────────────────── */
 function DignityBadge({ dignity }: { dignity: string }) {
-  const colors: Record<string, string> = {
-    domicile: "#4ECDC4", exaltation: "#FFD700", detriment: "#E8524A", fall: "#E8524A", peregrine: "rgba(180,170,210,0.3)",
-  };
   if (dignity === "peregrine") return null;
+  const lifted = dignity === "domicile" || dignity === "exaltation";
   return (
-    <span style={{
-      fontSize: "0.5rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase",
-      color: colors[dignity] || "#999", padding: "0.1rem 0.4rem",
-      border: `1px solid ${colors[dignity]}33`, borderRadius: "100px",
-    }}>{dignity}</span>
+    <span
+      className="bc-dignity"
+      style={{ color: lifted ? "var(--ember)" : "var(--bone-faint)" }}
+    >
+      {dignity}
+    </span>
+  );
+}
+
+/* ── NatalWheel — the chart engraved: bone strokes on night ───────
+ *
+ * The homepage's WheelDiagram language, inverted. Ascendant sits at
+ * nine o'clock; the zodiac runs counterclockwise, true to the plate
+ * tradition. Sign ring, house ring, planet band, aspect chords, and
+ * the birth moon hatched at the hub. Draw-in etch honours
+ * prefers-reduced-motion (CSS lives on the page root).
+ */
+function NatalWheel({ chart, ariaLabel }: { chart: NatalChart; ariaLabel: string }) {
+  const C = 220;
+  // Unknown birth time → no ascendant: the wheel still draws (0° Aries at
+  // nine o'clock), but houses and axes stay off the plate.
+  const hasAsc = chart.ascendant != null && chart.midheaven != null;
+  const asc = chart.ascendant?.longitude ?? 0;
+
+  /** Ecliptic longitude → point at radius r (Asc left, zodiac CCW). */
+  const pt = (lon: number, r: number) => {
+    const a = ((180 + (lon - asc)) * Math.PI) / 180;
+    return { x: C + r * Math.cos(a), y: C - r * Math.sin(a) };
+  };
+
+  // Planet band: nudge crowded glyphs apart, keep true longitudes for ticks/chords.
+  const placed = [...chart.planets]
+    .sort((a, b) => a.longitude - b.longitude)
+    .map((p) => ({ p, lon: p.longitude }));
+  for (let pass = 0; pass < 3; pass++) {
+    for (let i = 1; i < placed.length; i++) {
+      if (placed[i].lon - placed[i - 1].lon < 9) placed[i].lon = placed[i - 1].lon + 9;
+    }
+  }
+
+  const mc = chart.midheaven?.longitude ?? 0;
+  const ascP0 = pt(asc, 208);
+  const ascP1 = pt(asc + 180, 208);
+  const mcP0 = pt(mc, 208);
+  const mcP1 = pt(mc + 180, 208);
+  const ascLabel = pt(asc, 203);
+  const mcLabel = pt(mc, 203);
+
+  const f = Math.min(1, Math.max(0, chart.moonPhase.illumination / 100));
+  const waxing = chart.moonPhase.age < 14.765;
+  const lit = moonPath(C, C, 16, f, waxing);
+
+  return (
+    <svg viewBox="0 0 440 440" className="bc-wheel-svg" role="img" aria-label={ariaLabel}>
+      <defs>
+        <pattern id="bc-hatch" width="2.6" height="2.6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="2.6" stroke="currentColor" strokeWidth="0.55" />
+        </pattern>
+      </defs>
+
+      {/* Rings */}
+      <g fill="none" stroke="currentColor">
+        <circle className="etch" style={{ "--ei": 0 } as React.CSSProperties} pathLength={1} cx={C} cy={C} r="196" strokeWidth="1" />
+        <circle className="etch" style={{ "--ei": 1 } as React.CSSProperties} pathLength={1} cx={C} cy={C} r="168" strokeWidth="0.6" />
+        <circle className="etch" style={{ "--ei": 2 } as React.CSSProperties} pathLength={1} cx={C} cy={C} r="140" strokeWidth="0.6" />
+        <circle className="etch" style={{ "--ei": 3 } as React.CSSProperties} pathLength={1} cx={C} cy={C} r="92" strokeWidth="0.6" />
+      </g>
+
+      {/* Sign boundaries + degree ticks */}
+      <g fill="none" stroke="currentColor">
+        {Array.from({ length: 12 }, (_, i) => {
+          const a = pt(i * 30, 168);
+          const b = pt(i * 30, 196);
+          return (
+            <line
+              key={`sb-${i}`}
+              className="etch"
+              style={{ "--ei": 4 + i * 0.12 } as React.CSSProperties}
+              pathLength={1}
+              x1={a.x} y1={a.y} x2={b.x} y2={b.y}
+              strokeWidth="0.6"
+            />
+          );
+        })}
+        {Array.from({ length: 36 }, (_, i) => {
+          if (i % 3 === 0) return null;
+          const a = pt(i * 10, 168);
+          const b = pt(i * 10, 174);
+          return (
+            <line key={`tk-${i}`} className="sfade" style={{ "--ei": 5.5, "--o": 0.55 } as React.CSSProperties} x1={a.x} y1={a.y} x2={b.x} y2={b.y} strokeWidth="0.5" />
+          );
+        })}
+      </g>
+
+      {/* Sign glyphs */}
+      <g fill="currentColor" fontSize="15" textAnchor="middle" dominantBaseline="central" fontFamily="serif">
+        {SIGN_GLYPHS.map((glyph, i) => {
+          const g = pt(i * 30 + 15, 182);
+          const isSun = chart.sunSign === SIGN_NAMES[i];
+          return (
+            <text
+              key={`sg-${i}`}
+              className="sfade"
+              style={{ "--ei": 6 + i * 0.1, "--o": isSun ? 1 : 0.85 } as React.CSSProperties}
+              x={g.x} y={g.y}
+              fill={isSun ? "var(--ember)" : "currentColor"}
+            >
+              {glyph + "\uFE0E"}
+            </text>
+          );
+        })}
+      </g>
+
+      {/* House cusps + numbers — only with a known birth time */}
+      <g>
+        {hasAsc && chart.houses.map((h, i) => {
+          const a = pt(h.cusp, 140);
+          const b = pt(h.cusp, 168);
+          const next = chart.houses[(i + 1) % 12];
+          const midLon = h.cusp + (((next.cusp - h.cusp + 360) % 360) / 2);
+          const n = pt(midLon, 154);
+          return (
+            <g key={`h-${h.number}`}>
+              <line className="etch" style={{ "--ei": 8 + i * 0.08 } as React.CSSProperties} pathLength={1} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="currentColor" strokeWidth="0.5" opacity="0.7" />
+              <text className="sfade" style={{ "--ei": 9 + i * 0.06, "--o": 0.55 } as React.CSSProperties} x={n.x} y={n.y} fill="currentColor" fontSize="9" textAnchor="middle" dominantBaseline="central" fontFamily="var(--font-mono, ui-monospace), monospace">
+                {h.number}
+              </text>
+            </g>
+          );
+        })}
+      </g>
+
+      {/* Axes: Ascendant + Midheaven */}
+      {hasAsc && <g stroke="currentColor" fill="currentColor">
+        <line className="etch" style={{ "--ei": 10 } as React.CSSProperties} pathLength={1} x1={ascP0.x} y1={ascP0.y} x2={ascP1.x} y2={ascP1.y} strokeWidth="0.7" strokeDasharray="2 4" opacity="0.7" />
+        <line className="etch" style={{ "--ei": 10.4 } as React.CSSProperties} pathLength={1} x1={mcP0.x} y1={mcP0.y} x2={mcP1.x} y2={mcP1.y} strokeWidth="0.7" strokeDasharray="2 4" opacity="0.7" />
+        <text className="sfade" style={{ "--ei": 10.8 } as React.CSSProperties} x={ascLabel.x} y={ascLabel.y - 7} fontSize="8.5" textAnchor="middle" dominantBaseline="central" fontFamily="var(--font-mono, ui-monospace), monospace" stroke="none" fill="var(--ember)" letterSpacing="1">
+          AC
+        </text>
+        <text className="sfade" style={{ "--ei": 11, "--o": 0.7 } as React.CSSProperties} x={mcLabel.x} y={mcLabel.y - 7} fontSize="8.5" textAnchor="middle" dominantBaseline="central" fontFamily="var(--font-mono, ui-monospace), monospace" stroke="none" fill="currentColor" letterSpacing="1">
+          MC
+        </text>
+      </g>}
+
+      {/* Aspect chords — ember for tense, bone for harmonious */}
+      <g className="sfade" style={{ "--ei": 13 } as React.CSSProperties} fill="none">
+        {chart.aspects.slice(0, 14).map((a, i) => {
+          const p1 = chart.planets.find((p) => p.name === a.planet1);
+          const p2 = chart.planets.find((p) => p.name === a.planet2);
+          if (!p1 || !p2) return null;
+          const s = pt(p1.longitude, 92);
+          const e = pt(p2.longitude, 92);
+          const tense = a.harmony === "tense";
+          return (
+            <line
+              key={`asp-${i}`}
+              x1={s.x} y1={s.y} x2={e.x} y2={e.y}
+              stroke={tense ? "var(--ember)" : "currentColor"}
+              strokeWidth="0.5"
+              opacity={tense ? 0.55 : 0.35}
+              strokeDasharray={a.type === "opposition" || a.type === "square" ? "3 3" : undefined}
+            />
+          );
+        })}
+      </g>
+
+      {/* Planets */}
+      <g>
+        {placed.map(({ p, lon }, i) => {
+          const tickA = pt(p.longitude, 140);
+          const tickB = pt(p.longitude, 133);
+          const g = pt(lon, 114);
+          const isSun = p.name === "Sun";
+          return (
+            <g key={p.name} className="sfade" style={{ "--ei": 11.5 + i * 0.12 } as React.CSSProperties}>
+              <line x1={tickA.x} y1={tickA.y} x2={tickB.x} y2={tickB.y} stroke="currentColor" strokeWidth="0.5" opacity="0.6" />
+              {isSun ? (
+                <>
+                  <circle cx={g.x} cy={g.y} r="8" fill="var(--sheet, #1b1710)" stroke="var(--ember)" strokeWidth="1" />
+                  <circle cx={g.x} cy={g.y} r="2.2" fill="var(--ember)" />
+                </>
+              ) : (
+                <text
+                  x={g.x} y={g.y}
+                  fill="currentColor"
+                  fontSize={p.name === "Moon" ? 15 : 13}
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  fontFamily="serif"
+                >
+                  {p.glyph + "\uFE0E"}
+                </text>
+              )}
+            </g>
+          );
+        })}
+      </g>
+
+      {/* The birth moon, hatched at the hub */}
+      <g className="sfade" style={{ "--ei": 14 } as React.CSSProperties}>
+        <circle cx={C} cy={C} r="16" fill="url(#bc-hatch)" opacity="0.5" />
+        {lit && <path d={lit} fill="var(--bone, #e8dcc8)" opacity="0.9" />}
+        <circle cx={C} cy={C} r="16" fill="none" stroke="currentColor" strokeWidth="1" />
+      </g>
+    </svg>
   );
 }
 
 export default function PortraitPage() {
+  const { locale } = useLocale();
+  const isUk = locale === "uk";
+  const copy = isUk ? COPY.uk : COPY.en;
+
   // Form state
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
@@ -54,403 +352,988 @@ export default function PortraitPage() {
 
   // Result state
   const [chart, setChart] = useState<NatalChart | null>(null);
-  const [relicConfig, setRelicConfig] = useState<Portrait3DConfig | null>(null);
+  // The press's own figures — true ephemeris, houses, retrogrades.
+  // Null = engine unreachable; the client chart stands as provisional.
+  const [press, setPress] = useState<EngineChart | null>(null);
   const [phase, setPhase] = useState<"input" | "generating" | "revealed">("input");
   const [showDecode, setShowDecode] = useState(false);
 
   const overlayRef = useRef<HTMLDivElement>(null);
 
   const generate = useCallback(() => {
-    if (!date) return;
+    if (!date || !cityData) return;
     const [y, m, d] = date.split("-").map(Number);
     if (!y || !m || !d) return;
-
-    const loc = cityData || { lat: 40.71, lon: -74.01, tz: -5 };
 
     const hour = timeUnknown ? 12 : parseInt(time.split(":")[0] || "12");
     const minute = timeUnknown ? 0 : parseInt(time.split(":")[1] || "0");
 
-    const input: BirthInput = {
+    // Historical offset for that wall-clock instant (DST, zone reforms);
+    // the fixed city offset stands in only if the runtime lacks the zone.
+    const zoneOff = utcOffsetHours(cityData.zone, y, m, d, hour, minute);
+    const timezone = Number.isFinite(zoneOff) ? zoneOff : cityData.tz;
+
+    const input = {
       year: y, month: m, day: d,
       hour, minute,
-      latitude: loc.lat, longitude: loc.lon, timezone: loc.tz,
+      latitude: cityData.lat, longitude: cityData.lon, timezone,
+      timeKnown: !timeUnknown,
       name: name || undefined,
-      city: cityData?.name || undefined,
-    };
+      city: cityData.name,
+    } as BirthInput;
 
     const natalChart = computeNatalChart(input);
     saveUser(input, natalChart); // persist for other pages
     setChart(natalChart);
-    setRelicConfig(build3DPortraitConfig(natalChart));
+    setPress(null);
+    if (engineEnabled()) {
+      engineChart(input).then((ec) => {
+        if (ec) setPress(ec);
+      });
+    }
     setPhase("generating");
 
     // Fire the Cosmic Identity Panel reveal — ConstellationOverlay listens
-    // for `zodiac:click` and renders the CosmicProfile (element/modality/
-    // ruler trio, traits, energy, compatibility, lucky stats, share card).
-    // 1.4s delay so the user sees their portrait paint first; the panel
-    // then layers on top as the "who you are" reveal.
+    // for `zodiac:click` when mounted. 1.4s delay so the reader sees the
+    // wheel engrave first.
     {
-      const ZODIAC_NAMES = [
-        "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
-        "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces",
-      ];
-      const idx = ZODIAC_NAMES.findIndex(
+      const idx = SIGN_NAMES.findIndex(
         (n) => n.toLowerCase() === (natalChart.sunSign || "").toLowerCase(),
       );
-      const glyph = ["♈","♉","♊","♋","♌","♍","♎","♏","♐","♑","♒","♓"][idx] || "✦";
+      const glyph = SIGN_GLYPHS[idx] || "✦";
       if (idx >= 0) {
         setTimeout(() => {
           window.dispatchEvent(new CustomEvent("zodiac:click", {
-            detail: { name: ZODIAC_NAMES[idx], glyph, index: idx },
+            detail: { name: SIGN_NAMES[idx], glyph, index: idx },
           }));
         }, 1400);
       }
     }
 
-    // Fade out form
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      setPhase("revealed");
+      return;
+    }
+
+    // Fade out the form, then reveal
     overlayRef.current?.animate(
       [{ opacity: "1" }, { opacity: "0" }],
       { duration: 600, easing: EASE, fill: "forwards" }
     );
-
-    // Start art
     setTimeout(() => {
       setPhase("revealed");
     }, 800);
   }, [name, date, time, timeUnknown, cityData]);
 
+  const figureRef = useRef<HTMLElement | null>(null);
+
+  /** Serialize the wheel SVG, rasterize at 2×, hand over a PNG. */
   const download = useCallback(() => {
-    alert("Portrait rendering for export...");
-  }, []);
+    const fail = () => alert(copy.exportFailed);
+    try {
+      const svgEl = figureRef.current?.querySelector("svg");
+      if (!svgEl) return fail();
+      const cs = getComputedStyle(svgEl);
+      const SIZE = 880; // 2× the 440 viewBox
+      const clone = svgEl.cloneNode(true) as SVGSVGElement;
+      clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+      clone.setAttribute("width", String(SIZE));
+      clone.setAttribute("height", String(SIZE));
+      // Resolve currentColor + the night-register custom properties, so the
+      // standalone SVG rasterizes with the plate's true ink.
+      const vars = ["--ember", "--bone", "--bone-soft", "--bone-faint", "--sheet", "--night-deep", "--hairline"]
+        .map((v) => {
+          const val = cs.getPropertyValue(v).trim();
+          return val ? `${v}:${val};` : "";
+        })
+        .join("");
+      clone.setAttribute("style", `color:${cs.color};${vars}`);
+      const xml = new XMLSerializer().serializeToString(clone);
+      const svgUrl = URL.createObjectURL(new Blob([xml], { type: "image/svg+xml;charset=utf-8" }));
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const canvas = document.createElement("canvas");
+          canvas.width = SIZE;
+          canvas.height = SIZE;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) throw new Error("no 2d context");
+          ctx.fillStyle = cs.getPropertyValue("--night-deep").trim() || "#12100b";
+          ctx.fillRect(0, 0, SIZE, SIZE);
+          ctx.drawImage(img, 0, 0, SIZE, SIZE);
+          URL.revokeObjectURL(svgUrl);
+          canvas.toBlob((blob) => {
+            if (!blob) return fail();
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "olivia-portrait.png";
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+          }, "image/png");
+        } catch {
+          URL.revokeObjectURL(svgUrl);
+          fail();
+        }
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(svgUrl);
+        fail();
+      };
+      img.src = svgUrl;
+    } catch {
+      fail();
+    }
+  }, [copy.exportFailed]);
 
   const reset = useCallback(() => {
     setChart(null);
-    setRelicConfig(null);
     setPhase("input");
     setShowDecode(false);
   }, []);
 
-  useEffect(() => {
-    // Component lifecycle cleanup
-  }, []);
+  const canGenerate = !!date && (timeUnknown || !!time) && !!cityData;
 
-  const canGenerate = !!date && (timeUnknown || !!time);
+  // Resolved place + offset, shown under the form as soon as it can be known.
+  const tzLine = useMemo(() => {
+    if (!cityData || !date) return null;
+    const [y, m, d] = date.split("-").map(Number);
+    if (!y || !m || !d) return null;
+    const hh = timeUnknown ? 12 : parseInt(time.split(":")[0] || "12");
+    const mi = timeUnknown ? 0 : parseInt(time.split(":")[1] || "0");
+    const off = utcOffsetHours(cityData.zone, y, m, d, hh, mi);
+    if (!Number.isFinite(off)) return null;
+    return copy.tzLine(
+      cityData.name.toUpperCase(),
+      fmtUtcOffset(off),
+      isSummerTime(cityData.zone, y, m, d, hh, mi),
+    );
+  }, [cityData, date, time, timeUnknown, copy]);
+
+  // No ascendant (unknown birth time) → no rising card asserted.
+  const bigThree = chart
+    ? [
+        { glyph: "☉", planet: "Sun", sign: chart.sunSign, label: copy.bigThree[0].label, sub: PLANET_MEANING.Sun, text: chart.interpretation.coreIdentity, interp: getPlanetInSign("Sun", chart.sunSign) },
+        { glyph: "☽", planet: "Moon", sign: chart.moonSign, label: copy.bigThree[1].label, sub: PLANET_MEANING.Moon, text: chart.interpretation.emotionalNature, interp: getPlanetInSign("Moon", chart.moonSign) },
+        ...(chart.ascendant
+          ? [{ glyph: "↑", planet: "Rising", sign: chart.risingSign, label: copy.bigThree[2].label, sub: copy.risingSub, text: chart.interpretation.outerPersona, interp: "" }]
+          : []),
+      ]
+    : [];
 
   return (
-    <div style={{ position: "relative", width: "100vw", minHeight: "100vh", overflow: "hidden" }}>
-      {/* 3D Relic Canvas */}
-      {relicConfig && <RelicScene config={relicConfig} />}
+    <NightShell room={copy.room}>
+      <div className="bc-plate">
+        {/* ── INPUT ── */}
+        {phase !== "revealed" && (
+          <div ref={overlayRef} className="bc-entry">
+            <p className="night-kicker">{copy.kicker}</p>
+            <h1 className="night-h1">{copy.title}</h1>
+            <p className="night-lead bc-lead">{copy.lead}</p>
 
-      {/* ── INPUT FORM ── */}
-      <div ref={overlayRef} style={{
-        position: phase === "revealed" ? "absolute" : "fixed", inset: 0,
-        display: phase === "revealed" ? "none" : "flex",
-        flexDirection: "column", alignItems: "center", justifyContent: "center",
-        gap: "1.5rem", zIndex: 10, background: "rgba(4,2,13,0.4)",
-        backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)",
-        padding: "2rem 1.5rem", overflowY: "auto",
-      }}>
-        <Link href="/" style={{ position: "absolute", top: "1.5rem", left: "1.5rem", ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.4)" }}>&larr; Home</Link>
+            <div className="night-card bc-form">
+              {/* Name */}
+              <div className="bc-field">
+                <label className="bc-label" htmlFor="bc-name">{copy.nameLabel}</label>
+                <input
+                  id="bc-name"
+                  type="text"
+                  className="night-input"
+                  placeholder={copy.namePlaceholder}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
 
-        <div style={{ fontSize: "2rem", color: "rgba(212,175,55,0.5)", textShadow: "0 0 40px rgba(212,175,55,0.2)" }}>✦</div>
-        <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem, 4vw, 2.2rem)", fontWeight: 400, textAlign: "center" }}>
-          <span className="text-gold-gradient">Your Celestial Portrait</span>
-        </h1>
-        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300, color: "rgba(196,185,228,0.5)", textAlign: "center", maxWidth: "400px" }}>
-          Enter your complete birth data for a mathematically unique cosmic artwork with full natal chart decode.
-        </p>
+              {/* Date */}
+              <div className="bc-field bc-picker">
+                <span className="bc-label">{copy.dateLabel}</span>
+                <BirthDatePicker value={date} onChange={setDate} />
+              </div>
 
-        <div style={{
-          display: "flex", flexDirection: "column", gap: "1rem",
-          width: "100%", maxWidth: "400px",
-          padding: "2rem",
-          background: "rgba(8,6,20,0.45)",
-          backdropFilter: "blur(8px) ",
-          WebkitBackdropFilter: "blur(8px) ",
-          border: "1px solid rgba(200,185,255,0.08)",
-          borderRadius: "1.5rem",
-          boxShadow: "0 8px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)",
-        }}>
-          {/* Name */}
-          <CosmicField
-            label="Your Name (optional)"
-            placeholder="Name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+              {/* Time */}
+              <div className="bc-field">
+                {!timeUnknown && (
+                  <>
+                    <label className="bc-label" htmlFor="bc-time">{copy.timeLabel}</label>
+                    <input
+                      id="bc-time"
+                      type="time"
+                      className="night-input"
+                      value={time}
+                      onChange={(e) => setTime(e.target.value)}
+                      style={{ colorScheme: "dark" }}
+                    />
+                  </>
+                )}
+                <button
+                  type="button"
+                  className={`bc-toggle ${timeUnknown ? "is-on" : ""}`}
+                  aria-pressed={timeUnknown}
+                  onClick={() => {
+                    setTimeUnknown(!timeUnknown);
+                    setTime("");
+                  }}
+                >
+                  {timeUnknown ? copy.timeUnknownOn : copy.timeUnknownOff}
+                </button>
+              </div>
 
-          {/* Date */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-            <span style={labelSt}>Birth Date *</span>
-            <BirthDatePicker value={date} onChange={setDate} />
+              {/* City */}
+              <div className={`bc-field bc-city ${cityData ? "" : "miss"}`}>
+                <span className="bc-label">{copy.cityLabel}</span>
+                <CityAutocomplete onSelect={setCityData} placeholder={copy.cityPlaceholder} />
+                {tzLine && <span className="night-caption bc-tzline">{tzLine}</span>}
+              </div>
+
+              <button className="night-btn bc-submit" onClick={generate} disabled={!canGenerate}>
+                {copy.generate}
+              </button>
+            </div>
           </div>
+        )}
 
-          {/* Time */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem" }}>
-            {!timeUnknown && (
-              <CosmicField
-                label={`Birth Time ${timeUnknown ? "(using noon)" : "*"}`}
-                type="time"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                style={{ colorScheme: "dark" }}
-              />
+        {/* ── REVEALED ── */}
+        {phase === "revealed" && chart && (
+          <div className="bc-revealed">
+            <figure className="bc-figure" ref={figureRef}>
+              <NatalWheel chart={chart} ariaLabel={`${copy.wheelAria}: ${chart.bigThree}`} />
+              <figcaption className="night-caption bc-figcap">
+                {copy.figCaption}
+                {chart.input.city ? ` · ${chart.input.city}` : ""}
+              </figcaption>
+            </figure>
+
+            {press && (
+              <div className="bc-press night-card">
+                <p className="night-kicker">
+                  {isUk ? "Цифри, набрані пресом" : "Figures set by the press"} <span aria-hidden>⁂</span>
+                </p>
+                <div className="bc-press-grid">
+                  {press.asc !== null && (
+                    <p><span className="bp-k">ASC</span> {fmtLongitude(press.asc)}</p>
+                  )}
+                  {press.mc !== null && (
+                    <p><span className="bp-k">MC</span> {fmtLongitude(press.mc)}</p>
+                  )}
+                  {["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn"].map((b) => {
+                    const body = press.bodies[b];
+                    if (!body) return null;
+                    return (
+                      <p key={b}>
+                        <span className="bp-k">{b.slice(0, 3).toUpperCase()}</span>{" "}
+                        {fmtLongitude(body.longitude)} · {isUk ? "дім" : "house"} {body.house}
+                        {body.retrograde ? " ℞" : ""}
+                      </p>
+                    );
+                  })}
+                </div>
+                <p className="night-caption bc-press-note">
+                  {timeUnknown
+                    ? isUk
+                      ? "час народження невідомий — куспіди домів приблизні (полудень)"
+                      : "birth time unknown — house cusps are provisional (noon)"
+                    : isUk
+                      ? "справжня ефемерида · доми цілих знаків"
+                      : "true ephemeris · whole-sign houses"}
+                </p>
+              </div>
             )}
-            <button
-              onClick={() => {
-                setTimeUnknown(!timeUnknown);
-                setTime("");
-              }}
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                fontFamily: "var(--font-body)",
-                fontSize: "0.68rem",
-                color: timeUnknown ? "rgba(212,175,55,0.6)" : "rgba(180,170,210,0.45)",
-                transition: "color 0.2s",
-                textAlign: "left",
-                alignSelf: "flex-start",
-              }}
-            >
-              {timeUnknown ? "✓ Using noon — Ascendant will be approximate" : "I don't know my birth time"}
-            </button>
-          </div>
 
-          {/* City */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-            <span style={labelSt}>Birth City</span>
-            <CityAutocomplete onSelect={setCityData} />
-          </div>
+            <div className="bc-titleblock">
+              <p className="night-kicker">
+                {chart.input.name ? copy.chartOf(chart.input.name) : copy.chartOwn}
+              </p>
+              <h1 className="night-h2 bc-bigthree">{chart.bigThree}</h1>
+              <p className="night-caption bc-meta">
+                <span>{copy.metaDominant(chart.elementBalance.dominant)}</span>
+                <span aria-hidden>·</span>
+                <span>{copy.metaEnergy(chart.modalityBalance.dominant)}</span>
+                <span aria-hidden>·</span>
+                <span>{copy.metaPattern(chart.chartPattern)}</span>
+                <span aria-hidden>·</span>
+                <span>{copy.metaMoon(chart.moonPhase.phase)}</span>
+              </p>
 
-          <button onClick={generate} disabled={!canGenerate} style={{
-            padding: "0.75rem 2rem", borderRadius: "100px", marginTop: "0.5rem",
-            background: "linear-gradient(135deg, rgba(160,120,255,0.22), rgba(100,80,220,0.18))",
-            border: "1px solid rgba(200,180,255,0.22)",
-            color: "rgba(240,235,255,0.95)", fontSize: "0.82rem", fontWeight: 500,
-            letterSpacing: "0.06em", textTransform: "uppercase",
-            cursor: canGenerate ? "pointer" : "not-allowed",
-            opacity: canGenerate ? 1 : 0.3, transition: `all 0.3s ${EASE}`,
-          }}>Generate My Portrait</button>
-        </div>
-      </div>
-
-      {/* ── REVEALED STATE ── */}
-      {phase === "revealed" && chart && (
-        <div style={{ position: "relative", zIndex: 10, minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-          {/* Top bar */}
-          <div style={{ display: "flex", justifyContent: "space-between", padding: "1.5rem", pointerEvents: "auto" }}>
-            <Link href="/" style={{ ...labelSt, textDecoration: "none", color: "rgba(180,170,210,0.35)" }}>&larr; Home</Link>
-            <button onClick={reset} style={{ ...labelSt, background: "none", border: "none", cursor: "pointer", color: "rgba(180,170,210,0.35)" }}>New Portrait</button>
-          </div>
-
-          {/* Spacer for canvas area */}
-          <div style={{ height: "70vh" }} />
-
-          {/* Bottom info */}
-          <div style={{
-            background: "linear-gradient(to top, rgba(4,2,13,0.95) 60%, transparent 100%)",
-            padding: "3rem 1.5rem 2rem",
-          }}>
-            <div style={{ maxWidth: "700px", margin: "0 auto" }}>
-              {/* Big Three */}
-              <div style={{ ...labelSt, marginBottom: "0.4rem" }}>
-                {chart.input.name ? `${chart.input.name}'s` : "Your"} Celestial Portrait
+              <div className="bc-actions">
+                <button className="night-btn" onClick={download}>{copy.download}</button>
+                <button
+                  className="night-btn ghost"
+                  aria-expanded={showDecode}
+                  onClick={() => setShowDecode(!showDecode)}
+                >
+                  {showDecode ? copy.decodeHide : copy.decodeShow}
+                </button>
+                <button className="night-btn ghost" onClick={reset}>{copy.newChart}</button>
               </div>
-              <h2 style={{
-                fontFamily: "var(--font-accent)", fontSize: "1.6rem", fontWeight: 400,
-                letterSpacing: "0.08em", color: "rgba(240,236,255,0.92)",
-                margin: "0 0 0.3rem",
-              }}>{chart.bigThree}</h2>
-              <div style={{
-                fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 300,
-                color: "rgba(196,185,228,0.5)", marginBottom: "1.5rem",
-                display: "flex", gap: "0.6rem", flexWrap: "wrap",
-              }}>
-                <span>{chart.elementBalance.dominant} Dominant</span>
-                <span>&middot;</span>
-                <span>{chart.modalityBalance.dominant} Energy</span>
-                <span>&middot;</span>
-                <span>{chart.chartPattern} Pattern</span>
-                <span>&middot;</span>
-                <span>{chart.moonPhase.emoji} {chart.moonPhase.phase} at Birth</span>
-              </div>
+            </div>
 
-              {/* Actions */}
-              <div style={{ display: "flex", gap: "0.6rem", marginBottom: "1.5rem", flexWrap: "wrap" }}>
-                <button onClick={download} style={{
-                  padding: "0.6rem 1.5rem", borderRadius: "100px",
-                  background: "linear-gradient(135deg, rgba(160,120,255,0.2), rgba(100,80,220,0.15))",
-                  border: "1px solid rgba(200,180,255,0.2)", backdropFilter: "blur(4px)",
-                  color: "rgba(240,235,255,0.9)", fontSize: "0.72rem", fontWeight: 500,
-                  letterSpacing: "0.06em", textTransform: "uppercase", cursor: "pointer",
-                  transition: `all 0.3s ${EASE}`,
-                }}>Download Portrait</button>
-                <button onClick={() => setShowDecode(!showDecode)} style={{
-                  padding: "0.6rem 1.5rem", borderRadius: "100px",
-                  background: showDecode ? "rgba(160,120,255,0.12)" : "rgba(255,255,255,0.04)",
-                  border: `1px solid ${showDecode ? "rgba(200,180,255,0.2)" : "rgba(200,185,255,0.1)"}`,
-                  backdropFilter: "blur(4px)",
-                  color: "rgba(200,185,240,0.8)", fontSize: "0.72rem", fontWeight: 400,
-                  letterSpacing: "0.06em", textTransform: "uppercase", cursor: "pointer",
-                  transition: `all 0.3s ${EASE}`,
-                }}>{showDecode ? "Hide" : "Full"} Chart Decode</button>
-              </div>
-
-              {/* Full decode panel — Co-Star inspired, 10x more readable */}
-              {showDecode && (
-                <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-
-                  {/* ── THE BIG THREE — most important, most readable ── */}
-                  {[
-                    { glyph: "☉", planet: "Sun", sign: chart.sunSign, label: "Core Identity", sub: PLANET_MEANING.Sun, text: chart.interpretation.coreIdentity, interp: getPlanetInSign("Sun", chart.sunSign) },
-                    { glyph: "☽", planet: "Moon", sign: chart.moonSign, label: "Emotional Nature", sub: PLANET_MEANING.Moon, text: chart.interpretation.emotionalNature, interp: getPlanetInSign("Moon", chart.moonSign) },
-                    { glyph: "↑", planet: "Rising", sign: chart.risingSign, label: "How Others See You", sub: "Your mask. The energy you project before people know you.", text: chart.interpretation.outerPersona, interp: "" },
-                  ].map(({ glyph, planet, sign, label, sub, text, interp }) => (
-                    <div key={planet} style={{
-                      padding: "1.5rem", borderRadius: "1rem",
-                      background: "rgba(255,255,255,0.02)", border: "1px solid rgba(200,185,255,0.06)",
-                    }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.6rem" }}>
-                        <span style={{ fontSize: "1.5rem", color: "rgba(212,175,55,0.6)" }}>{glyph}</span>
-                        <div>
-                          <div style={{ fontFamily: "var(--font-accent)", fontSize: "1.1rem", fontWeight: 500, color: "rgba(240,236,255,0.9)" }}>
-                            {planet} in {sign}
-                          </div>
-                          <div style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 500, letterSpacing: "0.15em", textTransform: "uppercase" as const, color: "rgba(180,170,210,0.4)" }}>{label}</div>
-                        </div>
+            {/* ── Full decode ── */}
+            {showDecode && (
+              <div className="bc-decode">
+                {/* The Big Three */}
+                {bigThree.map(({ glyph, planet, sign, label, sub, text, interp }) => (
+                  <div key={planet} className="night-card bc-card">
+                    <div className="bc-card-head">
+                      <span className="bc-glyph" aria-hidden>{glyph}</span>
+                      <div>
+                        <h2 className="bc-card-title">{planet} in {sign}</h2>
+                        <p className="night-caption bc-card-label">{label}</p>
                       </div>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(180,170,210,0.35)", margin: "0 0 0.5rem", fontStyle: "italic" }}>{sub}</p>
-                      {interp && <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", fontWeight: 400, lineHeight: 1.7, color: "rgba(240,236,255,0.8)", margin: "0 0 0.6rem" }}>{interp}</p>}
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300, lineHeight: 1.75, color: "rgba(196,185,228,0.65)", margin: 0 }}>{text}</p>
                     </div>
-                  ))}
-
-                  {/* ── YOUR PLANETS — each one explained ── */}
-                  <div>
-                    <div style={{ ...labelSt, marginBottom: "0.75rem", fontSize: "0.65rem" }}>Your Planets</div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-                      {chart.planets.slice(2).map(p => {
-                        const interp = getPlanetInSign(p.name, p.sign);
-                        const meaning = PLANET_MEANING[p.name] || "";
-                        const houseMeaning = HOUSE_MEANING[p.house];
-                        return (
-                          <div key={p.name} style={{
-                            padding: "1.25rem", borderRadius: "1rem",
-                            background: "rgba(255,255,255,0.015)", border: "1px solid rgba(200,185,255,0.04)",
-                          }}>
-                            <div style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
-                              <span style={{ fontSize: "1.2rem", marginTop: "0.1rem", opacity: 0.6 }}>{p.glyph}</span>
-                              <div style={{ flex: 1 }}>
-                                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.2rem" }}>
-                                  <span style={{ fontFamily: "var(--font-accent)", fontSize: "0.95rem", fontWeight: 500, color: "rgba(230,220,255,0.88)" }}>
-                                    {p.name} in {p.sign}
-                                  </span>
-                                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(180,170,210,0.35)" }}>
-                                    {p.degree}° · House {p.house}
-                                    {p.retrograde && " · ℞ Retrograde"}
-                                  </span>
-                                  <DignityBadge dignity={p.dignity} />
-                                </div>
-                                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(180,170,210,0.3)", margin: "0 0 0.3rem", fontStyle: "italic" }}>{meaning}</p>
-                                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 400, lineHeight: 1.65, color: "rgba(220,210,240,0.75)", margin: "0 0 0.3rem" }}>{interp}</p>
-                                {houseMeaning && (
-                                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "rgba(180,170,210,0.4)", margin: 0 }}>
-                                    In your {houseMeaning.area} house — {houseMeaning.rules.toLowerCase()}
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
+                    <p className="bc-sub">{sub}</p>
+                    {interp && <p className="bc-interp">{interp}</p>}
+                    <p className="bc-text">{text}</p>
                   </div>
+                ))}
 
-                  {/* ── CHART BALANCE — visual bars ── */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
-                    <div style={{ ...glass, padding: "1.25rem" }}>
-                      <div style={{ ...labelSt, marginBottom: "0.6rem" }}>Element Balance</div>
-                      {(["Fire", "Earth", "Air", "Water"] as const).map(el => {
-                        const val = chart.elementBalance[el];
-                        const max = Math.max(chart.elementBalance.Fire, chart.elementBalance.Earth, chart.elementBalance.Air, chart.elementBalance.Water);
-                        const colors = { Fire: "#FF6B35", Earth: "#7CB342", Air: "#B0BEC5", Water: "#4FC3F7" };
-                        return (
-                          <div key={el} style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
-                            <span style={{ fontSize: "0.72rem", color: "rgba(200,190,235,0.6)", width: "42px" }}>{el}</span>
-                            <div style={{ flex: 1, height: "4px", borderRadius: "2px", background: "rgba(255,255,255,0.04)" }}>
-                              <div style={{ width: `${(val / max) * 100}%`, height: "100%", borderRadius: "2px", background: colors[el] }} />
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <div style={{ ...glass, padding: "1.25rem" }}>
-                      <div style={{ ...labelSt, marginBottom: "0.6rem" }}>Modality Balance</div>
-                      {(["Cardinal", "Fixed", "Mutable"] as const).map(mod => {
-                        const val = chart.modalityBalance[mod] as number;
-                        const max = Math.max(chart.modalityBalance.Cardinal as number, chart.modalityBalance.Fixed as number, chart.modalityBalance.Mutable as number);
-                        const colors = { Cardinal: "#E8524A", Fixed: "#FFD700", Mutable: "#7B68EE" };
-                        return (
-                          <div key={mod} style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
-                            <span style={{ fontSize: "0.72rem", color: "rgba(200,190,235,0.6)", width: "58px" }}>{mod}</span>
-                            <div style={{ flex: 1, height: "4px", borderRadius: "2px", background: "rgba(255,255,255,0.04)" }}>
-                              <div style={{ width: `${(val / max) * 100}%`, height: "100%", borderRadius: "2px", background: colors[mod] }} />
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* ── ASPECTS — simplified, readable ── */}
-                  <div style={{ ...glass, padding: "1.25rem" }}>
-                    <div style={{ ...labelSt, marginBottom: "0.6rem" }}>Key Aspects</div>
-                    {chart.aspects.slice(0, 10).map((a, i) => {
-                      const symbol = { conjunction: "☌", sextile: "⚹", square: "□", trine: "△", opposition: "☍", quincunx: "⚻" }[a.type] || "·";
-                      const isHarmonious = a.harmony === "harmonious";
+                {/* Your planets */}
+                <div className="night-card bc-card">
+                  <p className="night-caption bc-section-label">{copy.planetsLabel}</p>
+                  <div className="bc-planets">
+                    {chart.planets.slice(2).map((p) => {
+                      const interp = getPlanetInSign(p.name, p.sign);
+                      const meaning = PLANET_MEANING[p.name] || "";
+                      const houseMeaning = HOUSE_MEANING[p.house];
                       return (
-                        <div key={i} style={{
-                          display: "flex", alignItems: "center", gap: "0.5rem",
-                          padding: "0.4rem 0", borderBottom: i < 9 ? "1px solid rgba(200,185,255,0.03)" : "none",
-                        }}>
-                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(220,210,240,0.7)", minWidth: "60px" }}>{a.planet1}</span>
-                          <span style={{ fontSize: "0.85rem", color: isHarmonious ? "rgba(78,205,196,0.6)" : "rgba(232,82,74,0.5)" }}>{symbol}</span>
-                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(220,210,240,0.7)", flex: 1 }}>{a.planet2}</span>
-                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(180,170,210,0.3)" }}>{a.type}</span>
+                        <div key={p.name} className="bc-planet-row night-hairline-row">
+                          <span className="bc-planet-glyph" aria-hidden>{p.glyph}</span>
+                          <div className="bc-planet-body">
+                            <div className="bc-planet-head">
+                              <span className="bc-planet-name">{p.name} in {p.sign}</span>
+                              <span className="night-caption bc-planet-meta">
+                                {p.degree}°
+                                {chart.ascendant != null && <> · {copy.houseWord} {p.house}</>}
+                                {p.retrograde && <> · {copy.retro}</>}
+                              </span>
+                              <DignityBadge dignity={p.dignity} />
+                            </div>
+                            <p className="bc-sub">{meaning}</p>
+                            <p className="bc-text">{interp}</p>
+                            {chart.ascendant != null && houseMeaning && (
+                              <p className="bc-house-line">
+                                {copy.inHouse(houseMeaning.area, houseMeaning.rules.toLowerCase())}
+                              </p>
+                            )}
+                          </div>
                         </div>
                       );
                     })}
                   </div>
+                </div>
 
-                  {/* ── LIFE THEME ── */}
-                  <div style={{ ...glass, padding: "1.5rem", textAlign: "center" }}>
-                    <div style={{ ...labelSt, marginBottom: "0.6rem" }}>Your Life Theme</div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", fontWeight: 300, lineHeight: 1.8, color: "rgba(196,185,228,0.75)", margin: "0 0 1rem", maxWidth: "500px", marginLeft: "auto", marginRight: "auto" }}>
-                      {chart.interpretation.lifeTheme}
-                    </p>
-                    <div style={{ ...labelSt, marginBottom: "0.4rem" }}>Soul Direction</div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300, lineHeight: 1.75, color: "rgba(196,185,228,0.65)", margin: 0, fontStyle: "italic", maxWidth: "500px", marginLeft: "auto", marginRight: "auto" }}>
-                      {chart.interpretation.soulPurpose}
-                    </p>
+                {/* Chart balance */}
+                <div className="bc-balance-grid">
+                  <div className="night-card bc-card">
+                    <p className="night-caption bc-section-label">{copy.elementLabel}</p>
+                    {(["Fire", "Earth", "Air", "Water"] as const).map((el) => {
+                      const val = chart.elementBalance[el];
+                      const max = Math.max(chart.elementBalance.Fire, chart.elementBalance.Earth, chart.elementBalance.Air, chart.elementBalance.Water);
+                      const dominant = chart.elementBalance.dominant === el;
+                      return (
+                        <div key={el} className="bc-bar-row">
+                          <span className="bc-bar-name">{el}</span>
+                          <div className="bc-bar-track">
+                            <div
+                              className="bc-bar-fill"
+                              style={{
+                                width: `${max ? (val / max) * 100 : 0}%`,
+                                background: dominant ? "var(--ember)" : "var(--bone-soft)",
+                              }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
-
-                  {/* Link to full chart */}
-                  <div style={{ textAlign: "center" }}>
-                    <Link href="/chart" style={{
-                      display: "inline-block", padding: "0.65rem 1.5rem", borderRadius: "100px",
-                      background: "rgba(255,255,255,0.04)", border: "1px solid rgba(200,185,255,0.1)",
-                      color: "rgba(200,185,240,0.7)", fontSize: "0.72rem", fontWeight: 400,
-                      letterSpacing: "0.06em", textTransform: "uppercase" as const, textDecoration: "none",
-                    }}>View Interactive Chart Wheel &rarr;</Link>
+                  <div className="night-card bc-card">
+                    <p className="night-caption bc-section-label">{copy.modalityLabel}</p>
+                    {(["Cardinal", "Fixed", "Mutable"] as const).map((mod) => {
+                      const val = chart.modalityBalance[mod] as number;
+                      const max = Math.max(chart.modalityBalance.Cardinal as number, chart.modalityBalance.Fixed as number, chart.modalityBalance.Mutable as number);
+                      const dominant = chart.modalityBalance.dominant === mod;
+                      return (
+                        <div key={mod} className="bc-bar-row">
+                          <span className="bc-bar-name">{mod}</span>
+                          <div className="bc-bar-track">
+                            <div
+                              className="bc-bar-fill"
+                              style={{
+                                width: `${max ? (val / max) * 100 : 0}%`,
+                                background: dominant ? "var(--ember)" : "var(--bone-soft)",
+                              }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-              )}
-            </div>
+
+                {/* Key aspects */}
+                <div className="night-card bc-card">
+                  <p className="night-caption bc-section-label">{copy.aspectsLabel}</p>
+                  {chart.aspects.slice(0, 10).map((a, i) => {
+                    const symbol = { conjunction: "☌", sextile: "⚹", square: "□", trine: "△", opposition: "☍", quincunx: "⚻" }[a.type] || "·";
+                    const tense = a.harmony === "tense";
+                    return (
+                      <div key={i} className={`bc-aspect-row ${i < 9 ? "night-hairline-row" : ""}`}>
+                        <span className="bc-aspect-p">{a.planet1}</span>
+                        <span className="bc-aspect-sym" style={{ color: tense ? "var(--ember)" : "var(--bone-soft)" }} aria-hidden>{symbol}</span>
+                        <span className="bc-aspect-p bc-aspect-p2">{a.planet2}</span>
+                        <span className="night-caption bc-aspect-type">{a.type}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Life theme */}
+                <div className="night-card bc-card bc-theme">
+                  <p className="night-caption bc-section-label">{copy.lifeThemeLabel}</p>
+                  <p className="bc-theme-text">{chart.interpretation.lifeTheme}</p>
+                  <p className="night-caption bc-section-label">{copy.soulLabel}</p>
+                  <p className="bc-theme-text bc-theme-soul">{chart.interpretation.soulPurpose}</p>
+                </div>
+
+                <div className="bc-chart-link">
+                  <Link href="/chart" className="night-link">
+                    {copy.viewChart} →
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-      )}
-    </div>
+        )}
+
+        {/* styled-jsx drops backdrop-filter declarations in transform —
+            plain style tag lifts the shared inputs' glass blur. */}
+        <style>{`
+          .bc-form select,
+          .bc-city input,
+          .bc-city input ~ div {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+          }
+        `}</style>
+        <style jsx global>{`
+          /* ── The Birth Chart room ─────────────────────────────── */
+          .bc-plate {
+            width: min(100%, 52rem);
+            margin: 0 auto;
+          }
+
+          .bc-entry {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: clamp(1rem, 4vw, 3rem);
+          }
+
+          .bc-lead {
+            margin: 1.1rem 0 0;
+            max-width: 44ch;
+          }
+
+          .bc-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+            width: 100%;
+            max-width: 26rem;
+            margin-top: 2.2rem;
+            text-align: left;
+          }
+
+          .bc-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+          }
+
+          .bc-label {
+            color: var(--bone-faint);
+            font-family: var(--font-mono, ui-monospace), monospace;
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+          }
+
+          .bc-toggle {
+            align-self: flex-start;
+            margin-top: 0.15rem;
+            padding: 0;
+            background: none;
+            border: none;
+            border-bottom: 1px solid transparent;
+            cursor: pointer;
+            font-family: var(--font-body, system-ui), sans-serif;
+            font-size: 0.72rem;
+            color: var(--bone-faint);
+            transition: color 200ms var(--ease);
+          }
+
+          .bc-toggle:hover {
+            color: var(--bone-soft);
+          }
+
+          .bc-toggle.is-on {
+            color: var(--ember);
+          }
+
+          .bc-submit {
+            margin-top: 0.5rem;
+          }
+
+          .bc-tzline {
+            margin-top: 0.3rem;
+            color: var(--ember);
+            letter-spacing: 0.14em;
+          }
+
+          /* City is required — hold the field lit until one is chosen */
+          .bc-city.miss input {
+            outline: 1px solid rgba(224, 183, 104, 0.5);
+            outline-offset: 2px;
+          }
+
+          /* Shared logic components, re-inked to the night register.
+             (Their own styles are inline, hence the !important ink.) */
+          .bc-form select {
+            appearance: none;
+            -webkit-appearance: none;
+            background: var(--night-deep) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23f2ecdf' stroke-opacity='0.45' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 0.75rem center !important;
+            border: 1px solid var(--hairline) !important;
+            border-radius: 0.35rem !important;
+            color: var(--bone) !important;
+            font-family: var(--font-body, system-ui), sans-serif !important;
+            font-size: 0.9rem !important;
+            letter-spacing: 0.02em !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+          }
+
+          .bc-form select:focus-visible {
+            outline: 2px solid var(--ember);
+            outline-offset: 2px;
+          }
+
+          .bc-form option {
+            background-color: var(--night-deep) !important;
+            color: var(--bone) !important;
+          }
+
+          .bc-picker span:not(.bc-label) {
+            color: var(--bone-faint) !important;
+            font-family: var(--font-mono, ui-monospace), monospace !important;
+          }
+
+          .bc-city input {
+            padding: 0.75rem 0.95rem !important;
+            background: var(--night-deep) !important;
+            border: 1px solid var(--hairline) !important;
+            border-radius: 0.35rem !important;
+            color: var(--bone) !important;
+            font-family: var(--font-body, system-ui), sans-serif !important;
+            font-size: 0.95rem !important;
+            letter-spacing: 0.01em !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+          }
+
+          .bc-city input::placeholder {
+            color: var(--bone-faint);
+            font-style: normal;
+          }
+
+          .bc-city input:focus-visible {
+            outline: 2px solid var(--ember);
+            outline-offset: 2px;
+          }
+
+          .bc-city input ~ div {
+            background: var(--sheet) !important;
+            border: 1px solid var(--hairline) !important;
+            border-radius: 0.35rem !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            box-shadow: 0 0.6rem 1.6rem rgba(0, 0, 0, 0.55) !important;
+          }
+
+          .bc-city input ~ div button {
+            background: none !important;
+            border-bottom: 1px solid var(--hairline) !important;
+          }
+
+          .bc-city input ~ div button:last-child {
+            border-bottom: none !important;
+          }
+
+          .bc-city input ~ div button:hover,
+          .bc-city input ~ div button:focus-visible {
+            background: rgba(232, 233, 255, 0.06) !important;
+          }
+
+          .bc-city input ~ div button span:first-child {
+            color: var(--bone) !important;
+            font-family: var(--font-heading, "Cormorant Garamond"), serif !important;
+            font-size: 0.95rem !important;
+          }
+
+          .bc-city input ~ div button span:last-child {
+            color: var(--bone-faint) !important;
+            font-family: var(--font-mono, ui-monospace), monospace !important;
+            font-size: 0.6rem !important;
+            letter-spacing: 0.16em !important;
+            text-transform: uppercase;
+          }
+
+          /* ── Revealed ─────────────────────────────────────────── */
+          .bc-revealed {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .bc-press {
+            margin: 1.4rem auto 0;
+            max-width: 30rem;
+            padding: 1.1rem 1.3rem 1rem;
+            text-align: left;
+          }
+
+          .bc-press-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+            gap: 0.15rem 1.2rem;
+            margin-top: 0.6rem;
+          }
+
+          .bc-press-grid p {
+            margin: 0;
+            font-family: var(--font-mono, ui-monospace), monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(232, 233, 255, 0.8);
+          }
+
+          .bc-press-grid .bp-k {
+            color: #e0b768;
+            display: inline-block;
+            min-width: 2.6rem;
+          }
+
+          .bc-press-note {
+            margin-top: 0.7rem;
+          }
+
+          .bc-figure {
+            margin: 0;
+            width: min(100%, 30rem);
+            text-align: center;
+            color: var(--bone);
+          }
+
+          .bc-wheel-svg {
+            width: 100%;
+            height: auto;
+            display: block;
+          }
+
+          .bc-figcap {
+            display: block;
+            margin-top: 0.9rem;
+          }
+
+          .bc-titleblock {
+            width: 100%;
+            max-width: 44rem;
+            margin-top: clamp(1.6rem, 4vw, 2.6rem);
+            padding-top: 1.4rem;
+            border-top: 1px solid var(--hairline);
+            text-align: center;
+          }
+
+          .bc-bigthree {
+            margin-top: 0.2rem;
+          }
+
+          .bc-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.55rem;
+            margin: 0.9rem 0 0;
+          }
+
+          .bc-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.7rem;
+            margin-top: 1.6rem;
+          }
+
+          /* ── Decode ───────────────────────────────────────────── */
+          .bc-decode {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 44rem;
+            margin-top: 2.2rem;
+          }
+
+          .bc-card-head {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.7rem;
+          }
+
+          .bc-glyph {
+            font-family: var(--font-heading, "Cormorant Garamond"), serif;
+            font-size: 1.7rem;
+            line-height: 1;
+            color: var(--ember);
+          }
+
+          .bc-card-title {
+            margin: 0;
+            font-family: var(--font-heading, "Cormorant Garamond"), serif;
+            font-size: 1.35rem;
+            font-weight: 500;
+            line-height: 1.15;
+            color: var(--bone);
+          }
+
+          .bc-card-label {
+            margin: 0.2rem 0 0;
+          }
+
+          .bc-sub {
+            margin: 0 0 0.5rem;
+            font-size: 0.72rem;
+            font-style: italic;
+            color: var(--bone-faint);
+          }
+
+          .bc-interp {
+            margin: 0 0 0.6rem;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--bone);
+          }
+
+          .bc-text {
+            margin: 0;
+            font-size: 0.84rem;
+            line-height: 1.7;
+            color: var(--bone-soft);
+          }
+
+          .bc-section-label {
+            display: block;
+            margin: 0 0 0.85rem;
+          }
+
+          .bc-planets {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .bc-planet-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            padding: 0.9rem 0;
+          }
+
+          .bc-planet-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0.1rem;
+          }
+
+          .bc-planet-glyph {
+            margin-top: 0.05rem;
+            font-family: var(--font-heading, "Cormorant Garamond"), serif;
+            font-size: 1.15rem;
+            color: var(--bone-soft);
+          }
+
+          .bc-planet-body {
+            flex: 1;
+            min-width: 0;
+          }
+
+          .bc-planet-head {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-bottom: 0.25rem;
+          }
+
+          .bc-planet-name {
+            font-family: var(--font-heading, "Cormorant Garamond"), serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--bone);
+          }
+
+          .bc-planet-meta {
+            letter-spacing: 0.14em;
+          }
+
+          .bc-dignity {
+            padding: 0.12rem 0.5rem;
+            border: 1px solid var(--hairline);
+            border-radius: 999px;
+            font-family: var(--font-mono, ui-monospace), monospace;
+            font-size: 0.52rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+          }
+
+          .bc-house-line {
+            margin: 0.35rem 0 0;
+            font-size: 0.7rem;
+            color: var(--bone-faint);
+          }
+
+          .bc-balance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+          }
+
+          .bc-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.55rem;
+          }
+
+          .bc-bar-row:last-child {
+            margin-bottom: 0;
+          }
+
+          .bc-bar-name {
+            width: 4.2rem;
+            flex-shrink: 0;
+            font-size: 0.72rem;
+            color: var(--bone-soft);
+          }
+
+          .bc-bar-track {
+            flex: 1;
+            height: 3px;
+            background: var(--hairline);
+          }
+
+          .bc-bar-fill {
+            height: 100%;
+          }
+
+          .bc-aspect-row {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.45rem 0;
+          }
+
+          .bc-aspect-p {
+            min-width: 4rem;
+            font-size: 0.78rem;
+            color: var(--bone-soft);
+          }
+
+          .bc-aspect-p2 {
+            flex: 1;
+          }
+
+          .bc-aspect-sym {
+            font-size: 0.85rem;
+          }
+
+          .bc-aspect-type {
+            letter-spacing: 0.14em;
+          }
+
+          .bc-theme {
+            text-align: center;
+          }
+
+          .bc-theme-text {
+            max-width: 34rem;
+            margin: 0 auto 1.1rem;
+            font-size: 0.88rem;
+            line-height: 1.8;
+            color: var(--bone-soft);
+          }
+
+          .bc-theme-soul {
+            margin-bottom: 0;
+            font-style: italic;
+          }
+
+          .bc-chart-link {
+            text-align: center;
+            padding: 0.4rem 0 0.8rem;
+          }
+
+          /* ── Etch-in for the wheel ────────────────────────────── */
+          .bc-plate .etch {
+            stroke-dasharray: 1;
+            stroke-dashoffset: 1;
+            animation: bc-etch 1.1s var(--ease) forwards;
+            animation-delay: calc(var(--ei, 0) * 90ms);
+          }
+
+          .bc-plate .sfade {
+            opacity: 0;
+            animation: bc-fade 700ms var(--ease) forwards;
+            animation-delay: calc(var(--ei, 0) * 90ms);
+          }
+
+          @keyframes bc-etch {
+            to {
+              stroke-dashoffset: 0;
+            }
+          }
+
+          @keyframes bc-fade {
+            to {
+              opacity: var(--o, 1);
+            }
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .bc-plate .etch {
+              animation: none;
+              stroke-dashoffset: 0;
+            }
+            .bc-plate .sfade {
+              animation: none;
+              opacity: var(--o, 1);
+            }
+          }
+
+          @media (max-width: 560px) {
+            .bc-balance-grid {
+              grid-template-columns: 1fr;
+            }
+            .bc-actions {
+              flex-direction: column;
+              align-items: stretch;
+            }
+          }
+        `}</style>
+      </div>
+    </NightShell>
   );
 }

@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * CardInfoPanel — Personal-Almanac print register.
+ *
+ * Meaning, advice, correspondences, journal prompt, and the ritual-
+ * continuity next step, set as hairline index cards on bone paper.
+ * All logic (locale, suggested action, motion reveals) intact.
+ */
+
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -8,6 +16,25 @@ import { useLocale } from "@/lib/i18n/useLocale";
 import { getSuggestedAction } from "../../lib/ritual-continuity";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+const INK = "var(--ink, #e8dcc8)";
+const INK_SOFT = "var(--ink-soft, rgba(232,233,255,0.72))";
+const INK_FAINT = "var(--ink-faint, rgba(232,233,255,0.45))";
+const HAIRLINE = "var(--hairline, rgba(232,233,255,0.18))";
+const OX = "var(--ox, #e0b768)";
+const SERIF = "var(--font-heading, 'Cormorant Garamond'), serif";
+const MONO = "var(--font-mono, ui-monospace), monospace";
+const BODY = "var(--font-body, system-ui), sans-serif";
+
+const cardSt: React.CSSProperties = {
+  border: `1px solid ${HAIRLINE}`,
+  background: "var(--paper-bone, #0f1240)",
+};
+
+const labelSt: React.CSSProperties = {
+  fontFamily: MONO,
+  color: INK_FAINT,
+};
 
 interface CardInfoPanelProps {
   card: TarotCard;
@@ -18,17 +45,20 @@ function Section({
   children,
   delay = 0,
   className = "",
+  style,
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
+  style?: React.CSSProperties;
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: EASE, delay }}
-      className={`glass-card ${className}`}
+      className={className}
+      style={{ ...cardSt, ...style }}
     >
       {children}
     </motion.div>
@@ -43,35 +73,35 @@ export default function CardInfoPanel({ card, reversed }: CardInfoPanelProps) {
   return (
     <div className="w-full max-w-[500px] mx-auto space-y-4 pb-12">
       {/* Card header */}
-      <Section delay={0.1} className={`p-8 text-center ${isMajor ? "border-[rgba(212,175,55,0.15)]" : ""}`}>
+      <Section
+        delay={0.1}
+        className="p-8 text-center"
+        style={isMajor ? { borderColor: "rgba(224, 183, 104, 0.4)" } : undefined}
+      >
         <div
           className="uppercase tracking-[0.2em] text-[0.55rem] font-semibold mb-2"
-          style={{ color: isMajor ? "rgba(212,175,55,0.5)" : "rgba(180,170,210,0.4)" }}
+          style={{ ...labelSt, color: isMajor ? OX : INK_FAINT }}
         >
           {isMajor ? t("academy_major_arcana") : `${card.suit} · ${t("academy_minor_arcana")}`}
           {reversed && ` · ${t("academy_reversed")}`}
         </div>
 
         <h2
-          className="font-[family-name:var(--font-accent)] text-[1.8rem] font-normal tracking-[0.08em] mb-2"
-          style={{ color: "rgba(240,236,255,0.92)" }}
+          className="text-[1.8rem] font-medium mb-2"
+          style={{ fontFamily: SERIF, color: INK, lineHeight: 1.1 }}
         >
-          {isMajor ? (
-            <span className="text-gold-gradient">{card.name}</span>
-          ) : (
-            card.name
-          )}
+          {card.name}
         </h2>
 
         <div className="flex justify-center gap-1.5 flex-wrap">
           {card.keywords.map((k) => (
             <span
               key={k}
-              className="px-2.5 py-1 rounded-full text-[0.65rem]"
+              className="px-2.5 py-1 text-[0.65rem]"
               style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(200,185,255,0.06)",
-                color: "rgba(200,190,235,0.55)",
+                background: "rgba(232, 233, 255, 0.03)",
+                border: `1px solid ${HAIRLINE}`,
+                color: INK_SOFT,
               }}
             >
               {k}
@@ -84,29 +114,33 @@ export default function CardInfoPanel({ card, reversed }: CardInfoPanelProps) {
       <Section delay={0.2} className="p-6">
         <div
           className="uppercase tracking-[0.18em] text-[0.6rem] font-medium mb-2"
-          style={{ color: reversed ? "rgba(232,82,74,0.5)" : "rgba(78,205,196,0.5)" }}
+          style={{ ...labelSt, color: reversed ? OX : INK_SOFT }}
         >
           {reversed ? t("academy_reversed") : t("academy_upright")}
         </div>
         <p
-          className="font-[family-name:var(--font-body)] text-[0.9rem] font-light leading-[1.8]"
-          style={{ color: "rgba(220,210,240,0.75)" }}
+          className="text-[0.9rem] leading-[1.8]"
+          style={{ fontFamily: BODY, color: INK_SOFT }}
         >
           {reversed ? card.reversed : card.upright}
         </p>
       </Section>
 
       {/* Advice */}
-      <Section delay={0.3} className="p-6 text-center border-[rgba(212,175,55,0.06)]" >
+      <Section
+        delay={0.3}
+        className="p-6 text-center"
+        style={{ borderColor: "rgba(224, 183, 104, 0.35)" }}
+      >
         <div
           className="uppercase tracking-[0.18em] text-[0.6rem] font-medium mb-1.5"
-          style={{ color: "rgba(212,175,55,0.45)" }}
+          style={{ ...labelSt, color: OX }}
         >
           {t("academy_advice")}
         </div>
         <p
-          className="font-[family-name:var(--font-accent)] text-base font-normal leading-[1.7] italic"
-          style={{ color: "rgba(220,210,240,0.8)" }}
+          className="text-[1.05rem] leading-[1.6] italic"
+          style={{ fontFamily: SERIF, color: INK }}
         >
           {card.advice}
         </p>
@@ -124,16 +158,16 @@ export default function CardInfoPanel({ card, reversed }: CardInfoPanelProps) {
           { label: t("academy_element_label"), value: card.element },
           { label: t("academy_yesno_label"), value: card.yesNo.charAt(0).toUpperCase() + card.yesNo.slice(1) },
         ].map(({ label, value }) => (
-          <div key={label} className="glass-card p-3 text-center">
+          <div key={label} className="p-3 text-center" style={cardSt}>
             <div
               className="uppercase tracking-[0.18em] text-[0.5rem] font-medium mb-0.5"
-              style={{ color: "rgba(180,170,210,0.4)" }}
+              style={labelSt}
             >
               {label}
             </div>
             <div
-              className="font-[family-name:var(--font-accent)] text-[0.85rem] font-medium"
-              style={{ color: "rgba(230,220,255,0.8)" }}
+              className="text-[0.95rem] font-medium"
+              style={{ fontFamily: SERIF, color: INK }}
             >
               {value}
             </div>
@@ -145,13 +179,13 @@ export default function CardInfoPanel({ card, reversed }: CardInfoPanelProps) {
       <Section delay={0.5} className="p-5">
         <div
           className="uppercase tracking-[0.18em] text-[0.6rem] font-medium mb-1.5"
-          style={{ color: "rgba(180,170,210,0.4)" }}
+          style={labelSt}
         >
           {t("academy_journal_prompt")}
         </div>
         <p
-          className="font-[family-name:var(--font-body)] text-[0.82rem] font-light leading-[1.7]"
-          style={{ color: "rgba(196,185,228,0.65)" }}
+          className="text-[0.82rem] leading-[1.7]"
+          style={{ fontFamily: BODY, color: INK_SOFT }}
         >
           How does the energy of {card.name} {reversed ? "(reversed)" : ""} show
           up in your life right now? What is it asking you to pay attention to
@@ -160,28 +194,33 @@ export default function CardInfoPanel({ card, reversed }: CardInfoPanelProps) {
       </Section>
 
       {/* Ritual Continuity — Next Step */}
-      <Section delay={0.6} className="p-5 border-[rgba(160,120,255,0.15)] bg-gradient-to-br from-void-black to-[rgba(160,120,224,0.03)]">
+      <Section delay={0.6} className="p-5" style={{ borderColor: "rgba(224, 183, 104, 0.35)" }}>
         <div
           className="uppercase tracking-[0.2em] text-[0.55rem] font-semibold mb-3"
-          style={{ color: "rgba(212,175,55,0.5)" }}
+          style={{ ...labelSt, color: OX }}
         >
           ✦ Next Logical Action
         </div>
         <div>
-          <p className="font-[family-name:var(--font-body)] text-[0.78rem] font-light text-[rgba(196,185,228,0.9)] leading-[1.6]">
+          <p
+            className="text-[0.78rem] leading-[1.6]"
+            style={{ fontFamily: BODY, color: INK_SOFT }}
+          >
             {action.reason}
           </p>
-          <Link 
+          <Link
             href={action.href}
-            style={{ 
+            style={{
               display: "inline-block",
               marginTop: "0.75rem",
               textDecoration: "none",
               fontSize: "0.68rem",
-              fontWeight: 500,
+              fontWeight: 700,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
-              color: "#D4AF37"
+              color: OX,
+              borderBottom: "1px solid rgba(224, 183, 104, 0.35)",
+              paddingBottom: "0.2rem",
             }}
           >
             {action.label} &rarr;

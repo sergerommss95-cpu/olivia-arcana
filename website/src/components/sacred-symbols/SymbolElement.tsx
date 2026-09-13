@@ -19,9 +19,9 @@ const Symbol3D = dynamic(() => import("./Symbol3D"), {
 });
 
 const CATEGORY_STYLE: Record<string, { material: string; color: string; glow: string }> = {
-  zodiac:            { material: "gold", color: "#D4AF37", glow: "rgba(212,175,55,0.35)" },
+  zodiac:            { material: "gold", color: "#e0b768", glow: "rgba(224,183,104,0.35)" },
   celestial:         { material: "glass", color: "#a07ae0", glow: "rgba(160,122,224,0.3)" },
-  mystical:          { material: "chrome", color: "#D4AF37", glow: "rgba(212,175,55,0.35)" },
+  mystical:          { material: "chrome", color: "#e0b768", glow: "rgba(224,183,104,0.35)" },
   "sacred-geometry": { material: "holographic", color: "#c8b4ff", glow: "rgba(200,180,255,0.35)" },
 };
 

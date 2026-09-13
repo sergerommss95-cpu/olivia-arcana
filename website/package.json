@@ -21,6 +21,7 @@
     "@supabase/supabase-js": "^2.102.1",
     "@types/three": "^0.183.1",
     "3dsvg": "^0.2.1",
+    "astronomy-engine": "^2.1.19",
     "framer-motion": "^12.38.0",
     "gsap": "^3.15.0",
     "html2canvas": "^1.4.1",
@@ -28,6 +29,7 @@
     "next": "16.2.2",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "shaders": "^3.2.470",
     "three": "^0.183.2"
   },
   "devDependencies": {

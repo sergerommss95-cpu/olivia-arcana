@@ -75,11 +75,11 @@ const FluidShader = () => {
             float f = snoise(p + r);
             
             vec3 color = mix(
-              vec3(0.01, 0.005, 0.02), // Deep void
-              vec3(0.15, 0.08, 0.3),   // Astral violet
+              vec3(0.039, 0.051, 0.220), // Abyss #0a0d38
+              vec3(0.125, 0.153, 0.608), // Lapis #20279b
               f
             );
-            color = mix(color, vec3(0.6, 0.45, 0.15), smoothstep(0.8, 1.0, f) * 0.2); // Soft gold
+            color = mix(color, vec3(0.878, 0.718, 0.408), smoothstep(0.8, 1.0, f) * 0.2); // Gilt #e0b768
             
             gl_FragColor = vec4(color, 1.0);
           }
@@ -93,12 +93,12 @@ export default function AstralBackground({ isMobile }: { isMobile?: boolean }) {
   if (isMobile) {
     return (
       <div 
-        className="absolute inset-0 z-0 bg-[#020104]"
+        className="absolute inset-0 z-0 bg-[#0a0d38]"
         style={{
           backgroundImage: `
-            radial-gradient(circle at 50% 30%, rgba(34, 19, 72, 0.4) 0%, transparent 60%),
-            radial-gradient(circle at 10% 80%, rgba(20, 10, 45, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 90% 90%, rgba(15, 8, 35, 0.3) 0%, transparent 50%)
+            radial-gradient(circle at 50% 30%, rgba(32, 39, 155, 0.4) 0%, transparent 60%),
+            radial-gradient(circle at 10% 80%, rgba(24, 29, 122, 0.4) 0%, transparent 50%),
+            radial-gradient(circle at 90% 90%, rgba(24, 29, 122, 0.35) 0%, transparent 50%)
           `
         }}
       />

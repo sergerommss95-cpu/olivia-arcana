@@ -19,8 +19,8 @@ interface Symbol2DFallbackProps {
 export default function Symbol2DFallback({
   paths,
   size = 80,
-  color = "#D4AF37",
-  glowColor = "rgba(212,175,55,0.3)",
+  color = "#e0b768",
+  glowColor = "rgba(224,183,104,0.3)",
   className,
   style,
 }: Symbol2DFallbackProps) {

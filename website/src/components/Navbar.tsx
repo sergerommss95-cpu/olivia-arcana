@@ -1,8 +1,9 @@
 /**
- * Navbar.tsx — Ghost Navigation System.
- * 
- * Re-engineered for high-end precision (Linear/Apple style).
- * Features: Sub-pixel borders, magnetic interactions, and dynamic peeks.
+ * Navbar — The Arrival masthead.
+ *
+ * A printed header, not a floating widget: serif wordmark with the ray
+ * mark, plain nav links whose hairline draws on hover, and the one gilt
+ * action. Flat on the night; no pills, no blur, no magnetism.
  */
 
 "use client";
@@ -36,74 +37,81 @@ export default function Navbar() {
   if (isOracle) return null;
 
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 px-5 sm:px-12 pt-6 sm:pt-10 ${
-        isScrolled ? "translate-y-[-10px] opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
+    <nav
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+        isScrolled ? "-translate-y-3 opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
       }`}
     >
-      <div className="max-w-screen-2xl mx-auto flex items-center justify-between">
-        {/* ── BRAND: THE MARK ── */}
-        <TransitionLink href="/" className="group flex min-h-[44px] items-center gap-3 sm:gap-4 no-underline">
-          <div className="relative">
-             <div className="absolute inset-0 bg-celestial-gold/30 blur-xl rounded-full scale-0 group-hover:scale-150 transition-transform duration-700" />
-             <LivingOliveMark size={22} className="relative z-10 text-celestial-gold" />
-          </div>
-          <span className="font-[family-name:var(--font-heading)] text-lg sm:text-xl tracking-tight text-warm-ivory group-hover:text-celestial-gold transition-colors duration-500 font-medium">
-            Olivia Arcana
+      <div className="mx-auto flex h-[100px] max-w-screen-2xl items-center justify-between px-6 sm:px-[clamp(24px,5.25vw,104px)]">
+        {/* ── Brand ── */}
+        <TransitionLink href="/" className="group flex min-h-[44px] items-center gap-3 no-underline">
+          <LivingOliveMark size={26} className="shrink-0 text-[#e8e9ff]" />
+          <span className="font-[family-name:var(--font-heading)] text-xl sm:text-[25px] font-medium tracking-[0.105em] text-[#e8e9ff] whitespace-nowrap">
+            OLIVIA ARCANA
           </span>
         </TransitionLink>
 
-        {/* ── CENTER: NAVIGATION (Desktop Only) ── */}
-        <div className="hidden lg:flex items-center gap-1 bg-void-black/40 backdrop-blur-xl px-2 py-1.5 rounded-full border border-white/5 shadow-2xl">
+        {/* ── Navigation ── */}
+        <div className="hidden lg:flex items-center gap-9">
           {navLinks.map((link) => {
             const isActive = pathname === link.href || pathname?.startsWith(`${link.href}/`);
             return (
               <TransitionLink
                 key={link.href}
                 href={link.href}
-                className={`min-h-[40px] px-6 py-2 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-300 flex items-center ${
-                  isActive ? "text-celestial-gold bg-white/5 shadow-inner" : "text-warm-ivory/80 hover:text-warm-ivory hover:bg-white/5"
-                }`}
+                className={`arr-nav-link relative py-3 text-sm text-[#e8e9ff] no-underline ${isActive ? "is-active" : ""}`}
               >
                 {link.label}
               </TransitionLink>
             );
           })}
-          
-          <div className="w-[1px] h-3 bg-white/10 mx-2" />
-          
           <button
             onClick={openCommandPalette}
             aria-label="Open search"
-            className="min-h-[40px] px-6 py-2 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-celestial-gold/80 hover:text-celestial-gold hover:bg-celestial-gold/5 transition-all duration-300 flex items-center gap-2"
+            className="arr-nav-link relative flex items-center gap-2 py-3 font-[family-name:var(--font-mono)] text-[11px] tracking-[0.14em] uppercase text-[#b7bce9] hover:text-[#e8e9ff] transition-colors"
           >
-            Search <span className="opacity-30 font-mono text-[9px]">⌘K</span>
+            Search <span className="opacity-40 text-[9px]">⌘K</span>
           </button>
         </div>
 
-        {/* ── RIGHT: USER / CTA ── */}
-        <div className="flex items-center gap-3 sm:gap-6">
+        {/* ── The one warm action ── */}
+        <div className="flex items-center gap-5">
           <TransitionLink
             href="/oracle"
-            className="hidden sm:flex group relative min-h-[44px] px-8 py-3 rounded-full overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] shadow-xl items-center"
+            className="hidden sm:inline-flex min-h-[44px] items-center rounded-[2px] bg-[#e0b768] px-5 text-sm font-medium text-[#15174c] no-underline transition-all duration-300 hover:bg-[#edca8b] hover:-translate-y-0.5"
           >
-             <div className="absolute inset-0 bg-celestial-gold/10 group-hover:bg-celestial-gold/20 transition-colors duration-500" />
-             <div className="absolute inset-0 border border-celestial-gold/30 group-hover:border-celestial-gold/50 rounded-full" />
-             <span className="relative z-10 text-[9px] font-black tracking-[0.3em] uppercase text-celestial-gold group-hover:text-warm-ivory transition-colors duration-500">
-               Ask the Oracle
-             </span>
+            Ask the Oracle
           </TransitionLink>
 
           {profile && (
             <TransitionLink
               href={`/signs/${profile.signSlug}`}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-void-black/60 border border-white/10 text-celestial-gold text-lg hover:bg-white/10 transition-all duration-300 shadow-lg"
+              className="flex h-10 w-10 items-center justify-center border border-[rgba(232,233,255,0.24)] text-lg text-[#e0b768] transition-colors duration-300 hover:border-[rgba(232,233,255,0.5)]"
             >
-              <span className="drop-shadow-[0_0_8px_rgba(212,175,55,0.4)]">{profile.signGlyph}</span>
+              {profile.signGlyph}
             </TransitionLink>
           )}
         </div>
       </div>
+
+      <style jsx global>{`
+        .arr-nav-link::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 6px;
+          height: 1px;
+          background: currentColor;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .arr-nav-link:hover::after,
+        .arr-nav-link.is-active::after {
+          transform: scaleX(1);
+        }
+      `}</style>
     </nav>
   );
 }

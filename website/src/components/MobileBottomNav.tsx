@@ -60,17 +60,17 @@ function Tab({
   active?: boolean;
   primary?: boolean;
 }) {
-  const activeColor = active ? "rgba(245, 242, 225, 1)" : "rgba(196, 185, 228, 0.75)";
+  const activeColor = active ? "rgba(245, 242, 225, 1)" : "rgba(206, 210, 245, 0.75)";
   const indicatorColor = active ? "rgba(232, 201, 106, 1)" : "transparent";
   
   const content = (
     <>
       <span style={{ 
-        color: primary ? "#d4af37" : activeColor, 
+        color: primary ? "#e0b768" : activeColor, 
         display: "inline-flex", 
         alignItems: "center",
         transform: primary ? "scale(1.2)" : "none",
-        filter: primary ? "drop-shadow(0 0 8px rgba(212,175,55,0.4))" : "none"
+        filter: primary ? "drop-shadow(0 0 8px rgba(224,183,104,0.4))" : "none"
       }}>
         {icon}
       </span>
@@ -81,7 +81,7 @@ function Tab({
           fontWeight: active || primary ? 800 : 600,
           letterSpacing: "0.1em",
           textTransform: "uppercase",
-          color: primary ? "#d4af37" : activeColor,
+          color: primary ? "#e0b768" : activeColor,
         }}
       >
         {label}

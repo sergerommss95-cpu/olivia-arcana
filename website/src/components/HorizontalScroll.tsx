@@ -213,8 +213,8 @@ export default function HorizontalScroll({
                   height: "6px",
                   borderRadius: "3px",
                   background: isActive
-                    ? "rgba(212,175,55,0.6)"
-                    : "rgba(200,185,255,0.15)",
+                    ? "rgba(224,183,104,0.6)"
+                    : "rgba(184,190,240,0.15)",
                   transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               />

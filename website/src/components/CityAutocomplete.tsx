@@ -68,7 +68,7 @@ export default function CityAutocomplete({ onSelect, placeholder = "e.g. Kyiv, N
           letterSpacing: "0.04em",
           color: "rgba(240,236,255,0.9)",
           background: "rgba(255,255,255,0.04)",
-          border: `1px solid ${selected ? "rgba(78,205,196,0.25)" : "rgba(200,185,255,0.12)"}`,
+          border: `1px solid ${selected ? "rgba(78,205,196,0.25)" : "rgba(184,190,240,0.12)"}`,
           borderRadius: "0.75rem",
           backdropFilter: "blur(4px)",
           WebkitBackdropFilter: "blur(4px)",
@@ -86,7 +86,7 @@ export default function CityAutocomplete({ onSelect, placeholder = "e.g. Kyiv, N
           right: 0,
           zIndex: 50,
           background: "rgba(10,8,21,0.95)",
-          border: "1px solid rgba(200,185,255,0.12)",
+          border: "1px solid rgba(184,190,240,0.12)",
           borderRadius: "0.75rem",
           backdropFilter: "blur(6px)",
           WebkitBackdropFilter: "blur(6px)",
@@ -106,12 +106,12 @@ export default function CityAutocomplete({ onSelect, placeholder = "e.g. Kyiv, N
                 padding: "0.6rem 0.9rem",
                 background: "none",
                 border: "none",
-                borderBottom: i < results.length - 1 ? "1px solid rgba(200,185,255,0.04)" : "none",
+                borderBottom: i < results.length - 1 ? "1px solid rgba(184,190,240,0.04)" : "none",
                 cursor: "pointer",
                 transition: "background 0.15s",
                 textAlign: "left",
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = "rgba(200,185,255,0.06)"; }}
+              onMouseEnter={e => { e.currentTarget.style.background = "rgba(184,190,240,0.06)"; }}
               onMouseLeave={e => { e.currentTarget.style.background = "none"; }}
             >
               <span style={{

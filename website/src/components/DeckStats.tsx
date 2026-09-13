@@ -67,7 +67,7 @@ export default function DeckStats() {
               <li key={cardId} style={listItem}>
                 <span style={cardName}>
                   {memory.isFavorite && (
-                    <span style={{ marginRight: "0.35rem", color: "var(--c-gold, #c8a84b)" }}>
+                    <span style={{ marginRight: "0.35rem", color: "var(--c-gold, #e0b768)" }}>
                       *
                     </span>
                   )}
@@ -121,7 +121,7 @@ const glassCard: React.CSSProperties = {
 const heading: React.CSSProperties = {
   fontSize: "1.15rem",
   fontWeight: 600,
-  color: "var(--c-gold, #c8a84b)",
+  color: "var(--c-gold, #e0b768)",
   marginBottom: "1rem",
   letterSpacing: "0.02em",
 };

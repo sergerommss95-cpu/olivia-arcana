@@ -112,27 +112,27 @@ export default function TarotDeck3D() {
       </Center>
 
       {/* ── LIGHTING (THE SECRET SAUCE) ── */}
-      <ambientLight intensity={0.08} color="#1a1a2e" />
-      
-      <spotLight 
-        position={[2, 4, 3]} 
-        intensity={8} 
-        angle={0.4} 
-        penumbra={0.8} 
-        color="#fff5e6" 
-        castShadow 
+      <ambientLight intensity={0.08} color="#20279b" />
+
+      <spotLight
+        position={[2, 4, 3]}
+        intensity={8}
+        angle={0.4}
+        penumbra={0.8}
+        color="#e8e9ff"
+        castShadow
       />
 
-      <directionalLight 
-        position={[-3, 1, -2]} 
-        intensity={1.2} 
-        color="#4a6fa5" 
+      <directionalLight
+        position={[-3, 1, -2]}
+        intensity={1.2}
+        color="#8d97ff"
       />
 
-      <pointLight 
-        position={[0, -1, 2]} 
-        intensity={0.5} 
-        color="#2a1f3d" 
+      <pointLight
+        position={[0, -1, 2]}
+        intensity={0.5}
+        color="#181d7a"
       />
 
       {/* ── POST-PROCESSING ── */}

@@ -1,6 +1,7 @@
 /**
  * /signs/[sign] — Individual zodiac sign detail page
- * Rich SEO content per sign.
+ * Rich SEO content per sign, set as an almanac plate: numbered sections,
+ * a facts table with hairlines, the glyph as a paper watermark.
  */
 
 import React from "react";
@@ -8,7 +9,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SIGN_PAGES } from "../../../lib/sign-data";
 import ShareSignButton from "../../../components/ShareSignButton";
-import Surface, { Eyebrow, Rule } from "../../../components/design/Surface";
+import AlmanacShell from "@/components/almanac/AlmanacShell";
 
 // Element decoration for the share card. Kept here (not in sign-data) so the
 // data file stays purely textual.
@@ -24,6 +25,8 @@ const ELEMENT_COLOR: Record<string, string> = {
   Air: "#C9C0E0",
   Water: "#4FC3F7",
 };
+
+const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
 
 // Generate static params for all 12 signs
 export function generateStaticParams() {
@@ -58,9 +61,8 @@ export async function generateMetadata({ params }: { params: Promise<{ sign: str
       siteName: "Olivia Arcana",
       images: [
         {
-          // Per-sign social card. Falls back to the site OG until a per-sign
-          // image generator ships. Once generated, store at
-          // /og/signs/<sign>.png (1200x630).
+          // Per-sign social card, rendered as an engraved almanac plate at
+          // public/og/signs/<sign>.png (1200x630).
           url: `https://oliviaarcana.com/og/signs/${sign.toLowerCase()}.png`,
           secureUrl: `https://oliviaarcana.com/og/signs/${sign.toLowerCase()}.png`,
           width: 1200,
@@ -79,50 +81,40 @@ export async function generateMetadata({ params }: { params: Promise<{ sign: str
   };
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ no, title, children }: { no: string; title: string; children: React.ReactNode }) {
   return (
-    <div style={{ marginBottom: "2.5rem" }}>
-      <h2 style={{
-        fontFamily: "var(--font-heading)", fontStyle: "italic", fontSize: "1.45rem", fontWeight: 400,
-        color: "rgba(240,236,255,0.95)", marginBottom: "1rem",
-        letterSpacing: "-0.01em",
-      }}>{title}</h2>
+    <section className="sign-section">
+      <h2 className="alm-h2 sign-h2">
+        <span className="sign-h2-no" aria-hidden>
+          § {no}.
+        </span>
+        {title}
+      </h2>
       {children}
-    </div>
+    </section>
   );
 }
 
-function TagList({ items, color = "rgba(200,185,255,0.15)" }: { items: string[]; color?: string }) {
+function TagList({ items }: { items: string[] }) {
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+    <ul className="sign-tags">
       {items.map(item => (
-        <Surface key={item} variant="solid" radius="pill" pad="none" style={{
-          padding: "0.4rem 0.85rem",
-          background: color,
-          borderColor: "rgba(200,185,255,0.1)",
-        }}>
-          <span style={{
-            fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 400,
-            color: "rgba(240,235,255,0.85)", letterSpacing: "0.02em",
-          }}>{item}</span>
-        </Surface>
+        <li key={item} className="sign-tag">
+          {item}
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
 export default async function SignDetailPage({ params }: { params: Promise<{ sign: string }> }) {
   const { sign } = await params;
-  const data = SIGN_PAGES[sign?.toLowerCase()];
+  const key = sign?.toLowerCase();
+  const data = SIGN_PAGES[key];
   if (!data) return notFound();
+  const numeral = ROMAN[Object.keys(SIGN_PAGES).indexOf(key)] ?? "";
 
-  const label = {
-    fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 500,
-    letterSpacing: "0.18em", textTransform: "uppercase" as const,
-    color: "rgba(180,170,210,0.4)",
-  };
-
-  // ── Facts rendered as a typographic list, not a card grid ──
+  // ── Facts rendered as a ruled almanac table ──
   const facts: { l: string; v: string }[] = [
     { l: "Element", v: data.element },
     { l: "Modality", v: data.modality },
@@ -133,234 +125,345 @@ export default async function SignDetailPage({ params }: { params: Promise<{ sig
   ];
 
   return (
-    <div style={{
-      minHeight: "100vh", position: "relative", zIndex: 1,
-      maxWidth: "820px", margin: "0 auto",
-      padding: "calc(var(--nav-height, 5rem) + 2rem) clamp(1.25rem, 4vw, 2rem) 4rem",
-    }}>
-      {/* Breadcrumb */}
-      <nav aria-label="Breadcrumb" style={{ marginBottom: "2rem" }}>
-        <ol style={{
-          listStyle: "none", display: "flex", gap: "0.5rem", alignItems: "center",
-          padding: 0, margin: 0, flexWrap: "wrap",
-          fontFamily: "var(--font-body, system-ui), sans-serif",
-          fontSize: "0.7rem", fontWeight: 500,
-          letterSpacing: "0.16em", textTransform: "uppercase",
-          color: "rgba(180,170,210,0.55)",
-        }}>
-          <li><Link href="/" style={{ color: "inherit", textDecoration: "none" }}>Home</Link></li>
-          <li aria-hidden style={{ color: "rgba(180,170,210,0.3)" }}>/</li>
-          <li><Link href="/signs" style={{ color: "inherit", textDecoration: "none" }}>Signs</Link></li>
-          <li aria-hidden style={{ color: "rgba(180,170,210,0.3)" }}>/</li>
-          <li aria-current="page" style={{ color: "rgba(232, 201, 106, 0.92)" }}>{data.name}</li>
-        </ol>
-      </nav>
+    <AlmanacShell narrow>
+      <article className="sign-page">
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="sign-crumb">
+          <ol>
+            <li>
+              <Link href="/">Home</Link>
+            </li>
+            <li aria-hidden>/</li>
+            <li>
+              <Link href="/signs">Signs</Link>
+            </li>
+            <li aria-hidden>/</li>
+            <li aria-current="page">{data.name}</li>
+          </ol>
+        </nav>
 
-      {/* Editorial hero — glyph as background composition */}
-      <header style={{ position: "relative", marginBottom: "4rem", isolation: "isolate" }}>
-        {/* Oversized glyph as background */}
-        <span
-          aria-hidden
-          style={{
-            position: "absolute",
-            top: "-40px",
-            right: "-30px",
-            fontSize: "clamp(12rem, 32vw, 26rem)",
-            lineHeight: 1,
-            fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-            color: "rgba(232, 201, 106, 0.06)",
-            userSelect: "none",
-            zIndex: -1,
-            pointerEvents: "none",
-            filter: "blur(2px)",
-          }}
-        >
-          {data.glyph}
-        </span>
+        {/* Plate hero — glyph as paper watermark */}
+        <header className="sign-hero">
+          <span aria-hidden className="sign-watermark">
+            {`${data.glyph}\uFE0E`}
+          </span>
 
-        <Eyebrow tone="gold" style={{ marginBottom: "1rem" }}>
-          {data.dateRange}
-        </Eyebrow>
+          <p className="alm-kicker">
+            <span>Plate {numeral}</span>· {data.dateRange}
+          </p>
 
-        <h1
-          style={{
-            fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-            fontStyle: "italic",
-            fontSize: "clamp(3.5rem, 9vw, 7.5rem)",
-            fontWeight: 400,
-            color: "#F5F0E8",
-            letterSpacing: "-0.03em",
-            lineHeight: 0.9,
-            margin: "0 0 1.5rem",
-          }}
-        >
-          {data.name}
-        </h1>
+          <h1 className="alm-h1 sign-title">{data.name}</h1>
 
-        <p
-          style={{
-            fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-            fontStyle: "italic",
-            fontSize: "clamp(1.3rem, 2.2vw, 1.7rem)",
-            fontWeight: 400,
-            color: "rgba(232, 201, 106, 0.95)",
-            margin: "0 0 2rem",
-            maxWidth: "540px",
-            lineHeight: 1.35,
-            position: "relative",
-            paddingLeft: "1.5rem",
-            borderLeft: "1px solid rgba(232, 201, 106, 0.35)",
-          }}
-        >
-          {data.motto}
-        </p>
+          <p className="sign-motto">{data.motto}</p>
 
-        <Rule tone="gold" style={{ margin: "2rem 0", maxWidth: "540px" }} />
+          <dl className="sign-facts">
+            {facts.map(({ l, v }) => (
+              <React.Fragment key={l}>
+                <dt>{l}</dt>
+                <dd>{v}</dd>
+              </React.Fragment>
+            ))}
+          </dl>
 
-        {/* Facts as a prose-style flow, not a grid */}
-        <dl
-          style={{
-            display: "grid",
-            gridTemplateColumns: "max-content 1fr",
-            columnGap: "1.25rem",
-            rowGap: "0.55rem",
-            margin: 0,
-            maxWidth: "520px",
-          }}
-        >
-          {facts.map(({ l, v }) => (
-            <React.Fragment key={l}>
-              <dt
-                style={{
-                  fontFamily: "var(--font-body, system-ui), sans-serif",
-                  fontSize: "0.66rem", fontWeight: 500,
-                  letterSpacing: "0.22em", textTransform: "uppercase",
-                  color: "rgba(180, 170, 210, 0.55)",
-                  alignSelf: "baseline",
-                  paddingTop: "0.35rem",
-                }}
-              >
-                {l}
-              </dt>
-              <dd
-                style={{
-                  margin: 0,
-                  fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-                  fontStyle: "italic",
-                  fontSize: "1.15rem", fontWeight: 400,
-                  color: "rgba(240, 232, 220, 0.92)",
-                  paddingBottom: "0.55rem",
-                  borderBottom: "1px solid rgba(200, 185, 255, 0.08)",
-                }}
-              >
-                {v}
-              </dd>
-            </React.Fragment>
-          ))}
-        </dl>
+          {/* Share — surfaces ShareCardModal (square / story / twitter card) */}
+          <div className="sign-share">
+            <ShareSignButton
+              signName={data.name}
+              signGlyph={data.glyph}
+              element={data.element}
+              elementEmoji={ELEMENT_EMOJI[data.element] || "✦"}
+              dateRange={data.dateRange}
+              traits={data.lightTraits.slice(0, 4)}
+              horoscope={data.description}
+              luckyColor={data.crystal}
+              luckyColorHex={ELEMENT_COLOR[data.element] || "#e0b768"}
+            />
+          </div>
+        </header>
 
-        {/* Share — surfaces ShareCardModal (square / story / twitter card) */}
-        <div style={{ marginTop: "2rem" }}>
-          <ShareSignButton
-            signName={data.name}
-            signGlyph={data.glyph}
-            element={data.element}
-            elementEmoji={ELEMENT_EMOJI[data.element] || "✦"}
-            dateRange={data.dateRange}
-            traits={data.lightTraits.slice(0, 4)}
-            horoscope={data.description}
-            luckyColor={data.crystal}
-            luckyColorHex={ELEMENT_COLOR[data.element] || "#D4AF37"}
-          />
+        {/* Description */}
+        <Section no="1" title="Overview">
+          <p className="sign-prose">{data.description}</p>
+        </Section>
+
+        <Section no="2" title={`${data.element} Element`}>
+          <p className="sign-prose">{data.elementAnalysis}</p>
+        </Section>
+
+        <Section no="3" title={`Ruling Planet: ${data.ruler} ${data.rulerGlyph}`}>
+          <p className="sign-prose">{data.rulerDeepDive}</p>
+        </Section>
+
+        {/* Light & Shadow */}
+        <div className="sign-traits">
+          <div className="alm-card">
+            <p className="alm-caption sign-trait-label">Light Traits</p>
+            {data.lightTraits.map((t, i) => (
+              <p key={i} className="sign-trait">
+                {t}
+              </p>
+            ))}
+          </div>
+          <div className="alm-card">
+            <p className="alm-caption sign-trait-label is-shadow">Shadow Traits</p>
+            {data.shadowTraits.map((t, i) => (
+              <p key={i} className="sign-trait">
+                {t}
+              </p>
+            ))}
+          </div>
         </div>
-      </header>
 
-      {/* Description */}
-      <Section title="Overview">
-        <p style={{
-          fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 300,
-          lineHeight: 1.8, color: "rgba(196,185,228,0.75)",
-        }}>{data.description}</p>
-      </Section>
+        <Section no="4" title="Best Careers">
+          <TagList items={data.bestCareers} />
+        </Section>
 
-      <Section title={`${data.element} Element`}>
-        <p style={{
-          fontFamily: "var(--font-body)", fontSize: "0.88rem", fontWeight: 300,
-          lineHeight: 1.8, color: "rgba(196,185,228,0.72)",
-        }}>{data.elementAnalysis}</p>
-      </Section>
+        <Section no="5" title="Compatibility">
+          <p className="alm-caption sign-compat-label">Best Matches</p>
+          <TagList items={data.compatBest} />
+          <p className="alm-caption sign-compat-label">Growth Pairings</p>
+          <TagList items={data.compatChallenge} />
+        </Section>
 
-      <Section title={`Ruling Planet: ${data.ruler} ${data.rulerGlyph}`}>
-        <p style={{
-          fontFamily: "var(--font-body)", fontSize: "0.88rem", fontWeight: 300,
-          lineHeight: 1.8, color: "rgba(196,185,228,0.72)",
-        }}>{data.rulerDeepDive}</p>
-      </Section>
+        <Section no="6" title={`Famous ${data.name} People`}>
+          <TagList items={data.famousPeople} />
+        </Section>
 
-      {/* Light & Shadow */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem", marginBottom: "3rem" }}>
-        <Surface variant="solid" raised>
-          <Eyebrow tone="muted" style={{ marginBottom: "1rem", color: "rgba(78,205,196,0.7)" }}>Light Traits</Eyebrow>
-          {data.lightTraits.map((t, i) => (
-            <p key={i} style={{
-              fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
-              color: "rgba(210,210,240,0.85)", lineHeight: 1.7,
-              padding: "0.25rem 0 0.25rem 1rem", position: "relative",
-              margin: 0,
-            }}>
-              <span style={{ position: "absolute", left: 0, color: "rgba(78,205,196,0.6)", fontSize: "0.55rem", top: "0.3em" }}>✦</span>
-              {t}
-            </p>
-          ))}
-        </Surface>
-        <Surface variant="solid" raised>
-          <Eyebrow tone="muted" style={{ marginBottom: "1rem", color: "rgba(232,82,74,0.7)" }}>Shadow Traits</Eyebrow>
-          {data.shadowTraits.map((t, i) => (
-            <p key={i} style={{
-              fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
-              color: "rgba(210,210,240,0.8)", lineHeight: 1.7,
-              padding: "0.25rem 0 0.25rem 1rem", position: "relative",
-              margin: 0,
-            }}>
-              <span style={{ position: "absolute", left: 0, color: "rgba(232,82,74,0.5)", fontSize: "0.55rem", top: "0.3em" }}>✦</span>
-              {t}
-            </p>
-          ))}
-        </Surface>
-      </div>
+        {/* CTAs */}
+        <div className="sign-ctas">
+          <a href="/portrait" className="alm-btn">
+            Get Your {data.name} Portrait
+          </a>
+          <a href="/daily" className="alm-link">
+            Daily {data.name} Reading →
+          </a>
+        </div>
+      </article>
 
-      <Section title="Best Careers">
-        <TagList items={data.bestCareers} />
-      </Section>
+      <style>{`
+        .sign-crumb ol {
+          list-style: none;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 0.5rem;
+          margin: 0 0 2.2rem;
+          padding: 0;
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.62rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--ink-faint);
+        }
 
-      <Section title="Compatibility">
-        <div style={{ ...label, marginBottom: "0.4rem", color: "rgba(78,205,196,0.5)" }}>Best Matches</div>
-        <TagList items={data.compatBest} color="rgba(78,205,196,0.1)" />
-        <div style={{ ...label, marginTop: "0.75rem", marginBottom: "0.4rem", color: "rgba(232,82,74,0.4)" }}>Growth Pairings</div>
-        <TagList items={data.compatChallenge} color="rgba(232,82,74,0.08)" />
-      </Section>
+        .sign-crumb a {
+          color: var(--ink-soft);
+          text-decoration: none;
+          transition: color 200ms var(--ease);
+        }
 
-      <Section title={`Famous ${data.name} People`}>
-        <TagList items={data.famousPeople} color="rgba(212,175,55,0.1)" />
-      </Section>
+        .sign-crumb a:hover {
+          color: var(--ox);
+        }
 
-      {/* CTAs */}
-      <div style={{ textAlign: "center", marginTop: "2rem", display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
-        <a href="/portrait" style={{
-          padding: "0.75rem 2rem", borderRadius: "100px",
-          background: "linear-gradient(135deg, rgba(160,120,255,0.2), rgba(100,80,220,0.15))",
-          border: "1px solid rgba(200,180,255,0.2)",
-          color: "rgba(240,235,255,0.9)", fontSize: "0.78rem", fontWeight: 500,
-          letterSpacing: "0.06em", textTransform: "uppercase", textDecoration: "none",
-        }}>Get Your {data.name} Portrait</a>
-        <a href="/daily" style={{
-          padding: "0.75rem 2rem", borderRadius: "100px",
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(200,185,255,0.1)",
-          color: "rgba(200,185,240,0.7)", fontSize: "0.78rem", fontWeight: 400,
-          letterSpacing: "0.06em", textTransform: "uppercase", textDecoration: "none",
-        }}>Daily {data.name} Reading</a>
-      </div>
-    </div>
+        .sign-crumb [aria-current] {
+          color: var(--ox);
+        }
+
+        .sign-hero {
+          position: relative;
+          isolation: isolate;
+          margin-bottom: clamp(2.6rem, 6vw, 4rem);
+        }
+
+        .sign-watermark {
+          position: absolute;
+          top: -2.5rem;
+          right: -1rem;
+          z-index: -1;
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-size: clamp(11rem, 30vw, 19rem);
+          line-height: 1;
+          color: rgba(232, 233, 255, 0.06);
+          user-select: none;
+          pointer-events: none;
+        }
+
+        .sign-title {
+          font-size: clamp(3rem, 8vw, 5.2rem);
+          font-style: italic;
+          line-height: 0.95;
+          letter-spacing: -0.02em;
+        }
+
+        .sign-motto {
+          margin: 1.4rem 0 0;
+          max-width: 34rem;
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-style: italic;
+          font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+          line-height: 1.4;
+          color: var(--ink-soft);
+          padding-left: 1.2rem;
+          border-left: 2px solid var(--ox);
+        }
+
+        .sign-facts {
+          display: grid;
+          grid-template-columns: max-content 1fr;
+          column-gap: 1.4rem;
+          margin: 2rem 0 0;
+          max-width: 32rem;
+          border-top: 1px solid var(--hairline);
+        }
+
+        .sign-facts dt {
+          align-self: baseline;
+          padding: 0.7rem 0 0.55rem;
+          border-bottom: 1px solid var(--hairline);
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.6rem;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: var(--ink-faint);
+        }
+
+        .sign-facts dd {
+          margin: 0;
+          padding: 0.45rem 0 0.55rem;
+          border-bottom: 1px solid var(--hairline);
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-style: italic;
+          font-size: 1.12rem;
+          color: var(--ink);
+        }
+
+        .sign-share {
+          margin-top: 2rem;
+        }
+
+        /* ShareSignButton carries the share-card logic; only its coat
+           changes — inline gold-on-dark repainted to almanac ink. */
+        .sign-share button {
+          background: var(--ink) !important;
+          border-color: var(--ink) !important;
+          color: #f6f1e5 !important;
+        }
+
+        .sign-section {
+          margin-top: clamp(2.4rem, 5vw, 3.4rem);
+        }
+
+        .sign-h2 {
+          display: flex;
+          align-items: baseline;
+          gap: 0.65rem;
+          font-style: italic;
+          margin-bottom: 1rem;
+        }
+
+        .sign-h2-no {
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.66rem;
+          font-style: normal;
+          letter-spacing: 0.2em;
+          color: var(--ox);
+          white-space: nowrap;
+        }
+
+        .sign-prose {
+          margin: 0;
+          color: var(--ink-soft);
+          font-size: 0.98rem;
+          line-height: 1.75;
+        }
+
+        .sign-traits {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.1rem;
+          margin-top: clamp(2.4rem, 5vw, 3.4rem);
+        }
+
+        .sign-trait-label {
+          margin: 0 0 0.9rem;
+        }
+
+        .sign-trait-label.is-shadow {
+          color: var(--ox);
+        }
+
+        .sign-trait {
+          position: relative;
+          margin: 0;
+          padding: 0.28rem 0 0.28rem 1.1rem;
+          font-size: 0.9rem;
+          line-height: 1.65;
+          color: var(--ink-soft);
+        }
+
+        .sign-trait::before {
+          content: "✦";
+          position: absolute;
+          left: 0;
+          top: 0.55em;
+          font-size: 0.5rem;
+          color: var(--ink-faint);
+        }
+
+        .sign-tags {
+          list-style: none;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          margin: 0;
+          padding: 0;
+        }
+
+        .sign-tag {
+          padding: 0.38rem 0.9rem;
+          border: 1px solid var(--hairline);
+          border-radius: 999px;
+          background: #0f1240;
+          font-size: 0.78rem;
+          color: var(--ink-soft);
+          letter-spacing: 0.02em;
+        }
+
+        .sign-compat-label {
+          margin: 1.2rem 0 0.55rem;
+        }
+
+        .sign-compat-label:first-of-type {
+          margin-top: 0;
+        }
+
+        .sign-ctas {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem 1.6rem;
+          margin-top: clamp(2.8rem, 6vw, 4rem);
+        }
+
+        @media (max-width: 640px) {
+          .sign-traits {
+            grid-template-columns: 1fr;
+          }
+
+          .sign-watermark {
+            top: -1.5rem;
+            right: -0.5rem;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .sign-crumb a {
+            transition: none;
+          }
+        }
+      `}</style>
+    </AlmanacShell>
   );
 }

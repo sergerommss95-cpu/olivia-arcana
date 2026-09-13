@@ -49,7 +49,7 @@ export default function AlchemicalRelic({ config }: { config: Portrait3DConfig }
           transmission={1} 
           ior={1.48} 
           chromaticAberration={0.08}
-          color="#06041a"
+          color="#0a0d38"
           anisotropy={0.2}
         />
       </mesh>

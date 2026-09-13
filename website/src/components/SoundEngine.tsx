@@ -214,10 +214,10 @@ export default function SoundEngine() {
         height: "44px",
         borderRadius: "50%",
         background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(200,185,255,0.1)",
+        border: "1px solid rgba(184,190,240,0.1)",
         backdropFilter: "blur(4px)",
         WebkitBackdropFilter: "blur(4px)",
-        color: enabled ? "rgba(212,175,55,0.7)" : "rgba(180,170,210,0.3)",
+        color: enabled ? "rgba(224,183,104,0.7)" : "rgba(180,170,210,0.3)",
         fontSize: "0.85rem",
         cursor: "pointer",
         display: "flex",
@@ -231,7 +231,7 @@ export default function SoundEngine() {
     <style jsx>{`
       @media (max-width: 767px) {
         .sound-engine-toggle {
-          bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px)) !important;
+          display: none !important;
         }
       }
     `}</style>

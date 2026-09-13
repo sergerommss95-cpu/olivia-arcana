@@ -1,12 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, DM_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Cormorant, Cormorant_Garamond, DM_Sans, IBM_Plex_Mono } from "next/font/google";
 import ClientShell from "@/components/ClientShell";
-import GlobalGuide from "@/components/GlobalGuide";
 import "./globals.css";
+
+// Variable cut (wght 300–700, Latin + Cyrillic) — the display face whose
+// weight responds to the reader's hand on the hero.
+const cormorantVar = Cormorant({
+  variable: "--font-display",
+  subsets: ["latin", "cyrillic"],
+  style: ["normal"],
+  display: "swap",
+  preload: true,
+});
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-heading",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["300", "400", "500", "600"],
   style: ["normal", "italic"],
   display: "swap",
@@ -23,7 +32,7 @@ const dmSans = DM_Sans({
 
 const ibmPlexMono = IBM_Plex_Mono({
   variable: "--font-mono",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["400"],
 });
 
@@ -86,7 +95,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#d4af37",
+  themeColor: "#e0b768",
   colorScheme: "dark",
 };
 
@@ -124,7 +133,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${dmSans.variable} ${ibmPlexMono.variable} antialiased`}
+      className={`${cormorant.variable} ${cormorantVar.variable} ${dmSans.variable} ${ibmPlexMono.variable} antialiased`}
     >
       <head>
         {/* Performance: preconnect to third-party domains used at hot paths */}
@@ -148,7 +157,6 @@ export default function RootLayout({
         {/* Single client boundary for all global overlays + page transitions */}
         <ClientShell>
           {children}
-          <GlobalGuide />
         </ClientShell>
       </body>
     </html>

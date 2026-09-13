@@ -1,10 +1,24 @@
+/**
+ * /checkout/success — Post-Stripe return page, set in the Personal Almanac
+ * print register. Confirms the subscription (webhook refresh preserved)
+ * and lists what the new tier unlocks, ledger-style.
+ */
+
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import AlmanacShell from "@/components/almanac/AlmanacShell";
+import TransitionLink from "@/components/transitions/TransitionLink";
 import { useSubscription } from "@/hooks/useSubscription";
-import MagneticButton from "@/components/MagneticButton";
 import VipBadge from "@/components/VipBadge";
+
+const UNLOCKED = [
+  "Unlimited conversations with Olivia",
+  "Daily personalized readings",
+  "Real-time transit alerts",
+  "Full compatibility reports",
+  "Monthly Celtic Cross reading",
+];
 
 export default function CheckoutSuccessPage() {
   const { refresh } = useSubscription();
@@ -20,76 +34,159 @@ export default function CheckoutSuccessPage() {
   }, [refresh]);
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-6 py-20">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="glass-card p-10 max-w-md w-full text-center"
-        style={{ border: "1px solid rgba(212, 175, 55, 0.3)" }}
-      >
-        {/* Animated star */}
-        <motion.div
-          initial={{ rotate: 0 }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 2, ease: "easeInOut" }}
-          className="text-5xl text-celestial-gold mb-6"
-        >
-          &#10022;
-        </motion.div>
+    <AlmanacShell narrow>
+      <div className="ck">
+        <div className="ck-card alm-card">
+          <div className="ck-mark" aria-hidden>✦</div>
 
-        <h1 className="font-[family-name:var(--font-heading)] text-3xl text-celestial-gold mb-3">
-          Welcome to VIP
-        </h1>
+          <h1 className="alm-h1 ck-title">Welcome to VIP</h1>
 
-        <p className="text-muted-lavender text-sm mb-6 leading-relaxed">
-          Your cosmic journey just leveled up. All premium features are now unlocked.
-        </p>
+          <p className="ck-body">
+            Your cosmic journey just leveled up. All premium features are now unlocked.
+          </p>
 
-        {loaded && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-8"
-          >
-            <VipBadge showFree />
-          </motion.div>
-        )}
+          {loaded ? (
+            <div className="ck-badge">
+              <VipBadge showFree />
+            </div>
+          ) : (
+            <div className="ck-spinner-wrap" role="status">
+              <svg className="ck-spinner" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <circle className="ck-spinner-track" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="ck-spinner-head" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+              </svg>
+            </div>
+          )}
 
-        {!loaded && (
-          <div className="flex justify-center mb-8">
-            <svg className="animate-spin h-5 w-5 text-celestial-gold" viewBox="0 0 24 24" fill="none">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
-            </svg>
+          {/* What's unlocked */}
+          <ul className="ck-list">
+            {UNLOCKED.map((item) => (
+              <li key={item}>
+                <span className="ck-check" aria-hidden>✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          <div className="ck-actions">
+            <TransitionLink href="/portrait" className="alm-btn">
+              Get Your Personal Reading
+            </TransitionLink>
+            <TransitionLink href="/" className="alm-link">
+              Back to Home
+            </TransitionLink>
           </div>
-        )}
-
-        {/* What's unlocked */}
-        <ul className="text-left space-y-3 mb-8">
-          {[
-            "Unlimited conversations with Olivia",
-            "Daily personalized readings",
-            "Real-time transit alerts",
-            "Full compatibility reports",
-            "Monthly Celtic Cross reading",
-          ].map((item) => (
-            <li key={item} className="flex items-start gap-2 text-sm text-muted-lavender">
-              <span className="text-celestial-gold mt-0.5">&#10003;</span>
-              {item}
-            </li>
-          ))}
-        </ul>
-
-        <div className="space-y-3">
-          <MagneticButton href="/portrait" variant="gold" size="md" className="w-full justify-center">
-            Get Your Personal Reading
-          </MagneticButton>
-          <MagneticButton href="/" variant="glass" size="md" className="w-full justify-center">
-            Back to Home
-          </MagneticButton>
         </div>
-      </motion.div>
-    </main>
+      </div>
+
+      <style jsx>{`
+        .ck {
+          display: flex;
+          justify-content: center;
+          padding: clamp(1rem, 4vw, 3rem) 0;
+        }
+
+        .ck-card {
+          width: 100%;
+          max-width: 28rem;
+          padding: clamp(2rem, 5vw, 2.8rem) clamp(1.5rem, 4vw, 2.2rem);
+          background: #0f1240;
+          text-align: center;
+        }
+
+        .ck-mark {
+          margin-bottom: 1.4rem;
+          color: var(--ox);
+          font-size: 2.4rem;
+          line-height: 1;
+        }
+
+        .ck-title {
+          font-size: clamp(1.9rem, 4vw, 2.5rem);
+          margin-bottom: 0.85rem;
+        }
+
+        .ck-body {
+          margin: 0 0 1.6rem;
+          color: var(--ink-soft);
+          font-size: 0.92rem;
+          line-height: 1.65;
+        }
+
+        .ck-badge {
+          margin-bottom: 2rem;
+        }
+
+        .ck-spinner-wrap {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 2rem;
+          color: var(--ox);
+        }
+
+        .ck-spinner {
+          width: 1.25rem;
+          height: 1.25rem;
+          animation: ck-spin 1s linear infinite;
+        }
+
+        .ck-spinner-track {
+          opacity: 0.25;
+        }
+
+        .ck-spinner-head {
+          opacity: 0.75;
+        }
+
+        @keyframes ck-spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        .ck-list {
+          list-style: none;
+          margin: 0 0 2rem;
+          padding: 0;
+          text-align: left;
+          border-top: 1px solid var(--hairline);
+        }
+
+        .ck-list li {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.6rem;
+          padding: 0.7rem 0.2rem;
+          border-bottom: 1px solid var(--hairline);
+          color: var(--ink-soft);
+          font-size: 0.88rem;
+          line-height: 1.55;
+        }
+
+        .ck-check {
+          flex: 0 0 auto;
+          margin-top: 0.05rem;
+          color: var(--ox);
+          font-weight: 700;
+        }
+
+        .ck-actions {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.1rem;
+        }
+
+        .ck-actions :global(.alm-btn) {
+          width: 100%;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .ck-spinner {
+            animation: none;
+          }
+        }
+      `}</style>
+    </AlmanacShell>
   );
 }

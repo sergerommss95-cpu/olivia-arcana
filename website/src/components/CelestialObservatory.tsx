@@ -74,11 +74,20 @@ export default function CelestialObservatory() {
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (prefersReduced) return false;
 
-      // 2. Check Device Memory (if available)
+      // On small screens, the hero needs clarity and battery discipline more
+      // than a live WebGL plane. The static texture preserves the atmosphere.
+      if (window.innerWidth < 900) return false;
+
+      // 2. Verify WebGL before React Three Fiber attempts to create a renderer.
+      const canvas = document.createElement("canvas");
+      const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
+      if (!gl) return false;
+
+      // 3. Check Device Memory (if available)
       const memory = (navigator as unknown as { deviceMemory?: number }).deviceMemory;
       if (memory !== undefined && memory < 4) return false;
 
-      // 3. Check Hardware Concurrency (CPU cores)
+      // 4. Check Hardware Concurrency (CPU cores)
       const cores = navigator.hardwareConcurrency;
       if (cores !== undefined && cores < 4) return false;
 

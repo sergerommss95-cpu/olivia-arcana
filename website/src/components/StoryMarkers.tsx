@@ -81,7 +81,7 @@ export default function StoryMarkers() {
                   fontSize: "0.55rem",
                   letterSpacing: "0.2em",
                   textTransform: "uppercase",
-                  color: isActive ? "#D4AF37" : "rgba(180, 170, 210, 0.3)",
+                  color: isActive ? "#e0b768" : "rgba(180, 170, 210, 0.3)",
                   transition: "color 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                   opacity: isActive ? 1 : 0,
                   transform: isActive ? "translateX(0)" : "translateX(10px)",
@@ -94,7 +94,7 @@ export default function StoryMarkers() {
                 <div style={{
                   width: isActive ? "12px" : "4px",
                   height: "1px",
-                  background: isActive ? "#D4AF37" : "rgba(180, 170, 210, 0.2)",
+                  background: isActive ? "#e0b768" : "rgba(180, 170, 210, 0.2)",
                   transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                 }} />
               </div>
@@ -108,14 +108,14 @@ export default function StoryMarkers() {
             top: "-20px",
             bottom: "-20px",
             width: "1px",
-            background: "rgba(200, 185, 255, 0.05)",
+            background: "rgba(184, 190, 240, 0.05)",
             zIndex: -1,
           }}>
             <motion.div 
               style={{
                 width: "100%",
                 height: `${progress * 100}%`,
-                background: "linear-gradient(180deg, transparent, #D4AF37)",
+                background: "linear-gradient(180deg, transparent, #e0b768)",
               }}
             />
           </div>

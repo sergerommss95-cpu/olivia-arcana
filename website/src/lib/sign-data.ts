@@ -127,7 +127,7 @@ export const SIGN_PAGES: Record<string, SignPage> = {
     bestCareers: ["Medicine / Research", "Data analysis / Quality assurance", "Editing / Technical writing", "Nutrition / Holistic health", "Accounting / Auditing"],
     compatBest: ["Taurus", "Capricorn", "Cancer", "Scorpio"],
     compatChallenge: ["Gemini", "Sagittarius"],
-    famousPeople: ["Beyonce", "Mother Teresa", "Freddie Mercury", "Michael Jackson", "Keanu Reeves"],
+    famousPeople: ["Beyoncé", "Mother Teresa", "Freddie Mercury", "Michael Jackson", "Keanu Reeves"],
   },
   libra: {
     name: "Libra", glyph: "♎", dateRange: "September 23 — October 22",

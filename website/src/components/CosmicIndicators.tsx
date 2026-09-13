@@ -23,7 +23,7 @@ const PLANET_GLYPHS: Record<string, string> = {
 };
 const PLANET_COLORS: Record<string, string> = {
   Sun: "#C8A84B", Moon: "#C0C0C0", Mars: "#8B5A6B", Mercury: "#7B68EE",
-  Jupiter: "#4ECDC4", Venus: "#B4A0D4", Saturn: "#8B7355",
+  Jupiter: "#8d97ff", Venus: "#B4A0D4", Saturn: "#8B7355",
 };
 
 // Day rulers in Chaldean order (Sunday=Sun, Monday=Moon, etc.)
@@ -59,6 +59,7 @@ export default function CosmicIndicators() {
 
   if (pathname?.startsWith("/oracle")) return null;
   if (!mounted) return null;
+  if (typeof window !== "undefined" && window.innerWidth < 768) return null;
 
   const moonPhase = getMoonPhase(new Date());
   const { planet } = getPlanetaryHour();

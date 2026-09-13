@@ -91,10 +91,10 @@ export default function CosmicToast() {
               background: "rgba(8,6,20,0.75)",
               backdropFilter: "blur(8px) ",
               WebkitBackdropFilter: "blur(8px) ",
-              border: "1px solid rgba(212,175,55,0.15)",
+              border: "1px solid rgba(224,183,104,0.15)",
               borderRadius: "1rem",
               padding: "1rem 1.25rem",
-              boxShadow: "0 8px 40px rgba(0,0,0,0.4), 0 0 60px rgba(212,175,55,0.05)",
+              boxShadow: "0 8px 40px rgba(0,0,0,0.4), 0 0 60px rgba(224,183,104,0.05)",
               display: "flex",
               alignItems: "flex-start",
               gap: "0.75rem",
@@ -103,7 +103,7 @@ export default function CosmicToast() {
             {/* Glyph */}
             <span style={{
               fontSize: "1.3rem",
-              color: "rgba(212,175,55,0.6)",
+              color: "rgba(224,183,104,0.6)",
               flexShrink: 0,
               marginTop: "0.1rem",
             }}>
@@ -165,7 +165,7 @@ export default function CosmicToast() {
             transition={{ duration: 12, ease: "linear" }}
             style={{
               height: "2px",
-              background: "linear-gradient(90deg, rgba(212,175,55,0.4), rgba(160,120,255,0.3))",
+              background: "linear-gradient(90deg, rgba(224,183,104,0.4), rgba(160,120,255,0.3))",
               borderRadius: "0 0 1rem 1rem",
               marginTop: "-1px",
             }}

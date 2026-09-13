@@ -2,9 +2,12 @@
  * natal-chart.ts — Full natal chart computation
  *
  * Computes a complete astrological birth chart from date, time, and location.
- * Includes: planet positions, houses (Placidus approximation), aspects with orbs,
+ * Includes: planet positions, houses (whole-sign system), aspects with orbs,
  * dignity/detriment scoring, dominant element/modality, chart pattern detection,
  * and full personality decode.
+ *
+ * The birth instant is a single UT moment derived from local civil time and the
+ * given UTC offset — used for planet positions AND sidereal time.
  *
  * All client-side. No API. Accurate to ~1-2° for planets (sufficient for sign/house placement).
  */
@@ -22,14 +25,15 @@ export interface BirthInput {
   latitude: number;
   longitude: number;
   timezone: number; // UTC offset in hours (e.g., +2 for EET)
+  timeKnown?: boolean; // default true; false = birth time unknown (no Asc/houses/MC)
   name?: string;
   city?: string;
 }
 
 export interface NatalPlanet extends CelestialBody {
-  house: number;        // 1-12
+  house: number;        // 1-12 (0 when houses unavailable — unknown birth time)
   dignity: Dignity;
-  speed: "direct" | "retrograde" | "stationary";
+  motion: "direct" | "retrograde" | "stationary";
 }
 
 export type Dignity = "domicile" | "exaltation" | "detriment" | "fall" | "peregrine";
@@ -42,7 +46,7 @@ export interface NatalAspect {
   type: AspectType;
   angle: number;       // exact angle between
   orb: number;         // how far from exact
-  applying: boolean;   // approaching exact or separating
+  applying?: boolean;  // approaching exact (from real speeds); omitted when speeds unavailable
   harmony: "harmonious" | "tense" | "neutral";
 }
 
@@ -73,13 +77,18 @@ export interface ModalityBalance {
   dominant: string;
 }
 
+export interface ChartAngle { sign: string; signGlyph: string; degree: number; longitude: number }
+
+/** Full chart — birth time known (the default). */
 export interface NatalChart {
   input: BirthInput;
+  timeKnown: boolean;
   planets: NatalPlanet[];
-  houses: HouseData[];
+  houses: HouseData[];          // whole-sign houses
   aspects: NatalAspect[];
-  ascendant: { sign: string; signGlyph: string; degree: number; longitude: number };
-  midheaven: { sign: string; signGlyph: string; degree: number; longitude: number };
+  ascendant: ChartAngle;
+  midheaven: ChartAngle;        // ecliptic MC (not RAMC)
+  northNode: ChartAngle;        // Moon's mean ascending node
   moonPhase: MoonPhaseData;
   elementBalance: ElementBalance;
   modalityBalance: ModalityBalance;
@@ -87,10 +96,24 @@ export interface NatalChart {
   dominantPlanets: string[];  // top 3 most aspected
   sunSign: string;
   moonSign: string;
+  moonSignUncertain?: boolean;  // Moon changes sign during the civil birth day (unknown time)
+  moonSignNote?: string;
   risingSign: string;
   bigThree: string;  // "Sun in Pisces, Moon in Cancer, Aries Rising"
   interpretation: ChartInterpretation;
 }
+
+/**
+ * Chart computed without a known birth time: ascendant, midheaven, houses and
+ * risingSign are OMITTED (typed as absent so consumers must distinguish).
+ */
+export type UntimedNatalChart = Omit<NatalChart, "ascendant" | "midheaven" | "houses" | "risingSign"> & {
+  timeKnown: false;
+  ascendant?: undefined;
+  midheaven?: undefined;
+  houses?: undefined;
+  risingSign?: undefined;
+};
 
 export interface ChartInterpretation {
   summary: string;
@@ -181,62 +204,66 @@ function angleDiff(a: number, b: number): number {
   return d > 180 ? 360 - d : d;
 }
 
-// ── Ascendant calculation (simplified Placidus) ──
-function computeAscendant(date: Date, latitude: number, lstHours: number): number {
-  // Local Sidereal Time in degrees
-  const lst = (lstHours * 15) % 360;
-  const latRad = latitude * Math.PI / 180;
+// ── Sidereal time / angles (all from a single UT instant) ──
 
-  // RAMC (Right Ascension of Midheaven) = LST in degrees
-  const ramc = lst;
+const DEG = Math.PI / 180;
+const norm360 = (x: number) => ((x % 360) + 360) % 360;
 
-  // Obliquity of ecliptic (approximate for current epoch)
-  const T = ((date.getTime() / 86400000) - 10957.5) / 36525;
-  const obliquity = 23.4393 - 0.013 * T;
-  const oblRad = obliquity * Math.PI / 180;
-
-  // Ascendant formula (simplified)
-  const y = -Math.cos(ramc * Math.PI / 180);
-  const x = Math.sin(ramc * Math.PI / 180) * Math.cos(oblRad) + Math.tan(latRad) * Math.sin(oblRad);
-  let asc = Math.atan2(y, x) * 180 / Math.PI;
-  asc = ((asc % 360) + 360) % 360;
-
-  return asc;
+/** Days since J2000.0 (2000-01-01 12:00 UT) for a UT instant */
+function daysSinceJ2000(utc: Date): number {
+  return (utc.getTime() - Date.UTC(2000, 0, 1, 12, 0, 0)) / 86400000;
 }
 
-function computeLST(date: Date, longitudeDeg: number, timezoneOffset: number): number {
-  // UTC time
-  const utcHours = date.getHours() - timezoneOffset + date.getMinutes() / 60;
+/** True-ish obliquity of the ecliptic, degrees */
+function obliquityDeg(utc: Date): number {
+  return 23.4393 - 0.0000004 * daysSinceJ2000(utc);
+}
 
-  // Julian Date
-  const y = date.getFullYear();
-  const m = date.getMonth() + 1;
-  const d = date.getDate();
-  let yr = y, mo = m;
-  if (mo <= 2) { yr--; mo += 12; }
-  const A = Math.floor(yr / 100);
-  const B = 2 - A + Math.floor(A / 4);
-  const JD = Math.floor(365.25 * (yr + 4716)) + Math.floor(30.6001 * (mo + 1)) + d + B - 1524.5;
-
-  // Greenwich Mean Sidereal Time at 0h UT
-  const T = (JD - 2451545.0) / 36525.0;
+/** RAMC (= Local Sidereal Time) in DEGREES for a UT instant at east-positive longitude */
+function computeRAMC(utc: Date, longitudeDeg: number): number {
+  const dWhole = daysSinceJ2000(new Date(Date.UTC(
+    utc.getUTCFullYear(), utc.getUTCMonth(), utc.getUTCDate(), 0, 0, 0,
+  )));
+  const T = dWhole / 36525.0; // dWhole = JD0(0h UT) − 2451545.0 (J2000 epoch is at 12h UT)
   let GMST0 = 100.46061837 + 36000.770053608 * T + 0.000387933 * T * T;
-  GMST0 = ((GMST0 % 360) + 360) % 360;
-
-  // GMST at observation time
-  const GMST = GMST0 + 360.98564724 * (utcHours / 24);
-
-  // Local Sidereal Time
-  const LST = ((GMST + longitudeDeg) % 360 + 360) % 360;
-
-  return LST / 15; // return in hours
+  GMST0 = norm360(GMST0);
+  const utHours = utc.getUTCHours() + utc.getUTCMinutes() / 60 + utc.getUTCSeconds() / 3600;
+  const GMST = GMST0 + 360.98564724 * (utHours / 24);
+  return norm360(GMST + longitudeDeg);
 }
 
-// ── House cusps (Equal House system from Ascendant) ──
+/**
+ * Ascendant (geocentric ecliptic longitude of the eastern horizon intersection).
+ * asc = atan2( cos(RAMC), -( sin(RAMC)·cos(ε) + tan(φ)·sin(ε) ) )
+ */
+function computeAscendant(ramcDeg: number, latitudeDeg: number, epsDeg: number): number {
+  const ramc = ramcDeg * DEG, eps = epsDeg * DEG, lat = latitudeDeg * DEG;
+  const asc = Math.atan2(
+    Math.cos(ramc),
+    -(Math.sin(ramc) * Math.cos(eps) + Math.tan(lat) * Math.sin(eps)),
+  ) / DEG;
+  return norm360(asc);
+}
+
+/** Ecliptic Midheaven: mc = atan2( sin(RAMC), cos(RAMC)·cos(ε) ) — quadrant-consistent with RAMC */
+function computeMC(ramcDeg: number, epsDeg: number): number {
+  const ramc = ramcDeg * DEG, eps = epsDeg * DEG;
+  const mc = Math.atan2(Math.sin(ramc), Math.cos(ramc) * Math.cos(eps)) / DEG;
+  return norm360(mc);
+}
+
+/** Moon's mean ascending node (geocentric ecliptic longitude), degrees */
+function computeMeanNode(utc: Date): number {
+  return norm360(125.0445479 - 0.05295376 * daysSinceJ2000(utc));
+}
+
+// ── House cusps (whole-sign system) ──
+// House 1 = the Ascendant's whole sign, starting at 0° of that sign; houses follow sign by sign.
 function computeHouses(ascendantLon: number): HouseData[] {
+  const ascSignIdx = Math.floor(norm360(ascendantLon) / 30);
   const houses: HouseData[] = [];
   for (let i = 0; i < 12; i++) {
-    const cusp = (ascendantLon + i * 30) % 360;
+    const cusp = ((ascSignIdx + i) % 12) * 30;
     const signInfo = signFromLongitude(cusp);
     houses.push({ number: i + 1, cusp, ...signInfo });
   }
@@ -256,22 +283,41 @@ function getHouse(longitude: number, houses: HouseData[]): number {
   return 1;
 }
 
-// ── Chart pattern detection ──
-function detectPattern(longitudes: number[]): ChartPattern {
-  const sorted = [...longitudes].sort((a, b) => a - b);
+// ── Chart pattern detection (Jones patterns) ──
+export function detectPattern(longitudes: number[]): ChartPattern {
+  const n = longitudes.length;
+  if (n < 3) return "balanced";
+  const sorted = [...longitudes].map(norm360).sort((a, b) => a - b);
+  // gaps[i] = empty arc after sorted[i] (circular)
   const gaps: number[] = [];
-  for (let i = 0; i < sorted.length; i++) {
-    const next = i === sorted.length - 1 ? sorted[0] + 360 : sorted[i + 1];
+  for (let i = 0; i < n; i++) {
+    const next = i === n - 1 ? sorted[0] + 360 : sorted[i + 1];
     gaps.push(next - sorted[i]);
   }
   const maxGap = Math.max(...gaps);
-  const spread = 360 - maxGap;
 
-  if (maxGap > 180) {
-    if (spread < 120) return "bundle";
-    return "bowl";
+  // Bundle: all planets within 120° (largest empty gap ≥ 240°)
+  if (maxGap >= 240) return "bundle";
+
+  // Bucket: exactly one planet isolated ≥60° on both sides, the other nine within ~180°
+  const isolated: number[] = [];
+  for (let i = 0; i < n; i++) {
+    const gapBefore = gaps[(i - 1 + n) % n];
+    const gapAfter = gaps[i];
+    if (gapBefore >= 60 && gapAfter >= 60) isolated.push(i);
   }
-  if (maxGap > 150) return "locomotive";
+  if (isolated.length === 1) {
+    const i = isolated[0];
+    const othersSpan = 360 - gaps[(i - 1 + n) % n] - gaps[i];
+    if (othersSpan <= 185) return "bucket"; // ~180° with tolerance
+  }
+
+  // Bowl: largest empty gap ≥ 180° (inclusive)
+  if (maxGap >= 180) return "bowl";
+
+  // Locomotive: largest empty gap between 120° and 180°
+  if (maxGap >= 120) return "locomotive";
+
   const bigGaps = gaps.filter(g => g > 60).length;
   if (bigGaps >= 2 && maxGap > 100) return "seesaw";
   if (bigGaps >= 3) return "splay";
@@ -337,12 +383,31 @@ const PATTERN_THEMES: Record<ChartPattern, string> = {
   balanced: "Evenly distributed energy with no extreme concentrations. You are naturally well-rounded, adaptable, and capable of thriving in any domain.",
 };
 
+// North Node themes ("soul purpose" = growth direction of the Moon's mean node sign)
+const NODE_IN: Record<string, string> = {
+  Aries: "courageous self-definition — learning to act on your own behalf instead of endlessly accommodating others",
+  Taurus: "embodied stability — building self-worth, patience, and simple material peace rather than living in crisis",
+  Gemini: "curious exchange — asking questions, gathering perspectives, and staying a student instead of preaching certainty",
+  Cancer: "emotional belonging — tending home, feeling, and care rather than hiding behind achievement and control",
+  Leo: "creative self-expression — daring to be seen and to lead from the heart instead of dissolving into the crowd",
+  Virgo: "devoted craft — bringing order, service, and practical skill to what was once only dreamed",
+  Libra: "true partnership — learning cooperation, fairness, and the art of considering another as fully as yourself",
+  Scorpio: "deep transformation — releasing comfortable attachments and trusting the power of shared depth",
+  Sagittarius: "lived faith — committing to a truth and an adventure instead of drowning in endless options",
+  Capricorn: "earned mastery — taking responsibility and building something lasting rather than retreating into the past",
+  Aquarius: "collective vision — serving the wider circle and your own strangeness instead of performing for applause",
+  Pisces: "surrendered trust — softening analysis into compassion, imagination, and spiritual flow",
+};
+
 function computeInterpretation(
-  sunSign: string, moonSign: string, risingSign: string,
+  sunSign: string, moonSign: string, risingSign: string | undefined,
   pattern: ChartPattern, elementBal: ElementBalance, modalityBal: ModalityBalance,
-  planets: NatalPlanet[],
+  planets: NatalPlanet[], nodeSign: string,
 ): ChartInterpretation {
-  const summary = `${sunSign} Sun, ${moonSign} Moon, ${risingSign} Rising — a ${elementBal.dominant}-dominant chart with ${modalityBal.dominant} energy and a ${pattern} pattern. This is a person who ${elementBal.dominant === "Fire" ? "leads with passion" : elementBal.dominant === "Earth" ? "builds with patience" : elementBal.dominant === "Air" ? "connects through ideas" : "navigates through feeling"}.`;
+  const bigThreePart = risingSign
+    ? `${sunSign} Sun, ${moonSign} Moon, ${risingSign} Rising`
+    : `${sunSign} Sun, ${moonSign} Moon`;
+  const summary = `${bigThreePart} — a ${elementBal.dominant}-dominant chart with ${modalityBal.dominant} energy and a ${pattern} pattern. This is a person who ${elementBal.dominant === "Fire" ? "leads with passion" : elementBal.dominant === "Earth" ? "builds with patience" : elementBal.dominant === "Air" ? "connects through ideas" : "navigates through feeling"}.`;
 
   const strengths: string[] = [];
   const challenges: string[] = [];
@@ -371,62 +436,96 @@ function computeInterpretation(
     summary,
     coreIdentity: SUN_IN[sunSign] || SUN_IN.Aries,
     emotionalNature: MOON_IN[moonSign] || MOON_IN.Aries,
-    outerPersona: RISING_IN[risingSign] || RISING_IN.Aries,
+    outerPersona: risingSign
+      ? (RISING_IN[risingSign] || RISING_IN.Aries)
+      : "Birth time unknown — the Ascendant (your outer persona) cannot be computed without it.",
     lifeTheme: PATTERN_THEMES[pattern],
     strengths: strengths.slice(0, 4),
     challenges: challenges.slice(0, 3),
-    soulPurpose: `With ${risingSign} Rising, your soul's growth direction points toward developing the qualities of your Descendant (${SIGNS[(SIGNS.indexOf(risingSign) + 6) % 12]}). You are learning to integrate what feels unfamiliar — and that integration is your deepest transformation.`,
+    soulPurpose: `Your North Node — the Moon's ascending node — falls in ${nodeSign}. Your soul's growth direction points toward ${NODE_IN[nodeSign] || NODE_IN.Aries}. What feels unfamiliar there is precisely the path; its integration is your deepest transformation.`,
   };
 }
 
 // ── Main computation ──
 
-export function computeNatalChart(input: BirthInput): NatalChart {
-  const birthDate = new Date(input.year, input.month - 1, input.day, input.hour, input.minute);
+/** Signed circular difference a−b in (−180, 180] */
+function signedDiff(a: number, b: number): number {
+  return ((a - b + 540) % 360) - 180;
+}
 
-  // Get planet positions for birth date/time
-  const bodies = getAllPositions(birthDate);
+export function computeNatalChart(input: BirthInput & { timeKnown: false }): UntimedNatalChart;
+export function computeNatalChart(input: BirthInput): NatalChart;
+export function computeNatalChart(input: BirthInput): NatalChart | UntimedNatalChart {
+  const timeKnown = input.timeKnown !== false;
 
-  // Compute Ascendant
-  const lst = computeLST(birthDate, input.longitude, input.timezone);
-  const ascLon = computeAscendant(birthDate, input.latitude, lst);
+  // ONE UT instant for everything: local civil time minus UTC offset
+  const utc = new Date(
+    Date.UTC(input.year, input.month - 1, input.day, input.hour, input.minute) - input.timezone * 3600e3,
+  );
+
+  // Get planet positions for the birth instant
+  const bodies = getAllPositions(utc);
+
+  // Angles (only meaningful when birth time is known)
+  const eps = obliquityDeg(utc);
+  const ramc = computeRAMC(utc, input.longitude);
+  const ascLon = computeAscendant(ramc, input.latitude, eps);
   const ascSign = signFromLongitude(ascLon);
-  const ascendant = { ...ascSign, longitude: ascLon };
+  const ascendant: ChartAngle = { ...ascSign, longitude: ascLon };
 
-  // Midheaven (MC) = LST in degrees (simplified)
-  const mcLon = (lst * 15) % 360;
-  const mcSign = signFromLongitude(mcLon);
-  const midheaven = { ...mcSign, longitude: mcLon };
+  // Ecliptic Midheaven (quadrant-consistent with RAMC)
+  const mcLon = computeMC(ramc, eps);
+  const midheaven: ChartAngle = { ...signFromLongitude(mcLon), longitude: mcLon };
 
-  // Houses
+  // Moon's mean north node
+  const nodeLon = computeMeanNode(utc);
+  const northNode: ChartAngle = { ...signFromLongitude(nodeLon), longitude: nodeLon };
+
+  // Houses (whole-sign)
   const houses = computeHouses(ascLon);
 
   // Natal planets with houses + dignity
-  const planets: NatalPlanet[] = bodies.map(body => ({
-    ...body,
-    house: getHouse(body.longitude, houses),
-    dignity: getDignity(body.name, body.sign),
-    speed: body.retrograde ? "retrograde" as const : "direct" as const,
-  }));
+  const planets: NatalPlanet[] = bodies.map(body => {
+    const speed = (body as CelestialBody & { speed?: number }).speed;
+    const motion: NatalPlanet["motion"] =
+      typeof speed === "number"
+        ? (Math.abs(speed) < 0.01 ? "stationary" : speed < 0 ? "retrograde" : "direct")
+        : (body.retrograde ? "retrograde" : "direct");
+    return {
+      ...body,
+      house: timeKnown ? getHouse(body.longitude, houses) : 0,
+      dignity: getDignity(body.name, body.sign),
+      motion,
+    };
+  });
 
   // Aspects
   const aspects: NatalAspect[] = [];
   for (let i = 0; i < planets.length; i++) {
     for (let j = i + 1; j < planets.length; j++) {
-      const diff = angleDiff(planets[i].longitude, planets[j].longitude);
+      const delta = signedDiff(planets[i].longitude, planets[j].longitude);
+      const diff = Math.abs(delta);
       for (const def of ASPECT_DEFS) {
         const orb = Math.abs(diff - def.angle);
         // Tighter orbs for outer planets
         const maxOrb = (i < 2 || j < 2) ? def.orb : def.orb * 0.7;
         if (orb <= maxOrb) {
-          aspects.push({
+          const aspect: NatalAspect = {
             planet1: planets[i].name, planet1Glyph: planets[i].glyph,
             planet2: planets[j].name, planet2Glyph: planets[j].glyph,
             type: def.type, angle: diff,
             orb: Math.round(orb * 10) / 10,
-            applying: diff < def.angle, // simplified
             harmony: def.harmony,
-          });
+          };
+          // applying/separating from real speeds (deg/day), when available
+          const s1 = (planets[i] as NatalPlanet & { speed?: number }).speed;
+          const s2 = (planets[j] as NatalPlanet & { speed?: number }).speed;
+          if (typeof s1 === "number" && typeof s2 === "number") {
+            // d(separation)/dt; aspect applies if the separation moves toward the exact angle
+            const dDiffDt = Math.sign(delta) * (s1 - s2);
+            aspect.applying = (diff - def.angle) * dDiffDt < 0;
+          }
+          aspects.push(aspect);
           break; // only closest aspect per pair
         }
       }
@@ -437,7 +536,7 @@ export function computeNatalChart(input: BirthInput): NatalChart {
   aspects.sort((a, b) => a.orb - b.orb);
 
   // Moon phase at birth
-  const moonPhase = getMoonPhase(birthDate);
+  const moonPhase = getMoonPhase(utc);
 
   // Element balance (weight: Sun=3, Moon=2.5, Asc=2.5, personal planets=2, outer=1)
   const elWeights: Record<string, number> = { Sun: 3, Moon: 2.5, Mercury: 2, Venus: 2, Mars: 2, Jupiter: 1.5, Saturn: 1.5, Uranus: 1, Neptune: 1, Pluto: 1 };
@@ -447,7 +546,7 @@ export function computeNatalChart(input: BirthInput): NatalChart {
     if (el && el in elScores) elScores[el] += (elWeights[p.name] || 1);
   }
   const ascEl = ELEMENTS[ascSign.sign] as keyof typeof elScores;
-  if (ascEl) elScores[ascEl] += 2.5;
+  if (timeKnown && ascEl) elScores[ascEl] += 2.5;
   const elementBalance: ElementBalance = { ...elScores, dominant: "" };
   elementBalance.dominant = (["Fire", "Earth", "Air", "Water"] as const)
     .reduce((a, b) => elementBalance[a] > elementBalance[b] ? a : b);
@@ -459,7 +558,7 @@ export function computeNatalChart(input: BirthInput): NatalChart {
     if (mod && mod in modScores) modScores[mod] += (elWeights[p.name] || 1);
   }
   const ascMod = MODALITIES[ascSign.sign] as keyof typeof modScores;
-  if (ascMod) modScores[ascMod] += 2.5;
+  if (timeKnown && ascMod) modScores[ascMod] += 2.5;
   const modalityBalance: ModalityBalance = { ...modScores, dominant: "" };
   modalityBalance.dominant = (["Cardinal", "Fixed", "Mutable"] as const)
     .reduce((a, b) => modScores[a] > modScores[b] ? a : b);
@@ -480,21 +579,19 @@ export function computeNatalChart(input: BirthInput): NatalChart {
 
   const sunSign = planets[0].sign;
   const moonSign = planets[1].sign;
-  const risingSign = ascSign.sign;
+  const risingSign = timeKnown ? ascSign.sign : undefined;
 
   const interpretation = computeInterpretation(
     sunSign, moonSign, risingSign,
     chartPattern, elementBalance, modalityBalance,
-    planets,
+    planets, northNode.sign,
   );
 
-  return {
+  const base = {
     input,
     planets,
-    houses,
     aspects,
-    ascendant,
-    midheaven,
+    northNode,
     moonPhase,
     elementBalance,
     modalityBalance,
@@ -502,9 +599,35 @@ export function computeNatalChart(input: BirthInput): NatalChart {
     dominantPlanets,
     sunSign,
     moonSign,
-    risingSign,
-    bigThree: `Sun in ${sunSign}, Moon in ${moonSign}, ${risingSign} Rising`,
     interpretation,
+  };
+
+  if (!timeKnown) {
+    // Moon moves ~12-15°/day: flag if it changes sign during the civil birth day
+    const dayStart = new Date(Date.UTC(input.year, input.month - 1, input.day, 0, 0) - input.timezone * 3600e3);
+    const dayEnd = new Date(dayStart.getTime() + 86400e3);
+    const moonStart = getAllPositions(dayStart)[1];
+    const moonEnd = getAllPositions(dayEnd)[1];
+    const moonSignUncertain = moonStart.sign !== moonEnd.sign;
+    return {
+      ...base,
+      timeKnown: false,
+      moonSignUncertain,
+      ...(moonSignUncertain ? {
+        moonSignNote: `The Moon moved from ${moonStart.sign} into ${moonEnd.sign} on this day — without a birth time, the Moon sign could be either.`,
+      } : {}),
+      bigThree: `Sun in ${sunSign}, Moon in ${moonSign}`,
+    };
+  }
+
+  return {
+    ...base,
+    timeKnown: true,
+    houses,
+    ascendant,
+    midheaven,
+    risingSign: ascSign.sign,
+    bigThree: `Sun in ${sunSign}, Moon in ${moonSign}, ${ascSign.sign} Rising`,
   };
 }
 

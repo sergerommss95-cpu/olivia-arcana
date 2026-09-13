@@ -43,11 +43,12 @@ function applyDocumentLocale(next: Locale): void {
 }
 
 export function useLocale() {
-  // Synchronous read for the client, default to "en" for the server
-  const [locale, setLocaleState] = useState<Locale>(() => {
-    if (typeof window === "undefined") return "en";
-    return detectLocale();
-  });
+  // Always start at "en" — identical to the server-rendered HTML — and let
+  // the syncFromStorage effect below switch after mount. Reading
+  // localStorage/navigator in the initializer made the first client render
+  // differ from SSR for every non-English visitor: a React hydration
+  // mismatch that threw the server tree away on each cold load.
+  const [locale, setLocaleState] = useState<Locale>("en");
 
   useEffect(() => {
     // Sync document attributes on mount/change

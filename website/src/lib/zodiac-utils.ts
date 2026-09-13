@@ -203,13 +203,13 @@ export function getSunSign(month: number, day: number): { name: string; glyph: s
 const HOROSCOPES: Record<string, string[]> = {
   Aries: [
     "A surge of clarity arrives today. The direction you've been sensing is real — trust the impulse, but time your move with care.",
-    "Old tension dissolves as Mars aligns with your ambition. What felt blocked last week now opens. Act decisively before evening.",
+    "Old tension dissolves as your ambition finds its true channel. What felt blocked last week now opens. Act decisively before evening.",
     "Someone from your past orbit re-enters the frame. Their timing is not coincidence — listen to what they represent, not just what they say.",
   ],
   Taurus: [
     "The ground beneath you is more solid than it feels. Today rewards patience over action — let what you've planted continue to root.",
     "A financial or material question resolves in your favour. The universe is affirming your value — accept it without deflecting.",
-    "Venus draws your attention inward. What do you truly desire beneath the surface? Today's quiet holds your answer.",
+    "Something draws your attention inward today. What do you truly desire beneath the surface? Today's quiet holds your answer.",
   ],
   Gemini: [
     "Two paths crystallise today. You don't need to choose yet — but notice which one excites you and which one merely reassures.",
@@ -219,7 +219,7 @@ const HOROSCOPES: Record<string, string[]> = {
   Cancer: [
     "Emotional clarity arrives like tide receding — suddenly you can see the ground. Trust what's revealed today.",
     "Home and inner world align. Something you've been building privately is ready to be shared. Let one person see it.",
-    "The Moon illuminates a family pattern you've been repeating. Today offers the chance to choose differently.",
+    "A family pattern you've been repeating comes into the light. Today offers the chance to choose differently.",
   ],
   Leo: [
     "Your presence today is magnetic. Others are drawn to your light — use it to elevate, not to perform. The difference matters.",

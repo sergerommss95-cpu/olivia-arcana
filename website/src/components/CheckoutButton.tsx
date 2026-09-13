@@ -5,6 +5,7 @@ import { useSubscription } from "@/hooks/useSubscription";
 import type { PriceKey } from "@/lib/payments";
 import { isNativeShell, externalUpgradeUrl } from "@/lib/platform";
 import MagneticButton from "@/components/MagneticButton";
+import { PAYMENTS_ENABLED, TELEGRAM_BOT_URL } from "@/lib/service-status";
 
 interface CheckoutButtonProps {
   priceKey: PriceKey;
@@ -30,6 +31,14 @@ export default function CheckoutButton({
   useEffect(() => { setNative(isNativeShell()); }, []);
 
   const handleClick = async () => {
+    // Paddle checkout goes through the reading API, which is currently down.
+    // The Telegram bot bills independently and still works, so send buyers
+    // there rather than into a request that cannot succeed.
+    if (!PAYMENTS_ENABLED) {
+      window.open(TELEGRAM_BOT_URL, "_blank", "noopener,noreferrer");
+      return;
+    }
+
     // Inside iOS/Android native shell: Apple/Google bills 30% of any digital
     // sale. Send the user to the open web to subscribe via Paddle (5%).
     if (native) {
@@ -52,7 +61,7 @@ export default function CheckoutButton({
   };
 
   const isSubscriptionKey = priceKey.endsWith("_monthly") || priceKey.endsWith("_annual");
-  if (isVip && isSubscriptionKey) {
+  if (PAYMENTS_ENABLED && isVip && isSubscriptionKey) {
     return (
       <MagneticButton
         variant={variant}
@@ -68,7 +77,7 @@ export default function CheckoutButton({
   // Inside the native shell, frame the CTA as an outbound link, not a buy.
   // Apple's App Store guidelines (3.1.3) allow "out-of-app" pricing links;
   // we are explicit about the destination.
-  const label = native ? "Continue on web →" : null;
+  const label = !PAYMENTS_ENABLED ? "Continue in Telegram →" : native ? "Continue on web →" : null;
 
   return (
     <>

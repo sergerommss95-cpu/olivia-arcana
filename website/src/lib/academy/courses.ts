@@ -44,7 +44,7 @@ export const COURSES: Course[] = [
     track: "astrology",
     level: "beginner",
     icon: "♈",
-    color: "#FF6B35",
+    color: "#8d97ff",
     duration: "3-4 weeks",
     topics: ["Zodiac signs", "Elements & modalities", "The Big Three", "Reading a birth chart", "Polarities"],
     lessons: [
@@ -71,7 +71,7 @@ export const COURSES: Course[] = [
     track: "astrology",
     level: "beginner",
     icon: "☉",
-    color: "#FFD700",
+    color: "#e0b768",
     duration: "4 weeks",
     topics: ["Sun & Moon", "Personal planets", "Social planets", "Outer planets", "Chiron & Nodes", "Dignities", "Retrogrades"],
     lessons: [
@@ -100,7 +100,7 @@ export const COURSES: Course[] = [
     track: "astrology",
     level: "beginner",
     icon: "◎",
-    color: "#7B68EE",
+    color: "#b7bce9",
     duration: "4 weeks",
     topics: ["House systems", "Angular houses", "Succedent houses", "Cadent houses", "Empty houses", "House rulers"],
     lessons: [
@@ -133,7 +133,7 @@ export const COURSES: Course[] = [
     track: "astrology",
     level: "intermediate",
     icon: "△",
-    color: "#4ECDC4",
+    color: "#8d97ff",
     duration: "5 weeks",
     topics: ["Conjunction", "Sextile", "Square", "Trine", "Opposition", "Minor aspects", "Orbs", "Grand Trine", "T-Square", "Yod"],
     lessons: [
@@ -164,7 +164,7 @@ export const COURSES: Course[] = [
     track: "astrology",
     level: "intermediate",
     icon: "⟳",
-    color: "#CE93D8",
+    color: "#b7bce9",
     duration: "6 weeks",
     topics: ["Transits", "Saturn Return", "Eclipse cycles", "Progressions", "Solar Returns", "Profections"],
     lessons: [
@@ -197,7 +197,7 @@ export const COURSES: Course[] = [
     track: "astrology",
     level: "intermediate",
     icon: "♡",
-    color: "#FF69B4",
+    color: "#e8e9ff",
     duration: "5 weeks",
     topics: ["Synastry", "Composite charts", "Venus-Mars dynamics", "7th house", "Karmic ties", "Timing in love"],
     lessons: [
@@ -230,7 +230,7 @@ export const COURSES: Course[] = [
     track: "astrology",
     level: "advanced",
     icon: "◈",
-    color: "#D4AF37",
+    color: "#e0b768",
     duration: "7 weeks",
     topics: ["Chart synthesis", "Sect", "Essential dignities", "Hellenistic techniques", "Horary", "Electional", "Mundane", "Ethics"],
     lessons: [
@@ -265,7 +265,7 @@ export const COURSES: Course[] = [
     track: "astrology",
     level: "advanced",
     icon: "✦",
-    color: "#B0BEC5",
+    color: "#b7bce9",
     duration: "4 weeks",
     topics: ["Professional readings", "Reading structure", "Building a practice", "Content creation", "Burnout prevention"],
     lessons: [
@@ -294,7 +294,7 @@ export const COURSES: Course[] = [
     track: "tarot",
     level: "beginner",
     icon: "🃏",
-    color: "#9C27B0",
+    color: "#8d97ff",
     duration: "5 weeks",
     topics: ["Tarot history", "22 Major Arcana", "The Fool's Journey", "Symbolism", "Upright vs reversed"],
     lessons: [
@@ -328,7 +328,7 @@ export const COURSES: Course[] = [
     track: "tarot",
     level: "beginner",
     icon: "♠",
-    color: "#4CAF50",
+    color: "#e8e9ff",
     duration: "5 weeks",
     topics: ["Wands (Fire)", "Cups (Water)", "Swords (Air)", "Pentacles (Earth)", "Court Cards", "Elemental dignity"],
     lessons: [
@@ -367,7 +367,7 @@ export const COURSES: Course[] = [
     track: "tarot",
     level: "intermediate",
     icon: "✧",
-    color: "#FF9800",
+    color: "#b7bce9",
     duration: "5 weeks",
     topics: ["Asking questions", "Core spreads", "Celtic Cross", "Custom spreads", "Intuition development", "Reading for others"],
     lessons: [
@@ -396,7 +396,7 @@ export const COURSES: Course[] = [
     track: "tarot",
     level: "intermediate",
     icon: "⚝",
-    color: "#E91E63",
+    color: "#8d97ff",
     duration: "4 weeks",
     topics: ["Golden Dawn correspondences", "Major Arcana + planets/signs", "Minor Arcana decans", "Tree of Life", "Numerology"],
     lessons: [
@@ -427,7 +427,7 @@ export const COURSES: Course[] = [
     track: "tarot",
     level: "advanced",
     icon: "◐",
-    color: "#795548",
+    color: "#e8e9ff",
     duration: "5 weeks",
     topics: ["Advanced spreads", "Predictive tarot", "Psychological tarot", "Shadow work", "Client management", "Business"],
     lessons: [
@@ -462,7 +462,7 @@ export const COURSES: Course[] = [
     track: "integrated",
     level: "capstone",
     icon: "✦",
-    color: "#D4AF37",
+    color: "#e0b768",
     duration: "3 weeks",
     topics: ["Chart-informed readings", "Transit-triggered tarot", "House-based spreads", "Personal brand", "Final project"],
     lessons: [

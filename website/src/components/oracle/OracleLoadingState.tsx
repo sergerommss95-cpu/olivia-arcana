@@ -10,7 +10,7 @@ export default function OracleLoadingState() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background: "var(--c-void, #06041a)",
+        background: "var(--c-void, #10134d)",
         borderRadius: "inherit",
         zIndex: 2,
         pointerEvents: "none",
@@ -19,8 +19,8 @@ export default function OracleLoadingState() {
       <div
         style={{
           fontSize: "2.5rem",
-          color: "var(--color-celestial-gold, #D4AF37)",
-          textShadow: "0 0 40px rgba(212,175,55,0.4)",
+          color: "var(--color-celestial-gold, #e0b768)",
+          textShadow: "0 0 40px rgba(224,183,104,0.4)",
           animation: "float 3s ease-in-out infinite",
           marginBottom: "1.5rem",
         }}
@@ -33,7 +33,7 @@ export default function OracleLoadingState() {
           fontSize: "0.75rem",
           letterSpacing: "0.45em",
           textTransform: "uppercase" as const,
-          color: "rgba(196,185,228,0.35)",
+          color: "rgba(183,188,233,0.7)",
           textAlign: "center",
         }}
       >
@@ -43,7 +43,7 @@ export default function OracleLoadingState() {
         marginTop: "2rem",
         width: "60px",
         height: "1px",
-        background: "linear-gradient(to right, transparent, rgba(212,175,55,0.3), transparent)"
+        background: "linear-gradient(to right, transparent, rgba(224,183,104,0.3), transparent)"
       }} />
     </div>
   )

@@ -19,12 +19,12 @@ import { MeshGradient } from "@paper-design/shaders-react";
 
 type ToD = "dawn" | "day" | "dusk" | "night";
 
-/** Colors carefully matched to the existing brand palette. */
+/** Colors matched to The Arrival token set (abyss → night → deep → lapis, gilt at dawn only). */
 const PALETTES: Record<ToD, string[]> = {
-  dawn:  ["#06041a", "#2a1428", "#F6B98A", "#E8C96A"], // void → warm earth → amber → gold
-  day:   ["#06041a", "#14122a", "#E8C96A", "#F5F0E8"], // void → deep cosmos → gold → ivory
-  dusk:  ["#06041a", "#2a1a50", "#D8B3E8", "#a07ae0"], // void → nebula → orchid → violet
-  night: ["#06041a", "#0a0e2a", "#3a4a8a", "#B8C4F0"], // void → indigo → slate → silver
+  dawn:  ["#0a0d38", "#10134d", "#181d7a", "#e0b768"], // abyss → night → deep → gilt (the one warm moment)
+  day:   ["#0a0d38", "#10134d", "#20279b", "#8d97ff"], // abyss → night → lapis → cool light
+  dusk:  ["#0a0d38", "#121656", "#181d7a", "#2f38b8"], // abyss → band → deep → lapis-lit
+  night: ["#0a0d38", "#10134d", "#181d7a", "#20279b"], // abyss → night → deep → lapis
 };
 
 function currentToD(date: Date = new Date()): ToD {
@@ -96,7 +96,7 @@ export default function MeshAtmosphere({
           inset: 0,
           pointerEvents: "none",
           background:
-            "radial-gradient(ellipse at center, transparent 40%, rgba(6,4,26,0.55) 100%)",
+            "radial-gradient(ellipse at center, transparent 40%, rgba(10,13,56,0.6) 100%)",
         }}
       />
     </div>

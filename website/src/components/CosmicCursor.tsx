@@ -47,8 +47,9 @@ export default function CosmicCursor() {
   const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
   useEffect(() => {
-    // Detect touch device
-    if (window.matchMedia("(pointer: coarse)").matches) {
+    // Detect touch/small-screen contexts. The custom cursor is a desktop
+    // flourish; on mobile-sized viewports it reads as visual debris.
+    if (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 900) {
       isTouchRef.current = true;
       return;
     }
@@ -211,8 +212,11 @@ export default function CosmicCursor() {
     };
   }, []);
 
-  // Don't render on touch devices
-  if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
+  // Don't render on touch devices or mobile-sized viewport QA.
+  if (
+    typeof window !== "undefined" &&
+    (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 900)
+  ) {
     return null;
   }
 

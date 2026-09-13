@@ -47,7 +47,7 @@ const ELEMENTS = ["Fire", "Earth", "Air", "Water"];
 const MODALITIES = ["Cardinal", "Fixed", "Mutable"];
 
 const ELEMENT_COLORS: Record<string, string> = {
-  Fire: "#E8524A", Earth: "#4ECDC4", Air: "#D4AF37", Water: "#7B68EE",
+  Fire: "#E8524A", Earth: "#8d97ff", Air: "#e0b768", Water: "#7B68EE",
 };
 const ELEMENT_EMOJI: Record<string, string> = {
   Fire: "🔥", Earth: "🌍", Air: "💨", Water: "💧",
@@ -158,7 +158,7 @@ export default function ElementMatrix() {
                         padding: "0.75rem 0.4rem", textAlign: "center", cursor: allRevealed ? "default" : "pointer",
                         borderRadius: "0.5rem",
                         background: shown ? `${ELEMENT_COLORS[cell.element]}10` : "rgba(232,230,240,0.025)",
-                        border: `1px solid ${shown ? `${ELEMENT_COLORS[cell.element]}25` : "rgba(200,185,255,0.05)"}`,
+                        border: `1px solid ${shown ? `${ELEMENT_COLORS[cell.element]}25` : "rgba(184,190,240,0.05)"}`,
                         transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                         position: "relative", overflow: "hidden",
                       }}
@@ -181,7 +181,7 @@ export default function ElementMatrix() {
                         </>
                       ) : (
                         <div style={{
-                          fontSize: "1.2rem", color: "rgba(200,185,255,0.15)",
+                          fontSize: "1.2rem", color: "rgba(184,190,240,0.15)",
                           userSelect: "none",
                         }}>
                           ?

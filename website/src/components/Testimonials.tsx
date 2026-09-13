@@ -53,7 +53,7 @@ export default function Testimonials() {
             position: "absolute",
             inset: "-4rem -6rem",
             background:
-              "radial-gradient(ellipse at center, rgba(5,3,20,0.85) 0%, rgba(5,3,20,0.5) 65%, transparent 100%)",
+              "radial-gradient(ellipse at center, rgba(8,10,50,0.85) 0%, rgba(8,10,50,0.5) 65%, transparent 100%)",
             pointerEvents: "none",
             zIndex: -1,
           }}
@@ -70,7 +70,7 @@ export default function Testimonials() {
               fontSize: "clamp(2.2rem, 4.4vw, 3.2rem)",
               fontWeight: 500,
               fontStyle: "italic",
-              color: "#f5f2e1",
+              color: "#eef0ff",
               lineHeight: 1.1,
               margin: 0,
               letterSpacing: "-0.01em",
@@ -132,7 +132,7 @@ export default function Testimonials() {
           font-weight: 500;
           font-size: clamp(1.45rem, 2.1vw, 1.8rem);
           line-height: 1.6;
-          color: #f5f2e1;
+          color: #eef0ff;
           margin: 0;
           padding: 0;
           letter-spacing: 0.005em;
@@ -155,7 +155,7 @@ export default function Testimonials() {
           display: inline-block;
           width: 32px;
           height: 1px;
-          background: rgba(212, 175, 55, 0.4);
+          background: rgba(224, 183, 104, 0.4);
           margin-right: 0.5em;
           vertical-align: middle;
         }

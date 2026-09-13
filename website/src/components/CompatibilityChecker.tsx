@@ -192,7 +192,7 @@ export default function CompatibilityChecker() {
       }}>
         <BirthdayInput value={bdayA} onChange={setBdayA} label={t("compat_person1")} />
         <span style={{
-          fontSize: "1.2rem", color: "rgba(212,175,55,0.6)", marginTop: "1.5rem",
+          fontSize: "1.2rem", color: "rgba(224,183,104,0.6)", marginTop: "1.5rem",
         }}>&#10022;</span>
         <BirthdayInput value={bdayB} onChange={setBdayB} label={t("compat_person2")} />
       </div>
@@ -205,15 +205,15 @@ export default function CompatibilityChecker() {
             display: "flex", alignItems: "center", justifyContent: "center",
             gap: "2rem", marginBottom: "2.5rem",
           }}>
-            <div className="readable-panel p-4 rounded-2xl flex flex-col items-center min-w-[100px] border-[#d4af37]/30 shadow-xl" style={{ background: 'rgba(255,255,255,0.03)' }}>
+            <div className="readable-panel p-4 rounded-2xl flex flex-col items-center min-w-[100px] border-[#e0b768]/30 shadow-xl" style={{ background: 'rgba(255,255,255,0.03)' }}>
               <div style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>{signA.glyph}</div>
               <div className="readable-label text-[9px]">{signA.name}</div>
             </div>
             <div style={{
               fontFamily: "var(--font-accent)", fontSize: "2rem", fontWeight: 300,
-              color: "rgba(212,175,55,0.7)",
+              color: "rgba(224,183,104,0.7)",
             }}>&times;</div>
-            <div className="readable-panel p-4 rounded-2xl flex flex-col items-center min-w-[100px] border-[#d4af37]/30 shadow-xl" style={{ background: 'rgba(255,255,255,0.03)' }}>
+            <div className="readable-panel p-4 rounded-2xl flex flex-col items-center min-w-[100px] border-[#e0b768]/30 shadow-xl" style={{ background: 'rgba(255,255,255,0.03)' }}>
               <div style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>{signB.glyph}</div>
               <div className="readable-label text-[9px]">{signB.name}</div>
             </div>
@@ -223,8 +223,8 @@ export default function CompatibilityChecker() {
           <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
             <div style={{
               fontFamily: "var(--font-heading)", fontSize: "4.5rem", fontWeight: 400,
-              color: "#f5f2e1",
-              textShadow: "0 0 40px rgba(212,175,55,0.25)",
+              color: "#eef0ff",
+              textShadow: "0 0 40px rgba(224,183,104,0.25)",
               lineHeight: 1,
               fontStyle: 'italic'
             }}>{overall}%</div>
@@ -238,14 +238,14 @@ export default function CompatibilityChecker() {
               display: "flex", flexDirection: "column", gap: "1rem",
               marginBottom: "2.5rem",
               padding: "1.75rem 2rem",
-              background: "rgba(5, 3, 20, 0.65)",
+              background: "rgba(8, 10, 50, 0.65)",
               borderRadius: "1.25rem",
             }}
           >
             <ScoreBar label={t("compat_love")} score={scores.love} delay={200} color="#E8524A" />
             <ScoreBar label={t("compat_comm")} score={scores.communication} delay={400} color="#7B68EE" />
-            <ScoreBar label={t("compat_trust")} score={scores.trust} delay={600} color="#4ECDC4" />
-            <ScoreBar label={t("compat_passion")} score={scores.passion} delay={800} color="#D4AF37" />
+            <ScoreBar label={t("compat_trust")} score={scores.trust} delay={600} color="#8d97ff" />
+            <ScoreBar label={t("compat_passion")} score={scores.passion} delay={800} color="#e0b768" />
           </div>
 
           {/* Verdict */}

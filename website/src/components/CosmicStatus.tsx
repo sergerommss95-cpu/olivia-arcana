@@ -39,7 +39,7 @@ export default function CosmicStatus() {
     display: "flex", alignItems: "center", gap: "0.4rem",
     padding: "0.25rem 0.65rem", borderRadius: "100px",
     background: "rgba(255,255,255,0.04)",
-    border: "1px solid rgba(200,185,255,0.06)",
+    border: "1px solid rgba(184,190,240,0.06)",
   };
 
   const text: React.CSSProperties = {
@@ -53,7 +53,7 @@ export default function CosmicStatus() {
   const divider: React.CSSProperties = {
     width: "1px",
     height: "12px",
-    background: "rgba(200, 185, 255, 0.12)",
+    background: "rgba(184, 190, 240, 0.12)",
     margin: "0 0.25rem",
   };
 
@@ -65,7 +65,7 @@ export default function CosmicStatus() {
       flexWrap: "wrap",
       background: "rgba(4,2,13,0.5)",
       backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)",
-      borderBottom: "1px solid rgba(200,185,255,0.06)",
+      borderBottom: "1px solid rgba(184,190,240,0.06)",
     }}>
       {/* Ephemeris Ticker — Scientific Proof */}
       <div className="hidden lg:flex" style={{
@@ -79,15 +79,15 @@ export default function CosmicStatus() {
         letterSpacing: "0.05em",
       }}>
         <div style={{ display: "flex", gap: "0.3rem" }}>
-          <span style={{ color: "rgba(212,175,55,0.4)" }}>RA</span>
+          <span style={{ color: "rgba(224,183,104,0.4)" }}>RA</span>
           <span>{eph.ra}h</span>
         </div>
         <div style={{ display: "flex", gap: "0.3rem" }}>
-          <span style={{ color: "rgba(212,175,55,0.4)" }}>DEC</span>
+          <span style={{ color: "rgba(224,183,104,0.4)" }}>DEC</span>
           <span>{eph.dec}&deg;</span>
         </div>
         <div style={{ display: "flex", gap: "0.3rem" }}>
-          <span style={{ color: "rgba(212,175,55,0.4)" }}>JD</span>
+          <span style={{ color: "rgba(224,183,104,0.4)" }}>JD</span>
           <span>{eph.jd}</span>
         </div>
       </div>
@@ -140,13 +140,13 @@ export default function CosmicStatus() {
       <a href="/cosmos" style={{
         ...item,
         textDecoration: "none",
-        background: "rgba(212,175,55,0.06)",
-        border: "1px solid rgba(212,175,55,0.12)",
+        background: "rgba(224,183,104,0.06)",
+        border: "1px solid rgba(224,183,104,0.12)",
       }}>
-        <span style={{ fontSize: "0.7rem", color: "rgba(212,175,55,0.6)" }}>✦</span>
+        <span style={{ fontSize: "0.7rem", color: "rgba(224,183,104,0.6)" }}>✦</span>
         <span style={{
           ...text,
-          color: "rgba(212,175,55,0.65)",
+          color: "rgba(224,183,104,0.65)",
           fontWeight: 500,
           letterSpacing: "0.08em",
           textTransform: "uppercase",

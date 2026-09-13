@@ -65,8 +65,8 @@ export default function HouseWheel({ highlightHouse }: { highlightHouse?: number
           style={{
             padding: "0.4rem 0.9rem", borderRadius: "100px", cursor: "pointer",
             background: showPairs ? "rgba(200,168,75,0.12)" : "rgba(232,230,240,0.03)",
-            border: `1px solid ${showPairs ? "rgba(200,168,75,0.3)" : "rgba(200,185,255,0.08)"}`,
-            color: showPairs ? "rgba(212,175,55,0.9)" : "rgba(180,170,210,0.5)",
+            border: `1px solid ${showPairs ? "rgba(200,168,75,0.3)" : "rgba(184,190,240,0.08)"}`,
+            color: showPairs ? "rgba(224,183,104,0.9)" : "rgba(180,170,210,0.5)",
             fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.04em",
             transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
@@ -98,7 +98,7 @@ export default function HouseWheel({ highlightHouse }: { highlightHouse?: number
             const pos = labelPos(i);
 
             let fill = "rgba(232,230,240,0.015)";
-            let stroke = "rgba(200,185,255,0.08)";
+            let stroke = "rgba(184,190,240,0.08)";
             if (isSelected) { fill = "rgba(200,168,75,0.1)"; stroke = "rgba(200,168,75,0.3)"; }
             else if (isOpposite) { fill = "rgba(123,104,238,0.08)"; stroke = "rgba(123,104,238,0.2)"; }
             else if (isAngular && showPairs) { fill = "rgba(200,168,75,0.03)"; }
@@ -112,7 +112,7 @@ export default function HouseWheel({ highlightHouse }: { highlightHouse?: number
                 />
                 <text x={pos.x} y={pos.y - 6} textAnchor="middle" style={{
                   fontSize: isSelected ? "0.85rem" : "0.7rem", fontWeight: 600,
-                  fill: isSelected ? "rgba(200,168,75,0.8)" : isOpposite ? "rgba(123,104,238,0.6)" : "rgba(200,185,255,0.35)",
+                  fill: isSelected ? "rgba(200,168,75,0.8)" : isOpposite ? "rgba(123,104,238,0.6)" : "rgba(184,190,240,0.35)",
                   fontFamily: "var(--font-mono)", pointerEvents: "none",
                   transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}>
@@ -131,7 +131,7 @@ export default function HouseWheel({ highlightHouse }: { highlightHouse?: number
           })}
 
           {/* Center */}
-          <circle cx={CX} cy={CY} r={INNER_R - 5} fill="none" stroke="rgba(200,185,255,0.04)" strokeWidth={0.5} />
+          <circle cx={CX} cy={CY} r={INNER_R - 5} fill="none" stroke="rgba(184,190,240,0.04)" strokeWidth={0.5} />
           <text x={CX} y={CY - 4} textAnchor="middle" style={{ fontSize: "0.45rem", fill: "rgba(200,168,75,0.35)", letterSpacing: "0.12em", fontFamily: "var(--font-body)" }}>
             THE HOUSES
           </text>
@@ -159,7 +159,7 @@ export default function HouseWheel({ highlightHouse }: { highlightHouse?: number
               </div>
             </div>
           </div>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.7, color: "rgba(196,185,228,0.7)", margin: "0 0 0.4rem" }}>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.7, color: "rgba(206,210,245,0.7)", margin: "0 0 0.4rem" }}>
             {selectedData.rules}
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.25rem" }}>
@@ -176,7 +176,7 @@ export default function HouseWheel({ highlightHouse }: { highlightHouse?: number
           {oppositeData && (
             <div style={{
               marginTop: "0.6rem", paddingTop: "0.6rem",
-              borderTop: "1px solid rgba(200,185,255,0.04)",
+              borderTop: "1px solid rgba(184,190,240,0.04)",
             }}>
               <div style={{
                 fontFamily: "var(--font-body)", fontSize: "0.55rem", fontWeight: 600,
@@ -187,7 +187,7 @@ export default function HouseWheel({ highlightHouse }: { highlightHouse?: number
               </div>
               <p style={{
                 fontFamily: "var(--font-body)", fontSize: "0.75rem", fontWeight: 300,
-                lineHeight: 1.6, color: "rgba(196,185,228,0.55)", margin: 0,
+                lineHeight: 1.6, color: "rgba(206,210,245,0.55)", margin: 0,
               }}>
                 The {selectedData.num}th and {oppositeData.num}th houses form an axis.
                 Where the {selectedData.num}th house governs {selectedData.keywords[0].toLowerCase()},

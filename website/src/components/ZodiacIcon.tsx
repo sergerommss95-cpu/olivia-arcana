@@ -82,7 +82,7 @@ export default function ZodiacIcon({ glyph, name, color, element, selected, onCl
             position: "absolute",
             inset: "-4px",
             borderRadius: "50%",
-            border: `1px solid ${selected ? `${color}25` : "rgba(200,185,255,0.04)"}`,
+            border: `1px solid ${selected ? `${color}25` : "rgba(184,190,240,0.04)"}`,
             animation: selected ? "zodiac-orbit 12s linear infinite" : "none",
             transition: "border-color 0.5s ease",
           }}
@@ -136,7 +136,7 @@ export default function ZodiacIcon({ glyph, name, color, element, selected, onCl
             background: selected
               ? `linear-gradient(135deg, ${color}18, ${color}08)`
               : "rgba(255,255,255,0.02)",
-            border: `1.5px solid ${selected ? `${color}35` : "rgba(200,185,255,0.06)"}`,
+            border: `1.5px solid ${selected ? `${color}35` : "rgba(184,190,240,0.06)"}`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",

@@ -147,7 +147,7 @@ const CosmicField = forwardRef<HTMLInputElement, CosmicFieldProps>(function Cosm
         }
         .cosmic-field-input:focus-visible {
           border-color: rgba(232, 201, 106, 0.7);
-          box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.14);
+          box-shadow: 0 0 0 4px rgba(224, 183, 104, 0.14);
           background: rgba(255, 255, 255, 0.06);
         }
         .cosmic-field-input-invalid,

@@ -23,10 +23,23 @@ export default function InstallPrompt() {
   const showTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    // Register service worker
+    // Register service worker. updateViaCache "none" + an explicit
+    // update() force the browser to refetch sw.js on every visit, so a
+    // new cache version reaches installed PWAs immediately. When the new
+    // worker takes control, reload once — kills any stale JS mid-session.
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(() => {
-        // SW registration failed — that's okay
+      navigator.serviceWorker
+        .register("/sw.js", { updateViaCache: "none" })
+        .then((reg) => {
+          reg.update().catch(() => {});
+        })
+        .catch(() => {
+          // SW registration failed — that's okay
+        });
+      let hadController = !!navigator.serviceWorker.controller;
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (hadController) window.location.reload();
+        hadController = true;
       });
     }
 
@@ -79,7 +92,7 @@ export default function InstallPrompt() {
       background: "rgba(8,6,20,0.92)",
       backdropFilter: "blur(8px) ",
       WebkitBackdropFilter: "blur(8px) ",
-      borderTop: "1px solid rgba(200,185,255,0.08)",
+      borderTop: "1px solid rgba(184,190,240,0.08)",
       display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem",
       animation: "slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards",
     }}>
@@ -92,7 +105,7 @@ export default function InstallPrompt() {
 
       <span style={{
         fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 300,
-        color: "rgba(196,185,228,0.7)", flex: 1, textAlign: "center",
+        color: "rgba(206,210,245,0.7)", flex: 1, textAlign: "center",
       }}>
         Install Olivia Arcana for the full experience
       </span>

@@ -6,15 +6,15 @@ import { useLocale } from "../lib/i18n/useLocale";
 
 const signKeys = [
   { key: "sign_aries" as const, glyph: "♈", dates: "Mar 21 – Apr 19", elKey: "el_fire" as const, color: "#E8524A" },
-  { key: "sign_taurus" as const, glyph: "♉", dates: "Apr 20 – May 20", elKey: "el_earth" as const, color: "#4ECDC4" },
+  { key: "sign_taurus" as const, glyph: "♉", dates: "Apr 20 – May 20", elKey: "el_earth" as const, color: "#8d97ff" },
   { key: "sign_gemini" as const, glyph: "♊", dates: "May 21 – Jun 20", elKey: "el_air" as const, color: "#7B68EE" },
   { key: "sign_cancer" as const, glyph: "♋", dates: "Jun 21 – Jul 22", elKey: "el_water" as const, color: "#6B8DD6" },
   { key: "sign_leo" as const, glyph: "♌", dates: "Jul 23 – Aug 22", elKey: "el_fire" as const, color: "#E8524A" },
-  { key: "sign_virgo" as const, glyph: "♍", dates: "Aug 23 – Sep 22", elKey: "el_earth" as const, color: "#4ECDC4" },
+  { key: "sign_virgo" as const, glyph: "♍", dates: "Aug 23 – Sep 22", elKey: "el_earth" as const, color: "#8d97ff" },
   { key: "sign_libra" as const, glyph: "♎", dates: "Sep 23 – Oct 22", elKey: "el_air" as const, color: "#7B68EE" },
   { key: "sign_scorpio" as const, glyph: "♏", dates: "Oct 23 – Nov 21", elKey: "el_water" as const, color: "#6B8DD6" },
   { key: "sign_sagittarius" as const, glyph: "♐", dates: "Nov 22 – Dec 21", elKey: "el_fire" as const, color: "#E8524A" },
-  { key: "sign_capricorn" as const, glyph: "♑", dates: "Dec 22 – Jan 19", elKey: "el_earth" as const, color: "#4ECDC4" },
+  { key: "sign_capricorn" as const, glyph: "♑", dates: "Dec 22 – Jan 19", elKey: "el_earth" as const, color: "#8d97ff" },
   { key: "sign_aquarius" as const, glyph: "♒", dates: "Jan 20 – Feb 18", elKey: "el_air" as const, color: "#7B68EE" },
   { key: "sign_pisces" as const, glyph: "♓", dates: "Feb 19 – Mar 20", elKey: "el_water" as const, color: "#6B8DD6" },
 ];
@@ -91,7 +91,7 @@ export default function DailyHoroscope() {
 
         {/* Selected sign reading preview */}
         {selected !== null && (
-          <div className="mt-12 readable-card p-10 max-w-2xl mx-auto animate-in fade-in zoom-in-95 duration-500 shadow-2xl border-[#d4af37]/30">
+          <div className="mt-12 readable-card p-10 max-w-2xl mx-auto animate-in fade-in zoom-in-95 duration-500 shadow-2xl border-[#e0b768]/30">
             <div className="flex items-center gap-6 mb-6">
               <span className="text-5xl drop-shadow-lg" style={{ color: signKeys[selected].color }}>
                 {signKeys[selected].glyph}

@@ -1,77 +1,69 @@
 /**
- * 404 — Lost in the Cosmos
+ * 404 — Lost in the Cosmos, filed as an erratum of the Personal Almanac.
+ * Server component: styled with the shell's shared classes + inline ink.
  */
 
-import Link from "next/link";
+import AlmanacShell from "@/components/almanac/AlmanacShell";
+import TransitionLink from "@/components/transitions/TransitionLink";
 
 export default function NotFound() {
   return (
-    <div style={{
-      minHeight: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "3rem 1.5rem",
-      textAlign: "center",
-      position: "relative", zIndex: 1,
-    }}>
-      <div style={{
-        fontSize: "4rem",
-        color: "rgba(212,175,55,0.3)",
-        textShadow: "0 0 60px rgba(212,175,55,0.15)",
-        marginBottom: "1.5rem",
-      }}>✦</div>
+    <AlmanacShell narrow>
+      <div
+        style={{
+          minHeight: "50vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+        }}
+      >
+        <div
+          aria-hidden
+          style={{
+            fontSize: "2.6rem",
+            color: "var(--ox)",
+            opacity: 0.65,
+            marginBottom: "1.4rem",
+            lineHeight: 1,
+          }}
+        >
+          ✦
+        </div>
 
-      <h1 style={{
-        fontFamily: "var(--font-heading)",
-        fontSize: "clamp(2rem, 6vw, 4rem)",
-        fontWeight: 400,
-        backgroundImage: "linear-gradient(165deg, #f0ecff 0%, #c4b4f0 50%, #a08de0 100%)",
-        backgroundClip: "text",
-        WebkitBackgroundClip: "text",
-        color: "transparent",
-        margin: "0 0 0.75rem",
-      }}>Lost in the Cosmos</h1>
+        <p className="alm-kicker" style={{ marginBottom: "0.9rem" }}>
+          Erratum · 404
+        </p>
 
-      <p style={{
-        fontFamily: "var(--font-body)",
-        fontSize: "1rem",
-        fontWeight: 300,
-        color: "rgba(196,185,228,0.6)",
-        maxWidth: "400px",
-        lineHeight: 1.7,
-        marginBottom: "2rem",
-      }}>
-        The stars couldn&apos;t find this page. Perhaps it exists in another dimension.
-      </p>
+        <h1 className="alm-h1" style={{ marginBottom: "1rem" }}>
+          Lost in the Cosmos
+        </h1>
 
-      <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", justifyContent: "center" }}>
-        <Link href="/" style={{
-          padding: "0.75rem 2rem",
-          borderRadius: "100px",
-          background: "linear-gradient(135deg, rgba(160,120,255,0.2), rgba(100,80,220,0.15))",
-          border: "1px solid rgba(200,180,255,0.2)",
-          color: "rgba(240,235,255,0.9)",
-          fontSize: "0.82rem",
-          fontWeight: 500,
-          letterSpacing: "0.06em",
-          textTransform: "uppercase",
-          textDecoration: "none",
-        }}>Return Home</Link>
-        <Link href="/portrait" style={{
-          padding: "0.75rem 2rem",
-          borderRadius: "100px",
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(200,185,255,0.1)",
-          color: "rgba(200,185,240,0.7)",
-          fontSize: "0.82rem",
-          fontWeight: 400,
-          letterSpacing: "0.06em",
-          textTransform: "uppercase",
-          textDecoration: "none",
-        }}>Celestial Portrait</Link>
+        <p
+          className="alm-lead"
+          style={{ maxWidth: "40ch", margin: "0 0 2.2rem" }}
+        >
+          The stars couldn&apos;t find this page. Perhaps it exists in another dimension.
+        </p>
+
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "1.2rem 1.8rem",
+          }}
+        >
+          <TransitionLink href="/" className="alm-btn">
+            Return Home
+          </TransitionLink>
+          <TransitionLink href="/portrait" className="alm-link">
+            Celestial Portrait
+          </TransitionLink>
+        </div>
       </div>
-    </div>
+    </AlmanacShell>
   );
 }

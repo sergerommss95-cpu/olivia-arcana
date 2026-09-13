@@ -30,11 +30,11 @@ export default function AboutPage() {
 
       <h2>What you&apos;ll find here</h2>
       <ul>
-        <li><strong>Daily ritual</strong> — a single card, drawn under the right sky, with text written for that hour.</li>
+        <li><strong>Card of the Day</strong> — a single card, drawn under the right sky, with text written for that hour.</li>
         <li><strong>Your chart</strong> — full natal breakdown with houses, aspects, transits, and a story you can read.</li>
         <li><strong>The Academy</strong> — long-form lessons that earn the word <em>education</em>, not &quot;tips.&quot;</li>
         <li><strong>Olivia AI</strong> — ask anything. She remembers your chart and writes back like a person.</li>
-        <li><strong>Voice readings</strong> — VIP members hear their reading narrated.</li>
+        <li><strong>Voice readings</strong> — Patrons hear their reading narrated.</li>
       </ul>
 
       <h2>Not magic. Not science. Both.</h2>
@@ -55,10 +55,10 @@ export default function AboutPage() {
 
       <h2>Where to start</h2>
       <ul>
-        <li><Link href="/onboarding">Set up your chart</Link> — takes 90 seconds.</li>
+        <li><Link href="/onboarding">Draw your portrait</Link> — takes 90 seconds.</li>
         <li><Link href="/sample">Read a sample reading</Link> — see what we mean by &quot;written by hand.&quot;</li>
         <li><Link href="/academy">Browse the Academy</Link> — 14 courses from &quot;what is astrology&quot; to deep advanced interpretation.</li>
-        <li><Link href="/#pricing">See pricing</Link> — Free forever; paid tiers from $4.99/mo.</li>
+        <li><Link href="/#pricing">See the Tariff</Link> — Begin for nothing; the paid leaves from $4.99 a month.</li>
       </ul>
     </LegalShell>
   );

@@ -110,7 +110,7 @@ export default function ConstellationOverlay() {
           right: "1.5rem",
           zIndex: 51,
           background: "rgba(255,255,255,0.06)",
-          border: "1px solid rgba(200,185,255,0.1)",
+          border: "1px solid rgba(184,190,240,0.1)",
           borderRadius: "50%",
           width: "40px",
           height: "40px",

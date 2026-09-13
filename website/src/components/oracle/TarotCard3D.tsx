@@ -18,8 +18,8 @@ const FoilShaderMaterial = shaderMaterial(
   {
     uTime: 0,
     uLogo: null,
-    uGold: new THREE.Color("#d4af37"),
-    uBackground: new THREE.Color("#050508"), // Deep Velvet Black
+    uGold: new THREE.Color("#e0b768"),
+    uBackground: new THREE.Color("#0a0d38"), // Abyss — deepest allowed ground
     uHover: 0.0,
   },
   `
@@ -108,15 +108,15 @@ export default function TarotCard3D({
     const ctx = canvas.getContext("2d");
     if (!ctx) return null;
     
-    // Background: Cosmic Dark
+    // Background: night ground
     const grad = ctx.createRadialGradient(256, 409, 0, 256, 409, 500);
-    grad.addColorStop(0, "#221348");
-    grad.addColorStop(1, "#04030c");
+    grad.addColorStop(0, "#181d7a");
+    grad.addColorStop(1, "#0a0d38");
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 512, 819);
 
     // Gold Border
-    ctx.strokeStyle = "#D4AF37";
+    ctx.strokeStyle = "#e0b768";
     ctx.lineWidth = 4;
     ctx.strokeRect(30, 30, 452, 759);
     ctx.lineWidth = 1.5;
@@ -150,7 +150,7 @@ export default function TarotCard3D({
   const isGold = index === 12;
   const isIce = index === 18;
 
-  const cardColor = isCrimson ? "#a01525" : isGold ? "#c9a961" : isIce ? "#b8d4e8" : "#0a0e2a";
+  const cardColor = isCrimson ? "#2f38b8" : isGold ? "#e0b768" : isIce ? "#b7bce9" : "#10134d";
   const metalness = isGold ? 0.9 : 0.6;
   const roughness = isIce ? 0.15 : 0.3;
 

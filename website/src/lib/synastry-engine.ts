@@ -37,6 +37,12 @@ export interface CrossAspect {
   aspectType: string;
   orb: number;
   harmony: "harmonious" | "tense" | "neutral";
+  /**
+   * True for outer-to-outer contacts (Saturn–Pluto × Saturn–Pluto). People born
+   * within a few years of each other share these — they describe an era, not
+   * the couple. Listed for completeness but EXCLUDED from all scoring.
+   */
+  generational: boolean;
   interpretation: string;
 }
 
@@ -60,6 +66,22 @@ const ASPECT_DEFS: AspectDef[] = [
 function angleDiff(a: number, b: number): number {
   const d = Math.abs(((a - b) % 360 + 360) % 360);
   return d > 180 ? 360 - d : d;
+}
+
+/** Slow movers whose cross-contacts are generational, not personal */
+const OUTER_PLANETS = new Set(["Saturn", "Uranus", "Neptune", "Pluto"]);
+
+function isGenerationalPair(planetA: string, planetB: string): boolean {
+  return OUTER_PLANETS.has(planetA) && OUTER_PLANETS.has(planetB);
+}
+
+/** Luminaries (Sun/Moon) get wider synastry orbs: +1.5° over base */
+const LUMINARIES = new Set(["Sun", "Moon"]);
+const LUMINARY_ORB_BONUS = 1.5;
+
+function maxOrbFor(def: AspectDef, planetA: string, planetB: string): number {
+  const bonus = LUMINARIES.has(planetA) || LUMINARIES.has(planetB) ? LUMINARY_ORB_BONUS : 0;
+  return def.orb + bonus;
 }
 
 // ── Category mapping: which planet pairs feed which score ──
@@ -219,10 +241,11 @@ export function computeSynastry(chartA: NatalChart, chartB: NatalChart): Synastr
   for (const pA of chartA.planets) {
     for (const pB of chartB.planets) {
       const diff = angleDiff(pA.longitude, pB.longitude);
+      const generational = isGenerationalPair(pA.name, pB.name);
 
       for (const def of ASPECT_DEFS) {
         const orb = Math.abs(diff - def.angle);
-        if (orb <= def.orb) {
+        if (orb <= maxOrbFor(def, pA.name, pB.name)) {
           allAspects.push({
             planetA: pA.name,
             signA: pA.sign,
@@ -230,9 +253,14 @@ export function computeSynastry(chartA: NatalChart, chartB: NatalChart): Synastr
             signB: pB.sign,
             aspectType: def.type,
             orb: Math.round(orb * 10) / 10,
+            // Saturn/Pluto conjunctions to a PERSONAL planet stay heavy;
+            // generational pairs (outer x outer) are era markers — neutral.
             harmony: def.type === "conjunction"
-              ? (pA.name === "Saturn" || pA.name === "Pluto" || pB.name === "Saturn" || pB.name === "Pluto" ? "tense" : "harmonious")
+              ? (generational
+                ? "neutral"
+                : (pA.name === "Saturn" || pA.name === "Pluto" || pB.name === "Saturn" || pB.name === "Pluto" ? "tense" : "harmonious"))
               : def.harmony,
+            generational,
             interpretation: getInterpretation(pA.name, def.type, pB.name),
           });
           break; // one aspect per pair
@@ -258,11 +286,18 @@ export function computeSynastry(chartA: NatalChart, chartB: NatalChart): Synastr
   };
 
   for (const asp of allAspects) {
+    // Generational (outer x outer) contacts describe an era shared by everyone
+    // born around the same time — never score them for this specific couple.
+    if (asp.generational) continue;
+
     const categoriesA = PLANET_CATEGORY[asp.planetA] || [];
     const categoriesB = PLANET_CATEGORY[asp.planetB] || [];
     const cats = new Set([...categoriesA, ...categoriesB]);
 
-    const maxOrb = ASPECT_DEFS.find(d => d.type === asp.aspectType)?.orb || 8;
+    const baseDef = ASPECT_DEFS.find(d => d.type === asp.aspectType);
+    const maxOrb = baseDef
+      ? maxOrbFor(baseDef, asp.planetA, asp.planetB)
+      : 8;
     const weight = harmonicWeight(asp.harmony, asp.orb, maxOrb);
 
     for (const cat of cats) {

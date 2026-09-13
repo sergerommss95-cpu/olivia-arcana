@@ -117,9 +117,9 @@ const JOURNEY: JourneyCard[] = [
 ];
 
 const ACT_INFO = [
-  { name: "Act I: The Conscious World", range: "0-VII", color: "#D4AF37", desc: "Discovering the outer world — identity, power, choice" },
+  { name: "Act I: The Conscious World", range: "0-VII", color: "#e0b768", desc: "Discovering the outer world — identity, power, choice" },
   { name: "Act II: The Subconscious", range: "VIII-XIV", color: "#7B68EE", desc: "Turning inward — shadow, surrender, transformation" },
-  { name: "Act III: The Superconscious", range: "XV-XXI", color: "#4ECDC4", desc: "Spiritual awakening — destruction, hope, wholeness" },
+  { name: "Act III: The Superconscious", range: "XV-XXI", color: "#8d97ff", desc: "Spiritual awakening — destruction, hope, wholeness" },
 ];
 
 export default function FoolsJourneyMap() {
@@ -139,8 +139,8 @@ export default function FoolsJourneyMap() {
           style={{
             padding: "0.35rem 0.75rem", borderRadius: "100px", cursor: "pointer",
             background: actFilter === null ? "rgba(200,168,75,0.1)" : "rgba(232,230,240,0.03)",
-            border: `1px solid ${actFilter === null ? "rgba(200,168,75,0.25)" : "rgba(200,185,255,0.06)"}`,
-            color: actFilter === null ? "rgba(212,175,55,0.8)" : "rgba(180,170,210,0.4)",
+            border: `1px solid ${actFilter === null ? "rgba(200,168,75,0.25)" : "rgba(184,190,240,0.06)"}`,
+            color: actFilter === null ? "rgba(224,183,104,0.8)" : "rgba(180,170,210,0.4)",
             fontSize: "0.62rem", fontWeight: 500, letterSpacing: "0.04em",
             transition: "all 0.3s ease",
           }}
@@ -154,7 +154,7 @@ export default function FoolsJourneyMap() {
             style={{
               padding: "0.35rem 0.75rem", borderRadius: "100px", cursor: "pointer",
               background: actFilter === i + 1 ? `${act.color}15` : "rgba(232,230,240,0.03)",
-              border: `1px solid ${actFilter === i + 1 ? `${act.color}30` : "rgba(200,185,255,0.06)"}`,
+              border: `1px solid ${actFilter === i + 1 ? `${act.color}30` : "rgba(184,190,240,0.06)"}`,
               color: actFilter === i + 1 ? act.color : "rgba(180,170,210,0.4)",
               fontSize: "0.62rem", fontWeight: 500, letterSpacing: "0.04em",
               transition: "all 0.3s ease",
@@ -170,7 +170,7 @@ export default function FoolsJourneyMap() {
         <div style={{
           textAlign: "center", marginBottom: "0.75rem",
           fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 300,
-          color: "rgba(196,185,228,0.6)",
+          color: "rgba(206,210,245,0.6)",
         }}>
           <span style={{ color: ACT_INFO[actFilter - 1].color, fontWeight: 500 }}>
             {ACT_INFO[actFilter - 1].name}
@@ -196,7 +196,7 @@ export default function FoolsJourneyMap() {
               style={{
                 padding: "0.6rem 0.5rem", borderRadius: "0.6rem",
                 background: isSelected ? `${actColor}12` : "rgba(232,230,240,0.02)",
-                border: `1px solid ${isSelected ? `${actColor}30` : "rgba(200,185,255,0.05)"}`,
+                border: `1px solid ${isSelected ? `${actColor}30` : "rgba(184,190,240,0.05)"}`,
                 cursor: "pointer", textAlign: "center",
                 transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
               }}

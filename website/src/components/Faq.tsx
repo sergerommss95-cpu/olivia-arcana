@@ -12,7 +12,6 @@
 
 import React from "react";
 import { useLocale } from "../lib/i18n/useLocale";
-import { type Translations } from "../lib/i18n/translations";
 
 export default function Faq() {
   const { t } = useLocale();
@@ -59,7 +58,7 @@ export default function Faq() {
             fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
             fontWeight: 400,
             fontStyle: "italic",
-            color: "#f5f2e1",
+            color: "#eef0ff",
             lineHeight: 1.05,
             margin: 0,
             letterSpacing: "-0.02em"
@@ -83,11 +82,11 @@ export default function Faq() {
 
       <style>{`
         .faq-row {
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          border-top: 1px solid rgba(232, 201, 106, 0.14);
           padding: 1.5rem 0.25rem;
         }
         .faq-row:last-of-type {
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          border-bottom: 1px solid rgba(232, 201, 106, 0.14);
         }
         .faq-row summary {
           list-style: none;
@@ -107,7 +106,7 @@ export default function Faq() {
           font-weight: 600;
           font-size: 1.35rem;
           line-height: 1.35;
-          color: #f5f2e1;
+          color: #eef0ff;
           letter-spacing: 0.01em;
         }
         .faq-plus {

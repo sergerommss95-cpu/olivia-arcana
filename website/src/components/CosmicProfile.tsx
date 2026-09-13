@@ -154,7 +154,7 @@ export default function CosmicProfile({ profile }: Props) {
   }, [profile.name, energy]);
 
   const glass: React.CSSProperties = {
-    background: "rgba(10, 8, 30, 0.95)",
+    background: "rgba(14, 17, 70, 0.95)",
     border: "1px solid rgba(255, 255, 255, 0.12)",
     borderRadius: "1rem",
     backdropFilter: "blur(8px)",
@@ -192,7 +192,7 @@ export default function CosmicProfile({ profile }: Props) {
         padding: "clamp(1.25rem, 4vw, 2.25rem) clamp(1rem, 3vw, 2rem) clamp(1.25rem, 3vw, 1.75rem)",
         // opacity: 1 — Hero wrapper handles the entrance fade
         ...glass,
-        border: "1px solid rgba(200,185,255,0.1)",
+        border: "1px solid rgba(184,190,240,0.1)",
         borderRadius: "1.5rem",
         overflow: "hidden",
       }}
@@ -201,8 +201,8 @@ export default function CosmicProfile({ profile }: Props) {
       <div ref={scanRef} style={{
         position: "absolute", left: "8%", right: "8%", top: "-2px", height: "1px",
         opacity: 0, pointerEvents: "none", zIndex: 10,
-        background: "linear-gradient(90deg, transparent, rgba(212,175,55,0.4), rgba(255,230,150,0.5), rgba(212,175,55,0.4), transparent)",
-        boxShadow: "0 0 12px rgba(212,175,55,0.2)",
+        background: "linear-gradient(90deg, transparent, rgba(224,183,104,0.4), rgba(255,230,150,0.5), rgba(224,183,104,0.4), transparent)",
+        boxShadow: "0 0 12px rgba(224,183,104,0.2)",
       }} />
 
       {/* Solar Return Banner */}
@@ -210,9 +210,9 @@ export default function CosmicProfile({ profile }: Props) {
         <div data-r style={{
           width: "calc(100% + 4rem)", margin: "-1rem -2rem 0.5rem",
           padding: "0.6rem", textAlign: "center",
-          background: "linear-gradient(90deg, transparent, rgba(212,175,55,0.2), rgba(255,230,150,0.3), rgba(212,175,55,0.2), transparent)",
-          borderTop: "1px solid rgba(212,175,55,0.2)",
-          borderBottom: "1px solid rgba(212,175,55,0.2)",
+          background: "linear-gradient(90deg, transparent, rgba(224,183,104,0.2), rgba(255,230,150,0.3), rgba(224,183,104,0.2), transparent)",
+          borderTop: "1px solid rgba(224,183,104,0.2)",
+          borderBottom: "1px solid rgba(224,183,104,0.2)",
         }}>
           <span style={{ ...label, color: "#F4E9D0", letterSpacing: "0.25em" }}>Solar Return Peak &bull; Happy Birthday</span>
         </div>
@@ -222,14 +222,14 @@ export default function CosmicProfile({ profile }: Props) {
       <div data-r style={{ opacity: 0, textAlign: "center" }}>
         <div style={{
           fontSize: "3.5rem", lineHeight: 1, marginBottom: "0.75rem",
-          textShadow: "0 0 40px rgba(212,175,55,0.2)",
+          textShadow: "0 0 40px rgba(224,183,104,0.2)",
         }}>
           {profile.glyph}
         </div>
         <div style={{
           fontFamily: "var(--font-heading)",
           fontSize: "1.75rem", fontWeight: 500, letterSpacing: "0.14em",
-          color: "#f5f2e1", textTransform: "uppercase",
+          color: "#eef0ff", textTransform: "uppercase",
         }}>
           {profile.name}
         </div>
@@ -237,7 +237,7 @@ export default function CosmicProfile({ profile }: Props) {
       </div>
 
       {/* Divider */}
-      <div data-r style={{ opacity: 0, width: "80px", height: "1.5px", background: "rgba(212,175,55,0.3)" }} />
+      <div data-r style={{ opacity: 0, width: "80px", height: "1.5px", background: "rgba(224,183,104,0.3)" }} />
 
       {/* Trio */}
       <div data-r style={{
@@ -260,7 +260,7 @@ export default function CosmicProfile({ profile }: Props) {
             <span style={{
               fontFamily: "var(--font-heading)",
               fontSize: "0.95rem", fontWeight: 600,
-              color: "#f5f2e1", letterSpacing: "0.04em",
+              color: "#eef0ff", letterSpacing: "0.04em",
             }}>{value}</span>
             <span style={{ ...label, fontSize: '0.55rem' }}>{lbl}</span>
           </div>
@@ -296,7 +296,7 @@ export default function CosmicProfile({ profile }: Props) {
           <span style={{ ...label, opacity: 1 }}>{t("profile_cosmic_energy")}</span>
           <span style={{
             fontFamily: "var(--font-heading)",
-            fontSize: "1.1rem", fontWeight: 600, color: "#f5f2e1",
+            fontSize: "1.1rem", fontWeight: 600, color: "#eef0ff",
           }}>{energy}%</span>
         </div>
         <div style={{
@@ -326,7 +326,7 @@ export default function CosmicProfile({ profile }: Props) {
               <span style={{ fontSize: "1rem", opacity: 0.9 }}>{GLYPHS[m]}</span>
               <span style={{
                 fontFamily: "var(--font-heading)",
-                fontSize: "0.9rem", color: "#f5f2e1", letterSpacing: "0.04em",
+                fontSize: "0.9rem", color: "#eef0ff", letterSpacing: "0.04em",
                 fontWeight: 600
               }}>{m}</span>
             </div>
@@ -372,7 +372,7 @@ export default function CosmicProfile({ profile }: Props) {
           }}>
             <div style={{
               fontFamily: "var(--font-heading)", fontSize: "1.1rem", fontStyle: "italic",
-              color: "#f5f2e1", marginBottom: "0.6rem", fontWeight: 600
+              color: "#eef0ff", marginBottom: "0.6rem", fontWeight: 600
             }}>{roast.tagline}</div>
             <p style={{
               fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 400,
@@ -391,7 +391,7 @@ export default function CosmicProfile({ profile }: Props) {
       <div data-r style={{ opacity: 0, width: "100%", padding: "0 0.25rem" }}>
         <div style={{
           width: "100%", height: "1px", marginBottom: "1rem",
-          background: "linear-gradient(90deg, transparent, rgba(212,175,55,0.2), transparent)",
+          background: "linear-gradient(90deg, transparent, rgba(224,183,104,0.2), transparent)",
         }} />
         <div style={{ ...label, marginBottom: "0.75rem", opacity: 1 }}>{t("profile_todays_reading")}</div>
         <div className="reading-text" style={{
@@ -409,11 +409,11 @@ export default function CosmicProfile({ profile }: Props) {
         <a href="/portrait" style={{
           flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
           padding: "0.85rem 1rem", borderRadius: "100px",
-          background: "linear-gradient(135deg, #d4af37 0%, #f3dd8e 100%)",
+          background: "linear-gradient(135deg, #e0b768 0%, #f3dd8e 100%)",
           color: "var(--c-void)", fontSize: "0.8rem", fontWeight: 800,
           letterSpacing: "0.08em", textTransform: "uppercase" as const,
           textDecoration: "none", cursor: "pointer", transition: `all 300ms ${EASE}`,
-          boxShadow: '0 10px 30px rgba(212,175,55,0.25)'
+          boxShadow: '0 10px 30px rgba(224,183,104,0.25)'
         }}>{t("profile_celestial_portrait")}</a>
         <button onClick={() => setShareModalOpen(true)} style={{
           flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
@@ -421,7 +421,7 @@ export default function CosmicProfile({ profile }: Props) {
           background: "rgba(255,255,255,0.08)",
           backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)",
           border: "1px solid rgba(255,255,255,0.15)",
-          color: "#f5f2e1", fontSize: "0.8rem", fontWeight: 700,
+          color: "#eef0ff", fontSize: "0.8rem", fontWeight: 700,
           letterSpacing: "0.08em", textTransform: "uppercase" as const,
           cursor: "pointer", transition: `all 300ms ${EASE}`,
         }}>{t("profile_share")}</button>

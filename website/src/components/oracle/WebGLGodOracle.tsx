@@ -143,11 +143,11 @@ const FluidBackground = () => {
             float f = snoise(p + r);
             
             vec3 color = mix(
-              vec3(0.01, 0.005, 0.02), // Deep void
-              vec3(0.2, 0.1, 0.4),     // Astral violet
+              vec3(0.039, 0.051, 0.220), // Abyss #0a0d38
+              vec3(0.184, 0.220, 0.722), // Lapis-lit #2f38b8
               f
             );
-            color = mix(color, vec3(0.8, 0.6, 0.2), smoothstep(0.7, 1.0, f) * 0.3); // Gold dust
+            color = mix(color, vec3(0.878, 0.718, 0.408), smoothstep(0.7, 1.0, f) * 0.3); // Gilt #e0b768
             
             gl_FragColor = vec4(color, 1.0);
           }
@@ -303,11 +303,11 @@ const GodModeCard3D = ({
         
         {/* FRONT FACE (Image) */}
         {isSelected ? (
-          <Suspense fallback={<meshStandardMaterial color="#000" />}>
+          <Suspense fallback={<meshStandardMaterial color="#0a0d38" />}>
             <CardFrontTexture url={getCardPortalImagePath(card)} opacity={frontOpacity} />
           </Suspense>
         ) : (
-          <meshStandardMaterial color="#020104" roughness={0.8} />
+          <meshStandardMaterial color="#0a0d38" roughness={0.8} />
         )}
 
         {/* BACK FACE (Ray-Marched Obsidian Glass) */}
@@ -326,16 +326,16 @@ const GodModeCard3D = ({
           iridescenceThicknessRange={[100, 400]}
           clearcoat={1}
           clearcoatRoughness={0.1}
-          color="#1a1130" // Deep violet obsidian
+          color="#181d7a" // Deep lapis glass
           attenuationDistance={0.5}
           attenuationColor="#ffffff"
         />
 
         {/* EDGES & OTHER FACES */}
-        <meshStandardMaterial attach="material-2" color="#d4af37" metalness={1} roughness={0.2} />
-        <meshStandardMaterial attach="material-3" color="#d4af37" metalness={1} roughness={0.2} />
-        <meshStandardMaterial attach="material-4" color="#d4af37" metalness={1} roughness={0.2} />
-        <meshStandardMaterial attach="material-5" color="#d4af37" metalness={1} roughness={0.2} />
+        <meshStandardMaterial attach="material-2" color="#e0b768" metalness={1} roughness={0.2} />
+        <meshStandardMaterial attach="material-3" color="#e0b768" metalness={1} roughness={0.2} />
+        <meshStandardMaterial attach="material-4" color="#e0b768" metalness={1} roughness={0.2} />
+        <meshStandardMaterial attach="material-5" color="#e0b768" metalness={1} roughness={0.2} />
 
       </RoundedBox>
 
@@ -343,7 +343,7 @@ const GodModeCard3D = ({
       <group position={[0, 0, 0.041]} rotation={[0, Math.PI, 0]}>
         <mesh>
           <ringGeometry args={[0.4, 0.42, 32]} />
-          <meshBasicMaterial color="#d4af37" transparent opacity={0.5} />
+          <meshBasicMaterial color="#e0b768" transparent opacity={0.5} />
         </mesh>
       </group>
     </AnimatedGroup>
@@ -412,16 +412,16 @@ export default function WebGLGodOracle() {
   };
 
   return (
-    <div className="relative w-full h-full bg-black overflow-hidden select-none">
-      
+    <div className="relative w-full h-full bg-[#0a0d38] overflow-hidden select-none">
+
       {/* ── 3D CANVAS ── */}
       <Canvas camera={{ position: [0, 0, 15], fov: 40 }} dpr={[1, 2]} gl={{ antialias: false }}>
-        <color attach="background" args={['#000']} />
+        <color attach="background" args={['#0a0d38']} />
         
         {/* Lights */}
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} intensity={2} color="#ffffff" angle={0.5} penumbra={1} castShadow />
-        <pointLight position={[-10, -10, -10]} intensity={1} color="#a01525" />
+        <pointLight position={[-10, -10, -10]} intensity={1} color="#2f38b8" />
         <Environment preset="city" />
 
         {/* Fluid Environment */}
@@ -455,25 +455,25 @@ export default function WebGLGodOracle() {
       <div className="absolute top-0 inset-x-0 z-50 p-8 flex justify-between items-start pointer-events-none">
          <div className="pointer-events-auto">
             {state !== "idle" && (
-               <button onClick={reset} className="text-[10px] tracking-[0.3em] uppercase text-white/50 hover:text-[#d4af37]">
+               <button onClick={reset} className="text-[10px] tracking-[0.3em] uppercase text-[rgba(232,233,255,0.5)] hover:text-[#e0b768] transition-colors duration-300">
                  &larr; Collapse Void
                </button>
             )}
          </div>
          <div className="text-right pointer-events-none">
-            <h2 className="font-serif text-2xl text-[#f5f0e8] opacity-80">The Oracle</h2>
-            <p className="text-[9px] tracking-[0.4em] uppercase text-[#d4af37]/60">Volumetric Engine</p>
+            <h2 className="font-serif text-2xl text-[#e8e9ff] opacity-80">The Oracle</h2>
+            <p className="text-[9px] tracking-[0.4em] uppercase text-[#e0b768]/60">Volumetric Engine</p>
          </div>
       </div>
 
       {state === "idle" && (
         <div className="absolute inset-0 flex flex-col items-center justify-center z-40 pointer-events-none">
-          <h1 className="font-serif text-6xl md:text-8xl text-white mb-8 drop-shadow-2xl font-light">
-            Draw the <span className="italic text-[#d4af37]">Threads</span>
+          <h1 className="font-serif text-6xl md:text-8xl text-[#e8e9ff] mb-8 drop-shadow-2xl font-light">
+            Draw the <span className="italic text-[#e0b768]">Threads</span>
           </h1>
-          <button 
+          <button
             onClick={() => { audio.init(); setState("drawing"); }}
-            className="pointer-events-auto px-10 py-5 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-xs tracking-[0.3em] uppercase text-white hover:bg-white/10 transition-colors"
+            className="pointer-events-auto px-6 py-3 rounded-[2px] bg-[#e0b768] text-[#15174c] text-sm font-medium hover:bg-[#edca8b] hover:-translate-y-0.5 transition-all duration-300"
           >
             Initiate WebGL
           </button>
@@ -482,9 +482,9 @@ export default function WebGLGodOracle() {
 
       {state === "spread" && (
         <div className="absolute bottom-[20%] inset-x-0 flex justify-center z-40">
-          <button 
+          <button
             onClick={reveal}
-            className="px-12 py-5 bg-[#f5f0e8] text-black text-[10px] font-bold tracking-[0.4em] uppercase rounded-full hover:scale-105 transition-transform"
+            className="px-6 py-3 bg-[#e0b768] text-[#15174c] text-sm font-medium rounded-[2px] hover:bg-[#edca8b] hover:-translate-y-0.5 transition-all duration-300"
           >
             Time Dilation Reveal
           </button>
@@ -492,15 +492,15 @@ export default function WebGLGodOracle() {
       )}
 
       {state === "result" && (
-        <div className="absolute bottom-0 inset-x-0 h-[40vh] bg-gradient-to-t from-black to-transparent z-40 flex items-end justify-center pb-16 pointer-events-none">
+        <div className="absolute bottom-0 inset-x-0 h-[40vh] bg-gradient-to-t from-[#0a0d38] to-transparent z-40 flex items-end justify-center pb-16 pointer-events-none">
            <div className="flex gap-4 md:gap-24 pointer-events-auto text-center px-4">
               {selectedCards.map((id, idx) => {
                 const card = ORACLE_DATA[id];
                 const label = idx === 0 ? "The Past" : idx === 1 ? "The Present" : "The Path";
                 return (
                   <div key={id} className="flex flex-col items-center w-[110px] md:w-[180px] opacity-0 animate-[fadeIn_2s_ease-out_1s_forwards]">
-                    <span className="text-[9px] tracking-[0.3em] uppercase text-[#d4af37] mb-3">{label}</span>
-                    <h3 className="font-serif text-xl md:text-3xl text-white mb-1">{card?.name}</h3>
+                    <span className="text-[9px] tracking-[0.3em] uppercase text-[#e0b768] mb-3">{label}</span>
+                    <h3 className="font-serif text-xl md:text-3xl text-[#e8e9ff] mb-1">{card?.name}</h3>
                   </div>
                 );
               })}

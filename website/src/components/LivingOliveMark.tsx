@@ -21,8 +21,8 @@ const ELEMENT_STYLES = {
   Fire:  { color1: "#f79a9a", color2: "#e8524a", glow: "rgba(232, 82, 74, 0.4)",  speed: "1.8s" },
   Water: { color1: "#9ac4f7", color2: "#6b8dd6", glow: "rgba(107, 141, 214, 0.4)", speed: "3.5s" },
   Air:   { color1: "#c8b4ff", color2: "#7b68ee", glow: "rgba(123, 104, 238, 0.4)", speed: "2.4s" },
-  Earth: { color1: "#9af7c4", color2: "#4ecdc4", glow: "rgba(78, 205, 196, 0.4)",  speed: "4s" },
-  None:  { color1: "#f7e39a", color2: "#d4af37", glow: "rgba(212, 175, 55, 0.3)",  speed: "3s" },
+  Earth: { color1: "#9af7c4", color2: "#8d97ff", glow: "rgba(78, 205, 196, 0.4)",  speed: "4s" },
+  None:  { color1: "#f7e39a", color2: "#e0b768", glow: "rgba(224, 183, 104, 0.3)",  speed: "3s" },
 };
 
 type ElementKey = keyof typeof ELEMENT_STYLES;

@@ -35,7 +35,7 @@ const PLANETS: PlanetOrbit[] = [
     insight: "The Moon completes its cycle every 27.3 days. That's why your mood shifts — your emotional landscape literally resets each month.",
   },
   {
-    name: "Mercury", glyph: "☿", period: 0.24, color: "#4ECDC4",
+    name: "Mercury", glyph: "☿", period: 0.24, color: "#8d97ff",
     governs: "Communication, thinking, learning",
     returnAge: [], speed: "1.4°/day",
     lifePhase: "Daily mental processing",
@@ -49,7 +49,7 @@ const PLANETS: PlanetOrbit[] = [
     insight: "Venus returns to your birth position every 7-8 months. Each Venus Return is a mini-renewal of what you value and desire.",
   },
   {
-    name: "Sun", glyph: "☉", period: 1, color: "#D4AF37",
+    name: "Sun", glyph: "☉", period: 1, color: "#e0b768",
     governs: "Identity, vitality, life purpose",
     returnAge: [1, 2, 3], speed: "0.99°/day",
     lifePhase: "Your birthday — annual self-renewal",
@@ -131,7 +131,7 @@ export default function PlanetaryJourney() {
         </div>
         <div style={{
           fontFamily: "var(--font-mono)", fontSize: "2rem", fontWeight: 700,
-          color: activeReturns.length > 0 ? "rgba(212,175,55,0.9)" : "rgba(240,236,255,0.8)",
+          color: activeReturns.length > 0 ? "rgba(224,183,104,0.9)" : "rgba(240,236,255,0.8)",
           transition: "color 0.3s ease",
         }}>
           {age}
@@ -139,12 +139,12 @@ export default function PlanetaryJourney() {
         <input
           type="range" min={0} max={90} value={age}
           onChange={e => setAge(parseInt(e.target.value))}
-          style={{ width: "80%", maxWidth: "320px", accentColor: "#D4AF37", cursor: "pointer" }}
+          style={{ width: "80%", maxWidth: "320px", accentColor: "#e0b768", cursor: "pointer" }}
         />
         {activeReturns.length > 0 && (
           <div style={{
             fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500,
-            color: "rgba(212,175,55,0.8)", marginTop: "0.25rem",
+            color: "rgba(224,183,104,0.8)", marginTop: "0.25rem",
           }}>
             {activeReturns.map(r => `${r.planet.glyph} ${r.planet.name} Return`).join(" · ")}
           </div>
@@ -158,8 +158,8 @@ export default function PlanetaryJourney() {
           style={{
             padding: "0.35rem 0.8rem", borderRadius: "100px", cursor: "pointer",
             background: showReturns ? "rgba(200,168,75,0.1)" : "rgba(232,230,240,0.03)",
-            border: `1px solid ${showReturns ? "rgba(200,168,75,0.25)" : "rgba(200,185,255,0.06)"}`,
-            color: showReturns ? "rgba(212,175,55,0.8)" : "rgba(180,170,210,0.4)",
+            border: `1px solid ${showReturns ? "rgba(200,168,75,0.25)" : "rgba(184,190,240,0.06)"}`,
+            color: showReturns ? "rgba(224,183,104,0.8)" : "rgba(180,170,210,0.4)",
             fontSize: "0.65rem", fontWeight: 500, letterSpacing: "0.04em",
             transition: "all 0.3s ease",
           }}
@@ -183,7 +183,7 @@ export default function PlanetaryJourney() {
                 display: "flex", alignItems: "center", gap: "0.5rem",
                 padding: "0.45rem 0.6rem", borderRadius: "0.5rem",
                 background: isSelected ? `${p.color}10` : hasReturn ? "rgba(200,168,75,0.04)" : "rgba(232,230,240,0.015)",
-                border: `1px solid ${isSelected ? `${p.color}30` : hasReturn ? "rgba(200,168,75,0.12)" : "rgba(200,185,255,0.04)"}`,
+                border: `1px solid ${isSelected ? `${p.color}30` : hasReturn ? "rgba(200,168,75,0.12)" : "rgba(184,190,240,0.04)"}`,
                 cursor: "pointer", textAlign: "left", width: "100%",
                 transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
@@ -224,8 +224,8 @@ export default function PlanetaryJourney() {
                     width: Math.abs(returnAge - age) <= 1 ? "10px" : "6px",
                     height: Math.abs(returnAge - age) <= 1 ? "10px" : "6px",
                     borderRadius: "50%",
-                    background: Math.abs(returnAge - age) <= 1 ? "rgba(212,175,55,0.8)" : `${p.color}30`,
-                    border: `1px solid ${Math.abs(returnAge - age) <= 1 ? "rgba(212,175,55,0.6)" : `${p.color}15`}`,
+                    background: Math.abs(returnAge - age) <= 1 ? "rgba(224,183,104,0.8)" : `${p.color}30`,
+                    border: `1px solid ${Math.abs(returnAge - age) <= 1 ? "rgba(224,183,104,0.6)" : `${p.color}15`}`,
                     transition: "all 0.3s ease",
                   }} title={`${p.name} Return at age ${returnAge}`} />
                 ))}
@@ -291,9 +291,9 @@ export default function PlanetaryJourney() {
                   <span key={a} style={{
                     padding: "0.15rem 0.5rem", borderRadius: "100px", fontSize: "0.65rem",
                     fontFamily: "var(--font-mono)",
-                    background: Math.abs(a - age) <= 1 ? "rgba(212,175,55,0.15)" : "rgba(200,168,75,0.06)",
-                    border: `1px solid ${Math.abs(a - age) <= 1 ? "rgba(212,175,55,0.3)" : "rgba(200,168,75,0.1)"}`,
-                    color: Math.abs(a - age) <= 1 ? "rgba(212,175,55,0.9)" : "rgba(200,168,75,0.5)",
+                    background: Math.abs(a - age) <= 1 ? "rgba(224,183,104,0.15)" : "rgba(200,168,75,0.06)",
+                    border: `1px solid ${Math.abs(a - age) <= 1 ? "rgba(224,183,104,0.3)" : "rgba(200,168,75,0.1)"}`,
+                    color: Math.abs(a - age) <= 1 ? "rgba(224,183,104,0.9)" : "rgba(200,168,75,0.5)",
                     fontWeight: Math.abs(a - age) <= 1 ? 600 : 400,
                   }}>{a}</span>
                 ))}

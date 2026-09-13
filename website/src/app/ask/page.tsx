@@ -3,16 +3,16 @@
  *
  * Chat-style UI where users ask cosmic questions.
  * Currently uses pre-written responses (Claude API integration when backend is ready).
- * Glass morphism chat bubbles, typewriter response animation.
+ * Set in the Personal Almanac print register: paper correspondence — the
+ * reader's notes on the right, Olivia's letters on the left.
  */
 
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import Link from "next/link";
+import AlmanacShell from "@/components/almanac/AlmanacShell";
+import { useLocale } from "@/lib/i18n/useLocale";
 import { loadUser, type StoredUser } from "../../lib/user-store";
-
-const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 interface Message {
   role: "user" | "oracle";
@@ -68,19 +68,21 @@ function TypingText({ text, onDone }: { text: string; onDone: () => void }) {
     <span>
       {displayed}
       {!done && (
-        <span style={{
+        <span className="ask-caret" style={{
           display: "inline-block", width: "1px", height: "0.85em",
-          background: "rgba(212,175,55,0.5)", marginLeft: "1px",
+          background: "var(--ox, #e0b768)", marginLeft: "1px",
           animation: "cursorBlink 0.8s step-end infinite",
           verticalAlign: "text-bottom",
         }} />
       )}
-      <style>{`@keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
+      <style>{`@keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} } @media (prefers-reduced-motion: reduce) { .ask-caret { animation: none !important; } }`}</style>
     </span>
   );
 }
 
 export default function AskPage() {
+  const { locale } = useLocale();
+  const isUk = locale === "uk";
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [waiting, setWaiting] = useState(false);
@@ -126,186 +128,219 @@ export default function AskPage() {
   ];
 
   return (
-    <div style={{
-      minHeight: "100svh",
-      display: "flex",
-      flexDirection: "column",
-      position: "relative",
-      zIndex: 1,
-      maxWidth: "640px",
-      margin: "0 auto",
-      padding: "0 1.5rem",
-    }}>
-      {/* Header */}
-      <div style={{
-        padding: "1.5rem 0",
-        textAlign: "center",
-        borderBottom: "1px solid rgba(200,185,255,0.06)",
-      }}>
-        <Link href="/" style={{
-          fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 400,
-          letterSpacing: "0.15em", textTransform: "uppercase",
-          color: "rgba(180,170,210,0.4)", textDecoration: "none",
-        }}>← Home</Link>
-        <h1 style={{
-          fontFamily: "var(--font-heading)", fontSize: "1.5rem",
-          fontWeight: 400, marginTop: "0.75rem",
-        }}>
-          <span className="text-gold-gradient">Ask the Stars</span>
-        </h1>
-        <p style={{
-          fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 300,
-          color: "rgba(196,185,228,0.5)", marginTop: "0.3rem",
-        }}>{user ? `Answering as a ${user.sunSign} Sun, ${user.moonSign} Moon` : "Ask any question — receive cosmic guidance"}</p>
-      </div>
+    <AlmanacShell narrow>
+      <div className="ask">
+        {/* Header */}
+        <header className="ask-head">
+          <p className="alm-kicker">{isUk ? "ЛИСТИ ВІД ДРУКАРНІ" : "LETTERS FROM THE PRESS"}</p>
+          <h1 className="alm-h1">Ask the Stars</h1>
+          <p className="ask-sub alm-caption">
+            {user ? `Answering as a ${user.sunSign} Sun, ${user.moonSign} Moon` : "Ask any question — receive cosmic guidance"}
+          </p>
+        </header>
 
-      {/* Chat area */}
-      <div
-        ref={chatRef}
-        style={{
-          flex: 1,
-          overflowY: "auto",
-          padding: "1.5rem 0",
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
-          minHeight: "50vh",
-        }}
-      >
-        {messages.length === 0 && (
-          <div style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "1.5rem",
-            padding: "3rem 0",
-          }}>
-            <div style={{ fontSize: "2.5rem", opacity: 0.3 }}>✦</div>
-            <p style={{
-              fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 300,
-              color: "rgba(180,170,210,0.4)", textAlign: "center",
-              maxWidth: "300px",
-            }}>
-              The cosmos awaits your question. Ask about love, career, purpose, or anything on your heart.
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-              {suggestions.map(s => (
-                <button
-                  key={s}
-                  onClick={() => { setInput(s); inputRef.current?.focus(); }}
-                  style={{
-                    padding: "0.55rem 1.2rem",
-                    borderRadius: "100px",
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(200,185,255,0.08)",
-                    color: "rgba(200,190,235,0.6)",
-                    fontFamily: "var(--font-body)",
-                    fontSize: "0.75rem",
-                    cursor: "pointer",
-                    transition: `all 200ms ${EASE}`,
-                    textAlign: "left",
-                  }}
-                >{s}</button>
-              ))}
+        {/* Chat area */}
+        <div ref={chatRef} className="ask-chat">
+          {messages.length === 0 && (
+            <div className="ask-empty">
+              <div className="ask-empty-mark" aria-hidden>✦</div>
+              <p className="ask-empty-copy">
+                The cosmos awaits your question. Ask about love, career, purpose, or anything on your heart.
+              </p>
+              <div className="ask-suggestions">
+                {suggestions.map(s => (
+                  <button
+                    key={s}
+                    className="ask-suggestion"
+                    onClick={() => { setInput(s); inputRef.current?.focus(); }}
+                  >{s}</button>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {messages.map((msg, i) => (
-          <div
-            key={i}
-            style={{
-              alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
-              maxWidth: "85%",
-              padding: "0.85rem 1.2rem",
-              borderRadius: msg.role === "user" ? "1rem 1rem 0.25rem 1rem" : "1rem 1rem 1rem 0.25rem",
-              background: msg.role === "user"
-                ? "linear-gradient(135deg, rgba(160,120,255,0.15), rgba(100,80,220,0.1))"
-                : "rgba(255,255,255,0.03)",
-              border: `1px solid ${msg.role === "user" ? "rgba(200,180,255,0.15)" : "rgba(200,185,255,0.06)"}`,
-              backdropFilter: "blur(4px)",
-              WebkitBackdropFilter: "blur(4px)",
-            }}
-          >
-            {msg.role === "oracle" && (
-              <div style={{
-                fontFamily: "var(--font-body)", fontSize: "0.55rem", fontWeight: 500,
-                letterSpacing: "0.2em", textTransform: "uppercase",
-                color: "rgba(212,175,55,0.45)", marginBottom: "0.4rem",
-              }}>Olivia</div>
-            )}
-            <p style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "0.82rem",
-              fontWeight: 300,
-              lineHeight: 1.7,
-              color: msg.role === "user" ? "rgba(240,236,255,0.9)" : "rgba(196,185,228,0.78)",
-              margin: 0,
-              fontStyle: msg.role === "oracle" ? "italic" : "normal",
-            }}>
-              {msg.typing ? (
-                <TypingText text={msg.text} onDone={handleTypingDone} />
-              ) : (
-                msg.text
-              )}
-            </p>
-          </div>
-        ))}
+          {messages.map((msg, i) => (
+            <div key={i} className={`msg ${msg.role === "user" ? "msg-user" : "msg-oracle"}`}>
+              {msg.role === "oracle" && <div className="msg-label">Olivia</div>}
+              <p className="msg-text">
+                {msg.typing ? (
+                  <TypingText text={msg.text} onDone={handleTypingDone} />
+                ) : (
+                  msg.text
+                )}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Input */}
+        <div className="ask-input-row">
+          <input
+            ref={inputRef}
+            type="text"
+            className="alm-input"
+            placeholder={waiting ? "The stars are speaking..." : "Ask the cosmos anything..."}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => { if (e.key === "Enter") send(); }}
+            disabled={waiting}
+          />
+          <button
+            className="alm-btn"
+            onClick={send}
+            disabled={waiting || !input.trim()}
+          >Ask</button>
+        </div>
       </div>
 
-      {/* Input */}
-      <div style={{
-        padding: "1rem 0 2rem",
-        display: "flex",
-        gap: "0.6rem",
-        borderTop: "1px solid rgba(200,185,255,0.06)",
-      }}>
-        <input
-          ref={inputRef}
-          type="text"
-          placeholder={waiting ? "The stars are speaking..." : "Ask the cosmos anything..."}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => { if (e.key === "Enter") send(); }}
-          disabled={waiting}
-          style={{
-            flex: 1,
-            padding: "0.75rem 1.2rem",
-            fontFamily: "var(--font-body)",
-            fontSize: "0.85rem",
-            fontWeight: 300,
-            color: "rgba(240,236,255,0.9)",
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(200,185,255,0.1)",
-            borderRadius: "9999px",
-            backdropFilter: "blur(4px)",
-            WebkitBackdropFilter: "blur(4px)",
-            outline: "none",
-            transition: "border-color 0.3s",
-            opacity: waiting ? 0.5 : 1,
-          }}
-          onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(200,185,255,0.25)"; }}
-          onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(200,185,255,0.1)"; }}
-        />
-        <button
-          onClick={send}
-          disabled={waiting || !input.trim()}
-          style={{
-            padding: "0.75rem 1.5rem",
-            borderRadius: "100px",
-            background: "linear-gradient(135deg, rgba(160,120,255,0.2), rgba(100,80,220,0.15))",
-            border: "1px solid rgba(200,180,255,0.2)",
-            color: "rgba(240,235,255,0.9)",
-            fontSize: "0.8rem",
-            fontWeight: 500,
-            cursor: waiting || !input.trim() ? "not-allowed" : "pointer",
-            opacity: waiting || !input.trim() ? 0.3 : 1,
-            transition: `all 200ms ${EASE}`,
-          }}
-        >Ask</button>
-      </div>
-    </div>
+      <style jsx>{`
+        .ask {
+          display: flex;
+          flex-direction: column;
+          min-height: 68svh;
+        }
+
+        .ask-head {
+          text-align: center;
+          padding-bottom: 1.4rem;
+          border-bottom: 1px solid var(--hairline);
+        }
+
+        .ask-head :global(.alm-h1) {
+          font-size: clamp(1.9rem, 4vw, 2.6rem);
+        }
+
+        .ask-sub {
+          margin: 0.7rem 0 0;
+        }
+
+        .ask-chat {
+          flex: 1;
+          overflow-y: auto;
+          padding: 1.5rem 0;
+          display: flex;
+          flex-direction: column;
+          gap: 1.1rem;
+          min-height: 50vh;
+        }
+
+        .ask-empty {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 1.5rem;
+          padding: 3rem 0;
+        }
+
+        .ask-empty-mark {
+          color: var(--ox);
+          font-size: 1.6rem;
+          opacity: 0.7;
+        }
+
+        .ask-empty-copy {
+          margin: 0;
+          max-width: 34ch;
+          text-align: center;
+          color: var(--ink-soft);
+          font-size: 0.92rem;
+          line-height: 1.65;
+        }
+
+        .ask-suggestions {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .ask-suggestion {
+          padding: 0.55rem 1.2rem;
+          border-radius: 999px;
+          background: rgba(250, 246, 236, 0.6);
+          border: 1px solid var(--hairline);
+          color: var(--ink-soft);
+          font-family: var(--font-body, system-ui), sans-serif;
+          font-size: 0.78rem;
+          cursor: pointer;
+          text-align: left;
+          transition: border-color 200ms var(--ease), color 200ms var(--ease);
+        }
+
+        .ask-suggestion:hover {
+          border-color: var(--ox);
+          color: var(--ox);
+        }
+
+        .msg {
+          max-width: 85%;
+          padding: 0.85rem 1.2rem;
+        }
+
+        .msg-user {
+          align-self: flex-end;
+          background: var(--ink);
+          color: #f6f1e5;
+          border-radius: 0.9rem 0.9rem 0.2rem 0.9rem;
+        }
+
+        .msg-oracle {
+          align-self: flex-start;
+          background: #0f1240;
+          border: 1px solid var(--hairline);
+          border-radius: 0.2rem;
+          box-shadow: 0 0.5rem 1.2rem rgba(4, 6, 32, 0.06);
+        }
+
+        .msg-label {
+          margin-bottom: 0.4rem;
+          color: var(--ox);
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.55rem;
+          font-weight: 600;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+        }
+
+        .msg-text {
+          margin: 0;
+          font-size: 0.88rem;
+          line-height: 1.7;
+        }
+
+        .msg-user .msg-text {
+          font-family: var(--font-body, system-ui), sans-serif;
+        }
+
+        .msg-oracle .msg-text {
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-size: 1.02rem;
+          font-style: italic;
+          color: var(--ink);
+        }
+
+        .ask-input-row {
+          display: flex;
+          gap: 0.6rem;
+          padding: 1rem 0 0.5rem;
+          border-top: 1px solid var(--hairline);
+        }
+
+        .ask-input-row :global(.alm-input) {
+          border-radius: 999px;
+        }
+
+        .ask-input-row :global(.alm-input:disabled) {
+          opacity: 0.5;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .ask-suggestion {
+            transition: none;
+          }
+        }
+      `}</style>
+    </AlmanacShell>
   );
 }

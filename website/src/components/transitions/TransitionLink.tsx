@@ -2,6 +2,7 @@
 
 import React, { useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { portFor, flyTo } from "@/components/sky/voyage";
 
 interface TransitionLinkProps {
   href: string;
@@ -42,12 +43,25 @@ export default function TransitionLink({
       const isExternal = href.startsWith("http") || href.startsWith("//");
       const isModified = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
       const isAnchor = href.startsWith("#");
-      const isSamePage = href === window.location.pathname;
+      // trailingSlash: true in next.config — '/oracle' vs '/oracle/' must
+      // still count as the same page, or the sheet wipes over nothing.
+      const norm = (u: string) => (u.length > 1 ? u.replace(/\/+$/, "") : u);
+      const isSamePage = norm(href) === norm(window.location.pathname);
 
       if (isExternal || isModified || isAnchor || isSamePage) return;
 
       e.preventDefault();
       onClick?.();
+
+      // CARTA COELI — if the destination berths at a different
+      // constellation, start the sky flight now so it is already under
+      // way beneath the page-turn. Concurrent: adds no delay, and the
+      // canvas itself honors prefers-reduced-motion (instant jump).
+      const fromPort = portFor(norm(window.location.pathname));
+      const toPort = portFor(norm(href));
+      if (toPort && fromPort !== toPort) {
+        flyTo(norm(href));
+      }
 
       // Dispatch transition event — PageTransition will handle the rest
       window.dispatchEvent(

@@ -1,184 +1,63 @@
 "use client";
 
+/**
+ * Academy — "The Curriculum."
+ *
+ * Personal-Almanac print register: the course catalog set as a numbered
+ * syllabus. Roman-numeral course rows under hairlines, one oxblood
+ * accent, mono small-caps labels. No glass, no glow.
+ */
+
 import Link from "next/link";
 import { getCoursesByTrack, type Course } from "../../lib/academy/courses";
 import { translateCourses } from "../../lib/academy/translate-courses";
 import { useLocale } from "@/lib/i18n/useLocale";
-import Surface, { Eyebrow, Rule } from "@/components/design/Surface";
+import AlmanacShell from "@/components/almanac/AlmanacShell";
 
-const LEVEL_COLORS: Record<string, string> = {
-  beginner: "rgba(78,205,196,0.55)",
-  intermediate: "rgba(232,201,106,0.65)",
-  advanced: "rgba(232,82,74,0.55)",
-  capstone: "rgba(178,150,240,0.6)",
-};
+const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI"];
+const roman = (n: number) => ROMAN[n - 1] ?? String(n);
 
-// ── Course card — supports "featured" size variant ──────────────────────
-function CourseCard({
+// ── Course row — a catalog entry under a hairline ──────────────────────
+function CourseRow({
   course,
   levelLabel,
   lessonsLabel,
-  featured,
   startHere,
 }: {
   course: Course;
   levelLabel: string;
   lessonsLabel: string;
-  featured?: boolean;
   startHere?: string;
 }) {
   return (
-    <Surface
-      as={Link}
-      href={`/academy/${course.slug}`}
-      variant={featured ? "solid" : "solid"}
-      raised={featured}
-      radius="lg"
-      pad="none"
-      className="academy-course-card"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: featured ? "1rem" : "0.6rem",
-        padding: featured ? "1.75rem 1.75rem 1.5rem" : "1.25rem 1.35rem",
-        textDecoration: "none",
-        transition: "border-color 260ms ease, transform 260ms cubic-bezier(0.16,1,0.3,1)",
-        gridColumn: featured ? "span 2" : "span 1",
-        minHeight: featured ? "240px" : "auto",
-        borderColor: featured ? "rgba(232, 201, 106, 0.25)" : undefined,
-      }}
-    >
-      {startHere && (
-        <span
-          style={{
-            position: "absolute",
-            top: "-10px",
-            left: "1.25rem",
-            padding: "0.25rem 0.7rem",
-            background: "#E8C96A",
-            color: "#06041a",
-            fontFamily: "var(--font-body, system-ui), sans-serif",
-            fontSize: "0.62rem",
-            fontWeight: 700,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            borderRadius: "9999px",
-            boxShadow: "0 8px 18px rgba(0,0,0,0.35)",
-          }}
-        >
-          {startHere}
+    <Link href={`/academy/${course.slug}`} className="course-row">
+      <span className="course-no" aria-hidden>
+        {roman(course.number)}
+      </span>
+      <span className="course-glyph" aria-hidden>
+        {course.icon}
+      </span>
+      <span className="course-main">
+        <span className="course-titleline">
+          <span className="course-title">{course.title}</span>
+          {startHere && <span className="course-start">{startHere}</span>}
         </span>
-      )}
-
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-        <span
-          style={{
-            fontSize: featured ? "2.4rem" : "1.6rem",
-            lineHeight: 1,
-            filter: `drop-shadow(0 0 12px ${course.color}30)`,
-          }}
-          aria-hidden
-        >
-          {course.icon}
+        <span className="course-sub">{course.subtitle}</span>
+        <span className="course-desc">{course.description}</span>
+      </span>
+      <span className="course-meta">
+        <span className="course-level">{levelLabel}</span>
+        <span className="course-count">
+          {course.lessons.length} {lessonsLabel} · {course.duration}
         </span>
-        <span
-          style={{
-            padding: "0.2rem 0.6rem",
-            borderRadius: "100px",
-            background: "transparent",
-            border: `1px solid ${LEVEL_COLORS[course.level]}`,
-            fontFamily: "var(--font-body, system-ui), sans-serif",
-            fontSize: "0.55rem",
-            fontWeight: 600,
-            letterSpacing: "0.16em",
-            textTransform: "uppercase",
-            color: LEVEL_COLORS[course.level].replace("0.5", "0.9").replace("0.55", "0.95").replace("0.6", "0.95").replace("0.65", "0.95"),
-          }}
-        >
-          {levelLabel}
-        </span>
-      </div>
-
-      <div>
-        <div
-          style={{
-            fontFamily: "var(--font-body, system-ui), sans-serif",
-            fontSize: "0.58rem",
-            fontWeight: 500,
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "rgba(180,170,210,0.42)",
-            marginBottom: "0.35rem",
-          }}
-        >
-          Course {course.number}
-        </div>
-        <h3
-          style={{
-            fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-            fontStyle: "italic",
-            fontSize: featured ? "1.9rem" : "1.2rem",
-            fontWeight: 400,
-            lineHeight: 1.15,
-            color: "#F5F0E8",
-            margin: "0 0 0.2rem",
-            letterSpacing: "-0.005em",
-          }}
-        >
-          {course.title}
-        </h3>
-        <div
-          style={{
-            fontFamily: "var(--font-body, system-ui), sans-serif",
-            fontSize: "0.78rem",
-            fontWeight: 400,
-            color: "rgba(232, 201, 106, 0.75)",
-            letterSpacing: "0.02em",
-          }}
-        >
-          {course.subtitle}
-        </div>
-      </div>
-
-      <p
-        style={{
-          fontFamily: "var(--font-body, system-ui), sans-serif",
-          fontSize: featured ? "0.95rem" : "0.82rem",
-          fontWeight: 400,
-          lineHeight: 1.6,
-          color: "rgba(220, 212, 240, 0.72)",
-          margin: 0,
-          display: "-webkit-box",
-          WebkitLineClamp: featured ? 4 : 3,
-          WebkitBoxOrient: "vertical" as const,
-          overflow: "hidden",
-        }}
-      >
-        {course.description}
-      </p>
-
-      <div
-        style={{
-          display: "flex",
-          gap: "1.25rem",
-          marginTop: "auto",
-          paddingTop: "0.9rem",
-          borderTop: "1px solid rgba(200,185,255,0.08)",
-        }}
-      >
-        <span style={{ fontFamily: "var(--font-body, system-ui), sans-serif", fontSize: "0.68rem", color: "rgba(180,170,210,0.5)" }}>
-          {course.lessons.length} {lessonsLabel}
-        </span>
-        <span style={{ fontFamily: "var(--font-body, system-ui), sans-serif", fontSize: "0.68rem", color: "rgba(180,170,210,0.5)" }}>
-          {course.duration}
-        </span>
-      </div>
-    </Surface>
+      </span>
+    </Link>
   );
 }
 
-// ── Track section — first course is featured for "astrology" ──────────
+// ── Track section ──────────────────────────────────────────────────────
 function TrackSection({
+  numeral,
   title,
   description,
   track,
@@ -188,6 +67,7 @@ function TrackSection({
   featureFirst,
   startHereLabel,
 }: {
+  numeral: string;
   title: string;
   description: string;
   track: string;
@@ -199,201 +79,24 @@ function TrackSection({
 }) {
   const courses = translateCourses(getCoursesByTrack(track as "astrology" | "tarot" | "integrated"), locale);
   return (
-    <section style={{ marginBottom: "clamp(2.5rem, 5vw, 4rem)" }}>
-      <div style={{ display: "flex", alignItems: "baseline", gap: "1rem", marginBottom: "0.4rem" }}>
-        <h2
-          style={{
-            fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-            fontStyle: "italic",
-            fontSize: "clamp(1.5rem, 3vw, 2.1rem)",
-            fontWeight: 400,
-            color: "#F5F0E8",
-            margin: 0,
-            letterSpacing: "-0.01em",
-          }}
-        >
-          {title}
-        </h2>
-        <span
-          style={{
-            flex: 1,
-            height: "1px",
-            background: "linear-gradient(90deg, rgba(232,201,106,0.25), transparent)",
-          }}
-          aria-hidden
-        />
+    <section className="track">
+      <div className="track-head">
+        <p className="alm-caption">{numeral}</p>
+        <h2 className="alm-h2 track-title">{title}</h2>
       </div>
-      <p
-        style={{
-          fontFamily: "var(--font-body, system-ui), sans-serif",
-          fontSize: "0.9rem",
-          fontWeight: 400,
-          color: "rgba(196,185,228,0.65)",
-          margin: "0 0 1.5rem",
-          maxWidth: "620px",
-        }}
-      >
-        {description}
-      </p>
-      <div
-        className="academy-track-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: featureFirst ? "repeat(4, 1fr)" : "repeat(auto-fill, minmax(min(280px, 100%), 1fr))",
-          gap: "1rem",
-        }}
-      >
+      <p className="track-desc">{description}</p>
+      <div className="track-list">
         {courses.map((c, i) => (
-          <CourseCard
+          <CourseRow
             key={c.slug}
             course={c}
             levelLabel={levelLabels[c.level] || c.level}
             lessonsLabel={lessonsLabel}
-            featured={featureFirst && i === 0}
             startHere={featureFirst && i === 0 ? startHereLabel : undefined}
           />
         ))}
       </div>
     </section>
-  );
-}
-
-// ── Quick tool tile — varied sizes (1 featured + 3 utility) ────────────
-function FeaturedTool({ href, title, description, kicker }: { href: string; title: string; description: string; kicker: string }) {
-  return (
-    <Surface
-      as={Link}
-      href={href}
-      variant="solid"
-      raised
-      radius="lg"
-      pad="none"
-      className="academy-featured-tool"
-      style={{
-        gridColumn: "span 2",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        gap: "1rem",
-        padding: "1.75rem 1.75rem 1.5rem",
-        minHeight: "180px",
-        background: "linear-gradient(160deg, rgba(232,201,106,0.1) 0%, rgba(20,14,44,0.4) 55%, rgba(8,6,20,0.5))",
-        borderColor: "rgba(232, 201, 106, 0.3)",
-        textDecoration: "none",
-        transition: "border-color 260ms ease",
-        overflow: "hidden",
-      }}
-    >
-      <span
-        aria-hidden
-        style={{
-          position: "absolute",
-          right: "-20px",
-          top: "-20px",
-          width: "140px",
-          height: "140px",
-          borderRadius: "100%",
-          background: "radial-gradient(circle, rgba(232,201,106,0.18), transparent 70%)",
-          filter: "blur(10px)",
-          pointerEvents: "none",
-        }}
-      />
-      <Eyebrow tone="gold">{kicker}</Eyebrow>
-      <div>
-        <h3
-          style={{
-            fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-            fontStyle: "italic",
-            fontSize: "clamp(1.7rem, 2.6vw, 2.2rem)",
-            fontWeight: 400,
-            color: "#F5F0E8",
-            margin: "0 0 0.35rem",
-          }}
-        >
-          {title}
-        </h3>
-        <p
-          style={{
-            fontFamily: "var(--font-body, system-ui), sans-serif",
-            fontSize: "0.92rem",
-            lineHeight: 1.55,
-            color: "rgba(220, 212, 240, 0.78)",
-            margin: 0,
-            maxWidth: "42ch",
-          }}
-        >
-          {description}
-        </p>
-      </div>
-      <span
-        style={{
-          fontFamily: "var(--font-body, system-ui), sans-serif",
-          fontSize: "0.78rem",
-          fontWeight: 500,
-          color: "rgba(232, 201, 106, 0.95)",
-          letterSpacing: "0.08em",
-        }}
-      >
-        Draw today&apos;s card →
-      </span>
-    </Surface>
-  );
-}
-
-function UtilityTool({ href, icon, title, desc }: { href: string; icon: string; title: string; desc: string }) {
-  return (
-    <Surface
-      as={Link}
-      href={href}
-      variant="solid"
-      radius="md"
-      pad="none"
-      style={{
-        display: "flex",
-        alignItems: "flex-start",
-        gap: "0.75rem",
-        padding: "1rem 1.1rem",
-        textDecoration: "none",
-        transition: "border-color 240ms ease, background 240ms ease",
-        minHeight: "90px",
-      }}
-    >
-      <span
-        aria-hidden
-        style={{
-          fontSize: "1.35rem",
-          color: "rgba(232, 201, 106, 0.78)",
-          lineHeight: 1.1,
-          marginTop: "0.15rem",
-        }}
-      >
-        {icon}
-      </span>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div
-          style={{
-            fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-            fontStyle: "italic",
-            fontSize: "1rem",
-            fontWeight: 500,
-            color: "#F5F0E8",
-            marginBottom: "0.15rem",
-          }}
-        >
-          {title}
-        </div>
-        <div
-          style={{
-            fontFamily: "var(--font-body, system-ui), sans-serif",
-            fontSize: "0.74rem",
-            lineHeight: 1.5,
-            color: "rgba(196,185,228,0.6)",
-          }}
-        >
-          {desc}
-        </div>
-      </div>
-    </Surface>
   );
 }
 
@@ -410,141 +113,445 @@ export function AcademyPageContent() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        position: "relative",
-        zIndex: 1,
-        maxWidth: "1100px",
-        margin: "0 auto",
-        padding: "calc(var(--nav-height, 5rem) + 2.5rem) clamp(1.25rem, 4vw, 3rem) 5rem",
-      }}
-    >
-      {/* ── Editorial masthead ── */}
-      <header style={{ marginBottom: "clamp(2.5rem, 5vw, 4rem)" }}>
-        <Link
-          href="/"
-          style={{
-            fontFamily: "var(--font-body, system-ui), sans-serif",
-            fontSize: "0.68rem",
-            fontWeight: 500,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "rgba(180,170,210,0.55)",
-            textDecoration: "none",
-            minHeight: "44px",
-            display: "inline-flex",
-            alignItems: "center",
-          }}
-        >
-          ← {t("academy_home_link")}
-        </Link>
+    <AlmanacShell>
+      <div className="acad">
+        {/* ── Header ── */}
+        <header className="acad-head">
+          <Link href="/" className="acad-back">
+            ← {t("academy_home_link")}
+          </Link>
+          <p className="alm-kicker acad-room">
+            {locale === "uk"
+              ? "ЧИТАЛЬНА ЗАЛА — друкарня також навчає, як справжні альманахи"
+              : "THE READING ROOM — the press also teaches, as real almanacs did"}
+          </p>
+          <p className="alm-kicker">
+            <span aria-hidden>✦</span>
+            {t("academy_subtitle")}
+          </p>
+          <h1 className="alm-h1">{t("academy_title")}</h1>
+          <p className="alm-lead acad-lead">
+            Learn astrology and tarot at your own pace. Begin with <em className="acad-em">The Cosmic Alphabet</em> or draw
+            today&apos;s card.
+          </p>
+        </header>
 
-        <Eyebrow tone="gold" style={{ marginTop: "1.5rem" }}>
-          ✦ {t("academy_subtitle")}
-        </Eyebrow>
-        <h1
-          style={{
-            fontFamily: "var(--font-heading, 'Cormorant Garamond'), serif",
-            fontStyle: "italic",
-            fontSize: "clamp(2.4rem, 5.5vw, 4.2rem)",
-            fontWeight: 400,
-            lineHeight: 1.05,
-            color: "#F5F0E8",
-            margin: "0.75rem 0 1rem",
-            letterSpacing: "-0.015em",
-          }}
-        >
-          {t("academy_title")}
-        </h1>
-        <p
-          style={{
-            fontFamily: "var(--font-body, system-ui), sans-serif",
-            fontSize: "clamp(1rem, 1.4vw, 1.1rem)",
-            lineHeight: 1.65,
-            color: "rgba(220, 212, 240, 0.78)",
-            margin: 0,
-            maxWidth: "58ch",
-          }}
-        >
-          Learn astrology and tarot at your own pace. Begin with{" "}
-          <em style={{ fontStyle: "italic", color: "rgba(232, 201, 106, 0.95)" }}>The Cosmic Alphabet</em>
-          {" "}or draw today&apos;s card.
-        </p>
-      </header>
+        {/* ── Instruments: 1 featured ritual + 3 references ── */}
+        <section className="tools" aria-label={t("academy_card_of_day")}>
+          <Link href="/academy/card-of-the-day" className="tool-featured alm-card">
+            <span className="alm-kicker tool-kicker">Ritual of the day</span>
+            <span className="tool-featured-title">{t("academy_card_of_day")}</span>
+            <span className="tool-featured-desc">{t("academy_card_of_day_desc")}</span>
+            <span className="tool-featured-cta">Draw today&apos;s card →</span>
+          </Link>
+          <div className="tool-stack">
+            {[
+              { href: "/academy/tarot-encyclopedia", icon: "◇", title: t("academy_tarot_encyclopedia"), desc: t("academy_tarot_encyclopedia_desc") },
+              { href: "/academy/aspect-guide", icon: "△", title: t("academy_aspect_guide"), desc: t("academy_aspect_guide_desc") },
+              { href: "/cosmos", icon: "☉", title: t("academy_live_cosmos"), desc: t("academy_live_cosmos_desc") },
+            ].map((tool) => (
+              <Link key={tool.href} href={tool.href} className="tool-row">
+                <span className="tool-icon" aria-hidden>
+                  {tool.icon}
+                </span>
+                <span className="tool-body">
+                  <span className="tool-title">{tool.title}</span>
+                  <span className="tool-desc">{tool.desc}</span>
+                </span>
+                <span className="tool-arrow" aria-hidden>
+                  →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
 
-      {/* ── Tools row: 1 featured + 3 utility ── */}
-      <section
-        className="academy-tools-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: "0.9rem",
-          marginBottom: "clamp(3rem, 6vw, 4.5rem)",
-        }}
-      >
-        <FeaturedTool
-          href="/academy/card-of-the-day"
-          kicker="Ritual of the day"
-          title={t("academy_card_of_day")}
-          description={t("academy_card_of_day_desc")}
-        />
-        <div className="academy-tools-stack" style={{ display: "flex", flexDirection: "column", gap: "0.7rem", gridColumn: "span 2" }}>
-          <UtilityTool href="/academy/tarot-encyclopedia" icon="◇" title={t("academy_tarot_encyclopedia")} desc={t("academy_tarot_encyclopedia_desc")} />
-          <UtilityTool href="/academy/aspect-guide" icon="△" title={t("academy_aspect_guide")} desc={t("academy_aspect_guide_desc")} />
-          <UtilityTool href="/cosmos" icon="☉" title={t("academy_live_cosmos")} desc={t("academy_live_cosmos_desc")} />
+        <div className="rule-star" aria-hidden>
+          <span>✦</span>
         </div>
-      </section>
 
-      <Rule tone="gold" style={{ margin: "clamp(1.5rem, 3vw, 2.5rem) 0" }} />
+        {/* ── Track sections ── */}
+        <TrackSection
+          numeral={locale === "uk" ? "Полиця I · Track I" : "Shelf I · Track I"}
+          title={t("academy_track_astrology")}
+          description={t("academy_track_astrology_desc")}
+          track="astrology"
+          levelLabels={levelLabels}
+          lessonsLabel={t("academy_lessons").toLowerCase()}
+          locale={locale}
+          featureFirst
+          startHereLabel="Start Here"
+        />
 
-      {/* ── Track sections ── */}
-      <TrackSection
-        title={t("academy_track_astrology")}
-        description={t("academy_track_astrology_desc")}
-        track="astrology"
-        levelLabels={levelLabels}
-        lessonsLabel={t("academy_lessons").toLowerCase()}
-        locale={locale}
-        featureFirst
-        startHereLabel="Start Here"
-      />
+        <TrackSection
+          numeral={locale === "uk" ? "Полиця II · Track II" : "Shelf II · Track II"}
+          title={t("academy_track_tarot")}
+          description={t("academy_track_tarot_desc")}
+          track="tarot"
+          levelLabels={levelLabels}
+          lessonsLabel={t("academy_lessons").toLowerCase()}
+          locale={locale}
+        />
 
-      <TrackSection
-        title={t("academy_track_tarot")}
-        description={t("academy_track_tarot_desc")}
-        track="tarot"
-        levelLabels={levelLabels}
-        lessonsLabel={t("academy_lessons").toLowerCase()}
-        locale={locale}
-      />
-
-      <TrackSection
-        title={t("academy_track_integrated")}
-        description={t("academy_track_integrated_desc")}
-        track="integrated"
-        levelLabels={levelLabels}
-        lessonsLabel={t("academy_lessons").toLowerCase()}
-        locale={locale}
-      />
+        <TrackSection
+          numeral={locale === "uk" ? "Полиця III · Track III" : "Shelf III · Track III"}
+          title={t("academy_track_integrated")}
+          description={t("academy_track_integrated_desc")}
+          track="integrated"
+          levelLabels={levelLabels}
+          lessonsLabel={t("academy_lessons").toLowerCase()}
+          locale={locale}
+        />
+      </div>
 
       <style jsx>{`
-        .academy-course-card:hover {
-          border-color: rgba(232, 201, 106, 0.45);
-          transform: translateY(-2px);
+        .acad {
+          width: min(100%, 68rem);
+          margin: 0 auto;
         }
-        @media (max-width: 900px) {
-          .academy-tools-grid,
-          .academy-track-grid {
-            grid-template-columns: 1fr !important;
+
+        .acad-head {
+          margin-bottom: clamp(2.2rem, 5vw, 3.6rem);
+        }
+
+        .acad :global(.acad-back) {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+          margin-bottom: 0.9rem;
+          color: var(--ink-faint);
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.64rem;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          text-decoration: none;
+          transition: color 200ms var(--ease);
+        }
+
+        .acad :global(.acad-back:hover) {
+          color: var(--ox);
+        }
+
+        .acad :global(.acad-room) {
+          margin-bottom: 0.4rem;
+          color: var(--ink-faint);
+        }
+
+        .acad-lead {
+          margin: 1.1rem 0 0;
+          max-width: 58ch;
+        }
+
+        .acad-em {
+          font-style: italic;
+          color: var(--ox);
+        }
+
+        /* ── Instruments ─────────────────────────────────────── */
+        .tools {
+          display: grid;
+          grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+          gap: clamp(1.2rem, 3vw, 2.2rem);
+          align-items: stretch;
+          margin-bottom: clamp(2.2rem, 5vw, 3.6rem);
+        }
+
+        .acad :global(.tool-featured) {
+          display: flex;
+          flex-direction: column;
+          gap: 0.55rem;
+          text-decoration: none;
+          color: var(--ink);
+          transition: border-color 250ms var(--ease);
+        }
+
+        .acad :global(.tool-featured:hover) {
+          border-color: rgba(224, 183, 104, 0.45);
+        }
+
+        .acad :global(.tool-kicker) {
+          margin: 0;
+        }
+
+        .acad :global(.tool-featured-title) {
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-size: clamp(1.7rem, 3vw, 2.3rem);
+          font-weight: 500;
+          line-height: 1.1;
+        }
+
+        .acad :global(.tool-featured-desc) {
+          color: var(--ink-soft);
+          font-size: 0.92rem;
+          line-height: 1.6;
+          max-width: 44ch;
+        }
+
+        .acad :global(.tool-featured-cta) {
+          margin-top: auto;
+          padding-top: 0.9rem;
+          color: var(--ox);
+          font-size: 0.78rem;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+        }
+
+        .tool-stack {
+          display: flex;
+          flex-direction: column;
+          border-top: 1px solid var(--hairline);
+        }
+
+        .acad :global(.tool-row) {
+          display: flex;
+          align-items: baseline;
+          gap: 0.9rem;
+          padding: 0.95rem 0.2rem;
+          border-bottom: 1px solid var(--hairline);
+          text-decoration: none;
+          color: var(--ink);
+          transition: background 200ms var(--ease);
+        }
+
+        .acad :global(.tool-row:hover) {
+          background: rgba(232, 233, 255, 0.04);
+        }
+
+        .acad :global(.tool-icon) {
+          flex: 0 0 auto;
+          color: var(--ox);
+          font-size: 1.05rem;
+          line-height: 1;
+        }
+
+        .acad :global(.tool-body) {
+          flex: 1 1 auto;
+          min-width: 0;
+        }
+
+        .acad :global(.tool-title) {
+          display: block;
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-size: 1.12rem;
+          font-weight: 600;
+          line-height: 1.25;
+        }
+
+        .acad :global(.tool-desc) {
+          display: block;
+          margin-top: 0.15rem;
+          color: var(--ink-soft);
+          font-size: 0.8rem;
+          line-height: 1.5;
+        }
+
+        .acad :global(.tool-arrow) {
+          flex: 0 0 auto;
+          color: var(--ink-faint);
+          transition: color 200ms var(--ease);
+        }
+
+        .acad :global(.tool-row:hover .tool-arrow) {
+          color: var(--ox);
+        }
+
+        /* ── Section divider ─────────────────────────────────── */
+        .rule-star {
+          display: flex;
+          align-items: center;
+          gap: 1.2rem;
+          margin: clamp(1.5rem, 3vw, 2.5rem) 0;
+          color: var(--ink-faint);
+        }
+
+        .rule-star::before,
+        .rule-star::after {
+          content: "";
+          flex: 1;
+          height: 1px;
+          background: var(--hairline);
+        }
+
+        .rule-star span {
+          font-size: 0.8rem;
+        }
+
+        /* ── Tracks ──────────────────────────────────────────── */
+        .track {
+          margin-bottom: clamp(2.5rem, 5vw, 4rem);
+        }
+
+        .track-head {
+          display: flex;
+          align-items: baseline;
+          gap: 1rem;
+        }
+
+        .track-head .alm-caption {
+          margin: 0;
+          color: var(--ox);
+        }
+
+        .track-title {
+          font-style: italic;
+        }
+
+        .track-desc {
+          margin: 0.5rem 0 1.4rem;
+          max-width: 62ch;
+          color: var(--ink-soft);
+          font-size: 0.92rem;
+          line-height: 1.6;
+        }
+
+        .track-list {
+          border-top: 3px solid var(--ink);
+        }
+
+        .acad :global(.course-row) {
+          display: grid;
+          grid-template-columns: 3rem 2rem minmax(0, 1fr) auto;
+          gap: 1rem;
+          align-items: baseline;
+          padding: 1.15rem 0.2rem;
+          border-bottom: 1px solid var(--hairline);
+          text-decoration: none;
+          color: var(--ink);
+          transition: background 200ms var(--ease);
+        }
+
+        .acad :global(.course-row:hover) {
+          background: rgba(232, 233, 255, 0.04);
+        }
+
+        .acad :global(.course-no) {
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.72rem;
+          letter-spacing: 0.12em;
+          color: var(--ink-faint);
+        }
+
+        .acad :global(.course-glyph) {
+          font-size: 1.05rem;
+          line-height: 1;
+          color: var(--ink-soft);
+          text-align: center;
+        }
+
+        .acad :global(.course-main) {
+          min-width: 0;
+        }
+
+        .acad :global(.course-titleline) {
+          display: flex;
+          align-items: baseline;
+          gap: 0.7rem;
+          flex-wrap: wrap;
+        }
+
+        .acad :global(.course-title) {
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-size: clamp(1.2rem, 2vw, 1.45rem);
+          font-weight: 600;
+          line-height: 1.2;
+        }
+
+        .acad :global(.course-row:hover .course-title) {
+          color: var(--ox);
+        }
+
+        .acad :global(.course-start) {
+          color: var(--ox);
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.58rem;
+          font-weight: 600;
+          letter-spacing: 0.24em;
+          text-transform: uppercase;
+          border: 1px solid rgba(224, 183, 104, 0.45);
+          padding: 0.16rem 0.5rem;
+        }
+
+        .acad :global(.course-sub) {
+          display: block;
+          margin-top: 0.1rem;
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-style: italic;
+          font-size: 0.95rem;
+          color: var(--ink-soft);
+        }
+
+        .acad :global(.course-desc) {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          margin-top: 0.35rem;
+          max-width: 62ch;
+          color: var(--ink-soft);
+          font-size: 0.84rem;
+          line-height: 1.55;
+        }
+
+        .acad :global(.course-meta) {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 0.35rem;
+          text-align: right;
+        }
+
+        .acad :global(.course-level) {
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.58rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--ink-soft);
+          border: 1px solid var(--hairline);
+          padding: 0.18rem 0.5rem;
+        }
+
+        .acad :global(.course-count) {
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.62rem;
+          letter-spacing: 0.1em;
+          color: var(--ink-faint);
+          white-space: nowrap;
+        }
+
+        @media (max-width: 760px) {
+          .tools {
+            grid-template-columns: 1fr;
           }
-          :global(.academy-featured-tool),
-          .academy-tools-stack,
-          :global(.academy-course-card) {
-            grid-column: 1 / -1 !important;
+
+          .acad :global(.course-row) {
+            grid-template-columns: 2.2rem minmax(0, 1fr);
+          }
+
+          .acad :global(.course-glyph) {
+            display: none;
+          }
+
+          .acad :global(.course-meta) {
+            grid-column: 2;
+            flex-direction: row;
+            align-items: baseline;
+            justify-content: flex-start;
+            text-align: left;
+            margin-top: 0.4rem;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .acad :global(.acad-back),
+          .acad :global(.tool-featured),
+          .acad :global(.tool-row),
+          .acad :global(.tool-arrow),
+          .acad :global(.course-row) {
+            transition: none !important;
           }
         }
       `}</style>
-    </div>
+    </AlmanacShell>
   );
 }

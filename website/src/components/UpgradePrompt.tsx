@@ -54,7 +54,7 @@ export default function UpgradePrompt({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         className="glass-card p-5 text-center"
-        style={{ border: "1px solid rgba(212, 175, 55, 0.2)" }}
+        style={{ border: "1px solid rgba(224, 183, 104, 0.2)" }}
       >
         <p className="text-celestial-gold text-sm font-medium mb-1">{msg.title}</p>
         <p className="text-muted-lavender text-xs mb-4">{msg.subtitle}</p>
@@ -74,7 +74,7 @@ export default function UpgradePrompt({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           className="fixed top-0 left-0 right-0 z-50 px-4 py-3"
-          style={{ background: "linear-gradient(135deg, rgba(212,175,55,0.15), rgba(90,50,150,0.15))", backdropFilter: "blur(4px)" }}
+          style={{ background: "linear-gradient(135deg, rgba(224,183,104,0.15), rgba(90,50,150,0.15))", backdropFilter: "blur(4px)" }}
         >
           <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
             <div>
@@ -120,7 +120,7 @@ export default function UpgradePrompt({
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
           onClick={(e) => e.stopPropagation()}
           className="relative glass-card p-8 max-w-md w-full text-center"
-          style={{ border: "1px solid rgba(212, 175, 55, 0.3)" }}
+          style={{ border: "1px solid rgba(224, 183, 104, 0.3)" }}
         >
           <button
             onClick={handleDismiss}

@@ -81,8 +81,8 @@ export const WitnessFragmentShader = /* glsl */ `
   varying vec2 vUv;
   
   uniform float uTime;
-  uniform vec3 uColor;       // #06041a (Near black)
-  uniform vec3 uLightColor;  // #D4AF37 (Molten Gold)
+  uniform vec3 uColor;       // #0a0d38 (Near black)
+  uniform vec3 uLightColor;  // #e0b768 (Molten Gold)
   uniform float uAttention;  // 0 to 1
   uniform vec3 uCursorDir;   // Vector pointing to cursor
   uniform float uBeam;       // 0 to 1

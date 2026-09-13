@@ -15,11 +15,14 @@ import {
   type MotionValue
 } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
-import { CardBack } from "@/components/shaders/FlipRevealCard";
-import MagneticButton from "@/components/MagneticButton";
-import AstralBackground from "./AstralBackground";
+import Link from "next/link";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
+import { ukCard } from "@/lib/academy/tarot-cards-uk";
 import { getCardPortalImagePath } from "@/lib/academy/card-images";
+import CardInspector from "./CardInspector";
+import ReadingScroll from "./ReadingScroll";
+import { SPREADS, type Spread, type SpreadPosition } from "@/lib/spreads";
+import SpreadChooser from "./SpreadChooser";
 import { type Translations } from "@/lib/i18n/translations";
 import { useLocale } from "@/lib/i18n/useLocale";
 
@@ -106,9 +109,76 @@ class AstralAudio {
 }
 const audio = new AstralAudio();
 
-// ── DATA ──
-// Use a deterministic subset of cards to prevent hydration mismatches.
-const ORACLE_DATA = ALL_CARDS.slice(0, 15);
+// ── NIGHT CARD BACK — engraved white-line on black, bone strokes ──
+const NightCardBack = React.memo(function NightCardBack() {
+  return (
+    <svg
+      viewBox="0 0 136 225"
+      width="100%"
+      height="100%"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      style={{ display: "block" }}
+    >
+      {/* lapis night ground — the stele deck's stone */}
+      <defs>
+        <radialGradient id="ncb-sky" cx="50%" cy="38%" r="85%">
+          <stop offset="0%" stopColor="#181d7a" />
+          <stop offset="55%" stopColor="#10134d" />
+          <stop offset="100%" stopColor="#0a0d38" />
+        </radialGradient>
+      </defs>
+      <rect x="0" y="0" width="136" height="225" fill="url(#ncb-sky)" />
+      {/* Milky Way vein — crystalline flecks on the diagonal */}
+      <g fill="#b7bce9" opacity="0.5">
+        {Array.from({ length: 34 }, (_, i) => {
+          const t = i / 33;
+          const x = 14 + t * 102 + Math.sin(i * 2.7) * 7;
+          const y = 210 - t * 196 + Math.cos(i * 1.9) * 5;
+          const r = 0.4 + ((i * 37) % 10) / 14;
+          return <circle key={i} cx={x} cy={y} r={r} opacity={0.14 + ((i * 53) % 10) / 22} />;
+        })}
+      </g>
+      {/* drilled gilt stars */}
+      <g fill="#e0b768">
+        <circle cx="24" cy="30" r="0.9" opacity="0.8" />
+        <circle cx="104" cy="48" r="0.7" opacity="0.65" />
+        <circle cx="36" cy="188" r="0.7" opacity="0.6" />
+        <circle cx="98" cy="170" r="0.9" opacity="0.75" />
+        <circle cx="65" cy="52" r="0.6" opacity="0.55" />
+        <circle cx="20" cy="120" r="0.6" opacity="0.5" />
+        <circle cx="110" cy="112" r="0.6" opacity="0.5" />
+      </g>
+      {/* double hairline frame */}
+      <rect x="5" y="5" width="126" height="215" rx="10" fill="none" stroke="#e8e9ff" strokeOpacity="0.5" strokeWidth="1" />
+      <rect x="11" y="11" width="114" height="203" rx="6" fill="none" stroke="#e8e9ff" strokeOpacity="0.22" strokeWidth="0.75" />
+      {/* corner marks */}
+      <g stroke="#e8e9ff" strokeOpacity="0.55" strokeWidth="0.75" fill="none">
+        <path d="M 25 21 v 8 M 21 25 h 8" />
+        <path d="M 111 21 v 8 M 107 25 h 8" />
+        <path d="M 25 196 v 8 M 21 200 h 8" />
+        <path d="M 111 196 v 8 M 107 200 h 8" />
+      </g>
+      {/* central rosette — eight rays, ember-gold heart */}
+      <g fill="none" stroke="#e8e9ff" transform="translate(3 0)">
+        <circle cx="65" cy="112.5" r="27" strokeOpacity="0.6" strokeWidth="0.9" />
+        <circle cx="65" cy="112.5" r="19" strokeOpacity="0.3" strokeWidth="0.75" strokeDasharray="1.5 3" />
+        <g strokeOpacity="0.7" strokeWidth="0.9">
+          <line x1="76" y1="112.5" x2="90" y2="112.5" />
+          <line x1="72.8" y1="120.3" x2="82.7" y2="130.2" />
+          <line x1="65" y1="123.5" x2="65" y2="137.5" />
+          <line x1="57.2" y1="120.3" x2="47.3" y2="130.2" />
+          <line x1="54" y1="112.5" x2="40" y2="112.5" />
+          <line x1="57.2" y1="104.7" x2="47.3" y2="94.8" />
+          <line x1="65" y1="101.5" x2="65" y2="87.5" />
+          <line x1="72.8" y1="104.7" x2="82.7" y2="94.8" />
+        </g>
+        <circle cx="65" cy="112.5" r="3.4" fill="#e0b768" fillOpacity="0.95" stroke="none" />
+        <circle cx="65" cy="112.5" r="6.5" stroke="#e0b768" strokeOpacity="0.5" strokeWidth="0.6" />
+      </g>
+    </svg>
+  );
+});
 
 function useDeviceTier() {
   const [tier, setTier] = useState<"mobile" | "tablet" | "desktop">("desktop");
@@ -142,17 +212,17 @@ const RitualTimeline = React.memo(function RitualTimeline({ state, isMobile }: {
   
   if (isMobile) {
     return (
-      <div className="absolute left-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-6 items-center">
+      <div className="absolute left-6 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-6 items-center">
         {phases.map((phase, i) => (
           <div key={phase.id} className="flex flex-col items-center gap-2">
-            <m.div 
-              animate={{ 
+            <m.div
+              animate={{
                 scale: i <= activeIndex ? 1 : 0.8,
-                backgroundColor: i <= activeIndex ? "#d4af37" : "rgba(255,255,255,0.1)"
+                backgroundColor: i <= activeIndex ? "#e0b768" : "rgba(232,233,255,0.14)"
               }}
-              className="w-1.5 h-1.5 rounded-full shadow-[0_0_10px_rgba(212,175,55,0.3)]" 
+              className="w-1.5 h-1.5 rounded-full"
             />
-            {i < phases.length - 1 && <div className="w-px h-8 bg-white/5" />}
+            {i < phases.length - 1 && <div className="w-px h-8 bg-[rgba(232,233,255,0.08)]" />}
           </div>
         ))}
       </div>
@@ -160,27 +230,27 @@ const RitualTimeline = React.memo(function RitualTimeline({ state, isMobile }: {
   }
 
   return (
-    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-4">
+    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-4">
       <div className="flex items-center gap-16 relative">
         {/* Connecting Line */}
-        <div className="absolute top-1/2 left-0 w-full h-px bg-white/5 -translate-y-1/2" />
-        <m.div 
+        <div className="absolute top-1/2 left-0 w-full h-px bg-[rgba(232,233,255,0.08)] -translate-y-1/2" />
+        <m.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: activeIndex / (phases.length - 1) }}
-          className="absolute top-1/2 left-0 w-full h-px bg-celestial-gold/40 -translate-y-1/2 origin-left"
+          className="absolute top-1/2 left-0 w-full h-px bg-[rgba(224,183,104,0.55)] -translate-y-1/2 origin-left"
         />
 
         {phases.map((phase, i) => (
           <div key={phase.id} className="relative flex flex-col items-center gap-3">
-            <m.div 
-              animate={{ 
+            <m.div
+              animate={{
                 scale: i === activeIndex ? 1.5 : 1,
-                backgroundColor: i <= activeIndex ? "#d4af37" : "rgba(255,255,255,0.1)",
-                boxShadow: i === activeIndex ? "0 0 15px rgba(212,175,55,0.5)" : "none"
+                backgroundColor: i <= activeIndex ? "#e0b768" : "rgba(232,233,255,0.14)",
+                boxShadow: i === activeIndex ? "0 0 12px rgba(224,183,104,0.4)" : "none"
               }}
-              className="w-2 h-2 rounded-full z-10 transition-colors duration-700" 
+              className="w-2 h-2 rounded-full z-10 transition-colors duration-700"
             />
-            <span className={`text-[8px] uppercase tracking-[0.3em] transition-all duration-700 ${i === activeIndex ? "text-celestial-gold font-bold" : "text-white/20"}`}>
+            <span className={`text-[8px] uppercase tracking-[0.3em] transition-all duration-700 ${i === activeIndex ? "text-[#e0b768] font-bold" : "text-[rgba(232,233,255,0.28)]"}`}>
               {phase.label}
             </span>
           </div>
@@ -207,7 +277,7 @@ const GhostCard = React.memo(function GhostCard({
   const isMobile = device === "mobile";
   const isTablet = device === "tablet";
   
-  const cardWidth = isMobile ? 95 : isTablet ? 120 : 130; 
+  const cardWidth = isMobile ? 100 : isTablet ? 126 : 136;
   const cardHeight = isMobile ? 165 : isTablet ? 210 : 225;
 
   const { x, y, rotateZ } = useMemo(() => {
@@ -216,7 +286,7 @@ const GhostCard = React.memo(function GhostCard({
     const angle = -span / 2 + (span / (total - 1)) * index;
     return {
       x: Math.sin(angle) * arcRadius,
-      y: (1 - Math.cos(angle)) * arcRadius * 0.75 + (isMobile ? 140 : 120),
+      y: (1 - Math.cos(angle)) * arcRadius * 0.6 + (isMobile ? 112 : 96),
       rotateZ: angle * (180 / Math.PI)
     };
   }, [index, total, isMobile, isTablet]);
@@ -245,8 +315,8 @@ const GhostCard = React.memo(function GhostCard({
         opacity,
         zIndex: 2,
         pointerEvents: "none",
-        border: "1px solid rgba(212, 175, 55, 0.15)",
-        background: "rgba(8, 6, 24, 0.35)",
+        border: "1px solid rgba(232, 233, 255, 0.1)",
+        background: "rgba(16, 19, 77, 0.45)",
         borderRadius: "14px",
       }}
       initial={{ opacity: 0 }}
@@ -261,16 +331,16 @@ const DecorativeRitualField = React.memo(function DecorativeRitualField({ machin
   return (
     <div className={`absolute inset-0 pointer-events-none z-0 transition-opacity duration-[2000ms] ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
        {/* ── THE SACRED CENTER (Focal Field) ── */}
-       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[60vh] bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.06)_0%,_rgba(120,80,220,0.03)_45%,_transparent_75%)] opacity-60" />
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[60vh] bg-[radial-gradient(ellipse_at_center,_rgba(232,233,255,0.05)_0%,_transparent_72%)] opacity-60" />
        
        {/* ── THE CELESTIAL ORBIT (SVG Thread) ── */}
        {!isMobile && (
          <svg className="absolute inset-0 w-full h-full opacity-12" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-           <path 
-             d="M 100 650 Q 500 450 900 650" 
-             fill="none" 
-             stroke="url(#thread-grad)" 
-             strokeWidth="0.5" 
+           <path
+             d="M 100 650 Q 500 450 900 650"
+             fill="none"
+             stroke="url(#thread-grad)"
+             strokeWidth="0.5"
              strokeDasharray="2 12"
            >
              <animate attributeName="stroke-dashoffset" from="100" to="0" dur="80s" repeatCount="indefinite" />
@@ -278,7 +348,7 @@ const DecorativeRitualField = React.memo(function DecorativeRitualField({ machin
            <defs>
              <linearGradient id="thread-grad" x1="0%" y1="0%" x2="100%" y2="0%">
                <stop offset="0%" stopColor="transparent" />
-               <stop offset="50%" stopColor="#d4af37" />
+               <stop offset="50%" stopColor="#e8e9ff" />
                <stop offset="100%" stopColor="transparent" />
              </linearGradient>
            </defs>
@@ -289,7 +359,7 @@ const DecorativeRitualField = React.memo(function DecorativeRitualField({ machin
 });
 
 export default function FramerTarotOracle() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const searchParams = useSearchParams();
   const router = useRouter();
   const time = useTime();
@@ -303,15 +373,71 @@ export default function FramerTarotOracle() {
   
   // Use a deterministic subset of cards to prevent hydration mismatches.
   // Luxury Dealer Spread: 7 (mobile), 9 (tablet), 11 (desktop)
-  const poolSize = device === "mobile" ? 7 : device === "tablet" ? 9 : 11;
-  const oracleData = useMemo(() => ALL_CARDS.slice(0, poolSize), [poolSize]);
+  const basePool = device === "mobile" ? 7 : device === "tablet" ? 9 : 11;
 
   // Ghost Deck Pool: 10 (mobile), 12 (tablet), 15 (desktop)
   const ghostSize = device === "mobile" ? 10 : device === "tablet" ? 12 : 15;
   const ghostIndices = useMemo(() => Array.from({ length: ghostSize }, (_, i) => i), [ghostSize]);
   
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
+  const [inspecting, setInspecting] = useState<number | null>(null);
+  const [spread, setSpread] = useState<Spread>(SPREADS[0]);
   const [isMuted, setIsMuted] = useState(true);
+  const poolSize = Math.max(basePool, spread.count + 2);
+  // A real shuffle of the full 78 — dealt fresh each sitting. The seed
+  // rides in the share URL so a restored reading deals the same cards.
+  const [deckSeed, setDeckSeed] = useState<number>(() => Math.floor(Math.random() * 1e9));
+  const oracleData = useMemo(() => {
+    let a = deckSeed | 0;
+    const rng = () => {
+      a = (a + 0x6d2b79f5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+    const deck = [...ALL_CARDS];
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(rng() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    return deck.slice(0, poolSize);
+  }, [deckSeed, poolSize]);
+
+  // Orientation rides the same seed, one stream past the shuffle: a third
+  // of the plates fall turned, the house rate the daily card already keeps.
+  const reversedFlags = useMemo(() => {
+    let a = (deckSeed ^ 0x9e3779b9) | 0;
+    const rng = () => {
+      a = (a + 0x6d2b79f5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+    return Array.from({ length: poolSize }, () => rng() < 1 / 3);
+  }, [deckSeed, poolSize]);
+  const remainingCards = spread.count - selectedCards.length;
+  // Ten or twelve plates must still fit the table: the whole spread is
+  // scaled down as it grows, rather than running off the edges.
+  const spreadFit = spread.count <= 3 ? 1 : spread.count <= 7 ? 0.62 : 0.46;
+  const ukCards = (n: number) => (n >= 2 && n <= 4 ? "карти" : "карт");
+  const selectionInstruction =
+    locale === "uk"
+      ? selectedCards.length === 0
+        ? `Оберіть ${spread.count} ${ukCards(spread.count)}`
+        : `Залишилось: ${remainingCards}`
+      : selectedCards.length === 0
+        ? `Choose ${spread.count} cards`
+        : `${remainingCards} card${remainingCards === 1 ? "" : "s"} left`;
+  const startOverLabel = locale === "uk" ? "Почати знову" : "Start over";
+  const resultKicker = locale === "uk" ? spread.nameUk : spread.name;
+  const resultIntro = locale === "uk" ? spread.lineUk : spread.line;
+  const isUk = locale === "uk";
+  const spreadLabels = spread.positions.map((p) => p.label);
+  const resultLabels =
+    locale === "uk"
+      ? ["Що позаду", "Що зараз", "Куди рухатись"]
+      : ["What led here", "What is present", "Where to move"];
+  const arcanaLabel = locale === "uk" ? "Аркан" : "Arcana";
 
   const toggleMute = useCallback(() => {
     const muted = audio.toggleMute();
@@ -327,38 +453,59 @@ export default function FramerTarotOracle() {
     audio.init();
   }, []);
 
-  // Sync with URL safely
+  // Deep-link restore — ONLY on first mount. Re-running on every
+  // searchParams change meant our own router.replace (fired when the
+  // third card is chosen) flashed the reading early and left the dying
+  // result panel hovering over the Reveal button, eating its clicks.
+  const didRestoreFromUrl = useRef(false);
   useEffect(() => {
+    if (didRestoreFromUrl.current) return;
+    didRestoreFromUrl.current = true;
     const drawParam = searchParams.get("draw");
+    const spreadParam = searchParams.get("spread");
+    const seedParam = searchParams.get("seed");
+    const restored = spreadParam ? SPREADS.find((s) => s.id === spreadParam) : null;
+    if (restored) setSpread(restored);
+    if (seedParam && /^\d{1,10}$/.test(seedParam)) setDeckSeed(Number(seedParam));
     if (drawParam) {
-      const indices = drawParam.split(",").map(Number).filter(n => !isNaN(n) && n < 24);
-      if (indices.length === 3) {
+      // Guard against shared/stale URLs pointing past the dealt pool —
+      // an out-of-range index used to hard-crash the whole reading.
+      const indices = drawParam
+        .split(",")
+        .map(Number)
+        .filter(n => Number.isInteger(n) && n >= 0 && n < oracleData.length);
+      const want = restored?.count ?? 3;
+      if (indices.length === want) {
         requestAnimationFrame(() => {
           setSelectedCards(indices);
           setState("result"); 
         });
       }
     }
-  }, [searchParams]);
+  }, [searchParams, oracleData.length]);
 
   const updateUrl = useCallback((cards: number[]) => {
     const params = new URLSearchParams(searchParams.toString());
     if (cards.length > 0) {
       params.set("draw", cards.join(","));
+      params.set("spread", spread.id);
+      params.set("seed", String(deckSeed));
     } else {
       params.delete("draw");
+      params.delete("spread");
+      params.delete("seed");
     }
     router.replace(`?${params.toString()}`, { scroll: false });
-  }, [router, searchParams]);
+  }, [router, searchParams, spread.id, deckSeed]);
 
   const handleCardClick = useCallback((id: number) => {
     if (state !== "drawing" || isTransitioning.current) return;
     
     setSelectedCards(prev => {
       if (prev.includes(id)) return prev.filter(c => c !== id);
-      if (prev.length < 3) {
+      if (prev.length < spread.count) {
         const newSelected = [...prev, id];
-        if (newSelected.length === 3) {
+        if (newSelected.length === spread.count) {
           isTransitioning.current = true;
           setState("preparing");
           updateUrl(newSelected);
@@ -371,12 +518,13 @@ export default function FramerTarotOracle() {
       }
       return prev;
     });
-  }, [state, updateUrl]);
+  }, [state, updateUrl, spread.count]);
 
   const reset = useCallback(() => {
     isTransitioning.current = false;
     setState("focusing");
     setSelectedCards([]);
+    setDeckSeed(Math.floor(Math.random() * 1e9)); // fresh shuffle each sitting
     updateUrl([]);
     hoveredIndexMV.set(-1);
   }, [updateUrl, hoveredIndexMV]);
@@ -388,31 +536,28 @@ export default function FramerTarotOracle() {
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center bg-[#020104] perspective-[2000px]">
+      <div className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center bg-[#0a0d38] perspective-[2000px]">
 
-        {/* ── CINEMATIC AMBIENCE (Hybrid God Mode) ── */}
-        <AstralBackground isMobile={isMobile} />
-        
+        {/* ── NIGHT GROUND — the innermost room keeps the deepest darkness ── */}
+        <div
+          className="absolute inset-0 z-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 0%, rgba(232,233,255,0.035), transparent 34rem), radial-gradient(ellipse at 50% 115%, rgba(224,183,104,0.05), transparent 42rem)",
+          }}
+        />
+
         {/* Selection Scrim (Focus focus) */}
-        <div className={`absolute inset-0 z-0 bg-black/40 transition-opacity duration-1000 pointer-events-none ${state === "drawing" ? "opacity-100" : "opacity-0"}`} />
-        
-        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(30,15,60,0.2)_0%,_transparent_70%)] pointer-events-none" />
+        <div className={`absolute inset-0 z-0 bg-[rgba(10,13,56,0.55)] transition-opacity duration-1000 pointer-events-none ${state === "drawing" ? "opacity-100" : "opacity-0"}`} />
+
         <div
           className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
           style={{
             backgroundImage:
-              "radial-gradient(circle, rgba(255,255,255,0.75) 0 1px, transparent 1px)",
+              "radial-gradient(circle, rgba(183,188,233,0.75) 0 1px, transparent 1px)",
             backgroundSize: "4px 4px",
           }}
         />
-
-        {/* SVG Refraction Filter (Lite God Mode) */}
-        <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-          <filter id="glass-refraction">
-            <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
-          </filter>
-        </svg>
 
         {/* ── DECORATIVE FIELD (Orbit & Center) ── */}
         <DecorativeRitualField machineState={state} isMobile={isMobile} />
@@ -421,28 +566,34 @@ export default function FramerTarotOracle() {
         <RitualTimeline state={state} isMobile={isMobile} />
 
         {/* ── TOP NAV ── */}
-        <div className="absolute top-0 inset-x-0 z-50 pt-[7.5rem] pb-8 px-8 flex justify-between items-start pointer-events-none">
+        <div className="absolute top-0 inset-x-0 z-50 pt-[4.5rem] pb-8 px-8 flex justify-between items-start pointer-events-none">
            <div className="pointer-events-auto flex flex-col gap-4">
               {state !== "focusing" && (
-                 <button 
+                 <button
                    onClick={reset}
-                   className="min-h-11 text-[10px] tracking-[0.3em] uppercase text-white/30 hover:text-[#d4af37] transition-all duration-500 hover:tracking-[0.4em]"
+                   className="min-h-11 text-[10px] tracking-[0.3em] uppercase text-[rgba(232,233,255,0.42)] hover:text-[#e0b768] transition-all duration-500 hover:tracking-[0.4em]"
                  >
-                   &larr; Collapse Time
+                   &larr; {startOverLabel}
                  </button>
               )}
-              <button 
+              <button
                 onClick={toggleMute}
                 aria-pressed={!isMuted}
-                className="min-h-11 min-w-11 text-[10px] tracking-[0.3em] uppercase text-white/20 hover:text-white/60 transition-all text-left"
+                className="min-h-11 min-w-11 text-[10px] tracking-[0.3em] uppercase text-[rgba(232,233,255,0.32)] hover:text-[rgba(232,233,255,0.72)] transition-all text-left"
               >
-                {isMuted ? "Audio: Off" : "Audio: On"}
+                {locale === "uk"
+                  ? isMuted ? "Звук: вимк." : "Звук: увімк."
+                  : isMuted ? "Audio: Off" : "Audio: On"}
               </button>
            </div>
            <div className="text-right pointer-events-none">
-              <h2 className="font-serif text-2xl text-[#f5f0e8] opacity-60">The Oracle</h2>
-              <div className="h-px w-8 bg-[#d4af37]/30 ml-auto mt-2 mb-1" />
-              <p className="text-[9px] tracking-[0.4em] uppercase text-[#d4af37]/50">Tarot Reading</p>
+              <h2 className="[font-family:var(--font-heading),serif] text-2xl font-medium text-[rgba(232,233,255,0.68)]">
+                {locale === "uk" ? "Оракул" : "The Oracle"}
+              </h2>
+              <div className="h-px w-8 bg-[rgba(232,233,255,0.22)] ml-auto mt-2 mb-1" />
+              <p className="text-[9px] tracking-[0.4em] uppercase text-[rgba(224,183,104,0.75)]">
+                {locale === "uk" ? "Читання таро" : "Tarot reading"}
+              </p>
            </div>
         </div>
 
@@ -457,15 +608,20 @@ export default function FramerTarotOracle() {
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className="absolute z-40 flex flex-col items-center text-center px-6"
             >
-              <h2 className="font-serif text-3xl md:text-5xl text-warm-ivory/80 mb-6 italic">{t("oracle_focus_title")}</h2>
-              <p className="text-[10px] tracking-[0.4em] uppercase text-[#d4af37]/60 mb-10">{t("oracle_focus_subtitle")}</p>
-              <button 
+              <h2 className="[font-family:var(--font-heading),serif] text-3xl md:text-5xl text-[rgba(232,233,255,0.88)] mb-6 italic">{t("oracle_focus_title")}</h2>
+              <p className="night-caption mb-7">
+                {isUk
+                  ? `Оберіть ${spread.count} карт, потім розкрийте читання.`
+                  : `Choose ${spread.count} cards, then reveal the reading.`}
+              </p>
+              <div className="pointer-events-auto mb-8 w-full">
+                <SpreadChooser value={spread} onChange={setSpread} />
+              </div>
+              <button
                 onClick={() => setState("drawing")}
-                className="pointer-events-auto group relative px-12 py-4 rounded-full overflow-hidden border border-white/10 bg-black/40 backdrop-blur-sm transition-all duration-700 hover:border-[#d4af37]/40"
+                className="night-btn ghost pointer-events-auto"
               >
-                <span className="relative z-10 text-[10px] tracking-[0.5em] uppercase text-white/40 group-hover:text-[#d4af37] transition-colors duration-500">
-                  {t("oracle_focus_cta")}
-                </span>
+                {t("oracle_focus_cta")}
               </button>
             </m.div>
           )}
@@ -477,14 +633,15 @@ export default function FramerTarotOracle() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8 }}
-              className="absolute top-[18%] z-40 text-center pointer-events-none"
+              className="absolute left-1/2 -translate-x-1/2 z-[500] text-center pointer-events-none"
+              style={{ top: "calc(50% - 64px)" }}
             >
-              <p className="text-[10px] tracking-[0.5em] uppercase text-white/40">
-                {t("oracle_ritual_drawing")} {3 - selectedCards.length}
+              <p className="text-[10px] tracking-[0.5em] uppercase text-[rgba(232,233,255,0.55)]">
+                {selectionInstruction}
               </p>
               <div className="flex justify-center gap-2 mt-4">
-                {[0, 1, 2].map(i => (
-                  <div key={i} className={`w-1 h-1 rounded-full transition-all duration-500 ${i < selectedCards.length ? 'bg-[#d4af37] shadow-[0_0_10px_#d4af37] scale-150' : 'bg-white/20'}`} />
+                {Array.from({ length: spread.count }, (_, i) => (
+                  <div key={i} className={`w-1 h-1 rounded-full transition-all duration-500 ${i < selectedCards.length ? 'bg-[#e0b768] scale-150' : 'bg-[rgba(232,233,255,0.2)]'}`} />
                 ))}
               </div>
             </m.div>
@@ -499,19 +656,18 @@ export default function FramerTarotOracle() {
               className="absolute z-40 flex flex-col items-center text-center pointer-events-none"
             >
               <div className="relative mb-8">
-                <div className="absolute inset-0 bg-[#d4af37]/20 blur-xl rounded-full animate-pulse" />
-                <div className="relative text-3xl text-[#d4af37] animate-spin-slow">✦</div>
+                <div className="relative text-3xl text-[#e0b768] animate-spin-slow">✦</div>
               </div>
-              <p className="text-[10px] tracking-[0.6em] uppercase text-[#d4af37]/40">
+              <p className="night-caption">
                 {t("oracle_preparing_pattern")}
               </p>
               <div className="mt-8 flex gap-1">
                 {[0, 1, 2].map(i => (
-                  <m.div 
+                  <m.div
                     key={i}
                     animate={{ opacity: [0.2, 1, 0.2] }}
                     transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.2 }}
-                    className="w-1 h-1 rounded-full bg-[#d4af37]/40" 
+                    className="w-1 h-1 rounded-full bg-[rgba(224,183,104,0.55)]"
                   />
                 ))}
               </div>
@@ -526,10 +682,10 @@ export default function FramerTarotOracle() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="absolute bottom-[20%] z-40 text-center"
             >
-              <p className="text-[9px] tracking-[0.4em] uppercase text-white/20 mb-8">{t("oracle_spread_forming")}</p>
-              <button 
-                onClick={() => { audio.playReveal(); reveal(); }}
-                className="px-12 py-5 bg-gradient-to-b from-[#f5f0e8] to-[#d4af37] text-black text-[10px] font-bold tracking-[0.4em] uppercase rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_10px_30px_rgba(212,175,55,0.3)]"
+              <p className="text-[9px] tracking-[0.4em] uppercase text-[rgba(232,233,255,0.38)] mb-8">{t("oracle_spread_forming")}</p>
+              <button
+                onClick={reveal}
+                className="night-btn"
               >
                 {t("oracle_spread_cta")}
               </button>
@@ -562,171 +718,317 @@ export default function FramerTarotOracle() {
                 machineState={state}
                 isSelected={selectedCards.includes(i)}
                 selectionIndex={selectedCards.indexOf(i)}
+                spreadPositions={spread.positions}
+                spreadFit={spreadFit}
                 hoveredIndexMV={hoveredIndexMV}
                 device={device}
                 time={time}
                 breathing={breathing}
-                canSelect={selectedCards.length < 3}
+                selectedCount={selectedCards.length}
+                canSelect={selectedCards.length < spread.count}
+                reversed={reversedFlags[i] ?? false}
                 onClick={() => handleCardClick(i)}
+                onInspect={() => setInspecting(selectedCards.indexOf(i))}
               />
             ))}
           </div>
         </div>
 
-        {/* ── RESULT TYPOGRAPHY ── */}
+        <CardInspector
+          cards={selectedCards.map((id, i) => ({
+            card: oracleData[id],
+            label: spreadLabels[i] ?? resultLabels[i],
+            reversed: state === "result" && reversedFlags[id],
+          }))}
+          index={inspecting}
+          onClose={() => setInspecting(null)}
+          onIndexChange={(i) => setInspecting(i)}
+          uk={locale === "uk"}
+        />
+
+        {/* ── PRIVATE ARTIFACT RESULT ── */}
         <AnimatePresence>
           {state === "result" && (
             <m.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2.0, duration: 1.0 }}
-              className="absolute bottom-0 inset-x-0 h-[45vh] bg-gradient-to-t from-black via-[#030208]/95 to-transparent z-40 flex items-end justify-center pb-16 pointer-events-none"
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ delay: 1.15, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+              className="result-artifact-panel absolute bottom-0 inset-x-0 z-40 pointer-events-none"
             >
-                 <div className="flex flex-col items-center gap-12 w-full max-w-6xl">
-                   <m.div
-                     initial={{ opacity: 0, y: 10 }}
-                     animate={{ opacity: 1, y: 0 }}
-                     transition={{ delay: 2.5, duration: 1.0 }}
-                     className="flex flex-col items-center gap-2"
-                   >
-                     <span className="readable-label text-[#d4af37] opacity-100">Surface Pattern</span>
-                     <h2 className="font-serif text-3xl md:text-5xl text-[#f5f2e1] italic drop-shadow-2xl">{t("oracle_result_title")}</h2>
-                   </m.div>
+              <div className="result-stack">
+                <div className={`result-artifact-shell ${state === "result" ? "pointer-events-auto" : "pointer-events-none"}`}>
+                <p className="result-touch-hint" aria-hidden>
+                  {locale === "uk"
+                    ? "Карти живі — нахиліть · перетягніть · клік = лупа"
+                    : "The plates are alive — tilt · drag · click to magnify"}
+                </p>
+                <div className="result-artifact-header">
+                  <span className="result-artifact-kicker">{resultKicker}</span>
+                  <h2>{t("oracle_result_title")}</h2>
+                  <p>{resultIntro}</p>
+                </div>
 
-                   <div className="flex gap-4 md:gap-24 pointer-events-auto text-center px-4 justify-center">
-                    {selectedCards.map((id, idx) => {
-                      const card = oracleData[id];
-                      const label = idx === 0 ? "The Past" : idx === 1 ? "The Present" : "The Path";
-                      return (
-                        <div key={id} className="flex flex-col items-center w-[110px] md:w-[180px]">
-                          <span className="readable-label text-[9px] mb-3 !opacity-100">{label}</span>
-                          <div className="h-px w-8 md:w-12 bg-gradient-to-r from-transparent via-[#d4af37]/60 to-transparent mb-3" />
-                          <h3 className="font-serif text-lg md:text-2xl text-white mb-1 leading-tight drop-shadow-lg">{card?.name}</h3>
-                          <p className="readable-label text-[8px] md:text-[10px] !text-white/40">{card?.arcana} Arcana</p>
-                        </div>
-                      );
-                    })}
-                 </div>
+                <div className="result-artifact-grid" aria-label={resultKicker}>
+                  {selectedCards.map((id, idx) => {
+                    const card = oracleData[id];
+                    return (
+                      <article key={id} className="result-artifact-card">
+                        <span>{spreadLabels[idx] ?? resultLabels[idx]}</span>
+                        <h3>
+                          {(isUk && card && ukCard(card.name)?.name) || card?.name}
+                          {reversedFlags[id] && (
+                            <em className="result-turned"> · {isUk ? "перевернута" : "turned"}</em>
+                          )}
+                        </h3>
+                        <p>{card?.arcana} {arcanaLabel}</p>
+                      </article>
+                    );
+                  })}
+                </div>
 
-                 <m.div 
-                   initial={{ opacity: 0, y: 10 }}
-                   animate={{ opacity: 1, y: 0 }}
-                   transition={{ delay: 3.5, duration: 1.0 }}
-                   className="pointer-events-auto flex flex-col items-center gap-6"
-                 >
-                    <div className="flex flex-col items-center gap-4">
-                      <MagneticButton variant="gold" href="/pricing?from=oracle" size="md" className="shadow-[0_0_50px_rgba(212,175,55,0.25)] font-bold">
-                        {t("oracle_result_cta")} &rarr;
-                      </MagneticButton>
-                      <p className="readable-label text-[10px] !text-[#d4af37]/60">
-                        {t("oracle_result_subtitle")}
-                      </p>
-                    </div>
-                    <p className="text-[0.7rem] text-warm-ivory/30 max-w-sm text-center leading-relaxed">
-                      {t("oracle_result_disclaimer")}
-                    </p>
-                 </m.div>
-               </div>
+                <ReadingScroll
+                  spread={spread}
+                  draws={selectedCards.map((id) => ({ card: oracleData[id], reversed: reversedFlags[id] }))}
+                  onInspect={(i) => setInspecting(i)}
+                />
+
+                <div className="result-artifact-next">
+                  <Link href="/pricing?from=oracle" className="night-btn">
+                    {t("oracle_result_cta")} &rarr;
+                  </Link>
+                  <p>{t("oracle_result_subtitle")}</p>
+                  <small>{t("oracle_result_disclaimer")}</small>
+                </div>
+                </div>
+              </div>
             </m.div>
           )}
         </AnimatePresence>
 
-        {/* Global CSS for CardBack injection and specific performance properties */}
+        {/* Room-scoped CSS — night plate vocabulary */}
         <style>{`
-          .astral-back { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; --px: 0; --py: 0; --hover: 0; }
-          .astral-back.is-hovered { --hover: 1; }
-          .astral-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; mix-blend-mode: screen; opacity: 0.88; }
-          
-          /* Glass Card Material Base */
-          .glass-card {
-            background: linear-gradient(135deg, rgba(15, 10, 50, 0.45) 0%, rgba(5, 3, 20, 0.7) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.35);
+          .result-artifact-panel {
+            min-height: 44vh;
+            padding: 5.5rem 1.25rem max(2rem, env(safe-area-inset-bottom));
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            background:
+              radial-gradient(ellipse at 50% 100%, rgba(141, 151, 255, 0.14), transparent 40rem),
+              linear-gradient(180deg, transparent, rgba(10, 13, 56, 0.72) 20%, rgba(10, 13, 56, 0.94) 100%);
           }
 
-          /* Glass Edge Lighting */
-          .glass-card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: inherit;
-            background: conic-gradient(from var(--angle, 0deg) at 50% 50%, transparent, rgba(212, 175, 55, 0.4), transparent);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            pointer-events: none;
-            z-index: 10;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-          }
-          .glass-card:hover::before { opacity: 1; }
-
-          /* Premium Foil Sheen & Corner Glint */
-          .glass-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: 
-              radial-gradient(circle at 0% 0%, rgba(255, 230, 150, 0.08) 0%, transparent 50%),
-              linear-gradient(135deg, transparent 40%, rgba(255, 215, 130, 0.25) 50%, transparent 60%);
-            background-size: 100% 100%, 250% 250%;
-            background-position: 0 0, calc(var(--hover, 0) * 100%) center;
-            opacity: var(--sheen-opacity, 0);
-            pointer-events: none;
-            z-index: 11;
-            transition: opacity 0.4s ease, background-position 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          .result-turned {
+            font-size: 0.62em;
+            font-style: italic;
+            color: rgba(183, 188, 233, 0.66);
           }
 
-          .astral-burst { position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit; background: radial-gradient(circle at 50% 50%, rgba(255, 230, 150, 0.7) 0%, rgba(232, 201, 106, 0.35) 22%, rgba(140, 90, 210, 0.18) 48%, rgba(40, 20, 80, 0) 78%); opacity: 0; mix-blend-mode: screen; animation: al-burst 2.8s cubic-bezier(0.16, 1, 0.3, 1) 0.22s forwards; }
-          @keyframes al-burst { 0% { opacity: 0; transform: scale(0.22); filter: blur(6px); } 18% { opacity: 0.95; transform: scale(0.7); filter: blur(0); } 55% { opacity: 0.35; transform: scale(1.15); } 100% { opacity: 0; transform: scale(1.6); filter: blur(3px); } }
-          .astral-svg { display: block; width: 100%; height: 100%; position: relative; z-index: 2; }
-          .astral-svg .al-bg, .astral-svg .al-mid, .astral-svg .al-fore { transform-origin: 180px 270px; transform-box: fill-box; transition: transform 420ms cubic-bezier(0.16,1,0.3,1); will-change: transform; }
-          .astral-svg .al-bg { transform: translate(calc(var(--px) * -3px), calc(var(--py) * -3px)); }
-          .astral-svg .al-mid { transform: translate(calc(var(--px) * 4px), calc(var(--py) * 4px)); }
-          .astral-svg .al-fore { transform: translate(calc(var(--px) * 8px), calc(var(--py) * 8px)); }
-          .astral-svg .al-wheel { transform-origin: 180px 270px; transform-box: view-box; animation: al-rot 180s linear infinite; }
-          .astral-back.is-hovered .astral-svg .al-wheel { animation-duration: 110s; }
-          .astral-svg .al-seed { transform-origin: 180px 270px; transform-box: view-box; animation: al-rot 90s linear infinite reverse; }
-          .astral-back.is-hovered .astral-svg .al-seed { animation-duration: 55s; }
-          .astral-svg .al-seed > circle:nth-child(1) { animation: al-seed-pulse 6.7s ease-in-out infinite -0.8s; }
-          .astral-svg .al-seed > circle:nth-child(2) { animation: al-seed-pulse 5.9s ease-in-out infinite -2.1s; }
-          .astral-svg .al-seed > circle:nth-child(3) { animation: al-seed-pulse 8.3s ease-in-out infinite -3.6s; }
-          .astral-svg .al-seed > circle:nth-child(4) { animation: al-seed-pulse 7.1s ease-in-out infinite -5.2s; }
-          .astral-svg .al-seed > circle:nth-child(5) { animation: al-seed-pulse 9.7s ease-in-out infinite -6.8s; }
-          .astral-svg .al-seed > circle:nth-child(6) { animation: al-seed-pulse 11.3s ease-in-out infinite -4.1s; }
-          .astral-svg .al-seed > circle:nth-child(7) { animation: al-seed-pulse 13.1s ease-in-out infinite -1.7s; }
-          @keyframes al-seed-pulse { 0%, 100% { stroke-opacity: 0.55; } 50% { stroke-opacity: 0.95; } }
-          .astral-svg .al-olive { transform-origin: center; transform-box: fill-box; animation: al-olive-breath 7s cubic-bezier(0.42, 0, 0.58, 1) infinite; filter: drop-shadow(0 0 3px rgba(255, 230, 150, 0.55)); }
-          @keyframes al-olive-breath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }
-          .astral-back.is-hovered .astral-svg .al-olive { animation-duration: 4.5s; }
-          
-          /* Selected Card Aura */
+          .result-touch-hint {
+            margin: 0 0 0.2rem;
+            font-family: var(--font-mono, ui-monospace), monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: rgba(224, 183, 104, 0.8);
+            text-align: center;
+            animation: result-hint-breathe 4.2s ease-in-out infinite;
+          }
+
+          @keyframes result-hint-breathe {
+            0%, 100% { opacity: 0.55; }
+            50% { opacity: 1; }
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .result-touch-hint { animation: none; }
+          }
+
+          .result-stack {
+            position: relative;
+            width: min(64rem, 100%);
+          }
+
+          .result-artifact-shell {
+            position: relative;
+            width: 100%;
+            display: grid;
+            gap: 1.35rem;
+            padding: clamp(1.3rem, 2.8vw, 2.1rem);
+            border: 1px solid rgba(232, 233, 255, 0.16);
+            border-radius: 6px;
+            background: rgba(16, 19, 77, 0.78);
+            box-shadow: 0 1.2rem 2.8rem rgba(5, 7, 32, 0.35);
+            /* The sheet keeps to the lower half of the room: the plates
+               above stay touchable — the reading scrolls within. */
+            max-height: min(46vh, 34rem);
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(232, 233, 255, 0.25) transparent;
+          }
+
+          @media (max-width: 700px) {
+            .result-artifact-shell {
+              max-height: 54vh;
+            }
+          }
+
+          .result-artifact-header {
+            display: grid;
+            gap: 0.35rem;
+            text-align: center;
+            justify-items: center;
+          }
+
+          .result-artifact-kicker {
+            font-family: var(--font-mono, ui-monospace), monospace;
+            font-size: 0.64rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #e0b768;
+          }
+
+          .result-artifact-header h2 {
+            font-family: var(--font-heading, "Cormorant Garamond"), serif;
+            font-size: clamp(1.9rem, 4vw, 3.8rem);
+            line-height: 0.98;
+            font-weight: 400;
+            color: #e8e9ff;
+          }
+
+          .result-artifact-header p {
+            max-width: 34rem;
+            color: rgba(232, 233, 255, 0.78);
+            font-size: 0.95rem;
+            line-height: 1.55;
+          }
+
+          .result-artifact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.85rem;
+          }
+
+          .result-artifact-card {
+            min-height: 8.25rem;
+            display: grid;
+            align-content: center;
+            gap: 0.45rem;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(232, 233, 255, 0.12);
+            border-radius: 4px;
+            background: rgba(24, 29, 122, 0.4);
+          }
+
+          .result-artifact-card span {
+            font-family: var(--font-mono, ui-monospace), monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(224, 183, 104, 0.9);
+          }
+
+          .result-artifact-card h3 {
+            font-family: var(--font-heading, "Cormorant Garamond"), serif;
+            font-size: clamp(1.1rem, 2vw, 1.65rem);
+            line-height: 1.02;
+            color: #e8e9ff;
+          }
+
+          .result-artifact-card p {
+            font-family: var(--font-mono, ui-monospace), monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            color: rgba(232, 233, 255, 0.42);
+          }
+
+          .result-artifact-next {
+            display: grid;
+            justify-items: center;
+            gap: 0.7rem;
+            text-align: center;
+          }
+
+          .result-artifact-next p {
+            max-width: 28rem;
+            color: rgba(232, 233, 255, 0.62);
+            font-size: 0.78rem;
+            line-height: 1.45;
+          }
+
+          .result-artifact-next small {
+            max-width: 30rem;
+            color: rgba(232, 233, 255, 0.36);
+            font-size: 0.7rem;
+            line-height: 1.45;
+          }
+
+          @media (max-width: 640px) {
+            .result-artifact-panel {
+              min-height: 56vh;
+              padding: 4.25rem 0.85rem max(1.35rem, env(safe-area-inset-bottom));
+            }
+
+            .result-artifact-shell {
+              gap: 1rem;
+            }
+
+            .result-artifact-header p {
+              font-size: 0.86rem;
+            }
+
+            .result-artifact-grid {
+              gap: 0.55rem;
+            }
+
+            .result-artifact-card {
+              min-height: 6.9rem;
+              padding: 0.75rem 0.5rem;
+            }
+
+            .result-artifact-card span {
+              font-size: 0.5rem;
+              letter-spacing: 0.1em;
+            }
+
+            .result-artifact-card h3 {
+              font-size: 1rem;
+            }
+
+            .result-artifact-card p {
+              font-size: 0.5rem;
+              letter-spacing: 0.1em;
+            }
+          }
+
+          /* Night Card Material — the plate stands on its own; the art
+             carries its own carved edge, so no frame is drawn around it. */
+          .oracle-night-card {
+            background: #0a0d38;
+            border: 0;
+          }
+
+          /* Selected Card Aura — a single still gilt halo (no pulse) */
           .is-flipping::after {
             content: '';
             position: absolute;
             inset: -20px;
-            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+            background: radial-gradient(circle at center, rgba(224, 183, 104, 0.1) 0%, transparent 70%);
             z-index: -1;
             border-radius: 50%;
-            animation: aura-pulse 3s ease-in-out infinite;
+            opacity: 0.6;
           }
-          @keyframes aura-pulse {
-            0%, 100% { opacity: 0.3; transform: scale(0.9); }
-            50% { opacity: 0.8; transform: scale(1.1); }
-          }
-          
-          @keyframes al-rot { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-          @property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
-          .astral-foil { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: conic-gradient(from var(--angle, 0deg) at 52% 48%, transparent 0deg, rgba(232,201,106,0.08) 42deg, transparent 92deg, rgba(180,145,230,0.09) 144deg, transparent 196deg, rgba(120,220,220,0.07) 248deg, transparent 298deg, rgba(232,201,106,0.08) 344deg, transparent 360deg); mix-blend-mode: screen; opacity: 0.18; animation: al-foil 32s linear infinite; z-index: 4; }
-          .astral-back.is-hovered .astral-foil { animation-duration: 22s; opacity: 0.35; }
-          @keyframes al-foil { from { --angle: 0deg; } to { --angle: 360deg; } }
-          .astral-vignette { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(ellipse at 52% 42%, transparent 55%, rgba(5, 3, 20, 0.26) 100%); mix-blend-mode: multiply; z-index: 5; }
-          .front-nebula { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 38%, #221348 0%, #170d38 32%, #0c0720 58%, #04030c 100%); z-index: 0; }
-          .pause-animations * { animation-play-state: paused !important; transition: none !important; }
 
           @keyframes al-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
           .animate-spin-slow { animation: al-spin 40s linear infinite; }
 
-          /* Glass Refraction (God Mode Lite) — Disabled on mobile for perf */
-          .is-flipping { filter: ${isMobile ? 'none' : 'url(#glass-refraction)'}; }
+          @media (prefers-reduced-motion: reduce) {
+            .animate-spin-slow { animation: none !important; }
+          }
         `}</style>
       </div>
     </LazyMotion>
@@ -744,25 +1046,35 @@ const GodModeCard = React.memo(function GodModeCard({
   machineState, 
   isSelected,
   selectionIndex,
+  spreadPositions,
+  spreadFit,
   hoveredIndexMV,
   device,
   time,
   breathing,
   canSelect,
+  selectedCount,
+  reversed = false,
+  onInspect,
   onClick
 }: {
-  card: typeof ORACLE_DATA[0],
+  card: typeof ALL_CARDS[0],
   index: number,
   total: number,
   machineState: MachineState,
   isSelected: boolean,
   selectionIndex: number,
+  spreadPositions: SpreadPosition[],
+  spreadFit: number,
   hoveredIndexMV: MotionValue<number>,
   device: "mobile" | "tablet" | "desktop",
   time: MotionValue<number>,
   breathing: MotionValue<number>,
   canSelect: boolean,
-  onClick: () => void
+  selectedCount: number,
+  reversed?: boolean,
+  onClick: () => void,
+  onInspect?: () => void
 }) {
   const isReducedMotion = useReducedMotion();
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -777,7 +1089,7 @@ const GodModeCard = React.memo(function GodModeCard({
     return Math.sin(t / 2500 + driftPhase) * 3;
   });
 
-  const cardWidth = isMobile ? 95 : isTablet ? 120 : 130; 
+  const cardWidth = isMobile ? 100 : isTablet ? 126 : 136;
   const cardHeight = isMobile ? 165 : isTablet ? 210 : 225;
 
   // ── ARC MATHEMATICS (Optimized for Separation) ──
@@ -790,8 +1102,8 @@ const GodModeCard = React.memo(function GodModeCard({
     const angle = -span / 2 + (span / (total - 1)) * index;
     return {
       baseArcX: Math.sin(angle) * arcRadius,
-      // baseArcY multiplier 0.75 = shallower arc for better separation
-      baseArcY: (1 - Math.cos(angle)) * arcRadius * 0.75 + (isMobile ? 120 : 100),
+      // 0.55 keeps the outer plates on the table instead of half under it
+      baseArcY: (1 - Math.cos(angle)) * arcRadius * 0.55 + (isMobile ? 96 : 80),
       baseArcRotateZ: angle * (180 / Math.PI)
     };
   }, [index, total, isMobile, isTablet]);
@@ -867,13 +1179,23 @@ const GodModeCard = React.memo(function GodModeCard({
     targetOpacity = 1;
 
     if (isSelected) {
-      const spacing = isMobile ? 80 : 150; 
-      const meltOffset = (selectionIndex - 1) * spacing;
-      targetX = meltOffset; 
-      targetY -= isMobile ? 220 : 280;
+      // The row is sized by the cards ON it, not by the spread's final
+      // count — the springs re-seat the whole shelf as each new card lands.
+      const n = Math.max(1, selectedCount);
+      const spacing = isMobile
+        ? n > 8 ? 30 : n > 5 ? 52 : 80
+        : isTablet
+          ? n > 8 ? 56 : n > 5 ? 84 : 116
+          : n > 8 ? 82 : n > 5 ? 112 : 150;
+      targetX = (selectionIndex - (n - 1) / 2) * spacing;
+      targetY = isMobile ? -175 : -200;
       targetZ = 300 + selectionIndex * 10;
-      targetRotateZ = (selectionIndex - 1) * 5;
-      targetScale = 1.1;
+      targetRotateZ = (selectionIndex - (n - 1) / 2) * (n > 5 ? 1.5 : 5);
+      targetScale = isMobile
+        ? n > 8 ? 0.52 : n > 5 ? 0.74 : 1.05
+        : isTablet
+          ? n > 8 ? 0.56 : n > 5 ? 0.76 : 1.06
+          : n > 8 ? 0.68 : n > 5 ? 0.86 : 1.08;
     }
     
     // Recede unselected cards during "preparing"
@@ -886,17 +1208,19 @@ const GodModeCard = React.memo(function GodModeCard({
   else if (machineState === "spread" || machineState === "result") {
     if (isSelected) {
       // The Triad Formation
-      const spacing = isMobile ? 110 : 220;
-      const offset = (selectionIndex - 1) * spacing;
-      targetX = offset;
-      targetY = isMobile ? -40 : -80;
+      // Where this plate belongs in the chosen spread. Positions are
+      // given in card-widths, so one formula lays out three cards or ten.
+      const pos = spreadPositions[selectionIndex];
+      const fit = spreadFit;
+      targetX = (pos?.col ?? 0) * cardWidth * 1.16 * fit;
+      targetY = (pos?.row ?? 0) * cardHeight * 0.82 * fit + (isMobile ? -40 : -80) - (spreadPositions.length > 3 ? (isMobile ? 60 : 110) : 0);
       targetZ = 200;
-      targetRotateZ = (selectionIndex - 1) * 2; 
-      targetScale = isMobile ? 1.0 : 1.35;
+      targetRotateZ = pos?.rotated ? 90 : (selectionIndex - 1) * 1.5;
+      targetScale = (isMobile ? 1.28 : 1.78) * fit;
 
       if (machineState === "result") {
         targetRotateY = 180; 
-        targetY = isMobile ? -60 : -120;
+        targetY = (pos?.row ?? 0) * cardHeight * 0.82 * fit + (isMobile ? -70 : -140) - (spreadPositions.length > 3 ? (isMobile ? 60 : 110) : 0);
       }
     } else {
       targetX = baseArcX * 1.5;
@@ -953,9 +1277,16 @@ const GodModeCard = React.memo(function GodModeCard({
   useEffect(() => { motionRotateY.set(targetRotateY); }, [targetRotateY, motionRotateY]);
 
   const finalRotateY = useTransform([isHoveredMV, rotateY_tilt, motionRotateY], ([h, rt, my]) => {
-     if (Number(my) > 90) return my; // Reveal flip takes precedence
+     // Once flipped, the plate still answers the hand: the tilt rides on
+     // top of the 180° reveal (sign inverted — the face is mirrored).
+     if (Number(my) > 90) return Number(my) - (Number(h) > 0.5 ? Number(rt) : 0);
      return Number(h) > 0.5 ? Number(rt) : Number(my);
   });
+
+  // Moonlight on the revealed face, sliding opposite the tilt.
+  const glareX = useTransform(smoothX, [0, cardWidth], [cardWidth * 0.34, -cardWidth * 0.34]);
+  const glareY = useTransform(smoothY, [0, cardHeight], [cardHeight * 0.3, -cardHeight * 0.3]);
+  const glareOpacity = useTransform(isHoveredMV, [0, 1], [0, 1]);
 
   const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     if (isReducedMotion || isMobile) return;
@@ -983,25 +1314,24 @@ const GodModeCard = React.memo(function GodModeCard({
 
   const handleInteraction = () => {
     audio.init();
+    if (machineState === "result" && isSelected) {
+      onInspect?.();
+      return;
+    }
     if (machineState === "drawing" && !isSelected && canSelect) {
       audio.playSelect();
     }
     onClick();
   };
 
+  // Once revealed, the plate behaves like an object on the table: it can
+  // be nudged around, and a click lifts it under the loupe.
+  const isLiftable = machineState === "result" && isSelected;
+
   // ── THE REVEAL EDGE GLARE ──
   const edgeGlareOpacity = useTransform(motionRotateY, [0, 80, 90, 100, 180], [0, 0, 1, 0, 0]);
 
-  // Disable canvas for off-screen/unhovered cards to save 1000x battery/CPU
-  const disableCanvas = useTransform(hoveredIndexMV, (h) => {
-     if (machineState !== 'drawing') return true;
-     if (isMobile && !isSelected) return true; 
-     return h !== index && !isSelected;
-  });
-  
-  const sheenOpacity = useTransform(isHoveredMV, [0, 1], [0, isMobile ? 0 : 0.08]);
   const staggerDelay = machineState === "drawing" && !isSelected ? 0.2 + index * 0.03 : 0;
-  const edgeAngle = useTransform(time, (t) => `${(t / 20) % 360}deg`);
 
   const finalRotateX = useTransform([isHoveredMV, rotateX], ([h, rx]) => {
     if (isSelected && machineState !== 'drawing') return rx;
@@ -1010,11 +1340,31 @@ const GodModeCard = React.memo(function GodModeCard({
 
   return (
     <m.div
+      data-oracle-card={index}
       onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
       onClick={handleInteraction}
-      className={`absolute top-1/2 left-1/2 cursor-pointer flr-scene glass-card ${isSelected ? "is-flipping" : ""}`}
+      role="button"
+      tabIndex={machineState === "drawing" || isSelected ? 0 : -1}
+      aria-pressed={isSelected}
+      aria-label={
+        isLiftable
+          ? `${card.name} — inspect the plate`
+          : `${card.name}${isSelected ? " — chosen" : " — face-down card"}`
+      }
+      drag={isLiftable}
+      dragMomentum={false}
+      dragElastic={0.14}
+      dragConstraints={{ left: -260, right: 260, top: -160, bottom: 160 }}
+      whileDrag={{ zIndex: 60, scale: 1.04 }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleInteraction();
+        }
+      }}
+      className={`absolute top-1/2 left-1/2 cursor-pointer oracle-night-card ${isSelected ? "is-flipping" : ""}`}
       style={{
         width: cardWidth,
         height: cardHeight,
@@ -1030,13 +1380,8 @@ const GodModeCard = React.memo(function GodModeCard({
         scale: isSelected || machineState !== "drawing" ? targetScale : dockScale,
         transformStyle: isMobile ? "flat" : "preserve-3d",
         WebkitTransformStyle: isMobile ? "flat" : "preserve-3d",
-        backfaceVisibility: "hidden",
-        WebkitBackfaceVisibility: "hidden",
         willChange: isSelected || machineState === "drawing" ? "transform" : "auto",
-        // @ts-expect-error - Custom CSS properties for motion values are not yet fully typed in React
-        "--angle": edgeAngle,
-        "--sheen-opacity": sheenOpacity
-        }}      
+        }}
       initial={{ opacity: 0, scale: 0 }}
       animate={{ 
         opacity: targetOpacity,
@@ -1051,59 +1396,60 @@ const GodModeCard = React.memo(function GodModeCard({
           : { duration: 0.5, delay: staggerDelay, ease: [0.16, 1, 0.3, 1] }
       }
     >
-      <div className="relative w-full h-full rounded-[14px] shadow-[0_10px_30px_rgba(0,0,0,0.5)]" style={{ transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
+      <div className="relative w-full h-full rounded-[14px] shadow-[0_10px_30px_rgba(5,7,32,0.5)]" style={{ transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d' }}>
         
         {/* EDGE GLARE */}
-        <m.div 
-          className="absolute inset-y-0 left-1/2 w-[2px] bg-white/20 -ml-[1px] shadow-[0_0_20px_rgba(255,255,255,0.4)] z-50 pointer-events-none"
+        <m.div
+          className="absolute inset-y-0 left-1/2 w-[2px] bg-[rgba(232,233,255,0.3)] -ml-[1px] shadow-[0_0_20px_rgba(232,233,255,0.28)] z-50 pointer-events-none"
           style={{ opacity: edgeGlareOpacity }}
         />
 
-        {/* BACK: EXACT 100% MATCH TO FLIP_REVEAL_CARD */}
-        <div 
-          className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] border border-[#d4af37]/40 will-change-transform" 
-          style={{ 
-            transform: 'translateZ(0.1px)', 
-            transformStyle: 'preserve-3d', 
-            WebkitTransformStyle: 'preserve-3d', 
-            backfaceVisibility: 'hidden', 
+        {/* BACK: ENGRAVED NIGHT PLATE */}
+        <div
+          className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] will-change-transform"
+          style={{
+            transform: 'translateZ(0.1px)',
+            transformStyle: 'preserve-3d',
+            WebkitTransformStyle: 'preserve-3d',
+            backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
-            background: 'rgba(11, 8, 34, 0.98)'
+            background: '#0a0d38'
           }}
         >
           {/* Inner Highlight */}
-          <div className="absolute inset-0 border-[0.5px] border-white/5 rounded-[14px] pointer-events-none" />
-          <CardBack disableCanvas={disableCanvas} />
+
+          <NightCardBack />
         </div>
 
         {/* FRONT: LAZY LOADED ACTUAL IMAGES */}
-        <div 
-          className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] border border-[#d4af37]/60 will-change-transform"
-          style={{ 
-            transform: 'rotateY(180deg) translateZ(0.1px)', 
-            transformStyle: 'preserve-3d', 
-            WebkitTransformStyle: 'preserve-3d', 
-            backfaceVisibility: 'hidden', 
+        <div
+          className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] will-change-transform"
+          style={{
+            transform: 'rotateY(180deg) translateZ(0.1px)',
+            transformStyle: 'preserve-3d',
+            WebkitTransformStyle: 'preserve-3d',
+            backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
-            background: '#04030c'
+            background: '#0a0d38'
           }}
         >
-           <div className="absolute inset-0 border-[0.5px] border-white/10 rounded-[14px] pointer-events-none" />
-           <div className="front-nebula" />
-           <div className="astral-foil" />
-           
+
+
            {/* Only load the image when it's selected (about to flip) or flipped to save massive network requests */}
            {(isSelected || machineState === "result") && (
-             <div className="relative w-full h-full">
+             <div
+               className="relative w-full h-full"
+               style={reversed ? { transform: "rotate(180deg)" } : undefined}
+             >
                <Image
                  src={getCardPortalImagePath(card)}
-                 alt={card.name}
+                 alt={reversed ? `${card.name} — reversed` : card.name}
                  fill
                  quality={100}
                  sizes={isMobile ? "180px" : "240px"}
                  loading={isSelected || machineState === "result" ? "eager" : "lazy"}
                  className={`absolute inset-0 w-full h-full object-cover z-[2] transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                 onLoadingComplete={() => setImageLoaded(true)}
+                 onLoad={() => setImageLoaded(true)}
                  style={{
                    imageRendering: "auto",
                    transform: "translateZ(0)",
@@ -1116,13 +1462,27 @@ const GodModeCard = React.memo(function GodModeCard({
              </div>
            )}
            
-           <div className="astral-vignette" />
-           
+           {/* Moonlight glare — the plate catches the lamp as it tilts */}
+           {isLiftable && !isReducedMotion && !isMobile && (
+             <m.div
+               aria-hidden
+               className="absolute inset-[-30%] z-[3] pointer-events-none"
+               style={{
+                 x: glareX,
+                 y: glareY,
+                 opacity: glareOpacity,
+                 mixBlendMode: "screen",
+                 background:
+                   "radial-gradient(42% 34% at 50% 46%, rgba(232,233,255,0.2), rgba(232,233,255,0.06) 44%, transparent 72%)",
+               }}
+             />
+           )}
+
            {/* Fallback typography while image loads or if it fails */}
-           <div className="absolute inset-3 border-[0.5px] border-[#d4af37]/40 rounded-lg flex flex-col items-center justify-between py-4 px-2 z-[1] opacity-50">
-              <div className="text-[#d4af37] text-[6px] tracking-[0.4em] uppercase text-center">{card.arcana} Arcana</div>
+           <div className="absolute inset-3 border-[0.5px] border-[rgba(232,233,255,0.24)] rounded-lg flex flex-col items-center justify-between py-4 px-2 z-[1] opacity-60">
+              <div className="text-[rgba(224,183,104,0.85)] text-[6px] tracking-[0.4em] uppercase text-center">{card.arcana} Arcana</div>
               <div className="text-center">
-                <div className="text-[#f5f0e8] font-serif text-sm leading-tight tracking-wide">{card.name}</div>
+                <div className="text-[#e8e9ff] [font-family:var(--font-heading),serif] text-sm leading-tight tracking-wide">{card.name}</div>
               </div>
            </div>
         </div>

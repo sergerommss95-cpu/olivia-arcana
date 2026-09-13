@@ -27,19 +27,17 @@ const selectStyle: React.CSSProperties = {
   appearance: "none",
   WebkitAppearance: "none",
   padding: "0.65rem 0.9rem",
-  fontFamily: "var(--font-accent)",
+  fontFamily: "var(--font-body)",
   fontSize: "0.95rem",
   letterSpacing: "0.04em",
-  color: "rgba(240,236,255,0.9)",
-  background: "rgba(255,255,255,0.04)",
-  border: "1px solid rgba(200,185,255,0.12)",
-  borderRadius: "0.75rem",
-  backdropFilter: "blur(4px)",
-  WebkitBackdropFilter: "blur(4px)",
+  color: "#e8e9ff",
+  background: "rgba(16,19,77,0.6)",
+  border: "1px solid rgba(232,233,255,0.16)",
+  borderRadius: "4px",
   outline: "none",
   cursor: "pointer",
-  transition: "border-color 0.3s",
-  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(180,170,210,0.4)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E")`,
+  transition: "border-color 0.3s cubic-bezier(0.16,1,0.3,1)",
+  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(183,188,233,0.7)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E")`,
   backgroundRepeat: "no-repeat",
   backgroundPosition: "right 0.75rem center",
   paddingRight: "2rem",
@@ -47,12 +45,12 @@ const selectStyle: React.CSSProperties = {
 };
 
 const labelStyle: React.CSSProperties = {
-  fontFamily: "var(--font-body)",
-  fontSize: "0.55rem",
+  fontFamily: "var(--font-mono)",
+  fontSize: "0.625rem",
   fontWeight: 500,
   letterSpacing: "0.18em",
   textTransform: "uppercase",
-  color: "rgba(180,170,210,0.35)",
+  color: "#b7bce9",
   marginBottom: "0.25rem",
 };
 
@@ -100,12 +98,12 @@ export default function BirthDatePicker({ value, onChange }: Props) {
           onChange={e => setMonth(e.target.value)}
           style={{
             ...selectStyle,
-            borderColor: month ? "rgba(200,185,255,0.2)" : "rgba(200,185,255,0.12)",
+            borderColor: month ? "rgba(232,233,255,0.2)" : "rgba(232,233,255,0.12)",
           }}
         >
-          <option value="" style={{ background: "#0a0815", color: "rgba(180,170,210,0.5)" }}>Month</option>
+          <option value="" style={{ background: "#10134d", color: "rgba(183,188,233,0.7)" }}>Month</option>
           {MONTHS.map((name, i) => (
-            <option key={i} value={String(i + 1)} style={{ background: "#0a0815" }}>
+            <option key={i} value={String(i + 1)} style={{ background: "#10134d", color: "#e8e9ff" }}>
               {name}
             </option>
           ))}
@@ -120,12 +118,12 @@ export default function BirthDatePicker({ value, onChange }: Props) {
           onChange={e => setDay(e.target.value)}
           style={{
             ...selectStyle,
-            borderColor: day ? "rgba(200,185,255,0.2)" : "rgba(200,185,255,0.12)",
+            borderColor: day ? "rgba(232,233,255,0.2)" : "rgba(232,233,255,0.12)",
           }}
         >
-          <option value="" style={{ background: "#0a0815", color: "rgba(180,170,210,0.5)" }}>Day</option>
+          <option value="" style={{ background: "#10134d", color: "rgba(183,188,233,0.7)" }}>Day</option>
           {DAYS.filter(d => d <= maxDay).map(d => (
-            <option key={d} value={String(d)} style={{ background: "#0a0815" }}>
+            <option key={d} value={String(d)} style={{ background: "#10134d", color: "#e8e9ff" }}>
               {d}
             </option>
           ))}
@@ -140,12 +138,12 @@ export default function BirthDatePicker({ value, onChange }: Props) {
           onChange={e => setYear(e.target.value)}
           style={{
             ...selectStyle,
-            borderColor: year ? "rgba(200,185,255,0.2)" : "rgba(200,185,255,0.12)",
+            borderColor: year ? "rgba(232,233,255,0.2)" : "rgba(232,233,255,0.12)",
           }}
         >
-          <option value="" style={{ background: "#0a0815", color: "rgba(180,170,210,0.5)" }}>Year</option>
+          <option value="" style={{ background: "#10134d", color: "rgba(183,188,233,0.7)" }}>Year</option>
           {YEARS.map(y => (
-            <option key={y} value={String(y)} style={{ background: "#0a0815" }}>
+            <option key={y} value={String(y)} style={{ background: "#10134d", color: "#e8e9ff" }}>
               {y}
             </option>
           ))}

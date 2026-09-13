@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import ScrollFloat from "@/components/ScrollFloat";
 import CheckoutButton from "@/components/CheckoutButton";
 import MagneticButton from "@/components/MagneticButton";
@@ -92,19 +92,13 @@ export default function Pricing() {
     <section id="pricing" className="relative py-16 sm:py-32 px-4 sm:px-6 overflow-hidden">
       {/* Readability Scrims — Deeper for a high-end sanctuary feel */}
       <div className="absolute inset-0 bg-void-black/60 pointer-events-none z-0" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.08),transparent_50%)] pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(224,183,104,0.08),transparent_50%)] pointer-events-none z-0" />
       
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Heading */}
         <div className="text-center mb-10 sm:mb-20">
-          <AnimatePresence mode="wait">
             {fromOracle ? (
-              <motion.div
-                key="oracle-header"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-8"
-              >
+              <div className="mb-8">
                 <p className="readable-label mb-4 tracking-[0.2em]">The Next Step</p>
                 <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl lg:text-6xl font-normal text-warm-ivory italic leading-[1.1]">
                   Continue your Oracle reading
@@ -113,26 +107,20 @@ export default function Pricing() {
                   Free readings provide a starting point. Paid plans add the full context of your birth chart, 
                   compatibility, and deeper patterns.
                 </p>
-              </motion.div>
+              </div>
             ) : (
-              <motion.div
-                key="default-header"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-              >
+              <div>
                 <p className="readable-label mb-4 tracking-[0.2em]">
                   {t("price_eyebrow")}
                 </p>
                 <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl lg:text-6xl font-normal text-warm-ivory mb-6 leading-[1.1]">
-                  Choose your level of insight
+                  Choose how deep you want to go
                 </h2>
                 <p className="text-warm-ivory/80 text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
-                  Start free. Step into deeper pattern recognition only when you seek fuller clarity
-                  on your chart, transits, or compatibility.
+                  Start free. Upgrade when you want fuller chart context, compatibility, or a deeper tarot reading.
                 </p>
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
           
           <div className="star-divider max-w-xs mx-auto text-celestial-gold opacity-40 my-8">&#10022;</div>
 
@@ -152,7 +140,7 @@ export default function Pricing() {
               onClick={() => setBillingPeriod("annual")}
               className={`text-sm tracking-[0.15em] uppercase transition-all flex items-center gap-2 font-bold ${
                 billingPeriod === "annual"
-                  ? "text-celestial-gold border-b border-celestial-gold shadow-[0_4px_12px_-4px_rgba(212,175,55,0.4)]"
+                  ? "text-celestial-gold border-b border-celestial-gold shadow-[0_4px_12px_-4px_rgba(224,183,104,0.4)]"
                   : "text-warm-ivory/40 hover:text-warm-ivory/60"
               } pb-2`}
             >
@@ -189,7 +177,7 @@ export default function Pricing() {
                   <div
                     className={`relative bg-void-black/80 backdrop-blur-xl border ${isHighlighted ? 'border-celestial-gold/40 ring-1 ring-celestial-gold/20' : 'border-white/10'} p-6 sm:p-8 h-full flex flex-col transition-all duration-700 rounded-3xl`}
                     style={{
-                      boxShadow: isHighlighted ? "0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.05)" : "0 20px 40px rgba(0, 0, 0, 0.3)",
+                      boxShadow: isHighlighted ? "0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(224, 183, 104, 0.05)" : "0 20px 40px rgba(0, 0, 0, 0.3)",
                     }}
                   >
                   {isHighlighted && (
@@ -234,7 +222,7 @@ export default function Pricing() {
                   </div>
 
                   <ul className="space-y-4 mb-10 flex-1">
-                    {((TRANSLATIONS[locale as keyof typeof TRANSLATIONS] || TRANSLATIONS.en)[tier.features as keyof Translations] as string[]).map((f) => (
+                    {((TRANSLATIONS[locale as keyof typeof TRANSLATIONS] || TRANSLATIONS.en)[tier.features as keyof Translations] as string[]).slice(0, 5).map((f) => (
                       <li key={f} className="flex items-start gap-3 text-sm text-warm-ivory/90 leading-relaxed font-medium">
                         <span className="text-celestial-gold shrink-0 mt-1">✦</span>
                         <span>{f}</span>
@@ -277,21 +265,21 @@ export default function Pricing() {
               <span className="text-celestial-gold text-2xl opacity-60">✦</span>
               <div>
                 <p className="text-[0.7rem] uppercase tracking-[0.2em] font-bold text-warm-ivory/80">Secure Checkout</p>
-                <p className="text-[0.6rem] text-warm-ivory/40 mt-1">Encrypted encryption via Paddle</p>
+                <p className="text-[0.6rem] text-warm-ivory/50 mt-1">Checkout handled by Paddle</p>
               </div>
             </div>
             <div className="flex flex-col items-center text-center gap-3">
               <span className="text-celestial-gold text-2xl opacity-60">✦</span>
               <div>
                 <p className="text-[0.7rem] uppercase tracking-[0.2em] font-bold text-warm-ivory/80">Privacy First</p>
-                <p className="text-[0.6rem] text-warm-ivory/40 mt-1">Your data is never sold or shared</p>
+                <p className="text-[0.6rem] text-warm-ivory/50 mt-1">Your data is never sold</p>
               </div>
             </div>
             <div className="flex flex-col items-center text-center gap-3">
               <span className="text-celestial-gold text-2xl opacity-60">✦</span>
               <div>
-                <p className="text-[0.7rem] uppercase tracking-[0.2em] font-bold text-warm-ivory/80">Precise Ephemeris</p>
-                <p className="text-[0.6rem] text-warm-ivory/40 mt-1">Real-time astronomical data</p>
+                <p className="text-[0.7rem] uppercase tracking-[0.2em] font-bold text-warm-ivory/80">Chart-Based Timing</p>
+                <p className="text-[0.6rem] text-warm-ivory/50 mt-1">Uses open ephemeris data</p>
               </div>
             </div>
           </div>

@@ -1,3 +1,11 @@
+/**
+ * Footer — the Arrival colophon.
+ *
+ * A hairline-topped band on deep ultramarine: mono note with the gilt
+ * diamond, a serif italic breath in the center, and below it a quiet
+ * mono directory. The mega-footer grid is retired.
+ */
+
 "use client";
 
 import TransitionLink from "@/components/transitions/TransitionLink";
@@ -5,96 +13,102 @@ import LivingOliveMark from "./LivingOliveMark";
 import { useLocale } from "../lib/i18n/useLocale";
 
 export default function Footer() {
-  const { t } = useLocale();
-  const zodiacSigns = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"];
+  const { t, locale } = useLocale();
+  const isUk = locale === "uk";
+
+  const directory: Array<{ head: string; links: Array<{ label: string; href: string; external?: boolean }> }> = [
+    {
+      head: t("foot_explore") as string,
+      links: [
+        { label: t("nav_academy") as string, href: "/academy" },
+        { label: t("academy_card_of_day") as string, href: "/academy/card-of-the-day" },
+        { label: t("profile_celestial_portrait") as string, href: "/portrait" },
+        { label: t("ask_title") as string, href: "/ask" },
+      ],
+    },
+    {
+      head: t("foot_connect") as string,
+      links: [
+        { label: t("foot_tg_bot") as string, href: "https://t.me/OliviaArcanaBot", external: true },
+        { label: t("foot_tg_channel") as string, href: "https://t.me/OliviaArcanaDaily", external: true },
+        { label: t("common_about") as string, href: "/about" },
+        { label: t("common_contact") as string, href: "/contact" },
+      ],
+    },
+    {
+      head: t("legal_title") as string,
+      links: [
+        { label: t("legal_terms") as string, href: "/terms" },
+        { label: t("legal_privacy") as string, href: "/privacy" },
+        { label: t("legal_refund") as string, href: "/refund" },
+        { label: t("legal_disclaimer") as string, href: "/disclaimer" },
+        { label: t("legal_dmca") as string, href: "/dmca" },
+      ],
+    },
+  ];
 
   return (
-    <footer className="relative py-12 sm:py-20 px-4 sm:px-6 border-t border-celestial-gold/10" style={{ paddingBottom: "calc(3rem + env(safe-area-inset-bottom))" }}>
-      <div className="max-w-6xl mx-auto">
-        {/* Zodiac strip */}
-        <div className="flex justify-center flex-wrap gap-2 sm:gap-4 mb-12 text-celestial-gold/30 text-base sm:text-lg">
-          {zodiacSigns.map((sign, i) => (
-            <span key={i} className="hover:text-celestial-gold transition-colors cursor-default">
-              {sign}
-            </span>
+    <footer className="relative border-t border-[rgba(232,233,255,0.16)] bg-[#121656]">
+      {/* ── The band ── */}
+      <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center gap-5 px-6 py-6 sm:grid-cols-[1fr_auto_1fr] sm:px-[clamp(24px,5.25vw,104px)]">
+        <p className="m-0 flex items-center gap-3 font-[family-name:var(--font-mono)] text-[11px] uppercase leading-relaxed tracking-[0.12em] text-[#b7bce9]">
+          <span aria-hidden className="text-[13px] text-[#e0b768]">✦</span>
+          {isUk ? "Астрологія й таро — особисто для вас" : "Astrology & tarot, made personal"}
+        </p>
+        <p className="m-0 hidden text-center font-[family-name:var(--font-heading)] text-lg italic text-[#c4caed] sm:block">
+          {isUk ? "Трохи тиші. Трохи ясності." : "A little stillness. A little clarity."}
+        </p>
+        <div className="flex items-center justify-start gap-3 sm:justify-end">
+          <LivingOliveMark size={20} className="shrink-0 text-[#b7bce9]" />
+          <span className="font-[family-name:var(--font-heading)] text-base tracking-[0.105em] text-[#e8e9ff]">
+            OLIVIA ARCANA
+          </span>
+        </div>
+      </div>
+
+      {/* ── The directory ── */}
+      <div className="border-t border-[rgba(232,233,255,0.08)]">
+        <div className="mx-auto grid max-w-screen-2xl grid-cols-2 gap-10 px-6 py-12 sm:grid-cols-4 sm:px-[clamp(24px,5.25vw,104px)]">
+          <div className="col-span-2 sm:col-span-1">
+            <p className="m-0 max-w-xs text-sm leading-relaxed text-[rgba(206,210,245,0.85)]">{t("foot_desc")}</p>
+            <p className="mt-4 max-w-xs text-xs leading-relaxed text-[rgba(183,188,233,0.66)]">
+              Astrology and tarot for entertainment & self-reflection.{" "}
+              <TransitionLink href="/disclaimer" className="text-[#e0b768] underline decoration-[rgba(224,183,104,0.35)] underline-offset-4 hover:decoration-[#e0b768]">
+                {t("legal_disclaimer")}
+              </TransitionLink>
+            </p>
+          </div>
+          {directory.map((col) => (
+            <div key={col.head}>
+              <h4 className="mb-4 font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.2em] text-[#b7bce9]">
+                {col.head}
+              </h4>
+              <ul className="m-0 list-none space-y-3 p-0">
+                {col.links.map((item) =>
+                  item.external ? (
+                    <li key={item.href}>
+                      <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-sm text-[rgba(232,233,255,0.75)] transition-colors hover:text-[#e8e9ff]">
+                        {item.label}
+                      </a>
+                    </li>
+                  ) : (
+                    <li key={item.href}>
+                      <TransitionLink href={item.href} className="text-sm text-[rgba(232,233,255,0.75)] transition-colors hover:text-[#e8e9ff]">
+                        {item.label}
+                      </TransitionLink>
+                    </li>
+                  ),
+                )}
+              </ul>
+            </div>
           ))}
         </div>
 
-        <div className="grid md:grid-cols-5 gap-10 mb-16">
-          {/* Brand */}
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <LivingOliveMark size={24} className="shrink-0" />
-              <span className="font-[family-name:var(--font-heading)] text-xl font-semibold text-celestial-gold">
-                Olivia Arcana
-              </span>
-            </div>
-            <p className="readable-secondary text-sm leading-relaxed max-w-md">
-              {t("foot_desc")}
-            </p>
-            <p className="readable-muted text-xs mt-4 leading-relaxed">
-              Astrology and tarot for entertainment & self-reflection. <a href="/disclaimer" className="text-celestial-gold/80 hover:text-celestial-gold transition-colors font-medium underline underline-offset-4 decoration-white/10">Read the full disclaimer</a>.
-            </p>
-          </div>
-
-          {/* Explore */}
-          <div>
-            <h4 className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-wider uppercase mb-4">
-              {t("foot_explore")}
-            </h4>
-            <ul className="space-y-3">
-              {[
-                { label: t("nav_academy"), href: "/academy" },
-                { label: t("academy_tarot_encyclopedia"), href: "/academy/tarot-encyclopedia" },
-                { label: t("academy_card_of_day"), href: "/academy/card-of-the-day" },
-                { label: t("academy_aspect_guide"), href: "/academy/aspect-guide" },
-                { label: t("profile_celestial_portrait"), href: "/portrait" },
-                { label: t("ask_title"), href: "/ask" },
-              ].map((item) => (
-                <li key={item.href}>
-                  <TransitionLink href={item.href} className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">
-                    {item.label}
-                  </TransitionLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Connect */}
-          <div>
-            <h4 className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-wider uppercase mb-4">
-              {t("foot_connect")}
-            </h4>
-            <ul className="space-y-3">
-              <li><a href="https://t.me/OliviaArcanaBot" target="_blank" rel="noopener noreferrer" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("foot_tg_bot")}</a></li>
-              <li><a href="https://t.me/OliviaArcanaDaily" target="_blank" rel="noopener noreferrer" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("foot_tg_channel")}</a></li>
-              <li><TransitionLink href="/about" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("common_about")}</TransitionLink></li>
-              <li><TransitionLink href="/contact" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("common_contact")}</TransitionLink></li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h4 className="font-[family-name:var(--font-accent)] text-celestial-gold text-sm tracking-wider uppercase mb-4">
-              {t("legal_title")}
-            </h4>
-            <ul className="space-y-3">
-              <li><TransitionLink href="/terms" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("legal_terms")}</TransitionLink></li>
-              <li><TransitionLink href="/privacy" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("legal_privacy")}</TransitionLink></li>
-              <li><TransitionLink href="/cookies" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("legal_cookies")}</TransitionLink></li>
-              <li><TransitionLink href="/refund" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("legal_refund")}</TransitionLink></li>
-              <li><TransitionLink href="/disclaimer" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("legal_disclaimer")}</TransitionLink></li>
-              <li><TransitionLink href="/dmca" className="text-muted-lavender text-sm hover:text-celestial-gold transition-colors">{t("legal_dmca")}</TransitionLink></li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="readable-muted text-xs font-medium">
-            &copy; {new Date().getFullYear()} Olivia Arcana LLC. {t("foot_copyright")}
+        <div className="mx-auto flex max-w-screen-2xl flex-col items-start justify-between gap-2 px-6 pb-8 sm:flex-row sm:items-center sm:px-[clamp(24px,5.25vw,104px)]" style={{ paddingBottom: "calc(2rem + env(safe-area-inset-bottom))" }}>
+          <p className="m-0 font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.12em] text-[rgba(183,188,233,0.6)]">
+            © {new Date().getFullYear()} Olivia Arcana LLC · {t("foot_copyright")}
           </p>
-          <p className="readable-muted text-[10px] opacity-60">
+          <p className="m-0 font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.12em] text-[rgba(183,188,233,0.45)]">
             {t("foot_data")}
           </p>
         </div>

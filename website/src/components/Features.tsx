@@ -67,7 +67,7 @@ export default function Features() {
             position: "absolute",
             inset: "-4rem -4rem",
             background:
-              "radial-gradient(ellipse at center, rgba(5,3,20,0.85) 0%, rgba(5,3,20,0.6) 60%, transparent 100%)",
+              "radial-gradient(ellipse at center, rgba(8,10,50,0.85) 0%, rgba(8,10,50,0.6) 60%, transparent 100%)",
             pointerEvents: "none",
             zIndex: -1,
           }}
@@ -84,7 +84,7 @@ export default function Features() {
               fontSize: "clamp(2.2rem, 4.6vw, 3.2rem)",
               fontWeight: 500,
               fontStyle: "italic",
-              color: "#f5f2e1",
+              color: "#eef0ff",
               lineHeight: 1.1,
               margin: 0,
               letterSpacing: "-0.01em",
@@ -110,11 +110,11 @@ export default function Features() {
               style={{
                 borderTop:
                   i === 0
-                    ? "1px solid rgba(200, 185, 255, 0.12)"
-                    : "1px solid rgba(200, 185, 255, 0.08)",
+                    ? "1px solid rgba(184, 190, 240, 0.12)"
+                    : "1px solid rgba(184, 190, 240, 0.08)",
                 borderBottom:
                   i === features.length - 1
-                    ? "1px solid rgba(200, 185, 255, 0.12)"
+                    ? "1px solid rgba(184, 190, 240, 0.12)"
                     : "none",
               }}
             >
@@ -154,7 +154,7 @@ export default function Features() {
           font-style: italic;
           font-weight: 600;
           font-size: clamp(1.6rem, 2.6vw, 2rem);
-          color: #f5f2e1;
+          color: #eef0ff;
           line-height: 1.2;
           margin: 0 0 0.85rem 0;
           letter-spacing: 0.01em;

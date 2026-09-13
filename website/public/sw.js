@@ -6,7 +6,7 @@
  * Pre-caches the app shell on install.
  */
 
-const CACHE = "olivia-v3";
+const CACHE = "olivia-v6";
 const SHELL = [
   "/",
   "/daily",
@@ -63,8 +63,8 @@ self.addEventListener("fetch", (event) => {
   // Skip chrome-extension and other non-http(s) schemes
   if (!url.protocol.startsWith("http")) return;
 
-  // Static assets: cache-first
-  if (isStaticAsset(url.pathname)) {
+  // Hashed build assets: cache-first (filenames change per build).
+  if (url.pathname.startsWith("/_next/static/")) {
     event.respondWith(
       caches.match(request).then((cached) => {
         if (cached) return cached;
@@ -75,6 +75,27 @@ self.addEventListener("fetch", (event) => {
           }
           return response;
         });
+      })
+    );
+    return;
+  }
+
+  // Unhashed static assets (card art, icons): stale-while-revalidate —
+  // serve the cached copy instantly, refresh it in the background so a
+  // redesigned deck reaches every installed PWA within one visit.
+  if (isStaticAsset(url.pathname)) {
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        const refetch = fetch(request)
+          .then((response) => {
+            if (response.ok) {
+              const clone = response.clone();
+              caches.open(CACHE).then((cache) => cache.put(request, clone));
+            }
+            return response;
+          })
+          .catch(() => cached);
+        return cached || refetch;
       })
     );
     return;

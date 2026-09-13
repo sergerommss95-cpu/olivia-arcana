@@ -239,7 +239,7 @@ export default function CosmicSelfie() {
         flexDirection: "column",
         alignItems: "center",
         gap: "2.5rem",
-        background: "var(--c-void, #06041a)",
+        background: "var(--c-void, #0a0d38)",
       }}
     >
       {/* ── Rift edge glow (top) ── */}
@@ -252,8 +252,8 @@ export default function CosmicSelfie() {
           right: "10%",
           height: 1,
           background:
-            "linear-gradient(90deg, transparent, rgba(212,175,55,0.4) 30%, rgba(212,175,55,0.6) 50%, rgba(212,175,55,0.4) 70%, transparent)",
-          boxShadow: "0 0 20px 2px rgba(212,175,55,0.15)",
+            "linear-gradient(90deg, transparent, rgba(224,183,104,0.4) 30%, rgba(224,183,104,0.6) 50%, rgba(224,183,104,0.4) 70%, transparent)",
+          boxShadow: "0 0 20px 2px rgba(224,183,104,0.15)",
         }}
       />
 
@@ -303,7 +303,7 @@ export default function CosmicSelfie() {
               transform: "translate(-50%, -50%)",
               borderRadius: "50%",
               background:
-                "radial-gradient(circle, rgba(130,90,220,0.18) 0%, rgba(212,175,55,0.08) 40%, transparent 70%)",
+                "radial-gradient(circle, rgba(130,90,220,0.18) 0%, rgba(224,183,104,0.08) 40%, transparent 70%)",
               animation: "oracle-aura-breathe 4s ease-in-out infinite",
               pointerEvents: "none",
               zIndex: 0,
@@ -340,7 +340,7 @@ export default function CosmicSelfie() {
                       inset: 0,
                       borderRadius: "50%",
                       background:
-                        "linear-gradient(135deg, rgba(160,122,224,0.08) 0%, rgba(212,175,55,0.06) 50%, rgba(160,122,224,0.08) 100%)",
+                        "linear-gradient(135deg, rgba(160,122,224,0.08) 0%, rgba(224,183,104,0.06) 50%, rgba(160,122,224,0.08) 100%)",
                       animation: "shimmer 1.8s ease-in-out infinite alternate",
                     }}
                   />
@@ -392,7 +392,7 @@ export default function CosmicSelfie() {
                         width: 36,
                         height: 36,
                         borderRadius: "50%",
-                        border: "1px solid rgba(212, 175, 55, 0.35)",
+                        border: "1px solid rgba(224, 183, 104, 0.35)",
                         pointerEvents: "none",
                         zIndex: 10,
                         transform: "translate(-50%, -50%) translate3d(-200px, -200px, 0)",
@@ -501,9 +501,9 @@ export default function CosmicSelfie() {
                     gap: "0.4rem",
                     padding: "0.45rem 1rem",
                     borderRadius: "100px",
-                    border: "1px solid var(--c-border, rgba(200,185,255,0.10))",
+                    border: "1px solid var(--c-border, rgba(184,190,240,0.10))",
                     background: "var(--c-surface, rgba(255,255,255,0.04))",
-                    color: "var(--c-text-mid, rgba(196,185,228,0.80))",
+                    color: "var(--c-text-mid, rgba(206,210,245,0.80))",
                     fontFamily: "var(--font-body, 'Inter', sans-serif)",
                     fontSize: "0.8rem",
                     textDecoration: "none",
@@ -568,8 +568,8 @@ export default function CosmicSelfie() {
           right: "10%",
           height: 1,
           background:
-            "linear-gradient(90deg, transparent, rgba(212,175,55,0.4) 30%, rgba(212,175,55,0.6) 50%, rgba(212,175,55,0.4) 70%, transparent)",
-          boxShadow: "0 0 20px 2px rgba(212,175,55,0.15)",
+            "linear-gradient(90deg, transparent, rgba(224,183,104,0.4) 30%, rgba(224,183,104,0.6) 50%, rgba(224,183,104,0.4) 70%, transparent)",
+          boxShadow: "0 0 20px 2px rgba(224,183,104,0.15)",
         }}
       />
 

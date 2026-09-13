@@ -1,9 +1,11 @@
 /**
  * /signs — Zodiac sign index page
- * Grid of all 12 signs linking to their detail pages.
+ * The almanac's index of plates: all twelve signs, one ruled line each,
+ * dot leaders running out to the dates.
  */
 
 import Link from "next/link";
+import AlmanacShell from "@/components/almanac/AlmanacShell";
 import { SIGN_PAGES } from "../../lib/sign-data";
 
 export const metadata = {
@@ -11,74 +13,190 @@ export const metadata = {
   description: "Explore all 12 zodiac signs with detailed personality profiles, compatibility, career guidance, and more. Aries through Pisces — your complete astrological reference.",
 };
 
-const ELEMENT_COLORS: Record<string, string> = {
-  Fire: "rgba(255,107,53,0.15)", Earth: "rgba(124,179,66,0.12)",
-  Air: "rgba(200,200,220,0.1)", Water: "rgba(79,195,247,0.12)",
-};
+const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
 
 export default function SignsIndex() {
   const signs = Object.values(SIGN_PAGES);
 
   return (
-    <div style={{
-      minHeight: "100vh", position: "relative", zIndex: 1,
-      maxWidth: "900px", margin: "0 auto", padding: "2rem 1.5rem 4rem",
-    }}>
-      <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-        <Link href="/" style={{
-          fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 400,
-          letterSpacing: "0.15em", textTransform: "uppercase",
-          color: "rgba(180,170,210,0.4)", textDecoration: "none",
-        }}>← Home</Link>
-        <h1 style={{
-          fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem, 4vw, 2.2rem)",
-          fontWeight: 400, marginTop: "0.75rem",
-        }}>
-          <span className="text-gold-gradient">The 12 Zodiac Signs</span>
-        </h1>
-        <p style={{
-          fontFamily: "var(--font-body)", fontSize: "0.82rem", fontWeight: 300,
-          color: "rgba(196,185,228,0.5)", marginTop: "0.4rem",
-        }}>Your complete astrological reference</p>
+    <AlmanacShell>
+      <div className="signs-index">
+        <header className="signs-head">
+          <p className="alm-kicker">
+            <span>Plates I–XII</span>· The Zodiac
+          </p>
+          <h1 className="alm-h1">The 12 Zodiac Signs</h1>
+          <p className="alm-lead signs-lead">Your complete astrological reference</p>
+        </header>
+
+        <p className="alm-kicker signs-archive">
+          <span lang="en">THE PLATE ARCHIVE — twelve engravings, kept in the order of the year</span>
+          <span lang="uk">АРХІВ ГРАВЮР — дванадцять відбитків, у порядку року</span>
+        </p>
+
+        <ol className="signs-list">
+          {signs.map((sign, i) => (
+            <li key={sign.name} className="signs-row">
+              <Link href={`/signs/${sign.name.toLowerCase()}`} className="signs-link">
+                <span className="signs-numeral">{ROMAN[i]}</span>
+                <span className="signs-glyph" aria-hidden>
+                  {sign.glyph + "\uFE0E"}
+                </span>
+                <span className="signs-name">{sign.name}</span>
+                <span className="signs-meta">
+                  {sign.element} · {sign.modality}
+                </span>
+                <span className="signs-leader" aria-hidden />
+                <span className="signs-dates">{sign.dateRange}</span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+
+        <p className="alm-caption signs-foot">Fig. 1–12 — the wheel, taken apart</p>
       </div>
 
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-        gap: "0.75rem",
-      }}>
-        {signs.map(sign => (
-          <Link
-            key={sign.name}
-            href={`/signs/${sign.name.toLowerCase()}`}
-            style={{
-              display: "flex", flexDirection: "column", alignItems: "center",
-              gap: "0.5rem", padding: "1.5rem 1rem",
-              background: ELEMENT_COLORS[sign.element] || "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(200,185,255,0.06)",
-              borderRadius: "1rem",
-              textDecoration: "none",
-              transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-              backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)",
-            }}
-          >
-            <span style={{ fontSize: "2rem" }}>{sign.glyph}</span>
-            <span style={{
-              fontFamily: "var(--font-accent)", fontSize: "1rem", fontWeight: 500,
-              color: "rgba(240,236,255,0.88)", letterSpacing: "0.06em",
-            }}>{sign.name}</span>
-            <span style={{
-              fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 400,
-              color: "rgba(180,170,210,0.45)", letterSpacing: "0.04em",
-            }}>{sign.dateRange}</span>
-            <span style={{
-              fontFamily: "var(--font-body)", fontSize: "0.55rem", fontWeight: 500,
-              letterSpacing: "0.12em", textTransform: "uppercase",
-              color: "rgba(180,170,210,0.3)",
-            }}>{sign.element} &middot; {sign.modality}</span>
-          </Link>
-        ))}
-      </div>
-    </div>
+      <style>{`
+        .signs-index {
+          width: min(100%, 56rem);
+          margin: 0 auto;
+        }
+
+        .signs-head {
+          text-align: center;
+          margin-bottom: clamp(2rem, 5vw, 3.2rem);
+        }
+
+        .signs-lead {
+          max-width: 44ch;
+          margin: 0.9rem auto 0;
+        }
+
+        /* Archive kicker — EN by default; html[lang] is synced by the shell. */
+        .signs-archive {
+          margin: 0 0 0.9rem;
+        }
+
+        .signs-archive [lang="uk"] {
+          display: none;
+        }
+
+        html[lang="uk"] .signs-archive [lang="en"] {
+          display: none;
+        }
+
+        html[lang="uk"] .signs-archive [lang="uk"] {
+          display: inline;
+        }
+
+        .signs-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          border-top: 3px solid var(--ink);
+        }
+
+        .signs-row {
+          border-bottom: 1px solid var(--hairline);
+        }
+
+        .signs-link {
+          display: flex;
+          align-items: baseline;
+          gap: 1rem;
+          padding: 1.05rem 0.2rem;
+          text-decoration: none;
+          color: var(--ink);
+        }
+
+        .signs-numeral {
+          flex: 0 0 2.2rem;
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.66rem;
+          letter-spacing: 0.18em;
+          color: var(--ink-faint);
+        }
+
+        .signs-glyph {
+          flex: 0 0 auto;
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-size: 1.15rem;
+          color: var(--ink-soft);
+        }
+
+        .signs-name {
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-size: 1.4rem;
+          font-weight: 600;
+          line-height: 1.1;
+          transition: color 200ms var(--ease);
+        }
+
+        .signs-link:hover .signs-name,
+        .signs-link:focus-visible .signs-name {
+          color: var(--ox);
+          font-style: italic;
+        }
+
+        .signs-meta {
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.58rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: var(--ink-faint);
+        }
+
+        .signs-leader {
+          flex: 1 1 auto;
+          min-width: 2rem;
+          border-bottom: 1.5px dotted rgba(232, 233, 255, 0.35);
+          transform: translateY(-0.28em);
+        }
+
+        .signs-dates {
+          flex: 0 0 auto;
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.72rem;
+          letter-spacing: 0.04em;
+          font-variant-numeric: lining-nums tabular-nums;
+          color: var(--ink-soft);
+          white-space: nowrap;
+        }
+
+        .signs-foot {
+          text-align: center;
+          margin-top: 2.2rem;
+        }
+
+        @media (max-width: 640px) {
+          .signs-link {
+            flex-wrap: wrap;
+            row-gap: 0.15rem;
+          }
+
+          .signs-leader {
+            display: none;
+          }
+
+          .signs-meta {
+            margin-left: auto;
+          }
+
+          .signs-dates {
+            flex: 1 1 100%;
+            order: 5;
+            padding-left: 3.2rem;
+            color: var(--ink-faint);
+            white-space: normal;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .signs-name {
+            transition: none;
+          }
+        }
+      `}</style>
+    </AlmanacShell>
   );
 }

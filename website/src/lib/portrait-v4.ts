@@ -24,10 +24,10 @@ export interface Portrait3DConfig {
 }
 
 const ELEMENT_STYLES = {
-  Fire: { primary: "#e8524a", secondary: "#D4AF37", accent: "#ff9500", glow: "rgba(232, 82, 74, 0.4)" },
-  Water: { primary: "#6b8dd6", secondary: "#4ECDC4", accent: "#00d2ff", glow: "rgba(107, 141, 214, 0.4)" },
+  Fire: { primary: "#e8524a", secondary: "#e0b768", accent: "#ff9500", glow: "rgba(232, 82, 74, 0.4)" },
+  Water: { primary: "#6b8dd6", secondary: "#8d97ff", accent: "#00d2ff", glow: "rgba(107, 141, 214, 0.4)" },
   Air: { primary: "#7b68ee", secondary: "#c8b4ff", accent: "#ffffff", glow: "rgba(123, 104, 238, 0.4)" },
-  Earth: { primary: "#4ecdc4", secondary: "#C6A962", accent: "#d4af37", glow: "rgba(78, 205, 196, 0.4)" },
+  Earth: { primary: "#8d97ff", secondary: "#C6A962", accent: "#e0b768", glow: "rgba(78, 205, 196, 0.4)" },
 };
 
 export function build3DPortraitConfig(chart: NatalChart): Portrait3DConfig {

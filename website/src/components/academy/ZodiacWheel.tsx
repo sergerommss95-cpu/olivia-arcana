@@ -41,12 +41,12 @@ const SIGNS: SignData[] = [
 ];
 
 const ELEMENT_COLORS: Record<string, string> = {
-  Fire: "#E8524A", Earth: "#4ECDC4", Air: "#D4AF37", Water: "#7B68EE",
+  Fire: "#E8524A", Earth: "#8d97ff", Air: "#e0b768", Water: "#7B68EE",
 };
 
 const ELEMENT_BG: Record<string, string> = {
   Fire: "rgba(232,82,74,0.12)", Earth: "rgba(78,205,196,0.12)",
-  Air: "rgba(212,175,55,0.12)", Water: "rgba(123,104,238,0.12)",
+  Air: "rgba(224,183,104,0.12)", Water: "rgba(123,104,238,0.12)",
 };
 
 type OverlayMode = "none" | "elements" | "modalities" | "polarities";
@@ -121,7 +121,7 @@ export default function ZodiacWheel({ highlightElement, highlightModality }: {
   const modalityLines = useMemo(() => {
     if (overlay !== "modalities") return null;
     const colors: Record<string, string> = {
-      Cardinal: "#D4AF37", Fixed: "#7B68EE", Mutable: "#4ECDC4",
+      Cardinal: "#e0b768", Fixed: "#7B68EE", Mutable: "#8d97ff",
     };
     const groups: Record<string, number[]> = {};
     SIGNS.forEach((s, i) => { (groups[s.modality] ??= []).push(i); });
@@ -156,7 +156,7 @@ export default function ZodiacWheel({ highlightElement, highlightModality }: {
           key={i}
           x1={CX + INNER_R * Math.cos(a1)} y1={CY + INNER_R * Math.sin(a1)}
           x2={CX + INNER_R * Math.cos(a2)} y2={CY + INNER_R * Math.sin(a2)}
-          stroke={SIGNS[i].polarity === "Yang" ? "rgba(212,175,55,0.4)" : "rgba(123,104,238,0.4)"}
+          stroke={SIGNS[i].polarity === "Yang" ? "rgba(224,183,104,0.4)" : "rgba(123,104,238,0.4)"}
           strokeWidth={1}
           strokeDasharray="3,3"
           style={{ transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)" }}
@@ -187,8 +187,8 @@ export default function ZodiacWheel({ highlightElement, highlightModality }: {
             style={{
               padding: "0.4rem 0.9rem", borderRadius: "100px", cursor: "pointer",
               background: overlay === mode ? "rgba(200,168,75,0.12)" : "rgba(232,230,240,0.03)",
-              border: `1px solid ${overlay === mode ? "rgba(200,168,75,0.3)" : "rgba(200,185,255,0.08)"}`,
-              color: overlay === mode ? "rgba(212,175,55,0.9)" : "rgba(180,170,210,0.5)",
+              border: `1px solid ${overlay === mode ? "rgba(200,168,75,0.3)" : "rgba(184,190,240,0.08)"}`,
+              color: overlay === mode ? "rgba(224,183,104,0.9)" : "rgba(180,170,210,0.5)",
               fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.04em", textTransform: "capitalize",
               transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
@@ -216,7 +216,7 @@ export default function ZodiacWheel({ highlightElement, highlightModality }: {
                 <path
                   d={segmentPath(i)}
                   fill={isSelected ? ELEMENT_BG[sign.element] : `rgba(232,230,240,${0.02 + (overlay === "elements" && opacity > 0.5 ? 0.04 : 0)})`}
-                  stroke={isSelected ? ELEMENT_COLORS[sign.element] : `rgba(200,185,255,${0.08 * opacity})`}
+                  stroke={isSelected ? ELEMENT_COLORS[sign.element] : `rgba(184,190,240,${0.08 * opacity})`}
                   strokeWidth={isSelected ? 1.5 : 0.5}
                   opacity={opacity}
                   style={{ transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)" }}

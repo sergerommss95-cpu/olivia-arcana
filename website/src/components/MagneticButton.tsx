@@ -39,9 +39,9 @@ function ensureVeilStyles() {
   100% { background-position: -100% 0; }
 }
 @keyframes mb-pulse {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
-  30% { transform: scale(0.96); box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224, 183, 104, 0.4); }
+  30% { transform: scale(0.96); box-shadow: 0 0 0 10px rgba(224, 183, 104, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224, 183, 104, 0); }
 }
 @media (prefers-reduced-motion: reduce) {
   .mb-holo, .mb-foil { animation: none !important; }
@@ -54,22 +54,22 @@ function ensureVeilStyles() {
 // and violet palettes without looking like a rainbow sticker.
 const HOLO_CONIC =
   "conic-gradient(from 0deg at 50% 50%, " +
-  "rgba(212,175,55,0.0) 0deg, rgba(212,175,55,0.35) 40deg, " +
+  "rgba(224,183,104,0.0) 0deg, rgba(224,183,104,0.35) 40deg, " +
   "rgba(255,220,170,0.28) 80deg, rgba(160,120,255,0.30) 140deg, " +
   "rgba(120,200,255,0.22) 200deg, rgba(220,170,255,0.28) 260deg, " +
-  "rgba(212,175,55,0.32) 320deg, rgba(212,175,55,0.0) 360deg)";
+  "rgba(224,183,104,0.32) 320deg, rgba(224,183,104,0.0) 360deg)";
 
 const FOIL_STRIPE =
   "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.22) 50%, transparent 60%)";
 
 const VARIANTS = {
   gold: {
-    bg: "linear-gradient(135deg, #D4AF37 0%, #F5E6A3 50%, #D4AF37 100%)",
+    bg: "linear-gradient(135deg, #e0b768 0%, #F5E6A3 50%, #e0b768 100%)",
     text: "var(--c-void)",
     border: "none",
-    shadow: "0 0 0px rgba(212,175,55,0)",
-    shadowHover: "0 0 30px rgba(212,175,55,0.4), 0 0 60px rgba(212,175,55,0.15)",
-    glowColor: "rgba(212,175,55,0.2)",
+    shadow: "0 0 0px rgba(224,183,104,0)",
+    shadowHover: "0 0 30px rgba(224,183,104,0.4), 0 0 60px rgba(224,183,104,0.15)",
+    glowColor: "rgba(224,183,104,0.2)",
   },
   glass: {
     bg: "linear-gradient(135deg, rgba(160,120,255,0.18) 0%, rgba(100,80,220,0.14) 100%)",

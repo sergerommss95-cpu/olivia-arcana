@@ -12,14 +12,14 @@ export default function CTA() {
       <div
         className="absolute top-1/2 left-1/2 h-[min(600px,calc(100vw-2rem))] w-[min(600px,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(224,183,104,0.08) 0%, transparent 70%)",
         }}
       />
 
       <div className="relative max-w-3xl mx-auto text-center z-10">
         <div className="text-5xl mb-8 animate-float drop-shadow-lg">☽</div>
 
-        <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-6xl font-bold mb-8 text-[#f5f2e1]">
+        <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-6xl font-bold mb-8 text-[#eef0ff]">
           {t("cta_title")}
         </h2>
 

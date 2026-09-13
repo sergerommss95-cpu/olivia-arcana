@@ -7,10 +7,10 @@
   --font-mono: var(--font-mono);
 
   /* ─── COLORS: CELESTIAL OBSIDIAN ─── */
-  --color-void-black: #08061a;
-  --color-warm-ivory: #f5f2e1;
-  --color-celestial-gold: #d4af37;
-  --color-muted-lavender: #9b91be;
+  --color-void-black: #10134d;
+  --color-warm-ivory: #e8e9ff;
+  --color-celestial-gold: #e0b768;
+  --color-muted-lavender: #b7bce9;
   
   /* ─── ANIMATIONS: HAPTIC PHYSICS ─── */
   --animate-shimmer: shimmer 3s infinite linear;
@@ -29,28 +29,36 @@
 
 /* ─── READABILITY ENGINE: CONTRAST & HIERARCHY ─── */
 :root {
-  --background: #08061a;
-  --foreground: #f5f2e1;
-  --c-gold: #d4af37;
-  --c-void: #08061a;
-  
+  --background: #10134d;
+  --foreground: #e8e9ff;
+  --c-gold: #e0b768;
+  --c-void: #10134d;
+
   /* READABILITY TOKENS — Higher minimum opacities for WCAG compliance */
-  --c-text-primary: rgba(245, 242, 225, 0.95);
-  --c-text-secondary: rgba(196, 185, 228, 0.82);
-  --c-text-tertiary: rgba(190, 180, 225, 0.65);
+  --c-text-primary: rgba(232, 233, 255, 0.95);
+  --c-text-secondary: rgba(206, 210, 245, 0.85);
+  --c-text-tertiary: rgba(183, 188, 233, 0.72);
   
-  --c-border: rgba(200, 185, 255, 0.18);
-  --c-scrim: rgba(5, 3, 20, 0.85);
-  --c-card-bg: rgba(8, 6, 26, 0.65);
-  --c-card-bg-heavy: rgba(5, 3, 20, 0.88);
+  --c-border: rgba(184, 190, 240, 0.18);
+  --c-scrim: rgba(8, 10, 50, 0.85);
+  --c-card-bg: rgba(13, 16, 77, 0.65);
+  --c-card-bg-heavy: rgba(8, 10, 50, 0.88);
   
   --nav-height: 5rem;
   
   /* Multi-layer Shadow (Stripe Style) */
-  --shadow-celestial: rgba(0, 0, 0, 0.6) 0px 20px 50px -10px, rgba(212, 175, 55, 0.12) 0px 10px 30px -15px;
+  --shadow-celestial: rgba(0, 0, 0, 0.6) 0px 20px 50px -10px, rgba(224, 183, 104, 0.12) 0px 10px 30px -15px;
   
   --ease-ritual: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-breathe: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* The night is painted, not assumed: an opaque ground under every page,
+   independent of whatever fixed canvases mount above it. */
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
 }
 
 .skip-link {
@@ -61,7 +69,7 @@
   transform: translateY(-160%);
   border-radius: 999px;
   background: #f3dd8e;
-  color: #08061a;
+  color: #10134d;
   padding: 0.7rem 1rem;
   font-family: var(--font-body), system-ui, sans-serif;
   font-size: 0.85rem;
@@ -82,12 +90,12 @@
 .readable-muted { color: var(--c-text-tertiary); }
 
 .readable-panel {
-  background: rgba(10, 8, 30, 0.95);
+  background: rgba(14, 17, 70, 0.95);
   border: 1px solid var(--c-border);
 }
 
 .readable-card {
-  background: rgba(10, 8, 30, 0.95);
+  background: rgba(14, 17, 70, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 10px 40px rgba(0,0,0,0.5);
 }
@@ -117,11 +125,11 @@
 }
 
 .section-scrim {
-  background: linear-gradient(to bottom, transparent, rgba(5, 3, 20, 0.6) 20%, rgba(5, 3, 20, 0.6) 80%, transparent);
+  background: linear-gradient(to bottom, transparent, rgba(8, 10, 50, 0.6) 20%, rgba(8, 10, 50, 0.6) 80%, transparent);
 }
 
 .content-scrim {
-  background: radial-gradient(circle at center, rgba(5, 3, 20, 0.7) 0%, transparent 80%);
+  background: radial-gradient(circle at center, rgba(8, 10, 50, 0.7) 0%, transparent 80%);
 }
 
 .editorial-scrim {
@@ -135,7 +143,248 @@
 .radial-focus {
   background: radial-gradient(
     circle at center,
-    rgba(40, 30, 100, 0.25) 0%,
+    rgba(38, 46, 150, 0.25) 0%,
     transparent 70%
   );
+}
+
+/* ── The press slips out of register while the leaf turns ─────────
+   TransitionOverlay toggles .is-turning on <html>; display type
+   briefly shows its second (oxblood) pull, then registers back. */
+h1, h2, .wordmark {
+  transition: text-shadow 240ms ease;
+}
+
+.is-turning h1,
+.is-turning h2,
+.is-turning .wordmark {
+  text-shadow: 0.16em 0.02em 0 rgba(224, 183, 104, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-turning h1,
+  .is-turning h2,
+  .is-turning .wordmark {
+    text-shadow: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LIQUID GLASS — the night seen through lapis
+   ═══════════════════════════════════════════════════════════════════
+   The deck is carved lapis lit by a cold moon. The interface is the
+   same material one state further: glass with that stone behind it.
+   Every surface here is transparent, refracts what it covers, and
+   catches a rim of light along its top edge — never a flat panel with
+   a border drawn around it.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Grounds — from the deepest night up to lit stone */
+  --lg-abyss: #0a0d38;
+  --lg-night: #10134d;
+  --lg-deep: #181d7a;
+  --lg-lapis: #20279b;
+  --lg-lapis-lit: #2f38b8;
+
+  /* Light — the cold accents and the one warm gilt from the carvings */
+  --lg-azure: #8d97ff;
+  --lg-halo: #e8e9ff;
+  --lg-peri: #b7bce9;
+  --lg-gilt: #e0b768;
+  --lg-ivory: #f2ece0;
+
+  /* Type on glass */
+  --lg-text: #e8e9ff;
+  --lg-text-soft: rgba(232, 233, 255, 0.78);
+  --lg-text-faint: rgba(183, 188, 233, 0.6);
+
+  /* The Arrival surface language: flat night panels, hairline-ruled.
+     (Class names kept from the glass era so every component inherits.) */
+  --lg-tint: linear-gradient(180deg, rgba(24, 29, 122, 0.5) 0%, rgba(16, 19, 77, 0.72) 100%);
+  --lg-blur: none;
+  --lg-rule: rgba(232, 233, 255, 0.16);
+  --lg-rim: inset 0 1px 0 rgba(232, 233, 255, 0.14);
+  --lg-cast: 0 1.2rem 2.8rem rgba(5, 7, 32, 0.35);
+  --lg-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── The plate. Flat ultramarine, hairline-ruled, printed — not glass. ── */
+.glass {
+  position: relative;
+  background: var(--lg-tint);
+  border: 1px solid var(--lg-rule);
+  box-shadow: var(--lg-rim), var(--lg-cast);
+  border-radius: 6px;
+  isolation: isolate;
+}
+
+.glass > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Quieter nested plate */
+.glass-thin {
+  background: rgba(16, 19, 77, 0.45);
+  border: 1px solid rgba(232, 233, 255, 0.1);
+  border-radius: 4px;
+}
+
+/* ── Controls — the Arrival's two hands ─────────────────────────────
+   Secondary: quiet type on a hairline. Primary (.is-gilt): the one
+   gilt rectangle. Sentence case, small, certain. No pills, no blur. */
+.glass-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  min-height: 3rem;
+  padding: 0.8rem 1.5rem;
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+  color: var(--lg-text);
+  background: transparent;
+  box-shadow: inset 0 -1px 0 rgba(232, 233, 255, 0.5);
+  font-family: var(--font-body, system-ui), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition:
+    box-shadow 300ms var(--lg-ease),
+    background 300ms var(--lg-ease),
+    color 240ms var(--lg-ease),
+    transform 300ms var(--lg-ease);
+}
+
+.glass-btn:hover,
+.glass-btn:focus-visible {
+  color: #ffffff;
+  box-shadow: inset 0 -1px 0 #e8e9ff;
+}
+
+.glass-btn:active {
+  transform: translateY(1px);
+}
+
+/* The warm control — gilt, for the one action that carries the ritual */
+.glass-btn.is-gilt {
+  color: #15174c;
+  background: var(--lg-gilt);
+  box-shadow: none;
+  padding: 0.8rem 1.6rem;
+}
+
+.glass-btn.is-gilt:hover,
+.glass-btn.is-gilt:focus-visible {
+  color: #15174c;
+  background: #edca8b;
+  transform: translateY(-2px);
+  box-shadow: 0 0.6rem 1.4rem rgba(5, 7, 32, 0.35);
+}
+
+.glass-btn.is-gilt:active {
+  transform: translateY(0);
+}
+
+/* ── The aurora field: what the glass has to refract ──
+   Three slow lobes of cold light drifting behind everything. Fixed,
+   composited, never touching layout. */
+.lg-aurora {
+  position: fixed;
+  inset: -20vh -10vw;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+}
+
+.lg-aurora span {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  filter: blur(90px);
+  /* The Arrival ground is flat night — the aurora is retired.
+     Kept structural so nothing that mounts it breaks. */
+  opacity: 0;
+  will-change: transform;
+}
+
+.lg-aurora span:nth-child(1) {
+  width: 60vw;
+  height: 60vw;
+  left: -12vw;
+  top: -14vh;
+  background: radial-gradient(circle, rgba(47, 60, 190, 0.5), transparent 66%);
+  animation: lg-drift-a 46s ease-in-out infinite;
+}
+
+.lg-aurora span:nth-child(2) {
+  width: 54vw;
+  height: 54vw;
+  right: -10vw;
+  top: 12vh;
+  background: radial-gradient(circle, rgba(232, 233, 255, 0.24), transparent 66%);
+  animation: lg-drift-b 62s ease-in-out infinite;
+}
+
+.lg-aurora span:nth-child(3) {
+  width: 68vw;
+  height: 68vw;
+  left: 18vw;
+  bottom: -30vh;
+  background: radial-gradient(circle, rgba(47, 56, 184, 0.6), transparent 68%);
+  animation: lg-drift-c 78s ease-in-out infinite;
+}
+
+@keyframes lg-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(6vw, 5vh, 0) scale(1.12); }
+}
+
+@keyframes lg-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.06); }
+  50% { transform: translate3d(-7vw, 8vh, 0) scale(0.94); }
+}
+
+@keyframes lg-drift-c {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(4vw, -6vh, 0) scale(1.1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lg-aurora span {
+    animation: none;
+  }
+  .glass-btn,
+  .glass-btn::before {
+    transition: none;
+  }
+}
+
+/* ── The opening act's clock ──────────────────────────────────────
+   --cp is the hero pin's progress, 0 at pin-start, 1 at release. It is
+   driven by a native scroll timeline — the compositor owns it, so the
+   act cannot stall when rAF throttles (background tabs, busy main
+   thread). Everything in the opening reads this one number. */
+@property --cp {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@keyframes oa-cp-drive {
+  from { --cp: 0; }
+  to { --cp: 1; }
+}
+
+@supports (animation-timeline: view()) {
+  .front-pin {
+    animation: oa-cp-drive linear both;
+    animation-timeline: view(block);
+    animation-range: contain 0% contain 100%;
+  }
 }

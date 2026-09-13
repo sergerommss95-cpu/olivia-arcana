@@ -35,12 +35,12 @@ export default function SectionDivider({
     >
       <div style={{
         flex: 1, height: "1px", maxWidth: "200px",
-        background: "linear-gradient(to right, transparent, rgba(212,175,55,0.3), transparent)",
+        background: "linear-gradient(to right, transparent, rgba(224,183,104,0.3), transparent)",
       }} />
       <SymbolElement symbol={symbol} color={color} size={size} />
       <div style={{
         flex: 1, height: "1px", maxWidth: "200px",
-        background: "linear-gradient(to left, transparent, rgba(212,175,55,0.3), transparent)",
+        background: "linear-gradient(to left, transparent, rgba(224,183,104,0.3), transparent)",
       }} />
     </div>
   );

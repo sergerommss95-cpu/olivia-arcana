@@ -24,6 +24,20 @@ export interface Transit {
   exactDate: Date;
   endDate: Date;
   minOrb: number;
+  /** True if the orb is still shrinking (transit approaching exact) at the reference time (now, clamped into the window). */
+  applying: boolean;
+  /**
+   * True when the minimum orb falls on the scan boundary while still applying —
+   * the true exact hit lies beyond the scanned horizon. `exactDate` is then only
+   * "closest approach within the window", not the real perfection date.
+   */
+  exactBeyondWindow: boolean;
+  /**
+   * Honest copy for the exact date: a formatted date ("Mar 14, 2026"), or
+   * "exact after <horizon>" when exactBeyondWindow is true. UI should prefer
+   * this over formatting exactDate directly when exactBeyondWindow is set.
+   */
+  exactLabel: string;
   significance: Significance;
   description: string;
 }
@@ -38,23 +52,25 @@ const ASPECT_DEFS: { type: AspectType; angle: number; label: string }[] = [
   { type: "sextile", angle: 60, label: "sextile" },
 ];
 
-/** Orbs per aspect for outer planets (Jupiter-Pluto) */
-const OUTER_ORBS: Record<AspectType, number> = {
-  conjunction: 8,
-  opposition: 8,
-  square: 7,
-  trine: 7,
-  sextile: 6,
+/**
+ * Professional transit orbs (applies to all transiting planets):
+ * conjunction/opposition 3°, square/trine 2.5°, sextile 2°.
+ * Natal luminaries (Sun/Moon) get +1° on top.
+ */
+const TRANSIT_ORBS: Record<AspectType, number> = {
+  conjunction: 3,
+  opposition: 3,
+  square: 2.5,
+  trine: 2.5,
+  sextile: 2,
 };
 
-/** Orbs for Mars transits (tighter) */
-const MARS_ORBS: Record<AspectType, number> = {
-  conjunction: 5,
-  opposition: 5,
-  square: 5,
-  trine: 5,
-  sextile: 4,
-};
+const LUMINARY_ORB_BONUS = 1;
+
+function maxOrbFor(aspect: AspectType, natalPlanet: string): number {
+  const bonus = natalPlanet === "Sun" || natalPlanet === "Moon" ? LUMINARY_ORB_BONUS : 0;
+  return TRANSIT_ORBS[aspect] + bonus;
+}
 
 const OUTER_PLANETS = ["Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
 const PERSONAL_PLANETS = ["Sun", "Moon", "Mercury", "Venus", "Mars"];
@@ -135,6 +151,40 @@ function transitKey(transitPlanet: string, natalPlanet: string, aspect: AspectTy
   return `${transitPlanet}|${natalPlanet}|${aspect}`;
 }
 
+/** Orb of a transiting planet to (natalLongitude + aspectAngle) at a given date. */
+function orbAt(transitPlanetName: string, natalLongitude: number, aspectAngle: number, date: Date): number | null {
+  const body = getAllPositions(date).find((b) => b.name === transitPlanetName);
+  if (!body) return null;
+  return Math.abs(angleDiff(body.longitude, natalLongitude) - aspectAngle);
+}
+
+/**
+ * Applying vs separating: uses the transiting body's motion against the natal
+ * point — if the orb is shrinking over the next half-day, the transit is
+ * applying; if growing, separating. Correct through retrograde stations,
+ * since it measures the actual orb derivative rather than assuming direct motion.
+ */
+export function getAspectPhase(
+  transitPlanetName: string,
+  natalLongitude: number,
+  aspectAngle: number,
+  date: Date,
+): "applying" | "separating" {
+  const HALF_DAY = 12 * 60 * 60 * 1000;
+  const now = orbAt(transitPlanetName, natalLongitude, aspectAngle, date);
+  const next = orbAt(transitPlanetName, natalLongitude, aspectAngle, new Date(date.getTime() + HALF_DAY));
+  if (now === null || next === null) return "separating";
+  return next < now ? "applying" : "separating";
+}
+
+function formatExactLabel(d: Date): string {
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
+function formatHorizonLabel(d: Date): string {
+  return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
+
 // ── Main computation ──
 
 interface RawHit {
@@ -143,6 +193,8 @@ interface RawHit {
   natalPlanet: string;
   natalGlyph: string;
   aspectType: AspectType;
+  aspectAngle: number;
+  natalLongitude: number;
   date: Date;
   orb: number;
 }
@@ -172,7 +224,7 @@ export function computeTransits(natalChart: NatalChart, months: number = 6): Tra
         for (const aspectDef of ASPECT_DEFS) {
           const orb = angleDiff(transit.longitude, natal.longitude) - aspectDef.angle;
           const absOrb = Math.abs(orb);
-          const maxOrb = OUTER_ORBS[aspectDef.type];
+          const maxOrb = maxOrbFor(aspectDef.type, natal.name);
           if (absOrb <= maxOrb) {
             allHits.push({
               transitPlanet: transit.name,
@@ -180,6 +232,8 @@ export function computeTransits(natalChart: NatalChart, months: number = 6): Tra
               natalPlanet: natal.name,
               natalGlyph: natal.glyph,
               aspectType: aspectDef.type,
+              aspectAngle: aspectDef.angle,
+              natalLongitude: natal.longitude,
               date: new Date(outerDate),
               orb: absOrb,
             });
@@ -203,7 +257,7 @@ export function computeTransits(natalChart: NatalChart, months: number = 6): Tra
         for (const aspectDef of ASPECT_DEFS) {
           const orb = angleDiff(mars.longitude, natal.longitude) - aspectDef.angle;
           const absOrb = Math.abs(orb);
-          const maxOrb = MARS_ORBS[aspectDef.type];
+          const maxOrb = maxOrbFor(aspectDef.type, natal.name);
           if (absOrb <= maxOrb) {
             allHits.push({
               transitPlanet: "Mars",
@@ -211,6 +265,8 @@ export function computeTransits(natalChart: NatalChart, months: number = 6): Tra
               natalPlanet: natal.name,
               natalGlyph: natal.glyph,
               aspectType: aspectDef.type,
+              aspectAngle: aspectDef.angle,
+              natalLongitude: natal.longitude,
               date: new Date(marsDate),
               orb: absOrb,
             });
@@ -263,6 +319,25 @@ export function computeTransits(natalChart: NatalChart, months: number = 6): Tra
       j++;
     }
 
+    // Applying/separating at the reference time: now, clamped into the window
+    const refTime = Math.min(Math.max(now.getTime(), startDate.getTime()), endDateHit.getTime());
+    const phase = getAspectPhase(
+      current.transitPlanet,
+      current.natalLongitude,
+      current.aspectAngle,
+      new Date(refTime),
+    );
+
+    // Honesty check: if the minimum orb sits on the scan-end boundary and the
+    // orb is still shrinking there, the true exact hit is beyond the horizon.
+    const stepDays = current.transitPlanet === "Mars" ? 1 : 3;
+    const nearScanEnd = exactDate.getTime() >= endDate.getTime() - stepDays * 86400000;
+    const lastSampleIsMin = exactDate.getTime() === endDateHit.getTime();
+    const exactBeyondWindow =
+      nearScanEnd &&
+      lastSampleIsMin &&
+      getAspectPhase(current.transitPlanet, current.natalLongitude, current.aspectAngle, exactDate) === "applying";
+
     transits.push({
       transitPlanet: current.transitPlanet,
       transitGlyph: current.transitGlyph,
@@ -273,6 +348,11 @@ export function computeTransits(natalChart: NatalChart, months: number = 6): Tra
       exactDate,
       endDate: endDateHit,
       minOrb: Math.round(minOrb * 10) / 10,
+      applying: phase === "applying",
+      exactBeyondWindow,
+      exactLabel: exactBeyondWindow
+        ? `exact after ${formatHorizonLabel(endDate)}`
+        : formatExactLabel(exactDate),
       significance: getSignificance(current.transitPlanet, current.natalPlanet),
       description: getDescription(current.transitPlanet, current.natalPlanet, current.aspectType),
     });

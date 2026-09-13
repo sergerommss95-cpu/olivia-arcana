@@ -201,7 +201,7 @@ export default function Hero() {
             fontSize: "0.82rem",
             fontWeight: 400,
             letterSpacing: "0.02em",
-            color: "var(--c-text-muted, rgba(190, 180, 225, 0.72))",
+            color: "var(--c-text-muted, rgba(183, 188, 233, 0.72))",
             maxWidth: "620px",
             animation: "fadeUpIn 1s cubic-bezier(0.16,1,0.3,1) 1.7s both",
             margin: 0,

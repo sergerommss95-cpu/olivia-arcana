@@ -23,7 +23,12 @@ export default function GlobalGuide() {
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  if (pathname === "/oracle") return null;
+  // The site is the light Almanac everywhere now — a dark glass orb only
+  // belongs in the night rooms (and never in the oracle, which owns its
+  // whole canvas).
+  const NIGHT_GUIDE_ROOMS = ["/portrait", "/synastry", "/cosmos"];
+  const normalized = pathname ? (pathname.length > 1 ? pathname.replace(/\/$/, "") : pathname) : "";
+  if (!NIGHT_GUIDE_ROOMS.includes(normalized)) return null;
 
   return (
     <div className="hidden md:block fixed bottom-8 left-1/2 -translate-x-1/2 z-[1000] pointer-events-none">
@@ -83,13 +88,13 @@ export default function GlobalGuide() {
                 <motion.circle
                   cx="48" cy="48" r="46"
                   fill="none"
-                  stroke="rgba(212, 175, 55, 0.2)"
+                  stroke="rgba(224, 183, 104, 0.2)"
                   strokeWidth="0.5"
                 />
                 <motion.circle
                   cx="48" cy="48" r="46"
                   fill="none"
-                  stroke="rgba(212, 175, 55, 0.8)"
+                  stroke="rgba(224, 183, 104, 0.8)"
                   strokeWidth="1.5"
                   strokeDasharray="1"
                   style={{ pathLength: smoothProgress }}

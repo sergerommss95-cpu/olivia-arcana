@@ -85,7 +85,7 @@ export default function CinematicLoader() {
         alignItems: "center",
         justifyContent: "center",
         gap: "1.5rem",
-        background: "#06041a",
+        background: "#0a0d38",
         opacity: isExiting ? 0 : 1,
         transform: isExiting ? "scale(1.02)" : "scale(1)",
         filter: isExiting ? "blur(8px)" : "blur(0px)",
@@ -123,7 +123,7 @@ export default function CinematicLoader() {
         <path
           d={constellationPath}
           fill="none"
-          stroke="rgba(212,175,55,0.6)"
+          stroke="rgba(224,183,104,0.6)"
           strokeWidth="0.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -131,7 +131,7 @@ export default function CinematicLoader() {
             strokeDasharray: 500,
             strokeDashoffset: phase >= 1 ? 0 : 500,
             transition: `stroke-dashoffset 1.5s ${EASE}`,
-            filter: "drop-shadow(0 0 6px rgba(212,175,55,0.3))",
+            filter: "drop-shadow(0 0 6px rgba(224,183,104,0.3))",
           }}
         />
         {/* Center dot */}
@@ -139,11 +139,11 @@ export default function CinematicLoader() {
           cx="50"
           cy="50"
           r="2"
-          fill="rgba(212,175,55,0.8)"
+          fill="rgba(224,183,104,0.8)"
           style={{
             opacity: phase >= 1 ? 1 : 0,
             transition: `opacity 0.5s ${EASE} 0.8s`,
-            filter: "drop-shadow(0 0 8px rgba(212,175,55,0.5))",
+            filter: "drop-shadow(0 0 8px rgba(224,183,104,0.5))",
           }}
         />
       </svg>
@@ -157,7 +157,7 @@ export default function CinematicLoader() {
           fontSize: "clamp(1.8rem, 5vw, 2.8rem)",
           fontWeight: 400,
           letterSpacing: "0.12em",
-          background: "linear-gradient(135deg, #D4AF37 0%, #F5E6A3 40%, #D4AF37 70%, #E2C070 100%)",
+          background: "linear-gradient(135deg, #e0b768 0%, #F5E6A3 40%, #e0b768 70%, #E2C070 100%)",
           backgroundClip: "text",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
@@ -217,7 +217,7 @@ export default function CinematicLoader() {
           style={{
             width: "min(120px, 30vw)",
             height: "1px",
-            background: "rgba(200,185,255,0.1)",
+            background: "rgba(184,190,240,0.1)",
             borderRadius: "1px",
             overflow: "hidden",
           }}
@@ -226,7 +226,7 @@ export default function CinematicLoader() {
             style={{
               height: "100%",
               width: `${progress}%`,
-              background: "linear-gradient(90deg, rgba(212,175,55,0.4), rgba(212,175,55,0.8))",
+              background: "linear-gradient(90deg, rgba(224,183,104,0.4), rgba(224,183,104,0.8))",
               transition: "width 0.1s linear",
             }}
           />
@@ -238,7 +238,7 @@ export default function CinematicLoader() {
             fontFamily: "'IBM Plex Mono', monospace",
             fontSize: "0.6rem",
             letterSpacing: "0.15em",
-            color: "rgba(200,185,255,0.25)",
+            color: "rgba(184,190,240,0.25)",
           }}
         >
           {String(progress).padStart(3, "0")}

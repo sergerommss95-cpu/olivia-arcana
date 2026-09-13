@@ -3,6 +3,7 @@
 import { useSubscription } from "@/hooks/useSubscription";
 import CheckoutButton from "@/components/CheckoutButton";
 import { type PriceKey, PRICING } from "@/lib/payments";
+import { PAYWALL_ENABLED } from "@/lib/plans";
 
 interface PaywallProps {
   /** Content shown to paid users. */
@@ -25,6 +26,10 @@ export default function Paywall({
   requires = "premium",
 }: PaywallProps) {
   const { tier, isLoading } = useSubscription();
+
+  // While the press is stopped the whole almanac is open. The plan model
+  // is the authority — never a local tier comparison.
+  if (!PAYWALL_ENABLED) return <>{children}</>;
 
   if (isLoading) {
     return (

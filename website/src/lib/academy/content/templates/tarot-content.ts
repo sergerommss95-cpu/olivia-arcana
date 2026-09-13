@@ -258,6 +258,139 @@ const CARD_PAIRS: Record<string, { a: string; b: string; intro: string; rows: st
       "ending contains a new beginning — the World does not close the story but rather completes one chapter " +
       "so the next can open from higher ground.",
   },
+
+  // ── Course-aligned pairings (fools-journey lesson slugs) ──
+
+  "strength-hermit": {
+    a: "Strength",
+    b: "The Hermit",
+    intro:
+      "After the Chariot's outward victory, the journey turns inward. Strength shows you a figure gently " +
+      "closing a lion's jaws — not with force, but with patience and compassion. This is power that tames " +
+      "rather than breaks. The Hermit takes that inner mastery one step further: he leaves the world entirely, " +
+      "climbing the mountain with a single lantern to find the truth that noise drowns out. One card teaches " +
+      "you to master your instincts; the other teaches you to listen to your own wisdom.",
+    rows: [
+      ["Number", "VIII — Inner power", "IX — Inner light"],
+      ["Energy", "Courage, patience, gentle mastery", "Solitude, introspection, guidance"],
+      ["Element", "Fire — heart-led courage (Leo)", "Earth — grounded wisdom (Virgo)"],
+      ["Lesson", "Tame the lion without breaking it", "Withdraw to find your own light"],
+      ["Shadow", "Self-doubt, raw aggression", "Isolation, avoidance"],
+    ],
+    insight:
+      "Strength masters the wild parts of you; the Hermit listens to the wise parts. You cannot hear your " +
+      "inner voice while wrestling your inner lion — which is why Strength comes first. Tame your impulses " +
+      "with compassion, and the solitude the Hermit asks for becomes peaceful rather than restless. Together " +
+      "these cards teach the quietest form of power: self-command followed by self-knowledge.",
+  },
+  "wheel-justice": {
+    a: "Wheel of Fortune",
+    b: "Justice",
+    intro:
+      "These two cards frame the great question of fate versus accountability. The Wheel of Fortune spins " +
+      "beyond your control — luck, timing, cycles, the turning points you did not choose. Justice answers " +
+      "with the sword and scales: whatever the Wheel deals, your choices still carry consequences, and truth " +
+      "still cuts through. One card shows what happens to you; the other shows what you do about it.",
+    rows: [
+      ["Number", "X — Cycles and fate", "XI — Truth and fairness"],
+      ["Energy", "Change, luck, karma, turning points", "Objectivity, law, cause and effect"],
+      ["Element", "Fire — dynamic change (Jupiter)", "Air — rational balance (Libra)"],
+      ["Lesson", "Accept the turning of the wheel", "Own your choices and their consequences"],
+      ["Shadow", "Helplessness, resistance to change", "Harshness, cold judgment"],
+    ],
+    insight:
+      "The Wheel governs what you cannot control; Justice governs what you can. Blaming fate for the results " +
+      "of your own choices is a Justice failure. Punishing yourself for what the Wheel dealt you is a Wheel " +
+      "failure. Wisdom is knowing which is which: accept the spin you were given, then answer for how you " +
+      "played it.",
+  },
+  "hanged-man-death": {
+    a: "The Hanged Man",
+    b: "Death",
+    intro:
+      "The two hardest lessons of the Major Arcana arrive back to back. The Hanged Man suspends you upside " +
+      "down — voluntarily — until the world looks different and the grip you had on your old certainties " +
+      "loosens. Death then completes what the surrender began: the old form ends, fully and without " +
+      "negotiation, so that something new can be born. One asks you to let go of your perspective; the other " +
+      "asks you to let go of the thing itself.",
+    rows: [
+      ["Number", "XII — Surrender and perspective", "XIII — Endings and rebirth"],
+      ["Energy", "Letting go, pause, new vision", "Transformation, release, finality"],
+      ["Element", "Water — dissolving certainty (Neptune)", "Water — deep emotional change (Scorpio)"],
+      ["Lesson", "Stop fighting and see differently", "Let what has ended actually end"],
+      ["Shadow", "Martyrdom, stalling", "Resistance to necessary endings"],
+    ],
+    insight:
+      "The Hanged Man is the rehearsal; Death is the performance. Surrendering your perspective prepares " +
+      "you to surrender the thing itself. People who skip the Hanged Man's pause meet Death as a catastrophe; " +
+      "people who have already loosened their grip meet it as a release. Neither card is punishment — both " +
+      "are the price of becoming someone new, and you are allowed to pay it willingly.",
+  },
+  "temperance-devil": {
+    a: "Temperance",
+    b: "The Devil",
+    intro:
+      "A study in opposites: mastery of appetite versus enslavement to it. Temperance stands with one foot " +
+      "on land and one in water, pouring between two cups — blending, moderating, finding the living middle " +
+      "path. The Devil chains two figures to his pedestal with links loose enough to lift off — addiction, " +
+      "obsession, the excess that promised pleasure and delivered bondage. One card integrates your desires; " +
+      "the other is what happens when a desire integrates you.",
+    rows: [
+      ["Number", "XIV — Balance and healing", "XV — Bondage and shadow"],
+      ["Energy", "Moderation, patience, alchemy", "Attachment, materialism, illusion"],
+      ["Element", "Fire — purposeful blending (Sagittarius)", "Earth — material bondage (Capricorn)"],
+      ["Lesson", "Find the middle path", "Name what controls you"],
+      ["Shadow", "Imbalance, impatience", "Denial, deepening addiction"],
+    ],
+    insight:
+      "Temperance and the Devil rule the same territory — desire — with opposite outcomes. Every appetite " +
+      "you moderate stays a pleasure; every appetite you let rule becomes a chain. The Devil's chains are " +
+      "always loose, and Temperance shows you exactly how to lift them off: not by renouncing what you want, " +
+      "but by refusing to let any single want own you.",
+  },
+  "tower-star": {
+    a: "The Tower",
+    b: "The Star",
+    intro:
+      "Destruction and hope, in that order. The Tower is the lightning strike that demolishes what was built " +
+      "on false foundations — sudden, shocking, and non-negotiable. The Star is what you see once the dust " +
+      "settles: an open night sky, clear water, and a quiet light that says healing is possible. The Tower " +
+      "clears the ground; the Star shows you it was worth clearing.",
+    rows: [
+      ["Number", "XVI — Upheaval and revelation", "XVII — Hope and renewal"],
+      ["Energy", "Sudden change, breakthrough, collapse", "Healing, faith, quiet guidance"],
+      ["Element", "Fire — explosive liberation (Mars)", "Air — visionary calm (Aquarius)"],
+      ["Lesson", "Let the false structures fall", "Trust that renewal follows ruin"],
+      ["Shadow", "Avoidance of the inevitable", "Despair, lost faith"],
+    ],
+    insight:
+      "The Tower only destroys what was false; the Star only illuminates what is true. That is why they are " +
+      "neighbors. If you are standing in rubble right now, look up — the Star is already out. And if life " +
+      "feels suspiciously stable atop something you know is hollow, understand that the lightning is not " +
+      "cruelty. It is the fastest route to the open sky.",
+  },
+  "moon-sun": {
+    a: "The Moon",
+    b: "The Sun",
+    intro:
+      "The final night and the full day of the Fool's Journey. The Moon pulls you through the landscape of " +
+      "the subconscious — illusions, fears, half-seen shapes on a winding path between two towers. Nothing " +
+      "here is quite what it seems, and that is the point: you must learn to walk without perfect visibility. " +
+      "The Sun then rises on the other side with total clarity — joy, vitality, and success so unambiguous " +
+      "that no interpretation is needed. One card tests your nerve in the dark; the other rewards it in full light.",
+    rows: [
+      ["Number", "XVIII — Illusion and the deep", "XIX — Joy and vitality"],
+      ["Energy", "Fear, intuition, the subconscious", "Clarity, success, radiant confidence"],
+      ["Element", "Water — the dream realm (Pisces)", "Fire — life force (the Sun)"],
+      ["Lesson", "Walk through fear without full sight", "Receive joy without suspicion"],
+      ["Shadow", "Anxiety, self-deception", "Naive optimism, burnout from shining"],
+    ],
+    insight:
+      "The Moon's darkness is the tollgate to the Sun's light — there is no road around it. Everything the " +
+      "Moon shows you is yours: your fears, your projections, your buried truths. Face them honestly and " +
+      "the Sun that follows is unshakeable, because nothing hidden is left to eclipse it. Skip the Moon's " +
+      "work and even the brightest success will feel like it could vanish at any moment.",
+  },
 };
 
 // ── Three-card group ──

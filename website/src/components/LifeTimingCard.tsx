@@ -8,14 +8,14 @@ const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 const glass: React.CSSProperties = {
   background: "rgba(255,255,255,0.03)",
-  border: "1px solid rgba(200,185,255,0.08)",
+  border: "1px solid rgba(184,190,240,0.08)",
   borderRadius: "1.25rem",
   backdropFilter: "blur(6px)",
   WebkitBackdropFilter: "blur(6px)",
 };
 
 const SIGNIFICANCE_COLORS: Record<string, string> = {
-  "life-changing": "#D4AF37",
+  "life-changing": "#e0b768",
   major: "#C8A2E8",
   significant: "#7FBEEB",
 };
@@ -75,7 +75,7 @@ export default function LifeTimingCard({ transit }: LifeTimingCardProps) {
   }, [transit.estimatedDate]);
 
   const percent = getCyclePercent(transit);
-  const accentColor = SIGNIFICANCE_COLORS[transit.significance] || "#D4AF37";
+  const accentColor = SIGNIFICANCE_COLORS[transit.significance] || "#e0b768";
   const glyph = PLANET_GLYPHS[transit.transitPlanet] || "\u2736";
 
   // SVG progress ring
@@ -125,7 +125,7 @@ export default function LifeTimingCard({ transit }: LifeTimingCardProps) {
               cy={60}
               r={radius}
               fill="none"
-              stroke="rgba(200,185,255,0.06)"
+              stroke="rgba(184,190,240,0.06)"
               strokeWidth={6}
             />
             {/* Progress ring */}
@@ -161,7 +161,7 @@ export default function LifeTimingCard({ transit }: LifeTimingCardProps) {
                 fontSize: "0.55rem",
                 fontWeight: 500,
                 letterSpacing: "0.1em",
-                color: "rgba(200,185,255,0.4)",
+                color: "rgba(184,190,240,0.4)",
                 marginTop: "0.15rem",
               }}
             >
@@ -264,7 +264,7 @@ export default function LifeTimingCard({ transit }: LifeTimingCardProps) {
               fontFamily: "var(--font-body)",
               fontSize: "0.82rem",
               fontWeight: 300,
-              color: "rgba(196,185,228,0.6)",
+              color: "rgba(206,210,245,0.6)",
               lineHeight: 1.75,
               marginBottom: "1rem",
             }}
@@ -337,9 +337,9 @@ export default function LifeTimingCard({ transit }: LifeTimingCardProps) {
                 marginLeft: "auto",
                 padding: "0.4rem 1rem",
                 borderRadius: "100px",
-                background: "rgba(212,175,55,0.08)",
-                border: "1px solid rgba(212,175,55,0.2)",
-                color: "rgba(212,175,55,0.8)",
+                background: "rgba(224,183,104,0.08)",
+                border: "1px solid rgba(224,183,104,0.2)",
+                color: "rgba(224,183,104,0.8)",
                 fontFamily: "var(--font-body)",
                 fontSize: "0.65rem",
                 fontWeight: 500,

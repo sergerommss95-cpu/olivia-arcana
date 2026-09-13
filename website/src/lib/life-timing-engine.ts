@@ -7,7 +7,7 @@
  * position sampling via getAllPositions().
  */
 
-import { getAllPositions } from "./celestial";
+import { getAllPositions, getSunPosition } from "./celestial";
 import type { NatalChart } from "./natal-chart";
 
 // ── Types ──
@@ -328,4 +328,166 @@ export function computeLifeTransits(natalChart: NatalChart): LifeTransit[] {
   results.sort((a, b) => a.daysUntil - b.daysUntil);
 
   return results;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// Annual Profections (traditional, whole-sign from the natal Ascendant)
+// ═══════════════════════════════════════════════════════════════════
+
+const SIGN_ORDER = [
+  "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
+  "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces",
+];
+const SIGN_ORDER_GLYPHS = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"];
+
+/** Traditional (pre-modern) sign rulers — the profection year's time-lord. */
+const TRADITIONAL_RULERS: Record<string, string> = {
+  Aries: "Mars", Taurus: "Venus", Gemini: "Mercury", Cancer: "Moon",
+  Leo: "Sun", Virgo: "Mercury", Libra: "Venus", Scorpio: "Mars",
+  Sagittarius: "Jupiter", Capricorn: "Saturn", Aquarius: "Saturn", Pisces: "Jupiter",
+};
+
+export interface AnnualProfection {
+  available: true;
+  /** Completed age at the start of this profection year */
+  age: number;
+  /** Profected house, whole-sign from the natal Ascendant (age mod 12 → 1-12) */
+  profectedHouse: number;
+  profectedSign: string;
+  profectedSignGlyph: string;
+  /** Traditional ruler of the profected sign — the lord of the year */
+  timeLord: string;
+  /** Profection year runs birthday → next birthday */
+  yearStart: string; // YYYY-MM-DD
+  yearEnd: string;   // YYYY-MM-DD
+}
+
+export interface ProfectionUnavailable {
+  available: false;
+  /** Profections are counted from the Ascendant, which requires a known birth time. */
+  requires: "birth-time";
+}
+
+export type ProfectionResult = AnnualProfection | ProfectionUnavailable;
+
+/**
+ * Annual profection for the year containing `on`.
+ * Requires a known-time Ascendant — pass `birthTimeKnown: false` when the
+ * chart was built from a date-only birth input to get the gated result.
+ */
+export function computeAnnualProfection(
+  chart: NatalChart,
+  on: Date = new Date(),
+  birthTimeKnown: boolean = true,
+): ProfectionResult {
+  if (!birthTimeKnown || !chart.ascendant) {
+    return { available: false, requires: "birth-time" };
+  }
+
+  const { year, month, day } = chart.input;
+
+  // Completed age as of `on`
+  let age = on.getFullYear() - year;
+  const birthdayThisYear = new Date(on.getFullYear(), month - 1, day);
+  if (on.getTime() < birthdayThisYear.getTime()) age -= 1;
+  if (age < 0) age = 0;
+
+  const yearStart = new Date(year + age, month - 1, day);
+  const yearEnd = new Date(year + age + 1, month - 1, day);
+
+  const houseOffset = age % 12; // 0 → 1st house (the Asc sign itself)
+  const ascIdx = SIGN_ORDER.indexOf(chart.ascendant.sign);
+  const signIdx = ((ascIdx < 0 ? 0 : ascIdx) + houseOffset) % 12;
+  const profectedSign = SIGN_ORDER[signIdx];
+
+  return {
+    available: true,
+    age,
+    profectedHouse: houseOffset + 1,
+    profectedSign,
+    profectedSignGlyph: SIGN_ORDER_GLYPHS[signIdx],
+    timeLord: TRADITIONAL_RULERS[profectedSign],
+    yearStart: formatDate(yearStart),
+    yearEnd: formatDate(yearEnd),
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// Solar Returns — the moment the transiting Sun returns to the natal
+// Sun's exact ecliptic longitude, root-found by bisection.
+// ═══════════════════════════════════════════════════════════════════
+
+export interface SolarReturn {
+  /** Exact instant the transiting Sun hits the natal Sun longitude */
+  instant: Date;
+  date: string; // YYYY-MM-DD of that instant
+  /** Age turning at this return */
+  age: number;
+  daysUntil: number;
+}
+
+/** Signed difference a - b wrapped to (-180, 180] */
+function wrap180(d: number): number {
+  const w = ((d % 360) + 360) % 360;
+  return w > 180 ? w - 360 : w;
+}
+
+/**
+ * Next `count` solar return instants at/after `from`.
+ * Bisection on f(t) = wrap180(sunLon(t) − natalSunLon) over a bracket around
+ * each birthday anniversary; the Sun is always direct so f is monotonic there.
+ */
+export function computeSolarReturns(
+  chart: NatalChart,
+  count: number = 3,
+  from: Date = new Date(),
+): SolarReturn[] {
+  const sun = chart.planets.find((p) => p.name === "Sun");
+  if (!sun) return [];
+  const natalLon = sun.longitude;
+  const { year, month, day, hour, minute } = chart.input;
+
+  const returns: SolarReturn[] = [];
+  const DAY = 86400000;
+
+  // Start from this year's anniversary; past returns are discarded below
+  let anniversaryYear = from.getFullYear();
+
+  while (returns.length < count && anniversaryYear < from.getFullYear() + count + 2) {
+    const guess = new Date(anniversaryYear, month - 1, day, hour, minute);
+    anniversaryYear += 1;
+
+    // Bracket the root: Sun moves ~0.9856°/day, so ±4 days covers the drift
+    let lo = guess.getTime() - 4 * DAY;
+    let hi = guess.getTime() + 4 * DAY;
+    const f = (t: number) => wrap180(getSunPosition(new Date(t)).longitude - natalLon);
+
+    // Widen if the bracket doesn't straddle the crossing
+    let widen = 0;
+    while ((f(lo) > 0 || f(hi) < 0) && widen < 4) {
+      lo -= 4 * DAY;
+      hi += 4 * DAY;
+      widen += 1;
+    }
+    if (f(lo) > 0 || f(hi) < 0) continue; // no crossing found — skip defensively
+
+    // Bisection to sub-minute precision
+    for (let iter = 0; iter < 48 && hi - lo > 30000; iter++) {
+      const mid = (lo + hi) / 2;
+      if (f(mid) < 0) lo = mid;
+      else hi = mid;
+    }
+
+    const instant = new Date((lo + hi) / 2);
+    if (instant.getTime() < from.getTime()) continue; // return already passed
+
+    returns.push({
+      instant,
+      date: formatDate(instant),
+      age: instant.getFullYear() - year,
+      daysUntil: Math.max(0, daysBetween(from, instant)),
+    });
+  }
+
+  return returns;
 }

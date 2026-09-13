@@ -7,9 +7,9 @@ import type { Transit, Significance } from "../lib/transit-calculator";
 // ── Styling constants ──
 
 const SIGNIFICANCE_COLORS: Record<Significance, string> = {
-  high: "#D4AF37",
+  high: "#e0b768",
   medium: "#7B68EE",
-  low: "#4ECDC4",
+  low: "#8d97ff",
 };
 
 const SIGNIFICANCE_LABELS: Record<Significance, string> = {
@@ -30,7 +30,7 @@ const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 const glass: React.CSSProperties = {
   background: "rgba(255,255,255,0.03)",
-  border: "1px solid rgba(200,185,255,0.08)",
+  border: "1px solid rgba(184,190,240,0.08)",
   borderRadius: "1rem",
   backdropFilter: "blur(6px)",
   WebkitBackdropFilter: "blur(6px)",
@@ -141,7 +141,7 @@ export default function TransitTimeline({ transits }: Props) {
               minHeight: "44px",
               borderRadius: "100px",
               background: filters[sig] ? `${SIGNIFICANCE_COLORS[sig]}18` : "rgba(255,255,255,0.02)",
-              border: `1px solid ${filters[sig] ? `${SIGNIFICANCE_COLORS[sig]}40` : "rgba(200,185,255,0.08)"}`,
+              border: `1px solid ${filters[sig] ? `${SIGNIFICANCE_COLORS[sig]}40` : "rgba(184,190,240,0.08)"}`,
               color: filters[sig] ? SIGNIFICANCE_COLORS[sig] : "rgba(180,170,210,0.35)",
               fontFamily: "var(--font-body)",
               fontSize: "0.65rem",
@@ -196,7 +196,7 @@ export default function TransitTimeline({ transits }: Props) {
                     {tr.transitPlanet} {tr.aspectType} {tr.natalPlanet}
                   </div>
                   <div style={{ fontFamily: "var(--font-body)", fontSize: "0.65rem", color: "rgba(180,170,210,0.5)", marginTop: "0.15rem" }}>
-                    {formatDateRange(tr.startDate, tr.endDate)} · exact {formatDate(tr.exactDate)}
+                    {formatDateRange(tr.startDate, tr.endDate)} · {tr.exactBeyondWindow ? tr.exactLabel : `exact ${formatDate(tr.exactDate)}`}
                   </div>
                 </div>
                 <div style={{
@@ -250,7 +250,7 @@ export default function TransitTimeline({ transits }: Props) {
           position: "relative",
           height: "80px",
           width: `${timelineWidth}px`,
-          borderBottom: "1px solid rgba(200,185,255,0.06)",
+          borderBottom: "1px solid rgba(184,190,240,0.06)",
         }}>
           {/* Center line */}
           <div style={{
@@ -259,7 +259,7 @@ export default function TransitTimeline({ transits }: Props) {
             left: 0,
             right: 0,
             height: "1px",
-            background: "rgba(200,185,255,0.06)",
+            background: "rgba(184,190,240,0.06)",
           }} />
 
           {/* Now indicator */}
@@ -361,7 +361,7 @@ export default function TransitTimeline({ transits }: Props) {
                 <span style={{ fontSize: "1.5rem" }}>{selected.transitGlyph}</span>
                 <span style={{
                   fontSize: "1.1rem",
-                  color: "rgba(200,185,255,0.35)",
+                  color: "rgba(184,190,240,0.35)",
                 }}>{ASPECT_GLYPHS[selected.aspectType] || "?"}</span>
                 <span style={{ fontSize: "1.5rem" }}>{selected.natalGlyph}</span>
                 <div style={{ marginLeft: "auto" }}>
@@ -399,7 +399,7 @@ export default function TransitTimeline({ transits }: Props) {
                 fontSize: "0.8rem",
                 fontWeight: 300,
                 lineHeight: 1.7,
-                color: "rgba(196,185,228,0.65)",
+                color: "rgba(206,210,245,0.65)",
                 margin: "0 0 1rem",
               }}>
                 {selected.description}
@@ -430,7 +430,7 @@ export default function TransitTimeline({ transits }: Props) {
                     color: "rgba(230,220,255,0.8)",
                     marginTop: "0.2rem",
                   }}>
-                    {formatDate(selected.exactDate)}
+                    {selected.exactBeyondWindow ? selected.exactLabel : formatDate(selected.exactDate)}
                   </div>
                 </div>
                 <div>
@@ -454,7 +454,7 @@ export default function TransitTimeline({ transits }: Props) {
                   padding: "0.4rem 1rem",
                   borderRadius: "100px",
                   background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(200,185,255,0.1)",
+                  border: "1px solid rgba(184,190,240,0.1)",
                   color: "rgba(200,185,240,0.5)",
                   fontFamily: "var(--font-body)",
                   fontSize: "0.65rem",

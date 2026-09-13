@@ -253,11 +253,11 @@ export default function CommandPalette() {
           flexDirection: "column",
           overflow: "hidden",
           borderRadius: "20px",
-          border: "1px solid rgba(212,175,55,0.22)",
+          border: "1px solid rgba(224,183,104,0.22)",
           background:
             "linear-gradient(180deg, rgba(18,12,40,0.92) 0%, rgba(10,7,26,0.94) 100%)",
           boxShadow:
-            "0 30px 80px rgba(0,0,0,0.55), 0 0 60px rgba(160,120,255,0.18), 0 0 120px rgba(212,175,55,0.10)",
+            "0 30px 80px rgba(0,0,0,0.55), 0 0 60px rgba(160,120,255,0.18), 0 0 120px rgba(224,183,104,0.10)",
           animation: reduced ? undefined : "cp-scale-in 240ms cubic-bezier(0.16, 1, 0.3, 1) both",
         }}
       >
@@ -270,7 +270,7 @@ export default function CommandPalette() {
               inset: -1,
               borderRadius: "20px",
               pointerEvents: "none",
-              boxShadow: "inset 0 0 40px rgba(212,175,55,0.08)",
+              boxShadow: "inset 0 0 40px rgba(224,183,104,0.08)",
               animation: "cp-border-pulse 4s ease-in-out infinite",
             }}
           />
@@ -283,16 +283,16 @@ export default function CommandPalette() {
             alignItems: "center",
             gap: "12px",
             padding: "16px 18px",
-            borderBottom: "1px solid rgba(200,185,255,0.08)",
+            borderBottom: "1px solid rgba(184,190,240,0.08)",
             position: "relative",
           }}
         >
           <span
             aria-hidden
             style={{
-              color: "#d4af37",
+              color: "#e0b768",
               fontSize: "18px",
-              textShadow: "0 0 12px rgba(212,175,55,0.6)",
+              textShadow: "0 0 12px rgba(224,183,104,0.6)",
               lineHeight: 1,
             }}
           >
@@ -324,9 +324,9 @@ export default function CommandPalette() {
               alignItems: "center",
               padding: "4px 8px",
               borderRadius: "6px",
-              border: "1px solid rgba(200,185,255,0.18)",
+              border: "1px solid rgba(184,190,240,0.18)",
               background: "rgba(8,6,20,0.55)",
-              color: "rgba(200,185,255,0.6)",
+              color: "rgba(184,190,240,0.6)",
               fontSize: "11px",
               letterSpacing: "0.08em",
               fontFamily: "var(--font-body, inherit)",
@@ -351,7 +351,7 @@ export default function CommandPalette() {
               style={{
                 padding: "40px 20px",
                 textAlign: "center",
-                color: "rgba(200,185,255,0.55)",
+                color: "rgba(184,190,240,0.55)",
                 fontSize: "14px",
                 fontStyle: "italic",
               }}
@@ -395,7 +395,7 @@ export default function CommandPalette() {
                           border: "none",
                           borderRadius: "10px",
                           background: isActive
-                            ? "linear-gradient(90deg, rgba(212,175,55,0.14), rgba(160,120,255,0.10) 50%, rgba(212,175,55,0.06))"
+                            ? "linear-gradient(90deg, rgba(224,183,104,0.14), rgba(160,120,255,0.10) 50%, rgba(224,183,104,0.06))"
                             : "transparent",
                           color: "inherit",
                           cursor: "pointer",
@@ -431,11 +431,11 @@ export default function CommandPalette() {
                             height: "28px",
                             borderRadius: "8px",
                             background: isActive
-                              ? "rgba(212,175,55,0.18)"
-                              : "rgba(200,185,255,0.06)",
-                            color: isActive ? "#f5e6a3" : "rgba(200,185,255,0.7)",
+                              ? "rgba(224,183,104,0.18)"
+                              : "rgba(184,190,240,0.06)",
+                            color: isActive ? "#f5e6a3" : "rgba(184,190,240,0.7)",
                             fontSize: "15px",
-                            textShadow: isActive ? "0 0 8px rgba(212,175,55,0.5)" : undefined,
+                            textShadow: isActive ? "0 0 8px rgba(224,183,104,0.5)" : undefined,
                             flexShrink: 0,
                             transition: "background 200ms ease, color 200ms ease",
                           }}
@@ -492,7 +492,7 @@ export default function CommandPalette() {
                           <span
                             aria-hidden
                             style={{
-                              color: "#d4af37",
+                              color: "#e0b768",
                               fontSize: "14px",
                               position: "relative",
                             }}
@@ -513,7 +513,7 @@ export default function CommandPalette() {
         <div
           style={{
             padding: "8px 16px",
-            borderTop: "1px solid rgba(200,185,255,0.08)",
+            borderTop: "1px solid rgba(184,190,240,0.08)",
             color: "rgba(180,170,210,0.45)",
             fontSize: "11px",
             letterSpacing: "0.08em",
@@ -535,8 +535,8 @@ export default function CommandPalette() {
           to { opacity: 1; transform: translateY(0) scale(1); }
         }
         @keyframes cp-border-pulse {
-          0%, 100% { box-shadow: inset 0 0 30px rgba(212,175,55,0.06), 0 0 0 rgba(212,175,55,0); }
-          50% { box-shadow: inset 0 0 50px rgba(212,175,55,0.14), 0 0 40px rgba(212,175,55,0.08); }
+          0%, 100% { box-shadow: inset 0 0 30px rgba(224,183,104,0.06), 0 0 0 rgba(224,183,104,0); }
+          50% { box-shadow: inset 0 0 50px rgba(224,183,104,0.14), 0 0 40px rgba(224,183,104,0.08); }
         }
         @keyframes cp-foil {
           0% { background-position: 250% 0; }
