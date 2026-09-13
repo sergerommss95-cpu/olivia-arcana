@@ -282,6 +282,30 @@ export default function TheArrival(p: Props) {
   }, [p.locale]);
   const t = p.locale === "uk" ? T.uk : T.en;
 
+  /* The reading room inks itself in as it arrives: head lines rise,
+     the intent borders draw, 60ms apart — once, then it stays set. */
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const reading = root.querySelector<HTMLElement>(".tide-reading");
+    if (!reading) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      reading.classList.add("is-inked");
+      return;
+    }
+    const io = new IntersectionObserver(
+      (es) => {
+        if (es.some((e) => e.isIntersecting)) {
+          reading.classList.add("is-inked");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.18 },
+    );
+    io.observe(reading);
+    return () => io.disconnect();
+  }, []);
+
   useEffect(() => {
     const root = rootRef.current!;
     const seq = root.querySelector<HTMLElement>(".tide-seq")!;
@@ -610,9 +634,19 @@ export default function TheArrival(p: Props) {
             {t.rTitleA}<br />{t.rTitleB}<em>{t.rTitleEm}</em>
           </h2>
           <p className="tide-r-desc">{t.rDesc}</p>
-          {luna && <p className="tide-r-luna">☽ {luna.line}</p>}
         </div>
         <div className="tide-r-side">
+          {/* The ephemeris — tonight's true Moon set as a marginal note
+              above the intents, so the column opens with a living line. */}
+          <aside className="tide-eph">
+            <span className="tide-eph-moon" aria-hidden>
+              {luna ? <TrueMoon phaseDeg={luna.phaseDeg} /> : "☽"}
+            </span>
+            <div className="tide-eph-txt">
+              <p className="tide-eph-k">{p.locale === "uk" ? "Ефемерида — цієї ночі" : "Ephemeris — tonight"}</p>
+              <p className="tide-eph-line">{luna ? luna.line : "…"}</p>
+            </div>
+          </aside>
           <div className="tide-intents" role="radiogroup" aria-label={t.rKicker}>
             {t.intents.map((it, i) => (
               <button
@@ -621,6 +655,7 @@ export default function TheArrival(p: Props) {
                 role="radio"
                 aria-checked={intent === i}
                 className={"tide-intent" + (intent === i ? " on" : "")}
+                style={{ "--ii": i } as React.CSSProperties}
                 onClick={() => setIntent(i)}
               >
                 <span className="tide-intent-n">{it.n}</span>
@@ -715,22 +750,66 @@ export default function TheArrival(p: Props) {
         .tide-reading::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 44vh;
           z-index: 0; pointer-events: none;
           background: linear-gradient(180deg, rgba(52, 62, 176, 0.6) 0%, rgba(31, 38, 140, 0.34) 34%, rgba(24, 29, 122, 0.16) 62%, transparent 100%); }
-        .tide-reading > * { position: relative; z-index: 1; }
+        /* The watermark stays out of the grid flow — one accidental
+           'position: relative' here once seated it as a giant first
+           cell and shoved the whole room diagonal. */
+        .tide-reading > :not(.tide-watermark) { position: relative; z-index: 1; }
         .tide-reading :global(canvas) { z-index: 0; }
-        .tide-watermark { position: absolute; left: -4%; top: 4%; font-size: 44vh; line-height: 1;
+        .tide-watermark { position: absolute; left: -4%; top: 4%; z-index: 0; font-size: 44vh; line-height: 1;
           color: rgba(183, 188, 233, 0.05); pointer-events: none; }
         .tide-watermark :global(svg) { width: 1em; height: 1em; display: block; opacity: 0.13; }
-        .tide-r-luna { margin: 22px 0 0; max-width: 380px; font-family: var(--font-mono), monospace;
-          font-size: 11px; line-height: 1.8; letter-spacing: 0.08em; color: rgba(183, 188, 233, 0.62); }
+        /* The ephemeris — a marginal note in the almanac's own frame. */
+        .tide-eph { display: grid; grid-template-columns: 44px 1fr; gap: 18px; align-items: center;
+          margin: 6px 0 34px; padding: 16px 18px;
+          border: 1px solid rgba(232, 233, 255, 0.16);
+          outline: 1px solid rgba(232, 233, 255, 0.07); outline-offset: 4px; }
+        .tide-eph-moon { display: grid; place-items: center; width: 44px; height: 44px;
+          color: #e8e9ff; font-size: 26px; line-height: 1; }
+        .tide-eph-moon :global(svg) { width: 44px; height: 44px; display: block; opacity: 0.85; }
+        .tide-eph-k { margin: 0 0 7px; font-family: var(--font-mono), monospace; font-size: 10px;
+          letter-spacing: 0.22em; text-transform: uppercase; color: #b7bce9; }
+        .tide-eph-line { margin: 0; font-family: var(--font-mono), monospace; font-size: 11px;
+          line-height: 1.7; letter-spacing: 0.06em; color: rgba(183, 188, 233, 0.78); }
         .tide-r-title { margin: 0 0 26px; font-family: var(--font-heading), serif; font-weight: 400;
           font-size: clamp(42px, 4.4vw, 70px); line-height: 1.05; letter-spacing: -0.03em; color: #e8e9ff; }
         .tide-r-title em { font-style: italic; }
         .tide-r-desc { max-width: 380px; font-size: 15px; line-height: 1.75; color: rgba(206, 210, 245, 0.85); }
-        .tide-intents { border-top: 1px solid rgba(232, 233, 255, 0.25); }
-        .tide-intent { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; width: 100%;
-          padding: 24px 4px; background: none; border: 0; border-bottom: 1px solid rgba(232, 233, 255, 0.25);
-          cursor: pointer; text-align: left; transition: border-color 0.3s var(--lg-ease); }
-        .tide-intent:hover { border-color: rgba(232, 233, 255, 0.5); }
+        .tide-intents { position: relative; }
+        .tide-intents::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+          background: rgba(232, 233, 255, 0.25); transform: scaleX(0); transform-origin: left;
+          transition: transform 700ms var(--lg-ease, cubic-bezier(0.16, 1, 0.3, 1)) 180ms; }
+        .tide-intent { position: relative; display: grid; grid-template-columns: 44px 1fr auto; align-items: center; width: 100%;
+          padding: 24px 4px; background: none; border: 0;
+          cursor: pointer; text-align: left; }
+        /* the row's rule is drawn, not painted — it inks in on arrival */
+        .tide-intent::after { content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+          background: rgba(232, 233, 255, 0.25); transform: scaleX(0); transform-origin: left;
+          transition: transform 700ms var(--lg-ease, cubic-bezier(0.16, 1, 0.3, 1)) calc(280ms + var(--ii, 0) * 60ms),
+            background 0.3s var(--lg-ease, cubic-bezier(0.16, 1, 0.3, 1)); }
+        .tide-intent:hover::after { background: rgba(232, 233, 255, 0.5); }
+        /* ── ink-in: the room rises 8px and settles, 60ms steps ── */
+        .tide-r-head .tide-kicker, .tide-r-title, .tide-r-desc, .tide-eph,
+        .tide-intent, .tide-q-label, .tide-q, .tide-r-actions {
+          opacity: 0; transform: translateY(8px);
+          transition: opacity 650ms var(--lg-ease, cubic-bezier(0.16, 1, 0.3, 1)) var(--ink-d, 0ms),
+            transform 650ms var(--lg-ease, cubic-bezier(0.16, 1, 0.3, 1)) var(--ink-d, 0ms); }
+        .tide-r-title { --ink-d: 80ms; }
+        .tide-r-desc { --ink-d: 160ms; }
+        .tide-eph { --ink-d: 140ms; }
+        .tide-intent { --ink-d: calc(240ms + var(--ii, 0) * 60ms); }
+        .tide-q-label { --ink-d: 480ms; }
+        .tide-q { --ink-d: 540ms; }
+        .tide-r-actions { --ink-d: 620ms; }
+        :global(.tide-reading.is-inked) .tide-r-head .tide-kicker,
+        :global(.tide-reading.is-inked) .tide-r-title,
+        :global(.tide-reading.is-inked) .tide-r-desc,
+        :global(.tide-reading.is-inked) .tide-eph,
+        :global(.tide-reading.is-inked) .tide-intent,
+        :global(.tide-reading.is-inked) .tide-q-label,
+        :global(.tide-reading.is-inked) .tide-q,
+        :global(.tide-reading.is-inked) .tide-r-actions { opacity: 1; transform: none; }
+        :global(.tide-reading.is-inked) .tide-intents::before,
+        :global(.tide-reading.is-inked) .tide-intent::after { transform: none; }
         .tide-intent-n { font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: 0.18em;
           color: #b7bce9; }
         .tide-intent-l { font-family: var(--font-heading), serif; font-size: clamp(26px, 2.2vw, 34px);
@@ -772,6 +851,10 @@ export default function TheArrival(p: Props) {
         @media (prefers-reduced-motion: reduce) {
           .tide-canvas { display: none; }
           .tide-line, .tide-controls .tide-rail { display: none; }
+          .tide-r-head .tide-kicker, .tide-r-title, .tide-r-desc, .tide-eph,
+          .tide-intent, .tide-q-label, .tide-q, .tide-r-actions {
+            opacity: 1; transform: none; transition: none; }
+          .tide-intents::before, .tide-intent::after { transform: none; transition: none; }
         }
       `}</style>
     </div>

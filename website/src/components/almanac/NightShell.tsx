@@ -239,6 +239,41 @@ export default function NightShell({ room, children }: NightShellProps) {
           outline-offset: 4px;
         }
 
+        /* ── page-load reveal: the night rooms open the same way the
+           light pages do — the kicker's tracked letters settle, the
+           title inks in with a small rise. Hidden states only under
+           no-preference: reduced motion renders instantly. */
+        @media (prefers-reduced-motion: no-preference) {
+          .night-kicker {
+            opacity: 0;
+            animation: night-track-in 640ms var(--ease) 160ms forwards;
+          }
+          .night-h1 {
+            opacity: 0;
+            animation: night-ink-in 620ms var(--ease) 260ms forwards;
+          }
+        }
+        @keyframes night-track-in {
+          from {
+            opacity: 0;
+            letter-spacing: 0.38em;
+          }
+          to {
+            opacity: 1;
+            letter-spacing: 0.3em;
+          }
+        }
+        @keyframes night-ink-in {
+          from {
+            opacity: 0;
+            transform: translateY(8px);
+          }
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .night-btn,
           .night-link {

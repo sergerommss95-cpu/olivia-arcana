@@ -372,6 +372,53 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
           outline-offset: 4px;
         }
 
+        /* ── page-load reveal: identical to AlmanacShell, so every
+           room of the edition opens the same way. Hidden states only
+           under no-preference: reduced motion renders instantly. */
+        @media (prefers-reduced-motion: no-preference) {
+          .alm-masthead .alm-rule {
+            transform: scaleX(0);
+            transform-origin: 50% 50%;
+            animation: alm-rule-draw 700ms var(--ease) 60ms forwards;
+          }
+          .alm-masthead .alm-rule.oxford {
+            animation-delay: 180ms;
+          }
+          .alm-mast-row {
+            opacity: 0;
+            animation: alm-ink-in 520ms var(--ease) 140ms forwards;
+          }
+          .alm-mast-title {
+            opacity: 0;
+            animation: alm-track-in 640ms var(--ease) 240ms forwards;
+          }
+        }
+        @keyframes alm-rule-draw {
+          to {
+            transform: scaleX(1);
+          }
+        }
+        @keyframes alm-ink-in {
+          from {
+            opacity: 0;
+            transform: translateY(6px);
+          }
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+        @keyframes alm-track-in {
+          from {
+            opacity: 0;
+            letter-spacing: 0.62em;
+          }
+          to {
+            opacity: 1;
+            letter-spacing: 0.5em;
+          }
+        }
+
         @media (max-width: 640px) {
           .alm-mast-row {
             flex-wrap: wrap;
@@ -379,8 +426,9 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
           }
           .alm-mast-nav {
             flex-basis: 100%;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: clamp(0.7rem, 4vw, 1.2rem);
+            gap: 0.15rem clamp(0.7rem, 4vw, 1.2rem);
             padding-bottom: 0.55rem;
           }
           .alm-mast-nav .alm-mast-link {

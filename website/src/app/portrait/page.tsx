@@ -9,16 +9,15 @@
 
 "use client";
 
-import React, { useState, useRef, useCallback, useMemo } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import NightShell from "@/components/almanac/NightShell";
 import { computeNatalChart, type NatalChart, type BirthInput } from "@/lib/natal-chart";
 import { engineChart, engineEnabled, fmtLongitude, type EngineChart } from "@/lib/engine";
 import { saveUser } from "@/lib/user-store";
 import { moonPath } from "@/lib/almanac-today";
-import BirthDatePicker from "@/components/BirthDatePicker";
-import CityAutocomplete from "@/components/CityAutocomplete";
-import { type CityData, utcOffsetHours, fmtUtcOffset, isSummerTime } from "@/lib/cities";
+import BirthDataForm, { type BirthFormValue, type BirthDataFormCopy } from "@/components/birth/BirthDataForm";
+import { utcOffsetHours } from "@/lib/cities";
 import { getPlanetInSign, PLANET_MEANING, HOUSE_MEANING } from "@/lib/planet-interpretations";
 import { useLocale } from "@/lib/i18n/useLocale";
 
@@ -76,6 +75,24 @@ const COPY = {
     lifeThemeLabel: "Your life theme",
     soulLabel: "Soul direction",
     viewChart: "Open the interactive wheel",
+    form: {
+      fig: "Fig. 1 — the birth data",
+      nameLabel: "Your name (optional)",
+      namePlaceholder: "Name",
+      dateLabel: "Birth date",
+      dayPh: "DD",
+      monthPh: "MM",
+      yearPh: "YYYY",
+      timeLabel: "Birth time",
+      timeUnknownOff: "I don't know my birth time",
+      timeUnknownOn: "✓ Using noon — the rising sign is left unmarked",
+      noonNote: "12:00 assumed",
+      cityLabel: "Birth city",
+      cityPlaceholder: "e.g. Kyiv, New York, Tokyo",
+      cityNone: "no city found — try the nearest large city",
+      submit: "Draw your portrait",
+      submitAsleep: "date · time · place complete the plate",
+    } as Partial<BirthDataFormCopy>,
   },
   uk: {
     room: "Меридіанне скло",
@@ -122,6 +139,26 @@ const COPY = {
     lifeThemeLabel: "Тема вашого життя",
     soulLabel: "Напрям душі",
     viewChart: "Відкрити інтерактивне колесо",
+    form: {
+      fig: "Мал. 1 — дані народження",
+      nameLabel: "Ваше ім'я (необов'язково)",
+      namePlaceholder: "Ім'я",
+      dateLabel: "Дата народження",
+      dayPh: "ДД",
+      monthPh: "ММ",
+      yearPh: "РРРР",
+      timeLabel: "Час народження",
+      timeUnknownOff: "Я не знаю часу свого народження",
+      timeUnknownOn: "✓ Береться полудень — знак Асценденту не позначається",
+      noonNote: "приймається 12:00",
+      cityLabel: "Місто народження",
+      cityPlaceholder: "напр. Київ, Нью-Йорк, Токіо",
+      cityNone: "місто не знайдено — спробуйте найближче велике місто",
+      tzLine: (city: string, off: string, summer: boolean) =>
+        `обчислено для: ${city} · ${off}${summer ? " (літній час)" : ""}`,
+      submit: "Накреслити карту",
+      submitAsleep: "дата · час · місце завершують гравюру",
+    } as Partial<BirthDataFormCopy>,
   },
 };
 
@@ -343,13 +380,6 @@ export default function PortraitPage() {
   const isUk = locale === "uk";
   const copy = isUk ? COPY.uk : COPY.en;
 
-  // Form state
-  const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [timeUnknown, setTimeUnknown] = useState(false);
-  const [cityData, setCityData] = useState<CityData | null>(null);
-
   // Result state
   const [chart, setChart] = useState<NatalChart | null>(null);
   // The press's own figures — true ephemeris, houses, retrogrades.
@@ -360,26 +390,25 @@ export default function PortraitPage() {
 
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  const generate = useCallback(() => {
-    if (!date || !cityData) return;
-    const [y, m, d] = date.split("-").map(Number);
+  const generate = useCallback((v: BirthFormValue) => {
+    const [y, m, d] = v.date.split("-").map(Number);
     if (!y || !m || !d) return;
 
-    const hour = timeUnknown ? 12 : parseInt(time.split(":")[0] || "12");
-    const minute = timeUnknown ? 0 : parseInt(time.split(":")[1] || "0");
+    const hour = v.timeUnknown ? 12 : parseInt(v.time.split(":")[0] || "12");
+    const minute = v.timeUnknown ? 0 : parseInt(v.time.split(":")[1] || "0");
 
     // Historical offset for that wall-clock instant (DST, zone reforms);
     // the fixed city offset stands in only if the runtime lacks the zone.
-    const zoneOff = utcOffsetHours(cityData.zone, y, m, d, hour, minute);
-    const timezone = Number.isFinite(zoneOff) ? zoneOff : cityData.tz;
+    const zoneOff = utcOffsetHours(v.city.zone, y, m, d, hour, minute);
+    const timezone = Number.isFinite(zoneOff) ? zoneOff : v.city.tz;
 
     const input = {
       year: y, month: m, day: d,
       hour, minute,
-      latitude: cityData.lat, longitude: cityData.lon, timezone,
-      timeKnown: !timeUnknown,
-      name: name || undefined,
-      city: cityData.name,
+      latitude: v.city.lat, longitude: v.city.lon, timezone,
+      timeKnown: !v.timeUnknown,
+      name: v.name,
+      city: v.city.name,
     } as BirthInput;
 
     const natalChart = computeNatalChart(input);
@@ -424,7 +453,7 @@ export default function PortraitPage() {
     setTimeout(() => {
       setPhase("revealed");
     }, 800);
-  }, [name, date, time, timeUnknown, cityData]);
+  }, []);
 
   const figureRef = useRef<HTMLElement | null>(null);
 
@@ -494,24 +523,6 @@ export default function PortraitPage() {
     setShowDecode(false);
   }, []);
 
-  const canGenerate = !!date && (timeUnknown || !!time) && !!cityData;
-
-  // Resolved place + offset, shown under the form as soon as it can be known.
-  const tzLine = useMemo(() => {
-    if (!cityData || !date) return null;
-    const [y, m, d] = date.split("-").map(Number);
-    if (!y || !m || !d) return null;
-    const hh = timeUnknown ? 12 : parseInt(time.split(":")[0] || "12");
-    const mi = timeUnknown ? 0 : parseInt(time.split(":")[1] || "0");
-    const off = utcOffsetHours(cityData.zone, y, m, d, hh, mi);
-    if (!Number.isFinite(off)) return null;
-    return copy.tzLine(
-      cityData.name.toUpperCase(),
-      fmtUtcOffset(off),
-      isSummerTime(cityData.zone, y, m, d, hh, mi),
-    );
-  }, [cityData, date, time, timeUnknown, copy]);
-
   // No ascendant (unknown birth time) → no rising card asserted.
   const bigThree = chart
     ? [
@@ -533,64 +544,13 @@ export default function PortraitPage() {
             <h1 className="night-h1">{copy.title}</h1>
             <p className="night-lead bc-lead">{copy.lead}</p>
 
-            <div className="night-card bc-form">
-              {/* Name */}
-              <div className="bc-field">
-                <label className="bc-label" htmlFor="bc-name">{copy.nameLabel}</label>
-                <input
-                  id="bc-name"
-                  type="text"
-                  className="night-input"
-                  placeholder={copy.namePlaceholder}
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-
-              {/* Date */}
-              <div className="bc-field bc-picker">
-                <span className="bc-label">{copy.dateLabel}</span>
-                <BirthDatePicker value={date} onChange={setDate} />
-              </div>
-
-              {/* Time */}
-              <div className="bc-field">
-                {!timeUnknown && (
-                  <>
-                    <label className="bc-label" htmlFor="bc-time">{copy.timeLabel}</label>
-                    <input
-                      id="bc-time"
-                      type="time"
-                      className="night-input"
-                      value={time}
-                      onChange={(e) => setTime(e.target.value)}
-                      style={{ colorScheme: "dark" }}
-                    />
-                  </>
-                )}
-                <button
-                  type="button"
-                  className={`bc-toggle ${timeUnknown ? "is-on" : ""}`}
-                  aria-pressed={timeUnknown}
-                  onClick={() => {
-                    setTimeUnknown(!timeUnknown);
-                    setTime("");
-                  }}
-                >
-                  {timeUnknown ? copy.timeUnknownOn : copy.timeUnknownOff}
-                </button>
-              </div>
-
-              {/* City */}
-              <div className={`bc-field bc-city ${cityData ? "" : "miss"}`}>
-                <span className="bc-label">{copy.cityLabel}</span>
-                <CityAutocomplete onSelect={setCityData} placeholder={copy.cityPlaceholder} />
-                {tzLine && <span className="night-caption bc-tzline">{tzLine}</span>}
-              </div>
-
-              <button className="night-btn bc-submit" onClick={generate} disabled={!canGenerate}>
-                {copy.generate}
-              </button>
+            <div className="bc-formwrap">
+              <BirthDataForm
+                withName
+                copy={copy.form}
+                busy={phase === "generating"}
+                onSubmit={generate}
+              />
             </div>
           </div>
         )}
@@ -631,7 +591,7 @@ export default function PortraitPage() {
                   })}
                 </div>
                 <p className="night-caption bc-press-note">
-                  {timeUnknown
+                  {chart.input.timeKnown === false
                     ? isUk
                       ? "час народження невідомий — куспіди домів приблизні (полудень)"
                       : "birth time unknown — house cusps are provisional (noon)"
@@ -807,16 +767,6 @@ export default function PortraitPage() {
           </div>
         )}
 
-        {/* styled-jsx drops backdrop-filter declarations in transform —
-            plain style tag lifts the shared inputs' glass blur. */}
-        <style>{`
-          .bc-form select,
-          .bc-city input,
-          .bc-city input ~ div {
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-          }
-        `}</style>
         <style jsx global>{`
           /* ── The Birth Chart room ─────────────────────────────── */
           .bc-plate {
@@ -837,158 +787,11 @@ export default function PortraitPage() {
             max-width: 44ch;
           }
 
-          .bc-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.15rem;
+          .bc-formwrap {
             width: 100%;
-            max-width: 26rem;
+            max-width: 28rem;
             margin-top: 2.2rem;
             text-align: left;
-          }
-
-          .bc-field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-          }
-
-          .bc-label {
-            color: var(--bone-faint);
-            font-family: var(--font-mono, ui-monospace), monospace;
-            font-size: 0.6rem;
-            font-weight: 500;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-          }
-
-          .bc-toggle {
-            align-self: flex-start;
-            margin-top: 0.15rem;
-            padding: 0;
-            background: none;
-            border: none;
-            border-bottom: 1px solid transparent;
-            cursor: pointer;
-            font-family: var(--font-body, system-ui), sans-serif;
-            font-size: 0.72rem;
-            color: var(--bone-faint);
-            transition: color 200ms var(--ease);
-          }
-
-          .bc-toggle:hover {
-            color: var(--bone-soft);
-          }
-
-          .bc-toggle.is-on {
-            color: var(--ember);
-          }
-
-          .bc-submit {
-            margin-top: 0.5rem;
-          }
-
-          .bc-tzline {
-            margin-top: 0.3rem;
-            color: var(--ember);
-            letter-spacing: 0.14em;
-          }
-
-          /* City is required — hold the field lit until one is chosen */
-          .bc-city.miss input {
-            outline: 1px solid rgba(224, 183, 104, 0.5);
-            outline-offset: 2px;
-          }
-
-          /* Shared logic components, re-inked to the night register.
-             (Their own styles are inline, hence the !important ink.) */
-          .bc-form select {
-            appearance: none;
-            -webkit-appearance: none;
-            background: var(--night-deep) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23f2ecdf' stroke-opacity='0.45' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 0.75rem center !important;
-            border: 1px solid var(--hairline) !important;
-            border-radius: 0.35rem !important;
-            color: var(--bone) !important;
-            font-family: var(--font-body, system-ui), sans-serif !important;
-            font-size: 0.9rem !important;
-            letter-spacing: 0.02em !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-          }
-
-          .bc-form select:focus-visible {
-            outline: 2px solid var(--ember);
-            outline-offset: 2px;
-          }
-
-          .bc-form option {
-            background-color: var(--night-deep) !important;
-            color: var(--bone) !important;
-          }
-
-          .bc-picker span:not(.bc-label) {
-            color: var(--bone-faint) !important;
-            font-family: var(--font-mono, ui-monospace), monospace !important;
-          }
-
-          .bc-city input {
-            padding: 0.75rem 0.95rem !important;
-            background: var(--night-deep) !important;
-            border: 1px solid var(--hairline) !important;
-            border-radius: 0.35rem !important;
-            color: var(--bone) !important;
-            font-family: var(--font-body, system-ui), sans-serif !important;
-            font-size: 0.95rem !important;
-            letter-spacing: 0.01em !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-          }
-
-          .bc-city input::placeholder {
-            color: var(--bone-faint);
-            font-style: normal;
-          }
-
-          .bc-city input:focus-visible {
-            outline: 2px solid var(--ember);
-            outline-offset: 2px;
-          }
-
-          .bc-city input ~ div {
-            background: var(--sheet) !important;
-            border: 1px solid var(--hairline) !important;
-            border-radius: 0.35rem !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            box-shadow: 0 0.6rem 1.6rem rgba(0, 0, 0, 0.55) !important;
-          }
-
-          .bc-city input ~ div button {
-            background: none !important;
-            border-bottom: 1px solid var(--hairline) !important;
-          }
-
-          .bc-city input ~ div button:last-child {
-            border-bottom: none !important;
-          }
-
-          .bc-city input ~ div button:hover,
-          .bc-city input ~ div button:focus-visible {
-            background: rgba(232, 233, 255, 0.06) !important;
-          }
-
-          .bc-city input ~ div button span:first-child {
-            color: var(--bone) !important;
-            font-family: var(--font-heading, "Cormorant Garamond"), serif !important;
-            font-size: 0.95rem !important;
-          }
-
-          .bc-city input ~ div button span:last-child {
-            color: var(--bone-faint) !important;
-            font-family: var(--font-mono, ui-monospace), monospace !important;
-            font-size: 0.6rem !important;
-            letter-spacing: 0.16em !important;
-            text-transform: uppercase;
           }
 
           /* ── Revealed ─────────────────────────────────────────── */

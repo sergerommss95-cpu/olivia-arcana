@@ -572,6 +572,55 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           text-transform: uppercase;
         }
 
+        /* ── page-load reveal: every room opens the same way ─────
+           The masthead rules draw out from the centre, the wordmark
+           row inks in, and the tracked title letters settle. Hidden
+           states are declared ONLY under no-preference, so reduced
+           motion renders everything instantly and honestly. */
+        @media (prefers-reduced-motion: no-preference) {
+          .alm-masthead .alm-rule {
+            transform: scaleX(0);
+            transform-origin: 50% 50%;
+            animation: alm-rule-draw 700ms var(--ease) 60ms forwards;
+          }
+          .alm-masthead .alm-rule.oxford {
+            animation-delay: 180ms;
+          }
+          .alm-mast-row {
+            opacity: 0;
+            animation: alm-ink-in 520ms var(--ease) 140ms forwards;
+          }
+          .alm-mast-title {
+            opacity: 0;
+            animation: alm-track-in 640ms var(--ease) 240ms forwards;
+          }
+        }
+        @keyframes alm-rule-draw {
+          to {
+            transform: scaleX(1);
+          }
+        }
+        @keyframes alm-ink-in {
+          from {
+            opacity: 0;
+            transform: translateY(6px);
+          }
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+        @keyframes alm-track-in {
+          from {
+            opacity: 0;
+            letter-spacing: 0.62em;
+          }
+          to {
+            opacity: 1;
+            letter-spacing: 0.5em;
+          }
+        }
+
         @media (max-width: 640px) {
           /* the four links survive as a compact second row — a site
              with no navigation is not a site (audit: mobile/high) */
@@ -595,6 +644,18 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
             font-size: 0.66rem;
             padding: 0.4rem 0.75rem;
             white-space: nowrap;
+          }
+        }
+
+        /* the twelve glyphs stay ONE unbroken row at every width —
+           tighter set on narrow leaves, never an orphaned sign */
+        @media (max-width: 420px) {
+          .alm-zodiac-index {
+            gap: 0.32rem;
+          }
+          .alm-zodiac-link {
+            min-width: 1.3rem;
+            font-size: 0.76rem;
           }
         }
 

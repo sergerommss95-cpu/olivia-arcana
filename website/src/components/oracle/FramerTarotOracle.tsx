@@ -363,6 +363,7 @@ export default function FramerTarotOracle() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const time = useTime();
+  const prefersReduced = useReducedMotion();
 
   // Shared breathing motion (subtle global pulse)
   const breathing = useTransform(time, (t) => Math.sin(t / 2000) * 5);
@@ -441,7 +442,8 @@ export default function FramerTarotOracle() {
     const gapX = 1.1, gapY = 0.98;
     const availW = Math.min(viewport.w * 0.9, 1240);
     // The free band: below the room's top chrome, above the sheet's crown.
-    const bandTop = 82;
+    // The phone's top chrome is taller — the room title wraps under the bar.
+    const bandTop = device === "mobile" ? 122 : 82;
     const sheetTop = viewport.h * (device === "mobile" ? 0.44 : 0.505);
     const availH = Math.max(160, sheetTop - bandTop - 40); // room for the cartouches
     const cap = device === "mobile" ? 1.28 : 1.78;
@@ -553,7 +555,9 @@ export default function FramerTarotOracle() {
         if (newSelected.length === spread.count) {
           isTransitioning.current = true;
           setState("preparing");
-          updateUrl(newSelected);
+          // router.replace must not run inside the state updater — React
+          // flags a Router update during FramerTarotOracle's render.
+          setTimeout(() => updateUrl(newSelected), 0);
           setTimeout(() => {
             setState("spread");
             isTransitioning.current = false;
@@ -578,6 +582,52 @@ export default function FramerTarotOracle() {
     audio.playReveal();
     setState("result");
   }, []);
+
+  /* ── THE SHEET'S OWN SCROLL ──────────────────────────────────
+     The reading scrolls inside its shell; gradient fades mark that
+     there is more above/below, and a small cue invites the first
+     scroll on phones. */
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const [sheetEdges, setSheetEdges] = useState({ top: false, bottom: false });
+  const [sheetScrolled, setSheetScrolled] = useState(false);
+
+  const measureSheet = useCallback(() => {
+    const el = sheetRef.current;
+    if (!el) return;
+    const canScroll = el.scrollHeight > el.clientHeight + 4;
+    setSheetEdges({
+      top: canScroll && el.scrollTop > 6,
+      bottom: canScroll && el.scrollTop + el.clientHeight < el.scrollHeight - 6,
+    });
+  }, []);
+
+  const handleSheetScroll = useCallback(() => {
+    const el = sheetRef.current;
+    if (el && el.scrollTop > 10) setSheetScrolled(true);
+    measureSheet();
+  }, [measureSheet]);
+
+  useEffect(() => {
+    if (state !== "result") {
+      setSheetScrolled(false);
+      return;
+    }
+    const el = sheetRef.current;
+    if (!el) return;
+    measureSheet();
+    const ro = new ResizeObserver(measureSheet);
+    ro.observe(el);
+    Array.from(el.children).forEach((c) => ro.observe(c));
+    window.addEventListener("resize", measureSheet);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measureSheet);
+    };
+  }, [state, measureSheet]);
+
+  // The sheet waits for the plates: flips run 80ms apart, then the
+  // sheet rises on its spring.
+  const sheetDelay = prefersReduced ? 0 : 0.45 + spread.count * 0.08;
 
   return (
     <LazyMotion features={domAnimation}>
@@ -612,7 +662,9 @@ export default function FramerTarotOracle() {
 
         {/* ── TOP NAV ── */}
         <div className="absolute top-0 inset-x-0 z-50 pt-[4.5rem] pb-8 px-8 flex justify-between items-start pointer-events-none">
-           <div className="pointer-events-auto flex flex-col gap-4">
+           {/* One row: back + audio share the top bar so neither ever
+               descends into the card band on small screens. */}
+           <div className="pointer-events-auto flex items-center gap-5 sm:gap-7 flex-wrap">
               {state !== "focusing" && (
                  <button
                    onClick={reset}
@@ -624,7 +676,7 @@ export default function FramerTarotOracle() {
               <button
                 onClick={toggleMute}
                 aria-pressed={!isMuted}
-                className="min-h-11 min-w-11 text-[10px] tracking-[0.3em] uppercase text-[rgba(232,233,255,0.32)] hover:text-[rgba(232,233,255,0.72)] transition-all text-left"
+                className="min-h-11 text-[10px] tracking-[0.3em] uppercase text-[rgba(232,233,255,0.32)] hover:text-[rgba(232,233,255,0.72)] transition-all text-left"
               >
                 {locale === "uk"
                   ? isMuted ? "Звук: вимк." : "Звук: увімк."
@@ -685,9 +737,40 @@ export default function FramerTarotOracle() {
                 {selectionInstruction}
               </p>
               <div className="flex justify-center gap-2 mt-4">
-                {Array.from({ length: spread.count }, (_, i) => (
-                  <div key={i} className={`w-1 h-1 rounded-full transition-all duration-500 ${i < selectedCards.length ? 'bg-[#e0b768] scale-150' : 'bg-[rgba(232,233,255,0.2)]'}`} />
-                ))}
+                {/* The counter fills in gilt: each dot swells as its card
+                    commits, then settles — a small weighted tick. */}
+                {Array.from({ length: spread.count }, (_, i) => {
+                  const filled = i < selectedCards.length;
+                  return (
+                    <m.div
+                      key={i}
+                      className="w-1 h-1 rounded-full"
+                      initial={false}
+                      animate={
+                        filled
+                          ? {
+                              scale: [1, 2.1, 1.5],
+                              backgroundColor: ["rgba(232,233,255,0.2)", "#e0b768", "#e0b768"],
+                              boxShadow: [
+                                "0 0 0px rgba(224,183,104,0)",
+                                "0 0 10px rgba(224,183,104,0.75)",
+                                "0 0 3px rgba(224,183,104,0.3)",
+                              ],
+                            }
+                          : {
+                              scale: 1,
+                              backgroundColor: "rgba(232,233,255,0.2)",
+                              boxShadow: "0 0 0px rgba(224,183,104,0)",
+                            }
+                      }
+                      transition={
+                        filled
+                          ? { duration: 0.6, ease: [0.16, 1, 0.3, 1], times: [0, 0.4, 1] }
+                          : { duration: 0.3 }
+                      }
+                    />
+                  );
+                })}
               </div>
             </m.div>
           )}
@@ -701,6 +784,9 @@ export default function FramerTarotOracle() {
               className="absolute z-40 flex flex-col items-center text-center pointer-events-none"
             >
               <div className="relative mb-8">
+                {/* The listening pause breathes gilt — a slow pulse, no flash */}
+                <div className="oracle-listen-halo" aria-hidden />
+                <div className="oracle-listen-ring" aria-hidden />
                 <div className="relative text-3xl text-[#e0b768] animate-spin-slow">✦</div>
               </div>
               <p className="night-caption">
@@ -797,15 +883,25 @@ export default function FramerTarotOracle() {
         {/* ── PRIVATE ARTIFACT RESULT ── */}
         <AnimatePresence>
           {state === "result" && (
-            <m.div 
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
+            <m.div
+              initial={prefersReduced ? { opacity: 0 } : { opacity: 0, y: 72, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20 }}
-              transition={{ delay: 1.15, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: "50% 100%" }}
+              transition={
+                prefersReduced
+                  ? { duration: 0.2 }
+                  : { delay: sheetDelay, type: "spring", stiffness: 120, damping: 19, mass: 0.9 }
+              }
               className="result-artifact-panel absolute bottom-0 inset-x-0 z-40 pointer-events-none"
             >
               <div className="result-stack">
-                <div className={`result-artifact-shell ${state === "result" ? "pointer-events-auto" : "pointer-events-none"}`}>
+                <div className="result-sheet-clip">
+                <div
+                  ref={sheetRef}
+                  onScroll={handleSheetScroll}
+                  className={`result-artifact-shell ${state === "result" ? "pointer-events-auto" : "pointer-events-none"}`}
+                >
                 <p className="result-touch-hint" aria-hidden>
                   {locale === "uk"
                     ? "Карти живі — нахиліть · перетягніть · клік = лупа"
@@ -847,6 +943,18 @@ export default function FramerTarotOracle() {
                   </Link>
                   <p>{t("oracle_result_subtitle")}</p>
                   <small>{t("oracle_result_disclaimer")}</small>
+                </div>
+                </div>
+                {/* edge fades — the sheet says when there is more to read */}
+                <div className="result-fade is-top" data-on={sheetEdges.top || undefined} aria-hidden />
+                <div className="result-fade is-bottom" data-on={sheetEdges.bottom || undefined} aria-hidden />
+                <div
+                  className="result-scroll-cue"
+                  data-on={(sheetEdges.bottom && !sheetScrolled) || undefined}
+                  aria-hidden
+                >
+                  <span>{locale === "uk" ? "Гортайте" : "Scroll"}</span>
+                  <span className="result-scroll-arrow">↓</span>
                 </div>
                 </div>
               </div>
@@ -896,6 +1004,76 @@ export default function FramerTarotOracle() {
           .result-stack {
             position: relative;
             width: min(64rem, 100%);
+          }
+
+          /* the clip carries the fades so they sit still while the
+             sheet scrolls under them */
+          .result-sheet-clip {
+            position: relative;
+          }
+
+          .result-fade {
+            position: absolute;
+            left: 1px;
+            right: 1px;
+            height: 3rem;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 2;
+            transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
+          }
+
+          .result-fade.is-top {
+            top: 1px;
+            border-radius: 6px 6px 0 0;
+            background: linear-gradient(180deg, rgba(16, 19, 77, 0.96), rgba(16, 19, 77, 0));
+          }
+
+          .result-fade.is-bottom {
+            bottom: 1px;
+            border-radius: 0 0 6px 6px;
+            background: linear-gradient(0deg, rgba(16, 19, 77, 0.96), rgba(16, 19, 77, 0));
+          }
+
+          .result-fade[data-on] {
+            opacity: 1;
+          }
+
+          .result-scroll-cue {
+            position: absolute;
+            bottom: 0.7rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            z-index: 3;
+            pointer-events: none;
+            font-family: var(--font-mono, ui-monospace), monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: rgba(224, 183, 104, 0.85);
+            opacity: 0;
+            transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1);
+          }
+
+          .result-scroll-cue[data-on] {
+            opacity: 1;
+          }
+
+          .result-scroll-arrow {
+            display: inline-block;
+            animation: result-cue-dip 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+          }
+
+          @keyframes result-cue-dip {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(3px); }
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .result-scroll-arrow { animation: none; }
           }
 
           .result-artifact-shell {
@@ -955,7 +1133,7 @@ export default function FramerTarotOracle() {
 
           .result-artifact-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
             gap: 0.85rem;
           }
 
@@ -1030,25 +1208,27 @@ export default function FramerTarotOracle() {
             }
 
             .result-artifact-grid {
+              /* two readable chips beat three unreadable ones at 390px */
+              grid-template-columns: repeat(auto-fit, minmax(7.2rem, 1fr));
               gap: 0.55rem;
             }
 
             .result-artifact-card {
               min-height: 6.9rem;
-              padding: 0.75rem 0.5rem;
+              padding: 0.75rem 0.55rem;
             }
 
             .result-artifact-card span {
-              font-size: 0.5rem;
-              letter-spacing: 0.1em;
+              font-size: 0.55rem;
+              letter-spacing: 0.11em;
             }
 
             .result-artifact-card h3 {
-              font-size: 1rem;
+              font-size: 1.05rem;
             }
 
             .result-artifact-card p {
-              font-size: 0.5rem;
+              font-size: 0.54rem;
               letter-spacing: 0.1em;
             }
           }
@@ -1074,8 +1254,44 @@ export default function FramerTarotOracle() {
           @keyframes al-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
           .animate-spin-slow { animation: al-spin 40s linear infinite; }
 
+          /* The listening pause: a slow gilt breath around the star */
+          .oracle-listen-halo {
+            position: absolute;
+            inset: -2.4rem;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(224, 183, 104, 0.18), transparent 62%);
+            animation: oracle-listen 3.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+          }
+
+          .oracle-listen-ring {
+            position: absolute;
+            inset: -1.4rem;
+            border-radius: 50%;
+            border: 1px solid rgba(224, 183, 104, 0.28);
+            animation: oracle-listen-ring 3.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+          }
+
+          @keyframes oracle-listen {
+            0%, 100% { opacity: 0.35; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.06); }
+          }
+
+          @keyframes oracle-listen-ring {
+            0%, 100% { opacity: 0.2; transform: scale(0.94); }
+            50% { opacity: 0.7; transform: scale(1.04); }
+          }
+
+          /* Gilt hairline focus ring on the plates themselves */
+          [data-oracle-card]:focus-visible {
+            outline: 1px solid rgba(224, 183, 104, 0.9);
+            outline-offset: 4px;
+            border-radius: 14px;
+          }
+
           @media (prefers-reduced-motion: reduce) {
             .animate-spin-slow { animation: none !important; }
+            .oracle-listen-halo,
+            .oracle-listen-ring { animation: none !important; opacity: 0.6; }
           }
         `}</style>
       </div>
@@ -1328,9 +1544,17 @@ const GodModeCard = React.memo(function GodModeCard({
   const rotateX = useTransform(smoothY, [0, cardHeight], [12, -12]);
   const rotateY_tilt = useTransform(smoothX, [0, cardWidth], [-12, 12]);
   
-  // Combine magnetic tilt with machine-state rotation
+  // Combine magnetic tilt with machine-state rotation.
+  // The reveal is a dealt sequence, not a chorus: each plate flips 80ms
+  // after the one before it (reduced motion flips all at once).
   const motionRotateY = useSpring(targetRotateY, uiConfig);
-  useEffect(() => { motionRotateY.set(targetRotateY); }, [targetRotateY, motionRotateY]);
+  useEffect(() => {
+    if (targetRotateY > 0 && selectionIndex > 0 && !isReducedMotion) {
+      const id = setTimeout(() => motionRotateY.set(targetRotateY), selectionIndex * 80);
+      return () => clearTimeout(id);
+    }
+    motionRotateY.set(targetRotateY);
+  }, [targetRotateY, motionRotateY, selectionIndex, isReducedMotion]);
 
   const finalRotateY = useTransform([isHoveredMV, rotateY_tilt, motionRotateY], ([h, rt, my]) => {
      // Once flipped, the plate still answers the hand: the tilt rides on
@@ -1387,7 +1611,15 @@ const GodModeCard = React.memo(function GodModeCard({
   // ── THE REVEAL EDGE GLARE ──
   const edgeGlareOpacity = useTransform(motionRotateY, [0, 80, 90, 100, 180], [0, 0, 1, 0, 0]);
 
-  const staggerDelay = machineState === "drawing" && !isSelected ? 0.2 + index * 0.03 : 0;
+  // Mobile renders the card flat (no preserve-3d), which resets the
+  // backface accumulation at the flat boundary — both faces resolve
+  // front-facing and the BACK paints over the art after the flip. On
+  // flat devices the faces swap by flip progress instead.
+  const backFaceOpacity = useTransform(motionRotateY, (r) => (!isMobile || Number(r) <= 90 ? 1 : 0));
+  const frontFaceOpacity = useTransform(motionRotateY, (r) => (!isMobile || Number(r) > 90 ? 1 : 0));
+
+  // Dealt-in: each card leaves the deck point 40ms after the one before.
+  const staggerDelay = machineState === "drawing" && !isSelected ? 0.08 + index * 0.04 : 0;
 
   const finalRotateX = useTransform([isHoveredMV, rotateX], ([h, rx]) => {
     if (isSelected && machineState !== 'drawing') return rx;
@@ -1461,9 +1693,10 @@ const GodModeCard = React.memo(function GodModeCard({
         />
 
         {/* BACK: ENGRAVED NIGHT PLATE */}
-        <div
+        <m.div
           className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] will-change-transform"
           style={{
+            opacity: backFaceOpacity,
             transform: 'translateZ(0.1px)',
             transformStyle: 'preserve-3d',
             WebkitTransformStyle: 'preserve-3d',
@@ -1475,17 +1708,22 @@ const GodModeCard = React.memo(function GodModeCard({
           {/* Inner Highlight */}
 
           <NightCardBack />
-        </div>
+        </m.div>
 
-        {/* FRONT: LAZY LOADED ACTUAL IMAGES */}
-        <div
-          className="absolute inset-0 rounded-[14px] overflow-hidden [backface-visibility:hidden] will-change-transform"
+        {/* FRONT: LAZY LOADED ACTUAL IMAGES.
+            On mobile the card is flat: the face's own 180° makes it
+            back-facing in its local context, so backface-hidden would
+            erase it — visibility is handled by the opacity swap there,
+            and the parent's flattened 180° un-mirrors the art. */}
+        <m.div
+          className="absolute inset-0 rounded-[14px] overflow-hidden will-change-transform"
           style={{
+            opacity: frontFaceOpacity,
             transform: 'rotateY(180deg) translateZ(0.1px)',
             transformStyle: 'preserve-3d',
             WebkitTransformStyle: 'preserve-3d',
-            backfaceVisibility: 'hidden',
-            WebkitBackfaceVisibility: 'hidden',
+            backfaceVisibility: isMobile ? 'visible' : 'hidden',
+            WebkitBackfaceVisibility: isMobile ? 'visible' : 'hidden',
             background: '#0a0d38'
           }}
         >
@@ -1541,7 +1779,7 @@ const GodModeCard = React.memo(function GodModeCard({
                 <div className="text-[#e8e9ff] [font-family:var(--font-heading),serif] text-sm leading-tight tracking-wide">{card.name}</div>
               </div>
            </div>
-        </div>
+        </m.div>
       </div>
 
       {/* Position cartouche — the formation is unreadable without its

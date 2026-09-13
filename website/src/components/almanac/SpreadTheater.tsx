@@ -106,6 +106,19 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
     let inside = false;
     let diveAt = 0;
     let raf = 0;
+    // the waking shuffle: cards sleep as one stack until the plate
+    // scrolls into view, then fan open once — a single slow beat
+    let wakeAt = reduce ? -1 : 0; // -1 = already awake (no entrance)
+    const wakeIO = new IntersectionObserver(
+      (es) => {
+        if (es.some((e) => e.isIntersecting) && wakeAt === 0) {
+          wakeAt = performance.now();
+          wakeIO.disconnect();
+        }
+      },
+      { threshold: 0.45 },
+    );
+    if (!reduce) wakeIO.observe(stage);
 
     const onMove = (e: PointerEvent) => {
       const r = stage.getBoundingClientRect();
@@ -137,6 +150,10 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
       const t = now / 1000;
       const awake = finePointer ? (inside ? 1 : 0) : 1;
       const diving = diveAt > 0;
+      // entrance factor: 0 = still asleep in one stack, 1 = settled pile
+      const wakeRaw = wakeAt < 0 ? 1 : wakeAt === 0 ? 0 : Math.min(1, (now - wakeAt) / 1500);
+      const wk = 1 - Math.pow(1 - wakeRaw, 3);
+      const flourish = Math.sin(wakeRaw * Math.PI); // the one over-fan beat
 
       for (let i = 0; i < cards.length; i++) {
         const k = i - 1; // -1, 0, 1
@@ -177,6 +194,19 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
           trx = reduce ? 0 : Math.sin(t * 0.4 + i * 1.4) * 1.6;
           tryy = reduce ? 0 : Math.cos(t * 0.5 + i * 1.9) * 2.2;
           ts = 1;
+        }
+
+        // the waking shuffle: until the entrance completes, blend the
+        // resting target back toward a single sleeping stack and add
+        // one over-fan beat on the way out
+        if (!diving && wakeRaw < 1) {
+          tx = tx * wk + k * 26 * flourish;
+          ty = ty * wk + (1 - wk) * 16 - flourish * 6;
+          tz = tz * wk;
+          trot = trot * wk + k * 8 * flourish;
+          trx *= wk;
+          tryy *= wk;
+          ts = 1 + (ts - 1) * wk;
         }
 
         const c = cur[i];
@@ -227,6 +257,7 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
     raf = requestAnimationFrame(loop);
     return () => {
       cancelAnimationFrame(raf);
+      wakeIO.disconnect();
       window.removeEventListener("page:transition-abort", onAbort);
       stage.removeEventListener("pointermove", onMove);
       stage.removeEventListener("pointerenter", onEnter);

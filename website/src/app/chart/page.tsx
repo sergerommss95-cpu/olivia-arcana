@@ -1,9 +1,11 @@
 /**
  * Birth Chart — the wheel of houses, printed in the Personal-Almanac register.
  *
- * Two modes:
- *   1. No data → birth data input form (same as portrait)
- *   2. With data → engraved SVG wheel + planet detail panel + interpretations
+ * One composed page:
+ *   1. No data → engraved ghost wheel + the shared BirthDataForm plate
+ *   2. Computing → a quiet beat while the ephemeris is read
+ *   3. With data → the wheel draws itself in, the big-three plates ink in
+ *      staggered, then aspects, houses, table and legend
  *
  * Computes real natal chart from birth data.
  * Click any planet → see what it means in YOUR chart.
@@ -11,20 +13,24 @@
 
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
 import TransitionLink from "@/components/transitions/TransitionLink";
 import { computeNatalChart, type NatalChart, type BirthInput } from "@/lib/natal-chart";
 import { saveUser, loadChart } from "@/lib/user-store";
 import { getPlanetInSign, PLANET_MEANING, HOUSE_MEANING } from "@/lib/planet-interpretations";
-import BirthDatePicker from "@/components/BirthDatePicker";
-import CityAutocomplete from "@/components/CityAutocomplete";
+import BirthDataForm, { type BirthFormValue } from "@/components/birth/BirthDataForm";
 import Paywall from "@/components/Paywall";
-import { type CityData, utcOffsetHours, fmtUtcOffset, isSummerTime } from "@/lib/cities";
+import { utcOffsetHours } from "@/lib/cities";
 
 function polarToCart(cx: number, cy: number, r: number, deg: number) {
   const rad = (deg - 90) * Math.PI / 180;
-  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+  // Round to 3 decimals — trig results differ in the last bits between the
+  // server and the browser, which trips React hydration on the SSR'd ghost.
+  return {
+    x: Math.round((cx + r * Math.cos(rad)) * 1000) / 1000,
+    y: Math.round((cy + r * Math.sin(rad)) * 1000) / 1000,
+  };
 }
 
 // U+FE0E variation selectors force text presentation — engraved ink, not emoji.
@@ -34,67 +40,155 @@ const ASPECT_SYMBOLS: Record<string, string> = {
   conjunction: "☌", sextile: "⚹", square: "□", trine: "△", opposition: "☍", quincunx: "⚻",
 };
 
-export default function ChartPage() {
-  // Form
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [timeUnknown, setTimeUnknown] = useState(false);
-  const [cityData, setCityData] = useState<CityData | null>(null);
+/** The empty state: a faint engraved wheel, waiting for its data. */
+function GhostWheel({ caption, waiting }: { caption: string; waiting?: boolean }) {
+  return (
+    <figure className={`gw ${waiting ? "gw-wait" : ""}`}>
+      <svg viewBox="0 0 440 440" aria-hidden className="gw-svg">
+        <g fill="none" stroke="currentColor">
+          <circle cx={220} cy={220} r={214} strokeWidth="1" />
+          <circle cx={220} cy={220} r={208} strokeWidth="0.5" opacity={0.5} />
+          <circle cx={220} cy={220} r={176} strokeWidth="0.6" />
+          <circle cx={220} cy={220} r={148} strokeWidth="0.5" opacity={0.7} />
+          <circle cx={220} cy={220} r={80} strokeWidth="0.5" opacity={0.5} />
+          {Array.from({ length: 12 }, (_, i) => {
+            const s = polarToCart(220, 220, 176, i * 30);
+            const e = polarToCart(220, 220, 208, i * 30);
+            return <line key={i} x1={s.x} y1={s.y} x2={e.x} y2={e.y} strokeWidth="0.5" opacity={0.6} />;
+          })}
+          {Array.from({ length: 36 }, (_, i) => {
+            if (i % 3 === 0) return null;
+            const s = polarToCart(220, 220, 176, i * 10);
+            const e = polarToCart(220, 220, 170, i * 10);
+            return <line key={`t-${i}`} x1={s.x} y1={s.y} x2={e.x} y2={e.y} strokeWidth="0.5" opacity={0.4} />;
+          })}
+        </g>
+        <g className="gw-ring" style={{ transformOrigin: "220px 220px" }}>
+          {SIGN_GLYPHS.map((glyph, i) => {
+            const pos = polarToCart(220, 220, 192, i * 30 + 15);
+            return (
+              <text
+                key={i}
+                x={pos.x}
+                y={pos.y}
+                textAnchor="middle"
+                dominantBaseline="central"
+                fill="currentColor"
+                opacity={0.6}
+                fontSize="15"
+                style={{ fontFamily: "serif" }}
+              >
+                {glyph}
+              </text>
+            );
+          })}
+        </g>
+        <text
+          x={220}
+          y={221}
+          textAnchor="middle"
+          dominantBaseline="central"
+          fill="var(--ox, #e0b768)"
+          fontSize="13"
+          className={waiting ? "gw-star" : undefined}
+          style={{ fontFamily: "serif" }}
+        >
+          ✦
+        </text>
+      </svg>
+      <figcaption className="alm-caption gw-cap">{caption}</figcaption>
+    </figure>
+  );
+}
 
-  // Chart
+export default function ChartPage() {
+  // Chart + page phase
   const [chart, setChart] = useState<NatalChart | null>(null);
+  const [phase, setPhase] = useState<"form" | "computing" | "error">("form");
   const [selected, setSelected] = useState<number | null>(null);
   const [view, setView] = useState<"wheel" | "table">("wheel");
+
+  // Staged reveal: true for the first beats after a chart arrives.
+  const [intro, setIntro] = useState(false);
+  const introTimer = useRef<number | null>(null);
+
+  const beginIntro = useCallback(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setIntro(true);
+    if (introTimer.current) window.clearTimeout(introTimer.current);
+    introTimer.current = window.setTimeout(() => setIntro(false), 2900);
+  }, []);
 
   // Auto-load from localStorage if user already entered data elsewhere
   useEffect(() => {
     const timer = setTimeout(() => {
       const saved = loadChart();
-      if (saved) setChart(saved);
+      if (saved) {
+        beginIntro();
+        setChart(saved);
+      }
     }, 0);
-    return () => clearTimeout(timer);
-  }, []);
+    return () => {
+      clearTimeout(timer);
+      if (introTimer.current) window.clearTimeout(introTimer.current);
+    };
+  }, [beginIntro]);
 
-  const generate = useCallback(() => {
-    if (!date || !cityData) return;
-    const [y, m, d] = date.split("-").map(Number);
-    if (!y || !m || !d) return;
-    const hour = timeUnknown ? 12 : parseInt(time.split(":")[0] || "12");
-    const minute = timeUnknown ? 0 : parseInt(time.split(":")[1] || "0");
+  const generate = useCallback((v: BirthFormValue) => {
+    setPhase("computing");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // A quiet beat while the ephemeris is read.
+    window.setTimeout(() => {
+      try {
+        const [y, m, d] = v.date.split("-").map(Number);
+        const hour = v.timeUnknown ? 12 : parseInt(v.time.split(":")[0] || "12", 10);
+        const minute = v.timeUnknown ? 0 : parseInt(v.time.split(":")[1] || "0", 10);
 
-    // Historical offset for that wall-clock instant (DST, zone reforms);
-    // the fixed city offset stands in only if the runtime lacks the zone.
-    const zoneOff = utcOffsetHours(cityData.zone, y, m, d, hour, minute);
-    const timezone = Number.isFinite(zoneOff) ? zoneOff : cityData.tz;
+        // Historical offset for that wall-clock instant (DST, zone reforms);
+        // the fixed city offset stands in only if the runtime lacks the zone.
+        const zoneOff = utcOffsetHours(v.city.zone, y, m, d, hour, minute);
+        const timezone = Number.isFinite(zoneOff) ? zoneOff : v.city.tz;
 
-    const input = {
-      year: y, month: m, day: d, hour, minute,
-      latitude: cityData.lat, longitude: cityData.lon, timezone,
-      timeKnown: !timeUnknown,
-    } as BirthInput;
-    const computed = computeNatalChart(input);
-    saveUser(input, computed);
-    setChart(computed);
-    setSelected(null);
-  }, [date, time, timeUnknown, cityData]);
-
-  const canGenerate = !!date && (timeUnknown || !!time) && !!cityData;
-
-  // Resolved place + offset, shown under the form as soon as it can be known.
-  const tzLine = useMemo(() => {
-    if (!cityData || !date) return null;
-    const [y, m, d] = date.split("-").map(Number);
-    if (!y || !m || !d) return null;
-    const hh = timeUnknown ? 12 : parseInt(time.split(":")[0] || "12");
-    const mi = timeUnknown ? 0 : parseInt(time.split(":")[1] || "0");
-    const off = utcOffsetHours(cityData.zone, y, m, d, hh, mi);
-    if (!Number.isFinite(off)) return null;
-    const summer = isSummerTime(cityData.zone, y, m, d, hh, mi);
-    return `computed for ${cityData.name.toUpperCase()} · ${fmtUtcOffset(off)}${summer ? " (summer time)" : ""}`;
-  }, [cityData, date, time, timeUnknown]);
+        const input = {
+          year: y, month: m, day: d, hour, minute,
+          latitude: v.city.lat, longitude: v.city.lon, timezone,
+          timeKnown: !v.timeUnknown,
+          name: v.name,
+          city: v.city.name,
+        } as BirthInput;
+        const computed = computeNatalChart(input);
+        saveUser(input, computed);
+        setSelected(null);
+        setView("wheel");
+        beginIntro();
+        setChart(computed);
+        setPhase("form");
+      } catch {
+        setPhase("error");
+      }
+    }, reduced ? 150 : 1300);
+  }, [beginIntro]);
 
   const hasAsc = !!chart?.ascendant;
   const selectedPlanet = selected !== null ? chart?.planets[selected] : null;
+
+  // Big-three plates — honest when the birth hour is unknown.
+  const threePlates = chart
+    ? [
+        { glyph: "☉", title: `Sun in ${chart.sunSign}`, label: "Core identity" },
+        { glyph: "☽", title: `Moon in ${chart.moonSign}`, label: "Emotional nature" },
+        hasAsc
+          ? { glyph: "↑", title: `${chart.risingSign} rising`, label: "How others see you" }
+          : { glyph: "↑", title: "Rising unmarked", label: "birth hour unknown" },
+      ]
+    : [];
+
+  // Intro helpers — animation class + delay while the reveal is staged.
+  // (styled-jsx rewrites className props it can see, so classes must be
+  // passed as direct attributes, never through prop spreads.)
+  const stCls = intro ? "st" : "";
+  const dly = (d: number): React.CSSProperties | undefined =>
+    intro ? ({ "--d": `${d}s` } as React.CSSProperties) : undefined;
 
   return (
     <AlmanacShell>
@@ -104,55 +198,46 @@ export default function ChartPage() {
           <p className="alm-kicker">The wheel of houses</p>
           <h1 className="alm-h1">Your Birth Chart</h1>
           <p className="alm-lead ch-sub">
-            {chart ? chart.bigThree : "Enter your birth data to see your natal chart."}
+            {chart ? chart.bigThree : "Three marks — date, hour, place — and the wheel draws itself."}
           </p>
         </header>
 
-        {/* ── INPUT FORM (when no chart) ── */}
-        {!chart && (
-          <div className="ch-form alm-card">
-            <div className="ch-field">
-              <span className="alm-caption">Birth Date *</span>
-              <div className="alm-dates">
-                <BirthDatePicker value={date} onChange={setDate} />
-              </div>
+        {/* ── ONE COMPOSED BAND: ghost wheel + the shared plate ── */}
+        {!chart && phase !== "error" && (
+          <div className="ch-compose">
+            <div className="ch-compose-fig">
+              <GhostWheel
+                caption={phase === "computing" ? "Fig. 1 — reading the ephemeris" : "Fig. 1 — awaiting birth data"}
+                waiting={phase === "computing"}
+              />
             </div>
-
-            <div className="ch-field">
-              <span className="alm-caption">Birth Time {timeUnknown ? "(using noon)" : "*"}</span>
-              {!timeUnknown && (
-                <input
-                  type="time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                  className="alm-input"
-                  style={{ colorScheme: "dark" }}
+            <div className="ch-compose-form">
+              {phase === "computing" ? (
+                <div className="ch-wait" role="status">
+                  <span className="ch-wait-star" aria-hidden>✦</span>
+                  <p className="ch-wait-line">Reading the ephemeris</p>
+                  <p className="alm-caption">houses · aspects · dignities</p>
+                </div>
+              ) : (
+                <BirthDataForm
+                  onSubmit={generate}
+                  copy={{ fig: "Fig. 1 — the birth data", submit: "Compute my chart" }}
                 />
               )}
-              <button
-                type="button"
-                onClick={() => { setTimeUnknown(!timeUnknown); setTime(""); }}
-                className={`ch-noon ${timeUnknown ? "on" : ""}`}
-              >
-                {timeUnknown ? "✓ Using noon" : "I don't know my birth time"}
-              </button>
             </div>
+          </div>
+        )}
 
-            <div className="ch-field">
-              <span className="alm-caption">Birth City *</span>
-              <div className={`alm-city ${cityData ? "" : "miss"}`}>
-                <CityAutocomplete onSelect={setCityData} />
-              </div>
-              {tzLine && <span className="alm-caption ch-tzline">{tzLine}</span>}
-            </div>
-
-            <button
-              type="button"
-              onClick={generate}
-              disabled={!canGenerate}
-              className="alm-btn ch-generate"
-            >
-              Compute My Chart
+        {/* ── ERROR — in the house voice ── */}
+        {!chart && phase === "error" && (
+          <div className="ch-error" role="alert">
+            <p className="alm-kicker">The press jammed</p>
+            <p className="ch-error-line">
+              The heavens would not resolve for that date and place.
+              Check the marks and press again.
+            </p>
+            <button type="button" className="alm-link ch-error-btn" onClick={() => setPhase("form")}>
+              Return to the form →
             </button>
           </div>
         )}
@@ -161,39 +246,52 @@ export default function ChartPage() {
         {chart && (
           <div className="alm-gate">
             <Paywall requires="insight" priceKey="insight_monthly" featureName="your full natal chart">
+              {/* The big three — ink in after the wheel draws */}
+              <div className="ch-three">
+                {threePlates.map((pl, i) => (
+                  <div key={pl.label} className={`ch-plate ${stCls}`} style={dly(1.5 + i * 0.16)}>
+                    <span className="ch-plate-glyph" aria-hidden>{pl.glyph}</span>
+                    <div className="ch-plate-title">{pl.title}</div>
+                    <div className="alm-caption ch-plate-label">{pl.label}</div>
+                  </div>
+                ))}
+              </div>
+
               {/* View toggle + reset */}
-              <div className="ch-toggle">
-                {(["wheel", "table"] as const).map((v) => (
+              <div className={stCls} style={dly(2.15)}>
+                <div className="ch-toggle">
+                  {(["wheel", "table"] as const).map((v) => (
+                    <button
+                      type="button"
+                      key={v}
+                      onClick={() => setView(v)}
+                      aria-pressed={view === v}
+                      className={`ch-tab ${view === v ? "on" : ""}`}
+                    >
+                      {v === "wheel" ? "Chart Wheel" : "Table View"}
+                    </button>
+                  ))}
                   <button
                     type="button"
-                    key={v}
-                    onClick={() => setView(v)}
-                    aria-pressed={view === v}
-                    className={`ch-tab ${view === v ? "on" : ""}`}
+                    onClick={() => { setChart(null); setSelected(null); setPhase("form"); }}
+                    className="ch-reset"
                   >
-                    {v === "wheel" ? "Chart Wheel" : "Table View"}
+                    New Chart
                   </button>
-                ))}
-                <button
-                  type="button"
-                  onClick={() => { setChart(null); setSelected(null); }}
-                  className="ch-reset"
-                >
-                  New Chart
-                </button>
+                </div>
               </div>
 
               <div className="ch-grid">
-                {/* ── WHEEL VIEW — a plate engraving ── */}
+                {/* ── WHEEL VIEW — a plate engraving that draws itself in ── */}
                 {view === "wheel" && (
                   <figure className="ch-wheel alm-card">
                     <svg viewBox="0 0 500 500" className="ch-svg" role="img" aria-label="Natal chart wheel">
-                      {/* Outer frame */}
-                      <circle cx={250} cy={250} r={244} fill="none" stroke="currentColor" strokeWidth="1" />
-                      <circle cx={250} cy={250} r={238} fill="none" stroke="currentColor" strokeWidth="0.5" opacity={0.5} />
+                      {/* Outer frame — first strokes of the engraving */}
+                      <circle className={intro ? "cwe" : ""} pathLength={1} cx={250} cy={250} r={244} fill="none" stroke="currentColor" strokeWidth="1" />
+                      <circle className={intro ? "cwe" : ""} style={dly(0.15)} pathLength={1} cx={250} cy={250} r={238} fill="none" stroke="currentColor" strokeWidth="0.5" opacity={0.5} />
 
                       {/* 1. Zodiac ring (outer, slowly turning) */}
-                      <g className="ch-zring" style={{ transformOrigin: "250px 250px" }}>
+                      <g className={`ch-zring ${intro ? "cwf" : ""}`} style={{ transformOrigin: "250px 250px", ...(intro ? { "--d": "0.35s" } : {}) } as React.CSSProperties}>
                         <circle cx={250} cy={250} r={200} fill="none" stroke="currentColor" strokeWidth="0.6" />
                         {SIGN_GLYPHS.map((_, i) => {
                           const a = i * 30;
@@ -225,7 +323,7 @@ export default function ChartPage() {
                       </g>
 
                       {/* 2. House ring (inner) — houses need a known birth time */}
-                      <g>
+                      <g className={intro ? "cwf" : ""} style={dly(1.9)}>
                         <circle cx={250} cy={250} r={180} fill="none" stroke="currentColor" strokeWidth="0.6" opacity={0.6} />
                         {hasAsc && chart.houses.map((h, i) => {
                           const angle = h.cusp;
@@ -253,7 +351,7 @@ export default function ChartPage() {
                       </g>
 
                       {/* 3. Aspect lines */}
-                      <g>
+                      <g className={intro ? "cwf" : ""} style={dly(1.75)}>
                         {chart.aspects.slice(0, 15).map((a, i) => {
                           const p1 = chart.planets.find((p) => p.name === a.planet1);
                           const p2 = chart.planets.find((p) => p.name === a.planet2);
@@ -281,7 +379,12 @@ export default function ChartPage() {
                         const pos = polarToCart(250, 250, 140, p.longitude);
                         const isSel = selected === i;
                         return (
-                          <g key={p.name} onClick={() => setSelected(isSel ? null : i)} style={{ cursor: "pointer" }}>
+                          <g
+                            key={p.name}
+                            onClick={() => setSelected(isSel ? null : i)}
+                            className={intro ? "cwf" : ""}
+                            style={{ cursor: "pointer", ...(dly(1.05 + i * 0.07) ?? {}) }}
+                          >
                             <line
                               x1={250}
                               y1={250}
@@ -316,21 +419,23 @@ export default function ChartPage() {
                       })}
 
                       {/* Center */}
-                      <circle cx={250} cy={250} r="20" fill="var(--paper, #e8dcc8)" stroke="currentColor" strokeWidth="1" />
-                      <text
-                        x={250}
-                        y={251}
-                        textAnchor="middle"
-                        dominantBaseline="central"
-                        fill="var(--ox, #e0b768)"
-                        fontSize="13"
-                        style={{ fontFamily: "serif", pointerEvents: "none" }}
-                      >
-                        ✦
-                      </text>
+                      <g className={intro ? "cwf" : ""} style={dly(0.9)}>
+                        <circle cx={250} cy={250} r="20" fill="var(--paper, #e8dcc8)" stroke="currentColor" strokeWidth="1" />
+                        <text
+                          x={250}
+                          y={251}
+                          textAnchor="middle"
+                          dominantBaseline="central"
+                          fill="var(--ox, #e0b768)"
+                          fontSize="13"
+                          style={{ fontFamily: "serif", pointerEvents: "none" }}
+                        >
+                          ✦
+                        </text>
+                      </g>
                     </svg>
                     <figcaption className="alm-caption ch-fig">
-                      Fig. 1 — the wheel of houses. Click a planet to read it.
+                      Fig. 2 — the wheel of houses. Click a planet to read it.
                     </figcaption>
                   </figure>
                 )}
@@ -364,7 +469,7 @@ export default function ChartPage() {
                 )}
 
                 {/* ── DETAIL PANEL ── */}
-                <aside className="ch-panel alm-card">
+                <aside className={`ch-panel alm-card ${stCls}`} style={dly(2.3)}>
                   {selectedPlanet ? (
                     <div>
                       <div className="ch-panel-head">
@@ -430,25 +535,27 @@ export default function ChartPage() {
               </div>
 
               {/* Planet legend */}
-              <div className="ch-legend">
-                {chart.planets.map((p, i) => (
-                  <button
-                    type="button"
-                    key={p.name}
-                    onClick={() => setSelected(selected === i ? null : i)}
-                    aria-pressed={selected === i}
-                    className={`ch-chip ${selected === i ? "on" : ""}`}
-                  >
-                    <span aria-hidden>{p.glyph}</span> {p.name}
-                  </button>
-                ))}
-              </div>
+              <div className={stCls} style={dly(2.45)}>
+                <div className="ch-legend">
+                  {chart.planets.map((p, i) => (
+                    <button
+                      type="button"
+                      key={p.name}
+                      onClick={() => setSelected(selected === i ? null : i)}
+                      aria-pressed={selected === i}
+                      className={`ch-chip ${selected === i ? "on" : ""}`}
+                    >
+                      <span aria-hidden>{p.glyph}</span> {p.name}
+                    </button>
+                  ))}
+                </div>
 
-              {/* CTA to portrait */}
-              <div className="ch-cta">
-                <TransitionLink href="/portrait" className="alm-link">
-                  Get Your Celestial Portrait &rarr;
-                </TransitionLink>
+                {/* CTA to portrait */}
+                <div className="ch-cta">
+                  <TransitionLink href="/portrait" className="alm-link">
+                    Get Your Celestial Portrait &rarr;
+                  </TransitionLink>
+                </div>
               </div>
             </Paywall>
           </div>
@@ -461,140 +568,241 @@ export default function ChartPage() {
           margin: 0 auto;
         }
 
+        /* ── One composed page: everything hangs on the center axis ── */
         .ch-head {
-          margin-bottom: 2rem;
+          margin-bottom: clamp(2rem, 5vw, 3rem);
+          text-align: center;
         }
 
         .ch-sub {
-          margin: 1rem 0 0;
+          margin: 1rem auto 0;
           max-width: 48ch;
         }
 
-        /* ── Form ───────────────────────────────────────────── */
-        .ch-form {
-          max-width: 26rem;
-          margin: 0 auto;
-          display: flex;
-          flex-direction: column;
-          gap: 1.1rem;
+        /* ── The composed band: ghost wheel + plate ─────────────── */
+        .ch-compose {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 27rem);
+          gap: clamp(2rem, 5vw, 3.5rem);
+          align-items: center;
+          justify-items: center;
         }
 
-        .ch-field {
-          display: flex;
-          flex-direction: column;
-          gap: 0.4rem;
+        .ch-compose-fig,
+        .ch-compose-form {
+          width: 100%;
+          min-width: 0;
         }
 
-        .ch-noon {
-          align-self: flex-start;
-          background: none;
-          border: none;
-          padding: 0.15rem 0;
-          cursor: pointer;
-          font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.72rem;
-          color: var(--ink-faint);
-          border-bottom: 1px solid transparent;
-          transition: color 200ms var(--ease);
+        @media (max-width: 880px) {
+          .ch-compose {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 2.4rem;
+          }
+
+          /* form first on small screens; the ghost fills the tail */
+          .ch-compose-form {
+            order: 1;
+          }
+
+          .ch-compose-fig {
+            order: 2;
+          }
         }
 
-        .ch-noon:hover {
+        /* ── Ghost wheel — the empty state, engraved faint ───────── */
+        :global(.gw) {
+          margin: 0;
+          width: 100%;
+          text-align: center;
           color: var(--ink);
         }
 
-        .ch-noon.on {
+        :global(.gw-svg) {
+          width: min(100%, 27rem);
+          height: auto;
+          opacity: 0.3;
+          transition: opacity 700ms var(--ease);
+        }
+
+        :global(.gw-wait .gw-svg) {
+          opacity: 0.55;
+        }
+
+        :global(.gw-ring) {
+          animation: gw-turn 240s linear infinite;
+        }
+
+        :global(.gw-wait .gw-ring) {
+          animation-duration: 36s;
+        }
+
+        :global(.gw-star) {
+          animation: gw-pulse 1.8s var(--ease) infinite;
+        }
+
+        :global(.gw-cap) {
+          display: block;
+          margin-top: 0.9rem;
+        }
+
+        @keyframes gw-turn {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes gw-pulse {
+          50% {
+            opacity: 0.35;
+          }
+        }
+
+        /* ── The computing beat ──────────────────────────────────── */
+        .ch-wait {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.7rem;
+          padding: 3rem 1.5rem;
+          border: 1px solid var(--hairline);
+          outline: 1px solid rgba(232, 233, 255, 0.08);
+          outline-offset: 6px;
+          background: rgba(10, 13, 56, 0.28);
+          max-width: 26rem;
+          margin: 0 auto;
+          text-align: center;
+        }
+
+        .ch-wait-star {
+          color: var(--ox);
+          font-size: 1.3rem;
+          animation: gw-pulse 1.8s var(--ease) infinite;
+        }
+
+        .ch-wait-line {
+          margin: 0;
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-size: 1.3rem;
+          font-style: italic;
+          color: var(--ink);
+        }
+
+        /* ── Error, in the house voice ───────────────────────────── */
+        .ch-error {
+          max-width: 30rem;
+          margin: 0 auto;
+          padding: 2.6rem 1.8rem;
+          border: 1px solid var(--hairline);
+          outline: 1px solid rgba(232, 233, 255, 0.08);
+          outline-offset: 6px;
+          background: rgba(10, 13, 56, 0.28);
+          text-align: center;
+        }
+
+        .ch-error-line {
+          margin: 0 0 1.4rem;
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-size: 1.2rem;
+          font-style: italic;
+          line-height: 1.5;
+          color: var(--ink-soft);
+        }
+
+        .ch-error-btn {
+          border: none;
+        }
+
+        /* ── The big three, as plates ────────────────────────────── */
+        .ch-three {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 0.9rem;
+          max-width: 44rem;
+          margin: 0 auto 1.8rem;
+        }
+
+        :global(.ch-plate) {
+          padding: 1.05rem 0.8rem 0.95rem;
+          border: 1px solid var(--hairline);
+          background: rgba(10, 13, 56, 0.28);
+          text-align: center;
+        }
+
+        :global(.ch-plate-glyph) {
+          display: block;
+          margin-bottom: 0.35rem;
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-size: 1.4rem;
+          line-height: 1;
           color: var(--ox);
         }
 
-        .ch-generate {
-          margin-top: 0.4rem;
+        :global(.ch-plate-title) {
+          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+          font-size: 1.12rem;
+          font-weight: 500;
+          color: var(--ink);
+          margin-bottom: 0.3rem;
         }
 
-        .ch-tzline {
-          margin-top: 0.15rem;
-          color: var(--ox);
-          letter-spacing: 0.14em;
+        @media (max-width: 560px) {
+          .ch-three {
+            gap: 0.55rem;
+          }
+
+          :global(.ch-plate) {
+            padding: 0.8rem 0.4rem 0.7rem;
+          }
+
+          :global(.ch-plate-title) {
+            font-size: 0.95rem;
+          }
+
+          :global(.ch-plate-label) {
+            font-size: 0.52rem;
+            letter-spacing: 0.14em;
+          }
         }
 
-        /* City is required — hold the field lit until one is chosen */
-        .alm-city.miss :global(input) {
-          outline: 1px solid rgba(224, 183, 104, 0.55);
-          outline-offset: 2px;
+        /* ── Staged reveal ───────────────────────────────────────── */
+        :global(.chart .st) {
+          opacity: 0;
+          transform: translateY(6px);
+          animation: ch-rise 650ms var(--ease) forwards;
+          animation-delay: var(--d, 0s);
         }
 
-        /* Re-ink the shared date picker (inline dark styles → paper) */
-        .alm-dates :global(select) {
-          background-color: transparent !important;
-          background: linear-gradient(160deg, rgba(183, 188, 233, 0.1) 0%, rgba(10, 16, 36, 0.42) 100%) !important;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(232,233,255,0.55)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") !important;
-          background-repeat: no-repeat !important;
-          background-position: right 0.75rem center !important;
-          border: 0 !important;
-          border-radius: 11px !important;
-          box-shadow:
-            inset 0 1px 0 rgba(226, 230, 255, 0.16),
-            inset 0 0 0 1px rgba(183, 188, 233, 0.14) !important;
-          color: var(--ink) !important;
-          font-family: var(--font-body, system-ui), sans-serif !important;
-          backdrop-filter: blur(14px) saturate(140%) !important;
-          -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
+        :global(.ch-svg .cwe) {
+          stroke-dasharray: 1;
+          stroke-dashoffset: 1;
+          animation: ch-drawon 1.2s var(--ease) forwards;
+          animation-delay: var(--d, 0s);
         }
 
-        .alm-dates :global(select:focus-visible) {
-          outline: 2px solid var(--ox);
-          outline-offset: 2px;
+        :global(.ch-svg .cwf) {
+          opacity: 0;
+          animation: ch-inkfade 700ms var(--ease) forwards;
+          animation-delay: var(--d, 0s);
         }
 
-        .alm-dates :global(option) {
-          background: #181d7a !important;
-          color: var(--ink) !important;
+        @keyframes ch-rise {
+          to {
+            opacity: 1;
+            transform: none;
+          }
         }
 
-        .alm-dates :global(span) {
-          color: var(--ink-faint) !important;
-          font-family: var(--font-mono, ui-monospace), monospace !important;
-          letter-spacing: 0.18em !important;
+        @keyframes ch-drawon {
+          to {
+            stroke-dashoffset: 0;
+          }
         }
 
-        /* Re-ink the shared city autocomplete */
-        .alm-city :global(input) {
-          background: linear-gradient(160deg, rgba(183, 188, 233, 0.1) 0%, rgba(10, 16, 36, 0.42) 100%) !important;
-          border: 0 !important;
-          border-radius: 11px !important;
-          box-shadow:
-            inset 0 1px 0 rgba(226, 230, 255, 0.16),
-            inset 0 0 0 1px rgba(183, 188, 233, 0.14) !important;
-          color: var(--ink) !important;
-          font-family: var(--font-body, system-ui), sans-serif !important;
-          backdrop-filter: blur(14px) saturate(140%) !important;
-          -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
-        }
-
-        .alm-city :global(input::placeholder) {
-          color: var(--ink-faint);
-        }
-
-        .alm-city :global(input:focus-visible) {
-          outline: 2px solid var(--ox);
-          outline-offset: 2px;
-        }
-
-        .alm-city :global(div div) {
-          background: linear-gradient(160deg, rgba(183, 188, 233, 0.1) 0%, rgba(10, 16, 36, 0.42) 100%) !important;
-          border: 1px solid var(--hairline) !important;
-          border-radius: 0.35rem !important;
-          box-shadow: 0 0.8rem 1.6rem rgba(4, 6, 32, 0.14) !important;
-          backdrop-filter: none !important;
-          -webkit-backdrop-filter: none !important;
-        }
-
-        .alm-city :global(button span:first-child) {
-          color: var(--ink) !important;
-          font-family: var(--font-body, system-ui), sans-serif !important;
-        }
-
-        .alm-city :global(button span:last-child) {
-          color: var(--ink-faint) !important;
+        @keyframes ch-inkfade {
+          to {
+            opacity: 1;
+          }
         }
 
         /* ── View toggle ────────────────────────────────────── */
@@ -664,7 +872,7 @@ export default function ChartPage() {
         }
 
         .ch-svg {
-          width: min(90vw, 440px);
+          width: min(86vw, 440px);
           height: auto;
           color: var(--ink);
         }
@@ -710,11 +918,11 @@ export default function ChartPage() {
         }
 
         .ch-row:hover {
-          background: rgba(250, 246, 236, 0.9);
+          background: rgba(232, 233, 255, 0.06);
         }
 
         .ch-row.sel {
-          background: rgba(250, 246, 236, 0.9);
+          background: rgba(232, 233, 255, 0.08);
           box-shadow: inset 2px 0 0 var(--ox);
         }
 
@@ -962,15 +1170,26 @@ export default function ChartPage() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .ch-zring {
+          .ch-zring,
+          :global(.gw-ring),
+          :global(.gw-star),
+          .ch-wait-star {
             animation: none;
+          }
+
+          :global(.chart .st),
+          :global(.ch-svg .cwe),
+          :global(.ch-svg .cwf) {
+            animation: none;
+            opacity: 1;
+            transform: none;
+            stroke-dashoffset: 0;
           }
 
           .ch-tab,
           .ch-reset,
           .ch-row,
-          .ch-chip,
-          .ch-noon {
+          .ch-chip {
             transition: none;
           }
         }

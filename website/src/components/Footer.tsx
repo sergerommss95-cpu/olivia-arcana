@@ -52,15 +52,17 @@ export default function Footer() {
       {/* ── The band ── */}
       <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center gap-5 px-6 py-6 sm:grid-cols-[1fr_auto_1fr] sm:px-[clamp(24px,5.25vw,104px)]">
         <p className="m-0 flex items-center gap-3 font-[family-name:var(--font-mono)] text-[11px] uppercase leading-relaxed tracking-[0.12em] text-[#b7bce9]">
-          <span aria-hidden className="text-[13px] text-[#e0b768]">✦</span>
-          {isUk ? "Астрологія й таро — особисто для вас" : "Astrology & tarot, made personal"}
+          <span aria-hidden className="shrink-0 text-[13px] text-[#e0b768]">✦</span>
+          <span className="[text-wrap:balance]">
+            {isUk ? "Астрологія й таро — особисто для вас" : "Astrology & tarot, made personal"}
+          </span>
         </p>
         <p className="m-0 hidden text-center font-[family-name:var(--font-heading)] text-lg italic text-[#c4caed] sm:block">
           {isUk ? "Трохи тиші. Трохи ясності." : "A little stillness. A little clarity."}
         </p>
         <div className="flex items-center justify-start gap-3 sm:justify-end">
           <LivingOliveMark size={20} className="shrink-0 text-[#b7bce9]" />
-          <span className="font-[family-name:var(--font-heading)] text-base tracking-[0.105em] text-[#e8e9ff]">
+          <span className="whitespace-nowrap font-[family-name:var(--font-heading)] text-base tracking-[0.105em] text-[#e8e9ff]">
             OLIVIA ARCANA
           </span>
         </div>
@@ -105,10 +107,10 @@ export default function Footer() {
         </div>
 
         <div className="mx-auto flex max-w-screen-2xl flex-col items-start justify-between gap-2 px-6 pb-8 sm:flex-row sm:items-center sm:px-[clamp(24px,5.25vw,104px)]" style={{ paddingBottom: "calc(2rem + env(safe-area-inset-bottom))" }}>
-          <p className="m-0 font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.12em] text-[rgba(183,188,233,0.6)]">
+          <p className="m-0 font-[family-name:var(--font-mono)] text-[10px] uppercase leading-relaxed tracking-[0.12em] text-[rgba(183,188,233,0.6)] [text-wrap:balance]">
             © {new Date().getFullYear()} Olivia Arcana LLC · {t("foot_copyright")}
           </p>
-          <p className="m-0 font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.12em] text-[rgba(183,188,233,0.45)]">
+          <p className="m-0 font-[family-name:var(--font-mono)] text-[10px] uppercase leading-relaxed tracking-[0.12em] text-[rgba(183,188,233,0.45)] [text-wrap:balance]">
             {t("foot_data")}
           </p>
         </div>

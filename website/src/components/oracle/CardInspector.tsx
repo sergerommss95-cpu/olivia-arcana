@@ -202,6 +202,31 @@ const CSS = `
               background: #e0b768;
             }
 
+            .ci-step:hover::after {
+              background: rgba(224, 183, 104, 0.6);
+            }
+
+            /* The loupe lives outside the night-plate scope: it carries
+               its own gilt focus hairlines. */
+            .ci-step:focus-visible,
+            .ci-tools button:focus-visible,
+            .ci-frame:focus-visible {
+              outline: 1px solid #e0b768;
+              outline-offset: 3px;
+            }
+
+            .ci-kiss {
+              position: absolute;
+              inset: 0;
+              z-index: 4;
+              pointer-events: none;
+              border: 1px solid rgba(224, 183, 104, 0.9);
+              border-radius: 14px;
+              box-shadow:
+                0 0 1.2rem rgba(224, 183, 104, 0.28),
+                inset 0 0 1.2rem rgba(224, 183, 104, 0.14);
+            }
+
             .ci-hint {
               margin: 0;
               font-family: var(--font-mono, ui-monospace), monospace;
@@ -245,6 +270,9 @@ const CSS = `
             @media (prefers-reduced-motion: reduce) {
               .ci-tools button {
                 transition: none;
+              }
+              .ci-kiss {
+                display: none;
               }
             }
           `;
@@ -489,6 +517,14 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
               onTouchEnd={onTouchEnd}
               onDoubleClick={(e) => setZoomAt(zoomRef.current > 1.05 ? 1 : 2.4, e.clientX, e.clientY)}
             >
+              {/* the arrival's edge kiss — one breath of gilt on the frame */}
+              <motion.div
+                className="ci-kiss"
+                aria-hidden
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 0.9, 0] }}
+                transition={{ duration: 0.7, times: [0, 0.3, 1], ease: "easeOut", delay: 0.22 }}
+              />
               <div ref={plateRef} className="ci-plate">
                 <NextImage
                   src={getCardPortalImagePath(entry.card)}
@@ -518,7 +554,8 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
                     type="button"
                     className={`ci-step ${i === index ? "is-on" : ""}`}
                     onClick={() => onIndexChange(i)}
-                    aria-label={c.card.name}
+                    title={(uk && ukCard(c.card.name)?.name) || c.card.name}
+                    aria-label={(uk && ukCard(c.card.name)?.name) || c.card.name}
                     aria-current={i === index}
                   />
                 ))}

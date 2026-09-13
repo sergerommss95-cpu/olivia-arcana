@@ -365,6 +365,18 @@ function WheelDiagram({
         <circle className="etch" style={{ "--ei": 1 } as React.CSSProperties} pathLength={1} cx="160" cy="160" r="122" strokeWidth="0.6" />
         <circle className="etch" style={{ "--ei": 2 } as React.CSSProperties} pathLength={1} cx="160" cy="160" r="86" strokeWidth="0.6" />
         <circle className="etch" style={{ "--ei": 3 } as React.CSSProperties} pathLength={1} cx="160" cy="160" r="24" />
+        {/* idle breath: a faint ticked ring turning once a minute —
+            imperceptible at a glance, alive on a long look */}
+        <circle
+          className="svg-fade wheel-breathe"
+          style={{ "--ei": 5.75 } as React.CSSProperties}
+          cx="160"
+          cy="160"
+          r="104"
+          strokeWidth="0.5"
+          strokeDasharray="1 6.2"
+          strokeOpacity="0.45"
+        />
         {Array.from({ length: 12 }, (_, i) => {
           const a = (i * Math.PI) / 6;
           const x1 = r3(160 + 86 * Math.sin(a));
@@ -4239,7 +4251,9 @@ export default function Home() {
     );
     targets.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+    // today-gated blocks (the colophon's end matter) enter the DOM after
+    // hydration — re-arm the observer so they still ink in.
+  }, [today]);
 
   const heroWords = (t("hero_title") as string).split(" ");
   // Display stack: the last two words become their own lines — a stepped
@@ -4637,7 +4651,12 @@ export default function Home() {
           captionSub={locale === "uk" ? "Між відомим і можливим" : "Between the known & the possible"}
         />
 
-
+        {/* ── Seam: a star-thread stitches the hero's exit to Plate I —
+               the hairline draws down with the scroll, the ✦ riding its tip. */}
+        <div className="star-thread" data-drift aria-hidden>
+          <span className="thread-line" />
+          <span className="thread-tip">✦</span>
+        </div>
 
         {/* ── The plates ──────────────────────────────────────── */}
         <section className="plates" aria-label={copy.platesLabel}>
@@ -4738,9 +4757,9 @@ export default function Home() {
                 <fieldset className="ins-dmy" aria-label={locale === "uk" ? "Дата народження" : "Birth date"}>
                   {(
                     [
-                      { name: "bd", ph: locale === "uk" ? "ДД" : "DD", len: 2, w: "2.6ch", ac: "bday-day", id: "ins-bd" },
-                      { name: "bm", ph: locale === "uk" ? "ММ" : "MM", len: 2, w: "2.6ch", ac: "bday-month", id: "ins-bm" },
-                      { name: "by", ph: locale === "uk" ? "РРРР" : "YYYY", len: 4, w: "4.8ch", ac: "bday-year", id: "ins-by" },
+                      { name: "bd", ph: locale === "uk" ? "ДД" : "DD", len: 2, w: "2.6ch", ac: "bday-day", id: "ins-bd", min: 1, max: 31 },
+                      { name: "bm", ph: locale === "uk" ? "ММ" : "MM", len: 2, w: "2.6ch", ac: "bday-month", id: "ins-bm", min: 1, max: 12 },
+                      { name: "by", ph: locale === "uk" ? "РРРР" : "YYYY", len: 4, w: "4.8ch", ac: "bday-year", id: "ins-by", min: 1900, max: 2035 },
                     ] as const
                   ).map((f, fi) => (
                     <React.Fragment key={f.name}>
@@ -4759,6 +4778,13 @@ export default function Home() {
                         onInput={(e) => {
                           const el = e.currentTarget;
                           el.value = el.value.replace(/\D/g, "");
+                          // the filled tick: the underline turns gilt once
+                          // the cell holds a plausible value
+                          const v = parseInt(el.value, 10);
+                          el.classList.toggle(
+                            "is-filled",
+                            el.value.length > 0 && v >= f.min && v <= f.max && (f.name !== "by" || el.value.length === 4),
+                          );
                           if (el.value.length >= f.len) {
                             const all = el.form?.querySelectorAll<HTMLInputElement>(".ins-cell");
                             all?.[fi + 1]?.focus();
@@ -4787,8 +4813,11 @@ export default function Home() {
           ))}
         </section>
 
-        <div className="rule-star" aria-hidden>
-          <span>✦</span>
+        {/* ── Seam: the same thread lowers the reader from Plate II
+               into the colophon. */}
+        <div className="star-thread" data-drift aria-hidden>
+          <span className="thread-line" />
+          <span className="thread-tip">✦</span>
         </div>
 
       </main>
@@ -4796,13 +4825,13 @@ export default function Home() {
       {/* ── Colophon ──────────────────────────────────────────── */}
       <footer className="colophon">
         <div className="masthead-rule thick" aria-hidden />
-        <div className="colophon-zodiac" aria-hidden>
+        <div className="colophon-zodiac" data-set aria-hidden>
           {ZODIAC.map((z, i) => (
             <span key={i}>{z}</span>
           ))}
         </div>
         {today && (
-          <div className="colophon-end">
+          <div className="colophon-end" data-set>
             <p>
               {locale === "uk" ? "Тут закінчується Особистий альманах Olivia Arcana" : "Here ends the Personal Almanac of Olivia Arcana"}
             </p>
@@ -4859,7 +4888,7 @@ export default function Home() {
             </p>
           </div>
         )}
-        <div className="colophon-grid">
+        <div className="colophon-grid" data-set>
           <div className="colophon-brand">
             <p className="wordmark as-text">Olivia Arcana</p>
             <p className="colophon-desc">{copy.colophonDesc}</p>
@@ -4873,7 +4902,7 @@ export default function Home() {
             ))}
           </nav>
         </div>
-        <p className="colophon-line">{copy.colophonLine}</p>
+        <p className="colophon-line" data-set>{copy.colophonLine}</p>
       </footer>
 
       <style jsx>{`
@@ -5086,10 +5115,47 @@ export default function Home() {
           opacity: 1;
         }
 
+        /* The daily line inks in on load: the ⁂ settles first, then the
+           counsel reveals left→right like a fresh pull from the press. */
         .counsel-mark {
           color: var(--ox);
           font-size: 0.9rem;
           transform: translateY(1px);
+        }
+
+        .counsel.is-inked .counsel-mark {
+          animation: counsel-mark-in 420ms var(--ease) both;
+        }
+
+        .counsel.is-inked .counsel-line {
+          animation: counsel-line-in 900ms var(--ease) 280ms both;
+        }
+
+        @keyframes counsel-mark-in {
+          from {
+            opacity: 0;
+            transform: translateY(4px) scale(0.6);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(1px);
+          }
+        }
+
+        @keyframes counsel-line-in {
+          from {
+            clip-path: inset(0 100% 0 0);
+          }
+          to {
+            clip-path: inset(0 -2% 0 0);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .counsel.is-inked .counsel-mark,
+          .counsel.is-inked .counsel-line {
+            animation: none;
+          }
         }
 
         .counsel-line {
@@ -5672,6 +5738,12 @@ export default function Home() {
           border-bottom-color: var(--ox, #e0b768);
         }
 
+        /* the filled tick: a cell holding a plausible value keeps a
+           gilt underline even after the hand moves on */
+        .ins-cell.is-filled {
+          border-bottom-color: rgba(224, 183, 104, 0.75);
+        }
+
         .ins-sep {
           font-size: 1.1rem;
           color: rgba(183, 188, 233, 0.45);
@@ -5853,6 +5925,38 @@ export default function Home() {
 
         .rule-star span {
           font-size: 0.8rem;
+        }
+
+        /* ── Star-thread seam: a vertical hairline that draws itself
+           down as the seam crosses the viewport ([data-drift] feeds
+           --dp 0→1), the ✦ riding its tip. Reduced motion (no rig):
+           --dp defaults to 1 — the thread stands complete. */
+        .star-thread {
+          position: relative;
+          width: 1rem;
+          height: clamp(6.5rem, 15vh, 9.5rem);
+          margin: 0.4rem auto;
+        }
+
+        .thread-line {
+          position: absolute;
+          left: 50%;
+          top: 0;
+          height: calc(100% - 1.3rem);
+          width: 1px;
+          background: var(--hairline);
+          transform: scaleY(var(--dp, 1));
+          transform-origin: top;
+        }
+
+        .thread-tip {
+          position: absolute;
+          left: 50%;
+          top: calc(var(--dp, 1) * (100% - 1.3rem));
+          transform: translateX(-50%);
+          color: var(--ink-faint);
+          font-size: 0.75rem;
+          line-height: 1.3rem;
         }
 
         /* ── Plates ──────────────────────────────────────────── */
@@ -6554,6 +6658,19 @@ export default function Home() {
           opacity: 1;
         }
 
+        /* The wheel's idle breath: the ticked ring turns once a minute. */
+        .almanac .wheel-breathe {
+          transform-box: view-box;
+          transform-origin: 160px 160px;
+          animation: alm-wheel-breathe 60s linear infinite;
+        }
+
+        @keyframes alm-wheel-breathe {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .almanac .etch {
             stroke-dashoffset: 0 !important;
@@ -6563,6 +6680,9 @@ export default function Home() {
           .almanac .wheel-live {
             opacity: 1 !important;
             transition: none !important;
+          }
+          .almanac .wheel-breathe {
+            animation: none !important;
           }
         }
 
@@ -7587,6 +7707,18 @@ export default function Home() {
           .almanac [data-set] {
             opacity: 1 !important;
             transform: none !important;
+          }
+
+          .almanac .counsel-mark,
+          .almanac .counsel-line,
+          .almanac .wheel-breathe {
+            animation: none !important;
+            opacity: 1 !important;
+            clip-path: none !important;
+          }
+
+          .almanac .star-thread {
+            display: none !important;
           }
 
         }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { portFor, flyTo } from "@/components/sky/voyage";
 
@@ -18,6 +18,11 @@ interface TransitionLinkProps {
  *
  * The PageTransition component listens for this event,
  * shows the overlay, waits for the animation, then navigates.
+ *
+ * On press it drops a gilt ink dot beneath the link — the press is
+ * acknowledged in the beat before the veil starts moving. (The dot's
+ * keyframes live in PageTransition's global block; reduced motion
+ * hides it there, and navigation is instant anyway.)
  */
 export default function TransitionLink({
   href,
@@ -27,6 +32,15 @@ export default function TransitionLink({
   onClick,
 }: TransitionLinkProps) {
   const router = useRouter();
+  const [pressed, setPressed] = useState(false);
+  const pressTimer = useRef<number | null>(null);
+
+  useEffect(
+    () => () => {
+      if (pressTimer.current) window.clearTimeout(pressTimer.current);
+    },
+    []
+  );
 
   const handleMouseEnter = useCallback(() => {
     // Only prefetch if it's an internal link
@@ -53,6 +67,12 @@ export default function TransitionLink({
       e.preventDefault();
       onClick?.();
 
+      // The ink dot: the press is acknowledged before anything moves.
+      setPressed(false); // restart the animation on a rapid second press
+      requestAnimationFrame(() => setPressed(true));
+      if (pressTimer.current) window.clearTimeout(pressTimer.current);
+      pressTimer.current = window.setTimeout(() => setPressed(false), 420);
+
       // CARTA COELI — if the destination berths at a different
       // constellation, start the sky flight now so it is already under
       // way beneath the page-turn. Concurrent: adds no delay, and the
@@ -72,14 +92,15 @@ export default function TransitionLink({
   );
 
   return (
-    <a 
-      href={href} 
-      onClick={handleClick} 
-      onMouseEnter={handleMouseEnter} 
-      className={className} 
-      style={style}
+    <a
+      href={href}
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
+      className={className}
+      style={pressed ? { position: "relative", ...style } : style}
     >
       {children}
+      {pressed && <span aria-hidden className="oa-press-ink" />}
     </a>
   );
 }

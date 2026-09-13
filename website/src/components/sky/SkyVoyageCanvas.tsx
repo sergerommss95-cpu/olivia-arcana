@@ -157,6 +157,8 @@ export default function SkyVoyageCanvas() {
     let activeKey: string = initialKey; //   berth whose figure is gilt
     let activePort: SkyPort = initialPort;
     let giltProgress = 1; //                 draw-on of the active figure
+    let giltTailStart = 0; //                post-landing tail of the draw-on
+    let giltTailFrom = 1;
     let fadeConst: string | null = null; //  previous figure, fading
     let fadeAlpha = 0;
     let pointer: { x: number; y: number } | null = null;
@@ -377,8 +379,14 @@ export default function SkyVoyageCanvas() {
           if (d < LANTERN_R) {
             const t = 1 - d / LANTERN_R;
             const s = t * t * (3 - 2 * t); // smoothstep — no popping at the rim
-            a = Math.min(1, a * (1 + 0.7 * s));
-            r += 0.4 * s;
+            // The lantern breathes like a flame. Driven by the clock, not
+            // the frame count, so every framerate sees the same candle;
+            // steady under reduced motion.
+            const fl = rm
+              ? 1
+              : 1 + 0.05 * Math.sin(now / 130) + 0.03 * Math.sin(now / 47 + 1.7);
+            a = Math.min(1, a * (1 + 0.7 * s * fl));
+            r += 0.4 * s * (0.85 + 0.15 * fl);
           }
         }
         ctx!.globalAlpha = 1;
@@ -388,8 +396,9 @@ export default function SkyVoyageCanvas() {
         ctx!.fill();
       }
 
-      /* the cartouche */
-      const labelAlpha = flight ? Math.max(0, (giltProgress - 0.5) * 2) : 1;
+      /* the cartouche — fades up with the figure's own inking, so it
+         also finishes settling just after landing */
+      const labelAlpha = Math.min(1, Math.max(0, (giltProgress - 0.5) * 2));
       if (labelAlpha > 0.01) drawCartouche(gilt, labelAlpha * 0.45);
 
       lastDraw = now;
@@ -397,13 +406,21 @@ export default function SkyVoyageCanvas() {
     }
 
     /* ── camera / flight ── */
-    function settle(fl: Flight) {
+    function settle(fl: Flight, instant = false) {
       cam.ra = fl.port.ra;
       cam.dec = fl.port.dec;
       fov = REST_FOV;
       activeKey = fl.key;
       activePort = fl.port;
-      giltProgress = 1;
+      if (instant || giltProgress >= 1) {
+        giltProgress = 1;
+        giltTailStart = 0;
+      } else {
+        // The figure finishes inking JUST AFTER landing — the pen keeps
+        // moving a beat past the camera's rest.
+        giltTailFrom = giltProgress;
+        giltTailStart = performance.now();
+      }
       fadeConst = null;
       fadeAlpha = 0;
       flight = null;
@@ -434,7 +451,7 @@ export default function SkyVoyageCanvas() {
         sameFigure: fromConst === port.constellation,
       };
       if (rm || omega < 0.05 * RAD) {
-        settle(fl); // instant jump — reduced motion, or a hair away
+        settle(fl, true); // instant jump — reduced motion, or a hair away
         return;
       }
       if (fl.sameFigure) {
@@ -454,7 +471,14 @@ export default function SkyVoyageCanvas() {
       const fl = flight;
       if (!fl) return;
       const p = Math.min(1, (now - fl.start) / FLIGHT_MS);
-      const e = houseEase(p);
+      // Gentle overshoot: the camera glides a breath past the berth in
+      // the last stretch and eases back — never a hard stop. The pass-by
+      // is capped in absolute sky angle (≤ ~1.1°) so short hops don't
+      // wobble and long hauls don't lurch.
+      const os = Math.min(0.045, (1.1 * RAD) / Math.max(fl.omega, 1e-4));
+      const e =
+        houseEase(p) +
+        os * Math.sin(Math.PI * Math.min(1, Math.max(0, (p - 0.62) / 0.38)));
       const v = slerp(fl.from, fl.to, e, fl.omega, fl.sinOmega);
       const rd = raDecOf(v);
       cam.ra = rd.ra;
@@ -462,9 +486,23 @@ export default function SkyVoyageCanvas() {
       fov = REST_FOV + (SWELL_FOV - REST_FOV) * Math.sin(Math.PI * p); // the breath
       if (!fl.sameFigure) {
         fadeAlpha = Math.max(0, 1 - p / 0.25);
-        giltProgress = p < 0.6 ? 0 : houseEase((p - 0.6) / 0.4); // draw-on, last 40%
+        // draw-on, last 40% — reaching only 0.9 at touchdown; the tail
+        // in settle() completes the figure just after landing
+        giltProgress = p < 0.6 ? 0 : 0.9 * houseEase((p - 0.6) / 0.4);
       }
       if (p >= 1) settle(fl);
+    }
+
+    /** Post-landing: the last tenth of the figure inks in over ~350ms. */
+    function stepGiltTail(now: number) {
+      if (!giltTailStart) return;
+      const t = Math.min(1, (now - giltTailStart) / 350);
+      giltProgress = giltTailFrom + (1 - giltTailFrom) * houseEase(t);
+      needsRedraw = true;
+      if (t >= 1) {
+        giltProgress = 1;
+        giltTailStart = 0;
+      }
     }
 
     /* ── loop ── */
@@ -475,6 +513,11 @@ export default function SkyVoyageCanvas() {
       if (flight) {
         stepFlight(now);
         draw(now); // flights render at full rate
+        return;
+      }
+      if (giltTailStart) {
+        stepGiltTail(now);
+        draw(now); // the finishing pen-stroke renders at full rate too
         return;
       }
       if (!rm) cam.ra = (cam.ra + DRIFT_H_PER_MS * dt) % 24; // sidereal breath
