@@ -126,7 +126,7 @@ export default function ChartPage() {
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
                   className="alm-input"
-                  style={{ colorScheme: "light" }}
+                  style={{ colorScheme: "dark" }}
                 />
               )}
               <button

@@ -97,6 +97,7 @@ export default function CityAutocomplete({ onSelect, placeholder = "e.g. Kyiv, N
           {results.map((city: CityData, i: number) => (
             <button
               key={`${city.name}-${city.country}-${i}`}
+              type="button"
               onClick={() => handleSelect(city)}
               style={{
                 display: "flex",

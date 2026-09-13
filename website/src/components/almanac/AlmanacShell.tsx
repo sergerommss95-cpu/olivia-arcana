@@ -581,8 +581,9 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           }
           .alm-mast-nav {
             flex-basis: 100%;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: clamp(0.7rem, 4vw, 1.2rem);
+            gap: 0.15rem clamp(0.7rem, 4vw, 1.2rem);
             padding-bottom: 0.55rem;
           }
           .alm-mast-nav .alm-mast-link {

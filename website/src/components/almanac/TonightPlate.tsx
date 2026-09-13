@@ -91,7 +91,7 @@ export default function TonightPlate() {
 
   return (
     <section
-      className={`mx-auto max-w-screen-2xl px-6 py-24 transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] sm:px-[clamp(24px,5.25vw,104px)] ${
+      className={`mx-auto max-w-screen-2xl px-6 pt-10 pb-4 transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] sm:px-[clamp(24px,5.25vw,104px)] ${
         revealed ? "opacity-100" : "opacity-0"
       }`}
     >

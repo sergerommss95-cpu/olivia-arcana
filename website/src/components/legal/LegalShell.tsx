@@ -33,7 +33,7 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
               Almanac
             </TransitionLink>
             <TransitionLink href="/daily" className="alm-mast-link">
-              Card of the Day
+              Daily card
             </TransitionLink>
             <TransitionLink href="/academy" className="alm-mast-link">
               Academy

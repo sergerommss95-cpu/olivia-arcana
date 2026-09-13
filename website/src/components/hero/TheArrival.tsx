@@ -622,8 +622,8 @@ export default function TheArrival(p: Props) {
         .tide-canvas { opacity: 0; transition: opacity 0.7s var(--lg-ease); }
         :global(.tide-canvas.ready) { opacity: 1; }
         .tide-src { display: none; }
-        .tide-seam { position: absolute; left: 0; right: 0; bottom: 0; height: 18%; pointer-events: none;
-          background: linear-gradient(0deg, rgba(16, 19, 77, 0.85) 0%, rgba(16, 19, 77, 0.35) 55%, transparent 100%);
+        .tide-seam { position: absolute; left: 0; right: 0; bottom: 0; height: 30%; pointer-events: none;
+          background: linear-gradient(0deg, #10134d 0%, rgba(16, 19, 77, 0.82) 34%, rgba(16, 19, 77, 0.3) 68%, transparent 100%);
           opacity: calc(var(--progress, 0)); }
         .tide-shade { pointer-events: none; opacity: var(--shade, 1); background:
           linear-gradient(90deg, rgba(8, 15, 71, 0.78), rgba(12, 20, 82, 0.55) 30%, rgba(14, 24, 90, 0.16) 52%, transparent 70%),
@@ -664,7 +664,7 @@ export default function TheArrival(p: Props) {
           letter-spacing: 0.24em; text-transform: uppercase; color: #b7bce9; }
         .tide-line-t { margin: 0; font-family: var(--font-heading), serif; font-weight: 400;
           font-size: clamp(38px, 4vw, 68px); line-height: 1.06; color: #e8e9ff; }
-        @media (min-width: 1051px) { .tide-passage { margin-left: -7vw; } }
+        @media (min-width: 1051px) { .tide-passage { margin-left: max(-7vw, calc(28px - clamp(24px, 5.25vw, 104px))); } }
         .tide-controls { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0;
           display: grid; grid-template-columns: 1fr minmax(300px, 430px) 1fr; align-items: end; gap: 30px;
           padding: 22px clamp(24px, 5.25vw, 104px) 20px;
@@ -687,14 +687,14 @@ export default function TheArrival(p: Props) {
         .tide-reading { position: relative; overflow: hidden; min-height: 88svh; background: transparent;
           display: grid; grid-template-columns: 1fr 1fr; gap: 55px;
           padding: 110px clamp(24px, 5.25vw, 104px) 90px; }
-        .tide-reading::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 30vh;
+        .tide-reading::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 44vh;
           z-index: 0; pointer-events: none;
-          background: linear-gradient(180deg, rgba(52, 62, 176, 0.5) 0%, rgba(24, 29, 122, 0.22) 42%, transparent 100%); }
+          background: linear-gradient(180deg, rgba(52, 62, 176, 0.6) 0%, rgba(31, 38, 140, 0.34) 34%, rgba(24, 29, 122, 0.16) 62%, transparent 100%); }
         .tide-reading > * { position: relative; z-index: 1; }
         .tide-reading :global(canvas) { z-index: 0; }
         .tide-watermark { position: absolute; left: -4%; top: 4%; font-size: 44vh; line-height: 1;
           color: rgba(183, 188, 233, 0.05); pointer-events: none; }
-        .tide-watermark :global(svg) { width: 1em; height: 1em; display: block; opacity: 0.08; }
+        .tide-watermark :global(svg) { width: 1em; height: 1em; display: block; opacity: 0.13; }
         .tide-r-luna { margin: 22px 0 0; max-width: 380px; font-family: var(--font-mono), monospace;
           font-size: 11px; line-height: 1.8; letter-spacing: 0.08em; color: rgba(183, 188, 233, 0.62); }
         .tide-r-title { margin: 0 0 26px; font-family: var(--font-heading), serif; font-weight: 400;

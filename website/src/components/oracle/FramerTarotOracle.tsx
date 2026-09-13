@@ -416,9 +416,50 @@ export default function FramerTarotOracle() {
     return Array.from({ length: poolSize }, () => rng() < 1 / 3);
   }, [deckSeed, poolSize]);
   const remainingCards = spread.count - selectedCards.length;
-  // Ten or twelve plates must still fit the table: the whole spread is
-  // scaled down as it grows, rather than running off the edges.
-  const spreadFit = spread.count <= 3 ? 1 : spread.count <= 7 ? 0.62 : 0.46;
+
+  /* ── THE FORMATION RIG ─────────────────────────────────────────
+     Spread positions are given in card-units; the old table multiplied
+     them by the UNSCALED card width while drawing the cards 1.78× —
+     every large spread collapsed into a pile. The rig measures the
+     real bounding box and solves the one scale that fits the stage:
+     spacing and card size can no longer disagree. */
+  const [viewport, setViewport] = useState({ w: 1440, h: 900 });
+  useEffect(() => {
+    const set = () => setViewport({ w: window.innerWidth, h: window.innerHeight });
+    set();
+    window.addEventListener("resize", set);
+    return () => window.removeEventListener("resize", set);
+  }, []);
+
+  const spreadRig = useMemo(() => {
+    const cw = device === "mobile" ? 100 : device === "tablet" ? 126 : 136;
+    const ch = device === "mobile" ? 165 : device === "tablet" ? 210 : 225;
+    const cols = spread.positions.map((p) => p.col);
+    const rows = spread.positions.map((p) => p.row);
+    const colMin = Math.min(...cols), colMax = Math.max(...cols);
+    const rowMin = Math.min(...rows), rowMax = Math.max(...rows);
+    const gapX = 1.1, gapY = 0.98;
+    const availW = Math.min(viewport.w * 0.9, 1240);
+    // The free band: below the room's top chrome, above the sheet's crown.
+    const bandTop = 82;
+    const sheetTop = viewport.h * (device === "mobile" ? 0.44 : 0.505);
+    const availH = Math.max(160, sheetTop - bandTop - 40); // room for the cartouches
+    const cap = device === "mobile" ? 1.28 : 1.78;
+    const scale = Math.min(
+      cap,
+      availW / (cw * ((colMax - colMin) * gapX + 1)),
+      availH / (ch * ((rowMax - rowMin) * gapY + 1))
+    );
+    return {
+      ux: cw * scale * gapX,
+      uy: ch * scale * gapY,
+      scale,
+      cx: (colMin + colMax) / 2,
+      cy: (rowMin + rowMax) / 2,
+      // formation bbox centred in the band, not on the screen
+      oy: bandTop + availH / 2 + 8 - viewport.h / 2,
+    };
+  }, [spread, viewport, device]);
   const ukCards = (n: number) => (n >= 2 && n <= 4 ? "карти" : "карт");
   const selectionInstruction =
     locale === "uk"
@@ -470,11 +511,15 @@ export default function FramerTarotOracle() {
     if (drawParam) {
       // Guard against shared/stale URLs pointing past the dealt pool —
       // an out-of-range index used to hard-crash the whole reading.
+      // Validate against the RESTORED spread's pool, not the default
+      // three-card pool of the very first render (a 12-card year-ahead
+      // link would otherwise silently drop index 11 and never restore).
+      const want = restored?.count ?? 3;
+      const restoredPool = Math.max(basePool, want + 2);
       const indices = drawParam
         .split(",")
         .map(Number)
-        .filter(n => Number.isInteger(n) && n >= 0 && n < oracleData.length);
-      const want = restored?.count ?? 3;
+        .filter(n => Number.isInteger(n) && n >= 0 && n < restoredPool);
       if (indices.length === want) {
         requestAnimationFrame(() => {
           setSelectedCards(indices);
@@ -482,7 +527,7 @@ export default function FramerTarotOracle() {
         });
       }
     }
-  }, [searchParams, oracleData.length]);
+  }, [searchParams, basePool]);
 
   const updateUrl = useCallback((cards: number[]) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -694,7 +739,9 @@ export default function FramerTarotOracle() {
         </AnimatePresence>
 
         {/* ── THE ORACLE DECK ENGINE ── */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        {/* z-10: the dealer's deck must never float above the spread
+            chooser or prompt typography (both z-40). */}
+        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
           <div className="relative w-0 h-0 pointer-events-auto [transform-style:preserve-3d]">
             {/* 1. GHOST DECK (Wave illusion) */}
             {ghostIndices.map((i) => (
@@ -719,7 +766,8 @@ export default function FramerTarotOracle() {
                 isSelected={selectedCards.includes(i)}
                 selectionIndex={selectedCards.indexOf(i)}
                 spreadPositions={spread.positions}
-                spreadFit={spreadFit}
+                rig={spreadRig}
+                positionLabel={spreadLabels[selectedCards.indexOf(i)] ?? ""}
                 hoveredIndexMV={hoveredIndexMV}
                 device={device}
                 time={time}
@@ -1047,7 +1095,8 @@ const GodModeCard = React.memo(function GodModeCard({
   isSelected,
   selectionIndex,
   spreadPositions,
-  spreadFit,
+  rig,
+  positionLabel,
   hoveredIndexMV,
   device,
   time,
@@ -1065,7 +1114,8 @@ const GodModeCard = React.memo(function GodModeCard({
   isSelected: boolean,
   selectionIndex: number,
   spreadPositions: SpreadPosition[],
-  spreadFit: number,
+  rig: { ux: number; uy: number; scale: number; cx: number; cy: number; oy: number },
+  positionLabel: string,
   hoveredIndexMV: MotionValue<number>,
   device: "mobile" | "tablet" | "desktop",
   time: MotionValue<number>,
@@ -1207,24 +1257,27 @@ const GodModeCard = React.memo(function GodModeCard({
   } 
   else if (machineState === "spread" || machineState === "result") {
     if (isSelected) {
-      // The Triad Formation
-      // Where this plate belongs in the chosen spread. Positions are
-      // given in card-widths, so one formula lays out three cards or ten.
+      // The formation, measured: every position offset by the rig's one
+      // true unit, the whole shape centered on its own bounding box.
       const pos = spreadPositions[selectionIndex];
-      const fit = spreadFit;
-      targetX = (pos?.col ?? 0) * cardWidth * 1.16 * fit;
-      targetY = (pos?.row ?? 0) * cardHeight * 0.82 * fit + (isMobile ? -40 : -80) - (spreadPositions.length > 3 ? (isMobile ? 60 : 110) : 0);
+      targetX = ((pos?.col ?? 0) - rig.cx) * rig.ux;
+      targetY = ((pos?.row ?? 0) - rig.cy) * rig.uy + rig.oy;
       targetZ = 200;
-      targetRotateZ = pos?.rotated ? 90 : (selectionIndex - 1) * 1.5;
-      targetScale = (isMobile ? 1.28 : 1.78) * fit;
+      // dense formations keep the plates near-square — big fan angles
+      // read as a scattered pile at small card sizes
+      targetRotateZ = pos?.rotated
+        ? 90
+        : rig.scale < 0.8
+          ? ((selectionIndex % 3) - 1) * 0.8
+          : (selectionIndex - 1) * 1.5;
+      targetScale = rig.scale;
 
       if (machineState === "result") {
-        targetRotateY = 180; 
-        targetY = (pos?.row ?? 0) * cardHeight * 0.82 * fit + (isMobile ? -70 : -140) - (spreadPositions.length > 3 ? (isMobile ? 60 : 110) : 0);
+        targetRotateY = 180;
       }
     } else {
       targetX = baseArcX * 1.5;
-      targetY = 1200; 
+      targetY = 1200;
       targetOpacity = 0;
     }
   }
@@ -1377,14 +1430,15 @@ const GodModeCard = React.memo(function GodModeCard({
         rotateZ: isSelected || machineState === "preparing" ? finalRotateZ : targetRotateZ,
         rotateX: finalRotateX,
         rotateY: finalRotateY,
-        scale: isSelected || machineState !== "drawing" ? targetScale : dockScale,
+        ...(!isSelected && machineState === "drawing" ? { scale: dockScale } : {}),
         transformStyle: isMobile ? "flat" : "preserve-3d",
         WebkitTransformStyle: isMobile ? "flat" : "preserve-3d",
         willChange: isSelected || machineState === "drawing" ? "transform" : "auto",
         }}
       initial={{ opacity: 0, scale: 0 }}
-      animate={{ 
+      animate={{
         opacity: targetOpacity,
+        scale: isSelected || machineState !== "drawing" ? targetScale : undefined,
         x: isSelected || machineState === "preparing" ? undefined : targetX,
         y: isSelected || machineState === "preparing" ? undefined : targetY,
         z: isSelected || machineState === "preparing" ? undefined : targetZ,
@@ -1487,6 +1541,55 @@ const GodModeCard = React.memo(function GodModeCard({
            </div>
         </div>
       </div>
+
+      {/* Position cartouche — the formation is unreadable without its
+          names once ten plates stand on the table. Counter-flipped in
+          result so the text survives the card's own 180° reveal. */}
+      {isSelected && positionLabel && (machineState === "spread" || machineState === "result") && (() => {
+        const dense = rig.scale < 0.8;
+        if (dense) {
+          // Dense formations: the cartouche prints ON the plate's foot —
+          // a night chip that can never collide with a neighbouring card.
+          return (
+            <div
+              aria-hidden
+              className="absolute left-1/2 pointer-events-none text-center uppercase [font-family:var(--font-mono),monospace]"
+              style={{
+                bottom: "3.5%",
+                width: "92%",
+                fontSize: 8.5 / rig.scale,
+                letterSpacing: "0.14em",
+                lineHeight: 1.4,
+                padding: `${3 / rig.scale}px ${4 / rig.scale}px`,
+                background: "rgba(10,13,56,0.78)",
+                border: "1px solid rgba(232,233,255,0.14)",
+                color: "rgba(232,233,255,0.88)",
+                // counter-rotate FIRST, then lift — inside the flipped
+                // plate a bare +Z would point away from the viewer
+                transform: `translateX(-50%)${machineState === "result" ? " rotateY(180deg)" : ""} translateZ(3px)`,
+                zIndex: 5,
+              }}
+            >
+              {positionLabel}
+            </div>
+          );
+        }
+        return (
+          <div
+            aria-hidden
+            className="absolute left-1/2 top-full pointer-events-none text-center uppercase whitespace-nowrap [font-family:var(--font-mono),monospace]"
+            style={{
+              fontSize: 9.5 / rig.scale,
+              letterSpacing: "0.16em",
+              marginTop: 6 / rig.scale,
+              color: "rgba(183,188,233,0.8)",
+              transform: `translateX(-50%)${machineState === "result" ? " rotateY(180deg)" : ""}`,
+            }}
+          >
+            {positionLabel}
+          </div>
+        );
+      })()}
     </m.div>
   );
 });

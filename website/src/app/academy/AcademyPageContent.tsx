@@ -245,6 +245,8 @@ export function AcademyPageContent() {
         .acad-em {
           font-style: italic;
           color: var(--ox);
+          /* italic serif overhang swallows the following space visually */
+          padding-right: 0.18em;
         }
 
         /* ── Instruments ─────────────────────────────────────── */

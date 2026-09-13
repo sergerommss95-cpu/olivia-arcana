@@ -43,7 +43,7 @@ function OracleContainer() {
       {!started && (
         <div className="absolute inset-0 z-40 flex flex-col items-center justify-center px-6 text-center">
           <p className="night-kicker">
-            {isUk ? "Три карти · Одне питання" : "Three cards · One question"}
+            {isUk ? "Одне питання · Чотири розклади" : "One question · Four spreads"}
           </p>
           <h1 className="night-h1 max-w-[12ch]">
             {isUk ? (
@@ -54,8 +54,8 @@ function OracleContainer() {
           </h1>
           <p className="night-lead max-w-xs mt-5 mb-9">
             {isUk
-              ? "Розклад таро на три карти для питання, яке ви принесли."
-              : "A three-card tarot reading for the question you bring."}
+              ? "Від трьох карт до Кельтського хреста — для питання, яке ви принесли."
+              : "From three cards to the Celtic Cross — for the question you bring."}
           </p>
           <button onClick={() => setStarted(true)} className="night-btn">
             {isUk ? "Почати читання" : "Start the reading"}

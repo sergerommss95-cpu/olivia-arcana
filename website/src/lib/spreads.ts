@@ -91,7 +91,7 @@ export const SPREADS: Spread[] = [
       { label: "What you give", asks: "what flows out from you", col: -1.2, row: 0.6 },
       { label: "What they give", asks: "what flows back", col: 1.2, row: 0.6 },
       { label: "What stands between", asks: "the obstacle neither names", col: 0, row: 0.6 },
-      { label: "Where it tends", asks: "the direction of travel", col: 0, row: 1.8 },
+      { label: "Where it tends", asks: "the direction of travel", col: 0, row: 2.15 },
     ],
   },
   {

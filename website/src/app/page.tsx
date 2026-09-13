@@ -4640,9 +4640,14 @@ export default function Home() {
                   ? `СОНЦЕ · ${SIGN_TIP_UK[birthI.signIndex].name.toUpperCase()} — ${birthI.moonPhaseName.toLowerCase()} у ніч вашого народження`
                   : `SOL · ${SIGN_PAGES[SIGN_SLUGS[birthI.signIndex]].name.toUpperCase()} — the moon was ${birthI.moonPhaseName.toLowerCase()} on the night you were born`}
               </p>
-              <TransitionLink href={`/signs/${SIGN_SLUGS[birthI.signIndex]}/`} className="link-ox">
-                {locale === "uk" ? "Ваша гравюра" : "Your plate"} →
-              </TransitionLink>
+              <div className="ins-charts">
+                <TransitionLink href="/portrait" className="btn-ink ins-portrait">
+                  {locale === "uk" ? "Накреслити повну карту неба" : "Draw my full birth chart"} →
+                </TransitionLink>
+                <TransitionLink href={`/signs/${SIGN_SLUGS[birthI.signIndex]}/`} className="link-ox">
+                  {locale === "uk" ? "Ваша гравюра" : "Your plate"} →
+                </TransitionLink>
+              </div>
               <div className="ins-actions">
                 {/* The birth-sky flashback rode the retired SkyChart; the
                     printable leaf remains. */}
@@ -4671,18 +4676,65 @@ export default function Home() {
               className="ins-form"
               onSubmit={(e) => {
                 e.preventDefault();
-                const v = (new FormData(e.currentTarget).get("birth") as string) || "";
+                const fd = new FormData(e.currentTarget);
+                const d = parseInt(String(fd.get("bd") ?? ""), 10);
+                const m = parseInt(String(fd.get("bm") ?? ""), 10);
+                const y = parseInt(String(fd.get("by") ?? ""), 10);
+                if (!(d >= 1 && d <= 31 && m >= 1 && m <= 12 && y >= 1900 && y <= 2035)) {
+                  e.currentTarget.classList.remove("ins-shake");
+                  void (e.currentTarget as HTMLElement).offsetWidth;
+                  e.currentTarget.classList.add("ins-shake");
+                  return;
+                }
+                const v = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
                 if (birthInfo(v, locale)) {
                   storeBirth(v);
                   setBirth(v);
                 }
               }}
             >
-              <label className="ins-q" htmlFor="ins-date">
+              <p className="ins-kicker" aria-hidden>
+                {locale === "uk" ? "ФІГ. X — ВПИС" : "FIG. X — THE INSCRIPTION"}
+              </p>
+              <label className="ins-q" htmlFor="ins-bd">
                 {locale === "uk" ? "Коли ви народилися?" : "When were you born?"}
               </label>
               <div className="ins-row">
-                <input id="ins-date" name="birth" type="date" required className="ins-date" min="1900-01-01" max="2035-12-31" />
+                {/* The date is set in the almanac's own type — three engraved
+                    cells, no browser calendar. */}
+                <fieldset className="ins-dmy" aria-label={locale === "uk" ? "Дата народження" : "Birth date"}>
+                  {(
+                    [
+                      { name: "bd", ph: locale === "uk" ? "ДД" : "DD", len: 2, w: "2.6ch", ac: "bday-day", id: "ins-bd" },
+                      { name: "bm", ph: locale === "uk" ? "ММ" : "MM", len: 2, w: "2.6ch", ac: "bday-month", id: "ins-bm" },
+                      { name: "by", ph: locale === "uk" ? "РРРР" : "YYYY", len: 4, w: "4.8ch", ac: "bday-year", id: "ins-by" },
+                    ] as const
+                  ).map((f, fi) => (
+                    <React.Fragment key={f.name}>
+                      {fi > 0 && <span className="ins-sep" aria-hidden>·</span>}
+                      <input
+                        id={f.id}
+                        name={f.name}
+                        className="ins-cell"
+                        style={{ width: f.w }}
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        maxLength={f.len}
+                        placeholder={f.ph}
+                        required
+                        autoComplete={f.ac}
+                        onInput={(e) => {
+                          const el = e.currentTarget;
+                          el.value = el.value.replace(/\D/g, "");
+                          if (el.value.length >= f.len) {
+                            const all = el.form?.querySelectorAll<HTMLInputElement>(".ins-cell");
+                            all?.[fi + 1]?.focus();
+                          }
+                        }}
+                      />
+                    </React.Fragment>
+                  ))}
+                </fieldset>
                 <button type="submit" className="btn-ink">
                   {locale === "uk" ? "Вписати" : "Inscribe"}
                 </button>
@@ -5636,70 +5688,99 @@ export default function Home() {
 
         /* ── The Inscription strip ─────────────────────────────── */
         .inscribe {
-          width: min(100%, 40rem);
-          margin: clamp(1.4rem, 4vw, 2.4rem) auto 0;
-          padding: clamp(1.2rem, 3vw, 1.8rem) 1.2rem;
-          border-top: 1px solid var(--hairline);
-          border-bottom: 1px solid var(--hairline);
+          position: relative;
+          width: min(100%, 52rem);
+          margin: clamp(2.2rem, 6vw, 4rem) auto 0;
+          padding: clamp(2.4rem, 6vw, 3.8rem) clamp(1.2rem, 4vw, 3rem);
+          border: 1px solid var(--hairline);
+          outline: 1px solid rgba(232, 233, 255, 0.08);
+          outline-offset: 7px;
+          background: rgba(16, 19, 77, 0.3);
           text-align: center;
+        }
+
+        .ins-kicker {
+          margin: 0 0 1.4rem;
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.6rem;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: var(--ox, #e0b768);
         }
 
         .ins-q {
           display: block;
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-size: clamp(1.3rem, 3vw, 1.7rem);
-          font-weight: 500;
-          margin-bottom: 0.9rem;
+          font-size: clamp(1.8rem, 4vw, 2.6rem);
+          font-weight: 400;
+          margin-bottom: 1.4rem;
         }
 
         .ins-row {
           display: flex;
           justify-content: center;
-          align-items: stretch;
-          gap: 0.7rem;
+          align-items: center;
+          gap: 1.1rem;
           flex-wrap: wrap;
         }
 
-        .ins-date {
-          font-family: var(--font-mono, ui-monospace), monospace;
-          font-size: 0.85rem;
-          letter-spacing: 0.08em;
-          color: var(--ink);
-          background: linear-gradient(160deg, rgba(183, 188, 233, 0.1) 0%, rgba(10, 16, 36, 0.42) 100%);
-          -webkit-backdrop-filter: blur(14px) saturate(140%);
-          backdrop-filter: blur(14px) saturate(140%);
+        /* Three engraved cells — the date set in the almanac's own type,
+           the browser's calendar dismissed entirely. */
+        .ins-dmy {
+          display: flex;
+          align-items: baseline;
+          gap: 0.55rem;
+          margin: 0;
+          padding: 0 0.3rem 0.15rem;
           border: 0;
-          border-radius: 11px;
-          box-shadow:
-            inset 0 1px 0 rgba(226, 230, 255, 0.16),
-            inset 0 0 0 1px rgba(183, 188, 233, 0.14);
-          padding: 0.7rem 0.9rem;
-          transition: box-shadow 260ms var(--ease);
-          color-scheme: dark;
         }
 
-        /* the native date parts inherit the almanac's ink, never the
-           browser's default blue */
-        .ins-date::-webkit-datetime-edit,
-        .ins-date::-webkit-datetime-edit-text,
-        .ins-date::-webkit-datetime-edit-day-field,
-        .ins-date::-webkit-datetime-edit-month-field,
-        .ins-date::-webkit-datetime-edit-year-field {
+        .ins-cell {
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: clamp(1.25rem, 2.6vw, 1.6rem);
+          letter-spacing: 0.1em;
+          text-align: center;
           color: var(--ink);
+          background: transparent;
+          border: 0;
+          border-bottom: 1px solid rgba(232, 233, 255, 0.32);
+          border-radius: 0;
+          padding: 0.25rem 0.1rem 0.4rem;
+          transition: border-color 240ms var(--ease);
+          caret-color: var(--ox, #e0b768);
         }
 
-        .ins-date::-webkit-calendar-picker-indicator {
-          filter: invert(1) sepia(1) saturate(0.3) hue-rotate(190deg);
-          opacity: 0.6;
-          cursor: pointer;
+        .ins-cell::placeholder {
+          color: rgba(183, 188, 233, 0.4);
         }
 
-        .ins-date:focus-visible {
+        .ins-cell:focus-visible {
           outline: none;
-          box-shadow:
-            inset 0 1px 0 rgba(226, 230, 255, 0.24),
-            inset 0 0 0 1px rgba(232, 233, 255, 0.42),
-            0 0 1.4rem rgba(141, 151, 255, 0.22);
+          border-bottom-color: var(--ox, #e0b768);
+        }
+
+        .ins-sep {
+          font-size: 1.1rem;
+          color: rgba(183, 188, 233, 0.45);
+        }
+
+        .ins-shake {
+          animation: ins-shake 320ms ease;
+        }
+
+        @keyframes ins-shake {
+          25% { transform: translateX(-5px); }
+          50% { transform: translateX(4px); }
+          75% { transform: translateX(-2px); }
+        }
+
+        .ins-charts {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1.4rem;
+          flex-wrap: wrap;
+          margin-top: 0.4rem;
         }
 
         .ins-priv {

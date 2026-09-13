@@ -286,13 +286,17 @@ const CSS = `
 
 const BTN_CSS = `
 .oa-atlas-btn{position:fixed;right:22px;
-  bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:90;
+  bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:90;
   font:10px ${MONO};letter-spacing:.18em;text-transform:uppercase;
   color:${PERI};background:none;border:none;
   border-bottom:1px solid transparent;padding:8px 2px;cursor:pointer;
   transition:color .2s,border-color .2s}
+.oa-atlas-btn .oa-atlas-key{color:rgba(224,183,104,.85)}
 .oa-atlas-btn:hover,.oa-atlas-btn:focus-visible{color:${MOON};
-  border-bottom-color:rgba(232,233,255,.16);outline:none}`;
+  border-bottom-color:rgba(232,233,255,.16);outline:none}
+@media (hover: none), (pointer: coarse){
+  .oa-atlas-btn .oa-atlas-key{display:none}
+}`;
 
 function isTyping(target: EventTarget | null): boolean {
   const el = target as HTMLElement | null;
@@ -974,7 +978,10 @@ export function SkyAtlasButton() {
         aria-keyshortcuts="m"
         onClick={() => openAtlas(true)}
       >
-        {uk ? "НЕБО ✦ M" : "THE SKY ✦ M"}
+        {uk ? "АТЛАС НЕБА" : "SKY ATLAS"}
+        <span className="oa-atlas-key" aria-hidden>
+          {" "}✦ {uk ? "КЛАВІША M" : "PRESS M"}
+        </span>
       </button>
     </>
   );
