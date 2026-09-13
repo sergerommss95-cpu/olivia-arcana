@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import TransitionLink from "@/components/transitions/TransitionLink";
 import SpreadTheater from "@/components/almanac/SpreadTheater";
 import TonightPlate from "@/components/almanac/TonightPlate";
+import EphemerisNote from "@/components/almanac/EphemerisNote";
 import TheArrival from "@/components/hero/TheArrival";
 import StarMotes from "@/components/arrival/StarMotes";
 import ShaderBackdrop from "@/components/almanac/ShaderBackdrop";
@@ -4659,7 +4660,7 @@ export default function Home() {
         </div>
 
         {/* ── The plates ──────────────────────────────────────── */}
-        <section className="plates" aria-label={copy.platesLabel}>
+        <section className="plates" id="plates" tabIndex={-1} aria-label={copy.platesLabel}>
           {copy.plates.slice(0, 2).map((plate, i) => (
             <article key={plate.numeral} className={`plate ${i % 2 ? "flip" : ""}`} data-set>
               <figure className="plate-figure" aria-hidden={i === 0 ? undefined : true} data-drift style={{ "--drift": i % 2 ? "-14px" : "14px", "--rock": i % 2 ? "-0.7deg" : "0.7deg" } as React.CSSProperties}>
@@ -4678,6 +4679,7 @@ export default function Home() {
                 </p>
                 <h2>{plate.title}</h2>
                 <p className="plate-body">{plate.body}</p>
+                {i === 0 && <EphemerisNote locale={locale} />}
                 {i === 1 ? (
                   <div className="plate-inscribe" id="inscription">
 

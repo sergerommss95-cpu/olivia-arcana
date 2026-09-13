@@ -13,8 +13,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import TrueMoon from "@/components/sky/TrueMoon";
-import { moonState, moonDegreesSince } from "@/lib/sky/live";
 
 const VERT = "attribute vec2 aPosition;varying vec2 vUv;void main(){vUv=aPosition*.5+.5;gl_Position=vec4(aPosition,0.,1.);}";
 const FRAG = `precision highp float;
@@ -245,66 +243,8 @@ export default function TheArrival(p: Props) {
   const [intent, setIntent] = useState(0);
   const [paused, setPaused] = useState(false);
   const [still, setStill] = useState(false);
-  /* LUNA VERA — the reading's watermark is the real Moon tonight,
-     and the almanac remembers how far she has travelled since the
-     visitor last stood here. Client-only (Date-dependent). */
-  const [luna, setLuna] = useState<{ phaseDeg: number; line: string } | null>(null);
 
-  useEffect(() => {
-    try {
-      const m = moonState();
-      const isUk = p.locale === "uk";
-      const KEY = "oa-almanac-memory";
-      let rec: { t: number; lon: number } | null = null;
-      try {
-        rec = JSON.parse(localStorage.getItem(KEY) ?? "null");
-      } catch {}
-      const nowMs = Date.now();
-      let line: string;
-      if (rec && typeof rec.t === "number" && typeof rec.lon === "number" && nowMs - rec.t > 6 * 3600_000) {
-        const deg = moonDegreesSince(rec.lon, rec.t);
-        line = isUk
-          ? `Відколи ви були тут, Місяць пройшов ${deg}° неба. Сьогодні — ${m.nameUk.toLowerCase()}.`
-          : `Since you last came, the Moon has travelled ${deg}° of sky. Tonight — ${m.nameEn.toLowerCase()}.`;
-      } else {
-        const pct = Math.round(m.illum * 100);
-        line = isUk
-          ? `Місяць над вами зараз — ${m.nameUk.toLowerCase()}, освітлено ${pct}%. Водяний знак намальовано правдиво.`
-          : `The Moon above you now — ${m.nameEn.toLowerCase()}, ${pct}% lit. The watermark is drawn true.`;
-      }
-      if (!rec || nowMs - rec.t > 3600_000) {
-        try {
-          localStorage.setItem(KEY, JSON.stringify({ t: nowMs, lon: m.eclipticLon }));
-        } catch {}
-      }
-      setLuna({ phaseDeg: m.phaseDeg, line });
-    } catch {}
-  }, [p.locale]);
   const t = p.locale === "uk" ? T.uk : T.en;
-
-  /* The reading room inks itself in as it arrives: head lines rise,
-     the intent borders draw, 60ms apart — once, then it stays set. */
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-    const reading = root.querySelector<HTMLElement>(".tide-reading");
-    if (!reading) return;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      reading.classList.add("is-inked");
-      return;
-    }
-    const io = new IntersectionObserver(
-      (es) => {
-        if (es.some((e) => e.isIntersecting)) {
-          reading.classList.add("is-inked");
-          io.disconnect();
-        }
-      },
-      { threshold: 0.18 },
-    );
-    io.observe(reading);
-    return () => io.disconnect();
-  }, []);
 
   useEffect(() => {
     const root = rootRef.current!;
@@ -315,7 +255,7 @@ export default function TheArrival(p: Props) {
     const plate = root.querySelector<HTMLImageElement>("#tide-plate")!;
     const sanct = root.querySelector<HTMLImageElement>("#tide-sanctuary")!;
     const olivia = root.querySelector<HTMLImageElement>("#tide-olivia")!;
-    const reading = root.querySelector<HTMLElement>(".tide-reading")!;
+    const landing = () => (document.getElementById("plates") ?? seq.nextElementSibling) as HTMLElement | null;
     const chapters = Array.from(root.querySelectorAll<HTMLButtonElement>(".tide-chapter"));
     const fill = root.querySelector<HTMLElement>(".tide-fill")!;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
@@ -427,7 +367,7 @@ export default function TheArrival(p: Props) {
         const value = auto.from + (auto.to - auto.from) * tt;
         scrollTo(0, seq.offsetTop + value * range);
         target = value;
-        if (tt >= 1) { auto = null; reading.focus({ preventScroll: true }); }
+        if (tt >= 1) { auto = null; landing()?.focus?.({ preventScroll: true }); }
       }
       pv += (target - pv) * (1 - Math.exp(-dt * 8));
       if (Math.abs(target - pv) < 0.000025) pv = target;
@@ -435,8 +375,8 @@ export default function TheArrival(p: Props) {
     }
     function goReading() {
       auto = null; pv = target = 1; paint();
-      reading.scrollIntoView({ behavior: "instant" as ScrollBehavior });
-      reading.focus({ preventScroll: true });
+      landing()?.scrollIntoView({ behavior: "instant" as ScrollBehavior });
+      landing()?.focus?.({ preventScroll: true });
     }
     function initialize() {
       if (ready) return;
@@ -620,55 +560,6 @@ export default function TheArrival(p: Props) {
               <span className="tide-pause-i" aria-hidden>{paused ? "▷" : "II"}</span>
               {still ? t.still : paused ? t.play : t.pause}
             </button>
-          </div>
-        </div>
-      </section>
-
-      <section className="tide-reading" id="reading" tabIndex={-1} aria-labelledby="reading-title">
-        <div className="tide-watermark" aria-hidden>
-          {luna ? <TrueMoon phaseDeg={luna.phaseDeg} /> : "☾"}
-        </div>
-        <div className="tide-r-head">
-          <p className="tide-kicker">{t.rKicker}</p>
-          <h2 id="reading-title" className="tide-r-title">
-            {t.rTitleA}<br />{t.rTitleB}<em>{t.rTitleEm}</em>
-          </h2>
-          <p className="tide-r-desc">{t.rDesc}</p>
-        </div>
-        <div className="tide-r-side">
-          {/* The ephemeris — tonight's true Moon set as a marginal note
-              above the intents, so the column opens with a living line. */}
-          <aside className="tide-eph">
-            <span className="tide-eph-moon" aria-hidden>
-              {luna ? <TrueMoon phaseDeg={luna.phaseDeg} /> : "☽"}
-            </span>
-            <div className="tide-eph-txt">
-              <p className="tide-eph-k">{p.locale === "uk" ? "Ефемерида — цієї ночі" : "Ephemeris — tonight"}</p>
-              <p className="tide-eph-line">{luna ? luna.line : "…"}</p>
-            </div>
-          </aside>
-          <div className="tide-intents" role="radiogroup" aria-label={t.rKicker}>
-            {t.intents.map((it, i) => (
-              <button
-                key={it.n}
-                type="button"
-                role="radio"
-                aria-checked={intent === i}
-                className={"tide-intent" + (intent === i ? " on" : "")}
-                style={{ "--ii": i } as React.CSSProperties}
-                onClick={() => setIntent(i)}
-              >
-                <span className="tide-intent-n">{it.n}</span>
-                <span className="tide-intent-l">{it.label}</span>
-                <span className="tide-intent-a" aria-hidden>↗</span>
-              </button>
-            ))}
-          </div>
-          <p className="tide-q-label">{t.qLabel}</p>
-          <p className="tide-q" aria-live="polite"><em>{t.intents[intent].q}</em></p>
-          <div className="tide-r-actions">
-            <Link href={p.primaryHref} className="tide-oracle">{t.oracle}<span aria-hidden> ↗</span></Link>
-            <Link href="/daily" className="tide-daily">{t.daily}</Link>
           </div>
         </div>
       </section>
