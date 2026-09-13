@@ -1,26 +1,43 @@
 "use client";
 
 /**
- * SpreadTheater — Fig. 1 as an object, not a diagram.
+ * SpreadTheater — Fig. 1 as a living table, not a diagram.
  *
- * Three physical card plates (the deck's own lapis back) in a
- * perspective stage. Grammar borrowed from the card-object study:
- *  • idle — the pile breathes; a glint sweeps the top card
- *  • pointer near — the fan wakes and follows the hand in 3D
- *    (shared rotateX/rotateY tilt, the card nearest the cursor
- *    rises toward the viewer, PAST · NOW · NEXT surface)
- *  • click — the cards gather, lift toward the eye, and the
- *    night wipe carries you onto the dealing table
+ * Three physical card plates in a perspective stage. Grammar:
+ *  • entrance — the sleeping stack DEALS itself open, one card at a
+ *    time, with a single over-fan flourish
+ *  • idle — the pile breathes; a glint sweeps; and every few breaths
+ *    the table TURNS one plate to show a true carved face (the deck's
+ *    own art — Priestess, Star, Sun), holds it, and lays it back
+ *  • pointer near — the fan wakes and follows the hand in 3D, the
+ *    card nearest the cursor rising, PAST · NOW · NEXT surfacing
+ *  • click — the cards gather, lift toward the eye, and the night
+ *    wipe carries you onto the dealing table
  *
- * One rAF rig, lerped targets, no per-frame React state.
+ * One rAF rig, lerped targets, no per-frame React state. The flip
+ * cycle is time-driven inside the same loop — no timers to leak.
  */
 
 import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 const LERP = 0.14;
-const CARD_W = 152;
-const CARD_H = 263;
+const CARD_W = 184;
+const CARD_H = 318;
+
+/** The faces the table shows while it daydreams — the deck's own art. */
+const FACES = [
+  "/cards-portal/02_the_high_priestess.webp",
+  "/cards-portal/17_the_star.webp",
+  "/cards-portal/19_the_sun.webp",
+];
+
+/* flip cycle timing (ms) */
+const CYCLE_FIRST = 2200; // after the deal settles
+const CYCLE_GAP = 6200; // between reveals
+const FLIP_UP = 700;
+const FLIP_HOLD = 2500;
+const FLIP_DOWN = 700;
 
 function CardBackPlate() {
   const flecks = Array.from({ length: 30 }, (_, i) => {
@@ -92,6 +109,9 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
     const stage = stageRef.current;
     if (!stage) return;
     const cards = Array.from(stage.querySelectorAll<HTMLElement>(".st-card"));
+    const flips = Array.from(stage.querySelectorAll<HTMLElement>(".st-flip"));
+    const backs = Array.from(stage.querySelectorAll<HTMLElement>(".st-back"));
+    const faces = Array.from(stage.querySelectorAll<HTMLElement>(".st-face"));
     const glares = Array.from(stage.querySelectorAll<HTMLElement>(".st-glare"));
     const labels = Array.from(stage.querySelectorAll<HTMLElement>(".st-label"));
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -99,16 +119,19 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
 
     router.prefetch(href);
 
-    // per-card current + velocity-free lerp state
-    const cur = cards.map(() => ({ x: 0, y: 0, z: 0, rx: 0, ry: 0, rz: 0, s: 1 }));
+    // per-card current + velocity-free lerp state (f = flip angle)
+    const cur = cards.map(() => ({ x: 0, y: 0, z: 0, rx: 0, ry: 0, rz: 0, s: 1, f: 0 }));
     let px = 0.5;
     let py = 0.5;
     let inside = false;
     let diveAt = 0;
     let raf = 0;
-    // the waking shuffle: cards sleep as one stack until the plate
-    // scrolls into view, then fan open once — a single slow beat
+    // the deal: cards sleep as one stack until the plate scrolls into
+    // view, then deal open one at a time — a single slow beat
     let wakeAt = reduce ? -1 : 0; // -1 = already awake (no entrance)
+    // the daydream: which card is being turned, and since when
+    let cycleIdx = 0;
+    let cycleAt = 0; // 0 = not scheduled yet
     const wakeIO = new IntersectionObserver(
       (es) => {
         if (es.some((e) => e.isIntersecting) && wakeAt === 0) {
@@ -148,16 +171,32 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
     const loop = (now: number) => {
       raf = requestAnimationFrame(loop);
       const t = now / 1000;
+      const hoverAwake = finePointer && inside;
       const awake = finePointer ? (inside ? 1 : 0) : 1;
       const diving = diveAt > 0;
-      // entrance factor: 0 = still asleep in one stack, 1 = settled pile
-      const wakeRaw = wakeAt < 0 ? 1 : wakeAt === 0 ? 0 : Math.min(1, (now - wakeAt) / 1500);
-      const wk = 1 - Math.pow(1 - wakeRaw, 3);
-      const flourish = Math.sin(wakeRaw * Math.PI); // the one over-fan beat
+      // shared entrance clock; each card takes its own slice of it
+      const wakeBase = wakeAt < 0 ? 1e9 : wakeAt === 0 ? -1 : now - wakeAt;
+
+      /* ── the daydream scheduler (time-driven, no timers) ────────
+         Runs only when settled, un-hovered, un-dived. Hovering or
+         diving cancels the current turn — the target flip returns to
+         0 and the schedule waits for calm. */
+      const dealDone = wakeAt < 0 || (wakeAt > 0 && wakeBase > 1500 + 2 * 160);
+      if (!reduce && dealDone && !hoverAwake && !diving) {
+        if (cycleAt === 0) cycleAt = now + (wakeAt < 0 ? CYCLE_GAP : CYCLE_FIRST);
+        const cycleT = now - cycleAt;
+        if (cycleT > FLIP_UP + FLIP_HOLD + FLIP_DOWN + 400) {
+          cycleIdx = (cycleIdx + 1) % 3;
+          cycleAt = now + CYCLE_GAP;
+        }
+      } else if (hoverAwake || diving) {
+        cycleAt = 0; // reschedule after calm
+      }
 
       for (let i = 0; i < cards.length; i++) {
         const k = i - 1; // -1, 0, 1
         let tx: number, ty: number, tz: number, trx: number, trot: number, tryy: number, ts: number;
+        let tf = 0; // target flip angle
 
         if (diving) {
           // gather + lift toward the eye; the wipe catches them mid-rise
@@ -174,12 +213,11 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
           // the fan — following the hand on a mouse, held open on touch
           const sharedRy = finePointer ? (px - 0.5) * 17 : 0;
           const sharedRx = finePointer ? -(py - 0.5) * 12 : 0;
-          // which card the pointer leans toward
           const zone = px < 0.4 ? 0 : px > 0.6 ? 2 : 1;
           const near = finePointer ? zone === i : i === 1;
-          tx = k * 104;
-          ty = Math.abs(k) * 9 - 5 + (near ? -7 : 0);
-          tz = near ? 52 : 14;
+          tx = k * 126;
+          ty = Math.abs(k) * 10 - 6 + (near ? -8 : 0);
+          tz = near ? 56 : 14;
           trot = k * 13;
           trx = sharedRx;
           tryy = sharedRy;
@@ -187,26 +225,57 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
         } else {
           // the sleeping pile breathes
           const breath = reduce ? 0 : Math.sin(t * 0.55 + i * 2.1);
-          tx = k * 15;
-          ty = Math.abs(k) * 7 + breath * 2.4;
+          tx = k * 18;
+          ty = Math.abs(k) * 8 + breath * 2.4;
           tz = i === 1 ? 8 : 0;
-          trot = k * 6.5 + breath * 1.1;
+          trot = k * 7 + breath * 1.1;
           trx = reduce ? 0 : Math.sin(t * 0.4 + i * 1.4) * 1.6;
           tryy = reduce ? 0 : Math.cos(t * 0.5 + i * 1.9) * 2.2;
           ts = 1;
         }
 
-        // the waking shuffle: until the entrance completes, blend the
-        // resting target back toward a single sleeping stack and add
-        // one over-fan beat on the way out
-        if (!diving && wakeRaw < 1) {
-          tx = tx * wk + k * 26 * flourish;
-          ty = ty * wk + (1 - wk) * 16 - flourish * 6;
+        /* the daydream turn: the table draws the plate to centre,
+           shows its face above the pile, and lays it back */
+        let lift = 0;
+        if (!reduce && !diving && !hoverAwake && cycleAt > 0 && i === cycleIdx) {
+          const ct = now - cycleAt;
+          if (ct > 0) {
+            if (ct < FLIP_UP) {
+              const q = ct / FLIP_UP;
+              tf = 180 * (1 - Math.pow(1 - q, 3));
+              lift = Math.sin(q * Math.PI * 0.5);
+            } else if (ct < FLIP_UP + FLIP_HOLD) {
+              tf = 180;
+              lift = 1;
+            } else if (ct < FLIP_UP + FLIP_HOLD + FLIP_DOWN) {
+              const q = (ct - FLIP_UP - FLIP_HOLD) / FLIP_DOWN;
+              tf = 180 * (1 - (1 - Math.pow(1 - q, 3)));
+              lift = 1 - q;
+            }
+            tx *= 1 - lift * 0.9; // drawn to centre stage
+            ty -= 26 * lift;
+            tz += 110 * lift;
+            trot *= 1 - lift * 0.85;
+            ts += 0.07 * lift;
+          }
+        }
+        // the turning plate paints above its brothers for the whole turn
+        const slotEl = cards[i].parentElement as HTMLElement | null;
+        if (slotEl) slotEl.style.zIndex = lift > 0.02 ? "6" : "";
+
+        // the deal: each card leaves the sleeping stack on its own beat
+        const wr = wakeAt < 0 ? 1 : wakeBase < 0 ? 0 : Math.min(1, Math.max(0, (wakeBase - i * 160) / 1200));
+        if (!diving && wr < 1) {
+          const wk = 1 - Math.pow(1 - wr, 3);
+          const flourish = Math.sin(wr * Math.PI);
+          tx = tx * wk + k * 30 * flourish;
+          ty = ty * wk + (1 - wk) * 18 - flourish * 7;
           tz = tz * wk;
-          trot = trot * wk + k * 8 * flourish;
+          trot = trot * wk + k * 9 * flourish;
           trx *= wk;
           tryy *= wk;
           ts = 1 + (ts - 1) * wk;
+          tf = 0;
         }
 
         const c = cur[i];
@@ -218,15 +287,22 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
         c.ry += (tryy - c.ry) * g;
         c.rz += (trot - c.rz) * g;
         c.s += (ts - c.s) * g;
+        c.f += (tf - c.f) * (reduce ? 1 : 0.16);
 
         cards[i].style.transform =
           `translate3d(${c.x.toFixed(2)}px, ${c.y.toFixed(2)}px, ${c.z.toFixed(2)}px) ` +
           `rotateX(${c.rx.toFixed(2)}deg) rotateY(${c.ry.toFixed(2)}deg) rotateZ(${c.rz.toFixed(2)}deg) ` +
           `scale(${c.s.toFixed(3)})`;
+        const fl = flips[i];
+        if (fl) fl.style.transform = `rotateY(${c.f.toFixed(2)}deg)`;
+        // Chrome's backface culling is unreliable this deep in a 3D
+        // chain — swap the sides by hand at the hinge's halfway point.
+        const showFace = c.f >= 90;
+        if (backs[i]) backs[i].style.visibility = showFace ? "hidden" : "visible";
+        if (faces[i]) faces[i].style.visibility = showFace ? "visible" : "hidden";
 
-        // glare: counter-moving moonlight, only while awake
-        // Glare: the gradient is painted once in CSS; only its position
-        // moves, so the moonlight is a composite, never a re-raster.
+        // glare: counter-moving moonlight, only while the hand is near.
+        // The gradient is painted once in CSS; only its position moves.
         const gl = glares[i];
         if (gl) {
           const gx = (0.5 - px) * 46;
@@ -279,9 +355,19 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
       {[0, 1, 2].map((i) => (
         <div key={i} className={`st-slot st-slot-${i}`}>
           <div className="st-card">
-            <CardBackPlate />
-            <div className="st-glare" aria-hidden />
-            <div className="st-glint" aria-hidden style={{ animationDelay: `${2 + i * 2.4}s` }} />
+            <div className="st-flip">
+              <div className="st-side st-back">
+                <CardBackPlate />
+              </div>
+              <div className="st-side st-face">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={FACES[i]} alt="" loading="lazy" draggable={false} />
+              </div>
+            </div>
+            <div className="st-fx" aria-hidden>
+              <div className="st-glare" />
+              <div className="st-glint" style={{ animationDelay: `${2 + i * 2.4}s` }} />
+            </div>
           </div>
           <span className="st-label">{LABELS[i]}</span>
         </div>
@@ -291,10 +377,10 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
         .st-stage {
           position: relative;
           width: 100%;
-          max-width: 28rem;
-          height: 23.5rem;
+          max-width: 34rem;
+          height: 28rem;
           margin: 0 auto;
-          perspective: 950px;
+          perspective: 1050px;
           cursor: pointer;
           outline-offset: 8px;
           touch-action: manipulation;
@@ -317,14 +403,53 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
         .st-card {
           position: absolute;
           inset: 0;
-          border-radius: 6px;
-          overflow: hidden;
+          border-radius: 7px;
           transform-style: preserve-3d;
           will-change: transform;
           box-shadow:
-            0 18px 34px rgba(10, 13, 56, 0.55),
-            0 4px 10px rgba(10, 13, 56, 0.4);
+            0 22px 42px rgba(10, 13, 56, 0.55),
+            0 5px 12px rgba(10, 13, 56, 0.4);
+        }
+
+        /* the turning leaf: back and true face on one hinge */
+        .st-flip {
+          position: absolute;
+          inset: 0;
+          transform-style: preserve-3d;
+          will-change: transform;
+        }
+
+        .st-side {
+          position: absolute;
+          inset: 0;
+          border-radius: 7px;
+          overflow: hidden;
           border: 1px solid rgba(232, 233, 255, 0.16);
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          background: #0a0d38;
+        }
+
+        .st-face {
+          transform: rotateY(180deg);
+        }
+
+        .st-face img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        /* moonlight lives in its own clipped pane, floating over both
+           sides of the hinge */
+        .st-fx {
+          position: absolute;
+          inset: 0;
+          border-radius: 7px;
+          overflow: hidden;
+          pointer-events: none;
+          transform: translateZ(2px);
         }
 
         .st-glare {
@@ -364,9 +489,8 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
           100% { transform: translateX(120%); }
         }
 
-        .st-slot-0 :global(.st-label),
-        .st-slot-0 .st-label { margin-left: -104px; }
-        .st-slot-2 .st-label { margin-left: 104px; }
+        .st-slot-0 .st-label { margin-left: -126px; }
+        .st-slot-2 .st-label { margin-left: 126px; }
 
         .st-label {
           position: absolute;
@@ -405,6 +529,17 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
         @media (hover: none), (pointer: coarse) {
           .st-invite {
             display: block;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .st-stage {
+            height: 24rem;
+            perspective: 900px;
+          }
+          .st-slot {
+            transform: scale(0.82);
+            transform-origin: 50% 46%;
           }
         }
 

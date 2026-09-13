@@ -4662,7 +4662,7 @@ export default function Home() {
         {/* ── The plates ──────────────────────────────────────── */}
         <section className="plates" id="plates" tabIndex={-1} aria-label={copy.platesLabel}>
           {copy.plates.slice(0, 2).map((plate, i) => (
-            <article key={plate.numeral} className={`plate ${i % 2 ? "flip" : ""}`} data-set>
+            <article key={plate.numeral} className={`plate ${i % 2 ? "flip" : ""}${i === 0 ? " plate-oracle" : ""}`} data-set>
               <figure className="plate-figure" aria-hidden={i === 0 ? undefined : true} data-drift style={{ "--drift": i % 2 ? "-14px" : "14px", "--rock": i % 2 ? "-0.7deg" : "0.7deg" } as React.CSSProperties}>
                 {i === 0 ? (
                   <SpreadTheater href={plate.href} label={`${plate.title} — ${plate.cta}`} />
@@ -5971,6 +5971,11 @@ export default function Home() {
         .plate {
           display: grid;
           grid-template-columns: minmax(15rem, 0.8fr) minmax(0, 1fr);
+        }
+
+        /* Plate I carries the living table — give it the wider column */
+        .plate-oracle {
+          grid-template-columns: minmax(20rem, 1.05fr) minmax(0, 1fr);
           gap: clamp(2rem, 6vw, 5.5rem);
           align-items: center;
           padding: clamp(2.2rem, 5vw, 4rem) 0;
