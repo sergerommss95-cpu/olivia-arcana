@@ -6485,6 +6485,30 @@ export default function Home() {
             letter-spacing: 0.34em;
           }
 
+          /* Compress the masthead stack — on a phone the opening scene
+             deserves the fold, not the chrome. */
+          .masthead {
+            padding-top: 0.5rem;
+          }
+          .masthead-row {
+            padding: 0.45rem 0;
+          }
+          .masthead-title {
+            font-size: 0.56rem;
+            margin: 0.15rem 0 0.3rem;
+          }
+          .counsel {
+            min-height: 0;
+            padding: 0.45rem 1rem 0.1rem;
+          }
+          .counsel-line {
+            font-size: 0.92rem;
+            line-height: 1.4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
           .tariff-row {
             flex-wrap: wrap;
             row-gap: 0.15rem;

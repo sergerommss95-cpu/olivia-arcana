@@ -520,9 +520,34 @@ export default function TheArrival(p: Props) {
       <section className="tide-seq" aria-labelledby="hero-headline">
         <div className="tide-stage" data-paused={paused ? "1" : "0"}>
           <div className="tide-world" aria-hidden>
-            <img className="tide-poster" src="/arrival/scene.webp" alt="" fetchPriority="high" decoding="async" />
-            <img className="tide-src" id="tide-plate" src="/arrival/plate.webp" alt="" />
-            <img className="tide-src" id="tide-sanctuary" src="/arrival/sanctuary.webp" alt="" />
+            {/* Phones pull the 828w plates (~70K each) instead of the
+                1672w originals — the shader samples in normalized UV,
+                so the smaller textures change nothing but the bill. */}
+            <img
+              className="tide-poster"
+              src="/arrival/scene.webp"
+              srcSet="/arrival/scene-828.webp 828w, /arrival/scene.webp 1672w"
+              sizes="(max-width: 767px) 50vw, 100vw"
+              alt=""
+              fetchPriority="high"
+              decoding="async"
+            />
+            <img
+              className="tide-src"
+              id="tide-plate"
+              src="/arrival/plate.webp"
+              srcSet="/arrival/plate-828.webp 828w, /arrival/plate.webp 1672w"
+              sizes="(max-width: 767px) 50vw, 100vw"
+              alt=""
+            />
+            <img
+              className="tide-src"
+              id="tide-sanctuary"
+              src="/arrival/sanctuary.webp"
+              srcSet="/arrival/sanctuary-828.webp 828w, /arrival/sanctuary.webp 1672w"
+              sizes="(max-width: 767px) 50vw, 100vw"
+              alt=""
+            />
             <img className="tide-src" id="tide-olivia" src="/arrival/olivia-hd.webp" alt="" />
             <canvas className="tide-canvas" />
           </div>
@@ -727,11 +752,22 @@ export default function TheArrival(p: Props) {
           border-bottom: 1px solid rgba(232, 233, 255, 0.5); padding-bottom: 2px; transition: border-color 0.3s; }
         .tide-r-actions :global(.tide-daily:hover) { border-color: #e8e9ff; }
         @media (max-width: 900px) {
-          .tide-intro { width: 100%; padding-right: 24px; top: 100px; }
-          .tide-title { font-size: clamp(48px, 13vw, 84px); }
+          .tide-intro { width: calc(100% - 48px); padding-right: 0; top: 96px; }
+          .tide-title { font-size: clamp(44px, 12vw, 84px); }
           .tide-controls { grid-template-columns: auto 1fr auto; gap: 14px; padding: 16px 24px 14px; }
           .tide-hint { display: none; }
           .tide-reading { grid-template-columns: 1fr; gap: 34px; padding: 80px 24px 70px; }
+        }
+        @media (max-width: 640px) {
+          /* The phone's stage keeps one quiet row: skip · progress · pause.
+             Chapter names return on wider decks. */
+          .tide-chapters { display: none; }
+          .tide-skip { white-space: nowrap; font-size: 9.5px; }
+          .tide-pause { font-size: 0; gap: 0; }
+          .tide-pause .tide-pause-i { font-size: 9px; }
+          .tide-track { margin: 12px 0 6px; }
+          .tide-sub { font-size: 15px; }
+          .tide-watermark { font-size: 34vh; }
         }
         @media (prefers-reduced-motion: reduce) {
           .tide-canvas { display: none; }

@@ -296,6 +296,10 @@ const BTN_CSS = `
   border-bottom-color:rgba(232,233,255,.16);outline:none}
 @media (hover: none), (pointer: coarse){
   .oa-atlas-btn .oa-atlas-key{display:none}
+}
+@media (max-width: 640px){
+  .oa-atlas-btn{right:14px;bottom:calc(96px + env(safe-area-inset-bottom,0px));
+    font-size:9px;letter-spacing:.14em}
 }`;
 
 function isTyping(target: EventTarget | null): boolean {
