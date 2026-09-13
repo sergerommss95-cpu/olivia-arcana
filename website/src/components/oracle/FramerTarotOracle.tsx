@@ -200,8 +200,8 @@ type MachineState = "focusing" | "drawing" | "preparing" | "spread" | "result";
 
 const RITUAL_PHASES = (t: (key: keyof Translations) => string | string[]) => [
   { id: "focusing", label: t("oracle_ritual_focus") },
-  { id: "drawing", label: t("oracle_ritual_calibrating") },
-  { id: "preparing", label: t("oracle_ritual_drawing") },
+  { id: "drawing", label: t("oracle_ritual_drawing") },
+  { id: "preparing", label: t("oracle_ritual_calibrating") },
   { id: "result", label: t("oracle_ritual_interpreting") }
 ];
 
@@ -1189,11 +1189,10 @@ const GodModeCard = React.memo(function GodModeCard({
     return Math.sign(dist) * (1 / (Math.abs(dist) + 0.5)) * 8;
   });
 
-  const dockScale = useTransform(hoveredIndexMV, (h) => {
-    if (isSelected || machineState !== "drawing") return 1; 
-    if (h === index) return 1.12;
-    return 1;
-  });
+  // ONE owner for scale, forever: a spring MotionValue in style. Handing
+  // scale back and forth between framer's animate prop and a MotionValue
+  // left plates frozen at their initial scale(0) on real devices.
+  const springScale = useSpring(0, { stiffness: 120, damping: 20, mass: 1.0 });
 
   const dockZIndex = useTransform(hoveredIndexMV, (h) => {
     if (isSelected) return 100 + selectionIndex;
@@ -1306,12 +1305,16 @@ const GodModeCard = React.memo(function GodModeCard({
       staticZ.set(targetZ);
       staticRotZ.set(targetRotateZ);
     }
-  }, [targetX, targetY, targetZ, targetRotateZ, isSelected, machineState, springX, springY, springZ, springRotZ, staticX, staticY, staticZ, staticRotZ]);
+    springScale.set(targetScale);
+  }, [targetX, targetY, targetZ, targetRotateZ, targetScale, isSelected, machineState, springX, springY, springZ, springRotZ, springScale, staticX, staticY, staticZ, staticRotZ]);
 
   const finalX = useTransform([isSelected ? springX : staticX, dockOffsetX], ([l, d]) => Number(l) + Number(d));
   const finalY = useTransform([isSelected ? springY : staticY, dockOffsetY, breathing, driftY], ([l, d, b, dr]) => Number(l) + Number(d) + Number(b) + Number(dr));
   const finalZ = useTransform([isSelected ? springZ : staticZ, dockOffsetZ], ([l, d]) => Number(l) + Number(d));
   const finalRotateZ = useTransform([isSelected ? springRotZ : staticRotZ, dockRotateZ], ([l, d]) => Number(l) + Number(d));
+  const finalScale = useTransform([springScale, hoveredIndexMV], ([s, h]) =>
+    !isSelected && machineState === "drawing" && Number(h) === index ? Number(s) * 1.12 : Number(s)
+  );
 
   // ── MAGNETIC PHYSICS (Non-rendering) ──
   const localX = useMotionValue(cardWidth / 2);
@@ -1430,15 +1433,14 @@ const GodModeCard = React.memo(function GodModeCard({
         rotateZ: isSelected || machineState === "preparing" ? finalRotateZ : targetRotateZ,
         rotateX: finalRotateX,
         rotateY: finalRotateY,
-        ...(!isSelected && machineState === "drawing" ? { scale: dockScale } : {}),
+        scale: finalScale,
         transformStyle: isMobile ? "flat" : "preserve-3d",
         WebkitTransformStyle: isMobile ? "flat" : "preserve-3d",
         willChange: isSelected || machineState === "drawing" ? "transform" : "auto",
         }}
-      initial={{ opacity: 0, scale: 0 }}
+      initial={{ opacity: 0 }}
       animate={{
         opacity: targetOpacity,
-        scale: isSelected || machineState !== "drawing" ? targetScale : undefined,
         x: isSelected || machineState === "preparing" ? undefined : targetX,
         y: isSelected || machineState === "preparing" ? undefined : targetY,
         z: isSelected || machineState === "preparing" ? undefined : targetZ,

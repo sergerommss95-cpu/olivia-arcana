@@ -4565,6 +4565,36 @@ export default function Home() {
                 {item.label}
               </TransitionLink>
             ))}
+            {/* Every further room of the edition, one quiet drawer. */}
+            <details className="mast-more">
+              <summary>{locale === "uk" ? "Ще" : "More"} ✦</summary>
+              <div className="mast-menu">
+                {(locale === "uk"
+                  ? [
+                      ["Сумісність", "/synastry"],
+                      ["Знаки", "/signs"],
+                      ["Космос", "/cosmos"],
+                      ["Транзити", "/transits"],
+                      ["Журнал", "/journal"],
+                      ["Питання", "/ask"],
+                      ["Про нас", "/about"],
+                    ]
+                  : [
+                      ["Synastry", "/synastry"],
+                      ["Signs", "/signs"],
+                      ["Cosmos", "/cosmos"],
+                      ["Transits", "/transits"],
+                      ["Journal", "/journal"],
+                      ["Ask", "/ask"],
+                      ["About", "/about"],
+                    ]
+                ).map(([label, href]) => (
+                  <TransitionLink key={href} href={href} className="mast-menu-link">
+                    {label}
+                  </TransitionLink>
+                ))}
+              </div>
+            </details>
             <TransitionLink href="/oracle" className="masthead-cta">
               {copy.navCta}
             </TransitionLink>
@@ -4607,28 +4637,31 @@ export default function Home() {
           captionSub={locale === "uk" ? "Між відомим і можливим" : "Between the known & the possible"}
         />
 
-        <DayPanorama
-          today={today}
-          caption={
-            today
-              ? `${
-                  parseInt(today.clock, 10) >= 21 || parseInt(today.clock, 10) < 6
-                    ? locale === "uk"
-                      ? "Мал. 0 — ніч, як вона стоїть"
-                      : "Fig. 0 — the night, drawn as it stands"
-                    : copy.panCaption
-                } · ${today.clock}`
-              : copy.panCaption
-          }
-        />
 
-        {/* ── COELUM VIVUM — after the night as drawn, the night as it
-            IS: the real Moon and wanderers, computed in the visitor's
-            own browser, for their own sky, at this minute. ─────────── */}
-        <TonightPlate />
 
-        {/* ── The Inscription — the almanac's single question ──── */}
-        <section id="inscription" className="inscribe relative" data-set aria-label={locale === "uk" ? "Вписати себе до альманаху" : "Inscribe yourself in the almanac"}>
+        {/* ── The plates ──────────────────────────────────────── */}
+        <section className="plates" aria-label={copy.platesLabel}>
+          {copy.plates.slice(0, 2).map((plate, i) => (
+            <article key={plate.numeral} className={`plate ${i % 2 ? "flip" : ""}`} data-set>
+              <figure className="plate-figure" aria-hidden={i === 0 ? undefined : true} data-drift style={{ "--drift": i % 2 ? "-14px" : "14px", "--rock": i % 2 ? "-0.7deg" : "0.7deg" } as React.CSSProperties}>
+                {i === 0 ? (
+                  <SpreadTheater href={plate.href} label={`${plate.title} — ${plate.cta}`} />
+                ) : i === 1 ? (
+                  <WheelDiagram className="plate-svg" today={today} />
+                ) : (
+                  <SynastryDiagram className="plate-svg" />
+                )}
+                <figcaption className="fig-caption">{plate.caption}</figcaption>
+              </figure>
+              <div className="plate-copy">
+                <p className="plate-numeral">
+                  {copy.platesLabel} · {plate.numeral}
+                </p>
+                <h2>{plate.title}</h2>
+                <p className="plate-body">{plate.body}</p>
+                {i === 1 ? (
+                  <div className="plate-inscribe" id="inscription">
+
           <StarMotes density="rich" />
           {birthI ? (
             <div className="ins-done">
@@ -4742,35 +4775,13 @@ export default function Home() {
               <p className="ins-priv">{locale === "uk" ? "зберігається у цьому браузері · нікуди не надсилається" : "kept in this browser · never sent anywhere"}</p>
             </form>
           )}
-        </section>
-
-        <div className="rule-star" aria-hidden>
-          <span>✦</span>
-        </div>
-
-        {/* ── The plates ──────────────────────────────────────── */}
-        <section className="plates" aria-label={copy.platesLabel}>
-          {copy.plates.map((plate, i) => (
-            <article key={plate.numeral} className={`plate ${i % 2 ? "flip" : ""}`} data-set>
-              <figure className="plate-figure" aria-hidden={i === 0 ? undefined : true} data-drift style={{ "--drift": i % 2 ? "-14px" : "14px", "--rock": i % 2 ? "-0.7deg" : "0.7deg" } as React.CSSProperties}>
-                {i === 0 ? (
-                  <SpreadTheater href={plate.href} label={`${plate.title} — ${plate.cta}`} />
-                ) : i === 1 ? (
-                  <WheelDiagram className="plate-svg" today={today} />
+        
+                  </div>
                 ) : (
-                  <SynastryDiagram className="plate-svg" />
+                  <TransitionLink href={plate.href} className="link-ox">
+                    {plate.cta} →
+                  </TransitionLink>
                 )}
-                <figcaption className="fig-caption">{plate.caption}</figcaption>
-              </figure>
-              <div className="plate-copy">
-                <p className="plate-numeral">
-                  {copy.platesLabel} · {plate.numeral}
-                </p>
-                <h2>{plate.title}</h2>
-                <p className="plate-body">{plate.body}</p>
-                <TransitionLink href={plate.href} className="link-ox">
-                  {plate.cta} →
-                </TransitionLink>
               </div>
             </article>
           ))}
@@ -4780,107 +4791,6 @@ export default function Home() {
           <span>✦</span>
         </div>
 
-        {/* ── The specimen letter ─────────────────────────────── */}
-        <section className="specimen" aria-labelledby="specimen-title">
-          <div className="specimen-copy" data-set>
-            <p className="kicker">{copy.letterLabel}</p>
-            <h2 id="specimen-title">{copy.letterTitle}</h2>
-            <TransitionLink href="/sample" className="link-ox">
-              {copy.letterCta} →
-            </TransitionLink>
-            <p className="standing">
-              {locale === "uk"
-                ? "Оформіть постійну передплату на власне небо — альманах щодня веде вашу сторінку, на ваше ім'я, навіть коли ви його не відкриваєте."
-                : "Take out a standing subscription to your own sky — the almanac keeps your page daily, in your name, whether you open it or not."}{" "}
-              <TransitionLink href="/pricing" className="link-ox">
-                {locale === "uk" ? "Тариф" : "The tariff"} →
-              </TransitionLink>
-            </p>
-          </div>
-          <div className="specimen-stage" data-set>
-            <div className="scrap" data-drift style={{ "--drift": "18px", "--rock": "0.9deg" } as React.CSSProperties}>
-              <span className="doc-label">{copy.letterGenericLabel}</span>
-              <p>{copy.letterGeneric}</p>
-            </div>
-            <div className="letter" data-drift style={{ "--drift": "-14px", "--rock": "-0.6deg" } as React.CSSProperties}>
-              <span className="doc-label ox-label">{copy.letterPersonalLabel}</span>
-              <p>{copy.letterPersonal}</p>
-              <span className="letter-sig">{copy.letterSigned}</span>
-              {today && (
-                <span className="letter-dated">
-                  {locale === "uk"
-                    ? `набрано ${today.dateLine} · ${today.moonPhaseName}`
-                    : `set in type ${today.dateLine} · ${today.moonPhaseName} moon`}
-                </span>
-              )}
-              <span className="wax" aria-hidden>
-                ✦
-              </span>
-            </div>
-          </div>
-        </section>
-
-        <div className="rule-star" aria-hidden>
-          <span>✦</span>
-        </div>
-
-        {/* ── The tariff ──────────────────────────────────────── */}
-        <section className="tariff" aria-labelledby="tariff-title">
-          <div className="tariff-head" data-set>
-            <p className="kicker">{copy.tariffLabel}</p>
-            <h2 id="tariff-title">{copy.tariffTitle}</h2>
-            <p className="tariff-body">{copy.tariffBody}</p>
-          </div>
-          <div className="tariff-table" role="table" data-set>
-            {copy.tariffRows.map(([name, what, price]) => (
-              <div key={name} className="tariff-row" role="row">
-                <span className="tariff-name" role="cell">
-                  {name}
-                </span>
-                <span className="tariff-what" role="cell">
-                  {what}
-                </span>
-                <span className="tariff-leader" aria-hidden />
-                <span className="tariff-price" role="cell">
-                  {price}
-                </span>
-              </div>
-            ))}
-          </div>
-          <div className="tariff-foot">
-            <TransitionLink href="/pricing" className="btn-ink small">
-              {copy.tariffCta}
-            </TransitionLink>
-            <p className="tariff-small">{copy.tariffSmall}</p>
-          </div>
-        </section>
-
-        <div className="rule-star" aria-hidden>
-          <span>✦</span>
-        </div>
-
-        {/* ── Questions ───────────────────────────────────────── */}
-        <section className="questions" aria-labelledby="faq-title" id="faq">
-          <p className="kicker" data-set>
-            {copy.faqLabel}
-          </p>
-          <h2 id="faq-title" data-set>
-            {t("faq_title")}
-          </h2>
-          <div className="q-list" data-set>
-            {FAQ_ROWS.map((row, i) => (
-              <details key={i} className="q-row">
-                <summary>
-                  <span className="q-q">{row.q}</span>
-                  <span className="q-mark" aria-hidden>
-                    +
-                  </span>
-                </summary>
-                <p className="q-a">{row.a}</p>
-              </details>
-            ))}
-          </div>
-        </section>
       </main>
 
       {/* ── Colophon ──────────────────────────────────────────── */}
@@ -5131,6 +5041,9 @@ export default function Home() {
         /* ── Masthead ────────────────────────────────────────── */
         .masthead {
           padding: 1.1rem clamp(1.1rem, 4vw, 3rem) 0;
+          /* the drawer must open OVER the hero that follows in the flow */
+          position: relative;
+          z-index: 130;
         }
 
         .masthead-rule {
@@ -6474,6 +6387,89 @@ export default function Home() {
           .colophon-links {
             justify-content: center;
           }
+        }
+
+        /* ── The drawer of further rooms ──────────────────────── */
+        .mast-more {
+          position: relative;
+        }
+        .mast-more summary {
+          list-style: none;
+          cursor: pointer;
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.66rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: var(--ink-soft, rgba(232, 233, 255, 0.78));
+          padding: 0.45rem 0;
+          transition: color 200ms ease;
+        }
+        .mast-more summary::-webkit-details-marker {
+          display: none;
+        }
+        .mast-more summary:hover,
+        .mast-more[open] summary {
+          color: var(--ox, #e0b768);
+        }
+        .mast-menu {
+          position: absolute;
+          right: 0;
+          top: calc(100% + 8px);
+          z-index: 120;
+          min-width: 11rem;
+          display: grid;
+          padding: 0.5rem 0;
+          background: rgba(16, 19, 77, 0.97);
+          border: 1px solid var(--hairline);
+          outline: 1px solid rgba(232, 233, 255, 0.07);
+          outline-offset: 4px;
+        }
+        .mast-menu :global(.mast-menu-link) {
+          padding: 0.55rem 1.1rem;
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.64rem;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: var(--ink-soft, rgba(232, 233, 255, 0.78));
+          text-decoration: none;
+          transition: color 180ms ease, background 180ms ease;
+        }
+        .mast-menu :global(.mast-menu-link:hover) {
+          color: var(--ox, #e0b768);
+          background: rgba(232, 233, 255, 0.04);
+        }
+
+        .plate-inscribe {
+          margin-top: 0.6rem;
+          position: relative;
+          text-align: left;
+        }
+        /* Inside the plate the inscription speaks smaller — the plate's
+           own numeral and title already carry the ceremony. */
+        .plate-inscribe .ins-kicker {
+          display: none;
+        }
+        .plate-inscribe .ins-q {
+          font-size: 1.3rem;
+          margin-bottom: 0.9rem;
+        }
+        .plate-inscribe .ins-row {
+          justify-content: flex-start;
+          gap: 0.9rem;
+        }
+        .plate-inscribe .ins-cell {
+          font-size: 1.15rem;
+        }
+        .plate-inscribe .ins-done {
+          display: grid;
+          justify-items: start;
+          gap: 0.5rem;
+        }
+        .plate-inscribe .ins-glyph {
+          font-size: 1.8rem;
+        }
+        .plate-inscribe .ins-charts {
+          justify-content: flex-start;
         }
 
         @media (max-width: 640px) {
