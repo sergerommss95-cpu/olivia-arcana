@@ -100,7 +100,13 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
             </TransitionLink>
           </nav>
         </div>
-        <p className="alm-mast-title">{chrome.mastTitle}</p>
+        {/* INK RISE — the mast title rises once through its line mask
+            on page-open (.oa-line/.oa-line-in from globals.css). */}
+        <p className="alm-mast-title">
+          <span className="oa-line">
+            <span className="oa-line-in">{chrome.mastTitle}</span>
+          </span>
+        </p>
         <div className="alm-rule oxford" aria-hidden />
       </header>
 
@@ -572,27 +578,27 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           text-transform: uppercase;
         }
 
-        /* ── page-load reveal: every room opens the same way ─────
-           The masthead rules draw out from the centre, the wordmark
-           row inks in, and the tracked title letters settle. Hidden
-           states are declared ONLY under no-preference, so reduced
-           motion renders everything instantly and honestly. */
+        /* ── page-open: every room opens on the Ephemeris clock ───
+           HAIRLINE DRAW: the masthead rules draw origin-left on the
+           wipe curve. INK RISE: the mast title rises once through its
+           line mask on the engrave curve. Hidden states are declared
+           ONLY under no-preference, so reduced motion renders
+           everything instantly and honestly. */
         @media (prefers-reduced-motion: no-preference) {
           .alm-masthead .alm-rule {
             transform: scaleX(0);
-            transform-origin: 50% 50%;
-            animation: alm-rule-draw 700ms var(--ease) 60ms forwards;
+            transform-origin: left center;
+            animation: alm-rule-draw 800ms var(--ease-wipe, cubic-bezier(0.645, 0.045, 0.355, 1)) 60ms forwards;
           }
           .alm-masthead .alm-rule.oxford {
-            animation-delay: 180ms;
+            animation-delay: 200ms;
           }
           .alm-mast-row {
             opacity: 0;
             animation: alm-ink-in 520ms var(--ease) 140ms forwards;
           }
-          .alm-mast-title {
-            opacity: 0;
-            animation: alm-track-in 640ms var(--ease) 240ms forwards;
+          .alm-mast-title .oa-line-in {
+            animation: oa-ink-rise var(--dur-reveal, 0.9s) var(--ease-engrave, cubic-bezier(0.625, 0.05, 0, 1)) 240ms both;
           }
         }
         @keyframes alm-rule-draw {
@@ -610,14 +616,12 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
             transform: none;
           }
         }
-        @keyframes alm-track-in {
+        @keyframes oa-ink-rise {
           from {
-            opacity: 0;
-            letter-spacing: 0.62em;
+            transform: translateY(110%);
           }
           to {
-            opacity: 1;
-            letter-spacing: 0.5em;
+            transform: translateY(0);
           }
         }
 

@@ -23,6 +23,7 @@ import CardInspector from "./CardInspector";
 import ReadingScroll from "./ReadingScroll";
 import { SPREADS, type Spread, type SpreadPosition } from "@/lib/spreads";
 import SpreadChooser from "./SpreadChooser";
+import RiffleRibbon from "./RiffleRibbon";
 import { type Translations } from "@/lib/i18n/translations";
 import { useLocale } from "@/lib/i18n/useLocale";
 
@@ -372,10 +373,6 @@ export default function FramerTarotOracle() {
   const device = useDeviceTier();
   const isMobile = device === "mobile";
   
-  // Use a deterministic subset of cards to prevent hydration mismatches.
-  // Luxury Dealer Spread: 7 (mobile), 9 (tablet), 11 (desktop)
-  const basePool = device === "mobile" ? 7 : device === "tablet" ? 9 : 11;
-
   // Ghost Deck Pool: 10 (mobile), 12 (tablet), 15 (desktop)
   const ghostSize = device === "mobile" ? 10 : device === "tablet" ? 12 : 15;
   const ghostIndices = useMemo(() => Array.from({ length: ghostSize }, (_, i) => i), [ghostSize]);
@@ -384,7 +381,9 @@ export default function FramerTarotOracle() {
   const [inspecting, setInspecting] = useState<number | null>(null);
   const [spread, setSpread] = useState<Spread>(SPREADS[0]);
   const [isMuted, setIsMuted] = useState(true);
-  const poolSize = Math.max(basePool, spread.count + 2);
+  // THE RIFFLE holds the WHOLE shuffle — every one of the 78 stands in
+  // the ribbon; the hand chooses from all of them, not a dealt subset.
+  const poolSize = 78;
   // A real shuffle of the full 78 — dealt fresh each sitting. The seed
   // rides in the share URL so a restored reading deals the same cards.
   const [deckSeed, setDeckSeed] = useState<number>(() => Math.floor(Math.random() * 1e9));
@@ -416,6 +415,16 @@ export default function FramerTarotOracle() {
     };
     return Array.from({ length: poolSize }, () => rng() < 1 / 3);
   }, [deckSeed, poolSize]);
+
+  // The pull direction sets orientation: toward the reader = upright,
+  // push-away = reversed. A manual choice OVERRIDES the seeded flag for
+  // that card everywhere the flag is read; absent, the seed decides.
+  const [manualFlips, setManualFlips] = useState<Record<number, boolean>>({});
+  const manualFlipsRef = useRef<Record<number, boolean>>({});
+  const isReversed = useCallback(
+    (i: number) => manualFlips[i] ?? reversedFlags[i] ?? false,
+    [manualFlips, reversedFlags]
+  );
   const remainingCards = spread.count - selectedCards.length;
 
   /* ── THE FORMATION RIG ─────────────────────────────────────────
@@ -514,23 +523,33 @@ export default function FramerTarotOracle() {
     if (drawParam) {
       // Guard against shared/stale URLs pointing past the dealt pool —
       // an out-of-range index used to hard-crash the whole reading.
-      // Validate against the RESTORED spread's pool, not the default
-      // three-card pool of the very first render (a 12-card year-ahead
-      // link would otherwise silently drop index 11 and never restore).
+      // The ribbon deals the WHOLE shuffle now, so any index < 78 is a
+      // real card (old subset links used small indices — still valid).
       const want = restored?.count ?? 3;
-      const restoredPool = Math.max(basePool, want + 2);
       const indices = drawParam
         .split(",")
         .map(Number)
-        .filter(n => Number.isInteger(n) && n >= 0 && n < restoredPool);
+        .filter(n => Number.isInteger(n) && n >= 0 && n < 78);
       if (indices.length === want) {
+        // &o=0,1,… carries the hand's own orientations, in selection
+        // order. Absent (old links), the seeded flags stand unchanged.
+        const oParam = searchParams.get("o");
+        if (oParam) {
+          const bits = oParam.split(",");
+          if (bits.length === want && bits.every((b) => b === "0" || b === "1")) {
+            const flips: Record<number, boolean> = {};
+            indices.forEach((id, k) => { flips[id] = bits[k] === "1"; });
+            manualFlipsRef.current = flips;
+            setManualFlips(flips);
+          }
+        }
         requestAnimationFrame(() => {
           setSelectedCards(indices);
-          setState("result"); 
+          setState("result");
         });
       }
     }
-  }, [searchParams, basePool]);
+  }, [searchParams]);
 
   const updateUrl = useCallback((cards: number[]) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -538,13 +557,20 @@ export default function FramerTarotOracle() {
       params.set("draw", cards.join(","));
       params.set("spread", spread.id);
       params.set("seed", String(deckSeed));
+      // orientations ride along so a restored link reproduces the
+      // hand's own upright/reversed choices, in selection order
+      params.set(
+        "o",
+        cards.map((id) => ((manualFlipsRef.current[id] ?? reversedFlags[id]) ? "1" : "0")).join(",")
+      );
     } else {
       params.delete("draw");
       params.delete("spread");
       params.delete("seed");
+      params.delete("o");
     }
     router.replace(`?${params.toString()}`, { scroll: false });
-  }, [router, searchParams, spread.id, deckSeed]);
+  }, [router, searchParams, spread.id, deckSeed, reversedFlags]);
 
   const handleCardClick = useCallback((id: number) => {
     if (state !== "drawing" || isTransitioning.current) return;
@@ -576,11 +602,22 @@ export default function FramerTarotOracle() {
     });
   }, [state, updateUrl, spread.count]);
 
+  // The riffle's hand-off: the ribbon has already flown the card to the
+  // shelf — record the pull's orientation, then run the house contract.
+  const handleRibbonDraw = useCallback((id: number, reversed: boolean) => {
+    manualFlipsRef.current = { ...manualFlipsRef.current, [id]: reversed };
+    setManualFlips(manualFlipsRef.current);
+    audio.playSelect();
+    handleCardClick(id);
+  }, [handleCardClick]);
+
   const reset = useCallback(() => {
     if (prepTimer.current) { clearTimeout(prepTimer.current); prepTimer.current = null; }
     isTransitioning.current = false;
     setState("focusing");
     setSelectedCards([]);
+    manualFlipsRef.current = {};
+    setManualFlips({});
     setDeckSeed(Math.floor(Math.random() * 1e9)); // fresh shuffle each sitting
     updateUrl([]);
     hoveredIndexMV.set(-1);
@@ -849,9 +886,11 @@ export default function FramerTarotOracle() {
               />
             ))}
 
-            {/* 2. HERO CARDS (Selectable) */}
-            {oracleData.map((card, i) => (
-              <GodModeCard 
+            {/* 2. HERO CARDS — only the chosen ones live here now; the
+                face-down deck is THE RIFFLE's ribbon (78 DOM nodes,
+                transforms written imperatively in one rAF). */}
+            {oracleData.map((card, i) => selectedCards.includes(i) && (
+              <GodModeCard
                 key={card.name}
                 card={card}
                 index={i}
@@ -868,7 +907,7 @@ export default function FramerTarotOracle() {
                 breathing={breathing}
                 selectedCount={selectedCards.length}
                 canSelect={selectedCards.length < spread.count}
-                reversed={reversedFlags[i] ?? false}
+                reversed={isReversed(i)}
                 onClick={() => handleCardClick(i)}
                 onInspect={() => setInspecting(selectedCards.indexOf(i))}
               />
@@ -876,11 +915,23 @@ export default function FramerTarotOracle() {
           </div>
         </div>
 
+        {/* ── THE RIFFLE — the physical draw ── */}
+        <RiffleRibbon
+          count={oracleData.length}
+          selected={selectedCards}
+          machineState={state}
+          device={device}
+          reducedMotion={!!prefersReduced}
+          canDraw={state === "drawing" && selectedCards.length < spread.count && !isTransitioning.current}
+          uk={isUk}
+          onDraw={handleRibbonDraw}
+        />
+
         <CardInspector
           cards={selectedCards.map((id, i) => ({
             card: oracleData[id],
             label: spreadLabels[i] ?? resultLabels[i],
-            reversed: state === "result" && reversedFlags[id],
+            reversed: state === "result" && isReversed(id),
           }))}
           index={inspecting}
           onClose={() => setInspecting(null)}
@@ -929,7 +980,7 @@ export default function FramerTarotOracle() {
                         <span>{spreadLabels[idx] ?? resultLabels[idx]}</span>
                         <h3>
                           {(isUk && card && ukCard(card.name)?.name) || card?.name}
-                          {reversedFlags[id] && (
+                          {isReversed(id) && (
                             <em className="result-turned"> · {isUk ? "перевернута" : "turned"}</em>
                           )}
                         </h3>
@@ -941,7 +992,7 @@ export default function FramerTarotOracle() {
 
                 <ReadingScroll
                   spread={spread}
-                  draws={selectedCards.map((id) => ({ card: oracleData[id], reversed: reversedFlags[id] }))}
+                  draws={selectedCards.map((id) => ({ card: oracleData[id], reversed: isReversed(id) }))}
                   onInspect={(i) => setInspecting(i)}
                 />
 

@@ -51,6 +51,56 @@
   
   --ease-ritual: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-breathe: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ─── EPHEMERIS MOTION SYSTEM — one clock, two curves ───
+     "engrave" for reveals, "wipe" for hairlines and wipes. */
+  --ease-engrave: cubic-bezier(0.625, 0.05, 0, 1);
+  --ease-wipe: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --dur-micro: 0.3s;
+  --dur-element: 0.6s;
+  --dur-reveal: 0.9s;
+  --dur-plate: 1.15s;
+  --dur-turn: 1s;
+
+  /* SKY DRIFT — Lenis velocity, clamped -1..1, lerped back to 0.
+     Written by ClientShell; consumed by transform-only CSS. */
+  --scroll-vel: 0;
+}
+
+/* ── INK RISE machinery: line-level masks (built by splitLines()).
+   Outer .oa-line clips; inner .oa-line-in rises 110% → 0 on the
+   engrave curve, staggered .08s per line via --li. An ancestor
+   .is-set (scroll reveal) or .is-open (page open) releases it. */
+.oa-line {
+  display: block;
+  overflow: hidden;
+}
+
+.oa-line-in {
+  display: block;
+  transform: translateY(110%);
+  transition: transform var(--dur-reveal) var(--ease-engrave);
+  transition-delay: calc(var(--li, 0) * 0.08s);
+  will-change: transform;
+}
+
+.is-set .oa-line-in,
+.is-open .oa-line-in,
+.oa-line-in.is-open {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oa-line-in {
+    transform: none !important;
+    transition: opacity var(--dur-micro) ease !important;
+  }
+}
+
+@media print {
+  .oa-line-in {
+    transform: none !important;
+  }
 }
 
 /* The night is painted, not assumed: an opaque ground under every page,
@@ -388,3 +438,4 @@ h1, h2, .wordmark {
     animation-range: contain 0% contain 100%;
   }
 }
+

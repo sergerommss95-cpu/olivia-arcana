@@ -20,6 +20,7 @@ import { computeNatalChart, type NatalChart, type BirthInput } from "@/lib/natal
 import { saveUser, loadChart } from "@/lib/user-store";
 import { getPlanetInSign, PLANET_MEANING, HOUSE_MEANING } from "@/lib/planet-interpretations";
 import BirthDataForm, { type BirthFormValue } from "@/components/birth/BirthDataForm";
+import FlattenedSky from "./FlattenedSky";
 import Paywall from "@/components/Paywall";
 import { utcOffsetHours } from "@/lib/cities";
 
@@ -106,7 +107,9 @@ export default function ChartPage() {
   const [chart, setChart] = useState<NatalChart | null>(null);
   const [phase, setPhase] = useState<"form" | "computing" | "error">("form");
   const [selected, setSelected] = useState<number | null>(null);
-  const [view, setView] = useState<"wheel" | "table">("wheel");
+  const [view, setView] = useState<"sky" | "wheel" | "table">("sky");
+  // How the sky view is entered: cold, or raised back up from the plate.
+  const [skyEntry, setSkyEntry] = useState<"sky" | "raise">("sky");
 
   // Staged reveal: true for the first beats after a chart arrives.
   const [intro, setIntro] = useState(false);
@@ -159,7 +162,8 @@ export default function ChartPage() {
         const computed = computeNatalChart(input);
         saveUser(input, computed);
         setSelected(null);
-        setView("wheel");
+        setView("sky");
+        setSkyEntry("sky");
         beginIntro();
         setChart(computed);
         setPhase("form");
@@ -260,15 +264,18 @@ export default function ChartPage() {
               {/* View toggle + reset */}
               <div className={stCls} style={dly(2.15)}>
                 <div className="ch-toggle">
-                  {(["wheel", "table"] as const).map((v) => (
+                  {(["sky", "wheel", "table"] as const).map((v) => (
                     <button
                       type="button"
                       key={v}
-                      onClick={() => setView(v)}
+                      onClick={() => {
+                        if (v === "sky") setSkyEntry("sky");
+                        setView(v);
+                      }}
                       aria-pressed={view === v}
                       className={`ch-tab ${view === v ? "on" : ""}`}
                     >
-                      {v === "wheel" ? "Chart Wheel" : "Table View"}
+                      {v === "sky" ? "The Sky That Night" : v === "wheel" ? "The Wheel" : "Table View"}
                     </button>
                   ))}
                   <button
@@ -282,9 +289,33 @@ export default function ChartPage() {
               </div>
 
               <div className="ch-grid">
+                {/* ── THE SKY THAT NIGHT — the wheel revealed as the birth sky ── */}
+                {view === "sky" && (
+                  <FlattenedSky
+                    chart={chart}
+                    selected={selected}
+                    onSelect={setSelected}
+                    entry={skyEntry}
+                    onFoldedToPlate={() => {
+                      setSkyEntry("sky");
+                      setView("wheel");
+                    }}
+                  />
+                )}
+
                 {/* ── WHEEL VIEW — a plate engraving that draws itself in ── */}
                 {view === "wheel" && (
                   <figure className="ch-wheel alm-card">
+                    <button
+                      type="button"
+                      className="ch-raise"
+                      onClick={() => {
+                        setSkyEntry("raise");
+                        setView("sky");
+                      }}
+                    >
+                      ✦ RAISE THE SKY
+                    </button>
                     <svg viewBox="0 0 500 500" className="ch-svg" role="img" aria-label="Natal chart wheel">
                       {/* Outer frame — first strokes of the engraving */}
                       <circle className={intro ? "cwe" : ""} pathLength={1} cx={250} cy={250} r={244} fill="none" stroke="currentColor" strokeWidth="1" />
@@ -903,6 +934,26 @@ export default function ChartPage() {
         .ch-fig {
           display: block;
           margin-top: 0.9rem;
+        }
+
+        /* ── Raise the sky — the wheel remembers what it was ── */
+        .ch-raise {
+          display: inline-block;
+          margin-bottom: 0.8rem;
+          background: none;
+          border: 1px solid var(--hairline);
+          padding: 0.34rem 0.8rem;
+          cursor: pointer;
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.54rem;
+          letter-spacing: 0.18em;
+          color: var(--ink-soft);
+          transition: color 250ms var(--ease), border-color 250ms var(--ease);
+        }
+
+        .ch-raise:hover {
+          color: var(--ox);
+          border-color: rgba(224, 183, 104, 0.45);
         }
 
         /* ── Table ──────────────────────────────────────────── */
