@@ -240,7 +240,6 @@ const quint = (t: number) => 1 - Math.pow(1 - clamp(t), 5);
 
 export default function TheArrival(p: Props) {
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const [immersive, setImmersive] = useState(false);
   const [paused, setPaused] = useState(false);
   const [still, setStill] = useState(false);
 
@@ -272,9 +271,9 @@ export default function TheArrival(p: Props) {
     const isPaused = () => stage.dataset.paused === "1";
 
     function measure() {
-      const enabled = ready && !reduced.matches && root.dataset.immersive === "true";
+      const enabled = ready && !reduced.matches;
       seq.classList.toggle("enhanced", enabled);
-      range = enabled ? innerHeight * (innerWidth <= 700 ? 0.9 : 1.6) : 0;
+      range = enabled ? innerHeight * (innerWidth <= 700 ? 2.5 : 3.2) : 0;
       seq.style.height = enabled ? stage.offsetHeight + range + "px" : "auto";
       if (!enabled) { target = pv = reduced.matches ? 0 : pv; }
       resize(); onScroll();
@@ -283,6 +282,8 @@ export default function TheArrival(p: Props) {
       if (!ready || debug) return;
       const r = seq.getBoundingClientRect();
       target = range ? clamp(-r.top / range) : 0;
+      // Returning to the opening must restore its links even if water motion is paused.
+      if (isPaused() && target === 0) { pv = 0; paint(); }
       start();
     }
     const visible = () => inView && !document.hidden;
@@ -367,7 +368,8 @@ export default function TheArrival(p: Props) {
       if (auto) {
         const tt = clamp((now - auto.start) / auto.duration);
         const value = auto.from + (auto.to - auto.from) * tt;
-        scrollTo(0, seq.offsetTop + value * range);
+        const origin = seq.getBoundingClientRect().top + window.scrollY;
+        scrollTo(0, origin + value * range);
         target = value;
         if (tt >= 1) { auto = null; landing()?.focus?.({ preventScroll: true }); }
       }
@@ -377,7 +379,7 @@ export default function TheArrival(p: Props) {
     }
     function goReading() {
       auto = null;
-      pv = target = reduced.matches || root.dataset.immersive !== "true" ? 0 : 1;
+      pv = target = reduced.matches || !ready ? 0 : 1;
       paint();
       landing()?.scrollIntoView({ behavior: "instant" as ScrollBehavior });
       landing()?.focus?.({ preventScroll: true });
@@ -419,11 +421,9 @@ export default function TheArrival(p: Props) {
     const begin = root.querySelector<HTMLButtonElement>(".tide-journey");
     const onBegin = () => {
       if (reduced.matches || !ready) { goReading(); return; }
-      root.dataset.immersive = "true";
-      setImmersive(true);
       setPaused(false);
       measure();
-      auto = { from: pv, to: 0.98, start: performance.now(), duration: 6500 * (0.98 - pv) };
+      auto = { from: pv, to: 0.98, start: performance.now(), duration: 12500 * Math.max(0, 0.98 - pv) };
       start();
     };
     begin?.addEventListener("click", onBegin); D.push(() => begin?.removeEventListener("click", onBegin));
@@ -433,7 +433,12 @@ export default function TheArrival(p: Props) {
 
     const anchors = [0, 0.42, 0.7];
     chapters.forEach((el, i) => {
-      const fn = () => { auto = { from: pv, to: anchors[i], start: performance.now(), duration: 900 }; start(); };
+      const fn = () => {
+        if (reduced.matches || !ready) return;
+        setPaused(false);
+        auto = { from: pv, to: anchors[i], start: performance.now(), duration: 900 };
+        start();
+      };
       el.addEventListener("click", fn); D.push(() => el.removeEventListener("click", fn));
     });
 
@@ -454,7 +459,11 @@ export default function TheArrival(p: Props) {
     addEventListener("resize", measure); D.push(() => removeEventListener("resize", measure));
     const io = new IntersectionObserver(es => { inView = es[0].isIntersecting; last = 0; start(); }, { threshold: 0 });
     io.observe(stage); D.push(() => io.disconnect());
-    const vis = () => { last = 0; start(); };
+    const vis = () => {
+      last = 0;
+      if (document.hidden) { auto = null; cancelAnimationFrame(raf); raf = 0; }
+      else start();
+    };
     document.addEventListener("visibilitychange", vis); D.push(() => document.removeEventListener("visibilitychange", vis));
     const onRM = () => { cancelAnimationFrame(raf); raf = 0; auto = null; measure(); paint(); start(); };
     reduced.addEventListener("change", onRM); D.push(() => reduced.removeEventListener("change", onRM));
@@ -464,7 +473,11 @@ export default function TheArrival(p: Props) {
     D.push(() => { canvas.removeEventListener("webglcontextlost", onLost); canvas.removeEventListener("webglcontextrestored", initialize); });
 
     // pause bridge from React state
-    const mo = new MutationObserver(() => { if (!isPaused()) { last = 0; start(); } });
+    const mo = new MutationObserver(() => {
+      last = 0;
+      if (isPaused()) { auto = null; cancelAnimationFrame(raf); raf = 0; }
+      else start();
+    });
     mo.observe(stage, { attributes: true, attributeFilter: ["data-paused"] });
     D.push(() => mo.disconnect());
 
@@ -487,7 +500,7 @@ export default function TheArrival(p: Props) {
   }, [p.locale]);
 
   return (
-    <div ref={rootRef} data-immersive={immersive}>
+    <div ref={rootRef}>
       <section className="tide-seq" aria-labelledby="hero-headline">
         <div className="tide-stage" data-paused={paused ? "1" : "0"}>
           <div className="tide-world" aria-hidden>
@@ -554,7 +567,7 @@ export default function TheArrival(p: Props) {
           </div>
 
           <div className="tide-controls">
-            <button type="button" className="tide-skip">{immersive ? t.skip : p.locale === "uk" ? "До альманаху" : "Explore the almanac"} ↗</button>
+            <button type="button" className="tide-skip">{t.skip} ↗</button>
             <div className="tide-rail" aria-label={p.locale === "uk" ? "Розділи вступу" : "Opening chapters"}>
               <div className="tide-chapters">
                 <button type="button" className="tide-chapter">{t.ch1}</button>
@@ -575,11 +588,10 @@ export default function TheArrival(p: Props) {
       <style jsx>{`
         .tide-journey { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; padding: 0; background: none; border: 0; color: #d3d6ec; font-size: 12px; cursor: pointer; gap: 18px; }
         .tide-journey:hover { color: #e0b768; }
-        [data-immersive="false"] .tide-chapters, [data-immersive="false"] .tide-track, [data-immersive="false"] .tide-hint { visibility: hidden; }
         .tide-intro :global(a:focus-visible), .tide-intro button:focus-visible, .tide-controls button:focus-visible { outline: 2px solid #e0b768; outline-offset: 5px; }
         .tide-seq { position: relative; background: var(--lg-night, #10134d); }
         .tide-stage { position: relative; height: auto; min-height: max(560px, calc(100svh - 130px)); overflow: hidden; isolation: isolate; background: #131b76; }
-        :global(.tide-seq.enhanced) .tide-stage { position: sticky; top: 0; }
+        :global(.tide-seq.enhanced) .tide-stage { position: sticky; top: 0; min-height: 100svh; }
         .tide-world, .tide-shade { position: absolute; inset: 0; }
         .tide-poster, .tide-canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
         .tide-canvas { opacity: 0; transition: opacity 0.7s var(--lg-ease); }

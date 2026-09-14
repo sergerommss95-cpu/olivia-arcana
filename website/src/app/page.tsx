@@ -4249,7 +4249,7 @@ export default function Home() {
   const heroLines = locale === "en" ? ["Your stars,", "translated clearly."]
     : locale === "uk" ? ["Ваші зірки —", "людською мовою."] : [heroTitle];
 
-  // Paint the useful first screen immediately; the Arrival is opt-in.
+  // Paint the useful first screen immediately; scrolling carries the Arrival.
   const [stage] = useState<"idle" | "hold" | "bloom" | "done">("done");
 
   // Schedule at most one update for each scroll/resize burst. No idle layout polling.
