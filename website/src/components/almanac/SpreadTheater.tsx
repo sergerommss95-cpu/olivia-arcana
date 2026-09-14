@@ -102,7 +102,7 @@ function CardBackPlate() {
 const LABELS = ["Past", "Now", "Next"];
 
 export default function SpreadTheater({ href = "/oracle", label = "Begin a reading" }: { href?: string; label?: string }) {
-  const stageRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLAnchorElement>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -114,7 +114,8 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
     const faces = Array.from(stage.querySelectorAll<HTMLElement>(".st-face"));
     const glares = Array.from(stage.querySelectorAll<HTMLElement>(".st-glare"));
     const labels = Array.from(stage.querySelectorAll<HTMLElement>(".st-label"));
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let reduce = motionQuery.matches;
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
     router.prefetch(href);
@@ -126,22 +127,29 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
     let inside = false;
     let diveAt = 0;
     let raf = 0;
+    let visible = false;
+    let diveTimer = 0;
+    const start = () => { if (!raf && visible && !document.hidden) raf = requestAnimationFrame(loop); };
     // the deal: cards sleep as one stack until the plate scrolls into
     // view, then deal open one at a time — a single slow beat
     let wakeAt = reduce ? -1 : 0; // -1 = already awake (no entrance)
     // the daydream: which card is being turned, and since when
     let cycleIdx = 0;
     let cycleAt = 0; // 0 = not scheduled yet
-    const wakeIO = new IntersectionObserver(
-      (es) => {
-        if (es.some((e) => e.isIntersecting) && wakeAt === 0) {
-          wakeAt = performance.now();
-          wakeIO.disconnect();
-        }
-      },
-      { threshold: 0.45 },
-    );
-    if (!reduce) wakeIO.observe(stage);
+    const wakeIO = new IntersectionObserver((entries) => {
+      visible = entries.some(entry => entry.isIntersecting);
+      if (visible && wakeAt === 0) wakeAt = performance.now();
+      if (visible) start();
+      else { cancelAnimationFrame(raf); raf = 0; }
+    }, { threshold: 0 });
+    wakeIO.observe(stage);
+    const onVisibility = () => {
+      if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
+      else start();
+    };
+    const onMotionChange = () => { reduce = motionQuery.matches; if (reduce) wakeAt = -1; start(); };
+    document.addEventListener("visibilitychange", onVisibility);
+    motionQuery.addEventListener("change", onMotionChange);
 
     const onMove = (e: PointerEvent) => {
       const r = stage.getBoundingClientRect();
@@ -155,21 +163,27 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
       if (diveAt) return;
       diveAt = performance.now();
       stage.classList.add("is-diving");
-      const delay = reduce ? 40 : 430;
-      window.setTimeout(() => {
+      const delay = reduce ? 0 : 220;
+      diveTimer = window.setTimeout(() => {
         window.dispatchEvent(new CustomEvent("page:transition", { detail: { href } }));
       }, delay);
     };
-    const onClick = () => dive();
+    const onClick = (event: MouseEvent) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+      event.preventDefault();
+      dive();
+    };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Enter" || e.key === " ") {
+      if (e.key === " ") {
         e.preventDefault();
         dive();
       }
     };
 
     const loop = (now: number) => {
-      raf = requestAnimationFrame(loop);
+      raf = 0;
+      if (!visible || document.hidden) return;
+      if (!reduce) raf = requestAnimationFrame(loop);
       const t = now / 1000;
       const hoverAwake = finePointer && inside;
       const awake = finePointer ? (inside ? 1 : 0) : 1;
@@ -279,7 +293,7 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
         }
 
         const c = cur[i];
-        const g = reduce || diving ? 0.24 : LERP;
+        const g = reduce ? 1 : diving ? 0.24 : LERP;
         c.x += (tx - c.x) * g;
         c.y += (ty - c.y) * g;
         c.z += (tz - c.z) * g;
@@ -330,10 +344,12 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
     stage.addEventListener("pointerleave", onLeave);
     stage.addEventListener("click", onClick);
     stage.addEventListener("keydown", onKey);
-    raf = requestAnimationFrame(loop);
     return () => {
       cancelAnimationFrame(raf);
       wakeIO.disconnect();
+      window.clearTimeout(diveTimer);
+      document.removeEventListener("visibilitychange", onVisibility);
+      motionQuery.removeEventListener("change", onMotionChange);
       window.removeEventListener("page:transition-abort", onAbort);
       stage.removeEventListener("pointermove", onMove);
       stage.removeEventListener("pointerenter", onEnter);
@@ -344,11 +360,10 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
   }, [href, router]);
 
   return (
-    <div
+    <a
+      href={href}
       ref={stageRef}
       className="st-stage"
-      role="link"
-      tabIndex={0}
       aria-label={label}
     >
       <span className="st-invite" aria-hidden>{label.includes("—") ? label.split("—")[1].trim() : label} &rarr;</span>
@@ -375,6 +390,7 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
 
       <style jsx>{`
         .st-stage {
+          display: block; text-decoration: none; color: inherit;
           position: relative;
           width: 100%;
           max-width: 34rem;
@@ -534,6 +550,7 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
 
         @media (max-width: 640px) {
           .st-stage {
+          display: block; text-decoration: none; color: inherit;
             height: 24rem;
             perspective: 900px;
           }
@@ -558,6 +575,6 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
           }
         }
       `}</style>
-    </div>
+    </a>
   );
 }

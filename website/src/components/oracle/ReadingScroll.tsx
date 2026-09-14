@@ -13,7 +13,7 @@
  */
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import PlanGate from "@/components/almanac/PlanGate";
 import { readSpread, type Spread } from "@/lib/spreads";
 import type { TarotCard } from "@/lib/academy/tarot-cards";
@@ -31,6 +31,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export default function ReadingScroll({ spread, draws, onInspect }: Props) {
   const { locale } = useLocale();
   const uk = locale === "uk";
+  const reduced = useReducedMotion();
   if (!draws.length) return null;
   const reading = readSpread(spread, draws);
   const counselUk = uk ? ukCard(reading.counselFrom)?.advice : null;
@@ -54,8 +55,8 @@ export default function ReadingScroll({ spread, draws, onInspect }: Props) {
             return (
             <motion.li
               key={c.card.name + i}
-              className="rs-entry glass-thin"
-              initial={{ opacity: 0, y: 16 }}
+              className="rs-entry"
+              initial={reduced ? false : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "0px 0px -12% 0px" }}
               transition={{ duration: 0.55, ease: EASE, delay: Math.min(i, 5) * 0.06 }}
@@ -85,8 +86,8 @@ export default function ReadingScroll({ spread, draws, onInspect }: Props) {
         </ol>
 
         <motion.div
-          className="rs-synth glass"
-          initial={{ opacity: 0, y: 18 }}
+          className="rs-synth"
+          initial={reduced ? false : { opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "0px 0px -10% 0px" }}
           transition={{ duration: 0.6, ease: EASE }}
@@ -106,6 +107,8 @@ export default function ReadingScroll({ spread, draws, onInspect }: Props) {
              that runs the full width of a 64rem panel cannot be read;
              this holds the column at a page's width and lets the glass
              be the room around it. */
+          .rs-entry { border-bottom: 1px solid rgba(183, 188, 233, .22); border-radius: 0 !important; }
+          .rs-synth { border-top: 1px solid #a08d61; border-radius: 0 !important; background: rgba(183,188,233,.035); }
           .rs {
             width: min(46rem, 100%);
             margin: 2.6rem auto 0;

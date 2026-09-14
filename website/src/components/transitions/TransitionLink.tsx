@@ -44,7 +44,7 @@ export default function TransitionLink({
 
   const handleMouseEnter = useCallback(() => {
     // Only prefetch if it's an internal link
-    const isExternal = href.startsWith("http") || href.startsWith("//");
+    const isExternal = !href.startsWith("/") && !href.startsWith("#") || href.startsWith("//");
     const isAnchor = href.startsWith("#");
     if (!isExternal && !isAnchor) {
       router.prefetch(href);
@@ -54,7 +54,7 @@ export default function TransitionLink({
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>) => {
       // Don't intercept external links, modifier clicks, or same-page anchors
-      const isExternal = href.startsWith("http") || href.startsWith("//");
+      const isExternal = !href.startsWith("/") && !href.startsWith("#") || href.startsWith("//");
       const isModified = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
       const isAnchor = href.startsWith("#");
       // trailingSlash: true in next.config — '/oracle' vs '/oracle/' must
@@ -62,14 +62,13 @@ export default function TransitionLink({
       const norm = (u: string) => (u.length > 1 ? u.replace(/\/+$/, "") : u);
       const isSamePage = norm(href) === norm(window.location.pathname);
 
-      if (isExternal || isModified || isAnchor || isSamePage) return;
+      if (e.defaultPrevented || e.button !== 0 || isExternal || isModified || isAnchor || isSamePage) return;
 
       e.preventDefault();
       onClick?.();
 
       // The ink dot: the press is acknowledged before anything moves.
-      setPressed(false); // restart the animation on a rapid second press
-      requestAnimationFrame(() => setPressed(true));
+      setPressed(true);
       if (pressTimer.current) window.clearTimeout(pressTimer.current);
       pressTimer.current = window.setTimeout(() => setPressed(false), 420);
 
@@ -96,6 +95,7 @@ export default function TransitionLink({
       href={href}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
+      onFocus={handleMouseEnter}
       className={className}
       style={pressed ? { position: "relative", ...style } : style}
     >

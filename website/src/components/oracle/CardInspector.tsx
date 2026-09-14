@@ -17,7 +17,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import NextImage from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import type { TarotCard } from "@/lib/academy/tarot-cards";
 import { getCardPortalImagePath } from "@/lib/academy/card-images";
 import { ukCard } from "@/lib/academy/tarot-cards-uk";
@@ -289,6 +289,9 @@ interface Props {
 }
 
 export default function CardInspector({ cards, index, onClose, onIndexChange, uk = false }: Props) {
+  const reduced = useReducedMotion();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const open = index !== null && index >= 0 && index < cards.length;
   const entry = open ? cards[index as number] : null;
 
@@ -302,7 +305,10 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
   const dragRef = useRef<{ x: number; y: number; ox: number; oy: number } | null>(null);
   const pinchRef = useRef<{ d: number; z: number } | null>(null);
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   const paint = useCallback(() => {
     const el = plateRef.current;
@@ -346,14 +352,39 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
   useEffect(() => {
     zoomRef.current = 1;
     posRef.current = { x: 0, y: 0 };
-    setZoom(1);
     paint();
+    const frame = requestAnimationFrame(() => setZoom(1));
+    return () => cancelAnimationFrame(frame);
   }, [index, paint]);
+
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const frame = requestAnimationFrame(() => closeRef.current?.focus({ preventScroll: true }));
+    const containFocus = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") return;
+      const controls = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>("button:not([disabled]), [href], [tabindex='0']") ?? []);
+      const first = controls[0], last = controls.at(-1);
+      if (!first || !last) return;
+      if (event.shiftKey && (document.activeElement === first || !dialogRef.current?.contains(document.activeElement))) {
+        event.preventDefault(); last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || !dialogRef.current?.contains(document.activeElement))) {
+        event.preventDefault(); first.focus();
+      }
+    };
+    document.addEventListener("keydown", containFocus);
+    return () => {
+      cancelAnimationFrame(frame);
+      document.removeEventListener("keydown", containFocus);
+      if (previous?.isConnected) previous.focus({ preventScroll: true });
+    };
+  }, [open]);
 
   // keyboard: escape closes, arrows walk the spread, +/- zoom
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
+      if (["Escape", "ArrowLeft", "ArrowRight", "+", "=", "-", "_", "0"].includes(e.key)) e.preventDefault();
       if (e.key === "Escape") { onClose(); return; }
       if (e.key === "ArrowRight") { onIndexChange(((index as number) + 1) % cards.length); return; }
       if (e.key === "ArrowLeft") { onIndexChange(((index as number) - 1 + cards.length) % cards.length); return; }
@@ -474,6 +505,7 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
     <AnimatePresence>
       {open && entry && (
         <motion.div
+          ref={dialogRef}
           className="ci-scrim"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -481,7 +513,7 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
           transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
           role="dialog"
           aria-modal="true"
-          aria-label={`${entry.card.name} — inspect the plate`}
+          aria-label={`${(uk && ukCard(entry.card.name)?.name) || entry.card.name}${entry.reversed ? (uk ? ", перевернута" : ", reversed") : ""} — ${uk ? "роздивитися карту" : "inspect the plate"}`}
           onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
         >
           <style dangerouslySetInnerHTML={{ __html: CSS }} />
@@ -492,10 +524,10 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
               {entry.reversed && <span className="ci-rev"> · {uk ? "перевернута" : "reversed"}</span>}
             </p>
             <div className="ci-tools">
-              <button type="button" onClick={() => setZoomAt(zoomRef.current / 1.4)} aria-label="Zoom out">−</button>
+              <button type="button" onClick={() => setZoomAt(zoomRef.current / 1.4)} aria-label={uk ? "Зменшити" : "Zoom out"}>−</button>
               <span className="ci-zoom" aria-live="polite">{Math.round(zoom * 100)}%</span>
-              <button type="button" onClick={() => setZoomAt(zoomRef.current * 1.4)} aria-label="Zoom in">+</button>
-              <button type="button" className="ci-close" onClick={onClose} aria-label="Close the plate">Close ✕</button>
+              <button type="button" onClick={() => setZoomAt(zoomRef.current * 1.4)} aria-label={uk ? "Збільшити" : "Zoom in"}>+</button>
+              <button ref={closeRef} type="button" className="ci-close" onClick={onClose} aria-label={uk ? "Закрити карту" : "Close the plate"}>{uk ? "Закрити ✕" : "Close ✕"}</button>
             </div>
           </div>
 
@@ -503,9 +535,9 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
             <motion.div
               ref={frameRef}
               className={`ci-frame ${zoom > 1 ? "is-zoomed" : ""}`}
-              initial={{ scale: 0.92, opacity: 0, y: 14 }}
+              initial={reduced ? { opacity: 0 } : { scale: 0.92, opacity: 0, y: 14 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0 }}
+              exit={reduced ? { opacity: 0 } : { scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
               onWheel={onWheel}
               onPointerDown={onPointerDown}
@@ -522,7 +554,7 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
                 className="ci-kiss"
                 aria-hidden
                 initial={{ opacity: 0 }}
-                animate={{ opacity: [0, 0.9, 0] }}
+                animate={{ opacity: reduced ? 0 : [0, 0.9, 0] }}
                 transition={{ duration: 0.7, times: [0, 0.3, 1], ease: "easeOut", delay: 0.22 }}
               />
               <div ref={plateRef} className="ci-plate">

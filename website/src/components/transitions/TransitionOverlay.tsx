@@ -48,6 +48,7 @@ export default function TransitionOverlay({ isVisible, variant = "paper" }: Prop
     <AnimatePresence>
       {isVisible && (
         <motion.div
+          aria-hidden="true"
           style={{
             position: "fixed",
             inset: 0,
@@ -59,7 +60,7 @@ export default function TransitionOverlay({ isVisible, variant = "paper" }: Prop
           animate={prefersReduced ? { opacity: 1 } : { x: "0%" }}
           exit={prefersReduced ? { opacity: 0 } : { x: "-100%" }}
           transition={{
-            duration: prefersReduced ? 0.18 : 0.55,
+            duration: prefersReduced ? 0 : 0.24,
             ease: [0.76, 0, 0.24, 1],
           }}
         >
@@ -90,7 +91,7 @@ export default function TransitionOverlay({ isVisible, variant = "paper" }: Prop
             initial={{ scaleX: 1.5 }}
             animate={{ scaleX: 1 }}
             exit={{ scaleX: 0.6 }}
-            transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
+            transition={{ duration: 0.24, ease: [0.76, 0, 0.24, 1] }}
           >
               <path d="M 100 0 Q -70 500 100 1000 Z" />
             <path d="M 100 0 Q -54 500 100 1000 Z" fill="none" stroke="rgba(10, 13, 56, 0.6)" strokeWidth="3" vectorEffect="non-scaling-stroke" />

@@ -273,7 +273,8 @@ const CSS = `
   background:none;border:none;border-bottom:1px solid transparent;
   padding:8px 2px;cursor:pointer;transition:color .2s,border-color .2s}
 .oa-atlas-close:hover,.oa-atlas-close:focus-visible{color:${MOON};
-  border-bottom-color:rgba(232,233,255,.16);outline:none}
+  border-color:rgba(232,233,255,.5)}
+.oa-atlas-btn:focus-visible{outline:2px solid #e0b768;outline-offset:4px}
 @keyframes oaFade{from{opacity:0}to{opacity:1}}
 @keyframes oaDraw{to{stroke-dashoffset:0}}
 @keyframes oaIn{from{opacity:0}to{opacity:1}}
@@ -286,19 +287,21 @@ const CSS = `
 
 const BTN_CSS = `
 .oa-atlas-btn{position:fixed;right:22px;
-  bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:90;
+  bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:90;
   font:10px ${MONO};letter-spacing:.18em;text-transform:uppercase;
-  color:${PERI};background:none;border:none;
-  border-bottom:1px solid transparent;padding:8px 2px;cursor:pointer;
+  color:${MOON};background:rgba(10,13,42,.96);border:1px solid rgba(224,183,104,.35);
+  border-radius:2px;min-height:44px;padding:10px 12px;cursor:pointer;
   transition:color .2s,border-color .2s}
 .oa-atlas-btn .oa-atlas-key{color:rgba(224,183,104,.85)}
 .oa-atlas-btn:hover,.oa-atlas-btn:focus-visible{color:${MOON};
-  border-bottom-color:rgba(232,233,255,.16);outline:none}
+  border-color:rgba(232,233,255,.5)}
+.oa-atlas-btn:focus-visible{outline:2px solid #e0b768;outline-offset:4px}
 @media (hover: none), (pointer: coarse){
   .oa-atlas-btn .oa-atlas-key{display:none}
 }
 @media (max-width: 640px){
-  .oa-atlas-btn{right:14px;bottom:calc(96px + env(safe-area-inset-bottom,0px));
+  .oa-atlas-btn .oa-atlas-key{display:none}
+  .oa-atlas-btn{right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));
     font-size:9px;letter-spacing:.14em}
 }`;
 

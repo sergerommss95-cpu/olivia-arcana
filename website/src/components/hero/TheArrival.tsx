@@ -240,7 +240,7 @@ const quint = (t: number) => 1 - Math.pow(1 - clamp(t), 5);
 
 export default function TheArrival(p: Props) {
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const [intent, setIntent] = useState(0);
+  const [immersive, setImmersive] = useState(false);
   const [paused, setPaused] = useState(false);
   const [still, setStill] = useState(false);
 
@@ -258,6 +258,7 @@ export default function TheArrival(p: Props) {
     const landing = () => (document.getElementById("plates") ?? seq.nextElementSibling) as HTMLElement | null;
     const chapters = Array.from(root.querySelectorAll<HTMLButtonElement>(".tide-chapter"));
     const fill = root.querySelector<HTMLElement>(".tide-fill")!;
+    const intro = root.querySelector<HTMLElement>(".tide-intro");
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 
     let gl: WebGLRenderingContext | null = null;
@@ -271,9 +272,9 @@ export default function TheArrival(p: Props) {
     const isPaused = () => stage.dataset.paused === "1";
 
     function measure() {
-      const enabled = ready && !reduced.matches;
+      const enabled = ready && !reduced.matches && root.dataset.immersive === "true";
       seq.classList.toggle("enhanced", enabled);
-      range = enabled ? innerHeight * (innerWidth <= 700 ? 2.5 : 3.2) : 0;
+      range = enabled ? innerHeight * (innerWidth <= 700 ? 0.9 : 1.6) : 0;
       seq.style.height = enabled ? stage.offsetHeight + range + "px" : "auto";
       if (!enabled) { target = pv = reduced.matches ? 0 : pv; }
       resize(); onScroll();
@@ -285,7 +286,7 @@ export default function TheArrival(p: Props) {
       start();
     }
     const visible = () => inView && !document.hidden;
-    function start() { if (!raf && ready && visible() && !isPaused()) raf = requestAnimationFrame(tick); }
+    function start() { if (!raf && ready && visible() && !isPaused() && !reduced.matches) raf = requestAnimationFrame(tick); }
     function compile(ty: number, src: string) {
       const s = gl!.createShader(ty)!;
       gl!.shaderSource(s, src); gl!.compileShader(s);
@@ -318,6 +319,7 @@ export default function TheArrival(p: Props) {
       const approach = quint(clamp((pv - 0.015) / 0.455));
       const fade = smooth(0.16, 0.35, pv);
       stage.style.setProperty("--intro", String(1 - fade));
+      if (intro) intro.inert = fade > 0.98;
       stage.style.setProperty("--intro-shift", String(-48 * fade));
       const threshold = smooth(0.35, 0.46, pv) * (1 - smooth(0.5, 0.59, pv));
       stage.style.setProperty("--threshold", String(threshold));
@@ -412,10 +414,14 @@ export default function TheArrival(p: Props) {
     }
 
     // controls
-    const begin = root.querySelector<HTMLButtonElement>(".tide-begin");
+    const begin = root.querySelector<HTMLButtonElement>(".tide-journey");
     const onBegin = () => {
       if (reduced.matches || !ready) { goReading(); return; }
-      auto = { from: pv, to: 0.98, start: performance.now(), duration: 12500 * (0.98 - pv) };
+      root.dataset.immersive = "true";
+      setImmersive(true);
+      setPaused(false);
+      measure();
+      auto = { from: pv, to: 0.98, start: performance.now(), duration: 6500 * (0.98 - pv) };
       start();
     };
     begin?.addEventListener("click", onBegin); D.push(() => begin?.removeEventListener("click", onBegin));
@@ -432,7 +438,7 @@ export default function TheArrival(p: Props) {
     const cancelEvents: Array<[string, (e: Event) => void]> = [];
     ["wheel", "touchstart", "pointerdown"].forEach(evt => {
       const fn = (e: Event) => {
-        if (evt === "pointerdown" && (e.target as Element)?.closest?.(".tide-begin")) return;
+        if (evt === "pointerdown" && (e.target as Element)?.closest?.(".tide-journey")) return;
         auto = null;
         if (debug) { debug = false; onScroll(); }
       };
@@ -448,7 +454,7 @@ export default function TheArrival(p: Props) {
     io.observe(stage); D.push(() => io.disconnect());
     const vis = () => { last = 0; start(); };
     document.addEventListener("visibilitychange", vis); D.push(() => document.removeEventListener("visibilitychange", vis));
-    const onRM = () => { measure(); };
+    const onRM = () => { cancelAnimationFrame(raf); raf = 0; auto = null; measure(); paint(); start(); };
     reduced.addEventListener("change", onRM); D.push(() => reduced.removeEventListener("change", onRM));
     const onLost = (e: Event) => { e.preventDefault(); ready = false; cancelAnimationFrame(raf); raf = 0; canvas.classList.remove("ready"); seq.classList.remove("enhanced"); seq.style.height = "auto"; };
     canvas.addEventListener("webglcontextlost", onLost);
@@ -480,7 +486,7 @@ export default function TheArrival(p: Props) {
   }, [p.locale]);
 
   return (
-    <div ref={rootRef}>
+    <div ref={rootRef} data-immersive={immersive}>
       <section className="tide-seq" aria-labelledby="hero-headline">
         <div className="tide-stage" data-paused={paused ? "1" : "0"}>
           <div className="tide-world" aria-hidden>
@@ -527,10 +533,11 @@ export default function TheArrival(p: Props) {
             </h1>
             <p className="tide-sub">{p.subtitle}</p>
             <div className="tide-actions">
-              <button type="button" className="tide-begin">{t.begin}<span aria-hidden> ↗</span></button>
+              <Link href={p.primaryHref} className="tide-begin">{p.primaryLabel}<span aria-hidden> ↗</span></Link>
               <Link href={p.secondaryHref} className="tide-secondary">{p.secondaryLabel}</Link>
             </div>
             <p className="tide-trust">{p.trust}</p>
+            <button type="button" className="tide-journey">{p.locale === "uk" ? "Увійти в історію" : "Watch the Arrival"}<span aria-hidden> ↘</span></button>
           </div>
 
           <div className="tide-line tide-threshold" aria-hidden>
@@ -546,8 +553,8 @@ export default function TheArrival(p: Props) {
           </div>
 
           <div className="tide-controls">
-            <button type="button" className="tide-skip">{t.skip} ↗</button>
-            <div className="tide-rail" aria-hidden>
+            <button type="button" className="tide-skip">{immersive ? t.skip : p.locale === "uk" ? "До альманаху" : "Explore the almanac"} ↗</button>
+            <div className="tide-rail" aria-label={p.locale === "uk" ? "Розділи вступу" : "Opening chapters"}>
               <div className="tide-chapters">
                 <button type="button" className="tide-chapter">{t.ch1}</button>
                 <button type="button" className="tide-chapter">{t.ch2}</button>
@@ -556,7 +563,7 @@ export default function TheArrival(p: Props) {
               <div className="tide-track"><span className="tide-fill" /></div>
               <p className="tide-hint">{t.hint}</p>
             </div>
-            <button type="button" className="tide-pause" onClick={() => { setPaused(v => !v); setStill(false); }}>
+            <button type="button" className="tide-pause" aria-pressed={paused} aria-label={paused ? t.play : t.pause} onClick={() => { setPaused(v => !v); setStill(false); }}>
               <span className="tide-pause-i" aria-hidden>{paused ? "▷" : "II"}</span>
               {still ? t.still : paused ? t.play : t.pause}
             </button>
@@ -565,8 +572,12 @@ export default function TheArrival(p: Props) {
       </section>
 
       <style jsx>{`
+        .tide-journey { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; padding: 0; background: none; border: 0; color: #d3d6ec; font-size: 12px; cursor: pointer; gap: 18px; }
+        .tide-journey:hover { color: #e0b768; }
+        [data-immersive="false"] .tide-chapters, [data-immersive="false"] .tide-track, [data-immersive="false"] .tide-hint { visibility: hidden; }
+        .tide-intro :global(a:focus-visible), .tide-intro button:focus-visible, .tide-controls button:focus-visible { outline: 2px solid #e0b768; outline-offset: 5px; }
         .tide-seq { position: relative; background: var(--lg-night, #10134d); }
-        .tide-stage { position: relative; height: 100svh; min-height: 700px; overflow: hidden; isolation: isolate; background: #131b76; }
+        .tide-stage { position: relative; height: auto; min-height: max(560px, calc(100svh - 130px)); overflow: hidden; isolation: isolate; background: #131b76; }
         :global(.tide-seq.enhanced) .tide-stage { position: sticky; top: 0; }
         .tide-world, .tide-shade { position: absolute; inset: 0; }
         .tide-poster, .tide-canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
@@ -579,29 +590,29 @@ export default function TheArrival(p: Props) {
         .tide-shade { pointer-events: none; opacity: var(--shade, 1); background:
           linear-gradient(90deg, rgba(8, 15, 71, 0.78), rgba(12, 20, 82, 0.55) 30%, rgba(14, 24, 90, 0.16) 52%, transparent 70%),
           linear-gradient(180deg, rgba(6, 12, 58, 0.6), transparent 26%); }
-        .tide-intro { position: absolute; z-index: 2; left: clamp(24px, 5.25vw, 104px); top: clamp(120px, 17vh, 190px);
-          max-width: 560px; width: 46%; opacity: var(--intro, 1);
+        .tide-intro { position: relative; z-index: 2; left: clamp(24px, 5.25vw, 104px); padding-top: clamp(38px, 6vh, 90px); padding-bottom: 100px;
+          max-width: 760px; width: 64%; opacity: var(--intro, 1);
           transform: translateY(calc(var(--intro-shift, 0) * 1px)); }
         .tide-kicker { display: flex; align-items: center; gap: 13px; margin: 0 0 26px;
           font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
           color: var(--lg-text-soft, rgba(232, 233, 255, 0.8)); }
         .tide-kicker::before { content: ""; width: 28px; height: 1px; background: #b7bce9; }
         .tide-title { margin: 0 0 26px; font-family: var(--font-heading), serif; font-weight: 400;
-          font-size: clamp(60px, 6.8vw, 118px); line-height: 0.92; letter-spacing: -0.05em; color: #e8e9ff; }
+          font-size: clamp(56px, 6.2vw, 102px); line-height: 0.92; letter-spacing: -0.05em; color: #e8e9ff; }
         .tide-title span { display: block; }
         .tide-title .em { font-style: italic; }
-        .tide-sub { max-width: 330px; margin: 0 0 30px; font-size: 15px; line-height: 1.75; color: rgba(232, 233, 255, 0.82); }
+        .tide-sub { max-width: 440px; margin: 0 0 20px; font-size: 15px; line-height: 1.75; color: rgba(232, 233, 255, 0.82); }
         .tide-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
-        .tide-begin { display: inline-flex; align-items: center; gap: 14px; min-height: 52px; padding: 0 22px;
+        .tide-actions :global(.tide-begin) { display: inline-flex; align-items: center; gap: 14px; min-height: 52px; padding: 0 22px;
           border: 0; border-radius: 2px; cursor: pointer; background: #e0b768; color: #15174c;
-          font-family: var(--font-body), sans-serif; font-size: 14px; font-weight: 500;
+          font-family: var(--font-body), sans-serif; font-size: 14px; font-weight: 500; text-decoration: none;
           transition: background 0.3s var(--lg-ease), transform 0.3s var(--lg-ease); }
-        .tide-begin:hover { background: #edca8b; transform: translateY(-2px); }
+        .tide-actions :global(.tide-begin:hover) { background: #edca8b; transform: translateY(-2px); }
         .tide-actions :global(.tide-secondary) { display: inline-flex; min-height: 48px; align-items: center;
           color: #e8e9ff; font-size: 14px; text-decoration: none; border-bottom: 1px solid rgba(232, 233, 255, 0.5);
           transition: border-color 0.3s; }
         .tide-actions :global(.tide-secondary:hover) { border-color: #e8e9ff; }
-        .tide-trust { margin: 20px 0 0; font-family: var(--font-heading), serif; font-style: italic;
+        .tide-trust { margin: 14px 0 0; font-family: var(--font-heading), serif; font-style: italic;
           font-size: 18px; color: #bdc5ef; }
         .tide-line { position: absolute; z-index: 2; left: clamp(24px, 5.25vw, 104px); top: 27%; max-width: 460px;
           opacity: 0; pointer-events: none;
@@ -623,7 +634,7 @@ export default function TheArrival(p: Props) {
           font-family: var(--font-mono), monospace; }
         .tide-skip, .tide-pause, .tide-chapter { background: none; border: 0; cursor: pointer; color: #b7bce9;
           font-family: var(--font-mono), monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
-          padding: 8px 0; transition: color 0.3s var(--lg-ease); }
+          padding: 8px 0; min-height: 44px; transition: color 0.3s var(--lg-ease); }
         .tide-skip:hover, .tide-pause:hover, .tide-chapter:hover { color: #e8e9ff; }
         .tide-pause { justify-self: end; display: inline-flex; align-items: center; gap: 10px; }
         .tide-pause-i { display: grid; place-items: center; width: 26px; height: 26px;
@@ -722,8 +733,13 @@ export default function TheArrival(p: Props) {
           border-bottom: 1px solid rgba(232, 233, 255, 0.5); padding-bottom: 2px; transition: border-color 0.3s; }
         .tide-r-actions :global(.tide-daily:hover) { border-color: #e8e9ff; }
         @media (max-width: 900px) {
-          .tide-intro { width: calc(100% - 48px); padding-right: 0; top: 96px; }
-          .tide-title { font-size: clamp(44px, 12vw, 84px); }
+          .tide-intro { width: calc(100% - 40px); left: 20px; padding-right: 0; padding-top: 32px; padding-bottom: 90px; }
+          .tide-title { font-size: clamp(44px, 11vw, 66px); max-width: 13ch; margin-bottom: 20px; }
+          .tide-stage { height: auto; min-height: max(570px, calc(100svh - 116px)); }
+          .tide-actions { gap: 16px; }
+          .tide-sub { max-width: 31ch; }
+          .tide-trust { font-size: 16px; }
+          .tide-shade { background: linear-gradient(90deg, rgba(8, 15, 48, .92), rgba(8, 15, 48, .54) 72%, rgba(8, 15, 48, .18)); }
           .tide-controls { grid-template-columns: auto 1fr auto; gap: 14px; padding: 16px 24px 14px; }
           .tide-hint { display: none; }
           .tide-reading { grid-template-columns: 1fr; gap: 34px; padding: 80px 24px 70px; }

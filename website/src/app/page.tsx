@@ -1,18 +1,6 @@
 "use client";
 
-/**
- * Home — "The Personal Almanac."
- *
- * A complete visual reboot: warm bone paper, warm-black ink, one oxblood
- * accent, plate-engraving line diagrams. Astrology and tarot presented as
- * a beautifully printed reference atlas — masthead, numbered plates, a
- * specimen letter, a tariff table, questions, colophon. No WebGL, no
- * starfields, no gold-on-void: the whole page is typography, hairlines,
- * and hand-drawn SVG.
- *
- * The site's dark chrome (nav, cosmic layers) is switched off for "/" in
- * ClientShell; this page carries its own masthead and colophon.
- */
+/** Personal Almanac — the Arrival frontispiece and two working engraved plates. */
 
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -44,7 +32,7 @@ const ALM = {
     masthead: "Personal Almanac",
     established: "Anno MMXXVI · Kyiv — Everywhere",
     nav: [
-      { label: "Academy", href: "/academy" },
+      { label: "Birth chart", href: "/chart" },
       { label: "Daily card", href: "/daily" },
       { label: "Tariff", href: "/pricing" },
     ],
@@ -64,7 +52,7 @@ const ALM = {
       {
         numeral: "I",
         title: "The Oracle",
-        body: "Bring one question. Three cards are drawn against your chart and the current sky, and read in plain language.",
+        body: "Bring a question. Choose your spread, turn each card, and follow the thread from symbol to meaning.",
         href: "/oracle",
         cta: "Begin a reading",
         caption: "Fig. 1 — the three-card spread",
@@ -125,7 +113,7 @@ const ALM = {
     masthead: "Особистий альманах",
     established: "Anno MMXXVI · Київ — усюди",
     nav: [
-      { label: "Академія", href: "/academy" },
+      { label: "Натальна карта", href: "/chart" },
       { label: "Карта дня", href: "/daily" },
       { label: "Тариф", href: "/pricing" },
     ],
@@ -145,7 +133,7 @@ const ALM = {
       {
         numeral: "I",
         title: "Оракул",
-        body: "Принесіть одне запитання. Три карти витягуються з огляду на вашу карту й поточне небо — і читаються простою мовою.",
+        body: "Принесіть запитання. Оберіть розклад, переверніть кожну карту й простежте шлях від символу до значення.",
         href: "/oracle",
         cta: "Почати читання",
         caption: "Мал. 1 — розклад із трьох карт",
@@ -4151,6 +4139,7 @@ export default function Home() {
   // The Inscription: the almanac's single question, kept in this
   // browser. Read after mount (SSR knows no reader).
   const [birth, setBirth] = useState<string | null>(null);
+  const [dateError, setDateError] = useState("");
   useEffect(() => {
     const id = requestAnimationFrame(() => setBirth(getStoredBirth()));
     return () => cancelAnimationFrame(id);
@@ -4256,13 +4245,9 @@ export default function Home() {
     // hydration — re-arm the observer so they still ink in.
   }, [today]);
 
-  const heroWords = (t("hero_title") as string).split(" ");
-  // Display stack: the last two words become their own lines — a stepped
-  // masthead in three movements, whatever the locale's word count.
-  const heroLines =
-    heroWords.length >= 3
-      ? [heroWords.slice(0, -2).join(" "), heroWords[heroWords.length - 2], heroWords[heroWords.length - 1]]
-      : [heroWords.join(" ")];
+  const heroTitle = t("hero_title") as string;
+  const heroLines = locale === "en" ? ["Your stars,", "translated clearly."]
+    : locale === "uk" ? ["Ваші зірки —", "людською мовою."] : [heroTitle];
 
   // The frontispiece entrance, in three movements: HOLD (blank paper, the
   // wordmark alone, ~1s of patience), BLOOM (the page opens from a center
@@ -4270,99 +4255,40 @@ export default function Home() {
   // display lines slide in, the small type rises through masks). Once per
   // session; reduced motion and repeat visits land on the finished page.
   const [stage, setStage] = useState<"idle" | "hold" | "bloom" | "done">("idle");
-  useLayoutEffect(() => {
-    let seen = false;
-    try {
-      seen = Boolean(sessionStorage.getItem("alm-pressed"));
-    } catch {
-      seen = true;
-    }
-    if (seen || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      // Pre-paint: land on the finished page silently.
-      setStage("done");
-      return;
-    }
-    // Pre-paint arming: the closed slit must be applied before first
-    // paint or the open page flashes.
-    setStage("hold");
-    const timers: number[] = [];
-    timers.push(window.setTimeout(() => setStage("bloom"), 450));
-    timers.push(
-      window.setTimeout(() => {
-        setStage("done");
-        try {
-          sessionStorage.setItem("alm-pressed", "1");
-        } catch {
-          /* replay next visit; harmless */
-        }
-      }, 1600),
-    );
-    return () => timers.forEach((id) => window.clearTimeout(id));
-  }, []);
+  useEffect(() => { setStage("done"); }, []);
 
-  // The page cannot be scrolled while it is still opening.
-  useEffect(() => {
-    if (stage === "hold" || stage === "bloom") {
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = "";
-      };
-    }
-    return undefined;
-  }, [stage]);
-
-  // One rig for the page's continuous life: the reading line (document
-  // progress), mouse depth (the desk tilting under the hand), and
-  // scroll-breath (figures drifting with the scroll, both directions).
+  // Schedule at most one update for each scroll/resize burst. No idle layout polling.
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const driftEls = Array.from(root.querySelectorAll<HTMLElement>("[data-drift]"));
-    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-    let raf = 0;
-    let lastRead = -1;
-    let tx = 0;
-    let ty = 0;
-    let mx = 0;
-    let my = 0;
-
-    const onMove = (e: PointerEvent) => {
-      tx = (e.clientX / window.innerWidth) * 2 - 1;
-      ty = (e.clientY / window.innerHeight) * 2 - 1;
-    };
-    if (fine) window.addEventListener("pointermove", onMove, { passive: true });
-
-    const loop = () => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      if (document.hidden) return;
       const vh = window.innerHeight;
       const max = document.documentElement.scrollHeight - vh;
-      const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
-      if (Math.abs(p - lastRead) > 0.002) {
-        lastRead = p;
-        root.style.setProperty("--read-p", p.toFixed(3));
-      }
-
-      if (fine) {
-        mx += (tx - mx) * 0.06;
-        my += (ty - my) * 0.06;
-        root.style.setProperty("--mx", mx.toFixed(3));
-        root.style.setProperty("--my", my.toFixed(3));
-      }
-
-      for (const el of driftEls) {
-        const r = el.getBoundingClientRect();
-        const dp = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
-        el.style.setProperty("--dp", dp.toFixed(3));
-      }
-
-      raf = requestAnimationFrame(loop);
+      const progress = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      const positions = reduced.matches ? [] : driftEls.map(el => {
+        const rect = el.getBoundingClientRect();
+        return Math.min(1, Math.max(0, (vh - rect.top) / (vh + rect.height)));
+      });
+      root.style.setProperty("--read-p", progress.toFixed(3));
+      positions.forEach((value, index) => driftEls[index].style.setProperty("--dp", value.toFixed(3)));
     };
-    raf = requestAnimationFrame(loop);
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    document.addEventListener("visibilitychange", schedule);
+    reduced.addEventListener("change", schedule);
+    schedule();
     return () => {
-      cancelAnimationFrame(raf);
-      if (fine) window.removeEventListener("pointermove", onMove);
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      document.removeEventListener("visibilitychange", schedule);
+      reduced.removeEventListener("change", schedule);
     };
   }, []);
 
@@ -4527,10 +4453,7 @@ export default function Home() {
   return (
     <div ref={rootRef} className={`almanac stage-${stage}`}>
       {(stage === "hold" || stage === "bloom") && <HoldMark stage={stage} />}
-      <InkCursor />
-      <MagnetRig />
-      <ShaderBackdrop />
-      <LampLight />
+      {/* The Arrival and real sky own the motion; no competing cursor or shader layers. */}
       <span className="read-line" aria-hidden />
       {/* ── Masthead ──────────────────────────────────────────── */}
       <header className="masthead">
@@ -4581,11 +4504,15 @@ export default function Home() {
               </TransitionLink>
             ))}
             {/* Every further room of the edition, one quiet drawer. */}
-            <details className="mast-more">
+            <details className="mast-more" onKeyDown={(e) => { if (e.key === "Escape") { e.currentTarget.open = false; e.currentTarget.querySelector("summary")?.focus(); } }}>
               <summary>{locale === "uk" ? "Ще" : "More"} ✦</summary>
               <div className="mast-menu">
                 {(locale === "uk"
                   ? [
+                      ["Натальна карта", "/chart"],
+                      ["Карта дня", "/daily"],
+                      ["Тариф", "/pricing"],
+                      ["Академія", "/academy"],
                       ["Сумісність", "/synastry"],
                       ["Знаки", "/signs"],
                       ["Космос", "/cosmos"],
@@ -4595,6 +4522,10 @@ export default function Home() {
                       ["Про нас", "/about"],
                     ]
                   : [
+                      ["Birth chart", "/chart"],
+                      ["Daily card", "/daily"],
+                      ["Pricing", "/pricing"],
+                      ["Academy", "/academy"],
                       ["Synastry", "/synastry"],
                       ["Signs", "/signs"],
                       ["Cosmos", "/cosmos"],
@@ -4646,8 +4577,8 @@ export default function Home() {
           trust={t("hero_trust_line") as string}
           primaryHref="/oracle"
           primaryLabel={copy.navCta}
-          secondaryHref="/daily"
-          secondaryLabel={`${copy.nav[1].label} →`}
+          secondaryHref="/chart"
+          secondaryLabel={locale === "uk" ? "Дослідити натальну карту" : "Explore your birth chart"}
           captionMain={locale === "uk" ? "I. Наближення" : "I. The arrival"}
           captionSub={locale === "uk" ? "Між відомим і можливим" : "Between the known & the possible"}
         />
@@ -4695,7 +4626,7 @@ export default function Home() {
                   : `SOL · ${SIGN_PAGES[SIGN_SLUGS[birthI.signIndex]].name.toUpperCase()} — the moon was ${birthI.moonPhaseName.toLowerCase()} on the night you were born`}
               </p>
               <div className="ins-charts">
-                <TransitionLink href="/portrait" className="btn-ink ins-portrait">
+                <TransitionLink href="/chart" className="btn-ink ins-portrait">
                   {locale === "uk" ? "Накреслити повну карту неба" : "Draw my full birth chart"} →
                 </TransitionLink>
                 <TransitionLink href={`/signs/${SIGN_SLUGS[birthI.signIndex]}/`} className="link-ox">
@@ -4735,12 +4666,19 @@ export default function Home() {
                 const m = parseInt(String(fd.get("bm") ?? ""), 10);
                 const y = parseInt(String(fd.get("by") ?? ""), 10);
                 if (!(d >= 1 && d <= 31 && m >= 1 && m <= 12 && y >= 1900 && y <= 2035)) {
+                  setDateError(locale === "uk" ? "Введіть повну дату народження." : "Enter a complete birth date.");
                   e.currentTarget.classList.remove("ins-shake");
                   void (e.currentTarget as HTMLElement).offsetWidth;
                   e.currentTarget.classList.add("ins-shake");
                   return;
                 }
                 const v = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+                const date = new Date(`${v}T12:00:00Z`);
+                if (date.getUTCFullYear() !== y || date.getUTCMonth() !== m - 1 || date.getUTCDate() !== d) {
+                  setDateError(locale === "uk" ? "Перевірте дату: такого дня немає в календарі." : "Check the date: that day is not in the calendar.");
+                  return;
+                }
+                setDateError("");
                 if (birthInfo(v, locale)) {
                   storeBirth(v);
                   setBirth(v);
@@ -4769,6 +4707,9 @@ export default function Home() {
                       <input
                         id={f.id}
                         name={f.name}
+                        aria-label={locale === "uk" ? ({ bd: "День", bm: "Місяць", by: "Рік" }[f.name]) : ({ bd: "Day", bm: "Month", by: "Year" }[f.name])}
+                        aria-invalid={Boolean(dateError)}
+                        aria-describedby={dateError ? "ins-date-error" : undefined}
                         className="ins-cell"
                         style={{ width: f.w }}
                         inputMode="numeric"
@@ -4800,6 +4741,7 @@ export default function Home() {
                   {locale === "uk" ? "Вписати" : "Inscribe"}
                 </button>
               </div>
+              {dateError && <p id="ins-date-error" role="alert" style={{ color: "#e0b768", marginTop: 12 }}>{dateError}</p>}
               <p className="ins-priv">{locale === "uk" ? "зберігається у цьому браузері · нікуди не надсилається" : "kept in this browser · never sent anywhere"}</p>
             </form>
           )}
@@ -6630,6 +6572,29 @@ export default function Home() {
             order: 3;
           }
         }
+        /* Premium edition: clear navigation, comfortable reading and one foreground act. */
+        .masthead-nav { flex-shrink: 0; gap: clamp(1rem, 2vw, 2rem); }
+        .masthead-nav :global(.masthead-link), .mast-menu :global(.mast-menu-link) {
+          display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap;
+        }
+        .mast-menu :global(.mast-menu-link) { font-family: var(--font-body); font-size: 13px; letter-spacing: .04em; }
+        .mast-more summary { display: flex; align-items: center; min-height: 44px; gap: 6px; font-size: 12px; letter-spacing: .08em; }
+        .masthead { padding-top: .6rem; }
+        .masthead-row { align-items: center; padding: .4rem 0; }
+        .counsel { min-height: 2.6rem; padding-top: .55rem; }
+        .plate-body { font-size: 1rem; line-height: 1.8; }
+        .plate-numeral, .fig-caption { color: #b8bddb; }
+        .masthead :global(a:focus-visible), .mast-more summary:focus-visible, .mast-menu :global(a:focus-visible) { outline: 2px solid #e0b768; outline-offset: 4px; }
+        @media (max-width: 1500px) { .masthead-est { display: none; } }
+        @media (max-width: 640px) {
+          .masthead-nav :global(.masthead-link) { display: none; }
+          .masthead-nav { gap: .7rem; }
+          .masthead :global(.wordmark) { font-size: 1.2rem; }
+          .masthead-nav :global(.masthead-cta) { font-size: .63rem; padding: .6rem .75rem; min-height: 44px; display: inline-flex; align-items: center; }
+          .mast-menu { right: -7rem; min-width: 16rem; max-height: min(72svh, 520px); overflow-y: auto; }
+          .plate-body { font-size: 1rem; }
+        }
+
       `}</style>
 
       <style jsx global>{`

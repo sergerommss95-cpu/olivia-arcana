@@ -3,7 +3,8 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import Image from "next/image";
 import { 
-  LazyMotion, 
+  LazyMotion,
+  MotionConfig, 
   domAnimation, 
   m, 
   useMotionValue, 
@@ -19,6 +20,7 @@ import Link from "next/link";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 import { ukCard } from "@/lib/academy/tarot-cards-uk";
 import { getCardPortalImagePath } from "@/lib/academy/card-images";
+import { shuffleForSitting, orientationsForSitting, parseSharedDraw, createRitualTimer } from "./ritual";
 import CardInspector from "./CardInspector";
 import ReadingScroll from "./ReadingScroll";
 import { SPREADS, type Spread, type SpreadPosition } from "@/lib/spreads";
@@ -34,9 +36,10 @@ class AstralAudio {
   init() {
     if (!this.ctx) {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (!AudioCtx) return;
       this.ctx = new AudioCtx();
     }
-    if (this.ctx.state === 'suspended') this.ctx.resume();
+    if (this.ctx.state === 'suspended') void this.ctx.resume().catch(() => {});
   }
 
   toggleMute() {
@@ -196,7 +199,7 @@ function useDeviceTier() {
   return tier;
 }
 
-type MachineState = "focusing" | "drawing" | "preparing" | "spread" | "result";
+type MachineState = "focusing" | "drawing" | "preparing" | "spread" | "revealing" | "result";
 
 const RITUAL_PHASES = (t: (key: keyof Translations) => string | string[]) => [
   { id: "focusing", label: t("oracle_ritual_focus") },
@@ -208,26 +211,9 @@ const RITUAL_PHASES = (t: (key: keyof Translations) => string | string[]) => [
 const RitualTimeline = React.memo(function RitualTimeline({ state, isMobile }: { state: MachineState, isMobile: boolean }) {
   const { t } = useLocale();
   const phases = RITUAL_PHASES(t);
-  const activeIndex = phases.findIndex(p => p.id === state || (state === "spread" && p.id === "preparing"));
+  const activeIndex = phases.findIndex(p => p.id === state || ((state === "spread" || state === "revealing") && p.id === "preparing"));
   
-  if (isMobile) {
-    return (
-      <div className="absolute left-6 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-6 items-center">
-        {phases.map((phase, i) => (
-          <div key={phase.id} className="flex flex-col items-center gap-2">
-            <m.div
-              animate={{
-                scale: i <= activeIndex ? 1 : 0.8,
-                backgroundColor: i <= activeIndex ? "#e0b768" : "rgba(232,233,255,0.14)"
-              }}
-              className="w-1.5 h-1.5 rounded-full"
-            />
-            {i < phases.length - 1 && <div className="w-px h-8 bg-[rgba(232,233,255,0.08)]" />}
-          </div>
-        ))}
-      </div>
-    );
-  }
+  if (isMobile || state === "spread" || state === "revealing" || state === "result") return null;
 
   return (
     <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-4">
@@ -327,6 +313,7 @@ const GhostCard = React.memo(function GhostCard({
 });
 
 const DecorativeRitualField = React.memo(function DecorativeRitualField({ machineState, isMobile }: { machineState: MachineState, isMobile: boolean }) {
+  const reduced = useReducedMotion();
   const isVisible = machineState === "focusing" || machineState === "drawing" || machineState === "preparing";
   return (
     <div className={`absolute inset-0 pointer-events-none z-0 transition-opacity duration-[2000ms] ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
@@ -343,7 +330,7 @@ const DecorativeRitualField = React.memo(function DecorativeRitualField({ machin
              strokeWidth="0.5"
              strokeDasharray="2 12"
            >
-             <animate attributeName="stroke-dashoffset" from="100" to="0" dur="80s" repeatCount="indefinite" />
+             {!reduced && <animate attributeName="stroke-dashoffset" from="100" to="0" dur="80s" repeatCount="indefinite" />}
            </path>
            <defs>
              <linearGradient id="thread-grad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -366,7 +353,7 @@ export default function FramerTarotOracle() {
   const prefersReduced = useReducedMotion();
 
   // Shared breathing motion (subtle global pulse)
-  const breathing = useTransform(time, (t) => Math.sin(t / 2000) * 5);
+  const breathing = useTransform(time, (t) => prefersReduced ? 0 : Math.sin(t / 2000) * 2);
 
   const [state, setState] = useState<MachineState>("focusing");
   const device = useDeviceTier();
@@ -381,41 +368,20 @@ export default function FramerTarotOracle() {
   const ghostIndices = useMemo(() => Array.from({ length: ghostSize }, (_, i) => i), [ghostSize]);
   
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
+  const [revealedCards, setRevealedCards] = useState<number[]>([]);
+  const [lastRevealed, setLastRevealed] = useState<number | null>(null);
+  const ritualTimer = useMemo(() => createRitualTimer(), []);
+  const revealButtonRef = useRef<HTMLButtonElement>(null);
   const [inspecting, setInspecting] = useState<number | null>(null);
   const [spread, setSpread] = useState<Spread>(SPREADS[0]);
   const [isMuted, setIsMuted] = useState(true);
-  const poolSize = Math.max(basePool, spread.count + 2);
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "unavailable">("idle");
+  const poolSize = Math.max(basePool, spread.count + 2, ...selectedCards.map((id) => id + 1));
   // A real shuffle of the full 78 — dealt fresh each sitting. The seed
   // rides in the share URL so a restored reading deals the same cards.
   const [deckSeed, setDeckSeed] = useState<number>(() => Math.floor(Math.random() * 1e9));
-  const oracleData = useMemo(() => {
-    let a = deckSeed | 0;
-    const rng = () => {
-      a = (a + 0x6d2b79f5) | 0;
-      let t = Math.imul(a ^ (a >>> 15), 1 | a);
-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
-    const deck = [...ALL_CARDS];
-    for (let i = deck.length - 1; i > 0; i--) {
-      const j = Math.floor(rng() * (i + 1));
-      [deck[i], deck[j]] = [deck[j], deck[i]];
-    }
-    return deck.slice(0, poolSize);
-  }, [deckSeed, poolSize]);
-
-  // Orientation rides the same seed, one stream past the shuffle: a third
-  // of the plates fall turned, the house rate the daily card already keeps.
-  const reversedFlags = useMemo(() => {
-    let a = (deckSeed ^ 0x9e3779b9) | 0;
-    const rng = () => {
-      a = (a + 0x6d2b79f5) | 0;
-      let t = Math.imul(a ^ (a >>> 15), 1 | a);
-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
-    return Array.from({ length: poolSize }, () => rng() < 1 / 3);
-  }, [deckSeed, poolSize]);
+  const oracleData = useMemo(() => shuffleForSitting(ALL_CARDS, deckSeed, poolSize), [deckSeed, poolSize]);
+  const reversedFlags = useMemo(() => orientationsForSitting(deckSeed, poolSize), [deckSeed, poolSize]);
   const remainingCards = spread.count - selectedCards.length;
 
   /* ── THE FORMATION RIG ─────────────────────────────────────────
@@ -456,6 +422,7 @@ export default function FramerTarotOracle() {
       ux: cw * scale * gapX,
       uy: ch * scale * gapY,
       scale,
+      viewportWidth: viewport.w,
       cx: (colMin + colMax) / 2,
       cy: (rowMin + rowMax) / 2,
       // formation bbox centred in the band, not on the screen
@@ -483,6 +450,7 @@ export default function FramerTarotOracle() {
   const arcanaLabel = locale === "uk" ? "Аркан" : "Arcana";
 
   const toggleMute = useCallback(() => {
+    audio.init();
     const muted = audio.toggleMute();
     setIsMuted(muted);
   }, []);
@@ -491,10 +459,7 @@ export default function FramerTarotOracle() {
   const hoveredIndexMV = useMotionValue<number>(-1);
   const isTransitioning = useRef(false);
 
-  // Auto-init audio when engine mounts since the user already clicked "Awaken the Deck" in the shell
-  useEffect(() => {
-    audio.init();
-  }, []);
+  // The AudioContext is only created by an explicit user interaction.
 
   // Deep-link restore — ONLY on first mount. Re-running on every
   // searchParams change meant our own router.replace (fired when the
@@ -518,13 +483,11 @@ export default function FramerTarotOracle() {
       // link would otherwise silently drop index 11 and never restore).
       const want = restored?.count ?? 3;
       const restoredPool = Math.max(basePool, want + 2);
-      const indices = drawParam
-        .split(",")
-        .map(Number)
-        .filter(n => Number.isInteger(n) && n >= 0 && n < restoredPool);
-      if (indices.length === want) {
+      const indices = parseSharedDraw(drawParam, want, restoredPool);
+      if (indices) {
         requestAnimationFrame(() => {
           setSelectedCards(indices);
+          setRevealedCards(indices);
           setState("result"); 
         });
       }
@@ -545,43 +508,79 @@ export default function FramerTarotOracle() {
     router.replace(`?${params.toString()}`, { scroll: false });
   }, [router, searchParams, spread.id, deckSeed]);
 
+  const clearRitualTimer = useCallback(() => {
+    ritualTimer.cancel();
+  }, [ritualTimer]);
+  useEffect(() => clearRitualTimer, [clearRitualTimer]);
+
+  // Selection is a transaction. Timers belong to this sitting and are
+  // cancelled when leaving it, so an old deal cannot reopen after reset.
   const handleCardClick = useCallback((id: number) => {
     if (state !== "drawing" || isTransitioning.current) return;
-    
-    setSelectedCards(prev => {
-      if (prev.includes(id)) return prev.filter(c => c !== id);
-      if (prev.length < spread.count) {
-        const newSelected = [...prev, id];
-        if (newSelected.length === spread.count) {
-          isTransitioning.current = true;
-          setState("preparing");
-          // router.replace must not run inside the state updater — React
-          // flags a Router update during FramerTarotOracle's render.
-          setTimeout(() => updateUrl(newSelected), 0);
-          setTimeout(() => {
-            setState("spread");
-            isTransitioning.current = false;
-          }, 2400); // 2.4s of "listening for the pattern"
-        }
-        return newSelected;
-      }
-      return prev;
-    });
-  }, [state, updateUrl, spread.count]);
+    const next = selectedCards.includes(id)
+      ? selectedCards.filter((card) => card !== id)
+      : [...selectedCards, id];
+    if (next.length > spread.count) return;
+    setSelectedCards(next);
+    if (next.length === spread.count) {
+      isTransitioning.current = true;
+      setState("preparing");
+      updateUrl(next);
+      ritualTimer.schedule(() => {
+        setState("spread");
+        isTransitioning.current = false;
+      }, prefersReduced ? 0 : 850);
+    }
+  }, [state, selectedCards, updateUrl, spread.count, prefersReduced, ritualTimer]);
 
   const reset = useCallback(() => {
+    clearRitualTimer();
     isTransitioning.current = false;
+    setInspecting(null);
+    setCopyStatus("idle");
+    setRevealedCards([]);
+    setLastRevealed(null);
     setState("focusing");
     setSelectedCards([]);
-    setDeckSeed(Math.floor(Math.random() * 1e9)); // fresh shuffle each sitting
+    setDeckSeed(Math.floor(Math.random() * 1e9));
     updateUrl([]);
     hoveredIndexMV.set(-1);
-  }, [updateUrl, hoveredIndexMV]);
+  }, [clearRitualTimer, updateUrl, hoveredIndexMV]);
 
-  const reveal = useCallback(() => {
+  const turnCard = useCallback((id?: number) => {
+    if ((state !== "spread" && state !== "revealing") || isTransitioning.current) return;
+    const nextId = id ?? selectedCards.find((card) => !revealedCards.includes(card));
+    if (nextId === undefined || revealedCards.includes(nextId)) return;
+    const next = [...revealedCards, nextId];
     audio.playReveal();
+    setRevealedCards(next);
+    setLastRevealed(nextId);
+    setState("revealing");
+    if (next.length === selectedCards.length) {
+      isTransitioning.current = true;
+      ritualTimer.schedule(() => {
+        isTransitioning.current = false;
+        setState("result");
+      }, prefersReduced ? 0 : 650);
+    }
+  }, [state, selectedCards, revealedCards, prefersReduced, ritualTimer]);
+
+  const revealAll = useCallback(() => {
+    clearRitualTimer();
+    isTransitioning.current = false;
+    audio.playReveal();
+    setRevealedCards(selectedCards);
     setState("result");
-  }, []);
+  }, [clearRitualTimer, selectedCards]);
+
+  useEffect(() => {
+    if (state !== "spread" && state !== "drawing") return;
+    const frame = requestAnimationFrame(() => {
+      if (state === "spread") revealButtonRef.current?.focus({ preventScroll: true });
+      else document.querySelector<HTMLElement>(isMobile ? ".oracle-hand-card" : '[data-oracle-card][tabindex="0"]')?.focus({ preventScroll: true });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [state, isMobile]);
 
   /* ── THE SHEET'S OWN SCROLL ──────────────────────────────────
      The reading scrolls inside its shell; gradient fades mark that
@@ -627,12 +626,22 @@ export default function FramerTarotOracle() {
 
   // The sheet waits for the plates: flips run 80ms apart, then the
   // sheet rises on its spring.
-  const sheetDelay = prefersReduced ? 0 : 0.45 + spread.count * 0.08;
+  const sheetDelay = prefersReduced ? 0 : 0.35;
+  const lastCard = lastRevealed === null ? null : oracleData[lastRevealed];
+  const nextPosition = selectedCards.findIndex((id) => !revealedCards.includes(id));
 
   return (
     <LazyMotion features={domAnimation}>
+      <MotionConfig reducedMotion="user">
       <div className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center bg-[#0a0d38] perspective-[2000px]">
 
+        <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+          {state === "drawing" ? selectionInstruction : state === "preparing"
+            ? (isUk ? "Розкладаємо карти" : "Arranging your cards")
+            : state === "revealing" && lastCard
+              ? `${revealedCards.length} / ${spread.count}. ${(isUk && ukCard(lastCard.name)?.name) || lastCard.name}${reversedFlags[lastRevealed!] ? (isUk ? ", перевернута" : ", reversed") : ""}`
+              : state === "result" ? (isUk ? "Ваше читання готове" : "Your reading is ready") : ""}
+        </p>
         {/* ── NIGHT GROUND — the innermost room keeps the deepest darkness ── */}
         <div
           className="absolute inset-0 z-0 pointer-events-none"
@@ -703,8 +712,9 @@ export default function FramerTarotOracle() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.05 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute z-40 flex flex-col items-center text-center px-6"
+              className="oracle-focus absolute z-40 flex flex-col items-center text-center px-6"
             >
+              <p className="oracle-edition">{isUk ? "I · Студія Таро" : "I · The Tarot Studio"}</p>
               <h2 className="[font-family:var(--font-heading),serif] text-3xl md:text-5xl text-[rgba(232,233,255,0.88)] mb-6 italic">{t("oracle_focus_title")}</h2>
               <p className="night-caption mb-7">
                 {isUk
@@ -718,8 +728,9 @@ export default function FramerTarotOracle() {
                 onClick={() => setState("drawing")}
                 className="night-btn ghost pointer-events-auto"
               >
-                {t("oracle_focus_cta")}
+                {isUk ? `Почати · ${spread.count} карт` : `Begin · ${spread.count} cards`}
               </button>
+              <p className="oracle-method">{isUk ? "Оберіть форму. Витягніть карти. Читайте у власному темпі." : "Choose a shape. Draw your cards. Read at your own pace."}</p>
             </m.div>
           )}
 
@@ -805,25 +816,46 @@ export default function FramerTarotOracle() {
             </m.div>
           )}
 
-          {state === "spread" && (
-            <m.div 
+          {(state === "spread" || state === "revealing") && (
+            <m.div
               key="spread"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: prefersReduced ? 0 : 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute bottom-[20%] z-40 text-center"
+              transition={{ duration: prefersReduced ? 0.1 : 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="oracle-turn-panel absolute z-40 text-center"
             >
-              <p className="text-[9px] tracking-[0.4em] uppercase text-[rgba(232,233,255,0.38)] mb-8">{t("oracle_spread_forming")}</p>
-              <button
-                onClick={reveal}
-                className="night-btn"
-              >
-                {t("oracle_spread_cta")}
-              </button>
+              <p className="oracle-edition">{resultKicker} · {revealedCards.length} / {spread.count}</p>
+              <h2>{lastCard ? ((isUk && ukCard(lastCard.name)?.name) || lastCard.name) : (isUk ? "Кожна карта — розділ." : "Each card, a chapter.")}</h2>
+              <p className="oracle-turn-detail">{lastCard
+                ? `${spreadLabels[selectedCards.indexOf(lastRevealed!)]}${reversedFlags[lastRevealed!] ? (isUk ? " · перевернута" : " · turned") : ""} · ${((isUk && ukCard(lastCard.name)?.keywords) || lastCard.keywords).slice(0, 3).join(" · ")}`
+                : (isUk ? "Торкніться карти або розкрийте їх по черзі." : "Touch a card, or turn the story one by one.")}</p>
+              <div className="oracle-turn-actions">
+                <button ref={revealButtonRef} onClick={() => turnCard()} className="night-btn" disabled={nextPosition < 0}>
+                  {nextPosition < 0 ? (isUk ? "Читання відкривається…" : "Opening your reading…")
+                    : `${isUk ? "Розкрити" : "Turn"} ${String(nextPosition + 1).padStart(2, "0")} · ${spreadLabels[nextPosition]}`}
+                </button>
+                {nextPosition >= 0 && <button onClick={revealAll} className="oracle-text-button">{isUk ? "Розкрити всі" : "Reveal all"} ↗</button>}
+              </div>
             </m.div>
           )}
         </AnimatePresence>
 
+        {isMobile && state === "drawing" && (
+          <div className="oracle-hand" role="group" aria-label={isUk ? "Колода — гортайте, щоб обрати карту" : "The deck — swipe to choose a card"}>
+            <p>{isUk ? "Гортайте колоду · торкніться, щоб обрати" : "Slide the deck · touch to choose"}</p>
+            <div className="oracle-hand-track">
+              {oracleData.map((card, i) => {
+                const chosen = selectedCards.indexOf(i);
+                return <button key={card.name} type="button" className="oracle-hand-card" aria-pressed={chosen >= 0}
+                  aria-label={`${isUk ? "Карта" : "Face-down card"} ${i + 1}${chosen >= 0 ? (isUk ? ", обрана. Торкніться, щоб прибрати" : ", chosen. Activate to remove") : ""}`}
+                  onClick={() => { audio.playSelect(); handleCardClick(i); }}>
+                  <span className="oracle-hand-art" aria-hidden><NightCardBack /></span>
+                  <span>{chosen >= 0 ? `✓ ${String(chosen + 1).padStart(2, "0")}` : String(i + 1).padStart(2, "0")}</span>
+                </button>;
+              })}
+            </div>
+          </div>
+        )}
         {/* ── THE ORACLE DECK ENGINE ── */}
         {/* z-10: the dealer's deck must never float above the spread
             chooser or prompt typography (both z-40). */}
@@ -861,7 +893,9 @@ export default function FramerTarotOracle() {
                 selectedCount={selectedCards.length}
                 canSelect={selectedCards.length < spread.count}
                 reversed={reversedFlags[i] ?? false}
-                onClick={() => handleCardClick(i)}
+                isRevealed={revealedCards.includes(i)}
+                uk={isUk}
+                onClick={() => state === "drawing" ? handleCardClick(i) : turnCard(i)}
                 onInspect={() => setInspecting(selectedCards.indexOf(i))}
               />
             ))}
@@ -899,13 +933,16 @@ export default function FramerTarotOracle() {
                 <div className="result-sheet-clip">
                 <div
                   ref={sheetRef}
+                  role="region"
+                  aria-label={isUk ? "Ваше читання" : "Your reading"}
+                  tabIndex={0}
                   onScroll={handleSheetScroll}
                   className={`result-artifact-shell ${state === "result" ? "pointer-events-auto" : "pointer-events-none"}`}
                 >
                 <p className="result-touch-hint" aria-hidden>
                   {locale === "uk"
-                    ? "Карти живі — нахиліть · перетягніть · клік = лупа"
-                    : "The plates are alive — tilt · drag · click to magnify"}
+                    ? "Оберіть карту на столі або в покажчику, щоб роздивитися її."
+                    : "Choose a card on the table or in the index to look closer."}
                 </p>
                 <div className="result-artifact-header">
                   <span className="result-artifact-kicker">{resultKicker}</span>
@@ -917,16 +954,16 @@ export default function FramerTarotOracle() {
                   {selectedCards.map((id, idx) => {
                     const card = oracleData[id];
                     return (
-                      <article key={id} className="result-artifact-card">
+                      <button type="button" key={id} className="result-artifact-card" onClick={() => setInspecting(idx)} aria-label={`${spreadLabels[idx]}. ${(isUk && ukCard(card.name)?.name) || card.name}${reversedFlags[id] ? (isUk ? ", перевернута" : ", reversed") : ""}. ${isUk ? "Роздивитися карту" : "Inspect card"}`}>
                         <span>{spreadLabels[idx] ?? resultLabels[idx]}</span>
-                        <h3>
+                        <strong>
                           {(isUk && card && ukCard(card.name)?.name) || card?.name}
                           {reversedFlags[id] && (
                             <em className="result-turned"> · {isUk ? "перевернута" : "turned"}</em>
                           )}
-                        </h3>
-                        <p>{card?.arcana} {arcanaLabel}</p>
-                      </article>
+                        </strong>
+                        <small>{card?.arcana} {arcanaLabel}</small>
+                      </button>
                     );
                   })}
                 </div>
@@ -938,6 +975,13 @@ export default function FramerTarotOracle() {
                 />
 
                 <div className="result-artifact-next">
+                  <button type="button" className="oracle-text-button" onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(window.location.href);
+                      setCopyStatus("copied");
+                    } catch { setCopyStatus("unavailable"); }
+                  }}>{copyStatus === "copied" ? (isUk ? "Посилання скопійовано ✓" : "Reading link copied ✓") : (isUk ? "Скопіювати посилання на читання" : "Copy reading link")}</button>
+                  <p role="status" aria-live="polite">{copyStatus === "unavailable" ? (isUk ? "Скопіюйте адресу зі свого браузера, щоб зберегти це читання." : "Copy the address from your browser to keep this reading.") : copyStatus === "copied" ? (isUk ? "Посилання зберігає карти, порядок і перевернуті положення." : "The link keeps your cards, order, and reversals.") : ""}</p>
                   <Link href="/pricing?from=oracle" className="night-btn">
                     {t("oracle_result_cta")} &rarr;
                   </Link>
@@ -964,6 +1008,34 @@ export default function FramerTarotOracle() {
 
         {/* Room-scoped CSS — night plate vocabulary */}
         <style>{`
+          .oracle-edition { color: #d7bd85; font-size: 10px; letter-spacing: .23em; text-transform: uppercase; margin-bottom: 16px; }
+          .oracle-method { color: #abb0cc; font-size: 12px; margin-top: 20px; line-height: 1.6; }
+          .oracle-focus { max-height: calc(100% - 170px); top: 140px; overflow-y: auto; overscroll-behavior: contain; padding-bottom: 28px; }
+          .oracle-turn-panel { width: min(640px, calc(100% - 40px)); bottom: max(8%, 36px); }
+          .oracle-turn-panel h2 { color: #e8e9ef; font-family: var(--font-heading), serif; font-weight: 400; font-size: clamp(30px, 4vw, 48px); line-height: 1.1; }
+          .oracle-turn-detail { color: #b9bfd6; font-size: 13px; line-height: 1.7; margin: 16px auto 24px; max-width: 48ch; }
+          .oracle-turn-actions { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: center; align-items: center; }
+          .oracle-text-button { min-height: 44px; color: #d7bd85; font-size: 12px; text-decoration: underline; text-underline-offset: 5px; }
+          .oracle-hand { position: absolute; z-index: 30; left: 0; right: 0; top: 57%; }
+          .oracle-hand > p { color: #b9bfd6; font-size: 11px; text-align: center; margin-bottom: 14px; }
+          .oracle-hand-track { display: flex; gap: 12px; overflow-x: auto; padding: 10px 24px 20px; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: #bda773 transparent; }
+          .oracle-hand-card { position: relative; flex: 0 0 82px; color: #c4c8d9; text-align: center; scroll-snap-align: center; transition: transform 180ms ease-out; }
+          .oracle-hand-art { position: relative; display: block; overflow: hidden; height: 134px; border: 1px solid #6a6380; border-radius: 5px; background: #111838; }
+          .oracle-hand-card > span:last-child { display: block; padding: 8px 0; font-size: 11px; letter-spacing: .14em; }
+          .oracle-hand-card[aria-pressed="true"] { transform: translateY(-8px); color: #e0bd77; }
+          .oracle-hand-card[aria-pressed="true"] .oracle-hand-art { opacity: .48; border-color: #e0bd77; }
+          .oracle-hand-card:focus-visible, .oracle-text-button:focus-visible, .result-artifact-card:focus-visible { outline: 2px solid #e0bd77; outline-offset: 3px; }
+          button.result-artifact-card { text-align: left; cursor: pointer; transition: border-color 180ms ease-out; }
+          button.result-artifact-card:hover { border-color: #bda773; }
+          @media (max-width: 640px) {
+            .oracle-focus { top: 132px; max-height: calc(100% - 144px); padding-inline: 16px; }
+            .oracle-focus > h2 { margin-bottom: 12px; }
+            .oracle-focus .oracle-method { margin-top: 12px; max-width: 30ch; }
+            .oracle-turn-panel { bottom: max(7%, 24px); }
+          }
+          @media (max-height: 620px) and (min-width: 641px) { .oracle-focus { top: 112px; max-height: calc(100% - 112px); } }
+          @media (prefers-reduced-motion: reduce) { .oracle-hand-card { transition: none; } }
+
           .result-artifact-panel {
             min-height: 44vh;
             padding: 5.5rem 1.25rem max(2rem, env(safe-area-inset-bottom));
@@ -1157,14 +1229,15 @@ export default function FramerTarotOracle() {
             color: rgba(224, 183, 104, 0.9);
           }
 
-          .result-artifact-card h3 {
+          .result-artifact-card strong {
+            font-weight: 400;
             font-family: var(--font-heading, "Cormorant Garamond"), serif;
             font-size: clamp(1.1rem, 2vw, 1.65rem);
             line-height: 1.02;
             color: #e8e9ff;
           }
 
-          .result-artifact-card p {
+          .result-artifact-card small {
             font-family: var(--font-mono, ui-monospace), monospace;
             font-size: 0.62rem;
             letter-spacing: 0.13em;
@@ -1223,11 +1296,12 @@ export default function FramerTarotOracle() {
               letter-spacing: 0.11em;
             }
 
-            .result-artifact-card h3 {
+            .result-artifact-card strong {
+            font-weight: 400;
               font-size: 1.05rem;
             }
 
-            .result-artifact-card p {
+            .result-artifact-card small {
               font-size: 0.54rem;
               letter-spacing: 0.1em;
             }
@@ -1295,6 +1369,7 @@ export default function FramerTarotOracle() {
           }
         `}</style>
       </div>
+      </MotionConfig>
     </LazyMotion>
   );
 }
@@ -1320,6 +1395,8 @@ const GodModeCard = React.memo(function GodModeCard({
   canSelect,
   selectedCount,
   reversed = false,
+  isRevealed = false,
+  uk = false,
   onInspect,
   onClick
 }: {
@@ -1330,7 +1407,7 @@ const GodModeCard = React.memo(function GodModeCard({
   isSelected: boolean,
   selectionIndex: number,
   spreadPositions: SpreadPosition[],
-  rig: { ux: number; uy: number; scale: number; cx: number; cy: number; oy: number },
+  rig: { ux: number; uy: number; scale: number; viewportWidth: number; cx: number; cy: number; oy: number },
   positionLabel: string,
   hoveredIndexMV: MotionValue<number>,
   device: "mobile" | "tablet" | "desktop",
@@ -1339,6 +1416,8 @@ const GodModeCard = React.memo(function GodModeCard({
   canSelect: boolean,
   selectedCount: number,
   reversed?: boolean,
+  isRevealed?: boolean,
+  uk?: boolean,
   onClick: () => void,
   onInspect?: () => void
 }) {
@@ -1362,8 +1441,8 @@ const GodModeCard = React.memo(function GodModeCard({
   const { baseArcX, baseArcY, baseArcRotateZ } = useMemo(() => {
     // Desktop: Flatter arc, wider horizontal span
     // Mobile: Tighter arc, narrow horizontal span
-    const arcRadius = isMobile ? 800 : isTablet ? 1000 : 1300; 
-    const span = Math.PI * (isMobile ? 0.35 : isTablet ? 0.38 : 0.42); 
+    const span = Math.PI * (isMobile ? 0.35 : isTablet ? 0.38 : 0.42);
+    const arcRadius = Math.min(isTablet ? 1000 : 1300, Math.max(120, rig.viewportWidth * 0.44 - cardWidth / 2) / Math.sin(span / 2));
     
     const angle = -span / 2 + (span / (total - 1)) * index;
     return {
@@ -1372,7 +1451,7 @@ const GodModeCard = React.memo(function GodModeCard({
       baseArcY: (1 - Math.cos(angle)) * arcRadius * 0.55 + (isMobile ? 96 : 80),
       baseArcRotateZ: angle * (180 / Math.PI)
     };
-  }, [index, total, isMobile, isTablet]);
+  }, [index, total, isMobile, isTablet, rig.viewportWidth, cardWidth]);
 
   // ── REACTIVE DOCK PHYSICS (Pure MotionValues, NO re-renders) ──
   const dockOffsetX = useTransform(hoveredIndexMV, (h) => {
@@ -1470,7 +1549,7 @@ const GodModeCard = React.memo(function GodModeCard({
        targetScale = 0.8;
     }
   } 
-  else if (machineState === "spread" || machineState === "result") {
+  else if (machineState === "spread" || machineState === "revealing" || machineState === "result") {
     if (isSelected) {
       // The formation, measured: every position offset by the rig's one
       // true unit, the whole shape centered on its own bounding box.
@@ -1487,7 +1566,7 @@ const GodModeCard = React.memo(function GodModeCard({
           : (selectionIndex - 1) * 1.5;
       targetScale = rig.scale;
 
-      if (machineState === "result") {
+      if (isRevealed || machineState === "result") {
         targetRotateY = 180;
       }
     } else {
@@ -1496,6 +1575,8 @@ const GodModeCard = React.memo(function GodModeCard({
       targetOpacity = 0;
     }
   }
+
+  if (isMobile && machineState === "drawing" && !isSelected) targetOpacity = 0;
 
   // ── MERGE DOCK PHYSICS WITH LAYOUT TARGETS ──
   const uiConfig = { stiffness: 120, damping: 20, mass: 1.0 };
@@ -1521,8 +1602,11 @@ const GodModeCard = React.memo(function GodModeCard({
       staticZ.set(targetZ);
       staticRotZ.set(targetRotateZ);
     }
-    springScale.set(targetScale);
-  }, [targetX, targetY, targetZ, targetRotateZ, targetScale, isSelected, machineState, springX, springY, springZ, springRotZ, springScale, staticX, staticY, staticZ, staticRotZ]);
+    if (isReducedMotion) {
+      springX.jump(targetX); springY.jump(targetY); springZ.jump(targetZ); springRotZ.jump(targetRotateZ);
+      springScale.jump(targetScale);
+    } else springScale.set(targetScale);
+  }, [targetX, targetY, targetZ, targetRotateZ, targetScale, isSelected, machineState, springX, springY, springZ, springRotZ, springScale, staticX, staticY, staticZ, staticRotZ, isReducedMotion]);
 
   const finalX = useTransform([isSelected ? springX : staticX, dockOffsetX], ([l, d]) => Number(l) + Number(d));
   const finalY = useTransform([isSelected ? springY : staticY, dockOffsetY, breathing, driftY], ([l, d, b, dr]) => Number(l) + Number(d) + Number(b) + Number(dr));
@@ -1549,12 +1633,13 @@ const GodModeCard = React.memo(function GodModeCard({
   // after the one before it (reduced motion flips all at once).
   const motionRotateY = useSpring(targetRotateY, uiConfig);
   useEffect(() => {
-    if (targetRotateY > 0 && selectionIndex > 0 && !isReducedMotion) {
+    if (isReducedMotion) { motionRotateY.jump(targetRotateY); return; }
+    if (machineState === "result" && targetRotateY > 0 && selectionIndex > 0) {
       const id = setTimeout(() => motionRotateY.set(targetRotateY), selectionIndex * 80);
       return () => clearTimeout(id);
     }
     motionRotateY.set(targetRotateY);
-  }, [targetRotateY, motionRotateY, selectionIndex, isReducedMotion]);
+  }, [targetRotateY, motionRotateY, selectionIndex, isReducedMotion, machineState]);
 
   const finalRotateY = useTransform([isHoveredMV, rotateY_tilt, motionRotateY], ([h, rt, my]) => {
      // Once flipped, the plate still answers the hand: the tilt rides on
@@ -1576,12 +1661,12 @@ const GodModeCard = React.memo(function GodModeCard({
   }, [isReducedMotion, localX, localY, isMobile]);
 
   const handlePointerEnter = useCallback(() => {
-    if (machineState === "drawing" && !isSelected) {
+    if (machineState === "drawing" && !isSelected && !isReducedMotion) {
       hoveredIndexMV.set(index);
       audio.playHover();
     }
-    isHoveredMV.set(1);
-  }, [machineState, isSelected, hoveredIndexMV, index, isHoveredMV]);
+    if (!isReducedMotion) isHoveredMV.set(1);
+  }, [machineState, isSelected, hoveredIndexMV, index, isHoveredMV, isReducedMotion]);
 
   const handlePointerLeave = useCallback(() => {
     if (hoveredIndexMV.get() === index) {
@@ -1615,8 +1700,8 @@ const GodModeCard = React.memo(function GodModeCard({
   // backface accumulation at the flat boundary — both faces resolve
   // front-facing and the BACK paints over the art after the flip. On
   // flat devices the faces swap by flip progress instead.
-  const backFaceOpacity = useTransform(motionRotateY, (r) => (!isMobile || Number(r) <= 90 ? 1 : 0));
-  const frontFaceOpacity = useTransform(motionRotateY, (r) => (!isMobile || Number(r) > 90 ? 1 : 0));
+  const backFaceOpacity = useTransform(motionRotateY, (r) => (Number(r) <= 90 ? 1 : 0));
+  const frontFaceOpacity = useTransform(motionRotateY, (r) => (Number(r) > 90 ? 1 : 0));
 
   // Dealt-in: each card leaves the deck point 40ms after the one before.
   const staggerDelay = machineState === "drawing" && !isSelected ? 0.08 + index * 0.04 : 0;
@@ -1632,16 +1717,17 @@ const GodModeCard = React.memo(function GodModeCard({
       onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
+      onFocus={handlePointerEnter}
+      onBlur={handlePointerLeave}
       onClick={handleInteraction}
       role="button"
-      tabIndex={machineState === "drawing" || isSelected ? 0 : -1}
-      aria-pressed={isSelected}
-      aria-label={
-        isLiftable
-          ? `${card.name} — inspect the plate`
-          : `${card.name}${isSelected ? " — chosen" : " — face-down card"}`
-      }
-      drag={isLiftable}
+      tabIndex={(machineState === "drawing" && !isMobile) || (isSelected && (machineState === "spread" || machineState === "revealing" || machineState === "result")) ? 0 : -1}
+      aria-hidden={targetOpacity === 0 || machineState === "focusing" || machineState === "preparing" || (isMobile && machineState === "drawing") ? true : undefined}
+      aria-pressed={machineState === "drawing" ? isSelected : undefined}
+      aria-label={isRevealed || isLiftable
+        ? `${positionLabel}. ${(uk && ukCard(card.name)?.name) || card.name}${reversed ? (uk ? ", перевернута" : ", reversed") : ""}${isLiftable ? (uk ? ". Роздивитися карту" : ". Inspect card") : ""}`
+        : `${uk ? "Карта" : "Face-down card"} ${index + 1}${isSelected ? ` · ${positionLabel}. ${uk ? "Розкрити" : "Turn card"}` : ""}`}
+      drag={isLiftable && !isReducedMotion && !isMobile}
       dragMomentum={false}
       dragElastic={0.14}
       dragConstraints={{ left: -260, right: 260, top: -160, bottom: 160 }}
@@ -1654,6 +1740,7 @@ const GodModeCard = React.memo(function GodModeCard({
       }}
       className={`absolute top-1/2 left-1/2 cursor-pointer oracle-night-card ${isSelected ? "is-flipping" : ""}`}
       style={{
+        pointerEvents: targetOpacity === 0 ? "none" : "auto",
         width: cardWidth,
         height: cardHeight,
         marginLeft: -cardWidth / 2,
@@ -1716,6 +1803,7 @@ const GodModeCard = React.memo(function GodModeCard({
             erase it — visibility is handled by the opacity swap there,
             and the parent's flattened 180° un-mirrors the art. */}
         <m.div
+          aria-hidden="true"
           className="absolute inset-0 rounded-[14px] overflow-hidden will-change-transform"
           style={{
             opacity: frontFaceOpacity,
@@ -1730,7 +1818,7 @@ const GodModeCard = React.memo(function GodModeCard({
 
 
            {/* Only load the image when it's selected (about to flip) or flipped to save massive network requests */}
-           {(isSelected || machineState === "result") && (
+           {isSelected && (
              <div
                className="relative w-full h-full"
                style={reversed ? { transform: "rotate(180deg)" } : undefined}
@@ -1739,7 +1827,7 @@ const GodModeCard = React.memo(function GodModeCard({
                  src={getCardPortalImagePath(card)}
                  alt={reversed ? `${card.name} — reversed` : card.name}
                  fill
-                 quality={100}
+                 quality={75}
                  sizes={isMobile ? "180px" : "240px"}
                  loading={isSelected || machineState === "result" ? "eager" : "lazy"}
                  className={`absolute inset-0 w-full h-full object-cover z-[2] transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
@@ -1785,7 +1873,7 @@ const GodModeCard = React.memo(function GodModeCard({
       {/* Position cartouche — the formation is unreadable without its
           names once ten plates stand on the table. Counter-flipped in
           result so the text survives the card's own 180° reveal. */}
-      {isSelected && positionLabel && (machineState === "spread" || machineState === "result") && (() => {
+      {isSelected && positionLabel && (machineState === "spread" || machineState === "revealing" || machineState === "result") && (() => {
         const dense = rig.scale < 0.8;
         if (dense) {
           // Dense formations: the cartouche prints ON the plate's foot —
@@ -1806,7 +1894,7 @@ const GodModeCard = React.memo(function GodModeCard({
                 color: "rgba(232,233,255,0.88)",
                 // counter-rotate FIRST, then lift — inside the flipped
                 // plate a bare +Z would point away from the viewer
-                transform: `translateX(-50%)${machineState === "result" ? " rotateY(180deg)" : ""} translateZ(3px)`,
+                transform: `translateX(-50%)${isRevealed || machineState === "result" ? " rotateY(180deg)" : ""} translateZ(3px)`,
                 zIndex: 5,
               }}
             >
@@ -1823,7 +1911,7 @@ const GodModeCard = React.memo(function GodModeCard({
               letterSpacing: "0.16em",
               marginTop: 6 / rig.scale,
               color: "rgba(183,188,233,0.8)",
-              transform: `translateX(-50%)${machineState === "result" ? " rotateY(180deg)" : ""}`,
+              transform: `translateX(-50%)${isRevealed || machineState === "result" ? " rotateY(180deg)" : ""}`,
             }}
           >
             {positionLabel}
@@ -1833,3 +1921,4 @@ const GodModeCard = React.memo(function GodModeCard({
     </m.div>
   );
 });
+

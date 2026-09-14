@@ -94,9 +94,9 @@ export default function SpreadChooser({ value, onChange }: Props) {
         : e.key === "ArrowLeft" || e.key === "ArrowUp"
           ? -1
           : 0;
-    if (!dir) return;
+    if (!dir && e.key !== "Home" && e.key !== "End") return;
     e.preventDefault();
-    const j = (i + dir + SPREADS.length) % SPREADS.length;
+    const j = e.key === "Home" ? 0 : e.key === "End" ? SPREADS.length - 1 : (i + dir + SPREADS.length) % SPREADS.length;
     onChange(SPREADS[j]);
     refs.current[j]?.focus();
   };
@@ -263,7 +263,7 @@ export default function SpreadChooser({ value, onChange }: Props) {
 
         .sc-count {
           font-family: var(--font-mono, ui-monospace), monospace;
-          font-size: 0.55rem;
+          font-size: 0.65rem;
           letter-spacing: 0.24em;
           text-transform: uppercase;
           color: var(--ox, #e0b768);
@@ -272,14 +272,14 @@ export default function SpreadChooser({ value, onChange }: Props) {
         .sc-count i {
           font-style: normal;
           opacity: 0.55;
-          font-size: 0.5rem;
+          font-size: 0.6rem;
         }
 
         .sc-line {
           max-width: 24ch;
           font-size: 0.78rem;
           line-height: 1.5;
-          color: var(--ink-faint, rgba(183, 188, 233, 0.66));
+          color: #b9bfd6;
         }
 
         .sc-plan {
@@ -287,10 +287,10 @@ export default function SpreadChooser({ value, onChange }: Props) {
           padding: 0.24rem 0.6rem;
           border-radius: 2px;
           font-family: var(--font-mono, ui-monospace), monospace;
-          font-size: 0.5rem;
+          font-size: 0.6rem;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: var(--ink-faint, rgba(183, 188, 233, 0.66));
+          color: #b9bfd6;
           background: rgba(183, 188, 233, 0.12);
         }
 
@@ -314,7 +314,8 @@ export default function SpreadChooser({ value, onChange }: Props) {
             font-size: 1.02rem;
           }
           .sc-line {
-            display: none;
+            font-size: 0.73rem;
+            line-height: 1.4;
           }
         }
 

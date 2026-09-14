@@ -10,7 +10,7 @@
 
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import PageTransition from "@/components/transitions/PageTransition";
 import SkyVoyageCanvas from "@/components/sky/SkyVoyageCanvas";
@@ -29,14 +29,6 @@ function ChartScribe() {
 }
 
 export default function ClientShell({ children }: { children: React.ReactNode }) {
-  // Tier 2 gate — basic client-only render
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const frame = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(frame);
-  }, []);
-
   return (
     <>
       {/* LIQUID NIGHT — the living silk-water ground, deepest layer. */}
@@ -52,11 +44,7 @@ export default function ClientShell({ children }: { children: React.ReactNode })
         {/* Page content — promoted into its own stacking context so it
             always paints above the sky canvas (z 0). */}
         <div style={{ position: "relative", zIndex: 1 }}>
-          {mounted ? (
-            <PageTransition>{children}</PageTransition>
-          ) : (
-            <>{children}</>
-          )}
+          <PageTransition>{children}</PageTransition>
         </div>
       </SubscriptionProvider>
 

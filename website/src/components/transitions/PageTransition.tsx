@@ -1,159 +1,79 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
-import TransitionOverlay, { type WipeVariant } from "./TransitionOverlay";
+import TransitionOverlay from "./TransitionOverlay";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const NIGHT_ROOMS = ["/oracle", "/portrait", "/synastry", "/cosmos"];
-const EASE = [0.16, 1, 0.3, 1] as const;
-
-function isNight(path: string): boolean {
-  const normalized = path.length > 1 ? path.replace(/\/$/, "") : path;
-  return NIGHT_ROOMS.includes(normalized) || normalized.startsWith("/prototype/");
-}
-
-/**
- * The page turn as ONE act:
- *   0ms    reader clicks — the leaving page exhales (fade + 10px sink,
- *          300ms) while the night veil starts across and the sky flight
- *          (FLIGHT_MS 950) is already under way beneath both.
- *   ~560ms the veil has covered the view — route swaps under it.
- *   arrive veil retreats (550ms); the new page inhales (fade + rise)
- *          ~220ms into the retreat, so the rise is seen, and settles at
- *          ~1.3s — just as the sky flight's own settle finishes inking
- *          the berth figure. One breath out, one breath in.
- */
-export default function PageTransition({ children }: Props) {
+/** A brief turn of the leaf. Routing starts on press; content never waits for motion. */
+export default function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() ?? "/";
   const router = useRouter();
-  const [overlayVisible, setOverlayVisible] = useState(false);
-  const [variant, setVariant] = useState<WipeVariant>("paper");
-  const [displayChildren, setDisplayChildren] = useState(children);
-  const [animationKey, setAnimationKey] = useState(pathname);
-  const [leaving, setLeaving] = useState(false);
-  const [inhaleDelay, setInhaleDelay] = useState(0);
-  const [reduce, setReduce] = useState(false);
-  const safetyRef = useRef<number | null>(null);
-  // Arrivals that came through the veil inhale on the veil's clock;
-  // back-button / hard arrivals inhale immediately (no blank beat).
-  const veilRef = useRef(false);
-  // The very first paint after mount must not re-fade content the
-  // reader is already looking at (ClientShell renders it un-wrapped
-  // for one frame before this component takes over).
-  const firstKeyRef = useRef(true);
+  const [pending, setPending] = useState(false);
+  const [turning, setTurning] = useState(false);
+  const routeRef = useRef(pathname);
+  const cleanupRef = useRef<(() => void) | null>(null);
+  const safetyRef = useRef<number | undefined>(undefined);
+  const focusOnArrival = useRef(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReduce(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-
-  // Listen for transition events from TransitionLink
-  useEffect(() => {
-    const handleTransition = (e: Event) => {
-      const href = (e as CustomEvent).detail?.href;
+    const handleTransition = (event: Event) => {
+      const href = (event as CustomEvent<{ href?: string }>).detail?.href;
       if (!href) return;
-
-      // The wipe speaks the book's grammar: paper leaf between light
-      // pages, ink sheet when entering a night room, paper returning
-      // when leaving one.
-      const from = isNight(pathname);
-      const to = isNight(href);
-      setVariant(to ? "to-night" : from ? "to-paper" : "paper");
-
-      // Reduced motion: no sheet, no exhale — go straight there.
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      let destination: URL;
+      try { destination = new URL(href, window.location.href); } catch { return; }
+      if (destination.origin !== window.location.origin) return;
+      const normalize = (path: string) => path.replace(/\/+$/, "") || "/";
+      if (normalize(destination.pathname) === normalize(window.location.pathname)) {
         router.push(href);
         return;
       }
-
-      // One act begins: the leaving page exhales under the crossing veil.
-      setOverlayVisible(true);
-      setLeaving(true);
-      veilRef.current = true;
-
-      // Push the moment the sheet has covered the view (wipe is 550ms).
-      window.setTimeout(() => router.push(href), 560);
-
-      // Safety net for a slow chunk — cleared the instant we arrive, and
-      // it tells the page its choreography was interrupted so pieces
-      // like SpreadTheater can re-arm instead of freezing mid-dive.
-      if (safetyRef.current) window.clearTimeout(safetyRef.current);
-      safetyRef.current = window.setTimeout(() => {
-        setOverlayVisible(false);
-        setLeaving(false);
-        veilRef.current = false;
+      cleanupRef.current?.();
+      focusOnArrival.current = true;
+      setPending(true);
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      setTurning(!reduced);
+      // The decorative veil has a bounded lifetime even if a chunk is slow.
+      const reveal = window.setTimeout(() => setTurning(false), 240);
+      const safety = window.setTimeout(() => {
+        setPending(false);
+        setTurning(false);
         window.dispatchEvent(new CustomEvent("page:transition-abort"));
-      }, 4000);
+      }, 5000);
+      safetyRef.current = safety;
+      cleanupRef.current = () => { window.clearTimeout(reveal); window.clearTimeout(safety); };
+      router.push(href);
     };
-
     window.addEventListener("page:transition", handleTransition);
-    return () => window.removeEventListener("page:transition", handleTransition);
-  }, [router, pathname]);
+    return () => {
+      window.removeEventListener("page:transition", handleTransition);
+      cleanupRef.current?.();
+    };
+  }, [router]);
 
-  // Arrived: swap content immediately and let the sheet retreat over it.
   useEffect(() => {
-    if (safetyRef.current) {
-      window.clearTimeout(safetyRef.current);
-      safetyRef.current = null;
-    }
-    setDisplayChildren(children);
-    setAnimationKey(pathname);
-    setOverlayVisible(false);
-    setLeaving(false);
-    // The inhale of THIS arrival: keyed to the veil's retreat when there
-    // was a veil, immediate otherwise. Consumed once.
-    setInhaleDelay(veilRef.current ? 0.22 : 0);
-    veilRef.current = false;
-  }, [pathname, children]);
-
-  // The first mounted key shows content that is already on screen.
-  const firstKey = firstKeyRef.current;
-  useEffect(() => {
-    firstKeyRef.current = false;
-  }, []);
+    if (routeRef.current === pathname) return;
+    routeRef.current = pathname;
+    window.clearTimeout(safetyRef.current);
+    setPending(false);
+    // Preserve Next's page tree and scroll handling. No transformed ancestor
+    // around fixed tarot tables, no cached children, no hydration remount.
+    if (!focusOnArrival.current) return;
+    focusOnArrival.current = false;
+    const frame = requestAnimationFrame(() => {
+      const target = document.querySelector<HTMLElement>("main h1, #main-content h1, h1, main, #main-content");
+      if (target) {
+        if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+        target.focus({ preventScroll: true });
+      }
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [pathname]);
 
   return (
     <>
-      <TransitionOverlay isVisible={overlayVisible} variant={variant} />
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={animationKey}
-          initial={reduce || firstKey ? false : { opacity: 0, y: 12 }}
-          animate={
-            leaving && !reduce
-              ? { opacity: 0, y: 10 } // the exhale: fade + sink
-              : { opacity: 1, y: 0 } //  the inhale: fade + rise
-          }
-          transition={
-            leaving
-              ? // the exhale waits one beat so the press's gilt ink dot
-                // is seen landing before anything moves
-                { duration: 0.3, ease: EASE, delay: 0.14 }
-              : {
-                  duration: reduce ? 0 : 0.55,
-                  ease: EASE,
-                  // keyed to the sheet's retreat (~40% through) so the
-                  // rise is seen instead of playing under an opaque sheet
-                  delay: reduce ? 0 : inhaleDelay,
-                }
-          }
-        >
-          {displayChildren}
-        </motion.div>
-      </AnimatePresence>
-
-      {/* House motion vocabulary that must exist on every page:
-          the TransitionLink press acknowledgment, and two colophon
-          typography mends (the homepage colophon is print — its lines
-          must break as verse, not leave orphans). */}
+      <TransitionOverlay isVisible={turning} variant="to-night" />
+      <div aria-busy={pending || undefined}>{children}</div>
+      <span className="oa-navigation-progress" data-pending={pending} aria-hidden />
       <style jsx global>{`
         /* ── press acknowledgment: a gilt ink dot lands under the
               pressed link in the beat before anything else moves ── */
@@ -214,6 +134,11 @@ export default function PageTransition({ children }: Props) {
             font-size: 0.78rem;
           }
         }
+      `}</style>
+      <style jsx>{`
+        .oa-navigation-progress { position: fixed; z-index: 9991; left: 0; top: 0; width: 100%; height: 2px; background: #e0b768; transform: scaleX(0); transform-origin: left; opacity: 0; transition: transform 240ms ease-out, opacity 160ms; pointer-events: none; }
+        .oa-navigation-progress[data-pending="true"] { opacity: 1; transform: scaleX(.72); }
+        @media (prefers-reduced-motion: reduce) { .oa-navigation-progress { transition: none; } }
       `}</style>
     </>
   );
