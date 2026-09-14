@@ -29,7 +29,7 @@
 
 /* ─── READABILITY ENGINE: CONTRAST & HIERARCHY ─── */
 :root {
-  --background: #10134d;
+  --background: #0c1029;
   --foreground: #e8e9ff;
   --c-gold: #e0b768;
   --c-void: #10134d;
@@ -62,9 +62,6 @@
   --dur-plate: 0.8s;
   --dur-turn: 0.24s;
 
-  /* SKY DRIFT — Lenis velocity, clamped -1..1, lerped back to 0.
-     Written by ClientShell; consumed by transform-only CSS. */
-  --scroll-vel: 0;
 }
 
 /* ── INK RISE machinery: line-level masks (built by splitLines()).
@@ -81,7 +78,6 @@
   transform: translateY(110%);
   transition: transform var(--dur-reveal) var(--ease-engrave);
   transition-delay: calc(var(--li, 0) * 0.08s);
-  will-change: transform;
 }
 
 .is-set .oa-line-in,
@@ -197,27 +193,6 @@ body {
     rgba(38, 46, 150, 0.25) 0%,
     transparent 70%
   );
-}
-
-/* ── The press slips out of register while the leaf turns ─────────
-   TransitionOverlay toggles .is-turning on <html>; display type
-   briefly shows its second (oxblood) pull, then registers back. */
-h1, h2, .wordmark {
-  transition: text-shadow 240ms ease;
-}
-
-.is-turning h1,
-.is-turning h2,
-.is-turning .wordmark {
-  text-shadow: 0.16em 0.02em 0 rgba(224, 183, 104, 0.5);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .is-turning h1,
-  .is-turning h2,
-  .is-turning .wordmark {
-    text-shadow: none;
-  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -341,79 +316,12 @@ h1, h2, .wordmark {
   transform: translateY(0);
 }
 
-/* ── The aurora field: what the glass has to refract ──
-   Three slow lobes of cold light drifting behind everything. Fixed,
-   composited, never touching layout. */
-.lg-aurora {
-  position: fixed;
-  inset: -20vh -10vw;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-  contain: strict;
-}
-
-.lg-aurora span {
-  position: absolute;
-  display: block;
-  border-radius: 50%;
-  filter: blur(90px);
-  /* The Arrival ground is flat night — the aurora is retired.
-     Kept structural so nothing that mounts it breaks. */
-  opacity: 0;
-  will-change: transform;
-}
-
-.lg-aurora span:nth-child(1) {
-  width: 60vw;
-  height: 60vw;
-  left: -12vw;
-  top: -14vh;
-  background: radial-gradient(circle, rgba(47, 60, 190, 0.5), transparent 66%);
-  animation: lg-drift-a 46s ease-in-out infinite;
-}
-
-.lg-aurora span:nth-child(2) {
-  width: 54vw;
-  height: 54vw;
-  right: -10vw;
-  top: 12vh;
-  background: radial-gradient(circle, rgba(232, 233, 255, 0.24), transparent 66%);
-  animation: lg-drift-b 62s ease-in-out infinite;
-}
-
-.lg-aurora span:nth-child(3) {
-  width: 68vw;
-  height: 68vw;
-  left: 18vw;
-  bottom: -30vh;
-  background: radial-gradient(circle, rgba(47, 56, 184, 0.6), transparent 68%);
-  animation: lg-drift-c 78s ease-in-out infinite;
-}
-
-@keyframes lg-drift-a {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(6vw, 5vh, 0) scale(1.12); }
-}
-
-@keyframes lg-drift-b {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1.06); }
-  50% { transform: translate3d(-7vw, 8vh, 0) scale(0.94); }
-}
-
-@keyframes lg-drift-c {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(4vw, -6vh, 0) scale(1.1); }
-}
+/* Retired atmospheric layers have no hidden animation or compositing cost. */
+.lg-aurora { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .lg-aurora span {
-    animation: none;
-  }
   .glass-btn,
-  .glass-btn::before {
-    transition: none;
-  }
+  .glass-btn::before { transition: none; }
 }
 
 /* ── The opening act's clock ──────────────────────────────────────

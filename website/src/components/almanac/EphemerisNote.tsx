@@ -17,6 +17,7 @@ export default function EphemerisNote({ locale }: { locale: string }) {
   const [note, setNote] = useState<{ phaseDeg: number; line: string; since: string | null } | null>(null);
 
   useEffect(() => {
+    const frame = requestAnimationFrame(() => {
     try {
       const m = moonState();
       const isUk = locale === "uk";
@@ -44,6 +45,8 @@ export default function EphemerisNote({ locale }: { locale: string }) {
       }
       setNote({ phaseDeg: m.phaseDeg, line, since });
     } catch {}
+    });
+    return () => cancelAnimationFrame(frame);
   }, [locale]);
 
   if (!note) return null;
@@ -64,12 +67,9 @@ export default function EphemerisNote({ locale }: { locale: string }) {
         .eph-note {
           display: flex;
           align-items: center;
-          gap: 0.95rem;
-          margin: 1.3rem 0 0.4rem;
-          padding: 0.85rem 1rem;
-          border: 1px solid rgba(232, 233, 255, 0.16);
-          outline: 1px solid rgba(232, 233, 255, 0.07);
-          outline-offset: 4px;
+          gap: 1.1rem;
+          margin: 0;
+          padding: 0;
           max-width: 30rem;
         }
         .eph-moon {
@@ -78,19 +78,19 @@ export default function EphemerisNote({ locale }: { locale: string }) {
         }
         .eph-kicker {
           margin: 0 0 0.35rem;
-          font-family: var(--font-mono, ui-monospace), monospace;
-          font-size: 0.58rem;
-          letter-spacing: 0.26em;
+          font-family: var(--font-body), sans-serif;
+          font-size: 0.62rem;
+          letter-spacing: 0.17em;
           text-transform: uppercase;
-          color: var(--ox, #e0b768);
+          color: var(--ox, #d8bb84);
         }
         .eph-line {
           margin: 0;
-          font-family: var(--font-mono, ui-monospace), monospace;
-          font-size: 0.7rem;
+          font-family: var(--font-body), sans-serif;
+          font-size: 0.78rem;
           line-height: 1.7;
-          letter-spacing: 0.05em;
-          color: rgba(183, 188, 233, 0.8);
+          letter-spacing: 0;
+          color: var(--ink-soft, #c0bfc8);
         }
       `}</style>
     </aside>

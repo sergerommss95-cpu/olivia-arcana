@@ -4,8 +4,8 @@
  * A full-screen engraved star chart of the entire site: every page's
  * berth constellation drawn as a cartouche on one equirectangular
  * plate. Opened by the "oa-sky-map" event, the M key, or the fixed
- * <SkyAtlasButton/>. Clicking a port closes the atlas, launches the
- * sky flight (voyage contract), then routes.
+ * shared atlas control. The chart is loaded only when requested;
+ * choosing a port closes it and routes immediately.
  *
  * Plate conventions: RA 0..24h right-to-left (astronomical), dec
  * +75°..−45°. Hairlines are vector-effect non-scaling-stroke; the
@@ -22,7 +22,7 @@ import React, {
   useState,
 } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { PORTS, flyTo, openAtlas, chartedPorts, CHARTED_EVENT } from "./voyage";
+import { PORTS, openAtlas, chartedPorts, CHARTED_EVENT } from "./voyage";
 import { STARS, CONSTELLATIONS, lst, eclipticToEquatorial, type Constellation } from "@/lib/star-chart";
 import {
   moonState,
@@ -257,7 +257,6 @@ const CSS = `
 .oa-atlas{position:fixed;inset:0;z-index:300;background:rgba(10,13,56,0.96);
   display:flex;overflow:auto;overscroll-behavior:contain;
   animation:oaFade .32s ${EASE} both}
-.oa-atlas.oa-closing{animation:none;opacity:0;transition:opacity .22s ease}
 .oa-atlas svg{margin:auto;display:block}
 .oa-atlas .draw{stroke-dasharray:1;stroke-dashoffset:1;
   animation:oaDraw .46s ${EASE} both}
@@ -282,42 +281,7 @@ const CSS = `
   .oa-atlas,.oa-atlas .draw,.oa-atlas .fadein{animation:none}
   .oa-atlas .draw{stroke-dashoffset:0}
   .oa-atlas .fadein{opacity:1}
-  .oa-atlas.oa-closing{transition:none}
 }`;
-
-const BTN_CSS = `
-.oa-atlas-btn{position:fixed;right:22px;
-  bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:90;
-  font:10px ${MONO};letter-spacing:.18em;text-transform:uppercase;
-  color:${MOON};background:rgba(10,13,42,.96);border:1px solid rgba(224,183,104,.35);
-  border-radius:2px;min-height:44px;padding:10px 12px;cursor:pointer;
-  transition:color .2s,border-color .2s}
-.oa-atlas-btn .oa-atlas-key{color:rgba(224,183,104,.85)}
-.oa-atlas-btn:hover,.oa-atlas-btn:focus-visible{color:${MOON};
-  border-color:rgba(232,233,255,.5)}
-.oa-atlas-btn:focus-visible{outline:2px solid #e0b768;outline-offset:4px}
-@media (hover: none), (pointer: coarse){
-  .oa-atlas-btn .oa-atlas-key{display:none}
-}
-@media (max-width: 640px){
-  .oa-atlas-btn .oa-atlas-key{display:none}
-  .oa-atlas-btn{right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));
-    font-size:9px;letter-spacing:.14em}
-}`;
-
-function isTyping(target: EventTarget | null): boolean {
-  const el = target as HTMLElement | null;
-  if (!el || !el.tagName) return false;
-  const tag = el.tagName;
-  return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || el.isContentEditable;
-}
-
-function prefersReducedMotion(): boolean {
-  return (
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
-}
 
 /** Resolve the current pathname to its berth key, if any. */
 function portKeyFor(pathname: string | null): string | null {
@@ -336,10 +300,8 @@ export default function SkyAtlas() {
   const { locale } = useLocale();
   const uk = locale === "uk";
 
-  const [open, setOpen] = useState(false);
-  const [closing, setClosing] = useState(false);
   const [hoverPath, setHoverPath] = useState<string | null>(null);
-  const [now, setNow] = useState<Date | null>(null);
+  const [now, setNow] = useState<Date>(() => new Date());
   /* Carta Incognita — berths this visitor has inked. */
   const [charted, setCharted] = useState<Set<string>>(() => new Set(["/"]));
   /* Coelum Vivum — the real Moon and wanderers at this minute. */
@@ -353,89 +315,20 @@ export default function SkyAtlas() {
   }, []);
 
   const dialogRef = useRef<HTMLDivElement>(null);
-  const prevFocusRef = useRef<HTMLElement | null>(null);
-  const openRef = useRef(false);
-  const closeTimerRef = useRef<number | null>(null);
-  const navTimerRef = useRef<number | null>(null);
-  useEffect(() => { openRef.current = open; }, [open]);
 
-  /* Contract: the "oa-sky-map" event is the single open/close switch. */
+  /* Focus + scroll lock while open. The access control owns invoker restoration. */
   useEffect(() => {
-    const onMap = (e: Event) => {
-      const want = Boolean((e as CustomEvent<{ open?: boolean }>).detail?.open);
-      if (closeTimerRef.current !== null) {
-        window.clearTimeout(closeTimerRef.current);
-        closeTimerRef.current = null;
-      }
-      if (want) {
-        setNow(new Date());
-        setClosing(false);
-        setOpen(true);
-      } else if (openRef.current) {
-        if (prefersReducedMotion()) {
-          setOpen(false);
-          setClosing(false);
-        } else {
-          setClosing(true);
-          closeTimerRef.current = window.setTimeout(() => {
-            setOpen(false);
-            setClosing(false);
-            closeTimerRef.current = null;
-          }, 230);
-        }
-      }
-    };
-    window.addEventListener("oa-sky-map", onMap);
-    return () => {
-      window.removeEventListener("oa-sky-map", onMap);
-      if (closeTimerRef.current !== null) window.clearTimeout(closeTimerRef.current);
-      if (navTimerRef.current !== null) window.clearTimeout(navTimerRef.current);
-    };
-  }, []);
-
-  /* M toggles (layout-independent KeyM; never while typing). */
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.code !== "KeyM" || e.metaKey || e.ctrlKey || e.altKey) return;
-      if (isTyping(e.target)) return;
-      e.preventDefault();
-      openAtlas(!openRef.current);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  /* ESC closes while open. */
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        openAtlas(false);
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
-
-  /* Focus capture + scroll lock while open; restore on close. */
-  useEffect(() => {
-    if (!open) return;
-    prevFocusRef.current = (document.activeElement as HTMLElement | null) ?? null;
     const raf = requestAnimationFrame(() => dialogRef.current?.focus());
     const prevOverflow = document.documentElement.style.overflow;
     document.documentElement.style.overflow = "hidden";
     return () => {
       cancelAnimationFrame(raf);
       document.documentElement.style.overflow = prevOverflow;
-      prevFocusRef.current?.focus?.();
-      setHoverPath(null);
     };
-  }, [open]);
+  }, []);
 
   /* Tonight's meridian keeps time while the plate is up (paused hidden). */
   useEffect(() => {
-    if (!open) return;
     const tick = () => {
       if (!document.hidden) setNow(new Date());
     };
@@ -445,7 +338,7 @@ export default function SkyAtlas() {
       window.clearInterval(id);
       document.removeEventListener("visibilitychange", tick);
     };
-  }, [open]);
+  }, []);
 
   /* Tab trap. */
   const onDialogKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -471,17 +364,12 @@ export default function SkyAtlas() {
     }
   }, []);
 
-  /* Close → fly → route. */
+  /* Navigation starts with the selection; no ceremonial delay. */
   const go = useCallback(
     (path: string) => {
       openAtlas(false);
       if (pathname === path) return;
-      flyTo(path);
-      if (navTimerRef.current !== null) window.clearTimeout(navTimerRef.current);
-      navTimerRef.current = window.setTimeout(
-        () => router.push(path),
-        prefersReducedMotion() ? 0 : 180
-      );
+      router.push(path);
     },
     [pathname, router]
   );
@@ -525,8 +413,6 @@ export default function SkyAtlas() {
     });
     return () => cancelAnimationFrame(frame);
   }, [now]);
-
-  if (!open && !closing) return null;
 
   const title = "CARTA COELI";
   const portTotal = Object.keys(PORTS).length;
@@ -574,7 +460,7 @@ export default function SkyAtlas() {
   return (
     <div
       ref={dialogRef}
-      className={`oa-atlas${closing ? " oa-closing" : ""}`}
+      className="oa-atlas"
       role="dialog"
       aria-modal="true"
       aria-label={uk ? "Carta Coeli — атлас видання" : "Carta Coeli — atlas of the edition"}
@@ -967,30 +853,5 @@ export default function SkyAtlas() {
         )}
       </svg>
     </div>
-  );
-}
-
-/* ════════════════════════════════════════════════════════════════
-   The fixed trigger — "THE SKY ✦ M"
-   ════════════════════════════════════════════════════════════════ */
-export function SkyAtlasButton() {
-  const { locale } = useLocale();
-  const uk = locale === "uk";
-  return (
-    <>
-      <style>{BTN_CSS}</style>
-      <button
-        type="button"
-        className="oa-atlas-btn"
-        aria-label={uk ? "Відкрити атлас неба" : "Open the sky atlas"}
-        aria-keyshortcuts="m"
-        onClick={() => openAtlas(true)}
-      >
-        {uk ? "АТЛАС НЕБА" : "SKY ATLAS"}
-        <span className="oa-atlas-key" aria-hidden>
-          {" "}✦ {uk ? "КЛАВІША M" : "PRESS M"}
-        </span>
-      </button>
-    </>
   );
 }

@@ -40,10 +40,8 @@ export default function NightRoomBand({ room }: { room: string }) {
           justify-content: space-between;
           gap: 1rem;
           padding: 0.5rem clamp(1rem, 3vw, 2rem);
-          background: rgba(10, 13, 56, 0.95);
+          background: #0c1029;
           border-bottom: 1px solid rgba(232, 233, 255, 0.14);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
         }
 
         .night-band :global(.night-band-back) {

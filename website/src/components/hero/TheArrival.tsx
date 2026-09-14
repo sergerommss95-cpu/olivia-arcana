@@ -8,7 +8,8 @@
  * and the sanctuary on the other side. Native scroll drives it (3.2
  * viewports desktop / 2.5 mobile); Begin offers an assisted ride; every
  * control from the verified prototype survives. The reading entrance
- * follows on a Liquid Night ground.
+ * follows on a continuous ink ground. Input is direct, the shader is phase-gated,
+ * and its backing buffer has a fixed pixel budget.
  */
 
 import React, { useEffect, useRef, useState } from "react";
@@ -40,6 +41,23 @@ vec4 figure(vec2 q){
  return vec4(c.rgb,c.a);
 }
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+vec3 shootingStar(){
+ float aspect=uResolution.x/uResolution.y;
+ float sCycle=floor(uTime/13.);float sT=fract(uTime/13.)*3.;
+ vec2 sA=vec2(.12+.55*hash(vec2(sCycle,7.3)),.08+.14*hash(vec2(sCycle,3.1)));
+ vec2 sDir=normalize(vec2(.82,.3));vec2 sPos=sA+sDir*sT*.45;
+ vec2 srel=(vUv-sPos)*vec2(aspect,1.);
+ float along=dot(srel,sDir);float perp=dot(srel,vec2(-sDir.y,sDir.x));
+ float shoot=exp(-perp*perp/.0000035)*exp(-along*along/.0016)*step(along,0.)*step(-.055,along)*step(sT,1.);
+ return vec3(.9,.94,1.)*shoot*.7*(1.-ramp(.18,.28,uProgress));
+}
+vec3 finishScene(vec3 color){
+ vec3 tc=clamp(color,0.,1.);
+ vec3 graded=mix(tc,tc*tc*(3.-2.*tc),.42);
+ float grain=(hash(floor(vUv*uResolution))-.5)*.006*(1.-dot(graded,vec3(.3333)));
+ // The final water exposure resolves into the exact ink of the next leaf.
+ return mix(max(graded+grain,vec3(0.)),vec3(12.,16.,41.)/255.,ramp(.85,1.,uProgress)*.74);
+}
 void main(){
  float aspect=uResolution.x/uResolution.y;
  float p=uProgress;
@@ -94,6 +112,9 @@ void main(){
  fg.rgb+=vec3(.9,.95,1.)*bead*pow(.5+.5*sin(uTime*3.+q.y*60.),6.)*.45;
  float hemContact=exp(-pow((q.y-.05)/.055,2.))*fg.a;
  fg.rgb+=vec3(.6,.68,1.)*hemContact*(.10+.14*abs(wake));
+ // Before the threshold exists, its refraction, geometry and sanctuary are invisible.
+ // This uniform branch skips those costs for the entire opening approach.
+ if(p<.29){gl_FragColor=vec4(finishScene(mix(base,fg.rgb,fg.a)+shootingStar()),1.);return;}
  vec3 outside=base;
  // A small darkening makes the rising silver-water surface read as a physical threshold.
  outside*=1.-open*.27;
@@ -171,18 +192,8 @@ void main(){
  color=mix(color,mix(reflected.rgb,vec3(.05,.08,.35),.28),ra*figureVisibility*aperture*.8);
  color+=vec3(.57,.65,1.)*wake*.03*figureVisibility*aperture;
  color=mix(color,fg.rgb,fg.a*figureVisibility);
- float sCycle=floor(uTime/13.);float sT=fract(uTime/13.)*3.;
- vec2 sA=vec2(.12+.55*hash(vec2(sCycle,7.3)),.08+.14*hash(vec2(sCycle,3.1)));
- vec2 sDir=normalize(vec2(.82,.3));vec2 sPos=sA+sDir*sT*.45;
- vec2 srel=(vUv-sPos)*vec2(aspect,1.);
- float along=dot(srel,sDir);float perp=dot(srel,vec2(-sDir.y,sDir.x));
- float shoot=exp(-perp*perp/.0000035)*exp(-along*along/.0016)*step(along,0.)*step(-.055,along)*step(sT,1.);
- color+=vec3(.9,.94,1.)*shoot*.7*(1.-ramp(.18,.28,p));
- // Film texture, stable in screen space, ties the procedural water to the supplied artwork.
- vec3 tc=clamp(color,0.,1.);
- vec3 graded=mix(tc,tc*tc*(3.-2.*tc),.42);
- float grain=(hash(floor(vUv*uResolution))-.5)*.006*(1.-dot(graded,vec3(.3333)));
- gl_FragColor=vec4(max(graded+grain,vec3(0.)),1.);
+ color+=shootingStar();
+ gl_FragColor=vec4(finishScene(color),1.);
 }`;
 
 type Props = {
@@ -263,7 +274,11 @@ export default function TheArrival(p: Props) {
     let gl: WebGLRenderingContext | null = null;
     let u: Record<string, WebGLUniformLocation | null> = {};
     let ready = false, inView = true, raf = 0, last = 0, time = 3;
-    let pv = 0, target = 0, range = 0, w = 1, h = 1;
+    let pv = 0, target = 0, range = 0, w = 1, h = 1, origin = 0;
+    let lastPaint = 0, lastProgress = -1, activeChapter = -1;
+    let geometryDirty = true;
+    const controls = root.querySelector<HTMLElement>(".tide-controls")!;
+    const resources: Array<() => void> = [];
     let auto: { from: number; to: number; start: number; duration: number } | null = null;
     let debug = false;
     const D: Array<() => void> = [];
@@ -273,29 +288,33 @@ export default function TheArrival(p: Props) {
     function measure() {
       const enabled = ready && !reduced.matches;
       seq.classList.toggle("enhanced", enabled);
-      range = enabled ? innerHeight * (innerWidth <= 700 ? 2.5 : 3.2) : 0;
-      seq.style.height = enabled ? stage.offsetHeight + range + "px" : "auto";
+      const stageHeight = stage.offsetHeight;
+      // svh stage geometry stays stable when phone browser chrome expands/collapses.
+      range = enabled ? stageHeight * (innerWidth <= 700 ? 2.5 : 3.2) : 0;
+      origin = seq.getBoundingClientRect().top + window.scrollY;
+      seq.style.height = enabled ? stageHeight + range + "px" : "auto";
       if (!enabled) { target = pv = reduced.matches ? 0 : pv; }
       resize(); onScroll();
     }
     function onScroll() {
       if (!ready || debug) return;
-      const r = seq.getBoundingClientRect();
-      target = range ? clamp(-r.top / range) : 0;
+      target = range ? clamp((window.scrollY - origin) / range) : 0;
       // Returning to the opening must restore its links even if water motion is paused.
       if (isPaused() && target === 0) { pv = 0; paint(); }
       start();
     }
     const visible = () => inView && !document.hidden;
-    function start() { if (!raf && ready && visible() && !isPaused() && !reduced.matches) raf = requestAnimationFrame(tick); }
+    function start() { if (!raf && ready && visible() && !isPaused() && !reduced.matches && (target < 1 || pv < 1 || auto)) raf = requestAnimationFrame(tick); }
     function compile(ty: number, src: string) {
       const s = gl!.createShader(ty)!;
+      resources.push(() => gl?.deleteShader(s));
       gl!.shaderSource(s, src); gl!.compileShader(s);
       if (!gl!.getShaderParameter(s, gl!.COMPILE_STATUS)) throw Error(gl!.getShaderInfoLog(s) || "tide shader");
       return s;
     }
     function texture(img: HTMLImageElement, unit: number, name: string) {
       const tex = gl!.createTexture();
+      resources.push(() => gl?.deleteTexture(tex));
       gl!.activeTexture(gl!.TEXTURE0 + unit); gl!.bindTexture(gl!.TEXTURE_2D, tex);
       gl!.pixelStorei(gl!.UNPACK_FLIP_Y_WEBGL, true);
       gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_WRAP_S, gl!.CLAMP_TO_EDGE);
@@ -308,35 +327,51 @@ export default function TheArrival(p: Props) {
     function resize() {
       if (!ready) return;
       const r = canvas.getBoundingClientRect(); w = r.width; h = r.height;
-      const dpr = Math.min(devicePixelRatio || 1, innerWidth <= 700 ? 1.5 : 1.6);
-      canvas.width = Math.max(1, Math.round(w * dpr));
-      canvas.height = Math.max(1, Math.round(h * dpr));
+      // A bounded backing buffer matters more than device DPR for this painterly scene.
+      const budget = innerWidth <= 700 ? 650_000 : 1_200_000;
+      const dpr = Math.min(devicePixelRatio || 1, 1.25, Math.sqrt(budget / (w * h)));
+      const nextW = Math.max(1, Math.round(w * dpr));
+      const nextH = Math.max(1, Math.round(h * dpr));
+      if (canvas.width !== nextW || canvas.height !== nextH) {
+        canvas.width = nextW; canvas.height = nextH;
+      }
+      geometryDirty = true;
       gl!.viewport(0, 0, canvas.width, canvas.height);
       gl!.uniform2f(u.uResolution, canvas.width, canvas.height);
       paint();
     }
     function paint() {
-      seq.style.setProperty("--progress", pv.toFixed(5));
       const approach = quint(clamp((pv - 0.015) / 0.455));
-      const fade = smooth(0.16, 0.35, pv);
-      stage.style.setProperty("--intro", String(1 - fade));
-      if (intro) intro.inert = fade > 0.98;
-      stage.style.setProperty("--intro-shift", String(-48 * fade));
-      const threshold = smooth(0.35, 0.46, pv) * (1 - smooth(0.5, 0.59, pv));
-      stage.style.setProperty("--threshold", String(threshold));
-      const passage = smooth(0.565, 0.625, pv) * (1 - smooth(0.705, 0.78, pv));
-      stage.style.setProperty("--passage", String(passage));
-      const arrival = smooth(0.86, 0.98, pv);
-      stage.style.setProperty("--arrival", String(arrival));
-      stage.style.setProperty("--shade", String(1 - smooth(0.4, 0.66, pv)));
-      const act = pv < 0.34 ? 0 : pv < 0.65 ? 1 : 2;
-      chapters.forEach((el, i) => {
-        el.classList.toggle("active", i === act);
-        if (i === act) el.setAttribute("aria-current", "step"); else el.removeAttribute("aria-current");
-      });
-      fill.style.transform = "scaleX(" + pv + ")";
-      stage.dataset.progress = pv.toFixed(4);
+      // Ambient water frames must not invalidate styles throughout the whole stage.
+      if (pv !== lastProgress) {
+        lastProgress = pv;
+        const fade = smooth(0.16, 0.35, pv);
+        stage.style.setProperty("--intro", String(1 - fade));
+        if (intro) intro.inert = fade > 0.98;
+        stage.style.setProperty("--intro-shift", String(-28 * fade));
+        const threshold = smooth(0.35, 0.46, pv) * (1 - smooth(0.5, 0.59, pv));
+        stage.style.setProperty("--threshold", String(threshold));
+        const passage = smooth(0.565, 0.625, pv) * (1 - smooth(0.705, 0.78, pv));
+        stage.style.setProperty("--passage", String(passage));
+        const exit = smooth(0.84, 0.99, pv);
+        stage.style.setProperty("--arrival-exit", String(exit));
+        stage.style.setProperty("--controls", String(1 - exit));
+        controls.inert = exit > 0.98;
+        stage.style.setProperty("--shade", String(1 - smooth(0.4, 0.66, pv)));
+        const act = pv < 0.34 ? 0 : pv < 0.65 ? 1 : 2;
+        if (act !== activeChapter) {
+          activeChapter = act;
+          chapters.forEach((el, i) => {
+            el.classList.toggle("active", i === act);
+            if (i === act) el.setAttribute("aria-current", "step"); else el.removeAttribute("aria-current");
+          });
+        }
+        fill.style.transform = "scaleX(" + pv + ")";
+        stage.dataset.progress = pv.toFixed(4);
+        geometryDirty = true;
+      }
       if (!ready) return;
+      if (geometryDirty) {
       const mobile = innerWidth <= 700;
       const ratio = w / h, ir = 1672 / 941;
       const fitX = Math.min(1, ratio / ir), fitY = Math.min(1, ir / ratio);
@@ -355,10 +390,12 @@ export default function TheArrival(p: Props) {
       const left = centerX - figureW * (89 / 186);
       const bottom = footY - figureH * (5 / 234);
       gl!.uniform4f(u.uFigure, left, bottom, figureW, figureH);
+      gl!.uniform1f(u.uPositionX, positionX);
+        geometryDirty = false;
+      }
       gl!.uniform1f(u.uTime, time);
       gl!.uniform1f(u.uProgress, pv);
       gl!.uniform1f(u.uApproach, approach);
-      gl!.uniform1f(u.uPositionX, positionX);
       gl!.drawArrays(gl!.TRIANGLES, 0, 6);
     }
     function tick(now: number) {
@@ -368,14 +405,18 @@ export default function TheArrival(p: Props) {
       if (auto) {
         const tt = clamp((now - auto.start) / auto.duration);
         const value = auto.from + (auto.to - auto.from) * tt;
-        const origin = seq.getBoundingClientRect().top + window.scrollY;
         scrollTo(0, origin + value * range);
-        target = value;
-        if (tt >= 1) { auto = null; landing()?.focus?.({ preventScroll: true }); }
+        target = clamp(value);
+        if (tt >= 1) { const finished = auto.to >= 0.98; auto = null; if (finished) { goReading(); return; } }
       }
-      pv += (target - pv) * (1 - Math.exp(-dt * 8));
-      if (Math.abs(target - pv) < 0.000025) pv = target;
-      paint(); start();
+      const moving = Math.abs(target - lastProgress) > 0.00001 || auto !== null;
+      pv = target;
+      // Match the display while following input; only quiet water is paced at 30fps.
+      // Active input is never throttled by a second timer.
+      if ((moving || now - lastPaint >= 1000 / 30 - 1) && (lastProgress !== 1 || pv !== 1)) {
+        paint(); lastPaint = now;
+      }
+      start();
     }
     function goReading() {
       auto = null;
@@ -391,12 +432,14 @@ export default function TheArrival(p: Props) {
         gl = canvas.getContext("webgl", { alpha: false, antialias: false, depth: false, powerPreference: "low-power" });
         if (!gl) return;
         const prog = gl.createProgram()!;
+        resources.push(() => gl?.deleteProgram(prog));
         gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
         gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
         gl.linkProgram(prog);
         if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw Error("tide link");
         gl.useProgram(prog);
         const b = gl.createBuffer();
+        resources.push(() => gl?.deleteBuffer(b));
         gl.bindBuffer(gl.ARRAY_BUFFER, b);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
         const at = gl.getAttribLocation(prog, "aPosition");
@@ -411,6 +454,7 @@ export default function TheArrival(p: Props) {
         if (at2) { debug = true; pv = target = clamp(Number(at2[1])); time = 6; }
         measure(); canvas.classList.add("ready"); start();
       } catch {
+        resources.splice(0).forEach(dispose => dispose());
         ready = false; canvas.classList.remove("ready");
         seq.classList.remove("enhanced"); seq.style.height = "auto";
         stage.dataset.renderer = "static";
@@ -423,7 +467,8 @@ export default function TheArrival(p: Props) {
       if (reduced.matches || !ready) { goReading(); return; }
       setPaused(false);
       measure();
-      auto = { from: pv, to: 0.98, start: performance.now(), duration: 12500 * Math.max(0, 0.98 - pv) };
+      // Carry the assisted ride through the natural sticky release, without a final jump.
+      auto = { from: pv, to: 1 + h / range, start: performance.now(), duration: Math.max(250, 11000 * (1 - pv) + 1600) };
       start();
     };
     begin?.addEventListener("click", onBegin); D.push(() => begin?.removeEventListener("click", onBegin));
@@ -467,7 +512,7 @@ export default function TheArrival(p: Props) {
     document.addEventListener("visibilitychange", vis); D.push(() => document.removeEventListener("visibilitychange", vis));
     const onRM = () => { cancelAnimationFrame(raf); raf = 0; auto = null; measure(); paint(); start(); };
     reduced.addEventListener("change", onRM); D.push(() => reduced.removeEventListener("change", onRM));
-    const onLost = (e: Event) => { e.preventDefault(); ready = false; cancelAnimationFrame(raf); raf = 0; canvas.classList.remove("ready"); seq.classList.remove("enhanced"); seq.style.height = "auto"; };
+    const onLost = (e: Event) => { e.preventDefault(); resources.length = 0; ready = false; cancelAnimationFrame(raf); raf = 0; canvas.classList.remove("ready"); seq.classList.remove("enhanced"); seq.style.height = "auto"; };
     canvas.addEventListener("webglcontextlost", onLost);
     canvas.addEventListener("webglcontextrestored", initialize);
     D.push(() => { canvas.removeEventListener("webglcontextlost", onLost); canvas.removeEventListener("webglcontextrestored", initialize); });
@@ -496,7 +541,7 @@ export default function TheArrival(p: Props) {
     });
     D.push(() => { alive = false; cancelAnimationFrame(raf); });
     void poster;
-    return () => D.forEach(f => f());
+    return () => { D.forEach(f => f()); resources.splice(0).forEach(f => f()); };
   }, [p.locale]);
 
   return (
@@ -537,6 +582,7 @@ export default function TheArrival(p: Props) {
           </div>
           <div className="tide-shade" aria-hidden />
           <div className="tide-seam" aria-hidden />
+          <div className="tide-floor" aria-hidden />
 
           <div className="tide-intro">
             <p className="tide-kicker">{p.kicker}</p>
@@ -561,11 +607,6 @@ export default function TheArrival(p: Props) {
           <div className="tide-line tide-passage" aria-hidden>
             <p className="tide-line-t"><em>{t.passage}</em></p>
           </div>
-          <div className="tide-line tide-arrival" aria-hidden>
-            <p className="tide-line-k">{p.locale === "uk" ? "Оракул" : "The Oracle"}</p>
-            <p className="tide-line-t">{t.arrival1}<br /><em>{t.arrival2}</em></p>
-          </div>
-
           <div className="tide-controls">
             <button type="button" className="tide-skip">{t.skip} ↗</button>
             <div className="tide-rail" aria-label={p.locale === "uk" ? "Розділи вступу" : "Opening chapters"}>
@@ -589,21 +630,23 @@ export default function TheArrival(p: Props) {
         .tide-journey { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; padding: 0; background: none; border: 0; color: #d3d6ec; font-size: 12px; cursor: pointer; gap: 18px; }
         .tide-journey:hover { color: #e0b768; }
         .tide-intro :global(a:focus-visible), .tide-intro button:focus-visible, .tide-controls button:focus-visible { outline: 2px solid #e0b768; outline-offset: 5px; }
-        .tide-seq { position: relative; background: var(--lg-night, #10134d); }
-        .tide-stage { position: relative; height: auto; min-height: max(560px, calc(100svh - 130px)); overflow: hidden; isolation: isolate; background: #131b76; }
+        .tide-seq { position: relative; background: #0c1029; }
+        .tide-stage { position: relative; height: auto; min-height: max(560px, calc(100svh - 130px)); overflow: hidden; isolation: isolate; background: #0c1029; }
         :global(.tide-seq.enhanced) .tide-stage { position: sticky; top: 0; min-height: 100svh; }
         .tide-world, .tide-shade { position: absolute; inset: 0; }
         .tide-poster, .tide-canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
-        .tide-canvas { opacity: 0; transition: opacity 0.7s var(--lg-ease); }
+        .tide-canvas { opacity: 0; }
         :global(.tide-canvas.ready) { opacity: 1; }
         .tide-src { display: none; }
-        .tide-seam { position: absolute; left: 0; right: 0; bottom: 0; height: 30%; pointer-events: none;
-          background: linear-gradient(0deg, #10134d 0%, rgba(16, 19, 77, 0.82) 34%, rgba(16, 19, 77, 0.3) 68%, transparent 100%);
-          opacity: calc(var(--progress, 0)); }
+        .tide-seam { position: absolute; left: 0; right: 0; bottom: 0; height: 48%; pointer-events: none;
+          background: linear-gradient(0deg, #0c1029 0%, rgba(12, 16, 41, 0.85) 22%, rgba(12, 16, 41, 0.3) 64%, transparent 100%);
+          opacity: var(--arrival-exit, 0); }
+        .tide-floor { position: absolute; left: 0; right: 0; bottom: 0; height: 180px; pointer-events: none;
+          background: linear-gradient(0deg, rgba(12, 16, 41, .8), rgba(12, 16, 41, .28) 58%, transparent); }
         .tide-shade { pointer-events: none; opacity: var(--shade, 1); background:
           linear-gradient(90deg, rgba(8, 15, 71, 0.78), rgba(12, 20, 82, 0.55) 30%, rgba(14, 24, 90, 0.16) 52%, transparent 70%),
           linear-gradient(180deg, rgba(6, 12, 58, 0.6), transparent 26%); }
-        .tide-intro { position: relative; z-index: 2; left: clamp(24px, 5.25vw, 104px); padding-top: clamp(38px, 6vh, 90px); padding-bottom: 100px;
+        .tide-intro { position: relative; z-index: 2; left: clamp(24px, 5.25vw, 104px); padding-top: clamp(152px, 21vh, 190px); padding-bottom: 100px;
           max-width: 760px; width: 64%; opacity: var(--intro, 1);
           transform: translateY(calc(var(--intro-shift, 0) * 1px)); }
         .tide-kicker { display: flex; align-items: center; gap: 13px; margin: 0 0 26px;
@@ -629,23 +672,23 @@ export default function TheArrival(p: Props) {
           font-size: 18px; color: #bdc5ef; }
         .tide-line { position: absolute; z-index: 2; left: clamp(24px, 5.25vw, 104px); top: 27%; max-width: 460px;
           opacity: 0; pointer-events: none;
-          text-shadow: 0 1px 4px rgba(10, 13, 56, 0.9), 0 0 26px rgba(10, 13, 56, 0.8), 0 0 60px rgba(10, 13, 56, 0.6); }
+          text-shadow: 0 2px 18px rgba(10, 13, 56, 0.65); }
         .tide-line::before { content: ""; position: absolute; inset: -12% -18%; z-index: -1;
           background: radial-gradient(60% 55% at 40% 45%, rgba(10, 13, 56, 0.55), transparent 75%); }
         .tide-threshold { opacity: var(--threshold, 0); }
         .tide-passage { opacity: var(--passage, 0); top: 34%; }
-        .tide-arrival { opacity: var(--arrival, 0); left: 50%; top: 30%; transform: translateX(-50%); text-align: center; }
         .tide-line-k { margin: 0 0 14px; font-family: var(--font-mono), monospace; font-size: 11px;
           letter-spacing: 0.24em; text-transform: uppercase; color: #b7bce9; }
         .tide-line-t { margin: 0; font-family: var(--font-heading), serif; font-weight: 400;
           font-size: clamp(38px, 4vw, 68px); line-height: 1.06; color: #e8e9ff; }
         @media (min-width: 1051px) { .tide-passage { margin-left: max(-7vw, calc(28px - clamp(24px, 5.25vw, 104px))); } }
-        .tide-controls { position: absolute; z-index: 3; left: 0; right: 0; bottom: 58px;
+        .tide-controls { position: absolute; z-index: 3; left: 0; right: 0; bottom: 54px;
           display: grid; grid-template-columns: 1fr minmax(300px, 430px) 1fr; align-items: end; gap: 30px;
           padding: 22px clamp(24px, 5.25vw, 104px) 20px;
-          background: linear-gradient(0deg, rgba(10, 13, 56, 0.78), rgba(10, 13, 56, 0.25) 70%, transparent);
+          opacity: var(--controls, 1); transform: translateY(calc(var(--arrival-exit, 0) * 12px));
+          text-shadow: 0 1px 8px #0c1029;
           font-family: var(--font-mono), monospace; }
-        .tide-skip, .tide-pause, .tide-chapter { background: none; border: 0; cursor: pointer; color: #b7bce9;
+        .tide-skip, .tide-pause, .tide-chapter { background: none; border: 0; cursor: pointer; color: #f0eadf;
           font-family: var(--font-mono), monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
           padding: 8px 0; min-height: 44px; transition: color 0.3s var(--lg-ease); }
         .tide-skip:hover, .tide-pause:hover, .tide-chapter:hover { color: #e8e9ff; }
@@ -659,94 +702,9 @@ export default function TheArrival(p: Props) {
         .tide-fill { display: block; height: 100%; background: #e0b768; transform: scaleX(0); transform-origin: left; }
         .tide-hint { margin: 0; text-align: center; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
           color: rgba(183, 188, 233, 0.8); }
-        .tide-reading { position: relative; overflow: hidden; min-height: 88svh; background: transparent;
-          display: grid; grid-template-columns: 1fr 1fr; gap: 55px;
-          padding: 110px clamp(24px, 5.25vw, 104px) 90px; }
-        .tide-reading::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 44vh;
-          z-index: 0; pointer-events: none;
-          background: linear-gradient(180deg, rgba(52, 62, 176, 0.6) 0%, rgba(31, 38, 140, 0.34) 34%, rgba(24, 29, 122, 0.16) 62%, transparent 100%); }
-        /* The watermark stays out of the grid flow — one accidental
-           'position: relative' here once seated it as a giant first
-           cell and shoved the whole room diagonal. */
-        .tide-reading > :not(.tide-watermark) { position: relative; z-index: 1; }
-        .tide-reading :global(canvas) { z-index: 0; }
-        .tide-watermark { position: absolute; left: -4%; top: 4%; z-index: 0; font-size: 44vh; line-height: 1;
-          color: rgba(183, 188, 233, 0.05); pointer-events: none; }
-        .tide-watermark :global(svg) { width: 1em; height: 1em; display: block; opacity: 0.13; }
-        /* The ephemeris — a marginal note in the almanac's own frame. */
-        .tide-eph { display: grid; grid-template-columns: 44px 1fr; gap: 18px; align-items: center;
-          margin: 6px 0 34px; padding: 16px 18px;
-          border: 1px solid rgba(232, 233, 255, 0.16);
-          outline: 1px solid rgba(232, 233, 255, 0.07); outline-offset: 4px; }
-        .tide-eph-moon { display: grid; place-items: center; width: 44px; height: 44px;
-          color: #e8e9ff; font-size: 26px; line-height: 1; }
-        .tide-eph-moon :global(svg) { width: 44px; height: 44px; display: block; opacity: 0.85; }
-        .tide-eph-k { margin: 0 0 7px; font-family: var(--font-mono), monospace; font-size: 10px;
-          letter-spacing: 0.22em; text-transform: uppercase; color: #b7bce9; }
-        .tide-eph-line { margin: 0; font-family: var(--font-mono), monospace; font-size: 11px;
-          line-height: 1.7; letter-spacing: 0.06em; color: rgba(183, 188, 233, 0.78); }
-        .tide-r-title { margin: 0 0 26px; font-family: var(--font-heading), serif; font-weight: 400;
-          font-size: clamp(42px, 4.4vw, 70px); line-height: 1.05; letter-spacing: -0.03em; color: #e8e9ff; }
-        .tide-r-title em { font-style: italic; }
-        .tide-r-desc { max-width: 380px; font-size: 15px; line-height: 1.75; color: rgba(206, 210, 245, 0.85); }
-        .tide-intents { position: relative; }
-        .tide-intents::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-          background: rgba(232, 233, 255, 0.25); transform: scaleX(0); transform-origin: left;
-          transition: transform 700ms var(--lg-ease, cubic-bezier(0.16, 1, 0.3, 1)) 180ms; }
-        .tide-intent { position: relative; display: grid; grid-template-columns: 44px 1fr auto; align-items: center; width: 100%;
-          padding: 24px 4px; background: none; border: 0;
-          cursor: pointer; text-align: left; }
-        /* the row's rule is drawn, not painted — it inks in on arrival */
-        .tide-intent::after { content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-          background: rgba(232, 233, 255, 0.25); transform: scaleX(0); transform-origin: left;
-          transition: transform 700ms var(--lg-ease, cubic-bezier(0.16, 1, 0.3, 1)) calc(280ms + var(--ii, 0) * 60ms),
-            background 0.3s var(--lg-ease, cubic-bezier(0.16, 1, 0.3, 1)); }
-        .tide-intent:hover::after { background: rgba(232, 233, 255, 0.5); }
-        /* ── ink-in: the room rises 8px and settles, 60ms steps ── */
-        .tide-r-head .tide-kicker, .tide-r-title, .tide-r-desc, .tide-eph,
-        .tide-intent, .tide-q-label, .tide-q, .tide-r-actions {
-          opacity: 0; transform: translateY(8px);
-          transition: opacity 650ms var(--lg-ease, cubic-bezier(0.16, 1, 0.3, 1)) var(--ink-d, 0ms),
-            transform 650ms var(--lg-ease, cubic-bezier(0.16, 1, 0.3, 1)) var(--ink-d, 0ms); }
-        .tide-r-title { --ink-d: 80ms; }
-        .tide-r-desc { --ink-d: 160ms; }
-        .tide-eph { --ink-d: 140ms; }
-        .tide-intent { --ink-d: calc(240ms + var(--ii, 0) * 60ms); }
-        .tide-q-label { --ink-d: 480ms; }
-        .tide-q { --ink-d: 540ms; }
-        .tide-r-actions { --ink-d: 620ms; }
-        :global(.tide-reading.is-inked) .tide-r-head .tide-kicker,
-        :global(.tide-reading.is-inked) .tide-r-title,
-        :global(.tide-reading.is-inked) .tide-r-desc,
-        :global(.tide-reading.is-inked) .tide-eph,
-        :global(.tide-reading.is-inked) .tide-intent,
-        :global(.tide-reading.is-inked) .tide-q-label,
-        :global(.tide-reading.is-inked) .tide-q,
-        :global(.tide-reading.is-inked) .tide-r-actions { opacity: 1; transform: none; }
-        :global(.tide-reading.is-inked) .tide-intents::before,
-        :global(.tide-reading.is-inked) .tide-intent::after { transform: none; }
-        .tide-intent-n { font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: 0.18em;
-          color: #b7bce9; }
-        .tide-intent-l { font-family: var(--font-heading), serif; font-size: clamp(26px, 2.2vw, 34px);
-          color: #e8e9ff; transition: color 0.3s var(--lg-ease); }
-        .tide-intent-a { color: #e0b768; opacity: 0; transform: translateX(-8px);
-          transition: opacity 0.3s var(--lg-ease), transform 0.3s var(--lg-ease); }
-        .tide-intent.on .tide-intent-l { color: #e0b768; }
-        .tide-intent.on .tide-intent-a { opacity: 1; transform: none; }
-        .tide-q-label { margin: 34px 0 12px; font-family: var(--font-mono), monospace; font-size: 10.5px;
-          letter-spacing: 0.22em; text-transform: uppercase; color: #b7bce9; }
-        .tide-q { margin: 0 0 34px; font-family: var(--font-heading), serif; font-size: 26px; color: #e8e9ff; }
-        .tide-r-actions { display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
-        .tide-r-actions :global(.tide-oracle) { display: inline-flex; align-items: center; gap: 14px;
-          min-height: 54px; padding: 0 24px; border-radius: 2px; background: #e0b768; color: #15174c;
-          font-size: 14px; font-weight: 500; text-decoration: none;
-          transition: background 0.3s var(--lg-ease), transform 0.3s var(--lg-ease); }
-        .tide-r-actions :global(.tide-oracle:hover) { background: #edca8b; transform: translateY(-2px); }
-        .tide-r-actions :global(.tide-daily) { color: #e8e9ff; font-size: 14px; text-decoration: none;
-          border-bottom: 1px solid rgba(232, 233, 255, 0.5); padding-bottom: 2px; transition: border-color 0.3s; }
-        .tide-r-actions :global(.tide-daily:hover) { border-color: #e8e9ff; }
         @media (max-width: 900px) {
-          .tide-intro { width: calc(100% - 40px); left: 20px; padding-right: 0; padding-top: 32px; padding-bottom: 90px; }
+          .tide-intro { width: calc(100% - 40px); left: 20px; padding-right: 0; padding-top: 148px; padding-bottom: 150px; }
+          .tide-poster { object-position: 63% 50%; }
           .tide-title { font-size: clamp(44px, 11vw, 66px); max-width: 13ch; margin-bottom: 20px; }
           .tide-stage { height: auto; min-height: max(570px, calc(100svh - 116px)); }
           .tide-actions { gap: 16px; }
@@ -755,7 +713,6 @@ export default function TheArrival(p: Props) {
           .tide-shade { background: linear-gradient(90deg, rgba(8, 15, 48, .92), rgba(8, 15, 48, .54) 72%, rgba(8, 15, 48, .18)); }
           .tide-controls { grid-template-columns: auto 1fr auto; gap: 14px; padding: 16px 24px 14px; }
           .tide-hint { display: none; }
-          .tide-reading { grid-template-columns: 1fr; gap: 34px; padding: 80px 24px 70px; }
         }
         @media (max-width: 640px) {
           /* The phone's stage keeps one quiet row: skip · progress · pause.
@@ -766,15 +723,21 @@ export default function TheArrival(p: Props) {
           .tide-pause .tide-pause-i { font-size: 9px; }
           .tide-track { margin: 12px 0 6px; }
           .tide-sub { font-size: 15px; }
-          .tide-watermark { font-size: 34vh; }
+        }
+        @media (max-width: 700px) and (max-height: 740px) {
+          .tide-intro { padding-top: 130px; padding-bottom: 88px; }
+          .tide-title { font-size: 42px; margin-bottom: 16px; }
+          .tide-sub { font-size: 14px; line-height: 1.55; margin-bottom: 16px; }
+          .tide-actions { gap: 8px; }
+          .tide-actions :global(.tide-secondary) { min-height: 44px; }
+          .tide-trust { margin-top: 10px; }
+          .tide-journey { margin-top: 0; }
         }
         @media (prefers-reduced-motion: reduce) {
           .tide-canvas { display: none; }
           .tide-line, .tide-controls .tide-rail { display: none; }
-          .tide-r-head .tide-kicker, .tide-r-title, .tide-r-desc, .tide-eph,
-          .tide-intent, .tide-q-label, .tide-q, .tide-r-actions {
-            opacity: 1; transform: none; transition: none; }
-          .tide-intents::before, .tide-intent::after { transform: none; transition: none; }
+          .tide-intro, .tide-canvas, .tide-controls { transition: none; transform: none; }
+
         }
       `}</style>
     </div>

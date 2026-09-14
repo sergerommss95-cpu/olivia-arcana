@@ -2,14 +2,12 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import TransitionOverlay from "./TransitionOverlay";
 
-/** A brief turn of the leaf. Routing starts on press; content never waits for motion. */
+/** Immediate navigation, a quiet progress rule, and focus at the destination. */
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() ?? "/";
   const router = useRouter();
   const [pending, setPending] = useState(false);
-  const [turning, setTurning] = useState(false);
   const routeRef = useRef(pathname);
   const cleanupRef = useRef<(() => void) | null>(null);
   const safetyRef = useRef<number | undefined>(undefined);
@@ -30,17 +28,12 @@ export default function PageTransition({ children }: { children: React.ReactNode
       cleanupRef.current?.();
       focusOnArrival.current = true;
       setPending(true);
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      setTurning(!reduced);
-      // The decorative veil has a bounded lifetime even if a chunk is slow.
-      const reveal = window.setTimeout(() => setTurning(false), 240);
       const safety = window.setTimeout(() => {
         setPending(false);
-        setTurning(false);
         window.dispatchEvent(new CustomEvent("page:transition-abort"));
       }, 5000);
       safetyRef.current = safety;
-      cleanupRef.current = () => { window.clearTimeout(reveal); window.clearTimeout(safety); };
+      cleanupRef.current = () => window.clearTimeout(safety);
       router.push(href);
     };
     window.addEventListener("page:transition", handleTransition);
@@ -72,7 +65,6 @@ export default function PageTransition({ children }: { children: React.ReactNode
 
   return (
     <>
-      <TransitionOverlay isVisible={turning} variant="to-night" />
       <div aria-busy={pending || undefined}>{children}</div>
       <span className="oa-navigation-progress" data-pending={pending} aria-hidden />
       <style jsx global>{`
