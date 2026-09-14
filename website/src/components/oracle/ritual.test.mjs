@@ -59,3 +59,23 @@ test("a new transition replaces an old one; reduced motion completes immediately
   assert.deepEqual(calls, ["new"]);
   timer.cancel();
 });
+
+test("the entire 78-card reading restores with exact manual orientations", async () => {
+  const { parseSharedReading } = await import("./ritual.ts");
+  assert.deepEqual(parseSharedReading("77,0,38", "123456", "1,0,1", 3, 78), {
+    indices: [77,0,38], seed: 123456, orientations: { 77: true, 0: false, 38: true },
+  });
+  assert.deepEqual(parseSharedReading("10,0,8", "0", null, 3, 78), {
+    indices: [10,0,8], seed: 0, orientations: {},
+  }, "legacy URLs without orientation bits retain their seeded reversals");
+});
+
+test("invalid seed or orientation never partially restores a different reading", async () => {
+  const { parseSharedReading } = await import("./ritual.ts");
+  for (const seed of [null, "", "-1", "1.2", "Infinity", "4294967296", "1e3", " 12"])
+    assert.equal(parseSharedReading("0,1,2", seed, null, 3, 78), null);
+  for (const bits of ["", "0,1", "0,1,2", "0,1,1,0", "0,1, 1", "true,0,1"])
+    assert.equal(parseSharedReading("0,1,2", "12", bits, 3, 78), null);
+  assert.equal(parseSharedReading("0,0,2", "12", "0,1,1", 3, 78), null);
+  assert.equal(parseSharedReading("0,1,78", "12", "0,1,1", 3, 78), null);
+});

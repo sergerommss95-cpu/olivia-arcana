@@ -2,18 +2,15 @@
 
 /** Personal Almanac — the Arrival frontispiece and two working engraved plates. */
 
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import TransitionLink from "@/components/transitions/TransitionLink";
 import SpreadTheater from "@/components/almanac/SpreadTheater";
-import TonightPlate from "@/components/almanac/TonightPlate";
 import EphemerisNote from "@/components/almanac/EphemerisNote";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import TheArrival from "@/components/hero/TheArrival";
 import StarMotes from "@/components/arrival/StarMotes";
-import ShaderBackdrop from "@/components/almanac/ShaderBackdrop";
-import InkCursor from "@/components/almanac/InkCursor";
-import MagnetRig from "@/components/almanac/MagnetRig";
 import { useLocale } from "@/lib/i18n/useLocale";
 import { getAlmanacToday, moonPath, type AlmanacToday } from "@/lib/almanac-today";
 import { buildSkyPlate, currentHourIndex, horizontalAt, PLATE_LATITUDE, type PlanetaryHour, type PlateEvent, type SkyPlate, type SkyPoint, type SkyTrack } from "@/lib/diurnal";
@@ -2591,10 +2588,13 @@ function DayPanorama({ today, caption }: { today: AlmanacToday | null; caption: 
 
   // The reader's own latitude, kept in the browser and nowhere else.
   useEffect(() => {
-    try {
-      const v = parseFloat(localStorage.getItem("oa-lat") ?? "");
-      if (Number.isFinite(v) && v >= 23 && v <= 66) setLat(v);
-    } catch {}
+    const frame = requestAnimationFrame(() => {
+      try {
+        const v = parseFloat(localStorage.getItem("oa-lat") ?? "");
+        if (Number.isFinite(v) && v >= 23 && v <= 66) setLat(v);
+      } catch {}
+    });
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   const commitLat = (raw: string) => {
@@ -4156,14 +4156,12 @@ export default function Home() {
     return () => cancelAnimationFrame(id);
   }, []);
   useEffect(() => {
-    try {
-      if (localStorage.getItem("olivia-diver")) setDiver(true);
-    } catch {
-      /* unmarked */
-    }
+    const frame = requestAnimationFrame(() => {
+      try { if (localStorage.getItem("olivia-diver")) setDiver(true); } catch {}
+    });
     const on = () => setDiver(true);
     window.addEventListener("alm-diver", on);
-    return () => window.removeEventListener("alm-diver", on);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("alm-diver", on); };
   }, []);
 
   useEffect(() => {
@@ -4223,7 +4221,9 @@ export default function Home() {
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    const targets = root.querySelectorAll("[data-set]");
+    // [data-set] keeps the letterpress fade; [data-act] arms the
+    // Ephemeris choreography (plate reveal, ink rise, hairline, gilt).
+    const targets = root.querySelectorAll("[data-set], [data-act]");
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       targets.forEach((el) => el.classList.add("is-set"));
       return;
@@ -4249,13 +4249,8 @@ export default function Home() {
   const heroLines = locale === "en" ? ["Your stars,", "translated clearly."]
     : locale === "uk" ? ["Ваші зірки —", "людською мовою."] : [heroTitle];
 
-  // The frontispiece entrance, in three movements: HOLD (blank paper, the
-  // wordmark alone, ~1s of patience), BLOOM (the page opens from a center
-  // slit over 1.8s while the wordmark docks into the masthead), DONE (the
-  // display lines slide in, the small type rises through masks). Once per
-  // session; reduced motion and repeat visits land on the finished page.
-  const [stage, setStage] = useState<"idle" | "hold" | "bloom" | "done">("idle");
-  useEffect(() => { setStage("done"); }, []);
+  // Paint the useful first screen immediately; the Arrival is opt-in.
+  const [stage] = useState<"idle" | "hold" | "bloom" | "done">("done");
 
   // Schedule at most one update for each scroll/resize burst. No idle layout polling.
   useEffect(() => {
@@ -4539,6 +4534,7 @@ export default function Home() {
                     {label}
                   </TransitionLink>
                 ))}
+                <div className="mast-language"><LanguageSwitcher /></div>
               </div>
             </details>
             <TransitionLink href="/oracle" className="masthead-cta">
@@ -4573,7 +4569,7 @@ export default function Home() {
           locale={locale}
           kicker={locale === "uk" ? "Персональний альманах" : "A personal almanac"}
           titleLines={heroLines}
-          subtitle={t("hero_subtitle") as string}
+          subtitle={locale === "en" ? "Explore your birth chart. Bring a question to the tarot. Make space for a clearer perspective." : locale === "uk" ? "Дослідіть свою натальну карту. Зверніться з питанням до Таро. Знайдіть простір для яснішого погляду." : t("hero_subtitle") as string}
           trust={t("hero_trust_line") as string}
           primaryHref="/oracle"
           primaryLabel={copy.navCta}
@@ -4593,22 +4589,29 @@ export default function Home() {
         {/* ── The plates ──────────────────────────────────────── */}
         <section className="plates" id="plates" tabIndex={-1} aria-label={copy.platesLabel}>
           {copy.plates.slice(0, 2).map((plate, i) => (
-            <article key={plate.numeral} className={`plate ${i % 2 ? "flip" : ""}${i === 0 ? " plate-oracle" : ""}`} data-set>
-              <figure className="plate-figure" aria-hidden={i === 0 ? undefined : true} data-drift style={{ "--drift": i % 2 ? "-14px" : "14px", "--rock": i % 2 ? "-0.7deg" : "0.7deg" } as React.CSSProperties}>
-                {i === 0 ? (
-                  <SpreadTheater href={plate.href} label={`${plate.title} — ${plate.cta}`} />
-                ) : i === 1 ? (
-                  <WheelDiagram className="plate-svg" today={today} />
-                ) : (
-                  <SynastryDiagram className="plate-svg" />
-                )}
+            <article key={plate.numeral} className={`plate ${i % 2 ? "flip" : ""}${i === 0 ? " plate-oracle" : ""}`} data-act>
+              <figure className="plate-figure" aria-hidden={i === 0 ? undefined : true} data-drift data-plate style={{ "--drift": i % 2 ? "-14px" : "14px", "--rock": i % 2 ? "-0.7deg" : "0.7deg" } as React.CSSProperties}>
+                {/* PLATE REVEAL — the figure is uncovered from its lower
+                    edge while the print settles out of a 1.12 enlargement. */}
+                <div className="oa-plate-clip">
+                  <div className="oa-plate-in">
+                    {i === 0 ? (
+                      <SpreadTheater href={plate.href} label={`${plate.title} — ${plate.cta}`} />
+                    ) : i === 1 ? (
+                      <WheelDiagram className="plate-svg" today={today} />
+                    ) : (
+                      <SynastryDiagram className="plate-svg" />
+                    )}
+                  </div>
+                </div>
                 <figcaption className="fig-caption">{plate.caption}</figcaption>
               </figure>
               <div className="plate-copy">
                 <p className="plate-numeral">
                   {copy.platesLabel} · {plate.numeral}
                 </p>
-                <h2>{plate.title}</h2>
+                {/* A declarative mask keeps line wrapping responsive. */}
+                <h2 key={locale}><span className="oa-line"><span className="oa-line-in">{plate.title}</span></span></h2>
                 <p className="plate-body">{plate.body}</p>
                 {i === 0 && <EphemerisNote locale={locale} />}
                 {i === 1 ? (
@@ -4737,7 +4740,7 @@ export default function Home() {
                     </React.Fragment>
                   ))}
                 </fieldset>
-                <button type="submit" className="btn-ink">
+                <button type="submit" className="btn-ink oa-gilt">
                   {locale === "uk" ? "Вписати" : "Inscribe"}
                 </button>
               </div>
@@ -4748,7 +4751,7 @@ export default function Home() {
         
                   </div>
                 ) : (
-                  <TransitionLink href={plate.href} className="link-ox">
+                  <TransitionLink href={plate.href} className="link-ox oa-gilt">
                     {plate.cta} →
                   </TransitionLink>
                 )}
@@ -4775,7 +4778,7 @@ export default function Home() {
           ))}
         </div>
         {today && (
-          <div className="colophon-end" data-set>
+          <div className="colophon-end" data-act key={locale}>
             <p>
               {locale === "uk" ? "Тут закінчується Особистий альманах Olivia Arcana" : "Here ends the Personal Almanac of Olivia Arcana"}
             </p>
@@ -4973,6 +4976,40 @@ export default function Home() {
           transition: background 300ms var(--ease), transform 300ms var(--ease), box-shadow 300ms var(--ease);
         }
 
+        /* ── GILT REGISTER — gold never first ─────────────────────
+           The plate's one gilt CTA arrives LAST: tracking settles from
+           wide to rest while it fades in, well after title and body.
+           --oa-ls-rest keeps each control's own resting tracking. */
+        :global(.almanac .oa-gilt) {
+          --oa-ls-rest: 0.01em;
+          opacity: 1;
+          letter-spacing: var(--oa-ls-rest);
+          transition:
+            opacity var(--dur-element) var(--ease-engrave),
+            letter-spacing var(--dur-element) var(--ease-engrave),
+            background 300ms var(--ease),
+            transform 300ms var(--ease),
+            box-shadow 300ms var(--ease),
+            border-color 250ms var(--ease);
+        }
+
+        :global(.almanac .link-ox.oa-gilt) {
+          --oa-ls-rest: 0.14em;
+        }
+
+        :global(.almanac .is-set .oa-gilt) {
+          opacity: 1;
+          letter-spacing: var(--oa-ls-rest);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          :global(.almanac .oa-gilt) {
+            opacity: 1;
+            letter-spacing: var(--oa-ls-rest);
+            transition: opacity var(--dur-micro) ease;
+          }
+        }
+
         :global(.almanac .btn-ink:hover),
         :global(.almanac .btn-ink:focus-visible) {
           background: #edca8b;
@@ -5011,7 +5048,134 @@ export default function Home() {
           }
         }
 
+        /* ═══ EPHEMERIS — the plate act ═══════════════════════════
+           One trigger (the article's is-set) conducts the whole plate:
+           the figure is uncovered (PLATE REVEAL), the title rises
+           through its line masks (INK RISE — globals.css), the copy
+           settles, the section rule draws (HAIRLINE DRAW, landing just
+           after the text), and the gilt CTA registers LAST. */
+
+        /* PLATE REVEAL — replaces the plain fade for the two figures. */
+        .almanac :global(.plate .oa-plate-clip) {
+          clip-path: inset(8% 0 0 0);
+          transition: clip-path var(--dur-plate) var(--ease-engrave);
+          
+        }
+
+        .almanac :global(.plate .oa-plate-in) {
+          transform: scale(1.035);
+          transform-origin: 50% 72%;
+          transition: transform var(--dur-plate) var(--ease-engrave);
+          will-change: transform;
+        }
+
+        .almanac :global(.plate.is-set .oa-plate-clip),
+        .almanac :global(.plate:focus-within .oa-plate-clip) {
+          clip-path: inset(0% 0 0 0);
+        }
+
+        .almanac :global(.plate.is-set .oa-plate-in) {
+          transform: scale(1);
+        }
+
+        .almanac :global(.plate .fig-caption) {
+          opacity: 0;
+          transition: opacity var(--dur-element) var(--ease-engrave) 0.18s;
+        }
+
+        .almanac :global(.plate.is-set .fig-caption) {
+          opacity: 1;
+        }
+
+        /* The copy settles in register: numeral first, body after the
+           title's lines have begun their rise. The h2 itself never
+           fades — its masked lines carry the reveal. */
+        .almanac :global(.plate .plate-copy > :not(h2):not(.oa-gilt)) {
+          opacity: 0;
+          transform: translateY(12px);
+          transition:
+            opacity var(--dur-element) var(--ease-engrave) 0.08s,
+            transform var(--dur-element) var(--ease-engrave) 0.08s;
+        }
+
+        .almanac :global(.plate .plate-copy > .plate-numeral) {
+          transition-delay: 0.05s, 0.05s;
+        }
+
+        .almanac :global(.plate.is-set .plate-copy > :not(h2):not(.oa-gilt)),
+        .almanac :global(.plate:focus-within .plate-copy > :not(h2):not(.oa-gilt)) {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* HAIRLINE DRAW — the rule between plates draws origin-left,
+           0.8s on the wipe curve, landing ~.15s after the title text. */
+        .almanac :global(.plate + .plate::before) {
+          content: "";
+          grid-column: 1 / -1;
+          height: 1px;
+          background: var(--hairline);
+          transform: scaleX(0);
+          transform-origin: left center;
+          transition: transform 0.8s var(--ease-wipe) 0.4s;
+        }
+
+        .almanac :global(.plate + .plate.is-set::before) {
+          transform: scaleX(1);
+        }
+
+        /* The inscription frame's rule — same draw, keyed to Plate II. */
+        .almanac :global(.plate .plate-inscribe::before) {
+          content: "";
+          display: block;
+          height: 1px;
+          margin-bottom: 1.1rem;
+          background: var(--hairline);
+          transform: scaleX(0);
+          transform-origin: left center;
+          transition: transform 0.8s var(--ease-wipe) 0.55s;
+        }
+
+        .almanac :global(.plate.is-set .plate-inscribe::before) {
+          transform: scaleX(1);
+        }
+
+        /* The colophon verse: masked lines rise (split in JS); the
+           richer paragraphs take the quiet fade instead. */
+        .almanac :global(.colophon-end .oa-fade) {
+          opacity: 0;
+          transition: opacity var(--dur-element) var(--ease-engrave) 0.5s;
+        }
+
+        .almanac :global(.colophon-end.is-set .oa-fade) {
+          opacity: 1;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .almanac :global(.plate .oa-plate-clip) {
+            clip-path: none;
+            transition: opacity var(--dur-micro) ease;
+          }
+          .almanac :global(.plate .oa-plate-in) {
+            transform: none;
+            transition: opacity var(--dur-micro) ease;
+          }
+          .almanac :global(.plate .fig-caption),
+          .almanac :global(.plate .plate-copy > :not(h2):not(.oa-gilt)),
+          .almanac :global(.colophon-end .oa-fade) {
+            opacity: 1;
+            transform: none;
+            transition: opacity var(--dur-micro) ease;
+          }
+          .almanac :global(.plate + .plate::before),
+          .almanac :global(.plate .plate-inscribe::before) {
+            transform: none;
+            transition: none;
+          }
+        }
+
         /* ── Masthead ────────────────────────────────────────── */
+        .mast-language { padding: 8px 14px; }
         .masthead {
           padding: 1.1rem clamp(1.1rem, 4vw, 3rem) 0;
           /* the drawer must open OVER the hero that follows in the flow */
@@ -5923,9 +6087,8 @@ export default function Home() {
           padding: clamp(2.2rem, 5vw, 4rem) 0;
         }
 
-        .plate + .plate {
-          border-top: 1px solid var(--hairline);
-        }
+        /* the rule between plates is drawn by the Ephemeris (see the
+           HAIRLINE DRAW block) — no static border here anymore */
 
         .plate.flip {
           grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.8fr);
@@ -7264,10 +7427,14 @@ export default function Home() {
           transform: translate3d(calc(var(--mx, 0) * -5px), calc(var(--my, 0) * -3px), 0);
         }
 
-        /* ── Scroll-breath: figures drift with the reader ──────── */
+        /* ── Scroll-breath: figures drift with the reader ────────
+           SKY DRIFT: --scroll-vel (Lenis velocity, -1..1, lerped back
+           to rest by ClientShell) leans the figures with the scroll —
+           transform only, a few px and under 2° of skew. */
         .almanac [data-drift] {
-          transform: translate3d(0, calc((0.5 - var(--dp, 0.5)) * var(--drift, 14px)), 0)
-            rotate(calc((0.5 - var(--dp, 0.5)) * var(--rock, 0.7deg)));
+          transform: translate3d(0, calc((0.5 - var(--dp, 0.5)) * var(--drift, 14px) + var(--scroll-vel, 0) * -9px), 0)
+            rotate(calc((0.5 - var(--dp, 0.5)) * var(--rock, 0.7deg)))
+            skewY(calc(var(--scroll-vel, 0) * -1.4deg));
           will-change: transform;
         }
 
@@ -7676,8 +7843,26 @@ export default function Home() {
           .almanac .svg-fade,
           .almanac .wheel-live,
           .almanac .counsel,
-          .almanac [data-set] {
+          .almanac [data-set],
+          .almanac [data-act],
+          .almanac :global(.oa-fade),
+          .almanac :global(.oa-gilt),
+          .almanac :global(.fig-caption),
+          .almanac :global(.plate-copy > *) {
             opacity: 1 !important;
+            transform: none !important;
+          }
+
+          .almanac :global(.oa-plate-clip) {
+            clip-path: none !important;
+          }
+
+          .almanac :global(.oa-plate-in) {
+            transform: none !important;
+          }
+
+          .almanac :global(.plate + .plate::before),
+          .almanac :global(.plate .plate-inscribe::before) {
             transform: none !important;
           }
 

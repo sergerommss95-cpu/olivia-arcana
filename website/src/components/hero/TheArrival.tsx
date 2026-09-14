@@ -376,7 +376,9 @@ export default function TheArrival(p: Props) {
       paint(); start();
     }
     function goReading() {
-      auto = null; pv = target = 1; paint();
+      auto = null;
+      pv = target = reduced.matches || root.dataset.immersive !== "true" ? 0 : 1;
+      paint();
       landing()?.scrollIntoView({ behavior: "instant" as ScrollBehavior });
       landing()?.focus?.({ preventScroll: true });
     }
@@ -482,7 +484,6 @@ export default function TheArrival(p: Props) {
     D.push(() => { alive = false; cancelAnimationFrame(raf); });
     void poster;
     return () => D.forEach(f => f());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [p.locale]);
 
   return (
@@ -627,7 +628,7 @@ export default function TheArrival(p: Props) {
         .tide-line-t { margin: 0; font-family: var(--font-heading), serif; font-weight: 400;
           font-size: clamp(38px, 4vw, 68px); line-height: 1.06; color: #e8e9ff; }
         @media (min-width: 1051px) { .tide-passage { margin-left: max(-7vw, calc(28px - clamp(24px, 5.25vw, 104px))); } }
-        .tide-controls { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0;
+        .tide-controls { position: absolute; z-index: 3; left: 0; right: 0; bottom: 58px;
           display: grid; grid-template-columns: 1fr minmax(300px, 430px) 1fr; align-items: end; gap: 30px;
           padding: 22px clamp(24px, 5.25vw, 104px) 20px;
           background: linear-gradient(0deg, rgba(10, 13, 56, 0.78), rgba(10, 13, 56, 0.25) 70%, transparent);

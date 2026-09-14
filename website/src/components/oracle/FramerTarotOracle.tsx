@@ -20,97 +20,19 @@ import Link from "next/link";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 import { ukCard } from "@/lib/academy/tarot-cards-uk";
 import { getCardPortalImagePath } from "@/lib/academy/card-images";
-import { shuffleForSitting, orientationsForSitting, parseSharedDraw, createRitualTimer } from "./ritual";
+import { shuffleForSitting, orientationsForSitting, parseSharedReading, createRitualTimer } from "./ritual";
 import CardInspector from "./CardInspector";
 import ReadingScroll from "./ReadingScroll";
 import { SPREADS, type Spread, type SpreadPosition } from "@/lib/spreads";
 import SpreadChooser from "./SpreadChooser";
+import RiffleRibbon from "./RiffleRibbon";
 import { type Translations } from "@/lib/i18n/translations";
 import { useLocale } from "@/lib/i18n/useLocale";
 
-// ── AUDIO ENGINE (Web Audio API) — Pure Harmony Edition ──
-class AstralAudio {
-  ctx: AudioContext | null = null;
-  isMuted = true; // Muted by default to respect user's "awful" feedback
-
-  init() {
-    if (!this.ctx) {
-      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      if (!AudioCtx) return;
-      this.ctx = new AudioCtx();
-    }
-    if (this.ctx.state === 'suspended') void this.ctx.resume().catch(() => {});
-  }
-
-  toggleMute() {
-    this.isMuted = !this.isMuted;
-    return this.isMuted;
-  }
-
-  playHover() {
-    if (!this.ctx || this.isMuted) return;
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    
-    // Low-volume harmonic sine
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(660, this.ctx.currentTime); 
-    
-    gain.gain.setValueAtTime(0, this.ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.015, this.ctx.currentTime + 0.1);
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.6);
-    
-    osc.connect(gain);
-    gain.connect(this.ctx.destination);
-    osc.start();
-    osc.stop(this.ctx.currentTime + 0.6);
-  }
-
-  playSelect() {
-    if (!this.ctx || this.isMuted) return;
-    const osc = this.ctx.createOscillator();
-    const osc2 = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    
-    // Dual harmonic sine (Gong/Bowl style, very soft)
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(440, this.ctx.currentTime);
-    osc2.type = 'sine';
-    osc2.frequency.setValueAtTime(659.25, this.ctx.currentTime); // Perfect fifth
-    
-    gain.gain.setValueAtTime(0, this.ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.04, this.ctx.currentTime + 0.2);
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 2.5);
-    
-    osc.connect(gain);
-    osc2.connect(gain);
-    gain.connect(this.ctx.destination);
-    osc.start();
-    osc2.start();
-    osc.stop(this.ctx.currentTime + 2.5);
-    osc2.stop(this.ctx.currentTime + 2.5);
-  }
-
-  playReveal() {
-    if (!this.ctx || this.isMuted) return;
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(110, this.ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(55, this.ctx.currentTime + 1.0);
-    
-    gain.gain.setValueAtTime(0, this.ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.06, this.ctx.currentTime + 0.5);
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 4.0);
-    
-    osc.connect(gain);
-    gain.connect(this.ctx.destination);
-    osc.start();
-    osc.stop(this.ctx.currentTime + 4.0);
-  }
+// One shared sound controller owns consent, lifecycle, and volume.
+function ritualCue(type: string) {
+  window.dispatchEvent(new CustomEvent("oa-ritual", { detail: { type } }));
 }
-const audio = new AstralAudio();
 
 // ── NIGHT CARD BACK — engraved white-line on black, bone strokes ──
 const NightCardBack = React.memo(function NightCardBack() {
@@ -359,10 +281,6 @@ export default function FramerTarotOracle() {
   const device = useDeviceTier();
   const isMobile = device === "mobile";
   
-  // Use a deterministic subset of cards to prevent hydration mismatches.
-  // Luxury Dealer Spread: 7 (mobile), 9 (tablet), 11 (desktop)
-  const basePool = device === "mobile" ? 7 : device === "tablet" ? 9 : 11;
-
   // Ghost Deck Pool: 10 (mobile), 12 (tablet), 15 (desktop)
   const ghostSize = device === "mobile" ? 10 : device === "tablet" ? 12 : 15;
   const ghostIndices = useMemo(() => Array.from({ length: ghostSize }, (_, i) => i), [ghostSize]);
@@ -370,18 +288,26 @@ export default function FramerTarotOracle() {
   const [selectedCards, setSelectedCards] = useState<number[]>([]);
   const [revealedCards, setRevealedCards] = useState<number[]>([]);
   const [lastRevealed, setLastRevealed] = useState<number | null>(null);
+  const [sheetScrolled, setSheetScrolled] = useState(false);
   const ritualTimer = useMemo(() => createRitualTimer(), []);
   const revealButtonRef = useRef<HTMLButtonElement>(null);
   const [inspecting, setInspecting] = useState<number | null>(null);
   const [spread, setSpread] = useState<Spread>(SPREADS[0]);
-  const [isMuted, setIsMuted] = useState(true);
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "unavailable">("idle");
-  const poolSize = Math.max(basePool, spread.count + 2, ...selectedCards.map((id) => id + 1));
+  const poolSize = ALL_CARDS.length; // The whole 78-card shuffle remains available on every device.
   // A real shuffle of the full 78 — dealt fresh each sitting. The seed
   // rides in the share URL so a restored reading deals the same cards.
   const [deckSeed, setDeckSeed] = useState<number>(() => Math.floor(Math.random() * 1e9));
   const oracleData = useMemo(() => shuffleForSitting(ALL_CARDS, deckSeed, poolSize), [deckSeed, poolSize]);
   const reversedFlags = useMemo(() => orientationsForSitting(deckSeed, poolSize), [deckSeed, poolSize]);
+  const [manualFlips, setManualFlips] = useState<Record<number, boolean>>({});
+  const manualFlipsRef = useRef<Record<number, boolean>>({});
+  const isReversed = useCallback(
+    (i: number) => manualFlips[i] ?? reversedFlags[i] ?? false,
+    [manualFlips, reversedFlags]
+  );
+  const [invalidShare, setInvalidShare] = useState(false);
+
   const remainingCards = spread.count - selectedCards.length;
 
   /* ── THE FORMATION RIG ─────────────────────────────────────────
@@ -423,6 +349,7 @@ export default function FramerTarotOracle() {
       uy: ch * scale * gapY,
       scale,
       viewportWidth: viewport.w,
+      viewportHeight: viewport.h,
       cx: (colMin + colMax) / 2,
       cy: (rowMin + rowMax) / 2,
       // formation bbox centred in the band, not on the screen
@@ -449,12 +376,6 @@ export default function FramerTarotOracle() {
       : ["What led here", "What is present", "Where to move"];
   const arcanaLabel = locale === "uk" ? "Аркан" : "Arcana";
 
-  const toggleMute = useCallback(() => {
-    audio.init();
-    const muted = audio.toggleMute();
-    setIsMuted(muted);
-  }, []);
-
   // Motion value for hover tracking (bypasses React re-renders)
   const hoveredIndexMV = useMotionValue<number>(-1);
   const isTransitioning = useRef(false);
@@ -468,31 +389,29 @@ export default function FramerTarotOracle() {
   const didRestoreFromUrl = useRef(false);
   useEffect(() => {
     if (didRestoreFromUrl.current) return;
-    didRestoreFromUrl.current = true;
     const drawParam = searchParams.get("draw");
     const spreadParam = searchParams.get("spread");
     const seedParam = searchParams.get("seed");
-    const restored = spreadParam ? SPREADS.find((s) => s.id === spreadParam) : null;
-    if (restored) setSpread(restored);
-    if (seedParam && /^\d{1,10}$/.test(seedParam)) setDeckSeed(Number(seedParam));
-    if (drawParam) {
-      // Guard against shared/stale URLs pointing past the dealt pool —
-      // an out-of-range index used to hard-crash the whole reading.
-      // Validate against the RESTORED spread's pool, not the default
-      // three-card pool of the very first render (a 12-card year-ahead
-      // link would otherwise silently drop index 11 and never restore).
-      const want = restored?.count ?? 3;
-      const restoredPool = Math.max(basePool, want + 2);
-      const indices = parseSharedDraw(drawParam, want, restoredPool);
-      if (indices) {
-        requestAnimationFrame(() => {
-          setSelectedCards(indices);
-          setRevealedCards(indices);
-          setState("result"); 
-        });
-      }
-    }
-  }, [searchParams, basePool]);
+    const restored = spreadParam ? SPREADS.find((s) => s.id === spreadParam) : undefined;
+    // A reading is restored atomically: malformed seeds or orientation bits
+    // cannot silently manufacture a different reading from a valid draw.
+    const shared = drawParam !== null && restored
+      ? parseSharedReading(drawParam, seedParam, searchParams.get("o"), restored.count, ALL_CARDS.length)
+      : null;
+    const frame = requestAnimationFrame(() => {
+      didRestoreFromUrl.current = true;
+      if (drawParam !== null && !shared) { setInvalidShare(true); return; }
+      if (restored) setSpread(restored);
+      if (!shared) return;
+      setDeckSeed(shared.seed);
+      manualFlipsRef.current = shared.orientations;
+      setManualFlips(shared.orientations);
+      setSelectedCards(shared.indices);
+      setRevealedCards(shared.indices);
+      setState("result");
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [searchParams]);
 
   const updateUrl = useCallback((cards: number[]) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -500,13 +419,20 @@ export default function FramerTarotOracle() {
       params.set("draw", cards.join(","));
       params.set("spread", spread.id);
       params.set("seed", String(deckSeed));
+      // orientations ride along so a restored link reproduces the
+      // hand's own upright/reversed choices, in selection order
+      params.set(
+        "o",
+        cards.map((id) => ((manualFlipsRef.current[id] ?? reversedFlags[id]) ? "1" : "0")).join(",")
+      );
     } else {
       params.delete("draw");
       params.delete("spread");
       params.delete("seed");
+      params.delete("o");
     }
     router.replace(`?${params.toString()}`, { scroll: false });
-  }, [router, searchParams, spread.id, deckSeed]);
+  }, [router, searchParams, spread.id, deckSeed, reversedFlags]);
 
   const clearRitualTimer = useCallback(() => {
     ritualTimer.cancel();
@@ -533,15 +459,28 @@ export default function FramerTarotOracle() {
     }
   }, [state, selectedCards, updateUrl, spread.count, prefersReduced, ritualTimer]);
 
+  // The riffle's hand-off: the ribbon has already flown the card to the
+  // shelf — record the pull's orientation, then run the house contract.
+  const handleRibbonDraw = useCallback((id: number, reversed: boolean) => {
+    if (state !== "drawing" || isTransitioning.current || selectedCards.includes(id)) return;
+    manualFlipsRef.current = { ...manualFlipsRef.current, [id]: reversed };
+    setManualFlips(manualFlipsRef.current);
+    handleCardClick(id);
+  }, [handleCardClick, state, selectedCards]);
+
   const reset = useCallback(() => {
     clearRitualTimer();
     isTransitioning.current = false;
     setInspecting(null);
     setCopyStatus("idle");
+    setSheetScrolled(false);
     setRevealedCards([]);
     setLastRevealed(null);
     setState("focusing");
     setSelectedCards([]);
+    manualFlipsRef.current = {};
+    setManualFlips({});
+    setInvalidShare(false);
     setDeckSeed(Math.floor(Math.random() * 1e9));
     updateUrl([]);
     hoveredIndexMV.set(-1);
@@ -552,7 +491,7 @@ export default function FramerTarotOracle() {
     const nextId = id ?? selectedCards.find((card) => !revealedCards.includes(card));
     if (nextId === undefined || revealedCards.includes(nextId)) return;
     const next = [...revealedCards, nextId];
-    audio.playReveal();
+    ritualCue("card-flip");
     setRevealedCards(next);
     setLastRevealed(nextId);
     setState("revealing");
@@ -561,6 +500,7 @@ export default function FramerTarotOracle() {
       ritualTimer.schedule(() => {
         isTransitioning.current = false;
         setState("result");
+        ritualCue("spread-complete");
       }, prefersReduced ? 0 : 650);
     }
   }, [state, selectedCards, revealedCards, prefersReduced, ritualTimer]);
@@ -568,19 +508,20 @@ export default function FramerTarotOracle() {
   const revealAll = useCallback(() => {
     clearRitualTimer();
     isTransitioning.current = false;
-    audio.playReveal();
+    ritualCue("card-flip");
     setRevealedCards(selectedCards);
     setState("result");
+    ritualCue("spread-complete");
   }, [clearRitualTimer, selectedCards]);
 
   useEffect(() => {
     if (state !== "spread" && state !== "drawing") return;
     const frame = requestAnimationFrame(() => {
       if (state === "spread") revealButtonRef.current?.focus({ preventScroll: true });
-      else document.querySelector<HTMLElement>(isMobile ? ".oracle-hand-card" : '[data-oracle-card][tabindex="0"]')?.focus({ preventScroll: true });
+      else document.querySelector<HTMLElement>(".oa-riffle-band")?.focus({ preventScroll: true });
     });
     return () => cancelAnimationFrame(frame);
-  }, [state, isMobile]);
+  }, [state]);
 
   /* ── THE SHEET'S OWN SCROLL ──────────────────────────────────
      The reading scrolls inside its shell; gradient fades mark that
@@ -588,7 +529,6 @@ export default function FramerTarotOracle() {
      scroll on phones. */
   const sheetRef = useRef<HTMLDivElement>(null);
   const [sheetEdges, setSheetEdges] = useState({ top: false, bottom: false });
-  const [sheetScrolled, setSheetScrolled] = useState(false);
 
   const measureSheet = useCallback(() => {
     const el = sheetRef.current;
@@ -607,13 +547,9 @@ export default function FramerTarotOracle() {
   }, [measureSheet]);
 
   useEffect(() => {
-    if (state !== "result") {
-      setSheetScrolled(false);
-      return;
-    }
+    if (state !== "result") return;
     const el = sheetRef.current;
     if (!el) return;
-    measureSheet();
     const ro = new ResizeObserver(measureSheet);
     ro.observe(el);
     Array.from(el.children).forEach((c) => ro.observe(c));
@@ -639,7 +575,7 @@ export default function FramerTarotOracle() {
           {state === "drawing" ? selectionInstruction : state === "preparing"
             ? (isUk ? "Розкладаємо карти" : "Arranging your cards")
             : state === "revealing" && lastCard
-              ? `${revealedCards.length} / ${spread.count}. ${(isUk && ukCard(lastCard.name)?.name) || lastCard.name}${reversedFlags[lastRevealed!] ? (isUk ? ", перевернута" : ", reversed") : ""}`
+              ? `${revealedCards.length} / ${spread.count}. ${(isUk && ukCard(lastCard.name)?.name) || lastCard.name}${isReversed(lastRevealed!) ? (isUk ? ", перевернута" : ", reversed") : ""}`
               : state === "result" ? (isUk ? "Ваше читання готове" : "Your reading is ready") : ""}
         </p>
         {/* ── NIGHT GROUND — the innermost room keeps the deepest darkness ── */}
@@ -669,6 +605,10 @@ export default function FramerTarotOracle() {
         {/* ── RITUAL TIMELINE ── */}
         <RitualTimeline state={state} isMobile={isMobile} />
 
+        {invalidShare && <p className="oracle-share-error" role="alert">{isUk
+          ? "Це посилання на читання неповне або пошкоджене. Почніть новий розклад нижче."
+          : "This reading link is incomplete or damaged. Choose a new spread below."}</p>}
+
         {/* ── TOP NAV ── */}
         <div className="absolute top-0 inset-x-0 z-50 pt-[4.5rem] pb-8 px-8 flex justify-between items-start pointer-events-none">
            {/* One row: back + audio share the top bar so neither ever
@@ -677,22 +617,13 @@ export default function FramerTarotOracle() {
               {state !== "focusing" && (
                  <button
                    onClick={reset}
-                   className="min-h-11 text-[10px] tracking-[0.3em] uppercase text-[rgba(232,233,255,0.42)] hover:text-[#e0b768] transition-all duration-500 hover:tracking-[0.4em]"
+                   className="min-h-11 text-[10px] tracking-[0.3em] uppercase text-[#b8bfd8] hover:text-[#e0b768] transition-all duration-500 hover:tracking-[0.4em]"
                  >
                    &larr; {startOverLabel}
                  </button>
               )}
-              <button
-                onClick={toggleMute}
-                aria-pressed={!isMuted}
-                className="min-h-11 text-[10px] tracking-[0.3em] uppercase text-[rgba(232,233,255,0.32)] hover:text-[rgba(232,233,255,0.72)] transition-all text-left"
-              >
-                {locale === "uk"
-                  ? isMuted ? "Звук: вимк." : "Звук: увімк."
-                  : isMuted ? "Audio: Off" : "Audio: On"}
-              </button>
            </div>
-           <div className="text-right pointer-events-none">
+           {state === "focusing" && <div className="text-right pointer-events-none">
               <h2 className="[font-family:var(--font-heading),serif] text-2xl font-medium text-[rgba(232,233,255,0.68)]">
                 {locale === "uk" ? "Оракул" : "The Oracle"}
               </h2>
@@ -700,7 +631,7 @@ export default function FramerTarotOracle() {
               <p className="text-[9px] tracking-[0.4em] uppercase text-[rgba(224,183,104,0.75)]">
                 {locale === "uk" ? "Читання таро" : "Tarot reading"}
               </p>
-           </div>
+           </div>}
         </div>
 
         {/* ── PROMPT TYPOGRAPHY ── */}
@@ -711,9 +642,10 @@ export default function FramerTarotOracle() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: prefersReduced ? 0.1 : 0.35, ease: [0.16, 1, 0.3, 1] }}
               className="oracle-focus absolute z-40 flex flex-col items-center text-center px-6"
             >
+              <div className="oracle-focus-content" role="region" aria-label={isUk ? "Форми розкладу" : "Spread choices"} tabIndex={0}>
               <p className="oracle-edition">{isUk ? "I · Студія Таро" : "I · The Tarot Studio"}</p>
               <h2 className="[font-family:var(--font-heading),serif] text-3xl md:text-5xl text-[rgba(232,233,255,0.88)] mb-6 italic">{t("oracle_focus_title")}</h2>
               <p className="night-caption mb-7">
@@ -721,9 +653,11 @@ export default function FramerTarotOracle() {
                   ? `Оберіть ${spread.count} карт, потім розкрийте читання.`
                   : `Choose ${spread.count} cards, then reveal the reading.`}
               </p>
-              <div className="pointer-events-auto mb-8 w-full">
+              <div className="pointer-events-auto w-full">
                 <SpreadChooser value={spread} onChange={setSpread} />
               </div>
+              </div>
+              <div className="oracle-focus-footer">
               <button
                 onClick={() => setState("drawing")}
                 className="night-btn ghost pointer-events-auto"
@@ -731,6 +665,7 @@ export default function FramerTarotOracle() {
                 {isUk ? `Почати · ${spread.count} карт` : `Begin · ${spread.count} cards`}
               </button>
               <p className="oracle-method">{isUk ? "Оберіть форму. Витягніть карти. Читайте у власному темпі." : "Choose a shape. Draw your cards. Read at your own pace."}</p>
+              </div>
             </m.div>
           )}
 
@@ -742,7 +677,7 @@ export default function FramerTarotOracle() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8 }}
               className="absolute left-1/2 -translate-x-1/2 z-[500] text-center pointer-events-none"
-              style={{ top: "calc(50% - 64px)" }}
+              style={{ top: Math.max(viewport.h < 780 ? 328 : isMobile ? 324 : 389, viewport.h / 2 - 64) }}
             >
               <p className="text-[10px] tracking-[0.5em] uppercase text-[rgba(232,233,255,0.55)]">
                 {selectionInstruction}
@@ -827,7 +762,7 @@ export default function FramerTarotOracle() {
               <p className="oracle-edition">{resultKicker} · {revealedCards.length} / {spread.count}</p>
               <h2>{lastCard ? ((isUk && ukCard(lastCard.name)?.name) || lastCard.name) : (isUk ? "Кожна карта — розділ." : "Each card, a chapter.")}</h2>
               <p className="oracle-turn-detail">{lastCard
-                ? `${spreadLabels[selectedCards.indexOf(lastRevealed!)]}${reversedFlags[lastRevealed!] ? (isUk ? " · перевернута" : " · turned") : ""} · ${((isUk && ukCard(lastCard.name)?.keywords) || lastCard.keywords).slice(0, 3).join(" · ")}`
+                ? `${spreadLabels[selectedCards.indexOf(lastRevealed!)]}${isReversed(lastRevealed!) ? (isUk ? " · перевернута" : " · turned") : ""} · ${((isUk && ukCard(lastCard.name)?.keywords) || lastCard.keywords).slice(0, 3).join(" · ")}`
                 : (isUk ? "Торкніться карти або розкрийте їх по черзі." : "Touch a card, or turn the story one by one.")}</p>
               <div className="oracle-turn-actions">
                 <button ref={revealButtonRef} onClick={() => turnCard()} className="night-btn" disabled={nextPosition < 0}>
@@ -840,22 +775,6 @@ export default function FramerTarotOracle() {
           )}
         </AnimatePresence>
 
-        {isMobile && state === "drawing" && (
-          <div className="oracle-hand" role="group" aria-label={isUk ? "Колода — гортайте, щоб обрати карту" : "The deck — swipe to choose a card"}>
-            <p>{isUk ? "Гортайте колоду · торкніться, щоб обрати" : "Slide the deck · touch to choose"}</p>
-            <div className="oracle-hand-track">
-              {oracleData.map((card, i) => {
-                const chosen = selectedCards.indexOf(i);
-                return <button key={card.name} type="button" className="oracle-hand-card" aria-pressed={chosen >= 0}
-                  aria-label={`${isUk ? "Карта" : "Face-down card"} ${i + 1}${chosen >= 0 ? (isUk ? ", обрана. Торкніться, щоб прибрати" : ", chosen. Activate to remove") : ""}`}
-                  onClick={() => { audio.playSelect(); handleCardClick(i); }}>
-                  <span className="oracle-hand-art" aria-hidden><NightCardBack /></span>
-                  <span>{chosen >= 0 ? `✓ ${String(chosen + 1).padStart(2, "0")}` : String(i + 1).padStart(2, "0")}</span>
-                </button>;
-              })}
-            </div>
-          </div>
-        )}
         {/* ── THE ORACLE DECK ENGINE ── */}
         {/* z-10: the dealer's deck must never float above the spread
             chooser or prompt typography (both z-40). */}
@@ -873,9 +792,11 @@ export default function FramerTarotOracle() {
               />
             ))}
 
-            {/* 2. HERO CARDS (Selectable) */}
-            {oracleData.map((card, i) => (
-              <GodModeCard 
+            {/* 2. HERO CARDS — only the chosen ones live here now; the
+                face-down deck is THE RIFFLE's ribbon (78 DOM nodes,
+                transforms written imperatively in one rAF). */}
+            {oracleData.map((card, i) => selectedCards.includes(i) && (
+              <GodModeCard
                 key={card.name}
                 card={card}
                 index={i}
@@ -892,7 +813,7 @@ export default function FramerTarotOracle() {
                 breathing={breathing}
                 selectedCount={selectedCards.length}
                 canSelect={selectedCards.length < spread.count}
-                reversed={reversedFlags[i] ?? false}
+                reversed={isReversed(i)}
                 isRevealed={revealedCards.includes(i)}
                 uk={isUk}
                 onClick={() => state === "drawing" ? handleCardClick(i) : turnCard(i)}
@@ -902,11 +823,24 @@ export default function FramerTarotOracle() {
           </div>
         </div>
 
+        {/* ── THE RIFFLE — the physical draw ── */}
+        <RiffleRibbon
+          key={deckSeed}
+          count={oracleData.length}
+          selected={selectedCards}
+          machineState={state}
+          device={device}
+          reducedMotion={!!prefersReduced}
+          canDraw={state === "drawing" && selectedCards.length < spread.count}
+          uk={isUk}
+          onDraw={handleRibbonDraw}
+        />
+
         <CardInspector
           cards={selectedCards.map((id, i) => ({
             card: oracleData[id],
             label: spreadLabels[i] ?? resultLabels[i],
-            reversed: state === "result" && reversedFlags[id],
+            reversed: state === "result" && isReversed(id),
           }))}
           index={inspecting}
           onClose={() => setInspecting(null)}
@@ -954,11 +888,11 @@ export default function FramerTarotOracle() {
                   {selectedCards.map((id, idx) => {
                     const card = oracleData[id];
                     return (
-                      <button type="button" key={id} className="result-artifact-card" onClick={() => setInspecting(idx)} aria-label={`${spreadLabels[idx]}. ${(isUk && ukCard(card.name)?.name) || card.name}${reversedFlags[id] ? (isUk ? ", перевернута" : ", reversed") : ""}. ${isUk ? "Роздивитися карту" : "Inspect card"}`}>
+                      <button type="button" key={id} className="result-artifact-card" onClick={() => setInspecting(idx)} aria-label={`${spreadLabels[idx]}. ${(isUk && ukCard(card.name)?.name) || card.name}${isReversed(id) ? (isUk ? ", перевернута" : ", reversed") : ""}. ${isUk ? "Роздивитися карту" : "Inspect card"}`}>
                         <span>{spreadLabels[idx] ?? resultLabels[idx]}</span>
                         <strong>
                           {(isUk && card && ukCard(card.name)?.name) || card?.name}
-                          {reversedFlags[id] && (
+                          {isReversed(id) && (
                             <em className="result-turned"> · {isUk ? "перевернута" : "turned"}</em>
                           )}
                         </strong>
@@ -970,7 +904,7 @@ export default function FramerTarotOracle() {
 
                 <ReadingScroll
                   spread={spread}
-                  draws={selectedCards.map((id) => ({ card: oracleData[id], reversed: reversedFlags[id] }))}
+                  draws={selectedCards.map((id) => ({ card: oracleData[id], reversed: isReversed(id) }))}
                   onInspect={(i) => setInspecting(i)}
                 />
 
@@ -1010,7 +944,12 @@ export default function FramerTarotOracle() {
         <style>{`
           .oracle-edition { color: #d7bd85; font-size: 10px; letter-spacing: .23em; text-transform: uppercase; margin-bottom: 16px; }
           .oracle-method { color: #abb0cc; font-size: 12px; margin-top: 20px; line-height: 1.6; }
-          .oracle-focus { max-height: calc(100% - 170px); top: 140px; overflow-y: auto; overscroll-behavior: contain; padding-bottom: 28px; }
+          .oracle-focus { top: 132px; bottom: calc(74px + env(safe-area-inset-bottom)); width: min(100%, 1000px); overflow: hidden; }
+          .oracle-focus-content { width:100%; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:4px 4px 18px; scrollbar-width:thin; scrollbar-color:#756752 transparent; }
+          .oracle-focus-content:focus-visible { outline:1px solid #e0b768; outline-offset:-1px; }
+          .oracle-focus-footer { flex-shrink:0; width:100%; padding:14px 12px 0; background:#0a0d38; border-top:1px solid rgba(224,183,104,.22); }
+          .oracle-focus-footer .night-btn { min-height:44px; }
+          .oracle-focus-footer .oracle-method { margin:8px auto 0; max-width:40ch; font-size:11px; }
           .oracle-turn-panel { width: min(640px, calc(100% - 40px)); bottom: max(8%, 36px); }
           .oracle-turn-panel h2 { color: #e8e9ef; font-family: var(--font-heading), serif; font-weight: 400; font-size: clamp(30px, 4vw, 48px); line-height: 1.1; }
           .oracle-turn-detail { color: #b9bfd6; font-size: 13px; line-height: 1.7; margin: 16px auto 24px; max-width: 48ch; }
@@ -1028,12 +967,14 @@ export default function FramerTarotOracle() {
           button.result-artifact-card { text-align: left; cursor: pointer; transition: border-color 180ms ease-out; }
           button.result-artifact-card:hover { border-color: #bda773; }
           @media (max-width: 640px) {
-            .oracle-focus { top: 132px; max-height: calc(100% - 144px); padding-inline: 16px; }
-            .oracle-focus > h2 { margin-bottom: 12px; }
-            .oracle-focus .oracle-method { margin-top: 12px; max-width: 30ch; }
+            .oracle-focus { top: 132px; padding-inline: 16px; }
+            .oracle-focus-content > h2 { margin-bottom: 10px; font-size:28px; }
+            .oracle-focus-content > .oracle-edition { margin-bottom:10px; }
+            .oracle-focus-content > .night-caption { margin-bottom:16px; }
+            .oracle-focus .oracle-method { margin-top:8px; max-width:30ch; }
             .oracle-turn-panel { bottom: max(7%, 24px); }
           }
-          @media (max-height: 620px) and (min-width: 641px) { .oracle-focus { top: 112px; max-height: calc(100% - 112px); } }
+          @media (max-height: 620px) and (min-width: 641px) { .oracle-focus { top: 112px; } }
           @media (prefers-reduced-motion: reduce) { .oracle-hand-card { transition: none; } }
 
           .result-artifact-panel {
@@ -1407,7 +1348,7 @@ const GodModeCard = React.memo(function GodModeCard({
   isSelected: boolean,
   selectionIndex: number,
   spreadPositions: SpreadPosition[],
-  rig: { ux: number; uy: number; scale: number; viewportWidth: number; cx: number; cy: number; oy: number },
+  rig: { ux: number; uy: number; scale: number; viewportWidth: number; viewportHeight: number; cx: number; cy: number; oy: number },
   positionLabel: string,
   hoveredIndexMV: MotionValue<number>,
   device: "mobile" | "tablet" | "desktop",
@@ -1487,7 +1428,6 @@ const GodModeCard = React.memo(function GodModeCard({
   // ONE owner for scale, forever: a spring MotionValue in style. Handing
   // scale back and forth between framer's animate prop and a MotionValue
   // left plates frozen at their initial scale(0) on real devices.
-  const springScale = useSpring(0, { stiffness: 120, damping: 20, mass: 1.0 });
 
   const dockZIndex = useTransform(hoveredIndexMV, (h) => {
     if (isSelected) return 100 + selectionIndex;
@@ -1532,7 +1472,7 @@ const GodModeCard = React.memo(function GodModeCard({
           ? n > 8 ? 56 : n > 5 ? 84 : 116
           : n > 8 ? 82 : n > 5 ? 112 : 150;
       targetX = (selectionIndex - (n - 1) / 2) * spacing;
-      targetY = isMobile ? -175 : -200;
+      targetY = Math.max(rig.viewportHeight < 780 ? 218 : isMobile ? 214 : 244, rig.viewportHeight / 2 - (isMobile ? 175 : 200)) - rig.viewportHeight / 2;
       targetZ = 300 + selectionIndex * 10;
       targetRotateZ = (selectionIndex - (n - 1) / 2) * (n > 5 ? 1.5 : 5);
       targetScale = isMobile
@@ -1540,6 +1480,7 @@ const GodModeCard = React.memo(function GodModeCard({
         : isTablet
           ? n > 8 ? 0.56 : n > 5 ? 0.76 : 1.06
           : n > 8 ? 0.68 : n > 5 ? 0.86 : 1.08;
+      if (rig.viewportHeight < 780) targetScale = Math.min(targetScale, 0.78);
     }
     
     // Recede unselected cards during "preparing"
@@ -1580,6 +1521,7 @@ const GodModeCard = React.memo(function GodModeCard({
 
   // ── MERGE DOCK PHYSICS WITH LAYOUT TARGETS ──
   const uiConfig = { stiffness: 120, damping: 20, mass: 1.0 };
+  const springScale = useSpring(isSelected ? targetScale : 0, uiConfig);
   const springX = useSpring(targetX, uiConfig);
   const springY = useSpring(targetY, uiConfig);
   const springZ = useSpring(targetZ, uiConfig);
@@ -1663,7 +1605,7 @@ const GodModeCard = React.memo(function GodModeCard({
   const handlePointerEnter = useCallback(() => {
     if (machineState === "drawing" && !isSelected && !isReducedMotion) {
       hoveredIndexMV.set(index);
-      audio.playHover();
+      ritualCue("riffle-tick");
     }
     if (!isReducedMotion) isHoveredMV.set(1);
   }, [machineState, isSelected, hoveredIndexMV, index, isHoveredMV, isReducedMotion]);
@@ -1678,13 +1620,12 @@ const GodModeCard = React.memo(function GodModeCard({
   }, [hoveredIndexMV, index, localX, localY, cardWidth, cardHeight, isHoveredMV]);
 
   const handleInteraction = () => {
-    audio.init();
     if (machineState === "result" && isSelected) {
       onInspect?.();
       return;
     }
     if (machineState === "drawing" && !isSelected && canSelect) {
-      audio.playSelect();
+      ritualCue("card-pull");
     }
     onClick();
   };
@@ -1721,12 +1662,12 @@ const GodModeCard = React.memo(function GodModeCard({
       onBlur={handlePointerLeave}
       onClick={handleInteraction}
       role="button"
-      tabIndex={(machineState === "drawing" && !isMobile) || (isSelected && (machineState === "spread" || machineState === "revealing" || machineState === "result")) ? 0 : -1}
-      aria-hidden={targetOpacity === 0 || machineState === "focusing" || machineState === "preparing" || (isMobile && machineState === "drawing") ? true : undefined}
+      tabIndex={(machineState === "drawing" && isSelected) || (isSelected && (machineState === "spread" || machineState === "revealing" || machineState === "result")) ? 0 : -1}
+      aria-hidden={targetOpacity === 0 || machineState === "focusing" || machineState === "preparing" ? true : undefined}
       aria-pressed={machineState === "drawing" ? isSelected : undefined}
       aria-label={isRevealed || isLiftable
         ? `${positionLabel}. ${(uk && ukCard(card.name)?.name) || card.name}${reversed ? (uk ? ", перевернута" : ", reversed") : ""}${isLiftable ? (uk ? ". Роздивитися карту" : ". Inspect card") : ""}`
-        : `${uk ? "Карта" : "Face-down card"} ${index + 1}${isSelected ? ` · ${positionLabel}. ${uk ? "Розкрити" : "Turn card"}` : ""}`}
+        : `${uk ? "Карта" : "Face-down card"} ${index + 1}${isSelected ? ` · ${positionLabel}. ${machineState === "drawing" ? (uk ? "Прибрати з розкладу" : "Return to deck") : (uk ? "Розкрити" : "Turn card")}` : ""}`}
       drag={isLiftable && !isReducedMotion && !isMobile}
       dragMomentum={false}
       dragElastic={0.14}
@@ -1757,7 +1698,7 @@ const GodModeCard = React.memo(function GodModeCard({
         WebkitTransformStyle: isMobile ? "flat" : "preserve-3d",
         willChange: isSelected || machineState === "drawing" ? "transform" : "auto",
         }}
-      initial={{ opacity: 0 }}
+      initial={isSelected ? false : { opacity: 0 }}
       animate={{
         opacity: targetOpacity,
         x: isSelected || machineState === "preparing" ? undefined : targetX,

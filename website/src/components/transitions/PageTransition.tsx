@@ -54,12 +54,13 @@ export default function PageTransition({ children }: { children: React.ReactNode
     if (routeRef.current === pathname) return;
     routeRef.current = pathname;
     window.clearTimeout(safetyRef.current);
-    setPending(false);
     // Preserve Next's page tree and scroll handling. No transformed ancestor
     // around fixed tarot tables, no cached children, no hydration remount.
-    if (!focusOnArrival.current) return;
+    const shouldFocus = focusOnArrival.current;
     focusOnArrival.current = false;
     const frame = requestAnimationFrame(() => {
+      setPending(false);
+      if (!shouldFocus) return;
       const target = document.querySelector<HTMLElement>("main h1, #main-content h1, h1, main, #main-content");
       if (target) {
         if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");

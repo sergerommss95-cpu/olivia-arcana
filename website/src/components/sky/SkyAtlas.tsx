@@ -357,7 +357,7 @@ export default function SkyAtlas() {
   const openRef = useRef(false);
   const closeTimerRef = useRef<number | null>(null);
   const navTimerRef = useRef<number | null>(null);
-  openRef.current = open;
+  useEffect(() => { openRef.current = open; }, [open]);
 
   /* Contract: the "oa-sky-map" event is the single open/close switch. */
   useEffect(() => {
@@ -518,11 +518,12 @@ export default function SkyAtlas() {
      chart survives an ephemeris failure — it just prints no wanderers. */
   useEffect(() => {
     if (!now) return;
-    try {
-      setSky({ moon: moonState(now), wands: wanderersNow(now), obs: resolveObserver() });
-    } catch {
-      setSky(null);
-    }
+    const frame = requestAnimationFrame(() => {
+      try {
+        setSky({ moon: moonState(now), wands: wanderersNow(now), obs: resolveObserver() });
+      } catch { setSky(null); }
+    });
+    return () => cancelAnimationFrame(frame);
   }, [now]);
 
   if (!open && !closing) return null;

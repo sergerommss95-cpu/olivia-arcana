@@ -14,7 +14,6 @@
  */
 
 import NightRoomBand from "@/components/almanac/NightRoomBand";
-import MagnetRig from "@/components/almanac/MagnetRig";
 
 interface NightShellProps {
   room: string;
@@ -25,7 +24,6 @@ export default function NightShell({ room, children }: NightShellProps) {
   return (
     <div className="night-plate">
       <NightRoomBand room={room} />
-      <MagnetRig />
       <main id="main-content" className="night-main">
         {children}
       </main>

@@ -55,18 +55,18 @@ export default function Paywall({
         <div>{teaser}</div>
       ) : (
         <div className="relative overflow-hidden rounded-xl">
-          <div className="blur-md pointer-events-none select-none opacity-50" aria-hidden="true">
+          <div className="blur-md pointer-events-none select-none opacity-50" aria-hidden="true" inert>
             {children}
           </div>
         </div>
       )}
 
-      <div className="mt-6 glass-card p-6 text-center">
+      <div className="mt-6 p-6 text-center" style={{ background: "#111542", border: "1px solid #737b9d", color: "#f1eee5" }}>
         <div className="text-2xl mb-2">&#10022;</div>
-        <h3 className="font-[family-name:var(--font-heading)] text-xl text-warm-ivory mb-2">
+        <h3 className="font-[family-name:var(--font-heading)] text-xl mb-2" style={{ color: "#f1eee5" }}>
           Unlock {featureName}
         </h3>
-        <p className="text-muted-lavender text-sm mb-5 max-w-sm mx-auto">
+        <p className="text-sm mb-5 max-w-sm mx-auto" style={{ color: "#c0c7df" }}>
           {upsellTier} members get unlimited access to chart readings, transit alerts, and personalized insights.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -79,7 +79,7 @@ export default function Paywall({
             </CheckoutButton>
           )}
         </div>
-        <p className="text-muted-lavender/50 text-xs mt-3">14-day refund · cancel any time</p>
+        <p className="text-xs mt-3" style={{ color: "#b8bfd8" }}>14-day refund · cancel any time</p>
       </div>
     </div>
   );

@@ -5,6 +5,8 @@ import type { NatalAspect, NatalChart } from "@/lib/natal-chart";
 import { getPlanetInSign, HOUSE_MEANING, PLANET_MEANING } from "@/lib/planet-interpretations";
 import TransitionLink from "@/components/transitions/TransitionLink";
 import styles from "./NatalAtlas.module.css";
+import FlattenedSky from "@/app/chart/FlattenedSky";
+import { UK_PLANETS, UK_SIGNS, UK_ASPECTS } from "./chart-copy";
 import { normalize, point, separateLabels, wheelAngle } from "./natal-atlas-geometry";
 
 const SIGNS = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
@@ -20,10 +22,16 @@ const ASPECTS: Record<NatalAspect["type"], { glyph: string; meaning: string }> =
 
 function aspectKey(aspect: NatalAspect) { return `${aspect.planet1}-${aspect.type}-${aspect.planet2}`; }
 
-export default function NatalAtlas({ chart, intro, onNewChart }: { chart: NatalChart; intro: boolean; onNewChart: () => void }) {
+export default function NatalAtlas({ chart, intro, onNewChart, locale = "en" }: { chart: NatalChart; intro: boolean; onNewChart: () => void; locale?: string }) {
+  const uk = locale === "uk";
+  const c = (en: string, translated: string) => uk ? translated : en;
+  const planetName = (name: string) => uk ? UK_PLANETS[name] || name : name;
+  const signName = (name: string) => uk ? UK_SIGNS[name] || name : name;
+  const placement = (name: string, sign: string) => uk ? `${planetName(name)} · ${signName(sign)}` : `${name} in ${sign}`;
   const id = useId();
   const [selected, setSelected] = useState("Sun");
   const [view, setView] = useState<"wheel" | "positions">("wheel");
+  const [plateRequest, setPlateRequest] = useState(0);
   const [allAspects, setAllAspects] = useState(false);
   const [selectedAspect, setSelectedAspect] = useState<string | null>(null);
   const hasAngles = chart.timeKnown !== false && !!chart.ascendant;
@@ -36,49 +44,12 @@ export default function NatalAtlas({ chart, intro, onNewChart }: { chart: NatalC
   // The same counterclockwise projection is used for signs, houses, anchors and aspects.
   const angle = (longitude: number) => wheelAngle(longitude, rotation);
   const choose = (name: string) => { setSelected(name); setSelectedAspect(null); };
-  const selectedTitle = isRising ? `${chart.risingSign} rising` : planet ? `${planet.name} in ${planet.sign}` : "Your chart";
-  const birthDate = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(Date.UTC(chart.input.year, chart.input.month - 1, chart.input.day)));
+  const selectedTitle = isRising ? (uk ? `Асцендент · ${signName(chart.risingSign)}` : `${chart.risingSign} rising`) : planet ? placement(planet.name, planet.sign) : c("Your chart", "Ваша карта");
+  const birthDate = new Intl.DateTimeFormat(uk ? "uk-UA" : "en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(Date.UTC(chart.input.year, chart.input.month - 1, chart.input.day)));
   const birthTime = `${String(chart.input.hour).padStart(2, "0")}:${String(chart.input.minute).padStart(2, "0")}`;
 
-  return (
-    <section className={`${styles.atlas} ${intro ? styles.arriving : ""}`} aria-label="Explore your birth chart">
-      <div className={styles.birthLine}>
-        <span>{birthDate}{chart.input.city ? ` · ${chart.input.city}` : ""}</span>
-        <span>{hasAngles ? `${birthTime} local time` : "Birth time unknown"}</span>
-      </div>
-
-      <div className={styles.bigThree} aria-label="Start with your three personal signatures">
-        {[
-          { name: "Sun", glyph: "☉", label: "Your centre", title: `Sun in ${chart.sunSign}`, sub: "Identity & vitality" },
-          { name: "Moon", glyph: "☽", label: "Your inner world", title: `Moon in ${chart.moonSign}${chart.moonSignUncertain ? "*" : ""}`, sub: chart.moonSignUncertain ? "Birth time may change this sign" : "Emotion & instinct" },
-          { name: "Ascendant", glyph: "↑", label: "Your first impression", title: hasAngles ? `${chart.risingSign} rising` : "Rising unknown", sub: hasAngles ? "How you meet the world" : "A birth time is needed" },
-        ].map((item, i) => (
-          <button key={item.name} type="button" className={styles.signature} aria-pressed={selected === item.name} aria-controls={`${id}-reading`} disabled={item.name === "Ascendant" && !hasAngles} onClick={() => choose(item.name)}>
-            <span className={styles.signatureTop}><span>0{i + 1} / {item.label}</span><span className={styles.signatureGlyph} aria-hidden>{item.glyph}</span></span>
-            <strong>{item.title}</strong><span className={styles.signatureSub}>{item.sub}</span>
-          </button>
-        ))}
-      </div>
-
-      {!hasAngles && <div className={styles.timeNotice} role="note">
-        <strong>A partial sky, honestly drawn.</strong> Planet positions use local noon. Houses, rising sign and Midheaven are omitted because they require a birth time. Degrees and aspects are approximate for this date.
-        {chart.moonSignNote && <p>{chart.moonSignNote}</p>}
-      </div>}
-
-      <div className={styles.toolbar}>
-        <div className={styles.viewButtons} aria-label="Chart display">
-          <button type="button" aria-pressed={view === "wheel"} onClick={() => setView("wheel")}>The atlas</button>
-          <button type="button" aria-pressed={view === "positions"} onClick={() => setView("positions")}>Planet positions</button>
-        </div>
-        <button type="button" className={styles.newChart} onClick={onNewChart}>New chart <span aria-hidden>↗</span></button>
-      </div>
-
-      <div className={styles.exploration}>
-        <div className={styles.visualColumn} id={`${id}-visual`} tabIndex={-1}>
-          {view === "wheel" ? (
-            <figure className={styles.figure}>
-              <div className={styles.figureHeader}><span>Plate 01 / The natal sky</span><span>{hasAngles ? "Whole-sign houses" : "Local-noon estimate"}</span></div>
-              <svg viewBox="0 0 520 520" className={styles.wheel} role="group" aria-labelledby={`${id}-wheel-title`} aria-describedby={`${id}-wheel-desc`}>
+  const wheel = (
+    <svg viewBox="0 0 520 520" className={styles.wheel} role="group" aria-labelledby={`${id}-wheel-title`} aria-describedby={`${id}-wheel-desc`}>
                 <title id={`${id}-wheel-title`}>Your natal chart. Select a planet to explore its meaning.</title>
                 <desc id={`${id}-wheel-desc`}>Zodiac signs and planetary positions share a fixed scale. {hasAngles ? "The ascendant is at the left." : "Zero degrees Aries is at the left; houses are unavailable."} Leader lines connect separated labels to their true longitudes. Named planet buttons and a table of computed positions are also available.</desc>
                 <g fill="none" stroke="currentColor" aria-hidden="true" className={styles.engraving}>
@@ -136,32 +107,73 @@ export default function NatalAtlas({ chart, intro, onNewChart }: { chart: NatalC
                   </g>;
                 })}
               </svg>
-              <figcaption className={styles.caption}>Select a symbol. Follow the line. Read the relationship.</figcaption>
+  );
+
+  return (
+    <section className={`${styles.atlas} ${intro ? styles.arriving : ""}`} aria-label="Explore your birth chart">
+      <div className={styles.birthLine}>
+        <span>{birthDate}{chart.input.city ? ` · ${chart.input.city}` : ""}</span>
+        <span>{hasAngles ? `${birthTime} ${c("local time", "місцевий час")}` : c("Birth time unknown", "Час народження невідомий")}</span>
+      </div>
+
+      <div className={styles.bigThree} aria-label="Start with your three personal signatures">
+        {[
+          { name: "Sun", glyph: "☉", label: c("Your centre", "Ваш центр"), title: placement("Sun", chart.sunSign), sub: c("Identity & vitality", "Особистість і життєва сила") },
+          { name: "Moon", glyph: "☽", label: c("Your inner world", "Внутрішній світ"), title: `${placement("Moon", chart.moonSign)}${chart.moonSignUncertain ? "*" : ""}`, sub: chart.moonSignUncertain ? c("Birth time may change this sign", "Знак залежить від часу народження") : c("Emotion & instinct", "Емоції та інстинкти") },
+          { name: "Ascendant", glyph: "↑", label: c("Your first impression", "Перше враження"), title: hasAngles ? (uk ? `Асцендент · ${signName(chart.risingSign)}` : `${chart.risingSign} rising`) : c("Rising unknown", "Асцендент невідомий"), sub: hasAngles ? c("How you meet the world", "Як ви зустрічаєте світ") : c("A birth time is needed", "Потрібен час народження") },
+        ].map((item, i) => (
+          <button key={item.name} type="button" className={styles.signature} aria-pressed={selected === item.name} aria-controls={`${id}-reading`} disabled={item.name === "Ascendant" && !hasAngles} onClick={() => choose(item.name)}>
+            <span className={styles.signatureTop}><span>0{i + 1} / {item.label}</span><span className={styles.signatureGlyph} aria-hidden>{item.glyph}</span></span>
+            <strong>{item.title}</strong><span className={styles.signatureSub}>{item.sub}</span>
+          </button>
+        ))}
+      </div>
+
+      {!hasAngles && <div className={styles.timeNotice} role="note">
+        <strong>{c("A partial sky, honestly drawn.", "Неповна карта — з чіткими межами точності.")}</strong> {c("Planet positions use local noon. Houses, rising sign and Midheaven are omitted because they require a birth time. Degrees and aspects are approximate for this date.", "Положення планет обчислені на місцевий полудень. Доми, асцендент і Середина Неба потребують часу народження, тому їх не показано. Градуси та аспекти приблизні для цієї дати.")}
+        {chart.moonSignNote && <p>{uk ? "Упродовж цієї дати Місяць змінив знак. Знак Місяця опівдні може відрізнятися від знака у час вашого народження." : chart.moonSignNote}</p>}
+      </div>}
+
+      <div className={styles.toolbar}>
+        <div className={styles.viewButtons} aria-label="Chart display">
+          <button type="button" aria-pressed={view === "wheel"} onClick={() => { setView("wheel"); setPlateRequest(value => value + 1); }}>{c("The atlas", "Атлас")}</button>
+          <button type="button" aria-pressed={view === "positions"} onClick={() => setView("positions")}>{c("Planet positions", "Положення планет")}</button>
+        </div>
+        <button type="button" className={styles.newChart} onClick={onNewChart}>{c("New chart", "Нова карта")} <span aria-hidden>↗</span></button>
+      </div>
+
+      <div className={styles.exploration}>
+        <div className={styles.visualColumn} id={`${id}-visual`} tabIndex={-1}>
+          {view === "wheel" ? (
+            <figure className={styles.figure}>
+              <div className={styles.figureHeader}><span>{c("Plate 01 / The natal sky", "Аркуш 01 / Небо народження")}</span><span>{hasAngles ? c("Whole-sign houses", "Цілознакові доми") : c("Local-noon estimate", "Оцінка на місцевий полудень")}</span></div>
+              <FlattenedSky locale={locale} chart={chart} selected={chart.planets.findIndex(body => body.name === selected) >= 0 ? chart.planets.findIndex(body => body.name === selected) : null} onSelect={index => { if (index !== null) choose(chart.planets[index].name); }} plate={wheel} requestPlate={plateRequest} />
+              <figcaption className={styles.caption}>{c("Select a symbol. Follow the line. Read the relationship.", "Оберіть символ. Простежте лінію. Прочитайте зв’язок.")}</figcaption>
               <div className={styles.aspectControls}>
-                <button type="button" aria-pressed={allAspects} onClick={() => { setAllAspects(!allAspects); setSelectedAspect(null); }}><span aria-hidden>{allAspects ? "−" : "+"}</span> All {chart.aspects.length} aspects</button>
-                <span><i aria-hidden />Flow / meeting <i aria-hidden className={styles.dashKey} />Tension</span>
+                <button type="button" aria-pressed={allAspects} onClick={() => { setAllAspects(!allAspects); setPlateRequest(value => value + 1); setSelectedAspect(null); }}><span aria-hidden>{allAspects ? "−" : "+"}</span> {c("All", "Усі аспекти:")} {chart.aspects.length} {uk ? "" : "aspects"}</button>
+                <span><i aria-hidden />{c("Flow / meeting", "Гармонія / зустріч")} <i aria-hidden className={styles.dashKey} />{c("Tension", "Напруга")}</span>
               </div>
             </figure>
           ) : (
             <div className={styles.positions}>
-              <p className={styles.eyebrow}>Plate 02 / Planetary positions</p>
-              <p className={styles.positionIntro}>Every computed position, in one place. Select a row to read it.</p>
+              <p className={styles.eyebrow}>{c("Plate 02 / Planetary positions", "Аркуш 02 / Положення планет")}</p>
+              <p className={styles.positionIntro}>{c("Every computed position, in one place. Select a row to read it.", "Усі обчислені положення разом. Оберіть рядок, щоб дізнатися більше.")}</p>
               <div className={styles.tableScroll}>
-                <table><caption className={styles.srOnly}>Planetary positions, signs, whole-sign houses and motion</caption><thead><tr><th scope="col">Planet</th><th scope="col">Position</th>{hasAngles && <th scope="col">House</th>}<th scope="col">Motion</th></tr></thead><tbody>
-                  {chart.planets.map(body => <tr key={body.name} className={selected === body.name ? styles.selectedRow : undefined}><th scope="row"><button type="button" aria-pressed={selected === body.name} onClick={() => choose(body.name)} aria-controls={`${id}-reading`}><span aria-hidden>{body.glyph}</span>{body.name}</button></th><td>{body.sign}<br /><span>{body.degree}°</span></td>{hasAngles && <td>{body.house}</td>}<td>{body.motion || (body.retrograde ? "retrograde" : "direct")}</td></tr>)}
+                <table><caption className={styles.srOnly}>Planetary positions, signs, whole-sign houses and motion</caption><thead><tr><th scope="col">{c("Planet", "Планета")}</th><th scope="col">{c("Position", "Положення")}</th>{hasAngles && <th scope="col">{c("House", "Дім")}</th>}<th scope="col">{c("Motion", "Рух")}</th></tr></thead><tbody>
+                  {chart.planets.map(body => <tr key={body.name} className={selected === body.name ? styles.selectedRow : undefined}><th scope="row"><button type="button" aria-pressed={selected === body.name} onClick={() => choose(body.name)} aria-controls={`${id}-reading`}><span aria-hidden>{body.glyph}</span>{planetName(body.name)}</button></th><td>{signName(body.sign)}<br /><span>{body.degree}°</span></td>{hasAngles && <td>{body.house}</td>}<td>{body.motion || (body.retrograde ? "retrograde" : "direct")}</td></tr>)}
                 </tbody></table>
               </div>
             </div>
           )}
 
           <div className={styles.planetIndex} aria-label="Choose a planet">
-            {chart.planets.map(body => <button type="button" key={body.name} aria-pressed={selected === body.name} aria-controls={`${id}-reading`} onClick={() => choose(body.name)}><span aria-hidden>{body.glyph}</span>{body.name}</button>)}
+            {chart.planets.map(body => <button type="button" key={body.name} aria-pressed={selected === body.name} aria-controls={`${id}-reading`} onClick={() => choose(body.name)}><span aria-hidden>{body.glyph}</span>{planetName(body.name)}</button>)}
           </div>
           <button type="button" className={styles.readJump} onClick={() => {
             const title = document.getElementById(`${id}-reading-title`);
             title?.focus({ preventScroll: true });
             document.getElementById(`${id}-reading`)?.scrollIntoView({ block: "start", behavior: "instant" });
-          }}>Read {selectedTitle} <span aria-hidden>↓</span></button>
+          }}>{c("Read", "Прочитати:")} {selectedTitle} <span aria-hidden>↓</span></button>
         </div>
 
         <aside className={styles.reading} id={`${id}-reading`} aria-labelledby={`${id}-reading-title`}>
@@ -172,33 +184,35 @@ export default function NatalAtlas({ chart, intro, onNewChart }: { chart: NatalC
             {planet && <>
               {planet.name === "Moon" && chart.moonSignUncertain && <p className={styles.moonNote}>{chart.moonSignNote}</p>}
               <p className={styles.meaning}>{PLANET_MEANING[planet.name]}</p>
-              <p className={styles.interpretation}>{getPlanetInSign(planet.name, planet.sign)}</p>
+              {uk && <p className={styles.localeNote}>Розгорнуті тлумачення наразі доступні англійською.</p>}
+              <p className={styles.interpretation} lang="en">{getPlanetInSign(planet.name, planet.sign)}</p>
               {hasAngles && HOUSE_MEANING[planet.house] && <div className={styles.houseStory}><p className={styles.eyebrow}>Where it takes shape</p><h3>House {planet.house} · {HOUSE_MEANING[planet.house].area}</h3><p>{HOUSE_MEANING[planet.house].rules}</p></div>}
             </>}
             {isRising && <><p className={styles.meaning}>The zodiac degree rising on the eastern horizon at your birth.</p><p className={styles.interpretation}>{chart.interpretation.outerPersona}</p><div className={styles.houseStory}><p className={styles.eyebrow}>A point of orientation</p><p>Your ascendant anchors the left of this wheel. In the whole-sign system, its zodiac sign forms the first house; the exact ascendant degree is marked separately.</p></div></>}
           </div>
 
-          {planet && <div className={styles.relationships}><p className={styles.eyebrow}>In conversation with / {relatedAspects.length} aspects</p><p className={styles.relationshipHint}>Select a relationship to trace it on the atlas.</p>
+          {planet && <div className={styles.relationships}><p className={styles.eyebrow}>In conversation with / {relatedAspects.length} aspects</p><p className={styles.relationshipHint}>{c("Select a relationship to trace it on the atlas.", "Оберіть зв’язок, щоб простежити його на атласі.")}</p>
             {relatedAspects.length ? relatedAspects.map(aspect => {
               const key = aspectKey(aspect); const other = aspect.planet1 === selected ? aspect.planet2 : aspect.planet1;
-              return <button className={styles.relationship} key={key} type="button" aria-pressed={selectedAspect === key} onClick={() => { setView("wheel"); setSelectedAspect(selectedAspect === key ? null : key); }}><span aria-hidden>{ASPECTS[aspect.type].glyph}</span><span>{other}<small>{aspect.type}</small></span><span className={styles.orb}>{aspect.orb}° orb</span><span aria-hidden>↗</span></button>;
+              return <button className={styles.relationship} key={key} type="button" aria-pressed={selectedAspect === key} onClick={() => { setView("wheel"); setPlateRequest(value => value + 1); setSelectedAspect(selectedAspect === key ? null : key); }}><span aria-hidden>{ASPECTS[aspect.type].glyph}</span><span>{planetName(other)}<small>{uk ? UK_ASPECTS[aspect.type] : aspect.type}</small></span><span className={styles.orb}>{aspect.orb}° orb</span><span aria-hidden>↗</span></button>;
             }) : <p className={styles.noAspects}>No aspects within the chart’s configured orbs.</p>}
             {relationship && <div className={styles.relationshipStory} key={selectedAspect}><h3>{relationship.planet1} {relationship.type} {relationship.planet2}</h3><p>{ASPECTS[relationship.type].meaning}</p><p className={styles.aspectFact}>Separation {Number(relationship.angle.toFixed(1))}° · orb {relationship.orb}°{typeof relationship.applying === "boolean" ? ` · ${relationship.applying ? "applying" : "separating"}` : ""}</p><button type="button" className={styles.readJump} onClick={() => {
               const visual = document.getElementById(`${id}-visual`);
               visual?.focus({ preventScroll: true });
               visual?.scrollIntoView({ block: "start", behavior: "instant" });
-            }}>Trace this relationship on the atlas <span aria-hidden>↑</span></button></div>}
+            }}>{c("Trace this relationship on the atlas", "Показати цей зв’язок на атласі")} <span aria-hidden>↑</span></button></div>}
           </div>}
           <p className={styles.srOnly} role="status" aria-live="polite" aria-atomic="true">{selectedTitle} selected.{relationship ? ` ${relationship.planet1} ${relationship.type} ${relationship.planet2}, orb ${relationship.orb} degrees.` : ` ${relatedAspects.length} aspects available.`}</p>
         </aside>
       </div>
 
-      <details className={styles.method}><summary>How to read this atlas <span aria-hidden>+</span></summary><div>
+      <details className={styles.method}><summary>{c("How to read this atlas", "Як читати цей атлас")} <span aria-hidden>+</span></summary><div>
         <p><strong>Start with a planet.</strong> Its sign describes how a theme is expressed; its house describes an area of life. Aspects connect planetary themes. The smaller the orb, the closer the relationship is to its exact angle.</p>
         <p><strong>Reading the marks.</strong> Signs, houses and aspects use one fixed zodiac scale. Small dots show exact planetary longitudes; leader lines move overlapping glyphs apart without moving those positions. Solid aspect lines show harmonious or neutral relationships; dashed lines show tension.</p>
+        <p><strong>The observed sky.</strong> Planet altitudes use the birthplace and local time, including the Moon’s parallax. The horizon is geometric, without atmospheric refraction. Star positions are a precessed catalog backdrop; Moon shading shows its phase, not its orientation. Folding changes to the geocentric zodiac coordinates used by astrology.</p>
         <p><strong>Calculation.</strong> Tropical zodiac; geocentric planetary positions; whole-sign houses when the birth time is known. Local birth time is converted with the saved UTC offset ({chart.input.timezone >= 0 ? "+" : ""}{chart.input.timezone} hours). Interpretations are reflective astrology, separate from the calculated positions.</p>
       </div></details>
-      <div className={styles.continue}><p>The chart is your map.<br /><em>Your portrait brings the threads together.</em></p><TransitionLink href="/portrait" className="alm-link">Read your celestial portrait →</TransitionLink></div>
+      <div className={styles.continue}><p>{c("The chart is your map.", "Карта — ваш орієнтир.")}<br /><em>{c("Your portrait brings the threads together.", "Портрет поєднує її історії.")}</em></p><TransitionLink href="/portrait" className="alm-link">{c("Read your celestial portrait →", "Прочитати ваш небесний портрет →")}</TransitionLink></div>
     </section>
   );
 }

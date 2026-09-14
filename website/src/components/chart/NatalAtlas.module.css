@@ -136,15 +136,13 @@
 }
 @media (max-width: 520px) {
   .birthLine { font-size: .75rem; }
-  .bigThree { grid-template-columns: 1fr; }
-  .signature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: .25rem .7rem; padding: .8rem .5rem; }
-  .signature + .signature { border-left: 0; border-top: 1px solid var(--hairline); }
-  .signatureTop { grid-row: span 2; font-size: .59rem; letter-spacing: .06em; }
-  .signatureGlyph { font-size: 1.5rem; }
-  .signature strong { margin: 0; font-size: 1.55rem; }
-  .signatureSub { margin: 0; font-size: .69rem; }
-  .signature::after { inset: .7rem auto .7rem -.2rem; width: 2px; height: auto; transform: scaleY(0); }
-  .signature[aria-pressed="true"]::after { transform: scaleY(1); }
+  .bigThree { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .signature { display: flex; flex-direction: column; align-items: flex-start; gap: .35rem; padding: .8rem .5rem; min-height: 96px; }
+  .signature + .signature { border-left: 1px solid var(--hairline); border-top: 0; }
+  .signatureTop { width: 100%; font-size: .58rem; letter-spacing: .01em; line-height: 1.4; }
+  .signatureGlyph { display: none; }
+  .signature strong { margin: 0; font-size: 1.28rem; line-height: 1.1; }
+  .signatureSub { display: none; }
   .toolbar { margin-top: 1.2rem; }
   .viewButtons { gap: .85rem; }
   .viewButtons button, .newChart { font-size: .77rem; }
@@ -162,3 +160,5 @@
 @media (prefers-reduced-motion: reduce) {
   .atlas *, .atlas *::after { animation: none !important; transition: none !important; }
 }
+
+.localeNote { padding: .7rem 0; color: var(--ox); font-size: .8rem; line-height: 1.6; }

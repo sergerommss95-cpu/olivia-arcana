@@ -11,7 +11,6 @@
 import { useState, Suspense } from "react";
 import NightShell from "@/components/almanac/NightShell";
 import OracleFrontispiece from "@/components/oracle/OracleFrontispiece";
-import OracleMist from "@/components/arrival/OracleMist";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import { useLocale } from "@/lib/i18n/useLocale";
@@ -60,8 +59,6 @@ export default function OraclePage() {
   return (
     <NightShell room={isUk ? "Стіл розкладів" : "The Dealing Table"}>
       <div className="oracle-stage fixed inset-0 overflow-hidden">
-        {/* the table's mist — parts around the reader's hand, then heals */}
-        <OracleMist className="absolute inset-0 z-0" />
         <Suspense fallback={<OracleLoading />}>
           <OracleContainer />
         </Suspense>

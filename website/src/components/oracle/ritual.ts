@@ -49,3 +49,20 @@ export function createRitualTimer() {
     },
   };
 }
+
+/** Validate the complete artifact before applying any part of a shared reading. */
+export function parseSharedReading(
+  draw: string, seed: string | null, orientation: string | null, count: number, pool: number,
+): { indices: number[]; seed: number; orientations: Record<number, boolean> } | null {
+  const indices = parseSharedDraw(draw, count, pool);
+  if (!indices || seed === null || !/^\d{1,10}$/.test(seed)) return null;
+  const seedNumber = Number(seed);
+  if (!Number.isSafeInteger(seedNumber) || seedNumber > 0xffffffff) return null;
+  const orientations: Record<number, boolean> = {};
+  if (orientation !== null) {
+    const bits = orientation.split(",");
+    if (bits.length !== count || bits.some((bit) => bit !== "0" && bit !== "1")) return null;
+    indices.forEach((index, i) => { orientations[index] = bits[i] === "1"; });
+  }
+  return { indices, seed: seedNumber, orientations };
+}

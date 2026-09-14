@@ -132,12 +132,8 @@ export default function SpreadChooser({ value, onChange }: Props) {
               <i aria-hidden>✦</i> {uk ? `${s.count} ${ukCards(s.count)}` : `${s.count} cards`} <i aria-hidden>✦</i>
             </span>
             <span className="sc-line">{uk ? s.lineUk : s.line}</span>
-            {ent.requiredPlan.rank > 0 && (
-              <span className={`sc-plan ${ent.openWhilePaused ? "is-open" : ""}`}>
-                {ent.openWhilePaused
-                  ? `${ent.requiredPlan.name} · ${uk ? "відкрито зараз" : "open now"}`
-                  : ent.requiredPlan.name}
-              </span>
+            {!ent.allowed && (
+              <span className="sc-plan">{uk ? "Потрібен план" : "Requires"} {ent.requiredPlan.name}</span>
             )}
           </motion.button>
         );
@@ -148,7 +144,7 @@ export default function SpreadChooser({ value, onChange }: Props) {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr));
           gap: 0.9rem;
-          width: min(58rem, 92vw);
+          width: min(58rem, 100%);
           margin: 0 auto;
         }
 
@@ -159,7 +155,7 @@ export default function SpreadChooser({ value, onChange }: Props) {
           justify-items: center;
           align-content: start;
           gap: 0.42rem;
-          padding: 1.35rem 1.1rem 1.5rem;
+          padding: 1rem 0.9rem 1.1rem;
           border: 1px solid rgba(232, 233, 255, 0.16);
           border-radius: 4px;
           /* opaque enough that the resting deck never bleeds through */
@@ -211,7 +207,7 @@ export default function SpreadChooser({ value, onChange }: Props) {
 
         .sc-shape {
           width: 100%;
-          height: 4.6rem;
+          height: 3.8rem;
           margin-bottom: 0.35rem;
         }
 
@@ -294,21 +290,17 @@ export default function SpreadChooser({ value, onChange }: Props) {
           background: rgba(183, 188, 233, 0.12);
         }
 
-        .sc-plan.is-open {
-          color: #15174c;
-          background: #e0b768;
-        }
-
         @media (max-width: 640px) {
           .sc {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 0.6rem;
           }
           .sc-card {
-            padding: 1rem 0.7rem 1.1rem;
+            gap: 0.3rem;
+            padding: 0.7rem 0.65rem 0.8rem;
           }
           .sc-shape {
-            height: 3.4rem;
+            height: 2.4rem;
           }
           .sc-name {
             font-size: 1.02rem;

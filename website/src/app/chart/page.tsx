@@ -15,6 +15,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
 import NatalAtlas from "@/components/chart/NatalAtlas";
+import { UK_BIRTH_FORM } from "@/components/chart/chart-copy";
+import { useLocale } from "@/lib/i18n/useLocale";
 import { computeNatalChart, type NatalChart, type BirthInput } from "@/lib/natal-chart";
 import { saveUser, loadChart } from "@/lib/user-store";
 import BirthDataForm, { type BirthFormValue } from "@/components/birth/BirthDataForm";
@@ -96,6 +98,8 @@ function GhostWheel({ caption, waiting }: { caption: string; waiting?: boolean }
 }
 
 export default function ChartPage() {
+  const { locale } = useLocale();
+  const uk = locale === "uk";
   // Chart + page phase
   const [chart, setChart] = useState<NatalChart | null>(null);
   const [phase, setPhase] = useState<"form" | "computing" | "error">("form");
@@ -177,10 +181,10 @@ export default function ChartPage() {
       <div className="chart">
         {/* Header */}
         <header className="ch-head">
-          <p className="alm-kicker">Your personal atlas · Plate 01</p>
-          <h1 className="alm-h1" ref={heading} tabIndex={-1}>{chart ? "The sky you arrived under." : "A sky, entirely yours."}</h1>
+          <p className="alm-kicker">{uk ? "Ваш особистий атлас · Аркуш 01" : "Your personal atlas · Plate 01"}</p>
+          <h1 className="alm-h1" ref={heading} tabIndex={-1}>{uk ? (chart ? "Небо вашого народження." : "Небо, що належить вам.") : (chart ? "The sky you arrived under." : "A sky, entirely yours.")}</h1>
           <p className="alm-lead ch-sub">
-            {chart ? "Start with your Sun. Follow a planet, trace a relationship, find the story in the geometry." : "Your birth chart places the planets at the moment you arrived. Bring your date, place and, if you know it, your time."}
+            {uk ? (chart ? "Почніть із неба над місцем вашого народження. Перетворіть його на карту й відкрийте історію кожної планети." : "Натальна карта показує положення планет у момент вашого народження. Вкажіть дату, місце та, якщо знаєте, час.") : (chart ? "Begin with the sky above your birthplace. Fold it into your chart, then follow a planet into its story." : "Your birth chart places the planets at the moment you arrived. Bring your date, place and, if you know it, your time.")}
           </p>
         </header>
 
@@ -189,7 +193,7 @@ export default function ChartPage() {
           <div className="ch-compose">
             <div className="ch-compose-fig">
               <GhostWheel
-                caption={phase === "computing" ? "Fig. 1 — reading the ephemeris" : "Fig. 1 — awaiting birth data"}
+                caption={uk ? (phase === "computing" ? "Іл. 1 — обчислюємо положення планет" : "Іл. 1 — чекає на дані народження") : (phase === "computing" ? "Fig. 1 — reading the ephemeris" : "Fig. 1 — awaiting birth data")}
                 waiting={phase === "computing"}
               />
             </div>
@@ -197,13 +201,13 @@ export default function ChartPage() {
               {phase === "computing" ? (
                 <div className="ch-wait" role="status">
                   <span className="ch-wait-star" aria-hidden>✦</span>
-                  <p className="ch-wait-line">Reading the ephemeris</p>
-                  <p className="alm-caption">houses · aspects · dignities</p>
+                  <p className="ch-wait-line">{uk ? "Обчислюємо положення планет" : "Reading the ephemeris"}</p>
+                  <p className="alm-caption">{uk ? "доми · аспекти · планети" : "houses · aspects · dignities"}</p>
                 </div>
               ) : (
                 <BirthDataForm
                   onSubmit={generate}
-                  copy={{ fig: "Fig. 1 — the birth data", submit: "Draw my birth chart" }}
+                  copy={uk ? UK_BIRTH_FORM : { fig: "Fig. 1 — the birth data", submit: "Draw my birth chart" }}
                 />
               )}
             </div>
@@ -213,12 +217,12 @@ export default function ChartPage() {
         {/* ── ERROR — in the house voice ── */}
         {!chart && phase === "error" && (
           <div className="ch-error" role="alert">
-            <p className="alm-kicker">We couldn’t draw your chart</p>
+            <p className="alm-kicker">{uk ? "Не вдалося створити карту" : "We couldn’t draw your chart"}</p>
             <p className="ch-error-line">
-              Check your birth date and choose a place from the suggestions, then try again.
+              {uk ? "Перевірте дату народження, виберіть місце зі списку та спробуйте ще раз." : "Check your birth date and choose a place from the suggestions, then try again."}
             </p>
             <button type="button" className="alm-link ch-error-btn" onClick={() => setPhase("form")}>
-              Return to the form →
+              {uk ? "Повернутися до форми →" : "Return to the form →"}
             </button>
           </div>
         )}
@@ -226,8 +230,8 @@ export default function ChartPage() {
         {/* ── CHART VIEW (Insight tier and above) ── */}
         {chart && (
           <div className="alm-gate">
-            <Paywall requires="insight" priceKey="insight_monthly" featureName="your full natal chart">
-              <NatalAtlas chart={chart} intro={intro} onNewChart={() => { setChart(null); setPhase("form"); }} />
+            <Paywall requires="insight" priceKey="insight_monthly" featureName={uk ? "повної натальної карти" : "your full natal chart"}>
+              <NatalAtlas locale={locale} chart={chart} intro={intro} onNewChart={() => { setChart(null); setPhase("form"); }} />
             </Paywall>
           </div>
         )}

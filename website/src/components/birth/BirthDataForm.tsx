@@ -146,8 +146,7 @@ export default function BirthDataForm({ onSubmit, copy: copyOverride, withName =
       fmtUtcOffset(off),
       isSummerTime(city.zone, yNum, mNum, dNum, h, m),
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [city, dateOk, yNum, mNum, dNum, hNum, miNum, timeUnknown]);
+  }, [city, dateOk, yNum, mNum, dNum, hNum, miNum, timeUnknown, copy.tzLine]);
 
   // ── Cell helpers: digits only, auto-advance, backspace retreats ──
   const cellRefs = useRef<Array<HTMLInputElement | null>>([]);

@@ -22,9 +22,7 @@ const HAIRLINE = "rgba(183,188,233,0.16)";
 
 const REST_FOV = 55; // vertical, degrees
 const SWELL_FOV = 68; // mid-flight breath
-const DRIFT_H_PER_MS = 0.02 / 60000; // sidereal breath: +0.02h/min
 const LANTERN_R = 110; // px
-const IDLE_FPS_MS = 1000 / 30;
 
 const RAD = Math.PI / 180;
 
@@ -163,8 +161,6 @@ export default function SkyVoyageCanvas() {
     let fadeAlpha = 0;
     let pointer: { x: number; y: number } | null = null;
     let needsRedraw = true;
-    let lastDraw = 0;
-    let lastTs = 0;
     let raf = 0;
     let running = false;
     let w = 0;
@@ -193,6 +189,7 @@ export default function SkyVoyageCanvas() {
       canvas!.width = Math.round(w * dpr);
       canvas!.height = Math.round(h * dpr);
       needsRedraw = true;
+      start();
     }
 
     /* ── projection of the whole catalog for the current camera ── */
@@ -401,7 +398,6 @@ export default function SkyVoyageCanvas() {
       const labelAlpha = Math.min(1, Math.max(0, (giltProgress - 0.5) * 2));
       if (labelAlpha > 0.01) drawCartouche(gilt, labelAlpha * 0.45);
 
-      lastDraw = now;
       needsRedraw = false;
     }
 
@@ -452,6 +448,7 @@ export default function SkyVoyageCanvas() {
       };
       if (rm || omega < 0.05 * RAD) {
         settle(fl, true); // instant jump — reduced motion, or a hair away
+        start();
         return;
       }
       if (fl.sameFigure) {
@@ -465,6 +462,7 @@ export default function SkyVoyageCanvas() {
       }
       flight = fl;
       needsRedraw = true;
+      start();
     }
 
     function stepFlight(now: number) {
@@ -507,33 +505,24 @@ export default function SkyVoyageCanvas() {
 
     /* ── loop ── */
     function loop(now: number) {
-      raf = requestAnimationFrame(loop);
-      const dt = lastTs ? now - lastTs : 0;
-      lastTs = now;
-      if (flight) {
-        stepFlight(now);
-        draw(now); // flights render at full rate
-        return;
-      }
-      if (giltTailStart) {
-        stepGiltTail(now);
-        draw(now); // the finishing pen-stroke renders at full rate too
-        return;
-      }
-      if (!rm) cam.ra = (cam.ra + DRIFT_H_PER_MS * dt) % 24; // sidereal breath
-      if (needsRedraw || (!rm && now - lastDraw >= IDLE_FPS_MS)) draw(now);
+      raf = 0;
+      if (document.hidden) { running = false; return; }
+      if (flight) stepFlight(now);
+      if (giltTailStart) stepGiltTail(now);
+      if (needsRedraw || flight || giltTailStart) draw(now);
+      if (flight || giltTailStart) raf = requestAnimationFrame(loop);
+      else running = false;
     }
 
     function start() {
-      if (running) return;
+      if (running || document.hidden) return;
       running = true;
-      lastTs = 0;
-      needsRedraw = true;
       raf = requestAnimationFrame(loop);
     }
     function stop() {
       running = false;
       cancelAnimationFrame(raf);
+      raf = 0;
     }
 
     /* ── wiring ── */
@@ -550,12 +539,15 @@ export default function SkyVoyageCanvas() {
       if (detail && typeof detail.path === "string") startFlight(detail.path);
     };
     const onPointerMove = (e: PointerEvent) => {
+      if (rm) return;
       pointer = { x: e.clientX, y: e.clientY };
       needsRedraw = true;
+      start();
     };
     const onPointerGone = () => {
       pointer = null;
       needsRedraw = true;
+      start();
     };
     const onVisibility = () => {
       if (document.hidden) stop();
@@ -563,7 +555,10 @@ export default function SkyVoyageCanvas() {
     };
     const onRmChange = () => {
       rm = rmQuery.matches;
+      if (rm && flight) settle(flight, true);
+      pointer = null;
       needsRedraw = true;
+      start();
     };
 
     resize();

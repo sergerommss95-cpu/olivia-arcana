@@ -10,6 +10,7 @@
  * deliberate, not as leaving the site.
  */
 
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import TransitionLink from "@/components/transitions/TransitionLink";
 import { useLocale } from "@/lib/i18n/useLocale";
 
@@ -25,9 +26,7 @@ export default function NightRoomBand({ room }: { room: string }) {
       <p className="night-band-title">
         {isUk ? "Нічна кімната" : "Night room"} · {room}
       </p>
-      <span className="night-band-mark" aria-hidden>
-        ✦
-      </span>
+      <LanguageSwitcher />
 
       <style jsx>{`
         .night-band {
@@ -41,7 +40,7 @@ export default function NightRoomBand({ room }: { room: string }) {
           justify-content: space-between;
           gap: 1rem;
           padding: 0.5rem clamp(1rem, 3vw, 2rem);
-          background: rgba(232, 233, 255, 0.06);
+          background: rgba(10, 13, 56, 0.95);
           border-bottom: 1px solid rgba(232, 233, 255, 0.14);
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
@@ -54,7 +53,12 @@ export default function NightRoomBand({ room }: { room: string }) {
           letter-spacing: 0.2em;
           text-transform: uppercase;
           text-decoration: none;
-          white-space: nowrap;
+          white-space: normal;
+          min-width: 0;
+          line-height: 1.6;
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
           transition: color 200ms ease;
         }
 
@@ -64,7 +68,7 @@ export default function NightRoomBand({ room }: { room: string }) {
 
         .night-band-title {
           margin: 0;
-          color: rgba(232, 233, 255, 0.45);
+          color: #b8bfd8;
           font-family: var(--font-mono, ui-monospace), monospace;
           font-size: 0.6rem;
           letter-spacing: 0.3em;

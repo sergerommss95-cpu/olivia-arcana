@@ -17,7 +17,7 @@ interface TransitionLinkProps {
  * to trigger the page transition overlay before navigating.
  *
  * The PageTransition component listens for this event,
- * shows the overlay, waits for the animation, then navigates.
+ * starts routing immediately while a brief decorative overlay settles.
  *
  * On press it drops a gilt ink dot beneath the link — the press is
  * acknowledged in the beat before the veil starts moving. (The dot's
