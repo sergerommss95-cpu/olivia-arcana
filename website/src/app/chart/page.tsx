@@ -350,7 +350,8 @@ export default function ChartPage() {
                         })}
                       </g>
 
-                      {/* 3. Aspect lines */}
+                      {/* 3. Aspect lines — selecting a planet lights its
+                          own aspects and hushes the rest of the web */}
                       <g className={intro ? "cwf" : ""} style={dly(1.75)}>
                         {chart.aspects.slice(0, 15).map((a, i) => {
                           const p1 = chart.planets.find((p) => p.name === a.planet1);
@@ -360,15 +361,27 @@ export default function ChartPage() {
                           const pos2 = polarToCart(250, 250, 140, p2.longitude);
                           const tense = a.harmony === "tense";
                           const strength = Math.max(0.2, 1 - a.orb / 10);
+                          const selName = selected !== null ? chart.planets[selected]?.name : null;
+                          const involves = selName !== null && (a.planet1 === selName || a.planet2 === selName);
+                          const opacity = selName
+                            ? involves
+                              ? tense
+                                ? 0.85
+                                : 0.62
+                              : 0.05
+                            : tense
+                              ? 0.4
+                              : 0.22;
                           return (
                             <path
                               key={i}
                               d={`M ${pos1.x} ${pos1.y} Q 250 250 ${pos2.x} ${pos2.y}`}
                               fill="none"
-                              stroke={tense ? "var(--ox, #e0b768)" : "currentColor"}
-                              strokeWidth={strength * 1.4}
+                              stroke={involves && !tense ? "var(--ox, #e0b768)" : tense ? "var(--ox, #e0b768)" : "currentColor"}
+                              strokeWidth={involves ? strength * 2.1 : strength * 1.4}
                               strokeDasharray={tense ? "3 3" : "none"}
-                              opacity={tense ? 0.4 : 0.22}
+                              opacity={opacity}
+                              style={{ transition: "opacity 380ms cubic-bezier(0.16,1,0.3,1), stroke-width 380ms cubic-bezier(0.16,1,0.3,1)" }}
                             />
                           );
                         })}

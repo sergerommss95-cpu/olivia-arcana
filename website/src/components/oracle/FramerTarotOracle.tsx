@@ -490,6 +490,7 @@ export default function FramerTarotOracle() {
   // Motion value for hover tracking (bypasses React re-renders)
   const hoveredIndexMV = useMotionValue<number>(-1);
   const isTransitioning = useRef(false);
+  const prepTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Auto-init audio when engine mounts since the user already clicked "Awaken the Deck" in the shell
   useEffect(() => {
@@ -558,7 +559,13 @@ export default function FramerTarotOracle() {
           // router.replace must not run inside the state updater — React
           // flags a Router update during FramerTarotOracle's render.
           setTimeout(() => updateUrl(newSelected), 0);
-          setTimeout(() => {
+          // the listening pause is cancellable: Start over mid-pause used
+          // to leave this timer alive, firing the reader into an empty
+          // spread after the reset
+          if (prepTimer.current) clearTimeout(prepTimer.current);
+          prepTimer.current = setTimeout(() => {
+            prepTimer.current = null;
+            if (!isTransitioning.current) return; // a reset intervened
             setState("spread");
             isTransitioning.current = false;
           }, 2400); // 2.4s of "listening for the pattern"
@@ -570,6 +577,7 @@ export default function FramerTarotOracle() {
   }, [state, updateUrl, spread.count]);
 
   const reset = useCallback(() => {
+    if (prepTimer.current) { clearTimeout(prepTimer.current); prepTimer.current = null; }
     isTransitioning.current = false;
     setState("focusing");
     setSelectedCards([]);
