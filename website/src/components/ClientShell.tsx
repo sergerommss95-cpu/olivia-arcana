@@ -28,6 +28,8 @@ function ChartScribe() {
 }
 
 export default function ClientShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isStudy = pathname === "/studies" || pathname?.startsWith("/studies/");
   return (
     <>
       {/* Subscription context — provides useSubscription() to all components */}
@@ -39,11 +41,11 @@ export default function ClientShell({ children }: { children: React.ReactNode })
       </SubscriptionProvider>
 
       {/* One optional sound and ambient interaction controller. */}
-      <ParlorLayer />
+      {!isStudy && <ParlorLayer />}
 
       {/* The Atlas: the engraved chart of the edition, and its opener. */}
       <ChartScribe />
-      <SkyAtlasAccess />
+      {!isStudy && <SkyAtlasAccess />}
     </>
   );
 }
