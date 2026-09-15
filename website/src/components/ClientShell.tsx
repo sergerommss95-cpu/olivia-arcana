@@ -101,6 +101,13 @@ function ChartScribe() {
   return null;
 }
 
+function StudiesGate({ children }: { children: React.ReactNode }) {
+  // The studies are quiet lab rooms — no floating atlas or parlor chrome.
+  const pathname = usePathname();
+  if (pathname?.startsWith("/studies")) return null;
+  return <>{children}</>;
+}
+
 export default function ClientShell({ children }: { children: React.ReactNode }) {
   // Tier 2 gate — basic client-only render
   const [mounted, setMounted] = useState(false);
@@ -142,8 +149,10 @@ export default function ClientShell({ children }: { children: React.ReactNode })
 
       {/* The Atlas: the engraved chart of the edition, and its opener. */}
       <ChartScribe />
-      <SkyAtlas />
-      <SkyAtlasButton />
+      <StudiesGate>
+        <SkyAtlas />
+        <SkyAtlasButton />
+      </StudiesGate>
     </>
   );
 }
