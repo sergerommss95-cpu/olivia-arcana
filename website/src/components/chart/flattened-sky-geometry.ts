@@ -9,7 +9,11 @@ export function horizonPoint(altitude: number, azimuth: number) {
   // Objects below the horizon are schematic: the projection is capped before
   // its nadir singularity, and their numerical altitude remains unmodified.
   const radius = Math.min(1.22, Math.tan((90 - altitude) * RAD / 2));
-  return { x: -radius * Math.sin(azimuth * RAD), y: -radius * Math.cos(azimuth * RAD), alt: altitude, az: azimuth };
+  // Transcendentals differ by 1 ULP between the server's and the browser's
+  // libm; quantizing far above that noise keeps SSR and hydration identical.
+  // Truncation (not rounding) so the capped radius is never exceeded.
+  const q = (v: number) => Math.trunc(v * 1e6) / 1e6;
+  return { x: q(-radius * Math.sin(azimuth * RAD)), y: q(-radius * Math.cos(azimuth * RAD)), alt: altitude, az: azimuth };
 }
 
 /** Observed sky is independent of the geocentric longitudes printed on the atlas. */

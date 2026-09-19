@@ -151,7 +151,9 @@ export default function SkyStudy() {
           <circle className={styles.outerRule} cx={CX} cy={CX} r={R + 28} />
           {Array.from({ length: 120 }, (_, i) => {
             const angle = i * Math.PI / 60, outer = R + 22, inner = outer - (i % 10 === 0 ? 11 : i % 5 === 0 ? 7 : 3);
-            return <line key={i} className={styles.ticks} x1={CX + Math.sin(angle) * inner} y1={CX - Math.cos(angle) * inner} x2={CX + Math.sin(angle) * outer} y2={CX - Math.cos(angle) * outer} />;
+            // Quantized: server and browser trig differ by 1 ULP, which trips hydration.
+            const q = (v: number) => Math.round(v * 100) / 100;
+            return <line key={i} className={styles.ticks} x1={q(CX + Math.sin(angle) * inner)} y1={q(CX - Math.cos(angle) * inner)} x2={q(CX + Math.sin(angle) * outer)} y2={q(CX - Math.cos(angle) * outer)} />;
           })}
           <circle className={styles.nightDisc} cx={CX} cy={CX} r={R} />
           <g clipPath="url(#study-horizon)">

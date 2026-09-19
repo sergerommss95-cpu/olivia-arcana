@@ -1,6 +1,6 @@
-.page { --paper: #eee9df; --ink: #20243c; --muted: #65636c; --line: #c6c0b6; min-height: 100svh; padding: 0 clamp(1.2rem, 5vw, 5.5rem) 2rem; color: var(--ink); background: var(--paper); font-family: var(--font-body), sans-serif; }
+.page { --paper: #0a0d38; --ink: #daceb8; --muted: #a49e8f; --line: #23275a; min-height: 100svh; padding: 0 clamp(1.2rem, 5vw, 5.5rem) 2rem; color: var(--ink); background: var(--paper); font-family: var(--font-body), sans-serif; }
 .page a { color: inherit; text-decoration: none; }
-.page a:focus-visible { outline: 2px solid #947244; outline-offset: 5px; }
+.page a:focus-visible { outline: 2px solid #d6b276; outline-offset: 5px; }
 .masthead { display: flex; align-items: center; justify-content: space-between; gap: 1rem; max-width: 1500px; margin: auto; padding: 1rem 0; border-bottom: 1px solid var(--line); font-size: .7rem; }
 .masthead > span { letter-spacing: .14em; text-transform: uppercase; }
 .masthead > a { min-height: 44px; display: inline-flex; align-items: center; gap: 1rem; }
@@ -8,35 +8,35 @@
 .opening { max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: 1fr .52fr; column-gap: 3rem; align-items: end; padding: clamp(2.5rem, 5vw, 5rem) 0 3rem; }
 .eyebrow { grid-column: 1 / -1; margin: 0 0 1.6rem; font-size: .64rem; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; color: var(--muted); }
 .opening h1 { margin: 0; font-family: var(--font-heading), serif; font-size: clamp(3.1rem, 6.5vw, 7.3rem); font-weight: 400; letter-spacing: -.045em; line-height: .91; }
-.opening em { font-weight: 400; color: #6b6772; }
+.opening em { font-weight: 400; color: #b5ac97; }
 .intro { max-width: 34ch; margin: 0 0 .25rem auto; color: var(--ink); font-size: .88rem; line-height: 1.9; }
 .intro span { display: inline-block; margin-top: 1rem; color: var(--muted); }
 .collection { max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: 1.08fr 1fr; gap: 1.25rem; }
-.collection > a { display: flex; flex-direction: column; position: relative; min-width: 0; overflow: hidden; padding: clamp(1.2rem, 2.6vw, 2.8rem); }
-.tarot { background: #111730; color: #f0e9dc !important; }
-.sky { border: 1px solid #b6afa5; background: #e1dbce; }
+.collection > a { display: flex; flex-direction: column; position: relative; min-width: 0; overflow: hidden; padding: clamp(1.2rem, 2.6vw, 2.8rem); border: 1px solid #2b2f66; box-shadow: 0 24px 60px #04081d66; }
+.tarot { background: #10134d; color: #daceb8 !important; }
+.sky { background: #10134d; }
 .plateHeading { display: flex; justify-content: space-between; gap: 1rem; font-size: .61rem; line-height: 1.7; letter-spacing: .08em; text-transform: uppercase; }
-.tarot .plateHeading { color: #d7c096; }
+.tarot .plateHeading { color: #d6b276; }
 .plateHeading span:last-child { display: flex; gap: 1rem; align-items: center; text-align: right; }
 .plateHeading b { font-weight: 400; font-size: 1.1rem; transition: transform 220ms ease-out; }
 .collection > a:hover .plateHeading b { transform: translate(3px, -3px); }
 .deck { position: relative; height: clamp(300px, 28vw, 400px); margin: .6rem 0; isolation: isolate; }
-.deck img { position: absolute; left: 50%; top: 52%; width: clamp(116px, 13vw, 190px); height: auto; border-radius: 3px; box-shadow: 0 10px 28px #02051380; transition: transform 550ms cubic-bezier(.16, 1, .3, 1); transform-origin: 50% 90%; }
+.deck img { position: absolute; left: 50%; top: 52%; width: clamp(116px, 13vw, 190px); height: auto; border-radius: 3px; box-shadow: 0 0 0 1px #daceb824, 0 12px 32px #020513b3; transition: transform 550ms cubic-bezier(.16, 1, .3, 1); transform-origin: 50% 90%; }
 .leftCard { transform: translate(-100%, -46%) rotate(-15deg); }
 .centerCard { z-index: 2; transform: translate(-50%, -53%); }
 .rightCard { transform: translate(0%, -46%) rotate(15deg); }
-.engraving { display: block; width: min(100%, 365px); height: clamp(300px, 28vw, 400px); margin: .6rem auto; overflow: visible; color: #746447; fill: none; stroke: currentColor; stroke-width: .65; }
-.engraving text { font-family: var(--font-body), sans-serif; font-size: 8px; fill: #494347; stroke: none; }
-.engraving .star { fill: #746447; stroke: none; }
+.engraving { display: block; width: min(100%, 365px); height: clamp(300px, 28vw, 400px); margin: .6rem auto; overflow: visible; color: #d6b276; fill: none; stroke: currentColor; stroke-width: .65; }
+.engraving text { font-family: var(--font-body), sans-serif; font-size: 8px; fill: #a49e8f; stroke: none; }
+.engraving .star { fill: #e9e0ca; stroke: none; }
 .plateCopy { display: grid; grid-template-columns: 1fr; gap: 1rem; }
 .plateCopy h2 { margin: 0; font-family: var(--font-heading), serif; font-weight: 400; line-height: .95; letter-spacing: -.03em; font-size: clamp(2.6rem, 3.6vw, 4rem); }
 .plateCopy em { font-weight: 400; }
-.tarot .plateCopy em { color: #b9b6c9; }
-.sky .plateCopy em { color: #736d70; }
-.plateCopy p { max-width: 42ch; margin: .2rem 0 1.8rem; font-size: .84rem; line-height: 1.8; color: #c8c3d1; }
-.sky .plateCopy p { color: #625e66; }
-.plateFoot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-top: 1px solid #44485a; padding-top: 1rem; color: #c5bed0; font-size: .62rem; line-height: 1.8; }
-.sky .plateFoot { border-color: #b9b1a5; color: #625e66; }
+.tarot .plateCopy em { color: #b0a58e; }
+.sky .plateCopy em { color: #b5ac97; }
+.plateCopy p { max-width: 42ch; margin: .2rem 0 1.8rem; font-size: .84rem; line-height: 1.8; color: #b0a58e; }
+.sky .plateCopy p { color: #a49e8f; }
+.plateFoot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-top: 1px solid #343a70; padding-top: 1rem; color: #b0a58e; font-size: .62rem; line-height: 1.8; }
+.sky .plateFoot { border-color: #343a70; color: #a49e8f; }
 .plateFoot span:last-child { font-family: var(--font-heading), serif; font-size: 1.2rem; }
 .footer { display: flex; max-width: 1500px; margin: auto; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 2rem; font-size: .65rem; color: var(--muted); }
 .footer p { margin: 0; }
