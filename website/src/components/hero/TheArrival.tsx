@@ -143,10 +143,10 @@ void main(){
  vec2 rn=normalize(plane+vec2(.00001));
  vec2 refractUV=cover(vUv+rn*band*(.026+.02*open),1672./941.,uPositionX);
  vec3 tideWater=texture2D(uPlate,clamp(refractUV,.001,.999)).rgb;
- float streak=pow(.5+.5*sin(angle*90.+radial*260.+uTime*2.1),6.);
+ float streak=pow(.5+.5*sin(angle*34.+radial*120.+uTime*1.6),5.);
  float lift=pow(.5+.5*sin(edge*300.-uTime*1.9+sin(angle*6.)*1.2),5.);
  tideWater*=.72+.5*lift*arcLight;
- tideWater+=vec3(.62,.70,1.)*streak*.16*arcLight;
+ tideWater+=vec3(.70,.74,1.)*streak*.07*arcLight;
  color=mix(color,tideWater,band*gate*(.62+.25*open)*massLow);
  float crestOuter=exp(-pow((edge-rimWidth*.55)/(rimWidth*.16),2.));
  float crestInner=exp(-pow((edge+rimWidth*.5)/(rimWidth*.2),2.));
