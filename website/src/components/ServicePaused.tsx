@@ -42,7 +42,7 @@ export default function ServicePaused({ title, body }: ServicePausedProps) {
           <Link href="/oracle-letter" className="svcp-btn">
             {isUk ? "Залишіть питання — лист вас знайде" : "Leave your question — the letter will find you"}
           </Link>
-          <a href={TELEGRAM_BOT_URL} target="_blank" rel="noopener noreferrer" className="svcp-alt">
+          <a href={`${TELEGRAM_BOT_URL}?start=paused`} target="_blank" rel="noopener noreferrer" className="svcp-alt">
             {isUk ? "Продовжити в Telegram" : "Continue in Telegram"}
           </a>
         </div>

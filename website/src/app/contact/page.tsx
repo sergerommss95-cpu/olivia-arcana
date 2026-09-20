@@ -48,7 +48,7 @@ export default function ContactPage() {
 
       <h2>Find us elsewhere</h2>
       <ul>
-        <li>Telegram bot — <a href="https://t.me/OliviaArcanaBot" target="_blank" rel="noopener noreferrer">@OliviaArcanaBot</a></li>
+        <li>Telegram bot — <a href="https://t.me/OliviaArcanaBot?start=contact" target="_blank" rel="noopener noreferrer">@OliviaArcanaBot</a></li>
         <li>Daily channel — <a href="https://t.me/OliviaArcanaDaily" target="_blank" rel="noopener noreferrer">@OliviaArcanaDaily</a></li>
       </ul>
 

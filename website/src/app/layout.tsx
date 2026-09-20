@@ -109,7 +109,7 @@ export default function RootLayout({
     "@type": "SoftwareApplication",
     "name": "Olivia Arcana",
     "applicationCategory": "LifestyleApplication",
-    "operatingSystem": "Web, iOS, Android",
+    "operatingSystem": "Web",
     "description": "Personal astrology and tarot readings for reflection, clarity, and self-understanding.",
     "offers": {
       "@type": "Offer",

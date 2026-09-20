@@ -13,6 +13,7 @@
 import { useEffect, useState } from "react";
 import TransitionLink from "@/components/transitions/TransitionLink";
 import InkCursor from "@/components/almanac/InkCursor";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import MagnetRig from "@/components/almanac/MagnetRig";
 import ShaderBackdrop from "@/components/almanac/ShaderBackdrop";
 import { useLocale } from "@/lib/i18n/useLocale";
@@ -150,6 +151,12 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           ))}
         </nav>
         <p className="alm-colophon-line">{chrome.line}</p>
+
+        {/* The edition's tongue — appended below the closing line so the
+            colophon above never reflows; the list opens upward. */}
+        <div className="alm-colophon-lang">
+          <LanguageSwitcher openUp />
+        </div>
       </footer>
 
       <style jsx global>{`
@@ -577,6 +584,12 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           color: var(--ox);
         }
 
+        .alm-colophon-lang {
+          display: flex;
+          justify-content: center;
+          padding-top: 1rem;
+        }
+
         .alm-colophon-line {
           margin: 0.8rem auto 0;
           text-align: center;
@@ -695,7 +708,8 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           }
           .alm-page nav,
           .alm-mast-cta,
-          .alm-btn {
+          .alm-btn,
+          .alm-colophon-lang {
             display: none !important;
           }
         }

@@ -140,7 +140,7 @@ export default function OracleLetterRoute() {
             <div className="ol-divider" aria-hidden />
 
             {/* Watermark */}
-            <p className="ol-watermark alm-caption">{"✦"} Olivia Arcana</p>
+            <p className="ol-watermark alm-caption">{"✦"} Olivia Arcana &middot; oliviaarcana.com</p>
           </div>
 
           {/* Action buttons */}

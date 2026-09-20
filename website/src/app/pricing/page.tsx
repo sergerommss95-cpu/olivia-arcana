@@ -74,8 +74,8 @@ export default function PricingPage() {
         <h2>While the press is stopped</h2>
         <p>
           The instruments are cooled and hooded; no payment is taken while the press rests. If you want
-          to be first served when it turns again, <a href="/oracle-letter">leave your letter in the
-          ledger</a> — a standing subscription to your own sky, held in your name until the type is set.
+          to be first served when it turns again, <a href="https://t.me/OliviaArcanaBot?start=waitlist">keep
+          a place in the ledger</a> — the bot will hold your name until the type is set.
         </p>
         <p>
           Billing questions are answered in the <a href="/refund">refund policy</a>; the fine print lives

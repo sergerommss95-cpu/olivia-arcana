@@ -23,6 +23,7 @@ import SkyVoyageCanvas from "@/components/sky/SkyVoyageCanvas";
 import LiquidNight from "@/components/arrival/LiquidNight";
 import SkyAtlas, { SkyAtlasButton } from "@/components/sky/SkyAtlas";
 import { markCharted } from "@/components/sky/voyage";
+import InstallPrompt from "@/components/InstallPrompt";
 import { SubscriptionProvider } from "@/hooks/useSubscription";
 
 declare global {
@@ -146,6 +147,11 @@ export default function ClientShell({ children }: { children: React.ReactNode })
       {/* PARLOR LAYER — the ritual's ambient hands (oa-ritual bus).
           Parked until the sibling lane lands; see the import note. */}
       <ParlorLayer />
+
+      {/* PWA — registers the service worker on mount; renders nothing
+          until the browser fires beforeinstallprompt (then a bottom
+          banner, 12s delayed, dismissal remembered 7 days). */}
+      <InstallPrompt />
 
       {/* The Atlas: the engraved chart of the edition, and its opener. */}
       <ChartScribe />

@@ -51,7 +51,7 @@ export default function CheckoutCancelPage() {
           <p className="ck-foot">
             Questions? <a href="/contact" className="ck-inline-link">Contact us</a> or{" "}
             <a
-              href="https://t.me/OliviaArcanaBot"
+              href="https://t.me/OliviaArcanaBot?start=cancel"
               target="_blank"
               rel="noopener noreferrer"
               className="ck-inline-link"

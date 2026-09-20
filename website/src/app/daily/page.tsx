@@ -11,6 +11,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
 import FlipRevealCard from "@/components/shaders/FlipRevealCard";
@@ -32,6 +33,12 @@ import { getStoredBirth } from "@/lib/birth";
 import { useProfile, useStreak } from "../../lib/user/profile-store";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
+
+/* Share machinery — the same modal the sign pages use (ShareSignButton →
+   ShareCardModal → chart-card-renderer). Client-only, loaded on demand. */
+const ShareCardModal = dynamic(() => import("@/components/ShareCardModal"), { ssr: false });
+
+const ELEMENT_EMOJI: Record<string, string> = { Fire: "🔥", Earth: "🌿", Air: "💨", Water: "🌊" };
 
 const SIGNS: WheelSign[] = [
   { name: "Aries",       glyph: "♈", element: "Fire",  dateRange: "Mar 21 — Apr 19" },
@@ -64,6 +71,8 @@ const COPY = {
     cardCaption: (sun: string, moon: string) => `Fig. 2 — one card for everyone, drawn under ☉ ${sun} · ☽ ${moon}`,
     cardHint: "Turn the card",
     cardCounsel: "Read it against today's counsel below ↓",
+    cardShare: "Share the card",
+    reversedMark: "reversed",
     wheelCaption: "Fig. 3 — the wheel of twelve signs",
     plate: "Plate",
     writtenFor: (name: string) => `Today's reading, written for the chart of ${name}.`,
@@ -79,6 +88,8 @@ const COPY = {
     cardCaption: (sun: string, moon: string) => `Мал. 2 — одна карта для всіх, витягнута під ☉ ${sun} · ☽ ${moon}`,
     cardHint: "Переверніть карту",
     cardCounsel: "Прочитайте її разом із порадою дня нижче ↓",
+    cardShare: "Поділитися картою",
+    reversedMark: "перевернута",
     wheelCaption: "Мал. 3 — колесо дванадцяти знаків",
     plate: "Таблиця",
     writtenFor: (name: string) => `Сьогоднішнє читання, написане для карти ${name}.`,
@@ -141,6 +152,7 @@ export default function DailyPage() {
   const [card, setCard] = useState<TarotCard>(ALL_CARDS[0]);
   const [cardReversed, setCardReversed] = useState(false);
   const [cardRevealed, setCardRevealed] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
   const cardPanelRef = useRef<HTMLDivElement>(null);
   const wheelRef = useRef<HTMLElement | null>(null);
 
@@ -229,6 +241,27 @@ export default function DailyPage() {
     if (mounted) setCutMark(getLastCut());
   }, [mounted]);
   const cutIsToday = cutMark !== null && cutMark.year === now.getFullYear() && cutMark.no === dayOfYear;
+
+  // The day's card as a shareable plate — mapped onto the CardData shape
+  // that chart-card-renderer already knows how to set in type. Energy is
+  // deterministic per day (same recipe as ShareSignButton), colour is the
+  // one gilt of the register.
+  const shareCardData = {
+    signName: cardReversed ? `${card.name} · ${copy.reversedMark}` : card.name,
+    signGlyph: getCardNumeral(card),
+    bigThree:
+      sun && moon
+        ? `${copy.sunIn} ${signName(sun.sign)}, ${copy.moonIn} ${signName(moon.sign)}`
+        : card.advice,
+    element: card.element,
+    elementEmoji: ELEMENT_EMOJI[card.element] || "✦",
+    cosmicEnergy: 60 + Math.abs((dayOfYear * 2654435761) % 41),
+    horoscope: cardReversed ? card.reversed : card.upright,
+    luckyColor: "Gilt",
+    luckyColorHex: "#e0b768",
+    dateRange: `${isUk ? "Лист" : "Leaf"} № ${dayOfYear} — ${now.toLocaleDateString(isUk ? "uk" : "en", { month: "long", day: "numeric", year: "numeric" })}`,
+    traits: card.keywords,
+  };
 
   return (
     <AlmanacShell>
@@ -398,10 +431,27 @@ export default function DailyPage() {
                       {copy.cardCounsel}
                     </button>
                   </p>
+                  <p className="card-share">
+                    <button
+                      type="button"
+                      className="card-share-btn"
+                      onClick={() => setShareOpen(true)}
+                    >
+                      <span aria-hidden>✦</span> {copy.cardShare}
+                    </button>
+                  </p>
                 </motion.div>
               )}
             </AnimatePresence>
           </MotionConfig>
+
+          {mounted && (
+            <ShareCardModal
+              open={shareOpen}
+              onClose={() => setShareOpen(false)}
+              data={shareCardData}
+            />
+          )}
         </section>
 
         {/* ── Sign selector — the engraved wheel ── */}
@@ -793,6 +843,37 @@ export default function DailyPage() {
 
         .card-counsel-link:hover {
           border-bottom-style: solid;
+        }
+
+        /* Share — a mono kicker button set under the counsel line. */
+        .card-share {
+          margin: 0.9rem 0 0;
+          text-align: center;
+        }
+
+        .card-share-btn {
+          background: none;
+          border: 0;
+          cursor: pointer;
+          padding: 0.2rem 0 2px;
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.62rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--ink-faint);
+          border-bottom: 1px dashed rgba(183, 188, 233, 0.4);
+          transition: color 200ms var(--ease);
+        }
+
+        .card-share-btn:hover {
+          color: var(--ox);
+          border-bottom-color: rgba(224, 183, 104, 0.5);
+          border-bottom-style: solid;
+        }
+
+        .card-share-btn span {
+          color: var(--ox);
+          margin-right: 0.3rem;
         }
 
         @media (prefers-reduced-motion: reduce) {
