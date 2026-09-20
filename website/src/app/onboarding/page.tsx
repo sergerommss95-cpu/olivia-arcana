@@ -18,8 +18,14 @@ import React, { useState, useRef, useEffect } from "react";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
 import { getSunSign, getCosmicProfile, type CosmicProfile as CosmicProfileData } from "../../lib/zodiac-utils";
 import BirthDatePicker from "../../components/BirthDatePicker";
+import { ADDONS, type PriceKey } from "../../lib/payments";
+import { PENDING_CHECKOUT_KEY } from "../../components/CheckoutButton";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
+
+function isPriceKey(value: string): value is PriceKey {
+  return /^(insight|premium|vip)_(monthly|annual)$/.test(value) || value in ADDONS;
+}
 
 type Step = "name" | "date" | "time" | "city" | "result";
 const STEPS: Step[] = ["name", "date", "time", "city", "result"];
@@ -32,7 +38,28 @@ export default function OnboardingPage() {
   const [timeUnknown, setTimeUnknown] = useState(false);
   const [city, setCity] = useState("");
   const [profile, setProfile] = useState<CosmicProfileData | null>(null);
+  const [checkoutIntent, setCheckoutIntent] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // A buyer sent here mid-checkout (?redirect=checkout&price=<key>) gets
+  // their intent parked under the pending-checkout contract key, and the
+  // final step routes them to sign-in instead of the chart. Read from
+  // window.location in an effect — no useSearchParams, so the statically
+  // exported HTML stays byte-identical.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const price = params.get("price");
+    if (params.get("redirect") !== "checkout" || !price || !isPriceKey(price)) return;
+    try {
+      localStorage.setItem(
+        PENDING_CHECKOUT_KEY,
+        JSON.stringify({ price, ts: Date.now() })
+      );
+    } catch {
+      // Storage unavailable — the sign-in redirect still happens.
+    }
+    setCheckoutIntent(true);
+  }, []);
 
   const stepIndex = STEPS.indexOf(step);
   const progress = ((stepIndex + 1) / STEPS.length) * 100;
@@ -183,8 +210,8 @@ export default function OnboardingPage() {
                   Welcome, {name}. Your stars are aligned.
                 </p>
               )}
-              <a href="/chart" className="alm-btn">
-                View Your Birth Chart
+              <a href={checkoutIntent ? "/login/?reason=checkout" : "/chart"} className="alm-btn">
+                {checkoutIntent ? "Continue to Sign In" : "View Your Birth Chart"}
               </a>
             </div>
           )}

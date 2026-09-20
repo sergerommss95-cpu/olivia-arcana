@@ -249,7 +249,7 @@ export default function ChartPage() {
         {/* ── CHART VIEW (Insight tier and above) ── */}
         {chart && (
           <div className="alm-gate">
-            <Paywall requires="insight" priceKey="insight_monthly" featureName="your full natal chart">
+            <Paywall feature="reading-full" featureName="your full natal chart">
               {/* The big three — ink in after the wheel draws */}
               <div className="ch-three">
                 {threePlates.map((pl, i) => (

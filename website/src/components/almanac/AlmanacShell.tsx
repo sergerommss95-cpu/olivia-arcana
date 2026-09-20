@@ -16,6 +16,7 @@ import InkCursor from "@/components/almanac/InkCursor";
 import MagnetRig from "@/components/almanac/MagnetRig";
 import ShaderBackdrop from "@/components/almanac/ShaderBackdrop";
 import { useLocale } from "@/lib/i18n/useLocale";
+import { ACCOUNTS_ENABLED } from "@/lib/service-status";
 
 interface AlmanacShellProps {
   children: React.ReactNode;
@@ -30,6 +31,8 @@ const CHROME = {
       { label: "Daily card", href: "/daily" },
       { label: "Academy", href: "/academy" },
       { label: "Tariff", href: "/pricing" },
+      // Appears only once the account backend is back (build-time flag).
+      ...(ACCOUNTS_ENABLED ? [{ label: "Account", href: "/profile/" }] : []),
     ],
     cta: "Ask the Oracle",
     mastTitle: "Personal Almanac",
@@ -38,6 +41,8 @@ const CHROME = {
       ["Contact", "/contact"],
       ["Terms", "/terms"],
       ["Privacy", "/privacy"],
+      ["Refund", "/refund"],
+      ["Cookies", "/cookies"],
       ["Disclaimer", "/disclaimer"],
     ] as Array<[string, string]>,
     line: "© MMXXVI Olivia Arcana LLC — The stars guide, you decide.",
@@ -48,6 +53,8 @@ const CHROME = {
       { label: "Карта дня", href: "/daily" },
       { label: "Академія", href: "/academy" },
       { label: "Тариф", href: "/pricing" },
+      // Appears only once the account backend is back (build-time flag).
+      ...(ACCOUNTS_ENABLED ? [{ label: "Кабінет", href: "/profile/" }] : []),
     ],
     cta: "Запитати Оракула",
     mastTitle: "Особистий альманах",
@@ -56,6 +63,8 @@ const CHROME = {
       ["Контакт", "/contact"],
       ["Умови", "/terms"],
       ["Приватність", "/privacy"],
+      ["Повернення", "/refund"],
+      ["Cookies", "/cookies"],
       ["Застереження", "/disclaimer"],
     ] as Array<[string, string]>,
     line: "© MMXXVI Olivia Arcana LLC — Зорі підказують, вирішуєте ви.",

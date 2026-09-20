@@ -5,11 +5,17 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
+import ServicePaused from "@/components/ServicePaused";
+import { ACCOUNTS_ENABLED } from "@/lib/service-status";
+import { useLocale } from "@/lib/i18n/useLocale";
 import { getUser, getSession, signOut } from "../../lib/supabase";
 import type { User } from "@supabase/supabase-js";
 
 // DeckStats reads localStorage so client-only render avoids SSR mismatch.
 const DeckStats = dynamic(() => import("../../components/DeckStats"), { ssr: false });
+
+/** Cross-lane pending purchase intent — /account/billing/ consumes it. */
+const PENDING_CHECKOUT_KEY = "oa-pending-checkout";
 
 const QUICK_LINKS = [
   { href: "/portrait", label: "Celestial Portrait", icon: "✦" },
@@ -19,31 +25,67 @@ const QUICK_LINKS = [
 ];
 
 export default function ProfilePage() {
+  const { locale } = useLocale();
+  const isUk = locale === "uk";
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [signedOut, setSignedOut] = useState(false);
 
   useEffect(() => {
+    if (!ACCOUNTS_ENABLED) return;
     (async () => {
-      const session = await getSession();
-      if (!session) {
+      // Any auth failure (network, torn-down backend) lands on the
+      // signed-out gate instead of an infinite loading state.
+      try {
+        const session = await getSession();
+        if (!session) {
+          setTimeout(() => {
+            setSignedOut(true);
+            setLoading(false);
+          }, 0);
+          return;
+        }
+        // A pending purchase intent belongs to billing — hand over.
+        let hasPending = false;
+        try {
+          hasPending = !!localStorage.getItem(PENDING_CHECKOUT_KEY);
+        } catch {}
+        if (hasPending) {
+          window.location.href = "/account/billing/";
+          return;
+        }
+        const u = await getUser();
+        setTimeout(() => {
+          setUser(u);
+          setLoading(false);
+        }, 0);
+      } catch {
         setTimeout(() => {
           setSignedOut(true);
           setLoading(false);
         }, 0);
-        return;
       }
-      const u = await getUser();
-      setTimeout(() => {
-        setUser(u);
-        setLoading(false);
-      }, 0);
     })();
   }, []);
 
   const name = user?.user_metadata?.name || user?.user_metadata?.full_name || "";
   const email = user?.email || "";
   const avatar = user?.user_metadata?.avatar_url || "";
+
+  // Same gate as login/register/billing: while the account backend is down,
+  // say so instead of failing at the network layer.
+  if (!ACCOUNTS_ENABLED) {
+    return (
+      <ServicePaused
+        title={isUk ? "Профілі призупинено" : "Profiles are paused"}
+        body={
+          isUk
+            ? "Ми перебудовуємо систему облікових записів. Читання тим часом не потребують входу."
+            : "We're rebuilding the account system. Readings don't need an account in the meantime."
+        }
+      />
+    );
+  }
 
   return (
     <AlmanacShell narrow>

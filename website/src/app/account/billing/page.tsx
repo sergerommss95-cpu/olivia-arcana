@@ -1,22 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
 import { useLocale } from "@/lib/i18n/useLocale";
 import { useSubscription } from "@/hooks/useSubscription";
-import { tierLabel, statusLabel } from "@/lib/payments";
+import { tierLabel, statusLabel, PRICING, ADDONS, type PriceKey } from "@/lib/payments";
 import { getSession } from "@/lib/supabase";
 import CheckoutButton from "@/components/CheckoutButton";
 import ServicePaused from "@/components/ServicePaused";
 import { ACCOUNTS_ENABLED, PAYMENTS_ENABLED } from "@/lib/service-status";
 
+/**
+ * Cross-lane pending purchase intent. Written by CheckoutButton/onboarding
+ * for signed-out buyers: {"price": "<PriceKey>", "ts": <epoch ms>}.
+ * This page consumes it once a session exists; the key is cleared after use.
+ */
+const PENDING_CHECKOUT_KEY = "oa-pending-checkout";
+const PENDING_CHECKOUT_TTL_MS = 60 * 60 * 1000;
+const VALID_PRICE_KEYS = new Set<string>([
+  ...Object.keys(PRICING)
+    .filter((t) => t !== "free")
+    .flatMap((t) => [`${t}_monthly`, `${t}_annual`]),
+  ...Object.keys(ADDONS),
+]);
+
 export default function BillingPage() {
   const { locale } = useLocale();
   const isUk = locale === "uk";
-  const { data, isLoading, isVip, tier, manageSubscription, refresh } = useSubscription();
+  const { data, isLoading, isPaid, isVip, tier, subscribe, manageSubscription, refresh } = useSubscription();
   const [authChecked, setAuthChecked] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
+  const pendingFired = useRef(false);
   const billingLive = ACCOUNTS_ENABLED && PAYMENTS_ENABLED;
 
   useEffect(() => {
@@ -25,9 +40,33 @@ export default function BillingPage() {
       const session = await getSession();
       setSignedIn(!!session);
       setAuthChecked(true);
+
+      // Consume the pending purchase intent: fresh (<60 min) → clear the
+      // key and start checkout once; stale or malformed → clear and drop.
+      if (!session || pendingFired.current) return;
+      let raw: string | null = null;
+      try {
+        raw = localStorage.getItem(PENDING_CHECKOUT_KEY);
+      } catch {
+        return;
+      }
+      if (!raw) return;
+      pendingFired.current = true;
+      try {
+        localStorage.removeItem(PENDING_CHECKOUT_KEY);
+      } catch {}
+      try {
+        const intent = JSON.parse(raw) as { price?: unknown; ts?: unknown };
+        const fresh = typeof intent.ts === "number" && Date.now() - intent.ts < PENDING_CHECKOUT_TTL_MS;
+        if (fresh && typeof intent.price === "string" && VALID_PRICE_KEYS.has(intent.price)) {
+          await subscribe(intent.price as PriceKey);
+        }
+      } catch {
+        // malformed intent — already cleared
+      }
     })();
     refresh();
-  }, [refresh, billingLive]);
+  }, [refresh, billingLive, subscribe]);
 
   if (!billingLive) {
     return (
@@ -81,14 +120,9 @@ export default function BillingPage() {
               <div className="plan-head">
                 <h2 className="plan-h2">Current Plan</h2>
                 <span className={`tier-chip ${tier === "vip" ? "is-ox" : ""}`}>
-                  {tier === "vip" ? (
-                    <>
-                      ✧ VIP
-                      {data?.status === "trialing" && " (trial)"}
-                    </>
-                  ) : (
-                    "Free"
-                  )}
+                  {tier === "vip" && <>✧ </>}
+                  {tierLabel(tier)}
+                  {isPaid && data?.status === "trialing" && " (trial)"}
                 </span>
               </div>
 
@@ -134,11 +168,16 @@ export default function BillingPage() {
               </div>
 
               <div className="plan-action">
-                {isVip ? (
+                {/* Every paying tier gets the portal — the cancel path the
+                    refund policy promises, not just VIP. */}
+                {isPaid && (
                   <button type="button" className="alm-btn plan-btn" onClick={() => manageSubscription()}>
                     Manage Subscription
                   </button>
-                ) : (
+                )}
+                {/* Upgrade offer: free and insight are offered Premium;
+                    premium and vip see no upsell. */}
+                {(tier === "free" || tier === "insight") && (
                   <CheckoutButton priceKey="premium_monthly" variant="gold" size="md" className="w-full justify-center">
                     Upgrade to Premium &mdash; $14.99/mo
                   </CheckoutButton>
@@ -381,6 +420,9 @@ export default function BillingPage() {
         }
 
         .plan-action {
+          display: flex;
+          flex-direction: column;
+          gap: 0.8rem;
           margin-top: 1.6rem;
         }
 

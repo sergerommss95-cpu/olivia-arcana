@@ -493,7 +493,7 @@ export default function TransitsPage() {
 
             {/* Register — gated for Insight+ */}
             <div className="alm-gate">
-              <Paywall requires="insight" priceKey="insight_monthly" featureName="your transit timeline">
+              <Paywall feature="transits" featureName="your transit timeline">
                 <TransitRegister transits={transits} locale={locale} />
               </Paywall>
             </div>

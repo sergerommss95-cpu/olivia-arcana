@@ -10,6 +10,16 @@ export interface ChatMessage {
   content: string;
 }
 
+/** Error carrying the HTTP status so callers can distinguish 429 (rate limit) from other failures. */
+export class ChatError extends Error {
+  status: number;
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = "ChatError";
+    this.status = status;
+  }
+}
+
 /**
  * Stream chat responses from the edge function.
  * Yields text deltas as they arrive.
@@ -33,7 +43,7 @@ export async function* streamChat(
     } catch {
       // ignore parse errors
     }
-    throw new Error(errorMsg);
+    throw new ChatError(errorMsg, response.status);
   }
 
   const reader = response.body?.getReader();

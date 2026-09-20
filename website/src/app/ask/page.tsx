@@ -2,7 +2,9 @@
  * Ask the Stars — Astrological Q&A interface
  *
  * Chat-style UI where users ask cosmic questions.
- * Currently uses pre-written responses (Claude API integration when backend is ready).
+ * Streams live answers from the Claude edge function (/api/chat); falls back
+ * to the pre-written almanac bank whenever the endpoint is unreachable,
+ * non-OK, or errors mid-stream — never degrading below the canned experience.
  * Set in the Personal Almanac print register: paper correspondence — the
  * reader's notes on the right, Olivia's letters on the left.
  */
@@ -13,11 +15,16 @@ import React, { useState, useRef, useEffect } from "react";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
 import { useLocale } from "@/lib/i18n/useLocale";
 import { loadUser, type StoredUser } from "../../lib/user-store";
+import { streamChat, ChatError, type ChatMessage } from "../../lib/chat-client";
 
 interface Message {
   role: "user" | "oracle";
   text: string;
   typing?: boolean;
+  /** Live tokens still arriving from the edge function */
+  streaming?: boolean;
+  /** Answer came from the live oracle (vs the almanac bank) */
+  source?: "live";
 }
 
 // Pre-written oracle responses keyed by simple pattern matching
@@ -45,6 +52,20 @@ function getOracleResponse(question: string): string {
   return ORACLE_RESPONSES[ORACLE_RESPONSES.length - 1][1];
 }
 
+function Caret() {
+  return (
+    <>
+      <span className="ask-caret" style={{
+        display: "inline-block", width: "1px", height: "0.85em",
+        background: "var(--ox, #e0b768)", marginLeft: "1px",
+        animation: "cursorBlink 0.8s step-end infinite",
+        verticalAlign: "text-bottom",
+      }} />
+      <style>{`@keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} } @media (prefers-reduced-motion: reduce) { .ask-caret { animation: none !important; } }`}</style>
+    </>
+  );
+}
+
 function TypingText({ text, onDone }: { text: string; onDone: () => void }) {
   const [displayed, setDisplayed] = useState("");
   const [done, setDone] = useState(false);
@@ -67,18 +88,14 @@ function TypingText({ text, onDone }: { text: string; onDone: () => void }) {
   return (
     <span>
       {displayed}
-      {!done && (
-        <span className="ask-caret" style={{
-          display: "inline-block", width: "1px", height: "0.85em",
-          background: "var(--ox, #e0b768)", marginLeft: "1px",
-          animation: "cursorBlink 0.8s step-end infinite",
-          verticalAlign: "text-bottom",
-        }} />
-      )}
-      <style>{`@keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} } @media (prefers-reduced-motion: reduce) { .ask-caret { animation: none !important; } }`}</style>
+      {!done && <Caret />}
     </span>
   );
 }
+
+// Shown when the edge function returns 429 (20 questions per hour per IP)
+const RATE_LIMIT_TEXT =
+  "The sky asks for patience — you have posed many questions this hour. Let the stars settle, and return in a little while.";
 
 export default function AskPage() {
   const { locale } = useLocale();
@@ -103,16 +120,79 @@ export default function AskPage() {
 
   useEffect(scrollToBottom, [messages]);
 
+  /** Today's behavior: answer from the almanac bank with the typing reveal. */
+  const answerFromAlmanac = (q: string) => {
+    setMessages(prev => [...prev, { role: "oracle", text: getOracleResponse(q), typing: true }]);
+  };
+
+  /**
+   * Ask the live oracle; fall back to the almanac bank on ANY failure
+   * (unreachable endpoint, non-OK response, error or empty stream mid-flight).
+   */
+  const askOracle = async (q: string, history: ChatMessage[]) => {
+    let streamed = false;
+    try {
+      const natalContext = user
+        ? [
+            user.name ? `Name: ${user.name}.` : "",
+            `Sun: ${user.sunSign}. Moon: ${user.moonSign}. Rising: ${user.risingSign}.`,
+          ].filter(Boolean).join(" ")
+        : "";
+
+      for await (const token of streamChat(history, natalContext)) {
+        if (!streamed) {
+          streamed = true;
+          setMessages(prev => [...prev, { role: "oracle", text: token, streaming: true, source: "live" }]);
+        } else {
+          setMessages(prev =>
+            prev.map(m => (m.streaming ? { ...m, text: m.text + token } : m))
+          );
+        }
+      }
+
+      if (streamed) {
+        setMessages(prev => prev.map(m => (m.streaming ? { ...m, streaming: false } : m)));
+        setWaiting(false);
+        inputRef.current?.focus();
+        return;
+      }
+
+      // Stream ended without a single token — treat as a failure.
+      answerFromAlmanac(q);
+    } catch (err) {
+      // Drop any partial live answer so the fallback reads whole.
+      if (streamed) setMessages(prev => prev.filter(m => !m.streaming));
+
+      if (err instanceof ChatError && err.status === 429) {
+        setMessages(prev => [...prev, { role: "oracle", text: RATE_LIMIT_TEXT, typing: true }]);
+        return;
+      }
+
+      answerFromAlmanac(q);
+    }
+  };
+
   const send = () => {
     const q = input.trim();
     if (!q || waiting) return;
     setInput("");
     setWaiting(true);
 
-    const userMsg: Message = { role: "user", text: q };
-    const oracleMsg: Message = { role: "oracle", text: getOracleResponse(q), typing: true };
+    // TODO(tier-gating): when PAYWALL flips, gate the live oracle here via
+    // useSubscription() (src/hooks/useSubscription.tsx) — e.g. free tier gets
+    // the almanac bank / N live questions, paid gets unlimited. Do NOT gate
+    // yet: with env flags unset this page must behave as wired below.
 
-    setMessages(prev => [...prev, userMsg, oracleMsg]);
+    const history: ChatMessage[] = [
+      ...messages.map<ChatMessage>(m => ({
+        role: m.role === "user" ? "user" : "assistant",
+        content: m.text,
+      })),
+      { role: "user", content: q },
+    ];
+
+    setMessages(prev => [...prev, { role: "user", text: q }]);
+    void askOracle(q, history);
   };
 
   const handleTypingDone = () => {
@@ -163,12 +243,17 @@ export default function AskPage() {
             <div key={i} className={`msg ${msg.role === "user" ? "msg-user" : "msg-oracle"}`}>
               {msg.role === "oracle" && <div className="msg-label">Olivia</div>}
               <p className="msg-text">
-                {msg.typing ? (
+                {msg.streaming ? (
+                  <span>{msg.text}<Caret /></span>
+                ) : msg.typing ? (
                   <TypingText text={msg.text} onDone={handleTypingDone} />
                 ) : (
                   msg.text
                 )}
               </p>
+              {msg.source === "live" && !msg.streaming && (
+                <div className="msg-source">✦ A LIVE READING</div>
+              )}
             </div>
           ))}
         </div>
@@ -307,6 +392,16 @@ export default function AskPage() {
           margin: 0;
           font-size: 0.88rem;
           line-height: 1.7;
+        }
+
+        .msg-source {
+          margin-top: 0.55rem;
+          color: var(--ink-soft);
+          font-family: var(--font-mono, ui-monospace), monospace;
+          font-size: 0.5rem;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          opacity: 0.75;
         }
 
         .msg-user .msg-text {

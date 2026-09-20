@@ -37,6 +37,7 @@ const COPY = {
     saving: "Saving…",
     del: "Delete entry",
     exp: "Export all",
+    keepNote: "Entries are kept only in this browser, on this device — export regularly.",
     calNote: "A red point marks a written page.",
     ariaPrev: "Previous month",
     ariaNext: "Next month",
@@ -58,6 +59,7 @@ const COPY = {
     saving: "Зберігається…",
     del: "Видалити запис",
     exp: "Експортувати все",
+    keepNote: "Записи зберігаються лише в цьому браузері, на цьому пристрої — експортуйте регулярно.",
     calNote: "Червона крапка позначає списану сторінку.",
     ariaPrev: "Попередній місяць",
     ariaNext: "Наступний місяць",
@@ -472,6 +474,9 @@ export default function JournalPage() {
                     {copy.exp}
                   </button>
                 </div>
+
+                {/* The keeping — entries never leave this device. */}
+                <p className="j-keep alm-caption">{copy.keepNote}</p>
               </div>
             ) : (
               /* ── CALENDAR TAB ── */
@@ -694,6 +699,12 @@ export default function JournalPage() {
         .j-del:focus-visible {
           color: var(--ox);
           border-bottom-color: rgba(224, 183, 104, 0.3);
+        }
+
+        .j-keep {
+          margin: 0;
+          text-align: right;
+          letter-spacing: 0.14em;
         }
 
         /* ── Paywall gate, re-inked ─────────────────────────── */

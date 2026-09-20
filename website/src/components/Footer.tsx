@@ -40,6 +40,7 @@ export default function Footer() {
       links: [
         { label: t("legal_terms") as string, href: "/terms" },
         { label: t("legal_privacy") as string, href: "/privacy" },
+        { label: t("legal_cookies") as string, href: "/cookies" },
         { label: t("legal_refund") as string, href: "/refund" },
         { label: t("legal_disclaimer") as string, href: "/disclaimer" },
         { label: t("legal_dmca") as string, href: "/dmca" },

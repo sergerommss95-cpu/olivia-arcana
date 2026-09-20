@@ -443,7 +443,7 @@ export default function SynastryPage() {
 
             {/* Premium-gated: detailed breakdown + cross-chart aspects */}
             <div className="syn-paywall">
-              <Paywall requires="premium" priceKey="premium_monthly" featureName="the full synastry breakdown">
+              <Paywall feature="compatibility" featureName="the full synastry breakdown">
                 {/* Sub-scores */}
                 <div className="night-card">
                   <div className="night-caption syn-card-head">Compatibility Breakdown</div>

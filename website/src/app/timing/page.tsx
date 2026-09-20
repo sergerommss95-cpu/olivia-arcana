@@ -465,7 +465,7 @@ export default function TimingPage() {
               <section className="tm-hero" aria-label={copy.heroLabel}>
                 <p className="alm-caption tm-section-label">{copy.heroLabel}</p>
                 <div className="alm-gate">
-                  <Paywall requires="premium" priceKey="premium_monthly" featureName="major life-transit forecasts">
+                  <Paywall feature="life-timing" featureName="major life-transit forecasts">
                     <AlmanacLifeCard transit={nearest} locale={locale} />
                   </Paywall>
                 </div>

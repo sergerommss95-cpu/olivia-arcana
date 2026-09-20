@@ -2,7 +2,7 @@
 
 import { useLocale } from "@/lib/i18n/useLocale";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
 import { signInWithGoogle } from "../../lib/supabase";
@@ -14,6 +14,14 @@ export default function LoginPage() {
   const isUk = locale === "uk";
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [fromCheckout, setFromCheckout] = useState(false);
+
+  // ?reason=checkout — the buyer was sent here mid-purchase. Read from
+  // window.location in an effect (not useSearchParams) so the statically
+  // exported HTML is unchanged.
+  useEffect(() => {
+    setFromCheckout(new URLSearchParams(window.location.search).get("reason") === "checkout");
+  }, []);
 
   if (!ACCOUNTS_ENABLED) {
     return (
@@ -44,6 +52,10 @@ export default function LoginPage() {
           </p>
           <h1 className="auth-title">Welcome Back</h1>
           <p className="auth-sub">Your stars are waiting.</p>
+
+          {fromCheckout && (
+            <p className="auth-reason">Sign in to complete your order.</p>
+          )}
 
           <button type="button" className="auth-google" onClick={handleGoogle} disabled={loading}>
             <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
@@ -117,6 +129,15 @@ export default function LoginPage() {
           color: var(--ink-soft);
           font-size: 0.9rem;
           line-height: 1.5;
+        }
+
+        .auth-reason {
+          margin: 1.3rem 0 -0.5rem;
+          padding-top: 1.1rem;
+          border-top: 1px solid var(--hairline);
+          color: var(--ink-faint);
+          font-size: 0.78rem;
+          letter-spacing: 0.06em;
         }
 
         .auth-google {

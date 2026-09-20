@@ -31,6 +31,8 @@ class User(Base):
     # but no new accounts use it.
     password_hash = Column(String(255), nullable=True)
     google_sub = Column(String(255), nullable=True, unique=True, index=True)
+    # Supabase auth user UUID (sub claim of Supabase access tokens).
+    supabase_id = Column(String(255), nullable=True, unique=True, index=True)
     name = Column(String(100), nullable=True)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 

@@ -81,10 +81,11 @@ export default function PrivacyPage() {
 
       <h2>7. Retention</h2>
       <p>
-        We keep account data for as long as your account exists. You can delete
-        your account at any time from <Link href="/account/billing">/account/billing</Link>{" "}
-        or by emailing us. Upon deletion, personal data is removed within 30
-        days; aggregated, anonymized analytics may be retained.
+        We keep account data for as long as your account exists. You can
+        request deletion of your account at any time by emailing{" "}
+        <a href="mailto:privacy@oliviaarcana.com">privacy@oliviaarcana.com</a>.
+        Upon deletion, personal data is removed within 30 days; aggregated,
+        anonymized analytics may be retained.
       </p>
 
       <h2>8. Your rights</h2>

@@ -87,6 +87,9 @@ export default function SpreadChooser({ value, onChange }: Props) {
 
   const ukCards = (n: number) => (n >= 2 && n <= 4 ? "карти" : "карт");
 
+  /** May this spread be chosen by the current reader? Always yes while the press is stopped. */
+  const isLocked = (s: Spread) => !entitlementFor(s.feature, tier).allowed;
+
   const step = (e: React.KeyboardEvent, i: number) => {
     const dir =
       e.key === "ArrowRight" || e.key === "ArrowDown"
@@ -96,7 +99,13 @@ export default function SpreadChooser({ value, onChange }: Props) {
           : 0;
     if (!dir) return;
     e.preventDefault();
-    const j = (i + dir + SPREADS.length) % SPREADS.length;
+    // Walk past sealed plates — arrows select as they move.
+    let j = i;
+    for (let hop = 0; hop < SPREADS.length; hop++) {
+      j = (j + dir + SPREADS.length) % SPREADS.length;
+      if (!isLocked(SPREADS[j])) break;
+    }
+    if (isLocked(SPREADS[j])) return;
     onChange(SPREADS[j]);
     refs.current[j]?.focus();
   };
@@ -109,6 +118,7 @@ export default function SpreadChooser({ value, onChange }: Props) {
     >
       {SPREADS.map((s, i) => {
         const ent = entitlementFor(s.feature, tier);
+        const locked = !ent.allowed;
         const active = s.id === value.id;
         return (
           <motion.button
@@ -117,14 +127,15 @@ export default function SpreadChooser({ value, onChange }: Props) {
             type="button"
             role="radio"
             aria-checked={active}
+            aria-disabled={locked || undefined}
             tabIndex={active ? 0 : -1}
-            className={`sc-card ${active ? "is-on" : ""}`}
-            onClick={() => onChange(s)}
+            className={`sc-card ${active ? "is-on" : ""} ${locked ? "is-locked" : ""}`}
+            onClick={() => { if (!locked) onChange(s); }}
             onKeyDown={(e) => step(e, i)}
             initial={reduced ? { opacity: 1 } : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: EASE, delay: reduced ? 0 : 0.07 * i }}
-            whileHover={reduced ? undefined : { y: -3 }}
+            whileHover={reduced || locked ? undefined : { y: -3 }}
           >
             <ShapeDiagram spread={s} active={active} />
             <span className="sc-name">{uk ? s.nameUk : s.name}</span>
@@ -297,6 +308,34 @@ export default function SpreadChooser({ value, onChange }: Props) {
         .sc-plan.is-open {
           color: #15174c;
           background: #e0b768;
+        }
+
+        /* ── Sealed plate — visible, named, not selectable ───── */
+        .sc-card.is-locked {
+          cursor: not-allowed;
+        }
+
+        .sc-card.is-locked .sc-shape,
+        .sc-card.is-locked .sc-name,
+        .sc-card.is-locked .sc-count,
+        .sc-card.is-locked .sc-line {
+          opacity: 0.45;
+        }
+
+        .sc-card.is-locked:hover {
+          border-color: rgba(232, 233, 255, 0.16);
+          background: rgba(14, 17, 68, 0.92);
+        }
+
+        .sc-card.is-locked:hover::after {
+          border-color: rgba(232, 233, 255, 0.09);
+        }
+
+        /* the plan chip stays legible — it is the key, not the seal */
+        .sc-card.is-locked .sc-plan {
+          color: #e0b768;
+          background: transparent;
+          border: 1px solid rgba(224, 183, 104, 0.4);
         }
 
         @media (max-width: 640px) {

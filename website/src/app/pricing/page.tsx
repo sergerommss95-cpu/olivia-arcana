@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { PRICING } from "@/lib/payments";
 import LegalShell from "@/components/legal/LegalShell";
 import TariffTable from "@/components/almanac/TariffTable";
+import TariffActions from "@/components/almanac/TariffActions";
 
 export const metadata: Metadata = {
   title: "The Tariff — Free, Insight, Astronomer, Patron | Olivia Arcana",
@@ -46,6 +47,7 @@ export default function PricingPage() {
           never sold with fear.
         </p>
         <TariffTable />
+        <TariffActions />
         <blockquote>
           <strong>Every leaf is open right now.</strong> While the press is stopped, nothing is charged
           for and nothing is withheld — full readings, compatibility, transits and the deeper spreads
