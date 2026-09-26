@@ -1,10 +1,24 @@
 # Start here — Olivia Arcana session handoff
 
-Updated 26 September 2026 (mobile coherence pass, v4). This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes.
+Updated 26 September 2026 (site-wide pass, v5, on top of the v4 mobile pass). This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
 
 For work across earlier Olivia tasks, start with [the project history index](history/README.md), [decision history](history/DECISIONS.md), and [Git coverage audit](history/git-coverage-2026-09-26.md). Historical artifacts are separate from current source. The archive preserves recoverable files and documented decisions; it is not a complete recording of every unsaved edit or every conversation.
 
-## Newest work: mobile coherence pass (v4), not yet in production
+## Newest work: site-wide pass (v5), not yet in production
+
+- Same branch, `claude/peaceful-clarke-scrh06` (draft PR #4 into `main`; do not merge without the owner's approval). v5 works through `experience/outputs/olivia-gap-audit-2026-09-26.md`. QA: `experience/outputs/qa-v5/review.md`. Record: `experience/outputs/olivia-v5-release.json`.
+- **Production is still v3.** v5 is built and tested on this branch only.
+- What v5 changes:
+  - **Speed.** Parallel ordered scripts, and the WebGPU background only with an adapter. Phone-sized hero textures (`cards-portal-phone/`, `hero.js` unchanged). WOFF2 fonts, UTF-8 bundles and an English-only app bundle. Lazy spread previews, immutable caching, stale builds pruned. Supabase and the night-room chrome are out of the shared website bundle. A phone's first 5 s drop from 8.5 MB to 4.9 MB.
+  - **Brand around the product.** Manifest, link previews, 404 and the Ask page. Lapis ground everywhere. The Sky Atlas only on the four night rooms. `lang="uk"`, noindex for gates and placeholders, a pruned sitemap and service worker. `BRAND.md`.
+  - **Trust.** An AI label on personal readings. A crisis-support note (`support-note.js`). Persistent storage and a Safari note in the almanac. Privacy, cookies, terms and refund pages rewritten for the real data flows (need legal review). Footer legal links. Same-origin only for the AI service, which now receives the curated card notes.
+  - **Content.** Native Ukrainian card notes in «ви» (`card-notes-uk.js`, guide `UK-VOICE.md`) in the app, on `/uk/cards/` and in the AI context. 56 hand-written Minor Arcana reversals (`minor-reversed.js`).
+  - **Inner pages.** One compact masthead (`AlmanacMasthead.tsx`) with the homepage's ivory button. Card art in both card libraries. Encyclopedia, share-button and checkout fixes. A Cyrillic body font (Onest) on Next pages. A bilingual error page.
+  - **Motion.** `motion-tokens.css`, a light pass after the reveal, and soft page fades.
+  - **Tooling.** CI in `.github/workflows/ci.yml`.
+- Protected and verified: `hero.js` is byte-identical. The desktop hero and desktop homepage sections match v4 pixel for pixel (only the footer gains a legal row). Phone hero frames show no visible change with the pre-sized textures.
+
+## Previous: mobile coherence pass (v4), not yet in production
 
 - Branch: `claude/peaceful-clarke-scrh06`, built on `codex/session-handoff-2026-09-26` at `89ef292`. Continue from this branch; it contains everything below plus the v4 pass.
 - Built assets: `experience.7aa05041408b09f0.css`, `app.ff457a817c7fbc31.js`, `font-4.51adb4c8c5dc00b8.woff2`. Record: `experience/outputs/olivia-mobile-v4-release.json`. QA: `experience/outputs/qa-mobile-v4/review.md`.
@@ -51,16 +65,30 @@ Repeated pain points to avoid reintroducing:
 | Personal-reading and conversation service | `website/netlify/edge-functions/reading.ts`, `chat.ts`, `_shared/` |
 | Account/payment source repairs | `backend/` and corresponding website clients |
 | Immutable approved motion reference | `experience/outputs/olivia-approved-motion-2026-09-24.html` |
-| Latest release record and QA | v4 (branch, not deployed): `experience/outputs/olivia-mobile-v4-release.json`, `experience/outputs/qa-mobile-v4/review.md`. Production v3: `olivia-mobile-v3-release.json`, `qa-mobile-v3/review.md` |
+| Latest release record and QA | v5 (branch, not deployed): `experience/outputs/olivia-v5-release.json`, `experience/outputs/qa-v5/review.md`, audit `olivia-gap-audit-2026-09-26.md`. v4: `olivia-mobile-v4-release.json`, `qa-mobile-v4/review.md`. Production v3: `olivia-mobile-v3-release.json`, `qa-mobile-v3/review.md` |
 | Phone composition (v4) | `experience/work/olivia-product/mobile-coherence.css` — loaded last; add phone layout fixes here rather than to the older layered mobile files |
+| Brand and design rules | `BRAND.md` (supersedes `website/DESIGN.md`, `website/DESIGN_BRIEF.md`, `docs/DESIGN_SYSTEM.md`) |
+| Card texts | EN: `content.js`, `minor-content.js`, `minor-reversed.js`. UK: `card-notes-uk.js` (voice guide `UK-VOICE.md`). After editing, run `node experience/work/tools/sync-card-notes.mjs` to refresh `website/src/lib/academy/tarot-notes.ts` (used by the AI service and `/uk/cards/`) |
+| Inner-page header | `website/src/components/almanac/AlmanacMasthead.tsx` (used by `AlmanacShell` and `LegalShell`) |
+| Motion vocabulary | `experience/work/olivia-product/motion-tokens.css` |
 
 The product was originally edited outside this Git repository. This branch brings its editable source, all build inputs, references, and docs into `experience/`, retaining their relative paths. Do not edit generated hashed files as the primary source. Do not restore the old iframe homepage.
 
 The directory name `hero-v12` is historical and supplies artwork only. Current runtime choreography is `experience/work/olivia-product/hero.js`; protected sections are compared to the approved September 24 reference by tests. Its mobile gate/lifecycle changed without replacing the choreography.
 
-## Latest mobile and button changes
+## Latest changes and rules to keep
 
-v4 (this branch) — the full list is in `qa-mobile-v4/review.md`. Rules future phone work should keep:
+v5 (this branch) — the full list is in `qa-v5/review.md`. Rules to keep:
+
+- **Load order.** The homepage runs assets, hero, then the app; the WebGPU background loads last and only with an adapter. Don't put anything a button depends on into `background.js`.
+- **Phone hero art.** `hero.js` reads `DETAIL_DATA`; below 700 px the asset map points it at `cards-portal-phone/` (512×1024, what `hero.js` draws there anyway). If a Major Arcana image changes, regenerate that folder with `experience/work/tools/phone-art.mjs`.
+- **Bundles.** English entries load `app-en` (no Ukrainian data); Ukrainian entries (`/uk/`) and the portable file load `app`. Both come from `bundle-app.mjs`. A `?lang=uk` query on an English page therefore stays in English; link to `/uk/` instead.
+- **AI honesty and safety.** Keep the provenance line on personal readings and the crisis note (`support-note.js`); both are covered by tests.
+- **Ukrainian.** Formal «ви» everywhere, never «ти»; tests enforce it for card notes. Follow `UK-VOICE.md`.
+- **Motion.** New CSS transitions use the tokens in `motion-tokens.css`. The hero keeps its own timing.
+- **Inner pages.** Use `AlmanacShell`/`LegalShell` and the shared masthead; don't add sky chrome outside the four night rooms.
+
+v4 — the full list is in `qa-mobile-v4/review.md`. Rules future phone work should keep:
 
 - **Action vocabulary on phones.** There is one ivory primary action per step. Secondary actions are filled lapis rows with a trailing glyph. Optional content is a filled row with a +/− chip. Never use an underlined text link as a button, a bare triangle disclosure, or a frame around artwork.
 - **Pending.** During pending, the drawn card(s) stay visible and every interpretation stays hidden. Watch selector specificity: `reading-pending.css` uses `:not(#id)`.
@@ -110,6 +138,8 @@ npm --prefix website ci --ignore-scripts
 npm --prefix website run build
 ```
 
+`npm --prefix website run build` runs `next build` and then `website/scripts/postbuild.mjs`, which marks every exported `/uk/` page `lang="uk"`. Netlify's build command is `npm run build` for the same reason (v5). `python3 experience/build.py` also prunes asset files from earlier builds in `website/public/experience/assets/`.
+
 For native integration/service checks:
 
 ```sh
@@ -130,7 +160,13 @@ The deploy includes Edge Function bundling even with `--no-build`; verify `/api/
 
 ## Evidence and limits
 
-v4 (this branch):
+v5 (this branch):
+- 225/225 product tests, 7/7 mobile-question checks, 51/51 website and service tests. `experience/build.py` and `npm --prefix website run build` succeed. A rebuild from an empty output directory reproduces the 116 snapshot files byte for byte.
+- Pixel comparison with v4: desktop hero at five journey positions within renderer noise; desktop homepage sections 0 pixels changed apart from the added footer row; phone hero frames (including mid-journey "Watch the journey") show no visible change.
+- Phone journeys on the native export with a synthetic delayed reading, EN 390×844, UK 375×812 and 320×740: pending hides every interpretation and keeps the card; AI label; keep → "Saved ✓"; almanac with the Safari note; revisit; crisis note at the question and on single and spread readings. Reduced motion, desktop keyboard-only (UK) and inner pages at 390/1440 were checked. No overflow, no console errors.
+- **Not tested on a physical iPhone, not deployed, and live AI generation not run** (no API key or network route from this container). The animated WebGPU background has never been seen from this container.
+
+v4:
 - 219/219 product tests, 7/7 mobile-question checks and 49/49 native/service tests; `experience/build.py` and `next build` succeed. A rebuild from an empty output directory reproduces the committed snapshot exactly.
 - Rendered review in Chromium phone emulation (touch, DPR 2) of the full journey: EN 390×844, UK 375×812/320×740, 375×667, 320×568, and 844×390 landscape. No horizontal overflow and no console errors. The 5/8-card samples, keyboard-only readings through to save (desktop and phone), and reduced motion were all checked.
 - Hero pixel comparison against v3 at five journey positions (desktop and phone): ≤0.025% changed, all inside the Ukrainian language label. EN desktop homepage sections are 0-pixel different at 1440 and 1024.
@@ -149,10 +185,21 @@ v3 (production):
 
 ## Prioritized next work
 
-0. Get v4 in front of the owner's iPhone: https://deploy-preview-4--olivia-arcana.netlify.app/ and `/uk/`. Confirm it serves `experience.7aa05041408b09f0.css`. Promote to production only with the owner's approval. On the device, check the keyboard with a real question, toolbar collapse during the deck, the held/reveal gesture, and pending → reading in EN and UK.
-1. Collect the owner's iPhone feedback on v4 (or on production v3 if v4 is not yet previewed). Test the three practice panels, question keyboard, single-card pull, three-card draw, held/reveal state, pending state and reading in EN and UK. Fix concrete clipping/scroll/gesture defects without replacing the design or approved motion.
+Owner decisions that now block the biggest remaining gaps (see the audit): the astrology pages (redirect or separate brand), the paid offer and payment provider, a return channel (email/Telegram/push), a named editor, and the logo/app icon. Also confirm the company named in the legal pages and have a lawyer review them. Set a monthly spend limit for the AI key in the Anthropic console.
+
+Engineering next steps, in order:
+- Put the v5 preview on the owner's iPhone. Check the load and feel, the reveal light, the page fades, the crisis note and the Safari note, in EN and UK.
+- Enable prompt caching once traffic is steady: split the system prompt into a cached shared block and a small per-spread/locale block; confirm with `usage.cache_read_input_tokens`. The shared prompt must be at least 1,024 tokens for Sonnet 5.
+- A colour and type token pass on the CSS (tokens exist only for motion); a 12 px minimum for phone text.
+- Browser smoke tests in CI (Playwright, EN/UK × phone/desktop).
+- Keyed translations instead of matching English strings in `locale.js`.
+
+Longer-standing items:
+
+0. The preview https://deploy-preview-4--olivia-arcana.netlify.app/ (and `/uk/`) follows the branch head, so it now shows v5. Confirm it serves `experience.b4dc10712a673cd4.css` (v4 was `experience.7aa05041408b09f0.css`). Promote to production only with the owner's approval. On the device, check the keyboard with a real question, toolbar collapse during the deck, the held/reveal gesture, and pending → reading in EN and UK.
+1. Collect the owner's iPhone feedback on v5 (or on production v3 if the preview is not reviewed). Test the three practice panels, question keyboard, single-card pull, three-card draw, held/reveal state, pending state and reading in EN and UK. Fix concrete clipping/scroll/gesture defects without replacing the design or approved motion.
 2. v4 browser checks covered keyboard (modelled), reduced motion, short-height landscape and 5/8-card layouts; device inspection is still needed. Known follow-ups: the almanac still leads with practice tools before the first saved reading; pages other than the choose step use the desktop composition on landscape phones.
-3. Keep production release records and this GitHub branch synchronized. The v3 release is live; do not send the user back to the older v2 preview, and do not describe v4 as live until it is deployed.
+3. Keep production release records and this GitHub branch synchronized. The v3 release is live; do not send the user back to the older v2 preview, and do not describe v4 or v5 as live until deployed.
 4. Restore and verify real account infrastructure, owner-scoped storage/sync, entitlements and a suitable verified payment flow before selling memberships. Existing product records are browser-local and can be lost if site storage is cleared; export/import is provided.
 5. Continue EN/UK editorial review of question-specific synthesis for card relationships, clarity and unsupported certainty. A successful HTTP request does not establish reading quality.
 6. Consider future features only after the core loop is satisfying. Shared live spreads, narrated voice ritual, simulated-client practice room, human reviews, camera recognition, sealed readings, collective statistics and yearly recap were discussed; they are **not implemented by this handoff**.

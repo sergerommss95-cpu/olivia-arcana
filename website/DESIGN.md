@@ -1,3 +1,5 @@
+> **Superseded (26 September 2026).** This document describes the earlier astrology-era product. The current brand and design rules are in [BRAND.md](../BRAND.md). Keep this file only as history.
+
 # Olivia Arcana: Design System (God Mode)
 
 ## 1. Visual Theme: "Celestial Obsidian"

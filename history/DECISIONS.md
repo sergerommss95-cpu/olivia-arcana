@@ -119,6 +119,17 @@ Branch `claude/peaceful-clarke-scrh06`, not yet deployed. A full rendered audit 
 - **Ukrainian deserves a designed face.** DM Sans has no Cyrillic, so Ukrainian UI text had fallen back to the system sans. Onest (OFL) supplies the Cyrillic range under the same family name, and Latin rendering is unchanged.
 - The approved hero, card art, Olive Lattice back and desktop composition were verified unchanged by hash and pixel comparison.
 
+## Site-wide pass (v5): September 26, evening
+
+The owner asked what the website still lacked for top-tier motion, look, design, implementation, user value and brand, then asked for everything achievable to be developed. The audit is `experience/outputs/olivia-gap-audit-2026-09-26.md`; the work and evidence are in `experience/outputs/qa-v5/review.md`. Decisions recorded:
+
+- **The product is the brand; the older astrology site is not.** Current touchpoints (manifest, link previews, 404, Ask, legal pages, the site ground and inner-page header) now follow the reading experience. The astrology pages themselves were left in place: whether to redirect them or move them to a separate brand is the owner's decision. Only gate and placeholder pages were taken out of search.
+- **Speed without touching the approved hero.** `hero.js` stays byte-identical. Phones get pre-sized copies of exactly the textures `hero.js` already drew below 700 px, and the WebGPU background loads only where it can run, after the app.
+- **Honesty is shown where it matters.** A personal reading says it was prepared with AI at the reading itself, as the method page promised. A deterministic crisis note appears for clear self-harm or danger language whether or not the AI runs.
+- **One voice in two languages.** Ukrainian card texts are native renderings of the curated English in the formal «ви»; the older informal, predictive library was retired from the app, the Ukrainian card pages and the AI context. The 56 Minor Arcana reversals are now each written for their card.
+- **Motion gets a vocabulary, not more spectacle.** Three easing tokens, one pass of light after the reveal, and soft fades between product pages; reduced motion stays instant.
+- **Not decided here:** the logo and app icon, the paid offer and payment provider, a return channel, a named editor, and legal review of the rewritten policies.
+
 ## What the next AI should do first
 
 1. Check out the handoff branch and read the current source/deployment authority.

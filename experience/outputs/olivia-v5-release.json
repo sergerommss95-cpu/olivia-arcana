@@ -1,0 +1,66 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "site_name": "olivia-arcana",
+  "revision": "site-wide-v5",
+  "date": "2026-09-26",
+  "branch": "claude/peaceful-clarke-scrh06",
+  "previous_revision": "mobile-coherence (v4), commit 6c9854d",
+  "production_deployed": false,
+  "production_reference": {
+    "deploy_id": "6ab7b1eb2e3eb145b023937a",
+    "stylesheet": "assets/experience.b201b3ecb391a586.css",
+    "note": "Production is still v3."
+  },
+  "preview": {
+    "status": "pending",
+    "url": "https://deploy-preview-4--olivia-arcana.netlify.app/",
+    "url_uk": "https://deploy-preview-4--olivia-arcana.netlify.app/uk/",
+    "pull_request": "https://github.com/sergerommss95-cpu/olivia-arcana/pull/4",
+    "note": "Netlify rebuilds the draft PR preview when this branch is pushed. The build container cannot open *.netlify.app, so the preview is confirmed through Netlify's GitHub checks only."
+  },
+  "assets": {
+    "stylesheet": "assets/experience.b4dc10712a673cd4.css",
+    "app_uk_and_portable": "assets/app.4c66ef67ffca0f5d.js",
+    "app_en": "assets/app-en.82ad55011b39a79b.js",
+    "hero": "assets/hero.ea5578949b2e2776.js",
+    "background": "assets/background.3bba5aa61a93e616.js",
+    "native_card_assets": "assets/native-card-assets.7a6a5bd44fc5ec2f.js"
+  },
+  "audit": "olivia-gap-audit-2026-09-26.md",
+  "review": "qa-v5/review.md",
+  "phone_homepage_first_5s_bytes": {
+    "v4": "8.51 MB",
+    "v5_en": "4.86 MB",
+    "v5_uk": "5.14 MB",
+    "method": "390x844 phone profile, empty cache, local static server, uncompressed bodies, no WebGPU adapter"
+  },
+  "verification": {
+    "product_tests": 225,
+    "mobile_question_checks": 7,
+    "website_and_service_tests": 51,
+    "clean_rebuild_reproduces_snapshot": true,
+    "hero_js_sha256_unchanged": true,
+    "desktop_hero_pixel_difference": "<= 11 pixels of 1,440,000 at five journey positions (renderer noise)",
+    "desktop_home_sections_pixel_identical": true,
+    "footer": "one row of legal links added below the unchanged original",
+    "phone_hero": "no pixel changes above 24 RGB levels in mid-journey frames; sub-threshold texture differences from the pre-sized art",
+    "phone_journeys": [
+      "390x844 en",
+      "375x812 uk",
+      "320x740 uk"
+    ],
+    "keyboard_only_reading": [
+      "desktop 1440 uk"
+    ],
+    "reduced_motion_checked": true,
+    "physical_iphone_tested": false,
+    "live_ai_generation_tested": false,
+    "webgpu_background_seen": false
+  },
+  "needs_owner": [
+    "legal review of privacy, cookies, terms and refund text",
+    "confirm the operating company named in the legal pages",
+    "Anthropic console spend limit for the reading service key",
+    "decisions listed in the audit (astrology pages, paid offer, return channel, named editor, logo)"
+  ]
+}
