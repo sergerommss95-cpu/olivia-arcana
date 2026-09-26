@@ -12,11 +12,21 @@
     "note": "Production is still v3."
   },
   "preview": {
-    "status": "pending",
+    "status": "published",
     "url": "https://deploy-preview-4--olivia-arcana.netlify.app/",
     "url_uk": "https://deploy-preview-4--olivia-arcana.netlify.app/uk/",
+    "deploy_id": "6ab820e030b21a0008ba98f9",
+    "deploy_permalink": "https://6ab820e030b21a0008ba98f9--olivia-arcana.netlify.app/",
+    "built_from": "c19bdebf5336ec7e773dee0f36ff99f5d29ba3ca",
     "pull_request": "https://github.com/sergerommss95-cpu/olivia-arcana/pull/4",
-    "note": "Netlify rebuilds the draft PR preview when this branch is pushed. The build container cannot open *.netlify.app, so the preview is confirmed through Netlify's GitHub checks only."
+    "mechanism": "Netlify's GitHub integration built this deploy preview for draft PR #4 into main. Its checks reported the deploy published: 3543 new files uploaded (374 generated pages and 3169 assets changed), all 5 header rules processed without errors, no redirect rules (none are configured). The deploy-preview-4 URL follows the PR head; the permalink is the build of the tested commit.",
+    "note": "The build container could not open *.netlify.app (the environment's network policy refuses the host), so the published preview was not loaded from it. Whether personal readings work there depends on the deploy-preview context's environment variables."
+  },
+  "ci": {
+    "workflow": ".github/workflows/ci.yml",
+    "first_runs": "https://github.com/sergerommss95-cpu/olivia-arcana/actions/runs/36267159509 (pull_request) and https://github.com/sergerommss95-cpu/olivia-arcana/actions/runs/36267159528 (push)",
+    "commit": "c19bdebf5336ec7e773dee0f36ff99f5d29ba3ca",
+    "result": "success"
   },
   "assets": {
     "stylesheet": "assets/experience.b4dc10712a673cd4.css",

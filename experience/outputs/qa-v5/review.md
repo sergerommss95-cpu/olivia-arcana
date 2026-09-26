@@ -1,6 +1,6 @@
 # Site-wide pass (v5) — 26 September 2026
 
-Branch `claude/peaceful-clarke-scrh06`, on top of the v4 mobile pass. Not deployed to production. It works through the gap audit in `../olivia-gap-audit-2026-09-26.md`: speed on phones, the brand around the reading experience, trust and safety, Ukrainian parity, sub-page design, and motion.
+Branch `claude/peaceful-clarke-scrh06`, on top of the v4 mobile pass. Not deployed to production. Netlify published it as the deploy preview of draft PR #4: https://deploy-preview-4--olivia-arcana.netlify.app/ (UK `/uk/`); the build of the tested commit `c19bdeb` is https://6ab820e030b21a0008ba98f9--olivia-arcana.netlify.app/. It works through the gap audit in `../olivia-gap-audit-2026-09-26.md`: speed on phones, the brand around the reading experience, trust and safety, Ukrainian parity, sub-page design, and motion.
 
 ## What changed
 
@@ -66,7 +66,7 @@ Byte counts are uncompressed response bodies (Netlify also compresses text). Hea
 
 ### Tooling
 
-- `.github/workflows/ci.yml`: product tests, website and service tests, and the static export on every push and pull request.
+- `.github/workflows/ci.yml`: product tests, website and service tests, and the static export on every push and pull request. Its first runs on GitHub (push and pull request, commit `c19bdeb`) passed.
 
 ## Verification
 
@@ -93,5 +93,5 @@ Byte counts are uncompressed response bodies (Netlify also compresses text). Hea
 ## Not verified
 
 - A physical iPhone (safe areas, toolbar collapse, the real software keyboard, gesture feel), and the animated WebGPU background on any real device: headless Chromium has no adapter, so every screenshot shows the still palette.
-- Live AI generation, the deployed preview and production: this container cannot reach Netlify or oliviaarcana.com, and no API key is present. Prompt caching is not enabled (see the handoff).
-- The legal text (needs a lawyer) and the CI workflow's first run on GitHub.
+- Live AI generation, the deployed preview and production: this container cannot reach Netlify or oliviaarcana.com (the environment's network policy refuses both hosts), and no API key is present. Netlify's checks reported the preview published (3543 files uploaded, all 5 header rules processed), but it was not loaded from here. Prompt caching is not enabled (see the handoff).
+- The legal text (needs a lawyer).
