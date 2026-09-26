@@ -27,6 +27,7 @@
         "npm:@types/react-dom@19",
         "npm:@types/react@19",
         "npm:@types/three@~0.183.1",
+        "npm:astronomy-engine@^2.1.19",
         "npm:eslint-config-next@16.2.2",
         "npm:eslint@9",
         "npm:framer-motion@^12.38.0",
@@ -36,6 +37,7 @@
         "npm:next@16.2.2",
         "npm:react-dom@19.2.4",
         "npm:react@19.2.4",
+        "npm:shaders@^3.2.470",
         "npm:tailwindcss@4",
         "npm:three@~0.183.2",
         "npm:typescript@5"

@@ -16,7 +16,7 @@ import React, { useState, useMemo } from "react";
  * (`${color}20`) keeps working.
  */
 
-const INK = "#e8dcc8";
+const INK = "#e8e9ff";
 const OX = "#e0b768";
 const INK_SOFT = "rgba(232,233,255,0.72)";
 const INK_FAINT = "rgba(232,233,255,0.45)";

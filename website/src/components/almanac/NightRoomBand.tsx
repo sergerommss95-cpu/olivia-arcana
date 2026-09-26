@@ -59,7 +59,7 @@ export default function NightRoomBand({ room }: { room: string }) {
         }
 
         .night-band :global(.night-band-back:hover) {
-          color: #e8dcc8;
+          color: #e8e9ff;
         }
 
         .night-band-title {

@@ -1,0 +1,64 @@
+{
+  "preview_url": "https://6ab6d766a90f29bde475ebac--olivia-arcana.netlify.app/#question",
+  "deployment": "production",
+  "deploy_id": "6ab6d766a90f29bde475ebac",
+  "tests_passed": 187,
+  "hosted_assets": [
+    {
+      "asset": "assets/experience.eb5d82ef35db4e18.css",
+      "match": true
+    },
+    {
+      "asset": "assets/hero.413304f1cea159c6.js",
+      "match": true
+    },
+    {
+      "asset": "assets/background.bdd422deea49eb5f.js",
+      "match": true
+    },
+    {
+      "asset": "assets/app.29660c98708447e7.js",
+      "match": true
+    }
+  ],
+  "hero_sha256": "413304f1cea159c67fee3f8542cf5f95ebb6358891f2c08b91c38f76a965a5b2",
+  "production_url": "https://oliviaarcana.com/",
+  "published_at": "2026-09-25T20:45:56.559Z",
+  "production_checks": {
+    "/": {
+      "current_app": true,
+      "current_css": true
+    },
+    "/uk/": {
+      "current_app": true,
+      "current_css": true
+    },
+    "assets/experience.eb5d82ef35db4e18.css": true,
+    "assets/hero.413304f1cea159c6.js": true,
+    "assets/background.bdd422deea49eb5f.js": true,
+    "assets/app.29660c98708447e7.js": true,
+    "reading_service": {
+      "available": true,
+      "capabilities": {
+        "locales": [
+          "en",
+          "uk"
+        ],
+        "spreads": [
+          "single",
+          "clarity3",
+          "crossroads5",
+          "compass8"
+        ],
+        "questionDirections": [
+          "understand",
+          "decision",
+          "conversation",
+          "original"
+        ],
+        "customPositions": false,
+        "journalContext": false
+      }
+    }
+  }
+}

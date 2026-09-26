@@ -1,0 +1,6 @@
+# Preserve checksum-protected references and immutable generated assets on every OS.
+experience/outputs/olivia-approved-motion-2026-09-24.html -text
+experience/work/fonts-inline.css -text
+experience/work/*-OFL.txt -text
+website/public/experience/** -text
+website/public/animation/** -text

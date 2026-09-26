@@ -96,7 +96,11 @@ class User(Base):
             return rank
         # 3-day grace for past_due / recently canceled
         if self.subscription_period_end:
-            grace_end = self.subscription_period_end + timedelta(days=3)
+            # Existing DateTime columns return naive UTC values on SQLite/Postgres.
+            period_end = self.subscription_period_end
+            if period_end.tzinfo is None:
+                period_end = period_end.replace(tzinfo=timezone.utc)
+            grace_end = period_end + timedelta(days=3)
             if datetime.now(timezone.utc) < grace_end:
                 return rank
         return 0

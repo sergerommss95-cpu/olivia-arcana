@@ -133,7 +133,7 @@ export default function CardOfTheDayPage() {
                   padding: "2rem 0 2rem",
                   position: "relative",
                   zIndex: 5,
-                  background: "var(--paper, #e8dcc8)",
+                  background: "var(--paper, #e8e9ff)",
                   width: "100%",
                 }}
               >

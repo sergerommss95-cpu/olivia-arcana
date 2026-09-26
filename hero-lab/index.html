@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Olivia Arcana — She Draws Near</title>
+<meta name="description" content="Personal astrology and tarot. Scroll, and Olivia comes to meet you.">
+<meta name="theme-color" content="#20279b">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%2320279b'/%3E%3Cpath d='M16 3v26M3 16h26M7 7l18 18M7 25L25 7' stroke='%23e8e9ff'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%2320279b' stroke='%23e8e9ff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="hero.css">
+</head>
+<body>
+<a class="skip-link" href="#hero-content" data-i18n="skip">Skip to content</a>
+<div class="track" id="track">
+<main class="hero" id="main">
+ <div class="scene" aria-hidden="true">
+  <div class="world" id="world">
+   <img class="scene-image" id="scene-image" src="assets/olivia-scene.webp" alt="" fetchpriority="high" decoding="async">
+   <canvas class="water-canvas" id="water-canvas"></canvas>
+   <div class="approach-scrim"></div>
+   <div class="figure" id="figure">
+    <div class="figure-inner">
+     <img class="figure-body" src="assets/olivia-cutout-hd.webp" alt="" decoding="async">
+     <img class="figure-reflection" src="assets/olivia-cutout-hd.webp" alt="" aria-hidden="true">
+    </div>
+   </div>
+   <img class="mist" src="assets/mist.webp" alt="">
+   <img class="mist mist-secondary" src="assets/mist.webp" alt="">
+  </div>
+ </div>
+ <header class="site-header">
+  <a class="brand" href="https://oliviaarcana.com" aria-label="Olivia Arcana — home">
+   <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="7.5"/><circle cx="20" cy="20" r="3"/><path d="M20 0v10m0 20v10M0 20h10m20 0h10M5.9 5.9l7.1 7.1m14 14 7.1 7.1M5.9 34.1l7.1-7.1m14-14 7.1-7.1M12.3 1.5l3.8 9.3m7.8 18.4 3.8 9.3M1.5 12.3l9.3 3.8m18.4 7.8 9.3 3.8M1.5 27.7l9.3-3.8m18.4-7.8 9.3-3.8M12.3 38.5l3.8-9.3m7.8-18.4 3.8-9.3"/></svg>
+   <span class="brand-name">OLIVIA ARCANA</span>
+  </a>
+  <div class="header-right">
+   <nav class="navigation" aria-label="Main navigation"><a href="https://oliviaarcana.com" data-i18n="almanac">The almanac</a><a href="https://oliviaarcana.com/oracle" data-i18n="oracleNav">The oracle</a><a href="https://oliviaarcana.com/daily" data-i18n="dailyNav">The daily card</a></nav>
+   <div class="languages" role="group" aria-label="Language"><button type="button" data-language="en" aria-pressed="true" aria-label="English">EN</button><span class="language-divider">/</span><button type="button" data-language="uk" aria-pressed="false" aria-label="Українська">UA</button></div>
+  </div>
+ </header>
+ <section class="hero-content" id="hero-content" tabindex="-1" aria-labelledby="hero-title">
+  <p class="eyebrow" data-i18n="eyebrow">A personal almanac</p>
+  <h1 id="hero-title"><span>Your stars,</span><span>translated</span><span><em>clearly.</em></span></h1>
+  <p class="hero-description" data-i18n="description">Astrology and tarot, shaped by your birth chart and the question you bring.</p>
+  <div class="hero-actions">
+   <a class="primary-action" href="https://oliviaarcana.com/oracle"><span data-i18n="ask">Ask the oracle</span><span class="action-arrow" aria-hidden="true">↗</span></a>
+   <a class="secondary-action" href="https://oliviaarcana.com/daily"><svg class="card-symbol" viewBox="0 0 18 25" aria-hidden="true"><rect x="1" y="1" width="16" height="23" rx="1"/><path d="m9 7 1.3 4.2L14 12.5l-3.7 1.3L9 18l-1.3-4.2L4 12.5l3.7-1.3Z"/></svg><span data-i18n="daily">Draw your daily card</span></a>
+  </div>
+  <p class="trust" data-i18n="trust">Clarity first. No noise.</p>
+ </section>
+ <div class="scene-caption">
+  <div class="caption-act" data-act="1"><span class="caption-rule"></span><div class="caption-text"><span data-i18n="caption">I. The moonlit sea</span><span data-i18n="captionSub">Between the known &amp; the possible</span></div></div>
+  <div class="caption-act" data-act="2"><span class="caption-rule"></span><div class="caption-text"><span data-i18n="caption2">II. She draws near</span><span data-i18n="captionSub2">The oracle comes to meet you</span></div></div>
+ </div>
+ <div class="scroll-hint" aria-hidden="true"><span data-i18n="hint">Descend</span></div>
+ <footer class="hero-footer">
+  <div class="footer-note"><span class="footer-diamond" aria-hidden="true">✦</span><span data-i18n="footer">Astrology &amp; tarot, made personal</span></div>
+  <div class="footer-center" data-i18n="footerCenter">A little stillness. A little clarity.</div>
+  <div class="footer-progress" aria-hidden="true"><span data-i18n="approach">The approach</span><span class="progress-rail"></span></div>
+ </footer>
+</main>
+</div>
+<section class="after">
+ <p class="after-kicker" data-i18n="afterKicker">She has arrived</p>
+ <h2 data-i18n="afterTitle">Now, ask.</h2>
+ <p class="after-note" data-i18n="afterNote">The almanac opens below.</p>
+</section>
+<script src="hero.js" defer></script>
+</body>
+</html>

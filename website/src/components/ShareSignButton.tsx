@@ -34,7 +34,7 @@ const buttonStyle: CSSProperties = {
   padding: "0.75rem 1.6rem",
   borderRadius: "9999px",
   background: "#0f1240",
-  border: "1px solid #e8dcc8",
+  border: "1px solid #e8e9ff",
   color: "#f6f1e5",
   fontFamily: "var(--font-body, system-ui), sans-serif",
   fontSize: "0.78rem",

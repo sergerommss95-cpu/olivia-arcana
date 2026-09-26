@@ -285,7 +285,7 @@ const CSS = `
 }`;
 
 const BTN_CSS = `
-.oa-atlas-btn{position:fixed;right:22px;
+.oa-atlas-btn{position:fixed;right:clamp(24px,5.25vw,104px);
   bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:90;
   font:10px ${MONO};letter-spacing:.18em;text-transform:uppercase;
   color:${PERI};background:none;border:none;

@@ -3,62 +3,75 @@ import LegalShell from "@/components/legal/LegalShell";
 
 export const metadata = {
   title: "About — Olivia Arcana",
-  description: "Astrology and tarot, written by hand, computed from real planetary positions.",
+  description: "A personal practice of tarot. Learn how Olivia Arcana’s cards, interpretations, AI assistance and private journal work.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {
   return (
-    <LegalShell title="About Olivia Arcana" updated="April 25, 2026">
-      <blockquote>
-        &quot;Astrology is the algebra of the soul.&quot; — written on the studio wall.
-      </blockquote>
-
-      <h2>Why we exist</h2>
+    <LegalShell title="A personal practice of tarot" updated="September 25, 2026">
       <p>
-        Most astrology apps are template horoscopes, recycled monthly. Most
-        tarot apps are random-card-flippers. Olivia Arcana is the third option:
-        readings calculated from your exact planetary positions, written in a
-        voice that takes you seriously.
-      </p>
-      <p>
-        Olivia is the persona — the warm, literate astrologer in your pocket.
-        Behind her is a real astronomy engine (NASA JPL DE440/DE441 ephemeris),
-        a real tarot deck, and a real curriculum (207 lessons across 14
-        courses). The AI helps her work at the speed you expect from an app;
-        the wisdom is the wisdom.
+        Olivia Arcana is a space to bring a question, choose your cards, and spend
+        time with what they suggest. The purpose is to help you look at a situation
+        from another angle and decide what deserves your attention.
       </p>
 
-      <h2>What you&apos;ll find here</h2>
+      <h2>From the card to your own understanding</h2>
+      <p>
+        The Olivia deck contains all 78 tarot cards: 22 Major Arcana and 56 Minor
+        Arcana. A single card offers one focus. A spread gives different parts of
+        a question their own place, then invites you to consider how those parts
+        relate. You choose the cards and the pace of the reveal.
+      </p>
+      <p>
+        The olive, ivory and lapis artwork belongs to the same experience as the
+        reading: a deliberate moment to pause, notice and reflect. The cards do
+        not establish facts about your future or another person’s thoughts.
+      </p>
+
+      <h2>How the interpretations are made</h2>
+      <p>
+        Card meanings and reflection prompts form the reference library. These
+        are prepared texts, so a standard card meaning stays the same each time
+        you encounter it. A spread also uses the purpose of each position to
+        connect the cards.
+      </p>
+      <p>
+        AI assists parts of Olivia’s content and can be used for an additional
+        response to a question where that feature is available. AI assistance is
+        identified in the reading. It can be mistaken or miss important context;
+        you remain the person who decides what fits your experience. We do not
+        describe AI-assisted content as entirely written by hand.
+      </p>
+
+      <h2>A journal that belongs to you</h2>
+      <p>
+        The personal almanac keeps your saved readings and reflections in this
+        browser. You can return to an earlier question, note what changed, and
+        download a copy. Device-local storage does not automatically sync to
+        another device, and clearing browser data can remove it.
+      </p>
+      <p>
+        An AI response requires sending the question and relevant reading context
+        to the interpretation service. The reading flow explains this before you
+        request it. Your private journal is not automatically sent with a question.
+      </p>
+
+      <h2>A grounded way to use tarot</h2>
+      <p>
+        Treat an interpretation as an invitation to reflect. For decisions about
+        health, safety, money or legal matters, use relevant evidence and qualified
+        advice. Olivia cannot diagnose a condition, guarantee an outcome, or make
+        a decision on your behalf.
+      </p>
+
+      <h2>Begin where you are</h2>
       <ul>
-        <li><strong>Card of the Day</strong> — a single card, drawn under the right sky, with text written for that hour.</li>
-        <li><strong>Your chart</strong> — full natal breakdown with houses, aspects, transits, and a story you can read.</li>
-        <li><strong>The Academy</strong> — long-form lessons that earn the word <em>education</em>, not &quot;tips.&quot;</li>
-        <li><strong>Olivia AI</strong> — ask anything. She remembers your chart and writes back like a person.</li>
-        <li><strong>Voice readings</strong> — Patrons hear their reading narrated.</li>
-      </ul>
-
-      <h2>Not magic. Not science. Both.</h2>
-      <p>
-        We compute the sky exactly. We interpret it traditionally. The
-        astronomy is precise to fractions of a degree; the meaning is what
-        humans have argued over for two thousand years. We pick the
-        interpretations we find useful and tell you when something is symbolic
-        rather than literal.
-      </p>
-
-      <h2>Built by</h2>
-      <p>
-        Olivia Arcana LLC, a Wyoming, USA company. A small team of astrologers,
-        designers, engineers, and one cat. Reach us at{" "}
-        <a href="mailto:hello@oliviaarcana.com">hello@oliviaarcana.com</a>.
-      </p>
-
-      <h2>Where to start</h2>
-      <ul>
-        <li><Link href="/onboarding">Draw your portrait</Link> — takes 90 seconds.</li>
-        <li><Link href="/sample">Read a sample reading</Link> — see what we mean by &quot;written by hand.&quot;</li>
-        <li><Link href="/academy">Browse the Academy</Link> — 14 courses from &quot;what is astrology&quot; to deep advanced interpretation.</li>
-        <li><Link href="/#pricing">See the Tariff</Link> — Begin for nothing; the paid leaves from $4.99 a month.</li>
+        <li><Link href="/?experience=question">Begin a reading</Link> — bring a question or leave it open.</li>
+        <li><Link href="/?experience=spreads">Explore the spreads</Link> — give a more layered question room.</li>
+        <li><Link href="/cards">Meet the 78 cards</Link> — read their meanings at your own pace.</li>
+        <li><Link href="/?experience=journal">Open your almanac</Link> — return to what you saved in this browser.</li>
+        <li><Link href="/contact">Contact Olivia Arcana</Link> — questions, feedback or help.</li>
       </ul>
     </LegalShell>
   );

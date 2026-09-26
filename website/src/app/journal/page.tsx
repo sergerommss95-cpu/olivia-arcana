@@ -10,6 +10,8 @@
 
 import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
+import SavedReadings from "@/components/almanac/SavedReadings";
+import SavedSpreads from "@/components/almanac/SavedSpreads";
 import Paywall from "@/components/Paywall";
 import { getMoonPhase } from "@/lib/celestial";
 import { getDailyPrompt } from "@/lib/journal-prompts";
@@ -407,6 +409,9 @@ export default function JournalPage() {
             </span>
           </div>
         </div>
+
+        <SavedReadings />
+        <SavedSpreads />
 
         {/* Insight-tier and above */}
         <div className="alm-gate">

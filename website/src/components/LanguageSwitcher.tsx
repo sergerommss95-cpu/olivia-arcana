@@ -39,6 +39,12 @@ export default function LanguageSwitcher({ openUp = false }: Props) {
   const handleSelect = (locale: Locale) => {
     setLocale(locale);
     setOpen(false);
+    if (locale === "en" || locale === "uk") {
+      const unprefixed = location.pathname.replace(/^\/uk(?=\/|$)/, "") || "/";
+      const localized = unprefixed === "/" || /^\/cards(?:\/|$)/.test(unprefixed);
+      if (localized) location.assign((locale === "uk" ? "/uk" + (unprefixed === "/" ? "/" : unprefixed) : unprefixed) + location.search + location.hash);
+      else if (locale === "uk") location.assign("/uk/");
+    }
   };
 
   return (
@@ -83,7 +89,7 @@ export default function LanguageSwitcher({ openUp = false }: Props) {
               : { top: "calc(100% + 6px)" }),
             left: "50%", transform: "translateX(-50%)",
             zIndex: 100, minWidth: "172px",
-            background: "#0f1240",
+            background: "#0b192a",
             border: "1px solid var(--hairline, rgba(183,188,233,0.2))",
             boxShadow: "0 18px 44px rgba(4, 6, 32, 0.45)",
             padding: "0.3rem",

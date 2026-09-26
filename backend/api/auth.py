@@ -2,7 +2,7 @@
 
 import os
 from datetime import datetime, timedelta
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, Header, HTTPException, status
 from pydantic import BaseModel, EmailStr
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -214,7 +214,7 @@ async def login(req: LoginRequest, db: AsyncSession = Depends(get_db)):
 
 
 @router.get("/me", response_model=UserResponse)
-async def get_me(authorization: str = "", db: AsyncSession = Depends(get_db)):
+async def get_me(authorization: str = Header(default=""), db: AsyncSession = Depends(get_db)):
     # Extract Bearer token
     token = authorization.replace("Bearer ", "").strip() if authorization else ""
     if not token:
@@ -227,7 +227,7 @@ async def get_me(authorization: str = "", db: AsyncSession = Depends(get_db)):
 @router.put("/me/birth-data")
 async def update_birth_data(
     data: UpdateBirthData,
-    authorization: str = "",
+    authorization: str = Header(default=""),
     db: AsyncSession = Depends(get_db),
 ):
     token = authorization.replace("Bearer ", "").strip() if authorization else ""

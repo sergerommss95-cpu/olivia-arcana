@@ -1,0 +1,27 @@
+{
+  "release": "Olivia Arcana personal practice release candidate",
+  "date": "2026-09-25",
+  "productionChanged": false,
+  "tests": {
+    "product": 107,
+    "nativeSiteAndService": 45,
+    "targetedBackendAuth": 13
+  },
+  "heroSha256": "413304f1cea159c67fee3f8542cf5f95ebb6358891f2c08b91c38f76a965a5b2",
+  "remainingGates": [
+    "Restore account API and database",
+    "Verify paid checkout and membership end to end",
+    "Editorial review of Ukrainian AI output"
+  ],
+  "contents": [
+    "Compiled native website",
+    "Server edge-function source",
+    "Portable local HTML",
+    "Product source snapshot",
+    "Native UI source snapshot",
+    "Release notes"
+  ],
+  "environmentFilesIncluded": false,
+  "previewUrl": "https://6ab679587ca6658783263ba5--olivia-arcana.netlify.app",
+  "deployId": "6ab679587ca6658783263ba5"
+}

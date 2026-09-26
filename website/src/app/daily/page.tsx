@@ -62,7 +62,7 @@ const ITEM_NUMERALS = ["i", "ii", "iii"];
    comes through t()). Follows the AlmanacShell en/uk pattern. */
 const COPY = {
   en: {
-    kicker: "Today's almanac",
+    kicker: "Plate III — Today's Leaf",
     ritual: (n: number) => `Ritual — day ${n}`,
     sunIn: "Sun in",
     moonIn: "Moon in",
@@ -79,7 +79,7 @@ const COPY = {
     elements: { Fire: "Fire", Earth: "Earth", Air: "Air", Water: "Water" } as Record<WheelSign["element"], string>,
   },
   uk: {
-    kicker: "Сьогоднішній альманах",
+    kicker: "Гравюра III — Сьогоднішній лист",
     ritual: (n: number) => `Ритуал — день ${n}`,
     sunIn: "Сонце в",
     moonIn: "Місяць у",
@@ -259,7 +259,7 @@ export default function DailyPage() {
     horoscope: cardReversed ? card.reversed : card.upright,
     luckyColor: "Gilt",
     luckyColorHex: "#e0b768",
-    dateRange: `${isUk ? "Лист" : "Leaf"} № ${dayOfYear} — ${now.toLocaleDateString(isUk ? "uk" : "en", { month: "long", day: "numeric", year: "numeric" })}`,
+    dateRange: `${isUk ? "Лист" : "Leaf"} No. ${dayOfYear} — ${now.toLocaleDateString(isUk ? "uk" : "en", { month: "long", day: "numeric", year: "numeric" })}`,
     traits: card.keywords,
   };
 
@@ -272,7 +272,7 @@ export default function DailyPage() {
             ← {t("common_home")}
           </Link>
           <p className="alm-kicker">
-            <span>№ {dayOfYear}</span>· {copy.kicker}
+            {copy.kicker} · <span>No. {dayOfYear}</span> · MMXXVI
           </p>
           <h1 className="alm-h1">{t("daily_title")}</h1>
           <p className="dateline">
@@ -349,7 +349,7 @@ export default function DailyPage() {
                   const wasCut = cutMark !== null && cutMark.year === d.getFullYear() && cutMark.no === no;
                   return (
                     <p key={i} className="bi-row">
-                      <span className="bi-no">№ {no}</span>
+                      <span className="bi-no">No. {no}</span>
                       <span className="bi-date">{a.dateLine}</span>
                       <span className="bi-moon">☽ {Math.round(a.moonFraction * 100)}% · {a.moonPhaseName}</span>
                       <span className="bi-cut" aria-hidden>{wasCut ? "⁂" : "·"}</span>
@@ -365,7 +365,7 @@ export default function DailyPage() {
             <p className="press-cut">
               {cutIsToday ? (
                 <span className="cut-done">
-                  {isUk ? `Лист № ${dayOfYear} — розрізано` : `Leaf No. ${dayOfYear} — cut`} <span aria-hidden>⁂</span>
+                  {isUk ? `Лист No. ${dayOfYear} — розрізано` : `Leaf No. ${dayOfYear} — cut`} <span aria-hidden>⁂</span>
                 </span>
               ) : (
                 <button

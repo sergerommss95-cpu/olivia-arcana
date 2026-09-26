@@ -312,7 +312,7 @@ export default function OnboardingPage() {
         .onb-date :global(select) {
           appearance: none !important;
           -webkit-appearance: none !important;
-          background-color: #e8dcc8 !important;
+          background-color: #e8e9ff !important;
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(232,233,255,0.55)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") !important;
           background-repeat: no-repeat !important;
           background-position: right 0.75rem center !important;

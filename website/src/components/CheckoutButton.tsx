@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSubscription } from "@/hooks/useSubscription";
-import { telegramStarsLink, type PriceKey } from "@/lib/payments";
+import { getPaymentSessionToken, telegramStarsLink, type PriceKey } from "@/lib/payments";
 import { isNativeShell, externalUpgradeUrl } from "@/lib/platform";
 import MagneticButton from "@/components/MagneticButton";
 import { PAYMENTS_ENABLED } from "@/lib/service-status";
@@ -54,7 +54,7 @@ export default function CheckoutButton({
       return;
     }
 
-    const token = localStorage.getItem("olivia-token");
+    const token = getPaymentSessionToken();
     if (!token) {
       // Park the purchase intent, then sign in — profile/billing resume it.
       try {

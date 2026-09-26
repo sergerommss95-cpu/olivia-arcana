@@ -1,0 +1,129 @@
+/* Physical scale for the reading table. The chooser stays close to the hand;
+   the collected cards open into their full composition after the final draw. */
+#spread-ritual .spread-workspace {
+  grid-template-columns:minmax(0,1fr) minmax(245px,300px);
+  gap:clamp(32px,4vw,68px);
+}
+#spread-ritual .spread-scene {container-type:inline-size;max-width:none;width:100%}
+#spread-ritual .spread-insight {padding-top:2rem}
+#spread-ritual .spread-board {
+  --reading-card-width:clamp(126px,27cqw,245px);
+  height:calc(var(--reading-card-width)*1.72 + 105px);
+  margin-top:1.5rem;
+}
+#spread-ritual .spread-slot {width:var(--reading-card-width)}
+#spread-ritual .spread-slot-label {
+  top:calc(100% + 13px);left:-5%;width:110%;
+  font-size:clamp(.65rem,.78vw,.75rem);line-height:1.5;
+}
+#spread-ritual .spread-board[data-count="5"] {
+  --reading-card-width:clamp(125px,29cqw,195px);
+  height:calc(var(--reading-card-width)*5.7 + 150px);
+}
+#spread-ritual .spread-board[data-count="5"] .spread-slot:nth-child(1){left:50%;top:49%}
+#spread-ritual .spread-board[data-count="5"] .spread-slot:nth-child(2){left:17%;top:49%}
+#spread-ritual .spread-board[data-count="5"] .spread-slot:nth-child(3){left:83%;top:49%}
+#spread-ritual .spread-board[data-count="5"] .spread-slot:nth-child(4){left:50%;top:16%}
+#spread-ritual .spread-board[data-count="5"] .spread-slot:nth-child(5){left:50%;top:81%}
+/* Eight readable works follow the reading order in three measured rows. */
+#spread-ritual .spread-board[data-count="8"] {
+  --reading-card-width:clamp(120px,28cqw,185px);
+  height:calc(var(--reading-card-width)*6.2 + 190px);
+}
+#spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(3n + 1){left:17%}
+#spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(3n + 2){left:50%}
+#spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(3n + 3){left:83%}
+#spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(-n + 3){top:16%}
+#spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(n + 4):nth-child(-n + 6){top:49%}
+#spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(n + 7){top:82%}
+#spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(7){left:33%}
+#spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(8){left:67%}
+
+/* The compact view is a place to lay the chosen cards, not a tiny reading. */
+#spread-ritual .spread-workspace[data-phase="choosing"] .spread-board {
+  --reading-card-width:min(84px,22cqw);height:195px;margin-top:.5rem;
+}
+#spread-ritual .spread-workspace[data-phase="choosing"] .spread-slot:nth-child(n) {top:48%}
+#spread-ritual .spread-workspace[data-phase="choosing"] .spread-slot:nth-child(1){left:22%}
+#spread-ritual .spread-workspace[data-phase="choosing"] .spread-slot:nth-child(2){left:50%}
+#spread-ritual .spread-workspace[data-phase="choosing"] .spread-slot:nth-child(3){left:78%}
+#spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-board {
+  --reading-card-width:min(76px,15cqw);height:190px;
+}
+#spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-slot:nth-child(1){left:14%}
+#spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-slot:nth-child(2){left:32%}
+#spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-slot:nth-child(3){left:50%}
+#spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-slot:nth-child(4){left:68%}
+#spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-slot:nth-child(5){left:86%}
+#spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-board {
+  --reading-card-width:min(62px,18cqw);height:265px;
+}
+#spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-slot:nth-child(4n + 1){left:14%}
+#spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-slot:nth-child(4n + 2){left:38%}
+#spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-slot:nth-child(4n + 3){left:62%}
+#spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-slot:nth-child(4n + 4){left:86%}
+#spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-slot:nth-child(-n + 4){top:28%}
+#spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-slot:nth-child(n + 5){top:76%}
+#spread-ritual .spread-workspace[data-phase="choosing"] .spread-slot-label{visibility:hidden}
+#spread-ritual .spread-workspace[data-phase="choosing"] #spread-deck-area{margin-top:0}
+#spread-ritual .spread-workspace[data-phase="choosing"] .spread-insight{padding-top:1.5rem}
+
+@media(max-width:1100px) {
+  #spread-ritual .spread-workspace {grid-template-columns:minmax(0,1fr) minmax(225px,.44fr);gap:28px}
+  #spread-ritual .spread-insight h2{font-size:clamp(2.45rem,4vw,3.3rem)}
+  #spread-ritual .spread-insight .spread-invitation{font-size:.875rem;line-height:1.8}
+  #spread-ritual .spread-insight .spread-card-lead{font-size:clamp(1.4rem,2.55vw,1.85rem);line-height:1.3}
+  #spread-ritual .spread-insight .reflection-prompt p{font-size:1.25rem;line-height:1.4}
+  #spread-ritual .spread-slot-label{font-size:.625rem}
+}
+@media(max-width:800px) {
+  #spread-ritual .spread-workspace {display:block;max-width:850px}
+  #spread-ritual .spread-insight {max-width:650px;margin:1.5rem auto 0;position:relative;top:auto;padding-top:1rem}
+  #spread-ritual .spread-workspace[data-phase="choosing"] .spread-insight{margin:1rem auto 0}
+}
+@media(max-width:700px) {
+  #spread-ritual .spread-workspace[data-phase="choosing"]{display:block}
+  #spread-ritual .spread-workspace[data-phase="choosing"] .spread-insight{margin:1rem auto 0}
+  #spread-ritual .spread-board {--reading-card-width:37cqw;height:calc(var(--reading-card-width)*4 + 150px)}
+  #spread-ritual .spread-board[data-count="3"] .spread-slot:nth-child(1){left:50%;top:22%}
+  #spread-ritual .spread-board[data-count="3"] .spread-slot:nth-child(2){left:25%;top:68%}
+  #spread-ritual .spread-board[data-count="3"] .spread-slot:nth-child(3){left:75%;top:68%}
+  #spread-ritual .spread-slot-label{font-size:.625rem;top:calc(100% + 11px);left:-10%;width:120%}
+  #spread-ritual .spread-board[data-count="5"] {
+    --reading-card-width:37cqw;height:calc(var(--reading-card-width)*6.2 + 160px);
+  }
+  #spread-ritual .spread-board[data-count="5"] .spread-slot:nth-child(1){left:50%;top:16%}
+  #spread-ritual .spread-board[data-count="5"] .spread-slot:nth-child(2){left:25%;top:49%}
+  #spread-ritual .spread-board[data-count="5"] .spread-slot:nth-child(3){left:75%;top:49%}
+  #spread-ritual .spread-board[data-count="5"] .spread-slot:nth-child(4){left:25%;top:81%}
+  #spread-ritual .spread-board[data-count="5"] .spread-slot:nth-child(5){left:75%;top:81%}
+  #spread-ritual .spread-board[data-count="8"] {
+    --reading-card-width:37cqw;height:calc(var(--reading-card-width)*8.3 + 200px);
+  }
+  #spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(odd){left:25%}
+  #spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(even){left:75%}
+  #spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(-n + 2){top:11%}
+  #spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(n + 3):nth-child(-n + 4){top:35%}
+  #spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(n + 5):nth-child(-n + 6){top:59%}
+  #spread-ritual .spread-board[data-count="8"] .spread-slot:nth-child(n + 7){top:83%}
+  #spread-ritual .spread-insight{margin-top:.7rem}
+  #spread-ritual .spread-workspace[data-phase="dealt"] .spread-insight .spread-controls{order:-1}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-board{--reading-card-width:min(76px,15cqw);height:175px}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-slot:nth-child(2){left:32%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-slot:nth-child(3){left:50%}
+  /* Reassert the miniature collection independently of the full mobile table. */
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="3"] .spread-slot{top:48%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="3"] .spread-slot:nth-child(1){left:22%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="3"] .spread-slot:nth-child(2){left:50%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="3"] .spread-slot:nth-child(3){left:78%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-slot{top:48%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-slot:nth-child(1){left:14%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-slot:nth-child(4){left:68%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-slot:nth-child(5){left:86%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-slot:nth-child(4n + 1){left:14%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-slot:nth-child(4n + 2){left:38%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-slot:nth-child(4n + 3){left:62%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-slot:nth-child(4n + 4){left:86%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-slot:nth-child(-n + 4){top:28%}
+  #spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-slot:nth-child(n + 5){top:76%}
+}

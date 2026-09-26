@@ -1,0 +1,8 @@
+**/node_modules/
+**/__pycache__/
+**/*.bundle.js
+**/check-*.js
+.DS_Store
+outputs/olivia-almanac.html
+outputs/olivia-experience/
+outputs/olivia-animation/

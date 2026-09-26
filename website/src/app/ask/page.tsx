@@ -1,441 +1,156 @@
-/**
- * Ask the Stars — Astrological Q&A interface
- *
- * Chat-style UI where users ask cosmic questions.
- * Streams live answers from the Claude edge function (/api/chat); falls back
- * to the pre-written almanac bank whenever the endpoint is unreachable,
- * non-OK, or errors mid-stream — never degrading below the canned experience.
- * Set in the Personal Almanac print register: paper correspondence — the
- * reader's notes on the right, Olivia's letters on the left.
- */
+'use client';
 
-"use client";
+import { useEffect, useRef, useState } from 'react';
+import AlmanacShell from '@/components/almanac/AlmanacShell';
+import { useLocale } from '@/lib/i18n/useLocale';
+import { ChatError, questionServiceAvailable, streamChat, type ChatMessage } from '@/lib/chat-client';
+import { clearQuestionHandoff, readQuestionHandoff, writeQuestionHandoff } from '@/lib/question-handoff';
 
-import React, { useState, useRef, useEffect } from "react";
-import AlmanacShell from "@/components/almanac/AlmanacShell";
-import { useLocale } from "@/lib/i18n/useLocale";
-import { loadUser, type StoredUser } from "../../lib/user-store";
-import { streamChat, ChatError, type ChatMessage } from "../../lib/chat-client";
-
-interface Message {
-  role: "user" | "oracle";
-  text: string;
-  typing?: boolean;
-  /** Live tokens still arriving from the edge function */
-  streaming?: boolean;
-  /** Answer came from the live oracle (vs the almanac bank) */
-  source?: "live";
-}
-
-// Pre-written oracle responses keyed by simple pattern matching
-const ORACLE_RESPONSES: [RegExp, string][] = [
-  [/love|relationship|partner|dating|romance/i,
-    "The stars reveal a period of deep emotional transformation in your love life. Venus is moving through your intimacy sector, inviting you to release old patterns and open to a more authentic connection. Trust what your heart whispers in the quiet moments — that voice knows the truth your mind is still catching up to."],
-  [/career|job|work|money|business|success/i,
-    "Saturn's influence on your professional sector demands patience and strategic thinking. The foundation you're building now may feel invisible, but the cosmos rewards those who build with integrity. A significant shift is forming around the next lunar cycle — prepare by clarifying what success truly means to you, beyond titles and numbers."],
-  [/health|energy|wellness|tired|stress/i,
-    "Your cosmic energy flow is asking for recalibration. The Moon's current transit through your wellness house suggests your body is holding emotional tension that needs release. Prioritize rest as sacred practice, not luxury. Water — both drinking it and being near it — will be particularly healing for you this week."],
-  [/friend|social|lonely|connection/i,
-    "The stars show your social sphere is undergoing a quiet revolution. Some connections that once felt vital may be fading — this isn't loss, it's curation. The universe is clearing space for people who match the frequency you're growing into. Be patient. The right souls are finding their way to you."],
-  [/future|what.*happen|predict|upcoming/i,
-    "The celestial currents point toward a period of awakening and clarity. Jupiter's expansive energy is amplifying your intuition, making this an exceptional time for decisions that align with your deepest truth. What you plant in the next three weeks — intentions, conversations, commitments — will bear fruit for years to come."],
-  [/purpose|meaning|lost|direction|confused/i,
-    "Your north node is calling you toward a purpose that may not fit neatly into conventional categories. The confusion you feel isn't weakness — it's the growing pains of transformation. You're being asked to trust a path that hasn't fully revealed itself yet. Look for clues in what makes you lose track of time, in what moves you to tears, in what you'd do even if no one was watching."],
-  [/.*/,
-    "The cosmic patterns surrounding your question reveal a moment of transition. The planets are aligning in a way that favors introspection and bold honesty with yourself. The answer you seek is closer than you think — it lives in the space between what you know and what you're afraid to know. Sit with your question under the night sky tonight. The stars have a way of whispering truths to those who are still enough to listen."],
-];
-
-function getOracleResponse(question: string): string {
-  for (const [pattern, response] of ORACLE_RESPONSES) {
-    if (pattern.test(question)) return response;
-  }
-  return ORACLE_RESPONSES[ORACLE_RESPONSES.length - 1][1];
-}
-
-function Caret() {
-  return (
-    <>
-      <span className="ask-caret" style={{
-        display: "inline-block", width: "1px", height: "0.85em",
-        background: "var(--ox, #e0b768)", marginLeft: "1px",
-        animation: "cursorBlink 0.8s step-end infinite",
-        verticalAlign: "text-bottom",
-      }} />
-      <style>{`@keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} } @media (prefers-reduced-motion: reduce) { .ask-caret { animation: none !important; } }`}</style>
-    </>
-  );
-}
-
-function TypingText({ text, onDone }: { text: string; onDone: () => void }) {
-  const [displayed, setDisplayed] = useState("");
-  const [done, setDone] = useState(false);
-
-  useEffect(() => {
-    let i = 0;
-    const tick = () => {
-      i++;
-      setDisplayed(text.slice(0, i));
-      if (i < text.length) {
-        setTimeout(tick, 12 + Math.random() * 8);
-      } else {
-        setDone(true);
-        onDone();
-      }
-    };
-    setTimeout(tick, 600); // slight pause before oracle speaks
-  }, [text, onDone]);
-
-  return (
-    <span>
-      {displayed}
-      {!done && <Caret />}
-    </span>
-  );
-}
-
-// Shown when the edge function returns 429 (20 questions per hour per IP)
-const RATE_LIMIT_TEXT =
-  "The sky asks for patience — you have posed many questions this hour. Let the stars settle, and return in a little while.";
+const COPY = {
+  en: {
+    kicker: 'A LITTLE ROOM TO THINK', title: 'Begin with your question.',
+    intro: 'Put a situation into words. An AI-assisted conversation can help you find a clearer question for your reading.',
+    checking: 'Checking whether the interpretation service is connected…',
+    unavailable: 'The AI conversation is not connected yet. You can still choose cards, explore their meanings and keep your own reflection.',
+    disclosure: 'When you send, this conversation is shared with our AI provider to prepare your response. Your saved almanac and birth details are not sent. This page helps you reflect; it does not draw cards or predict events.',
+    placeholder: 'What would you like to understand more clearly?', label: 'Your question', send: 'Explore my question', waiting: 'Considering your question…',
+    handoffTitle: 'The question you take with you', handoffHelp: 'Edit this into your own words. You will choose the cards on the next screen.', handoffError: 'This browser could not carry your question across. Copy it before continuing.', reading: 'Choose cards for my question', retry: 'Try again', source: 'AI-assisted reflection',
+    rate: 'You have reached the hourly question limit. Your question is still here. Please try again later.',
+    error: 'The conversation could not continue. Your question is still here; please try again.',
+    examples: ['I am considering changing jobs. What should I think through?', 'How can I approach a difficult conversation?', 'I feel pulled in two directions. Where can I begin?'],
+  },
+  uk: {
+    kicker: 'ПРОСТІР ДЛЯ РОЗДУМІВ', title: 'Почніть зі свого запитання.',
+    intro: 'Опишіть ситуацію своїми словами. Розмова за допомогою ШІ може допомогти сформулювати чіткіше запитання до розкладу.',
+    checking: 'Перевіряємо доступність сервісу тлумачення…',
+    unavailable: 'Розмову з ШІ ще не підключено. Ви можете обрати карти, дослідити їхні значення й зберегти власні роздуми.',
+    disclosure: 'Після натискання кнопки ця розмова буде передана нашому постачальнику ШІ для підготовки відповіді. Записи альманаху й дані народження не передаються. Ця сторінка допомагає міркувати; вона не витягує карти й не передбачає події.',
+    placeholder: 'Що ви хотіли б зрозуміти краще?', label: 'Ваше запитання', send: 'Дослідити запитання', waiting: 'Обмірковуємо ваше запитання…',
+    handoffTitle: 'Запитання, яке ви берете із собою', handoffHelp: 'Сформулюйте його власними словами. На наступному екрані ви оберете карти.', handoffError: 'Браузер не зміг перенести запитання. Скопіюйте його перед переходом.', reading: 'Обрати карти до запитання', retry: 'Спробувати ще раз', source: 'Роздуми за допомогою ШІ',
+    rate: 'Досягнуто ліміту запитань на годину. Ваше запитання збережене тут. Спробуйте пізніше.',
+    error: 'Не вдалося продовжити розмову. Ваше запитання збережене тут; спробуйте ще раз.',
+    examples: ['Я думаю про зміну роботи. Що варто зважити?', 'Як підійти до складної розмови?', 'Мене тягне у два різні боки. З чого почати?'],
+  },
+};
 
 export default function AskPage() {
   const { locale } = useLocale();
-  const isUk = locale === "uk";
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState("");
+  const language = locale === 'uk' ? 'uk' : 'en';
+  const copy = COPY[language];
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [input, setInput] = useState('');
   const [waiting, setWaiting] = useState(false);
-  const [user, setUser] = useState<StoredUser | null>(null);
-  const chatRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [available, setAvailable] = useState<boolean | null>(null);
+  const [error, setError] = useState('');
+  const [retryQuestion, setRetryQuestion] = useState('');
+  const [readingQuestion, setReadingQuestion] = useState('');
+  const [handoffError, setHandoffError] = useState('');
+  const controller = useRef<AbortController | null>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setUser(loadUser());
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const scrollToBottom = () => {
-    chatRef.current?.scrollTo({ top: chatRef.current.scrollHeight, behavior: "smooth" });
-  };
-
-  useEffect(scrollToBottom, [messages]);
-
-  /** Today's behavior: answer from the almanac bank with the typing reveal. */
-  const answerFromAlmanac = (q: string) => {
-    setMessages(prev => [...prev, { role: "oracle", text: getOracleResponse(q), typing: true }]);
-  };
-
-  /**
-   * Ask the live oracle; fall back to the almanac bank on ANY failure
-   * (unreachable endpoint, non-OK response, error or empty stream mid-flight).
-   */
-  const askOracle = async (q: string, history: ChatMessage[]) => {
-    let streamed = false;
     try {
-      const natalContext = user
-        ? [
-            user.name ? `Name: ${user.name}.` : "",
-            `Sun: ${user.sunSign}. Moon: ${user.moonSign}. Rising: ${user.risingSign}.`,
-          ].filter(Boolean).join(" ")
-        : "";
+      const question = readQuestionHandoff(sessionStorage);
+      if (question !== null) setInput(question);
+    } catch { /* A blocked session store must not prevent a fresh question. */ }
+    const check = new AbortController();
+    questionServiceAvailable(check.signal).then(setAvailable).catch(() => { if (!check.signal.aborted) setAvailable(false); });
+    return () => { check.abort(); controller.current?.abort(); };
+  }, []);
+  useEffect(() => { endRef.current?.scrollIntoView({ block: 'nearest', behavior: 'auto' }); }, [messages, waiting]);
 
-      for await (const token of streamChat(history, natalContext)) {
-        if (!streamed) {
-          streamed = true;
-          setMessages(prev => [...prev, { role: "oracle", text: token, streaming: true, source: "live" }]);
-        } else {
-          setMessages(prev =>
-            prev.map(m => (m.streaming ? { ...m, text: m.text + token } : m))
-          );
-        }
-      }
+  function editInput(question: string) {
+    setInput(question);
+    try { writeQuestionHandoff(sessionStorage, question); } catch { /* Typing works even when tab storage is blocked. */ }
+  }
 
-      if (streamed) {
-        setMessages(prev => prev.map(m => (m.streaming ? { ...m, streaming: false } : m)));
-        setWaiting(false);
-        inputRef.current?.focus();
-        return;
-      }
+  async function send(question = input.trim()) {
+    if (!question || question.length > 1600 || waiting || available !== true) return;
+    setWaiting(true); setReadingQuestion(question); setError(''); setRetryQuestion('');
+    // Keep at most five complete turns; the final user question is always included.
+    const history: ChatMessage[] = [...messages.slice(-10), { role: 'user', content: question }];
+    controller.current?.abort(); controller.current = new AbortController();
+    try {
+      let answer = '';
+      for await (const token of streamChat(history, language, controller.current.signal)) answer += token;
+      setMessages([...history, { role: 'assistant', content: answer }]);
+      setInput('');
+      try { clearQuestionHandoff(sessionStorage); } catch { /* The current conversation remains usable. */ }
+    } catch (cause) {
+      if (controller.current.signal.aborted) return;
+      setRetryQuestion(question);
+      setError(cause instanceof ChatError && cause.status === 429 ? copy.rate : copy.error);
+      if (cause instanceof ChatError && cause.status === 503) { setAvailable(false); setError(copy.unavailable); }
+    } finally { setWaiting(false); inputRef.current?.focus(); }
+  }
 
-      // Stream ended without a single token — treat as a failure.
-      answerFromAlmanac(q);
-    } catch (err) {
-      // Drop any partial live answer so the fallback reads whole.
-      if (streamed) setMessages(prev => prev.filter(m => !m.streaming));
+  function carryQuestion(event: React.MouseEvent<HTMLAnchorElement>) {
+    const question = (readingQuestion || input).trim();
+    try { writeQuestionHandoff(sessionStorage, question); }
+    catch { event.preventDefault(); setHandoffError(copy.handoffError); }
+  }
 
-      if (err instanceof ChatError && err.status === 429) {
-        setMessages(prev => [...prev, { role: "oracle", text: RATE_LIMIT_TEXT, typing: true }]);
-        return;
-      }
-
-      answerFromAlmanac(q);
-    }
-  };
-
-  const send = () => {
-    const q = input.trim();
-    if (!q || waiting) return;
-    setInput("");
-    setWaiting(true);
-
-    // TODO(tier-gating): when PAYWALL flips, gate the live oracle here via
-    // useSubscription() (src/hooks/useSubscription.tsx) — e.g. free tier gets
-    // the almanac bank / N live questions, paid gets unlimited. Do NOT gate
-    // yet: with env flags unset this page must behave as wired below.
-
-    const history: ChatMessage[] = [
-      ...messages.map<ChatMessage>(m => ({
-        role: m.role === "user" ? "user" : "assistant",
-        content: m.text,
-      })),
-      { role: "user", content: q },
-    ];
-
-    setMessages(prev => [...prev, { role: "user", text: q }]);
-    void askOracle(q, history);
-  };
-
-  const handleTypingDone = () => {
-    setWaiting(false);
-    setMessages(prev => prev.map(m => m.typing ? { ...m, typing: false } : m));
-    inputRef.current?.focus();
-  };
-
-  const suggestions = [
-    "What does my love life look like?",
-    "Will I find my purpose?",
-    "What's coming in my career?",
-  ];
-
-  return (
-    <AlmanacShell narrow>
-      <div className="ask">
-        {/* Header */}
-        <header className="ask-head">
-          <p className="alm-kicker">{isUk ? "ЛИСТИ ВІД ДРУКАРНІ" : "LETTERS FROM THE PRESS"}</p>
-          <h1 className="alm-h1">Ask the Stars</h1>
-          <p className="ask-sub alm-caption">
-            {user ? `Answering as a ${user.sunSign} Sun, ${user.moonSign} Moon` : "Ask any question — receive cosmic guidance"}
-          </p>
-        </header>
-
-        {/* Chat area */}
-        <div ref={chatRef} className="ask-chat">
-          {messages.length === 0 && (
-            <div className="ask-empty">
-              <div className="ask-empty-mark" aria-hidden>✦</div>
-              <p className="ask-empty-copy">
-                The cosmos awaits your question. Ask about love, career, purpose, or anything on your heart.
-              </p>
-              <div className="ask-suggestions">
-                {suggestions.map(s => (
-                  <button
-                    key={s}
-                    className="ask-suggestion"
-                    onClick={() => { setInput(s); inputRef.current?.focus(); }}
-                  >{s}</button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {messages.map((msg, i) => (
-            <div key={i} className={`msg ${msg.role === "user" ? "msg-user" : "msg-oracle"}`}>
-              {msg.role === "oracle" && <div className="msg-label">Olivia</div>}
-              <p className="msg-text">
-                {msg.streaming ? (
-                  <span>{msg.text}<Caret /></span>
-                ) : msg.typing ? (
-                  <TypingText text={msg.text} onDone={handleTypingDone} />
-                ) : (
-                  msg.text
-                )}
-              </p>
-              {msg.source === "live" && !msg.streaming && (
-                <div className="msg-source">✦ A LIVE READING</div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Input */}
-        <div className="ask-input-row">
-          <input
-            ref={inputRef}
-            type="text"
-            className="alm-input"
-            placeholder={waiting ? "The stars are speaking..." : "Ask the cosmos anything..."}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === "Enter") send(); }}
-            disabled={waiting}
-          />
-          <button
-            className="alm-btn"
-            onClick={send}
-            disabled={waiting || !input.trim()}
-          >Ask</button>
-        </div>
+  return <AlmanacShell narrow>
+    <div className="ask">
+      <header className="ask-head">
+        <p className="alm-kicker">{copy.kicker}</p>
+        <h1 className="alm-h1">{copy.title}</h1>
+        <p className="ask-intro">{copy.intro}</p>
+      </header>
+      <div className="ask-messages" role="log" aria-live="polite" aria-relevant="additions">
+        {messages.map((message, index) => <article className={`message ${message.role}`} key={index}>
+          <p className="message-label">{message.role === 'user' ? copy.label : copy.source}</p>
+          <p>{message.content}</p>
+        </article>)}
+        {waiting && <p role="status">{copy.waiting}</p>}
+        <div ref={endRef} />
       </div>
-
-      <style jsx>{`
-        .ask {
-          display: flex;
-          flex-direction: column;
-          min-height: 68svh;
-        }
-
-        .ask-head {
-          text-align: center;
-          padding-bottom: 1.4rem;
-          border-bottom: 1px solid var(--hairline);
-        }
-
-        .ask-head :global(.alm-h1) {
-          font-size: clamp(1.9rem, 4vw, 2.6rem);
-        }
-
-        .ask-sub {
-          margin: 0.7rem 0 0;
-        }
-
-        .ask-chat {
-          flex: 1;
-          overflow-y: auto;
-          padding: 1.5rem 0;
-          display: flex;
-          flex-direction: column;
-          gap: 1.1rem;
-          min-height: 50vh;
-        }
-
-        .ask-empty {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 1.5rem;
-          padding: 3rem 0;
-        }
-
-        .ask-empty-mark {
-          color: var(--ox);
-          font-size: 1.6rem;
-          opacity: 0.7;
-        }
-
-        .ask-empty-copy {
-          margin: 0;
-          max-width: 34ch;
-          text-align: center;
-          color: var(--ink-soft);
-          font-size: 0.92rem;
-          line-height: 1.65;
-        }
-
-        .ask-suggestions {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-
-        .ask-suggestion {
-          padding: 0.55rem 1.2rem;
-          border-radius: 999px;
-          background: rgba(250, 246, 236, 0.6);
-          border: 1px solid var(--hairline);
-          color: var(--ink-soft);
-          font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.78rem;
-          cursor: pointer;
-          text-align: left;
-          transition: border-color 200ms var(--ease), color 200ms var(--ease);
-        }
-
-        .ask-suggestion:hover {
-          border-color: var(--ox);
-          color: var(--ox);
-        }
-
-        .msg {
-          max-width: 85%;
-          padding: 0.85rem 1.2rem;
-        }
-
-        .msg-user {
-          align-self: flex-end;
-          background: var(--ink);
-          color: #f6f1e5;
-          border-radius: 0.9rem 0.9rem 0.2rem 0.9rem;
-        }
-
-        .msg-oracle {
-          align-self: flex-start;
-          background: #0f1240;
-          border: 1px solid var(--hairline);
-          border-radius: 0.2rem;
-          box-shadow: 0 0.5rem 1.2rem rgba(4, 6, 32, 0.06);
-        }
-
-        .msg-label {
-          margin-bottom: 0.4rem;
-          color: var(--ox);
-          font-family: var(--font-mono, ui-monospace), monospace;
-          font-size: 0.55rem;
-          font-weight: 600;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-        }
-
-        .msg-text {
-          margin: 0;
-          font-size: 0.88rem;
-          line-height: 1.7;
-        }
-
-        .msg-source {
-          margin-top: 0.55rem;
-          color: var(--ink-soft);
-          font-family: var(--font-mono, ui-monospace), monospace;
-          font-size: 0.5rem;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-          opacity: 0.75;
-        }
-
-        .msg-user .msg-text {
-          font-family: var(--font-body, system-ui), sans-serif;
-        }
-
-        .msg-oracle .msg-text {
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-size: 1.02rem;
-          font-style: italic;
-          color: var(--ink);
-        }
-
-        .ask-input-row {
-          display: flex;
-          gap: 0.6rem;
-          padding: 1rem 0 0.5rem;
-          border-top: 1px solid var(--hairline);
-        }
-
-        .ask-input-row :global(.alm-input) {
-          border-radius: 999px;
-        }
-
-        .ask-input-row :global(.alm-input:disabled) {
-          opacity: 0.5;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .ask-suggestion {
-            transition: none;
-          }
-        }
-      `}</style>
-    </AlmanacShell>
-  );
+      {available === null && <p role="status">{copy.checking}</p>}
+      {available === false && <><p className="service-notice" role="status">{copy.unavailable}</p>{input.trim() && <article className="message user"><p className="message-label">{copy.label}</p><p>{input}</p></article>}</>}
+      {available === true && <>
+        {messages.length === 0 && <div className="ask-suggestions">{copy.examples.map(example => <button type="button" key={example} onClick={() => { editInput(example); inputRef.current?.focus(); }}>{example}<span aria-hidden="true">↗</span></button>)}</div>}
+        <form onSubmit={event => { event.preventDefault(); void send(); }}>
+          <label htmlFor="question">{copy.label}</label>
+          <textarea ref={inputRef} id="question" placeholder={copy.placeholder} maxLength={1600} rows={4} value={input} onChange={event => { editInput(event.target.value); setRetryQuestion(''); setError(''); }} disabled={waiting} aria-describedby="question-disclosure" />
+          <p className="disclosure" id="question-disclosure">{copy.disclosure}</p>
+          <button className="primary-action" type="submit" disabled={waiting || !input.trim()}>{waiting ? copy.waiting : copy.send}<span aria-hidden="true">↗</span></button>
+        </form>
+      </>}
+      {error && <div role="alert" className="service-notice"><p>{error}</p>{available && retryQuestion && <button type="button" className="retry" onClick={() => void send(retryQuestion)} disabled={waiting}>{copy.retry}</button>}</div>}
+      {(readingQuestion || messages.length > 0) && <section className="handoff-question">
+        <label htmlFor="reading-question">{copy.handoffTitle}</label>
+        <textarea id="reading-question" maxLength={1600} rows={3} value={readingQuestion} onChange={event => {setReadingQuestion(event.target.value); setHandoffError('');}} />
+        <p className="disclosure">{copy.handoffHelp}</p>
+      </section>}
+      {handoffError && <p role="alert">{handoffError}</p>}
+      <a className="reading-link" onClick={carryQuestion} href={language === 'uk' ? '/uk/?experience=question' : '/?experience=question'}>{copy.reading}<span aria-hidden="true">↗</span></a>
+    </div>
+    <style jsx>{`
+      .ask { color: #eee5d2; --ink: #eee5d2; --ink-soft: #b4c0c7; --hairline: rgba(222,208,178,.24); }
+      .ask-head { padding-bottom: 2rem; border-bottom: 1px solid var(--hairline); }
+      .ask-head :global(.alm-h1) { font-size: clamp(2.7rem,5vw,4.5rem); line-height:1.02; }
+      .ask-intro { color: var(--ink-soft); max-width: 52ch; line-height:1.8; margin-top:1.25rem; }
+      .ask-messages { display:flex; flex-direction:column; gap:1.5rem; margin-top:2rem; }
+      .message { padding:1.25rem 1.5rem; border-left:1px solid var(--hairline); background: rgba(12,33,48,.45); }
+      .message.user { margin-left:2rem; background:rgba(234,224,203,.05); }
+      .message p { line-height:1.8; white-space:pre-wrap; margin:0; }
+      .message .message-label { font-size:.68rem; letter-spacing:.13em; text-transform:uppercase; color:#bba77e; margin-bottom:.6rem; }
+      .ask-suggestions { display:grid; gap:.6rem; margin:1.6rem 0 2rem; }
+      .ask-suggestions button { color:var(--ink); background:rgba(219,220,209,.04); border:1px solid var(--hairline); padding:1rem; display:flex; gap:1rem; justify-content:space-between; text-align:left; font:inherit; cursor:pointer; }
+      .ask-suggestions button:hover { background:rgba(219,220,209,.1); }
+      label { display:block; margin-bottom:.6rem; font-size:.85rem; }
+      textarea { width:100%; resize:vertical; border:1px solid rgba(232,218,187,.45); border-radius:5px; padding:1rem; color:var(--ink); background:#0a1b2a; font:inherit; line-height:1.7; }
+      textarea::placeholder { color:#95a7b1; }
+      textarea:focus-visible,button:focus-visible,a:focus-visible { outline:2px solid #d3b77f; outline-offset:4px; }
+      .disclosure { font-size:.78rem; color:var(--ink-soft); line-height:1.7; margin:1rem 0; }
+      .primary-action { min-height:52px; padding:.9rem 1.2rem; background:#e8ddc5; color:#0a1b2a; border:1px solid #e8ddc5; border-radius:4px; font:inherit; cursor:pointer; display:flex; gap:2rem; justify-content:space-between; }
+      button:disabled { opacity:.5; cursor:wait; }
+      .service-notice { border:1px solid var(--hairline); padding:1.2rem; line-height:1.75; color:var(--ink-soft); }
+      .retry { background:none; color:var(--ink); border:0; border-bottom:1px solid #bba77e; padding:.6rem 0; font:inherit; cursor:pointer; }
+      .handoff-question { margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--hairline); }
+      .reading-link { display:flex; justify-content:space-between; padding:1.2rem 0; margin-top:1.5rem; border-bottom:1px solid var(--hairline); color:var(--ink); text-decoration:none; }
+      @media(max-width:600px) { .message.user { margin-left:.8rem; } .primary-action { width:100%; } }
+    `}</style>
+  </AlmanacShell>;
 }

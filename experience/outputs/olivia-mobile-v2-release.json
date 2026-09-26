@@ -1,0 +1,31 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "site_name": "olivia-arcana",
+  "deploy_id": "6ab7a60c552dea441e399f9a",
+  "deploy_url": "https://6ab7a60c552dea441e399f9a--olivia-arcana.netlify.app",
+  "logs": "https://app.netlify.com/projects/olivia-arcana/deploys/6ab7a60c552dea441e399f9a",
+  "function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/functions?scope=deploy:6ab7a60c552dea441e399f9a",
+  "edge_function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/edge-functions?scope=deployid:6ab7a60c552dea441e399f9a",
+  "production_deployed": false,
+  "revision": "mobile-ritual-v2-tactile-actions",
+  "checks": {
+    "product_tests": 212,
+    "question_flow_checks": 7,
+    "native_build": "passed",
+    "preview_http": [
+      "/",
+      "/uk/",
+      "/api/reading"
+    ],
+    "viewport_sizes": [
+      "375x667",
+      "390x844",
+      "430x932",
+      "1440x1000"
+    ]
+  },
+  "limitations": [
+    "Responsive browser review; not a physical iPhone test.",
+    "Reading preparation tested with a local delayed response fixture; no live paid generation in this final pass."
+  ]
+}

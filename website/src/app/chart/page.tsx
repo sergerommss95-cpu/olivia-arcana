@@ -199,7 +199,7 @@ export default function ChartPage() {
       <div className="chart">
         {/* Header */}
         <header className="ch-head">
-          <p className="alm-kicker">The wheel of houses</p>
+          <p className="alm-kicker">Plate IV — The Wheel of Houses</p>
           <h1 className="alm-h1">Your Birth Chart</h1>
           <p className="alm-lead ch-sub">
             {chart ? chart.bigThree : "Three marks — date, hour, place — and the wheel draws itself."}
@@ -442,7 +442,7 @@ export default function ChartPage() {
                               cx={pos.x}
                               cy={pos.y}
                               r={isSel ? 15 : 10}
-                              fill="var(--paper, #e8dcc8)"
+                              fill="var(--paper, #e8e9ff)"
                               stroke={isSel ? "var(--ox, #e0b768)" : "currentColor"}
                               strokeWidth={isSel ? 1.6 : 1}
                               style={{ transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)" }}
@@ -464,7 +464,7 @@ export default function ChartPage() {
 
                       {/* Center */}
                       <g className={intro ? "cwf" : ""} style={dly(0.9)}>
-                        <circle cx={250} cy={250} r="20" fill="var(--paper, #e8dcc8)" stroke="currentColor" strokeWidth="1" />
+                        <circle cx={250} cy={250} r="20" fill="var(--paper, #e8e9ff)" stroke="currentColor" strokeWidth="1" />
                         <text
                           x={250}
                           y={251}

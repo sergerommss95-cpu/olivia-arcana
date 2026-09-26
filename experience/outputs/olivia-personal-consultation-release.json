@@ -1,0 +1,34 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "site_name": "olivia-arcana",
+  "deploy_id": "6ab6bae6a3cdabc78a81a8db",
+  "deploy_url": "https://6ab6bae6a3cdabc78a81a8db--olivia-arcana.netlify.app",
+  "logs": "https://app.netlify.com/projects/olivia-arcana/deploys/6ab6bae6a3cdabc78a81a8db",
+  "function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/functions?scope=deploy:6ab6bae6a3cdabc78a81a8db",
+  "edge_function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/edge-functions?scope=deployid:6ab6bae6a3cdabc78a81a8db",
+  "status": "draft_preview",
+  "productionChanged": false,
+  "reviewUrl": "https://6ab6bae6a3cdabc78a81a8db--olivia-arcana.netlify.app/#question",
+  "changes": [
+    "Question-linked, connected tarot interpretation",
+    "Personal answer first with optional card reference",
+    "Question coaching preserves specific wording",
+    "Generated answers retained through both explicit save actions",
+    "Late answers correctly marked unsaved"
+  ],
+  "checks": {
+    "productTests": 156,
+    "serviceTests": 25,
+    "nativeBuild": "passed",
+    "desktopAndMobile": "passed",
+    "ordinarySaveReload": "passed",
+    "approvedHeroSha256": "413304f1cea159c67fee3f8542cf5f95ebb6358891f2c08b91c38f76a965a5b2",
+    "saveBeforeGenerationThenUpdateAndReload": "passed in final hosted preview",
+    "browserErrors": 0
+  },
+  "editorialSamples": [
+    "qa-personal-consultation/work-en-release.json",
+    "qa-personal-consultation/conversation-uk-release.json",
+    "qa-personal-consultation/curiosity-en-release.json"
+  ]
+}

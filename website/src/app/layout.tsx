@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant, Cormorant_Garamond, DM_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Cormorant, Cormorant_Garamond, IBM_Plex_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import ClientShell from "@/components/ClientShell";
+import InteractivePerimeters from "@/components/InteractivePerimeters";
 import "./globals.css";
+import "./interactive-perimeter.css";
 
 // Variable cut (wght 300–700, Latin + Cyrillic) — the display face whose
 // weight responds to the reader's hand on the hero.
@@ -22,10 +25,12 @@ const cormorant = Cormorant_Garamond({
   preload: true,
 });
 
-const dmSans = DM_Sans({
+// Keep the working variable font local so a Google-font fetch cannot block a build.
+const dmSans = localFont({
+  src: "./fonts/dm-sans-latin-variable.woff2",
   variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: "100 1000",
+  style: "normal",
   display: "swap",
   preload: true,
 });
@@ -37,16 +42,16 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Olivia Arcana — Personal Astrology & Tarot Readings",
+  title: "Olivia Arcana — A personal practice of tarot",
   description:
-    "Personal astrology and tarot readings shaped by your birth chart, current transits, and the question you bring. Built for reflective clarity, not generic horoscopes.",  keywords: [
-    "astrology", "tarot", "horoscope", "birth chart", "natal chart",
-    "compatibility", "zodiac", "daily horoscope", "personalized astrology",
+    "Explore tarot with all 78 cards, a question of your own, and a private almanac for your reflections.",  keywords: [
+    "tarot", "tarot readings", "tarot card meanings", "78 tarot cards",
+    "tarot journal", "таро", "значення карт таро",
   ],
   metadataBase: new URL("https://oliviaarcana.com"),
   openGraph: {
-    title: "Olivia Arcana — Your stars, translated clearly",
-    description: "Personal astrology and tarot readings shaped by your birth chart, current transits, and your question.",
+    title: "Olivia Arcana — A different perspective",
+    description: "Tarot readings, card meanings, and space to reflect on what matters to you.",
     type: "website",
     siteName: "Olivia Arcana",
     locale: "en_US",
@@ -62,8 +67,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Olivia Arcana — Your stars, translated clearly",
-    description: "Personal astrology and tarot readings shaped by your chart and your question.",
+    title: "Olivia Arcana — A different perspective",
+    description: "Choose a card, explore its meaning, and keep what you notice.",
     images: ["/og-image.png"],
   },
   robots: { index: true, follow: true },
@@ -95,7 +100,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#e0b768",
+  themeColor: "#0b192a",
   colorScheme: "dark",
 };
 
@@ -110,19 +115,9 @@ export default function RootLayout({
     "name": "Olivia Arcana",
     "applicationCategory": "LifestyleApplication",
     "operatingSystem": "Web",
-    "description": "Personal astrology and tarot readings for reflection, clarity, and self-understanding.",
-    "offers": {
-      "@type": "Offer",
-      "price": "4.99",
-      "priceCurrency": "USD"
-    },
-    "featureList": [
-      "Birth chart readings",
-      "Tarot oracle readings",
-      "Compatibility reports",
-      "Transit timing",
-      "Astrology and tarot academy"
-    ],
+    "description": "Tarot readings and a private, device-local journal for reflection.",
+    "inLanguage": ["en", "uk"],
+    "featureList": ["78-card tarot deck", "Free one-card and three-card readings", "Card meanings", "Device-local reading journal"],
     "author": {
       "@type": "Organization",
       "name": "Olivia Arcana LLC",
@@ -158,6 +153,7 @@ export default function RootLayout({
         <ClientShell>
           {children}
         </ClientShell>
+        <InteractivePerimeters />
       </body>
     </html>
   );

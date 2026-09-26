@@ -58,7 +58,8 @@ export interface SubscriptionStatus {
 
 const TOKEN_KEY = "olivia-token";
 
-function getToken(): string | null {
+/** Use the same session selection for checkout gating and payment requests. */
+export function getPaymentSessionToken(): string | null {
   if (typeof window === "undefined") return null;
   try {
     const token = localStorage.getItem(TOKEN_KEY);
@@ -88,7 +89,7 @@ function getToken(): string | null {
 }
 
 async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const token = getToken();
+  const token = getPaymentSessionToken();
   const res = await fetch(`${API_URL}${path}`, {
     ...options,
     headers: {

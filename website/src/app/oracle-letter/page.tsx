@@ -64,7 +64,7 @@ export default function OracleLetterRoute() {
     setSaving(true);
     try {
       const canvas = await html2canvas(letterRef.current, {
-        backgroundColor: "#e8dcc8",
+        backgroundColor: "#e8e9ff",
         scale: 2,
         useCORS: true,
       });

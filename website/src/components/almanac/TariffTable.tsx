@@ -36,7 +36,7 @@ export default function TariffTable() {
       <style jsx global>{`
         .alm-tariff {
           margin: 2rem 0 2.4rem;
-          border-top: 3px solid var(--ink, #e8dcc8);
+          border-top: 3px solid var(--ink, #e8e9ff);
         }
 
         .alm-tariff-head {
@@ -69,7 +69,7 @@ export default function TariffTable() {
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
           font-size: 1.3rem;
           font-weight: 600;
-          color: var(--ink, #e8dcc8);
+          color: var(--ink, #e8e9ff);
         }
 
         .alm-tariff-what {
@@ -92,7 +92,7 @@ export default function TariffTable() {
           font-family: var(--font-mono, ui-monospace), monospace;
           font-size: 0.8rem;
           font-variant-numeric: lining-nums tabular-nums;
-          color: var(--ink, #e8dcc8);
+          color: var(--ink, #e8e9ff);
           white-space: nowrap;
         }
 

@@ -1,0 +1,22 @@
+/* One native scroll journey, followed by the rest of the same page. */
+body[data-view="home"] #hero-region { height: 1050svh; }
+body[data-view="home"] #stage {
+  position: sticky;
+  top: 0;
+  bottom: auto;
+  height: 100svh;
+  width: 100%;
+}
+body.cinema[data-view="home"] { height: auto; }
+body.cinema[data-view="home"] #stage { position: sticky; }
+body.cinema[data-view="home"] .scroll-cue { pointer-events: auto; }
+/* The original mobile journey uses the shorter nine-viewport scroll spine. */
+@media (max-width: 650px) {
+  body[data-view="home"] #hero-region { height: 900svh; }
+}
+/* A still, complete entry has no empty animation distance. */
+.quiet body[data-view="home"] #hero-region,
+.fallback body[data-view="home"] #hero-region { height: 100svh; }
+@media (prefers-reduced-motion: reduce) {
+  body[data-view="home"] #hero-region { height: 100svh; }
+}

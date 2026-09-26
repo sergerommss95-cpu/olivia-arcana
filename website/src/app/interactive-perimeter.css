@@ -1,0 +1,133 @@
+/* Ivory light travelling along a satin edge. These are affordances, not
+   replacement button surfaces: the original primary/secondary fills remain. */
+@property --oa-edge-angle {
+  syntax: '<angle>';
+  initial-value: 25deg;
+  inherits: false;
+}
+:root {
+  --oa-edge-rest: #cfbb8e49;
+  --oa-edge-light: #f4e8ca;
+  --oa-edge-metal: #c5a776;
+  --oa-edge-glass: #a2b8c6;
+}
+[data-edge-static] { position: relative; }
+[data-olivia-edge] { --oa-edge-opacity: .68; }
+[data-olivia-edge] > olivia-edge {
+  position: absolute;
+  display: block;
+  inset: -1px;
+  padding: 1px;
+  margin: 0;
+  border: 1px solid var(--oa-edge-rest);
+  border-radius: inherit;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+  opacity: var(--oa-edge-opacity);
+  transition: opacity .28s cubic-bezier(.22,1,.36,1);
+}
+/* Mask the centre completely: the highlight never washes across text or art. */
+@supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+ [data-olivia-edge] > olivia-edge {
+  border: 0;
+  background: conic-gradient(from var(--oa-edge-angle,25deg),
+    var(--oa-edge-rest) 0deg 65deg,
+    var(--oa-edge-glass) 103deg,
+    var(--oa-edge-light) 118deg,
+    var(--oa-edge-metal) 137deg,
+    var(--oa-edge-rest) 168deg 259deg,
+    #eee2c67a 288deg,
+    var(--oa-edge-rest) 325deg 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: olivia-edge-orbit 9s linear infinite;
+  animation-delay: var(--oa-edge-delay,0s);
+  animation-play-state: paused;
+ }
+ [data-edge-visible] > olivia-edge { animation-play-state: running; }
+}
+/* Native fields cannot contain an edge element. Two background clips draw
+   exactly the same one-pixel perimeter without wrapping or moving the field. */
+[data-edge-field] {
+  --oa-field-surface: #172e41;
+  border: 1px solid #bea77d94;
+  border-radius: 3px;
+  background-color: var(--oa-field-surface);
+  color: var(--ink,#f0e7d7);
+  caret-color: var(--oa-edge-light);
+}
+@supports (background: conic-gradient(from 0deg, #000, #fff)) {
+ [data-edge-field] {
+  border-color: transparent;
+  background-image: linear-gradient(var(--oa-field-surface),var(--oa-field-surface)),
+   conic-gradient(from var(--oa-edge-angle,25deg),#c9b58b66 0deg 75deg,#adc0ca 107deg,#f4e8ca 124deg,#c2a67b 147deg,#c9b58b66 179deg 270deg,#e4d8bb99 297deg,#c9b58b66 330deg 360deg);
+  background-origin: padding-box,border-box;
+  background-clip: padding-box,border-box;
+  animation: olivia-edge-orbit 11s linear infinite paused;
+  animation-delay: var(--oa-edge-delay,0s);
+ }
+ [data-edge-field][data-edge-visible] { animation-play-state: running; }
+}
+/* These text links have a deliberately quieter frame, so navigation doesn't
+   compete with the filled invitation to begin or keep a reading. */
+:is(a,button)[data-olivia-edge]:is(.quiet-link,.guidance-how,.brand,.motion-control,.scroll-cue),
+.page-top nav [data-olivia-edge],.site-header nav a:not(.nav-reading)[data-olivia-edge],
+.product-footer [data-olivia-edge] { --oa-edge-opacity: .4; }
+/* A framed disclosure needs room for its label and its existing +/− control.
+   Keep the original vertical rhythm, but give every summary the same inset. */
+details > summary[data-olivia-edge],
+.reading-reference.has-personal-reading > summary[data-olivia-edge] {
+  padding-inline: .8rem;
+  min-height: 44px;
+}
+summary[data-olivia-edge]::after { flex-shrink: 0; }
+.brand[data-olivia-edge] > olivia-edge { inset: -6px -8px; border-radius: 3px; }
+:is(.quiet-link,.guidance-how)[data-olivia-edge] > olivia-edge { inset: 0 -5px; border-radius: 3px; }
+[data-edge-toggle] { cursor: pointer; border-radius: 3px; --oa-edge-opacity: .45; }
+[data-edge-toggle] > olivia-edge { inset: -3px -5px; }
+.intention-options [data-edge-toggle] > olivia-edge { inset: 0; }
+[data-edge-art] { --oa-edge-opacity: .36; }
+[data-edge-art] > olivia-edge { inset: 0; border-radius: inherit; }
+.home-sample-reveal > olivia-edge { inset: 0 0 2.5rem; border-radius: 3.8%/2.2%; }
+[data-edge-range] { accent-color: #dac499; }
+[data-edge-range]::-webkit-slider-thumb { box-shadow: 0 0 0 2px #f4e8ca66; }
+[data-edge-range]::-moz-range-thumb { box-shadow: 0 0 0 2px #f4e8ca66; }
+[data-olivia-edge]:is(:hover,:focus-visible,:focus-within) { --oa-edge-opacity: 1; }
+[data-edge-field]:focus { --oa-field-surface: #1c364b; }
+[data-olivia-edge]:focus-visible,
+[data-edge-toggle]:has(input:focus-visible) {
+  outline: 2px solid #e6d4ab;
+  outline-offset: 4px;
+}
+[data-olivia-edge]:is(:disabled,[aria-disabled='true'],[readonly]) > olivia-edge,
+[data-edge-toggle]:has(input:disabled) > olivia-edge { opacity: 0; animation: none; }
+[data-edge-field]:is(:disabled,[readonly]) { animation: none; border-color: #c9b58b35; background-image: none; }
+[data-edge-field]:user-invalid { border-color: #d79e90; }
+/* Frozen motion retains the continuous fine frame and clear focus state. */
+.quiet [data-olivia-edge],
+.quiet [data-olivia-edge] > olivia-edge,
+[data-edge-motion='off'] [data-olivia-edge],
+[data-edge-motion='off'] [data-olivia-edge] > olivia-edge,
+[data-motion='off'] [data-olivia-edge],
+[data-motion='off'] [data-olivia-edge] > olivia-edge,
+html:has(#motion[aria-pressed='true']) [data-olivia-edge],
+html:has(#motion[aria-pressed='true']) [data-olivia-edge] > olivia-edge {
+  animation-play-state: paused !important;
+}
+@keyframes olivia-edge-orbit { to { --oa-edge-angle: 385deg; } }
+@media(prefers-reduced-motion:reduce) {
+ [data-olivia-edge],[data-olivia-edge] > olivia-edge { animation: none !important; transition: none !important; }
+}
+@media(forced-colors:active) {
+ [data-olivia-edge] > olivia-edge { background: none; mask: none; -webkit-mask: none; border: 1px solid ButtonText; opacity: 1; }
+ [data-edge-field] { background-image: none; border: 1px solid FieldText; }
+}
+@media print { olivia-edge { display:none !important; } }
+/* Native almanac navigation needs the same breathing room as reading controls. */
+html :is(.alm-mast-link,.alm-colophon-link)[data-olivia-edge]{display:inline-flex;align-items:center;justify-content:center;min-height:2.75rem;padding:.55rem .65rem;--oa-edge-opacity:.4}
+html :is(.alm-mast-link,.alm-colophon-link)[data-olivia-edge] > olivia-edge{border-radius:3px}
+html .alm-wordmark[data-olivia-edge] > olivia-edge{inset:-5px -8px;border-radius:3px;opacity:.4}
+html .reading-link[data-olivia-edge]{padding-inline:1rem}

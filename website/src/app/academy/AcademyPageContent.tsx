@@ -122,8 +122,8 @@ export function AcademyPageContent() {
           </Link>
           <p className="alm-kicker acad-room">
             {locale === "uk"
-              ? "ЧИТАЛЬНА ЗАЛА — друкарня також навчає, як справжні альманахи"
-              : "THE READING ROOM — the press also teaches, as real almanacs did"}
+              ? "Гравюра V — Читальня"
+              : "Plate V — The Reading Room"}
           </p>
           <p className="alm-kicker">
             <span aria-hidden>✦</span>
@@ -172,7 +172,7 @@ export function AcademyPageContent() {
 
         {/* ── Track sections ── */}
         <TrackSection
-          numeral={locale === "uk" ? "Полиця I · Track I" : "Shelf I · Track I"}
+          numeral={locale === "uk" ? "Полиця I" : "Shelf I"}
           title={t("academy_track_astrology")}
           description={t("academy_track_astrology_desc")}
           track="astrology"
@@ -184,7 +184,7 @@ export function AcademyPageContent() {
         />
 
         <TrackSection
-          numeral={locale === "uk" ? "Полиця II · Track II" : "Shelf II · Track II"}
+          numeral={locale === "uk" ? "Полиця II" : "Shelf II"}
           title={t("academy_track_tarot")}
           description={t("academy_track_tarot_desc")}
           track="tarot"
@@ -194,7 +194,7 @@ export function AcademyPageContent() {
         />
 
         <TrackSection
-          numeral={locale === "uk" ? "Полиця III · Track III" : "Shelf III · Track III"}
+          numeral={locale === "uk" ? "Полиця III" : "Shelf III"}
           title={t("academy_track_integrated")}
           description={t("academy_track_integrated_desc")}
           track="integrated"

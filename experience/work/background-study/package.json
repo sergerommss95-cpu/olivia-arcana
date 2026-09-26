@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "esbuild": "0.28.2",
+    "shaders": "3.2.470"
+  }
+}

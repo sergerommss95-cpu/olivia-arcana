@@ -1,0 +1,46 @@
+{
+  "date": "2026-09-25",
+  "reference": "olivia-light-leaks.html?revision=card-palette",
+  "reference_sha256": "100608f7d72a8e94f021983b47ab4d601ef1e3ee4fe6b1a697685380de0a2a12",
+  "homepage": "https://oliviaarcana.com/",
+  "changes": [
+    "Native server-rendered homepage with reference card choreography",
+    "Homepage playback stays inline",
+    "Original 96-second timing and card/camera path preserved",
+    "Native Ukrainian home, card library and 78 card pages",
+    "Optional stable reversals and explicit question guidance",
+    "Calendar reminder export and truthful service availability"
+  ],
+  "native_assets": {
+    "assets": "assets/native-card-assets.e3544e0c47da0926.js",
+    "scripts": {
+      "hero": "assets/hero.413304f1cea159c6.js",
+      "background": "assets/background.bdd422deea49eb5f.js",
+      "app": "assets/app.95b1321aee1d8723.js"
+    },
+    "stylesheet": "assets/experience.45bd6c3a842dd5c3.css"
+  },
+  "tests": {
+    "product": 73,
+    "site_and_api": 16
+  },
+  "preview_deploy": "6ab63f1c2f2b7bfc8340f38e",
+  "production_deploy": "6ab647837a10ea159cef2e7a",
+  "ai_status": "Provider credentials are configured in the hosted environment, but both English and Ukrainian live requests returned 502 provider_unavailable. Question-aware synthesis is not operational; no canned result is substituted.",
+  "remaining_service_work": [
+    "Resolve upstream AI provider rejection",
+    "Restore account/payment service before selling membership",
+    "Shop and browser push notifications are not implemented",
+    "Telegram bots remain unverified and links disabled by default"
+  ],
+  "production_checks": {
+    "hero": true,
+    "app": true,
+    "ukrainian_native_content": true,
+    "no_home_iframe": true,
+    "inline_playback": true,
+    "observed_moving_cards": true,
+    "browser_console_errors": 0,
+    "viewport_override_reset": true
+  }
+}

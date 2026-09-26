@@ -10,7 +10,6 @@
  */
 
 import TransitionLink from "@/components/transitions/TransitionLink";
-import ShaderBackdrop from "@/components/almanac/ShaderBackdrop";
 
 interface LegalShellProps {
   title: string;
@@ -21,32 +20,32 @@ interface LegalShellProps {
 export default function LegalShell({ title, updated, children }: LegalShellProps) {
   return (
     <div className="almanac alm-page">
-      <ShaderBackdrop />
+      <div className="alm-atmosphere" aria-hidden="true" />
       <header className="alm-masthead">
         <div className="alm-rule" aria-hidden />
         <div className="alm-mast-row">
           <TransitionLink href="/" className="alm-wordmark">
-            Olivia Arcana
+            Olivia <span>Arcana</span>
           </TransitionLink>
           <nav className="alm-mast-nav" aria-label="Primary">
-            <TransitionLink href="/" className="alm-mast-link">
-              Almanac
+            <TransitionLink href="/?experience=journal" className="alm-mast-link">
+              My almanac
             </TransitionLink>
-            <TransitionLink href="/daily" className="alm-mast-link">
-              Daily card
+            <TransitionLink href="/?experience=spreads" className="alm-mast-link">
+              Spreads
             </TransitionLink>
-            <TransitionLink href="/academy" className="alm-mast-link">
-              Academy
+            <TransitionLink href="/cards" className="alm-mast-link">
+              The cards
             </TransitionLink>
             <TransitionLink href="/pricing" className="alm-mast-link">
-              Tariff
+              Membership
             </TransitionLink>
-            <TransitionLink href="/oracle" className="alm-mast-cta">
-              Ask the Oracle
+            <TransitionLink href="/?experience=question" className="alm-mast-cta">
+              Begin a reading
             </TransitionLink>
           </nav>
         </div>
-        <p className="alm-mast-title">Personal Almanac</p>
+        <p className="alm-mast-title">A personal practice of tarot</p>
         <div className="alm-rule oxford" aria-hidden />
       </header>
 
@@ -78,26 +77,24 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
             </TransitionLink>
           ))}
         </nav>
-        <p className="alm-colophon-line">© MMXXVI Olivia Arcana LLC — The stars guide, you decide.</p>
+        <p className="alm-colophon-line">© 2026 Olivia Arcana — Tarot, thoughtfully personal.</p>
       </footer>
 
       <style jsx global>{`
         .alm-page {
-          --paper: #10134d;
-          --paper-bone: #181d7a;
-          --ink: #e8e9ff;
-          --ink-soft: rgba(232, 233, 255, 0.72);
-          --ink-faint: rgba(183, 188, 233, 0.66);
-          --hairline: rgba(232, 233, 255, 0.16);
-          --ox: #e0b768;
-          --ox-fill: #8d97ff;
+          --paper: #0b1c2c;
+          --paper-bone: #153045;
+          --ink: #eee6d4;
+          --ink-soft: rgba(238, 230, 212, 0.72);
+          --ink-faint: rgba(181, 196, 199, 0.66);
+          --hairline: rgba(238, 230, 212, 0.16);
+          --ox: #c1ab7c;
+          --ox-fill: #c1ab7c;
           --ease: cubic-bezier(0.16, 1, 0.3, 1);
           position: relative;
           min-height: 100svh;
-          /* CARTA COELI — a near-opaque veil over the voyage canvas: the
-             stars whisper through at ~12% while text contrast stays AA.
-             The body beneath carries the solid base colour. */
-          background: rgba(16, 19, 77, 0.8);
+          /* Continue the reading experience’s lapis and ivory palette. */
+          background: #0b1c2c;
           color: var(--ink);
           font-family: var(--font-body, system-ui), sans-serif;
           font-variant-numeric: oldstyle-nums;
@@ -121,7 +118,7 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
         }
 
         .alm-page ::selection {
-          background: rgba(224, 183, 104, 0.28);
+          background: rgba(193, 171, 124, 0.28);
         }
 
         .alm-rule {
@@ -148,11 +145,27 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
 
         .alm-wordmark {
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-size: 1.28rem;
-          font-weight: 600;
+          font-size: 2rem;
+          font-weight: 400;
           color: var(--ink);
           text-decoration: none;
           white-space: nowrap;
+        }
+
+        .alm-wordmark span {
+          margin-left: 0.55rem;
+          font-family: var(--font-body, system-ui), sans-serif;
+          font-size: 0.56rem;
+          font-weight: 500;
+          letter-spacing: 0.28em;
+          text-transform: uppercase;
+        }
+        .alm-page > .alm-atmosphere {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          background: radial-gradient(ellipse at 20% 0%, rgba(84, 113, 135, 0.2), transparent 48%), radial-gradient(ellipse at 100% 35%, rgba(164, 144, 105, 0.06), transparent 45%);
         }
 
         .alm-mast-nav {
@@ -182,13 +195,13 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
           letter-spacing: 0.12em;
           text-transform: uppercase;
           text-decoration: none;
-          border: 1px solid rgba(224, 183, 104, 0.45);
+          border: 1px solid rgba(193, 171, 124, 0.45);
           border-radius: 2px;
           padding: 0.5rem 1.05rem;
           white-space: nowrap;
           /* the house ink-flood: gilt rises from the baseline with a
              darker meniscus at its crest — never an instant swap */
-          background-image: linear-gradient(to top, #edca8b 0%, #edca8b calc(100% - 3px), #e0b768 100%);
+          background-image: linear-gradient(to top, #eee6d4 0%, #eee6d4 calc(100% - 3px), #c1ab7c 100%);
           background-repeat: no-repeat;
           background-position: 0 100%;
           background-size: 100% 0%;
@@ -201,7 +214,7 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
         .alm-mast-cta:hover,
         .alm-mast-cta:focus-visible {
           background-size: 100% 100%;
-          color: #15174c;
+          color: #0b1c2c;
           border-color: var(--ox);
         }
 
@@ -291,10 +304,35 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
           color: var(--ox);
           text-decoration: underline;
           text-underline-offset: 3px;
-          text-decoration-color: rgba(224, 183, 104, 0.4);
+          text-decoration-color: rgba(193, 171, 124, 0.4);
           transition: text-decoration-color 200ms var(--ease);
         }
 
+        .legal-prose a.alm-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 3rem;
+          padding: 0.8rem 1.6rem;
+          background: var(--ink);
+          color: var(--paper);
+          border: 1px solid var(--ink);
+          border-radius: 4px;
+          text-decoration: none;
+          font-size: 0.9rem;
+          font-weight: 600;
+        }
+        .legal-prose a.alm-btn:hover {
+          background: var(--ox);
+          border-color: var(--ox);
+        }
+        .legal-prose a.alm-link {
+          display: inline-flex;
+          min-height: 2.75rem;
+          align-items: center;
+          padding: 0.4rem 0;
+          font-weight: 600;
+        }
         .legal-prose a:hover {
           text-decoration-color: var(--ox);
         }
@@ -321,7 +359,7 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
         }
 
         .legal-prose blockquote {
-          border-left: 2px solid rgba(224, 183, 104, 0.45);
+          border-left: 2px solid rgba(193, 171, 124, 0.45);
           padding: 0.4rem 1rem;
           margin: 1.2rem 0;
           color: var(--ink-soft);

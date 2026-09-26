@@ -1,0 +1,122 @@
+/* The practice belongs to the same lapis world as the opening deck. */
+#home-content {
+  --home-ink: #e9e0cf;
+  --home-copy: #bcc7cc;
+  --home-gold: #bfad89;
+  --home-rule: #b7c0c32c;
+  color: var(--home-ink);
+  background: #0b192a;
+}
+
+#home-content .editorial-section {
+  position: relative;
+  padding-block: clamp(5rem, 9vw, 9rem);
+  border: 0;
+}
+
+#home-content #discover {
+  padding-top: clamp(4.5rem, 7vw, 7rem);
+  background: radial-gradient(ellipse at 76% 28%, #37546c23, transparent 64%);
+}
+
+#home-content .section-index {
+  color: var(--home-gold);
+  font-size: .6rem;
+  letter-spacing: .16em;
+  padding-top: .4rem;
+}
+
+#home-content .section-main h2,
+#home-content .sample-copy h2 {
+  color: var(--home-ink);
+  line-height: 1.02;
+}
+
+#home-content .section-lede {
+  color: var(--home-copy);
+  max-width: 34rem;
+  margin-bottom: 3rem;
+}
+
+#home-content .steps {
+  column-gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+#home-content .steps > div {
+  border-color: var(--home-rule);
+  padding-top: 1.65rem;
+}
+
+/* The three ideas read as an invitation, rather than numbered slides. */
+#home-content .steps span { display: none; }
+#home-content .steps h3 {
+  font-size: clamp(1.6rem, 2.2vw, 2rem);
+  line-height: 1.1;
+  margin: 0 0 .85rem;
+  color: #e2d9c7;
+}
+#home-content .steps p { color: var(--home-copy); }
+
+#home-content .sample-section {
+  padding-top: clamp(4rem, 7vw, 7rem);
+  padding-bottom: clamp(6rem, 10vw, 10rem);
+  background: radial-gradient(ellipse at 29% 48%, #334d6229, transparent 54%);
+}
+#home-content .sample-art img {
+  box-shadow: 1.25rem 2rem 3.5rem #020a1259;
+}
+#home-content .sample-art span,
+#home-content .sample-copy .eyebrow { color: var(--home-gold); }
+#home-content .sample-copy > p:not(.eyebrow):not(.privacy-note) {
+  color: var(--home-copy);
+}
+#home-content .sample-copy blockquote { color: #dfd6c4; }
+#home-content .privacy-note { color: #a2b1bb; }
+
+#home-content .guided-spreads-section {
+  background: radial-gradient(ellipse at 78% 52%, #70684f13, transparent 62%);
+}
+#home-content .guided-spreads-section .text-action,
+#home-content .text-action {
+  color: var(--home-ink);
+  border-color: #c2b08b66;
+}
+#home-content .membership-note { color: var(--home-gold); }
+
+#home-content .rooms-section { padding-top: clamp(4rem, 6vw, 6rem); }
+#home-content .room-links,
+#home-content .room-links > a { border-color: var(--home-rule); }
+#home-content .room-links span,
+#home-content .room-links i { color: var(--home-gold); }
+#home-content .room-links h3 { color: var(--home-ink); }
+#home-content .room-links > a:hover h3 { color: #f3e4c7; }
+
+#home-content .product-footer {
+  background: #0b192a;
+  border-top: 1px solid var(--home-rule);
+  color: var(--home-ink);
+}
+#home-content .product-footer p { color: var(--home-copy); }
+#home-content .product-footer .text-action { border-color: #c2b08b66; }
+
+@media (max-width: 650px) {
+  #home-content .editorial-section { padding-block: 4.5rem; }
+  #home-content #discover { padding-top: 3.5rem; }
+  #home-content .section-index { margin-bottom: 1.7rem; padding-top: 0; }
+  #home-content .section-main h2,
+  #home-content .sample-copy h2 { font-size: clamp(2.75rem, 10.6vw, 3.4rem); }
+  #home-content .section-lede { margin-bottom: 2.5rem; }
+  #home-content .steps > div { display: block; padding: 1.45rem 0; }
+  #home-content .steps h3 { font-size: 1.85rem; margin-bottom: .65rem; }
+  #home-content .steps p { max-width: 27rem; }
+  #home-content .sample-section { padding-block: 3rem 5rem; }
+  #home-content .sample-art { width: 64%; }
+  #home-content .rooms-section { padding-top: 3.5rem; }
+  #home-content .product-footer { padding-block: 2.5rem; }
+}
+
+/* Resolve the moving light into the same ground as the reading below it. */
+body[data-view="home"]:not(.cinema) #stage:after {
+  background: linear-gradient(0deg, #0b192a 0%, #0b192a8c 12%, transparent 35%),
+    linear-gradient(90deg, #06101c40, transparent 56%);
+}

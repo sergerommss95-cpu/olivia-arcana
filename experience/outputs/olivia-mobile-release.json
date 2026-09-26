@@ -1,0 +1,62 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "site_name": "olivia-arcana",
+  "deploy_id": "6ab6ea2d6c392261ea5e954b",
+  "deploy_url": "https://6ab6ea2d6c392261ea5e954b--olivia-arcana.netlify.app",
+  "logs": "https://app.netlify.com/projects/olivia-arcana/deploys/6ab6ea2d6c392261ea5e954b",
+  "function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/functions?scope=deploy:6ab6ea2d6c392261ea5e954b",
+  "edge_function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/edge-functions?scope=deployid:6ab6ea2d6c392261ea5e954b",
+  "type": "production",
+  "production_promoted": true,
+  "checks": {
+    "/": {
+      "status": 200,
+      "bytes": 78066,
+      "current_app": true
+    },
+    "/uk/": {
+      "status": 200,
+      "bytes": 87824,
+      "uk_language": true
+    },
+    "/api/reading": {
+      "status": 200,
+      "bytes": 356
+    },
+    "/experience/manifest.json": {
+      "status": 200,
+      "bytes": 15470,
+      "current_app": true,
+      "hero": "assets/hero.413304f1cea159c6.js"
+    }
+  },
+  "test_count": 212,
+  "mobile_revision": "handheld",
+  "hero_sha256": "413304f1cea159c67fee3f8542cf5f95ebb6358891f2c08b91c38f76a965a5b2",
+  "production_url": "https://oliviaarcana.com/",
+  "published_at": "2026-09-25T21:49:31.424Z",
+  "production_checks": {
+    "/": {
+      "status": 200,
+      "bytes": 78066,
+      "mobile_release_loaded": true
+    },
+    "/uk/": {
+      "status": 200,
+      "bytes": 87824,
+      "mobile_release_loaded": true,
+      "uk_language": true
+    },
+    "/api/reading": {
+      "status": 200,
+      "bytes": 356
+    },
+    "/experience/manifest.json": {
+      "status": 200,
+      "bytes": 15470,
+      "app": "assets/app.4fa820bfabea4d0f.js",
+      "hero": "assets/hero.413304f1cea159c6.js",
+      "mobile_release_loaded": true
+    }
+  }
+}

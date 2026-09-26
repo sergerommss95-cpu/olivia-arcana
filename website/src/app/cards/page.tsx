@@ -29,12 +29,14 @@ export const metadata: Metadata = {
     "tarot cards list",
     "upright and reversed tarot",
   ],
-  alternates: { canonical: URL },
+  alternates: { canonical: URL, languages: { en: URL, uk: "https://oliviaarcana.com/uk/cards/", "x-default": URL } },
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
     url: URL,
     type: "article",
+    locale: "en_US",
+    alternateLocale: ["uk_UA"],
     siteName: "Olivia Arcana",
   },
   twitter: { card: "summary", title: TITLE, description: DESCRIPTION },
@@ -88,7 +90,7 @@ export default function CardsIndexPage() {
         ))}
 
         <div className="cl-cta">
-          <a href="/oracle/" className="alm-btn">Draw a card in a living reading</a>
+          <a href="/?experience=question" className="alm-btn">Draw a card in a living reading</a>
           <a href="/academy/" className="alm-link">Study the deck in the Academy →</a>
         </div>
       </article>

@@ -12,6 +12,10 @@
   path = "/api/chat"
   function = "chat"
 
+[[edge_functions]]
+  path = "/api/reading"
+  function = "reading"
+
 [[headers]]
   for = "/*"
   [headers.values]

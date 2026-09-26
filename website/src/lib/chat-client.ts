@@ -1,110 +1,26 @@
-/**
- * chat-client.ts — Streaming SSE client for the Olivia AI chat
- *
- * Async generator that POSTs to /api/chat and yields text delta tokens
- * as they arrive from the Anthropic streaming API via the edge function.
- */
-
-export interface ChatMessage {
-  role: "user" | "assistant";
-  content: string;
-}
-
-/** Error carrying the HTTP status so callers can distinguish 429 (rate limit) from other failures. */
+/** AI responses are never replaced by pre-written copy when the service fails. */
+export interface ChatMessage { role: 'user' | 'assistant'; content: string }
 export class ChatError extends Error {
   status: number;
-  constructor(message: string, status: number) {
-    super(message);
-    this.name = "ChatError";
-    this.status = status;
+  code: string;
+  constructor(message: string, status: number, code = 'request_failed') {
+    super(message); this.name = 'ChatError'; this.status = status; this.code = code;
   }
 }
-
-/**
- * Stream chat responses from the edge function.
- * Yields text deltas as they arrive.
- * Throws on network or API errors.
- */
-export async function* streamChat(
-  messages: ChatMessage[],
-  natalContext: string,
-): AsyncGenerator<string> {
-  const response = await fetch("/api/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ messages, natalContext }),
+export async function* streamChat(messages: ChatMessage[], locale: 'en' | 'uk', signal?: AbortSignal): AsyncGenerator<string> {
+  const response = await fetch('/api/chat', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages, locale }), signal,
   });
-
-  if (!response.ok) {
-    let errorMsg = "The stars are unreachable right now.";
-    try {
-      const errBody = await response.json();
-      if (errBody.error) errorMsg = errBody.error;
-    } catch {
-      // ignore parse errors
-    }
-    throw new ChatError(errorMsg, response.status);
-  }
-
-  const reader = response.body?.getReader();
-  if (!reader) {
-    throw new Error("No response stream available");
-  }
-
-  const decoder = new TextDecoder();
-  let buffer = "";
-
-  try {
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-
-      buffer += decoder.decode(value, { stream: true });
-
-      // Process complete SSE events from buffer
-      const lines = buffer.split("\n");
-      // Keep the last potentially incomplete line in the buffer
-      buffer = lines.pop() || "";
-
-      for (const line of lines) {
-        // SSE data lines start with "data: "
-        if (!line.startsWith("data: ")) continue;
-
-        const data = line.slice(6).trim();
-
-        // End of stream marker
-        if (data === "[DONE]") return;
-
-        try {
-          const event = JSON.parse(data);
-
-          // Anthropic streaming events:
-          // - content_block_delta with delta.type === "text_delta"
-          if (
-            event.type === "content_block_delta" &&
-            event.delta?.type === "text_delta" &&
-            event.delta?.text
-          ) {
-            yield event.delta.text;
-          }
-
-          // Check for stop event
-          if (event.type === "message_stop") {
-            return;
-          }
-
-          // Check for errors in stream
-          if (event.type === "error") {
-            throw new Error(event.error?.message || "Stream error");
-          }
-        } catch (e) {
-          // Skip non-JSON lines (like event: type lines)
-          if (e instanceof SyntaxError) continue;
-          throw e;
-        }
-      }
-    }
-  } finally {
-    reader.releaseLock();
-  }
+  let result;
+  try { result = await response.json(); } catch { throw new ChatError('The interpretation service is unavailable. Please try again later.', response.status || 502); }
+  if (!response.ok) throw new ChatError(result.error || 'The interpretation service is unavailable.', response.status, result.code);
+  if (result.source !== 'ai' || typeof result.text !== 'string' || !result.text.trim()) throw new ChatError('No complete response was returned. Please try again.', 502);
+  yield result.text;
+}
+export async function questionServiceAvailable(signal?: AbortSignal): Promise<boolean> {
+  const response = await fetch('/api/chat', { signal, cache: 'no-store' });
+  if (!response.ok) return false;
+  const result = await response.json();
+  return result.available === true;
 }

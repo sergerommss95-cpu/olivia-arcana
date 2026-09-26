@@ -1,0 +1,27 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "site_name": "olivia-arcana",
+  "deploy_id": "6ab69fc04e03425b3793a408",
+  "deploy_url": "https://6ab69fc04e03425b3793a408--olivia-arcana.netlify.app",
+  "logs": "https://app.netlify.com/projects/olivia-arcana/deploys/6ab69fc04e03425b3793a408",
+  "function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/functions?scope=deploy:6ab69fc04e03425b3793a408",
+  "edge_function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/edge-functions?scope=deployid:6ab69fc04e03425b3793a408",
+  "status": "draft-preview",
+  "productionChanged": false,
+  "validation": [
+    "149 product tests passed",
+    "Product and native builds passed",
+    "Sample to personal question, personal pre-draw edit, first-card lock, cancel, membership gate and coached question handoff checked in browser",
+    "Phone form and Ukrainian entry controls checked",
+    "Published native preview has no console errors"
+  ],
+  "native": {
+    "assets": "assets/native-card-assets.e3544e0c47da0926.js",
+    "scripts": {
+      "hero": "assets/hero.413304f1cea159c6.js",
+      "background": "assets/background.bdd422deea49eb5f.js",
+      "app": "assets/app.a832b7aa2c048dd1.js"
+    },
+    "stylesheet": "assets/experience.09b7e3a535e25ff9.css"
+  }
+}

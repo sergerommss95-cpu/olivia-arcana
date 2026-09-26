@@ -10,7 +10,7 @@
 
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import PageTransition from "@/components/transitions/PageTransition";
@@ -25,6 +25,7 @@ import SkyAtlas, { SkyAtlasButton } from "@/components/sky/SkyAtlas";
 import { markCharted } from "@/components/sky/voyage";
 import InstallPrompt from "@/components/InstallPrompt";
 import { SubscriptionProvider } from "@/hooks/useSubscription";
+import { ownsExperienceStage } from "@/lib/experience-shell";
 
 declare global {
   interface Window {
@@ -110,6 +111,40 @@ function StudiesGate({ children }: { children: React.ReactNode }) {
 }
 
 export default function ClientShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const previousPath = useRef(pathname);
+  useEffect(() => {
+    const previous = previousPath.current;
+    previousPath.current = pathname;
+    // Also cover programmatic Next navigation and browser history entries
+    // created before this boundary was installed.
+    if (previous !== pathname && (ownsExperienceStage(previous) || ownsExperienceStage(pathname))) {
+      window.location.reload();
+    }
+  }, [pathname]);
+  useEffect(() => {
+    const navigateNativeDocument = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const anchor = (event.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!anchor || anchor.hasAttribute("download") || (anchor.target && !["_self", "_top"].includes(anchor.target))) return;
+      const url = new URL(anchor.href, location.href);
+      if (url.origin !== location.origin || !["http:", "https:"].includes(url.protocol)) return;
+      if (!ownsExperienceStage(location.pathname) && !ownsExperienceStage(url.pathname)) return;
+      // Hash changes belong to the tarot application's existing router.
+      if (url.pathname === location.pathname && url.search === location.search && url.hash) return;
+      event.preventDefault();
+      location.assign(url.href);
+    };
+    // Handoff links must save their text (or cancel on storage failure) first.
+    // Native anchors then cross the renderer boundary in a fresh document.
+    // Next-managed navigation still has the pathname reload fallback above.
+    document.addEventListener("click", navigateNativeDocument);
+    return () => document.removeEventListener("click", navigateNativeDocument);
+  }, []);
+  // The question conversation and localized library share the tarot product's
+  // own ground; legacy sky controls and extra renderers do not belong here.
+  const questionPage = ["/ask", "/ask/", "/uk/ask", "/uk/ask/"].includes(pathname || "");
+  const ownsStage = ownsExperienceStage(pathname) || questionPage || pathname === "/uk/cards" || pathname?.startsWith("/uk/cards/");
   // Tier 2 gate — basic client-only render
   const [mounted, setMounted] = useState(false);
 
@@ -121,22 +156,22 @@ export default function ClientShell({ children }: { children: React.ReactNode })
   return (
     <>
       {/* EPHEMERIS — one Lenis, one rAF, one velocity for the sky. */}
-      <EphemerisScroll />
+      {!ownsStage && <EphemerisScroll />}
 
       {/* LIQUID NIGHT — the living silk-water ground, deepest layer. */}
-      <LiquidNight />
+      {!ownsStage && <LiquidNight />}
 
       {/* CARTA COELI — the one sky under the whole edition. Fixed canvas
           at z-index 0 (after the liquid in DOM order): above the ground,
           below every page. */}
-      <SkyVoyageCanvas />
+      {!ownsStage && <SkyVoyageCanvas />}
 
       {/* Subscription context — provides useSubscription() to all components */}
       <SubscriptionProvider>
         {/* Page content — promoted into its own stacking context so it
             always paints above the sky canvas (z 0). */}
         <div style={{ position: "relative", zIndex: 1 }}>
-          {mounted ? (
+          {mounted && !ownsStage ? (
             <PageTransition>{children}</PageTransition>
           ) : (
             <>{children}</>
@@ -146,19 +181,19 @@ export default function ClientShell({ children }: { children: React.ReactNode })
 
       {/* PARLOR LAYER — the ritual's ambient hands (oa-ritual bus).
           Parked until the sibling lane lands; see the import note. */}
-      <ParlorLayer />
+      {!ownsStage && <ParlorLayer />}
 
       {/* PWA — registers the service worker on mount; renders nothing
           until the browser fires beforeinstallprompt (then a bottom
           banner, 12s delayed, dismissal remembered 7 days). */}
-      <InstallPrompt />
+      {!ownsStage && <InstallPrompt />}
 
       {/* The Atlas: the engraved chart of the edition, and its opener. */}
-      <ChartScribe />
-      <StudiesGate>
+      {!ownsStage && <ChartScribe />}
+      {!ownsStage && <StudiesGate>
         <SkyAtlas />
         <SkyAtlasButton />
-      </StudiesGate>
+      </StudiesGate>}
     </>
   );
 }

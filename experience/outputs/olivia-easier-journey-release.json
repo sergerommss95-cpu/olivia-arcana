@@ -1,0 +1,19 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "site_name": "olivia-arcana",
+  "deploy_id": "6ab6ad4aa0414239ff1209ce",
+  "deploy_url": "https://6ab6ad4aa0414239ff1209ce--olivia-arcana.netlify.app",
+  "logs": "https://app.netlify.com/projects/olivia-arcana/deploys/6ab6ad4aa0414239ff1209ce",
+  "function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/functions?scope=deploy:6ab6ad4aa0414239ff1209ce",
+  "edge_function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/edge-functions?scope=deployid:6ab6ad4aa0414239ff1209ce",
+  "status": "draft-preview",
+  "review_url": "https://6ab6ad4aa0414239ff1209ce--olivia-arcana.netlify.app/#question",
+  "product_tests_passed": 153,
+  "native_routes_built": 373,
+  "hosted_checks": [
+    "Explicit AI choice, single-card selection, held card, reveal, automatic question-aware answer",
+    "No browser console errors during hosted reading",
+    "Approved hero source unchanged"
+  ],
+  "hero_sha256": "413304f1cea159c67fee3f8542cf5f95ebb6358891f2c08b91c38f76a965a5b2"
+}

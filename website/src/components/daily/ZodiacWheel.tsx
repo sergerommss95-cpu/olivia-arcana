@@ -45,7 +45,7 @@ const GLYPH_R = 152; // where glyphs sit on the ring
 
 // Ink & paper — the almanac palette, self-contained so the wheel reads
 // correctly even outside an AlmanacShell.
-const INK = "#e8dcc8";
+const INK = "#e8e9ff";
 const INK_SOFT = "rgba(232, 233, 255, 0.68)";
 const HAIRLINE = "rgba(232, 233, 255, 0.22)";
 const OX = "#e0b768";

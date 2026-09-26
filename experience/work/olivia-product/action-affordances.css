@@ -1,0 +1,317 @@
+/* A consistent invitation to act: ivory for the next step, framed lapis for
+   secondary actions, and fine rules for navigation and supporting links. */
+:root {
+  --action-paper: #eee2c8;
+  --action-ink: #122638;
+  --action-lapis: #162c40;
+  --action-edge: #c8b58b99;
+  --action-ease: cubic-bezier(.22, .7, .2, 1);
+}
+
+.reading-link,
+.solid-action {
+  border: 1px solid var(--action-paper);
+  border-radius: 3px;
+  background: var(--action-paper);
+  color: var(--action-ink);
+  min-height: 52px;
+  padding: .8rem 1.2rem;
+  font: 500 .8125rem/1.45 'DM Sans', sans-serif;
+  text-align: left;
+  transition: background .25s, border-color .25s, box-shadow .25s;
+}
+.reading-link { width: 14.1rem; gap: 1.4rem; }
+.reading-link > span { padding: 0; }
+.reading-link > span::after { display: none; }
+.reading-link i {
+  border: 0;
+  border-left: 1px solid #12263830;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  width: 2.2rem;
+  height: 1.5rem;
+  flex: 0 0 2.2rem;
+  padding-left: .6rem;
+  font-size: 1.15rem;
+}
+.reading-link:hover i { background: transparent; color: inherit; transform: translate(2px, -2px); }
+.solid-action:disabled { opacity: .42; cursor: not-allowed; box-shadow: none; }
+
+.text-action,
+.share-reflection .share-copy,
+.share-reflection .share-native,
+#download-reading,
+#download-spread,
+#refresh-spread-access,
+#reveal-flow,
+#reveal-skip,
+.art-look {
+  border: 1px solid var(--action-edge);
+  border-radius: 3px;
+  background: #142a3dba;
+  color: var(--ink);
+  min-height: 46px;
+  padding: .72rem 1rem;
+  font-size: .75rem;
+  line-height: 1.5;
+  text-align: left;
+  transition: background .25s, border-color .25s, color .25s;
+}
+.text-action:hover { opacity: 1; }
+#home-content .text-action { background: var(--action-lapis); border-color: var(--action-edge); }
+.spread-showcase-caption .text-action { max-width: 13rem; }
+#deal-spread { border: 1px solid var(--action-edge); padding: .65rem 1rem; font-size: .6875rem; }
+.share-reflection .save-actions { align-items: stretch; }
+.share-reflection .save-actions .text-action { margin: 0; }
+.spread-insight .spread-controls .quiet-link { padding: .65rem .75rem; }
+
+/* Navigation stays light. The reading entrance has a visible outline even
+   before hover, while the primary invitation lives beside the hero copy. */
+.site-header nav a:not(.nav-reading),
+.page-top nav a,
+.quiet-link,
+.provenance a,
+.card-lesson a {
+  text-decoration-line: underline;
+  text-decoration-color: #cfbc942e;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .4em;
+  transition: color .25s, text-decoration-color .25s, background .25s;
+}
+.site-header .nav-reading {
+  border: 1px solid #d4c19c8c;
+  border-radius: 3px;
+  background: #10223670;
+  padding: .65rem 1rem;
+  min-height: 44px;
+  gap: 1rem;
+  color: #f0e4cd;
+  text-decoration: none;
+}
+body[data-view="today"] a[href="#today"]:not(.text-action),
+body[data-view="journal"] .page-top a[href="#journal"],
+body[data-view="spreads"] .page-top a[href="#spreads"] {
+  color: #f1e3c8;
+  text-decoration-color: #cfb785;
+}
+.quiet-link { min-height: 44px; }
+#resume-link { min-height: 28px; padding: .3rem 0; }
+@media (min-width: 900px) and (max-height: 800px) {
+  .intro .intro-body { margin-top: 1rem; }
+  .intro .reading-link { margin-top: 1rem; }
+  .intro .reading-facts { display: inline-block; vertical-align: middle; margin-right: .85rem; }
+  .intro #resume-link { vertical-align: middle; margin-top: .7rem; }
+}
+.remove-entry { color: #b6b3a9; text-decoration-color: #b6b3a94a; }
+
+.experience-controls .journey-control {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  padding: .65rem 1.15rem;
+  border: 1px solid #d7c49c99;
+  border-radius: 3px;
+  background: #102336d9;
+  color: #f0e5d0;
+  font: 500 .75rem/1.3 'DM Sans', sans-serif;
+  white-space: nowrap;
+}
+.experience-controls .journey-control::before {
+  content: '▶';
+  font-size: .62rem;
+  line-height: 1;
+  color: #dec69b;
+  margin-right: .65rem;
+}
+.experience-controls .journey-control[aria-pressed="true"]::before { content: 'Ⅱ'; }
+.experience-controls .motion-control { text-decoration: underline; text-decoration-color: #c8b58b55; text-underline-offset: .5em; }
+
+/* A field reads as a place to write, rather than another line of prose. */
+textarea,
+.practice-fields input:not([type="checkbox"]),
+.journal-practice select,
+#spread-paths input {
+  background: #193145;
+  border: 1px solid #c9b59082;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 3px #03101c26;
+  color: #f0e7d7;
+  caret-color: #e1c48b;
+  transition: background .25s, border-color .25s;
+}
+textarea::placeholder,
+.practice-fields input::placeholder,
+#spread-paths input::placeholder { color: #b9c5c9; opacity: 1; }
+textarea:focus,
+.practice-fields input:not([type="checkbox"]):focus,
+.journal-practice select:focus,
+#spread-paths input:focus {
+  background: #1b354b;
+  border-color: #e1c48b;
+  outline: 2px solid #e1c48b;
+  outline-offset: 3px;
+}
+.intention-options span {
+  display: flex;
+  align-items: center;
+  gap: .48rem;
+  min-height: 44px;
+  border: 1px solid #b4bcb853;
+  border-radius: 3px;
+  background: #132a3ecc;
+  color: #d3dbd9;
+  padding: .65rem .75rem;
+  font-size: .6875rem;
+}
+.intention-options span::before { content: ''; width: 7px; height: 7px; border: 1px solid #b6b4a5; border-radius: 50%; flex-shrink: 0; }
+.intention-options input:checked + span { background: #e7d8b8; border-color: #e7d8b8; color: #172c3c; }
+.intention-options input:checked + span::before { border-color: #172c3c; background: #172c3c; }
+.intention-options input:focus-visible + span { outline: 2px solid #eedcbc; outline-offset: 3px; }
+
+/* The disclosure itself is a control; its explanatory text stays unboxed. */
+.card-lesson summary,
+.practice-editor summary,
+.share-reflection summary,
+.spread-deeper summary {
+  list-style: none;
+  align-items: center;
+  min-height: 56px;
+  padding: 1rem .85rem;
+  background: #17304666;
+  color: #e8ddc7;
+  border-radius: 3px;
+  transition: background .25s;
+}
+.card-lesson summary::-webkit-details-marker { display: none; }
+.card-lesson summary > span,
+.practice-editor summary > span,
+.share-reflection summary > span,
+.spread-deeper summary::after {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #c3b18e70;
+  border-radius: 50%;
+  font: 400 1rem/1 'DM Sans', sans-serif;
+}
+.card-lesson[open] summary,
+.practice-editor[open] summary,
+.share-reflection[open] summary,
+.spread-deeper[open] summary { background: #1c374c80; margin-bottom: .8rem; }
+.card-lesson[open] summary > span { transform: rotate(45deg); }
+
+/* Reading choices and saved entries remain editorial rows, with a visible
+   selected state and a deliberate arrow that invites opening the record. */
+.spread-option { border: 1px solid #c8b58b3b; margin-bottom: .65rem; border-radius: 3px; }
+.spread-options { border-top: 0; }
+.spread-option .spread-option-select { padding: 1.35rem 1rem; color: #c7d0d2; }
+.spread-option.selected { background: #193248; border-color: #c8b58b9c; }
+.spread-option-arrow { opacity: .65; transform: none; }
+.spread-option.selected .spread-option-arrow { color: #ebd3a4; }
+.journal-row,
+.revisit-row,
+.room-links > a { transition: background .25s; }
+.journal-entry .journal-row > span,
+.revisit-row > span:last-child:not(.revisit-copy),
+.room-links > a > i {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #c5b28b66;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 1;
+  color: #d7c298;
+}
+.deck-navigation button,
+.single-deck-navigation button,
+.spread-card-nav button,
+.synthesis-tabs button {
+  border: 1px solid #c4b08a70;
+  background: #183147a1;
+  border-radius: 3px;
+  min-width: 44px;
+  min-height: 44px;
+  text-decoration: none;
+}
+.synthesis-tabs button[aria-current="step"] { background: #e6d8ba; color: #152a3b; border-color: #e6d8ba; }
+.single-deck-navigation { border-bottom: 0; }
+
+@media (hover: hover) {
+  .reading-link:hover,
+  .solid-action:hover:not(:disabled) { background: #fff0d3; border-color: #fff0d3; box-shadow: 0 5px 18px #020a1629; }
+  .text-action:hover:not(:disabled),
+  #home-content .text-action:hover,
+  .site-header .nav-reading:hover,
+  .experience-controls .journey-control:hover,
+  #download-reading:hover,
+  #download-spread:hover,
+  #refresh-spread-access:hover,
+  #reveal-flow:hover,
+  #reveal-skip:hover,
+  .share-reflection .share-copy:hover,
+  .share-reflection .share-native:hover,
+  .art-look:hover { background: #254058; border-color: #ead7b2; }
+  .quiet-link:hover,
+  .site-header nav a:not(.nav-reading):hover,
+  .page-top nav a:hover,
+  .card-lesson a:hover,
+  .provenance a:hover { color: #f0e1c2; text-decoration-color: #d7c49c; }
+  .card-lesson summary:hover,
+  .practice-editor summary:hover,
+  .share-reflection summary:hover,
+  .spread-deeper summary:hover { background: #223e538f; }
+  .journal-row:hover,
+  .revisit-row:hover,
+  .room-links > a:hover,
+  .spread-option:not(.selected):hover { background: #2541583d; }
+  .intention-options label:hover span { border-color: #dbc89f; }
+}
+
+:is(.reading-link, .solid-action, .text-action, .nav-reading, .journey-control):focus-visible,
+summary:focus-visible {
+  outline: 2px solid #f0dcaf;
+  outline-offset: 4px;
+}
+:is(.text-action, .quiet-link):disabled { opacity: .4; cursor: not-allowed; }
+/* Never make a disabled or hidden choice look available. */
+[hidden] { display: none !important; }
+.quiet .experience-controls .journey-control { display: none; }
+
+@media (max-width: 650px) {
+  .site-header { gap: .85rem; }
+  .site-header .brand > span { display: none; }
+  .site-header nav { gap: .75rem; }
+  .site-header .nav-reading { padding: .5rem .7rem; gap: .5rem; font-size: .625rem; }
+  .reading-link { width: 13.1rem; min-height: 48px; padding: .65rem 1rem; font-size: .75rem; }
+  .experience-controls { column-gap: .5rem; }
+  .experience-controls .journey-control { padding: .6rem .65rem; font-size: .625rem; }
+  .experience-controls .journey-control::before { margin-right: .4rem; font-size: .55rem; }
+  .experience-controls .motion-control { font-size: .55rem; }
+  .experience-controls .scroll-cue { font-size: .44rem; letter-spacing: .04em; gap: .35rem; }
+  .intention-options { gap: .45rem; }
+  .intention-options span { min-height: 44px; padding: .55rem .62rem; font-size: .625rem; gap: .35rem; }
+  .spread-options { gap: .45rem; }
+  .spread-option .spread-option-select { padding: 1rem .6rem; }
+  .spread-option h2 { font-size: 1.35rem; }
+  .journal-entry .journal-row > span,
+  .revisit-row > span:last-child:not(.revisit-copy) { width: 28px; height: 28px; }
+  .text-action,
+  #download-reading,
+  #download-spread { max-width: 100%; }
+}
+@media (max-width: 360px) {
+  .site-header nav { gap: .5rem; font-size: .58rem; }
+  .site-header .today-nav { font-size: .58rem; }
+  .site-header .nav-reading { font-size: .58rem; padding-inline: .55rem; gap: .35rem; }
+  .experience-controls .journey-control { padding-inline: .55rem; font-size: .58rem; }
+  .experience-controls .motion-control { font-size: .5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reading-link:hover i { transform: none; }
+}

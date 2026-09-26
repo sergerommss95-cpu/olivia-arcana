@@ -1,0 +1,21 @@
+.question-guidance{padding:1.6rem 0 2rem;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:1.8rem 0 2rem}
+.question-guidance h3{font:400 2rem/1.1 'Cormorant Garamond',Georgia,serif;color:var(--ink);margin-bottom:.8rem}
+.question-guidance p{margin:.7rem 0;line-height:1.65}.question-guidance .privacy-note{font-size:.75rem;max-width:42rem;color:var(--muted)}
+.question-guidance button{margin-top:1rem}.question-guidance button:disabled{opacity:.48}.guidance-result{margin-top:1.6rem}.guidance-status{font-size:.8rem;color:var(--muted)}
+.orientation-option{display:flex;align-items:start;gap:.85rem;padding:1.1rem 1.2rem;border:1px solid var(--rule);margin:1.3rem 0;cursor:pointer;font-size:.875rem;line-height:1.5}
+.orientation-option input{accent-color:var(--gold);width:1.1rem;height:1.1rem;flex:none;margin:.12rem 0 0}.orientation-option small{display:block;font-size:.72rem;color:var(--muted);margin-top:.2rem}
+.language-link{font-size:.7rem!important;padding:.5rem .7rem;border:1px solid var(--rule);border-radius:2px;text-decoration:none!important}
+#reading-image[data-orientation=reversed],.spread-card-face[data-orientation=reversed],#spread-detail-image[data-orientation=reversed]{rotate:180deg}
+.calendar-reminder{display:grid;grid-template-columns:minmax(0,1fr) minmax(16rem,1fr);column-gap:5rem;row-gap:.9rem;margin:3.5rem 0 1.5rem;padding:2.5rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.calendar-reminder h2{grid-column:1;font:400 clamp(2.2rem,3.5vw,3.5rem)/1.08 'Cormorant Garamond',Georgia,serif;color:var(--ink);max-width:16ch;margin:0}
+.calendar-reminder>p{grid-column:1;margin:0;font-size:.875rem;line-height:1.8;color:var(--muted);max-width:49ch}
+.calendar-reminder-form{grid-column:2;grid-row:1/span 3;align-self:center;display:grid;grid-template-columns:minmax(0,1fr);gap:.75rem;max-width:23rem;width:100%;justify-self:end}
+.calendar-reminder-form label{font-size:.75rem;letter-spacing:.035em;color:var(--ink)}
+.calendar-reminder-form input{min-height:3.4rem;width:100%;color-scheme:dark;background:#0b1d2d;color:var(--ink);border:1px solid #c1ad8159;padding:.75rem 1rem;border-radius:3px;font:400 1.05rem/1.4 'DM Sans',sans-serif}
+.calendar-reminder-form input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}.calendar-reminder-form .solid-action{width:100%;justify-content:space-between;text-align:left;min-height:3.4rem;margin:0;font-size:.8rem;line-height:1.5}
+.calendar-reminder>.privacy-note{font-size:.75rem;line-height:1.8}.calendar-reminder>.calendar-reminder-status{grid-column:1/-1;max-width:72ch;color:var(--ink)}.calendar-reminder-status:empty{display:none}
+@media(max-width:800px){.calendar-reminder{grid-template-columns:minmax(0,1fr);gap:1.1rem;margin-top:2.2rem;padding:2rem 0}.calendar-reminder-form{grid-column:1;grid-row:auto;justify-self:start;max-width:100%;margin:.5rem 0}.calendar-reminder>p{max-width:65ch}}
+/* Make room for the language route alongside the product navigation. */
+@media (max-width: 1450px) { .site-header .header-note { display: none; } }
+@media (max-width: 750px) { .site-header .spreads-nav { display: none; } }
+@media (max-width: 420px) { .site-header .language-link { font-size: .58rem; padding-inline: .4rem; } }

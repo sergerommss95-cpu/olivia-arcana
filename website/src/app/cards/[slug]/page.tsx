@@ -50,12 +50,14 @@ export async function generateMetadata({
       `${card.name} yes or no`,
       ...card.keywords,
     ],
-    alternates: { canonical: url },
+    alternates: { canonical: url, languages: { en: url, uk: `https://oliviaarcana.com/uk/cards/${slug}/`, "x-default": url } },
     openGraph: {
       title,
       description,
       url,
       type: "article",
+      locale: "en_US",
+      alternateLocale: ["uk_UA"],
       siteName: "Olivia Arcana",
       images: [
         {
@@ -238,7 +240,7 @@ export default async function CardDetailPage({
             The printed meaning is the map; the drawn card is the territory.
             Ask the Oracle and see where {card.name} falls for you.
           </p>
-          <a href="/oracle/" className="alm-btn">Draw this card in a living reading</a>
+          <a href="/?experience=question" className="alm-btn">Begin a tarot reading</a>
         </div>
 
         <section className="cd-related">

@@ -1,0 +1,40 @@
+ M website/.claude/launch.json
+ M website/public/arrival/olivia-hd.webp
+ M website/public/arrival/plate-828.webp
+ M website/public/arrival/plate.webp
+ M website/public/arrival/sanctuary-828.webp
+ M website/public/arrival/sanctuary.webp
+ M website/public/arrival/scene-828.webp
+ M website/public/arrival/scene.webp
+ M website/src/app/academy/AcademyPageContent.tsx
+ M website/src/app/academy/aspect-guide/page.tsx
+ M website/src/app/academy/card-of-the-day/page.tsx
+ M website/src/app/chart/page.tsx
+ M website/src/app/daily/page.tsx
+ M website/src/app/onboarding/page.tsx
+ M website/src/app/oracle-letter/page.tsx
+ M website/src/app/oracle/page.tsx
+ M website/src/app/page.tsx
+ M website/src/app/portrait/page.tsx
+ M website/src/app/sample/page.tsx
+ M website/src/components/InstallPrompt.tsx
+ M website/src/components/ShareSignButton.tsx
+ M website/src/components/academy/AspectVisualizer.tsx
+ M website/src/components/almanac/AlmanacShell.tsx
+ M website/src/components/almanac/NightRoomBand.tsx
+ M website/src/components/almanac/TariffTable.tsx
+ M website/src/components/daily/CardInfoPanel.tsx
+ M website/src/components/daily/ZodiacWheel.tsx
+ M website/src/components/hero/TheArrival.tsx
+ M website/src/components/sky/SkyAtlas.tsx
+?? website/public/arrival/arch-mask-828.webp
+?? website/public/arrival/arch-mask.webp
+?? website/public/arrival/arrival-1672.webp
+?? website/public/arrival/arrival-828.webp
+?? website/public/arrival/arrival.webp
+?? website/public/arrival/plate-1672.webp
+?? website/public/arrival/sanctuary-1672.webp
+?? website/public/arrival/scene-1672.webp
+?? website/public/deck/
+?? website/scripts/build-deck-atlas.py
+?? website/src/components/almanac/TheDealing.tsx
