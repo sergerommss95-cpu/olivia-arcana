@@ -12,7 +12,7 @@ import {
   getMinorBySuit,
   type TarotCard,
 } from "@/lib/academy/tarot-cards";
-import { getCardImagePath } from "@/lib/academy/card-images";
+import { getCardImagePath, getCardThumbPath } from "@/lib/academy/card-images";
 
 // ── Slugs ────────────────────────────────────────────────────────────
 
@@ -75,7 +75,7 @@ export function getCardBySlug(slug: string): TarotCard | undefined {
   return BY_SLUG.get(slug);
 }
 
-export { getCardImagePath };
+export { getCardImagePath, getCardThumbPath };
 
 // ── Rank & suit vocabulary ───────────────────────────────────────────
 

@@ -210,7 +210,7 @@ export function CourseDetailContent({ courseSlug }: { courseSlug: string }) {
         .crs-topic {
           padding: 0.28rem 0.7rem;
           border: 1px solid var(--hairline);
-          background: rgba(250, 246, 236, 0.6);
+          background: rgba(238, 230, 212, 0.04);
           font-size: 0.76rem;
           color: var(--ink-soft);
         }
@@ -268,13 +268,13 @@ export function CourseDetailContent({ courseSlug }: { courseSlug: string }) {
         /* Purple gradient buttons (quiz "check answers") → ink pill */
         .crs-lessons :global([style*="linear-gradient"]) {
           background: var(--ink) !important;
-          color: #f6f1e5 !important;
+          color: #0b1c2c !important;
           border-color: var(--ink) !important;
         }
 
         /* Translucent card grounds → paper */
         .crs-lessons :global([style*="rgba(232,230,240"]) {
-          background-color: rgba(250, 246, 236, 0.6) !important;
+          background-color: rgba(238, 230, 212, 0.04) !important;
         }
 
         @media (prefers-reduced-motion: reduce) {

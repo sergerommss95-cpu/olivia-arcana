@@ -6,23 +6,13 @@
  * Pre-caches the app shell on install.
  */
 
-const CACHE = "olivia-v6";
+const CACHE = "olivia-v7";
+// Current pages only (v6 pre-downloaded fourteen earlier astrology pages).
 const SHELL = [
   "/",
-  "/daily",
-  "/chart",
-  "/ask",
-  "/academy",
-  "/cosmos",
-  "/journal",
-  "/synastry",
-  "/portrait",
-  "/oracle",
-  "/sample",
-  "/story",
-  "/transits",
-  "/timing",
-  "/signs",
+  "/uk/",
+  "/cards/",
+  "/uk/cards/",
 ];
 
 // ── Install: pre-cache app shell ──

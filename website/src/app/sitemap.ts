@@ -5,7 +5,9 @@ import { CARD_SLUGS } from "./cards/card-pages";
 export const dynamic = "force-static";
 
 const ORIGIN = "https://oliviaarcana.com";
-const translatedPaths = ["/", "/cards/", ...CARD_SLUGS.map((slug) => `/cards/${slug}/`)];
+const translatedPaths = ["/", "/ask/", "/cards/", ...CARD_SLUGS.map((slug) => `/cards/${slug}/`)];
+// Gate pages with no content of their own are marked noindex; don't advertise them.
+const NOINDEX = new Set(["/oracle-letter/", "/timing/", "/transits/"].map((path) => `${ORIGIN}${path}`));
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const paired = new Map<string, { en: string; uk: string; "x-default": string }>();
@@ -16,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     paired.set(en, languages);
     paired.set(uk, languages);
   }
-  return [...new Set([...legacyUrls, ...paired.keys()])].map((url) => ({
+  return [...new Set([...legacyUrls, ...paired.keys()])].filter((url) => !NOINDEX.has(url)).map((url) => ({
     url,
     changeFrequency: url === `${ORIGIN}/` || url === `${ORIGIN}/uk/` ? "weekly" : "monthly",
     ...(paired.has(url) ? { alternates: { languages: paired.get(url)! } } : {}),

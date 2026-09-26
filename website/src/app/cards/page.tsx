@@ -6,10 +6,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
+import { socialImages, socialImageUrls } from "@/lib/social-images";
 import {
   cardGroups,
   cardNumeral,
   cardSlug,
+  getCardThumbPath,
   yesNoVerdict,
 } from "./card-pages";
 
@@ -38,8 +40,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     alternateLocale: ["uk_UA"],
     siteName: "Olivia Arcana",
+    images: socialImages("en"),
   },
-  twitter: { card: "summary", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: socialImageUrls("en") },
 };
 
 export default function CardsIndexPage() {
@@ -78,6 +81,8 @@ export default function CardsIndexPage() {
               {group.cards.map((card) => (
                 <li key={card.name}>
                   <Link href={`/cards/${cardSlug(card.name)}/`} className="cl-row">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized static thumbnail */}
+                    <img className="cl-thumb" src={getCardThumbPath(card)} width={120} height={206} alt="" loading="lazy" decoding="async" />
                     <span className="cl-no">{cardNumeral(card)}</span>
                     <span className="cl-name">{card.name}</span>
                     <span className="cl-keys">{card.keywords.slice(0, 3).join(" · ")}</span>
@@ -142,15 +147,27 @@ export default function CardsIndexPage() {
 
         .cl-row {
           display: grid;
-          grid-template-columns: 3rem 1fr auto max-content;
-          align-items: baseline;
+          grid-template-columns: 2.6rem 3rem 1fr auto max-content;
+          align-items: center;
           gap: 1rem;
-          padding: 0.62rem 0.2rem;
+          padding: 0.55rem 0.2rem;
           border-bottom: 1px solid var(--hairline);
           text-decoration: none;
           transition: background 200ms var(--ease);
         }
         .cl-row:hover { background: rgba(232, 233, 255, 0.04); }
+
+        .cl-thumb {
+          display: block;
+          width: 2.6rem;
+          height: auto;
+          aspect-ratio: 120 / 206;
+          border-radius: 3px;
+          box-shadow: 0 6px 14px rgba(2, 8, 14, 0.45), 0 0 0 1px rgba(216, 196, 156, 0.18);
+          background: #122a3f;
+          transition: transform 260ms var(--ease);
+        }
+        .cl-row:hover .cl-thumb { transform: translateY(-2px) rotate(-1.5deg); }
 
         .cl-no {
           font-family: var(--font-mono, ui-monospace), monospace;
@@ -198,7 +215,12 @@ export default function CardsIndexPage() {
 
         @media (max-width: 640px) {
           .cl-keys { display: none; }
-          .cl-row { grid-template-columns: 2.4rem 1fr max-content; }
+          .cl-row { grid-template-columns: 2.3rem 2.2rem 1fr max-content; gap: 0.8rem; }
+          .cl-thumb { width: 2.3rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .cl-thumb { transition: none; }
+          .cl-row:hover .cl-thumb { transform: none; }
         }
       `}</style>
     </AlmanacShell>

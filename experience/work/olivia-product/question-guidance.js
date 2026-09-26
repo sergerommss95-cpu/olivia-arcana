@@ -20,6 +20,7 @@ const copy = {
   manualChoice:'Read these cards together for my question',
   choiceUnavailable:'Personal readings are unavailable here for now. You can still choose cards and explore their meanings.',
   title:'Your personal reading',
+  provenance:'Prepared with AI for your question and the cards you chose. It can be mistaken; you decide what fits.',
   action:'Read my cards together ↗',
   checking:'Preparing your reading…',
   unavailable:'Your personal reading is unavailable right now. The meanings of your cards are still here.',
@@ -38,6 +39,7 @@ const copy = {
   manualChoice:'Пов’язати ці карти з моїм запитанням',
   choiceUnavailable:'Особисті тлумачення поки недоступні. Ви можете вибирати карти й досліджувати їхні значення.',
   title:'Ваше особисте читання',
+  provenance:'Підготовлено за допомогою ШІ для вашого запитання й обраних карт. Тлумачення може помилятися; що вам підходить, вирішуєте ви.',
   action:'Прочитати мої карти разом ↗',
   checking:'Готуємо ваше читання…',
   unavailable:'Ваше особисте читання зараз недоступне. Значення ваших карт залишаються тут.',
@@ -124,7 +126,8 @@ export function mountQuestionGuidance(container, record, {locale=window.OLIVIA_L
   const guidance=validateGuidance(savedGuidance||{source:'ai',locale:payload.locale,synthesis:text,createdAt:new Date().toISOString()});
   const hadFocus=document.activeElement===loader.element||(restoreLoaderFocus&&document.activeElement===document.body);
   restoreLoaderFocus=false;loader.stop();section.removeAttribute('aria-busy');
-  section.classList.remove('is-optional');section.replaceChildren(title,status,result);
+  // The reading names its source where it is read, as the method page promises.
+  section.classList.remove('is-optional');section.replaceChildren(title,make('p',c.provenance,'guidance-provenance'),status,result);
   result.replaceChildren();
   const composed=readingSections(text,locale);
   if(composed.lead){const lead=make('p',composed.lead,'guidance-lead');if(composed.lead.split(/\s+/).length>50)lead.classList.add('is-long');result.append(lead);}

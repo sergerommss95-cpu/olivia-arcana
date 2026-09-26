@@ -26,7 +26,7 @@
  #reading-view[data-guidance-state="pending"] .reading-copy>.mobile-reading-context:not(#reading-copy-guidance) {
   display:flex!important;flex-direction:column;align-items:center;margin:0;padding:0;border:0;
  }
- #reading-view .mobile-reading-context .reading-art {transition:width .6s cubic-bezier(.22,1,.36,1)}
+ #reading-view .mobile-reading-context .reading-art {transition:width .6s var(--ease-settle)}
  #reading-view[data-guidance-state="pending"] .mobile-reading-context .reading-art {width:min(52vw,12.5rem)}
  #reading-view[data-guidance-state="pending"] .reading-copy {min-height:0}
  #reading-view[data-guidance-state="pending"] .reading-loader {min-height:0;padding:2.1rem 0 1rem}

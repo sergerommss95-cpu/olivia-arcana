@@ -1,0 +1,47 @@
+<!doctype html>
+<!-- Link-preview image source (1200×630). To regenerate public/og-image.jpg and
+     public/og-image-uk.jpg: copy experience/work/fonts-inline.css here as fonts.css,
+     experience/outputs/olivia-card-back.webp as back.webp and
+     experience/work/hero-v12/assets/public/cards-portal/17_the_star.webp as star.webp,
+     then screenshot og.html?l=en and og.html?l=uk at 1200×630 (JPEG, quality 88). --><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{--base:#0b192a;--ink:#ede4d2;--muted:#c6c2b7;--gold:#b69a65}
+*{box-sizing:border-box;margin:0}
+html,body{width:1200px;height:630px;overflow:hidden;background:var(--base)}
+.frame{position:relative;width:1200px;height:630px;overflow:hidden;
+ background:radial-gradient(ellipse at 24% 42%,#37577480,transparent 58%),radial-gradient(ellipse at 12% 92%,#6b604c66,transparent 50%),radial-gradient(ellipse at 88% 10%,#27405866,transparent 55%),var(--base)}
+.cards{position:absolute;left:92px;top:62px;width:420px;height:520px}
+.card{position:absolute;width:268px;height:460px;border-radius:14px;overflow:hidden;box-shadow:0 30px 60px #02070dcc,0 0 0 1px #d8c49c33}
+.card img{width:100%;height:100%;object-fit:cover;display:block}
+.back{left:0;top:40px;transform:rotate(-8deg)}
+.face{left:130px;top:18px;transform:rotate(5deg)}
+.copy{position:absolute;left:560px;right:72px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center}
+.mark{display:flex;align-items:baseline;gap:18px;color:var(--ink)}
+.mark b{font:400 96px/1 'Cormorant Garamond',serif;letter-spacing:-.01em}
+.mark span{font:400 20px/1 'DM Sans',sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--ink)}
+.rule{width:64px;height:1px;background:var(--gold);margin:34px 0 30px}
+h1{font:italic 400 44px/1.12 'Cormorant Garamond',serif;color:var(--ink)}
+p{font:400 23px/1.5 'DM Sans',sans-serif;color:var(--muted);margin-top:18px;max-width:520px}
+.url{position:absolute;right:72px;bottom:44px;font:400 16px/1 'DM Sans',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+</style></head><body>
+<div class="frame">
+ <div class="cards">
+  <div class="card back"><img src="back.webp" alt=""></div>
+  <div class="card face"><img src="star.webp" alt=""></div>
+ </div>
+ <div class="copy">
+  <div class="mark"><b>Olivia</b><span>Arcana</span></div>
+  <div class="rule"></div>
+  <h1 id="h"></h1>
+  <p id="p"></p>
+ </div>
+ <div class="url">oliviaarcana.com</div>
+</div>
+<script>
+const copy={en:{h:'A personal practice of tarot',p:'Bring a question. Choose your cards. Keep what you notice, and return to see what changed.'},
+uk:{h:'Особиста практика Таро',p:'Поставте запитання. Оберіть карти. Збережіть те, що помітили, і поверніться, щоб побачити, що змінилося.'}};
+const l=new URLSearchParams(location.search).get('l')||'en';document.documentElement.lang=l;
+document.getElementById('h').textContent=copy[l].h;document.getElementById('p').textContent=copy[l].p;
+</script>
+</body></html>

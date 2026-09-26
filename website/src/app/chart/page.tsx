@@ -1210,7 +1210,7 @@ export default function ChartPage() {
 
         .alm-gate :global(.glass-card button) {
           background: var(--ink) !important;
-          color: #f6f1e5 !important;
+          color: #0b1c2c !important;
           border: none !important;
           box-shadow: none !important;
           text-shadow: none !important;

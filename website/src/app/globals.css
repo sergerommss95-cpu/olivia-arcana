@@ -29,8 +29,10 @@
 
 /* ─── READABILITY ENGINE: CONTRAST & HIERARCHY ─── */
 :root {
-  --background: #10134d;
-  --foreground: #e8e9ff;
+  /* The document ground matches the reading experience (lapis and ivory), so
+     overscroll and page edges never flash the earlier indigo site. */
+  --background: #0b192a;
+  --foreground: #ede4d2;
   --c-gold: #e0b768;
   --c-void: #10134d;
 
@@ -101,6 +103,11 @@
   .oa-line-in {
     transform: none !important;
   }
+}
+
+/* Body text: DM Sans for Latin, Onest for Cyrillic (see layout.tsx). */
+html {
+  --font-body: var(--font-body-latin), var(--font-body-cyrillic), system-ui, sans-serif;
 }
 
 /* The night is painted, not assumed: an opaque ground under every page,

@@ -1,4 +1,5 @@
 import { UK_TEXT, UK_CARDS } from './locale-uk.js';
+import { UK_NOTES } from './card-notes-uk.js';
 import { TAROT_CARDS } from './deck-catalog.js';
 
 export const getLocale = () => typeof window !== 'undefined' && (window.OLIVIA_LOCALE === 'uk' || window.location.pathname === '/uk' || window.location.pathname.startsWith('/uk/') || new URLSearchParams(window.location.search).get('lang') === 'uk' || (typeof document !== 'undefined' && document.documentElement.lang === 'uk')) ? 'uk' : 'en';
@@ -119,44 +120,14 @@ export function initLocale(root = document.body) {
   return () => observer.disconnect();
 }
 
-const majorPrompts = [
-  'Який невеликий початок допоможе дізнатися те, чого не навчить очікування?',
-  'Який із доступних ресурсів може допомогти зробити наступний крок?',
-  'Що ви помічаєте, але ще не можете назвати словами?',
-  'Що допоможе важливій для вас справі зростати, не виснажуючи вас?',
-  'Яка межа чи домовленість зробить ситуацію зрозумілішою?',
-  'Яке успадковане переконання підтримує вас, а яке варто переглянути?',
-  'Який вибір виражає цінність, за якою ви хочете жити?',
-  'Як виглядав би поступ, якби ви обрали один напрям?',
-  'Де можна бути водночас добрішими й чіткішими?',
-  'Що ви хочете зрозуміти самостійно, перш ніж почути ще одну думку?',
-  'Що змінюється навколо і яку частину своєї відповіді ви можете обрати?',
-  'Що потрібно врахувати для справедливого погляду на ситуацію?',
-  'Що стане помітним, якщо на мить відкласти бажаний результат?',
-  'Що ви більше не хочете нести із собою в колишній формі?',
-  'Яка невелика зміна допоможе поєднати дві різні потреби?',
-  'Що дає вам звичний сценарій і чого потребує натомість?',
-  'Яке припущення варто перевірити, перш ніж будувати на ньому рішення?',
-  'Що повертає вам хоча б невелике відчуття можливості?',
-  'Що ви знаєте, що відчуваєте і про що ще потрібно дізнатися?',
-  'Що заслуговує на вдячність, навіть якщо не розв’язує всіх питань?',
-  'Що ви розумієте інакше тепер і як це може змінити наступний крок?',
-  'Що варто визнати завершеним перед новим початком?',
-];
-
+/** Ukrainian notes are native renderings of the curated English (card-notes-uk.js). */
 export function localizeCardNotes(cardId, notes, options = {}) {
   if ((options.locale || getLocale()) !== 'uk') return notes;
-  const identity = TAROT_CARDS[cardId];
-  const card = identity && UK_CARDS[identity.name];
-  if (!card) return notes;
+  const native = UK_NOTES[cardId];
+  if (!native) return notes;
   const reversed = options.reversed === true || options.orientation === 'reversed';
-  return { ...notes,
-    meaning: reversed ? card.reversed : card.upright,
-    reversed: card.reversed,
-    prompt: majorPrompts[cardId] || `Яка з тем — ${card.keywords.slice(0, 3).join(', ')} — відгукується у вашій ситуації? Який конкретний приклад ви можете назвати?`,
-    practice: card.advice,
-    learn: `${card.name}. Ключові теми: ${card.keywords.join(', ')}. ${card.upright} Перевернуте положення: ${card.reversed}`,
-  };
+  const side = reversed ? native.reversed : native;
+  return { ...notes, meaning: side.meaning, reversed: native.reversed.meaning, prompt: side.prompt, practice: side.practice, learn: native.learn };
 }
 
 const positionPrompts = {

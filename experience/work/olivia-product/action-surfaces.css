@@ -1,5 +1,5 @@
 /* Tactile controls: surfaces carry the invitation; light is a finishing detail. */
-:root{--control-radius:14px;--control-light:#f4e6c9;--control-blue:#213d53;--control-shadow:0 5px 14px #020a1738;--control-ease:cubic-bezier(.2,.7,.2,1)}
+:root{--control-radius:14px;--control-light:#f4e6c9;--control-blue:#213d53;--control-shadow:0 5px 14px #020a1738;--control-ease:var(--ease-control)}
 :is(.reading-link,.solid-action,.text-action,.home-link,.nav-reading,.journey-control,.art-look){cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .22s var(--control-ease),box-shadow .22s var(--control-ease),translate .22s var(--control-ease),border-color .22s var(--control-ease)}
 :is(.reading-link,.solid-action){border-radius:var(--control-radius);background:linear-gradient(155deg,#f8efd9,#e6d5b2);border:1px solid #fff1ce;color:#142a3a;min-height:56px;padding:16px 23px;font:500 14px/1.4 'DM Sans',sans-serif;box-shadow:inset 0 1px 0 #fff9e8,0 3px 0 #a8997b,0 9px 24px #020a1745;--oa-edge-opacity:.22}
 .reading-link i{border:0;width:28px;height:28px;flex-basis:28px;padding:0;background:#2332470b;border-radius:50%;font-size:21px}.reading-link>span{border:0}

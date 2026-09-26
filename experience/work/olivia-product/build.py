@@ -19,13 +19,11 @@ root = p.parent.parent
 dependencies = p.parent / 'background-study/node_modules'
 esbuild = str(dependencies / '.bin/esbuild')
 subprocess.run([
-    esbuild, str(p / 'background.js'), '--bundle', '--format=iife', '--minify',
+    esbuild, str(p / 'background.js'), '--bundle', '--format=iife', '--minify', '--charset=utf8',
     '--target=es2022', '--legal-comments=inline', '--outfile=' + str(p / 'background.bundle.js'),
 ], check=True, env={**os.environ, 'NODE_PATH': str(dependencies)})
-subprocess.run([
-    esbuild, str(p / 'app.js'), '--bundle', '--format=iife', '--minify',
-    '--target=es2022', '--outfile=' + str(p / 'app.bundle.js'),
-], check=True)
+# app.bundle.js (full, Ukrainian pages) and app.en.bundle.js (no Ukrainian data).
+subprocess.run(['node', str(p / 'bundle-app.mjs')], check=True)
 
 
 def card_files(directory, expected_ids):
@@ -41,20 +39,23 @@ def card_files(directory, expected_ids):
 
 
 major_files = card_files(p.parent / 'hero-v12/assets/public/cards-portal', range(22))
+# 512×1024 copies made by work/tools/phone-art.mjs: what hero.js draws on phones.
+phone_files = card_files(p.parent / 'hero-v12/assets/public/cards-portal-phone', range(22))
 minor_files = card_files(p / 'assets/minor-arcana', range(22, 78))
 assert len(major_files.keys() | minor_files.keys()) == 78
 back_file = root / 'outputs/olivia-card-back.webp'
 template = (p / 'template.html').read_text()
 fonts = (p.parent / 'fonts-inline.css').read_text()
-style_names = ['style.css', 'home-continuity.css', 'spread-layout.css', 'single-card-flow.css']
+style_names = ['motion-tokens.css', 'style.css', 'home-continuity.css', 'spread-layout.css', 'single-card-flow.css']
 if (p / 'practice.css').exists():
     style_names.append('practice.css')
-style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css', 'mobile-coherence.css'] if (p / name).exists())
+style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css', 'support-note.css', 'mobile-coherence.css'] if (p / name).exists())
 styles = '\n'.join((p / name).read_text() for name in style_names)
 scripts = {
     'hero': (p / 'hero.js').read_text(),
     'background': (p / 'background.bundle.js').read_text(),
     'app': (p / 'app.bundle.js').read_text(),
+    'app-en': (p / 'app.en.bundle.js').read_text(),
 }
 licenses = '\n'.join((p.parent / name).read_text() for name in ['cormorant-OFL.txt', 'dmsans-OFL.txt', 'onest-OFL.txt'])
 licenses += '\nAstronomy Engine 2.1.19\n' + (p / 'node_modules/astronomy-engine/esm/astronomy.js').read_text().split('*/',1)[0].replace('/**','').replace('@preserve','').strip()
@@ -65,10 +66,18 @@ def data(file):
     return 'data:image/webp;base64,' + base64.b64encode(file.read_bytes()).decode()
 
 
-def asset_script(back, major, minor):
+def asset_script(back, major, minor, phone=None):
+    if phone is None:
+        return (
+            'const BACK_DATA=' + json.dumps(back) + ';const DETAIL_DATA=' + json.dumps(major)
+            + ';const MINOR_DATA=' + json.dumps(minor) + ';'
+        )
+    # hero.js reads DETAIL_DATA and, below 700 px, draws every card at 512×1024.
+    # Phones get that size directly; readings keep full artwork (DETAIL_FULL).
     return (
-        'const BACK_DATA=' + json.dumps(back) + ';const DETAIL_DATA=' + json.dumps(major)
-        + ';const MINOR_DATA=' + json.dumps(minor) + ';'
+        'const BACK_DATA=' + json.dumps(back) + ';const DETAIL_FULL=' + json.dumps(major)
+        + ';const DETAIL_DATA=((document.querySelector("#motion-stage")||{}).offsetWidth||innerWidth)<700?'
+        + json.dumps(phone) + ':DETAIL_FULL;const MINOR_DATA=' + json.dumps(minor) + ';'
     )
 
 
@@ -92,8 +101,9 @@ for token, value in replacements.items():
 portable = portable.replace('</head>', license_comment + '</head>')
 portable_path = root / 'outputs/olivia-almanac.html'
 
-# Retain old hash-addressed assets for already open/cached documents. The
-# manifest identifies the current deployment's complete asset set.
+# The manifest identifies the current deployment's complete asset set. Files
+# from earlier builds are removed at the end: entry pages are served fresh, and
+# the only lazily requested assets (card art) keep content-addressed names.
 hosted_dir = root / 'outputs/olivia-experience'
 assets_dir = hosted_dir / 'assets'
 assets_dir.mkdir(parents=True, exist_ok=True)
@@ -119,6 +129,7 @@ def emit_asset(label, content, extension):
 hosted_back = emit_asset('card-back', back_file.read_bytes(), 'webp')
 hosted_major = {key: emit_asset(file.stem, file.read_bytes(), 'webp') for key, file in major_files.items()}
 hosted_minor = {key: emit_asset(file.stem, file.read_bytes(), 'webp') for key, file in minor_files.items()}
+hosted_phone = {key: emit_asset(file.stem + '-phone', file.read_bytes(), 'webp') for key, file in phone_files.items()}
 font_number = 0
 
 
@@ -139,22 +150,24 @@ hosted_fonts = re.sub(r'url\(data:([^;]+);base64,([A-Za-z0-9+/=]+)\)', extract_f
 if not font_number or 'data:font/' in hosted_fonts:
     raise ValueError('Embedded fonts were not completely extracted.')
 css_url = emit_asset('experience', hosted_fonts + '\n' + styles, 'css')
-assets_url = emit_asset('card-assets', asset_script(hosted_back, hosted_major, hosted_minor)
-    + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_DATA,...MINOR_DATA}};\n', 'js')
+assets_url = emit_asset('card-assets', asset_script(hosted_back, hosted_major, hosted_minor, hosted_phone)
+    + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA}};\n', 'js')
 script_urls = {name: emit_asset(name, source, 'js') for name, source in scripts.items()}
 native_assets_url = emit_asset('native-card-assets', asset_script('/experience/' + hosted_back,
     {key: '/experience/' + value for key, value in hosted_major.items()},
-    {key: '/experience/' + value for key, value in hosted_minor.items()})
-    + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_DATA,...MINOR_DATA}};\n', 'js')
+    {key: '/experience/' + value for key, value in hosted_minor.items()},
+    {key: '/experience/' + value for key, value in hosted_phone.items()})
+    + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA}};\n', 'js')
 
 hosted = template
 hosted, style_count = re.subn(r'<style>\s*/\*FONTS\*/\s*/\*STYLE\*/\s*</style>',
     '<link rel="stylesheet" href="' + css_url + '">', hosted)
 hosted, hero_count = re.subn(r'<script>\s*/\*ASSETS\*/[\s\S]*?/\*HERO\*/\s*</script>',
     '<script defer src="' + assets_url + '"></script>\n  <script defer src="' + script_urls['hero'] + '"></script>', hosted)
-for name in ['background', 'app']:
+# The English entry loads the English-only app; Ukrainian swaps in the full one below.
+for name, bundle in [('background', 'background'), ('app', 'app-en')]:
     hosted, count = re.subn(r'<script>\s*/\*' + name.upper() + r'\*/\s*</script>',
-        '<script defer src="' + script_urls[name] + '"></script>', hosted)
+        '<script defer src="' + script_urls[bundle] + '"></script>', hosted)
     if count != 1:
         raise ValueError(f'Expected one {name} script placeholder; found {count}')
 if style_count != 1 or hero_count != 1:
@@ -169,6 +182,9 @@ localizer = subprocess.run([
     "import {translateMarkup} from './locale.js'; import {translateHomeMarkup} from './home-showcase.js'; let input=''; for await(const chunk of process.stdin) input+=chunk; process.stdout.write(translateHomeMarkup(translateMarkup(input), 'uk'));"
 ], cwd=p, input=hosted, text=True, capture_output=True, check=True)
 hosted_uk = localizer.stdout
+if hosted_uk.count(script_urls['app-en']) != 1:
+    raise ValueError('Expected one English app script in the Ukrainian entry.')
+hosted_uk = hosted_uk.replace(script_urls['app-en'], script_urls['app'])
 
 
 class HtmlReferences(HTMLParser):
@@ -225,7 +241,7 @@ for label, document in [('portable HTML', portable), ('hosted HTML', hosted), ('
 
 for url in [assets_url, *script_urls.values()]:
     validate_script((hosted_dir / url).read_text(), url)
-for url in [hosted_back, *hosted_major.values(), *hosted_minor.values()]:
+for url in [hosted_back, *hosted_major.values(), *hosted_minor.values(), *hosted_phone.values()]:
     local_reference(url, hosted_dir)
 for match in re.finditer(r'url\(\s*[\'"]?([^\)\'"\s]+)[\'"]?\s*\)', hosted_fonts + '\n' + styles):
     local_reference(match.group(1), assets_dir)
@@ -246,7 +262,11 @@ manifest = {
     'cache': {'index.html': 'no-cache', 'index.uk.html': 'no-cache', 'assets/*': 'public, max-age=31536000, immutable'},
 }
 (hosted_dir / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+stale = [file for file in assets_dir.iterdir() if 'assets/' + file.name not in manifest_assets]
+for file in stale:
+    file.unlink()
 print(portable_path, portable_path.stat().st_size)
 print(hosted_path, hosted_path.stat().st_size)
+print('Removed', len(stale), 'files from earlier builds.')
 print('Hosted assets:', len(manifest_assets), 'files;', sum(item['bytes'] for item in manifest_assets.values()), 'bytes total; fonts:', font_number)
 print('Validated all generated resource paths and JavaScript; artwork bytes are unchanged.')

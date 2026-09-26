@@ -21,9 +21,9 @@ export function mobileCardSourceQuad(bounds,width,height,angle=0){
 export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce,onBrowse}){
  let phase='idle',slot=null,quad=null,targetMap=new Map(),generation=0,hoverTimer=0,hoverReturning=false,drag=null,selected=null,activeAnimation=null,quadAnimation=null,selectedByKeyboard=false,suppressClickUntil=0;
  const layer=document.createElement('div');layer.className='single-card-layer';layer.hidden=true;
- layer.innerHTML='<div class="single-card-object"><img alt="" draggable="false"></div><div class="single-card-actions" hidden><p class="eyebrow">Your card is waiting</p><button type="button" class="solid-action">Reveal this card <span aria-hidden="true">↗</span></button><p class="single-card-hint">Take a moment. Turn it when you are ready.</p></div>';
+ layer.innerHTML='<div class="single-card-object"><img alt="" draggable="false"><i class="reveal-sheen" aria-hidden="true"><b></b></i></div><div class="single-card-actions" hidden><p class="eyebrow">Your card is waiting</p><button type="button" class="solid-action">Reveal this card <span aria-hidden="true">↗</span></button><p class="single-card-hint">Take a moment. Turn it when you are ready.</p></div>';
  document.body.append(layer);
- const card=layer.querySelector('.single-card-object'),image=card.querySelector('img'),actions=layer.querySelector('.single-card-actions'),reveal=actions.querySelector('button');
+ const card=layer.querySelector('.single-card-object'),image=card.querySelector('img'),sheen=card.querySelector('.reveal-sheen'),actions=layer.querySelector('.single-card-actions'),reveal=actions.querySelector('button');
  card.setAttribute('aria-hidden','true');
  const stage=()=>document.querySelector('#motion-stage'),choices=()=>document.querySelector('#card-choices');
  const visible=()=>document.body.dataset.view==='choose';
@@ -110,6 +110,13 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
   choices().inert=true;document.querySelector('#random-card').disabled=true;actions.hidden=false;reveal.disabled=false;
   announce('Your chosen card is still here. Reveal it when you are ready.');reveal.focus({preventScroll:true});
  }
+ // Once the face has turned, one pass of light crosses it and the card settles.
+ function revealLight(){
+  const duration=820;
+  sheen.firstElementChild.animate([{transform:'translateX(-40%) skewX(-12deg)'},{transform:'translateX(430%) skewX(-12deg)'}],{duration,easing:'cubic-bezier(.3,.1,.2,1)'});
+  image.animate([{filter:'brightness(1.12) saturate(1.04)'},{filter:'none'}],{duration,easing:'cubic-bezier(.22,1,.36,1)'});
+  return sheen.animate([{opacity:1},{opacity:1,offset:.72},{opacity:0}],{duration});
+ }
  async function revealCard(){
   if(phase!=='held')return;const token=generation;state('revealing');reveal.disabled=true;actions.hidden=true;
   // There is only one visible image. Swap it exactly edge-on, never layer two backs.
@@ -120,7 +127,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
    a=image.animate([{transform:'perspective(1100px) rotateY(-90deg)'},{transform:'perspective(1100px) rotateY(0deg)'}],{duration:740,easing:'cubic-bezier(.15,.35,.25,1)',fill:'forwards'});activeAnimation=a;try{await a.finished;}catch{return;}if(token!==generation)return;image.style.transform='';a.cancel();activeAnimation=null;
   }else {image.style.rotate=selected.orientation==='reversed'?'180deg':'';image.src=nextImage.src;}
   image.alt=selected.cardName;state('revealed');announce(`${selected.cardName}. Your reading is opening.`);
-  if(!reduced()){const a=image.animate([{opacity:1},{opacity:1}],{duration:500});activeAnimation=a;try{await a.finished;}catch{return;}if(token!==generation)return;activeAnimation=null;}
+  if(!reduced()){const a=revealLight();activeAnimation=a;try{await a.finished;}catch{return;}if(token!==generation)return;activeAnimation=null;}
   document.body.classList.add('single-reading-arrival');const destination=onRead(selected);
   if(token!==generation||!destination)return;
   state('arriving');if(!await arriveAt(destination)||token!==generation)return;

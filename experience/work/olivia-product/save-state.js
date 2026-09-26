@@ -30,3 +30,22 @@ export function guidanceSaveState(keptRecord,guidance){
  if(kept&&guidance&&kept.source===guidance.source&&kept.locale===guidance.locale&&kept.synthesis===guidance.synthesis)return null;
  return 'update';
 }
+
+/** Ask the browser to keep the almanac under storage pressure (granted silently by most). */
+export function requestDurableStorage(storage=globalThis.navigator?.storage){
+ try{if(storage?.persist&&storage?.persisted)storage.persisted().then(done=>done||storage.persist()).catch(()=>{});}catch{}
+}
+
+/** Safari on iPhone and iPad clears a site's storage after about a week without a visit, unless it runs from the Home Screen. */
+export function safariMayClear({nav=globalThis.navigator,match=globalThis.matchMedia}={}){
+ const agent=nav?.userAgent||'';
+ const ios=/iP(hone|ad|od)/.test(agent)||(nav?.platform==='MacIntel'&&nav?.maxTouchPoints>1);
+ let standalone=nav?.standalone===true;
+ try{standalone||=!!match?.('(display-mode: standalone)')?.matches;}catch{}
+ return ios&&!standalone;
+}
+
+export const SAFARI_STORAGE_NOTE={
+ en:'On iPhone and iPad, Safari may also clear them after about a week without a visit. Add Olivia to your Home Screen, or download your almanac from time to time.',
+ uk:'На iPhone та iPad Safari може також видалити їх, якщо ви не відкривали сайт близько тижня. Додайте Olivia на початковий екран або час від часу завантажуйте свій альманах.',
+};

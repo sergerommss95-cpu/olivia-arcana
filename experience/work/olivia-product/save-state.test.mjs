@@ -55,3 +55,26 @@ test('Ukrainian labels come from the shared dictionary',()=>{
  setSaveState(button,'update',{locale:'uk'});
  assert.equal(button.children[0].textContent,'Зберегти оновлене читання ');
 });
+
+test('Safari storage note targets iPhone and iPad browsers, not Home Screen apps', async () => {
+  const {safariMayClear} = await import('./save-state.js');
+  const noMatch = () => ({matches: false});
+  const iphone = {userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 Version/18.5 Mobile/15E148 Safari/604.1'};
+  assert.equal(safariMayClear({nav: iphone, match: noMatch}), true);
+  assert.equal(safariMayClear({nav: {...iphone, standalone: true}, match: noMatch}), false);
+  assert.equal(safariMayClear({nav: iphone, match: () => ({matches: true})}), false);
+  assert.equal(safariMayClear({nav: {userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)', platform: 'MacIntel', maxTouchPoints: 5}, match: noMatch}), true);
+  assert.equal(safariMayClear({nav: {userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)', platform: 'MacIntel', maxTouchPoints: 0}, match: noMatch}), false);
+  assert.equal(safariMayClear({nav: {userAgent: 'Mozilla/5.0 (Linux; Android 15; Pixel 9)'}, match: noMatch}), false);
+});
+
+test('durable storage is requested once and never throws', async () => {
+  const {requestDurableStorage} = await import('./save-state.js');
+  let asked = 0;
+  requestDurableStorage({persisted: async () => false, persist: async () => { asked++; return true; }});
+  requestDurableStorage({persisted: async () => true, persist: async () => { asked++; return true; }});
+  requestDurableStorage(undefined);
+  requestDurableStorage({persisted: () => { throw new Error('blocked'); }, persist: async () => true});
+  await new Promise(resolve => setTimeout(resolve, 10));
+  assert.equal(asked, 1);
+});

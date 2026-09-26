@@ -2,21 +2,22 @@
   "schemaVersion": 1,
   "html": {
     "path": "index.html",
-    "bytes": 38673,
-    "sha256": "7247a47b81d0d3d3998ccd8d98206b39cd58f5071c682e20fc9c3ce6d3793b33"
+    "bytes": 39185,
+    "sha256": "0eacee99e19f1ec0ce1ff510553fb59df064ee59df1b18498bace16db87a4454"
   },
   "locales": {
     "en": "index.html",
     "uk": "index.uk.html"
   },
   "native": {
-    "assets": "assets/native-card-assets.e3544e0c47da0926.js",
+    "assets": "assets/native-card-assets.7a6a5bd44fc5ec2f.js",
     "scripts": {
       "hero": "assets/hero.ea5578949b2e2776.js",
-      "background": "assets/background.09dbdd3a4214ffb9.js",
-      "app": "assets/app.ff457a817c7fbc31.js"
+      "background": "assets/background.3bba5aa61a93e616.js",
+      "app": "assets/app.4c66ef67ffca0f5d.js",
+      "app-en": "assets/app-en.82ad55011b39a79b.js"
     },
-    "stylesheet": "assets/experience.7aa05041408b09f0.css"
+    "stylesheet": "assets/experience.b4dc10712a673cd4.css"
   },
   "deck": {
     "major": 22,
@@ -340,45 +341,137 @@
       "bytes": 255422,
       "sha256": "f6b18df195c1dcbb94aa48ae1779911661abf884bc57b7dcfe8867019182ef07"
     },
-    "assets/font-1.0b9a8a33cfaa624d.ttf": {
-      "bytes": 293036,
-      "sha256": "0b9a8a33cfaa624d30f70f9b6686da769b319b8c37a55af16e29fef690108bbf"
+    "assets/00-the-fool-phone.824fdc8b2f0ff8b0.webp": {
+      "bytes": 77742,
+      "sha256": "824fdc8b2f0ff8b0f862dddccce1cccff33640734f61321f81cdc480d7711c58"
     },
-    "assets/font-2.6d37a86241a25d63.ttf": {
-      "bytes": 290236,
-      "sha256": "6d37a86241a25d63f8fe6018b4c083449886b7165c1acb15edd0f574f690ecf7"
+    "assets/01-the-magician-phone.1858c2f7b06fea25.webp": {
+      "bytes": 81808,
+      "sha256": "1858c2f7b06fea25d588283238335549ada3b4456664feafc1b81cf945154954"
     },
-    "assets/font-3.b0ae3e89a7d3ef2b.ttf": {
-      "bytes": 48280,
-      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9"
+    "assets/02-the-high-priestess-phone.787e89fa52ab21a0.webp": {
+      "bytes": 62762,
+      "sha256": "787e89fa52ab21a0e7b9a76ac6b68cda9af55f7611069d2d3ec7880a8b1a5e39"
+    },
+    "assets/03-the-empress-phone.59d753dbcfb927c1.webp": {
+      "bytes": 93750,
+      "sha256": "59d753dbcfb927c1e9e46da79a09d9c0ceaa9b1b0d8da366a0a10e8848e80497"
+    },
+    "assets/04-the-emperor-phone.054f19dc240a91eb.webp": {
+      "bytes": 84876,
+      "sha256": "054f19dc240a91ebd9f46738157680a5b3a899df0c97d6aac41e0ce14b9c1afd"
+    },
+    "assets/05-the-hierophant-phone.df6fccb5f6021187.webp": {
+      "bytes": 63694,
+      "sha256": "df6fccb5f60211872d22b94dd7cc3155635336c8c72e0ea9f7aa8216431d45ee"
+    },
+    "assets/06-the-lovers-phone.6427c2f107a3abea.webp": {
+      "bytes": 101004,
+      "sha256": "6427c2f107a3abea9c248a05b0e849ed535816848abb1b5c62d3fbf0e5c5df5c"
+    },
+    "assets/07-the-chariot-phone.1c26bf7b3d38be96.webp": {
+      "bytes": 69728,
+      "sha256": "1c26bf7b3d38be96ae5a5f047fa5af94f25bdf27d2915b39cd5830a442865d10"
+    },
+    "assets/08-strength-phone.4966bdc95d087cce.webp": {
+      "bytes": 88062,
+      "sha256": "4966bdc95d087cce21f4d90d9985965912921bd9b2c48880c254ac86d812b81a"
+    },
+    "assets/09-the-hermit-phone.1d692a804ac38514.webp": {
+      "bytes": 59644,
+      "sha256": "1d692a804ac385142615dabe9286656e49f89136a77fde678e67f3aeb3840c9a"
+    },
+    "assets/10-wheel-of-fortune-phone.bb3af2ece87a9a03.webp": {
+      "bytes": 95254,
+      "sha256": "bb3af2ece87a9a03eaaa2a85fa955b581036c68d6863309c52cece9eb57b934b"
+    },
+    "assets/11-justice-phone.81ae41d905ffd526.webp": {
+      "bytes": 72646,
+      "sha256": "81ae41d905ffd526eb4b7627791b021113c4914b9bea7468a5ff4663d1cc3670"
+    },
+    "assets/12-the-hanged-man-phone.af02eb4a36bd277f.webp": {
+      "bytes": 76490,
+      "sha256": "af02eb4a36bd277fadd0e15a2c628aea4c2e10bf05a5a5479e5929a120f20349"
+    },
+    "assets/13-death-phone.acb264534b72f2e9.webp": {
+      "bytes": 77440,
+      "sha256": "acb264534b72f2e9ec76ecb69bbbd1ff8c510bf91f2a87545d367ba8ed34ebec"
+    },
+    "assets/14-temperance-phone.a2b08139970a100a.webp": {
+      "bytes": 87830,
+      "sha256": "a2b08139970a100a6b464a7092866b2a71ff0e9a6a05207bc9d1ac3d2ae2d0dc"
+    },
+    "assets/15-the-devil-phone.5c3ce1c5686873dd.webp": {
+      "bytes": 78526,
+      "sha256": "5c3ce1c5686873dd763c281c3bc66cacc98ac26bf5b9bee19704bb239788817f"
+    },
+    "assets/16-the-tower-phone.50cb50694bbcc0ae.webp": {
+      "bytes": 60444,
+      "sha256": "50cb50694bbcc0ae80912fe1e8d7bd431ad5b5fa9b9c8349a05b28ab13b7d403"
+    },
+    "assets/17-the-star-phone.8d0c14ac410b27a2.webp": {
+      "bytes": 66568,
+      "sha256": "8d0c14ac410b27a21b838b93f565f7225dfc648f6742656efbeb18c27c48b1eb"
+    },
+    "assets/18-the-moon-phone.7fb72c9a942b66a7.webp": {
+      "bytes": 101042,
+      "sha256": "7fb72c9a942b66a701a1c3b7045fbec138fa45248fdccfcbab7014475b580379"
+    },
+    "assets/19-the-sun-phone.47817d9c3f1d728a.webp": {
+      "bytes": 78476,
+      "sha256": "47817d9c3f1d728ad449b46055ef4a2e94d27b3206e5d9563da13d1cc3aab0d9"
+    },
+    "assets/20-judgement-phone.96879d28e21f73f8.webp": {
+      "bytes": 113670,
+      "sha256": "96879d28e21f73f8f0d479f65ee34be1c8c12d6dbb46e360d76fc9f4c221ea92"
+    },
+    "assets/21-the-world-phone.449d4f5058840c3e.webp": {
+      "bytes": 109878,
+      "sha256": "449d4f5058840c3ea2bb94255f04cd50a666792497f76f1acbe88366a8993148"
+    },
+    "assets/font-1.f93443f1dec6edc5.woff2": {
+      "bytes": 65232,
+      "sha256": "f93443f1dec6edc5a813ad429d1d023e17428f551db803b0a8063c5c3aa571c4"
+    },
+    "assets/font-2.2c606d97554f1fb6.woff2": {
+      "bytes": 63512,
+      "sha256": "2c606d97554f1fb665339d52e5306713bec2a6bbf1844e669cbdf6eb1f9cf6cf"
+    },
+    "assets/font-3.f37c9b2da331dbd5.woff2": {
+      "bytes": 19144,
+      "sha256": "f37c9b2da331dbd5116b1815976fa450f9968a8abaf5e2c4cabae47f7b85ef19"
     },
     "assets/font-4.51adb4c8c5dc00b8.woff2": {
       "bytes": 6680,
       "sha256": "51adb4c8c5dc00b8a1974b32754665e5cc7522de621fdd3cb233e6834d98b480"
     },
-    "assets/experience.7aa05041408b09f0.css": {
-      "bytes": 340986,
-      "sha256": "7aa05041408b09f0ef923ed752c744eaf71deeca989fb109117ba04f610edc9e"
+    "assets/experience.b4dc10712a673cd4.css": {
+      "bytes": 343788,
+      "sha256": "b4dc10712a673cd49cdf57f3c0bea9ff6312f958a65432fefea57ea5729e4ff2"
     },
-    "assets/card-assets.b507dfa36b7ffdf1.js": {
-      "bytes": 4453,
-      "sha256": "b507dfa36b7ffdf13e94f703fceff7536043c3879aba8ae113ff36822d4bf925"
+    "assets/card-assets.a4dcb553074c60fd.js": {
+      "bytes": 5830,
+      "sha256": "a4dcb553074c60fd85d357eee64ef56401f74e08b8ade57178e7ac2203d9457a"
     },
     "assets/hero.ea5578949b2e2776.js": {
       "bytes": 33824,
       "sha256": "ea5578949b2e2776f64b4d51ff6d37b5ee0839e47b1e882e7d1d49346137904c"
     },
-    "assets/background.09dbdd3a4214ffb9.js": {
-      "bytes": 2535765,
-      "sha256": "09dbdd3a4214ffb90dd101a6a2a8bdbb191316d9d1512231840dd21790513333"
+    "assets/background.3bba5aa61a93e616.js": {
+      "bytes": 2534536,
+      "sha256": "3bba5aa61a93e6167404df17e2e07c751255b869e163882841427bc3ba47c11b"
     },
-    "assets/app.ff457a817c7fbc31.js": {
-      "bytes": 932190,
-      "sha256": "ff457a817c7fbc310233d010f4ebb664701e1666d14601247f7cf760da9837e2"
+    "assets/app.4c66ef67ffca0f5d.js": {
+      "bytes": 807420,
+      "sha256": "4c66ef67ffca0f5daf2a2c584a2162e4d4501e06aa8f3c4c129f10c3efecd3ae"
     },
-    "assets/native-card-assets.e3544e0c47da0926.js": {
-      "bytes": 5401,
-      "sha256": "e3544e0c47da0926002c94e8d09755d03724fc37dfecca1a58bb08db13a25a4f"
+    "assets/app-en.82ad55011b39a79b.js": {
+      "bytes": 551022,
+      "sha256": "82ad55011b39a79b5ad84d9f054803ece41bf8f9a310e4929387fd071dedd093"
+    },
+    "assets/native-card-assets.7a6a5bd44fc5ec2f.js": {
+      "bytes": 7042,
+      "sha256": "7a6a5bd44fc5ec2f139301d586655daa371b9d21283b8751c69a3f13ee70d625"
     }
   },
   "cache": {

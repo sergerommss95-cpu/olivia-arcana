@@ -1,5 +1,6 @@
 import { ALL_CARDS } from '../../../src/lib/academy/tarot-cards.ts';
 import { TAROT_UK } from '../../../src/lib/academy/tarot-cards-uk.ts';
+import { TAROT_NOTES } from '../../../src/lib/academy/tarot-notes.ts';
 import { boundedJSON, providerConfig, providerFailure, type ProviderDiagnostic } from './provider-service.ts';
 import { QUESTION_DIRECTIONS, type QuestionDirection } from './question-directions.ts';
 
@@ -70,7 +71,8 @@ export function readingContext(input: ReadingRequest) {
         id: selection.id, name: card.name, orientation: selection.orientation,
         position: plan ? plan[index].label : SPREAD_POSITIONS[input.spreadId][index],
         ...(plan ? { positionId: plan[index].id, positionPrompt: plan[index].prompt } : {}), keywords: card.keywords,
-        symbolicMeaning: card[selection.orientation],
+        // The product's curated, non-predictive reflection for this card and orientation.
+        symbolicMeaning: TAROT_NOTES[input.locale][original.name][selection.orientation].meaning,
       };
     }),
   };
@@ -174,8 +176,11 @@ export function createHandler(mode: 'reading' | 'chat', dependencies: Dependenci
       });
     }
     if (request.method !== 'POST') return json({ error: 'Method not allowed.', code: 'method_not_allowed' }, 405, { Allow: 'GET, POST' });
+    // Browsers always send Origin (or at least Sec-Fetch-Site) on a POST from the page.
+    // A request with neither is a script calling the paid provider directly.
     const origin = request.headers.get('origin');
-    if (origin && origin !== new URL(request.url).origin) return json({ error: 'Use this feature from Olivia Arcana.', code: 'origin_not_allowed' }, 403);
+    const sameOrigin = origin ? origin === new URL(request.url).origin : request.headers.get('sec-fetch-site') === 'same-origin';
+    if (!sameOrigin) return json({ error: 'Use this feature from Olivia Arcana.', code: 'origin_not_allowed' }, 403);
     if (!provider) return json({ error: 'Question-aware interpretation is not connected yet. Your saved cards and reflections are still available.', code: 'unavailable' }, 503);
     try {
       const raw = await readBody(request);

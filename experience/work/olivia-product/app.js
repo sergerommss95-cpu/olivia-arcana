@@ -3,7 +3,8 @@ import {initMobileExperience} from './mobile-experience.js';
 import {initMobileReading} from './mobile-reading.js';
 import {initInteractivePerimeters} from './interactive-perimeter.js';
 import {createReadingReference} from './reading-reference.js';
-import {setSaveState,guidanceSaveState} from './save-state.js';
+import {setSaveState,guidanceSaveState,requestDurableStorage,safariMayClear,SAFARI_STORAGE_NOTE} from './save-state.js';
+import {syncSupportNote} from './support-note.js';
 import {mountFirstImpression} from './first-impression.js';
 import {loadQuestionHistory,serializeQuestionHistory} from './question-history.js';
 import {initHomeShowcase} from './home-showcase.js';
@@ -40,7 +41,7 @@ const text=(selector,value)=>$(selector).textContent=selector==='#reading-questi
 const readableDate=value=>new Intl.DateTimeFormat(getLocale()==='uk'?'uk-UA':undefined,{day:'numeric',month:'long',year:'numeric'}).format(new Date(value));
 const errorText=error=>error.code==='STORAGE_CORRUPT'?'The saved almanac could not be read. Your existing data has been left untouched. You can still download this reading.':error.code==='STORAGE_LIMIT'?'This browser’s almanac is full. Download this reading to keep it.':'This browser could not save the reading. Download a copy to keep it.';
 $('#sample-art').src=assets.cards[9];
-if(window.OLIVIA_NATIVE||new URLSearchParams(location.search).get('site')==='1')document.querySelectorAll('[data-site]').forEach(a=>{a.href=getLocale()==='uk'&&a.dataset.site==='/academy'?'/uk/cards/':a.dataset.site;a.target='_top';});
+if(window.OLIVIA_NATIVE||new URLSearchParams(location.search).get('site')==='1')document.querySelectorAll('[data-site]').forEach(a=>{a.href=getLocale()==='uk'&&a.dataset.site==='/cards/'?'/uk/cards/':a.dataset.site;a.target='_top';});
 function refreshReturn(){try{const last=getLastRecord(loadRecords(storage()));$('#resume-link').hidden=!last;if(last){$('#resume-link').textContent=getLocale()==='uk'?`Повернутися до карти «${t(last.cardName)}» ↗`:`Return to ${last.cardName.replace(/^The /,'the ')} ↗`;$('#resume-link').dataset.record=last.id;}}catch{}}
 function preserveNote(){if(!sample&&currentRecord&&view==='reading'){currentRecord={...currentRecord,note:$('#reflection').value};drafts.set(currentRecord.id,currentRecord);try{saveDraft(storage(),currentRecord);}catch{}}}
 function receiveSingleGuidance(id,guidance){
@@ -67,14 +68,23 @@ function receiveSavedSingleGuidance(saved){
  }
  saveDirty=dirtyIds.size>0;
 }
+// Pages inside the product arrive softly instead of cutting in. The deck,
+// card flights and the reading ritual keep their own choreography.
+const SETTLE_VIEWS=new Set(['question','journal','spreads','today','method','membership','journey','my-deck','physical','symbols']);
+function settleView(previous,next,keepCard){
+ if(keepCard||reduced()||previous===next||!SETTLE_VIEWS.has(next))return;
+ // Opacity only: a transform would re-anchor fixed controls inside the view mid-fade.
+ $(`#${next}-view`)?.animate([{opacity:0},{opacity:1}],{duration:320,easing:'cubic-bezier(.22,1,.36,1)'});
+}
 function setView(next,{focus=true,keepCard=false}={}){
+ const previous=view;
  if(!keepCard)cardFlow?.cancel();
  if(['reading','sample'].includes(view)&&!['reading','sample'].includes(next))unmountQuestionGuidance($('#reading-copy-guidance'));
  if(view==='spreads'&&next!=='spreads')spreads.leave();
  preserveNote();transition++;motion()?.stopJourney();document.body.classList.remove('cinema');$('#leave-cinema').hidden=true;
  view=next;document.body.dataset.view=next;
  for(const id of ['question','choose','reading','journal','spreads','today','method','membership','journey','my-deck','physical','symbols'])$(`#${id}-view`).hidden=next!==id&&!(id==='reading'&&next==='sample');
- $('#card-choices').hidden=next!=='choose';window.scrollTo({top:0,behavior:'instant'});
+ $('#card-choices').hidden=next!=='choose';window.scrollTo({top:0,behavior:'instant'});settleView(previous,next,keepCard);
  if(next==='home'||next==='question')motion()?.setProgress(0);if(next==='home')motion()?.resumeHome();if(['home','question','choose'].includes(next))motion()?.resize();
  $('#opening-type').inert=next!=='home';$('#intro').inert=next!=='home';
  if(focus){const heading={question:'#question-title',choose:'#choose-title',reading:'#result-title',sample:'#result-title',journal:'#journal-title',today:'#today-title'}[next];requestAnimationFrame(()=>{const first=next==='choose'&&!$('#card-choices').inert?$('#card-choices button'):null;(first||($('#reading-view').dataset.guidanceState==='pending'&&next==='reading'?$('#reading-view .reading-loader'):(heading?$(heading):null)))?.focus({preventScroll:true});});}
@@ -102,6 +112,7 @@ function renderReading(record,isSample,{connected=false}={}){
  $('#single-impression')?.remove();preserveNote();record=drafts.get(record.id)||record;setView(isSample?'sample':'reading',{focus:!connected,keepCard:connected});sample=isSample;if(!isSample)currentRecord=record;
  const id=record.cardId,notes=localizeCardNotes(id,record.interpretation,{orientation:record.orientation});
  text('#reading-kind',isSample?'A sample reading':record.source==='physical'?(getLocale()==='uk'?'З вашої фізичної колоди':'From your physical deck'):'Your one-card reading');text('#reading-question',record.question?`“${record.question}”`:'An open reading');text('#result-title',record.cardName);const sentences=notes.meaning.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g)||[notes.meaning];text('#meaning',sentences.slice(0,2).join('').trim());text('#full-reflection',sentences.slice(2).join('').trim());$('#full-reflection-details').hidden=sentences.length<=2;$('#full-reflection-details').open=false;text('#reflection-prompt',notes.prompt);text('#practice',notes.practice);text('#card-lesson',notes.learn||CARD_NOTES[id].learn);
+ syncSupportNote($('#reading-view .page-top'),isSample?'':record.question,getLocale());
  text('#intention-frame',record.intention==='open'?'':INTENTION_NOTES[record.intention]||'');$('#intention-frame').hidden=!$('#intention-frame').textContent;
  $('#reading-image').dataset.orientation=record.orientation||'upright';$('#reading-image').src=assets.cards[id];$('#reading-image').alt=`${record.cardName} — Olivia Arcana tarot artwork`;text('#card-index',cardCaption(id)+(record.orientation==='reversed'?' · Reversed':' · Upright'));
  $('#reflection').value=record.note||'';$('#save-section .reading-notes').open=!!record.note;$('#save-section').hidden=isSample;$('#sample-cta').hidden=!isSample;$('#view-saved').hidden=true;$('#save-status').textContent='';
@@ -247,4 +258,9 @@ initMobileExperience({locale:getLocale()});
 initMobileQuestion({locale:getLocale()});
 initMobileReading();
 initInteractivePerimeters();
+// Every save asks the browser to keep the almanac; Safari on iPhone also needs a word of warning.
+addEventListener('olivia:journal-change',()=>requestDurableStorage());
+if(safariMayClear()){const note=document.createElement('p');note.className='privacy-note safari-storage-note';note.dataset.noTranslate='true';note.textContent=SAFARI_STORAGE_NOTE[getLocale()==='uk'?'uk':'en'];$('#journal-view .journal-bottom .privacy-note')?.after(note);}
+// Support appears while a question is written, before any card is drawn.
+let supportTimer=0;document.addEventListener('input',event=>{const input=event.target;if(!input?.matches?.('#question,#spread-question'))return;clearTimeout(supportTimer);supportTimer=setTimeout(()=>syncSupportNote(input,input.value,getLocale()),450);});
 refreshReturn();route();

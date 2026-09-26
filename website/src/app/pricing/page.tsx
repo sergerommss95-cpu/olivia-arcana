@@ -3,6 +3,7 @@ import Link from "next/link";
 import LegalShell from "@/components/legal/LegalShell";
 import TariffActions from "@/components/almanac/TariffActions";
 import { ACCOUNTS_ENABLED, PAYMENTS_ENABLED } from "@/lib/service-status";
+import { socialImages, socialImageUrls } from "@/lib/social-images";
 
 export const metadata: Metadata = {
   title: "Free readings & membership — Olivia Arcana",
@@ -13,7 +14,10 @@ export const metadata: Metadata = {
     description: "Start with a free reading. See what you can use today and how deeper member spreads work.",
     url: "https://oliviaarcana.com/pricing",
     type: "website",
+    siteName: "Olivia Arcana",
+    images: socialImages("en"),
   },
+  twitter: { card: "summary_large_image", title: "Free readings & membership — Olivia Arcana", description: "Start with a free reading. See what you can use today and how deeper member spreads work.", images: socialImageUrls("en") },
 };
 
 const membershipReady = ACCOUNTS_ENABLED && PAYMENTS_ENABLED;

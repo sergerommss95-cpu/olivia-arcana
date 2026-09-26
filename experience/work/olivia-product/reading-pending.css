@@ -19,7 +19,7 @@
 #spreads-view[data-guidance-state="pending"] .spread-synthesis-copy{align-self:center}
 .question-guidance[data-state="pending"]{border:0!important;padding:0!important;margin:0!important}
 .reading-loader:focus{outline:none}
-.question-guidance[data-state="ready"] .guidance-result{animation:reading-answer-arrive .7s cubic-bezier(.22,1,.36,1) both}
+.question-guidance[data-state="ready"] .guidance-result{animation:reading-answer-arrive .7s var(--ease-settle) both}
 @keyframes reading-answer-arrive{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
 @media(max-width:800px){
  #reading-view[data-guidance-state="pending"] .reading-layout{display:flex;flex-direction:column-reverse;gap:1rem;min-height:0}

@@ -154,6 +154,8 @@
   #home-content .home-footer nav {display:grid;grid-template-columns:minmax(0,1fr);gap:0;font-size:15px;line-height:1.5;min-width:0}
   #home-content .home-footer nav a {display:flex;align-items:center;min-height:52px;padding-block:10px;border-bottom:1px solid #bbaa8821}
   #home-content .home-footer-top {grid-column:auto;justify-self:start;max-width:100%;font-size:14px;line-height:1.5;white-space:normal;margin:0}
+  #home-content .home-footer nav.home-footer-legal {display:flex;flex-wrap:wrap;grid-column:auto;gap:4px 22px;padding-top:18px;font-size:14px}
+  #home-content .home-footer nav.home-footer-legal a {display:inline-flex;min-height:44px;padding-block:0;border-bottom:0}
 }
 @media (max-width:370px) {
   #home-content.home-showcase {--phone-section-gutter:20px}
