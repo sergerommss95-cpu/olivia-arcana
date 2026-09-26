@@ -60,7 +60,7 @@ Unchanged: `hero.js` (SHA-256 `ea557894…`), approved motion reference (`100608
 ## Not verified
 
 - **Physical iPhone Safari.** Toolbar collapse, safe areas with real notches, the software keyboard, and gesture feel still need a real device.
-- The deployed preview itself (see the release record), live AI generation, the payment/account flows, and server notifications.
+- The deployed preview itself: https://deploy-preview-4--olivia-arcana.netlify.app/, built by Netlify for draft PR #4, was reported published by Netlify's checks but could not be loaded from the build container. Live AI generation, the payment/account flows and server notifications were also not tested.
 
 ## Still worth doing next
 

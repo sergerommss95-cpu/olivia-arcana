@@ -12,9 +12,15 @@
     "note": "Production was not reachable from the build container (egress policy). The v3 stylesheet hash was reproduced exactly by a clean build of the base commit."
   },
   "preview": {
-    "status": "pending",
-    "mechanism": "Netlify's GitHub integration builds deploy previews for pull requests (PR #3 carries its checks). This container has no Netlify credentials and cannot reach *.netlify.app.",
-    "url": null
+    "status": "published",
+    "url": "https://deploy-preview-4--olivia-arcana.netlify.app/",
+    "url_uk": "https://deploy-preview-4--olivia-arcana.netlify.app/uk/",
+    "deploy_id": "6ab7ea87917b4400080cbbc3",
+    "deploy_permalink": "https://6ab7ea87917b4400080cbbc3--olivia-arcana.netlify.app/",
+    "built_from": "6c9854d579495b0a2368104017e76670b67bec0c",
+    "pull_request": "https://github.com/sergerommss95-cpu/olivia-arcana/pull/4",
+    "mechanism": "Netlify's GitHub integration built this deploy preview for draft PR #4 into main. Its 'Pages changed' check reported the deploy published (3382 files uploaded). The deploy-preview-4 URL follows the PR head; the permalink is the build of the tested commit.",
+    "note": "The build container could not open *.netlify.app (egress policy), so the published preview was not loaded from it. Whether personal readings are enabled depends on the deploy-preview context's environment variables."
   },
   "stylesheet": "assets/experience.7aa05041408b09f0.css",
   "app": "assets/app.ff457a817c7fbc31.js",

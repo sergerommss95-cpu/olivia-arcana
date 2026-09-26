@@ -7,6 +7,7 @@ A bilingual tarot product with a complete 78-card deck, manual card selection, g
 - [Editable product and rebuild instructions](experience/README.md)
 - [Project history, earlier iterations and coverage limits](history/README.md)
 - [Latest mobile QA — v4 coherence pass, not yet deployed](experience/outputs/qa-mobile-v4/review.md)
+- [v4 preview (draft PR #4)](https://deploy-preview-4--olivia-arcana.netlify.app/)
 - [Production mobile QA — v3](experience/outputs/qa-mobile-v3/review.md)
 - [Current production release (v3)](https://6ab7b1eb2e3eb145b023937a--olivia-arcana.netlify.app/)
 - Native Next.js application: `website/`
