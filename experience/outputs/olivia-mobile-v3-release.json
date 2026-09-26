@@ -1,0 +1,25 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "site_name": "olivia-arcana",
+  "deploy_id": "6ab7b1eb2e3eb145b023937a",
+  "deploy_url": "https://6ab7b1eb2e3eb145b023937a--olivia-arcana.netlify.app",
+  "logs": "https://app.netlify.com/projects/olivia-arcana/deploys/6ab7b1eb2e3eb145b023937a",
+  "function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/edge-functions",
+  "url": "https://oliviaarcana.com",
+  "production_deployed": true,
+  "revision": "mobile-surfaces",
+  "date": "2026-09-26",
+  "stylesheet": "assets/experience.b201b3ecb391a586.css",
+  "app": "assets/app.572dfd3119d74446.js",
+  "review": "qa-mobile-v3/review.md",
+  "verification": {
+    "production_en_uk_current_assets": true,
+    "reading_service_get_available": true,
+    "chat_service_get_available": true,
+    "product_tests": 212,
+    "mobile_question_checks": 7,
+    "native_service_tests": 49,
+    "physical_iphone_tested": false
+  }
+}

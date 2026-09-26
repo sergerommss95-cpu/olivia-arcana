@@ -1,8 +1,10 @@
 /**
- * A fine moving edge identifies an actionable surface without changing its
- * geometry, original background, arrows, or keyboard behaviour.
+ * Optional edge detail for explicitly marked surfaces only.
+ * Automatic framing of every action creates detached boxes around card art
+ * and makes navigation look like highlighted text. Surface styles carry the
+ * affordance; artwork, links and fields are never automatically outlined.
  */
-const ACTIONS='button,a[href],summary,[role="button"],input,textarea,select';
+const ACTIONS='[data-liquid-edge]';
 const FIELDS='textarea,select,input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]):not([type="file"]):not([type="submit"]):not([type="button"]):not([type="reset"])';
 const SKIP='.card-hit,[data-no-perimeter],.skip-link';
 const ART='.spread-deck-card,.spread-card,.home-sample-reveal,.home-table-card button,.aj-mini-card,.physical-card-choice,.symbol-card-link';
@@ -10,7 +12,7 @@ const ART='.spread-deck-card,.spread-card,.home-sample-reveal,.home-table-card b
 export function initInteractivePerimeters(root=document){
  const doc=root.ownerDocument||root;
  const win=doc.defaultView;
- if(!win?.MutationObserver)return ()=>{};
+ if(!win?.MutationObserver||!root.querySelector?.(ACTIONS))return ()=>{};
  // The native shell and the standalone reading bundle can share one document.
  // Keep one observer even when both progressively enhance the same controls.
  const registry=Symbol.for('olivia.interactive-perimeters');
