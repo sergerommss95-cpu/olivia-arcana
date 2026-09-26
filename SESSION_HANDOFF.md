@@ -2,6 +2,8 @@
 
 Updated 26 September 2026. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes.
 
+For work across earlier Olivia tasks, start with [the project history index](history/README.md), [decision history](history/DECISIONS.md), and [Git coverage audit](history/git-coverage-2026-09-26.md). Historical artifacts are separate from current source. The archive preserves recoverable files and documented decisions; it is not a complete recording of every unsaved edit or every conversation.
+
 ## Current state
 
 - Branch: `codex/session-handoff-2026-09-26`.

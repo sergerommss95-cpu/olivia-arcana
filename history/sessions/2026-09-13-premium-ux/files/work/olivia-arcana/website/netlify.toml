@@ -1,0 +1,22 @@
+[build]
+  command = "npx next build"
+  publish = "out"
+
+# Set NEXT_PUBLIC_API_URL in Netlify dashboard (Site → Settings → Environment).
+# Default below points at the (not-yet-deployed) production API. Override per
+# branch as needed. ANTHROPIC_API_KEY must be set as a secret server-side.
+[build.environment]
+  NEXT_PUBLIC_API_URL = "https://olivia-api.up.railway.app"
+
+[[edge_functions]]
+  path = "/api/chat"
+  function = "chat"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"

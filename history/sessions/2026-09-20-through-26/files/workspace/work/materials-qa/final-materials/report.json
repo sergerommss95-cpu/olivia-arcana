@@ -1,0 +1,784 @@
+{
+  "target": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html",
+  "tag": "final-materials",
+  "timestamp": "2026-09-21T18:53:44.314Z",
+  "options": {
+    "phases": [
+      0,
+      0.15,
+      0.47,
+      0.69,
+      1
+    ],
+    "only": "both",
+    "settle": 950,
+    "reduced": false,
+    "fallback": false
+  },
+  "syntax": [
+    {
+      "index": 0,
+      "ok": true,
+      "error": ""
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "deviceScaleFactor": 2,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "consoleWarnings": [],
+      "failedRequests": [],
+      "requests": [
+        "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html"
+      ],
+      "states": [
+        {
+          "fraction": 0,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 49,
+            "triangles": 61844,
+            "pixelRatio": 1.65,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 84,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "width": 1440,
+          "height": 1000,
+          "scrollY": 0,
+          "horizontalOverflow": false,
+          "rootClass": "has-webgl",
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "hero",
+              "opacity": "1"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          },
+          "fallbackText": [
+            "XIX",
+            "THE SUN"
+          ],
+          "frameCallbacks": 85,
+          "mainHasPanels": true
+        },
+        {
+          "fraction": 0.15,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 154,
+            "triangles": 199016,
+            "pixelRatio": 1.65,
+            "progress": 0.14994960003034075,
+            "reducedMotion": false,
+            "frames": 155,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "width": 1440,
+          "height": 1000,
+          "scrollY": 885,
+          "horizontalOverflow": false,
+          "rootClass": "has-webgl",
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "hero",
+              "opacity": "0.093"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          },
+          "fallbackText": [
+            "XIX",
+            "THE SUN"
+          ],
+          "frameCallbacks": 162,
+          "mainHasPanels": true
+        },
+        {
+          "fraction": 0.47,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 150,
+            "triangles": 179000,
+            "pixelRatio": 1.65,
+            "progress": 0.4699280999992775,
+            "reducedMotion": false,
+            "frames": 252,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "width": 1440,
+          "height": 1000,
+          "scrollY": 2773,
+          "horizontalOverflow": false,
+          "rootClass": "has-webgl",
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "field",
+              "opacity": "1"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          },
+          "fallbackText": [
+            "XIX",
+            "THE SUN"
+          ],
+          "frameCallbacks": 264,
+          "mainHasPanels": true
+        },
+        {
+          "fraction": 0.69,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 179,
+            "triangles": 199016,
+            "pixelRatio": 1.65,
+            "progress": 0.6899261391568161,
+            "reducedMotion": false,
+            "frames": 361,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "width": 1440,
+          "height": 1000,
+          "scrollY": 4071,
+          "horizontalOverflow": false,
+          "rootClass": "has-webgl",
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "celestial",
+              "opacity": "1"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          },
+          "fallbackText": [
+            "XIX",
+            "THE SUN"
+          ],
+          "frameCallbacks": 376,
+          "mainHasPanels": true
+        },
+        {
+          "fraction": 1,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 88,
+            "triangles": 43472,
+            "pixelRatio": 1.65,
+            "progress": 0.9999203909661919,
+            "reducedMotion": false,
+            "frames": 462,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "width": 1440,
+          "height": 1000,
+          "scrollY": 5900,
+          "horizontalOverflow": false,
+          "rootClass": "has-webgl",
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "oracle",
+              "opacity": "1"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          },
+          "fallbackText": [
+            "XIX",
+            "THE SUN"
+          ],
+          "frameCallbacks": 482,
+          "mainHasPanels": true
+        }
+      ],
+      "screenshots": [
+        "desktop-0000.png",
+        "desktop-0150.png",
+        "desktop-0470.png",
+        "desktop-0690.png",
+        "desktop-1000.png",
+        "desktop-draw.png"
+      ],
+      "draw": {
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 91,
+          "triangles": 62768,
+          "pixelRatio": 1.65,
+          "progress": 1,
+          "reducedMotion": false,
+          "frames": 654,
+          "cardIdentities": [
+            "The Sun",
+            "The High Priestess",
+            "The Moon",
+            "The Star",
+            "The Magician",
+            "The World",
+            "The Fool",
+            "The Empress",
+            "Strength",
+            "The Lovers",
+            "Wheel of Fortune",
+            "Temperance",
+            "The Hermit",
+            "Judgement",
+            "The Emperor",
+            "The Chariot",
+            "Justice",
+            "The Hanged Man",
+            "The Hierophant",
+            "Death",
+            "The Devil",
+            "The Tower"
+          ]
+        },
+        "width": 1440,
+        "height": 1000,
+        "scrollY": 5900,
+        "horizontalOverflow": false,
+        "rootClass": "has-webgl has-reading",
+        "canvasCount": 1,
+        "panels": [
+          {
+            "name": "oracle",
+            "opacity": "1"
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "title": "The Sun"
+        },
+        "fallbackText": [
+          "XIX",
+          "THE SUN"
+        ],
+        "frameCallbacks": 674,
+        "mainHasPanels": true
+      }
+    },
+    {
+      "name": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 3,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "consoleWarnings": [],
+      "failedRequests": [],
+      "requests": [
+        "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html"
+      ],
+      "states": [
+        {
+          "fraction": 0,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 49,
+            "triangles": 61844,
+            "pixelRatio": 1.3,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 87,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "width": 390,
+          "height": 844,
+          "scrollY": 0,
+          "horizontalOverflow": false,
+          "rootClass": "has-webgl",
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "hero",
+              "opacity": "1"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          },
+          "fallbackText": [
+            "XIX",
+            "THE SUN"
+          ],
+          "frameCallbacks": 88,
+          "mainHasPanels": true
+        },
+        {
+          "fraction": 0.15,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 154,
+            "triangles": 199016,
+            "pixelRatio": 1.3,
+            "progress": 0.1499249322849839,
+            "reducedMotion": false,
+            "frames": 153,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "width": 390,
+          "height": 844,
+          "scrollY": 747,
+          "horizontalOverflow": false,
+          "rootClass": "has-webgl",
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "hero",
+              "opacity": "0.093"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          },
+          "fallbackText": [
+            "XIX",
+            "THE SUN"
+          ],
+          "frameCallbacks": 154,
+          "mainHasPanels": true
+        },
+        {
+          "fraction": 0.47,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 50,
+            "triangles": 62696,
+            "pixelRatio": 1.3,
+            "progress": 0.4700083456797709,
+            "reducedMotion": false,
+            "frames": 226,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "width": 390,
+          "height": 844,
+          "scrollY": 2341,
+          "horizontalOverflow": false,
+          "rootClass": "has-webgl",
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "field",
+              "opacity": "1"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          },
+          "fallbackText": [
+            "XIX",
+            "THE SUN"
+          ],
+          "frameCallbacks": 233,
+          "mainHasPanels": true
+        },
+        {
+          "fraction": 0.69,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 174,
+            "triangles": 192152,
+            "pixelRatio": 1.3,
+            "progress": 0.6898860779964753,
+            "reducedMotion": false,
+            "frames": 296,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "width": 390,
+          "height": 844,
+          "scrollY": 3436,
+          "horizontalOverflow": false,
+          "rootClass": "has-webgl",
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "celestial",
+              "opacity": "1"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          },
+          "fallbackText": [
+            "XIX",
+            "THE SUN"
+          ],
+          "frameCallbacks": 306,
+          "mainHasPanels": true
+        },
+        {
+          "fraction": 1,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 88,
+            "triangles": 43472,
+            "pixelRatio": 1.3,
+            "progress": 0.9999203169318424,
+            "reducedMotion": false,
+            "frames": 367,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "width": 390,
+          "height": 844,
+          "scrollY": 4980,
+          "horizontalOverflow": false,
+          "rootClass": "has-webgl",
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "oracle",
+              "opacity": "1"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          },
+          "fallbackText": [
+            "XIX",
+            "THE SUN"
+          ],
+          "frameCallbacks": 382,
+          "mainHasPanels": true
+        }
+      ],
+      "screenshots": [
+        "mobile-0000.png",
+        "mobile-0150.png",
+        "mobile-0470.png",
+        "mobile-0690.png",
+        "mobile-1000.png",
+        "mobile-draw.png"
+      ],
+      "draw": {
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 91,
+          "triangles": 62768,
+          "pixelRatio": 1.3,
+          "progress": 1,
+          "reducedMotion": false,
+          "frames": 533,
+          "cardIdentities": [
+            "The Sun",
+            "The High Priestess",
+            "The Moon",
+            "The Star",
+            "The Magician",
+            "The World",
+            "The Fool",
+            "The Empress",
+            "Strength",
+            "The Lovers",
+            "Wheel of Fortune",
+            "Temperance",
+            "The Hermit",
+            "Judgement",
+            "The Emperor",
+            "The Chariot",
+            "Justice",
+            "The Hanged Man",
+            "The Hierophant",
+            "Death",
+            "The Devil",
+            "The Tower"
+          ]
+        },
+        "width": 390,
+        "height": 844,
+        "scrollY": 4980,
+        "horizontalOverflow": false,
+        "rootClass": "has-webgl has-reading",
+        "canvasCount": 1,
+        "panels": [
+          {
+            "name": "oracle",
+            "opacity": "1"
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "title": "The Sun"
+        },
+        "fallbackText": [
+          "XIX",
+          "THE SUN"
+        ],
+        "frameCallbacks": 548,
+        "mainHasPanels": true
+      }
+    }
+  ],
+  "failures": []
+}

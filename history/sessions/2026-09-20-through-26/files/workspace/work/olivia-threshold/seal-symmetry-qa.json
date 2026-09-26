@@ -1,0 +1,7 @@
+{
+  "comparison": "180-degree alpha rotation",
+  "maxDifference": 26,
+  "pixelsOver3": 1488,
+  "pixelCount": 1123200,
+  "geometry": "Both veils are the same path related by an exact 180-degree SVG rotation; capsule control points are paired rotationally."
+}

@@ -1,0 +1,23 @@
+{
+  "id": "L16",
+  "name": "The Inner Room",
+  "description": "Four folded contours gather around a slender central aperture; a threshold seen from within.",
+  "paths": [
+    {
+      "d": "M 284 128 C 355 131 424 195 444 280 C 425 245 397 225 363 218 C 347 180 320 148 284 128 Z",
+      "transform": "translate(300 300) scale(.86 1.1) rotate(0) translate(-300 -300)"
+    },
+    {
+      "d": "M 284 128 C 355 131 424 195 444 280 C 425 245 397 225 363 218 C 347 180 320 148 284 128 Z",
+      "transform": "translate(300 300) scale(.86 1.1) rotate(90) translate(-300 -300)"
+    },
+    {
+      "d": "M 284 128 C 355 131 424 195 444 280 C 425 245 397 225 363 218 C 347 180 320 148 284 128 Z",
+      "transform": "translate(300 300) scale(.86 1.1) rotate(180) translate(-300 -300)"
+    },
+    {
+      "d": "M 284 128 C 355 131 424 195 444 280 C 425 245 397 225 363 218 C 347 180 320 148 284 128 Z",
+      "transform": "translate(300 300) scale(.86 1.1) rotate(270) translate(-300 -300)"
+    }
+  ]
+}

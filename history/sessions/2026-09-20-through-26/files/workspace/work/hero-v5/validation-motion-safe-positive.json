@@ -1,0 +1,1207 @@
+{
+  "source": "work/hero-v5/motion-safe.js",
+  "sourceSha256": "5f451f336247641334c2750aa0e55f3c94e570bd773473f8020e156e3ded6dd5",
+  "generatedAt": "2026-09-22T21:50:35.779Z",
+  "method": {
+    "progressStep": 0.0005,
+    "samplesPerViewport": 2001,
+    "collision": "15-axis OBB SAT using full rectangular cards and CARD_T thickness. Penetration >1e-6 world units counts as intersection; near-zero contact is reported separately. No packet overlap is automatically excused.",
+    "bounds": "Projects every OBB corner with the source 38-degree vertical FOV and camera z=10.4. Nav/footer bands are conservative candidate conflicts, not measured DOM text overlaps.",
+    "continuity": "Finite samples plus one-sided projected centre derivatives at rail entry/exit and polyline knots. Sampling cannot prove absence of all intersections.",
+    "state": {
+      "mode": "positive",
+      "time": 4.6199892,
+      "pointer": [
+        1,
+        -1
+      ],
+      "ambient": true
+    }
+  },
+  "viewports": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "cards": 9,
+      "railLength": 41.2467202,
+      "finiteFailures": [],
+      "pairTests": 72036,
+      "intersectionSamples": 0,
+      "confirmedFaceCrossingSamples": 0,
+      "touchSamples": 0,
+      "collisions": [],
+      "viewportClipping": [],
+      "navigationBandCandidates": [],
+      "footerBandCandidates": [],
+      "projectedEnvelope": {
+        "left": 173.9422929,
+        "top": 105.6504959,
+        "right": 1358.6613814,
+        "bottom": 870.7608341
+      },
+      "categorizedWorst": {},
+      "continuity": {
+        "largestConsecutiveCornerDisplacementPx": 36.1050536,
+        "entryExit": [
+          {
+            "card": 0,
+            "event": "arrival",
+            "progress": 0.5344112,
+            "beforeSpeedPxPerProgress": 0.0517018,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0517018
+          },
+          {
+            "card": 1,
+            "event": "release",
+            "progress": 0.2331705,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0044406,
+            "velocityDeltaPxPerProgress": 0.0044406
+          },
+          {
+            "card": 1,
+            "event": "arrival",
+            "progress": 0.5616739,
+            "beforeSpeedPxPerProgress": 0.0494178,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0494178
+          },
+          {
+            "card": 2,
+            "event": "release",
+            "progress": 0.2876332,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.008878,
+            "velocityDeltaPxPerProgress": 0.008878
+          },
+          {
+            "card": 2,
+            "event": "arrival",
+            "progress": 0.5897638,
+            "beforeSpeedPxPerProgress": 0.0436137,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0436137
+          },
+          {
+            "card": 3,
+            "event": "release",
+            "progress": 0.3289236,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 1.6366792,
+            "velocityDeltaPxPerProgress": 1.6366792
+          },
+          {
+            "card": 3,
+            "event": "arrival",
+            "progress": 0.6192392,
+            "beforeSpeedPxPerProgress": 0.0433034,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0433034
+          },
+          {
+            "card": 4,
+            "event": "release",
+            "progress": 0.3640971,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0354871,
+            "velocityDeltaPxPerProgress": 0.0354871
+          },
+          {
+            "card": 4,
+            "event": "arrival",
+            "progress": 0.6509029,
+            "beforeSpeedPxPerProgress": 0.021498,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.021498
+          },
+          {
+            "card": 5,
+            "event": "release",
+            "progress": 0.3957608,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0354746,
+            "velocityDeltaPxPerProgress": 0.0354746
+          },
+          {
+            "card": 5,
+            "event": "arrival",
+            "progress": 0.6860764,
+            "beforeSpeedPxPerProgress": 0.0426912,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0426912
+          },
+          {
+            "card": 6,
+            "event": "release",
+            "progress": 0.4252362,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0354621,
+            "velocityDeltaPxPerProgress": 0.0354621
+          },
+          {
+            "card": 6,
+            "event": "arrival",
+            "progress": 0.7273668,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 7,
+            "event": "release",
+            "progress": 0.4533261,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0354496,
+            "velocityDeltaPxPerProgress": 0.0354496
+          },
+          {
+            "card": 7,
+            "event": "arrival",
+            "progress": 0.7818295,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 8,
+            "event": "release",
+            "progress": 0.4805888,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0354371,
+            "velocityDeltaPxPerProgress": 0.0354371
+          },
+          {
+            "card": 8,
+            "event": "arrival",
+            "progress": 0.9599995,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          }
+        ],
+        "largestPolylineVelocityChange": {
+          "railKnot": 568,
+          "progress": 0.5297542,
+          "beforeSpeedPxPerProgress": 11289.5511571,
+          "afterSpeedPxPerProgress": 11124.5502603,
+          "velocityDeltaPxPerProgress": 214.1334791
+        }
+      }
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "cards": 9,
+      "railLength": 45.1762043,
+      "finiteFailures": [],
+      "pairTests": 72036,
+      "intersectionSamples": 0,
+      "confirmedFaceCrossingSamples": 0,
+      "touchSamples": 0,
+      "collisions": [],
+      "viewportClipping": [],
+      "navigationBandCandidates": [],
+      "footerBandCandidates": [],
+      "projectedEnvelope": {
+        "left": 172.1669312,
+        "top": 76.0683571,
+        "right": 1205.024372,
+        "bottom": 626.6199292
+      },
+      "categorizedWorst": {},
+      "continuity": {
+        "largestConsecutiveCornerDisplacementPx": 26.9309529,
+        "entryExit": [
+          {
+            "card": 0,
+            "event": "arrival",
+            "progress": 0.545306,
+            "beforeSpeedPxPerProgress": 0.0516133,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0516133
+          },
+          {
+            "card": 1,
+            "event": "release",
+            "progress": 0.2297515,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0038751,
+            "velocityDeltaPxPerProgress": 0.0038751
+          },
+          {
+            "card": 1,
+            "event": "arrival",
+            "progress": 0.5714393,
+            "beforeSpeedPxPerProgress": 0.0479564,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0479564
+          },
+          {
+            "card": 2,
+            "event": "release",
+            "progress": 0.282952,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0077428,
+            "velocityDeltaPxPerProgress": 0.0077428
+          },
+          {
+            "card": 2,
+            "event": "arrival",
+            "progress": 0.5984782,
+            "beforeSpeedPxPerProgress": 0.0381001,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0381001
+          },
+          {
+            "card": 3,
+            "event": "release",
+            "progress": 0.3231821,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.015471,
+            "velocityDeltaPxPerProgress": 0.015471
+          },
+          {
+            "card": 3,
+            "event": "arrival",
+            "progress": 0.6269526,
+            "beforeSpeedPxPerProgress": 0.0378374,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0378374
+          },
+          {
+            "card": 4,
+            "event": "release",
+            "progress": 0.3573633,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.030913,
+            "velocityDeltaPxPerProgress": 0.030913
+          },
+          {
+            "card": 4,
+            "event": "arrival",
+            "progress": 0.6576367,
+            "beforeSpeedPxPerProgress": 0.0187885,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0187885
+          },
+          {
+            "card": 5,
+            "event": "release",
+            "progress": 0.3880474,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.030884,
+            "velocityDeltaPxPerProgress": 0.030884
+          },
+          {
+            "card": 5,
+            "event": "arrival",
+            "progress": 0.6918179,
+            "beforeSpeedPxPerProgress": 0.0373191,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0373191
+          },
+          {
+            "card": 6,
+            "event": "release",
+            "progress": 0.4165218,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.030855,
+            "velocityDeltaPxPerProgress": 0.030855
+          },
+          {
+            "card": 6,
+            "event": "arrival",
+            "progress": 0.732048,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 7,
+            "event": "release",
+            "progress": 0.4435607,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 2.3314746,
+            "velocityDeltaPxPerProgress": 2.3314746
+          },
+          {
+            "card": 7,
+            "event": "arrival",
+            "progress": 0.7852485,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 8,
+            "event": "release",
+            "progress": 0.469694,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0615949,
+            "velocityDeltaPxPerProgress": 0.0615949
+          },
+          {
+            "card": 8,
+            "event": "arrival",
+            "progress": 0.9599995,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          }
+        ],
+        "largestPolylineVelocityChange": {
+          "railKnot": 568,
+          "progress": 0.5408511,
+          "beforeSpeedPxPerProgress": 9632.991071,
+          "afterSpeedPxPerProgress": 9494.3659958,
+          "velocityDeltaPxPerProgress": 175.1090046
+        }
+      }
+    },
+    {
+      "viewport": [
+        800,
+        900
+      ],
+      "cards": 5,
+      "railLength": 36.3368555,
+      "finiteFailures": [],
+      "pairTests": 20010,
+      "intersectionSamples": 0,
+      "confirmedFaceCrossingSamples": 0,
+      "touchSamples": 0,
+      "collisions": [],
+      "viewportClipping": [],
+      "navigationBandCandidates": [],
+      "footerBandCandidates": [],
+      "projectedEnvelope": {
+        "left": 160.8392486,
+        "top": 102.5863907,
+        "right": 773.5977885,
+        "bottom": 776.2189966
+      },
+      "categorizedWorst": {},
+      "continuity": {
+        "largestConsecutiveCornerDisplacementPx": 14.3312547,
+        "entryExit": [
+          {
+            "card": 0,
+            "event": "arrival",
+            "progress": 0.6133444,
+            "beforeSpeedPxPerProgress": 0.0074686,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0074686
+          },
+          {
+            "card": 1,
+            "event": "release",
+            "progress": 0.2517342,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 1,
+            "event": "arrival",
+            "progress": 0.6543545,
+            "beforeSpeedPxPerProgress": 0.0066954,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0066954
+          },
+          {
+            "card": 2,
+            "event": "release",
+            "progress": 0.3132719,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0046383,
+            "velocityDeltaPxPerProgress": 0.0046383
+          },
+          {
+            "card": 2,
+            "event": "arrival",
+            "progress": 0.7017281,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 3,
+            "event": "release",
+            "progress": 0.3606455,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0046303,
+            "velocityDeltaPxPerProgress": 0.0046303
+          },
+          {
+            "card": 3,
+            "event": "arrival",
+            "progress": 0.7632658,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 4,
+            "event": "release",
+            "progress": 0.4016556,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0092449,
+            "velocityDeltaPxPerProgress": 0.0092449
+          },
+          {
+            "card": 4,
+            "event": "arrival",
+            "progress": 0.9599995,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          }
+        ],
+        "largestPolylineVelocityChange": {
+          "railKnot": 568,
+          "progress": 0.6058561,
+          "beforeSpeedPxPerProgress": 4555.4273958,
+          "afterSpeedPxPerProgress": 4496.6721256,
+          "velocityDeltaPxPerProgress": 98.4044619
+        }
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "cards": 5,
+      "railLength": 31.9438404,
+      "finiteFailures": [],
+      "pairTests": 20010,
+      "intersectionSamples": 0,
+      "confirmedFaceCrossingSamples": 0,
+      "touchSamples": 0,
+      "collisions": [],
+      "viewportClipping": [],
+      "navigationBandCandidates": [],
+      "footerBandCandidates": [],
+      "projectedEnvelope": {
+        "left": 30.8801391,
+        "top": 96.2032375,
+        "right": 383.6736037,
+        "bottom": 728.2782134
+      },
+      "categorizedWorst": {},
+      "continuity": {
+        "largestConsecutiveCornerDisplacementPx": 12.0364702,
+        "entryExit": [
+          {
+            "card": 0,
+            "event": "arrival",
+            "progress": 0.6060191,
+            "beforeSpeedPxPerProgress": 0.0044564,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0044564
+          },
+          {
+            "card": 1,
+            "event": "release",
+            "progress": 0.2552502,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 1,
+            "event": "arrival",
+            "progress": 0.6482327,
+            "beforeSpeedPxPerProgress": 0.0026499,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0026499
+          },
+          {
+            "card": 2,
+            "event": "release",
+            "progress": 0.318173,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 2,
+            "event": "arrival",
+            "progress": 0.696827,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 3,
+            "event": "release",
+            "progress": 0.3667673,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.3478757,
+            "velocityDeltaPxPerProgress": 0.3478757
+          },
+          {
+            "card": 3,
+            "event": "arrival",
+            "progress": 0.7597498,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 4,
+            "event": "release",
+            "progress": 0.4089809,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 4,
+            "event": "arrival",
+            "progress": 0.9599995,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          }
+        ],
+        "largestPolylineVelocityChange": {
+          "railKnot": 568,
+          "progress": 0.5978011,
+          "beforeSpeedPxPerProgress": 3178.2134135,
+          "afterSpeedPxPerProgress": 3137.6873365,
+          "velocityDeltaPxPerProgress": 75.0083326
+        }
+      }
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "cards": 5,
+      "railLength": 33.0074223,
+      "finiteFailures": [],
+      "pairTests": 20010,
+      "intersectionSamples": 0,
+      "confirmedFaceCrossingSamples": 0,
+      "touchSamples": 0,
+      "collisions": [],
+      "viewportClipping": [],
+      "navigationBandCandidates": [],
+      "footerBandCandidates": [],
+      "projectedEnvelope": {
+        "left": 40.0588979,
+        "top": 66.1060284,
+        "right": 312.7741972,
+        "bottom": 490.1028335
+      },
+      "categorizedWorst": {},
+      "continuity": {
+        "largestConsecutiveCornerDisplacementPx": 6.8534111,
+        "entryExit": [
+          {
+            "card": 0,
+            "event": "arrival",
+            "progress": 0.6096829,
+            "beforeSpeedPxPerProgress": 0.0037331,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0037331
+          },
+          {
+            "card": 1,
+            "event": "release",
+            "progress": 0.2534961,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 1,
+            "event": "arrival",
+            "progress": 0.6512917,
+            "beforeSpeedPxPerProgress": 0.0021208,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0021208
+          },
+          {
+            "card": 2,
+            "event": "release",
+            "progress": 0.315726,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 2,
+            "event": "arrival",
+            "progress": 0.699274,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 3,
+            "event": "release",
+            "progress": 0.3637083,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 3,
+            "event": "arrival",
+            "progress": 0.7615039,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 4,
+            "event": "release",
+            "progress": 0.4053171,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0033888,
+            "velocityDeltaPxPerProgress": 0.0033888
+          },
+          {
+            "card": 4,
+            "event": "arrival",
+            "progress": 0.9599995,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          }
+        ],
+        "largestPolylineVelocityChange": {
+          "railKnot": 568,
+          "progress": 0.6015812,
+          "beforeSpeedPxPerProgress": 2292.9311289,
+          "afterSpeedPxPerProgress": 2265.5230019,
+          "velocityDeltaPxPerProgress": 57.0085393
+        }
+      }
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "cards": 9,
+      "railLength": 49.306933,
+      "finiteFailures": [],
+      "pairTests": 72036,
+      "intersectionSamples": 0,
+      "confirmedFaceCrossingSamples": 0,
+      "touchSamples": 0,
+      "collisions": [],
+      "viewportClipping": [],
+      "navigationBandCandidates": [],
+      "footerBandCandidates": [],
+      "projectedEnvelope": {
+        "left": 122.5109274,
+        "top": 69.36421,
+        "right": 793.2315951,
+        "bottom": 324.6228954
+      },
+      "categorizedWorst": {},
+      "continuity": {
+        "largestConsecutiveCornerDisplacementPx": 15.5415769,
+        "entryExit": [
+          {
+            "card": 0,
+            "event": "arrival",
+            "progress": 0.5557189,
+            "beforeSpeedPxPerProgress": 0.0547559,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0547559
+          },
+          {
+            "card": 1,
+            "event": "release",
+            "progress": 0.2264126,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0025221,
+            "velocityDeltaPxPerProgress": 0.0025221
+          },
+          {
+            "card": 1,
+            "event": "arrival",
+            "progress": 0.5808127,
+            "beforeSpeedPxPerProgress": 0.0521843,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0521843
+          },
+          {
+            "card": 2,
+            "event": "release",
+            "progress": 0.2783921,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0050369,
+            "velocityDeltaPxPerProgress": 0.0050369
+          },
+          {
+            "card": 2,
+            "event": "arrival",
+            "progress": 0.6068735,
+            "beforeSpeedPxPerProgress": 1.3221639,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 1.3221639
+          },
+          {
+            "card": 3,
+            "event": "release",
+            "progress": 0.3176031,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0100593,
+            "velocityDeltaPxPerProgress": 0.0100593
+          },
+          {
+            "card": 3,
+            "event": "arrival",
+            "progress": 0.6344071,
+            "beforeSpeedPxPerProgress": 0.02427,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.02427
+          },
+          {
+            "card": 4,
+            "event": "release",
+            "progress": 0.3508369,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0200898,
+            "velocityDeltaPxPerProgress": 0.0200898
+          },
+          {
+            "card": 4,
+            "event": "arrival",
+            "progress": 0.6641631,
+            "beforeSpeedPxPerProgress": 0.0120522,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0120522
+          },
+          {
+            "card": 5,
+            "event": "release",
+            "progress": 0.3805929,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.020061,
+            "velocityDeltaPxPerProgress": 0.020061
+          },
+          {
+            "card": 5,
+            "event": "arrival",
+            "progress": 0.6973969,
+            "beforeSpeedPxPerProgress": 0.0239401,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0239401
+          },
+          {
+            "card": 6,
+            "event": "release",
+            "progress": 0.4081265,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0200324,
+            "velocityDeltaPxPerProgress": 0.0200324
+          },
+          {
+            "card": 6,
+            "event": "arrival",
+            "progress": 0.7366079,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 7,
+            "event": "release",
+            "progress": 0.4341873,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0400078,
+            "velocityDeltaPxPerProgress": 0.0400078
+          },
+          {
+            "card": 7,
+            "event": "arrival",
+            "progress": 0.7885874,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 8,
+            "event": "release",
+            "progress": 0.4592811,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.039951,
+            "velocityDeltaPxPerProgress": 0.039951
+          },
+          {
+            "card": 8,
+            "event": "arrival",
+            "progress": 0.9599995,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          }
+        ],
+        "largestPolylineVelocityChange": {
+          "railKnot": 568,
+          "progress": 0.5514548,
+          "beforeSpeedPxPerProgress": 6187.218389,
+          "afterSpeedPxPerProgress": 6100.035,
+          "velocityDeltaPxPerProgress": 91.508941
+        }
+      }
+    },
+    {
+      "viewport": [
+        640,
+        360
+      ],
+      "cards": 9,
+      "railLength": 44.5913194,
+      "finiteFailures": [],
+      "pairTests": 72036,
+      "intersectionSamples": 0,
+      "confirmedFaceCrossingSamples": 0,
+      "touchSamples": 0,
+      "collisions": [],
+      "viewportClipping": [],
+      "navigationBandCandidates": [],
+      "footerBandCandidates": [],
+      "projectedEnvelope": {
+        "left": 86.0836925,
+        "top": 64.0285016,
+        "right": 602.5121897,
+        "bottom": 299.9103009
+      },
+      "categorizedWorst": {},
+      "continuity": {
+        "largestConsecutiveCornerDisplacementPx": 13.3240639,
+        "entryExit": [
+          {
+            "card": 0,
+            "event": "arrival",
+            "progress": 0.5437495,
+            "beforeSpeedPxPerProgress": 0.0443733,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0443733
+          },
+          {
+            "card": 1,
+            "event": "release",
+            "progress": 0.2302447,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0019375,
+            "velocityDeltaPxPerProgress": 0.0019375
+          },
+          {
+            "card": 1,
+            "event": "arrival",
+            "progress": 0.5700414,
+            "beforeSpeedPxPerProgress": 0.0435764,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0435764
+          },
+          {
+            "card": 2,
+            "event": "release",
+            "progress": 0.2836265,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0038714,
+            "velocityDeltaPxPerProgress": 0.0038714
+          },
+          {
+            "card": 2,
+            "event": "arrival",
+            "progress": 0.5972288,
+            "beforeSpeedPxPerProgress": 0.0411897,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0411897
+          },
+          {
+            "card": 3,
+            "event": "release",
+            "progress": 0.3240085,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0077355,
+            "velocityDeltaPxPerProgress": 0.0077355
+          },
+          {
+            "card": 3,
+            "event": "arrival",
+            "progress": 0.6258451,
+            "beforeSpeedPxPerProgress": 0.0184853,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0184853
+          },
+          {
+            "card": 4,
+            "event": "release",
+            "progress": 0.3583313,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0154565,
+            "velocityDeltaPxPerProgress": 0.0154565
+          },
+          {
+            "card": 4,
+            "event": "arrival",
+            "progress": 0.6566687,
+            "beforeSpeedPxPerProgress": 0.0091771,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0091771
+          },
+          {
+            "card": 5,
+            "event": "release",
+            "progress": 0.3891549,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.015442,
+            "velocityDeltaPxPerProgress": 0.015442
+          },
+          {
+            "card": 5,
+            "event": "arrival",
+            "progress": 0.6909915,
+            "beforeSpeedPxPerProgress": 0.0182241,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0182241
+          },
+          {
+            "card": 6,
+            "event": "release",
+            "progress": 0.4177712,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0154275,
+            "velocityDeltaPxPerProgress": 0.0154275
+          },
+          {
+            "card": 6,
+            "event": "arrival",
+            "progress": 0.7313735,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 7,
+            "event": "release",
+            "progress": 0.4449586,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 1.1657373,
+            "velocityDeltaPxPerProgress": 1.1657373
+          },
+          {
+            "card": 7,
+            "event": "arrival",
+            "progress": 0.7847553,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 8,
+            "event": "release",
+            "progress": 0.4712505,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0307974,
+            "velocityDeltaPxPerProgress": 0.0307974
+          }
+        ],
+        "largestPolylineVelocityChange": {
+          "railKnot": 568,
+          "progress": 0.5392731,
+          "beforeSpeedPxPerProgress": 4795.6920554,
+          "afterSpeedPxPerProgress": 4727.8707936,
+          "velocityDeltaPxPerProgress": 71.7311264
+        }
+      }
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "cards": 9,
+      "railLength": 40.0438104,
+      "finiteFailures": [],
+      "pairTests": 72036,
+      "intersectionSamples": 0,
+      "confirmedFaceCrossingSamples": 0,
+      "touchSamples": 0,
+      "collisions": [],
+      "viewportClipping": [],
+      "navigationBandCandidates": [],
+      "footerBandCandidates": [],
+      "projectedEnvelope": {
+        "left": 117.8778591,
+        "top": 81.1395809,
+        "right": 967.0658773,
+        "bottom": 668.8478418
+      },
+      "categorizedWorst": {},
+      "continuity": {
+        "largestConsecutiveCornerDisplacementPx": 27.4637068,
+        "entryExit": [
+          {
+            "card": 0,
+            "event": "arrival",
+            "progress": 0.5308565,
+            "beforeSpeedPxPerProgress": 1.3124584,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 1.3124584
+          },
+          {
+            "card": 1,
+            "event": "release",
+            "progress": 0.2342694,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0031837,
+            "velocityDeltaPxPerProgress": 0.0031837
+          },
+          {
+            "card": 1,
+            "event": "arrival",
+            "progress": 0.5584975,
+            "beforeSpeedPxPerProgress": 0.0314861,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0314861
+          },
+          {
+            "card": 2,
+            "event": "release",
+            "progress": 0.2891403,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0063666,
+            "velocityDeltaPxPerProgress": 0.0063666
+          },
+          {
+            "card": 2,
+            "event": "arrival",
+            "progress": 0.5869366,
+            "beforeSpeedPxPerProgress": 0.031259,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.031259
+          },
+          {
+            "card": 3,
+            "event": "release",
+            "progress": 0.3307752,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0127316,
+            "velocityDeltaPxPerProgress": 0.0127316
+          },
+          {
+            "card": 3,
+            "event": "arrival",
+            "progress": 0.6167424,
+            "beforeSpeedPxPerProgress": 0.031034,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.031034
+          },
+          {
+            "card": 4,
+            "event": "release",
+            "progress": 0.3662726,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0254599,
+            "velocityDeltaPxPerProgress": 0.0254599
+          },
+          {
+            "card": 4,
+            "event": "arrival",
+            "progress": 0.6487274,
+            "beforeSpeedPxPerProgress": 0.0154055,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0154055
+          },
+          {
+            "card": 5,
+            "event": "release",
+            "progress": 0.3982576,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0254567,
+            "velocityDeltaPxPerProgress": 0.0254567
+          },
+          {
+            "card": 5,
+            "event": "arrival",
+            "progress": 0.6842248,
+            "beforeSpeedPxPerProgress": 0.0305902,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0.0305902
+          },
+          {
+            "card": 6,
+            "event": "release",
+            "progress": 0.4280634,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0254534,
+            "velocityDeltaPxPerProgress": 0.0254534
+          },
+          {
+            "card": 6,
+            "event": "arrival",
+            "progress": 0.7258597,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 7,
+            "event": "release",
+            "progress": 0.4565025,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.0254502,
+            "velocityDeltaPxPerProgress": 0.0254502
+          },
+          {
+            "card": 7,
+            "event": "arrival",
+            "progress": 0.7807306,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          },
+          {
+            "card": 8,
+            "event": "release",
+            "progress": 0.4841435,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0.025447,
+            "velocityDeltaPxPerProgress": 0.025447
+          },
+          {
+            "card": 8,
+            "event": "arrival",
+            "progress": 0.9599995,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          }
+        ],
+        "largestPolylineVelocityChange": {
+          "railKnot": 568,
+          "progress": 0.5261314,
+          "beforeSpeedPxPerProgress": 8187.1237708,
+          "afterSpeedPxPerProgress": 8066.1236759,
+          "velocityDeltaPxPerProgress": 158.6761232
+        }
+      }
+    }
+  ],
+  "summary": {
+    "finite": true,
+    "pairTests": 420210,
+    "intersectionSamples": 0,
+    "confirmedFaceCrossingSamples": 0,
+    "clippedViewports": [],
+    "passingSeparation": true
+  }
+}

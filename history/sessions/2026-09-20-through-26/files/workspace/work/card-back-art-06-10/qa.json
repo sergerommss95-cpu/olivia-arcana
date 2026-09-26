@@ -1,0 +1,48 @@
+{
+  "images": [
+    {
+      "loaded": true,
+      "width": 958,
+      "height": 1642
+    },
+    {
+      "loaded": true,
+      "width": 958,
+      "height": 1642
+    },
+    {
+      "loaded": true,
+      "width": 958,
+      "height": 1642
+    },
+    {
+      "loaded": true,
+      "width": 958,
+      "height": 1642
+    },
+    {
+      "loaded": true,
+      "width": 958,
+      "height": 1642
+    }
+  ],
+  "errors": [],
+  "first": "06 / 10",
+  "wrap": "10 / 10",
+  "returned": "The Heron Gate",
+  "focus": true,
+  "widths": [
+    {
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "width": 884,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "overflow": false
+    }
+  ]
+}

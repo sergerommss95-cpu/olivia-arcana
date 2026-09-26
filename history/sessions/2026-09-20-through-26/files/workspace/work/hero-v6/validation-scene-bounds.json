@@ -1,0 +1,572 @@
+{
+  "candidateSha256": "fef54201e319b664a0a3a382958fc713eab0ff8c4f83f5f73716efe09a8d4fa2",
+  "sceneSha256": "823d3f05aa674c2acc83d9c0a3f37ba707469d3796455137e4ced78a9b318762",
+  "generatedAt": "2026-09-23T13:13:27.905Z",
+  "method": {
+    "progressSamples": 1001,
+    "timeSamples": 40,
+    "timeRangeSeconds": [
+      0,
+      78
+    ],
+    "pointerStates": [
+      [
+        1,
+        1
+      ],
+      [
+        -1,
+        1
+      ],
+      [
+        1,
+        -1
+      ],
+      [
+        -1,
+        -1
+      ]
+    ],
+    "note": "Full rectangular-prism corners. Common rigid scene transform preserves all pairwise distances; this check tests screen margins, not collision anew. Conservative header/footer bands, not actual DOM copy."
+  },
+  "viewports": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "samples": 160160,
+      "minimum": {
+        "left": {
+          "margin": 166.3310231840034,
+          "progress": 0.384,
+          "time": 62,
+          "pointer": [
+            -1,
+            1
+          ],
+          "card": 1,
+          "point": [
+            166.3310231840034,
+            539.329047362452
+          ]
+        },
+        "right": {
+          "margin": 79.12259920486031,
+          "progress": 0.2,
+          "time": 24,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            1360.8774007951397,
+            126.0779478012653
+          ]
+        },
+        "nav": {
+          "margin": 32.85393170515961,
+          "progress": 0.98,
+          "time": 60,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            877.0438932726265,
+            102.85393170515961
+          ]
+        },
+        "footer": {
+          "margin": 45.65772510811712,
+          "progress": 0.385,
+          "time": 10,
+          "pointer": [
+            1,
+            1
+          ],
+          "card": 0,
+          "point": [
+            577.847353896638,
+            892.3422748918829
+          ]
+        }
+      },
+      "incursionSamples": 0
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "samples": 160160,
+      "minimum": {
+        "left": {
+          "margin": 168.5477707384174,
+          "progress": 0.355,
+          "time": 62,
+          "pointer": [
+            -1,
+            1
+          ],
+          "card": 0,
+          "point": [
+            168.5477707384174,
+            387.25394416049886
+          ]
+        },
+        "right": {
+          "margin": 73.76450759347063,
+          "progress": 0.202,
+          "time": 24,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            1206.2354924065294,
+            91.22525759928742
+          ]
+        },
+        "nav": {
+          "margin": 4.054830785711715,
+          "progress": 0.98,
+          "time": 60,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            803.4941301539063,
+            74.05483078571172
+          ]
+        },
+        "footer": {
+          "margin": 15.693828793279522,
+          "progress": 0.476,
+          "time": 10,
+          "pointer": [
+            1,
+            1
+          ],
+          "card": 2,
+          "point": [
+            500.6406528695014,
+            642.3061712067205
+          ]
+        }
+      },
+      "incursionSamples": 0
+    },
+    {
+      "viewport": [
+        800,
+        900
+      ],
+      "samples": 160160,
+      "minimum": {
+        "left": {
+          "margin": 150.6953451558092,
+          "progress": 0.418,
+          "time": 22,
+          "pointer": [
+            -1,
+            1
+          ],
+          "card": 0,
+          "point": [
+            150.6953451558092,
+            602.0788404011053
+          ]
+        },
+        "right": {
+          "margin": 25.40887158832436,
+          "progress": 0.224,
+          "time": 24,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            774.5911284116756,
+            125.99002950449784
+          ]
+        },
+        "nav": {
+          "margin": 30.825195635374897,
+          "progress": 0.98,
+          "time": 60,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            426.83175360655287,
+            100.8251956353749
+          ]
+        },
+        "footer": {
+          "margin": 42.80160504382354,
+          "progress": 0.503,
+          "time": 10,
+          "pointer": [
+            1,
+            1
+          ],
+          "card": 1,
+          "point": [
+            328.8963742695323,
+            795.1983949561765
+          ]
+        }
+      },
+      "incursionSamples": 0
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "samples": 160160,
+      "minimum": {
+        "left": {
+          "margin": 19.170569313346775,
+          "progress": 0.412,
+          "time": 22,
+          "pointer": [
+            -1,
+            1
+          ],
+          "card": 0,
+          "point": [
+            19.170569313346775,
+            652.7600546439268
+          ]
+        },
+        "right": {
+          "margin": 4.050454322125233,
+          "progress": 0.208,
+          "time": 60,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            385.94954567787477,
+            114.39348821327216
+          ]
+        },
+        "nav": {
+          "margin": 34.55162787956458,
+          "progress": 0.98,
+          "time": 60,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            168.41703887298385,
+            94.55162787956458
+          ]
+        },
+        "footer": {
+          "margin": 43.94693868062848,
+          "progress": 0.66,
+          "time": 38,
+          "pointer": [
+            1,
+            1
+          ],
+          "card": 4,
+          "point": [
+            185.14713660217578,
+            746.0530613193715
+          ]
+        }
+      },
+      "incursionSamples": 0
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "samples": 160160,
+      "minimum": {
+        "left": {
+          "margin": 32.42058547216729,
+          "progress": 0.525,
+          "time": 22,
+          "pointer": [
+            -1,
+            1
+          ],
+          "card": 2,
+          "point": [
+            32.42058547216729,
+            431.9905265606829
+          ]
+        },
+        "right": {
+          "margin": 6.318098306809986,
+          "progress": 0.212,
+          "time": 60,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            313.68190169319,
+            79.15449028733939
+          ]
+        },
+        "nav": {
+          "margin": 5.221134138933337,
+          "progress": 0.292,
+          "time": 4,
+          "pointer": [
+            -1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            218.58457400758638,
+            65.22113413893334
+          ]
+        },
+        "footer": {
+          "margin": 11.895452093334086,
+          "progress": 0.549,
+          "time": 38,
+          "pointer": [
+            1,
+            1
+          ],
+          "card": 2,
+          "point": [
+            143.90895411223607,
+            502.1045479066659
+          ]
+        }
+      },
+      "incursionSamples": 0
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "samples": 160160,
+      "minimum": {
+        "left": {
+          "margin": 121.60939252820162,
+          "progress": 0.59,
+          "time": 62,
+          "pointer": [
+            -1,
+            1
+          ],
+          "card": 6,
+          "point": [
+            121.60939252820162,
+            208.29068869424927
+          ]
+        },
+        "right": {
+          "margin": 50.61940081636476,
+          "progress": 0.205,
+          "time": 22,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            793.3805991836352,
+            75.34340667924535
+          ]
+        },
+        "nav": {
+          "margin": 14.413508742075209,
+          "progress": 0.98,
+          "time": 60,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            541.7969588703249,
+            68.41350874207521
+          ]
+        },
+        "footer": {
+          "margin": 11.092937345319342,
+          "progress": 0.486,
+          "time": 10,
+          "pointer": [
+            1,
+            1
+          ],
+          "card": 2,
+          "point": [
+            321.2857212859537,
+            332.90706265468066
+          ]
+        }
+      },
+      "incursionSamples": 0
+    },
+    {
+      "viewport": [
+        640,
+        360
+      ],
+      "samples": 160160,
+      "minimum": {
+        "left": {
+          "margin": 84.27207809432178,
+          "progress": 0.551,
+          "time": 62,
+          "pointer": [
+            -1,
+            1
+          ],
+          "card": 5,
+          "point": [
+            84.27207809432178,
+            192.45249661713697
+          ]
+        },
+        "right": {
+          "margin": 37.15437620707257,
+          "progress": 0.202,
+          "time": 22,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            602.8456237929274,
+            69.2200337265731
+          ]
+        },
+        "nav": {
+          "margin": 9.15093117610678,
+          "progress": 0.98,
+          "time": 60,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            401.7470651227277,
+            63.15093117610678
+          ]
+        },
+        "footer": {
+          "margin": 6.569139271494521,
+          "progress": 0.674,
+          "time": 10,
+          "pointer": [
+            1,
+            1
+          ],
+          "card": 7,
+          "point": [
+            248.8292299793414,
+            307.4308607285055
+          ]
+        }
+      },
+      "incursionSamples": 0
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "samples": 160160,
+      "minimum": {
+        "left": {
+          "margin": 111.46432773388102,
+          "progress": 0.339,
+          "time": 62,
+          "pointer": [
+            -1,
+            1
+          ],
+          "card": 0,
+          "point": [
+            111.46432773388102,
+            416.21822588869617
+          ]
+        },
+        "right": {
+          "margin": 55.12072941585143,
+          "progress": 0.199,
+          "time": 24,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            968.8792705841486,
+            96.67804029508456
+          ]
+        },
+        "nav": {
+          "margin": 8.991819424642983,
+          "progress": 0.98,
+          "time": 60,
+          "pointer": [
+            1,
+            -1
+          ],
+          "card": 0,
+          "point": [
+            615.625269468598,
+            78.99181942464298
+          ]
+        },
+        "footer": {
+          "margin": 20.620683943302993,
+          "progress": 0.716,
+          "time": 10,
+          "pointer": [
+            1,
+            1
+          ],
+          "card": 8,
+          "point": [
+            415.200972309669,
+            685.379316056697
+          ]
+        }
+      },
+      "incursionSamples": 0
+    }
+  ],
+  "summary": {
+    "passing": true,
+    "stateSamples": 1281280,
+    "minimumMargins": {
+      "left": 19.170569313346775,
+      "right": 4.050454322125233,
+      "nav": 4.054830785711715,
+      "footer": 6.569139271494521
+    }
+  }
+}

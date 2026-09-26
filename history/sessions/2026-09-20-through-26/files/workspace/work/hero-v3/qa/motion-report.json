@@ -1,0 +1,191 @@
+{
+  "sha256": "f0cf313e703751c789d737a38cd85a6eb6d6fbec1bb0b62cabf6fe3a5cca659a",
+  "videos": [
+    {
+      "name": "userpane",
+      "errors": [],
+      "consoleErrors": [],
+      "start": {
+        "time": 953.7999999970198,
+        "p": 0,
+        "target": 0,
+        "frames": 39,
+        "ready": true,
+        "quiet": false,
+        "raf": 45,
+        "error": 0,
+        "triangles": 3808,
+        "cards": 14,
+        "clearance": {
+          "q": 0,
+          "pitch": 0.012166699999999999,
+          "curvature": 0,
+          "sector": 0,
+          "angularPitch": 0,
+          "scale": 1.4457791920434673
+        },
+        "viewport": [
+          884,
+          796
+        ],
+        "buffer": [
+          884,
+          796
+        ]
+      },
+      "end": {
+        "time": 13870.29999999702,
+        "p": 1,
+        "target": 1,
+        "frames": 806,
+        "ready": true,
+        "quiet": false,
+        "raf": 1525,
+        "error": 0,
+        "triangles": 3808,
+        "cards": 14,
+        "clearance": {
+          "q": 0,
+          "pitch": 0.012166699999999999,
+          "curvature": 0,
+          "sector": 0,
+          "angularPitch": 0,
+          "scale": 1.4457791920434673
+        },
+        "viewport": [
+          884,
+          796
+        ],
+        "buffer": [
+          884,
+          796
+        ]
+      },
+      "path": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/hero-v3/qa/userpane-motion.webm"
+    },
+    {
+      "name": "mobile",
+      "errors": [],
+      "consoleErrors": [],
+      "start": {
+        "time": 958,
+        "p": 0,
+        "target": 0,
+        "frames": 39,
+        "ready": true,
+        "quiet": false,
+        "raf": 44,
+        "error": 0,
+        "triangles": 3808,
+        "cards": 14,
+        "clearance": {
+          "q": 0,
+          "pitch": 0.012166699999999999,
+          "curvature": 0,
+          "sector": 0,
+          "angularPitch": 0,
+          "scale": 0.8942594988628779
+        },
+        "viewport": [
+          390,
+          844
+        ],
+        "buffer": [
+          390,
+          844
+        ]
+      },
+      "end": {
+        "time": 13868.699999988079,
+        "p": 1,
+        "target": 1,
+        "frames": 814,
+        "ready": true,
+        "quiet": false,
+        "raf": 1540,
+        "error": 0,
+        "triangles": 3808,
+        "cards": 14,
+        "clearance": {
+          "q": 0,
+          "pitch": 0.012166699999999999,
+          "curvature": 0,
+          "sector": 0,
+          "angularPitch": 0,
+          "scale": 0.8942594988628779
+        },
+        "viewport": [
+          390,
+          844
+        ],
+        "buffer": [
+          390,
+          844
+        ]
+      },
+      "path": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/hero-v3/qa/mobile-motion.webm"
+    },
+    {
+      "name": "small",
+      "errors": [],
+      "consoleErrors": [],
+      "start": {
+        "time": 940.7000000029802,
+        "p": 0,
+        "target": 0,
+        "frames": 39,
+        "ready": true,
+        "quiet": false,
+        "raf": 45,
+        "error": 0,
+        "triangles": 3808,
+        "cards": 14,
+        "clearance": {
+          "q": 0,
+          "pitch": 0.012166699999999999,
+          "curvature": 0,
+          "sector": 0,
+          "angularPitch": 0,
+          "scale": 1.0643813822345645
+        },
+        "viewport": [
+          320,
+          568
+        ],
+        "buffer": [
+          320,
+          568
+        ]
+      },
+      "end": {
+        "time": 13849.59999999404,
+        "p": 1,
+        "target": 1,
+        "frames": 814,
+        "ready": true,
+        "quiet": false,
+        "raf": 1541,
+        "error": 0,
+        "triangles": 3808,
+        "cards": 14,
+        "clearance": {
+          "q": 0,
+          "pitch": 0.012166699999999999,
+          "curvature": 0,
+          "sector": 0,
+          "angularPitch": 0,
+          "scale": 1.0643813822345645
+        },
+        "viewport": [
+          320,
+          568
+        ],
+        "buffer": [
+          320,
+          568
+        ]
+      },
+      "path": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/hero-v3/qa/small-motion.webm"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "errors": [],
+  "sizes": [
+    {
+      "w": 1440,
+      "overflow": false
+    },
+    {
+      "w": 884,
+      "overflow": false
+    },
+    {
+      "w": 390,
+      "overflow": false
+    }
+  ],
+  "turn": "true",
+  "opened": true,
+  "closed": true
+}

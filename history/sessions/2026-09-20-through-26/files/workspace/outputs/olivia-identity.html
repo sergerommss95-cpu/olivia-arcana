@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f2eee4">
+<meta name="description" content="The Olivia Arcana identity: an olive signature, its sculptural interpretation and the reverse of the deck.">
+<link rel="icon" href="./olivia-identity/symbol-dark.svg" type="image/svg+xml">
+<title>OLIVIA ARCANA — The olive, redrawn</title>
+<style>
+:root{color-scheme:light;--paper:#f2eee4;--ink:#172a36;--quiet:#62696a;--rule:#d8d2c6;--lapis:#0d2234;--ivory:#f0e7d3;--gold:#9d8355}
+*{box-sizing:border-box}
+html{background:var(--paper);scrollbar-gutter:stable}
+body{margin:0;color:var(--ink);font-family:"Avenir Next",Avenir,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:5px}
+button{font:inherit;color:inherit;cursor:pointer}
+button,a{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid #a8813f;outline-offset:6px}
+.skip{position:fixed;top:-100px;left:20px;z-index:20;padding:12px 18px;background:var(--paper)}
+.skip:focus{top:15px}
+.shell{width:min(1480px,100%);margin:auto;padding-inline:clamp(22px,5.3vw,84px)}
+.masthead{display:flex;justify-content:space-between;align-items:center;gap:24px;min-height:91px;border-bottom:1px solid var(--rule)}
+.masthead p{font-size:10px;line-height:1.6;letter-spacing:.19em;text-transform:uppercase;margin:0}
+.masthead a{font-size:11px;min-height:44px;display:inline-flex;align-items:center}
+h1,h2,p{margin-top:0}
+h1,h2{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-weight:400}
+h1{font-size:29px;letter-spacing:-.025em;margin:0}
+h2{font-size:clamp(28px,3.2vw,43px);letter-spacing:-.04em;line-height:1.12;margin-bottom:20px}
+.identity{padding-top:31px}
+.heading-line{display:flex;align-items:baseline;justify-content:space-between;gap:24px}
+.small-label{font-size:10px;line-height:1.7;letter-spacing:.15em;text-transform:uppercase;color:var(--quiet);margin:0}
+.signature-stage{display:flex;align-items:center;justify-content:center;min-height:490px;padding:78px 30px 64px}
+.signature-stage img{display:block;width:min(100%,830px);height:auto;max-height:420px;object-fit:contain}
+.signature-caption{display:flex;justify-content:space-between;gap:20px;padding:0 0 31px;border-bottom:1px solid var(--rule);font-size:11px;line-height:1.65}
+.signature-caption p{margin:0;color:var(--quiet)}
+.links{display:flex;gap:8px 24px;flex-wrap:wrap}
+.links a{display:inline-flex;align-items:center;min-height:32px;font-size:11px}
+.night{margin-top:42px;background:var(--lapis);color:var(--ivory);padding:29px clamp(24px,5vw,75px) 28px}
+.night .small-label{color:#baC1c5}
+.night-stage{display:flex;align-items:center;justify-content:center;min-height:350px;padding:48px 20px}
+.night-stage img{display:block;width:min(100%,630px);height:auto;max-height:300px;object-fit:contain}
+.night-footer{display:flex;justify-content:space-between;gap:20px;align-items:center;font-size:11px}
+.symbol-sample{display:flex;align-items:center;gap:17px;color:#bac1c5;font-size:10px}
+.symbol-sample img{width:30px;height:50px;object-fit:contain}
+.night a:focus-visible{outline-color:var(--ivory)}
+.relief{display:grid;grid-template-columns:1fr 1.55fr;gap:clamp(30px,6vw,96px);align-items:center;padding-block:88px}
+.copy{max-width:340px}
+.copy .small-label{margin-bottom:24px}
+.copy p:not(.small-label){font-size:14px;line-height:1.8;color:var(--quiet);margin-bottom:22px}
+.relief figure{margin:0;min-width:0}
+.relief-image{display:block;width:100%;height:auto}
+.image-note{font-size:10px;color:var(--quiet);line-height:1.7;margin-top:14px}
+.reverse{border-top:1px solid var(--rule);padding-block:49px 66px}
+.reverse-heading{display:flex;justify-content:space-between;align-items:baseline;gap:30px;margin-bottom:30px}
+.reverse-heading h2{margin:0}
+.reverse-heading p{font-size:12px;line-height:1.7;color:var(--quiet);max-width:320px;margin:0}
+.reverse-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(250px,.75fr);gap:clamp(32px,6vw,90px);align-items:center}
+.back-stage{background:var(--lapis);padding:clamp(26px,4vw,62px);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.back-art{display:block;width:min(100%,455px);line-height:0}
+.back-art img{display:block;width:100%;height:auto;transition:transform .45s cubic-bezier(.22,.68,.18,1)}
+.back-art.turned img{transform:rotate(180deg)}
+.reverse-info{align-self:center}
+.reverse-info p{font-size:13px;line-height:1.8;color:var(--quiet);margin-bottom:23px}
+.back-controls{display:flex;align-items:center;gap:10px 24px;flex-wrap:wrap;margin-bottom:20px}
+.text-button{background:transparent;border:0;border-bottom:1px solid currentColor;padding:9px 0 5px;min-height:44px;font-size:12px}
+.back-controls a{display:inline-flex;align-items:center;min-height:44px;font-size:12px}
+.reverse-download{border-top:1px solid var(--rule);padding-top:17px;display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+.reverse-download a{font-size:12px;min-height:36px;display:inline-flex;align-items:center}
+.specimen{border-top:1px solid var(--rule);padding-block:33px 41px;display:grid;grid-template-columns:1fr 2fr;gap:30px;align-items:center}
+.specimen p{font-size:12px;line-height:1.7;color:var(--quiet);margin:0}
+.specimen-links{display:flex;flex-wrap:wrap;gap:8px 25px;justify-content:flex-end}
+.specimen-links a{font-size:11px;display:inline-flex;align-items:center;min-height:36px}
+.footer{border-top:1px solid var(--rule);display:flex;align-items:baseline;justify-content:space-between;gap:22px;padding-block:25px 37px;font-size:10px;color:var(--quiet);line-height:1.7}
+.footer p{margin:0}.footer a{min-height:32px;display:inline-flex;align-items:center}
+dialog{padding:0;border:1px solid #43505a;background:#0b1823;color:var(--ivory);width:min(1030px,calc(100vw - 40px));max-width:none;max-height:calc(100dvh - 30px);overflow:auto}
+dialog::backdrop{background:rgba(6,12,18,.94)}
+.viewer-bar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:10px 20px;border-bottom:1px solid #34404a}
+.viewer-bar h2{font-family:inherit;font-size:11px;letter-spacing:.05em;margin:0}
+.viewer-close{background:transparent;border:0;color:inherit;width:44px;height:44px;font-size:26px;line-height:1}
+.viewer-art{display:flex;justify-content:center;align-items:center;padding:25px;overflow:hidden}
+.viewer-art img{display:block;width:auto;height:auto;max-width:100%;max-height:calc(100dvh - 205px);object-fit:contain;transition:transform .4s cubic-bezier(.22,.68,.18,1)}
+.viewer-art.turned img{transform:rotate(180deg)}
+.viewer-actions{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:10px 28px;padding:0 20px 20px;font-size:11px}
+.viewer-actions a{display:inline-flex;align-items:center;min-height:44px}
+.viewer-actions button{font-size:11px}
+dialog :focus-visible{outline-color:var(--ivory)}
+@media(max-width:850px){.signature-stage{min-height:385px;padding-inline:10px}.night-stage{min-height:310px;padding-inline:10px}.relief{grid-template-columns:1fr 1.2fr;gap:35px;padding-block:65px}.reverse-layout{grid-template-columns:minmax(0,1.3fr) minmax(220px,.8fr);gap:35px}.back-stage{padding:25px}.reverse-heading p{max-width:280px}}
+@media(max-width:600px){.masthead{min-height:77px}.masthead p{font-size:9px}.masthead a{font-size:10px}.identity{padding-top:25px}.heading-line{display:block}.heading-line .small-label{margin-top:9px}h1{font-size:26px}.signature-stage{min-height:315px;padding:55px 0}.signature-caption{display:block;padding-bottom:23px}.signature-caption .links{margin-top:10px}.night{margin-top:26px;padding:23px 23px 24px}.night-stage{min-height:245px;padding:44px 0}.night-footer{align-items:flex-end}.symbol-sample{gap:10px}.symbol-sample span{max-width:90px;line-height:1.6}.symbol-sample img{width:22px;height:40px}.night-footer .links{display:block}.night-footer .links a{font-size:10px}.relief{grid-template-columns:1fr;gap:25px;padding-block:52px}.copy{max-width:420px}.copy .small-label{margin-bottom:15px}.copy p:not(.small-label){font-size:13px;margin-bottom:10px}h2{font-size:34px;margin-bottom:14px}.reverse{padding-block:34px 40px}.reverse-heading{display:block;margin-bottom:25px}.reverse-heading p{margin-top:16px;max-width:360px}.reverse-layout{grid-template-columns:1fr;gap:28px}.back-stage{padding:28px}.reverse-info p{margin-bottom:13px}.reverse-download{flex-direction:row;gap:10px 22px;flex-wrap:wrap}.back-controls{margin-bottom:15px}.specimen{display:block;padding-block:27px}.specimen-links{justify-content:flex-start;margin-top:13px;gap:5px 24px}.footer{display:block;padding-bottom:25px}.footer a{margin-top:9px}dialog{width:calc(100vw - 14px);max-height:calc(100dvh - 14px)}.viewer-art{padding:16px}.viewer-art img{max-height:calc(100dvh - 194px)}.viewer-bar{padding-inline:15px}.viewer-actions{gap:8px 20px;padding-bottom:12px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#signature">Skip to the identity</a>
+<main class="shell">
+  <header class="masthead"><p>OLIVIA ARCANA<br>Identity &amp; card reverse</p><a href="./olivia-identity.zip" download>Download the complete set ↓</a></header>
+  <section class="identity" id="signature" aria-labelledby="identity-title">
+    <div class="heading-line"><h1 id="identity-title">The olive, redrawn.</h1><p class="small-label">The primary signature</p></div>
+    <div class="signature-stage"><img src="./olivia-identity/logo-primary-dark.svg" alt="OLIVIA ARCANA primary logo in dark ink" decoding="async"></div>
+    <div class="signature-caption"><p>The olive and the name, held together.</p><div class="links"><a href="./olivia-identity/logo-primary-dark.svg" download>Primary logo · SVG ↓</a><a href="./olivia-identity/logo-primary-dark.png" download>Primary logo · PNG ↓</a><a href="./olivia-identity/symbol-dark.svg" download>Olive symbol · SVG ↓</a></div></div>
+  </section>
+  <section class="night" aria-labelledby="night-label">
+    <p class="small-label" id="night-label">Ivory on lapis</p>
+    <div class="night-stage"><img src="./olivia-identity/logo-primary-light.svg" alt="OLIVIA ARCANA primary logo in ivory" decoding="async"></div>
+    <div class="night-footer"><div class="symbol-sample"><img src="./olivia-identity/symbol-light.svg" alt="Ivory olive symbol at a smaller size"><span>The mark on its own</span></div><div class="links"><a href="./olivia-identity/logo-primary-light.svg" download>Ivory logo · SVG ↓</a><a href="./olivia-identity/symbol-light.svg" download>Ivory symbol · SVG ↓</a></div></div>
+  </section>
+  <section class="relief" aria-labelledby="relief-title">
+    <div class="copy"><p class="small-label">A sculptural interpretation</p><h2 id="relief-title">The mark<br>in relief.</h2><p>Ivory, lapis and a measured touch of gold. The olive takes on the material language of the deck.</p><div class="links"><a href="./olivia-identity/sculptural-emblem.png" download>Download the artwork ↓</a></div></div>
+    <figure><a href="./olivia-identity/sculptural-emblem.png" target="_blank" rel="noopener" aria-label="Open the sculptural olive artwork at full size"><img class="relief-image" src="./olivia-identity/sculptural-emblem.png" alt="Sculptural interpretation of the Olivia olive in ivory and lapis" decoding="async"></a><figcaption class="image-note">Rendered interpretation · Original proportions</figcaption></figure>
+  </section>
+  <section class="reverse" id="reverse" aria-labelledby="reverse-title">
+    <div class="reverse-heading"><h2 id="reverse-title">The reverse.</h2><p>The olive belongs to the surface of the card. Look closely, then turn it through a half rotation.</p></div>
+    <div class="reverse-layout">
+      <div class="back-stage"><a class="back-art" id="back-art" href="./olivia-identity/card-back.png" aria-label="Enlarge the Olivia Arcana card back"><img src="./olivia-identity/card-back.png" alt="The Olivia Arcana card back" decoding="async"></a></div>
+      <div class="reverse-info"><p class="small-label">Olivia Arcana<br>Card-back artwork</p><p>The complete artwork is shown here without a crop. Open the full-size image to inspect the carving and fine detail.</p><div class="back-controls"><a id="enlarge-back" href="./olivia-identity/card-back.png">Look closer ↗</a><button type="button" class="text-button" id="turn-back" aria-pressed="false" aria-label="Rotate the card back 180 degrees">Half-turn ↻</button></div><div class="reverse-download"><a href="./olivia-identity/card-back.png" download="olivia-arcana-card-back.png">Card master · PNG ↓</a><a href="./olivia-identity/card-back.png" target="_blank" rel="noopener">Open full-size image ↗</a></div></div>
+    </div>
+  </section>
+  <section class="specimen" aria-label="Identity source files"><p>The signature, symbol and artwork.<br>Source files for use and inspection.</p><div class="specimen-links"><a href="./olivia-identity/symbol-guide.png" target="_blank" rel="noopener">Symbol guide ↗</a><a href="./olivia-identity/logo-primary-dark.svg" download>Logo SVG ↓</a><a href="./olivia-identity.zip" download>Complete set ↓</a></div></section>
+  <footer class="footer"><p>OLIVIA ARCANA · Identity &amp; card reverse</p><p>Presented for review. Not applied to the website.</p></footer>
+</main>
+<dialog id="art-viewer" aria-labelledby="viewer-title">
+  <div class="viewer-bar"><h2 id="viewer-title">OLIVIA ARCANA · Card reverse</h2><button type="button" class="viewer-close" aria-label="Close enlarged artwork" autofocus>×</button></div>
+  <div class="viewer-art" id="viewer-art"><img src="./olivia-identity/card-back.png" alt="Enlarged Olivia Arcana card back" decoding="async"></div>
+  <div class="viewer-actions"><button type="button" class="text-button" id="viewer-turn" aria-pressed="false" aria-label="Rotate the enlarged card back 180 degrees">Half-turn ↻</button><a href="./olivia-identity/card-back.png" download="olivia-arcana-card-back.png">Download original ↓</a><a href="./olivia-identity/card-back.png" target="_blank" rel="noopener">Full-size image ↗</a></div>
+</dialog>
+<script>
+'use strict';
+(() => {
+  const back = document.getElementById('back-art');
+  const turn = document.getElementById('turn-back');
+  const viewer = document.getElementById('art-viewer');
+  const viewerArt = document.getElementById('viewer-art');
+  const viewerTurn = document.getElementById('viewer-turn');
+  const close = viewer.querySelector('.viewer-close');
+  let rotated = false;
+  let opener = null;
+  let overflowBefore = '';
+  const rotate = () => {
+    rotated = !rotated;
+    back.classList.toggle('turned', rotated);
+    viewerArt.classList.toggle('turned', rotated);
+    [turn, viewerTurn].forEach(button => {
+      button.setAttribute('aria-pressed', String(rotated));
+      button.textContent = rotated ? 'Return upright ↻' : 'Half-turn ↻';
+    });
+  };
+  turn.addEventListener('click', rotate);
+  viewerTurn.addEventListener('click', rotate);
+  if (typeof viewer.showModal !== 'function') return;
+  [back, document.getElementById('enlarge-back')].forEach(link => {
+    link.addEventListener('click', event => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      opener = link;
+      overflowBefore = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      viewer.showModal();
+      close.focus({preventScroll:true});
+    });
+  });
+  close.addEventListener('click', () => viewer.close());
+  viewer.addEventListener('click', event => {
+    if (event.target !== viewer) return;
+    const bounds = viewer.getBoundingClientRect();
+    if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) viewer.close();
+  });
+  viewer.addEventListener('close', () => {
+    document.body.style.overflow = overflowBefore;
+    opener?.focus({preventScroll:true});
+  });
+})();
+</script>
+</body>
+</html>

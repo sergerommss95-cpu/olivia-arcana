@@ -1,0 +1,12 @@
+from pathlib import Path
+import base64
+p=Path(__file__).resolve().parent
+root=p.parent.parent
+site=root/'assets/olivia-website'
+def data(f):return 'data:image/webp;base64,'+base64.b64encode(f.read_bytes()).decode()
+moon=data(site/'public/cards-portal/18_the_moon.webp')
+a=data(site/'public/deck/majors-q80.webp')
+html=(p/'template.html').read_text(encoding='utf-8').replace('/*FONTS*/',(root/'work/fonts-inline.css').read_text(encoding='utf-8')).replace('/*BACK_IMG*/',data(root/'outputs/olivia-card-back.webp')).replace('/*ASSETS*/','const ATLAS_DATA='+__import__('json').dumps(a)+';const BACK_DATA='+__import__('json').dumps(data(root/'outputs/olivia-card-back.webp'))+';const DETAIL_DATA='+__import__('json').dumps({i:data(site/'public/cards-portal'/f) for i,f in [(2,'02_the_high_priestess.webp'),(17,'17_the_star.webp'),(18,'18_the_moon.webp'),(19,'19_the_sun.webp'),(21,'21_the_world.webp')]})+';').replace('/*SCRIPT*/',(p/'hero.js').read_text(encoding='utf-8'))
+licenses='\n'.join((root/'work'/x).read_text(encoding='utf-8') for x in ['cormorant-OFL.txt','dmsans-OFL.txt'])
+html=html.replace('</head>','<!-- Embedded font licenses\n'+licenses.replace('--','—')+'\n-->\n</head>')
+out=root/'outputs/olivia-hero.html';temporary=out.with_suffix('.tmp.html');temporary.write_text(html,encoding='utf-8');temporary.replace(out);print(out, out.stat().st_size)

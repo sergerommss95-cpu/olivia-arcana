@@ -1,0 +1,157 @@
+import type { Metadata, Viewport } from "next";
+import { Cormorant, Cormorant_Garamond, IBM_Plex_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import ClientShell from "@/components/ClientShell";
+import "./globals.css";
+
+// Variable cut (wght 300–700, Latin + Cyrillic) — the display face whose
+// weight responds to the reader's hand on the hero.
+const cormorantVar = Cormorant({
+  variable: "--font-display",
+  subsets: ["latin", "cyrillic"],
+  style: ["normal"],
+  display: "swap",
+  preload: true,
+});
+
+const cormorant = Cormorant_Garamond({
+  variable: "--font-heading",
+  subsets: ["latin", "cyrillic"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+  preload: true,
+});
+
+// Keep the working variable font local so a Google-font fetch cannot block a build.
+const dmSans = localFont({
+  src: "./fonts/dm-sans-latin-variable.woff2",
+  variable: "--font-body",
+  weight: "100 1000",
+  style: "normal",
+  display: "swap",
+  preload: true,
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-mono",
+  subsets: ["latin", "cyrillic"],
+  weight: ["400"],
+});
+
+export const metadata: Metadata = {
+  title: "Olivia Arcana — A personal practice of tarot",
+  description:
+    "Explore tarot with all 78 cards, a question of your own, and a private almanac for your reflections.",  keywords: [
+    "tarot", "tarot readings", "tarot card meanings", "78 tarot cards",
+    "tarot journal", "таро", "значення карт таро",
+  ],
+  metadataBase: new URL("https://oliviaarcana.com"),
+  openGraph: {
+    title: "Olivia Arcana — A different perspective",
+    description: "Tarot readings, card meanings, and space to reflect on what matters to you.",
+    type: "website",
+    siteName: "Olivia Arcana",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Olivia Arcana — a tarot card showing the Wheel of Seven sigil, with the wordmark 'Olivia Arcana' in editorial italic typography",
+        type: "image/png",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Olivia Arcana — A different perspective",
+    description: "Choose a card, explore its meaning, and keep what you notice.",
+    images: ["/og-image.png"],
+  },
+  robots: { index: true, follow: true },
+  manifest: "/manifest.json",
+  icons: {
+    // Standard favicon(s)
+    icon: [
+      { url: "/favicon.ico", sizes: "16x16 32x32 48x48", type: "image/x-icon" },
+      { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/olive-mark.svg", type: "image/svg+xml" },
+    ],
+    // iOS home-screen + Mac launchpad
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    // Modern browsers — vector favicon takes precedence when supported
+    shortcut: [{ url: "/favicon.ico" }],
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "apple-mobile-web-app-title": "Olivia Arcana",
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#0b192a",
+  colorScheme: "dark",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Olivia Arcana",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Web",
+    "description": "Tarot readings and a private, device-local journal for reflection.",
+    "inLanguage": ["en", "uk"],
+    "featureList": ["78-card tarot deck", "Free one-card and three-card readings", "Card meanings", "Device-local reading journal"],
+    "author": {
+      "@type": "Organization",
+      "name": "Olivia Arcana LLC",
+      "url": "https://oliviaarcana.com"
+    }
+  };
+
+  return (
+    <html
+      lang="en"
+      className={`${cormorant.variable} ${cormorantVar.variable} ${dmSans.variable} ${ibmPlexMono.variable} antialiased`}
+    >
+      <head>
+        {/* Performance: preconnect to third-party domains used at hot paths */}
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.paddle.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://checkout.paddle.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://api.elevenlabs.io" />
+        <link rel="dns-prefetch" href="https://api.anthropic.com" />
+        
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <body className="min-h-screen">
+        {/* Skip to main content — accessibility */}
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
+
+        {/* Single client boundary for all global overlays + page transitions */}
+        <ClientShell>
+          {children}
+        </ClientShell>
+      </body>
+    </html>
+  );
+}

@@ -1,0 +1,129 @@
+(()=>{
+'use strict';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const sequence=$('#sequence'),stage=$('#stage'),canvas=$('#world-canvas'),reading=$('#reading'),intro=$('#intro');
+const images=['original','plate','matte','sanctuary'].map(id=>$('#'+id));
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+const text={
+ en:{eyebrow:'A personal almanac',ask:'Ask the Oracle',dailyNav:'Daily card',description:'Astrology and tarot, shaped by your birth chart and the question you bring.',begin:'Begin the journey',direct:'Go to the reading',signature:'Clarity first. No noise.',act2:'II. The tide opens',threshold:'A little stillness.<br><em>A different perspective.</em>',act3:'III. On the other side',passage:'Bring what is<br><em>on your mind.</em>',oracle:'The Oracle',arrival:'Your question.<br><em>A new perspective.</em>',skip:'Skip the opening ↗',skipLink:'Skip to the reading entrance',chapter1:'01 — Approach',chapter2:'02 — Open',chapter3:'03 — Enter',readingEyebrow:'On the other side of a question',readingTitle:'What would you like<br>to see <em>more clearly?</em>',readingDescription:'Choose a starting point. Make room for a new perspective.',intent0:'A decision',intent1:'A relationship',intent2:'My next step',questionLabel:'A question to begin with',continue:'Continue to the Oracle',daily:'Draw your daily card',replay:'↶ Replay the opening',heading:'Your stars,<br>translated<br><em>clearly.</em>',pause:'Pause motion',play:'Play motion',scroll1:'Scroll to draw closer',scroll2:'Keep scrolling — the tide opens',scroll3:'Scroll through to your reading',scroll4:'Your reading begins below',questions:['What should I consider before I choose?','What could help me understand this connection?','What deserves my attention now?']},
+ uk:{eyebrow:'Персональний альманах',ask:'Запитати Оракула',dailyNav:'Карта дня',description:'Астрологія й таро на основі вашої натальної карти та запитання, з яким ви прийшли.',begin:'Почати подорож',direct:'Перейти до читання',signature:'Спершу ясність. Без шуму.',act2:'II. Приплив відкриває шлях',threshold:'Трохи тиші.<br><em>Інший погляд.</em>',act3:'III. По той бік',passage:'Почніть із того,<br><em>що вас хвилює.</em>',oracle:'Оракул',arrival:'Ваше запитання.<br><em>Новий погляд.</em>',skip:'Пропустити вступ ↗',skipLink:'Перейти до початку читання',chapter1:'01 — Назустріч',chapter2:'02 — Відкриття',chapter3:'03 — Вхід',readingEyebrow:'По той бік запитання',readingTitle:'Що ви хочете<br>побачити <em>ясніше?</em>',readingDescription:'Оберіть тему. Погляньте на неї по-новому.',intent0:'Рішення',intent1:'Стосунки',intent2:'Мій наступний крок',questionLabel:'Запитання для початку',continue:'Перейти до Оракула',daily:'Витягнути карту дня',replay:'↶ Переглянути вступ ще раз',heading:'Ваші зірки —<br>людською<br><em>мовою.</em>',pause:'Зупинити рух',play:'Увімкнути рух',scroll1:'Гортайте, щоб наблизитися',scroll2:'Гортайте — приплив відкриває шлях',scroll3:'Гортайте до свого читання',scroll4:'Ваше читання починається нижче',questions:['Що варто врахувати, перш ніж зробити вибір?','Що допоможе мені краще зрозуміти ці стосунки?','На що мені зараз варто звернути увагу?']}
+};
+let locale='en',intent=0,paused=false,ready=false,intersecting=true,gl,program,u,raf=0,last=0,time=0,p=0,target=0,range=0,w=1,h=1;
+let auto=null,debug=false,observedReduced=reduced.matches;
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const smooth=(a,b,x)=>{const t=clamp((x-a)/(b-a));return t*t*(3-2*t);};
+const quint=t=>t*t*t*(t*(t*6-15)+10);
+function updateCopy(){
+ document.documentElement.lang=locale;
+ const htmlKeys=['threshold','passage','arrival','readingTitle'];
+ $$('[data-copy]').forEach(el=>{const value=text[locale][el.dataset.copy];if(htmlKeys.includes(el.dataset.copy))el.innerHTML=value;else el.textContent=value;});
+ $('#hero-title').innerHTML=text[locale].heading;
+ $$('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===locale)));
+ $('.languages').setAttribute('aria-label',locale==='uk'?'Мова':'Language');
+ $('nav').setAttribute('aria-label',locale==='uk'?'Головна навігація':'Main navigation');
+ $('.intent-group').setAttribute('aria-label',locale==='uk'?'Оберіть тему':'Choose a starting point');
+ $('#suggested-question').textContent=text[locale].questions[intent];labels();
+}
+function labels(){
+ const stopped=paused||reduced.matches;
+ $('#motion').setAttribute('aria-pressed',String(!stopped));
+ $('#motion').setAttribute('aria-label',locale==='uk'?'Рух у сцені':'Scene motion');
+ $('#motion-label').textContent=reduced.matches?(locale==='uk'?'Без анімації':'Still mode'):text[locale][stopped?'play':'pause'];
+ $('#motion').disabled=reduced.matches;
+ $('.motion-symbol').textContent=stopped?'▷':'Ⅱ';
+ $('#scroll-caption').textContent=text[locale][p>.96?'scroll4':p>.65?'scroll3':p>.34?'scroll2':'scroll1'];
+}
+$$('[data-lang]').forEach(b=>b.addEventListener('click',()=>{locale=b.dataset.lang;updateCopy();}));
+$$('[data-intent]').forEach(b=>b.addEventListener('click',()=>{intent=Number(b.dataset.intent);$$('[data-intent]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));$('#suggested-question').textContent=text[locale].questions[intent];}));
+function measure(){
+ const active=ready&&!reduced.matches;
+ sequence.classList.toggle('enhanced',active);
+ range=active?innerHeight*(innerWidth<=700?2.5:3.2):0;
+ sequence.style.height=active?(stage.offsetHeight+range)+'px':'auto';
+ const r=canvas.getBoundingClientRect();w=r.width;h=r.height;
+ if(ready){const dpr=Math.min(devicePixelRatio||1,innerWidth<=700?1.5:1.35);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);gl.viewport(0,0,canvas.width,canvas.height);gl.uniform2f(u.uResolution,canvas.width,canvas.height);}
+ if(!active){p=target=0;auto=null;}onScroll();paint();
+}
+function onScroll(){target=range?clamp((scrollY-sequence.offsetTop)/range):0;start();}
+function stop(){cancelAnimationFrame(raf);raf=0;last=0;}
+function canRun(){return ready&&!paused&&!reduced.matches&&!document.hidden&&intersecting&&!debug;}
+function start(){if(!raf&&canRun())raf=requestAnimationFrame(tick);}
+function paint(){
+ const approach=quint(clamp((p-.015)/.455));
+ const fade=smooth(.16,.35,p);
+ stage.style.setProperty('--intro',String(1-fade));stage.style.setProperty('--intro-shift',String(-48*fade));
+ const threshold=smooth(.28,.39,p)*(1-smooth(.48,.57,p));
+ stage.style.setProperty('--threshold',String(threshold));stage.style.setProperty('--threshold-shift',String(24*(1-smooth(.28,.39,p))));
+ const passage=smooth(.565,.625,p)*(1-smooth(.705,.78,p));
+ stage.style.setProperty('--passage',String(passage));stage.style.setProperty('--passage-shift',String(-30*smooth(.70,.79,p)));
+ stage.style.setProperty('--arrival',String(smooth(.86,.98,p)));stage.style.setProperty('--shade',String(1-smooth(.40,.66,p)));
+ intro.inert=fade>.97;intro.setAttribute('aria-hidden',String(fade>.97));
+ const act=p<.34?0:p<.65?1:2;$$('.chapter').forEach((el,i)=>el.classList.toggle('active',i===act));
+ $('#progress-fill').style.transform='scaleX('+p+')';
+ stage.dataset.progress=p.toFixed(5);stage.dataset.act=String(act+1);labels();
+ if(!ready)return;
+ const mobile=innerWidth<=700;
+ const ratio=w/h,ir=1672/941,fitX=Math.min(1,ratio/ir),fitY=Math.min(1,ir/ratio);
+ const positionX=mobile?.63:.5;
+ const imageOrigin=.5+(positionX-.5)*(1-fitX);
+ const px=x=>(x-imageOrigin)/fitX+.5,py=y=>(y-.5)/fitY+.5;
+ const baseHeight=234/941/fitY;
+ const scale=Math.min(1/(1-.545*approach),mobile?.40/baseHeight:2.2);
+ const figureH=baseHeight*scale;
+ const horizon=py(1-698/941),baseFoot=py(1-756/941);
+ // Phone composition keeps her contact point clear of the fixed progress controls.
+ const footY=mobile?.185-.025*approach:horizon+(baseFoot-horizon)*scale;
+ const originX=px(1060/1672);
+ const centerX=mobile?.70:originX+.024*approach;
+ const figureW=figureH*(186/234)/ratio;
+ const left=centerX-figureW*(89/186);
+ const bottom=footY-figureH*(5/234);
+ gl.uniform4f(u.uFigure,left,bottom,figureW,figureH);
+ gl.uniform1f(u.uTime,time);gl.uniform1f(u.uProgress,p);gl.uniform1f(u.uApproach,approach);gl.uniform1f(u.uPositionX,positionX);
+ gl.drawArrays(gl.TRIANGLES,0,6);stage.dataset.figureScale=scale.toFixed(4);
+}
+function tick(now){
+ raf=0;if(!canRun())return;
+ const dt=last?Math.min((now-last)/1000,.05):0;last=now;time+=dt;
+ if(auto){const t=clamp((now-auto.start)/auto.duration);const value=auto.from+(auto.to-auto.from)*t;scrollTo(0,sequence.offsetTop+value*range);target=value;if(t>=1)auto=null;}
+ p+=(target-p)*(1-Math.exp(-dt*8));if(Math.abs(target-p)<.000025)p=target;
+ paint();start();
+}
+function goReading(){auto=null;p=target=1;paint();reading.scrollIntoView({behavior:'instant'});reading.focus({preventScroll:true});}
+$('#skip').addEventListener('click',goReading);
+$('.skip-link').addEventListener('click',e=>{e.preventDefault();goReading();});
+$('#begin').addEventListener('click',()=>{if(!ready||reduced.matches){goReading();return;}paused=false;debug=false;auto={from:p,to:.98,start:performance.now(),duration:12500*(.98-p)};labels();start();});
+$('#replay').addEventListener('click',()=>{auto=null;debug=false;p=target=0;paused=false;scrollTo({top:sequence.offsetTop,behavior:'instant'});paint();$('#begin').focus({preventScroll:true});start();});
+$('#motion').addEventListener('click',()=>{if(reduced.matches){goReading();return;}paused=!paused;auto=null;if(paused)stop();else start();labels();});
+['wheel','touchstart','pointerdown'].forEach(evt=>addEventListener(evt,e=>{if(evt==='pointerdown'&&e.target.closest&&e.target.closest('#begin'))return;auto=null;},{passive:true}));
+addEventListener('keydown',e=>{if(['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key))auto=null;});
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',measure);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else start();});
+new IntersectionObserver(e=>{intersecting=e[0].isIntersecting;if(intersecting)start();else stop();}).observe(stage);
+function syncPreference(){if(observedReduced===reduced.matches)return;observedReduced=reduced.matches;stop();measure();labels();start();}
+reduced.addEventListener('change',syncPreference);
+// A low-frequency fallback also catches preference updates while the render loop is paused.
+setInterval(syncPreference,500);
+const vertex='attribute vec2 aPosition;varying vec2 vUv;void main(){vUv=aPosition*.5+.5;gl_Position=vec4(aPosition,0.,1.);}';
+const fragment="precision highp float;\nvarying vec2 vUv;\nuniform sampler2D uOriginal,uPlate,uMatte,uSanctuary;\nuniform vec2 uResolution,uSanctuarySize;\nuniform vec4 uFigure;\nuniform float uTime,uProgress,uApproach,uPositionX;\nconst float PI=3.14159265359;\nfloat ramp(float a,float b,float x){return smoothstep(a,b,x);}\nvec2 cover(vec2 q,float imageAspect,float anchor){\n float aspect=uResolution.x/uResolution.y;vec2 fit=vec2(1.);\n if(aspect<imageAspect)fit.x=aspect/imageAspect;else fit.y=imageAspect/aspect;\n return vec2((q.x-.5)*fit.x+.5+(anchor-.5)*(1.-fit.x),(q.y-.5)*fit.y+.5);\n}\n// This layer is sampled from the ORIGINAL photograph, never from a remastered person.\n// Raw matte crop = [930,480,320,310]; occupied source bounds [971,527,1157,761].\nvec4 figure(vec2 q){\n if(q.x<0.||q.x>1.||q.y<0.||q.y>1.)return vec4(0.);\n vec2 sourcePx=vec2(971.+186.*q.x,761.-234.*q.y);\n vec2 maskUV=vec2((sourcePx.x-930.)/320.,1.-(sourcePx.y-480.)/310.);\n vec2 photoUV=vec2(sourcePx.x/1672.,1.-sourcePx.y/941.);\n vec3 rgb=texture2D(uOriginal,photoUV).rgb;\n float alpha=texture2D(uMatte,maskUV).a;\n // Remove the old matte's attached cloud wedge inside the crescent, not any face pixels.\n if(sourcePx.y<602.&&(sourcePx.x>1074.||sourcePx.y<550.))alpha=ramp(.77,.98,alpha);\n return vec4(rgb,alpha);\n}\nfloat hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}\nvoid main(){\n float aspect=uResolution.x/uResolution.y;\n float p=uProgress;\n float open=ramp(.33,.65,p);\n float pass=ramp(.64,.97,p);\n vec2 photoUV=cover(vUv,1672./941.,uPositionX);\n float dolly=1.+uApproach*.045;\n vec2 bgUV=(photoUV-vec2(.62,.27))/dolly+vec2(.62,.27);\n float water=1.-ramp(.242,.267,bgUV.y);\n float depth=clamp((.267-bgUV.y)/.267,0.,1.);\n vec2 foot=vec2(uFigure.x+uFigure.z*(89./186.),uFigure.y+uFigure.w*(5./234.));\n vec2 wakePlane=(vUv-foot)*vec2(aspect,5.6);\n float d=length(wakePlane);\n float spread=uFigure.w*.59;\n float envelope=exp(-d/(spread+.014))*ramp(.004,.028,d);\n float wavePhase=d/(spread+.01)*22.-uTime*1.3;\n float wake=sin(wavePhase)*envelope*water;\n vec2 sampleUV=bgUV;\n sampleUV.x+=water*(.0004+.0017*depth)*sin(bgUV.y*430.+uTime*.8+sin(bgUV.x*20.+uTime*.15));\n sampleUV.y+=water*.00055*sin(bgUV.x*75.+bgUV.y*270.-uTime*.6);\n sampleUV+=vec2(wake*.0016*sin(wavePhase*.3),wake*.00095);\n float cloud=ramp(.28,.4,bgUV.y)*(1.-ramp(.67,.78,bgUV.y));\n sampleUV.x+=cloud*.0007*sin(bgUV.y*11.+uTime*.16);\n vec3 base=texture2D(uPlate,clamp(sampleUV,.001,.999)).rgb;\n // Her reflected figure is sampled from the same original pixels and distorted in the sea.\n float below=(foot.y-vUv.y)/(uFigure.w*.85);\n vec2 rq=vec2((vUv.x-uFigure.x)/uFigure.z,below);\n rq.x+=(.007+.033*max(below,0.))*sin(vUv.y*530.+uTime*1.1+vUv.x*10.);\n rq.x+=.008*sin(vUv.y*910.-uTime*.7);\n rq.y+=.006*sin(vUv.y*200.+vUv.x*35.+uTime*.5);\n vec4 reflected=figure(rq);\n float ra=reflected.a*.56*exp(-max(below,0.)*2.)*ramp(0.,.02,below)*(1.-ramp(.68,1.,below));\n ra*=1.-ramp(foot.y-.001,foot.y+.001,vUv.y);\n base=mix(base,mix(reflected.rgb,vec3(.05,.08,.35),.28),ra);\n base+=vec3(.57,.65,1.)*wake*.052;\n base+=vec3(.63,.72,1.)*pow(max(0.,cos(wavePhase)),19.)*envelope*water*.18;\n vec2 q=(vUv-uFigure.xy)/uFigure.zw;\n float hem=1.-ramp(.07,.6,q.y);\n q.x+=hem*.0035*sin(q.y*10.+uTime*.65)*ramp(.04,.45,abs(q.x-.50)*2.);\n vec4 fg=figure(q);\n fg.a*=ramp(.012,.03,q.y+.0015*sin(q.x*45.+uTime*.65));\n vec3 outside=base;\n // A small darkening makes the rising silver-water surface read as a physical threshold.\n outside*=1.-open*.27;\n // A ripple begins in the same water plane as her feet, then rises and rolls toward the viewer.\n float rise=ramp(.38,.67,p);\n vec2 center=mix(foot,vec2(.54,.49),rise);\n center=mix(center,vec2(.5,.5),pass);\n float radius=mix(.13,.355,open)+pass*pass*2.25;\n float squash=mix(.115,1.,rise);\n vec2 plane=(vUv-center)*vec2(aspect,1./squash);\n float radial=length(plane);\n float angle=atan(plane.y,plane.x);\n float turbulence=sin(angle*15.+uTime*.30+sin(angle*7.-uTime*.22))*.0013;\n turbulence+=sin(angle*39.-uTime*.6)*.00065;\n float edge=radial-radius+turbulence*open;\n float gate=ramp(.335,.42,p);\n float aperture=(1.-ramp(-.004,.004,edge))*gate;\n // Inside the opening: a distinct sanctuary, with slow parallax and a low reflective water plane.\n vec2 innerScreen=(vUv-.5)/mix(.90,1.045,pass)+.5;\n vec2 innerUV=cover(innerScreen,uSanctuarySize.x/uSanctuarySize.y,.5);\n float innerWater=1.-ramp(.235,.30,innerUV.y);\n innerUV.x+=innerWater*.0013*sin(innerUV.y*410.+uTime*.66);\n innerUV.y+=innerWater*.00035*sin(innerUV.x*70.-uTime*.5);\n vec3 inner=texture2D(uSanctuary,clamp(innerUV,.001,.999)).rgb;\n // Dark central exposure keeps the reading invitation legible without a floating UI panel.\n float centerShade=exp(-pow((vUv.x-.5)*2.5,2.))*exp(-pow((vUv.y-.49)*1.9,2.));\n inner*=1.-centerShade*.28;\n vec3 color=mix(outside,inner,aperture);\n // The rim is a refracting band of water, with multiple asymmetric moonlit crests.\n float rimWidth=.0055+.011*open;\n float band=exp(-pow(edge/rimWidth,2.));\n float rippleCrest=pow(.5+.5*sin(edge*920.-uTime*.7+sin(angle*8.)*1.3),4.);\n float arcLight=.55+.45*pow(.5+.5*sin(angle+1.1),2.);\n vec2 refractUV=cover(vUv+normalize(plane+vec2(.00001))*band*.012,1672./941.,uPositionX);\n vec3 refracted=texture2D(uPlate,clamp(refractUV,.001,.999)).rgb;\n color=mix(color,refracted,band*gate*.48);\n color+=vec3(.48,.59,.94)*band*gate*(.18+rippleCrest*.65)*arcLight;\n color+=vec3(.76,.83,1.)*exp(-pow(edge/.0022,2.))*gate*.61*arcLight;\n color+=vec3(.40,.48,.83)*exp(-abs(edge)*48.)*gate*.11;\n // Engraved marks appear in the water itself as the circle becomes upright.\n float engraved=ramp(.49,.60,p)*(1.-ramp(.76,.91,p));\n float tick=pow(max(0.,cos(angle*72.)),22.);\n float tickRing=ramp(radius+.025,radius+.029,radial)*(1.-ramp(radius+.037,radius+.039,radial));\n float outerRing=exp(-pow((radial-radius-.053)/.0008,2.));\n color+=vec3(.70,.62,.44)*(tick*tickRing*.72+outerRing*.30)*engraved;\n // Olivia remains in front of the rising portal until mist absorbs her as we pass through.\n float figureVisibility=1.-ramp(.665,.79,p);\n color=mix(color,mix(reflected.rgb,vec3(.05,.08,.35),.28),ra*figureVisibility*aperture*.8);\n color+=vec3(.57,.65,1.)*wake*.03*figureVisibility*aperture;\n color=mix(color,fg.rgb,fg.a*figureVisibility);\n // Film texture, stable in screen space, ties the procedural water to the supplied artwork.\n float grain=(hash(floor(vUv*uResolution))-.5)*.004;\n gl_FragColor=vec4(max(color+grain,vec3(0.)),1.);\n}\n";
+function compile(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;}
+function fallback(){stop();ready=false;canvas.classList.remove('ready');sequence.classList.remove('enhanced');sequence.style.height='auto';range=0;p=target=0;paint();stage.dataset.renderer='static';$('.motion-controls').hidden=true;$('#begin').textContent=text[locale].direct;}
+function initialize(){
+ try{
+  if(images.some(i=>!i.naturalWidth))throw Error('A scene image did not load');
+  gl=canvas.getContext('webgl',{alpha:false,antialias:false,depth:false,powerPreference:'low-power'});if(!gl)throw Error('WebGL unavailable');
+  program=gl.createProgram();gl.attachShader(program,compile(gl.VERTEX_SHADER,vertex));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));gl.useProgram(program);
+  const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);const at=gl.getAttribLocation(program,'aPosition');gl.enableVertexAttribArray(at);gl.vertexAttribPointer(at,2,gl.FLOAT,false,0,0);
+  u={};['uOriginal','uPlate','uMatte','uSanctuary','uResolution','uSanctuarySize','uFigure','uTime','uProgress','uApproach','uPositionX'].forEach(n=>u[n]=gl.getUniformLocation(program,n));
+  images.forEach((img,i)=>{const tex=gl.createTexture();gl.activeTexture(gl.TEXTURE0+i);gl.bindTexture(gl.TEXTURE_2D,tex);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,img);gl.uniform1i(u[['uOriginal','uPlate','uMatte','uSanctuary'][i]],i);});
+  gl.uniform2f(u.uSanctuarySize,images[3].naturalWidth,images[3].naturalHeight);ready=true;stage.dataset.renderer='webgl';measure();
+  const atProgress=location.hash.match(/(?:^#|&)p=([\d.]+)/);if(atProgress){debug=true;p=target=clamp(Number(atProgress[1]));time=3;paint();}
+  canvas.classList.add('ready');start();
+ }catch(error){console.warn('Olivia: static fallback.',error.message);fallback();}
+}
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();fallback();});canvas.addEventListener('webglcontextrestored',initialize);
+const loaded=img=>img.complete?Promise.resolve():new Promise(resolve=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',resolve,{once:true});});
+updateCopy();Promise.all(images.map(loaded)).then(initialize);
+// Deterministic inspection of the real renderer. No assets or markup are swapped for previews.
+window.tidePreview={seek(value,atTime=3){debug=true;stop();p=target=clamp(value);time=atTime;paint();},resume(){debug=false;onScroll();start();},state(){return {progress:p,target,ready,paused,reduced:reduced.matches,range,time};}};
+})();

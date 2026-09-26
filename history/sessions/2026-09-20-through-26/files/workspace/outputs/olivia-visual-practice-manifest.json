@@ -1,0 +1,19 @@
+{
+  "release": "Olivia Arcana visual practice release",
+  "date": "2026-09-25",
+  "previewUrl": "https://6ab68923efc66ff9806fcb25--olivia-arcana.netlify.app",
+  "deployId": "6ab68923efc66ff9806fcb25",
+  "productionChanged": true,
+  "tests": {
+    "product": 138,
+    "nativeSiteAndService": 45
+  },
+  "heroSha256": "413304f1cea159c67fee3f8542cf5f95ebb6358891f2c08b91c38f76a965a5b2",
+  "portableSha256": "66ba61052f93396e6b094f5907998a88dace27ea66dacbd4f892ca6df1ac53a8",
+  "notes": "olivia-visual-practice-release.md",
+  "storage": "Device-local; no new account sync",
+  "environmentFilesIncluded": false,
+  "productionUrl": "https://oliviaarcana.com",
+  "publishedAt": "2026-09-25T15:20:36.803Z",
+  "previousProductionDeployId": "6ab647837a10ea159cef2e7a"
+}

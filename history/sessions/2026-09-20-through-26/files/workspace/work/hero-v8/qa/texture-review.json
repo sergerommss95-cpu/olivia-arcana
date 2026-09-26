@@ -1,0 +1,34 @@
+{
+  "source": "work/hero-v8/hero.js",
+  "sourceSHA256": "92d61b02d14fe5e4fd2d3ef325cc4fa815234daaf384d8b925de7d55c5c46e2b",
+  "textureLayout": {
+    "details": 22,
+    "normalDetail": [
+      512,
+      1024
+    ],
+    "desktopMoonAndBack": [
+      1024,
+      2048
+    ],
+    "mobileMoonAndBack": [
+      512,
+      1024
+    ],
+    "atlas": null
+  },
+  "estimatedRGBA8MipMiB": {
+    "desktop": 77.33333333333333,
+    "mobile": 61.333333333333336,
+    "savedByRemovingAtlas": 21.333333333333332
+  },
+  "sourceDecodedRGBA8PeakMiB": 121.49804306030273,
+  "sourceCompressedMiB": 5.445894241333008,
+  "notes": [
+    "Atlas omitted from builder, decode, upload, shader and disposal.",
+    "Approximate texture storage excludes driver padding, antialiasing and framebuffer attachments.",
+    "Initialization still awaits decoding all original images before resizing/uploading. Source peak is the RGBA8-equivalent image footprint; actual browser decode/cache memory may differ.",
+    "32 cards share 22 detail textures and one mesh, so duplicate cards do not duplicate texture allocation.",
+    "Draw order is now front-to-back in current camera view space, with whole-card near/far culling. This addresses the previous opaque packet overdraw finding."
+  ]
+}

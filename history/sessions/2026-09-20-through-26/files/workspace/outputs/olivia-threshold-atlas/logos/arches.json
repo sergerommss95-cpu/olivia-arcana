@@ -1,0 +1,74 @@
+[
+  {
+    "id": "L01",
+    "name": "The Parted Arch",
+    "family": "Architecture",
+    "description": "A rounded threshold with two suspended, tapering veils and an open base.",
+    "svg": "logos/L01.svg",
+    "image": "logos/L01.png",
+    "lockup": "logos/L01-lockup.svg"
+  },
+  {
+    "id": "L02",
+    "name": "The Lifted Veil",
+    "family": "Architecture",
+    "description": "A single diagonal sweep opens an otherwise quiet architectural frame.",
+    "svg": "logos/L02.svg",
+    "image": "logos/L02.png",
+    "lockup": "logos/L02-lockup.svg"
+  },
+  {
+    "id": "L03",
+    "name": "The Lancet",
+    "family": "Architecture",
+    "description": "A pointed stone arch with two long, fine inner veil edges.",
+    "svg": "logos/L03.svg",
+    "image": "logos/L03.png",
+    "lockup": "logos/L03-lockup.svg"
+  },
+  {
+    "id": "L04",
+    "name": "The Double Threshold",
+    "family": "Architecture",
+    "description": "An enclosing oval with two opposing apertures; an orientation-neutral architectural seal.",
+    "svg": "logos/L04.svg",
+    "image": "logos/L04.png",
+    "lockup": "logos/L04-lockup.svg"
+  },
+  {
+    "id": "L05",
+    "name": "The Receding Arch",
+    "family": "Architecture",
+    "description": "Two unequal archways joined by a shallow step, suggesting passage and depth.",
+    "svg": "logos/L05.svg",
+    "image": "logos/L05.png",
+    "lockup": "logos/L05-lockup.svg"
+  },
+  {
+    "id": "L06",
+    "name": "The Twin Gates",
+    "family": "Architecture",
+    "description": "Two interleaved archways at different heights create a measured, asymmetric rhythm.",
+    "svg": "logos/L06.svg",
+    "image": "logos/L06.png",
+    "lockup": "logos/L06-lockup.svg"
+  },
+  {
+    "id": "L07",
+    "name": "The Quiet Opening",
+    "family": "Architecture",
+    "description": "A slightly weighted, off-centre aperture with one fine veil slipping into the margin.",
+    "svg": "logos/L07.svg",
+    "image": "logos/L07.png",
+    "lockup": "logos/L07-lockup.svg"
+  },
+  {
+    "id": "L08",
+    "name": "The Turning Aperture",
+    "family": "Architecture",
+    "description": "Two nested elliptic turns with open ends, like a folded edge caught in rotation.",
+    "svg": "logos/L08.svg",
+    "image": "logos/L08.png",
+    "lockup": "logos/L08-lockup.svg"
+  }
+]

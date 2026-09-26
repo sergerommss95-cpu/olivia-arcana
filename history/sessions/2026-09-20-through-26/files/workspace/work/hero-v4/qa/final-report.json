@@ -1,0 +1,409 @@
+{
+  "sha256": "ff2c57cfc6e6d2cb88909954d414b4a02f0f3b6fa089d7a1e8099b42c364f4c2",
+  "errors": [],
+  "states": [
+    {
+      "name": "desktop",
+      "p": 0.45,
+      "diag": {
+        "p": 0.45,
+        "target": 0.45,
+        "frames": 5,
+        "ready": true,
+        "quiet": false,
+        "raf": 0,
+        "error": 0,
+        "triangles": 3808,
+        "cards": 14,
+        "clearance": {
+          "q": 1,
+          "pitch": 1.4946474777388186,
+          "curvature": 0.15915138967619574,
+          "sector": 0.22665687376159813,
+          "angularPitch": 0.23787522315815382,
+          "arcSweep": 3.092377901056,
+          "scale": 0.40889706851233326,
+          "arrival": 0
+        },
+        "viewport": [
+          1440,
+          1000
+        ],
+        "buffer": [
+          2245,
+          1559
+        ]
+      },
+      "intertitleOpacity": "0.0429688",
+      "overflow": false
+    },
+    {
+      "name": "desktop",
+      "p": 0.5,
+      "diag": {
+        "p": 0.5,
+        "target": 0.5,
+        "frames": 6,
+        "ready": true,
+        "quiet": false,
+        "raf": 0,
+        "error": 0,
+        "triangles": 3808,
+        "cards": 14,
+        "clearance": {
+          "q": 1,
+          "pitch": 1.495326269698604,
+          "curvature": 0.15947124269381185,
+          "sector": 0.22721074944679756,
+          "angularPitch": 0.23846153846153845,
+          "arcSweep": 3.0999999999999996,
+          "scale": 0.3829075877844628,
+          "arrival": 0
+        },
+        "viewport": [
+          1440,
+          1000
+        ],
+        "buffer": [
+          2245,
+          1559
+        ]
+      },
+      "intertitleOpacity": "0",
+      "overflow": false
+    },
+    {
+      "name": "userpane",
+      "p": 0.45,
+      "diag": {
+        "p": 0.45,
+        "target": 0.45,
+        "frames": 5,
+        "ready": true,
+        "quiet": false,
+        "raf": 0,
+        "error": 0,
+        "triangles": 3808,
+        "cards": 14,
+        "clearance": {
+          "q": 1,
+          "pitch": 1.4946474777388186,
+          "curvature": 0.15915138967619574,
+          "sector": 0.22665687376159813,
+          "angularPitch": 0.23787522315815382,
+          "arcSweep": 3.092377901056,
+          "scale": 0.37382905155233614,
+          "arrival": 0
+        },
+        "viewport": [
+          884,
+          796
+        ],
+        "buffer": [
+          1547,
+          1393
+        ]
+      },
+      "intertitleOpacity": "0.0429688",
+      "overflow": false
+    },
+    {
+      "name": "userpane",
+      "p": 0.5,
+      "diag": {
+        "p": 0.5,
+        "target": 0.5,
+        "frames": 6,
+        "ready": true,
+        "quiet": false,
+        "raf": 0,
+        "error": 0,
+        "triangles": 3808,
+        "cards": 14,
+        "clearance": {
+          "q": 1,
+          "pitch": 1.495326269698604,
+          "curvature": 0.15947124269381185,
+          "sector": 0.22721074944679756,
+          "angularPitch": 0.23846153846153845,
+          "arcSweep": 3.0999999999999996,
+          "scale": 0.3708094546942416,
+          "arrival": 0
+        },
+        "viewport": [
+          884,
+          796
+        ],
+        "buffer": [
+          1547,
+          1393
+        ]
+      },
+      "intertitleOpacity": "0",
+      "overflow": false
+    },
+    {
+      "name": "mobile",
+      "p": 1,
+      "diag": {
+        "p": 1,
+        "target": 1,
+        "frames": 5,
+        "ready": true,
+        "quiet": false,
+        "raf": 0,
+        "error": 0,
+        "triangles": 2448,
+        "cards": 9,
+        "clearance": {
+          "q": 0,
+          "pitch": 0.012166699999999999,
+          "curvature": 0,
+          "sector": 0,
+          "angularPitch": 0,
+          "arcSweep": 0,
+          "scale": 1.2976317189995485,
+          "arrival": 1
+        },
+        "viewport": [
+          390,
+          844
+        ],
+        "buffer": [
+          585,
+          1266
+        ]
+      },
+      "intertitleOpacity": "0",
+      "overflow": false
+    }
+  ],
+  "scroll": [
+    {
+      "scroll": 0.0009749999999999849,
+      "p": 0,
+      "target": 0,
+      "error": 0
+    },
+    {
+      "scroll": 0.034308333333333316,
+      "p": 0.024382871096435638,
+      "target": 0.033,
+      "error": 0
+    },
+    {
+      "scroll": 0.06764166666666666,
+      "p": 0.057677705280047675,
+      "target": 0.06625,
+      "error": 0
+    },
+    {
+      "scroll": 0.10096666666666666,
+      "p": 0.0910177846833493,
+      "target": 0.0995,
+      "error": 0
+    },
+    {
+      "scroll": 0.1343083333333333,
+      "p": 0.12435541942648964,
+      "target": 0.133,
+      "error": 0
+    },
+    {
+      "scroll": 0.16764166666666666,
+      "p": 0.15768155657413013,
+      "target": 0.16625,
+      "error": 0
+    },
+    {
+      "scroll": 0.2009666666666667,
+      "p": 0.1910200314241585,
+      "target": 0.1995,
+      "error": 0
+    },
+    {
+      "scroll": 0.23430000000000004,
+      "p": 0.22435308974991003,
+      "target": 0.233,
+      "error": 0
+    },
+    {
+      "scroll": 0.2676333333333334,
+      "p": 0.2576775187243873,
+      "target": 0.26625,
+      "error": 0
+    },
+    {
+      "scroll": 0.3009666666666667,
+      "p": 0.2910236866503736,
+      "target": 0.2995,
+      "error": 0
+    },
+    {
+      "scroll": 0.33429166666666665,
+      "p": 0.3243486367569185,
+      "target": 0.333,
+      "error": 0
+    },
+    {
+      "scroll": 0.367625,
+      "p": 0.35767170444428487,
+      "target": 0.36625,
+      "error": 0
+    },
+    {
+      "scroll": 0.40095833333333336,
+      "p": 0.3910205164129792,
+      "target": 0.3995,
+      "error": 0
+    },
+    {
+      "scroll": 0.4342916666666667,
+      "p": 0.4243519114169052,
+      "target": 0.433,
+      "error": 0
+    },
+    {
+      "scroll": 0.467625,
+      "p": 0.45767685902466626,
+      "target": 0.46625,
+      "error": 0
+    },
+    {
+      "scroll": 0.5009583333333333,
+      "p": 0.49102537035361743,
+      "target": 0.4995,
+      "error": 0
+    },
+    {
+      "scroll": 0.5342916666666667,
+      "p": 0.5243470371920604,
+      "target": 0.533,
+      "error": 0
+    },
+    {
+      "scroll": 0.5676166666666667,
+      "p": 0.5576562830371425,
+      "target": 0.56625,
+      "error": 0
+    },
+    {
+      "scroll": 0.60095,
+      "p": 0.5909928966768485,
+      "target": 0.5995,
+      "error": 0
+    },
+    {
+      "scroll": 0.6342833333333333,
+      "p": 0.624314695396253,
+      "target": 0.633,
+      "error": 0
+    },
+    {
+      "scroll": 0.6676166666666666,
+      "p": 0.6576594910688341,
+      "target": 0.66625,
+      "error": 0
+    },
+    {
+      "scroll": 0.7009416666666666,
+      "p": 0.6909888711201743,
+      "target": 0.6995,
+      "error": 0
+    },
+    {
+      "scroll": 0.7342833333333333,
+      "p": 0.72432032834754,
+      "target": 0.733,
+      "error": 0
+    },
+    {
+      "scroll": 0.7676083333333332,
+      "p": 0.7576554373370504,
+      "target": 0.76625,
+      "error": 0
+    },
+    {
+      "scroll": 0.8009416666666666,
+      "p": 0.7909917709492069,
+      "target": 0.7995,
+      "error": 0
+    },
+    {
+      "scroll": 0.834275,
+      "p": 0.8243168943712982,
+      "target": 0.833,
+      "error": 0
+    },
+    {
+      "scroll": 0.8676083333333333,
+      "p": 0.857659144824132,
+      "target": 0.86625,
+      "error": 0
+    },
+    {
+      "scroll": 0.9009416666666666,
+      "p": 0.8909945288906689,
+      "target": 0.8995,
+      "error": 0
+    },
+    {
+      "scroll": 0.9342666666666667,
+      "p": 0.924308950043758,
+      "target": 0.933,
+      "error": 0
+    },
+    {
+      "scroll": 0.9676083333333333,
+      "p": 0.9576618684149297,
+      "target": 0.96625,
+      "error": 0
+    },
+    {
+      "scroll": 1,
+      "p": 0.9909987474734093,
+      "target": 0.9995,
+      "error": 0
+    }
+  ],
+  "final": {
+    "p": 1,
+    "target": 1,
+    "frames": 934,
+    "ready": true,
+    "quiet": false,
+    "raf": 1661,
+    "error": 0,
+    "triangles": 3808,
+    "cards": 14,
+    "clearance": {
+      "q": 0,
+      "pitch": 0.012166699999999999,
+      "curvature": 0,
+      "sector": 0,
+      "angularPitch": 0,
+      "arcSweep": 0,
+      "scale": 1.8780035638561077,
+      "arrival": 1
+    },
+    "viewport": [
+      1440,
+      1000
+    ],
+    "buffer": [
+      1440,
+      1000
+    ]
+  },
+  "video": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/hero-v4/qa/final-motion-raw.webm",
+  "conclusions": {
+    "runtime": "No console, page, GL, or external network errors in the tested states and continuous scroll.",
+    "visual": "Final .45/.50 desktop and narrow caption checks clear; mobile Moon endpoint fits.",
+    "scrollMonotonic": true,
+    "maxProgressLag": 0.008691049956242036,
+    "reduced": "Earlier same-geometry run parks at2frames.",
+    "pause": "Initial idle check began before pointer easing settled. Targeted repeat after1.2s parks48→48 frames, raf0.",
+    "video": "outputs/olivia-hero-motion.webm",
+    "previousVideo": "outputs/olivia-hero-motion-v3.webm"
+  }
+}

@@ -1,0 +1,3 @@
+This is a review candidate, not a completed paid-service launch.
+Serve website/out as the compiled native site. Optional AI requires the included Netlify edge functions and provider configuration in your existing hosting account. Use no-build deployment from website/ when publishing this compiled artifact. No environment files are included. Account/database services must be restored separately.
+The standalone HTML supports local practice. Cross-origin handoff and hosted AI are not included in that file. Source snapshots are for review; rebuilding uses the existing workspace dependencies and artwork listed in source/product/README.md.

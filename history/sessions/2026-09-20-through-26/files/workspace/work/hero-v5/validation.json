@@ -1,0 +1,5027 @@
+{
+  "source": "work/hero-v5/hero.js",
+  "sourceSha256": "b113cb237a441b0275b8943b7e82822635a37636d55634e238a9dee5cadd59ef",
+  "generatedAt": "2026-09-22T21:37:03.475Z",
+  "method": {
+    "progressStep": 0.001,
+    "samplesPerViewport": 1001,
+    "collision": "15-axis OBB SAT using full rectangular cards and CARD_T thickness. Penetration >1e-6 world units counts as intersection; near-zero contact is reported separately. No packet overlap is automatically excused.",
+    "bounds": "Projects every OBB corner with the source 38-degree vertical FOV and camera z=10.4. Nav/footer bands are conservative candidate conflicts, not measured DOM text overlaps.",
+    "continuity": "Finite samples plus one-sided projected centre derivatives at rail entry/exit and polyline knots. Sampling cannot prove absence of all intersections.",
+    "state": "quiet=true, freezeTime=true, ptr=[0,0], time=0; excludes ambient breathing and pointer offsets."
+  },
+  "viewports": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "cards": 9,
+      "railLength": 23.6816335,
+      "finiteFailures": [],
+      "pairTests": 36036,
+      "intersectionSamples": 354,
+      "confirmedFaceCrossingSamples": 304,
+      "touchSamples": 0,
+      "collisions": [
+        {
+          "progress": 0.242,
+          "pair": [
+            0,
+            8
+          ],
+          "ids": [
+            18,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.242,
+          "lastProgress": 0.702,
+          "samples": 14,
+          "worst": 0.1741189,
+          "worstProgress": 0.247
+        },
+        {
+          "progress": 0.375,
+          "pair": [
+            4,
+            8
+          ],
+          "ids": [
+            21,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.375,
+          "lastProgress": 0.705,
+          "samples": 9,
+          "worst": 0.1736769,
+          "worstProgress": 0.377
+        },
+        {
+          "progress": 0.318,
+          "pair": [
+            2,
+            7
+          ],
+          "ids": [
+            2,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.318,
+          "lastProgress": 0.673,
+          "samples": 10,
+          "worst": 0.1717549,
+          "worstProgress": 0.321
+        },
+        {
+          "progress": 0.285,
+          "pair": [
+            1,
+            8
+          ],
+          "ids": [
+            17,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.285,
+          "lastProgress": 0.703,
+          "samples": 12,
+          "worst": 0.1702844,
+          "worstProgress": 0.288
+        },
+        {
+          "progress": 0.284,
+          "pair": [
+            1,
+            6
+          ],
+          "ids": [
+            17,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.284,
+          "lastProgress": 0.646,
+          "samples": 11,
+          "worst": 0.1684329,
+          "worstProgress": 0.287
+        },
+        {
+          "progress": 0.242,
+          "pair": [
+            0,
+            7
+          ],
+          "ids": [
+            18,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.242,
+          "lastProgress": 0.672,
+          "samples": 14,
+          "worst": 0.1679076,
+          "worstProgress": 0.246
+        },
+        {
+          "progress": 0.24,
+          "pair": [
+            0,
+            5
+          ],
+          "ids": [
+            18,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.24,
+          "lastProgress": 0.62,
+          "samples": 14,
+          "worst": 0.1674286,
+          "worstProgress": 0.245
+        },
+        {
+          "progress": 0.283,
+          "pair": [
+            1,
+            4
+          ],
+          "ids": [
+            17,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.283,
+          "lastProgress": 0.6,
+          "samples": 11,
+          "worst": 0.1666884,
+          "worstProgress": 0.286
+        },
+        {
+          "progress": 0.423,
+          "pair": [
+            6,
+            8
+          ],
+          "ids": [
+            0,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.423,
+          "lastProgress": 0.725,
+          "samples": 9,
+          "worst": 0.1653141,
+          "worstProgress": 0.425
+        },
+        {
+          "progress": 0.399,
+          "pair": [
+            5,
+            7
+          ],
+          "ids": [
+            9,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.399,
+          "lastProgress": 0.691,
+          "samples": 8,
+          "worst": 0.1648906,
+          "worstProgress": 0.401
+        },
+        {
+          "progress": 0.348,
+          "pair": [
+            3,
+            7
+          ],
+          "ids": [
+            19,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.348,
+          "lastProgress": 0.674,
+          "samples": 10,
+          "worst": 0.1647104,
+          "worstProgress": 0.35
+        },
+        {
+          "progress": 0.24,
+          "pair": [
+            0,
+            4
+          ],
+          "ids": [
+            18,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.24,
+          "lastProgress": 0.597,
+          "samples": 13,
+          "worst": 0.1644976,
+          "worstProgress": 0.244
+        },
+        {
+          "progress": 0.347,
+          "pair": [
+            3,
+            6
+          ],
+          "ids": [
+            19,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.347,
+          "lastProgress": 0.649,
+          "samples": 9,
+          "worst": 0.1636991,
+          "worstProgress": 0.35
+        },
+        {
+          "progress": 0.284,
+          "pair": [
+            1,
+            7
+          ],
+          "ids": [
+            17,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.284,
+          "lastProgress": 0.673,
+          "samples": 12,
+          "worst": 0.162795,
+          "worstProgress": 0.288
+        },
+        {
+          "progress": 0.318,
+          "pair": [
+            2,
+            5
+          ],
+          "ids": [
+            2,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.318,
+          "lastProgress": 0.624,
+          "samples": 9,
+          "worst": 0.1615566,
+          "worstProgress": 0.32
+        },
+        {
+          "progress": 0.241,
+          "pair": [
+            0,
+            6
+          ],
+          "ids": [
+            18,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.241,
+          "lastProgress": 0.645,
+          "samples": 14,
+          "worst": 0.1613958,
+          "worstProgress": 0.246
+        },
+        {
+          "progress": 0.396,
+          "pair": [
+            5,
+            6
+          ],
+          "ids": [
+            9,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.396,
+          "lastProgress": 0.675,
+          "samples": 5,
+          "worst": 0.1608017,
+          "worstProgress": 0.397
+        },
+        {
+          "progress": 0.278,
+          "pair": [
+            1,
+            2
+          ],
+          "ids": [
+            17,
+            2
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.278,
+          "lastProgress": 0.576,
+          "samples": 8,
+          "worst": 0.1602878,
+          "worstProgress": 0.28
+        },
+        {
+          "progress": 0.238,
+          "pair": [
+            0,
+            2
+          ],
+          "ids": [
+            18,
+            2
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.238,
+          "lastProgress": 0.565,
+          "samples": 13,
+          "worst": 0.1595877,
+          "worstProgress": 0.243
+        },
+        {
+          "progress": 0.317,
+          "pair": [
+            2,
+            4
+          ],
+          "ids": [
+            2,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.317,
+          "lastProgress": 0.611,
+          "samples": 9,
+          "worst": 0.159484,
+          "worstProgress": 0.32
+        },
+        {
+          "progress": 0.374,
+          "pair": [
+            4,
+            6
+          ],
+          "ids": [
+            21,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.374,
+          "lastProgress": 0.662,
+          "samples": 8,
+          "worst": 0.1594708,
+          "worstProgress": 0.376
+        },
+        {
+          "progress": 0.318,
+          "pair": [
+            2,
+            6
+          ],
+          "ids": [
+            2,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.318,
+          "lastProgress": 0.646,
+          "samples": 10,
+          "worst": 0.1586244,
+          "worstProgress": 0.321
+        },
+        {
+          "progress": 0.283,
+          "pair": [
+            1,
+            5
+          ],
+          "ids": [
+            17,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.283,
+          "lastProgress": 0.621,
+          "samples": 11,
+          "worst": 0.1578229,
+          "worstProgress": 0.287
+        },
+        {
+          "progress": 0.348,
+          "pair": [
+            3,
+            8
+          ],
+          "ids": [
+            19,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.348,
+          "lastProgress": 0.704,
+          "samples": 10,
+          "worst": 0.1578181,
+          "worstProgress": 0.351
+        },
+        {
+          "progress": 0.371,
+          "pair": [
+            4,
+            5
+          ],
+          "ids": [
+            21,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.371,
+          "lastProgress": 0.648,
+          "samples": 4,
+          "worst": 0.1577457,
+          "worstProgress": 0.372
+        },
+        {
+          "progress": 0.319,
+          "pair": [
+            2,
+            8
+          ],
+          "ids": [
+            2,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.319,
+          "lastProgress": 0.704,
+          "samples": 11,
+          "worst": 0.157464,
+          "worstProgress": 0.322
+        },
+        {
+          "progress": 0.232,
+          "pair": [
+            0,
+            1
+          ],
+          "ids": [
+            18,
+            17
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.232,
+          "lastProgress": 0.554,
+          "samples": 9,
+          "worst": 0.1565588,
+          "worstProgress": 0.235
+        },
+        {
+          "progress": 0.442,
+          "pair": [
+            7,
+            8
+          ],
+          "ids": [
+            6,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.442,
+          "lastProgress": 0.742,
+          "samples": 5,
+          "worst": 0.1562726,
+          "worstProgress": 0.443
+        },
+        {
+          "progress": 0.343,
+          "pair": [
+            3,
+            4
+          ],
+          "ids": [
+            19,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.343,
+          "lastProgress": 0.623,
+          "samples": 6,
+          "worst": 0.1561122,
+          "worstProgress": 0.345
+        },
+        {
+          "progress": 0.313,
+          "pair": [
+            2,
+            3
+          ],
+          "ids": [
+            2,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.313,
+          "lastProgress": 0.599,
+          "samples": 7,
+          "worst": 0.1553456,
+          "worstProgress": 0.315
+        },
+        {
+          "progress": 0.374,
+          "pair": [
+            4,
+            7
+          ],
+          "ids": [
+            21,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.374,
+          "lastProgress": 0.677,
+          "samples": 9,
+          "worst": 0.1547135,
+          "worstProgress": 0.377
+        },
+        {
+          "progress": 0.239,
+          "pair": [
+            0,
+            3
+          ],
+          "ids": [
+            18,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.239,
+          "lastProgress": 0.577,
+          "samples": 14,
+          "worst": 0.1540499,
+          "worstProgress": 0.244
+        },
+        {
+          "progress": 0.282,
+          "pair": [
+            1,
+            3
+          ],
+          "ids": [
+            17,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.282,
+          "lastProgress": 0.588,
+          "samples": 10,
+          "worst": 0.1524745,
+          "worstProgress": 0.286
+        },
+        {
+          "progress": 0.399,
+          "pair": [
+            5,
+            8
+          ],
+          "ids": [
+            9,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.399,
+          "lastProgress": 0.708,
+          "samples": 10,
+          "worst": 0.1509351,
+          "worstProgress": 0.402
+        },
+        {
+          "progress": 0.347,
+          "pair": [
+            3,
+            5
+          ],
+          "ids": [
+            19,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.347,
+          "lastProgress": 0.636,
+          "samples": 9,
+          "worst": 0.1478866,
+          "worstProgress": 0.349
+        },
+        {
+          "progress": 0.419,
+          "pair": [
+            6,
+            7
+          ],
+          "ids": [
+            0,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.419,
+          "lastProgress": 0.706,
+          "samples": 7,
+          "worst": 0.1295776,
+          "worstProgress": 0.421
+        }
+      ],
+      "viewportClipping": [],
+      "navigationBandCandidates": [],
+      "footerBandCandidates": [],
+      "projectedEnvelope": {
+        "left": 162.1689295,
+        "top": 115.0818645,
+        "right": 1248.2800512,
+        "bottom": 841.9207751
+      },
+      "categorizedWorst": {
+        "departure": {
+          "progress": 0.247,
+          "pair": [
+            0,
+            8
+          ],
+          "ids": [
+            18,
+            14
+          ],
+          "u": [
+            0.1046226,
+            0
+          ],
+          "penetration": 0.1741189,
+          "centres": [
+            [
+              2.8085558,
+              1.4837126,
+              0.2122374
+            ],
+            [
+              1.6501281,
+              0.3581007,
+              -0.1885042
+            ]
+          ],
+          "dimensions": [
+            [
+              0.9818208,
+              1.6830733,
+              0.0092569
+            ],
+            [
+              1.9636417,
+              3.3661468,
+              0.0185138
+            ]
+          ],
+          "axes": [
+            [
+              [
+                0.7596324,
+                -0.334324,
+                0.5578405
+              ],
+              [
+                0.2660411,
+                0.9424424,
+                0.2025447
+              ],
+              [
+                -0.5934481,
+                -0.005451,
+                0.8048538
+              ]
+            ],
+            [
+              [
+                0.9296243,
+                -0.1287019,
+                0.3453035
+              ],
+              [
+                0.1617988,
+                0.9844312,
+                -0.0686756
+              ],
+              [
+                -0.3310889,
+                0.1197122,
+                0.935975
+              ]
+            ]
+          ],
+          "faceCrossingWitness": [
+            2.5442958,
+            1.2345181,
+            0.0157012
+          ]
+        },
+        "midflight": {
+          "progress": 0.612,
+          "pair": [
+            6,
+            7
+          ],
+          "ids": [
+            0,
+            6
+          ],
+          "u": [
+            0.6865142,
+            0.6182862
+          ],
+          "penetration": 0.020805,
+          "centres": [
+            [
+              -1.0879153,
+              -0.9214732,
+              1.653644
+            ],
+            [
+              -2.393779,
+              -0.4133579,
+              1.3926978
+            ]
+          ],
+          "dimensions": [
+            [
+              1.1683668,
+              2.0028574,
+              0.0110157
+            ],
+            [
+              1.1683668,
+              2.0028573,
+              0.0110157
+            ]
+          ],
+          "axes": [
+            [
+              [
+                -0.9485394,
+                -0.2738554,
+                -0.1589849
+              ],
+              [
+                -0.2477014,
+                0.9544659,
+                -0.1662492
+              ],
+              [
+                0.1972739,
+                -0.1183132,
+                -0.9731829
+              ]
+            ],
+            [
+              [
+                -0.993259,
+                -0.0932858,
+                -0.0688066
+              ],
+              [
+                -0.0902283,
+                0.9948449,
+                -0.046287
+              ],
+              [
+                0.0727699,
+                -0.0397666,
+                -0.9965556
+              ]
+            ]
+          ],
+          "faceCrossingWitness": [
+            -1.8276833,
+            -0.3169033,
+            1.430186
+          ]
+        },
+        "arrival": {
+          "progress": 0.707,
+          "pair": [
+            5,
+            8
+          ],
+          "ids": [
+            9,
+            14
+          ],
+          "u": [
+            0.9927369,
+            0.7880529
+          ],
+          "penetration": 0.0999306,
+          "centres": [
+            [
+              2.0396814,
+              0.428006,
+              -0.3009888
+            ],
+            [
+              0.2439307,
+              -0.9343639,
+              -0.3396992
+            ]
+          ],
+          "dimensions": [
+            [
+              2.4587144,
+              4.2148183,
+              0.0231815
+            ],
+            [
+              1.1269343,
+              1.9318322,
+              0.0106251
+            ]
+          ],
+          "axes": [
+            [
+              [
+                -0.9882306,
+                0.0545981,
+                0.1428962
+              ],
+              [
+                0.0639069,
+                0.9960663,
+                0.0613831
+              ],
+              [
+                -0.1389827,
+                0.0697927,
+                -0.9878324
+              ]
+            ],
+            [
+              [
+                -0.9683808,
+                -0.2236369,
+                -0.1105673
+              ],
+              [
+                -0.210062,
+                0.9700201,
+                -0.1222089
+              ],
+              [
+                0.1345829,
+                -0.0951188,
+                -0.9863264
+              ]
+            ]
+          ],
+          "faceCrossingWitness": [
+            0.7794977,
+            -1.2137313,
+            -0.2396804
+          ]
+        }
+      },
+      "continuity": {
+        "largestConsecutiveCornerDisplacementPx": 19.7935619,
+        "entryExit": [
+          {
+            "card": 0,
+            "event": "arrival",
+            "progress": 0.5796177,
+            "beforeSpeedPxPerProgress": 6212.0614253,
+            "afterSpeedPxPerProgress": 0.0000046,
+            "velocityDeltaPxPerProgress": 6212.0614218
+          },
+          {
+            "card": 1,
+            "event": "release",
+            "progress": 0.2184932,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 3386.8875391,
+            "velocityDeltaPxPerProgress": 3386.8875391
+          },
+          {
+            "card": 1,
+            "event": "arrival",
+            "progress": 0.6024604,
+            "beforeSpeedPxPerProgress": 5956.1329587,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 5956.1329587
+          },
+          {
+            "card": 2,
+            "event": "release",
+            "progress": 0.2676208,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 4983.3661552,
+            "velocityDeltaPxPerProgress": 4983.3661552
+          },
+          {
+            "card": 2,
+            "event": "arrival",
+            "progress": 0.6263679,
+            "beforeSpeedPxPerProgress": 5630.4156622,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 5630.4156622
+          },
+          {
+            "card": 3,
+            "event": "release",
+            "progress": 0.3044757,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 6133.5210621,
+            "velocityDeltaPxPerProgress": 6133.5210621
+          },
+          {
+            "card": 3,
+            "event": "arrival",
+            "progress": 0.6518007,
+            "beforeSpeedPxPerProgress": 5223.482406,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 5223.482406
+          },
+          {
+            "card": 4,
+            "event": "release",
+            "progress": 0.3355425,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 7021.4738924,
+            "velocityDeltaPxPerProgress": 7021.4738924
+          },
+          {
+            "card": 4,
+            "event": "arrival",
+            "progress": 0.6794575,
+            "beforeSpeedPxPerProgress": 4723.5280577,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 4723.5280577
+          },
+          {
+            "card": 5,
+            "event": "release",
+            "progress": 0.3631993,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 7721.5491073,
+            "velocityDeltaPxPerProgress": 7721.5491073
+          },
+          {
+            "card": 5,
+            "event": "arrival",
+            "progress": 0.7105243,
+            "beforeSpeedPxPerProgress": 4100.8113535,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 4100.8113535
+          },
+          {
+            "card": 6,
+            "event": "release",
+            "progress": 0.3886321,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 8273.7097439,
+            "velocityDeltaPxPerProgress": 8273.7097439
+          },
+          {
+            "card": 6,
+            "event": "arrival",
+            "progress": 0.7473792,
+            "beforeSpeedPxPerProgress": 3311.7425392,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 3311.7425392
+          },
+          {
+            "card": 7,
+            "event": "release",
+            "progress": 0.4125396,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 8702.767234,
+            "velocityDeltaPxPerProgress": 8702.767234
+          },
+          {
+            "card": 7,
+            "event": "arrival",
+            "progress": 0.7965068,
+            "beforeSpeedPxPerProgress": 2238.2356058,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 2238.2356058
+          },
+          {
+            "card": 8,
+            "event": "release",
+            "progress": 0.4353823,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 9023.3454754,
+            "velocityDeltaPxPerProgress": 9023.3454754
+          },
+          {
+            "card": 8,
+            "event": "arrival",
+            "progress": 0.9599995,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          }
+        ],
+        "largestPolylineVelocityChange": {
+          "railKnot": 288,
+          "progress": 0.5423411,
+          "beforeSpeedPxPerProgress": 7079.3696966,
+          "afterSpeedPxPerProgress": 7682.8052334,
+          "velocityDeltaPxPerProgress": 630.6475757
+        }
+      }
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "cards": 9,
+      "railLength": 25.7966701,
+      "finiteFailures": [],
+      "pairTests": 36036,
+      "intersectionSamples": 185,
+      "confirmedFaceCrossingSamples": 156,
+      "touchSamples": 0,
+      "collisions": [
+        {
+          "progress": 0.411,
+          "pair": [
+            6,
+            7
+          ],
+          "ids": [
+            0,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.411,
+          "lastProgress": 0.71,
+          "samples": 4,
+          "worst": 0.1314936,
+          "worstProgress": 0.412
+        },
+        {
+          "progress": 0.309,
+          "pair": [
+            2,
+            3
+          ],
+          "ids": [
+            2,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.309,
+          "lastProgress": 0.312,
+          "samples": 4,
+          "worst": 0.1251757,
+          "worstProgress": 0.31
+        },
+        {
+          "progress": 0.338,
+          "pair": [
+            3,
+            4
+          ],
+          "ids": [
+            19,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.338,
+          "lastProgress": 0.63,
+          "samples": 4,
+          "worst": 0.1250304,
+          "worstProgress": 0.339
+        },
+        {
+          "progress": 0.433,
+          "pair": [
+            7,
+            8
+          ],
+          "ids": [
+            6,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.433,
+          "lastProgress": 0.745,
+          "samples": 4,
+          "worst": 0.1190274,
+          "worstProgress": 0.434
+        },
+        {
+          "progress": 0.364,
+          "pair": [
+            4,
+            5
+          ],
+          "ids": [
+            21,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.364,
+          "lastProgress": 0.366,
+          "samples": 3,
+          "worst": 0.1171339,
+          "worstProgress": 0.365
+        },
+        {
+          "progress": 0.231,
+          "pair": [
+            0,
+            1
+          ],
+          "ids": [
+            18,
+            17
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.231,
+          "lastProgress": 0.236,
+          "samples": 6,
+          "worst": 0.115157,
+          "worstProgress": 0.234
+        },
+        {
+          "progress": 0.275,
+          "pair": [
+            1,
+            2
+          ],
+          "ids": [
+            17,
+            2
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.275,
+          "lastProgress": 0.278,
+          "samples": 4,
+          "worst": 0.108536,
+          "worstProgress": 0.276
+        },
+        {
+          "progress": 0.24,
+          "pair": [
+            0,
+            7
+          ],
+          "ids": [
+            18,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.24,
+          "lastProgress": 0.247,
+          "samples": 8,
+          "worst": 0.108111,
+          "worstProgress": 0.243
+        },
+        {
+          "progress": 0.315,
+          "pair": [
+            2,
+            8
+          ],
+          "ids": [
+            2,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.315,
+          "lastProgress": 0.319,
+          "samples": 5,
+          "worst": 0.1079843,
+          "worstProgress": 0.316
+        },
+        {
+          "progress": 0.392,
+          "pair": [
+            5,
+            7
+          ],
+          "ids": [
+            9,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.392,
+          "lastProgress": 0.395,
+          "samples": 4,
+          "worst": 0.1073471,
+          "worstProgress": 0.393
+        },
+        {
+          "progress": 0.368,
+          "pair": [
+            4,
+            6
+          ],
+          "ids": [
+            21,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.368,
+          "lastProgress": 0.371,
+          "samples": 4,
+          "worst": 0.1061664,
+          "worstProgress": 0.369
+        },
+        {
+          "progress": 0.342,
+          "pair": [
+            3,
+            5
+          ],
+          "ids": [
+            19,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.342,
+          "lastProgress": 0.345,
+          "samples": 4,
+          "worst": 0.1050971,
+          "worstProgress": 0.343
+        },
+        {
+          "progress": 0.237,
+          "pair": [
+            0,
+            2
+          ],
+          "ids": [
+            18,
+            2
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.237,
+          "lastProgress": 0.244,
+          "samples": 8,
+          "worst": 0.1039233,
+          "worstProgress": 0.24
+        },
+        {
+          "progress": 0.389,
+          "pair": [
+            5,
+            6
+          ],
+          "ids": [
+            9,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.389,
+          "lastProgress": 0.39,
+          "samples": 2,
+          "worst": 0.1035909,
+          "worstProgress": 0.389
+        },
+        {
+          "progress": 0.239,
+          "pair": [
+            0,
+            5
+          ],
+          "ids": [
+            18,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.239,
+          "lastProgress": 0.246,
+          "samples": 8,
+          "worst": 0.1034613,
+          "worstProgress": 0.242
+        },
+        {
+          "progress": 0.239,
+          "pair": [
+            0,
+            4
+          ],
+          "ids": [
+            18,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.239,
+          "lastProgress": 0.245,
+          "samples": 7,
+          "worst": 0.1033904,
+          "worstProgress": 0.241
+        },
+        {
+          "progress": 0.241,
+          "pair": [
+            0,
+            8
+          ],
+          "ids": [
+            18,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.241,
+          "lastProgress": 0.248,
+          "samples": 8,
+          "worst": 0.1026936,
+          "worstProgress": 0.244
+        },
+        {
+          "progress": 0.313,
+          "pair": [
+            2,
+            5
+          ],
+          "ids": [
+            2,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.313,
+          "lastProgress": 0.317,
+          "samples": 5,
+          "worst": 0.1018878,
+          "worstProgress": 0.315
+        },
+        {
+          "progress": 0.343,
+          "pair": [
+            3,
+            7
+          ],
+          "ids": [
+            19,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.343,
+          "lastProgress": 0.346,
+          "samples": 4,
+          "worst": 0.1016748,
+          "worstProgress": 0.344
+        },
+        {
+          "progress": 0.343,
+          "pair": [
+            3,
+            8
+          ],
+          "ids": [
+            19,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.343,
+          "lastProgress": 0.346,
+          "samples": 4,
+          "worst": 0.1015806,
+          "worstProgress": 0.344
+        },
+        {
+          "progress": 0.28,
+          "pair": [
+            1,
+            4
+          ],
+          "ids": [
+            17,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.28,
+          "lastProgress": 0.285,
+          "samples": 6,
+          "worst": 0.1015108,
+          "worstProgress": 0.282
+        },
+        {
+          "progress": 0.281,
+          "pair": [
+            1,
+            6
+          ],
+          "ids": [
+            17,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.281,
+          "lastProgress": 0.286,
+          "samples": 6,
+          "worst": 0.1013983,
+          "worstProgress": 0.283
+        },
+        {
+          "progress": 0.282,
+          "pair": [
+            1,
+            8
+          ],
+          "ids": [
+            17,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.282,
+          "lastProgress": 0.287,
+          "samples": 6,
+          "worst": 0.1012534,
+          "worstProgress": 0.284
+        },
+        {
+          "progress": 0.281,
+          "pair": [
+            1,
+            7
+          ],
+          "ids": [
+            17,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.281,
+          "lastProgress": 0.286,
+          "samples": 6,
+          "worst": 0.1009059,
+          "worstProgress": 0.283
+        },
+        {
+          "progress": 0.415,
+          "pair": [
+            6,
+            8
+          ],
+          "ids": [
+            0,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.415,
+          "lastProgress": 0.417,
+          "samples": 3,
+          "worst": 0.0986717,
+          "worstProgress": 0.416
+        },
+        {
+          "progress": 0.238,
+          "pair": [
+            0,
+            3
+          ],
+          "ids": [
+            18,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.238,
+          "lastProgress": 0.244,
+          "samples": 7,
+          "worst": 0.0985002,
+          "worstProgress": 0.241
+        },
+        {
+          "progress": 0.314,
+          "pair": [
+            2,
+            6
+          ],
+          "ids": [
+            2,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.314,
+          "lastProgress": 0.318,
+          "samples": 5,
+          "worst": 0.0984619,
+          "worstProgress": 0.315
+        },
+        {
+          "progress": 0.314,
+          "pair": [
+            2,
+            7
+          ],
+          "ids": [
+            2,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.314,
+          "lastProgress": 0.318,
+          "samples": 5,
+          "worst": 0.0980644,
+          "worstProgress": 0.316
+        },
+        {
+          "progress": 0.24,
+          "pair": [
+            0,
+            6
+          ],
+          "ids": [
+            18,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.24,
+          "lastProgress": 0.246,
+          "samples": 7,
+          "worst": 0.0980632,
+          "worstProgress": 0.243
+        },
+        {
+          "progress": 0.28,
+          "pair": [
+            1,
+            5
+          ],
+          "ids": [
+            17,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.28,
+          "lastProgress": 0.285,
+          "samples": 6,
+          "worst": 0.0979458,
+          "worstProgress": 0.282
+        },
+        {
+          "progress": 0.369,
+          "pair": [
+            4,
+            8
+          ],
+          "ids": [
+            21,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.369,
+          "lastProgress": 0.372,
+          "samples": 4,
+          "worst": 0.0971023,
+          "worstProgress": 0.37
+        },
+        {
+          "progress": 0.279,
+          "pair": [
+            1,
+            3
+          ],
+          "ids": [
+            17,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.279,
+          "lastProgress": 0.284,
+          "samples": 6,
+          "worst": 0.09529,
+          "worstProgress": 0.281
+        },
+        {
+          "progress": 0.342,
+          "pair": [
+            3,
+            6
+          ],
+          "ids": [
+            19,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.342,
+          "lastProgress": 0.346,
+          "samples": 5,
+          "worst": 0.0917084,
+          "worstProgress": 0.344
+        },
+        {
+          "progress": 0.313,
+          "pair": [
+            2,
+            4
+          ],
+          "ids": [
+            2,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.313,
+          "lastProgress": 0.317,
+          "samples": 5,
+          "worst": 0.0916658,
+          "worstProgress": 0.315
+        },
+        {
+          "progress": 0.368,
+          "pair": [
+            4,
+            7
+          ],
+          "ids": [
+            21,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.368,
+          "lastProgress": 0.371,
+          "samples": 4,
+          "worst": 0.0899307,
+          "worstProgress": 0.369
+        },
+        {
+          "progress": 0.392,
+          "pair": [
+            5,
+            8
+          ],
+          "ids": [
+            9,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.392,
+          "lastProgress": 0.395,
+          "samples": 4,
+          "worst": 0.0883573,
+          "worstProgress": 0.393
+        }
+      ],
+      "viewportClipping": [],
+      "navigationBandCandidates": [],
+      "footerBandCandidates": [],
+      "projectedEnvelope": {
+        "left": 168.6474628,
+        "top": 82.8589424,
+        "right": 1093.3351519,
+        "bottom": 606.2957217
+      },
+      "categorizedWorst": {
+        "departure": {
+          "progress": 0.412,
+          "pair": [
+            6,
+            7
+          ],
+          "ids": [
+            0,
+            6
+          ],
+          "u": [
+            0.0864325,
+            0.0237984
+          ],
+          "penetration": 0.1314936,
+          "centres": [
+            [
+              3.4330838,
+              1.3232098,
+              0.6015683
+            ],
+            [
+              2.4707301,
+              0.5639737,
+              0.2613927
+            ]
+          ],
+          "dimensions": [
+            [
+              0.9818208,
+              1.6830734,
+              0.0092569
+            ],
+            [
+              1.6981593,
+              2.9110472,
+              0.0160108
+            ]
+          ],
+          "axes": [
+            [
+              [
+                0.8064721,
+                -0.2869287,
+                0.5169861
+              ],
+              [
+                0.2632557,
+                0.957163,
+                0.1205626
+              ],
+              [
+                -0.5294329,
+                0.0388692,
+                0.8474609
+              ]
+            ],
+            [
+              [
+                0.9269334,
+                -0.1332489,
+                0.3507694
+              ],
+              [
+                0.1659422,
+                0.9840099,
+                -0.0647122
+              ],
+              [
+                -0.3365377,
+                0.1181914,
+                0.9342233
+              ]
+            ]
+          ],
+          "faceCrossingWitness": [
+            3.169168,
+            1.0782797,
+            0.4479265
+          ]
+        },
+        "arrival": {
+          "progress": 0.71,
+          "pair": [
+            6,
+            7
+          ],
+          "ids": [
+            0,
+            6
+          ],
+          "u": [
+            0.9254682,
+            0.8628341
+          ],
+          "penetration": 0.00651,
+          "centres": [
+            [
+              2.3394709,
+              -0.2730607,
+              -1.747718
+            ],
+            [
+              1.3271698,
+              -0.8175536,
+              -1.7156296
+            ]
+          ],
+          "dimensions": [
+            [
+              1.0061964,
+              1.7248589,
+              0.0094867
+            ],
+            [
+              0.9954802,
+              1.7064887,
+              0.0093857
+            ]
+          ],
+          "axes": [
+            [
+              [
+                -0.994271,
+                0.0174407,
+                0.1054565
+              ],
+              [
+                0.0222673,
+                0.9987493,
+                0.0447659
+              ],
+              [
+                -0.1045438,
+                0.0468577,
+                -0.9934158
+              ]
+            ],
+            [
+              [
+                -0.9961612,
+                -0.0873449,
+                0.0058053
+              ],
+              [
+                -0.0874267,
+                0.9960461,
+                -0.0157707
+              ],
+              [
+                -0.0044049,
+                -0.0162177,
+                -0.9998588
+              ]
+            ]
+          ],
+          "faceCrossingWitness": null
+        }
+      },
+      "continuity": {
+        "largestConsecutiveCornerDisplacementPx": 15.1979761,
+        "entryExit": [
+          {
+            "card": 0,
+            "event": "arrival",
+            "progress": 0.5894915,
+            "beforeSpeedPxPerProgress": 5022.5704191,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 5022.5704191
+          },
+          {
+            "card": 1,
+            "event": "release",
+            "progress": 0.2151197,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 2621.575595,
+            "velocityDeltaPxPerProgress": 2621.575595
+          },
+          {
+            "card": 1,
+            "event": "arrival",
+            "progress": 0.6114541,
+            "beforeSpeedPxPerProgress": 4799.4598793,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 4799.4598793
+          },
+          {
+            "card": 2,
+            "event": "release",
+            "progress": 0.2630507,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 3863.6143267,
+            "velocityDeltaPxPerProgress": 3863.6143267
+          },
+          {
+            "card": 2,
+            "event": "arrival",
+            "progress": 0.634507,
+            "beforeSpeedPxPerProgress": 4523.4754376,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 4523.4754376
+          },
+          {
+            "card": 3,
+            "event": "release",
+            "progress": 0.2989267,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 4765.903995,
+            "velocityDeltaPxPerProgress": 4765.903995
+          },
+          {
+            "card": 3,
+            "event": "arrival",
+            "progress": 0.6590951,
+            "beforeSpeedPxPerProgress": 4186.6456218,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 4186.6456218
+          },
+          {
+            "card": 4,
+            "event": "release",
+            "progress": 0.3291022,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 5467.9489511,
+            "velocityDeltaPxPerProgress": 5467.9489511
+          },
+          {
+            "card": 4,
+            "event": "arrival",
+            "progress": 0.6858978,
+            "beforeSpeedPxPerProgress": 3775.4723079,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 3775.4723079
+          },
+          {
+            "card": 5,
+            "event": "release",
+            "progress": 0.3559049,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 6026.7907698,
+            "velocityDeltaPxPerProgress": 6026.7907698
+          },
+          {
+            "card": 5,
+            "event": "arrival",
+            "progress": 0.7160733,
+            "beforeSpeedPxPerProgress": 3272.2081888,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 3272.2081888
+          },
+          {
+            "card": 6,
+            "event": "release",
+            "progress": 0.380493,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 6473.5119283,
+            "velocityDeltaPxPerProgress": 6473.5119283
+          },
+          {
+            "card": 6,
+            "event": "arrival",
+            "progress": 0.7519493,
+            "beforeSpeedPxPerProgress": 2636.6655349,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 2636.6655349
+          },
+          {
+            "card": 7,
+            "event": "release",
+            "progress": 0.4035459,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 6827.3350547,
+            "velocityDeltaPxPerProgress": 6827.3350547
+          },
+          {
+            "card": 7,
+            "event": "arrival",
+            "progress": 0.7998803,
+            "beforeSpeedPxPerProgress": 1777.7917438,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 1777.7917438
+          },
+          {
+            "card": 8,
+            "event": "release",
+            "progress": 0.4255085,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 7100.6215203,
+            "velocityDeltaPxPerProgress": 7100.6215203
+          }
+        ],
+        "largestPolylineVelocityChange": {
+          "railKnot": 46,
+          "progress": 0.2243373,
+          "beforeSpeedPxPerProgress": 2210.7004574,
+          "afterSpeedPxPerProgress": 1959.2999823,
+          "velocityDeltaPxPerProgress": 440.0459488
+        }
+      }
+    },
+    {
+      "viewport": [
+        800,
+        900
+      ],
+      "cards": 9,
+      "railLength": 20.5863305,
+      "finiteFailures": [],
+      "pairTests": 36036,
+      "intersectionSamples": 765,
+      "confirmedFaceCrossingSamples": 710,
+      "touchSamples": 0,
+      "collisions": [
+        {
+          "progress": 0.357,
+          "pair": [
+            3,
+            8
+          ],
+          "ids": [
+            19,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.357,
+          "lastProgress": 0.705,
+          "samples": 26,
+          "worst": 0.2880284,
+          "worstProgress": 0.699
+        },
+        {
+          "progress": 0.29,
+          "pair": [
+            1,
+            7
+          ],
+          "ids": [
+            17,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.29,
+          "lastProgress": 0.671,
+          "samples": 27,
+          "worst": 0.2871437,
+          "worstProgress": 0.296
+        },
+        {
+          "progress": 0.245,
+          "pair": [
+            0,
+            7
+          ],
+          "ids": [
+            18,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.245,
+          "lastProgress": 0.67,
+          "samples": 32,
+          "worst": 0.2865497,
+          "worstProgress": 0.665
+        },
+        {
+          "progress": 0.245,
+          "pair": [
+            0,
+            8
+          ],
+          "ids": [
+            18,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.245,
+          "lastProgress": 0.703,
+          "samples": 34,
+          "worst": 0.2863287,
+          "worstProgress": 0.697
+        },
+        {
+          "progress": 0.326,
+          "pair": [
+            2,
+            7
+          ],
+          "ids": [
+            2,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.326,
+          "lastProgress": 0.672,
+          "samples": 26,
+          "worst": 0.2858049,
+          "worstProgress": 0.331
+        },
+        {
+          "progress": 0.385,
+          "pair": [
+            4,
+            6
+          ],
+          "ids": [
+            21,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.385,
+          "lastProgress": 0.655,
+          "samples": 16,
+          "worst": 0.2821996,
+          "worstProgress": 0.389
+        },
+        {
+          "progress": 0.325,
+          "pair": [
+            2,
+            5
+          ],
+          "ids": [
+            2,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.325,
+          "lastProgress": 0.615,
+          "samples": 20,
+          "worst": 0.2819378,
+          "worstProgress": 0.33
+        },
+        {
+          "progress": 0.244,
+          "pair": [
+            0,
+            6
+          ],
+          "ids": [
+            18,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.244,
+          "lastProgress": 0.641,
+          "samples": 31,
+          "worst": 0.2818545,
+          "worstProgress": 0.252
+        },
+        {
+          "progress": 0.412,
+          "pair": [
+            5,
+            8
+          ],
+          "ids": [
+            9,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.412,
+          "lastProgress": 0.707,
+          "samples": 21,
+          "worst": 0.2814817,
+          "worstProgress": 0.701
+        },
+        {
+          "progress": 0.357,
+          "pair": [
+            3,
+            6
+          ],
+          "ids": [
+            19,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.357,
+          "lastProgress": 0.643,
+          "samples": 19,
+          "worst": 0.2811866,
+          "worstProgress": 0.361
+        },
+        {
+          "progress": 0.385,
+          "pair": [
+            4,
+            7
+          ],
+          "ids": [
+            21,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.385,
+          "lastProgress": 0.673,
+          "samples": 20,
+          "worst": 0.2805703,
+          "worstProgress": 0.668
+        },
+        {
+          "progress": 0.289,
+          "pair": [
+            1,
+            5
+          ],
+          "ids": [
+            17,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.289,
+          "lastProgress": 0.615,
+          "samples": 26,
+          "worst": 0.2803603,
+          "worstProgress": 0.61
+        },
+        {
+          "progress": 0.386,
+          "pair": [
+            4,
+            8
+          ],
+          "ids": [
+            21,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.386,
+          "lastProgress": 0.706,
+          "samples": 24,
+          "worst": 0.2788648,
+          "worstProgress": 0.39
+        },
+        {
+          "progress": 0.29,
+          "pair": [
+            1,
+            8
+          ],
+          "ids": [
+            17,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.29,
+          "lastProgress": 0.704,
+          "samples": 30,
+          "worst": 0.2772292,
+          "worstProgress": 0.297
+        },
+        {
+          "progress": 0.357,
+          "pair": [
+            3,
+            7
+          ],
+          "ids": [
+            19,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.357,
+          "lastProgress": 0.672,
+          "samples": 23,
+          "worst": 0.276505,
+          "worstProgress": 0.667
+        },
+        {
+          "progress": 0.289,
+          "pair": [
+            1,
+            6
+          ],
+          "ids": [
+            17,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.289,
+          "lastProgress": 0.642,
+          "samples": 28,
+          "worst": 0.276486,
+          "worstProgress": 0.637
+        },
+        {
+          "progress": 0.242,
+          "pair": [
+            0,
+            3
+          ],
+          "ids": [
+            18,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.242,
+          "lastProgress": 0.564,
+          "samples": 26,
+          "worst": 0.2739379,
+          "worstProgress": 0.25
+        },
+        {
+          "progress": 0.326,
+          "pair": [
+            2,
+            8
+          ],
+          "ids": [
+            2,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.326,
+          "lastProgress": 0.705,
+          "samples": 27,
+          "worst": 0.2727074,
+          "worstProgress": 0.698
+        },
+        {
+          "progress": 0.242,
+          "pair": [
+            0,
+            4
+          ],
+          "ids": [
+            18,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.242,
+          "lastProgress": 0.589,
+          "samples": 32,
+          "worst": 0.2715506,
+          "worstProgress": 0.251
+        },
+        {
+          "progress": 0.241,
+          "pair": [
+            0,
+            2
+          ],
+          "ids": [
+            18,
+            2
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.241,
+          "lastProgress": 0.551,
+          "samples": 25,
+          "worst": 0.2715213,
+          "worstProgress": 0.249
+        },
+        {
+          "progress": 0.243,
+          "pair": [
+            0,
+            5
+          ],
+          "ids": [
+            18,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.243,
+          "lastProgress": 0.614,
+          "samples": 31,
+          "worst": 0.2709708,
+          "worstProgress": 0.251
+        },
+        {
+          "progress": 0.325,
+          "pair": [
+            2,
+            6
+          ],
+          "ids": [
+            2,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.325,
+          "lastProgress": 0.642,
+          "samples": 24,
+          "worst": 0.2698717,
+          "worstProgress": 0.637
+        },
+        {
+          "progress": 0.356,
+          "pair": [
+            3,
+            5
+          ],
+          "ids": [
+            19,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.356,
+          "lastProgress": 0.627,
+          "samples": 18,
+          "worst": 0.2693283,
+          "worstProgress": 0.361
+        },
+        {
+          "progress": 0.288,
+          "pair": [
+            1,
+            3
+          ],
+          "ids": [
+            17,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.288,
+          "lastProgress": 0.575,
+          "samples": 20,
+          "worst": 0.2690249,
+          "worstProgress": 0.294
+        },
+        {
+          "progress": 0.288,
+          "pair": [
+            1,
+            4
+          ],
+          "ids": [
+            17,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.288,
+          "lastProgress": 0.589,
+          "samples": 22,
+          "worst": 0.2686958,
+          "worstProgress": 0.586
+        },
+        {
+          "progress": 0.437,
+          "pair": [
+            6,
+            8
+          ],
+          "ids": [
+            0,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.437,
+          "lastProgress": 0.721,
+          "samples": 16,
+          "worst": 0.2680849,
+          "worstProgress": 0.441
+        },
+        {
+          "progress": 0.411,
+          "pair": [
+            5,
+            7
+          ],
+          "ids": [
+            9,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.411,
+          "lastProgress": 0.686,
+          "samples": 17,
+          "worst": 0.2653132,
+          "worstProgress": 0.415
+        },
+        {
+          "progress": 0.325,
+          "pair": [
+            2,
+            4
+          ],
+          "ids": [
+            2,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.325,
+          "lastProgress": 0.6,
+          "samples": 17,
+          "worst": 0.2635389,
+          "worstProgress": 0.33
+        },
+        {
+          "progress": 0.433,
+          "pair": [
+            6,
+            7
+          ],
+          "ids": [
+            0,
+            6
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.433,
+          "lastProgress": 0.699,
+          "samples": 9,
+          "worst": 0.2552077,
+          "worstProgress": 0.435
+        },
+        {
+          "progress": 0.32,
+          "pair": [
+            2,
+            3
+          ],
+          "ids": [
+            2,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.32,
+          "lastProgress": 0.586,
+          "samples": 12,
+          "worst": 0.2544003,
+          "worstProgress": 0.323
+        },
+        {
+          "progress": 0.381,
+          "pair": [
+            4,
+            5
+          ],
+          "ids": [
+            21,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.381,
+          "lastProgress": 0.638,
+          "samples": 11,
+          "worst": 0.2430482,
+          "worstProgress": 0.383
+        },
+        {
+          "progress": 0.283,
+          "pair": [
+            1,
+            2
+          ],
+          "ids": [
+            17,
+            2
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.283,
+          "lastProgress": 0.562,
+          "samples": 12,
+          "worst": 0.2411199,
+          "worstProgress": 0.286
+        },
+        {
+          "progress": 0.458,
+          "pair": [
+            7,
+            8
+          ],
+          "ids": [
+            6,
+            14
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.458,
+          "lastProgress": 0.738,
+          "samples": 9,
+          "worst": 0.2392194,
+          "worstProgress": 0.459
+        },
+        {
+          "progress": 0.408,
+          "pair": [
+            5,
+            6
+          ],
+          "ids": [
+            9,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.408,
+          "lastProgress": 0.667,
+          "samples": 9,
+          "worst": 0.2377994,
+          "worstProgress": 0.41
+        },
+        {
+          "progress": 0.235,
+          "pair": [
+            0,
+            1
+          ],
+          "ids": [
+            18,
+            17
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.235,
+          "lastProgress": 0.538,
+          "samples": 15,
+          "worst": 0.2364628,
+          "worstProgress": 0.239
+        },
+        {
+          "progress": 0.352,
+          "pair": [
+            3,
+            4
+          ],
+          "ids": [
+            19,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.352,
+          "lastProgress": 0.611,
+          "samples": 10,
+          "worst": 0.2309667,
+          "worstProgress": 0.355
+        }
+      ],
+      "viewportClipping": [],
+      "navigationBandCandidates": [],
+      "footerBandCandidates": [],
+      "projectedEnvelope": {
+        "left": 40.6087639,
+        "top": 103.573678,
+        "right": 729.1829687,
+        "bottom": 756.3831597
+      },
+      "categorizedWorst": {
+        "departure": {
+          "progress": 0.362,
+          "pair": [
+            3,
+            8
+          ],
+          "ids": [
+            19,
+            14
+          ],
+          "u": [
+            0.1205338,
+            0
+          ],
+          "penetration": 0.287419,
+          "centres": [
+            [
+              1.7383136,
+              1.5648878,
+              -0.0096551
+            ],
+            [
+              1.0185976,
+              0.3581007,
+              -0.1885042
+            ]
+          ],
+          "dimensions": [
+            [
+              0.9818209,
+              1.6830734,
+              0.0092569
+            ],
+            [
+              1.9636417,
+              3.3661468,
+              0.0185138
+            ]
+          ],
+          "axes": [
+            [
+              [
+                0.733844,
+                -0.3591627,
+                0.5766066
+              ],
+              [
+                0.2512983,
+                0.9321172,
+                0.2607809
+              ],
+              [
+                -0.6311277,
+                -0.0464723,
+                0.7742856
+              ]
+            ],
+            [
+              [
+                0.9296243,
+                -0.1287019,
+                0.3453035
+              ],
+              [
+                0.1617988,
+                0.9844312,
+                -0.0686756
+              ],
+              [
+                -0.3310889,
+                0.1197122,
+                0.935975
+              ]
+            ]
+          ],
+          "faceCrossingWitness": [
+            1.6704546,
+            1.313185,
+            -0.0800747
+          ]
+        },
+        "midflight": {
+          "progress": 0.514,
+          "pair": [
+            2,
+            3
+          ],
+          "ids": [
+            2,
+            19
+          ],
+          "u": [
+            0.6788927,
+            0.6004061
+          ],
+          "penetration": 0.1228858,
+          "centres": [
+            [
+              -0.5485781,
+              -0.943294,
+              1.4339269
+            ],
+            [
+              -1.5301536,
+              -0.3552578,
+              1.2913382
+            ]
+          ],
+          "dimensions": [
+            [
+              1.1683668,
+              2.0028574,
+              0.0110157
+            ],
+            [
+              1.1683668,
+              2.0028574,
+              0.0110157
+            ]
+          ],
+          "axes": [
+            [
+              [
+                -0.9492501,
+                -0.2708638,
+                -0.1598657
+              ],
+              [
+                -0.2451913,
+                0.9556311,
+                -0.1632493
+              ],
+              [
+                0.196991,
+                -0.1157667,
+                -0.9735464
+              ]
+            ],
+            [
+              [
+                -0.9997345,
+                0.0164551,
+                0.0161318
+              ],
+              [
+                0.0165053,
+                0.9998593,
+                0.0029866
+              ],
+              [
+                -0.0160803,
+                0.003252,
+                -0.9998654
+              ]
+            ]
+          ],
+          "faceCrossingWitness": [
+            -1.0665333,
+            -0.5573196,
+            1.2832248
+          ]
+        },
+        "arrival": {
+          "progress": 0.699,
+          "pair": [
+            3,
+            8
+          ],
+          "ids": [
+            19,
+            14
+          ],
+          "u": [
+            1,
+            0.7589523
+          ],
+          "penetration": 0.2880284,
+          "centres": [
+            [
+              1.273247,
+              0.501341,
+              -0.0887374
+            ],
+            [
+              0.0627177,
+              -0.9448429,
+              -0.0951576
+            ]
+          ],
+          "dimensions": [
+            [
+              2.464997,
+              4.2255885,
+              0.0232407
+            ],
+            [
+              1.1613456,
+              1.9908213,
+              0.0109495
+            ]
+          ],
+          "axes": [
+            [
+              [
+                -0.9881821,
+                0.0548376,
+                0.1431394
+              ],
+              [
+                0.0641797,
+                0.9960426,
+                0.0614828
+              ],
+              [
+                -0.1392014,
+                0.0699429,
+                -0.987791
+              ]
+            ],
+            [
+              [
+                -0.9568167,
+                -0.2559091,
+                -0.1378851
+              ],
+              [
+                -0.2350252,
+                0.9601671,
+                -0.1511365
+              ],
+              [
+                0.1710699,
+                -0.1122035,
+                -0.978849
+              ]
+            ]
+          ],
+          "faceCrossingWitness": [
+            0.2505823,
+            -1.0273688,
+            -0.0528654
+          ]
+        }
+      },
+      "continuity": {
+        "largestConsecutiveCornerDisplacementPx": 16.0265114,
+        "entryExit": [
+          {
+            "card": 0,
+            "event": "arrival",
+            "progress": 0.5632254,
+            "beforeSpeedPxPerProgress": 4674.9340874,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 4674.9340874
+          },
+          {
+            "card": 1,
+            "event": "release",
+            "progress": 0.2239632,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 2617.8454152,
+            "velocityDeltaPxPerProgress": 2617.8454152
+          },
+          {
+            "card": 1,
+            "event": "arrival",
+            "progress": 0.5875927,
+            "beforeSpeedPxPerProgress": 4507.7997849,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 4507.7997849
+          },
+          {
+            "card": 2,
+            "event": "release",
+            "progress": 0.2750542,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 3835.8907667,
+            "velocityDeltaPxPerProgress": 3835.8907667
+          },
+          {
+            "card": 2,
+            "event": "arrival",
+            "progress": 0.6129638,
+            "beforeSpeedPxPerProgress": 4282.476692,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 4282.476692
+          },
+          {
+            "card": 3,
+            "event": "release",
+            "progress": 0.3135274,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 4704.1593753,
+            "velocityDeltaPxPerProgress": 4704.1593753
+          },
+          {
+            "card": 3,
+            "event": "arrival",
+            "progress": 0.6398288,
+            "beforeSpeedPxPerProgress": 3991.7649176,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 3991.7649176
+          },
+          {
+            "card": 4,
+            "event": "release",
+            "progress": 0.3460793,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 5366.2396579,
+            "velocityDeltaPxPerProgress": 5366.2396579
+          },
+          {
+            "card": 4,
+            "event": "arrival",
+            "progress": 0.6689207,
+            "beforeSpeedPxPerProgress": 3623.8337763,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 3623.8337763
+          },
+          {
+            "card": 5,
+            "event": "release",
+            "progress": 0.3751712,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 5876.6929176,
+            "velocityDeltaPxPerProgress": 5876.6929176
+          },
+          {
+            "card": 5,
+            "event": "arrival",
+            "progress": 0.7014726,
+            "beforeSpeedPxPerProgress": 3159.7389048,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 3159.7389048
+          },
+          {
+            "card": 6,
+            "event": "release",
+            "progress": 0.4020362,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 6270.1356496,
+            "velocityDeltaPxPerProgress": 6270.1356496
+          },
+          {
+            "card": 6,
+            "event": "arrival",
+            "progress": 0.7399458,
+            "beforeSpeedPxPerProgress": 2561.5872144,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 2561.5872144
+          },
+          {
+            "card": 7,
+            "event": "release",
+            "progress": 0.4274073,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 6562.3661832,
+            "velocityDeltaPxPerProgress": 6562.3661832
+          },
+          {
+            "card": 7,
+            "event": "arrival",
+            "progress": 0.7910368,
+            "beforeSpeedPxPerProgress": 1738.2820004,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 1738.2820004
+          },
+          {
+            "card": 8,
+            "event": "release",
+            "progress": 0.4517746,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 6767.1174475,
+            "velocityDeltaPxPerProgress": 6767.1174475
+          },
+          {
+            "card": 8,
+            "event": "arrival",
+            "progress": 0.9599995,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          }
+        ],
+        "largestPolylineVelocityChange": {
+          "railKnot": 240,
+          "progress": 0.4607217,
+          "beforeSpeedPxPerProgress": 8680.218998,
+          "afterSpeedPxPerProgress": 8038.8625199,
+          "velocityDeltaPxPerProgress": 771.2324145
+        }
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "cards": 7,
+      "railLength": 17.0105936,
+      "finiteFailures": [],
+      "pairTests": 21021,
+      "intersectionSamples": 520,
+      "confirmedFaceCrossingSamples": 489,
+      "touchSamples": 0,
+      "collisions": [
+        {
+          "progress": 0.337,
+          "pair": [
+            2,
+            5
+          ],
+          "ids": [
+            2,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.337,
+          "lastProgress": 0.663,
+          "samples": 26,
+          "worst": 0.2545129,
+          "worstProgress": 0.343
+        },
+        {
+          "progress": 0.37,
+          "pair": [
+            3,
+            5
+          ],
+          "ids": [
+            19,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.37,
+          "lastProgress": 0.676,
+          "samples": 23,
+          "worst": 0.2544869,
+          "worstProgress": 0.375
+        },
+        {
+          "progress": 0.3,
+          "pair": [
+            1,
+            5
+          ],
+          "ids": [
+            17,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.3,
+          "lastProgress": 0.662,
+          "samples": 31,
+          "worst": 0.2519147,
+          "worstProgress": 0.307
+        },
+        {
+          "progress": 0.252,
+          "pair": [
+            0,
+            3
+          ],
+          "ids": [
+            18,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.252,
+          "lastProgress": 0.602,
+          "samples": 32,
+          "worst": 0.250983,
+          "worstProgress": 0.261
+        },
+        {
+          "progress": 0.252,
+          "pair": [
+            0,
+            4
+          ],
+          "ids": [
+            18,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.252,
+          "lastProgress": 0.631,
+          "samples": 37,
+          "worst": 0.2498618,
+          "worstProgress": 0.262
+        },
+        {
+          "progress": 0.254,
+          "pair": [
+            0,
+            6
+          ],
+          "ids": [
+            18,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.254,
+          "lastProgress": 0.696,
+          "samples": 41,
+          "worst": 0.2498194,
+          "worstProgress": 0.263
+        },
+        {
+          "progress": 0.253,
+          "pair": [
+            0,
+            5
+          ],
+          "ids": [
+            18,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.253,
+          "lastProgress": 0.662,
+          "samples": 38,
+          "worst": 0.248489,
+          "worstProgress": 0.263
+        },
+        {
+          "progress": 0.299,
+          "pair": [
+            1,
+            4
+          ],
+          "ids": [
+            17,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.299,
+          "lastProgress": 0.631,
+          "samples": 27,
+          "worst": 0.2474028,
+          "worstProgress": 0.306
+        },
+        {
+          "progress": 0.338,
+          "pair": [
+            2,
+            6
+          ],
+          "ids": [
+            2,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.338,
+          "lastProgress": 0.698,
+          "samples": 32,
+          "worst": 0.2471916,
+          "worstProgress": 0.344
+        },
+        {
+          "progress": 0.4,
+          "pair": [
+            4,
+            6
+          ],
+          "ids": [
+            21,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.4,
+          "lastProgress": 0.713,
+          "samples": 23,
+          "worst": 0.246533,
+          "worstProgress": 0.405
+        },
+        {
+          "progress": 0.3,
+          "pair": [
+            1,
+            6
+          ],
+          "ids": [
+            17,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.3,
+          "lastProgress": 0.697,
+          "samples": 34,
+          "worst": 0.2454863,
+          "worstProgress": 0.308
+        },
+        {
+          "progress": 0.251,
+          "pair": [
+            0,
+            2
+          ],
+          "ids": [
+            18,
+            2
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.251,
+          "lastProgress": 0.585,
+          "samples": 30,
+          "worst": 0.2450095,
+          "worstProgress": 0.26
+        },
+        {
+          "progress": 0.299,
+          "pair": [
+            1,
+            3
+          ],
+          "ids": [
+            17,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.299,
+          "lastProgress": 0.613,
+          "samples": 25,
+          "worst": 0.2428211,
+          "worstProgress": 0.306
+        },
+        {
+          "progress": 0.337,
+          "pair": [
+            2,
+            4
+          ],
+          "ids": [
+            2,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.337,
+          "lastProgress": 0.643,
+          "samples": 23,
+          "worst": 0.2419935,
+          "worstProgress": 0.343
+        },
+        {
+          "progress": 0.37,
+          "pair": [
+            3,
+            6
+          ],
+          "ids": [
+            19,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.37,
+          "lastProgress": 0.698,
+          "samples": 26,
+          "worst": 0.2417492,
+          "worstProgress": 0.376
+        },
+        {
+          "progress": 0.423,
+          "pair": [
+            5,
+            6
+          ],
+          "ids": [
+            9,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.423,
+          "lastProgress": 0.729,
+          "samples": 11,
+          "worst": 0.2076025,
+          "worstProgress": 0.425
+        },
+        {
+          "progress": 0.365,
+          "pair": [
+            3,
+            4
+          ],
+          "ids": [
+            19,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.365,
+          "lastProgress": 0.656,
+          "samples": 11,
+          "worst": 0.2044087,
+          "worstProgress": 0.367
+        },
+        {
+          "progress": 0.395,
+          "pair": [
+            4,
+            5
+          ],
+          "ids": [
+            21,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.395,
+          "lastProgress": 0.69,
+          "samples": 10,
+          "worst": 0.2043358,
+          "worstProgress": 0.397
+        },
+        {
+          "progress": 0.331,
+          "pair": [
+            2,
+            3
+          ],
+          "ids": [
+            2,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.331,
+          "lastProgress": 0.625,
+          "samples": 11,
+          "worst": 0.2018063,
+          "worstProgress": 0.334
+        },
+        {
+          "progress": 0.292,
+          "pair": [
+            1,
+            2
+          ],
+          "ids": [
+            17,
+            2
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.292,
+          "lastProgress": 0.597,
+          "samples": 14,
+          "worst": 0.1957214,
+          "worstProgress": 0.296
+        },
+        {
+          "progress": 0.243,
+          "pair": [
+            0,
+            1
+          ],
+          "ids": [
+            18,
+            17
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.243,
+          "lastProgress": 0.57,
+          "samples": 15,
+          "worst": 0.1951679,
+          "worstProgress": 0.247
+        }
+      ],
+      "viewportClipping": [
+        {
+          "progress": 0.433,
+          "card": 0,
+          "id": 18,
+          "firstProgress": 0.433,
+          "lastProgress": 0.435,
+          "samples": 3,
+          "worst": 0.5614716,
+          "worstProgress": 0.434
+        },
+        {
+          "progress": 0.46,
+          "card": 1,
+          "id": 17,
+          "firstProgress": 0.46,
+          "lastProgress": 0.461,
+          "samples": 2,
+          "worst": 0.5543542,
+          "worstProgress": 0.46
+        },
+        {
+          "progress": 0.485,
+          "card": 2,
+          "id": 2,
+          "firstProgress": 0.485,
+          "lastProgress": 0.487,
+          "samples": 3,
+          "worst": 0.5613654,
+          "worstProgress": 0.486
+        },
+        {
+          "progress": 0.511,
+          "card": 3,
+          "id": 19,
+          "firstProgress": 0.511,
+          "lastProgress": 0.512,
+          "samples": 2,
+          "worst": 0.5511513,
+          "worstProgress": 0.512
+        },
+        {
+          "progress": 0.536,
+          "card": 4,
+          "id": 21,
+          "firstProgress": 0.536,
+          "lastProgress": 0.538,
+          "samples": 3,
+          "worst": 0.5622106,
+          "worstProgress": 0.537
+        },
+        {
+          "progress": 0.562,
+          "card": 5,
+          "id": 9,
+          "firstProgress": 0.562,
+          "lastProgress": 0.563,
+          "samples": 2,
+          "worst": 0.5616584,
+          "worstProgress": 0.563
+        },
+        {
+          "progress": 0.589,
+          "card": 6,
+          "id": 0,
+          "firstProgress": 0.589,
+          "lastProgress": 0.59,
+          "samples": 2,
+          "worst": 0.5546543,
+          "worstProgress": 0.589
+        }
+      ],
+      "navigationBandCandidates": [],
+      "footerBandCandidates": [],
+      "projectedEnvelope": {
+        "left": -0.5622106,
+        "top": 100.6030594,
+        "right": 370.1065096,
+        "bottom": 650.0215386
+      },
+      "categorizedWorst": {
+        "departure": {
+          "progress": 0.343,
+          "pair": [
+            2,
+            5
+          ],
+          "ids": [
+            2,
+            9
+          ],
+          "u": [
+            0.1210477,
+            0
+          ],
+          "penetration": 0.2545129,
+          "centres": [
+            [
+              0.8363014,
+              1.7240995,
+              0.0517672
+            ],
+            [
+              0.2647569,
+              0.7878216,
+              -0.0977615
+            ]
+          ],
+          "dimensions": [
+            [
+              0.856482,
+              1.4682129,
+              0.0080752
+            ],
+            [
+              1.6294048,
+              2.7931856,
+              0.0153625
+            ]
+          ],
+          "axes": [
+            [
+              [
+                0.7349355,
+                -0.3581129,
+                0.5758689
+              ],
+              [
+                0.2525477,
+                0.9326439,
+                0.2576723
+              ],
+              [
+                -0.6293563,
+                -0.0439382,
+                0.7758737
+              ]
+            ],
+            [
+              [
+                0.9296243,
+                -0.1287019,
+                0.3453035
+              ],
+              [
+                0.1617988,
+                0.9844312,
+                -0.0686756
+              ],
+              [
+                -0.3310889,
+                0.1197122,
+                0.935975
+              ]
+            ]
+          ],
+          "faceCrossingWitness": [
+            0.7773814,
+            1.5065112,
+            -0.0083485
+          ]
+        },
+        "midflight": {
+          "progress": 0.521,
+          "pair": [
+            1,
+            2
+          ],
+          "ids": [
+            17,
+            2
+          ],
+          "u": [
+            0.6944715,
+            0.6176541
+          ],
+          "penetration": 0.0907753,
+          "centres": [
+            [
+              0.0749868,
+              -0.6724642,
+              1.1298317
+            ],
+            [
+              -0.554333,
+              -0.3034496,
+              0.9995118
+            ]
+          ],
+          "dimensions": [
+            [
+              1.0192136,
+              1.7471734,
+              0.0096095
+            ],
+            [
+              1.0192136,
+              1.7471735,
+              0.0096095
+            ]
+          ],
+          "axes": [
+            [
+              [
+                -0.9484561,
+                -0.2743482,
+                -0.158632
+              ],
+              [
+                -0.2480558,
+                0.9542147,
+                -0.1671606
+              ],
+              [
+                0.1972292,
+                -0.119195,
+                -0.9730844
+              ]
+            ],
+            [
+              [
+                -0.9953842,
+                -0.0771127,
+                -0.0571304
+              ],
+              [
+                -0.075021,
+                0.9964615,
+                -0.0378984
+              ],
+              [
+                0.0598507,
+                -0.0334375,
+                -0.9976471
+              ]
+            ]
+          ],
+          "faceCrossingWitness": [
+            -0.262103,
+            -0.3117181,
+            1.0173203
+          ]
+        },
+        "arrival": {
+          "progress": 0.625,
+          "pair": [
+            0,
+            4
+          ],
+          "ids": [
+            18,
+            21
+          ],
+          "u": [
+            1,
+            0.7631607
+          ],
+          "penetration": 0.2446817,
+          "centres": [
+            [
+              0.4633246,
+              1.0743022,
+              0
+            ],
+            [
+              0.3743227,
+              -0.5657797,
+              0.005959
+            ]
+          ],
+          "dimensions": [
+            [
+              1.7756335,
+              3.0438561,
+              0.0167412
+            ],
+            [
+              1.0103938,
+              1.7320542,
+              0.0095263
+            ]
+          ],
+          "axes": [
+            [
+              [
+                -0.9881821,
+                0.0548376,
+                0.1431394
+              ],
+              [
+                0.0641797,
+                0.9960426,
+                0.0614828
+              ],
+              [
+                -0.1392014,
+                0.0699428,
+                -0.987791
+              ]
+            ],
+            [
+              [
+                -0.9577074,
+                -0.2536437,
+                -0.1358728
+              ],
+              [
+                -0.2333379,
+                0.9608991,
+                -0.149085
+              ],
+              [
+                0.1683745,
+                -0.1110756,
+                -0.9794449
+              ]
+            ]
+          ],
+          "faceCrossingWitness": [
+            0.3415568,
+            -0.0267526,
+            -0.060803
+          ]
+        }
+      },
+      "continuity": {
+        "largestConsecutiveCornerDisplacementPx": 10.2701113,
+        "entryExit": [
+          {
+            "card": 0,
+            "event": "arrival",
+            "progress": 0.5990209,
+            "beforeSpeedPxPerProgress": 3683.3666884,
+            "afterSpeedPxPerProgress": 2e-7,
+            "velocityDeltaPxPerProgress": 3683.3666882
+          },
+          {
+            "card": 1,
+            "event": "release",
+            "progress": 0.229537,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 1767.4927316,
+            "velocityDeltaPxPerProgress": 1767.4927316
+          },
+          {
+            "card": 1,
+            "event": "arrival",
+            "progress": 0.6274338,
+            "beforeSpeedPxPerProgress": 3453.0587867,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 3453.0587867
+          },
+          {
+            "card": 2,
+            "event": "release",
+            "progress": 0.2826587,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 2580.2202727,
+            "velocityDeltaPxPerProgress": 2580.2202727
+          },
+          {
+            "card": 2,
+            "event": "arrival",
+            "progress": 0.6580575,
+            "beforeSpeedPxPerProgress": 3151.9348527,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 3151.9348527
+          },
+          {
+            "card": 3,
+            "event": "release",
+            "progress": 0.3228229,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 3153.8641633,
+            "velocityDeltaPxPerProgress": 3153.8641633
+          },
+          {
+            "card": 3,
+            "event": "arrival",
+            "progress": 0.6921771,
+            "beforeSpeedPxPerProgress": 2762.7684454,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 2762.7684454
+          },
+          {
+            "card": 4,
+            "event": "release",
+            "progress": 0.3569425,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 3583.6285275,
+            "velocityDeltaPxPerProgress": 3583.6285275
+          },
+          {
+            "card": 4,
+            "event": "arrival",
+            "progress": 0.7323413,
+            "beforeSpeedPxPerProgress": 2250.6584884,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 2250.6584884
+          },
+          {
+            "card": 5,
+            "event": "release",
+            "progress": 0.3875662,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 3909.0573168,
+            "velocityDeltaPxPerProgress": 3909.0573168
+          },
+          {
+            "card": 5,
+            "event": "arrival",
+            "progress": 0.785463,
+            "beforeSpeedPxPerProgress": 1535.3019859,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 1535.3019859
+          },
+          {
+            "card": 6,
+            "event": "release",
+            "progress": 0.4159791,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 4151.3305461,
+            "velocityDeltaPxPerProgress": 4151.3305461
+          },
+          {
+            "card": 6,
+            "event": "arrival",
+            "progress": 0.9599995,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          }
+        ],
+        "largestPolylineVelocityChange": {
+          "railKnot": 240,
+          "progress": 0.4877181,
+          "beforeSpeedPxPerProgress": 4751.1156361,
+          "afterSpeedPxPerProgress": 4179.4307587,
+          "velocityDeltaPxPerProgress": 652.59804
+        }
+      }
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "cards": 7,
+      "railLength": 17.5429461,
+      "finiteFailures": [],
+      "pairTests": 21021,
+      "intersectionSamples": 383,
+      "confirmedFaceCrossingSamples": 348,
+      "touchSamples": 0,
+      "collisions": [
+        {
+          "progress": 0.293,
+          "pair": [
+            1,
+            4
+          ],
+          "ids": [
+            17,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.293,
+          "lastProgress": 0.629,
+          "samples": 19,
+          "worst": 0.1920928,
+          "worstProgress": 0.627
+        },
+        {
+          "progress": 0.245,
+          "pair": [
+            0,
+            3
+          ],
+          "ids": [
+            18,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.245,
+          "lastProgress": 0.601,
+          "samples": 22,
+          "worst": 0.1905635,
+          "worstProgress": 0.599
+        },
+        {
+          "progress": 0.331,
+          "pair": [
+            2,
+            5
+          ],
+          "ids": [
+            2,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.331,
+          "lastProgress": 0.659,
+          "samples": 17,
+          "worst": 0.1891323,
+          "worstProgress": 0.657
+        },
+        {
+          "progress": 0.294,
+          "pair": [
+            1,
+            6
+          ],
+          "ids": [
+            17,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.294,
+          "lastProgress": 0.691,
+          "samples": 25,
+          "worst": 0.1866779,
+          "worstProgress": 0.686
+        },
+        {
+          "progress": 0.246,
+          "pair": [
+            0,
+            5
+          ],
+          "ids": [
+            18,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.246,
+          "lastProgress": 0.658,
+          "samples": 28,
+          "worst": 0.1840832,
+          "worstProgress": 0.653
+        },
+        {
+          "progress": 0.394,
+          "pair": [
+            4,
+            6
+          ],
+          "ids": [
+            21,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.394,
+          "lastProgress": 0.71,
+          "samples": 15,
+          "worst": 0.1785731,
+          "worstProgress": 0.397
+        },
+        {
+          "progress": 0.246,
+          "pair": [
+            0,
+            4
+          ],
+          "ids": [
+            18,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.246,
+          "lastProgress": 0.628,
+          "samples": 27,
+          "worst": 0.1785682,
+          "worstProgress": 0.623
+        },
+        {
+          "progress": 0.294,
+          "pair": [
+            1,
+            5
+          ],
+          "ids": [
+            17,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.294,
+          "lastProgress": 0.658,
+          "samples": 23,
+          "worst": 0.1769752,
+          "worstProgress": 0.653
+        },
+        {
+          "progress": 0.332,
+          "pair": [
+            2,
+            6
+          ],
+          "ids": [
+            2,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.332,
+          "lastProgress": 0.692,
+          "samples": 22,
+          "worst": 0.1766993,
+          "worstProgress": 0.687
+        },
+        {
+          "progress": 0.331,
+          "pair": [
+            2,
+            4
+          ],
+          "ids": [
+            2,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.331,
+          "lastProgress": 0.643,
+          "samples": 16,
+          "worst": 0.1747401,
+          "worstProgress": 0.335
+        },
+        {
+          "progress": 0.364,
+          "pair": [
+            3,
+            6
+          ],
+          "ids": [
+            19,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.364,
+          "lastProgress": 0.693,
+          "samples": 17,
+          "worst": 0.1742797,
+          "worstProgress": 0.368
+        },
+        {
+          "progress": 0.247,
+          "pair": [
+            0,
+            6
+          ],
+          "ids": [
+            18,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.247,
+          "lastProgress": 0.691,
+          "samples": 29,
+          "worst": 0.1742261,
+          "worstProgress": 0.254
+        },
+        {
+          "progress": 0.245,
+          "pair": [
+            0,
+            2
+          ],
+          "ids": [
+            18,
+            2
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.245,
+          "lastProgress": 0.586,
+          "samples": 21,
+          "worst": 0.1708932,
+          "worstProgress": 0.251
+        },
+        {
+          "progress": 0.293,
+          "pair": [
+            1,
+            3
+          ],
+          "ids": [
+            17,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.293,
+          "lastProgress": 0.614,
+          "samples": 18,
+          "worst": 0.1657949,
+          "worstProgress": 0.298
+        },
+        {
+          "progress": 0.36,
+          "pair": [
+            3,
+            4
+          ],
+          "ids": [
+            19,
+            21
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.36,
+          "lastProgress": 0.656,
+          "samples": 11,
+          "worst": 0.1622374,
+          "worstProgress": 0.362
+        },
+        {
+          "progress": 0.364,
+          "pair": [
+            3,
+            5
+          ],
+          "ids": [
+            19,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "starting-packet"
+          ],
+          "firstProgress": 0.364,
+          "lastProgress": 0.674,
+          "samples": 16,
+          "worst": 0.1613394,
+          "worstProgress": 0.367
+        },
+        {
+          "progress": 0.327,
+          "pair": [
+            2,
+            3
+          ],
+          "ids": [
+            2,
+            19
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.327,
+          "lastProgress": 0.626,
+          "samples": 11,
+          "worst": 0.1567178,
+          "worstProgress": 0.329
+        },
+        {
+          "progress": 0.239,
+          "pair": [
+            0,
+            1
+          ],
+          "ids": [
+            18,
+            17
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.239,
+          "lastProgress": 0.572,
+          "samples": 14,
+          "worst": 0.1549265,
+          "worstProgress": 0.242
+        },
+        {
+          "progress": 0.288,
+          "pair": [
+            1,
+            2
+          ],
+          "ids": [
+            17,
+            2
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.288,
+          "lastProgress": 0.598,
+          "samples": 11,
+          "worst": 0.1546762,
+          "worstProgress": 0.291
+        },
+        {
+          "progress": 0.39,
+          "pair": [
+            4,
+            5
+          ],
+          "ids": [
+            21,
+            9
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.39,
+          "lastProgress": 0.689,
+          "samples": 10,
+          "worst": 0.1500078,
+          "worstProgress": 0.392
+        },
+        {
+          "progress": 0.418,
+          "pair": [
+            5,
+            6
+          ],
+          "ids": [
+            9,
+            0
+          ],
+          "initialPhases": [
+            "flight",
+            "flight"
+          ],
+          "firstProgress": 0.418,
+          "lastProgress": 0.727,
+          "samples": 11,
+          "worst": 0.1343817,
+          "worstProgress": 0.42
+        }
+      ],
+      "viewportClipping": [],
+      "navigationBandCandidates": [],
+      "footerBandCandidates": [],
+      "projectedEnvelope": {
+        "left": 13.0504628,
+        "top": 68.3863427,
+        "right": 292.9344818,
+        "bottom": 437.4022309
+      },
+      "categorizedWorst": {
+        "departure": {
+          "progress": 0.397,
+          "pair": [
+            4,
+            6
+          ],
+          "ids": [
+            21,
+            0
+          ],
+          "u": [
+            0.1071949,
+            0
+          ],
+          "penetration": 0.1785731,
+          "centres": [
+            [
+              1.0164849,
+              1.6601952,
+              0.16055
+            ],
+            [
+              0.322795,
+              1.0743022,
+              -0.0992655
+            ]
+          ],
+          "dimensions": [
+            [
+              0.856482,
+              1.468213,
+              0.0080752
+            ],
+            [
+              1.3787272,
+              2.3634648,
+              0.0129991
+            ]
+          ],
+          "axes": [
+            [
+              [
+                0.7585148,
+                -0.3354126,
+                0.5587071
+              ],
+              [
+                0.2657761,
+                0.9420469,
+                0.2047212
+              ],
+              [
+                -0.5949944,
+                -0.006793,
+                0.8037012
+              ]
+            ],
+            [
+              [
+                0.9296243,
+                -0.1287019,
+                0.3453035
+              ],
+              [
+                0.1617988,
+                0.9844312,
+                -0.0686756
+              ],
+              [
+                -0.3310889,
+                0.1197122,
+                0.935975
+              ]
+            ]
+          ],
+          "faceCrossingWitness": [
+            0.8466772,
+            1.4862076,
+            0.0333678
+          ]
+        },
+        "midflight": {
+          "progress": 0.572,
+          "pair": [
+            3,
+            4
+          ],
+          "ids": [
+            19,
+            21
+          ],
+          "u": [
+            0.6907523,
+            0.616266
+          ],
+          "penetration": 0.0934462,
+          "centres": [
+            [
+              0.0766238,
+              -0.6769408,
+              1.166796
+            ],
+            [
+              -0.6612919,
+              -0.3199928,
+              1.0326896
+            ]
+          ],
+          "dimensions": [
+            [
+              1.0192136,
+              1.7471734,
+              0.0096095
+            ],
+            [
+              1.0192136,
+              1.7471734,
+              0.0096095
+            ]
+          ],
+          "axes": [
+            [
+              [
+                -0.9484839,
+                -0.2741427,
+                -0.1588208
+              ],
+              [
+                -0.2479232,
+                0.9543331,
+                -0.1666806
+              ],
+              [
+                0.1972622,
+                -0.1187185,
+                -0.9731359
+              ]
+            ],
+            [
+              [
+                -0.9961154,
+                -0.0707403,
+                -0.0524403
+              ],
+              [
+                -0.0689775,
+                0.9970146,
+                -0.0346982
+              ],
+              [
+                0.0547383,
+                -0.0309462,
+                -0.9980211
+              ]
+            ]
+          ],
+          "faceCrossingWitness": [
+            -0.3084562,
+            -0.3952817,
+            1.054376
+          ]
+        },
+        "arrival": {
+          "progress": 0.627,
+          "pair": [
+            1,
+            4
+          ],
+          "ids": [
+            17,
+            21
+          ],
+          "u": [
+            0.9908972,
+            0.7674382
+          ],
+          "penetration": 0.1920928,
+          "centres": [
+            [
+              0.5942723,
+              1.1961535,
+              -0.1442581
+            ],
+            [
+              0.4890088,
+              -0.5644592,
+              -0.1078253
+            ]
+          ],
+          "dimensions": [
+            [
+              1.4990148,
+              2.569666,
+              0.0141332
+            ],
+            [
+              1.0070685,
+              1.7263539,
+              0.0094949
+            ]
+          ],
+          "axes": [
+            [
+              [
+                -0.9882856,
+                0.0543256,
+                0.1426193
+              ],
+              [
+                0.0635966,
+                0.9960931,
+                0.0612697
+              ],
+              [
+                -0.1387335,
+                0.0696221,
+                -0.9878794
+              ]
+            ],
+            [
+              [
+                -0.9592505,
+                -0.2496331,
+                -0.1323701
+              ],
+              [
+                -0.2303241,
+                0.9621817,
+                -0.1454552
+              ],
+              [
+                0.1636745,
+                -0.1090399,
+                -0.9804698
+              ]
+            ]
+          ],
+          "faceCrossingWitness": [
+            0.4254112,
+            0.1300462,
+            -0.1956792
+          ]
+        }
+      },
+      "continuity": {
+        "largestConsecutiveCornerDisplacementPx": 5.4159804,
+        "entryExit": [
+          {
+            "card": 0,
+            "event": "arrival",
+            "progress": 0.6025043,
+            "beforeSpeedPxPerProgress": 2786.8463323,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 2786.8463323
+          },
+          {
+            "card": 1,
+            "event": "release",
+            "progress": 0.2281558,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 1148.3751756,
+            "velocityDeltaPxPerProgress": 1148.3751756
+          },
+          {
+            "card": 1,
+            "event": "arrival",
+            "progress": 0.6305246,
+            "beforeSpeedPxPerProgress": 2610.4153971,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 2610.4153971
+          },
+          {
+            "card": 2,
+            "event": "release",
+            "progress": 0.2807714,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 1678.8360855,
+            "velocityDeltaPxPerProgress": 1678.8360855
+          },
+          {
+            "card": 2,
+            "event": "arrival",
+            "progress": 0.6607618,
+            "beforeSpeedPxPerProgress": 2380.7699224,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 2380.7699224
+          },
+          {
+            "card": 3,
+            "event": "release",
+            "progress": 0.3205124,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 2054.41087,
+            "velocityDeltaPxPerProgress": 2054.41087
+          },
+          {
+            "card": 3,
+            "event": "arrival",
+            "progress": 0.6944876,
+            "beforeSpeedPxPerProgress": 2084.9602301,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 2084.9602301
+          },
+          {
+            "card": 4,
+            "event": "release",
+            "progress": 0.3542382,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 2337.857199,
+            "velocityDeltaPxPerProgress": 2337.857199
+          },
+          {
+            "card": 4,
+            "event": "arrival",
+            "progress": 0.7342286,
+            "beforeSpeedPxPerProgress": 1697.9792111,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 1697.9792111
+          },
+          {
+            "card": 5,
+            "event": "release",
+            "progress": 0.3844754,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 2553.9327082,
+            "velocityDeltaPxPerProgress": 2553.9327082
+          },
+          {
+            "card": 5,
+            "event": "arrival",
+            "progress": 0.7868442,
+            "beforeSpeedPxPerProgress": 1157.2326995,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 1157.2326995
+          },
+          {
+            "card": 6,
+            "event": "release",
+            "progress": 0.4124957,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 2716.3919807,
+            "velocityDeltaPxPerProgress": 2716.3919807
+          },
+          {
+            "card": 6,
+            "event": "arrival",
+            "progress": 0.9599995,
+            "beforeSpeedPxPerProgress": 0,
+            "afterSpeedPxPerProgress": 0,
+            "velocityDeltaPxPerProgress": 0
+          }
+        ],
+        "largestPolylineVelocityChange": {
+          "railKnot": 240,
+          "progress": 0.4893278,
+          "beforeSpeedPxPerProgress": 3608.9468095,
+          "afterSpeedPxPerProgress": 3244.5738239,
+          "velocityDeltaPxPerProgress": 411.397237
+        }
+      }
+    }
+  ],
+  "summary": {
+    "finite": true,
+    "pairTests": 150150,
+    "intersectionSamples": 2207,
+    "confirmedFaceCrossingSamples": 2007,
+    "clippedViewports": [
+      [
+        390,
+        844
+      ]
+    ],
+    "passingSeparation": false
+  }
+}

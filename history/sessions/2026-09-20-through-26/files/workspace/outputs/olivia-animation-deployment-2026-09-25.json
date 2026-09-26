@@ -1,0 +1,45 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "production_deploy_id": "6ab5aa6b4eee9601058b91a1",
+  "preview_deploy_id": "6ab5a994d360cc3de4a23c10",
+  "rollback_deploy_id": "6ab59cfe07764191e5f2b0b8",
+  "url": "https://oliviaarcana.com/animation/",
+  "homepage_entry": "Unfold the deck opens /animation/?play=1",
+  "original_runtime_unchanged": true,
+  "checks": [
+    {
+      "path": "/animation/index.html",
+      "matches_tested_build": true,
+      "sha256": "805fd405fac9e8354b664066544b1cd55318e033b38749151cee9b9485d4cb21"
+    },
+    {
+      "path": "/animation/original.html",
+      "matches_tested_build": true,
+      "sha256": "100608f7d72a8e94f021983b47ab4d601ef1e3ee4fe6b1a697685380de0a2a12"
+    },
+    {
+      "path": "/animation/provenance.json",
+      "matches_tested_build": true,
+      "sha256": "e0fce40172ca34930c44ec93bf1d4d1be0adcfae3a8bde6a28fe65de7ff5e568"
+    },
+    {
+      "path": "/experience/index.html",
+      "matches_tested_build": true,
+      "sha256": "dfd18df4f65c9da482bc5125a35846e6bf9aaccd908cf213f19d3bf6f714392f"
+    },
+    {
+      "path": "/experience/assets/app.e0e86f7f948ab2fb.js",
+      "matches_tested_build": true,
+      "sha256": "e0e86f7f948ab2fba6b71ed12156e56ce2a539b9b977b67b7b7678449e50d57d"
+    }
+  ],
+  "validation": [
+    "Original source hash and both runtime scripts verified unchanged",
+    "52 product tests passed",
+    "7 shell and entry tests passed",
+    "Next production build and TypeScript passed",
+    "Homepage playback entry and reading handoff verified",
+    "390px mobile and reduced-motion layout checked"
+  ],
+  "scope": "Current homepage/product retained; dedicated preserved animation player added and homepage playback linked."
+}

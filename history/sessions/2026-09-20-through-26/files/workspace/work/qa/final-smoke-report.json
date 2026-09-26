@@ -1,0 +1,401 @@
+{
+  "results": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "errors": [],
+      "consoleErrors": [],
+      "states": [
+        {
+          "fraction": 0,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 94,
+            "triangles": 36894,
+            "pixelRatio": 1,
+            "progress": 0,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 693.125,
+            "bottom": 754.125
+          },
+          "footerTop": 935
+        },
+        {
+          "fraction": 0.48,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 82,
+            "triangles": 34982,
+            "pixelRatio": 1,
+            "progress": 0.48,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 693.125,
+            "bottom": 754.125
+          },
+          "footerTop": 935
+        },
+        {
+          "fraction": 0.65,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 69,
+            "triangles": 10472,
+            "pixelRatio": 1,
+            "progress": 0.65,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 693.125,
+            "bottom": 754.125
+          },
+          "footerTop": 935
+        },
+        {
+          "fraction": 1,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 44,
+            "triangles": 10472,
+            "pixelRatio": 1,
+            "progress": 1,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 693.125,
+            "bottom": 754.125
+          },
+          "footerTop": 935
+        }
+      ],
+      "reading": {
+        "title": "Wheel of Fortune",
+        "hidden": false,
+        "buttonRect": {
+          "top": 709.3125,
+          "bottom": 770.3125
+        },
+        "footerTop": 935,
+        "withinViewport": true,
+        "aboveFooter": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "errors": [],
+      "consoleErrors": [],
+      "states": [
+        {
+          "fraction": 0,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 94,
+            "triangles": 36894,
+            "pixelRatio": 1,
+            "progress": 0,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 377.96875,
+            "bottom": 438.96875
+          },
+          "footerTop": 783
+        },
+        {
+          "fraction": 0.48,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 42,
+            "triangles": 15350,
+            "pixelRatio": 1,
+            "progress": 0.4798984341938214,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 377.96875,
+            "bottom": 438.96875
+          },
+          "footerTop": 783
+        },
+        {
+          "fraction": 0.65,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 39,
+            "triangles": 5712,
+            "pixelRatio": 1,
+            "progress": 0.6500211595429539,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 377.96875,
+            "bottom": 438.96875
+          },
+          "footerTop": 783
+        },
+        {
+          "fraction": 1,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 44,
+            "triangles": 10472,
+            "pixelRatio": 1,
+            "progress": 1,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 377.96875,
+            "bottom": 438.96875
+          },
+          "footerTop": 783
+        }
+      ],
+      "reading": {
+        "title": "Wheel of Fortune",
+        "hidden": false,
+        "buttonRect": {
+          "top": 493.03125,
+          "bottom": 554.03125
+        },
+        "footerTop": 783,
+        "withinViewport": true,
+        "aboveFooter": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 568
+      },
+      "errors": [],
+      "consoleErrors": [],
+      "states": [
+        {
+          "fraction": 0,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 94,
+            "triangles": 36894,
+            "pixelRatio": 1,
+            "progress": 0,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 275.046875,
+            "bottom": 326.046875
+          },
+          "footerTop": 507
+        },
+        {
+          "fraction": 0.48,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 45,
+            "triangles": 21218,
+            "pixelRatio": 1,
+            "progress": 0.4800377239861679,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 275.046875,
+            "bottom": 326.046875
+          },
+          "footerTop": 507
+        },
+        {
+          "fraction": 0.65,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 39,
+            "triangles": 5712,
+            "pixelRatio": 1,
+            "progress": 0.6501100282929896,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 275.046875,
+            "bottom": 326.046875
+          },
+          "footerTop": 507
+        },
+        {
+          "fraction": 1,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 44,
+            "triangles": 10472,
+            "pixelRatio": 1,
+            "progress": 1,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 275.046875,
+            "bottom": 326.046875
+          },
+          "footerTop": 507
+        }
+      ],
+      "reading": {
+        "title": "Wheel of Fortune",
+        "hidden": false,
+        "buttonRect": {
+          "top": 328.203125,
+          "bottom": 389.203125
+        },
+        "footerTop": 507,
+        "withinViewport": true,
+        "aboveFooter": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "errors": [],
+      "consoleErrors": [],
+      "states": [
+        {
+          "fraction": 0,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 94,
+            "triangles": 36894,
+            "pixelRatio": 1,
+            "progress": 0,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 239.921875,
+            "bottom": 288.921875
+          },
+          "footerTop": 346
+        },
+        {
+          "fraction": 0.48,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 91,
+            "triangles": 36416,
+            "pixelRatio": 1,
+            "progress": 0.47985347985347987,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 239.921875,
+            "bottom": 288.921875
+          },
+          "footerTop": 346
+        },
+        {
+          "fraction": 0.65,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 69,
+            "triangles": 10472,
+            "pixelRatio": 1,
+            "progress": 0.6501831501831502,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 239.921875,
+            "bottom": 288.921875
+          },
+          "footerTop": 346
+        },
+        {
+          "fraction": 1,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 44,
+            "triangles": 10472,
+            "pixelRatio": 1,
+            "progress": 1,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "overflow": false,
+          "buttonRect": {
+            "top": 239.921875,
+            "bottom": 288.921875
+          },
+          "footerTop": 346
+        }
+      ],
+      "reading": {
+        "title": "Wheel of Fortune",
+        "hidden": false,
+        "buttonRect": {
+          "top": 233.71875,
+          "bottom": 278.71875
+        },
+        "footerTop": 346,
+        "withinViewport": true,
+        "aboveFooter": true
+      }
+    }
+  ],
+  "fallback": {
+    "errors": [],
+    "consoleErrors": [],
+    "result": {
+      "rootClass": "quiet no-webgl",
+      "readingHidden": false,
+      "title": "The Lovers"
+    }
+  }
+}

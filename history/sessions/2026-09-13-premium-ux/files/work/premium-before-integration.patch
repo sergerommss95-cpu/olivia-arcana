@@ -1,0 +1,3180 @@
+diff --git a/website/src/app/chart/page.tsx b/website/src/app/chart/page.tsx
+index 92f76b4..df6b159 100644
+--- a/website/src/app/chart/page.tsx
++++ b/website/src/app/chart/page.tsx
+@@ -4,8 +4,7 @@
+  * One composed page:
+  *   1. No data → engraved ghost wheel + the shared BirthDataForm plate
+  *   2. Computing → a quiet beat while the ephemeris is read
+- *   3. With data → the wheel draws itself in, the big-three plates ink in
+- *      staggered, then aspects, houses, table and legend
++ *   3. With data → a fixed atlas, guided planetary stories and linked aspects
+  *
+  * Computes real natal chart from birth data.
+  * Click any planet → see what it means in YOUR chart.
+@@ -13,12 +12,11 @@
+ 
+ "use client";
+ 
+-import React, { useState, useEffect, useCallback, useRef } from "react";
++import { useState, useEffect, useCallback, useRef } from "react";
+ import AlmanacShell from "@/components/almanac/AlmanacShell";
+-import TransitionLink from "@/components/transitions/TransitionLink";
++import NatalAtlas from "@/components/chart/NatalAtlas";
+ import { computeNatalChart, type NatalChart, type BirthInput } from "@/lib/natal-chart";
+ import { saveUser, loadChart } from "@/lib/user-store";
+-import { getPlanetInSign, PLANET_MEANING, HOUSE_MEANING } from "@/lib/planet-interpretations";
+ import BirthDataForm, { type BirthFormValue } from "@/components/birth/BirthDataForm";
+ import Paywall from "@/components/Paywall";
+ import { utcOffsetHours } from "@/lib/cities";
+@@ -36,10 +34,6 @@ function polarToCart(cx: number, cy: number, r: number, deg: number) {
+ // U+FE0E variation selectors force text presentation — engraved ink, not emoji.
+ const SIGN_GLYPHS = ["♈︎", "♉︎", "♊︎", "♋︎", "♌︎", "♍︎", "♎︎", "♏︎", "♐︎", "♑︎", "♒︎", "♓︎"];
+ 
+-const ASPECT_SYMBOLS: Record<string, string> = {
+-  conjunction: "☌", sextile: "⚹", square: "□", trine: "△", opposition: "☍", quincunx: "⚻",
+-};
+-
+ /** The empty state: a faint engraved wheel, waiting for its data. */
+ function GhostWheel({ caption, waiting }: { caption: string; waiting?: boolean }) {
+   return (
+@@ -105,8 +99,9 @@ export default function ChartPage() {
+   // Chart + page phase
+   const [chart, setChart] = useState<NatalChart | null>(null);
+   const [phase, setPhase] = useState<"form" | "computing" | "error">("form");
+-  const [selected, setSelected] = useState<number | null>(null);
+-  const [view, setView] = useState<"wheel" | "table">("wheel");
++  const computeTimer = useRef<number | null>(null);
++  const heading = useRef<HTMLHeadingElement>(null);
++  const focusResult = useRef(false);
+ 
+   // Staged reveal: true for the first beats after a chart arrives.
+   const [intro, setIntro] = useState(false);
+@@ -116,7 +111,7 @@ export default function ChartPage() {
+     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+     setIntro(true);
+     if (introTimer.current) window.clearTimeout(introTimer.current);
+-    introTimer.current = window.setTimeout(() => setIntro(false), 2900);
++    introTimer.current = window.setTimeout(() => setIntro(false), 1000);
+   }, []);
+ 
+   // Auto-load from localStorage if user already entered data elsewhere
+@@ -131,14 +126,15 @@ export default function ChartPage() {
+     return () => {
+       clearTimeout(timer);
+       if (introTimer.current) window.clearTimeout(introTimer.current);
++      if (computeTimer.current) window.clearTimeout(computeTimer.current);
+     };
+   }, [beginIntro]);
+ 
+   const generate = useCallback((v: BirthFormValue) => {
+     setPhase("computing");
+-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+-    // A quiet beat while the ephemeris is read.
+-    window.setTimeout(() => {
++    // Let the busy state paint, then compute without an artificial ritual delay.
++    if (computeTimer.current) window.clearTimeout(computeTimer.current);
++    computeTimer.current = window.setTimeout(() => {
+       try {
+         const [y, m, d] = v.date.split("-").map(Number);
+         const hour = v.timeUnknown ? 12 : parseInt(v.time.split(":")[0] || "12", 10);
+@@ -158,47 +154,33 @@ export default function ChartPage() {
+         } as BirthInput;
+         const computed = computeNatalChart(input);
+         saveUser(input, computed);
+-        setSelected(null);
+-        setView("wheel");
++        focusResult.current = true;
+         beginIntro();
+         setChart(computed);
+         setPhase("form");
+       } catch {
+         setPhase("error");
+       }
+-    }, reduced ? 150 : 1300);
++    }, 80);
+   }, [beginIntro]);
+ 
+-  const hasAsc = !!chart?.ascendant;
+-  const selectedPlanet = selected !== null ? chart?.planets[selected] : null;
+-
+-  // Big-three plates — honest when the birth hour is unknown.
+-  const threePlates = chart
+-    ? [
+-        { glyph: "☉", title: `Sun in ${chart.sunSign}`, label: "Core identity" },
+-        { glyph: "☽", title: `Moon in ${chart.moonSign}`, label: "Emotional nature" },
+-        hasAsc
+-          ? { glyph: "↑", title: `${chart.risingSign} rising`, label: "How others see you" }
+-          : { glyph: "↑", title: "Rising unmarked", label: "birth hour unknown" },
+-      ]
+-    : [];
+-
+-  // Intro helpers — animation class + delay while the reveal is staged.
+-  // (styled-jsx rewrites className props it can see, so classes must be
+-  // passed as direct attributes, never through prop spreads.)
+-  const stCls = intro ? "st" : "";
+-  const dly = (d: number): React.CSSProperties | undefined =>
+-    intro ? ({ "--d": `${d}s` } as React.CSSProperties) : undefined;
++  useEffect(() => {
++    if (chart && focusResult.current) {
++      focusResult.current = false;
++      heading.current?.focus({ preventScroll: true });
++      heading.current?.scrollIntoView({ block: "start", behavior: "instant" });
++    }
++  }, [chart]);
+ 
+   return (
+     <AlmanacShell>
+       <div className="chart">
+         {/* Header */}
+         <header className="ch-head">
+-          <p className="alm-kicker">The wheel of houses</p>
+-          <h1 className="alm-h1">Your Birth Chart</h1>
++          <p className="alm-kicker">Your personal atlas · Plate 01</p>
++          <h1 className="alm-h1" ref={heading} tabIndex={-1}>{chart ? "The sky you arrived under." : "A sky, entirely yours."}</h1>
+           <p className="alm-lead ch-sub">
+-            {chart ? chart.bigThree : "Three marks — date, hour, place — and the wheel draws itself."}
++            {chart ? "Start with your Sun. Follow a planet, trace a relationship, find the story in the geometry." : "Your birth chart places the planets at the moment you arrived. Bring your date, place and, if you know it, your time."}
+           </p>
+         </header>
+ 
+@@ -221,7 +203,7 @@ export default function ChartPage() {
+               ) : (
+                 <BirthDataForm
+                   onSubmit={generate}
+-                  copy={{ fig: "Fig. 1 — the birth data", submit: "Compute my chart" }}
++                  copy={{ fig: "Fig. 1 — the birth data", submit: "Draw my birth chart" }}
+                 />
+               )}
+             </div>
+@@ -231,10 +213,9 @@ export default function ChartPage() {
+         {/* ── ERROR — in the house voice ── */}
+         {!chart && phase === "error" && (
+           <div className="ch-error" role="alert">
+-            <p className="alm-kicker">The press jammed</p>
++            <p className="alm-kicker">We couldn’t draw your chart</p>
+             <p className="ch-error-line">
+-              The heavens would not resolve for that date and place.
+-              Check the marks and press again.
++              Check your birth date and choose a place from the suggestions, then try again.
+             </p>
+             <button type="button" className="alm-link ch-error-btn" onClick={() => setPhase("form")}>
+               Return to the form →
+@@ -246,317 +227,7 @@ export default function ChartPage() {
+         {chart && (
+           <div className="alm-gate">
+             <Paywall requires="insight" priceKey="insight_monthly" featureName="your full natal chart">
+-              {/* The big three — ink in after the wheel draws */}
+-              <div className="ch-three">
+-                {threePlates.map((pl, i) => (
+-                  <div key={pl.label} className={`ch-plate ${stCls}`} style={dly(1.5 + i * 0.16)}>
+-                    <span className="ch-plate-glyph" aria-hidden>{pl.glyph}</span>
+-                    <div className="ch-plate-title">{pl.title}</div>
+-                    <div className="alm-caption ch-plate-label">{pl.label}</div>
+-                  </div>
+-                ))}
+-              </div>
+-
+-              {/* View toggle + reset */}
+-              <div className={stCls} style={dly(2.15)}>
+-                <div className="ch-toggle">
+-                  {(["wheel", "table"] as const).map((v) => (
+-                    <button
+-                      type="button"
+-                      key={v}
+-                      onClick={() => setView(v)}
+-                      aria-pressed={view === v}
+-                      className={`ch-tab ${view === v ? "on" : ""}`}
+-                    >
+-                      {v === "wheel" ? "Chart Wheel" : "Table View"}
+-                    </button>
+-                  ))}
+-                  <button
+-                    type="button"
+-                    onClick={() => { setChart(null); setSelected(null); setPhase("form"); }}
+-                    className="ch-reset"
+-                  >
+-                    New Chart
+-                  </button>
+-                </div>
+-              </div>
+-
+-              <div className="ch-grid">
+-                {/* ── WHEEL VIEW — a plate engraving that draws itself in ── */}
+-                {view === "wheel" && (
+-                  <figure className="ch-wheel alm-card">
+-                    <svg viewBox="0 0 500 500" className="ch-svg" role="img" aria-label="Natal chart wheel">
+-                      {/* Outer frame — first strokes of the engraving */}
+-                      <circle className={intro ? "cwe" : ""} pathLength={1} cx={250} cy={250} r={244} fill="none" stroke="currentColor" strokeWidth="1" />
+-                      <circle className={intro ? "cwe" : ""} style={dly(0.15)} pathLength={1} cx={250} cy={250} r={238} fill="none" stroke="currentColor" strokeWidth="0.5" opacity={0.5} />
+-
+-                      {/* 1. Zodiac ring (outer, slowly turning) */}
+-                      <g className={`ch-zring ${intro ? "cwf" : ""}`} style={{ transformOrigin: "250px 250px", ...(intro ? { "--d": "0.35s" } : {}) } as React.CSSProperties}>
+-                        <circle cx={250} cy={250} r={200} fill="none" stroke="currentColor" strokeWidth="0.6" />
+-                        {SIGN_GLYPHS.map((_, i) => {
+-                          const a = i * 30;
+-                          const s = polarToCart(250, 250, 200, a);
+-                          const e = polarToCart(250, 250, 238, a);
+-                          return (
+-                            <line key={`d-${i}`} x1={s.x} y1={s.y} x2={e.x} y2={e.y} stroke="currentColor" strokeWidth="0.5" opacity={0.6} />
+-                          );
+-                        })}
+-                        {SIGN_GLYPHS.map((glyph, i) => {
+-                          const angle = i * 30 + 15;
+-                          const pos = polarToCart(250, 250, 219, angle);
+-                          return (
+-                            <text
+-                              key={i}
+-                              x={pos.x}
+-                              y={pos.y}
+-                              textAnchor="middle"
+-                              dominantBaseline="central"
+-                              fill="currentColor"
+-                              opacity={0.75}
+-                              fontSize="16"
+-                              style={{ fontFamily: "serif", pointerEvents: "none" }}
+-                            >
+-                              {glyph}
+-                            </text>
+-                          );
+-                        })}
+-                      </g>
+-
+-                      {/* 2. House ring (inner) — houses need a known birth time */}
+-                      <g className={intro ? "cwf" : ""} style={dly(1.9)}>
+-                        <circle cx={250} cy={250} r={180} fill="none" stroke="currentColor" strokeWidth="0.6" opacity={0.6} />
+-                        {hasAsc && chart.houses.map((h, i) => {
+-                          const angle = h.cusp;
+-                          const s = polarToCart(250, 250, 60, angle);
+-                          const e = polarToCart(250, 250, 180, angle);
+-                          const labelPos = polarToCart(250, 250, 191, angle + 15);
+-                          return (
+-                            <g key={i}>
+-                              <line x1={s.x} y1={s.y} x2={e.x} y2={e.y} stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 4" opacity={0.45} />
+-                              <text
+-                                x={labelPos.x}
+-                                y={labelPos.y}
+-                                textAnchor="middle"
+-                                dominantBaseline="central"
+-                                fill="currentColor"
+-                                opacity={0.45}
+-                                fontSize="8"
+-                                style={{ fontFamily: "var(--font-mono, monospace)" }}
+-                              >
+-                                {i + 1}
+-                              </text>
+-                            </g>
+-                          );
+-                        })}
+-                      </g>
+-
+-                      {/* 3. Aspect lines */}
+-                      <g className={intro ? "cwf" : ""} style={dly(1.75)}>
+-                        {chart.aspects.slice(0, 15).map((a, i) => {
+-                          const p1 = chart.planets.find((p) => p.name === a.planet1);
+-                          const p2 = chart.planets.find((p) => p.name === a.planet2);
+-                          if (!p1 || !p2) return null;
+-                          const pos1 = polarToCart(250, 250, 140, p1.longitude);
+-                          const pos2 = polarToCart(250, 250, 140, p2.longitude);
+-                          const tense = a.harmony === "tense";
+-                          const strength = Math.max(0.2, 1 - a.orb / 10);
+-                          return (
+-                            <path
+-                              key={i}
+-                              d={`M ${pos1.x} ${pos1.y} Q 250 250 ${pos2.x} ${pos2.y}`}
+-                              fill="none"
+-                              stroke={tense ? "var(--ox, #e0b768)" : "currentColor"}
+-                              strokeWidth={strength * 1.4}
+-                              strokeDasharray={tense ? "3 3" : "none"}
+-                              opacity={tense ? 0.4 : 0.22}
+-                            />
+-                          );
+-                        })}
+-                      </g>
+-
+-                      {/* 4. Planet nodes */}
+-                      {chart.planets.map((p, i) => {
+-                        const pos = polarToCart(250, 250, 140, p.longitude);
+-                        const isSel = selected === i;
+-                        return (
+-                          <g
+-                            key={p.name}
+-                            onClick={() => setSelected(isSel ? null : i)}
+-                            className={intro ? "cwf" : ""}
+-                            style={{ cursor: "pointer", ...(dly(1.05 + i * 0.07) ?? {}) }}
+-                          >
+-                            <line
+-                              x1={250}
+-                              y1={250}
+-                              x2={pos.x}
+-                              y2={pos.y}
+-                              stroke={isSel ? "var(--ox, #e0b768)" : "currentColor"}
+-                              strokeWidth="0.6"
+-                              opacity={isSel ? 0.55 : 0.1}
+-                            />
+-                            <circle
+-                              cx={pos.x}
+-                              cy={pos.y}
+-                              r={isSel ? 15 : 10}
+-                              fill="var(--paper, #e8dcc8)"
+-                              stroke={isSel ? "var(--ox, #e0b768)" : "currentColor"}
+-                              strokeWidth={isSel ? 1.6 : 1}
+-                              style={{ transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)" }}
+-                            />
+-                            <text
+-                              x={pos.x}
+-                              y={pos.y + 1}
+-                              textAnchor="middle"
+-                              dominantBaseline="central"
+-                              fill={isSel ? "var(--ox, #e0b768)" : "currentColor"}
+-                              fontSize={isSel ? 13 : 10}
+-                              style={{ pointerEvents: "none", fontFamily: "serif" }}
+-                            >
+-                              {p.glyph}
+-                            </text>
+-                          </g>
+-                        );
+-                      })}
+-
+-                      {/* Center */}
+-                      <g className={intro ? "cwf" : ""} style={dly(0.9)}>
+-                        <circle cx={250} cy={250} r="20" fill="var(--paper, #e8dcc8)" stroke="currentColor" strokeWidth="1" />
+-                        <text
+-                          x={250}
+-                          y={251}
+-                          textAnchor="middle"
+-                          dominantBaseline="central"
+-                          fill="var(--ox, #e0b768)"
+-                          fontSize="13"
+-                          style={{ fontFamily: "serif", pointerEvents: "none" }}
+-                        >
+-                          ✦
+-                        </text>
+-                      </g>
+-                    </svg>
+-                    <figcaption className="alm-caption ch-fig">
+-                      Fig. 2 — the wheel of houses. Click a planet to read it.
+-                    </figcaption>
+-                  </figure>
+-                )}
+-
+-                {/* ── TABLE VIEW ── */}
+-                {view === "table" && (
+-                  <div className="ch-table alm-card">
+-                    <span className="alm-caption">Planetary positions</span>
+-                    <div className="ch-table-rows">
+-                      {chart.planets.map((p, i) => {
+-                        const isSel = selected === i;
+-                        return (
+-                          <button
+-                            type="button"
+-                            key={p.name}
+-                            onClick={() => setSelected(isSel ? null : i)}
+-                            aria-pressed={isSel}
+-                            className={`ch-row ${isSel ? "sel" : ""}`}
+-                          >
+-                            <span className="ch-row-glyph" aria-hidden>{p.glyph}</span>
+-                            <span className="ch-row-name">{p.name}</span>
+-                            <span className="ch-row-sign" aria-hidden>{p.signGlyph}{"︎"}</span>
+-                            <span className="ch-row-pos">{p.sign} {p.degree}&deg;</span>
+-                            <span className="ch-row-house">{hasAsc ? `H${p.house}` : "—"}</span>
+-                            {p.retrograde && <span className="ch-row-rx">℞</span>}
+-                          </button>
+-                        );
+-                      })}
+-                    </div>
+-                  </div>
+-                )}
+-
+-                {/* ── DETAIL PANEL ── */}
+-                <aside className={`ch-panel alm-card ${stCls}`} style={dly(2.3)}>
+-                  {selectedPlanet ? (
+-                    <div>
+-                      <div className="ch-panel-head">
+-                        <span className="ch-panel-glyph" aria-hidden>{selectedPlanet.glyph}</span>
+-                        <div>
+-                          <div className="ch-panel-title">
+-                            {selectedPlanet.name} in {selectedPlanet.sign}
+-                          </div>
+-                          <div className="alm-caption">
+-                            {selectedPlanet.degree}&deg;
+-                            {hasAsc && <> &middot; House {selectedPlanet.house}</>}
+-                            {selectedPlanet.retrograde && " · ℞ Retrograde"}
+-                          </div>
+-                        </div>
+-                      </div>
+-
+-                      {/* What this planet governs */}
+-                      <p className="ch-meaning">{PLANET_MEANING[selectedPlanet.name]}</p>
+-
+-                      {/* Personal interpretation */}
+-                      <p className="ch-interp">{getPlanetInSign(selectedPlanet.name, selectedPlanet.sign)}</p>
+-
+-                      {/* House context — silent when the birth hour is unknown */}
+-                      {hasAsc && HOUSE_MEANING[selectedPlanet.house] && (
+-                        <div className="ch-house">
+-                          <div className="ch-house-label alm-caption">
+-                            House {selectedPlanet.house}: {HOUSE_MEANING[selectedPlanet.house].area}
+-                          </div>
+-                          <p className="ch-house-rules">{HOUSE_MEANING[selectedPlanet.house].rules}</p>
+-                        </div>
+-                      )}
+-
+-                      {/* Aspects involving this planet */}
+-                      {chart.aspects.filter((a) => a.planet1 === selectedPlanet.name || a.planet2 === selectedPlanet.name).length > 0 && (
+-                        <div className="ch-aspects">
+-                          <div className="alm-caption">Aspects</div>
+-                          {chart.aspects
+-                            .filter((a) => a.planet1 === selectedPlanet.name || a.planet2 === selectedPlanet.name)
+-                            .slice(0, 5)
+-                            .map((a, i) => {
+-                              const other = a.planet1 === selectedPlanet.name ? a.planet2 : a.planet1;
+-                              const sym = ASPECT_SYMBOLS[a.type] || "·";
+-                              return (
+-                                <div key={i} className="ch-aspect-row">
+-                                  <span className={`ch-aspect-sym ${a.harmony === "tense" ? "tense" : ""}`} aria-hidden>
+-                                    {sym}
+-                                  </span>
+-                                  <span className="ch-aspect-name">{a.type} {other}</span>
+-                                  <span className="ch-aspect-orb">orb {a.orb}&deg;</span>
+-                                </div>
+-                              );
+-                            })}
+-                        </div>
+-                      )}
+-                    </div>
+-                  ) : (
+-                    <div className="ch-panel-empty">
+-                      <span className="ch-panel-star" aria-hidden>✦</span>
+-                      <p>Click a planet to explore<br />its meaning in your chart</p>
+-                    </div>
+-                  )}
+-                </aside>
+-              </div>
+-
+-              {/* Planet legend */}
+-              <div className={stCls} style={dly(2.45)}>
+-                <div className="ch-legend">
+-                  {chart.planets.map((p, i) => (
+-                    <button
+-                      type="button"
+-                      key={p.name}
+-                      onClick={() => setSelected(selected === i ? null : i)}
+-                      aria-pressed={selected === i}
+-                      className={`ch-chip ${selected === i ? "on" : ""}`}
+-                    >
+-                      <span aria-hidden>{p.glyph}</span> {p.name}
+-                    </button>
+-                  ))}
+-                </div>
+-
+-                {/* CTA to portrait */}
+-                <div className="ch-cta">
+-                  <TransitionLink href="/portrait" className="alm-link">
+-                    Get Your Celestial Portrait &rarr;
+-                  </TransitionLink>
+-                </div>
+-              </div>
++              <NatalAtlas chart={chart} intro={intro} onNewChart={() => { setChart(null); setPhase("form"); }} />
+             </Paywall>
+           </div>
+         )}
+@@ -564,19 +235,28 @@ export default function ChartPage() {
+ 
+       <style jsx>{`
+         .chart {
+-          max-width: 56rem;
++          max-width: 74rem;
+           margin: 0 auto;
+         }
+ 
+-        /* ── One composed page: everything hangs on the center axis ── */
++        /* ── Editorial title and the engraved birth-data band ── */
+         .ch-head {
+           margin-bottom: clamp(2rem, 5vw, 3rem);
+-          text-align: center;
++          text-align: left;
++        }
++
++        .ch-head h1 {
++          max-width: 16ch;
++          font-size: clamp(3rem, 6.4vw, 5.5rem);
++          line-height: .98;
++          scroll-margin-top: 6rem;
+         }
+ 
++        .ch-head h1:focus { outline: none; }
++
+         .ch-sub {
+-          margin: 1rem auto 0;
+-          max-width: 48ch;
++          margin: 1.2rem 0 0;
++          max-width: 50ch;
+         }
+ 
+         /* ── The composed band: ghost wheel + plate ─────────────── */
+@@ -586,6 +266,8 @@ export default function ChartPage() {
+           gap: clamp(2rem, 5vw, 3.5rem);
+           align-items: center;
+           justify-items: center;
++          max-width: 58rem;
++          margin: 0 auto;
+         }
+ 
+         .ch-compose-fig,
+@@ -629,12 +311,8 @@ export default function ChartPage() {
+           opacity: 0.55;
+         }
+ 
+-        :global(.gw-ring) {
+-          animation: gw-turn 240s linear infinite;
+-        }
+-
+         :global(.gw-wait .gw-ring) {
+-          animation-duration: 36s;
++          opacity: .75;
+         }
+ 
+         :global(.gw-star) {
+@@ -646,12 +324,6 @@ export default function ChartPage() {
+           margin-top: 0.9rem;
+         }
+ 
+-        @keyframes gw-turn {
+-          to {
+-            transform: rotate(360deg);
+-          }
+-        }
+-
+         @keyframes gw-pulse {
+           50% {
+             opacity: 0.35;
+@@ -713,416 +385,6 @@ export default function ChartPage() {
+           border: none;
+         }
+ 
+-        /* ── The big three, as plates ────────────────────────────── */
+-        .ch-three {
+-          display: grid;
+-          grid-template-columns: repeat(3, minmax(0, 1fr));
+-          gap: 0.9rem;
+-          max-width: 44rem;
+-          margin: 0 auto 1.8rem;
+-        }
+-
+-        :global(.ch-plate) {
+-          padding: 1.05rem 0.8rem 0.95rem;
+-          border: 1px solid var(--hairline);
+-          background: rgba(10, 13, 56, 0.28);
+-          text-align: center;
+-        }
+-
+-        :global(.ch-plate-glyph) {
+-          display: block;
+-          margin-bottom: 0.35rem;
+-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+-          font-size: 1.4rem;
+-          line-height: 1;
+-          color: var(--ox);
+-        }
+-
+-        :global(.ch-plate-title) {
+-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+-          font-size: 1.12rem;
+-          font-weight: 500;
+-          color: var(--ink);
+-          margin-bottom: 0.3rem;
+-        }
+-
+-        @media (max-width: 560px) {
+-          .ch-three {
+-            gap: 0.55rem;
+-          }
+-
+-          :global(.ch-plate) {
+-            padding: 0.8rem 0.4rem 0.7rem;
+-          }
+-
+-          :global(.ch-plate-title) {
+-            font-size: 0.95rem;
+-          }
+-
+-          :global(.ch-plate-label) {
+-            font-size: 0.52rem;
+-            letter-spacing: 0.14em;
+-          }
+-        }
+-
+-        /* ── Staged reveal ───────────────────────────────────────── */
+-        :global(.chart .st) {
+-          opacity: 0;
+-          transform: translateY(6px);
+-          animation: ch-rise 650ms var(--ease) forwards;
+-          animation-delay: var(--d, 0s);
+-        }
+-
+-        :global(.ch-svg .cwe) {
+-          stroke-dasharray: 1;
+-          stroke-dashoffset: 1;
+-          animation: ch-drawon 1.2s var(--ease) forwards;
+-          animation-delay: var(--d, 0s);
+-        }
+-
+-        :global(.ch-svg .cwf) {
+-          opacity: 0;
+-          animation: ch-inkfade 700ms var(--ease) forwards;
+-          animation-delay: var(--d, 0s);
+-        }
+-
+-        @keyframes ch-rise {
+-          to {
+-            opacity: 1;
+-            transform: none;
+-          }
+-        }
+-
+-        @keyframes ch-drawon {
+-          to {
+-            stroke-dashoffset: 0;
+-          }
+-        }
+-
+-        @keyframes ch-inkfade {
+-          to {
+-            opacity: 1;
+-          }
+-        }
+-
+-        /* ── View toggle ────────────────────────────────────── */
+-        .ch-toggle {
+-          display: flex;
+-          justify-content: center;
+-          align-items: baseline;
+-          gap: 1.6rem;
+-          margin-bottom: 1.6rem;
+-          border-bottom: 1px solid var(--hairline);
+-        }
+-
+-        .ch-tab {
+-          background: none;
+-          border: none;
+-          border-bottom: 2px solid transparent;
+-          margin-bottom: -1px;
+-          padding: 0.4rem 0.1rem 0.55rem;
+-          cursor: pointer;
+-          font-family: var(--font-mono, ui-monospace), monospace;
+-          font-size: 0.66rem;
+-          letter-spacing: 0.24em;
+-          text-transform: uppercase;
+-          color: var(--ink-faint);
+-          transition: color 200ms var(--ease), border-color 200ms var(--ease);
+-        }
+-
+-        .ch-tab:hover {
+-          color: var(--ink);
+-        }
+-
+-        .ch-tab.on {
+-          color: var(--ox);
+-          border-bottom-color: var(--ox);
+-        }
+-
+-        .ch-reset {
+-          background: none;
+-          border: none;
+-          padding: 0.4rem 0.1rem 0.55rem;
+-          cursor: pointer;
+-          font-family: var(--font-mono, ui-monospace), monospace;
+-          font-size: 0.6rem;
+-          letter-spacing: 0.2em;
+-          text-transform: uppercase;
+-          color: var(--ink-faint);
+-          transition: color 200ms var(--ease);
+-        }
+-
+-        .ch-reset:hover {
+-          color: var(--ox);
+-        }
+-
+-        /* ── Layout ─────────────────────────────────────────── */
+-        .ch-grid {
+-          display: flex;
+-          gap: 1.5rem;
+-          flex-wrap: wrap;
+-          justify-content: center;
+-          align-items: flex-start;
+-        }
+-
+-        .ch-wheel {
+-          margin: 0;
+-          text-align: center;
+-          color: var(--ink);
+-        }
+-
+-        .ch-svg {
+-          width: min(86vw, 440px);
+-          height: auto;
+-          color: var(--ink);
+-        }
+-
+-        .ch-zring {
+-          animation: ch-turn 240s linear infinite;
+-        }
+-
+-        @keyframes ch-turn {
+-          to {
+-            transform: rotate(360deg);
+-          }
+-        }
+-
+-        .ch-fig {
+-          display: block;
+-          margin-top: 0.9rem;
+-        }
+-
+-        /* ── Table ──────────────────────────────────────────── */
+-        .ch-table {
+-          width: min(90vw, 430px);
+-        }
+-
+-        .ch-table-rows {
+-          margin-top: 0.75rem;
+-          border-top: 1px solid var(--hairline);
+-        }
+-
+-        .ch-row {
+-          display: flex;
+-          align-items: baseline;
+-          gap: 0.55rem;
+-          width: 100%;
+-          padding: 0.6rem 0.4rem;
+-          background: none;
+-          border: none;
+-          border-bottom: 1px solid var(--hairline);
+-          cursor: pointer;
+-          text-align: left;
+-          font-family: inherit;
+-          transition: background 200ms var(--ease);
+-        }
+-
+-        .ch-row:hover {
+-          background: rgba(232, 233, 255, 0.06);
+-        }
+-
+-        .ch-row.sel {
+-          background: rgba(232, 233, 255, 0.08);
+-          box-shadow: inset 2px 0 0 var(--ox);
+-        }
+-
+-        .ch-row-glyph {
+-          width: 1.4rem;
+-          text-align: center;
+-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+-          font-size: 1.05rem;
+-          color: var(--ink);
+-        }
+-
+-        .ch-row-name {
+-          width: 4.4rem;
+-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+-          font-size: 1.02rem;
+-          font-weight: 600;
+-          color: var(--ink);
+-        }
+-
+-        .ch-row-sign {
+-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+-          font-size: 0.8rem;
+-          color: var(--ink-faint);
+-        }
+-
+-        .ch-row-pos {
+-          flex: 1;
+-          font-size: 0.82rem;
+-          color: var(--ink-soft);
+-        }
+-
+-        .ch-row-house {
+-          font-family: var(--font-mono, ui-monospace), monospace;
+-          font-size: 0.6rem;
+-          letter-spacing: 0.08em;
+-          color: var(--ink-faint);
+-        }
+-
+-        .ch-row-rx {
+-          color: var(--ox);
+-          font-size: 0.7rem;
+-        }
+-
+-        /* ── Detail panel ───────────────────────────────────── */
+-        .ch-panel {
+-          width: min(90vw, 320px);
+-          min-height: 200px;
+-        }
+-
+-        .ch-panel-head {
+-          display: flex;
+-          align-items: center;
+-          gap: 0.7rem;
+-          margin-bottom: 0.85rem;
+-        }
+-
+-        .ch-panel-glyph {
+-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+-          font-size: 2rem;
+-          color: var(--ink);
+-        }
+-
+-        .ch-panel-title {
+-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+-          font-size: 1.25rem;
+-          font-weight: 500;
+-          color: var(--ink);
+-        }
+-
+-        .ch-meaning {
+-          margin: 0 0 0.7rem;
+-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+-          font-size: 0.95rem;
+-          font-style: italic;
+-          color: var(--ink-faint);
+-          line-height: 1.5;
+-        }
+-
+-        .ch-interp {
+-          margin: 0 0 0.9rem;
+-          font-size: 0.92rem;
+-          line-height: 1.68;
+-          color: var(--ink-soft);
+-        }
+-
+-        .ch-house {
+-          padding: 0.7rem 0 0;
+-          border-top: 1px solid var(--hairline);
+-        }
+-
+-        .ch-house-label {
+-          color: var(--ox);
+-        }
+-
+-        .ch-house-rules {
+-          margin: 0.35rem 0 0;
+-          font-size: 0.8rem;
+-          line-height: 1.55;
+-          color: var(--ink-soft);
+-        }
+-
+-        .ch-aspects {
+-          margin-top: 0.9rem;
+-          padding-top: 0.7rem;
+-          border-top: 1px solid var(--hairline);
+-        }
+-
+-        .ch-aspect-row {
+-          display: flex;
+-          align-items: baseline;
+-          gap: 0.45rem;
+-          padding: 0.28rem 0;
+-          font-size: 0.8rem;
+-        }
+-
+-        .ch-aspect-sym {
+-          color: var(--ink-soft);
+-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
+-        }
+-
+-        .ch-aspect-sym.tense {
+-          color: var(--ox);
+-        }
+-
+-        .ch-aspect-name {
+-          color: var(--ink-soft);
+-        }
+-
+-        .ch-aspect-orb {
+-          margin-left: auto;
+-          font-family: var(--font-mono, ui-monospace), monospace;
+-          font-size: 0.62rem;
+-          letter-spacing: 0.06em;
+-          color: var(--ink-faint);
+-        }
+-
+-        .ch-panel-empty {
+-          display: flex;
+-          flex-direction: column;
+-          align-items: center;
+-          justify-content: center;
+-          min-height: 180px;
+-          text-align: center;
+-        }
+-
+-        .ch-panel-star {
+-          margin-bottom: 0.75rem;
+-          color: var(--ox);
+-          font-size: 1.3rem;
+-        }
+-
+-        .ch-panel-empty p {
+-          margin: 0;
+-          font-size: 0.88rem;
+-          line-height: 1.6;
+-          color: var(--ink-faint);
+-        }
+-
+-        /* ── Legend ─────────────────────────────────────────── */
+-        .ch-legend {
+-          margin: 1.6rem auto 0;
+-          max-width: 40rem;
+-          display: flex;
+-          flex-wrap: wrap;
+-          gap: 0.4rem;
+-          justify-content: center;
+-        }
+-
+-        .ch-chip {
+-          display: inline-flex;
+-          align-items: baseline;
+-          gap: 0.3rem;
+-          padding: 0.3rem 0.7rem;
+-          background: none;
+-          border: 1px solid var(--hairline);
+-          border-radius: 999px;
+-          cursor: pointer;
+-          font-family: var(--font-mono, ui-monospace), monospace;
+-          font-size: 0.6rem;
+-          letter-spacing: 0.14em;
+-          text-transform: uppercase;
+-          color: var(--ink-soft);
+-          transition: color 200ms var(--ease), border-color 200ms var(--ease);
+-        }
+-
+-        .ch-chip:hover {
+-          color: var(--ink);
+-          border-color: var(--ink-faint);
+-        }
+-
+-        .ch-chip.on {
+-          color: var(--ox);
+-          border-color: rgba(224, 183, 104, 0.45);
+-        }
+-
+-        .ch-cta {
+-          margin-top: 2rem;
+-          text-align: center;
+-        }
+-
+         /* ── Paywall gate, re-inked ─────────────────────────── */
+         .alm-gate :global(.glass-card) {
+           background: linear-gradient(160deg, rgba(183, 188, 233, 0.1) 0%, rgba(10, 16, 36, 0.42) 100%) !important;
+@@ -1170,28 +432,13 @@ export default function ChartPage() {
+         }
+ 
+         @media (prefers-reduced-motion: reduce) {
+-          .ch-zring,
+           :global(.gw-ring),
+           :global(.gw-star),
+           .ch-wait-star {
+             animation: none;
+           }
+ 
+-          :global(.chart .st),
+-          :global(.ch-svg .cwe),
+-          :global(.ch-svg .cwf) {
+-            animation: none;
+-            opacity: 1;
+-            transform: none;
+-            stroke-dashoffset: 0;
+-          }
+ 
+-          .ch-tab,
+-          .ch-reset,
+-          .ch-row,
+-          .ch-chip {
+-            transition: none;
+-          }
+         }
+       `}</style>
+     </AlmanacShell>
+diff --git a/website/src/app/oracle/page.tsx b/website/src/app/oracle/page.tsx
+index 207a18d..305bbb8 100644
+--- a/website/src/app/oracle/page.tsx
++++ b/website/src/app/oracle/page.tsx
+@@ -8,8 +8,9 @@
+ 
+ "use client";
+ 
+-import { useState, useEffect, Suspense } from "react";
++import { useState, Suspense } from "react";
+ import NightShell from "@/components/almanac/NightShell";
++import OracleFrontispiece from "@/components/oracle/OracleFrontispiece";
+ import OracleMist from "@/components/arrival/OracleMist";
+ import dynamic from "next/dynamic";
+ import { useSearchParams } from "next/navigation";
+@@ -18,7 +19,7 @@ import { useLocale } from "@/lib/i18n/useLocale";
+ function OracleLoading() {
+   const { locale } = useLocale();
+   return (
+-    <div className="flex items-center justify-center h-full">
++    <div className="absolute inset-0 z-40 flex items-center justify-center h-full" role="status">
+       <div className="night-caption animate-pulse">
+         {locale === "uk" ? "Розкладаємо колоду…" : "Laying out the deck…"}
+       </div>
+@@ -40,29 +41,7 @@ function OracleContainer() {
+ 
+   return (
+     <>
+-      {!started && (
+-        <div className="oracle-arrive absolute inset-0 z-40 flex flex-col items-center justify-center px-6 text-center">
+-          <p className="night-kicker">
+-            {isUk ? "Одне питання · Чотири розклади" : "One question · Four spreads"}
+-          </p>
+-          <h1 className="night-h1 max-w-[12ch]">
+-            {isUk ? (
+-              <>Запитай <em>Оракула</em></>
+-            ) : (
+-              <>Ask the <em>Oracle</em></>
+-            )}
+-          </h1>
+-          <p className="night-lead max-w-xs mt-5 mb-9">
+-            {isUk
+-              ? "Від трьох карт до Кельтського хреста — для питання, яке ви принесли."
+-              : "From three cards to the Celtic Cross — for the question you bring."}
+-          </p>
+-          <button onClick={() => setStarted(true)} className="night-btn">
+-            {isUk ? "Почати читання" : "Start the reading"}
+-          </button>
+-          <span className="oracle-cta-rule" aria-hidden />
+-        </div>
+-      )}
++      {!started && <OracleFrontispiece uk={isUk} onBegin={() => setStarted(true)} />}
+ 
+       {started && (
+         <div className="absolute inset-0 z-10">
+@@ -74,23 +53,16 @@ function OracleContainer() {
+ }
+ 
+ export default function OraclePage() {
+-  const [mounted, setMounted] = useState(false);
+   const { locale } = useLocale();
+   const isUk = locale === "uk";
+ 
+-  useEffect(() => {
+-    const frame = requestAnimationFrame(() => setMounted(true));
+-    return () => cancelAnimationFrame(frame);
+-  }, []);
+-
+-  if (!mounted) return <div className="min-h-screen bg-[#0a0d38]" />;
+ 
+   return (
+     <NightShell room={isUk ? "Стіл розкладів" : "The Dealing Table"}>
+-      <div className="oracle-stage fixed inset-0 overflow-hidden select-none">
++      <div className="oracle-stage fixed inset-0 overflow-hidden">
+         {/* the table's mist — parts around the reader's hand, then heals */}
+         <OracleMist className="absolute inset-0 z-0" />
+-        <Suspense fallback={<div />}>
++        <Suspense fallback={<OracleLoading />}>
+           <OracleContainer />
+         </Suspense>
+       </div>
+diff --git a/website/src/app/page.tsx b/website/src/app/page.tsx
+index e4f9220..9162b8a 100644
+--- a/website/src/app/page.tsx
++++ b/website/src/app/page.tsx
+@@ -1,18 +1,6 @@
+ "use client";
+ 
+-/**
+- * Home — "The Personal Almanac."
+- *
+- * A complete visual reboot: warm bone paper, warm-black ink, one oxblood
+- * accent, plate-engraving line diagrams. Astrology and tarot presented as
+- * a beautifully printed reference atlas — masthead, numbered plates, a
+- * specimen letter, a tariff table, questions, colophon. No WebGL, no
+- * starfields, no gold-on-void: the whole page is typography, hairlines,
+- * and hand-drawn SVG.
+- *
+- * The site's dark chrome (nav, cosmic layers) is switched off for "/" in
+- * ClientShell; this page carries its own masthead and colophon.
+- */
++/** Personal Almanac — the Arrival frontispiece and two working engraved plates. */
+ 
+ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+ import { createPortal } from "react-dom";
+@@ -44,7 +32,7 @@ const ALM = {
+     masthead: "Personal Almanac",
+     established: "Anno MMXXVI · Kyiv — Everywhere",
+     nav: [
+-      { label: "Academy", href: "/academy" },
++      { label: "Birth chart", href: "/chart" },
+       { label: "Daily card", href: "/daily" },
+       { label: "Tariff", href: "/pricing" },
+     ],
+@@ -64,7 +52,7 @@ const ALM = {
+       {
+         numeral: "I",
+         title: "The Oracle",
+-        body: "Bring one question. Three cards are drawn against your chart and the current sky, and read in plain language.",
++        body: "Bring a question. Choose your spread, turn each card, and follow the thread from symbol to meaning.",
+         href: "/oracle",
+         cta: "Begin a reading",
+         caption: "Fig. 1 — the three-card spread",
+@@ -125,7 +113,7 @@ const ALM = {
+     masthead: "Особистий альманах",
+     established: "Anno MMXXVI · Київ — усюди",
+     nav: [
+-      { label: "Академія", href: "/academy" },
++      { label: "Натальна карта", href: "/chart" },
+       { label: "Карта дня", href: "/daily" },
+       { label: "Тариф", href: "/pricing" },
+     ],
+@@ -145,7 +133,7 @@ const ALM = {
+       {
+         numeral: "I",
+         title: "Оракул",
+-        body: "Принесіть одне запитання. Три карти витягуються з огляду на вашу карту й поточне небо — і читаються простою мовою.",
++        body: "Принесіть запитання. Оберіть розклад, переверніть кожну карту й простежте шлях від символу до значення.",
+         href: "/oracle",
+         cta: "Почати читання",
+         caption: "Мал. 1 — розклад із трьох карт",
+@@ -4151,6 +4139,7 @@ export default function Home() {
+   // The Inscription: the almanac's single question, kept in this
+   // browser. Read after mount (SSR knows no reader).
+   const [birth, setBirth] = useState<string | null>(null);
++  const [dateError, setDateError] = useState("");
+   useEffect(() => {
+     const id = requestAnimationFrame(() => setBirth(getStoredBirth()));
+     return () => cancelAnimationFrame(id);
+@@ -4256,13 +4245,9 @@ export default function Home() {
+     // hydration — re-arm the observer so they still ink in.
+   }, [today]);
+ 
+-  const heroWords = (t("hero_title") as string).split(" ");
+-  // Display stack: the last two words become their own lines — a stepped
+-  // masthead in three movements, whatever the locale's word count.
+-  const heroLines =
+-    heroWords.length >= 3
+-      ? [heroWords.slice(0, -2).join(" "), heroWords[heroWords.length - 2], heroWords[heroWords.length - 1]]
+-      : [heroWords.join(" ")];
++  const heroTitle = t("hero_title") as string;
++  const heroLines = locale === "en" ? ["Your stars,", "translated clearly."]
++    : locale === "uk" ? ["Ваші зірки —", "людською мовою."] : [heroTitle];
+ 
+   // The frontispiece entrance, in three movements: HOLD (blank paper, the
+   // wordmark alone, ~1s of patience), BLOOM (the page opens from a center
+@@ -4270,99 +4255,40 @@ export default function Home() {
+   // display lines slide in, the small type rises through masks). Once per
+   // session; reduced motion and repeat visits land on the finished page.
+   const [stage, setStage] = useState<"idle" | "hold" | "bloom" | "done">("idle");
+-  useLayoutEffect(() => {
+-    let seen = false;
+-    try {
+-      seen = Boolean(sessionStorage.getItem("alm-pressed"));
+-    } catch {
+-      seen = true;
+-    }
+-    if (seen || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+-      // Pre-paint: land on the finished page silently.
+-      setStage("done");
+-      return;
+-    }
+-    // Pre-paint arming: the closed slit must be applied before first
+-    // paint or the open page flashes.
+-    setStage("hold");
+-    const timers: number[] = [];
+-    timers.push(window.setTimeout(() => setStage("bloom"), 450));
+-    timers.push(
+-      window.setTimeout(() => {
+-        setStage("done");
+-        try {
+-          sessionStorage.setItem("alm-pressed", "1");
+-        } catch {
+-          /* replay next visit; harmless */
+-        }
+-      }, 1600),
+-    );
+-    return () => timers.forEach((id) => window.clearTimeout(id));
+-  }, []);
+-
+-  // The page cannot be scrolled while it is still opening.
+-  useEffect(() => {
+-    if (stage === "hold" || stage === "bloom") {
+-      document.body.style.overflow = "hidden";
+-      return () => {
+-        document.body.style.overflow = "";
+-      };
+-    }
+-    return undefined;
+-  }, [stage]);
++  useEffect(() => { setStage("done"); }, []);
+ 
+-  // One rig for the page's continuous life: the reading line (document
+-  // progress), mouse depth (the desk tilting under the hand), and
+-  // scroll-breath (figures drifting with the scroll, both directions).
++  // Schedule at most one update for each scroll/resize burst. No idle layout polling.
+   useEffect(() => {
+     const root = rootRef.current;
+     if (!root) return;
+-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+-
++    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+     const driftEls = Array.from(root.querySelectorAll<HTMLElement>("[data-drift]"));
+-    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+-
+-    let raf = 0;
+-    let lastRead = -1;
+-    let tx = 0;
+-    let ty = 0;
+-    let mx = 0;
+-    let my = 0;
+-
+-    const onMove = (e: PointerEvent) => {
+-      tx = (e.clientX / window.innerWidth) * 2 - 1;
+-      ty = (e.clientY / window.innerHeight) * 2 - 1;
+-    };
+-    if (fine) window.addEventListener("pointermove", onMove, { passive: true });
+-
+-    const loop = () => {
++    let frame = 0;
++    const update = () => {
++      frame = 0;
++      if (document.hidden) return;
+       const vh = window.innerHeight;
+       const max = document.documentElement.scrollHeight - vh;
+-      const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+-      if (Math.abs(p - lastRead) > 0.002) {
+-        lastRead = p;
+-        root.style.setProperty("--read-p", p.toFixed(3));
+-      }
+-
+-      if (fine) {
+-        mx += (tx - mx) * 0.06;
+-        my += (ty - my) * 0.06;
+-        root.style.setProperty("--mx", mx.toFixed(3));
+-        root.style.setProperty("--my", my.toFixed(3));
+-      }
+-
+-      for (const el of driftEls) {
+-        const r = el.getBoundingClientRect();
+-        const dp = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+-        el.style.setProperty("--dp", dp.toFixed(3));
+-      }
+-
+-      raf = requestAnimationFrame(loop);
++      const progress = max > 0 ? Math.min(1, window.scrollY / max) : 0;
++      const positions = reduced.matches ? [] : driftEls.map(el => {
++        const rect = el.getBoundingClientRect();
++        return Math.min(1, Math.max(0, (vh - rect.top) / (vh + rect.height)));
++      });
++      root.style.setProperty("--read-p", progress.toFixed(3));
++      positions.forEach((value, index) => driftEls[index].style.setProperty("--dp", value.toFixed(3)));
+     };
+-    raf = requestAnimationFrame(loop);
++    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
++    window.addEventListener("scroll", schedule, { passive: true });
++    window.addEventListener("resize", schedule);
++    document.addEventListener("visibilitychange", schedule);
++    reduced.addEventListener("change", schedule);
++    schedule();
+     return () => {
+-      cancelAnimationFrame(raf);
+-      if (fine) window.removeEventListener("pointermove", onMove);
++      cancelAnimationFrame(frame);
++      window.removeEventListener("scroll", schedule);
++      window.removeEventListener("resize", schedule);
++      document.removeEventListener("visibilitychange", schedule);
++      reduced.removeEventListener("change", schedule);
+     };
+   }, []);
+ 
+@@ -4527,10 +4453,7 @@ export default function Home() {
+   return (
+     <div ref={rootRef} className={`almanac stage-${stage}`}>
+       {(stage === "hold" || stage === "bloom") && <HoldMark stage={stage} />}
+-      <InkCursor />
+-      <MagnetRig />
+-      <ShaderBackdrop />
+-      <LampLight />
++      {/* The Arrival and real sky own the motion; no competing cursor or shader layers. */}
+       <span className="read-line" aria-hidden />
+       {/* ── Masthead ──────────────────────────────────────────── */}
+       <header className="masthead">
+@@ -4581,11 +4504,15 @@ export default function Home() {
+               </TransitionLink>
+             ))}
+             {/* Every further room of the edition, one quiet drawer. */}
+-            <details className="mast-more">
++            <details className="mast-more" onKeyDown={(e) => { if (e.key === "Escape") { e.currentTarget.open = false; e.currentTarget.querySelector("summary")?.focus(); } }}>
+               <summary>{locale === "uk" ? "Ще" : "More"} ✦</summary>
+               <div className="mast-menu">
+                 {(locale === "uk"
+                   ? [
++                      ["Натальна карта", "/chart"],
++                      ["Карта дня", "/daily"],
++                      ["Тариф", "/pricing"],
++                      ["Академія", "/academy"],
+                       ["Сумісність", "/synastry"],
+                       ["Знаки", "/signs"],
+                       ["Космос", "/cosmos"],
+@@ -4595,6 +4522,10 @@ export default function Home() {
+                       ["Про нас", "/about"],
+                     ]
+                   : [
++                      ["Birth chart", "/chart"],
++                      ["Daily card", "/daily"],
++                      ["Pricing", "/pricing"],
++                      ["Academy", "/academy"],
+                       ["Synastry", "/synastry"],
+                       ["Signs", "/signs"],
+                       ["Cosmos", "/cosmos"],
+@@ -4646,8 +4577,8 @@ export default function Home() {
+           trust={t("hero_trust_line") as string}
+           primaryHref="/oracle"
+           primaryLabel={copy.navCta}
+-          secondaryHref="/daily"
+-          secondaryLabel={`${copy.nav[1].label} →`}
++          secondaryHref="/chart"
++          secondaryLabel={locale === "uk" ? "Дослідити натальну карту" : "Explore your birth chart"}
+           captionMain={locale === "uk" ? "I. Наближення" : "I. The arrival"}
+           captionSub={locale === "uk" ? "Між відомим і можливим" : "Between the known & the possible"}
+         />
+@@ -4695,7 +4626,7 @@ export default function Home() {
+                   : `SOL · ${SIGN_PAGES[SIGN_SLUGS[birthI.signIndex]].name.toUpperCase()} — the moon was ${birthI.moonPhaseName.toLowerCase()} on the night you were born`}
+               </p>
+               <div className="ins-charts">
+-                <TransitionLink href="/portrait" className="btn-ink ins-portrait">
++                <TransitionLink href="/chart" className="btn-ink ins-portrait">
+                   {locale === "uk" ? "Накреслити повну карту неба" : "Draw my full birth chart"} →
+                 </TransitionLink>
+                 <TransitionLink href={`/signs/${SIGN_SLUGS[birthI.signIndex]}/`} className="link-ox">
+@@ -4735,12 +4666,19 @@ export default function Home() {
+                 const m = parseInt(String(fd.get("bm") ?? ""), 10);
+                 const y = parseInt(String(fd.get("by") ?? ""), 10);
+                 if (!(d >= 1 && d <= 31 && m >= 1 && m <= 12 && y >= 1900 && y <= 2035)) {
++                  setDateError(locale === "uk" ? "Введіть повну дату народження." : "Enter a complete birth date.");
+                   e.currentTarget.classList.remove("ins-shake");
+                   void (e.currentTarget as HTMLElement).offsetWidth;
+                   e.currentTarget.classList.add("ins-shake");
+                   return;
+                 }
+                 const v = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
++                const date = new Date(`${v}T12:00:00Z`);
++                if (date.getUTCFullYear() !== y || date.getUTCMonth() !== m - 1 || date.getUTCDate() !== d) {
++                  setDateError(locale === "uk" ? "Перевірте дату: такого дня немає в календарі." : "Check the date: that day is not in the calendar.");
++                  return;
++                }
++                setDateError("");
+                 if (birthInfo(v, locale)) {
+                   storeBirth(v);
+                   setBirth(v);
+@@ -4769,6 +4707,9 @@ export default function Home() {
+                       <input
+                         id={f.id}
+                         name={f.name}
++                        aria-label={locale === "uk" ? ({ bd: "День", bm: "Місяць", by: "Рік" }[f.name]) : ({ bd: "Day", bm: "Month", by: "Year" }[f.name])}
++                        aria-invalid={Boolean(dateError)}
++                        aria-describedby={dateError ? "ins-date-error" : undefined}
+                         className="ins-cell"
+                         style={{ width: f.w }}
+                         inputMode="numeric"
+@@ -4800,6 +4741,7 @@ export default function Home() {
+                   {locale === "uk" ? "Вписати" : "Inscribe"}
+                 </button>
+               </div>
++              {dateError && <p id="ins-date-error" role="alert" style={{ color: "#e0b768", marginTop: 12 }}>{dateError}</p>}
+               <p className="ins-priv">{locale === "uk" ? "зберігається у цьому браузері · нікуди не надсилається" : "kept in this browser · never sent anywhere"}</p>
+             </form>
+           )}
+@@ -6630,6 +6572,29 @@ export default function Home() {
+             order: 3;
+           }
+         }
++        /* Premium edition: clear navigation, comfortable reading and one foreground act. */
++        .masthead-nav { flex-shrink: 0; gap: clamp(1rem, 2vw, 2rem); }
++        .masthead-nav :global(.masthead-link), .mast-menu :global(.mast-menu-link) {
++          display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap;
++        }
++        .mast-menu :global(.mast-menu-link) { font-family: var(--font-body); font-size: 13px; letter-spacing: .04em; }
++        .mast-more summary { display: flex; align-items: center; min-height: 44px; gap: 6px; font-size: 12px; letter-spacing: .08em; }
++        .masthead { padding-top: .6rem; }
++        .masthead-row { align-items: center; padding: .4rem 0; }
++        .counsel { min-height: 2.6rem; padding-top: .55rem; }
++        .plate-body { font-size: 1rem; line-height: 1.8; }
++        .plate-numeral, .fig-caption { color: #b8bddb; }
++        .masthead :global(a:focus-visible), .mast-more summary:focus-visible, .mast-menu :global(a:focus-visible) { outline: 2px solid #e0b768; outline-offset: 4px; }
++        @media (max-width: 1500px) { .masthead-est { display: none; } }
++        @media (max-width: 640px) {
++          .masthead-nav :global(.masthead-link) { display: none; }
++          .masthead-nav { gap: .7rem; }
++          .masthead :global(.wordmark) { font-size: 1.2rem; }
++          .masthead-nav :global(.masthead-cta) { font-size: .63rem; padding: .6rem .75rem; min-height: 44px; display: inline-flex; align-items: center; }
++          .mast-menu { right: -7rem; min-width: 16rem; max-height: min(72svh, 520px); overflow-y: auto; }
++          .plate-body { font-size: 1rem; }
++        }
++
+       `}</style>
+ 
+       <style jsx global>{`
+diff --git a/website/src/components/ClientShell.tsx b/website/src/components/ClientShell.tsx
+index 08b1e81..82fcd68 100644
+--- a/website/src/components/ClientShell.tsx
++++ b/website/src/components/ClientShell.tsx
+@@ -10,7 +10,7 @@
+ 
+ "use client";
+ 
+-import React, { useEffect, useState } from "react";
++import React, { useEffect } from "react";
+ import { usePathname } from "next/navigation";
+ import PageTransition from "@/components/transitions/PageTransition";
+ import SkyVoyageCanvas from "@/components/sky/SkyVoyageCanvas";
+@@ -29,14 +29,6 @@ function ChartScribe() {
+ }
+ 
+ export default function ClientShell({ children }: { children: React.ReactNode }) {
+-  // Tier 2 gate — basic client-only render
+-  const [mounted, setMounted] = useState(false);
+-
+-  useEffect(() => {
+-    const frame = requestAnimationFrame(() => setMounted(true));
+-    return () => cancelAnimationFrame(frame);
+-  }, []);
+-
+   return (
+     <>
+       {/* LIQUID NIGHT — the living silk-water ground, deepest layer. */}
+@@ -52,11 +44,7 @@ export default function ClientShell({ children }: { children: React.ReactNode })
+         {/* Page content — promoted into its own stacking context so it
+             always paints above the sky canvas (z 0). */}
+         <div style={{ position: "relative", zIndex: 1 }}>
+-          {mounted ? (
+-            <PageTransition>{children}</PageTransition>
+-          ) : (
+-            <>{children}</>
+-          )}
++          <PageTransition>{children}</PageTransition>
+         </div>
+       </SubscriptionProvider>
+ 
+diff --git a/website/src/components/almanac/SpreadTheater.tsx b/website/src/components/almanac/SpreadTheater.tsx
+index 5ee53e1..3515e28 100644
+--- a/website/src/components/almanac/SpreadTheater.tsx
++++ b/website/src/components/almanac/SpreadTheater.tsx
+@@ -102,7 +102,7 @@ function CardBackPlate() {
+ const LABELS = ["Past", "Now", "Next"];
+ 
+ export default function SpreadTheater({ href = "/oracle", label = "Begin a reading" }: { href?: string; label?: string }) {
+-  const stageRef = useRef<HTMLDivElement>(null);
++  const stageRef = useRef<HTMLAnchorElement>(null);
+   const router = useRouter();
+ 
+   useEffect(() => {
+@@ -114,7 +114,8 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
+     const faces = Array.from(stage.querySelectorAll<HTMLElement>(".st-face"));
+     const glares = Array.from(stage.querySelectorAll<HTMLElement>(".st-glare"));
+     const labels = Array.from(stage.querySelectorAll<HTMLElement>(".st-label"));
+-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
++    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
++    let reduce = motionQuery.matches;
+     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+ 
+     router.prefetch(href);
+@@ -126,22 +127,29 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
+     let inside = false;
+     let diveAt = 0;
+     let raf = 0;
++    let visible = false;
++    let diveTimer = 0;
++    const start = () => { if (!raf && visible && !document.hidden) raf = requestAnimationFrame(loop); };
+     // the deal: cards sleep as one stack until the plate scrolls into
+     // view, then deal open one at a time — a single slow beat
+     let wakeAt = reduce ? -1 : 0; // -1 = already awake (no entrance)
+     // the daydream: which card is being turned, and since when
+     let cycleIdx = 0;
+     let cycleAt = 0; // 0 = not scheduled yet
+-    const wakeIO = new IntersectionObserver(
+-      (es) => {
+-        if (es.some((e) => e.isIntersecting) && wakeAt === 0) {
+-          wakeAt = performance.now();
+-          wakeIO.disconnect();
+-        }
+-      },
+-      { threshold: 0.45 },
+-    );
+-    if (!reduce) wakeIO.observe(stage);
++    const wakeIO = new IntersectionObserver((entries) => {
++      visible = entries.some(entry => entry.isIntersecting);
++      if (visible && wakeAt === 0) wakeAt = performance.now();
++      if (visible) start();
++      else { cancelAnimationFrame(raf); raf = 0; }
++    }, { threshold: 0 });
++    wakeIO.observe(stage);
++    const onVisibility = () => {
++      if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
++      else start();
++    };
++    const onMotionChange = () => { reduce = motionQuery.matches; if (reduce) wakeAt = -1; start(); };
++    document.addEventListener("visibilitychange", onVisibility);
++    motionQuery.addEventListener("change", onMotionChange);
+ 
+     const onMove = (e: PointerEvent) => {
+       const r = stage.getBoundingClientRect();
+@@ -155,21 +163,27 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
+       if (diveAt) return;
+       diveAt = performance.now();
+       stage.classList.add("is-diving");
+-      const delay = reduce ? 40 : 430;
+-      window.setTimeout(() => {
++      const delay = reduce ? 0 : 220;
++      diveTimer = window.setTimeout(() => {
+         window.dispatchEvent(new CustomEvent("page:transition", { detail: { href } }));
+       }, delay);
+     };
+-    const onClick = () => dive();
++    const onClick = (event: MouseEvent) => {
++      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
++      event.preventDefault();
++      dive();
++    };
+     const onKey = (e: KeyboardEvent) => {
+-      if (e.key === "Enter" || e.key === " ") {
++      if (e.key === " ") {
+         e.preventDefault();
+         dive();
+       }
+     };
+ 
+     const loop = (now: number) => {
+-      raf = requestAnimationFrame(loop);
++      raf = 0;
++      if (!visible || document.hidden) return;
++      if (!reduce) raf = requestAnimationFrame(loop);
+       const t = now / 1000;
+       const hoverAwake = finePointer && inside;
+       const awake = finePointer ? (inside ? 1 : 0) : 1;
+@@ -279,7 +293,7 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
+         }
+ 
+         const c = cur[i];
+-        const g = reduce || diving ? 0.24 : LERP;
++        const g = reduce ? 1 : diving ? 0.24 : LERP;
+         c.x += (tx - c.x) * g;
+         c.y += (ty - c.y) * g;
+         c.z += (tz - c.z) * g;
+@@ -330,10 +344,12 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
+     stage.addEventListener("pointerleave", onLeave);
+     stage.addEventListener("click", onClick);
+     stage.addEventListener("keydown", onKey);
+-    raf = requestAnimationFrame(loop);
+     return () => {
+       cancelAnimationFrame(raf);
+       wakeIO.disconnect();
++      window.clearTimeout(diveTimer);
++      document.removeEventListener("visibilitychange", onVisibility);
++      motionQuery.removeEventListener("change", onMotionChange);
+       window.removeEventListener("page:transition-abort", onAbort);
+       stage.removeEventListener("pointermove", onMove);
+       stage.removeEventListener("pointerenter", onEnter);
+@@ -344,11 +360,10 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
+   }, [href, router]);
+ 
+   return (
+-    <div
++    <a
++      href={href}
+       ref={stageRef}
+       className="st-stage"
+-      role="link"
+-      tabIndex={0}
+       aria-label={label}
+     >
+       <span className="st-invite" aria-hidden>{label.includes("—") ? label.split("—")[1].trim() : label} &rarr;</span>
+@@ -375,6 +390,7 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
+ 
+       <style jsx>{`
+         .st-stage {
++          display: block; text-decoration: none; color: inherit;
+           position: relative;
+           width: 100%;
+           max-width: 34rem;
+@@ -534,6 +550,7 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
+ 
+         @media (max-width: 640px) {
+           .st-stage {
++          display: block; text-decoration: none; color: inherit;
+             height: 24rem;
+             perspective: 900px;
+           }
+@@ -558,6 +575,6 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
+           }
+         }
+       `}</style>
+-    </div>
++    </a>
+   );
+ }
+diff --git a/website/src/components/hero/TheArrival.tsx b/website/src/components/hero/TheArrival.tsx
+index 7fbb687..40e8abe 100644
+--- a/website/src/components/hero/TheArrival.tsx
++++ b/website/src/components/hero/TheArrival.tsx
+@@ -240,7 +240,7 @@ const quint = (t: number) => 1 - Math.pow(1 - clamp(t), 5);
+ 
+ export default function TheArrival(p: Props) {
+   const rootRef = useRef<HTMLDivElement | null>(null);
+-  const [intent, setIntent] = useState(0);
++  const [immersive, setImmersive] = useState(false);
+   const [paused, setPaused] = useState(false);
+   const [still, setStill] = useState(false);
+ 
+@@ -258,6 +258,7 @@ export default function TheArrival(p: Props) {
+     const landing = () => (document.getElementById("plates") ?? seq.nextElementSibling) as HTMLElement | null;
+     const chapters = Array.from(root.querySelectorAll<HTMLButtonElement>(".tide-chapter"));
+     const fill = root.querySelector<HTMLElement>(".tide-fill")!;
++    const intro = root.querySelector<HTMLElement>(".tide-intro");
+     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+ 
+     let gl: WebGLRenderingContext | null = null;
+@@ -271,9 +272,9 @@ export default function TheArrival(p: Props) {
+     const isPaused = () => stage.dataset.paused === "1";
+ 
+     function measure() {
+-      const enabled = ready && !reduced.matches;
++      const enabled = ready && !reduced.matches && root.dataset.immersive === "true";
+       seq.classList.toggle("enhanced", enabled);
+-      range = enabled ? innerHeight * (innerWidth <= 700 ? 2.5 : 3.2) : 0;
++      range = enabled ? innerHeight * (innerWidth <= 700 ? 0.9 : 1.6) : 0;
+       seq.style.height = enabled ? stage.offsetHeight + range + "px" : "auto";
+       if (!enabled) { target = pv = reduced.matches ? 0 : pv; }
+       resize(); onScroll();
+@@ -285,7 +286,7 @@ export default function TheArrival(p: Props) {
+       start();
+     }
+     const visible = () => inView && !document.hidden;
+-    function start() { if (!raf && ready && visible() && !isPaused()) raf = requestAnimationFrame(tick); }
++    function start() { if (!raf && ready && visible() && !isPaused() && !reduced.matches) raf = requestAnimationFrame(tick); }
+     function compile(ty: number, src: string) {
+       const s = gl!.createShader(ty)!;
+       gl!.shaderSource(s, src); gl!.compileShader(s);
+@@ -318,6 +319,7 @@ export default function TheArrival(p: Props) {
+       const approach = quint(clamp((pv - 0.015) / 0.455));
+       const fade = smooth(0.16, 0.35, pv);
+       stage.style.setProperty("--intro", String(1 - fade));
++      if (intro) intro.inert = fade > 0.98;
+       stage.style.setProperty("--intro-shift", String(-48 * fade));
+       const threshold = smooth(0.35, 0.46, pv) * (1 - smooth(0.5, 0.59, pv));
+       stage.style.setProperty("--threshold", String(threshold));
+@@ -412,10 +414,14 @@ export default function TheArrival(p: Props) {
+     }
+ 
+     // controls
+-    const begin = root.querySelector<HTMLButtonElement>(".tide-begin");
++    const begin = root.querySelector<HTMLButtonElement>(".tide-journey");
+     const onBegin = () => {
+       if (reduced.matches || !ready) { goReading(); return; }
+-      auto = { from: pv, to: 0.98, start: performance.now(), duration: 12500 * (0.98 - pv) };
++      root.dataset.immersive = "true";
++      setImmersive(true);
++      setPaused(false);
++      measure();
++      auto = { from: pv, to: 0.98, start: performance.now(), duration: 6500 * (0.98 - pv) };
+       start();
+     };
+     begin?.addEventListener("click", onBegin); D.push(() => begin?.removeEventListener("click", onBegin));
+@@ -432,7 +438,7 @@ export default function TheArrival(p: Props) {
+     const cancelEvents: Array<[string, (e: Event) => void]> = [];
+     ["wheel", "touchstart", "pointerdown"].forEach(evt => {
+       const fn = (e: Event) => {
+-        if (evt === "pointerdown" && (e.target as Element)?.closest?.(".tide-begin")) return;
++        if (evt === "pointerdown" && (e.target as Element)?.closest?.(".tide-journey")) return;
+         auto = null;
+         if (debug) { debug = false; onScroll(); }
+       };
+@@ -448,7 +454,7 @@ export default function TheArrival(p: Props) {
+     io.observe(stage); D.push(() => io.disconnect());
+     const vis = () => { last = 0; start(); };
+     document.addEventListener("visibilitychange", vis); D.push(() => document.removeEventListener("visibilitychange", vis));
+-    const onRM = () => { measure(); };
++    const onRM = () => { cancelAnimationFrame(raf); raf = 0; auto = null; measure(); paint(); start(); };
+     reduced.addEventListener("change", onRM); D.push(() => reduced.removeEventListener("change", onRM));
+     const onLost = (e: Event) => { e.preventDefault(); ready = false; cancelAnimationFrame(raf); raf = 0; canvas.classList.remove("ready"); seq.classList.remove("enhanced"); seq.style.height = "auto"; };
+     canvas.addEventListener("webglcontextlost", onLost);
+@@ -480,7 +486,7 @@ export default function TheArrival(p: Props) {
+   }, [p.locale]);
+ 
+   return (
+-    <div ref={rootRef}>
++    <div ref={rootRef} data-immersive={immersive}>
+       <section className="tide-seq" aria-labelledby="hero-headline">
+         <div className="tide-stage" data-paused={paused ? "1" : "0"}>
+           <div className="tide-world" aria-hidden>
+@@ -527,10 +533,11 @@ export default function TheArrival(p: Props) {
+             </h1>
+             <p className="tide-sub">{p.subtitle}</p>
+             <div className="tide-actions">
+-              <button type="button" className="tide-begin">{t.begin}<span aria-hidden> ↗</span></button>
++              <Link href={p.primaryHref} className="tide-begin">{p.primaryLabel}<span aria-hidden> ↗</span></Link>
+               <Link href={p.secondaryHref} className="tide-secondary">{p.secondaryLabel}</Link>
+             </div>
+             <p className="tide-trust">{p.trust}</p>
++            <button type="button" className="tide-journey">{p.locale === "uk" ? "Увійти в історію" : "Watch the Arrival"}<span aria-hidden> ↘</span></button>
+           </div>
+ 
+           <div className="tide-line tide-threshold" aria-hidden>
+@@ -546,8 +553,8 @@ export default function TheArrival(p: Props) {
+           </div>
+ 
+           <div className="tide-controls">
+-            <button type="button" className="tide-skip">{t.skip} ↗</button>
+-            <div className="tide-rail" aria-hidden>
++            <button type="button" className="tide-skip">{immersive ? t.skip : p.locale === "uk" ? "До альманаху" : "Explore the almanac"} ↗</button>
++            <div className="tide-rail" aria-label={p.locale === "uk" ? "Розділи вступу" : "Opening chapters"}>
+               <div className="tide-chapters">
+                 <button type="button" className="tide-chapter">{t.ch1}</button>
+                 <button type="button" className="tide-chapter">{t.ch2}</button>
+@@ -556,7 +563,7 @@ export default function TheArrival(p: Props) {
+               <div className="tide-track"><span className="tide-fill" /></div>
+               <p className="tide-hint">{t.hint}</p>
+             </div>
+-            <button type="button" className="tide-pause" onClick={() => { setPaused(v => !v); setStill(false); }}>
++            <button type="button" className="tide-pause" aria-pressed={paused} aria-label={paused ? t.play : t.pause} onClick={() => { setPaused(v => !v); setStill(false); }}>
+               <span className="tide-pause-i" aria-hidden>{paused ? "▷" : "II"}</span>
+               {still ? t.still : paused ? t.play : t.pause}
+             </button>
+@@ -565,8 +572,12 @@ export default function TheArrival(p: Props) {
+       </section>
+ 
+       <style jsx>{`
++        .tide-journey { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; padding: 0; background: none; border: 0; color: #d3d6ec; font-size: 12px; cursor: pointer; gap: 18px; }
++        .tide-journey:hover { color: #e0b768; }
++        [data-immersive="false"] .tide-chapters, [data-immersive="false"] .tide-track, [data-immersive="false"] .tide-hint { visibility: hidden; }
++        .tide-intro :global(a:focus-visible), .tide-intro button:focus-visible, .tide-controls button:focus-visible { outline: 2px solid #e0b768; outline-offset: 5px; }
+         .tide-seq { position: relative; background: var(--lg-night, #10134d); }
+-        .tide-stage { position: relative; height: 100svh; min-height: 700px; overflow: hidden; isolation: isolate; background: #131b76; }
++        .tide-stage { position: relative; height: auto; min-height: max(560px, calc(100svh - 130px)); overflow: hidden; isolation: isolate; background: #131b76; }
+         :global(.tide-seq.enhanced) .tide-stage { position: sticky; top: 0; }
+         .tide-world, .tide-shade { position: absolute; inset: 0; }
+         .tide-poster, .tide-canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+@@ -579,29 +590,29 @@ export default function TheArrival(p: Props) {
+         .tide-shade { pointer-events: none; opacity: var(--shade, 1); background:
+           linear-gradient(90deg, rgba(8, 15, 71, 0.78), rgba(12, 20, 82, 0.55) 30%, rgba(14, 24, 90, 0.16) 52%, transparent 70%),
+           linear-gradient(180deg, rgba(6, 12, 58, 0.6), transparent 26%); }
+-        .tide-intro { position: absolute; z-index: 2; left: clamp(24px, 5.25vw, 104px); top: clamp(120px, 17vh, 190px);
+-          max-width: 560px; width: 46%; opacity: var(--intro, 1);
++        .tide-intro { position: relative; z-index: 2; left: clamp(24px, 5.25vw, 104px); padding-top: clamp(38px, 6vh, 90px); padding-bottom: 100px;
++          max-width: 760px; width: 64%; opacity: var(--intro, 1);
+           transform: translateY(calc(var(--intro-shift, 0) * 1px)); }
+         .tide-kicker { display: flex; align-items: center; gap: 13px; margin: 0 0 26px;
+           font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+           color: var(--lg-text-soft, rgba(232, 233, 255, 0.8)); }
+         .tide-kicker::before { content: ""; width: 28px; height: 1px; background: #b7bce9; }
+         .tide-title { margin: 0 0 26px; font-family: var(--font-heading), serif; font-weight: 400;
+-          font-size: clamp(60px, 6.8vw, 118px); line-height: 0.92; letter-spacing: -0.05em; color: #e8e9ff; }
++          font-size: clamp(56px, 6.2vw, 102px); line-height: 0.92; letter-spacing: -0.05em; color: #e8e9ff; }
+         .tide-title span { display: block; }
+         .tide-title .em { font-style: italic; }
+-        .tide-sub { max-width: 330px; margin: 0 0 30px; font-size: 15px; line-height: 1.75; color: rgba(232, 233, 255, 0.82); }
++        .tide-sub { max-width: 440px; margin: 0 0 20px; font-size: 15px; line-height: 1.75; color: rgba(232, 233, 255, 0.82); }
+         .tide-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+-        .tide-begin { display: inline-flex; align-items: center; gap: 14px; min-height: 52px; padding: 0 22px;
++        .tide-actions :global(.tide-begin) { display: inline-flex; align-items: center; gap: 14px; min-height: 52px; padding: 0 22px;
+           border: 0; border-radius: 2px; cursor: pointer; background: #e0b768; color: #15174c;
+-          font-family: var(--font-body), sans-serif; font-size: 14px; font-weight: 500;
++          font-family: var(--font-body), sans-serif; font-size: 14px; font-weight: 500; text-decoration: none;
+           transition: background 0.3s var(--lg-ease), transform 0.3s var(--lg-ease); }
+-        .tide-begin:hover { background: #edca8b; transform: translateY(-2px); }
++        .tide-actions :global(.tide-begin:hover) { background: #edca8b; transform: translateY(-2px); }
+         .tide-actions :global(.tide-secondary) { display: inline-flex; min-height: 48px; align-items: center;
+           color: #e8e9ff; font-size: 14px; text-decoration: none; border-bottom: 1px solid rgba(232, 233, 255, 0.5);
+           transition: border-color 0.3s; }
+         .tide-actions :global(.tide-secondary:hover) { border-color: #e8e9ff; }
+-        .tide-trust { margin: 20px 0 0; font-family: var(--font-heading), serif; font-style: italic;
++        .tide-trust { margin: 14px 0 0; font-family: var(--font-heading), serif; font-style: italic;
+           font-size: 18px; color: #bdc5ef; }
+         .tide-line { position: absolute; z-index: 2; left: clamp(24px, 5.25vw, 104px); top: 27%; max-width: 460px;
+           opacity: 0; pointer-events: none;
+@@ -623,7 +634,7 @@ export default function TheArrival(p: Props) {
+           font-family: var(--font-mono), monospace; }
+         .tide-skip, .tide-pause, .tide-chapter { background: none; border: 0; cursor: pointer; color: #b7bce9;
+           font-family: var(--font-mono), monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
+-          padding: 8px 0; transition: color 0.3s var(--lg-ease); }
++          padding: 8px 0; min-height: 44px; transition: color 0.3s var(--lg-ease); }
+         .tide-skip:hover, .tide-pause:hover, .tide-chapter:hover { color: #e8e9ff; }
+         .tide-pause { justify-self: end; display: inline-flex; align-items: center; gap: 10px; }
+         .tide-pause-i { display: grid; place-items: center; width: 26px; height: 26px;
+@@ -722,8 +733,13 @@ export default function TheArrival(p: Props) {
+           border-bottom: 1px solid rgba(232, 233, 255, 0.5); padding-bottom: 2px; transition: border-color 0.3s; }
+         .tide-r-actions :global(.tide-daily:hover) { border-color: #e8e9ff; }
+         @media (max-width: 900px) {
+-          .tide-intro { width: calc(100% - 48px); padding-right: 0; top: 96px; }
+-          .tide-title { font-size: clamp(44px, 12vw, 84px); }
++          .tide-intro { width: calc(100% - 40px); left: 20px; padding-right: 0; padding-top: 32px; padding-bottom: 90px; }
++          .tide-title { font-size: clamp(44px, 11vw, 66px); max-width: 13ch; margin-bottom: 20px; }
++          .tide-stage { height: auto; min-height: max(570px, calc(100svh - 116px)); }
++          .tide-actions { gap: 16px; }
++          .tide-sub { max-width: 31ch; }
++          .tide-trust { font-size: 16px; }
++          .tide-shade { background: linear-gradient(90deg, rgba(8, 15, 48, .92), rgba(8, 15, 48, .54) 72%, rgba(8, 15, 48, .18)); }
+           .tide-controls { grid-template-columns: auto 1fr auto; gap: 14px; padding: 16px 24px 14px; }
+           .tide-hint { display: none; }
+           .tide-reading { grid-template-columns: 1fr; gap: 34px; padding: 80px 24px 70px; }
+diff --git a/website/src/components/oracle/CardInspector.tsx b/website/src/components/oracle/CardInspector.tsx
+index 7994272..31e0815 100644
+--- a/website/src/components/oracle/CardInspector.tsx
++++ b/website/src/components/oracle/CardInspector.tsx
+@@ -17,7 +17,7 @@
+ import React, { useCallback, useEffect, useRef, useState } from "react";
+ import { createPortal } from "react-dom";
+ import NextImage from "next/image";
+-import { motion, AnimatePresence } from "framer-motion";
++import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+ import type { TarotCard } from "@/lib/academy/tarot-cards";
+ import { getCardPortalImagePath } from "@/lib/academy/card-images";
+ import { ukCard } from "@/lib/academy/tarot-cards-uk";
+@@ -289,6 +289,9 @@ interface Props {
+ }
+ 
+ export default function CardInspector({ cards, index, onClose, onIndexChange, uk = false }: Props) {
++  const reduced = useReducedMotion();
++  const dialogRef = useRef<HTMLDivElement>(null);
++  const closeRef = useRef<HTMLButtonElement>(null);
+   const open = index !== null && index >= 0 && index < cards.length;
+   const entry = open ? cards[index as number] : null;
+ 
+@@ -302,7 +305,10 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
+   const dragRef = useRef<{ x: number; y: number; ox: number; oy: number } | null>(null);
+   const pinchRef = useRef<{ d: number; z: number } | null>(null);
+   const [mounted, setMounted] = useState(false);
+-  useEffect(() => setMounted(true), []);
++  useEffect(() => {
++    const frame = requestAnimationFrame(() => setMounted(true));
++    return () => cancelAnimationFrame(frame);
++  }, []);
+ 
+   const paint = useCallback(() => {
+     const el = plateRef.current;
+@@ -346,14 +352,39 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
+   useEffect(() => {
+     zoomRef.current = 1;
+     posRef.current = { x: 0, y: 0 };
+-    setZoom(1);
+     paint();
++    const frame = requestAnimationFrame(() => setZoom(1));
++    return () => cancelAnimationFrame(frame);
+   }, [index, paint]);
+ 
++  useEffect(() => {
++    if (!open) return;
++    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
++    const frame = requestAnimationFrame(() => closeRef.current?.focus({ preventScroll: true }));
++    const containFocus = (event: KeyboardEvent) => {
++      if (event.key !== "Tab") return;
++      const controls = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>("button:not([disabled]), [href], [tabindex='0']") ?? []);
++      const first = controls[0], last = controls.at(-1);
++      if (!first || !last) return;
++      if (event.shiftKey && (document.activeElement === first || !dialogRef.current?.contains(document.activeElement))) {
++        event.preventDefault(); last.focus();
++      } else if (!event.shiftKey && (document.activeElement === last || !dialogRef.current?.contains(document.activeElement))) {
++        event.preventDefault(); first.focus();
++      }
++    };
++    document.addEventListener("keydown", containFocus);
++    return () => {
++      cancelAnimationFrame(frame);
++      document.removeEventListener("keydown", containFocus);
++      if (previous?.isConnected) previous.focus({ preventScroll: true });
++    };
++  }, [open]);
++
+   // keyboard: escape closes, arrows walk the spread, +/- zoom
+   useEffect(() => {
+     if (!open) return;
+     const onKey = (e: KeyboardEvent) => {
++      if (["Escape", "ArrowLeft", "ArrowRight", "+", "=", "-", "_", "0"].includes(e.key)) e.preventDefault();
+       if (e.key === "Escape") { onClose(); return; }
+       if (e.key === "ArrowRight") { onIndexChange(((index as number) + 1) % cards.length); return; }
+       if (e.key === "ArrowLeft") { onIndexChange(((index as number) - 1 + cards.length) % cards.length); return; }
+@@ -474,6 +505,7 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
+     <AnimatePresence>
+       {open && entry && (
+         <motion.div
++          ref={dialogRef}
+           className="ci-scrim"
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 1 }}
+@@ -481,7 +513,7 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
+           transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+           role="dialog"
+           aria-modal="true"
+-          aria-label={`${entry.card.name} — inspect the plate`}
++          aria-label={`${(uk && ukCard(entry.card.name)?.name) || entry.card.name}${entry.reversed ? (uk ? ", перевернута" : ", reversed") : ""} — ${uk ? "роздивитися карту" : "inspect the plate"}`}
+           onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+         >
+           <style dangerouslySetInnerHTML={{ __html: CSS }} />
+@@ -492,10 +524,10 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
+               {entry.reversed && <span className="ci-rev"> · {uk ? "перевернута" : "reversed"}</span>}
+             </p>
+             <div className="ci-tools">
+-              <button type="button" onClick={() => setZoomAt(zoomRef.current / 1.4)} aria-label="Zoom out">−</button>
++              <button type="button" onClick={() => setZoomAt(zoomRef.current / 1.4)} aria-label={uk ? "Зменшити" : "Zoom out"}>−</button>
+               <span className="ci-zoom" aria-live="polite">{Math.round(zoom * 100)}%</span>
+-              <button type="button" onClick={() => setZoomAt(zoomRef.current * 1.4)} aria-label="Zoom in">+</button>
+-              <button type="button" className="ci-close" onClick={onClose} aria-label="Close the plate">Close ✕</button>
++              <button type="button" onClick={() => setZoomAt(zoomRef.current * 1.4)} aria-label={uk ? "Збільшити" : "Zoom in"}>+</button>
++              <button ref={closeRef} type="button" className="ci-close" onClick={onClose} aria-label={uk ? "Закрити карту" : "Close the plate"}>{uk ? "Закрити ✕" : "Close ✕"}</button>
+             </div>
+           </div>
+ 
+@@ -503,9 +535,9 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
+             <motion.div
+               ref={frameRef}
+               className={`ci-frame ${zoom > 1 ? "is-zoomed" : ""}`}
+-              initial={{ scale: 0.92, opacity: 0, y: 14 }}
++              initial={reduced ? { opacity: 0 } : { scale: 0.92, opacity: 0, y: 14 }}
+               animate={{ scale: 1, opacity: 1, y: 0 }}
+-              exit={{ scale: 0.95, opacity: 0 }}
++              exit={reduced ? { opacity: 0 } : { scale: 0.95, opacity: 0 }}
+               transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+               onWheel={onWheel}
+               onPointerDown={onPointerDown}
+@@ -522,7 +554,7 @@ export default function CardInspector({ cards, index, onClose, onIndexChange, uk
+                 className="ci-kiss"
+                 aria-hidden
+                 initial={{ opacity: 0 }}
+-                animate={{ opacity: [0, 0.9, 0] }}
++                animate={{ opacity: reduced ? 0 : [0, 0.9, 0] }}
+                 transition={{ duration: 0.7, times: [0, 0.3, 1], ease: "easeOut", delay: 0.22 }}
+               />
+               <div ref={plateRef} className="ci-plate">
+diff --git a/website/src/components/oracle/FramerTarotOracle.tsx b/website/src/components/oracle/FramerTarotOracle.tsx
+index 50e35c6..f8851f2 100644
+--- a/website/src/components/oracle/FramerTarotOracle.tsx
++++ b/website/src/components/oracle/FramerTarotOracle.tsx
+@@ -3,7 +3,8 @@
+ import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
+ import Image from "next/image";
+ import { 
+-  LazyMotion, 
++  LazyMotion,
++  MotionConfig, 
+   domAnimation, 
+   m, 
+   useMotionValue, 
+@@ -19,6 +20,7 @@ import Link from "next/link";
+ import { ALL_CARDS } from "@/lib/academy/tarot-cards";
+ import { ukCard } from "@/lib/academy/tarot-cards-uk";
+ import { getCardPortalImagePath } from "@/lib/academy/card-images";
++import { shuffleForSitting, orientationsForSitting, parseSharedDraw, createRitualTimer } from "./ritual";
+ import CardInspector from "./CardInspector";
+ import ReadingScroll from "./ReadingScroll";
+ import { SPREADS, type Spread, type SpreadPosition } from "@/lib/spreads";
+@@ -34,9 +36,10 @@ class AstralAudio {
+   init() {
+     if (!this.ctx) {
+       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
++      if (!AudioCtx) return;
+       this.ctx = new AudioCtx();
+     }
+-    if (this.ctx.state === 'suspended') this.ctx.resume();
++    if (this.ctx.state === 'suspended') void this.ctx.resume().catch(() => {});
+   }
+ 
+   toggleMute() {
+@@ -196,7 +199,7 @@ function useDeviceTier() {
+   return tier;
+ }
+ 
+-type MachineState = "focusing" | "drawing" | "preparing" | "spread" | "result";
++type MachineState = "focusing" | "drawing" | "preparing" | "spread" | "revealing" | "result";
+ 
+ const RITUAL_PHASES = (t: (key: keyof Translations) => string | string[]) => [
+   { id: "focusing", label: t("oracle_ritual_focus") },
+@@ -208,26 +211,9 @@ const RITUAL_PHASES = (t: (key: keyof Translations) => string | string[]) => [
+ const RitualTimeline = React.memo(function RitualTimeline({ state, isMobile }: { state: MachineState, isMobile: boolean }) {
+   const { t } = useLocale();
+   const phases = RITUAL_PHASES(t);
+-  const activeIndex = phases.findIndex(p => p.id === state || (state === "spread" && p.id === "preparing"));
++  const activeIndex = phases.findIndex(p => p.id === state || ((state === "spread" || state === "revealing") && p.id === "preparing"));
+   
+-  if (isMobile) {
+-    return (
+-      <div className="absolute left-6 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-6 items-center">
+-        {phases.map((phase, i) => (
+-          <div key={phase.id} className="flex flex-col items-center gap-2">
+-            <m.div
+-              animate={{
+-                scale: i <= activeIndex ? 1 : 0.8,
+-                backgroundColor: i <= activeIndex ? "#e0b768" : "rgba(232,233,255,0.14)"
+-              }}
+-              className="w-1.5 h-1.5 rounded-full"
+-            />
+-            {i < phases.length - 1 && <div className="w-px h-8 bg-[rgba(232,233,255,0.08)]" />}
+-          </div>
+-        ))}
+-      </div>
+-    );
+-  }
++  if (isMobile || state === "spread" || state === "revealing" || state === "result") return null;
+ 
+   return (
+     <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-4">
+@@ -327,6 +313,7 @@ const GhostCard = React.memo(function GhostCard({
+ });
+ 
+ const DecorativeRitualField = React.memo(function DecorativeRitualField({ machineState, isMobile }: { machineState: MachineState, isMobile: boolean }) {
++  const reduced = useReducedMotion();
+   const isVisible = machineState === "focusing" || machineState === "drawing" || machineState === "preparing";
+   return (
+     <div className={`absolute inset-0 pointer-events-none z-0 transition-opacity duration-[2000ms] ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+@@ -343,7 +330,7 @@ const DecorativeRitualField = React.memo(function DecorativeRitualField({ machin
+              strokeWidth="0.5"
+              strokeDasharray="2 12"
+            >
+-             <animate attributeName="stroke-dashoffset" from="100" to="0" dur="80s" repeatCount="indefinite" />
++             {!reduced && <animate attributeName="stroke-dashoffset" from="100" to="0" dur="80s" repeatCount="indefinite" />}
+            </path>
+            <defs>
+              <linearGradient id="thread-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+@@ -366,7 +353,7 @@ export default function FramerTarotOracle() {
+   const prefersReduced = useReducedMotion();
+ 
+   // Shared breathing motion (subtle global pulse)
+-  const breathing = useTransform(time, (t) => Math.sin(t / 2000) * 5);
++  const breathing = useTransform(time, (t) => prefersReduced ? 0 : Math.sin(t / 2000) * 2);
+ 
+   const [state, setState] = useState<MachineState>("focusing");
+   const device = useDeviceTier();
+@@ -381,41 +368,20 @@ export default function FramerTarotOracle() {
+   const ghostIndices = useMemo(() => Array.from({ length: ghostSize }, (_, i) => i), [ghostSize]);
+   
+   const [selectedCards, setSelectedCards] = useState<number[]>([]);
++  const [revealedCards, setRevealedCards] = useState<number[]>([]);
++  const [lastRevealed, setLastRevealed] = useState<number | null>(null);
++  const ritualTimer = useMemo(() => createRitualTimer(), []);
++  const revealButtonRef = useRef<HTMLButtonElement>(null);
+   const [inspecting, setInspecting] = useState<number | null>(null);
+   const [spread, setSpread] = useState<Spread>(SPREADS[0]);
+   const [isMuted, setIsMuted] = useState(true);
+-  const poolSize = Math.max(basePool, spread.count + 2);
++  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "unavailable">("idle");
++  const poolSize = Math.max(basePool, spread.count + 2, ...selectedCards.map((id) => id + 1));
+   // A real shuffle of the full 78 — dealt fresh each sitting. The seed
+   // rides in the share URL so a restored reading deals the same cards.
+   const [deckSeed, setDeckSeed] = useState<number>(() => Math.floor(Math.random() * 1e9));
+-  const oracleData = useMemo(() => {
+-    let a = deckSeed | 0;
+-    const rng = () => {
+-      a = (a + 0x6d2b79f5) | 0;
+-      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+-    };
+-    const deck = [...ALL_CARDS];
+-    for (let i = deck.length - 1; i > 0; i--) {
+-      const j = Math.floor(rng() * (i + 1));
+-      [deck[i], deck[j]] = [deck[j], deck[i]];
+-    }
+-    return deck.slice(0, poolSize);
+-  }, [deckSeed, poolSize]);
+-
+-  // Orientation rides the same seed, one stream past the shuffle: a third
+-  // of the plates fall turned, the house rate the daily card already keeps.
+-  const reversedFlags = useMemo(() => {
+-    let a = (deckSeed ^ 0x9e3779b9) | 0;
+-    const rng = () => {
+-      a = (a + 0x6d2b79f5) | 0;
+-      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+-    };
+-    return Array.from({ length: poolSize }, () => rng() < 1 / 3);
+-  }, [deckSeed, poolSize]);
++  const oracleData = useMemo(() => shuffleForSitting(ALL_CARDS, deckSeed, poolSize), [deckSeed, poolSize]);
++  const reversedFlags = useMemo(() => orientationsForSitting(deckSeed, poolSize), [deckSeed, poolSize]);
+   const remainingCards = spread.count - selectedCards.length;
+ 
+   /* ── THE FORMATION RIG ─────────────────────────────────────────
+@@ -456,6 +422,7 @@ export default function FramerTarotOracle() {
+       ux: cw * scale * gapX,
+       uy: ch * scale * gapY,
+       scale,
++      viewportWidth: viewport.w,
+       cx: (colMin + colMax) / 2,
+       cy: (rowMin + rowMax) / 2,
+       // formation bbox centred in the band, not on the screen
+@@ -483,6 +450,7 @@ export default function FramerTarotOracle() {
+   const arcanaLabel = locale === "uk" ? "Аркан" : "Arcana";
+ 
+   const toggleMute = useCallback(() => {
++    audio.init();
+     const muted = audio.toggleMute();
+     setIsMuted(muted);
+   }, []);
+@@ -491,10 +459,7 @@ export default function FramerTarotOracle() {
+   const hoveredIndexMV = useMotionValue<number>(-1);
+   const isTransitioning = useRef(false);
+ 
+-  // Auto-init audio when engine mounts since the user already clicked "Awaken the Deck" in the shell
+-  useEffect(() => {
+-    audio.init();
+-  }, []);
++  // The AudioContext is only created by an explicit user interaction.
+ 
+   // Deep-link restore — ONLY on first mount. Re-running on every
+   // searchParams change meant our own router.replace (fired when the
+@@ -518,13 +483,11 @@ export default function FramerTarotOracle() {
+       // link would otherwise silently drop index 11 and never restore).
+       const want = restored?.count ?? 3;
+       const restoredPool = Math.max(basePool, want + 2);
+-      const indices = drawParam
+-        .split(",")
+-        .map(Number)
+-        .filter(n => Number.isInteger(n) && n >= 0 && n < restoredPool);
+-      if (indices.length === want) {
++      const indices = parseSharedDraw(drawParam, want, restoredPool);
++      if (indices) {
+         requestAnimationFrame(() => {
+           setSelectedCards(indices);
++          setRevealedCards(indices);
+           setState("result"); 
+         });
+       }
+@@ -545,43 +508,79 @@ export default function FramerTarotOracle() {
+     router.replace(`?${params.toString()}`, { scroll: false });
+   }, [router, searchParams, spread.id, deckSeed]);
+ 
++  const clearRitualTimer = useCallback(() => {
++    ritualTimer.cancel();
++  }, [ritualTimer]);
++  useEffect(() => clearRitualTimer, [clearRitualTimer]);
++
++  // Selection is a transaction. Timers belong to this sitting and are
++  // cancelled when leaving it, so an old deal cannot reopen after reset.
+   const handleCardClick = useCallback((id: number) => {
+     if (state !== "drawing" || isTransitioning.current) return;
+-    
+-    setSelectedCards(prev => {
+-      if (prev.includes(id)) return prev.filter(c => c !== id);
+-      if (prev.length < spread.count) {
+-        const newSelected = [...prev, id];
+-        if (newSelected.length === spread.count) {
+-          isTransitioning.current = true;
+-          setState("preparing");
+-          // router.replace must not run inside the state updater — React
+-          // flags a Router update during FramerTarotOracle's render.
+-          setTimeout(() => updateUrl(newSelected), 0);
+-          setTimeout(() => {
+-            setState("spread");
+-            isTransitioning.current = false;
+-          }, 2400); // 2.4s of "listening for the pattern"
+-        }
+-        return newSelected;
+-      }
+-      return prev;
+-    });
+-  }, [state, updateUrl, spread.count]);
++    const next = selectedCards.includes(id)
++      ? selectedCards.filter((card) => card !== id)
++      : [...selectedCards, id];
++    if (next.length > spread.count) return;
++    setSelectedCards(next);
++    if (next.length === spread.count) {
++      isTransitioning.current = true;
++      setState("preparing");
++      updateUrl(next);
++      ritualTimer.schedule(() => {
++        setState("spread");
++        isTransitioning.current = false;
++      }, prefersReduced ? 0 : 850);
++    }
++  }, [state, selectedCards, updateUrl, spread.count, prefersReduced, ritualTimer]);
+ 
+   const reset = useCallback(() => {
++    clearRitualTimer();
+     isTransitioning.current = false;
++    setInspecting(null);
++    setCopyStatus("idle");
++    setRevealedCards([]);
++    setLastRevealed(null);
+     setState("focusing");
+     setSelectedCards([]);
+-    setDeckSeed(Math.floor(Math.random() * 1e9)); // fresh shuffle each sitting
++    setDeckSeed(Math.floor(Math.random() * 1e9));
+     updateUrl([]);
+     hoveredIndexMV.set(-1);
+-  }, [updateUrl, hoveredIndexMV]);
++  }, [clearRitualTimer, updateUrl, hoveredIndexMV]);
++
++  const turnCard = useCallback((id?: number) => {
++    if ((state !== "spread" && state !== "revealing") || isTransitioning.current) return;
++    const nextId = id ?? selectedCards.find((card) => !revealedCards.includes(card));
++    if (nextId === undefined || revealedCards.includes(nextId)) return;
++    const next = [...revealedCards, nextId];
++    audio.playReveal();
++    setRevealedCards(next);
++    setLastRevealed(nextId);
++    setState("revealing");
++    if (next.length === selectedCards.length) {
++      isTransitioning.current = true;
++      ritualTimer.schedule(() => {
++        isTransitioning.current = false;
++        setState("result");
++      }, prefersReduced ? 0 : 650);
++    }
++  }, [state, selectedCards, revealedCards, prefersReduced, ritualTimer]);
+ 
+-  const reveal = useCallback(() => {
++  const revealAll = useCallback(() => {
++    clearRitualTimer();
++    isTransitioning.current = false;
+     audio.playReveal();
++    setRevealedCards(selectedCards);
+     setState("result");
+-  }, []);
++  }, [clearRitualTimer, selectedCards]);
++
++  useEffect(() => {
++    if (state !== "spread" && state !== "drawing") return;
++    const frame = requestAnimationFrame(() => {
++      if (state === "spread") revealButtonRef.current?.focus({ preventScroll: true });
++      else document.querySelector<HTMLElement>(isMobile ? ".oracle-hand-card" : '[data-oracle-card][tabindex="0"]')?.focus({ preventScroll: true });
++    });
++    return () => cancelAnimationFrame(frame);
++  }, [state, isMobile]);
+ 
+   /* ── THE SHEET'S OWN SCROLL ──────────────────────────────────
+      The reading scrolls inside its shell; gradient fades mark that
+@@ -627,12 +626,22 @@ export default function FramerTarotOracle() {
+ 
+   // The sheet waits for the plates: flips run 80ms apart, then the
+   // sheet rises on its spring.
+-  const sheetDelay = prefersReduced ? 0 : 0.45 + spread.count * 0.08;
++  const sheetDelay = prefersReduced ? 0 : 0.35;
++  const lastCard = lastRevealed === null ? null : oracleData[lastRevealed];
++  const nextPosition = selectedCards.findIndex((id) => !revealedCards.includes(id));
+ 
+   return (
+     <LazyMotion features={domAnimation}>
++      <MotionConfig reducedMotion="user">
+       <div className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center bg-[#0a0d38] perspective-[2000px]">
+ 
++        <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">
++          {state === "drawing" ? selectionInstruction : state === "preparing"
++            ? (isUk ? "Розкладаємо карти" : "Arranging your cards")
++            : state === "revealing" && lastCard
++              ? `${revealedCards.length} / ${spread.count}. ${(isUk && ukCard(lastCard.name)?.name) || lastCard.name}${reversedFlags[lastRevealed!] ? (isUk ? ", перевернута" : ", reversed") : ""}`
++              : state === "result" ? (isUk ? "Ваше читання готове" : "Your reading is ready") : ""}
++        </p>
+         {/* ── NIGHT GROUND — the innermost room keeps the deepest darkness ── */}
+         <div
+           className="absolute inset-0 z-0 pointer-events-none"
+@@ -703,8 +712,9 @@ export default function FramerTarotOracle() {
+               animate={{ opacity: 1, scale: 1 }}
+               exit={{ opacity: 0, scale: 1.05 }}
+               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+-              className="absolute z-40 flex flex-col items-center text-center px-6"
++              className="oracle-focus absolute z-40 flex flex-col items-center text-center px-6"
+             >
++              <p className="oracle-edition">{isUk ? "I · Студія Таро" : "I · The Tarot Studio"}</p>
+               <h2 className="[font-family:var(--font-heading),serif] text-3xl md:text-5xl text-[rgba(232,233,255,0.88)] mb-6 italic">{t("oracle_focus_title")}</h2>
+               <p className="night-caption mb-7">
+                 {isUk
+@@ -718,8 +728,9 @@ export default function FramerTarotOracle() {
+                 onClick={() => setState("drawing")}
+                 className="night-btn ghost pointer-events-auto"
+               >
+-                {t("oracle_focus_cta")}
++                {isUk ? `Почати · ${spread.count} карт` : `Begin · ${spread.count} cards`}
+               </button>
++              <p className="oracle-method">{isUk ? "Оберіть форму. Витягніть карти. Читайте у власному темпі." : "Choose a shape. Draw your cards. Read at your own pace."}</p>
+             </m.div>
+           )}
+ 
+@@ -805,25 +816,46 @@ export default function FramerTarotOracle() {
+             </m.div>
+           )}
+ 
+-          {state === "spread" && (
+-            <m.div 
++          {(state === "spread" || state === "revealing") && (
++            <m.div
+               key="spread"
+-              initial={{ opacity: 0, y: 20 }}
++              initial={{ opacity: 0, y: prefersReduced ? 0 : 12 }}
+               animate={{ opacity: 1, y: 0 }}
+-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+-              className="absolute bottom-[20%] z-40 text-center"
++              transition={{ duration: prefersReduced ? 0.1 : 0.5, ease: [0.16, 1, 0.3, 1] }}
++              className="oracle-turn-panel absolute z-40 text-center"
+             >
+-              <p className="text-[9px] tracking-[0.4em] uppercase text-[rgba(232,233,255,0.38)] mb-8">{t("oracle_spread_forming")}</p>
+-              <button
+-                onClick={reveal}
+-                className="night-btn"
+-              >
+-                {t("oracle_spread_cta")}
+-              </button>
++              <p className="oracle-edition">{resultKicker} · {revealedCards.length} / {spread.count}</p>
++              <h2>{lastCard ? ((isUk && ukCard(lastCard.name)?.name) || lastCard.name) : (isUk ? "Кожна карта — розділ." : "Each card, a chapter.")}</h2>
++              <p className="oracle-turn-detail">{lastCard
++                ? `${spreadLabels[selectedCards.indexOf(lastRevealed!)]}${reversedFlags[lastRevealed!] ? (isUk ? " · перевернута" : " · turned") : ""} · ${((isUk && ukCard(lastCard.name)?.keywords) || lastCard.keywords).slice(0, 3).join(" · ")}`
++                : (isUk ? "Торкніться карти або розкрийте їх по черзі." : "Touch a card, or turn the story one by one.")}</p>
++              <div className="oracle-turn-actions">
++                <button ref={revealButtonRef} onClick={() => turnCard()} className="night-btn" disabled={nextPosition < 0}>
++                  {nextPosition < 0 ? (isUk ? "Читання відкривається…" : "Opening your reading…")
++                    : `${isUk ? "Розкрити" : "Turn"} ${String(nextPosition + 1).padStart(2, "0")} · ${spreadLabels[nextPosition]}`}
++                </button>
++                {nextPosition >= 0 && <button onClick={revealAll} className="oracle-text-button">{isUk ? "Розкрити всі" : "Reveal all"} ↗</button>}
++              </div>
+             </m.div>
+           )}
+         </AnimatePresence>
+ 
++        {isMobile && state === "drawing" && (
++          <div className="oracle-hand" role="group" aria-label={isUk ? "Колода — гортайте, щоб обрати карту" : "The deck — swipe to choose a card"}>
++            <p>{isUk ? "Гортайте колоду · торкніться, щоб обрати" : "Slide the deck · touch to choose"}</p>
++            <div className="oracle-hand-track">
++              {oracleData.map((card, i) => {
++                const chosen = selectedCards.indexOf(i);
++                return <button key={card.name} type="button" className="oracle-hand-card" aria-pressed={chosen >= 0}
++                  aria-label={`${isUk ? "Карта" : "Face-down card"} ${i + 1}${chosen >= 0 ? (isUk ? ", обрана. Торкніться, щоб прибрати" : ", chosen. Activate to remove") : ""}`}
++                  onClick={() => { audio.playSelect(); handleCardClick(i); }}>
++                  <span className="oracle-hand-art" aria-hidden><NightCardBack /></span>
++                  <span>{chosen >= 0 ? `✓ ${String(chosen + 1).padStart(2, "0")}` : String(i + 1).padStart(2, "0")}</span>
++                </button>;
++              })}
++            </div>
++          </div>
++        )}
+         {/* ── THE ORACLE DECK ENGINE ── */}
+         {/* z-10: the dealer's deck must never float above the spread
+             chooser or prompt typography (both z-40). */}
+@@ -861,7 +893,9 @@ export default function FramerTarotOracle() {
+                 selectedCount={selectedCards.length}
+                 canSelect={selectedCards.length < spread.count}
+                 reversed={reversedFlags[i] ?? false}
+-                onClick={() => handleCardClick(i)}
++                isRevealed={revealedCards.includes(i)}
++                uk={isUk}
++                onClick={() => state === "drawing" ? handleCardClick(i) : turnCard(i)}
+                 onInspect={() => setInspecting(selectedCards.indexOf(i))}
+               />
+             ))}
+@@ -899,13 +933,16 @@ export default function FramerTarotOracle() {
+                 <div className="result-sheet-clip">
+                 <div
+                   ref={sheetRef}
++                  role="region"
++                  aria-label={isUk ? "Ваше читання" : "Your reading"}
++                  tabIndex={0}
+                   onScroll={handleSheetScroll}
+                   className={`result-artifact-shell ${state === "result" ? "pointer-events-auto" : "pointer-events-none"}`}
+                 >
+                 <p className="result-touch-hint" aria-hidden>
+                   {locale === "uk"
+-                    ? "Карти живі — нахиліть · перетягніть · клік = лупа"
+-                    : "The plates are alive — tilt · drag · click to magnify"}
++                    ? "Оберіть карту на столі або в покажчику, щоб роздивитися її."
++                    : "Choose a card on the table or in the index to look closer."}
+                 </p>
+                 <div className="result-artifact-header">
+                   <span className="result-artifact-kicker">{resultKicker}</span>
+@@ -917,16 +954,16 @@ export default function FramerTarotOracle() {
+                   {selectedCards.map((id, idx) => {
+                     const card = oracleData[id];
+                     return (
+-                      <article key={id} className="result-artifact-card">
++                      <button type="button" key={id} className="result-artifact-card" onClick={() => setInspecting(idx)} aria-label={`${spreadLabels[idx]}. ${(isUk && ukCard(card.name)?.name) || card.name}${reversedFlags[id] ? (isUk ? ", перевернута" : ", reversed") : ""}. ${isUk ? "Роздивитися карту" : "Inspect card"}`}>
+                         <span>{spreadLabels[idx] ?? resultLabels[idx]}</span>
+-                        <h3>
++                        <strong>
+                           {(isUk && card && ukCard(card.name)?.name) || card?.name}
+                           {reversedFlags[id] && (
+                             <em className="result-turned"> · {isUk ? "перевернута" : "turned"}</em>
+                           )}
+-                        </h3>
+-                        <p>{card?.arcana} {arcanaLabel}</p>
+-                      </article>
++                        </strong>
++                        <small>{card?.arcana} {arcanaLabel}</small>
++                      </button>
+                     );
+                   })}
+                 </div>
+@@ -938,6 +975,13 @@ export default function FramerTarotOracle() {
+                 />
+ 
+                 <div className="result-artifact-next">
++                  <button type="button" className="oracle-text-button" onClick={async () => {
++                    try {
++                      await navigator.clipboard.writeText(window.location.href);
++                      setCopyStatus("copied");
++                    } catch { setCopyStatus("unavailable"); }
++                  }}>{copyStatus === "copied" ? (isUk ? "Посилання скопійовано ✓" : "Reading link copied ✓") : (isUk ? "Скопіювати посилання на читання" : "Copy reading link")}</button>
++                  <p role="status" aria-live="polite">{copyStatus === "unavailable" ? (isUk ? "Скопіюйте адресу зі свого браузера, щоб зберегти це читання." : "Copy the address from your browser to keep this reading.") : copyStatus === "copied" ? (isUk ? "Посилання зберігає карти, порядок і перевернуті положення." : "The link keeps your cards, order, and reversals.") : ""}</p>
+                   <Link href="/pricing?from=oracle" className="night-btn">
+                     {t("oracle_result_cta")} &rarr;
+                   </Link>
+@@ -964,6 +1008,34 @@ export default function FramerTarotOracle() {
+ 
+         {/* Room-scoped CSS — night plate vocabulary */}
+         <style>{`
++          .oracle-edition { color: #d7bd85; font-size: 10px; letter-spacing: .23em; text-transform: uppercase; margin-bottom: 16px; }
++          .oracle-method { color: #abb0cc; font-size: 12px; margin-top: 20px; line-height: 1.6; }
++          .oracle-focus { max-height: calc(100% - 170px); top: 140px; overflow-y: auto; overscroll-behavior: contain; padding-bottom: 28px; }
++          .oracle-turn-panel { width: min(640px, calc(100% - 40px)); bottom: max(8%, 36px); }
++          .oracle-turn-panel h2 { color: #e8e9ef; font-family: var(--font-heading), serif; font-weight: 400; font-size: clamp(30px, 4vw, 48px); line-height: 1.1; }
++          .oracle-turn-detail { color: #b9bfd6; font-size: 13px; line-height: 1.7; margin: 16px auto 24px; max-width: 48ch; }
++          .oracle-turn-actions { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: center; align-items: center; }
++          .oracle-text-button { min-height: 44px; color: #d7bd85; font-size: 12px; text-decoration: underline; text-underline-offset: 5px; }
++          .oracle-hand { position: absolute; z-index: 30; left: 0; right: 0; top: 57%; }
++          .oracle-hand > p { color: #b9bfd6; font-size: 11px; text-align: center; margin-bottom: 14px; }
++          .oracle-hand-track { display: flex; gap: 12px; overflow-x: auto; padding: 10px 24px 20px; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: #bda773 transparent; }
++          .oracle-hand-card { position: relative; flex: 0 0 82px; color: #c4c8d9; text-align: center; scroll-snap-align: center; transition: transform 180ms ease-out; }
++          .oracle-hand-art { position: relative; display: block; overflow: hidden; height: 134px; border: 1px solid #6a6380; border-radius: 5px; background: #111838; }
++          .oracle-hand-card > span:last-child { display: block; padding: 8px 0; font-size: 11px; letter-spacing: .14em; }
++          .oracle-hand-card[aria-pressed="true"] { transform: translateY(-8px); color: #e0bd77; }
++          .oracle-hand-card[aria-pressed="true"] .oracle-hand-art { opacity: .48; border-color: #e0bd77; }
++          .oracle-hand-card:focus-visible, .oracle-text-button:focus-visible, .result-artifact-card:focus-visible { outline: 2px solid #e0bd77; outline-offset: 3px; }
++          button.result-artifact-card { text-align: left; cursor: pointer; transition: border-color 180ms ease-out; }
++          button.result-artifact-card:hover { border-color: #bda773; }
++          @media (max-width: 640px) {
++            .oracle-focus { top: 132px; max-height: calc(100% - 144px); padding-inline: 16px; }
++            .oracle-focus > h2 { margin-bottom: 12px; }
++            .oracle-focus .oracle-method { margin-top: 12px; max-width: 30ch; }
++            .oracle-turn-panel { bottom: max(7%, 24px); }
++          }
++          @media (max-height: 620px) and (min-width: 641px) { .oracle-focus { top: 112px; max-height: calc(100% - 112px); } }
++          @media (prefers-reduced-motion: reduce) { .oracle-hand-card { transition: none; } }
++
+           .result-artifact-panel {
+             min-height: 44vh;
+             padding: 5.5rem 1.25rem max(2rem, env(safe-area-inset-bottom));
+@@ -1157,14 +1229,15 @@ export default function FramerTarotOracle() {
+             color: rgba(224, 183, 104, 0.9);
+           }
+ 
+-          .result-artifact-card h3 {
++          .result-artifact-card strong {
++            font-weight: 400;
+             font-family: var(--font-heading, "Cormorant Garamond"), serif;
+             font-size: clamp(1.1rem, 2vw, 1.65rem);
+             line-height: 1.02;
+             color: #e8e9ff;
+           }
+ 
+-          .result-artifact-card p {
++          .result-artifact-card small {
+             font-family: var(--font-mono, ui-monospace), monospace;
+             font-size: 0.62rem;
+             letter-spacing: 0.13em;
+@@ -1223,11 +1296,12 @@ export default function FramerTarotOracle() {
+               letter-spacing: 0.11em;
+             }
+ 
+-            .result-artifact-card h3 {
++            .result-artifact-card strong {
++            font-weight: 400;
+               font-size: 1.05rem;
+             }
+ 
+-            .result-artifact-card p {
++            .result-artifact-card small {
+               font-size: 0.54rem;
+               letter-spacing: 0.1em;
+             }
+@@ -1295,6 +1369,7 @@ export default function FramerTarotOracle() {
+           }
+         `}</style>
+       </div>
++      </MotionConfig>
+     </LazyMotion>
+   );
+ }
+@@ -1320,6 +1395,8 @@ const GodModeCard = React.memo(function GodModeCard({
+   canSelect,
+   selectedCount,
+   reversed = false,
++  isRevealed = false,
++  uk = false,
+   onInspect,
+   onClick
+ }: {
+@@ -1330,7 +1407,7 @@ const GodModeCard = React.memo(function GodModeCard({
+   isSelected: boolean,
+   selectionIndex: number,
+   spreadPositions: SpreadPosition[],
+-  rig: { ux: number; uy: number; scale: number; cx: number; cy: number; oy: number },
++  rig: { ux: number; uy: number; scale: number; viewportWidth: number; cx: number; cy: number; oy: number },
+   positionLabel: string,
+   hoveredIndexMV: MotionValue<number>,
+   device: "mobile" | "tablet" | "desktop",
+@@ -1339,6 +1416,8 @@ const GodModeCard = React.memo(function GodModeCard({
+   canSelect: boolean,
+   selectedCount: number,
+   reversed?: boolean,
++  isRevealed?: boolean,
++  uk?: boolean,
+   onClick: () => void,
+   onInspect?: () => void
+ }) {
+@@ -1362,8 +1441,8 @@ const GodModeCard = React.memo(function GodModeCard({
+   const { baseArcX, baseArcY, baseArcRotateZ } = useMemo(() => {
+     // Desktop: Flatter arc, wider horizontal span
+     // Mobile: Tighter arc, narrow horizontal span
+-    const arcRadius = isMobile ? 800 : isTablet ? 1000 : 1300; 
+-    const span = Math.PI * (isMobile ? 0.35 : isTablet ? 0.38 : 0.42); 
++    const span = Math.PI * (isMobile ? 0.35 : isTablet ? 0.38 : 0.42);
++    const arcRadius = Math.min(isTablet ? 1000 : 1300, Math.max(120, rig.viewportWidth * 0.44 - cardWidth / 2) / Math.sin(span / 2));
+     
+     const angle = -span / 2 + (span / (total - 1)) * index;
+     return {
+@@ -1372,7 +1451,7 @@ const GodModeCard = React.memo(function GodModeCard({
+       baseArcY: (1 - Math.cos(angle)) * arcRadius * 0.55 + (isMobile ? 96 : 80),
+       baseArcRotateZ: angle * (180 / Math.PI)
+     };
+-  }, [index, total, isMobile, isTablet]);
++  }, [index, total, isMobile, isTablet, rig.viewportWidth, cardWidth]);
+ 
+   // ── REACTIVE DOCK PHYSICS (Pure MotionValues, NO re-renders) ──
+   const dockOffsetX = useTransform(hoveredIndexMV, (h) => {
+@@ -1470,7 +1549,7 @@ const GodModeCard = React.memo(function GodModeCard({
+        targetScale = 0.8;
+     }
+   } 
+-  else if (machineState === "spread" || machineState === "result") {
++  else if (machineState === "spread" || machineState === "revealing" || machineState === "result") {
+     if (isSelected) {
+       // The formation, measured: every position offset by the rig's one
+       // true unit, the whole shape centered on its own bounding box.
+@@ -1487,7 +1566,7 @@ const GodModeCard = React.memo(function GodModeCard({
+           : (selectionIndex - 1) * 1.5;
+       targetScale = rig.scale;
+ 
+-      if (machineState === "result") {
++      if (isRevealed || machineState === "result") {
+         targetRotateY = 180;
+       }
+     } else {
+@@ -1497,6 +1576,8 @@ const GodModeCard = React.memo(function GodModeCard({
+     }
+   }
+ 
++  if (isMobile && machineState === "drawing" && !isSelected) targetOpacity = 0;
++
+   // ── MERGE DOCK PHYSICS WITH LAYOUT TARGETS ──
+   const uiConfig = { stiffness: 120, damping: 20, mass: 1.0 };
+   const springX = useSpring(targetX, uiConfig);
+@@ -1521,8 +1602,11 @@ const GodModeCard = React.memo(function GodModeCard({
+       staticZ.set(targetZ);
+       staticRotZ.set(targetRotateZ);
+     }
+-    springScale.set(targetScale);
+-  }, [targetX, targetY, targetZ, targetRotateZ, targetScale, isSelected, machineState, springX, springY, springZ, springRotZ, springScale, staticX, staticY, staticZ, staticRotZ]);
++    if (isReducedMotion) {
++      springX.jump(targetX); springY.jump(targetY); springZ.jump(targetZ); springRotZ.jump(targetRotateZ);
++      springScale.jump(targetScale);
++    } else springScale.set(targetScale);
++  }, [targetX, targetY, targetZ, targetRotateZ, targetScale, isSelected, machineState, springX, springY, springZ, springRotZ, springScale, staticX, staticY, staticZ, staticRotZ, isReducedMotion]);
+ 
+   const finalX = useTransform([isSelected ? springX : staticX, dockOffsetX], ([l, d]) => Number(l) + Number(d));
+   const finalY = useTransform([isSelected ? springY : staticY, dockOffsetY, breathing, driftY], ([l, d, b, dr]) => Number(l) + Number(d) + Number(b) + Number(dr));
+@@ -1549,12 +1633,13 @@ const GodModeCard = React.memo(function GodModeCard({
+   // after the one before it (reduced motion flips all at once).
+   const motionRotateY = useSpring(targetRotateY, uiConfig);
+   useEffect(() => {
+-    if (targetRotateY > 0 && selectionIndex > 0 && !isReducedMotion) {
++    if (isReducedMotion) { motionRotateY.jump(targetRotateY); return; }
++    if (machineState === "result" && targetRotateY > 0 && selectionIndex > 0) {
+       const id = setTimeout(() => motionRotateY.set(targetRotateY), selectionIndex * 80);
+       return () => clearTimeout(id);
+     }
+     motionRotateY.set(targetRotateY);
+-  }, [targetRotateY, motionRotateY, selectionIndex, isReducedMotion]);
++  }, [targetRotateY, motionRotateY, selectionIndex, isReducedMotion, machineState]);
+ 
+   const finalRotateY = useTransform([isHoveredMV, rotateY_tilt, motionRotateY], ([h, rt, my]) => {
+      // Once flipped, the plate still answers the hand: the tilt rides on
+@@ -1576,12 +1661,12 @@ const GodModeCard = React.memo(function GodModeCard({
+   }, [isReducedMotion, localX, localY, isMobile]);
+ 
+   const handlePointerEnter = useCallback(() => {
+-    if (machineState === "drawing" && !isSelected) {
++    if (machineState === "drawing" && !isSelected && !isReducedMotion) {
+       hoveredIndexMV.set(index);
+       audio.playHover();
+     }
+-    isHoveredMV.set(1);
+-  }, [machineState, isSelected, hoveredIndexMV, index, isHoveredMV]);
++    if (!isReducedMotion) isHoveredMV.set(1);
++  }, [machineState, isSelected, hoveredIndexMV, index, isHoveredMV, isReducedMotion]);
+ 
+   const handlePointerLeave = useCallback(() => {
+     if (hoveredIndexMV.get() === index) {
+@@ -1615,8 +1700,8 @@ const GodModeCard = React.memo(function GodModeCard({
+   // backface accumulation at the flat boundary — both faces resolve
+   // front-facing and the BACK paints over the art after the flip. On
+   // flat devices the faces swap by flip progress instead.
+-  const backFaceOpacity = useTransform(motionRotateY, (r) => (!isMobile || Number(r) <= 90 ? 1 : 0));
+-  const frontFaceOpacity = useTransform(motionRotateY, (r) => (!isMobile || Number(r) > 90 ? 1 : 0));
++  const backFaceOpacity = useTransform(motionRotateY, (r) => (Number(r) <= 90 ? 1 : 0));
++  const frontFaceOpacity = useTransform(motionRotateY, (r) => (Number(r) > 90 ? 1 : 0));
+ 
+   // Dealt-in: each card leaves the deck point 40ms after the one before.
+   const staggerDelay = machineState === "drawing" && !isSelected ? 0.08 + index * 0.04 : 0;
+@@ -1632,16 +1717,17 @@ const GodModeCard = React.memo(function GodModeCard({
+       onPointerEnter={handlePointerEnter}
+       onPointerMove={handlePointerMove}
+       onPointerLeave={handlePointerLeave}
++      onFocus={handlePointerEnter}
++      onBlur={handlePointerLeave}
+       onClick={handleInteraction}
+       role="button"
+-      tabIndex={machineState === "drawing" || isSelected ? 0 : -1}
+-      aria-pressed={isSelected}
+-      aria-label={
+-        isLiftable
+-          ? `${card.name} — inspect the plate`
+-          : `${card.name}${isSelected ? " — chosen" : " — face-down card"}`
+-      }
+-      drag={isLiftable}
++      tabIndex={(machineState === "drawing" && !isMobile) || (isSelected && (machineState === "spread" || machineState === "revealing" || machineState === "result")) ? 0 : -1}
++      aria-hidden={targetOpacity === 0 || machineState === "focusing" || machineState === "preparing" || (isMobile && machineState === "drawing") ? true : undefined}
++      aria-pressed={machineState === "drawing" ? isSelected : undefined}
++      aria-label={isRevealed || isLiftable
++        ? `${positionLabel}. ${(uk && ukCard(card.name)?.name) || card.name}${reversed ? (uk ? ", перевернута" : ", reversed") : ""}${isLiftable ? (uk ? ". Роздивитися карту" : ". Inspect card") : ""}`
++        : `${uk ? "Карта" : "Face-down card"} ${index + 1}${isSelected ? ` · ${positionLabel}. ${uk ? "Розкрити" : "Turn card"}` : ""}`}
++      drag={isLiftable && !isReducedMotion && !isMobile}
+       dragMomentum={false}
+       dragElastic={0.14}
+       dragConstraints={{ left: -260, right: 260, top: -160, bottom: 160 }}
+@@ -1654,6 +1740,7 @@ const GodModeCard = React.memo(function GodModeCard({
+       }}
+       className={`absolute top-1/2 left-1/2 cursor-pointer oracle-night-card ${isSelected ? "is-flipping" : ""}`}
+       style={{
++        pointerEvents: targetOpacity === 0 ? "none" : "auto",
+         width: cardWidth,
+         height: cardHeight,
+         marginLeft: -cardWidth / 2,
+@@ -1716,6 +1803,7 @@ const GodModeCard = React.memo(function GodModeCard({
+             erase it — visibility is handled by the opacity swap there,
+             and the parent's flattened 180° un-mirrors the art. */}
+         <m.div
++          aria-hidden="true"
+           className="absolute inset-0 rounded-[14px] overflow-hidden will-change-transform"
+           style={{
+             opacity: frontFaceOpacity,
+@@ -1730,7 +1818,7 @@ const GodModeCard = React.memo(function GodModeCard({
+ 
+ 
+            {/* Only load the image when it's selected (about to flip) or flipped to save massive network requests */}
+-           {(isSelected || machineState === "result") && (
++           {isSelected && (
+              <div
+                className="relative w-full h-full"
+                style={reversed ? { transform: "rotate(180deg)" } : undefined}
+@@ -1739,7 +1827,7 @@ const GodModeCard = React.memo(function GodModeCard({
+                  src={getCardPortalImagePath(card)}
+                  alt={reversed ? `${card.name} — reversed` : card.name}
+                  fill
+-                 quality={100}
++                 quality={75}
+                  sizes={isMobile ? "180px" : "240px"}
+                  loading={isSelected || machineState === "result" ? "eager" : "lazy"}
+                  className={`absolute inset-0 w-full h-full object-cover z-[2] transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+@@ -1785,7 +1873,7 @@ const GodModeCard = React.memo(function GodModeCard({
+       {/* Position cartouche — the formation is unreadable without its
+           names once ten plates stand on the table. Counter-flipped in
+           result so the text survives the card's own 180° reveal. */}
+-      {isSelected && positionLabel && (machineState === "spread" || machineState === "result") && (() => {
++      {isSelected && positionLabel && (machineState === "spread" || machineState === "revealing" || machineState === "result") && (() => {
+         const dense = rig.scale < 0.8;
+         if (dense) {
+           // Dense formations: the cartouche prints ON the plate's foot —
+@@ -1806,7 +1894,7 @@ const GodModeCard = React.memo(function GodModeCard({
+                 color: "rgba(232,233,255,0.88)",
+                 // counter-rotate FIRST, then lift — inside the flipped
+                 // plate a bare +Z would point away from the viewer
+-                transform: `translateX(-50%)${machineState === "result" ? " rotateY(180deg)" : ""} translateZ(3px)`,
++                transform: `translateX(-50%)${isRevealed || machineState === "result" ? " rotateY(180deg)" : ""} translateZ(3px)`,
+                 zIndex: 5,
+               }}
+             >
+@@ -1823,7 +1911,7 @@ const GodModeCard = React.memo(function GodModeCard({
+               letterSpacing: "0.16em",
+               marginTop: 6 / rig.scale,
+               color: "rgba(183,188,233,0.8)",
+-              transform: `translateX(-50%)${machineState === "result" ? " rotateY(180deg)" : ""}`,
++              transform: `translateX(-50%)${isRevealed || machineState === "result" ? " rotateY(180deg)" : ""}`,
+             }}
+           >
+             {positionLabel}
+@@ -1833,3 +1921,4 @@ const GodModeCard = React.memo(function GodModeCard({
+     </m.div>
+   );
+ });
++
+diff --git a/website/src/components/oracle/ReadingScroll.tsx b/website/src/components/oracle/ReadingScroll.tsx
+index 7ab4c14..d6c7c41 100644
+--- a/website/src/components/oracle/ReadingScroll.tsx
++++ b/website/src/components/oracle/ReadingScroll.tsx
+@@ -13,7 +13,7 @@
+  */
+ 
+ import React from "react";
+-import { motion } from "framer-motion";
++import { motion, useReducedMotion } from "framer-motion";
+ import PlanGate from "@/components/almanac/PlanGate";
+ import { readSpread, type Spread } from "@/lib/spreads";
+ import type { TarotCard } from "@/lib/academy/tarot-cards";
+@@ -31,6 +31,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
+ export default function ReadingScroll({ spread, draws, onInspect }: Props) {
+   const { locale } = useLocale();
+   const uk = locale === "uk";
++  const reduced = useReducedMotion();
+   if (!draws.length) return null;
+   const reading = readSpread(spread, draws);
+   const counselUk = uk ? ukCard(reading.counselFrom)?.advice : null;
+@@ -54,8 +55,8 @@ export default function ReadingScroll({ spread, draws, onInspect }: Props) {
+             return (
+             <motion.li
+               key={c.card.name + i}
+-              className="rs-entry glass-thin"
+-              initial={{ opacity: 0, y: 16 }}
++              className="rs-entry"
++              initial={reduced ? false : { opacity: 0, y: 16 }}
+               whileInView={{ opacity: 1, y: 0 }}
+               viewport={{ once: true, margin: "0px 0px -12% 0px" }}
+               transition={{ duration: 0.55, ease: EASE, delay: Math.min(i, 5) * 0.06 }}
+@@ -85,8 +86,8 @@ export default function ReadingScroll({ spread, draws, onInspect }: Props) {
+         </ol>
+ 
+         <motion.div
+-          className="rs-synth glass"
+-          initial={{ opacity: 0, y: 18 }}
++          className="rs-synth"
++          initial={reduced ? false : { opacity: 0, y: 18 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+           transition={{ duration: 0.6, ease: EASE }}
+@@ -106,6 +107,8 @@ export default function ReadingScroll({ spread, draws, onInspect }: Props) {
+              that runs the full width of a 64rem panel cannot be read;
+              this holds the column at a page's width and lets the glass
+              be the room around it. */
++          .rs-entry { border-bottom: 1px solid rgba(183, 188, 233, .22); border-radius: 0 !important; }
++          .rs-synth { border-top: 1px solid #a08d61; border-radius: 0 !important; background: rgba(183,188,233,.035); }
+           .rs {
+             width: min(46rem, 100%);
+             margin: 2.6rem auto 0;
+diff --git a/website/src/components/oracle/SpreadChooser.tsx b/website/src/components/oracle/SpreadChooser.tsx
+index 0dceab0..d9a541a 100644
+--- a/website/src/components/oracle/SpreadChooser.tsx
++++ b/website/src/components/oracle/SpreadChooser.tsx
+@@ -94,9 +94,9 @@ export default function SpreadChooser({ value, onChange }: Props) {
+         : e.key === "ArrowLeft" || e.key === "ArrowUp"
+           ? -1
+           : 0;
+-    if (!dir) return;
++    if (!dir && e.key !== "Home" && e.key !== "End") return;
+     e.preventDefault();
+-    const j = (i + dir + SPREADS.length) % SPREADS.length;
++    const j = e.key === "Home" ? 0 : e.key === "End" ? SPREADS.length - 1 : (i + dir + SPREADS.length) % SPREADS.length;
+     onChange(SPREADS[j]);
+     refs.current[j]?.focus();
+   };
+@@ -263,7 +263,7 @@ export default function SpreadChooser({ value, onChange }: Props) {
+ 
+         .sc-count {
+           font-family: var(--font-mono, ui-monospace), monospace;
+-          font-size: 0.55rem;
++          font-size: 0.65rem;
+           letter-spacing: 0.24em;
+           text-transform: uppercase;
+           color: var(--ox, #e0b768);
+@@ -272,14 +272,14 @@ export default function SpreadChooser({ value, onChange }: Props) {
+         .sc-count i {
+           font-style: normal;
+           opacity: 0.55;
+-          font-size: 0.5rem;
++          font-size: 0.6rem;
+         }
+ 
+         .sc-line {
+           max-width: 24ch;
+           font-size: 0.78rem;
+           line-height: 1.5;
+-          color: var(--ink-faint, rgba(183, 188, 233, 0.66));
++          color: #b9bfd6;
+         }
+ 
+         .sc-plan {
+@@ -287,10 +287,10 @@ export default function SpreadChooser({ value, onChange }: Props) {
+           padding: 0.24rem 0.6rem;
+           border-radius: 2px;
+           font-family: var(--font-mono, ui-monospace), monospace;
+-          font-size: 0.5rem;
++          font-size: 0.6rem;
+           letter-spacing: 0.2em;
+           text-transform: uppercase;
+-          color: var(--ink-faint, rgba(183, 188, 233, 0.66));
++          color: #b9bfd6;
+           background: rgba(183, 188, 233, 0.12);
+         }
+ 
+@@ -314,7 +314,8 @@ export default function SpreadChooser({ value, onChange }: Props) {
+             font-size: 1.02rem;
+           }
+           .sc-line {
+-            display: none;
++            font-size: 0.73rem;
++            line-height: 1.4;
+           }
+         }
+ 
+diff --git a/website/src/components/sky/SkyAtlas.tsx b/website/src/components/sky/SkyAtlas.tsx
+index 2b03559..62dc0a8 100644
+--- a/website/src/components/sky/SkyAtlas.tsx
++++ b/website/src/components/sky/SkyAtlas.tsx
+@@ -273,7 +273,8 @@ const CSS = `
+   background:none;border:none;border-bottom:1px solid transparent;
+   padding:8px 2px;cursor:pointer;transition:color .2s,border-color .2s}
+ .oa-atlas-close:hover,.oa-atlas-close:focus-visible{color:${MOON};
+-  border-bottom-color:rgba(232,233,255,.16);outline:none}
++  border-color:rgba(232,233,255,.5)}
++.oa-atlas-btn:focus-visible{outline:2px solid #e0b768;outline-offset:4px}
+ @keyframes oaFade{from{opacity:0}to{opacity:1}}
+ @keyframes oaDraw{to{stroke-dashoffset:0}}
+ @keyframes oaIn{from{opacity:0}to{opacity:1}}
+@@ -286,19 +287,21 @@ const CSS = `
+ 
+ const BTN_CSS = `
+ .oa-atlas-btn{position:fixed;right:22px;
+-  bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:90;
++  bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:90;
+   font:10px ${MONO};letter-spacing:.18em;text-transform:uppercase;
+-  color:${PERI};background:none;border:none;
+-  border-bottom:1px solid transparent;padding:8px 2px;cursor:pointer;
++  color:${MOON};background:rgba(10,13,42,.96);border:1px solid rgba(224,183,104,.35);
++  border-radius:2px;min-height:44px;padding:10px 12px;cursor:pointer;
+   transition:color .2s,border-color .2s}
+ .oa-atlas-btn .oa-atlas-key{color:rgba(224,183,104,.85)}
+ .oa-atlas-btn:hover,.oa-atlas-btn:focus-visible{color:${MOON};
+-  border-bottom-color:rgba(232,233,255,.16);outline:none}
++  border-color:rgba(232,233,255,.5)}
++.oa-atlas-btn:focus-visible{outline:2px solid #e0b768;outline-offset:4px}
+ @media (hover: none), (pointer: coarse){
+   .oa-atlas-btn .oa-atlas-key{display:none}
+ }
+ @media (max-width: 640px){
+-  .oa-atlas-btn{right:14px;bottom:calc(96px + env(safe-area-inset-bottom,0px));
++  .oa-atlas-btn .oa-atlas-key{display:none}
++  .oa-atlas-btn{right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));
+     font-size:9px;letter-spacing:.14em}
+ }`;
+ 
+diff --git a/website/src/components/transitions/PageTransition.tsx b/website/src/components/transitions/PageTransition.tsx
+index 9bc08df..8cce4b9 100644
+--- a/website/src/components/transitions/PageTransition.tsx
++++ b/website/src/components/transitions/PageTransition.tsx
+@@ -1,159 +1,79 @@
+ "use client";
+ 
+ import React, { useState, useEffect, useRef } from "react";
+-import { motion, AnimatePresence } from "framer-motion";
+ import { usePathname, useRouter } from "next/navigation";
+-import TransitionOverlay, { type WipeVariant } from "./TransitionOverlay";
++import TransitionOverlay from "./TransitionOverlay";
+ 
+-interface Props {
+-  children: React.ReactNode;
+-}
+-
+-const NIGHT_ROOMS = ["/oracle", "/portrait", "/synastry", "/cosmos"];
+-const EASE = [0.16, 1, 0.3, 1] as const;
+-
+-function isNight(path: string): boolean {
+-  const normalized = path.length > 1 ? path.replace(/\/$/, "") : path;
+-  return NIGHT_ROOMS.includes(normalized) || normalized.startsWith("/prototype/");
+-}
+-
+-/**
+- * The page turn as ONE act:
+- *   0ms    reader clicks — the leaving page exhales (fade + 10px sink,
+- *          300ms) while the night veil starts across and the sky flight
+- *          (FLIGHT_MS 950) is already under way beneath both.
+- *   ~560ms the veil has covered the view — route swaps under it.
+- *   arrive veil retreats (550ms); the new page inhales (fade + rise)
+- *          ~220ms into the retreat, so the rise is seen, and settles at
+- *          ~1.3s — just as the sky flight's own settle finishes inking
+- *          the berth figure. One breath out, one breath in.
+- */
+-export default function PageTransition({ children }: Props) {
++/** A brief turn of the leaf. Routing starts on press; content never waits for motion. */
++export default function PageTransition({ children }: { children: React.ReactNode }) {
+   const pathname = usePathname() ?? "/";
+   const router = useRouter();
+-  const [overlayVisible, setOverlayVisible] = useState(false);
+-  const [variant, setVariant] = useState<WipeVariant>("paper");
+-  const [displayChildren, setDisplayChildren] = useState(children);
+-  const [animationKey, setAnimationKey] = useState(pathname);
+-  const [leaving, setLeaving] = useState(false);
+-  const [inhaleDelay, setInhaleDelay] = useState(0);
+-  const [reduce, setReduce] = useState(false);
+-  const safetyRef = useRef<number | null>(null);
+-  // Arrivals that came through the veil inhale on the veil's clock;
+-  // back-button / hard arrivals inhale immediately (no blank beat).
+-  const veilRef = useRef(false);
+-  // The very first paint after mount must not re-fade content the
+-  // reader is already looking at (ClientShell renders it un-wrapped
+-  // for one frame before this component takes over).
+-  const firstKeyRef = useRef(true);
++  const [pending, setPending] = useState(false);
++  const [turning, setTurning] = useState(false);
++  const routeRef = useRef(pathname);
++  const cleanupRef = useRef<(() => void) | null>(null);
++  const safetyRef = useRef<number | undefined>(undefined);
++  const focusOnArrival = useRef(false);
+ 
+   useEffect(() => {
+-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+-    const sync = () => setReduce(mq.matches);
+-    sync();
+-    mq.addEventListener("change", sync);
+-    return () => mq.removeEventListener("change", sync);
+-  }, []);
+-
+-  // Listen for transition events from TransitionLink
+-  useEffect(() => {
+-    const handleTransition = (e: Event) => {
+-      const href = (e as CustomEvent).detail?.href;
++    const handleTransition = (event: Event) => {
++      const href = (event as CustomEvent<{ href?: string }>).detail?.href;
+       if (!href) return;
+-
+-      // The wipe speaks the book's grammar: paper leaf between light
+-      // pages, ink sheet when entering a night room, paper returning
+-      // when leaving one.
+-      const from = isNight(pathname);
+-      const to = isNight(href);
+-      setVariant(to ? "to-night" : from ? "to-paper" : "paper");
+-
+-      // Reduced motion: no sheet, no exhale — go straight there.
+-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
++      let destination: URL;
++      try { destination = new URL(href, window.location.href); } catch { return; }
++      if (destination.origin !== window.location.origin) return;
++      const normalize = (path: string) => path.replace(/\/+$/, "") || "/";
++      if (normalize(destination.pathname) === normalize(window.location.pathname)) {
+         router.push(href);
+         return;
+       }
+-
+-      // One act begins: the leaving page exhales under the crossing veil.
+-      setOverlayVisible(true);
+-      setLeaving(true);
+-      veilRef.current = true;
+-
+-      // Push the moment the sheet has covered the view (wipe is 550ms).
+-      window.setTimeout(() => router.push(href), 560);
+-
+-      // Safety net for a slow chunk — cleared the instant we arrive, and
+-      // it tells the page its choreography was interrupted so pieces
+-      // like SpreadTheater can re-arm instead of freezing mid-dive.
+-      if (safetyRef.current) window.clearTimeout(safetyRef.current);
+-      safetyRef.current = window.setTimeout(() => {
+-        setOverlayVisible(false);
+-        setLeaving(false);
+-        veilRef.current = false;
++      cleanupRef.current?.();
++      focusOnArrival.current = true;
++      setPending(true);
++      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
++      setTurning(!reduced);
++      // The decorative veil has a bounded lifetime even if a chunk is slow.
++      const reveal = window.setTimeout(() => setTurning(false), 240);
++      const safety = window.setTimeout(() => {
++        setPending(false);
++        setTurning(false);
+         window.dispatchEvent(new CustomEvent("page:transition-abort"));
+-      }, 4000);
++      }, 5000);
++      safetyRef.current = safety;
++      cleanupRef.current = () => { window.clearTimeout(reveal); window.clearTimeout(safety); };
++      router.push(href);
+     };
+-
+     window.addEventListener("page:transition", handleTransition);
+-    return () => window.removeEventListener("page:transition", handleTransition);
+-  }, [router, pathname]);
+-
+-  // Arrived: swap content immediately and let the sheet retreat over it.
+-  useEffect(() => {
+-    if (safetyRef.current) {
+-      window.clearTimeout(safetyRef.current);
+-      safetyRef.current = null;
+-    }
+-    setDisplayChildren(children);
+-    setAnimationKey(pathname);
+-    setOverlayVisible(false);
+-    setLeaving(false);
+-    // The inhale of THIS arrival: keyed to the veil's retreat when there
+-    // was a veil, immediate otherwise. Consumed once.
+-    setInhaleDelay(veilRef.current ? 0.22 : 0);
+-    veilRef.current = false;
+-  }, [pathname, children]);
++    return () => {
++      window.removeEventListener("page:transition", handleTransition);
++      cleanupRef.current?.();
++    };
++  }, [router]);
+ 
+-  // The first mounted key shows content that is already on screen.
+-  const firstKey = firstKeyRef.current;
+   useEffect(() => {
+-    firstKeyRef.current = false;
+-  }, []);
++    if (routeRef.current === pathname) return;
++    routeRef.current = pathname;
++    window.clearTimeout(safetyRef.current);
++    setPending(false);
++    // Preserve Next's page tree and scroll handling. No transformed ancestor
++    // around fixed tarot tables, no cached children, no hydration remount.
++    if (!focusOnArrival.current) return;
++    focusOnArrival.current = false;
++    const frame = requestAnimationFrame(() => {
++      const target = document.querySelector<HTMLElement>("main h1, #main-content h1, h1, main, #main-content");
++      if (target) {
++        if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
++        target.focus({ preventScroll: true });
++      }
++    });
++    return () => cancelAnimationFrame(frame);
++  }, [pathname]);
+ 
+   return (
+     <>
+-      <TransitionOverlay isVisible={overlayVisible} variant={variant} />
+-      <AnimatePresence mode="wait">
+-        <motion.div
+-          key={animationKey}
+-          initial={reduce || firstKey ? false : { opacity: 0, y: 12 }}
+-          animate={
+-            leaving && !reduce
+-              ? { opacity: 0, y: 10 } // the exhale: fade + sink
+-              : { opacity: 1, y: 0 } //  the inhale: fade + rise
+-          }
+-          transition={
+-            leaving
+-              ? // the exhale waits one beat so the press's gilt ink dot
+-                // is seen landing before anything moves
+-                { duration: 0.3, ease: EASE, delay: 0.14 }
+-              : {
+-                  duration: reduce ? 0 : 0.55,
+-                  ease: EASE,
+-                  // keyed to the sheet's retreat (~40% through) so the
+-                  // rise is seen instead of playing under an opaque sheet
+-                  delay: reduce ? 0 : inhaleDelay,
+-                }
+-          }
+-        >
+-          {displayChildren}
+-        </motion.div>
+-      </AnimatePresence>
+-
+-      {/* House motion vocabulary that must exist on every page:
+-          the TransitionLink press acknowledgment, and two colophon
+-          typography mends (the homepage colophon is print — its lines
+-          must break as verse, not leave orphans). */}
++      <TransitionOverlay isVisible={turning} variant="to-night" />
++      <div aria-busy={pending || undefined}>{children}</div>
++      <span className="oa-navigation-progress" data-pending={pending} aria-hidden />
+       <style jsx global>{`
+         /* ── press acknowledgment: a gilt ink dot lands under the
+               pressed link in the beat before anything else moves ── */
+@@ -215,6 +135,11 @@ export default function PageTransition({ children }: Props) {
+           }
+         }
+       `}</style>
++      <style jsx>{`
++        .oa-navigation-progress { position: fixed; z-index: 9991; left: 0; top: 0; width: 100%; height: 2px; background: #e0b768; transform: scaleX(0); transform-origin: left; opacity: 0; transition: transform 240ms ease-out, opacity 160ms; pointer-events: none; }
++        .oa-navigation-progress[data-pending="true"] { opacity: 1; transform: scaleX(.72); }
++        @media (prefers-reduced-motion: reduce) { .oa-navigation-progress { transition: none; } }
++      `}</style>
+     </>
+   );
+ }
+diff --git a/website/src/components/transitions/TransitionLink.tsx b/website/src/components/transitions/TransitionLink.tsx
+index 125dbce..8f390d2 100644
+--- a/website/src/components/transitions/TransitionLink.tsx
++++ b/website/src/components/transitions/TransitionLink.tsx
+@@ -44,7 +44,7 @@ export default function TransitionLink({
+ 
+   const handleMouseEnter = useCallback(() => {
+     // Only prefetch if it's an internal link
+-    const isExternal = href.startsWith("http") || href.startsWith("//");
++    const isExternal = !href.startsWith("/") && !href.startsWith("#") || href.startsWith("//");
+     const isAnchor = href.startsWith("#");
+     if (!isExternal && !isAnchor) {
+       router.prefetch(href);
+@@ -54,7 +54,7 @@ export default function TransitionLink({
+   const handleClick = useCallback(
+     (e: React.MouseEvent<HTMLAnchorElement>) => {
+       // Don't intercept external links, modifier clicks, or same-page anchors
+-      const isExternal = href.startsWith("http") || href.startsWith("//");
++      const isExternal = !href.startsWith("/") && !href.startsWith("#") || href.startsWith("//");
+       const isModified = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
+       const isAnchor = href.startsWith("#");
+       // trailingSlash: true in next.config — '/oracle' vs '/oracle/' must
+@@ -62,14 +62,13 @@ export default function TransitionLink({
+       const norm = (u: string) => (u.length > 1 ? u.replace(/\/+$/, "") : u);
+       const isSamePage = norm(href) === norm(window.location.pathname);
+ 
+-      if (isExternal || isModified || isAnchor || isSamePage) return;
++      if (e.defaultPrevented || e.button !== 0 || isExternal || isModified || isAnchor || isSamePage) return;
+ 
+       e.preventDefault();
+       onClick?.();
+ 
+       // The ink dot: the press is acknowledged before anything moves.
+-      setPressed(false); // restart the animation on a rapid second press
+-      requestAnimationFrame(() => setPressed(true));
++      setPressed(true);
+       if (pressTimer.current) window.clearTimeout(pressTimer.current);
+       pressTimer.current = window.setTimeout(() => setPressed(false), 420);
+ 
+@@ -96,6 +95,7 @@ export default function TransitionLink({
+       href={href}
+       onClick={handleClick}
+       onMouseEnter={handleMouseEnter}
++      onFocus={handleMouseEnter}
+       className={className}
+       style={pressed ? { position: "relative", ...style } : style}
+     >
+diff --git a/website/src/components/transitions/TransitionOverlay.tsx b/website/src/components/transitions/TransitionOverlay.tsx
+index 4251daa..6da9bcc 100644
+--- a/website/src/components/transitions/TransitionOverlay.tsx
++++ b/website/src/components/transitions/TransitionOverlay.tsx
+@@ -48,6 +48,7 @@ export default function TransitionOverlay({ isVisible, variant = "paper" }: Prop
+     <AnimatePresence>
+       {isVisible && (
+         <motion.div
++          aria-hidden="true"
+           style={{
+             position: "fixed",
+             inset: 0,
+@@ -59,7 +60,7 @@ export default function TransitionOverlay({ isVisible, variant = "paper" }: Prop
+           animate={prefersReduced ? { opacity: 1 } : { x: "0%" }}
+           exit={prefersReduced ? { opacity: 0 } : { x: "-100%" }}
+           transition={{
+-            duration: prefersReduced ? 0.18 : 0.55,
++            duration: prefersReduced ? 0 : 0.24,
+             ease: [0.76, 0, 0.24, 1],
+           }}
+         >
+@@ -90,7 +91,7 @@ export default function TransitionOverlay({ isVisible, variant = "paper" }: Prop
+             initial={{ scaleX: 1.5 }}
+             animate={{ scaleX: 1 }}
+             exit={{ scaleX: 0.6 }}
+-            transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
++            transition={{ duration: 0.24, ease: [0.76, 0, 0.24, 1] }}
+           >
+               <path d="M 100 0 Q -70 500 100 1000 Z" />
+             <path d="M 100 0 Q -54 500 100 1000 Z" fill="none" stroke="rgba(10, 13, 56, 0.6)" strokeWidth="3" vectorEffect="non-scaling-stroke" />

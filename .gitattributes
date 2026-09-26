@@ -4,3 +4,6 @@ experience/work/fonts-inline.css -text
 experience/work/*-OFL.txt -text
 website/public/experience/** -text
 website/public/animation/** -text
+# Historical manifests verify exact bytes, including original line endings.
+history/** -text
+history/**/*.pdf binary

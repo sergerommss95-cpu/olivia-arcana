@@ -1,0 +1,1773 @@
+{
+  "sha256": "86db32dd8bbcd72f3660046a2c0c3a3c7192754f66042798981baba9a2f5889e",
+  "file": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/hero-v3/qa/final-tested-hero.html",
+  "syntax": [
+    {
+      "ok": true,
+      "error": ""
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "desktop",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "states": [
+        {
+          "progress": 0,
+          "diag": {
+            "p": 0,
+            "target": 0,
+            "frames": 14,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.6472629626251396
+            },
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.1,
+          "diag": {
+            "p": 0.1,
+            "target": 0.1,
+            "frames": 15,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.14774233740235485,
+              "pitch": 0.2979627323872732,
+              "curvature": 0.02944945840132571,
+              "sector": 0.008507980165428426,
+              "angularPitch": 0.008774841092584348,
+              "scale": 1.3466583454409524
+            },
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.2,
+          "diag": {
+            "p": 0.2,
+            "target": 0.2,
+            "frames": 16,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.7282759695373004,
+              "pitch": 1.3284474239353474,
+              "curvature": 0.1451671419761363,
+              "sector": 0.18558525356336672,
+              "angularPitch": 0.1928469157982551,
+              "scale": 0.5063348804822161
+            },
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.31,
+          "diag": {
+            "p": 0.31,
+            "target": 0.31,
+            "frames": 17,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.4537927601931069
+            },
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.4,
+          "diag": {
+            "p": 0.4,
+            "target": 0.4,
+            "frames": 18,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.45763965330831974
+            },
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.5,
+          "diag": {
+            "p": 0.5,
+            "target": 0.5,
+            "frames": 19,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.4712408722567445
+            },
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.6,
+          "diag": {
+            "p": 0.6,
+            "target": 0.6,
+            "frames": 20,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.49073454590046567
+            },
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.7,
+          "diag": {
+            "p": 0.7,
+            "target": 0.7,
+            "frames": 21,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.5055075423487659
+            },
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.82,
+          "diag": {
+            "p": 0.82,
+            "target": 0.82,
+            "frames": 22,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.9682412544000004,
+              "pitch": 1.5668079731865645,
+              "curvature": 0.19299938694110408,
+              "sector": 0.28774789039005494,
+              "angularPitch": 0.3023929782794408,
+              "scale": 0.5254292239275862
+            },
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.9,
+          "diag": {
+            "p": 0.9,
+            "target": 0.9,
+            "frames": 23,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.05791999999999975,
+              "pitch": 0.1227403941308308,
+              "curvature": 0.011545185087734984,
+              "sector": 0.0013686156345447916,
+              "angularPitch": 0.0014170605679819821,
+              "scale": 1.5886374642397971
+            },
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.95,
+          "diag": {
+            "p": 0.95,
+            "target": 0.95,
+            "frames": 24,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.6472599733433426
+            },
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 1,
+          "diag": {
+            "p": 1,
+            "target": 1,
+            "frames": 25,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.6472629626251396
+            },
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        }
+      ]
+    },
+    {
+      "name": "userpane",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "states": [
+        {
+          "progress": 0,
+          "diag": {
+            "p": 0,
+            "target": 0,
+            "frames": 14,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.6472629626251394
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.1,
+          "diag": {
+            "p": 0.1,
+            "target": 0.1,
+            "frames": 15,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.14774233740235485,
+              "pitch": 0.2979627323872732,
+              "curvature": 0.02944945840132571,
+              "sector": 0.008507980165428426,
+              "angularPitch": 0.008774841092584348,
+              "scale": 1.2936177096672987
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.2,
+          "diag": {
+            "p": 0.2,
+            "target": 0.2,
+            "frames": 16,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.7282759695373004,
+              "pitch": 1.3284474239353474,
+              "curvature": 0.1451671419761363,
+              "sector": 0.18558525356336672,
+              "angularPitch": 0.1928469157982551,
+              "scale": 0.39783345114418683
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.31,
+          "diag": {
+            "p": 0.31,
+            "target": 0.31,
+            "frames": 17,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.45052205588182764
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.4,
+          "diag": {
+            "p": 0.4,
+            "target": 0.4,
+            "frames": 18,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.45287226587491886
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.5,
+          "diag": {
+            "p": 0.5,
+            "target": 0.5,
+            "frames": 19,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.45823429545141
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.6,
+          "diag": {
+            "p": 0.6,
+            "target": 0.6,
+            "frames": 20,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.46160937924409084
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.7,
+          "diag": {
+            "p": 0.7,
+            "target": 0.7,
+            "frames": 21,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.46276771296901836
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.82,
+          "diag": {
+            "p": 0.82,
+            "target": 0.82,
+            "frames": 22,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.9682412544000004,
+              "pitch": 1.5668079731865645,
+              "curvature": 0.19299938694110408,
+              "sector": 0.28774789039005494,
+              "angularPitch": 0.3023929782794408,
+              "scale": 0.4449750086992838
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.9,
+          "diag": {
+            "p": 0.9,
+            "target": 0.9,
+            "frames": 23,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.05791999999999975,
+              "pitch": 0.1227403941308308,
+              "curvature": 0.011545185087734984,
+              "sector": 0.0013686156345447916,
+              "angularPitch": 0.0014170605679819821,
+              "scale": 1.5886374639669165
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.95,
+          "diag": {
+            "p": 0.95,
+            "target": 0.95,
+            "frames": 24,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.6472599733433426
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 1,
+          "diag": {
+            "p": 1,
+            "target": 1,
+            "frames": 25,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.6472629626251394
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        }
+      ]
+    },
+    {
+      "name": "mobile",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "states": [
+        {
+          "progress": 0,
+          "diag": {
+            "p": 0,
+            "target": 0,
+            "frames": 15,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.3606897897574837
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.1,
+          "diag": {
+            "p": 0.1,
+            "target": 0.1,
+            "frames": 16,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0.14774233740235485,
+              "pitch": 0.2979627323872732,
+              "curvature": 0.02944945840132571,
+              "sector": 0.008507980165428426,
+              "angularPitch": 0.008774841092584348,
+              "scale": 0.9698355774966906
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.2,
+          "diag": {
+            "p": 0.2,
+            "target": 0.2,
+            "frames": 17,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0.7282759695373004,
+              "pitch": 1.3284474239353474,
+              "curvature": 0.1451671419761363,
+              "sector": 0.18558525356336672,
+              "angularPitch": 0.1928469157982551,
+              "scale": 0.2818212546828614
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.31,
+          "diag": {
+            "p": 0.31,
+            "target": 0.31,
+            "frames": 18,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.29217058911262
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.4,
+          "diag": {
+            "p": 0.4,
+            "target": 0.4,
+            "frames": 19,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.2895701908748386
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.5,
+          "diag": {
+            "p": 0.5,
+            "target": 0.5,
+            "frames": 20,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.2814986546628497
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.6,
+          "diag": {
+            "p": 0.6,
+            "target": 0.6,
+            "frames": 21,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.2722962242326773
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.7,
+          "diag": {
+            "p": 0.7,
+            "target": 0.7,
+            "frames": 22,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.26668519065243296
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.82,
+          "diag": {
+            "p": 0.82,
+            "target": 0.82,
+            "frames": 23,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0.9682412544000004,
+              "pitch": 1.5668079731865645,
+              "curvature": 0.19299938694110408,
+              "sector": 0.28774789039005494,
+              "angularPitch": 0.3023929782794408,
+              "scale": 0.26366977544781434
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.9,
+          "diag": {
+            "p": 0.9,
+            "target": 0.9,
+            "frames": 24,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0.05791999999999975,
+              "pitch": 0.1227403941308308,
+              "curvature": 0.011545185087734984,
+              "sector": 0.0013686156345447916,
+              "angularPitch": 0.0014170605679819821,
+              "scale": 1.3170232673445559
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.95,
+          "diag": {
+            "p": 0.95,
+            "target": 0.95,
+            "frames": 25,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.3607677015443556
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 1,
+          "diag": {
+            "p": 1,
+            "target": 1,
+            "frames": 26,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.3601314230321067
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        }
+      ]
+    },
+    {
+      "name": "small",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "states": [
+        {
+          "progress": 0,
+          "diag": {
+            "p": 0,
+            "target": 0,
+            "frames": 15,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.1817312586397053
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.1,
+          "diag": {
+            "p": 0.1,
+            "target": 0.1,
+            "frames": 16,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0.14774233740235485,
+              "pitch": 0.2979627323872732,
+              "curvature": 0.02944945840132571,
+              "sector": 0.008507980165428426,
+              "angularPitch": 0.008774841092584348,
+              "scale": 1.039299208980197
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.2,
+          "diag": {
+            "p": 0.2,
+            "target": 0.2,
+            "frames": 17,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0.7282759695373004,
+              "pitch": 1.3284474239353474,
+              "curvature": 0.1451671419761363,
+              "sector": 0.18558525356336672,
+              "angularPitch": 0.1928469157982551,
+              "scale": 0.3436777075314773
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.31,
+          "diag": {
+            "p": 0.31,
+            "target": 0.31,
+            "frames": 18,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.34934565915810584
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.4,
+          "diag": {
+            "p": 0.4,
+            "target": 0.4,
+            "frames": 19,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.3462977030212998
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.5,
+          "diag": {
+            "p": 0.5,
+            "target": 0.5,
+            "frames": 20,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.3368301901641679
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.6,
+          "diag": {
+            "p": 0.6,
+            "target": 0.6,
+            "frames": 21,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.32602387150312356
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.7,
+          "diag": {
+            "p": 0.7,
+            "target": 0.7,
+            "frames": 22,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.5850292555510213,
+              "curvature": 0.19932985303409934,
+              "sector": 0.30006703073467417,
+              "angularPitch": 0.31594364856373297,
+              "scale": 0.31942843687746497
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.82,
+          "diag": {
+            "p": 0.82,
+            "target": 0.82,
+            "frames": 23,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0.9682412544000004,
+              "pitch": 1.5668079731865645,
+              "curvature": 0.19299938694110408,
+              "sector": 0.28774789039005494,
+              "angularPitch": 0.3023929782794408,
+              "scale": 0.31576766000821793
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.9,
+          "diag": {
+            "p": 0.9,
+            "target": 0.9,
+            "frames": 24,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0.05791999999999975,
+              "pitch": 0.1227403941308308,
+              "curvature": 0.011545185087734984,
+              "sector": 0.0013686156345447916,
+              "angularPitch": 0.0014170605679819821,
+              "scale": 1.1524550588401359
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 0.95,
+          "diag": {
+            "p": 0.95,
+            "target": 0.95,
+            "frames": 25,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.1804472176985628
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        },
+        {
+          "progress": 1,
+          "diag": {
+            "p": 1,
+            "target": 1,
+            "frames": 26,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 2448,
+            "cards": 9,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.1299603642941545
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "classes": "ready"
+        }
+      ]
+    }
+  ],
+  "videos": [
+    {
+      "name": "desktop",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "before": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 49,
+          "ready": true,
+          "quiet": false,
+          "raf": 54,
+          "error": 0,
+          "triangles": 3808,
+          "cards": 14,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 1.6472629626251396
+          },
+          "viewport": [
+            1440,
+            1000
+          ],
+          "buffer": [
+            1440,
+            1000
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "classes": "ready"
+      },
+      "after": {
+        "diag": {
+          "p": 1,
+          "target": 1,
+          "frames": 836,
+          "ready": true,
+          "quiet": false,
+          "raf": 1562,
+          "error": 0,
+          "triangles": 3808,
+          "cards": 14,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 1.6472629626251396
+          },
+          "viewport": [
+            1440,
+            1000
+          ],
+          "buffer": [
+            1440,
+            1000
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "classes": "ready"
+      },
+      "path": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/hero-v3/qa/final-desktop-motion.webm"
+    },
+    {
+      "name": "mobile",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "before": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 49,
+          "ready": true,
+          "quiet": false,
+          "raf": 54,
+          "error": 0,
+          "triangles": 2448,
+          "cards": 9,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 1.3606897897574837
+          },
+          "viewport": [
+            390,
+            844
+          ],
+          "buffer": [
+            390,
+            844
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "classes": "ready"
+      },
+      "after": {
+        "diag": {
+          "p": 1,
+          "target": 1,
+          "frames": 836,
+          "ready": true,
+          "quiet": false,
+          "raf": 1562,
+          "error": 0,
+          "triangles": 2448,
+          "cards": 9,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 1.3601314230321067
+          },
+          "viewport": [
+            390,
+            844
+          ],
+          "buffer": [
+            390,
+            844
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "classes": "ready"
+      },
+      "path": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/hero-v3/qa/final-mobile-motion.webm"
+    }
+  ],
+  "failures": []
+}

@@ -1,0 +1,53 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "url": "https://oliviaarcana.com/",
+  "production_deploy_id": "6ab59cfe07764191e5f2b0b8",
+  "preview_deploy_id": "6ab59ba8cd7f2eb71e6533ed",
+  "rollback_deploy_id": "6ab57d981cfaf194db557fc6",
+  "changes": [
+    "Outer page uses lapis and suppresses outer overscroll",
+    "Homepage scroll restores complete approved deck journey",
+    "Unfold the deck retains slow96-second playback",
+    "Primary and secondary buttons, fields and selection states visibly actionable"
+  ],
+  "checks": [
+    {
+      "path": "/experience/index.html",
+      "http_ok": true,
+      "matches_tested_build": true
+    },
+    {
+      "path": "/experience/assets/experience.4ec0148397534702.css",
+      "http_ok": true,
+      "matches_tested_build": true
+    },
+    {
+      "path": "/experience/assets/card-assets.b507dfa36b7ffdf1.js",
+      "http_ok": true,
+      "matches_tested_build": true
+    },
+    {
+      "path": "/experience/assets/hero.e5923a7d2b5e361b.js",
+      "http_ok": true,
+      "matches_tested_build": true
+    },
+    {
+      "path": "/experience/assets/background.bdd422deea49eb5f.js",
+      "http_ok": true,
+      "matches_tested_build": true
+    },
+    {
+      "path": "/experience/assets/app.654b0c32b151389e.js",
+      "http_ok": true,
+      "matches_tested_build": true
+    }
+  ],
+  "validation": [
+    "52 product tests passed",
+    "7 shell/entitlement tests passed",
+    "Next production build and TypeScript passed",
+    "Desktop/mobile/reduced-motion UI inspected",
+    "Live scroll animation and clear controls verified"
+  ],
+  "source_note": "Manual release of tested website/out; source remains local/uncommitted. Include current source and public/experience in any future Git-triggered builds."
+}

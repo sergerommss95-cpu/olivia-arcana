@@ -1,0 +1,86 @@
+"use client";
+
+import { useSubscription } from "@/hooks/useSubscription";
+import CheckoutButton from "@/components/CheckoutButton";
+import { type PriceKey, PRICING } from "@/lib/payments";
+import { PAYWALL_ENABLED } from "@/lib/plans";
+
+interface PaywallProps {
+  /** Content shown to paid users. */
+  children: React.ReactNode;
+  /** What free users see as a teaser (optional). If omitted, shows a blurred overlay. */
+  teaser?: React.ReactNode;
+  /** Which product unlocks this content. Defaults to "premium_monthly". */
+  priceKey?: PriceKey;
+  /** Feature name shown in the upgrade CTA. */
+  featureName?: string;
+  /** Minimum tier required. Defaults to "premium". */
+  requires?: "insight" | "premium" | "vip";
+}
+
+export default function Paywall({
+  children,
+  teaser,
+  priceKey = "premium_monthly",
+  featureName = "this feature",
+  requires = "premium",
+}: PaywallProps) {
+  const { tier, isLoading } = useSubscription();
+
+  // While the press is stopped the whole almanac is open. The plan model
+  // is the authority — never a local tier comparison.
+  if (!PAYWALL_ENABLED) return <>{children}</>;
+
+  if (isLoading) {
+    return (
+      <div className="animate-pulse space-y-4">
+        <div className="h-4 bg-white/5 rounded w-3/4" />
+        <div className="h-4 bg-white/5 rounded w-1/2" />
+        <div className="h-32 bg-white/5 rounded" />
+      </div>
+    );
+  }
+
+  const tierRank: Record<string, number> = { free: 0, insight: 1, premium: 2, vip: 3 };
+  const hasAccess = tierRank[tier] >= tierRank[requires];
+  if (hasAccess) return <>{children}</>;
+
+  const upsellTier = requires === "insight" ? "Insight" : requires === "vip" ? "VIP" : "Premium";
+  const upsellPrice = PRICING[requires].monthly;
+  const isAddon = !priceKey.endsWith("_monthly") && !priceKey.endsWith("_annual");
+
+  return (
+    <div className="relative">
+      {teaser ? (
+        <div>{teaser}</div>
+      ) : (
+        <div className="relative overflow-hidden rounded-xl">
+          <div className="blur-md pointer-events-none select-none opacity-50" aria-hidden="true" inert>
+            {children}
+          </div>
+        </div>
+      )}
+
+      <div className="mt-6 p-6 text-center" style={{ background: "#111542", border: "1px solid #737b9d", color: "#f1eee5" }}>
+        <div className="text-2xl mb-2">&#10022;</div>
+        <h3 className="font-[family-name:var(--font-heading)] text-xl mb-2" style={{ color: "#f1eee5" }}>
+          Unlock {featureName}
+        </h3>
+        <p className="text-sm mb-5 max-w-sm mx-auto" style={{ color: "#c0c7df" }}>
+          {upsellTier} members get unlimited access to chart readings, transit alerts, and personalized insights.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <CheckoutButton priceKey={`${requires}_monthly` as PriceKey} variant="gold" size="md">
+            Start {upsellTier} &mdash; ${upsellPrice}/mo
+          </CheckoutButton>
+          {isAddon && (
+            <CheckoutButton priceKey={priceKey} variant="glass" size="md">
+              Buy this reading
+            </CheckoutButton>
+          )}
+        </div>
+        <p className="text-xs mt-3" style={{ color: "#b8bfd8" }}>14-day refund · cancel any time</p>
+      </div>
+    </div>
+  );
+}

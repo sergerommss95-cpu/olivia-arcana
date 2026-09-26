@@ -1,0 +1,178 @@
+[
+  {
+    "viewport": [
+      1440,
+      1000
+    ],
+    "oldPeakAngular": 94.97556879888367,
+    "newPeakAngular": 75.9832205164211,
+    "oldPeakCentre": 17876.585481741917,
+    "newPeakCentre": 17876.585481741917,
+    "maximumCentreDeltaAfterPacket": 0,
+    "frontReadableOld": [
+      0.3428,
+      0.3938
+    ],
+    "frontReadableNew": [
+      0.3428,
+      0.3938
+    ],
+    "angularPeakRatio": 0.8000291177757516,
+    "centrePeakRatio": 1,
+    "readableFrontSpanRatio": 1
+  },
+  {
+    "viewport": [
+      1280,
+      720
+    ],
+    "oldPeakAngular": 87.7783233765652,
+    "newPeakAngular": 70.22450877141023,
+    "oldPeakCentre": 13685.376899799137,
+    "newPeakCentre": 13685.376899799137,
+    "maximumCentreDeltaAfterPacket": 0,
+    "frontReadableOld": [
+      0.3554,
+      0.4062
+    ],
+    "frontReadableNew": [
+      0.3554,
+      0.4062
+    ],
+    "angularPeakRatio": 0.8000210766176307,
+    "centrePeakRatio": 1,
+    "readableFrontSpanRatio": 1
+  },
+  {
+    "viewport": [
+      800,
+      900
+    ],
+    "oldPeakAngular": 69.48925958637216,
+    "newPeakAngular": 55.59231339363229,
+    "oldPeakCentre": 10832.623377507634,
+    "newPeakCentre": 10832.623377507634,
+    "maximumCentreDeltaAfterPacket": 0,
+    "frontReadableOld": [
+      0.395,
+      0.4624
+    ],
+    "frontReadableNew": [
+      0.395,
+      0.4624
+    ],
+    "angularPeakRatio": 0.8000130340219475,
+    "centrePeakRatio": 1,
+    "readableFrontSpanRatio": 1
+  },
+  {
+    "viewport": [
+      390,
+      844
+    ],
+    "oldPeakAngular": 85.95821801511335,
+    "newPeakAngular": 68.76854601758585,
+    "oldPeakCentre": 9042.53549283228,
+    "newPeakCentre": 9042.53549283228,
+    "maximumCentreDeltaAfterPacket": 0,
+    "frontReadableOld": [
+      0.385,
+      0.4486
+    ],
+    "frontReadableNew": [
+      0.3806,
+      0.4486
+    ],
+    "angularPeakRatio": 0.8000229367888342,
+    "centrePeakRatio": 1,
+    "readableFrontSpanRatio": 1.0691823899371071
+  },
+  {
+    "viewport": [
+      320,
+      568
+    ],
+    "oldPeakAngular": 81.84318959418577,
+    "newPeakAngular": 65.47967758614128,
+    "oldPeakCentre": 6223.108564924528,
+    "newPeakCentre": 6223.108564924528,
+    "maximumCentreDeltaAfterPacket": 0,
+    "frontReadableOld": [
+      0.3878,
+      0.4524
+    ],
+    "frontReadableNew": [
+      0.3834,
+      0.4524
+    ],
+    "angularPeakRatio": 0.8000626308776341,
+    "centrePeakRatio": 1,
+    "readableFrontSpanRatio": 1.0681114551083584
+  },
+  {
+    "viewport": [
+      844,
+      390
+    ],
+    "oldPeakAngular": 82.04331320512912,
+    "newPeakAngular": 65.63608659100444,
+    "oldPeakCentre": 7880.662684604131,
+    "newPeakCentre": 7880.662684604131,
+    "maximumCentreDeltaAfterPacket": 0,
+    "frontReadableOld": [
+      0.3674,
+      0.4178
+    ],
+    "frontReadableNew": [
+      0.3674,
+      0.4178
+    ],
+    "angularPeakRatio": 0.8000175032777815,
+    "centrePeakRatio": 1,
+    "readableFrontSpanRatio": 1
+  },
+  {
+    "viewport": [
+      640,
+      360
+    ],
+    "oldPeakAngular": 88.9040308905085,
+    "newPeakAngular": 71.12566364505841,
+    "oldPeakCentre": 6786.304204577737,
+    "newPeakCentre": 6786.304204577737,
+    "maximumCentreDeltaAfterPacket": 0,
+    "frontReadableOld": [
+      0.3542,
+      0.4042
+    ],
+    "frontReadableNew": [
+      0.3542,
+      0.4042
+    ],
+    "angularPeakRatio": 0.8000274333191328,
+    "centrePeakRatio": 1,
+    "readableFrontSpanRatio": 1
+  },
+  {
+    "viewport": [
+      1024,
+      768
+    ],
+    "oldPeakAngular": 97.62398906616289,
+    "newPeakAngular": 78.1040685175161,
+    "oldPeakCentre": 13462.912832539158,
+    "newPeakCentre": 13462.912832539158,
+    "maximumCentreDeltaAfterPacket": 0,
+    "frontReadableOld": [
+      0.3386,
+      0.3896
+    ],
+    "frontReadableNew": [
+      0.3386,
+      0.3896
+    ],
+    "angularPeakRatio": 0.8000499596936412,
+    "centrePeakRatio": 1,
+    "readableFrontSpanRatio": 1
+  }
+]

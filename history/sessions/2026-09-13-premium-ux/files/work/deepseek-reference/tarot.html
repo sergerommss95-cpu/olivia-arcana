@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Living Tarot — Olivia Arcana prototype</title>
+<style>
+  :root{
+    --lapis:#0c1029; --lapis-deep:#0a0d38; --lapis-mid:#181d7a;
+    --gilt:#e0b768; --moon:#e8e9ff; --peri:#b7bce9;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%;overflow:hidden;
+    background:radial-gradient(ellipse at 50% 0%,#181d7a 0%,#0c1029 58%,#0a0d38 100%);
+    color:var(--moon);font-family:ui-serif,Georgia,serif}
+  #stage{position:fixed;inset:0}
+  .ui{position:fixed;left:0;right:0;bottom:36px;display:flex;flex-direction:column;
+      align-items:center;gap:14px;z-index:10;pointer-events:none}
+  .ui button{pointer-events:auto;padding:12px 28px;background:transparent;
+    border:1px solid rgba(224,183,104,.55);color:var(--gilt);
+    font:12px/1 ui-monospace,monospace;letter-spacing:.24em;text-transform:uppercase;
+    cursor:pointer;transition:all .4s cubic-bezier(.16,1,.3,1)}
+  .ui button:hover{background:rgba(224,183,104,.1);border-color:var(--gilt)}
+  .hint{font:10px/1.6 ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;
+        color:rgba(183,188,233,.55);text-align:center}
+  .title{position:fixed;top:38px;left:0;right:0;text-align:center;z-index:10;pointer-events:none}
+  .title h1{font:400 40px/1 ui-serif,Georgia,serif;letter-spacing:-.02em}
+  .title p{margin-top:10px;font:10px/1 ui-monospace,monospace;
+           letter-spacing:.34em;text-transform:uppercase;color:var(--gilt)}
+  .drawn{position:fixed;top:38%;left:50%;transform:translate(-50%,-50%);
+    z-index:20;text-align:center;pointer-events:none;opacity:0;
+    transition:opacity .7s cubic-bezier(.16,1,.3,1)}
+  .drawn.on{opacity:1}
+  .drawn h2{font:400 58px/1 ui-serif,Georgia,serif;font-style:italic;color:var(--moon)}
+  .drawn p{margin-top:14px;font:11px/1 ui-monospace,monospace;
+           letter-spacing:.32em;text-transform:uppercase;color:var(--gilt)}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div class="title">
+  <h1>Olivia Arcana</h1>
+  <p>The Living Tarot · Prototype</p>
+</div>
+<div class="ui">
+  <button id="shuffle">Shuffle the deck</button>
+  <p class="hint">Hover a card to lift · click to draw · click again to return</p>
+</div>
+<div class="drawn" id="drawn">
+  <h2 id="drawnName">—</h2>
+  <p id="drawnPos">—</p>
+</div>
+
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+const MAJOR = ['The Fool','The Magician','The High Priestess','The Empress',
+  'The Emperor','The Hierophant','The Lovers','The Chariot','Strength',
+  'The Hermit','Wheel of Fortune','Justice','The Hanged Man','Death',
+  'Temperance','The Devil','The Tower','The Star','The Moon','The Sun',
+  'Judgement','The World'];
+
+// ── Scene ────────────────────────────────────────────────────
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(38, innerWidth/innerHeight, .1, 100);
+camera.position.set(0, .6, 5.4);
+camera.lookAt(0, -.25, 0);
+
+const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+document.getElementById('stage').appendChild(renderer.domElement);
+
+// Lights — a cool moon from above-left, a warm gilt lamp at the right
+scene.add(new THREE.AmbientLight(0x3d4699, .55));
+const key = new THREE.DirectionalLight(0xe8e9ff, 1.15);
+key.position.set(-4, 7, 6); scene.add(key);
+const gilt = new THREE.PointLight(0xe0b768, .9, 18);
+gilt.position.set(4, 2, 3); scene.add(gilt);
+
+// ── Card back texture (engraved, generated once) ────────────
+function cardBackTexture(){
+  const c = document.createElement('canvas'); c.width = 512; c.height = 896;
+  const g = c.getContext('2d');
+  const grad = g.createRadialGradient(256, 340, 40, 256, 448, 640);
+  grad.addColorStop(0,'#181d7a'); grad.addColorStop(.55,'#10134d'); grad.addColorStop(1,'#0a0d38');
+  g.fillStyle = grad; g.fillRect(0,0,512,896);
+
+  g.fillStyle = 'rgba(183,188,233,.55)';
+  for(let i=0;i<170;i++){
+    const t=i/170;
+    const x=50+t*412+Math.sin(i*2.7)*22;
+    const y=840-t*780+Math.cos(i*1.9)*20;
+    const r=1+((i*37)%10)/8;
+    g.globalAlpha=.14+((i*53)%10)/30;
+    g.beginPath(); g.arc(x,y,r,0,6.283); g.fill();
+  }
+  g.globalAlpha=1;
+  g.fillStyle='#e0b768';
+  [[95,120],[400,185],[140,750],[380,680],[260,200],[80,480],[430,440]].forEach(([x,y])=>{
+    g.beginPath(); g.arc(x,y,3.8,0,6.283); g.fill();
+  });
+  g.strokeStyle='rgba(232,233,255,.5)'; g.lineWidth=2; g.strokeRect(20,20,472,856);
+  g.strokeStyle='rgba(232,233,255,.22)'; g.lineWidth=1.4; g.strokeRect(44,44,424,808);
+  g.strokeStyle='rgba(232,233,255,.55)'; g.lineWidth=1.5;
+  [[100,84,1,1],[412,84,-1,1],[100,812,1,-1],[412,812,-1,-1]].forEach(([x,y,dx,dy])=>{
+    g.beginPath(); g.moveTo(x-16*dx,y); g.lineTo(x,y); g.lineTo(x,y-16*dy); g.stroke();
+  });
+  const cx=256,cy=448;
+  g.strokeStyle='rgba(232,233,255,.6)'; g.lineWidth=2;
+  g.beginPath(); g.arc(cx,cy,108,0,6.283); g.stroke();
+  g.setLineDash([6,12]); g.strokeStyle='rgba(232,233,255,.3)'; g.lineWidth=1.5;
+  g.beginPath(); g.arc(cx,cy,76,0,6.283); g.stroke(); g.setLineDash([]);
+  g.strokeStyle='rgba(232,233,255,.7)'; g.lineWidth=2.4;
+  for(let i=0;i<8;i++){ const a=i*Math.PI/4;
+    g.beginPath(); g.moveTo(cx+Math.cos(a)*44,cy+Math.sin(a)*44);
+    g.lineTo(cx+Math.cos(a)*100,cy+Math.sin(a)*100); g.stroke(); }
+  g.fillStyle='#e0b768'; g.beginPath(); g.arc(cx,cy,13,0,6.283); g.fill();
+  g.strokeStyle='rgba(224,183,104,.5)'; g.lineWidth=1.5;
+  g.beginPath(); g.arc(cx,cy,26,0,6.283); g.stroke();
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+  return tex;
+}
+
+// ── Card face texture (bone plate with numeral and name) ────
+function cardFaceTexture(name, numeral){
+  const c = document.createElement('canvas'); c.width = 512; c.height = 896;
+  const g = c.getContext('2d');
+  const grad = g.createRadialGradient(256, 340, 40, 256, 448, 640);
+  grad.addColorStop(0,'#f6f1e3'); grad.addColorStop(.6,'#e7e0cc'); grad.addColorStop(1,'#cfc7ad');
+  g.fillStyle = grad; g.fillRect(0,0,512,896);
+
+  g.strokeStyle = 'rgba(80,70,50,.055)'; g.lineWidth = 1;
+  for(let i=0;i<896;i+=3){ g.beginPath(); g.moveTo(0,i); g.lineTo(512,i+1); g.stroke(); }
+
+  g.strokeStyle='rgba(50,40,25,.55)'; g.lineWidth=2; g.strokeRect(24,24,464,848);
+  g.strokeStyle='rgba(50,40,25,.32)'; g.lineWidth=1; g.strokeRect(44,44,424,808);
+
+  g.fillStyle='#6b5a30'; g.font='500 42px ui-serif,Georgia,serif';
+  g.textAlign='center'; g.fillText(numeral, 256, 128);
+
+  g.fillStyle='#1a1a2e'; g.font='400 52px ui-serif,Georgia,serif';
+  const words = name.toUpperCase().split(' '); const lines=[]; let cur='';
+  for(const w of words){ if((cur+' '+w).length>14 && cur){ lines.push(cur); cur=w; } else cur = cur?cur+' '+w:w; }
+  if(cur) lines.push(cur);
+  lines.forEach((line,i)=>g.fillText(line, 256, 380 + i*60));
+
+  g.strokeStyle='rgba(150,118,54,.55)'; g.lineWidth=1.5;
+  g.beginPath(); g.arc(256,640,72,0,6.283); g.stroke();
+  g.beginPath(); g.arc(256,640,54,0,6.283); g.stroke();
+  g.fillStyle='rgba(160,125,55,.9)';
+  g.beginPath(); g.arc(256,640,15,0,6.283); g.fill();
+  for(let i=0;i<8;i++){ const a=i*Math.PI/4;
+    g.beginPath(); g.moveTo(256+Math.cos(a)*24,640+Math.sin(a)*24);
+    g.lineTo(256+Math.cos(a)*46,640+Math.sin(a)*46); g.stroke(); }
+
+  g.fillStyle='rgba(60,50,30,.55)'; g.font='11px ui-monospace,monospace';
+  g.fillText('OLIVIA ARCANA', 256, 840);
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+  return tex;
+}
+
+// ── Build the deck ──────────────────────────────────────────
+const CARD_W = 1.15, CARD_H = 1.95, CARD_D = .022;
+const geom = new THREE.BoxGeometry(CARD_W, CARD_H, CARD_D);
+const backTex = cardBackTexture();
+const backMat = new THREE.MeshStandardMaterial({map:backTex, roughness:.62, metalness:.08});
+const edgeMat = new THREE.MeshStandardMaterial({color:0x0a0d38, roughness:.9});
+
+const cards = [];
+const group = new THREE.Group(); scene.add(group);
+
+for(let i=0;i<MAJOR.length;i++){
+  const faceTex = cardFaceTexture(MAJOR[i], String(i).padStart(2,'0'));
+  const faceMat = new THREE.MeshStandardMaterial({map:faceTex, roughness:.72, metalness:.04});
+  // BoxGeometry material order: [+X, -X, +Y, -Y, +Z, -Z]
+  const mats = [edgeMat,edgeMat,edgeMat,edgeMat, backMat, faceMat];
+  const mesh = new THREE.Mesh(geom, mats);
+  mesh.userData = { index:i, name:MAJOR[i], hovered:false, drawn:false };
+  group.add(mesh); cards.push(mesh);
+}
+
+// ── Layouts ─────────────────────────────────────────────────
+const R = 3.6;                    // pivot radius
+const ARC = 1.0;                  // radians of spread
+let layout = 'fan';               // 'fan' | 'rest' | 'shuffled'
+const targets = cards.map(()=>({ p:new THREE.Vector3(), r:new THREE.Euler() }));
+
+function computeFan(){
+  const n = cards.length;
+  for(let i=0;i<n;i++){
+    const t = i/(n-1);
+    const a = -ARC/2 + t*ARC;
+    const T = targets[i];
+    T.p.set(
+      Math.sin(a)*R,
+      -R + Math.cos(a)*R - .15,
+      i*0.0012
+    );
+    T.r.set(0, 0, a);
+  }
+}
+function computeRest(){
+  const n = cards.length;
+  for(let i=0;i<n;i++){
+    const T = targets[i];
+    T.p.set((i-(n-1)/2)*0.045, 0, i*0.0015);
+    T.r.set(0, 0, (i-(n-1)/2)*0.012);
+  }
+}
+function computeShuffle(){
+  const n = cards.length;
+  for(let i=0;i<n;i++){
+    const T = targets[i];
+    T.p.set(
+      (i-(n-1)/2)*0.03 + (Math.random()-.5)*.35,
+      (Math.random()-.5)*.28,
+      Math.random()*.9 + i*0.0008
+    );
+    T.r.set((Math.random()-.5)*.25, (Math.random()-.5)*.6, (Math.random()-.5)*.35);
+  }
+}
+computeFan();
+
+// ── Pointer ─────────────────────────────────────────────────
+const ray = new THREE.Raycaster();
+const mouse = new THREE.Vector2(-2,-2);
+const pointer = { x:.5 };
+addEventListener('pointermove', e=>{
+  mouse.x = (e.clientX/innerWidth)*2 - 1;
+  mouse.y = -(e.clientY/innerHeight)*2 + 1;
+  pointer.x = e.clientX/innerWidth;
+});
+
+function pick(){
+  ray.setFromCamera(mouse, camera);
+  const hits = ray.intersectObjects(cards, false);
+  return hits[0]?.object ?? null;
+}
+
+// ── Draw / return ───────────────────────────────────────────
+let drawnCard = null;
+const drawnPanel = document.getElementById('drawn');
+const drawnName  = document.getElementById('drawnName');
+const drawnPos   = document.getElementById('drawnPos');
+
+renderer.domElement.addEventListener('click', ()=>{
+  if(drawnCard){                                   // return to fan
+    drawnCard.userData.drawn = false;
+    drawnCard = null;
+    drawnPanel.classList.remove('on');
+    layout = 'fan'; computeFan();
+    return;
+  }
+  const hit = pick();
+  if(!hit) return;
+  drawnCard = hit;
+  hit.userData.drawn = true;
+  layout = 'drawn';
+  setTimeout(()=>{
+    drawnName.textContent = hit.userData.name;
+    drawnPos.textContent  = 'Drawn upright';
+    drawnPanel.classList.add('on');
+  }, 380);
+});
+
+document.getElementById('shuffle').addEventListener('click', ()=>{
+  if(drawnCard){ drawnCard.userData.drawn=false; drawnCard=null; drawnPanel.classList.remove('on'); }
+  layout = 'shuffled'; computeShuffle();
+  setTimeout(()=>{ if(layout==='shuffled'){ layout='fan'; computeFan(); } }, 950);
+});
+
+// ── Animate ─────────────────────────────────────────────────
+const clock = new THREE.Clock();
+function tick(){
+  requestAnimationFrame(tick);
+  const t  = clock.getElapsedTime();
+  const dt = Math.min(.05, clock.getDelta() + .0001);
+
+  // gentle camera drift + warm-light orbit
+  camera.position.y = .6 + Math.sin(t*.4)*.06;
+  camera.lookAt(0, -.25, 0);
+  gilt.position.x = Math.sin(t*.5)*4;
+  gilt.position.z = 3 + Math.cos(t*.5)*1.2;
+
+  const hovered = (layout==='fan' || layout==='rest' || layout==='shuffled') ? pick() : null;
+
+  for(let i=0;i<cards.length;i++){
+    const m = cards[i], u = m.userData;
+    const T = targets[i];
+
+    let px = T.p.x, py = T.p.y, pz = T.p.z;
+    let rx = T.r.x, ry = T.r.y, rz = T.r.z;
+
+    // breathing
+    py += Math.sin(t*.65 + i*.22)*.008;
+    pz += Math.sin(t*.5 + i*.3)*.0035;
+
+    let k = 8;
+    if(u.drawn){
+      // lift and centre
+      px = 0; py = .1; pz = 1.6;
+      rx = -.12; ry = Math.PI; rz = 0;
+      k = 6;
+    } else if(u === hovered){
+      py += .28;
+      pz += .5;
+      rx -= .12;
+      ry += (pointer.x - .5)*.5;
+      rz += (pointer.x - .5)*.06;
+      k = 14;
+    }
+
+    m.position.x += (px - m.position.x)*dt*k;
+    m.position.y += (py - m.position.y)*dt*k;
+    m.position.z += (pz - m.position.z)*dt*k;
+    m.rotation.x += (rx - m.rotation.x)*dt*k;
+    // Face-down unless drawn — short-path rotation
+    let targetRy = u.drawn ? Math.PI : 0;
+    let d = targetRy - m.rotation.y;
+    // wrap into [-PI, PI]
+    d = ((d + Math.PI) % (Math.PI*2)) - Math.PI;
+    m.rotation.y += d * dt * (u.drawn ? 4 : 6);
+    m.rotation.z += (rz - m.rotation.z)*dt*k;
+
+    u.hovered = (u === hovered);
+  }
+
+  renderer.render(scene, camera);
+}
+tick();
+
+addEventListener('resize', ()=>{
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>

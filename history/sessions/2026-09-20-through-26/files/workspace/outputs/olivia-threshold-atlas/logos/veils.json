@@ -1,0 +1,74 @@
+[
+  {
+    "id": "L09",
+    "name": "The Parting",
+    "family": "Veils & folds",
+    "description": "Two tapering veil edges describe a threshold without an architectural frame.",
+    "svg": "L09.svg",
+    "image": "L09.png",
+    "lockup": "L09-lockup.svg"
+  },
+  {
+    "id": "L10",
+    "name": "Counterturn",
+    "family": "Veils & folds",
+    "description": "Opposed curved ribbons hold a diagonal opening in a reversible, continuous movement.",
+    "svg": "L10.svg",
+    "image": "L10.png",
+    "lockup": "L10-lockup.svg"
+  },
+  {
+    "id": "L11",
+    "name": "Silk A",
+    "family": "Veils & folds",
+    "description": "A tapered Arcana initial with a suspended, softly turning silk crossbar.",
+    "svg": "L11.svg",
+    "image": "L11.png",
+    "lockup": "L11-lockup.svg"
+  },
+  {
+    "id": "L12",
+    "name": "Enfolded",
+    "family": "Veils & folds",
+    "description": "An open Olivia oval, drawn as an outer veil and a quieter inner return.",
+    "svg": "L12.svg",
+    "image": "L12.png",
+    "lockup": "L12-lockup.svg"
+  },
+  {
+    "id": "L13",
+    "name": "Threefold",
+    "family": "Veils & folds",
+    "description": "Three independent silk folds open at different rhythms around a vertical passage.",
+    "svg": "L13.svg",
+    "image": "L13.png",
+    "lockup": "L13-lockup.svg"
+  },
+  {
+    "id": "L14",
+    "name": "The Unfolding",
+    "family": "Veils & folds",
+    "description": "A diagonal fold between two quiet upright contours opens an asymmetric passage.",
+    "svg": "L14.svg",
+    "image": "L14.png",
+    "lockup": "L14-lockup.svg"
+  },
+  {
+    "id": "L15",
+    "name": "Held Open",
+    "family": "Veils & folds",
+    "description": "A wide Olivia oval gathered at one edge, with a fine suspended return inside the opening.",
+    "svg": "L15.svg",
+    "image": "L15.png",
+    "lockup": "L15-lockup.svg"
+  },
+  {
+    "id": "L16",
+    "name": "The Inner Room",
+    "family": "Veils & folds",
+    "description": "Four folded contours gather around a slender central aperture; a threshold seen from within.",
+    "svg": "L16.svg",
+    "image": "L16.png",
+    "lockup": "L16-lockup.svg"
+  }
+]

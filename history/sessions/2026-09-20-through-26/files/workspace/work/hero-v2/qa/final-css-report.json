@@ -1,0 +1,98 @@
+{
+  "sha256": "ba76f71194b124fd48eecdfcadf6382c2f4fc9607f192ae112bebb0e4c65693f",
+  "change": "Compact ARCANA subtitle top37% to44%",
+  "cases": [
+    {
+      "name": "userpane",
+      "errors": [],
+      "image": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/hero-v2/qa/userpane-final-opening.png",
+      "state": {
+        "word": {
+          "x": 32.703125,
+          "y": 159.1875,
+          "width": 818.59375,
+          "height": 181.390625,
+          "top": 159.1875,
+          "right": 851.296875,
+          "bottom": 340.578125,
+          "left": 32.703125
+        },
+        "subtitle": {
+          "x": 61.875,
+          "y": 350.234375,
+          "width": 69.28125,
+          "height": 12,
+          "top": 350.234375,
+          "right": 131.15625,
+          "bottom": 362.234375,
+          "left": 61.875
+        },
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 5,
+          "ready": true,
+          "quiet": false,
+          "raf": 0,
+          "error": 0,
+          "triangles": 5984,
+          "cards": 22,
+          "viewport": [
+            884,
+            796
+          ],
+          "buffer": [
+            1547,
+            1393
+          ]
+        }
+      }
+    },
+    {
+      "name": "largepane",
+      "errors": [],
+      "image": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/hero-v2/qa/largepane-final-opening.png",
+      "state": {
+        "word": {
+          "x": 42.609375,
+          "y": 206,
+          "width": 1066.78125,
+          "height": 236.390625,
+          "top": 206,
+          "right": 1109.390625,
+          "bottom": 442.390625,
+          "left": 42.609375
+        },
+        "subtitle": {
+          "x": 80.625,
+          "y": 453.1875,
+          "width": 69.28125,
+          "height": 12,
+          "top": 453.1875,
+          "right": 149.90625,
+          "bottom": 465.1875,
+          "left": 80.625
+        },
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 5,
+          "ready": true,
+          "quiet": false,
+          "raf": 0,
+          "error": 0,
+          "triangles": 5984,
+          "cards": 22,
+          "viewport": [
+            1152,
+            1030
+          ],
+          "buffer": [
+            1979,
+            1769
+          ]
+        }
+      }
+    }
+  ]
+}

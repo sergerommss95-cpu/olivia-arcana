@@ -1,0 +1,25 @@
+{
+  "entries": 7923,
+  "retained_paths": 3007,
+  "excluded_paths": 4916,
+  "unique_objects": 1634,
+  "git_references": 718,
+  "stored_bytes": 409471968,
+  "largest_file": [
+    4977222,
+    "objects/d0/d0622cf972bb30cea1e76c6cfd3ebcb7f2db3b020c6c541dbbd2867bbd8442ae.png"
+  ],
+  "excluded_by_reason": {
+    "machine-local metadata/log": 8,
+    "QA capture; source, artwork and test reports retained": 1064,
+    "generated Next export; source/native-ui and standalone snapshot retained": 3844
+  },
+  "sanitized_artifacts": [
+    {
+      "collection": "workspace",
+      "path": "work/background-study/licensed-preset.json",
+      "reason": "Removed signed thumbnail URL; shader preset configuration retained."
+    }
+  ],
+  "verification": "All 1,634 unique content objects reconstructed and SHA-256 verified after signed-thumbnail sanitization; all 3,007 retained path links validated. Actual original HTML and ZIP member restored and compared byte-for-byte."
+}

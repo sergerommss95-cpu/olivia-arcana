@@ -1,0 +1,98 @@
+[
+  {
+    "id": "L09",
+    "bounds": [
+      130,
+      104,
+      471,
+      473
+    ],
+    "fillFraction": 0.044,
+    "clipping": false,
+    "paths": 4
+  },
+  {
+    "id": "L10",
+    "bounds": [
+      182,
+      116,
+      417,
+      483
+    ],
+    "fillFraction": 0.0616,
+    "clipping": false,
+    "paths": 2
+  },
+  {
+    "id": "L11",
+    "bounds": [
+      156,
+      104,
+      436,
+      483
+    ],
+    "fillFraction": 0.0581,
+    "clipping": false,
+    "paths": 3
+  },
+  {
+    "id": "L12",
+    "bounds": [
+      150,
+      104,
+      442,
+      491
+    ],
+    "fillFraction": 0.0784,
+    "clipping": false,
+    "paths": 2
+  },
+  {
+    "id": "L13",
+    "bounds": [
+      179,
+      105,
+      404,
+      490
+    ],
+    "fillFraction": 0.0586,
+    "clipping": false,
+    "paths": 3
+  },
+  {
+    "id": "L14",
+    "bounds": [
+      182,
+      119,
+      418,
+      478
+    ],
+    "fillFraction": 0.0642,
+    "clipping": false,
+    "paths": 3
+  },
+  {
+    "id": "L15",
+    "bounds": [
+      125,
+      162,
+      475,
+      442
+    ],
+    "fillFraction": 0.062,
+    "clipping": false,
+    "paths": 2
+  },
+  {
+    "id": "L16",
+    "bounds": [
+      152,
+      110,
+      447,
+      489
+    ],
+    "fillFraction": 0.0541,
+    "clipping": false,
+    "paths": 4
+  }
+]

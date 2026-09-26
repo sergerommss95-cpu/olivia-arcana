@@ -1,0 +1,253 @@
+{
+  "source": "work/hero-v8/hero.js",
+  "sourceSHA256": "b19453f27b00092f9490007480a00ee06c574c886a3d861994be058c7cfe393f",
+  "journeySeconds": 96,
+  "scope": "Actual runtime, event and initialization code with mocked DOM, RAF, image loading and GPU allocation. Rendering and browser layout are outside this test.",
+  "passed": 25,
+  "total": 25,
+  "tests": [
+    {
+      "name": "Wheel takes over automatic journey",
+      "pass": true,
+      "state": {
+        "p": 0.01455441625924322,
+        "target": 0.0156250309027778,
+        "watching": false,
+        "paused": false,
+        "quiet": false,
+        "alive": true,
+        "ready": true,
+        "inView": true,
+        "initGeneration": 0,
+        "frames": 90,
+        "time": 1.500002966666668,
+        "last": 0,
+        "raf": 91,
+        "resizeRequest": 0,
+        "ptr": [
+          0,
+          0
+        ],
+        "aim": [
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "Navigation keys take over while journey button has focus",
+      "pass": true,
+      "state": {
+        "p": 0.01455441625924322,
+        "target": 0.0156250309027778,
+        "watching": false,
+        "paused": false,
+        "quiet": false,
+        "alive": true,
+        "ready": true,
+        "inView": true,
+        "initGeneration": 0,
+        "frames": 90,
+        "time": 1.500002966666668,
+        "last": 0,
+        "raf": 91,
+        "resizeRequest": 0,
+        "ptr": [
+          0,
+          0
+        ],
+        "aim": [
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "Space on a focused link takes over native page scrolling",
+      "pass": true
+    },
+    {
+      "name": "Pause drift does not pause the independent journey",
+      "pass": true,
+      "state": {
+        "p": 0.01455441625924322,
+        "target": 0.0156250309027778,
+        "watching": true,
+        "paused": true,
+        "quiet": false,
+        "alive": true,
+        "ready": true,
+        "inView": true,
+        "initGeneration": 0,
+        "frames": 90,
+        "time": 1.500002966666668,
+        "last": 0,
+        "raf": 91,
+        "resizeRequest": 0,
+        "ptr": [
+          0,
+          0
+        ],
+        "aim": [
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "Touch on journey pauses instead of restarting",
+      "pass": true,
+      "state": {
+        "p": 0.01455441625924322,
+        "target": 0.0156250309027778,
+        "watching": false,
+        "paused": false,
+        "quiet": false,
+        "alive": true,
+        "ready": true,
+        "inView": true,
+        "initGeneration": 0,
+        "frames": 90,
+        "time": 1.500002966666668,
+        "last": 0,
+        "raf": 91,
+        "resizeRequest": 0,
+        "ptr": [
+          0,
+          0
+        ],
+        "aim": [
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "Journey pause stops progress after spring settles",
+      "pass": true,
+      "delta": 0
+    },
+    {
+      "name": "Reduced motion stops journey and idle RAF",
+      "pass": true,
+      "state": {
+        "p": 0.0156250309027778,
+        "target": 0.0156250309027778,
+        "watching": false,
+        "paused": false,
+        "quiet": true,
+        "alive": true,
+        "ready": true,
+        "inView": true,
+        "initGeneration": 0,
+        "frames": 92,
+        "time": 1.500002966666668,
+        "last": 0,
+        "raf": 0,
+        "resizeRequest": 0,
+        "ptr": [
+          0,
+          0
+        ],
+        "aim": [
+          0,
+          0
+        ]
+      },
+      "pending": 0
+    },
+    {
+      "name": "Unchanged resize does not rebuild rail or framebuffer twice",
+      "pass": true,
+      "before": {
+        "trackBuilds": 0,
+        "bufferWrites": 2,
+        "deleted": 0,
+        "initialized": 0
+      },
+      "after": {
+        "trackBuilds": 0,
+        "bufferWrites": 2,
+        "deleted": 0,
+        "initialized": 0
+      }
+    },
+    {
+      "name": "Hidden tab suspends journey without advancing on return",
+      "pass": true,
+      "resumedAdvance": 0.0001736111111111105
+    },
+    {
+      "name": "Playback completes at 96 active seconds and offers replay",
+      "pass": true,
+      "progress": 1,
+      "label": "Watch again"
+    },
+    {
+      "name": "Native scroll updates target and converges smoothly",
+      "pass": true,
+      "firstProgress": 0.018468156556883386,
+      "settledProgress": 0.5
+    },
+    {
+      "name": "Native wheel takeover accepts subsequent scroll position",
+      "pass": true
+    },
+    {
+      "name": "Automatic scroll events preserve journey progress",
+      "pass": true
+    },
+    {
+      "name": "Journey resumes from current position",
+      "pass": true
+    },
+    {
+      "name": "Replay restarts after completion",
+      "pass": true
+    },
+    {
+      "name": "Diagnostic progress cancels automatic playback",
+      "pass": true
+    },
+    {
+      "name": "Pause drift freezes ambient time but permits native scroll",
+      "pass": true
+    },
+    {
+      "name": "Resize requests coalesce and preserve journey progress",
+      "pass": true,
+      "trackBuilds": 1
+    },
+    {
+      "name": "Offscreen stage pauses and resumes without catch-up",
+      "pass": true
+    },
+    {
+      "name": "Back-forward cache suspension preserves journey",
+      "pass": true
+    },
+    {
+      "name": "Context loss prevents rendering and leaves restore listener available",
+      "pass": true
+    },
+    {
+      "name": "Context restoration rebuilds resources and resumes playback",
+      "pass": true,
+      "initialized": 2
+    },
+    {
+      "name": "Permanent page exit disposes all 22 details and blocks reawakening",
+      "pass": true,
+      "deleted": 26
+    },
+    {
+      "name": "Initialization completion after disposal cannot revive renderer",
+      "pass": true
+    },
+    {
+      "name": "Only latest asynchronous initialization installs resources",
+      "pass": true,
+      "initialized": 1
+    }
+  ]
+}

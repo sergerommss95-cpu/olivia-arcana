@@ -1,0 +1,385 @@
+{
+  "schemaVersion": 1,
+  "html": {
+    "path": "index.html",
+    "bytes": 34136,
+    "sha256": "80284c17b453987757d3a63961913b8938a1e733e3a748e5c86caf1278515cc0"
+  },
+  "locales": {
+    "en": "index.html",
+    "uk": "index.uk.html"
+  },
+  "native": {
+    "assets": "assets/native-card-assets.e3544e0c47da0926.js",
+    "scripts": {
+      "hero": "assets/hero.ea5578949b2e2776.js",
+      "background": "assets/background.09dbdd3a4214ffb9.js",
+      "app": "assets/app.600ad2581087283f.js"
+    },
+    "stylesheet": "assets/experience.2721adb61bab3762.css"
+  },
+  "deck": {
+    "major": 22,
+    "minor": 56,
+    "total": 78
+  },
+  "assets": {
+    "assets/card-back.ce80d77b8f0d78be.webp": {
+      "bytes": 426444,
+      "sha256": "ce80d77b8f0d78bea7ea2e7fbb851e40f3afcf39bdad8692fa13a3b27a723c50"
+    },
+    "assets/00-the-fool.66a8a40d3b156255.webp": {
+      "bytes": 227896,
+      "sha256": "66a8a40d3b15625549583068155b15b6ca65ec9184acc25972f1765d048f7ae8"
+    },
+    "assets/01-the-magician.bd8501890bd9687d.webp": {
+      "bytes": 246734,
+      "sha256": "bd8501890bd9687d1d6702cdadfd312b21a5b2054b3fd5d973e96d0823dd8143"
+    },
+    "assets/02-the-high-priestess.6979a3327715d1dd.webp": {
+      "bytes": 190428,
+      "sha256": "6979a3327715d1ddb156244c040020020a061b38d1847ad37830af85fc0dc5ed"
+    },
+    "assets/03-the-empress.bbd4e50ad248167e.webp": {
+      "bytes": 268044,
+      "sha256": "bbd4e50ad248167eb563c46b98df89d95309fd185762a61515eb90fbbbfbbe75"
+    },
+    "assets/04-the-emperor.ac76f66e26322ae4.webp": {
+      "bytes": 245642,
+      "sha256": "ac76f66e26322ae475b4c315c060a09febb3c1afec65b70d8ca4d44ffc418811"
+    },
+    "assets/05-the-hierophant.16d2107791c00209.webp": {
+      "bytes": 195744,
+      "sha256": "16d2107791c00209b8b56e367b3b8d261cc0352e2c0fb26ed192597726c6ece5"
+    },
+    "assets/06-the-lovers.3e9725042eefcb8f.webp": {
+      "bytes": 276936,
+      "sha256": "3e9725042eefcb8f9b373f19c54b12ddb365a704920c113ba093583fbb70c86c"
+    },
+    "assets/07-the-chariot.53a0d7c8331a18d4.webp": {
+      "bytes": 207480,
+      "sha256": "53a0d7c8331a18d4355091ceae4cbe99811c60d1461b294fc922ffd0121e4f11"
+    },
+    "assets/08-strength.076a9f3728980680.webp": {
+      "bytes": 251798,
+      "sha256": "076a9f3728980680da841ba779ce218002356e24d7cce6a6c429be4db58d8a4e"
+    },
+    "assets/09-the-hermit.8859d08e0e5fe45b.webp": {
+      "bytes": 192944,
+      "sha256": "8859d08e0e5fe45be8d2d833f1fb6acedaee61dd41213f92b92680ee4fe51d36"
+    },
+    "assets/10-wheel-of-fortune.34382f1c3a536513.webp": {
+      "bytes": 277364,
+      "sha256": "34382f1c3a536513ff5318c4078bc3d1d2dfc36c926b49c236d7e5b93743ed76"
+    },
+    "assets/11-justice.1d1c49b0a1c91644.webp": {
+      "bytes": 224868,
+      "sha256": "1d1c49b0a1c9164482d130f69f1941e4230fc743118972eb13f2ff149cb2fae6"
+    },
+    "assets/12-the-hanged-man.b66848e2df739ad1.webp": {
+      "bytes": 228302,
+      "sha256": "b66848e2df739ad1ce924c7471581f6a912ccb26a29d47ddf4f0d31d0fc8ef7d"
+    },
+    "assets/13-death.5e08de210841c9d3.webp": {
+      "bytes": 229444,
+      "sha256": "5e08de210841c9d3b9cc070b2d1fbedef45c7afd618cf9b66efef17404a2147a"
+    },
+    "assets/14-temperance.f74c6e92c068776b.webp": {
+      "bytes": 258610,
+      "sha256": "f74c6e92c068776b409e7a48ad5737ea63d74b9d15701eee082d6add70e204bc"
+    },
+    "assets/15-the-devil.d035e3cf1ae5f8a2.webp": {
+      "bytes": 231074,
+      "sha256": "d035e3cf1ae5f8a2b2d409b284eecc224b1f84b98ae4678cf70d3f60cfb6add6"
+    },
+    "assets/16-the-tower.fc02f2abc9e37e70.webp": {
+      "bytes": 180824,
+      "sha256": "fc02f2abc9e37e7081653f1c89f8aa7f3775335fed738ad5e223b645834b4223"
+    },
+    "assets/17-the-star.98eb02a074a74196.webp": {
+      "bytes": 200500,
+      "sha256": "98eb02a074a74196baa71d836f83e5ad411ea3fdd96bb3d086a75cee4b5dd01f"
+    },
+    "assets/18-the-moon.fab0fdd4f1eb6c28.webp": {
+      "bytes": 297888,
+      "sha256": "fab0fdd4f1eb6c28c5ca813be2152bf412a8c6208c8fbcee29bd0313035076ba"
+    },
+    "assets/19-the-sun.c30ce34d7e8fec13.webp": {
+      "bytes": 219196,
+      "sha256": "c30ce34d7e8fec13e9f5fdea78180e55160a9e5c31edbedb7fa1caaf063bac4d"
+    },
+    "assets/20-judgement.83d473ed7ae0495c.webp": {
+      "bytes": 330902,
+      "sha256": "83d473ed7ae0495ca7f120048b5f28e993b78c9cd30d76796b84512192480dee"
+    },
+    "assets/21-the-world.20b7c7a0056f4c3e.webp": {
+      "bytes": 301372,
+      "sha256": "20b7c7a0056f4c3e18e4d19e1d41b1a7ea1b65171e0c7dda3a23d72247fff10b"
+    },
+    "assets/22-ace-of-wands.dada5b35779d3352.webp": {
+      "bytes": 239626,
+      "sha256": "dada5b35779d3352636cc904eaa05bbfccaa52232c95f4b89dd9396ee9a3c01a"
+    },
+    "assets/23-two-of-wands.33a325150ac5b7c9.webp": {
+      "bytes": 264152,
+      "sha256": "33a325150ac5b7c979e5757e811aca6be1282ff00c5d4ae239dfa7f24d20f1d3"
+    },
+    "assets/24-three-of-wands.29165a5ea841be3e.webp": {
+      "bytes": 249590,
+      "sha256": "29165a5ea841be3e936baa3cf369ce8e73a74ac1d5ceef68eb059b61a16dd500"
+    },
+    "assets/25-four-of-wands.478c4175c4fafac7.webp": {
+      "bytes": 272288,
+      "sha256": "478c4175c4fafac75d4039b96b78157eb6a7e445347ac28cf73fb61965b727bb"
+    },
+    "assets/26-five-of-wands.8f6b20d90906d443.webp": {
+      "bytes": 258668,
+      "sha256": "8f6b20d90906d443ca053d8a9505fa6675dd0fc1f724fc111ea19520dfb4b3b1"
+    },
+    "assets/27-six-of-wands.8c7d413a2d9a25d6.webp": {
+      "bytes": 258270,
+      "sha256": "8c7d413a2d9a25d6f2faa578226363a653aa83057eb615263f4567eb7d55cb87"
+    },
+    "assets/28-seven-of-wands.4cfce304c4fde48e.webp": {
+      "bytes": 233338,
+      "sha256": "4cfce304c4fde48e247e1eea214f54e7790f3c7b85ce8e6c8dd131a56307d71d"
+    },
+    "assets/29-eight-of-wands.c5f4d5c66753bd3f.webp": {
+      "bytes": 243466,
+      "sha256": "c5f4d5c66753bd3ff3fd7b6ec2c858404cfd9df1834694f999f2854e9ce87b08"
+    },
+    "assets/30-nine-of-wands.fb3fb6aea549c6e2.webp": {
+      "bytes": 262840,
+      "sha256": "fb3fb6aea549c6e2db43e98d3c25d82ce5ea6c0cfbcceb236f45fea0d278b5a2"
+    },
+    "assets/31-ten-of-wands.82fcc0dbe84dd8e7.webp": {
+      "bytes": 251038,
+      "sha256": "82fcc0dbe84dd8e70e51a417824723bd9ee41c8c6d01a5fb69e1636cf524f6bf"
+    },
+    "assets/32-page-of-wands.0b84f0fc47abcd30.webp": {
+      "bytes": 200982,
+      "sha256": "0b84f0fc47abcd30556657a834d4b9db888de4bf26fd024bb1b8a7e898f37f28"
+    },
+    "assets/33-knight-of-wands.a3daf6b052f07bca.webp": {
+      "bytes": 226222,
+      "sha256": "a3daf6b052f07bca12f6fe85c4f3bc0741cf16f88b1096976822f29e7c2e450c"
+    },
+    "assets/34-queen-of-wands.c926b162e06c38a5.webp": {
+      "bytes": 261584,
+      "sha256": "c926b162e06c38a5c0494dd5a213a589714772a4ed323be8eb4adc44cb88dfb2"
+    },
+    "assets/35-king-of-wands.bb29e2f1812b1c67.webp": {
+      "bytes": 211076,
+      "sha256": "bb29e2f1812b1c6794f49a7776261848048397fc3518f9d3dd49b3c0d774aeda"
+    },
+    "assets/36-ace-of-cups.02faabd88f3be2f6.webp": {
+      "bytes": 218502,
+      "sha256": "02faabd88f3be2f67f48cf2bb9dc3120f0ec3435e4a61832412f18fc1a6d5768"
+    },
+    "assets/37-two-of-cups.46931fc4cab28438.webp": {
+      "bytes": 234288,
+      "sha256": "46931fc4cab284381d3524ee68ca9775a941bdf6bac7676fd29b51bef6c0b3d0"
+    },
+    "assets/38-three-of-cups.866e1ae102a6620f.webp": {
+      "bytes": 293814,
+      "sha256": "866e1ae102a6620fd32ee3829edb8e99740a595a2f1039a1e7c91357a3cb21d2"
+    },
+    "assets/39-four-of-cups.3a46ff39e96bfba1.webp": {
+      "bytes": 254984,
+      "sha256": "3a46ff39e96bfba1edd55b721a3489ab76a1d367b81e1790f2a73659aabb361a"
+    },
+    "assets/40-five-of-cups.1d786ada9819cb21.webp": {
+      "bytes": 249500,
+      "sha256": "1d786ada9819cb21125319c15d21dc879b89396ebbdbf94b5e3103961fcef634"
+    },
+    "assets/41-six-of-cups.120b6bcf93fe27a1.webp": {
+      "bytes": 240740,
+      "sha256": "120b6bcf93fe27a1a5f35f2aa490d7633a2b584036973b41b65580106cfc498f"
+    },
+    "assets/42-seven-of-cups.b622c12fc93eb19b.webp": {
+      "bytes": 229526,
+      "sha256": "b622c12fc93eb19bfb6e08fd0f487570b0cd09c6874c7aa56b4a93755e41ae4b"
+    },
+    "assets/43-eight-of-cups.277052da9a610738.webp": {
+      "bytes": 276354,
+      "sha256": "277052da9a6107388a1ce0c33d827590de97b79d884f014dba52833e3bc01458"
+    },
+    "assets/44-nine-of-cups.8cf6c1282bf8f9f7.webp": {
+      "bytes": 247440,
+      "sha256": "8cf6c1282bf8f9f725747ea4d6421d4d5c89f22ab1218d9f4e4c397182e50987"
+    },
+    "assets/45-ten-of-cups.6a03c5070631854f.webp": {
+      "bytes": 231342,
+      "sha256": "6a03c5070631854ff362879a356ef8b0cb80bfb267c08e8efae015bb65170fd7"
+    },
+    "assets/46-page-of-cups.2bfa14ad49a3ca72.webp": {
+      "bytes": 223694,
+      "sha256": "2bfa14ad49a3ca72d8804454e41aa0b3f17e0a5c3d922e4be4361d9c04f023b8"
+    },
+    "assets/47-knight-of-cups.16b3533f2b0a6ff0.webp": {
+      "bytes": 212902,
+      "sha256": "16b3533f2b0a6ff09876434114c7959934343ea2a12a3bbd9b15fedb8a1bbba8"
+    },
+    "assets/48-queen-of-cups.48074c0fff3310fc.webp": {
+      "bytes": 232464,
+      "sha256": "48074c0fff3310fcef2fff8e8e8a7f87910cac966ef8ff8d76d2a2de7da14ac8"
+    },
+    "assets/49-king-of-cups.35104212d39dadc8.webp": {
+      "bytes": 226584,
+      "sha256": "35104212d39dadc832d4df8c710a3f724e091fb03daede9ec33f0d412381b55a"
+    },
+    "assets/50-ace-of-swords.13cbe88ba61ee9c9.webp": {
+      "bytes": 214288,
+      "sha256": "13cbe88ba61ee9c936c3b4a29c7c7950042b93f7b7b7a57dec2052ef77be0987"
+    },
+    "assets/51-two-of-swords.874937cf5699c839.webp": {
+      "bytes": 201522,
+      "sha256": "874937cf5699c839a0c9a689f39d73105305196094ecd0f29f99c1922100787d"
+    },
+    "assets/52-three-of-swords.c4b7af895aa0b300.webp": {
+      "bytes": 247834,
+      "sha256": "c4b7af895aa0b300ba5ff09d0e2a394c6cbb8e556a8d0600debd6c2b782a8534"
+    },
+    "assets/53-four-of-swords.f3a31da9780dc033.webp": {
+      "bytes": 269642,
+      "sha256": "f3a31da9780dc03323543ada9d906447b10be35b85c2377685541c4404f80d7f"
+    },
+    "assets/54-five-of-swords.928d2dca4a83092f.webp": {
+      "bytes": 255622,
+      "sha256": "928d2dca4a83092f531564415f846174eaa071a0464c1f2ab41b09ce65f54a42"
+    },
+    "assets/55-six-of-swords.563d152d384f0bf5.webp": {
+      "bytes": 237088,
+      "sha256": "563d152d384f0bf5d20be390cc280e36b489214624cbf54655fa0665a926a079"
+    },
+    "assets/56-seven-of-swords.bb5f7913d07cf93d.webp": {
+      "bytes": 246320,
+      "sha256": "bb5f7913d07cf93d88c4a7b52afbc08b938c2a7987a6e65e5d01c280d64c0c0e"
+    },
+    "assets/57-eight-of-swords.84a744e224eafae3.webp": {
+      "bytes": 302364,
+      "sha256": "84a744e224eafae3c645052f21650f305d2f0adb040a5775ce78eb33c9dcf4dc"
+    },
+    "assets/58-nine-of-swords.41ad1c72fe7ba7d1.webp": {
+      "bytes": 228996,
+      "sha256": "41ad1c72fe7ba7d1f1aa77192ec5ef43f57b77a594c3eb3e4a57aba2a676c8b9"
+    },
+    "assets/59-ten-of-swords.9cb25155986c1231.webp": {
+      "bytes": 182758,
+      "sha256": "9cb25155986c12314864481437f3a6c74fc10718894426effa77ad05a9b0cd78"
+    },
+    "assets/60-page-of-swords.70076f5d59d374df.webp": {
+      "bytes": 265734,
+      "sha256": "70076f5d59d374df7b529ee02b96795e7ab62375fdd5b8701491409861c072df"
+    },
+    "assets/61-knight-of-swords.36ce51b851473b7b.webp": {
+      "bytes": 244748,
+      "sha256": "36ce51b851473b7bf6754d648c0ab03a3f07aafc8d22dddd12237e4ed56e6a75"
+    },
+    "assets/62-queen-of-swords.19d3a3d09f8383b4.webp": {
+      "bytes": 245168,
+      "sha256": "19d3a3d09f8383b4c7fa3bce841fab35ca2fc1fc0ba4de49a7e1692ee05579e8"
+    },
+    "assets/63-king-of-swords.254fd6fe165191b1.webp": {
+      "bytes": 244808,
+      "sha256": "254fd6fe165191b17333dd1c8e41b01029da7398bb2ff9f6a5bf8c8243669010"
+    },
+    "assets/64-ace-of-pentacles.598604a1a46087e4.webp": {
+      "bytes": 202424,
+      "sha256": "598604a1a46087e4d7c591b69fa24946b554ce48b0bc0081874f9abafae5d91c"
+    },
+    "assets/65-two-of-pentacles.03c8d253ca25b810.webp": {
+      "bytes": 278988,
+      "sha256": "03c8d253ca25b810d391e05776ec58153e1b3b5581a3aabc2f2af329f038fc6c"
+    },
+    "assets/66-three-of-pentacles.06d383055313e14f.webp": {
+      "bytes": 238262,
+      "sha256": "06d383055313e14fa4887a81d066d2fd934f8f7d6946ee6a3ce0a1e78338530d"
+    },
+    "assets/67-four-of-pentacles.59a3d940248fe1df.webp": {
+      "bytes": 262516,
+      "sha256": "59a3d940248fe1df042f8639a3059e88ceef8e41f79b7b711b74794b1d87d514"
+    },
+    "assets/68-five-of-pentacles.f848e0fbc20986e7.webp": {
+      "bytes": 263736,
+      "sha256": "f848e0fbc20986e7ee396327bff0cf3903a6780eef9174118dbb7cc54dcdfb78"
+    },
+    "assets/69-six-of-pentacles.c59aa2b411d5ea6f.webp": {
+      "bytes": 243706,
+      "sha256": "c59aa2b411d5ea6fad1ad6c04a01523d39d036eced660ce0b6586feb09e7f89c"
+    },
+    "assets/70-seven-of-pentacles.b4e9f6213dcf04e4.webp": {
+      "bytes": 281126,
+      "sha256": "b4e9f6213dcf04e47c0644bd51de04ddd7aae29cb170536c21eb8550cfdb8f28"
+    },
+    "assets/71-eight-of-pentacles.74fa785208e2359e.webp": {
+      "bytes": 236776,
+      "sha256": "74fa785208e2359e8d2a583381dd68179de52f152d7e641c01962b31709a1074"
+    },
+    "assets/72-nine-of-pentacles.d6c9ea6740c1600f.webp": {
+      "bytes": 326036,
+      "sha256": "d6c9ea6740c1600f34282a0e74c31f8e5e4aaf7a8a4aa1a166e5899471ea0c7c"
+    },
+    "assets/73-ten-of-pentacles.1145241479b176be.webp": {
+      "bytes": 308198,
+      "sha256": "1145241479b176bef4e8aafb09abad26d43d730fb9e775e035a40f04273933c7"
+    },
+    "assets/74-page-of-pentacles.8c02e97e036d9555.webp": {
+      "bytes": 247022,
+      "sha256": "8c02e97e036d9555fec81fdca54cd85e0cc80cf4eb505b0408a4b9d30376fc88"
+    },
+    "assets/75-knight-of-pentacles.e5f9550779123f11.webp": {
+      "bytes": 234560,
+      "sha256": "e5f9550779123f11cc3f98ef4f7ffa6408c625f0d5fd8f1fe840d6bd0aed8a54"
+    },
+    "assets/76-queen-of-pentacles.003c8f2da6916e64.webp": {
+      "bytes": 283290,
+      "sha256": "003c8f2da6916e643b40bb4dc7c04b06f3d0cf1d8ed3767a834629a947d9f238"
+    },
+    "assets/77-king-of-pentacles.f6b18df195c1dcbb.webp": {
+      "bytes": 255422,
+      "sha256": "f6b18df195c1dcbb94aa48ae1779911661abf884bc57b7dcfe8867019182ef07"
+    },
+    "assets/font-1.0b9a8a33cfaa624d.ttf": {
+      "bytes": 293036,
+      "sha256": "0b9a8a33cfaa624d30f70f9b6686da769b319b8c37a55af16e29fef690108bbf"
+    },
+    "assets/font-2.6d37a86241a25d63.ttf": {
+      "bytes": 290236,
+      "sha256": "6d37a86241a25d63f8fe6018b4c083449886b7165c1acb15edd0f574f690ecf7"
+    },
+    "assets/font-3.b0ae3e89a7d3ef2b.ttf": {
+      "bytes": 48280,
+      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9"
+    },
+    "assets/experience.2721adb61bab3762.css": {
+      "bytes": 302630,
+      "sha256": "2721adb61bab3762a421182cfe0523e8a7271962c473058bd077a408653c84cd"
+    },
+    "assets/card-assets.b507dfa36b7ffdf1.js": {
+      "bytes": 4453,
+      "sha256": "b507dfa36b7ffdf13e94f703fceff7536043c3879aba8ae113ff36822d4bf925"
+    },
+    "assets/hero.ea5578949b2e2776.js": {
+      "bytes": 33824,
+      "sha256": "ea5578949b2e2776f64b4d51ff6d37b5ee0839e47b1e882e7d1d49346137904c"
+    },
+    "assets/background.09dbdd3a4214ffb9.js": {
+      "bytes": 2535765,
+      "sha256": "09dbdd3a4214ffb90dd101a6a2a8bdbb191316d9d1512231840dd21790513333"
+    },
+    "assets/app.600ad2581087283f.js": {
+      "bytes": 930262,
+      "sha256": "600ad2581087283ff99cb25969b0fda62f34bf1dfa8bb7ce2ecb945aca8ce04a"
+    },
+    "assets/native-card-assets.e3544e0c47da0926.js": {
+      "bytes": 5401,
+      "sha256": "e3544e0c47da0926002c94e8d09755d03724fc37dfecca1a58bb08db13a25a4f"
+    }
+  },
+  "cache": {
+    "index.html": "no-cache",
+    "index.uk.html": "no-cache",
+    "assets/*": "public, max-age=31536000, immutable"
+  }
+}

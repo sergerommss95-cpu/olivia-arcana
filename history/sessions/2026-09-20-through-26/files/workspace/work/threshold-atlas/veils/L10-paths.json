@@ -1,0 +1,9 @@
+{
+  "id": "L10",
+  "name": "Counterturn",
+  "description": "Opposed curved ribbons hold a diagonal opening in a reversible, continuous movement.",
+  "paths": [
+    "M 376 116 C 242 142 169 254 184 363 C 190 397 201 422 224 444 C 202 387 208 329 236 265 C 266 200 315 153 376 116 Z",
+    "M 224 484 C 358 458 431 346 416 237 C 410 203 399 178 376 156 C 398 213 392 271 364 335 C 334 400 285 447 224 484 Z"
+  ]
+}

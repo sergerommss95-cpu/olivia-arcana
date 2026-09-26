@@ -1,0 +1,766 @@
+{
+  "sourceSha256": "36bade07d999c4a15603c8ef3b2d502cf2812b294e4323ff6bf7d745a6f2798f",
+  "arithmeticSha256": "7864a6c7bddf80ff983e82866acf6ba49e9273c132d58182025738e43e8f0d88",
+  "states": [
+    {
+      "quiet": false,
+      "freezeTime": true,
+      "time": 0,
+      "pointer": [
+        0,
+        0
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 0,
+      "pointer": [
+        1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 0,
+      "pointer": [
+        -1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 0,
+      "pointer": [
+        1,
+        -1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 0,
+      "pointer": [
+        -1,
+        -1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 7,
+      "pointer": [
+        1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 7,
+      "pointer": [
+        -1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 7,
+      "pointer": [
+        1,
+        -1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 7,
+      "pointer": [
+        -1,
+        -1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 17,
+      "pointer": [
+        1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 17,
+      "pointer": [
+        -1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 17,
+      "pointer": [
+        1,
+        -1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 17,
+      "pointer": [
+        -1,
+        -1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 31,
+      "pointer": [
+        1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 31,
+      "pointer": [
+        -1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 31,
+      "pointer": [
+        1,
+        -1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 31,
+      "pointer": [
+        -1,
+        -1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 47,
+      "pointer": [
+        1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 47,
+      "pointer": [
+        -1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 47,
+      "pointer": [
+        1,
+        -1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 47,
+      "pointer": [
+        -1,
+        -1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 63,
+      "pointer": [
+        1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 63,
+      "pointer": [
+        -1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 63,
+      "pointer": [
+        1,
+        -1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 63,
+      "pointer": [
+        -1,
+        -1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 78,
+      "pointer": [
+        1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 78,
+      "pointer": [
+        -1,
+        1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 78,
+      "pointer": [
+        1,
+        -1
+      ]
+    },
+    {
+      "quiet": false,
+      "freezeTime": false,
+      "time": 78,
+      "pointer": [
+        -1,
+        -1
+      ]
+    }
+  ],
+  "viewports": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "opening": {
+        "bounds": {
+          "left": 734.0518961255826,
+          "top": 142.5780952787251,
+          "right": 1180.4628373506246,
+          "bottom": 796.2900253984822
+        },
+        "minimumMargins": {
+          "left": 734.0518961255826,
+          "right": 259.53716264937543,
+          "nav": 72.5780952787251,
+          "footer": 141.70997460151784
+        },
+        "worst": {
+          "margin": 72.5780952787251,
+          "id": 0,
+          "key": 0,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      },
+      "closing": {
+        "bounds": {
+          "left": 772.8344788077828,
+          "top": 113.02344284930005,
+          "right": 1229.670646759917,
+          "bottom": 823.5581981203777
+        },
+        "minimumMargins": {
+          "left": 772.8344788077828,
+          "right": 210.32935324008304,
+          "nav": 43.023442849300054,
+          "footer": 114.44180187962229
+        },
+        "worst": {
+          "margin": 43.023442849300054,
+          "id": 18,
+          "key": 12,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "opening": {
+        "bounds": {
+          "left": 688.0798759144384,
+          "top": 102.69067528088517,
+          "right": 1009.9285293060072,
+          "bottom": 573.3606793480885
+        },
+        "minimumMargins": {
+          "left": 688.0798759144384,
+          "right": 270.07147069399275,
+          "nav": 32.69067528088517,
+          "footer": 84.63932065191148
+        },
+        "worst": {
+          "margin": 32.69067528088517,
+          "id": 0,
+          "key": 0,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      },
+      "closing": {
+        "bounds": {
+          "left": 724.6393917461579,
+          "top": 81.42802039548685,
+          "right": 1055.550376989738,
+          "bottom": 593.0014698863284
+        },
+        "minimumMargins": {
+          "left": 724.6393917461579,
+          "right": 224.44962301026203,
+          "nav": 11.428020395486854,
+          "footer": 64.99853011367156
+        },
+        "worst": {
+          "margin": 11.428020395486854,
+          "id": 18,
+          "key": 12,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "viewport": [
+        800,
+        900
+      ],
+      "opening": {
+        "bounds": {
+          "left": 320.08330363289826,
+          "top": 144.01342464609715,
+          "right": 618.3431722685909,
+          "bottom": 577.6897967854882
+        },
+        "minimumMargins": {
+          "left": 320.08330363289826,
+          "right": 181.65682773140907,
+          "nav": 74.01342464609715,
+          "footer": 260.31020321451183
+        },
+        "worst": {
+          "margin": 74.01342464609715,
+          "id": 0,
+          "key": 0,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      },
+      "closing": {
+        "bounds": {
+          "left": 372.8026851150632,
+          "top": 92.51538694384413,
+          "right": 647.2670657802396,
+          "bottom": 527.6349823435124
+        },
+        "minimumMargins": {
+          "left": 372.8026851150632,
+          "right": 152.7329342197604,
+          "nav": 22.515386943844135,
+          "footer": 310.36501765648757
+        },
+        "worst": {
+          "margin": 22.515386943844135,
+          "id": 18,
+          "key": 8,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "opening": {
+        "bounds": {
+          "left": 91.74222223789542,
+          "top": 135.02795886868924,
+          "right": 370.9580077489759,
+          "bottom": 541.7455935825154
+        },
+        "minimumMargins": {
+          "left": 91.74222223789542,
+          "right": 19.041992251024112,
+          "nav": 75.02795886868924,
+          "footer": 248.25440641748457
+        },
+        "worst": {
+          "margin": 19.041992251024112,
+          "id": 18,
+          "key": 8,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 63,
+            "pointer": [
+              1,
+              1
+            ]
+          }
+        }
+      },
+      "closing": {
+        "bounds": {
+          "left": 119.96225042335634,
+          "top": 86.7050631779285,
+          "right": 376.51823719852524,
+          "bottom": 494.80531694803886
+        },
+        "minimumMargins": {
+          "left": 119.96225042335634,
+          "right": 13.481762801474758,
+          "nav": 26.705063177928494,
+          "footer": 295.19468305196114
+        },
+        "worst": {
+          "margin": 13.481762801474758,
+          "id": 18,
+          "key": 8,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 63,
+            "pointer": [
+              1,
+              1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "opening": {
+        "bounds": {
+          "left": 113.85207215766158,
+          "top": 95.89002890056946,
+          "right": 262.4652126662506,
+          "bottom": 310.296524070575
+        },
+        "minimumMargins": {
+          "left": 113.85207215766158,
+          "right": 57.53478733374942,
+          "nav": 35.89002890056946,
+          "footer": 203.703475929425
+        },
+        "worst": {
+          "margin": 35.89002890056946,
+          "id": 0,
+          "key": 0,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      },
+      "closing": {
+        "bounds": {
+          "left": 131.1515430440893,
+          "top": 64.21203719868808,
+          "right": 276.6093827150489,
+          "bottom": 294.9249644638606
+        },
+        "minimumMargins": {
+          "left": 131.1515430440893,
+          "right": 43.39061728495108,
+          "nav": 4.21203719868808,
+          "footer": 219.0750355361394
+        },
+        "worst": {
+          "margin": 4.21203719868808,
+          "id": 18,
+          "key": 8,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "opening": {
+        "bounds": {
+          "left": 476.8194490922749,
+          "top": 62.88354944088089,
+          "right": 641.2874589660835,
+          "bottom": 301.4542988100507
+        },
+        "minimumMargins": {
+          "left": 476.8194490922749,
+          "right": 202.71254103391652,
+          "nav": 8.883549440880891,
+          "footer": 42.545701189949284
+        },
+        "worst": {
+          "margin": 8.883549440880891,
+          "id": 0,
+          "key": 0,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      },
+      "closing": {
+        "bounds": {
+          "left": 503.211089496746,
+          "top": 62.954332849688576,
+          "right": 671.0220183675788,
+          "bottom": 319.3595231804642
+        },
+        "minimumMargins": {
+          "left": 503.211089496746,
+          "right": 172.97798163242123,
+          "nav": 8.954332849688576,
+          "footer": 24.64047681953582
+        },
+        "worst": {
+          "margin": 8.954332849688576,
+          "id": 18,
+          "key": 12,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "viewport": [
+        640,
+        360
+      ],
+      "opening": {
+        "bounds": {
+          "left": 348.8676725696562,
+          "top": 58.02761669965931,
+          "right": 499.8299809372178,
+          "bottom": 278.2487912723202
+        },
+        "minimumMargins": {
+          "left": 348.8676725696562,
+          "right": 140.17001906278222,
+          "nav": 4.027616699659312,
+          "footer": 35.751208727679796
+        },
+        "worst": {
+          "margin": 4.027616699659312,
+          "id": 0,
+          "key": 0,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      },
+      "closing": {
+        "bounds": {
+          "left": 368.2471159940639,
+          "top": 58.08617297474778,
+          "right": 522.0650441784235,
+          "bottom": 294.7710554671116
+        },
+        "minimumMargins": {
+          "left": 368.2471159940639,
+          "right": 117.93495582157652,
+          "nav": 4.086172974747782,
+          "footer": 19.22894453288842
+        },
+        "worst": {
+          "margin": 4.086172974747782,
+          "id": 18,
+          "key": 12,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "opening": {
+        "bounds": {
+          "left": 510.0020438959952,
+          "top": 109.48837203233218,
+          "right": 852.7046595115419,
+          "bottom": 611.5400094717302
+        },
+        "minimumMargins": {
+          "left": 510.0020438959952,
+          "right": 171.29534048845812,
+          "nav": 39.48837203233218,
+          "footer": 94.45999052826983
+        },
+        "worst": {
+          "margin": 39.48837203233218,
+          "id": 0,
+          "key": 0,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      },
+      "closing": {
+        "bounds": {
+          "left": 536.8768600993385,
+          "top": 86.78477331780543,
+          "right": 887.0644537314413,
+          "bottom": 632.4793712259651
+        },
+        "minimumMargins": {
+          "left": 536.8768600993385,
+          "right": 136.9355462685587,
+          "nav": 16.78477331780543,
+          "footer": 73.52062877403489
+        },
+        "worst": {
+          "margin": 16.78477331780543,
+          "id": 18,
+          "key": 12,
+          "state": {
+            "quiet": false,
+            "freezeTime": false,
+            "time": 7,
+            "pointer": [
+              1,
+              -1
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "passing": true
+}

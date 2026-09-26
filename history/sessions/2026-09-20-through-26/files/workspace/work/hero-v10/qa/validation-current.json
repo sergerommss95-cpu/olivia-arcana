@@ -1,0 +1,7588 @@
+{
+  "source": "work/hero-v10/hero.js",
+  "sourceSha256": "36bade07d999c4a15603c8ef3b2d502cf2812b294e4323ff6bf7d745a6f2798f",
+  "generatedAt": "2026-09-23T15:43:33.504Z",
+  "method": {
+    "steps": 1000,
+    "states": [
+      {
+        "name": "still",
+        "quiet": false,
+        "freezeTime": true,
+        "time": 0,
+        "pointer": [
+          0,
+          0
+        ]
+      }
+    ],
+    "collision": "15-axis SAT on full rectangular prisms using CARD_W/H/T; penetration >1e-6 world units counts, including packets.",
+    "camera": "Exact signed eye-to-OBB distance after sceneFrame: negative is inside. Positive clearance is reported without an assumed camera radius. Eye/view consistency is checked.",
+    "bounds": "Uses cameraPose(progress).vp. All corner bounds are enforced only at p<=.04 and p>=.985. Middle viewport/nav/footer and near-plane excursions are intentional and informational. Conservative nav/footer bands are not DOM text measurements.",
+    "continuity": "Largest sampled pose and camera differences are refined eight times at fixed state. Descending progress is compared with the ascending evaluation to check reversibility.",
+    "limits": "Finite sampling does not prove all-progress separation or continuity."
+  },
+  "viewports": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 13013,
+      "pairTests": 78078,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumEndpointMargins": {
+        "left": {
+          "margin": 738.96126359,
+          "progress": 0,
+          "state": "still",
+          "id": 0,
+          "key": 0
+        },
+        "right": {
+          "margin": 215.88112806,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 12
+        },
+        "nav": {
+          "margin": 47.09556039,
+          "progress": 0.985,
+          "state": "still",
+          "id": 18,
+          "key": 12
+        },
+        "footer": {
+          "margin": 118.76906357,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 12
+        }
+      },
+      "camera": {
+        "minimumClearance": {
+          "distance": 6.38168964,
+          "progress": 0.453,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "eye": [
+            0.06984868,
+            0.13847663,
+            9.7
+          ],
+          "centre": [
+            0.67632484,
+            1.01784039,
+            2.02524042
+          ],
+          "dimensions": [
+            1.9636416,
+            3.36614671,
+            0.01851381
+          ]
+        },
+        "penetrationSamples": 0,
+        "penetrations": []
+      },
+      "collisions": [],
+      "endpointBoundsFailures": [],
+      "allowedMiddleExcursions": [
+        {
+          "progress": 0.229,
+          "state": "still",
+          "id": 0,
+          "key": 0,
+          "type": "left",
+          "margin": -3.30184557,
+          "firstProgress": 0.229,
+          "lastProgress": 0.371,
+          "samples": 143,
+          "worst": 149.90095874,
+          "worstDetail": {
+            "progress": 0.312,
+            "state": "still",
+            "id": 0,
+            "key": 0,
+            "type": "left",
+            "margin": -149.90095874
+          }
+        },
+        {
+          "progress": 0.41,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "type": "nav",
+          "margin": -4.0945558,
+          "firstProgress": 0.41,
+          "lastProgress": 0.632,
+          "samples": 223,
+          "worst": 142.88498701,
+          "worstDetail": {
+            "progress": 0.455,
+            "state": "still",
+            "id": 18,
+            "key": 12,
+            "type": "nav",
+            "margin": -142.88498701
+          }
+        },
+        {
+          "progress": 0.36,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "type": "right",
+          "margin": -2.29109471,
+          "firstProgress": 0.36,
+          "lastProgress": 0.422,
+          "samples": 63,
+          "worst": 139.76823721,
+          "worstDetail": {
+            "progress": 0.399,
+            "state": "still",
+            "id": 18,
+            "key": 12,
+            "type": "right",
+            "margin": -139.76823721
+          }
+        },
+        {
+          "progress": 0.492,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "type": "left",
+          "margin": -7.25428845,
+          "firstProgress": 0.492,
+          "lastProgress": 0.644,
+          "samples": 153,
+          "worst": 139.43327765,
+          "worstDetail": {
+            "progress": 0.558,
+            "state": "still",
+            "id": 18,
+            "key": 12,
+            "type": "left",
+            "margin": -139.43327765
+          }
+        },
+        {
+          "progress": 0.409,
+          "state": "still",
+          "id": 17,
+          "key": 11,
+          "type": "nav",
+          "margin": -3.87779127,
+          "firstProgress": 0.409,
+          "lastProgress": 0.943,
+          "samples": 269,
+          "worst": 117.03487828,
+          "worstDetail": {
+            "progress": 0.455,
+            "state": "still",
+            "id": 17,
+            "key": 11,
+            "type": "nav",
+            "margin": -117.03487828
+          }
+        },
+        {
+          "progress": 0.725,
+          "state": "still",
+          "id": 17,
+          "key": 11,
+          "type": "right",
+          "margin": -2.29126949,
+          "firstProgress": 0.725,
+          "lastProgress": 0.889,
+          "samples": 165,
+          "worst": 93.5309541,
+          "worstDetail": {
+            "progress": 0.768,
+            "state": "still",
+            "id": 17,
+            "key": 11,
+            "type": "right",
+            "margin": -93.5309541
+          }
+        },
+        {
+          "progress": 0.413,
+          "state": "still",
+          "id": 3,
+          "key": 10,
+          "type": "nav",
+          "margin": -1.94277815,
+          "firstProgress": 0.413,
+          "lastProgress": 0.621,
+          "samples": 209,
+          "worst": 76.03324766,
+          "worstDetail": {
+            "progress": 0.456,
+            "state": "still",
+            "id": 3,
+            "key": 10,
+            "type": "nav",
+            "margin": -76.03324766
+          }
+        },
+        {
+          "progress": 0.43,
+          "state": "still",
+          "id": 1,
+          "key": 9,
+          "type": "nav",
+          "margin": -0.80567042,
+          "firstProgress": 0.43,
+          "lastProgress": 0.5,
+          "samples": 71,
+          "worst": 22.16883101,
+          "worstDetail": {
+            "progress": 0.458,
+            "state": "still",
+            "id": 1,
+            "key": 9,
+            "type": "nav",
+            "margin": -22.16883101
+          }
+        },
+        {
+          "progress": 0.278,
+          "state": "still",
+          "id": 19,
+          "key": 1,
+          "type": "left",
+          "margin": -0.21067129,
+          "firstProgress": 0.278,
+          "lastProgress": 0.338,
+          "samples": 61,
+          "worst": 13.01878111,
+          "worstDetail": {
+            "progress": 0.315,
+            "state": "still",
+            "id": 19,
+            "key": 1,
+            "type": "left",
+            "margin": -13.01878111
+          }
+        },
+        {
+          "progress": 0.75,
+          "state": "still",
+          "id": 3,
+          "key": 10,
+          "type": "right",
+          "margin": -0.80738275,
+          "firstProgress": 0.75,
+          "lastProgress": 0.833,
+          "samples": 84,
+          "worst": 9.15877349,
+          "worstDetail": {
+            "progress": 0.768,
+            "state": "still",
+            "id": 3,
+            "key": 10,
+            "type": "right",
+            "margin": -9.15877349
+          }
+        }
+      ],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.42,
+              0.421
+            ],
+            "cornerDelta": 0.13170656,
+            "angleRadians": 0.01955301
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.421,
+              0.422
+            ],
+            "cornerDelta": 0.13169367,
+            "angleRadians": 0.01957858
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.419,
+              0.42
+            ],
+            "cornerDelta": 0.13168949,
+            "angleRadians": 0.01952342
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.422,
+              0.423
+            ],
+            "cornerDelta": 0.13165236,
+            "angleRadians": 0.0196001
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.418,
+              0.419
+            ],
+            "cornerDelta": 0.13164386,
+            "angleRadians": 0.01948981
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.423,
+              0.424
+            ],
+            "cornerDelta": 0.13158129,
+            "angleRadians": 0.01961761
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.417,
+              0.418
+            ],
+            "cornerDelta": 0.13156774,
+            "angleRadians": 0.0194522
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.424,
+              0.425
+            ],
+            "cornerDelta": 0.13148165,
+            "angleRadians": 0.01963106
+          }
+        ],
+        "largestCameraSteps": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "delta": 0.00633711
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "delta": 0.0063361
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "delta": 0.00633606
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "delta": 0.00633302
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "delta": 0.00633293
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "delta": 0.00632786
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "delta": 0.00632774
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "delta": 0.00632336
+          }
+        ],
+        "refinement": [
+          {
+            "id": 0,
+            "interval": [
+              0.42,
+              0.421
+            ],
+            "refinedInterval": [
+              0.42061328,
+              0.42061719
+            ],
+            "initialCornerDelta": 0.13170656,
+            "finalCornerDelta": 0.00051483,
+            "finalAngleRadians": 0.00007639,
+            "lastRatios": [
+              0.5000121,
+              0.50007271,
+              0.50016908
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.421,
+              0.422
+            ],
+            "refinedInterval": [
+              0.42108594,
+              0.42108984
+            ],
+            "initialCornerDelta": 0.13169367,
+            "finalCornerDelta": 0.00051471,
+            "finalAngleRadians": 0.00007643,
+            "lastRatios": [
+              0.50006934,
+              0.50009727,
+              0.50001728
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.419,
+              0.42
+            ],
+            "refinedInterval": [
+              0.41985937,
+              0.41986328
+            ],
+            "initialCornerDelta": 0.13168949,
+            "finalCornerDelta": 0.00051464,
+            "finalAngleRadians": 0.0000763,
+            "lastRatios": [
+              0.5000488,
+              0.50003719,
+              0.5000711
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.422,
+              0.423
+            ],
+            "refinedInterval": [
+              0.42205859,
+              0.4220625
+            ],
+            "initialCornerDelta": 0.13165236,
+            "finalCornerDelta": 0.0005147,
+            "finalAngleRadians": 0.00007654,
+            "lastRatios": [
+              0.50000699,
+              0.50001911,
+              0.5002431
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.418,
+              0.419
+            ],
+            "refinedInterval": [
+              0.41889062,
+              0.41889453
+            ],
+            "initialCornerDelta": 0.13164386,
+            "finalCornerDelta": 0.0005145,
+            "finalAngleRadians": 0.00007618,
+            "lastRatios": [
+              0.50002402,
+              0.50001586,
+              0.50010441
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.423,
+              0.424
+            ],
+            "refinedInterval": [
+              0.42303125,
+              0.42303516
+            ],
+            "initialCornerDelta": 0.13158129,
+            "finalCornerDelta": 0.00051453,
+            "finalAngleRadians": 0.00007661,
+            "lastRatios": [
+              0.50002623,
+              0.50007812,
+              0.50025163
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.417,
+              0.418
+            ],
+            "refinedInterval": [
+              0.41797266,
+              0.41797656
+            ],
+            "initialCornerDelta": 0.13156774,
+            "finalCornerDelta": 0.00051448,
+            "finalAngleRadians": 0.00007606,
+            "lastRatios": [
+              0.50010322,
+              0.50016992,
+              0.50007078
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.424,
+              0.425
+            ],
+            "refinedInterval": [
+              0.42403125,
+              0.42403516
+            ],
+            "initialCornerDelta": 0.13148165,
+            "finalCornerDelta": 0.00051423,
+            "finalAngleRadians": 0.00007667,
+            "lastRatios": [
+              0.50005089,
+              0.50009038,
+              0.50024166
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "cameraRefinement": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "refinedInterval": [
+              0.86748828,
+              0.86749219
+            ],
+            "initialDelta": 0.00633711,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000001,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "refinedInterval": [
+              0.86699609,
+              0.867
+            ],
+            "initialDelta": 0.0063361,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000064,
+              0.50000032,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "refinedInterval": [
+              0.868,
+              0.86800391
+            ],
+            "initialDelta": 0.00633606,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000067,
+              0.50000033,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "refinedInterval": [
+              0.86599609,
+              0.866
+            ],
+            "initialDelta": 0.00633302,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000192,
+              0.50000096,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "refinedInterval": [
+              0.869,
+              0.86900391
+            ],
+            "initialDelta": 0.00633293,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000195,
+              0.50000097,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "refinedInterval": [
+              0.86499609,
+              0.865
+            ],
+            "initialDelta": 0.00632786,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.5000032,
+              0.5000016,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "refinedInterval": [
+              0.87,
+              0.87000391
+            ],
+            "initialDelta": 0.00632774,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.50000322,
+              0.50000161,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "refinedInterval": [
+              0.28887109,
+              0.288875
+            ],
+            "initialDelta": 0.00632336,
+            "finalDelta": 0.0000247,
+            "lastRatios": [
+              0.50000002,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "branchChecks": [
+          {
+            "progress": 0.065,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.06499,
+                0.06501
+              ],
+              "refinedInterval": [
+                0.06499,
+                0.06499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.095,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.09499,
+                0.09501
+              ],
+              "refinedInterval": [
+                0.09500656,
+                0.09500664
+              ],
+              "initialCornerDelta": 0.00025755,
+              "finalCornerDelta": 0.0000012,
+              "finalAngleRadians": 4e-8,
+              "lastRatios": [
+                0.50516435,
+                0.52143083,
+                0.55752307
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.285,
+            "worst": {
+              "id": 12,
+              "interval": [
+                0.28499,
+                0.28501
+              ],
+              "refinedInterval": [
+                0.28499625,
+                0.28499633
+              ],
+              "initialCornerDelta": 0.00004292,
+              "finalCornerDelta": 9.5e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                0.50024408,
+                0.99951208,
+                1.00048816
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.29,
+            "worst": {
+              "id": 9,
+              "interval": [
+                0.28999,
+                0.29001
+              ],
+              "refinedInterval": [
+                0.29000281,
+                0.29000289
+              ],
+              "initialCornerDelta": 0.0000111,
+              "finalCornerDelta": 5.3e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                1.10940039,
+                1,
+                1
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.3,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.29999,
+                0.30001
+              ],
+              "refinedInterval": [
+                0.29999742,
+                0.2999975
+              ],
+              "initialCornerDelta": 0.00005493,
+              "finalCornerDelta": 7.2e-7,
+              "finalAngleRadians": 3e-8,
+              "lastRatios": [
+                0.61617281,
+                0.86089678,
+                0.60980059
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.565,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.56499,
+                0.56501
+              ],
+              "refinedInterval": [
+                0.56499,
+                0.56499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.585,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.58499,
+                0.58501
+              ],
+              "refinedInterval": [
+                0.58499,
+                0.58499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.77,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.76999,
+                0.77001
+              ],
+              "refinedInterval": [
+                0.76999,
+                0.76999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.855,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.85499,
+                0.85501
+              ],
+              "refinedInterval": [
+                0.85499,
+                0.85499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.99,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.98999,
+                0.99001
+              ],
+              "refinedInterval": [
+                0.98999,
+                0.98999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          }
+        ],
+        "reverseMaximumDifference": 0,
+        "reverseFailure": null
+      }
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 13013,
+      "pairTests": 78078,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumEndpointMargins": {
+        "left": {
+          "margin": 691.62385435,
+          "progress": 0,
+          "state": "still",
+          "id": 0,
+          "key": 0
+        },
+        "right": {
+          "margin": 228.58255916,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 12
+        },
+        "nav": {
+          "margin": 14.30880348,
+          "progress": 0.985,
+          "state": "still",
+          "id": 18,
+          "key": 12
+        },
+        "footer": {
+          "margin": 68.15372577,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 12
+        }
+      },
+      "camera": {
+        "minimumClearance": {
+          "distance": 6.38168964,
+          "progress": 0.453,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "eye": [
+            0.06984868,
+            0.13847663,
+            9.7
+          ],
+          "centre": [
+            0.67632484,
+            1.01784039,
+            2.02524042
+          ],
+          "dimensions": [
+            1.9636416,
+            3.36614671,
+            0.01851381
+          ]
+        },
+        "penetrationSamples": 0,
+        "penetrations": []
+      },
+      "collisions": [],
+      "endpointBoundsFailures": [],
+      "allowedMiddleExcursions": [
+        {
+          "progress": 0.404,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "type": "nav",
+          "margin": -2.18324938,
+          "firstProgress": 0.404,
+          "lastProgress": 0.67,
+          "samples": 267,
+          "worst": 122.47719065,
+          "worstDetail": {
+            "progress": 0.455,
+            "state": "still",
+            "id": 18,
+            "key": 12,
+            "type": "nav",
+            "margin": -122.47719065
+          }
+        },
+        {
+          "progress": 0.402,
+          "state": "still",
+          "id": 17,
+          "key": 11,
+          "type": "nav",
+          "margin": -2.34334273,
+          "firstProgress": 0.402,
+          "lastProgress": 0.959,
+          "samples": 341,
+          "worst": 103.86511236,
+          "worstDetail": {
+            "progress": 0.455,
+            "state": "still",
+            "id": 17,
+            "key": 11,
+            "type": "nav",
+            "margin": -103.86511236
+          }
+        },
+        {
+          "progress": 0.404,
+          "state": "still",
+          "id": 3,
+          "key": 10,
+          "type": "nav",
+          "margin": -0.36503122,
+          "firstProgress": 0.404,
+          "lastProgress": 0.952,
+          "samples": 274,
+          "worst": 74.34393832,
+          "worstDetail": {
+            "progress": 0.456,
+            "state": "still",
+            "id": 3,
+            "key": 10,
+            "type": "nav",
+            "margin": -74.34393832
+          }
+        },
+        {
+          "progress": 0.416,
+          "state": "still",
+          "id": 1,
+          "key": 9,
+          "type": "nav",
+          "margin": -0.70279506,
+          "firstProgress": 0.416,
+          "lastProgress": 0.62,
+          "samples": 205,
+          "worst": 35.56155833,
+          "worstDetail": {
+            "progress": 0.458,
+            "state": "still",
+            "id": 1,
+            "key": 9,
+            "type": "nav",
+            "margin": -35.56155833
+          }
+        }
+      ],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.42,
+              0.421
+            ],
+            "cornerDelta": 0.13170656,
+            "angleRadians": 0.01955301
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.421,
+              0.422
+            ],
+            "cornerDelta": 0.13169367,
+            "angleRadians": 0.01957858
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.419,
+              0.42
+            ],
+            "cornerDelta": 0.13168949,
+            "angleRadians": 0.01952342
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.422,
+              0.423
+            ],
+            "cornerDelta": 0.13165236,
+            "angleRadians": 0.0196001
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.418,
+              0.419
+            ],
+            "cornerDelta": 0.13164386,
+            "angleRadians": 0.01948981
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.423,
+              0.424
+            ],
+            "cornerDelta": 0.13158129,
+            "angleRadians": 0.01961761
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.417,
+              0.418
+            ],
+            "cornerDelta": 0.13156774,
+            "angleRadians": 0.0194522
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.424,
+              0.425
+            ],
+            "cornerDelta": 0.13148165,
+            "angleRadians": 0.01963106
+          }
+        ],
+        "largestCameraSteps": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "delta": 0.00633711
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "delta": 0.0063361
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "delta": 0.00633606
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "delta": 0.00633302
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "delta": 0.00633293
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "delta": 0.00632786
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "delta": 0.00632774
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "delta": 0.00632336
+          }
+        ],
+        "refinement": [
+          {
+            "id": 0,
+            "interval": [
+              0.42,
+              0.421
+            ],
+            "refinedInterval": [
+              0.42061328,
+              0.42061719
+            ],
+            "initialCornerDelta": 0.13170656,
+            "finalCornerDelta": 0.00051483,
+            "finalAngleRadians": 0.00007639,
+            "lastRatios": [
+              0.5000121,
+              0.50007271,
+              0.50016908
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.421,
+              0.422
+            ],
+            "refinedInterval": [
+              0.42108594,
+              0.42108984
+            ],
+            "initialCornerDelta": 0.13169367,
+            "finalCornerDelta": 0.00051471,
+            "finalAngleRadians": 0.00007643,
+            "lastRatios": [
+              0.50006934,
+              0.50009727,
+              0.50001728
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.419,
+              0.42
+            ],
+            "refinedInterval": [
+              0.41985937,
+              0.41986328
+            ],
+            "initialCornerDelta": 0.13168949,
+            "finalCornerDelta": 0.00051464,
+            "finalAngleRadians": 0.0000763,
+            "lastRatios": [
+              0.5000488,
+              0.50003719,
+              0.5000711
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.422,
+              0.423
+            ],
+            "refinedInterval": [
+              0.42205859,
+              0.4220625
+            ],
+            "initialCornerDelta": 0.13165236,
+            "finalCornerDelta": 0.0005147,
+            "finalAngleRadians": 0.00007654,
+            "lastRatios": [
+              0.50000699,
+              0.50001911,
+              0.5002431
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.418,
+              0.419
+            ],
+            "refinedInterval": [
+              0.41889062,
+              0.41889453
+            ],
+            "initialCornerDelta": 0.13164386,
+            "finalCornerDelta": 0.0005145,
+            "finalAngleRadians": 0.00007618,
+            "lastRatios": [
+              0.50002402,
+              0.50001586,
+              0.50010441
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.423,
+              0.424
+            ],
+            "refinedInterval": [
+              0.42303125,
+              0.42303516
+            ],
+            "initialCornerDelta": 0.13158129,
+            "finalCornerDelta": 0.00051453,
+            "finalAngleRadians": 0.00007661,
+            "lastRatios": [
+              0.50002623,
+              0.50007812,
+              0.50025163
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.417,
+              0.418
+            ],
+            "refinedInterval": [
+              0.41797266,
+              0.41797656
+            ],
+            "initialCornerDelta": 0.13156774,
+            "finalCornerDelta": 0.00051448,
+            "finalAngleRadians": 0.00007606,
+            "lastRatios": [
+              0.50010322,
+              0.50016992,
+              0.50007078
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.424,
+              0.425
+            ],
+            "refinedInterval": [
+              0.42403125,
+              0.42403516
+            ],
+            "initialCornerDelta": 0.13148165,
+            "finalCornerDelta": 0.00051423,
+            "finalAngleRadians": 0.00007667,
+            "lastRatios": [
+              0.50005089,
+              0.50009038,
+              0.50024166
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "cameraRefinement": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "refinedInterval": [
+              0.86748828,
+              0.86749219
+            ],
+            "initialDelta": 0.00633711,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000001,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "refinedInterval": [
+              0.86699609,
+              0.867
+            ],
+            "initialDelta": 0.0063361,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000064,
+              0.50000032,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "refinedInterval": [
+              0.868,
+              0.86800391
+            ],
+            "initialDelta": 0.00633606,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000067,
+              0.50000033,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "refinedInterval": [
+              0.86599609,
+              0.866
+            ],
+            "initialDelta": 0.00633302,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000192,
+              0.50000096,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "refinedInterval": [
+              0.869,
+              0.86900391
+            ],
+            "initialDelta": 0.00633293,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000195,
+              0.50000097,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "refinedInterval": [
+              0.86499609,
+              0.865
+            ],
+            "initialDelta": 0.00632786,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.5000032,
+              0.5000016,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "refinedInterval": [
+              0.87,
+              0.87000391
+            ],
+            "initialDelta": 0.00632774,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.50000322,
+              0.50000161,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "refinedInterval": [
+              0.28887109,
+              0.288875
+            ],
+            "initialDelta": 0.00632336,
+            "finalDelta": 0.0000247,
+            "lastRatios": [
+              0.50000002,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "branchChecks": [
+          {
+            "progress": 0.065,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.06499,
+                0.06501
+              ],
+              "refinedInterval": [
+                0.06499,
+                0.06499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.095,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.09499,
+                0.09501
+              ],
+              "refinedInterval": [
+                0.09500687,
+                0.09500695
+              ],
+              "initialCornerDelta": 0.00027184,
+              "finalCornerDelta": 0.00000129,
+              "finalAngleRadians": 4e-8,
+              "lastRatios": [
+                0.50992443,
+                0.52692215,
+                0.5496746
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.285,
+            "worst": {
+              "id": 12,
+              "interval": [
+                0.28499,
+                0.28501
+              ],
+              "refinedInterval": [
+                0.28499625,
+                0.28499633
+              ],
+              "initialCornerDelta": 0.00004292,
+              "finalCornerDelta": 9.5e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                0.50024408,
+                0.99951208,
+                1.00048816
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.29,
+            "worst": {
+              "id": 9,
+              "interval": [
+                0.28999,
+                0.29001
+              ],
+              "refinedInterval": [
+                0.29000281,
+                0.29000289
+              ],
+              "initialCornerDelta": 0.0000111,
+              "finalCornerDelta": 5.3e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                1.10940039,
+                1,
+                1
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.3,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.29999,
+                0.30001
+              ],
+              "refinedInterval": [
+                0.29999742,
+                0.2999975
+              ],
+              "initialCornerDelta": 0.00005493,
+              "finalCornerDelta": 7.2e-7,
+              "finalAngleRadians": 3e-8,
+              "lastRatios": [
+                0.61617281,
+                0.86089678,
+                0.60980059
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.565,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.56499,
+                0.56501
+              ],
+              "refinedInterval": [
+                0.56499,
+                0.56499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.585,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.58499,
+                0.58501
+              ],
+              "refinedInterval": [
+                0.58499,
+                0.58499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.77,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.76999,
+                0.77001
+              ],
+              "refinedInterval": [
+                0.76999,
+                0.76999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.855,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.85499,
+                0.85501
+              ],
+              "refinedInterval": [
+                0.85499,
+                0.85499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.99,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.98999,
+                0.99001
+              ],
+              "refinedInterval": [
+                0.98999,
+                0.98999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          }
+        ],
+        "reverseMaximumDifference": 0,
+        "reverseFailure": null
+      }
+    },
+    {
+      "viewport": [
+        800,
+        900
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 9009,
+      "pairTests": 36036,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumEndpointMargins": {
+        "left": {
+          "margin": 324.51381862,
+          "progress": 0,
+          "state": "still",
+          "id": 0,
+          "key": 0
+        },
+        "right": {
+          "margin": 157.30366214,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 8
+        },
+        "nav": {
+          "margin": 26.25294666,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 8
+        },
+        "footer": {
+          "margin": 264.16284441,
+          "progress": 0,
+          "state": "still",
+          "id": 18,
+          "key": 8
+        }
+      },
+      "camera": {
+        "minimumClearance": {
+          "distance": 9.33658405,
+          "progress": 0.461,
+          "state": "still",
+          "id": 18,
+          "key": 8,
+          "eye": [
+            0.05822382,
+            0.1389505,
+            9.7
+          ],
+          "centre": [
+            0.63640141,
+            0.40765518,
+            -0.45700741
+          ],
+          "dimensions": [
+            1.48317624,
+            2.54251514,
+            0.01398383
+          ]
+        },
+        "penetrationSamples": 0,
+        "penetrations": []
+      },
+      "collisions": [],
+      "endpointBoundsFailures": [],
+      "allowedMiddleExcursions": [
+        {
+          "progress": 0.363,
+          "state": "still",
+          "id": 8,
+          "key": 6,
+          "type": "nav",
+          "margin": -0.57824416,
+          "firstProgress": 0.363,
+          "lastProgress": 0.65,
+          "samples": 288,
+          "worst": 80.48076761,
+          "worstDetail": {
+            "progress": 0.452,
+            "state": "still",
+            "id": 8,
+            "key": 6,
+            "type": "nav",
+            "margin": -80.48076761
+          }
+        },
+        {
+          "progress": 0.426,
+          "state": "still",
+          "id": 6,
+          "key": 5,
+          "type": "nav",
+          "margin": -0.55411808,
+          "firstProgress": 0.426,
+          "lastProgress": 0.63,
+          "samples": 205,
+          "worst": 29.12842989,
+          "worstDetail": {
+            "progress": 0.587,
+            "state": "still",
+            "id": 6,
+            "key": 5,
+            "type": "nav",
+            "margin": -29.12842989
+          }
+        },
+        {
+          "progress": 0.394,
+          "state": "still",
+          "id": 17,
+          "key": 7,
+          "type": "nav",
+          "margin": -0.90530986,
+          "firstProgress": 0.394,
+          "lastProgress": 0.491,
+          "samples": 98,
+          "worst": 26.79054345,
+          "worstDetail": {
+            "progress": 0.437,
+            "state": "still",
+            "id": 17,
+            "key": 7,
+            "type": "nav",
+            "margin": -26.79054345
+          }
+        },
+        {
+          "progress": 0.261,
+          "state": "still",
+          "id": 2,
+          "key": 2,
+          "type": "footer",
+          "margin": -0.17383146,
+          "firstProgress": 0.261,
+          "lastProgress": 0.38,
+          "samples": 120,
+          "worst": 12.19242068,
+          "worstDetail": {
+            "progress": 0.333,
+            "state": "still",
+            "id": 2,
+            "key": 2,
+            "type": "footer",
+            "margin": -12.19242068
+          }
+        },
+        {
+          "progress": 0.316,
+          "state": "still",
+          "id": 19,
+          "key": 1,
+          "type": "footer",
+          "margin": -0.04237377,
+          "firstProgress": 0.316,
+          "lastProgress": 0.385,
+          "samples": 70,
+          "worst": 4.66500748,
+          "worstDetail": {
+            "progress": 0.354,
+            "state": "still",
+            "id": 19,
+            "key": 1,
+            "type": "footer",
+            "margin": -4.66500748
+          }
+        }
+      ],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.917,
+              0.918
+            ],
+            "cornerDelta": 0.06345772,
+            "angleRadians": 0.00160431
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.918,
+              0.919
+            ],
+            "cornerDelta": 0.06343961,
+            "angleRadians": 0.00170179
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.916,
+              0.917
+            ],
+            "cornerDelta": 0.06342299,
+            "angleRadians": 0.00150661
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.919,
+              0.92
+            ],
+            "cornerDelta": 0.06336949,
+            "angleRadians": 0.00179876
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.915,
+              0.916
+            ],
+            "cornerDelta": 0.06333474,
+            "angleRadians": 0.00140903
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.92,
+              0.921
+            ],
+            "cornerDelta": 0.06324862,
+            "angleRadians": 0.00189487
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.914,
+              0.915
+            ],
+            "cornerDelta": 0.06319255,
+            "angleRadians": 0.00131188
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.921,
+              0.922
+            ],
+            "cornerDelta": 0.06307671,
+            "angleRadians": 0.00198981
+          }
+        ],
+        "largestCameraSteps": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "delta": 0.00633711
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "delta": 0.0063361
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "delta": 0.00633606
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "delta": 0.00633302
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "delta": 0.00633293
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "delta": 0.00632786
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "delta": 0.00632774
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "delta": 0.00632336
+          }
+        ],
+        "refinement": [
+          {
+            "id": 0,
+            "interval": [
+              0.917,
+              0.918
+            ],
+            "refinedInterval": [
+              0.91767969,
+              0.91768359
+            ],
+            "initialCornerDelta": 0.06345772,
+            "finalCornerDelta": 0.00024808,
+            "finalAngleRadians": 0.00000634,
+            "lastRatios": [
+              0.50001088,
+              0.50011446,
+              0.50023398
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.918,
+              0.919
+            ],
+            "refinedInterval": [
+              0.91805859,
+              0.9180625
+            ],
+            "initialCornerDelta": 0.06343961,
+            "finalCornerDelta": 0.00024805,
+            "finalAngleRadians": 0.00000649,
+            "lastRatios": [
+              0.50002977,
+              0.50002668,
+              0.50024581
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.916,
+              0.917
+            ],
+            "refinedInterval": [
+              0.91698828,
+              0.91699219
+            ],
+            "initialCornerDelta": 0.06342299,
+            "finalCornerDelta": 0.00024794,
+            "finalAngleRadians": 0.00000609,
+            "lastRatios": [
+              0.50006676,
+              0.50010579,
+              0.5000124
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.919,
+              0.92
+            ],
+            "refinedInterval": [
+              0.91903516,
+              0.91903906
+            ],
+            "initialCornerDelta": 0.06336949,
+            "finalCornerDelta": 0.00024785,
+            "finalAngleRadians": 0.00000685,
+            "lastRatios": [
+              0.50005982,
+              0.50007393,
+              0.5001683
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.915,
+              0.916
+            ],
+            "refinedInterval": [
+              0.91597266,
+              0.91597656
+            ],
+            "initialCornerDelta": 0.06333474,
+            "finalCornerDelta": 0.00024765,
+            "finalAngleRadians": 0.00000569,
+            "lastRatios": [
+              0.50002494,
+              0.5000286,
+              0.50004121
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.92,
+              0.921
+            ],
+            "refinedInterval": [
+              0.92003125,
+              0.92003516
+            ],
+            "initialCornerDelta": 0.06324862,
+            "finalCornerDelta": 0.00024741,
+            "finalAngleRadians": 0.00000725,
+            "lastRatios": [
+              0.50002821,
+              0.5000786,
+              0.50006547
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.914,
+              0.915
+            ],
+            "refinedInterval": [
+              0.91499219,
+              0.91499609
+            ],
+            "initialCornerDelta": 0.06319255,
+            "finalCornerDelta": 0.00024721,
+            "finalAngleRadians": 0.00000532,
+            "lastRatios": [
+              0.5000057,
+              0.50005822,
+              0.50000687
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.921,
+              0.922
+            ],
+            "refinedInterval": [
+              0.92103516,
+              0.92103906
+            ],
+            "initialCornerDelta": 0.06307671,
+            "finalCornerDelta": 0.00024686,
+            "finalAngleRadians": 0.00000761,
+            "lastRatios": [
+              0.50004602,
+              0.50004227,
+              0.50016683
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "cameraRefinement": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "refinedInterval": [
+              0.86748828,
+              0.86749219
+            ],
+            "initialDelta": 0.00633711,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000001,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "refinedInterval": [
+              0.86699609,
+              0.867
+            ],
+            "initialDelta": 0.0063361,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000064,
+              0.50000032,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "refinedInterval": [
+              0.868,
+              0.86800391
+            ],
+            "initialDelta": 0.00633606,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000067,
+              0.50000033,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "refinedInterval": [
+              0.86599609,
+              0.866
+            ],
+            "initialDelta": 0.00633302,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000192,
+              0.50000096,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "refinedInterval": [
+              0.869,
+              0.86900391
+            ],
+            "initialDelta": 0.00633293,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000195,
+              0.50000097,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "refinedInterval": [
+              0.86499609,
+              0.865
+            ],
+            "initialDelta": 0.00632786,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.5000032,
+              0.5000016,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "refinedInterval": [
+              0.87,
+              0.87000391
+            ],
+            "initialDelta": 0.00632774,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.50000322,
+              0.50000161,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "refinedInterval": [
+              0.28887109,
+              0.288875
+            ],
+            "initialDelta": 0.00632336,
+            "finalDelta": 0.0000247,
+            "lastRatios": [
+              0.50000002,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "branchChecks": [
+          {
+            "progress": 0.065,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.06499,
+                0.06501
+              ],
+              "refinedInterval": [
+                0.06499,
+                0.06499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.095,
+            "worst": {
+              "id": 2,
+              "interval": [
+                0.09499,
+                0.09501
+              ],
+              "refinedInterval": [
+                0.09499461,
+                0.09499469
+              ],
+              "initialCornerDelta": 0.00013565,
+              "finalCornerDelta": 7e-7,
+              "finalAngleRadians": 4e-8,
+              "lastRatios": [
+                0.51113265,
+                0.54986372,
+                0.57045645
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.285,
+            "worst": {
+              "id": 5,
+              "interval": [
+                0.28499,
+                0.28501
+              ],
+              "refinedInterval": [
+                0.28500047,
+                0.28500055
+              ],
+              "initialCornerDelta": 0.00001505,
+              "finalCornerDelta": 4.8e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                0.65538554,
+                1,
+                1
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.29,
+            "worst": {
+              "id": 5,
+              "interval": [
+                0.28999,
+                0.29001
+              ],
+              "refinedInterval": [
+                0.28999227,
+                0.28999234
+              ],
+              "initialCornerDelta": 0.00000728,
+              "finalCornerDelta": 4.8e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                0.99805258,
+                1,
+                1
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.3,
+            "worst": {
+              "id": 8,
+              "interval": [
+                0.29999,
+                0.30001
+              ],
+              "refinedInterval": [
+                0.29999,
+                0.29999008
+              ],
+              "initialCornerDelta": 0.00002138,
+              "finalCornerDelta": 3.3e-7,
+              "finalAngleRadians": 3e-8,
+              "lastRatios": [
+                0.76009897,
+                0.5366969,
+                0.95590507
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.565,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.56499,
+                0.56501
+              ],
+              "refinedInterval": [
+                0.56499,
+                0.56499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.585,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.58499,
+                0.58501
+              ],
+              "refinedInterval": [
+                0.58499,
+                0.58499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.77,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.76999,
+                0.77001
+              ],
+              "refinedInterval": [
+                0.76999,
+                0.76999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.855,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.85499,
+                0.85501
+              ],
+              "refinedInterval": [
+                0.85499,
+                0.85499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.99,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.98999,
+                0.99001
+              ],
+              "refinedInterval": [
+                0.98999,
+                0.98999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          }
+        ],
+        "reverseMaximumDifference": 0,
+        "reverseFailure": null
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 9009,
+      "pairTests": 36036,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumEndpointMargins": {
+        "left": {
+          "margin": 95.91283965,
+          "progress": 0,
+          "state": "still",
+          "id": 0,
+          "key": 0
+        },
+        "right": {
+          "margin": 17.70517988,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 8
+        },
+        "nav": {
+          "margin": 30.26387442,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 8
+        },
+        "footer": {
+          "margin": 251.86826742,
+          "progress": 0,
+          "state": "still",
+          "id": 18,
+          "key": 8
+        }
+      },
+      "camera": {
+        "minimumClearance": {
+          "distance": 9.33658405,
+          "progress": 0.461,
+          "state": "still",
+          "id": 18,
+          "key": 8,
+          "eye": [
+            0.05822382,
+            0.1389505,
+            9.7
+          ],
+          "centre": [
+            0.63640141,
+            0.40765518,
+            -0.45700741
+          ],
+          "dimensions": [
+            1.48317624,
+            2.54251514,
+            0.01398383
+          ]
+        },
+        "penetrationSamples": 0,
+        "penetrations": []
+      },
+      "collisions": [],
+      "endpointBoundsFailures": [],
+      "allowedMiddleExcursions": [
+        {
+          "progress": 0.325,
+          "state": "still",
+          "id": 17,
+          "key": 7,
+          "type": "right",
+          "margin": -0.42400693,
+          "firstProgress": 0.325,
+          "lastProgress": 0.951,
+          "samples": 365,
+          "worst": 159.99484846,
+          "worstDetail": {
+            "progress": 0.767,
+            "state": "still",
+            "id": 17,
+            "key": 7,
+            "type": "right",
+            "margin": -159.99484846
+          }
+        },
+        {
+          "progress": 0.675,
+          "state": "still",
+          "id": 8,
+          "key": 6,
+          "type": "right",
+          "margin": -2.18846032,
+          "firstProgress": 0.675,
+          "lastProgress": 0.95,
+          "samples": 276,
+          "worst": 123.66828713,
+          "worstDetail": {
+            "progress": 0.767,
+            "state": "still",
+            "id": 8,
+            "key": 6,
+            "type": "right",
+            "margin": -123.66828713
+          }
+        },
+        {
+          "progress": 0.183,
+          "state": "still",
+          "id": 0,
+          "key": 0,
+          "type": "left",
+          "margin": -0.54273932,
+          "firstProgress": 0.183,
+          "lastProgress": 0.901,
+          "samples": 420,
+          "worst": 112.557661,
+          "worstDetail": {
+            "progress": 0.351,
+            "state": "still",
+            "id": 0,
+            "key": 0,
+            "type": "left",
+            "margin": -112.557661
+          }
+        },
+        {
+          "progress": 0.687,
+          "state": "still",
+          "id": 21,
+          "key": 3,
+          "type": "left",
+          "margin": -1.77379654,
+          "firstProgress": 0.687,
+          "lastProgress": 0.919,
+          "samples": 233,
+          "worst": 102.44782526,
+          "worstDetail": {
+            "progress": 0.769,
+            "state": "still",
+            "id": 21,
+            "key": 3,
+            "type": "left",
+            "margin": -102.44782526
+          }
+        },
+        {
+          "progress": 0.68,
+          "state": "still",
+          "id": 6,
+          "key": 5,
+          "type": "right",
+          "margin": -0.98243573,
+          "firstProgress": 0.68,
+          "lastProgress": 0.946,
+          "samples": 267,
+          "worst": 89.57635724,
+          "worstDetail": {
+            "progress": 0.767,
+            "state": "still",
+            "id": 6,
+            "key": 5,
+            "type": "right",
+            "margin": -89.57635724
+          }
+        },
+        {
+          "progress": 0.242,
+          "state": "still",
+          "id": 2,
+          "key": 2,
+          "type": "left",
+          "margin": -0.44186449,
+          "firstProgress": 0.242,
+          "lastProgress": 0.915,
+          "samples": 355,
+          "worst": 82.52267403,
+          "worstDetail": {
+            "progress": 0.769,
+            "state": "still",
+            "id": 2,
+            "key": 2,
+            "type": "left",
+            "margin": -82.52267403
+          }
+        },
+        {
+          "progress": 0.172,
+          "state": "still",
+          "id": 18,
+          "key": 8,
+          "type": "right",
+          "margin": -0.76022729,
+          "firstProgress": 0.172,
+          "lastProgress": 0.428,
+          "samples": 257,
+          "worst": 81.55325465,
+          "worstDetail": {
+            "progress": 0.39,
+            "state": "still",
+            "id": 18,
+            "key": 8,
+            "type": "right",
+            "margin": -81.55325465
+          }
+        },
+        {
+          "progress": 0.199,
+          "state": "still",
+          "id": 19,
+          "key": 1,
+          "type": "left",
+          "margin": -0.42344099,
+          "firstProgress": 0.199,
+          "lastProgress": 0.908,
+          "samples": 407,
+          "worst": 71.31461283,
+          "worstDetail": {
+            "progress": 0.344,
+            "state": "still",
+            "id": 19,
+            "key": 1,
+            "type": "left",
+            "margin": -71.31461283
+          }
+        },
+        {
+          "progress": 0.368,
+          "state": "still",
+          "id": 8,
+          "key": 6,
+          "type": "nav",
+          "margin": -0.64516525,
+          "firstProgress": 0.368,
+          "lastProgress": 0.647,
+          "samples": 280,
+          "worst": 69.82863096,
+          "worstDetail": {
+            "progress": 0.452,
+            "state": "still",
+            "id": 8,
+            "key": 6,
+            "type": "nav",
+            "margin": -69.82863096
+          }
+        },
+        {
+          "progress": 0.69,
+          "state": "still",
+          "id": 14,
+          "key": 4,
+          "type": "right",
+          "margin": -0.19493658,
+          "firstProgress": 0.69,
+          "lastProgress": 0.94,
+          "samples": 251,
+          "worst": 57.50742508,
+          "worstDetail": {
+            "progress": 0.768,
+            "state": "still",
+            "id": 14,
+            "key": 4,
+            "type": "right",
+            "margin": -57.50742508
+          }
+        },
+        {
+          "progress": 0.508,
+          "state": "still",
+          "id": 18,
+          "key": 8,
+          "type": "left",
+          "margin": -2.05186237,
+          "firstProgress": 0.508,
+          "lastProgress": 0.652,
+          "samples": 145,
+          "worst": 39.48976655,
+          "worstDetail": {
+            "progress": 0.558,
+            "state": "still",
+            "id": 18,
+            "key": 8,
+            "type": "left",
+            "margin": -39.48976655
+          }
+        },
+        {
+          "progress": 0.434,
+          "state": "still",
+          "id": 6,
+          "key": 5,
+          "type": "nav",
+          "margin": -0.3038095,
+          "firstProgress": 0.434,
+          "lastProgress": 0.626,
+          "samples": 193,
+          "worst": 21.67154981,
+          "worstDetail": {
+            "progress": 0.587,
+            "state": "still",
+            "id": 6,
+            "key": 5,
+            "type": "nav",
+            "margin": -21.67154981
+          }
+        },
+        {
+          "progress": 0.399,
+          "state": "still",
+          "id": 17,
+          "key": 7,
+          "type": "nav",
+          "margin": -0.03333628,
+          "firstProgress": 0.399,
+          "lastProgress": 0.482,
+          "samples": 84,
+          "worst": 19.47913186,
+          "worstDetail": {
+            "progress": 0.437,
+            "state": "still",
+            "id": 17,
+            "key": 7,
+            "type": "nav",
+            "margin": -19.47913186
+          }
+        },
+        {
+          "progress": 0.279,
+          "state": "still",
+          "id": 2,
+          "key": 2,
+          "type": "footer",
+          "margin": -0.01467478,
+          "firstProgress": 0.279,
+          "lastProgress": 0.37,
+          "samples": 92,
+          "worst": 7.29155895,
+          "worstDetail": {
+            "progress": 0.333,
+            "state": "still",
+            "id": 2,
+            "key": 2,
+            "type": "footer",
+            "margin": -7.29155895
+          }
+        },
+        {
+          "progress": 0.347,
+          "state": "still",
+          "id": 19,
+          "key": 1,
+          "type": "footer",
+          "margin": -0.05486634,
+          "firstProgress": 0.347,
+          "lastProgress": 0.36,
+          "samples": 14,
+          "worst": 0.23251812,
+          "worstDetail": {
+            "progress": 0.354,
+            "state": "still",
+            "id": 19,
+            "key": 1,
+            "type": "footer",
+            "margin": -0.23251812
+          }
+        }
+      ],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.917,
+              0.918
+            ],
+            "cornerDelta": 0.05970551,
+            "angleRadians": 0.00160431
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.916,
+              0.917
+            ],
+            "cornerDelta": 0.05969148,
+            "angleRadians": 0.00150661
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.918,
+              0.919
+            ],
+            "cornerDelta": 0.05967028,
+            "angleRadians": 0.00170179
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.915,
+              0.916
+            ],
+            "cornerDelta": 0.05962734,
+            "angleRadians": 0.00140903
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.919,
+              0.92
+            ],
+            "cornerDelta": 0.05958661,
+            "angleRadians": 0.00179876
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.914,
+              0.915
+            ],
+            "cornerDelta": 0.05951261,
+            "angleRadians": 0.00131188
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.92,
+              0.921
+            ],
+            "cornerDelta": 0.05945575,
+            "angleRadians": 0.00189487
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.913,
+              0.914
+            ],
+            "cornerDelta": 0.05934644,
+            "angleRadians": 0.00121547
+          }
+        ],
+        "largestCameraSteps": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "delta": 0.00633711
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "delta": 0.0063361
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "delta": 0.00633606
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "delta": 0.00633302
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "delta": 0.00633293
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "delta": 0.00632786
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "delta": 0.00632774
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "delta": 0.00632336
+          }
+        ],
+        "refinement": [
+          {
+            "id": 0,
+            "interval": [
+              0.917,
+              0.918
+            ],
+            "refinedInterval": [
+              0.91729688,
+              0.91730078
+            ],
+            "initialCornerDelta": 0.05970551,
+            "finalCornerDelta": 0.0002335,
+            "finalAngleRadians": 0.00000619,
+            "lastRatios": [
+              0.50005866,
+              0.50008879,
+              0.50040459
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.916,
+              0.917
+            ],
+            "refinedInterval": [
+              0.91690625,
+              0.91691016
+            ],
+            "initialCornerDelta": 0.05969148,
+            "finalCornerDelta": 0.0002333,
+            "finalAngleRadians": 0.00000605,
+            "lastRatios": [
+              0.50003476,
+              0.5000933,
+              0.50001347
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.918,
+              0.919
+            ],
+            "refinedInterval": [
+              0.91805859,
+              0.9180625
+            ],
+            "initialCornerDelta": 0.05967028,
+            "finalCornerDelta": 0.00023336,
+            "finalAngleRadians": 0.00000649,
+            "lastRatios": [
+              0.50004199,
+              0.50004488,
+              0.50024751
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.915,
+              0.916
+            ],
+            "refinedInterval": [
+              0.91597266,
+              0.91597656
+            ],
+            "initialCornerDelta": 0.05962734,
+            "finalCornerDelta": 0.0002331,
+            "finalAngleRadians": 0.00000569,
+            "lastRatios": [
+              0.50003443,
+              0.5000093,
+              0.5000003
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.919,
+              0.92
+            ],
+            "refinedInterval": [
+              0.91901172,
+              0.91901563
+            ],
+            "initialCornerDelta": 0.05958661,
+            "finalCornerDelta": 0.00023302,
+            "finalAngleRadians": 0.00000686,
+            "lastRatios": [
+              0.5000458,
+              0.50003441,
+              0.50008111
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.914,
+              0.915
+            ],
+            "refinedInterval": [
+              0.91496875,
+              0.91497266
+            ],
+            "initialCornerDelta": 0.05951261,
+            "finalCornerDelta": 0.00023288,
+            "finalAngleRadians": 0.00000531,
+            "lastRatios": [
+              0.50001422,
+              0.50008815,
+              0.50019615
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.92,
+              0.921
+            ],
+            "refinedInterval": [
+              0.92000391,
+              0.92000781
+            ],
+            "initialCornerDelta": 0.05945575,
+            "finalCornerDelta": 0.00023265,
+            "finalAngleRadians": 0.00000721,
+            "lastRatios": [
+              0.50008202,
+              0.50009248,
+              0.5000855
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.913,
+              0.914
+            ],
+            "refinedInterval": [
+              0.91399609,
+              0.914
+            ],
+            "initialCornerDelta": 0.05934644,
+            "finalCornerDelta": 0.00023233,
+            "finalAngleRadians": 0.00000495,
+            "lastRatios": [
+              0.50004503,
+              0.50010071,
+              0.50017079
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "cameraRefinement": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "refinedInterval": [
+              0.86748828,
+              0.86749219
+            ],
+            "initialDelta": 0.00633711,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000001,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "refinedInterval": [
+              0.86699609,
+              0.867
+            ],
+            "initialDelta": 0.0063361,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000064,
+              0.50000032,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "refinedInterval": [
+              0.868,
+              0.86800391
+            ],
+            "initialDelta": 0.00633606,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000067,
+              0.50000033,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "refinedInterval": [
+              0.86599609,
+              0.866
+            ],
+            "initialDelta": 0.00633302,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000192,
+              0.50000096,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "refinedInterval": [
+              0.869,
+              0.86900391
+            ],
+            "initialDelta": 0.00633293,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000195,
+              0.50000097,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "refinedInterval": [
+              0.86499609,
+              0.865
+            ],
+            "initialDelta": 0.00632786,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.5000032,
+              0.5000016,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "refinedInterval": [
+              0.87,
+              0.87000391
+            ],
+            "initialDelta": 0.00632774,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.50000322,
+              0.50000161,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "refinedInterval": [
+              0.28887109,
+              0.288875
+            ],
+            "initialDelta": 0.00632336,
+            "finalDelta": 0.0000247,
+            "lastRatios": [
+              0.50000002,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "branchChecks": [
+          {
+            "progress": 0.065,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.06499,
+                0.06501
+              ],
+              "refinedInterval": [
+                0.06499,
+                0.06499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.095,
+            "worst": {
+              "id": 2,
+              "interval": [
+                0.09499,
+                0.09501
+              ],
+              "refinedInterval": [
+                0.09499141,
+                0.09499148
+              ],
+              "initialCornerDelta": 0.00013197,
+              "finalCornerDelta": 6.4e-7,
+              "finalAngleRadians": 3e-8,
+              "lastRatios": [
+                0.50433287,
+                0.55393799,
+                0.53977377
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.285,
+            "worst": {
+              "id": 5,
+              "interval": [
+                0.28499,
+                0.28501
+              ],
+              "refinedInterval": [
+                0.28500047,
+                0.28500055
+              ],
+              "initialCornerDelta": 0.00001505,
+              "finalCornerDelta": 4.8e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                0.65538554,
+                1,
+                1
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.29,
+            "worst": {
+              "id": 5,
+              "interval": [
+                0.28999,
+                0.29001
+              ],
+              "refinedInterval": [
+                0.28999227,
+                0.28999234
+              ],
+              "initialCornerDelta": 0.00000728,
+              "finalCornerDelta": 4.8e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                0.99805258,
+                1,
+                1
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.3,
+            "worst": {
+              "id": 8,
+              "interval": [
+                0.29999,
+                0.30001
+              ],
+              "refinedInterval": [
+                0.29999,
+                0.29999008
+              ],
+              "initialCornerDelta": 0.00002138,
+              "finalCornerDelta": 3.3e-7,
+              "finalAngleRadians": 3e-8,
+              "lastRatios": [
+                0.76009897,
+                0.5366969,
+                0.95590507
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.565,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.56499,
+                0.56501
+              ],
+              "refinedInterval": [
+                0.56499,
+                0.56499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.585,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.58499,
+                0.58501
+              ],
+              "refinedInterval": [
+                0.58499,
+                0.58499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.77,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.76999,
+                0.77001
+              ],
+              "refinedInterval": [
+                0.76999,
+                0.76999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.855,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.85499,
+                0.85501
+              ],
+              "refinedInterval": [
+                0.85499,
+                0.85499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.99,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.98999,
+                0.99001
+              ],
+              "refinedInterval": [
+                0.98999,
+                0.98999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          }
+        ],
+        "reverseMaximumDifference": 0,
+        "reverseFailure": null
+      }
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 9009,
+      "pairTests": 36036,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumEndpointMargins": {
+        "left": {
+          "margin": 116.64434571,
+          "progress": 0,
+          "state": "still",
+          "id": 0,
+          "key": 0
+        },
+        "right": {
+          "margin": 46.22684717,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 8
+        },
+        "nav": {
+          "margin": 6.57715611,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 8
+        },
+        "footer": {
+          "margin": 206.12489546,
+          "progress": 0,
+          "state": "still",
+          "id": 18,
+          "key": 8
+        }
+      },
+      "camera": {
+        "minimumClearance": {
+          "distance": 9.33658405,
+          "progress": 0.461,
+          "state": "still",
+          "id": 18,
+          "key": 8,
+          "eye": [
+            0.05822382,
+            0.1389505,
+            9.7
+          ],
+          "centre": [
+            0.63640141,
+            0.40765518,
+            -0.45700741
+          ],
+          "dimensions": [
+            1.48317624,
+            2.54251514,
+            0.01398383
+          ]
+        },
+        "penetrationSamples": 0,
+        "penetrations": []
+      },
+      "collisions": [],
+      "endpointBoundsFailures": [],
+      "allowedMiddleExcursions": [
+        {
+          "progress": 0.687,
+          "state": "still",
+          "id": 17,
+          "key": 7,
+          "type": "right",
+          "margin": -0.91385274,
+          "firstProgress": 0.687,
+          "lastProgress": 0.924,
+          "samples": 238,
+          "worst": 78.90648658,
+          "worstDetail": {
+            "progress": 0.767,
+            "state": "still",
+            "id": 17,
+            "key": 7,
+            "type": "right",
+            "margin": -78.90648658
+          }
+        },
+        {
+          "progress": 0.337,
+          "state": "still",
+          "id": 8,
+          "key": 6,
+          "type": "nav",
+          "margin": -0.41686499,
+          "firstProgress": 0.337,
+          "lastProgress": 0.957,
+          "samples": 348,
+          "worst": 66.61452889,
+          "worstDetail": {
+            "progress": 0.452,
+            "state": "still",
+            "id": 8,
+            "key": 6,
+            "type": "nav",
+            "margin": -66.61452889
+          }
+        },
+        {
+          "progress": 0.693,
+          "state": "still",
+          "id": 8,
+          "key": 6,
+          "type": "right",
+          "margin": -1.21051997,
+          "firstProgress": 0.693,
+          "lastProgress": 0.919,
+          "samples": 227,
+          "worst": 54.4592272,
+          "worstDetail": {
+            "progress": 0.767,
+            "state": "still",
+            "id": 8,
+            "key": 6,
+            "type": "right",
+            "margin": -54.4592272
+          }
+        },
+        {
+          "progress": 0.218,
+          "state": "still",
+          "id": 0,
+          "key": 0,
+          "type": "left",
+          "margin": -0.59586258,
+          "firstProgress": 0.218,
+          "lastProgress": 0.843,
+          "samples": 275,
+          "worst": 46.98194082,
+          "worstDetail": {
+            "progress": 0.351,
+            "state": "still",
+            "id": 0,
+            "key": 0,
+            "type": "left",
+            "margin": -46.98194082
+          }
+        },
+        {
+          "progress": 0.705,
+          "state": "still",
+          "id": 21,
+          "key": 3,
+          "type": "left",
+          "margin": -0.28012198,
+          "firstProgress": 0.705,
+          "lastProgress": 0.902,
+          "samples": 198,
+          "worst": 40.17816286,
+          "worstDetail": {
+            "progress": 0.769,
+            "state": "still",
+            "id": 21,
+            "key": 3,
+            "type": "left",
+            "margin": -40.17816286
+          }
+        },
+        {
+          "progress": 0.401,
+          "state": "still",
+          "id": 6,
+          "key": 5,
+          "type": "nav",
+          "margin": -0.11594885,
+          "firstProgress": 0.401,
+          "lastProgress": 0.643,
+          "samples": 243,
+          "worst": 34.20549797,
+          "worstDetail": {
+            "progress": 0.587,
+            "state": "still",
+            "id": 6,
+            "key": 5,
+            "type": "nav",
+            "margin": -34.20549797
+          }
+        },
+        {
+          "progress": 0.371,
+          "state": "still",
+          "id": 17,
+          "key": 7,
+          "type": "nav",
+          "margin": -0.50147947,
+          "firstProgress": 0.371,
+          "lastProgress": 0.956,
+          "samples": 272,
+          "worst": 32.73003187,
+          "worstDetail": {
+            "progress": 0.437,
+            "state": "still",
+            "id": 17,
+            "key": 7,
+            "type": "nav",
+            "margin": -32.73003187
+          }
+        },
+        {
+          "progress": 0.704,
+          "state": "still",
+          "id": 6,
+          "key": 5,
+          "type": "right",
+          "margin": -1.05069881,
+          "firstProgress": 0.704,
+          "lastProgress": 0.91,
+          "samples": 207,
+          "worst": 31.51584301,
+          "worstDetail": {
+            "progress": 0.767,
+            "state": "still",
+            "id": 6,
+            "key": 5,
+            "type": "right",
+            "margin": -31.51584301
+          }
+        },
+        {
+          "progress": 0.715,
+          "state": "still",
+          "id": 2,
+          "key": 2,
+          "type": "left",
+          "margin": -1.06963129,
+          "firstProgress": 0.715,
+          "lastProgress": 0.894,
+          "samples": 180,
+          "worst": 26.76881903,
+          "worstDetail": {
+            "progress": 0.769,
+            "state": "still",
+            "id": 2,
+            "key": 2,
+            "type": "left",
+            "margin": -26.76881903
+          }
+        },
+        {
+          "progress": 0.347,
+          "state": "still",
+          "id": 18,
+          "key": 8,
+          "type": "right",
+          "margin": -0.0672824,
+          "firstProgress": 0.347,
+          "lastProgress": 0.417,
+          "samples": 71,
+          "worst": 26.1164052,
+          "worstDetail": {
+            "progress": 0.39,
+            "state": "still",
+            "id": 18,
+            "key": 8,
+            "type": "right",
+            "margin": -26.1164052
+          }
+        },
+        {
+          "progress": 0.233,
+          "state": "still",
+          "id": 2,
+          "key": 2,
+          "type": "footer",
+          "margin": -0.22211806,
+          "firstProgress": 0.233,
+          "lastProgress": 0.42,
+          "samples": 188,
+          "worst": 22.56588327,
+          "worstDetail": {
+            "progress": 0.333,
+            "state": "still",
+            "id": 2,
+            "key": 2,
+            "type": "footer",
+            "margin": -22.56588327
+          }
+        },
+        {
+          "progress": 0.244,
+          "state": "still",
+          "id": 19,
+          "key": 1,
+          "type": "left",
+          "margin": -0.09510518,
+          "firstProgress": 0.244,
+          "lastProgress": 0.884,
+          "samples": 294,
+          "worst": 19.22596053,
+          "worstDetail": {
+            "progress": 0.344,
+            "state": "still",
+            "id": 19,
+            "key": 1,
+            "type": "left",
+            "margin": -19.22596053
+          }
+        },
+        {
+          "progress": 0.245,
+          "state": "still",
+          "id": 19,
+          "key": 1,
+          "type": "footer",
+          "margin": -0.42081575,
+          "firstProgress": 0.245,
+          "lastProgress": 0.457,
+          "samples": 213,
+          "worst": 17.81524916,
+          "worstDetail": {
+            "progress": 0.354,
+            "state": "still",
+            "id": 19,
+            "key": 1,
+            "type": "footer",
+            "margin": -17.81524916
+          }
+        },
+        {
+          "progress": 0.725,
+          "state": "still",
+          "id": 14,
+          "key": 4,
+          "type": "right",
+          "margin": -0.14899722,
+          "firstProgress": 0.725,
+          "lastProgress": 0.886,
+          "samples": 162,
+          "worst": 9.93391577,
+          "worstDetail": {
+            "progress": 0.768,
+            "state": "still",
+            "id": 14,
+            "key": 4,
+            "type": "right",
+            "margin": -9.93391577
+          }
+        }
+      ],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.917,
+              0.918
+            ],
+            "cornerDelta": 0.05961995,
+            "angleRadians": 0.0016043
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.916,
+              0.917
+            ],
+            "cornerDelta": 0.05961196,
+            "angleRadians": 0.00150661
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.918,
+              0.919
+            ],
+            "cornerDelta": 0.05957856,
+            "angleRadians": 0.00170179
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.915,
+              0.916
+            ],
+            "cornerDelta": 0.05955374,
+            "angleRadians": 0.00140903
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.919,
+              0.92
+            ],
+            "cornerDelta": 0.05948904,
+            "angleRadians": 0.00179876
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.914,
+              0.915
+            ],
+            "cornerDelta": 0.0594446,
+            "angleRadians": 0.00131188
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.92,
+              0.921
+            ],
+            "cornerDelta": 0.0593518,
+            "angleRadians": 0.00189488
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.913,
+              0.914
+            ],
+            "cornerDelta": 0.05928393,
+            "angleRadians": 0.00121547
+          }
+        ],
+        "largestCameraSteps": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "delta": 0.00633711
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "delta": 0.0063361
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "delta": 0.00633606
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "delta": 0.00633302
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "delta": 0.00633293
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "delta": 0.00632786
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "delta": 0.00632774
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "delta": 0.00632336
+          }
+        ],
+        "refinement": [
+          {
+            "id": 0,
+            "interval": [
+              0.917,
+              0.918
+            ],
+            "refinedInterval": [
+              0.91723438,
+              0.91723828
+            ],
+            "initialCornerDelta": 0.05961995,
+            "finalCornerDelta": 0.00023301,
+            "finalAngleRadians": 0.00000617,
+            "lastRatios": [
+              0.50002774,
+              0.50000755,
+              0.50013995
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.916,
+              0.917
+            ],
+            "refinedInterval": [
+              0.91688672,
+              0.91689063
+            ],
+            "initialCornerDelta": 0.05961196,
+            "finalCornerDelta": 0.00023309,
+            "finalAngleRadians": 0.00000603,
+            "lastRatios": [
+              0.5000247,
+              0.50008134,
+              0.50028847
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.918,
+              0.919
+            ],
+            "refinedInterval": [
+              0.91803125,
+              0.91803516
+            ],
+            "initialCornerDelta": 0.05957856,
+            "finalCornerDelta": 0.00023298,
+            "finalAngleRadians": 0.00000647,
+            "lastRatios": [
+              0.5000163,
+              0.50006201,
+              0.50020544
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.915,
+              0.916
+            ],
+            "refinedInterval": [
+              0.91593359,
+              0.9159375
+            ],
+            "initialCornerDelta": 0.05955374,
+            "finalCornerDelta": 0.00023294,
+            "finalAngleRadians": 0.00000567,
+            "lastRatios": [
+              0.50011118,
+              0.50001143,
+              0.50024446
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.919,
+              0.92
+            ],
+            "refinedInterval": [
+              0.919,
+              0.91900391
+            ],
+            "initialCornerDelta": 0.05948904,
+            "finalCornerDelta": 0.00023267,
+            "finalAngleRadians": 0.00000684,
+            "lastRatios": [
+              0.5000435,
+              0.50006911,
+              0.50005202
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.914,
+              0.915
+            ],
+            "refinedInterval": [
+              0.91498047,
+              0.91498438
+            ],
+            "initialCornerDelta": 0.0594446,
+            "finalCornerDelta": 0.00023259,
+            "finalAngleRadians": 0.00000531,
+            "lastRatios": [
+              0.50007656,
+              0.50013261,
+              0.50012432
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.92,
+              0.921
+            ],
+            "refinedInterval": [
+              0.92001172,
+              0.92001563
+            ],
+            "initialCornerDelta": 0.0593518,
+            "finalCornerDelta": 0.00023234,
+            "finalAngleRadians": 0.00000723,
+            "lastRatios": [
+              0.50010028,
+              0.50013995,
+              0.50018033
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.913,
+              0.914
+            ],
+            "refinedInterval": [
+              0.91396484,
+              0.91396875
+            ],
+            "initialCornerDelta": 0.05928393,
+            "finalCornerDelta": 0.00023208,
+            "finalAngleRadians": 0.00000492,
+            "lastRatios": [
+              0.50005769,
+              0.50000759,
+              0.50028692
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "cameraRefinement": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "refinedInterval": [
+              0.86748828,
+              0.86749219
+            ],
+            "initialDelta": 0.00633711,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000001,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "refinedInterval": [
+              0.86699609,
+              0.867
+            ],
+            "initialDelta": 0.0063361,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000064,
+              0.50000032,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "refinedInterval": [
+              0.868,
+              0.86800391
+            ],
+            "initialDelta": 0.00633606,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000067,
+              0.50000033,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "refinedInterval": [
+              0.86599609,
+              0.866
+            ],
+            "initialDelta": 0.00633302,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000192,
+              0.50000096,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "refinedInterval": [
+              0.869,
+              0.86900391
+            ],
+            "initialDelta": 0.00633293,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000195,
+              0.50000097,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "refinedInterval": [
+              0.86499609,
+              0.865
+            ],
+            "initialDelta": 0.00632786,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.5000032,
+              0.5000016,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "refinedInterval": [
+              0.87,
+              0.87000391
+            ],
+            "initialDelta": 0.00632774,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.50000322,
+              0.50000161,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "refinedInterval": [
+              0.28887109,
+              0.288875
+            ],
+            "initialDelta": 0.00632336,
+            "finalDelta": 0.0000247,
+            "lastRatios": [
+              0.50000002,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "branchChecks": [
+          {
+            "progress": 0.065,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.06499,
+                0.06501
+              ],
+              "refinedInterval": [
+                0.06499,
+                0.06499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.095,
+            "worst": {
+              "id": 1,
+              "interval": [
+                0.09499,
+                0.09501
+              ],
+              "refinedInterval": [
+                0.09499172,
+                0.0949918
+              ],
+              "initialCornerDelta": 0.00012657,
+              "finalCornerDelta": 7.6e-7,
+              "finalAngleRadians": 6e-8,
+              "lastRatios": [
+                0.5170402,
+                0.54679419,
+                0.65369505
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.285,
+            "worst": {
+              "id": 5,
+              "interval": [
+                0.28499,
+                0.28501
+              ],
+              "refinedInterval": [
+                0.28500047,
+                0.28500055
+              ],
+              "initialCornerDelta": 0.00001505,
+              "finalCornerDelta": 4.8e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                0.65538554,
+                1,
+                1
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.29,
+            "worst": {
+              "id": 5,
+              "interval": [
+                0.28999,
+                0.29001
+              ],
+              "refinedInterval": [
+                0.28999227,
+                0.28999234
+              ],
+              "initialCornerDelta": 0.00000728,
+              "finalCornerDelta": 4.8e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                0.99805258,
+                1,
+                1
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.3,
+            "worst": {
+              "id": 8,
+              "interval": [
+                0.29999,
+                0.30001
+              ],
+              "refinedInterval": [
+                0.29999,
+                0.29999008
+              ],
+              "initialCornerDelta": 0.00002138,
+              "finalCornerDelta": 3.3e-7,
+              "finalAngleRadians": 3e-8,
+              "lastRatios": [
+                0.76009897,
+                0.5366969,
+                0.95590507
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.565,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.56499,
+                0.56501
+              ],
+              "refinedInterval": [
+                0.56499,
+                0.56499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.585,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.58499,
+                0.58501
+              ],
+              "refinedInterval": [
+                0.58499,
+                0.58499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.77,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.76999,
+                0.77001
+              ],
+              "refinedInterval": [
+                0.76999,
+                0.76999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.855,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.85499,
+                0.85501
+              ],
+              "refinedInterval": [
+                0.85499,
+                0.85499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.99,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.98999,
+                0.99001
+              ],
+              "refinedInterval": [
+                0.98999,
+                0.98999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          }
+        ],
+        "reverseMaximumDifference": 0,
+        "reverseFailure": null
+      }
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 13013,
+      "pairTests": 78078,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumEndpointMargins": {
+        "left": {
+          "margin": 478.75554484,
+          "progress": 0,
+          "state": "still",
+          "id": 0,
+          "key": 0
+        },
+        "right": {
+          "margin": 175.29139437,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 12
+        },
+        "nav": {
+          "margin": 10.31171173,
+          "progress": 0,
+          "state": "still",
+          "id": 0,
+          "key": 0
+        },
+        "footer": {
+          "margin": 26.37122448,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 12
+        }
+      },
+      "camera": {
+        "minimumClearance": {
+          "distance": 6.38168964,
+          "progress": 0.453,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "eye": [
+            0.06984868,
+            0.13847663,
+            9.7
+          ],
+          "centre": [
+            0.67632484,
+            1.01784039,
+            2.02524042
+          ],
+          "dimensions": [
+            1.9636416,
+            3.36614671,
+            0.01851381
+          ]
+        },
+        "penetrationSamples": 0,
+        "penetrations": []
+      },
+      "collisions": [],
+      "endpointBoundsFailures": [],
+      "allowedMiddleExcursions": [
+        {
+          "progress": 0.395,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "type": "nav",
+          "margin": -1.6350215,
+          "firstProgress": 0.395,
+          "lastProgress": 0.927,
+          "samples": 324,
+          "worst": 82.42514493,
+          "worstDetail": {
+            "progress": 0.455,
+            "state": "still",
+            "id": 18,
+            "key": 12,
+            "type": "nav",
+            "margin": -82.42514493
+          }
+        },
+        {
+          "progress": 0.391,
+          "state": "still",
+          "id": 17,
+          "key": 11,
+          "type": "nav",
+          "margin": -1.12909409,
+          "firstProgress": 0.391,
+          "lastProgress": 0.958,
+          "samples": 553,
+          "worst": 72.34360253,
+          "worstDetail": {
+            "progress": 0.455,
+            "state": "still",
+            "id": 17,
+            "key": 11,
+            "type": "nav",
+            "margin": -72.34360253
+          }
+        },
+        {
+          "progress": 0.391,
+          "state": "still",
+          "id": 3,
+          "key": 10,
+          "type": "nav",
+          "margin": -0.23232469,
+          "firstProgress": 0.391,
+          "lastProgress": 0.952,
+          "samples": 328,
+          "worst": 56.35296659,
+          "worstDetail": {
+            "progress": 0.456,
+            "state": "still",
+            "id": 3,
+            "key": 10,
+            "type": "nav",
+            "margin": -56.35296659
+          }
+        },
+        {
+          "progress": 0.399,
+          "state": "still",
+          "id": 1,
+          "key": 9,
+          "type": "nav",
+          "margin": -0.45841944,
+          "firstProgress": 0.399,
+          "lastProgress": 0.652,
+          "samples": 254,
+          "worst": 35.3458441,
+          "worstDetail": {
+            "progress": 0.458,
+            "state": "still",
+            "id": 1,
+            "key": 9,
+            "type": "nav",
+            "margin": -35.3458441
+          }
+        },
+        {
+          "progress": 0.422,
+          "state": "still",
+          "id": 11,
+          "key": 8,
+          "type": "nav",
+          "margin": -0.13664669,
+          "firstProgress": 0.422,
+          "lastProgress": 0.62,
+          "samples": 199,
+          "worst": 10.78192028,
+          "worstDetail": {
+            "progress": 0.464,
+            "state": "still",
+            "id": 11,
+            "key": 8,
+            "type": "nav",
+            "margin": -10.78192028
+          }
+        }
+      ],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.42,
+              0.421
+            ],
+            "cornerDelta": 0.13170656,
+            "angleRadians": 0.01955301
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.421,
+              0.422
+            ],
+            "cornerDelta": 0.13169367,
+            "angleRadians": 0.01957858
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.419,
+              0.42
+            ],
+            "cornerDelta": 0.13168949,
+            "angleRadians": 0.01952342
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.422,
+              0.423
+            ],
+            "cornerDelta": 0.13165236,
+            "angleRadians": 0.0196001
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.418,
+              0.419
+            ],
+            "cornerDelta": 0.13164386,
+            "angleRadians": 0.01948981
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.423,
+              0.424
+            ],
+            "cornerDelta": 0.13158129,
+            "angleRadians": 0.01961761
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.417,
+              0.418
+            ],
+            "cornerDelta": 0.13156774,
+            "angleRadians": 0.0194522
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.424,
+              0.425
+            ],
+            "cornerDelta": 0.13148165,
+            "angleRadians": 0.01963106
+          }
+        ],
+        "largestCameraSteps": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "delta": 0.00633711
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "delta": 0.0063361
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "delta": 0.00633606
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "delta": 0.00633302
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "delta": 0.00633293
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "delta": 0.00632786
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "delta": 0.00632774
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "delta": 0.00632336
+          }
+        ],
+        "refinement": [
+          {
+            "id": 0,
+            "interval": [
+              0.42,
+              0.421
+            ],
+            "refinedInterval": [
+              0.42061328,
+              0.42061719
+            ],
+            "initialCornerDelta": 0.13170656,
+            "finalCornerDelta": 0.00051483,
+            "finalAngleRadians": 0.00007639,
+            "lastRatios": [
+              0.5000121,
+              0.50007271,
+              0.50016908
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.421,
+              0.422
+            ],
+            "refinedInterval": [
+              0.42108594,
+              0.42108984
+            ],
+            "initialCornerDelta": 0.13169367,
+            "finalCornerDelta": 0.00051471,
+            "finalAngleRadians": 0.00007643,
+            "lastRatios": [
+              0.50006934,
+              0.50009727,
+              0.50001728
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.419,
+              0.42
+            ],
+            "refinedInterval": [
+              0.41985937,
+              0.41986328
+            ],
+            "initialCornerDelta": 0.13168949,
+            "finalCornerDelta": 0.00051464,
+            "finalAngleRadians": 0.0000763,
+            "lastRatios": [
+              0.5000488,
+              0.50003719,
+              0.5000711
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.422,
+              0.423
+            ],
+            "refinedInterval": [
+              0.42205859,
+              0.4220625
+            ],
+            "initialCornerDelta": 0.13165236,
+            "finalCornerDelta": 0.0005147,
+            "finalAngleRadians": 0.00007654,
+            "lastRatios": [
+              0.50000699,
+              0.50001911,
+              0.5002431
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.418,
+              0.419
+            ],
+            "refinedInterval": [
+              0.41889062,
+              0.41889453
+            ],
+            "initialCornerDelta": 0.13164386,
+            "finalCornerDelta": 0.0005145,
+            "finalAngleRadians": 0.00007618,
+            "lastRatios": [
+              0.50002402,
+              0.50001586,
+              0.50010441
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.423,
+              0.424
+            ],
+            "refinedInterval": [
+              0.42303125,
+              0.42303516
+            ],
+            "initialCornerDelta": 0.13158129,
+            "finalCornerDelta": 0.00051453,
+            "finalAngleRadians": 0.00007661,
+            "lastRatios": [
+              0.50002623,
+              0.50007812,
+              0.50025163
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.417,
+              0.418
+            ],
+            "refinedInterval": [
+              0.41797266,
+              0.41797656
+            ],
+            "initialCornerDelta": 0.13156774,
+            "finalCornerDelta": 0.00051448,
+            "finalAngleRadians": 0.00007606,
+            "lastRatios": [
+              0.50010322,
+              0.50016992,
+              0.50007078
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.424,
+              0.425
+            ],
+            "refinedInterval": [
+              0.42403125,
+              0.42403516
+            ],
+            "initialCornerDelta": 0.13148165,
+            "finalCornerDelta": 0.00051423,
+            "finalAngleRadians": 0.00007667,
+            "lastRatios": [
+              0.50005089,
+              0.50009038,
+              0.50024166
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "cameraRefinement": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "refinedInterval": [
+              0.86748828,
+              0.86749219
+            ],
+            "initialDelta": 0.00633711,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000001,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "refinedInterval": [
+              0.86699609,
+              0.867
+            ],
+            "initialDelta": 0.0063361,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000064,
+              0.50000032,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "refinedInterval": [
+              0.868,
+              0.86800391
+            ],
+            "initialDelta": 0.00633606,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000067,
+              0.50000033,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "refinedInterval": [
+              0.86599609,
+              0.866
+            ],
+            "initialDelta": 0.00633302,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000192,
+              0.50000096,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "refinedInterval": [
+              0.869,
+              0.86900391
+            ],
+            "initialDelta": 0.00633293,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000195,
+              0.50000097,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "refinedInterval": [
+              0.86499609,
+              0.865
+            ],
+            "initialDelta": 0.00632786,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.5000032,
+              0.5000016,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "refinedInterval": [
+              0.87,
+              0.87000391
+            ],
+            "initialDelta": 0.00632774,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.50000322,
+              0.50000161,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "refinedInterval": [
+              0.28887109,
+              0.288875
+            ],
+            "initialDelta": 0.00632336,
+            "finalDelta": 0.0000247,
+            "lastRatios": [
+              0.50000002,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "branchChecks": [
+          {
+            "progress": 0.065,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.06499,
+                0.06501
+              ],
+              "refinedInterval": [
+                0.06499,
+                0.06499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.095,
+            "worst": {
+              "id": 1,
+              "interval": [
+                0.09499,
+                0.09501
+              ],
+              "refinedInterval": [
+                0.09500742,
+                0.0950075
+              ],
+              "initialCornerDelta": 0.00025496,
+              "finalCornerDelta": 0.00000129,
+              "finalAngleRadians": 4e-8,
+              "lastRatios": [
+                0.51335704,
+                0.56934799,
+                0.53651916
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.285,
+            "worst": {
+              "id": 12,
+              "interval": [
+                0.28499,
+                0.28501
+              ],
+              "refinedInterval": [
+                0.28499625,
+                0.28499633
+              ],
+              "initialCornerDelta": 0.00004292,
+              "finalCornerDelta": 9.5e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                0.50024408,
+                0.99951208,
+                1.00048816
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.29,
+            "worst": {
+              "id": 9,
+              "interval": [
+                0.28999,
+                0.29001
+              ],
+              "refinedInterval": [
+                0.29000281,
+                0.29000289
+              ],
+              "initialCornerDelta": 0.0000111,
+              "finalCornerDelta": 5.3e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                1.10940039,
+                1,
+                1
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.3,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.29999,
+                0.30001
+              ],
+              "refinedInterval": [
+                0.29999742,
+                0.2999975
+              ],
+              "initialCornerDelta": 0.00005493,
+              "finalCornerDelta": 7.2e-7,
+              "finalAngleRadians": 3e-8,
+              "lastRatios": [
+                0.61617281,
+                0.86089678,
+                0.60980059
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.565,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.56499,
+                0.56501
+              ],
+              "refinedInterval": [
+                0.56499,
+                0.56499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.585,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.58499,
+                0.58501
+              ],
+              "refinedInterval": [
+                0.58499,
+                0.58499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.77,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.76999,
+                0.77001
+              ],
+              "refinedInterval": [
+                0.76999,
+                0.76999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.855,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.85499,
+                0.85501
+              ],
+              "refinedInterval": [
+                0.85499,
+                0.85499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.99,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.98999,
+                0.99001
+              ],
+              "refinedInterval": [
+                0.98999,
+                0.98999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          }
+        ],
+        "reverseMaximumDifference": 0,
+        "reverseFailure": null
+      }
+    },
+    {
+      "viewport": [
+        640,
+        360
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 13013,
+      "pairTests": 78078,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumEndpointMargins": {
+        "left": {
+          "margin": 350.64122462,
+          "progress": 0,
+          "state": "still",
+          "id": 0,
+          "key": 0
+        },
+        "right": {
+          "margin": 119.98466872,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 12
+        },
+        "nav": {
+          "margin": 5.36465698,
+          "progress": 0,
+          "state": "still",
+          "id": 0,
+          "key": 0
+        },
+        "footer": {
+          "margin": 20.80420721,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 12
+        }
+      },
+      "camera": {
+        "minimumClearance": {
+          "distance": 6.38168964,
+          "progress": 0.453,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "eye": [
+            0.06984868,
+            0.13847663,
+            9.7
+          ],
+          "centre": [
+            0.67632484,
+            1.01784039,
+            2.02524042
+          ],
+          "dimensions": [
+            1.9636416,
+            3.36614671,
+            0.01851381
+          ]
+        },
+        "penetrationSamples": 0,
+        "penetrations": []
+      },
+      "collisions": [],
+      "endpointBoundsFailures": [],
+      "allowedMiddleExcursions": [
+        {
+          "progress": 0.392,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "type": "nav",
+          "margin": -1.18399477,
+          "firstProgress": 0.392,
+          "lastProgress": 0.949,
+          "samples": 386,
+          "worst": 80.23859532,
+          "worstDetail": {
+            "progress": 0.455,
+            "state": "still",
+            "id": 18,
+            "key": 12,
+            "type": "nav",
+            "margin": -80.23859532
+          }
+        },
+        {
+          "progress": 0.387,
+          "state": "still",
+          "id": 17,
+          "key": 11,
+          "type": "nav",
+          "margin": -0.1681189,
+          "firstProgress": 0.387,
+          "lastProgress": 0.964,
+          "samples": 578,
+          "worst": 70.93255618,
+          "worstDetail": {
+            "progress": 0.455,
+            "state": "still",
+            "id": 17,
+            "key": 11,
+            "type": "nav",
+            "margin": -70.93255618
+          }
+        },
+        {
+          "progress": 0.387,
+          "state": "still",
+          "id": 3,
+          "key": 10,
+          "type": "nav",
+          "margin": -0.07432667,
+          "firstProgress": 0.387,
+          "lastProgress": 0.96,
+          "samples": 354,
+          "worst": 56.17196916,
+          "worstDetail": {
+            "progress": 0.456,
+            "state": "still",
+            "id": 3,
+            "key": 10,
+            "type": "nav",
+            "margin": -56.17196916
+          }
+        },
+        {
+          "progress": 0.394,
+          "state": "still",
+          "id": 1,
+          "key": 9,
+          "type": "nav",
+          "margin": -0.09860333,
+          "firstProgress": 0.394,
+          "lastProgress": 0.944,
+          "samples": 271,
+          "worst": 36.78077917,
+          "worstDetail": {
+            "progress": 0.458,
+            "state": "still",
+            "id": 1,
+            "key": 9,
+            "type": "nav",
+            "margin": -36.78077917
+          }
+        },
+        {
+          "progress": 0.415,
+          "state": "still",
+          "id": 11,
+          "key": 8,
+          "type": "nav",
+          "margin": -0.51131856,
+          "firstProgress": 0.415,
+          "lastProgress": 0.631,
+          "samples": 217,
+          "worst": 14.10638795,
+          "worstDetail": {
+            "progress": 0.464,
+            "state": "still",
+            "id": 11,
+            "key": 8,
+            "type": "nav",
+            "margin": -14.10638795
+          }
+        }
+      ],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.42,
+              0.421
+            ],
+            "cornerDelta": 0.13170656,
+            "angleRadians": 0.01955301
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.421,
+              0.422
+            ],
+            "cornerDelta": 0.13169367,
+            "angleRadians": 0.01957858
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.419,
+              0.42
+            ],
+            "cornerDelta": 0.13168949,
+            "angleRadians": 0.01952342
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.422,
+              0.423
+            ],
+            "cornerDelta": 0.13165236,
+            "angleRadians": 0.0196001
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.418,
+              0.419
+            ],
+            "cornerDelta": 0.13164386,
+            "angleRadians": 0.01948981
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.423,
+              0.424
+            ],
+            "cornerDelta": 0.13158129,
+            "angleRadians": 0.01961761
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.417,
+              0.418
+            ],
+            "cornerDelta": 0.13156774,
+            "angleRadians": 0.0194522
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.424,
+              0.425
+            ],
+            "cornerDelta": 0.13148165,
+            "angleRadians": 0.01963106
+          }
+        ],
+        "largestCameraSteps": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "delta": 0.00633711
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "delta": 0.0063361
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "delta": 0.00633606
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "delta": 0.00633302
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "delta": 0.00633293
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "delta": 0.00632786
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "delta": 0.00632774
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "delta": 0.00632336
+          }
+        ],
+        "refinement": [
+          {
+            "id": 0,
+            "interval": [
+              0.42,
+              0.421
+            ],
+            "refinedInterval": [
+              0.42061328,
+              0.42061719
+            ],
+            "initialCornerDelta": 0.13170656,
+            "finalCornerDelta": 0.00051483,
+            "finalAngleRadians": 0.00007639,
+            "lastRatios": [
+              0.5000121,
+              0.50007271,
+              0.50016908
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.421,
+              0.422
+            ],
+            "refinedInterval": [
+              0.42108594,
+              0.42108984
+            ],
+            "initialCornerDelta": 0.13169367,
+            "finalCornerDelta": 0.00051471,
+            "finalAngleRadians": 0.00007643,
+            "lastRatios": [
+              0.50006934,
+              0.50009727,
+              0.50001728
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.419,
+              0.42
+            ],
+            "refinedInterval": [
+              0.41985937,
+              0.41986328
+            ],
+            "initialCornerDelta": 0.13168949,
+            "finalCornerDelta": 0.00051464,
+            "finalAngleRadians": 0.0000763,
+            "lastRatios": [
+              0.5000488,
+              0.50003719,
+              0.5000711
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.422,
+              0.423
+            ],
+            "refinedInterval": [
+              0.42205859,
+              0.4220625
+            ],
+            "initialCornerDelta": 0.13165236,
+            "finalCornerDelta": 0.0005147,
+            "finalAngleRadians": 0.00007654,
+            "lastRatios": [
+              0.50000699,
+              0.50001911,
+              0.5002431
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.418,
+              0.419
+            ],
+            "refinedInterval": [
+              0.41889062,
+              0.41889453
+            ],
+            "initialCornerDelta": 0.13164386,
+            "finalCornerDelta": 0.0005145,
+            "finalAngleRadians": 0.00007618,
+            "lastRatios": [
+              0.50002402,
+              0.50001586,
+              0.50010441
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.423,
+              0.424
+            ],
+            "refinedInterval": [
+              0.42303125,
+              0.42303516
+            ],
+            "initialCornerDelta": 0.13158129,
+            "finalCornerDelta": 0.00051453,
+            "finalAngleRadians": 0.00007661,
+            "lastRatios": [
+              0.50002623,
+              0.50007812,
+              0.50025163
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.417,
+              0.418
+            ],
+            "refinedInterval": [
+              0.41797266,
+              0.41797656
+            ],
+            "initialCornerDelta": 0.13156774,
+            "finalCornerDelta": 0.00051448,
+            "finalAngleRadians": 0.00007606,
+            "lastRatios": [
+              0.50010322,
+              0.50016992,
+              0.50007078
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.424,
+              0.425
+            ],
+            "refinedInterval": [
+              0.42403125,
+              0.42403516
+            ],
+            "initialCornerDelta": 0.13148165,
+            "finalCornerDelta": 0.00051423,
+            "finalAngleRadians": 0.00007667,
+            "lastRatios": [
+              0.50005089,
+              0.50009038,
+              0.50024166
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "cameraRefinement": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "refinedInterval": [
+              0.86748828,
+              0.86749219
+            ],
+            "initialDelta": 0.00633711,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000001,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "refinedInterval": [
+              0.86699609,
+              0.867
+            ],
+            "initialDelta": 0.0063361,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000064,
+              0.50000032,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "refinedInterval": [
+              0.868,
+              0.86800391
+            ],
+            "initialDelta": 0.00633606,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000067,
+              0.50000033,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "refinedInterval": [
+              0.86599609,
+              0.866
+            ],
+            "initialDelta": 0.00633302,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000192,
+              0.50000096,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "refinedInterval": [
+              0.869,
+              0.86900391
+            ],
+            "initialDelta": 0.00633293,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000195,
+              0.50000097,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "refinedInterval": [
+              0.86499609,
+              0.865
+            ],
+            "initialDelta": 0.00632786,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.5000032,
+              0.5000016,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "refinedInterval": [
+              0.87,
+              0.87000391
+            ],
+            "initialDelta": 0.00632774,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.50000322,
+              0.50000161,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "refinedInterval": [
+              0.28887109,
+              0.288875
+            ],
+            "initialDelta": 0.00632336,
+            "finalDelta": 0.0000247,
+            "lastRatios": [
+              0.50000002,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "branchChecks": [
+          {
+            "progress": 0.065,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.06499,
+                0.06501
+              ],
+              "refinedInterval": [
+                0.06499,
+                0.06499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.095,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.09499,
+                0.09501
+              ],
+              "refinedInterval": [
+                0.09499258,
+                0.09499266
+              ],
+              "initialCornerDelta": 0.00026875,
+              "finalCornerDelta": 0.00000124,
+              "finalAngleRadians": 4e-8,
+              "lastRatios": [
+                0.52293341,
+                0.53117707,
+                0.51631279
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.285,
+            "worst": {
+              "id": 12,
+              "interval": [
+                0.28499,
+                0.28501
+              ],
+              "refinedInterval": [
+                0.28499625,
+                0.28499633
+              ],
+              "initialCornerDelta": 0.00004292,
+              "finalCornerDelta": 9.5e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                0.50024408,
+                0.99951208,
+                1.00048816
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.29,
+            "worst": {
+              "id": 9,
+              "interval": [
+                0.28999,
+                0.29001
+              ],
+              "refinedInterval": [
+                0.29000281,
+                0.29000289
+              ],
+              "initialCornerDelta": 0.0000111,
+              "finalCornerDelta": 5.3e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                1.10940039,
+                1,
+                1
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.3,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.29999,
+                0.30001
+              ],
+              "refinedInterval": [
+                0.29999742,
+                0.2999975
+              ],
+              "initialCornerDelta": 0.00005493,
+              "finalCornerDelta": 7.2e-7,
+              "finalAngleRadians": 3e-8,
+              "lastRatios": [
+                0.61617281,
+                0.86089678,
+                0.60980059
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.565,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.56499,
+                0.56501
+              ],
+              "refinedInterval": [
+                0.56499,
+                0.56499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.585,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.58499,
+                0.58501
+              ],
+              "refinedInterval": [
+                0.58499,
+                0.58499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.77,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.76999,
+                0.77001
+              ],
+              "refinedInterval": [
+                0.76999,
+                0.76999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.855,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.85499,
+                0.85501
+              ],
+              "refinedInterval": [
+                0.85499,
+                0.85499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.99,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.98999,
+                0.99001
+              ],
+              "refinedInterval": [
+                0.98999,
+                0.98999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          }
+        ],
+        "reverseMaximumDifference": 0,
+        "reverseFailure": null
+      }
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 13013,
+      "pairTests": 78078,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumEndpointMargins": {
+        "left": {
+          "margin": 513.77176704,
+          "progress": 0,
+          "state": "still",
+          "id": 0,
+          "key": 0
+        },
+        "right": {
+          "margin": 141.15734445,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 12
+        },
+        "nav": {
+          "margin": 19.92939038,
+          "progress": 0.985,
+          "state": "still",
+          "id": 18,
+          "key": 12
+        },
+        "footer": {
+          "margin": 76.83064082,
+          "progress": 0.99,
+          "state": "still",
+          "id": 18,
+          "key": 12
+        }
+      },
+      "camera": {
+        "minimumClearance": {
+          "distance": 6.38168964,
+          "progress": 0.453,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "eye": [
+            0.06984868,
+            0.13847663,
+            9.7
+          ],
+          "centre": [
+            0.67632484,
+            1.01784039,
+            2.02524042
+          ],
+          "dimensions": [
+            1.9636416,
+            3.36614671,
+            0.01851381
+          ]
+        },
+        "penetrationSamples": 0,
+        "penetrations": []
+      },
+      "collisions": [],
+      "endpointBoundsFailures": [],
+      "allowedMiddleExcursions": [
+        {
+          "progress": 0.218,
+          "state": "still",
+          "id": 0,
+          "key": 0,
+          "type": "left",
+          "margin": -2.51648367,
+          "firstProgress": 0.218,
+          "lastProgress": 0.379,
+          "samples": 162,
+          "worst": 156.08388685,
+          "worstDetail": {
+            "progress": 0.312,
+            "state": "still",
+            "id": 0,
+            "key": 0,
+            "type": "left",
+            "margin": -156.08388685
+          }
+        },
+        {
+          "progress": 0.347,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "type": "right",
+          "margin": -2.10679467,
+          "firstProgress": 0.347,
+          "lastProgress": 0.425,
+          "samples": 79,
+          "worst": 148.30200605,
+          "worstDetail": {
+            "progress": 0.399,
+            "state": "still",
+            "id": 18,
+            "key": 12,
+            "type": "right",
+            "margin": -148.30200605
+          }
+        },
+        {
+          "progress": 0.486,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "type": "left",
+          "margin": -2.46425002,
+          "firstProgress": 0.486,
+          "lastProgress": 0.653,
+          "samples": 168,
+          "worst": 148.04476591,
+          "worstDetail": {
+            "progress": 0.558,
+            "state": "still",
+            "id": 18,
+            "key": 12,
+            "type": "left",
+            "margin": -148.04476591
+          }
+        },
+        {
+          "progress": 0.405,
+          "state": "still",
+          "id": 18,
+          "key": 12,
+          "type": "nav",
+          "margin": -1.23766764,
+          "firstProgress": 0.405,
+          "lastProgress": 0.663,
+          "samples": 259,
+          "worst": 125.97567002,
+          "worstDetail": {
+            "progress": 0.455,
+            "state": "still",
+            "id": 18,
+            "key": 12,
+            "type": "nav",
+            "margin": -125.97567002
+          }
+        },
+        {
+          "progress": 0.373,
+          "state": "still",
+          "id": 17,
+          "key": 11,
+          "type": "right",
+          "margin": -0.54229545,
+          "firstProgress": 0.373,
+          "lastProgress": 0.898,
+          "samples": 219,
+          "worst": 112.79180506,
+          "worstDetail": {
+            "progress": 0.768,
+            "state": "still",
+            "id": 17,
+            "key": 11,
+            "type": "right",
+            "margin": -112.79180506
+          }
+        },
+        {
+          "progress": 0.403,
+          "state": "still",
+          "id": 17,
+          "key": 11,
+          "type": "nav",
+          "margin": -0.86462971,
+          "firstProgress": 0.403,
+          "lastProgress": 0.956,
+          "samples": 327,
+          "worst": 106.12278652,
+          "worstDetail": {
+            "progress": 0.455,
+            "state": "still",
+            "id": 17,
+            "key": 11,
+            "type": "nav",
+            "margin": -106.12278652
+          }
+        },
+        {
+          "progress": 0.406,
+          "state": "still",
+          "id": 3,
+          "key": 10,
+          "type": "nav",
+          "margin": -0.67847355,
+          "firstProgress": 0.406,
+          "lastProgress": 0.944,
+          "samples": 253,
+          "worst": 74.63353421,
+          "worstDetail": {
+            "progress": 0.456,
+            "state": "still",
+            "id": 3,
+            "key": 10,
+            "type": "nav",
+            "margin": -74.63353421
+          }
+        },
+        {
+          "progress": 0.245,
+          "state": "still",
+          "id": 19,
+          "key": 1,
+          "type": "left",
+          "margin": -0.28271013,
+          "firstProgress": 0.245,
+          "lastProgress": 0.36,
+          "samples": 116,
+          "worst": 50.95841664,
+          "worstDetail": {
+            "progress": 0.315,
+            "state": "still",
+            "id": 19,
+            "key": 1,
+            "type": "left",
+            "margin": -50.95841664
+          }
+        },
+        {
+          "progress": 0.729,
+          "state": "still",
+          "id": 3,
+          "key": 10,
+          "type": "right",
+          "margin": -1.77064446,
+          "firstProgress": 0.729,
+          "lastProgress": 0.885,
+          "samples": 157,
+          "worst": 47.99396705,
+          "worstDetail": {
+            "progress": 0.768,
+            "state": "still",
+            "id": 3,
+            "key": 10,
+            "type": "right",
+            "margin": -47.99396705
+          }
+        },
+        {
+          "progress": 0.419,
+          "state": "still",
+          "id": 1,
+          "key": 9,
+          "type": "nav",
+          "margin": -1.08130429,
+          "firstProgress": 0.419,
+          "lastProgress": 0.61,
+          "samples": 192,
+          "worst": 33.26566222,
+          "worstDetail": {
+            "progress": 0.458,
+            "state": "still",
+            "id": 1,
+            "key": 9,
+            "type": "nav",
+            "margin": -33.26566222
+          }
+        },
+        {
+          "progress": 0.515,
+          "state": "still",
+          "id": 17,
+          "key": 11,
+          "type": "left",
+          "margin": -1.4072818,
+          "firstProgress": 0.515,
+          "lastProgress": 0.611,
+          "samples": 97,
+          "worst": 23.01832359,
+          "worstDetail": {
+            "progress": 0.558,
+            "state": "still",
+            "id": 17,
+            "key": 11,
+            "type": "left",
+            "margin": -23.01832359
+          }
+        }
+      ],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.42,
+              0.421
+            ],
+            "cornerDelta": 0.13170656,
+            "angleRadians": 0.01955301
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.421,
+              0.422
+            ],
+            "cornerDelta": 0.13169367,
+            "angleRadians": 0.01957858
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.419,
+              0.42
+            ],
+            "cornerDelta": 0.13168949,
+            "angleRadians": 0.01952342
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.422,
+              0.423
+            ],
+            "cornerDelta": 0.13165236,
+            "angleRadians": 0.0196001
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.418,
+              0.419
+            ],
+            "cornerDelta": 0.13164386,
+            "angleRadians": 0.01948981
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.423,
+              0.424
+            ],
+            "cornerDelta": 0.13158129,
+            "angleRadians": 0.01961761
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.417,
+              0.418
+            ],
+            "cornerDelta": 0.13156774,
+            "angleRadians": 0.0194522
+          },
+          {
+            "id": 0,
+            "artId": 0,
+            "interval": [
+              0.424,
+              0.425
+            ],
+            "cornerDelta": 0.13148165,
+            "angleRadians": 0.01963106
+          }
+        ],
+        "largestCameraSteps": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "delta": 0.00633711
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "delta": 0.0063361
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "delta": 0.00633606
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "delta": 0.00633302
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "delta": 0.00633293
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "delta": 0.00632786
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "delta": 0.00632774
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "delta": 0.00632336
+          }
+        ],
+        "refinement": [
+          {
+            "id": 0,
+            "interval": [
+              0.42,
+              0.421
+            ],
+            "refinedInterval": [
+              0.42061328,
+              0.42061719
+            ],
+            "initialCornerDelta": 0.13170656,
+            "finalCornerDelta": 0.00051483,
+            "finalAngleRadians": 0.00007639,
+            "lastRatios": [
+              0.5000121,
+              0.50007271,
+              0.50016908
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.421,
+              0.422
+            ],
+            "refinedInterval": [
+              0.42108594,
+              0.42108984
+            ],
+            "initialCornerDelta": 0.13169367,
+            "finalCornerDelta": 0.00051471,
+            "finalAngleRadians": 0.00007643,
+            "lastRatios": [
+              0.50006934,
+              0.50009727,
+              0.50001728
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.419,
+              0.42
+            ],
+            "refinedInterval": [
+              0.41985937,
+              0.41986328
+            ],
+            "initialCornerDelta": 0.13168949,
+            "finalCornerDelta": 0.00051464,
+            "finalAngleRadians": 0.0000763,
+            "lastRatios": [
+              0.5000488,
+              0.50003719,
+              0.5000711
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.422,
+              0.423
+            ],
+            "refinedInterval": [
+              0.42205859,
+              0.4220625
+            ],
+            "initialCornerDelta": 0.13165236,
+            "finalCornerDelta": 0.0005147,
+            "finalAngleRadians": 0.00007654,
+            "lastRatios": [
+              0.50000699,
+              0.50001911,
+              0.5002431
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.418,
+              0.419
+            ],
+            "refinedInterval": [
+              0.41889062,
+              0.41889453
+            ],
+            "initialCornerDelta": 0.13164386,
+            "finalCornerDelta": 0.0005145,
+            "finalAngleRadians": 0.00007618,
+            "lastRatios": [
+              0.50002402,
+              0.50001586,
+              0.50010441
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.423,
+              0.424
+            ],
+            "refinedInterval": [
+              0.42303125,
+              0.42303516
+            ],
+            "initialCornerDelta": 0.13158129,
+            "finalCornerDelta": 0.00051453,
+            "finalAngleRadians": 0.00007661,
+            "lastRatios": [
+              0.50002623,
+              0.50007812,
+              0.50025163
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.417,
+              0.418
+            ],
+            "refinedInterval": [
+              0.41797266,
+              0.41797656
+            ],
+            "initialCornerDelta": 0.13156774,
+            "finalCornerDelta": 0.00051448,
+            "finalAngleRadians": 0.00007606,
+            "lastRatios": [
+              0.50010322,
+              0.50016992,
+              0.50007078
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.424,
+              0.425
+            ],
+            "refinedInterval": [
+              0.42403125,
+              0.42403516
+            ],
+            "initialCornerDelta": 0.13148165,
+            "finalCornerDelta": 0.00051423,
+            "finalAngleRadians": 0.00007667,
+            "lastRatios": [
+              0.50005089,
+              0.50009038,
+              0.50024166
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "cameraRefinement": [
+          {
+            "interval": [
+              0.867,
+              0.868
+            ],
+            "refinedInterval": [
+              0.86748828,
+              0.86749219
+            ],
+            "initialDelta": 0.00633711,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000001,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.866,
+              0.867
+            ],
+            "refinedInterval": [
+              0.86699609,
+              0.867
+            ],
+            "initialDelta": 0.0063361,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000064,
+              0.50000032,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.868,
+              0.869
+            ],
+            "refinedInterval": [
+              0.868,
+              0.86800391
+            ],
+            "initialDelta": 0.00633606,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000067,
+              0.50000033,
+              0.50000016
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.865,
+              0.866
+            ],
+            "refinedInterval": [
+              0.86599609,
+              0.866
+            ],
+            "initialDelta": 0.00633302,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000192,
+              0.50000096,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.869,
+              0.87
+            ],
+            "refinedInterval": [
+              0.869,
+              0.86900391
+            ],
+            "initialDelta": 0.00633293,
+            "finalDelta": 0.00002475,
+            "lastRatios": [
+              0.50000195,
+              0.50000097,
+              0.50000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.864,
+              0.865
+            ],
+            "refinedInterval": [
+              0.86499609,
+              0.865
+            ],
+            "initialDelta": 0.00632786,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.5000032,
+              0.5000016,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.87,
+              0.871
+            ],
+            "refinedInterval": [
+              0.87,
+              0.87000391
+            ],
+            "initialDelta": 0.00632774,
+            "finalDelta": 0.00002473,
+            "lastRatios": [
+              0.50000322,
+              0.50000161,
+              0.5000008
+            ],
+            "suspectedJump": false
+          },
+          {
+            "interval": [
+              0.288,
+              0.289
+            ],
+            "refinedInterval": [
+              0.28887109,
+              0.288875
+            ],
+            "initialDelta": 0.00632336,
+            "finalDelta": 0.0000247,
+            "lastRatios": [
+              0.50000002,
+              0.5,
+              0.5
+            ],
+            "suspectedJump": false
+          }
+        ],
+        "branchChecks": [
+          {
+            "progress": 0.065,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.06499,
+                0.06501
+              ],
+              "refinedInterval": [
+                0.06499,
+                0.06499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.095,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.09499,
+                0.09501
+              ],
+              "refinedInterval": [
+                0.09500656,
+                0.09500664
+              ],
+              "initialCornerDelta": 0.00025322,
+              "finalCornerDelta": 0.00000108,
+              "finalAngleRadians": 4e-8,
+              "lastRatios": [
+                0.51232383,
+                0.52143083,
+                0.50417602
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.285,
+            "worst": {
+              "id": 12,
+              "interval": [
+                0.28499,
+                0.28501
+              ],
+              "refinedInterval": [
+                0.28499625,
+                0.28499633
+              ],
+              "initialCornerDelta": 0.00004292,
+              "finalCornerDelta": 9.5e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                0.50024408,
+                0.99951208,
+                1.00048816
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.29,
+            "worst": {
+              "id": 9,
+              "interval": [
+                0.28999,
+                0.29001
+              ],
+              "refinedInterval": [
+                0.29000281,
+                0.29000289
+              ],
+              "initialCornerDelta": 0.0000111,
+              "finalCornerDelta": 5.3e-7,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                1.10940039,
+                1,
+                1
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.3,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.29999,
+                0.30001
+              ],
+              "refinedInterval": [
+                0.29999742,
+                0.2999975
+              ],
+              "initialCornerDelta": 0.00005493,
+              "finalCornerDelta": 7.2e-7,
+              "finalAngleRadians": 3e-8,
+              "lastRatios": [
+                0.61617281,
+                0.86089678,
+                0.60980059
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.565,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.56499,
+                0.56501
+              ],
+              "refinedInterval": [
+                0.56499,
+                0.56499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.585,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.58499,
+                0.58501
+              ],
+              "refinedInterval": [
+                0.58499,
+                0.58499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.77,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.76999,
+                0.77001
+              ],
+              "refinedInterval": [
+                0.76999,
+                0.76999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.855,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.85499,
+                0.85501
+              ],
+              "refinedInterval": [
+                0.85499,
+                0.85499008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          },
+          {
+            "progress": 0.99,
+            "worst": {
+              "id": 0,
+              "interval": [
+                0.98999,
+                0.99001
+              ],
+              "refinedInterval": [
+                0.98999,
+                0.98999008
+              ],
+              "initialCornerDelta": 0,
+              "finalCornerDelta": 0,
+              "finalAngleRadians": 0,
+              "lastRatios": [
+                null,
+                null,
+                null
+              ],
+              "suspectedJump": false
+            },
+            "suspected": []
+          }
+        ],
+        "reverseMaximumDifference": 0,
+        "reverseFailure": null
+      }
+    }
+  ],
+  "summary": {
+    "finite": true,
+    "pairTests": 498498,
+    "intersectionSamples": 0,
+    "faceCrossingSamples": 0,
+    "passingEndpointBounds": true,
+    "minimumCameraClearance": 6.38168964,
+    "cameraPenetrationSamples": 0,
+    "suspectedJumpCount": 0,
+    "reversible": true,
+    "passingSeparation": true,
+    "passingCameraClearance": true
+  }
+}

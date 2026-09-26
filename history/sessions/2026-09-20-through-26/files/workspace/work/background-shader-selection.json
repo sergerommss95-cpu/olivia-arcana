@@ -1,0 +1,34 @@
+{
+  "date": "2026-09-23",
+  "status": "recommended_and_public_preview_tuned; not_integrated; user_has_not_approved_selection",
+  "site": "https://shaders.com/",
+  "preset": "Illuminated Clouds 4",
+  "url": "https://shaders.com/collection/illuminated-clouds/711b09c2-bc9c-4d2c-b2a3-f0a6eacc2de0",
+  "intent": "Slow atmospheric depth behind the approved V12 cards. Deep navy, slate and muted silver-blue; broad drifting light, restrained contrast, sparse grain.",
+  "previewSettings": {
+    "Background": "#050b14",
+    "Deep Background": "#081321",
+    "Primary Accent": "#172e44",
+    "Secondary Accent": "#496578",
+    "Tertiary Accent": "#8c969b",
+    "Animation Speed": 0.7,
+    "Distortion": 0,
+    "Gradient Seed": 76,
+    "Fog Seed": 617,
+    "Grain Strength": 0.025
+  },
+  "previewNote": "Applied through the site's public Quick Edit UI. The URL does not encode the custom settings; reloading may restore defaults. Observed speed was rounded by the UI from requested 0.65 to 0.7.",
+  "integrationDependency": "Licensed Shaders Pro access/export required for this paid preset. No premium source acquired or copied.",
+  "integrationNotes": [
+    "Shaders uses a WebGPU renderer. Existing hero uses native WebGL; assess added renderer cost before importing.",
+    "Retain the navy CSS fallback for browsers without WebGPU.",
+    "Match hero pause, reduced-motion and document visibility behavior.",
+    "Keep V12 card construction, selected olive-lattice back, and cinematic choreography intact.",
+    "Assess background contrast behind typography and Moon on desktop and mobile before committing integration."
+  ],
+  "references": [
+    "https://shaders.com/pricing",
+    "https://shaders.com/license",
+    "https://shaders.com/docs/guide"
+  ]
+}

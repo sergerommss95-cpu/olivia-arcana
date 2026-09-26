@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Olivia Arcana — The Tide Opens</title>
+<meta name="description" content="Astrology and tarot, shaped by your birth chart and the question you bring.">
+<meta name="theme-color" content="#10134d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%2310134d'/%3E%3Cpath d='M26 5a15 15 0 1 0 0 30A16 16 0 0 1 26 5' fill='%23e8e9ff'/%3E%3C/svg%3E">
+<style>/*FONTS*/
+/*STYLE*/</style>
+<noscript><style>.motion-controls,.languages,.journey-button{display:none!important}</style></noscript>
+</head>
+<body>
+<a href="#reading" class="skip-link" data-copy="skipLink">Skip to the reading entrance</a>
+<main>
+ <div class="sequence" id="sequence">
+  <section class="stage" id="stage" aria-labelledby="hero-title">
+   <div class="world" aria-hidden="true">
+    <img class="poster" id="original" src="/*ORIGINAL*/" alt="" fetchpriority="high">
+    <img class="source" id="plate" src="/*PLATE*/" alt="">
+    <img class="source" id="matte" src="/*MATTE*/" alt="">
+    <img class="source" id="sanctuary" src="/*SANCTUARY*/" alt="">
+    <canvas id="world-canvas"></canvas>
+   </div>
+   <div class="scene-shade" aria-hidden="true"></div>
+   <header class="masthead">
+    <a class="wordmark" href="https://oliviaarcana.com" aria-label="Olivia Arcana — home"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="8"/><circle cx="22" cy="22" r="3"/><path d="M22 0v10m0 24v10M0 22h10m24 0h10M6.5 6.5l8 8m15 15 8 8M6.5 37.5l8-8m15-15 8-8M13.6 1.7l4 9.7m8.8 21.2 4 9.7M1.7 13.6l9.7 4m21.2 8.8 9.7 4M1.7 30.4l9.7-4m21.2-8.8 9.7-4M13.6 42.3l4-9.7m8.8-21.2 4-9.7"/></svg><span>OLIVIA ARCANA</span></a>
+    <nav aria-label="Main navigation"><a href="https://oliviaarcana.com/daily" class="daily-nav" data-copy="dailyNav">Daily card</a><a class="header-oracle" href="https://oliviaarcana.com/oracle"><span data-copy="ask">Ask the Oracle</span><span aria-hidden="true">↗</span></a></nav>
+    <div class="languages" role="group" aria-label="Language"><button type="button" data-lang="en" aria-label="English" aria-pressed="true">EN</button><button type="button" data-lang="uk" aria-label="Українська" aria-pressed="false">UA</button></div>
+   </header>
+   <div class="intro" id="intro">
+    <p class="eyebrow"><span></span><span data-copy="eyebrow">A personal almanac</span></p>
+    <h1 id="hero-title">Your stars,<br>translated<br><em>clearly.</em></h1>
+    <p class="intro-description" data-copy="description">Astrology and tarot, shaped by your birth chart and the question you bring.</p>
+    <div class="intro-actions"><button class="primary journey-button" id="begin"><span data-copy="begin">Begin the journey</span><span aria-hidden="true">↗</span></button><a href="https://oliviaarcana.com/oracle" class="quiet-link" data-copy="direct">Go to the reading</a></div>
+    <p class="signature" data-copy="signature">Clarity first. No noise.</p>
+   </div>
+   <div class="threshold-copy" id="threshold-copy" aria-hidden="true"><p class="eyebrow" data-copy="act2">II. The tide opens</p><p class="threshold-title" data-copy="threshold">A little stillness.<br><em>A different perspective.</em></p></div>
+   <div class="passage-copy" id="passage-copy" aria-hidden="true"><span class="eyebrow" data-copy="act3">III. On the other side</span><p data-copy="passage">Bring what is<br><em>on your mind.</em></p></div>
+   <div class="arrival-peek" id="arrival-peek" aria-hidden="true"><span class="eyebrow" data-copy="oracle">The Oracle</span><p data-copy="arrival">Your question.<br><em>A new perspective.</em></p><span class="peek-arrow" aria-hidden="true">↓</span></div>
+   <div class="motion-controls">
+    <button id="skip" class="skip" data-copy="skip">Skip the opening ↗</button>
+    <div class="chapter-progress" aria-label="Opening progress"><div class="chapter-labels"><span class="chapter active" data-copy="chapter1">01 — Approach</span><span class="chapter" data-copy="chapter2">02 — Open</span><span class="chapter" data-copy="chapter3">03 — Enter</span></div><div class="progress-track"><span id="progress-fill"></span></div><span class="scroll-caption" id="scroll-caption">Scroll to draw closer</span></div>
+    <button id="motion" class="motion" aria-label="Scene motion" aria-pressed="true"><span class="motion-symbol" aria-hidden="true">Ⅱ</span><span id="motion-label">Pause motion</span></button>
+   </div>
+  </section>
+ </div>
+ <section class="reading" id="reading" tabindex="-1" aria-labelledby="reading-title">
+  <div class="reading-watermark" aria-hidden="true">☾</div>
+  <div class="reading-heading"><p class="eyebrow" data-copy="readingEyebrow">On the other side of a question</p><h2 id="reading-title" data-copy="readingTitle">What would you like<br>to see <em>more clearly?</em></h2><p class="reading-description" data-copy="readingDescription">Choose a starting point. Make room for a new perspective.</p></div>
+  <div class="reading-options">
+   <div class="intent-group" role="group" aria-label="Choose a starting point"><button data-intent="0" type="button" aria-pressed="true"><span class="intent-number">I</span><span data-copy="intent0">A decision</span><span class="intent-arrow" aria-hidden="true">↗</span></button><button data-intent="1" type="button" aria-pressed="false"><span class="intent-number">II</span><span data-copy="intent1">A relationship</span><span class="intent-arrow" aria-hidden="true">↗</span></button><button data-intent="2" type="button" aria-pressed="false"><span class="intent-number">III</span><span data-copy="intent2">My next step</span><span class="intent-arrow" aria-hidden="true">↗</span></button></div>
+   <div class="suggestion" aria-live="polite" aria-atomic="true"><span class="eyebrow" data-copy="questionLabel">A question to begin with</span><p id="suggested-question">What should I consider before I choose?</p></div>
+   <a class="primary reading-cta" href="https://oliviaarcana.com/oracle"><span data-copy="continue">Continue to the Oracle</span><span aria-hidden="true">↗</span></a><a href="https://oliviaarcana.com/daily" class="reading-daily quiet-link" data-copy="daily">Draw your daily card</a>
+  </div>
+  <footer class="colophon"><span>OLIVIA ARCANA</span><button id="replay" data-copy="replay">↶ Replay the opening</button><span data-copy="signature">Clarity first. No noise.</span></footer>
+ </section>
+</main>
+<script>/*SCRIPT*/</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{
+  "images": [
+    {
+      "loaded": true,
+      "width": 958,
+      "height": 1642
+    },
+    {
+      "loaded": true,
+      "width": 958,
+      "height": 1642
+    },
+    {
+      "loaded": true,
+      "width": 958,
+      "height": 1642
+    },
+    {
+      "loaded": true,
+      "width": 958,
+      "height": 1642
+    },
+    {
+      "loaded": true,
+      "width": 958,
+      "height": 1642
+    }
+  ],
+  "errors": [],
+  "next": "The Veiled Threshold",
+  "previous": "The Olive Sanctuary",
+  "focus": true,
+  "sizes": [
+    {
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "width": 884,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "overflow": false
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "errors": [],
+  "states": [
+    {
+      "name": "desktop",
+      "p": 0.5,
+      "opacity": "0.5"
+    },
+    {
+      "name": "desktop",
+      "p": 0.54,
+      "opacity": "0"
+    },
+    {
+      "name": "desktop",
+      "p": 0.6,
+      "opacity": "0"
+    },
+    {
+      "name": "userpane",
+      "p": 0.5,
+      "opacity": "0.5"
+    },
+    {
+      "name": "userpane",
+      "p": 0.54,
+      "opacity": "0"
+    },
+    {
+      "name": "userpane",
+      "p": 0.6,
+      "opacity": "0"
+    }
+  ],
+  "pause": {
+    "before": {
+      "p": 0,
+      "target": 0,
+      "frames": 48,
+      "ready": true,
+      "quiet": false,
+      "raf": 0,
+      "error": 0,
+      "triangles": 3808,
+      "cards": 14,
+      "clearance": {
+        "q": 0,
+        "pitch": 0.012166699999999999,
+        "curvature": 0,
+        "sector": 0,
+        "angularPitch": 0,
+        "arcSweep": 0,
+        "scale": 1.6472629626251394,
+        "arrival": 0
+      },
+      "viewport": [
+        884,
+        796
+      ],
+      "buffer": [
+        884,
+        796
+      ]
+    },
+    "after": {
+      "p": 0,
+      "target": 0,
+      "frames": 48,
+      "ready": true,
+      "quiet": false,
+      "raf": 0,
+      "error": 0,
+      "triangles": 3808,
+      "cards": 14,
+      "clearance": {
+        "q": 0,
+        "pitch": 0.012166699999999999,
+        "curvature": 0,
+        "sector": 0,
+        "angularPitch": 0,
+        "arcSweep": 0,
+        "scale": 1.6472629626251394,
+        "arrival": 0
+      },
+      "viewport": [
+        884,
+        796
+      ],
+      "buffer": [
+        884,
+        796
+      ]
+    }
+  }
+}

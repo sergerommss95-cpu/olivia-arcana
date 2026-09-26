@@ -1,0 +1,1234 @@
+[
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Fool",
+    "readingBottom": 374.328125,
+    "buttonTop": 325.328125,
+    "buttonBottom": 374.328125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Magician",
+    "readingBottom": 386.921875,
+    "buttonTop": 337.921875,
+    "buttonBottom": 386.921875,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The High Priestess",
+    "readingBottom": 386.921875,
+    "buttonTop": 337.921875,
+    "buttonBottom": 386.921875,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Empress",
+    "readingBottom": 386.921875,
+    "buttonTop": 337.921875,
+    "buttonBottom": 386.921875,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Emperor",
+    "readingBottom": 386.921875,
+    "buttonTop": 337.921875,
+    "buttonBottom": 386.921875,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Hierophant",
+    "readingBottom": 386.921875,
+    "buttonTop": 337.921875,
+    "buttonBottom": 386.921875,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Lovers",
+    "readingBottom": 347.453125,
+    "buttonTop": 298.453125,
+    "buttonBottom": 347.453125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Chariot",
+    "readingBottom": 347.453125,
+    "buttonTop": 298.453125,
+    "buttonBottom": 347.453125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "Strength",
+    "readingBottom": 347.453125,
+    "buttonTop": 298.453125,
+    "buttonBottom": 347.453125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Hermit",
+    "readingBottom": 347.453125,
+    "buttonTop": 298.453125,
+    "buttonBottom": 347.453125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "Wheel of Fortune",
+    "readingBottom": 386.921875,
+    "buttonTop": 337.921875,
+    "buttonBottom": 386.921875,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "Justice",
+    "readingBottom": 347.453125,
+    "buttonTop": 298.453125,
+    "buttonBottom": 347.453125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Hanged Man",
+    "readingBottom": 386.921875,
+    "buttonTop": 337.921875,
+    "buttonBottom": 386.921875,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "Death",
+    "readingBottom": 347.453125,
+    "buttonTop": 298.453125,
+    "buttonBottom": 347.453125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "Temperance",
+    "readingBottom": 347.453125,
+    "buttonTop": 298.453125,
+    "buttonBottom": 347.453125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Devil",
+    "readingBottom": 347.453125,
+    "buttonTop": 298.453125,
+    "buttonBottom": 347.453125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Tower",
+    "readingBottom": 347.453125,
+    "buttonTop": 298.453125,
+    "buttonBottom": 347.453125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Star",
+    "readingBottom": 347.453125,
+    "buttonTop": 298.453125,
+    "buttonBottom": 347.453125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Moon",
+    "readingBottom": 347.453125,
+    "buttonTop": 298.453125,
+    "buttonBottom": 347.453125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The Sun",
+    "readingBottom": 374.328125,
+    "buttonTop": 325.328125,
+    "buttonBottom": 374.328125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "Judgement",
+    "readingBottom": 347.453125,
+    "buttonTop": 298.453125,
+    "buttonBottom": 347.453125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "title": "The World",
+    "readingBottom": 374.328125,
+    "buttonTop": 325.328125,
+    "buttonBottom": 374.328125,
+    "footerTop": 505,
+    "viewportHeight": 568,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Fool",
+    "readingBottom": 484.28125,
+    "buttonTop": 423.28125,
+    "buttonBottom": 484.28125,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Magician",
+    "readingBottom": 503.53125,
+    "buttonTop": 442.53125,
+    "buttonBottom": 503.53125,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The High Priestess",
+    "readingBottom": 503.53125,
+    "buttonTop": 442.53125,
+    "buttonBottom": 503.53125,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Empress",
+    "readingBottom": 503.53125,
+    "buttonTop": 442.53125,
+    "buttonBottom": 503.53125,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Emperor",
+    "readingBottom": 503.53125,
+    "buttonTop": 442.53125,
+    "buttonBottom": 503.53125,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Hierophant",
+    "readingBottom": 503.53125,
+    "buttonTop": 442.53125,
+    "buttonBottom": 503.53125,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Lovers",
+    "readingBottom": 454.046875,
+    "buttonTop": 393.046875,
+    "buttonBottom": 454.046875,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Chariot",
+    "readingBottom": 503.53125,
+    "buttonTop": 442.53125,
+    "buttonBottom": 503.53125,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "Strength",
+    "readingBottom": 454.046875,
+    "buttonTop": 393.046875,
+    "buttonBottom": 454.046875,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Hermit",
+    "readingBottom": 454.046875,
+    "buttonTop": 393.046875,
+    "buttonBottom": 454.046875,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "Wheel of Fortune",
+    "readingBottom": 503.53125,
+    "buttonTop": 442.53125,
+    "buttonBottom": 503.53125,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "Justice",
+    "readingBottom": 454.046875,
+    "buttonTop": 393.046875,
+    "buttonBottom": 454.046875,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Hanged Man",
+    "readingBottom": 553.015625,
+    "buttonTop": 492.015625,
+    "buttonBottom": 553.015625,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "Death",
+    "readingBottom": 454.046875,
+    "buttonTop": 393.046875,
+    "buttonBottom": 454.046875,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "Temperance",
+    "readingBottom": 454.046875,
+    "buttonTop": 393.046875,
+    "buttonBottom": 454.046875,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Devil",
+    "readingBottom": 454.046875,
+    "buttonTop": 393.046875,
+    "buttonBottom": 454.046875,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Tower",
+    "readingBottom": 454.046875,
+    "buttonTop": 393.046875,
+    "buttonBottom": 454.046875,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Star",
+    "readingBottom": 454.046875,
+    "buttonTop": 393.046875,
+    "buttonBottom": 454.046875,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Moon",
+    "readingBottom": 454.046875,
+    "buttonTop": 393.046875,
+    "buttonBottom": 454.046875,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The Sun",
+    "readingBottom": 484.28125,
+    "buttonTop": 423.28125,
+    "buttonBottom": 484.28125,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "Judgement",
+    "readingBottom": 454.046875,
+    "buttonTop": 393.046875,
+    "buttonBottom": 454.046875,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 390,
+      "height": 844
+    },
+    "title": "The World",
+    "readingBottom": 484.28125,
+    "buttonTop": 423.28125,
+    "buttonBottom": 484.28125,
+    "footerTop": 781,
+    "viewportHeight": 844,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Fool",
+    "readingBottom": 244.609375,
+    "buttonTop": 205.609375,
+    "buttonBottom": 244.609375,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Magician",
+    "readingBottom": 224.8125,
+    "buttonTop": 185.8125,
+    "buttonBottom": 224.8125,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The High Priestess",
+    "readingBottom": 256.75,
+    "buttonTop": 217.75,
+    "buttonBottom": 256.75,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Empress",
+    "readingBottom": 256.75,
+    "buttonTop": 217.75,
+    "buttonBottom": 256.75,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Emperor",
+    "readingBottom": 236.953125,
+    "buttonTop": 197.953125,
+    "buttonBottom": 236.953125,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Hierophant",
+    "readingBottom": 244.609375,
+    "buttonTop": 205.609375,
+    "buttonBottom": 244.609375,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Lovers",
+    "readingBottom": 256.75,
+    "buttonTop": 217.75,
+    "buttonBottom": 256.75,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Chariot",
+    "readingBottom": 244.609375,
+    "buttonTop": 205.609375,
+    "buttonBottom": 244.609375,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "Strength",
+    "readingBottom": 244.609375,
+    "buttonTop": 205.609375,
+    "buttonBottom": 244.609375,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Hermit",
+    "readingBottom": 244.609375,
+    "buttonTop": 205.609375,
+    "buttonBottom": 244.609375,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "Wheel of Fortune",
+    "readingBottom": 244.609375,
+    "buttonTop": 205.609375,
+    "buttonBottom": 244.609375,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "Justice",
+    "readingBottom": 256.75,
+    "buttonTop": 217.75,
+    "buttonBottom": 256.75,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Hanged Man",
+    "readingBottom": 256.75,
+    "buttonTop": 217.75,
+    "buttonBottom": 256.75,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "Death",
+    "readingBottom": 256.75,
+    "buttonTop": 217.75,
+    "buttonBottom": 256.75,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "Temperance",
+    "readingBottom": 256.75,
+    "buttonTop": 217.75,
+    "buttonBottom": 256.75,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Devil",
+    "readingBottom": 244.609375,
+    "buttonTop": 205.609375,
+    "buttonBottom": 244.609375,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Tower",
+    "readingBottom": 256.75,
+    "buttonTop": 217.75,
+    "buttonBottom": 256.75,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Star",
+    "readingBottom": 256.75,
+    "buttonTop": 217.75,
+    "buttonBottom": 256.75,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Moon",
+    "readingBottom": 256.75,
+    "buttonTop": 217.75,
+    "buttonBottom": 256.75,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The Sun",
+    "readingBottom": 256.75,
+    "buttonTop": 217.75,
+    "buttonBottom": 256.75,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "Judgement",
+    "readingBottom": 256.75,
+    "buttonTop": 217.75,
+    "buttonBottom": 256.75,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 640,
+      "height": 360
+    },
+    "title": "The World",
+    "readingBottom": 256.75,
+    "buttonTop": 217.75,
+    "buttonBottom": 256.75,
+    "footerTop": 315,
+    "viewportHeight": 360,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Fool",
+    "readingBottom": 269.59375,
+    "buttonTop": 228.59375,
+    "buttonBottom": 269.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Magician",
+    "readingBottom": 245.453125,
+    "buttonTop": 204.453125,
+    "buttonBottom": 245.453125,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The High Priestess",
+    "readingBottom": 283.59375,
+    "buttonTop": 242.59375,
+    "buttonBottom": 283.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Empress",
+    "readingBottom": 283.59375,
+    "buttonTop": 242.59375,
+    "buttonBottom": 283.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Emperor",
+    "readingBottom": 283.59375,
+    "buttonTop": 242.59375,
+    "buttonBottom": 283.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Hierophant",
+    "readingBottom": 269.59375,
+    "buttonTop": 228.59375,
+    "buttonBottom": 269.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Lovers",
+    "readingBottom": 283.59375,
+    "buttonTop": 242.59375,
+    "buttonBottom": 283.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Chariot",
+    "readingBottom": 269.59375,
+    "buttonTop": 228.59375,
+    "buttonBottom": 269.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "Strength",
+    "readingBottom": 269.59375,
+    "buttonTop": 228.59375,
+    "buttonBottom": 269.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Hermit",
+    "readingBottom": 269.59375,
+    "buttonTop": 228.59375,
+    "buttonBottom": 269.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "Wheel of Fortune",
+    "readingBottom": 269.59375,
+    "buttonTop": 228.59375,
+    "buttonBottom": 269.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "Justice",
+    "readingBottom": 283.59375,
+    "buttonTop": 242.59375,
+    "buttonBottom": 283.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Hanged Man",
+    "readingBottom": 283.59375,
+    "buttonTop": 242.59375,
+    "buttonBottom": 283.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "Death",
+    "readingBottom": 283.59375,
+    "buttonTop": 242.59375,
+    "buttonBottom": 283.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "Temperance",
+    "readingBottom": 283.59375,
+    "buttonTop": 242.59375,
+    "buttonBottom": 283.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Devil",
+    "readingBottom": 269.59375,
+    "buttonTop": 228.59375,
+    "buttonBottom": 269.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Tower",
+    "readingBottom": 283.59375,
+    "buttonTop": 242.59375,
+    "buttonBottom": 283.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Star",
+    "readingBottom": 283.59375,
+    "buttonTop": 242.59375,
+    "buttonBottom": 283.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Moon",
+    "readingBottom": 283.59375,
+    "buttonTop": 242.59375,
+    "buttonBottom": 283.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The Sun",
+    "readingBottom": 283.59375,
+    "buttonTop": 242.59375,
+    "buttonBottom": 283.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "Judgement",
+    "readingBottom": 283.59375,
+    "buttonTop": 242.59375,
+    "buttonBottom": 283.59375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  },
+  {
+    "size": {
+      "width": 844,
+      "height": 390
+    },
+    "title": "The World",
+    "readingBottom": 307.734375,
+    "buttonTop": 266.734375,
+    "buttonBottom": 307.734375,
+    "footerTop": 345,
+    "viewportHeight": 390,
+    "overflow": false,
+    "overlap": 0
+  }
+]

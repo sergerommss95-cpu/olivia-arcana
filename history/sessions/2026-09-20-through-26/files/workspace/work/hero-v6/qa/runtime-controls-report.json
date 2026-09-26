@@ -1,0 +1,135 @@
+[
+  {
+    "name": "Wheel takes over automatic journey",
+    "pass": true,
+    "state": {
+      "p": 0.017913127703683925,
+      "target": 0.019230807264957257,
+      "watching": false,
+      "paused": false,
+      "quiet": false,
+      "frames": 90,
+      "time": 1.500002966666668,
+      "last": 0,
+      "raf": 91,
+      "resizeRequest": 0,
+      "ptr": [
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "name": "Navigation keys take over while journey button has focus",
+    "pass": true,
+    "state": {
+      "p": 0.017913127703683925,
+      "target": 0.019230807264957257,
+      "watching": false,
+      "paused": false,
+      "quiet": false,
+      "frames": 90,
+      "time": 1.500002966666668,
+      "last": 0,
+      "raf": 91,
+      "resizeRequest": 0,
+      "ptr": [
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "name": "Space on a focused link takes over native page scrolling",
+    "pass": true
+  },
+  {
+    "name": "Pause drift does not pause the independent journey",
+    "pass": true,
+    "state": {
+      "p": 0.017913127703683925,
+      "target": 0.019230807264957257,
+      "watching": true,
+      "paused": true,
+      "quiet": false,
+      "frames": 90,
+      "time": 1.500002966666668,
+      "last": 0,
+      "raf": 91,
+      "resizeRequest": 0,
+      "ptr": [
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "name": "Touch on journey pauses instead of restarting",
+    "pass": true,
+    "state": {
+      "p": 0.017913127703683925,
+      "target": 0.019230807264957257,
+      "watching": false,
+      "paused": false,
+      "quiet": false,
+      "frames": 90,
+      "time": 1.500002966666668,
+      "last": 0,
+      "raf": 91,
+      "resizeRequest": 0,
+      "ptr": [
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "name": "Journey pause stops progress after spring settles",
+    "pass": true,
+    "delta": 0
+  },
+  {
+    "name": "Reduced motion stops journey and idle RAF",
+    "pass": true,
+    "state": {
+      "p": 0.019230807264957257,
+      "target": 0.019230807264957257,
+      "watching": false,
+      "paused": false,
+      "quiet": true,
+      "frames": 92,
+      "time": 1.500002966666668,
+      "last": 0,
+      "raf": 0,
+      "resizeRequest": 0,
+      "ptr": [
+        0,
+        0
+      ]
+    },
+    "pending": 0
+  },
+  {
+    "name": "Unchanged resize does not rebuild rail or framebuffer twice",
+    "pass": true,
+    "before": {
+      "trackBuilds": 0,
+      "bufferWrites": 2
+    },
+    "after": {
+      "trackBuilds": 0,
+      "bufferWrites": 2
+    }
+  },
+  {
+    "name": "Hidden tab suspends journey without advancing on return",
+    "pass": true,
+    "resumedAdvance": 0.00021367521367521292
+  },
+  {
+    "name": "Playback completes at 78 active seconds and offers replay",
+    "pass": true,
+    "progress": 1,
+    "label": "Watch again"
+  }
+]

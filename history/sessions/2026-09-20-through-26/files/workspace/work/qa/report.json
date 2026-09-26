@@ -1,0 +1,3822 @@
+{
+  "target": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html",
+  "timestamp": "2026-09-20T19:18:41.213Z",
+  "scenarios": [
+    {
+      "name": "desktop",
+      "options": {},
+      "checks": [
+        {
+          "name": "No horizontal overflow at entry",
+          "ok": true
+        },
+        {
+          "name": "Title identifies Olivia",
+          "ok": true,
+          "detail": "Olivia Arcana — A different way to see"
+        },
+        {
+          "name": "Single canvas",
+          "ok": true,
+          "detail": [
+            {
+              "width": 2376,
+              "height": 1650,
+              "rect": {
+                "width": 1440,
+                "height": 1000
+              }
+            }
+          ]
+        },
+        {
+          "name": "WebGL initialized",
+          "ok": true,
+          "detail": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ]
+        },
+        {
+          "name": "22 tarot cards",
+          "ok": true,
+          "detail": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.65,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 85
+          }
+        },
+        {
+          "name": "7 sculptural archetypes",
+          "ok": true,
+          "detail": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.65,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 85
+          }
+        },
+        {
+          "name": "DPR clamped",
+          "ok": true,
+          "detail": 1.65
+        },
+        {
+          "name": "Reading initially hidden",
+          "ok": true,
+          "detail": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          }
+        },
+        {
+          "name": "No network dependencies",
+          "ok": true,
+          "detail": []
+        },
+        {
+          "name": "No horizontal overflow at 0",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.15",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.3",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.48",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.65",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.82",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 1",
+          "ok": true
+        },
+        {
+          "name": "Draw control exists",
+          "ok": true
+        },
+        {
+          "name": "Keyboard draw reveals reading",
+          "ok": true,
+          "detail": {
+            "hidden": false,
+            "ariaHidden": null,
+            "display": "block",
+            "visible": true,
+            "text": "XXI / YOUR CARD\nThe World\n\nWhat deserves to be acknowledged before you begin again?\n\nPause over what you have completed. Let that experience come with you.\n\nDraw again\n↗"
+          }
+        },
+        {
+          "name": "Second keyboard draw remains readable",
+          "ok": true,
+          "detail": {
+            "hidden": false,
+            "ariaHidden": null,
+            "display": "block",
+            "visible": true,
+            "text": "XVIII / YOUR CARD\nThe Moon\n\nWhat remains uncertain, and can it stay that way for now?\n\nSeparate what you know from what you are imagining. Let clarity take its time.\n\nDraw again\n↗"
+          }
+        },
+        {
+          "name": "Motion toggle exists",
+          "ok": true
+        },
+        {
+          "name": "Motion toggle reports state change",
+          "ok": true,
+          "detail": {
+            "before": {
+              "text": "Motion on",
+              "pressed": "false",
+              "label": "Reduce motion"
+            },
+            "after": {
+              "text": "Motion reduced",
+              "pressed": "true",
+              "label": "Enable full motion"
+            }
+          }
+        },
+        {
+          "name": "Anchor target #beginning exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #beginning updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#beginning"
+        },
+        {
+          "name": "Anchor target #unfold exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #unfold updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#unfold"
+        },
+        {
+          "name": "Anchor target #oracle exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #oracle updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#oracle"
+        },
+        {
+          "name": "No uncaught runtime errors",
+          "ok": true,
+          "detail": []
+        },
+        {
+          "name": "No unexpected console errors",
+          "ok": true,
+          "detail": []
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "requestFailures": [],
+      "requests": [
+        "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html"
+      ],
+      "snapshots": [
+        {
+          "fraction": 0,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 0,
+          "scrollHeight": 6600,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 2376,
+              "height": 1650,
+              "rect": {
+                "width": 1440,
+                "height": 1000
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.65,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 155
+          },
+          "animationFrames": 156,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nSome answers\nbegin within."
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.15,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 840,
+          "scrollHeight": 6600,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 2376,
+              "height": 1650,
+              "rect": {
+                "width": 1440,
+                "height": 1000
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.65,
+            "progress": 0.15,
+            "reducedMotion": false,
+            "frames": 225
+          },
+          "animationFrames": 226,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nSome answers\nbegin within."
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.3,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 1680,
+          "scrollHeight": 6600,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 2376,
+              "height": 1650,
+              "rect": {
+                "width": 1440,
+                "height": 1000
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 105,
+            "triangles": 33754,
+            "pixelRatio": 1.65,
+            "progress": 0.3,
+            "reducedMotion": false,
+            "frames": 296
+          },
+          "animationFrames": 297,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nLook\na little\ncloser.\n\nA f"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.48,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 2688,
+          "scrollHeight": 6600,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 2376,
+              "height": 1650,
+              "rect": {
+                "width": 1440,
+                "height": 1000
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 100,
+            "triangles": 41750,
+            "pixelRatio": 1.65,
+            "progress": 0.48,
+            "reducedMotion": false,
+            "frames": 364
+          },
+          "animationFrames": 365,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nA different\nway to see.\nTH"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.65,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 3640,
+          "scrollHeight": 6600,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 2376,
+              "height": 1650,
+              "rect": {
+                "width": 1440,
+                "height": 1000
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 91,
+            "triangles": 18744,
+            "pixelRatio": 1.65,
+            "progress": 0.65,
+            "reducedMotion": false,
+            "frames": 434
+          },
+          "animationFrames": 435,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nAs above, so within.\nFollo"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.82,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 4592,
+          "scrollHeight": 6600,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 2376,
+              "height": 1650,
+              "rect": {
+                "width": 1440,
+                "height": 1000
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 91,
+            "triangles": 18744,
+            "pixelRatio": 1.65,
+            "progress": 0.82,
+            "reducedMotion": false,
+            "frames": 502
+          },
+          "animationFrames": 503,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nTarot, thoughtfully reimag"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 1,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 5600,
+          "scrollHeight": 6600,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 2376,
+              "height": 1650,
+              "rect": {
+                "width": 1440,
+                "height": 1000
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 66,
+            "triangles": 18744,
+            "pixelRatio": 1.65,
+            "progress": 1,
+            "reducedMotion": false,
+            "frames": 570
+          },
+          "animationFrames": 571,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nYOUR MOMENT WITH THE ORACL"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        }
+      ],
+      "screenshots": [
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/desktop-000.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/desktop-015.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/desktop-030.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/desktop-048.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/desktop-065.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/desktop-082.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/desktop-100.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/desktop-reading.png"
+      ],
+      "initial": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          1440,
+          1000
+        ],
+        "scrollY": 0,
+        "scrollHeight": 6600,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 2376,
+            "height": 1650,
+            "rect": {
+              "width": 1440,
+              "height": 1000
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": true,
+          "ariaHidden": null,
+          "display": "none",
+          "visible": false,
+          "text": "Draw again ↗"
+        },
+        "motion": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 116,
+          "triangles": 45166,
+          "pixelRatio": 1.65,
+          "progress": 0,
+          "reducedMotion": false,
+          "frames": 85
+        },
+        "animationFrames": 86,
+        "rootClass": "has-webgl",
+        "activeElement": {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nSome answers\nbegin within."
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      },
+      "afterDraw": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          1440,
+          1000
+        ],
+        "scrollY": 5600,
+        "scrollHeight": 6600,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 2376,
+            "height": 1650,
+            "rect": {
+              "width": 1440,
+              "height": 1000
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "ariaHidden": null,
+          "display": "block",
+          "visible": true,
+          "text": "XXI / YOUR CARD\nThe World\n\nWhat deserves to be acknowledged before you begin again?\n\nPause over what you have completed. Let that experience come with you.\n\nDraw again\n↗"
+        },
+        "motion": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 71,
+          "triangles": 21856,
+          "pixelRatio": 1.65,
+          "progress": 1,
+          "reducedMotion": false,
+          "frames": 631
+        },
+        "animationFrames": 632,
+        "rootClass": "has-webgl",
+        "activeElement": {
+          "tag": "H2",
+          "id": "reading-title",
+          "text": "The World"
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      },
+      "afterSecondDraw": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          1440,
+          1000
+        ],
+        "scrollY": 5600,
+        "scrollHeight": 6600,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 2376,
+            "height": 1650,
+            "rect": {
+              "width": 1440,
+              "height": 1000
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "ariaHidden": null,
+          "display": "block",
+          "visible": true,
+          "text": "XVIII / YOUR CARD\nThe Moon\n\nWhat remains uncertain, and can it stay that way for now?\n\nSeparate what you know from what you are imagining. Let clarity take its time.\n\nDraw again\n↗"
+        },
+        "motion": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 66,
+          "triangles": 18744,
+          "pixelRatio": 1.65,
+          "progress": 1,
+          "reducedMotion": false,
+          "frames": 669
+        },
+        "animationFrames": 670,
+        "rootClass": "has-webgl",
+        "activeElement": {
+          "tag": "H2",
+          "id": "reading-title",
+          "text": "The Moon"
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      },
+      "motionToggle": {
+        "before": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "after": {
+          "text": "Motion reduced",
+          "pressed": "true",
+          "label": "Enable full motion"
+        }
+      }
+    },
+    {
+      "name": "mobile",
+      "options": {
+        "mobile": true
+      },
+      "checks": [
+        {
+          "name": "No horizontal overflow at entry",
+          "ok": true
+        },
+        {
+          "name": "Title identifies Olivia",
+          "ok": true,
+          "detail": "Olivia Arcana — A different way to see"
+        },
+        {
+          "name": "Single canvas",
+          "ok": true,
+          "detail": [
+            {
+              "width": 526,
+              "height": 1139,
+              "rect": {
+                "width": 390,
+                "height": 844
+              }
+            }
+          ]
+        },
+        {
+          "name": "WebGL initialized",
+          "ok": true,
+          "detail": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ]
+        },
+        {
+          "name": "22 tarot cards",
+          "ok": true,
+          "detail": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.35,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 86
+          }
+        },
+        {
+          "name": "7 sculptural archetypes",
+          "ok": true,
+          "detail": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.35,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 86
+          }
+        },
+        {
+          "name": "DPR clamped",
+          "ok": true,
+          "detail": 1.35
+        },
+        {
+          "name": "Reading initially hidden",
+          "ok": true,
+          "detail": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          }
+        },
+        {
+          "name": "No network dependencies",
+          "ok": true,
+          "detail": []
+        },
+        {
+          "name": "No horizontal overflow at 0",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.15",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.3",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.48",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.65",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.82",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 1",
+          "ok": true
+        },
+        {
+          "name": "Draw control exists",
+          "ok": true
+        },
+        {
+          "name": "Keyboard draw reveals reading",
+          "ok": true,
+          "detail": {
+            "hidden": false,
+            "ariaHidden": null,
+            "display": "block",
+            "visible": true,
+            "text": "XIII / YOUR CARD\nDeath\n\nWhat are you ready to let be finished?\n\nMake space by releasing a habit, role, or expectation you have outgrown.\n\nDraw again\n↗"
+          }
+        },
+        {
+          "name": "Second keyboard draw remains readable",
+          "ok": true,
+          "detail": {
+            "hidden": false,
+            "ariaHidden": null,
+            "display": "block",
+            "visible": true,
+            "text": "III / YOUR CARD\nThe Empress\n\nWhat would grow with a little more care?\n\nMake time for something nourishing, tangible, and entirely your own.\n\nDraw again\n↗"
+          }
+        },
+        {
+          "name": "Motion toggle exists",
+          "ok": true
+        },
+        {
+          "name": "Motion toggle reports state change",
+          "ok": true,
+          "detail": {
+            "before": {
+              "text": "Motion on",
+              "pressed": "false",
+              "label": "Reduce motion"
+            },
+            "after": {
+              "text": "Motion reduced",
+              "pressed": "true",
+              "label": "Enable full motion"
+            }
+          }
+        },
+        {
+          "name": "Anchor target #beginning exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #beginning updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#beginning"
+        },
+        {
+          "name": "Anchor target #unfold exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #unfold updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#unfold"
+        },
+        {
+          "name": "Anchor target #oracle exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #oracle updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#oracle"
+        },
+        {
+          "name": "No overflow after landscape resize",
+          "ok": true
+        },
+        {
+          "name": "No uncaught runtime errors",
+          "ok": true,
+          "detail": []
+        },
+        {
+          "name": "No unexpected console errors",
+          "ok": true,
+          "detail": []
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "requestFailures": [],
+      "requests": [
+        "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html"
+      ],
+      "snapshots": [
+        {
+          "fraction": 0,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            390,
+            844
+          ],
+          "scrollY": 0,
+          "scrollHeight": 5570,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 526,
+              "height": 1139,
+              "rect": {
+                "width": 390,
+                "height": 844
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.35,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 154
+          },
+          "animationFrames": 154,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nSome answers\nbegin within."
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.15,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            390,
+            844
+          ],
+          "scrollY": 709,
+          "scrollHeight": 5570,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 526,
+              "height": 1139,
+              "rect": {
+                "width": 390,
+                "height": 844
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.35,
+            "progress": 0.15002115954295386,
+            "reducedMotion": false,
+            "frames": 221
+          },
+          "animationFrames": 221,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nSome answers\nbegin within."
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.3,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            390,
+            844
+          ],
+          "scrollY": 1418,
+          "scrollHeight": 5570,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 526,
+              "height": 1139,
+              "rect": {
+                "width": 390,
+                "height": 844
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 76,
+            "triangles": 16226,
+            "pixelRatio": 1.35,
+            "progress": 0.3000423190859077,
+            "reducedMotion": false,
+            "frames": 287
+          },
+          "animationFrames": 287,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nLook\na little\ncloser.\n\nA f"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.48,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            390,
+            844
+          ],
+          "scrollY": 2268,
+          "scrollHeight": 5570,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 526,
+              "height": 1139,
+              "rect": {
+                "width": 390,
+                "height": 844
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 52,
+            "triangles": 19110,
+            "pixelRatio": 1.35,
+            "progress": 0.4798984341938214,
+            "reducedMotion": false,
+            "frames": 356
+          },
+          "animationFrames": 356,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nA different\nway to see.\nTH"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.65,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            390,
+            844
+          ],
+          "scrollY": 3072,
+          "scrollHeight": 5570,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 526,
+              "height": 1139,
+              "rect": {
+                "width": 390,
+                "height": 844
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 51,
+            "triangles": 10224,
+            "pixelRatio": 1.35,
+            "progress": 0.6500211595429539,
+            "reducedMotion": false,
+            "frames": 422
+          },
+          "animationFrames": 422,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nAs above, so within.\nFollo"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.82,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            390,
+            844
+          ],
+          "scrollY": 3875,
+          "scrollHeight": 5570,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 526,
+              "height": 1139,
+              "rect": {
+                "width": 390,
+                "height": 844
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 90,
+            "triangles": 18744,
+            "pixelRatio": 1.35,
+            "progress": 0.8199322894625476,
+            "reducedMotion": false,
+            "frames": 489
+          },
+          "animationFrames": 489,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nTarot, thoughtfully reimag"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 1,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            390,
+            844
+          ],
+          "scrollY": 4726,
+          "scrollHeight": 5570,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 526,
+              "height": 1139,
+              "rect": {
+                "width": 390,
+                "height": 844
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 66,
+            "triangles": 18744,
+            "pixelRatio": 1.35,
+            "progress": 1,
+            "reducedMotion": false,
+            "frames": 556
+          },
+          "animationFrames": 556,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nYOUR MOMENT WITH THE ORACL"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        }
+      ],
+      "screenshots": [
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/mobile-000.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/mobile-015.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/mobile-030.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/mobile-048.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/mobile-065.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/mobile-082.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/mobile-100.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/mobile-reading.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/mobile-landscape.png"
+      ],
+      "initial": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          390,
+          844
+        ],
+        "scrollY": 0,
+        "scrollHeight": 5570,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 526,
+            "height": 1139,
+            "rect": {
+              "width": 390,
+              "height": 844
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": true,
+          "ariaHidden": null,
+          "display": "none",
+          "visible": false,
+          "text": "Draw again ↗"
+        },
+        "motion": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 116,
+          "triangles": 45166,
+          "pixelRatio": 1.35,
+          "progress": 0,
+          "reducedMotion": false,
+          "frames": 86
+        },
+        "animationFrames": 86,
+        "rootClass": "has-webgl",
+        "activeElement": {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nSome answers\nbegin within."
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      },
+      "afterDraw": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          390,
+          844
+        ],
+        "scrollY": 4726,
+        "scrollHeight": 5570,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 526,
+            "height": 1139,
+            "rect": {
+              "width": 390,
+              "height": 844
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "ariaHidden": null,
+          "display": "block",
+          "visible": true,
+          "text": "XIII / YOUR CARD\nDeath\n\nWhat are you ready to let be finished?\n\nMake space by releasing a habit, role, or expectation you have outgrown.\n\nDraw again\n↗"
+        },
+        "motion": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 71,
+          "triangles": 22988,
+          "pixelRatio": 1.35,
+          "progress": 1,
+          "reducedMotion": false,
+          "frames": 616
+        },
+        "animationFrames": 616,
+        "rootClass": "has-webgl",
+        "activeElement": {
+          "tag": "H2",
+          "id": "reading-title",
+          "text": "Death"
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      },
+      "afterSecondDraw": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          390,
+          844
+        ],
+        "scrollY": 4726,
+        "scrollHeight": 5570,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 526,
+            "height": 1139,
+            "rect": {
+              "width": 390,
+              "height": 844
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "ariaHidden": null,
+          "display": "block",
+          "visible": true,
+          "text": "III / YOUR CARD\nThe Empress\n\nWhat would grow with a little more care?\n\nMake time for something nourishing, tangible, and entirely your own.\n\nDraw again\n↗"
+        },
+        "motion": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 66,
+          "triangles": 18744,
+          "pixelRatio": 1.35,
+          "progress": 1,
+          "reducedMotion": false,
+          "frames": 652
+        },
+        "animationFrames": 652,
+        "rootClass": "has-webgl",
+        "activeElement": {
+          "tag": "H2",
+          "id": "reading-title",
+          "text": "The Empress"
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      },
+      "motionToggle": {
+        "before": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "after": {
+          "text": "Motion reduced",
+          "pressed": "true",
+          "label": "Enable full motion"
+        }
+      },
+      "afterLandscapeResize": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          844,
+          390
+        ],
+        "scrollY": 2184,
+        "scrollHeight": 2574,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 1392,
+            "height": 643,
+            "rect": {
+              "width": 844,
+              "height": 390
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "ariaHidden": null,
+          "display": "block",
+          "visible": true,
+          "text": "III / YOUR CARD\nThe Empress\n\nWhat would grow with a little more care?\n\nMake time for something nourishing, tangible, and entirely your own.\n\nDraw again\n↗"
+        },
+        "motion": {
+          "text": "Motion reduced",
+          "pressed": "true",
+          "label": "Enable full motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 71,
+          "triangles": 23354,
+          "pixelRatio": 1.65,
+          "progress": 1,
+          "reducedMotion": true,
+          "frames": 652
+        },
+        "animationFrames": 657,
+        "rootClass": "has-webgl quiet",
+        "activeElement": {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nIII / YOUR CARD\nThe Empres"
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "narrow-mobile",
+      "options": {
+        "mobile": true,
+        "viewport": {
+          "width": 320,
+          "height": 568
+        }
+      },
+      "checks": [
+        {
+          "name": "No horizontal overflow at entry",
+          "ok": true
+        },
+        {
+          "name": "Title identifies Olivia",
+          "ok": true,
+          "detail": "Olivia Arcana — A different way to see"
+        },
+        {
+          "name": "Single canvas",
+          "ok": true,
+          "detail": [
+            {
+              "width": 432,
+              "height": 766,
+              "rect": {
+                "width": 320,
+                "height": 568
+              }
+            }
+          ]
+        },
+        {
+          "name": "WebGL initialized",
+          "ok": true,
+          "detail": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ]
+        },
+        {
+          "name": "22 tarot cards",
+          "ok": true,
+          "detail": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.35,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 87
+          }
+        },
+        {
+          "name": "7 sculptural archetypes",
+          "ok": true,
+          "detail": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.35,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 87
+          }
+        },
+        {
+          "name": "DPR clamped",
+          "ok": true,
+          "detail": 1.35
+        },
+        {
+          "name": "Reading initially hidden",
+          "ok": true,
+          "detail": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          }
+        },
+        {
+          "name": "No network dependencies",
+          "ok": true,
+          "detail": []
+        },
+        {
+          "name": "No horizontal overflow at 0",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.15",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.3",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.48",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.65",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.82",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 1",
+          "ok": true
+        },
+        {
+          "name": "Draw control exists",
+          "ok": true
+        },
+        {
+          "name": "Keyboard draw reveals reading",
+          "ok": true,
+          "detail": {
+            "hidden": false,
+            "ariaHidden": null,
+            "display": "block",
+            "visible": true,
+            "text": "III / YOUR CARD\nThe Empress\n\nWhat would grow with a little more care?\n\nMake time for something nourishing, tangible, and entirely your own.\n\nDraw again\n↗"
+          }
+        },
+        {
+          "name": "Second keyboard draw remains readable",
+          "ok": true,
+          "detail": {
+            "hidden": false,
+            "ariaHidden": null,
+            "display": "block",
+            "visible": true,
+            "text": "IV / YOUR CARD\nThe Emperor\n\nWhere would a clear boundary help?\n\nChoose a structure that supports you without making your world smaller.\n\nDraw again\n↗"
+          }
+        },
+        {
+          "name": "Motion toggle exists",
+          "ok": true
+        },
+        {
+          "name": "Motion toggle reports state change",
+          "ok": true,
+          "detail": {
+            "before": {
+              "text": "Motion on",
+              "pressed": "false",
+              "label": "Reduce motion"
+            },
+            "after": {
+              "text": "Motion reduced",
+              "pressed": "true",
+              "label": "Enable full motion"
+            }
+          }
+        },
+        {
+          "name": "Anchor target #beginning exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #beginning updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#beginning"
+        },
+        {
+          "name": "Anchor target #unfold exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #unfold updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#unfold"
+        },
+        {
+          "name": "Anchor target #oracle exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #oracle updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#oracle"
+        },
+        {
+          "name": "No overflow after landscape resize",
+          "ok": true
+        },
+        {
+          "name": "No uncaught runtime errors",
+          "ok": true,
+          "detail": []
+        },
+        {
+          "name": "No unexpected console errors",
+          "ok": true,
+          "detail": []
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "requestFailures": [],
+      "requests": [
+        "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html"
+      ],
+      "snapshots": [
+        {
+          "fraction": 0,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            320,
+            568
+          ],
+          "scrollY": 0,
+          "scrollHeight": 3749,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 432,
+              "height": 766,
+              "rect": {
+                "width": 320,
+                "height": 568
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.35,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 154
+          },
+          "animationFrames": 154,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nSome answers\nbegin within."
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.15,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            320,
+            568
+          ],
+          "scrollY": 477,
+          "scrollHeight": 3749,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 432,
+              "height": 766,
+              "rect": {
+                "width": 320,
+                "height": 568
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.35,
+            "progress": 0.14995284501729017,
+            "reducedMotion": false,
+            "frames": 217
+          },
+          "animationFrames": 217,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nSome answers\nbegin within."
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.3,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            320,
+            568
+          ],
+          "scrollY": 954,
+          "scrollHeight": 3749,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 432,
+              "height": 766,
+              "rect": {
+                "width": 320,
+                "height": 568
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 84,
+            "triangles": 17934,
+            "pixelRatio": 1.35,
+            "progress": 0.29990569003458034,
+            "reducedMotion": false,
+            "frames": 283
+          },
+          "animationFrames": 283,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nLook\na little\ncloser.\n\nA f"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.48,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            320,
+            568
+          ],
+          "scrollY": 1527,
+          "scrollHeight": 3749,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 432,
+              "height": 766,
+              "rect": {
+                "width": 320,
+                "height": 568
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 55,
+            "triangles": 24978,
+            "pixelRatio": 1.35,
+            "progress": 0.4800377239861679,
+            "reducedMotion": false,
+            "frames": 350
+          },
+          "animationFrames": 350,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nA different\nway to see.\nTH"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.65,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            320,
+            568
+          ],
+          "scrollY": 2068,
+          "scrollHeight": 3749,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 432,
+              "height": 766,
+              "rect": {
+                "width": 320,
+                "height": 568
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 51,
+            "triangles": 10224,
+            "pixelRatio": 1.35,
+            "progress": 0.6501100282929896,
+            "reducedMotion": false,
+            "frames": 416
+          },
+          "animationFrames": 416,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nAs above, so within.\nFollo"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.82,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            320,
+            568
+          ],
+          "scrollY": 2608,
+          "scrollHeight": 3749,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 432,
+              "height": 766,
+              "rect": {
+                "width": 320,
+                "height": 568
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 91,
+            "triangles": 18744,
+            "pixelRatio": 1.35,
+            "progress": 0.8198679660484125,
+            "reducedMotion": false,
+            "frames": 482
+          },
+          "animationFrames": 482,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nTarot, thoughtfully reimag"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 1,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            320,
+            568
+          ],
+          "scrollY": 3181,
+          "scrollHeight": 3749,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 432,
+              "height": 766,
+              "rect": {
+                "width": 320,
+                "height": 568
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 66,
+            "triangles": 18744,
+            "pixelRatio": 1.35,
+            "progress": 1,
+            "reducedMotion": false,
+            "frames": 549
+          },
+          "animationFrames": 549,
+          "rootClass": "has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nYOUR MOMENT WITH THE ORACL"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        }
+      ],
+      "screenshots": [
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/narrow-mobile-000.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/narrow-mobile-015.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/narrow-mobile-030.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/narrow-mobile-048.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/narrow-mobile-065.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/narrow-mobile-082.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/narrow-mobile-100.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/narrow-mobile-reading.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/narrow-mobile-landscape.png"
+      ],
+      "initial": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          320,
+          568
+        ],
+        "scrollY": 0,
+        "scrollHeight": 3749,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 432,
+            "height": 766,
+            "rect": {
+              "width": 320,
+              "height": 568
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": true,
+          "ariaHidden": null,
+          "display": "none",
+          "visible": false,
+          "text": "Draw again ↗"
+        },
+        "motion": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 116,
+          "triangles": 45166,
+          "pixelRatio": 1.35,
+          "progress": 0,
+          "reducedMotion": false,
+          "frames": 87
+        },
+        "animationFrames": 87,
+        "rootClass": "has-webgl",
+        "activeElement": {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nSome answers\nbegin within."
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      },
+      "afterDraw": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          320,
+          568
+        ],
+        "scrollY": 3181,
+        "scrollHeight": 3749,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 432,
+            "height": 766,
+            "rect": {
+              "width": 320,
+              "height": 568
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "ariaHidden": null,
+          "display": "block",
+          "visible": true,
+          "text": "III / YOUR CARD\nThe Empress\n\nWhat would grow with a little more care?\n\nMake time for something nourishing, tangible, and entirely your own.\n\nDraw again\n↗"
+        },
+        "motion": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 71,
+          "triangles": 23354,
+          "pixelRatio": 1.35,
+          "progress": 1,
+          "reducedMotion": false,
+          "frames": 610
+        },
+        "animationFrames": 610,
+        "rootClass": "has-webgl",
+        "activeElement": {
+          "tag": "H2",
+          "id": "reading-title",
+          "text": "The Empress"
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      },
+      "afterSecondDraw": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          320,
+          568
+        ],
+        "scrollY": 3181,
+        "scrollHeight": 3749,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 432,
+            "height": 766,
+            "rect": {
+              "width": 320,
+              "height": 568
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "ariaHidden": null,
+          "display": "block",
+          "visible": true,
+          "text": "IV / YOUR CARD\nThe Emperor\n\nWhere would a clear boundary help?\n\nChoose a structure that supports you without making your world smaller.\n\nDraw again\n↗"
+        },
+        "motion": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 66,
+          "triangles": 18744,
+          "pixelRatio": 1.35,
+          "progress": 1,
+          "reducedMotion": false,
+          "frames": 646
+        },
+        "animationFrames": 646,
+        "rootClass": "has-webgl",
+        "activeElement": {
+          "tag": "H2",
+          "id": "reading-title",
+          "text": "The Emperor"
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      },
+      "motionToggle": {
+        "before": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "after": {
+          "text": "Motion reduced",
+          "pressed": "true",
+          "label": "Enable full motion"
+        }
+      },
+      "afterLandscapeResize": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          844,
+          390
+        ],
+        "scrollY": 2184,
+        "scrollHeight": 2574,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 1392,
+            "height": 643,
+            "rect": {
+              "width": 844,
+              "height": 390
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "ariaHidden": null,
+          "display": "block",
+          "visible": true,
+          "text": "IV / YOUR CARD\nThe Emperor\n\nWhere would a clear boundary help?\n\nChoose a structure that supports you without making your world smaller.\n\nDraw again\n↗"
+        },
+        "motion": {
+          "text": "Motion reduced",
+          "pressed": "true",
+          "label": "Enable full motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 71,
+          "triangles": 23314,
+          "pixelRatio": 1.65,
+          "progress": 1,
+          "reducedMotion": true,
+          "frames": 647
+        },
+        "animationFrames": 652,
+        "rootClass": "has-webgl quiet",
+        "activeElement": {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nIV / YOUR CARD\nThe Emperor"
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "reduced-motion",
+      "options": {
+        "reduced": true
+      },
+      "checks": [
+        {
+          "name": "No horizontal overflow at entry",
+          "ok": true
+        },
+        {
+          "name": "Title identifies Olivia",
+          "ok": true,
+          "detail": "Olivia Arcana — A different way to see"
+        },
+        {
+          "name": "Single canvas",
+          "ok": true,
+          "detail": [
+            {
+              "width": 2376,
+              "height": 1650,
+              "rect": {
+                "width": 1440,
+                "height": 1000
+              }
+            }
+          ]
+        },
+        {
+          "name": "WebGL initialized",
+          "ok": true,
+          "detail": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ]
+        },
+        {
+          "name": "Reduced motion media preference applied",
+          "ok": true
+        },
+        {
+          "name": "Reduced motion is idle between inputs",
+          "ok": true,
+          "detail": {
+            "before": 2,
+            "after": 2
+          }
+        },
+        {
+          "name": "22 tarot cards",
+          "ok": true,
+          "detail": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.65,
+            "progress": 0,
+            "reducedMotion": true,
+            "frames": 0
+          }
+        },
+        {
+          "name": "7 sculptural archetypes",
+          "ok": true,
+          "detail": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.65,
+            "progress": 0,
+            "reducedMotion": true,
+            "frames": 0
+          }
+        },
+        {
+          "name": "DPR clamped",
+          "ok": true,
+          "detail": 1.65
+        },
+        {
+          "name": "Reading initially hidden",
+          "ok": true,
+          "detail": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          }
+        },
+        {
+          "name": "No network dependencies",
+          "ok": true,
+          "detail": []
+        },
+        {
+          "name": "No horizontal overflow at 0",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 0.5",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 1",
+          "ok": true
+        },
+        {
+          "name": "Draw control exists",
+          "ok": true
+        },
+        {
+          "name": "Keyboard draw reveals reading",
+          "ok": true,
+          "detail": {
+            "hidden": false,
+            "ariaHidden": null,
+            "display": "block",
+            "visible": true,
+            "text": "XIII / YOUR CARD\nDeath\n\nWhat are you ready to let be finished?\n\nMake space by releasing a habit, role, or expectation you have outgrown.\n\nDraw again\n↗"
+          }
+        },
+        {
+          "name": "Second keyboard draw remains readable",
+          "ok": true,
+          "detail": {
+            "hidden": false,
+            "ariaHidden": null,
+            "display": "block",
+            "visible": true,
+            "text": "I / YOUR CARD\nThe Magician\n\nWhat is already in your hands?\n\nName one resource you have been overlooking. Start there.\n\nDraw again\n↗"
+          }
+        },
+        {
+          "name": "Motion toggle exists",
+          "ok": true
+        },
+        {
+          "name": "Motion toggle reports state change",
+          "ok": true,
+          "detail": {
+            "before": {
+              "text": "Motion reduced",
+              "pressed": "true",
+              "label": "Enable full motion"
+            },
+            "after": {
+              "text": "Motion on",
+              "pressed": "false",
+              "label": "Reduce motion"
+            }
+          }
+        },
+        {
+          "name": "Anchor target #beginning exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #beginning updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#beginning"
+        },
+        {
+          "name": "Anchor target #unfold exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #unfold updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#unfold"
+        },
+        {
+          "name": "Anchor target #oracle exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #oracle updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#oracle"
+        },
+        {
+          "name": "No uncaught runtime errors",
+          "ok": true,
+          "detail": []
+        },
+        {
+          "name": "No unexpected console errors",
+          "ok": true,
+          "detail": []
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "requestFailures": [],
+      "requests": [
+        "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html"
+      ],
+      "snapshots": [
+        {
+          "fraction": 0,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 0,
+          "scrollHeight": 6600,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 2376,
+              "height": 1650,
+              "rect": {
+                "width": 1440,
+                "height": 1000
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion reduced",
+            "pressed": "true",
+            "label": "Enable full motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": true,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 116,
+            "triangles": 45166,
+            "pixelRatio": 1.65,
+            "progress": 0,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "animationFrames": 2,
+          "rootClass": "quiet has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nSome answers\nbegin within."
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 0.5,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 2800,
+          "scrollHeight": 6600,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 2376,
+              "height": 1650,
+              "rect": {
+                "width": 1440,
+                "height": 1000
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion reduced",
+            "pressed": "true",
+            "label": "Enable full motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": true,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 104,
+            "triangles": 42604,
+            "pixelRatio": 1.65,
+            "progress": 0.5,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "animationFrames": 3,
+          "rootClass": "quiet has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nA different\nway to see.\nTH"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        },
+        {
+          "fraction": 1,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 5600,
+          "scrollHeight": 6600,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 2376,
+              "height": 1650,
+              "rect": {
+                "width": 1440,
+                "height": 1000
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": true
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion reduced",
+            "pressed": "true",
+            "label": "Enable full motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": true,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 66,
+            "triangles": 18744,
+            "pixelRatio": 1.65,
+            "progress": 1,
+            "reducedMotion": true,
+            "frames": 0
+          },
+          "animationFrames": 4,
+          "rootClass": "quiet has-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nYOUR MOMENT WITH THE ORACL"
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": false
+            }
+          ]
+        }
+      ],
+      "screenshots": [
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/reduced-motion-000.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/reduced-motion-050.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/reduced-motion-100.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/reduced-motion-reading.png"
+      ],
+      "initial": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          1440,
+          1000
+        ],
+        "scrollY": 0,
+        "scrollHeight": 6600,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 2376,
+            "height": 1650,
+            "rect": {
+              "width": 1440,
+              "height": 1000
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": true,
+          "ariaHidden": null,
+          "display": "none",
+          "visible": false,
+          "text": "Draw again ↗"
+        },
+        "motion": {
+          "text": "Motion reduced",
+          "pressed": "true",
+          "label": "Enable full motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": true,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 116,
+          "triangles": 45166,
+          "pixelRatio": 1.65,
+          "progress": 0,
+          "reducedMotion": true,
+          "frames": 0
+        },
+        "animationFrames": 2,
+        "rootClass": "quiet has-webgl",
+        "activeElement": {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nSome answers\nbegin within."
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      },
+      "reducedIdle": {
+        "before": 2,
+        "after": 2
+      },
+      "afterDraw": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          1440,
+          1000
+        ],
+        "scrollY": 5600,
+        "scrollHeight": 6600,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 2376,
+            "height": 1650,
+            "rect": {
+              "width": 1440,
+              "height": 1000
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "ariaHidden": null,
+          "display": "block",
+          "visible": true,
+          "text": "XIII / YOUR CARD\nDeath\n\nWhat are you ready to let be finished?\n\nMake space by releasing a habit, role, or expectation you have outgrown.\n\nDraw again\n↗"
+        },
+        "motion": {
+          "text": "Motion reduced",
+          "pressed": "true",
+          "label": "Enable full motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": true,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 71,
+          "triangles": 22988,
+          "pixelRatio": 1.65,
+          "progress": 1,
+          "reducedMotion": true,
+          "frames": 0
+        },
+        "animationFrames": 5,
+        "rootClass": "quiet has-webgl",
+        "activeElement": {
+          "tag": "H2",
+          "id": "reading-title",
+          "text": "Death"
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      },
+      "afterSecondDraw": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          1440,
+          1000
+        ],
+        "scrollY": 5600,
+        "scrollHeight": 6600,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 2376,
+            "height": 1650,
+            "rect": {
+              "width": 1440,
+              "height": 1000
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": true
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "ariaHidden": null,
+          "display": "block",
+          "visible": true,
+          "text": "I / YOUR CARD\nThe Magician\n\nWhat is already in your hands?\n\nName one resource you have been overlooking. Start there.\n\nDraw again\n↗"
+        },
+        "motion": {
+          "text": "Motion reduced",
+          "pressed": "true",
+          "label": "Enable full motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": true,
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 71,
+          "triangles": 23314,
+          "pixelRatio": 1.65,
+          "progress": 1,
+          "reducedMotion": true,
+          "frames": 0
+        },
+        "animationFrames": 6,
+        "rootClass": "quiet has-webgl",
+        "activeElement": {
+          "tag": "H2",
+          "id": "reading-title",
+          "text": "The Magician"
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": false
+          }
+        ]
+      },
+      "motionToggle": {
+        "before": {
+          "text": "Motion reduced",
+          "pressed": "true",
+          "label": "Enable full motion"
+        },
+        "after": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        }
+      }
+    },
+    {
+      "name": "webgl-fallback",
+      "options": {
+        "noWebGL": true
+      },
+      "checks": [
+        {
+          "name": "No horizontal overflow at entry",
+          "ok": true
+        },
+        {
+          "name": "Title identifies Olivia",
+          "ok": true,
+          "detail": "Olivia Arcana — A different way to see"
+        },
+        {
+          "name": "Single canvas",
+          "ok": true,
+          "detail": [
+            {
+              "width": 300,
+              "height": 150,
+              "rect": {
+                "width": 0,
+                "height": 0
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reading initially hidden",
+          "ok": true,
+          "detail": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          }
+        },
+        {
+          "name": "No network dependencies",
+          "ok": true,
+          "detail": []
+        },
+        {
+          "name": "No horizontal overflow at 0",
+          "ok": true
+        },
+        {
+          "name": "No horizontal overflow at 1",
+          "ok": true
+        },
+        {
+          "name": "Draw control exists",
+          "ok": true
+        },
+        {
+          "name": "Keyboard draw reveals reading",
+          "ok": true,
+          "detail": {
+            "hidden": false,
+            "ariaHidden": null,
+            "display": "block",
+            "visible": true,
+            "text": "IX / YOUR CARD\nThe Hermit\n\nWhat becomes clear when the noise falls away?\n\nFind a small pocket of solitude and listen to your own words.\n\nDraw again\n↗"
+          }
+        },
+        {
+          "name": "Second keyboard draw remains readable",
+          "ok": true,
+          "detail": {
+            "hidden": false,
+            "ariaHidden": null,
+            "display": "block",
+            "visible": true,
+            "text": "XXI / YOUR CARD\nThe World\n\nWhat deserves to be acknowledged before you begin again?\n\nPause over what you have completed. Let that experience come with you.\n\nDraw again\n↗"
+          }
+        },
+        {
+          "name": "Motion toggle exists",
+          "ok": true
+        },
+        {
+          "name": "Motion toggle reports state change",
+          "ok": true,
+          "detail": {
+            "before": {
+              "text": "Motion on",
+              "pressed": "false",
+              "label": "Reduce motion"
+            },
+            "after": {
+              "text": "Motion reduced",
+              "pressed": "true",
+              "label": "Enable full motion"
+            }
+          }
+        },
+        {
+          "name": "Anchor target #beginning exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #beginning updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#beginning"
+        },
+        {
+          "name": "Anchor target #unfold exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #unfold updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#unfold"
+        },
+        {
+          "name": "Anchor target #oracle exists",
+          "ok": true
+        },
+        {
+          "name": "Navigation to #oracle updates URL",
+          "ok": true,
+          "detail": "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html#oracle"
+        },
+        {
+          "name": "No uncaught runtime errors",
+          "ok": true,
+          "detail": []
+        },
+        {
+          "name": "No unexpected console errors",
+          "ok": true,
+          "detail": []
+        },
+        {
+          "name": "Fallback visible",
+          "ok": true,
+          "detail": [
+            {
+              "text": "THE SUN",
+              "visible": true
+            }
+          ]
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "requestFailures": [],
+      "requests": [
+        "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html"
+      ],
+      "snapshots": [
+        {
+          "fraction": 0,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 0,
+          "scrollHeight": 6600,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 300,
+              "height": 150,
+              "rect": {
+                "width": 0,
+                "height": 0
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": false
+            },
+            {
+              "type": "webgl",
+              "success": false
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": null,
+          "animationFrames": 232,
+          "rootClass": "no-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nTHE SUN\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nOlivia Arcana — A "
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": true
+            }
+          ]
+        },
+        {
+          "fraction": 1,
+          "title": "Olivia Arcana — A different way to see",
+          "viewport": [
+            1440,
+            1000
+          ],
+          "scrollY": 5600,
+          "scrollHeight": 6600,
+          "horizontalOverflow": false,
+          "canvases": [
+            {
+              "width": 300,
+              "height": 150,
+              "rect": {
+                "width": 0,
+                "height": 0
+              }
+            }
+          ],
+          "webglContexts": [
+            {
+              "type": "webgl2",
+              "success": false
+            },
+            {
+              "type": "webgl",
+              "success": false
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "ariaHidden": null,
+            "display": "none",
+            "visible": false,
+            "text": "Draw again ↗"
+          },
+          "motion": {
+            "text": "Motion on",
+            "pressed": "false",
+            "label": "Reduce motion"
+          },
+          "bodyClass": "",
+          "reducedMotion": false,
+          "diagnostics": null,
+          "animationFrames": 303,
+          "rootClass": "no-webgl",
+          "activeElement": {
+            "tag": "BODY",
+            "id": "",
+            "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nTHE SUN\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nOlivia Arcana — A "
+          },
+          "fallbackText": [
+            {
+              "text": "THE SUN",
+              "visible": true
+            }
+          ]
+        }
+      ],
+      "screenshots": [
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/webgl-fallback-000.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/webgl-fallback-100.png",
+        "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/qa/webgl-fallback-reading.png"
+      ],
+      "initial": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          1440,
+          1000
+        ],
+        "scrollY": 0,
+        "scrollHeight": 6600,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 300,
+            "height": 150,
+            "rect": {
+              "width": 0,
+              "height": 0
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": false
+          },
+          {
+            "type": "webgl",
+            "success": false
+          }
+        ],
+        "reading": {
+          "hidden": true,
+          "ariaHidden": null,
+          "display": "none",
+          "visible": false,
+          "text": "Draw again ↗"
+        },
+        "motion": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": null,
+        "animationFrames": 91,
+        "rootClass": "no-webgl",
+        "activeElement": {
+          "tag": "BODY",
+          "id": "",
+          "text": "Skip to the Oracle\nOLIVIA\nA R C A N A\nTHE SUN\nOLIVIA\nARCANA\nThe deck\nThe Oracle ↗\nOlivia Arcana — A "
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": true
+          }
+        ]
+      },
+      "afterDraw": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          1440,
+          1000
+        ],
+        "scrollY": 5600,
+        "scrollHeight": 6600,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 300,
+            "height": 150,
+            "rect": {
+              "width": 0,
+              "height": 0
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": false
+          },
+          {
+            "type": "webgl",
+            "success": false
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "ariaHidden": null,
+          "display": "block",
+          "visible": true,
+          "text": "IX / YOUR CARD\nThe Hermit\n\nWhat becomes clear when the noise falls away?\n\nFind a small pocket of solitude and listen to your own words.\n\nDraw again\n↗"
+        },
+        "motion": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": null,
+        "animationFrames": 363,
+        "rootClass": "no-webgl",
+        "activeElement": {
+          "tag": "H2",
+          "id": "reading-title",
+          "text": "The Hermit"
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": true
+          }
+        ]
+      },
+      "afterSecondDraw": {
+        "title": "Olivia Arcana — A different way to see",
+        "viewport": [
+          1440,
+          1000
+        ],
+        "scrollY": 5600,
+        "scrollHeight": 6600,
+        "horizontalOverflow": false,
+        "canvases": [
+          {
+            "width": 300,
+            "height": 150,
+            "rect": {
+              "width": 0,
+              "height": 0
+            }
+          }
+        ],
+        "webglContexts": [
+          {
+            "type": "webgl2",
+            "success": false
+          },
+          {
+            "type": "webgl",
+            "success": false
+          }
+        ],
+        "reading": {
+          "hidden": false,
+          "ariaHidden": null,
+          "display": "block",
+          "visible": true,
+          "text": "XXI / YOUR CARD\nThe World\n\nWhat deserves to be acknowledged before you begin again?\n\nPause over what you have completed. Let that experience come with you.\n\nDraw again\n↗"
+        },
+        "motion": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "bodyClass": "",
+        "reducedMotion": false,
+        "diagnostics": null,
+        "animationFrames": 473,
+        "rootClass": "no-webgl",
+        "activeElement": {
+          "tag": "H2",
+          "id": "reading-title",
+          "text": "The World"
+        },
+        "fallbackText": [
+          {
+            "text": "THE SUN",
+            "visible": true
+          }
+        ]
+      },
+      "motionToggle": {
+        "before": {
+          "text": "Motion on",
+          "pressed": "false",
+          "label": "Reduce motion"
+        },
+        "after": {
+          "text": "Motion reduced",
+          "pressed": "true",
+          "label": "Enable full motion"
+        }
+      }
+    }
+  ],
+  "failures": []
+}

@@ -1,0 +1,1087 @@
+diff --git a/website/src/app/studies/layout.tsx b/website/src/app/studies/layout.tsx
+new file mode 100644
+index 0000000..3416826
+--- /dev/null
++++ b/website/src/app/studies/layout.tsx
+@@ -0,0 +1,11 @@
++import type { Metadata } from "next";
++
++export const metadata: Metadata = {
++  title: "The Night Collection — Olivia Arcana",
++  description: "Two interactive studies in attention: an illustrated tarot ritual and an engraved map of the sky.",
++  robots: { index: false, follow: false },
++};
++
++export default function StudiesLayout({ children }: { children: React.ReactNode }) {
++  return children;
++}
+diff --git a/website/src/app/studies/page.tsx b/website/src/app/studies/page.tsx
+new file mode 100644
+index 0000000..ebe212b
+--- /dev/null
++++ b/website/src/app/studies/page.tsx
+@@ -0,0 +1,61 @@
++import Link from "next/link";
++import Image from "next/image";
++import styles from "./studies.module.css";
++
++function SkyEngraving() {
++  // An editorial constellation specimen, not an observer chart.
++  const points = [[92, 91], [145, 65], [164, 139], [191, 148], [220, 153], [243, 221], [158, 244]];
++  return (
++    <svg viewBox="0 0 340 340" aria-hidden="true" className={styles.engraving}>
++      <circle cx="170" cy="170" r="143" />
++      <circle cx="170" cy="170" r="136" />
++      <circle cx="170" cy="170" r="86" strokeDasharray="1 7" />
++      {Array.from({ length: 72 }, (_, i) => {
++        const a = i * Math.PI / 36;
++        return <line key={i} x1={170 + 143 * Math.cos(a)} y1={170 + 143 * Math.sin(a)} x2={170 + (i % 6 === 0 ? 151 : 146) * Math.cos(a)} y2={170 + (i % 6 === 0 ? 151 : 146) * Math.sin(a)} />;
++      })}
++      <path d="M92 91L145 65L220 153L191 148L164 139L92 91M164 139L158 244M220 153L243 221" />
++      {points.map(([x, y], i) => <g key={i}><circle cx={x} cy={y} r={i === 1 || i === 5 ? 4 : 2.5} className={styles.star} /><circle cx={x} cy={y} r="9" opacity=".4" /></g>)}
++      <text x="170" y="21" textAnchor="middle">N</text>
++      <text x="12" y="175" textAnchor="middle">E</text>
++      <text x="328" y="175" textAnchor="middle">W</text>
++      <text x="170" y="331" textAnchor="middle">S</text>
++    </svg>
++  );
++}
++
++export default function StudiesPage() {
++  return (
++    <main id="main-content" className={styles.page}>
++      <header className={styles.masthead}>
++        <Link href="/" className={styles.wordmark}>Olivia Arcana</Link>
++        <span>The night collection</span>
++        <Link href="/">Return to Olivia <span aria-hidden="true">↗</span></Link>
++      </header>
++      <div className={styles.opening}>
++        <p className={styles.eyebrow}>Interactive studies / Edition II</p>
++        <h1>The art of<br /><em>paying attention.</em></h1>
++        <p className={styles.intro}>A card in your hand. <br />A sky that belongs to a moment.<br /><span>Two invitations to look a little closer.</span></p>
++      </div>
++      <div className={styles.collection}>
++        <Link href="/studies/tarot/" className={styles.tarot}>
++          <div className={styles.plateHeading}><span>I / The living tarot</span><span>Enter the ritual <b aria-hidden="true">↗</b></span></div>
++          <div className={styles.deck} aria-hidden="true">
++            <Image className={styles.leftCard} src="/cards/18_the_moon.webp" alt="" width={184} height={318} />
++            <Image className={styles.centerCard} src="/cards/17_the_star.webp" alt="" width={184} height={318} priority />
++            <Image className={styles.rightCard} src="/cards/19_the_sun.webp" alt="" width={184} height={318} />
++          </div>
++          <div className={styles.plateCopy}><h2>Let one image<br /><em>open a question.</em></h2><p>Choose your intention. Draw from the illustrated deck. Turn a card, then take its question with you.</p></div>
++          <div className={styles.plateFoot}><span>78 cards · One or three card readings</span><span aria-hidden="true">01</span></div>
++        </Link>
++        <Link href="/studies/sky/" className={styles.sky}>
++          <div className={styles.plateHeading}><span>II / The celestial atlas</span><span>Open the sky <b aria-hidden="true">↗</b></span></div>
++          <SkyEngraving />
++          <div className={styles.plateCopy}><h2>A moment,<br /><em>written in stars.</em></h2><p>Set a place and time. Trace the constellations. Discover which worlds are above your horizon.</p></div>
++          <div className={styles.plateFoot}><span>An observer’s sky · Time and place</span><span aria-hidden="true">02</span></div>
++        </Link>
++      </div>
++      <footer className={styles.footer}><p>Olivia Arcana <span>—</span> An almanac for the inner life.</p><Link href="/">Explore the full collection <span aria-hidden="true">↗</span></Link></footer>
++    </main>
++  );
++}
+diff --git a/website/src/app/studies/sky/page.tsx b/website/src/app/studies/sky/page.tsx
+new file mode 100644
+index 0000000..05027ef
+--- /dev/null
++++ b/website/src/app/studies/sky/page.tsx
+@@ -0,0 +1,228 @@
++"use client";
++
++import Link from "next/link";
++import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
++import { birthSkyGeometry, horizonPoint } from "@/components/chart/flattened-sky-geometry";
++import { computeNatalChart } from "@/lib/natal-chart";
++import { STARS, CONSTELLATIONS } from "@/lib/star-chart";
++import { compassDirection, observationInput, parseUtcMoment, shiftUtcMoment, skyLabels } from "./sky-study";
++import styles from "./sky.module.css";
++
++const PLACES = [
++  { name: "Kyiv", lat: 50.45, lon: 30.52 },
++  { name: "London", lat: 51.5074, lon: -0.1278 },
++  { name: "New York", lat: 40.7128, lon: -74.006 },
++  { name: "Tokyo", lat: 35.6762, lon: 139.6503 },
++  { name: "Paris", lat: 48.8566, lon: 2.3522 },
++  { name: "Sydney", lat: -33.8688, lon: 151.2093 },
++  { name: "São Paulo", lat: -23.5505, lon: -46.6333 },
++];
++const DEFAULT = { moment: "2026-09-24T19:00", latitude: "50.45", longitude: "30.52", place: "Kyiv", sample: true };
++const CX = 380, R = 283;
++const xy = (p: { x: number; y: number }) => ({ x: CX + p.x * R, y: CX + p.y * R });
++const degrees = (value: number) => `${Math.abs(value).toFixed(1)}°`;
++const NOTES: Record<string, { eyebrow: string; title: string; text: string }> = {
++  Sun: { eyebrow: "The measure of daylight", title: "The light that changes everything.", text: "The Sun’s altitude describes its height above or below your geometric horizon. Its position sets the scene: daylight, twilight, or a darker sky." },
++  Moon: { eyebrow: "Earth’s nearest companion", title: "A familiar light, a different face.", text: "The Moon’s shape follows the angle between the Sun and Moon as seen from Earth. Its place here also accounts for your viewpoint on Earth — lunar parallax matters." },
++  Mercury: { eyebrow: "The innermost wanderer", title: "Following close to the Sun.", text: "Mercury stays near the Sun in our sky. Being above the horizon is only part of the story: daylight and the glow of twilight can make it difficult to see." },
++  Venus: { eyebrow: "The evening or morning star", title: "A planet with a star’s reputation.", text: "Venus is a planet, though its brilliance earned it the names morning star and evening star. Its relationship to the Sun determines which side of the day it visits." },
++  Mars: { eyebrow: "The red planet", title: "A small ember on the ecliptic.", text: "Mars often appears reddish to the eye. Its altitude and direction tell you where to look; its visibility and apparent brightness change with its distance from Earth." },
++  Jupiter: { eyebrow: "The largest planet", title: "A bright presence in the night.", text: "Jupiter can be a conspicuous point of light when it is above a dark horizon. Even a small telescope may reveal its largest moons; the atlas marks the planet itself." },
++  Saturn: { eyebrow: "The ringed planet", title: "Quiet to the eye. Extraordinary up close.", text: "To the unaided eye, Saturn appears as a point of light. Its rings require a telescope. This position is the planet’s apparent direction from your chosen location." },
++  Uranus: { eyebrow: "An outer world", title: "At the edge of unaided sight.", text: "Uranus is faint. Optical aid is usually needed to identify it reliably. The chart gives its position, while the surrounding stars provide a reference." },
++  Neptune: { eyebrow: "The most distant major planet", title: "A destination for the telescope.", text: "Neptune is too faint for the unaided eye. It is included as a calculated reference point, not a promise that it will be visible from your location." },
++  Pluto: { eyebrow: "A distant dwarf planet", title: "Far beyond the bright wanderers.", text: "Pluto is a dwarf planet and requires substantial optical aid to observe. Its marker belongs to this calculated sky; it is not represented as a naked-eye star." },
++};
++
++function phaseName(phase: number) {
++  if (phase < 10 || phase > 350) return "New Moon";
++  if (phase < 80) return "Waxing crescent";
++  if (phase < 100) return "First quarter";
++  if (phase < 170) return "Waxing gibbous";
++  if (phase < 190) return "Full Moon";
++  if (phase < 260) return "Waning gibbous";
++  if (phase < 280) return "Last quarter";
++  return "Waning crescent";
++}
++
++export default function SkyStudy() {
++  const [observation, setObservation] = useState(DEFAULT);
++  const [moment, setMoment] = useState(DEFAULT.moment);
++  const [place, setPlace] = useState(DEFAULT.place);
++  const [latitude, setLatitude] = useState(DEFAULT.latitude);
++  const [longitude, setLongitude] = useState(DEFAULT.longitude);
++  const [selectedName, setSelectedName] = useState("Moon");
++  const [layers, setLayers] = useState({ constellations: true, ecliptic: true, labels: true });
++  const [error, setError] = useState("");
++  const [status, setStatus] = useState("");
++  const readingRef = useRef<HTMLElement>(null);
++  const instrumentRef = useRef<HTMLElement>(null);
++  const revealInstrument = useRef(false);
++
++  const sky = useMemo(() => {
++    const input = observationInput(observation.moment, observation.latitude, observation.longitude);
++    return birthSkyGeometry(computeNatalChart(input), STARS);
++  }, [observation]);
++  useEffect(() => {
++    if (!revealInstrument.current) return;
++    revealInstrument.current = false;
++    const frame = requestAnimationFrame(() => {
++      const chart = instrumentRef.current;
++      if (!chart) return;
++      chart.focus({ preventScroll: true });
++      chart.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
++    });
++    return () => cancelAnimationFrame(frame);
++  }, [observation]);
++  const shown = useMemo(() => sky.planets.filter(p => p.alt >= 0), [sky]);
++  const labels = useMemo(() => skyLabels(shown.map(p => ({ name: p.name, ...xy(p) }))), [shown]);
++  const selected = sky.planets.find(p => p.name === selectedName) ?? sky.planets[1];
++  const selectedPoint = xy(selected);
++  const moonLight = (1 - Math.cos(sky.phase * Math.PI / 180)) / 2;
++  const sun = sky.planets.find(p => p.name === "Sun")!;
++  const light = sun.alt > 0 ? "Daylight" : sun.alt > -6 ? "Civil twilight" : sun.alt > -12 ? "Nautical twilight" : sun.alt > -18 ? "Astronomical twilight" : "Night";
++  const formattedDate = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(parseUtcMoment(observation.moment).utc);
++  const note = NOTES[selected.name];
++  const eclipticPath = sky.ecliptic.reduce((path, p, i) => {
++    if (!i) return path;
++    const previous = sky.ecliptic[i - 1];
++    if (p.alt < 0 && previous.alt < 0) return path;
++    const a = xy(previous), b = xy(p);
++    return `${path}M${a.x.toFixed(2)},${a.y.toFixed(2)}L${b.x.toFixed(2)},${b.y.toFixed(2)}`;
++  }, "");
++
++  function apply(event: FormEvent) {
++    event.preventDefault();
++    try {
++      observationInput(moment, latitude, longitude);
++      revealInstrument.current = true;
++      setObservation({ moment, latitude, longitude, place, sample: false });
++      setError("");
++      setStatus(`Sky updated for ${place === "Custom" ? "your coordinates" : place}, ${moment.replace("T", " at ")} UTC.`);
++    } catch (cause) { setError(cause instanceof Error ? cause.message : "Please check the observation details."); }
++  }
++  function step(minutes: number) {
++    try {
++      const next = shiftUtcMoment(observation.moment, minutes);
++      // Time exploration changes the applied sky, without erasing form drafts.
++      if (moment === observation.moment && place === observation.place && latitude === observation.latitude && longitude === observation.longitude) setMoment(next);
++      setObservation({ ...observation, moment: next });
++      setError(""); setStatus(`Sky moved to ${next.replace("T", " at ")} UTC.`);
++    } catch (cause) { setError(cause instanceof Error ? cause.message : "That moment is outside the supported dates."); }
++  }
++  function choosePlace(value: string) {
++    setPlace(value);
++    const location = PLACES.find(p => p.name === value);
++    if (location) { setLatitude(String(location.lat)); setLongitude(String(location.lon)); }
++  }
++  function selectBody(name: string, reveal = false) {
++    setSelectedName(name);
++    const body = sky.planets.find(p => p.name === name);
++    if (body) setStatus(`${body.name}: ${degrees(body.alt)} ${body.alt >= 0 ? "above" : "below"} the horizon, to the ${compassDirection(body.az)}.`);
++    if (reveal && window.matchMedia("(max-width: 760px)").matches) {
++      readingRef.current?.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
++    }
++  }
++
++  return <main id="main-content" className={styles.page}>
++    <nav className={styles.nav} aria-label="Study navigation">
++      <Link href="/" className={styles.brand}>Olivia <i>Arcana</i><span aria-hidden="true">✳</span></Link>
++      <Link href="/studies">The studies <span aria-hidden="true">↗</span></Link>
++    </nav>
++
++    <header className={styles.header}>
++      <div><p className={styles.eyebrow}>No. 02 / The celestial atlas</p><h1>The sky, from<br /><em>where you stand.</em></h1></div>
++      <div className={styles.introduction}><p>A moment. A place. The heavens above it.</p><p>Choose a light in the chart to understand where it sits — and what you are looking at.</p><a className={styles.setMoment} href="#moment-heading">Set your moment <span aria-hidden="true">↘</span></a></div>
++    </header>
++
++    <div className={styles.observationBar}>
++      <div><span className={styles.observationDot} aria-hidden="true" /><strong>{observation.place === "Custom" ? "Custom coordinates" : observation.place}</strong><span>{formattedDate}</span></div>
++      <div><span>{observation.moment.slice(11)} UTC</span><span className={styles.sample}>{observation.sample ? "Example observation" : "Your observation"}</span></div>
++    </div>
++
++    <div className={styles.instrumentLayout}>
++      <section ref={instrumentRef} tabIndex={-1} className={styles.instrument} aria-label="Interactive sky chart">
++        <div className={styles.plateHeading}><span>Fig. 02 — The visible hemisphere</span><span>{light}</span></div>
++        <svg className={styles.sky} viewBox="0 0 760 760" role="group" aria-labelledby="sky-study-title sky-study-description">
++          <title id="sky-study-title">{`Sky above ${observation.place} on ${formattedDate} at ${observation.moment.slice(11)} UTC`}</title>
++          <desc id="sky-study-description">A look-up map. North is at the top, east at the left, and the zenith is at the centre. Only bodies above the geometric horizon are plotted. Select a body on the map or from the buttons below. A complete numerical table follows the controls.</desc>
++          <defs><clipPath id="study-horizon"><circle cx={CX} cy={CX} r={R} /></clipPath></defs>
++          <circle className={styles.outerRule} cx={CX} cy={CX} r={R + 37} />
++          <circle className={styles.outerRule} cx={CX} cy={CX} r={R + 28} />
++          {Array.from({ length: 120 }, (_, i) => {
++            const angle = i * Math.PI / 60, outer = R + 22, inner = outer - (i % 10 === 0 ? 11 : i % 5 === 0 ? 7 : 3);
++            return <line key={i} className={styles.ticks} x1={CX + Math.sin(angle) * inner} y1={CX - Math.cos(angle) * inner} x2={CX + Math.sin(angle) * outer} y2={CX - Math.cos(angle) * outer} />;
++          })}
++          <circle className={styles.nightDisc} cx={CX} cy={CX} r={R} />
++          <g clipPath="url(#study-horizon)">
++            {[30, 60].map(alt => <circle key={alt} className={styles.altitudeRing} cx={CX} cy={CX} r={Math.abs(horizonPoint(alt, 0).y) * R} />)}
++            <path className={styles.meridian} d={`M${CX - R},${CX}H${CX + R}M${CX},${CX - R}V${CX + R}`} />
++            {layers.constellations && <g className={styles.constellations}>{CONSTELLATIONS.flatMap((c, ci) => c.lines.flatMap((run, ri) => run.slice(1).map((index, i) => {
++              const first = sky.stars[run[i]], second = sky.stars[index];
++              if (!first || !second || (first.alt < 0 && second.alt < 0)) return null;
++              const a = xy(first), b = xy(second);
++              return <line key={`${ci}-${ri}-${i}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} />;
++            })))}</g>}
++            {layers.ecliptic && <path className={styles.ecliptic} d={eclipticPath} />}
++            <g className={styles.stars}>{sky.stars.map((star, i) => star.alt >= 0 && <circle key={i} cx={xy(star).x} cy={xy(star).y} r={Math.max(.7, 2.7 - star.mag * .45)} />)}</g>
++            {layers.labels && <g className={styles.starNames}>{sky.stars.map((star, i) => star.alt > 7 && star.mag < 1 && STARS[i].name && <text key={i} x={xy(star).x + 8} y={xy(star).y + 4}>{STARS[i].name}</text>)}</g>}
++            <path className={styles.zenith} d={`M${CX - 5},${CX}h10M${CX},${CX - 5}v10`} />
++            {layers.labels && <g className={styles.gridLabels}><text x={CX + 9} y={CX - 8}>ZENITH</text><text x={CX + 5} y={CX - Math.abs(horizonPoint(60, 0).y) * R - 8}>60°</text><text x={CX + 5} y={CX - Math.abs(horizonPoint(30, 0).y) * R - 8}>30°</text></g>}
++            {selected.alt >= 0 && <g className={styles.selectedRay} aria-hidden="true"><path d={`M${CX},${CX}L${selectedPoint.x},${selectedPoint.y}`} /><circle cx={selectedPoint.x} cy={selectedPoint.y} r="16" /></g>}
++            {shown.map(planet => {
++              const p = xy(planet), active = planet.name === selected.name;
++              return <g key={planet.name} className={`${styles.bodyPoint} ${active ? styles.activeBody : ""}`} role="button" tabIndex={0} aria-pressed={active} aria-label={`Select ${planet.name}, ${degrees(planet.alt)} above the horizon`} onClick={() => selectBody(planet.name)} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectBody(planet.name); } }}>
++                <circle className={styles.hitArea} cx={p.x} cy={p.y} r="23" />
++                <circle className={styles.bodyDot} cx={p.x} cy={p.y} r={planet.name === "Sun" || planet.name === "Moon" ? 5 : 3.5} />
++              </g>;
++            })}
++          </g>
++          {layers.labels && <g className={styles.bodyLabels}>{labels.map(p => <g key={p.name} className={p.name === selected.name ? styles.activeLabel : ""} aria-hidden="true"><path d={`M${p.x},${p.y}L${p.lineX},${p.lineY}`} /><text x={p.labelX} y={p.labelY}>{p.name}</text></g>)}</g>}
++          <g className={styles.cardinals} textAnchor="middle"><text x={CX} y="36">N</text><text x="27" y={CX + 5}>E</text><text x={CX} y="733">S</text><text x="733" y={CX + 5}>W</text></g>
++          <text className={styles.horizonText} textAnchor="middle" x={CX} y="692">0° / GEOMETRIC HORIZON</text>
++        </svg>
++        <div className={styles.plateFooter}><p><span aria-hidden="true">↖</span> Look up. East is on your left.</p><span>{sky.stars.filter(s => s.alt >= 0).length} catalog stars above the horizon</span></div>
++        <fieldset className={styles.layers}><legend>On the chart</legend>{(["constellations", "ecliptic", "labels"] as const).map(layer => <label key={layer}><input type="checkbox" checked={layers[layer]} onChange={event => setLayers({ ...layers, [layer]: event.target.checked })} /><span>{layer === "ecliptic" ? "Sun’s path" : layer[0].toUpperCase() + layer.slice(1)}</span></label>)}</fieldset>
++      </section>
++
++      <aside ref={readingRef} className={styles.reading} aria-label="Selected celestial body">
++        <div className={styles.selectedTop}><p className={styles.eyebrow}>Selected light</p><span aria-hidden="true">{selected.glyph}</span></div>
++        <div className={styles.readingContent} key={selected.name}>
++          <h2>{selected.name}</h2><p className={styles.bodyEyebrow}>{note.eyebrow}</p>
++          <div className={styles.position}><strong>{degrees(selected.alt)}</strong><div><span>{selected.alt >= 0 ? "Above" : "Below"} the horizon</span><span>To the {compassDirection(selected.az)}</span></div></div>
++          {selected.name === "Moon" && <div className={styles.moonDetail}><svg viewBox="0 0 80 80" width="64" height="64" role="img" aria-label={`${Math.round(moonLight * 100)} percent illuminated`}><circle cx="40" cy="40" r="30" fill="#19203a" /><path d={`M40 10A30 30 0 0 ${sky.phase < 180 ? 1 : 0} 40 70A${Math.max(.01, Math.abs(Math.cos(sky.phase * Math.PI / 180)) * 30)} 30 0 0 ${moonLight > .5 ? (sky.phase < 180 ? 1 : 0) : (sky.phase < 180 ? 0 : 1)} 40 10`} fill="#e7d4a8" /></svg><div><strong>{phaseName(sky.phase)}</strong><span>{Math.round(moonLight * 100)}% illuminated</span></div></div>}
++          <h3>{note.title}</h3><p className={styles.story}>{note.text}</p>
++          <p className={styles.visibility}>{selected.alt < 0 ? "This body is beneath your horizon, so it is listed here without a marker on the visible-sky map." : sun.alt > -6 && selected.name !== "Sun" && selected.name !== "Moon" ? "It is above your horizon, but daylight or twilight may hide it." : "Above the horizon does not guarantee visibility. Clouds, buildings, light pollution and brightness also matter."}</p>
++        </div>
++        <div className={styles.explore}><p className={styles.eyebrow}>Explore this moment</p><div><button type="button" onClick={() => step(-60)} aria-label="Move sky one hour earlier">← <span>1 hour</span></button><span>{observation.moment.slice(11)}<small>UTC</small></span><button type="button" onClick={() => step(60)} aria-label="Move sky one hour later"><span>1 hour</span> →</button></div><p>The clock moves only when you do.</p></div>
++      </aside>
++    </div>
++
++    <section className={styles.bodyDirectory} aria-label="Choose a celestial body">
++      <div><p className={styles.eyebrow}>The wanderers</p><p>{shown.length} of {sky.planets.length} bodies above the horizon</p></div>
++      <div className={styles.bodyButtons}>{sky.planets.map(p => <button key={p.name} type="button" onClick={() => selectBody(p.name, true)} aria-pressed={p.name === selected.name} className={p.name === selected.name ? styles.chosenBody : ""}><span aria-hidden="true">{p.glyph}</span><strong>{p.name}</strong><small>{p.alt >= 0 ? "Above" : "Below"}</small></button>)}</div>
++    </section>
++
++    <section className={styles.chooseMoment} aria-labelledby="moment-heading">
++      <div><p className={styles.eyebrow}>Set your vantage point</p><h2 id="moment-heading">Every sky begins<br /><em>somewhere.</em></h2><p>The first chart is a labeled example. Choose a moment and location to make an observation of your own.</p><span className={styles.privacy}>Calculated on your device. These details are not saved.</span></div>
++      <form onSubmit={apply} className={styles.form} noValidate>
++        <label className={styles.timeInput}><span>Date & time <b>UTC</b></span><input type="datetime-local" value={moment} min="1900-01-01T00:00" max="2100-12-31T23:59" step="60" onChange={event => setMoment(event.target.value)} aria-describedby="utc-note" required /></label>
++        <p className={styles.formNote} id="utc-note">Universal Time, including minutes. Convert your local time to UTC before entering it; the city does not change the time zone.</p>
++        <label><span>Observation place</span><select value={place} onChange={event => choosePlace(event.target.value)}>{PLACES.map(p => <option key={p.name}>{p.name}</option>)}<option value="Custom">Custom coordinates</option></select></label>
++        <div className={styles.coordinateInputs}><label><span>Latitude <small>north + / south −</small></span><input value={latitude} type="number" step="any" min="-90" max="90" readOnly={place !== "Custom"} onChange={event => setLatitude(event.target.value)} required /></label><label><span>Longitude <small>east + / west −</small></span><input value={longitude} type="number" step="any" min="-180" max="180" readOnly={place !== "Custom"} onChange={event => setLongitude(event.target.value)} required /></label></div>
++        {error && <p className={styles.error} role="alert">{error}</p>}
++        <button className={styles.submit} type="submit">Draw this sky <span aria-hidden="true">↗</span></button>
++        <p className={styles.srOnly} role="status" aria-live="polite">{status}</p>
++      </form>
++    </section>
++
++    <section className={styles.explanation} aria-label="How to read the atlas">
++      <div><span>01</span><h3>Stand at the centre.</h3><p>The centre is the zenith, directly overhead. The edge is the horizon. Rings mark 30° and 60° altitude; the map looks upward, so east is left.</p></div>
++      <div><span>02</span><h3>Follow the fine gold line.</h3><p>The ecliptic is the Sun’s apparent yearly path. The Moon and planets travel near it, with their own latitude and position in the sky.</p></div>
++      <div><span>03</span><h3>A sky map. Another kind of story.</h3><p>This atlas shows directions above a place. For astrological signs, houses and interpretation of a birth moment, open your <Link href="/chart">birth chart ↗</Link>.</p></div>
++    </section>
++
++    <details className={styles.technical}><summary>Read the positions & calculation notes <span aria-hidden="true">+</span></summary><div className={styles.tableWrap}><table><caption>Apparent topocentric directions at {observation.moment.replace("T", " ")} UTC</caption><thead><tr><th scope="col">Body</th><th scope="col">Altitude</th><th scope="col">Azimuth</th><th scope="col">Horizon</th></tr></thead><tbody>{sky.planets.map(p => <tr key={p.name}><th scope="row">{p.name}</th><td>{p.alt.toFixed(2)}°</td><td>{p.az.toFixed(2)}°</td><td>{p.alt >= 0 ? "Above" : "Below"}</td></tr>)}</tbody></table></div><p>Astronomy Engine supplies the Sun, Moon and planetary directions for a sea-level observer. The horizon is geometric, without atmospheric refraction, terrain or weather. Azimuth runs clockwise from north. Stars use a selected J2000 bright-star catalog transformed to the date, without individual proper motion; this is a reference map, not a complete sky survey. Only text labels move to avoid overlaps. The Moon icon shows approximate illuminated fraction and waxing/waning phase, not its local tilt. Dates are supported from 1900 through 2100.</p></details>
++    <footer className={styles.footer}><Link href="/studies">← Return to the studies</Link><p>Olivia Arcana <span> / </span> An atlas for the curious.</p><Link href="/chart">Explore your birth chart ↗</Link></footer>
++  </main>;
++}
+diff --git a/website/src/app/studies/sky/sky-study.test.mjs b/website/src/app/studies/sky/sky-study.test.mjs
+new file mode 100644
+index 0000000..26139a7
+--- /dev/null
++++ b/website/src/app/studies/sky/sky-study.test.mjs
+@@ -0,0 +1,30 @@
++import test from "node:test";
++import assert from "node:assert/strict";
++import { parseUtcMoment, observationInput, shiftUtcMoment, compassDirection, skyLabels } from "./sky-study.ts";
++
++test("calendar validation rejects rollover days and accepts actual leap years", () => {
++  for (const value of ["2026-02-29T12:00", "1900-02-29T12:00", "2026-04-31T12:00", "2026-09-15T24:00", "2026-09-15T12:60", "2026-09-15", "1899-12-31T23:59"]) assert.throws(() => parseUtcMoment(value));
++  assert.equal(parseUtcMoment("2000-02-29T00:15").utc.toISOString(), "2000-02-29T00:15:00.000Z");
++});
++test("UTC minutes and hour exploration preserve exact moments across dates", () => {
++  assert.equal(shiftUtcMoment("2026-12-31T23:45", 60), "2027-01-01T00:45");
++  assert.equal(shiftUtcMoment("2026-01-01T00:15", -60), "2025-12-31T23:15");
++  assert.throws(() => shiftUtcMoment("2100-12-31T23:30", 60));
++  const input = observationInput("2026-09-24T19:37", "50.45", "30.52");
++  assert.equal(input.minute, 37); assert.equal(input.timezone, 0);
++});
++test("coordinate validation rejects missing and non-finite values, accepts poles and date line", () => {
++  for (const [lat, lon] of [["", "0"], ["0", " "], ["Infinity", "0"], ["NaN", "0"], ["90.01", "0"], ["0", "-180.1"]]) assert.throws(() => observationInput("2026-09-24T19:00", lat, lon));
++  assert.equal(observationInput("2026-09-24T19:00", "-90", "180").latitude, -90);
++});
++test("azimuth compass directions wrap correctly", () => {
++  assert.equal(compassDirection(0), "north"); assert.equal(compassDirection(90), "east");
++  assert.equal(compassDirection(270), "west"); assert.equal(compassDirection(-90), "west"); assert.equal(compassDirection(360), "north");
++});
++test("crowded label layout preserves exact input points without mutation", () => {
++  const points = [{ name: "Moon", x: 350, y: 290 }, { name: "Saturn", x: 352, y: 294 }, { name: "Neptune", x: 357, y: 286 }];
++  const copy = structuredClone(points), labels = skyLabels(points);
++  assert.deepEqual(points, copy);
++  labels.forEach((label, i) => { assert.equal(label.x, points[i].x); assert.equal(label.y, points[i].y); });
++  assert.equal(new Set(labels.map(p => `${p.labelX},${p.labelY}`)).size, 3);
++});
+diff --git a/website/src/app/studies/sky/sky-study.ts b/website/src/app/studies/sky/sky-study.ts
+new file mode 100644
+index 0000000..e2193d7
+--- /dev/null
++++ b/website/src/app/studies/sky/sky-study.ts
+@@ -0,0 +1,59 @@
++/** UTC is deliberate: no hidden browser timezone or guessed daylight saving. */
++export function parseUtcMoment(value: string) {
++  const match = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/.exec(value);
++  if (!match) throw new Error("Enter a complete date and time in UTC.");
++  const [, year, month, day, hour, minute] = match.map(Number);
++  if (year < 1900 || year > 2100 || month < 1 || month > 12 || day < 1 || day > 31 || hour > 23 || minute > 59) {
++    throw new Error("Choose a valid date from 1900 to 2100 and a time from 00:00 to 23:59 UTC.");
++  }
++  const utc = new Date(Date.UTC(year, month - 1, day, hour, minute));
++  if (utc.getUTCFullYear() !== year || utc.getUTCMonth() !== month - 1 || utc.getUTCDate() !== day) {
++    throw new Error("That day does not exist in the selected month. Please check the date.");
++  }
++  return { year, month, day, hour, minute, utc };
++}
++
++export function observationInput(moment: string, latitude: string, longitude: string) {
++  const date = parseUtcMoment(moment);
++  if (!latitude.trim() || !longitude.trim()) throw new Error("Enter both latitude and longitude.");
++  const lat = Number(latitude), lon = Number(longitude);
++  if (!Number.isFinite(lat) || lat < -90 || lat > 90) throw new Error("Latitude must be between −90° and 90°.");
++  if (!Number.isFinite(lon) || lon < -180 || lon > 180) throw new Error("Longitude must be between −180° and 180°.");
++  return { year: date.year, month: date.month, day: date.day, hour: date.hour, minute: date.minute, timezone: 0, latitude: lat, longitude: lon };
++}
++
++export function shiftUtcMoment(moment: string, minutes: number) {
++  const utc = parseUtcMoment(moment).utc;
++  if (!Number.isInteger(minutes)) throw new Error("Use a whole number of minutes.");
++  const shifted = new Date(utc.getTime() + minutes * 60000).toISOString().slice(0, 16);
++  parseUtcMoment(shifted);
++  return shifted;
++}
++
++const DIRECTIONS = ["north", "north-northeast", "northeast", "east-northeast", "east", "east-southeast", "southeast", "south-southeast", "south", "south-southwest", "southwest", "west-southwest", "west", "west-northwest", "northwest", "north-northwest"];
++export function compassDirection(azimuth: number) {
++  return DIRECTIONS[Math.round(((azimuth % 360 + 360) % 360) / 22.5) % 16];
++}
++
++type LabelPoint = { name: string; x: number; y: number };
++/** Only captions move; the input celestial coordinates are never displaced. */
++export function skyLabels(points: LabelPoint[]) {
++  const placed: Array<{ x: number; y: number; w: number; h: number }> = [];
++  return points.map(point => {
++    const w = point.name.length * 7.4 + 10, h = 19;
++    const options = [[16, -16], [16, 24], [-w - 16, -16], [-w - 16, 24], [16, -42], [-w - 16, -42], [16, 48], [-w - 16, 48]];
++    let best = { x: Math.min(640 - w, Math.max(90, point.x + 16)), y: point.y - 16, w, h };
++    let bestCost = Infinity;
++    for (const [dx, dy] of options) {
++      const candidate = { x: Math.min(680 - w, Math.max(70, point.x + dx)), y: Math.min(650, Math.max(95, point.y + dy)), w, h };
++      const overlap = placed.filter(r => candidate.x < r.x + r.w + 8 && candidate.x + w + 8 > r.x && candidate.y - h < r.y + 8 && candidate.y + 8 > r.y - r.h).length;
++      const coversDot = points.filter(p => p.name !== point.name && p.x > candidate.x - 10 && p.x < candidate.x + w + 10 && p.y > candidate.y - h - 8 && p.y < candidate.y + 8).length;
++      const crossesRim = [[candidate.x, candidate.y - h], [candidate.x + w, candidate.y - h], [candidate.x, candidate.y], [candidate.x + w, candidate.y]]
++        .filter(([x, y]) => Math.hypot(x - 380, y - 380) > 274).length;
++      const cost = overlap * 1000 + crossesRim * 300 + coversDot * 100 + Math.hypot(candidate.x - point.x, candidate.y - point.y);
++      if (cost < bestCost) { best = candidate; bestCost = cost; }
++    }
++    placed.push(best);
++    return { ...point, labelX: best.x, labelY: best.y, lineX: best.x > point.x ? best.x - 5 : best.x + best.w + 3, lineY: best.y - 5 };
++  });
++}
+diff --git a/website/src/app/studies/sky/sky.module.css b/website/src/app/studies/sky/sky.module.css
+new file mode 100644
+index 0000000..a40ae6c
+--- /dev/null
++++ b/website/src/app/studies/sky/sky.module.css
+@@ -0,0 +1,14 @@
++.page{--paper:#eee9df;--ink:#182136;--muted:#646962;--rule:#c9c7bc;--gold:#ad8146;--night:#101831;--moon:#eee8dc;min-height:100vh;background:var(--paper);color:var(--ink);padding:0 clamp(22px,5.2vw,88px);font-family:var(--font-body),sans-serif;font-size:14px;line-height:1.6;overflow:hidden}
++.page *{box-sizing:border-box}.page a{color:inherit;text-decoration:none}.page button,.page input,.page select{font:inherit}.page button,.page a,.page input,.page select,.page summary{-webkit-tap-highlight-color:transparent}.page :is(button,a,input,select,summary):focus-visible{outline:2px solid var(--gold);outline-offset:5px}.page button{cursor:pointer}.page :is(h1,h2,h3,p){margin:0}.page h1,.page h2,.page h3{font-family:var(--font-heading),Georgia,serif;font-weight:400}.page em{font-weight:400}.nav{max-width:1400px;margin:auto;min-height:100px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);gap:24px}.brand{display:flex;gap:7px;align-items:baseline;font:28px/1 var(--font-heading),Georgia,serif;letter-spacing:-.5px}.brand span{margin-left:9px;font-size:20px;color:var(--gold)}.nav>a:last-child{font-size:12px}.nav>a:last-child span{margin-left:18px}.header{max-width:1400px;margin:auto;padding:74px 0 64px;display:grid;grid-template-columns:1.6fr 1fr;gap:40px;align-items:end}.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:500;line-height:1.5}.header h1{font-size:clamp(52px,5.5vw,90px);letter-spacing:-.045em;line-height:.99;margin-top:23px}.header h1 em{color:#696f62}.introduction{max-width:330px;justify-self:end;padding-bottom:3px;font-size:14px;color:var(--muted)}.introduction p:first-of-type{color:var(--ink);margin:13px 0 8px}.smallOrbit{font:38px/1 var(--font-heading),serif;color:var(--gold)}.observationBar{max-width:1400px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;border-block:1px solid var(--rule);font-size:12px}.observationBar>div{display:flex;align-items:center;gap:20px}.observationBar strong{font-weight:500}.observationDot{width:5px;height:5px;border-radius:50%;background:var(--gold)}.sample{padding-left:20px;border-left:1px solid var(--rule);color:var(--muted);font-size:10px}.instrumentLayout{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.85fr) minmax(280px,1fr);gap:clamp(36px,5vw,80px);align-items:start}.instrument{scroll-margin-top:20px;min-width:0;padding:26px 0 30px}.plateHeading{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:10px;letter-spacing:.04em}.plateHeading span:last-child{color:var(--ink)}.sky{width:100%;display:block;margin:10px auto 0;overflow:visible;max-height:790px}.outerRule{stroke:#b9b9ad;stroke-width:.65;fill:none}.ticks{stroke:#939b93;stroke-width:.6}.nightDisc{fill:var(--night)}.altitudeRing{fill:none;stroke:#b5bcc6;stroke-opacity:.22;stroke-width:.6;stroke-dasharray:2 6}.meridian{stroke:#b5bcc6;stroke-opacity:.15;stroke-width:.6;fill:none}.constellations{stroke:#a9b4c7;stroke-opacity:.43;stroke-width:.65}.ecliptic{fill:none;stroke:#d1ae75;stroke-width:1;stroke-opacity:.8;stroke-dasharray:3 5}.stars{fill:#ede9df}.starNames{fill:#a6b0c0;font-size:10px;font-family:var(--font-heading),serif;font-style:italic}.zenith{stroke:#a9b4c7;stroke-width:.7;stroke-opacity:.7}.gridLabels{fill:#909eb4;font:7.5px var(--font-body),sans-serif;letter-spacing:1px}.selectedRay{fill:none;stroke:#d7b678;stroke-width:.7;stroke-dasharray:2 4;pointer-events:none}.selectedRay circle{stroke-dasharray:none;stroke-opacity:.6}.bodyPoint{cursor:pointer;outline:none}.hitArea{fill:transparent;stroke:transparent;stroke-width:1}.bodyDot{fill:#e6c58e;stroke:#101831;stroke-width:2;transition:fill 180ms}.activeBody .bodyDot{fill:#f4ddae;stroke:#e1ba75;stroke-width:1}.bodyPoint:focus-visible .hitArea{stroke:#f4ddae;stroke-dasharray:3 3}.bodyPoint:hover .bodyDot{fill:#faf1d8}.bodyLabels{fill:#c0c7ce;font:12px var(--font-body),sans-serif;pointer-events:none}.bodyLabels path{fill:none;stroke:#8e9eae;stroke-width:.7;stroke-opacity:.6}.activeLabel text{fill:#e8c382}.activeLabel path{stroke:#e8c382}.cardinals{fill:var(--ink);font:14px var(--font-body),sans-serif;letter-spacing:2px}.horizonText{fill:#697569;font:8px var(--font-body),sans-serif;letter-spacing:2px}.plateFooter{display:flex;justify-content:space-between;gap:16px;font-size:10px;color:var(--muted);margin-top:4px}.plateFooter p{color:var(--ink)}.plateFooter p span{display:inline-block;margin-right:8px;font-size:16px}.plateFooter>span{text-align:right}.layers{border:0;border-top:1px solid var(--rule);margin:24px 0 0;padding:18px 0 0;display:flex;align-items:center;gap:22px;flex-wrap:wrap}.layers legend{float:left;margin-right:auto;padding:0;font-size:10px;color:var(--muted)}.layers label{display:flex;align-items:center;gap:7px;min-height:28px;font-size:11px;cursor:pointer}.layers input{width:13px;height:13px;accent-color:#8f6b3d;margin:0}.reading{border-left:1px solid var(--rule);padding:37px 0 32px clamp(28px,3.7vw,60px);min-width:0;margin-top:26px}.selectedTop{display:flex;align-items:center;justify-content:space-between;gap:12px}.selectedTop>span{font:29px/1 Georgia,serif;color:var(--gold)}.reading h2{font-size:clamp(58px,5vw,80px);line-height:1.05;letter-spacing:-.04em;margin:21px 0 3px}.bodyEyebrow{font-size:10px;color:var(--muted);letter-spacing:.03em}.position{display:flex;align-items:center;gap:19px;margin:35px 0 24px;padding:20px 0;border-block:1px solid var(--rule)}.position>strong{font:42px/1 var(--font-heading),Georgia,serif;font-weight:400;white-space:nowrap;letter-spacing:-.035em}.position>div{display:grid;gap:2px;font-size:10px}.position>div span+span{color:var(--muted)}.moonDetail{display:flex;align-items:center;gap:13px;margin:0 0 26px}.moonDetail svg{flex:none}.moonDetail>div{display:grid;gap:4px;font-size:11px}.moonDetail strong{font-weight:500}.moonDetail span{color:var(--muted);font-size:10px}.reading h3{font-size:30px;line-height:1.09;letter-spacing:-.025em;max-width:290px;margin:27px 0 14px}.story{font-size:12px;line-height:1.85;color:#586257;max-width:330px}.visibility{font-size:10px;line-height:1.75;color:var(--muted);border-left:1px solid #b1af9d;padding-left:12px;margin-top:21px!important;max-width:330px}.explore{margin-top:34px;padding-top:25px;border-top:1px solid var(--rule)}.explore>div{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:13px}.explore button{min-height:44px;min-width:66px;padding:9px 0;border:0;background:none;font-size:12px;color:var(--ink);transition:color 150ms}.explore button:hover{color:var(--gold)}.explore button span{font-size:10px}.explore>div>span{text-align:center;font:26px/1 var(--font-heading),serif}.explore small{display:block;font:8px/1.7 var(--font-body),sans-serif;letter-spacing:1px;margin-top:5px;color:var(--muted)}.explore>p:last-child{font-size:10px;color:var(--muted);margin-top:13px}.readingContent{animation:readingEnter 220ms ease-out both}@keyframes readingEnter{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:none}}.bodyDirectory{max-width:1400px;margin:25px auto 0;padding:30px 0;border-block:1px solid var(--rule);display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;align-items:start}.bodyDirectory>div>p+p{font-size:11px;color:var(--muted);margin-top:7px;max-width:180px}.bodyButtons{display:grid;grid-template-columns:repeat(5,1fr);gap:2px 8px}.bodyButtons button{display:grid;grid-template-columns:22px 1fr;grid-template-rows:auto auto;column-gap:8px;align-items:center;text-align:left;background:none;border:0;border-bottom:1px solid transparent;padding:12px 5px;min-height:58px;color:var(--ink);transition:background 160ms,border-color 160ms}.bodyButtons button>span{grid-row:span 2;font:22px/1 Georgia,serif;color:#89714c}.bodyButtons strong{font-size:11px;font-weight:400}.bodyButtons small{font-size:9px;color:var(--muted)}.bodyButtons button:hover{background:#e4e0d5}.bodyButtons .chosenBody{border-color:var(--gold);background:#e4dfd2}.chooseMoment{max-width:1120px;margin:96px auto 85px;display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(45px,8vw,135px)}.chooseMoment h2{font-size:clamp(44px,4.6vw,64px);line-height:1.03;letter-spacing:-.04em;margin:19px 0}.chooseMoment>div>p:not(.eyebrow){font-size:13px;color:#5c665c;line-height:1.8;max-width:300px}.privacy{display:block;font-size:10px;color:var(--muted);margin-top:29px;max-width:270px}.form{padding-top:5px;display:flex;flex-direction:column;gap:23px}.form label{display:flex;flex-direction:column;gap:9px;font-size:11px}.form label>span{display:flex;gap:10px;justify-content:space-between;align-items:baseline}.form label b{font-size:9px;letter-spacing:.09em;font-weight:500;color:#706244}.form input,.form select{min-width:0;max-width:100%;width:100%;border:0;border-bottom:1px solid #9da393;background:transparent;color:var(--ink);border-radius:0;padding:9px 0;min-height:44px;font-size:14px;color-scheme:light}.form option{background:var(--paper);color:var(--ink)}.form input:read-only{color:#626b60}.formNote{font-size:10px;line-height:1.75;color:var(--muted);margin-top:-15px!important}.coordinateInputs{display:grid;grid-template-columns:1fr 1fr;gap:22px}.coordinateInputs label>span{display:block}.coordinateInputs small{display:block;font-size:9px;margin-top:3px;color:var(--muted)}.form .submit{width:100%;min-height:51px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);padding:13px 18px;text-align:left;font-size:12px;display:flex;align-items:center;justify-content:space-between;transition:background 160ms,border-color 160ms}.form .submit:hover{background:#364333;border-color:#364333}.submit>span{font-size:19px}.error{font-size:12px;color:#933f35;line-height:1.6}.explanation{max-width:1400px;margin:auto;padding:43px 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,5vw,80px)}.explanation>div>span{font-size:10px;color:var(--gold)}.explanation h3{font-size:28px;line-height:1.14;margin:15px 0 12px;letter-spacing:-.02em}.explanation p{color:#5b655b;font-size:11px;line-height:1.85;max-width:355px}.explanation a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}.technical{max-width:1400px;margin:auto;border-block:1px solid var(--rule)}.technical summary{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:21px 0;font-size:11px;cursor:pointer;list-style:none}.technical summary::-webkit-details-marker{display:none}.technical summary>span{font-size:22px;font-weight:300}.technical[open] summary>span{transform:rotate(45deg)}.technical>p{font-size:11px;line-height:1.85;color:var(--muted);max-width:800px;padding:0 0 30px}.tableWrap{overflow-x:auto;margin-bottom:22px}.tableWrap table{border-collapse:collapse;text-align:left;font-size:11px;width:100%;max-width:800px}.tableWrap caption{text-align:left;padding-bottom:15px;font-size:11px;color:var(--muted)}.tableWrap th,.tableWrap td{padding:11px 15px 11px 0;border-bottom:1px solid #d9d5c9;white-space:nowrap}.tableWrap th{font-weight:500}.tableWrap td{font-variant-numeric:tabular-nums;color:#566250}.footer{max-width:1400px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:37px 0 45px;font-size:10px}.footer>p{color:var(--muted)}.footer>p>span{margin:0 10px;color:var(--gold)}.footer a:hover,.nav>a:last-child:hover{text-decoration:underline;text-underline-offset:5px}.srOnly{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0,0,0,0);overflow:hidden;white-space:nowrap}
++@media(min-width:1500px){.header{padding-block:92px 76px}.instrumentLayout{gap:88px}}
++@media(max-width:1000px){.page{padding-inline:30px}.header{padding-top:52px}.instrumentLayout{grid-template-columns:minmax(0,1.5fr) minmax(265px,1fr);gap:25px}.reading{padding-left:26px}.reading h3{font-size:27px}.position{gap:12px}.position>strong{font-size:35px}.layers{gap:12px}.layers legend{width:100%;margin-bottom:8px}.bodyDirectory{grid-template-columns:1fr;gap:20px}.bodyDirectory>div:first-child{display:flex;align-items:center;justify-content:space-between;gap:20px}.bodyDirectory>div>p+p{max-width:none;margin:0}.chooseMoment{gap:55px;margin-block:70px}.plateFooter{font-size:9px}.header h1{font-size:66px}}
++@media(max-width:760px){.page{padding-inline:23px}.nav{min-height:79px}.brand{font-size:25px}.header{padding:41px 0 34px;grid-template-columns:1fr;gap:22px}.header h1{font-size:clamp(47px,8.7vw,66px);margin-top:19px}.introduction{max-width:340px;justify-self:start;font-size:12px;display:block}.smallOrbit{display:none}.introduction p:first-of-type{margin:0 0 5px}.observationBar{font-size:10px;gap:9px;padding-block:14px;align-items:flex-start}.observationBar>div{gap:8px;flex-wrap:wrap}.observationBar>div:first-child{max-width:62%}.observationBar>div:last-child{flex-direction:column;align-items:flex-end;gap:4px;white-space:nowrap}.observationDot{margin-right:3px}.sample{padding:0;border:0;font-size:8px}.instrumentLayout{grid-template-columns:1fr;gap:0}.instrument{padding-top:21px;padding-bottom:25px}.sky{width:calc(100% + 24px);margin-inline:-12px;margin-top:14px}.plateHeading{font-size:9px}.plateFooter{font-size:9px;gap:15px}.plateFooter>span{max-width:45%}.layers{margin-top:17px;padding-top:15px;gap:16px;justify-content:space-between}.layers legend{width:auto;margin:0 auto 0 0;font-size:9px}.layers label{font-size:10px;min-height:36px}.reading{border-left:0;border-top:1px solid var(--rule);padding:29px 0 28px;margin-top:0;scroll-margin-top:24px}.selectedTop .eyebrow{font-size:9px}.reading h2{font-size:67px;margin-top:9px}.bodyEyebrow{font-size:10px}.reading h3{font-size:31px;max-width:350px}.story,.visibility{max-width:none}.story{font-size:13px}.visibility{font-size:11px}.position{margin:25px 0 21px;gap:22px;max-width:none;padding:17px 0}.position>strong{font-size:46px}.position>div{font-size:11px}.moonDetail{margin-bottom:19px}.explore{margin-top:26px;padding-top:22px}.explore>div{max-width:430px}.explore>p:last-child{font-size:10px}.bodyDirectory{margin-top:5px;padding:24px 0;gap:16px}.bodyDirectory>div:first-child{align-items:start}.bodyDirectory>div>p+p{font-size:10px;max-width:155px;text-align:right}.bodyButtons{grid-template-columns:repeat(5,minmax(0,1fr));gap:9px 5px}.bodyButtons button{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;padding:10px 0;min-height:82px}.bodyButtons button>span{font-size:22px}.bodyButtons strong{font-size:9px}.bodyButtons small{font-size:8px}.chooseMoment{grid-template-columns:1fr;gap:30px;margin:49px 0}.chooseMoment h2{font-size:50px;margin-top:15px}.chooseMoment>div>p:not(.eyebrow){max-width:370px;font-size:12px}.privacy{margin-top:16px;max-width:none}.form{gap:22px}.formNote{font-size:10px}.explanation{grid-template-columns:1fr;gap:30px;padding:32px 0}.explanation>div{padding-left:28px;position:relative}.explanation>div>span{position:absolute;left:0;top:6px;font-size:9px}.explanation h3{margin-top:0;font-size:27px}.explanation p{font-size:12px;max-width:none}.footer{align-items:flex-start;flex-wrap:wrap;row-gap:21px;padding-top:28px}.footer p{order:3;width:100%;font-size:9px}.technical summary{font-size:10px}.technical>p{font-size:10px}.tableWrap table{font-size:10px}.tableWrap th,.tableWrap td{padding-right:12px}}
++@media(max-width:370px){.page{padding-inline:19px}.header h1{font-size:44px}.layers{gap:11px}.layers legend{width:100%;margin-bottom:1px}.bodyButtons{gap:7px 3px}.bodyButtons strong{font-size:8.5px}.coordinateInputs{gap:16px}.footer{font-size:9px}.brand{font-size:23px}}
++@media(prefers-reduced-motion:reduce){.readingContent{animation:none}.page *{transition:none!important;scroll-behavior:auto!important}}
++@media print{.page{padding:0;color:#182136;background:#eee9df;overflow:visible}.nav,.footer,.form,.layers,.explore,.bodyButtons{display:none}.header{padding:20px 0}.instrumentLayout{grid-template-columns:1.4fr 1fr}.reading{padding:20px}.technical{display:block}.technical>div,.technical>p{display:block}}
++
++.setMoment{display:inline-flex;align-items:center;justify-content:space-between;gap:30px;min-height:44px;margin-top:12px;border-bottom:1px solid #ad814680;color:var(--ink)!important;font-size:12px}.setMoment span{font-size:18px}.setMoment:hover{border-bottom-color:var(--gold)}
++@media(min-width:900px){.header{padding-top:48px;padding-bottom:42px}}
++
++/* On a phone, give the selected light a readable caption; the body directory names every other object. */
++@media(max-width:760px){.bodyLabels>g{display:none}.bodyLabels>.activeLabel{display:inline;font-size:30px}.starNames,.gridLabels{display:none}.cardinals{font-size:23px}}
+diff --git a/website/src/app/studies/studies.module.css b/website/src/app/studies/studies.module.css
+new file mode 100644
+index 0000000..e30e6cf
+--- /dev/null
++++ b/website/src/app/studies/studies.module.css
+@@ -0,0 +1,49 @@
++.page { --paper: #eee9df; --ink: #20243c; --muted: #65636c; --line: #c6c0b6; min-height: 100svh; padding: 0 clamp(1.2rem, 5vw, 5.5rem) 2rem; color: var(--ink); background: var(--paper); font-family: var(--font-body), sans-serif; }
++.page a { color: inherit; text-decoration: none; }
++.page a:focus-visible { outline: 2px solid #947244; outline-offset: 5px; }
++.masthead { display: flex; align-items: center; justify-content: space-between; gap: 1rem; max-width: 1500px; margin: auto; padding: 1rem 0; border-bottom: 1px solid var(--line); font-size: .7rem; }
++.masthead > span { letter-spacing: .14em; text-transform: uppercase; }
++.masthead > a { min-height: 44px; display: inline-flex; align-items: center; gap: 1rem; }
++.masthead .wordmark { font-family: var(--font-heading), serif; font-size: 1.7rem; letter-spacing: -.03em; }
++.opening { max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: 1fr .52fr; column-gap: 3rem; align-items: end; padding: clamp(2.5rem, 5vw, 5rem) 0 3rem; }
++.eyebrow { grid-column: 1 / -1; margin: 0 0 1.6rem; font-size: .64rem; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; color: var(--muted); }
++.opening h1 { margin: 0; font-family: var(--font-heading), serif; font-size: clamp(3.1rem, 6.5vw, 7.3rem); font-weight: 400; letter-spacing: -.045em; line-height: .91; }
++.opening em { font-weight: 400; color: #6b6772; }
++.intro { max-width: 34ch; margin: 0 0 .25rem auto; color: var(--ink); font-size: .88rem; line-height: 1.9; }
++.intro span { display: inline-block; margin-top: 1rem; color: var(--muted); }
++.collection { max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: 1.08fr 1fr; gap: 1.25rem; }
++.collection > a { display: flex; flex-direction: column; position: relative; min-width: 0; overflow: hidden; padding: clamp(1.2rem, 2.6vw, 2.8rem); }
++.tarot { background: #111730; color: #f0e9dc !important; }
++.sky { border: 1px solid #b6afa5; background: #e1dbce; }
++.plateHeading { display: flex; justify-content: space-between; gap: 1rem; font-size: .61rem; line-height: 1.7; letter-spacing: .08em; text-transform: uppercase; }
++.tarot .plateHeading { color: #d7c096; }
++.plateHeading span:last-child { display: flex; gap: 1rem; align-items: center; text-align: right; }
++.plateHeading b { font-weight: 400; font-size: 1.1rem; transition: transform 220ms ease-out; }
++.collection > a:hover .plateHeading b { transform: translate(3px, -3px); }
++.deck { position: relative; height: clamp(300px, 28vw, 400px); margin: .6rem 0; isolation: isolate; }
++.deck img { position: absolute; left: 50%; top: 52%; width: clamp(116px, 13vw, 190px); height: auto; border-radius: 3px; box-shadow: 0 10px 28px #02051380; transition: transform 550ms cubic-bezier(.16, 1, .3, 1); transform-origin: 50% 90%; }
++.leftCard { transform: translate(-100%, -46%) rotate(-15deg); }
++.centerCard { z-index: 2; transform: translate(-50%, -53%); }
++.rightCard { transform: translate(0%, -46%) rotate(15deg); }
++.engraving { display: block; width: min(100%, 365px); height: clamp(300px, 28vw, 400px); margin: .6rem auto; overflow: visible; color: #746447; fill: none; stroke: currentColor; stroke-width: .65; }
++.engraving text { font-family: var(--font-body), sans-serif; font-size: 8px; fill: #494347; stroke: none; }
++.engraving .star { fill: #746447; stroke: none; }
++.plateCopy { display: grid; grid-template-columns: 1fr; gap: 1rem; }
++.plateCopy h2 { margin: 0; font-family: var(--font-heading), serif; font-weight: 400; line-height: .95; letter-spacing: -.03em; font-size: clamp(2.6rem, 3.6vw, 4rem); }
++.plateCopy em { font-weight: 400; }
++.tarot .plateCopy em { color: #b9b6c9; }
++.sky .plateCopy em { color: #736d70; }
++.plateCopy p { max-width: 42ch; margin: .2rem 0 1.8rem; font-size: .84rem; line-height: 1.8; color: #c8c3d1; }
++.sky .plateCopy p { color: #625e66; }
++.plateFoot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-top: 1px solid #44485a; padding-top: 1rem; color: #c5bed0; font-size: .62rem; line-height: 1.8; }
++.sky .plateFoot { border-color: #b9b1a5; color: #625e66; }
++.plateFoot span:last-child { font-family: var(--font-heading), serif; font-size: 1.2rem; }
++.footer { display: flex; max-width: 1500px; margin: auto; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 2rem; font-size: .65rem; color: var(--muted); }
++.footer p { margin: 0; }
++.footer p span { margin: 0 .5rem; }
++.footer a { min-height: 44px; display: inline-flex; gap: 1rem; align-items: center; }
++@media (hover: hover) and (pointer: fine) { .tarot:hover .leftCard { transform: translate(-109%, -49%) rotate(-19deg); } .tarot:hover .centerCard { transform: translate(-50%, -57%); } .tarot:hover .rightCard { transform: translate(9%, -49%) rotate(19deg); } }
++.tarot:focus-visible .centerCard { transform: translate(-50%, -57%); }
++@media (max-width: 760px) { .masthead > span { display: none; } .opening { grid-template-columns: 1fr; gap: 1.7rem; padding: 2.5rem 0; } .eyebrow { margin: 0; } .opening h1 { font-size: clamp(3.15rem, 10vw, 5rem); } .intro { margin: 0; max-width: none; } .intro br { display: none; } .intro span { display: block; margin-top: .25rem; } .collection { grid-template-columns: 1fr; } .collection > a { padding: 1.5rem; } .deck { height: 325px; } .deck img { width: 148px; } .engraving { height: 325px; } .plateCopy h2 { font-size: 3.25rem; } }
++@media (max-width: 370px) { .plateHeading { font-size: .54rem; } .deck img { width: 123px; } .deck { height: 285px; } .plateCopy h2 { font-size: 2.9rem; } .masthead .wordmark { font-size: 1.45rem; } }
++@media (prefers-reduced-motion: reduce) { .deck img, .plateHeading b { transition: none; } .tarot:hover .leftCard { transform: translate(-100%, -46%) rotate(-15deg); } .tarot:hover .centerCard, .tarot:focus-visible .centerCard { transform: translate(-50%, -53%); } .tarot:hover .rightCard { transform: translate(0%, -46%) rotate(15deg); } }
+diff --git a/website/src/app/studies/tarot/page.tsx b/website/src/app/studies/tarot/page.tsx
+new file mode 100644
+index 0000000..02ef07f
+--- /dev/null
++++ b/website/src/app/studies/tarot/page.tsx
+@@ -0,0 +1,223 @@
++"use client";
++
++import { useEffect, useMemo, useReducer, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
++import Image from "next/image";
++import Link from "next/link";
++import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
++import { ALL_CARDS } from "@/lib/academy/tarot-cards";
++import { ukCard } from "@/lib/academy/tarot-cards-uk";
++import { getCardPortalImagePath } from "@/lib/academy/card-images";
++import { createRitualTimer, orientationsForSitting, shuffleForSitting } from "@/components/oracle/ritual";
++import { useLocale } from "@/lib/i18n/useLocale";
++import styles from "./tarot.module.css";
++
++import { INITIAL, reducer, type Intention } from "./sitting";
++
++const INTENTIONS: Intention[] = ["clarity", "connection", "direction", "change"];
++const COPY = {
++  en: {
++    back: "All studies", oracle: "Visit the Oracle", kicker: "The Living Tarot", title: ["A question.", "A quiet answer."], introduction: "Set down what is on your mind. Let your hand find the cards. Give the symbols a little room to speak.",
++    shape: "Choose your reading", single: "One card", singleNote: "A moment of perspective", three: "Three cards", threeNote: "A thread to follow", intention: "What brings you here?", intentions: { clarity: "Clarity", connection: "Connection", direction: "Direction", change: "Change" },
++    question: "Your question, if you have one", placeholder: "What would help me see this differently?", privacy: "Your question stays on this page.", begin: "Shuffle & begin", shuffling: "The deck is finding a new order…", choose: "Let one card catch your attention.", chooseThree: "Choose three. There is no wrong place to begin.", reveal: "Your cards are here. Turn them in your own time.", complete: "The cards are open. The story is yours.", deck: "The complete 78-card deck", previous: "Previous cards", next: "Next cards", card: "Card", of: "of", chooseCard: "Choose card", turnCard: "Reveal", chosen: "chosen", upright: "Upright", reversed: "Reversed", position: ["What is present", "Where to look", "What to carry forward"], singlePosition: "A different perspective", step: ["I. Intention", "II. The draw", "III. Reflection"], study: "An invitation to pause", faceNote: "Each card keeps its place and orientation in this reading.", read: "Read your cards", story: "Follow the thread.", storyIntro: "Notice what connects these cards to your question. Keep what opens a useful perspective; leave what does not.", reflect: "A question to take with you", action: "A small next step", restart: "Begin again", restartNote: "A new reading creates a new shuffle.", pause: "A reversed card invites you to notice what is blocked, inward or asking for another approach.", prompts: { clarity: "What do I know already, and what am I only assuming?", connection: "What could I say honestly, without trying to control the reply?", direction: "Which small decision would put my values into practice?", change: "What can I release, and what needs a little more care?" }, footer: "78 cards. Your question. Your interpretation.", disclosure: "A space for reflection, with room for your own judgement.", remaining: "Choose", oneMore: "more card", more: "more cards", browse: "Browse the deck", selectHint: "Move across the fan · choose with a click", keyboard: "Arrow keys explore the deck. Enter selects a card.", readingFor: "Your question", readyHint: "The whole deck is here. Every shuffle changes the order.", held: "Your reading", focus: "Focus", today: "For this moment", review: "Read the interpretation", chooseHint: "Tap a card or use the arrows to explore all 78.",
++  },
++  uk: {
++    back: "Усі етюди", oracle: "До Оракула", kicker: "Живе Таро", title: ["Запитання.", "Тиха відповідь."], introduction: "Залиште тут те, що займає ваші думки. Нехай рука знайде карти. Дайте символам простір заговорити.",
++    shape: "Оберіть читання", single: "Одна карта", singleNote: "Мить для нового погляду", three: "Три карти", threeNote: "Нитка, за якою піти", intention: "Що привело вас сюди?", intentions: { clarity: "Ясність", connection: "Зв’язок", direction: "Напрямок", change: "Зміни" },
++    question: "Ваше запитання, якщо воно є", placeholder: "Що допоможе подивитися на це інакше?", privacy: "Ваше запитання лишається на цій сторінці.", begin: "Перетасувати й почати", shuffling: "Колода знаходить новий порядок…", choose: "Дозвольте одній карті привернути увагу.", chooseThree: "Оберіть три карти. Тут немає хибного початку.", reveal: "Ваші карти тут. Відкривайте їх у власному темпі.", complete: "Карти відкриті. Історія належить вам.", deck: "Повна колода з 78 карт", previous: "Попередні карти", next: "Наступні карти", card: "Карта", of: "із", chooseCard: "Обрати карту", turnCard: "Відкрити", chosen: "обрано", upright: "Пряме положення", reversed: "Перевернуте", position: ["Що є зараз", "Куди подивитися", "Що взяти із собою"], singlePosition: "Інший погляд", step: ["I. Намір", "II. Вибір", "III. Рефлексія"], study: "Запрошення зупинитися", faceNote: "Кожна карта зберігає своє місце й положення у цьому читанні.", read: "Прочитати карти", story: "Слідуйте за ниткою.", storyIntro: "Зауважте, що пов’язує ці карти з вашим запитанням. Залиште те, що відкриває корисний погляд, і відпустіть решту.", reflect: "Запитання, яке варто взяти із собою", action: "Маленький наступний крок", restart: "Почати знову", restartNote: "Нове читання — нове тасування.", pause: "Перевернута карта запрошує помітити те, що стримується, спрямоване всередину або потребує іншого підходу.", prompts: { clarity: "Що я вже знаю, а що лише припускаю?", connection: "Що я можу сказати чесно, не намагаючись керувати відповіддю?", direction: "Яке маленьке рішення втілить мої цінності?", change: "Що я можу відпустити, а чому потрібно більше турботи?" }, footer: "78 карт. Ваше запитання. Ваше тлумачення.", disclosure: "Простір для рефлексії, у якому є місце вашому судженню.", remaining: "Оберіть ще", oneMore: "карту", more: "карти", browse: "Переглянути колоду", selectHint: "Проведіть над віялом · натисніть, щоб обрати", keyboard: "Стрілки переглядають колоду. Enter обирає карту.", readingFor: "Ваше запитання", readyHint: "Тут уся колода. Кожне тасування змінює її порядок.", held: "Ваше читання", focus: "Фокус", today: "На цю мить", review: "Прочитати тлумачення", chooseHint: "Торкніться карти або перегляньте всі 78 стрілками.",
++  },
++};
++
++/** Same engraved rosette as the working Oracle, shared as one CSS image by every card. */
++const BACK = `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 225"><rect width="136" height="225" fill="#151c40"/><rect x="5" y="5" width="126" height="215" rx="4" fill="none" stroke="#cfc6ad" stroke-opacity=".65"/><rect x="10" y="10" width="116" height="205" rx="2" fill="none" stroke="#cfc6ad" stroke-opacity=".25"/><g stroke="#e8e1ce" stroke-width=".65" fill="none"><path d="M25 21v8m-4-4h8M111 21v8m-4-4h8M25 196v8m-4-4h8M111 196v8m-4-4h8"/><circle cx="68" cy="112" r="30"/><circle cx="68" cy="112" r="22" stroke-dasharray="1 4"/><path d="M68 83v18m0 22v18M39 112h18m22 0h18M47 91l13 13m16 16 13 13M47 133l13-13m16-16 13-13"/></g><circle cx="68" cy="112" r="4" fill="#d8bb84"/><g fill="#d8bb84"><circle cx="32" cy="48" r=".9"/><circle cx="99" cy="67" r=".7"/><circle cx="41" cy="174" r=".7"/><circle cx="106" cy="181" r=".9"/></g></svg>')}")`;
++const HAND_SIZE = 13;
++
++export default function TarotStudy() {
++  const { locale } = useLocale();
++  const isUk = locale === "uk";
++  const copy = isUk ? COPY.uk : COPY.en;
++  const reduce = useReducedMotion();
++  const [state, dispatch] = useReducer(reducer, INITIAL);
++  const [hand, setHand] = useState(0);
++  const [active, setActive] = useState(6);
++  const [hovered, setHovered] = useState<number | null>(null);
++  const timer = useMemo(() => createRitualTimer(), []);
++  const cardRefs = useRef(new Map<number, HTMLButtonElement>());
++  const revealRefs = useRef(new Map<number, HTMLButtonElement>());
++  const pendingFocus = useRef<number | null>(null);
++  const beginRef = useRef<HTMLButtonElement>(null);
++  const storyRef = useRef<HTMLHeadingElement>(null);
++  const readRef = useRef<HTMLButtonElement>(null);
++  const tableRef = useRef<HTMLElement>(null);
++  const intentionRef = useRef<HTMLElement>(null);
++  const pendingScroll = useRef(false);
++  const deck = useMemo(() => shuffleForSitting(ALL_CARDS, state.seed, ALL_CARDS.length), [state.seed]);
++  const orientations = useMemo(() => orientationsForSitting(state.seed, ALL_CARDS.length), [state.seed]);
++  const positionName = (i: number) => state.count === 1 ? copy.singlePosition : copy.position[i];
++  const translated = (index: number) => (isUk ? ukCard(deck[index].name) : null) ?? deck[index];
++  const cardTitle = (index: number) => translated(index).name;
++  const started = state.phase !== "intention";
++  const cardsChosen = state.phase === "revealing" || state.phase === "reading";
++  const step = !started ? 0 : state.phase === "reading" ? 2 : 1;
++  const status = state.phase === "intention" ? copy.readyHint : state.phase === "shuffling" ? copy.shuffling : state.phase === "choosing" ? (state.count === 1 ? copy.choose : copy.chooseThree) : state.phase === "revealing" ? copy.reveal : copy.complete;
++
++  useEffect(() => () => timer.cancel(), [timer]);
++  useEffect(() => {
++    const frame = requestAnimationFrame(() => {
++      if (state.phase === "choosing") {
++        if (pendingFocus.current !== null) {
++          cardRefs.current.get(pendingFocus.current)?.focus({ preventScroll: true });
++          pendingFocus.current = null;
++        }
++        if (pendingScroll.current) {
++          pendingScroll.current = false;
++          if (window.matchMedia("(max-width: 820px)").matches) tableRef.current?.scrollIntoView({ behavior: reduce ? "instant" : "smooth", block: "start" });
++        }
++      } else if (state.phase === "revealing") {
++        const target = state.selected.find(index => !state.revealed.includes(index));
++        if (target !== undefined) revealRefs.current.get(target)?.focus({ preventScroll: true });
++      }
++    });
++    return () => cancelAnimationFrame(frame);
++  }, [state.phase, state.selected, state.revealed, hand, active, reduce]);
++
++  useEffect(() => {
++    if (state.phase !== "reading") return;
++    const previouslyFocused = document.activeElement;
++    const settle = window.setTimeout(() => {
++      if (document.activeElement === previouslyFocused) readRef.current?.focus({ preventScroll: true });
++    }, reduce ? 0 : 620);
++    return () => window.clearTimeout(settle);
++  }, [state.phase, reduce]);
++
++  const begin = () => {
++    if (state.phase !== "intention") return;
++    const seed = crypto.getRandomValues(new Uint32Array(1))[0];
++    setHand(0); setActive(6); setHovered(null); pendingFocus.current = 6; pendingScroll.current = true;
++    dispatch({ type: "begin", seed });
++    timer.schedule(() => dispatch({ type: "ready", seed }), reduce ? 0 : 520);
++  };
++  const reset = () => {
++    timer.cancel(); setHand(0); setActive(6); setHovered(null); pendingFocus.current = null; pendingScroll.current = false;
++    dispatch({ type: "reset" });
++    timer.schedule(() => {
++      intentionRef.current?.scrollIntoView({ behavior: reduce ? "instant" : "smooth", block: "start" });
++      beginRef.current?.focus({ preventScroll: true });
++    }, 0);
++  };
++  const moveTo = (index: number) => {
++    setHand(Math.floor(index / HAND_SIZE)); setActive(index); pendingFocus.current = index;
++  };
++  const browse = (direction: number) => {
++    const next = Math.max(0, Math.min(5, hand + direction));
++    const indices = Array.from({ length: HAND_SIZE }, (_, i) => next * HAND_SIZE + i);
++    moveTo(indices.find(i => i >= next * HAND_SIZE + 6 && !state.selected.includes(i)) ?? indices.find(i => !state.selected.includes(i)) ?? next * HAND_SIZE);
++  };
++  const keyboard = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
++    let next = index;
++    if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
++      const direction = event.key === "ArrowRight" ? 1 : -1;
++      do { next = (next + direction + 78) % 78; } while (state.selected.includes(next));
++    } else if (event.key === "Home") next = deck.findIndex((_, i) => !state.selected.includes(i));
++    else if (event.key === "End") { next = 77; while (state.selected.includes(next)) next--; }
++    else return;
++    event.preventDefault(); moveTo(next);
++  };
++  const choose = (index: number) => {
++    if (state.phase !== "choosing") return;
++    const available = Array.from({ length: 78 }, (_, i) => (index + 1 + i) % 78).find(i => i !== index && !state.selected.includes(i));
++    dispatch({ type: "select", index });
++    if (state.selected.length + 1 < state.count && available !== undefined) moveTo(available);
++  };
++  const readStory = () => {
++    storyRef.current?.scrollIntoView({ behavior: reduce ? "instant" : "smooth", block: "start" });
++    storyRef.current?.focus({ preventScroll: true });
++  };
++
++  return (
++    <main className={styles.page} id="main-content" style={{ "--card-back": BACK } as CSSProperties}>
++      <nav className={styles.navigation} aria-label={isUk ? "Навігація" : "Navigation"}>
++        <Link href="/studies/">← {copy.back}</Link><Link className={styles.wordmark} href="/">Olivia Arcana</Link><Link href="/oracle/">{copy.oracle} ↗</Link>
++      </nav>
++      <div className={styles.edition}><span>{copy.kicker}</span><span>STUDY 01 / MMXXVI</span></div>
++      <LayoutGroup id="living-tarot-study">
++        <div className={styles.ritual}>
++          <aside ref={intentionRef} className={styles.intention} data-active={started}>
++            <p className={styles.eyebrow}>{copy.study}</p>
++            <h1>{copy.title[0]}<br /><em>{copy.title[1]}</em></h1>
++            <p className={styles.introduction}>{copy.introduction}</p>
++            {state.phase === "intention" ? <div className={styles.setup}>
++              <fieldset className={styles.shape}><legend>{copy.shape}</legend>{([1, 3] as const).map(count => <label key={count} data-selected={state.count === count}><input type="radio" name="reading-size" value={count} checked={state.count === count} onChange={() => dispatch({ type: "count", count })} /><span>{count === 1 ? copy.single : copy.three}<small>{count === 1 ? copy.singleNote : copy.threeNote}</small></span><span className={styles.radioMark} aria-hidden /></label>)}</fieldset>
++              <fieldset className={styles.intentChoices}><legend>{copy.intention}</legend><div>{INTENTIONS.map(intention => <label key={intention}><input type="radio" name="intention" value={intention} checked={state.intention === intention} onChange={() => dispatch({ type: "intention", intention })} /><span>{copy.intentions[intention]}</span></label>)}</div></fieldset>
++              <details className={styles.questionDisclosure}>
++                <summary>{isUk ? "Додати запитання (необов’язково)" : "Add a question (optional)"}</summary>
++                <label className={styles.question}>{copy.question}<textarea rows={2} maxLength={180} value={state.question} onChange={e => dispatch({ type: "question", question: e.target.value })} placeholder={copy.placeholder} /></label>
++                <p className={styles.privacy}>{copy.privacy}</p>
++              </details>
++              <button ref={beginRef} type="button" className={styles.primary} onClick={begin}>{copy.begin}<span aria-hidden>↗</span></button>
++            </div> : <div className={styles.sitting}>
++              <span className={styles.eyebrow}>{copy.held}</span><p>{state.count === 1 ? copy.single : copy.three} <span aria-hidden>·</span> {copy.intentions[state.intention]}</p>
++              {state.question && <blockquote>“{state.question}”</blockquote>}
++              <div className={styles.sittingRule} />
++              <p className={styles.sittingPrompt}>{copy.prompts[state.intention]}</p>
++              <button type="button" className={styles.textButton} onClick={reset}>{copy.restart} <span aria-hidden>↺</span></button>
++            </div>}
++          </aside>
++
++          <section ref={tableRef} className={styles.table} aria-label={copy.kicker}>
++            <ol className={styles.steps}>{copy.step.map((label, i) => <li key={label} aria-current={step === i ? "step" : undefined}>{label}</li>)}</ol>
++            <p className={styles.status} role="status" aria-live="polite">{status}</p>
++            <div className={styles.tableSurface} data-phase={state.phase}>
++              <div className={styles.tableMark} aria-hidden><span>O</span><i /><span>A</span></div>
++              {!cardsChosen && <div className={styles.fan} data-shuffling={state.phase === "shuffling"} role="group" aria-label={copy.deck}>
++                {Array.from({ length: HAND_SIZE }, (_, i) => {
++                  const index = hand * HAND_SIZE + i;
++                  const chosen = state.selected.includes(index);
++                  const n = i - 6;
++                  return <div key={`${state.seed}-${index}`} className={styles.fanPosition} style={{ "--n": n, "--arc-y": `${Math.abs(n) ** 1.65 * 2}px`, "--card-angle": `${n * 3.4}deg`, zIndex: index === (hovered ?? active) ? 20 : i + 1 } as CSSProperties}>
++                    {!chosen && <motion.button layoutId={`card-${state.seed}-${index}`} ref={el => { if (el) cardRefs.current.set(index, el); else cardRefs.current.delete(index); }} className={styles.fanCard} type="button" disabled={state.phase !== "choosing"} tabIndex={state.phase === "choosing" && index === active ? 0 : -1} aria-label={`${copy.chooseCard} ${index + 1} ${copy.of} 78`} onFocus={() => { if (state.phase === "choosing") setActive(index); }} onPointerEnter={() => { if (state.phase === "choosing") setHovered(index); }} onPointerLeave={() => setHovered(null)} onKeyDown={e => keyboard(e, index)} onClick={() => choose(index)} transition={{ duration: reduce ? 0 : .46, ease: [.22, 1, .36, 1] }}><span className={styles.cardBack} /><span className={styles.fanNumber} aria-hidden>{String(index + 1).padStart(2, "0")}</span></motion.button>}
++                  </div>;
++                })}
++              </div>}
++              {cardsChosen && <p className={styles.spreadLabel}>{copy.today}<span aria-hidden>✦</span></p>}
++              <div className={styles.spread} data-ready={cardsChosen} data-single={state.count === 1}>
++                {Array.from({ length: state.count }, (_, slot) => {
++                  const index = state.selected[slot];
++                  const revealed = index !== undefined && state.revealed.includes(index);
++                  return <div className={styles.spreadSlot} key={slot}>
++                    <span className={styles.slotNumber}>{["I", "II", "III"][slot]}</span>
++                    {index === undefined ? <div className={styles.emptyCard} aria-label={positionName(slot)}><span aria-hidden>✦</span></div> : <motion.div className={styles.selectedCard} layoutId={`card-${state.seed}-${index}`} transition={{ duration: reduce ? 0 : .46, ease: [.22, 1, .36, 1] }}>
++                      <button ref={el => { if (el) revealRefs.current.set(index, el); else revealRefs.current.delete(index); }} type="button" className={styles.revealButton} disabled={state.phase === "choosing"} aria-disabled={revealed || undefined} tabIndex={revealed ? -1 : 0} onClick={() => dispatch({ type: "reveal", index })} aria-label={revealed ? `${cardTitle(index)}, ${orientations[index] ? copy.reversed : copy.upright}` : `${copy.turnCard}: ${positionName(slot)}`} data-revealed={revealed}>
++                        <span className={styles.flip}><span className={styles.cardBack} /><span className={styles.cardFace}><Image src={getCardPortalImagePath(deck[index])} width={240} height={414} alt="" loading="eager" className={orientations[index] ? styles.reversed : undefined} /></span></span>
++                      </button>
++                    </motion.div>}
++                    <span className={styles.slotName}>{positionName(slot)}</span>
++                    {revealed && <span className={styles.cardName}>{cardTitle(index)}<small>{orientations[index] ? copy.reversed : copy.upright}</small></span>}
++                  </div>;
++                })}
++              </div>
++            </div>
++            {!cardsChosen && <div className={styles.deckControls}>
++              <button type="button" aria-label={copy.previous} disabled={state.phase !== "choosing" || hand === 0} onClick={() => browse(-1)}>←</button>
++              <div><span>{hand * HAND_SIZE + 1}—{Math.min(78, (hand + 1) * HAND_SIZE)} <i>{copy.of} 78</i></span><small>{state.phase === "choosing" ? `${state.selected.length} / ${state.count} ${copy.chosen}` : copy.deck}</small></div>
++              <button type="button" aria-label={copy.next} disabled={state.phase !== "choosing" || hand === 5} onClick={() => browse(1)}>→</button>
++            </div>}
++            <div className={styles.tableFoot}>{state.phase === "reading" ? <button ref={readRef} type="button" className={styles.primary} onClick={readStory}>{copy.read}<span aria-hidden>↓</span></button> : <p>{state.phase === "revealing" ? copy.faceNote : copy.chooseHint}</p>}</div>
++            <p className={styles.srOnly}>{copy.keyboard}</p>
++          </section>
++        </div>
++      </LayoutGroup>
++
++      <AnimatePresence>
++        {state.phase === "reading" && <motion.section className={styles.reading} initial={{ opacity: 0, y: reduce ? 0 : 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: reduce ? 0 : .38 }} aria-labelledby="tarot-story-title">
++          <div className={styles.readingHeading}><p className={styles.eyebrow}>{copy.step[2]}</p><h2 ref={storyRef} tabIndex={-1} id="tarot-story-title">{copy.story}</h2><p>{copy.storyIntro}</p></div>
++          <div className={styles.interpretations}>{state.selected.map((index, slot) => {
++            const card = translated(index);
++            return <article key={index} className={styles.interpretation}><div className={styles.interpretationIndex}><span>{["I", "II", "III"][slot]}</span><p>{positionName(slot)}</p></div><div><p className={styles.eyebrow}>{orientations[index] ? copy.reversed : copy.upright}</p><h3>{card.name}</h3><p className={styles.meaning}>{orientations[index] ? card.reversed : card.upright}</p><div className={styles.advice}><span>{copy.action}</span><p>{orientations[index] ? copy.pause : card.advice}</p></div></div></article>;
++          })}</div>
++          <div className={styles.reflection}><span className={styles.eyebrow}>{copy.reflect}</span><p>{copy.prompts[state.intention]}</p><button type="button" className={styles.textButton} onClick={reset}>{copy.restart} ↺</button><small>{copy.restartNote}</small></div>
++        </motion.section>}
++      </AnimatePresence>
++      <footer className={styles.footer}><span>{copy.footer}</span><p>{copy.disclosure}</p><Link href="/studies/">{copy.back} ↗</Link></footer>
++    </main>
++  );
++}
+diff --git a/website/src/app/studies/tarot/sitting.test.mjs b/website/src/app/studies/tarot/sitting.test.mjs
+new file mode 100644
+index 0000000..9ad8c2c
+--- /dev/null
++++ b/website/src/app/studies/tarot/sitting.test.mjs
+@@ -0,0 +1,72 @@
++import test from "node:test";
++import assert from "node:assert/strict";
++import { INITIAL, reducer } from "./sitting.ts";
++import { createRitualTimer, orientationsForSitting, shuffleForSitting } from "../../../components/oracle/ritual.ts";
++
++const ready = (count = 3) => reducer(reducer({ ...INITIAL, count }, { type: "begin", seed: 123456 }), { type: "ready", seed: 123456 });
++
++test("fast repeated choices cannot duplicate cards or overflow a spread", () => {
++  let state = ready();
++  for (const index of [77, 77, 26, 4, 14]) state = reducer(state, { type: "select", index });
++  assert.deepEqual(state.selected, [77, 26, 4]);
++  assert.equal(state.phase, "revealing");
++  const reshaped = reducer(state, { type: "count", count: 1 });
++  assert.strictEqual(reshaped, state);
++});
++
++test("incomplete spreads cannot reveal, and invalid positions cannot enter the draw", () => {
++  let state = ready();
++  for (const index of [-1, 78, .5, NaN, Infinity]) assert.strictEqual(reducer(state, { type: "select", index }), state);
++  state = reducer(state, { type: "select", index: 1 });
++  assert.strictEqual(reducer(state, { type: "reveal", index: 1 }), state);
++  state = reducer(reducer(state, { type: "select", index: 7 }), { type: "select", index: 8 });
++  assert.strictEqual(reducer(state, { type: "reveal", index: 2 }), state);
++});
++
++test("a stale shuffle completion cannot open a later sitting", () => {
++  let state = reducer(INITIAL, { type: "begin", seed: 8 });
++  state = reducer(state, { type: "reset" });
++  state = reducer(state, { type: "begin", seed: 19 });
++  assert.strictEqual(reducer(state, { type: "ready", seed: 8 }), state);
++  assert.equal(reducer(state, { type: "ready", seed: 19 }).phase, "choosing");
++});
++
++test("one-card and three-card readings finish only after every deliberate reveal", () => {
++  for (const count of [1, 3]) {
++    let state = ready(count);
++    for (const index of [65, 22, 0].slice(0, count)) state = reducer(state, { type: "select", index });
++    const chosen = [...state.selected];
++    for (let i = 0; i < chosen.length; i++) {
++      state = reducer(state, { type: "reveal", index: chosen[i] });
++      assert.equal(state.phase, i === count - 1 ? "reading" : "revealing");
++      const same = reducer(state, { type: "reveal", index: chosen[i] });
++      assert.strictEqual(same, state);
++    }
++    assert.deepEqual(state.selected, chosen);
++  }
++});
++
++test("browsed card 78 retains the identity and reversal from the full seeded deck", () => {
++  const pool = Array.from({ length: 78 }, (_, i) => i);
++  const deck = shuffleForSitting(pool, 123456, 78);
++  const orientations = orientationsForSitting(123456, 78);
++  let state = reducer(ready(1), { type: "select", index: 77 });
++  state = reducer(state, { type: "reveal", index: 77 });
++  assert.equal(new Set(deck).size, 78);
++  assert.equal(deck[state.selected[0]], shuffleForSitting(pool, state.seed, 78)[77]);
++  assert.equal(orientations[state.selected[0]], orientationsForSitting(state.seed, 78)[77]);
++});
++
++test("restart cancels the pending shuffle, clears the question and keeps reading preferences", context => {
++  context.mock.timers.enable({ apis: ["setTimeout"] });
++  const timer = createRitualTimer();
++  let state = { ...INITIAL, count: 1, intention: "connection", question: "A private question" };
++  state = reducer(state, { type: "begin", seed: 5 });
++  timer.schedule(() => { state = reducer(state, { type: "ready", seed: 5 }); }, 520);
++  timer.cancel(); state = reducer(state, { type: "reset" });
++  context.mock.timers.tick(1000);
++  assert.equal(state.phase, "intention");
++  assert.equal(state.question, "");
++  assert.equal(state.count, 1);
++  assert.equal(state.intention, "connection");
++});
+diff --git a/website/src/app/studies/tarot/sitting.ts b/website/src/app/studies/tarot/sitting.ts
+new file mode 100644
+index 0000000..ab47a9e
+--- /dev/null
++++ b/website/src/app/studies/tarot/sitting.ts
+@@ -0,0 +1,25 @@
++/** State guards keep fast taps and cancelled rituals from changing a later reading. */
++type Phase = "intention" | "shuffling" | "choosing" | "revealing" | "reading";
++export type Intention = "clarity" | "connection" | "direction" | "change";
++export type State = { phase: Phase; seed: number; count: 1 | 3; intention: Intention; question: string; selected: number[]; revealed: number[] };
++export type Action = { type: "count"; count: 1 | 3 } | { type: "intention"; intention: Intention } | { type: "question"; question: string } | { type: "begin"; seed: number } | { type: "ready"; seed: number } | { type: "select"; index: number } | { type: "reveal"; index: number } | { type: "reset" };
++export const INITIAL: State = { phase: "intention", seed: 0, count: 3, intention: "clarity", question: "", selected: [], revealed: [] };
++export function reducer(state: State, action: Action): State {
++  if (action.type === "reset") return { ...INITIAL, count: state.count, intention: state.intention };
++  if (action.type === "count") return state.phase === "intention" ? { ...state, count: action.count } : state;
++  if (action.type === "intention") return state.phase === "intention" ? { ...state, intention: action.intention } : state;
++  if (action.type === "question") return state.phase === "intention" ? { ...state, question: action.question } : state;
++  if (action.type === "begin") return state.phase === "intention" ? { ...state, seed: action.seed, phase: "shuffling" } : state;
++  if (action.type === "ready") return state.phase === "shuffling" && state.seed === action.seed ? { ...state, phase: "choosing" } : state;
++  if (action.type === "select") {
++    if (state.phase !== "choosing" || state.selected.includes(action.index) || !Number.isInteger(action.index) || action.index < 0 || action.index >= 78) return state;
++    const selected = [...state.selected, action.index];
++    return { ...state, selected, phase: selected.length === state.count ? "revealing" : "choosing" };
++  }
++  if (action.type === "reveal") {
++    if (state.phase !== "revealing" || !state.selected.includes(action.index) || state.revealed.includes(action.index)) return state;
++    const revealed = [...state.revealed, action.index];
++    return { ...state, revealed, phase: revealed.length === state.count ? "reading" : "revealing" };
++  }
++  return state;
++}
+diff --git a/website/src/app/studies/tarot/tarot.module.css b/website/src/app/studies/tarot/tarot.module.css
+new file mode 100644
+index 0000000..74eb658
+--- /dev/null
++++ b/website/src/app/studies/tarot/tarot.module.css
+@@ -0,0 +1,222 @@
++.page { --ink: #ede8dc; --muted: #a9aabc; --gold: #d4b77f; --line: #35394c; --night: #0c1029; --ease: cubic-bezier(.22, 1, .36, 1); min-height: 100svh; background: var(--night); color: var(--ink); padding: 0 clamp(1.25rem, 4vw, 4rem); font-family: var(--font-body), sans-serif; }
++.page * { box-sizing: border-box; }
++.page a { color: inherit; text-decoration: none; }
++.page button, .page input, .page textarea { font: inherit; }
++.page button { cursor: pointer; }
++.page button:disabled { cursor: default; }
++.page a:focus-visible, .page button:focus-visible, .page input:focus-visible, .page textarea:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
++.page h1, .page h2, .page h3, .page p { margin-top: 0; }
++.navigation { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; max-width: 1480px; min-height: 84px; margin: 0 auto; border-bottom: 1px solid var(--line); }
++.navigation a { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); font-size: .72rem; letter-spacing: .035em; }
++.navigation a:hover { color: var(--gold); }
++.navigation .wordmark { color: var(--ink); font-family: var(--font-heading), serif; font-size: 1.7rem; letter-spacing: -.035em; }
++.edition { display: flex; justify-content: space-between; max-width: 1480px; margin: 0 auto; padding: 1.25rem 0 0; color: var(--gold); font-size: .6rem; text-transform: uppercase; letter-spacing: .2em; }
++.edition span:last-child { color: var(--muted); }
++.ritual { display: grid; grid-template-columns: minmax(270px, .77fr) minmax(0, 1.6fr); gap: clamp(2rem, 6vw, 6.5rem); align-items: start; max-width: 1480px; margin: 0 auto; padding: clamp(2rem, 3vw, 3rem) 0 4.5rem; }
++.intention { padding-top: .5rem; scroll-margin-top: 1.5rem; }
++.eyebrow { color: var(--gold); font-size: .62rem; font-weight: 500; line-height: 1.6; text-transform: uppercase; letter-spacing: .18em; }
++.intention > .eyebrow { margin-bottom: 1.2rem; }
++.intention h1 { margin: 0; font-family: var(--font-heading), serif; font-size: clamp(2.75rem, 4.3vw, 4.5rem); font-weight: 400; letter-spacing: -.045em; line-height: 1; }
++.intention h1 em { color: #b8b6c2; font-weight: 400; }
++.introduction { max-width: 37ch; margin: 1.2rem 0 1.4rem; color: var(--muted); font-size: .86rem; line-height: 1.85; }
++.setup { display: grid; gap: 1.1rem; }
++.setup fieldset { margin: 0; padding: 0; border: 0; }
++.setup legend, .question { margin-bottom: .7rem; color: var(--ink); font-size: .74rem; line-height: 1.5; }
++.shape { display: flex; gap: .8rem; }
++.shape label { position: relative; display: flex; align-items: center; justify-content: space-between; gap: .5rem; flex: 1; padding: .8rem .8rem .85rem; border: 1px solid var(--line); cursor: pointer; transition: border-color 180ms ease, background 180ms ease; }
++.shape label[data-selected="true"] { border-color: #d4b77f80; background: #d4b77f08; }
++.shape input, .intentChoices input { position: absolute; width: 1px; height: 1px; opacity: 0; }
++.shape label:has(input:focus-visible), .intentChoices label:has(input:focus-visible) { outline: 2px solid var(--gold); outline-offset: 4px; }
++.shape label > span:first-of-type { font-family: var(--font-heading), serif; font-size: 1.2rem; line-height: 1.1; }
++.shape small { display: block; margin-top: .5rem; color: var(--muted); font-family: var(--font-body), sans-serif; font-size: .57rem; line-height: 1.6; }
++.radioMark { width: 10px; height: 10px; flex-shrink: 0; border: 1px solid #787d93; border-radius: 50%; }
++.shape input:checked ~ .radioMark { border-color: var(--gold); background: var(--gold); box-shadow: inset 0 0 0 2px var(--night); }
++.intentChoices > div { display: flex; flex-wrap: wrap; gap: .35rem; }
++.intentChoices label { position: relative; cursor: pointer; }
++.intentChoices label > span { display: flex; align-items: center; min-height: 40px; padding: .3rem .75rem; border: 1px solid transparent; color: var(--muted); font-size: .72rem; }
++.intentChoices input:checked + span { border-bottom-color: var(--gold); color: var(--gold); }
++.intentChoices label:hover > span { color: var(--ink); }
++.questionDisclosure summary { display: flex; align-items: center; justify-content: space-between; gap: .75rem; min-height: 44px; color: var(--muted); font-size: .72rem; cursor: pointer; list-style: none; }
++.questionDisclosure summary::-webkit-details-marker { display: none; }
++.questionDisclosure summary::after { content: "+"; color: var(--gold); font-size: 1rem; }
++.questionDisclosure[open] summary::after { content: "−"; }
++.questionDisclosure summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
++.questionDisclosure .privacy { margin: .65rem 0 .3rem; }
++.question { display: grid; gap: .6rem; margin: .6rem 0 0; }
++.question textarea { display: block; width: 100%; resize: vertical; min-height: 72px; max-height: 180px; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: .2rem 0 .65rem; color: var(--ink); background: transparent; font-family: var(--font-heading), serif; font-size: 1.13rem; line-height: 1.5; }
++.question textarea::placeholder { color: #898b9d; }
++.privacy { margin: -.9rem 0 -.25rem; color: var(--muted); font-size: .6rem; line-height: 1.5; }
++.primary { display: flex; align-items: center; justify-content: space-between; gap: 2rem; min-height: 50px; padding: .8rem 1.2rem; border: 1px solid var(--gold); color: #15172c; background: var(--gold); font-size: .78rem; font-weight: 500; transition: background 160ms ease; }
++.primary > span { font-size: 1.2rem; }
++.primary:hover { background: #e5cea6; }
++.textButton { display: inline-flex; align-items: center; justify-content: space-between; gap: 2rem; min-height: 44px; padding: .5rem 0; border: 0; border-bottom: 1px solid #d4b77f65; color: var(--gold); background: transparent; font-size: .78rem; }
++.sitting { padding-top: 1.6rem; border-top: 1px solid var(--line); }
++.sitting > p:first-of-type { margin: .6rem 0 0; font-family: var(--font-heading), serif; font-size: 1.55rem; }
++.sitting > p:first-of-type span { padding: 0 .5rem; color: var(--gold); }
++.sitting blockquote { margin: 1.6rem 0; color: var(--muted); font-family: var(--font-heading), serif; font-size: 1.35rem; font-style: italic; line-height: 1.6; overflow-wrap: anywhere; }
++.sittingRule { width: 2.2rem; height: 1px; margin: 1.8rem 0; background: var(--gold); }
++.sittingPrompt { max-width: 28ch; color: var(--muted); font-size: .9rem; line-height: 1.85; }
++.sitting .textButton { margin-top: 1rem; }
++.table { min-width: 0; scroll-margin-top: 1.25rem; }
++.steps { display: flex; justify-content: space-between; gap: 1rem; margin: 0; padding: 0 0 1rem; list-style: none; border-bottom: 1px solid var(--line); }
++.steps li { color: #8e92a5; font-size: .61rem; line-height: 1.6; letter-spacing: .1em; }
++.steps li[aria-current="step"] { color: var(--gold); }
++.status { min-height: 54px; margin: 0; padding-top: 1.2rem; color: var(--muted); font-family: var(--font-heading), serif; font-size: 1.08rem; text-align: center; line-height: 1.45; }
++.tableSurface { position: relative; min-height: 450px; isolation: isolate; }
++.tableSurface::before { content: ""; position: absolute; inset: 6% 1% 0; z-index: -1; border: 1px solid #272d45; border-radius: 50% 50% 0 0 / 36% 36% 0 0; pointer-events: none; }
++.tableMark { position: absolute; top: 13%; left: 50%; display: flex; align-items: center; gap: .65rem; transform: translateX(-50%); color: #9f9373; font-family: var(--font-heading), serif; font-size: .7rem; opacity: .7; }
++.tableMark i { display: block; width: 20px; height: 1px; background: currentColor; }
++.fan { position: relative; width: 100%; height: 280px; perspective: 1000px; }
++.fanPosition { position: absolute; top: 68px; left: 50%; width: clamp(108px, 10.1vw, 155px); aspect-ratio: 136 / 225; transform: translateX(calc(-50% + var(--n) * clamp(22px, 2.45vw, 37px))) translateY(var(--arc-y)) rotate(var(--card-angle)); transform-origin: 50% 110%; }
++.fanCard { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 1px solid #d4b77f70; border-radius: 5px; background: #151c40; box-shadow: -5px 10px 20px #04081d80; transition: translate 200ms var(--ease), border-color 160ms ease; }
++.fanCard:disabled { opacity: 1; }
++.cardBack { position: absolute; inset: 0; display: block; border-radius: 4px; background: var(--card-back) center / 100% 100%; backface-visibility: hidden; }
++.fanNumber { position: absolute; left: 7px; top: 10px; color: #d8cbae; font-size: .48rem; letter-spacing: .02em; }
++.fanCard:focus-visible { translate: 0 -24px; z-index: 30; }
++@media (hover: hover) and (pointer: fine) { .fanCard:not(:disabled):hover { translate: 0 -24px; border-color: var(--gold); } }
++.fan[data-shuffling="true"] .fanPosition { animation: shuffle 520ms var(--ease) both; }
++@keyframes shuffle { 0%, 100% { transform: translateX(calc(-50% + var(--n) * clamp(22px, 2.45vw, 37px))) translateY(var(--arc-y)) rotate(var(--card-angle)); } 45% { transform: translateX(calc(-50% + var(--n) * 2px)) translateY(calc(var(--n) * -1px)) rotate(calc(var(--n) * -1.5deg)); } }
++.spread { display: flex; justify-content: center; align-items: flex-start; gap: clamp(1rem, 4vw, 3rem); padding: 1rem 1rem 1.1rem; }
++.spreadSlot { position: relative; display: flex; flex-direction: column; align-items: center; width: min(28%, 90px); min-width: 0; text-align: center; }
++.slotNumber { margin-bottom: .65rem; color: var(--gold); font-family: var(--font-heading), serif; font-size: .9rem; }
++.emptyCard { display: grid; place-items: center; width: 100%; aspect-ratio: 136 / 225; border: 1px solid #59554770; border-radius: 3px; color: #a99b75; }
++.emptyCard > span { font-size: .7rem; }
++.selectedCard { position: relative; width: 100%; aspect-ratio: 136 / 225; border-radius: 5px; }
++.revealButton { position: absolute; inset: 0; display: block; width: 100%; height: 100%; padding: 0; border: 0; border-radius: 5px; background: transparent; perspective: 1000px; }
++.revealButton:disabled, .revealButton[aria-disabled="true"] { opacity: 1; cursor: default; }
++.flip { position: absolute; inset: 0; display: block; border: 1px solid #d4b77f85; border-radius: 5px; transform-style: preserve-3d; transition: transform 600ms var(--ease); box-shadow: 0 14px 24px #05081765; }
++.revealButton[data-revealed="true"] .flip { transform: rotateY(180deg); }
++.cardFace { position: absolute; inset: 0; display: block; overflow: hidden; border-radius: 4px; transform: rotateY(180deg); backface-visibility: hidden; background: #131731; }
++.cardFace img { display: block; width: 100%; height: 100%; object-fit: cover; }
++.cardFace img.reversed { transform: rotate(180deg); }
++.slotName { margin-top: .8rem; color: var(--muted); font-size: .61rem; line-height: 1.5; }
++.cardName { display: block; margin-top: .6rem; color: var(--ink); font-family: var(--font-heading), serif; font-size: 1.12rem; line-height: 1.15; }
++.cardName small { display: block; margin-top: .5rem; color: var(--gold); font-family: var(--font-body), sans-serif; font-size: .56rem; line-height: 1.5; }
++.tableSurface[data-phase="intention"] .spread, .tableSurface[data-phase="shuffling"] .spread { visibility: hidden; }
++.tableSurface[data-phase="intention"] .tableMark { top: 90%; }
++.tableSurface[data-phase="revealing"], .tableSurface[data-phase="reading"] { display: flex; flex-direction: column; justify-content: center; min-height: 490px; }
++.tableSurface[data-phase="revealing"] .tableMark, .tableSurface[data-phase="reading"] .tableMark { display: none; }
++.spreadLabel { display: flex; justify-content: center; gap: 1.2rem; margin: 0; padding: 1.65rem 0 .6rem; color: var(--muted); font-family: var(--font-heading), serif; font-size: 1.1rem; font-style: italic; }
++.spreadLabel > span { color: var(--gold); font-size: .8rem; }
++.spread[data-ready="true"] { gap: clamp(.85rem, 2vw, 1.8rem); padding: 1rem 1.4rem 2rem; }
++.spread[data-ready="true"] .spreadSlot { width: min(29%, 178px); }
++.spread[data-ready="true"][data-single="true"] .spreadSlot { width: min(54%, 225px); }
++.deckControls { display: flex; align-items: center; justify-content: center; gap: 2rem; padding-top: 1.2rem; }
++.deckControls > button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; color: var(--gold); background: transparent; font-size: 1.1rem; }
++.deckControls > button:hover:not(:disabled) { border-color: var(--gold); }
++.deckControls > button:disabled { color: #696d7f; border-color: #282e43; }
++.deckControls > div { min-width: 115px; text-align: center; }
++.deckControls > div > span { color: var(--ink); font-family: var(--font-heading), serif; font-size: 1.15rem; }
++.deckControls i { padding-left: .2rem; color: var(--muted); font-style: normal; }
++.deckControls small { display: block; margin-top: .4rem; color: var(--muted); font-size: .6rem; }
++.tableFoot { display: flex; justify-content: center; padding: 1.05rem 1rem 0; text-align: center; }
++.tableFoot > p { max-width: 42ch; margin: 0; color: var(--muted); font-size: .66rem; line-height: 1.7; }
++.tableFoot > .primary { min-width: 240px; margin-top: .4rem; }
++.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
++
++/* Interpretation settles onto paper: a tonal change with a practical purpose. */
++.reading { --gold: #806138; --ink: #202539; --muted: #64616a; --line: #cec4b2; position: relative; margin: 0 calc(-1 * clamp(1.25rem, 4vw, 4rem)); padding: clamp(3rem, 6vw, 6rem) clamp(1.25rem, 6vw, 6rem); color: var(--ink); background: #eee7d9; }
++.readingHeading { display: grid; grid-template-columns: .6fr 1fr; column-gap: 3rem; max-width: 1160px; margin: 0 auto 3rem; }
++.readingHeading > .eyebrow { padding-top: .7rem; }
++.readingHeading h2 { margin: 0; font-family: var(--font-heading), serif; font-size: clamp(2.8rem, 5.6vw, 5rem); font-weight: 400; line-height: 1; letter-spacing: -.045em; scroll-margin-top: 3rem; outline: none; }
++.readingHeading > p:last-child { grid-column: 2; max-width: 47ch; margin: 1.5rem 0 0; color: var(--muted); font-size: .88rem; line-height: 1.8; }
++.interpretations { max-width: 1160px; margin: 0 auto; }
++.interpretation { display: grid; grid-template-columns: .6fr 1fr; gap: 3rem; padding: 2.7rem 0; border-top: 1px solid var(--line); }
++.interpretationIndex > span { display: block; margin-bottom: .8rem; color: var(--gold); font-family: var(--font-heading), serif; font-size: 2.2rem; }
++.interpretationIndex p { max-width: 22ch; color: var(--muted); font-size: .75rem; line-height: 1.7; }
++.interpretation h3 { margin: .75rem 0 1.2rem; font-family: var(--font-heading), serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 400; line-height: 1.1; letter-spacing: -.025em; }
++.meaning { margin-bottom: 1.7rem; color: #454552; font-family: var(--font-heading), serif; font-size: 1.3rem; line-height: 1.7; }
++.advice { padding-left: 1.25rem; border-left: 1px solid #a88a5a; }
++.advice > span { color: var(--gold); font-size: .62rem; letter-spacing: .13em; text-transform: uppercase; }
++.advice p { margin: .65rem 0 0; color: #51515c; font-size: .85rem; line-height: 1.85; }
++.reflection { max-width: 850px; margin: 2.7rem auto 0; padding: 2.8rem 0 0; border-top: 1px solid var(--line); text-align: center; }
++.reflection > p { margin: 1rem auto 1.7rem; max-width: 30ch; font-family: var(--font-heading), serif; font-size: clamp(1.85rem, 3.4vw, 3.1rem); line-height: 1.25; }
++.reflection small { display: block; margin-top: 1rem; color: var(--muted); font-size: .65rem; }
++.footer { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; max-width: 1480px; margin: 0 auto; padding: 2rem 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .63rem; line-height: 1.8; }
++.footer p { margin: 0; }
++.footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--gold); }
++
++@media (max-width: 1100px) {
++  .ritual { grid-template-columns: minmax(270px, .83fr) minmax(0, 1.3fr); gap: 2.5rem; }
++  .shape { gap: .5rem; }
++  .shape label { padding: .75rem .6rem; }
++  .fanPosition { width: 110px; transform: translateX(calc(-50% + var(--n) * 22px)) translateY(var(--arc-y)) rotate(var(--card-angle)); }
++}
++@media (max-width: 820px) {
++  .ritual { grid-template-columns: 1fr; gap: 2.7rem; max-width: 650px; }
++  .intention { display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem; }
++  .intention > .eyebrow { grid-column: 1 / -1; }
++  .intention h1 { font-size: 3.1rem; }
++  .introduction { grid-column: 1; margin-top: 1rem; }
++  .setup, .sitting { grid-column: 2; grid-row: 2 / 5; }
++  .sitting { padding-top: 0; border-top: 0; }
++  .tableSurface { min-height: 450px; }
++  .fanPosition { width: 138px; top: 52px; transform: translateX(calc(-50% + var(--n) * 29px)) translateY(var(--arc-y)) rotate(var(--card-angle)); }
++  .readingHeading, .interpretation { grid-template-columns: .4fr 1fr; gap: 2rem; }
++}
++@media (max-width: 560px) {
++  .navigation { min-height: 72px; gap: .6rem; }
++  .navigation a { font-size: .58rem; }
++  .navigation .wordmark { font-size: 1.3rem; }
++  .edition { padding-top: .9rem; font-size: .5rem; letter-spacing: .13em; }
++  .ritual { padding-top: 2rem; padding-bottom: 3rem; gap: 2.2rem; }
++  .intention { display: block; }
++  .intention h1 { font-size: 3.2rem; }
++  .intention > .eyebrow { margin-bottom: .8rem; }
++  .intention[data-active="true"] h1 { font-size: 2.4rem; }
++  .intention[data-active="true"] > .eyebrow, .intention[data-active="true"] .introduction { display: none; }
++  .intention[data-active="true"] .sitting { margin-top: 1.2rem; }
++  .introduction { max-width: 42ch; margin: 1rem 0 1.6rem; font-size: .83rem; }
++  .setup { gap: 1.2rem; }
++  .shape label { padding: .8rem 1rem; }
++  .shape small { font-size: .61rem; }
++  .intentChoices > div { gap: .2rem; }
++  .intentChoices label > span { padding: .3rem .7rem; }
++  .privacy { margin-top: -.7rem; }
++  .sitting { padding-top: 1.3rem; border-top: 1px solid var(--line); }
++  .sitting > p:first-of-type { font-size: 1.35rem; }
++  .sittingRule, .sittingPrompt { display: none; }
++  .sitting blockquote { margin: .8rem 0; font-size: 1.2rem; }
++  .sitting .textButton { margin-top: .8rem; }
++  .steps { padding-bottom: .8rem; gap: .5rem; }
++  .steps li { font-size: .53rem; letter-spacing: .06em; }
++  .status { padding-top: 1rem; font-size: 1rem; min-height: 64px; }
++  .tableSurface { min-height: 395px; }
++  .fan { height: 235px; }
++  .fan { --fan-gap: clamp(11px, (100vw - 240px) / 9, 17px); }
++  .fanPosition { top: 47px; width: 93px; transform: translateX(calc(-50% + var(--n) * var(--fan-gap))) translateY(calc(var(--arc-y) * .65)) rotate(var(--card-angle)); }
++  .fanCard:focus-visible { translate: 0 -15px; }
++  .fanNumber { left: 6px; top: 8px; font-size: .4rem; }
++  .tableMark { top: 8%; }
++  .spread { gap: 1.2rem; padding-top: .3rem; }
++  .spreadSlot { width: 66px; }
++  .slotName { font-size: .55rem; margin-top: .65rem; }
++  .slotNumber { margin-bottom: .45rem; }
++  .tableSurface[data-phase="revealing"], .tableSurface[data-phase="reading"] { min-height: 365px; }
++  .spread[data-ready="true"] { gap: .8rem; padding: .85rem .7rem 1.6rem; }
++  .spread[data-ready="true"] .spreadSlot { width: 30%; }
++  .spread[data-ready="true"][data-single="true"] .spreadSlot { width: 54%; }
++  .cardName { font-size: .95rem; }
++  .cardName small { font-size: .5rem; }
++  .spreadLabel { padding-top: 1.2rem; font-size: .95rem; }
++  .deckControls { gap: 1.3rem; padding-top: .95rem; }
++  .deckControls small { font-size: .57rem; }
++  .tableFoot > p { font-size: .6rem; }
++  .readingHeading, .interpretation { grid-template-columns: 1fr; gap: .75rem; }
++  .readingHeading { margin-bottom: 2rem; }
++  .readingHeading > p:last-child { grid-column: 1; margin-top: .4rem; font-size: .83rem; }
++  .readingHeading h2 { font-size: 3rem; }
++  .interpretation { padding: 2rem 0; }
++  .interpretationIndex { display: flex; align-items: baseline; gap: .85rem; }
++  .interpretationIndex > span { margin: 0; font-size: 1.5rem; }
++  .interpretationIndex p { margin: 0; max-width: none; font-size: .65rem; }
++  .interpretation h3 { font-size: 2.4rem; }
++  .meaning { font-size: 1.18rem; }
++  .footer { padding-top: 1.4rem; gap: .5rem; font-size: .58rem; }
++  .footer p { flex-basis: 100%; }
++  @keyframes shuffle { 0%, 100% { transform: translateX(calc(-50% + var(--n) * var(--fan-gap))) translateY(calc(var(--arc-y) * .65)) rotate(var(--card-angle)); } 45% { transform: translateX(calc(-50% + var(--n) * 1px)) translateY(calc(var(--n) * -1px)) rotate(calc(var(--n) * -1.5deg)); } }
++}
++@media (prefers-reduced-motion: reduce) {
++  .page *, .page *::before, .page *::after { animation: none !important; transition: none !important; }
++  .fanCard:focus-visible, .fanCard:not(:disabled):hover { translate: none; }
++}
+diff --git a/website/src/components/ClientShell.tsx b/website/src/components/ClientShell.tsx
+index bc8eba9..bf02a76 100644
+--- a/website/src/components/ClientShell.tsx
++++ b/website/src/components/ClientShell.tsx
+@@ -28,6 +28,8 @@ function ChartScribe() {
+ }
+ 
+ export default function ClientShell({ children }: { children: React.ReactNode }) {
++  const pathname = usePathname();
++  const isStudy = pathname === "/studies" || pathname?.startsWith("/studies/");
+   return (
+     <>
+       {/* Subscription context — provides useSubscription() to all components */}
+@@ -39,11 +41,11 @@ export default function ClientShell({ children }: { children: React.ReactNode })
+       </SubscriptionProvider>
+ 
+       {/* One optional sound and ambient interaction controller. */}
+-      <ParlorLayer />
++      {!isStudy && <ParlorLayer />}
+ 
+       {/* The Atlas: the engraved chart of the edition, and its opener. */}
+       <ChartScribe />
+-      <SkyAtlasAccess />
++      {!isStudy && <SkyAtlasAccess />}
+     </>
+   );
+ }

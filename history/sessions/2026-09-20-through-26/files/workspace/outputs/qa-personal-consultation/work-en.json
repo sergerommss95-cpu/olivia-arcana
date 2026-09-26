@@ -1,0 +1,32 @@
+{
+  "syntheticTest": true,
+  "request": {
+    "question": "What kind of work should I look for next month?",
+    "locale": "en",
+    "spreadId": "clarity3",
+    "cards": [
+      {
+        "id": 20,
+        "orientation": "upright"
+      },
+      {
+        "id": 3,
+        "orientation": "upright"
+      },
+      {
+        "id": 73,
+        "orientation": "upright"
+      }
+    ]
+  },
+  "response": {
+    "synthesis": "Judgement in the situation is the clearest signal here: this is a month for answering a call rather than settling for the first available option. The card depicts a reckoning — past efforts and skills converging into one clarifying moment. Applied to your search, it suggests looking for work that genuinely matches what you've already proven you can do or are meant to do next, not a lateral move taken out of habit. Ask what would feel like rising rather than repeating.\n\nThe Empress complicates that call in an interesting way. Judgement wants a decisive answer; the Empress wants abundance, growth, things given room to ripen. Together they create a tension between urgency and patience — the risk this month is either rushing toward any opportunity, or getting seduced by comfort and richness (a generous offer, a pleasant environment) without asking whether it actually answers the call. The Empress isn't telling you to wait passively; she's asking that whatever you pursue also nourish you, not just occupy you.\n\nThe Ten of Pentacles, as the helpful next step, grounds both of those energies in something practical: legacy, structure, what lasts. It suggests weighing opportunities not just by immediate appeal (Empress) or personal meaning (Judgement), but by what they build toward over time — stability, a foundation you could still value years from now. This card asks you to look past this month's paycheck toward the shape of a longer arc.\n\nAs a next step, before applying anywhere, write down one criterion from each card — a sense of calling, a source of genuine nourishment, a contribution to something lasting — and use those three as a filter for whatever listings you review this week.",
+    "source": "ai",
+    "locale": "en",
+    "cardIds": [
+      20,
+      3,
+      73
+    ]
+  }
+}

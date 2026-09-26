@@ -1,0 +1,153 @@
+{
+  "fronts": [
+    [
+      "17_the_star.webp",
+      "The Star",
+      "Bird, living branches, flowing water"
+    ],
+    [
+      "18_the_moon.webp",
+      "The Moon",
+      "Carved ivory, a meaningful gold path"
+    ],
+    [
+      "02_the_high_priestess.webp",
+      "The High Priestess",
+      "Architecture, drapery, hidden space"
+    ],
+    [
+      "21_the_world.webp",
+      "The World",
+      "Botanical enclosure and sculptural figures"
+    ]
+  ],
+  "refs": [
+    {
+      "name": "René Lalique",
+      "title": "Wooded Landscape · c. 1898–99",
+      "url": "https://gulbenkian.pt/museu/en/works/plaque-for-the-woods-choker/",
+      "image": "https://content.gulbenkian.pt/inarte/museu/79751_3840x2351.jpg",
+      "credit": "Museu Calouste Gulbenkian",
+      "lesson": "Trees form the structure; the open lake gives them room. Gold describes branches, while opal becomes water. For Olivia: make material serve the scene, and give the olive real botanical presence."
+    },
+    {
+      "name": "William Morris",
+      "title": "Larkspur · 1875",
+      "url": "https://www.metmuseum.org/art/collection/search/384021",
+      "image": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/384021/1298866/main-image",
+      "credit": "The Metropolitan Museum of Art · Public Domain",
+      "lesson": "Growth connects the pattern. Stems lead into leaves and flowers, with small channels of breathing space. For Olivia: draw a connected olive grove with varied leaf groupings; avoid scattering identical symbols."
+    },
+    {
+      "name": "Odilon Redon",
+      "title": "Closed Eyes · 1890",
+      "url": "https://www.musee-orsay.fr/en/artworks/les-yeux-clos-476",
+      "image": "https://cdn.mediatheque.epmoo.fr/link/3c9igq/lph1buwul5nft7k.jpg",
+      "credit": "Musée d’Orsay · RMN-Grand Palais / Hervé Lewandowski",
+      "lesson": "A restrained face and an uncertain surrounding space carry the emotion. For Olivia: a quiet expression can suggest an inner world without adding more occult symbols. This is a mood and composition reference."
+    },
+    {
+      "name": "Arthur Wang",
+      "title": "TrueBlack Tarot",
+      "url": "https://trueblacktarot.com/",
+      "image": "https://images.squarespace-cdn.com/content/v1/59ea3cc64c0dbf8b8018ca57/1509162522314-VE4ZTODNRI51F64RO47Y/a13.jpg",
+      "credit": "Official TrueBlack product photograph",
+      "lesson": "The maker carries a celestial map through backs, box and booklet, using black foil on the backs. The relevant lesson is material continuity and controlled contrast. Olivia needs its own imagery within its existing lapis-and-ivory world."
+    },
+    {
+      "name": "James R. Eads",
+      "title": "Prisma Visions Tarot",
+      "url": "https://prismavisions.com/products/prismavisions",
+      "image": "https://prismavisions.com/cdn/shop/files/prisma-visions-tarot-deck-james-r-eads-621111.jpg",
+      "credit": "Official Prisma Visions product photograph",
+      "lesson": "One central eye anchors a field of painted strokes. The back shares the fronts’ drawing language. For Olivia: build a memorable central relationship and carry the same sculptural treatment through both sides."
+    },
+    {
+      "name": "Kevin Cantrell",
+      "title": "Citizen · theory11",
+      "url": "https://store.theory11.com/products/citizens-playing-cards",
+      "image": "https://store.theory11.com/cdn/shop/products/34_01885c75-d977-40d6-92d7-7c36faa87c28.jpg?height=2000&v=1717686191&width=2000",
+      "credit": "Official theory11 product photograph",
+      "lesson": "Opposed medallions, a central connection and fine secondary engraving establish a readable hierarchy. This is a structure reference. Olivia’s final image should remain pictorial and sculptural rather than adopt this banknote-like treatment."
+    }
+  ],
+  "concepts": [
+    {
+      "title": "The Olive Sanctuary",
+      "mood": "Living, intimate, quietly magical",
+      "recommendation": "First choice",
+      "body": "Two slender ivory herons occupy opposite ends of a lapis garden. Their necks and olive branches curve around a small, dark pool. The composition turns through 180 degrees; it does not become a radial rosette. Most foliage stays blue-on-blue, with gold reserved for a few fruit and the edge of the water.",
+      "fit": "The bird and tree already appear in The Star. Water connects it to The Star and Ace of Cups; ivory relief connects it to the whole deck. The olive becomes part of a living place.",
+      "craft": "Start with the two bird silhouettes and the shape of the pool. Draw their anatomy and the branch connections before adding feathers or mineral texture. Use Lalique’s balance of natural structure and open water as a principle.",
+      "risk": "Too much foliage would make this look like ornamental wallpaper. Keep the pool and two figures readable at small size."
+    },
+    {
+      "title": "The Veiled Threshold",
+      "mood": "Architectural, mysterious, ceremonial",
+      "recommendation": "Strongest alternative",
+      "body": "Two opposed shallow archways share a dark opening at the centre of the card. Pale carved drapery gathers around their edges, with blue stone columns emerging from the lapis. A small olive stem is carved into each lintel. A very narrow gold line catches the inner edge of the opening.",
+      "fit": "It grows directly from the High Priestess’s columns, veil and hidden space. Turning the card over would feel like entering the world depicted on its front.",
+      "craft": "Resolve the complete architecture as a drawing first. Make the upper and lower structures relate through a genuine half-turn, then carve the shadows into a shallow relief. A water reflection alone would not guarantee reversibility.",
+      "risk": "A giant luminous portal would become generic fantasy art. Keep the opening dark, intimate and shallow."
+    },
+    {
+      "title": "The Midnight Grove",
+      "mood": "Botanical, enveloping, richly worked",
+      "recommendation": "Best olive-led direction",
+      "body": "Two old olive trees grow from opposite ends. Their roots and canopies interlock through an offset oval opening, creating one continuous garden. Leaves have slender, turning surfaces and visible attachment points. The image is mostly carved blue stone; small ivory leaf undersides and sparse gold fruit provide contrast.",
+      "fit": "It expands the botanical enclosure in The World and makes the olive the identity of the entire back. It has enough detail to reward inspection without needing a separate central logo.",
+      "craft": "Use Morris’s connected growth and Lalique’s observed trees as construction lessons. Design one branch hierarchy, then let it return through the composition. Keep leaf clusters varied inside the repeated half.",
+      "risk": "Uniform leaf size and a perfect wreath would return to the generic designs already rejected. Preserve a legible trunk, believable growth and substantial dark gaps."
+    },
+    {
+      "title": "The Sleeping Muses",
+      "mood": "Human, contemplative, slightly surreal",
+      "recommendation": "More expressive option",
+      "body": "Two opposed ivory profiles, eyes closed, emerge from the blue ground. A single olive bough curves between their shoulders and defines the central space. Fine gold appears only at a pair of olive fruit. The faces are low relief, with softly modelled eyelids and no decorative rays.",
+      "fit": "The Moon already gives a face emotional and symbolic weight. This direction extends that language into a quieter image of reflection. Redon provides a useful lesson in expression and ambiguity.",
+      "craft": "Draw the profiles as a paired silhouette before modelling them. Keep the sculptural depth consistent with the existing figures; maintain dark space between the faces.",
+      "risk": "This could feel like an additional Major Arcana rather than a shared back. It needs a less literal, more emblematic composition than the fronts."
+    },
+    {
+      "title": "The Garden of Water",
+      "mood": "Immersive, enigmatic, spatial",
+      "recommendation": "Most exploratory",
+      "body": "Seen from above, a shallow lapis garden contains two winding streams, small carved terraces and olive branches along the margins. The streams meet at a still, oval basin. A fine gold current travels through the blue relief, while a few ivory leaves bring the scene into focus.",
+      "fit": "It draws from the Moon’s winding gold path and the flowing water of The Star and Ace of Cups. The back becomes a landscape to explore rather than a framed badge.",
+      "craft": "Compose three broad masses first: terraces, water and the quiet basin. Use wide paths and restrained relief so the design still reads on a moving card. Develop the two halves as a rotational pair.",
+      "risk": "Too many tiny channels would resemble a generated maze. The large route and central resting place must remain obvious."
+    }
+  ],
+  "modelRows": [
+    [
+      "Midjourney V8.2",
+      "Explore atmosphere and material treatments against a fixed composition. Its current Edit Model accepts up to four references and supports local edits. Start with the composition drawing plus two actual Olivia fronts.",
+      "https://docs.midjourney.com/hc/en-us/articles/48495453462797-Edit-Model",
+      "Edit Model documentation"
+    ],
+    [
+      "Gemini 3 Pro Image / Nano Banana Pro",
+      "A candidate for refining a chosen image through specific instructions while supplying several deck references. Google documents conversational editing, multiple references and high-resolution output.",
+      "https://ai.google.dev/gemini-api/docs/image-generation",
+      "Official image guide"
+    ],
+    [
+      "FLUX.2",
+      "A candidate for combining the approved layout, material reference and botanical study. Its editing workflow supports multiple reference images; exact geometry still requires final design work.",
+      "https://docs.bfl.ai/flux_2/flux2_image_editing",
+      "Official editing guide"
+    ],
+    [
+      "Adobe Firefly / Photoshop",
+      "A candidate for development inside a controlled editing workflow. Firefly documents composition and style references; available controls depend on the selected model.",
+      "https://helpx.adobe.com/firefly/web/work-with-images/generate-images/generate-images-from-text-descriptions.html",
+      "Generation controls"
+    ],
+    [
+      "Ideogram 3.0",
+      "A secondary candidate if we choose a more graphic or limited-colour route. Its documented style-reference and remix controls make it worth considering for that branch of the exploration.",
+      "https://docs.ideogram.ai/using-ideogram/features-and-tools/reference-features/style-reference",
+      "Style-reference guide"
+    ]
+  ]
+}

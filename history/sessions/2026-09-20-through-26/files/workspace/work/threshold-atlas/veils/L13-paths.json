@@ -1,0 +1,10 @@
+{
+  "id": "L13",
+  "name": "Threefold",
+  "description": "Three independent silk folds open at different rhythms around a vertical passage.",
+  "paths": [
+    "M 240 116 C 165 212 157 361 229 479 C 191 363 203 226 240 116 Z",
+    "M 293 104 C 270 182 286 224 310 281 C 345 364 315 436 254 491 C 329 450 366 375 338 295 C 315 230 280 174 293 104 Z",
+    "M 345 123 C 384 233 390 350 351 479 C 423 360 425 219 345 123 Z"
+  ]
+}

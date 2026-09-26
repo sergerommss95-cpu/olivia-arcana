@@ -1,0 +1,823 @@
+{
+  "file": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-hero-motion-study.html",
+  "syntax": [
+    {
+      "script": 0,
+      "ok": true,
+      "error": ""
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "desktop",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "failedRequests": [],
+      "states": [
+        {
+          "progress": 0,
+          "diag": {
+            "p": 0,
+            "target": 0,
+            "frames": 19,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 5984,
+            "cards": 22,
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "copy": {
+            "x": 66.234375,
+            "y": 510,
+            "width": 532.796875,
+            "height": 286.28125,
+            "top": 510,
+            "right": 599.03125,
+            "bottom": 796.28125,
+            "left": 66.234375
+          },
+          "cta": {
+            "x": 66.234375,
+            "y": 741.28125,
+            "width": 142.15625,
+            "height": 55,
+            "top": 741.28125,
+            "right": 208.390625,
+            "bottom": 796.28125,
+            "left": 66.234375
+          }
+        },
+        {
+          "progress": 0.16,
+          "diag": {
+            "p": 0.16,
+            "target": 0.16,
+            "frames": 20,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 5984,
+            "cards": 22,
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "copy": {
+            "x": 66.234375,
+            "y": 510,
+            "width": 532.796875,
+            "height": 286.28125,
+            "top": 510,
+            "right": 599.03125,
+            "bottom": 796.28125,
+            "left": 66.234375
+          },
+          "cta": {
+            "x": 66.234375,
+            "y": 741.28125,
+            "width": 142.15625,
+            "height": 55,
+            "top": 741.28125,
+            "right": 208.390625,
+            "bottom": 796.28125,
+            "left": 66.234375
+          }
+        },
+        {
+          "progress": 0.34,
+          "diag": {
+            "p": 0.34,
+            "target": 0.34,
+            "frames": 21,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 5984,
+            "cards": 22,
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "copy": {
+            "x": 66.234375,
+            "y": 510,
+            "width": 532.796875,
+            "height": 286.28125,
+            "top": 510,
+            "right": 599.03125,
+            "bottom": 796.28125,
+            "left": 66.234375
+          },
+          "cta": {
+            "x": 66.234375,
+            "y": 741.28125,
+            "width": 142.15625,
+            "height": 55,
+            "top": 741.28125,
+            "right": 208.390625,
+            "bottom": 796.28125,
+            "left": 66.234375
+          }
+        },
+        {
+          "progress": 0.55,
+          "diag": {
+            "p": 0.55,
+            "target": 0.55,
+            "frames": 22,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 5984,
+            "cards": 22,
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "copy": {
+            "x": 66.234375,
+            "y": 510,
+            "width": 532.796875,
+            "height": 286.28125,
+            "top": 510,
+            "right": 599.03125,
+            "bottom": 796.28125,
+            "left": 66.234375
+          },
+          "cta": {
+            "x": 66.234375,
+            "y": 741.28125,
+            "width": 142.15625,
+            "height": 55,
+            "top": 741.28125,
+            "right": 208.390625,
+            "bottom": 796.28125,
+            "left": 66.234375
+          }
+        },
+        {
+          "progress": 0.77,
+          "diag": {
+            "p": 0.77,
+            "target": 0.77,
+            "frames": 23,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 5984,
+            "cards": 22,
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "copy": {
+            "x": 66.234375,
+            "y": 510,
+            "width": 532.796875,
+            "height": 286.28125,
+            "top": 510,
+            "right": 599.03125,
+            "bottom": 796.28125,
+            "left": 66.234375
+          },
+          "cta": {
+            "x": 66.234375,
+            "y": 741.28125,
+            "width": 142.15625,
+            "height": 55,
+            "top": 741.28125,
+            "right": 208.390625,
+            "bottom": 796.28125,
+            "left": 66.234375
+          }
+        },
+        {
+          "progress": 1,
+          "diag": {
+            "p": 1,
+            "target": 1,
+            "frames": 24,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 5984,
+            "cards": 22,
+            "viewport": [
+              1440,
+              1000
+            ],
+            "buffer": [
+              2245,
+              1559
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "copy": {
+            "x": 66.234375,
+            "y": 510,
+            "width": 532.796875,
+            "height": 286.28125,
+            "top": 510,
+            "right": 599.03125,
+            "bottom": 796.28125,
+            "left": 66.234375
+          },
+          "cta": {
+            "x": 66.234375,
+            "y": 741.28125,
+            "width": 142.15625,
+            "height": 55,
+            "top": 741.28125,
+            "right": 208.390625,
+            "bottom": 796.28125,
+            "left": 66.234375
+          }
+        }
+      ],
+      "slider": 0.001,
+      "motionButton": "Resume motion"
+    },
+    {
+      "name": "mobile",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "failedRequests": [],
+      "states": [
+        {
+          "progress": 0,
+          "diag": {
+            "p": 0,
+            "target": 0,
+            "frames": 17,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 5984,
+            "cards": 22,
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "copy": {
+            "x": 27.296875,
+            "y": 486.875,
+            "width": 335.390625,
+            "height": 238.96875,
+            "top": 486.875,
+            "right": 362.6875,
+            "bottom": 725.84375,
+            "left": 27.296875
+          },
+          "cta": {
+            "x": 27.296875,
+            "y": 678.84375,
+            "width": 127.078125,
+            "height": 47,
+            "top": 678.84375,
+            "right": 154.375,
+            "bottom": 725.84375,
+            "left": 27.296875
+          }
+        },
+        {
+          "progress": 0.16,
+          "diag": {
+            "p": 0.16,
+            "target": 0.16,
+            "frames": 18,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 5984,
+            "cards": 22,
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "copy": {
+            "x": 27.296875,
+            "y": 486.875,
+            "width": 335.390625,
+            "height": 238.96875,
+            "top": 486.875,
+            "right": 362.6875,
+            "bottom": 725.84375,
+            "left": 27.296875
+          },
+          "cta": {
+            "x": 27.296875,
+            "y": 678.84375,
+            "width": 127.078125,
+            "height": 47,
+            "top": 678.84375,
+            "right": 154.375,
+            "bottom": 725.84375,
+            "left": 27.296875
+          }
+        },
+        {
+          "progress": 0.34,
+          "diag": {
+            "p": 0.34,
+            "target": 0.34,
+            "frames": 19,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 5984,
+            "cards": 22,
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "copy": {
+            "x": 27.296875,
+            "y": 486.875,
+            "width": 335.390625,
+            "height": 238.96875,
+            "top": 486.875,
+            "right": 362.6875,
+            "bottom": 725.84375,
+            "left": 27.296875
+          },
+          "cta": {
+            "x": 27.296875,
+            "y": 678.84375,
+            "width": 127.078125,
+            "height": 47,
+            "top": 678.84375,
+            "right": 154.375,
+            "bottom": 725.84375,
+            "left": 27.296875
+          }
+        },
+        {
+          "progress": 0.55,
+          "diag": {
+            "p": 0.55,
+            "target": 0.55,
+            "frames": 20,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 5984,
+            "cards": 22,
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "copy": {
+            "x": 27.296875,
+            "y": 486.875,
+            "width": 335.390625,
+            "height": 238.96875,
+            "top": 486.875,
+            "right": 362.6875,
+            "bottom": 725.84375,
+            "left": 27.296875
+          },
+          "cta": {
+            "x": 27.296875,
+            "y": 678.84375,
+            "width": 127.078125,
+            "height": 47,
+            "top": 678.84375,
+            "right": 154.375,
+            "bottom": 725.84375,
+            "left": 27.296875
+          }
+        },
+        {
+          "progress": 0.77,
+          "diag": {
+            "p": 0.77,
+            "target": 0.77,
+            "frames": 21,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 5984,
+            "cards": 22,
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "copy": {
+            "x": 27.296875,
+            "y": 486.875,
+            "width": 335.390625,
+            "height": 238.96875,
+            "top": 486.875,
+            "right": 362.6875,
+            "bottom": 725.84375,
+            "left": 27.296875
+          },
+          "cta": {
+            "x": 27.296875,
+            "y": 678.84375,
+            "width": 127.078125,
+            "height": 47,
+            "top": 678.84375,
+            "right": 154.375,
+            "bottom": 725.84375,
+            "left": 27.296875
+          }
+        },
+        {
+          "progress": 1,
+          "diag": {
+            "p": 1,
+            "target": 1,
+            "frames": 22,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 5984,
+            "cards": 22,
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "copy": {
+            "x": 27.296875,
+            "y": 486.875,
+            "width": 335.390625,
+            "height": 238.96875,
+            "top": 486.875,
+            "right": 362.6875,
+            "bottom": 725.84375,
+            "left": 27.296875
+          },
+          "cta": {
+            "x": 27.296875,
+            "y": 678.84375,
+            "width": 127.078125,
+            "height": 47,
+            "top": 678.84375,
+            "right": 154.375,
+            "bottom": 725.84375,
+            "left": 27.296875
+          }
+        }
+      ],
+      "slider": 0.001,
+      "motionButton": "Resume motion"
+    },
+    {
+      "name": "reduced",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "failedRequests": [],
+      "states": [],
+      "initial": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 2,
+          "ready": true,
+          "quiet": true,
+          "raf": 0,
+          "error": 0,
+          "triangles": 5984,
+          "cards": 22,
+          "viewport": [
+            1440,
+            1000
+          ],
+          "buffer": [
+            2245,
+            1559
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "ready quiet",
+        "copy": {
+          "x": 66.234375,
+          "y": 510,
+          "width": 532.796875,
+          "height": 286.28125,
+          "top": 510,
+          "right": 599.03125,
+          "bottom": 796.28125,
+          "left": 66.234375
+        },
+        "cta": {
+          "x": 66.234375,
+          "y": 741.28125,
+          "width": 142.15625,
+          "height": 55,
+          "top": 741.28125,
+          "right": 208.390625,
+          "bottom": 796.28125,
+          "left": 66.234375
+        }
+      },
+      "after": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 2,
+          "ready": true,
+          "quiet": true,
+          "raf": 0,
+          "error": 0,
+          "triangles": 5984,
+          "cards": 22,
+          "viewport": [
+            1440,
+            1000
+          ],
+          "buffer": [
+            2245,
+            1559
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "ready quiet",
+        "copy": {
+          "x": 66.234375,
+          "y": 510,
+          "width": 532.796875,
+          "height": 286.28125,
+          "top": 510,
+          "right": 599.03125,
+          "bottom": 796.28125,
+          "left": 66.234375
+        },
+        "cta": {
+          "x": 66.234375,
+          "y": 741.28125,
+          "width": 142.15625,
+          "height": 55,
+          "top": 741.28125,
+          "right": 208.390625,
+          "bottom": 796.28125,
+          "left": 66.234375
+        }
+      },
+      "lost": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 2,
+          "ready": false,
+          "quiet": true,
+          "raf": 0,
+          "error": 0,
+          "triangles": 5984,
+          "cards": 22,
+          "viewport": [
+            1440,
+            1000
+          ],
+          "buffer": [
+            2245,
+            1559
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "quiet",
+        "copy": {
+          "x": 66.234375,
+          "y": 510,
+          "width": 532.796875,
+          "height": 286.28125,
+          "top": 510,
+          "right": 599.03125,
+          "bottom": 796.28125,
+          "left": 66.234375
+        },
+        "cta": {
+          "x": 66.234375,
+          "y": 741.28125,
+          "width": 142.15625,
+          "height": 55,
+          "top": 741.28125,
+          "right": 208.390625,
+          "bottom": 796.28125,
+          "left": 66.234375
+        }
+      },
+      "restored": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 4,
+          "ready": true,
+          "quiet": true,
+          "raf": 0,
+          "error": 0,
+          "triangles": 5984,
+          "cards": 22,
+          "viewport": [
+            1440,
+            1000
+          ],
+          "buffer": [
+            2245,
+            1559
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "quiet ready",
+        "copy": {
+          "x": 66.234375,
+          "y": 510,
+          "width": 532.796875,
+          "height": 286.28125,
+          "top": 510,
+          "right": 599.03125,
+          "bottom": 796.28125,
+          "left": 66.234375
+        },
+        "cta": {
+          "x": 66.234375,
+          "y": 741.28125,
+          "width": 142.15625,
+          "height": 55,
+          "top": 741.28125,
+          "right": 208.390625,
+          "bottom": 796.28125,
+          "left": 66.234375
+        }
+      }
+    },
+    {
+      "name": "fallback",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "failedRequests": [],
+      "states": [],
+      "state": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 0,
+          "ready": false,
+          "quiet": false,
+          "raf": 0,
+          "failure": "Error: WebGL unavailable",
+          "triangles": 0,
+          "cards": 22,
+          "viewport": [
+            1,
+            1
+          ],
+          "buffer": [
+            300,
+            150
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "fallback",
+        "copy": {
+          "x": 27.296875,
+          "y": 486.875,
+          "width": 335.390625,
+          "height": 238.96875,
+          "top": 486.875,
+          "right": 362.6875,
+          "bottom": 725.84375,
+          "left": 27.296875
+        },
+        "cta": {
+          "x": 27.296875,
+          "y": 678.84375,
+          "width": 127.078125,
+          "height": 47,
+          "top": 678.84375,
+          "right": 154.375,
+          "bottom": 725.84375,
+          "left": 27.296875
+        }
+      },
+      "poster": {
+        "complete": true,
+        "width": 896,
+        "display": "block",
+        "visibility": "visible"
+      },
+      "cta": {
+        "href": "https://oliviaarcana.com/oracle",
+        "visible": true,
+        "hit": true
+      },
+      "focused": true
+    }
+  ],
+  "failures": []
+}

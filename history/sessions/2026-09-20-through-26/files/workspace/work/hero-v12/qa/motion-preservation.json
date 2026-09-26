@@ -1,0 +1,15 @@
+{
+  "choreography_unchanged_from_v11": {
+    "cameraPose": true,
+    "screenPoint": true,
+    "sceneFrame": true
+  },
+  "source_sha256": "5ba1b14c68c2ce02536fd40bdc6cacd53fc43ad68ea4a8737eb153c270a0b911",
+  "bounding_box": [
+    1.1667,
+    2,
+    0.011
+  ],
+  "baseline_report": "work/hero-v11/qa/choreography-validation.json",
+  "reason": "Card paths and camera are unchanged. New mesh is contained inside the same conservative card box, verified separately by mesh QA."
+}

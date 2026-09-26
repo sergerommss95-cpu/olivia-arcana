@@ -1,0 +1,158 @@
+{
+  "target": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html",
+  "tag": "art-depth-fix",
+  "timestamp": "2026-09-21T19:27:51.342Z",
+  "options": {
+    "phases": [
+      0,
+      0.47
+    ],
+    "only": "desktop",
+    "settle": 950,
+    "reduced": false,
+    "fallback": false
+  },
+  "syntax": [
+    {
+      "index": 0,
+      "ok": true,
+      "error": ""
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "deviceScaleFactor": 2,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "consoleWarnings": [],
+      "failedRequests": [],
+      "requests": [
+        "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html"
+      ],
+      "states": [
+        {
+          "fraction": 0,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 47,
+            "triangles": 42590,
+            "pixelRatio": 1.65,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 88,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "width": 1440,
+          "height": 1000,
+          "scrollY": 0,
+          "horizontalOverflow": false,
+          "rootClass": "has-webgl",
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "hero",
+              "opacity": "1"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          },
+          "fallbackText": [],
+          "frameCallbacks": 89,
+          "mainHasPanels": true
+        },
+        {
+          "fraction": 0.47,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 88,
+            "triangles": 44352,
+            "pixelRatio": 1.65,
+            "progress": 0.46992915545470504,
+            "reducedMotion": false,
+            "frames": 177,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "width": 1440,
+          "height": 1000,
+          "scrollY": 2773,
+          "horizontalOverflow": false,
+          "rootClass": "has-webgl",
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "field",
+              "opacity": "1"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          },
+          "fallbackText": [],
+          "frameCallbacks": 187,
+          "mainHasPanels": true
+        }
+      ],
+      "screenshots": [
+        "desktop-0000.png",
+        "desktop-0470.png"
+      ]
+    }
+  ],
+  "failures": []
+}

@@ -1,0 +1,6 @@
+Olivia Arcana — 24 September 2026
+
+Open outputs/olivia-almanac.html for the self-contained experience. Use a local web server for consistent saved-reading storage.
+Read work/olivia-product/README.md for source, build, integration and verification details.
+website-integration contains the changed files for the existing Next.js website, not a copy of the entire website. Preserve unrelated local changes when applying them.
+No credentials or account data are included. No deployment has been performed.
