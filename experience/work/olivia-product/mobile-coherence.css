@@ -1,0 +1,295 @@
+/* Mobile coherence — one action vocabulary for the whole phone journey.
+   Filled surfaces carry every invitation; artwork keeps its own space; each state,
+   from choosing a card to keeping the reading, continues from the one before.
+   Loaded last. Rules are phone-only (max-width:700px) unless a comment says so.
+   Surfaces:  primary = ivory (existing .solid-action / .reading-link)
+              secondary row = filled lapis with a trailing glyph
+              disclosure row = the secondary row with a + / − chip
+   Never a thin outline around a card, caption, link or navigation item. */
+
+@media (max-width:700px) {
+ .mobile-experience {
+  --row-surface:linear-gradient(145deg,#29465ad1,#1a3147eb);
+  --row-surface-quiet:linear-gradient(145deg,#223c50d4,#172d41e6);
+  --row-border:#aec0c02b;
+  --row-inset:inset 0 1px 0 #c9d7d82b;
+  --row-lift:0 5px 14px #020a1738;
+  --row-ink:#f1e8d5;
+  --chip-surface:#e9d7b41c;
+  --chip-ink:#ead2a2;
+ }
+
+ /* ——— 1. The drawn card stays on screen while a personal reading is prepared ———
+    reading-pending.css hides `.reading-copy>:not(#reading-copy-guidance)`; the
+    :not(#id) carries ID specificity, so the phone header needs the same weight or
+    the artwork disappears and the reveal flies toward an empty box. */
+ #reading-view[data-guidance-state="pending"] .reading-copy>.mobile-reading-context:not(#reading-copy-guidance) {
+  display:flex!important;flex-direction:column;align-items:center;margin:0;padding:0;border:0;
+ }
+ #reading-view .mobile-reading-context .reading-art {transition:width .6s cubic-bezier(.22,1,.36,1)}
+ #reading-view[data-guidance-state="pending"] .mobile-reading-context .reading-art {width:min(52vw,12.5rem)}
+ #reading-view[data-guidance-state="pending"] .reading-copy {min-height:0}
+ #reading-view[data-guidance-state="pending"] .reading-loader {min-height:0;padding:2.1rem 0 1rem}
+ #reading-view[data-guidance-state="pending"] .reading-loader-name {font-size:clamp(3.3rem,15vw,4.3rem)}
+ #reading-view[data-guidance-state="pending"] .reading-loader-arcana {margin-top:1rem}
+ #reading-view[data-guidance-state="pending"] .reading-loader-track {margin-top:1.8rem}
+ #spreads-view[data-guidance-state="pending"] #spread-connections figure {flex-basis:clamp(74px,25vw,104px);max-width:30%}
+ #spreads-view[data-guidance-state="pending"] .reading-loader {min-height:0;padding:2.2rem 0 1rem}
+ #spreads-view[data-guidance-state="pending"] .reading-loader-name {font-size:clamp(3.3rem,15vw,4.3rem)}
+ #spreads-view[data-guidance-state="pending"] #spread-synthesis {min-height:0;padding-top:2rem}
+
+ /* ——— 2. Writing a question with the keyboard open ———
+    The compose step compresses to fit the visible viewport above the keys, so the
+    question and Continue remain together. --mobile-viewport-height follows
+    visualViewport (mobile-experience.js). */
+ body.mobile-experience[data-mobile-keyboard=true] #question-view[data-mobile-question=compose] {
+  padding-top:calc(76px + env(safe-area-inset-top))!important;padding-bottom:16px;min-height:0;
+ }
+ body.mobile-experience[data-mobile-keyboard=true] #question-view[data-mobile-question=compose] .question-entry-intro h2 {font-size:32px;line-height:1;margin:0 0 14px}
+ body.mobile-experience[data-mobile-keyboard=true] #question-view[data-mobile-question=compose] #question-form>label {margin-bottom:8px}
+ body.mobile-experience[data-mobile-keyboard=true] #question-view[data-mobile-question=compose] #question-form textarea {
+  min-height:0;height:clamp(88px,calc(var(--mobile-viewport-height,100svh) - 292px),200px);resize:none;
+ }
+ body.mobile-experience[data-mobile-keyboard=true] #question-view[data-mobile-question=compose] .question-examples {display:none!important}
+ body.mobile-experience[data-mobile-keyboard=true] #question-view[data-mobile-question=compose] .mobile-question-next {margin-top:12px}
+
+ /* A long question is shown in full up to four lines, never cut through a glyph. */
+ .mobile-experience #question-view[data-mobile-question] .mobile-question-preview {flex-direction:column;align-items:flex-start;gap:10px}
+ .mobile-experience #question-view .mobile-question-preview p {
+  max-height:none;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;line-clamp:4;width:100%;
+ }
+ .mobile-experience #question-view .mobile-question-preview button {
+  min-height:40px;padding:0 16px;border-radius:20px;background:#20384c9e;box-shadow:var(--row-inset);color:#e6d9bd;font-size:13px;
+ }
+
+ /* ——— 3. Secondary rows: filled, full width, a clear press ——— */
+ .mobile-experience :is(.reading-copy,.spread-synthesis-copy)>:is(a,button).quiet-link,
+ .mobile-experience #save-section #view-saved,
+ .mobile-experience #spread-save-section .save-actions>a.quiet-link,
+ .mobile-experience #journal-view .almanac-links a {
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  width:100%;max-width:none;min-height:54px;box-sizing:border-box;margin:0;padding:0 18px;
+  border:1px solid var(--row-border);border-radius:14px;background:var(--row-surface);
+  box-shadow:var(--row-inset),var(--row-lift);color:var(--row-ink);
+  font:500 14px/1.4 'DM Sans',sans-serif;letter-spacing:0;text-align:left;text-decoration:none;
+  -webkit-tap-highlight-color:transparent;transition:translate .18s ease,box-shadow .18s ease,background .18s ease;
+ }
+ .mobile-experience :is(.reading-copy,.spread-synthesis-copy)>:is(a,button).quiet-link {margin-top:10px}
+ .mobile-experience .reading-copy>a.quiet-link:first-of-type,
+ .mobile-experience .spread-synthesis-copy>a.quiet-link:first-of-type {margin-top:28px}
+ .mobile-experience :is(.reading-copy,.spread-synthesis-copy)>:is(a,button).quiet-link:active,
+ .mobile-experience #save-section #view-saved:active,
+ .mobile-experience #spread-save-section .save-actions>a.quiet-link:active,
+ .mobile-experience #journal-view .almanac-links a:active {translate:0 2px;box-shadow:inset 0 2px 6px #07142655}
+
+ /* ——— 4. Disclosures: one filled row with a +/− chip, no rules above or below ——— */
+ .mobile-experience :is(#reading-view,#spread-synthesis,#journal-view,#spreads-view,#question-view) :is(.reading-reference,.card-lesson,.reading-notes,.practice-editor,.practice-more,.qh-reading-control,.share-reflection,.journal-explore,.question-coach,.reveal-options,.spread-deeper,.reading-preferences,.other-reading-ways) {
+  border:0!important;border-radius:0;background:none;box-shadow:none;padding:0;
+ }
+ .mobile-experience :is(#reading-view,#spread-synthesis,#journal-view,#spreads-view,#question-view) :is(.reading-reference,.card-lesson,.reading-notes,.practice-editor,.practice-more,.qh-reading-control,.share-reflection,.journal-explore,.reveal-options,.spread-deeper,.reading-preferences,.other-reading-ways)>summary,
+ .mobile-experience :is(#reading-view,#spread-synthesis,#question-view,#spreads-view) .question-coach>.question-coach-summary {
+  display:flex;align-items:center;justify-content:space-between;gap:14px;list-style:none;
+  width:100%;min-height:56px;box-sizing:border-box;margin:0;padding:12px 14px 12px 18px;
+  border:1px solid var(--row-border);border-radius:14px;background:var(--row-surface-quiet);
+  box-shadow:var(--row-inset),0 4px 12px #020a1729;color:#ece3d1;
+  font:500 14px/1.45 'DM Sans',sans-serif;letter-spacing:0;text-align:left;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;transition:translate .18s ease,box-shadow .18s ease;
+ }
+ .mobile-experience :is(#reading-view,#spread-synthesis,#journal-view,#spreads-view,#question-view) :is(.reading-reference,.card-lesson,.reading-notes,.practice-editor,.practice-more,.qh-reading-control,.share-reflection,.journal-explore,.reveal-options,.spread-deeper,.reading-preferences,.other-reading-ways)>summary::-webkit-details-marker {display:none}
+ .mobile-experience :is(#reading-view,#spread-synthesis,#journal-view,#spreads-view,#question-view) :is(.reading-reference,.card-lesson,.reading-notes,.practice-editor,.practice-more,.qh-reading-control,.share-reflection,.journal-explore,.reveal-options,.spread-deeper,.reading-preferences,.other-reading-ways)>summary::before {content:none;display:none}
+ .mobile-experience :is(#reading-view,#spread-synthesis,#journal-view,#spreads-view,#question-view) :is(.reading-reference,.card-lesson,.reading-notes,.practice-editor,.practice-more,.qh-reading-control,.share-reflection,.journal-explore,.reveal-options,.spread-deeper,.reading-preferences,.other-reading-ways)>summary::after {
+  content:'+';display:grid;place-items:center;flex:none;width:30px;height:30px;margin:0;border-radius:50%;
+  background:var(--chip-surface);color:var(--chip-ink);font:400 19px/1 'DM Sans',sans-serif;transform:none;position:static;
+ }
+ .mobile-experience :is(#reading-view,#spread-synthesis,#journal-view,#spreads-view,#question-view) :is(.reading-reference,.card-lesson,.reading-notes,.practice-editor,.practice-more,.qh-reading-control,.share-reflection,.journal-explore,.reveal-options,.spread-deeper,.reading-preferences,.other-reading-ways)[open]>summary::after {content:'−'}
+ /* Existing inline glyphs become the one chip above. */
+ .mobile-experience :is(#reading-view,#spread-synthesis) :is(.card-lesson,.practice-editor,.share-reflection)>summary>span:last-child {display:none}
+ .mobile-experience .question-coach>.question-coach-summary .question-coach-mark {
+  display:grid;place-items:center;flex:none;width:30px;height:30px;border-radius:50%;
+  background:var(--chip-surface);color:var(--chip-ink);font:400 22px/1 'DM Sans',sans-serif;
+ }
+ .mobile-experience :is(#reading-view,#spread-synthesis,#journal-view,#spreads-view,#question-view) :is(.reading-reference,.card-lesson,.reading-notes,.practice-editor,.practice-more,.qh-reading-control,.share-reflection,.journal-explore,.reveal-options,.spread-deeper,.reading-preferences,.other-reading-ways)>summary:active,
+ .mobile-experience .question-coach>.question-coach-summary:active {translate:0 2px;box-shadow:inset 0 2px 6px #07142655}
+ .mobile-experience :is(#reading-view,#spread-synthesis,#journal-view,#spreads-view,#question-view) :is(.reading-reference,.card-lesson,.reading-notes,.practice-editor,.practice-more,.qh-reading-control,.share-reflection,.journal-explore,.reveal-options,.spread-deeper,.reading-preferences,.other-reading-ways)[open]>summary {margin-bottom:14px}
+ .mobile-experience .question-coach {margin:12px 0 0}
+ .mobile-experience :is(#reading-view,#spread-synthesis) .card-lesson {margin:12px 0 0}
+ .mobile-experience :is(#reading-view,#spread-synthesis) .reading-reference.has-personal-reading {margin:2.4rem 0 0}
+ .mobile-experience #reading-view .reading-reference-content .card-lesson {margin:14px 0 18px}
+
+ /* ——— 5. Keeping the reading: primary, confirmation, then quieter tools ——— */
+ .mobile-experience :is(#save-section,#spread-save-section) {display:flex;flex-direction:column;align-items:stretch;gap:0;margin-top:2.6rem;padding-top:1.9rem;border-top:1px solid #c5b18936}
+ .mobile-experience :is(#save-section,#spread-save-section)>* {margin-top:0;margin-bottom:0}
+ .mobile-experience :is(#save-section,#spread-save-section) .save-actions {display:flex;flex-direction:column;align-items:stretch;gap:10px;margin:0}
+ .mobile-experience :is(#save-reading,#save-spread) {
+  display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:58px;
+  padding:0 14px 0 22px;border-radius:29px;font:500 15px/1.35 'DM Sans',sans-serif;text-align:left;
+ }
+ .mobile-experience :is(#save-reading,#save-spread) .save-mark {
+  display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:50%;background:#1f30420f;font-size:17px;line-height:1;
+ }
+ .mobile-experience :is(#save-reading,#save-spread)[data-save-state=saved] {
+  background:linear-gradient(150deg,#2c485c,#1d364a);border-color:#e2c99a4d;color:#f2e2bf;
+  box-shadow:inset 0 1px 0 #f5e3bd26,0 6px 16px #02091133;
+ }
+ .mobile-experience :is(#save-reading,#save-spread)[data-save-state=saved] .save-mark {background:#e7cf9d24;color:#f0d8a4}
+ .mobile-experience :is(#reading-view,#spread-synthesis) :is(#save-status,#spread-save-status) {margin:2px 0 0;padding:0 6px;font-size:13px;line-height:1.55;color:#e3cfa3;text-align:left}
+ .mobile-experience :is(#reading-view,#spread-synthesis) :is(#save-status,#spread-save-status):empty {display:none}
+ .mobile-experience :is(#save-section,#spread-save-section) .reading-notes {margin-top:18px}
+ .mobile-experience :is(#save-section,#spread-save-section) .reading-notes label {display:block;margin:0 0 10px;font-size:13px;line-height:1.6;color:#c9d2d4}
+ .mobile-experience :is(#reading-view,#spread-synthesis) :is(#download-reading,#download-spread) {
+  display:inline-flex;align-items:center;gap:10px;align-self:flex-start;width:auto;min-height:46px;margin-top:16px;padding:0 18px;
+  border-radius:23px;border:1px solid var(--row-border);background:var(--row-surface);box-shadow:var(--row-inset);color:var(--row-ink);font:500 13px/1.3 'DM Sans',sans-serif;
+ }
+ .mobile-experience :is(#save-section,#spread-save-section)>.privacy-note {margin-top:10px;padding:0 4px;font-size:12px;line-height:1.65;color:#a5b6c1}
+ /* Ways to return: a small group of rows, separated from keeping. */
+ .mobile-experience :is(#save-section,#spread-save-section) .practice-editor {margin-top:30px}
+ .mobile-experience :is(#save-section,#spread-save-section) :is(.aj-memory-control,.qh-reading-control) {margin-top:12px;padding-top:0;border:0}
+ .mobile-experience :is(#reading-view,#spread-synthesis) .aj-memory-toggle {
+  display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 18px;border-radius:24px;
+  border:1px solid var(--row-border);background:var(--row-surface);box-shadow:var(--row-inset);color:#ece3d1;font:500 13.5px/1.3 'DM Sans',sans-serif;
+ }
+ .mobile-experience :is(#reading-view,#spread-synthesis) .aj-memory-toggle[aria-pressed=true] {background:linear-gradient(150deg,#4a4a3f,#2f3a3c);border-color:#e2c99a66;color:#f3dcaa}
+ .mobile-experience :is(#reading-view,#spread-synthesis) .aj-memory-control .aj-fineprint {margin:8px 4px 0}
+ .mobile-experience :is(#reading-view,#spread-synthesis) .aj-memory-control .aj-subtle-link {
+  display:inline-flex;align-items:center;min-height:44px;margin-top:4px;padding:0 16px;border-radius:22px;background:#20384c9e;box-shadow:var(--row-inset);color:#dfe7e4;font-size:13px;text-decoration:none;
+ }
+ .mobile-experience :is(#reading-view,#spread-synthesis) .share-reflection {margin-top:12px}
+
+ /* ——— 6. The spread ritual header and the chosen-card receipt ——— */
+ .mobile-experience #spreads-view .spread-ritual-actions #leave-spread {
+  width:max-content;flex:none;min-height:44px;padding:0 16px 0 13px!important;border-radius:22px;
+  background:#20384c9e;box-shadow:var(--row-inset),0 4px 12px #0002;color:#dfe7e4;font-size:13px;
+ }
+ .mobile-experience #spreads-view .spread-ritual-head .deck-question-disclosure>summary,
+ .mobile-experience #spreads-view:not(.is-choosing) .deck-question-disclosure>summary {
+  min-height:44px;padding:0 14px;border-radius:22px;background:#20384c9e;box-shadow:var(--row-inset);color:#dfe7e4;font-size:13px;
+ }
+ .mobile-experience #spreads-view .spread-ritual-head .deck-question-disclosure[open]>summary {justify-self:end;width:max-content;margin-left:auto}
+ .mobile-experience #spread-ritual .spread-workspace[data-phase="choosing"] .spread-board {--reading-card-width:36px!important;height:72px!important}
+ .mobile-experience #spread-ritual .spread-workspace[data-phase="choosing"][data-count="3"] .spread-board {max-width:160px}
+ .mobile-experience #spread-ritual .spread-workspace[data-phase="choosing"][data-count="5"] .spread-board {--reading-card-width:32px!important;max-width:236px}
+ .mobile-experience #spread-ritual .spread-workspace[data-phase="choosing"][data-count="8"] .spread-board {--reading-card-width:27px!important;max-width:330px}
+ .mobile-experience #spread-ritual .spread-workspace[data-phase="choosing"] .spread-slot:not(.dealt) .spread-card {
+  border:0;border-radius:4px;background:linear-gradient(160deg,#1f394d,#132839);box-shadow:inset 0 1px 0 #c9d7d826,0 2px 6px #0003;
+ }
+ .mobile-experience #spread-ritual .spread-workspace[data-phase="choosing"] .spread-slot:not(.dealt) .spread-card:after {font-size:.62rem;color:#c9b78f}
+ /* A card turning is a pause, not a greyed-out failure. */
+ .mobile-experience #spread-ritual .spread-controls .solid-action:disabled {opacity:.64;filter:saturate(.75)}
+ /* The spread question form: `.spread-entry label[for]` (style.css) would turn the
+    consent row into a block and butt the checkbox against its words. */
+ .mobile-experience .spread-entry .guidance-choice>label[for] {display:flex;align-items:center;gap:12px;margin:0}
+ .mobile-experience .spread-entry #begin-spread {display:flex;justify-content:space-between;width:100%;border-radius:29px}
+ .mobile-experience #spreads-view .other-spreads {margin-top:8px;border:0!important;padding:0}
+ .mobile-experience #spreads-view .other-spreads>summary {
+  display:flex;align-items:center;justify-content:space-between;gap:14px;list-style:none;width:100%;min-height:56px;box-sizing:border-box;
+  padding:12px 14px 12px 18px;border:1px solid var(--row-border);border-radius:14px;background:var(--row-surface-quiet);
+  box-shadow:var(--row-inset),0 4px 12px #020a1729;color:#ece3d1;font:500 14px/1.45 'DM Sans',sans-serif;cursor:pointer;
+ }
+ .mobile-experience #spreads-view .other-spreads>summary::-webkit-details-marker {display:none}
+ .mobile-experience #spreads-view .other-spreads>summary::before {content:none;display:none}
+ .mobile-experience #spreads-view .other-spreads>summary::after {
+  content:'+';display:grid;place-items:center;flex:none;width:30px;height:30px;border-radius:50%;background:var(--chip-surface);color:var(--chip-ink);font:400 19px/1 'DM Sans',sans-serif;
+ }
+ .mobile-experience #spreads-view .other-spreads[open]>summary {margin-bottom:16px}
+ .mobile-experience #spreads-view .other-spreads[open]>summary::after {content:'−'}
+
+ /* ——— 7. Home: captions beside art, never over it ——— */
+ #home-content .home-symbol-pair {align-items:flex-start;gap:16px;padding:0 6px 6px}
+ #home-content .home-symbol-veil {transform:none}
+ #home-content .home-symbol-crop:after {display:none}
+ #home-content .home-symbol>figcaption {
+  position:static;margin:14px 0 0;padding:0;text-align:center;
+  font:italic 22px/1.2 'Cormorant Garamond',Georgia,serif;color:#e9dcc0;
+ }
+ /* Three positions share one caption line; the card angles still read as a fan. */
+ #home-content .home-spread-table[data-count="3"] .home-table-card {--y:45%!important}
+ #home-content .home-spread-table[data-count="3"] .home-table-card figcaption {width:100%;margin:15px 0 0}
+
+ /* ——— 8. The almanac opens on your readings ——— */
+ .mobile-experience #journal-view .journal-intro {margin:1.9rem 0 1.5rem}
+ .mobile-experience #journal-view .journal-intro h1 {font-size:clamp(2.7rem,11.5vw,3.3rem);line-height:.98}
+ .mobile-experience #journal-view .journal-intro>p:last-child {font-size:15px;line-height:1.65;margin-top:.9rem}
+ .mobile-experience #journal-view .journal-explore {margin:0 0 14px}
+ .mobile-experience #journal-view .journal-explore[open] .almanac-links {margin:0 0 6px;padding:0;border:0}
+ .mobile-experience #journal-view .journal-practice-head {border-top:0;padding-top:0;margin-top:0}
+ .mobile-experience #journal-view .journal-entry .journal-row {grid-template-columns:68px minmax(0,1fr) 30px}
+ .mobile-experience #journal-view .journal-row img {width:68px;border-radius:4px}
+ .mobile-experience #journal-view .journal-row>span:last-child {
+  display:grid;place-items:center;width:30px;height:30px;border:0;border-radius:50%;background:var(--chip-surface);color:var(--chip-ink);font-size:15px;
+ }
+
+ /* ——— 9. Today: one centred moment — heading, the card, then the draw in reach ——— */
+ .mobile-experience #today-view .today-composition {display:flex;flex-direction:column;align-items:stretch;gap:0;margin:1.4rem auto 3rem}
+ .mobile-experience #today-view .today-copy {display:contents}
+ .mobile-experience #today-view #today-date {order:1;text-align:center;margin:0}
+ .mobile-experience #today-view #today-title {order:2;text-align:center;font-size:clamp(2.6rem,11.5vw,3.2rem);line-height:.98;margin:.7rem 0 1.5rem}
+ .mobile-experience #today-view .today-card {order:3;align-self:center;width:min(44vw,184px);max-width:none;margin:0 0 1.35rem;justify-self:auto}
+ .mobile-experience #today-view .today-card figcaption {margin-top:1.15rem;font-size:1.05rem}
+ .mobile-experience #today-view #today-invitation {order:4;text-align:center;margin:0 auto 1.3rem;max-width:22rem;font-size:15px;line-height:1.65}
+ .mobile-experience #today-view #daily-draw {order:5;display:flex;justify-content:space-between;width:100%;min-height:58px;margin:0;border-radius:29px;font-size:15px}
+ .mobile-experience #today-view #daily-note {order:6;text-align:center;margin:.8rem auto 0;max-width:22rem}
+ .mobile-experience #today-view .today-copy>.quiet-link,
+ .mobile-experience :is(#today-view,.product-page) .practice-bottom>.quiet-link {
+  order:7;display:flex;align-items:center;justify-content:space-between;width:100%;min-height:54px;box-sizing:border-box;margin:18px 0 0;padding:0 18px;
+  border:1px solid var(--row-border);border-radius:14px;background:var(--row-surface);box-shadow:var(--row-inset),var(--row-lift);
+  color:var(--row-ink);font:500 14px/1.4 'DM Sans',sans-serif;text-decoration:none;
+ }
+ .mobile-experience :is(#today-view,.product-page) .practice-bottom {display:flex;flex-direction:column;align-items:stretch;gap:10px}
+ .mobile-experience :is(#today-view,.product-page) .practice-bottom>* {width:100%;margin:0;box-sizing:border-box}
+
+ /* ——— 10. Supporting pages: no framed switches, no empty band above the title ——— */
+ .mobile-experience .st-mode-controls {border:0;padding:0;gap:8px}
+ .mobile-experience .aj-page .aj-intro,.mobile-experience .aj-page:has(.aj-first-page) .aj-intro {padding-top:.6rem}
+ /* The hidden desktop header wraps to several rows on a phone; keep only the
+    masthead's height so the page title starts where every other page does. */
+ .mobile-experience .aj-page>.page-top {height:calc(76px + env(safe-area-inset-top));min-height:0;margin:0;padding:0;overflow:hidden;border:0}
+ .mobile-experience .aj-page .aj-tools>.aj-link {
+  display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:22px;background:#20384c9e;box-shadow:var(--row-inset);color:#dfe7e4;text-decoration:none;
+ }
+}
+
+@media (max-width:700px) and (max-height:700px) {
+ .mobile-experience #spread-ritual .spread-workspace[data-phase="choosing"] .spread-board {--reading-card-width:28px!important;height:54px!important}
+}
+
+/* Shorter phones: the one-card deck, its buttons and the tap hint share one screen
+   instead of a fixed 790px stage that pushes the instructions below the fold. */
+@media (max-width:700px) and (max-height:760px) {
+ body.mobile-experience[data-view=choose] #hero-region {height:100svh;min-height:600px}
+ body.mobile-experience[data-view=choose] .choose-heading {top:calc(80px + env(safe-area-inset-top))}
+ body.mobile-experience[data-view=choose] .choose-heading h2 {font-size:30px;line-height:1.06}
+ body.mobile-experience[data-view=choose] #motion-stage {top:164px;bottom:186px}
+ body.mobile-experience[data-view=choose] .mobile-single-deck .card-hit {width:min(50vw,190px,calc((100svh - 390px) * .583))}
+ body.mobile-experience[data-view=choose] .choose-footer {bottom:calc(12px + env(safe-area-inset-bottom))}
+ /* Today keeps its draw above the navigation on shorter screens. */
+ .mobile-experience #today-view .today-composition {margin-top:.4rem}
+ .mobile-experience #today-view #today-title {font-size:clamp(2.2rem,10vw,2.6rem);margin:.5rem 0 1rem}
+ .mobile-experience #today-view .today-card {width:min(34vw,148px);margin-bottom:1rem}
+ .mobile-experience #today-view .today-card figcaption {margin-top:.8rem;font-size:.95rem}
+ .mobile-experience #today-view #today-invitation {margin-bottom:1rem;font-size:14px;line-height:1.55}
+}
+/* A phone turned sideways is wider than the phone breakpoint, so it receives the
+   desktop choose composition in 390px of height. Only touch devices this short are
+   affected; desktop pointers and heights never match. The WebGL deck is unchanged:
+   the words simply leave it room. */
+@media (min-width:701px) and (max-height:500px) and (pointer:coarse) {
+ body[data-view=choose] .choose-heading>.eyebrow,
+ body[data-view=choose] .choose-heading>.reading-steps,
+ body[data-view=choose] .choose-heading>p:last-child {display:none}
+ body[data-view=choose] .choose-heading {top:78px;max-width:40%}
+ body[data-view=choose] .choose-heading h2 {font-size:26px;line-height:1.05;margin:0}
+ body[data-view=choose] .choose-heading h2 br {display:none}
+ body[data-view=choose] #choice-navigation {width:auto;justify-content:flex-start;gap:12px}
+ body[data-view=choose] #choice-range {white-space:nowrap;font-size:12px}
+ body[data-view=choose]:is([data-single-state=held],[data-single-state=extracting],[data-single-state=revealing],[data-single-state=revealed]) .choose-heading {visibility:hidden}
+}
+
+/* The shortest phones (iPhone SE class): the card waits beside the heading's
+   rhythm at a smaller size, and its caption gives way so the draw stays in reach. */
+@media (max-width:700px) and (max-height:690px) {
+ .mobile-experience #today-view .today-composition {margin-top:0}
+ .mobile-experience #today-view #today-title {font-size:2.15rem;margin:.35rem 0 .8rem}
+ .mobile-experience #today-view .today-card {width:min(28vw,118px);margin-bottom:.8rem}
+ .mobile-experience #today-view .today-card figcaption {display:none}
+ .mobile-experience #today-view #today-invitation {margin-bottom:.85rem}
+}

@@ -142,7 +142,7 @@
   #home-content .home-symbols {display:flex;flex-direction:column;gap:24px;padding-block:20px 56px}
   #home-content .home-symbol-pair {width:100%;max-width:390px;gap:20px;padding:0 10px 42px;box-sizing:border-box}
   #home-content .home-symbol-crop {min-width:0;aspect-ratio:1/1.35}
-  #home-content .home-symbol-crop>span {font-size:23px;line-height:1.1;bottom:18px;padding-inline:6px}
+  #home-content .home-symbol>figcaption {font-size:23px;line-height:1.1;bottom:18px;padding-inline:6px}
   #home-content .home-symbol-veil {transform:translateY(30px)}
   #home-content .home-symbol-copy {width:100%;min-width:0}
   #home-content .home-symbol-copy>.home-link {margin-top:24px}

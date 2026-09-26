@@ -49,14 +49,14 @@ fonts = (p.parent / 'fonts-inline.css').read_text()
 style_names = ['style.css', 'home-continuity.css', 'spread-layout.css', 'single-card-flow.css']
 if (p / 'practice.css').exists():
     style_names.append('practice.css')
-style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css'] if (p / name).exists())
+style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css', 'mobile-coherence.css'] if (p / name).exists())
 styles = '\n'.join((p / name).read_text() for name in style_names)
 scripts = {
     'hero': (p / 'hero.js').read_text(),
     'background': (p / 'background.bundle.js').read_text(),
     'app': (p / 'app.bundle.js').read_text(),
 }
-licenses = '\n'.join((p.parent / name).read_text() for name in ['cormorant-OFL.txt', 'dmsans-OFL.txt'])
+licenses = '\n'.join((p.parent / name).read_text() for name in ['cormorant-OFL.txt', 'dmsans-OFL.txt', 'onest-OFL.txt'])
 licenses += '\nAstronomy Engine 2.1.19\n' + (p / 'node_modules/astronomy-engine/esm/astronomy.js').read_text().split('*/',1)[0].replace('/**','').replace('@preserve','').strip()
 license_comment = '<!-- Embedded font licenses\n' + licenses.replace('--', '—') + '\n-->\n'
 

@@ -1,0 +1,37 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "site_name": "olivia-arcana",
+  "revision": "mobile-coherence",
+  "date": "2026-09-26",
+  "branch": "claude/peaceful-clarke-scrh06",
+  "base_commit": "89ef292fc7b53335a67dbeee4b32b33b4c899607",
+  "production_deployed": false,
+  "production_reference": {
+    "deploy_id": "6ab7b1eb2e3eb145b023937a",
+    "stylesheet": "assets/experience.b201b3ecb391a586.css",
+    "note": "Production was not reachable from the build container (egress policy). The v3 stylesheet hash was reproduced exactly by a clean build of the base commit."
+  },
+  "preview": {
+    "status": "pending",
+    "mechanism": "Netlify's GitHub integration builds deploy previews for pull requests (PR #3 carries its checks). This container has no Netlify credentials and cannot reach *.netlify.app.",
+    "url": null
+  },
+  "stylesheet": "assets/experience.7aa05041408b09f0.css",
+  "app": "assets/app.ff457a817c7fbc31.js",
+  "font_added": "assets/font-4.51adb4c8c5dc00b8.woff2",
+  "review": "qa-mobile-v4/review.md",
+  "verification": {
+    "product_tests": 219,
+    "mobile_question_checks": 7,
+    "native_service_tests": 49,
+    "approved_motion_sha256_unchanged": true,
+    "hero_js_sha256_unchanged": true,
+    "hero_pixel_compare_max_changed_percent": 0.025,
+    "desktop_en_home_sections_pixel_identical": true,
+    "phone_viewports": ["390x844 en", "375x812 uk", "320x740 uk", "375x667 en/uk", "320x568 uk", "844x390 landscape"],
+    "keyboard_only_reading_to_save": ["desktop 1440", "phone 390"],
+    "reduced_motion_checked": true,
+    "physical_iphone_tested": false,
+    "live_ai_generation_tested": false
+  }
+}

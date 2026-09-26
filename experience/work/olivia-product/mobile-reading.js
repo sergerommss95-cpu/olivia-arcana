@@ -7,6 +7,12 @@ export function initMobileReading({breakpoint='(max-width: 700px)'}={}) {
   const anchor=document.createComment('mobile-reading-position');
   node.before(anchor);placements.push({node,anchor});parent.append(node);
  };
+ // A save confirmation belongs directly beneath the button that was pressed.
+ const moveAfter=(node,reference)=>{
+  if(!node||!reference||reference.nextSibling===node)return;
+  const anchor=document.createComment('mobile-reading-position');
+  node.before(anchor);placements.push({node,anchor});reference.after(node);
+ };
  const questionDisclosure=node=>{
   if(!node)return null;
   const details=document.createElement('details');details.className='mobile-reading-question';
@@ -43,6 +49,8 @@ export function initMobileReading({breakpoint='(max-width: 700px)'}={}) {
   const disclosure=questionDisclosure(question);
   context.append(disclosure);
   questionDisclosure(document.querySelector('#spread-synthesis-question'));
+  moveAfter(document.querySelector('#save-status'),document.querySelector('#save-reading'));
+  moveAfter(document.querySelector('#spread-save-status'),document.querySelector('#save-spread'));
   updateQuestions();updateOrientation();
   observer=new MutationObserver(()=>{updateQuestions();updateOrientation();});
   for(const item of questions)observer.observe(item.node,{childList:true,subtree:true,characterData:true});

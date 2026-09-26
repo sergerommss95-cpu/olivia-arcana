@@ -3,6 +3,7 @@ import {initMobileExperience} from './mobile-experience.js';
 import {initMobileReading} from './mobile-reading.js';
 import {initInteractivePerimeters} from './interactive-perimeter.js';
 import {createReadingReference} from './reading-reference.js';
+import {setSaveState,guidanceSaveState} from './save-state.js';
 import {mountFirstImpression} from './first-impression.js';
 import {loadQuestionHistory,serializeQuestionHistory} from './question-history.js';
 import {initHomeShowcase} from './home-showcase.js';
@@ -45,11 +46,12 @@ function preserveNote(){if(!sample&&currentRecord&&view==='reading'){currentReco
 function receiveSingleGuidance(id,guidance){
  if(currentRecord?.id!==id)return;
  currentRecord={...currentRecord,guidance};drafts.set(id,currentRecord);
- let persisted;try{persisted=loadRecords(storage()).find(value=>value.id===id)?.guidance;}catch{}
- if(persisted?.source===guidance.source&&persisted?.locale===guidance.locale&&persisted?.synthesis===guidance.synthesis)return;
+ let kept;try{kept=loadRecords(storage()).find(value=>value.id===id);}catch{}
+ // A reading that was never kept is still a first keep; only a kept one is updated.
+ const state=guidanceSaveState(kept,guidance);if(!state)return;
  dirtyIds.add(id);saveDirty=true;
  text('#save-status','Your personal reading is ready. Save to keep it.');
- $('#save-reading').firstChild.textContent=t('Save updated reading')+' ';
+ setSaveState($('#save-reading'),state);
 }
 function receiveSavedSingleGuidance(saved){
  if(saved.spreadId||currentRecord?.id!==saved.id)return;
@@ -57,11 +59,11 @@ function receiveSavedSingleGuidance(saved){
  currentRecord={...currentRecord,note,guidance:saved.guidance};drafts.set(saved.id,currentRecord);
  if(note===(saved.note||'')){
   dirtyIds.delete(saved.id);text('#save-status','Kept in your almanac, on this device.');
-  $('#save-reading').firstChild.textContent=t('Saved')+' ';$('#view-saved').hidden=false;
+  setSaveState($('#save-reading'),'saved');$('#view-saved').hidden=false;
   try{clearDraft(storage(),saved.id);}catch{}
  }else{
   dirtyIds.add(saved.id);text('#save-status','Unsaved reflection.');
-  $('#save-reading').firstChild.textContent=t('Save reflection')+' ';
+  setSaveState($('#save-reading'),'reflection');
  }
  saveDirty=dirtyIds.size>0;
 }
@@ -102,8 +104,12 @@ function renderReading(record,isSample,{connected=false}={}){
  text('#reading-kind',isSample?'A sample reading':record.source==='physical'?(getLocale()==='uk'?'З вашої фізичної колоди':'From your physical deck'):'Your one-card reading');text('#reading-question',record.question?`“${record.question}”`:'An open reading');text('#result-title',record.cardName);const sentences=notes.meaning.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g)||[notes.meaning];text('#meaning',sentences.slice(0,2).join('').trim());text('#full-reflection',sentences.slice(2).join('').trim());$('#full-reflection-details').hidden=sentences.length<=2;$('#full-reflection-details').open=false;text('#reflection-prompt',notes.prompt);text('#practice',notes.practice);text('#card-lesson',notes.learn||CARD_NOTES[id].learn);
  text('#intention-frame',record.intention==='open'?'':INTENTION_NOTES[record.intention]||'');$('#intention-frame').hidden=!$('#intention-frame').textContent;
  $('#reading-image').dataset.orientation=record.orientation||'upright';$('#reading-image').src=assets.cards[id];$('#reading-image').alt=`${record.cardName} — Olivia Arcana tarot artwork`;text('#card-index',cardCaption(id)+(record.orientation==='reversed'?' · Reversed':' · Upright'));
- $('#reflection').value=record.note||'';$('#save-section .reading-notes').open=!!record.note;$('#save-section').hidden=isSample;$('#sample-cta').hidden=!isSample;$('#view-saved').hidden=true;$('#save-status').textContent='';$('#save-reading').firstChild.textContent='Keep this reading ';saveDirty=dirtyIds.size>0;if(dirtyIds.has(record.id))text('#save-status','Unsaved reflection.');
- if(!isSample&&!dirtyIds.has(record.id)){try{const saved=loadRecords(storage()).find(r=>r.id===record.id);if(saved&&saved.note===(record.note||'')){text('#save-status','Kept in your almanac, on this device.');$('#save-reading').firstChild.textContent=t('Saved')+' ';$('#view-saved').hidden=false;}}catch{}}
+ $('#reflection').value=record.note||'';$('#save-section .reading-notes').open=!!record.note;$('#save-section').hidden=isSample;$('#sample-cta').hidden=!isSample;$('#view-saved').hidden=true;$('#save-status').textContent='';
+ let kept=null;try{kept=isSample?null:loadRecords(storage()).find(r=>r.id===record.id)||null;}catch{}
+ const dirty=dirtyIds.has(record.id),sameNote=!!kept&&(kept.note||'')===(record.note||''),noteChanged=kept?!sameNote:!!record.note;
+ setSaveState($('#save-reading'),!kept?'keep':!dirty&&sameNote?'saved':noteChanged?'reflection':'update');saveDirty=dirtyIds.size>0;
+ if(dirty)text('#save-status',!noteChanged&&record.guidance?'Your personal reading is ready. Save to keep it.':'Unsaved reflection.');
+ if(!isSample&&!dirty&&sameNote){text('#save-status','Kept in your almanac, on this device.');$('#view-saved').hidden=false;}
  practice?.attachSingle(record,isSample);
  singleReference.setState('idle');$('#reading-view').dataset.guidanceState='idle';
  mountQuestionGuidance($('#reading-copy-guidance'),isSample?null:record,{showActions:false,autoRequest:!isSample&&connected&&guidanceConsents.delete(record.id),onState:(state,{focused=false}={})=>{
@@ -174,7 +180,7 @@ $('#choice-next').addEventListener('click',()=>browseChoices(1));
 
 async function openDeck(){choiceStart=0;cardFlow.cancel();$('#choice-navigation').hidden=true;const generation=++transition;const start=motion()?.inspect().p||0,finish=.235;$('#choose-status').textContent='The deck is opening…';$('#random-card').disabled=true;$('#card-choices').inert=true;
  if(!reduced()&&motion()?.inspect().ready){await new Promise(resolve=>{let first;function tick(time){if(generation!==transition){resolve();return;}first??=time;const t=Math.min(1,(time-first)/2600),u=t*t*t*(10+t*(-15+6*t));motion().setProgress(start+(finish-start)*u);if(t<1)requestAnimationFrame(tick);else resolve();}requestAnimationFrame(tick);});}else motion()?.setProgress(finish);
- if(generation!==transition)return;const targets=motion()?.inspect().ready?motion().targets():[];syncTargets(targets);if(!targets.length&&!mobileSingleDeck())fallbackSingleDeck();$('#card-choices').inert=false;$('#random-card').disabled=false;syncChoiceNavigation();if(document.activeElement===$('#choose-title'))$('#card-choices button')?.focus({preventScroll:true});$('#choose-status').textContent='Pull a card upwards, or select it with a click. Then turn it when you are ready.';announce('The deck is open. Choose a card, or choose one for me.');
+ if(generation!==transition)return;const targets=motion()?.inspect().ready?motion().targets():[];syncTargets(targets);if(!targets.length&&!mobileSingleDeck())fallbackSingleDeck();$('#card-choices').inert=false;$('#random-card').disabled=false;syncChoiceNavigation();if(document.activeElement===$('#choose-title'))$('#card-choices button')?.focus({preventScroll:true});$('#choose-status').textContent=matchMedia('(pointer:coarse)').matches?'Tap a card, or pull it upward. Then turn it when you are ready.':'Pull a card upwards, or select it with a click. Then turn it when you are ready.';announce('The deck is open. Choose a card, or choose one for me.');
 }
 $('#question-form').addEventListener('submit',e=>{e.preventDefault();try{preserveNote();if(readingEntry?.getCount()===3){dailyMode=false;const options={question:$('#question').value,intention:new FormData(e.currentTarget).get('intention'),reversals:$('#allow-reversals').checked,guidanceConsent:guidanceChoice?.getConsent()===true};if(approvedQuestionPlan?.question===$('#question').value.trim())spreads.startPlan(approvedQuestionPlan,options);else spreads.startPersonal(options);guidanceChoice.reset();return;}session=createSession({question:$('#question').value,intention:new FormData(e.currentTarget).get('intention'),reversals:$('#allow-reversals').checked},cards.map(c=>c.number));if(guidanceChoice?.getConsent())guidanceConsents.add(session.id);guidanceChoice?.reset();currentRecord=null;heldRecord=null;setView('choose');history.replaceState(null,'','#choose');openDeck();}catch(error){announce('The deck could not be opened in this browser. Please try again.');$('#choose-status').textContent=String(error.message);}});
 cardFlow=initSingleCardFlow({assets,motion,reduced,announce,onBrowse:browseChoices,choose(slot){
@@ -185,8 +191,8 @@ cardFlow=initSingleCardFlow({assets,motion,reduced,announce,onBrowse:browseChoic
  heldRecord=currentRecord;return currentRecord;
 },onRead(record){history.replaceState(null,'','#reading/'+record.id);renderReading(record,false,{connected:true});return $('#reading-image');}});
 $('#random-card').addEventListener('click',()=>{if(cardFlow.busy||!session||session.cardId!==null)return;choiceStart=0;refreshChoices();cardFlow.pick(0,document.activeElement===$('#random-card'));});$('#change-question').addEventListener('click',()=>goto('question'));
-$('#reflection').addEventListener('input',()=>{preserveNote();saveDirty=true;if(currentRecord)dirtyIds.add(currentRecord.id);text('#save-status','Unsaved reflection.');$('#save-reading').firstChild.textContent='Save reflection ';});
-$('#save-reading').addEventListener('click',()=>{if(!currentRecord||sample)return;currentRecord={...currentRecord,note:$('#reflection').value,updatedAt:new Date().toISOString()};try{saveRecord(storage(),currentRecord);clearDraft(storage(),currentRecord.id);drafts.set(currentRecord.id,currentRecord);dirtyIds.delete(currentRecord.id);saveDirty=dirtyIds.size>0;text('#save-status','Kept in your almanac, on this device.');$('#save-reading').firstChild.textContent='Saved ';$('#view-saved').hidden=false;dispatchEvent(new Event('olivia:journal-change'));refreshReturn();}catch(error){text('#save-status',errorText(error));}});
+$('#reflection').addEventListener('input',()=>{preserveNote();saveDirty=true;if(currentRecord)dirtyIds.add(currentRecord.id);text('#save-status','Unsaved reflection.');setSaveState($('#save-reading'),$('#save-reading').dataset.saveState==='keep'?'keep':'reflection');});
+$('#save-reading').addEventListener('click',()=>{if(!currentRecord||sample)return;currentRecord={...currentRecord,note:$('#reflection').value,updatedAt:new Date().toISOString()};try{saveRecord(storage(),currentRecord);clearDraft(storage(),currentRecord.id);drafts.set(currentRecord.id,currentRecord);dirtyIds.delete(currentRecord.id);saveDirty=dirtyIds.size>0;text('#save-status','Kept in your almanac, on this device.');setSaveState($('#save-reading'),'saved');$('#view-saved').hidden=false;dispatchEvent(new Event('olivia:journal-change'));refreshReturn();}catch(error){text('#save-status',errorText(error));}});
 function download(name,content){const url=URL.createObjectURL(new Blob([content],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 $('#download-reading').addEventListener('click',()=>{if(!currentRecord)return;preserveNote();download('olivia-reading.json',exportRecords([currentRecord]));});
 $('#export-journal').addEventListener('click',()=>{try{const all=new Map(loadRecords(storage()).map(r=>[r.id,r]));for(const [id,draft] of drafts)if(!all.has(id)||dirtyIds.has(id))all.set(id,draft);download('olivia-almanac.json',JSON.stringify({schemaVersion:1,oneCardReadings:JSON.parse(exportRecords([...all.values()])),guidedSpreads:spreads.exportJournal(),practice:practice.exportMetadata(),journey:journey.exportData(),questionHistory:serializeQuestionHistory(loadQuestionHistory(storage()))},null,2));}catch(error){text('#journal-status',errorText(error));}});
@@ -202,7 +208,7 @@ $('#journey').addEventListener('click',event=>{
 $('#leave-cinema').addEventListener('click',()=>{setView('home',{focus:false});});
 $('.scroll-cue').addEventListener('click',event=>{if(matchMedia('(max-width:700px)').matches&&!document.body.classList.contains('cinema'))return;if(!reduced()&&(motion()?.inspect().p||0)<.94){event.preventDefault();motion()?.unfold();}});
 $('.brand').addEventListener('click',e=>{e.preventDefault();goto('home');});document.querySelectorAll('[data-home]').forEach(b=>b.addEventListener('click',()=>goto('home')));
-addEventListener('olivia:practice-save',event=>{if(event.detail.kind!=='single')return;const record=event.detail.record;currentRecord=record;drafts.set(record.id,record);dirtyIds.delete(record.id);saveDirty=dirtyIds.size>0;text('#save-status','Kept in your almanac, on this device.');$('#save-reading').firstChild.textContent='Saved ';$('#view-saved').hidden=false;try{clearDraft(storage(),record.id);}catch{}});
+addEventListener('olivia:practice-save',event=>{if(event.detail.kind!=='single')return;const record=event.detail.record;currentRecord=record;drafts.set(record.id,record);dirtyIds.delete(record.id);saveDirty=dirtyIds.size>0;text('#save-status','Kept in your almanac, on this device.');setSaveState($('#save-reading'),'saved');$('#view-saved').hidden=false;try{clearDraft(storage(),record.id);}catch{}});
 addEventListener('olivia:guidance-save',event=>receiveSavedSingleGuidance(event.detail));
 addEventListener('hashchange',route);addEventListener('storage',()=>{for(const id of drafts.keys())if(!dirtyIds.has(id))drafts.delete(id);refreshReturn();if(view==='journal'){renderJournal();}});addEventListener('beforeunload',e=>{if(saveDirty){e.preventDefault();e.returnValue='';}});
 const spreads=initSpreads({assets,names,show:setView,goto,reduced,announce,onSingleQuestion(options){$('#question').value=options.question;for(const input of $('#question-form').querySelectorAll('[name="intention"]'))input.checked=input.value===options.intention;$('#allow-reversals').checked=options.reversals;guidanceChoice.setConsent(options.guidanceConsent);readingEntry.setCount(1);goto('question');},onComplete:(record,{guidanceConsent=false,onGuidanceState,onGuidanceResult}={})=>{practice?.attachSpread(record);mountQuestionGuidance($('#spread-synthesis-copy-guidance'),record,{showActions:false,autoRequest:guidanceConsent,onState:onGuidanceState,onResult:onGuidanceResult});},removePractice:(kind,id,record)=>practice.remove(kind,id,record),restorePractice:snapshot=>practice.restore(snapshot)});

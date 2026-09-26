@@ -108,6 +108,17 @@ Mobile v2 introduced contained practice panels and phone-specific question/selec
 
 As of this archive pass, **physical iPhone feedback on v3 is still pending**. Browser checks are recorded, but they do not prove real-device keyboard, safe-area, browser-toolbar and gesture quality. Preserve the approved desktop hero while fixing actual phone issues.
 
+## Mobile coherence (v4): September 26, later the same day
+
+Branch `claude/peaceful-clarke-scrh06`, not yet deployed. A full rendered audit of v3 found that the remaining phone problems came from gaps between sections rather than from any single screen. v4 turns the owner's standing direction into explicit rules. Details and evidence are in `experience/outputs/qa-mobile-v4/review.md`.
+
+- **One action vocabulary.** An ivory primary; filled lapis secondary rows; optional content as a filled row with a +/− chip; a visible press state. Underlined text links no longer stand in for buttons on phones, and nothing draws a frame around artwork.
+- **Pending shows the chosen card(s) with the wordmark; interpretation stays hidden.** v3 accidentally hid the single drawn card on phones through a CSS specificity conflict. The rule "hide all interpretation text" was never meant to hide the artwork the person just chose.
+- **Saving is honest.** The first keep says "Keep this reading/spread"; "Save updated reading" appears only for a kept reading. Saved is a confirmed, quieter state (✓), and its confirmation sits directly beneath the button.
+- **Captions sit beside art, never on it.** The home symbol labels were moved below their crops.
+- **Ukrainian deserves a designed face.** DM Sans has no Cyrillic, so Ukrainian UI text had fallen back to the system sans. Onest (OFL) supplies the Cyrillic range under the same family name, and Latin rendering is unchanged.
+- The approved hero, card art, Olive Lattice back and desktop composition were verified unchanged by hash and pixel comparison.
+
 ## What the next AI should do first
 
 1. Check out the handoff branch and read the current source/deployment authority.

@@ -49,6 +49,9 @@ For the native website, sync the hosted output into `website/public/experience/`
 - `almanac-backup.js`: backup preview, validation, import and recovery.
 - `followup-reminder.js`, `lunar-checkin.js`: private calendar check-ins and opt-in lunar dates. Astronomy Engine is pinned to 2.1.19, MIT; phase calculations follow its [SearchMoonPhase documentation](https://github.com/cosinekitty/astronomy/blob/master/source/js/README.md#searchmoonphasetargetlon-datestart-limitdays--astrotime--null).
 - `home-showcase.js/.css`: illustrated homepage examples; no draw or storage side effects.
+- `mobile-coherence.css`: the phone composition from v4 onward — action vocabulary, pending artwork, keyboard compose, save order, spread header/receipt, almanac, Today and landscape-touch choose. It is loaded last; put phone layout fixes here.
+- `save-state.js`: keep/update/reflection/saved labels and states shared by one-card readings and spreads.
+- `mobile-experience.js`, `mobile-question.js`, `mobile-reading.js`: the phone shell, two-step question and reading rearrangement, reusing the original nodes and restoring them on widening.
 - `question-history.js/.css`: explicit question links, dated observations and backup merge validation.
 - `first-impression.js/.css`: original observations, immutable once saved.
 - `reading-removal.js`: coordinated deletion and recovery with rollback.
