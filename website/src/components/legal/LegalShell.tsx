@@ -11,14 +11,39 @@
 
 import TransitionLink from "@/components/transitions/TransitionLink";
 import AlmanacMasthead from "@/components/almanac/AlmanacMasthead";
+import { useLocale } from "@/lib/i18n/useLocale";
 
 interface LegalShellProps {
   title: string;
   updated: string;
+  /** The same page in the other language, when it exists. */
+  alternateHref?: string;
   children: React.ReactNode;
 }
 
-export default function LegalShell({ title, updated, children }: LegalShellProps) {
+// Pages under /uk/ are Ukrainian; the legal set exists only in English so far.
+const SHELL = {
+  en: {
+    updated: "Last updated:",
+    links: "Legal and about",
+    pages: [["About", "/about"], ["Contact", "/contact"], ["Terms", "/terms"], ["Privacy", "/privacy"], ["Disclaimer", "/disclaimer"]],
+    englishOnly: [] as string[],
+    other: { label: "Українською", lang: "uk" },
+    line: "© 2026 Olivia Arcana — Tarot, thoughtfully personal.",
+  },
+  uk: {
+    updated: "Оновлено:",
+    links: "Про Olivia і правові сторінки",
+    pages: [["Про Olivia", "/uk/about"], ["Контакти", "/uk/contact"], ["Умови", "/terms"], ["Приватність", "/privacy"], ["Застереження", "/disclaimer"]],
+    englishOnly: ["/terms", "/privacy", "/disclaimer"],
+    other: { label: "English", lang: "en" },
+    line: "© 2026 Olivia Arcana — особиста практика Таро.",
+  },
+};
+
+export default function LegalShell({ title, updated, alternateHref, children }: LegalShellProps) {
+  const { locale } = useLocale();
+  const shell = locale === "uk" ? SHELL.uk : SHELL.en;
   return (
     <div className="almanac alm-page">
       <div className="alm-atmosphere" aria-hidden="true" />
@@ -31,7 +56,7 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
               <span aria-hidden>✦</span> Olivia Arcana
             </p>
             <h1>{title}</h1>
-            <p className="alm-updated">Last updated: {updated}</p>
+            <p className="alm-updated">{shell.updated} {updated}</p>
           </header>
           <div className="legal-prose">{children}</div>
         </article>
@@ -39,20 +64,20 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
 
       <footer className="alm-colophon">
         <div className="alm-rule oxford" aria-hidden />
-        <nav className="alm-colophon-links" aria-label="Legal and about">
-          {[
-            ["About", "/about"],
-            ["Contact", "/contact"],
-            ["Terms", "/terms"],
-            ["Privacy", "/privacy"],
-            ["Disclaimer", "/disclaimer"],
-          ].map(([label, href]) => (
+        <nav className="alm-colophon-links" aria-label={shell.links}>
+          {shell.pages.map(([label, href]) => (
             <TransitionLink key={href} href={href} className="alm-colophon-link">
               {label}
+              {shell.englishOnly.includes(href) && <span className="alm-colophon-lang" lang="en"> · EN</span>}
             </TransitionLink>
           ))}
+          {alternateHref && (
+            <a href={alternateHref} className="alm-colophon-link" lang={shell.other.lang} hrefLang={shell.other.lang}>
+              {shell.other.label}
+            </a>
+          )}
         </nav>
-        <p className="alm-colophon-line">© 2026 Olivia Arcana — Tarot, thoughtfully personal.</p>
+        <p className="alm-colophon-line">{shell.line}</p>
       </footer>
 
       <style jsx global>{`
@@ -278,6 +303,10 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
 
         .alm-colophon-link:hover {
           color: var(--ox);
+        }
+
+        .alm-colophon-lang {
+          color: var(--ink-faint);
         }
 
         .alm-colophon-line {
