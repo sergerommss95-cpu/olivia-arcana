@@ -1,6 +1,6 @@
 # Start here — Olivia Arcana session handoff
 
-Updated 27 September 2026, second session: the live preview check, research for the award plan, and the phone arrival (v6, section 1 of the award plan). At the owner's request, v6 was then merged into `main` and deployed to production. Earlier that day: the arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
+Updated 27 September 2026, second session: the live preview check, research for the award plan, and the phone arrival (v6, section 1 of the award plan). At the owner's request, v6 was then merged into `main` and deployed to production. After that, the owner asked what would give users best-in-class value and said to start on what is best. That became v7 (check-ins, Ukrainian About and Contact, the reading shown as it is written), which is on the branch and not deployed. Earlier that day: the arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
 
 For work across earlier Olivia tasks, start with [the project history index](history/README.md), [decision history](history/DECISIONS.md), and [Git coverage audit](history/git-coverage-2026-09-26.md). Historical artifacts are separate from current source. The archive preserves recoverable files and documented decisions; it is not a complete recording of every unsaved edit or every conversation.
 
@@ -12,7 +12,7 @@ For work across earlier Olivia tasks, start with [the project history index](his
     - Checked in production: `experience/outputs/qa-v6/review.md`, "In production".
   - **Every push to `main` goes live.** Netlify built and published the merge about 80 seconds after it. Work on a branch, open a pull request for a deploy preview, and merge only with the owner's approval.
   - **Rollback:** publish the v3 deploy `6ab7b1eb2e3eb145b023937a` again in Netlify's deploy list, or revert `c822edd` on `main`.
-  - `claude/peaceful-clarke-scrh06` was restarted from `main` after the merge. It carries only the production record, which is not in `main` until someone merges it.
+  - `claude/peaceful-clarke-scrh06` was restarted from `main` after the merge. It carries the production record and **v7** (`bdae5c1`, `e95c563`, `9143a47`, plus its record), none of it in `main` yet. There is no open pull request for it; one is needed for a deploy preview.
   - Earlier builds, kept for comparison:
     - v6 (`0889b9e`): https://6ab92b77b5d4da00084b874f--olivia-arcana.netlify.app/
     - v5 (`c19bdeb`): https://6ab820e030b21a0008ba98f9--olivia-arcana.netlify.app/
@@ -27,9 +27,11 @@ For work across earlier Olivia tasks, start with [the project history index](his
     `mkdir -p experience/work/tools/node_modules && ln -sfn /opt/node22/lib/node_modules/playwright experience/work/tools/node_modules/playwright`
   - `experience/work/tools/`:
     - `arrival-filmstrip.mjs` films the first seconds (phone on 4G with a 4× CPU, and desktop).
-    - `phone-journey.mjs` walks the one-card phone journey (EN 390×844, UK 375×812), declining the AI reading.
+    - `phone-journey.mjs` walks the one-card phone journey (EN 390×844, UK 375×812), declining the AI reading, and keeps a check-in in a week.
     - `phone-art.mjs` regenerates the phone textures and phone card back (it needs `npm --prefix website ci` for sharp).
-    - All three take a URL or `website/out`.
+    - These three take a URL or `website/out`.
+    - `checkin-journey.mjs` (v7) checks the whole check-in cycle on phone and desktop: `website/out`, an output folder, `en` or `uk`.
+    - `stream-reading.mjs` (v7) runs the real reading service with a fake provider behind the static export and checks the reading as it is written, with no paid call: `website/out`, an output folder, `en` or `uk`, then `ok` or `break`.
 - **Done on 27 September (second session).**
   1. **Live preview check of v5:** `experience/outputs/qa-v5/review.md` ("Live preview check") and `olivia-v5-release.json` (`live_check`).
   2. **Research** added to [the award plan](experience/outputs/award-plan-2026-09-27.md) ("What 2026 winners do in their first seconds"): recent winners open with no loader or a brief text one, lose most points on usability and accessibility, and BRRRANDING features studio-made identities only.
@@ -39,8 +41,14 @@ For work across earlier Olivia tasks, start with [the project history index](his
      - The opening and the second question step fit Safari's visible height.
      - A phone homepage is 2.43–2.48 MB over the wire in English, and 2.56 MB in Ukrainian (v5: 3.57 MB and 3.65 MB).
   4. **Deployed v6 to production** at the owner's request, and checked it there: assets, headers, the reading service's guards, phone journeys, filmstrip and weight.
+  5. **v7, staying with the question** (below; QA `experience/outputs/qa-v7/review.md`, record `olivia-v7-release.json`). Not deployed.
+     - Check-ins after keeping, "How did it turn out?" when the day comes, and quiet signs that one is waiting.
+     - Ukrainian About and Contact pages.
+     - The personal reading shown as it is written.
 - **Next.**
-  - The owner checks v6 on oliviaarcana.com with an iPhone and an Android phone (plan item 6): the arrival, the WebGPU background's smoothness and battery use, text contrast over it, and the fixed button on the question step.
+  - The owner decides whether to deploy v7: open a pull request from this branch for a deploy preview, try it on a phone, then merge.
+  - Before or right after deploying, one paid personal reading on the preview (with the owner's approval) confirms the live stream through Netlify's edge runtime. The fake provider shows the page and service agree, but a real stream has not been seen.
+  - The owner checks the site with an iPhone and an Android phone (plan item 6): the arrival, the WebGPU background's smoothness and battery use, text contrast over it, and the fixed button on the question step.
   - Whether to close the last 0.06 MB for Ukrainian: softer textures, AVIF, or a lighter Next runtime on the homepage.
   - Then the owner chooses from sections 2 to 5 of the award plan. Nothing there is approved yet.
 - **Owner decisions still open:**
@@ -50,7 +58,25 @@ For work across earlier Olivia tasks, start with [the project history index](his
   - The channel for inviting people back.
   - A named editor.
 
-## Newest work: the phone arrival (v6), in production since 27 September
+## Newest work: staying with the question (v7), on the branch, not deployed
+
+- Commits `bdae5c1` (check-ins), `e95c563` (Ukrainian About and Contact) and `9143a47` (the reading as it is written), on top of production v6. QA: `experience/outputs/qa-v7/review.md`. Record: `experience/outputs/olivia-v7-release.json`.
+- **Check-ins** (`checkins.js`, `checkins.css`).
+  - After keeping, choose when to look again: 3 days, a week, a month, the next new or full moon, or a date.
+  - On the day, the reading opens with "How did it turn out?", which saves `outcome` and `reviewedAt`.
+  - Waiting check-ins show as a gold dot on Today (dock, menu button, desktop header), the phone menu's Today line, a row on the question step and the desktop home's return link.
+  - First visits are pixel-identical to production.
+- **Ukrainian pages.** `/uk/about/` and `/uk/contact/`. `LegalShell` follows the route language, and the Ukrainian footer and colophon link the Ukrainian pages.
+- **The reading as it is written.**
+  - `/api/reading` streams NDJSON when the page asks (`Accept: application/x-ndjson`), and the provider is called with `stream: true`.
+  - The page shows complete paragraphs as they arrive (`streamBlocks`) and discards them on an error. Only a complete `end_turn` reply is confirmed.
+- Rules to keep:
+  - **Name modules so Git keeps them.** `experience/.gitignore` ignores `check-*.js` and `*.bundle.js`; that is why the module is `checkins.js`.
+  - **The check-in date has one home: the panel in `checkins.js`.** The practice editor keeps topic and return notes and listens for `olivia:check-in-change`. Write check-ins only through practice metadata (`saveMetadata`) so backups, imports and removal keep working.
+  - **Nothing about check-ins may appear on a first visit.** Signs appear only when a kept reading's check-in is due.
+  - **A streamed reading is never confirmed early.** Only the service's "done" line, sent after `end_turn`, makes a reading final. The page must discard partial text on any "error" line, a broken stream or a timeout.
+
+## Previous: the phone arrival (v6), in production since 27 September
 
 - Branch `claude/peaceful-clarke-scrh06` and PR #4 (merged as `c822edd`), commit `0889b9e`, on top of v5. QA: `experience/outputs/qa-v6/review.md`. Record: `experience/outputs/olivia-v6-release.json`. Preview build: https://6ab92b77b5d4da00084b874f--olivia-arcana.netlify.app/.
 - What v6 changes. Phones only; `hero.js` and desktop are unchanged, and desktop is pixel-identical to v5.

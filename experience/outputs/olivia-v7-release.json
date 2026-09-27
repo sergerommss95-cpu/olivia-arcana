@@ -1,0 +1,48 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "site_name": "olivia-arcana",
+  "revision": "staying-with-the-question-v7",
+  "date": "2026-09-27",
+  "branch": "claude/peaceful-clarke-scrh06",
+  "commits": ["bdae5c1", "e95c563", "9143a47"],
+  "previous_revision": "production v6, merge commit c822edd",
+  "scope": "The owner asked what gives users best-in-class value, then said to start on what is best: check-ins that return to a kept reading, Ukrainian About and Contact pages, and the personal reading shown as it is written",
+  "production_deployed": false,
+  "note": "Every push to main deploys production. Merge only with the owner's approval.",
+  "assets": {
+    "stylesheet": "assets/experience.a5aa89e5e34eb977.css",
+    "app_en": "assets/app-en.7dd689d82dd7f53a.js",
+    "app_uk": "assets/app.d483020d67339307.js",
+    "hero": "assets/hero.ea5578949b2e2776.js"
+  },
+  "review": "qa-v7/review.md",
+  "changes": {
+    "check_ins": "after keeping: 3 days, a week, a month, the next new or full moon, or a date; on the day, 'How did it turn out?' with the question and next step; outcome and reviewedAt in the practice metadata; 'Not yet' moves it a week (checkins.js, checkins.css)",
+    "waiting_signs": "gold dot on Today (phone dock, phone menu button, desktop header), the phone menu's Today line, a row on the question step (below Continue on phones), the desktop home's return link; none on a first visit",
+    "editor": "the practice editor's date field, moon picks and calendar file moved into the check-in panel; topic and return notes stay and follow it",
+    "iphone_se_question_step": "Continue on the first question step ends at 537 px at 375x553 (was 569)",
+    "uk_pages": "/uk/about/ and /uk/contact/ in the formal «ви», hreflang pairs, sitemap, Ukrainian footer and colophon links; LegalShell follows the route language; Terms, Privacy and Disclaimer marked EN",
+    "english_contact": "support line no longer mentions accounts and billing",
+    "streamed_reading": "opt-in NDJSON stream from /api/reading (Accept: application/x-ndjson, provider stream: true); complete paragraphs appear with the AI label; only a complete end_turn reply ends in 'done'; errors remove the partial text; JSON answer unchanged for other pages and /api/chat"
+  },
+  "verification": {
+    "product_tests": 249,
+    "mobile_question_checks": 7,
+    "website_and_service_tests": 58,
+    "ci": {"bdae5c1": "success", "e95c563": "success"},
+    "clean_rebuild_reproduces_snapshot": true,
+    "hero_js_sha256_unchanged": true,
+    "first_visit_homepage_vs_production_v6": "0 pixels differ (EN and UK, 1440x900 and 390x844, reduced motion)",
+    "phone_journeys": {"390x844 en": "pass", "375x812 uk": "pass", "includes": "a check-in in a week"},
+    "checkin_journey": "tools/checkin-journey.mjs, EN and UK, phone and desktop: pass; spreads checked with a seeded three-card reading",
+    "stream_reading": "tools/stream-reading.mjs with the real service and a fake provider: first paragraph after 0.5-0.8 s of a 2.7 s reading, EN and UK; a broken stream removes the partial text",
+    "live_provider_stream_tested": false,
+    "physical_phone_tested": false
+  },
+  "needs_owner": [
+    "approval to deploy v7 (merge into main)",
+    "one paid personal reading on a preview to confirm the live stream through Netlify",
+    "a check on a real iPhone and Android phone",
+    "the operator named on the Contact pages, and legal review before Terms and Privacy are translated"
+  ]
+}
