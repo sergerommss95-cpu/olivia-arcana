@@ -1,6 +1,6 @@
 # Start here — Olivia Arcana session handoff
 
-Updated 27 September 2026 (arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass). This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
+Updated 27 September 2026, second session: the live preview check, research for the award plan, and a phone-journey tool. Earlier that day: the arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
 
 For work across earlier Olivia tasks, start with [the project history index](history/README.md), [decision history](history/DECISIONS.md), and [Git coverage audit](history/git-coverage-2026-09-26.md). Historical artifacts are separate from current source. The archive preserves recoverable files and documented decisions; it is not a complete recording of every unsaved edit or every conversation.
 
@@ -11,27 +11,37 @@ For work across earlier Olivia tasks, start with [the project history index](his
   - Production is still v3.
   - Preview of this branch: https://deploy-preview-4--olivia-arcana.netlify.app/ (and `/uk/`). The v5 build of `c19bdeb`: https://6ab820e030b21a0008ba98f9--olivia-arcana.netlify.app/.
   - Pushes that change nothing under `website/` cancel the Netlify build. That is expected.
-- **Network.**
-  - The owner is widening the network access of the **Default** cloud environment. Either Custom, with `oliviaarcana.com`, `*.netlify.app`, `awwwards.com`, `*.awwwards.com`, `brrranding.com`, `*.brrranding.com` and the default package managers, or Full.
-  - The previous session never reached those hosts, even on freshly booted machines (proxy 403 at 11:14 and 12:17 UTC). A new session should.
-  - Web search worked even while those sites were blocked.
-- **First steps**
-  1. **Check access:**
-     `for h in deploy-preview-4--olivia-arcana.netlify.app oliviaarcana.com www.awwwards.com www.brrranding.com; do curl -sS -o /dev/null -w "$h %{http_code}\n" https://$h/; done`
-     If a host is still refused, tell the owner which one and carry on with local work.
-  2. **Live preview check.** This has never been done from a container. Record the results in `experience/outputs/qa-v5/review.md` and `olivia-v5-release.json`, then commit and push. Check that:
-     - the preview serves `experience.b4dc10712a673cd4.css` and the `app`/`app-en` bundles on `/` and `/uk/`;
-     - `/experience/assets/*` carries the one-year immutable cache, and `/experience/*` sends `X-Robots-Tag`;
-     - `/api/reading` refuses a cross-site POST with 403, and answers a same-origin POST with an invalid body with a validation error. Make no paid model call;
-     - the phone journeys pass against the preview in EN at 390 px and UK at 375 px, declining the AI reading;
-     - you compare phone transfer sizes of production v3 and the preview;
-     - you run `experience/work/tools/arrival-filmstrip.mjs` against the preview.
-  3. **Research** for [the award plan](experience/outputs/award-plan-2026-09-27.md):
-     - what current Awwwards Site of the Day and Site of the Month winners (and Mobile Excellence winners) do in their first 5 seconds on a phone;
-     - which identity systems BRRRANDING features.
-     Add what applies to Olivia.
-  4. **Ask the owner to approve section 1 of the award plan,** then implement it: the phone composition before first paint, no white flash, a designed entrance, and a lighter first load. Verify with `arrival-filmstrip.mjs`, and keep the desktop pixel-identical.
-- **The previous session** (the one that wrote this) runs an hourly check-in on PR #4 and fixes red CI or merge conflicts. Once a new session takes over, the owner should tell the previous one to stop, so that two sessions do not push to the same branch.
+- **Network** (checked 27 September, second session).
+  - The preview, `oliviaarcana.com` and `www.brrranding.com` answer from the container.
+  - `www.awwwards.com` resets the TLS handshake after the proxy opens the tunnel. That is the far end, not the environment's policy. WebFetch and web search still reach Awwwards pages.
+  - Playwright's Chromium does not trust the proxy's certificate authority until you add it:
+    `apt-get install -y libnss3-tools && certutil -d sql:$HOME/.pki/nssdb -A -t "C,," -n ccr-agent-proxy -i /root/.ccr/agent-proxy-ca.crt`
+  - The tools import `playwright`; link the global install next to them (`experience/.gitignore` ignores it):
+    `mkdir -p experience/work/tools/node_modules && ln -sfn /opt/node22/lib/node_modules/playwright experience/work/tools/node_modules/playwright`
+- **Done on 27 September (second session).**
+  1. Access checked (above).
+  2. **Live preview check:** `experience/outputs/qa-v5/review.md` ("Live preview check") and `olivia-v5-release.json` (`live_check`).
+     - The preview serves the v5 assets, the immutable cache and the robots header.
+     - The reading service refuses cross-site POSTs (403) and validates same-origin ones (400), with no model call. The preview has the AI key, so a valid reading there is paid.
+     - The phone journeys pass (EN 390×844, UK 375×812, AI declined), using the new `experience/work/tools/phone-journey.mjs`.
+     - A phone homepage is 3.57 MB over the wire against 7.53 MB on production v3.
+     - The filmstrip shows the same arrival defects live as locally.
+     - New finding: at Safari's visible height (about 390×664), the second question step's "Choose my card" is 166–210 px below the fold.
+  3. **Research** added to [the award plan](experience/outputs/award-plan-2026-09-27.md) ("What 2026 winners do in their first seconds"):
+     - The Mobile Excellence award is no longer offered.
+     - Recent winners open with no loader or a brief text one, and give one clear cue.
+     - Winners lose most points on usability and accessibility.
+     - BRRRANDING features 215 studio-made identities, none of them tarot or spiritual, and excludes generated work.
+  - `arrival-filmstrip.mjs` no longer disables the cache, which had made `hero.js` fetch the card back twice. It also blocks Netlify's preview toolbar.
+- **Next: ask the owner to approve section 1 of the award plan,** then implement it:
+  - the phone composition before first paint, fitting Safari's visible height;
+  - no white flash;
+  - a designed entrance;
+  - a lighter first load (target 2.5 MB over the wire);
+  - every step's primary action within the visible height (options A/B in the plan).
+
+  Verify with `arrival-filmstrip.mjs` and `phone-journey.mjs`, and keep the desktop pixel-identical.
+- **Two sessions on one branch.** The session that wrote the award plan runs an hourly check-in on PR #4 and fixes red CI or merge conflicts. The owner should tell it to stop now that another session has taken over, so that two sessions do not push to the same branch.
 - **Owner decisions still open:**
   - From the award plan's sections 3 and 4: the logo and identity, and whether a person designs them so the brand qualifies for BRRRANDING; the astrology pages; hiding membership until an offer exists.
   - Legal review of the legal pages, and confirmation of the company they name.
@@ -43,7 +53,7 @@ For work across earlier Olivia tasks, start with [the project history index](his
 
 - Same branch, `claude/peaceful-clarke-scrh06` (draft PR #4 into `main`; do not merge without the owner's approval). v5 works through `experience/outputs/olivia-gap-audit-2026-09-26.md`. QA: `experience/outputs/qa-v5/review.md`. Record: `experience/outputs/olivia-v5-release.json`.
 - **Production is still v3.** v5 is built and tested on this branch only.
-- **Preview (v5):** https://deploy-preview-4--olivia-arcana.netlify.app/ (UK: `/uk/`) follows the PR head. The build of the tested commit `c19bdeb` is https://6ab820e030b21a0008ba98f9--olivia-arcana.netlify.app/ (deploy `6ab820e030b21a0008ba98f9`). Netlify's checks reported it published (3543 files uploaded, all 5 header rules processed). GitHub Actions CI passed on its first runs for the same commit. The build container cannot open `*.netlify.app`, so the preview itself was not loaded from here.
+- **Preview (v5):** https://deploy-preview-4--olivia-arcana.netlify.app/ (UK: `/uk/`) follows the PR head. The build of the tested commit `c19bdeb` is https://6ab820e030b21a0008ba98f9--olivia-arcana.netlify.app/ (deploy `6ab820e030b21a0008ba98f9`). Netlify's checks reported it published (3543 files uploaded, all 5 header rules processed). GitHub Actions CI passed on its first runs for the same commit. The session that built v5 could not open `*.netlify.app`; a later session loaded and checked the preview on 27 September (`qa-v5/review.md`, "Live preview check").
 - What v5 changes:
   - **Speed.** Parallel ordered scripts, and the WebGPU background only with an adapter. Phone-sized hero textures (`cards-portal-phone/`, `hero.js` unchanged). WOFF2 fonts, UTF-8 bundles and an English-only app bundle. Lazy spread previews, immutable caching, stale builds pruned. Supabase and the night-room chrome are out of the shared website bundle. A phone's first 5 s drop from 8.5 MB to 4.9 MB.
   - **Brand around the product.** Manifest, link previews, 404 and the Ask page. Lapis ground everywhere. The Sky Atlas only on the four night rooms. `lang="uk"`, noindex for gates and placeholders, a pruned sitemap and service worker. `BRAND.md`.
@@ -200,7 +210,8 @@ v5 (this branch):
 - 225/225 product tests, 7/7 mobile-question checks, 51/51 website and service tests. `experience/build.py` and `npm --prefix website run build` succeed. A rebuild from an empty output directory reproduces the 116 snapshot files byte for byte.
 - Pixel comparison with v4: desktop hero at five journey positions within renderer noise; desktop homepage sections 0 pixels changed apart from the added footer row; phone hero frames (including mid-journey "Watch the journey") show no visible change.
 - Phone journeys on the native export with a synthetic delayed reading, EN 390×844, UK 375×812 and 320×740: pending hides every interpretation and keeps the card; AI label; keep → "Saved ✓"; almanac with the Safari note; revisit; crisis note at the question and on single and spread readings. Reduced motion, desktop keyboard-only (UK) and inner pages at 390/1440 were checked. No overflow, no console errors.
-- **Not tested on a physical iPhone, not deployed, and live AI generation not run** (no API key or network route from this container). The animated WebGPU background has never been seen from this container.
+- **Not tested on a physical iPhone, not deployed to production, and live AI generation not run.** The build session had no API key or route to the preview. The live check on 27 September requested no reading: the preview's service is configured, so every valid request is paid. The animated WebGPU background has never been seen from a container.
+- The deployed preview was checked from a container on 27 September: assets, headers, the reading service's origin and validation guards, phone journeys (EN 390×844, UK 375×812), transfer sizes against production, and the arrival filmstrip (`qa-v5/review.md`).
 
 v4:
 - 219/219 product tests, 7/7 mobile-question checks and 49/49 native/service tests; `experience/build.py` and `next build` succeed. A rebuild from an empty output directory reproduces the committed snapshot exactly.
@@ -232,7 +243,7 @@ Engineering next steps, in order:
 
 Longer-standing items:
 
-0. The preview https://deploy-preview-4--olivia-arcana.netlify.app/ (and `/uk/`) follows the branch head and now shows v5 (deploy `6ab820e030b21a0008ba98f9` for `c19bdeb`). From a browser, confirm it serves `experience.b4dc10712a673cd4.css` (v4 was `experience.7aa05041408b09f0.css`). Promote to production only with the owner's approval. On the device, check the keyboard with a real question, toolbar collapse during the deck, the held/reveal gesture, and pending → reading in EN and UK.
+0. The preview https://deploy-preview-4--olivia-arcana.netlify.app/ (and `/uk/`) follows the branch head and shows v5 (deploy `6ab820e030b21a0008ba98f9` for `c19bdeb`). A container confirmed on 27 September that it serves `experience.b4dc10712a673cd4.css`. Netlify's collaboration toolbar appears at the bottom of every preview page, never in production. Promote to production only with the owner's approval. On the device, check the keyboard with a real question, toolbar collapse during the deck, the held/reveal gesture, and pending → reading in EN and UK.
 1. Collect the owner's iPhone feedback on v5 (or on production v3 if the preview is not reviewed). Test the three practice panels, question keyboard, single-card pull, three-card draw, held/reveal state, pending state and reading in EN and UK. Fix concrete clipping/scroll/gesture defects without replacing the design or approved motion.
 2. v4 browser checks covered keyboard (modelled), reduced motion, short-height landscape and 5/8-card layouts; device inspection is still needed. Known follow-ups: the almanac still leads with practice tools before the first saved reading; pages other than the choose step use the desktop composition on landscape phones.
 3. Keep production release records and this GitHub branch synchronized. The v3 release is live; do not send the user back to the older v2 preview, and do not describe v4 or v5 as live until deployed.

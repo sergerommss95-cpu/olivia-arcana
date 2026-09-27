@@ -90,8 +90,55 @@ Byte counts are uncompressed response bodies (Netlify also compresses text). Hea
 - **Keyboard only, desktop 1440 (UK):** question, Enter, deck with focus on a card, Enter to hold, Reveal, reading; focus lands on the reading heading.
 - **Inner pages at 390 and 1440:** about, privacy, pricing, cards, card detail, UK cards, encyclopedia, checkout, a missing page, a sign page. No horizontal overflow, no console errors, and no WebGL canvases or Sky Atlas.
 
+## Live preview check — 27 September 2026
+
+The first time a build container loaded the deploy preview: https://deploy-preview-4--olivia-arcana.netlify.app/, deploy `6ab820e030b21a0008ba98f9` of `c19bdeb` (later pushes changed nothing under `website/`). Production was reachable too. Evidence is in `live-preview-2026-09-27/` and `../arrival-2026-09-27/preview-*-sheet.png`.
+
+- **Assets.**
+  - `/` serves `experience.b4dc10712a673cd4.css` with `app-en.82ad55011b39a79b.js`.
+  - `/uk/` serves the same stylesheet with `app.4c66ef67ffca0f5d.js`, and `<html lang="uk">`.
+  - The served `hero.ea5578949b2e2776.js` is byte-identical to `hero.js` (SHA-256 compared, preview and production).
+  - Production still serves v3 (`experience.b201b3ecb391a586.css` and `app.572dfd3119d74446.js` in both languages).
+- **Headers.**
+  - `/experience/assets/*` sends `Cache-Control: public,max-age=31536000,immutable` (checked on the stylesheet, `app-en` and the hero).
+  - `/experience/` sends `X-Robots-Tag: noindex`. Netlify adds that same header to every page of a deploy preview, so the preview can't separate the rule from the default. `/animation/` shows its own configured value (`noindex, nofollow`) as well as Netlify's, so the header rules are applied.
+  - HSTS, `X-Frame-Options`, `nosniff`, and the referrer and permissions policies are present.
+  - `/manifest.json`, `robots.txt` and `sitemap.xml` return 200.
+- **Reading service.** No model was called: every POST was cross-site or invalid.
+  - `GET /api/reading` and `GET /api/chat` answer `available: true, configured: true, state: unverified`. The deploy-preview context has the AI key, so a valid personal reading on the preview is a real, paid call.
+  - A cross-site `Origin`, or a POST with neither `Origin` nor `Sec-Fetch-Site`, gets 403 `origin_not_allowed` on both routes.
+  - A same-origin POST with an invalid body gets 400 and the validation message ("Choose English or Ukrainian.", "Choose a supported spread.", "Send up to 12 messages.").
+- **Phone journeys.** Run with the new `experience/work/tools/phone-journey.mjs`: iPhone user agent, touch, DPR 2, declining the AI reading. Any request to `/api/*` other than GET would have been aborted and failed the run.
+  - EN 390×844 and UK 375×812 both pass, with no horizontal overflow, no console errors and no AI request attempted.
+  - Checked: the crisis note while typing (cleared on edit), question, one card, choose, hold, reveal (card, orientation, question), no AI label, "Saved ✓" / «Збережено ✓», the almanac with the Safari note listing the same card, and revisit.
+- **Phone weight.** Measured at 390×844 with an iPhone user agent, a new browser profile and no throttling, counting everything the homepage fetches until the network is quiet. Two runs agreed within 0.01 MB.
+
+| | Production v3 | Preview v5 |
+|---|---|---|
+| EN over the wire | 7.53 MB | 3.57 MB (−53%) |
+| EN decoded | 11.78 MB | 4.98 MB (−58%) |
+| UK over the wire | 7.54 MB | 3.65 MB (−52%) |
+| UK decoded | 11.79 MB | 5.26 MB (−55%) |
+| EN scripts, over the wire / decoded | 1.28 / 4.72 MB | 0.45 / 1.46 MB |
+| EN images | 5.72 MB | 2.83 MB |
+| EN fonts | 0.44 MB | 0.19 MB |
+
+  - v3 downloads the WebGPU bundle (2.54 MB, 0.68 MB compressed) even where it can't run. v5 skips it when there is no adapter, as in headless Chromium.
+  - The preview's images: the 22 phone-sized Major Arcana textures that `hero.js` loads at boot (1.82 MB), the card back (0.43 MB), and three full-size cards that homepage sections below the fold load straight away (The Star, The Hermit and The High Priestess, 0.59 MB).
+- **Arrival.** `arrival-filmstrip.mjs` against the preview; contact sheets are `../arrival-2026-09-27/preview-*-sheet.png`.
+  - Phone (4G, 4× CPU): EN FCP 1.27 s, LCP 1.73 s, CLS 0.068. UK FCP 0.78 s, LCP 1.26 s, CLS 0.081.
+  - Desktop: EN FCP 0.35 s; UK FCP 0.84 s; CLS 0 in both.
+  - The live preview shows the same defects as the local export. On phones: a white first frame (EN), then lapis alone, then about a second of the desktop composition (header row, language link, left-aligned wordmark), then the phone composition. Desktop keeps its two-second entrance with no layout shift.
+- **New finding: the second question step at Safari's real height.** Headless phones get the whole screen (390×844). Safari with its toolbars shows about 390×664, 375×635 on a 375-wide iPhone, and 375×553 on an iPhone SE.
+  - The homepage's "Draw your card" fits at those heights, except on the SE (9 px short).
+  - The second question step ("How shall we read?") puts its only primary action ("Choose my card", or "Choose my three cards") 166 px below the visible area at 390×664, 210 px at 375×635, and 33 px at the full 375×812. A visitor sees the reading sizes and has to scroll to find the button. See `live-preview-2026-09-27/prepare-step-safari-height.jpg`.
+  - Not fixed; proposed to the owner.
+- **Tools.**
+  - `arrival-filmstrip.mjs` no longer disables the browser cache. With the cache off, `hero.js` downloaded the card back a second time (0.43 MB), which a first visit never does, so earlier filmstrips slightly overstated a phone's first seconds.
+  - Both tools block Netlify's deploy-preview toolbar, which production never loads. On the preview the toolbar sits at the bottom of the phone screen and pushes the page down about 41 px.
+
 ## Not verified
 
 - A physical iPhone (safe areas, toolbar collapse, the real software keyboard, gesture feel), and the animated WebGPU background on any real device: headless Chromium has no adapter, so every screenshot shows the still palette.
-- Live AI generation, the deployed preview and production: this container cannot reach Netlify or oliviaarcana.com (the environment's network policy refuses both hosts), and no API key is present. Netlify's checks reported the preview published (3543 files uploaded, all 5 header rules processed), but it was not loaded from here. Prompt caching is not enabled (see the handoff).
+- Live AI generation: no personal reading was requested, because the preview's service is configured and every valid request is a paid call. The preview and production were checked on 27 September (above). Prompt caching is not enabled (see the handoff).
 - The legal text (needs a lawyer).

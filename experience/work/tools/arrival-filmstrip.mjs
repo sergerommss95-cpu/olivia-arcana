@@ -50,7 +50,11 @@ for (const [name, profile] of Object.entries(profiles)) for (const [lang, route]
   const page = await context.newPage();
   const cdp = await context.newCDPSession(page);
   await cdp.send('Network.enable');
-  await cdp.send('Network.setCacheDisabled', {cacheDisabled: true});
+  // A new context starts with an empty cache. Don't disable the cache (or add
+  // Playwright routes, which do the same): hero.js requests the card back the
+  // markup has already loaded, and a first visit fetches it only once.
+  // Netlify's deploy-preview toolbar is blocked because production never loads it.
+  await cdp.send('Network.setBlockedURLs', {urls: ['*/.netlify/scripts/*', '*://app.netlify.com/*']});
   await cdp.send('Network.emulateNetworkConditions', {offline: false, ...profile.network});
   if (profile.cpu > 1) await cdp.send('Emulation.setCPUThrottlingRate', {rate: profile.cpu});
   await page.addInitScript(() => {

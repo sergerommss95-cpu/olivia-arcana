@@ -20,7 +20,57 @@
     "built_from": "c19bdebf5336ec7e773dee0f36ff99f5d29ba3ca",
     "pull_request": "https://github.com/sergerommss95-cpu/olivia-arcana/pull/4",
     "mechanism": "Netlify's GitHub integration built this deploy preview for draft PR #4 into main. Its checks reported the deploy published: 3543 new files uploaded (374 generated pages and 3169 assets changed), all 5 header rules processed without errors, no redirect rules (none are configured). The deploy-preview-4 URL follows the PR head; the permalink is the build of the tested commit.",
-    "note": "The build container could not open *.netlify.app (the environment's network policy refuses the host), so the published preview was not loaded from it. Whether personal readings work there depends on the deploy-preview context's environment variables."
+    "note": "On 26 September the build container could not open *.netlify.app. On 27 September it could, and the live check below was run against this preview. The deploy-preview context has the AI key configured, so a valid personal reading there is a real, paid call."
+  },
+  "live_check": {
+    "date": "2026-09-27",
+    "review": "qa-v5/review.md#live-preview-check--27-september-2026",
+    "assets_served": {
+      "/": ["assets/experience.b4dc10712a673cd4.css", "assets/app-en.82ad55011b39a79b.js"],
+      "/uk/": ["assets/experience.b4dc10712a673cd4.css", "assets/app.4c66ef67ffca0f5d.js"],
+      "uk_html_lang": "uk",
+      "hero_js_sha256_matches_source": true
+    },
+    "production_still_v3": true,
+    "headers": {
+      "experience_assets_cache_control": "public,max-age=31536000,immutable",
+      "experience_x_robots_tag": "noindex (Netlify sends the same value on every deploy-preview page; /animation/ shows its configured 'noindex, nofollow' as well, so the rules apply)"
+    },
+    "reading_service": {
+      "get_reading_and_chat": "available: true, configured: true, state: unverified",
+      "cross_site_post": 403,
+      "post_without_origin_or_sec_fetch_site": 403,
+      "same_origin_invalid_body": 400,
+      "model_called": false
+    },
+    "phone_journeys": {
+      "tool": "experience/work/tools/phone-journey.mjs",
+      "en_390x844": "pass",
+      "uk_375x812": "pass",
+      "ai_reading": "declined; any non-GET /api/* request would abort and fail the run; none was attempted",
+      "console_errors": 0,
+      "summary": "qa-v5/live-preview-2026-09-27/journey-summary.json"
+    },
+    "phone_homepage_transfer_until_network_quiet": {
+      "method": "390x844, iPhone user agent, new browser profile, no throttling, Netlify's preview toolbar blocked; two runs agreed within 0.01 MB",
+      "production_v3_en": {"over_the_wire": "7.53 MB", "decoded": "11.78 MB"},
+      "preview_v5_en": {"over_the_wire": "3.57 MB", "decoded": "4.98 MB"},
+      "production_v3_uk": {"over_the_wire": "7.54 MB", "decoded": "11.79 MB"},
+      "preview_v5_uk": {"over_the_wire": "3.65 MB", "decoded": "5.26 MB"},
+      "preview_images_en": "2.83 MB: 22 phone Major Arcana textures loaded by hero.js (1.82 MB), card back (0.43 MB), three full-size cards for homepage sections below the fold (0.59 MB)"
+    },
+    "arrival_filmstrip": {
+      "sheets": "arrival-2026-09-27/preview-*-sheet.png",
+      "phone_en": {"fcp_ms": 1268, "lcp_ms": 1732, "cls": 0.068},
+      "phone_uk": {"fcp_ms": 776, "lcp_ms": 1264, "cls": 0.081},
+      "desktop_en": {"fcp_ms": 352, "lcp_ms": 496, "cls": 0},
+      "desktop_uk": {"fcp_ms": 836, "lcp_ms": 924, "cls": 0},
+      "phone_defects": "white first frame (EN), then the desktop composition for about a second before the phone composition; same as the local export"
+    },
+    "new_findings": [
+      "At Safari's visible height (about 390x664, or 375x635), the second question step's only primary action is 166-210 px below the fold (33 px at the full 375x812). Not fixed; proposed to the owner.",
+      "The homepage's 'Draw your card' is 9 px below the fold at 375x553 (iPhone SE with Safari's toolbars)."
+    ]
   },
   "ci": {
     "workflow": ".github/workflows/ci.yml",
