@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>How Olivia works — stage</title>
+<link rel="stylesheet" href="fonts-inline.css">
+<style>
+:root { --lapis:#0b192a; --ink:#ede4d2; --muted:#b7c4ce; --gold:#c2ab7a; --serif:'Cormorant Garamond',serif; --sans:'DM Sans',sans-serif; }
+* { box-sizing:border-box; margin:0; padding:0; }
+html, body { background:var(--lapis); overflow:hidden; }
+#film { position:relative; width:var(--w); height:var(--h); overflow:hidden; background:var(--lapis); color:var(--ink); font-family:var(--sans); }
+body.landscape { --w:1920px; --h:1080px; }
+body.portrait { --w:1080px; --h:1350px; }
+.glow { position:absolute; inset:0; }
+.landscape .glow { background:radial-gradient(ellipse 820px 760px at 1290px 540px, #1d3a55d9 0%, #13283f66 45%, transparent 72%), radial-gradient(ellipse 900px 700px at 340px 180px, #16304a55 0%, transparent 70%); }
+.portrait .glow { background:radial-gradient(ellipse 760px 820px at 540px 900px, #1d3a55d9 0%, #13283f66 45%, transparent 72%), radial-gradient(ellipse 700px 420px at 540px 180px, #16304a66 0%, transparent 70%); }
+
+.mark { position:absolute; font-family:var(--serif); font-size:40px; line-height:1; letter-spacing:-.01em; }
+.mark span { font-family:var(--sans); font-size:12px; letter-spacing:.34em; margin-left:14px; color:#d9ceb6; vertical-align:middle; }
+.landscape .mark { left:190px; top:92px; }
+.portrait .mark { display:none; }
+
+.captions { position:absolute; }
+.landscape .captions { left:190px; top:0; bottom:0; width:720px; }
+.portrait .captions { left:64px; right:64px; top:96px; height:410px; }
+.caption { position:absolute; left:0; right:0; opacity:0; }
+.landscape .caption { top:50%; transform:translateY(-50%); }
+.portrait .caption { top:50%; transform:translateY(-50%); text-align:center; }
+.caption > * { will-change:transform, opacity; }
+.eyebrow { font-family:var(--sans); font-size:18px; letter-spacing:.3em; color:var(--gold); }
+.portrait .eyebrow { font-size:24px; }
+.caption h1 { font-family:var(--serif); font-weight:400; color:var(--ink); letter-spacing:-.02em; }
+.landscape .caption h1 { font-size:86px; line-height:1.02; margin:22px 0 26px; }
+.portrait .caption h1 { font-size:78px; line-height:1.02; margin:14px 0 18px; }
+.caption .sub { font-family:var(--sans); color:var(--muted); }
+.landscape .caption .sub { font-size:27px; line-height:1.55; max-width:600px; }
+.portrait .caption .sub { font-size:35px; line-height:1.42; max-width:940px; margin:0 auto; }
+
+.rail { position:absolute; display:flex; gap:12px; }
+.landscape .rail { left:190px; top:930px; }
+.portrait .rail { left:50%; top:60px; transform:translateX(-50%); }
+.rail i { position:relative; display:block; width:56px; height:2px; background:#ede4d224; overflow:hidden; border-radius:2px; }
+.rail i b { position:absolute; inset:0; width:0; background:var(--gold); }
+
+.phone { position:absolute; border-radius:60px; background:linear-gradient(150deg,#1b2838,#0a1420 55%,#060d15); box-shadow:0 60px 140px #01060dcc, 0 18px 40px #0107109e, inset 0 0 0 1.5px #c9d7d826, inset 0 0 0 7px #0a131e; }
+.screen { position:absolute; left:14px; top:14px; border-radius:47px; overflow:hidden; background:var(--lapis); }
+.screen img { position:absolute; inset:0; width:100%; height:100%; display:block; }
+.tap { position:absolute; width:46px; height:46px; margin:-23px 0 0 -23px; border-radius:50%; background:#fff8eb3d; box-shadow:inset 0 0 0 1.5px #fff8ebc4, 0 0 22px #fff8eb33; opacity:0; pointer-events:none; }
+.veil { position:absolute; inset:0; background:#071522f0; display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; }
+.veil p { font-family:var(--serif); font-style:italic; font-size:44px; color:var(--ink); }
+.veil i { display:block; width:44px; height:1px; background:var(--gold); margin-top:18px; }
+
+.intro, .outro { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; opacity:0; }
+.intro .word { font-family:var(--serif); font-size:220px; line-height:.9; letter-spacing:-.03em; }
+.portrait .intro .word { font-size:170px; }
+.intro .word span { display:inline-block; }
+.intro .arcana, .outro .arcana { font-family:var(--sans); letter-spacing:.5em; font-size:17px; color:#d9ceb6; margin:26px 0 0 .5em; }
+.portrait .intro .how, .portrait .outro .site { font-size:24px; }
+.intro .how { font-family:var(--sans); font-size:18px; letter-spacing:.32em; color:var(--gold); margin-top:54px; text-transform:uppercase; }
+.outro .word { font-family:var(--serif); font-size:96px; line-height:.9; letter-spacing:-.02em; }
+.outro .promise { margin-top:52px; font-family:var(--serif); color:var(--ink); }
+.landscape .outro .promise { font-size:48px; line-height:1.3; max-width:1300px; }
+.portrait .outro .promise { font-size:56px; line-height:1.25; max-width:940px; }
+.outro .promise span { display:block; }
+.outro .site { margin-top:48px; font-family:var(--sans); font-size:18px; letter-spacing:.3em; color:var(--gold); text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div id="film">
+ <div class="glow"></div>
+ <div class="mark" id="mark">Olivia<span>ARCANA</span></div>
+ <div class="captions" id="captions"></div>
+ <div class="rail" id="rail"></div>
+ <div class="phone" id="phone"><div class="screen" id="screen"><img id="frameA" alt=""><img id="frameB" alt=""><div class="veil" id="veil"><p id="weekText"></p><i></i></div></div></div>
+ <div class="intro" id="intro"><div class="word" id="introWord"></div><div class="arcana">ARCANA</div><p class="how" id="introHow"></p></div>
+ <div class="outro" id="outro"><div class="word">Olivia</div><div class="arcana">ARCANA</div><p class="promise" id="promise"></p><p class="site" id="site"></p></div>
+</div>
+<script>
+const params = new URLSearchParams(location.search);
+const layout = params.get('layout') || 'landscape', footageDir = params.get('footage') || 'footage-en';
+document.body.className = layout;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const settle = k => 1 - Math.pow(1 - clamp(k), 3.2);            // --ease-settle feel
+const glide = k => { k = clamp(k); return k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; };
+const range = (t, a, b) => clamp((t - a) / (b - a));
+let T, phoneBox, scale;
+
+async function setup() {
+ T = await (await fetch(`${footageDir}/timeline.json`)).json();
+ document.documentElement.lang = T.lang;
+ const vp = T.viewport;
+ const screenH = layout === 'landscape' ? 860 : 760;
+ scale = screenH / vp.height;
+ const screenW = vp.width * scale, frameW = screenW + 28, frameH = screenH + 28;
+ const cx = layout === 'landscape' ? 1290 : 540, top = layout === 'landscape' ? 540 - frameH / 2 : 1350 - frameH - 44;
+ phoneBox = {left: cx - frameW / 2, top};
+ Object.assign(document.getElementById('phone').style, {left: `${phoneBox.left}px`, top: `${top}px`, width: `${frameW}px`, height: `${frameH}px`});
+ Object.assign(document.getElementById('screen').style, {width: `${screenW}px`, height: `${screenH}px`});
+ const captions = document.getElementById('captions');
+ T.copy.steps.forEach(([title, sub], i) => {
+  const el = document.createElement('div'); el.className = 'caption';
+  el.innerHTML = `<p class="eyebrow">${String(i + 1).padStart(2, '0')}</p><h1></h1><p class="sub"></p>`;
+  el.querySelector('h1').textContent = title; el.querySelector('.sub').textContent = sub;
+  captions.append(el);
+ });
+ const rail = document.getElementById('rail');
+ for (let i = 0; i < T.copy.steps.length; i++) rail.insertAdjacentHTML('beforeend', '<i><b></b></i>');
+ const screen = document.getElementById('screen');
+ T.taps.forEach(() => screen.insertAdjacentHTML('beforeend', '<div class="tap"></div>'));
+ screen.append(document.getElementById('veil'));
+ document.getElementById('introWord').innerHTML = [...'Olivia'].map(ch => `<span>${ch}</span>`).join('');
+ document.getElementById('introHow').textContent = T.copy.intro;
+ document.getElementById('weekText').textContent = T.copy.week;
+ document.getElementById('promise').innerHTML = T.copy.promise.map(line => `<span></span>`).join('');
+ document.querySelectorAll('#promise span').forEach((span, i) => { span.textContent = T.copy.promise[i]; });
+ document.getElementById('site').textContent = T.copy.site;
+ await document.fonts.ready;
+ return {duration: T.duration, fps: T.fps};
+}
+
+// The frame shown at a source time: the last repaint at or before it.
+function frameAt(clip, source) {
+ let file = clip.frames[0][1];
+ for (const [time, f] of clip.frames) { if (time <= source) file = f; else break; }
+ return `${footageDir}/${file}`;
+}
+function screenAt(t) {
+ const clips = T.clips;
+ if (t < clips[0].out[0]) return {a: frameAt(clips[0], clips[0].src[0])};
+ for (let i = 0; i < clips.length; i++) {
+  const c = clips[i], next = clips[i + 1];
+  if (t >= c.out[0] && t < c.out[1]) return {a: frameAt(c, c.src[0] + (t - c.out[0]) * c.speed)};
+  if (next && t >= c.out[1] && t < next.out[0]) {
+   const last = frameAt(c, c.src[1]), first = frameAt(next, next.src[0]);
+   if (T.week && t >= T.week[0] && t < T.week[1]) return {a: t < (T.week[0] + T.week[1]) / 2 ? last : first};
+   return {a: last, b: first, mix: glide(range(t, c.out[1], next.out[0]))};
+  }
+ }
+ const last = clips.at(-1);
+ return {a: frameAt(last, last.src[1])};
+}
+const loaded = new Map();
+async function show(img, src) {
+ if (img.dataset.src === src) return;
+ img.dataset.src = src; img.src = src;
+ try { await img.decode(); } catch {}
+}
+
+window.render = async function render(t) {
+ const [o0] = T.outro, intro = T.intro;
+ // Intro: the wordmark letters arrive, then give way to the film.
+ const introEl = document.getElementById('intro');
+ const introOut = 1 - range(t, intro - .75, intro - .1);
+ introEl.style.opacity = t < intro ? introOut : 0;
+ introEl.style.transform = `scale(${1 - .02 * (1 - introOut)})`;
+ document.querySelectorAll('#introWord span').forEach((span, i) => {
+  const k = settle(range(t, .08 + i * .07, .78 + i * .07));
+  span.style.opacity = k; span.style.transform = `translateY(${(1 - k) * 26}px)`;
+ });
+ introEl.querySelector('.arcana').style.opacity = settle(range(t, .7, 1.3));
+ const how = introEl.querySelector('.how'); how.style.opacity = settle(range(t, .95, 1.55));
+
+ // The film's frame: mark, rail, phone.
+ const enter = settle(range(t, intro - .4, intro + .6)), leave = 1 - glide(range(t, o0, o0 + .6));
+ const presence = Math.min(enter, leave);
+ document.getElementById('mark').style.opacity = presence;
+ document.getElementById('rail').style.opacity = presence;
+ const phone = document.getElementById('phone');
+ phone.style.opacity = presence;
+ phone.style.transform = `translateY(${(1 - enter) * 60 + (1 - leave) * 24}px)`;
+
+ // Screen: footage, with a short cross-fade between cuts.
+ const s = screenAt(t), A = document.getElementById('frameA'), B = document.getElementById('frameB');
+ await Promise.all([show(A, s.a), s.b ? show(B, s.b) : Promise.resolve()]);
+ B.style.opacity = s.b ? s.mix : 0;
+
+ // Taps: a soft light where the finger lands.
+ document.querySelectorAll('.tap').forEach((dot, i) => {
+  const tap = T.taps[i];
+  const k = t - tap.t;
+  if (k < -.28 || k > .6) { dot.style.opacity = 0; return; }
+  const approach = settle(range(k, -.28, 0)), release = range(k, .06, .6);
+  const size = k < 0 ? .7 + .3 * approach : k < .06 ? 1 - .15 * range(k, 0, .06) : .85 + 1.1 * settle(release);
+  dot.style.left = `${tap.x * scale}px`; dot.style.top = `${tap.y * scale}px`;
+  dot.style.opacity = k < 0 ? .95 * approach : .95 * (1 - release);
+  dot.style.transform = `scale(${size})`;
+ });
+
+ // "A week later".
+ const veil = document.getElementById('veil');
+ veil.style.opacity = T.week ? Math.min(glide(range(t, T.week[0], T.week[0] + .35)), 1 - glide(range(t, T.week[1] - .35, T.week[1]))) : 0;
+
+ // Captions: each step rises in, and gives way when the next one begins.
+ const caps = document.querySelectorAll('.caption');
+ T.captions.forEach((c, i) => {
+  const el = caps[c.step], next = T.captions[i + 1];
+  const exitAt = next ? (T.week && next.step === 5 ? T.week[0] + .1 : next.out[0]) : o0;
+  const out = 1 - glide(range(t, exitAt - .3, exitAt + .05));
+  const parts = el.children;
+  el.style.opacity = t >= c.out[0] - .05 && t < exitAt + .05 ? 1 : 0;
+  [...parts].forEach((part, j) => {
+   const k = settle(range(t, c.out[0] + j * .09, c.out[0] + .75 + j * .09));
+   part.style.opacity = Math.min(k, out);
+   part.style.transform = `translateY(${(1 - k) * 22 - (1 - out) * 10}px)`;
+  });
+ });
+ // Rail: past steps ivory, the current one filling with gold.
+ document.querySelectorAll('#rail i').forEach((seg, i) => {
+  const c = T.captions.find(cap => cap.step === i);
+  const fill = c ? range(t, c.out[0], c.out[1]) : 0;
+  seg.firstChild.style.width = `${fill * 100}%`;
+  seg.firstChild.style.background = t > c.out[1] + .4 ? '#ede4d28c' : 'var(--gold)';
+ });
+
+ // Outro: the promise, then the address; the last half-second returns to lapis.
+ const outro = document.getElementById('outro');
+ const end = 1 - glide(range(t, T.duration - .5, T.duration));
+ outro.style.opacity = Math.min(settle(range(t, o0 + .45, o0 + 1.2)), end);
+ outro.querySelectorAll('.promise span').forEach((span, i) => {
+  const k = settle(range(t, o0 + .8 + i * .22, o0 + 1.6 + i * .22));
+  span.style.opacity = k; span.style.transform = `translateY(${(1 - k) * 18}px)`;
+ });
+ const site = outro.querySelector('.site'); site.style.opacity = settle(range(t, o0 + 1.5, o0 + 2.2));
+};
+window.ready = setup();
+</script>
+</body>
+</html>
