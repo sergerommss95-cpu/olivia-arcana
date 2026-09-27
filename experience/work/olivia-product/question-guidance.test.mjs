@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {guidancePayload,requestQuestionGuidance} from './question-guidance.js';
+import {guidancePayload,requestQuestionGuidance,readGuidanceStream} from './question-guidance.js';
 test('AI receives the stated question and fixed orientation, but never the private journal',()=>{
  const record={id:'private-id',question:'How can I explore changing jobs?',cardId:9,orientation:'reversed',note:'private journal',interpretation:{meaning:'not trusted prompt'},createdAt:'private-date'};
  assert.deepEqual(guidancePayload(record,'uk'),{question:record.question,locale:'uk',spreadId:'single',cards:[{id:9,orientation:'reversed'}]});
@@ -160,4 +160,47 @@ test('a saved personal answer publishes its original timestamp without rewriting
  const {mountQuestionGuidance}=await import('./question-guidance.js?presentation=saved');
  const results=[],states=[];mountQuestionGuidance(root,record,{onResult:result=>results.push(result),onState:state=>states.push(state)});
  assert.deepEqual(results,[record.guidance]);assert.deepEqual(states,['ready']);assert.equal(writes,0);assert.equal(requests,0);
+});
+
+const ndjson=(events,{split=5,hold}={})=>new ReadableStream({async start(out){const bytes=new TextEncoder().encode(events.map(event=>JSON.stringify(event)+'\n').join(''));for(let i=0;i<bytes.length;i+=split){out.enqueue(bytes.slice(i,i+split));if(hold&&i===0)await hold;}out.close();}});
+const streamed=(events,options)=>new Response(ndjson(events,options),{headers:{'Content-Type':'application/x-ndjson; charset=utf-8'}});
+
+test('a streamed reading reports its text as it grows and returns only the confirmed reading',async()=>{
+ const seen=[];
+ const synthesis=await readGuidanceStream(ndjson([{type:'text',text:'Одна '},{type:'text',text:'думка.'},{type:'done',synthesis:'Одна думка.',source:'ai',locale:'uk',cardIds:[1]}],{split:3}),text=>seen.push(text));
+ assert.equal(synthesis,'Одна думка.');
+ assert.deepEqual(seen,['Одна ','Одна думка.']);
+ await assert.rejects(readGuidanceStream(ndjson([{type:'text',text:'Partial'},{type:'error',code:'incomplete_response'}])),/incomplete_response/);
+ await assert.rejects(readGuidanceStream(ndjson([{type:'text',text:'Partial'}])),/stopped before it was complete/);
+ await assert.rejects(readGuidanceStream(ndjson([{type:'done',synthesis:'Generic',source:'prepared'}])),/No interpretation/);
+ await assert.rejects(readGuidanceStream(new Response('{"type":"text"\n').body),/damaged/);
+});
+
+test('the page asks for a stream, shares the text so far with a remount, and caches only the complete reading',async t=>{
+ const prior=globalThis.fetch;let sent=0,release;const hold=new Promise(resolve=>{release=resolve;});
+ globalThis.fetch=async(url,options)=>{sent++;assert.match(options.headers.Accept,/application\/x-ndjson/);return streamed([{type:'text',text:'First paragraph.\n\n'},{type:'text',text:'Second.'},{type:'done',synthesis:'First paragraph.\n\nSecond.',source:'ai',locale:'en',cardIds:[4]}],{split:4,hold});};
+ t.after(()=>{globalThis.fetch=prior;});
+ const payload=guidancePayload({question:'What would steady me this week?',cardId:4});
+ const first=[],second=[];
+ const one=requestQuestionGuidance(payload,{consent:true,onText:text=>first.push(text)});
+ await new Promise(resolve=>setTimeout(resolve,5));
+ const two=requestQuestionGuidance(payload,{consent:true,onText:text=>second.push(text)});
+ release();
+ assert.equal(await one,'First paragraph.\n\nSecond.');
+ assert.equal(await two,await one);
+ assert.equal(sent,1);
+ assert.equal(first.at(-1),'First paragraph.\n\nSecond.');
+ assert.equal(second.at(-1),'First paragraph.\n\nSecond.');
+ assert.equal(await requestQuestionGuidance(payload,{consent:true}),'First paragraph.\n\nSecond.');
+ assert.equal(sent,1);
+});
+
+test('a stream that breaks off is not cached, and a retry asks again',async t=>{
+ const prior=globalThis.fetch;let sent=0;
+ globalThis.fetch=async()=>{sent++;return sent===1?streamed([{type:'text',text:'Half a thought'},{type:'error',code:'connection_interrupted'}]):streamed([{type:'text',text:'Whole.'},{type:'done',synthesis:'Whole.',source:'ai',locale:'en',cardIds:[2]}]);};
+ t.after(()=>{globalThis.fetch=prior;});
+ const payload=guidancePayload({question:'Where do I begin again?',cardId:2});
+ await assert.rejects(requestQuestionGuidance(payload,{consent:true}),/connection_interrupted/);
+ assert.equal(await requestQuestionGuidance(payload,{consent:true}),'Whole.');
+ assert.equal(sent,2);
 });

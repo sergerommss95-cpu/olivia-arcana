@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createHandler, validateReading, readingContext } from './reading-service.ts';
+import { createHandler, validateReading, readingContext, providerEvents, parseProviderEvent } from './reading-service.ts';
 import { providerConfig, DEFAULT_MODEL } from './provider-service.ts';
 
 const valid = { question: 'Should I leave my job for a smaller company?', locale: 'en', spreadId: 'clarity3', cards: [{id:0,orientation:'upright'},{id:8,orientation:'reversed'},{id:29,orientation:'upright'}] };
@@ -323,4 +323,85 @@ test('the AI receives the curated, non-predictive card reflections in both langu
     const meaning = readingContext(validateReading({...valid,locale,spreadId:'single',cards:[{id,orientation}]})).cards[0].symbolicMeaning;
     assert.doesNotMatch(meaning,/\bthe universe\b|Всесвіт|(^|[\s«])(ти|тебе|тобі|твій|твоя|твоє|твої)([\s,.!?»]|$)/i,`${locale} ${id} ${orientation}`);
   }
+});
+
+// Streaming: the page asks for NDJSON and the provider answers with server-sent events.
+const sse = events => events.map(([type, data]) => `event: ${type}\r\ndata: ${JSON.stringify(data)}\r\n\r\n`).join('');
+const chunked = (text, size = 7) => new ReadableStream({ start(out) { const bytes = new TextEncoder().encode(text); for (let i = 0; i < bytes.length; i += size) out.enqueue(bytes.slice(i, i + size)); out.close(); } });
+const providerStream = (parts, stop = 'end_turn', extra = []) => new Response(chunked(sse([
+  ['message_start', { type: 'message_start', message: { id: 'msg_1', content: [] } }],
+  ['content_block_start', { type: 'content_block_start', index: 0, content_block: { type: 'text', text: '' } }],
+  ['ping', { type: 'ping' }],
+  ...parts.map(text => ['content_block_delta', { type: 'content_block_delta', index: 0, delta: { type: 'text_delta', text } }]),
+  ...extra,
+  ['content_block_stop', { type: 'content_block_stop', index: 0 }],
+  ['message_delta', { type: 'message_delta', delta: { stop_reason: stop }, usage: { output_tokens: 9 } }],
+  ['message_stop', { type: 'message_stop' }],
+])), { headers: { 'Content-Type': 'text/event-stream' } });
+const streamRequest = (value = valid) => request(value, { Accept: 'application/x-ndjson' });
+const lines = async response => (await response.text()).trim().split('\n').map(line => JSON.parse(line));
+
+test('provider events are parsed whole, whatever the network chunking', async () => {
+  const events = [];
+  for await (const event of providerEvents(chunked(sse([['content_block_delta', { delta: { type: 'text_delta', text: 'Ще «так» — і ’ось' } }], ['message_delta', { delta: { stop_reason: 'end_turn' } }]]), 3))) events.push(event);
+  assert.deepEqual(events.map(event => event.type), ['content_block_delta', 'message_delta']);
+  assert.equal(events[0].data.delta.text, 'Ще «так» — і ’ось');
+  assert.equal(parseProviderEvent('event: ping'), null);
+  assert.equal(parseProviderEvent('event: x\ndata: {broken').type, 'invalid');
+});
+
+test('a page that asks for a stream gets the text as it is written, then the complete reading', async () => {
+  let sent;
+  const handler = createHandler('reading', { env: env(), fetch: async (url, opts) => { sent = JSON.parse(opts.body); return providerStream(['A response ', 'grounded in ', 'your question.']); } });
+  const response = await handler(streamRequest());
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get('content-type'), /application\/x-ndjson/);
+  assert.equal(sent.stream, true);
+  const events = await lines(response);
+  assert.deepEqual(events.filter(event => event.type === 'text').map(event => event.text), ['A response ', 'grounded in ', 'your question.']);
+  assert.deepEqual(events.at(-1), { type: 'done', synthesis: 'A response grounded in your question.', source: 'ai', locale: 'en', cardIds: [0, 8, 29] });
+  const state = await (await handler(statusRequest())).json();
+  assert.equal(state.state, 'ready');
+});
+
+test('a streamed reading that stops early ends in an error, never "done"', async () => {
+  const logged = [];
+  const handler = createHandler('reading', { env: env(), log: entry => logged.push(entry), fetch: async () => providerStream(['A response that '], 'max_tokens') });
+  const events = await lines(await handler(streamRequest()));
+  assert.equal(events.at(-1).type, 'error');
+  assert.equal(events.at(-1).code, 'incomplete_response');
+  assert.ok(!events.some(event => event.type === 'done'));
+  assert.equal(logged[0].code, 'incomplete_response');
+  assert.doesNotMatch(JSON.stringify(logged), /A response|Should I leave/);
+});
+
+test('a provider error inside the stream ends it honestly', async () => {
+  const handler = createHandler('reading', { env: env(), fetch: async () => providerStream(['Partial '], 'end_turn', [['error', { type: 'error', error: { type: 'overloaded_error', message: 'Overloaded' } }]]) });
+  const events = await lines(await handler(streamRequest()));
+  assert.equal(events.at(-1).type, 'error');
+  assert.equal(events.at(-1).code, 'provider_stream_error');
+});
+
+test('an over-long streamed answer is stopped and never confirmed', async () => {
+  const handler = createHandler('reading', { env: env(), fetch: async () => providerStream(['x'.repeat(9000), 'y'.repeat(9000)]) });
+  const events = await lines(await handler(streamRequest()));
+  assert.equal(events.at(-1).type, 'error');
+  assert.equal(events.filter(event => event.type === 'text').length, 1);
+});
+
+test('without the stream request, and for chat, the single JSON answer is unchanged', async () => {
+  const bodies = [];
+  const reading = createHandler('reading', { env: env(), fetch: async (url, opts) => { bodies.push(JSON.parse(opts.body)); return success(); } });
+  assert.equal((await (await reading(request())).json()).synthesis, 'A response grounded in your question.');
+  const chat = createHandler('chat', { env: env(), fetch: async (url, opts) => { bodies.push(JSON.parse(opts.body)); return success(); } });
+  const answer = await chat(request({ locale: 'en', messages: [{ role: 'user', content: 'What does the Star ask of me?' }] }, { Accept: 'application/x-ndjson' }));
+  assert.match(answer.headers.get('content-type'), /application\/json/);
+  assert.ok(bodies.every(body => body.stream === undefined));
+});
+
+test('a provider refusal before streaming keeps the JSON error', async () => {
+  const handler = createHandler('reading', { env: env(), fetch: async () => Response.json({ type: 'error', error: { type: 'overloaded_error' } }, { status: 529 }) });
+  const response = await handler(streamRequest());
+  assert.equal(response.status, 502);
+  assert.equal((await response.json()).code, 'provider_unavailable');
 });

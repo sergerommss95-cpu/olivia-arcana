@@ -1596,6 +1596,10 @@ html .reading-link[data-olivia-edge]{padding-inline:1rem}
  #spreads-view[data-guidance-state="pending"] .reading-loader{min-height:17rem}
 }
 @media(prefers-reduced-motion:reduce){.question-guidance[data-state="ready"] .guidance-result{animation:none}}
+/* A streamed reading: each paragraph arrives once as it is written; the finished reading does not arrive again. */
+.question-guidance[data-streamed][data-state="pending"] :is(.guidance-lead,.guidance-chapter>h4,.guidance-chapter>p){animation:reading-answer-arrive .7s var(--ease-settle) both}
+.question-guidance[data-streamed][data-state="ready"] .guidance-result{animation:none}
+@media(prefers-reduced-motion:reduce){.question-guidance[data-streamed] :is(.guidance-lead,.guidance-chapter>h4,.guidance-chapter>p){animation:none}}
 
 /* The handheld edition: one task in reach, the same Olivia beneath it. */
 .mobile-masthead,.mobile-dock,.mobile-practice-pager{display:none}

@@ -153,6 +153,48 @@ async function readBody(request: Request) {
   for (const chunk of chunks) { joined.set(chunk, offset); offset += chunk.length; }
   try { return JSON.parse(new TextDecoder().decode(joined)); } catch { throw new RequestError('Invalid JSON.'); }
 }
+
+export type ProviderEvent = { type: string; data: any };
+/** One server-sent event from the provider; a malformed payload becomes type "invalid". */
+export function parseProviderEvent(raw: string): ProviderEvent | null {
+  let type = 'message';
+  const data: string[] = [];
+  for (const line of raw.split(/\r?\n/)) {
+    if (line.startsWith('event:')) type = line.slice(6).trim();
+    else if (line.startsWith('data:')) data.push(line.slice(5).replace(/^ /, ''));
+  }
+  if (!data.length) return null;
+  try { return { type, data: JSON.parse(data.join('\n')) }; } catch { return { type: 'invalid', data: null }; }
+}
+/** The provider's event stream, one parsed event at a time, whatever the network chunking. */
+export async function* providerEvents(body: ReadableStream<Uint8Array>): AsyncGenerator<ProviderEvent> {
+  const reader = body.getReader();
+  const decoder = new TextDecoder();
+  const separator = /\r?\n\r?\n/;
+  let buffer = '';
+  try {
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      for (let match = separator.exec(buffer); match; match = separator.exec(buffer)) {
+        const event = parseProviderEvent(buffer.slice(0, match.index));
+        buffer = buffer.slice(match.index + match[0].length);
+        if (event) yield event;
+      }
+    }
+    const event = parseProviderEvent(buffer + decoder.decode());
+    if (event) yield event;
+  } finally { reader.releaseLock(); }
+}
+const STREAM_HEADERS = { 'Content-Type': 'application/x-ndjson; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' };
+const STREAM_ERRORS: Record<string, string> = {
+  incomplete_response: 'The answer was interrupted. Please try again.',
+  empty_response: 'No complete interpretation was returned. Please try again.',
+  provider_timeout: 'The connection was interrupted. Your question is still here; please try again.',
+  connection_interrupted: 'The connection was interrupted. Your question is still here; please try again.',
+  provider_stream_error: 'The interpretation service could not answer. Your question has not been replaced with a generic reading. Please try again later.',
+};
 export function createHandler(mode: 'reading' | 'chat', dependencies: Dependencies) {
   // A bounded, per-instance throttle, not an account quota. Production should also use Netlify's edge rate controls.
   const limits = new Map<string, { count: number; reset: number }>();
@@ -187,6 +229,8 @@ export function createHandler(mode: 'reading' | 'chat', dependencies: Dependenci
       const reading = mode === 'reading' ? validateReading(raw) : null;
       const chat = mode === 'chat' ? validateChat(raw) : null;
       const locale = reading?.locale || chat!.locale;
+      // The page opts in with Accept: application/x-ndjson; older pages keep the single JSON answer.
+      const streaming = Boolean(reading) && (request.headers.get('accept') || '').includes('application/x-ndjson');
       const now = clock();
       const ip = request.headers.get('x-nf-client-connection-ip') || 'unknown';
       if (limits.size > 5000) for (const [key, entry] of limits) { if (entry.reset <= now) limits.delete(key); }
@@ -200,8 +244,9 @@ export function createHandler(mode: 'reading' | 'chat', dependencies: Dependenci
       const abort = () => controller.abort();
       if (request.signal.aborted) abort();
       request.signal.addEventListener('abort', abort, { once: true });
-      let timedOut = false;
+      let timedOut = false, handedOff = false;
       const timeout = setTimeout(() => { timedOut = true; abort(); }, dependencies.timeoutMs ?? 45000);
+      const release = () => { clearTimeout(timeout); request.signal.removeEventListener('abort', abort); };
       const fail = (code: string, reason = code, status: number | null = null) => {
         observe(false); diagnose({ event: 'olivia_ai_provider_failure', mode, route: provider.route, status, code, reason });
       };
@@ -214,6 +259,7 @@ export function createHandler(mode: 'reading' | 'chat', dependencies: Dependenci
             // Sonnet 5 enables thinking by default; keep this short-answer budget
             // for the response. Do not assume other explicit models accept it.
             ...(provider.model === 'claude-sonnet-5' ? { thinking: { type: 'disabled' } } : {}),
+            ...(streaming ? { stream: true } : {}),
             system, messages: reading ? [{ role: 'user', content: JSON.stringify(readingContext(reading)) }] : chat!.messages,
           }),
         });
@@ -221,6 +267,43 @@ export function createHandler(mode: 'reading' | 'chat', dependencies: Dependenci
           observe(false);
           diagnose({ event: 'olivia_ai_provider_failure', mode, route: provider.route, ...await providerFailure(response) });
           return json({ error: 'The interpretation service could not answer. Your question has not been replaced with a generic reading. Please try again later.', code: 'provider_unavailable' }, 502);
+        }
+        if (streaming && response.body) {
+          // Forward the text as it is written. The same checks as the single answer
+          // run at the end: only a complete reply (end_turn) within 14,000 characters
+          // is confirmed with "done"; anything else ends with "error" and the page
+          // discards what it showed.
+          const body = response.body, encoder = new TextEncoder(), cardIds = reading!.cards.map(card => card.id);
+          const line = (value: unknown) => encoder.encode(JSON.stringify(value) + '\n');
+          handedOff = true;
+          let gone = false;
+          return new Response(new ReadableStream<Uint8Array>({
+            async start(out) {
+              // The page may leave at any moment; a closed stream must never throw here.
+              const send = (value: unknown) => { if (!gone) try { out.enqueue(line(value)); } catch { gone = true; } };
+              let written = '', stop: string | null = null, failure: string | null = null;
+              try {
+                for await (const event of providerEvents(body)) {
+                  if (event.type === 'content_block_delta' && event.data?.delta?.type === 'text_delta' && typeof event.data.delta.text === 'string') {
+                    written += event.data.delta.text;
+                    if (written.length > 14000) { failure = 'empty_response'; break; }
+                    send({ type: 'text', text: event.data.delta.text });
+                    if (gone) break;
+                  } else if (event.type === 'message_delta' && typeof event.data?.delta?.stop_reason === 'string') stop = event.data.delta.stop_reason;
+                  else if (event.type === 'error' || event.type === 'invalid') { failure = 'provider_stream_error'; break; }
+                }
+              } catch { failure = timedOut ? 'provider_timeout' : 'connection_interrupted'; }
+              if (gone || (request.signal.aborted && !timedOut)) { abort(); release(); try { out.close(); } catch { /* The page has gone. */ } return; }
+              const synthesis = written.trim();
+              if (!failure && stop !== 'end_turn') failure = 'incomplete_response';
+              if (!failure && !synthesis) failure = 'empty_response';
+              if (failure) { abort(); fail(failure, failure, response.status); send({ type: 'error', code: failure, error: STREAM_ERRORS[failure] }); }
+              else { observe(true); send({ type: 'done', synthesis, source: 'ai', locale, cardIds }); }
+              release();
+              try { out.close(); } catch { /* The page has gone. */ }
+            },
+            cancel() { gone = true; abort(); release(); },
+          }), { status: 200, headers: STREAM_HEADERS });
         }
         const result = await boundedJSON(response);
         if (!result || result.stop_reason !== 'end_turn') { fail('incomplete_response', 'incomplete_response', response.status); return json({ error: 'The answer was interrupted. Please try again.', code: 'incomplete_response' }, 502); }
@@ -232,7 +315,7 @@ export function createHandler(mode: 'reading' | 'chat', dependencies: Dependenci
         if (request.signal.aborted) return json({ error: 'The request was cancelled. Your cards and question are unchanged.', code: 'request_cancelled' }, 499);
         fail(timedOut ? 'provider_timeout' : 'connection_interrupted');
         return json({ error: 'The connection was interrupted. Your question is still here; please try again.', code: timedOut ? 'provider_timeout' : 'connection_interrupted' }, 502);
-      } finally { clearTimeout(timeout); request.signal.removeEventListener('abort', abort); }
+      } finally { if (!handedOff) release(); }
     } catch (error) {
       if (error instanceof RequestError) return json({ error: error.message, code: error.code }, error.status);
       // Never log submitted questions, model responses, or provider credentials.
