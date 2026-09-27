@@ -2672,6 +2672,100 @@ textarea,select,input:not([type=checkbox]):not([type=radio]):not([type=range]):n
 #question-form .support-note,#spread-question-form .support-note{margin:1rem 0 .4rem}
 @media(max-width:700px){.support-note{font-size:.9rem;padding:1rem 1rem 1.05rem}.support-note .support-note-title{font-size:1.2rem}}
 
+/* Check-ins (checkins.js): when to look at a kept reading again, "How did it
+   turn out?" when that day comes, and a quiet sign that one is waiting.
+   Filled lapis surfaces, ivory type and a gold mark; no outlines or frames. */
+
+.check-in-next,.check-in-return {
+ position:relative;box-sizing:border-box;border-radius:16px;
+ background:linear-gradient(150deg,#1c3549f0,#11283cf5);
+ box-shadow:inset 0 1px 0 #c9d7d826,0 10px 28px #020a1733;color:#f1e8d5;
+}
+.check-in-next[hidden],.check-in-return[hidden],.check-in-date[hidden] {display:none}
+.check-in-next {margin-top:1.4rem;padding:20px 20px 18px;max-width:34rem}
+.check-in-next h3 {margin:.5rem 0 1rem;font:400 clamp(1.55rem,4.4vw,1.9rem)/1.1 'Cormorant Garamond',serif;letter-spacing:-.01em}
+.check-in-next h3:focus,.check-in-return h2:focus {outline:none}
+
+.check-in-choices {display:flex;flex-wrap:wrap;gap:8px}
+.check-in-choice {
+ display:inline-flex;align-items:center;gap:9px;min-height:44px;margin:0;padding:0 16px;
+ border:0;border-radius:22px;background:#e9d7b41f;box-shadow:inset 0 1px 0 #f3e6c81c;
+ color:#f1e8d5;font:500 13px/1.3 'DM Sans','Onest',sans-serif;cursor:pointer;
+ -webkit-tap-highlight-color:transparent;
+ transition:background var(--dur-control,.22s) var(--ease-control,ease),translate var(--dur-press,.16s) var(--ease-control,ease);
+}
+.check-in-choice:hover,.check-in-choice[aria-expanded=true] {background:#e9d7b433}
+.check-in-choice:active {translate:0 1px}
+.check-in-choice .lunar-disc {width:15px;height:15px;flex:none}
+:is(.check-in-choice,.check-in-link,.check-in-waiting):focus-visible {outline:2px solid #ead6a8;outline-offset:3px}
+
+.check-in-date {display:grid;gap:8px;margin-top:14px;font-size:12px;color:#c9d2d4}
+.check-in-date input {
+ box-sizing:border-box;width:100%;max-width:15rem;min-height:44px;padding:0 12px;border:0;border-radius:12px;
+ background:#04101b52;box-shadow:inset 0 0 0 1px #ddcda53a;color:#f1e8d5;font:inherit;font-size:15px;color-scheme:dark;
+}
+
+.check-in-note {margin:14px 0 0;max-width:32rem;font-size:12px;line-height:1.65;color:#a9b8c2}
+.check-in-actions {display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;margin-top:14px}
+.check-in-link {
+ display:inline-flex;align-items:center;min-height:44px;margin:0;padding:0;border:0;background:none;
+ color:#e3cfa3;font:500 13px/1.4 'DM Sans','Onest',sans-serif;text-decoration:none;cursor:pointer;
+}
+.check-in-link:hover {color:#f6e6c2}
+.check-in-next .checkin-reminder {margin-top:10px;border-top-color:#81909b3a}
+
+.check-in-return {margin:1.6rem 0 2.2rem;padding:24px 22px 22px}
+.check-in-return[data-kind=spread] {max-width:46rem}
+.check-in-return h2 {margin:.55rem 0 1rem;font:400 clamp(2rem,5vw,2.6rem)/1.02 'Cormorant Garamond',serif;letter-spacing:-.02em}
+.check-in-context {margin:0;font-size:13px;line-height:1.6;color:#b9c5cc}
+.check-in-question {margin:.3rem 0 0;font:italic 1.3rem/1.4 'Cormorant Garamond',serif;color:#e6dfcf;overflow-wrap:anywhere}
+.check-in-step {margin:.9rem 0 0;font-size:13px;line-height:1.65;color:#d4d6d3;overflow-wrap:anywhere}
+.check-in-step span {color:#c9b48c}
+.check-in-form {margin-top:18px}
+.check-in-form label {display:block;margin:0 0 10px;font-size:13px;line-height:1.5;color:#e0d8c6}
+.check-in-form textarea {min-height:7.5rem}
+.check-in-return .solid-action {text-decoration:none}
+.check-in-status:not(:empty):not(.sr-only) {margin:10px 0 0;font-size:12px;line-height:1.6;color:#e6d3a9}
+
+/* The question step: one row that opens the reading whose day has come. */
+.check-in-waiting {
+ display:flex;align-items:center;justify-content:space-between;gap:14px;
+ box-sizing:border-box;width:100%;max-width:26rem;margin:0 0 1.3rem;padding:12px 16px 12px 18px;
+ border:0;border-radius:14px;background:linear-gradient(145deg,#223c50d4,#172d41e6);
+ box-shadow:inset 0 1px 0 #c9d7d82b,0 4px 12px #020a1729;color:#f1e8d5;text-align:left;cursor:pointer;
+ -webkit-tap-highlight-color:transparent;transition:translate var(--dur-press,.16s) var(--ease-control,ease);
+}
+.check-in-waiting:active {translate:0 1px}
+.check-in-waiting-copy {display:grid;gap:3px;min-width:0}
+.check-in-waiting strong {font:400 1.25rem/1.15 'Cormorant Garamond',serif;overflow-wrap:anywhere}
+.check-in-waiting small {font-size:11px;line-height:1.4;color:#a9b8c2}
+.check-in-waiting i {font-style:normal;color:#e3cfa3}
+#question-view[data-mobile-question=prepare] .check-in-waiting {display:none}
+
+/* A gold mark beside Today, and on the phone menu button. */
+.check-in-dot {display:inline-block;width:7px;height:7px;margin-left:7px;border-radius:50%;background:#dcc28a;box-shadow:0 0 0 3px #dcc28a26;vertical-align:.18em}
+.mobile-dock a[data-check-ins] {position:relative}
+.mobile-dock a[data-check-ins] .check-in-dot {position:absolute;top:8px;left:calc(50% + 9px);margin:0}
+.mobile-menu-toggle:has(.check-in-dot) {position:relative}
+.mobile-menu-toggle>.check-in-dot {display:block;position:absolute;top:5px;right:5px;margin:0}
+
+@media (max-width:700px) {
+ .mobile-experience :is(#save-section,#spread-save-section)>.check-in-next {margin-top:16px;max-width:none}
+ .mobile-experience .check-in-return {margin:22px 0 26px;padding:22px 18px 20px}
+ .mobile-experience .check-in-return .check-in-actions {flex-direction:column;align-items:stretch;gap:6px}
+ .mobile-experience .check-in-return .solid-action {justify-content:space-between;width:100%}
+ .mobile-experience .check-in-waiting {max-width:none;min-height:56px;margin:14px 0 0;padding:8px 14px 8px 16px}
+ .mobile-experience .check-in-waiting-copy {gap:2px}
+ .mobile-experience .check-in-waiting small {display:none}
+ .mobile-experience .check-in-waiting strong {font-size:1.15rem}
+ body.mobile-experience[data-mobile-keyboard=true] .check-in-waiting {display:none}
+}
+
+@media (prefers-reduced-motion:no-preference) {
+ .check-in-next:not([hidden]),.check-in-return:not([hidden]) {animation:check-in-arrive var(--dur-arrive,.34s) var(--ease-settle,ease) both}
+}
+@keyframes check-in-arrive {from {opacity:0;translate:0 6px}}
+
 /* Mobile coherence — one action vocabulary for the whole phone journey.
    Filled surfaces carry every invitation; artwork keeps its own space; each state,
    from choosing a card to keeping the reading, continues from the one before.
@@ -3003,6 +3097,8 @@ textarea,select,input:not([type=checkbox]):not([type=radio]):not([type=range]):n
 /* The shortest (an iPhone SE in Safari, about 553 px): the opening fits the
    visible screen, with Draw your card and Watch the journey in reach. */
 @media (max-width:700px) and (max-height:600px) {
+ /* The first question step's Continue ends above the fold on an iPhone SE in Safari. */
+ .mobile-experience #question-view[data-mobile-question=compose] #question-form textarea {min-height:128px}
  body.mobile-experience[data-view=home]:not(.cinema) #hero-region {min-height:480px}
  body.mobile-experience[data-view=home]:not(.cinema) .identity {top:50px}
  body.mobile-experience[data-view=home]:not(.cinema) .wordmark-name {font-size:56px}

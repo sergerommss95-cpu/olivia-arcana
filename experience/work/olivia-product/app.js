@@ -18,7 +18,8 @@ import {getLocale,t,initLocale,localizeCardNotes} from './locale.js';
 import {mountQuestionGuidance,mountGuidanceChoice,unmountQuestionGuidance} from './question-guidance.js';
 import {initReadingEntry,simplifyPreferences,simplifySaving,readingSteps} from './journey-entry.js';
 import {initPractice} from './practice-ui.js';
-import {loadDaily,saveDaily,loadDraft,saveDraft,clearDraft} from './practice-core.js';
+import {loadDaily,saveDaily,loadDraft,saveDraft,clearDraft,loadMetadata,localDate} from './practice-core.js';
+import {dueCheckIns} from './checkins.js';
 import {TAROT_CARDS,cardCaption} from './deck-catalog.js';
 import {initSpreads} from './spread-ui.js';
 import {initSingleCardFlow} from './single-card-flow.js';
@@ -43,7 +44,8 @@ const readableDate=value=>new Intl.DateTimeFormat(getLocale()==='uk'?'uk-UA':und
 const errorText=error=>error.code==='STORAGE_CORRUPT'?'The saved almanac could not be read. Your existing data has been left untouched. You can still download this reading.':error.code==='STORAGE_LIMIT'?'This browser’s almanac is full. Download this reading to keep it.':'This browser could not save the reading. Download a copy to keep it.';
 showArt($('#sample-art'),assets.cards[9]);
 if(window.OLIVIA_NATIVE||new URLSearchParams(location.search).get('site')==='1')document.querySelectorAll('[data-site]').forEach(a=>{a.href=getLocale()==='uk'&&a.dataset.site==='/cards/'?'/uk/cards/':a.dataset.site;a.target='_top';});
-function refreshReturn(){try{const last=getLastRecord(loadRecords(storage()));$('#resume-link').hidden=!last;if(last){$('#resume-link').textContent=getLocale()==='uk'?`Повернутися до карти «${t(last.cardName)}» ↗`:`Return to ${last.cardName.replace(/^The /,'the ')} ↗`;$('#resume-link').dataset.record=last.id;}}catch{}}
+function returnTarget(){const records=loadRecords(storage());let due=null;try{due=dueCheckIns({metadata:loadMetadata(storage()),singles:records,today:localDate()})[0];}catch{}if(due)return {record:due.record,due:true};const last=getLastRecord(records);return last?{record:last,due:false}:null;}
+function refreshReturn(){try{const target=returnTarget(),uk=getLocale()==='uk';$('#resume-link').hidden=!target;if(target){const {record,due}=target;$('#resume-link').textContent=due?(uk?`На вас чекає повернення · «${t(record.cardName)}» ↗`:`A check-in is waiting · ${record.cardName.replace(/^The /,'the ')} ↗`):uk?`Повернутися до карти «${t(record.cardName)}» ↗`:`Return to ${record.cardName.replace(/^The /,'the ')} ↗`;$('#resume-link').dataset.record=record.id;$('#resume-link').dataset.checkIn=String(due);}}catch{}}
 function preserveNote(){if(!sample&&currentRecord&&view==='reading'){currentRecord={...currentRecord,note:$('#reflection').value};drafts.set(currentRecord.id,currentRecord);try{saveDraft(storage(),currentRecord);}catch{}}}
 function receiveSingleGuidance(id,guidance){
  if(currentRecord?.id!==id)return;
@@ -213,7 +215,8 @@ function renderJournal(){const list=$('#journal-list');list.replaceChildren();te
  records.forEach(record=>{const button=document.createElement('button');button.className='journal-row';button.type='button';const img=document.createElement('img');img.src=assets.cards[record.cardId];img.alt='';img.loading='lazy';const info=document.createElement('div'),date=document.createElement('time'),h=document.createElement('h2'),p=document.createElement('p'),arrow=document.createElement('span');date.dateTime=record.createdAt;date.textContent=readableDate(record.createdAt)+(!savedIds.has(record.id)?' · Unsaved draft':dirtyIds.has(record.id)?' · Unsaved changes':'');h.textContent=record.cardName;p.textContent=record.question||record.note||'An open reading';arrow.textContent='↗';info.append(date,h,p);button.append(img,info,arrow);button.addEventListener('click',()=>{preserveNote();currentRecord=drafts.get(record.id)||record;goto('reading');});const row=document.createElement('div');row.className='journal-entry';row.append(button);const remove=document.createElement('button');remove.type='button';remove.className='quiet-link remove-entry';remove.textContent='Remove';remove.setAttribute('aria-label','Remove '+record.cardName+' reading');remove.addEventListener('click',()=>{try{const practiceData=practice.remove('single',record.id,record);dispatchEvent(new Event('olivia:journal-change'));lastRemoved={record,practiceData};if(currentRecord?.id===record.id)currentRecord=null;if(heldRecord?.id===record.id)heldRecord=null;drafts.delete(record.id);dirtyIds.delete(record.id);saveDirty=dirtyIds.size>0;renderJournal();text('#journal-status','Reading removed.');const undo=document.createElement('button');undo.className='quiet-link';undo.textContent='Undo';undo.addEventListener('click',()=>{try{practice.restore(lastRemoved.practiceData);dispatchEvent(new Event('olivia:journal-change'));lastRemoved=null;renderJournal();refreshReturn();}catch(error){text('#journal-status',error.message||errorText(error));}});$('#journal-status').append(' ',undo);refreshReturn();}catch(error){text('#journal-status',error.message||errorText(error));}});row.append(remove);list.append(row);});
  spreads.renderJournal();
 }
-$('#resume-link').addEventListener('click',e=>{try{const last=getLastRecord(loadRecords(storage()));if(last){e.preventDefault();preserveNote();currentRecord=drafts.get(last.id)||last;goto('reading');}}catch{}});
+$('#resume-link').addEventListener('click',e=>{try{const target=returnTarget();if(target){e.preventDefault();preserveNote();currentRecord=drafts.get(target.record.id)||target.record;goto('reading');}}catch{}});
+addEventListener('olivia:check-in-change',refreshReturn);
 $('#journey').addEventListener('click',event=>{
  if(!document.body.classList.contains('cinema')){document.body.classList.add('cinema');$('#leave-cinema').hidden=false;motion()?.resize();}
 },true);
