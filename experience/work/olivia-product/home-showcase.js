@@ -1,3 +1,4 @@
+import {showArt} from './held-art.js';
 /** Lightweight, explicitly labelled product examples. No draws or records are created here. */
 const UK = {
   practiceKicker:'Особиста практика у трьох моментах', practiceTitle:'Залиште місце<br><em>для іншого погляду.</em>', begin:'Почніть зі свого запитання',
@@ -88,7 +89,7 @@ export function initHomeShowcase({assets,locale='en',reduced=()=>false}={}) {
     root.querySelectorAll('[data-home-aria]').forEach(node=>{if(UK[node.dataset.homeAria])node.setAttribute('aria-label',UK[node.dataset.homeAria].replace(/<[^>]+>/g,''));});
     root.querySelectorAll('[data-home-alt]').forEach(node=>{if(UK[node.dataset.homeAlt])node.alt=UK[node.dataset.homeAlt];});
   }
-  root.querySelectorAll('[data-home-art]').forEach(img=>{const value=img.dataset.homeArt,src=value==='back'?assets?.back:assets?.cards?.[Number(value)];if(src)img.src=src;});
+  root.querySelectorAll('[data-home-art]').forEach(img=>{const value=img.dataset.homeArt;showArt(img,value==='back'?assets?.back:assets?.cards?.[Number(value)]);});
   const motionReduced=()=>typeof reduced==='function'?reduced():Boolean(reduced);
   const fades=node=>{if(!motionReduced()&&node.animate)node.animate([{opacity:.35,transform:'translateY(5px)'},{opacity:1,transform:'translateY(0)'}],{duration:360,easing:'cubic-bezier(.2,.7,.2,1)'});};
   function wireTabKeys(buttons,onSelect){
@@ -147,7 +148,7 @@ export function initHomeShowcase({assets,locale='en',reduced=()=>false}={}) {
     const index=Number(button.dataset.homeMemory),entry=MEMORIES[index];
     memoryButtons.forEach(tab=>{const selected=tab===button;tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;});
     $('#home-memory-page').setAttribute('aria-labelledby',button.id);
-    const img=$('#home-memory-image'),src=assets?.cards?.[entry.card];if(src)img.src=src;img.alt=pick(entry.cardName);
+    const img=$('#home-memory-image');showArt(img,assets?.cards?.[entry.card]);img.alt=pick(entry.cardName);
     for(const [id,key] of [['cardname','cardName'],['label','label'],['topic','title'],['quote','quote'],['next-label','nextLabel'],['next-copy','next']])$('#home-memory-'+id).textContent=pick(entry[key]);
     fades($('.home-memory-writing'));
   }

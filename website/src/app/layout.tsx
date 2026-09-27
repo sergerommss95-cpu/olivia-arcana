@@ -148,7 +148,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen">
+      {/* The homepage's first-frame script marks phones on <body> before hydration. */}
+      <body className="min-h-screen" suppressHydrationWarning>
         {/* Skip to main content — accessibility */}
         <a href="#main-content" className="skip-link">
           Skip to main content

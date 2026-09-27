@@ -6,7 +6,9 @@
 //   node experience/work/tools/arrival-filmstrip.mjs https://deploy-preview-4--olivia-arcana.netlify.app /tmp/arrival
 // A directory is served locally the way Netlify serves the static export.
 // Frames are JPEGs named <profile>-<en|uk>-<ms>.jpg, plus one contact sheet
-// per profile and language (<profile>-<en|uk>-sheet.png).
+// per profile and language (<profile>-<en|uk>-sheet.png). Each visit starts from
+// a plain grey page: browsers keep showing the previous page until the new one
+// paints, so grey frames mean "not painted yet", never a white flash.
 import {chromium} from 'playwright';
 import fs from 'node:fs';
 import http from 'node:http';
@@ -63,6 +65,7 @@ for (const [name, profile] of Object.entries(profiles)) for (const [lang, route]
     new PerformanceObserver(list => { for (const e of list.getEntries()) perf.lcp = e.startTime; }).observe({type: 'largest-contentful-paint', buffered: true});
     new PerformanceObserver(list => { for (const e of list.getEntries()) if (!e.hadRecentInput) perf.cls += e.value; }).observe({type: 'layout-shift', buffered: true});
   });
+  await page.setContent('<body style="margin:0;background:#777"></body>');
   const tag = `${name}-${lang}`, start = Date.now(), frames = [];
   page.goto(base + route, {waitUntil: 'commit'}).catch(() => {});
   for (const mark of marks) {

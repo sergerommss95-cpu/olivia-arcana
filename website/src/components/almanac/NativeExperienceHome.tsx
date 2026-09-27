@@ -10,7 +10,9 @@ export default function NativeExperienceHome({locale = "en"}: {locale?: "en" | "
   const manifest = JSON.parse(fs.readFileSync(path.join(directory,"manifest.json"), "utf8"));
   const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1];
   if (!body || !manifest.native) throw new Error("Build the Olivia experience before exporting the website.");
-  const markup = body.replace(/<script\b[\s\S]*?<\/script>/gi, "")
+  // Keep only the inline first-frame script: it gives phones their composition
+  // before the first paint. The runtime below loads every other script.
+  const markup = body.replace(/<script\b(?![^>]*\bdata-first-frame\b)[\s\S]*?<\/script>/gi, "")
     .replace(/(["'])assets\//g, "$1/experience/assets/");
   // Controls work once the app runs; the WebGPU atmosphere is optional and loads last.
   // English pages load the build without the Ukrainian dictionary and card notes.

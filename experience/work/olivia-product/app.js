@@ -22,6 +22,7 @@ import {loadDaily,saveDaily,loadDraft,saveDraft,clearDraft} from './practice-cor
 import {TAROT_CARDS,cardCaption} from './deck-catalog.js';
 import {initSpreads} from './spread-ui.js';
 import {initSingleCardFlow} from './single-card-flow.js';
+import {showArt} from './held-art.js';
 import {createSession,chooseCard,createRecord,loadRecords,saveRecord,removeRecord,exportRecords,getLastRecord} from './core.js';
 import {CARD_NOTES,cardNotesForOrientation,INTENTION_NOTES,SAMPLE} from './content.js';
 const $=s=>document.querySelector(s), assets=window.OLIVIA_ASSETS;
@@ -40,7 +41,7 @@ const storage=()=>window.localStorage;
 const text=(selector,value)=>$(selector).textContent=selector==='#reading-question'?value:t(value);
 const readableDate=value=>new Intl.DateTimeFormat(getLocale()==='uk'?'uk-UA':undefined,{day:'numeric',month:'long',year:'numeric'}).format(new Date(value));
 const errorText=error=>error.code==='STORAGE_CORRUPT'?'The saved almanac could not be read. Your existing data has been left untouched. You can still download this reading.':error.code==='STORAGE_LIMIT'?'This browser’s almanac is full. Download this reading to keep it.':'This browser could not save the reading. Download a copy to keep it.';
-$('#sample-art').src=assets.cards[9];
+showArt($('#sample-art'),assets.cards[9]);
 if(window.OLIVIA_NATIVE||new URLSearchParams(location.search).get('site')==='1')document.querySelectorAll('[data-site]').forEach(a=>{a.href=getLocale()==='uk'&&a.dataset.site==='/cards/'?'/uk/cards/':a.dataset.site;a.target='_top';});
 function refreshReturn(){try{const last=getLastRecord(loadRecords(storage()));$('#resume-link').hidden=!last;if(last){$('#resume-link').textContent=getLocale()==='uk'?`Повернутися до карти «${t(last.cardName)}» ↗`:`Return to ${last.cardName.replace(/^The /,'the ')} ↗`;$('#resume-link').dataset.record=last.id;}}catch{}}
 function preserveNote(){if(!sample&&currentRecord&&view==='reading'){currentRecord={...currentRecord,note:$('#reflection').value};drafts.set(currentRecord.id,currentRecord);try{saveDraft(storage(),currentRecord);}catch{}}}

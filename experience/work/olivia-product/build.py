@@ -24,6 +24,10 @@ subprocess.run([
 ], check=True, env={**os.environ, 'NODE_PATH': str(dependencies)})
 # app.bundle.js (full, Ukrainian pages) and app.en.bundle.js (no Ukrainian data).
 subprocess.run(['node', str(p / 'bundle-app.mjs')], check=True)
+# Inlined at the top of <body>: the phone composition before the first paint.
+first_frame = subprocess.run([
+    esbuild, '--bundle', '--format=iife', '--minify', '--charset=utf8', '--target=es2020', '--sourcefile=first-frame-entry.js',
+], input="import {firstFrame,holdSectionArt} from './first-frame.js'; if (firstFrame()) holdSectionArt();", cwd=p, text=True, capture_output=True, check=True).stdout.strip()
 
 
 def card_files(directory, expected_ids):
@@ -44,6 +48,8 @@ phone_files = card_files(p.parent / 'hero-v12/assets/public/cards-portal-phone',
 minor_files = card_files(p / 'assets/minor-arcana', range(22, 78))
 assert len(major_files.keys() | minor_files.keys()) == 78
 back_file = root / 'outputs/olivia-card-back.webp'
+# 768 px wide, made by work/tools/phone-art.mjs: the most any phone view shows.
+back_phone_file = root / 'outputs/olivia-card-back-phone.webp'
 template = (p / 'template.html').read_text()
 fonts = (p.parent / 'fonts-inline.css').read_text()
 style_names = ['motion-tokens.css', 'style.css', 'home-continuity.css', 'spread-layout.css', 'single-card-flow.css']
@@ -66,7 +72,7 @@ def data(file):
     return 'data:image/webp;base64,' + base64.b64encode(file.read_bytes()).decode()
 
 
-def asset_script(back, major, minor, phone=None):
+def asset_script(back, major, minor, phone=None, back_phone=None):
     if phone is None:
         return (
             'const BACK_DATA=' + json.dumps(back) + ';const DETAIL_DATA=' + json.dumps(major)
@@ -74,10 +80,13 @@ def asset_script(back, major, minor, phone=None):
         )
     # hero.js reads DETAIL_DATA and, below 700 px, draws every card at 512×1024.
     # Phones get that size directly; readings keep full artwork (DETAIL_FULL).
+    # Phones also get the 768 px card back, everywhere (the opening poster's
+    # <source> uses the same file).
     return (
-        'const BACK_DATA=' + json.dumps(back) + ';const DETAIL_FULL=' + json.dumps(major)
-        + ';const DETAIL_DATA=((document.querySelector("#motion-stage")||{}).offsetWidth||innerWidth)<700?'
-        + json.dumps(phone) + ':DETAIL_FULL;const MINOR_DATA=' + json.dumps(minor) + ';'
+        'const PHONE_STAGE=((document.querySelector("#motion-stage")||{}).offsetWidth||innerWidth)<700;'
+        + 'const BACK_DATA=PHONE_STAGE?' + json.dumps(back_phone) + ':' + json.dumps(back)
+        + ';const DETAIL_FULL=' + json.dumps(major)
+        + ';const DETAIL_DATA=PHONE_STAGE?' + json.dumps(phone) + ':DETAIL_FULL;const MINOR_DATA=' + json.dumps(minor) + ';'
     )
 
 
@@ -93,6 +102,9 @@ replacements = {
     '/*HERO*/': inline_script(scripts['hero']),
     '/*APP*/': inline_script(scripts['app']),
     '/*BACKGROUND*/': inline_script(scripts['background']),
+    '/*FIRST_FRAME*/': inline_script(first_frame),
+    # The single-file page keeps one embedded card back.
+    '/*POSTER_SOURCE*/': '',
 }
 replacements.update({f'/*HOME_CARD_{i}*/': data(major_files[i]) for i in [9,17,2]})
 portable = template
@@ -127,6 +139,7 @@ def emit_asset(label, content, extension):
 
 
 hosted_back = emit_asset('card-back', back_file.read_bytes(), 'webp')
+hosted_back_phone = emit_asset('card-back-phone', back_phone_file.read_bytes(), 'webp')
 hosted_major = {key: emit_asset(file.stem, file.read_bytes(), 'webp') for key, file in major_files.items()}
 hosted_minor = {key: emit_asset(file.stem, file.read_bytes(), 'webp') for key, file in minor_files.items()}
 hosted_phone = {key: emit_asset(file.stem + '-phone', file.read_bytes(), 'webp') for key, file in phone_files.items()}
@@ -150,13 +163,13 @@ hosted_fonts = re.sub(r'url\(data:([^;]+);base64,([A-Za-z0-9+/=]+)\)', extract_f
 if not font_number or 'data:font/' in hosted_fonts:
     raise ValueError('Embedded fonts were not completely extracted.')
 css_url = emit_asset('experience', hosted_fonts + '\n' + styles, 'css')
-assets_url = emit_asset('card-assets', asset_script(hosted_back, hosted_major, hosted_minor, hosted_phone)
+assets_url = emit_asset('card-assets', asset_script(hosted_back, hosted_major, hosted_minor, hosted_phone, hosted_back_phone)
     + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA}};\n', 'js')
 script_urls = {name: emit_asset(name, source, 'js') for name, source in scripts.items()}
 native_assets_url = emit_asset('native-card-assets', asset_script('/experience/' + hosted_back,
     {key: '/experience/' + value for key, value in hosted_major.items()},
     {key: '/experience/' + value for key, value in hosted_minor.items()},
-    {key: '/experience/' + value for key, value in hosted_phone.items()})
+    {key: '/experience/' + value for key, value in hosted_phone.items()}, '/experience/' + hosted_back_phone)
     + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA}};\n', 'js')
 
 hosted = template
@@ -172,7 +185,8 @@ for name, bundle in [('background', 'background'), ('app', 'app-en')]:
         raise ValueError(f'Expected one {name} script placeholder; found {count}')
 if style_count != 1 or hero_count != 1:
     raise ValueError('Expected exactly one style and hero template block.')
-hosted = hosted.replace('/*BACK_IMG*/', hosted_back).replace('</head>', license_comment + '</head>')
+hosted = hosted.replace('/*BACK_IMG*/', hosted_back).replace('/*FIRST_FRAME*/', replacements['/*FIRST_FRAME*/']).replace('</head>', license_comment + '</head>')
+hosted = hosted.replace('/*POSTER_SOURCE*/', '<source media="(max-width:699.98px)" srcset="' + hosted_back_phone + '">')
 for i in [9,17,2]:
     hosted = hosted.replace(f'/*HOME_CARD_{i}*/', hosted_major[i])
 # Ukrainian text is rendered into a separate entry before Next exports /uk/.
@@ -198,6 +212,8 @@ class HtmlReferences(HTMLParser):
         attrs = dict(attrs)
         if tag in ['script', 'img', 'source'] and attrs.get('src'):
             self.references.append(attrs['src'])
+        if tag == 'source' and attrs.get('srcset'):
+            self.references.append(attrs['srcset'].split()[0])
         if tag == 'link' and attrs.get('href') and attrs.get('rel') in ['stylesheet', 'preload']:
             self.references.append(attrs['href'])
         if tag == 'script' and not attrs.get('src'):
@@ -241,7 +257,7 @@ for label, document in [('portable HTML', portable), ('hosted HTML', hosted), ('
 
 for url in [assets_url, *script_urls.values()]:
     validate_script((hosted_dir / url).read_text(), url)
-for url in [hosted_back, *hosted_major.values(), *hosted_minor.values(), *hosted_phone.values()]:
+for url in [hosted_back, hosted_back_phone, *hosted_major.values(), *hosted_minor.values(), *hosted_phone.values()]:
     local_reference(url, hosted_dir)
 for match in re.finditer(r'url\(\s*[\'"]?([^\)\'"\s]+)[\'"]?\s*\)', hosted_fonts + '\n' + styles):
     local_reference(match.group(1), assets_dir)

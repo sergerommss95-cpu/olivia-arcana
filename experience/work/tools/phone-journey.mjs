@@ -9,7 +9,8 @@
 // Nothing can reach the paid model: any request to /api/* other than GET is
 // aborted and fails the run. Netlify's deploy-preview toolbar is blocked, because
 // production visitors never load it. (Routing switches off the HTTP cache, so
-// don't use this tool to weigh pages.) Screenshots are <lang>-<step>.png; the
+// don't use this tool to weigh pages.) Every interaction is a tap: a mouse click
+// would leave a pointer resting over the deck and trigger the desktop hover lift. Screenshots are <lang>-<step>.png; the
 // results are printed and written to summary.json. Exits non-zero on a failure.
 import {chromium} from 'playwright';
 import fs from 'node:fs';
@@ -54,7 +55,9 @@ for (const run of runs) {
     posts.push(`${route.request().method()} ${route.request().url()}`);
     return route.abort();
   });
-  page.on('console', message => { if (message.type() === 'error' && !blocked.has(message.location().url)) errors.push(message.text()); });
+  // A static export has no functions, so its /api/reading availability check answers 404.
+  const expected = url => blocked.has(url) || (server && new URL(url || 'about:blank', base).pathname.startsWith('/api/'));
+  page.on('console', message => { if (message.type() === 'error' && !expected(message.location().url)) errors.push(message.text()); });
   page.on('pageerror', error => errors.push(error.message));
 
   const overflow = () => page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
@@ -68,7 +71,7 @@ for (const run of runs) {
       entry.ok = true;
     } catch (error) {
       entry.ok = false;
-      entry.error = error.message.split('\n')[0];
+      entry.error = process.env.JOURNEY_DEBUG ? error.message : error.message.split('\n')[0];
     }
     await page.screenshot({path: path.join(out, `${run.lang}-${String(steps.length + 1).padStart(2, '0')}-${name}.png`)}).catch(() => {});
     steps.push(entry);
@@ -82,7 +85,7 @@ for (const run of runs) {
     await page.locator('a.reading-link:visible').first().waitFor({timeout: 10000});
   })
   && await step('crisis-note', async () => {
-    await page.locator('a.reading-link:visible').first().click();
+    await page.locator('a.reading-link:visible').first().tap();
     await view('question');
     await page.fill('#question', run.crisis);
     await page.locator('.support-note').first().waitFor({state: 'visible', timeout: 5000});
@@ -90,15 +93,16 @@ for (const run of runs) {
     await page.waitForFunction(() => ![...document.querySelectorAll('.support-note')].some(note => note.getClientRects().length), null, {timeout: 5000});
   })
   && await step('prepare', async () => {
-    await page.locator('.mobile-question-next').click();
+    await page.locator('.mobile-question-next').tap();
     await page.waitForSelector('#question-view[data-mobile-question=prepare]', {timeout: 5000});
-    await page.locator('#question-form input[type=radio][value="1"]').check();
+    await page.locator('#question-form input[type=radio][value="1"]').tap();
+    if (!(await page.locator('#question-form input[type=radio][value="1"]').isChecked())) throw new Error('one card could not be chosen');
     const consent = page.locator('#question-form .guidance-choice input[type=checkbox]');
     if (await consent.count() && await consent.isChecked()) throw new Error('the AI reading was pre-selected');
     return {aiServiceAvailable: await consent.count() ? !(await consent.isDisabled()) : null};
   })
   && await step('choose', async () => {
-    await page.locator('#question-form button[type=submit]:visible').click();
+    await page.locator('#question-form button[type=submit]:visible').tap();
     await view('choose');
     const choices = page.locator('#card-choices [data-slot]:visible');
     await choices.first().waitFor({timeout: 10000});
@@ -111,7 +115,7 @@ for (const run of runs) {
     await page.locator('.single-card-actions button:visible').waitFor({timeout: 5000});
   })
   && await step('reveal', async () => {
-    await page.locator('.single-card-actions button:visible').click();
+    await page.locator('.single-card-actions button:visible').tap();
     await view('reading');
     await page.waitForFunction(() => document.querySelector('#result-title')?.textContent.trim(), null, {timeout: 15000});
     card = (await page.locator('#result-title').textContent()).replace(/\s+/g, ' ').trim();
@@ -128,14 +132,14 @@ for (const run of runs) {
   })
   && await step('keep', async () => {
     await page.locator('#save-reading').scrollIntoViewIfNeeded();
-    await page.locator('#save-reading').click();
+    await page.locator('#save-reading').tap();
     await page.waitForFunction(() => document.querySelector('#save-reading')?.textContent.includes('✓'), null, {timeout: 5000});
     const label = (await page.locator('#save-reading').innerText()).replace(/\s+/g, ' ').trim();
     if (!label.startsWith(run.saved)) throw new Error(`unexpected save label "${label}"`);
     return {label};
   })
   && await step('almanac', async () => {
-    await page.locator('.mobile-dock a[data-mobile-route=journal]').click();
+    await page.locator('.mobile-dock a[data-mobile-route=journal]').tap();
     await view('journal');
     const note = await page.locator('.safari-storage-note:visible').count();
     if (!note) throw new Error('the Safari storage note is missing');
@@ -144,7 +148,7 @@ for (const run of runs) {
     if (!(await row.textContent()).replace(/\s+/g, ' ').includes(card)) throw new Error(`the almanac does not list ${card}`);
   })
   && await step('revisit', async () => {
-    await page.locator('#journal-list .journal-row').first().click();
+    await page.locator('#journal-list .journal-row').first().tap();
     await page.waitForFunction(() => document.body.dataset.view !== 'journal', null, {timeout: 10000});
     await page.waitForTimeout(800);
     const text = await page.evaluate(() => document.querySelector(`#${document.body.dataset.view}-view`)?.textContent.replace(/\s+/g, ' ') || '');
