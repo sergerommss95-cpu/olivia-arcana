@@ -1,8 +1,43 @@
 # Start here — Olivia Arcana session handoff
 
-Updated 26 September 2026 (site-wide pass, v5, on top of the v4 mobile pass). This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
+Updated 27 September 2026 (arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass). This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
 
 For work across earlier Olivia tasks, start with [the project history index](history/README.md), [decision history](history/DECISIONS.md), and [Git coverage audit](history/git-coverage-2026-09-26.md). Historical artifacts are separate from current source. The archive preserves recoverable files and documented decisions; it is not a complete recording of every unsaved edit or every conversation.
+
+## Next session — start here (27 September 2026)
+
+- **State.**
+  - Branch `claude/peaceful-clarke-scrh06`, draft PR #4 into `main`: https://github.com/sergerommss95-cpu/olivia-arcana/pull/4. CI (`.github/workflows/ci.yml`) is green and the PR merges cleanly. **Never merge without the owner's approval.**
+  - Production is still v3.
+  - Preview of this branch: https://deploy-preview-4--olivia-arcana.netlify.app/ (and `/uk/`). The v5 build of `c19bdeb`: https://6ab820e030b21a0008ba98f9--olivia-arcana.netlify.app/.
+  - Pushes that change nothing under `website/` cancel the Netlify build. That is expected.
+- **Network.**
+  - The owner is widening the network access of the **Default** cloud environment. Either Custom, with `oliviaarcana.com`, `*.netlify.app`, `awwwards.com`, `*.awwwards.com`, `brrranding.com`, `*.brrranding.com` and the default package managers, or Full.
+  - The previous session never reached those hosts, even on freshly booted machines (proxy 403 at 11:14 and 12:17 UTC). A new session should.
+  - Web search worked even while those sites were blocked.
+- **First steps**
+  1. **Check access:**
+     `for h in deploy-preview-4--olivia-arcana.netlify.app oliviaarcana.com www.awwwards.com www.brrranding.com; do curl -sS -o /dev/null -w "$h %{http_code}\n" https://$h/; done`
+     If a host is still refused, tell the owner which one and carry on with local work.
+  2. **Live preview check.** This has never been done from a container. Record the results in `experience/outputs/qa-v5/review.md` and `olivia-v5-release.json`, then commit and push. Check that:
+     - the preview serves `experience.b4dc10712a673cd4.css` and the `app`/`app-en` bundles on `/` and `/uk/`;
+     - `/experience/assets/*` carries the one-year immutable cache, and `/experience/*` sends `X-Robots-Tag`;
+     - `/api/reading` refuses a cross-site POST with 403, and answers a same-origin POST with an invalid body with a validation error. Make no paid model call;
+     - the phone journeys pass against the preview in EN at 390 px and UK at 375 px, declining the AI reading;
+     - you compare phone transfer sizes of production v3 and the preview;
+     - you run `experience/work/tools/arrival-filmstrip.mjs` against the preview.
+  3. **Research** for [the award plan](experience/outputs/award-plan-2026-09-27.md):
+     - what current Awwwards Site of the Day and Site of the Month winners (and Mobile Excellence winners) do in their first 5 seconds on a phone;
+     - which identity systems BRRRANDING features.
+     Add what applies to Olivia.
+  4. **Ask the owner to approve section 1 of the award plan,** then implement it: the phone composition before first paint, no white flash, a designed entrance, and a lighter first load. Verify with `arrival-filmstrip.mjs`, and keep the desktop pixel-identical.
+- **The previous session** (the one that wrote this) runs an hourly check-in on PR #4 and fixes red CI or merge conflicts. Once a new session takes over, the owner should tell the previous one to stop, so that two sessions do not push to the same branch.
+- **Owner decisions still open:**
+  - From the award plan's sections 3 and 4: the logo and identity, and whether a person designs them so the brand qualifies for BRRRANDING; the astrology pages; hiding membership until an offer exists.
+  - Legal review of the legal pages, and confirmation of the company they name.
+  - The Anthropic spend limit.
+  - The channel for inviting people back.
+  - A named editor.
 
 ## Newest work: site-wide pass (v5), not yet in production
 
@@ -186,7 +221,7 @@ v3 (production):
 
 ## Prioritized next work
 
-Owner decisions that now block the biggest remaining gaps (see the audit): the astrology pages (redirect or separate brand), the paid offer and payment provider, a return channel (email/Telegram/push), a named editor, and the logo/app icon. Also confirm the company named in the legal pages and have a lawyer review them. Set a monthly spend limit for the AI key in the Anthropic console.
+Start with section 1 of [the award plan](experience/outputs/award-plan-2026-09-27.md) (the arrival), once the owner approves it. Owner decisions that now block the biggest remaining gaps (see the audit): the astrology pages (redirect or separate brand), the paid offer and payment provider, a return channel (email/Telegram/push), a named editor, and the logo/app icon. Also confirm the company named in the legal pages and have a lawyer review them. Set a monthly spend limit for the AI key in the Anthropic console.
 
 Engineering next steps, in order:
 - Put the v5 preview on the owner's iPhone. Check the load and feel, the reveal light, the page fades, the crisis note and the Safari note, in EN and UK.
