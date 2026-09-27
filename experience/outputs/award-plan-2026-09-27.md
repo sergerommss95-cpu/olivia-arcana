@@ -1,8 +1,12 @@
 # An award-level arrival: findings and plan — 27 September 2026
 
-**Status: proposed.** The owner asked what is left for a site worthy of Awwwards and BRRRANDING, with "the strongest, most memorable and magical experience for a customer when they arrive". Nothing below is implemented yet, and the owner has not yet approved section 1. Ask before starting it.
+**Status: section 1 done (v6, on the branch, not in production); sections 2 to 5 proposed.** The owner asked what is left for a site worthy of Awwwards and BRRRANDING, with "the strongest, most memorable and magical experience for a customer when they arrive".
 
-Later on 27 September, a second session added the live preview measurements and the research on 2026 winners and BRRRANDING (sections "What a visitor sees today" and "What 2026 winners do in their first seconds").
+- The owner approved section 1 on 27 September, including option B for the question step.
+- It is implemented in commit `0889b9e`, recorded in [qa-v6/review.md](qa-v6/review.md). Only its item 6, the real-device check, remains.
+- Sections 2 to 5 need the owner's decision before any work starts.
+
+Later on 27 September, a second session added the live preview measurements and the research on 2026 winners and BRRRANDING (sections "What a visitor sees today" and "What 2026 winners do in their first seconds"). "What a visitor sees today" describes v5, before section 1.
 
 ## How the two are judged
 
@@ -90,7 +94,10 @@ Sources: [Sites of the Day](https://www.awwwards.com/websites/sites_of_the_day/)
 
 Constraints for all of it: do not replace or re-time the approved hero (`hero.js` is hash-locked); people choose their own cards; a card is revealed once; no blanket perimeter frames; English and Ukrainian get equal care.
 
-### 1. Must fix first (safe, no change to `hero.js`)
+### 1. Must fix first (safe, no change to `hero.js`) — done in v6
+
+Each item keeps its proposal; "Done in v6" gives what was built. Details: [qa-v6/review.md](qa-v6/review.md).
+
 
 1. **Phone composition before first paint.**
    - Option A: a small inline script at the top of the native markup in `website/src/components/almanac/NativeExperienceHome.tsx`. Below 701 px it sets what `sync()` sets for the home view: `body.mobile-experience`, `data-mobile-immersive="true"`, the mobile header visible and the bottom navigation hidden.
@@ -98,16 +105,21 @@ Constraints for all of it: do not replace or re-time the approved hero (`hero.js
    - Option A is smaller and matches the script exactly.
    - Verify with the filmstrip: no desktop frame on phones. Keep the desktop pixel-identical to v5.
    - The composition must fit Safari's visible height, not only the full screen: check 390×664, 375×635 and 375×553.
+   - **Done in v6** (option A): `first-frame.js` also draws the masthead before the first paint. Phone layout shift is 0 (it was 0.068 EN and 0.081 UK). The opening fits at all four Safari heights, and desktop is pixel-identical.
 2. **No white flash.** Give `html` the lapis background inline in the document head (plus `theme-color`) so the first frame is never white.
+   - **Done in v6:** there was no white frame to remove. Frame-by-frame recording from a magenta page showed the previous page held until a lapis first paint. The white frames were the filmstrip's empty tab, and the tool now starts from grey.
 3. **A designed entrance of about 2 s on every device and connection:** lapis, card back, wordmark, line, button. It must not depend on when the scripts arrive. Under reduced motion, show the final state immediately.
+   - **Done in v6:** the entrance is CSS from the first paint. The card back is a poster placed exactly where `hero.js` draws the first card, and the WebGL card fades in over it. The masthead joins once.
 4. **Lighter first load.** Aim for 2.5 MB or less over the wire on a phone homepage (3.57 MB on the preview), without changing `hero.js`. In order of ease:
    - load the three full-size cards for the homepage sections when those sections come near the screen (0.59 MB);
    - smaller or AVIF versions of the card back (0.43 MB) and the 22 phone textures (1.82 MB), if the asset map can offer them where the browser supports them;
    - check that nothing else loads twice.
+   - **Done in v6:** section art waits for the first scroll, phones use a 768 px card back, and the textures are re-encoded at the same fidelity. English is 2.43–2.48 MB; Ukrainian is 2.56 MB, 0.06 MB over the target. AVIF was tested and dropped.
 5. **Every step's primary action within Safari's visible height.** Found on the live preview: the second question step's "Choose my card" is 166–210 px below the fold on most iPhones.
    - Option A: tighten that step on short screens.
    - Option B: keep the action in a fixed area at the bottom, as "Reveal this card" already is.
    - The owner chooses.
+   - **Done in v6** (option B, the owner's choice): the button is always in view, including 477–535 px at 375×553.
 6. **Real devices.** On iPhone Safari and Android Chrome, check that the WebGPU background runs smoothly, what it does to the battery, and that text stays readable over it.
 
 ### 2. Signature moments (prototype on a separate preview; the owner chooses)

@@ -1,6 +1,6 @@
 # Start here — Olivia Arcana session handoff
 
-Updated 27 September 2026, second session: the live preview check, research for the award plan, and a phone-journey tool. Earlier that day: the arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
+Updated 27 September 2026, second session: the live preview check, research for the award plan, and the phone arrival (v6, section 1 of the award plan). Earlier that day: the arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
 
 For work across earlier Olivia tasks, start with [the project history index](history/README.md), [decision history](history/DECISIONS.md), and [Git coverage audit](history/git-coverage-2026-09-26.md). Historical artifacts are separate from current source. The archive preserves recoverable files and documented decisions; it is not a complete recording of every unsaved edit or every conversation.
 
@@ -9,39 +9,33 @@ For work across earlier Olivia tasks, start with [the project history index](his
 - **State.**
   - Branch `claude/peaceful-clarke-scrh06`, draft PR #4 into `main`: https://github.com/sergerommss95-cpu/olivia-arcana/pull/4. CI (`.github/workflows/ci.yml`) is green and the PR merges cleanly. **Never merge without the owner's approval.**
   - Production is still v3.
-  - Preview of this branch: https://deploy-preview-4--olivia-arcana.netlify.app/ (and `/uk/`). The v5 build of `c19bdeb`: https://6ab820e030b21a0008ba98f9--olivia-arcana.netlify.app/.
+  - Preview of this branch: https://deploy-preview-4--olivia-arcana.netlify.app/ (and `/uk/`), now v6. The v6 build of `0889b9e`: https://6ab92b77b5d4da00084b874f--olivia-arcana.netlify.app/. The v5 build of `c19bdeb`: https://6ab820e030b21a0008ba98f9--olivia-arcana.netlify.app/.
   - Pushes that change nothing under `website/` cancel the Netlify build. That is expected.
-- **Network** (checked 27 September, second session).
+  - One session works on this branch. The earlier session's check-in on PR #4 was switched off at the owner's request; it can be re-enabled in the owner's Routines.
+- **Network and tools** (checked 27 September).
   - The preview, `oliviaarcana.com` and `www.brrranding.com` answer from the container.
   - `www.awwwards.com` resets the TLS handshake after the proxy opens the tunnel. That is the far end, not the environment's policy. WebFetch and web search still reach Awwwards pages.
   - Playwright's Chromium does not trust the proxy's certificate authority until you add it:
     `apt-get install -y libnss3-tools && certutil -d sql:$HOME/.pki/nssdb -A -t "C,," -n ccr-agent-proxy -i /root/.ccr/agent-proxy-ca.crt`
   - The tools import `playwright`; link the global install next to them (`experience/.gitignore` ignores it):
     `mkdir -p experience/work/tools/node_modules && ln -sfn /opt/node22/lib/node_modules/playwright experience/work/tools/node_modules/playwright`
+  - `experience/work/tools/`:
+    - `arrival-filmstrip.mjs` films the first seconds (phone on 4G with a 4× CPU, and desktop).
+    - `phone-journey.mjs` walks the one-card phone journey (EN 390×844, UK 375×812), declining the AI reading.
+    - `phone-art.mjs` regenerates the phone textures and phone card back (it needs `npm --prefix website ci` for sharp).
+    - All three take a URL or `website/out`.
 - **Done on 27 September (second session).**
-  1. Access checked (above).
-  2. **Live preview check:** `experience/outputs/qa-v5/review.md` ("Live preview check") and `olivia-v5-release.json` (`live_check`).
-     - The preview serves the v5 assets, the immutable cache and the robots header.
-     - The reading service refuses cross-site POSTs (403) and validates same-origin ones (400), with no model call. The preview has the AI key, so a valid reading there is paid.
-     - The phone journeys pass (EN 390×844, UK 375×812, AI declined), using the new `experience/work/tools/phone-journey.mjs`.
-     - A phone homepage is 3.57 MB over the wire against 7.53 MB on production v3.
-     - The filmstrip shows the same arrival defects live as locally.
-     - New finding: at Safari's visible height (about 390×664), the second question step's "Choose my card" is 166–210 px below the fold.
-  3. **Research** added to [the award plan](experience/outputs/award-plan-2026-09-27.md) ("What 2026 winners do in their first seconds"):
-     - The Mobile Excellence award is no longer offered.
-     - Recent winners open with no loader or a brief text one, and give one clear cue.
-     - Winners lose most points on usability and accessibility.
-     - BRRRANDING features 215 studio-made identities, none of them tarot or spiritual, and excludes generated work.
-  - `arrival-filmstrip.mjs` no longer disables the cache, which had made `hero.js` fetch the card back twice. It also blocks Netlify's preview toolbar.
-- **Next: ask the owner to approve section 1 of the award plan,** then implement it:
-  - the phone composition before first paint, fitting Safari's visible height;
-  - no white flash;
-  - a designed entrance;
-  - a lighter first load (target 2.5 MB over the wire);
-  - every step's primary action within the visible height (options A/B in the plan).
-
-  Verify with `arrival-filmstrip.mjs` and `phone-journey.mjs`, and keep the desktop pixel-identical.
-- **Two sessions on one branch.** The session that wrote the award plan runs an hourly check-in on PR #4 and fixes red CI or merge conflicts. The owner should tell it to stop now that another session has taken over, so that two sessions do not push to the same branch.
+  1. **Live preview check of v5:** `experience/outputs/qa-v5/review.md` ("Live preview check") and `olivia-v5-release.json` (`live_check`).
+  2. **Research** added to [the award plan](experience/outputs/award-plan-2026-09-27.md) ("What 2026 winners do in their first seconds"): recent winners open with no loader or a brief text one, lose most points on usability and accessibility, and BRRRANDING features studio-made identities only.
+  3. **Section 1 of the award plan, approved by the owner, built as v6** (below; QA `experience/outputs/qa-v6/review.md`).
+     - Phones open in their own composition from the first frame (CLS 0).
+     - The opening card stands where `hero.js` draws it.
+     - The opening and the second question step fit Safari's visible height.
+     - A phone homepage is 2.43–2.48 MB over the wire in English, and 2.56 MB in Ukrainian (v5: 3.57 MB and 3.65 MB).
+- **Next.**
+  - The owner checks v6 on an iPhone and an Android phone (plan item 6): the arrival, the WebGPU background's smoothness and battery use, text contrast over it, and the fixed button on the question step.
+  - Whether to close the last 0.06 MB for Ukrainian: softer textures, AVIF, or a lighter Next runtime on the homepage.
+  - Then the owner chooses from sections 2 to 5 of the award plan. Nothing there is approved yet.
 - **Owner decisions still open:**
   - From the award plan's sections 3 and 4: the logo and identity, and whether a person designs them so the brand qualifies for BRRRANDING; the astrology pages; hiding membership until an offer exists.
   - Legal review of the legal pages, and confirmation of the company they name.
@@ -49,7 +43,23 @@ For work across earlier Olivia tasks, start with [the project history index](his
   - The channel for inviting people back.
   - A named editor.
 
-## Newest work: site-wide pass (v5), not yet in production
+## Newest work: the phone arrival (v6), not yet in production
+
+- Same branch and draft PR #4, commit `0889b9e`, on top of v5. QA: `experience/outputs/qa-v6/review.md`. Record: `experience/outputs/olivia-v6-release.json`. Preview build: https://6ab92b77b5d4da00084b874f--olivia-arcana.netlify.app/.
+- What v6 changes. Phones only; `hero.js` and desktop are unchanged, and desktop is pixel-identical to v5.
+  - **First frame.** `first-frame.js` is inlined at the top of `<body>` by `build.py`; `NativeExperienceHome.tsx` keeps it (`data-first-frame`). Below 701 px it sets `body.mobile-experience`, `data-view="home"` and `data-mobile-immersive`, and draws the masthead, before the first paint. `mobile-experience.js` adopts the masthead; its markup lives in `mobile-masthead.js`. `<body>` has `suppressHydrationWarning` for these pre-hydration changes.
+  - **Entrance and opening card.** The entrance is CSS from the first paint (about 2 s). The poster `<img>` is placed where `hero.js` draws the first card, using `hero.js`'s camera and opening pose in CSS 3D (`mobile-coherence.css`, "The phone arrival"), and the WebGL card fades in over it.
+  - **Safari heights.** The card clears ARCANA up to 740 px tall. The opening fits at 600 px and less. The second question step's "Choose my card" is fixed at the bottom (option B).
+  - **First load.** Section art waits for the first scroll (`holdSectionArt`, `held-art.js`). Phones use a 768 px card back (`experience/outputs/olivia-card-back-phone.webp`). The 22 phone textures are re-encoded at the same fidelity, 12% smaller.
+- Rules to keep:
+  - **Keep `first-frame.js` small and synchronous.** It runs inline before the markup. `NativeExperienceHome`'s script filter must keep `data-first-frame`.
+  - **Change the masthead only in `mobile-masthead.js`.** Never re-append an adopted masthead: that would replay its entrance.
+  - **Section art on phones goes through `showArt()`.** Never set `src` directly on an `img[data-home-art]`, `#sample-art` or `#home-memory-image`.
+  - **The poster's CSS repeats `hero.js`'s camera and START pose.** `hero.js` is locked; if it ever changes, update `mobile-coherence.css` and re-check the alignment. Also re-check it if `#motion-stage`'s phone insets (106 px) or transforms change.
+  - **Regenerate the phone art with `phone-art.mjs`** whenever a Major Arcana image or the card back changes. It uses Chromium's default canvas resize, then sharp at WebP quality 81 and effort 6.
+  - **Test phone journeys with taps.** A mouse click leaves a pointer over the deck, which triggers the desktop hover lift.
+
+## Previous: site-wide pass (v5), not yet in production
 
 - Same branch, `claude/peaceful-clarke-scrh06` (draft PR #4 into `main`; do not merge without the owner's approval). v5 works through `experience/outputs/olivia-gap-audit-2026-09-26.md`. QA: `experience/outputs/qa-v5/review.md`. Record: `experience/outputs/olivia-v5-release.json`.
 - **Production is still v3.** v5 is built and tested on this branch only.
@@ -111,8 +121,9 @@ Repeated pain points to avoid reintroducing:
 | Personal-reading and conversation service | `website/netlify/edge-functions/reading.ts`, `chat.ts`, `_shared/` |
 | Account/payment source repairs | `backend/` and corresponding website clients |
 | Immutable approved motion reference | `experience/outputs/olivia-approved-motion-2026-09-24.html` |
-| Latest release record and QA | v5 (branch, not deployed): `experience/outputs/olivia-v5-release.json`, `experience/outputs/qa-v5/review.md`, audit `olivia-gap-audit-2026-09-26.md`. v4: `olivia-mobile-v4-release.json`, `qa-mobile-v4/review.md`. Production v3: `olivia-mobile-v3-release.json`, `qa-mobile-v3/review.md` |
+| Latest release record and QA | v6 (branch, not deployed): `experience/outputs/olivia-v6-release.json`, `experience/outputs/qa-v6/review.md`, plan `award-plan-2026-09-27.md`. v5: `olivia-v5-release.json`, `qa-v5/review.md`, audit `olivia-gap-audit-2026-09-26.md`. v4: `olivia-mobile-v4-release.json`, `qa-mobile-v4/review.md`. Production v3: `olivia-mobile-v3-release.json`, `qa-mobile-v3/review.md` |
 | Phone composition (v4) | `experience/work/olivia-product/mobile-coherence.css` — loaded last; add phone layout fixes here rather than to the older layered mobile files |
+| Phone arrival (v6) | `first-frame.js` (inlined before the first paint; also holds section art), `mobile-masthead.js`, `held-art.js` (`showArt`), the "phone arrival" rules at the end of `mobile-coherence.css`; phone art from `experience/work/tools/phone-art.mjs` (`cards-portal-phone/`, `experience/outputs/olivia-card-back-phone.webp`) |
 | Brand and design rules | `BRAND.md` (supersedes `website/DESIGN.md`, `website/DESIGN_BRIEF.md`, `docs/DESIGN_SYSTEM.md`) |
 | Card texts | EN: `content.js`, `minor-content.js`, `minor-reversed.js`. UK: `card-notes-uk.js` (voice guide `UK-VOICE.md`). After editing, run `node experience/work/tools/sync-card-notes.mjs` to refresh `website/src/lib/academy/tarot-notes.ts` (used by the AI service and `/uk/cards/`) |
 | Inner-page header | `website/src/components/almanac/AlmanacMasthead.tsx` (used by `AlmanacShell` and `LegalShell`) |
@@ -127,7 +138,7 @@ The directory name `hero-v12` is historical and supplies artwork only. Current r
 v5 (this branch) — the full list is in `qa-v5/review.md`. Rules to keep:
 
 - **Load order.** The homepage runs assets, hero, then the app; the WebGPU background loads last and only with an adapter. Don't put anything a button depends on into `background.js`.
-- **Phone hero art.** `hero.js` reads `DETAIL_DATA`; below 700 px the asset map points it at `cards-portal-phone/` (512×1024, what `hero.js` draws there anyway). If a Major Arcana image changes, regenerate that folder with `experience/work/tools/phone-art.mjs`.
+- **Phone hero art.** `hero.js` reads `DETAIL_DATA` and `BACK_DATA`. Below 700 px the asset map points them at `cards-portal-phone/` (512×1024, what `hero.js` draws there anyway) and at `experience/outputs/olivia-card-back-phone.webp` (v6). If a Major Arcana image or the card back changes, regenerate both with `experience/work/tools/phone-art.mjs` (usage in its header; needs `npm --prefix website ci` for sharp).
 - **Bundles.** English entries load `app-en` (no Ukrainian data); Ukrainian entries (`/uk/`) and the portable file load `app`. Both come from `bundle-app.mjs`. A `?lang=uk` query on an English page therefore stays in English; link to `/uk/` instead.
 - **AI honesty and safety.** Keep the provenance line on personal readings and the crisis note (`support-note.js`); both are covered by tests.
 - **Ukrainian.** Formal «ви» everywhere, never «ти»; tests enforce it for card notes. Follow `UK-VOICE.md`.
@@ -206,6 +217,17 @@ The deploy includes Edge Function bundling even with `--no-build`; verify `/api/
 
 ## Evidence and limits
 
+v6 (this branch; details in `qa-v6/review.md`):
+- 238/238 product tests (13 new in `first-frame.test.mjs`), 7/7 mobile-question checks, 51/51 website and service tests. CI passed on `0889b9e`. Both builds succeed, and a rebuild from an empty output directory reproduces the 113 snapshot files byte for byte.
+- Desktop against the v5 export: hero at five journey positions, UK and 1024: at most 6 pixels of 1.3 million differ (motion-bar noise). Full homepages in reduced motion: 0 pixels changed.
+- The opening card's poster is within 1–3 device pixels of the WebGL card at seven phone sizes. After scrolling, the phone sections are identical to v5 except the card backs drawn from the 768 px file.
+- On the preview:
+  - Phone journeys pass (EN 390×844, UK 375×812).
+  - The arrival filmstrip shows phone CLS 0 in both languages.
+  - No white frames.
+  - A phone homepage is 2.43–2.48 MB (EN) and 2.56 MB (UK) over the wire.
+- **Not tested on a physical phone and not deployed to production.** Safari's heights are modelled. The WebGPU background has never been seen from a container.
+
 v5 (this branch):
 - 225/225 product tests, 7/7 mobile-question checks, 51/51 website and service tests. `experience/build.py` and `npm --prefix website run build` succeed. A rebuild from an empty output directory reproduces the 116 snapshot files byte for byte.
 - Pixel comparison with v4: desktop hero at five journey positions within renderer noise; desktop homepage sections 0 pixels changed apart from the added footer row; phone hero frames (including mid-journey "Watch the journey") show no visible change.
@@ -232,7 +254,7 @@ v3 (production):
 
 ## Prioritized next work
 
-Start with section 1 of [the award plan](experience/outputs/award-plan-2026-09-27.md) (the arrival), once the owner approves it. Owner decisions that now block the biggest remaining gaps (see the audit): the astrology pages (redirect or separate brand), the paid offer and payment provider, a return channel (email/Telegram/push), a named editor, and the logo/app icon. Also confirm the company named in the legal pages and have a lawyer review them. Set a monthly spend limit for the AI key in the Anthropic console.
+Section 1 of [the award plan](experience/outputs/award-plan-2026-09-27.md) (the arrival) is done as v6. Next: the owner's device check of v6, then whatever the owner chooses from sections 2 to 5. Owner decisions that now block the biggest remaining gaps (see the audit): the astrology pages (redirect or separate brand), the paid offer and payment provider, a return channel (email/Telegram/push), a named editor, and the logo/app icon. Also confirm the company named in the legal pages and have a lawyer review them. Set a monthly spend limit for the AI key in the Anthropic console.
 
 Engineering next steps, in order:
 - Put the v5 preview on the owner's iPhone. Check the load and feel, the reveal light, the page fades, the crisis note and the Safari note, in EN and UK.

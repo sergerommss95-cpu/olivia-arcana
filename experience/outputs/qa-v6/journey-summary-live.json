@@ -1,0 +1,134 @@
+{
+  "target": "https://deploy-preview-4--olivia-arcana.netlify.app",
+  "date": "2026-09-27T14:57:27.920Z",
+  "results": [
+    {
+      "lang": "en",
+      "viewport": "390x844",
+      "passed": true,
+      "steps": [
+        {
+          "step": "home",
+          "ok": true
+        },
+        {
+          "step": "crisis-note",
+          "ok": true
+        },
+        {
+          "step": "prepare",
+          "detail": {
+            "aiServiceAvailable": true
+          },
+          "ok": true
+        },
+        {
+          "step": "choose",
+          "detail": {
+            "visibleCards": 5
+          },
+          "ok": true
+        },
+        {
+          "step": "hold",
+          "ok": true
+        },
+        {
+          "step": "reveal",
+          "detail": {
+            "card": "Three of Wands",
+            "orientation": "Upright"
+          },
+          "ok": true
+        },
+        {
+          "step": "keep",
+          "detail": {
+            "label": "Saved ✓"
+          },
+          "ok": true
+        },
+        {
+          "step": "almanac",
+          "ok": true
+        },
+        {
+          "step": "revisit",
+          "detail": {
+            "view": "reading"
+          },
+          "ok": true
+        }
+      ],
+      "aiRequestsAttempted": [],
+      "consoleErrors": [],
+      "blocked": [
+        "https://deploy-preview-4--olivia-arcana.netlify.app/.netlify/scripts/cdp"
+      ]
+    },
+    {
+      "lang": "uk",
+      "viewport": "375x812",
+      "passed": true,
+      "steps": [
+        {
+          "step": "home",
+          "ok": true
+        },
+        {
+          "step": "crisis-note",
+          "ok": true
+        },
+        {
+          "step": "prepare",
+          "detail": {
+            "aiServiceAvailable": true
+          },
+          "ok": true
+        },
+        {
+          "step": "choose",
+          "detail": {
+            "visibleCards": 5
+          },
+          "ok": true
+        },
+        {
+          "step": "hold",
+          "ok": true
+        },
+        {
+          "step": "reveal",
+          "detail": {
+            "card": "Королева Мечів",
+            "orientation": "Пряме положення"
+          },
+          "ok": true
+        },
+        {
+          "step": "keep",
+          "detail": {
+            "label": "Збережено ✓"
+          },
+          "ok": true
+        },
+        {
+          "step": "almanac",
+          "ok": true
+        },
+        {
+          "step": "revisit",
+          "detail": {
+            "view": "reading"
+          },
+          "ok": true
+        }
+      ],
+      "aiRequestsAttempted": [],
+      "consoleErrors": [],
+      "blocked": [
+        "https://deploy-preview-4--olivia-arcana.netlify.app/.netlify/scripts/cdp"
+      ]
+    }
+  ]
+}
