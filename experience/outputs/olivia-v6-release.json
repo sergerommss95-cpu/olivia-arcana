@@ -7,10 +7,23 @@
   "commit": "0889b9e",
   "previous_revision": "site-wide v5, commit c19bdeb",
   "scope": "Section 1 of award-plan-2026-09-27.md, approved by the owner on 27 September 2026 (all five items; option B, a fixed button, for the second question step)",
-  "production_deployed": false,
-  "production_reference": {
+  "production_deployed": true,
+  "production": {
+    "date": "2026-09-27",
+    "approved_by": "owner (asked for the deploy on 27 September 2026)",
+    "url": "https://oliviaarcana.com/",
+    "url_uk": "https://oliviaarcana.com/uk/",
+    "merge_commit": "c822edd",
+    "merged_at_utc": "16:58",
+    "merge_method": "merge commit; PR #3 was on the branch and was marked merged with it",
+    "ci_on_main": "success",
+    "published_after_seconds": 80,
+    "how": "Netlify builds and publishes main automatically",
+    "rollback": "publish deploy 6ab7b1eb2e3eb145b023937a (v3) again in Netlify, or revert c822edd on main"
+  },
+  "previous_production": {
     "deploy_id": "6ab7b1eb2e3eb145b023937a",
-    "note": "Production is still v3."
+    "note": "v3, replaced on 27 September 2026"
   },
   "preview": {
     "url": "https://deploy-preview-4--olivia-arcana.netlify.app/",
@@ -64,6 +77,22 @@
     "phone_journeys": ["390x844 en", "375x812 uk"],
     "physical_iphone_tested": false,
     "webgpu_background_seen": false
+  },
+  "production_check": {
+    "date": "2026-09-27",
+    "assets": "/ serves experience.9fcb833eb04c4a39.css and app-en.526c498c6e397903.js; /uk/ the same stylesheet with app.926cd875e85c3725.js and lang=uk; both carry the first-frame script",
+    "hero_js_served_sha256_matches_source": true,
+    "headers": "immutable cache on hashed assets; no X-Robots-Tag on / and /uk/ (robots meta index, follow); noindex on /experience/, noindex, nofollow on /animation/; security headers present",
+    "pages": "manifest, sitemap, /about/, /privacy/, /terms/, /cookies/, /contact/, /cards/, /uk/cards/ and /ask/ return 200; an unknown path returns 404; no Ukrainian About, Privacy, Terms or Contact page exists",
+    "reading_service": "configured; cross-site or origin-less POST 403; invalid same-origin POST 400; no model call",
+    "phone_journeys": {"390x844 en": "pass", "375x812 uk": "pass", "console_errors": 0, "ai_requests_attempted": 0},
+    "arrival_filmstrip": {
+      "phone_en": {"fcp_ms": 1304, "lcp_ms": 1596, "cls": 0},
+      "phone_uk": {"fcp_ms": 1076, "lcp_ms": 1396, "cls": 0.008},
+      "desktop_en": {"fcp_ms": 756, "cls": 0},
+      "desktop_uk": {"fcp_ms": 996, "cls": 0}
+    },
+    "phone_homepage_over_the_wire": {"en": "2.48 MB", "uk": "2.56 MB"}
   },
   "needs_owner": [
     "iPhone and Android check of the arrival (item 6 of the plan)",
