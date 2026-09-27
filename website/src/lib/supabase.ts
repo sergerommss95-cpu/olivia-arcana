@@ -6,8 +6,15 @@
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
-const SUPABASE_URL = "https://ghyzkpcxlnlfjzitdxkk.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_z-zV4pjfHRSkIEbqwxUykA_4lW9zkd7";
+const SUPABASE_URL =
+  process.env.NEXT_PUBLIC_SUPABASE_URL || "https://ghyzkpcxlnlfjzitdxkk.supabase.co";
+const SUPABASE_ANON_KEY =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "sb_publishable_z-zV4pjfHRSkIEbqwxUykA_4lW9zkd7";
+
+/** True when both Supabase env vars are provided (deploy-configured, not the built-in fallback). */
+export const isSupabaseConfigured = Boolean(
+  process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 let _client: SupabaseClient | null = null;
 

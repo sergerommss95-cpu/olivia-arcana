@@ -114,7 +114,7 @@ function AspectSVG({ angle, tense }: { angle: number; tense: boolean }) {
   const y1 = r3(cy + r * Math.sin(rad1));
   const x2 = r3(cx + r * Math.cos(rad2));
   const y2 = r3(cy + r * Math.sin(rad2));
-  const lineColor = tense ? "#e0b768" : "#e8dcc8";
+  const lineColor = tense ? "#e0b768" : "#e8e9ff";
 
   return (
     <svg viewBox="0 0 160 160" style={{ width: "140px", height: "140px" }} aria-hidden>
@@ -138,7 +138,7 @@ function AspectSVG({ angle, tense }: { angle: number; tense: boolean }) {
         />
       )}
       {/* Planet dots */}
-      <circle cx={x1} cy={y1} r={5} fill="#e8dcc8" />
+      <circle cx={x1} cy={y1} r={5} fill="#e8e9ff" />
       <circle cx={x2} cy={y2} r={5} fill={lineColor} />
       {/* Angle label */}
       <text x={cx} y={cy + 4} textAnchor="middle" dominantBaseline="central"

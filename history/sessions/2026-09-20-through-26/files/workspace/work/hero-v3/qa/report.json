@@ -1,0 +1,5557 @@
+{
+  "file": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-hero.html",
+  "snapshot": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/hero-v3/qa/tested-hero.html",
+  "sha256": "f0cf313e703751c789d737a38cd85a6eb6d6fbec1bb0b62cabf6fe3a5cca659a",
+  "timestamp": "2026-09-22T12:01:46.781Z",
+  "syntax": [
+    {
+      "index": 0,
+      "ok": true,
+      "error": ""
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "userpane",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "failedRequests": [],
+      "states": [
+        {
+          "progress": 0,
+          "diag": {
+            "p": 0,
+            "target": 0,
+            "frames": 16,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.4457791920434673
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 511.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 511.703125,
+              "right": 513.03125,
+              "bottom": 668.640625,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "false"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 428.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 428.0625,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 473.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 473.71875,
+              "right": 795.578125,
+              "bottom": 573.4375,
+              "left": 371.265625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 618.6875,
+              "width": 220,
+              "height": 60,
+              "top": 618.6875,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.1,
+          "diag": {
+            "p": 0.1,
+            "target": 0.1,
+            "frames": 17,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.14774233740235485,
+              "pitch": 0.29950090606374724,
+              "curvature": 0.03376871230018681,
+              "sector": 0.009806147561193157,
+              "angularPitch": 0.010113759930511956,
+              "scale": 0.9869053054416159
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 495.66815185546875,
+              "width": 460,
+              "height": 156.9375,
+              "top": 495.66815185546875,
+              "right": 513.03125,
+              "bottom": 652.6056518554688,
+              "left": 53.03125
+            },
+            "opacity": "0.198251",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "false"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 428.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 428.0625,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 473.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 473.71875,
+              "right": 795.578125,
+              "bottom": 573.4375,
+              "left": 371.265625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 618.6875,
+              "width": 220,
+              "height": 60,
+              "top": 618.6875,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.2,
+          "diag": {
+            "p": 0.2,
+            "target": 0.2,
+            "frames": 18,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.7282759695373004,
+              "pitch": 1.3689511636885054,
+              "curvature": 0.16645832279930295,
+              "sector": 0.21904393395033403,
+              "angularPitch": 0.22787331470174266,
+              "scale": 0.43108999804441916
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 491.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 491.703125,
+              "right": 513.03125,
+              "bottom": 648.640625,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 428.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 428.0625,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 473.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 473.71875,
+              "right": 795.578125,
+              "bottom": 573.4375,
+              "left": 371.265625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 618.6875,
+              "width": 220,
+              "height": 60,
+              "top": 618.6875,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.31,
+          "diag": {
+            "p": 0.31,
+            "target": 0.31,
+            "frames": 19,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.5465888141559023
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 491.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 491.703125,
+              "right": 513.03125,
+              "bottom": 648.640625,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 428.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 428.0625,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 453.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 453.71875,
+              "right": 795.578125,
+              "bottom": 553.4375,
+              "left": 371.265625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 618.6875,
+              "width": 220,
+              "height": 60,
+              "top": 618.6875,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.4,
+          "diag": {
+            "p": 0.4,
+            "target": 0.4,
+            "frames": 20,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.5486652038161206
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 491.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 491.703125,
+              "right": 513.03125,
+              "bottom": 648.640625,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 428.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 428.0625,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 453.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 453.71875,
+              "right": 795.578125,
+              "bottom": 553.4375,
+              "left": 371.265625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 618.6875,
+              "width": 220,
+              "height": 60,
+              "top": 618.6875,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.5,
+          "diag": {
+            "p": 0.5,
+            "target": 0.5,
+            "frames": 21,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.549495759680208
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 491.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 491.703125,
+              "right": 513.03125,
+              "bottom": 648.640625,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 428.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 428.0625,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 453.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 453.71875,
+              "right": 795.578125,
+              "bottom": 553.4375,
+              "left": 371.265625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 618.6875,
+              "width": 220,
+              "height": 60,
+              "top": 618.6875,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.6,
+          "diag": {
+            "p": 0.6,
+            "target": 0.6,
+            "frames": 22,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.5486652038161206
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 491.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 491.703125,
+              "right": 513.03125,
+              "bottom": 648.640625,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 428.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 428.0625,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 453.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 453.71875,
+              "right": 795.578125,
+              "bottom": 553.4375,
+              "left": 371.265625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 618.6875,
+              "width": 220,
+              "height": 60,
+              "top": 618.6875,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.7,
+          "diag": {
+            "p": 0.7,
+            "target": 0.7,
+            "frames": 23,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.5462981196034717
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 491.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 491.703125,
+              "right": 513.03125,
+              "bottom": 648.640625,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 428.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 428.0625,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 453.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 453.71875,
+              "right": 795.578125,
+              "bottom": 553.4375,
+              "left": 371.265625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 618.6875,
+              "width": 220,
+              "height": 60,
+              "top": 618.6875,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.82,
+          "diag": {
+            "p": 0.82,
+            "target": 0.82,
+            "frames": 24,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.9914400000000001,
+              "pitch": 1.6522807185052006,
+              "curvature": 0.2266083826176395,
+              "sector": 0.35466205759863983,
+              "angularPitch": 0.3744206612507748,
+              "scale": 0.5376854455338916
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 491.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 491.703125,
+              "right": 513.03125,
+              "bottom": 648.640625,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 428.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 428.0625,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 473.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 473.71875,
+              "right": 795.578125,
+              "bottom": 573.4375,
+              "left": 371.265625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 618.6875,
+              "width": 220,
+              "height": 60,
+              "top": 618.6875,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.9,
+          "diag": {
+            "p": 0.9,
+            "target": 0.9,
+            "frames": 25,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.5,
+              "pitch": 0.9906665295454273,
+              "curvature": 0.11428244907288361,
+              "sector": 0.10957176031516568,
+              "angularPitch": 0.11321579721098564,
+              "scale": 0.4306104304294063
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 491.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 491.703125,
+              "right": 513.03125,
+              "bottom": 648.640625,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 428.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 428.0625,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 473.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 473.71875,
+              "right": 795.578125,
+              "bottom": 573.4375,
+              "left": 371.265625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 618.6875,
+              "width": 220,
+              "height": 60,
+              "top": 618.6875,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 1,
+          "diag": {
+            "p": 1,
+            "target": 1,
+            "frames": 26,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.4457791920434673
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 491.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 491.703125,
+              "right": 513.03125,
+              "bottom": 648.640625,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 410.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 410.0625,
+              "right": 273.03125,
+              "bottom": 660.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "false"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 473.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 473.71875,
+              "right": 795.578125,
+              "bottom": 573.4375,
+              "left": 371.265625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 600.6875,
+              "width": 220,
+              "height": 60,
+              "top": 600.6875,
+              "right": 273.03125,
+              "bottom": 660.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mobile",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "failedRequests": [],
+      "states": [
+        {
+          "progress": 0,
+          "diag": {
+            "p": 0,
+            "target": 0,
+            "frames": 16,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 0.8942594988628779
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 601.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 601.65625,
+              "right": 308.09375,
+              "bottom": 725.84375,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "false"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 518.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 518.4375,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 653,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 653,
+              "right": 362.6875,
+              "bottom": 726.3125,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 672.96875,
+              "width": 200,
+              "height": 54,
+              "top": 672.96875,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.1,
+          "diag": {
+            "p": 0.1,
+            "target": 0.1,
+            "frames": 17,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.14774233740235485,
+              "pitch": 0.29950090606374724,
+              "curvature": 0.03376871230018681,
+              "sector": 0.009806147561193157,
+              "angularPitch": 0.010113759930511956,
+              "scale": 0.5972082245195396
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 585.6212768554688,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 585.6212768554688,
+              "right": 308.09375,
+              "bottom": 709.8087768554688,
+              "left": 27.296875
+            },
+            "opacity": "0.198251",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "false"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 518.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 518.4375,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 653,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 653,
+              "right": 362.6875,
+              "bottom": 726.3125,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 672.96875,
+              "width": 200,
+              "height": 54,
+              "top": 672.96875,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.2,
+          "diag": {
+            "p": 0.2,
+            "target": 0.2,
+            "frames": 18,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.7282759695373004,
+              "pitch": 1.3689511636885054,
+              "curvature": 0.16645832279930295,
+              "sector": 0.21904393395033403,
+              "angularPitch": 0.22787331470174266,
+              "scale": 0.20987446099402352
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 581.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 581.65625,
+              "right": 308.09375,
+              "bottom": 705.84375,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 518.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 518.4375,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 653,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 653,
+              "right": 362.6875,
+              "bottom": 726.3125,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 672.96875,
+              "width": 200,
+              "height": 54,
+              "top": 672.96875,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.31,
+          "diag": {
+            "p": 0.31,
+            "target": 0.31,
+            "frames": 19,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.2562264840709555
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 581.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 581.65625,
+              "right": 308.09375,
+              "bottom": 705.84375,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 518.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 518.4375,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 633,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 633,
+              "right": 362.6875,
+              "bottom": 706.3125,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 672.96875,
+              "width": 200,
+              "height": 54,
+              "top": 672.96875,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.4,
+          "diag": {
+            "p": 0.4,
+            "target": 0.4,
+            "frames": 20,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.2561019006913424
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 581.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 581.65625,
+              "right": 308.09375,
+              "bottom": 705.84375,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 518.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 518.4375,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 633,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 633,
+              "right": 362.6875,
+              "bottom": 706.3125,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 672.96875,
+              "width": 200,
+              "height": 54,
+              "top": 672.96875,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.5,
+          "diag": {
+            "p": 0.5,
+            "target": 0.5,
+            "frames": 21,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.2560603728981381
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 581.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 581.65625,
+              "right": 308.09375,
+              "bottom": 705.84375,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 518.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 518.4375,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 633,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 633,
+              "right": 362.6875,
+              "bottom": 706.3125,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 672.96875,
+              "width": 200,
+              "height": 54,
+              "top": 672.96875,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.6,
+          "diag": {
+            "p": 0.6,
+            "target": 0.6,
+            "frames": 22,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.2561019006913424
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 581.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 581.65625,
+              "right": 308.09375,
+              "bottom": 705.84375,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 518.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 518.4375,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 633,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 633,
+              "right": 362.6875,
+              "bottom": 706.3125,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 672.96875,
+              "width": 200,
+              "height": 54,
+              "top": 672.96875,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.7,
+          "diag": {
+            "p": 0.7,
+            "target": 0.7,
+            "frames": 23,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.2562264840709555
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 581.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 581.65625,
+              "right": 308.09375,
+              "bottom": 705.84375,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 518.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 518.4375,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 633,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 633,
+              "right": 362.6875,
+              "bottom": 706.3125,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 672.96875,
+              "width": 200,
+              "height": 54,
+              "top": 672.96875,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.82,
+          "diag": {
+            "p": 0.82,
+            "target": 0.82,
+            "frames": 24,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.9914400000000001,
+              "pitch": 1.6522807185052006,
+              "curvature": 0.2266083826176395,
+              "sector": 0.35466205759863983,
+              "angularPitch": 0.3744206612507748,
+              "scale": 0.25569737015217997
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 581.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 581.65625,
+              "right": 308.09375,
+              "bottom": 705.84375,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 518.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 518.4375,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 653,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 653,
+              "right": 362.6875,
+              "bottom": 726.3125,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 672.96875,
+              "width": 200,
+              "height": 54,
+              "top": 672.96875,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.9,
+          "diag": {
+            "p": 0.9,
+            "target": 0.9,
+            "frames": 25,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.5,
+              "pitch": 0.9906665295454273,
+              "curvature": 0.11428244907288361,
+              "sector": 0.10957176031516568,
+              "angularPitch": 0.11321579721098564,
+              "scale": 0.23695758802412847
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 581.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 581.65625,
+              "right": 308.09375,
+              "bottom": 705.84375,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 518.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 518.4375,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 653,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 653,
+              "right": 362.6875,
+              "bottom": 726.3125,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 672.96875,
+              "width": 200,
+              "height": 54,
+              "top": 672.96875,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 1,
+          "diag": {
+            "p": 1,
+            "target": 1,
+            "frames": 26,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 0.8942594988628779
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 581.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 581.65625,
+              "right": 308.09375,
+              "bottom": 705.84375,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 500.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 500.4375,
+              "right": 227.296875,
+              "bottom": 708.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "false"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 653,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 653,
+              "right": 362.6875,
+              "bottom": 726.3125,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 654.96875,
+              "width": 200,
+              "height": 54,
+              "top": 654.96875,
+              "right": 227.296875,
+              "bottom": 708.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        }
+      ]
+    },
+    {
+      "name": "small",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "failedRequests": [],
+      "states": [
+        {
+          "progress": 0,
+          "diag": {
+            "p": 0,
+            "target": 0,
+            "frames": 16,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.0643813822345645
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 1761
+          },
+          "intro": {
+            "rect": {
+              "x": 22.390625,
+              "y": 380.9375,
+              "width": 230.390625,
+              "height": 101.875,
+              "top": 380.9375,
+              "right": 252.78125,
+              "bottom": 482.8125,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "false"
+          },
+          "closing": {
+            "rect": {
+              "x": 22.390625,
+              "y": 321.1875,
+              "width": 200,
+              "height": 173.9375,
+              "top": 321.1875,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 22.390625,
+              "y": 446,
+              "width": 275.1875,
+              "height": 60.15625,
+              "top": 446,
+              "right": 297.578125,
+              "bottom": 506.15625,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 22.390625,
+              "y": 447.125,
+              "width": 200,
+              "height": 48,
+              "top": 447.125,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.1,
+          "diag": {
+            "p": 0.1,
+            "target": 0.1,
+            "frames": 17,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.14774233740235485,
+              "pitch": 0.29950090606374724,
+              "curvature": 0.03376871230018681,
+              "sector": 0.009806147561193157,
+              "angularPitch": 0.010113759930511956,
+              "scale": 0.7325152245023356
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 1761
+          },
+          "intro": {
+            "rect": {
+              "x": 22.390625,
+              "y": 364.90252685546875,
+              "width": 230.390625,
+              "height": 101.875,
+              "top": 364.90252685546875,
+              "right": 252.78125,
+              "bottom": 466.77752685546875,
+              "left": 22.390625
+            },
+            "opacity": "0.198251",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "false"
+          },
+          "closing": {
+            "rect": {
+              "x": 22.390625,
+              "y": 321.1875,
+              "width": 200,
+              "height": 173.9375,
+              "top": 321.1875,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 22.390625,
+              "y": 446,
+              "width": 275.1875,
+              "height": 60.15625,
+              "top": 446,
+              "right": 297.578125,
+              "bottom": 506.15625,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 22.390625,
+              "y": 447.125,
+              "width": 200,
+              "height": 48,
+              "top": 447.125,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.2,
+          "diag": {
+            "p": 0.2,
+            "target": 0.2,
+            "frames": 18,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.7282759695373004,
+              "pitch": 1.3689511636885054,
+              "curvature": 0.16645832279930295,
+              "sector": 0.21904393395033403,
+              "angularPitch": 0.22787331470174266,
+              "scale": 0.25529273552342746
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 1761
+          },
+          "intro": {
+            "rect": {
+              "x": 22.390625,
+              "y": 360.9375,
+              "width": 230.390625,
+              "height": 101.875,
+              "top": 360.9375,
+              "right": 252.78125,
+              "bottom": 462.8125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 22.390625,
+              "y": 321.1875,
+              "width": 200,
+              "height": 173.9375,
+              "top": 321.1875,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 22.390625,
+              "y": 446,
+              "width": 275.1875,
+              "height": 60.15625,
+              "top": 446,
+              "right": 297.578125,
+              "bottom": 506.15625,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 22.390625,
+              "y": 447.125,
+              "width": 200,
+              "height": 48,
+              "top": 447.125,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.31,
+          "diag": {
+            "p": 0.31,
+            "target": 0.31,
+            "frames": 19,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.3084684479220515
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 1761
+          },
+          "intro": {
+            "rect": {
+              "x": 22.390625,
+              "y": 360.9375,
+              "width": 230.390625,
+              "height": 101.875,
+              "top": 360.9375,
+              "right": 252.78125,
+              "bottom": 462.8125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 22.390625,
+              "y": 321.1875,
+              "width": 200,
+              "height": 173.9375,
+              "top": 321.1875,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 22.390625,
+              "y": 426,
+              "width": 275.1875,
+              "height": 60.15625,
+              "top": 426,
+              "right": 297.578125,
+              "bottom": 486.15625,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 22.390625,
+              "y": 447.125,
+              "width": 200,
+              "height": 48,
+              "top": 447.125,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.4,
+          "diag": {
+            "p": 0.4,
+            "target": 0.4,
+            "frames": 20,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.3083438645424384
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 1761
+          },
+          "intro": {
+            "rect": {
+              "x": 22.390625,
+              "y": 360.9375,
+              "width": 230.390625,
+              "height": 101.875,
+              "top": 360.9375,
+              "right": 252.78125,
+              "bottom": 462.8125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 22.390625,
+              "y": 321.1875,
+              "width": 200,
+              "height": 173.9375,
+              "top": 321.1875,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 22.390625,
+              "y": 426,
+              "width": 275.1875,
+              "height": 60.15625,
+              "top": 426,
+              "right": 297.578125,
+              "bottom": 486.15625,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 22.390625,
+              "y": 447.125,
+              "width": 200,
+              "height": 48,
+              "top": 447.125,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.5,
+          "diag": {
+            "p": 0.5,
+            "target": 0.5,
+            "frames": 21,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.308302336749234
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 1761
+          },
+          "intro": {
+            "rect": {
+              "x": 22.390625,
+              "y": 360.9375,
+              "width": 230.390625,
+              "height": 101.875,
+              "top": 360.9375,
+              "right": 252.78125,
+              "bottom": 462.8125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 22.390625,
+              "y": 321.1875,
+              "width": 200,
+              "height": 173.9375,
+              "top": 321.1875,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 22.390625,
+              "y": 426,
+              "width": 275.1875,
+              "height": 60.15625,
+              "top": 426,
+              "right": 297.578125,
+              "bottom": 486.15625,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 22.390625,
+              "y": 447.125,
+              "width": 200,
+              "height": 48,
+              "top": 447.125,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.6,
+          "diag": {
+            "p": 0.6,
+            "target": 0.6,
+            "frames": 22,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.3083438645424384
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 1761
+          },
+          "intro": {
+            "rect": {
+              "x": 22.390625,
+              "y": 360.9375,
+              "width": 230.390625,
+              "height": 101.875,
+              "top": 360.9375,
+              "right": 252.78125,
+              "bottom": 462.8125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 22.390625,
+              "y": 321.1875,
+              "width": 200,
+              "height": 173.9375,
+              "top": 321.1875,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 22.390625,
+              "y": 426,
+              "width": 275.1875,
+              "height": 60.15625,
+              "top": 426,
+              "right": 297.578125,
+              "bottom": 486.15625,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 22.390625,
+              "y": 447.125,
+              "width": 200,
+              "height": 48,
+              "top": 447.125,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.7,
+          "diag": {
+            "p": 0.7,
+            "target": 0.7,
+            "frames": 23,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.3084684479220515
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 1761
+          },
+          "intro": {
+            "rect": {
+              "x": 22.390625,
+              "y": 360.9375,
+              "width": 230.390625,
+              "height": 101.875,
+              "top": 360.9375,
+              "right": 252.78125,
+              "bottom": 462.8125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 22.390625,
+              "y": 321.1875,
+              "width": 200,
+              "height": 173.9375,
+              "top": 321.1875,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 22.390625,
+              "y": 426,
+              "width": 275.1875,
+              "height": 60.15625,
+              "top": 426,
+              "right": 297.578125,
+              "bottom": 486.15625,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 22.390625,
+              "y": 447.125,
+              "width": 200,
+              "height": 48,
+              "top": 447.125,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.82,
+          "diag": {
+            "p": 0.82,
+            "target": 0.82,
+            "frames": 24,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.9914400000000001,
+              "pitch": 1.6522807185052006,
+              "curvature": 0.2266083826176395,
+              "sector": 0.35466205759863983,
+              "angularPitch": 0.3744206612507748,
+              "scale": 0.30773952971443347
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 1761
+          },
+          "intro": {
+            "rect": {
+              "x": 22.390625,
+              "y": 360.9375,
+              "width": 230.390625,
+              "height": 101.875,
+              "top": 360.9375,
+              "right": 252.78125,
+              "bottom": 462.8125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 22.390625,
+              "y": 321.1875,
+              "width": 200,
+              "height": 173.9375,
+              "top": 321.1875,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 22.390625,
+              "y": 446,
+              "width": 275.1875,
+              "height": 60.15625,
+              "top": 446,
+              "right": 297.578125,
+              "bottom": 506.15625,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 22.390625,
+              "y": 447.125,
+              "width": 200,
+              "height": 48,
+              "top": 447.125,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 0.9,
+          "diag": {
+            "p": 0.9,
+            "target": 0.9,
+            "frames": 25,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.5,
+              "pitch": 0.9906665295454273,
+              "curvature": 0.11428244907288361,
+              "sector": 0.10957176031516568,
+              "angularPitch": 0.11321579721098564,
+              "scale": 0.2831714648406113
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 1761
+          },
+          "intro": {
+            "rect": {
+              "x": 22.390625,
+              "y": 360.9375,
+              "width": 230.390625,
+              "height": 101.875,
+              "top": 360.9375,
+              "right": 252.78125,
+              "bottom": 462.8125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 22.390625,
+              "y": 321.1875,
+              "width": 200,
+              "height": 173.9375,
+              "top": 321.1875,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 22.390625,
+              "y": 446,
+              "width": 275.1875,
+              "height": 60.15625,
+              "top": 446,
+              "right": 297.578125,
+              "bottom": 506.15625,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 22.390625,
+              "y": 447.125,
+              "width": 200,
+              "height": 48,
+              "top": 447.125,
+              "right": 222.390625,
+              "bottom": 495.125,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "progress": 1,
+          "diag": {
+            "p": 1,
+            "target": 1,
+            "frames": 26,
+            "ready": true,
+            "quiet": false,
+            "raf": 0,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.0643813822345645
+            },
+            "viewport": [
+              320,
+              568
+            ],
+            "buffer": [
+              480,
+              852
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 1761
+          },
+          "intro": {
+            "rect": {
+              "x": 22.390625,
+              "y": 360.9375,
+              "width": 230.390625,
+              "height": 101.875,
+              "top": 360.9375,
+              "right": 252.78125,
+              "bottom": 462.8125,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 22.390625,
+              "y": 303.1875,
+              "width": 200,
+              "height": 173.9375,
+              "top": 303.1875,
+              "right": 222.390625,
+              "bottom": 477.125,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "false"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 22.390625,
+              "y": 446,
+              "width": 275.1875,
+              "height": 60.15625,
+              "top": 446,
+              "right": 297.578125,
+              "bottom": 506.15625,
+              "left": 22.390625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 22.390625,
+              "y": 429.125,
+              "width": 200,
+              "height": 48,
+              "top": 429.125,
+              "right": 222.390625,
+              "bottom": 477.125,
+              "left": 22.390625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        }
+      ]
+    },
+    {
+      "name": "userpane-scroll",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "failedRequests": [],
+      "states": [
+        {
+          "realScroll": 0.2,
+          "diag": {
+            "p": 0.19990828431538568,
+            "target": 0.20006281407035176,
+            "frames": 57,
+            "ready": true,
+            "quiet": false,
+            "raf": 105,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.7277657814828785,
+              "pitch": 1.3682199576324003,
+              "curvature": 0.16634171171860881,
+              "sector": 0.21877817129815305,
+              "angularPitch": 0.22759204976013592,
+              "scale": 0.43091232310321753
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 637,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 491.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 491.703125,
+              "right": 513.03125,
+              "bottom": 648.640625,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 428.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 428.0625,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 473.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 473.71875,
+              "right": 795.578125,
+              "bottom": 573.4375,
+              "left": 371.265625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 618.6875,
+              "width": 220,
+              "height": 60,
+              "top": 618.6875,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "realScroll": 0.68,
+          "diag": {
+            "p": 0.6799031273980977,
+            "target": 0.679962311557789,
+            "frames": 111,
+            "ready": true,
+            "quiet": false,
+            "raf": 213,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.5468795087083329
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 2165,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 491.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 491.703125,
+              "right": 513.03125,
+              "bottom": 648.640625,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 428.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 428.0625,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 453.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 453.71875,
+              "right": 795.578125,
+              "bottom": 553.4375,
+              "left": 371.265625
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 618.6875,
+              "width": 220,
+              "height": 60,
+              "top": 618.6875,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "realScroll": 1,
+          "diag": {
+            "p": 0.9999090437196057,
+            "target": 1,
+            "frames": 160,
+            "ready": true,
+            "quiet": false,
+            "raf": 311,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 9.399642175722533e-10,
+              "pitch": 0.012166701773902699,
+              "curvature": 2.1484282565006788e-10,
+              "sector": 2.363271452831885e-12,
+              "angularPitch": 2.6139285879469493e-12,
+              "scale": 1.445779191245805
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 3184,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 491.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 491.703125,
+              "right": 513.03125,
+              "bottom": 648.640625,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 410.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 410.0625,
+              "right": 273.03125,
+              "bottom": 660.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "false"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 473.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 473.71875,
+              "right": 795.578125,
+              "bottom": 573.4375,
+              "left": 371.265625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 600.6875,
+              "width": 220,
+              "height": 60,
+              "top": 600.6875,
+              "right": 273.03125,
+              "bottom": 660.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "realScroll": 0,
+          "diag": {
+            "p": 0.00008853691622702885,
+            "target": 0,
+            "frames": 216,
+            "ready": true,
+            "quiet": false,
+            "raf": 423,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 1.4457791920434673
+            },
+            "viewport": [
+              884,
+              796
+            ],
+            "buffer": [
+              1547,
+              1393
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 3184
+          },
+          "intro": {
+            "rect": {
+              "x": 53.03125,
+              "y": 511.703125,
+              "width": 460,
+              "height": 156.9375,
+              "top": 511.703125,
+              "right": 513.03125,
+              "bottom": 668.640625,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "false"
+          },
+          "closing": {
+            "rect": {
+              "x": 53.03125,
+              "y": 428.0625,
+              "width": 220,
+              "height": 250.625,
+              "top": 428.0625,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 371.265625,
+              "y": 473.71875,
+              "width": 424.3125,
+              "height": 99.71875,
+              "top": 473.71875,
+              "right": 795.578125,
+              "bottom": 573.4375,
+              "left": 371.265625
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 53.03125,
+              "y": 618.6875,
+              "width": 220,
+              "height": 60,
+              "top": 618.6875,
+              "right": 273.03125,
+              "bottom": 678.6875,
+              "left": 53.03125
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        }
+      ],
+      "paused": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 230,
+          "ready": true,
+          "quiet": false,
+          "raf": 0,
+          "error": 0,
+          "triangles": 3808,
+          "cards": 14,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 1.4457791920434673
+          },
+          "viewport": [
+            884,
+            796
+          ],
+          "buffer": [
+            1547,
+            1393
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "ready",
+        "scroll": {
+          "position": 0,
+          "range": 3184
+        },
+        "intro": {
+          "rect": {
+            "x": 53.03125,
+            "y": 511.703125,
+            "width": 460,
+            "height": 156.9375,
+            "top": 511.703125,
+            "right": 513.03125,
+            "bottom": 668.640625,
+            "left": 53.03125
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "false"
+        },
+        "closing": {
+          "rect": {
+            "x": 53.03125,
+            "y": 428.0625,
+            "width": 220,
+            "height": 250.625,
+            "top": 428.0625,
+            "right": 273.03125,
+            "bottom": 678.6875,
+            "left": 53.03125
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": true,
+          "ariaHidden": "true"
+        },
+        "intertitle": {
+          "rect": {
+            "x": 371.265625,
+            "y": 473.71875,
+            "width": 424.3125,
+            "height": 99.71875,
+            "top": 473.71875,
+            "right": 795.578125,
+            "bottom": 573.4375,
+            "left": 371.265625
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "cta": {
+          "rect": {
+            "x": 53.03125,
+            "y": 618.6875,
+            "width": 220,
+            "height": 60,
+            "top": 618.6875,
+            "right": 273.03125,
+            "bottom": 678.6875,
+            "left": 53.03125
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": null
+        },
+        "motion": {
+          "text": "Resume motion",
+          "pressed": "true"
+        }
+      },
+      "pausedAfter": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 230,
+          "ready": true,
+          "quiet": false,
+          "raf": 0,
+          "error": 0,
+          "triangles": 3808,
+          "cards": 14,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 1.4457791920434673
+          },
+          "viewport": [
+            884,
+            796
+          ],
+          "buffer": [
+            1547,
+            1393
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "ready",
+        "scroll": {
+          "position": 0,
+          "range": 3184
+        },
+        "intro": {
+          "rect": {
+            "x": 53.03125,
+            "y": 511.703125,
+            "width": 460,
+            "height": 156.9375,
+            "top": 511.703125,
+            "right": 513.03125,
+            "bottom": 668.640625,
+            "left": 53.03125
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "false"
+        },
+        "closing": {
+          "rect": {
+            "x": 53.03125,
+            "y": 428.0625,
+            "width": 220,
+            "height": 250.625,
+            "top": 428.0625,
+            "right": 273.03125,
+            "bottom": 678.6875,
+            "left": 53.03125
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": true,
+          "ariaHidden": "true"
+        },
+        "intertitle": {
+          "rect": {
+            "x": 371.265625,
+            "y": 473.71875,
+            "width": 424.3125,
+            "height": 99.71875,
+            "top": 473.71875,
+            "right": 795.578125,
+            "bottom": 573.4375,
+            "left": 371.265625
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "cta": {
+          "rect": {
+            "x": 53.03125,
+            "y": 618.6875,
+            "width": 220,
+            "height": 60,
+            "top": 618.6875,
+            "right": 273.03125,
+            "bottom": 678.6875,
+            "left": 53.03125
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": null
+        },
+        "motion": {
+          "text": "Resume motion",
+          "pressed": "true"
+        }
+      },
+      "resumed": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 246,
+          "ready": true,
+          "quiet": false,
+          "raf": 453,
+          "error": 0,
+          "triangles": 3808,
+          "cards": 14,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 1.4457791920434673
+          },
+          "viewport": [
+            884,
+            796
+          ],
+          "buffer": [
+            1547,
+            1393
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "ready",
+        "scroll": {
+          "position": 0,
+          "range": 3184
+        },
+        "intro": {
+          "rect": {
+            "x": 53.03125,
+            "y": 511.703125,
+            "width": 460,
+            "height": 156.9375,
+            "top": 511.703125,
+            "right": 513.03125,
+            "bottom": 668.640625,
+            "left": 53.03125
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "false"
+        },
+        "closing": {
+          "rect": {
+            "x": 53.03125,
+            "y": 428.0625,
+            "width": 220,
+            "height": 250.625,
+            "top": 428.0625,
+            "right": 273.03125,
+            "bottom": 678.6875,
+            "left": 53.03125
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": true,
+          "ariaHidden": "true"
+        },
+        "intertitle": {
+          "rect": {
+            "x": 371.265625,
+            "y": 473.71875,
+            "width": 424.3125,
+            "height": 99.71875,
+            "top": 473.71875,
+            "right": 795.578125,
+            "bottom": 573.4375,
+            "left": 371.265625
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "cta": {
+          "rect": {
+            "x": 53.03125,
+            "y": 618.6875,
+            "width": 220,
+            "height": 60,
+            "top": 618.6875,
+            "right": 273.03125,
+            "bottom": 678.6875,
+            "left": 53.03125
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": null
+        },
+        "motion": {
+          "text": "Pause motion",
+          "pressed": "false"
+        }
+      },
+      "cta": {
+        "href": "https://oliviaarcana.com/oracle",
+        "focused": true,
+        "hit": true,
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "mobile-scroll",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "failedRequests": [],
+      "states": [
+        {
+          "realScroll": 0.2,
+          "diag": {
+            "p": 0.1999026486305304,
+            "target": 0.19992354740061163,
+            "frames": 69,
+            "ready": true,
+            "quiet": false,
+            "raf": 129,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0.7277344205562065,
+              "pitch": 1.3681749911798522,
+              "curvature": 0.16633454371159828,
+              "sector": 0.21876183667235363,
+              "angularPitch": 0.22757476287552073,
+              "scale": 0.209805330462072
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 523,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 581.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 581.65625,
+              "right": 308.09375,
+              "bottom": 705.84375,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 518.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 518.4375,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 653,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 653,
+              "right": 362.6875,
+              "bottom": 726.3125,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 672.96875,
+              "width": 200,
+              "height": 54,
+              "top": 672.96875,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "realScroll": 0.68,
+          "diag": {
+            "p": 0.6799094377317757,
+            "target": 0.680045871559633,
+            "frames": 118,
+            "ready": true,
+            "quiet": false,
+            "raf": 227,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 1,
+              "pitch": 1.6579098574178217,
+              "curvature": 0.22856489814576722,
+              "sector": 0.3587250151371622,
+              "angularPitch": 0.37893999769556785,
+              "scale": 0.2561849562777512
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 1779,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 581.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 581.65625,
+              "right": 308.09375,
+              "bottom": 705.84375,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 518.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 518.4375,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 633,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 633,
+              "right": 362.6875,
+              "bottom": 706.3125,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 672.96875,
+              "width": 200,
+              "height": 54,
+              "top": 672.96875,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "realScroll": 1,
+          "diag": {
+            "p": 0.9999091364217271,
+            "target": 1,
+            "frames": 167,
+            "ready": true,
+            "quiet": false,
+            "raf": 325,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 9.370945130982022e-10,
+              "pitch": 0.012166701768486986,
+              "curvature": 2.1418691193924794e-10,
+              "sector": 2.3560563997529467e-12,
+              "angularPitch": 2.605948280278014e-12,
+              "scale": 0.894259498443875
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 2616,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 581.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 581.65625,
+              "right": 308.09375,
+              "bottom": 705.84375,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 500.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 500.4375,
+              "right": 227.296875,
+              "bottom": 708.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "false"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 653,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 653,
+              "right": 362.6875,
+              "bottom": 726.3125,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 654.96875,
+              "width": 200,
+              "height": 54,
+              "top": 654.96875,
+              "right": 227.296875,
+              "bottom": 708.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        },
+        {
+          "realScroll": 0,
+          "diag": {
+            "p": 0.0000885369244353355,
+            "target": 0,
+            "frames": 223,
+            "ready": true,
+            "quiet": false,
+            "raf": 437,
+            "error": 0,
+            "triangles": 3808,
+            "cards": 14,
+            "clearance": {
+              "q": 0,
+              "pitch": 0.012166699999999999,
+              "curvature": 0,
+              "sector": 0,
+              "angularPitch": 0,
+              "scale": 0.8942594988628779
+            },
+            "viewport": [
+              390,
+              844
+            ],
+            "buffer": [
+              585,
+              1266
+            ]
+          },
+          "canvasCount": 1,
+          "overflow": false,
+          "root": "ready",
+          "scroll": {
+            "position": 0,
+            "range": 2616
+          },
+          "intro": {
+            "rect": {
+              "x": 27.296875,
+              "y": 601.65625,
+              "width": 280.796875,
+              "height": 124.1875,
+              "top": 601.65625,
+              "right": 308.09375,
+              "bottom": 725.84375,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "false"
+          },
+          "closing": {
+            "rect": {
+              "x": 27.296875,
+              "y": 518.4375,
+              "width": 200,
+              "height": 208.53125,
+              "top": 518.4375,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": true,
+            "ariaHidden": "true"
+          },
+          "intertitle": {
+            "rect": {
+              "x": 27.296875,
+              "y": 653,
+              "width": 335.390625,
+              "height": 73.3125,
+              "top": 653,
+              "right": 362.6875,
+              "bottom": 726.3125,
+              "left": 27.296875
+            },
+            "opacity": "0",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": "true"
+          },
+          "cta": {
+            "rect": {
+              "x": 27.296875,
+              "y": 672.96875,
+              "width": 200,
+              "height": 54,
+              "top": 672.96875,
+              "right": 227.296875,
+              "bottom": 726.96875,
+              "left": 27.296875
+            },
+            "opacity": "1",
+            "visibility": "visible",
+            "inert": false,
+            "ariaHidden": null
+          },
+          "motion": {
+            "text": "Pause motion",
+            "pressed": "false"
+          }
+        }
+      ],
+      "paused": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 237,
+          "ready": true,
+          "quiet": false,
+          "raf": 0,
+          "error": 0,
+          "triangles": 3808,
+          "cards": 14,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 0.8942594988628779
+          },
+          "viewport": [
+            390,
+            844
+          ],
+          "buffer": [
+            585,
+            1266
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "ready",
+        "scroll": {
+          "position": 0,
+          "range": 2616
+        },
+        "intro": {
+          "rect": {
+            "x": 27.296875,
+            "y": 601.65625,
+            "width": 280.796875,
+            "height": 124.1875,
+            "top": 601.65625,
+            "right": 308.09375,
+            "bottom": 725.84375,
+            "left": 27.296875
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "false"
+        },
+        "closing": {
+          "rect": {
+            "x": 27.296875,
+            "y": 518.4375,
+            "width": 200,
+            "height": 208.53125,
+            "top": 518.4375,
+            "right": 227.296875,
+            "bottom": 726.96875,
+            "left": 27.296875
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": true,
+          "ariaHidden": "true"
+        },
+        "intertitle": {
+          "rect": {
+            "x": 27.296875,
+            "y": 653,
+            "width": 335.390625,
+            "height": 73.3125,
+            "top": 653,
+            "right": 362.6875,
+            "bottom": 726.3125,
+            "left": 27.296875
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "cta": {
+          "rect": {
+            "x": 27.296875,
+            "y": 672.96875,
+            "width": 200,
+            "height": 54,
+            "top": 672.96875,
+            "right": 227.296875,
+            "bottom": 726.96875,
+            "left": 27.296875
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": null
+        },
+        "motion": {
+          "text": "Resume motion",
+          "pressed": "true"
+        }
+      },
+      "pausedAfter": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 237,
+          "ready": true,
+          "quiet": false,
+          "raf": 0,
+          "error": 0,
+          "triangles": 3808,
+          "cards": 14,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 0.8942594988628779
+          },
+          "viewport": [
+            390,
+            844
+          ],
+          "buffer": [
+            585,
+            1266
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "ready",
+        "scroll": {
+          "position": 0,
+          "range": 2616
+        },
+        "intro": {
+          "rect": {
+            "x": 27.296875,
+            "y": 601.65625,
+            "width": 280.796875,
+            "height": 124.1875,
+            "top": 601.65625,
+            "right": 308.09375,
+            "bottom": 725.84375,
+            "left": 27.296875
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "false"
+        },
+        "closing": {
+          "rect": {
+            "x": 27.296875,
+            "y": 518.4375,
+            "width": 200,
+            "height": 208.53125,
+            "top": 518.4375,
+            "right": 227.296875,
+            "bottom": 726.96875,
+            "left": 27.296875
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": true,
+          "ariaHidden": "true"
+        },
+        "intertitle": {
+          "rect": {
+            "x": 27.296875,
+            "y": 653,
+            "width": 335.390625,
+            "height": 73.3125,
+            "top": 653,
+            "right": 362.6875,
+            "bottom": 726.3125,
+            "left": 27.296875
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "cta": {
+          "rect": {
+            "x": 27.296875,
+            "y": 672.96875,
+            "width": 200,
+            "height": 54,
+            "top": 672.96875,
+            "right": 227.296875,
+            "bottom": 726.96875,
+            "left": 27.296875
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": null
+        },
+        "motion": {
+          "text": "Resume motion",
+          "pressed": "true"
+        }
+      },
+      "resumed": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 253,
+          "ready": true,
+          "quiet": false,
+          "raf": 467,
+          "error": 0,
+          "triangles": 3808,
+          "cards": 14,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 0.8942594988628779
+          },
+          "viewport": [
+            390,
+            844
+          ],
+          "buffer": [
+            585,
+            1266
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "ready",
+        "scroll": {
+          "position": 0,
+          "range": 2616
+        },
+        "intro": {
+          "rect": {
+            "x": 27.296875,
+            "y": 601.65625,
+            "width": 280.796875,
+            "height": 124.1875,
+            "top": 601.65625,
+            "right": 308.09375,
+            "bottom": 725.84375,
+            "left": 27.296875
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "false"
+        },
+        "closing": {
+          "rect": {
+            "x": 27.296875,
+            "y": 518.4375,
+            "width": 200,
+            "height": 208.53125,
+            "top": 518.4375,
+            "right": 227.296875,
+            "bottom": 726.96875,
+            "left": 27.296875
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": true,
+          "ariaHidden": "true"
+        },
+        "intertitle": {
+          "rect": {
+            "x": 27.296875,
+            "y": 653,
+            "width": 335.390625,
+            "height": 73.3125,
+            "top": 653,
+            "right": 362.6875,
+            "bottom": 726.3125,
+            "left": 27.296875
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "cta": {
+          "rect": {
+            "x": 27.296875,
+            "y": 672.96875,
+            "width": 200,
+            "height": 54,
+            "top": 672.96875,
+            "right": 227.296875,
+            "bottom": 726.96875,
+            "left": 27.296875
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": null
+        },
+        "motion": {
+          "text": "Pause motion",
+          "pressed": "false"
+        }
+      },
+      "cta": {
+        "href": "https://oliviaarcana.com/oracle",
+        "focused": true,
+        "hit": true,
+        "opacity": "1"
+      }
+    },
+    {
+      "name": "reduced",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "failedRequests": [],
+      "states": [],
+      "initial": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 2,
+          "ready": true,
+          "quiet": true,
+          "raf": 0,
+          "error": 0,
+          "triangles": 3808,
+          "cards": 14,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 1.5671321464799393
+          },
+          "viewport": [
+            1440,
+            1000
+          ],
+          "buffer": [
+            2245,
+            1559
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "ready quiet",
+        "scroll": {
+          "position": 0,
+          "range": 0
+        },
+        "intro": {
+          "rect": {
+            "x": 86.390625,
+            "y": 634.90625,
+            "width": 460,
+            "height": 195.09375,
+            "top": 634.90625,
+            "right": 546.390625,
+            "bottom": 830,
+            "left": 86.390625
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "closing": {
+          "rect": {
+            "x": 86.390625,
+            "y": 544.71875,
+            "width": 303.625,
+            "height": 295.28125,
+            "top": 544.71875,
+            "right": 390.015625,
+            "bottom": 840,
+            "left": 86.390625
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "false"
+        },
+        "intertitle": {
+          "rect": {
+            "x": 604.796875,
+            "y": 570,
+            "width": 691.1875,
+            "height": 159.6875,
+            "top": 570,
+            "right": 1295.984375,
+            "bottom": 729.6875,
+            "left": 604.796875
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "cta": {
+          "rect": {
+            "x": 86.390625,
+            "y": 780,
+            "width": 303.625,
+            "height": 60,
+            "top": 780,
+            "right": 390.015625,
+            "bottom": 840,
+            "left": 86.390625
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": null
+        },
+        "motion": {
+          "text": "Pause motion",
+          "pressed": "false"
+        }
+      },
+      "after": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 2,
+          "ready": true,
+          "quiet": true,
+          "raf": 0,
+          "error": 0,
+          "triangles": 3808,
+          "cards": 14,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 1.5671321464799393
+          },
+          "viewport": [
+            1440,
+            1000
+          ],
+          "buffer": [
+            2245,
+            1559
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "ready quiet",
+        "scroll": {
+          "position": 0,
+          "range": 0
+        },
+        "intro": {
+          "rect": {
+            "x": 86.390625,
+            "y": 634.90625,
+            "width": 460,
+            "height": 195.09375,
+            "top": 634.90625,
+            "right": 546.390625,
+            "bottom": 830,
+            "left": 86.390625
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "closing": {
+          "rect": {
+            "x": 86.390625,
+            "y": 544.71875,
+            "width": 303.625,
+            "height": 295.28125,
+            "top": 544.71875,
+            "right": 390.015625,
+            "bottom": 840,
+            "left": 86.390625
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "false"
+        },
+        "intertitle": {
+          "rect": {
+            "x": 604.796875,
+            "y": 570,
+            "width": 691.1875,
+            "height": 159.6875,
+            "top": 570,
+            "right": 1295.984375,
+            "bottom": 729.6875,
+            "left": 604.796875
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "cta": {
+          "rect": {
+            "x": 86.390625,
+            "y": 780,
+            "width": 303.625,
+            "height": 60,
+            "top": 780,
+            "right": 390.015625,
+            "bottom": 840,
+            "left": 86.390625
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": null
+        },
+        "motion": {
+          "text": "Pause motion",
+          "pressed": "false"
+        }
+      },
+      "hasLossExtension": true,
+      "lost": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 2,
+          "ready": false,
+          "quiet": true,
+          "raf": 0,
+          "triangles": 3808,
+          "cards": 14,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 1.5671321464799393
+          },
+          "viewport": [
+            1440,
+            1000
+          ],
+          "buffer": [
+            2245,
+            1559
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "quiet",
+        "scroll": {
+          "position": 0,
+          "range": 0
+        },
+        "intro": {
+          "rect": {
+            "x": 86.390625,
+            "y": 634.90625,
+            "width": 460,
+            "height": 195.09375,
+            "top": 634.90625,
+            "right": 546.390625,
+            "bottom": 830,
+            "left": 86.390625
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "closing": {
+          "rect": {
+            "x": 86.390625,
+            "y": 544.71875,
+            "width": 303.625,
+            "height": 295.28125,
+            "top": 544.71875,
+            "right": 390.015625,
+            "bottom": 840,
+            "left": 86.390625
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "false"
+        },
+        "intertitle": {
+          "rect": {
+            "x": 604.796875,
+            "y": 570,
+            "width": 691.1875,
+            "height": 159.6875,
+            "top": 570,
+            "right": 1295.984375,
+            "bottom": 729.6875,
+            "left": 604.796875
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "cta": {
+          "rect": {
+            "x": 86.390625,
+            "y": 780,
+            "width": 303.625,
+            "height": 60,
+            "top": 780,
+            "right": 390.015625,
+            "bottom": 840,
+            "left": 86.390625
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": null
+        },
+        "motion": {
+          "text": "Pause motion",
+          "pressed": "false"
+        }
+      },
+      "restored": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 4,
+          "ready": true,
+          "quiet": true,
+          "raf": 0,
+          "error": 0,
+          "triangles": 3808,
+          "cards": 14,
+          "clearance": {
+            "q": 0,
+            "pitch": 0.012166699999999999,
+            "curvature": 0,
+            "sector": 0,
+            "angularPitch": 0,
+            "scale": 1.5671321464799393
+          },
+          "viewport": [
+            1440,
+            1000
+          ],
+          "buffer": [
+            2245,
+            1559
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "quiet ready",
+        "scroll": {
+          "position": 0,
+          "range": 0
+        },
+        "intro": {
+          "rect": {
+            "x": 86.390625,
+            "y": 634.90625,
+            "width": 460,
+            "height": 195.09375,
+            "top": 634.90625,
+            "right": 546.390625,
+            "bottom": 830,
+            "left": 86.390625
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "closing": {
+          "rect": {
+            "x": 86.390625,
+            "y": 544.71875,
+            "width": 303.625,
+            "height": 295.28125,
+            "top": 544.71875,
+            "right": 390.015625,
+            "bottom": 840,
+            "left": 86.390625
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "false"
+        },
+        "intertitle": {
+          "rect": {
+            "x": 604.796875,
+            "y": 570,
+            "width": 691.1875,
+            "height": 159.6875,
+            "top": 570,
+            "right": 1295.984375,
+            "bottom": 729.6875,
+            "left": 604.796875
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "cta": {
+          "rect": {
+            "x": 86.390625,
+            "y": 780,
+            "width": 303.625,
+            "height": 60,
+            "top": 780,
+            "right": 390.015625,
+            "bottom": 840,
+            "left": 86.390625
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": null
+        },
+        "motion": {
+          "text": "Pause motion",
+          "pressed": "false"
+        }
+      },
+      "restoreDiff": {
+        "pixelsOver3": 0,
+        "maxChannelDelta": 0
+      }
+    },
+    {
+      "name": "fallback",
+      "errors": [],
+      "consoleErrors": [],
+      "requests": [],
+      "failedRequests": [],
+      "states": [],
+      "state": {
+        "diag": {
+          "p": 0,
+          "target": 0,
+          "frames": 0,
+          "ready": false,
+          "quiet": false,
+          "raf": 0,
+          "failure": "Error: WebGL unavailable",
+          "triangles": 0,
+          "cards": 14,
+          "viewport": [
+            1,
+            1
+          ],
+          "buffer": [
+            300,
+            150
+          ]
+        },
+        "canvasCount": 1,
+        "overflow": false,
+        "root": "fallback quiet",
+        "scroll": {
+          "position": 0,
+          "range": 0
+        },
+        "intro": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "closing": {
+          "rect": {
+            "x": 27.296875,
+            "y": 500.4375,
+            "width": 200,
+            "height": 208.53125,
+            "top": 500.4375,
+            "right": 227.296875,
+            "bottom": 708.96875,
+            "left": 27.296875
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "false"
+        },
+        "intertitle": {
+          "rect": {
+            "x": 27.296875,
+            "y": 653,
+            "width": 335.390625,
+            "height": 73.3125,
+            "top": 653,
+            "right": 362.6875,
+            "bottom": 726.3125,
+            "left": 27.296875
+          },
+          "opacity": "0",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": "true"
+        },
+        "cta": {
+          "rect": {
+            "x": 27.296875,
+            "y": 654.96875,
+            "width": 200,
+            "height": 54,
+            "top": 654.96875,
+            "right": 227.296875,
+            "bottom": 708.96875,
+            "left": 27.296875
+          },
+          "opacity": "1",
+          "visibility": "visible",
+          "inert": false,
+          "ariaHidden": null
+        },
+        "motion": {
+          "text": "Pause motion",
+          "pressed": "false"
+        }
+      },
+      "poster": {
+        "complete": true,
+        "width": 896,
+        "display": "block",
+        "visibility": "visible",
+        "rect": {
+          "x": 152.29356384277344,
+          "y": 126.60124969482422,
+          "width": 208.00660705566406,
+          "height": 320.6881103515625,
+          "top": 126.60124969482422,
+          "right": 360.3001708984375,
+          "bottom": 447.2893600463867,
+          "left": 152.29356384277344
+        }
+      },
+      "cta": {
+        "href": "https://oliviaarcana.com/oracle",
+        "focused": true,
+        "hit": true,
+        "closingInert": false,
+        "opacity": "1"
+      }
+    }
+  ],
+  "failures": []
+}

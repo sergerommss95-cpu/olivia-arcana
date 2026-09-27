@@ -18,8 +18,14 @@ import React, { useState, useRef, useEffect } from "react";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
 import { getSunSign, getCosmicProfile, type CosmicProfile as CosmicProfileData } from "../../lib/zodiac-utils";
 import BirthDatePicker from "../../components/BirthDatePicker";
+import { ADDONS, type PriceKey } from "../../lib/payments";
+import { PENDING_CHECKOUT_KEY } from "../../components/CheckoutButton";
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
+
+function isPriceKey(value: string): value is PriceKey {
+  return /^(insight|premium|vip)_(monthly|annual)$/.test(value) || value in ADDONS;
+}
 
 type Step = "name" | "date" | "time" | "city" | "result";
 const STEPS: Step[] = ["name", "date", "time", "city", "result"];
@@ -32,7 +38,28 @@ export default function OnboardingPage() {
   const [timeUnknown, setTimeUnknown] = useState(false);
   const [city, setCity] = useState("");
   const [profile, setProfile] = useState<CosmicProfileData | null>(null);
+  const [checkoutIntent, setCheckoutIntent] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // A buyer sent here mid-checkout (?redirect=checkout&price=<key>) gets
+  // their intent parked under the pending-checkout contract key, and the
+  // final step routes them to sign-in instead of the chart. Read from
+  // window.location in an effect — no useSearchParams, so the statically
+  // exported HTML stays byte-identical.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const price = params.get("price");
+    if (params.get("redirect") !== "checkout" || !price || !isPriceKey(price)) return;
+    try {
+      localStorage.setItem(
+        PENDING_CHECKOUT_KEY,
+        JSON.stringify({ price, ts: Date.now() })
+      );
+    } catch {
+      // Storage unavailable — the sign-in redirect still happens.
+    }
+    setCheckoutIntent(true);
+  }, []);
 
   const stepIndex = STEPS.indexOf(step);
   const progress = ((stepIndex + 1) / STEPS.length) * 100;
@@ -183,8 +210,8 @@ export default function OnboardingPage() {
                   Welcome, {name}. Your stars are aligned.
                 </p>
               )}
-              <a href="/chart" className="alm-btn">
-                View Your Birth Chart
+              <a href={checkoutIntent ? "/login/?reason=checkout" : "/chart"} className="alm-btn">
+                {checkoutIntent ? "Continue to Sign In" : "View Your Birth Chart"}
               </a>
             </div>
           )}
@@ -285,7 +312,7 @@ export default function OnboardingPage() {
         .onb-date :global(select) {
           appearance: none !important;
           -webkit-appearance: none !important;
-          background-color: #e8dcc8 !important;
+          background-color: #e8e9ff !important;
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(232,233,255,0.55)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") !important;
           background-repeat: no-repeat !important;
           background-position: right 0.75rem center !important;

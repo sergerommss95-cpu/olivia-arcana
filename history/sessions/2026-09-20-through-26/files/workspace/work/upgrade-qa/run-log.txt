@@ -1,0 +1,322 @@
+desktop 0 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 48,
+  triangles: 24278,
+  pixelRatio: 1,
+  progress: 0,
+  reducedMotion: false,
+  frames: 121,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}
+desktop 0.15 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 132,
+  triangles: 92730,
+  pixelRatio: 1,
+  progress: 0.15,
+  reducedMotion: false,
+  frames: 201,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}
+desktop 0.28 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 130,
+  triangles: 92442,
+  pixelRatio: 1,
+  progress: 0.28,
+  reducedMotion: false,
+  frames: 279,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}
+desktop 0.47 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 130,
+  triangles: 92218,
+  pixelRatio: 1,
+  progress: 0.47,
+  reducedMotion: false,
+  frames: 359,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}
+desktop 0.69 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 157,
+  triangles: 92730,
+  pixelRatio: 1,
+  progress: 0.69,
+  reducedMotion: false,
+  frames: 440,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}
+desktop 0.85 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 85,
+  triangles: 29812,
+  pixelRatio: 1,
+  progress: 0.85,
+  reducedMotion: false,
+  frames: 521,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}
+desktop 1 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 44,
+  triangles: 19624,
+  pixelRatio: 1,
+  progress: 1,
+  reducedMotion: false,
+  frames: 601,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}
+mobile 0 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 48,
+  triangles: 24278,
+  pixelRatio: 1,
+  progress: 0,
+  reducedMotion: false,
+  frames: 109,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}
+mobile 0.15 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 132,
+  triangles: 92730,
+  pixelRatio: 1,
+  progress: 0.15,
+  reducedMotion: false,
+  frames: 174,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}
+mobile 0.28 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 125,
+  triangles: 89241,
+  pixelRatio: 1,
+  progress: 0.27991967871485945,
+  reducedMotion: false,
+  frames: 238,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}
+mobile 0.47 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 44,
+  triangles: 29914,
+  pixelRatio: 1,
+  progress: 0.4700429080515508,
+  reducedMotion: false,
+  frames: 303,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}
+mobile 0.69 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 156,
+  triangles: 92466,
+  pixelRatio: 1,
+  progress: 0.6899266640724937,
+  reducedMotion: false,
+  frames: 369,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}
+mobile 0.85 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 85,
+  triangles: 29812,
+  pixelRatio: 1,
+  progress: 0.8499685063058917,
+  reducedMotion: false,
+  frames: 433,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}
+mobile 1 {
+  cards: 22,
+  archetypes: 7,
+  drawCalls: 44,
+  triangles: 19624,
+  pixelRatio: 1,
+  progress: 1,
+  reducedMotion: false,
+  frames: 498,
+  cardIdentities: [
+    'The Sun',          'The High Priestess',
+    'The Moon',         'The Star',
+    'The Magician',     'The World',
+    'The Fool',         'The Empress',
+    'Strength',         'The Lovers',
+    'Wheel of Fortune', 'Temperance',
+    'The Hermit',       'Judgement',
+    'The Emperor',      'The Chariot',
+    'Justice',          'The Hanged Man',
+    'The Hierophant',   'Death',
+    'The Devil',        'The Tower'
+  ]
+}

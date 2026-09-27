@@ -322,7 +322,11 @@ async def _apply_subscription(
     user.paddle_customer_id = data.get("customer_id") or user.paddle_customer_id
     period_end = (data.get("current_billing_period") or {}).get("ends_at")
     if period_end:
-        user.subscription_period_end = period_end
+        # Store a datetime, not Paddle's ISO string, in the timezone-naive UTC column.
+        parsed_end = datetime.fromisoformat(period_end.replace("Z", "+00:00"))
+        if parsed_end.tzinfo is None:
+            parsed_end = parsed_end.replace(tzinfo=timezone.utc)
+        user.subscription_period_end = parsed_end.astimezone(timezone.utc).replace(tzinfo=None)
 
     # Honor cancel-at-period-end flag
     sched = data.get("scheduled_change") or {}

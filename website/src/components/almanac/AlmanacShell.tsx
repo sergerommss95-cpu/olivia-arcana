@@ -1,20 +1,19 @@
 "use client";
 
 /**
- * AlmanacShell — the shared chrome of every light Personal-Almanac page:
- * compact masthead (hairline / wordmark + nav / PERSONAL ALMANAC / Oxford
- * rule), bone-paper ground with grain, and the colophon. Pages provide
- * their own content; LegalShell layers the article/prose treatment on top.
+ * Shared Olivia chrome: lapis, ivory, a restrained gold accent, and the
+ * same tarot navigation used by the reading experience. LegalShell layers
+ * the article/prose treatment on top.
  *
  * Design tokens (--paper/--ink/--ink-soft/--ink-faint/--hairline/--ox)
  * are defined here and available to all children.
  */
 
-import { useEffect, useState } from "react";
 import TransitionLink from "@/components/transitions/TransitionLink";
+import AlmanacMasthead from "@/components/almanac/AlmanacMasthead";
 import InkCursor from "@/components/almanac/InkCursor";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import MagnetRig from "@/components/almanac/MagnetRig";
-import ShaderBackdrop from "@/components/almanac/ShaderBackdrop";
 import { useLocale } from "@/lib/i18n/useLocale";
 
 interface AlmanacShellProps {
@@ -25,90 +24,41 @@ interface AlmanacShellProps {
 
 const CHROME = {
   en: {
-    nav: [
-      { label: "Almanac", href: "/" },
-      { label: "Daily card", href: "/daily" },
-      { label: "Academy", href: "/academy" },
-      { label: "Tariff", href: "/pricing" },
-    ],
-    cta: "Ask the Oracle",
-    mastTitle: "Personal Almanac",
     colophonLinks: [
       ["About", "/about"],
       ["Contact", "/contact"],
       ["Terms", "/terms"],
       ["Privacy", "/privacy"],
+      ["Refund", "/refund"],
+      ["Cookies", "/cookies"],
       ["Disclaimer", "/disclaimer"],
     ] as Array<[string, string]>,
-    line: "© MMXXVI Olivia Arcana LLC — The stars guide, you decide.",
+    line: "© 2026 Olivia Arcana — Tarot, thoughtfully personal.",
   },
   uk: {
-    nav: [
-      { label: "Альманах", href: "/" },
-      { label: "Карта дня", href: "/daily" },
-      { label: "Академія", href: "/academy" },
-      { label: "Тариф", href: "/pricing" },
-    ],
-    cta: "Запитати Оракула",
-    mastTitle: "Особистий альманах",
     colophonLinks: [
       ["Про нас", "/about"],
       ["Контакт", "/contact"],
       ["Умови", "/terms"],
       ["Приватність", "/privacy"],
+      ["Повернення", "/refund"],
+      ["Cookies", "/cookies"],
       ["Застереження", "/disclaimer"],
     ] as Array<[string, string]>,
-    line: "© MMXXVI Olivia Arcana LLC — Зорі підказують, вирішуєте ви.",
+    line: "© 2026 Olivia Arcana — Таро для особистих роздумів.",
   },
 };
-
-const ZODIAC = ["\u2648\uFE0E", "\u2649\uFE0E", "\u264A\uFE0E", "\u264B\uFE0E", "\u264C\uFE0E", "\u264D\uFE0E", "\u264E\uFE0E", "\u264F\uFE0E", "\u2650\uFE0E", "\u2651\uFE0E", "\u2652\uFE0E", "\u2653\uFE0E"];
-const SIGN_SLUGS = ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces"];
 
 export default function AlmanacShell({ children, narrow = false }: AlmanacShellProps) {
   const { locale } = useLocale();
   const chrome = locale === "uk" ? CHROME.uk : CHROME.en;
 
-  // The edition number — computed after mount so the static export never
-  // ships a stale day. Every leaf closes with the same colophon as the
-  // front page: the twelve-glyph index, the edition, the closing line.
-  const [edition, setEdition] = useState<number | null>(null);
-  useEffect(() => {
-    const now = new Date();
-    setEdition(Math.floor((now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86400000));
-  }, []);
-
   return (
     <div className="almanac alm-page">
       <InkCursor />
       <MagnetRig />
-      <ShaderBackdrop />
-      <header className="alm-masthead">
-        <div className="alm-rule" aria-hidden />
-        <div className="alm-mast-row">
-          <TransitionLink href="/" className="alm-wordmark">
-            Olivia Arcana
-          </TransitionLink>
-          <nav className="alm-mast-nav" aria-label={locale === "uk" ? "Головна навігація" : "Primary"}>
-            {chrome.nav.map((item) => (
-              <TransitionLink key={item.href} href={item.href} className="alm-mast-link">
-                {item.label}
-              </TransitionLink>
-            ))}
-            <TransitionLink href="/oracle" className="alm-mast-cta">
-              {chrome.cta}
-            </TransitionLink>
-          </nav>
-        </div>
-        {/* INK RISE — the mast title rises once through its line mask
-            on page-open (.oa-line/.oa-line-in from globals.css). */}
-        <p className="alm-mast-title">
-          <span className="oa-line">
-            <span className="oa-line-in">{chrome.mastTitle}</span>
-          </span>
-        </p>
-        <div className="alm-rule oxford" aria-hidden />
-      </header>
+      <div className="alm-atmosphere" aria-hidden="true" />
+      <AlmanacMasthead />
 
       <main id="main-content" className={`alm-main ${narrow ? "alm-narrow" : ""}`}>
         {children}
@@ -117,20 +67,8 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
       <footer className="alm-colophon">
         <div className="alm-rule oxford" aria-hidden />
 
-        <nav className="alm-zodiac-index" aria-label={locale === "uk" ? "Знаки зодіаку" : "The twelve signs"}>
-          {ZODIAC.map((glyph, i) => (
-            <TransitionLink key={SIGN_SLUGS[i]} href={`/signs/${SIGN_SLUGS[i]}`} className="alm-zodiac-link">
-              <span aria-hidden>{glyph}</span>
-              <span className="alm-sr">{SIGN_SLUGS[i]}</span>
-            </TransitionLink>
-          ))}
-        </nav>
-
         <p className="alm-colophon-verse">
-          {locale === "uk" ? "Тут закінчується цей лист альманаху." : "Here ends this leaf of the almanac."}
-          {edition !== null && (
-            <span className="alm-colophon-edition"> № {edition}</span>
-          )}
+          {locale === "uk" ? "Для запитань, що залишаються з вами." : "For the questions that stay with you."}
         </p>
 
         <nav className="alm-colophon-links" aria-label={locale === "uk" ? "Правове та про нас" : "Legal and about"}>
@@ -141,29 +79,33 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           ))}
         </nav>
         <p className="alm-colophon-line">{chrome.line}</p>
+
+        {/* The edition's tongue — appended below the closing line so the
+            colophon above never reflows; the list opens upward. */}
+        <div className="alm-colophon-lang">
+          <LanguageSwitcher openUp />
+        </div>
       </footer>
 
       <style jsx global>{`
         .alm-page {
-          --paper: #10134d;
-          --paper-deep: #10134d;
-          --ink: #e8e9ff;
-          --ink-soft: rgba(232, 233, 255, 0.78);
-          --ink-faint: rgba(183, 188, 233, 0.66);
-          --hairline: rgba(183, 188, 233, 0.2);
-          --ox: #e0b768;
-          --ox-fill: #8d97ff;
-          --ink-body: rgba(232, 233, 255, 0.86);
-          --verdis: #b7bce9;
-          --paper-bone: #181d7a;
-          --paper-shade: #0a0d38;
+          --paper: #0b1c2c;
+          --paper-deep: #071522;
+          --ink: #eee6d4;
+          --ink-soft: rgba(238, 230, 212, 0.78);
+          --ink-faint: rgba(181, 196, 199, 0.66);
+          --hairline: rgba(181, 196, 199, 0.2);
+          --ox: #c1ab7c;
+          --ox-fill: #bfa776;
+          --ink-body: rgba(238, 230, 212, 0.86);
+          --verdis: #adbec3;
+          --paper-bone: #153045;
+          --paper-shade: #071522;
           --ease: cubic-bezier(0.16, 1, 0.3, 1);
           position: relative;
           min-height: 100svh;
-          /* CARTA COELI — a near-opaque veil over the voyage canvas: the
-             stars whisper through at ~12% while text contrast stays AA.
-             The body beneath carries the solid base colour. */
-          background: rgba(16, 19, 77, 0.8);
+          /* Keep inner pages in the same lapis room as the reading experience. */
+          background: #0b1c2c;
           color: var(--ink);
           font-family: var(--font-body, system-ui), sans-serif;
           font-variant-numeric: oldstyle-nums;
@@ -187,7 +129,7 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
         }
 
         .alm-page ::selection {
-          background: rgba(224, 183, 104, 0.16);
+          background: rgba(193, 171, 124, 0.16);
         }
 
         .alm-rule {
@@ -201,80 +143,17 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           height: 6px;
           background: linear-gradient(
             180deg,
-            rgba(183, 188, 233, 0.34) 0 1px, transparent 1px 4.5px,
-            rgba(183, 188, 233, 0.24) 4.5px 5.5px, transparent 5.5px
+            rgba(181, 196, 199, 0.34) 0 1px, transparent 1px 4.5px,
+            rgba(181, 196, 199, 0.24) 4.5px 5.5px, transparent 5.5px
           );
         }
 
-        .alm-masthead {
-          padding: 1.1rem clamp(1.1rem, 4vw, 3rem) 0;
-        }
-
-        .alm-mast-row {
-          display: flex;
-          align-items: baseline;
-          justify-content: space-between;
-          gap: 1.5rem;
-          padding: 0.85rem 0;
-        }
-
-        .alm-wordmark {
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-size: 1.28rem;
-          font-weight: 600;
-          color: var(--ink);
-          text-decoration: none;
-          white-space: nowrap;
-        }
-
-        .alm-mast-nav {
-          display: flex;
-          align-items: center;
-          gap: clamp(0.9rem, 2.5vw, 1.8rem);
-        }
-
-        .alm-mast-link {
-          color: var(--ink-soft);
-          font-size: 0.78rem;
-          font-weight: 600;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          text-decoration: none;
-          transition: color 200ms var(--ease);
-        }
-
-        .alm-mast-link:hover {
-          color: var(--ox);
-        }
-
-        .alm-mast-cta {
-          color: var(--ox);
-          font-size: 0.78rem;
-          font-weight: 700;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          text-decoration: none;
-          border: 1px solid rgba(224, 183, 104, 0.45);
-          border-radius: 999px;
-          padding: 0.5rem 1.05rem;
-          transition: all 250ms var(--ease);
-          white-space: nowrap;
-        }
-
-        .alm-mast-cta:hover {
-          background: var(--ox);
-          color: #f6f1e5;
-          border-color: var(--ox);
-        }
-
-        .alm-mast-title {
-          margin: 0 0 0.6rem;
-          text-align: center;
-          color: var(--ink-faint);
-          font-family: var(--font-mono, ui-monospace), monospace;
-          font-size: 0.62rem;
-          letter-spacing: 0.5em;
-          text-transform: uppercase;
+        .alm-page > .alm-atmosphere {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          background: radial-gradient(ellipse at 20% 0%, rgba(84, 113, 135, 0.2), transparent 48%), radial-gradient(ellipse at 100% 35%, rgba(164, 144, 105, 0.06), transparent 45%);
         }
 
         .alm-main {
@@ -344,13 +223,9 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           position: relative;
           overflow: hidden;
           color: var(--ink);
-          background: linear-gradient(160deg, rgba(158, 188, 255, 0.3) 0%, rgba(38, 72, 152, 0.5) 100%);
-          -webkit-backdrop-filter: blur(18px) saturate(170%);
-          backdrop-filter: blur(18px) saturate(170%);
-          box-shadow:
-            inset 0 1px 0 rgba(226, 230, 255, 0.32),
-            inset 0 -1px 0 rgba(120, 130, 220, 0.14),
-            0 0.7rem 1.6rem rgba(10, 13, 56, 0.5);
+          background: var(--ink);
+          color: var(--paper);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
           font-family: var(--font-body, system-ui), sans-serif;
           font-size: 0.8rem;
           font-weight: 600;
@@ -358,7 +233,7 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           text-transform: uppercase;
           text-decoration: none;
           border: none;
-          border-radius: 999px;
+          border-radius: 4px;
           cursor: pointer;
           transition: box-shadow 320ms var(--ease), color 240ms var(--ease);
         }
@@ -369,7 +244,7 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           position: absolute;
           inset: 0;
           border-radius: inherit;
-          background: linear-gradient(to top, rgba(224, 183, 104, 0.6), rgba(240, 214, 160, 0.26) 62%, transparent);
+          background: linear-gradient(to top, rgba(193, 171, 124, 0.6), rgba(240, 214, 160, 0.26) 62%, transparent);
           transform: translateY(101%);
           transition: transform 460ms cubic-bezier(0.3, 1.25, 0.4, 1);
           z-index: 0;
@@ -387,7 +262,7 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
 
         .alm-input:focus {
           outline: none;
-          border-color: rgba(232, 233, 255, 0.5);
+          border-color: rgba(238, 230, 212, 0.5);
         }
 
         .alm-btn:disabled {
@@ -397,11 +272,8 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
 
         .alm-btn:hover:not(:disabled),
         .alm-btn:focus-visible {
-          color: #10134d;
-          box-shadow:
-            inset 0 1px 0 rgba(255, 240, 210, 0.45),
-            0 0.9rem 2.2rem rgba(12, 20, 95, 0.55),
-            0 0 2.2rem rgba(224, 183, 104, 0.2);
+          color: #0b1c2c;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
         }
 
         .alm-btn:hover,
@@ -434,7 +306,7 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           letter-spacing: 0.14em;
           text-transform: uppercase;
           text-decoration: none;
-          border-bottom: 1px solid rgba(224, 183, 104, 0.3);
+          border-bottom: 1px solid rgba(193, 171, 124, 0.3);
           padding-bottom: 0.25rem;
           background: none;
           cursor: pointer;
@@ -450,20 +322,18 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
            catches a rim of light along its top edge. */
         .alm-card {
           position: relative;
-          border: 0;
-          border-radius: 16px;
-          background: var(--lg-tint);
-          -webkit-backdrop-filter: var(--lg-blur);
-          backdrop-filter: var(--lg-blur);
-          box-shadow: var(--lg-rim), var(--lg-cast);
+          border: 1px solid var(--hairline);
+          border-radius: 4px;
+          background: rgba(16, 40, 56, 0.48);
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
           padding: clamp(1.3rem, 2.8vw, 1.9rem);
         }
 
         .alm-input {
           width: 100%;
           padding: 0.8rem 1rem;
-          background: rgba(16, 19, 77, 0.6);
-          border: 1px solid rgba(232, 233, 255, 0.16);
+          background: rgba(7, 21, 34, 0.6);
+          border: 1px solid rgba(238, 230, 212, 0.16);
           border-radius: 4px;
           color: var(--ink);
           transition: border-color 0.3s var(--ease);
@@ -568,6 +438,12 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           color: var(--ox);
         }
 
+        .alm-colophon-lang {
+          display: flex;
+          justify-content: center;
+          padding-top: 1rem;
+        }
+
         .alm-colophon-line {
           margin: 0.8rem auto 0;
           text-align: center;
@@ -576,79 +452,6 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           font-size: 0.62rem;
           letter-spacing: 0.18em;
           text-transform: uppercase;
-        }
-
-        /* ── page-open: every room opens on the Ephemeris clock ───
-           HAIRLINE DRAW: the masthead rules draw origin-left on the
-           wipe curve. INK RISE: the mast title rises once through its
-           line mask on the engrave curve. Hidden states are declared
-           ONLY under no-preference, so reduced motion renders
-           everything instantly and honestly. */
-        @media (prefers-reduced-motion: no-preference) {
-          .alm-masthead .alm-rule {
-            transform: scaleX(0);
-            transform-origin: left center;
-            animation: alm-rule-draw 800ms var(--ease-wipe, cubic-bezier(0.645, 0.045, 0.355, 1)) 60ms forwards;
-          }
-          .alm-masthead .alm-rule.oxford {
-            animation-delay: 200ms;
-          }
-          .alm-mast-row {
-            opacity: 0;
-            animation: alm-ink-in 520ms var(--ease) 140ms forwards;
-          }
-          .alm-mast-title .oa-line-in {
-            animation: oa-ink-rise var(--dur-reveal, 0.9s) var(--ease-engrave, cubic-bezier(0.625, 0.05, 0, 1)) 240ms both;
-          }
-        }
-        @keyframes alm-rule-draw {
-          to {
-            transform: scaleX(1);
-          }
-        }
-        @keyframes alm-ink-in {
-          from {
-            opacity: 0;
-            transform: translateY(6px);
-          }
-          to {
-            opacity: 1;
-            transform: none;
-          }
-        }
-        @keyframes oa-ink-rise {
-          from {
-            transform: translateY(110%);
-          }
-          to {
-            transform: translateY(0);
-          }
-        }
-
-        @media (max-width: 640px) {
-          /* the four links survive as a compact second row — a site
-             with no navigation is not a site (audit: mobile/high) */
-          .alm-mast-row {
-            flex-wrap: wrap;
-            row-gap: 0.15rem;
-          }
-          .alm-mast-nav {
-            flex-basis: 100%;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.15rem clamp(0.7rem, 4vw, 1.2rem);
-            padding-bottom: 0.55rem;
-          }
-          .alm-mast-nav .alm-mast-link {
-            font-size: 0.66rem;
-            padding: 0.45rem 0;
-            white-space: nowrap;
-          }
-          .alm-mast-nav .alm-mast-cta {
-            font-size: 0.66rem;
-            padding: 0.4rem 0.75rem;
-            white-space: nowrap;
-          }
         }
 
         /* the twelve glyphs stay ONE unbroken row at every width —
@@ -665,9 +468,7 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
 
         @media (prefers-reduced-motion: reduce) {
           .alm-btn,
-          .alm-link,
-          .alm-mast-link,
-          .alm-mast-cta {
+          .alm-link {
             transition: none !important;
           }
         }
@@ -686,7 +487,8 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           }
           .alm-page nav,
           .alm-mast-cta,
-          .alm-btn {
+          .alm-btn,
+          .alm-colophon-lang {
             display: none !important;
           }
         }

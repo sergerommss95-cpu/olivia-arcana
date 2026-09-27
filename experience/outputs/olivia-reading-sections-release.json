@@ -1,0 +1,27 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "site_name": "olivia-arcana",
+  "deploy_id": "6ab6c7e4db13484389b52ea6",
+  "deploy_url": "https://6ab6c7e4db13484389b52ea6--olivia-arcana.netlify.app",
+  "logs": "https://app.netlify.com/projects/olivia-arcana/deploys/6ab6c7e4db13484389b52ea6",
+  "function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/functions?scope=deploy:6ab6c7e4db13484389b52ea6",
+  "edge_function_logs": "https://app.netlify.com/projects/olivia-arcana/logs/edge-functions?scope=deployid:6ab6c7e4db13484389b52ea6",
+  "status": "draft-preview",
+  "checks": {
+    "app": {
+      "matchesLocal": true,
+      "sha256": "7bdf571708213e32edba8253aba1c9ba70dfb328d06cd7e82437792bcdd5f7a6"
+    },
+    "style": {
+      "matchesLocal": true,
+      "sha256": "6266463781d63287c77a77baa42bd256385c98fad57f6df239f2610d8b8e8098"
+    },
+    "hero": {
+      "matchesLocal": true,
+      "sha256": "413304f1cea159c67fee3f8542cf5f95ebb6358891f2c08b91c38f76a965a5b2"
+    }
+  },
+  "productTests": 174,
+  "serviceTests": 25,
+  "qa": "qa-reading-sections/review.md"
+}

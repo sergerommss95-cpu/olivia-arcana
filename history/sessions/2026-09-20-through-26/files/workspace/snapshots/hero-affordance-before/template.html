@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b192a">
+  <title>Olivia Arcana — A different way in</title>
+  <meta name="description" content="For the questions that stay with you. Explore Olivia Arcana, an invitation to pause, draw a card, and find a new perspective.">
+  <style>/*FONTS*/
+/*STYLE*/</style>
+  <noscript><style>body{height:100svh}.poster{display:block!important}.journey-control,.motion-control,.scroll-cue{display:none!important}</style></noscript>
+</head>
+<body id="top" data-view="home">
+<div id="hero-region">
+  <a class="skip-link" href="#question">Skip to reading</a>
+  <main id="stage" aria-label="The world of Olivia Arcana">
+    <canvas id="atmosphere" aria-hidden="true" data-state="loading"></canvas>
+    <div id="motion-stage">
+    <img class="poster" src="/*BACK_IMG*/" alt="Olivia Arcana card back, with ivory olive branches woven through lapis blue">
+    <canvas id="cards" aria-hidden="true"></canvas>
+    <div id="card-choices" aria-label="Choose a card from the deck"></div></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Olivia Arcana — back to the beginning">Olivia<span>ARCANA</span></a>
+      <p class="header-note">Tarot, thoughtfully personal</p>
+      <nav aria-label="Main navigation">
+        <a class="today-nav" href="#today">Today</a><a class="almanac-link" href="#journal">My almanac</a><a class="spreads-nav" href="#spreads">Spreads</a>
+        <a class="nav-reading" id="reading" href="#question">Begin a reading <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <div class="identity" id="opening-type">
+      <p class="eyebrow identity-kicker">A personal practice of tarot</p>
+      <h1 class="wordmark" aria-label="Olivia Arcana">
+        <span class="wordmark-name" aria-hidden="true"><span class="letter l-o"><span>O</span></span><span class="letter l-l"><span>l</span></span><span class="letter l-i"><span>i</span></span><span class="letter l-v"><span>v</span></span><span class="letter l-i2"><span>i</span></span><span class="letter l-a"><span>a</span></span></span>
+        <span class="wordmark-secondary" aria-hidden="true"><i></i><span>ARCANA</span></span>
+      </h1>
+    </div>
+
+    <section class="intro" id="intro" aria-label="An invitation">
+      <h2>For the questions<br>that <em>stay with you.</em></h2>
+      <p class="intro-body">One card. A thoughtful interpretation.<br>A space to hear yourself more clearly.</p>
+      <a class="reading-link" href="#question"><span>Draw your card</span><i aria-hidden="true">↗</i></a>
+    <p class="reading-facts">78 cards · Major &amp; Minor Arcana</p><a id="resume-link" class="quiet-link" href="#journal" hidden>Return to your last reflection ↗</a></section>
+
+    <div class="deck-caption" id="deck-caption" aria-hidden="true"><span class="caption-rule"></span><span>The Olivia deck<br><em>Olive, ivory &amp; lapis.</em></span></div>
+    <aside class="moon-caption" id="intertitle" aria-hidden="true"><span class="eyebrow">The Moon</span><p>A different light.</p></aside>
+
+    <section class="closing" id="closing" inert aria-hidden="true">
+      <p class="eyebrow">Your moment with the Oracle</p>
+      <h2>It begins<br>with <em>you.</em></h2>
+      <p>Bring a question.<br>Leave room for a different perspective.</p>
+      <a class="reading-link" href="#question"><span>Begin a reading</span><i aria-hidden="true">↗</i></a>
+      <button class="replay" id="replay" type="button">Return to the beginning <span aria-hidden="true">↑</span></button>
+    </section>
+
+    <footer class="experience-controls" aria-label="Experience controls">
+      <a class="scroll-cue" href="#discover"><i aria-hidden="true">↓</i><span id="scroll-label">Discover the practice</span></a>
+      <button class="journey-control" id="journey" aria-pressed="false">Watch the journey</button>
+      <button class="motion-control" id="motion" aria-pressed="false" title="Pause ambient motion; scrolling remains available"><i class="motion-bars" aria-hidden="true"><b></b><b></b><b></b></i><span>Motion on</span></button>
+    </footer>
+    <div id="line" class="progress" aria-hidden="true"></div>
+    <p id="render-note" role="status"></p>
+    <button id="leave-cinema" class="quiet-link" hidden>← Back to Olivia</button>
+    <section id="question-view" class="ritual-copy" hidden aria-labelledby="question-title">
+      <p class="eyebrow">A moment for you</p><h2 id="question-title" tabindex="-1">What is on<br><em>your mind?</em></h2>
+      <p>You can bring a question, or simply arrive as you are.</p>
+      <form id="question-form"><label for="question">Your question <span>(optional)</span></label><textarea id="question" rows="2" maxlength="500" placeholder="What would I like to see more clearly?"></textarea>
+      <fieldset><legend>A place to begin</legend><div class="intention-options"><label><input type="radio" name="intention" value="open" checked><span>Stay open</span></label><label><input type="radio" name="intention" value="relationships"><span>Relationships</span></label><label><input type="radio" name="intention" value="work"><span>Work</span></label><label><input type="radio" name="intention" value="change"><span>Change</span></label></div></fieldset>
+      <button class="solid-action" type="submit">Open the deck <span>↗</span></button><p class="privacy-note">Your question stays in this browser. The guide uses curated card meanings.</p></form>
+      <a class="quiet-link" href="#spreads">Need more room? Explore 3, 5 or 8 cards ↗</a><br><button class="quiet-link" data-home>← Return to Olivia</button>
+    </section>
+    <section id="choose-view" hidden aria-labelledby="choose-title"><div class="choose-heading"><p class="eyebrow">Let your attention settle</p><h2 id="choose-title" tabindex="-1">One card.<br><em>Yours to discover.</em></h2><p>Choose a card that draws your eye.</p></div><div class="choose-footer"><nav class="single-deck-navigation" id="choice-navigation" aria-label="Browse the full deck" hidden><button type="button" class="quiet-link" id="choice-previous" aria-label="Previous cards">←</button><span id="choice-range" aria-live="polite"></span><button type="button" class="quiet-link" id="choice-next" aria-label="Next cards">→</button></nav><button id="random-card" class="text-action">Choose one for me <span>↗</span></button><button class="quiet-link" id="change-question">← Your question</button><p id="choose-status" role="status"></p></div></section>
+  </main></div>
+  <div id="home-content">
+    <section id="discover" class="editorial-section"><div class="section-index">THE PRACTICE</div><div class="section-main"><h2>A small ritual.<br><em>A different perspective.</em></h2><p class="section-lede">Tarot gives a question a shape. A symbol to sit with. A thought you might not have found on your own.</p><div class="steps"><div><span>01</span><h3>Bring a question.</h3><p>Something specific, something unfinished, or nothing at all.</p></div><div><span>02</span><h3>Let a card speak.</h3><p>Draw from the full 78-card deck. Explore its meaning and a question for reflection.</p></div><div><span>03</span><h3>Make it your own.</h3><p>Write what resonates. Keep the reading in your personal almanac.</p></div></div></div></section>
+    <section class="sample-section" aria-labelledby="sample-title"><div class="sample-art"><img id="sample-art" alt="The Hermit, an ivory figure carrying a lantern against lapis blue" loading="lazy"><span>IX / THE HERMIT</span></div><div class="sample-copy"><p class="eyebrow">An example, before you begin</p><h2 id="sample-title">See what a<br><em>reading feels like.</em></h2><blockquote>“What deserves my attention while I consider a change?”</blockquote><p>The Hermit invites a little distance from the noise. Which part of this decision needs your own attention before another opinion?</p><a href="#sample" class="text-action">Explore this sample <span>↗</span></a><p class="privacy-note">A sample reading, not your personal draw.</p></div></section>
+    <section class="editorial-section guided-spreads-section"><div class="section-index">THE WIDER PICTURE</div><div class="section-main"><h2>Some questions<br><em>need more room.</em></h2><p class="section-lede">Three cards for clarity. Five for a crossroads. Eight for a situation with many sides. Each position opens a different perspective; the connections bring them together.</p><a class="text-action" href="#spreads">Explore guided spreads <span>↗</span></a><p class="membership-note">Three cards, freely · Five and eight cards with membership</p></div></section><section class="editorial-section rooms-section"><div class="section-index">YOUR ALMANAC</div><div class="section-main"><h2>A place to<br><em>return to yourself.</em></h2><p class="section-lede">Keep the moments that matter. Learn the language of the cards. Notice how your own perspective changes.</p><div class="room-links"><a href="#journal"><span>Keep</span><h3>Your reflections</h3><i>↗</i></a><a data-site="/academy" href="https://oliviaarcana.com/academy"><span>Learn</span><h3>The language of tarot</h3><i>↗</i></a><a href="#today"><span>Return</span><h3>The daily almanac</h3><i>↗</i></a></div></div></section>
+    <footer class="product-footer"><a class="brand" href="#home">Olivia <span>ARCANA</span></a><p>A practice of attention.<br>Ancient symbols. Your own meaning.</p><a href="#question" class="text-action">Draw your card ↗</a><a class="quiet-link" href="#method">How Olivia works</a><a class="quiet-link" href="#membership">Free &amp; membership</a></footer>
+  </div>
+  <main id="reading-view" class="product-page" hidden aria-labelledby="result-title"><div class="page-top"><a href="#home" class="brand">Olivia <span>ARCANA</span></a><nav aria-label="Your practice"><a href="#today">Today</a><a href="#journal" class="quiet-link">My almanac ↗</a></nav></div><div class="reading-layout"><div class="reading-art"><div id="reveal-card"><img id="reading-image" alt=""></div><p id="card-index" class="eyebrow"></p></div><article class="reading-copy"><p class="eyebrow" id="reading-kind">Your one-card reading</p><p id="reading-question" class="question-quote"></p><h1 id="result-title" tabindex="-1"></h1><p id="meaning" class="meaning"></p><details id="full-reflection-details" class="card-lesson"><summary>Read the full reflection <span>+</span></summary><p id="full-reflection"></p></details><p id="intention-frame" class="intention-frame"></p><div class="reflection-prompt"><span class="eyebrow">A question to keep</span><p id="reflection-prompt"></p></div><p id="practice"></p><details class="card-lesson"><summary>Inside this card <span>+</span></summary><p id="card-lesson"></p><a data-site="/academy" href="https://oliviaarcana.com/academy">Explore the tarot library ↗</a></details><section id="save-section"><label for="reflection">What does this bring up for you? <span>(optional)</span></label><textarea id="reflection" rows="3" maxlength="4000" placeholder="A thought, a feeling, a small next step…"></textarea><div class="save-actions"><button id="save-reading" class="solid-action">Keep this reading <span>↗</span></button><a href="#journal" class="quiet-link" id="view-saved" hidden>Open my almanac</a></div><p id="save-status" role="status"></p><button id="download-reading" class="quiet-link">Download a copy ↓</button><p class="privacy-note">Saved only in this browser, on this device. Download a copy to keep a backup.</p></section><div id="sample-cta" hidden><a href="#question" class="solid-action">Draw your own card ↗</a></div><p class="provenance">A curated reflection on tarot symbolism. Your question is held alongside the card; the current guide does not analyse your words. <a href="#method">How this reading is made ↗</a></p><a href="#question" class="quiet-link">Begin a new reading ↗</a><a href="#spreads" class="quiet-link advanced-link">More to untangle? Explore guided spreads ↗</a></article></div></main>
+  <main id="journal-view" class="product-page journal-page" hidden aria-labelledby="journal-title"><div class="page-top"><a href="#home" class="brand">Olivia <span>ARCANA</span></a><a href="#question" class="quiet-link">Draw a card ↗</a></div><div class="journal-intro"><p class="eyebrow">Your personal almanac</p><h1 id="journal-title" tabindex="-1">The things<br><em>you notice.</em></h1><p>Readings and reflections, kept together.<br>A record of your perspective as it changes.</p></div><p id="journal-status" role="status"></p><div id="journal-list"></div><div class="journal-bottom"><button id="export-journal" class="text-action">Download my almanac ↓</button><p class="privacy-note">Saved entries stay in this browser and device. Your latest one-card draft is recovered when you return. Clearing browser data removes saved entries.</p></div></main>
+  <div class="sr-only" id="product-status" role="status" aria-live="polite"></div>
+  <script>/*ASSETS*/
+window.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_DATA,...MINOR_DATA}};
+/*HERO*/</script>
+  <script>/*BACKGROUND*/</script>
+  <script>/*APP*/</script>
+</body>
+</html>

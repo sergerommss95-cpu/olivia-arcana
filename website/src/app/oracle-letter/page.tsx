@@ -64,7 +64,7 @@ export default function OracleLetterRoute() {
     setSaving(true);
     try {
       const canvas = await html2canvas(letterRef.current, {
-        backgroundColor: "#e8dcc8",
+        backgroundColor: "#e8e9ff",
         scale: 2,
         useCORS: true,
       });
@@ -140,7 +140,7 @@ export default function OracleLetterRoute() {
             <div className="ol-divider" aria-hidden />
 
             {/* Watermark */}
-            <p className="ol-watermark alm-caption">{"✦"} Olivia Arcana</p>
+            <p className="ol-watermark alm-caption">{"✦"} Olivia Arcana &middot; oliviaarcana.com</p>
           </div>
 
           {/* Action buttons */}

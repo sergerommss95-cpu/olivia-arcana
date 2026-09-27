@@ -274,11 +274,11 @@ function TransitRegister({ transits, locale }: { transits: Transit[]; locale: st
         }
 
         .reg-row:hover {
-          background: rgba(250, 246, 236, 0.6);
+          background: rgba(238, 230, 212, 0.04);
         }
 
         .reg-row.sel {
-          background: rgba(250, 246, 236, 0.6);
+          background: rgba(238, 230, 212, 0.04);
           box-shadow: inset 2px 0 0 var(--ox);
         }
 
@@ -327,7 +327,7 @@ function TransitRegister({ transits, locale }: { transits: Transit[]; locale: st
         .reg-detail {
           padding: 1.1rem 0.9rem 1.3rem;
           border-bottom: 1px solid var(--hairline);
-          background: rgba(250, 246, 236, 0.6);
+          background: rgba(238, 230, 212, 0.04);
           box-shadow: inset 2px 0 0 var(--ox);
         }
 
@@ -493,7 +493,7 @@ export default function TransitsPage() {
 
             {/* Register — gated for Insight+ */}
             <div className="alm-gate">
-              <Paywall requires="insight" priceKey="insight_monthly" featureName="your transit timeline">
+              <Paywall feature="transits" featureName="your transit timeline">
                 <TransitRegister transits={transits} locale={locale} />
               </Paywall>
             </div>
@@ -605,7 +605,7 @@ export default function TransitsPage() {
 
         .alm-gate :global(.glass-card button) {
           background: var(--ink) !important;
-          color: #f6f1e5 !important;
+          color: #0b1c2c !important;
           border: none !important;
           box-shadow: none !important;
           text-shadow: none !important;

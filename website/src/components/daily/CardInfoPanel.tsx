@@ -17,7 +17,7 @@ import { getSuggestedAction } from "../../lib/ritual-continuity";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const INK = "var(--ink, #e8dcc8)";
+const INK = "var(--ink, #e8e9ff)";
 const INK_SOFT = "var(--ink-soft, rgba(232,233,255,0.72))";
 const INK_FAINT = "var(--ink-faint, rgba(232,233,255,0.45))";
 const HAIRLINE = "var(--hairline, rgba(232,233,255,0.18))";

@@ -1,0 +1,908 @@
+{
+  "sourceSha256": "f2bcf977b0e981bab6df6ec0523af41a2e0a952cd5fcb527c2773df6f499dc2b",
+  "oldSha256": "cc46970786413ac431cbd18f573c153e2bf527559999f4f350b25782035b5ce6",
+  "source": "work/hero-v5/hero.js",
+  "samples": 10001,
+  "pace": {
+    "endpoints": [
+      0,
+      1
+    ],
+    "monotonic": true,
+    "minStep": 0,
+    "maxStep": 0.00013475272874297062,
+    "maxCopyDistanceError": 5.5879354254884106e-8,
+    "joins": [
+      {
+        "p": 0.055,
+        "value": 0,
+        "leftDerivative": 0,
+        "rightDerivative": 7.793115716486281e-16
+      },
+      {
+        "p": 0.2179,
+        "value": 0.10975609756097564,
+        "leftDerivative": 1.3475272874347022,
+        "rightDerivative": 1.3475272874069466
+      },
+      {
+        "p": 0.7971,
+        "value": 0.8902439024390243,
+        "leftDerivative": 1.3475272874208244,
+        "rightDerivative": 1.3475272875318467
+      },
+      {
+        "p": 0.96,
+        "value": 1,
+        "leftDerivative": 0,
+        "rightDerivative": 0
+      }
+    ],
+    "analyticContinuity": "C3 at shoulders and clamped overall ends: derivative is a quintic smoothstep velocity profile; velocity, acceleration and jerk match at joins.",
+    "peakDerivativeOld": 2.0718232044198897,
+    "peakDerivativeNew": 1.3475272874275703
+  },
+  "viewports": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "count": 9,
+      "railLength": 41.24672019465243,
+      "totalDistance": 74.23495832034615,
+      "oldScrollVh": 400,
+      "newScrollVh": 660,
+      "geometryMaxMatrixError": 0.000008702278137207031,
+      "geometryMaxProjectedCornerErrorPx": 0.0016672837830144116,
+      "spans": [
+        {
+          "name": "first-card departure: rail distance0..1.35",
+          "oldProgress": [
+            0.055,
+            0.17329990582342047
+          ],
+          "newProgress": [
+            0.055,
+            0.13796150387992384
+          ],
+          "oldScrollVh": 47.319962329368195,
+          "newScrollVh": 54.75459256074974,
+          "distanceRatio": 1.157114035290924
+        },
+        {
+          "name": "whole train release: first departure to last departure",
+          "oldProgress": [
+            0.055,
+            0.4805887887417285
+          ],
+          "newProgress": [
+            0.055,
+            0.46622147245690215
+          ],
+          "oldScrollVh": 170.2355154966914,
+          "newScrollVh": 271.4061718215554,
+          "distanceRatio": 1.5942981758517383
+        },
+        {
+          "name": "first-card full foreground emphasis: u=.55..73",
+          "oldProgress": [
+            0.4107588768594045,
+            0.46162555104447067
+          ],
+          "newProgress": [
+            0.3632306901487038,
+            0.43744982510646147
+          ],
+          "oldScrollVh": 20.346669674026472,
+          "newScrollVh": 48.984629072120065,
+          "distanceRatio": 2.4075010729963027
+        },
+        {
+          "name": "all gathering: first card arrival zone to last card rest",
+          "oldProgress": [
+            0.5255895510586281,
+            0.96
+          ],
+          "newProgress": [
+            0.5352830663390007,
+            0.96
+          ],
+          "oldScrollVh": 173.7641795765487,
+          "newScrollVh": 280.31317621625954,
+          "distanceRatio": 1.6131815941545797
+        },
+        {
+          "name": "last-card arrival zone to rest",
+          "oldProgress": [
+            0.8417000941765793,
+            0.96
+          ],
+          "newProgress": [
+            0.8770384961200761,
+            0.96
+          ],
+          "oldScrollVh": 47.31996232936826,
+          "newScrollVh": 54.75459256074974,
+          "distanceRatio": 1.1571140352909224
+        },
+        {
+          "name": "first-card foreground face: centre z>0 and normal.z<-.5",
+          "oldProgress": [
+            0.39592451347028335,
+            0.4321292558310388
+          ],
+          "newProgress": [
+            0.34277919518256617,
+            0.3937430011868931
+          ],
+          "oldScrollVh": 14.481896944302175,
+          "newScrollVh": 33.63611196285577,
+          "distanceRatio": 2.3226316339787045
+        }
+      ],
+      "maxEqualGestureSpeedRatio": 0.9938327188199368
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "count": 9,
+      "railLength": 45.17620426319572,
+      "totalDistance": 78.16444238888944,
+      "oldScrollVh": 400,
+      "newScrollVh": 660,
+      "geometryMaxMatrixError": 0.000008463859558105469,
+      "geometryMaxProjectedCornerErrorPx": 0.001049442956940152,
+      "spans": [
+        {
+          "name": "first-card departure: rail distance0..1.35",
+          "oldProgress": [
+            0.055,
+            0.17113027635014905
+          ],
+          "newProgress": [
+            0.055,
+            0.13663053419100085
+          ],
+          "oldScrollVh": 46.45211054005962,
+          "newScrollVh": 53.87615256606057,
+          "distanceRatio": 1.1598214147793902
+        },
+        {
+          "name": "whole train release: first departure to last departure",
+          "oldProgress": [
+            0.055,
+            0.4696939909648037
+          ],
+          "newProgress": [
+            0.055,
+            0.44964319584319146
+          ],
+          "oldScrollVh": 165.87759638592146,
+          "newScrollVh": 260.46450925650635,
+          "distanceRatio": 1.5702211445753307
+        },
+        {
+          "name": "first-card full foreground emphasis: u=.55..73",
+          "oldProgress": [
+            0.41723038694553194,
+            0.4696338166684416
+          ],
+          "newProgress": [
+            0.3723487422862447,
+            0.4495519670344703
+          ],
+          "oldScrollVh": 20.96137188916387,
+          "newScrollVh": 50.9541283338289,
+          "distanceRatio": 2.430858466862562
+        },
+        {
+          "name": "all gathering: first card arrival zone to last card rest",
+          "oldProgress": [
+            0.5368766083258938,
+            0.96
+          ],
+          "newProgress": [
+            0.5525397869891353,
+            0.96
+          ],
+          "oldScrollVh": 169.24935666964248,
+          "newScrollVh": 268.9237405871707,
+          "distanceRatio": 1.5889203118927209
+        },
+        {
+          "name": "last-card arrival zone to rest",
+          "oldProgress": [
+            0.8438697236498514,
+            0.96
+          ],
+          "newProgress": [
+            0.8783694658089991,
+            0.96
+          ],
+          "oldScrollVh": 46.452110540059444,
+          "newScrollVh": 53.87615256606057,
+          "distanceRatio": 1.1598214147793946
+        },
+        {
+          "name": "first-card foreground face: centre z>0 and normal.z<-.5",
+          "oldProgress": [
+            0.40504633623947006,
+            0.4406110830612249
+          ],
+          "newProgress": [
+            0.3552782514808037,
+            0.4061465984538012
+          ],
+          "oldScrollVh": 14.225898728701925,
+          "newScrollVh": 33.57310900217833,
+          "distanceRatio": 2.3599991566397005
+        }
+      ],
+      "maxEqualGestureSpeedRatio": 0.9938327188199368
+    },
+    {
+      "viewport": [
+        800,
+        900
+      ],
+      "count": 5,
+      "railLength": 36.33685551597505,
+      "totalDistance": 51.07628106149778,
+      "oldScrollVh": 400,
+      "newScrollVh": 660,
+      "geometryMaxMatrixError": 0.000003606081008911133,
+      "geometryMaxProjectedCornerErrorPx": 0.0005731292018201164,
+      "spans": [
+        {
+          "name": "first-card departure: rail distance0..1.35",
+          "oldProgress": [
+            0.055,
+            0.190413767565296
+          ],
+          "newProgress": [
+            0.055,
+            0.14855234708609816
+          ],
+          "oldScrollVh": 54.1655070261184,
+          "newScrollVh": 61.74454907682479,
+          "distanceRatio": 1.139923771913587
+        },
+        {
+          "name": "whole train release: first departure to last departure",
+          "oldProgress": [
+            0.055,
+            0.4016556215116962
+          ],
+          "newProgress": [
+            0.055,
+            0.35060278227015973
+          ],
+          "oldScrollVh": 138.6622486046785,
+          "newScrollVh": 195.09783629830542,
+          "distanceRatio": 1.407000378700932
+        },
+        {
+          "name": "first-card full foreground emphasis: u=.55..73",
+          "oldProgress": [
+            0.4545443060549018,
+            0.5168369386440517
+          ],
+          "newProgress": [
+            0.42682096975141215,
+            0.5218514689427833
+          ],
+          "oldScrollVh": 24.91705303565994,
+          "newScrollVh": 62.72012946630498,
+          "distanceRatio": 2.517156799262871
+        },
+        {
+          "name": "all gathering: first card arrival zone to last card rest",
+          "oldProgress": [
+            0.5992753267408488,
+            0.96
+          ],
+          "newProgress": [
+            0.6447827317261756,
+            0.96
+          ],
+          "oldScrollVh": 144.28986930366045,
+          "newScrollVh": 208.04339706072406,
+          "distanceRatio": 1.4418434091370147
+        },
+        {
+          "name": "last-card arrival zone to rest",
+          "oldProgress": [
+            0.8245862324347033,
+            0.96
+          ],
+          "newProgress": [
+            0.8664476529139018,
+            0.96
+          ],
+          "oldScrollVh": 54.16550702611866,
+          "newScrollVh": 61.74454907682479,
+          "distanceRatio": 1.1399237719135815
+        },
+        {
+          "name": "first-card foreground face: centre z>0 and normal.z<-.5",
+          "oldProgress": [
+            0.4329475069747971,
+            0.4780869214078143
+          ],
+          "newProgress": [
+            0.3949329578005297,
+            0.4624046122264034
+          ],
+          "oldScrollVh": 18.055765773206865,
+          "newScrollVh": 44.531291921076615,
+          "distanceRatio": 2.4663197607025373
+        }
+      ],
+      "maxEqualGestureSpeedRatio": 0.9938327188199368
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "count": 5,
+      "railLength": 31.943840370644857,
+      "totalDistance": 45.78085210725803,
+      "oldScrollVh": 310,
+      "newScrollVh": 530,
+      "geometryMaxMatrixError": 0.000003337860107421875,
+      "geometryMaxProjectedCornerErrorPx": 0.0006390692999621433,
+      "spans": [
+        {
+          "name": "first-card departure: rail distance0..1.35",
+          "oldProgress": [
+            0.055,
+            0.19592456023418015
+          ],
+          "newProgress": [
+            0.055,
+            0.15201023788229
+          ],
+          "oldScrollVh": 43.68661367259585,
+          "newScrollVh": 51.41542607761371,
+          "distanceRatio": 1.1769148889163288
+        },
+        {
+          "name": "whole train release: first departure to last departure",
+          "oldProgress": [
+            0.055,
+            0.40898091311503504
+          ],
+          "newProgress": [
+            0.055,
+            0.360745659366128
+          ],
+          "oldScrollVh": 109.73408306566085,
+          "newScrollVh": 162.04519946404784,
+          "distanceRatio": 1.476708010282329
+        },
+        {
+          "name": "first-card full foreground emphasis: u=.55..73",
+          "oldProgress": [
+            0.45080700134737306,
+            0.5120187840992796
+          ],
+          "newProgress": [
+            0.4212423873486296,
+            0.5144471686627266
+          ],
+          "oldScrollVh": 18.975652653091025,
+          "newScrollVh": 49.39853409647137,
+          "distanceRatio": 2.6032587653012627
+        },
+        {
+          "name": "all gathering: first card arrival zone to last card rest",
+          "oldProgress": [
+            0.590564088782024,
+            0.96
+          ],
+          "newProgress": [
+            0.632371065118317,
+            0.96
+          ],
+          "oldScrollVh": 114.52513247757254,
+          "newScrollVh": 173.64333548729198,
+          "distanceRatio": 1.516202878187428
+        },
+        {
+          "name": "last-card arrival zone to rest",
+          "oldProgress": [
+            0.81907543976582,
+            0.96
+          ],
+          "newProgress": [
+            0.8629897621177101,
+            0.96
+          ],
+          "oldScrollVh": 43.6866136725958,
+          "newScrollVh": 51.41542607761365,
+          "distanceRatio": 1.1769148889163288
+        },
+        {
+          "name": "first-card foreground face: centre z>0 and normal.z<-.5",
+          "oldProgress": [
+            0.4184071225507128,
+            0.46899416237062597
+          ],
+          "newProgress": [
+            0.37401863148282044,
+            0.448582456534098
+          ],
+          "oldScrollVh": 15.68198234417309,
+          "newScrollVh": 39.51882727717711,
+          "distanceRatio": 2.520014779372648
+        }
+      ],
+      "maxEqualGestureSpeedRatio": 0.9591423314649014
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "count": 5,
+      "railLength": 33.0074223123772,
+      "totalDistance": 46.84443404899037,
+      "oldScrollVh": 310,
+      "newScrollVh": 530,
+      "geometryMaxMatrixError": 0.000003427267074584961,
+      "geometryMaxProjectedCornerErrorPx": 0.00032033048297508014,
+      "spans": [
+        {
+          "name": "first-card departure: rail distance0..1.35",
+          "oldProgress": [
+            0.055,
+            0.1947480308860426
+          ],
+          "newProgress": [
+            0.055,
+            0.15126958151448866
+          ],
+          "oldScrollVh": 43.32188957467321,
+          "newScrollVh": 51.022878202678996,
+          "distanceRatio": 1.1777620667891626
+        },
+        {
+          "name": "whole train release: first departure to last departure",
+          "oldProgress": [
+            0.055,
+            0.4053171417057485
+          ],
+          "newProgress": [
+            0.055,
+            0.3556531266511148
+          ],
+          "oldScrollVh": 108.59831392878205,
+          "newScrollVh": 159.34615712509085,
+          "distanceRatio": 1.4672986288681136
+        },
+        {
+          "name": "first-card full foreground emphasis: u=.55..73",
+          "oldProgress": [
+            0.4526853238084937,
+            0.5144374887008103
+          ],
+          "newProgress": [
+            0.42404328034188676,
+            0.5181647175446862
+          ],
+          "oldScrollVh": 19.14317111661815,
+          "newScrollVh": 49.88436171748369,
+          "distanceRatio": 2.6058567524467864
+        },
+        {
+          "name": "all gathering: first card arrival zone to last card rest",
+          "oldProgress": [
+            0.594470424063517,
+            0.96
+          ],
+          "newProgress": [
+            0.6379604478249419,
+            0.96
+          ],
+          "oldScrollVh": 113.31416854030971,
+          "newScrollVh": 170.68096265278078,
+          "distanceRatio": 1.5062632047824076
+        },
+        {
+          "name": "last-card arrival zone to rest",
+          "oldProgress": [
+            0.8202519691139569,
+            0.96
+          ],
+          "newProgress": [
+            0.8637304184855112,
+            0.96
+          ],
+          "oldScrollVh": 43.32188957467334,
+          "newScrollVh": 51.022878202679024,
+          "distanceRatio": 1.1777620667891597
+        },
+        {
+          "name": "first-card foreground face: centre z>0 and normal.z<-.5",
+          "oldProgress": [
+            0.42224711979171703,
+            0.47156966177332427
+          ],
+          "newProgress": [
+            0.3794924667325619,
+            0.4524888702520662
+          ],
+          "oldScrollVh": 15.289988014298245,
+          "newScrollVh": 38.68809386533729,
+          "distanceRatio": 2.5302893520360246
+        }
+      ],
+      "maxEqualGestureSpeedRatio": 0.9591423314649014
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "count": 9,
+      "railLength": 49.30693302847626,
+      "totalDistance": 82.29517115416998,
+      "oldScrollVh": 400,
+      "newScrollVh": 660,
+      "geometryMaxMatrixError": 0.000010609626770019531,
+      "geometryMaxProjectedCornerErrorPx": 0.0007994427363422308,
+      "spans": [
+        {
+          "name": "first-card departure: rail distance0..1.35",
+          "oldProgress": [
+            0.055,
+            0.1690070302207557
+          ],
+          "newProgress": [
+            0.055,
+            0.13532979027292186
+          ],
+          "oldScrollVh": 45.60281208830228,
+          "newScrollVh": 53.01766158012843,
+          "distanceRatio": 1.1625963214169452
+        },
+        {
+          "name": "whole train release: first departure to last departure",
+          "oldProgress": [
+            0.055,
+            0.45928110087828666
+          ],
+          "newProgress": [
+            0.055,
+            0.4339227577541086
+          ],
+          "oldScrollVh": 161.71244035131465,
+          "newScrollVh": 250.08902011771167,
+          "distanceRatio": 1.546504521077055
+        },
+        {
+          "name": "first-card full foreground emphasis: u=.55..73",
+          "oldProgress": [
+            0.4232966726348083,
+            0.4771836375470129
+          ],
+          "newProgress": [
+            0.3809949832352403,
+            0.4610278868395007
+          ],
+          "oldScrollVh": 21.55478596488183,
+          "newScrollVh": 52.82171637881187,
+          "distanceRatio": 2.450579489161792
+        },
+        {
+          "name": "all gathering: first card arrival zone to last card rest",
+          "oldProgress": [
+            0.5476474703942209,
+            0.96
+          ],
+          "newProgress": [
+            0.5689035632079904,
+            0.96
+          ],
+          "oldScrollVh": 164.94101184231164,
+          "newScrollVh": 258.1236482827263,
+          "distanceRatio": 1.5649452213225172
+        },
+        {
+          "name": "last-card arrival zone to rest",
+          "oldProgress": [
+            0.8459929697792441,
+            0.96
+          ],
+          "newProgress": [
+            0.8796702097270781,
+            0.96
+          ],
+          "oldScrollVh": 45.60281208830234,
+          "newScrollVh": 53.01766158012843,
+          "distanceRatio": 1.1625963214169437
+        },
+        {
+          "name": "first-card foreground face: centre z>0 and normal.z<-.5",
+          "oldProgress": [
+            0.41372042770670325,
+            0.44843997071811026
+          ],
+          "newProgress": [
+            0.367389389622516,
+            0.4177211934447509
+          ],
+          "oldScrollVh": 13.887817204562802,
+          "newScrollVh": 33.218990522675035,
+          "distanceRatio": 2.391951883681262
+        }
+      ],
+      "maxEqualGestureSpeedRatio": 0.9938327188199368
+    },
+    {
+      "viewport": [
+        640,
+        360
+      ],
+      "count": 9,
+      "railLength": 44.5913194036206,
+      "totalDistance": 77.57955752931431,
+      "oldScrollVh": 400,
+      "newScrollVh": 660,
+      "geometryMaxMatrixError": 0.000007867813110351562,
+      "geometryMaxProjectedCornerErrorPx": 0.0005461384079639879,
+      "spans": [
+        {
+          "name": "first-card departure: rail distance0..1.35",
+          "oldProgress": [
+            0.055,
+            0.1714435107778849
+          ],
+          "newProgress": [
+            0.055,
+            0.13682257077722604
+          ],
+          "oldScrollVh": 46.577404311153956,
+          "newScrollVh": 54.00289671296919,
+          "distanceRatio": 1.1594226323178134
+        },
+        {
+          "name": "whole train release: first departure to last departure",
+          "oldProgress": [
+            0.055,
+            0.47125051841019283
+          ],
+          "newProgress": [
+            0.055,
+            0.4520044101141212
+          ],
+          "oldScrollVh": 166.50020736407714,
+          "newScrollVh": 262.02291067531996,
+          "distanceRatio": 1.5737092152826477
+        },
+        {
+          "name": "first-card full foreground emphasis: u=.55..73",
+          "oldProgress": [
+            0.4163134838510082,
+            0.4684963652442313
+          ],
+          "newProgress": [
+            0.3710500744372335,
+            0.44782828061669155
+          ],
+          "oldScrollVh": 20.873152557289252,
+          "newScrollVh": 50.67361607844233,
+          "distanceRatio": 2.4276934660138942
+        },
+        {
+          "name": "all gathering: first card arrival zone to last card rest",
+          "oldProgress": [
+            0.5352651845136187,
+            0.96
+          ],
+          "newProgress": [
+            0.5500819431481871,
+            0.96
+          ],
+          "oldScrollVh": 169.8939261945525,
+          "newScrollVh": 270.5459175221965,
+          "distanceRatio": 1.592440198317527
+        },
+        {
+          "name": "last-card arrival zone to rest",
+          "oldProgress": [
+            0.8435564892221141,
+            0.96
+          ],
+          "newProgress": [
+            0.878177429222774,
+            0.96
+          ],
+          "oldScrollVh": 46.57740431115434,
+          "newScrollVh": 54.002896712969154,
+          "distanceRatio": 1.1594226323178032
+        },
+        {
+          "name": "first-card foreground face: centre z>0 and normal.z<-.5",
+          "oldProgress": [
+            0.4041750298832344,
+            0.43936877111954564
+          ],
+          "newProgress": [
+            0.3540735599597754,
+            0.4043206304483319
+          ],
+          "oldScrollVh": 14.0774964945245,
+          "newScrollVh": 33.163066522447274,
+          "distanceRatio": 2.3557502951853824
+        }
+      ],
+      "maxEqualGestureSpeedRatio": 0.9938327188199368
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "count": 9,
+      "railLength": 40.043810377914575,
+      "totalDistance": 73.0320485036083,
+      "oldScrollVh": 400,
+      "newScrollVh": 660,
+      "geometryMaxMatrixError": 0.000008821487426757812,
+      "geometryMaxProjectedCornerErrorPx": 0.0013127665615614691,
+      "spans": [
+        {
+          "name": "first-card departure: rail distance0..1.35",
+          "oldProgress": [
+            0.055,
+            0.1739962288404246
+          ],
+          "newProgress": [
+            0.055,
+            0.1383890936246941
+          ],
+          "oldScrollVh": 47.59849153616984,
+          "newScrollVh": 55.03680179229811,
+          "distanceRatio": 1.156271974511544
+        },
+        {
+          "name": "whole train release: first departure to last departure",
+          "oldProgress": [
+            0.055,
+            0.4841435128224326
+          ],
+          "newProgress": [
+            0.055,
+            0.47165313361972594
+          ],
+          "oldScrollVh": 171.65740512897304,
+          "newScrollVh": 274.99106818901913,
+          "distanceRatio": 1.6019761453483896
+        },
+        {
+          "name": "first-card full foreground emphasis: u=.55..73",
+          "oldProgress": [
+            0.408620700199705,
+            0.45898957049458866
+          ],
+          "newProgress": [
+            0.3602432765091508,
+            0.4334847124576001
+          ],
+          "oldScrollVh": 20.147548117953473,
+          "newScrollVh": 48.339347725976566,
+          "distanceRatio": 2.3992670196380566
+        },
+        {
+          "name": "all gathering: first card arrival zone to last card rest",
+          "oldProgress": [
+            0.5219026491241008,
+            0.96
+          ],
+          "newProgress": [
+            0.5296291216294815,
+            0.96
+          ],
+          "oldScrollVh": 175.23894035035968,
+          "newScrollVh": 284.0447797245422,
+          "distanceRatio": 1.620899893349299
+        },
+        {
+          "name": "last-card arrival zone to rest",
+          "oldProgress": [
+            0.8410037711595741,
+            0.96
+          ],
+          "newProgress": [
+            0.8766109063753058,
+            0.96
+          ],
+          "oldScrollVh": 47.59849153617033,
+          "newScrollVh": 55.03680179229814,
+          "distanceRatio": 1.1562719745115326
+        },
+        {
+          "name": "first-card foreground face: centre z>0 and normal.z<-.5",
+          "oldProgress": [
+            0.3928291332329982,
+            0.42934329624689005
+          ],
+          "newProgress": [
+            0.33859636321772013,
+            0.38970260963508263
+          ],
+          "oldScrollVh": 14.60566520555675,
+          "newScrollVh": 33.73012263545925,
+          "distanceRatio": 2.309386266270609
+        }
+      ],
+      "maxEqualGestureSpeedRatio": 0.9938327188199368
+    }
+  ],
+  "copyThresholds": [
+    {
+      "old": 0.065,
+      "new": 0.06667614487643142
+    },
+    {
+      "old": 0.075,
+      "new": 0.07486813811564161
+    },
+    {
+      "old": 0.19,
+      "new": 0.14829382612898584
+    },
+    {
+      "old": 0.235,
+      "new": 0.17770599520711627
+    },
+    {
+      "old": 0.285,
+      "new": 0.21654787589634367
+    },
+    {
+      "old": 0.34,
+      "new": 0.2725267903697426
+    },
+    {
+      "old": 0.79,
+      "new": 0.844122106724327
+    },
+    {
+      "old": 0.91,
+      "new": 0.9193067090013964
+    }
+  ],
+  "samePoseSpeedMaximum": {
+    "ratio": 1.6398239860528958,
+    "distance": 0.98871,
+    "oldProgress": 0.8602002642163455,
+    "newProgress": 0.8883456489301926
+  },
+  "qualifiedNote": "Distances expressed in viewport heights assume svh equals the sampled viewport height. Visual-viewport/browser-chrome changes can alter actual mobile pixel travel.",
+  "templateSha256": "ac05928d87bec973d379210a6afc37ae8038660279f2ad92c185963de3e16986",
+  "refreshedAt": "2026-09-22T22:11:22.358Z",
+  "geometryEquivalenceSourceCheck": "Motion block matches preserved original after replacing only the global drive expression and ignoring comments/whitespace.",
+  "progressIndicator": "Uses quiet ? 1 : p directly; copyPace endpoint fallback does not affect the indicator.",
+  "summary": {
+    "bodyHeightSvh": {
+      "desktop": 760,
+      "mobile": 630
+    },
+    "scrollTravelVh": {
+      "desktop": 660,
+      "mobile": 530
+    },
+    "samePoseMaximumSpeedRatio": {
+      "desktop": 0.9938327188199368,
+      "mobile": 0.9591423314649014
+    },
+    "noFasterSamePoseScrollGestures": true,
+    "geometryMaxProjectedCornerErrorPx": 0.0016672837830144116
+  }
+}

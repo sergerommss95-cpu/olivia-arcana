@@ -1,0 +1,582 @@
+{
+  "target": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html",
+  "tag": "final-webp-readiness",
+  "timestamp": "2026-09-21T19:33:46.023Z",
+  "options": {
+    "phases": [
+      0
+    ],
+    "only": "both",
+    "settle": 950,
+    "video": false,
+    "videoSeconds": 12,
+    "reduced": false,
+    "fallback": false,
+    "draw": false,
+    "requireDecode": true
+  },
+  "syntax": [
+    {
+      "index": 0,
+      "ok": true,
+      "error": ""
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "desktop",
+      "pageErrors": [],
+      "consoleErrors": [],
+      "consoleWarnings": [],
+      "requests": [
+        "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html"
+      ],
+      "failedRequests": [],
+      "states": [
+        {
+          "fraction": 0,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 47,
+            "triangles": 42590,
+            "pixelRatio": 1.65,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 78,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "viewport": [
+            1440,
+            1000
+          ],
+          "progress": 0,
+          "rootClass": "has-webgl",
+          "horizontalOverflow": false,
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "hero",
+              "opacity": "1"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          }
+        }
+      ],
+      "screenshots": [
+        "desktop-0000.png"
+      ],
+      "initial": {
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 47,
+          "triangles": 42590,
+          "pixelRatio": 1.65,
+          "progress": 0,
+          "reducedMotion": false,
+          "frames": 20,
+          "cardIdentities": [
+            "The Sun",
+            "The High Priestess",
+            "The Moon",
+            "The Star",
+            "The Magician",
+            "The World",
+            "The Fool",
+            "The Empress",
+            "Strength",
+            "The Lovers",
+            "Wheel of Fortune",
+            "Temperance",
+            "The Hermit",
+            "Judgement",
+            "The Emperor",
+            "The Chariot",
+            "Justice",
+            "The Hanged Man",
+            "The Hierophant",
+            "Death",
+            "The Devil",
+            "The Tower"
+          ]
+        },
+        "viewport": [
+          1440,
+          1000
+        ],
+        "progress": 0,
+        "rootClass": "has-webgl",
+        "horizontalOverflow": false,
+        "canvasCount": 1,
+        "panels": [
+          {
+            "name": "hero",
+            "opacity": "1"
+          }
+        ],
+        "reading": {
+          "hidden": true,
+          "title": ""
+        },
+        "assets": {
+          "images": [
+            {
+              "source": "data:image/webp;base64, [789739 chars]",
+              "start": 65.4,
+              "done": true,
+              "fallback": false,
+              "end": 70.8,
+              "error": null,
+              "width": 1448,
+              "height": 1086
+            },
+            {
+              "source": "data:image/webp;base64, [318575 chars]",
+              "start": 66.4,
+              "done": true,
+              "fallback": false,
+              "end": 70.8,
+              "error": null,
+              "width": 1024,
+              "height": 1536
+            },
+            {
+              "source": "data:image/webp;base64, [94335 chars]",
+              "start": 178.5,
+              "done": true,
+              "fallback": true,
+              "end": 326.8,
+              "error": null,
+              "width": 768,
+              "height": 1152
+            }
+          ],
+          "decodes": [
+            {
+              "source": "data:image/webp;base64, [789739 chars]",
+              "start": 66.3,
+              "done": true,
+              "end": 96.8,
+              "width": 1448,
+              "height": 1086
+            },
+            {
+              "source": "data:image/webp;base64, [318575 chars]",
+              "start": 66.8,
+              "done": true,
+              "end": 110.5,
+              "width": 1024,
+              "height": 1536
+            }
+          ],
+          "bitmaps": [],
+          "resourceErrors": [],
+          "unhandledRejections": [],
+          "firstGLDraw": {
+            "time": 192.7,
+            "pendingImages": 0,
+            "pendingFallbackImages": 1,
+            "pendingDecodes": 0,
+            "pendingBitmaps": 0,
+            "finishedImages": 2,
+            "finishedDecodes": 2
+          },
+          "webglReady": {
+            "time": 266.3,
+            "pendingImages": 0,
+            "pendingFallbackImages": 1,
+            "pendingDecodes": 0,
+            "pendingBitmaps": 0,
+            "finishedImages": 2,
+            "finishedDecodes": 2
+          },
+          "fontsReady": 66.8,
+          "rafCount": 24,
+          "canvasDrawsBeforeImageReady": []
+        }
+      },
+      "finalAssets": {
+        "images": [
+          {
+            "source": "data:image/webp;base64, [789739 chars]",
+            "start": 65.4,
+            "done": true,
+            "fallback": false,
+            "end": 70.8,
+            "error": null,
+            "width": 1448,
+            "height": 1086
+          },
+          {
+            "source": "data:image/webp;base64, [318575 chars]",
+            "start": 66.4,
+            "done": true,
+            "fallback": false,
+            "end": 70.8,
+            "error": null,
+            "width": 1024,
+            "height": 1536
+          },
+          {
+            "source": "data:image/webp;base64, [94335 chars]",
+            "start": 178.5,
+            "done": true,
+            "fallback": true,
+            "end": 326.8,
+            "error": null,
+            "width": 768,
+            "height": 1152
+          }
+        ],
+        "decodes": [
+          {
+            "source": "data:image/webp;base64, [789739 chars]",
+            "start": 66.3,
+            "done": true,
+            "end": 96.8,
+            "width": 1448,
+            "height": 1086
+          },
+          {
+            "source": "data:image/webp;base64, [318575 chars]",
+            "start": 66.8,
+            "done": true,
+            "end": 110.5,
+            "width": 1024,
+            "height": 1536
+          }
+        ],
+        "bitmaps": [],
+        "resourceErrors": [],
+        "unhandledRejections": [],
+        "firstGLDraw": {
+          "time": 192.7,
+          "pendingImages": 0,
+          "pendingFallbackImages": 1,
+          "pendingDecodes": 0,
+          "pendingBitmaps": 0,
+          "finishedImages": 2,
+          "finishedDecodes": 2
+        },
+        "webglReady": {
+          "time": 266.3,
+          "pendingImages": 0,
+          "pendingFallbackImages": 1,
+          "pendingDecodes": 0,
+          "pendingBitmaps": 0,
+          "finishedImages": 2,
+          "finishedDecodes": 2
+        },
+        "fontsReady": 66.8,
+        "rafCount": 105,
+        "canvasDrawsBeforeImageReady": []
+      }
+    },
+    {
+      "name": "mobile",
+      "pageErrors": [],
+      "consoleErrors": [],
+      "consoleWarnings": [],
+      "requests": [
+        "file:///Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/outputs/olivia-arcana.html"
+      ],
+      "failedRequests": [],
+      "states": [
+        {
+          "fraction": 0,
+          "diagnostics": {
+            "cards": 22,
+            "archetypes": 7,
+            "drawCalls": 47,
+            "triangles": 42590,
+            "pixelRatio": 1.3,
+            "progress": 0,
+            "reducedMotion": false,
+            "frames": 77,
+            "cardIdentities": [
+              "The Sun",
+              "The High Priestess",
+              "The Moon",
+              "The Star",
+              "The Magician",
+              "The World",
+              "The Fool",
+              "The Empress",
+              "Strength",
+              "The Lovers",
+              "Wheel of Fortune",
+              "Temperance",
+              "The Hermit",
+              "Judgement",
+              "The Emperor",
+              "The Chariot",
+              "Justice",
+              "The Hanged Man",
+              "The Hierophant",
+              "Death",
+              "The Devil",
+              "The Tower"
+            ]
+          },
+          "viewport": [
+            390,
+            844
+          ],
+          "progress": 0,
+          "rootClass": "has-webgl",
+          "horizontalOverflow": false,
+          "canvasCount": 1,
+          "panels": [
+            {
+              "name": "hero",
+              "opacity": "1"
+            }
+          ],
+          "reading": {
+            "hidden": true,
+            "title": ""
+          }
+        }
+      ],
+      "screenshots": [
+        "mobile-0000.png"
+      ],
+      "initial": {
+        "diagnostics": {
+          "cards": 22,
+          "archetypes": 7,
+          "drawCalls": 47,
+          "triangles": 42590,
+          "pixelRatio": 1.3,
+          "progress": 0,
+          "reducedMotion": false,
+          "frames": 20,
+          "cardIdentities": [
+            "The Sun",
+            "The High Priestess",
+            "The Moon",
+            "The Star",
+            "The Magician",
+            "The World",
+            "The Fool",
+            "The Empress",
+            "Strength",
+            "The Lovers",
+            "Wheel of Fortune",
+            "Temperance",
+            "The Hermit",
+            "Judgement",
+            "The Emperor",
+            "The Chariot",
+            "Justice",
+            "The Hanged Man",
+            "The Hierophant",
+            "Death",
+            "The Devil",
+            "The Tower"
+          ]
+        },
+        "viewport": [
+          390,
+          844
+        ],
+        "progress": 0,
+        "rootClass": "has-webgl",
+        "horizontalOverflow": false,
+        "canvasCount": 1,
+        "panels": [
+          {
+            "name": "hero",
+            "opacity": "1"
+          }
+        ],
+        "reading": {
+          "hidden": true,
+          "title": ""
+        },
+        "assets": {
+          "images": [
+            {
+              "source": "data:image/webp;base64, [789739 chars]",
+              "start": 66.4,
+              "done": true,
+              "fallback": false,
+              "end": 72.2,
+              "error": null,
+              "width": 1448,
+              "height": 1086
+            },
+            {
+              "source": "data:image/webp;base64, [318575 chars]",
+              "start": 68,
+              "done": true,
+              "fallback": false,
+              "end": 77.1,
+              "error": null,
+              "width": 1024,
+              "height": 1536
+            },
+            {
+              "source": "data:image/webp;base64, [54495 chars]",
+              "start": 152.5,
+              "done": true,
+              "fallback": true,
+              "end": 287,
+              "error": null,
+              "width": 512,
+              "height": 768
+            }
+          ],
+          "decodes": [
+            {
+              "source": "data:image/webp;base64, [789739 chars]",
+              "start": 67.5,
+              "done": true,
+              "end": 97.3,
+              "width": 1448,
+              "height": 1086
+            },
+            {
+              "source": "data:image/webp;base64, [318575 chars]",
+              "start": 68.4,
+              "done": true,
+              "end": 111.1,
+              "width": 1024,
+              "height": 1536
+            }
+          ],
+          "bitmaps": [],
+          "resourceErrors": [],
+          "unhandledRejections": [],
+          "firstGLDraw": {
+            "time": 165.3,
+            "pendingImages": 0,
+            "pendingFallbackImages": 1,
+            "pendingDecodes": 0,
+            "pendingBitmaps": 0,
+            "finishedImages": 2,
+            "finishedDecodes": 2
+          },
+          "webglReady": {
+            "time": 236.9,
+            "pendingImages": 0,
+            "pendingFallbackImages": 1,
+            "pendingDecodes": 0,
+            "pendingBitmaps": 0,
+            "finishedImages": 2,
+            "finishedDecodes": 2
+          },
+          "fontsReady": 68.4,
+          "rafCount": 24,
+          "canvasDrawsBeforeImageReady": []
+        }
+      },
+      "finalAssets": {
+        "images": [
+          {
+            "source": "data:image/webp;base64, [789739 chars]",
+            "start": 66.4,
+            "done": true,
+            "fallback": false,
+            "end": 72.2,
+            "error": null,
+            "width": 1448,
+            "height": 1086
+          },
+          {
+            "source": "data:image/webp;base64, [318575 chars]",
+            "start": 68,
+            "done": true,
+            "fallback": false,
+            "end": 77.1,
+            "error": null,
+            "width": 1024,
+            "height": 1536
+          },
+          {
+            "source": "data:image/webp;base64, [54495 chars]",
+            "start": 152.5,
+            "done": true,
+            "fallback": true,
+            "end": 287,
+            "error": null,
+            "width": 512,
+            "height": 768
+          }
+        ],
+        "decodes": [
+          {
+            "source": "data:image/webp;base64, [789739 chars]",
+            "start": 67.5,
+            "done": true,
+            "end": 97.3,
+            "width": 1448,
+            "height": 1086
+          },
+          {
+            "source": "data:image/webp;base64, [318575 chars]",
+            "start": 68.4,
+            "done": true,
+            "end": 111.1,
+            "width": 1024,
+            "height": 1536
+          }
+        ],
+        "bitmaps": [],
+        "resourceErrors": [],
+        "unhandledRejections": [],
+        "firstGLDraw": {
+          "time": 165.3,
+          "pendingImages": 0,
+          "pendingFallbackImages": 1,
+          "pendingDecodes": 0,
+          "pendingBitmaps": 0,
+          "finishedImages": 2,
+          "finishedDecodes": 2
+        },
+        "webglReady": {
+          "time": 236.9,
+          "pendingImages": 0,
+          "pendingFallbackImages": 1,
+          "pendingDecodes": 0,
+          "pendingBitmaps": 0,
+          "finishedImages": 2,
+          "finishedDecodes": 2
+        },
+        "fontsReady": 68.4,
+        "rafCount": 90,
+        "canvasDrawsBeforeImageReady": []
+      }
+    }
+  ],
+  "videos": [],
+  "failures": [],
+  "observations": []
+}

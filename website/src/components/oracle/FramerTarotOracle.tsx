@@ -21,7 +21,8 @@ import { ukCard } from "@/lib/academy/tarot-cards-uk";
 import { getCardPortalImagePath } from "@/lib/academy/card-images";
 import CardInspector from "./CardInspector";
 import ReadingScroll from "./ReadingScroll";
-import { SPREADS, type Spread, type SpreadPosition } from "@/lib/spreads";
+import { SPREADS, readSpread, type Spread, type SpreadPosition } from "@/lib/spreads";
+import { getCosmicMoment } from "@/lib/cosmic-time";
 import SpreadChooser from "./SpreadChooser";
 import RiffleRibbon from "./RiffleRibbon";
 import { type Translations } from "@/lib/i18n/translations";
@@ -628,6 +629,74 @@ export default function FramerTarotOracle() {
     setState("result");
   }, []);
 
+  /* ── THE LETTER'S COPY ─────────────────────────────────────────
+     /oracle-letter reads "olivia-last-reading" and prints it as a
+     sealed letter; nothing wrote the key until now. When the reading
+     stands (reveal or deep-link restore), press one copy for the
+     letter: the presiding card's name at the head, the written
+     reading beneath, stamped with the cosmic moment. */
+  useEffect(() => {
+    if (state !== "result" || selectedCards.length !== spread.count) return;
+    try {
+      const full = readSpread(
+        spread,
+        selectedCards.map((id) => ({ card: oracleData[id], reversed: isReversed(id) }))
+      );
+      const cm = getCosmicMoment();
+      localStorage.setItem(
+        "olivia-last-reading",
+        JSON.stringify({
+          cardName: full.counselFrom || full.cards[0]?.card.name || "",
+          reading: [
+            full.cards.map((c) => c.passage).join(" "),
+            full.synthesis,
+            full.counsel,
+          ]
+            .filter(Boolean)
+            .join(" "),
+          cosmicMoment: {
+            // the letter prints "Hour of {planetaryHour}" — planet name only
+            planetaryHour: cm.planetaryHour.replace(/^Hour of /i, ""),
+            moonPhase: cm.moonPhase,
+            season: cm.season,
+            romanDate: cm.romanDate,
+            romanYear: cm.romanYear,
+          },
+        })
+      );
+    } catch {
+      // private mode / blocked storage — the letter simply stays unwritten
+    }
+  }, [state, selectedCards, spread, oracleData, isReversed]);
+
+  /* ── SEND THIS READING ─────────────────────────────────────────
+     The URL already carries the whole draw (spread + seed + picks +
+     orientations via updateUrl) — sharing it hands the same table to
+     whoever opens it. Web Share where the OS offers a sheet, silent
+     clipboard fallback with a "copied" tick elsewhere. */
+  const [shareCopied, setShareCopied] = useState(false);
+  const shareReading = useCallback(async () => {
+    const url = window.location.href;
+    const text = isUk
+      ? "Читання від гравійованого оракула — oliviaarcana.com"
+      : "A reading from the engraved oracle — oliviaarcana.com";
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: isUk ? "Оракул — Olivia Arcana" : "The Oracle — Olivia Arcana",
+          text,
+          url,
+        });
+      } else {
+        await navigator.clipboard.writeText(url);
+        setShareCopied(true);
+        setTimeout(() => setShareCopied(false), 2400);
+      }
+    } catch {
+      /* user dismissed the share sheet / clipboard unavailable */
+    }
+  }, [isUk]);
+
   /* ── THE SHEET'S OWN SCROLL ──────────────────────────────────
      The reading scrolls inside its shell; gradient fades mark that
      there is more above/below, and a small cue invites the first
@@ -996,6 +1065,15 @@ export default function FramerTarotOracle() {
                   onInspect={(i) => setInspecting(i)}
                 />
 
+                <div className="result-share-row">
+                  <button type="button" className="result-share-btn" onClick={shareReading}>
+                    <span aria-hidden>✦</span>{" "}
+                    {shareCopied
+                      ? isUk ? "Посилання скопійовано" : "Link copied"
+                      : isUk ? "Надіслати це читання" : "Send this reading"}
+                  </button>
+                </div>
+
                 <div className="result-artifact-next">
                   <Link href="/pricing?from=oracle" className="night-btn">
                     {t("oracle_result_cta")} &rarr;
@@ -1229,6 +1307,38 @@ export default function FramerTarotOracle() {
             letter-spacing: 0.13em;
             text-transform: uppercase;
             color: rgba(232, 233, 255, 0.42);
+          }
+
+          /* SEND THIS READING — a mono kicker pressed into a hairline
+             frame; gilt type, no fill, no glow. */
+          .result-share-row {
+            display: flex;
+            justify-content: center;
+            padding-top: 0.15rem;
+          }
+
+          .result-share-btn {
+            min-height: 44px;
+            padding: 0.55rem 1.5rem;
+            background: transparent;
+            border: 1px solid rgba(232, 233, 255, 0.16);
+            border-radius: 2px;
+            font-family: var(--font-mono, ui-monospace), monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.28em;
+            text-indent: 0.28em;
+            text-transform: uppercase;
+            color: #e0b768;
+            cursor: pointer;
+            transition:
+              border-color 300ms cubic-bezier(0.16, 1, 0.3, 1),
+              color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+          }
+
+          .result-share-btn:hover,
+          .result-share-btn:focus-visible {
+            border-color: rgba(224, 183, 104, 0.55);
+            color: #e8e9ff;
           }
 
           .result-artifact-next {

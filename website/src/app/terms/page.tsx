@@ -8,7 +8,15 @@ export const metadata = {
 
 export default function TermsPage() {
   return (
-    <LegalShell title="Terms of Service" updated="April 25, 2026">
+    <LegalShell title="Terms of Service" updated="September 26, 2026">
+      <p>
+        <strong>The service today.</strong> The site offers tarot card selection, card meanings,
+        guided spreads, an almanac kept on your device, and optional AI-assisted personal readings.
+        Accounts and purchases are not available at present; the sections below about accounts,
+        subscriptions and purchases apply only if and when those open, and they will be revised
+        before then. Personal readings are prepared with AI and can be mistaken; see the{" "}
+        <Link href="/privacy">Privacy Policy</Link> for what is sent when you ask for one.
+      </p>
       <p>
         These Terms of Service (&quot;Terms&quot;) govern your use of the Olivia Arcana
         website, mobile apps, and Telegram bot (the &quot;Service&quot;) operated by

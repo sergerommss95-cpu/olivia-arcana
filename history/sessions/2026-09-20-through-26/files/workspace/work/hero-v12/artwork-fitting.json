@@ -1,0 +1,9 @@
+{
+  "default_front_inset": 0.012,
+  "front_overrides": {
+    "19": 0.058
+  },
+  "back_inset": 0,
+  "method": "uniform centered UV remapping; original files unchanged",
+  "reason": "Remove baked worn rims and the Sun photographic margin so the new physical silhouette supplies the outside edge."
+}

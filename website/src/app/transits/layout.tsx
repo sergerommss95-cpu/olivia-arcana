@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  // Without a saved birth chart this page is only a gate, so keep it out of search.
+  robots: { index: false, follow: true },
   title: "Transits — Personal Timing | Olivia Arcana",
   description:
     "See how current and upcoming transits relate to your natal chart, with reflective timing prompts instead of fixed predictions.",

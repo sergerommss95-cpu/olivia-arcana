@@ -1,0 +1,104 @@
+{
+  "errors": [],
+  "consoleErrors": [],
+  "cases": [
+    {
+      "options": {
+        "fallback": true,
+        "reduced": false
+      },
+      "idle": [
+        2,
+        2
+      ],
+      "result": {
+        "classes": "no-webgl has-reading",
+        "reading": "Death",
+        "number": "XIII / YOUR CARD",
+        "cardData": "Death",
+        "numberData": "XIII",
+        "image": {
+          "complete": true,
+          "width": 768,
+          "height": 1152
+        },
+        "svgText": []
+      }
+    },
+    {
+      "options": {
+        "decodeFailure": true,
+        "reduced": false
+      },
+      "idle": [
+        1,
+        1
+      ],
+      "result": {
+        "classes": "no-webgl has-reading",
+        "reading": "Death",
+        "number": "XIII / YOUR CARD",
+        "image": null,
+        "svgText": [
+          "XIII",
+          "DEATH"
+        ]
+      }
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 568
+      },
+      "layout": {
+        "width": 320,
+        "overflow": false,
+        "heading": {
+          "x": 23,
+          "y": 364.953125,
+          "width": 167.515625,
+          "height": 106.5,
+          "top": 364.953125,
+          "right": 190.515625,
+          "bottom": 471.453125,
+          "left": 23
+        }
+      }
+    },
+    {
+      "viewport": {
+        "width": 640,
+        "height": 360
+      },
+      "layout": {
+        "width": 640,
+        "overflow": false,
+        "heading": {
+          "x": 23,
+          "y": 188.703125,
+          "width": 150.765625,
+          "height": 88.5,
+          "top": 188.703125,
+          "right": 173.765625,
+          "bottom": 277.203125,
+          "left": 23
+        }
+      }
+    }
+  ],
+  "reducedIdle": [
+    2,
+    2
+  ],
+  "reverse": {
+    "changed": 0,
+    "visible": 0,
+    "max": 0
+  },
+  "contextLost": "quiet has-reading no-webgl",
+  "restored": {
+    "changed": 6,
+    "visible": 0,
+    "max": 1
+  }
+}

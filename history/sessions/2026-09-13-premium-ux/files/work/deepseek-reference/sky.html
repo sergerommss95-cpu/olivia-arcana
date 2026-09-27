@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Celestial Atlas — Olivia Arcana prototype</title>
+<style>
+  :root{--lapis:#0c1029;--lapis-deep:#0a0d38;--gilt:#e0b768;--moon:#e8e9ff;--peri:#b7bce9}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;min-height:100%;background:#0a0d38;color:var(--moon);
+    font-family:ui-serif,Georgia,serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 24px 64px}
+  h1{font:400 44px/1.05 ui-serif,Georgia,serif;letter-spacing:-.02em;text-align:center}
+  .kicker{text-align:center;margin-top:12px;font:10px/1 ui-monospace,monospace;
+    letter-spacing:.36em;text-transform:uppercase;color:var(--gilt)}
+  .lead{max-width:52ch;margin:22px auto 34px;text-align:center;
+    font-size:15px;line-height:1.7;color:rgba(232,233,255,.72)}
+  .panel{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;align-items:start}
+  @media(max-width:860px){.panel{grid-template-columns:1fr}}
+  .plate{position:relative;border:1px solid rgba(232,233,255,.16);
+    outline:1px solid rgba(232,233,255,.06);outline-offset:6px;
+    background:radial-gradient(ellipse at 50% 45%,#10134d 0%,#0a0d38 70%);
+    aspect-ratio:1/1;overflow:hidden}
+  canvas{display:block;width:100%;height:100%}
+  .form{display:grid;gap:16px;padding:22px;
+    border:1px solid rgba(232,233,255,.16);background:rgba(16,19,77,.45)}
+  .form h2{font:400 20px/1.2 ui-serif,Georgia,serif}
+  .form h2 small{display:block;margin-top:6px;font:9px/1.4 ui-monospace,monospace;
+    letter-spacing:.3em;text-transform:uppercase;color:var(--peri)}
+  label{display:grid;gap:6px;font:10px/1 ui-monospace,monospace;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--peri)}
+  input,select{background:transparent;border:0;border-bottom:1px solid rgba(232,233,255,.32);
+    color:var(--moon);font:14px/1.2 ui-serif,Georgia,serif;padding:6px 0;
+    transition:border-color .25s ease;caret-color:var(--gilt)}
+  input:focus,select:focus{outline:none;border-bottom-color:var(--gilt)}
+  select{color:var(--moon);-webkit-appearance:none;appearance:none}
+  select option{background:#10134d;color:var(--moon)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  button{margin-top:8px;padding:12px 22px;background:transparent;
+    border:1px solid rgba(224,183,104,.55);color:var(--gilt);
+    font:11px/1 ui-monospace,monospace;letter-spacing:.24em;text-transform:uppercase;
+    cursor:pointer;transition:all .35s cubic-bezier(.16,1,.3,1)}
+  button:hover{background:rgba(224,183,104,.08);border-color:var(--gilt)}
+  .caption{margin-top:22px;font:10px/1.8 ui-monospace,monospace;
+    letter-spacing:.2em;text-transform:uppercase;color:rgba(183,188,233,.55);
+    text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Your sky, engraved.</h1>
+  <p class="kicker">Carta Coeli · The Celestial Atlas</p>
+  <p class="lead">A real star map for the moment and place you choose — computed from the bright-star catalog and drawn in the engraved night register.</p>
+
+  <div class="panel">
+    <div class="plate"><canvas id="sky" width="1200" height="1200"></canvas></div>
+
+    <form class="form" id="controls">
+      <h2>Your birth data
+        <small>Preview rendered locally · nothing sent</small>
+      </h2>
+
+      <div class="row">
+        <label>Year <input id="year" type="number" value="1990" min="1800" max="2100"></label>
+        <label>Month <input id="month" type="number" value="6" min="1" max="12"></label>
+      </div>
+      <div class="row">
+        <label>Day <input id="day" type="number" value="15" min="1" max="31"></label>
+        <label>Hour (UTC) <input id="hour" type="number" value="12" min="0" max="23"></label>
+      </div>
+
+      <label>Birthplace
+        <select id="place">
+          <option value="50.45,30.52">Kyiv (50.45°N, 30.52°E)</option>
+          <option value="51.51,-0.13">London (51.51°N, 0.13°W)</option>
+          <option value="40.71,-74.01">New York (40.71°N, 74.01°W)</option>
+          <option value="35.68,139.69">Tokyo (35.68°N, 139.69°E)</option>
+          <option value="48.86,2.35">Paris (48.86°N, 2.35°E)</option>
+          <option value="-33.87,151.21">Sydney (33.87°S, 151.21°E)</option>
+          <option value="-23.55,-46.63">São Paulo (23.55°S, 46.63°W)</option>
+        </select>
+      </label>
+
+      <button type="submit">Draw my sky</button>
+    </form>
+  </div>
+
+  <p class="caption" id="legend">—</p>
+</div>
+
+<script>
+// ── The bright-star catalog (RA hours, Dec deg, magnitude) ──
+const STARS = [
+  [6.752,-16.716,-1.46],[6.399,-52.696,-.74],[14.261,19.182,-.05],
+  [18.615,38.784,.03],[5.278,45.998,.08],[5.242,-8.202,.13],
+  [7.655,5.225,.34],[1.629,-57.237,.46],[5.919,7.407,.50],
+  [14.064,-60.373,.61],[19.846,8.868,.77],[4.599,16.509,.85],
+  [13.420,-11.161,1.04],[16.490,-26.432,1.06],[7.755,28.026,1.14],
+  [22.961,-29.622,1.16],[12.795,-59.689,1.25],[20.690,45.280,1.25],
+  [10.139,11.967,1.35],[6.977,-28.972,1.50],[7.577,31.888,1.58],
+  [12.519,-57.113,1.63],[5.418,6.350,1.64],[5.438,28.608,1.65],
+  [9.220,-69.717,1.67],[5.604,-1.202,1.69],[22.137,-46.961,1.74],
+  [12.900,55.960,1.77],[3.405,49.861,1.79],[11.062,61.751,1.79],
+  [7.140,-26.393,1.83],[18.403,-34.385,1.85],[8.375,-59.510,1.86],
+  [13.792,49.313,1.86],[17.622,-42.998,1.87],[5.992,44.947,1.90],
+  [16.811,-69.028,1.91],[6.629,16.399,1.93],[20.427,-56.735,1.94],
+  [6.378,-17.956,1.98],[2.530,89.264,1.98],[9.460,-8.659,1.98],
+  [2.120,23.463,2.00],[0.726,-17.987,2.04],[18.921,-26.297,2.05],
+  [14.111,-36.370,2.06],[0.140,29.091,2.06],[1.162,35.621,2.06],
+  [5.796,-9.670,2.06],[5.679,-1.943,2.05],[14.845,74.156,2.07],
+  [17.582,12.560,2.08],[3.136,40.956,2.12],[11.818,14.572,2.14],
+  [15.578,26.715,2.22],[14.848,-16.042,2.75],[19.043,37.353,2.30],
+  [12.443,-63.099,2.29],[6.197,-19.460,2.28],[4.909,33.166,2.29],
+  [18.834,33.363,2.30],[12.900,55.960,1.77],[16.486,26.432,1.06]
+];
+
+const DEG = Math.PI/180;
+const TWO_PI = Math.PI*2;
+
+// ── Timekeeping ─────────────────────────────────────────────
+function julianDate(y,m,d,hUT){
+  if(m <= 2){ y -= 1; m += 12; }
+  const A = Math.floor(y/100);
+  const B = 2 - A + Math.floor(A/4);
+  return Math.floor(365.25*(y+4716)) + Math.floor(30.6001*(m+1)) + d + hUT/24 + B - 1524.5;
+}
+function gmstDeg(jd){
+  const T = (jd - 2451545.0) / 36525;
+  let g = 280.46061837 + 360.98564736629*(jd - 2451545.0)
+          + 0.000387933*T*T - T*T*T/38710000;
+  return ((g % 360) + 360) % 360;
+}
+
+// ── Star → horizontal coordinates ───────────────────────────
+function horizontal(raH, decDeg, latDeg, lstDeg){
+  const H  = ((lstDeg - raH*15) % 360 + 540) % 360 - 180;   // −180..180
+  const Hr = H*DEG, dr = decDeg*DEG, lr = latDeg*DEG;
+  const sinAlt = Math.sin(dr)*Math.sin(lr) + Math.cos(dr)*Math.cos(lr)*Math.cos(Hr);
+  const alt = Math.asin(Math.max(-1, Math.min(1, sinAlt)));
+  const az = Math.atan2(
+    -Math.cos(dr)*Math.sin(Hr),
+    Math.sin(dr)*Math.cos(lr) - Math.cos(dr)*Math.sin(lr)*Math.cos(Hr)
+  );
+  return { alt: alt/DEG, az: ((az/DEG)%360+360)%360 };
+}
+
+// Sun's apparent ecliptic longitude and equatorial coords
+function sunEquatorial(jd){
+  const d = jd - 2451545.0;
+  const L = (280.460 + 0.9856474*d) % 360;
+  const g = (357.528 + 0.9856003*d) % 360;
+  const lonDeg = L + 1.915*Math.sin(g*DEG) + 0.020*Math.sin(2*g*DEG);
+  const eps = 23.439 - 0.0000004*d;
+  const lonR = lonDeg*DEG, epsR = eps*DEG;
+  const ra  = Math.atan2(Math.cos(epsR)*Math.sin(lonR), Math.cos(lonR)) / DEG;
+  const dec = Math.asin(Math.sin(epsR)*Math.sin(lonR)) / DEG;
+  return { ra: ((ra%360)+360)%360/15, dec, lonDeg };
+}
+
+// ── Stereographic projection (zenith-centred) ───────────────
+//   r = tan((90 − alt)/2)  →  alt = 90 → r = 0, alt = 0 → r = 1
+function project(alt, az, cx, cy, radius){
+  const theta = (90 - alt) * DEG / 2;
+  const r = Math.tan(theta);
+  return { x: cx + r*Math.sin(az*DEG)*radius,
+           y: cy - r*Math.cos(az*DEG)*radius,
+           visible: alt >= 0 && r <= 1 };
+}
+
+// ── Draw ────────────────────────────────────────────────────
+const canvas = document.getElementById('sky');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+const CX = W/2, CY = H/2, RAD = W*0.45;
+
+function drawSky(){
+  const year = +document.getElementById('year').value;
+  const month = +document.getElementById('month').value;
+  const day = +document.getElementById('day').value;
+  const hour = +document.getElementById('hour').value;
+  const [latStr, lonStr] = document.getElementById('place').value.split(',');
+  const lat = parseFloat(latStr), lon = parseFloat(lonStr);
+
+  const jd  = julianDate(year, month, day, hour);
+  const lst = (gmstDeg(jd) + lon + 360) % 360;
+
+  // ground
+  ctx.clearRect(0,0,W,H);
+  const bg = ctx.createRadialGradient(CX, CY*0.9, 60, CX, CY, W*0.65);
+  bg.addColorStop(0, '#181d7a');
+  bg.addColorStop(0.55, '#10134d');
+  bg.addColorStop(1, '#0a0d38');
+  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+
+  // faint spiral grain
+  ctx.strokeStyle = 'rgba(183,188,233,.03)'; ctx.lineWidth = 1;
+  for(let i=0;i<260;i++){
+    const a = i*0.35, r0 = 40 + i*2.1;
+    ctx.beginPath();
+    ctx.moveTo(CX + r0*Math.cos(a), CY + r0*Math.sin(a));
+    ctx.lineTo(CX + (r0+6)*Math.cos(a+0.05), CY + (r0+6)*Math.sin(a+0.05));
+    ctx.stroke();
+  }
+
+  // outer double ring (frame)
+  ctx.strokeStyle = 'rgba(232,233,255,.14)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(CX, CY, W*0.475, 0, TWO_PI); ctx.stroke();
+  ctx.beginPath(); ctx.arc(CX, CY, W*0.468, 0, TWO_PI); ctx.stroke();
+
+  // horizon ring (the stereographic boundary)
+  ctx.strokeStyle = 'rgba(224,183,104,.42)'; ctx.lineWidth = 1.4;
+  ctx.beginPath(); ctx.arc(CX, CY, RAD, 0, TWO_PI); ctx.stroke();
+
+  // altitude rings every 30°
+  ctx.strokeStyle = 'rgba(183,188,233,.11)'; ctx.lineWidth = 1;
+  [30, 60].forEach(alt=>{
+    const r = Math.tan((90-alt)*DEG/2)*RAD;
+    ctx.beginPath(); ctx.arc(CX, CY, r, 0, TWO_PI); ctx.stroke();
+  });
+
+  // cardinal points
+  const cardinals = [['N',0],['E',90],['S',180],['W',270]];
+  ctx.font = '600 22px ui-monospace,monospace';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  for(const [label, az] of cardinals){
+    const x = CX + Math.sin(az*DEG)*(RAD + 24);
+    const y = CY - Math.cos(az*DEG)*(RAD + 24);
+    ctx.fillStyle = 'rgba(224,183,104,.85)';
+    ctx.fillText(label, x, y);
+  }
+  // azimuth ticks
+  ctx.strokeStyle = 'rgba(183,188,233,.35)'; ctx.lineWidth = 1;
+  for(let a=0; a<360; a+=10){
+    const inner = a%30===0 ? RAD-10 : RAD-5;
+    ctx.beginPath();
+    ctx.moveTo(CX + Math.sin(a*DEG)*(RAD), CY - Math.cos(a*DEG)*(RAD));
+    ctx.lineTo(CX + Math.sin(a*DEG)*(inner), CY - Math.cos(a*DEG)*(inner));
+    ctx.stroke();
+  }
+
+  // the ecliptic — sampled as a real curve across the sky
+  ctx.strokeStyle = 'rgba(224,183,104,.55)';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  let pen = false;
+  for(let lonDeg=0; lonDeg<=360; lonDeg+=2){
+    const eps = 23.439;
+    const ra = Math.atan2(Math.sin(lonDeg*DEG)*Math.cos(eps*DEG), Math.cos(lonDeg*DEG))/DEG;
+    const dec = Math.asin(Math.sin(eps*DEG)*Math.sin(lonDeg*DEG))/DEG;
+    const { alt, az } = horizontal(((ra%360)+360)%360/15, dec, lat, lst);
+    const p = project(alt, az, CX, CY, RAD);
+    if(p.visible){
+      if(pen) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y);
+      pen = true;
+    } else pen = false;
+  }
+  ctx.stroke();
+
+  // the catalog
+  for(const [raH, decD, mag] of STARS){
+    const { alt, az } = horizontal(raH, decD, lat, lst);
+    const p = project(alt, az, CX, CY, RAD);
+    if(!p.visible) continue;
+    const r = Math.max(1.2, 4.2 - mag*0.8);
+    const alpha = Math.min(.95, Math.max(.42, 1.05 - mag*.14));
+    ctx.fillStyle = `rgba(232,233,255,${alpha.toFixed(3)})`;
+    ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, TWO_PI); ctx.fill();
+    // soft glow for the brightest
+    if(mag < .5){
+      const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r*5);
+      glow.addColorStop(0, 'rgba(232,233,255,.28)');
+      glow.addColorStop(1, 'rgba(232,233,255,0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath(); ctx.arc(p.x, p.y, r*5, 0, TWO_PI); ctx.fill();
+    }
+  }
+
+  // the Sun
+  const sun = sunEquatorial(jd);
+  const sunH = horizontal(sun.ra, sun.dec, lat, lst);
+  const sunP = project(sunH.alt, sunH.az, CX, CY, RAD);
+  if(sunP.visible){
+    const g2 = ctx.createRadialGradient(sunP.x, sunP.y, 0, sunP.x, sunP.y, 40);
+    g2.addColorStop(0, 'rgba(224,183,104,.9)');
+    g2.addColorStop(1, 'rgba(224,183,104,0)');
+    ctx.fillStyle = g2;
+    ctx.beginPath(); ctx.arc(sunP.x, sunP.y, 40, 0, TWO_PI); ctx.fill();
+    ctx.fillStyle = '#e0b768';
+    ctx.beginPath(); ctx.arc(sunP.x, sunP.y, 7, 0, TWO_PI); ctx.fill();
+    ctx.strokeStyle = 'rgba(224,183,104,.65)'; ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.arc(sunP.x, sunP.y, 15, 0, TWO_PI); ctx.stroke();
+    ctx.fillStyle = 'rgba(224,183,104,.9)';
+    ctx.font = '10px ui-monospace,monospace';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillText('SUN', sunP.x + 20, sunP.y);
+  }
+
+  // cartouche
+  ctx.textAlign = 'center';
+  ctx.fillStyle = 'rgba(224,183,104,.9)';
+  ctx.font = '600 11px ui-monospace,monospace';
+  ctx.fillText('CARTA COELI', CX, 40);
+  ctx.fillStyle = 'rgba(232,233,255,.85)';
+  ctx.font = '400 26px ui-serif,Georgia,serif';
+  ctx.fillText(placeLabel(), CX, H - 56);
+  ctx.fillStyle = 'rgba(183,188,233,.6)';
+  ctx.font = '11px ui-monospace,monospace';
+  ctx.fillText(`${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')} · ${String(hour).padStart(2,'0')}:00 UT · LST ${lst.toFixed(2)}°`, CX, H - 34);
+
+  document.getElementById('legend').textContent =
+    `Drawn for ${lat.toFixed(2)}° ${lat>=0?'N':'S'} · ${Math.abs(lon).toFixed(2)}° ${lon>=0?'E':'W'}`;
+}
+
+function placeLabel(){
+  const s = document.getElementById('place');
+  return s.options[s.selectedIndex].text.split('(')[0].trim();
+}
+
+document.getElementById('controls').addEventListener('submit', e=>{
+  e.preventDefault(); drawSky();
+});
+['year','month','day','hour','place'].forEach(id=>{
+  document.getElementById(id).addEventListener('change', drawSky);
+});
+
+drawSky();
+</script>
+</body>
+</html>

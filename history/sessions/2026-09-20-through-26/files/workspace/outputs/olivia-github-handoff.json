@@ -1,0 +1,14 @@
+{
+  "repository": "https://github.com/sergerommss95-cpu/olivia-arcana",
+  "branch": "codex/session-handoff-2026-09-26",
+  "commit": "fdb1968e2feaf044ef8686608781d692603fa39f",
+  "pull_request": "https://github.com/sergerommss95-cpu/olivia-arcana/pull/3",
+  "handoff": "https://github.com/sergerommss95-cpu/olivia-arcana/blob/codex/session-handoff-2026-09-26/SESSION_HANDOFF.md",
+  "status": "pushed; draft PR; not merged; no production deployment",
+  "editable_source_in_repository": "experience/work/olivia-product/",
+  "packaging_checkout": "/tmp/olivia-github-handoff-20260926",
+  "latest_commit": "5a7b12e",
+  "latest_production_deploy": "6ab7b1eb2e3eb145b023937a",
+  "production_url": "https://oliviaarcana.com/?revision=mobile-surfaces#discover",
+  "authoritative_checkout": "/tmp/olivia-github-handoff-20260926"
+}

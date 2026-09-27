@@ -1,5 +1,5 @@
 [build]
-  command = "npx next build"
+  command = "npm run build"
   publish = "out"
 
 # Set NEXT_PUBLIC_API_URL in Netlify dashboard (Site → Settings → Environment).
@@ -12,6 +12,10 @@
   path = "/api/chat"
   function = "chat"
 
+[[edge_functions]]
+  path = "/api/reading"
+  function = "reading"
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -20,3 +24,26 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Content-addressed files (hash in the name) never change: cache them for a year.
+[[headers]]
+  for = "/experience/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Internal copies: the motion reference and the standalone experience snapshot
+# (the homepage renders the same product). Keep them out of search results.
+[[headers]]
+  for = "/animation/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/experience/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"

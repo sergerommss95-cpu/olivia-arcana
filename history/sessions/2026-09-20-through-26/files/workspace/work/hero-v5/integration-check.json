@@ -1,0 +1,14 @@
+{
+  "geometry_block_sha256": "d04a9e134d4e81711d8c2fca17cce25036a2d6b15cdb4a84487b96e6c7ddfd07",
+  "tested_candidate_sha256": "5f451f336247641334c2750aa0e55f3c94e570bd773473f8020e156e3ded6dd5",
+  "integrated_source_sha256": "cc46970786413ac431cbd18f573c153e2bf527559999f4f350b25782035b5ce6",
+  "numeric_reports": [
+    "validation-motion-safe-negative.json",
+    "validation-motion-safe-positive.json",
+    "validation-motion-safe.json"
+  ],
+  "notes": "Exact tested motion block integrated; UI timing/cache, static-view override, texture filtering and poster fallback are parent changes.",
+  "html_sha256": "563465afea82b344616fd4ad67154a8d694f5c573afbcb62c050702aba9766fd",
+  "self_contained": true,
+  "selected_back_verified": true
+}

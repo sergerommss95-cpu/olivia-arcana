@@ -1,0 +1,110 @@
+[
+  {
+    "id": "C01",
+    "name": "The Quiet Arch",
+    "family": "Architecture",
+    "description": "A spare lapis arch with pale hanging folds.",
+    "image": "artwork/C01.png",
+    "download": "artwork/C01.png",
+    "type": "card"
+  },
+  {
+    "id": "C02",
+    "name": "The Ivory Portal",
+    "family": "Light & dark",
+    "description": "Ivory architecture frames deep blue drapery.",
+    "image": "artwork/C02.png",
+    "download": "artwork/C02.png",
+    "type": "card"
+  },
+  {
+    "id": "C03",
+    "name": "The Lapis Intaglio",
+    "family": "Light & dark",
+    "description": "An almost monochrome reverse carved into blue stone.",
+    "image": "artwork/C03.png",
+    "download": "artwork/C03.png",
+    "type": "card"
+  },
+  {
+    "id": "C04",
+    "name": "The Gilded Veil",
+    "family": "Light & dark",
+    "description": "Brushed-gold veils bring warmth to the dark portal.",
+    "image": "artwork/C04.png",
+    "download": "artwork/C04.png",
+    "type": "card"
+  },
+  {
+    "id": "C05",
+    "name": "The Floating Fold",
+    "family": "Veils & folds",
+    "description": "Opposing ivory ribbons form a flowing surround.",
+    "image": "artwork/C05.png",
+    "download": "artwork/C05.png",
+    "type": "card"
+  },
+  {
+    "id": "C06",
+    "name": "The Interlocked Arches",
+    "family": "Architecture",
+    "description": "Two linked architectural openings share a woven centre.",
+    "image": "artwork/C06.png",
+    "download": "artwork/C06.png",
+    "type": "card"
+  },
+  {
+    "id": "C07",
+    "name": "The Olive Threshold",
+    "family": "Botanical",
+    "description": "Olive branches become the portal’s frame.",
+    "image": "artwork/C07.png",
+    "download": "artwork/C07.png",
+    "type": "card"
+  },
+  {
+    "id": "C08",
+    "name": "The Openwork Screen",
+    "family": "Architecture",
+    "description": "Fine blue openwork surrounds an empty oval.",
+    "image": "artwork/C08.png",
+    "download": "artwork/C08.png",
+    "type": "card"
+  },
+  {
+    "id": "C09",
+    "name": "The Ribbed Vault",
+    "family": "Architecture",
+    "description": "Tapered ivory ribs create an architectural rhythm.",
+    "image": "artwork/C09.png",
+    "download": "artwork/C09.png",
+    "type": "card"
+  },
+  {
+    "id": "C10",
+    "name": "The Silk Seal",
+    "family": "Veils & folds",
+    "description": "A continuous textile oval acts as a single large seal.",
+    "image": "artwork/C10.png",
+    "download": "artwork/C10.png",
+    "type": "card"
+  },
+  {
+    "id": "C11",
+    "name": "The Pointed Threshold",
+    "family": "Architecture",
+    "description": "A slender pointed opening with restrained drapery.",
+    "image": "artwork/C11.png",
+    "download": "artwork/C11.png",
+    "type": "card"
+  },
+  {
+    "id": "C12",
+    "name": "The Engraved Veil",
+    "family": "Engraving",
+    "description": "Fine engraved lines describe the veil and its frame.",
+    "image": "artwork/C12.png",
+    "download": "artwork/C12.png",
+    "type": "card"
+  }
+]

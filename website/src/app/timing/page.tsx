@@ -25,7 +25,7 @@ const COPY = {
     title: "Life Timing",
     lead: "Major cosmic transits approaching your chart over the next three years.",
     noChartBody:
-      "To reveal your major life transits, we need your birth chart first. Enter your birth data to to set the table of your years, the press needs your chart first.",
+      "To reveal your major life transits, we need your birth chart first. Enter your birth data to set the table of your years.",
     noChartCta: "Create Your Portrait",
     loading: "Scanning your cosmic timeline…",
     statFound: "Transits found",
@@ -341,7 +341,7 @@ function AlmanacLifeCard({ transit, locale }: { transit: LifeTransit; locale: st
         .lc-advice {
           padding: 0.85rem 1rem;
           border-left: 2px solid var(--ox);
-          background: rgba(250, 246, 236, 0.6);
+          background: rgba(238, 230, 212, 0.04);
           margin-bottom: 1rem;
         }
 
@@ -465,7 +465,7 @@ export default function TimingPage() {
               <section className="tm-hero" aria-label={copy.heroLabel}>
                 <p className="alm-caption tm-section-label">{copy.heroLabel}</p>
                 <div className="alm-gate">
-                  <Paywall requires="premium" priceKey="premium_monthly" featureName="major life-transit forecasts">
+                  <Paywall feature="life-timing" featureName="major life-transit forecasts">
                     <AlmanacLifeCard transit={nearest} locale={locale} />
                   </Paywall>
                 </div>
@@ -724,7 +724,7 @@ export default function TimingPage() {
 
         .alm-gate :global(.glass-card button) {
           background: var(--ink) !important;
-          color: #f6f1e5 !important;
+          color: #0b1c2c !important;
           border: none !important;
           box-shadow: none !important;
           text-shadow: none !important;

@@ -1,0 +1,34 @@
+{
+  "syntheticTest": true,
+  "preview": "https://6ab6bae6a3cdabc78a81a8db--olivia-arcana.netlify.app",
+  "request": {
+    "question": "What kind of job will be in my hands next month?",
+    "locale": "en",
+    "spreadId": "clarity3",
+    "cards": [
+      {
+        "id": 20,
+        "orientation": "upright"
+      },
+      {
+        "id": 3,
+        "orientation": "upright"
+      },
+      {
+        "id": 73,
+        "orientation": "upright"
+      }
+    ]
+  },
+  "response": {
+    "synthesis": "The kind of work worth watching for next month has a \"calling\" quality to it — something that feels like a genuine fit rather than just a task, and that could grow into something lasting if you tend it. Rather than any single job title, the cards point toward roles with a sense of purpose, and settings where steady, tangible building is valued.\n\nJudgement sits in the situation position, marking this as a moment of evaluation — a chance to notice which kind of work actually calls to you, sorting past experience into what's worth carrying forward. The Empress, as complication, doesn't describe a problem so much as a trade-off to weigh: abundance and growth are present in the picture, so the question becomes what you choose to nurture — depth in one direction, or the wider field of possibility she opens.\n\nThe Ten of Pentacles, offered as a helpful next step, points toward structure and continuity — work connected to legacy, stability, or something built to outlast the moment. Together, the three suggest choosing an opportunity not just for what it pays now, but for whether it's something you'd want to keep building.\n\nAs a small, reversible step, try writing down two or three qualities you want next month's work to have — purpose, growth, or lasting value — and use that short list to sort any offers or leads as they appear.",
+    "source": "ai",
+    "locale": "en",
+    "cardIds": [
+      20,
+      3,
+      73
+    ]
+  },
+  "seconds": 8.6
+}

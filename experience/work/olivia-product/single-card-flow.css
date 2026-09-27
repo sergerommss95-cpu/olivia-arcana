@@ -1,0 +1,49 @@
+/* The hit area stays still; the physical card lifts above it. */
+body[data-view=choose] .card-hit,
+body[data-view=choose] .card-hit:hover,
+body[data-view=choose] .card-hit:focus-visible{background:transparent;filter:none;outline:none;touch-action:none}
+body[data-view=choose] .card-hit{cursor:grab}
+body[data-view=choose] .card-hit:active{cursor:grabbing}
+.single-card-layer{position:fixed;inset:0;pointer-events:none;z-index:40}
+.single-card-object{position:absolute;left:0;top:0;width:320px;height:548.5714285714px;transform-origin:0 0;will-change:transform}
+.single-card-object img{display:block;width:100%;height:100%;border-radius:3.8%/2.2%;box-shadow:1px 1px 0 #cfb78080,7px 18px 30px #010a1670;user-select:none;-webkit-user-drag:none;transform-origin:50% 50%}
+.single-card-actions{position:fixed;left:50%;top:calc(77svh + 12px);transform:translateX(-50%);width:max-content;max-width:90vw;text-align:center;pointer-events:auto}
+.single-card-actions .eyebrow{margin-bottom:.6rem}
+.single-card-actions button{min-width:210px}
+.single-card-hint{color:#d0d4d1;font-size:.6875rem;margin-top:.8rem;line-height:1.6}
+body[data-single-state=extracting] #cards,body[data-single-state=held] #cards,body[data-single-state=revealing] #cards,body[data-single-state=revealed] #cards{opacity:.17;transition:opacity 1s}
+body[data-single-state=extracting] .choose-footer,body[data-single-state=held] .choose-footer,body[data-single-state=revealing] .choose-footer,body[data-single-state=revealed] .choose-footer{visibility:hidden}
+body[data-single-state=extracting] .choose-heading,body[data-single-state=held] .choose-heading,body[data-single-state=revealing] .choose-heading,body[data-single-state=revealed] .choose-heading{opacity:.4;transition:opacity .7s}
+.single-reading-arrival #reading-image,.single-reading-arrival #card-index,.single-reading-arrival .reading-copy{visibility:hidden}
+.single-reading-arrival #reading-view{position:relative;z-index:1;background:transparent}
+body[data-view=reading].single-reading-arrival #hero-region{display:block;position:fixed;inset:0;z-index:0}
+body[data-view=reading].single-reading-arrival #motion-stage,body[data-view=reading].single-reading-arrival .site-header{visibility:hidden}
+@media(max-width:650px){.single-card-actions{top:calc(77svh + 7px)}.single-card-hint{max-width:18rem}.single-card-actions .eyebrow{font-size:.55rem}body[data-single-state=held] .choose-heading{opacity:.7}}
+@media(prefers-reduced-motion:reduce){.single-card-object{will-change:auto}body[data-view=choose] #cards{transition:none}}
+
+/* The fallback remains a real deck when WebGL is unavailable. */
+body[data-view=choose] #card-choices.fallback-choices{inset:25% 7% 12%;display:flex;align-items:center;gap:12px;overflow-x:auto;pointer-events:auto;padding:2rem .3rem}
+body[data-view=choose] .fallback-choices .card-hit{position:relative;flex:0 0 110px;width:110px;height:188.6px;padding:0;clip-path:none;touch-action:pan-x}
+.fallback-choices .card-hit img{display:block;width:100%;height:100%;border-radius:4%;pointer-events:none}
+.fallback-choices .card-hit[data-lifted] img{visibility:hidden}
+body[data-view=choose] #motion-stage:has(.fallback-choices) .poster{display:none!important}
+
+body[data-single-state=extracting] .choose-heading h2,body[data-single-state=held] .choose-heading h2,body[data-single-state=revealing] .choose-heading h2,body[data-single-state=revealed] .choose-heading h2{opacity:0;transition:opacity .5s}
+body[data-single-state=hover] .single-card-object img{filter:brightness(.88)}
+body[data-single-state=extracting] .single-card-object img{filter:brightness(1);transition:filter 1s}
+
+body[data-view=choose][data-single-state=hover] .single-card-object{pointer-events:auto;touch-action:none;cursor:grab}
+body[data-view=choose][data-single-state=hover] .single-card-object:active{cursor:grabbing}
+
+/* Browse the complete shuffled deck without crowding the card stage. */
+.single-deck-navigation{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;width:15rem;margin-bottom:.6rem;border-bottom:1px solid var(--rule);padding-bottom:.25rem}
+.single-deck-navigation[hidden]{display:none}
+.single-deck-navigation button{min-width:44px;min-height:44px;font-size:1.1rem}
+.single-deck-navigation button:disabled{opacity:.25;cursor:default}
+#choice-range{font-size:.65rem;letter-spacing:.1em;color:var(--muted);font-variant-numeric:tabular-nums}
+@media(max-width:650px){.single-deck-navigation{width:13rem;margin-bottom:.25rem}.choose-footer{bottom:3%}.choose-footer #choose-status{max-width:20rem;font-size:.65rem}.choose-footer .text-action{min-height:36px}}
+@media(max-width:650px){body[data-view=choose] #motion-stage{bottom:26%}}
+/* Reveal light (single-card-flow.js revealLight): one soft pass across the turned face. */
+.single-card-object .reveal-sheen{position:absolute;inset:0;border-radius:3.8%/2.2%;overflow:hidden;pointer-events:none;opacity:0}
+.single-card-object .reveal-sheen b{position:absolute;top:-12%;bottom:-12%;left:-30%;width:34%;background:linear-gradient(100deg,#fff8e600,#fff6df26 38%,#fffaf05c 50%,#fff6df26 62%,#fff8e600);transform:translateX(-40%) skewX(-12deg);mix-blend-mode:screen}
+@media(prefers-reduced-motion:reduce){.single-card-object .reveal-sheen{display:none}}

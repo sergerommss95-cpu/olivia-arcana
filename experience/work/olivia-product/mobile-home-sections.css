@@ -1,0 +1,168 @@
+/* Phone compositions below the hero. Keep the original art and interaction;
+   give each preview enough room to be understood without miniature text. */
+@media (max-width:700px) {
+  #home-content.home-showcase {
+    --phone-section-gutter:24px;
+  }
+  #home-content :is(.home-spreads,.home-sample,.home-memory,.home-symbols,.home-footer) {
+    padding-inline:var(--phone-section-gutter);
+    min-width:0;
+  }
+  #home-content :is(.home-spreads,.home-sample,.home-memory,.home-symbols) {
+    scroll-margin-top:28px;
+  }
+  #home-content :is(.home-spread-intro,.home-sample-copy,.home-memory-heading,.home-symbol-copy) h2 {
+    font-size:clamp(36px,9.8vw,45px);
+    line-height:1.04;
+    letter-spacing:-.03em;
+    overflow-wrap:normal;
+  }
+  #home-content :is(.home-spread-intro,.home-sample-copy,.home-memory-heading,.home-symbol-copy) .home-kicker {
+    font-size:11px;
+    line-height:1.65;
+    letter-spacing:.11em;
+    margin-bottom:18px;
+  }
+  #home-content :is(.home-spread-intro,.home-spread-copy,.home-memory-heading,.home-symbol-copy)>.home-body {
+    font-size:16px;
+    line-height:1.7;
+    max-width:34rem;
+    margin-top:20px;
+  }
+
+  /* Position labels sit below their cards, not inside a tiny shrunken diagram. */
+  #home-content .home-spreads {padding-block:52px 56px}
+  #home-content .home-spread-intro {display:block}
+  #home-content .home-spread-workspace {display:block;margin-top:26px}
+  #home-content .home-spread-tabs {gap:8px;padding-bottom:0;border:0}
+  #home-content .home-spread-tabs button {flex:1;min-width:0;min-height:60px;gap:7px;padding:12px 8px}
+  #home-content .home-spread-tabs b {font-size:30px;line-height:1}
+  #home-content .home-spread-tabs span {font-size:14px;line-height:1.4}
+  #home-content .home-spread-tabs button:after {display:none}
+  #home-content .home-spread-table {
+    --preview-card-width:clamp(76px,25vw,106px);
+    height:326px;
+    width:100%;
+    max-width:430px;
+    margin:22px auto 0;
+  }
+  #home-content .home-spread-table[data-count="5"] {
+    --preview-card-width:clamp(72px,22vw,90px);
+    height:680px;
+    max-width:400px;
+  }
+  #home-content .home-spread-table[data-count="8"] {
+    --preview-card-width:clamp(70px,21vw,84px);
+    height:740px;
+    max-width:400px;
+  }
+  #home-content .home-spread-table .home-table-card {
+    width:var(--preview-card-width);
+    top:calc(var(--y) - (var(--preview-card-width) * .858));
+    transform:translateX(-50%);
+  }
+  #home-content .home-spread-table[data-count="8"] .home-table-card:nth-child(1) {--y:48%!important}
+  #home-content .home-spread-table[data-count="8"] .home-table-card:nth-child(2) {--y:79%!important}
+  #home-content .home-spread-table[data-count="8"] .home-table-card:nth-child(3) {--y:20%!important}
+  #home-content .home-spread-table[data-count="8"] .home-table-card:nth-child(4) {--y:20%!important}
+  #home-content .home-spread-table[data-count="8"] .home-table-card:nth-child(5) {--y:62%!important}
+  #home-content .home-spread-table[data-count="8"] .home-table-card:nth-child(6) {--y:49%!important}
+  #home-content .home-spread-table[data-count="8"] .home-table-card:nth-child(7) {--y:15%!important}
+  #home-content .home-spread-table[data-count="8"] .home-table-card:nth-child(8) {--y:80%!important}
+  #home-content .home-spread-table .home-table-card figcaption {
+    width:128%;
+    margin:15px 0 0 -14%;
+    gap:4px;
+    font-size:12px;
+    line-height:1.45;
+    text-wrap:balance;
+    color:#c8d1d5;
+  }
+  #home-content .home-spread-table .home-table-card figcaption>span:first-child {font-size:11px;letter-spacing:.08em}
+  #home-content .home-table-instruction {font:400 14px/1.6 'DM Sans',sans-serif;max-width:280px;margin:0 auto;text-align:center;color:#aabcc7}
+  #home-content .home-spread-copy {padding:32px 0 0}
+  #home-content .home-spread-copy h3 {font-size:35px;line-height:1.06;margin:14px 0}
+  #home-content .home-spread-copy>.home-mini-label {font-size:11px;line-height:1.65;letter-spacing:.08em}
+  #home-content .home-position-preview {margin-top:24px;padding:23px 0;min-height:0}
+  #home-content .home-position-preview>.home-mini-label {font-size:11px;line-height:1.65;letter-spacing:.08em}
+  #home-content .home-position-preview>p {font-size:27px;line-height:1.18;margin-top:12px;max-width:100%}
+  #home-content .home-access-note {font-size:13px;line-height:1.6;margin-top:16px;max-width:100%}
+
+  /* The sample is a card on the page, not a card inside an unrelated frame. */
+  #home-content .home-sample {display:flex;flex-direction:column;gap:30px;padding-block:54px 56px;min-height:0}
+  #home-content .home-sample-copy,#home-content .home-sample-response {width:100%;max-width:none}
+  #home-content .home-sample-question {margin:24px 0 0;padding-left:17px}
+  #home-content .home-sample-question>.home-mini-label {font-size:11px;letter-spacing:.08em;line-height:1.6}
+  #home-content .home-sample-question blockquote {font-size:27px;line-height:1.23;margin-top:12px;max-width:none}
+  #home-content .home-sample-stage {width:100%;padding:20px 0 0;text-align:center}
+  #home-content .home-sample-number {display:none}
+  #home-content .home-sample-reveal {width:min(70%,244px);max-width:none;margin-inline:auto}
+  #home-content .home-sample-stage>.home-sample-caption {font-size:13px;line-height:1.65;max-width:290px;margin:18px auto 0}
+  #home-content #home-sample-insight {margin:0}
+  #home-content #home-sample-insight>.home-mini-label {font-size:11px;line-height:1.65;letter-spacing:.08em}
+  #home-content .home-sample-meaning {font-size:16px;line-height:1.75;margin:15px 0 23px;max-width:none}
+  #home-content .home-sample-prompt {padding-top:23px}
+  #home-content .home-sample-prompt>span {font-size:11px;letter-spacing:.09em;line-height:1.65}
+  #home-content .home-sample-prompt>p {font-size:29px;line-height:1.16;margin-top:12px}
+  #home-content .home-sample-response>.home-link {margin-top:26px}
+
+  /* A phone shows an almanac entry, rather than reducing an open book to fit. */
+  #home-content .home-memory {display:flex;flex-direction:column;gap:32px;padding-block:54px 56px}
+  #home-content .home-memory-heading {display:block;width:100%}
+  #home-content .home-memory-links {display:grid;grid-template-columns:1fr;gap:10px;margin-top:24px;width:100%}
+  #home-content .home-memory-links .home-link {width:100%;min-width:0;margin:0}
+  #home-content .home-memory-art {width:100%;max-width:none;min-width:0}
+  #home-content .home-memory-example {font-size:11px;line-height:1.6;letter-spacing:.065em;text-align:left;margin-bottom:20px}
+  #home-content .home-memory-tabs {gap:6px;margin-bottom:20px}
+  #home-content .home-memory-tabs:before {display:none}
+  #home-content .home-memory-tabs button {min-width:0;min-height:74px;padding:11px 6px;align-items:center;justify-content:center;text-align:center;gap:6px}
+  #home-content .home-memory-tabs button:before {display:none}
+  #home-content .home-memory-tabs button>span {font-size:11px;line-height:1.5}
+  #home-content .home-memory-tabs b {font-size:13px;line-height:1.4;font-weight:500}
+  #home-content .home-memory-page {
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    gap:26px;
+    padding:28px 25px 30px;
+    min-height:0;
+    transform:none;
+    box-shadow:0 3px 0 #9e8b6366,0 16px 26px #02091040;
+  }
+  #home-content .home-memory-page:before,#home-content .home-memory-page:after {display:none}
+  #home-content .home-memory-card {display:grid;grid-template-columns:92px minmax(0,1fr);align-items:center;gap:24px;width:100%;float:none}
+  #home-content .home-memory-card img {width:88px;max-width:100%;margin:0}
+  #home-content .home-memory-card>span {font-size:12px;line-height:1.6;letter-spacing:.075em;margin:0;text-align:left;color:#665435;max-width:135px}
+  #home-content .home-memory-page .home-mini-label {font-size:11px;line-height:1.6;letter-spacing:.07em}
+  #home-content .home-memory-writing h3 {font-size:32px;line-height:1.07;margin:13px 0 18px}
+  #home-content .home-memory-writing blockquote {font-size:27px;line-height:1.2;min-height:0}
+  #home-content .home-memory-next {margin-top:24px;padding-top:21px}
+  #home-content .home-memory-next p {font-size:15px;line-height:1.65;margin-top:10px}
+  #home-content .home-local-note {font-size:13px;line-height:1.65;margin-top:19px;max-width:100%;text-align:left}
+
+  #home-content .home-symbols {display:flex;flex-direction:column;gap:24px;padding-block:20px 56px}
+  #home-content .home-symbol-pair {width:100%;max-width:390px;gap:20px;padding:0 10px 42px;box-sizing:border-box}
+  #home-content .home-symbol-crop {min-width:0;aspect-ratio:1/1.35}
+  #home-content .home-symbol>figcaption {font-size:23px;line-height:1.1;bottom:18px;padding-inline:6px}
+  #home-content .home-symbol-veil {transform:translateY(30px)}
+  #home-content .home-symbol-copy {width:100%;min-width:0}
+  #home-content .home-symbol-copy>.home-link {margin-top:24px}
+
+  #home-content .home-footer {display:grid;grid-template-columns:minmax(0,1fr);gap:28px;padding-block:38px calc(36px + env(safe-area-inset-bottom));min-width:0}
+  #home-content .home-footer-signature {display:block}
+  #home-content .home-footer-signature .brand {font-size:34px}
+  #home-content .home-footer-signature p {font-size:22px;line-height:1.2;margin-top:17px}
+  #home-content .home-footer nav {display:grid;grid-template-columns:minmax(0,1fr);gap:0;font-size:15px;line-height:1.5;min-width:0}
+  #home-content .home-footer nav a {display:flex;align-items:center;min-height:52px;padding-block:10px;border-bottom:1px solid #bbaa8821}
+  #home-content .home-footer-top {grid-column:auto;justify-self:start;max-width:100%;font-size:14px;line-height:1.5;white-space:normal;margin:0}
+  #home-content .home-footer nav.home-footer-legal {display:flex;flex-wrap:wrap;grid-column:auto;gap:4px 22px;padding-top:18px;font-size:14px}
+  #home-content .home-footer nav.home-footer-legal a {display:inline-flex;min-height:44px;padding-block:0;border-bottom:0}
+}
+@media (max-width:370px) {
+  #home-content.home-showcase {--phone-section-gutter:20px}
+  #home-content .home-memory-page {padding:25px 21px 27px}
+  #home-content .home-memory-card {grid-template-columns:78px minmax(0,1fr);gap:20px}
+  #home-content .home-memory-card img {width:76px}
+  #home-content .home-memory-writing blockquote {font-size:25px}
+  #home-content .home-spread-tabs span {font-size:13px}
+  #home-content .home-spread-table .home-table-card figcaption {font-size:11px}
+}

@@ -1,0 +1,53 @@
+{
+  "session": "Research Olivia Arcana competitors",
+  "session_date": "2026-09-20",
+  "status": "Historical research and static concepts; not the current approved design",
+  "files": [
+    {
+      "source": "outputs/olivia-arcana-design-prompts.txt",
+      "archive": "history/sessions/2026-09-20-competitor-research/outputs/olivia-arcana-design-prompts.txt",
+      "bytes": 7782,
+      "sha256": "378ee646fa2743b452fbe809a7fc90a1e0bd1e02d89b0e0ac9bcefdf714ca635"
+    },
+    {
+      "source": "outputs/olivia-arcana-design-research.md",
+      "archive": "history/sessions/2026-09-20-competitor-research/outputs/olivia-arcana-design-research.md",
+      "bytes": 25012,
+      "sha256": "e771d4037de0165588135f381e68721602eb720324cdccb0153fdaea0d70c1d8"
+    },
+    {
+      "source": "outputs/olivia-arcana-design-research.pdf",
+      "archive": "history/sessions/2026-09-20-competitor-research/outputs/olivia-arcana-design-research.pdf",
+      "bytes": 98248,
+      "sha256": "13e7f862024e2df70ebbd508978c93599c99c0fe1636eca7b431613e2f99d012"
+    },
+    {
+      "source": "outputs/olivia-arcana-desktop-concept.png",
+      "archive": "history/sessions/2026-09-20-competitor-research/outputs/olivia-arcana-desktop-concept.png",
+      "bytes": 2373568,
+      "sha256": "077206c1274cc4d5f1fc114f6c608b677b021873b364786540e6af31d2c46f63"
+    },
+    {
+      "source": "outputs/olivia-arcana-mobile-concept.png",
+      "archive": "history/sessions/2026-09-20-competitor-research/outputs/olivia-arcana-mobile-concept.png",
+      "bytes": 2375189,
+      "sha256": "6536de50ed1b609b9e4ccd437faa4f3baef890f5a65f75a0a70cf170beabc42d"
+    },
+    {
+      "source": "work/research.json",
+      "archive": "history/sessions/2026-09-20-competitor-research/work/research.json",
+      "bytes": 28376,
+      "sha256": "20e3ecfa46ba2d98ae437941c95524c700052ba5b1261c3062f3d8555bdcc706"
+    },
+    {
+      "source": "work/build_research.py",
+      "archive": "history/sessions/2026-09-20-competitor-research/work/build_research.py",
+      "bytes": 5508,
+      "sha256": "31ec4226036f885766faffac80db356586edaf57c683cbbbd62a5b993e3369ff"
+    }
+  ],
+  "excluded": [
+    "work/research-page-*.png and contact sheet: intermediate PDF renders, reproducible from final PDF/source",
+    "Raw task transcripts and browser/account state"
+  ]
+}

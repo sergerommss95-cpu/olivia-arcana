@@ -58,13 +58,38 @@ export interface SubscriptionStatus {
 
 const TOKEN_KEY = "olivia-token";
 
-function getToken(): string | null {
+/** Use the same session selection for checkout gating and payment requests. */
+export function getPaymentSessionToken(): string | null {
   if (typeof window === "undefined") return null;
-  return localStorage.getItem(TOKEN_KEY);
+  try {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (token) return token;
+
+    // Fall back to the Supabase session. supabase-js persists it in
+    // localStorage under "sb-<project-ref>-auth-token" as JSON carrying
+    // access_token. Read synchronously; any malformed entry = signed out.
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key || !key.startsWith("sb-") || !key.endsWith("-auth-token")) continue;
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+      try {
+        const session = JSON.parse(raw);
+        const access =
+          session?.access_token ?? session?.currentSession?.access_token;
+        if (typeof access === "string" && access) return access;
+      } catch {
+        // malformed session entry — keep looking
+      }
+    }
+  } catch {
+    // localStorage unavailable (private mode etc.)
+  }
+  return null;
 }
 
 async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const token = getToken();
+  const token = getPaymentSessionToken();
   const res = await fetch(`${API_URL}${path}`, {
     ...options,
     headers: {

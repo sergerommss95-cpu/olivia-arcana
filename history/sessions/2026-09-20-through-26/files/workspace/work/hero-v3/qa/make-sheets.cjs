@@ -1,0 +1,5 @@
+const fs=require('fs'),path=require('path'),{PNG}=require('/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules/pngjs');
+const dir=__dirname;
+function sheet(name,files,cols,w){const ims=files.map(f=>PNG.sync.read(fs.readFileSync(path.join(dir,f)))),h=Math.round(ims[0].height/ims[0].width*w),out=new PNG({width:cols*w,height:Math.ceil(ims.length/cols)*h});for(let i=0;i<ims.length;i++){const im=ims[i],ox=i%cols*w,oy=Math.floor(i/cols)*h;for(let y=0;y<h;y++)for(let x=0;x<w;x++){const s=(Math.min(im.height-1,Math.floor(y*im.height/h))*im.width+Math.min(im.width-1,Math.floor(x*im.width/w)))*4,d=((oy+y)*out.width+ox+x)*4;im.data.copy(out.data,d,s,s+4)}}fs.writeFileSync(path.join(dir,name),PNG.sync.write(out))}
+for(const v of ['desktop','userpane','mobile','small'])sheet(`sheet-final-${v}.png`,['010','020','040','060','070','082'].map(p=>`final-${v}-${p}.png`),3,v==='mobile'?260:v==='small'?256:440);
+for(const v of ['desktop','mobile'])sheet(`sheet-video-${v}.png`,Array.from({length:16},(_,i)=>`final-video-${v}-${String(i+1).padStart(2,'0')}.png`),4,v==='desktop'?360:195);

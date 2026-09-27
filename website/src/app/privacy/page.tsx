@@ -3,123 +3,154 @@ import LegalShell from "@/components/legal/LegalShell";
 
 export const metadata = {
   title: "Privacy Policy — Olivia Arcana",
-  description: "How Olivia Arcana collects, uses, and protects your personal data.",
+  description: "What Olivia Arcana keeps on your device, what is sent when you ask for a personal reading, and who processes it.",
 };
 
 export default function PrivacyPage() {
   return (
-    <LegalShell title="Privacy Policy" updated="April 25, 2026">
+    <LegalShell title="Privacy Policy" updated="September 26, 2026">
       <p>
-        This Privacy Policy explains how <strong>Olivia Arcana</strong> (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;)
-        collects, uses, stores, and shares your personal information when you use
-        our website, mobile apps, and Telegram bot (collectively, the &quot;Service&quot;).
-      </p>
-      <p>
-        By using the Service you agree to the practices described here. If you do
-        not agree, please stop using the Service.
+        This policy explains what <strong>Olivia Arcana</strong> (&quot;we&quot;, &quot;us&quot;) handles when
+        you use oliviaarcana.com (the &quot;site&quot;). In short: the readings you keep stay in your
+        browser, on your device. A question leaves your device only when you ask for an AI-assisted
+        personal reading or use the question conversation, and then only to prepare that response.
       </p>
 
       <h2>1. Who we are</h2>
       <p>
-        Olivia Arcana is operated by Olivia Arcana LLC (a Wyoming, United States
-        limited liability company). For privacy questions you may write to{" "}
+        Olivia Arcana is operated by Olivia Arcana LLC (a Wyoming, United States limited liability
+        company). For privacy questions, write to{" "}
         <a href="mailto:privacy@oliviaarcana.com">privacy@oliviaarcana.com</a>.
       </p>
 
-      <h2>2. Information we collect</h2>
-      <h3>Information you provide</h3>
+      <h2>2. What stays on your device</h2>
       <ul>
-        <li><strong>Account data</strong> — your name, email address, and Google account identifier when you sign in with Google.</li>
-        <li><strong>Birth data</strong> — date, time, and place of birth used to compute your natal chart. Birth time is optional.</li>
-        <li><strong>Reading inputs</strong> — questions you ask the AI oracle, journal entries, second-person birth data for compatibility readings, and any feedback you submit.</li>
-      </ul>
-      <h3>Information collected automatically</h3>
-      <ul>
-        <li><strong>Usage data</strong> — pages viewed, features used, time stamps, and approximate device/browser type.</li>
-        <li><strong>Technical data</strong> — IP address, user agent, and cookie identifiers (see Cookies Policy).</li>
-        <li><strong>Payment data</strong> — handled by Paddle (web) and Telegram (Stars). We never see your card details. Paddle and Telegram share with us only the metadata required to fulfill your subscription.</li>
+        <li>
+          <strong>Your almanac</strong> — readings you keep: your question, the cards you chose and
+          their orientation, dates, your notes and reflections, revisit dates, and any personal reading
+          you choose to keep. Also Today&apos;s card, your recent questions and your preferences.
+        </li>
+        <li>
+          These are stored in your browser&apos;s local storage. We do not receive a copy, and there is
+          no account that holds them.
+        </li>
+        <li>
+          You can download a backup file, import it on another device, remove single readings, or clear
+          everything by clearing this site&apos;s data in your browser. Some browsers, Safari in
+          particular, may delete a site&apos;s stored data if you have not visited it for a while, so
+          keep a backup of anything you want to keep.
+        </li>
+        <li>
+          Some earlier pages of the site let you enter a birth date. It is stored in your browser and
+          used for calculations there; it is not sent to us.
+        </li>
+        <li>
+          The site may keep copies of its own pages and files in your browser (a service worker cache)
+          so that they load faster.
+        </li>
       </ul>
 
-      <h2>3. How we use your data</h2>
-      <ul>
-        <li>To compute astrological readings unique to your chart.</li>
-        <li>To deliver the Service, manage your account, and process payments.</li>
-        <li>To improve the Service through aggregate analytics.</li>
-        <li>To prevent fraud, abuse, and security incidents.</li>
-        <li>To comply with applicable law.</li>
-      </ul>
-
-      <h2>4. AI oracle data</h2>
+      <h2>3. What is sent, and when</h2>
+      <h3>Personal readings</h3>
       <p>
-        Questions sent to the AI oracle are forwarded to Anthropic, our model
-        provider. Anthropic processes prompts under their data policy and does
-        not train on your inputs. We retain the conversation in your account so
-        you can revisit past readings.
+        When you ask for a personal reading and confirm, we send your question, the cards you chose
+        (with their orientation), the spread and your language to our reading service, which runs on
+        our host, Netlify. It forwards them to <strong>Anthropic</strong>, our AI provider, to prepare
+        the reading. Your notes and your almanac are not sent. The reading returns to your browser; it
+        is kept only if you choose to keep it, and then only on your device.
+      </p>
+      <h3>The question conversation</h3>
+      <p>
+        On the page for exploring your question, the messages you send in that conversation are sent
+        the same way, to prepare each response.
+      </p>
+      <h3>How the AI provider handles it</h3>
+      <p>
+        Anthropic processes this content to generate the response under its commercial terms, which do
+        not allow content sent through its API to be used to train its models. It may keep that
+        content for a limited period for safety and legal purposes, as described in{" "}
+        <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener noreferrer">its privacy policy</a>.
+        Please don&apos;t include information you would not want an AI service to process, such as
+        other people&apos;s private details.
+      </p>
+      <h3>Technical data</h3>
+      <p>
+        Like any website, requests reach our host, Netlify, which processes technical data such as your
+        IP address, browser type and the page requested, to deliver the site and keep it secure. To
+        apply an hourly limit on personal readings, our reading service holds your IP address
+        temporarily in memory; it is not written to storage. When the AI provider fails, the service
+        records technical error codes, never your question.
       </p>
 
-      <h2>5. Sharing</h2>
-      <p>We share data only with the providers needed to run the Service:</p>
+      <h2>4. What we don&apos;t do</h2>
       <ul>
-        <li><strong>Supabase</strong> — authentication and primary database.</li>
-        <li><strong>Anthropic</strong> — AI model inference.</li>
-        <li><strong>Paddle</strong> — Merchant of Record for web payments.</li>
-        <li><strong>Telegram</strong> — Stars payments and the Olivia bot.</li>
-        <li><strong>ElevenLabs</strong> — voice synthesis (VIP tier).</li>
-        <li><strong>Netlify</strong> — site hosting.</li>
+        <li>There are no accounts on the site at present, and no payments are taken.</li>
+        <li>We don&apos;t use advertising or analytics trackers, and we don&apos;t set cookies (see the <Link href="/cookies">Cookies Policy</Link>).</li>
+        <li>We don&apos;t sell personal data or share it for advertising.</li>
       </ul>
       <p>
-        We do not sell your personal data. We do not share it for third-party
-        advertising.
+        If accounts, synchronisation or paid membership open later, this policy will be updated before
+        they do.
       </p>
+
+      <h2>5. Service providers</h2>
+      <ul>
+        <li><strong>Netlify</strong> — hosting and the reading service.</li>
+        <li><strong>Anthropic</strong> — AI-assisted responses, only when you ask for one.</li>
+      </ul>
 
       <h2>6. International transfers</h2>
       <p>
-        Your data may be stored in the United States and the European Union.
-        Where required, transfers rely on Standard Contractual Clauses or other
-        safeguards under the GDPR.
+        Both providers are based in the United States and may process data there. Where the law
+        requires it, transfers rely on appropriate safeguards such as Standard Contractual Clauses.
       </p>
 
       <h2>7. Retention</h2>
       <p>
-        We keep account data for as long as your account exists. You can delete
-        your account at any time from <Link href="/account/billing">/account/billing</Link>{" "}
-        or by emailing us. Upon deletion, personal data is removed within 30
-        days; aggregated, anonymized analytics may be retained.
+        What is on your device stays until you delete it or your browser clears it. We don&apos;t keep
+        your questions or readings on our servers. Technical logs are kept by Netlify for a limited
+        period under its policies, and AI content by Anthropic as described above.
       </p>
 
       <h2>8. Your rights</h2>
       <p>
-        Depending on where you live (GDPR, CCPA, UK GDPR), you have rights to:
-        access, correct, delete, port, and restrict processing of your data,
-        and to object to processing or withdraw consent. To exercise any of
-        these, write to <a href="mailto:privacy@oliviaarcana.com">privacy@oliviaarcana.com</a>.
+        Depending on where you live (for example under the GDPR or UK GDPR), you may have rights to
+        access, correct, delete or port your data, to restrict or object to processing, and to complain
+        to your data protection authority. Your almanac is on your device, so you can download or delete
+        it yourself at any time. For anything else, write to{" "}
+        <a href="mailto:privacy@oliviaarcana.com">privacy@oliviaarcana.com</a>.
       </p>
 
-      <h2>9. Children</h2>
+      <h2>9. Earlier services</h2>
       <p>
-        The Service is not directed to anyone under 16. We do not knowingly
-        collect data from children. If you believe a child has given us data,
-        contact us and we will delete it.
+        Olivia Arcana earlier offered an astrology service and a Telegram bot. If you used them and want
+        to know about, or delete, any data that may remain from them, write to{" "}
+        <a href="mailto:privacy@oliviaarcana.com">privacy@oliviaarcana.com</a>.
       </p>
 
-      <h2>10. Security</h2>
+      <h2>10. Children</h2>
       <p>
-        We use TLS in transit, encryption at rest where supported, and
-        least-privilege access controls. No system is perfectly secure; we
-        encourage strong passwords on your Google account and 2FA.
+        The site is not directed to anyone under 16, and we do not knowingly collect children&apos;s
+        data.
       </p>
 
-      <h2>11. Changes</h2>
+      <h2>11. Security</h2>
       <p>
-        We may update this Policy. We will post the new version here and, for
-        material changes, notify you in-app or by email. Continued use after the
-        change means you accept the new Policy.
+        The site is served over HTTPS, and only the reading service can call the AI provider. Data kept
+        on your device is protected by your device and browser, so use a screen lock if others can use
+        it.
       </p>
 
-      <h2>12. Contact</h2>
+      <h2>12. Changes</h2>
       <p>
-        Questions or complaints? <a href="mailto:privacy@oliviaarcana.com">privacy@oliviaarcana.com</a> ·{" "}
-        <Link href="/contact">Contact form</Link>
+        We will post any update here with a new date. Material changes will be explained on the site
+        before they take effect.
+      </p>
+
+      <h2>13. Contact</h2>
+      <p>
+        <a href="mailto:privacy@oliviaarcana.com">privacy@oliviaarcana.com</a> ·{" "}
+        <Link href="/contact">Contact</Link>
       </p>
     </LegalShell>
   );

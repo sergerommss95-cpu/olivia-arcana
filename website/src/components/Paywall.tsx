@@ -2,27 +2,33 @@
 
 import { useSubscription } from "@/hooks/useSubscription";
 import CheckoutButton from "@/components/CheckoutButton";
-import { type PriceKey, PRICING } from "@/lib/payments";
-import { PAYWALL_ENABLED } from "@/lib/plans";
+import { type PriceKey } from "@/lib/payments";
+import { PAYWALL_ENABLED, FEATURES, planFor, rankOf, type FeatureId } from "@/lib/plans";
 
 interface PaywallProps {
   /** Content shown to paid users. */
   children: React.ReactNode;
   /** What free users see as a teaser (optional). If omitted, shows a blurred overlay. */
   teaser?: React.ReactNode;
-  /** Which product unlocks this content. Defaults to "premium_monthly". */
+  /** Which product unlocks this content. Defaults to "<tier>_monthly". */
   priceKey?: PriceKey;
   /** Feature name shown in the upgrade CTA. */
   featureName?: string;
-  /** Minimum tier required. Defaults to "premium". */
+  /**
+   * Feature id from plans.ts. When given, the required tier is read from
+   * FEATURES — the single source of truth — and `requires` is ignored.
+   */
+  feature?: FeatureId;
+  /** Minimum tier required (legacy; prefer `feature`). Defaults to "premium". */
   requires?: "insight" | "premium" | "vip";
 }
 
 export default function Paywall({
   children,
   teaser,
-  priceKey = "premium_monthly",
-  featureName = "this feature",
+  priceKey,
+  featureName,
+  feature,
   requires = "premium",
 }: PaywallProps) {
   const { tier, isLoading } = useSubscription();
@@ -41,13 +47,23 @@ export default function Paywall({
     );
   }
 
-  const tierRank: Record<string, number> = { free: 0, insight: 1, premium: 2, vip: 3 };
-  const hasAccess = tierRank[tier] >= tierRank[requires];
+  // plans.ts is the authority when a feature id is given; the `requires`
+  // prop remains for callers that predate the feature registry.
+  const requiredTier = feature ? FEATURES[feature].requires : requires;
+  const requiredPlan = planFor(requiredTier);
+
+  // A free feature is never gated.
+  if (requiredPlan.rank === 0) return <>{children}</>;
+
+  const hasAccess = rankOf(tier) >= requiredPlan.rank;
   if (hasAccess) return <>{children}</>;
 
-  const upsellTier = requires === "insight" ? "Insight" : requires === "vip" ? "VIP" : "Premium";
-  const upsellPrice = PRICING[requires].monthly;
-  const isAddon = !priceKey.endsWith("_monthly") && !priceKey.endsWith("_annual");
+  const name = featureName ?? (feature ? FEATURES[feature].name : "this feature");
+  const upsellTier = requiredPlan.name;
+  const upsellPrice = requiredPlan.monthly;
+  const subscriptionKey = `${requiredTier}_monthly` as PriceKey;
+  const addonKey = priceKey ?? subscriptionKey;
+  const isAddon = !addonKey.endsWith("_monthly") && !addonKey.endsWith("_annual");
 
   return (
     <div className="relative">
@@ -64,17 +80,17 @@ export default function Paywall({
       <div className="mt-6 glass-card p-6 text-center">
         <div className="text-2xl mb-2">&#10022;</div>
         <h3 className="font-[family-name:var(--font-heading)] text-xl text-warm-ivory mb-2">
-          Unlock {featureName}
+          Unlock {name}
         </h3>
         <p className="text-muted-lavender text-sm mb-5 max-w-sm mx-auto">
           {upsellTier} members get unlimited access to chart readings, transit alerts, and personalized insights.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <CheckoutButton priceKey={`${requires}_monthly` as PriceKey} variant="gold" size="md">
+          <CheckoutButton priceKey={subscriptionKey} variant="gold" size="md">
             Start {upsellTier} &mdash; ${upsellPrice}/mo
           </CheckoutButton>
           {isAddon && (
-            <CheckoutButton priceKey={priceKey} variant="glass" size="md">
+            <CheckoutButton priceKey={addonKey} variant="glass" size="md">
               Buy this reading
             </CheckoutButton>
           )}

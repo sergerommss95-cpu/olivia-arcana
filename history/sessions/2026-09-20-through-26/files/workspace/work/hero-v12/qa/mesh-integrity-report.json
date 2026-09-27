@@ -1,0 +1,81 @@
+{
+  "source": "work/hero-v12/hero.js",
+  "sourceSHA256": "5ba1b14c68c2ce02536fd40bdc6cacd53fc43ad68ea4a8737eb153c270a0b911",
+  "scope": "Actual rounded card geometry and shader source invariants. Does not rasterize shaders or replace browser visual review.",
+  "vertices": 354,
+  "indices": 1584,
+  "passed": 12,
+  "total": 12,
+  "tests": [
+    {
+      "name": "All vertices, normals and UVs are finite",
+      "pass": true
+    },
+    {
+      "name": "Unit normals",
+      "pass": true
+    },
+    {
+      "name": "UVs remain inside artwork rectangle",
+      "pass": true
+    },
+    {
+      "name": "Indices are valid and triangles nondegenerate",
+      "pass": true,
+      "minTriangleArea": 0.000008699173019005211,
+      "invalidIndices": 0,
+      "degenerate": 0
+    },
+    {
+      "name": "All winding agrees with outward vertex normals",
+      "pass": true,
+      "minNormalAgreement": 0.9883625268430061
+    },
+    {
+      "name": "Artwork faces sit on actual opposite outer planes",
+      "pass": true,
+      "frontFaces": 44,
+      "backFaces": 44
+    },
+    {
+      "name": "Closed welded two-manifold with opposite edge incidence",
+      "pass": true,
+      "boundaryEdges": 0
+    },
+    {
+      "name": "One connected component, sphere topology, positive volume",
+      "pass": true,
+      "weldedVertices": 266,
+      "edges": 792,
+      "triangles": 528,
+      "euler": 2,
+      "volume": 0.02560314786644539
+    },
+    {
+      "name": "Mesh stays inside former clearance envelope",
+      "pass": true,
+      "maxExtents": [
+        0.5833500027656555,
+        1,
+        0.005499999970197678
+      ],
+      "oldHalfExtents": [
+        0.58335,
+        1,
+        0.0055
+      ]
+    },
+    {
+      "name": "No disconnected square corners outside rounded footprint",
+      "pass": true
+    },
+    {
+      "name": "Artwork side selection follows geometric side, independent of view winding",
+      "pass": true
+    },
+    {
+      "name": "Main and shadow silhouettes use geometry without fragment discard",
+      "pass": true
+    }
+  ]
+}

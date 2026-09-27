@@ -1,0 +1,83 @@
+{
+  "id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "name": "olivia-arcana",
+  "ssl_url": "https://oliviaarcana.com",
+  "custom_domain": "oliviaarcana.com",
+  "previous_production": {
+    "id": "6aaecaba7071af0008619116",
+    "state": "ready",
+    "published_at": "2026-09-19T17:48:37.497Z",
+    "deploy_ssl_url": "https://main--olivia-arcana.netlify.app"
+  },
+  "build_settings": {
+    "repo_url": "https://github.com/sergerommss95-cpu/olivia-arcana",
+    "repo_branch": "main",
+    "base": "website",
+    "dir": "out",
+    "cmd": "npx next build"
+  },
+  "preview_deploy_id": "6ab57ca5f916d0cf66a38812",
+  "preview_url": "https://6ab57ca5f916d0cf66a38812--olivia-arcana.netlify.app",
+  "preview_hash_checks": [
+    {
+      "path": "index.html",
+      "matches": true
+    },
+    {
+      "path": "assets/experience.1f6552d3e8ef6432.css",
+      "matches": true
+    },
+    {
+      "path": "assets/card-assets.b507dfa36b7ffdf1.js",
+      "matches": true
+    },
+    {
+      "path": "assets/hero.92f68e9d23c32a54.js",
+      "matches": true
+    },
+    {
+      "path": "assets/background.bdd422deea49eb5f.js",
+      "matches": true
+    },
+    {
+      "path": "assets/app.0034a015da905042.js",
+      "matches": true
+    },
+    {
+      "path": "assets/card-back.ce80d77b8f0d78be.webp",
+      "matches": true
+    }
+  ],
+  "production_deploy": {
+    "id": "6ab57d981cfaf194db557fc6",
+    "state": "ready",
+    "published_at": "2026-09-24T19:44:27.529Z",
+    "deploy_ssl_url": "https://6ab57d981cfaf194db557fc6--olivia-arcana.netlify.app",
+    "context": "production"
+  },
+  "production_checks": [
+    {
+      "path": "/",
+      "http_ok": true
+    },
+    {
+      "path": "/experience/index.html",
+      "http_ok": true,
+      "matches_tested_build": true
+    },
+    {
+      "path": "/experience/assets/app.0034a015da905042.js",
+      "http_ok": true,
+      "matches_tested_build": true
+    },
+    {
+      "path": "/academy/",
+      "http_ok": true
+    },
+    {
+      "path": "/journal/",
+      "http_ok": true
+    }
+  ],
+  "source_note": "Manual release of the tested website/out. Source remains local/uncommitted; future Git-triggered builds must include this source and public/experience to preserve the release."
+}

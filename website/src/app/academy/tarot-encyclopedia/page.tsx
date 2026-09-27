@@ -269,7 +269,8 @@ export default function TarotEncyclopediaPage() {
           gap: 0.3rem;
           padding: 0.85rem 0.6rem;
           border: 1px solid var(--hairline);
-          background: rgba(250, 246, 236, 0.6);
+          /* Lapis page: a faint lift, not the earlier light-paper tile. */
+          background: rgba(238, 230, 212, 0.04);
           text-align: center;
           cursor: pointer;
           transition: border-color 200ms var(--ease), background 200ms var(--ease);
@@ -277,6 +278,7 @@ export default function TarotEncyclopediaPage() {
 
         .enc-card:hover {
           border-color: rgba(224, 183, 104, 0.45);
+          background: rgba(238, 230, 212, 0.07);
         }
 
         .enc-card.on {

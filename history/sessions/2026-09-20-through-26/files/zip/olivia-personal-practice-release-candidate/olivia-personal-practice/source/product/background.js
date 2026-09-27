@@ -1,0 +1,66 @@
+import { createShader } from 'shaders/js';
+
+import { preset } from './preset.js';
+
+const root=document.documentElement, stage=document.querySelector('#stage');
+const canvas=document.querySelector('#atmosphere');
+const mq=matchMedia('(prefers-reduced-motion: reduce)'), params=new URLSearchParams(location.search);
+let shader=null, gone=false, suspended=false, resizeFrame=0, stillFrame=0, drawGeneration=0;
+let booting=true, failed=false, startupGeneration=0,stageVisible=true;
+function paused(){return mq.matches||params.get('motion')==='reduce'||root.classList.contains('quiet')||document.querySelector('#motion').getAttribute('aria-pressed')==='true';}
+function state(){canvas.dataset.state=failed?'fallback':booting?'loading':document.hidden||suspended||!stageVisible?'suspended':paused()?'still':'animated';}
+function sync(){
+  state();
+  if(!shader||gone)return;
+  if(document.hidden||suspended||!stageVisible||(!booting&&paused()))shader.pause();else shader.resume();
+}
+function dimensions(){
+  const w=stage.clientWidth,h=stage.clientHeight,dpr=Math.min(devicePixelRatio||1,2);
+  const budget=w<700?650000:1100000;
+  const scale=Math.min(1,Math.sqrt(budget/(Math.max(1,w*h)*dpr*dpr)));
+  return [Math.max(1,Math.floor(w*scale)),Math.max(1,Math.floor(h*scale))];
+}
+function fit(){
+  if(!shader||gone||!stage.clientWidth||!stage.clientHeight)return;
+  shader.resize(...dimensions());canvas.style.width='100%';canvas.style.height='100%';
+  canvas.dataset.buffer=`${canvas.width}×${canvas.height}`;
+}
+// A paused GPU needs one frame to show a palette or size change, then stops.
+function redrawStill(){
+  if(!shader||gone||document.hidden||suspended||!stageVisible)return;
+  const generation=++drawGeneration;cancelAnimationFrame(stillFrame);
+  shader.resume();stillFrame=requestAnimationFrame(()=>{stillFrame=requestAnimationFrame(()=>{stillFrame=0;if(generation===drawGeneration)sync();});});
+}
+const observer=new MutationObserver(sync),motionControl=document.querySelector('#motion');if(motionControl)observer.observe(motionControl,{attributes:true,attributeFilter:['aria-pressed']});if(root)observer.observe(root,{attributes:true,attributeFilter:['class']});
+const visibilityObserver=new IntersectionObserver(entries=>{stageVisible=entries[0].isIntersecting;if(stageVisible){fit();if(paused())redrawStill();}sync();});visibilityObserver.observe(stage);
+const sizeObserver=new ResizeObserver(()=>{if(stage.clientWidth&&stage.clientHeight){fit();if(paused())redrawStill();}sync();});sizeObserver.observe(stage);
+mq.addEventListener('change',sync);document.addEventListener('visibilitychange',sync);
+addEventListener('resize',()=>{cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(()=>{resizeFrame=0;fit();if(paused())redrawStill();});});
+addEventListener('pagehide',e=>{
+  suspended=true;sync();cancelAnimationFrame(resizeFrame);cancelAnimationFrame(stillFrame);
+  startupGeneration++;drawGeneration++;shader?.destroy();shader=null;
+  if(!e.persisted){gone=true;observer.disconnect();visibilityObserver.disconnect();sizeObserver.disconnect();mq.removeEventListener('change',sync);document.removeEventListener('visibilitychange',sync);}
+});
+addEventListener('pageshow',e=>{suspended=false;if(e.persisted&&!gone)start();else sync();});
+
+async function start(){
+  const generation=++startupGeneration;booting=true;failed=false;canvas.classList.remove('loaded');root.classList.remove('atmosphere-fallback');document.querySelector('#render-note').textContent='';state();
+  if(params.get('background')==='static'||!navigator.gpu){fallback();return;}
+  const [w,h]=dimensions();canvas.style.width=w+'px';canvas.style.height=h+'px';
+  try{
+    const instance=await createShader(canvas,preset,{observeElement:false,disableTelemetry:true,
+      onReady(){if(gone||generation!==startupGeneration)return;booting=false;canvas.classList.add('loaded');if(shader){fit();if(paused())redrawStill();else sync();}else sync();},
+      onError(){if(generation===startupGeneration&&shader?.getFailureReason())fallback();}
+    });
+    if(gone||suspended||generation!==startupGeneration){instance.destroy();return;}
+    shader=instance;
+    if(instance.getFailureReason()){fallback();return;}
+    fit();sync();
+  }catch(error){if(gone||generation!==startupGeneration)return;fallback();console.warn('Atmosphere preview unavailable; static palette retained.',error);}
+}
+function fallback(){
+  failed=true;booting=false;canvas.classList.remove('loaded');shader?.destroy();shader=null;
+  root.classList.add('atmosphere-fallback');canvas.dataset.state='fallback';
+  document.querySelector('#render-note').textContent='';
+}
+start();

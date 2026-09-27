@@ -2,10 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { useSubscription } from "@/hooks/useSubscription";
-import type { PriceKey } from "@/lib/payments";
+import { getPaymentSessionToken, telegramStarsLink, type PriceKey } from "@/lib/payments";
 import { isNativeShell, externalUpgradeUrl } from "@/lib/platform";
 import MagneticButton from "@/components/MagneticButton";
-import { PAYMENTS_ENABLED, TELEGRAM_BOT_URL } from "@/lib/service-status";
+import { PAYMENTS_ENABLED } from "@/lib/service-status";
+
+/**
+ * Cross-lane contract: a buyer who is not signed in gets their intent
+ * parked here, then goes to /login. Profile + billing read and clear it
+ * (it expires after 60 minutes).
+ */
+export const PENDING_CHECKOUT_KEY = "oa-pending-checkout";
 
 interface CheckoutButtonProps {
   priceKey: PriceKey;
@@ -33,9 +40,10 @@ export default function CheckoutButton({
   const handleClick = async () => {
     // Paddle checkout goes through the reading API, which is currently down.
     // The Telegram bot bills independently and still works, so send buyers
-    // there rather than into a request that cannot succeed.
+    // there rather than into a request that cannot succeed. The deep-link
+    // carries ?start=pay_<priceKey> so the bot opens on the right invoice.
     if (!PAYMENTS_ENABLED) {
-      window.open(TELEGRAM_BOT_URL, "_blank", "noopener,noreferrer");
+      window.open(telegramStarsLink(priceKey), "_blank", "noopener,noreferrer");
       return;
     }
 
@@ -46,9 +54,18 @@ export default function CheckoutButton({
       return;
     }
 
-    const token = localStorage.getItem("olivia-token");
+    const token = getPaymentSessionToken();
     if (!token) {
-      window.location.href = `/onboarding/?redirect=checkout&price=${priceKey}`;
+      // Park the purchase intent, then sign in — profile/billing resume it.
+      try {
+        localStorage.setItem(
+          PENDING_CHECKOUT_KEY,
+          JSON.stringify({ price: priceKey, ts: Date.now() })
+        );
+      } catch {
+        // Storage unavailable (private mode etc.) — still send them to login.
+      }
+      window.location.href = "/login/?reason=checkout";
       return;
     }
 

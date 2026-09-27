@@ -1,0 +1,8 @@
+:root{--study-base:#0b192a;--study-haze:#375774;--ink:#ede4d2;--mist:#d0c6b4;--study-edge:#d8c49c45;--gilt:#b69a65}
+#stage{background:radial-gradient(ellipse at 24% 38%,#37577488,transparent 62%),radial-gradient(ellipse at 78% 62%,#6b604c88,transparent 64%),#0b192a}
+.study-controls{grid-template-columns:1fr auto 1fr}
+.previous-study{font-size:11px;color:#d5cfc4;text-decoration:none;border-bottom:1px solid #ffffff36;padding:10px 0;min-height:36px;white-space:nowrap}
+.previous-study span{padding-left:10px}
+.previous-study:hover{color:#fff}
+@media(max-width:1050px){.study-controls{grid-template-columns:1fr auto}.previous-study{justify-self:start}}
+@media(max-width:650px){.study-controls{display:flex;justify-content:center;gap:6px}.previous-study{font-size:11px;align-self:flex-start}.study-tools{width:100%}}

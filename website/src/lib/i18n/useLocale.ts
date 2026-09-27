@@ -17,6 +17,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   type Locale,
   type Translations,
@@ -48,14 +49,16 @@ export function useLocale() {
   // localStorage/navigator in the initializer made the first client render
   // differ from SSR for every non-English visitor: a React hydration
   // mismatch that threw the server tree away on each cold load.
-  const [locale, setLocaleState] = useState<Locale>("en");
+  const pathname = usePathname();
+  const routeLocale = pathname === "/uk" || pathname?.startsWith("/uk/") ? "uk" : null;
+  const [locale, setLocaleState] = useState<Locale>(routeLocale || "en");
 
   useEffect(() => {
     // Sync document attributes on mount/change
     applyDocumentLocale(locale);
 
     const syncFromStorage = () => {
-      const next = detectLocale();
+      const next = routeLocale || detectLocale();
       if (next !== locale) {
         setLocaleState(next);
         applyDocumentLocale(next);
@@ -76,7 +79,7 @@ export function useLocale() {
       window.removeEventListener(LOCALE_CHANGE_EVENT, onCustom);
       window.removeEventListener("storage", onStorage);
     };
-  }, [locale]);
+  }, [locale, routeLocale]);
 
   const t = useCallback(
     <K extends keyof Translations>(key: K): Translations[K] => {

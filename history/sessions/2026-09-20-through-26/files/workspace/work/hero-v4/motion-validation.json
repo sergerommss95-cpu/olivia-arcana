@@ -1,0 +1,71 @@
+{
+  "source": "work/hero-v4/hero.js",
+  "sha256": "cf1e556ce74e35aac24ddd2e0a6587c7d125c5b1e8bfe870bfd17ab2a0e0381b",
+  "viewports": [
+    {
+      "w": 1440,
+      "h": 1000,
+      "scaleRange": [
+        0.3645515529398363,
+        1.8989096123394282
+      ],
+      "endScale": 1.8780035638561077
+    },
+    {
+      "w": 884,
+      "h": 796,
+      "scaleRange": [
+        0.35983874395021376,
+        1.8989096120032782
+      ],
+      "endScale": 1.8780035631794443
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "scaleRange": [
+        0.24189287219204203,
+        1.3807981535448404
+      ],
+      "endScale": 1.2976317189995485
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "scaleRange": [
+        0.2915202000544962,
+        1.1922963799425514
+      ],
+      "endScale": 1.1709977956496593
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "scaleRange": [
+        0.36455155314590726,
+        1.8989096123394282
+      ],
+      "endScale": 1.8780035638561081
+    }
+  ],
+  "collisionSamples": 1202,
+  "pairChecks": 76327,
+  "collisions": [],
+  "projectedMarginBreaches": [],
+  "minimumDepth": 5.004436082983017,
+  "minimumSeparation": 0.0011666999448190826,
+  "maxArcSweep": 3.0999999999999996,
+  "maxOccupiedSector": 3.327210749446797,
+  "notes": [
+    "Pure source extraction; OBBs enclose the rigid card geometry.",
+    "Sector support remains analytic; SAT and projected corner sampling supplement it, not a claim about GPU performance.",
+    "After geometry checks, only the middle-caption fade changed to .38\u2013.46; geometry and fit numerics are unchanged."
+  ],
+  "progressResponse": {
+    "testedSeconds": 6,
+    "minP": 8.582234471901257e-15,
+    "maxP": 0.9999999999999915,
+    "finalP": 0.699999999999994,
+    "finalVelocity": 1.0506539661989737e-13
+  }
+}

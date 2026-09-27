@@ -1,0 +1,143 @@
+{
+  "sha256": "a40f4640bd8022afcd621ef9d7792d9d0b38fb38f0a660ba79b1d3dbb6c0c46a",
+  "checks": [
+    {
+      "name": "startup",
+      "ready": false,
+      "posterVisibility": "hidden"
+    },
+    {
+      "name": "runtime",
+      "diag": {
+        "p": 0.6,
+        "target": 0.6,
+        "frames": 6,
+        "ready": true,
+        "quiet": false,
+        "raf": 0,
+        "error": 0,
+        "triangles": 3808,
+        "cards": 14,
+        "clearance": {
+          "q": 1,
+          "pitch": 1.5850292555510213,
+          "curvature": 0.19932985303409934,
+          "sector": 0.30006703073467417,
+          "angularPitch": 0.31594364856373297,
+          "scale": 0.49073454590046567
+        },
+        "viewport": [
+          1440,
+          1000
+        ],
+        "buffer": [
+          2245,
+          1559
+        ]
+      }
+    },
+    {
+      "name": "fallback",
+      "posterVisibility": "visible",
+      "posterWidth": 896,
+      "closingOpacity": "1",
+      "closingInert": false,
+      "overflow": false,
+      "scrollHeight": 844,
+      "height": 844
+    },
+    {
+      "name": "noscript",
+      "posterVisible": true,
+      "oracleVisible": true
+    }
+  ],
+  "videos": [
+    {
+      "name": "desktop",
+      "path": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/hero-v3/qa/patched-desktop-motion.webm",
+      "readinessMs": 333,
+      "diag": {
+        "p": 1,
+        "target": 1,
+        "frames": 934,
+        "ready": true,
+        "quiet": false,
+        "raf": 1661,
+        "error": 0,
+        "triangles": 3808,
+        "cards": 14,
+        "clearance": {
+          "q": 0,
+          "pitch": 0.012166699999999999,
+          "curvature": 0,
+          "sector": 0,
+          "angularPitch": 0,
+          "scale": 1.6472629626251396
+        },
+        "viewport": [
+          1440,
+          1000
+        ],
+        "buffer": [
+          1440,
+          1000
+        ]
+      }
+    },
+    {
+      "name": "mobile",
+      "path": "/Users/macbookpro/Documents/Codex/2026-09-20/referenced-chatgpt-conversation-this-is-an/work/hero-v3/qa/patched-mobile-motion.webm",
+      "readinessMs": 323,
+      "diag": {
+        "p": 1,
+        "target": 1,
+        "frames": 934,
+        "ready": true,
+        "quiet": false,
+        "raf": 1661,
+        "error": 0,
+        "triangles": 2448,
+        "cards": 9,
+        "clearance": {
+          "q": 0,
+          "pitch": 0.012166699999999999,
+          "curvature": 0,
+          "sector": 0,
+          "angularPitch": 0,
+          "scale": 1.3601314230321067
+        },
+        "viewport": [
+          390,
+          844
+        ],
+        "buffer": [
+          390,
+          844
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "failures": [],
+  "visualReview": {
+    "wideCaption": "clear of descending cards at .4 and .6",
+    "startupPoster": "hidden while image decode pending",
+    "fallback": "Moon poster and Oracle CTA visible; no overflow",
+    "noscript": "poster and navigation visible",
+    "fullFinalSamples": 48,
+    "viewports": [
+      "1440x1000",
+      "884x796",
+      "390x844",
+      "320x568"
+    ],
+    "motion": "continuous scroll captured; no visible card cut-through or blank transition in sampled sequence",
+    "artifacts": [
+      "outputs/olivia-hero-preview.png",
+      "outputs/olivia-hero-mobile-preview.png",
+      "outputs/olivia-hero-motion.webm",
+      "outputs/olivia-hero-mobile-motion.webm"
+    ]
+  }
+}

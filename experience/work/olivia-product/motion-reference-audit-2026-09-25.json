@@ -1,0 +1,31 @@
+{
+  "date": "2026-09-25",
+  "user_report": "Again you used the old and wrong animation",
+  "reference_file": "outputs/olivia-light-leaks.html",
+  "deployed_product_source": "work/olivia-product/hero.js",
+  "findings": [
+    {
+      "block": "choreography and rendering",
+      "identical": true,
+      "reference_sha256": "95e9a2e101c53b88d011bbc7ca2535b0ce9ff99334346cba6cbadb7c809515fc",
+      "live_source_sha256": "95e9a2e101c53b88d011bbc7ca2535b0ce9ff99334346cba6cbadb7c809515fc"
+    },
+    {
+      "block": "camera",
+      "identical": true,
+      "reference_sha256": "d3b39ed24ce4e1b05d37a9423947edf55497c4140c2945e9763b7679c1cccb8d",
+      "live_source_sha256": "d3b39ed24ce4e1b05d37a9423947edf55497c4140c2945e9763b7679c1cccb8d"
+    }
+  ],
+  "action": "Recovered and preserved the user-selected September 24 Light Leaks card-palette preview; no deployment or choreography replacement.",
+  "preserved_reference": "outputs/olivia-approved-motion-2026-09-24.html",
+  "preserved_reference_sha256": "100608f7d72a8e94f021983b47ab4d601ef1e3ee4fe6b1a697685380de0a2a12",
+  "provenance": [
+    "work/hero-v12/hero.js",
+    "outputs/olivia-hero-v12-preview.html",
+    "work/light-leaks/build.py",
+    "outputs/olivia-light-leaks.html",
+    "work/editorial-hero/reference-motion.js"
+  ],
+  "archive_warning": "The early olivia-arcana-full-work-2026-09-23.zip contains V5, predating V12."
+}

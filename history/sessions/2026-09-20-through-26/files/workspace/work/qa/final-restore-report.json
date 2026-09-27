@@ -1,0 +1,160 @@
+{
+  "errors": [],
+  "consoleErrors": [],
+  "lossClass": "quiet no-webgl",
+  "restore": {
+    "changed": 8,
+    "visible": 0,
+    "max": 1,
+    "diagnostics": {
+      "cards": 22,
+      "archetypes": 7,
+      "drawCalls": 49,
+      "triangles": 61844,
+      "pixelRatio": 1,
+      "progress": 0,
+      "reducedMotion": true,
+      "frames": 2,
+      "cardIdentities": [
+        "The Sun",
+        "The High Priestess",
+        "The Moon",
+        "The Star",
+        "The Magician",
+        "The World",
+        "The Fool",
+        "The Empress",
+        "Strength",
+        "The Lovers",
+        "Wheel of Fortune",
+        "Temperance",
+        "The Hermit",
+        "Judgement",
+        "The Emperor",
+        "The Chariot",
+        "Justice",
+        "The Hanged Man",
+        "The Hierophant",
+        "Death",
+        "The Devil",
+        "The Tower"
+      ]
+    }
+  },
+  "fallback": [
+    {
+      "reading": "Death",
+      "roman": "XIII / YOUR CARD",
+      "text": [
+        "XIII",
+        "DEATH"
+      ],
+      "svg": "<path d=\"M20 41V20h21m118 0h21v21M20 259v21h21m118 0h21v-21\"></path><text x=\"100\" y=\"31\" text-anchor=\"middle\" font-family=\"Cormorant Garamond\" font-size=\"12\" stroke=\"none\" fill=\"currentColor\">XIII</text><path fill=\"currentColor\" fill-opacity=\".12\" d=\"M137 61c-64-22-116 38-88 95 19 39 60 41 88 22-65 8-81-88 0-117Z\"></path><path d=\"M61 240h78\"></path><text x=\"100\" y=\"269\" text-anchor=\"middle\" font-family=\"DM Sans\" font-size=\"8\" stroke=\"none\" fill=\"currentColor\">DEATH</text>"
+    },
+    {
+      "reading": "The Fool",
+      "roman": "0 / YOUR CARD",
+      "text": [
+        "0",
+        "THE FOOL"
+      ],
+      "svg": "<path d=\"M20 41V20h21m118 0h21v21M20 259v21h21m118 0h21v-21\"></path><text x=\"100\" y=\"31\" text-anchor=\"middle\" font-family=\"Cormorant Garamond\" font-size=\"12\" stroke=\"none\" fill=\"currentColor\">0</text><path d=\"M39 119a56 56 0 0 1 112 0M39 197v-16h21v-16h21v-16h21v-16h21v-16h28v80Z\"></path><path d=\"M61 240h78\"></path><text x=\"100\" y=\"269\" text-anchor=\"middle\" font-family=\"DM Sans\" font-size=\"8\" stroke=\"none\" fill=\"currentColor\">THE FOOL</text>"
+    },
+    {
+      "reading": "The Magician",
+      "roman": "I / YOUR CARD",
+      "text": [
+        "I",
+        "THE MAGICIAN"
+      ],
+      "svg": "<path d=\"M20 41V20h21m118 0h21v21M20 259v21h21m118 0h21v-21\"></path><text x=\"100\" y=\"31\" text-anchor=\"middle\" font-family=\"Cormorant Garamond\" font-size=\"12\" stroke=\"none\" fill=\"currentColor\">I</text><path d=\"M100 47v174M100 96l43 43-43 43-43-43ZM100 107l32 32-32 32-32-32Z\"></path><path d=\"M61 240h78\"></path><text x=\"100\" y=\"269\" text-anchor=\"middle\" font-family=\"DM Sans\" font-size=\"8\" stroke=\"none\" fill=\"currentColor\">THE MAGICIAN</text>"
+    },
+    {
+      "reading": "The High Priestess",
+      "roman": "II / YOUR CARD",
+      "text": [
+        "II",
+        "THE HIGH PRIESTESS"
+      ],
+      "svg": "<path d=\"M20 41V20h21m118 0h21v21M20 259v21h21m118 0h21v-21\"></path><text x=\"100\" y=\"31\" text-anchor=\"middle\" font-family=\"Cormorant Garamond\" font-size=\"12\" stroke=\"none\" fill=\"currentColor\">II</text><path d=\"M45 205V104a55 55 0 0 1 110 0v101h-15V105a40 40 0 0 0-80 0v100ZM79 205V105a21 21 0 0 1 42 0v100M100 98v89\"></path><path d=\"M61 240h78\"></path><text x=\"100\" y=\"269\" text-anchor=\"middle\" font-family=\"DM Sans\" font-size=\"8\" stroke=\"none\" fill=\"currentColor\">THE HIGH PRIESTESS</text>"
+    },
+    {
+      "reading": "The Star",
+      "roman": "XVII / YOUR CARD",
+      "text": [
+        "XVII",
+        "THE STAR"
+      ],
+      "svg": "<path d=\"M20 41V20h21m118 0h21v21M20 259v21h21m118 0h21v-21\"></path><text x=\"100\" y=\"31\" text-anchor=\"middle\" font-family=\"Cormorant Garamond\" font-size=\"12\" stroke=\"none\" fill=\"currentColor\">XVII</text><path fill=\"currentColor\" fill-opacity=\".16\" d=\"m100 49 11 69 42-27-29 42 54 11-55 11 29 43-42-29-10 63-11-63-42 29 28-43-53-11 53-11-28-42 43 28Z\"></path><path d=\"M61 240h78\"></path><text x=\"100\" y=\"269\" text-anchor=\"middle\" font-family=\"DM Sans\" font-size=\"8\" stroke=\"none\" fill=\"currentColor\">THE STAR</text>"
+    },
+    {
+      "reading": "The Sun",
+      "roman": "XIX / YOUR CARD",
+      "text": [
+        "XIX",
+        "THE SUN"
+      ],
+      "svg": "<path d=\"M20 41V20h21m118 0h21v21M20 259v21h21m118 0h21v-21\"></path><text x=\"100\" y=\"31\" text-anchor=\"middle\" font-family=\"Cormorant Garamond\" font-size=\"12\" stroke=\"none\" fill=\"currentColor\">XIX</text><circle cx=\"100\" cy=\"134\" r=\"30\" fill=\"currentColor\" fill-opacity=\".17\"></circle><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(0 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(22.5 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(45 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(67.5 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(90 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(112.5 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(135 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(157.5 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(180 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(202.5 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(225 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(247.5 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(270 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(292.5 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(315 100 134)\"></path><path d=\"M96 57h8v33h-8Z\" transform=\"rotate(337.5 100 134)\"></path><path d=\"M61 240h78\"></path><text x=\"100\" y=\"269\" text-anchor=\"middle\" font-family=\"DM Sans\" font-size=\"8\" stroke=\"none\" fill=\"currentColor\">THE SUN</text>"
+    },
+    {
+      "reading": "The World",
+      "roman": "XXI / YOUR CARD",
+      "text": [
+        "XXI",
+        "THE WORLD"
+      ],
+      "svg": "<path d=\"M20 41V20h21m118 0h21v21M20 259v21h21m118 0h21v-21\"></path><text x=\"100\" y=\"31\" text-anchor=\"middle\" font-family=\"Cormorant Garamond\" font-size=\"12\" stroke=\"none\" fill=\"currentColor\">XXI</text><path d=\"M143 201c63-118-4-193-61-144-52 46-45 126-15 153M132 189c43-95-7-151-44-118-40 35-37 92-12 129M121 177c28-71-8-109-27-90-28 29-29 68-9 101\"></path><path d=\"M61 240h78\"></path><text x=\"100\" y=\"269\" text-anchor=\"middle\" font-family=\"DM Sans\" font-size=\"8\" stroke=\"none\" fill=\"currentColor\">THE WORLD</text>"
+    }
+  ],
+  "performance": {
+    "viewport": [
+      1440,
+      1000
+    ],
+    "diagnostics": {
+      "cards": 22,
+      "archetypes": 7,
+      "drawCalls": 150,
+      "triangles": 179000,
+      "pixelRatio": 1.65,
+      "progress": 0.47,
+      "reducedMotion": false,
+      "frames": 196,
+      "cardIdentities": [
+        "The Sun",
+        "The High Priestess",
+        "The Moon",
+        "The Star",
+        "The Magician",
+        "The World",
+        "The Fool",
+        "The Empress",
+        "Strength",
+        "The Lovers",
+        "Wheel of Fortune",
+        "Temperance",
+        "The Hermit",
+        "Judgement",
+        "The Emperor",
+        "The Chariot",
+        "Justice",
+        "The Hanged Man",
+        "The Hierophant",
+        "Death",
+        "The Devil",
+        "The Tower"
+      ]
+    },
+    "callbacks": 120,
+    "callbackMilliseconds": {
+      "median": 1.1999999955296516,
+      "p95": 1.6000000014901161,
+      "max": 2.899999998509884
+    },
+    "intervalMilliseconds": {
+      "median": 16.699999999999818,
+      "p95": 16.799999999999727,
+      "max": 16.800000000000182
+    }
+  }
+}

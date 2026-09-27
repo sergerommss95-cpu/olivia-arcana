@@ -1,0 +1,12 @@
+/* Crisis support note (support-note.js). A calm filled panel, never a frame or an alarm. */
+.support-note{margin:0 0 1.6rem;padding:1.1rem 1.25rem 1.2rem;background:#12283d;border-left:2px solid #b69a65;border-radius:3px;color:#ede4d2;font:400 .95rem/1.6 'DM Sans',sans-serif;max-width:48rem;text-align:left}
+.support-note p{margin:0 0 .55rem}
+.support-note .support-note-title{font:400 1.3rem/1.25 'Cormorant Garamond',Georgia,serif;color:#f1e7d3;margin-bottom:.45rem}
+.support-note ul{margin:.2rem 0 .7rem;padding:0;list-style:none;display:grid;gap:.25rem}
+.support-note li{color:#d3d0c6}
+.support-note a{color:#f1e0b8;text-decoration:underline;text-decoration-color:#f1e0b866;text-underline-offset:3px}
+.support-note a:hover{text-decoration-color:currentColor}
+#reading-view>.support-note{margin:1.2rem auto 1.4rem;width:min(48rem,calc(100% - 2.5rem))}
+#spread-ritual>.support-note{margin:1.2rem 0 1.4rem}
+#question-form .support-note,#spread-question-form .support-note{margin:1rem 0 .4rem}
+@media(max-width:700px){.support-note{font-size:.9rem;padding:1rem 1rem 1.05rem}.support-note .support-note-title{font-size:1.2rem}}

@@ -1,0 +1,63 @@
+{
+  "source": "work/hero-v12/hero.js",
+  "sourceSHA256": "5ba1b14c68c2ce02536fd40bdc6cacd53fc43ad68ea4a8737eb153c270a0b911",
+  "scope": "Actual optional shadow helper code in Node VM using stateful mocked WebGL. Verifies resource ownership, binding/state restoration, fallback paths and draw submission. Does not compile GLSL or rasterize; browser visual review is required.",
+  "passed": 12,
+  "total": 12,
+  "tests": [
+    {
+      "name": "Initialization restores previously bound program, framebuffer, renderbuffer, active unit and unit-three texture",
+      "pass": true,
+      "size": 1024
+    },
+    {
+      "name": "Phone allocates the smaller 512 square shadow target",
+      "pass": true,
+      "size": 512
+    },
+    {
+      "name": "Each world layer is drawn once into a shared target with dithering disabled",
+      "pass": true,
+      "count": 13
+    },
+    {
+      "name": "Shadow pass restores main framebuffer, program, vertex buffers, viewport and fixed raster state",
+      "pass": true
+    },
+    {
+      "name": "Incomplete framebuffer discards optional resources and returns the existing back as a valid sampler",
+      "pass": true,
+      "retained": 0
+    },
+    {
+      "name": "Unsupported fragment high precision disables shadows before allocating resources",
+      "pass": true
+    },
+    {
+      "name": "Failed shader compilation deletes program and temporary shader",
+      "pass": true
+    },
+    {
+      "name": "Failed program linking deletes the program and both temporary shaders",
+      "pass": true
+    },
+    {
+      "name": "Partial framebuffer allocation failure releases every resource that was allocated",
+      "pass": true
+    },
+    {
+      "name": "Drawing failure releases optional resources and still restores the main pass",
+      "pass": true
+    },
+    {
+      "name": "Disposal is idempotent and releases exactly four long-lived shadow resources",
+      "pass": true,
+      "deletedLongLived": 4
+    },
+    {
+      "name": "Reinitialization replaces existing shadow ownership without leaking old objects",
+      "pass": true,
+      "live": 4
+    }
+  ]
+}

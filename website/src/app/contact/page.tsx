@@ -1,5 +1,6 @@
 import LegalShell from "@/components/legal/LegalShell";
 import Link from "next/link";
+import { TELEGRAM_BOT_ENABLED, TELEGRAM_CHANNEL_ENABLED, TELEGRAM_BOT_URL, TELEGRAM_CHANNEL_URL } from "@/lib/service-status";
 
 export const metadata = {
   title: "Contact — Olivia Arcana",
@@ -46,11 +47,13 @@ export default function ContactPage() {
         <Link href="/dmca">DMCA Policy</Link>
       </p>
 
-      <h2>Find us elsewhere</h2>
-      <ul>
-        <li>Telegram bot — <a href="https://t.me/OliviaArcanaBot" target="_blank" rel="noopener noreferrer">@OliviaArcanaBot</a></li>
-        <li>Daily channel — <a href="https://t.me/OliviaArcanaDaily" target="_blank" rel="noopener noreferrer">@OliviaArcanaDaily</a></li>
-      </ul>
+      {(TELEGRAM_BOT_ENABLED || TELEGRAM_CHANNEL_ENABLED) && <>
+        <h2>Find us elsewhere</h2>
+        <ul>
+          {TELEGRAM_BOT_ENABLED && <li>Telegram bot — <a href={`${TELEGRAM_BOT_URL}?start=contact`} target="_blank" rel="noopener noreferrer">@OliviaArcanaBot</a></li>}
+          {TELEGRAM_CHANNEL_ENABLED && <li>Daily channel — <a href={TELEGRAM_CHANNEL_URL} target="_blank" rel="noopener noreferrer">@OliviaArcanaDaily</a></li>}
+        </ul>
+      </>}
 
       <h2>Postal address</h2>
       <address style={{ fontStyle: "normal" }}>

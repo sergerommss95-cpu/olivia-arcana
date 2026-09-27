@@ -45,7 +45,7 @@ function RelicEngraving({ className }: { className?: string }) {
         fill="url(#relic-hatch)"
         opacity="0.5"
       />
-      <g stroke="currentColor" fill="var(--paper, #e8dcc8)">
+      <g stroke="currentColor" fill="var(--paper, #e8e9ff)">
         <circle cx="140" cy="96" r="17" strokeWidth="1" />
         <circle cx="97" cy="164" r="14" strokeWidth="0.8" />
         <circle cx="183" cy="164" r="14" strokeWidth="0.8" />
@@ -74,7 +74,7 @@ export default function SamplePage() {
         <header className="sample-masthead">
           <p className="alm-kicker">
             <span aria-hidden>⁂</span>
-            A worked reading
+            Plate VI — A Worked Reading
           </p>
           <h1 className="alm-h1">
             For Eleanor, born <em>into water.</em>

@@ -1,85 +1,91 @@
-import React from "react";
 import type { Metadata } from "next";
-import { PRICING } from "@/lib/payments";
+import Link from "next/link";
 import LegalShell from "@/components/legal/LegalShell";
-import TariffTable from "@/components/almanac/TariffTable";
+import TariffActions from "@/components/almanac/TariffActions";
+import { ACCOUNTS_ENABLED, PAYMENTS_ENABLED } from "@/lib/service-status";
+import { socialImages, socialImageUrls } from "@/lib/social-images";
 
 export const metadata: Metadata = {
-  title: "The Tariff — Free, Insight, Astronomer, Patron | Olivia Arcana",
-  description:
-    "Start free, then choose a paid plan when you want fuller chart readings, compatibility, transits, and deeper tarot spreads.",
+  title: "Free readings & membership — Olivia Arcana",
+  description: "Explore Olivia’s free one-card and three-card readings, the personal almanac, and the current availability of deeper member spreads.",
   alternates: { canonical: "https://oliviaarcana.com/pricing" },
   openGraph: {
-    title: "Olivia Arcana — Pricing",
-    description: "Start free. Upgrade when you want deeper readings, compatibility, transits, and more Oracle access.",
+    title: "Free readings & membership — Olivia Arcana",
+    description: "Start with a free reading. See what you can use today and how deeper member spreads work.",
     url: "https://oliviaarcana.com/pricing",
     type: "website",
+    siteName: "Olivia Arcana",
+    images: socialImages("en"),
   },
+  twitter: { card: "summary_large_image", title: "Free readings & membership — Olivia Arcana", description: "Start with a free reading. See what you can use today and how deeper member spreads work.", images: socialImageUrls("en") },
 };
 
-export default function PricingPage() {
-  const productJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: "Olivia Arcana — Astrology & Tarot Subscription",
-    description:
-      "Personal astrology and tarot subscriptions with free starter access and optional deeper reading plans.",
-    brand: { "@type": "Brand", name: "Olivia Arcana" },
-    offers: [
-      { "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock" },
-      { "@type": "Offer", name: "Insight Monthly", price: PRICING.insight.monthly.toFixed(2), priceCurrency: "USD" },
-      { "@type": "Offer", name: "Insight Annual", price: PRICING.insight.annual.toFixed(2), priceCurrency: "USD" },
-      { "@type": "Offer", name: "Astronomer Monthly", price: PRICING.premium.monthly.toFixed(2), priceCurrency: "USD" },
-      { "@type": "Offer", name: "Astronomer Annual", price: PRICING.premium.annual.toFixed(2), priceCurrency: "USD" },
-      { "@type": "Offer", name: "Patron Monthly", price: PRICING.vip.monthly.toFixed(2), priceCurrency: "USD" },
-      { "@type": "Offer", name: "Patron Annual", price: PRICING.vip.annual.toFixed(2), priceCurrency: "USD" },
-    ],
-  };
+const membershipReady = ACCOUNTS_ENABLED && PAYMENTS_ENABLED;
 
+export default function PricingPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }} />
-      <LegalShell title="The Tariff" updated="August 19, 2026">
-        <p>
-          Begin for nothing. The daily card and basic chart context are free, forever. Paid plans add full
-          readings, compatibility, transits, and the deeper spreads — priced plainly, cancelled any time,
-          never sold with fear.
-        </p>
-        <TariffTable />
-        <blockquote>
-          <strong>Every leaf is open right now.</strong> While the press is stopped, nothing is charged
-          for and nothing is withheld — full readings, compatibility, transits and the deeper spreads
-          are yours to use. The table above is what they will cost when it turns again.
-        </blockquote>
-        <h2>What the plans hold</h2>
-        <p>
-          <strong>Free</strong> — the daily card, basic chart context, and the academy. Enough to decide
-          whether this almanac is for you.
-        </p>
-        <p>
-          <strong>Insight</strong> — full oracle readings and the journal: every reading kept, dated, and
-          returnable, like entries in a commonplace book.
-        </p>
-        <p>
-          <strong>Astronomer</strong> — everything in Insight, with synastry (two charts read together),
-          transit timing, and the deep spreads.
-        </p>
-        <p>
-          <strong>Patron</strong> — everything above, first in line for new rooms of the almanac as they
-          open, and the yearly reading.
-        </p>
-        <blockquote>Cancel any time from your account. The current period stays yours until its end.</blockquote>
-        <h2>While the press is stopped</h2>
-        <p>
-          The instruments are cooled and hooded; no payment is taken while the press rests. If you want
-          to be first served when it turns again, <a href="/oracle-letter">leave your letter in the
-          ledger</a> — a standing subscription to your own sky, held in your name until the type is set.
-        </p>
-        <p>
-          Billing questions are answered in the <a href="/refund">refund policy</a>; the fine print lives
-          in the <a href="/terms">terms</a>.
-        </p>
-      </LegalShell>
-    </>
+    <LegalShell title="Room to begin. Room to go deeper." updated="September 25, 2026">
+      <p>
+        Begin with a question and the full 78-card Olivia deck. A useful first
+        reading, and a place to keep your own reflections, are free.
+      </p>
+
+      <h2>Free, with no account required</h2>
+      <ul>
+        <li>One-card readings for a single focus.</li>
+        <li>The three-card “A little clarity” spread.</li>
+        <li>Your choice of cards, with optional reversed meanings.</li>
+        <li>The card library, with all 78 Major and Minor Arcana.</li>
+        <li>A personal almanac saved in this browser, with reflections and reading downloads.</li>
+      </ul>
+      <p>
+        <Link href="/?experience=question" className="alm-btn">Begin a free reading ↗</Link>
+      </p>
+      <p>
+        Your almanac is stored on this device. It does not require a subscription
+        and does not automatically sync between devices. Download anything you
+        want to keep outside this browser.
+      </p>
+
+      <h2>Deeper spreads for members</h2>
+      <p>
+        “At a crossroads” uses five cards to explore two named options.
+        “The inner compass” uses eight cards to examine a situation’s roots,
+        influences, tension, support and next step. Personal readings with these
+        spreads require a verified paid membership; sample spreads are available
+        to explore before deciding.
+      </p>
+      {membershipReady ? (
+        <>
+          <p>Choose a billing option below. The checkout shows the price and renewal terms before you pay.</p>
+          <TariffActions />
+        </>
+      ) : (
+        <>
+          <h2>Membership is not open for purchase yet</h2>
+          <p>
+            New subscriptions are currently unavailable. The free readings and
+            sample spreads remain open. We will show confirmed pricing and
+            working checkout here when membership is ready.
+          </p>
+        </>
+      )}
+      <p>
+        <Link href="/?experience=spreads" className="alm-link">Explore the spreads ↗</Link>
+      </p>
+
+      <h2>Clear expectations</h2>
+      <p>
+        AI guidance is identified where offered. It is not a promise of prediction,
+        and availability is shown in the reading flow. Physical products, automatic
+        daily notifications and Telegram service are not included in the membership
+        described here.
+      </p>
+      <p>
+        For a billing question, <Link href="/contact">contact us</Link>. The{" "}
+        <Link href="/refund">refund policy</Link> and <Link href="/terms">terms</Link>{" "}
+        explain the conditions that apply to purchases.
+      </p>
+    </LegalShell>
   );
 }

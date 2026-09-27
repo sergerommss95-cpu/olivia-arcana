@@ -1,0 +1,2199 @@
+{
+  "generatedAt": "2026-09-22T11:21:31.678Z",
+  "source": "work/hero-motion/study.js",
+  "sha256": "608642a0948f41460a641520564f37c26079340e4fc3d6bbc588e35a159c478d",
+  "scope": "Pure track extraction and analytic deformation review. No implementation/website edits, browser, or server. Knot numerics exclude ambient/pointer offsets; updated ambient/deformation continuity is validated separately.",
+  "durationSeconds": 10,
+  "baseCardWidthWorldUnits": 1.1667,
+  "cardWidthConvention": "Primary speed uses the unrotated Moon width at that knot: 1.1667 × current uniform scale. Also includes unscaled card widths/s. Neither is projected pixel speed.",
+  "channels": [
+    "x",
+    "y",
+    "z",
+    "rotX",
+    "rotY",
+    "rotZ",
+    "scale",
+    "bend",
+    "twist"
+  ],
+  "knots": [
+    0,
+    0.16,
+    0.34,
+    0.55,
+    0.77,
+    1
+  ],
+  "stagger": {
+    "formula": "q_i(p)=p−(i/21)×0.018×16p²(1−p)²",
+    "maxLag": 0.018,
+    "minimumDerivativeLowerBound": 0.9445743741577959,
+    "maximumDerivativeUpperBound": 1.0554256258422041,
+    "coversFullTrack": true
+  },
+  "layouts": {
+    "desktop": {
+      "heightCssPixels": 1000,
+      "cardCount": 22,
+      "sampledProgressCount": 10001,
+      "sampledPoseCount": 220022,
+      "sampledBounds": {
+        "x": {
+          "min": -3.622954701410827,
+          "max": 6.4346027334190055,
+          "minAt": {
+            "cardIndex": 0,
+            "progress": 0.5389
+          },
+          "maxAt": {
+            "cardIndex": 21,
+            "progress": 0.7579
+          }
+        },
+        "y": {
+          "min": -2.78945964910927,
+          "max": 2.7507042531224615,
+          "minAt": {
+            "cardIndex": 2,
+            "progress": 0.8328
+          },
+          "maxAt": {
+            "cardIndex": 6,
+            "progress": 0.6854
+          }
+        },
+        "z": {
+          "min": -3.658282310708712,
+          "max": 2.0519296502239666,
+          "minAt": {
+            "cardIndex": 3,
+            "progress": 0.7802
+          },
+          "maxAt": {
+            "cardIndex": 0,
+            "progress": 0.8059
+          }
+        },
+        "rotX": {
+          "min": -0.17,
+          "max": 0.16075613952885912,
+          "minAt": {
+            "cardIndex": 0,
+            "progress": 0
+          },
+          "maxAt": {
+            "cardIndex": 19,
+            "progress": 0.7598
+          }
+        },
+        "rotY": {
+          "min": -1.4020243593141386,
+          "max": 1.4042272742131439,
+          "minAt": {
+            "cardIndex": 18,
+            "progress": 0.3588
+          },
+          "maxAt": {
+            "cardIndex": 7,
+            "progress": 0.3541
+          }
+        },
+        "rotZ": {
+          "min": -1.4040068548311253,
+          "max": 1.4040076890591509,
+          "minAt": {
+            "cardIndex": 21,
+            "progress": 0.1653
+          },
+          "maxAt": {
+            "cardIndex": 0,
+            "progress": 0.1602
+          }
+        },
+        "scale": {
+          "min": 0.5370897146196942,
+          "max": 1.7,
+          "minAt": {
+            "cardIndex": 12,
+            "progress": 0.8494
+          },
+          "maxAt": {
+            "cardIndex": 0,
+            "progress": 1
+          }
+        },
+        "bend": {
+          "min": -0.12997324885881623,
+          "max": 0.12986134721591583,
+          "minAt": {
+            "cardIndex": 20,
+            "progress": 0.5703
+          },
+          "maxAt": {
+            "cardIndex": 7,
+            "progress": 0.5427
+          }
+        },
+        "twist": {
+          "min": -0.049938711873178845,
+          "max": 0.04977039113074831,
+          "minAt": {
+            "cardIndex": 20,
+            "progress": 0.5665
+          },
+          "maxAt": {
+            "cardIndex": 7,
+            "progress": 0.5559
+          }
+        }
+      },
+      "exactCubicBounds": {
+        "x": {
+          "min": -3.622955079736057,
+          "max": 6.434603046246843,
+          "minAt": {
+            "cardIndex": 0,
+            "localProgress": 0.5389456316688551
+          },
+          "maxAt": {
+            "cardIndex": 21,
+            "localProgress": 0.748156596335607
+          }
+        },
+        "y": {
+          "min": -2.7894596898409167,
+          "max": 2.7507042532022505,
+          "minAt": {
+            "cardIndex": 2,
+            "localProgress": 0.8322319213276762
+          },
+          "maxAt": {
+            "cardIndex": 6,
+            "localProgress": 0.6815721014573847
+          }
+        },
+        "z": {
+          "min": -3.658282310814835,
+          "max": 2.0519297284619333,
+          "minAt": {
+            "cardIndex": 3,
+            "localProgress": 0.7789910973577335
+          },
+          "maxAt": {
+            "cardIndex": 0,
+            "localProgress": 0.8058533579790512
+          }
+        },
+        "rotX": {
+          "min": -0.17,
+          "max": 0.1607561434391696,
+          "minAt": {
+            "cardIndex": 0,
+            "localProgress": 0
+          },
+          "maxAt": {
+            "cardIndex": 19,
+            "localProgress": 0.751081038628337
+          }
+        },
+        "rotY": {
+          "min": -1.4020244790459493,
+          "max": 1.4042273482650491,
+          "minAt": {
+            "cardIndex": 18,
+            "localProgress": 0.3456900224652645
+          },
+          "maxAt": {
+            "cardIndex": 7,
+            "localProgress": 0.3491169354047398
+          }
+        },
+        "rotZ": {
+          "min": -1.4040070344051365,
+          "max": 1.4040079730669135,
+          "minAt": {
+            "cardIndex": 21,
+            "localProgress": 0.15978247435422074
+          },
+          "maxAt": {
+            "cardIndex": 0,
+            "localProgress": 0.1602465491319025
+          }
+        },
+        "scale": {
+          "min": 0.5370897119341564,
+          "max": 1.7000000000000002,
+          "minAt": {
+            "cardIndex": 12,
+            "localProgress": 0.8466666666666667
+          },
+          "maxAt": {
+            "cardIndex": 0,
+            "localProgress": 1
+          }
+        },
+        "bend": {
+          "min": -0.12997326183207264,
+          "max": 0.12986134884947553,
+          "minAt": {
+            "cardIndex": 20,
+            "localProgress": 0.5537905117394213
+          },
+          "maxAt": {
+            "cardIndex": 7,
+            "localProgress": 0.5367617971185492
+          }
+        },
+        "twist": {
+          "min": -0.04993871720720694,
+          "max": 0.04977039788758825,
+          "minAt": {
+            "cardIndex": 20,
+            "localProgress": 0.55
+          },
+          "maxAt": {
+            "cardIndex": 7,
+            "localProgress": 0.55
+          }
+        }
+      },
+      "maximumAnalyticDerivativeJump": 8.881784197001252e-16,
+      "maximumAnalyticDerivativeJumpAt": {
+        "cardIndex": 2,
+        "knotIndex": 4,
+        "globalProgress": 0.7708557900683666
+      },
+      "moonInnerKnots": [
+        {
+          "progress": 0.16,
+          "previewSecond": 1.6,
+          "positionWorld": [
+            0.9503367481812939,
+            -0.5685621994277414,
+            0.6
+          ],
+          "scale": 1.08,
+          "cardWidthWorld": 1.2600360000000002,
+          "leftDerivativeWorldPerProgress": [
+            -4.691176470588236,
+            0.9382352941176472,
+            -1.4558823529411764
+          ],
+          "rightDerivativeWorldPerProgress": [
+            -4.691176470588236,
+            0.9382352941176472,
+            -1.4558823529411764
+          ],
+          "leftDerivativeAllChannels": [
+            -4.691176470588236,
+            0.9382352941176472,
+            -1.4558823529411764,
+            0.3882352941176471,
+            1.1970588235294117,
+            0.06470588235294118,
+            -1.213235294117647,
+            0.12941176470588237,
+            0
+          ],
+          "rightDerivativeAllChannels": [
+            -4.691176470588236,
+            0.9382352941176472,
+            -1.4558823529411764,
+            0.3882352941176471,
+            1.1970588235294117,
+            0.06470588235294118,
+            -1.213235294117647,
+            0.12941176470588237,
+            0
+          ],
+          "velocityWorldPerSecond": [
+            -0.46911764705882364,
+            0.09382352941176472,
+            -0.14558823529411763
+          ],
+          "speedWorldUnitsPerSecond": 0.5000701507882096,
+          "speedCurrentCardWidthsPerSecond": 0.3968697329189083,
+          "speedUnscaledCardWidthsPerSecond": 0.428619311552421,
+          "maxAbsoluteDerivativeJump": 0
+        },
+        {
+          "progress": 0.34,
+          "previewSecond": 3.4000000000000004,
+          "positionWorld": [
+            -0.8,
+            0.45,
+            0.09999999999999998
+          ],
+          "scale": 0.88,
+          "cardWidthWorld": 1.026696,
+          "leftDerivativeWorldPerProgress": [
+            -6.417141567947979,
+            2.282587717141687,
+            -2.1153846153846154
+          ],
+          "rightDerivativeWorldPerProgress": [
+            -6.417141567947979,
+            2.282587717141687,
+            -2.1153846153846154
+          ],
+          "leftDerivativeAllChannels": [
+            -6.417141567947979,
+            2.282587717141687,
+            -2.1153846153846154,
+            0.3384615384615385,
+            0.16480498368707916,
+            -1.5446269486405002,
+            -0.3102564102564104,
+            0.13733748640589932,
+            0
+          ],
+          "rightDerivativeAllChannels": [
+            -6.417141567947979,
+            2.282587717141687,
+            -2.1153846153846154,
+            0.3384615384615385,
+            0.16480498368707916,
+            -1.5446269486404998,
+            -0.3102564102564104,
+            0.13733748640589932,
+            0
+          ],
+          "velocityWorldPerSecond": [
+            -0.6417141567947979,
+            0.2282587717141687,
+            -0.21153846153846154
+          ],
+          "speedWorldUnitsPerSecond": 0.713195377582734,
+          "speedCurrentCardWidthsPerSecond": 0.6946509751501262,
+          "speedUnscaledCardWidthsPerSecond": 0.611292858132111,
+          "maxAbsoluteDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "progress": 0.55,
+          "previewSecond": 5.5,
+          "positionWorld": [
+            -3.6,
+            1.05,
+            -0.9
+          ],
+          "scale": 0.86,
+          "cardWidthWorld": 1.003362,
+          "leftDerivativeWorldPerProgress": [
+            4.220930232558139,
+            -0.5116279069767442,
+            2.4302325581395348
+          ],
+          "rightDerivativeWorldPerProgress": [
+            4.220930232558139,
+            -0.5116279069767442,
+            2.4302325581395348
+          ],
+          "leftDerivativeAllChannels": [
+            4.220930232558139,
+            -0.5116279069767442,
+            2.4302325581395348,
+            -0.21744186046511632,
+            -0.7930232558139536,
+            -0.0127906976744186,
+            0.8697674418604653,
+            -0.07034883720930234,
+            0
+          ],
+          "rightDerivativeAllChannels": [
+            4.220930232558139,
+            -0.5116279069767442,
+            2.4302325581395348,
+            -0.21744186046511632,
+            -0.7930232558139536,
+            -0.0127906976744186,
+            0.8697674418604653,
+            -0.07034883720930234,
+            0
+          ],
+          "velocityWorldPerSecond": [
+            0.4220930232558139,
+            -0.05116279069767442,
+            0.24302325581395348
+          ],
+          "speedWorldUnitsPerSecond": 0.48973508583684444,
+          "speedCurrentCardWidthsPerSecond": 0.48809411342750114,
+          "speedUnscaledCardWidthsPerSecond": 0.419760937547651,
+          "maxAbsoluteDerivativeJump": 0
+        },
+        {
+          "progress": 0.77,
+          "previewSecond": 7.7,
+          "positionWorld": [
+            2.5,
+            0.05,
+            2
+          ],
+          "scale": 1.56,
+          "cardWidthWorld": 1.8200520000000002,
+          "leftDerivativeWorldPerProgress": [
+            7.272222222222224,
+            -1.1000000000000003,
+            3.055555555555556
+          ],
+          "rightDerivativeWorldPerProgress": [
+            7.272222222222224,
+            -1.1000000000000003,
+            3.0555555555555562
+          ],
+          "leftDerivativeAllChannels": [
+            7.272222222222224,
+            -1.1000000000000003,
+            3.055555555555556,
+            -0.26888888888888896,
+            -0.26888888888888896,
+            -0.4751010889560114,
+            1.0266666666666668,
+            0.014666666666666672,
+            0
+          ],
+          "rightDerivativeAllChannels": [
+            7.272222222222224,
+            -1.1000000000000003,
+            3.0555555555555562,
+            -0.26888888888888896,
+            -0.26888888888888896,
+            -0.4751010889560114,
+            1.0266666666666668,
+            0.01466666666666667,
+            0
+          ],
+          "velocityWorldPerSecond": [
+            0.7272222222222224,
+            -0.11000000000000003,
+            0.3055555555555556
+          ],
+          "speedWorldUnitsPerSecond": 0.7964398018837907,
+          "speedCurrentCardWidthsPerSecond": 0.4375917841269319,
+          "speedUnscaledCardWidthsPerSecond": 0.6826431832380138,
+          "maxAbsoluteDerivativeJump": 4.440892098500626e-16
+        }
+      ],
+      "allInnerJunctions": [
+        {
+          "cardIndex": 0,
+          "localKnot": 0.16,
+          "globalProgress": 0.15999999999999998,
+          "chainDerivative": 1,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 0,
+          "localKnot": 0.34,
+          "globalProgress": 0.33999999999999997,
+          "chainDerivative": 1,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 0,
+          "localKnot": 0.55,
+          "globalProgress": 0.55,
+          "chainDerivative": 1,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 0,
+          "localKnot": 0.77,
+          "globalProgress": 0.77,
+          "chainDerivative": 1,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 1,
+          "localKnot": 0.16,
+          "globalProgress": 0.1602483487923042,
+          "chainDerivative": 0.9974919326755979,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 1,
+          "localKnot": 0.34,
+          "globalProgress": 0.34069194837200256,
+          "chainDerivative": 0.9980369961113867,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 1,
+          "localKnot": 0.55,
+          "globalProgress": 0.5508395111200084,
+          "chainDerivative": 1.0006900192075754,
+          "maxAbsoluteChannelDerivativeJump": 5.551115123125783e-17
+        },
+        {
+          "cardIndex": 1,
+          "localKnot": 0.77,
+          "globalProgress": 0.7704290149722672,
+          "chainDerivative": 1.002623832448332,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 2,
+          "localKnot": 0.16,
+          "globalProgress": 0.16049794994612165,
+          "chainDerivative": 0.9949812353354948,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 2,
+          "localKnot": 0.34,
+          "globalProgress": 0.3413866194195394,
+          "chainDerivative": 0.9960872685041187,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 2,
+          "localKnot": 0.55,
+          "globalProgress": 0.5516778559554889,
+          "chainDerivative": 1.0014023079934844,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 2,
+          "localKnot": 0.77,
+          "globalProgress": 0.7708557900683666,
+          "chainDerivative": 1.0052490816779667,
+          "maxAbsoluteChannelDerivativeJump": 8.881784197001252e-16
+        },
+        {
+          "cardIndex": 3,
+          "localKnot": 0.16,
+          "globalProgress": 0.16074881395545804,
+          "chainDerivative": 0.9924679090639396,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 3,
+          "localKnot": 0.34,
+          "globalProgress": 0.3420840152196305,
+          "chainDerivative": 0.9941509713141061,
+          "maxAbsoluteChannelDerivativeJump": 6.938893903907228e-18
+        },
+        {
+          "cardIndex": 3,
+          "localKnot": 0.55,
+          "globalProgress": 0.5525150090635462,
+          "chainDerivative": 1.002136783085584,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 3,
+          "localKnot": 0.77,
+          "globalProgress": 0.7712803419014573,
+          "chainDerivative": 1.0078756882853777,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 4,
+          "localKnot": 0.16,
+          "globalProgress": 0.16100095143383242,
+          "chainDerivative": 0.9899519551283631,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 4,
+          "localKnot": 0.34,
+          "globalProgress": 0.34278413757389437,
+          "chainDerivative": 0.9922282594880397,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 4,
+          "localKnot": 0.55,
+          "globalProgress": 0.5533509452731926,
+          "chainDerivative": 1.0028933593109373,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 4,
+          "localKnot": 0.77,
+          "globalProgress": 0.7717026869572223,
+          "chainDerivative": 1.0105035938800713,
+          "maxAbsoluteChannelDerivativeJump": 1.3877787807814457e-17
+        },
+        {
+          "cardIndex": 5,
+          "localKnot": 0.16,
+          "globalProgress": 0.1612543731159427,
+          "chainDerivative": 0.987433374984128,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 5,
+          "localKnot": 0.34,
+          "globalProgress": 0.34348698800283006,
+          "chainDerivative": 0.9903192887637389,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 5,
+          "localKnot": 0.55,
+          "globalProgress": 0.5541856396899862,
+          "chainDerivative": 1.0036719496294122,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 5,
+          "localKnot": 0.77,
+          "globalProgress": 0.7721228415941881,
+          "chainDerivative": 1.0131327410685331,
+          "maxAbsoluteChannelDerivativeJump": 5.551115123125783e-17
+        },
+        {
+          "cardIndex": 6,
+          "localKnot": 0.16,
+          "globalProgress": 0.16150908985935786,
+          "chainDerivative": 0.9849121702793946,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 6,
+          "localKnot": 0.34,
+          "globalProgress": 0.3441925677400779,
+          "chainDerivative": 0.988424215649704,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 6,
+          "localKnot": 0.55,
+          "globalProgress": 0.5550190677005034,
+          "chainDerivative": 1.0044724651677885,
+          "maxAbsoluteChannelDerivativeJump": 5.551115123125783e-17
+        },
+        {
+          "cardIndex": 6,
+          "localKnot": 0.77,
+          "globalProgress": 0.7725408220440773,
+          "chainDerivative": 1.0157630734383964,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 7,
+          "localKnot": 0.16,
+          "globalProgress": 0.1617651126462366,
+          "chainDerivative": 0.9823883428601061,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 7,
+          "localKnot": 0.34,
+          "globalProgress": 0.34490087772666433,
+          "chainDerivative": 0.9865431974038606,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 7,
+          "localKnot": 0.55,
+          "globalProgress": 0.5558512049766429,
+          "chainDerivative": 1.0052948152543444,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 7,
+          "localKnot": 0.77,
+          "globalProgress": 0.7729566444121867,
+          "chainDerivative": 1.0183945355428328,
+          "maxAbsoluteChannelDerivativeJump": 6.938893903907228e-18
+        },
+        {
+          "cardIndex": 8,
+          "localKnot": 0.16,
+          "globalProgress": 0.16202245258507314,
+          "chainDerivative": 0.9798618947750968,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 8,
+          "localKnot": 0.34,
+          "globalProgress": 0.3456119186052323,
+          "chainDerivative": 0.9846763920114876,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 8,
+          "localKnot": 0.55,
+          "globalProgress": 0.5566820274797608,
+          "chainDerivative": 1.0061389074538913,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 8,
+          "localKnot": 0.77,
+          "globalProgress": 0.7733703246777939,
+          "chainDerivative": 1.0210270728851607,
+          "maxAbsoluteChannelDerivativeJump": 2.7755575615628914e-17
+        },
+        {
+          "cardIndex": 9,
+          "localKnot": 0.16,
+          "globalProgress": 0.16228112091247082,
+          "chainDerivative": 0.9773328282813244,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 9,
+          "localKnot": 0.34,
+          "globalProgress": 0.34632569071426267,
+          "chainDerivative": 0.9828239581623175,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 9,
+          "localKnot": 0.55,
+          "globalProgress": 0.5575115114646361,
+          "chainDerivative": 1.0070046476032346,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 9,
+          "localKnot": 0.77,
+          "globalProgress": 0.7737818786945876,
+          "chainDerivative": 1.0236606319036707,
+          "maxAbsoluteChannelDerivativeJump": 2.7755575615628914e-17
+        },
+        {
+          "cardIndex": 10,
+          "localKnot": 0.16,
+          "globalProgress": 0.1625411289949436,
+          "chainDerivative": 0.9748011458492332,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 10,
+          "localKnot": 0.34,
+          "globalProgress": 0.3470421940822872,
+          "chainDerivative": 0.9809860552268012,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 10,
+          "localKnot": 0.55,
+          "globalProgress": 0.5583396334832644,
+          "chainDerivative": 1.007891939847023,
+          "maxAbsoluteChannelDerivativeJump": 1.3877787807814457e-17
+        },
+        {
+          "cardIndex": 10,
+          "localKnot": 0.77,
+          "globalProgress": 0.7741913221911234,
+          "chainDerivative": 1.0262951599566694,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 11,
+          "localKnot": 0.16,
+          "globalProgress": 0.16280248833074595,
+          "chainDerivative": 0.9722668501682471,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 11,
+          "localKnot": 0.34,
+          "globalProgress": 0.3477614284221008,
+          "chainDerivative": 0.9791628432315287,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 11,
+          "localKnot": 0.55,
+          "globalProgress": 0.5591663703884828,
+          "chainDerivative": 1.0088006866739647,
+          "maxAbsoluteChannelDerivativeJump": 1.3877787807814457e-17
+        },
+        {
+          "cardIndex": 11,
+          "localKnot": 0.77,
+          "globalProgress": 0.7745986707713013,
+          "chainDerivative": 1.0289306053077352,
+          "maxAbsoluteChannelDerivativeJump": 5.551115123125783e-17
+        },
+        {
+          "cardIndex": 12,
+          "localKnot": 0.16,
+          "globalProgress": 0.16306521055173212,
+          "chainDerivative": 0.9697299441524,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 12,
+          "localKnot": 0.34,
+          "globalProgress": 0.34848339312497323,
+          "chainDerivative": 0.9773544828337972,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 12,
+          "localKnot": 0.55,
+          "globalProgress": 0.5599916993374203,
+          "chainDerivative": 1.0097307889533793,
+          "maxAbsoluteChannelDerivativeJump": 2.7755575615628914e-17
+        },
+        {
+          "cardIndex": 12,
+          "localKnot": 0.77,
+          "globalProgress": 0.7750039399148663,
+          "chainDerivative": 1.031566917111188,
+          "maxAbsoluteChannelDerivativeJump": 3.469446951953614e-18
+        },
+        {
+          "cardIndex": 13,
+          "localKnot": 0.16,
+          "globalProgress": 0.16332930742524426,
+          "chainDerivative": 0.967190430946104,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 13,
+          "localKnot": 0.34,
+          "globalProgress": 0.3492080872548664,
+          "chainDerivative": 0.975561135295319,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 13,
+          "localKnot": 0.55,
+          "globalProgress": 0.5608155977947786,
+          "chainDerivative": 1.010682145972054,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 13,
+          "localKnot": 0.77,
+          "globalProgress": 0.7754071449779294,
+          "chainDerivative": 1.0342040453977697,
+          "maxAbsoluteChannelDerivativeJump": 1.3877787807814457e-17
+        },
+        {
+          "cardIndex": 14,
+          "localKnot": 0.16,
+          "globalProgress": 0.163594790856031,
+          "chainDerivative": 0.9646483139300603,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 14,
+          "localKnot": 0.34,
+          "globalProgress": 0.34993550954266095,
+          "chainDerivative": 0.9737829624550624,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 14,
+          "localKnot": 0.55,
+          "globalProgress": 0.5616380435359396,
+          "chainDerivative": 1.0116546554713812,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 14,
+          "localKnot": 0.77,
+          "globalProgress": 0.7758083011935077,
+          "chainDerivative": 1.0368419410605334,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 15,
+          "localKnot": 0.16,
+          "globalProgress": 0.16386167288819609,
+          "chainDerivative": 0.9621035967273172,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 15,
+          "localKnot": 0.34,
+          "globalProgress": 0.3506656583803951,
+          "chainDerivative": 0.9720201267012192,
+          "maxAbsoluteChannelDerivativeJump": 2.7755575615628914e-17
+        },
+        {
+          "cardIndex": 15,
+          "localKnot": 0.55,
+          "globalProgress": 0.5624590146499033,
+          "chainDerivative": 1.0126482136847437,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 15,
+          "localKnot": 0.77,
+          "globalProgress": 0.7762074236720842,
+          "chainDerivative": 1.0394805558409412,
+          "maxAbsoluteChannelDerivativeJump": 3.469446951953614e-18
+        },
+        {
+          "cardIndex": 16,
+          "localKnot": 0.16,
+          "globalProgress": 0.16412996570717786,
+          "chainDerivative": 0.9595562832094766,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 16,
+          "localKnot": 0.34,
+          "globalProgress": 0.3513985318155227,
+          "chainDerivative": 0.9702727909422937,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 16,
+          "localKnot": 0.55,
+          "globalProgress": 0.563278489542052,
+          "chainDerivative": 1.013662715375124,
+          "maxAbsoluteChannelDerivativeJump": 3.469446951953614e-18
+        },
+        {
+          "cardIndex": 16,
+          "localKnot": 0.77,
+          "globalProgress": 0.7766045274021849,
+          "chainDerivative": 1.0421198423151656,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 17,
+          "localKnot": 0.16,
+          "globalProgress": 0.1643996816417604,
+          "chainDerivative": 0.9570063775030565,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 17,
+          "localKnot": 0.34,
+          "globalProgress": 0.3521341275451919,
+          "chainDerivative": 0.9685411185773066,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 17,
+          "localKnot": 0.55,
+          "globalProgress": 0.5640964469367447,
+          "chainDerivative": 1.014698053872906,
+          "maxAbsoluteChannelDerivativeJump": 1.3877787807814457e-17
+        },
+        {
+          "cardIndex": 17,
+          "localKnot": 0.77,
+          "globalProgress": 0.776999627250972,
+          "chainDerivative": 1.0447597538805944,
+          "maxAbsoluteChannelDerivativeJump": 2.7755575615628914e-17
+        },
+        {
+          "cardIndex": 18,
+          "localKnot": 0.16,
+          "globalProgress": 0.16467083316611603,
+          "chainDerivative": 0.9544538839960092,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 18,
+          "localKnot": 0.34,
+          "globalProgress": 0.35287244291055186,
+          "chainDerivative": 0.9668252734651109,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 18,
+          "localKnot": 0.55,
+          "globalProgress": 0.5649128658797418,
+          "chainDerivative": 1.015754121113844,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 18,
+          "localKnot": 0.77,
+          "globalProgress": 0.7773927379648549,
+          "chainDerivative": 1.0474002447425397,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 19,
+          "localKnot": 0.16,
+          "globalProgress": 0.16494343290188074,
+          "chainDerivative": 0.951898807344403,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 19,
+          "localKnot": 0.34,
+          "globalProgress": 0.3536134748910894,
+          "chainDerivative": 0.9651254198928156,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 19,
+          "localKnot": 0.55,
+          "globalProgress": 0.5657277257404594,
+          "chainDerivative": 1.0168308076771713,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 19,
+          "localKnot": 0.77,
+          "globalProgress": 0.7777838741701135,
+          "chainDerivative": 1.0500412699011419,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 20,
+          "localKnot": 0.16,
+          "globalProgress": 0.16521749362026217,
+          "chainDerivative": 0.9493411524792699,
+          "maxAbsoluteChannelDerivativeJump": 5.551115123125783e-17
+        },
+        {
+          "cardIndex": 20,
+          "localKnot": 0.34,
+          "globalProgress": 0.35435722009900417,
+          "chainDerivative": 0.9634417225433143,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 20,
+          "localKnot": 0.55,
+          "globalProgress": 0.566541006214055,
+          "chainDerivative": 1.017928002823819,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 20,
+          "localKnot": 0.77,
+          "globalProgress": 0.7781730503735389,
+          "chainDerivative": 1.052682785138475,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 21,
+          "localKnot": 0.16,
+          "globalProgress": 0.16549302824418072,
+          "chainDerivative": 0.9467809246136232,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 21,
+          "localKnot": 0.34,
+          "globalProgress": 0.3551036747736229,
+          "chainDerivative": 0.9617743464619164,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 21,
+          "localKnot": 0.55,
+          "globalProgress": 0.5673526873233472,
+          "chainDerivative": 1.0190455945347234,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 21,
+          "localKnot": 0.77,
+          "globalProgress": 0.7785602809630834,
+          "chainDerivative": 1.0553247470058456,
+          "maxAbsoluteChannelDerivativeJump": 8.881784197001252e-16
+        }
+      ]
+    },
+    "mobile": {
+      "heightCssPixels": 844,
+      "cardCount": 22,
+      "sampledProgressCount": 10001,
+      "sampledPoseCount": 220022,
+      "sampledBounds": {
+        "x": {
+          "min": -2.92393644473363,
+          "max": 2.3059934213778823,
+          "minAt": {
+            "cardIndex": 0,
+            "progress": 0.5389
+          },
+          "maxAt": {
+            "cardIndex": 21,
+            "progress": 0.7579
+          }
+        },
+        "y": {
+          "min": -0.5878865964833763,
+          "max": 2.625408466811028,
+          "minAt": {
+            "cardIndex": 2,
+            "progress": 0.8328
+          },
+          "maxAt": {
+            "cardIndex": 6,
+            "progress": 0.6854
+          }
+        },
+        "z": {
+          "min": -3.8082823107087123,
+          "max": 1.9019296502239667,
+          "minAt": {
+            "cardIndex": 3,
+            "progress": 0.7802
+          },
+          "maxAt": {
+            "cardIndex": 0,
+            "progress": 0.8059
+          }
+        },
+        "rotX": {
+          "min": -0.17,
+          "max": 0.16075613952885912,
+          "minAt": {
+            "cardIndex": 0,
+            "progress": 0
+          },
+          "maxAt": {
+            "cardIndex": 19,
+            "progress": 0.7598
+          }
+        },
+        "rotY": {
+          "min": -1.4020243593141386,
+          "max": 1.4042272742131439,
+          "minAt": {
+            "cardIndex": 18,
+            "progress": 0.3588
+          },
+          "maxAt": {
+            "cardIndex": 7,
+            "progress": 0.3541
+          }
+        },
+        "rotZ": {
+          "min": -1.4040068548311253,
+          "max": 1.4040076890591509,
+          "minAt": {
+            "cardIndex": 21,
+            "progress": 0.1653
+          },
+          "maxAt": {
+            "cardIndex": 0,
+            "progress": 0.1602
+          }
+        },
+        "scale": {
+          "min": 0.34373741735660435,
+          "max": 1.1409999999999998,
+          "minAt": {
+            "cardIndex": 12,
+            "progress": 0.8494
+          },
+          "maxAt": {
+            "cardIndex": 0,
+            "progress": 0
+          }
+        },
+        "bend": {
+          "min": -0.12997324885881623,
+          "max": 0.12986134721591583,
+          "minAt": {
+            "cardIndex": 20,
+            "progress": 0.5703
+          },
+          "maxAt": {
+            "cardIndex": 7,
+            "progress": 0.5427
+          }
+        },
+        "twist": {
+          "min": -0.049938711873178845,
+          "max": 0.04977039113074831,
+          "minAt": {
+            "cardIndex": 20,
+            "progress": 0.5665
+          },
+          "maxAt": {
+            "cardIndex": 7,
+            "progress": 0.5559
+          }
+        }
+      },
+      "exactCubicBounds": {
+        "x": {
+          "min": -2.92393664146275,
+          "max": 2.305993584048358,
+          "minAt": {
+            "cardIndex": 0,
+            "localProgress": 0.5389456316688552
+          },
+          "maxAt": {
+            "cardIndex": 21,
+            "localProgress": 0.7481565963356069
+          }
+        },
+        "y": {
+          "min": -0.5878866201077317,
+          "max": 2.6254084668573054,
+          "minAt": {
+            "cardIndex": 2,
+            "localProgress": 0.8322319213276762
+          },
+          "maxAt": {
+            "cardIndex": 6,
+            "localProgress": 0.6815721014573848
+          }
+        },
+        "z": {
+          "min": -3.808282310814835,
+          "max": 1.9019297284619334,
+          "minAt": {
+            "cardIndex": 3,
+            "localProgress": 0.7789910973577335
+          },
+          "maxAt": {
+            "cardIndex": 0,
+            "localProgress": 0.8058533579790511
+          }
+        },
+        "rotX": {
+          "min": -0.17,
+          "max": 0.1607561434391696,
+          "minAt": {
+            "cardIndex": 0,
+            "localProgress": 0
+          },
+          "maxAt": {
+            "cardIndex": 19,
+            "localProgress": 0.751081038628337
+          }
+        },
+        "rotY": {
+          "min": -1.4020244790459493,
+          "max": 1.4042273482650491,
+          "minAt": {
+            "cardIndex": 18,
+            "localProgress": 0.3456900224652645
+          },
+          "maxAt": {
+            "cardIndex": 7,
+            "localProgress": 0.3491169354047398
+          }
+        },
+        "rotZ": {
+          "min": -1.4040070344051365,
+          "max": 1.4040079730669135,
+          "minAt": {
+            "cardIndex": 21,
+            "localProgress": 0.15978247435422074
+          },
+          "maxAt": {
+            "cardIndex": 0,
+            "localProgress": 0.1602465491319025
+          }
+        },
+        "scale": {
+          "min": 0.3437374156378601,
+          "max": 1.1409999999999998,
+          "minAt": {
+            "cardIndex": 12,
+            "localProgress": 0.8466666666666667
+          },
+          "maxAt": {
+            "cardIndex": 0,
+            "localProgress": 0
+          }
+        },
+        "bend": {
+          "min": -0.12997326183207264,
+          "max": 0.12986134884947553,
+          "minAt": {
+            "cardIndex": 20,
+            "localProgress": 0.5537905117394213
+          },
+          "maxAt": {
+            "cardIndex": 7,
+            "localProgress": 0.5367617971185492
+          }
+        },
+        "twist": {
+          "min": -0.04993871720720694,
+          "max": 0.04977039788758825,
+          "minAt": {
+            "cardIndex": 20,
+            "localProgress": 0.55
+          },
+          "maxAt": {
+            "cardIndex": 7,
+            "localProgress": 0.55
+          }
+        }
+      },
+      "maximumAnalyticDerivativeJump": 4.440892098500626e-16,
+      "maximumAnalyticDerivativeJumpAt": {
+        "cardIndex": 0,
+        "knotIndex": 2,
+        "globalProgress": 0.33999999999999997
+      },
+      "moonInnerKnots": [
+        {
+          "progress": 0.16,
+          "previewSecond": 1.6,
+          "positionWorld": [
+            -0.5458248909457272,
+            0.70023392433191,
+            0.44999999999999996
+          ],
+          "scale": 0.6912,
+          "cardWidthWorld": 0.8064230400000001,
+          "leftDerivativeWorldPerProgress": [
+            -2.4394117647058824,
+            0.5441764705882352,
+            -1.4558823529411764
+          ],
+          "rightDerivativeWorldPerProgress": [
+            -2.4394117647058824,
+            0.5441764705882352,
+            -1.4558823529411764
+          ],
+          "leftDerivativeAllChannels": [
+            -2.4394117647058824,
+            0.5441764705882352,
+            -1.4558823529411764,
+            0.3882352941176471,
+            1.1970588235294117,
+            0.06470588235294118,
+            -0.9346764705882349,
+            0.12941176470588237,
+            0
+          ],
+          "rightDerivativeAllChannels": [
+            -2.4394117647058824,
+            0.5441764705882352,
+            -1.4558823529411764,
+            0.3882352941176471,
+            1.1970588235294117,
+            0.06470588235294118,
+            -0.934676470588235,
+            0.12941176470588237,
+            0
+          ],
+          "velocityWorldPerSecond": [
+            -0.24394117647058824,
+            0.054417647058823515,
+            -0.14558823529411763
+          ],
+          "speedWorldUnitsPerSecond": 0.28924818434232,
+          "speedCurrentCardWidthsPerSecond": 0.35868045677653254,
+          "speedUnscaledCardWidthsPerSecond": 0.24791993172393934,
+          "maxAbsoluteDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "progress": 0.34,
+          "previewSecond": 3.4000000000000004,
+          "positionWorld": [
+            -1.456,
+            1.291,
+            -0.05000000000000002
+          ],
+          "scale": 0.5632,
+          "cardWidthWorld": 0.6570854400000001,
+          "leftDerivativeWorldPerProgress": [
+            -3.336913615332949,
+            1.3239008759421784,
+            -2.1153846153846154
+          ],
+          "rightDerivativeWorldPerProgress": [
+            -3.336913615332949,
+            1.3239008759421784,
+            -2.1153846153846154
+          ],
+          "leftDerivativeAllChannels": [
+            -3.336913615332949,
+            1.3239008759421784,
+            -2.1153846153846154,
+            0.3384615384615385,
+            0.16480498368707916,
+            -1.5446269486405002,
+            -0.19856410256410262,
+            0.13733748640589932,
+            0
+          ],
+          "rightDerivativeAllChannels": [
+            -3.336913615332949,
+            1.3239008759421784,
+            -2.1153846153846154,
+            0.3384615384615385,
+            0.16480498368707916,
+            -1.5446269486404998,
+            -0.19856410256410262,
+            0.13733748640589932,
+            0
+          ],
+          "velocityWorldPerSecond": [
+            -0.33369136153329493,
+            0.13239008759421783,
+            -0.21153846153846154
+          ],
+          "speedWorldUnitsPerSecond": 0.416684029889805,
+          "speedCurrentCardWidthsPerSecond": 0.6341398005863665,
+          "speedUnscaledCardWidthsPerSecond": 0.3571475356902417,
+          "maxAbsoluteDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "progress": 0.55,
+          "previewSecond": 5.5,
+          "positionWorld": [
+            -2.912,
+            1.639,
+            -1.05
+          ],
+          "scale": 0.5504,
+          "cardWidthWorld": 0.64215168,
+          "leftDerivativeWorldPerProgress": [
+            2.1948837209302328,
+            -0.2967441860465116,
+            2.430232558139535
+          ],
+          "rightDerivativeWorldPerProgress": [
+            2.1948837209302328,
+            -0.2967441860465116,
+            2.430232558139535
+          ],
+          "leftDerivativeAllChannels": [
+            2.1948837209302328,
+            -0.2967441860465116,
+            2.430232558139535,
+            -0.21744186046511632,
+            -0.7930232558139536,
+            -0.0127906976744186,
+            0.5965581395348838,
+            -0.07034883720930234,
+            0
+          ],
+          "rightDerivativeAllChannels": [
+            2.1948837209302328,
+            -0.2967441860465116,
+            2.430232558139535,
+            -0.21744186046511632,
+            -0.7930232558139536,
+            -0.0127906976744186,
+            0.5965581395348838,
+            -0.07034883720930234,
+            0
+          ],
+          "velocityWorldPerSecond": [
+            0.21948837209302327,
+            -0.02967441860465116,
+            0.2430232558139535
+          ],
+          "speedWorldUnitsPerSecond": 0.3288100051245153,
+          "speedCurrentCardWidthsPerSecond": 0.5120441406063366,
+          "speedUnscaledCardWidthsPerSecond": 0.2818290949897277,
+          "maxAbsoluteDerivativeJump": 0
+        },
+        {
+          "progress": 0.77,
+          "previewSecond": 7.7,
+          "positionWorld": [
+            0.26,
+            1.059,
+            1.85
+          ],
+          "scale": 1.0296,
+          "cardWidthWorld": 1.2012343200000002,
+          "leftDerivativeWorldPerProgress": [
+            3.781555555555556,
+            -0.6380000000000001,
+            3.055555555555556
+          ],
+          "rightDerivativeWorldPerProgress": [
+            3.781555555555556,
+            -0.6380000000000001,
+            3.0555555555555562
+          ],
+          "leftDerivativeAllChannels": [
+            3.781555555555556,
+            -0.6380000000000001,
+            3.055555555555556,
+            -0.26888888888888896,
+            -0.26888888888888896,
+            -0.4751010889560114,
+            0.6986222222222225,
+            0.014666666666666672,
+            0
+          ],
+          "rightDerivativeAllChannels": [
+            3.781555555555556,
+            -0.6380000000000001,
+            3.0555555555555562,
+            -0.26888888888888896,
+            -0.26888888888888896,
+            -0.4751010889560114,
+            0.6986222222222225,
+            0.01466666666666667,
+            0
+          ],
+          "velocityWorldPerSecond": [
+            0.3781555555555556,
+            -0.06380000000000001,
+            0.3055555555555556
+          ],
+          "speedWorldUnitsPerSecond": 0.49034300415973625,
+          "speedCurrentCardWidthsPerSecond": 0.40819929633690133,
+          "speedUnscaledCardWidthsPerSecond": 0.42028199550847367,
+          "maxAbsoluteDerivativeJump": 4.440892098500626e-16
+        }
+      ],
+      "allInnerJunctions": [
+        {
+          "cardIndex": 0,
+          "localKnot": 0.16,
+          "globalProgress": 0.15999999999999998,
+          "chainDerivative": 1,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 0,
+          "localKnot": 0.34,
+          "globalProgress": 0.33999999999999997,
+          "chainDerivative": 1,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 0,
+          "localKnot": 0.55,
+          "globalProgress": 0.55,
+          "chainDerivative": 1,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 0,
+          "localKnot": 0.77,
+          "globalProgress": 0.77,
+          "chainDerivative": 1,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 1,
+          "localKnot": 0.16,
+          "globalProgress": 0.1602483487923042,
+          "chainDerivative": 0.9974919326755979,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 1,
+          "localKnot": 0.34,
+          "globalProgress": 0.34069194837200256,
+          "chainDerivative": 0.9980369961113867,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 1,
+          "localKnot": 0.55,
+          "globalProgress": 0.5508395111200084,
+          "chainDerivative": 1.0006900192075754,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 1,
+          "localKnot": 0.77,
+          "globalProgress": 0.7704290149722672,
+          "chainDerivative": 1.002623832448332,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 2,
+          "localKnot": 0.16,
+          "globalProgress": 0.16049794994612165,
+          "chainDerivative": 0.9949812353354948,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 2,
+          "localKnot": 0.34,
+          "globalProgress": 0.3413866194195394,
+          "chainDerivative": 0.9960872685041187,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 2,
+          "localKnot": 0.55,
+          "globalProgress": 0.5516778559554889,
+          "chainDerivative": 1.0014023079934844,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 2,
+          "localKnot": 0.77,
+          "globalProgress": 0.7708557900683666,
+          "chainDerivative": 1.0052490816779667,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 3,
+          "localKnot": 0.16,
+          "globalProgress": 0.16074881395545804,
+          "chainDerivative": 0.9924679090639396,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 3,
+          "localKnot": 0.34,
+          "globalProgress": 0.3420840152196305,
+          "chainDerivative": 0.9941509713141061,
+          "maxAbsoluteChannelDerivativeJump": 6.938893903907228e-18
+        },
+        {
+          "cardIndex": 3,
+          "localKnot": 0.55,
+          "globalProgress": 0.5525150090635462,
+          "chainDerivative": 1.002136783085584,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 3,
+          "localKnot": 0.77,
+          "globalProgress": 0.7712803419014573,
+          "chainDerivative": 1.0078756882853777,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 4,
+          "localKnot": 0.16,
+          "globalProgress": 0.16100095143383242,
+          "chainDerivative": 0.9899519551283631,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 4,
+          "localKnot": 0.34,
+          "globalProgress": 0.34278413757389437,
+          "chainDerivative": 0.9922282594880397,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 4,
+          "localKnot": 0.55,
+          "globalProgress": 0.5533509452731926,
+          "chainDerivative": 1.0028933593109373,
+          "maxAbsoluteChannelDerivativeJump": 1.3877787807814457e-17
+        },
+        {
+          "cardIndex": 4,
+          "localKnot": 0.77,
+          "globalProgress": 0.7717026869572223,
+          "chainDerivative": 1.0105035938800713,
+          "maxAbsoluteChannelDerivativeJump": 1.3877787807814457e-17
+        },
+        {
+          "cardIndex": 5,
+          "localKnot": 0.16,
+          "globalProgress": 0.1612543731159427,
+          "chainDerivative": 0.987433374984128,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 5,
+          "localKnot": 0.34,
+          "globalProgress": 0.34348698800283006,
+          "chainDerivative": 0.9903192887637389,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 5,
+          "localKnot": 0.55,
+          "globalProgress": 0.5541856396899862,
+          "chainDerivative": 1.0036719496294122,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 5,
+          "localKnot": 0.77,
+          "globalProgress": 0.7721228415941881,
+          "chainDerivative": 1.0131327410685331,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 6,
+          "localKnot": 0.16,
+          "globalProgress": 0.16150908985935786,
+          "chainDerivative": 0.9849121702793946,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 6,
+          "localKnot": 0.34,
+          "globalProgress": 0.3441925677400779,
+          "chainDerivative": 0.988424215649704,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 6,
+          "localKnot": 0.55,
+          "globalProgress": 0.5550190677005034,
+          "chainDerivative": 1.0044724651677885,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 6,
+          "localKnot": 0.77,
+          "globalProgress": 0.7725408220440773,
+          "chainDerivative": 1.0157630734383964,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 7,
+          "localKnot": 0.16,
+          "globalProgress": 0.1617651126462366,
+          "chainDerivative": 0.9823883428601061,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 7,
+          "localKnot": 0.34,
+          "globalProgress": 0.34490087772666433,
+          "chainDerivative": 0.9865431974038606,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 7,
+          "localKnot": 0.55,
+          "globalProgress": 0.5558512049766429,
+          "chainDerivative": 1.0052948152543444,
+          "maxAbsoluteChannelDerivativeJump": 1.3877787807814457e-17
+        },
+        {
+          "cardIndex": 7,
+          "localKnot": 0.77,
+          "globalProgress": 0.7729566444121867,
+          "chainDerivative": 1.0183945355428328,
+          "maxAbsoluteChannelDerivativeJump": 6.938893903907228e-18
+        },
+        {
+          "cardIndex": 8,
+          "localKnot": 0.16,
+          "globalProgress": 0.16202245258507314,
+          "chainDerivative": 0.9798618947750968,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 8,
+          "localKnot": 0.34,
+          "globalProgress": 0.3456119186052323,
+          "chainDerivative": 0.9846763920114876,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 8,
+          "localKnot": 0.55,
+          "globalProgress": 0.5566820274797608,
+          "chainDerivative": 1.0061389074538913,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 8,
+          "localKnot": 0.77,
+          "globalProgress": 0.7733703246777939,
+          "chainDerivative": 1.0210270728851607,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 9,
+          "localKnot": 0.16,
+          "globalProgress": 0.16228112091247082,
+          "chainDerivative": 0.9773328282813244,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 9,
+          "localKnot": 0.34,
+          "globalProgress": 0.34632569071426267,
+          "chainDerivative": 0.9828239581623175,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 9,
+          "localKnot": 0.55,
+          "globalProgress": 0.5575115114646361,
+          "chainDerivative": 1.0070046476032346,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 9,
+          "localKnot": 0.77,
+          "globalProgress": 0.7737818786945876,
+          "chainDerivative": 1.0236606319036707,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 10,
+          "localKnot": 0.16,
+          "globalProgress": 0.1625411289949436,
+          "chainDerivative": 0.9748011458492332,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 10,
+          "localKnot": 0.34,
+          "globalProgress": 0.3470421940822872,
+          "chainDerivative": 0.9809860552268012,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 10,
+          "localKnot": 0.55,
+          "globalProgress": 0.5583396334832644,
+          "chainDerivative": 1.007891939847023,
+          "maxAbsoluteChannelDerivativeJump": 2.7755575615628914e-17
+        },
+        {
+          "cardIndex": 10,
+          "localKnot": 0.77,
+          "globalProgress": 0.7741913221911234,
+          "chainDerivative": 1.0262951599566694,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 11,
+          "localKnot": 0.16,
+          "globalProgress": 0.16280248833074595,
+          "chainDerivative": 0.9722668501682471,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 11,
+          "localKnot": 0.34,
+          "globalProgress": 0.3477614284221008,
+          "chainDerivative": 0.9791628432315287,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 11,
+          "localKnot": 0.55,
+          "globalProgress": 0.5591663703884828,
+          "chainDerivative": 1.0088006866739647,
+          "maxAbsoluteChannelDerivativeJump": 1.3877787807814457e-17
+        },
+        {
+          "cardIndex": 11,
+          "localKnot": 0.77,
+          "globalProgress": 0.7745986707713013,
+          "chainDerivative": 1.0289306053077352,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 12,
+          "localKnot": 0.16,
+          "globalProgress": 0.16306521055173212,
+          "chainDerivative": 0.9697299441524,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 12,
+          "localKnot": 0.34,
+          "globalProgress": 0.34848339312497323,
+          "chainDerivative": 0.9773544828337972,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 12,
+          "localKnot": 0.55,
+          "globalProgress": 0.5599916993374203,
+          "chainDerivative": 1.0097307889533793,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 12,
+          "localKnot": 0.77,
+          "globalProgress": 0.7750039399148663,
+          "chainDerivative": 1.031566917111188,
+          "maxAbsoluteChannelDerivativeJump": 3.469446951953614e-18
+        },
+        {
+          "cardIndex": 13,
+          "localKnot": 0.16,
+          "globalProgress": 0.16332930742524426,
+          "chainDerivative": 0.967190430946104,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 13,
+          "localKnot": 0.34,
+          "globalProgress": 0.3492080872548664,
+          "chainDerivative": 0.975561135295319,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 13,
+          "localKnot": 0.55,
+          "globalProgress": 0.5608155977947786,
+          "chainDerivative": 1.010682145972054,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 13,
+          "localKnot": 0.77,
+          "globalProgress": 0.7754071449779294,
+          "chainDerivative": 1.0342040453977697,
+          "maxAbsoluteChannelDerivativeJump": 1.3877787807814457e-17
+        },
+        {
+          "cardIndex": 14,
+          "localKnot": 0.16,
+          "globalProgress": 0.163594790856031,
+          "chainDerivative": 0.9646483139300603,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 14,
+          "localKnot": 0.34,
+          "globalProgress": 0.34993550954266095,
+          "chainDerivative": 0.9737829624550624,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 14,
+          "localKnot": 0.55,
+          "globalProgress": 0.5616380435359396,
+          "chainDerivative": 1.0116546554713812,
+          "maxAbsoluteChannelDerivativeJump": 2.7755575615628914e-17
+        },
+        {
+          "cardIndex": 14,
+          "localKnot": 0.77,
+          "globalProgress": 0.7758083011935077,
+          "chainDerivative": 1.0368419410605334,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 15,
+          "localKnot": 0.16,
+          "globalProgress": 0.16386167288819609,
+          "chainDerivative": 0.9621035967273172,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 15,
+          "localKnot": 0.34,
+          "globalProgress": 0.3506656583803951,
+          "chainDerivative": 0.9720201267012192,
+          "maxAbsoluteChannelDerivativeJump": 5.551115123125783e-17
+        },
+        {
+          "cardIndex": 15,
+          "localKnot": 0.55,
+          "globalProgress": 0.5624590146499033,
+          "chainDerivative": 1.0126482136847437,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 15,
+          "localKnot": 0.77,
+          "globalProgress": 0.7762074236720842,
+          "chainDerivative": 1.0394805558409412,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 16,
+          "localKnot": 0.16,
+          "globalProgress": 0.16412996570717786,
+          "chainDerivative": 0.9595562832094766,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 16,
+          "localKnot": 0.34,
+          "globalProgress": 0.3513985318155227,
+          "chainDerivative": 0.9702727909422937,
+          "maxAbsoluteChannelDerivativeJump": 5.551115123125783e-17
+        },
+        {
+          "cardIndex": 16,
+          "localKnot": 0.55,
+          "globalProgress": 0.563278489542052,
+          "chainDerivative": 1.013662715375124,
+          "maxAbsoluteChannelDerivativeJump": 3.469446951953614e-18
+        },
+        {
+          "cardIndex": 16,
+          "localKnot": 0.77,
+          "globalProgress": 0.7766045274021849,
+          "chainDerivative": 1.0421198423151656,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 17,
+          "localKnot": 0.16,
+          "globalProgress": 0.1643996816417604,
+          "chainDerivative": 0.9570063775030565,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 17,
+          "localKnot": 0.34,
+          "globalProgress": 0.3521341275451919,
+          "chainDerivative": 0.9685411185773066,
+          "maxAbsoluteChannelDerivativeJump": 6.938893903907228e-18
+        },
+        {
+          "cardIndex": 17,
+          "localKnot": 0.55,
+          "globalProgress": 0.5640964469367447,
+          "chainDerivative": 1.014698053872906,
+          "maxAbsoluteChannelDerivativeJump": 1.3877787807814457e-17
+        },
+        {
+          "cardIndex": 17,
+          "localKnot": 0.77,
+          "globalProgress": 0.776999627250972,
+          "chainDerivative": 1.0447597538805944,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 18,
+          "localKnot": 0.16,
+          "globalProgress": 0.16467083316611603,
+          "chainDerivative": 0.9544538839960092,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 18,
+          "localKnot": 0.34,
+          "globalProgress": 0.35287244291055186,
+          "chainDerivative": 0.9668252734651109,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 18,
+          "localKnot": 0.55,
+          "globalProgress": 0.5649128658797418,
+          "chainDerivative": 1.015754121113844,
+          "maxAbsoluteChannelDerivativeJump": 2.7755575615628914e-17
+        },
+        {
+          "cardIndex": 18,
+          "localKnot": 0.77,
+          "globalProgress": 0.7773927379648549,
+          "chainDerivative": 1.0474002447425397,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 19,
+          "localKnot": 0.16,
+          "globalProgress": 0.16494343290188074,
+          "chainDerivative": 0.951898807344403,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 19,
+          "localKnot": 0.34,
+          "globalProgress": 0.3536134748910894,
+          "chainDerivative": 0.9651254198928156,
+          "maxAbsoluteChannelDerivativeJump": 2.220446049250313e-16
+        },
+        {
+          "cardIndex": 19,
+          "localKnot": 0.55,
+          "globalProgress": 0.5657277257404594,
+          "chainDerivative": 1.0168308076771713,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 19,
+          "localKnot": 0.77,
+          "globalProgress": 0.7777838741701135,
+          "chainDerivative": 1.0500412699011419,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 20,
+          "localKnot": 0.16,
+          "globalProgress": 0.16521749362026217,
+          "chainDerivative": 0.9493411524792699,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 20,
+          "localKnot": 0.34,
+          "globalProgress": 0.35435722009900417,
+          "chainDerivative": 0.9634417225433143,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 20,
+          "localKnot": 0.55,
+          "globalProgress": 0.566541006214055,
+          "chainDerivative": 1.017928002823819,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 20,
+          "localKnot": 0.77,
+          "globalProgress": 0.7781730503735389,
+          "chainDerivative": 1.052682785138475,
+          "maxAbsoluteChannelDerivativeJump": 0
+        },
+        {
+          "cardIndex": 21,
+          "localKnot": 0.16,
+          "globalProgress": 0.16549302824418072,
+          "chainDerivative": 0.9467809246136232,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 21,
+          "localKnot": 0.34,
+          "globalProgress": 0.3551036747736229,
+          "chainDerivative": 0.9617743464619164,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        },
+        {
+          "cardIndex": 21,
+          "localKnot": 0.55,
+          "globalProgress": 0.5673526873233472,
+          "chainDerivative": 1.0190455945347234,
+          "maxAbsoluteChannelDerivativeJump": 1.1102230246251565e-16
+        },
+        {
+          "cardIndex": 21,
+          "localKnot": 0.77,
+          "globalProgress": 0.7785602809630834,
+          "chainDerivative": 1.0553247470058456,
+          "maxAbsoluteChannelDerivativeJump": 4.440892098500626e-16
+        }
+      ]
+    }
+  },
+  "validatedRendererMath": [
+    {
+      "sourceLine": 74,
+      "result": "Ambient gain is cubic smoothstep over progress [0,.16]; both endpoint derivatives are zero, removing the earlier gain velocity break."
+    },
+    {
+      "sourceLine": 37,
+      "result": "Bend positions are branchless polynomials in angle/bend, including zero bend. They are smooth and no longer contain a deformation threshold."
+    },
+    {
+      "sourceLine": 38,
+      "result": "Sheet normal includes the derivative of twist angle with respect to Y: normalize(-sin(a+t), -twist*(cos(a+t)*X+sin(a+t)*Z), cos(a+t)). It is correct for the ideal analytic bend+twist; the positional polynomial creates only the quantified tiny approximation discrepancy."
+    }
+  ],
+  "qualifications": [
+    {
+      "sourceLine": 93,
+      "issue": "Depth testing resolves visible fragments; it does not prove surfaces do not intersect. No mesh collision or intersection proof was performed."
+    },
+    {
+      "issue": "C1 concerns authored channels and deformation at fixed layout under continuous progress/time. It does not assert continuous pixel derivatives at visibility changes or guarantee time-domain continuity for arbitrary scroll/control jumps."
+    }
+  ],
+  "bendApproximation": {
+    "maximumAbsoluteAngleRadians": 0.07581990228973957,
+    "lessThanPoint08": true,
+    "maximumAbsoluteXPositionErrorBoundLocal": 1.7556257116849486e-15,
+    "maximumAbsoluteZPositionErrorBoundLocal": 2.0839688430069076e-13,
+    "maximumAbsoluteXPartialDerivativeErrorBound": 2.708602280820183e-14,
+    "maximumAbsoluteZPartialDerivativeErrorBound": 2.857932758044957e-12,
+    "note": "Alternating-series bounds for the exact sin/cos bend at real arithmetic; these are not GPU floating-point measurements."
+  },
+  "shortPortrait": {
+    "thresholdHeightCssPixels": 650,
+    "testedHeightCssPixels": 600,
+    "referenceHeightCssPixels": 844,
+    "uniformYOffset": 0.39,
+    "maximumYOffsetError": 3.3306690738754696e-16,
+    "maximumOtherKeyChannelDifference": 0,
+    "maximumTangentDifference": 8.881784197001252e-16,
+    "result": "Short portrait adds a constant +.39 to all Y keys; speeds and all other channels remain unchanged within floating-point precision. It is a layout selection, not an interpolated resize transition."
+  }
+}

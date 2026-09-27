@@ -1,0 +1,41 @@
+# Checks every push and pull request: product tests, website and reading-service
+# tests, and a full static export of the website. No secrets are needed.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            experience/work/olivia-product/package-lock.json
+            website/package-lock.json
+
+      - name: Product tests
+        working-directory: experience/work/olivia-product
+        run: |
+          npm ci
+          node --test *.test.mjs
+
+      - name: Website and reading-service tests
+        working-directory: website
+        run: |
+          npm ci
+          node --test src/lib/*.test.mjs netlify/edge-functions/_shared/*.test.mjs
+
+      - name: Static export
+        working-directory: website
+        run: npm run build

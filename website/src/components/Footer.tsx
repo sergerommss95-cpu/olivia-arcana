@@ -11,6 +11,7 @@
 import TransitionLink from "@/components/transitions/TransitionLink";
 import LivingOliveMark from "./LivingOliveMark";
 import { useLocale } from "../lib/i18n/useLocale";
+import { TELEGRAM_BOT_ENABLED, TELEGRAM_CHANNEL_ENABLED, TELEGRAM_BOT_URL, TELEGRAM_CHANNEL_URL } from "@/lib/service-status";
 
 export default function Footer() {
   const { t, locale } = useLocale();
@@ -29,8 +30,8 @@ export default function Footer() {
     {
       head: t("foot_connect") as string,
       links: [
-        { label: t("foot_tg_bot") as string, href: "https://t.me/OliviaArcanaBot", external: true },
-        { label: t("foot_tg_channel") as string, href: "https://t.me/OliviaArcanaDaily", external: true },
+        ...(TELEGRAM_BOT_ENABLED ? [{ label: t("foot_tg_bot") as string, href: TELEGRAM_BOT_URL, external: true }] : []),
+        ...(TELEGRAM_CHANNEL_ENABLED ? [{ label: t("foot_tg_channel") as string, href: TELEGRAM_CHANNEL_URL, external: true }] : []),
         { label: t("common_about") as string, href: "/about" },
         { label: t("common_contact") as string, href: "/contact" },
       ],
@@ -40,6 +41,7 @@ export default function Footer() {
       links: [
         { label: t("legal_terms") as string, href: "/terms" },
         { label: t("legal_privacy") as string, href: "/privacy" },
+        { label: t("legal_cookies") as string, href: "/cookies" },
         { label: t("legal_refund") as string, href: "/refund" },
         { label: t("legal_disclaimer") as string, href: "/disclaimer" },
         { label: t("legal_dmca") as string, href: "/dmca" },

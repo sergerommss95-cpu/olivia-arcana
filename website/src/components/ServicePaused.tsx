@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { TELEGRAM_BOT_URL } from "@/lib/service-status";
+import { TELEGRAM_BOT_ENABLED, TELEGRAM_BOT_URL } from "@/lib/service-status";
 import { useLocale } from "@/lib/i18n/useLocale";
 import MagnetRig from "@/components/almanac/MagnetRig";
 
@@ -35,44 +35,38 @@ export default function ServicePaused({ title, body }: ServicePausedProps) {
         <p className="svcp-body">{body}</p>
         <p className="svcp-body svcp-vigil">
           {isUk
-            ? "Інструменти охолоджені й накриті. Цієї ночі ніщо не набирається в шрифт — і ніщо не тарифікується."
-            : "The instruments are cooled and hooded. Nothing is set in type tonight — and nothing is charged."}
+            ? "Ця функція зараз недоступна. Ви можете безкоштовно обрати карту без облікового запису."
+            : "This feature is currently unavailable. You can still choose a card for free, without an account."}
         </p>
         <div className="svcp-actions">
-          <Link href="/oracle-letter" className="svcp-btn">
-            {isUk ? "Залишіть питання — лист вас знайде" : "Leave your question — the letter will find you"}
+          <Link href={isUk ? "/uk/?experience=question" : "/?experience=question"} className="svcp-btn">
+            {isUk ? "Почати безкоштовне читання" : "Begin a free reading"}
           </Link>
-          <a href={TELEGRAM_BOT_URL} target="_blank" rel="noopener noreferrer" className="svcp-alt">
-            {isUk ? "Продовжити в Telegram" : "Continue in Telegram"}
-          </a>
+          {TELEGRAM_BOT_ENABLED && <a href={`${TELEGRAM_BOT_URL}?start=paused`} target="_blank" rel="noopener noreferrer" className="svcp-alt">
+            {isUk ? "Відкрити Telegram" : "Open Telegram"}
+          </a>}
         </div>
         <p className="svcp-fine">
-          {isUk ? "Щоденна карта, " : "The daily card, the "}
-          <Link href="/daily" className="svcp-fine-link">
-            {isUk ? "сьогоднішній лист" : "today's leaf"}
-          </Link>
-          {isUk ? " та " : ", and the "}
-          <Link href="/academy" className="svcp-fine-link">
-            {isUk ? "академія" : "academy"}
+          <Link href={isUk ? "/uk/?experience=journal" : "/?experience=journal"} className="svcp-fine-link">
+            {isUk ? "Ваш альманах" : "Your almanac"}
           </Link>{" "}
-          {isUk ? "працюють без облікового запису. " : "work without an account. "}
-          <Link href="/pricing" className="svcp-fine-link">
-            {isUk ? "Постійна передплата на власне небо" : "A standing subscription to your own sky"}
+          {isUk ? "зберігає читання в цьому браузері. " : "keeps readings in this browser. "}
+          <Link href="/contact" className="svcp-fine-link">
+            {isUk ? "Потрібна допомога?" : "Need help?"}
           </Link>
-          {isUk ? " — коли прес знову обертатиметься." : " — for when the press turns again."}
         </p>
       </div>
 
       <style jsx>{`
         .svcp {
-          --paper: #10134d;
-          --paper-bone: #181d7a;
-          --ink: #e8e9ff;
-          --ink-soft: rgba(232, 233, 255, 0.72);
-          --ink-faint: rgba(183, 188, 233, 0.66);
-          --hairline: rgba(232, 233, 255, 0.18);
-          --ox: #e0b768;
-          --ox-fill: #8d97ff;
+          --paper: #0b1c2c;
+          --paper-bone: #153045;
+          --ink: #eee6d4;
+          --ink-soft: rgba(238, 230, 212, 0.72);
+          --ink-faint: rgba(181, 196, 199, 0.66);
+          --hairline: rgba(238, 230, 212, 0.18);
+          --ox: #c1ab7c;
+          --ox-fill: #c1ab7c;
           --ease: cubic-bezier(0.16, 1, 0.3, 1);
           position: relative;
           z-index: 1;
@@ -105,7 +99,7 @@ export default function ServicePaused({ title, body }: ServicePausedProps) {
           max-width: 26rem;
           padding: 0 2rem 2.2rem;
           text-align: center;
-          background: #0f1240;
+          background: #102838;
           border: 1px solid var(--hairline);
           box-shadow: 0 1.4rem 2.8rem rgba(4, 6, 32, 0.1);
         }

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback, createContext, useContext } from "react";
+import { useState, useEffect, useCallback, useRef, createContext, useContext } from "react";
+import { ACCOUNTS_ENABLED } from "@/lib/service-status";
 import {
   getSubscriptionStatus,
   createCheckoutSession,
@@ -49,26 +50,56 @@ export function SubscriptionProvider({ children }: { children: React.ReactNode }
   const [data, setData] = useState<SubscriptionStatus | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const requestSequence = useRef({ value: 0 });
 
   const refresh = useCallback(async () => {
+    const requestId = ++requestSequence.current.value;
+    setIsLoading(true);
+    setError(null);
     try {
-      const token = typeof window !== "undefined" ? localStorage.getItem(TOKEN_KEY) : null;
-      if (!token) {
+      // No accounts, no membership to verify: every visitor is on the free tier,
+      // and the Supabase client is never downloaded.
+      if (!ACCOUNTS_ENABLED) {
         setData(null);
-        setIsLoading(false);
+        return;
+      }
+      const token = typeof window !== "undefined" ? localStorage.getItem(TOKEN_KEY) : null;
+      const session = token ? null : await (await import("@/lib/supabase")).getSession();
+      if (requestId !== requestSequence.current.value) return;
+      if (!token && !session?.access_token) {
+        setData(null);
         return;
       }
       const status = await getSubscriptionStatus();
+      if (requestId !== requestSequence.current.value) return;
       setData(status);
       setError(null);
-    } catch {
+    } catch (err: unknown) {
+      if (requestId !== requestSequence.current.value) return;
       setData(null);
+      setError(err instanceof Error ? err.message : "Could not verify membership");
     } finally {
-      setIsLoading(false);
+      if (requestId === requestSequence.current.value) setIsLoading(false);
     }
   }, []);
 
-  useEffect(() => { refresh(); }, [refresh]);
+  useEffect(() => {
+    const requests = requestSequence.current;
+    const onFocus = () => { void refresh(); };
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === null || event.key === TOKEN_KEY || (event.key.startsWith("sb-") && event.key.endsWith("-auth-token"))) {
+        void refresh();
+      }
+    };
+    void refresh();
+    window.addEventListener("focus", onFocus);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      ++requests.value;
+      window.removeEventListener("focus", onFocus);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, [refresh]);
 
   const subscribe = useCallback(async (priceKey: PriceKey) => {
     setError(null);
@@ -90,8 +121,9 @@ export function SubscriptionProvider({ children }: { children: React.ReactNode }
     }
   }, []);
 
-  const tier: Tier = data?.tier ?? "free";
-  const isPaid = tier !== "free";
+  const paidTier = data?.tier === "insight" || data?.tier === "premium" || data?.tier === "vip";
+  const isPaid = !isLoading && !error && data?.is_paid === true && paidTier;
+  const tier: Tier = isPaid ? data!.tier : "free";
   const isVip = tier === "vip";
   const isPremiumOrAbove = tier === "premium" || tier === "vip";
 

@@ -1,0 +1,2298 @@
+{
+  "source": "work/hero-v6/hero.js",
+  "sourceSha256": "01449fc61d29886c3ede2d6c44e2dfd594b702b2bbd5c9881c61ff2bc66ddae4",
+  "generatedAt": "2026-09-23T14:24:13.304Z",
+  "method": {
+    "steps": 200,
+    "states": [
+      {
+        "name": "still",
+        "quiet": true,
+        "time": 0,
+        "pointer": [
+          0,
+          0
+        ]
+      }
+    ],
+    "collision": "15-axis SAT on full rectangular prisms using CARD_W/H/T, with physical thickness; >1e-6 world penetration is counted, including packets.",
+    "bounds": "All corners after sceneFrame; camera z=10.4, vertical FOV 38 degrees. Header/footer bands are conservative geometry limits, not measured DOM text.",
+    "continuity": "Largest sampled corner displacements are refined eight times at fixed animation state. A persistent nonzero displacement is reported as suspected, not mathematically proven, discontinuity.",
+    "limits": "Finite sampling is not a proof of all-progress separation or continuity."
+  },
+  "viewports": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 1809,
+      "pairTests": 7236,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumMargins": {
+        "left": {
+          "margin": 176.73531839,
+          "progress": 0.59,
+          "state": "still",
+          "id": 0
+        },
+        "right": {
+          "margin": 91.85548683,
+          "progress": 0.45,
+          "state": "still",
+          "id": 0
+        },
+        "nav": {
+          "margin": 45.08186446,
+          "progress": 0.55,
+          "state": "still",
+          "id": 18
+        },
+        "footer": {
+          "margin": 56.63330236,
+          "progress": 0.715,
+          "state": "still",
+          "id": 14
+        }
+      },
+      "collisions": [],
+      "boundsFailures": [],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 17,
+            "interval": [
+              0.58,
+              0.585
+            ],
+            "cornerDelta": 1.45214695,
+            "angleRadians": 0
+          },
+          {
+            "id": 9,
+            "interval": [
+              0.745,
+              0.75
+            ],
+            "cornerDelta": 1.41150094,
+            "angleRadians": 0
+          },
+          {
+            "id": 18,
+            "interval": [
+              0.54,
+              0.545
+            ],
+            "cornerDelta": 1.32923599,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.62,
+              0.625
+            ],
+            "cornerDelta": 1.30549534,
+            "angleRadians": 0
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.785,
+              0.79
+            ],
+            "cornerDelta": 1.29258574,
+            "angleRadians": 0
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.705,
+              0.71
+            ],
+            "cornerDelta": 1.26215681,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 6,
+            "interval": [
+              0.43,
+              0.435
+            ],
+            "cornerDelta": 1.18765988,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.265,
+              0.27
+            ],
+            "cornerDelta": 1.13693095,
+            "angleRadians": 0
+          }
+        ],
+        "refinement": [
+          {
+            "id": 17,
+            "interval": [
+              0.58,
+              0.585
+            ],
+            "refinedInterval": [
+              0.58228516,
+              0.58230469
+            ],
+            "initialCornerDelta": 1.45214695,
+            "finalCornerDelta": 0.00712916,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50019129,
+              0.500056,
+              0.50004309
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 9,
+            "interval": [
+              0.745,
+              0.75
+            ],
+            "refinedInterval": [
+              0.74716797,
+              0.7471875
+            ],
+            "initialCornerDelta": 1.41150094,
+            "finalCornerDelta": 0.00697606,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50035231,
+              0.50005389,
+              0.50001295
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 18,
+            "interval": [
+              0.54,
+              0.545
+            ],
+            "refinedInterval": [
+              0.54107422,
+              0.54109375
+            ],
+            "initialCornerDelta": 1.32923599,
+            "finalCornerDelta": 0.00717153,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50042353,
+              0.50012146,
+              0.50001095
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.62,
+              0.625
+            ],
+            "refinedInterval": [
+              0.62349609,
+              0.62351563
+            ],
+            "initialCornerDelta": 1.30549534,
+            "finalCornerDelta": 0.00708808,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50006601,
+              0.50009924,
+              0.50006567
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.785,
+              0.79
+            ],
+            "refinedInterval": [
+              0.78837891,
+              0.78839844
+            ],
+            "initialCornerDelta": 1.29258574,
+            "finalCornerDelta": 0.00694229,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50010161,
+              0.50005736,
+              0.50004424
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.705,
+              0.71
+            ],
+            "refinedInterval": [
+              0.7059375,
+              0.70595703
+            ],
+            "initialCornerDelta": 1.26215681,
+            "finalCornerDelta": 0.0070117,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50056644,
+              0.50017137,
+              0.50001147
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 6,
+            "interval": [
+              0.43,
+              0.435
+            ],
+            "refinedInterval": [
+              0.43248047,
+              0.4325
+            ],
+            "initialCornerDelta": 1.18765988,
+            "finalCornerDelta": 0.00557098,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50039585,
+              0.50010307,
+              0.50002609
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.265,
+              0.27
+            ],
+            "refinedInterval": [
+              0.26761719,
+              0.26763672
+            ],
+            "initialCornerDelta": 1.13693095,
+            "finalCornerDelta": 0.00534428,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50031422,
+              0.50003485,
+              0.50001576
+            ],
+            "suspectedJump": false
+          }
+        ]
+      }
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 1809,
+      "pairTests": 7236,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumMargins": {
+        "left": {
+          "margin": 175.89024633,
+          "progress": 0.355,
+          "state": "still",
+          "id": 18
+        },
+        "right": {
+          "margin": 82.52113307,
+          "progress": 0.205,
+          "state": "still",
+          "id": 18
+        },
+        "nav": {
+          "margin": 12.85894241,
+          "progress": 0.57,
+          "state": "still",
+          "id": 18
+        },
+        "footer": {
+          "margin": 23.78985912,
+          "progress": 0.555,
+          "state": "still",
+          "id": 21
+        }
+      },
+      "collisions": [],
+      "boundsFailures": [],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 17,
+            "interval": [
+              0.595,
+              0.6
+            ],
+            "cornerDelta": 1.49984656,
+            "angleRadians": 0
+          },
+          {
+            "id": 18,
+            "interval": [
+              0.555,
+              0.56
+            ],
+            "cornerDelta": 1.45636773,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.79,
+              0.795
+            ],
+            "cornerDelta": 1.41102936,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.635,
+              0.64
+            ],
+            "cornerDelta": 1.39722205,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 6,
+            "interval": [
+              0.83,
+              0.835
+            ],
+            "cornerDelta": 1.35264861,
+            "angleRadians": 0
+          },
+          {
+            "id": 9,
+            "interval": [
+              0.75,
+              0.755
+            ],
+            "cornerDelta": 1.25784386,
+            "angleRadians": 0
+          },
+          {
+            "id": 6,
+            "interval": [
+              0.415,
+              0.42
+            ],
+            "cornerDelta": 1.2337833,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 14,
+            "interval": [
+              0.455,
+              0.46
+            ],
+            "cornerDelta": 1.21256487,
+            "angleRadians": 1e-8
+          }
+        ],
+        "refinement": [
+          {
+            "id": 17,
+            "interval": [
+              0.595,
+              0.6
+            ],
+            "refinedInterval": [
+              0.59716797,
+              0.5971875
+            ],
+            "initialCornerDelta": 1.49984656,
+            "finalCornerDelta": 0.00752482,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50061145,
+              0.50013934,
+              0.50007847
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 18,
+            "interval": [
+              0.555,
+              0.56
+            ],
+            "refinedInterval": [
+              0.55802734,
+              0.55804688
+            ],
+            "initialCornerDelta": 1.45636773,
+            "finalCornerDelta": 0.00756958,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50005817,
+              0.50016004,
+              0.50006179
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.79,
+              0.795
+            ],
+            "refinedInterval": [
+              0.79291016,
+              0.79292969
+            ],
+            "initialCornerDelta": 1.41102936,
+            "finalCornerDelta": 0.00733035,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50013087,
+              0.50006596,
+              0.50004383
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.635,
+              0.64
+            ],
+            "refinedInterval": [
+              0.63632812,
+              0.63634766
+            ],
+            "initialCornerDelta": 1.39722205,
+            "finalCornerDelta": 0.00748251,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50000566,
+              0.50020901,
+              0.50004696
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 6,
+            "interval": [
+              0.83,
+              0.835
+            ],
+            "refinedInterval": [
+              0.83273438,
+              0.83275391
+            ],
+            "initialCornerDelta": 1.35264861,
+            "finalCornerDelta": 0.00676034,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50005657,
+              0.5000524,
+              0.50000801
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 9,
+            "interval": [
+              0.75,
+              0.755
+            ],
+            "refinedInterval": [
+              0.75376953,
+              0.75378906
+            ],
+            "initialCornerDelta": 1.25784386,
+            "finalCornerDelta": 0.0073656,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.5005719,
+              0.50011568,
+              0.50002038
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 6,
+            "interval": [
+              0.415,
+              0.42
+            ],
+            "refinedInterval": [
+              0.41761719,
+              0.41763672
+            ],
+            "initialCornerDelta": 1.2337833,
+            "finalCornerDelta": 0.00589773,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.5002777,
+              0.50001496,
+              0.50003656
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 14,
+            "interval": [
+              0.455,
+              0.46
+            ],
+            "refinedInterval": [
+              0.45675781,
+              0.45677734
+            ],
+            "initialCornerDelta": 1.21256487,
+            "finalCornerDelta": 0.0059595,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.500261,
+              0.50003571,
+              0.50002789
+            ],
+            "suspectedJump": false
+          }
+        ]
+      }
+    },
+    {
+      "viewport": [
+        800,
+        900
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 1005,
+      "pairTests": 2010,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumMargins": {
+        "left": {
+          "margin": 162.29651555,
+          "progress": 0.52,
+          "state": "still",
+          "id": 2
+        },
+        "right": {
+          "margin": 35.83387068,
+          "progress": 0.335,
+          "state": "still",
+          "id": 2
+        },
+        "nav": {
+          "margin": 41.0004438,
+          "progress": 0.665,
+          "state": "still",
+          "id": 18
+        },
+        "footer": {
+          "margin": 52.20569783,
+          "progress": 0.45,
+          "state": "still",
+          "id": 18
+        }
+      },
+      "collisions": [],
+      "boundsFailures": [],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 17,
+            "interval": [
+              0.705,
+              0.71
+            ],
+            "cornerDelta": 0.8043445,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 18,
+            "interval": [
+              0.65,
+              0.655
+            ],
+            "cornerDelta": 0.79733674,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.81,
+              0.815
+            ],
+            "cornerDelta": 0.73324448,
+            "angleRadians": 0
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.305,
+              0.31
+            ],
+            "cornerDelta": 0.73255065,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.36,
+              0.365
+            ],
+            "cornerDelta": 0.71117991,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.76,
+              0.765
+            ],
+            "cornerDelta": 0.6973935,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.25,
+              0.255
+            ],
+            "cornerDelta": 0.66495551,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 17,
+            "interval": [
+              0.2,
+              0.205
+            ],
+            "cornerDelta": 0.64893538,
+            "angleRadians": 0
+          }
+        ],
+        "refinement": [
+          {
+            "id": 17,
+            "interval": [
+              0.705,
+              0.71
+            ],
+            "refinedInterval": [
+              0.70658203,
+              0.70660156
+            ],
+            "initialCornerDelta": 0.8043445,
+            "finalCornerDelta": 0.00362518,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.5002363,
+              0.5000366,
+              0.5000218
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 18,
+            "interval": [
+              0.65,
+              0.655
+            ],
+            "refinedInterval": [
+              0.65304688,
+              0.65306641
+            ],
+            "initialCornerDelta": 0.79733674,
+            "finalCornerDelta": 0.00365171,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50008732,
+              0.50009686,
+              0.5000072
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.81,
+              0.815
+            ],
+            "refinedInterval": [
+              0.81369141,
+              0.81371094
+            ],
+            "initialCornerDelta": 0.73324448,
+            "finalCornerDelta": 0.00354183,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50007251,
+              0.50005814,
+              0.50000848
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.305,
+              0.31
+            ],
+            "refinedInterval": [
+              0.30792969,
+              0.30794922
+            ],
+            "initialCornerDelta": 0.73255065,
+            "finalCornerDelta": 0.00313038,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50011299,
+              0.5000303,
+              0.50001065
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.36,
+              0.365
+            ],
+            "refinedInterval": [
+              0.36146484,
+              0.36148437
+            ],
+            "initialCornerDelta": 0.71117991,
+            "finalCornerDelta": 0.00316676,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50003261,
+              0.50004596,
+              0.50000476
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.76,
+              0.765
+            ],
+            "refinedInterval": [
+              0.76011719,
+              0.76013672
+            ],
+            "initialCornerDelta": 0.6973935,
+            "finalCornerDelta": 0.00359918,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50019006,
+              0.50003433,
+              0.50000653
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.25,
+              0.255
+            ],
+            "refinedInterval": [
+              0.25441406,
+              0.25443359
+            ],
+            "initialCornerDelta": 0.66495551,
+            "finalCornerDelta": 0.00309446,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.5001315,
+              0.50000518,
+              0.50001846
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 17,
+            "interval": [
+              0.2,
+              0.205
+            ],
+            "refinedInterval": [
+              0.20083984,
+              0.20085938
+            ],
+            "initialCornerDelta": 0.64893538,
+            "finalCornerDelta": 0.00303369,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50003818,
+              0.50005121,
+              0.500011
+            ],
+            "suspectedJump": false
+          }
+        ]
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 1005,
+      "pairTests": 2010,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumMargins": {
+        "left": {
+          "margin": 31.53945829,
+          "progress": 0.58,
+          "state": "still",
+          "id": 19
+        },
+        "right": {
+          "margin": 15.34616271,
+          "progress": 0.335,
+          "state": "still",
+          "id": 2
+        },
+        "nav": {
+          "margin": 44.09374952,
+          "progress": 0.655,
+          "state": "still",
+          "id": 18
+        },
+        "footer": {
+          "margin": 52.54725256,
+          "progress": 0.66,
+          "state": "still",
+          "id": 21
+        }
+      },
+      "collisions": [],
+      "boundsFailures": [],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 18,
+            "interval": [
+              0.64,
+              0.645
+            ],
+            "cornerDelta": 0.7404829,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 17,
+            "interval": [
+              0.695,
+              0.7
+            ],
+            "cornerDelta": 0.73408996,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.75,
+              0.755
+            ],
+            "cornerDelta": 0.68200224,
+            "angleRadians": 0
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.37,
+              0.375
+            ],
+            "cornerDelta": 0.66982829,
+            "angleRadians": 2e-8
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.315,
+              0.32
+            ],
+            "cornerDelta": 0.64571261,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.81,
+              0.815
+            ],
+            "cornerDelta": 0.61710753,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.26,
+              0.265
+            ],
+            "cornerDelta": 0.5914881,
+            "angleRadians": 2e-8
+          },
+          {
+            "id": 17,
+            "interval": [
+              0.2,
+              0.205
+            ],
+            "cornerDelta": 0.59020498,
+            "angleRadians": 1e-8
+          }
+        ],
+        "refinement": [
+          {
+            "id": 18,
+            "interval": [
+              0.64,
+              0.645
+            ],
+            "refinedInterval": [
+              0.64160156,
+              0.64162109
+            ],
+            "initialCornerDelta": 0.7404829,
+            "finalCornerDelta": 0.00325937,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50014856,
+              0.50002311,
+              0.50001317
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 17,
+            "interval": [
+              0.695,
+              0.7
+            ],
+            "refinedInterval": [
+              0.69767578,
+              0.69769531
+            ],
+            "initialCornerDelta": 0.73408996,
+            "finalCornerDelta": 0.00323543,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50025317,
+              0.50005396,
+              0.5000262
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.75,
+              0.755
+            ],
+            "refinedInterval": [
+              0.75373047,
+              0.75375
+            ],
+            "initialCornerDelta": 0.68200224,
+            "finalCornerDelta": 0.0032118,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.5001566,
+              0.5000996,
+              0.50002677
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.37,
+              0.375
+            ],
+            "refinedInterval": [
+              0.37273438,
+              0.37275391
+            ],
+            "initialCornerDelta": 0.66982829,
+            "finalCornerDelta": 0.00280109,
+            "finalAngleRadians": 2e-8,
+            "lastRatios": [
+              0.50007408,
+              0.50001106,
+              0.50001002
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.315,
+              0.32
+            ],
+            "refinedInterval": [
+              0.31669922,
+              0.31671875
+            ],
+            "initialCornerDelta": 0.64571261,
+            "finalCornerDelta": 0.00276734,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50014161,
+              0.50001431,
+              0.50000055
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.81,
+              0.815
+            ],
+            "refinedInterval": [
+              0.81,
+              0.81001953
+            ],
+            "initialCornerDelta": 0.61710753,
+            "finalCornerDelta": 0.0031648,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50088064,
+              0.50044465,
+              0.50018818
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.26,
+              0.265
+            ],
+            "refinedInterval": [
+              0.260625,
+              0.26064453
+            ],
+            "initialCornerDelta": 0.5914881,
+            "finalCornerDelta": 0.0027342,
+            "finalAngleRadians": 2e-8,
+            "lastRatios": [
+              0.50008746,
+              0.50001798,
+              0.50000858
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 17,
+            "interval": [
+              0.2,
+              0.205
+            ],
+            "refinedInterval": [
+              0.20455078,
+              0.20457031
+            ],
+            "initialCornerDelta": 0.59020498,
+            "finalCornerDelta": 0.00269128,
+            "finalAngleRadians": 3e-8,
+            "lastRatios": [
+              0.50004544,
+              0.5000053,
+              0.50000689
+            ],
+            "suspectedJump": false
+          }
+        ]
+      }
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 1005,
+      "pairTests": 2010,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumMargins": {
+        "left": {
+          "margin": 40.68886801,
+          "progress": 0.415,
+          "state": "still",
+          "id": 18
+        },
+        "right": {
+          "margin": 13.25754502,
+          "progress": 0.225,
+          "state": "still",
+          "id": 18
+        },
+        "nav": {
+          "margin": 10.27046172,
+          "progress": 0.51,
+          "state": "still",
+          "id": 21
+        },
+        "footer": {
+          "margin": 17.73775029,
+          "progress": 0.44,
+          "state": "still",
+          "id": 18
+        }
+      },
+      "collisions": [],
+      "boundsFailures": [],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 18,
+            "interval": [
+              0.645,
+              0.65
+            ],
+            "cornerDelta": 0.64019966,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 17,
+            "interval": [
+              0.7,
+              0.705
+            ],
+            "cornerDelta": 0.63124509,
+            "angleRadians": 0
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.755,
+              0.76
+            ],
+            "cornerDelta": 0.62091141,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.81,
+              0.815
+            ],
+            "cornerDelta": 0.60605417,
+            "angleRadians": 0
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.365,
+              0.37
+            ],
+            "cornerDelta": 0.58342861,
+            "angleRadians": 3e-8
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.31,
+              0.315
+            ],
+            "cornerDelta": 0.57722068,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.255,
+              0.26
+            ],
+            "cornerDelta": 0.5700168,
+            "angleRadians": 2e-8
+          },
+          {
+            "id": 17,
+            "interval": [
+              0.2,
+              0.205
+            ],
+            "cornerDelta": 0.55913615,
+            "angleRadians": 1e-8
+          }
+        ],
+        "refinement": [
+          {
+            "id": 18,
+            "interval": [
+              0.645,
+              0.65
+            ],
+            "refinedInterval": [
+              0.64695313,
+              0.64697266
+            ],
+            "initialCornerDelta": 0.64019966,
+            "finalCornerDelta": 0.00280613,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50006449,
+              0.50008021,
+              0.50000822
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 17,
+            "interval": [
+              0.7,
+              0.705
+            ],
+            "refinedInterval": [
+              0.70175781,
+              0.70177734
+            ],
+            "initialCornerDelta": 0.63124509,
+            "finalCornerDelta": 0.0027817,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50022268,
+              0.50000867,
+              0.5000164
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.755,
+              0.76
+            ],
+            "refinedInterval": [
+              0.75654297,
+              0.7565625
+            ],
+            "initialCornerDelta": 0.62091141,
+            "finalCornerDelta": 0.00275801,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50009103,
+              0.50007372,
+              0.50001325
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.81,
+              0.815
+            ],
+            "refinedInterval": [
+              0.81134766,
+              0.81136719
+            ],
+            "initialCornerDelta": 0.60605417,
+            "finalCornerDelta": 0.00271863,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50000812,
+              0.50000254,
+              0.50002394
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.365,
+              0.37
+            ],
+            "refinedInterval": [
+              0.36732422,
+              0.36734375
+            ],
+            "initialCornerDelta": 0.58342861,
+            "finalCornerDelta": 0.00242403,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50010306,
+              0.50002808,
+              0.50000134
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.31,
+              0.315
+            ],
+            "refinedInterval": [
+              0.31248047,
+              0.3125
+            ],
+            "initialCornerDelta": 0.57722068,
+            "finalCornerDelta": 0.00238964,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50017092,
+              0.50007333,
+              0.50002952
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.255,
+              0.26
+            ],
+            "refinedInterval": [
+              0.25773438,
+              0.25775391
+            ],
+            "initialCornerDelta": 0.5700168,
+            "finalCornerDelta": 0.00235607,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50002199,
+              0.50004002,
+              0.50001199
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 17,
+            "interval": [
+              0.2,
+              0.205
+            ],
+            "refinedInterval": [
+              0.20292969,
+              0.20294922
+            ],
+            "initialCornerDelta": 0.55913615,
+            "finalCornerDelta": 0.00231038,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50009802,
+              0.50000469,
+              0.50001764
+            ],
+            "suspectedJump": false
+          }
+        ]
+      }
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 1809,
+      "pairTests": 7236,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumMargins": {
+        "left": {
+          "margin": 125.49829312,
+          "progress": 0.59,
+          "state": "still",
+          "id": 0
+        },
+        "right": {
+          "margin": 54.84109315,
+          "progress": 0.355,
+          "state": "still",
+          "id": 21
+        },
+        "nav": {
+          "margin": 19.04244123,
+          "progress": 0.585,
+          "state": "still",
+          "id": 18
+        },
+        "footer": {
+          "margin": 15.48522513,
+          "progress": 0.71,
+          "state": "still",
+          "id": 14
+        }
+      },
+      "collisions": [],
+      "boundsFailures": [],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 0,
+            "interval": [
+              0.795,
+              0.8
+            ],
+            "cornerDelta": 1.47015509,
+            "angleRadians": 0
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.72,
+              0.725
+            ],
+            "cornerDelta": 1.45937369,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 17,
+            "interval": [
+              0.61,
+              0.615
+            ],
+            "cornerDelta": 1.42376878,
+            "angleRadians": 0
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.645,
+              0.65
+            ],
+            "cornerDelta": 1.37147083,
+            "angleRadians": 0
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.685,
+              0.69
+            ],
+            "cornerDelta": 1.24350688,
+            "angleRadians": 0
+          },
+          {
+            "id": 18,
+            "interval": [
+              0.57,
+              0.575
+            ],
+            "cornerDelta": 1.22185727,
+            "angleRadians": 0
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.29,
+              0.295
+            ],
+            "cornerDelta": 1.21696449,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.215,
+              0.22
+            ],
+            "cornerDelta": 1.20801182,
+            "angleRadians": 1e-8
+          }
+        ],
+        "refinement": [
+          {
+            "id": 0,
+            "interval": [
+              0.795,
+              0.8
+            ],
+            "refinedInterval": [
+              0.79722656,
+              0.79724609
+            ],
+            "initialCornerDelta": 1.47015509,
+            "finalCornerDelta": 0.00754112,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50016123,
+              0.50012671,
+              0.50001351
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.72,
+              0.725
+            ],
+            "refinedInterval": [
+              0.72287109,
+              0.72289062
+            ],
+            "initialCornerDelta": 1.45937369,
+            "finalCornerDelta": 0.00762094,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50002282,
+              0.50020043,
+              0.50003835
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 17,
+            "interval": [
+              0.61,
+              0.615
+            ],
+            "refinedInterval": [
+              0.61132813,
+              0.61134766
+            ],
+            "initialCornerDelta": 1.42376878,
+            "finalCornerDelta": 0.00775505,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50019996,
+              0.50003962,
+              0.50003424
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.645,
+              0.65
+            ],
+            "refinedInterval": [
+              0.64851562,
+              0.64853516
+            ],
+            "initialCornerDelta": 1.37147083,
+            "finalCornerDelta": 0.0077082,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50013016,
+              0.50007085,
+              0.50004265
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.685,
+              0.69
+            ],
+            "refinedInterval": [
+              0.68570313,
+              0.68572266
+            ],
+            "initialCornerDelta": 1.24350688,
+            "finalCornerDelta": 0.00766311,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50006216,
+              0.5000999,
+              0.50005164
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 18,
+            "interval": [
+              0.57,
+              0.575
+            ],
+            "refinedInterval": [
+              0.57414062,
+              0.57416016
+            ],
+            "initialCornerDelta": 1.22185727,
+            "finalCornerDelta": 0.00780347,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50027038,
+              0.50001625,
+              0.50001175
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.29,
+              0.295
+            ],
+            "refinedInterval": [
+              0.29195312,
+              0.29197266
+            ],
+            "initialCornerDelta": 1.21696449,
+            "finalCornerDelta": 0.00601476,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50005696,
+              0.5001574,
+              0.50002632
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.215,
+              0.22
+            ],
+            "refinedInterval": [
+              0.21759766,
+              0.21761719
+            ],
+            "initialCornerDelta": 1.20801182,
+            "finalCornerDelta": 0.00589654,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50019894,
+              0.50008041,
+              0.50001588
+            ],
+            "suspectedJump": false
+          }
+        ]
+      }
+    },
+    {
+      "viewport": [
+        640,
+        360
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 1809,
+      "pairTests": 7236,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumMargins": {
+        "left": {
+          "margin": 87.94784517,
+          "progress": 0.63,
+          "state": "still",
+          "id": 6
+        },
+        "right": {
+          "margin": 41.25897529,
+          "progress": 0.52,
+          "state": "still",
+          "id": 14
+        },
+        "nav": {
+          "margin": 13.42379191,
+          "progress": 0.565,
+          "state": "still",
+          "id": 18
+        },
+        "footer": {
+          "margin": 10.52113031,
+          "progress": 0.635,
+          "state": "still",
+          "id": 0
+        }
+      },
+      "collisions": [],
+      "boundsFailures": [],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 0,
+            "interval": [
+              0.79,
+              0.795
+            ],
+            "cornerDelta": 1.4184711,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 9,
+            "interval": [
+              0.75,
+              0.755
+            ],
+            "cornerDelta": 1.39730337,
+            "angleRadians": 0
+          },
+          {
+            "id": 6,
+            "interval": [
+              0.83,
+              0.835
+            ],
+            "cornerDelta": 1.34336196,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.71,
+              0.715
+            ],
+            "cornerDelta": 1.32179999,
+            "angleRadians": 0
+          },
+          {
+            "id": 18,
+            "interval": [
+              0.555,
+              0.56
+            ],
+            "cornerDelta": 1.23207644,
+            "angleRadians": 2e-8
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.67,
+              0.675
+            ],
+            "cornerDelta": 1.20274198,
+            "angleRadians": 0
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.22,
+              0.225
+            ],
+            "cornerDelta": 1.15727544,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.26,
+              0.265
+            ],
+            "cornerDelta": 1.1514553,
+            "angleRadians": 0
+          }
+        ],
+        "refinement": [
+          {
+            "id": 0,
+            "interval": [
+              0.79,
+              0.795
+            ],
+            "refinedInterval": [
+              0.79230469,
+              0.79232422
+            ],
+            "initialCornerDelta": 1.4184711,
+            "finalCornerDelta": 0.0070828,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50033139,
+              0.50000373,
+              0.50007239
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 9,
+            "interval": [
+              0.75,
+              0.755
+            ],
+            "refinedInterval": [
+              0.75285156,
+              0.75287109
+            ],
+            "initialCornerDelta": 1.39730337,
+            "finalCornerDelta": 0.00712012,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50016206,
+              0.5000822,
+              0.50002663
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 6,
+            "interval": [
+              0.83,
+              0.835
+            ],
+            "refinedInterval": [
+              0.8325,
+              0.83251953
+            ],
+            "initialCornerDelta": 1.34336196,
+            "finalCornerDelta": 0.0065329,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50103206,
+              0.50043994,
+              0.500169
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.71,
+              0.715
+            ],
+            "refinedInterval": [
+              0.71341797,
+              0.7134375
+            ],
+            "initialCornerDelta": 1.32179999,
+            "finalCornerDelta": 0.00715918,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50052652,
+              0.5001517,
+              0.50001996
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 18,
+            "interval": [
+              0.555,
+              0.56
+            ],
+            "refinedInterval": [
+              0.55568359,
+              0.55570313
+            ],
+            "initialCornerDelta": 1.23207644,
+            "finalCornerDelta": 0.00733337,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50020911,
+              0.50000268,
+              0.50002018
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.67,
+              0.675
+            ],
+            "refinedInterval": [
+              0.67398438,
+              0.67400391
+            ],
+            "initialCornerDelta": 1.20274198,
+            "finalCornerDelta": 0.00719947,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50005326,
+              0.50008346,
+              0.50004585
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.22,
+              0.225
+            ],
+            "refinedInterval": [
+              0.22248047,
+              0.2225
+            ],
+            "initialCornerDelta": 1.15727544,
+            "finalCornerDelta": 0.00551775,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50070316,
+              0.50018092,
+              0.50009128
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.26,
+              0.265
+            ],
+            "refinedInterval": [
+              0.26195313,
+              0.26197266
+            ],
+            "initialCornerDelta": 1.1514553,
+            "finalCornerDelta": 0.00557535,
+            "finalAngleRadians": 4e-8,
+            "lastRatios": [
+              0.50006233,
+              0.50012772,
+              0.5000163
+            ],
+            "suspectedJump": false
+          }
+        ]
+      }
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "dimensions": [
+        1.1667,
+        2,
+        0.011
+      ],
+      "poseSamples": 1809,
+      "pairTests": 7236,
+      "intersectionSamples": 0,
+      "faceCrossingSamples": 0,
+      "touchSamples": 0,
+      "finiteFailures": [],
+      "minimumMargins": {
+        "left": {
+          "margin": 119.52322796,
+          "progress": 0.59,
+          "state": "still",
+          "id": 0
+        },
+        "right": {
+          "margin": 65.0264916,
+          "progress": 0.37,
+          "state": "still",
+          "id": 21
+        },
+        "nav": {
+          "margin": 18.3828719,
+          "progress": 0.545,
+          "state": "still",
+          "id": 18
+        },
+        "footer": {
+          "margin": 28.98032907,
+          "progress": 0.465,
+          "state": "still",
+          "id": 2
+        }
+      },
+      "collisions": [],
+      "boundsFailures": [],
+      "continuity": {
+        "largestSteps": [
+          {
+            "id": 17,
+            "interval": [
+              0.575,
+              0.58
+            ],
+            "cornerDelta": 1.43440433,
+            "angleRadians": 0
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.785,
+              0.79
+            ],
+            "cornerDelta": 1.37647696,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.7,
+              0.705
+            ],
+            "cornerDelta": 1.34293327,
+            "angleRadians": 0
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.66,
+              0.665
+            ],
+            "cornerDelta": 1.31497132,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 18,
+            "interval": [
+              0.535,
+              0.54
+            ],
+            "cornerDelta": 1.18195459,
+            "angleRadians": 0
+          },
+          {
+            "id": 6,
+            "interval": [
+              0.435,
+              0.44
+            ],
+            "cornerDelta": 1.17109355,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.225,
+              0.23
+            ],
+            "cornerDelta": 1.1042185,
+            "angleRadians": 1e-8
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.615,
+              0.62
+            ],
+            "cornerDelta": 1.10162846,
+            "angleRadians": 0
+          }
+        ],
+        "refinement": [
+          {
+            "id": 17,
+            "interval": [
+              0.575,
+              0.58
+            ],
+            "refinedInterval": [
+              0.5775,
+              0.57751953
+            ],
+            "initialCornerDelta": 1.43440433,
+            "finalCornerDelta": 0.00699573,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50115525,
+              0.50049459,
+              0.50019134
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 0,
+            "interval": [
+              0.785,
+              0.79
+            ],
+            "refinedInterval": [
+              0.78689453,
+              0.78691406
+            ],
+            "initialCornerDelta": 1.37647696,
+            "finalCornerDelta": 0.00682339,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50048375,
+              0.50005244,
+              0.50004034
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 21,
+            "interval": [
+              0.7,
+              0.705
+            ],
+            "refinedInterval": [
+              0.70310547,
+              0.703125
+            ],
+            "initialCornerDelta": 1.34293327,
+            "finalCornerDelta": 0.00689205,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50035945,
+              0.50006064,
+              0.50002173
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 19,
+            "interval": [
+              0.66,
+              0.665
+            ],
+            "refinedInterval": [
+              0.66125,
+              0.66126953
+            ],
+            "initialCornerDelta": 1.31497132,
+            "finalCornerDelta": 0.00692366,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50090488,
+              0.50026151,
+              0.50013219
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 18,
+            "interval": [
+              0.535,
+              0.54
+            ],
+            "refinedInterval": [
+              0.53550781,
+              0.53552734
+            ],
+            "initialCornerDelta": 1.18195459,
+            "finalCornerDelta": 0.00704985,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50021978,
+              0.50007592,
+              0.5000259
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 6,
+            "interval": [
+              0.435,
+              0.44
+            ],
+            "refinedInterval": [
+              0.43736328,
+              0.43738281
+            ],
+            "initialCornerDelta": 1.17109355,
+            "finalCornerDelta": 0.00547086,
+            "finalAngleRadians": 2e-8,
+            "lastRatios": [
+              0.50037095,
+              0.50006397,
+              0.5000048
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.225,
+              0.23
+            ],
+            "refinedInterval": [
+              0.22787109,
+              0.22789063
+            ],
+            "initialCornerDelta": 1.1042185,
+            "finalCornerDelta": 0.00519385,
+            "finalAngleRadians": 1e-8,
+            "lastRatios": [
+              0.50002945,
+              0.50013672,
+              0.50003631
+            ],
+            "suspectedJump": false
+          },
+          {
+            "id": 2,
+            "interval": [
+              0.615,
+              0.62
+            ],
+            "refinedInterval": [
+              0.61929687,
+              0.61931641
+            ],
+            "initialCornerDelta": 1.10162846,
+            "finalCornerDelta": 0.00696744,
+            "finalAngleRadians": 0,
+            "lastRatios": [
+              0.50007571,
+              0.50013669,
+              0.5000058
+            ],
+            "suspectedJump": false
+          }
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "finite": true,
+    "pairTests": 42210,
+    "intersectionSamples": 0,
+    "faceCrossingSamples": 0,
+    "passingBounds": true,
+    "suspectedJumpCount": 0,
+    "passingSeparation": true
+  }
+}

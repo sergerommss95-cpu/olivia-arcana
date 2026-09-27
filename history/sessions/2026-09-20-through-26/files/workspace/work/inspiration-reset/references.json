@@ -1,0 +1,80 @@
+[
+  {
+    "id": "01",
+    "name": "Pierre Legrain",
+    "title": "Binding for Le Cantique des cantiques",
+    "kind": "Bookbinding · edition published 1925",
+    "image": "https://www.bnf.fr/sites/default/files/2024-11/tresor-3juin-BNF_2024_168674HD.jpg",
+    "url": "https://www.bnf.fr/fr/agenda/francois-louis-schmied-et-pierre-legrain-le-cantique-des-cantiques-ode-lart-deco",
+    "credit": "Bibliothèque nationale de France · Réserve des livres rares",
+    "cls": "binding",
+    "observation": "Broad inlaid shapes, tight rows of rings and extremely fine lines have separate jobs. The material supports a deliberate drawing.",
+    "lesson": "For Olivia: a custom O/A construction, one ivory sweep and a few engraved gold lines. Resolve the mark in one colour, then build a reversible inlay composition from it.",
+    "avoid": "Borrow the hierarchy and precision. Do not reproduce this arrangement of bands and circles."
+  },
+  {
+    "id": "02",
+    "name": "Lotrek / Oath",
+    "title": "Silk Blue",
+    "kind": "Contemporary playing-card back",
+    "image": "https://static.wixstatic.com/media/8149fd_2a5ebda9d1f64cf9af384d8016ce7830~mv2.jpg",
+    "url": "https://www.oathplayingcards.com/gallery",
+    "credit": "Oath Playing Cards · photograph by Melania Damianou",
+    "cls": "",
+    "observation": "Broad pale silhouettes stay legible above fine directional engraving. Birds and plants belong to one connected structure.",
+    "lesson": "For Olivia: let the entire back carry the identity. Build large ivory forms first; reserve fine detail for their interiors.",
+    "avoid": "Study the changes in scale. Do not reuse its birds, flowers or ornamental composition."
+  },
+  {
+    "id": "03",
+    "name": "Koloman Moser",
+    "title": "Forellen-Reigen",
+    "kind": "Textile pattern · 1899",
+    "image": "https://mak-media.azureedge.net/xl/0477dfe77459f18ea6041d2cc1237dc0.jpg",
+    "url": "https://sammlung.mak.at/de/collect/forellen-reigen_95103",
+    "credit": "MAK, Vienna · T 5364",
+    "cls": "",
+    "observation": "Interlocking fish create a larger wave. Figure and background share the same contour, so the spaces between shapes are active parts of the design.",
+    "lesson": "For Olivia: invent an interlocking pair of organic forms. One unit could become the emblem; its repeat could cover the back. The olive can be suggested through taper and growth.",
+    "avoid": "Borrow the relationship between shape and space, not the fish motif."
+  },
+  {
+    "id": "04",
+    "name": "Japanese katagami",
+    "title": "Arrow Design Imitating Warp Ikat",
+    "kind": "Paper stencil · probably Meiji period",
+    "image": "https://images.collection.cooperhewitt.org/56026_3787dda1fd3e1325_b.jpg",
+    "url": "https://www.cooperhewitt.org/2016/09/14/pattern-papers/",
+    "credit": "Cooper Hewitt, Smithsonian Design Museum",
+    "cls": "",
+    "observation": "Very narrow cuts create a dense surface, while a few large opposing shapes give it clarity. The fine detail follows a consistent direction.",
+    "lesson": "For Olivia: use engraved lines to create a change in tone around a strong original symbol. Let open blue areas be shaped as carefully as the ivory.",
+    "avoid": "Study the cutting logic. Do not transplant Japanese talismanic motifs as decoration."
+  },
+  {
+    "id": "05",
+    "name": "Lotrek / Oath",
+    "title": "Damask Blue",
+    "kind": "Contemporary playing-card back",
+    "image": "https://static.wixstatic.com/media/8149fd_1e6087f9a5324de3ae420607b8dd48dc~mv2.jpg",
+    "url": "https://www.oathplayingcards.com/gallery",
+    "credit": "Oath Playing Cards · photograph by Melania Damianou",
+    "cls": "",
+    "observation": "The ornament continues to the cut edge. Dark intervals separate the reflective forms and keep the dense pattern readable.",
+    "lesson": "For Olivia: compose a continuous shallow relief across the card. Control its open channels and the few places where gold catches the light.",
+    "avoid": "Borrow the surface rhythm. Do not copy the acanthus drawing or its colour treatment."
+  },
+  {
+    "id": "06",
+    "name": "Giovanni Meroni / Thirdway Industries",
+    "title": "Lunatica",
+    "kind": "Contemporary playing-card backs",
+    "image": "https://www.thirdwayindustries.com/wp-content/uploads/2018/01/bakcs.png",
+    "url": "https://www.thirdwayindustries.com/lunatica-playing-cards/",
+    "credit": "Thirdway Industries · official back comparison",
+    "cls": "",
+    "observation": "Two different backs share a clear compositional skeleton. Repeated curves and a central interlock make each detail feel related to the rest.",
+    "lesson": "For Olivia: decide on a small family of curves and joints, then use it consistently in the emblem, border and back. Test the whole composition at card size.",
+    "avoid": "Study the consistency. Its neon palette, angular ornament and celestial symbols are not the proposed Olivia direction."
+  }
+]

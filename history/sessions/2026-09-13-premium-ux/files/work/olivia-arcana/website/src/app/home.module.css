@@ -1,0 +1,190 @@
+.home {
+  --paper: #0c1029;
+  --ink: #f0eadf;
+  --ink-soft: #c0bfc8;
+  --ink-faint: #a5a6b6;
+  --hairline: #35394b;
+  --ox: #d8bb84;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  min-height: 100svh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), sans-serif;
+}
+
+.home :global(h1), .home :global(h2), .home :global(h3), .home :global(p) { margin-top: 0; }
+.home :global(a) { text-decoration: none; }
+.home :global(a:focus-visible), .home :global(button:focus-visible), .home :global(summary:focus-visible) { outline: 2px solid var(--ox); outline-offset: 5px; }
+.home :global(::selection) { background: #d8bb8440; }
+
+/* Overlay the masthead so the Arrival begins at the viewport edge.
+   Its subtle ink wash protects navigation without adding a second scene. */
+.home :global(.masthead) { position: absolute; inset: 0 0 auto; z-index: 10; width: 100%; padding: .5rem clamp(1.1rem, 4vw, 3.5rem) 0; background: linear-gradient(180deg, #0c1029e8 0%, #0c1029b3 65%, #0c102900 100%); }
+.home :global(.masthead-rule) { height: 1px; background: var(--hairline); }
+.home :global(.masthead-rule.thick) { height: 1px; background: var(--hairline); }
+.home :global(.masthead-row) { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: .55rem 0; }
+.home :global(.wordmark) { font-family: var(--font-heading), serif; font-size: 1.6rem; font-weight: 500; color: var(--ink); letter-spacing: -.025em; white-space: nowrap; }
+.home :global(.masthead-est) { display: none; margin: 0; color: var(--ink-faint); font-size: .65rem; letter-spacing: .05em; }
+.home :global(.edition-line) { display: inline-flex; align-items: center; gap: .5em; }
+.home :global(.reader-chip) { color: var(--ox); }
+.home :global(.masthead-nav) { display: flex; align-items: center; flex-shrink: 0; gap: clamp(.9rem, 2vw, 2rem); }
+.home :global(.masthead-link), .home :global(.masthead-cta), .home :global(.mast-more summary) { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-soft); font-family: var(--font-body), sans-serif; font-size: .72rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.home :global(.masthead-link:hover), .home :global(.mast-more summary:hover) { color: var(--ox); }
+.home :global(.masthead-cta) { padding: .6rem 1rem; color: var(--ox); border: 1px solid #d8bb8450; transition: background 180ms ease, color 180ms ease; }
+.home :global(.masthead-cta:hover) { color: var(--paper); background: var(--ox); }
+.home :global(.masthead-title) { margin: .1rem 0 .65rem; color: var(--ink-faint); font-size: .6rem; letter-spacing: .34em; text-align: center; text-transform: uppercase; }
+.home :global(.counsel) { display: flex; align-items: baseline; justify-content: center; gap: .65rem; min-height: 2.6rem; padding: .5rem 0; }
+.home :global(.counsel-mark) { color: var(--ox); }
+.home :global(.counsel-line) { max-width: 85ch; margin: 0; color: var(--ink-soft); font-family: var(--font-heading), serif; font-size: 1.03rem; line-height: 1.4; text-align: center; }
+.home :global(.counsel-for) { margin-right: .35rem; color: var(--ink-faint); font-family: var(--font-body), sans-serif; font-size: .58rem; letter-spacing: .13em; text-transform: uppercase; }
+.home :global(.mast-more) { position: relative; }
+.home :global(.mast-more summary) { gap: .5rem; cursor: pointer; list-style: none; }
+.home :global(.mast-more summary::-webkit-details-marker) { display: none; }
+.home :global(.mast-menu) { position: absolute; z-index: 150; right: 0; top: calc(100% + 8px); display: grid; width: 16rem; max-height: min(72svh, 580px); overflow-y: auto; padding: .55rem; border: 1px solid var(--hairline); background: #111630; }
+.home :global(.mast-menu-link) { display: flex; align-items: center; min-height: 44px; padding: .6rem .75rem; color: var(--ink-soft); font-size: .85rem; }
+.home :global(.mast-menu-link:hover) { background: #f0eadf0a; color: var(--ox); }
+.home :global(.mast-language) { padding: .8rem .7rem; border-top: 1px solid var(--hairline); }
+
+/* Arrival ends at this exact ground. No ornamental spacer or moving wallpaper. */
+.home :global(.plates) { position: relative; z-index: 2; width: min(100%, 80rem); margin: 0 auto; padding: clamp(3.5rem, 5vw, 5rem) clamp(1.25rem, 5vw, 4rem) 0; scroll-margin-top: 1.5rem; }
+.home :global(.plates:focus) { outline: none; }
+.home :global(.plates-opening) { display: grid; grid-template-columns: minmax(0, .46fr) minmax(0, 1fr); column-gap: 2rem; padding-bottom: clamp(2.5rem, 5vw, 4.5rem); border-bottom: 1px solid var(--hairline); }
+.home :global(.section-label) { color: var(--ox); font-size: .69rem; line-height: 1.6; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; }
+.home :global(.plates-opening > .section-label) { padding-top: .5rem; }
+.home :global(.plates-opening h2) { margin: 0; font-family: var(--font-heading), serif; font-size: clamp(2.6rem, 5.2vw, 4.6rem); font-weight: 400; line-height: .98; letter-spacing: -.035em; text-wrap: balance; }
+.home :global(.plates-opening h2 em) { color: #b9b8c6; font-weight: 400; }
+.home :global(.plates-promise) { grid-column: 2; margin: 1.25rem 0 0; color: var(--ink-soft); font-size: .89rem; line-height: 1.7; }
+
+.home :global(.service) { display: grid; grid-template-columns: minmax(0, .86fr) minmax(0, 1.14fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; padding: clamp(3.5rem, 6vw, 5.75rem) 0; }
+.home :global(.service + .service) { border-top: 1px solid var(--hairline); }
+.home :global(.service-chart) { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); }
+.home :global(.service-copy) { min-width: 0; }
+.home :global(.service-copy > .section-label) { margin-bottom: 1.4rem; }
+.home :global(.service h3) { margin: 0; font-family: var(--font-heading), serif; font-size: clamp(3rem, 5.5vw, 4.5rem); font-weight: 400; line-height: .98; letter-spacing: -.04em; text-wrap: balance; }
+.home :global(.service-body) { max-width: 40ch; margin: 1.45rem 0 0; color: var(--ink-soft); font-size: .98rem; line-height: 1.85; }
+.home :global(.service-link) { display: inline-flex; align-items: center; justify-content: space-between; gap: 2rem; min-height: 52px; padding: .55rem 0; margin-top: 1.45rem; border-bottom: 1px solid #d8bb8460; color: var(--ox); font-size: .93rem; }
+.home :global(.service-link > span) { display: inline-block; font-size: 1.3rem; transition: transform 220ms var(--ease); }
+.home :global(.service-link:hover > span) { transform: translate(3px, -3px); }
+.home :global(.service-link:hover) { border-color: var(--ox); }
+.home :global(.service-note) { max-width: 33ch; margin: 1.8rem 0 0; color: var(--ink-faint); font-size: .75rem; line-height: 1.8; }
+.home :global(.service-figure) { min-width: 0; margin: 0; }
+.home :global(.service-figure figcaption) { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1rem; padding-top: 1rem; border-top: 1px solid var(--hairline); color: var(--ink-faint); font-size: .62rem; line-height: 1.65; letter-spacing: .08em; }
+.home :global(.service-figure figcaption > span:first-child) { color: var(--ink-soft); text-transform: uppercase; }
+
+/* Three real carved plates, responsive to the hand and otherwise still. */
+.home :global(.deck-specimen) { position: relative; display: block; width: 100%; height: clamp(330px, 34vw, 455px); isolation: isolate; }
+.home :global(.deck-card) { position: absolute; left: 50%; top: 48%; width: clamp(126px, 13.8vw, 178px); aspect-ratio: 184 / 318; transform-origin: 50% 85%; border: 1px solid #d8bb8460; border-radius: 4px; overflow: hidden; box-shadow: 0 15px 30px #03061750; transition: transform 520ms var(--ease); }
+.home :global(.deck-card img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+.home :global(.deck-card-0) { z-index: 1; transform: translate(-95%, -42%) rotate(-12deg); }
+.home :global(.deck-card-1) { z-index: 3; transform: translate(-50%, -54%); }
+.home :global(.deck-card-2) { z-index: 2; transform: translate(-5%, -42%) rotate(12deg); }
+.home :global(.deck-baseline) { position: absolute; bottom: 16%; left: 9%; right: 9%; height: 1px; background: #d8bb8425; }
+.home :global(.deck-invitation) { position: absolute; bottom: 1.35rem; left: 50%; display: flex; justify-content: center; align-items: center; gap: 1.1rem; width: max-content; max-width: 100%; transform: translateX(-50%); color: var(--ox); font-size: .75rem; }
+.home :global(.deck-invitation > span) { font-size: 1.1rem; }
+.home :global(.deck-specimen:focus-visible .deck-card-0) { transform: translate(-109%, -44%) rotate(-16deg); }
+.home :global(.deck-specimen:focus-visible .deck-card-1) { transform: translate(-50%, -59%); }
+.home :global(.deck-specimen:focus-visible .deck-card-2) { transform: translate(9%, -44%) rotate(16deg); }
+@media (hover: hover) and (pointer: fine) {
+  .home :global(.deck-specimen:hover .deck-card-0) { transform: translate(-109%, -44%) rotate(-16deg); }
+  .home :global(.deck-specimen:hover .deck-card-1) { transform: translate(-50%, -59%); }
+  .home :global(.deck-specimen:hover .deck-card-2) { transform: translate(9%, -44%) rotate(16deg); }
+}
+.home :global(.chart-specimen-frame) { display: grid; place-items: center; min-height: clamp(330px, 34vw, 430px); }
+.home :global(.zodiac-specimen) { display: block; width: min(100%, 360px); height: auto; color: #beb9a9; }
+
+/* The optional date inscription: one useful, legible question. */
+.home :global(.plate-inscribe) { margin-top: 1.8rem; padding-top: 1.5rem; border-top: 1px solid var(--hairline); scroll-margin-top: 3rem; }
+.home :global(.ins-q) { display: block; margin-bottom: 1rem; color: var(--ink-soft); font-size: .86rem; }
+.home :global(.ins-row) { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1rem; }
+.home :global(.ins-dmy) { display: flex; align-items: center; gap: .35rem; padding: 0; margin: 0; border: 0; }
+.home :global(.ins-cell) { min-height: 44px; padding: .4rem .1rem; border: 0; border-radius: 0; border-bottom: 1px solid #777b8d; background: transparent; color: var(--ink); font-family: var(--font-body), sans-serif; font-size: 1.05rem; text-align: center; caret-color: var(--ox); }
+.home :global(.ins-cell::placeholder) { color: var(--ink-faint); }
+.home :global(.ins-cell:focus-visible) { outline: 2px solid var(--ox); outline-offset: 3px; }
+.home :global(.ins-cell.is-filled) { border-bottom-color: var(--ox); }
+.home :global(.ins-sep) { color: var(--ink-faint); }
+.home :global(.btn-ink) { display: inline-flex; justify-content: center; align-items: center; min-height: 44px; padding: .75rem 1.1rem; border: 1px solid var(--ox); border-radius: 0; background: var(--ox); color: var(--paper); font-size: .8rem; line-height: 1.4; cursor: pointer; transition: background 180ms ease; }
+.home :global(.btn-ink:hover) { background: #ead1a3; }
+.home :global(.ins-priv) { max-width: 45ch; margin: .9rem 0 0; color: var(--ink-faint); font-size: .68rem; line-height: 1.7; }
+.home :global(.ins-done) { display: grid; justify-items: start; gap: .6rem; }
+.home :global(.ins-glyph) { font-size: 1.65rem; color: var(--ox); }
+.home :global(.ins-line) { margin: 0; color: var(--ink-soft); font-size: .77rem; line-height: 1.8; }
+.home :global(.ins-charts) { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem 1.3rem; margin-top: .6rem; }
+.home :global(.link-ox) { display: inline-flex; align-items: center; min-height: 44px; color: var(--ox); font-size: .78rem; text-decoration: underline; text-underline-offset: 4px; }
+.home :global(.ins-actions) { display: flex; gap: 1rem; }
+.home :global(.ins-flash), .home :global(.ins-forget) { min-height: 44px; padding: .5rem 0; border: 0; background: transparent; color: var(--ink-faint); font-size: .72rem; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+.home :global(.ins-done .ins-priv) { margin-top: 0; }
+
+.home :global(.almanac-marginalia) { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; padding: 2.5rem 0 3.5rem; border-top: 1px solid var(--hairline); }
+.home :global(.daily-link) { display: grid; align-content: center; gap: .8rem; min-height: 100px; padding: .5rem 0 .5rem 2rem; border-left: 1px solid var(--hairline); color: var(--ink); }
+.home :global(.daily-link > span:last-child) { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; font-family: var(--font-heading), serif; font-size: clamp(1.5rem, 2.3vw, 2rem); line-height: 1.1; }
+.home :global(.daily-link > span:last-child > span) { color: var(--ox); transition: transform 200ms var(--ease); }
+.home :global(.daily-link:hover > span:last-child > span) { transform: translate(3px, -3px); }
+
+.home :global(.colophon) { position: relative; z-index: 2; width: min(100%, 80rem); margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 4rem) 2rem; }
+.home :global(.colophon-grid) { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: start; gap: 3rem; padding-top: 3rem; border-top: 1px solid var(--hairline); }
+.home :global(.wordmark.as-text) { margin-bottom: .85rem; font-size: 2.15rem; }
+.home :global(.colophon-desc) { max-width: 42ch; margin-bottom: .9rem; color: var(--ink-soft); font-size: .85rem; line-height: 1.8; }
+.home :global(.colophon-note) { max-width: 52ch; margin: 0; color: var(--ink-faint); font-size: .67rem; line-height: 1.7; }
+.home :global(.colophon-links) { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .2rem 1.8rem; }
+.home :global(.colophon-link) { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-soft); font-size: .78rem; }
+.home :global(.colophon-link:hover) { color: var(--ox); }
+.home :global(.colophon-bottom) { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem; padding-top: 2.5rem; color: var(--ink-faint); font-size: .6rem; line-height: 1.7; letter-spacing: .04em; }
+.home :global(.colophon-bottom p) { margin: 0; }
+.home :global(.edition-stamp) { color: var(--ox); white-space: nowrap; }
+.home :global(.edition-stamp span) { margin-left: 1rem; }
+
+@media (min-width: 1550px) { .home :global(.masthead-est) { display: block; } }
+@media (max-width: 900px) {
+  .home :global(.plates-opening) { grid-template-columns: 1fr; gap: .8rem; }
+  .home :global(.plates-opening > .section-label) { padding: 0; margin: 0 0 .8rem; }
+  .home :global(.plates-promise) { grid-column: 1; margin-top: .3rem; }
+  .home :global(.service), .home :global(.service-chart) { gap: 2rem; }
+  .home :global(.service h3) { font-size: clamp(2.8rem, 6.5vw, 3.7rem); }
+  .home :global(.deck-card) { width: 126px; }
+}
+@media (max-width: 700px) {
+  .home :global(.masthead) { padding-top: .3rem; }
+  .home :global(.masthead .wordmark) { font-size: 1.2rem; }
+  .home :global(.masthead-nav) { gap: .8rem; }
+  .home :global(.masthead .masthead-link) { display: none; }
+  .home :global(.masthead .masthead-cta) { padding: .55rem .65rem; font-size: .59rem; }
+  .home :global(.mast-more summary) { font-size: .65rem; }
+  .home :global(.masthead-title) { font-size: .54rem; margin-bottom: .55rem; }
+  .home :global(.mast-menu) { right: -7.1rem; }
+  .home :global(.counsel-line) { font-size: .89rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .home :global(.counsel-for) { display: none; }
+  .home :global(.counsel) { min-height: 2rem; }
+  .home :global(.service), .home :global(.service-chart) { grid-template-columns: 1fr; gap: 2rem; padding: 2.75rem 0; }
+  .home :global(.service-chart .service-copy) { order: 0; }
+  .home :global(.service-chart .service-figure) { order: 1; }
+  .home :global(.service h3) { font-size: 3.25rem; }
+  .home :global(.service-copy > .section-label) { margin-bottom: 1rem; }
+  .home :global(.service-body) { max-width: 46ch; margin-top: 1rem; }
+  .home :global(.service-note) { margin-top: 1.2rem; }
+  .home :global(.deck-specimen) { max-width: 430px; height: 340px; margin: 0 auto; }
+  .home :global(.deck-card) { width: clamp(123px, 35vw, 150px); }
+  .home :global(.chart-specimen-frame) { min-height: 0; padding: 1rem 0 2rem; }
+  .home :global(.zodiac-specimen) { width: min(100%, 315px); }
+  .home :global(.service-figure figcaption) { font-size: .6rem; }
+  .home :global(.almanac-marginalia) { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 0 2.5rem; }
+  .home :global(.daily-link) { padding: 1.75rem 0 0; border-left: 0; border-top: 1px solid var(--hairline); }
+  .home :global(.colophon-grid) { grid-template-columns: 1fr; gap: 1.5rem; padding-top: 2.5rem; }
+  .home :global(.colophon-links) { justify-content: flex-start; }
+  .home :global(.colophon-bottom) { padding-top: 1.8rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home :global(.deck-card), .home :global(.service-link > span), .home :global(.daily-link > span:last-child > span) { transition: none; }
+  .home :global(.deck-specimen:hover .deck-card-0), .home :global(.deck-specimen:focus-visible .deck-card-0) { transform: translate(-95%, -42%) rotate(-12deg); }
+  .home :global(.deck-specimen:hover .deck-card-1), .home :global(.deck-specimen:focus-visible .deck-card-1) { transform: translate(-50%, -54%); }
+  .home :global(.deck-specimen:hover .deck-card-2), .home :global(.deck-specimen:focus-visible .deck-card-2) { transform: translate(-5%, -42%) rotate(12deg); }
+}
+@media print {
+  .home { background: #fffdf6; color: #171b2e; --ink: #171b2e; --ink-soft: #303442; --ink-faint: #444959; --ox: #785820; }
+  .home :global(.masthead) { position: relative; background: none; }
+  .home :global(.masthead-nav), .home :global(.ins-actions), .home :global(.ins-forget) { display: none; }
+  .home :global(.service) { break-inside: avoid; }
+  .home :global(.deck-card) { box-shadow: none; }
+}

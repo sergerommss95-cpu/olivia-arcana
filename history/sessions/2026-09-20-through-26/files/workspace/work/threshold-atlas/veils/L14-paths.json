@@ -1,0 +1,10 @@
+{
+  "id": "L14",
+  "name": "The Unfolding",
+  "description": "A diagonal fold between two quiet upright contours opens an asymmetric passage.",
+  "paths": [
+    "M 235 119 C 181 209 170 360 196 475 C 222 379 210 239 235 119 Z",
+    "M 365 125 C 396 245 373 370 404 479 C 430 359 422 218 365 125 Z",
+    "M 248 124 C 231 223 266 290 313 351 C 352 401 383 435 404 479 C 390 411 361 367 326 323 C 272 257 247 206 248 124 Z"
+  ]
+}

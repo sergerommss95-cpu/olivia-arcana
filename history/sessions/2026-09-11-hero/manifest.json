@@ -1,0 +1,1387 @@
+{
+  "format_version": 1,
+  "archive_date": "2026-09-26",
+  "session": "2026-09-11-hero",
+  "purpose": "Historical continuation archive; not the active product or deployment root.",
+  "source_roots": {
+    "session": "Codex/2026-09-11/i",
+    "generated-images": ".codex/generated_images/01a090fc-e6a6-7f32-acc0-343badbb62ca"
+  },
+  "path_convention": "source is relative to its source_root (default session); destination is relative to the handoff repository root.",
+  "hash_convention": "source_sha256 hashes the original source bytes; sha256 hashes the preserved, possibly sanitized bytes; excluded files and excluded directory trees are deliberately not read or hashed.",
+  "security_review": {
+    "raw_session_records": "Excluded, including SESSION files, command/browser dumps and screenshots.",
+    "credentials": "Environment and credential files excluded. Retained UTF-8 text scanned for private keys, known service tokens, credential URLs, bearer/JWT tokens and credential assignments. Additional assignment and query-token review performed.",
+    "credential_redactions": 0,
+    "local_path_redactions": 49,
+    "local_path_replacement": "<LOCAL_HOME>",
+    "limitations": "Pattern-based scan and targeted review, not a guarantee that all sensitive content can be identified automatically. Historical runtime configuration is omitted."
+  },
+  "counts": {
+    "excluded": 26,
+    "included": 72,
+    "duplicate": 57
+  },
+  "included_bytes": 35992929,
+  "exclusion_scope": "A source entry ending with / excludes that complete directory tree. Counts represent inventory entries, not the contents of skipped directory trees.",
+  "entries": [
+    {
+      "source": ".DS_Store",
+      "status": "excluded",
+      "reason": "filesystem-metadata"
+    },
+    {
+      "source": "work/check-board.cjs",
+      "source_sha256": "d0abbc9b84578f46a34de0ca9574efbf0d1e9022be10863d05dece6aa585a0d4",
+      "bytes": 1641,
+      "sha256": "6d9e5c5da1cb79d7f73de6bfc25e2e4c1b1f922ebcad4b1791163c207e235ce9",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/check-board.cjs"
+    },
+    {
+      "source": "work/claude-atlas.png",
+      "status": "excluded",
+      "reason": "reference-or-QA-screen-capture"
+    },
+    {
+      "source": "work/claude-home.png",
+      "status": "excluded",
+      "reason": "reference-or-QA-screen-capture"
+    },
+    {
+      "source": "work/claude-integration-notes.md",
+      "source_sha256": "45cc4a76651a3ebc0a832e78302142958f8816b985e495dffc2a611a9296d7a7",
+      "bytes": 12460,
+      "sha256": "45cc4a76651a3ebc0a832e78302142958f8816b985e495dffc2a611a9296d7a7",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/claude-integration-notes.md"
+    },
+    {
+      "source": "work/design-context.md",
+      "source_sha256": "face3c1343a8301756be1d6479d91ce3d0f5dbaaa68c5b52cda9cae1f7fdff07",
+      "bytes": 1092,
+      "sha256": "face3c1343a8301756be1d6479d91ce3d0f5dbaaa68c5b52cda9cae1f7fdff07",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/design-context.md"
+    },
+    {
+      "source": "work/final-check-report.json",
+      "status": "excluded",
+      "reason": "tool-or-browser-audit-dump"
+    },
+    {
+      "source": "work/final-check.cjs",
+      "source_sha256": "94df393091a897dc03be6721352ee50a61459393e967b6407980ced754294424",
+      "bytes": 3504,
+      "sha256": "800fb1df529c1704b02cace9547372482c0fba4cc9d65b300c9c4e92a1cc6c0d",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 3
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/final-check.cjs"
+    },
+    {
+      "source": "work/hero-shell.html",
+      "source_sha256": "c443cf9388d2d83ebd1fa725139e9a8d63050187de73cac6048674458a2b199b",
+      "bytes": 4263,
+      "sha256": "c443cf9388d2d83ebd1fa725139e9a8d63050187de73cac6048674458a2b199b",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/hero-shell.html"
+    },
+    {
+      "source": "work/hero.css",
+      "source_sha256": "b77b861f129cdb60d2c5fbeaf7fbe055dd9161aede14c8529b205fe3573fbb1f",
+      "bytes": 9829,
+      "sha256": "b77b861f129cdb60d2c5fbeaf7fbe055dd9161aede14c8529b205fe3573fbb1f",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/hero.css"
+    },
+    {
+      "source": "work/hero.js",
+      "source_sha256": "bb015fbde91fcdca26cacf7833157d6b429da03472c6d010a9cad4769720a019",
+      "bytes": 9089,
+      "sha256": "bb015fbde91fcdca26cacf7833157d6b429da03472c6d010a9cad4769720a019",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/hero.js"
+    },
+    {
+      "source": "work/motion-a.png",
+      "status": "excluded",
+      "reason": "reference-or-QA-screen-capture"
+    },
+    {
+      "source": "work/motion-b.png",
+      "status": "excluded",
+      "reason": "reference-or-QA-screen-capture"
+    },
+    {
+      "source": "work/package-hero.cjs",
+      "source_sha256": "fcdd07d04f1bd1b3326bbb82d436077fe89bc480b666032b67cb1becf9df4284",
+      "bytes": 3972,
+      "sha256": "0af8d4635a8d3ce941392fdd063b449138a5cd2b135a04e6dc1ed217a0857a6e",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/package-hero.cjs"
+    },
+    {
+      "source": "work/paused-a.png",
+      "status": "excluded",
+      "reason": "reference-or-QA-screen-capture"
+    },
+    {
+      "source": "work/paused-b.png",
+      "status": "excluded",
+      "reason": "reference-or-QA-screen-capture"
+    },
+    {
+      "source": "work/qa-hero.cjs",
+      "source_sha256": "34622eca7f48a63a05dea5593e2d7411e9d043c7169ca99eb661a5af2d44b940",
+      "bytes": 3513,
+      "sha256": "0d05c2c631b945629e7292815a8e60acc8c06de4ca8d9713d7209b9ed4b152cd",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/qa-hero.cjs"
+    },
+    {
+      "source": "work/qa-report.json",
+      "status": "excluded",
+      "reason": "tool-or-browser-audit-dump"
+    },
+    {
+      "source": "work/reference-lando-scroll.png",
+      "status": "excluded",
+      "reason": "reference-or-QA-screen-capture"
+    },
+    {
+      "source": "work/reference-lando.png",
+      "status": "excluded",
+      "reason": "reference-or-QA-screen-capture"
+    },
+    {
+      "source": "work/reference-lusion-scroll.png",
+      "status": "excluded",
+      "reason": "reference-or-QA-screen-capture"
+    },
+    {
+      "source": "work/reference-lusion.png",
+      "status": "excluded",
+      "reason": "reference-or-QA-screen-capture"
+    },
+    {
+      "source": "work/tide-copy.md",
+      "source_sha256": "94e91b9b33d77a4220b5d6b079dfbdb31ead60a0c506f957cc4208380582cadd",
+      "bytes": 8229,
+      "sha256": "94e91b9b33d77a4220b5d6b079dfbdb31ead60a0c506f957cc4208380582cadd",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide-copy.md"
+    },
+    {
+      "source": "work/tide-registration.md",
+      "source_sha256": "20482eff0f311c2a7115e9c4ab448108c33b6e86b276f8178918d0779b5e13d1",
+      "bytes": 4558,
+      "sha256": "da9a607c80d06b714675f1303311db9449a6750152457564d38a2293255f7cde",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 4
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide-registration.md"
+    },
+    {
+      "source": "work/generated/olivia-arcana-mist-veil.png",
+      "source_sha256": "0fb962e3e1ae2949363da929301490149b9d0c2aeb6a93d8fd029b88ec3f7edc",
+      "bytes": 1122923,
+      "sha256": "0fb962e3e1ae2949363da929301490149b9d0c2aeb6a93d8fd029b88ec3f7edc",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated/olivia-arcana-mist-veil.png"
+    },
+    {
+      "source": "work/generated/olivia-arcana-temple-hero.png",
+      "source_sha256": "f9ef3496a10a30aef36b2469cb1d328eb820e345a3dceaffdbe06b1c815d4230",
+      "bytes": 2266188,
+      "sha256": "f9ef3496a10a30aef36b2469cb1d328eb820e345a3dceaffdbe06b1c815d4230",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated/olivia-arcana-temple-hero.png"
+    },
+    {
+      "source": "work/generated/prompts.json",
+      "source_sha256": "81aee1ddc7593e4805508b626092a873a7f6c0ae217d035a98261b3e62b9481f",
+      "bytes": 4027,
+      "sha256": "08ea1e24c84115694a3782a254842d02b91275568498f4598d767bd563fd6908",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated/prompts.json"
+    },
+    {
+      "source": "work/v2/frames/",
+      "status": "excluded",
+      "reason": "directory: git metadata, dependencies, build outputs, screenshot frames/mockups, cache, or local deployment state"
+    },
+    {
+      "source": "work/v2/REVISION_NOTES.md",
+      "source_sha256": "cdbcc043ddbc15547ebe3f61299e888ac1c356a0a7311f83b583287a6b012b26",
+      "bytes": 10509,
+      "sha256": "cdbcc043ddbc15547ebe3f61299e888ac1c356a0a7311f83b583287a6b012b26",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/v2/REVISION_NOTES.md"
+    },
+    {
+      "source": "work/v2/capture-motion.cjs",
+      "source_sha256": "ec1eaeb3a1fc45f39d6b7ed63c855df1c326496582c02fc81b896441dd220ad2",
+      "bytes": 872,
+      "sha256": "3975f1aae4d740f3e324a528b765515f46c59adf86e7919ca481a06add7c5b1f",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/v2/capture-motion.cjs"
+    },
+    {
+      "source": "work/v2/check.cjs",
+      "source_sha256": "a4e258d2698ef8b4b9398b97489420964a9648872eec96b05ea11124071a0a70",
+      "bytes": 2182,
+      "sha256": "42040965f3aff3ac9f67b2cb35c24a8cf4c1338c47d59cbf2555a302c0c6952a",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/v2/check.cjs"
+    },
+    {
+      "source": "work/v2/frozen1.png",
+      "status": "excluded",
+      "reason": "QA-screen-capture"
+    },
+    {
+      "source": "work/v2/frozen2.png",
+      "status": "excluded",
+      "reason": "QA-screen-capture"
+    },
+    {
+      "source": "work/v2/hero-shell.html",
+      "source_sha256": "40c15e6b26607b8d27dcf6905cced904d735affba6cdf3476ae9d95ca6e63332",
+      "bytes": 4551,
+      "sha256": "40c15e6b26607b8d27dcf6905cced904d735affba6cdf3476ae9d95ca6e63332",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/v2/hero-shell.html"
+    },
+    {
+      "source": "work/v2/hero.css",
+      "source_sha256": "1f3a5c48e64e2e17f96dbb98d8e2f12012ac4a8a5cd1d2ebfe2c725597ed37be",
+      "bytes": 14799,
+      "sha256": "1f3a5c48e64e2e17f96dbb98d8e2f12012ac4a8a5cd1d2ebfe2c725597ed37be",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/v2/hero.css"
+    },
+    {
+      "source": "work/v2/package-hero.cjs",
+      "source_sha256": "fcdd07d04f1bd1b3326bbb82d436077fe89bc480b666032b67cb1becf9df4284",
+      "bytes": 3972,
+      "sha256": "0af8d4635a8d3ce941392fdd063b449138a5cd2b135a04e6dc1ed217a0857a6e",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/package-hero.cjs",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/v2/package.cjs",
+      "source_sha256": "4894490828ef855f41039da361ee142faeca4ad7f03cbfdd4bad51a8283501d8",
+      "bytes": 3038,
+      "sha256": "f7d7950a8bdef6764fe83e414d4c74df9c98b7acac27268b8afb73b03d74536a",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/v2/package.cjs"
+    },
+    {
+      "source": "work/v2/scene.js",
+      "source_sha256": "d4ce4ba759d96777a28ef04dcde57de02e5d68ab51ebe0cc0a13dcffb4b384a0",
+      "bytes": 15301,
+      "sha256": "d4ce4ba759d96777a28ef04dcde57de02e5d68ab51ebe0cc0a13dcffb4b384a0",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/v2/scene.js"
+    },
+    {
+      "source": "work/v2/scene.js.bak",
+      "source_sha256": "eedf407d2439b4829a9ad34696d436c00d2ce0a6583bedaf6531703152c43402",
+      "bytes": 14754,
+      "sha256": "eedf407d2439b4829a9ad34696d436c00d2ce0a6583bedaf6531703152c43402",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/v2/scene.js.bak"
+    },
+    {
+      "source": "work/v2/validate.cjs",
+      "source_sha256": "e43fe6f9441a87ecb0048dc0a9fb923f25430506da60dc324b203e6dc0d8d012",
+      "bytes": 3755,
+      "sha256": "aa78d225a4f6e422bc08820da6c394b838ff7fc7848f626310aa9adff1c46440",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/v2/validate.cjs"
+    },
+    {
+      "source": "work/v2/validation.json",
+      "status": "excluded",
+      "reason": "tool-or-browser-audit-dump"
+    },
+    {
+      "source": "work/tide/frames/",
+      "status": "excluded",
+      "reason": "directory: git metadata, dependencies, build outputs, screenshot frames/mockups, cache, or local deployment state"
+    },
+    {
+      "source": "work/tide/app.js",
+      "source_sha256": "ea738027b92ee8dc6b794b18b9b6107d05862b4b90714dccb9ccc539f6db049f",
+      "bytes": 14488,
+      "sha256": "ea738027b92ee8dc6b794b18b9b6107d05862b4b90714dccb9ccc539f6db049f",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide/app.js"
+    },
+    {
+      "source": "work/tide/build.cjs",
+      "source_sha256": "800532f349c2eae46a04849626d112b1b056c51ce2fdebc671b2f3803b1c43eb",
+      "bytes": 2893,
+      "sha256": "0e6a1f823f935e80148daf7d6ce068bdebe8de6e02eaf6136fcbf97bd0e6c816",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 4
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide/build.cjs"
+    },
+    {
+      "source": "work/tide/capture.cjs",
+      "source_sha256": "35ad5324690f3db2ed47a79c39b4d5e21cb143cd4febd08893de6e5ef52ca925",
+      "bytes": 844,
+      "sha256": "4dd9970b21a4aa28debffd599d1f07410f58770da4b2706b649368a4170c7a3f",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide/capture.cjs"
+    },
+    {
+      "source": "work/tide/check.cjs",
+      "source_sha256": "40eba40b977c25cee05859e1aebf59d1a1be16c3da6086200f6cd2caeb2cd913",
+      "bytes": 1716,
+      "sha256": "077729a87d787cdfbd1a81b78762afff57ccd1779547fb6b0df44c21790ac0e2",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide/check.cjs"
+    },
+    {
+      "source": "work/tide/functional-qa.cjs",
+      "source_sha256": "1cc22d3ff7a3bd35a210c55aba907be3c54a3aaa358b70caa62c30a6d9b82e37",
+      "bytes": 7046,
+      "sha256": "2baa13c396b2338ed04d5349b1f0972936fa4c210a22bc1229ea39fa1e331279",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide/functional-qa.cjs"
+    },
+    {
+      "source": "work/tide/index.template.html",
+      "source_sha256": "539b1a064c6d882808ebfd92ba5df0ef215d944540682e55321cebd04e5ad9f1",
+      "bytes": 6581,
+      "sha256": "539b1a064c6d882808ebfd92ba5df0ef215d944540682e55321cebd04e5ad9f1",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide/index.template.html"
+    },
+    {
+      "source": "work/tide/landscape.png",
+      "status": "excluded",
+      "reason": "QA-screen-capture"
+    },
+    {
+      "source": "work/tide/style.css",
+      "source_sha256": "3b021d0e01c23effe8aad148f2420e152d435b48de5337e8349587a610db9efc",
+      "bytes": 13063,
+      "sha256": "3b021d0e01c23effe8aad148f2420e152d435b48de5337e8349587a610db9efc",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide/style.css"
+    },
+    {
+      "source": "work/tide/validate.cjs",
+      "source_sha256": "86908c6e3e7c60d9c6cc15d8d520ba6147d813ffa5b65ba2461dd66f0750e2b9",
+      "bytes": 5940,
+      "sha256": "b3236f35ff703e8f644f13d6a3d3bb401e810cf078b9eb65c24094736e8e166a",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide/validate.cjs"
+    },
+    {
+      "source": "work/tide/world.glsl",
+      "source_sha256": "0a2b93da05d590b0ee945590a1192f0a04c2111be1161baf0bd090c305d740ca",
+      "bytes": 5531,
+      "sha256": "0a2b93da05d590b0ee945590a1192f0a04c2111be1161baf0bd090c305d740ca",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide/world.glsl"
+    },
+    {
+      "source": "work/generated-v2/arrival-background.png",
+      "source_sha256": "ffdae1d10ff9ae7f30f1a0fa34f3941f00447aa3479a10fd1776c95c3693499b",
+      "bytes": 2606771,
+      "sha256": "ffdae1d10ff9ae7f30f1a0fa34f3941f00447aa3479a10fd1776c95c3693499b",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated-v2/arrival-background.png"
+    },
+    {
+      "source": "work/generated-v2/olivia-foreground.png",
+      "source_sha256": "0e0cac5246ece522970754411aa8aa2cfc27c7b52c7e78f2a7052b375f747af7",
+      "bytes": 2176642,
+      "sha256": "0e0cac5246ece522970754411aa8aa2cfc27c7b52c7e78f2a7052b375f747af7",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated-v2/olivia-foreground.png"
+    },
+    {
+      "source": "work/generated-v2/olivia-key-CODEX-REGEN.png.bak",
+      "source_sha256": "7d858ddc64a199e8e2aa6cda0dc4a827f72cc26a23f1d9734c8b85adefd56e0d",
+      "bytes": 1723684,
+      "sha256": "7d858ddc64a199e8e2aa6cda0dc4a827f72cc26a23f1d9734c8b85adefd56e0d",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated-v2/olivia-key-CODEX-REGEN.png.bak"
+    },
+    {
+      "source": "work/generated-v2/olivia-key-REAL.png",
+      "source_sha256": "6d0db7f023d9d7f4ae153edc72d73c82320b31c4ff5fb6b8135a4492525d54a3",
+      "bytes": 894717,
+      "sha256": "6d0db7f023d9d7f4ae153edc72d73c82320b31c4ff5fb6b8135a4492525d54a3",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated-v2/olivia-key-REAL.png"
+    },
+    {
+      "source": "work/generated-v2/olivia-key-REFINED.png",
+      "source_sha256": "d5006c675905d87da909b177353bfedfe7f41cf7515505ac208b214c6916fe75",
+      "bytes": 2529289,
+      "sha256": "d5006c675905d87da909b177353bfedfe7f41cf7515505ac208b214c6916fe75",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated-v2/olivia-key-REFINED.png"
+    },
+    {
+      "source": "work/generated-v2/olivia-key.png",
+      "source_sha256": "d5006c675905d87da909b177353bfedfe7f41cf7515505ac208b214c6916fe75",
+      "bytes": 2529289,
+      "sha256": "d5006c675905d87da909b177353bfedfe7f41cf7515505ac208b214c6916fe75",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated-v2/olivia-key-REFINED.png",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/generated-v2/prompts.json",
+      "source_sha256": "edd9794c0360853c471528cfff704cebef007721df9ea51726ba767f0649ab09",
+      "bytes": 4482,
+      "sha256": "9c2d2c49104a861f046074fae121cb509a07ef2350f8f2626a01e21808a06df2",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 1
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated-v2/prompts.json"
+    },
+    {
+      "source": "work/tide-before-review/app.js",
+      "source_sha256": "ea738027b92ee8dc6b794b18b9b6107d05862b4b90714dccb9ccc539f6db049f",
+      "bytes": 14488,
+      "sha256": "ea738027b92ee8dc6b794b18b9b6107d05862b4b90714dccb9ccc539f6db049f",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide/app.js",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/tide-before-review/build.cjs",
+      "source_sha256": "1a7e5a3abb813e5a527f41f0c0528feac9e0f4c13b19d7cefe4d2797bde92f0e",
+      "bytes": 2955,
+      "sha256": "27d1fe86f0f2df146038f67e383746067fe54e5ebb37f2617812d55dfe122281",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 5
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide-before-review/build.cjs"
+    },
+    {
+      "source": "work/tide-before-review/index.template.html",
+      "source_sha256": "539b1a064c6d882808ebfd92ba5df0ef215d944540682e55321cebd04e5ad9f1",
+      "bytes": 6581,
+      "sha256": "539b1a064c6d882808ebfd92ba5df0ef215d944540682e55321cebd04e5ad9f1",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide/index.template.html",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/tide-before-review/style.css",
+      "source_sha256": "3b021d0e01c23effe8aad148f2420e152d435b48de5337e8349587a610db9efc",
+      "bytes": 13063,
+      "sha256": "3b021d0e01c23effe8aad148f2420e152d435b48de5337e8349587a610db9efc",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide/style.css",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/tide-before-review/world.glsl",
+      "source_sha256": "7c0bff8871a592a7c1c41e01bcd5baefc3ca06f6b37b2dc8281f2e80f2b0fac6",
+      "bytes": 6423,
+      "sha256": "7c0bff8871a592a7c1c41e01bcd5baefc3ca06f6b37b2dc8281f2e80f2b0fac6",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide-before-review/world.glsl"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/mockups/",
+      "status": "excluded",
+      "reason": "directory: git metadata, dependencies, build outputs, screenshot frames/mockups, cache, or local deployment state"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/DESIGN_SYSTEM.md",
+      "source_sha256": "6cebe992037ecbd973117fd5eddb23eccf06a6f0e2a95a7c42430459dbf2ca19",
+      "bytes": 27190,
+      "sha256": "6cebe992037ecbd973117fd5eddb23eccf06a6f0e2a95a7c42430459dbf2ca19",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/archive-v1/olivia-arcana-hero/DESIGN_SYSTEM.md"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/design-system.html",
+      "source_sha256": "c606929def34fdb80803c1462e55047c730cc2d98f97d8d51c796405d5f87a4d",
+      "bytes": 7597,
+      "sha256": "c606929def34fdb80803c1462e55047c730cc2d98f97d8d51c796405d5f87a4d",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/archive-v1/olivia-arcana-hero/design-system.html"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/hero.css",
+      "source_sha256": "10dd7a9086a590f7a9d109b325f0267e7b9e27bf3eb5213a01ffe59044204fb6",
+      "bytes": 11830,
+      "sha256": "10dd7a9086a590f7a9d109b325f0267e7b9e27bf3eb5213a01ffe59044204fb6",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/archive-v1/olivia-arcana-hero/hero.css"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/hero.js",
+      "source_sha256": "bb015fbde91fcdca26cacf7833157d6b429da03472c6d010a9cad4769720a019",
+      "bytes": 9089,
+      "sha256": "bb015fbde91fcdca26cacf7833157d6b429da03472c6d010a9cad4769720a019",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/hero.js",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/index.html",
+      "source_sha256": "079eff9e90018bd59674931852da5a4cd1d8959b297bc3148150d848b6e65a1e",
+      "bytes": 888434,
+      "sha256": "079eff9e90018bd59674931852da5a4cd1d8959b297bc3148150d848b6e65a1e",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/archive-v1/olivia-arcana-hero/index.html"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/modular.html",
+      "source_sha256": "4c85e60e8a57b9f499a300a52fd8f23ae4389bf4ea2244bc3f7b0e1380d7fbde",
+      "bytes": 4271,
+      "sha256": "4c85e60e8a57b9f499a300a52fd8f23ae4389bf4ea2244bc3f7b0e1380d7fbde",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/archive-v1/olivia-arcana-hero/modular.html"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/generation-prompts.json",
+      "source_sha256": "81aee1ddc7593e4805508b626092a873a7f6c0ae217d035a98261b3e62b9481f",
+      "bytes": 4027,
+      "sha256": "08ea1e24c84115694a3782a254842d02b91275568498f4598d767bd563fd6908",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated/prompts.json",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/mist-original.png",
+      "source_sha256": "0fb962e3e1ae2949363da929301490149b9d0c2aeb6a93d8fd029b88ec3f7edc",
+      "bytes": 1122923,
+      "sha256": "0fb962e3e1ae2949363da929301490149b9d0c2aeb6a93d8fd029b88ec3f7edc",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated/olivia-arcana-mist-veil.png",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/mist.webp",
+      "source_sha256": "34e288882eced915db0c611bdf41f310323909c501cf65e1a3d38cc80b6c381d",
+      "bytes": 143474,
+      "sha256": "34e288882eced915db0c611bdf41f310323909c501cf65e1a3d38cc80b6c381d",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/mist.webp",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/sanctuary-original.png",
+      "source_sha256": "f9ef3496a10a30aef36b2469cb1d328eb820e345a3dceaffdbe06b1c815d4230",
+      "bytes": 2266188,
+      "sha256": "f9ef3496a10a30aef36b2469cb1d328eb820e345a3dceaffdbe06b1c815d4230",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated/olivia-arcana-temple-hero.png",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/sanctuary.webp",
+      "source_sha256": "1d793cc11cba7c8b147d0a55a728bb0183af5c152db5c36d3d6e03a7df9d861f",
+      "bytes": 188598,
+      "sha256": "1d793cc11cba7c8b147d0a55a728bb0183af5c152db5c36d3d6e03a7df9d861f",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/work/archive-v1/olivia-arcana-hero/assets/sanctuary.webp"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/fonts/cormorant-cyrillic.woff2",
+      "source_sha256": "d81372bae1f872f1418c0b7eb412f8a92a156a950fda8d2383701c75d38969df",
+      "bytes": 21132,
+      "sha256": "d81372bae1f872f1418c0b7eb412f8a92a156a950fda8d2383701c75d38969df",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/cormorant-cyrillic.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/fonts/cormorant-italic-cyrillic.woff2",
+      "source_sha256": "3170a883f1968a2d1135259e40fd88508da70c20337e491f171f9405d0749053",
+      "bytes": 21264,
+      "sha256": "3170a883f1968a2d1135259e40fd88508da70c20337e491f171f9405d0749053",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/cormorant-italic-cyrillic.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/fonts/cormorant-italic-latin.woff2",
+      "source_sha256": "e6d6d1d73858aa9b66f3a3539f9dec22faab2276e61ad1d813bc04dd59c9c122",
+      "bytes": 39304,
+      "sha256": "e6d6d1d73858aa9b66f3a3539f9dec22faab2276e61ad1d813bc04dd59c9c122",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/cormorant-italic-latin.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/fonts/cormorant-latin.woff2",
+      "source_sha256": "5d618c462b7a5b74f442e1548880086af71764d9cc7d35c16ab45353da934621",
+      "bytes": 37776,
+      "sha256": "5d618c462b7a5b74f442e1548880086af71764d9cc7d35c16ab45353da934621",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/cormorant-latin.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/fonts/dm-sans-latin.woff2",
+      "source_sha256": "468d56b6b25b05b70190b6c233d773f6f1770e8579827ce022a57f03fa8002fb",
+      "bytes": 36980,
+      "sha256": "468d56b6b25b05b70190b6c233d773f6f1770e8579827ce022a57f03fa8002fb",
+      "status": "duplicate",
+      "destination": "website/src/app/fonts/dm-sans-latin-variable.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/fonts/plex-mono-cyrillic.woff2",
+      "source_sha256": "7b59d6bf7f8b8408ac28f27d01dca9a890abeae77045d343b1d8ccb089a92e54",
+      "bytes": 5476,
+      "sha256": "7b59d6bf7f8b8408ac28f27d01dca9a890abeae77045d343b1d8ccb089a92e54",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/plex-mono-cyrillic.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/fonts/plex-mono-latin.woff2",
+      "source_sha256": "c36f509c0a8f9f85f29cb44bc8701d8a9e0b14c499e77a884f789ead7093a7ac",
+      "bytes": 10052,
+      "sha256": "c36f509c0a8f9f85f29cb44bc8701d8a9e0b14c499e77a884f789ead7093a7ac",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/plex-mono-latin.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/fonts/licenses/Cormorant-Garamond-OFL.txt",
+      "source_sha256": "60700d351cac4650c51f3f9db318d2a420f8b45052dba2715eb5fec41f0f6956",
+      "bytes": 4387,
+      "sha256": "60700d351cac4650c51f3f9db318d2a420f8b45052dba2715eb5fec41f0f6956",
+      "status": "duplicate",
+      "destination": "experience/work/cormorant-OFL.txt",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/fonts/licenses/DM-Sans-OFL.txt",
+      "source_sha256": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1",
+      "bytes": 4482,
+      "sha256": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1",
+      "status": "duplicate",
+      "destination": "experience/work/dmsans-OFL.txt",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "work/archive-v1/olivia-arcana-hero/assets/fonts/licenses/IBM-Plex-Mono-OFL.txt",
+      "source_sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "bytes": 4456,
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/licenses/IBM-Plex-Mono-OFL.txt",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/.DS_Store",
+      "status": "excluded",
+      "reason": "filesystem-metadata"
+    },
+    {
+      "source": "outputs/Olivia-Arcana-Arrival-V2.zip",
+      "status": "excluded",
+      "reason": "package-archive; expanded sources retained or mapped"
+    },
+    {
+      "source": "outputs/Olivia-Arcana-Hero-Package.zip",
+      "status": "excluded",
+      "reason": "package-archive; expanded sources retained or mapped"
+    },
+    {
+      "source": "outputs/Olivia-Arcana-The-Tide-Opens.zip",
+      "status": "excluded",
+      "reason": "package-archive; expanded sources retained or mapped"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/mockups/",
+      "status": "excluded",
+      "reason": "directory: git metadata, dependencies, build outputs, screenshot frames/mockups, cache, or local deployment state"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/DESIGN_SYSTEM.md",
+      "source_sha256": "1d42af0d9e66cf264d609911393114563bc7c9cdad50e028af3617c5d4c251b1",
+      "bytes": 12192,
+      "sha256": "1d42af0d9e66cf264d609911393114563bc7c9cdad50e028af3617c5d4c251b1",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-hero/DESIGN_SYSTEM.md"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/design-system.html",
+      "source_sha256": "e4069b43e916a4090b21a29a67dcd28a4a06a06b85619eb1494df71b1fdc0f83",
+      "bytes": 8077,
+      "sha256": "e4069b43e916a4090b21a29a67dcd28a4a06a06b85619eb1494df71b1fdc0f83",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-hero/design-system.html"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/hero.css",
+      "source_sha256": "33d783794b7c73ca63e58de4101bc4caa94d9da394dca29eb3b18051862eb7b2",
+      "bytes": 16800,
+      "sha256": "33d783794b7c73ca63e58de4101bc4caa94d9da394dca29eb3b18051862eb7b2",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-hero/hero.css"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/hero.js",
+      "source_sha256": "c6fd2ff8fe775f9eeaea98f41becdd53539466a90eb3f12ef5551fa11c491a6a",
+      "bytes": 15464,
+      "sha256": "c6fd2ff8fe775f9eeaea98f41becdd53539466a90eb3f12ef5551fa11c491a6a",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-hero/hero.js"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/index.html",
+      "source_sha256": "927ce5e58b03f2cd80ba5e7f6e7c9bcddafb89b20eb0d869717bc951be3ce8f8",
+      "bytes": 2631732,
+      "sha256": "927ce5e58b03f2cd80ba5e7f6e7c9bcddafb89b20eb0d869717bc951be3ce8f8",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-hero/index.html"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/modular.html",
+      "source_sha256": "1c3b5a1ec2ab1d02f040ccd67c728c32714d74b393dcabb6eb42c066041abe5b",
+      "bytes": 4588,
+      "sha256": "1c3b5a1ec2ab1d02f040ccd67c728c32714d74b393dcabb6eb42c066041abe5b",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-hero/modular.html"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/arrival-background.png",
+      "source_sha256": "ffdae1d10ff9ae7f30f1a0fa34f3941f00447aa3479a10fd1776c95c3693499b",
+      "bytes": 2606771,
+      "sha256": "ffdae1d10ff9ae7f30f1a0fa34f3941f00447aa3479a10fd1776c95c3693499b",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated-v2/arrival-background.png",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/arrival-background.webp",
+      "source_sha256": "437be563d718adce798091d74e344b0086d19cd71e7e386ab58602ae09b1c28e",
+      "bytes": 535540,
+      "sha256": "437be563d718adce798091d74e344b0086d19cd71e7e386ab58602ae09b1c28e",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-hero/assets/arrival-background.webp"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/arrival-original.webp",
+      "source_sha256": "f835b2f6d8ffb17e16a4a3996d1fd8e6ff03c1cc9f9d89e4b47d18f45b6ee861",
+      "bytes": 637342,
+      "sha256": "f835b2f6d8ffb17e16a4a3996d1fd8e6ff03c1cc9f9d89e4b47d18f45b6ee861",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-hero/assets/arrival-original.webp"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/arrival-prompts.json",
+      "source_sha256": "edd9794c0360853c471528cfff704cebef007721df9ea51726ba767f0649ab09",
+      "bytes": 4482,
+      "sha256": "9c2d2c49104a861f046074fae121cb509a07ef2350f8f2626a01e21808a06df2",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 1
+        }
+      ],
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated-v2/prompts.json",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/foreground-bounds.json",
+      "source_sha256": "dab10d7b48793e1b2d729e67f41c29ff7e7e844fbabfb8b487e54f2f2fc74da1",
+      "bytes": 255,
+      "sha256": "dab10d7b48793e1b2d729e67f41c29ff7e7e844fbabfb8b487e54f2f2fc74da1",
+      "status": "duplicate",
+      "destination": "website/public/arrival/foreground-bounds.json",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/generation-prompts.json",
+      "source_sha256": "81aee1ddc7593e4805508b626092a873a7f6c0ae217d035a98261b3e62b9481f",
+      "bytes": 4027,
+      "sha256": "08ea1e24c84115694a3782a254842d02b91275568498f4598d767bd563fd6908",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 2
+        }
+      ],
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated/prompts.json",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/mist-original.png",
+      "source_sha256": "0fb962e3e1ae2949363da929301490149b9d0c2aeb6a93d8fd029b88ec3f7edc",
+      "bytes": 1122923,
+      "sha256": "0fb962e3e1ae2949363da929301490149b9d0c2aeb6a93d8fd029b88ec3f7edc",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated/olivia-arcana-mist-veil.png",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/mist.webp",
+      "source_sha256": "34e288882eced915db0c611bdf41f310323909c501cf65e1a3d38cc80b6c381d",
+      "bytes": 143474,
+      "sha256": "34e288882eced915db0c611bdf41f310323909c501cf65e1a3d38cc80b6c381d",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/mist.webp",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/olivia-key.png",
+      "source_sha256": "d5006c675905d87da909b177353bfedfe7f41cf7515505ac208b214c6916fe75",
+      "bytes": 2529289,
+      "sha256": "d5006c675905d87da909b177353bfedfe7f41cf7515505ac208b214c6916fe75",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated-v2/olivia-key-REFINED.png",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/olivia-key.webp",
+      "source_sha256": "2ccc0722719d9b20ad9387efc0d5d340c602f90f4ae66050e4d6711295d82d5c",
+      "bytes": 314448,
+      "sha256": "2ccc0722719d9b20ad9387efc0d5d340c602f90f4ae66050e4d6711295d82d5c",
+      "status": "duplicate",
+      "destination": "website/public/arrival/olivia.webp",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/sanctuary-original.png",
+      "source_sha256": "f9ef3496a10a30aef36b2469cb1d328eb820e345a3dceaffdbe06b1c815d4230",
+      "bytes": 2266188,
+      "sha256": "f9ef3496a10a30aef36b2469cb1d328eb820e345a3dceaffdbe06b1c815d4230",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated/olivia-arcana-temple-hero.png",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/sanctuary.webp",
+      "source_sha256": "1d793cc11cba7c8b147d0a55a728bb0183af5c152db5c36d3d6e03a7df9d861f",
+      "bytes": 188598,
+      "sha256": "1d793cc11cba7c8b147d0a55a728bb0183af5c152db5c36d3d6e03a7df9d861f",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/archive-v1/olivia-arcana-hero/assets/sanctuary.webp",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/user-photo.png",
+      "source_sha256": "80a08e584910666dcd9419ecb405a7a00a55a89a26b99bfc1c7e8e1dfad45753",
+      "bytes": 3799164,
+      "sha256": "80a08e584910666dcd9419ecb405a7a00a55a89a26b99bfc1c7e8e1dfad45753",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-hero/assets/user-photo.png"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/fonts/cormorant-cyrillic.woff2",
+      "source_sha256": "d81372bae1f872f1418c0b7eb412f8a92a156a950fda8d2383701c75d38969df",
+      "bytes": 21132,
+      "sha256": "d81372bae1f872f1418c0b7eb412f8a92a156a950fda8d2383701c75d38969df",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/cormorant-cyrillic.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/fonts/cormorant-italic-cyrillic.woff2",
+      "source_sha256": "3170a883f1968a2d1135259e40fd88508da70c20337e491f171f9405d0749053",
+      "bytes": 21264,
+      "sha256": "3170a883f1968a2d1135259e40fd88508da70c20337e491f171f9405d0749053",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/cormorant-italic-cyrillic.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/fonts/cormorant-italic-latin.woff2",
+      "source_sha256": "e6d6d1d73858aa9b66f3a3539f9dec22faab2276e61ad1d813bc04dd59c9c122",
+      "bytes": 39304,
+      "sha256": "e6d6d1d73858aa9b66f3a3539f9dec22faab2276e61ad1d813bc04dd59c9c122",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/cormorant-italic-latin.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/fonts/cormorant-latin.woff2",
+      "source_sha256": "5d618c462b7a5b74f442e1548880086af71764d9cc7d35c16ab45353da934621",
+      "bytes": 37776,
+      "sha256": "5d618c462b7a5b74f442e1548880086af71764d9cc7d35c16ab45353da934621",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/cormorant-latin.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/fonts/dm-sans-latin.woff2",
+      "source_sha256": "468d56b6b25b05b70190b6c233d773f6f1770e8579827ce022a57f03fa8002fb",
+      "bytes": 36980,
+      "sha256": "468d56b6b25b05b70190b6c233d773f6f1770e8579827ce022a57f03fa8002fb",
+      "status": "duplicate",
+      "destination": "website/src/app/fonts/dm-sans-latin-variable.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/fonts/plex-mono-cyrillic.woff2",
+      "source_sha256": "7b59d6bf7f8b8408ac28f27d01dca9a890abeae77045d343b1d8ccb089a92e54",
+      "bytes": 5476,
+      "sha256": "7b59d6bf7f8b8408ac28f27d01dca9a890abeae77045d343b1d8ccb089a92e54",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/plex-mono-cyrillic.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/fonts/plex-mono-latin.woff2",
+      "source_sha256": "c36f509c0a8f9f85f29cb44bc8701d8a9e0b14c499e77a884f789ead7093a7ac",
+      "bytes": 10052,
+      "sha256": "c36f509c0a8f9f85f29cb44bc8701d8a9e0b14c499e77a884f789ead7093a7ac",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/plex-mono-latin.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/fonts/licenses/Cormorant-Garamond-OFL.txt",
+      "source_sha256": "60700d351cac4650c51f3f9db318d2a420f8b45052dba2715eb5fec41f0f6956",
+      "bytes": 4387,
+      "sha256": "60700d351cac4650c51f3f9db318d2a420f8b45052dba2715eb5fec41f0f6956",
+      "status": "duplicate",
+      "destination": "experience/work/cormorant-OFL.txt",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/fonts/licenses/DM-Sans-OFL.txt",
+      "source_sha256": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1",
+      "bytes": 4482,
+      "sha256": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1",
+      "status": "duplicate",
+      "destination": "experience/work/dmsans-OFL.txt",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-hero/assets/fonts/licenses/IBM-Plex-Mono-OFL.txt",
+      "source_sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "bytes": 4456,
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/licenses/IBM-Plex-Mono-OFL.txt",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/mockups/",
+      "status": "excluded",
+      "reason": "directory: git metadata, dependencies, build outputs, screenshot frames/mockups, cache, or local deployment state"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/ASSETS.md",
+      "source_sha256": "28f7451d52dbd56e35e5b4df04394725cfa6740d2acf83d90dcd4334350cf5a9",
+      "bytes": 2809,
+      "sha256": "28f7451d52dbd56e35e5b4df04394725cfa6740d2acf83d90dcd4334350cf5a9",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/ASSETS.md"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/DESIGN_SYSTEM.md",
+      "source_sha256": "b3b60f336ec8843a09bf4a424af84118e93f49b4899cd4a7a7807de324b445dc",
+      "bytes": 19660,
+      "sha256": "9ea6692d040fbac9a6723d855410d6bb634752d9c345f6379871612d270825c1",
+      "redactions": [
+        {
+          "kind": "local-home-path",
+          "count": 1
+        }
+      ],
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/DESIGN_SYSTEM.md"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/QA.md",
+      "source_sha256": "cd9f82c0b9f59bb14e8f77f3b34fba0fe03813c927ffc6ed411d464699988c8e",
+      "bytes": 1720,
+      "sha256": "cd9f82c0b9f59bb14e8f77f3b34fba0fe03813c927ffc6ed411d464699988c8e",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/QA.md"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/README.md",
+      "source_sha256": "e0db5213e534b824041bbfcdefac78e39fca3939addd7e8ffee5b5bba16e415e",
+      "bytes": 1581,
+      "sha256": "e0db5213e534b824041bbfcdefac78e39fca3939addd7e8ffee5b5bba16e415e",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/README.md"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/app.js",
+      "source_sha256": "0f5bb3101f6100c0060bf722ed6259e49ed3decef5ff758875a422627bf887bc",
+      "bytes": 30227,
+      "sha256": "0f5bb3101f6100c0060bf722ed6259e49ed3decef5ff758875a422627bf887bc",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/app.js"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/app.js.bak",
+      "source_sha256": "f61a8c574bbdae2fd7133dcfa42aaddd3b65954770df4bb7cd58dacceaffa7db",
+      "bytes": 21023,
+      "sha256": "f61a8c574bbdae2fd7133dcfa42aaddd3b65954770df4bb7cd58dacceaffa7db",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/app.js.bak"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/index.html",
+      "source_sha256": "96153c13816648d190f34a8560477c6f19c1a3bbc8ce8906dd3b6297a16fffab",
+      "bytes": 4728536,
+      "sha256": "96153c13816648d190f34a8560477c6f19c1a3bbc8ce8906dd3b6297a16fffab",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/index.html"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/modular.html",
+      "source_sha256": "f58fc92dc1f9035c36a3e6d37dd28f6feb367a2227ba6942d602c5efee660c81",
+      "bytes": 7098,
+      "sha256": "f58fc92dc1f9035c36a3e6d37dd28f6feb367a2227ba6942d602c5efee660c81",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/modular.html"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/storyboard.html",
+      "source_sha256": "2b161bc80c26a8e05106a6afd78561a65e08ea56b60375b487c9ded2c637cfd9",
+      "bytes": 5139,
+      "sha256": "2b161bc80c26a8e05106a6afd78561a65e08ea56b60375b487c9ded2c637cfd9",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/storyboard.html"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/style.css",
+      "source_sha256": "5487cc02908a6913e35e81efa2c442ffc19475ce1bcdf58537a4bf0f5c47d67a",
+      "bytes": 21653,
+      "sha256": "5487cc02908a6913e35e81efa2c442ffc19475ce1bcdf58537a4bf0f5c47d67a",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/style.css"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/world.glsl",
+      "source_sha256": "fcead9e8f96f7a926879a7288200623dc5fd0bfc6d6609667645c1cf1b511d4a",
+      "bytes": 9485,
+      "sha256": "fcead9e8f96f7a926879a7288200623dc5fd0bfc6d6609667645c1cf1b511d4a",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/world.glsl"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/world.glsl.bak",
+      "source_sha256": "7c0bff8871a592a7c1c41e01bcd5baefc3ca06f6b37b2dc8281f2e80f2b0fac6",
+      "bytes": 6423,
+      "sha256": "7c0bff8871a592a7c1c41e01bcd5baefc3ca06f6b37b2dc8281f2e80f2b0fac6",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/tide-before-review/world.glsl",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/inner-sanctuary.webp",
+      "source_sha256": "42ff5dc99b4c89c789a60782f2318de9cfca46151aa9d19d2b3f1e2379111cda",
+      "bytes": 535898,
+      "sha256": "42ff5dc99b4c89c789a60782f2318de9cfca46151aa9d19d2b3f1e2379111cda",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/assets/inner-sanctuary.webp"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/olivia-hd.webp",
+      "source_sha256": "873f1b2449fac4606a50050669a1f1db7245f24dbba9b74b10d8ba514929afa7",
+      "bytes": 278430,
+      "sha256": "873f1b2449fac4606a50050669a1f1db7245f24dbba9b74b10d8ba514929afa7",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/assets/olivia-hd.webp"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/olivia-original-matte.png",
+      "source_sha256": "06be5d0dfaf0896e1fe3e3fea0f59028aac13c01493e610e8cc0bd7607854201",
+      "bytes": 397305,
+      "sha256": "06be5d0dfaf0896e1fe3e3fea0f59028aac13c01493e610e8cc0bd7607854201",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/olivia-cutout-raw.png",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/original.webp",
+      "source_sha256": "ae1ae261df4258696b7694647d28c490fe002109663fd0f3e40e6b05e9235f28",
+      "bytes": 2111492,
+      "sha256": "ae1ae261df4258696b7694647d28c490fe002109663fd0f3e40e6b05e9235f28",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/assets/original.webp"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/sea-clean-plate.webp",
+      "source_sha256": "06c0830eecd5c37dc6393f9f5b1c0d8b6f7bdb306b623e879dd21f5296b72c51",
+      "bytes": 457730,
+      "sha256": "06c0830eecd5c37dc6393f9f5b1c0d8b6f7bdb306b623e879dd21f5296b72c51",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/outputs/olivia-arcana-tide/assets/sea-clean-plate.webp"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/fonts/cormorant-cyrillic.woff2",
+      "source_sha256": "d81372bae1f872f1418c0b7eb412f8a92a156a950fda8d2383701c75d38969df",
+      "bytes": 21132,
+      "sha256": "d81372bae1f872f1418c0b7eb412f8a92a156a950fda8d2383701c75d38969df",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/cormorant-cyrillic.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/fonts/cormorant-italic-cyrillic.woff2",
+      "source_sha256": "3170a883f1968a2d1135259e40fd88508da70c20337e491f171f9405d0749053",
+      "bytes": 21264,
+      "sha256": "3170a883f1968a2d1135259e40fd88508da70c20337e491f171f9405d0749053",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/cormorant-italic-cyrillic.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/fonts/cormorant-italic-latin.woff2",
+      "source_sha256": "e6d6d1d73858aa9b66f3a3539f9dec22faab2276e61ad1d813bc04dd59c9c122",
+      "bytes": 39304,
+      "sha256": "e6d6d1d73858aa9b66f3a3539f9dec22faab2276e61ad1d813bc04dd59c9c122",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/cormorant-italic-latin.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/fonts/cormorant-latin.woff2",
+      "source_sha256": "5d618c462b7a5b74f442e1548880086af71764d9cc7d35c16ab45353da934621",
+      "bytes": 37776,
+      "sha256": "5d618c462b7a5b74f442e1548880086af71764d9cc7d35c16ab45353da934621",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/cormorant-latin.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/fonts/dm-sans-latin.woff2",
+      "source_sha256": "468d56b6b25b05b70190b6c233d773f6f1770e8579827ce022a57f03fa8002fb",
+      "bytes": 36980,
+      "sha256": "468d56b6b25b05b70190b6c233d773f6f1770e8579827ce022a57f03fa8002fb",
+      "status": "duplicate",
+      "destination": "website/src/app/fonts/dm-sans-latin-variable.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/fonts/plex-mono-cyrillic.woff2",
+      "source_sha256": "7b59d6bf7f8b8408ac28f27d01dca9a890abeae77045d343b1d8ccb089a92e54",
+      "bytes": 5476,
+      "sha256": "7b59d6bf7f8b8408ac28f27d01dca9a890abeae77045d343b1d8ccb089a92e54",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/plex-mono-cyrillic.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/fonts/plex-mono-latin.woff2",
+      "source_sha256": "c36f509c0a8f9f85f29cb44bc8701d8a9e0b14c499e77a884f789ead7093a7ac",
+      "bytes": 10052,
+      "sha256": "c36f509c0a8f9f85f29cb44bc8701d8a9e0b14c499e77a884f789ead7093a7ac",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/plex-mono-latin.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/fonts/plex-sans-cyrillic.woff2",
+      "source_sha256": "5bac72520e0a9a5669e08b15fa1e15be6f4da74aa0b2d4315a97c11e1465120a",
+      "bytes": 25408,
+      "sha256": "5bac72520e0a9a5669e08b15fa1e15be6f4da74aa0b2d4315a97c11e1465120a",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/plex-sans-cyrillic.woff2",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/fonts/licenses/Cormorant-Garamond-OFL.txt",
+      "source_sha256": "60700d351cac4650c51f3f9db318d2a420f8b45052dba2715eb5fec41f0f6956",
+      "bytes": 4387,
+      "sha256": "60700d351cac4650c51f3f9db318d2a420f8b45052dba2715eb5fec41f0f6956",
+      "status": "duplicate",
+      "destination": "experience/work/cormorant-OFL.txt",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/fonts/licenses/DM-Sans-OFL.txt",
+      "source_sha256": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1",
+      "bytes": 4482,
+      "sha256": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1",
+      "status": "duplicate",
+      "destination": "experience/work/dmsans-OFL.txt",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/fonts/licenses/IBM-Plex-Mono-OFL.txt",
+      "source_sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "bytes": 4456,
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/licenses/IBM-Plex-Mono-OFL.txt",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source": "outputs/olivia-arcana-tide/assets/fonts/licenses/IBM-Plex-Sans-OFL.txt",
+      "source_sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "bytes": 4456,
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "status": "duplicate",
+      "destination": "hero-lab/assets/fonts/licenses/IBM-Plex-Mono-OFL.txt",
+      "reason": "identical retained content in handoff repository"
+    },
+    {
+      "source_root": "generated-images",
+      "source": "exec-2d6566ae-e777-424b-964a-ad7df7c394b6.png",
+      "source_sha256": "ffdae1d10ff9ae7f30f1a0fa34f3941f00447aa3479a10fd1776c95c3693499b",
+      "bytes": 2606771,
+      "sha256": "ffdae1d10ff9ae7f30f1a0fa34f3941f00447aa3479a10fd1776c95c3693499b",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated-v2/arrival-background.png",
+      "reason": "identical retained project artwork in handoff repository"
+    },
+    {
+      "source_root": "generated-images",
+      "source": "exec-60239501-f25a-499d-bc98-cf1700006ebc.png",
+      "source_sha256": "a6dac799e462c71af3ec59e831097bcadccb754e059db20ff5b37d16a0365c0b",
+      "bytes": 2843544,
+      "sha256": "a6dac799e462c71af3ec59e831097bcadccb754e059db20ff5b37d16a0365c0b",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/generated-images/exec-60239501-f25a-499d-bc98-cf1700006ebc.png"
+    },
+    {
+      "source_root": "generated-images",
+      "source": "exec-78f91a64-6be8-470a-a04e-85aa3109b9dd.png",
+      "source_sha256": "7d858ddc64a199e8e2aa6cda0dc4a827f72cc26a23f1d9734c8b85adefd56e0d",
+      "bytes": 1723684,
+      "sha256": "7d858ddc64a199e8e2aa6cda0dc4a827f72cc26a23f1d9734c8b85adefd56e0d",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated-v2/olivia-key-CODEX-REGEN.png.bak",
+      "reason": "identical retained project artwork in handoff repository"
+    },
+    {
+      "source_root": "generated-images",
+      "source": "exec-92f48c4f-e7a0-4640-985b-171314dc586a.png",
+      "source_sha256": "0e0cac5246ece522970754411aa8aa2cfc27c7b52c7e78f2a7052b375f747af7",
+      "bytes": 2176642,
+      "sha256": "0e0cac5246ece522970754411aa8aa2cfc27c7b52c7e78f2a7052b375f747af7",
+      "status": "duplicate",
+      "destination": "history/sessions/2026-09-11-hero/files/work/generated-v2/olivia-foreground.png",
+      "reason": "identical retained project artwork in handoff repository"
+    },
+    {
+      "source_root": "generated-images",
+      "source": "exec-b0cca5b4-d336-4bdb-9a23-c525f704e8bb.png",
+      "source_sha256": "986b4d98b6aff0f14dfb86afe126b6259fe10063db830c887d9e2b01ff770767",
+      "bytes": 2599971,
+      "sha256": "986b4d98b6aff0f14dfb86afe126b6259fe10063db830c887d9e2b01ff770767",
+      "status": "included",
+      "destination": "history/sessions/2026-09-11-hero/files/generated-images/exec-b0cca5b4-d336-4bdb-9a23-c525f704e8bb.png"
+    }
+  ],
+  "asset_review": "Supplied user-photo.png and the two unique external generator outputs visually inspected as fictional Olivia brand artwork; preserved. Other external images are exact project-asset duplicates.",
+  "destination_revision": "The same Git commit containing this manifest. Resolve duplicate destinations from that complete handoff checkout, not from an arbitrary later branch."
+}

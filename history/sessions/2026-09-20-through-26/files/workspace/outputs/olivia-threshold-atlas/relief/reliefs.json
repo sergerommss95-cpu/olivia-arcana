@@ -1,0 +1,68 @@
+[
+  {
+    "id": "R01",
+    "source": "L02",
+    "name": "The Lifted Veil",
+    "description": "A single lifted ivory fold within a fine lapis arch.",
+    "material": "The arch is deep lapis with one pale-gold inset line. The single diagonal sweeping veil and its fine inner fold are warm carved ivory with 2 long delicate incisions. Geometry remains spare and asymmetric.",
+    "type": "relief",
+    "family": "Sculptural interpretations",
+    "image": "relief/R01.png",
+    "download": "relief/R01.png"
+  },
+  {
+    "id": "R02",
+    "source": "L03",
+    "name": "The Lancet",
+    "description": "A pointed portal, rendered in ivory and midnight blue.",
+    "material": "The gently pointed outer portal is matte warm ivory with a fine champagne-gold inner seam. The two slender inner fold contours are smoky lapis with silver-blue vein highlights. Very quiet exact tip and fine taper.",
+    "type": "relief",
+    "family": "Sculptural interpretations",
+    "image": "relief/R02.png",
+    "download": "relief/R02.png"
+  },
+  {
+    "id": "R03",
+    "source": "L07",
+    "name": "The Quiet Opening",
+    "description": "An asymmetric opening in pale gold and carved ivory.",
+    "material": "The outer opening and its rising left side are smooth antique ivory, its single inner flowing return lapis blue edged with hairline pale gold. Keep the off-centre shape and natural calligraphic turn. Two materials meet at precise clean joins.",
+    "type": "relief",
+    "family": "Sculptural interpretations",
+    "image": "relief/R03.png",
+    "download": "relief/R03.png"
+  },
+  {
+    "id": "R04",
+    "source": "L11",
+    "name": "Silk A",
+    "description": "The Arcana initial shaped as a softly folded ivory ribbon.",
+    "material": "The letter A's two tapered uprights are warm ivory, and its soft suspended crossbar is fine lapis blue edged with champagne-gold. Convey a single long delicate silk crease in each broad ivory surface. Precise terminal points, exquisite curved gold seam along the crossbar.",
+    "type": "relief",
+    "family": "Sculptural interpretations",
+    "image": "relief/R04.png",
+    "download": "relief/R04.png"
+  },
+  {
+    "id": "R05",
+    "source": "L12",
+    "name": "Enfolded",
+    "description": "An open Olivia oval made from two sculptural folds.",
+    "material": "The outer open oval is satin warm ivory, softly folded with one very fine incision; the inner returning veil is deep blue lapis with a pale-gold edge. Preserve the slender ends and the open counter. Pure shape without added elements.",
+    "type": "relief",
+    "family": "Sculptural interpretations",
+    "image": "relief/R05.png",
+    "download": "relief/R05.png"
+  },
+  {
+    "id": "R06",
+    "source": "L17",
+    "name": "The Joined Initials",
+    "description": "The OA monogram as an inlaid lapis-and-ivory signature.",
+    "material": "The O is warm carved ivory with a very fine pale-gold inset along its inner edge, the A is deep lapis edged in softly brushed pale gold. The overlapped letters are precisely inlaid, one coherent object, no tangled or melted junctions. Keep exact letterform outlines.",
+    "type": "relief",
+    "family": "Sculptural interpretations",
+    "image": "relief/R06.png",
+    "download": "relief/R06.png"
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "file": "logo-horizontal-dark.svg",
+    "width": 1000,
+    "height": 350,
+    "pathCount": 12,
+    "hasText": false,
+    "hasRaster": false,
+    "hasExternal": false
+  },
+  {
+    "file": "logo-horizontal-light.svg",
+    "width": 1000,
+    "height": 350,
+    "pathCount": 12,
+    "hasText": false,
+    "hasRaster": false,
+    "hasExternal": false
+  },
+  {
+    "file": "logo-primary-dark.svg",
+    "width": 800,
+    "height": 800,
+    "pathCount": 12,
+    "hasText": false,
+    "hasRaster": false,
+    "hasExternal": false
+  },
+  {
+    "file": "logo-primary-light.svg",
+    "width": 800,
+    "height": 800,
+    "pathCount": 12,
+    "hasText": false,
+    "hasRaster": false,
+    "hasExternal": false
+  },
+  {
+    "file": "symbol-color.svg",
+    "width": 360,
+    "height": 400,
+    "pathCount": 10,
+    "hasText": false,
+    "hasRaster": false,
+    "hasExternal": false
+  },
+  {
+    "file": "symbol-dark.svg",
+    "width": 360,
+    "height": 400,
+    "pathCount": 10,
+    "hasText": false,
+    "hasRaster": false,
+    "hasExternal": false
+  },
+  {
+    "file": "symbol-guide.svg",
+    "width": 360,
+    "height": 400,
+    "pathCount": 10,
+    "hasText": false,
+    "hasRaster": false,
+    "hasExternal": false
+  },
+  {
+    "file": "symbol-light.svg",
+    "width": 360,
+    "height": 400,
+    "pathCount": 10,
+    "hasText": false,
+    "hasRaster": false,
+    "hasExternal": false
+  },
+  {
+    "file": "wordmark-dark.svg",
+    "width": 700,
+    "height": 260,
+    "pathCount": 2,
+    "hasText": false,
+    "hasRaster": false,
+    "hasExternal": false
+  },
+  {
+    "file": "wordmark-light.svg",
+    "width": 700,
+    "height": 260,
+    "pathCount": 2,
+    "hasText": false,
+    "hasRaster": false,
+    "hasExternal": false
+  }
+]

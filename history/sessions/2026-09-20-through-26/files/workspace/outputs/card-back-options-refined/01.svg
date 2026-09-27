@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="896" height="1536" viewBox="0 0 896 1536" role="img" aria-label="01 — The Signature">
+<title>01 — The Signature</title><desc>Original vector card back for Olivia Arcana. Fine engraved lines, exact olive brand geometry. No generatively redrawn logo.</desc>
+<defs>
+<radialGradient id="paper" cx="43%" cy="35%" r="84%"><stop stop-color="#102c43"/><stop offset="1" stop-color="#07192b"/></radialGradient>
+<linearGradient id="foil" x1="0" y1="0" x2="1" y2=".6"><stop stop-color="#ad9864"/><stop offset=".48" stop-color="#e2d2a7"/><stop offset="1" stop-color="#9c8758"/></linearGradient>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence baseFrequency=".84" numOctaves="3" seed="19" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+<clipPath id="trim"><rect width="896" height="1536" rx="24"/></clipPath>
+<mask id="fruit-cut" maskUnits="userSpaceOnUse" x="-30" y="-30" width="60" height="60"><rect x="-30" y="-30" width="60" height="60" fill="white"/><ellipse cx="0" cy="-13.5" rx="1.7" ry="2.2" fill="black"/></mask>
+</defs><g clip-path="url(#trim)"><rect width="896" height="1536" fill="url(#paper)"/><rect width="896" height="1536" filter="url(#grain)" opacity=".027"/><rect x="65" y="65" width="766" height="1406" rx="6" fill="none" stroke="url(#foil)" stroke-width="1.25" opacity="0.88"/><g transform="translate(448 768) rotate(0) scale(3.9711191335740073)" fill="none" stroke="url(#foil)" stroke-width="0.33995454545454545" stroke-linecap="round" stroke-linejoin="round"><path d="M 0,12 C 1.6,6 -1.6,0 0,-6 C 1,-10 -0.5,-12 0,-13" mask="url(#fruit-cut)"/><path d="M.428 7H.5 M-.2535 1H-.5 M-.2239 -5H.5"/><path d="M 0.5,7 Q 5.5,3 8.5,5 Q 5.5,8 0.5,7 Z" fill="none"/><path d="M -0.5,1 Q -7,-3 -9.5,-1.5 Q -7,1.5 -0.5,1 Z" fill="none"/><path d="M 0.5,-5 Q 5.5,-9 8.5,-7 Q 5.5,-4 0.5,-5 Z" fill="none"/><ellipse cx="0" cy="-13.5" rx="1.7" ry="2.2"/></g></g></svg>

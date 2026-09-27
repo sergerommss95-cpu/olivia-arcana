@@ -1,0 +1,114 @@
+{
+  "source": "work/hero-v9/hero.js",
+  "sourceSHA256": "2bee13e9cb22efaf4982804ca97a6505e562f443b671cdf92d333de58410a525",
+  "scope": "Real inline light pass and choreography mathematics against a strict mock GL state. GPU compilation and visual appearance are not tested.",
+  "passed": 10,
+  "total": 10,
+  "tests": [
+    {
+      "name": "Initialization restores card program, buffers, attributes and depth state",
+      "pass": true,
+      "stats": {
+        "uploads": 0,
+        "draws": 0,
+        "maxVertices": 0,
+        "deletedPrograms": 0,
+        "deletedBuffers": 0,
+        "programCreated": 1,
+        "bufferCreated": 1,
+        "liveResources": 2
+      }
+    },
+    {
+      "name": "Desktop and mobile paths upload finite bounded geometry with restored state",
+      "pass": true,
+      "draws": 303,
+      "maxQuads": 768,
+      "quadCapacity": 1100
+    },
+    {
+      "name": "Frozen diagnostic lighting is deterministic regardless of ambient clock",
+      "pass": true
+    },
+    {
+      "name": "Reduced motion suppresses motes/trails and remains stable",
+      "pass": true,
+      "quads": 640,
+      "cards": 32
+    },
+    {
+      "name": "Empty visible set does not issue a light draw",
+      "pass": true
+    },
+    {
+      "name": "Disposal releases effect buffer and program exactly once",
+      "pass": true,
+      "stats": {
+        "uploads": 0,
+        "draws": 0,
+        "maxVertices": 0,
+        "deletedPrograms": 1,
+        "deletedBuffers": 1,
+        "programCreated": 1,
+        "bufferCreated": 1,
+        "liveResources": 0
+      }
+    },
+    {
+      "name": "Reinitialization replaces prior effect resources without accumulating them",
+      "pass": true,
+      "stats": {
+        "uploads": 0,
+        "draws": 0,
+        "maxVertices": 0,
+        "deletedPrograms": 1,
+        "deletedBuffers": 1,
+        "programCreated": 2,
+        "bufferCreated": 2,
+        "liveResources": 2
+      }
+    },
+    {
+      "name": "Effects compile failure cleans partial resources and returns false",
+      "pass": true,
+      "stats": {
+        "uploads": 0,
+        "draws": 0,
+        "maxVertices": 0,
+        "deletedPrograms": 1,
+        "deletedBuffers": 0,
+        "programCreated": 1,
+        "bufferCreated": 0,
+        "liveResources": 0
+      }
+    },
+    {
+      "name": "Effects link failure cleans partial resources and returns false",
+      "pass": true,
+      "stats": {
+        "uploads": 0,
+        "draws": 0,
+        "maxVertices": 0,
+        "deletedPrograms": 1,
+        "deletedBuffers": 0,
+        "programCreated": 1,
+        "bufferCreated": 0,
+        "liveResources": 0
+      }
+    },
+    {
+      "name": "Effects buffer failure cleans partial resources and returns false",
+      "pass": true,
+      "stats": {
+        "uploads": 0,
+        "draws": 0,
+        "maxVertices": 0,
+        "deletedPrograms": 1,
+        "deletedBuffers": 0,
+        "programCreated": 1,
+        "bufferCreated": 0,
+        "liveResources": 0
+      }
+    }
+  ]
+}

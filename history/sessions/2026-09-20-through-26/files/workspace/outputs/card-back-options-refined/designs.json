@@ -1,0 +1,52 @@
+[
+  {
+    "id": "01",
+    "name": "The Signature",
+    "description": "A small engraved olive. A single, fine gold rule."
+  },
+  {
+    "id": "02",
+    "name": "The Bookplate",
+    "description": "Four quiet corner gestures around the original olive."
+  },
+  {
+    "id": "03",
+    "name": "The Fine Arch",
+    "description": "A slender architectural contour, with generous empty space."
+  },
+  {
+    "id": "04",
+    "name": "Oval Intaglio",
+    "description": "Very fine oval engraving around a restrained olive signature."
+  },
+  {
+    "id": "05",
+    "name": "The Herbarium",
+    "description": "Four airy olive boughs, drawn with a fine engraver’s line."
+  },
+  {
+    "id": "06",
+    "name": "Woven Olive",
+    "description": "A tonal repeat, using the same precisely formed olive throughout."
+  },
+  {
+    "id": "07",
+    "name": "Ivory Impression",
+    "description": "Warm ivory, a midnight olive and the lightest gold border."
+  },
+  {
+    "id": "08",
+    "name": "The Paired Seal",
+    "description": "Two exact olive marks, joined by fine calligraphic curves."
+  },
+  {
+    "id": "09",
+    "name": "Midnight Engraving",
+    "description": "A tonal olive drawn in hairlines, with a tiny gold signature below."
+  },
+  {
+    "id": "10",
+    "name": "The Silk Line",
+    "description": "Fine flowing lines, echoing the deck’s movement through space."
+  }
+]

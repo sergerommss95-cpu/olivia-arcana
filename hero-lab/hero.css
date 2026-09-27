@@ -1,0 +1,180 @@
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300 600;font-display:swap;src:url('assets/fonts/cormorant-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300 600;font-display:swap;src:url('assets/fonts/cormorant-cyrillic.woff2') format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:300 600;font-display:swap;src:url('assets/fonts/cormorant-italic-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:300 600;font-display:swap;src:url('assets/fonts/cormorant-italic-cyrillic.woff2') format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:300 600;font-display:swap;src:url('assets/fonts/dm-sans-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/plex-mono-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/plex-mono-cyrillic.woff2') format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+/* DM Sans ships no Cyrillic — Plex Sans catches the UA body text so it never falls to Arial */
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:400 500;font-display:swap;src:url('assets/fonts/plex-sans-cyrillic.woff2') format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+
+:root {
+  --oa-abyss:#10134d; --oa-ultramarine:#20279b; --oa-blue:#343cb9;
+  --oa-moonstone:#e8e9ff; --oa-mist:#b7bce9; --oa-gilt:#e0b768;
+  --oa-rule:rgba(232,233,255,.24); --oa-ease:cubic-bezier(.16,1,.3,1);
+  --oa-serif:'Cormorant Garamond',Georgia,serif;
+  --oa-sans:'DM Sans','IBM Plex Sans',Arial,sans-serif; --oa-mono:'IBM Plex Mono',monospace;
+  --page-gutter:clamp(24px,5.25vw,104px);
+}
+*{box-sizing:border-box} html{background:var(--oa-abyss);color:var(--oa-moonstone);color-scheme:dark}
+body{margin:0;font-family:var(--oa-sans);-webkit-font-smoothing:antialiased}
+button,a{-webkit-tap-highlight-color:transparent} button{font:inherit;color:inherit;cursor:pointer} a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--oa-gilt);outline-offset:6px} ::selection{background:var(--oa-gilt);color:var(--oa-abyss)}
+.skip-link{position:fixed;z-index:30;top:12px;left:20px;padding:12px 18px;background:var(--oa-moonstone);color:var(--oa-abyss);transform:translateY(-150%)}.skip-link:focus{transform:none}
+
+/* ——— The approach track: 400vh of scroll, hero pinned inside ——— */
+.track{position:relative;height:400svh}
+.hero{position:sticky;top:0;height:100svh;min-height:640px;isolation:isolate;overflow:hidden;background:var(--oa-ultramarine)}
+
+/* ——— Scene: the sea of night. One world, three depths. ——— */
+.scene{position:absolute;z-index:-3;inset:0 0 77px;background:#181d7a;overflow:hidden}
+.world{
+  position:absolute;left:50%;top:50%;
+  width:max(100%, calc((100svh - 77px)*1.7769));
+  aspect-ratio:1672/941;
+  transform:translate(-50%,-50%) scale(var(--wz,1));
+  transform-origin:64.29% 80.98%;
+  will-change:transform;
+}
+.scene-image{position:absolute;inset:0;width:100%;height:100%;display:block}
+.water-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .9s var(--oa-ease)}
+.water-canvas.is-ready{opacity:1}
+/* as she brightens, the baked light-burst and the asterism by her halo step back a stop */
+.approach-scrim{position:absolute;inset:0;pointer-events:none;opacity:var(--glow,0);background:
+  radial-gradient(38% 34% at 33% 52%, rgba(15,18,74,.52), transparent 70%),
+  radial-gradient(30% 26% at 66% 16%, rgba(15,18,74,.44), transparent 70%)}
+/* Olivia — cropped at 930,480 (320x310 of 1672x941); her feet at 45.31% 90.97% of the crop */
+.figure{
+  position:absolute;left:55.622%;top:51.01%;width:19.139%;
+  transform-origin:45.31% 90.97%;
+  /* --fcap tempers her final size on small screens without touching the driver */
+  transform:translate(calc(var(--fx,0)*1%),calc(var(--fy,0)*1%)) scale(calc(1 + (var(--fz,1) - 1)*var(--fcap,1)));
+  /* gilt rim: a tight legible edge plus a wide breath — blooms only at arrival */
+  filter:drop-shadow(0 0 8px rgba(224,183,104,calc(var(--glow,0)*.65))) drop-shadow(0 0 34px rgba(224,183,104,calc(var(--glow,0)*.25)));
+  will-change:transform,filter;
+}
+/* her wake lives in the water shader itself — rings displace the real sea pixels */
+/* she levitates: the inner wrapper breathes so the scroll transform stays clean */
+.figure-inner{position:relative;width:100%;animation:figure-drift 8.5s ease-in-out infinite alternate;will-change:transform}
+@keyframes figure-drift{from{transform:translate3d(0,-.45%,0) rotate(.06deg)}to{transform:translate3d(0,.5%,0) rotate(-.08deg)}}
+/* hem melts into the waterline — she is in the sea, not pasted on it */
+.figure-body{width:100%;height:auto;display:block;
+  -webkit-mask-image:linear-gradient(180deg,#000 86%,rgba(0,0,0,.55) 92%,rgba(0,0,0,.14) 96.5%,transparent 99.5%);
+  mask-image:linear-gradient(180deg,#000 86%,rgba(0,0,0,.55) 92%,rgba(0,0,0,.14) 96.5%,transparent 99.5%)}
+.figure-reflection{
+  position:absolute;left:0;top:90.97%;width:100%;height:auto;display:block;
+  transform:scaleY(-.5);transform-origin:0 0;
+  opacity:.28;filter:blur(3px) brightness(.55) saturate(1.3);
+  -webkit-mask-image:linear-gradient(0deg,transparent 30%,#000 92%);
+  mask-image:linear-gradient(0deg,transparent 30%,#000 92%);
+  pointer-events:none;
+  animation:refl-wobble 7s ease-in-out infinite alternate;
+}
+@keyframes refl-wobble{
+  from{transform:scaleY(-.49) translateX(-.5%) skewX(.4deg);opacity:.25}
+  to{transform:scaleY(-.515) translateX(.55%) skewX(-.5deg);opacity:.3}
+}
+/* a curtain of mist that opens for her: `translate` composes with the drift animation */
+.mist{position:absolute;left:18%;top:64%;width:90%;height:26%;object-fit:fill;opacity:calc(.34*var(--mist,1));mix-blend-mode:screen;animation:mist-drift 26s ease-in-out infinite alternate;translate:calc((1 - var(--mist,1))*-20%) 0;pointer-events:none}
+.mist-secondary{left:36%;top:70%;height:15%;width:74%;opacity:calc(.24*var(--mist,1));animation-duration:34s;animation-direction:alternate-reverse;translate:calc((1 - var(--mist,1))*24%) 0}
+@keyframes mist-drift{from{transform:translate3d(-3.5%,1%,0) scale(1.02)}to{transform:translate3d(3.5%,-3%,0) scale(1.06)}}
+/* readability veils — deepen slightly as she nears */
+.scene::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,16,70,.60),rgba(14,17,72,.22) 42%,transparent 62%),linear-gradient(180deg,rgba(13,16,70,.62),transparent 26%),linear-gradient(0deg,rgba(13,16,70,calc(.18 + var(--adv,0)*.22)),transparent 34%);pointer-events:none}
+
+/* ——— Header ——— */
+.site-header{position:relative;display:flex;align-items:center;justify-content:space-between;gap:24px;height:112px;padding:0 var(--page-gutter);z-index:5}
+.brand{display:flex;align-items:center;gap:13px;flex-shrink:0}
+.brand-mark{width:34px;height:34px;stroke:currentColor;stroke-width:.9;fill:none}
+.brand-name{font-family:var(--oa-serif);font-weight:500;font-size:27px;letter-spacing:.105em;white-space:nowrap}
+.header-right{display:flex;align-items:center;gap:54px}
+.navigation{display:flex;align-items:center;gap:35px;font-size:14px}
+.navigation a{position:relative;padding:12px 0}
+.navigation a::after{content:'';position:absolute;left:0;right:0;bottom:6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s var(--oa-ease)}
+.navigation a:hover::after{transform:scaleX(1)}
+.languages{display:flex;gap:2px;align-items:center;font-family:var(--oa-mono);font-size:12px}
+.languages button{background:none;border:0;padding:13px 8px;opacity:.6}
+.languages button[aria-pressed=true]{opacity:1;text-decoration:underline;text-underline-offset:6px}
+.languages button:hover{opacity:1}.language-divider{opacity:.28}
+
+/* ——— Hero copy — drifts gently upward as she approaches ——— */
+.hero-content{position:relative;width:min(690px,52%);padding:0 0 0 var(--page-gutter);margin-top:clamp(50px,7.6vh,116px);z-index:2;transform:translateY(calc(var(--adv,0)*-3vh))}
+.eyebrow{display:flex;align-items:center;gap:13px;font-family:var(--oa-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin:0 0 30px}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--oa-mist)}
+h1{font-family:var(--oa-serif);font-size:clamp(82px,7.6vw,132px);line-height:.9;font-weight:400;letter-spacing:-.045em;margin:0 0 28px;text-wrap:balance}
+h1 span{display:block} h1 em{font-weight:400}
+.hero-description{max-width:340px;font-size:16px;line-height:1.8;color:#dce0fc;margin:0 0 32px;letter-spacing:.005em}
+.hero-actions{display:flex;align-items:center;gap:27px;flex-wrap:wrap}
+.primary-action{display:inline-flex;align-items:center;justify-content:space-between;gap:32px;min-height:54px;padding:0 23px;color:#15174c;background:var(--oa-gilt);font-size:14px;font-weight:500;transition:background .3s var(--oa-ease),transform .3s var(--oa-ease);border:1px solid transparent;border-radius:2px}
+.primary-action:hover{background:#edca8b;transform:translateY(-2px)}.primary-action:active{transform:translateY(0)}
+.action-arrow{font-size:20px;line-height:1;transition:transform .3s var(--oa-ease)}
+.primary-action:hover .action-arrow{transform:translateX(4px)}
+.secondary-action{display:inline-flex;align-items:center;gap:12px;min-height:48px;font-size:14px;border-bottom:1px solid rgba(232,233,255,.5);transition:border-color .3s}
+.secondary-action:hover{border-color:var(--oa-moonstone)}
+.card-symbol{width:15px;height:21px;stroke:currentColor;fill:none;stroke-width:.8}
+.trust{margin:21px 0 0;color:#bdc5ef;font-family:var(--oa-serif);font-size:19px;font-style:italic;letter-spacing:.01em}
+
+/* ——— Scene caption — act I crossfades to act II as she nears ——— */
+.scene-caption{position:absolute;right:var(--page-gutter);bottom:120px;display:grid;pointer-events:none}
+.caption-act{grid-area:1/1;display:flex;align-items:center;gap:22px;justify-content:end;transition:opacity .5s var(--oa-ease)}
+.caption-act[data-act="1"]{opacity:calc(1 - var(--act,0))}
+.caption-act[data-act="2"]{opacity:var(--act,0)}
+.caption-rule{height:1px;width:48px;background:rgba(232,233,255,.5)}
+.caption-text{font-family:var(--oa-mono);font-size:12px;line-height:1.9;letter-spacing:.14em;text-transform:uppercase;text-align:right;text-shadow:0 1px 3px #10134d,0 0 12px #10134d,0 0 18px #10134d}
+.caption-text span{display:block}
+.caption-text span:last-child{opacity:.82;font-size:11px}
+/* scroll hint — dies on first scroll */
+.scroll-hint{position:absolute;left:50%;bottom:96px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;font-family:var(--oa-mono);font-size:11px;letter-spacing:.3em;text-indent:.3em;text-transform:uppercase;color:#d6dbff;text-shadow:0 1px 3px #10134d,0 0 12px #10134d;opacity:calc(1 - var(--raw,0)*8);pointer-events:none}
+.scroll-hint::after{content:'';width:1px;height:34px;background:linear-gradient(180deg,#c9cffa,transparent);animation:hint-fall 2.2s var(--oa-ease) infinite}
+@keyframes hint-fall{from{transform:scaleY(.2);transform-origin:top;opacity:0}30%{opacity:.9}to{transform:scaleY(1);transform-origin:top;opacity:0}}
+
+/* ——— Hero footer ——— */
+.hero-footer{position:absolute;bottom:0;left:0;right:0;min-height:77px;padding:15px var(--page-gutter);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;border-top:1px solid var(--oa-rule);background:#121656;gap:20px;z-index:4}
+.footer-note{font-family:var(--oa-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;line-height:1.6;display:flex;gap:13px;align-items:center}
+.footer-diamond{font-size:13px;color:var(--oa-gilt)}
+.footer-center{font-family:var(--oa-serif);font-size:18px;font-style:italic;color:#c4caed;justify-self:center}
+.footer-progress{justify-self:end;display:flex;align-items:center;gap:12px;font-family:var(--oa-mono);font-size:11px;letter-spacing:.14em;color:#aeb6ec}
+.progress-rail{width:72px;height:1px;background:rgba(232,233,255,.22);position:relative}
+.progress-rail::after{content:'';position:absolute;inset:0;background:var(--oa-gilt);transform:scaleX(var(--adv,0));transform-origin:left}
+
+/* ——— After the approach ——— */
+.after{position:relative;min-height:70svh;background:linear-gradient(180deg,#121656,#0d1042 55%);display:grid;place-content:center;text-align:center;gap:18px;padding:96px var(--page-gutter)}
+.after .after-kicker{font-family:var(--oa-mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#aeb6ec;margin:0}
+.after h2{font-family:var(--oa-serif);font-weight:400;font-size:clamp(42px,4.6vw,72px);letter-spacing:-.03em;margin:0}
+.after p.after-note{font-family:var(--oa-serif);font-style:italic;font-size:19px;color:#bdc5ef;margin:0}
+
+@media (max-width:1100px) and (min-width:701px){
+ .figure{--fcap:.78}
+ .header-right{gap:28px}.navigation{gap:22px}.brand-name{font-size:24px}
+ .hero-content{width:57%;margin-top:70px}h1{font-size:90px}
+ .scene::after{background:linear-gradient(90deg,rgba(13,16,70,.66),rgba(14,17,72,.34) 45%,transparent 78%),linear-gradient(180deg,rgba(13,16,70,.62),transparent 26%)}
+}
+@media (max-width:700px){
+ :root{--page-gutter:24px}
+ .track{height:340svh}
+ .hero{min-height:700px}
+ .site-header{height:87px;gap:15px}.brand{gap:9px}.brand-mark{width:26px;height:26px}.brand-name{font-size:22px;letter-spacing:.08em}
+ .header-right{gap:0}.navigation{display:none}
+ .world{transform:translate(calc(-50% - 11%),-50%) scale(var(--wz,1))}
+ .figure{--fcap:.58}
+ .hero-content{width:100%;margin-top:26px;padding-right:var(--page-gutter)}
+ h1{font-size:clamp(58px,15vw,96px);line-height:.91;margin-bottom:20px}
+ .hero-description{font-size:14px;line-height:1.65;max-width:290px;margin-bottom:22px}
+ .hero-actions{flex-direction:column;align-items:flex-start;gap:16px}
+ .trust{font-size:17px;margin-top:14px}
+ .scene::after{background:linear-gradient(180deg,rgba(13,16,70,.88),rgba(14,17,72,.52) 40%,rgba(14,17,72,.18) 58%,transparent 70%),linear-gradient(0deg,rgba(13,16,70,calc(.24 + var(--adv,0)*.28)),transparent 42%)}
+ .scene-caption{left:24px;right:24px;bottom:110px}.caption-rule{width:26px;flex-shrink:0}.caption-text{font-size:10px}
+ .caption-text span:last-child{display:none}
+ .footer-progress{font-size:9px}.progress-rail{width:40px}
+ .scroll-hint{display:none}
+ .hero-footer{grid-template-columns:1fr auto;min-height:85px;padding:13px 24px}
+ .footer-center{display:none}.footer-note{font-size:9px;max-width:190px}
+}
+@media (prefers-reduced-motion:reduce){
+ .track{height:auto}
+ .hero{position:relative;height:100svh}
+ .mist{animation:none}
+ .figure-inner,.figure-reflection{animation:none}
+ .water-canvas{display:none}
+ .scroll-hint{display:none}
+ .world,.figure,.hero-content{transform:none!important}
+}

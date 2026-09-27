@@ -1,0 +1,15 @@
+{
+  "source": "olivia-approved-motion-2026-09-24.html",
+  "source_sha256": "100608f7d72a8e94f021983b47ab4d601ef1e3ee4fe6b1a697685380de0a2a12",
+  "index_sha256": "805fd405fac9e8354b664066544b1cd55318e033b38749151cee9b9485d4cb21",
+  "original_script_hashes": [
+    "483d634125510b2ed8cd6257d41762a27f9d94bebccb40462554e5242005abaf",
+    "453279e1375afe2d68931073901714bf179bf694b6652f0654df2ab9ea663e68"
+  ],
+  "original_runtime_unchanged": true,
+  "changes": [
+    "Product navigation links",
+    "Preview toolbar becomes product navigation at identical height",
+    "Optional play=1 starts original playback control"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "selected": "10 — Olive lattice",
+  "selected_on": "2026-09-23",
+  "source": "olivia-weave-reimagined/10-olive-lattice.png",
+  "master": "olivia-card-back-olive-lattice.png",
+  "web_texture": "olivia-card-back.webp",
+  "hero": "olivia-hero.html",
+  "master_sha256": "e9e2f51684c0bfcf71a4f0caa966d70127ef8b31b7aa5f959ab91b3cdf8ec59e",
+  "scope": "Selected card back, applied to local floating-card hero. No logo selection or live deployment.",
+  "hero_build": "work/hero-v12/build.py",
+  "motion_revision": "Cinematic refinement: staggered card departures and gathering, restrained individual tilt, soft cast shadows, subdued wings and a longer Moon hold; 96-second journey",
+  "card_finish_revision": "Closed rounded card body, joined satin bevel, matched face and shadow silhouette, front-only source-rim correction"
+}

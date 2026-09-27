@@ -1,0 +1,32 @@
+{
+  "createdAt": "2026-09-25T16:09:06.142314+00:00",
+  "status": "draft-preview",
+  "deployId": "6ab69ba1c7bd2a00a86a9bc3",
+  "previewUrl": "https://6ab69ba1c7bd2a00a86a9bc3--olivia-arcana.netlify.app/#spreads",
+  "productionChanged": false,
+  "native": {
+    "assets": "assets/native-card-assets.e3544e0c47da0926.js",
+    "scripts": {
+      "hero": "assets/hero.413304f1cea159c6.js",
+      "background": "assets/background.bdd422deea49eb5f.js",
+      "app": "assets/app.9a4be9e4fabd8289.js"
+    },
+    "stylesheet": "assets/experience.caf34ce8fb6441b7.css"
+  },
+  "heroSha256": "413304f1cea159c67fee3f8542cf5f95ebb6358891f2c08b91c38f76a965a5b2",
+  "validation": {
+    "productTests": 149,
+    "productBuild": "passed",
+    "nativeBuild": "passed",
+    "browser": [
+      "desktop pull and cancel",
+      "keyboard end-of-deck selection",
+      "three-card manual selection and reveal",
+      "phone five-card manual selection",
+      "phone eight-card optional automatic selection",
+      "reduced-motion selection",
+      "draft native app and locked hero assets",
+      "draft console: no errors"
+    ]
+  }
+}

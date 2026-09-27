@@ -4,7 +4,7 @@
  * Listens for `beforeinstallprompt` event.
  * Shows a subtle bottom banner with install + dismiss buttons.
  * Remembers dismissal in localStorage for 7 days.
- * Also registers the service worker on mount.
+ * Also registers the service worker on mount — production builds only.
  */
 
 "use client";
@@ -23,24 +23,44 @@ export default function InstallPrompt() {
   const showTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    // Register service worker. updateViaCache "none" + an explicit
-    // update() force the browser to refetch sw.js on every visit, so a
-    // new cache version reaches installed PWAs immediately. When the new
-    // worker takes control, reload once — kills any stale JS mid-session.
+    // The worker serves /_next/static/ cache-first, which is only sound for
+    // production's content-hashed filenames. Dev chunk paths stay the same
+    // across edits, so a worker registered here pins the first bundle it ever
+    // saw: the HTML keeps arriving fresh from the server while the browser
+    // runs yesterday's client tree, and every load fails hydration. Register
+    // in production only, and tear down whatever a previous production build
+    // (or an older dev session) left installed on this origin.
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/sw.js", { updateViaCache: "none" })
-        .then((reg) => {
-          reg.update().catch(() => {});
-        })
-        .catch(() => {
-          // SW registration failed — that's okay
+      if (process.env.NODE_ENV === "production") {
+        // updateViaCache "none" + an explicit update() force the browser to
+        // refetch sw.js on every visit, so a new cache version reaches
+        // installed PWAs immediately. When the new worker takes control,
+        // reload once — kills any stale JS mid-session.
+        navigator.serviceWorker
+          .register("/sw.js", { updateViaCache: "none" })
+          .then((reg) => {
+            reg.update().catch(() => {});
+          })
+          .catch(() => {
+            // SW registration failed — that's okay
+          });
+        let hadController = !!navigator.serviceWorker.controller;
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (hadController) window.location.reload();
+          hadController = true;
         });
-      let hadController = !!navigator.serviceWorker.controller;
-      navigator.serviceWorker.addEventListener("controllerchange", () => {
-        if (hadController) window.location.reload();
-        hadController = true;
-      });
+      } else {
+        const controlled = !!navigator.serviceWorker.controller;
+        navigator.serviceWorker
+          .getRegistrations()
+          .then((regs) => Promise.all(regs.map((reg) => reg.unregister())))
+          .then(() => caches.keys())
+          .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+          // A controlled page is already running the worker's stale chunks;
+          // one reload, now that the caches are gone, lands on the real build.
+          .then(() => { if (controlled) window.location.reload(); })
+          .catch(() => {});
+      }
     }
 
     // Check if dismissed recently

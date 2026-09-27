@@ -1,0 +1,34 @@
+/* One preparation state: artwork remains, every interpretation waits for the answer. */
+#reading-view[data-guidance-state="pending"] .reading-copy>:not(#reading-copy-guidance),
+#reading-view[data-guidance-state="pending"] #card-index{display:none!important}
+#reading-view[data-guidance-state="pending"] .reading-layout{align-items:center;min-height:65svh}
+#reading-view[data-guidance-state="pending"] .reading-copy{align-self:center}
+#reading-view[data-guidance-state="pending"] #reading-copy-guidance .question-guidance{margin:0;padding:0}
+
+#spreads-view[data-guidance-waiting="true"] #spread-position-copy>:not(.eyebrow):not(h2):not(.art-look),
+#spreads-view[data-guidance-waiting="true"] #spread-art-line{display:none!important}
+#spreads-view[data-guidance-state="pending"] .spread-ritual-head,
+#spreads-view[data-guidance-state="pending"] .spread-workspace,
+#spreads-view[data-guidance-state="pending"] .spread-synthesis-title>:not(#spread-connections),
+#spreads-view[data-guidance-state="pending"] #spread-connections figcaption,
+#spreads-view[data-guidance-state="pending"] .spread-synthesis-copy>:not(#spread-synthesis-copy-guidance){display:none!important}
+#spreads-view[data-guidance-state="pending"] #spread-synthesis{min-height:67svh;padding-block:2rem;border-top:0;align-items:center;margin-top:0}
+#spreads-view[data-guidance-state="pending"] .spread-synthesis-title{position:static;align-self:center}
+#spreads-view[data-guidance-state="pending"] #spread-connections{margin:0;justify-content:center}
+#spreads-view[data-guidance-state="pending"] #spread-connections figure{max-width:27%}
+#spreads-view[data-guidance-state="pending"] .spread-synthesis-copy{align-self:center}
+.question-guidance[data-state="pending"]{border:0!important;padding:0!important;margin:0!important}
+.reading-loader:focus{outline:none}
+.question-guidance[data-state="ready"] .guidance-result{animation:reading-answer-arrive .7s var(--ease-settle) both}
+@keyframes reading-answer-arrive{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+@media(max-width:800px){
+ #reading-view[data-guidance-state="pending"] .reading-layout{display:flex;flex-direction:column-reverse;gap:1rem;min-height:0}
+ #reading-view[data-guidance-state="pending"] .reading-copy{width:100%}
+ #reading-view[data-guidance-state="pending"] .reading-art{max-width:10rem;margin:0 auto}
+ #reading-view[data-guidance-state="pending"] .reading-loader{min-height:15rem}
+ #spreads-view[data-guidance-state="pending"] #spread-synthesis{display:flex;flex-direction:column-reverse;justify-content:center;gap:1rem;min-height:70svh;padding-top:0}
+ #spreads-view[data-guidance-state="pending"] .spread-synthesis-copy{width:100%}
+ #spreads-view[data-guidance-state="pending"] .spread-synthesis-title{width:min(100%,22rem)}
+ #spreads-view[data-guidance-state="pending"] .reading-loader{min-height:17rem}
+}
+@media(prefers-reduced-motion:reduce){.question-guidance[data-state="ready"] .guidance-result{animation:none}}

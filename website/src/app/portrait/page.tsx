@@ -368,7 +368,7 @@ function NatalWheel({ chart, ariaLabel }: { chart: NatalChart; ariaLabel: string
       {/* The birth moon, hatched at the hub */}
       <g className="sfade" style={{ "--ei": 14 } as React.CSSProperties}>
         <circle cx={C} cy={C} r="16" fill="url(#bc-hatch)" opacity="0.5" />
-        {lit && <path d={lit} fill="var(--bone, #e8dcc8)" opacity="0.9" />}
+        {lit && <path d={lit} fill="var(--bone, #e8e9ff)" opacity="0.9" />}
         <circle cx={C} cy={C} r="16" fill="none" stroke="currentColor" strokeWidth="1" />
       </g>
     </svg>

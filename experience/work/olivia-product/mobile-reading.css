@@ -1,0 +1,346 @@
+/* Handheld readings open on the artwork itself, then become a quiet personal
+   essay. There is one visual centre, and the answer has the full page measure. */
+@media (max-width:700px) {
+ #reading-view,#journal-view,.aj-page {
+  --mobile-reading-gutter:clamp(20px,6vw,38px);
+  padding-inline:var(--mobile-reading-gutter);
+  padding-bottom:calc(3rem + var(--mobile-nav-height,calc(76px + env(safe-area-inset-bottom,0px))));
+ }
+ #spreads-view {padding-bottom:calc(3rem + var(--mobile-nav-height,calc(76px + env(safe-area-inset-bottom,0px))))}
+ #reading-view .reading-layout {
+  display:block;max-width:36rem;margin:.5rem auto 0;
+ }
+ #reading-view .reading-copy {width:100%;min-width:0}
+ #reading-view .reading-copy>.reading-steps {display:none}
+ .mobile-reading-context {
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  margin:0 0 2.8rem;padding:0 0 2rem;border-bottom:1px solid #c5b18936;
+ }
+ .mobile-reading-context #reading-kind {
+  margin:0 0 2rem;width:100%;max-width:none;
+  font-size:.6875rem;line-height:1.7;letter-spacing:.13em;color:#c6b99d;
+ }
+ #reading-view .mobile-reading-context h1 {
+  margin:1.8rem 0 .55rem;width:100%;max-width:12ch;
+  font-size:clamp(2.6rem,11.5vw,3.5rem);line-height:1.02;
+  letter-spacing:-.035em;overflow-wrap:anywhere;text-wrap:balance;
+ }
+ #reading-view .mobile-reading-context .reading-art {
+  position:relative;top:auto;width:min(59vw,14rem);max-width:none;
+  padding:0;margin:0;flex-shrink:0;
+ }
+ #reading-view .mobile-reading-context #reveal-card {
+  width:100%;max-width:none;transform:rotate(-3deg);margin:0;
+ }
+ #reading-view .mobile-reading-context #reading-image {
+  box-shadow:1px 1px 0 #c4b79075,8px 20px 32px #020b1866;
+ }
+ #reading-view .mobile-reading-context #card-index {display:none}
+ .mobile-reading-orientation {
+  margin:0;font-size:.6875rem;line-height:1.6;letter-spacing:.08em;
+  color:#baac8f;text-transform:uppercase;
+ }
+ .mobile-reading-question {
+  margin:1.55rem 0 0;min-width:0;width:100%;text-align:left;
+ }
+ .mobile-reading-question>summary {
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  min-height:44px;padding:.75rem .2rem;list-style:none;cursor:pointer;
+  color:#c9bc9e;font-size:.8125rem;line-height:1.6;
+ }
+ .mobile-reading-question>summary::-webkit-details-marker {display:none}
+ .mobile-reading-question>summary::after {content:'+';font-size:1.15rem;flex-shrink:0}
+ .mobile-reading-question[open]>summary::after {content:'−'}
+ .mobile-reading-question[data-concise="true"]>summary {display:none}
+ .mobile-reading-question .question-quote,
+ #spread-synthesis .mobile-reading-question .question-quote {
+  margin:.75rem 0 0;max-width:none;padding:0;
+  font:400 italic 1.4375rem/1.45 'Cormorant Garamond',Georgia,serif;
+  color:#ded8c9;letter-spacing:0;overflow-wrap:anywhere;text-wrap:pretty;
+ }
+ .mobile-reading-context .mobile-reading-question[data-concise="true"] {text-align:center}
+ .mobile-reading-question[data-concise="true"] .question-quote {margin:0}
+
+ /* The answer is uninterrupted prose, with a calm change of rhythm at a new thought. */
+ #reading-copy-guidance,#spread-synthesis-copy-guidance {scroll-margin-top:1.5rem}
+ :is(#reading-view,#spread-synthesis) .question-guidance:not(.is-optional) {
+  margin:0 0 2rem;padding:0;border:0;
+ }
+ :is(#reading-view,#spread-synthesis) .guidance-kicker {
+  font-size:.6875rem;line-height:1.6;letter-spacing:.13em;margin:0 0 1.35rem;
+ }
+ :is(#reading-view,#spread-synthesis) .guidance-result {max-width:none}
+ :is(#reading-view,#spread-synthesis) .guidance-result .guidance-lead {
+  max-width:none;font-size:1.75rem;line-height:1.33;
+  letter-spacing:-.013em;margin:0 0 2.4rem;color:#f0e5d0;
+ }
+ :is(#reading-view,#spread-synthesis) .guidance-result .guidance-lead.is-long {
+  font:400 1.0625rem/1.8 'DM Sans',sans-serif;letter-spacing:0;
+ }
+ :is(#reading-view,#spread-synthesis) .guidance-chapter {margin-top:2.4rem}
+ :is(#reading-view,#spread-synthesis) .guidance-chapter h4 {
+  margin:0 0 .85rem;font-size:1.625rem;line-height:1.16;letter-spacing:-.015em;text-wrap:pretty;
+ }
+ :is(#reading-view,#spread-synthesis) .guidance-chapter p,
+ #reading-view .meaning,
+ #spread-synthesis #spread-paragraphs .reading-connection p {
+  font-size:1rem;line-height:1.8;letter-spacing:0;max-width:none;
+  margin:0 0 1.15rem;color:#d1d7d7;overflow-wrap:anywhere;text-wrap:pretty;
+ }
+ :is(#reading-view,#spread-synthesis) .guidance-next-step {
+  margin:2.25rem 0 0;padding:1.7rem 0 0;border-top:1px solid #c9b58255;
+ }
+ :is(#reading-view,#spread-synthesis) .guidance-next-step p {color:#e6dfcf}
+ :is(#reading-view,#spread-synthesis) .guidance-how {font-size:.75rem;min-height:44px}
+ :is(#reading-view,#spread-synthesis) .guidance-result-method {margin-top:1.2rem}
+
+ /* Reference material stays within its existing native disclosures. */
+ :is(#reading-view,#spread-synthesis) .reading-reference.has-personal-reading {
+  margin:2.2rem 0 1.5rem;border:0;
+ }
+ :is(#reading-view,#spread-synthesis) .reading-reference.has-personal-reading>summary {
+  min-height:56px;padding:1rem;gap:1.2rem;font-size:.84rem;line-height:1.6;
+  background-color:#eee2c906;color:#e4d9c0;border-radius:3px;
+ }
+ :is(#reading-view,#spread-synthesis) .reading-reference-content {padding-top:1.4rem}
+ :is(#reading-view,#spread-synthesis) .reading-reference[open] .reading-reference-content {padding-bottom:.8rem}
+ #reading-view .card-lesson {margin:1.25rem 0;font-size:.875rem}
+ #reading-view .card-lesson>summary {min-height:52px;line-height:1.6;align-items:center;gap:1rem}
+ #reading-view .card-lesson p {font-size:.95rem;line-height:1.8}
+ #reading-view .intention-frame,#reading-view #practice {font-size:.9rem;line-height:1.8}
+ :is(#reading-view,#spread-synthesis) .reflection-prompt {padding:1.8rem 0;margin:2.4rem 0;border-bottom:0}
+ :is(#reading-view,#spread-synthesis) .reflection-prompt .eyebrow {font-size:.6875rem;line-height:1.6;letter-spacing:.13em}
+ :is(#reading-view,#spread-synthesis) .reflection-prompt p {font-size:1.75rem;line-height:1.28}
+ #spread-synthesis #spread-paragraphs .reading-connection+section {margin-top:2rem}
+ #spread-synthesis #spread-paragraphs .reading-connection h3 {font-size:1.85rem;line-height:1.15;margin-bottom:.8rem}
+
+ /* A full-width save is the natural end of the reading, within the thumb's reach. */
+ :is(#save-section,#spread-save-section) {margin-top:2.5rem;padding-top:1.6rem;border-top:1px solid #c5b18936}
+ :is(#save-section,#spread-save-section) .save-actions {
+  display:flex;flex-direction:column;align-items:stretch;gap:.75rem;margin:0;
+ }
+ :is(#save-section,#spread-save-section) .solid-action {
+  width:100%;min-height:58px;padding:1.1rem 1.2rem;font-size:.9rem;line-height:1.5;
+ }
+ :is(#save-section,#spread-save-section) .save-actions .quiet-link {
+  min-height:44px;align-self:flex-start;font-size:.8rem;padding:.65rem .3rem;
+ }
+ :is(#reading-view,#spread-synthesis) .reading-notes {margin:1.1rem 0}
+ :is(#reading-view,#spread-synthesis) .reading-notes>summary {
+  min-height:50px;font-size:.82rem;line-height:1.6;padding:.85rem;
+ }
+ :is(#reading-view,#spread-synthesis) .reading-notes label {font-size:.8rem;line-height:1.6}
+ :is(#reading-view,#spread-synthesis) textarea,
+ :is(#reading-view,#spread-synthesis) input:not([type=checkbox]):not([type=radio]),
+ :is(#reading-view,#spread-synthesis) select {font-size:1rem;line-height:1.65;min-height:50px}
+ :is(#reading-view,#spread-synthesis) textarea {min-height:8rem;padding:1rem}
+ :is(#reading-view,#spread-synthesis) textarea::placeholder {font-size:.94rem}
+ :is(#reading-view,#spread-synthesis) .privacy-note {font-size:.72rem;line-height:1.75;max-width:none}
+ :is(#reading-view,#spread-synthesis) :is(#save-status,#spread-save-status,.guidance-status) {font-size:.8rem;line-height:1.7}
+ :is(#reading-view,#spread-synthesis) :is(#download-reading,#download-spread) {font-size:.76rem;min-height:44px;padding:.65rem .25rem}
+ .reading-copy>.quiet-link,.spread-synthesis-copy>.quiet-link {
+  display:flex;align-items:center;min-height:48px;width:fit-content;max-width:100%;
+  margin-top:.55rem;font-size:.79rem;line-height:1.6;padding:.65rem .3rem;text-align:left;
+ }
+ :is(#reading-view,#spread-synthesis) :is(.practice-editor,.share-reflection)>summary {font-size:.86rem;line-height:1.6;min-height:52px}
+ :is(#reading-view,#spread-synthesis) .practice-fields label {font-size:.8rem}
+ :is(#reading-view,#spread-synthesis) .practice-pair {grid-template-columns:1fr}
+
+ /* The whole spread opens like an essay; the cards form a compact visual index. */
+ #spread-synthesis {display:block;max-width:36rem;margin:2.5rem auto 0;padding-top:2.5rem;scroll-margin-top:1.2rem}
+ #spread-synthesis[hidden] {display:none}
+ #spread-synthesis .spread-synthesis-title {position:static;margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid #c5b18936}
+ #spread-synthesis .spread-synthesis-title>.eyebrow {font-size:.6875rem;line-height:1.7;letter-spacing:.13em}
+ #spread-synthesis h2 {font-size:clamp(2.8rem,11vw,3.5rem);line-height:1.02;margin:1rem 0 1.25rem}
+ #spread-synthesis .spread-synthesis-title>.question-quote {font-size:1.4rem;line-height:1.45;max-width:none}
+ #spread-synthesis .spread-connections {
+  display:flex;justify-content:flex-start;align-items:flex-start;flex-wrap:nowrap;
+  gap:.9rem;min-height:0;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;
+  padding:.4rem .2rem 1rem;margin:2rem 0 0;scrollbar-width:thin;scrollbar-color:#ac987a55 transparent;
+  scroll-snap-type:x proximity;
+ }
+ #spread-synthesis .spread-connections figure {
+  flex:1 0 0;max-width:7rem;min-width:0;scroll-snap-align:start;
+ }
+ #spread-synthesis .spread-connections:has(figure:nth-child(4)) figure {flex:0 0 29%;max-width:7rem}
+ #spread-synthesis .spread-connections img {max-height:none;width:100%;transform:none}
+ #spread-synthesis .spread-connections figcaption {font-size:.6875rem;line-height:1.55;margin-top:.85rem;letter-spacing:0;overflow-wrap:anywhere;color:#bbc7cc}
+ #spread-synthesis .spread-synthesis-copy {min-width:0}
+ #spread-synthesis .spread-preview-cta {font-size:1rem;line-height:1.8}
+
+ /* Pending remains one wordmark and artwork. No title, question, interpretation,
+    note, or save control can appear early because of the mobile wrapper. */
+ #reading-view[data-guidance-state="pending"] .reading-layout {display:block;min-height:0;margin-top:1rem}
+ #reading-view[data-guidance-state="pending"] .reading-copy {width:100%;min-height:70svh}
+ #reading-view[data-guidance-state="pending"] .reading-copy>.mobile-reading-context {
+  display:flex!important;flex-direction:column;align-items:center;margin:0;padding:0;border:0;
+ }
+ #reading-view[data-guidance-state="pending"] .mobile-reading-context>:not(.reading-art) {display:none!important}
+ #reading-view[data-guidance-state="pending"] .mobile-reading-context .reading-art {
+  width:min(43vw,10rem);max-width:none;margin:0;padding:0;
+ }
+ #reading-view[data-guidance-state="pending"] .mobile-reading-context #reveal-card {transform:rotate(-3deg)}
+ #reading-view[data-guidance-state="pending"] .reading-loader {min-height:15rem;padding:2.6rem 0 1.5rem}
+ #spreads-view[data-guidance-state="pending"] #spread-synthesis {
+  flex-direction:column;min-height:70svh;justify-content:center;gap:0;margin:0;padding:1.5rem 0;
+ }
+ #spreads-view[data-guidance-state="pending"] .spread-synthesis-title {width:100%;margin:0;padding:0;border:0}
+ #spreads-view[data-guidance-state="pending"] #spread-connections {justify-content:center;margin:0;gap:.6rem;overflow:visible}
+ #spreads-view[data-guidance-state="pending"] #spread-connections figure {flex-basis:clamp(54px,19vw,78px);max-width:22%}
+ #spreads-view[data-guidance-state="pending"] .reading-loader {min-height:16rem;padding:2.3rem 0 1.5rem}
+ :is(#reading-view,#spread-synthesis) .reading-loader-name {font-size:clamp(4.6rem,20vw,6rem)}
+ :is(#reading-view,#spread-synthesis) .reading-loader-track {margin-top:2rem}
+
+ /* Saved readings retain the question first, with quiet small artworks alongside. */
+ #journal-view .journal-intro {margin:2.4rem 0 2rem}
+ #journal-view .journal-intro h1 {font-size:clamp(3.45rem,14.5vw,5.4rem);line-height:.96;letter-spacing:-.04em;overflow-wrap:anywhere}
+ #journal-view .journal-intro>p:last-child {font-size:1rem;line-height:1.75;margin-top:1.4rem}
+ #journal-view .journal-entry {padding-bottom:3.3rem;border-top:1px solid var(--rule)}
+ #journal-view .journal-entry .journal-row {
+  grid-template-columns:58px minmax(0,1fr) 14px;gap:1rem;align-items:start;
+  padding:1.4rem 0 0;border:0;min-height:140px;
+ }
+ #journal-view .journal-row img {width:58px;height:auto}
+ #journal-view .journal-row time {font-size:.63rem;line-height:1.65;letter-spacing:.035em}
+ #journal-view .journal-row h2 {font-size:1.8rem;line-height:1.12;margin:.5rem 0 .6rem;overflow-wrap:anywhere}
+ #journal-view .journal-row p {font-size:.9rem;line-height:1.7;color:#c4ced3}
+ #journal-view .remove-entry {bottom:.35rem;right:0;min-height:44px;font-size:.74rem;padding:.65rem .3rem}
+ #journal-view .journal-bottom {margin-top:1.6rem;display:block}
+ #journal-view .backup-actions {display:flex;flex-direction:column;align-items:stretch;gap:.9rem}
+ #journal-view .backup-actions .text-action {width:100%;font-size:.84rem;margin:0;min-height:52px}
+ #journal-view .backup-panel {padding-block:1rem}
+ #journal-view .backup-panel p {font-size:.9rem;line-height:1.7}
+ #journal-view .privacy-note {font-size:.74rem;line-height:1.7;margin-top:1rem;max-width:none}
+ #journal-view .almanac-links {display:flex;flex-direction:column;gap:.75rem}
+ #journal-view .almanac-links a {text-align:left;font-size:.88rem;min-height:52px;padding:1rem}
+ #journal-view .journal-practice-head {display:block}
+ #journal-view .journal-practice label {display:block;min-width:0;font-size:.8rem}
+ #journal-view .journal-practice select {font-size:1rem;min-height:50px}
+ #journal-view .revisit-copy strong {font-size:1.85rem;line-height:1.15}
+ #journal-view .revisit-copy>span:not(.eyebrow) {font-size:.9rem;line-height:1.7}
+ #journal-view .empty-journal h2 {font-size:2.7rem;line-height:1.1}
+ #journal-view .empty-journal p {font-size:1rem;line-height:1.75}
+
+ /* On the almanac, prose gets a full line. A spread is a small horizontal ribbon
+    of real card links instead of a narrow column squeezing the user's story. */
+ .aj-page .aj-intro,.aj-page:has(.aj-first-page) .aj-intro {display:block;padding:2.5rem 0 2.2rem}
+ .aj-page .aj-intro>.eyebrow {margin-bottom:1rem;font-size:.65rem}
+ .aj-page h1,.aj-page:has(.aj-first-page) .aj-intro h1 {font-size:clamp(3.35rem,14.5vw,5.5rem);line-height:.98;letter-spacing:-.045em;max-width:none;overflow-wrap:anywhere}
+ .aj-page .aj-intro>.aj-deck {max-width:none;font-size:1rem;line-height:1.75;margin:1.4rem 0 0;padding:0}
+ .aj-page .aj-cadence {font-size:.68rem;letter-spacing:.035em;margin-top:1.8rem;gap:.7rem}
+ .aj-page .aj-cadence span {gap:.6rem}
+ .aj-page .aj-cadence span:not(:last-child)::after {margin-right:0}
+ .aj-page .aj-topic-heading h2 {font-size:2rem;line-height:1.12}
+ .aj-page .aj-topic-heading p {font-size:.9rem;line-height:1.75}
+ .aj-page .aj-tools {gap:.6rem 1rem;padding:1rem 0;margin-bottom:2rem;align-items:center}
+ .aj-page .aj-filter-label {font-size:.75rem;letter-spacing:0;width:100%}
+ .aj-page .aj-filter-label select {min-height:48px;font-size:1rem;min-width:0;max-width:100%;width:100%}
+ .aj-page .aj-filter-button {min-height:48px;font-size:.82rem;line-height:1.5;padding:.8rem .4rem}
+ .aj-page .aj-tools>.aj-link {flex-basis:auto;margin:0 0 0 auto;min-height:44px;padding:.7rem .3rem;font-size:.78rem}
+ .aj-page .aj-timeline::before {display:none}
+ .aj-page .aj-entry {display:block;padding-bottom:2.3rem;margin-bottom:2.5rem}
+ .aj-page .aj-entry-date {
+  flex-direction:row;align-items:center;flex-wrap:wrap;gap:.5rem 1rem;
+  padding:0 0 1rem;margin-bottom:1.2rem;font-size:.75rem;border-bottom:1px solid var(--aj-line);
+ }
+ .aj-page .aj-entry-date time,.aj-page .aj-topic-name {max-width:none;font-size:.74rem;line-height:1.6}
+ .aj-page .aj-entry-art {
+  display:flex;align-items:flex-start;gap:.65rem;max-width:100%;overflow-x:auto;
+  padding:.2rem 0 .8rem;margin:0 0 1.25rem;scrollbar-width:thin;
+  scrollbar-color:#ac987a55 transparent;overscroll-behavior-inline:contain;
+ }
+ .aj-page .aj-mini-card,.aj-page .aj-mini-card:only-child {flex:0 0 66px;width:66px;max-width:66px;border-radius:4px}
+ .aj-page .aj-mini-card img {aspect-ratio:958/1644}
+ .aj-page .aj-entry-body .eyebrow {font-size:.64rem}
+ .aj-page .aj-entry-body .aj-question {font-size:clamp(1.95rem,8.5vw,2.6rem);line-height:1.17;margin-top:.65rem!important}
+ .aj-page .aj-entry-steps {display:block;margin-top:1.6rem}
+ .aj-page .aj-entry-steps section+section {margin-top:1.4rem}
+ .aj-page .aj-entry-steps h3 {font-size:.68rem;line-height:1.6;letter-spacing:.09em;margin-bottom:.6rem}
+ .aj-page .aj-entry-steps p {font-size:1rem;line-height:1.8}
+ .aj-page .aj-revisit {font-size:.77rem;margin-top:1.3rem!important}
+ .aj-page .aj-entry-actions {margin-top:1.4rem}
+ .aj-page :is(.aj-text-button,.aj-link,.aj-subtle-link,.aj-source) {min-height:44px;font-size:.8rem;line-height:1.6;padding:.7rem .25rem}
+ .aj-page :is(.aj-entry-editor,.aj-association-editor)>summary {font-size:.85rem;min-height:52px;padding:1rem .85rem}
+ .aj-page .aj-edit-form {grid-template-columns:1fr;gap:1.2rem;padding-top:.5rem}
+ .aj-page .aj-field {font-size:.81rem;line-height:1.6;min-width:0}
+ .aj-page .aj-field :is(input,textarea),.aj-page .qh-field :is(input,select) {font-size:1rem;line-height:1.65;min-height:50px;padding:.85rem;width:100%}
+ .aj-page .aj-field textarea {min-height:8rem}
+ .aj-page .aj-save,.aj-page .qh-primary {width:100%;min-height:54px;font-size:.86rem;line-height:1.6;padding:1rem}
+ .aj-page .aj-checkbox {min-height:44px;font-size:.82rem;line-height:1.5;align-items:flex-start}
+ .aj-page .aj-checkbox input {margin-top:.2rem;flex-shrink:0;width:19px;height:19px}
+ :is(#reading-view,#spread-synthesis,.aj-page) .aj-memory-control {display:block;margin-top:1.5rem;padding-top:.7rem}
+ :is(#reading-view,#spread-synthesis,.aj-page) .aj-memory-toggle {font-size:.8rem;min-height:48px;line-height:1.6;padding:.7rem .3rem}
+ :is(#reading-view,#spread-synthesis,.aj-page) .aj-memory-control .aj-fineprint {font-size:.73rem;line-height:1.7!important}
+ :is(#reading-view,#spread-synthesis,.aj-page) .aj-memory-control .aj-subtle-link {display:block;width:fit-content;font-size:.78rem;min-height:44px;padding:.7rem .3rem}
+ .aj-page :is(.aj-fineprint,.aj-status,.qh-fineprint,.qh-status) {font-size:.74rem;line-height:1.7!important}
+ .aj-page .aj-first-page {display:block;min-height:0;margin:0 0 2rem;padding:1.5rem 0}
+ .aj-page .aj-first-page .aj-empty-art {width:88px;float:right;margin:.25rem .5rem 1.2rem 1.25rem}
+ .aj-page .aj-first-copy h2 {font-size:2.35rem;line-height:1.1}
+ .aj-page .aj-first-copy>p {font-size:1rem;line-height:1.75;max-width:none}
+ .aj-page .aj-first-copy>.aj-save {clear:both}
+ .aj-page .aj-empty:not(.aj-first-page) {grid-template-columns:74px minmax(0,1fr);gap:1.15rem;min-height:0;padding:1.2rem 0 2.5rem}
+ .aj-page .aj-empty h2 {font-size:2.2rem}
+ .aj-page .aj-empty p {font-size:.94rem;line-height:1.7}
+ .aj-page .aj-empty>.aj-save,.aj-page .aj-empty:not(.aj-first-page)>.aj-text-button {grid-column:1/-1;width:100%}
+ .aj-page .aj-footer {gap:.5rem 1.2rem;padding-top:1.25rem;margin-top:1.5rem}
+ .aj-page .aj-footer>.aj-fineprint {flex-basis:100%;margin-bottom:.5rem}
+
+ /* The living deck remains a gallery. Every caption and every card stays usable. */
+ .aj-page .aj-gallery-filters {gap:.75rem;flex-wrap:wrap}
+ .aj-page .aj-deck-search {font-size:.8rem;margin:1.2rem 0 0}
+ .aj-page .aj-deck-search input {font-size:1rem;min-height:54px;padding:1rem}
+ .aj-page .aj-search-status {font-size:.8rem;margin:1rem 0}
+ .aj-page .aj-deck-gallery {grid-template-columns:repeat(2,minmax(0,1fr));gap:1.7rem 1.2rem;padding-top:.6rem}
+ .aj-page .aj-gallery-card:nth-child(even) {padding-top:1.7rem}
+ .aj-page .aj-gallery-card img {aspect-ratio:958/1644;border-radius:5px}
+ .aj-page .aj-gallery-card figcaption {gap:.45rem;align-items:baseline;padding-top:.85rem}
+ .aj-page .aj-gallery-card figcaption strong {font-size:1.3rem;line-height:1.15;overflow-wrap:anywhere}
+ .aj-page .aj-card-number {font-size:.6rem;flex-shrink:0}
+ .aj-page .aj-back {font-size:.82rem;min-height:44px;padding:.65rem .3rem;margin:1.4rem 0 1rem}
+ .aj-page .aj-card-composition {display:block;padding:1rem 0 2rem}
+ .aj-page .aj-card-portrait {position:relative;top:0;max-width:148px;margin:0 0 1.8rem auto!important;transform:rotate(3deg)}
+ .aj-page .aj-card-copy h1 {font-size:clamp(3rem,12vw,4.5rem);line-height:1.01;max-width:none;margin:1rem 0 2rem}
+ .aj-page .aj-small-heading {font-size:.7rem;line-height:1.6;margin-bottom:.8rem!important}
+ .aj-page .aj-original-meaning {font-size:1rem;line-height:1.85!important;color:#c5cfd2}
+ .aj-page .aj-personal-meanings {margin-top:2rem}
+ .aj-page .aj-personal-meanings h2,.aj-page .aj-card-history>h2 {font-size:2.3rem;line-height:1.1}
+ .aj-page .aj-personal-meanings blockquote p {font-size:1.75rem;line-height:1.35}
+ .aj-page .aj-card-history>p,.aj-page .aj-history-entry>p {font-size:1rem;line-height:1.8}
+ .aj-page .aj-history-entry h3 {font-size:1.9rem;line-height:1.2;overflow-wrap:anywhere}
+ .aj-page .aj-card-neighbor {font-size:.8rem;line-height:1.6;align-items:flex-start;gap:.7rem}
+ .aj-page .aj-card-neighbor img {width:38px;flex-shrink:0}
+ .aj-page .aj-card-neighbor span {min-width:0;overflow-wrap:anywhere}
+
+ .aj-page .qh-section-top {display:block;margin-bottom:1.5rem}
+ .aj-page .qh-section-top h2 {font-size:2.25rem;margin-bottom:.9rem}
+ .aj-page .qh-help {font-size:.95rem;line-height:1.8}
+ .aj-page .qh-field {font-size:.8rem;line-height:1.6}
+ .aj-page .qh-story-heading h3 {font-size:2.3rem;line-height:1.15}
+ .aj-page .qh-history-item {grid-template-columns:1fr;gap:.8rem;padding-block:1.5rem}
+ .aj-page .qh-history-date {font-size:.76rem}
+ .aj-page .qh-history-copy h4 {font-size:1.85rem;line-height:1.2}
+ .aj-page .qh-observation h4 {font-size:.7rem;line-height:1.65}
+ .aj-page .qh-observation p {font-size:1rem;line-height:1.8}
+ .aj-page .qh-observation-form {grid-template-columns:1fr;gap:1.2rem}
+ :is(#reading-view,#spread-synthesis,.aj-page) .qh-reading-control summary,
+ .aj-page .qh-journey summary {font-size:.82rem;min-height:50px;line-height:1.6;width:100%;padding:.9rem .85rem}
+ :is(#reading-view,#spread-synthesis) .qh-reading-control .qh-help {font-size:.9rem;line-height:1.75}
+ :is(#reading-view,#spread-synthesis) .qh-reading-control .qh-fineprint {font-size:.73rem;line-height:1.7}
+ :is(#reading-view,#spread-synthesis) .qh-reading-control .qh-field {font-size:.8rem;line-height:1.6}
+ :is(#reading-view,#spread-synthesis) .qh-reading-control .qh-primary {font-size:.84rem;min-height:52px;width:100%;padding:1rem}
+ .aj-page .checkin-reminder>summary {font-size:.82rem;line-height:1.6;min-height:50px;padding:.9rem .85rem}
+ .aj-page .checkin-reminder-controls {gap:.8rem 1rem}
+ .aj-page .checkin-reminder-controls label {font-size:.8rem;flex-basis:100%}
+ .aj-page .checkin-reminder-controls input {font-size:1rem;max-width:100%;min-height:50px}
+ .aj-page .checkin-reminder-controls button {font-size:.8rem;min-height:48px}
+ .aj-page .checkin-reminder .privacy-note {font-size:.74rem;line-height:1.7}
+}
+
+@media (max-width:360px) {
+ #reading-view .mobile-reading-context h1 {font-size:2.6rem}
+ #journal-view .journal-entry .journal-row {grid-template-columns:48px minmax(0,1fr) 10px;gap:.8rem}
+ #journal-view .journal-row img {width:48px}
+ .aj-page .aj-deck-gallery {column-gap:1rem}
+ .aj-page .aj-gallery-card figcaption {flex-wrap:wrap;row-gap:.3rem}
+ .aj-page .aj-gallery-card figcaption strong {font-size:1.25rem}
+}

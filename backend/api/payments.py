@@ -7,7 +7,7 @@ Stripe is BANNED for tarot/psychic/occult. See LLC Guide.
 import json
 import logging
 
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -78,7 +78,7 @@ async def _get_authenticated_user(authorization: str, db: AsyncSession) -> User:
 @router.post("/paddle/checkout", response_model=CheckoutResponse)
 async def paddle_checkout(
     req: CheckoutRequest,
-    authorization: str = "",
+    authorization: str = Header(default=""),
     db: AsyncSession = Depends(get_db),
 ):
     """Create a Paddle hosted-checkout session."""
@@ -109,7 +109,7 @@ async def paddle_checkout(
 
 @router.post("/paddle/portal", response_model=PortalResponse)
 async def paddle_portal(
-    authorization: str = "",
+    authorization: str = Header(default=""),
     db: AsyncSession = Depends(get_db),
 ):
     """Generate a Paddle customer portal link."""
@@ -145,7 +145,7 @@ async def paddle_webhook(request: Request, db: AsyncSession = Depends(get_db)):
 @router.post("/stars/invoice")
 async def stars_invoice(
     req: StarsInvoiceRequest,
-    authorization: str = "",
+    authorization: str = Header(default=""),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -172,7 +172,7 @@ async def stars_invoice(
 
 @router.get("/status", response_model=SubscriptionStatusResponse)
 async def status(
-    authorization: str = "",
+    authorization: str = Header(default=""),
     db: AsyncSession = Depends(get_db),
 ):
     """Return the current user's subscription status + purchases."""
@@ -184,7 +184,7 @@ async def status(
     purchases = result.scalars().all()
 
     tier = user.tier or "free"
-    is_paid = tier != "free"
+    is_paid = user.is_paid
 
     # Provider hint — paddle if a paddle id is set, else telegram_stars if a TG one is set.
     provider: str | None = None

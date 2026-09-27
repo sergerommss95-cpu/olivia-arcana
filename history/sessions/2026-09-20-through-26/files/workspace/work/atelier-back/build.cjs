@@ -1,0 +1,49 @@
+const fs=require('fs');
+const path=require('path');
+const sharp=require('/Users/macbookpro/olivia-arcana/website/node_modules/sharp');
+const root=path.resolve(__dirname,'../..');
+const out=path.join(root,'outputs/card-back-atelier');
+const olive=require('../olive-refinement/olive.cjs');
+const W=700,H=1200;
+const ribs=[];
+const N=12;
+function rib(i){
+ const u=-1+2*i/N;
+ const x=350+274*u,y=94+74*u*u;
+ const sx=350+8*u,sy=430;
+ const c1x=350+27*u,c1y=312;
+ const c2x=350+191*u,c2y=133+55*u*u;
+ return {x,y,sx,sy,c1x,c1y,c2x,c2y,d:`M${sx} ${sy} C${c1x} ${c1y} ${c2x} ${c2y} ${x} ${y}`};
+}
+for(let i=0;i<=N;i++)ribs.push(rib(i));
+const curve=i=>ribs[i].d;
+const reverse=i=>{const r=ribs[i];return `L${r.x} ${r.y} C${r.c2x} ${r.c2y} ${r.c1x} ${r.c1y} ${r.sx} ${r.sy} Z`;};
+let defs=`<linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#17354b"/><stop offset=".46" stop-color="#102c43"/><stop offset="1" stop-color="#0b2438"/></linearGradient>
+<linearGradient id="fold" x1="0" y1="0" x2="1" y2=".10"><stop stop-color="#071d30" stop-opacity=".46"/><stop offset=".22" stop-color="#24475e" stop-opacity=".22"/><stop offset=".68" stop-color="#426175" stop-opacity=".37"/><stop offset=".84" stop-color="#71909b" stop-opacity=".32"/><stop offset="1" stop-color="#091f31" stop-opacity=".48"/></linearGradient>
+<linearGradient id="fold-bottom" href="#fold" x1="1" y1="1" x2="0" y2=".9"/><linearGradient id="foil" gradientUnits="userSpaceOnUse" x1="70" y1="65" x2="608" y2="1110"><stop stop-color="#b8a577"/><stop offset=".32" stop-color="#e0cda0"/><stop offset=".55" stop-color="#a08c60"/><stop offset=".78" stop-color="#d0bc89"/><stop offset="1" stop-color="#ac986b"/></linearGradient>
+<filter id="paper-grain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="31" result="n"/><feColorMatrix in="n" type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".12"/></feComponentTransfer><feBlend in2="SourceGraphic" mode="soft-light"/></filter>
+<clipPath id="trim"><rect width="700" height="1200" rx="27"/></clipPath>`;
+const flutePanels=Array.from({length:ribs.length-1},(_,i)=>`<path d="${curve(i)} ${reverse(i+1)}" fill="url(#fold)"/>`).join('');
+const blueRibs=ribs.map(r=>`<path d="${r.d}"/>`).join('');
+const goldRibs=[0,3,6,9,12].map(i=>`<path d="${curve(i)}"/>`).join('')+'<path d="M76 168 Q350 20 624 168"/>';
+const border='<rect x="27" y="27" width="646" height="1146" rx="17"/>';
+const oliveScale=160/207;
+const oliveTransform=`translate(${350-50.5*oliveScale} ${600-114.5*oliveScale}) scale(${oliveScale})`;
+// The emblem and selected fan crests are one gold separation, sharing finish.
+const foilPaths=`<g fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round">${border}<g>${goldRibs}</g><g transform="translate(700 1200) rotate(180)">${goldRibs}</g></g><g fill="currentColor" stroke="none" transform="${oliveTransform}">${olive.silhouette}</g>`;
+defs+=`<mask id="foil-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="700" height="1200"><g style="color:#fff">${foilPaths}</g></mask>`;
+const finished=`<svg xmlns="http://www.w3.org/2000/svg" width="700" height="1200" viewBox="0 0 700 1200"><title>Olivia Arcana — The Fold</title><desc>Vector card-back artwork. Two ordered fan families, shallow blue flutes and one fine olive emblem in muted gold.</desc><defs>${defs}</defs><g clip-path="url(#trim)"><rect width="700" height="1200" fill="url(#paper)"/><g>${flutePanels}<g transform="translate(700 1200) rotate(180)">${flutePanels.replaceAll('url(#fold)','url(#fold-bottom)')}</g></g><g fill="none" stroke="#7893a0" stroke-opacity=".17" stroke-width="1.1">${blueRibs}<g transform="translate(700 1200) rotate(180)">${blueRibs}</g></g><g style="color:#081a29" opacity=".65" transform="translate(.45 .65)">${foilPaths}</g><rect width="700" height="1200" fill="url(#foil)" mask="url(#foil-mask)"/><rect width="700" height="1200" fill="transparent" filter="url(#paper-grain)" opacity=".20"/></g></svg>`;
+const flat=`<svg xmlns="http://www.w3.org/2000/svg" width="700" height="1200" viewBox="0 0 700 1200"><title>Olivia Arcana — flat artwork</title><rect width="700" height="1200" rx="27" fill="#102c43"/><g fill="none" stroke="#2d4859" stroke-width="1.25">${blueRibs}<g transform="translate(700 1200) rotate(180)">${blueRibs}</g></g><g style="color:#c4ad79">${foilPaths}</g></svg>`;
+const separation=`<svg xmlns="http://www.w3.org/2000/svg" width="70mm" height="120mm" viewBox="0 0 700 1200"><title>Olivia Arcana — gold foil artwork separation, proof required</title><g style="color:#000">${foilPaths}</g></svg>`;
+async function main(){
+ fs.writeFileSync(path.join(out,'olivia-the-fold.svg'),finished);
+ fs.writeFileSync(path.join(out,'olivia-the-fold-flat.svg'),flat);
+ fs.writeFileSync(path.join(out,'olivia-the-fold-foil.svg'),separation);
+ fs.writeFileSync(path.join(out,'olivia-the-fold-emboss.svg'),`<svg xmlns="http://www.w3.org/2000/svg" width="70mm" height="120mm" viewBox="0 0 700 1200"><title>Olivia Arcana — emboss drawing, proof required</title><g fill="none" stroke="#000" stroke-width="1.25">${blueRibs}<g transform="translate(700 1200) rotate(180)">${blueRibs}</g></g></svg>`);
+ for(const [name,svg] of [['olivia-the-fold',finished],['olivia-the-fold-flat',flat]]){
+  await sharp(Buffer.from(svg),{density:192}).png().toFile(path.join(out,name+'.png'));
+  await sharp(Buffer.from(svg),{density:144}).webp({quality:94}).toFile(path.join(out,name+'.webp'));
+ }
+ console.log('Vector master, previews and foil separation built');
+}
+main().catch(e=>{console.error(e);process.exitCode=1});

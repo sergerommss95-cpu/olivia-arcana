@@ -1,0 +1,11 @@
+const fs=require('fs');const sharp=require('/Users/macbookpro/olivia-arcana/website/node_modules/sharp');
+// Original filled contours, drawn as an aperture rather than an illustrated building.
+const arch='M70 328 L70 151 C70 98 108 62 160 62 C212 62 250 98 250 151 L250 328 L244 328 L244 151 C244 102 209 68 160 68 C111 68 76 102 76 151 L76 328 Z';
+const veil='M137 86 C125 119 127 165 111 193 C104 206 94 214 83 216 C91 224 88 242 87 258 C85 278 87 299 91 313 C80 293 78 274 81 255 C85 235 87 225 81 216 L81 196 C104 194 113 153 118 124 C121 106 128 94 137 86 Z';
+const fold='M125 105 C118 145 113 181 95 198 C111 190 122 163 127 135 C129 120 129 113 125 105 Z';
+function paths(color='#122c3a'){return `<g fill="${color}"><path d="${arch}"/><path d="${veil}"/><path d="${veil}" transform="translate(320 0) scale(-1 1)"/></g>`}
+function svg(color='#122c3a',bg=''){return `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="390" viewBox="0 0 320 390" role="img" aria-label="Olivia Arcana veiled threshold"><title>Olivia Arcana — The Veiled Threshold</title>${bg?`<rect width="320" height="390" fill="${bg}"/>`:''}${paths(color)}</svg>`}
+// Counter-study retained only in working files: a two-ended capsule with opposite veils.
+function opposite(color='#122c3a',bg=''){return `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="390" viewBox="0 0 320 390">${bg?`<rect width="320" height="390" fill="${bg}"/>`:''}<g fill="${color}"><path d="M68 160 C68 97 107 56 160 56 C213 56 252 97 252 160 L252 230 C252 293 213 334 160 334 C107 334 68 293 68 230 Z M76 161 L76 229 C76 288 112 327 160 327 C208 327 244 288 244 229 L244 161 C244 102 208 63 160 63 C112 63 76 102 76 161 Z" fill-rule="evenodd"/><path d="M142 75 C129 115 130 168 101 195 C94 202 86 205 77 205 L77 192 C105 191 113 152 118 122 C121 102 129 85 142 75 Z"/><path d="M142 75 C129 115 130 168 101 195 C94 202 86 205 77 205 L77 192 C105 191 113 152 118 122 C121 102 129 85 142 75 Z" transform="translate(320 390) rotate(180)"/></g></svg>`}
+module.exports={arch,veil,paths,svg,opposite};
+if(require.main===module)(async()=>{await sharp(Buffer.from(svg('#122c3a','#f2ede3'))).resize(480,585).png().toFile('work/olivia-threshold/mark-upright.png');await sharp(Buffer.from(opposite('#122c3a','#f2ede3'))).resize(480,585).png().toFile('work/olivia-threshold/mark-opposite.png')})();

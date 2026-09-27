@@ -1,0 +1,74 @@
+[
+  {
+    "id": "L17",
+    "name": "The Joined Initials",
+    "family": "Monograms & seals",
+    "description": "An elongated O shares its eastern curve with the rising diagonal of A.",
+    "svg": "L17.svg",
+    "image": "L17.png",
+    "lockup": "L17-lockup.svg"
+  },
+  {
+    "id": "L18",
+    "name": "The Inner Counter",
+    "family": "Monograms & seals",
+    "description": "A narrow A stands within a two-ended opening, its crossbar held in the oval.",
+    "svg": "L18.svg",
+    "image": "L18.png",
+    "lockup": "L18-lockup.svg"
+  },
+  {
+    "id": "L19",
+    "name": "The Opposed A",
+    "family": "Monograms & seals",
+    "description": "Two architectural A forms meet at their feet, enclosing one shared opening.",
+    "svg": "L19.svg",
+    "image": "L19.png",
+    "lockup": "L19-lockup.svg"
+  },
+  {
+    "id": "L20",
+    "name": "The Narrow Cartouche",
+    "family": "Monograms & seals",
+    "description": "A slender enclosure with straight jambs and paired veils gathered at its waist.",
+    "svg": "L20.svg",
+    "image": "L20.png",
+    "lockup": "L20-lockup.svg"
+  },
+  {
+    "id": "L21",
+    "name": "The Open Medallion",
+    "family": "Monograms & seals",
+    "description": "Two open arcs turn into tapered veil ribbons around an empty centre.",
+    "svg": "L21.svg",
+    "image": "L21.png",
+    "lockup": "L21-lockup.svg"
+  },
+  {
+    "id": "L22",
+    "name": "The Incised O",
+    "family": "Monograms & seals",
+    "description": "A calligraphic O is cut at two places, like a seal lightly opened by a veil.",
+    "svg": "L22.svg",
+    "image": "L22.png",
+    "lockup": "L22-lockup.svg"
+  },
+  {
+    "id": "L23",
+    "name": "The Relief Seal",
+    "family": "Monograms & seals",
+    "description": "A compact architectural stamp carries two carved openings in its counterform.",
+    "svg": "L23.svg",
+    "image": "L23.png",
+    "lockup": "L23-lockup.svg"
+  },
+  {
+    "id": "L24",
+    "name": "The Threshold Knot",
+    "family": "Monograms & seals",
+    "description": "A single over-and-under movement links two vaulted openings into a continuous knot.",
+    "svg": "L24.svg",
+    "image": "L24.png",
+    "lockup": "L24-lockup.svg"
+  }
+]

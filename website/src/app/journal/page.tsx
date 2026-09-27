@@ -10,6 +10,8 @@
 
 import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
+import SavedReadings from "@/components/almanac/SavedReadings";
+import SavedSpreads from "@/components/almanac/SavedSpreads";
 import Paywall from "@/components/Paywall";
 import { getMoonPhase } from "@/lib/celestial";
 import { getDailyPrompt } from "@/lib/journal-prompts";
@@ -37,6 +39,7 @@ const COPY = {
     saving: "Saving…",
     del: "Delete entry",
     exp: "Export all",
+    keepNote: "Entries are kept only in this browser, on this device — export regularly.",
     calNote: "A red point marks a written page.",
     ariaPrev: "Previous month",
     ariaNext: "Next month",
@@ -58,6 +61,7 @@ const COPY = {
     saving: "Зберігається…",
     del: "Видалити запис",
     exp: "Експортувати все",
+    keepNote: "Записи зберігаються лише в цьому браузері, на цьому пристрої — експортуйте регулярно.",
     calNote: "Червона крапка позначає списану сторінку.",
     ariaPrev: "Попередній місяць",
     ariaNext: "Наступний місяць",
@@ -406,6 +410,9 @@ export default function JournalPage() {
           </div>
         </div>
 
+        <SavedReadings />
+        <SavedSpreads />
+
         {/* Insight-tier and above */}
         <div className="alm-gate">
           <Paywall requires="insight" priceKey="insight_monthly" featureName="the cosmic journal">
@@ -472,6 +479,9 @@ export default function JournalPage() {
                     {copy.exp}
                   </button>
                 </div>
+
+                {/* The keeping — entries never leave this device. */}
+                <p className="j-keep alm-caption">{copy.keepNote}</p>
               </div>
             ) : (
               /* ── CALENDAR TAB ── */
@@ -609,7 +619,7 @@ export default function JournalPage() {
           align-items: baseline;
           padding: 0.9rem 1.1rem;
           border-left: 2px solid var(--ox);
-          background: rgba(250, 246, 236, 0.6);
+          background: rgba(238, 230, 212, 0.04);
         }
 
         .j-prompt-mark {
@@ -696,6 +706,12 @@ export default function JournalPage() {
           border-bottom-color: rgba(224, 183, 104, 0.3);
         }
 
+        .j-keep {
+          margin: 0;
+          text-align: right;
+          letter-spacing: 0.14em;
+        }
+
         /* ── Paywall gate, re-inked ─────────────────────────── */
         .alm-gate :global(.glass-card) {
           background: #0f1240 !important;
@@ -719,7 +735,7 @@ export default function JournalPage() {
 
         .alm-gate :global(.glass-card button) {
           background: var(--ink) !important;
-          color: #f6f1e5 !important;
+          color: #0b1c2c !important;
           border: none !important;
           box-shadow: none !important;
           text-shadow: none !important;

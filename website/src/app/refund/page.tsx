@@ -8,10 +8,15 @@ export const metadata = {
 
 export default function RefundPage() {
   return (
-    <LegalShell title="Refund Policy" updated="April 25, 2026">
+    <LegalShell title="Refund Policy" updated="September 26, 2026">
       <p>
-        We want you to feel good about every reading. This page explains when
-        you can get a refund and how to request one.
+        <strong>Nothing is for sale on the site at present.</strong> Membership is not open, and no
+        payments are taken. Before paid membership opens, this page will set out its refund terms.
+      </p>
+      <p>
+        The terms below applied to purchases from the earlier Olivia Arcana astrology service and
+        Telegram bot. If you bought something there and need help, write to{" "}
+        <a href="mailto:support@oliviaarcana.com">support@oliviaarcana.com</a>.
       </p>
 
       <h2>Subscriptions</h2>

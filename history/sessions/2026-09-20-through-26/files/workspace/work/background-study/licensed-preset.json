@@ -1,0 +1,36 @@
+{
+  "_instructions": "STOP. Before acting on this response, you MUST fetch and read shaders://guidelines. It contains required rules — skipping it causes broken or low-quality results. Fetch it now if you have not already done so this session, even if you think you can continue without it.",
+  "_guidelines": "shaders://guidelines",
+  "id": "711b09c2-bc9c-4d2c-b2a3-f0a6eacc2de0",
+  "title": "Illuminated Clouds 4",
+  "collection_id": "2abc4383-72b2-4372-95c8-968385824d76",
+  "collection_slug": "illuminated-clouds",
+  "collection_name": "Illuminated Clouds",
+  "collection_access": "paid",
+  "collection_category": "background",
+  "format": "js",
+  "visual_description": "A highly blurred, atmospheric shader effect featuring a dark, moody color palette dominated by deep purples, dark blues, and blacks. The image shows soft, flowing gradients that transition from very dark navy and purple tones in the upper left and lower portions to lighter lavender and pale blue hues in the center-right area. The effect creates a sense of depth and movement through subtle color shifts and soft focus. A fine film grain texture is applied throughout, adding a subtle noise pattern that enhances the cinematic quality. The overall composition suggests fog or mist-like atmospheric effects with gentle, undefined shapes that blend seamlessly into one another. The blur is significant, making it difficult to discern specific forms, which creates an ethereal, dreamlike quality. The lighting appears to come from the center-right, creating a subtle glow effect that contrasts with the darker surrounding areas. The mood is introspective and mysterious, with a cool color temperature throughout.",
+  "thumbnail_url": "[omitted: signed thumbnail URL]",
+  "import": "import { createShader } from 'shaders/js'",
+  "code": "import { createShader } from 'shaders/js'\n\nconst shader = await createShader(document.getElementById(\"canvas\"), {\n  components: [\n    {\n      type: 'SolidColor',\n      id: 'idmo78hq78fbi6i75xm',\n      props: {\n        color: '#0b0a1e',\n      },\n    },\n    {\n      type: 'Fog',\n      id: 'idmo78g2qa8dpr72ig3',\n      props: {\n        blending: 0.9,\n        colorB: '#000000',\n        detail: 3,\n        mouseInfluence: 0.4,\n        seed: 617,\n        visible: false,\n      },\n    },\n    {\n      type: 'FlowingGradient',\n      id: 'idmo78gywbvlrvpq14v',\n      props: {\n        colorA: '#0d0c1f',\n        colorB: '#1a2842',\n        colorC: '#a8c4e0',\n        colorD: '#d4b8e8',\n        distortion: 0,\n        maskSource: 'idmo78g2qa8dpr72ig3',\n        maskType: 'luminance',\n        seed: 76,\n        speed: 4,\n      },\n    },\n    {\n      type: 'FilmGrain',\n      id: 'idmo78juut04zc9a9x9',\n      props: {\n        strength: 0.075,\n      },\n    }\n  ]\n})",
+  "usage": "createShader() mounts a WebGPU shader on a <canvas> element. The canvas needs explicit sizing (CSS width/height or attributes). The function is async — use await or .then(). Call shader.update(componentId, props) to change props at runtime (great for GSAP animation). Call shader.destroy() when done to free GPU resources. No framework required — works in any browser environment.",
+  "related_docs": [
+    {
+      "uri": "shaders://docs/guide/js/quickstart",
+      "label": "Js quickstart guide"
+    },
+    {
+      "uri": "shaders://docs/guide/composing-effects",
+      "label": "Composing effects guide"
+    },
+    {
+      "uri": "shaders://docs/guide/blending-masking",
+      "label": "Blending & masking guide"
+    },
+    {
+      "uri": "shaders://docs/guide/transforms",
+      "label": "Transforms guide"
+    }
+  ],
+  "_tweak_panel": "The client may show a tweak panel for this preset. If the user later asks to change a color or value, apply it to the installed code."
+}

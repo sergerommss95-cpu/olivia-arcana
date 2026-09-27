@@ -29,8 +29,10 @@
 
 /* ─── READABILITY ENGINE: CONTRAST & HIERARCHY ─── */
 :root {
-  --background: #10134d;
-  --foreground: #e8e9ff;
+  /* The document ground matches the reading experience (lapis and ivory), so
+     overscroll and page edges never flash the earlier indigo site. */
+  --background: #0b192a;
+  --foreground: #ede4d2;
   --c-gold: #e0b768;
   --c-void: #10134d;
 
@@ -103,12 +105,49 @@
   }
 }
 
+/* Body text: DM Sans for Latin, Onest for Cyrillic (see layout.tsx). */
+html {
+  --font-body: var(--font-body-latin), var(--font-body-cyrillic), system-ui, sans-serif;
+}
+
 /* The night is painted, not assumed: an opaque ground under every page,
    independent of whatever fixed canvases mount above it. */
 html,
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+/* The new homepage is one scrollable experience inside its own frame.
+   Lock only its outer document: native rubber-banding must not reveal the
+   previous purple site ground or create a second scroll container. These
+   rules match the server-rendered main, before React has hydrated. */
+html:has(.olivia-experience),
+body:has(.olivia-experience) {
+  background: #071522;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.olivia-experience {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #071522;
+}
+
+.olivia-experience-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #071522;
 }
 
 .skip-link {
@@ -439,3 +478,8 @@ h1, h2, .wordmark {
   }
 }
 
+/* Native tarot document: the content and original renderer share the page. */
+html:has(.olivia-native),body:has(.olivia-native){background:#0b192a;color:#ede4d2;overflow-x:clip;overscroll-behavior-x:none}
+.olivia-native{position:relative;isolation:isolate;background:#0b192a}
+.native-noscript,#native-load-status{position:fixed;inset:auto 1rem 1rem;z-index:100;padding:1rem;background:#112638;color:#ede4d2}
+.native-noscript a{text-decoration:underline}

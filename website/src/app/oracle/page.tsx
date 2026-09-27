@@ -35,7 +35,8 @@ function OracleContainer() {
   const { locale } = useLocale();
   const searchParams = useSearchParams();
   const hasDraw = searchParams.get("draw") !== null;
-  const [started, setStarted] = useState(hasDraw);
+  const entry = searchParams.get("entry");
+  const [started, setStarted] = useState(hasDraw || entry === "hero");
   const isUk = locale === "uk";
 
   return (
@@ -43,7 +44,7 @@ function OracleContainer() {
       {!started && (
         <div className="oracle-arrive absolute inset-0 z-40 flex flex-col items-center justify-center px-6 text-center">
           <p className="night-kicker">
-            {isUk ? "Одне питання · Чотири розклади" : "One question · Four spreads"}
+            {isUk ? "Гравюра II — Стіл роздачі" : "Plate II — The Dealing Table"}
           </p>
           <h1 className="night-h1 max-w-[12ch]">
             {isUk ? (

@@ -1,0 +1,22 @@
+/* Question planning has its own readable document flow. The approved home stage is unchanged. */
+body[data-view=question] #hero-region{height:auto;min-height:100svh}
+body[data-view=question] #stage{position:relative;inset:auto;min-height:100svh;overflow:hidden}
+body[data-view=question] #question-view{position:relative;left:auto;right:auto;top:auto;width:min(42rem,58%);max-width:none;margin:0;padding:10rem 0 5rem;margin-left:var(--gutter)}
+body[data-view=question] #motion-stage{position:fixed;inset:0;opacity:.22;pointer-events:none}
+body[data-view=question] #question-view h2{font-size:clamp(3rem,5vw,5rem)}
+body[data-view=question] #question-view>p{max-width:37rem}
+body[data-view=question] #stage:after{background:linear-gradient(90deg,#071725df,#07172599 55%,transparent)}
+body[data-view=question] #question-coach{margin:1.5rem 0}
+body[data-view=journey] #hero-region,body[data-view=my-deck] #hero-region{display:none}
+.almanac-links{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.almanac-links a{padding:1rem 1.35rem;border:1px solid #c8b58860;border-radius:5px;background:#e4d8bd08;min-height:48px;color:var(--ink);font-size:.85rem}
+.almanac-links a:hover{background:#e4d8bd18;border-color:#c8b588}
+.backup-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1.5rem}
+.backup-panel{padding:1.5rem 0;max-width:34rem}
+.backup-panel p{font-size:.8rem;line-height:1.8;color:var(--muted);margin-bottom:1rem}
+.backup-panel .solid-action{margin-right:1rem}
+.backup-status{font-size:.8rem;line-height:1.7;max-width:36rem;margin-top:.7rem}
+@media(max-width:800px){body[data-view=question] #question-view{width:auto;margin:0;padding:8rem var(--gutter) 4rem}body[data-view=question] #motion-stage{opacity:.09}body[data-view=question] #stage:after{background:#07172580}.almanac-links a{flex:1;min-width:10rem;text-align:center}.backup-actions{display:block}}
+
+#question-form:has(.question-coach[open])>button[type=submit]{display:none}
+#question-view textarea{font-family:"DM Sans",Arial,sans-serif}

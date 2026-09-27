@@ -2,7 +2,7 @@
 
 import os
 from datetime import datetime, timedelta
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, Header, HTTPException, status
 from pydantic import BaseModel, EmailStr
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -15,9 +15,29 @@ from db.models import User
 router = APIRouter()
 
 # ── Config ──
-SECRET_KEY = os.getenv("JWT_SECRET", "olivia-arcana-secret-change-in-production")
+
+def _is_production() -> bool:
+    env_name = (os.getenv("ENV") or os.getenv("ENVIRONMENT") or "").lower()
+    return env_name == "production" or bool(os.getenv("RAILWAY_ENVIRONMENT"))
+
+
+SECRET_KEY = os.getenv("JWT_SECRET") or ""
+if not SECRET_KEY:
+    if _is_production():
+        raise RuntimeError(
+            "JWT_SECRET is not set — refusing to start in production. "
+            "Set the JWT_SECRET environment variable."
+        )
+    SECRET_KEY = "olivia-arcana-secret-change-in-production"  # dev-only fallback
+
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 72
+
+# Supabase-issued access tokens: the frontend signs in via Supabase OAuth and
+# sends the Supabase access token as Bearer. When own-JWT verification fails,
+# the token is verified as a Supabase JWT (HS256, aud "authenticated").
+SUPABASE_JWT_SECRET = os.getenv("SUPABASE_JWT_SECRET", "")
+SUPABASE_AUDIENCE = "authenticated"
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -84,17 +104,77 @@ def user_to_dict(user: User) -> dict:
 
 
 async def get_current_user(token: str, db: AsyncSession) -> User:
-    """Decode JWT and return user."""
+    """Resolve a Bearer token to a User.
+
+    Tries own HS256 JWT first; if that fails, verifies the token as a
+    Supabase access token and gets-or-creates the matching User row.
+    """
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = int(payload.get("sub", 0))
     except (JWTError, ValueError):
-        raise HTTPException(status_code=401, detail="Invalid token")
+        return await _user_from_supabase_token(token, db)
 
     result = await db.execute(select(User).where(User.id == user_id))
     user = result.scalar_one_or_none()
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
+    return user
+
+
+async def _user_from_supabase_token(token: str, db: AsyncSession) -> User:
+    """Verify a Supabase-issued JWT and get-or-create the local User row.
+
+    Supabase access tokens are HS256-signed with the project's JWT secret and
+    carry aud="authenticated", sub=<supabase user UUID>, email=<user email>.
+    """
+    if not SUPABASE_JWT_SECRET:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    try:
+        payload = jwt.decode(
+            token,
+            SUPABASE_JWT_SECRET,
+            algorithms=["HS256"],
+            audience=SUPABASE_AUDIENCE,
+        )
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    sub = payload.get("sub") or ""
+    email = (payload.get("email") or "").lower().strip()
+    if not sub:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    # 1) Already provisioned via Supabase.
+    result = await db.execute(select(User).where(User.supabase_id == sub))
+    user = result.scalar_one_or_none()
+    if user:
+        return user
+
+    if not email:
+        # email column is NOT NULL; cannot provision without it.
+        raise HTTPException(status_code=401, detail="Token has no email claim")
+
+    # 2) Link an existing account (legacy password / google) by email.
+    result = await db.execute(select(User).where(User.email == email))
+    user = result.scalar_one_or_none()
+    if user:
+        user.supabase_id = sub
+        await db.commit()
+        await db.refresh(user)
+        return user
+
+    # 3) Provision a new user.
+    meta = payload.get("user_metadata") or {}
+    user = User(
+        email=email,
+        supabase_id=sub,
+        name=meta.get("full_name") or meta.get("name"),
+    )
+    db.add(user)
+    await db.commit()
+    await db.refresh(user)
     return user
 
 
@@ -134,7 +214,7 @@ async def login(req: LoginRequest, db: AsyncSession = Depends(get_db)):
 
 
 @router.get("/me", response_model=UserResponse)
-async def get_me(authorization: str = "", db: AsyncSession = Depends(get_db)):
+async def get_me(authorization: str = Header(default=""), db: AsyncSession = Depends(get_db)):
     # Extract Bearer token
     token = authorization.replace("Bearer ", "").strip() if authorization else ""
     if not token:
@@ -147,7 +227,7 @@ async def get_me(authorization: str = "", db: AsyncSession = Depends(get_db)):
 @router.put("/me/birth-data")
 async def update_birth_data(
     data: UpdateBirthData,
-    authorization: str = "",
+    authorization: str = Header(default=""),
     db: AsyncSession = Depends(get_db),
 ):
     token = authorization.replace("Bearer ", "").strip() if authorization else ""

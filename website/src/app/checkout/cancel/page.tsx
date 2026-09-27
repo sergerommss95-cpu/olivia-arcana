@@ -7,12 +7,15 @@
 
 import AlmanacShell from "@/components/almanac/AlmanacShell";
 import TransitionLink from "@/components/transitions/TransitionLink";
+import MembershipClosed from "@/components/almanac/MembershipClosed";
+import { PAYMENTS_ENABLED } from "@/lib/service-status";
 
 export default function CheckoutCancelPage() {
   return (
     <AlmanacShell narrow>
       <div className="ck">
         <div className="ck-card alm-card">
+          {PAYMENTS_ENABLED ? (<>
           <div className="ck-mark" aria-hidden>&#9790;</div>
 
           <h1 className="alm-h1 ck-title">No charge — and no worries</h1>
@@ -51,7 +54,7 @@ export default function CheckoutCancelPage() {
           <p className="ck-foot">
             Questions? <a href="/contact" className="ck-inline-link">Contact us</a> or{" "}
             <a
-              href="https://t.me/OliviaArcanaBot"
+              href="https://t.me/OliviaArcanaBot?start=cancel"
               target="_blank"
               rel="noopener noreferrer"
               className="ck-inline-link"
@@ -60,6 +63,7 @@ export default function CheckoutCancelPage() {
             </a>
             .
           </p>
+          </>) : <MembershipClosed />}
         </div>
       </div>
 
@@ -74,7 +78,7 @@ export default function CheckoutCancelPage() {
           width: 100%;
           max-width: 28rem;
           padding: clamp(2rem, 5vw, 2.8rem) clamp(1.5rem, 4vw, 2.2rem);
-          background: #0f1240;
+          background: #10273a;
           text-align: center;
         }
 
