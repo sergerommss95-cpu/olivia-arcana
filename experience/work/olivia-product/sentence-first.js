@@ -65,12 +65,12 @@ export function mountSentenceFirst({ host, paragraphs, reflection, cardNames, lo
     const quote = make('blockquote', 'sentence-quote'); quote.append(make('span', 'sentence-quote-label', c.yours), make('p', '', language === 'uk' ? `«${sentence}»` : `“${sentence}”`));
     const status = make('p', 'sentence-status'); status.setAttribute('role', 'status');
     const add = button('quiet-link', c.add + ' ↓', () => {
-      if (!reflection) return;
       reflection.value = reflection.value.trim() ? `${reflection.value.trim()}\n\n${sentence}` : sentence;
       reflection.dispatchEvent(new Event('input', { bubbles: true }));
       add.remove(); status.textContent = c.added;
     });
-    panel.append(quote, add, status);
+    panel.append(quote);
+    if (reflection) panel.append(add, status);
     paragraphs.querySelector('h3')?.setAttribute('tabindex', '-1');
     paragraphs.querySelector('h3')?.focus({ preventScroll: true });
   }

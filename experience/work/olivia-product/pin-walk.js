@@ -30,7 +30,8 @@ export function mountPinWalk({ art, holder, cardId, orientation = 'upright', loc
       dot.addEventListener('click', () => show(n));
       return dot;
     }));
-    const next = make('button', 'text-action', c.next); next.type = 'button'; next.hidden = i === pins.length - 1; next.addEventListener('click', () => show(i + 1));
+    const next = make('button', 'text-action', c.next); next.type = 'button'; next.hidden = i === pins.length - 1;
+    next.addEventListener('click', () => { show(i + 1); panel.querySelector(i + 1 === pins.length - 1 ? '.quiet-link' : '.text-action')?.focus({ preventScroll: true }); });
     const close = make('button', 'quiet-link', c.close); close.type = 'button'; close.addEventListener('click', () => setOpen(false));
     const actions = make('div', 'pin-walk-actions'); actions.append(next, close);
     panel.replaceChildren(make('p', 'eyebrow', c.of(i + 1, pins.length)), make('h3', '', pin.name), make('p', '', pin.seen), actions);

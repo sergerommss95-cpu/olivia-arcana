@@ -3,8 +3,7 @@ import { notFound } from "next/navigation";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
 import PairPage, { cardName } from "@/components/academy/PairPage";
 import { allPairs, pairBySlug } from "@/lib/academy/pairs";
-import { ALL_CARDS } from "@/lib/academy/tarot-cards";
-import { getCardImagePath } from "@/lib/academy/card-images";
+import { shareMeta } from "@/lib/learn/share-meta";
 
 export function generateStaticParams() {
   return allPairs().map((pair) => ({ pair: pair.slug }));
@@ -20,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ pair: str
   return {
     title, description,
     alternates: { canonical: url, languages: { en: url, uk: `https://oliviaarcana.com/uk/cards/pairs/${pair.slug}/`, "x-default": url } },
-    openGraph: { title, description, url, type: "article", images: [{ url: `https://oliviaarcana.com${getCardImagePath(ALL_CARDS[pair.a])}`, width: 896, height: 1536 }] },
+    ...shareMeta({ title, description, url, locale: "en", cardId: pair.a, alt: `${cardName(pair.a, "en")} from the Olivia Arcana deck` }),
   };
 }
 

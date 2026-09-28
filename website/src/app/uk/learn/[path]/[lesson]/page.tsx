@@ -1,3 +1,4 @@
+import { shareMeta } from "@/lib/learn/share-meta";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import UkrainianLibraryShell from "../../../cards/library-shell";
@@ -17,6 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ path: str
     title: `${lesson.uk.title} | Навчитися читати Таро | Olivia Arcana`,
     description: lesson.uk.dek,
     alternates: { canonical: url, languages: { en: `https://oliviaarcana.com/learn/${path}/${slug}/`, uk: url, "x-default": `https://oliviaarcana.com/learn/${path}/${slug}/` } },
+    ...shareMeta({ title: lesson.uk.title, description: lesson.uk.dek, url, locale: "uk", cardId: lesson.cards[0] ?? 9, alt: "Карта з колоди Olivia Arcana" }),
   };
 }
 

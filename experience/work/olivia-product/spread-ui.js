@@ -453,7 +453,7 @@ export function initSpreads({assets,names,show,goto,reduced,announce,onComplete=
   const paragraphs=$('#spread-paragraphs');paragraphs.replaceChildren();
   for(const [i,value] of reading.synthesis.paragraphs.entries()){const section=el('section','reading-connection');section.append(el('h3','',chapterTitles()[i]),el('p','',value));paragraphs.append(section);}
   renderSurvey();
-  mountSentenceFirst({host:$('.spread-synthesis-copy'),paragraphs:$('#spread-paragraphs'),reflection:$('#spread-reflection'),cardNames:session.cardIds.map(id=>t(names[id])),locale:getLocale()});
+  mountSentenceFirst({host:$('.spread-synthesis-copy'),paragraphs:$('#spread-paragraphs'),reflection:isPreview?null:$('#spread-reflection'),cardNames:session.cardIds.map(id=>t(names[id])),locale:getLocale()});
   $('#spread-synthesis').hidden=false;
   spreadReference.setState('idle');root.dataset.guidanceState='idle';
   const completedId=record?.id,completedGeneration=generation;

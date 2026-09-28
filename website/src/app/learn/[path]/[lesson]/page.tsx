@@ -1,3 +1,4 @@
+import { shareMeta } from "@/lib/learn/share-meta";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
@@ -17,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ path: str
     title: `${lesson.en.title} | Learn to Read Tarot | Olivia Arcana`,
     description: lesson.en.dek,
     alternates: { canonical: url, languages: { en: url, uk: `https://oliviaarcana.com/uk/learn/${path}/${slug}/`, "x-default": url } },
-    openGraph: { title: lesson.en.title, description: lesson.en.dek, url, type: "article" },
+    ...shareMeta({ title: lesson.en.title, description: lesson.en.dek, url, locale: "en", cardId: lesson.cards[0] ?? 9, alt: "A card from the Olivia Arcana deck" }),
   };
 }
 

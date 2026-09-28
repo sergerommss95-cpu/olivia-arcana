@@ -1,3 +1,4 @@
+import { shareMeta } from "@/lib/learn/share-meta";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import UkrainianLibraryShell from "../../library-shell";
@@ -15,7 +16,8 @@ export async function generateMetadata({ params }: { params: Promise<{ pair: str
   const text = pair.readings[0].uk;
   const description = text.length > 155 ? text.slice(0, 154).replace(/\s+\S*$/, "") + "…" : text;
   const url = `https://oliviaarcana.com/uk/cards/pairs/${pair.slug}/`;
-  return { title, description, alternates: { canonical: url, languages: { en: `https://oliviaarcana.com/cards/pairs/${pair.slug}/`, uk: url, "x-default": `https://oliviaarcana.com/cards/pairs/${pair.slug}/` } } };
+  return { title, description, alternates: { canonical: url, languages: { en: `https://oliviaarcana.com/cards/pairs/${pair.slug}/`, uk: url, "x-default": `https://oliviaarcana.com/cards/pairs/${pair.slug}/` } },
+    ...shareMeta({ title, description, url, locale: "uk", cardId: pair.a, alt: `${cardName(pair.a, "uk")} — колода Olivia Arcana` }) };
 }
 
 export default async function UkrainianPairRoute({ params }: { params: Promise<{ pair: string }> }) {

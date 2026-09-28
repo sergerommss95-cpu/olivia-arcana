@@ -24,7 +24,8 @@ export function mountReread({kind,record,container,storage=()=>localStorage,now=
  container.parentElement?.querySelector('.reread-panel')?.remove();
  if(!record?.id||!isReturn(record,now))return null;
  const locale=getLocale()==='uk'?'uk':'en',c=COPY[locale],getStorage=()=>typeof storage==='function'?storage():storage;
- const date=new Date(record.createdAt).toLocaleDateString(locale==='uk'?'uk-UA':undefined,{day:'numeric',month:'long',year:'numeric'});
+ // The lead ends the date's sentence itself; Ukrainian dates already end in «р.».
+ const date=new Date(record.createdAt).toLocaleDateString(locale==='uk'?'uk-UA':undefined,{day:'numeric',month:'long',year:'numeric'}).replace(/\.$/,'');
  const panel=node('section','reread-panel');panel.dataset.noTranslate='true';panel.setAttribute('aria-labelledby','reread-title-'+kind);
  const heading=node('h2','',c.title);heading.id='reread-title-'+kind;
  panel.append(node('p','eyebrow',c.kicker),heading,node('p','reread-lead',kind==='single'?c.leadOne(date):c.lead(date)));
