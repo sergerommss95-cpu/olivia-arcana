@@ -46,3 +46,18 @@ How it is made:
 - **`encode.sh`** makes the web files: H.264 (CRF 25, fast start) and VP9 (CRF 36). The WebP poster is the card turned face up.
 
 Footage, masters and deliverables are not committed (`.gitignore`); rebuild them with the steps above.
+
+## On the site
+
+The product film is the first answer on How Olivia works (`#method`), in the page's language. Phones get the 720×900 cut, and wider screens the 1920×1080 cut, WebM first with MP4 for Safari. The published files are committed in `experience/outputs/film/`. `experience/build.py` publishes them under `/experience/assets/` with hashed names.
+
+To publish a new cut:
+1. Run `encode.sh`.
+2. Copy the WebM, MP4 and poster files for 720×900 and 1920×1080, in both languages, into `experience/outputs/film/`. The names stay the same.
+3. Rebuild: `python3 experience/build.py`, then the website build.
+
+The page (`method-film.js`, `method-film.css`) behaves like this:
+- It loads nothing until the film nears the screen, so a first visit downloads none of it.
+- It plays muted while the film is in view and its answer is open, and pauses otherwise.
+- With reduced motion or data saving, it shows the poster and waits for the play button.
+- Once the visitor pauses, it stays paused until they play it again.

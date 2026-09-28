@@ -1,6 +1,6 @@
 # Start here — Olivia Arcana session handoff
 
-Updated 27 September 2026, second session: the live preview check, research for the award plan, and the phone arrival (v6, section 1 of the award plan). At the owner's request, v6 was then merged into `main` and deployed to production. After that, the owner asked what would give users best-in-class value and said to start on what is best. That became v7 (check-ins, Ukrainian About and Contact, the reading shown as it is written), which is on the branch and not deployed. On 28 September the owner asked for a motion film of the product for the website, then for an Apple-style version of it; both are made and neither is on the site yet. Earlier that day: the arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
+Updated 27 September 2026, second session: the live preview check, research for the award plan, and the phone arrival (v6, section 1 of the award plan). At the owner's request, v6 was then merged into `main` and deployed to production. After that, the owner asked what would give users best-in-class value and said to start on what is best. That became v7 (check-ins, Ukrainian About and Contact, the reading shown as it is written), which is on the branch and not deployed. On 28 September the owner asked for a motion film of the product for the website, then for an Apple-style version of it. The owner then asked for it in the How Olivia works FAQ: it is now the first answer there, on the branch with v7, and not deployed. Earlier that day: the arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
 
 For work across earlier Olivia tasks, start with [the project history index](history/README.md), [decision history](history/DECISIONS.md), and [Git coverage audit](history/git-coverage-2026-09-26.md). Historical artifacts are separate from current source. The archive preserves recoverable files and documented decisions; it is not a complete recording of every unsaved edit or every conversation.
 
@@ -49,10 +49,11 @@ For work across earlier Olivia tasks, start with [the project history index](his
   6. **"How it works" films** (28 September; `experience/work/tools/how-it-works/README.md`). Both are silent, in EN and UK, landscape 1920×1080 and portrait 1080×1350 (plus a 720×900 web cut), with MP4, WebM and a poster.
      - **The product film** (`film.html`, about 64 s) is the one to publish. The phone moves in 3D, the product's own surfaces lift out of the screen, a deck fans out and one card turns once. Kinetic headlines carry the story from the question to the almanac.
      - **The walkthrough** (`stage.html`) shows the same journey plainly, with step captions.
-     - The films are not committed and not on the site. Rebuild them with the README's steps (about 25 minutes with two render lanes).
+     - Footage, masters and deliverables are not committed. Rebuild them with the README's steps (about 25 minutes with two render lanes).
+  7. **The film on How Olivia works** (28 September, at the owner's request). "What happens in a reading?" is the first answer in the `#method` FAQ, across the whole grid and open. It shows the product film in the page's language: 4:5 on phones, 16:9 otherwise. See the rules below.
 - **Next.**
   - The owner decides whether to deploy v7: try deploy preview 5 on a phone, then approve the merge.
-  - The owner chooses where the film goes. Suggested: the product's How Olivia works view (`#method`), lazy-loaded and muted, with a pause control and the poster until it plays. The homepage stays unchanged unless the owner asks, because first visits must stay identical. Publish it together with v7, since it shows check-ins.
+  - The film goes live with v7, since it shows check-ins. Try it on deploy preview 5, under How Olivia works.
   - Before or right after deploying, one paid personal reading on the preview (with the owner's approval) confirms the live stream through Netlify's edge runtime. The fake provider shows the page and service agree, but a real stream has not been seen.
   - The owner checks the site with an iPhone and an Android phone (plan item 6): the arrival, the WebGPU background's smoothness and battery use, text contrast over it, and the fixed button on the question step.
   - Whether to close the last 0.06 MB for Ukrainian: softer textures, AVIF, or a lighter Next runtime on the homepage.
@@ -77,6 +78,10 @@ For work across earlier Olivia tasks, start with [the project history index](his
   - `/api/reading` streams NDJSON when the page asks (`Accept: application/x-ndjson`), and the provider is called with `stream: true`.
   - The page shows complete paragraphs as they arrive (`streamBlocks`) and discards them on an error. Only a complete `end_turn` reply is confirmed.
 - Rules to keep:
+  - **The How Olivia works film** (`method-film.js`, `method-film.css`).
+    - Its published files live in `experience/outputs/film/`, and `build.py` publishes them as `window.OLIVIA_ASSETS.film`. `experience/work/tools/how-it-works/README.md` ("On the site") has the steps for a new cut.
+    - Nothing loads until the film nears the screen. It plays muted only in view with its answer open, never with reduced motion or data saving, and it stays paused once the visitor pauses.
+    - The portable single file has no film, and the answer is then left out.
   - **Name modules so Git keeps them.** `experience/.gitignore` ignores `check-*.js` and `*.bundle.js`; that is why the module is `checkins.js`.
   - **The check-in date has one home: the panel in `checkins.js`.** The practice editor keeps topic and return notes and listens for `olivia:check-in-change`. Write check-ins only through practice metadata (`saveMetadata`) so backups, imports and removal keep working.
   - **Nothing about check-ins may appear on a first visit.** Signs appear only when a kept reading's check-in is due.
@@ -167,6 +172,7 @@ Repeated pain points to avoid reintroducing:
 | Card texts | EN: `content.js`, `minor-content.js`, `minor-reversed.js`. UK: `card-notes-uk.js` (voice guide `UK-VOICE.md`). After editing, run `node experience/work/tools/sync-card-notes.mjs` to refresh `website/src/lib/academy/tarot-notes.ts` (used by the AI service and `/uk/cards/`) |
 | Inner-page header | `website/src/components/almanac/AlmanacMasthead.tsx` (used by `AlmanacShell` and `LegalShell`) |
 | Motion vocabulary | `experience/work/olivia-product/motion-tokens.css` |
+| How it works film | Made in `experience/work/tools/how-it-works/`; published files in `experience/outputs/film/`; on the page through `method-film.js` and `method-film.css` |
 
 The product was originally edited outside this Git repository. This branch brings its editable source, all build inputs, references, and docs into `experience/`, retaining their relative paths. Do not edit generated hashed files as the primary source. Do not restore the old iframe homepage.
 

@@ -18,6 +18,7 @@ Evidence in this folder:
   - the same being written in Ukrainian;
   - a stream that broke off, showing the existing "could not be completed" state.
 - `uk-about-contact.jpg`: the new Ukrainian pages on phone and desktop.
+- `film-how-olivia-works.jpg`: the film in the How Olivia works FAQ. Desktop EN playing, desktop EN in reduced motion (the poster and the play button), phone EN and phone UK playing.
 
 ## 1. Check-ins (`checkins.js`, `checkins.css`)
 
@@ -66,11 +67,33 @@ Evidence in this folder:
   - A page that leaves cancels the provider request.
 - **Measured with a fake provider** (`tools/stream-reading.mjs`): the real service in the loop, and a reading written over about 2.7 s. The first paragraph appeared after 0.5–0.8 s, where before the whole wait came first.
 
+## 4. The film on How Olivia works (28 September)
+
+The owner asked for the "How it works" film in one of the How Olivia works FAQ sections.
+- **Where.** "What happens in a reading?" (UK «Як відбувається читання?») is the first answer in the `#method` FAQ. It spans the whole grid and is open by default; "How is my personal reading created?" stays open below it. A caption under the film says what it shows.
+- **Which cut.** The film plays in the page's language. Phones (up to 700 px) get the 4:5 cut, 720×900, and wider screens the 16:9 cut, 1920×1080. Each is WebM (VP9) first, with MP4 (H.264) for Safari. Turning a tablet across 700 px swaps the cut and keeps the moment, since both cuts share one timeline.
+- **Behaviour** (`method-film.js`):
+  - Nothing loads until the film is 400 px from the screen. The poster comes with the sources.
+  - It plays muted and inline while at least 40% of it is in view and its answer is open. It pauses out of view, when the answer closes, and in a hidden tab.
+  - With `prefers-reduced-motion` or data saving, it shows the poster and waits for the play button.
+  - The round button plays, pauses, and plays again from the start after the end card; there is no loop. Once the visitor pauses, scrolling back does not start it again. Its labels are translated.
+- **Weight.** A first visit downloads none of the film. On How Olivia works, one cut loads: 1.9–2.4 MB on phones (WebM or MP4), and 3.8–5.3 MB on wider screens.
+- **Build.** The published files are committed in `experience/outputs/film/`. `build.py` publishes them with hashed names under `/experience/assets/` (immutable caching), as `window.OLIVIA_ASSETS.film`, and checks that every path exists. The portable single file has no film, and the answer is then left out.
+
 ## Verification
 
-- **Tests:** 249/249 product (7 `checkins.test.mjs`, 1 `streamBlocks`, 3 stream-reading), 7/7 mobile-question checks, 58/58 website and service (7 streaming). CI passed on `bdae5c1` and `e95c563`.
+- **Tests:** 249/249 product (7 `checkins.test.mjs`, 1 `streamBlocks`, 3 stream-reading), 7/7 mobile-question checks, 58/58 website and service (7 streaming). CI passed on `bdae5c1` and `e95c563`. With the film: 259/259 product (10 `method-film.test.mjs`).
 - **Builds:** `experience/build.py` and the website build succeed. A rebuild from an empty output directory reproduces the snapshot (0 changed files). `hero.js` SHA-256 is unchanged (`ea5578949b2e…`).
-- **First visit against production v6**, homepage in reduced motion (EN and UK; 1440×900 and 390×844): 0 pixels differ.
+- **First visit against production v6**, homepage in reduced motion (EN and UK; 1440×900 and 390×844): 0 pixels differ. After the film was added, the same four views against the build before it: 0 pixels differ.
+- **The film** (Chromium, EN and UK, desktop 1440×900 and phones 390×844 and 375×812), 29 of 29 checks:
+  - no film request on a first visit to the homepage;
+  - the film is the first answer, open;
+  - the right language and cut play muted in view (WebM);
+  - the poster and labels are in the page's language;
+  - it stays paused after the visitor pauses, and pauses when scrolled away;
+  - only one cut loads;
+  - in reduced motion there is no autoplay, and the play button works.
+  - The portable file leaves the answer out, with no page errors. The phone and check-in journeys still pass.
 - **Phone journeys** (`phone-journey.mjs`, now with a check-in step): EN 390×844 and UK 375×812 pass.
 - **Check-ins** (`tools/checkin-journey.mjs`, EN and UK; phone, then desktop):
   - the chooser is hidden until the reading is kept;
@@ -94,4 +117,4 @@ Evidence in this folder:
 
 - **The live provider stream.** No paid call was made. The Anthropic event format is parsed as documented and tested with a fake provider, but a real reading through Netlify's edge runtime (and the AI gateway, if production uses it) has not been seen. One personal reading on a preview would confirm it; that is a paid call and needs the owner's approval.
 - A physical iPhone or Android phone.
-- Firefox and Safari engines: every check ran in Chromium.
+- Firefox and Safari engines: every check ran in Chromium. For the film this includes Safari's MP4 path and its autoplay rules. The page follows them (muted, inline, started only in view), but Safari itself has not been tried.

@@ -55,7 +55,7 @@ fonts = (p.parent / 'fonts-inline.css').read_text()
 style_names = ['motion-tokens.css', 'style.css', 'home-continuity.css', 'spread-layout.css', 'single-card-flow.css']
 if (p / 'practice.css').exists():
     style_names.append('practice.css')
-style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css', 'support-note.css', 'checkins.css', 'mobile-coherence.css'] if (p / name).exists())
+style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css', 'support-note.css', 'checkins.css', 'method-film.css', 'mobile-coherence.css'] if (p / name).exists())
 styles = '\n'.join((p / name).read_text() for name in style_names)
 scripts = {
     'hero': (p / 'hero.js').read_text(),
@@ -143,6 +143,24 @@ hosted_back_phone = emit_asset('card-back-phone', back_phone_file.read_bytes(), 
 hosted_major = {key: emit_asset(file.stem, file.read_bytes(), 'webp') for key, file in major_files.items()}
 hosted_minor = {key: emit_asset(file.stem, file.read_bytes(), 'webp') for key, file in minor_files.items()}
 hosted_phone = {key: emit_asset(file.stem + '-phone', file.read_bytes(), 'webp') for key, file in phone_files.items()}
+# The How Olivia works film, made with work/tools/how-it-works: per language, a
+# portrait cut for phones and a landscape cut otherwise. Only hosted builds carry
+# it; the portable file has no film, and the page then leaves it out.
+film_dir = root / 'outputs/film'
+film_parts = {
+    'phone': {'webm': '720x900.webm', 'mp4': '720x900.mp4', 'poster': '720x900-poster.webp'},
+    'wide': {'webm': '1920x1080.webm', 'mp4': '1920x1080.mp4', 'poster': '1920x1080-poster.webp'},
+}
+hosted_film = {lang: {layout: {kind: emit_asset(f'film-{lang}-{layout}' + ('-poster' if kind == 'poster' else ''),
+    (film_dir / f'olivia-how-it-works-{lang}-{suffix}').read_bytes(), suffix.rsplit('.', 1)[1]) for kind, suffix in parts.items()}
+    for layout, parts in film_parts.items()} for lang in ['en', 'uk']}
+
+
+def film_script(prefix=''):
+    return json.dumps({lang: {layout: {kind: prefix + url for kind, url in parts.items()} for layout, parts in layouts.items()}
+        for lang, layouts in hosted_film.items()})
+
+
 font_number = 0
 
 
@@ -164,13 +182,13 @@ if not font_number or 'data:font/' in hosted_fonts:
     raise ValueError('Embedded fonts were not completely extracted.')
 css_url = emit_asset('experience', hosted_fonts + '\n' + styles, 'css')
 assets_url = emit_asset('card-assets', asset_script(hosted_back, hosted_major, hosted_minor, hosted_phone, hosted_back_phone)
-    + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA}};\n', 'js')
+    + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA},film:' + film_script() + '};\n', 'js')
 script_urls = {name: emit_asset(name, source, 'js') for name, source in scripts.items()}
 native_assets_url = emit_asset('native-card-assets', asset_script('/experience/' + hosted_back,
     {key: '/experience/' + value for key, value in hosted_major.items()},
     {key: '/experience/' + value for key, value in hosted_minor.items()},
     {key: '/experience/' + value for key, value in hosted_phone.items()}, '/experience/' + hosted_back_phone)
-    + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA}};\n', 'js')
+    + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA},film:' + film_script('/experience/') + '};\n', 'js')
 
 hosted = template
 hosted, style_count = re.subn(r'<style>\s*/\*FONTS\*/\s*/\*STYLE\*/\s*</style>',
@@ -257,7 +275,8 @@ for label, document in [('portable HTML', portable), ('hosted HTML', hosted), ('
 
 for url in [assets_url, *script_urls.values()]:
     validate_script((hosted_dir / url).read_text(), url)
-for url in [hosted_back, hosted_back_phone, *hosted_major.values(), *hosted_minor.values(), *hosted_phone.values()]:
+film_urls = [url for layouts in hosted_film.values() for parts in layouts.values() for url in parts.values()]
+for url in [hosted_back, hosted_back_phone, *hosted_major.values(), *hosted_minor.values(), *hosted_phone.values(), *film_urls]:
     local_reference(url, hosted_dir)
 for match in re.finditer(r'url\(\s*[\'"]?([^\)\'"\s]+)[\'"]?\s*\)', hosted_fonts + '\n' + styles):
     local_reference(match.group(1), assets_dir)
