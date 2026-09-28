@@ -85,3 +85,13 @@ On wide screens the completed card stays large, with the folded question and exp
 Validation for this follow-up: **311 product tests pass**, full product generation and website production build pass. New tests cover GPU fallback and failures, cancellation during an awaited camera approach, context loss, reduced motion, hidden-tab pause, final-frame handoff, cleanup, physical tap versus drag, compatibility click after extraction, and resize during fallback turning. Browser checks: Amielle contact-origin opening and matched reading at 390×844; Olivia contact-origin opening and enlarged inspection layout at 1280×800. Both original palettes remain intact. The local personal-reading service is unavailable, so these local checks used prepared card meanings; the reading service is unchanged.
 
 This remains a review branch, not a production release. The next review URL is recorded in the pull request after its build finishes.
+
+
+### Verified unveiling review build
+
+- Preview: https://6abacb966f44d6000843dad0--olivia-arcana.netlify.app/decks/#decks
+- Deployed code commit: `4d89b70`; PR #11 remains open.
+- Both GitHub test/build jobs and Netlify header checks passed.
+- Hosted Amielle manual choice and unveiling completed with the same chosen card and no captured console errors.
+- Ukrainian reduced-motion entry, held pause, immediate face handoff and **Прочитати карту** were also checked in the browser; the unveiling canvas stayed hidden.
+- Local visual proof: `outputs/touch-unveiling-2026-09-28/` in the original Codex workspace. Images show the real running experience, not design mockups.
