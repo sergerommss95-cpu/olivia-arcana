@@ -1,6 +1,6 @@
 {
   "date": "2026-09-28",
-  "status": "draft-preview-created-remote-verification-pending",
+  "status": "draft-preview-verified",
   "preview_url": "https://6aba91b29e3a832d20ea7cb8--olivia-arcana.netlify.app/decks/",
   "deploy_id": "6aba91b29e3a832d20ea7cb8",
   "production_updated": false,
@@ -25,12 +25,19 @@
     "spread_hand_selection_and_reveal": "passed",
     "saved_spread_reopened_after_preference_change": "passed",
     "language_switch": "passed",
-    "browser_console_errors": 0
+    "browser_console_errors": 0,
+    "remote_routes": {
+      "/decks/": 200,
+      "/uk/decks/": 200
+    },
+    "edge_reading_available": true,
+    "edge_chat_available": true,
+    "remote_browser_render": "passed"
   },
   "limits": [
     "Physical iPhone review still needed; phone checks used browser viewport.",
-    "Live draft URLs and edge availability could not be verified because this machine stopped resolving api.netlify.com and *.netlify.app after deploy returned success.",
     "AI synthesis unchanged; no paid personal-reading request was made in this QA.",
     "Deck preference is browser-local, not cross-device account sync."
-  ]
+  ],
+  "deployment_note": "Initial DNS failure cleared. Both pages and edge availability verified after recovery. Production unchanged."
 }

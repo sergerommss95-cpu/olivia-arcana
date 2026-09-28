@@ -6,7 +6,7 @@ For work across earlier Olivia tasks, start with [the project history index](his
 
 ## Current state
 
-- New source work on 28 September adds the bilingual **Decks** collection and persistent choice between Olivia and The Space Between. Read [the deck-library implementation handoff](experience/DECK_LIBRARY.md) before continuing this feature. The selected specialist reverse is **The Hidden Garden**, not The Silk Seal. A draft preview was created; see [deck-library release evidence](experience/outputs/olivia-deck-library-release.json) and [browser QA](experience/outputs/qa-deck-library/review.md). Remote verification is pending due to DNS failures after upload. Production details below remain the last recorded 26 September release.
+- New source work on 28 September adds the bilingual **Decks** collection and persistent choice between Olivia and The Space Between. Read [the deck-library implementation handoff](experience/DECK_LIBRARY.md) before continuing this feature. The selected specialist reverse is **The Hidden Garden**, not The Silk Seal. A draft preview was created; see [deck-library release evidence](experience/outputs/olivia-deck-library-release.json) and [browser QA](experience/outputs/qa-deck-library/review.md). The draft preview and both edge availability endpoints were verified after a temporary DNS failure cleared. Production details below remain the last recorded 26 September release.
 
 - Branch: `codex/session-handoff-2026-09-26`.
 - Current production: https://oliviaarcana.com/?revision=mobile-surfaces#discover

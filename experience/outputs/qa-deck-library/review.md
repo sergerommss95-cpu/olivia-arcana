@@ -16,6 +16,6 @@ Implemented in the authoritative Git checkout. See [DECK_LIBRARY.md](../../DECK_
 
 ## Release boundary
 
-Netlify returned a successful **draft** deploy, `6aba91b29e3a832d20ea7cb8`. Production was not changed. Subsequent verification hit DNS failures for both the new preview hostname and api.netlify.com; this does not establish the public preview or edge services are reachable. Recheck before promoting. The temporary CLI base override was restored byte-for-byte.
+Netlify returned a successful **draft** deploy, `6aba91b29e3a832d20ea7cb8`. Production was not changed. Initial verification encountered DNS failures, which later cleared. Both deck routes return HTTP 200, the deployed page loads and renders in the browser, and /api/reading and /api/chat return available:true. No AI generation request was made. The temporary CLI base override was restored byte-for-byte.
 
 Physical iPhone review remains valuable. AI generation was not exercised or changed by this feature.
