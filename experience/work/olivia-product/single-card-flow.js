@@ -120,7 +120,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
  async function revealCard(){
   if(phase!=='held')return;const token=generation;state('revealing');reveal.disabled=true;actions.hidden=true;
   // There is only one visible image. Swap it exactly edge-on, never layer two backs.
-  const nextImage=new Image();nextImage.src=assets.cards[selected.cardId];try{await nextImage.decode();}catch{}
+  const nextImage=new Image();nextImage.src=(assets.forRecord?.(selected)||assets).cards[selected.cardId];try{await nextImage.decode();}catch{}
   if(token!==generation)return;
   if(!reduced()){
    let a=image.animate([{transform:'perspective(1100px) rotateY(0deg)'},{transform:'perspective(1100px) rotateY(90deg)'}],{duration:620,easing:'cubic-bezier(.55,0,.75,.65)',fill:'forwards'});activeAnimation=a;try{await a.finished;}catch{return;}if(token!==generation)return;image.style.transform='perspective(1100px) rotateY(-90deg)';image.style.rotate=selected.orientation==='reversed'?'180deg':'';image.src=nextImage.src;a.cancel();

@@ -32,7 +32,7 @@ test('dated observations append without changing earlier words or reading metada
 test('linking a reading twice is idempotent and snapshots preserve original question/cards/orientation',()=>{
  const s=setup();start(s);const before=s.getItem(QUESTION_HISTORY_KEY);
  linkQuestionReading(s,{threadId:THREAD,kind:'single',id:'same',now:'2026-10-01T12:00:00.000Z'});assert.equal(s.getItem(QUESTION_HISTORY_KEY),before);
- const existing=loadQuestionHistory(s)[0];assert.deepEqual(existing.readings[0].snapshot,{question:'What could I try?',createdAt:NOW,cardIds:[0],orientations:['upright']});
+ const existing=loadQuestionHistory(s)[0];assert.deepEqual(existing.readings[0].snapshot,{question:'What could I try?',createdAt:NOW,deckId:'olivia',cardIds:[0],orientations:['upright']});
  removeRecord(s,'same');assert.deepEqual(loadQuestionHistory(s)[0],existing,'a source removed elsewhere does not destroy its history snapshot');
  assert.throws(()=>linkQuestionReading(s,{threadId:THREAD,kind:'single',id:'same'}),e=>e.code==='VALIDATION');
 });
@@ -68,6 +68,33 @@ test('backup union retains independent append entries and rejects same-ID conten
 });
 
 test('both locales have complete copy for question histories',()=>{const en=questionHistoryCopy('en'),uk=questionHistoryCopy('uk');assert.deepEqual(Object.keys(en),Object.keys(uk));for(const key of Object.keys(en)){assert.ok(uk[key]);assert.notEqual(en[key],uk[key],key);}});
+
+test('question history snapshots keep each reading’s deck after source removal and backup copying',()=>{
+ const s=storage();saveRecord(s,{...single(),deckId:'space-between'});saveSpreadRecord(s,{...spread(),deckId:'space-between'});
+ start(s);linkQuestionReading(s,{threadId:THREAD,kind:'spread',id:'same',now:NOW});
+ const original=loadQuestionHistory(s);assert.deepEqual(original[0].readings.map(r=>r.snapshot.deckId),['space-between','space-between']);
+ removeRecord(s,'same');s.removeItem(SPREAD_STORAGE_KEY);
+ assert.deepEqual(loadQuestionHistory(s),original);
+ const destination=storage(),backup=JSON.parse(JSON.stringify(serializeQuestionHistory(original)));
+ mergeQuestionHistory(destination,backup);assert.deepEqual(loadQuestionHistory(destination),original);
+ const removed=removeReadingReferences(destination,'single','same');restoreReadingReferences(destination,removed);
+ assert.equal(loadQuestionHistory(destination)[0].readings[0].snapshot.deckId,'space-between');
+ const changed=structuredClone(original);changed[0].readings[0].snapshot.deckId='olivia';
+ assert.throws(()=>mergeQuestionHistoryEntries(original,changed),e=>e.code==='QUESTION_HISTORY_CONFLICT');
+});
+
+test('legacy question snapshots default to Olivia while unknown deck values preserve the original data on failure',()=>{
+ const s=setup();start(s);const original=loadQuestionHistory(s),legacy=structuredClone(original);delete legacy[0].readings[0].snapshot.deckId;
+ const raw=JSON.stringify({schemaVersion:1,threads:legacy});s.setItem(QUESTION_HISTORY_KEY,raw);
+ assert.equal(loadQuestionHistory(s)[0].readings[0].snapshot.deckId,'olivia');assert.equal(s.getItem(QUESTION_HISTORY_KEY),raw);
+ assert.deepEqual(mergeQuestionHistoryEntries(legacy,original),original);
+ for(const deckId of ['unknown',null,3]){
+  const invalid=structuredClone(original);invalid[0].readings[0].snapshot.deckId=deckId;
+  assert.throws(()=>validateQuestionHistory(invalid),e=>e.code==='VALIDATION');
+  const broken=JSON.stringify({schemaVersion:1,threads:invalid});s.setItem(QUESTION_HISTORY_KEY,broken);
+  assert.throws(()=>loadQuestionHistory(s),e=>e.code==='STORAGE_CORRUPT');assert.equal(s.getItem(QUESTION_HISTORY_KEY),broken);
+ }
+});
 
 test('same-day observations follow the reading while an explicitly backdated note keeps its calendar position',()=>{
  const thread={readings:[{linkedAt:'2026-09-25T15:00:00.000Z'}],updates:[{date:'2026-09-25',createdAt:'2026-09-25T16:00:00.000Z'},{date:'2026-09-24',createdAt:'2026-09-25T17:00:00.000Z'}]};

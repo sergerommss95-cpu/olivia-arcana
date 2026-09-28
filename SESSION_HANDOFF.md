@@ -1,10 +1,20 @@
 # Start here — Olivia Arcana session handoff
 
-Updated 28 September 2026: fixes, the card academy and Learn to read (local branch `fix/2026-09-28`). Before that, 27 September 2026, second session: the live preview check, research for the award plan, and the phone arrival (v6, section 1 of the award plan). Earlier that day: the arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
+Updated 28 September 2026: fixes, the card academy and Learn to read, merged into `main` (PR #6) and in production. Before that, 27 September 2026, second session: the live preview check, research for the award plan, and the phone arrival (v6, section 1 of the award plan). Earlier that day: the arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
 
 For work across earlier Olivia tasks, start with [the project history index](history/README.md), [decision history](history/DECISIONS.md), and [Git coverage audit](history/git-coverage-2026-09-26.md). Historical artifacts are separate from current source. The archive preserves recoverable files and documented decisions; it is not a complete recording of every unsaved edit or every conversation.
 
-## Next session — start here (27 September 2026)
+## Deployment integration — 28 September 2026
+
+**Live and verified:** PR #10 merged to `main` as `800aae38bf48b054f486c8edaaa0e08179ecd652`. Netlify published production deploy `6abaa4d61e3d900008f70a08` at 17:35:52 UTC. Both Decks routes return 200, the live manifest matches the checked build, and reading/chat services are available. Product tests 264/264; website/service tests 59/59; GitHub CI passed.
+
+The Decks release was published manually at 16:45 UTC (`6aba987a183c0d45b862fe07`), but it existed only on `codex/session-handoff-2026-09-26`. At 16:54 UTC, `main` commit `e241dee` automatically deployed without those changes (`6aba9b6e59e42c000828ed78`), making `/decks/` and `/uk/decks/` return 404. This was a source-branch divergence, not browser cache.
+
+The repair combines the Decks work with current `main` before publishing, retaining the phone arrival, learning pages and production fixes. Publish from the integrated `main` history: do not promote old standalone branch builds over it. Build with `python3 experience/build.py` followed by `npm --prefix website run build`; the postbuild check requires both Decks routes and both complete 78-card asset sets.
+
+The specialist deck is **Amielle** in both languages, with the **Hidden Garden** reverse. Keep its internal `space-between` ID stable for saved readings and preferences. See [Decks implementation](experience/DECK_LIBRARY.md) and [release record](experience/outputs/olivia-deck-library-release.json). Historical production statements below are dated snapshots; this integration section takes precedence.
+
+## Archived continuation notes (27 September 2026)
 
 - **State.**
   - Branch `claude/peaceful-clarke-scrh06`, draft PR #4 into `main`: https://github.com/sergerommss95-cpu/olivia-arcana/pull/4. CI (`.github/workflows/ci.yml`) is green and the PR merges cleanly. **Never merge without the owner's approval.**
@@ -43,9 +53,18 @@ For work across earlier Olivia tasks, start with [the project history index](his
   - The channel for inviting people back.
   - A named editor.
 
-## Newest work (28 September 2026): fixes, card academy and Learn to read — local only
+## Newest work (28 September 2026): fixes, card academy and Learn to read — in production
 
-- **Branch `fix/2026-09-28`**, worktree `.claude/worktrees/fix-20260928`, based on `origin/main` (`c822edd`, v6 merged). Six local commits, **nothing pushed or deployed**: `c62657d` (almanac rail + every spread open), `4291355` (78 card pages + 28 Symbol Trails), `e52b9fa` (Learn to read), `28d30df` (card spreads, carving walk, hub), `5d5be39` (Pair lab, Celtic Cross, spread designer). Push and deploy only on the owner's word.
+- **In production since 28 September 2026, 16:03 UTC.** The owner asked for the deploy. PR #6 (https://github.com/sergerommss95-cpu/olivia-arcana/pull/6, branch `fix/2026-09-28`) was merged into `main` as `2699b22`, and Netlify published it as deploy `6aba8f2e26da670008284e95`, about 3 minutes after the merge. CI was green on Node 22.
+  - Commits: `c62657d` (almanac rail and every spread open), `4291355` (78 card pages and 28 Symbol Trails), `e52b9fa` (Learn to read), `28d30df` (card spreads, carving walk, hub), `5d5be39` (Pair lab, Celtic Cross, spread designer), `16d34b7` (fixes from the preview check: link previews, focus, Ukrainian date).
+  - **Rollback:** publish v6 deploy `6ab94b20212dd9000886073c` again in Netlify's deploy list, or revert `2699b22` on `main`.
+  - Checked on the deploy preview and again in production by independent agents: `hero.js` and `background.js` are byte-identical to v6. All 726 sitemap URLs return 200. There are no page or console errors on the home routes, lessons, pair pages or the lab. The reading-service guards return 403, 400 and 415, and no paid call was made. The phone first load is about 25 KB heavier than v6 (+0.8%: app bundle +21 KB and CSS +4 KB, gzipped).
+  - **PR #5 (v7, `claude/peaceful-clarke-scrh06`) now conflicts with `main`** in `SESSION_HANDOFF.md`, `experience/work/olivia-product/app.js`, `practice-ui.js`, `build.py` and `website/src/app/sitemap.ts`, and in the generated `website/public/experience` files. Merge `main` into that branch, resolve the conflicts, and run `python3 experience/build.py` to regenerate the assets before merging it.
+  - Follow-up PR #7 (same day) fixes what the production check found in the new features and one v6 gap:
+    - "Add it to my reflection" now opens the collapsed notes and moves focus into them.
+    - The Ukrainian counters read «Деталь 1 / 9», «Крок 1 / 7» and «Урок 1 / 5»; in uppercase, «З» looked like the digit 3.
+    - The Ukrainian "Інші розклади" panel is translated; since v6 it had shown English spread names.
+  - Existing issues from v6, still open: the skip link reads "Skip to main content" on `/uk/` pages, and some older pages lack `og:image` and a canonical link.
 - **Learn to read** (`/learn`, `/uk/learn`): 29 bilingual lessons in five paths (`website/src/lib/learn/lessons/*.json`, types in `lessons.ts`, index regenerated by `scripts/academy-leaves-index.mjs` on predev/prebuild). Interactive tools are chosen per lesson by `tool` and prepared server-side in `components/learn/LessonTool.tsx` (question lab, look first, one card in three positions, look at the whole, your sentence, two worked readings, read a pair, the deck laid out, court council, return, Celtic Cross, spread designer).
 - **Pairs**: 186 pair pages from the pairings written on card pages (`lib/academy/pairs.ts`, `/cards/pairs/<a>-and-<b>/`), shown on both cards' pages, plus `/cards/pairs/lab/` for any two cards.
 - **Reading experience** (`experience/work/olivia-product`): question note (`question-hint.js`, suggestions only), look at the whole with exact random-draw odds (`website/src/lib/learn/spread-survey.js`, flagged only at p ≤ 1/8, never "significant"), "your sentence first" (`sentence-first.js`), re-read panel for readings kept ≥ 20 h (`reread.js`), today's card beside the last daily card (`today-pair.js`), carving walk on single readings (`pin-walk.js`), spreads from a card (`#spreads/card-<id>`: question plans accept `source: 'card'`; `question-coach.js` `createCardPlan`). Phrase bank, pair texts, card questions and pin text are lazy per-language JSON assets emitted by `build.py` (`OLIVIA_ASSETS.lazy`).

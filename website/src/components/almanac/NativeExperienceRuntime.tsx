@@ -4,7 +4,7 @@ import { useSubscription } from "@/hooks/useSubscription";
 import { shouldRefreshSubscription, subscriptionRequestId, subscriptionState } from "@/lib/experience-subscription";
 
 declare global { interface Window { oliviaNativeBoot?: HTMLElement; OLIVIA_NATIVE?: boolean; OLIVIA_LOCALE?: "en" | "uk"; } }
-export default function NativeExperienceRuntime({scripts, atmosphere, locale}: {scripts: string[]; atmosphere: string; locale: "en" | "uk"}) {
+export default function NativeExperienceRuntime({scripts, atmosphere, locale, entry = "home"}: {scripts: string[]; atmosphere: string; locale: "en" | "uk"; entry?: "home" | "decks"}) {
   const {data, isLoading, error, refresh} = useSubscription();
   const lastRequest = useRef<string | null>(null);
   const mounted = useRef(false);
@@ -61,10 +61,10 @@ export default function NativeExperienceRuntime({scripts, atmosphere, locale}: {
     window.OLIVIA_NATIVE = true;
     window.OLIVIA_LOCALE = locale;
     document.documentElement.lang = locale;
-    document.body.dataset.view = "home";
-    const entry = new URLSearchParams(location.search).get("experience");
-    if (!location.hash && ["question","journal","spreads","today"].includes(entry || ""))
-      history.replaceState(null, "", location.pathname + location.search + "#" + entry);
+    document.body.dataset.view = entry;
+    const requestedEntry = new URLSearchParams(location.search).get("experience") || (entry === "decks" ? "decks" : null);
+    if (!location.hash && ["question","journal","spreads","today","decks"].includes(requestedEntry || ""))
+      history.replaceState(null, "", location.pathname + location.search + "#" + requestedEntry);
     let cancelled = false;
     const pendingScripts = new Set<HTMLScriptElement>();
     const active = () => !cancelled && !!host?.isConnected && window.oliviaNativeBoot === host;
@@ -115,6 +115,6 @@ export default function NativeExperienceRuntime({scripts, atmosphere, locale}: {
         if (window.oliviaNativeBoot === host) location.reload();
       });
     };
-  }, [scripts, atmosphere, locale]);
+  }, [scripts, atmosphere, locale, entry]);
   return null;
 }

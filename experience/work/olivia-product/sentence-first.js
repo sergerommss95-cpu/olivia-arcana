@@ -67,7 +67,10 @@ export function mountSentenceFirst({ host, paragraphs, reflection, cardNames, lo
     const add = button('quiet-link', c.add + ' ↓', () => {
       reflection.value = reflection.value.trim() ? `${reflection.value.trim()}\n\n${sentence}` : sentence;
       reflection.dispatchEvent(new Event('input', { bubbles: true }));
+      const notes = reflection.closest('details');
+      if (notes) notes.open = true;
       add.remove(); status.textContent = c.added;
+      reflection.focus();
     });
     panel.append(quote);
     if (reflection) panel.append(add, status);

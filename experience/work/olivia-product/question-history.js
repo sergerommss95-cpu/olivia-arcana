@@ -1,5 +1,5 @@
 /** Explicit, device-local question histories. Linking and dated observations never edit a reading. */
-import {ReadingError,loadRecords} from './core.js';
+import {ReadingError,loadRecords,normalizeDeckId} from './core.js';
 import {loadSpreadRecords} from './spread-core.js';
 import {getLocale} from './locale.js';
 import {localDate} from './practice-core.js';
@@ -21,7 +21,7 @@ function snapshot(value,kind){
  if(!object(value)||!Array.isArray(value.cardIds)||!Array.isArray(value.orientations))fail('A reading snapshot is required.');
  const cardIds=[...value.cardIds],orientations=[...value.orientations];
  if(!cardIds.length||cardIds.length>(kind==='single'?1:8)||kind==='single'&&cardIds.length!==1||new Set(cardIds).size!==cardIds.length||cardIds.some(id=>!Number.isInteger(id)||id<0||id>77)||orientations.length!==cardIds.length||orientations.some(o=>!['upright','reversed'].includes(o)))fail('The reading snapshot has invalid cards.');
- return {question:text(value.question,'Question',1600),createdAt:timestamp(value.createdAt),cardIds,orientations};
+ return {question:text(value.question,'Question',1600),createdAt:timestamp(value.createdAt),deckId:normalizeDeckId(value.deckId),cardIds,orientations};
 }
 function reading(value){if(!object(value))fail('A reading link is required.');return {...identity(value.kind,value.id),linkedAt:timestamp(value.linkedAt),snapshot:snapshot(value.snapshot,value.kind)};}
 function update(value){
@@ -44,7 +44,7 @@ export function loadQuestionHistory(storage){
 function write(storage,threads){const envelope=serializeQuestionHistory(threads);try{storage.setItem(QUESTION_HISTORY_KEY,JSON.stringify(envelope));}catch(cause){throw new ReadingError(['QuotaExceededError','NS_ERROR_DOM_QUOTA_REACHED'].includes(cause?.name)||[22,1014].includes(cause?.code)?'STORAGE_QUOTA':'STORAGE_UNAVAILABLE','Your question history could not be saved. Previous entries are unchanged.',cause);}return envelope.threads;}
 function savedReading(storage,kind,id,now){
  identity(kind,id);const record=(kind==='single'?loadRecords(storage):loadSpreadRecords(storage)).find(v=>v.id===id);if(!record)fail('Save this reading before adding it to a question history.');
- return reading({kind,id,linkedAt:now,snapshot:{question:record.question,createdAt:record.createdAt,cardIds:kind==='single'?[record.cardId]:record.cardIds,orientations:kind==='single'?[record.orientation||'upright']:record.cards.map(c=>c.orientation||'upright')}});
+ return reading({kind,id,linkedAt:now,snapshot:{question:record.question,createdAt:record.createdAt,deckId:record.deckId,cardIds:kind==='single'?[record.cardId]:record.cardIds,orientations:kind==='single'?[record.orientation||'upright']:record.cards.map(c=>c.orientation||'upright')}});
 }
 export function createQuestionThread(storage,{title,kind,id,threadId=newId(),now=new Date().toISOString()}){
  const threads=loadQuestionHistory(storage),created=thread({id:threadId,title,createdAt:now,readings:[savedReading(storage,kind,id,now)],updates:[]});if(threads.some(v=>v.id===created.id))conflict();write(storage,[...threads,created]);return created;

@@ -11,7 +11,7 @@ import styles from "./learn.module.css";
 
 const COPY = {
   en: { home: "Home", learn: "Learn to read", crumb: "Breadcrumb", lessonOf: (n: number, total: number) => `Lesson ${n} of ${total}`, minutes: (m: number) => `${m} min read`, example: "A worked example", remember: "To remember", previous: "Previous", next: "Next", all: "All lessons", back: "Back to the path" },
-  uk: { home: "Головна", learn: "Навчитися читати", crumb: "Навігаційний шлях", lessonOf: (n: number, total: number) => `Урок ${n} з ${total}`, minutes: (m: number) => `${m} хв читання`, example: "Приклад", remember: "Варто запам’ятати", previous: "Попередній", next: "Наступний", all: "Усі уроки", back: "До шляху" },
+  uk: { home: "Головна", learn: "Навчитися читати", crumb: "Навігаційний шлях", lessonOf: (n: number, total: number) => `Урок ${n} / ${total}`, minutes: (m: number) => `${m} хв читання`, example: "Приклад", remember: "Варто запам’ятати", previous: "Попередній", next: "Наступний", all: "Усі уроки", back: "До шляху" },
 };
 
 function cardName(id: number, locale: Locale) {

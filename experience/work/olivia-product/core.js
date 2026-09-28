@@ -12,6 +12,7 @@ export const STORAGE_KEY = 'olivia-arcana-readings-v1';
 export const SCHEMA_VERSION = 1;
 export const MAX_RECORDS = 1000;
 export const INTENTIONS = Object.freeze(['open', 'relationships', 'work', 'change']);
+export const DECK_IDS = Object.freeze(['olivia', 'space-between']);
 
 export class ReadingError extends Error {
   constructor(code, message, cause) {
@@ -24,6 +25,14 @@ export class ReadingError extends Error {
 const fail = (message) => { throw new ReadingError('VALIDATION', message); };
 const isObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const validCardId = value => Number.isInteger(value) && value >= 0 && value < CARD_COUNT;
+
+// Artwork belongs to the reading, not to the reader's current deck preference.
+// Missing IDs are pre-deck-choice records and retain the original Olivia art.
+export function normalizeDeckId(value) {
+  if (value === undefined) return 'olivia';
+  if (!DECK_IDS.includes(value)) fail('Choose a supported tarot deck.');
+  return value;
+}
 
 function string(value, name, max, required = false) {
   if (typeof value !== 'string' || value.length > max || (required && !value.trim())) {
@@ -112,15 +121,17 @@ function uniqueId() {
   return Array.from({ length: 4 }, () => secureUint32().toString(16).padStart(8, '0')).join('');
 }
 
-export function createSession({ question = '', intention = 'open', reversals = false } = {}, ids = CARD_IDS, randomUint32 = secureUint32) {
+export function createSession({ question = '', intention = 'open', reversals = false, deckId } = {}, ids = CARD_IDS, randomUint32 = secureUint32) {
   string(question, 'Your question', 1600);
   validateIntention(intention);
+  const chosenDeck = normalizeDeckId(deckId);
   const deck = shuffleDeck(ids, randomUint32);
   return Object.freeze({
     id: uniqueId(),
     createdAt: new Date().toISOString(),
     question,
     intention,
+    deckId: chosenDeck,
     deck: Object.freeze(deck),
     reversals,
     deckOrientations: createDeckOrientations(deck.length, reversals, randomUint32),
@@ -136,6 +147,7 @@ function validateSession(session) {
   iso(session.createdAt, 'Reading date');
   string(session.question, 'Your question', 1600);
   validateIntention(session.intention);
+  normalizeDeckId(session.deckId);
   validateIds(session.deck);
   const orientations = deckOrientations(session);
   if (session.cardId === null && session.selectedSlot === null) {
@@ -153,7 +165,7 @@ export function chooseCard(session, slot) {
   if (!Number.isInteger(slot) || slot < 0 || slot >= session.deck.length) fail('Choose a card position in this deck.');
   // Subsequent taps and repeated renders cannot change an already chosen card.
   if (session.cardId !== null) return session;
-  return Object.freeze({ ...session, selectedSlot: slot, cardId: session.deck[slot], orientation: deckOrientations(session)[slot] });
+  return Object.freeze({ ...session, deckId: normalizeDeckId(session.deckId), selectedSlot: slot, cardId: session.deck[slot], orientation: deckOrientations(session)[slot] });
 }
 
 function validateInterpretation(value) {
@@ -177,6 +189,7 @@ function validateRecord(value) {
     updatedAt: iso(value.updatedAt, 'Updated date'),
     question: string(value.question, 'Your question', 1600),
     intention: validateIntention(value.intention),
+    deckId: normalizeDeckId(value.deckId),
     cardId: value.cardId,
     orientation: normalizeOrientation(value.orientation),
     cardName: string(value.cardName, 'Card name', 120, true),
@@ -203,6 +216,7 @@ export function createRecord(session, card, interpretation, note = '') {
     updatedAt: new Date(Math.max(Date.now(), Date.parse(session.createdAt))).toISOString(),
     question: session.question,
     intention: session.intention,
+    deckId: normalizeDeckId(session.deckId),
     cardId,
     orientation: normalizeOrientation(session.orientation),
     cardName: card.name,
@@ -269,7 +283,7 @@ export function saveRecord(storage, value) {
   } else {
     // Editing a note must not turn one saved draw into a different card/session.
     const prior = records[existing];
-    if (record.cardId !== prior.cardId || record.orientation !== prior.orientation || record.createdAt !== prior.createdAt || record.question !== prior.question || record.intention !== prior.intention || record.source !== prior.source) {
+    if (record.deckId !== prior.deckId || record.cardId !== prior.cardId || record.orientation !== prior.orientation || record.createdAt !== prior.createdAt || record.question !== prior.question || record.intention !== prior.intention || record.source !== prior.source) {
       fail('An existing reading cannot be replaced by a different draw.');
     }
     if(prior.firstImpressions||record.firstImpressions){try{record.firstImpressions=mergeFirstImpressions(prior.firstImpressions,record.firstImpressions,[record.cardId]);}catch(error){fail(error.message);}}

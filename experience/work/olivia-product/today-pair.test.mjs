@@ -32,3 +32,37 @@ test('captions the earlier day in the nominative', () => {
   assert.equal(dayCaption('2026-09-27', 1, 'uk'), 'Учора');
   assert.equal(dayCaption('2026-09-12', 16, 'en'), '12 September');
 });
+
+import {mountTodayPair} from './today-pair.js';
+import {createDeckController} from './deck-library.js';
+
+// Minimal DOM surface for this component: verify record artwork, not CSS or layout.
+class PairNode {
+  constructor(tag){this.tagName=tag;this.children=[];this.dataset={};this.listeners={};this.attributes={};}
+  append(...nodes){this.children.push(...nodes);}
+  prepend(...nodes){this.children.unshift(...nodes);}
+  after(node){this.inserted=node;}
+  before(){}
+  querySelector(){return null;}
+  setAttribute(key,value){this.attributes[key]=value;}
+  addEventListener(key,fn){this.listeners[key]=fn;}
+}
+const descendants=node=>[node,...node.children.flatMap(descendants)];
+test('today pairs keep both original deck identities after preference changes',()=>{
+  const makeArt=name=>({back:`${name}/back.webp`,cards:Object.fromEntries(Array.from({length:78},(_,id)=>[id,`${name}/${id}.webp`]))});
+  const controller=createDeckController({original:makeArt('olivia'),collections:{'space-between':makeArt('amielle')}});
+  const older={cardId:17,deckId:'space-between'},daily={cardId:9,deckId:'olivia'};
+  const prior=globalThis.document;globalThis.document={createElement:tag=>new PairNode(tag)};
+  try{
+    for(const selected of ['olivia','space-between']){
+      controller.select(selected);
+      const after=new PairNode('div');after.parentElement=new PairNode('main');
+      const panel=mountTodayPair({after,entries:[{date:'2026-09-27',record:older}],today:'2026-09-28',daily,images:controller.assets.cards,artFor:controller.assets.forRecord,nameOf:id=>`Card ${id}`,locale:'en'});
+      const nodes=descendants(panel);
+      assert.deepEqual(nodes.filter(node=>node.tagName==='img').map(node=>node.src),['amielle/17.webp','olivia/9.webp']);
+      assert.ok(!nodes.some(node=>node.textContent?.startsWith('Carved on both:')));
+      const bridge=nodes.find(node=>node.tagName==='button'&&node.textContent==='4. A shared symbol');bridge.listeners.click();
+      assert.equal(nodes.find(node=>node.className==='today-pair-prompt').textContent,'Look for a gesture, a direction or a colour the two images have in common. What changes from one card to the other?');
+    }
+  }finally{globalThis.document=prior;}
+});

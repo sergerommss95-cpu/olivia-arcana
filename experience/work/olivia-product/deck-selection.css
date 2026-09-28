@@ -1,0 +1,12 @@
+/* A deck is chosen before a draw; its identity remains with the reading. */
+body[data-view="decks"]{height:auto;min-height:100svh}
+body[data-view="decks"] #hero-region,body[data-view="decks"] #home-content{display:none}
+.reading-deck-switch{display:flex;align-items:center;gap:14px;margin:0 0 24px;padding:14px 16px;background:#162d3e;border-radius:14px;min-width:0;color:#eee3ce}
+.reading-deck-switch>img{width:34px;height:58px;object-fit:cover;border-radius:4px;flex:none}
+.reading-deck-switch>span{display:grid;gap:4px;min-width:0;flex:1}.reading-deck-switch small{font-size:9px;letter-spacing:.16em;color:#c8b68e}.reading-deck-switch strong{font:500 18px/1.1 'Cormorant Garamond',serif}
+.reading-deck-switch button{flex:none;min-height:44px;background:#e9dcc0;color:#122333;border-radius:9px;padding:10px 14px;font:500 12px 'DM Sans',sans-serif;box-shadow:inset 0 1px #fff8e680,0 3px 10px #0002;transition:transform .18s,background .18s}.reading-deck-switch button:hover{background:#fff0d0;transform:translateY(-2px)}.reading-deck-switch button:active{transform:translateY(1px)}
+.reading-deck-switch button:focus-visible{outline:2px solid #e8d39f;outline-offset:4px}
+body[data-view="question"] .reading-deck-switch{grid-column:1/-1}
+@media(min-width:900px){.site-header nav{gap:clamp(12px,1.5vw,28px)}.header-note{display:none}}
+@media(max-width:700px){.reading-deck-switch{padding:12px;gap:11px;margin-bottom:20px}.reading-deck-switch strong{font-size:18px}.reading-deck-switch button{font-size:11px;padding:10px 12px}body.mobile-experience[data-view="decks"] .deck-library{padding-top:calc(90px + env(safe-area-inset-top))}}
+@media(prefers-reduced-motion:reduce){.reading-deck-switch button{transition:none}}
