@@ -1,0 +1,277 @@
+{
+  "id": 46,
+  "slug": "page-of-cups",
+  "artwork": {
+    "file": "46_page_of_cups.webp",
+    "sha256": "2bfa14ad49a3ca72d8804454e41aa0b3f17e0a5c3d922e4be4361d9c04f023b8"
+  },
+  "symbols": [
+    {
+      "key": "fish",
+      "x": 70,
+      "y": 38,
+      "en": {
+        "name": "The gold fish",
+        "seen": "A fish of burnished gold rises head first from the ivory bowl, its round eye and scales finely worked, mouth open, side fins just above the rim, its head tilted up toward the bending face.",
+        "meaning": "The fish in the cup is the classic emblem of this card: an image or feeling surfacing from the waters of the unconscious. Olivia makes it gold, like the star flecks overhead, so the surprise looks precious rather than absurd, something worth looking at closely."
+      },
+      "uk": {
+        "name": "Золота риба",
+        "seen": "Риба з полірованого золота виринає з чаші зі слонової кістки головою вперед. Кругле око й луска тонко вирізьблені, рот відкритий, бічні плавці ледь вище краю, а голова піднята до схиленого обличчя.",
+        "meaning": "Риба в кубку — класична емблема цієї карти: образ чи почуття, що спливає з вод несвідомого. Olivia робить її золотою, як зоряні іскри вгорі, тож несподіванка виглядає коштовною, а не безглуздою: чимось, що варто роздивитися зблизька."
+      }
+    },
+    {
+      "key": "cup",
+      "x": 69,
+      "y": 41,
+      "en": {
+        "name": "The plain ivory bowl",
+        "seen": "The cup is a simple, deep ivory bowl with a smooth rim and no stem, held at chest height; both hands support it from below, the fingers of the nearer hand spread across its base.",
+        "meaning": "Cups are the suit of Water: feeling, love, imagination and intuition. The traditional Page holds a stemmed goblet; here it is an open bowl with no stem, carried in both hands the way you might carry something alive, with care rather than ceremony."
+      },
+      "uk": {
+        "name": "Проста чаша зі слонової кістки",
+        "seen": "Кубок тут — проста глибока чаша зі слонової кістки з гладеньким вінцем і без ніжки, піднята до грудей. Обидві руки підтримують її знизу, пальці ближчої руки розпростерті під дном.",
+        "meaning": "Кубки — масть Води: почуттів, любові, уяви й інтуїції. Традиційний Паж тримає келих на ніжці; тут це відкрита чаша без ніжки, яку несуть обома руками, як несли б щось живе: дбайливо, а не урочисто."
+      }
+    },
+    {
+      "key": "face",
+      "x": 55,
+      "y": 30,
+      "en": {
+        "name": "The smiling, lowered face",
+        "seen": "Carved in ivory near profile, the head bows toward the bowl, eyes lowered and nearly closed, lips curved in a quiet smile, soft curls massed at the side of the head beneath the cap.",
+        "meaning": "Pages learn by paying attention, and this one looks down into feeling rather than up at the sky. The smile matters: the surprise is met with amusement and warmth, not alarm. It shows the card’s attitude toward the unexpected, a gentle willingness to be delighted."
+      },
+      "uk": {
+        "name": "Усміхнене схилене обличчя",
+        "seen": "Голова, вирізьблена в слоновій кістці майже в профіль, схилена до чаші: очі опущені й майже заплющені, губи в тихій усмішці, м’які кучері густо збираються збоку голови під шапочкою.",
+        "meaning": "Пажі вчаться, уважно придивляючись, і цей дивиться не вгору, на небо, а вниз, у почуття. Усмішка тут важлива: несподіванку зустрічають весело й тепло, без тривоги. Вона показує ставлення карти до непередбаченого — лагідну готовність дивуватися й тішитися."
+      }
+    },
+    {
+      "key": "other",
+      "x": 50,
+      "y": 24,
+      "en": {
+        "name": "The plumed cap",
+        "seen": "A rounded ivory cap with a rolled band sits low on the curls; a long, finely barbed feather springs from its top and curls back over the head toward the left.",
+        "meaning": "A plume is an old mark of the page as herald and messenger. In Cups the message travels on the air of imagination, light and a little whimsical. A similar carved feather crowns Olivia’s Page of Wands, linking the Pages as students of their suits."
+      },
+      "uk": {
+        "name": "Шапочка з пером",
+        "seen": "Округла шапочка зі слонової кістки з підкоченим околишем низько сидить на кучерях; з її верхівки здіймається довге перо з тонкими борідками й загинається назад над головою, ліворуч.",
+        "meaning": "Перо — давня прикмета пажа як глашатая й вісника. У Кубках вістка летить повітрям уяви: легка й трохи химерна. Подібне вирізьблене перо вінчає і Пажа Жезлів у колоді Olivia, пов’язуючи Пажів як учнів своїх мастей."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 30,
+      "y": 20,
+      "en": {
+        "name": "The river of stars",
+        "seen": "A pale band of silvery sparkle crosses the upper lapis sky diagonally, from near the top edge down toward the left, among scattered gold flecks, a few of them with tiny pointed rays like small stars.",
+        "meaning": "The traditional Page of Cups stands in daylight by the sea. Olivia sets the scene at night, when dreams and moods come closest to the surface, and the gold of the stars answers the gold of the fish, as if a little night sky had fallen into the bowl."
+      },
+      "uk": {
+        "name": "Ріка зірок",
+        "seen": "Бліда смуга сріблястих іскор перетинає верхню частину лазуритового неба навскіс, від верхнього краю вниз і ліворуч, серед розсипаних золотих цяток; деякі з них мають крихітні гострі промені, наче маленькі зірки.",
+        "meaning": "Традиційний Паж Кубків стоїть при денному світлі біля моря. Olivia переносить сцену в ніч, коли сни й настрої підходять найближче до поверхні, а золото зірок перегукується із золотом риби, ніби клаптик нічного неба впав у чашу."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 46,
+      "y": 59,
+      "en": {
+        "name": "The lotus-patterned tunic",
+        "seen": "The knee-length ivory tunic, gathered at the waist by a narrow belt and finished with a patterned hem band, is scattered with small incised fan-shaped sprays that resemble budding lotus flowers.",
+        "meaning": "The traditional Page of Cups wears a tunic printed with flowers, often read as water lilies or lotuses. Here the motif is carved faintly into the ivory, as if feeling were woven into the Page’s ordinary clothes: present everywhere, and easy to overlook."
+      },
+      "uk": {
+        "name": "Туніка з лотосами",
+        "seen": "Туніка зі слонової кістки до колін, підперезана вузьким паском і облямована візерунчастою смугою внизу, всіяна дрібними врізаними віялоподібними гілочками, схожими на бутони лотоса.",
+        "meaning": "Традиційний Паж Кубків убраний у туніку з квітковим візерунком, який часто тлумачать як латаття чи лотоси. Тут мотив ледь прорізаний у слоновій кістці, ніби почуття вплетене в буденний одяг Пажа: присутнє всюди, але його легко не помітити."
+      }
+    },
+    {
+      "key": "sea",
+      "x": 85,
+      "y": 64,
+      "en": {
+        "name": "The carved waves",
+        "seen": "Behind the figure, rows of long rippling waves are cut in lighter blue lapis across the full width of the card, above a rough rocky shore and a floor of diagonal planks.",
+        "meaning": "The sea is the traditional backdrop of this card and the suit’s element at full scale: vast, moving, unconscious. The Page stands on dry, level boards in front of it, close enough to feel its pull without being swept in."
+      },
+      "uk": {
+        "name": "Вирізьблені хвилі",
+        "seen": "За постаттю на всю ширину карти тягнуться ряди довгих брижастих хвиль, вирізаних у світлішому блакитному лазуриті, над кам’янистим берегом і настилом із косих дощок.",
+        "meaning": "Море — традиційне тло цієї карти й стихія масті в повну силу: безмежна, рухлива, несвідома. Паж стоїть перед ним на сухих рівних дошках — досить близько, щоб відчути його поклик, і досить далеко, щоб хвиля не підхопила."
+      }
+    },
+    {
+      "key": "other",
+      "x": 17,
+      "y": 68,
+      "en": {
+        "name": "The tiered fountain",
+        "seen": "At the left, carved in lighter blue stone against the waves, stands a small fountain: a wide round basin, two smaller stacked bowls rising above it and a bud-shaped finial at the top.",
+        "meaning": "A fountain is water given shape: feeling that flows yet is held in a form. It is not part of the traditional Page of Cups. Olivia sets it beside the open sea, a gentle contrast between emotion that overwhelms and emotion that can be tended and shared."
+      },
+      "uk": {
+        "name": "Ярусний фонтан",
+        "seen": "Ліворуч на тлі хвиль стоїть невеликий фонтан, вирізаний у світлішому блакитному камені: широкий круглий басейн, дві менші чаші одна над одною і навершя у формі бутона.",
+        "meaning": "Фонтан — це вода, якій надали форму: почуття, що тече, але тримається в межах. У традиційному Пажі Кубків його немає. Olivia ставить фонтан поруч із відкритим морем — лагідний контраст між емоцією, що накриває, і емоцією, яку можна плекати й ділити з іншими."
+      }
+    },
+    {
+      "key": "flowers",
+      "x": 74,
+      "y": 72,
+      "en": {
+        "name": "The lotus and the shrub",
+        "seen": "On the right, just above the rocky shore, a single open lotus flower on a short stem is carved in blue lapis, with a small rounded shrub or tree beside it.",
+        "meaning": "The lotus rises clean from muddy water and opens toward the light, an old emblem of the heart unfolding. The Golden Dawn description of the Princess of Cups places a lotus in the figure’s hand, so this flower quietly recalls that older layer of the card."
+      },
+      "uk": {
+        "name": "Лотос і кущ",
+        "seen": "Праворуч, трохи вище кам’янистого берега, у блакитному лазуриті вирізано одну розкриту квітку лотоса на короткому стеблі, а поруч — невеликий округлий кущ чи деревце.",
+        "meaning": "Лотос виростає чистим із мулистої води й розкривається до світла — давня емблема серця, що розгортається. В описі Золотої Зорі Принцеса Кубків тримає в руці лотос, тож ця квітка тихо нагадує про давніший шар карти."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Page of Cups is a feeling or image that surfaces unasked: a small surprise from the inner waters, met with curiosity and a smile rather than judgement.",
+    "keywords": {
+      "upright": [
+        "curiosity",
+        "emotional message",
+        "imagination",
+        "tenderness",
+        "intuitive nudge",
+        "playful openness"
+      ],
+      "reversed": [
+        "dismissed feelings",
+        "escapism",
+        "creative block",
+        "oversensitivity",
+        "feeling exposed"
+      ]
+    },
+    "upright": [
+      "The Page of Cups is the moment something rises from your inner waters without being called: a mood, an image, a tender impulse, an idea that arrives sideways. In Olivia’s image an ivory figure in a patterned tunic stands before a night sea, holding a plain bowl in both hands. Out of it rises a gold fish, mouth open, turned up toward the face that bends over it. The fish is gold, like the flecks of star in the sky above.",
+      "Pages are the students and messengers of their suit, and in Cups the message comes from feeling and imagination. The figure does not grab the fish or try to explain it away. The head is bowed, the eyes lowered, the mouth smiling. Upright, this card invites that same response to whatever surprises you emotionally: notice it, stay kind to it, and let it show you something before you decide what it means or whether it is sensible.",
+      "Behind the Page, a tiered fountain, a lotus and the long waves show water in different moods: contained, flowering, moving. The card draws attention to intuition, tender beginnings in friendship or love, and creative ideas that arrive as pictures rather than plans. Give the surprise a small form, a sketch, a note, a sentence said aloud, and see where it swims."
+    ],
+    "reversed": [
+      "Page of Cups reversed draws attention to a feeling that surfaces and is pushed back under before it has been heard. You may call a tender reaction silly, laugh off an intuition, or keep a creative idea hidden because it seems childish. The opposite can happen too: daydreams become a comfortable place to stay, and ordinary tasks go quietly unattended.",
+      "In the image the bowl is small and held in both hands; the fish is seen because someone chose to look into it. Reversed, the card asks whether you are looking away, or looking only at the reflection you prefer. Offer the feeling a private, unpolished outlet first, a few lines in a notebook perhaps, and notice what it wants to say."
+    ],
+    "number": "Pages are the students and messengers of the tarot court: the stage of first hearing about something and wanting to learn it. In Cups, the suit of Water, the lesson is feeling itself: moods, affection, intuition and the images that arrive in dreams and daydreams. The Ace of Cups is the overflowing source; the Page is the first to hold a small share of it and look inside with wonder. The Knight later carries that feeling outward as an offer.",
+    "tradition": "In the Golden Dawn system this card is the Princess of Cups, titled the Princess of the Waters and the Lotus of the Palace of the Floods, and attributed to Earth of Water: feeling given a form you can hold. The Princesses rule no decans; each is the throne of its suit’s Ace and rules a quarter of the heavens around the north pole, for Cups the quarter spanning Libra, Scorpio and Sagittarius. The Golden Dawn description gives the Princess a lotus and a turtle rising from a cup. Arthur Edward Waite restored the older rank of Page, the valet of Marseille decks, and Pamela Colman Smith’s 1909 design showed a fish looking out of the cup, with the sea behind.",
+    "court": {
+      "temperament": "As a temperament, the Page of Cups is receptive, imaginative and openly tender. This way of being notices small emotional shifts, gets absorbed in stories, music or daydreams, and responds to surprises with delight rather than suspicion. It is the part of anyone that can still be moved by something unexpected, and say so without embarrassment.",
+      "gifts": "The gifts here are sensitivity that picks up what others miss, a gentle sense of humour, and the courage to share a feeling while it is still fresh and unfinished. This Page writes the note, makes the small creative gift, offers the kind word, and can help a group or a tired self soften toward what it feels.",
+      "shadow": "In shadow, openness tips into drift or fragility. You may retreat into fantasy when life asks for something plain, take ordinary feedback as a wound, or treat every passing mood as a message. The image holds a counterweight: the bowl is carried in both hands, and the feet stand on a firm, level floor."
+    },
+    "areas": {
+      "love": "In close relationships the Page of Cups can point to tenderness, a sweet gesture, a first confiding conversation, or a new softness in a familiar bond. It does not reveal what another person feels. It asks what you feel, and whether you can offer it lightly, the way the figure holds the bowl and smiles at what appears. With yourself, it invites you to treat your own moods with that same curious kindness.",
+      "work": "At work or in study, this card often turns attention to imaginative ideas, design, writing, care work, or any task where empathy is a real skill. An idea may arrive half formed, as an image or a hunch. Catch it before it slips away, then test it with someone who can help give it shape. Where money or commitments are involved, let the idea inspire you and keep the checks practical.",
+      "self": "For your inner life, the Page of Cups asks you to listen to what surfaces unasked: a dream image, a sudden memory, a reaction larger than the moment seems to justify. The figure bends toward the fish with a smile, not a diagnosis. You can meet your own surprises the same way, with interest rather than correction, and let them say something before you file them away."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Page of Cups points to a fresh feeling, intuition or imaginative idea that wants noticing and gentle attention before it is explained or dismissed.",
+      "challenge": "As a challenge, the card can show sensitivity that is easily hurt, feelings brushed aside as childish, or daydreaming used to avoid a plainer conversation or task.",
+      "advice": "As advice, it invites you to follow a tender impulse one small step: write the note, share the sketch, say the kind thing, or simply ask what you are feeling now."
+    },
+    "pairs": [
+      {
+        "with": 36,
+        "text": "The Ace of Cups is the overflowing source; the Page holds a single bowl and finds a fish inside. Together they draw attention to a new feeling or creative current and to the first careful steps of learning to hold it."
+      },
+      {
+        "with": 18,
+        "text": "The Moon shows a crayfish in a dark pool beneath a night sky; the Page meets a fish rising from a bowl under the stars. Together they turn attention to images from the unconscious, and to meeting them with curiosity rather than fear."
+      },
+      {
+        "with": 42,
+        "text": "The Seven of Cups offers many visions at once, while the Page looks into a single bowl. Together they ask which imaginative image is a message worth following and which is a pleasant distraction from the day."
+      }
+    ],
+    "questions": [
+      "What feeling or image surfaced recently that you have not yet given any attention?",
+      "Which tender reaction have you dismissed as silly before hearing what it had to say?",
+      "How would you meet your next emotional surprise if you greeted it with a smile instead of a verdict?"
+    ],
+    "practice": "When an unexpected feeling or image arrives today, write it down in one sentence without explaining it, then read it back this evening with curiosity."
+  },
+  "uk": {
+    "essence": "Паж Кубків — це почуття чи образ, що спливає без запрошення: маленька несподіванка з внутрішніх вод, яку зустрічають цікавістю й усмішкою, а не осудом.",
+    "keywords": {
+      "upright": [
+        "цікавість",
+        "емоційна звістка",
+        "уява",
+        "ніжність",
+        "інтуїтивний поштовх",
+        "грайлива відкритість"
+      ],
+      "reversed": [
+        "знехтувані почуття",
+        "втеча від реальності",
+        "творчий застій",
+        "надмірна вразливість",
+        "відчуття незахищеності"
+      ]
+    },
+    "upright": [
+      "Паж Кубків — мить, коли щось підіймається з ваших внутрішніх вод без жодного поклику: настрій, образ, ніжний порух, ідея, що приходить манівцями. На зображенні Olivia постать зі слонової кістки у візерунчастій туніці стоїть перед нічним морем і тримає обома руками просту чашу. З неї виринає золота риба з відкритим ротом, повернута до обличчя, що схиляється над нею. Риба золота, як зоряні іскри в небі вгорі.",
+      "Пажі — учні й вісники своєї масті, а в Кубках звістка надходить від почуттів та уяви. Постать не хапає рибу й не намагається відмахнутися від неї поясненнями. Голова схилена, очі опущені, вуста всміхаються. У прямому положенні карта запрошує так само відгукнутися на все, що зворушує вас зненацька: помітити це, поставитися до нього лагідно й дозволити йому щось показати, перш ніж вирішувати, що воно означає і чи воно розсудливе.",
+      "За Пажем ярусний фонтан, лотос і довгі хвилі показують воду в різних настроях: стриману, квітучу, рухливу. Карта звертає увагу на інтуїцію, ніжні початки в дружбі чи коханні й творчі ідеї, що приходять картинками, а не планами. Дайте несподіванці маленьку форму — ескіз, нотатку, речення, сказане вголос, — і подивіться, куди вона попливе."
+    ],
+    "reversed": [
+      "Паж Кубків у перевернутому положенні звертає увагу на почуття, яке спливає і знову опиняється під водою, перш ніж його почули. Можливо, ви називаєте ніжну реакцію дурницею, віджартовуєтеся від інтуїції або ховаєте творчу ідею, бо вона здається дитячою. Буває й навпаки: мрії стають затишним сховком, а буденні справи тихо лишаються без уваги.",
+      "На зображенні чаша невелика, її тримають обома руками; рибу видно тому, що хтось вирішив зазирнути всередину. У перевернутому положенні карта запитує, чи не відводите ви погляд — або чи не дивитеся лише на те відображення, яке вам більше до вподоби. Спершу дайте почуттю вихід наодинці й без шліфування — скажімо, кілька рядків у записнику — і помітьте, що воно хоче сказати."
+    ],
+    "number": "Пажі — учні й вісники серед придворних карт таро: етап, коли про щось уперше чують і хочуть цього навчитися. У Кубках, масті Води, уроком стає саме почуття: настрої, прихильність, інтуїція й образи, що приходять у снах і мріях. Туз Кубків — джерело, що переливається через край; Паж першим тримає невелику його частку й зазирає всередину з подивом. Лицар згодом понесе це почуття назовні як пропозицію.",
+    "tradition": "У системі Золотої Зорі ця карта — Принцеса Кубків із титулом «Принцеса Вод і Лотос Палацу Повеней»; їй відповідає Земля Води: почуття, що набуло форми, яку можна втримати. Принцеси не правлять деканами: кожна є троном Туза своєї масті й править чвертю небес довкола північного полюса, для Кубків — чвертю, що охоплює Терези, Скорпіона й Стрільця. В описі Золотої Зорі Принцеса має лотос, а з кубка в неї виринає черепаха. Артур Едвард Вейт повернув давніший ранг Пажа — валета марсельських колод, а на малюнку Памели Колман Сміт 1909 року з кубка визирала риба, а позаду було море.",
+    "court": {
+      "temperament": "Як темперамент Паж Кубків — це сприйнятливість, уява й відкрита ніжність. Така вдача помічає найменші зрушення настрою, поринає в історії, музику чи мрії й відповідає на несподіванки радістю, а не підозрою. Це та частина будь-кого з нас, яку ще може зворушити щось непередбачене і яка без збентеження про це скаже.",
+      "gifts": "Дари цього Пажа — чутливість, що вловлює пропущене іншими, лагідне почуття гумору й сміливість поділитися почуттям, поки воно ще свіже й незавершене. Цей Паж пише записку, робить маленький творчий подарунок, каже добре слово й може допомогти групі чи власному втомленому «я» лагідніше поставитися до того, що відчувається.",
+      "shadow": "У тіні відкритість обертається безцільним дрейфом або крихкістю. Ви можете ховатися у фантазії, коли життя просить чогось простого, сприймати звичайний відгук як рану чи вважати кожен швидкоплинний настрій звісткою. На зображенні є противага: чашу несуть обома руками, а ноги стоять на твердій рівній підлозі."
+    },
+    "areas": {
+      "love": "У близьких стосунках Паж Кубків може вказувати на ніжність, милий жест, першу довірливу розмову чи нову м’якість у знайомому зв’язку. Карта не відкриває, що відчуває інша людина. Вона запитує, що відчуваєте ви і чи можете запропонувати це легко — так, як постать тримає чашу й усміхається тому, що з’являється. У стосунках із собою карта запрошує ставитися до власних настроїв із такою самою допитливою добротою.",
+      "work": "У роботі чи навчанні ця карта часто звертає увагу на образні ідеї, дизайн, письмо, турботу про інших або будь-яку справу, де емпатія — справжня навичка. Ідея може прийти напівсформованою, як образ чи здогад. Упіймайте її, поки вона не вислизнула, а потім перевірте з кимось, хто допоможе надати їй форми. Де йдеться про гроші чи зобов’язання, нехай ідея надихає, а перевіряйте все тверезо.",
+      "self": "Для вашого внутрішнього життя Паж Кубків просить прислухатися до того, що спливає без запиту: образу зі сну, раптового спогаду, реакції, сильнішої, ніж, здавалося б, заслуговує мить. Постать схиляється до риби з усмішкою, а не з діагнозом. Ви можете так само зустрічати власні несподіванки — з інтересом, а не з виправленнями, — і дати їм щось сказати, перш ніж відкласти їх убік."
+    },
+    "positions": {
+      "heart": "У центрі запитання Паж Кубків вказує на свіже почуття, інтуїцію чи образну ідею, які хочуть, щоб їх помітили й лагідно вислухали, перш ніж пояснювати чи відкидати.",
+      "challenge": "Як перешкода карта може показувати чутливість, яку легко зачепити, почуття, відкинуті як дитячі, або мрійливість, що допомагає уникати простішої розмови чи справи.",
+      "advice": "Як порада вона запрошує зробити один маленький крок за ніжним поривом: написати записку, показати ескіз, сказати добре слово або просто запитати себе, що ви відчуваєте зараз."
+    },
+    "pairs": [
+      {
+        "with": 36,
+        "text": "Туз Кубків — джерело, що переливається через край; Паж тримає одну чашу й знаходить у ній рибу. Разом вони звертають увагу на нове почуття чи творчу течію і на перші обережні кроки в умінні його втримати."
+      },
+      {
+        "with": 18,
+        "text": "Місяць показує рака в темній водоймі під нічним небом; Паж зустрічає рибу, що виринає з чаші під зорями. Разом вони звертають увагу на образи з несвідомого й на те, щоб зустрічати їх цікавістю, а не страхом."
+      },
+      {
+        "with": 42,
+        "text": "Сімка Кубків пропонує безліч видінь водночас, а Паж зазирає в одну-єдину чашу. Разом вони запитують, який образ уяви — звістка, за якою варто піти, а який — приємне відволікання від дня."
+      }
+    ],
+    "questions": [
+      "Яке почуття чи образ нещодавно сплили, а ви ще не приділили їм жодної уваги?",
+      "Яку ніжну реакцію ви відкинули як дурницю, так і не почувши, що вона хотіла сказати?",
+      "Як би ви зустріли наступну емоційну несподіванку, якби привіталися з нею усмішкою, а не вироком?"
+    ],
+    "practice": "Коли сьогодні прийде несподіване почуття чи образ, запишіть його одним реченням без пояснень, а ввечері перечитайте з цікавістю."
+  }
+}

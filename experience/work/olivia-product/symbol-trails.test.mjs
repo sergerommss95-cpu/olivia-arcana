@@ -2,31 +2,34 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { SYMBOL_TRAILS, SYMBOL_ARTWORK, getSymbolTrail, comparisonCards } from './symbol-trails.js';
+import { SYMBOL_TRAIL_DATA as SYMBOL_TRAILS, SYMBOL_ARTWORK } from './symbol-trails-data.js';
+import { findTrail, loupeBackground } from './symbol-trails.js';
 import { TAROT_CARDS } from './deck-catalog.js';
 
-test('the curated visual study has three bilingual trails and nine verified cards', () => {
-  assert.deepEqual(SYMBOL_TRAILS.map(trail => trail.id), ['light', 'water', 'thresholds']);
-  const ids = SYMBOL_TRAILS.flatMap(trail => trail.cards.map(card => card.cardId));
-  assert.equal(ids.length, 9);
-  assert.equal(new Set(ids).size, 9);
-  assert.deepEqual([...ids].sort((a,b) => a-b), Object.keys(SYMBOL_ARTWORK).map(Number).sort((a,b) => a-b));
+test('every trail is bilingual and follows its symbol through four to eight different cards', () => {
+  assert.ok(SYMBOL_TRAILS.length >= 12, 'the language of symbols covers the main symbols of the deck');
+  assert.equal(new Set(SYMBOL_TRAILS.map(trail => trail.id)).size, SYMBOL_TRAILS.length);
   for (const trail of SYMBOL_TRAILS) {
-    assert.equal(trail.cards.length, 3);
-    assert.ok(Object.isFrozen(trail));
+    for (const language of ['en', 'uk']) assert.ok(trail.group?.[language]?.trim(), `${trail.id} group/${language}`);
+    assert.ok(trail.cards.length >= 4 && trail.cards.length <= 8, `${trail.id} has ${trail.cards.length} cards`);
+    assert.equal(new Set(trail.cards.map(card => card.cardId)).size, trail.cards.length, `${trail.id} repeats a card`);
     for (const language of ['en', 'uk']) {
       for (const key of ['name', 'title', 'introduction', 'comparison', 'prompt']) assert.ok(trail[language][key]?.trim(), `${trail.id}/${language}/${key}`);
-      for (const card of trail.cards) {
-        assert.equal(TAROT_CARDS[card.cardId].number, card.cardId);
-        for (const key of ['title', 'location', 'observation', 'reflection', 'detail']) assert.ok(card[language][key]?.trim(), `${card.cardId}/${language}/${key}`);
-        assert.notEqual(card[language].observation, card[language].reflection, 'visible evidence and reflective invitation remain distinct');
-        assert.ok(Object.isFrozen(card[language]));
-      }
+      assert.ok(trail[language].prompt.trim().endsWith('?'), `${trail.id}/${language} prompt is a question`);
+    }
+    for (const card of trail.cards) {
+      assert.ok(TAROT_CARDS[card.cardId], `${trail.id}: card ${card.cardId} exists`);
+      assert.ok(Number.isInteger(card.x) && card.x >= 0 && card.x <= 100 && Number.isInteger(card.y) && card.y >= 0 && card.y <= 100);
+      assert.match(card.slug, /^[a-z-]+$/);
+      for (const language of ['en', 'uk']) for (const key of ['name', 'seen', 'meaning']) assert.ok(card[language][key]?.trim(), `${trail.id}/${card.cardId}/${language}/${key}`);
+      assert.notEqual(card.en.seen, card.en.meaning, 'visible evidence and meaning remain distinct');
     }
   }
 });
 
 test('every observation is tied to the exact original artwork that was visually inspected', async () => {
+  const used = new Set(SYMBOL_TRAILS.flatMap(trail => trail.cards.map(card => card.cardId)));
+  assert.deepEqual([...used].sort((a, b) => a - b), Object.keys(SYMBOL_ARTWORK).map(Number).sort((a, b) => a - b));
   await Promise.all(Object.entries(SYMBOL_ARTWORK).map(async ([id, reference]) => {
     assert.equal(Number(reference.file.split('_')[0]), Number(id), 'artwork filename must identify its canonical card');
     const folder = Number(id) < 22 ? '../hero-v12/assets/public/cards-portal/' : './assets/minor-arcana/';
@@ -35,15 +38,17 @@ test('every observation is tied to the exact original artwork that was visually 
   }));
 });
 
-test('comparison keeps trail order when the visitor selects a pair in another order', () => {
-  assert.deepEqual(comparisonCards('water', [55, 14]).map(card => card.cardId), [14, 55]);
-  assert.deepEqual(comparisonCards('light', [19, 9, 17]).map(card => card.cardId), [9, 17, 19]);
-  assert.deepEqual(comparisonCards('thresholds', [2, 18]).map(card => card.cardId), [2, 18]);
+test('a loupe centres its symbol and stays inside the artwork at the edges', () => {
+  assert.deepEqual(loupeBackground({ x: 50, y: 50 }, 4), { size: '400% auto', position: '50.0% 50.0%' });
+  assert.equal(loupeBackground({ x: 0, y: 0 }, 4).position, '0.0% 0.0%');
+  assert.equal(loupeBackground({ x: 100, y: 100 }, 4).position, '100.0% 100.0%');
+  const [across] = loupeBackground({ x: 25, y: 50 }, 4).position.split(' ').map(parseFloat);
+  // (0.5 - 0.25 × 4) / (1 - 4) = 1/6 of the travel.
+  assert.ok(Math.abs(across - 100 / 6) < 0.1);
 });
 
-test('comparison rejects too few cards, duplicates, unreviewed cards and mixed trails', () => {
-  for (const selected of [[], [9], [9,9], [9,17,19,9], [9,0], [9,14], ['9',17], null]) assert.throws(() => comparisonCards('light', selected), TypeError);
-  assert.throws(() => getSymbolTrail('all-78'), TypeError);
-  assert.throws(() => comparisonCards('__proto__', [9,17]), TypeError);
-  assert.equal(getSymbolTrail('light'), SYMBOL_TRAILS[0]);
+test('an unknown trail is refused', () => {
+  assert.throws(() => findTrail(SYMBOL_TRAILS, 'all-78'), TypeError);
+  assert.throws(() => findTrail(SYMBOL_TRAILS, '__proto__'), TypeError);
+  assert.equal(findTrail(SYMBOL_TRAILS, SYMBOL_TRAILS[0].id), SYMBOL_TRAILS[0]);
 });

@@ -12,13 +12,13 @@ import {
   cardNumeral,
   cardSlug,
   getCardThumbPath,
-  yesNoVerdict,
 } from "./card-pages";
+import { leafBySlug } from "@/lib/academy/leaf";
 
 const URL = "https://oliviaarcana.com/cards/";
 const TITLE = "Tarot Card Meanings — All 78 Cards | Olivia Arcana";
 const DESCRIPTION =
-  "The complete ledger of all 78 tarot cards: Major Arcana, Wands, Cups, Swords and Pentacles. Upright and reversed meanings, love and career readings, yes-or-no verdicts, and Golden Dawn correspondences for every card.";
+  "All 78 tarot cards, Major Arcana, Wands, Cups, Swords and Pentacles, read in depth: upright and reversed meanings, every symbol of the Olivia image, number and tradition, love, work and self, and each card in a spread.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -63,11 +63,10 @@ export default function CardsIndexPage() {
           <p className="alm-kicker"><span>The Deck</span>· 78 Leaves</p>
           <h1 className="alm-h1">Tarot Card Meanings</h1>
           <p className="alm-lead cl-lead">
-            Every card of the deck, entered in the ledger: twenty-two Major
-            Arcana and the four suits of the Minor. Each leaf carries the
-            card&rsquo;s upright and reversed reading, its counsel for love and
-            work, its yes-or-no verdict, and the correspondence assigned to it
-            by the Golden Dawn.
+            Every card of the deck: twenty-two Major Arcana and the four suits
+            of the Minor. Each leaf reads the card upright and reversed, walks
+            through the symbols carved into its Olivia image, and follows it
+            into love, work and self, into a spread, and beside other cards.
           </p>
         </header>
 
@@ -85,8 +84,7 @@ export default function CardsIndexPage() {
                     <img className="cl-thumb" src={getCardThumbPath(card)} width={120} height={206} alt="" loading="lazy" decoding="async" />
                     <span className="cl-no">{cardNumeral(card)}</span>
                     <span className="cl-name">{card.name}</span>
-                    <span className="cl-keys">{card.keywords.slice(0, 3).join(" · ")}</span>
-                    <span className={`cl-verdict is-${card.yesNo}`}>{yesNoVerdict(card)}</span>
+                    <span className="cl-keys">{leafBySlug(cardSlug(card.name))?.en.essence ?? card.keywords.slice(0, 3).join(" · ")}</span>
                   </Link>
                 </li>
               ))}
@@ -147,7 +145,7 @@ export default function CardsIndexPage() {
 
         .cl-row {
           display: grid;
-          grid-template-columns: 2.6rem 3rem 1fr auto max-content;
+          grid-template-columns: 2.6rem 3rem minmax(9rem, 0.8fr) 1.6fr;
           align-items: center;
           gap: 1rem;
           padding: 0.55rem 0.2rem;
@@ -186,23 +184,12 @@ export default function CardsIndexPage() {
         .cl-row:hover .cl-name { color: var(--ox); }
 
         .cl-keys {
-          font-size: 0.74rem;
+          font-size: 0.78rem;
+          line-height: 1.5;
           color: var(--ink-faint);
-          letter-spacing: 0.02em;
-          text-align: right;
+          letter-spacing: 0.01em;
         }
 
-        .cl-verdict {
-          font-family: var(--font-mono, ui-monospace), monospace;
-          font-size: 0.58rem;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: var(--ink-faint);
-          border: 1px solid var(--hairline);
-          border-radius: 999px;
-          padding: 0.16rem 0.55rem;
-        }
-        .cl-verdict.is-yes { color: var(--ox); border-color: rgba(224, 183, 104, 0.35); }
 
         .cl-cta {
           display: flex;
@@ -215,7 +202,7 @@ export default function CardsIndexPage() {
 
         @media (max-width: 640px) {
           .cl-keys { display: none; }
-          .cl-row { grid-template-columns: 2.3rem 2.2rem 1fr max-content; gap: 0.8rem; }
+          .cl-row { grid-template-columns: 2.3rem 2.2rem 1fr; gap: 0.8rem; }
           .cl-thumb { width: 2.3rem; }
         }
         @media (prefers-reduced-motion: reduce) {

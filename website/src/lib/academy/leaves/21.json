@@ -1,0 +1,265 @@
+{
+  "id": 21,
+  "slug": "the-world",
+  "artwork": {
+    "file": "21_the_world.webp",
+    "sha256": "20b7c7a0056f4c3e18e4d19e1d41b1a7ea1b65171e0c7dda3a23d72247fff10b"
+  },
+  "symbols": [
+    {
+      "key": "other",
+      "x": 51,
+      "y": 47,
+      "en": {
+        "name": "The floating dancer",
+        "seen": "An ivory figure in sheer, lifting drapery hangs at the centre of the oval, touching nothing. A gold leafy circlet sits in the hair, the head turns to the right, and the legs cross at the knee above bare, downward-pointing feet.",
+        "meaning": "The dancer is the traveller of the Major Arcana arrived: fully present, in motion yet held. The crossed legs traditionally echo The Hanged Man’s posture turned upright, so suspension becomes free movement. Olivia keeps the figure wholly airborne, with no ground beneath the feet at all."
+      },
+      "uk": {
+        "name": "Постать у польоті",
+        "seen": "Постать зі слонової кістки в тонкому здійнятому драпіруванні зависає в центрі овалу, нічого не торкаючись. У волоссі — золотий листяний обруч, голова повернута праворуч, ноги схрещені в колінах над босими ступнями, спрямованими донизу.",
+        "meaning": "У цій постаті мандрівка Старших Арканів сягає мети: повна присутність, рух у надійних межах. Схрещені ноги традиційно перегукуються з позою Повішеного, але тут вона повернута головою догори, тож зависання стає вільним рухом. Olivia тримає постать цілком у повітрі, без жодної опори під ногами."
+      }
+    },
+    {
+      "key": "wreath",
+      "x": 49,
+      "y": 21,
+      "en": {
+        "name": "The bound laurel wreath",
+        "seen": "A tall oval of gold laurel leaves encloses the dancer. At the top and again at the bottom, the two branches meet under a gold ribbon binding whose bands cross in a clear X.",
+        "meaning": "The oval wreath is the card’s oldest element, a victor’s crown made large enough to live inside. The Waite-Smith wreath is tied with red ribbons; here the bindings are gold and crossed, recalling the ancient form of Tau, the card’s Hebrew letter, once written as a simple cross mark."
+      },
+      "uk": {
+        "name": "Перев’язаний лавровий вінок",
+        "seen": "Високий овал із золотого лаврового листя оточує постать. Угорі й унизу дві гілки сходяться під золотою перев’язкою, стрічки якої перехрещуються, утворюючи чітку літеру X.",
+        "meaning": "Овальний вінок — найдавніший елемент карти: вінець переможця, збільшений настільки, що в ньому можна жити. У колоді Вейта–Сміт вінок перев’язаний червоними стрічками; тут перев’язки золоті й перехрещені, що нагадує давню форму Тав — літери єврейської абетки, яка відповідає карті: колись її писали як простий знак хреста."
+      }
+    },
+    {
+      "key": "wand",
+      "x": 71,
+      "y": 47,
+      "en": {
+        "name": "Two slim gold wands",
+        "seen": "The raised hand on the viewer’s left holds a slim gold wand diagonally, its knobbed upper end tilted towards the head. The lowered hand on the right grips a second wand almost upright, a small round knob at its top.",
+        "meaning": "A wand in each hand is commonly read as two forces held in balance: giving and receiving, action and rest. The Magician raises a single wand to draw power down; the World dancer holds two lightly, with the loose grip of someone who no longer needs to force anything."
+      },
+      "uk": {
+        "name": "Два тонкі золоті жезли",
+        "seen": "Піднята рука ліворуч від глядача тримає тонкий золотий жезл навскіс, а його верхній кінець із потовщенням нахилений до голови. Опущена рука праворуч стискає другий жезл майже вертикально, з маленькою круглою головкою вгорі.",
+        "meaning": "Жезл у кожній руці зазвичай читають як дві сили в рівновазі: давати й приймати, діяти й відпочивати. Маг підіймає один жезл, щоб притягнути силу донизу; постать на карті Світ тримає два — легко, вільним хватом того, кому вже не треба нічого досягати силою."
+      }
+    },
+    {
+      "key": "face",
+      "x": 23,
+      "y": 12,
+      "en": {
+        "name": "The head in the clouds",
+        "seen": "In the top left corner a human head carved in grey-blue lapis emerges from rounded clouds, seen in profile facing right, with long, wind-blown hair and no wings.",
+        "meaning": "This is one of the four living creatures from Ezekiel’s vision and the Book of Revelation, later linked with Matthew and with fixed Air, Aquarius. Olivia carves it as a calm, wingless human profile with no book: the thinking mind turned towards the dancer."
+      },
+      "uk": {
+        "name": "Голова в хмарах",
+        "seen": "У верхньому лівому куті з округлих хмар виринає людська голова, вирізьблена із сіро-блакитного лазуриту: профіль, повернутий праворуч, довге розвіяне вітром волосся, без крил.",
+        "meaning": "Це одна з чотирьох живих істот із видіння Єзекіїля та Книги Одкровення, яку згодом пов’язали з євангелістом Матвієм і з фіксованим знаком Повітря. В Olivia це спокійний безкрилий людський профіль без книги: розум, звернений до постаті в центрі."
+      }
+    },
+    {
+      "key": "eagle",
+      "x": 80,
+      "y": 15,
+      "en": {
+        "name": "The eagle with lifted wings",
+        "seen": "In the top right corner a large lapis eagle perches on a bank of cloud, both wings lifted and half open, its hooked beak turned left towards the centre of the card.",
+        "meaning": "The eagle is linked with John and, in the Golden Dawn lineage, with Scorpio, fixed Water. Its raised wings give this corner height: feeling that has risen above its own depths and can take in the whole scene below."
+      },
+      "uk": {
+        "name": "Орел із піднятими крилами",
+        "seen": "У верхньому правому куті великий лазуритовий орел сидить на хмарній гряді: обидва крила підняті й напіврозкриті, гачкуватий дзьоб повернутий ліворуч, до центру карти.",
+        "meaning": "Орла пов’язують з євангелістом Іваном, а в традиції Золотої Зорі — зі Скорпіоном, фіксованим знаком Води. Підняті крила додають цьому кутові висоти: це почуття, що піднялося над власними глибинами й може охопити поглядом усю сцену внизу."
+      }
+    },
+    {
+      "key": "lion",
+      "x": 21,
+      "y": 75,
+      "en": {
+        "name": "The lion on the clouds",
+        "seen": "At lower left a heavily maned lion in grey-blue lapis rests its forepaws on a cloud beside the wreath, head in three-quarter view and turned towards the centre, above a rocky river valley.",
+        "meaning": "The lion stands for Mark and for Leo, fixed Fire: courage and warmth held steady. In the Waite-Smith card the lion sits at lower right and the bull at lower left; Olivia has them change places, so the lion keeps watch on the side of the raised wand."
+      },
+      "uk": {
+        "name": "Лев на хмарах",
+        "seen": "Ліворуч унизу лев із густою гривою, вирізьблений із сіро-блакитного лазуриту, спирається передніми лапами на хмару біля вінка; голова, показана в три чверті, повернута до центру, під ним — скеляста річкова долина.",
+        "meaning": "Лев уособлює євангеліста Марка й знак Лева, фіксований знак Вогню: мужність і тепло, що горять рівно. На карті Вейта–Сміт лев сидить праворуч унизу, а бик — ліворуч; в Olivia вони помінялися місцями, тож лев чатує з боку піднятого жезла."
+      }
+    },
+    {
+      "key": "bull",
+      "x": 85,
+      "y": 76,
+      "en": {
+        "name": "The horned bull",
+        "seen": "At lower right a heavy lapis bull with curved horns and a curly brow rises out of clouds, its head turned towards the centre and its body fading into the card’s edge.",
+        "meaning": "The bull belongs to Luke and to Taurus, fixed Earth: patience, the body, what grows slowly. Its calm weight answers the lion across the valley. Together the four creatures gather the whole of experience at the corners, with the dancer as the point where they meet."
+      },
+      "uk": {
+        "name": "Рогатий бик",
+        "seen": "Праворуч унизу з хмар виринає важкий лазуритовий бик із вигнутими рогами та кучерявим чолом; голова повернута до центру, а тулуб розчиняється біля краю карти.",
+        "meaning": "Бик — символ євангеліста Луки й Тельця, фіксованого знака Землі: терпіння, тіло, те, що росте повільно. Його спокійна вага відповідає левові по той бік долини. Разом чотири істоти збирають у кутах увесь обшир досвіду, а постать у центрі — точка, де вони сходяться."
+      }
+    },
+    {
+      "key": "child",
+      "x": 33,
+      "y": 88,
+      "en": {
+        "name": "Two children with wands",
+        "seen": "Below the wreath two small ivory children, each trailing a ribbon of drapery, dance on rocky ledges either side of a winding river, and each holds up a tiny gold wand.",
+        "meaning": "The children are not part of the Waite-Smith pattern, though some fifteenth-century Italian World cards show two putti holding up a globe with a walled city inside. Echoing the dancer’s wands in miniature, they bring the completion above down into play in the ordinary world below."
+      },
+      "uk": {
+        "name": "Двоє дітей із жезлами",
+        "seen": "Під вінком двоє маленьких дітей зі слонової кістки, за кожним із яких тягнеться стрічка драпірування, танцюють на скелястих виступах обабіч звивистої річки, і кожне підіймає крихітний золотий жезл.",
+        "meaning": "Дітей немає в класичній схемі Вейта–Сміт, хоча на деяких італійських картах Світу XV століття двоє путті тримають глобус із обнесеним мурами містом усередині. Повторюючи жезли центральної постаті в мініатюрі, вони переносять завершеність, що панує вгорі, у гру звичайного світу внизу."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 10,
+      "y": 59,
+      "en": {
+        "name": "The glittering sky band",
+        "seen": "On the left a diagonal band of pale, glinting chips runs up from the card’s edge across the lapis, passing behind the laurel and on into the oval towards the dancer’s drapery.",
+        "meaning": "This band of light has no counterpart in the traditional World card; similar bands cross other night skies in this deck. On The World it enters the wreath itself, so the sky’s long road seems to arrive where the dancer is: a small, finished circle inside a larger movement."
+      },
+      "uk": {
+        "name": "Мерехтлива небесна смуга",
+        "seen": "Ліворуч діагональна смуга блідих блискучих крихт піднімається від краю карти через лазурит, проходить за лавром і далі в овал, до драпірування постаті.",
+        "meaning": "Ця смуга світла не має відповідника в традиційній карті Світ; схожі смуги перетинають й інші нічні небеса цієї колоди. На карті Світ вона входить у сам вінок, тож довга небесна дорога ніби доходить туди, де танцює постать: маленьке завершене коло всередині ширшого руху."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The World marks a cycle brought to wholeness, where what you have learned comes together and you can move freely inside the life you have built.",
+    "keywords": {
+      "upright": [
+        "completion",
+        "integration",
+        "wholeness",
+        "fulfilment",
+        "celebration"
+      ],
+      "reversed": [
+        "loose ends",
+        "delayed closure",
+        "perfectionism",
+        "fear of finishing",
+        "unacknowledged success"
+      ]
+    },
+    "upright": [
+      "The World is the last card of the Major Arcana, and it draws attention to something that has come together. A stage of learning, a piece of work, a long season of effort or change may be complete, not because everything is perfect but because its parts now belong to one shape. Olivia pictures this as a tall oval of gold laurel around an ivory dancer. The wreath is closed, bound top and bottom with crossed gold ribbons, yet the figure inside is not still: the legs cross at the knee, the drapery lifts, and the bare feet touch nothing at all.",
+      "That combination is the card’s real teaching. Completion here is not a door you walk out through; it is a wholeness you can move within. The dancer holds a gold wand in each hand, one raised and one lowered, as if the effort of The Magician had turned into ease. Around the oval the head, the eagle, the lion and the bull keep their four corners, suggesting that thought, feeling, courage and patience have each played their part.",
+      "The card invites you to recognise what has been achieved before rushing into the next task. Below the wreath two small children dance on either side of a winding river, each holding a tiny wand of their own. Fulfilment does not stay up in the sky; it can be enjoyed in ordinary places, at the scale of an ordinary day."
+    ],
+    "reversed": [
+      "The World reversed points to completion that is delayed, unrecognised or held to an impossible standard. A cycle may be nearly finished while one loose end keeps you from calling it done, or it may be finished already without your having allowed yourself to notice. The wreath has not opened; you may simply be standing just outside it.",
+      "The reversed card can also describe the wish for perfect closure: waiting until every thread is tied before you let a chapter count. Ask what genuinely remains to do, and what only needs acknowledgement. Sometimes the kindest step is to finish one small task, then mark the whole stage as done, even if it feels slightly untidy."
+    ],
+    "number": "The World is card XXI, the final number of the Major Arcana. Twenty-one is three times seven, and its digits add to three, the number of The Empress and of things coming to birth. In the Fool’s journey this is the arrival after Judgement’s call: the traveller who set out as card 0 now stands at the centre of a completed circle, free in time to begin again. The step asks you to let a whole cycle count before you look for the next one.",
+    "tradition": "In the Golden Dawn system this card is Atu XXI, named “Universe” in place of “World” and titled “The Great One of the Night of Time”. It carries Tau, the last letter of the Hebrew alphabet, meaning a mark or cross, and the planet Saturn, with Earth as a secondary attribution. Its path, the thirty-second, joins Malkuth and Yesod: the first step upward from the material world. Marseille decks show a dancing figure in an oval wreath with the four living creatures at the corners, and Pamela Colman Smith’s 1909 design kept that pattern, giving the dancer a wand in each hand. Some earlier fifteenth-century Italian cards showed two putti holding up a globe containing a city.",
+    "areas": {
+      "love": "In close relationships The World draws attention to what you have already built together: a shared history, a way of understanding each other that took time to shape. It invites you to acknowledge that before asking for the next thing. With yourself, it can mean recognising that you have grown into a fuller version of who you were, like the dancer who has room to move inside the wreath without needing to leave it. Let what is whole be celebrated, small imperfections included.",
+      "work": "At work or in study, The World can point to a project, course or role reaching its natural completion. Before moving on, notice what you actually learned and what you can carry forward, the way the dancer carries two wands with an easy grip. It may be a good moment to document the work, thank the people who shared it and close the file properly. With money matters, it suggests reviewing a finished chapter calmly rather than hurrying into the next commitment.",
+      "self": "For your own growth, The World asks you to see the pattern in what you have lived through. The four creatures at the corners (the head, the eagle, the lion and the bull) can stand for thought, feeling, courage and steadiness. Which of them has served you most in this chapter, and which has stayed quiet? Wholeness here does not mean being finished as a person. It means the different parts of you are in conversation, with room left at the centre to dance."
+    },
+    "positions": {
+      "heart": "At the centre of a question, The World suggests that something may be closer to complete than it feels. The real subject could be recognising and integrating whatever has already come together.",
+      "challenge": "As a challenge, The World can show difficulty letting a chapter be finished: chasing perfect closure, or moving on so quickly that the completion is never felt or named.",
+      "advice": "As advice, The World invites you to mark an ending on purpose. Name what this stage has given you, then take one light step, as the dancer does, into the space it opens."
+    },
+    "pairs": [
+      {
+        "with": 0,
+        "text": "With The Fool, the Major Arcana closes its circle. Card 0 steps towards the edge of the unknown; card XXI dances inside a finished whole. Together they ask what this completion makes possible to begin, and what beginner’s openness you want to keep."
+      },
+      {
+        "with": 10,
+        "text": "With the Wheel of Fortune, the four living creatures appear in both cards. On Olivia’s Wheel they are winged and bent over open books; here the books are gone and they simply watch. Together they ask whether you are still studying a turning cycle or can now let it be complete."
+      },
+      {
+        "with": 12,
+        "text": "With The Hanged Man, the traditional crossed-leg posture appears in both cards: upside down and bound in card XII, upright and free in card XXI. Together they suggest that a period of waiting or surrender has become the ground of easy movement."
+      }
+    ],
+    "questions": [
+      "What in your life has quietly come to completion without being fully acknowledged?",
+      "Which of the four creatures, head, eagle, lion or bull, has carried you furthest through this chapter?",
+      "What would it feel like to move freely inside what you have already built?"
+    ],
+    "practice": "Draw a simple oval on a page, write inside it three things this chapter has completed, then add one word for how you want to move next."
+  },
+  "uk": {
+    "essence": "Світ позначає цикл, що дійшов до цілісності: усе, чого ви навчилися, складається докупи, і ви можете вільно рухатися всередині життя, яке збудували.",
+    "keywords": {
+      "upright": [
+        "завершення",
+        "інтеграція",
+        "цілісність",
+        "здійснення",
+        "святкування"
+      ],
+      "reversed": [
+        "незавершені дрібниці",
+        "відкладене завершення",
+        "перфекціонізм",
+        "страх завершити",
+        "невизнаний успіх"
+      ]
+    },
+    "upright": [
+      "Світ — остання карта Старших Арканів, і вона звертає увагу на те, що склалося в одне ціле. Етап навчання, певна робота, тривала пора зусиль чи змін можуть уже бути завершеними — не тому, що все досконале, а тому, що їхні частини тепер складають одну форму. Olivia зображує це як високий овал золотого лавра навколо постаті зі слонової кістки. Вінок замкнено, перев’язаний угорі й унизу перехрещеними золотими стрічками, проте постать усередині не завмерла: ноги схрещені в колінах, драпірування здіймається, а босі ступні нічого не торкаються.",
+      "У цьому поєднанні й полягає справжній урок карти. Завершення тут не двері, крізь які ви виходите; це цілісність, усередині якої можна рухатися. Постать тримає в кожній руці по золотому жезлу: один піднятий, другий опущений, ніби зусилля Мага перетворилося на легкість. Довкола овалу голова, орел, лев і бик стережуть свої чотири кути, ніби підказуючи, що свою роль відіграли і мислення, і почуття, і мужність, і терпіння.",
+      "Карта запрошує вас визнати досягнуте, перш ніж кидатися до наступного завдання. Під вінком двоє маленьких дітей танцюють обабіч звивистої річки, і кожне тримає власний крихітний жезл. Здійснення не лишається десь у небі: ним можна тішитися у звичайних місцях і в межах звичайного дня."
+    ],
+    "reversed": [
+      "Світ у перевернутому положенні вказує на завершення, яке затримується, лишається невизнаним або мусить відповідати недосяжній планці. Цикл може бути майже закінченим, але одна незавершена дрібниця не дає вам назвати його завершеним; або ж він уже закінчився, а ви ще не дозволили собі це помітити. Вінок не розімкнувся — можливо, ви просто стоїте трохи за його межею.",
+      "Перевернута карта може описувати й бажання ідеального фіналу: чекати, доки кожну нитку буде зав’язано, і лише тоді визнати розділ завершеним. Запитайте себе, що справді лишилося зробити, а що потребує лише визнання. Іноді найдбайливіший крок — завершити одну невелику справу, а тоді визнати весь етап закінченим, навіть якщо все здається трохи неохайним."
+    ],
+    "number": "Світ — карта XXI, останнє число Старших Арканів. Двадцять один — це тричі по сім, а сума його цифр дає три: число Імператриці та всього, що народжується. У мандрівці Блазня це прибуття після поклику Суду: той, хто вирушив у дорогу як карта 0, тепер стоїть у центрі завершеного кола й має свободу з часом почати знову. Цей крок просить визнати цілий цикл таким, що відбувся, перш ніж шукати наступний.",
+    "tradition": "У системі Золотої Зорі ця карта — Ату XXI; вона має назву «Універсум» замість «Світ» і титул «Великий у Ночі Часу». Їй відповідають Тав, остання літера єврейської абетки, що означає «знак» або «хрест», і планета Сатурн, а вторинно — стихія Землі. Її шлях, тридцять другий, з’єднує Малкут і Єсод: це перший крок угору від матеріального світу. Марсельські колоди показують постать, що танцює в овальному вінку, з чотирма живими істотами в кутах, і Памела Колман Сміт у своєму малюнку 1909 року зберегла цю схему, давши постаті по жезлу в кожну руку. Деякі ще давніші італійські карти XV століття зображували двох путті, що тримають глобус із містом усередині.",
+    "areas": {
+      "love": "У близьких стосунках Світ звертає увагу на те, що ви вже збудували разом: спільну історію, спосіб розуміти одне одного, який складався не одразу. Карта запрошує визнати це, перш ніж просити чогось нового. У стосунках із собою вона може означати визнання того, що ви виросли й стали повнішими, ніж були раніше, як постать, якій вистачає простору рухатися всередині вінка, не покидаючи його. Дозвольте собі відсвяткувати те, що склалося в ціле, разом із дрібними недосконалостями.",
+      "work": "У роботі чи навчанні Світ може вказувати на проєкт, курс або роль, що підходить до природного завершення. Перш ніж рушати далі, помітьте, чого ви насправді навчилися і що можете взяти з собою, так само легко, як постать тримає два жезли. Це може бути слушний момент задокументувати роботу, подякувати тим, хто працював поруч, і як слід закрити справу. У грошових питаннях карта підказує спокійно переглянути завершений розділ, а не поспішати з наступним зобов’язанням.",
+      "self": "Для вашого власного зростання Світ пропонує побачити цілісний малюнок того, що ви прожили. Чотири істоти в кутах (голова, орел, лев і бик) можуть уособлювати мислення, почуття, мужність і сталість. Яка з них найбільше підтримала вас у цьому розділі, а яка мовчала? Цілісність тут не означає, що ви як людина вже завершені. Вона означає, що різні частини вас ведуть між собою розмову, а в центрі лишається простір для танцю."
+    },
+    "positions": {
+      "heart": "У центрі запитання Світ підказує, що щось, можливо, ближче до завершення, ніж здається. Справжня тема може полягати в тому, щоб визнати й інтегрувати все, що вже склалося докупи.",
+      "challenge": "Як перешкода Світ може показувати, що вам важко дозволити розділові закінчитися: це погоня за ідеальним фіналом або такий швидкий перехід далі, що завершення так і лишається не відчутим і не названим.",
+      "advice": "Як порада Світ запрошує свідомо позначити кінець. Назвіть, що дав вам цей етап, а тоді, як постать у вінку, зробіть один легкий крок у простір, який цей етап відкриває."
+    },
+    "pairs": [
+      {
+        "with": 0,
+        "text": "Із Блазнем Старші Аркани замикають своє коло. Карта 0 ступає до краю невідомого; карта XXI танцює всередині завершеного цілого. Разом вони запитують, що це завершення дає змогу почати і яку відкритість початківця ви хочете зберегти."
+      },
+      {
+        "with": 10,
+        "text": "Із Колесом Фортуни: чотири живі істоти є на обох картах. На Колесі Фортуни в Olivia вони крилаті й схилені над розгорнутими книгами; тут книг уже немає, і істоти просто дивляться. Разом карти запитують, чи ви досі вивчаєте цикл, що обертається, чи вже можете дозволити йому завершитися."
+      },
+      {
+        "with": 12,
+        "text": "Із Повішеним: традиційна поза зі схрещеними ногами є на обох картах — перевернута й зв’язана на карті XII, пряма й вільна на карті XXI. Разом вони підказують, що період очікування чи відпускання став ґрунтом для легкого руху."
+      }
+    ],
+    "questions": [
+      "Що у вашому житті тихо завершилося, так і не отримавши повного визнання?",
+      "Яка з чотирьох істот — голова, орел, лев чи бик — провела вас найдалі крізь цей розділ?",
+      "Як би ви почувалися, вільно рухаючись усередині того, що вже збудували?"
+    ],
+    "practice": "Намалюйте на аркуші простий овал, запишіть усередині три речі, які завершено в цьому розділі, а тоді додайте одне слово про те, як ви хочете рухатися далі."
+  }
+}

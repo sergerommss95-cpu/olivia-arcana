@@ -1,0 +1,265 @@
+{
+  "id": 8,
+  "slug": "strength",
+  "artwork": {
+    "file": "08_strength.webp",
+    "sha256": "076a9f3728980680da841ba779ce218002356e24d7cce6a6c429be4db58d8a4e"
+  },
+  "symbols": [
+    {
+      "key": "milky-way",
+      "x": 31,
+      "y": 18,
+      "en": {
+        "name": "The band of the Milky Way",
+        "seen": "A pale, glittering band of white and gold flecks crosses the upper sky on a diagonal, from near the top edge down towards the left border, passing above and to the left of the gold lemniscate.",
+        "meaning": "The traditional Strength card has no night sky at all. In one Greek myth the Milky Way is milk spilled from Hera’s breast when Heracles, the lion-fighter behind the early Fortitude cards, was pulled from it as an infant. Here it sets a slow, vast current of light over one small, close gesture."
+      },
+      "uk": {
+        "name": "Смуга Чумацького Шляху",
+        "seen": "Бліда мерехтлива смуга з білих і золотих цяток навскіс перетинає верхню частину неба: від верхнього краю вниз до лівої межі, проходячи вище й лівіше від золотої лемніскати.",
+        "meaning": "На традиційній карті Сили нічного неба немає зовсім. В одному грецькому міфі Чумацький Шлях — це молоко, що пролилося з грудей Гери, коли від них відірвали немовля Геракла, борця з левом, що стоїть за ранніми картами Стійкості. Тут повільна, неосяжна течія світла пролягає над одним маленьким, близьким жестом."
+      }
+    },
+    {
+      "key": "infinity",
+      "x": 50,
+      "y": 25,
+      "en": {
+        "name": "The gold lemniscate",
+        "seen": "A figure-eight lying on its side, inlaid in textured gold, floats in the upper centre of the night sky, well above the figure’s bowed head and brighter than any star around it.",
+        "meaning": "The lemniscate also crowns the Magician, and is commonly read as endless, self-renewing energy. The traditional image sets it just over the figure’s head; Olivia lifts it high into the sky, so the steadiness it stands for seems to reach the scene from above rather than belonging to anyone."
+      },
+      "uk": {
+        "name": "Золота лемніската",
+        "seen": "Вісімка, покладена набік та інкрустована фактурним золотом, ширяє вгорі посередині нічного неба, високо над схиленою головою постаті, і сяє яскравіше за будь-яку зірку довкола.",
+        "meaning": "Лемніската вінчає й Мага, і її зазвичай читають як нескінченну енергію, що сама себе оновлює. На традиційному зображенні вона висить просто над головою постаті; Olivia підносить її високо в небо, тож стійкість, яку вона уособлює, ніби сходить на сцену згори, а не належить комусь одному."
+      }
+    },
+    {
+      "key": "moon",
+      "x": 22,
+      "y": 35,
+      "en": {
+        "name": "The thin crescent moon",
+        "seen": "On the left, level with the top of the figure’s head, a slender crescent is carved in pale silvery blue, its outer curve facing left, with small gold star flecks scattered to its right and below it.",
+        "meaning": "There is no moon in the traditional Strength card. Here it places the meeting at night, the hour of instinct, dream and feeling, and links the card in spirit to the High Priestess and the Moon: this courage works with what is only half lit, not with a problem in plain daylight."
+      },
+      "uk": {
+        "name": "Тонкий серп місяця",
+        "seen": "Ліворуч, на рівні маківки постаті, вирізьблено тонкий серп блідого сріблясто-блакитного кольору, зовнішньою дугою вліво; праворуч і нижче від нього розсипано дрібні золоті зіркові цятки.",
+        "meaning": "На традиційній карті Сили місяця немає. Тут він переносить зустріч у ніч — годину інстинкту, снів і почуттів — і за духом єднає карту з Верховною Жрицею та Місяцем: ця мужність має справу з тим, що освітлене лише наполовину, а не з проблемою при ясному денному світлі."
+      }
+    },
+    {
+      "key": "face",
+      "x": 45,
+      "y": 40,
+      "en": {
+        "name": "The bowed ivory head",
+        "seen": "The figure’s ivory head tilts steeply down towards the lion, eyelids lowered, lips closed. The hair is gathered into a soft knot at the back, with no wreath or ornament.",
+        "meaning": "The traditional figure wears flowers in the hair and looks down on the lion; Olivia keeps the downward gaze but strips the adornment away. The gaze is attentive rather than commanding: the posture of someone listening to a force before trying to guide it."
+      },
+      "uk": {
+        "name": "Схилена голова зі слонової кістки",
+        "seen": "Голова постаті зі слонової кістки круто нахилена до лева, повіки опущені, губи стулені. Волосся м’яко зібране у вузол на потилиці, без вінка й без жодних прикрас.",
+        "meaning": "Традиційна постать має квіти у волоссі й дивиться згори на лева; Olivia зберігає погляд донизу, але знімає всі прикраси. Цей погляд уважний, а не владний: так тримається людина, яка спершу прислухається до сили, а вже потім пробує її спрямувати."
+      }
+    },
+    {
+      "key": "cypress",
+      "x": 20,
+      "y": 48,
+      "en": {
+        "name": "Two cypresses on the hill",
+        "seen": "On the far left, two tall, narrow cypress trees stand side by side on a low slope, carved in lighter lapis, with rounded trees beside them and hills rolling away behind.",
+        "meaning": "Cypresses are Olivia’s addition. Evergreen and long-lived, they have been linked around the Mediterranean with endurance and the enduring, as well as with mourning. Two of them, close and parallel, echo the pairing below: two very different natures standing together without either one giving way."
+      },
+      "uk": {
+        "name": "Два кипариси на пагорбі",
+        "seen": "Ліворуч, біля самого краю, на пологому схилі пліч-о-пліч стоять два високі, стрункі кипариси зі світлішого лазуриту; поруч округлі дерева, а позаду хвилями відходять пагорби.",
+        "meaning": "Кипариси додала Olivia. Вічнозелені й довговічні, у Середземномор’ї вони здавна пов’язані з витривалістю й тривкістю, а також із жалобою. Два дерева, близькі й паралельні, перегукуються з парою внизу: дві зовсім різні природи стоять поруч, і жодна не поступається."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 39,
+      "y": 57,
+      "en": {
+        "name": "Hands on head and jaw",
+        "seen": "One ivory hand rests flat on the crown of the lion’s mane. The other slips its relaxed, slightly curled fingers between the lion’s open jaws, without any visible strain in the wrist or arm.",
+        "meaning": "Waite’s description has the figure closing the lion’s jaws, and readers have long debated whether the jaws are being closed or opened. Olivia leaves the question open: the hands neither force nor pry. One steadies, the other is trusted. The strength shown is contact, not pressure."
+      },
+      "uk": {
+        "name": "Руки на голові й пащі",
+        "seen": "Одна рука зі слонової кістки лежить усією долонею на маківці левової гриви. Друга просуває розслаблені, трохи зігнуті пальці між розкритими щелепами лева, без жодної помітної напруги в зап’ясті чи передпліччі.",
+        "meaning": "В описі Вейта постать закриває левові пащу, і читачі давно сперечаються, закриваються щелепи чи розтуляються. Olivia лишає це відкритим: руки не тиснуть і не розсувають. Одна заспокоює, другій довіряють. Сила тут — дотик, а не натиск."
+      }
+    },
+    {
+      "key": "rose",
+      "x": 68,
+      "y": 59,
+      "en": {
+        "name": "The chain of roses",
+        "seen": "From the figure’s waist, a chain of small carved ivory roses and buds crosses the gown diagonally towards the hip and thigh, then slips off the drapery and trails loose to the right, ending in a bud.",
+        "meaning": "Roses are commonly read as desire and love that have been cultivated. In the traditional image a flower garland also links the figure to the lion, a gentle bond many readers dwell on. Here the garland hangs only from the gown: the bond between them is carried by the hands alone."
+      },
+      "uk": {
+        "name": "Ланцюжок троянд",
+        "seen": "Від талії постаті ланцюжок дрібних різьблених троянд і бутонів зі слонової кістки навскіс перетинає сукню до стегна, потім зісковзує з драпування й вільно звисає праворуч, закінчуючись бутоном.",
+        "meaning": "Троянди зазвичай читають як плекане бажання й любов. На традиційному зображенні квіткова гірлянда ще й пов’язує постать із левом, і на цьому ніжному зв’язку зупиняється чимало читачів. Тут гірлянда звисає лише із сукні: зв’язок між ними тримають самі руки."
+      }
+    },
+    {
+      "key": "lion",
+      "x": 32,
+      "y": 69,
+      "en": {
+        "name": "The lapis lion",
+        "seen": "The lion is carved in greyish-blue lapis, not ivory, with a deep wavy mane. Its forepaws are planted, its open-mouthed head lifted to the figure, and its tail sweeps out to the right, curling up at the tip.",
+        "meaning": "The lion is Leo, fire, appetite, pride and raw vitality: everything strong that can also overwhelm. Cut from the same stone as the night and the hills, it belongs to the landscape rather than opposing it. Its lifted face and loosely curling tail read as trust, not defeat."
+      },
+      "uk": {
+        "name": "Лазуритовий лев",
+        "seen": "Лев вирізьблений із сірувато-блакитного лазуриту, а не зі слонової кістки, і має густу хвилясту гриву. Передні лапи твердо стоять на землі, голова з розкритою пащею піднята до постаті, хвіст відкинутий праворуч і на кінчику закручується вгору.",
+        "meaning": "Лев — це знак Лева, вогонь, апетит, гордість і первісна життєва сила: усе могутнє, що здатне й захлеснути. Вирізаний із того самого каменю, що й ніч, і пагорби, він належить пейзажеві, а не протистоїть йому. Піднята морда й вільно закручений хвіст читаються як довіра, а не поразка."
+      }
+    },
+    {
+      "key": "flowers",
+      "x": 48,
+      "y": 88,
+      "en": {
+        "name": "Three fallen roses",
+        "seen": "On the flowering ground between the lion’s forepaws and the figure’s bare feet lies a short ivory sprig bearing three roses and a few small leaves, as if dropped from the garland.",
+        "meaning": "Fallen roses are not part of the traditional Strength card. They add a quiet cost to the scene: tending something wild takes a little of what adorns you. Nothing is broken; a few flowers have simply been let go in the course of the work."
+      },
+      "uk": {
+        "name": "Три опалі троянди",
+        "seen": "На квітучій землі між передніми лапами лева й босими ногами постаті лежить коротка гілочка зі слонової кістки з трьома трояндами й кількома листочками, ніби випала з гірлянди.",
+        "meaning": "Опалих троянд на традиційній карті Сили немає. Вони додають сцені тиху ціну: плекаючи щось дике, ви віддаєте трохи того, що вас прикрашає. Нічого не зламано; просто під час роботи кілька квітів довелося відпустити."
+      }
+    }
+  ],
+  "en": {
+    "essence": "Strength is the courage that stays soft: meeting a powerful feeling or instinct with steady, patient contact instead of force or fear.",
+    "keywords": {
+      "upright": [
+        "gentle courage",
+        "patience",
+        "self-possession",
+        "compassion",
+        "steady presence"
+      ],
+      "reversed": [
+        "self-doubt",
+        "suppressed feeling",
+        "forcing it",
+        "endurance past limits",
+        "raw reactivity"
+      ]
+    },
+    "upright": [
+      "Strength asks what it takes to stay close to something powerful without either fighting it or running from it. In Olivia’s image the figure does not stand over the lion like a tamer. The whole body bends towards it, head bowed, one hand resting on the mane, the other resting between the open jaws, fingers relaxed. The lion, cut from the same blue stone as the hills and the night, lifts its face to meet that touch. This is a card about relationship with force, not victory over it.",
+      "The lion can be anything strong in you: anger, desire, grief, ambition, fear, pride. Strength draws attention to the moment between feeling and action, where you can acknowledge the heat without letting it choose for you. Patience here is active. It gives you time to answer with care and with a clear boundary, rather than with suppression or explosion.",
+      "Above the scene, the gold lemniscate floats high in the sky, and at the figure’s hip a chain of roses slips loose while three blossoms lie on the flowering ground. Steady, renewable effort and a willingness to lose a little ornament belong together here. The card invites a kind of courage that looks quiet from outside, and often feels like simply staying present."
+    ],
+    "reversed": [
+      "Strength reversed draws attention to the lion and the hand falling out of contact. The feeling may be pushed down until it leaks out sideways, or given the reins so that every reaction arrives at full volume. It can also point to self-doubt: the sense that you have no steadiness to offer, or that gentleness means accepting every demand.",
+      "Sometimes the reversal shows endurance stretched past a useful limit, where holding everything calmly has become its own strain. Here the card invites a smaller, kinder step: naming what is hard, asking for help, stepping back to breathe, or setting one boundary that lets both firmness and compassion return."
+    ],
+    "number": "Strength is card VIII, the eighth step of the Fool’s journey. After the Chariot, whose will carries the traveller outwards, it opens the second row of seven in the Major Arcana, often read as the turn inwards: from mastering circumstances to meeting yourself. Eight is four doubled, a balanced and stable number, and its written shape repeats the lemniscate above the scene. The step it asks for is quieter than the Chariot’s: can the energy that drove the Chariot forward be held gently, without losing any of its force?",
+    "tradition": "In the Golden Dawn system Strength is titled the Daughter of the Flaming Sword and the Leader of the Lion. It takes the Hebrew letter Teth, usually glossed as serpent, and the sign Leo, fixed Fire, on the path joining Chesed and Geburah, mercy and severity, on the Tree of Life. The Marseille pattern numbered it XI, after Justice; the Golden Dawn swapped the two so that Leo and Libra follow the order of their Hebrew letters, Teth before Lamed, and Waite followed, which is why the Waite-Smith card is VIII. Early Italian decks called it Fortitude, one of the cardinal virtues; the Visconti-Sforza card shows a club-bearing figure, usually identified as Hercules, raised against a lion. Crowley renamed it Lust.",
+    "areas": {
+      "love": "In a close relationship, Strength turns attention to how intensity is handled: jealousy, longing, hurt or passion that could easily take over a conversation. It invites you to stay near the feeling long enough to understand it before you act on it. This is not endless tolerance. The hand on the lion’s mane is both kind and clear. With yourself, the card can point to meeting your own reactions with the same patience you might offer someone you love.",
+      "work": "At work or in study, Strength favours steady persistence over bursts of heroic effort. It can point to a colleague, a task or your own frustration that needs calm handling rather than a fight. Influence comes through consistency and a tone others can trust. In money matters, the card is about temperament rather than any particular decision: noticing when impulse or anxiety wants to act first, and giving yourself time to choose.",
+      "self": "For your inner life, Strength asks what your lion is at the moment, and whether you tend to muzzle it, fear it or let it run. Olivia’s figure bows, rests one hand on the mane and trusts the other to the open jaws. You might try a similar posture: curiosity instead of control, contact instead of distance. Real steadiness often feels ordinary from the inside, like breathing out before you answer."
+    },
+    "positions": {
+      "heart": "At the heart of your question, Strength suggests that the matter turns on how you hold a strong feeling or instinct, and on patience that stays close rather than pushing or withdrawing.",
+      "challenge": "As a challenge, Strength can point to force meeting force, or to gentleness that has become self-erasing. Something powerful may need attention, not suppression, and a boundary may need saying aloud.",
+      "advice": "As advice, Strength invites one calm, steady gesture: slow down before responding, name what you feel, and let firmness and kindness appear in the same sentence."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "Both cards traditionally carry the lemniscate. The Magician directs energy outwards through focus and tools; Strength receives it inwards, through patience and touch. Together they draw attention to skill and self-possession working as one steady current."
+      },
+      {
+        "with": 7,
+        "text": "The Chariot holds two opposing forces through will and forward motion; Strength meets one force through closeness and restraint. Side by side, they ask whether this moment calls for steering hard or for bending down and listening."
+      },
+      {
+        "with": 15,
+        "text": "The Devil shows instinct bound in chains; Strength shows instinct met through touch, with roses slipping loose instead of iron. Together they invite you to notice where a desire controls you and where you can hold it gently."
+      }
+    ],
+    "questions": [
+      "What strong feeling in you right now needs contact and attention rather than control or avoidance?",
+      "Where could you be both kinder and clearer in the same sentence?",
+      "When has patience felt like real strength to you, rather than simply waiting?"
+    ],
+    "practice": "Next time a strong reaction rises, rest one hand on your chest and take three slow breaths before you speak or type anything."
+  },
+  "uk": {
+    "essence": "Сила — це мужність, що лишається м’якою: зустріч із потужним почуттям чи інстинктом через стійкий, терплячий дотик, а не через натиск чи страх.",
+    "keywords": {
+      "upright": [
+        "лагідна мужність",
+        "терпіння",
+        "самовладання",
+        "співчуття",
+        "стійка присутність"
+      ],
+      "reversed": [
+        "невпевненість у собі",
+        "придушене почуття",
+        "дія силоміць",
+        "витривалість понад межу",
+        "неприборкані реакції"
+      ]
+    },
+    "upright": [
+      "Сила запитує, що потрібно, щоб лишатися поруч із чимось могутнім, не борючись із ним і не тікаючи. На зображенні Olivia постать не стоїть над левом, як приборкувач. Усе тіло схиляється до нього: голова опущена, одна рука лежить на гриві, друга — між розкритими щелепами, пальці розслаблені. Лев, вирізаний із того самого синього каменю, що й пагорби та ніч, підводить морду назустріч цьому дотикові. Ця карта про стосунки із силою, а не про перемогу над нею.",
+      "Левом може бути будь-що сильне у вас: гнів, бажання, горе, честолюбство, страх, гордість. Сила звертає увагу на мить між почуттям і дією, коли можна визнати цей жар, не дозволяючи йому вирішувати за вас. Терпіння тут діяльне. Воно дає вам час відповісти з турботою і з чіткою межею, а не придушенням чи вибухом.",
+      "Над сценою, високо в небі, ширяє золота лемніската, а біля стегна постаті ланцюжок троянд зісковзує вниз, і три квітки лежать на квітучій землі. Рівне зусилля, що поновлюється, і готовність утратити трохи прикрас тут ідуть поруч. Карта запрошує до мужності, яка ззовні видається тихою, а зсередини часто відчувається просто як уміння залишатися присутніми."
+    ],
+    "reversed": [
+      "Сила в перевернутому положенні звертає увагу на те, як рука й лев утрачають контакт. Почуття можна заганяти вглиб, доки воно не почне просочуватися манівцями, а можна віддати йому віжки, і тоді кожна реакція звучить на повну гучність. Карта може вказувати й на невпевненість у собі: на відчуття, що у вас немає стійкості, яку ви могли б запропонувати, або що лагідність означає погоджуватися на кожну вимогу.",
+      "Іноді перевернута карта показує витривалість, розтягнуту понад корисну межу, коли спокійно тримати все в собі вже стало окремим тягарем. Тоді карта запрошує до меншого, добрішого кроку: назвати те, що дається важко, попросити про допомогу, відступити й перевести подих або встановити одну межу, завдяки якій повернуться і твердість, і співчуття."
+    ],
+    "number": "Сила — карта VIII, восьмий крок подорожі Блазня. Після Колісниці, чия воля несе мандрівника назовні, вона відкриває другий ряд із семи карт Старших Арканів, який часто читають як поворот усередину: від опанування обставин до зустрічі з собою. Вісім — це подвоєна четвірка, врівноважене й стійке число, а обрис цифри 8 повторює лемніскату над сценою. Крок, якого вона просить, тихіший за крок Колісниці: чи можна лагідно втримати енергію, що гнала Колісницю вперед, не втративши жодної частки її сили?",
+    "tradition": "У системі Золотої Зорі Сила має титули «Дочка Полум’яного Меча» та «Провідниця Лева». Їй відповідають єврейська літера Тет, яку зазвичай тлумачать як «змія», і знак Лева, фіксований Вогонь, на шляху Дерева Життя між Хесед і Ґебурою, милосердям і суворістю. У марсельському зразку карта мала номер XI і йшла після Справедливості; Золота Зоря поміняла їх місцями, щоб Лев і Терези відповідали порядку своїх літер, Тет перед Ламед, і Вейт наслідував це рішення, тож на карті Вейта–Сміт стоїть VIII. Ранні італійські колоди називали її Стійкістю, однією з кардинальних чеснот; на карті Вісконті–Сфорца постать із палицею, яку зазвичай ототожнюють із Геркулесом, замахується на лева. Кроулі перейменував її на «Хіть».",
+    "areas": {
+      "love": "У близьких стосунках Сила звертає увагу на те, як ви поводитеся з інтенсивністю: ревнощами, тугою, образою чи пристрастю, що легко можуть захопити розмову. Вона запрошує побути з почуттям досить довго, щоб його зрозуміти, перш ніж діяти під його впливом. Це не безмежне терпіння. Рука на гриві лева водночас лагідна й чітка. У стосунках із собою карта може вказувати на те, щоб зустрічати власні реакції так само терпляче, як ви зустріли б людину, яку любите.",
+      "work": "У роботі чи навчанні Сила віддає перевагу стійкій наполегливості, а не спалахам героїчних зусиль. Вона може вказувати на колегу, завдання чи ваше власне роздратування, з якими варто поводитися спокійно, а не воювати. Вплив приходить через послідовність і тон, якому інші можуть довіряти. У грошових питаннях карта стосується темпераменту, а не якогось конкретного рішення: помічати, коли імпульс чи тривога хочуть діяти першими, і давати собі час на вибір.",
+      "self": "У внутрішньому житті Сила запитує, що зараз є вашим левом і чи схильні ви надягати на нього намордник, боятися його або пускати на волю. Постать Olivia схиляється, кладе одну руку на гриву й довіряє другу розкритим щелепам. Можна спробувати схожу поставу: цікавість замість контролю, дотик замість дистанції. Справжня стійкість зсередини часто відчувається буденно, як видих перед тим, як відповісти."
+    },
+    "positions": {
+      "heart": "У центрі вашого запитання Сила підказує, що все залежить від того, як ви тримаєте сильне почуття чи інстинкт, і від терпіння, яке лишається поруч, а не тисне й не відступає.",
+      "challenge": "Як виклик Сила може вказувати на силу, що наштовхується на силу, або на лагідність, яка вже стирає вас самих. Щось могутнє може потребувати уваги, а не придушення, а межу, можливо, варто промовити вголос.",
+      "advice": "Як порада Сила запрошує до одного спокійного, стійкого жесту: сповільніться, перш ніж відповісти, назвіть те, що відчуваєте, і дайте твердості й доброті прозвучати в одному реченні."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "Обидві карти традиційно несуть лемніскату. Маг спрямовує енергію назовні через зосередженість і знаряддя; Сила приймає її всередину через терпіння й дотик. Разом вони звертають увагу на майстерність і самовладання, що працюють як одна рівна течія."
+      },
+      {
+        "with": 7,
+        "text": "Колісниця втримує дві протилежні сили волею й рухом уперед; Сила зустрічає одну силу близькістю й стриманістю. Поруч вони запитують, чого потребує ця мить: твердо кермувати чи схилитися й прислухатися."
+      },
+      {
+        "with": 15,
+        "text": "Диявол показує інстинкт, закутий у ланцюги; Сила — інстинкт, якого торкаються рукою, і замість заліза тут вільно зісковзують троянди. Разом вони запрошують помітити, де бажання керує вами, а де ви можете лагідно його втримати."
+      }
+    ],
+    "questions": [
+      "Яке сильне почуття у вас зараз потребує дотику й уваги, а не контролю чи уникання?",
+      "Де ви могли б в одному реченні бути водночас добрішими й чіткішими?",
+      "Коли терпіння здавалося вам справжньою силою, а не просто очікуванням?"
+    ],
+    "practice": "Наступного разу, коли всередині здійметься сильна реакція, покладіть руку на груди й зробіть три повільні вдихи, перш ніж щось сказати чи написати."
+  }
+}

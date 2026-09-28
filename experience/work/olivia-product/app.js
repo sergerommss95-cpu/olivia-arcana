@@ -12,6 +12,8 @@ import {initSymbolTrails} from './symbol-trails.js';
 import {initPhysicalReading} from './physical-reading.js';
 import {initAlmanacJourney} from './almanac-journey.js';
 import {initQuestionCoach} from './question-coach.js';
+import {mountQuestionHint} from './question-hint.js';
+import {mountPinWalk} from './pin-walk.js';
 import {initAlmanacImport} from './almanac-backup.js';
 import {consumeQuestionHandoff} from './question-handoff.js';
 import {getLocale,t,initLocale,localizeCardNotes} from './locale.js';
@@ -19,7 +21,7 @@ import {mountQuestionGuidance,mountGuidanceChoice,unmountQuestionGuidance} from 
 import {initReadingEntry,simplifyPreferences,simplifySaving,readingSteps} from './journey-entry.js';
 import {initPractice} from './practice-ui.js';
 import {loadDaily,saveDaily,loadDraft,saveDraft,clearDraft} from './practice-core.js';
-import {TAROT_CARDS,cardCaption} from './deck-catalog.js';
+import {TAROT_CARDS,cardCaption,cardPageHref} from './deck-catalog.js';
 import {initSpreads} from './spread-ui.js';
 import {initSingleCardFlow} from './single-card-flow.js';
 import {showArt} from './held-art.js';
@@ -91,11 +93,11 @@ function setView(next,{focus=true,keepCard=false}={}){
  if(focus){const heading={question:'#question-title',choose:'#choose-title',reading:'#result-title',sample:'#result-title',journal:'#journal-title',today:'#today-title'}[next];requestAnimationFrame(()=>{const first=next==='choose'&&!$('#card-choices').inert?$('#card-choices button'):null;(first||($('#reading-view').dataset.guidanceState==='pending'&&next==='reading'?$('#reading-view .reading-loader'):(heading?$(heading):null)))?.focus({preventScroll:true});});}
 }
 function goto(next){if(next==='reading'&&currentRecord)next+='/' + currentRecord.id;if(location.hash==='#'+next)route();else location.hash=next;}
-function route(){const [next,readingId]=location.hash.slice(1).split('?')[0].split('/');
+function route(){const [next,readingId,subId]=location.hash.slice(1).split('?')[0].split('/');
  if(next.startsWith('p=')){setView('home',{focus:false});const progress=Number(new URLSearchParams(location.hash.slice(1)).get('p'));if(Number.isFinite(progress))motion()?.setProgress(Math.max(0,Math.min(1,progress)));}
  else if(next==='spreads'){spreads.open(readingId);}
  else if(next==='physical'){physical.render();}
- else if(next==='symbols'){symbols.render(readingId);}
+ else if(next==='symbols'){symbols.render(readingId,subId);}
  else if(next==='journey'){journey.renderJourney();}
  else if(next==='my-deck'){journey.renderDeck(readingId);}
  else if(next==='today'){practice.renderToday();}
@@ -112,10 +114,11 @@ function renderReading(record,isSample,{connected=false}={}){
  for(const node of document.querySelectorAll('[data-impression-hidden]')){node.hidden=node.dataset.impressionHidden==='true';delete node.dataset.impressionHidden;}
  $('#single-impression')?.remove();preserveNote();record=drafts.get(record.id)||record;setView(isSample?'sample':'reading',{focus:!connected,keepCard:connected});sample=isSample;if(!isSample)currentRecord=record;
  const id=record.cardId,notes=localizeCardNotes(id,record.interpretation,{orientation:record.orientation});
- text('#reading-kind',isSample?'A sample reading':record.source==='physical'?(getLocale()==='uk'?'З вашої фізичної колоди':'From your physical deck'):'Your one-card reading');text('#reading-question',record.question?`“${record.question}”`:'An open reading');text('#result-title',record.cardName);const sentences=notes.meaning.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g)||[notes.meaning];text('#meaning',sentences.slice(0,2).join('').trim());text('#full-reflection',sentences.slice(2).join('').trim());$('#full-reflection-details').hidden=sentences.length<=2;$('#full-reflection-details').open=false;text('#reflection-prompt',notes.prompt);text('#practice',notes.practice);text('#card-lesson',notes.learn||CARD_NOTES[id].learn);
+ text('#reading-kind',isSample?'A sample reading':record.source==='physical'?(getLocale()==='uk'?'З вашої фізичної колоди':'From your physical deck'):'Your one-card reading');text('#reading-question',record.question?`“${record.question}”`:'An open reading');text('#result-title',record.cardName);const sentences=notes.meaning.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g)||[notes.meaning];text('#meaning',sentences.slice(0,2).join('').trim());text('#full-reflection',sentences.slice(2).join('').trim());$('#full-reflection-details').hidden=sentences.length<=2;$('#full-reflection-details').open=false;text('#reflection-prompt',notes.prompt);text('#practice',notes.practice);text('#card-lesson',notes.learn||CARD_NOTES[id].learn);{const library=$('#card-lesson').nextElementSibling;if(library?.matches('a')){library.href=cardPageHref(id,getLocale());library.textContent=getLocale()==='uk'?'Усе про цю карту: символи, число, традиція ↗':'Everything about this card: symbols, number, tradition ↗';}}
  syncSupportNote($('#reading-view .page-top'),isSample?'':record.question,getLocale());
  text('#intention-frame',record.intention==='open'?'':INTENTION_NOTES[record.intention]||'');$('#intention-frame').hidden=!$('#intention-frame').textContent;
  $('#reading-image').dataset.orientation=record.orientation||'upright';$('#reading-image').src=assets.cards[id];$('#reading-image').alt=`${record.cardName} — Olivia Arcana tarot artwork`;text('#card-index',cardCaption(id)+(record.orientation==='reversed'?' · Reversed':' · Upright'));
+ mountPinWalk({art:$('.reading-art'),holder:$('#reveal-card'),cardId:id,orientation:record.orientation||'upright',locale:getLocale()});
  $('#reflection').value=record.note||'';$('#save-section .reading-notes').open=!!record.note;$('#save-section').hidden=isSample;$('#sample-cta').hidden=!isSample;$('#view-saved').hidden=true;$('#save-status').textContent='';
  let kept=null;try{kept=isSample?null:loadRecords(storage()).find(r=>r.id===record.id)||null;}catch{}
  const dirty=dirtyIds.has(record.id),sameNote=!!kept&&(kept.note||'')===(record.note||''),noteChanged=kept?!sameNote:!!record.note;
@@ -233,6 +236,7 @@ const symbols=initSymbolTrails({assets,show:setView,locale:getLocale()});
 initHomeShowcase({assets,locale:getLocale(),reduced});
 const journey=initAlmanacJourney({assets,show:setView,openReading(record){preserveNote();currentRecord=drafts.get(record.id)||record;goto('reading');},openSpread:record=>spreads.restore(record)});
 const entryCoach=initQuestionCoach({container:$('#question-coach'),input:$('#question'),locale:getLocale(),onApprove(plan){$('#question').value=plan.question;approvedQuestionPlan=plan;readingEntry.setPlan(plan);entryCoach.close();$('#question-form button[type=submit]').focus({preventScroll:true});},onSkip(){}});
+mountQuestionHint($('#question'),getLocale);
 
 simplifySaving($('#save-section'),$('#reflection'),getLocale());
 simplifyPreferences($('#question-form'),$('#allow-reversals'),getLocale());

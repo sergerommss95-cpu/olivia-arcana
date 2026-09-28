@@ -3,6 +3,7 @@ import { TAROT_UK } from '../../../src/lib/academy/tarot-cards-uk.ts';
 import { TAROT_NOTES } from '../../../src/lib/academy/tarot-notes.ts';
 import { boundedJSON, providerConfig, providerFailure, type ProviderDiagnostic } from './provider-service.ts';
 import { QUESTION_DIRECTIONS, type QuestionDirection } from './question-directions.ts';
+import { surveySpread } from '../../../src/lib/learn/spread-survey.js';
 
 export type ReadingLocale = 'en' | 'uk';
 export type CardSelection = { id: number; orientation: 'upright' | 'reversed' };
@@ -58,8 +59,16 @@ export function validateReading(value: unknown): ReadingRequest {
   } else if (body.originalQuestion !== undefined) throw new RequestError('Include a supported question direction with the original question.');
   return { question: text(body.question, 1600), locale: body.locale, spreadId: spreadId as ReadingRequest['spreadId'], cards, ...plan };
 }
+/** Counted patterns across the whole draw, each with how often it happens in a random draw. */
+function spreadPatterns(input: ReadingRequest) {
+  if (input.cards.length < 3) return [];
+  const cards = input.cards.map(card => ({ id: card.id, reversed: card.orientation === 'reversed' }));
+  const { facts } = surveySpread(cards, { locale: input.locale, reversals: cards.some(card => card.reversed) });
+  return facts.map((fact: { label: string; odds: string; notable: boolean }) => ({ observation: fact.label, howOftenInRandomDraw: fact.odds, worthNoticing: fact.notable }));
+}
 export function readingContext(input: ReadingRequest) {
   const plan = input.questionDirection ? QUESTION_DIRECTIONS[input.locale][input.questionDirection] : null;
+  const patterns = spreadPatterns(input);
   return {
     question: input.question,
     ...(plan ? { questionDirection: input.questionDirection, originalQuestion: input.originalQuestion, planSource: 'editorial' } : {}),
@@ -75,6 +84,7 @@ export function readingContext(input: ReadingRequest) {
         symbolicMeaning: TAROT_NOTES[input.locale][original.name][selection.orientation].meaning,
       };
     }),
+    ...(patterns.length ? { spreadPatterns: patterns } : {}),
   };
 }
 const FACT_BOUNDARY = `Only facts explicitly stated by the user may be asserted about their situation. A reasonable-sounding inference is still not a known fact. Do not claim the user's unstated motives, emotions, values, gender, financial circumstances, abilities, available resources or readiness. For example, a request for quiet does not establish a wish to avoid conflict, and an interest in changing jobs does not establish that the person can afford to leave. Offer a next step conditionally when access, means or circumstances are unknown. Do not first assert a personal claim and then excuse it with a later disclaimer. Keep the question useful without inventing a story about the person.`;
@@ -89,6 +99,8 @@ When the question seeks curiosity, enjoyment or enrichment, begin with a positiv
 The middle explains a tension, reinforcement, progression or surprising contrast between cards. Every selected card must have a meaningful role in relation to another and to the question. Name cards naturally rather than opening each paragraph with another card's definition. A complicating card is a complication in the spread, not proof of a flaw in the user. Read a reversal in its supplied meaning and role, never automatically as a bad omen. Explain what a combination brings into focus; do not turn card symbolism into a psychological diagnosis.
 
 Only facts explicitly stated by the user may be asserted about their situation. Do not assert unstated motives, emotions, gender, skills, means, readiness, relationship damage or another person's feelings. For example, a request for quiet does not mean avoidance of conflict. "We have not spoken in a while" does not establish a rift, who stopped replying or why. A card about calling is not proof of a destined career; a card about abundance is not proof of comfort-seeking, laziness or temptation. Speak definitely about the symbolic relationship and leave these personal unknowns open. Never praise the reading's accuracy or say the situation is described exactly.
+
+spreadPatterns, when present, are counted facts about the whole draw, each with how often it occurs in a random draw. You may mention at most one, and only one marked worthNoticing, as a way of looking at the spread as a whole. Never call a pattern a sign, omen, message or proof, and never claim more significance than its stated frequency.
 
 Respect a spiritual experience without asserting supernatural messages, hidden knowledge or guaranteed outcomes. Avoid routine phrases such as "tarot can't predict", "none of these cards can tell you", "just a prompt", or "not a prediction" in ordinary readings. Do not hedge every sentence. If an explicit boundary is needed, state it briefly once and offer what can be explored. Do not invent exact jobs, dates, events or private motives.
 

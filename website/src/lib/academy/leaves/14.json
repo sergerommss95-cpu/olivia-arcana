@@ -1,0 +1,267 @@
+{
+  "id": 14,
+  "slug": "temperance",
+  "artwork": {
+    "file": "14_temperance.webp",
+    "sha256": "f74c6e92c068776b409e7a48ad5737ea63d74b9d15701eee082d6add70e204bc"
+  },
+  "symbols": [
+    {
+      "key": "water-pouring",
+      "x": 51,
+      "y": 46,
+      "en": {
+        "name": "The stream between two goblets",
+        "seen": "The figure holds a stemmed ivory goblet high on the viewer’s left and tilts it; a smooth ivory stream arcs down into a second goblet held lower, near the waist, in the other hand.",
+        "meaning": "Pouring between two vessels is the card’s oldest feature, commonly linked with the ancient habit of tempering wine with water. It is not about emptying one cup to fill another but about mixing in a continuous, deliberate flow. The lowered eyes follow the stream closely, as though the measure matters."
+      },
+      "uk": {
+        "name": "Струмінь між двома келихами",
+        "seen": "Постать високо, ліворуч від глядача, тримає кістяний келих на ніжці й нахиляє його; гладенький кістяний струмінь дугою спадає в другий келих, що його інша рука тримає нижче, біля талії.",
+        "meaning": "Переливання з посудини в посудину — найдавніша риса цієї карти, яку зазвичай пов’язують зі стародавнім звичаєм розбавляти вино водою. Ідеться не про те, щоб спорожнити один келих заради іншого, а про змішування безперервним, свідомим потоком. Опущені очі уважно стежать за струменем, наче міра тут справді має значення."
+      }
+    },
+    {
+      "key": "triangle",
+      "x": 60,
+      "y": 45,
+      "en": {
+        "name": "The gold triangle in a square",
+        "seen": "On the breast of the robe a raised square panel is outlined in ivory, with thin lines running inward from its upper corners. Inside it stands an upward-pointing triangle in gold, the largest area of gold on the card.",
+        "meaning": "The square and triangle belong to the traditional design: the square is commonly read as the four elements of the material world, the upward triangle as spirit or fire, and together three and four make seven. Olivia gives this sign the card’s gold: spirit held within ordinary form."
+      },
+      "uk": {
+        "name": "Золотий трикутник у квадраті",
+        "seen": "На грудях шати — рельєфна квадратна панель, обведена слоновою кісткою; від її верхніх кутів усередину тягнуться тонкі лінії. У ній — золотий трикутник вершиною догори, найбільша золота ділянка на карті.",
+        "meaning": "Квадрат і трикутник належать до традиційного зображення: квадрат зазвичай тлумачать як чотири стихії матеріального світу, трикутник вершиною догори — як дух або вогонь, а разом три й чотири дають сім. Olivia віддає цьому знакові золото карти: дух, укладений у звичайну форму."
+      }
+    },
+    {
+      "key": "circle",
+      "x": 57,
+      "y": 33,
+      "en": {
+        "name": "The disc on the brow",
+        "seen": "At the hairline, above the centre of the brow, sits a small round ivory disc inside a raised rim that thickens along its lower left edge, so it reads almost as a crescent cradling a disc. The eyes beneath are lowered.",
+        "meaning": "The traditional figure wears a sign of the sun on the forehead, often read as awareness held steady at the centre of the self. Here the disc sits within a crescent-like rim, suggesting sun and moon held together, a fitting sign for a card about blending two things into one."
+      },
+      "uk": {
+        "name": "Диск на чолі",
+        "seen": "Біля лінії волосся, над серединою чола, — маленький круглий диск зі слонової кістки в рельєфному обідку, що потовщується вздовж нижнього лівого краю, тож скидається майже на серп, який підтримує диск. Очі під ним опущені.",
+        "meaning": "Традиційна постать має на чолі знак сонця, який часто тлумачать як усвідомленість, що стійко тримається в осерді особистості. Тут диск лежить в обідку, схожому на серп, ніби сонце й місяць утримуються разом, — доречний знак для карти про злиття двох начал в одне."
+      }
+    },
+    {
+      "key": "wings",
+      "x": 79,
+      "y": 42,
+      "en": {
+        "name": "The raised ivory wings",
+        "seen": "Two large ivory wings rise behind the shoulders, their upper curves level with the head and their long flight feathers falling to about hip height, carved feather by feather against the blue ground.",
+        "meaning": "Temperance is traditionally drawn as an angel, a go-between linking what is above with what is below. The traditional wings are often coloured red; Olivia keeps them the same ivory as the robe, so the whole being reads as one calm, even substance with nothing flaring or urgent."
+      },
+      "uk": {
+        "name": "Підняті кістяні крила",
+        "seen": "За плечима здіймаються два великі крила зі слонової кістки: їхні верхні вигини — на рівні голови, а довгі махові пера спадають приблизно до стегон; кожне перо окремо вирізьблене на синьому тлі.",
+        "meaning": "Помірність традиційно зображують ангелом — посередником, що єднає те, що вгорі, з тим, що внизу. На традиційному зображенні крила часто червоні; Olivia лишає їх такими ж кістяними, як і шату, тож уся істота постає єдиною спокійною, рівною матерією, де ніщо не спалахує і ніщо не квапить."
+      }
+    },
+    {
+      "key": "sun",
+      "x": 49,
+      "y": 16,
+      "en": {
+        "name": "The sun on the peak",
+        "seen": "Above the tallest mountain a round disc of grey-blue lapis with a fine pale rim rests on the summit, its lower edge hidden by the rock, ringed with alternating long and short pointed rays.",
+        "meaning": "In the traditional image a path climbs from the pool towards a light between two peaks, commonly read as the goal of patient inner work. Olivia sets the light on a single summit and carves it in cool grey-blue lapis rather than gold: a quiet dawn at the end of a long road rather than a blaze."
+      },
+      "uk": {
+        "name": "Сонце на вершині",
+        "seen": "На вершині найвищої гори спочиває круглий диск із сіро-блакитного лазуриту з тонким світлим обідком; його нижній край ховає скеля, а довкола чергуються довгі й короткі гострі промені.",
+        "meaning": "На традиційному зображенні стежка піднімається від водойми до світла між двома вершинами, і це світло зазвичай тлумачать як мету терплячої внутрішньої праці. Olivia ставить світло на єдину вершину й вирізьблює його з прохолодного сіро-блакитного лазуриту, а не із золота: тихий світанок наприкінці довгої дороги, а не палахкотіння."
+      }
+    },
+    {
+      "key": "path",
+      "x": 80,
+      "y": 65,
+      "en": {
+        "name": "The winding path",
+        "seen": "From the stony bank at the right of the pool a pale, finely textured path winds up the slope and disappears behind the figure. A thinner winding line crosses the slopes on the left, beside the irises.",
+        "meaning": "The path from the water to the heights is a classic feature of Temperance, commonly read as the long road of gradual integration. It bends back and forth rather than climbing straight, a reminder that balance is reached adjustment by adjustment, not in one decisive leap."
+      },
+      "uk": {
+        "name": "Звивиста стежка",
+        "seen": "Від кам’янистого берега праворуч від водойми світла стежка з дрібнозернистою фактурою в’ється вгору схилом і зникає за постаттю. Інша, тонша звивиста лінія перетинає схили ліворуч, поряд з ірисами.",
+        "meaning": "Стежка від води до висот — класична риса Помірності; її зазвичай тлумачать як довгу дорогу поступової інтеграції. Вона петляє туди й назад, а не здіймається навпростець, і нагадує: рівноваги досягають поправка за поправкою, а не одним рішучим стрибком."
+      }
+    },
+    {
+      "key": "flowers",
+      "x": 22,
+      "y": 57,
+      "en": {
+        "name": "The irises at the water’s edge",
+        "seen": "At the left, carved in lighter blue lapis, a clump of irises grows beside the pool: three open blooms on tall stems, several closed buds and long blade-shaped leaves rising from the bank.",
+        "meaning": "Irises are part of the traditional scene and are linked with Iris, the Greek messenger of the rainbow who travelled between sky and earth, echoing the angel’s role as mediator. Olivia carves them in the blue of the night, so they belong to the landscape rather than decorate it."
+      },
+      "uk": {
+        "name": "Іриси біля води",
+        "seen": "Ліворуч, вирізьблені зі світлішого синього лазуриту, біля водойми ростуть іриси: три розкриті квітки на високих стеблах, кілька закритих бутонів і довге мечоподібне листя, що здіймається з берега.",
+        "meaning": "Іриси — частина традиційної сцени; їх пов’язують з Ірідою, грецькою вісницею веселки, що мандрувала між небом і землею, і це перегукується з роллю ангела-посередника. Olivia вирізьблює їх у синяві ночі, тож вони належать краєвиду, а не прикрашають його."
+      }
+    },
+    {
+      "key": "pool",
+      "x": 37,
+      "y": 79,
+      "en": {
+        "name": "The rippled pool",
+        "seen": "The figure stands in a dark pool, robe falling straight into the water, feet hidden. Rings of ripples spread outward from the hem, and a trailing fold sweeps out to touch the stony bank at the right.",
+        "meaning": "The traditional angel stands with one foot in water and one on land, a picture of feeling and practical life held together. Olivia hides the feet: the figure stands in the water while the hem reaches the shore, so the contact with both is softer and continuous."
+      },
+      "uk": {
+        "name": "Водойма в брижах",
+        "seen": "Постать стоїть у темній водоймі: шата спадає просто у воду, ступнів не видно. Від подолу розходяться кола брижів, а довга складка тягнеться вбік і торкається кам’янистого берега праворуч.",
+        "meaning": "Традиційний ангел стоїть однією ногою у воді, а другою на суші — образ почуттів і практичного життя, що тримаються разом. Olivia ховає ступні: постать стоїть у воді, а поділ сягає берега, тож дотик і до води, і до суші м’якший і безперервний."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 32,
+      "y": 12,
+      "en": {
+        "name": "The band of stars",
+        "seen": "Across the upper left of the night sky a diagonal band of tiny pale and silvery chips runs down from the top edge, among scattered gold star flecks set into the lapis.",
+        "meaning": "The starry band is Olivia’s addition, not part of the traditional card. It gives the quiet mixing below a much larger counterpart: a slow river of light across the sky, as if the same careful blending were happening at every scale."
+      },
+      "uk": {
+        "name": "Смуга зірок",
+        "seen": "У верхній лівій частині нічного неба від самого верхнього краю навскіс спускається смуга дрібних світлих і сріблястих вкраплень, а довкола по лазуриту розсипані золоті цятки-зірки.",
+        "meaning": "Зоряна смуга — доповнення Olivia, її немає на традиційній карті. Вона дає тихому змішуванню внизу значно більший відповідник: повільну ріку світла через усе небо, ніби те саме дбайливе поєднання відбувається в кожному масштабі."
+      }
+    }
+  ],
+  "en": {
+    "essence": "Temperance is the patient art of mixing: bringing two different things into a workable blend, one measured pour at a time, and adjusting as you go.",
+    "keywords": {
+      "upright": [
+        "balance",
+        "moderation",
+        "blending",
+        "patience",
+        "healing",
+        "right measure"
+      ],
+      "reversed": [
+        "excess",
+        "imbalance",
+        "impatience",
+        "overcorrecting",
+        "inner recalibration"
+      ]
+    },
+    "upright": [
+      "Temperance draws attention to proportion and pace. Look at how carefully the figure works: one ivory goblet is held high and tilted, and a smooth stream arcs down into a second goblet held near the waist. The eyes are lowered, following the flow. Nothing is spilled and nothing is hurried. The card invites you to treat balance as an activity rather than a fixed state, something made by pouring, noticing and pouring again.",
+      "The pouring is commonly linked with tempering wine with water: two substances mixed until neither overwhelms the other. Where in your life are two needs, moods or commitments asking to be blended rather than ranked? Temperance does not ask you to split everything evenly. It asks what mixture actually works here, and invites small experiments: a little more rest, a little less pressure, a conversation held at a gentler speed.",
+      "Olivia sets this quiet work between water and shore. The figure stands in a rippled pool while the hem of the robe reaches the stony bank, and a winding path leaves that bank for the hills beneath a pale sun resting on the highest peak. The road bends many times. Healing, recovery and integration often look like this: many modest corrections that gradually add up to steadiness."
+    ],
+    "reversed": [
+      "Temperance reversed points to a mixture that has lost its measure. You may be pouring too much into one cup, whether work, worry, pleasure or care for others, while the other runs dry, or swinging between extremes as you try to correct. Impatience is common here: wanting the blend to settle at once, and abandoning it when it does not.",
+      "The reversed card can also describe balance being rebuilt inwardly, out of sight. Rather than a dramatic fix, it invites one small adjustment you can observe for a week. Ask which vessel needs refilling first, and what pace would let the stream between them run smoothly again."
+    ],
+    "number": "Temperance is card XIV, following Death and preceding The Devil. Fourteen is twice seven, and when the Major Arcana are laid out in three rows of seven it closes the middle row, often read as the row of inner work. In the Fool’s journey, after Death has cleared away an old form, Temperance is the slow mixing that lets something new take shape. The step asks for patience: to combine what remains into a steadier balance before meeting the excesses of card XV.",
+    "tradition": "In the Golden Dawn system Temperance is Atu XIV, titled “The Daughter of the Reconcilers, the Bringer-forth of Life”. It is assigned the Hebrew letter Samekh, meaning prop or support, and the sign Sagittarius, mutable Fire, on the path joining Yesod and Tiphareth on the Tree of Life. Temperance was one of the four cardinal virtues, and early Italian cards such as the Visconti-Sforza deck show a woman pouring liquid between two vessels; Marseille decks gave the figure wings. Pamela Colman Smith’s 1909 design set the angel with one foot on land and one in water, with a square and triangle on the breast, irises, and a path rising towards a light between the mountains.",
+    "areas": {
+      "love": "In close relationships Temperance draws attention to rhythm and give-and-take: how much closeness and how much space, how much you speak and how much you listen. It does not ask either person to disappear into the other; it asks what blend lets both stay themselves. After tension, it can point to repair made slowly, one honest exchange at a time. With yourself, it invites the same patience you would offer someone you love.",
+      "work": "At work or in study, Temperance favours steady pacing over bursts followed by collapse. It can point to combining two methods, roles or disciplines into something more useful than either alone, or to a team where different strengths need mixing rather than competing. With money matters, it suggests calm, moderate habits and gradual review rather than swings between strict control and letting everything go.",
+      "self": "For your own wellbeing, Temperance asks where you run hot and cold: all effort then none, strict rules then no rules at all. The figure in the pool belongs to neither water nor shore alone, and the path behind it winds rather than climbs straight. Notice one area where a gentler, more consistent measure might steady you, and try it as an experiment you can keep adjusting."
+    },
+    "positions": {
+      "heart": "At the centre of a question, Temperance suggests the real subject is proportion: not which option to choose, but how to combine what matters in a mixture you can sustain.",
+      "challenge": "As a challenge, Temperance can point to impatience with a slow process, or to a blend that has tipped too far one way. Something may be overfilled while something else runs low.",
+      "advice": "As advice, Temperance invites one small, measured adjustment: slightly less of one thing, slightly more of another. Try it for a while, observe how it feels, then pour again."
+    },
+    "pairs": [
+      {
+        "with": 13,
+        "text": "With Death, the card before it, an ending is followed by patient recombining. Together they suggest giving a change time to settle, then slowly mixing what remains into a new balance rather than rushing to replace what has gone."
+      },
+      {
+        "with": 15,
+        "text": "With The Devil, the card after it, measure meets excess. Together they draw attention to where a healthy blend tips into dependence or compulsion, and what small act of moderation might loosen the pull."
+      },
+      {
+        "with": 17,
+        "text": "With The Star, both cards show an ivory figure pouring beside a pool. Temperance measures one stream between two goblets; The Star empties two jugs freely, onto water and onto land. Together they ask which kind of replenishment you need now: careful mixing or open release."
+      }
+    ],
+    "questions": [
+      "Which two needs in your life are asking to be blended rather than ranked?",
+      "Where are you pouring too much from one cup, and what is running low?",
+      "What small adjustment could you try this week and simply observe?"
+    ],
+    "practice": "Pour water slowly from one glass into another three times, noticing your breath each time, then write down one area of life that needs a gentler pace."
+  },
+  "uk": {
+    "essence": "Помірність — це терпляче мистецтво змішування: поєднувати дві різні речі в дієву суміш, переливаючи виважено, потроху, і дорогою коригуючи пропорцію.",
+    "keywords": {
+      "upright": [
+        "рівновага",
+        "поміркованість",
+        "поєднання",
+        "терпіння",
+        "зцілення",
+        "правильна міра"
+      ],
+      "reversed": [
+        "надмір",
+        "дисбаланс",
+        "нетерплячість",
+        "надмірна корекція",
+        "внутрішнє перелаштування"
+      ]
+    },
+    "upright": [
+      "Помірність звертає увагу на пропорцію і темп. Подивіться, як уважно працює постать: один келих зі слонової кістки піднятий високо й нахилений, і рівний струмінь дугою стікає в другий келих, який постать тримає біля пояса. Очі опущені, вони стежать за потоком. Нічого не розлито, ніщо не квапиться. Карта запрошує вас сприймати рівновагу як дію, а не як незмінний стан: її творять, переливаючи, помічаючи й переливаючи знову.",
+      "Переливання зазвичай пов’язують із розбавлянням вина водою: дві речовини змішують, доки жодна не бере гору над іншою. Де у вашому житті дві потреби, два настрої чи два зобов’язання просять, щоб їх поєднали, а не розставили за важливістю? Помірність не вимагає ділити все порівну. Вона питає, яка суміш справді працює саме тут, і запрошує до невеликих експериментів: трохи більше відпочинку, трохи менше тиску, розмова в лагіднішому темпі.",
+      "Olivia розміщує цю тиху працю між водою та берегом. Постать стоїть у вкритій брижами водоймі, поділ шати сягає кам’янистого берега, а від нього звивиста стежка веде в пагорби, під бліде сонце, що спочиває на найвищій вершині. Дорога вигинається багато разів. Зцілення, відновлення й інтеграція часто мають саме такий вигляд: безліч скромних поправок, які поступово складаються в стійкість."
+    ],
+    "reversed": [
+      "Помірність у перевернутому положенні вказує на суміш, що втратила міру. Можливо, ви вливаєте забагато в один келих — роботу, тривогу, задоволення чи турботу про інших, — тоді як другий пересихає; або ж вас хитає між крайнощами, коли ви намагаєтеся все виправити. Тут часто з’являється нетерплячість: хочеться, щоб суміш устоялася одразу, а коли цього не стається, від неї відмовляються.",
+      "Перевернута карта може також описувати рівновагу, що відбудовується всередині, непомітно для ока. Замість різкого виправлення вона запрошує до однієї невеликої зміни, за якою можна спостерігати тиждень. Запитайте себе, яку посудину варто наповнити першою і який темп дасть струменю між ними знову текти рівно."
+    ],
+    "number": "Помірність — карта XIV: вона йде після Смерті й перед Дияволом. Чотирнадцять — це двічі по сім, і коли Старші Аркани викладають трьома рядами по сім карт, вона замикає середній ряд, який часто тлумачать як ряд внутрішньої праці. На шляху Блазня, після того як Смерть прибрала стару форму, Помірність — це повільне змішування, що дає новому набути обрисів. Цей крок просить терпіння: поєднати те, що лишилося, у стійкішу рівновагу, перш ніж зустрітися з надмірами карти XV.",
+    "tradition": "У системі Золотої Зорі Помірність — Atu XIV з титулом «Донька Примирителів, Та, що народжує Життя». Їй відповідають єврейська літера Самех, що означає «підпора» чи «опора», і знак Стрільця, мутабельного Вогню, на шляху між сефірот Єсод і Тіферет на Дереві Життя. Поміркованість була однією з чотирьох кардинальних чеснот, і ранні італійські карти, як-от колода Вісконті-Сфорца, показують жінку, що переливає рідину з посудини в посудину; марсельські колоди дали постаті крила. На карті, яку 1909 року створила Памела Колман Сміт, ангел стоїть однією ногою на суші, а другою у воді, з квадратом і трикутником на грудях, з ірисами та стежкою, що здіймається до світла між горами.",
+    "areas": {
+      "love": "У близьких стосунках Помірність звертає увагу на ритм і взаємність: скільки близькості й скільки простору, скільки ви говорите й скільки слухаєте. Вона не просить нікого розчинитися в іншій людині; вона питає, яка суміш дає обом лишатися собою. Після напруги карта може вказувати на повільне відновлення через чесні розмови, одну за одною. Щодо стосунків із собою вона запрошує до того самого терпіння, з яким ви поставилися б до дорогої вам людини.",
+      "work": "У роботі чи навчанні Помірність віддає перевагу рівному темпу, а не ривкам, після яких настає виснаження. Вона може вказувати на поєднання двох методів, ролей чи дисциплін у щось корисніше, ніж кожне окремо, або на команду, де різні сильні сторони треба змішувати, а не зіштовхувати. У грошових питаннях вона підказує спокійні, помірні звички й поступовий перегляд замість хитань між суворим контролем і повністю відпущеними віжками.",
+      "self": "Щодо вашого самопочуття Помірність питає, де вас кидає то в жар, то в холод: то всі зусилля, то жодних, то суворі правила, то ніяких. Постать у водоймі не належить лише воді чи лише берегу, а стежка за нею петляє, а не йде прямо вгору. Помітьте одну сферу, де лагідніша й сталіша міра могла б дати вам опору, і спробуйте її як експеримент, який можна й далі коригувати."
+    },
+    "positions": {
+      "heart": "У центрі запитання Помірність підказує, що справжня тема — пропорція: не який варіант обрати, а як поєднати важливе в суміш, яку ви зможете довго підтримувати.",
+      "challenge": "Як перешкода Помірність може вказувати на нетерплячість до повільного процесу або на суміш, що надто схилилася в один бік. Можливо, щось переповнюється, а чогось іншого бракує.",
+      "advice": "Як порада Помірність запрошує до однієї невеликої, виваженої зміни: трохи менше одного, трохи більше іншого. Спробуйте так якийсь час, простежте, як ви при цьому почуваєтеся, а тоді переливайте знову."
+    },
+    "pairs": [
+      {
+        "with": 13,
+        "text": "Поряд зі Смертю, що передує їй, за завершенням настає терпляче нове поєднання. Разом вони підказують дати змінам час устоятися, а тоді повільно змішати те, що лишилося, у нову рівновагу, не поспішаючи заміняти те, що минуло."
+      },
+      {
+        "with": 15,
+        "text": "Поряд із Дияволом, що йде слідом, міра зустрічається з надміром. Разом вони звертають увагу на те, де здорова суміш переходить у залежність чи нав’язливість і який невеликий крок поміркованості міг би послабити цю тягу."
+      },
+      {
+        "with": 17,
+        "text": "Поряд із Зіркою: на обох картах постать зі слонової кістки переливає воду біля водойми. Помірність відміряє один струмінь між двома келихами; Зірка вільно спорожнює два глеки — на воду й на землю. Разом вони питають, якого поповнення вам зараз потрібно: дбайливого змішування чи відкритого вивільнення."
+      }
+    ],
+    "questions": [
+      "Які дві потреби у вашому житті просять, щоб їх поєднали, а не розставили за важливістю?",
+      "З якого келиха ви вливаєте забагато і чого вже починає бракувати?",
+      "Яку невелику зміну ви могли б спробувати цього тижня, просто спостерігаючи за нею?"
+    ],
+    "practice": "Повільно перелийте воду з однієї склянки в іншу тричі, щоразу звертаючи увагу на дихання, а тоді запишіть одну сферу життя, якій потрібен лагідніший темп."
+  }
+}

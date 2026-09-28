@@ -1,0 +1,267 @@
+{
+  "id": 45,
+  "slug": "ten-of-cups",
+  "artwork": {
+    "file": "45_ten_of_cups.webp",
+    "sha256": "6a03c5070631854ff362879a356ef8b0cb80bfb267c08e8efae015bb65170fd7"
+  },
+  "symbols": [
+    {
+      "key": "heart",
+      "x": 50,
+      "y": 23,
+      "en": {
+        "name": "The gold-heart cup",
+        "seen": "At the very top of the arch, directly above the cottage, one lapis goblet carries a solid gold heart inlaid across its bowl. Five cups descend the arch on either side of it.",
+        "meaning": "Cups are the suit of Water: feeling, love and relationship. Olivia sets a heart-marked cup at the keystone, where the traditional arc of ten cups has no single centre. Everything on the arch leans toward one warm point, as if the household’s feeling were gathered there."
+      },
+      "uk": {
+        "name": "Кубок із золотим серцем",
+        "seen": "На самій вершині арки, просто над хатиною, стоїть один лазуритовий келих, на чаші якого інкрустоване суцільне золоте серце. Обабіч нього вниз по арці спускаються по п’ять кубків.",
+        "meaning": "Кубки — масть Води: почуттів, любові й стосунків. Olivia ставить кубок із серцем на місце замкового каменя, хоча традиційна дуга з десяти кубків не має єдиного центру. Усе на арці тягнеться до однієї теплої точки, ніби почуття всього дому зібрані саме там."
+      }
+    },
+    {
+      "key": "cup",
+      "x": 32,
+      "y": 27,
+      "en": {
+        "name": "Ten star-marked goblets",
+        "seen": "Ten grey-blue goblets with knopped stems and fluted feet are carved in low relief along the arch, five either side of the heart cup. Each bowl bears a tiny incised star touched with gold.",
+        "meaning": "The traditional card shows ten cups riding a rainbow. Counting the heart cup, Olivia’s arch holds eleven: ten star-marked cups keep the card’s number, and the extra one reads like a heart held in common. Their small stars echo the night sky around them."
+      },
+      "uk": {
+        "name": "Десять келихів із зірками",
+        "seen": "Уздовж арки низьким рельєфом вирізьблено десять сіро-блакитних келихів на ніжках із потовщеннями й на рифлених підставках, по п’ять обабіч кубка із серцем. На кожній чаші — крихітна врізана зірочка, злегка позолочена.",
+        "meaning": "На традиційній карті десять кубків розташовані на веселці. Разом із кубком-серцем арка Olivia тримає одинадцять: десять келихів із зірками зберігають число карти, а додатковий читається як серце, спільне для всіх. Їхні маленькі зірки перегукуються з нічним небом довкола."
+      }
+    },
+    {
+      "key": "rainbow",
+      "x": 86,
+      "y": 38,
+      "en": {
+        "name": "The carved stone arch",
+        "seen": "A broad band of paler, greyer lapis rises from the left near the figures’ raised hands, curves in a near semicircle above the cottage and comes down on the right, framing the valley like a window.",
+        "meaning": "In the traditional card this is a rainbow in full colour, a classic image of peace after a storm. Olivia carves it in plain stone, turning passing light into something built: harmony here is a structure people make and keep up, not weather that simply arrives."
+      },
+      "uk": {
+        "name": "Вирізьблена кам’яна арка",
+        "seen": "Широка смуга світлішого, сіруватого лазуриту здіймається ліворуч біля піднятих рук постатей, майже півколом вигинається над хатиною й спускається праворуч, обрамлюючи долину, наче вікно.",
+        "meaning": "На традиційній карті це різнобарвна веселка, класичний образ спокою після бурі. Olivia вирізьблює її з простого каменю й перетворює минуще світло на щось збудоване: гармонія тут — споруда, яку люди зводять і підтримують, а не погода, що просто настає."
+      }
+    },
+    {
+      "key": "house",
+      "x": 50,
+      "y": 40,
+      "en": {
+        "name": "The cottage in the valley",
+        "seen": "Inside the arch, a small cottage with a thick thatched roof, a single chimney and a few dark windows sits on a low rise, carved in muted blue lapis among rolling hills.",
+        "meaning": "The house is the card’s quiet goal: home as a place of belonging rather than property. It sits far off and small, which keeps the image honest. The family does not stand inside the ideal; it looks toward it from open ground, where everyday life happens."
+      },
+      "uk": {
+        "name": "Хатина в долині",
+        "seen": "Усередині арки, на невисокому узвишші серед хвилястих пагорбів, стоїть невелика хатина з товстою солом’яною стріхою, одним димарем і кількома темними вікнами, вирізьблена з приглушено-синього лазуриту.",
+        "meaning": "Дім — тиха мета карти: місце, де почуваються своїми, а не майно. Він стоїть далеко й здається маленьким, і це робить образ чесним. Родина не перебуває всередині ідеалу; вона дивиться на нього з відкритого простору, де й точиться повсякденне життя."
+      }
+    },
+    {
+      "key": "tree",
+      "x": 39,
+      "y": 36,
+      "en": {
+        "name": "The broad tree and cypresses",
+        "seen": "To the left of the cottage stands one broad, full-crowned tree on a slender trunk; to its right rise two tall, narrow cypresses side by side, their tips reaching into the starry sky.",
+        "meaning": "Trees around the house are traditional signs of a settled, fruitful life. The rounded tree offers shade and shelter; the tall cypress, evergreen and long associated with remembrance, adds a note of endurance. Together they frame the home with both comfort and continuity."
+      },
+      "uk": {
+        "name": "Розлоге дерево й кипариси",
+        "seen": "Ліворуч від хатини стоїть одне розлоге дерево з пишною кроною на тонкому стовбурі; праворуч пліч-о-пліч здіймаються два високі вузькі кипариси, що верхівками сягають зоряного неба.",
+        "meaning": "Дерева довкола дому — традиційні знаки усталеного, щедрого на плоди життя. Кругле дерево дає тінь і прихисток; високий кипарис, вічнозелений і здавна пов’язаний із пам’яттю, додає відтінок витривалості. Разом вони обрамлюють дім і затишком, і тяглістю."
+      }
+    },
+    {
+      "key": "couple",
+      "x": 41,
+      "y": 59,
+      "en": {
+        "name": "The embracing pair",
+        "seen": "Two barefoot ivory adults stand pressed together: a bearded figure with cloth at the hips wraps one arm round the waist of a veiled figure in a long robe. Each lifts one open hand skyward.",
+        "meaning": "In the traditional image the couple are seen from behind, arms raised toward the rainbow. Olivia turns them toward us with faces lifted, so we see their wonder rather than only their backs. One arm holds, one arm opens: closeness and gratitude in a single gesture."
+      },
+      "uk": {
+        "name": "Пара в обіймах",
+        "seen": "Двоє босих дорослих зі слонової кістки стоять, щільно пригорнувшись: бородата постать із тканиною на стегнах обіймає однією рукою за талію постать під покривалом у довгому вбранні. Кожна піднімає одну розкриту долоню до неба.",
+        "meaning": "На традиційному зображенні пару видно зі спини, з руками, піднятими до веселки. Olivia розвертає обох до нас обличчями, піднятими догори, тож ми бачимо їхній захват, а не лише спини. Одна рука обіймає, друга розкрита: близькість і вдячність в одному жесті."
+      }
+    },
+    {
+      "key": "child",
+      "x": 69,
+      "y": 62,
+      "en": {
+        "name": "The dancing children",
+        "seen": "To the right, two smaller ivory children hold hands mid-dance, knees bent, heels lifted, each raising the free arm. The curly-haired one laughs openly; the taller, long-haired one tips the face upward.",
+        "meaning": "Children dancing in this card are traditionally read as joy that needs no reason, and as the future a household makes room for. In the traditional image the children play facing each other, turned away from the rainbow; here each lifts a free arm skyward, so their play and the adults’ wonder share one upward reach."
+      },
+      "uk": {
+        "name": "Діти в танці",
+        "seen": "Праворуч двоє менших дітей зі слонової кістки тримаються за руки посеред танцю: коліна зігнуті, п’яти відірвані від землі, вільна рука в кожного піднята. Кучеряве дитя сміється на весь рот; довговолосе, вище на зріст, підводить обличчя догори.",
+        "meaning": "Танець дітей на цій карті традиційно читають як радість, якій не потрібна причина, і як майбутнє, якому родина дає місце. На традиційному зображенні діти граються обличчям одне до одного, відвернувшись від веселки; тут кожне піднімає вільну руку до неба, тож їхня гра й захват дорослих зливаються в одному пориві вгору."
+      }
+    },
+    {
+      "key": "waterfall",
+      "x": 17,
+      "y": 54,
+      "en": {
+        "name": "The cascade and stream",
+        "seen": "On the far left, a small waterfall spills over carved rocks into a pool beside the adults. Inside the arch on the right, a winding stream drops over a little fall of its own.",
+        "meaning": "Water is the element of Cups, and here it moves freely through the land rather than sitting still in the goblets. Feeling that flows, falls and gathers again belongs to this harmony: the scene does not need still water to be at peace."
+      },
+      "uk": {
+        "name": "Водоспад і струмок",
+        "seen": "Біля самого лівого краю невеликий водоспад збігає по вирізьблених скелях у ставок поруч із дорослими. Усередині арки праворуч звивистий струмок спадає власним маленьким водоспадом.",
+        "meaning": "Вода — стихія Кубків, і тут вона вільно тече землею, а не стоїть нерухомо в келихах. Почуття, що плинуть, падають і знову збираються, теж є частиною цієї гармонії: сцені не потрібна стояча вода, щоб бути спокійною."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 28,
+      "y": 78,
+      "en": {
+        "name": "The glittering mineral vein",
+        "seen": "From the left edge beside the figures, a pale band of glittering mineral runs diagonally down toward the lower centre of the dark lapis, among scattered gold star flecks and fine hairline cracks.",
+        "meaning": "This is natural stone rather than a carved symbol, but it is prominent here and reads like the Milky Way beneath the family’s feet. The night setting departs from the traditional daylight scene: contentment shown at the end of a day, lit from above."
+      },
+      "uk": {
+        "name": "Мерехтлива мінеральна жила",
+        "seen": "Від лівого краю поруч із постатями бліда смуга мерехтливого мінералу тягнеться навскіс донизу, до середини нижньої частини темного лазуриту, серед розсипаних золотих зоряних цяток і тонких, як волосина, тріщинок.",
+        "meaning": "Це природний малюнок каменю, а не вирізьблений символ, але тут він помітний і читається як Чумацький Шлях під ногами родини. Нічна сцена відходить від традиційного денного зображення: вдоволення, показане наприкінці дня й осяяне згори."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Ten of Cups turns attention to belonging that has become everyday: feeling shared, held and returned among the people who make a place feel like home.",
+    "keywords": {
+      "upright": [
+        "shared joy",
+        "belonging",
+        "emotional fulfilment",
+        "home",
+        "gratitude",
+        "harmony"
+      ],
+      "reversed": [
+        "strained closeness",
+        "ideal picture",
+        "disconnection",
+        "unspoken needs",
+        "performed happiness"
+      ]
+    },
+    "upright": [
+      "The Ten of Cups draws attention to the fullness that comes when feeling is shared. The Ace offered one cup; here the suit of Water reaches completion, and what completes it is not a possession but a circle of people. In Olivia’s image two adults stand pressed together, one arm holding, one arm raised, while two children dance hand in hand beside them. Nobody holds a cup. Every free hand reaches upward, toward the arch where a gold heart sits among ten starred goblets.",
+      "This is the card of belonging that has settled in: being known, welcomed and allowed to be as you are among your people, whether that means family, a partner, friends or a chosen community. The cottage under the arch is small and far away, and that detail matters. The card does not ask you to live inside a perfect picture; it asks you to notice the moments when home is already present, in a shared meal, a joke that needs no explaining, or a quiet evening that feels easy.",
+      "Upright, the Ten of Cups invites gratitude with open hands, like the figures’ raised palms. It can point to a time to celebrate what has been built together, to say thank you aloud, and to tend the everyday care that keeps closeness real."
+    ],
+    "reversed": [
+      "Ten of Cups reversed draws attention to distance inside a close circle, or to the pressure of keeping up a picture of harmony that everyday life does not match. The carved arch can start to feel like a frame you are meant to fit: smiling for the photograph while something goes unsaid at the table. It may also point inward, to a sense of not quite belonging even where you are loved, or to needs you have stopped mentioning.",
+      "None of this means the circle is broken. Households, friendships and chosen families all pass through strain and repair. The reversed card asks for one honest step: naming a need, making a small repair, or letting the ideal picture go so the real one has room."
+    ],
+    "number": "Ten completes the count of the pips: the cycle that began with the Ace has run its full course. In Cups, the suit of Water, that means feeling that has moved from a first opening through meeting, celebration, loss and wishing, and has come to rest in shared life. Ten is also a threshold: a full cup stays full only by being poured and refilled. The Ten of Cups asks what it means to live inside a fulfilment rather than keep reaching toward it.",
+    "tradition": "In the Golden Dawn system the Ten of Cups is titled the Lord of Perfected Success and is attributed to Mars in Pisces, the third decan of that sign. As a ten it belongs to Malkuth, the final sephirah, where the suit’s feeling becomes something lived and tangible. Aleister Crowley later named the card Satiety, a title commonly read as a reminder that fullness can tip into having had enough. In Marseille-pattern decks the card simply arranges ten cups, usually with a larger cup set above the rest. Pamela Colman Smith’s 1909 design introduced the family beneath a rainbow of cups, the scene most modern decks, Olivia’s included, follow.",
+    "areas": {
+      "love": "In love and close relationships, the Ten of Cups draws attention to the shared life around a bond: the friends, family and routines that let closeness breathe. Like the pair on the card, one arm around the other and one hand raised to the sky, it asks whether your relationships have room for both intimacy and a wider circle. With yourself, it can mean feeling at home in your own company, the way the children dance without checking who is watching.",
+      "work": "At work or in study, the Ten of Cups can point to a team or community where people feel they belong, not only where tasks get done. It invites you to notice who makes the place feel humane, and to thank them. It can also ask whether your work leaves space for the people you come home to. In money matters it turns attention toward shared wellbeing and what feels like enough, rather than toward any particular figure.",
+      "self": "For your inner life, the Ten of Cups asks where you feel at home, in places, people and practices, and whether you let yourself rest there. The figures reach outward and upward rather than turning inward; contentment here includes wonder and gratitude. If you carry an ideal of the perfect family or community, this card invites you to hold it lightly, and to value the real belonging you already have, imperfections and all."
+    },
+    "positions": {
+      "heart": "At the centre of your question, the Ten of Cups points to belonging: what matters most here may be the people involved and how at home everyone can feel, more than any single outcome.",
+      "challenge": "As the challenge, the Ten of Cups can show an ideal picture of harmony getting in the way of real closeness, or a wish to keep everyone content that leaves your own needs unspoken.",
+      "advice": "As advice, the Ten of Cups invites you to share something good: gather people, say thank you, or make one small gesture that helps someone feel they belong."
+    },
+    "pairs": [
+      {
+        "with": 44,
+        "text": "The Nine of Cups, often called the wish card, sets its cups behind one contented figure; in Olivia’s deck both cards place a gold heart on the central cup. Together they ask how private fulfilment becomes shared, and who enjoys what you have gathered."
+      },
+      {
+        "with": 73,
+        "text": "Both tens show a household. The Ten of Pentacles leans toward what is built and handed down: shelter, resources, legacy. The Ten of Cups leans toward what is felt. Together they draw attention to home as both a structure and a warmth, and to whether the two are in balance."
+      },
+      {
+        "with": 19,
+        "text": "The Sun and the Ten of Cups share a child’s open-armed, uncomplicated joy. The Sun gathers it into one rider beneath a great gold disc; the Ten spreads it across a household under an arch of cups. Together they point to happiness that is simple, visible and shared."
+      }
+    ],
+    "questions": [
+      "Where in your life do you already feel at home, and who helps make it so?",
+      "Which picture of the ideal family or community are you measuring your real one against?",
+      "What small, regular act of care would help the people close to you feel they belong?"
+    ],
+    "practice": "This evening, write down three moments from the past week when you felt you belonged, and send a short thank-you to one person who was part of one."
+  },
+  "uk": {
+    "essence": "Десятка Кубків звертає увагу на належність, що стала повсякденням: на почуття, якими діляться, які бережуть і повертають одне одному ті, з ким місце стає домом.",
+    "keywords": {
+      "upright": [
+        "спільна радість",
+        "належність",
+        "емоційна повнота",
+        "дім",
+        "вдячність",
+        "гармонія"
+      ],
+      "reversed": [
+        "напружена близькість",
+        "ідеальна картинка",
+        "роз’єднаність",
+        "невисловлені потреби",
+        "удаване щастя"
+      ]
+    },
+    "upright": [
+      "Десятка Кубків звертає увагу на повноту, яка приходить, коли почуттями діляться. Туз пропонував один кубок; тут масть Води досягає завершення, і завершує її не річ, а коло людей. На зображенні Olivia двоє дорослих стоять, щільно пригорнувшись: одна рука обіймає, друга піднята, а поруч двоє дітей танцюють, тримаючись за руки. Ніхто не тримає кубка. Кожна вільна рука тягнеться вгору, до арки, де серед десяти келихів із зірками вміщено золоте серце.",
+      "Це карта належності, що вже вкорінилася: коли вас знають, вам раді й приймають такими, як ви є, серед своїх — у родині, з партнером, із друзями чи в спільноті, яку ви обрали самі. Хатина під аркою маленька й далека, і ця деталь важлива. Карта не просить вас жити всередині ідеальної картинки; вона просить помічати миті, коли дім уже поруч: у спільній трапезі, у жарті, який не треба пояснювати, у тихому вечорі, що минає легко.",
+      "У прямому положенні Десятка Кубків запрошує до вдячності з розкритими долонями, як-от розкриті долоні постатей. Вона може вказувати, що настав час відзначити збудоване разом, сказати «дякую» вголос і плекати щоденну турботу, завдяки якій близькість лишається справжньою."
+    ],
+    "reversed": [
+      "Десятка Кубків у перевернутому положенні звертає увагу на відстань усередині близького кола або на тиск, коли доводиться підтримувати картинку гармонії, якій повсякдення не відповідає. Вирізьблена арка може почати здаватися рамкою, у яку треба вписатися: усмішки для фото, поки за столом щось лишається несказаним. Вона може стосуватися й внутрішнього: відчуття, що ви не зовсім свої навіть там, де вас люблять, або на потреби, про які ви перестали згадувати.",
+      "Усе це не означає, що коло зруйноване. Домівки, дружні кола й обрані родини — усі переживають напруження й відновлення. Перевернута карта просить про один чесний крок: назвати потребу, щось невелике полагодити або відпустити ідеальну картинку, щоб звільнити місце для справжньої."
+    ],
+    "number": "Десятка завершує лік числових карт: цикл, що почався з Туза, пройшов свій повний шлях. У Кубках, масті Води, це означає почуття, яке рухалося від першого відкриття через зустріч, свято, втрату й мрію та знайшло спокій у спільному житті. Десятка — також поріг: повний кубок лишається повним, лише коли його розливають і наповнюють знову. Десятка Кубків запитує, що означає жити всередині здійсненого, а не тягтися до нього без кінця.",
+    "tradition": "У системі Золотої Зорі Десятка Кубків має титул «Володар досконалого успіху» і відповідає Марсу в Рибах, третьому деканові цього знака. Як десятка вона належить до Малкут, останньої сефіри, де почуття масті стає прожитим і відчутним. Згодом Алістер Кроулі назвав карту «Пересичення» — цю назву зазвичай читають як нагадування, що повнота може перерости в «з мене досить». У колодах марсельського типу карта просто показує десять кубків, здебільшого з більшим кубком над рештою. Малюнок Памели Колман Сміт 1909 року запровадив родину під веселкою з кубків — сцену, яку наслідує більшість сучасних колод, зокрема й Olivia.",
+    "areas": {
+      "love": "У коханні та близьких стосунках Десятка Кубків звертає увагу на спільне життя довкола зв’язку: друзів, родину й звичні ритуали, що дають близькості дихати. Як у пари на карті — одна рука обіймає, друга піднята до неба, — вона запитує, чи є у ваших стосунках місце і для інтимності, і для ширшого кола. У стосунках із собою вона може означати, що вам добре у власному товаристві, так само, як діти танцюють, не перевіряючи, чи хтось на них дивиться.",
+      "work": "У роботі чи навчанні Десятка Кубків може вказувати на команду або спільноту, де люди почуваються своїми, а не лише виконують завдання. Вона запрошує помітити тих, хто робить це місце людяним, і подякувати їм. Вона також може запитати, чи лишає ваша робота простір для тих, до кого ви повертаєтеся додому. У грошових питаннях вона звертає увагу на спільний добробут і на те, що відчувається як «достатньо», а не на якусь конкретну суму.",
+      "self": "Щодо вашого внутрішнього життя Десятка Кубків запитує, де ви почуваєтеся вдома — у місцях, серед людей, у звичних практиках — і чи дозволяєте собі там відпочити. Постаті тягнуться назовні й угору, а не замикаються в собі; вдоволення тут охоплює і захват, і вдячність. Якщо ви носите в собі ідеал досконалої родини чи спільноти, ця карта запрошує тримати його легко й цінувати справжню належність, яка у вас уже є, з усіма її недосконалостями."
+    },
+    "positions": {
+      "heart": "У центрі вашого запитання Десятка Кубків вказує на належність: тут, можливо, важить не так окремий результат, як люди, яких це стосується, і те, наскільки кожна з них може почуватися вдома.",
+      "challenge": "Як виклик Десятка Кубків може показувати ідеальну картинку гармонії, що заважає справжній близькості, або бажання, щоб усі були задоволені, через яке ваші власні потреби лишаються невисловленими.",
+      "advice": "Як порада Десятка Кубків запрошує поділитися чимось добрим: зібрати людей, сказати «дякую» або зробити один невеликий жест, який допоможе людині відчути, що вона тут своя."
+    },
+    "pairs": [
+      {
+        "with": 44,
+        "text": "Дев’ятка Кубків, яку часто називають картою бажань, розставляє свої кубки позаду однієї вдоволеної постаті; у колоді Olivia обидві карти мають золоте серце на центральному кубку. Разом вони запитують, як особисте здійснення стає спільним і хто тішиться тим, що ви зібрали."
+      },
+      {
+        "with": 73,
+        "text": "Обидві десятки показують дім. Десятка Пентаклів схиляється до того, що збудоване й передане далі: прихистку, ресурсів, спадку. Десятка Кубків — до того, що відчувається. Разом вони звертають увагу на дім і як на споруду, і як на тепло, а також на те, чи врівноважені ці два боки."
+      },
+      {
+        "with": 19,
+        "text": "Сонце й Десятку Кубків єднає відкрита, безхитрісна дитяча радість із розкинутими руками. Сонце збирає її в одній постаті верхи під великим золотим диском; Десятка розливає її на цілу родину під аркою кубків. Разом вони вказують на щастя просте, помітне й спільне."
+      }
+    ],
+    "questions": [
+      "Де у вашому житті ви вже почуваєтеся вдома і хто в цьому допомагає?",
+      "З якою картинкою ідеальної родини чи спільноти ви порівнюєте свою справжню?",
+      "Який невеликий регулярний вияв турботи допоміг би близьким людям відчути, що вони тут свої?"
+    ],
+    "practice": "Сьогодні ввечері запишіть три миті з минулого тижня, коли ви відчували, що ви серед своїх, і надішліть коротке «дякую» одній людині, причетній до однієї з них."
+  }
+}

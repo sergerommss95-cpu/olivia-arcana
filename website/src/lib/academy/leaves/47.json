@@ -1,0 +1,277 @@
+{
+  "id": 47,
+  "slug": "knight-of-cups",
+  "artwork": {
+    "file": "47_knight_of_cups.webp",
+    "sha256": "16b3533f2b0a6ff09876434114c7959934343ea2a12a3bbd9b15fedb8a1bbba8"
+  },
+  "symbols": [
+    {
+      "key": "milky-way",
+      "x": 37,
+      "y": 25,
+      "en": {
+        "name": "The river of stars",
+        "seen": "A long diagonal band of glittering pyrite specks crosses the night sky from near the top edge, right of centre, down to the left, passing above and left of the raised cup before fading over the hills.",
+        "meaning": "Many cultures have called the Milky Way a river in the sky, and here it mirrors the stream on the ground below. For a court card of Cups, it sets the Knight between two waters: the dreamed and the actual. Olivia’s night setting adds this sky to the traditional daylight scene."
+      },
+      "uk": {
+        "name": "Ріка зірок",
+        "seen": "Довга діагональна смуга мерехтливих вкраплень пириту перетинає нічне небо: від верхнього краю, трохи праворуч від центру, вниз ліворуч, над піднятим кубком і лівіше від нього, і згасає над пагорбами.",
+        "meaning": "Чумацький Шлях у багатьох культурах називали небесною рікою, і тут він віддзеркалює потічок на землі. У придворній карті Кубків він ставить Лицаря між двома водами: омріяною і справжньою. Нічна сцена Olivia доповнює цим небом традиційний денний сюжет."
+      }
+    },
+    {
+      "key": "helmet",
+      "x": 63,
+      "y": 33,
+      "en": {
+        "name": "Winged helmet, head bowed",
+        "seen": "The rider’s rounded ivory helmet has a brim, a guard framing the face and two small feathered wings rising from the crown; the face, in three-quarter view, looks down, not up at the cup.",
+        "meaning": "Wings on the head belong to Hermes, the messenger between worlds, and Waite linked this Knight’s winged helmet to the higher graces of the imagination. The lowered gaze adds a quieter note here: an inward, listening rider, more absorbed in feeling than scanning the road ahead."
+      },
+      "uk": {
+        "name": "Крилатий шолом, схилена голова",
+        "seen": "Округлий шолом вершника зі слонової кістки має криси, захисну пластину довкола обличчя і два невеликі пернаті крила на маківці; обличчя, показане у три чверті, дивиться вниз, а не на кубок.",
+        "meaning": "Крила на голові — атрибут Гермеса, посланця між світами, і Вейт пов’язував крилатий шолом цього Лицаря з вищими дарами уяви. Опущений погляд додає тихішої ноти: перед нами вершник, заглиблений у себе, що прислухається й більше поринає в почуття, ніж стежить за дорогою попереду."
+      }
+    },
+    {
+      "key": "cup",
+      "x": 43,
+      "y": 37,
+      "en": {
+        "name": "Goblet on the open palm",
+        "seen": "An ivory goblet with a knopped stem rests on the flat of the rider’s outstretched hand, raised high above the horse’s bowed head; a single gold fish is inlaid on the bowl.",
+        "meaning": "The cup is the suit’s vessel of feeling, and this Knight carries it as an offering rather than a weapon. Resting on an open palm instead of gripped by the stem, it is easy to give and easy to spill. Its gold fish is the brightest touch of gold in the scene."
+      },
+      "uk": {
+        "name": "Келих на розкритій долоні",
+        "seen": "Келих зі слонової кістки на ніжці з вузлом-потовщенням стоїть на плоскій розкритій долоні простягнутої руки вершника, піднятий високо над схиленою головою коня; на чаші інкрустовано одну золоту рибку.",
+        "meaning": "Кубок — посудина почуттів цієї масті, і Лицар несе його як дарунок, а не як зброю. Келих не стиснуто за ніжку: він стоїть на розкритій долоні, тож його легко віддати й легко розхлюпати. Золота рибка на ньому — найяскравіший золотий акцент у сцені."
+      }
+    },
+    {
+      "key": "armour",
+      "x": 66,
+      "y": 40,
+      "en": {
+        "name": "Armour under soft cloth",
+        "seen": "Beneath the loose ivory tunic the rider wears plate armour: a rounded shoulder piece, a jointed elbow guard on the rein arm and a knee guard above a greave on the visible leg.",
+        "meaning": "Knights are traditionally armoured, and this one wears it under a soft, fish-patterned tunic and carries no weapon. Protection is present but covered by tenderness: the image of a heart that has some guard up, even while it rides out to offer itself."
+      },
+      "uk": {
+        "name": "Обладунок під м’якою тканиною",
+        "seen": "Під вільною тунікою кольору слонової кістки вершник носить латний обладунок: округлий наплічник, членований налокітник на руці з поводами та наколінник над поножами на видимій нозі.",
+        "meaning": "Лицарів традиційно зображують в обладунках; цей теж його має, але під м’якою тунікою з візерунком риб, і зброї не несе. Захист є, але його вкриває ніжність: образ серця, яке не зовсім знімає оборону, навіть вирушаючи в дорогу, щоб віддати себе."
+      }
+    },
+    {
+      "key": "horse",
+      "x": 40,
+      "y": 51,
+      "en": {
+        "name": "The blue horse, head lowered",
+        "seen": "Carved in lighter, greyer lapis rather than ivory, the horse bows its head deeply, mane cut in flowing strands; a bridle crosses its face and a broad rein patterned with leafy scrolls runs back to the rider’s low hand.",
+        "meaning": "Waite noted that this Knight rides quietly, and the horse carries that mood. Here it is made of the same stone as the river and hills, as if the landscape of feeling itself were carrying the rider. Its bowed head reads as gentleness and patience, not charge."
+      },
+      "uk": {
+        "name": "Синій кінь зі схиленою головою",
+        "seen": "Кінь вирізьблений не з кості, а зі світлішого, сіруватого лазуриту; він низько схиляє голову, грива лягає плавними пасмами; вуздечка перетинає морду, а широкий повід із листяним орнаментом тягнеться до опущеної руки вершника.",
+        "meaning": "Вейт зазначав, що цей Лицар їде спокійно, і кінь передає цей настрій. Тут його вирізьблено з того самого каменю, що й ріку та пагорби, ніби сам краєвид почуттів несе вершника. Схилена голова читається як лагідність і терпіння, а не натиск."
+      }
+    },
+    {
+      "key": "fish",
+      "x": 79,
+      "y": 53,
+      "en": {
+        "name": "Fish on cloth and tunic",
+        "seen": "Small fish are carved along a lapis band crossing the horse’s flank and on the square saddlecloth beside it; fainter fish are scattered across the rider’s long ivory tunic, some tilted as if swimming.",
+        "meaning": "Fish belong to water and to the imagination moving below the surface; the traditional Knight of Cups wears them on the tunic. Olivia repeats them on the saddlecloth, so rider and mount are both dressed in water. The feeling is not only carried here; it is worn."
+      },
+      "uk": {
+        "name": "Риби на попоні й туніці",
+        "seen": "Дрібні рибки вирізьблені вздовж лазуритової смуги, що перетинає бік коня, і на квадратній попоні поруч; блідіші рибки розсипані по довгій туніці вершника, деякі нахилені, наче пливуть.",
+        "meaning": "Риби належать воді й уяві, що рухається під поверхнею; традиційний Лицар Кубків носить їх на туніці. Olivia повторює їх на попоні, тож і вершник, і кінь убрані у воду. Почуття тут не лише несуть — його вдягають на себе."
+      }
+    },
+    {
+      "key": "wings",
+      "x": 62,
+      "y": 60,
+      "en": {
+        "name": "The winged heel",
+        "seen": "The rider’s foot, in a pointed ivory shoe fastened with a strap at the ankle, carries a small feathered wing at the heel, where a spur would usually sit.",
+        "meaning": "A wing where a spur belongs: this Knight is moved on by lightness rather than pressure. It echoes the wings of the helmet, framing the figure top and bottom with the messenger’s sign, and suggests that imagination sets the pace more than force of will."
+      },
+      "uk": {
+        "name": "Крилата п’ята",
+        "seen": "Нога вершника взута в гостроносий черевик зі слонової кістки, застебнутий ремінцем на щиколотці; на п’яті — маленьке пернате крильце, там, де зазвичай кріпиться шпора.",
+        "meaning": "Крило там, де мала б бути шпора: цього Лицаря веде вперед легкість, а не тиск. Воно перегукується з крилами шолома, обрамлюючи постать згори й знизу знаком посланця, і підказує, що темп тут задає радше уява, ніж сила волі."
+      }
+    },
+    {
+      "key": "horse",
+      "x": 48,
+      "y": 66,
+      "en": {
+        "name": "The raised foreleg",
+        "seen": "The horse’s near foreleg is lifted and bent at the knee, hoof hanging above the ground near the water’s edge, while the other three legs stand on the rocky bank.",
+        "meaning": "This is a walking step, not a leap. Compared with the rearing or bounding horse of the traditional Knight of Wands, this one moves at the pace of feeling, one considered stride at a time. Movement is real but unhurried, and the step towards the water is still being weighed."
+      },
+      "uk": {
+        "name": "Піднята передня нога",
+        "seen": "Ближня до глядача передня нога коня піднята й зігнута в коліні, копито зависло над землею біля краю води, а три інші ноги стоять на кам’янистому березі.",
+        "meaning": "Це крок, а не стрибок. На відміну від коня, що стає дибки чи мчить на традиційній карті Лицар Жезлів, цей рухається в темпі почуття, обдумано, крок за кроком. Рух справжній, але неквапливий, а крок до води ще тільки зважують."
+      }
+    },
+    {
+      "key": "river",
+      "x": 35,
+      "y": 68,
+      "en": {
+        "name": "Stream and a row of stones",
+        "seen": "A stream winds from the far hills across the left of the scene towards the horse’s raised hoof, with a row of rounded stones lying across it just ahead; trees stand on the banks beyond.",
+        "meaning": "Water is the suit’s element, and in the traditional card the Knight approaches a river. Olivia adds a row of stones like stepping stones: a way across that asks for attention at every step. Deep feeling can be crossed, the image suggests, not with a leap but stone by stone."
+      },
+      "uk": {
+        "name": "Потічок і ряд каменів",
+        "seen": "Потічок в’ється від далеких пагорбів через ліву частину сцени до піднятого копита коня; просто попереду поперек нього лежить ряд округлих каменів, а далі на берегах стоять дерева.",
+        "meaning": "Вода — стихія цієї масті, і на традиційній карті Лицар наближається до ріки. Olivia додає ряд каменів, якими можна перейти воду: шлях на той бік, що вимагає уваги на кожному кроці. Глибоке почуття, підказує образ, можна перейти не стрибком, а з каменя на камінь."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Knight of Cups is feeling set in motion: the heart carried forward as an offering, at a walking pace, towards whatever it loves.",
+    "keywords": {
+      "upright": [
+        "heartfelt offer",
+        "romantic idealism",
+        "imagination",
+        "sincere invitation",
+        "gentle pursuit",
+        "creative inspiration"
+      ],
+      "reversed": [
+        "moodiness",
+        "unrealistic ideals",
+        "stalled gestures",
+        "emotional drift",
+        "disappointment"
+      ]
+    },
+    "upright": [
+      "The Knight of Cups draws attention to the moment when a feeling becomes a gesture. In Olivia’s image the rider holds an ivory goblet out ahead on an open palm, as if bringing it to someone just beyond the edge of the card. A single gold fish shines on its bowl, one of the few touches of gold in the scene. The horse, carved in pale lapis, bows its head and lifts one foreleg in an unhurried walk towards a stream.",
+      "Upright, this card honours sincerity, romance and imagination that wants to be shared: an invitation, an apology, a proposal, a poem, a piece of work made with feeling. Fire of Water in the old system, it is emotion with momentum. It can point to a time to say what you feel, or to follow an idea that moves you, rather than keeping it safely inside.",
+      "Yet the details ask for care. The rider’s eyes are lowered, absorbed rather than watchful, and the cup rests on the palm instead of in a grip, so it could as easily be offered as spilled. The Knight invites you to carry your ideal gently and to notice what the person or situation in front of you is actually saying."
+    ],
+    "reversed": [
+      "Knight of Cups reversed can point to feeling that has drifted away from action. An ideal may have grown larger than the situation in front of you, so that no real gesture feels good enough to make; or a heartfelt offer may be stalling between imagining and doing. When reality differs from the scene you pictured, disappointment can turn into moodiness, withdrawal or a quiet retreat into daydreams.",
+      "It can also show charm running ahead of substance: warm words that are easier to give than to follow through. The image offers a counterweight. The horse keeps walking, one step at a time, towards a row of stones in the stream rather than a leap across the water. A smaller, real gesture can carry more than a perfect one that never leaves your hands."
+    ],
+    "number": "Knights are the movement of their suit: the rank that pursues, travels and carries its element out into the world. After the Page of Cups, who first notices a feeling or an intuition, the Knight takes it somewhere. In Cups, the suit of water, love, imagination and relationship, that pursuit becomes courtship, creative inspiration and the offering of the heart. Before the Queen’s deep inner attunement and the King’s steady emotional authority, this rank shows feeling as a quest: sincere, romantic and still learning how to meet what is real.",
+    "tradition": "In the Golden Dawn system this card is titled the Lord of the Waves and the Waters, King of the Hosts of the Sea: Fire of Water. The Golden Dawn called its mounted court figure a King; the 1909 Waite and Smith deck renamed it Knight. Its zodiac span runs from 20° Aquarius to 20° Pisces, covering the decans of the Seven of Swords, Eight of Cups and Nine of Cups. Marseille decks show a Cavalier of Cups riding with a cup in hand. Waite described this Knight as graceful but not warlike, riding quietly, with a winged helmet pointing to the higher graces of the imagination. Waite’s divinatory notes include approach, proposition and invitation.",
+    "court": {
+      "temperament": "As a temperament, the Knight of Cups is romantic, imaginative and led by feeling: the part of anyone that is moved by beauty, falls for an idea, and wants to bring something heartfelt to another person. This way of acting moves gently and sincerely, trusts mood and intuition, and would rather court than conquer.",
+      "gifts": "The gifts here are sincerity, tenderness and creative vision. This temperament can make an apology feel real, turn a feeling into a letter, a song or a design, and invite others into a warmer way of seeing. It brings grace to difficult conversations and the courage to show what matters instead of hiding it.",
+      "shadow": "In shadow, the ideal outruns the real. You may fall for a picture of a person or a plan rather than what is actually there, drift with passing moods, or offer more in words than you can give in practice. The image offers a counterweight: the horse walks slowly, and the stones in the stream invite a crossing one step at a time."
+    },
+    "areas": {
+      "love": "In love and close relationships, the Knight of Cups brings tenderness, romance and the wish to express what you feel: a note, an invitation, an honest word after a long silence. It asks whether you are offering the cup to the actual person or to an ideal of them, and whether your gesture leaves room for a reply you have not scripted. With yourself, it invites the same courtesy you would show someone you admire.",
+      "work": "At work, in study and with money, this card favours projects with feeling in them: creative proposals, writing, design, care work, anything that needs sincerity to land. It can point to an idea that moves you enough to pitch. Pair the inspiration with one practical step, a draft, a date, a budget checked with care, so the offering reaches someone rather than staying beautiful in your head.",
+      "self": "For your own life, the Knight of Cups turns attention to what moves you and how you carry it. Like the rider with lowered eyes, you may be listening inward: to longing, to a creative pull, to something you have not yet said. You might ask what you would bring if you rode out today, and let that offering be small, honest and actually given."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter turns on a feeling that wants expression: an offer, invitation or creative idea perhaps already being carried forward, and how sincerely and realistically it is held.",
+      "challenge": "As a challenge, it can show idealism or moodiness getting in the way: waiting for the perfect moment or response, romanticising a situation, or letting a lovely intention stay in the imagination instead of becoming a gesture.",
+      "advice": "As advice, it invites one sincere, concrete gesture: say what you feel, send the note, share the work, and carry it gently, like the cup on an open palm, leaving room for a real response."
+    },
+    "pairs": [
+      {
+        "with": 42,
+        "text": "The Seven of Cups shows many visions floating in clouds; the Knight of Cups carries a single cup forward. Together they draw attention to the moment of choosing one ideal, and to whether it has been tested against ordinary life."
+      },
+      {
+        "with": 46,
+        "text": "In Olivia’s Page of Cups a gold fish rises from a bowl held close and gazed at, a first surprise of feeling. The Knight lifts a gold fish on a raised goblet and carries it out. Together they show noticing becoming offering."
+      },
+      {
+        "with": 43,
+        "text": "The Eight of Cups falls within this Knight’s zodiac span, and there too a gold fish marks one cup; yet its traveller walks away from stacked cups by night. Together they contrast leaving what no longer fills you with carrying forward what still does."
+      }
+    ],
+    "questions": [
+      "What feeling or idea are you carrying right now that wants to become a real gesture?",
+      "Who are you really offering your cup to: the person or situation in front of you, or an ideal of them?",
+      "What would a smaller, sincere version of your perfect gesture look like this week?"
+    ],
+    "practice": "Write the offer, apology or invitation you keep imagining, then cut it to three honest sentences you could actually send or say this week."
+  },
+  "uk": {
+    "essence": "Лицар Кубків — це почуття, що рушило в дорогу: серце, яке несуть уперед як дарунок, спокійним кроком, до того, що воно любить.",
+    "keywords": {
+      "upright": [
+        "сердечна пропозиція",
+        "романтичний ідеалізм",
+        "уява",
+        "щире запрошення",
+        "лагідне прагнення",
+        "творче натхнення"
+      ],
+      "reversed": [
+        "мінливість настрою",
+        "нереальні ідеали",
+        "застиглі жести",
+        "емоційне блукання",
+        "розчарування"
+      ]
+    },
+    "upright": [
+      "Лицар Кубків звертає увагу на мить, коли почуття стає жестом. На зображенні Olivia вершник тримає келих зі слонової кістки попереду себе на розкритій долоні, ніби несе його комусь, хто стоїть одразу за краєм карти. На чаші сяє єдина золота рибка — один із небагатьох золотих акцентів у сцені. Кінь, вирізьблений зі світлого лазуриту, схиляє голову й піднімає передню ногу, неквапливо ступаючи до потічка.",
+      "У прямому положенні ця карта шанує щирість, романтику й уяву, якою хочеться поділитися: запрошення, вибачення, пропозицію, вірш, роботу, зроблену з почуттям. У давній системі це Вогонь Води — емоція, що має розгін. Карта може вказувати на слушну мить, щоб сказати, що ви відчуваєте, або піти за ідеєю, яка вас зворушує, замість того щоб надійно ховати її в собі.",
+      "Проте деталі просять обережності. Очі вершника опущені: погляд заглиблений у себе, а не пильний, і кубок стоїть на долоні, а не в стиснутих пальцях, тож його так само легко подати, як і розхлюпати. Лицар запрошує вас нести свій ідеал лагідно й помічати, що насправді говорить людина чи ситуація перед вами."
+    ],
+    "reversed": [
+      "Лицар Кубків у перевернутому положенні може вказувати на почуття, що відпливло від дії. Ідеал, можливо, переріс ситуацію перед вами, і жоден справжній жест не здається достатньо гарним; або сердечна пропозиція застрягла між уявою і вчинком. Коли реальність відрізняється від уявленої сцени, розчарування може обернутися мінливістю настрою, відстороненістю чи тихою втечею у мрії.",
+      "Карта може показувати й чарівність, що випереджає суть: теплі слова, які легше сказати, ніж утілити. Зображення пропонує противагу. Кінь іде далі, крок за кроком, до ряду каменів у потічку, а не стрибає через воду. Менший, але справжній жест може важити більше, ніж досконалий, що так і не виходить із ваших рук."
+    ],
+    "number": "Лицарі — це рух своєї масті: ранг, що шукає, мандрує й виносить свою стихію у світ. Після Пажа Кубків, який уперше помічає почуття чи інтуїцію, Лицар несе їх далі. У Кубках, масті води, любові, уяви й стосунків, це прагнення стає залицянням, творчим натхненням і даруванням серця. Попереду в масті — глибоке внутрішнє чуття Королеви та стійке володіння почуттями Короля, а цей ранг показує почуття як пошук: щирий, романтичний, що ще вчиться зустрічатися з дійсністю.",
+    "tradition": "У системі Золотої Зорі ця карта має титул «Володар Хвиль і Вод, Король Воїнства Моря»: Вогонь Води. Золота Зоря називала свою придворну постать на коні Королем; у колоді Вейта і Сміт 1909 року її перейменовано на Лицаря. Карта охоплює проміжок від 20° одинадцятого знака зодіаку до 20° Риб, тобто декади Сімки Мечів, Вісімки Кубків і Дев’ятки Кубків. У марсельських колодах це Вершник Кубків із кубком у руці. Вейт описував цього Лицаря як витонченого, але не войовничого вершника, що їде спокійно; крилатий шолом, за Вейтом, указує на вищі дари уяви. Серед тлумачень, які наводить Вейт, — наближення, пропозиція і запрошення.",
+    "court": {
+      "temperament": "Як темперамент Лицар Кубків романтичний, мрійливий і керується почуттям: це та частина кожної людини, яку зворушує краса, яка захоплюється ідеєю і хоче принести іншим щось сердечне. Хто діє так, рухається лагідно й щиро, довіряє настрою та інтуїції й радше залицятиметься, ніж завойовуватиме.",
+      "gifts": "Дари тут — щирість, ніжність і творче бачення. Цей темперамент уміє зробити вибачення справжнім, перетворити почуття на лист, пісню чи задум і запросити інших поглянути на світ тепліше. Він приносить витонченість у складні розмови й сміливість показати те, що важливо, замість ховати це.",
+      "shadow": "У тіні ідеал випереджає реальність. Ви можете захопитися образом людини чи плану, а не тим, що є насправді, пливти за мінливими настроями або пропонувати на словах більше, ніж здатні дати на ділі. Зображення пропонує противагу: кінь ступає повільно, а камені в потічку запрошують переходити воду крок за кроком."
+    },
+    "areas": {
+      "love": "У коханні та близьких стосунках Лицар Кубків приносить ніжність, романтику й бажання висловити почуття: записку, запрошення, чесне слово після довгого мовчання. Карта запитує, чи подаєте ви кубок справжній людині, чи її ідеальному образу, і чи залишає ваш жест місце для відповіді, якої ви не написали наперед. У стосунках із собою вона запрошує до тієї самої делікатності, яку ви виявили б до когось, ким захоплюєтеся.",
+      "work": "У роботі, навчанні та грошових справах ця карта прихильна до проєктів, у яких є почуття: творчим пропозиціям, текстам, дизайну, турботі про інших, усьому, що потребує щирості, щоб дійти до адресата. Вона може вказувати на ідею, яка зворушує вас настільки, що її хочеться запропонувати. Поєднайте натхнення з одним практичним кроком — чернеткою, датою, уважно перевіреним бюджетом, — щоб дарунок дійшов до когось, а не лишився гарним лише у вашій голові.",
+      "self": "У вашому особистому житті Лицар Кубків звертає увагу на те, що вас зворушує, і на те, як ви це несете. Як вершник з опущеними очима, ви, можливо, прислухаєтеся до себе: до туги, до творчого поклику, до чогось, чого ще не сказали. Запитайте себе, що ви принесли б, якби сьогодні вирушили в дорогу, і дозвольте цьому дарункові бути малим, чесним і справді подарованим."
+    },
+    "positions": {
+      "heart": "У центрі запитання карта підказує, що все обертається навколо почуття, яке прагне вираження: пропозиції, запрошення чи творчої ідеї, яку, можливо, вже несуть уперед, — і того, наскільки щиро й реалістично її тримають.",
+      "challenge": "Як перешкода карта може показувати, що заважають ідеалізм чи мінливість настрою: очікування ідеальної миті чи відповіді, романтизування ситуації або прекрасний намір, що лишається в уяві замість того щоб стати жестом.",
+      "advice": "Як порада карта запрошує до одного щирого, конкретного жесту: скажіть, що відчуваєте, надішліть записку, покажіть роботу — і несіть це лагідно, як кубок на розкритій долоні, залишаючи місце для справжньої відповіді."
+    },
+    "pairs": [
+      {
+        "with": 42,
+        "text": "Сімка Кубків показує безліч видінь, що пливуть у хмарах; Лицар Кубків несе вперед один-єдиний кубок. Разом вони звертають увагу на мить вибору одного ідеалу — і на те, чи перевірено його звичайним життям."
+      },
+      {
+        "with": 46,
+        "text": "На карті Паж Кубків у колоді Olivia золота рибка здіймається з чаші, яку тримають близько й уважно розглядають, — перша несподіванка почуття. Лицар підносить золоту рибку на піднятому келиху й несе її у світ. Разом вони показують, як помічене стає дарунком."
+      },
+      {
+        "with": 43,
+        "text": "Вісімка Кубків належить до зодіакального проміжку цього Лицаря, і там золота рибка теж позначає один кубок; проте мандрівник уночі йде геть від складених кубків. Разом вони протиставляють відхід від того, що вже не наповнює, і рух уперед із тим, що наповнює досі."
+      }
+    ],
+    "questions": [
+      "Що з того, що ви зараз несете в собі, — почуття чи ідея — прагне стати справжнім жестом?",
+      "Кому ви насправді подаєте свій кубок: людині чи ситуації перед вами — чи їхньому ідеальному образу?",
+      "Яким міг би бути менший, але щирий варіант вашого ідеального жесту цього тижня?"
+    ],
+    "practice": "Запишіть пропозицію, вибачення чи запрошення, яке ви досі лише уявляєте, а тоді скоротіть його до трьох чесних речень, які ви справді могли б надіслати чи сказати цього тижня."
+  }
+}

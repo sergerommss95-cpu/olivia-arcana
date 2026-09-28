@@ -179,6 +179,9 @@
     consent row into a block and butt the checkbox against its words. */
  .mobile-experience .spread-entry .guidance-choice>label[for] {display:flex;align-items:center;gap:12px;margin:0}
  .mobile-experience .spread-entry #begin-spread {display:flex;justify-content:space-between;width:100%;border-radius:29px}
+ .mobile-experience .spread-size-choice {gap:8px}
+ .mobile-experience .spread-size-choice span {min-height:64px;padding:10px 11px;border-radius:14px}
+ .mobile-experience .spread-size-choice small {font-size:11px}
  .mobile-experience #spreads-view .other-spreads {margin-top:8px;border:0!important;padding:0}
  .mobile-experience #spreads-view .other-spreads>summary {
   display:flex;align-items:center;justify-content:space-between;gap:14px;list-style:none;width:100%;min-height:56px;box-sizing:border-box;

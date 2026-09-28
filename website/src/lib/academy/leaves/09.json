@@ -1,0 +1,269 @@
+{
+  "id": 9,
+  "slug": "the-hermit",
+  "artwork": {
+    "file": "09_the_hermit.webp",
+    "sha256": "8859d08e0e5fe45be8d2d833f1fb6acedaee61dd41213f92b92680ee4fe51d36"
+  },
+  "symbols": [
+    {
+      "key": "milky-way",
+      "x": 45,
+      "y": 17,
+      "en": {
+        "name": "The band of the Milky Way",
+        "seen": "A pale haze of tiny white specks runs diagonally across the upper sky from lower left to upper right, finer and whiter than the scattered gold flecks of pyrite around it.",
+        "meaning": "The traditional Hermit stands against a plain, empty sky; the Milky Way is Olivia’s addition. It sets the small lantern against a wide band of distant light, and the figure does not look up at it. The light this card cares about is the one close enough to carry."
+      },
+      "uk": {
+        "name": "Смуга Чумацького Шляху",
+        "seen": "Бліда імла з дрібних білих цяток навскіс перетинає верхню частину неба, зліва знизу вправо вгору; вона дрібніша й біліша за розсипані довкола золоті вкраплення піриту.",
+        "meaning": "Традиційний Відлюдник стоїть на тлі простого порожнього неба; Чумацький Шлях — доповнення Olivia. Він протиставляє маленький ліхтар широкій смузі далекого світла, але постать не зводить на неї очей. Цю карту цікавить світло, достатньо близьке, щоб його нести."
+      }
+    },
+    {
+      "key": "star",
+      "x": 48,
+      "y": 32,
+      "en": {
+        "name": "The star cut into the summit",
+        "seen": "Near the top of the highest peak, an eight-pointed star is incised into the pale blue lapis as thin engraved lines. It is not gilded, and it sits above and slightly left of the hooded head.",
+        "meaning": "The summit is where the traditional Hermit stands: attainment, the view from the top. Here the figure stands below it on a lower ledge, and the peak keeps only an uncoloured outline of the lantern’s star. The height is marked, not occupied."
+      },
+      "uk": {
+        "name": "Зірка, вирізана на вершині",
+        "seen": "Біля верхівки найвищого піку в блідо-блакитному лазуриті тонкими врізаними лініями накреслено восьмипроменеву зірку. Вона без позолоти й міститься над головою в каптурі, трохи лівіше.",
+        "meaning": "Саме на вершині стоїть традиційний Відлюдник: досягнення, погляд згори. Тут постать стоїть нижче, на уступі, а пік зберігає лише безбарвний обрис тієї зірки, що світить у ліхтарі. Висоту позначено, але не зайнято."
+      }
+    },
+    {
+      "key": "mountain",
+      "x": 31,
+      "y": 38,
+      "en": {
+        "name": "The pale mountain range",
+        "seen": "Behind the figure, two main peaks and their ridges are carved in lighter, greyer lapis, streaked like snow and wind-scoured stone, above a long sloping shelf that breaks off sharply at the left.",
+        "meaning": "Mountains in tarot stand for effort, altitude and the long view, and the Waite-Smith Hermit stands on a snowy height. Olivia keeps the cold, high setting but lets the peaks rise behind the figure: the top is not reached, and the work here is looking rather than climbing."
+      },
+      "uk": {
+        "name": "Бліде гірське пасмо",
+        "seen": "За постаттю два головні піки з хребтами вирізьблено у світлішому, сіруватому лазуриті з прожилками, схожими на сніг і вивітрений камінь; під ними довгий похилий виступ, що різко обривається ліворуч.",
+        "meaning": "Гори в таро означають зусилля, висоту й далекий погляд, а Відлюдник Вейта–Сміт стоїть на засніженій верховині. Olivia зберігає холодне високогір’я, але піки здіймаються за постаттю: вершини не досягнуто, і тут ідеться про те, щоб дивитися, а не підійматися."
+      }
+    },
+    {
+      "key": "hood",
+      "x": 55,
+      "y": 44,
+      "en": {
+        "name": "The lowered, hooded head",
+        "seen": "The ivory figure is shown in profile facing left, hood drawn well forward, a long wavy beard falling onto the chest. The eyes are cast downward past the outstretched hand, not up at the stars.",
+        "meaning": "The hood is the traditional sign of withdrawal: attention pulled in from the crowd so it can be spent on one thing. The beard marks the figure as an elder, whose authority comes from long looking. The lowered gaze makes wisdom a matter of where the next step goes."
+      },
+      "uk": {
+        "name": "Схилена голова в каптурі",
+        "seen": "Постать зі слонової кістки показано в профіль, обличчям ліворуч; каптур глибоко насунуто, довга хвиляста борода спадає на груди. Погляд опущено повз простягнуту руку, а не звернено до зірок.",
+        "meaning": "Каптур — традиційний знак усамітнення: увагу відведено від натовпу, щоб зосередити на одній справі. Борода вказує на старшу людину, чий авторитет походить із довгого вдивляння. Опущений погляд робить мудрість умінням бачити, куди ступити далі."
+      }
+    },
+    {
+      "key": "lantern",
+      "x": 42,
+      "y": 52,
+      "en": {
+        "name": "The lantern with its gold star",
+        "seen": "Held out at about chest height, an ivory lantern with a peaked roof and panelled sides hangs from a ring in the fingers. Inside is a small gold eight-pointed star, the only carved element picked out in gold.",
+        "meaning": "In the Waite-Smith card the lantern holds a six-pointed star, and older models often show it half-wrapped in the cloak. Olivia gives the star eight points, matching the two stars cut into the rock, and holds the lantern fully out: a light for the next few steps, not for the whole mountain."
+      },
+      "uk": {
+        "name": "Ліхтар із золотою зіркою",
+        "seen": "Ліхтар зі слонової кістки, зі шпичастим дашком і філенчастими стінками, висить на кільці в пальцях, простягнутий приблизно на рівні грудей. Усередині маленька золота восьмипроменева зірка — єдиний різьблений елемент, виділений золотом.",
+        "meaning": "У карті Вейта–Сміт у ліхтарі шестипроменева зірка, а на старіших зразках ліхтар часто наполовину загорнуто в плащ. Olivia дає зірці вісім променів, як і двом зіркам, вирізаним у скелі, а ліхтар тримають на витягнутій руці: це світло на кілька наступних кроків, а не на всю гору."
+      }
+    },
+    {
+      "key": "star",
+      "x": 21,
+      "y": 52,
+      "en": {
+        "name": "The star on the cliff",
+        "seen": "On the dark face of the left-hand cliff, level with the lantern and to its left, a second eight-pointed star is incised in pale lines into the lapis, small and ungilded.",
+        "meaning": "This star is Olivia’s own addition. With the summit star it makes three stars of one shape: one gold and carried, two cut into stone and fixed. It can be read as understanding already present in the landscape, waiting for a light to be seen by."
+      },
+      "uk": {
+        "name": "Зірка на скелі",
+        "seen": "На темній стіні лівої скелі, на одному рівні з ліхтарем і ліворуч від нього, блідими лініями врізано в лазурит другу восьмипроменеву зірку — невелику й без позолоти.",
+        "meaning": "Ця зірка — власне доповнення Olivia. Разом із зіркою на вершині вона утворює три зірки однієї форми: одну золоту, яку несуть, і дві нерухомі, вирізані в камені. Її можна прочитати як розуміння, що вже є в самому краєвиді й чекає на світло, при якому його буде видно."
+      }
+    },
+    {
+      "key": "staff",
+      "x": 50,
+      "y": 65,
+      "en": {
+        "name": "The plain ivory staff",
+        "seen": "The second hand grips a long, smooth ivory staff just to the right of the lantern. It runs straight down in front of the robe, and its tip rests near the front lip of the pale ledge.",
+        "meaning": "The staff is commonly read as experience used as support: what you know steadies you, but you still walk on your own feet. It carries no ornament here. Set down at the edge before the body moves, it tests the ground before weight follows."
+      },
+      "uk": {
+        "name": "Простий посох зі слонової кістки",
+        "seen": "Друга рука стискає довгий гладенький посох зі слонової кістки трохи праворуч від ліхтаря. Він спускається прямо вниз перед мантією, а його кінець упирається в блідий уступ біля самого переднього краю.",
+        "meaning": "Посох зазвичай читають як досвід, що став опорою: знання додає вам стійкості, але йдете ви все одно власними ногами. Тут на ньому немає жодних прикрас. Його ставлять на краю ще до того, як рушить тіло: посох перевіряє ґрунт, перш ніж на нього ляже вага."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 62,
+      "y": 62,
+      "en": {
+        "name": "The heavy ivory robe",
+        "seen": "A long hooded robe falls in deep vertical folds from shoulders to ankles, the sleeves wide, the hem pooling on the ledge. Only the hands, the face and the toes of one foot show.",
+        "meaning": "The Waite-Smith Hermit wears grey, commonly read as discretion. Olivia carves the robe in the same pale ivory as the lantern, so the figure and its light read as one material. The covering suggests prudence: what is protected is kept intact, not hidden out of shame."
+      },
+      "uk": {
+        "name": "Важка мантія зі слонової кістки",
+        "seen": "Довга мантія з каптуром спадає глибокими вертикальними складками від плечей до щиколоток; рукави широкі, поділ лягає на уступ. Видно лише руки, обличчя й носок однієї ступні.",
+        "meaning": "Відлюдник Вейта–Сміт убраний у сіре, що зазвичай тлумачать як стриманість. Olivia вирізьблює мантію з тієї самої блідої слонової кістки, що й ліхтар, тож постать і її світло сприймаються як один матеріал. Закрите вбрання говорить про розважливість: захищене зберігають цілим, а не ховають із сорому."
+      }
+    },
+    {
+      "key": "cliff",
+      "x": 63,
+      "y": 79,
+      "en": {
+        "name": "The ledge above the drop",
+        "seen": "The figure stands on a pale, almost white shelf of stone that juts out over a sheer cliff of dark lapis. Below it the rock falls away into the gold-flecked night at the foot of the card.",
+        "meaning": "Height in the traditional Hermit is the reward of the climb. Olivia turns it into an edge: the figure stands at the rim with the lantern held out over the slope. Solitude here is attention sharpened by a real limit, where each step needs checking."
+      },
+      "uk": {
+        "name": "Уступ над проваллям",
+        "seen": "Постать стоїть на блідому, майже білому кам’яному виступі, що нависає над прямовисною скелею з темного лазуриту. Нижче камінь обривається в поцятковану золотом ніч біля нижнього краю карти.",
+        "meaning": "У традиційному Відлюднику висота — нагорода за підйом. Olivia перетворює її на край: постать стоїть на самій кромці й простягає ліхтар над схилом. Усамітнення тут — увага, загострена справжньою межею, де кожен крок потребує перевірки."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Hermit steps away from the noise to look closely, carrying just enough light to see the next step and to share what it shows.",
+    "keywords": {
+      "upright": [
+        "solitude",
+        "inner guidance",
+        "patient study",
+        "discernment",
+        "quiet counsel",
+        "careful steps"
+      ],
+      "reversed": [
+        "isolation",
+        "avoidance",
+        "overthinking",
+        "refused counsel",
+        "hidden light",
+        "restless noise"
+      ]
+    },
+    "upright": [
+      "The Hermit is the card of deliberate withdrawal: stepping out of the crowd of voices long enough to hear which part of a question is truly yours. In Olivia’s carving the figure stands alone on a pale ledge, hood drawn forward, eyes lowered. The Milky Way spills across the sky overhead, yet the gaze stays on the small lantern and the ground just beyond it. Wisdom here is not a view of everything; it is the patience to see the next step clearly.",
+      "The lantern is the heart of the card. It holds a single gold star, the only carved element picked out in gold, and it is held out rather than hugged close. That gesture matters: the light is carried so that it can be used, and it is commonly read as a light for anyone climbing behind. The same eight-pointed star is cut, uncoloured, into the summit and into the cliff face, as if the landscape already holds its answers and only needs a light to be read.",
+      "Upright, the card invites a period of study, reflection or quiet craft. It can point to a mentor, a teacher or your own slow judgement. Give the question the time it actually needs, and let the staff of experience test the ground before you lean your weight on it."
+    ],
+    "reversed": [
+      "The Hermit reversed draws attention to a retreat that has lost its purpose. Solitude can harden into isolation, or reflection can circle without landing, so that the lantern is lit but never lifted. It may also point the other way: so much noise, advice and hurry that your own view cannot be heard at all. In both forms the light is there but not being used.",
+      "Consider which of the two is closer. If you have been alone with the question for a long time, one honest conversation may help more than another week of thinking. If the noise is the problem, a single protected hour can be enough. The point of the ledge is to see clearly and then come back down, not to stay on the edge."
+    ],
+    "number": "Nine is the last of the single digits, the point where a sequence gathers itself before the Wheel of Fortune turns at Ten. In the Fool’s journey the Hermit follows Strength in the Waite-Smith order: after learning to hold a strong force gently, the traveller withdraws to understand it. Nine is three times three, often read as ripeness. This step asks for completion through reflection, turning experience into understanding before a wider cycle begins.",
+    "tradition": "In the Golden Dawn system the Hermit is trump IX, titled “The Prophet of the Eternal, the Magus of the Voice of Power”. It carries the Hebrew letter Yod, the small flame-shaped letter from which the others are said to be formed, and the sign Virgo, mutable earth; on the Tree of Life it is the path joining Chesed and Tiphareth. Earlier decks framed the figure differently: in the fifteenth-century Visconti-Sforza cards the elder holds an hourglass, tying the card to Time, and older models often show the lantern half-wrapped in the cloak. Pamela Colman Smith’s 1909 design set the figure on a snowy height with a six-pointed star in the lantern.",
+    "areas": {
+      "love": "In close relationships the Hermit asks for a little distance in the service of clarity, not coldness. Before the next difficult conversation, notice what you actually feel and want, apart from what you have been told you should. The card can also describe a season on your own that is doing useful work. The lantern is held out, not hidden: time alone is meant to return you with something clear to offer, including to yourself.",
+      "work": "At work or in study the card favours depth over visibility: research, practice, a skill learned slowly, a problem worked through without an audience. It can point to seeking out a mentor, or to becoming one by sharing what you have learned with care. In money matters the Hermit suggests taking time to understand the details before any decision, and the humility to ask someone qualified where your own light runs out.",
+      "self": "For your own practice the Hermit is a card of honest inventory. Which beliefs are yours, and which did you pick up from the crowd? The figure on the ledge looks at the ground near the lantern, not at the whole sky: begin with one question small enough to answer. Silence, walks, journals and early mornings suit this card, as long as solitude stays a choice and does not become a hiding place."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Hermit suggests the answer needs time and quiet more than more information. What matters most is what you understand for yourself before anyone else weighs in.",
+      "challenge": "As the challenge, the card can point to withdrawal that has gone on too long, or to a habit of thinking everything through alone when one trusted conversation would move things forward.",
+      "advice": "As advice, step back for a set length of time, look closely at one part of the question, then carry what you find back to the people it concerns."
+    },
+    "pairs": [
+      {
+        "with": 0,
+        "text": "The Fool and the Hermit both carry a staff on high ground. Olivia’s Fool looks up at a gold eight-pointed star and steps forward; the Hermit carries that same star low and watches the ground. Together they ask where boldness needs a lantern."
+      },
+      {
+        "with": 17,
+        "text": "Olivia’s Star sets a large gold eight-pointed star in an open sky while the figure pours water freely; the Hermit carries the same shape small, inside a lantern. Together they draw attention to the difference between hope that renews you and the patient, private work of seeing by the light you already have."
+      },
+      {
+        "with": 5,
+        "text": "The Hierophant teaches through shared tradition and institutions; the Hermit learns alone and teaches by example. Together they ask which guidance you have received from outside and which you have tested yourself, and whether the two still agree."
+      }
+    ],
+    "questions": [
+      "What part of this question is truly yours, apart from other people’s opinions?",
+      "What is the next single step your own light lets you see clearly?",
+      "Once you understand this, who could you share what you have learned with?"
+    ],
+    "practice": "Spend twenty minutes alone with one question and a single lamp or candle, writing down only what you notice, then choose one person to tell."
+  },
+  "uk": {
+    "essence": "Відлюдник відходить від шуму, щоб придивитися уважніше, і несе рівно стільки світла, скільки треба, щоб побачити наступний крок і поділитися побаченим.",
+    "keywords": {
+      "upright": [
+        "усамітнення",
+        "внутрішній провідник",
+        "терпляче навчання",
+        "проникливість",
+        "тиха порада",
+        "обережні кроки"
+      ],
+      "reversed": [
+        "ізоляція",
+        "уникання",
+        "надмірні роздуми",
+        "відкинута порада",
+        "приховане світло",
+        "неспокійний шум"
+      ]
+    },
+    "upright": [
+      "Відлюдник — карта свідомого відходу: відійти від гомону голосів і побути осторонь стільки, скільки треба, щоб почути, яка частина запитання справді ваша. У різьбі Olivia постать стоїть сама на блідому уступі, каптур насунуто, очі опущено. Над головою небом розливається Чумацький Шлях, але погляд лишається на маленькому ліхтарі й на землі одразу за ним. Мудрість тут — не огляд усього світу, а терпіння ясно побачити наступний крок.",
+      "Серце карти — ліхтар. У ньому одна золота зірка, єдиний різьблений елемент, виділений золотом, і ліхтар тримають простягнутим, а не притискають до себе. Цей жест важливий: світло несуть, щоб ним користуватися, і його зазвичай читають як світло для кожного, хто підіймається слідом. Ту саму восьмипроменеву зірку, тільки безбарвну, вирізано на вершині й на стіні скелі, ніби краєвид уже містить свої відповіді й потребує лише світла, щоб їх прочитати.",
+      "У прямому положенні карта запрошує до періоду навчання, роздумів чи тихого ремесла. Вона може вказувати на наставника, вчителя або на ваше власне неквапливе судження. Дайте запитанню стільки часу, скільки йому справді потрібно, і нехай посох досвіду перевірить ґрунт, перш ніж ви перенесете на нього вагу."
+    ],
+    "reversed": [
+      "Відлюдник у перевернутому положенні звертає увагу на усамітнення, що втратило мету. Самота може застигнути в ізоляції, а роздуми — кружляти, так і не знаходячи опори: ліхтар засвічено, але його так і не піднято. Карта може вказувати й у протилежний бік: стільки шуму, порад і поспіху, що власного погляду зовсім не чути. В обох випадках світло є, але ним не користуються.",
+      "Подумайте, що з цього ближче до вас. Якщо ви давно лишаєтеся із запитанням наодинці, одна чесна розмова може допомогти більше, ніж ще тиждень роздумів. Якщо ж проблема в шумі, іноді досить однієї захищеної години. Уступ потрібен, щоб ясно побачити, а потім зійти вниз, а не щоб лишатися на краю."
+    ],
+    "number": "Дев’ять — остання з однозначних цифр, точка, де послідовність збирається докупи, перш ніж на Десятці обернеться Колесо Фортуни. У мандрівці Блазня в порядку Вейта–Сміт Відлюдник іде за Силою: навчившись м’яко приборкувати велику міць, мандрівник відходить, щоб її зрозуміти. Дев’ять — це три по три, що часто читають як зрілість. Цей крок кличе до завершення через роздуми: перетворити досвід на розуміння, перш ніж почнеться ширше коло.",
+    "tradition": "У системі Золотої Зорі Відлюдник — козир IX із титулом «Пророк Вічного, Маг Голосу Сили». Йому відповідають єврейська літера Йод — маленька літера у формі полум’я, з якої, як кажуть, утворено всі інші, — і знак Діви, мінлива земля; на Дереві Життя це шлях між Хеседом і Тіферет. Давніші колоди зображали постать інакше: у картах Вісконті–Сфорца XV століття старець тримає пісковий годинник, що пов’язує карту з Часом, а на старіших зразках ліхтар часто наполовину загорнуто в плащ. Памела Колман Сміт у малюнку 1909 року поставила постать на засніжену верховину, а в ліхтар помістила шестипроменеву зірку.",
+    "areas": {
+      "love": "У близьких стосунках Відлюдник просить трохи дистанції заради ясності, а не холодності. Перед наступною складною розмовою помітьте, що ви насправді відчуваєте й чого хочете, окремо від того, що, як вам казали, належить відчувати. Карта може описувати й час на самоті, що приносить користь. Ліхтар простягнуто, а не сховано: час наодинці має повернути вас із чимось ясним, що можна запропонувати іншим, зокрема й собі.",
+      "work": "У роботі чи навчанні карта віддає перевагу глибині, а не помітності: дослідження, практика, навичка, що засвоюється повільно, задача, розв’язана без глядачів. Вона може вказувати на пошук наставника або на те, щоб самим ним стати, дбайливо ділячись набутим. У грошових справах Відлюдник пропонує не поспішати й розібратися в подробицях перед будь-яким рішенням, а також мати скромність звернутися до фахівця там, де ваше власне світло закінчується.",
+      "self": "Для вашої власної практики Відлюдник — карта чесної ревізії. Які переконання справді ваші, а які ви підхопили від натовпу? Постать на уступі дивиться на землю біля ліхтаря, а не на все небо: почніть з одного запитання, досить невеликого, щоб на нього можна було відповісти. Цій карті пасують тиша, прогулянки, щоденники й ранні ранки — доки усамітнення лишається вибором і не стає схованкою."
+    },
+    "positions": {
+      "heart": "У центрі запитання Відлюдник підказує, що відповіді потрібні час і тиша більше, ніж нова інформація. Найважливіше — те, що ви зрозумієте самі, перш ніж хтось інший висловить свою думку.",
+      "challenge": "У позиції виклику карта може вказувати на усамітнення, що надто затяглося, або на звичку все обмірковувати наодинці там, де одна розмова з людиною, якій ви довіряєте, зрушила б справу з місця.",
+      "advice": "У позиції поради: відступіть на визначений час, уважно розгляньте одну частину запитання, а потім принесіть знайдене тим людям, яких воно стосується."
+    },
+    "pairs": [
+      {
+        "with": 0,
+        "text": "Блазень і Відлюдник обидва тримають посох на висоті. Блазень Olivia дивиться вгору на золоту восьмипроменеву зірку й ступає вперед; Відлюдник несе ту саму зірку низько й стежить за землею. Разом вони запитують, де сміливості потрібен ліхтар."
+      },
+      {
+        "with": 17,
+        "text": "На карті Зірка в Olivia велика золота восьмипроменева зірка сяє у відкритому небі, а постать щедро ллє воду; Відлюдник несе ту саму форму маленькою, усередині ліхтаря. Разом вони звертають увагу на різницю між надією, що вас оновлює, і терплячою, усамітненою роботою: бачити при світлі, яке у вас уже є."
+      },
+      {
+        "with": 5,
+        "text": "Ієрофант навчає через спільну традицію та інституції; Відлюдник учиться наодинці й навчає власним прикладом. Разом вони запитують, які настанови ви отримали ззовні, а які перевірили самі, і чи досі вони між собою узгоджуються."
+      }
+    ],
+    "questions": [
+      "Яка частина цього запитання справді ваша, окремо від чужих думок?",
+      "Який наступний крок ви ясно бачите у власному світлі?",
+      "Коли ви це зрозумієте, з ким могли б поділитися тим, що дізналися?"
+    ],
+    "practice": "Проведіть двадцять хвилин наодинці з одним запитанням і однією лампою чи свічкою, записуючи лише те, що помічаєте, а потім оберіть одну людину, якій про це розповісте."
+  }
+}

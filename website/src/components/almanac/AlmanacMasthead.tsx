@@ -9,7 +9,10 @@
 
 import TransitionLink from "@/components/transitions/TransitionLink";
 import { useLocale } from "@/lib/i18n/useLocale";
-import { ACCOUNTS_ENABLED } from "@/lib/service-status";
+import { ACCOUNTS_ENABLED, PAYMENTS_ENABLED } from "@/lib/service-status";
+
+// Nothing to buy until accounts and payments are both live.
+const MEMBERSHIP_READY = ACCOUNTS_ENABLED && PAYMENTS_ENABLED;
 
 const MAST = {
   en: {
@@ -18,7 +21,8 @@ const MAST = {
       { label: "My almanac", href: "/?experience=journal" },
       { label: "Spreads", href: "/?experience=spreads" },
       { label: "The cards", href: "/cards" },
-      { label: "Membership", href: "/pricing" },
+      { label: "Learn", href: "/learn" },
+      ...(MEMBERSHIP_READY ? [{ label: "Membership", href: "/pricing" }] : []),
       // Appears only once the account backend is back (build-time flag).
       ...(ACCOUNTS_ENABLED ? [{ label: "Account", href: "/profile/" }] : []),
     ],
@@ -33,7 +37,8 @@ const MAST = {
       { label: "Мій альманах", href: "/uk/?experience=journal" },
       { label: "Розклади", href: "/uk/?experience=spreads" },
       { label: "Карти", href: "/uk/cards" },
-      { label: "Підписка", href: "/pricing" },
+      { label: "Навчання", href: "/uk/learn" },
+      ...(MEMBERSHIP_READY ? [{ label: "Підписка", href: "/pricing" }] : []),
       ...(ACCOUNTS_ENABLED ? [{ label: "Кабінет", href: "/profile/" }] : []),
     ],
     cta: "Почати читання",

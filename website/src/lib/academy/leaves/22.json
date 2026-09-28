@@ -1,0 +1,267 @@
+{
+  "id": 22,
+  "slug": "ace-of-wands",
+  "artwork": {
+    "file": "22_ace_of_wands.webp",
+    "sha256": "dada5b35779d3352636cc904eaa05bbfccaa52232c95f4b89dd9396ee9a3c01a"
+  },
+  "symbols": [
+    {
+      "key": "flame",
+      "x": 51,
+      "y": 18,
+      "en": {
+        "name": "The gold flame-bud",
+        "seen": "At the top of the staff sits a closed bud of gold, its pointed petals rising together like a single flame, cupped in ivory sepals. It is the only gilded part of the carving.",
+        "meaning": "Wands belong to Fire, and the traditional Ace is often surrounded by sparks or flame-like leaves. Olivia gathers that fire into one golden bud that has not yet opened: energy concentrated at the very tip, still held in, ready to become flower or flame."
+      },
+      "uk": {
+        "name": "Золотий бутон-полум’я",
+        "seen": "Вершину палиці увінчує закритий золотий бутон у чашолистках зі слонової кістки: його загострені пелюстки зімкнуто вгору, мов єдиний язик полум’я. Це єдина позолочена частина різьблення.",
+        "meaning": "Жезли — масть Вогню, і традиційний Туз часто оточують іскри або листя, схоже на язики полум’я. Olivia збирає цей вогонь в один золотий бутон, що ще не розкрився: енергію зосереджено на самому вістрі, вона ще стримана й готова стати квіткою або полум’ям."
+      }
+    },
+    {
+      "key": "wand",
+      "x": 51,
+      "y": 35,
+      "en": {
+        "name": "The living staff",
+        "seen": "A straight ivory staff, knotted like a cut branch and blunt at its lower end, rises from the hand to the bud; small sprigs of serrated leaves grow from it above and below the fist.",
+        "meaning": "In decks that follow Pamela Colman Smith’s design the wands of this suit are living wood that still sprouts, commonly read as will, desire and creative force. Fresh shoots on a cut stick say the impulse is organic: it grows when tended, not when forced."
+      },
+      "uk": {
+        "name": "Жива палиця",
+        "seen": "Пряма палиця зі слонової кістки, вузлувата, мов зрізана гілка, з тупим нижнім кінцем, здіймається від руки до бутона; вище й нижче кулака з неї проростають гілочки із зубчастим листям.",
+        "meaning": "У колодах, що наслідують задум Памели Колман Сміт, жезли цієї масті — живе дерево, яке ще пускає пагони; їх зазвичай читають як волю, бажання й творчу силу. Свіжі пагони на зрізаній палиці свідчать, що цей порив природний: він росте, коли про нього дбають, а не коли його підганяють."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 57,
+      "y": 55,
+      "en": {
+        "name": "The hand from the cloud",
+        "seen": "An ivory hand reaches in from the right, its wrist lost in the cloud’s curls. Four fingers wrap the staff with their nails turned towards you, and the thumb presses upward along its right side.",
+        "meaning": "In decks that follow Pamela Colman Smith’s design each Ace shows a hand offered from a cloud: a gift that arrives before you have planned or earned it. Here the grip is firm and close, the thumb braced, as if the staff is being held out for you to take hold."
+      },
+      "uk": {
+        "name": "Рука з хмари",
+        "seen": "Рука зі слонової кістки тягнеться справа, і її зап’ясток губиться в завитках хмари. Чотири пальці обхоплюють палицю нігтями до вас, а великий палець тисне вгору вздовж її правого боку.",
+        "meaning": "У колодах, що наслідують задум Памели Колман Сміт, кожен Туз показує руку, простягнуту з хмари: дар, що приходить раніше, ніж ви його спланували чи заслужили. Тут рука тримає міцно й близько, великий палець упирається в палицю, ніби її простягають саме вам, щоб ви за неї взялися."
+      }
+    },
+    {
+      "key": "cloud",
+      "x": 84,
+      "y": 46,
+      "en": {
+        "name": "Spiralling ivory cloud",
+        "seen": "A broad ivory cloud crosses the card from the left edge to the right, its surface carved into tight spirals and scrolls; it billows highest on the right, where the hand emerges.",
+        "meaning": "The cloud marks the source as unseen: the spark comes from beyond what you can plan or explain. Its whirling spirals, carved like wind or smoke, bring a sense of stirring energy into an otherwise still and upright image."
+      },
+      "uk": {
+        "name": "Спіральна хмара зі слонової кістки",
+        "seen": "Широка хмара зі слонової кістки перетинає карту від лівого краю до правого, її поверхню вирізьблено тугими спіралями й завитками; найвище вона здіймається праворуч, звідки виходить рука.",
+        "meaning": "Хмара показує, що джерело приховане від очей: іскра приходить звідти, чого ви не можете спланувати чи пояснити. Її вихрові спіралі, вирізьблені, мов вітер або дим, вносять відчуття збуреної енергії в зображення, загалом спокійне й вертикальне."
+      }
+    },
+    {
+      "key": "leaves",
+      "x": 35,
+      "y": 67,
+      "en": {
+        "name": "Six falling leaves",
+        "seen": "Six loose ivory leaves drift in the lapis around the staff, four above the cloud and two below it, each turned at a different angle as if just shaken free.",
+        "meaning": "The traditional Ace of Wands sheds leaves from its rod, and they are commonly read as Yods, the small flame-shaped Hebrew letter linked with the first spark of creation. Here they fall freely: energy overflowing its source, more than one idea could use."
+      },
+      "uk": {
+        "name": "Шість листків, що падають",
+        "seen": "Шість вільних листків зі слонової кістки ширяють у лазуриті навколо палиці — чотири над хмарою і два під нею, кожен повернутий під іншим кутом, ніби його щойно струсили.",
+        "meaning": "Традиційний Туз Жезлів скидає листя зі своєї палиці, і ці листки зазвичай читають як йоди — маленьку літеру івриту у формі полум’я, пов’язану з першою іскрою творення. Тут листя падає вільно: енергія переливається через край джерела, її більше, ніж могла б використати одна ідея."
+      }
+    },
+    {
+      "key": "moon",
+      "x": 82,
+      "y": 11,
+      "en": {
+        "name": "Full moon and Milky Way",
+        "seen": "In the upper right hangs a round ivory full moon with faint craters, while a glittering band of pale mineral and gold flecks crosses the sky from the top edge down towards the left.",
+        "meaning": "The traditional card has no night sky; Olivia sets it at night. Fire here is the first light in darkness, the idea that comes when everything else is quiet, lit by moon and stars rather than by the sun."
+      },
+      "uk": {
+        "name": "Повний місяць і Чумацький Шлях",
+        "seen": "Угорі праворуч висить круглий повний місяць зі слонової кістки з ледь помітними кратерами, а мерехтлива смуга блідих мінералів і золотих вкраплень перетинає небо від верхнього краю вниз ліворуч.",
+        "meaning": "На традиційній карті нічного неба немає; Olivia переносить сцену в ніч. Вогонь тут — перше світло в темряві, ідея, що приходить, коли все інше стихло, і яку освітлюють місяць і зорі, а не сонце."
+      }
+    },
+    {
+      "key": "castle",
+      "x": 19,
+      "y": 74,
+      "en": {
+        "name": "Castle on the hill",
+        "seen": "Far off on the left, a castle of pointed towers and turrets crowns a hill, carved in pale grey-blue lapis in the same low relief as the hills and trees around it.",
+        "meaning": "A castle on a distant hill belongs to the traditional image too, often read as the goal: the lasting structure a spark could one day build. It stays small and far away, because the Ace holds the beginning, not the finished stronghold."
+      },
+      "uk": {
+        "name": "Замок на пагорбі",
+        "seen": "Далеко ліворуч пагорб вінчає замок із загостреними вежами й башточками, вирізьблений у блідому сіро-блакитному лазуриті тим самим низьким рельєфом, що й пагорби та дерева навколо.",
+        "meaning": "Замок на далекому пагорбі теж належить до традиційного зображення, і його часто читають як мету: тривку споруду, яку іскра колись могла б звести. Він лишається малим і далеким, бо в Тузі лише початок, а не збудована фортеця."
+      }
+    },
+    {
+      "key": "river",
+      "x": 48,
+      "y": 88,
+      "en": {
+        "name": "The winding river",
+        "seen": "A silver-blue river curls in wide bends from the far hills down to the bottom edge of the card, between wooded slopes and low banks of mist carved in lapis.",
+        "meaning": "Rivers in tarot often carry the flow of feeling and time. Beneath a card of pure Fire, the water suggests that a new spark needs a course to follow: energy that finds a channel travels far, energy without one scatters."
+      },
+      "uk": {
+        "name": "Звивиста річка",
+        "seen": "Сріблясто-блакитна річка широкими закрутами збігає від далеких пагорбів до нижнього краю карти між лісистими схилами й низькими смугами туману, вирізьбленими в лазуриті.",
+        "meaning": "У таро річка часто уособлює плин почуттів і часу. Унизу карти чистого Вогню вода підказує, що новій іскрі потрібне русло: енергія, яка знайшла канал, сягає далеко, а енергія без нього розпорошується."
+      }
+    },
+    {
+      "key": "cypress",
+      "x": 82,
+      "y": 76,
+      "en": {
+        "name": "Two ivory cypresses",
+        "seen": "On the right-hand hill stand two slim cypresses carved in ivory, the left one taller, their pointed crowns reaching upward. They are the only trees on the card not carved in lapis.",
+        "meaning": "Slim cypresses are not part of the traditional image. Evergreen and flame-shaped, they echo the staff and its bud down in the landscape: a reminder that fire can also take the form of steady, upright growth that lasts through the seasons."
+      },
+      "uk": {
+        "name": "Два кипариси зі слонової кістки",
+        "seen": "На правому пагорбі стоять два стрункі кипариси зі слонової кістки, лівий вищий, їхні загострені верхівки тягнуться вгору. Це єдині дерева на карті, вирізьблені не в лазуриті.",
+        "meaning": "Стрункі кипариси не належать до традиційного зображення. Вічнозелені й схожі на полум’я, вони повторюють палицю та її бутон унизу, у краєвиді, і нагадують, що вогонь може набувати й форми рівного, спрямованого вгору росту, який не минає зі зміною пір року."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Ace of Wands is the first spark of desire and creative will: an idea or impulse offered to you, asking to be taken up and given room to grow.",
+    "keywords": {
+      "upright": [
+        "spark",
+        "creative impulse",
+        "fresh enthusiasm",
+        "new venture",
+        "raw potential",
+        "courage to begin"
+      ],
+      "reversed": [
+        "scattered energy",
+        "stalled start",
+        "waning interest",
+        "impatience",
+        "untested ideas"
+      ]
+    },
+    "upright": [
+      "The Ace of Wands draws attention to the moment something catches: an idea you cannot stop thinking about, a sudden wish to make, try or begin. Wands are the suit of Fire, of desire, will and creative energy, and the Ace is that fire before it has a direction. In Olivia’s card the whole charge sits in one place, a closed bud of gold at the tip of an ivory staff, shaped like a flame that has not yet opened. Nothing has been built. What is offered is potential, warm and a little urgent.",
+      "The staff is held out from a cloud by a single hand, firm and close, as if waiting for you to take hold. That is the card’s quiet question: will you grasp it? The wood is alive, sprouting small sprigs of leaves, and six more leaves drift loose around it; this spark is generous, more than any one plan could use. Far below, a castle stands on its hill and a river winds through the night towards you, the long road a beginning could travel.",
+      "Upright, the card invites you to trust your enthusiasm enough to act on it in a small, real way. A first sketch, a first conversation, one hour of practice: give the fire something to burn. Then notice what happens to your interest once your hands are involved."
+    ],
+    "reversed": [
+      "Ace of Wands reversed points to a spark that has not yet found somewhere to land. The closed bud stays shut: an idea you keep circling without trying, excitement that jumps from one plan to the next, or a dip in energy that makes a good beginning feel out of reach. It can also show fire turned inward, a creative urge kept private because it feels too new or too fragile to show.",
+      "Here the card asks what the spark needs now. Sometimes it is rest or a better moment; sometimes it is a much smaller first step than the one you imagined. A dip in enthusiasm is not proof that an idea lacks value. Choose one idea, give it one concrete task, and notice whether the warmth returns."
+    ],
+    "number": "The Ace is the one of its suit: the root and seed, the single point before anything divides. In Wands, the suit of Fire, that seed is raw will and creative heat, the urge to begin, to move, to make. The rest of the suit unfolds from it, through the planning of the Two and the widening horizons of the Three to the heavy load of the Ten. The Ace asks only that the spark be noticed and held, not yet directed or proved.",
+    "tradition": "In the Golden Dawn system the Ace of Wands is titled the Root of the Powers of Fire. The Aces were given no decans: each stands for its element in Kether, the crown of the Tree of Life, and the order’s Book T set them around the north pole of the heavens, each ruling a quarter of the sky. Book T describes a radiant hand from clouds grasping a heavy club, surrounded by leaping flames, or Yods. Pamela Colman Smith’s 1909 card turned the club into a sprouting branch shedding leaves. Marseille decks show a hand from a cloud gripping a rough, knotted club. Some modern readers link this Ace to the three fire signs, Aries, Leo and Sagittarius.",
+    "areas": {
+      "love": "In close relationships the Ace of Wands can point to fresh warmth: attraction, playfulness, the wish to do something new together. It does not tell you what another person feels. It asks where your own spark is, and whether you let it show. In a long relationship it may invite one unfamiliar shared adventure, however small. With yourself, it asks you to take your own desires seriously enough to act on one of them.",
+      "work": "At work or in study, this card often turns attention to a new project, an idea for a course or creative piece, or a sudden appetite to learn a skill. The staff is still a cut branch with a closed bud: the idea is real but untested. Give it a small, concrete trial before a grand plan, and notice what support it would need. Where money is involved, a sober conversation with someone qualified can help the fire find a safe hearth.",
+      "self": "For your relationship with yourself, the Ace of Wands asks where your energy is quietly gathering. The bud is closed, but it is gold: something in you is ready and valuable before it is visible. Notice what makes you lean forward, what you think about when no one asks you to. Treat that interest as information about what you care for, and protect a little time for it, the way a hand shields a flame."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Ace of Wands can point to a new impulse or desire that may lie beneath everything else. The real matter may be whether you want to take hold of it.",
+      "challenge": "As a challenge, the card can show enthusiasm outrunning follow-through: many sparks and no hearth, or a strong urge to begin that turns to impatience when first results are slow.",
+      "advice": "As advice, it invites you to take the offered staff: choose the idea with the most warmth in it and give it one small, real action this week."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "The Magician raises a wand with intention; the Ace offers one from a cloud. Together they draw attention to the step from raw inspiration to skilled, focused use, and ask what tools you already hold for this new idea."
+      },
+      {
+        "with": 23,
+        "text": "With the Two of Wands the pair traces a sequence: first the spark, then the plan. Together they ask how an exciting beginning becomes a direction, and what wider view would help you choose where to take it."
+      },
+      {
+        "with": 36,
+        "text": "In Smith’s design both Aces offer a gift from a cloud; in Olivia’s deck the two hands reach in from opposite sides. The Ace of Cups brings a new feeling, this Ace a new drive; together they ask whether what excites you also moves your heart."
+      }
+    ],
+    "questions": [
+      "What idea or wish keeps returning to you, even when you try to set it aside?",
+      "What is the smallest real action that would let this spark show what it can become?",
+      "What does your enthusiasm need from you now: time, courage, company or a clearer limit?"
+    ],
+    "practice": "Write down the idea that feels warmest right now, then do one thing for it within the next day that takes less than fifteen minutes."
+  },
+  "uk": {
+    "essence": "Туз Жезлів — перша іскра бажання й творчої волі: ідея чи порив, які вам простягають, щоб ви взяли їх і дали їм простір для росту.",
+    "keywords": {
+      "upright": [
+        "іскра",
+        "творчий порив",
+        "свіжий запал",
+        "нова справа",
+        "первісний потенціал",
+        "сміливість почати"
+      ],
+      "reversed": [
+        "розпорошена енергія",
+        "загальмований початок",
+        "згасання інтересу",
+        "нетерплячість",
+        "неперевірені ідеї"
+      ]
+    },
+    "upright": [
+      "Туз Жезлів звертає увагу на мить, коли щось займається: ідея, яка не йде з голови, раптове бажання створити, спробувати чи почати. Жезли — масть Вогню, бажання, волі й творчої енергії, а Туз — це вогонь, що ще не має напрямку. На карті Olivia весь заряд зібрано в одній точці: закритий золотий бутон на вершині палиці зі слонової кістки, схожий на полум’я, яке ще не розгорнулося. Нічого ще не збудовано. Вам пропонують потенціал — теплий і трохи нагальний.",
+      "З хмари палицю простягає одна-єдина рука — стискає міцно й тримає близько, ніби чекає, доки ви за неї візьметеся. У цьому й тихе запитання карти: чи візьмете ви її? Дерево живе, на ньому пробиваються гілочки з листям, а ще шість листків вільно ширяють довкола; ця іскра щедра, її більше, ніж здатен використати будь-який окремий план. Далеко внизу на пагорбі стоїть замок, а річка звивається крізь ніч до вас — довга дорога, якою може пройти початок.",
+      "У прямому положенні карта запрошує довіритися своєму запалу настільки, щоб зробити щось на його поклик — нехай мале, але справжнє. Перший ескіз, перша розмова, одна година практики: дайте вогню поживу. А тоді зверніть увагу, що відбувається з вашим інтересом, коли до справи долучаються руки."
+    ],
+    "reversed": [
+      "Туз Жезлів у перевернутому положенні вказує на іскру, яка ще не знайшла, де зайнятися. Закритий бутон лишається закритим: ідея, навколо якої ви кружляєте, так і не випробувавши її, захват, що перескакує з одного плану на інший, або спад енергії, через який добрий початок здається недосяжним. Карта може показувати й вогонь, звернений усередину: творчий порив, який ви тримаєте при собі, бо він здається надто новим чи надто крихким, щоб його показати.",
+      "Тут карта запитує, чого іскра потребує саме зараз. Часом це відпочинок або слушніша мить; часом — набагато менший перший крок, ніж той, що ви уявляли. Спад запалу не доводить, що ідея нічого не варта. Оберіть одну ідею, дайте їй одне конкретне завдання й простежте, чи повернеться тепло."
+    ],
+    "number": "Туз — одиниця своєї масті: корінь і зерно, єдина точка, доки ще ніщо не розділилося. У Жезлах, масті Вогню, це зерно — первісна воля й творчий жар, прагнення почати, рухатися, творити. З нього розгортається решта масті: через планування Двійки й ширші обрії Трійки аж до важкої ноші Десятки. Туз просить лише помітити й утримати іскру, поки що не спрямовуючи й не випробовуючи її.",
+    "tradition": "У системі Золотої Зорі Туз Жезлів має титул «Корінь Сил Вогню». Тузам не призначали деканів: кожен уособлює свою стихію в Кетер, короні Дерева Життя, а орденська Книга Т розміщувала їх довкола північного полюса неба, і кожен правив чвертю небосхилу. Книга Т описує сяйливу руку з хмар, що стискає важку булаву, оточену язиками полум’я — йодами. Памела Колман Сміт на своїй карті 1909 року перетворила булаву на гілку, яка пускає пагони й скидає листя. У марсельських колодах рука з хмари стискає грубу вузлувату булаву. Деякі сучасні тарологи пов’язують цей Туз із трьома вогняними знаками: Овном, Левом і Стрільцем.",
+    "areas": {
+      "love": "У близьких стосунках Туз Жезлів може вказувати на свіже тепло: потяг, грайливість, бажання зробити щось нове разом. Він не каже вам, що відчуває інша людина. Він запитує, де ваша власна іскра і чи дозволяєте ви їй бути помітною. У тривалих стосунках карта може запросити до однієї незвичної спільної пригоди, хай навіть невеликої. Щодо стосунків із собою — вона просить поставитися до власних бажань настільки серйозно, щоб узятися хоча б за одне з них.",
+      "work": "У роботі чи навчанні ця карта часто звертає увагу на новий проєкт, задум курсу чи творчої роботи або раптову жагу опанувати якусь навичку. Палиця — досі зрізана гілка із закритим бутоном: ідея справжня, але неперевірена. Перш ніж будувати грандіозний план, випробуйте її в чомусь невеликому й конкретному та зверніть увагу, якої підтримки вона потребуватиме. Коли йдеться про гроші, виважена розмова з фахівцем може допомогти вогню знайти безпечне вогнище.",
+      "self": "У стосунках із собою Туз Жезлів запитує, де тихо збирається ваша енергія. Бутон закритий, але золотий: щось у вас уже готове й цінне ще до того, як стане видимим. Помічайте, що змушує вас подаватися вперед, про що ви думаєте, навіть коли вас ніхто не просить. Сприймайте цей інтерес як відомості про те, що вам небайдуже, і бережіть для нього трохи часу — так, як долоня затуляє полум’я."
+    },
+    "positions": {
+      "heart": "У центрі запитання Туз Жезлів може вказувати на новий порив чи бажання, що, можливо, лежить під усім іншим. Справжня суть може полягати в тому, чи хочете ви за нього взятися.",
+      "challenge": "Як виклик карта може показувати запал, що випереджає вміння доводити справи до кінця: багато іскор і жодного вогнища, або сильне бажання почати, яке обертається нетерплячістю, коли перші результати забаряться.",
+      "advice": "Як порада вона запрошує взяти простягнуту палицю: оберіть ідею, у якій найбільше тепла, і зробіть для неї цього тижня один невеликий, але справжній крок."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "Маг здіймає жезл із наміром; Туз простягає його з хмари. Разом вони звертають увагу на крок від первісного натхнення до вмілого, зосередженого застосування й запитують, які інструменти для цієї нової ідеї у вас уже є."
+      },
+      {
+        "with": 23,
+        "text": "Разом із Двійкою Жезлів цей Туз окреслює послідовність: спершу іскра, потім план. Удвох вони запитують, як захопливий початок стає напрямком і який ширший погляд допоміг би вам обрати, куди його вести."
+      },
+      {
+        "with": 36,
+        "text": "У задумі Сміт обидва Тузи простягають дар із хмари; у колоді Olivia дві руки з’являються з протилежних боків. Туз Кубків приносить нове почуття, цей Туз — новий порив; разом вони запитують, чи те, що вас захоплює, зворушує й ваше серце."
+      }
+    ],
+    "questions": [
+      "Яка ідея чи бажання знову й знову повертається до вас, навіть коли ви намагаєтеся відкласти її?",
+      "Яка найменша справжня дія дозволила б цій іскрі показати, чим вона може стати?",
+      "Чого ваш запал потребує від вас зараз: часу, сміливості, товариства чи чіткішої межі?"
+    ],
+    "practice": "Запишіть ідею, яка зараз здається найтеплішою, а потім упродовж наступної доби зробіть для неї одну справу, що займе менш ніж п’ятнадцять хвилин."
+  }
+}

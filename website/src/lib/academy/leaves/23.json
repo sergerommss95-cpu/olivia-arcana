@@ -1,0 +1,265 @@
+{
+  "id": 23,
+  "slug": "two-of-wands",
+  "artwork": {
+    "file": "23_two_of_wands.webp",
+    "sha256": "33a325150ac5b7c979e5757e811aca6be1282ff00c5d4ae239dfa7f24d20f1d3"
+  },
+  "symbols": [
+    {
+      "key": "wand",
+      "x": 78,
+      "y": 23,
+      "en": {
+        "name": "The gold-budded wand",
+        "seen": "The taller wand, on the right, is a knotted staff of grey-blue lapis with small side shoots. At its tip a bud opens in gilded leaves, the only gold beyond the scattered stars.",
+        "meaning": "Wands are the suit of Fire: will, desire and creative drive, and a leafing staff is that fire still growing. Of the two wands, only the one in the figure’s grip has begun to open, and in gold. The live energy is in what you are actually holding."
+      },
+      "uk": {
+        "name": "Жезл із золотою брунькою",
+        "seen": "Вищий жезл, праворуч, — вузлувата палиця із сіро-блакитного лазуриту з маленькими бічними пагонами. На верхівці розкривається брунька з позолоченого листя: єдине золото на карті, крім розсипаних зірок.",
+        "meaning": "Жезли — масть Вогню: воля, бажання й творчий порив, а жезл, що пускає листя, — це вогонь, який досі росте. З двох жезлів розкрився, та ще й золотом, лише той, що його стискає фігура. Жива енергія — у тому, що ви справді тримаєте в руках."
+      }
+    },
+    {
+      "key": "laurel",
+      "x": 23,
+      "y": 27,
+      "en": {
+        "name": "Two arching laurel branches",
+        "seen": "Two leafy branches carved in pale grey-blue lapis rise on either side of the scene and bend inward over it, their tips drawing close above the figure’s head without joining.",
+        "meaning": "Laurel has long crowned victors and poets, and it is not part of the traditional Two of Wands. Olivia sets it as an unfinished arch: recognition is sketched around the figure but not closed. At this stage success is imagined, not yet won."
+      },
+      "uk": {
+        "name": "Дві вигнуті лаврові гілки",
+        "seen": "Дві листяні гілки, вирізьблені з блідого сіро-блакитного лазуриту, здіймаються обабіч сцени й схиляються над нею; їхні кінчики сходяться над головою фігури, але не з’єднуються.",
+        "meaning": "Лавром здавна вінчали переможців і поетів, проте в традиційній Двійці Жезлів його немає. Olivia зображує його незавершеною аркою: визнання окреслене довкола фігури, але не замкнене. На цьому етапі успіх уявлений, а не здобутий."
+      }
+    },
+    {
+      "key": "face",
+      "x": 63,
+      "y": 36,
+      "en": {
+        "name": "The level gaze",
+        "seen": "The ivory figure, with curling hair and beard, stands in strict profile facing right. The eyes look level and outward, above the globe, towards the shaft of the held wand, while the bay lies behind the shoulders.",
+        "meaning": "Waite described the figure looking out over sea and shore. Olivia turns the figure away from the view and towards the held wand. The surveying has been done; attention now rests on your own means and the choice of what to do with them."
+      },
+      "uk": {
+        "name": "Рівний погляд",
+        "seen": "Фігура зі слонової кістки, з кучерявим волоссям і бородою, стоїть у чіткому профілі, обернена праворуч. Погляд спрямований рівно й далеко, понад глобусом, на древко жезла в руці, а затока лишається за плечима.",
+        "meaning": "Вейт описував фігуру, що дивиться на море й узбережжя. Olivia відвертає фігуру від краєвиду й повертає її до жезла в руці. Огляд уже зроблено; тепер увага зосереджена на ваших власних засобах і на виборі, що з ними робити."
+      }
+    },
+    {
+      "key": "orb",
+      "x": 70,
+      "y": 45,
+      "en": {
+        "name": "The small ivory globe",
+        "seen": "At chest height one hand cradles a smooth ivory globe from beneath, fingers curled around its lower curve. Faint incised lines of coastlines and continents run across its surface.",
+        "meaning": "The globe is this card’s traditional emblem of reach: the whole world made small enough to hold. It stands for a plan rather than a territory. Resting in the palm while the real landscape lies behind, it asks whether you are studying the map or the ground."
+      },
+      "uk": {
+        "name": "Маленький глобус зі слонової кістки",
+        "seen": "На рівні грудей одна рука підтримує знизу гладкий глобус зі слонової кістки, пальці огортають його нижній вигин. Поверхнею біжать ледь помітні врізані лінії узбереж і континентів.",
+        "meaning": "Глобус — традиційна для цієї карти емблема охоплення: цілий світ, зменшений так, що вміщається в руці. Він означає план, а не територію. Лежачи в долоні, поки справжній краєвид лишається позаду, він запитує: ви вивчаєте мапу чи саму місцевість?"
+      }
+    },
+    {
+      "key": "wand",
+      "x": 35,
+      "y": 58,
+      "en": {
+        "name": "The wand fixed in rings",
+        "seen": "The left wand, slimmer and shorter, with small knots along its shaft and a closed bud at its tip, rises from the wall. About halfway up it is held by a clasp of two dark, rust-brown rings joined across the shaft.",
+        "meaning": "Waite noted that one staff is fixed in a ring, and it is often read as what is already secured: home ground, past effort, a commitment made. Here its bud stays closed and grey. That security is real, but the new growth is elsewhere."
+      },
+      "uk": {
+        "name": "Жезл, закріплений у кільцях",
+        "seen": "Лівий жезл, тонший і нижчий, з невеликими вузлами вздовж древка й закритою брунькою на верхівці, здіймається зі стіни. Приблизно посередині його тримає кріплення з двох темних, іржаво-брунатних кілець, з’єднаних поперек древка.",
+        "meaning": "Вейт зазначав, що один жезл закріплено в кільці, і його часто тлумачать як те, що вже забезпечене: рідний ґрунт, минулі зусилля, узяте зобов’язання. Тут його брунька лишається закритою й сірою. Ця надійність справжня, але нове зростання — деінде."
+      }
+    },
+    {
+      "key": "sea",
+      "x": 22,
+      "y": 60,
+      "en": {
+        "name": "The bay and far shore",
+        "seen": "To the left, in lighter blue lapis, a curved bay opens between rocky cliffs, with a cluster of small houses on the far slope and a range of mountains beyond.",
+        "meaning": "Sea and land are the dominion this card traditionally surveys: the world beyond your walls, reachable but not yet entered. Olivia carves it in soft, shallow relief behind the figure, a place already seen and weighed rather than one being walked into."
+      },
+      "uk": {
+        "name": "Затока й далекий берег",
+        "seen": "Ліворуч, у світлішому блакитному лазуриті, між скелястими урвищами відкривається вигнута затока; на дальньому схилі тулиться гурт маленьких будиночків, а за ними тягнеться гірське пасмо.",
+        "meaning": "Море й суходіл — володіння, яке традиційно оглядає ця карта: світ за вашими стінами, досяжний, але ще не відвіданий. Olivia вирізьблює його м’яким неглибоким рельєфом за спиною фігури: це місце вже побачене й зважене, а не те, куди ви саме вирушаєте."
+      }
+    },
+    {
+      "key": "tower",
+      "x": 85,
+      "y": 63,
+      "en": {
+        "name": "Battlements and round tower",
+        "seen": "The barefoot figure stands on crenellated walls of blue lapis, built in two tiers with a small square turret on the left. On the right they end in a round tower with a corbelled, crenellated top and narrow slit windows.",
+        "meaning": "Battlements are the traditional setting of the Two of Wands: a height built and held, from which you can see far. It gives perspective and also distance. The wall that keeps you safe is the same ledge you would have to leave in order to act."
+      },
+      "uk": {
+        "name": "Зубчасті мури й кругла вежа",
+        "seen": "Фігура стоїть босоніж на зубчастих мурах із синього лазуриту, збудованих у два яруси, з невеликою квадратною башточкою ліворуч. Праворуч мури закінчуються круглою вежею з виступним зубчастим верхом і вузькими вікнами-бійницями.",
+        "meaning": "Мури — традиційна сцена Двійки Жезлів: висота, збудована й утримана, звідки видно далеко. Вона дає перспективу, але й дистанцію. Стіна, що береже вас, — це той самий виступ, який вам довелося б покинути, щоб діяти."
+      }
+    },
+    {
+      "key": "star",
+      "x": 50,
+      "y": 82,
+      "en": {
+        "name": "The eight-pointed star",
+        "seen": "Carved into the face of the wall just below the figure’s bare feet, a small eight-pointed star in pale grey-blue lapis sits directly above the crossed flowers.",
+        "meaning": "The star is Olivia’s addition rather than part of the traditional card. Its eight points recall the gold star that leads Olivia’s Fool. Set in the wall itself, it suggests that a plan begins as an orienting light, long before it becomes a route."
+      },
+      "uk": {
+        "name": "Восьмипроменева зірка",
+        "seen": "Просто під босими ступнями фігури, на лицевому боці стіни, вирізьблено маленьку восьмипроменеву зірку з блідого сіро-блакитного лазуриту; вона розташована якраз над схрещеними квітами.",
+        "meaning": "Зірка — доповнення Olivia, а не частина традиційної карти. Її вісім променів нагадують золоту зірку, що веде Блазня в колоді Olivia. Вирізьблена в самій стіні, вона наводить на думку, що план починається як світло, що дає орієнтир, задовго до того, як стане маршрутом."
+      }
+    },
+    {
+      "key": "rose",
+      "x": 50,
+      "y": 90,
+      "en": {
+        "name": "The crossed rose and lily",
+        "seen": "Below the star, a full-blown rose in grey-blue lapis and an open lily in a paler, almost ivory tone are carved in relief, their leafy stems crossing in an X, with tufts of grass on either side.",
+        "meaning": "Waite asked readers to notice a rose, cross and lily on this card. The pairing recalls the Magician’s garden, commonly read as desire joined to pure intention. Here the crossed stems themselves make the cross, set at the centre of the wall’s foot: the plan above rests on both."
+      },
+      "uk": {
+        "name": "Схрещені троянда й лілія",
+        "seen": "Під зіркою рельєфом вирізьблено пишну розквітлу троянду із сіро-блакитного лазуриту та розкриту лілію блідішого відтінку, майже кольору слонової кістки; їхні вкриті листям стебла схрещуються літерою X, а обабіч ростуть кущики трави.",
+        "meaning": "Вейт просив читачів помітити на цій карті троянду, хрест і лілію. Ця пара нагадує сад Мага, який зазвичай тлумачать як бажання, поєднане з чистим наміром. Тут хрест утворюють самі схрещені стебла посередині біля підніжжя стіни: план угорі спирається на обидва начала."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Two of Wands holds the moment after the spark: you know what you want, and you stand on familiar ground deciding how far to reach.",
+    "keywords": {
+      "upright": [
+        "planning",
+        "wider view",
+        "first decision",
+        "personal authority",
+        "choosing direction"
+      ],
+      "reversed": [
+        "untested plans",
+        "fear of leaving",
+        "restlessness",
+        "narrow horizon",
+        "hovering"
+      ]
+    },
+    "upright": [
+      "The Two of Wands is the pause between having an idea and acting on it. The Ace gave you a spark; the Two asks what you will do with it now that you can see further. In Olivia’s deck an ivory figure stands barefoot on the battlements of a blue lapis wall, a small globe resting in one palm, the other hand closed around a tall wand. Behind the figure a bay opens between cliffs, with a village and mountains beyond.",
+      "Look at the two wands. The one on the left is fastened in place by a clasp of iron rings, its bud still shut. The one the figure holds is knotted and alive, and at its tip a bud has opened in gold. What is already secured matters: your home ground, your skills, the commitments you have made. But the new growth is in the wand you are holding. The globe says the same thing more quietly: the world sits in your hand as a plan, small enough to turn and study.",
+      "Upright, the card invites deliberate choice rather than restless leaping. It can point to some authority over your next step, and room to think it through. Take stock of what you hold, look honestly at what lies beyond the wall, and decide which direction deserves your fire. You can explore a path before committing to all of it."
+    ],
+    "reversed": [
+      "Two of Wands reversed can point to a plan that stays in the palm, turned over and over but never tested. The walls feel safer than the view, and the fixed wand starts to look like the only one. Or the opposite may be true: impatience with the battlements, a wish to be anywhere but here, before you know where there is.",
+      "This position asks for one small experiment rather than a grand decision. Find out one practical thing about the direction you keep circling: a cost, a date, a person you could ask. A clearer view does not oblige you to leave what you know; it lets you choose instead of hover."
+    ],
+    "number": "Two is the first relationship: one thing set beside another, and so the first choice. In the Minor Arcana the Ace offers raw potential, and the Two gives it direction by placing it against something already there. In Wands, the suit of Fire, will and creative drive, this becomes a question of intention. The spark of the Ace now stands beside the known world, and you weigh the familiar against the possible. The Two plans; the Three that follows watches its ventures set out.",
+    "tradition": "In the Golden Dawn system the Two of Wands is titled the Lord of Dominion. It is assigned to Mars in Aries, the first decan of that sign (0 to 10 degrees), and to Chokmah, Wisdom, the second Sephirah on the Tree of Life, expressed through the suit of Fire. Mars was the traditional ruler of Aries, so this decan doubles its fire: initiative at the very start of the zodiac. Aleister Crowley kept the single title Dominion. Marseille decks show two long batons crossed among stylised foliage. Pamela Colman Smith’s 1909 design gave the card its scene: a figure on battlements holding a globe, one staff in hand and another fixed in a ring.",
+    "areas": {
+      "love": "In close relationships the Two of Wands can point to a moment of deciding what you want a bond to become, rather than letting it drift. The card cannot tell you what anyone else intends. It invites you to hold your own wish the way the figure holds the globe: look at it clearly, then decide whether and how to say it. With yourself, it can mean making room for a desire you have kept safely fixed in place for a long time.",
+      "work": "At work or in study, this card often appears when a plan is ready in outline: a project, a course, a move towards a new role or field. Your ground is secure enough to think from. The task now is to test the plan against reality: list what you already hold, what you would need, and what you still do not know. Where money, contracts or large commitments are involved, check the details with a qualified person before you step off the wall.",
+      "self": "For your relationship with yourself, notice the difference between the two wands. One is fastened in iron and closed; the other is in your hand and opening in gold. Some parts of your life are rightly settled and need no more of your grip. Others are still growing and ask for attention. The card invites you to name which is which, and to give today’s energy to the living one."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Two of Wands can point to a plan that may already be in your hand: perhaps a direction you have imagined, waiting for you to choose it deliberately and begin.",
+      "challenge": "As a challenge, the card can show a vantage point that has become a waiting room: studying the map, weighing options without end, or feeling safer behind the wall than testing an idea.",
+      "advice": "As advice, the card invites you to survey what you have, notice which wand you are really holding, and take one measured step towards the view."
+    },
+    "pairs": [
+      {
+        "with": 4,
+        "text": "With The Emperor, the Major Arcana card of Aries in the Golden Dawn system, the Two’s private plan meets structure and authority. Both figures cradle a small orb from beneath; together they draw attention to turning a personal vision into a steady, well-kept order."
+      },
+      {
+        "with": 1,
+        "text": "Paired with The Magician, whose garden of roses and lilies echoes the flowers carved on this wall, the Two’s vision gains its means. The Magician has the tools laid out; the Two decides where to point them."
+      },
+      {
+        "with": 24,
+        "text": "With the Three of Wands, the next step of the suit, planning turns into launching. The Two stands on its own walls deciding; the Three looks out at ships already on the water. Together they ask how long you have been planning, and what is ready to leave."
+      }
+    ],
+    "questions": [
+      "What are you holding in your palm right now that you have not yet tested against the world?",
+      "Which parts of your life are rightly fixed in place, and which are still growing?",
+      "What would you want to know before stepping beyond familiar ground?"
+    ],
+    "practice": "Draw two columns headed “secured” and “growing”, list what belongs in each, then circle one growing item and write the smallest step that would test it this week."
+  },
+  "uk": {
+    "essence": "Двійка Жезлів утримує мить після іскри: ви знаєте, чого хочете, і стоїте на знайомому ґрунті, вирішуючи, як далеко сягнути.",
+    "keywords": {
+      "upright": [
+        "планування",
+        "ширший погляд",
+        "перше рішення",
+        "особиста влада",
+        "вибір напрямку"
+      ],
+      "reversed": [
+        "неперевірені плани",
+        "страх вирушити",
+        "неспокій",
+        "вузький обрій",
+        "тупцювання на місці"
+      ]
+    },
+    "upright": [
+      "Двійка Жезлів — пауза між ідеєю та дією. Туз дав вам іскру; Двійка запитує, що ви з нею робитимете тепер, коли видно далі. У колоді Olivia фігура зі слонової кістки стоїть босоніж на зубчастих мурах із синього лазуриту: на одній долоні лежить маленький глобус, друга рука стискає високий жезл. За спиною фігури між урвищами відкривається затока, а далі видно село й гори.",
+      "Погляньте на два жезли. Лівий закріплено на місці кріпленням із залізних кілець, і його брунька досі закрита. Той, що його тримає фігура, сучкуватий і живий, а на його верхівці брунька розкрилася золотом. Те, що вже забезпечене, має значення: ваш рідний ґрунт, ваші вміння, узяті зобов’язання. Та нове зростання — у жезлі, який ви тримаєте. Глобус каже те саме, тільки тихіше: світ лежить у вашій руці як план, досить малий, щоб його обертати й вивчати.",
+      "У прямому положенні карта запрошує до свідомого вибору замість неспокійних стрибків. Вона може вказувати на певну владу над наступним кроком і на простір, щоб його обміркувати. Оцініть, що маєте, чесно погляньте на те, що лежить за стіною, і вирішіть, який напрямок вартий вашого вогню. Можна спершу розвідати шлях, не зобов’язуючись пройти його весь."
+    ],
+    "reversed": [
+      "Двійка Жезлів у перевернутому положенні може вказувати на план, що так і лишається в долоні: його обертають знову й знову, але не перевіряють. Мури здаються безпечнішими за краєвид, а закріплений жезл починає видаватися єдиним. Або навпаки: нетерпіння, яке викликають мури, бажання опинитися будь-де, тільки не тут, ще до того, як ви дізналися, де саме це «там».",
+      "Це положення просить про один невеликий експеримент замість великого рішення. З’ясуйте одну практичну річ про напрямок, довкола якого ви весь час кружляєте: вартість, дату, людину, яку можна розпитати. Ясніший погляд не зобов’язує вас покидати знайоме; він дає змогу вибирати, а не тупцювати на місці."
+    ],
+    "number": "Двійка — перший зв’язок: одне поставлено поруч з іншим, а отже, з’являється перший вибір. У Молодших Арканах Туз дає неоформлений потенціал, а Двійка надає йому напрямку, ставлячи поруч із тим, що вже є. У Жезлах, масті Вогню, волі й творчого пориву, це стає справою наміру. Іскра Туза тепер стоїть поруч зі знайомим світом, і ви зіставляєте звичне з можливим. Двійка планує; наступна Трійка дивиться, як її задуми вирушають у путь.",
+    "tradition": "У системі Золотої Зорі Двійка Жезлів має титул «Володар Панування». Їй відповідають Марс в Овні, перший декан цього знака (від 0 до 10 градусів), і Хокма (Мудрість), друга сефіра Дерева Життя, виражена через масть Вогню. Марс був традиційним управителем Овна, тож цей декан подвоює вогонь: ініціатива на самому початку зодіаку. Алістер Кроулі залишив лише коротку назву — «Панування». У марсельських колодах зображено дві довгі палиці, схрещені серед стилізованого листя. Саму сцену карті дала Памела Колман Сміт у 1909 році: фігура на мурах тримає глобус, один жезл — у руці, а другий закріплено в кільці.",
+    "areas": {
+      "love": "У близьких стосунках Двійка Жезлів може вказувати на мить, коли ви вирішуєте, чим має стати зв’язок, замість того щоб пускати його на самоплив. Карта не може сказати, що має на думці інша людина. Вона запрошує тримати власне бажання так, як фігура тримає глобус: чітко його роздивитися, а тоді вирішити, чи варто і як про нього сказати. У стосунках із собою вона може означати звільнити місце для бажання, яке ви довго тримали надійно закріпленим.",
+      "work": "У роботі чи навчанні ця карта часто з’являється, коли план уже готовий в обрисах: проєкт, курс, перехід до нової ролі чи галузі. Ваш ґрунт досить надійний, щоб на ньому спокійно все обміркувати. Тепер завдання — звірити план із реальністю: випишіть, що у вас уже є, чого бракуватиме і чого ви досі не знаєте. Коли йдеться про гроші, договори чи великі зобов’язання, уточніть деталі у кваліфікованого фахівця, перш ніж зійти з мурів.",
+      "self": "У стосунках із собою зверніть увагу на різницю між двома жезлами. Один закріплений залізними кільцями й закритий; другий — у вашій руці й розкривається золотом. Деякі частини вашого життя усталилися цілком слушно й більше не потребують, щоб ви їх стискали. Інші ще ростуть і просять уваги. Карта запрошує назвати, що є що, і віддати сьогоднішню енергію живому."
+    },
+    "positions": {
+      "heart": "У центрі запитання Двійка Жезлів може вказувати на план, що, можливо, вже лежить у вашій руці: напрямок, який ви уявили і який чекає, щоб ви свідомо його обрали й почали.",
+      "challenge": "Як перешкода карта може показувати оглядовий майданчик, що перетворився на зал очікування: безкінечне вивчення мапи, зважування варіантів або відчуття, що за стіною безпечніше, ніж перевіряти ідею.",
+      "advice": "Як порада карта запрошує оглянути, що у вас є, помітити, який жезл ви насправді тримаєте, і зробити один виважений крок назустріч краєвиду."
+    },
+    "pairs": [
+      {
+        "with": 4,
+        "text": "З Імператором, картою Старших Арканів, яку система Золотої Зорі пов’язує з Овном, особистий план Двійки зустрічає структуру й владу. Обидві фігури підтримують знизу маленьку кулю; разом вони звертають увагу на те, як перетворити особисте бачення на сталий, дбайливо впорядкований лад."
+      },
+      {
+        "with": 1,
+        "text": "Поруч із Магом, чий сад троянд і лілій перегукується з квітами, вирізьбленими на цій стіні, бачення Двійки здобуває засоби. У Мага знаряддя вже розкладені; Двійка вирішує, куди їх спрямувати."
+      },
+      {
+        "with": 24,
+        "text": "З Трійкою Жезлів, наступним кроком масті, планування переходить у запуск. Двійка стоїть на власних мурах і вирішує; Трійка дивиться на кораблі, що вже вийшли в море. Разом вони запитують, як довго ви плануєте і що вже готове вирушити."
+      }
+    ],
+    "questions": [
+      "Що ви зараз тримаєте в долоні, ще не перевіривши цього у світі?",
+      "Які частини вашого життя слушно закріплені на місці, а які ще ростуть?",
+      "Що ви хотіли б знати, перш ніж ступити за межі знайомого ґрунту?"
+    ],
+    "practice": "Накресліть дві колонки із заголовками «забезпечене» і «зростає», розпишіть, що належить до кожної, а тоді обведіть один пункт із колонки «зростає» і запишіть найменший крок, яким можна перевірити його цього тижня."
+  }
+}

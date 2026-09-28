@@ -1,4 +1,5 @@
 import {getLocale} from './locale.js';
+import {MEMBERSHIP_LIVE} from './membership.js';
 /** A question first; a small, explained recommendation instead of a catalogue. */
 export function initReadingEntry({form,input,assets,onMore}) {
  const uk=getLocale()==='uk',copy=(en,ua)=>uk?ua:en;
@@ -15,7 +16,7 @@ export function initReadingEntry({form,input,assets,onMore}) {
   const span=el('span');span.append(el('strong','',label),el('small','',detail));labelNode.append(radio,span);options.append(labelNode);
   radio.addEventListener('change',()=>{chosen=count;render();});
  }
- const more=el('button','quiet-link',copy('Explore five or eight cards · Membership ↗','П’ять або вісім карт · Підписка ↗'));more.type='button';more.addEventListener('click',onMore);options.append(more);change.append(options);
+ const more=el('button','quiet-link',MEMBERSHIP_LIVE?copy('Explore five or eight cards · Membership ↗','П’ять або вісім карт · Підписка ↗'):copy('Explore five or eight cards ↗','П’ять або вісім карт ↗'));more.type='button';more.addEventListener('click',onMore);options.append(more);change.append(options);
  content.append(kicker,title,description,change);recommendation.append(art,content);
  input.after(recommendation);
  const examples=el('details','question-examples');examples.dataset.noTranslate='true';examples.append(el('summary','',copy('Need a little inspiration?','Потрібне натхнення?')));

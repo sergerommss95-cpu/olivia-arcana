@@ -1,0 +1,265 @@
+{
+  "id": 65,
+  "slug": "two-of-pentacles",
+  "artwork": {
+    "file": "65_two_of_pentacles.webp",
+    "sha256": "03c8d253ca25b810d391e05776ec58153e1b3b5581a3aabc2f2af329f038fc6c"
+  },
+  "symbols": [
+    {
+      "key": "pentacle",
+      "x": 74,
+      "y": 20,
+      "en": {
+        "name": "The gold-hearted pentacle",
+        "seen": "An ivory disc carved with a five-pointed star rests upright on the open palm of the raised arm, high at the upper right; the centre of the star is filled with gold.",
+        "meaning": "The pentacle is the suit’s emblem of earth: body, money, time and the things you tend. Of the two discs, only this one carries gold, at its heart. In a card about juggling, Olivia marks one demand as the one that shines: perhaps what matters most, held highest and most lightly."
+      },
+      "uk": {
+        "name": "Пентакль із золотим серцем",
+        "seen": "Диск зі слонової кістки з вирізьбленою п’ятипроменевою зіркою стоїть вертикально на розкритій долоні піднятої руки, високо вгорі праворуч; середину зірки заповнено золотом.",
+        "meaning": "Пентакль — емблема цієї масті, знак землі: тіло, гроші, час і все, про що ви дбаєте. З двох дисків золото несе лише цей, і саме в серцевині. У карті про жонглювання Olivia виділяє одну вимогу як ту, що сяє: можливо, найважливішу, яку тримають найвище й найлегше."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 41,
+      "y": 16,
+      "en": {
+        "name": "The glittering diagonal band",
+        "seen": "A band of fine sparkling flecks runs diagonally across the dark blue sky, from the top edge down towards the left, above and behind the figure’s head; small gold stars are scattered across the field around it.",
+        "meaning": "Read as the Milky Way, this band is Olivia’s addition and not part of the traditional image. Setting the balancing act at night, under a road of stars, places the daily juggle inside much larger and slower cycles that keep turning whatever happens to the two discs."
+      },
+      "uk": {
+        "name": "Мерехтлива діагональна смуга",
+        "seen": "Смуга дрібних іскристих вкраплень перетинає темно-синє небо навскоси, від верхнього краю вниз ліворуч, над головою фігури й позаду неї; довкола розсипано маленькі золоті зірки.",
+        "meaning": "Цю смугу, у якій легко впізнати Чумацький Шлях, додала Olivia: у традиційному образі її немає. Нічне небо з дорогою зірок вписує щоденне жонглювання в набагато більші й повільніші цикли, що обертаються далі, хай що відбувається з двома дисками."
+      }
+    },
+    {
+      "key": "face",
+      "x": 46,
+      "y": 32,
+      "en": {
+        "name": "Soft cap, lowered eyes",
+        "seen": "The head tilts down to the left under a soft ivory cap with a drooping point; loose curls frame a calm face whose eyes are lowered or closed, not watching either disc.",
+        "meaning": "The traditional juggler wears a tall, theatrical hat, often read as a note of play. Olivia gives a soft cap and a face turned inward. The discs keep moving without anxious watching: balance here is felt through the body rather than held in place by vigilance."
+      },
+      "uk": {
+        "name": "М’який ковпак, опущені очі",
+        "seen": "Голова схилена вниз і ліворуч під м’яким ковпаком зі слонової кістки з обвислим кінчиком; вільні кучері обрамлюють спокійне обличчя, очі опущені чи заплющені й не стежать за жодним диском.",
+        "meaning": "Традиційний жонглер носить високий театральний капелюх, який часто читають як нотку гри. В Olivia фігура має м’який ковпак і обличчя, звернене всередину. Диски рухаються без тривожного нагляду: рівновагу тут відчувають тілом, а не втримують пильністю."
+      }
+    },
+    {
+      "key": "infinity",
+      "x": 79,
+      "y": 35,
+      "en": {
+        "name": "The looping ribbon",
+        "seen": "A long, flat ivory ribbon loops up behind the raised pentacle, crosses the lifted forearm, swings out behind the back to the left of the body and curls down beside the lower disc, making several open loops against the sky.",
+        "meaning": "The cord joining the two pentacles in the traditional image is commonly read as the lemniscate, infinity laid on its side: endless exchange between two demands. Here it is looser, several loops rather than a neat figure eight, which suits a balance that is improvised rather than fixed."
+      },
+      "uk": {
+        "name": "Стрічка, що петляє",
+        "seen": "Довга пласка стрічка зі слонової кістки петляє вгору позаду піднятого пентакля, перетинає підняте передпліччя, вилітає за спину ліворуч від тіла й закручується вниз біля нижнього диска, утворюючи на тлі неба кілька відкритих петель.",
+        "meaning": "Шнур, що з’єднує два пентаклі в традиційному образі, зазвичай читають як лемніскату — знак нескінченності, покладений набік: безкінечний обмін між двома вимогами. Тут він вільніший, кілька петель замість охайної вісімки, і це пасує рівновазі, яку імпровізують, а не закріплюють."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 67,
+      "y": 44,
+      "en": {
+        "name": "The plain disc at the waist",
+        "seen": "A second ivory pentacle, carved with a star but with no gold, is held low at the right of the body by a hand reaching across the waist, the ribbon curling close beside it.",
+        "meaning": "Two pentacles make two claims on the same resources: two jobs, two bills, effort and rest. One is lifted high, one kept low and near the body, so the card shows alternation rather than equal weight: one thing rises while the other waits its turn."
+      },
+      "uk": {
+        "name": "Простий диск біля пояса",
+        "seen": "Другий пентакль зі слонової кістки, із зіркою, але без золота, тримає низько праворуч від тіла рука, простягнута через пояс; поруч закручується стрічка.",
+        "meaning": "Два пентаклі — це дві вимоги до тих самих ресурсів: дві роботи, два рахунки, зусилля й відпочинок. Один піднято високо, другий тримають низько й близько до тіла, тож карта показує чергування, а не рівну вагу: одне здіймається, поки друге чекає своєї черги."
+      }
+    },
+    {
+      "key": "boat",
+      "x": 21,
+      "y": 45,
+      "en": {
+        "name": "Two ships on high waves",
+        "seen": "Behind the figure a rough sea of curling crests is carved in lighter blue lapis; a large ship under full square sails rides on the left, and a smaller ship with a great curved sail pitches on the right.",
+        "meaning": "Ships on high waves belong to the traditional image: the rise and fall of trade and circumstance behind the dancer’s lightness. The two ships echo the two discs. They stay afloat by moving with the swell rather than against it, which is the card’s whole method."
+      },
+      "uk": {
+        "name": "Два кораблі на високих хвилях",
+        "seen": "Позаду фігури світлішим синім лазуритом вирізьблено бурхливе море з кучерявими гребенями; ліворуч пливе великий корабель під повними прямими вітрилами, праворуч гойдається менший, із великим вигнутим вітрилом.",
+        "meaning": "Кораблі на високих хвилях належать до традиційного образу: злети й падіння торгівлі та обставин за легкістю танцю. Два кораблі перегукуються з двома дисками. Вони тримаються на плаву, бо рухаються разом із хвилею, а не проти неї, і в цьому весь метод карти."
+      }
+    },
+    {
+      "key": "chains",
+      "x": 32,
+      "y": 68,
+      "en": {
+        "name": "Chained winged figures",
+        "seen": "A horned, bat-winged creature with a curling tail, carved in blue lapis, stands at each side, face turned up; each grips a fine chain, cuffed at its wrist, rising to the figure’s knee or tunic hem.",
+        "meaning": "No such figures appear in the traditional Two of Pentacles. They borrow the horns, bat wings and chains of The Devil, the card the Golden Dawn gives to Capricorn, this card’s sign. They suggest the pulls that can turn juggling into strain; the figure keeps dancing all the same."
+      },
+      "uk": {
+        "name": "Скуті крилаті постаті",
+        "seen": "Обабіч стоїть по рогатій істоті з кажанячими крилами й закрученим хвостом, вирізьбленій у синьому лазуриті, з піднятим обличчям; кожна, з кайданком на зап’ясті, тримає тонкий ланцюг, що тягнеться до коліна фігури чи краю туніки.",
+        "meaning": "У традиційній Двійці Пентаклів таких постатей немає. Вони позичають роги, кажанячі крила й ланцюги в Диявола — карти, яку Золота Зоря пов’язує з Козерогом, знака цієї Двійки. Вони натякають на тяжіння, що можуть перетворити жонглювання на напругу; фігура однаково танцює далі."
+      }
+    },
+    {
+      "key": "mountain",
+      "x": 48,
+      "y": 77,
+      "en": {
+        "name": "One foot on the ridge",
+        "seen": "Below the waves rises a range of sharp lapis mountains; one foot, in a soft slipper with an ankle strap, rests on a glittering saddle between two peaks while the other foot is lifted, knee bent.",
+        "meaning": "The traditional dancer stands on level ground. Here the whole balance rests on one foot set on a narrow ridge between peaks. Mountains in tarot often stand for effort and achievement; resting on them so lightly shows how little footing is needed while you keep moving."
+      },
+      "uk": {
+        "name": "Одна нога на хребті",
+        "seen": "Під хвилями здіймається пасмо гострих лазуритових гір; одна нога в м’якому черевичку з ремінцем на щиколотці спирається на мерехтливу сідловину між двома вершинами, друга піднята, коліно зігнуте.",
+        "meaning": "Традиційна фігура танцює на рівній землі. Тут уся рівновага тримається на одній нозі, поставленій на вузький хребет між вершинами. Гори в таро часто означають зусилля й досягнення; те, як легко фігура на них спирається, показує, як мало опори треба, поки ви в русі."
+      }
+    },
+    {
+      "key": "castle",
+      "x": 47,
+      "y": 85,
+      "en": {
+        "name": "The castle among the peaks",
+        "seen": "At the bottom centre, directly beneath the dancer, a walled castle with many slender spired towers is carved in pale lapis, set into the mountain range between the two winged figures.",
+        "meaning": "Castles and towns in the Pentacles suit stand for settled security: home, structure, what has already been built. Olivia sets one below the dancer and out of the figure’s sight, as if the stability being worked for is already there in the ground beneath the juggle."
+      },
+      "uk": {
+        "name": "Замок серед вершин",
+        "seen": "Унизу по центру, просто під фігурою, що танцює, світлим лазуритом вирізьблено обнесений мурами замок із багатьма тонкими шпилястими вежами, вписаний у гірське пасмо між двома крилатими постатями.",
+        "meaning": "Замки й міста в масті Пентаклів уособлюють усталену безпеку: дім, структуру, те, що вже збудовано. Olivia ставить замок під фігурою, поза її полем зору, ніби стабільність, заради якої триває праця, уже є в землі під цим жонглюванням."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Two of Pentacles is the art of keeping two demands in motion: adjusting, alternating and staying light on your feet without pretending the load weighs nothing.",
+    "keywords": {
+      "upright": [
+        "adaptability",
+        "juggling priorities",
+        "rhythm",
+        "flexibility",
+        "resourcefulness"
+      ],
+      "reversed": [
+        "overcommitment",
+        "dropped threads",
+        "scattered energy",
+        "rigid plans",
+        "strain"
+      ]
+    },
+    "upright": [
+      "The Two of Pentacles draws attention to the everyday skill of keeping more than one thing going. In Olivia’s carving a figure in a loose ivory tunic dances on a narrow mountain ridge, one foot down and one lifted, one pentacle balanced high on an open palm, the other held low at the waist. A long ribbon loops between them, crossing the raised arm and swinging out behind the back, so that the two discs belong to one continuous movement.",
+      "Nothing here is still. The sea behind is carved in curling crests, and two ships ride it, one large and one small, each staying upright by moving with the swell. Only the upper pentacle has a gold heart. The card does not ask for perfect equality between demands; it asks which one needs lifting now, and which can wait low and close for a while. Balance, in this image, is rhythm rather than symmetry.",
+      "Olivia adds something the traditional card does not show: two horned, winged figures at the edges, holding chains that rise to the dancer’s knee and hem. The figure’s eyes are lowered, not fixed on them. Upright, the card can point to a season of many claims met with flexibility and some humour, and to knowing which pulls are real and which are only felt. It invites you to adjust the sequence, not to add more effort."
+    ],
+    "reversed": [
+      "Two of Pentacles reversed can show the juggle tipping into strain. More energy may be going into switching between tasks than into any one of them, or a commitment may already have slipped while you were attending to another. The chains in the image come to the foreground: obligations felt as pulls rather than choices.",
+      "The reversal can also point inward: a plan held so rigidly that there is no room to bend, or a reluctance to admit that two things cannot both be carried at full height today. This is a prompt to reprioritise, not a verdict on your competence. Choose one disc to set down, deliberately, so that the choice stays yours."
+    ],
+    "number": "Two is the first relationship: one thing meeting another, and the exchange or choice that follows. In Pentacles, the suit of earth, it concerns tangible things: time, money, body, work and home. After the Ace’s single gift, the Two shows that gift in circulation, one set of resources answering two needs. The step it asks for is not a final choice between them but a workable rhythm: this now, that next, and back again.",
+    "tradition": "In the Golden Dawn system the Two of Pentacles is the Lord of Harmonious Change, attributed to Jupiter in Capricorn, the first decan of that sign. Traditional astrology counts Capricorn as Jupiter’s fall: expansion working within the limits of a practical, structured sign. Book T describes two discs joined by a green and gold serpent coiled in a figure eight, its tail in its mouth. Pamela Colman Smith’s 1909 design turned this into a dancer holding two pentacles joined by an endless cord, with ships on high seas behind; Waite likened the cord to the number eight lying on its side. Crowley later titled the card Change. In older Marseille decks the two coins are linked by a looping banner, often carrying the card maker’s name.",
+    "areas": {
+      "love": "In love and close relationships, the Two of Pentacles draws attention to how time and care are shared out. It can point to a relationship fitted around work, family or distance, where closeness depends on rhythm more than grand gestures. Notice whether one person is always the one adjusting. With yourself, it asks whether your own needs ever get the raised, gold-hearted place, or always wait low at the waist.",
+      "work": "At work, in study and with money matters, this card reflects the practical juggle: two roles, two deadlines, income and outgoings that need regular adjusting. It favours simple systems over heroic effort: a weekly review, a list ordered by what is due first, a margin of time between tasks. Consider which commitment carries the gold this month, and whether another could be renegotiated, shared or moved to a later date.",
+      "self": "For your own life, the Two of Pentacles turns attention to your pace. The figure dances on one foot on a narrow ridge with eyes lowered, trusting the body rather than staring at the discs. You might notice how your energy rises and dips through a day or a week, and plan with that rhythm rather than against it. Lightness here is a skill you can practise, not a temperament you must already have."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter turns on balancing two real demands, and on finding a rhythm between them rather than choosing one for good.",
+      "challenge": "As a challenge, it can show too many things kept in motion at once, or the constant effort of switching quietly draining the energy each task needs.",
+      "advice": "As advice, it invites a change of sequence: decide which demand to lift first today, hold the other low and close, and leave a short pause between them."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "The Magician also works under the sign of infinity, with the tools of every suit laid out before it. Together they draw attention to skill with what you have: the Magician gathers resources into one intention, the Two keeps them circulating between several."
+      },
+      {
+        "with": 10,
+        "text": "The Wheel of Fortune is Jupiter’s card in the Golden Dawn system, and this Two is Jupiter in Capricorn. Side by side they speak of cycles: the large turning you cannot steer, and the small daily adjustments you can."
+      },
+      {
+        "with": 15,
+        "text": "In the Golden Dawn system The Devil is Capricorn, the sign of this Two, and Olivia’s Two borrows its horned, winged figures and chains. Together they ask which obligations are freely chosen and which have hardened into habits that pull at you."
+      }
+    ],
+    "questions": [
+      "Which demand deserves the raised, gold-hearted place in your life this week?",
+      "What could you hold low and close for now, without letting it drop?",
+      "Which pulls on your time are real obligations, and which are habits you could loosen?"
+    ],
+    "practice": "List the two demands pulling hardest right now, then write the order you will give them tomorrow, including one short pause between them."
+  },
+  "uk": {
+    "essence": "Двійка Пентаклів — це мистецтво тримати в русі дві вимоги: підлаштовуватися, чергувати й зберігати легкість кроку, не вдаючи, що ноша нічого не важить.",
+    "keywords": {
+      "upright": [
+        "адаптивність",
+        "жонглювання пріоритетами",
+        "ритм",
+        "гнучкість",
+        "винахідливість"
+      ],
+      "reversed": [
+        "перевантаження",
+        "загублені нитки",
+        "розпорошена енергія",
+        "жорсткі плани",
+        "напруга"
+      ]
+    },
+    "upright": [
+      "Двійка Пентаклів звертає увагу на буденне вміння тримати в русі більше ніж одну справу. У різьбленні Olivia вирізьблена зі слонової кістки фігура у вільній туніці танцює на вузькому гірському хребті: одна нога спирається, друга піднята, один пентакль балансує високо на розкритій долоні, другий фігура тримає низько біля пояса. Між ними петляє довга стрічка: вона перетинає підняту руку й вилітає за спину, тож обидва диски належать одному безперервному рухові.",
+      "Тут ніщо не стоїть на місці. Море позаду вирізьблено кучерявими гребенями, і ним пливуть два кораблі, великий і малий; кожен тримається прямо, бо рухається разом із хвилею. Золоте серце має лише верхній пентакль. Карта не вимагає досконалої рівності між вимогами; вона запитує, яку з них треба підняти зараз, а яка може якийсь час почекати внизу, близько до тіла. Рівновага в цьому образі — ритм, а не симетрія.",
+      "Olivia додає те, чого не показує традиційна карта: дві рогаті крилаті постаті по краях, що тримають ланцюги, які тягнуться до коліна й краю туніки фігури. Очі фігури опущені й не прикуті до них. У прямому положенні карта може вказувати на час, коли вимог багато, а ви відповідаєте на них гнучко й не без гумору, і на вміння розрізняти, які тяжіння справжні, а які лише відчуваються. Вона запрошує змінити послідовність, а не докладати ще більше зусиль."
+    ],
+    "reversed": [
+      "Двійка Пентаклів у перевернутому положенні може показувати, як жонглювання переходить у напругу. Можливо, більше сил іде на перемикання між справами, ніж на будь-яку з них, або якесь зобов’язання вже вислизнуло, поки ви займалися іншим. На передній план виходять ланцюги з образу: обов’язки, що відчуваються як тяжіння, а не як вибір.",
+      "Перевернута карта може вказувати й усередину: на план, який тримають так жорстко, що в ньому не лишається місця для гнучкості, або на небажання визнати, що сьогодні обидві речі не вдасться нести на повній висоті. Це нагадування переглянути пріоритети, а не вирок вашим умінням. Оберіть один диск і свідомо відкладіть його, щоб вибір лишався за вами."
+    ],
+    "number": "Двійка — перші стосунки: одне зустрічає інше, а далі настає обмін чи вибір. У Пентаклях, масті землі, ідеться про відчутне: час, гроші, тіло, роботу й дім. Після єдиного дару Туза Пентаклів Двійка показує цей дар в обігу: один набір ресурсів відповідає на дві потреби. Крок, якого вона просить, — не остаточний вибір між ними, а робочий ритм: спершу це, потім те, і знову назад.",
+    "tradition": "У системі Золотої Зорі Двійка Пентаклів має титул «Володар гармонійних змін» і пов’язана з Юпітером у Козерозі, першим деканом цього знака. Традиційна астрологія вважає Козеріг місцем падіння Юпітера: розширення, що діє в межах практичного, упорядкованого знака. «Книга Т» описує два диски, поєднані зелено-золотим змієм, що звився вісімкою й тримає хвіст у пащі. Памела Колман Сміт у 1909 році перетворила це на постать у танці з двома пентаклями, з’єднаними нескінченним шнуром, на тлі кораблів у бурхливому морі; Вейт порівнював шнур із вісімкою, покладеною набік. Кроулі згодом назвав карту «Зміна». У давніших марсельських колодах дві монети поєднує стрічка, що петляє, часто з іменем майстра, який виготовив колоду.",
+    "areas": {
+      "love": "У коханні й близьких стосунках Двійка Пентаклів звертає увагу на те, як розподіляються час і турбота. Вона може вказувати на стосунки, які доводиться припасовувати до роботи, родини чи відстані, де близькість тримається радше на ритмі, ніж на гучних жестах. Зверніть увагу, чи не та сама людина щоразу підлаштовується. Щодо стосунків із собою карта запитує, чи отримують ваші потреби хоч колись піднесене місце із золотим серцем, чи завжди чекають унизу, біля пояса.",
+      "work": "У роботі, навчанні та грошових справах ця карта відображає практичне жонглювання: дві ролі, два крайні терміни, надходження й витрати, які треба регулярно вирівнювати. Вона віддає перевагу простим системам, а не героїчним зусиллям: щотижневий перегляд, список за черговістю термінів, запас часу між завданнями. Подумайте, яке зобов’язання цього місяця несе золото і чи можна інше переузгодити, розділити з кимось або перенести на пізніше.",
+      "self": "У вашому власному житті Двійка Пентаклів звертає увагу на ваш темп. Фігура танцює на одній нозі на вузькому хребті з опущеними очима, довіряючи тілу, а не впиваючись поглядом у диски. Можна помітити, як ваша енергія зростає й спадає протягом дня чи тижня, і планувати в лад із цим ритмом, а не всупереч йому. Легкість тут — навичка, яку можна практикувати, а не вдача, яка вже мусить у вас бути."
+    },
+    "positions": {
+      "heart": "В осерді запитання ця карта підказує, що все обертається довкола рівноваги між двома справжніми вимогами й пошуку ритму між ними, а не остаточного вибору однієї.",
+      "challenge": "Як виклик вона може показувати, що в русі тримається забагато всього одразу або що постійне перемикання тихо виснажує енергію, потрібну кожній справі.",
+      "advice": "Як порада вона запрошує змінити послідовність: вирішіть, яку вимогу підняти сьогодні першою, другу тримайте низько й близько, а між ними залиште коротку паузу."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "Маг також працює під знаком нескінченності, маючи перед собою знаряддя всіх мастей. Разом ці карти звертають увагу на вміння користуватися тим, що маєте: Маг збирає ресурси в один намір, а Двійка тримає їх в обігу між кількома."
+      },
+      {
+        "with": 10,
+        "text": "Колесо Фортуни — карта Юпітера в системі Золотої Зорі, а ця Двійка — Юпітер у Козерозі. Поруч вони говорять про цикли: великий оберт, яким ви не керуєте, і дрібні щоденні корективи, які вам під силу."
+      },
+      {
+        "with": 15,
+        "text": "У системі Золотої Зорі Диявол — це Козеріг, знак цієї Двійки, а Двійка Olivia позичає в нього рогаті крилаті постаті й ланцюги. Разом вони запитують, які обов’язки обрано вільно, а які затверділи у звички, що тягнуть вас за собою."
+      }
+    ],
+    "questions": [
+      "Яка вимога цього тижня заслуговує на піднесене місце із золотим серцем у вашому житті?",
+      "Що ви могли б поки тримати низько й близько, не впускаючи з рук?",
+      "Що з того, що забирає ваш час, — справжні обов’язки, а що — звички, які можна послабити?"
+    ],
+    "practice": "Запишіть дві вимоги, які зараз тягнуть найсильніше, а потім — порядок, у якому ви займетеся ними завтра, разом з однією короткою паузою між ними."
+  }
+}

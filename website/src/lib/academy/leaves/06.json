@@ -1,0 +1,267 @@
+{
+  "id": 6,
+  "slug": "the-lovers",
+  "artwork": {
+    "file": "06_the_lovers.webp",
+    "sha256": "3e9725042eefcb8f9b373f19c54b12ddb365a704920c113ba093583fbb70c86c"
+  },
+  "symbols": [
+    {
+      "key": "sun",
+      "x": 51,
+      "y": 15,
+      "en": {
+        "name": "The gold sun, eyes closed",
+        "seen": "At the top centre, set clear above the angel’s head, a gold sun spreads straight, pointed rays against the lapis night. Its round face is calm, with the eyes closed.",
+        "meaning": "In the traditional image a great sun blazes directly behind the angel: full, conscious light over the whole scene. Olivia gilds it, in a deck where gold is used sparingly, but closes its eyes. The light is present without staring down; the choice below is left to the two who make it."
+      },
+      "uk": {
+        "name": "Золоте сонце із заплющеними очима",
+        "seen": "Угорі по центру, високо над головою ангела, золоте сонце розкидає прямі гострі промені на тлі лазуритової ночі. Його кругле обличчя спокійне, очі заплющені.",
+        "meaning": "На традиційному зображенні велике сонце палає просто за ангелом: повне, свідоме світло над усією сценою. Olivia робить його золотим — у колоді, де золото з’являється рідко, — але заплющує йому очі. Світло присутнє, проте не пильнує згори; вибір унизу лишається за тими двома, хто його робить."
+      }
+    },
+    {
+      "key": "angel",
+      "x": 50,
+      "y": 29,
+      "en": {
+        "name": "The angel above the clouds",
+        "seen": "A large winged figure carved in grey-blue lapis, not ivory, rises from a bank of lapis clouds. The wings spread across most of the card’s width; the arms open wide with both hands held open.",
+        "meaning": "Later readers often name this angel Raphael, the angel of healing, and read it as a blessing or a wider view over the relationship. Here it is cut from the same stone as the night sky rather than the couple’s ivory: guidance woven into the landscape, not a third person standing in the scene."
+      },
+      "uk": {
+        "name": "Ангел над хмарами",
+        "seen": "Велику крилату постать вирізьблено із сіро-блакитного лазуриту, а не зі слонової кістки; вона здіймається з гряди лазуритових хмар. Крила розкинуті майже на всю ширину карти, руки широко розведені, обидві долоні відкриті.",
+        "meaning": "У пізніших тлумаченнях цього ангела часто називають Рафаїлом, ангелом зцілення, і бачать у ньому благословення або ширший погляд на стосунки. Тут його вирізано з того самого каменю, що й нічне небо, а не зі слонової кістки, як пару: це настанова, вплетена в пейзаж, а не третя особа посеред сцени."
+      }
+    },
+    {
+      "key": "flame",
+      "x": 83,
+      "y": 40,
+      "en": {
+        "name": "The tree of gold flames",
+        "seen": "Behind the right-hand figure a slender blue tree carries eighteen small gold flames among its carved leaves. Apart from the sun and the scattered gold flecks in the sky, they are the only gold on the card.",
+        "meaning": "Waite called this the Tree of Life bearing twelve fruits, and its flames are commonly read as the twelve signs of the zodiac: passion and spirit. Olivia’s tree carries more than the traditional twelve and gilds every one, so desire here is warm and plentiful, not rationed."
+      },
+      "uk": {
+        "name": "Дерево золотих вогників",
+        "seen": "За правою постаттю тонке синє дерево несе серед різьблених листків вісімнадцять маленьких золотих вогників. Окрім сонця та розсипаних у небі золотих цяток, це єдине золото на карті.",
+        "meaning": "Вейт називав його Деревом Життя з дванадцятьма плодами, а його вогні зазвичай тлумачать як дванадцять знаків зодіаку: пристрасть і дух. Дерево Olivia несе більше за традиційні дванадцять і золотить кожен вогник, тож бажання тут тепле й щедре, а не відміряне скупо."
+      }
+    },
+    {
+      "key": "fruit",
+      "x": 15,
+      "y": 45,
+      "en": {
+        "name": "The tree of blue fruit",
+        "seen": "On the left, a leafy tree hangs heavy with round fruit, carved in the same blue lapis as its leaves. None of the fruit is gilded; it stays in shadow against the night.",
+        "meaning": "This is the Tree of the Knowledge of Good and Evil from the Eden story: experience, appetite, self-awareness. Set opposite the tree of flames, it makes the card a question about two kinds of wanting: a longing that burns, and a knowing that must be tasted before it is understood."
+      },
+      "uk": {
+        "name": "Дерево синіх плодів",
+        "seen": "Ліворуч листяне дерево аж гнеться під круглими плодами, вирізьбленими з того самого синього лазуриту, що й листя. Жоден плід не позолочений; усі вони лишаються в тіні на тлі ночі.",
+        "meaning": "Це Дерево пізнання добра і зла з едемської оповіді: досвід, потяг, самоусвідомлення. Поставлене навпроти дерева з вогниками, воно перетворює карту на запитання про два види прагнення: жагу, що палає, і знання, яке треба скуштувати, перш ніж його зрозуміти."
+      }
+    },
+    {
+      "key": "serpent",
+      "x": 13,
+      "y": 62,
+      "en": {
+        "name": "The serpent on the trunk",
+        "seen": "A finely scaled serpent in pale grey-blue winds in loose S-bends around the trunk of the fruit tree. Its head rises level with the left-hand figure’s face and points towards it.",
+        "meaning": "In the Eden story the serpent offers the fruit; in tarot it is commonly read as temptation, and also as the knowledge that comes from admitting what you want. Its head is level with the figure who looks upward, so the pull of desire and the search for guidance meet in one person."
+      },
+      "uk": {
+        "name": "Змій на стовбурі",
+        "seen": "Блідий сіро-блакитний змій із дрібною лускою вільними S-подібними вигинами обвиває стовбур дерева з плодами. Його голова здіймається на рівні обличчя лівої постаті й повернута до неї.",
+        "meaning": "В едемській оповіді змій пропонує плід; у таро його зазвичай тлумачать як спокусу, а також як знання, що приходить, коли ви визнаєте, чого хочете. Його голова на одному рівні з постаттю, яка дивиться вгору, тож потяг бажання і пошук настанови сходяться в одній людині."
+      }
+    },
+    {
+      "key": "mountain",
+      "x": 50,
+      "y": 58,
+      "en": {
+        "name": "The single blue peak",
+        "seen": "Between the two figures one sharp mountain rises in paler, veined lapis, with low mist lying across its foot. It fills the space between their heads.",
+        "meaning": "The mountain between the lovers is traditionally read as a shared aim, or the height a relationship climbs together; some readers see spiritual union at its summit. Here it stands exactly in the gap between the pair: what separates the two is also what they could reach for together."
+      },
+      "uk": {
+        "name": "Єдина синя вершина",
+        "seen": "Між двома постатями здіймається одна гостра гора зі світлішого, прожилкуватого лазуриту, а біля її підніжжя стелиться низький туман. Вона заповнює простір між їхніми головами.",
+        "meaning": "Гору між закоханими традиційно тлумачать як спільну мету або висоту, на яку стосунки підіймаються разом; дехто бачить на її вершині духовне єднання. Тут вона стоїть точно в проміжку між парою: те, що розділяє двох, водночас є тим, до чого вони могли б тягнутися разом."
+      }
+    },
+    {
+      "key": "face",
+      "x": 33,
+      "y": 55,
+      "en": {
+        "name": "One gaze up, one across",
+        "seen": "The long-haired figure on the left tips the face back to look up at the angel. The curly-haired figure on the right looks level and straight across at the left-hand figure.",
+        "meaning": "The traditional card sets up the same exchange of looks, often read as a circuit: one partner looks to the higher principle, the other looks to the partner. Neither gaze is wrong. Together they ask how care for another person and care for your own values can inform each other."
+      },
+      "uk": {
+        "name": "Один погляд угору, другий — навпроти",
+        "seen": "Довговолоса постать ліворуч закидає голову назад, щоб подивитися вгору на ангела. Кучерява постать праворуч дивиться рівно перед собою, просто на постать ліворуч.",
+        "meaning": "Традиційна карта вибудовує такий самий обмін поглядами, який часто тлумачать як замкнене коло: один партнер дивиться на вищий принцип, другий — на партнера. Жоден погляд не хибний. Разом вони запитують, як турбота про іншу людину і вірність власним цінностям можуть живити одна одну."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 70,
+      "y": 68,
+      "en": {
+        "name": "The draped ivory robes",
+        "seen": "Both ivory figures wear classical drapery: on the left a long gown tied at the waist, on the right a short tunic knotted at the hip with a mantle over one shoulder.",
+        "meaning": "Pamela Colman Smith’s couple stand unclothed, unguarded before each other as in Eden, and on opposite sides to these. Olivia dresses them and mirrors their places, shifting the emphasis from innocence to adult choice: two people who arrive with histories and still decide to stand face to face."
+      },
+      "uk": {
+        "name": "Драпіровані шати зі слонової кістки",
+        "seen": "Обидві постаті зі слонової кістки вбрані в класичні драпірування: ліва — у довге вбрання, підперезане в талії, права — у коротку туніку, зав’язану на стегні, з плащем через одне плече.",
+        "meaning": "Пара Памели Колман Сміт стоїть оголеною й беззахисною одне перед одним, як в Едемі, і на місцях, протилежних до цих. Olivia вдягає їх і дзеркально міняє місцями, зсуваючи наголос з невинності на дорослий вибір: двоє людей приходять зі своїми історіями й усе одно вирішують стати віч-на-віч."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 51,
+      "y": 74,
+      "en": {
+        "name": "Hands that almost meet",
+        "seen": "Low in the centre, the left figure’s nearer hand is lowered and turned open towards the other. The right figure’s nearer hand hangs loose, fingers curled. A band of dark lapis still separates them.",
+        "meaning": "Nothing touches yet. The offer is made and not yet answered, and this is where the card’s real subject lives: a union that belongs to each person to give freely, or not at all. The Lovers is less about a bond already sealed than about the moment of choosing it."
+      },
+      "uk": {
+        "name": "Руки, що майже зустрічаються",
+        "seen": "Унизу в центрі ближча рука лівої постаті опущена й розкрита до іншої. Ближча рука правої постаті звисає вільно, пальці підігнуті. Їх досі розділяє смуга темного лазуриту.",
+        "meaning": "Дотику ще немає. Пропозицію зроблено, але відповіді ще немає, і саме тут живе справжня тема карти: єднання, яке кожна людина може подарувати лише вільно — або не дарувати зовсім. Закохані менше говорять про вже скріплений зв’язок і більше про мить, коли його обирають."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Lovers is the moment you choose what you love with open eyes, so that a bond or a decision also expresses what you value.",
+    "keywords": {
+      "upright": [
+        "union",
+        "choice",
+        "shared values",
+        "alignment",
+        "mutual respect",
+        "honest desire"
+      ],
+      "reversed": [
+        "divided values",
+        "indecision",
+        "imbalance",
+        "mixed motives",
+        "choosing to please"
+      ]
+    },
+    "upright": [
+      "The Lovers stands at the point where connection and choice become the same thing. In Olivia’s carving two ivory figures face each other on a lapis ground, a single blue peak rising in the space between them, while a winged figure opens both arms from the clouds above. Upright, the card draws attention to a union that is chosen rather than drifted into: a relationship, a partnership, a commitment, or a decision that finally matches what you care about.",
+      "Look at where each figure is looking. The one on the left lifts the face towards the angel; the one on the right looks straight across. One consults something higher, the other attends to the person in front of them, and the card holds both. Behind them grow two trees: gold flames on the right, heavy blue fruit on the left with a serpent wound round its trunk. Desire and knowledge, warmth and experience, stand side by side rather than as enemies.",
+      "Notice, too, that their hands have not yet met. The Lovers is rarely about a choice already made. It asks what you are saying yes to, what that yes asks of you, and whether you could say it freely. Where another person is involved, it leaves room for their choice as well as yours."
+    ],
+    "reversed": [
+      "The Lovers reversed can point to a gap between what you want and what you value, or between what you choose and what you say you choose. The two gazes that complete each other upright can split apart: all attention on another person with your own values left unconsulted, or all attention on principle with the person in front of you unseen. It can also describe a decision postponed until someone else makes it for you.",
+      "This is not a verdict on any relationship. It invites an honest look at where you are agreeing in order to please, to avoid friction or to keep options open. Name the value underneath, then look for one small choice that brings your actions and that value back within reach of each other."
+    ],
+    "number": "The Lovers is card six. After the Hierophant at five, where the traveller receives teaching and inherited rules, the sixth step is the first choice made from the inside: what you love, and what you will stand for. Six is often read as balance between two; the six-pointed star is drawn from two interlaced triangles, one rising and one descending. The Chariot at seven then carries the chosen direction into motion. This step asks you to make a value your own by choosing it.",
+    "tradition": "In the Golden Dawn system The Lovers bears the title “The Children of the Voice; the Oracle of the Mighty Gods”. It is attributed to Zayin, the Hebrew letter whose name means sword, and to Gemini, the mutable Air sign of the Twins, on the seventeenth path of the Tree of Life, joining Binah and Tiphareth. Marseille decks show L’Amoureux: a young man between two women while a winged Cupid aims an arrow from a rayed disc above, commonly read as a choice between two loves or two ways of life. In 1909 Pamela Colman Smith recast the scene as the first couple in Eden beneath a great angel; Olivia keeps that Eden, but clothes the pair.",
+    "areas": {
+      "love": "In love and close bonds, The Lovers draws attention to mutual choosing: two people who keep deciding for each other, rather than a feeling that simply happens to them. In the carving both figures stand on their own feet, facing one another, neither leaning on the other. The card favours closeness that leaves each person whole. It can also point to your relationship with yourself: whether your desires and your values are on speaking terms. Notice one place where they agree, and honour it.",
+      "work": "In work and study, The Lovers can point to a partnership, a collaboration, or a choice between two paths that both appeal. The question underneath is alignment: which option lets you work in a way you respect? Before comparing titles, pay or grades, write down what each path would ask you to practise every day. With money matters, let the card clarify your values, and let careful figures and qualified advice guide the numbers.",
+      "self": "For your own growth, The Lovers asks you to meet two parts of yourself as the carved figures meet: the part that looks up for guidance and the part that looks straight at what it wants. Neither needs to win. Between them stands the blue mountain, something both could climb. Where do your longing and your principles pull in different directions, and what would a choice that honours both look like this week?"
+    },
+    "positions": {
+      "heart": "At the heart of a question, The Lovers suggests the real issue is a choice about values, often disguised as a choice between people, places or options. What matters most is what your yes would stand for.",
+      "challenge": "As a challenge, The Lovers can point to divided loyalties, a decision avoided in the hope that it will make itself, or a wish to please someone that quietly overrides what you believe.",
+      "advice": "As advice, The Lovers invites you to choose deliberately: name the value at stake, say it plainly to anyone involved, and let your next step be one you could explain without apology."
+    },
+    "pairs": [
+      {
+        "with": 15,
+        "text": "The Devil echoes The Lovers: two ivory figures again stand beneath a winged presence, now chained at the neck to its stone block. Together they draw attention to the difference between a bond freely chosen and an attachment that has begun to feel unchosen."
+      },
+      {
+        "with": 37,
+        "text": "The Two of Cups is The Lovers in the minor key: two people pledging cups to each other. Together they draw attention to the everyday practice of union, the small mutual offerings that keep a chosen bond alive."
+      },
+      {
+        "with": 5,
+        "text": "The Hierophant blesses two followers who kneel before tradition; in The Lovers an angel opens its arms over two people who face each other instead. Together they draw attention to the step from values you were taught to values you choose."
+      }
+    ],
+    "questions": [
+      "What are you really saying yes to in this choice, and what would it ask of you each day?",
+      "Where are you looking up for permission when you could look straight at what you want?",
+      "Which of your values would you most want a close relationship to share, and why?"
+    ],
+    "practice": "Write the choice you are facing at the top of a page, list three values underneath, and mark which option honours each one."
+  },
+  "uk": {
+    "essence": "Закохані — це мить, коли ви з розплющеними очима обираєте те, що любите, щоб зв’язок чи рішення виражали й те, що ви цінуєте.",
+    "keywords": {
+      "upright": [
+        "єднання",
+        "вибір",
+        "спільні цінності",
+        "узгодженість",
+        "взаємна повага",
+        "чесне бажання"
+      ],
+      "reversed": [
+        "розбіжні цінності",
+        "нерішучість",
+        "нерівновага",
+        "неоднозначні мотиви",
+        "прагнення догодити"
+      ]
+    },
+    "upright": [
+      "Закохані стоять у точці, де зв’язок і вибір стають одним і тим самим. У різьбі Olivia дві постаті зі слонової кістки стоять одна навпроти одної на лазуритовому тлі, у просторі між ними здіймається єдина синя вершина, а крилата постать розкриває обійми з хмар над ними. У прямому положенні карта звертає увагу на єднання, яке обирають, а не таке, у яке просто потрапляють за течією: стосунки, партнерство, зобов’язання чи рішення, що нарешті збігається з тим, що для вас важливо.",
+      "Погляньте, куди дивиться кожна з постатей. Ліва підносить обличчя до ангела; права дивиться просто перед собою. Одна радиться з чимось вищим, друга уважна до людини навпроти, і карта тримає обидва погляди. За ними ростуть два дерева: праворуч — із золотими вогниками, ліворуч — із важкими синіми плодами та змієм, що обвився довкола стовбура. Бажання і знання, тепло і досвід стоять пліч-о-пліч, а не ворогують.",
+      "Зверніть увагу й на те, що їхні руки ще не зустрілися. Закохані рідко говорять про вже зроблений вибір. Карта запитує, на що саме ви кажете «так», чого це «так» від вас вимагає і чи могли б ви сказати його вільно. Там, де йдеться про іншу людину, карта лишає місце не лише для вашого вибору, а й для вибору цієї людини."
+    ],
+    "reversed": [
+      "Закохані в перевернутому положенні можуть указувати на розрив між тим, чого ви хочете, і тим, що ви цінуєте, або між тим, що ви обираєте, і тим, що, за вашими словами, обираєте. Два погляди, які в прямому положенні доповнюють один одного, можуть розійтися: уся увага — іншій людині, а власних цінностей ви не питаєте, або вся увага — принципу, а людини перед собою ви не бачите. Карта може описувати й рішення, яке відкладають, доки хтось інший не ухвалить його за вас.",
+      "Це не вирок жодним стосункам. Карта запрошує чесно подивитися, де ви погоджуєтеся, щоб догодити, уникнути тертя чи залишити собі запасні варіанти. Назвіть цінність, що лежить в основі, а потім пошукайте один невеликий вибір, який знову наблизить ваші дії та цю цінність одне до одного."
+    ],
+    "number": "Закохані — шоста карта. Після Ієрофанта під номером п’ять, де мандрівник отримує настанови й успадковані правила, шостий крок — це перший вибір, зроблений зсередини: що ви любите і що готові обстоювати. Шістку часто тлумачать як рівновагу між двома; шестипроменеву зірку утворюють два переплетені трикутники, один спрямований угору, другий — униз. Колісниця, сьома карта, потім утілює обраний напрямок у русі. Цей крок просить вас зробити цінність своєю, обравши її.",
+    "tradition": "У системі Золотої Зорі Закохані мають титул «Діти Голосу; Оракул Могутніх Богів». Карті відповідають Заїн — єврейська літера, назва якої означає «меч», — і Близнюки, мутабельний знак Повітря; карта лежить на сімнадцятому шляху Дерева Життя, що з’єднує Біну й Тіферет. Марсельські колоди зображують L’Amoureux: юнака між двома жінками, тоді як крилатий Купідон цілиться стрілою з променистого диска вгорі, що зазвичай тлумачать як вибір між двома коханнями або двома способами життя. 1909 року Памела Колман Сміт переосмислила сцену як першу пару в Едемі під великим ангелом; Olivia зберігає цей Едем, але вдягає пару.",
+    "areas": {
+      "love": "У коханні та близьких стосунках Закохані звертають увагу на взаємний вибір: двоє людей раз у раз вирішують на користь одне одного, а не почуття, яке просто з ними стається. У різьбі обидві постаті стоять на власних ногах, обличчям одна до одної, і жодна не спирається на іншу. Карта підтримує близькість, у якій кожна людина лишається цілісною. Вона може вказувати й на ваші стосунки із собою: чи знаходять ваші бажання та цінності спільну мову. Знайдіть одне місце, де вони погоджуються, і віддайте йому належне.",
+      "work": "У роботі й навчанні Закохані можуть указувати на партнерство, співпрацю або вибір між двома шляхами, які однаково вабать. Глибше запитання — про узгодженість: який варіант дозволить вам працювати у спосіб, який ви поважаєте? Перш ніж порівнювати посади, оплату чи оцінки, запишіть, що саме кожен шлях щодня вимагатиме від вас робити. У грошових питаннях нехай карта прояснить ваші цінності, а в цифрах покладайтеся на ретельні розрахунки й пораду фахівців.",
+      "self": "Для власного зростання Закохані просять вас зустріти дві частини себе так, як зустрічаються вирізьблені постаті: ту, що шукає настанови вгорі, і ту, що дивиться просто на те, чого хоче. Жодна не мусить перемогти. Між ними стоїть синя гора — те, на що могли б піднятися обидві. Де ваше прагнення і ваші принципи тягнуть у різні боки і яким цього тижня був би вибір, що шанує обидва?"
+    },
+    "positions": {
+      "heart": "У центрі запитання Закохані підказують, що справжня тема — вибір цінностей, часто замаскований під вибір між людьми, місцями чи варіантами. Найважливіше — те, за що стоятиме ваше «так».",
+      "challenge": "Як перешкода Закохані можуть указувати на роздвоєну вірність, рішення, якого уникають у надії, що воно ухвалиться саме, або бажання комусь догодити, яке непомітно бере гору над тим, у що ви вірите.",
+      "advice": "Як порада Закохані запрошують обирати свідомо: назвіть цінність, про яку йдеться, прямо скажіть про неї всім причетним, і нехай ваш наступний крок буде таким, який ви змогли б пояснити без вибачень."
+    },
+    "pairs": [
+      {
+        "with": 15,
+        "text": "Диявол перегукується із Закоханими: дві постаті зі слонової кістки знову стоять під крилатою істотою, але тепер прикуті за шию до її кам’яної брили. Разом вони звертають увагу на різницю між зв’язком, обраним вільно, і прив’язаністю, яку наче вже й не обирали."
+      },
+      {
+        "with": 37,
+        "text": "Двійка Кубків — це Закохані в мінорному ключі: двоє людей підносять одне одному кубки, мов обітницю. Разом вони звертають увагу на щоденну практику єднання, на маленькі взаємні дари, що не дають обраному зв’язку згаснути."
+      },
+      {
+        "with": 5,
+        "text": "Ієрофант благословляє двох послідовників, що схилили коліна перед традицією; у Закоханих ангел розкриває обійми над двома людьми, які натомість стоять обличчям одне до одного. Разом вони звертають увагу на крок від цінностей, яких вас навчили, до цінностей, які ви обираєте."
+      }
+    ],
+    "questions": [
+      "На що ви насправді погоджуєтеся цим вибором і чого це вимагатиме від вас щодня?",
+      "Де ви дивитеся вгору, чекаючи дозволу, хоча могли б прямо подивитися на те, чого хочете?",
+      "Які з ваших цінностей ви найбільше хотіли б розділяти в близьких стосунках і чому?"
+    ],
+    "practice": "Запишіть угорі сторінки вибір, перед яким стоїте, під ним — три цінності, і позначте, який варіант шанує кожну з них."
+  }
+}

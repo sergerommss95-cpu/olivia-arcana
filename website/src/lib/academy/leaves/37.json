@@ -1,0 +1,267 @@
+{
+  "id": 37,
+  "slug": "two-of-cups",
+  "artwork": {
+    "file": "37_two_of_cups.webp",
+    "sha256": "46931fc4cab284381d3524ee68ca9775a941bdf6bac7676fd29b51bef6c0b3d0"
+  },
+  "symbols": [
+    {
+      "key": "milky-way",
+      "x": 47,
+      "y": 32,
+      "en": {
+        "name": "Milky Way over the meeting",
+        "seen": "A glittering band of pale mineral runs diagonally across the upper card from lower left to upper right, among small gold star flecks scattered over the dark ultramarine sky.",
+        "meaning": "Olivia places the meeting under a wide night sky scattered with gold stars. The Milky Way, a road of light in many old traditions, crosses above the couple: a reminder that any bond between two people sits inside a larger life that neither person has to fill alone."
+      },
+      "uk": {
+        "name": "Чумацький Шлях над зустріччю",
+        "seen": "Мерехтлива смуга блідого мінералу перетинає верхню частину карти навскіс, від нижнього лівого краю до верхнього правого, серед дрібних золотих вкраплень-зірок, розсипаних по темному ультрамариновому небу.",
+        "meaning": "Olivia розгортає цю зустріч під широким нічним небом у золотих зорях. Чумацький Шлях, який багато давніх традицій вважали дорогою світла, пролягає над парою: нагадування, що кожен зв’язок двох людей існує всередині ширшого життя, і нікому з них не доводиться заповнювати його самотужки."
+      }
+    },
+    {
+      "key": "lion",
+      "x": 51,
+      "y": 46,
+      "en": {
+        "name": "The winged lion’s head",
+        "seen": "At the top of the central staff a lion’s head with open jaws and a full mane spreads two broad feathered wings, carved in the same pale greyish blue lapis as the distant hills.",
+        "meaning": "Pamela Colman Smith also crowned this card with a winged lion’s head. The lion is commonly read as fire, desire and courage; the wings lift that heat toward something higher. Attraction is present here, but it hovers above the couple, shared rather than owned by either."
+      },
+      "uk": {
+        "name": "Голова крилатого лева",
+        "seen": "На вершині центрального жезла — голова лева з розкритою пащею й пишною гривою; обабіч розгортаються два широкі пернаті крила, вирізьблені з того самого блідого сірувато-блакитного лазуриту, що й далекі пагорби.",
+        "meaning": "Памела Колман Сміт теж увінчала цю карту головою крилатого лева. Лева зазвичай читають як вогонь, жагу й відвагу; крила підносять цей жар до чогось вищого. Тяжіння тут є, але воно ширяє над парою — спільне, а не власність когось одного."
+      }
+    },
+    {
+      "key": "serpent",
+      "x": 51,
+      "y": 57,
+      "en": {
+        "name": "Twin serpents on the staff",
+        "seen": "Two serpents wind around each other and around a straight staff beneath the lion, then raise their heads at the same height to face each other just under the wings.",
+        "meaning": "This is the caduceus, the herald’s staff of Hermes, messenger and go-between, not the single-serpent rod of healing. Two forces twine without either winning, and the heads meet level: a picture of communication, negotiation and balance, the conditions in which two people can truly meet."
+      },
+      "uk": {
+        "name": "Дві змії на жезлі",
+        "seen": "Під левом дві змії обвиваються одна навколо одної та навколо прямого жезла, а тоді здіймають голови на однаковій висоті й дивляться одна на одну просто під крилами.",
+        "meaning": "Це кадуцей, жезл вісника Гермеса — посланця й посередника, а не жезл зцілення з однією змією. Дві сили сплітаються, і жодна не перемагає, а голови зустрічаються на одному рівні: образ спілкування, домовленості й рівноваги — умов, за яких дві людини можуть по-справжньому зустрітися."
+      }
+    },
+    {
+      "key": "laurel",
+      "x": 28,
+      "y": 60,
+      "en": {
+        "name": "Laurel on the left",
+        "seen": "The left-hand figure wears a close wreath of pointed laurel leaves over short curls, and a round clasp fastens the ivory cloak at the shoulder. The head is bowed, eyes lowered toward the hands.",
+        "meaning": "Laurel traditionally honours achievement and constancy, the garland of poets and victors. On this side of the card it gives the reaching gesture a quality of respect: the figure approaches the other as someone worth honouring, and looks down, attentive, rather than staring or claiming."
+      },
+      "uk": {
+        "name": "Лавр ліворуч",
+        "seen": "На коротких кучерях фігури ліворуч — щільний вінок із загострених лаврових листків, а кругла застібка скріплює на плечі плащ зі слонової кістки. Голову схилено, погляд опущено до рук.",
+        "meaning": "Лавр традиційно вшановує досягнення й сталість: це вінок поетів і переможців. На цьому боці карти він додає простягнутій руці відтінок поваги: фігура наближається до іншої як до гідної вшанування й дивиться вниз, уважно, не впиваючись поглядом і нічого не присвоюючи."
+      }
+    },
+    {
+      "key": "wreath",
+      "x": 77,
+      "y": 62,
+      "en": {
+        "name": "Flowering wreath on the right",
+        "seen": "The right-hand figure wears a wreath of leaves opening into small flowers, with long wavy hair falling past the shoulders. This figure looks straight across, level, toward the other’s face.",
+        "meaning": "Where the left wreath is laurel, this one blossoms. Flowers are commonly linked with Venus, the planet the Golden Dawn gave to this card, and with feeling that is still opening. Two different garlands suggest two people who meet as equals without having to be alike."
+      },
+      "uk": {
+        "name": "Квітучий вінок праворуч",
+        "seen": "У фігури праворуч — вінок із листя, що розкривається дрібними квітами, а довге хвилясте волосся спадає нижче плечей. Ця фігура дивиться просто перед собою, на рівні очей, в обличчя іншої.",
+        "meaning": "Якщо лівий вінок лавровий, то цей квітне. Квіти зазвичай пов’язують із Венерою — планетою, яку Золота Зоря приписала цій карті, — і з почуттям, що ще тільки розкривається. Два різні вінки натякають на двох людей, які зустрічаються як рівні й не мусять бути однаковими."
+      }
+    },
+    {
+      "key": "house",
+      "x": 50,
+      "y": 71,
+      "en": {
+        "name": "The cottage between them",
+        "seen": "Far behind the couple, carved into the blue lapis hills, stands a small single-storey house with a chimney, a door and small windows, framed by rounded trees. The caduceus staff rises from behind its roof.",
+        "meaning": "A house on a hill also sits in the background of the traditional image, often read as the home or shared life a bond may grow toward. Here it stands on the card’s central axis, directly beneath the caduceus, as if ordinary daily life were the ground that holds the meeting up."
+      },
+      "uk": {
+        "name": "Хатина між ними",
+        "seen": "Далеко позаду пари, у пагорбах із синього лазуриту, стоїть невеликий одноповерховий будинок із димарем, дверима й маленькими вікнами, обрамлений округлими деревами. Жезл кадуцея здіймається з-за його даху.",
+        "meaning": "Будинок на пагорбі є й на тлі традиційного зображення; його часто читають як дім або спільне життя, до якого може дорости зв’язок. Тут він стоїть на центральній осі карти, просто під кадуцеєм, ніби звичайне щоденне життя — це ґрунт, що тримає зустріч."
+      }
+    },
+    {
+      "key": "cup",
+      "x": 43,
+      "y": 77,
+      "en": {
+        "name": "The plain raised cup",
+        "seen": "The left-hand figure lifts a plain, unadorned ivory cup in front of the chest, fingers wrapped around its stem just beneath the bowl, held upright above the other, reaching hand.",
+        "meaning": "Cups belong to Water: feeling, receptivity and relationship. In the traditional image the two cups are pledged toward each other. Here each cup stays with its holder, so each person keeps their own feelings intact; connection happens alongside the cups, not by pouring one into the other."
+      },
+      "uk": {
+        "name": "Простий піднятий кубок",
+        "seen": "Фігура ліворуч підносить перед грудьми простий кубок зі слонової кістки без жодних оздоб; пальці обхоплюють ніжку одразу під чашею, і тримає його вертикально над другою, простягнутою рукою.",
+        "meaning": "Кубки належать Воді: почуттям, сприйнятливості й стосункам. На традиційному зображенні два кубки простягнуто назустріч, мов на знак обітниці. Тут кожен кубок лишається в руках того, хто його тримає, тож кожна людина зберігає свої почуття недоторканими; зв’язок виникає поруч із кубками, а не через переливання з одного в інший."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 49,
+      "y": 83,
+      "en": {
+        "name": "Hands almost meeting",
+        "seen": "At the centre of the lower card the two free hands reach toward each other: one extended with fingers pointing forward, the other open with the palm showing. A thin band of lapis still separates the fingertips.",
+        "meaning": "The gesture is an offer and a response, not a grasp: one hand reaching, one ready to receive. This is Olivia’s own emphasis. The small gap matters: it keeps the moment one of choice, where either person can close the distance and nothing is taken for granted."
+      },
+      "uk": {
+        "name": "Руки, що майже торкаються",
+        "seen": "У центрі нижньої частини карти дві вільні руки тягнуться одна до одної: одна простягнута, пальці спрямовані вперед, друга розкрита, долонею назовні. Кінчики пальців усе ще розділяє тонка смужка лазуриту.",
+        "meaning": "Цей жест — пропозиція й відповідь, а не хапання: одна рука тягнеться, друга готова прийняти. Це власний акцент Olivia. Невеликий проміжок важливий: він залишає цю мить простором вибору, де будь-хто з двох може подолати відстань і ніщо не сприймається як належне."
+      }
+    },
+    {
+      "key": "heart",
+      "x": 60,
+      "y": 87,
+      "en": {
+        "name": "The gold heart on the cup",
+        "seen": "The right-hand figure holds a stemmed goblet low at the waist, fingers curled beneath the bowl. Set into the ivory bowl is a heart of glittering gold, the only gold on the card besides the star flecks.",
+        "meaning": "The heart does not appear on the traditional card. Gold in this deck is rare and marks what is precious. Placing it on one cup, held quietly at the waist and not yet offered, suggests that the most valuable feeling in a meeting is often the one still being held, waiting for a safe moment."
+      },
+      "uk": {
+        "name": "Золоте серце на кубку",
+        "seen": "Фігура праворуч тримає кубок на ніжці низько, біля талії, підгорнувши пальці під чашу. У чашу зі слонової кістки вставлено серце з мерехтливого золота — єдине золото на карті, крім вкраплень-зірок.",
+        "meaning": "На традиційній карті серця немає. Золото в цій колоді рідкісне й позначає цінне. Розміщене на одному з кубків, який тихо тримають біля талії й ще не простягають, воно натякає: найцінніше почуття в зустрічі часто те, яке ще бережуть, чекаючи безпечної миті."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Two of Cups turns attention to a meeting of equals: mutual recognition, attraction and care that grow through a real exchange between two people.",
+    "keywords": {
+      "upright": [
+        "mutual recognition",
+        "attraction",
+        "partnership",
+        "reciprocity",
+        "reconciliation",
+        "heartfelt exchange"
+      ],
+      "reversed": [
+        "uneven exchange",
+        "assumed closeness",
+        "hesitant offer",
+        "misunderstanding",
+        "self-connection"
+      ]
+    },
+    "upright": [
+      "The Two of Cups is the card of two people meeting as equals. It draws attention to mutual recognition: the moment when you see someone clearly and feel seen in return, whether in a friendship, a partnership, a working alliance or a reconciliation after distance. In Olivia’s carving the two ivory figures face each other across the centre of the card, and their free hands reach toward each other over the blue lapis, fingertips almost meeting. It is an offer and an answer, not a grasp.",
+      "Look at the cups. In the traditional image they are pledged toward each other; here each figure keeps their own. One lifts a plain cup in front of the chest, the other holds a goblet low at the waist with a heart of gold set into its bowl. Connection, in this version, does not ask either person to pour themselves out. Each cup stays with its holder, and the meeting happens in the space between them.",
+      "Above the couple rises the caduceus, two serpents twining in balance beneath a winged lion’s head. Hermes’ staff speaks of messages and negotiation; the lion of warmth and desire. Upright, the card invites you to notice where attraction and honest conversation are working together, and to value a bond that is reciprocal: listened to, spoken to, and tended from both sides."
+    ],
+    "reversed": [
+      "Two of Cups reversed draws attention to an exchange that has lost its balance. One person may be doing most of the reaching, or closeness may have been assumed rather than checked, so that each side is guessing at the other. It can also point inward: the gold-hearted cup held so carefully that nothing is offered, or a hesitation to reach across the small gap between the hands.",
+      "The card cannot tell you what anyone else feels. It asks what you have actually said and heard, and what you have only imagined. Sometimes the first step is a clear, kind sentence about your own side; sometimes it is noticing that the connection you most need right now is with yourself."
+    ],
+    "number": "Two is the first relationship: after the single source of the Ace, something now stands opposite and answers back. In the suit of Cups, the suit of Water and feeling, that answer is emotional. The single cup of the Ace becomes two cups held by two people, and feeling turns into exchange. Among the Twos, the Two of Wands weighs a plan, the Two of Swords holds a stalemate and the Two of Pentacles balances demands; the Two of Cups is the one where the pair turn toward each other.",
+    "tradition": "In the Golden Dawn system the Two of Cups is titled the Lord of Love. It is assigned to Venus in Cancer, the first decan of that sign (0 to 10 degrees), and to Chokmah, Wisdom, the second Sephirah on the Tree of Life, expressed through the suit of Water. Venus, the planet of attraction and harmony, in the watery, protective sign of Cancer is commonly read as affection that nourishes. Aleister Crowley kept the single title Love. Marseille-pattern decks show only two cups beneath an ornate flowering design; Pamela Colman Smith’s 1909 card added the pledging couple and, above them, a caduceus crowned by a winged lion’s head.",
+    "areas": {
+      "love": "In love and close friendship the Two of Cups draws attention to reciprocity: attraction that is returned, care that flows both ways, a conversation where each person is heard. It does not tell you how another person feels; the reaching hands in this image still have a gap between them. It asks what a mutual step would look like from your side, and whether you are offering your own cup honestly. With yourself, it invites the same courtesy: listening before judging.",
+      "work": "At work or in study the card can point to a fruitful partnership, a good collaborator, a mentor, or a repaired working relationship. The caduceus above the couple is the messenger’s staff, so the emphasis falls on clear agreements: who brings what, what each person needs, how you will check in with each other. Where money is shared, it can help to put the terms into plain words, rather than letting goodwill stand in for clarity.",
+      "self": "For your relationship with yourself, the two figures can stand for two sides of you that have drifted apart: the part that feels and the part that acts, or the one who gives and the one who needs. The card invites a meeting rather than a verdict. Notice which side has been holding its cup close, like the gold-hearted goblet kept at the waist, and what it would take for both to face each other with the same respect."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Two of Cups points to a relationship or meeting that matters here, and to the quality of exchange within it: how openly each side gives and receives.",
+      "challenge": "As a challenge, the card can show closeness assumed rather than checked, an exchange that has become one-sided, or a fear of offering your own feelings first.",
+      "advice": "As advice, it invites one honest, reciprocal step: say what you feel or need in plain words, then listen fully to the answer before deciding what it means."
+    },
+    "pairs": [
+      {
+        "with": 6,
+        "text": "The Lovers and the Two of Cups are often read together as the major and minor faces of relationship. The Lovers asks about a choice made from your values; the Two of Cups about the everyday exchange that keeps that choice alive."
+      },
+      {
+        "with": 51,
+        "text": "The Two of Swords holds feeling at a guarded distance; the Two of Cups opens toward another across a small gap. Together they draw attention to the moment between protection and openness, and to what would make it feel safe to reach."
+      },
+      {
+        "with": 14,
+        "text": "Temperance is traditionally shown pouring between two vessels with patience. Beside the Two of Cups it turns attention to the slow mixing of two lives, tastes and rhythms, and to the balance that lets a bond deepen without either person losing themselves."
+      }
+    ],
+    "questions": [
+      "Where in your life do you feel truly seen, and how do you show the other person that you see them too?",
+      "Which cup are you holding close right now, and what would it mean to offer it?",
+      "What small, honest exchange could make this connection feel more mutual this week?"
+    ],
+    "practice": "Tell one person something specific you appreciate about them, then ask one open question and listen to the whole answer without planning your reply."
+  },
+  "uk": {
+    "essence": "Двійка Кубків звертає увагу на зустріч рівних: взаємне впізнавання, тяжіння й турботу, що зростають через справжній обмін між двома людьми.",
+    "keywords": {
+      "upright": [
+        "взаємне впізнавання",
+        "тяжіння",
+        "партнерство",
+        "взаємність",
+        "примирення",
+        "щирий обмін"
+      ],
+      "reversed": [
+        "нерівний обмін",
+        "уявна близькість",
+        "несміливий крок",
+        "непорозуміння",
+        "зв’язок із собою"
+      ]
+    },
+    "upright": [
+      "Двійка Кубків — карта двох людей, які зустрічаються як рівні. Вона звертає увагу на взаємне впізнавання: мить, коли ви ясно бачите іншу людину й відчуваєте, що бачать і вас, — у дружбі, партнерстві, робочому союзі чи примиренні після віддалення. У різьбленні Olivia дві фігури зі слонової кістки стоять одна навпроти одної в центрі карти, а їхні вільні руки тягнуться назустріч над синім лазуритом, і кінчики пальців майже торкаються. Це пропозиція й відповідь, а не хапання.",
+      "Подивіться на кубки. На традиційному зображенні кубки простягнуто назустріч, мов на знак обітниці; тут кожна фігура залишає свій кубок при собі. Одна підносить простий кубок перед грудьми, друга тримає келих низько, біля талії, і в його чашу вставлено золоте серце. У цій версії зв’язок не вимагає, щоб хтось із двох віддавав себе до останньої краплі. Кожен кубок лишається в руках того, хто його тримає, а зустріч відбувається в просторі між ними.",
+      "Над парою здіймається кадуцей: дві змії врівноважено сплітаються під головою крилатого лева. Жезл Гермеса говорить про послання й домовленості, лев — про тепло й бажання. У прямому положенні карта запрошує помітити, де тяжіння і чесна розмова діють разом, і цінувати взаємний зв’язок, у якому обидва боки слухають, говорять і дбають про нього."
+    ],
+    "reversed": [
+      "Двійка Кубків у перевернутому положенні звертає увагу на обмін, що втратив рівновагу. Можливо, назустріч здебільшого тягнеться одна людина, або близькість сприйняли як даність, не перевіривши, тож кожен бік тільки здогадується про інший. Карта може вказувати й усередину: на кубок із золотим серцем, який тримають так дбайливо, що нічого не пропонують, або на вагання, чи долати невеликий проміжок між руками.",
+      "Карта не може сказати вам, що відчуває хтось інший. Вона запитує, що ви справді сказали й почули, а що лише уявили. Іноді перший крок — кілька ясних і доброзичливих слів про те, що відбувається з вашого боку; іноді — усвідомлення, що зв’язок, якого ви зараз найбільше потребуєте, — це зв’язок із собою."
+    ],
+    "number": "Два — це перші стосунки: після єдиного джерела Туза навпроти постає щось, що відповідає. У Кубках, масті Води й почуттів, ця відповідь емоційна. Єдиний кубок Туза стає двома кубками в руках двох людей, і почуття перетворюється на обмін. Інші Двійки звучать інакше: Двійка Жезлів зважує задум, Двійка Мечів утримує глухий кут, а Двійка Пентаклів урівноважує вимоги; Двійка Кубків — та, де двоє повертаються одне до одного.",
+    "tradition": "У системі Золотої Зорі Двійка Кубків має титул «Володар Любові». Її пов’язують із Венерою в Раку, першим деканом цього знака (від 0 до 10 градусів), і з Хокмою, Мудрістю, другою сефірою Дерева Життя, вираженою через масть Води. Венеру, планету тяжіння й гармонії, у водному, дбайливому знаку Рака зазвичай читають як прихильність, що живить. Алістер Кроулі залишив один титул — «Любов». Колоди марсельського типу показують лише два кубки під вигадливим квітковим орнаментом; карта Памели Колман Сміт 1909 року додала пару, що обмінюється обітницею, а над нею — кадуцей, увінчаний головою крилатого лева.",
+    "areas": {
+      "love": "У коханні й близькій дружбі Двійка Кубків звертає увагу на взаємність: тяжіння, що знаходить відгук, турботу, яка тече в обидва боки, розмову, де чують кожного. Вона не каже, що відчуває інша людина; руки на цьому зображенні ще розділяє проміжок. Карта запитує, яким був би взаємний крок із вашого боку і чи чесно ви пропонуєте власний кубок. Щодо себе вона запрошує до тієї самої чемності: спершу вислухати, а тоді судити.",
+      "work": "У роботі чи навчанні карта може вказувати на плідне партнерство, людину, з якою добре працюється, наставництво або відновлені робочі стосунки. Кадуцей над парою — жезл вісника, тож наголос падає на ясні домовленості: хто що приносить, чого потребує кожен, як ви триматимете одне одного в курсі. Там, де гроші спільні, може допомогти проговорити умови простими словами, а не дозволяти доброзичливості підміняти ясність.",
+      "self": "У стосунках із собою дві фігури можуть уособлювати дві ваші сторони, що віддалилися одна від одної: ту, що відчуває, і ту, що діє, або ту, що дає, і ту, що потребує. Карта запрошує до зустрічі, а не до вироку. Помітьте, яка сторона тримала свій кубок при собі, як келих із золотим серцем біля талії, і що потрібно, аби обидві стали одна навпроти одної з однаковою повагою."
+    },
+    "positions": {
+      "heart": "У центрі запитання Двійка Кубків указує на стосунки чи зустріч, що мають тут значення, і на якість обміну в них: наскільки відкрито кожен бік дає і приймає.",
+      "challenge": "Як перешкода карта може показувати близькість, яку сприйняли як даність, не перевіривши, обмін, що став однобічним, або страх першими запропонувати власні почуття.",
+      "advice": "Як порада вона запрошує до одного чесного, взаємного кроку: скажіть простими словами, що відчуваєте чи чого потребуєте, а потім повністю вислухайте відповідь, перш ніж вирішувати, що вона означає."
+    },
+    "pairs": [
+      {
+        "with": 6,
+        "text": "Закоханих і Двійку Кубків часто читають разом як два обличчя стосунків — у Старших і Молодших Арканах. Закохані запитують про вибір, зроблений із ваших цінностей; Двійка Кубків — про щоденний обмін, який не дає цьому виборові згаснути."
+      },
+      {
+        "with": 51,
+        "text": "Двійка Мечів тримає почуття на обережній відстані; Двійка Кубків відкривається до іншої людини через невеликий проміжок. Разом вони звертають увагу на мить між захистом і відкритістю і на те, завдяки чому простягнути руку стало б безпечно."
+      },
+      {
+        "with": 14,
+        "text": "Помірність традиційно зображують із двома посудинами, між якими терпляче переливається рідина. Поруч із Двійкою Кубків ця карта звертає увагу на повільне змішування двох життів, смаків і ритмів — і на рівновагу, що дозволяє зв’язку поглиблюватися й водночас не дає нікому з двох утратити себе."
+      }
+    ],
+    "questions": [
+      "Де у вашому житті ви відчуваєте, що вас справді бачать, і як ви показуєте іншій людині, що теж бачите її?",
+      "Який кубок ви зараз тримаєте при собі і що означало б його запропонувати?",
+      "Який невеликий чесний обмін міг би зробити цей зв’язок взаємнішим цього тижня?"
+    ],
+    "practice": "Скажіть одній людині, що саме ви в ній цінуєте, а потім поставте одне відкрите запитання й вислухайте всю відповідь, не обмірковуючи власну репліку."
+  }
+}

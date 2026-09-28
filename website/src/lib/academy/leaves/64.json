@@ -1,0 +1,265 @@
+{
+  "id": 64,
+  "slug": "ace-of-pentacles",
+  "artwork": {
+    "file": "64_ace_of_pentacles.webp",
+    "sha256": "598604a1a46087e4d7c591b69fa24946b554ce48b0bc0081874f9abafae5d91c"
+  },
+  "symbols": [
+    {
+      "key": "pentacle",
+      "x": 41,
+      "y": 35,
+      "en": {
+        "name": "The ivory disc and gold star",
+        "seen": "A thick, plain ivory disc with a raised rim around a slightly recessed face rests on the open palm; near its centre sits one small five-pointed star of gold.",
+        "meaning": "The pentacle is the suit’s emblem of earth: coin, body, craft and the ground you stand on. The traditional image carries an interlaced pentagram; here the sign is pared to a solid gold star on bare ivory, a single point of value in a still unworked piece of material."
+      },
+      "uk": {
+        "name": "Диск зі слонової кістки і золота зірка",
+        "seen": "Товстий гладкий диск зі слонової кістки з рельєфним обідком навколо трохи заглибленого поля лежить на відкритій долоні; ближче до центру — одна невелика п’ятипроменева зірка із золота.",
+        "meaning": "Пентакль — емблема масті Землі: монета, тіло, ремесло і ґрунт під ногами. На традиційному зображенні на ньому переплетена пентаграма; тут знак зведено до суцільної золотої зірки на голій слоновій кістці — однієї точки цінності в ще не обробленому шматку матеріалу."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 64,
+      "y": 33,
+      "en": {
+        "name": "The open palm",
+        "seen": "A large ivory hand, palm upward, reaches in from the right with its wrist bare; the fingers extend relaxed past the disc’s left edge, and nothing closes over the disc, which rests on the palm ungripped.",
+        "meaning": "Every Ace shows a hand from the clouds: something given that you did not make yourself. In Pentacles the hand offers rather than wields. Because it holds the disc open and loose, the gift is not yet anyone’s possession; it waits to be taken up and used."
+      },
+      "uk": {
+        "name": "Відкрита долоня",
+        "seen": "Велика рука зі слонової кістки, долонею догори, тягнеться справа, зап’ясток оголений; розслаблені пальці виходять за лівий край диска; ніщо його не накриває, і він вільно лежить на долоні.",
+        "meaning": "Кожен Туз показує руку з хмари: те, що вам дано, а не створено вами. У Пентаклях рука не тримає знаряддя, а простягає дар. Вона тримає диск відкрито й вільно, тож дар іще нікому не належить: він чекає, щоб його взяли й пустили в діло."
+      }
+    },
+    {
+      "key": "cloud",
+      "x": 88,
+      "y": 38,
+      "en": {
+        "name": "The cloud at the edge",
+        "seen": "A dense bank of ivory cloud, carved in soft rounded masses with lapis showing through its gaps, fills the right edge; the wrist emerges from it and wisps trail left beneath the hand.",
+        "meaning": "The cloud is the traditional source of the Aces, a reminder that openings often arrive from beyond your planning. Here it also runs underneath the hand like a support, so what comes from outside is steadied as it is offered."
+      },
+      "uk": {
+        "name": "Хмара на краю",
+        "seen": "Щільна гряда хмар зі слонової кістки, вирізьблена м’якими округлими клубами, займає правий край; у просвітах між ними проглядає лазурит. З хмар виходить зап’ясток, а під рукою ліворуч тягнуться легкі пасма.",
+        "meaning": "Хмара — традиційне джерело Тузів, нагадування, що нові можливості часто приходять з-поза ваших планів. Тут вона ще й стелиться під рукою, наче опора, тож те, що надходить ззовні, має опору вже тоді, коли його простягають."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 31,
+      "y": 14,
+      "en": {
+        "name": "The trail of stars",
+        "seen": "A narrow diagonal band of glittering silver specks crosses the upper left sky, running from near the top left corner down toward the hand, among scattered gold flecks and fine cracks in the stone.",
+        "meaning": "Olivia adds this band to the traditional composition. Read with the card, it draws a line from the vast and distant down to something small enough to hold, the way a large possibility becomes a single, tangible start."
+      },
+      "uk": {
+        "name": "Зоряний слід",
+        "seen": "Вузька діагональна смуга мерехтливих срібних цяток перетинає небо вгорі ліворуч: від верхнього лівого кута вниз до руки, серед розкиданих золотих вкраплень і тонких тріщин у камені.",
+        "meaning": "Цю смугу Olivia додає до традиційної композиції. У прочитанні цієї карти вона прокладає лінію від неосяжного й далекого до чогось досить малого, щоб утримати в руці, — так велика можливість стає одним відчутним початком."
+      }
+    },
+    {
+      "key": "path",
+      "x": 54,
+      "y": 77,
+      "en": {
+        "name": "The path to the mountains",
+        "seen": "Carved in pale lapis, a narrow path winds from the hedge arch back through low hills toward a range of mountains with one peak higher than the rest.",
+        "meaning": "Traditionally the path beyond the garden leads to the mountains of long effort and larger aims. It shows that this Ace is a beginning with somewhere to go; the gift in the hand becomes meaningful only when you walk it out into the world."
+      },
+      "uk": {
+        "name": "Стежка до гір",
+        "seen": "Вирізьблена у світлому лазуриті вузька стежка в’ється від арки в живоплоті крізь низькі пагорби до гірського пасма, де одна вершина здіймається вище за інші.",
+        "meaning": "Традиційно стежка за садом веде до гір — тривалих зусиль і більших цілей. Вона показує, що цей Туз — початок, якому є куди йти: дар у руці набуває сенсу лише тоді, коли ви власними кроками виносите його у світ."
+      }
+    },
+    {
+      "key": "tower",
+      "x": 83,
+      "y": 75,
+      "en": {
+        "name": "The crenellated towers",
+        "seen": "Square towers of pale blue lapis, with stepped crenellations and visible courses of stone, rise at the left and right edges of the garden; a crenellated wall runs back into the hills from the left tower.",
+        "meaning": "Towers are not part of the traditional Ace of Pentacles garden. Here they frame the scene as a protected, walled place, pointing ahead to the security and settled household the suit builds toward by its later numbers."
+      },
+      "uk": {
+        "name": "Зубчасті вежі",
+        "seen": "Квадратні вежі зі світло-блакитного лазуриту, зі ступінчастими зубцями й помітними рядами кладки, здіймаються біля лівого та правого країв саду; від лівої вежі в пагорби тягнеться зубчастий мур.",
+        "meaning": "У традиційному саду Туза Пентаклів веж немає. Тут вони обрамлюють сцену як захищене, обнесене муром місце й указують наперед — на безпеку та усталений дім, до яких масть приходить у пізніших числах."
+      }
+    },
+    {
+      "key": "lily",
+      "x": 29,
+      "y": 78,
+      "en": {
+        "name": "The lilies on the left",
+        "seen": "Tall lilies with open, star-shaped blooms and long pointed leaves stand in a cluster on the left, carved in lighter blue lapis and rising above the top of the hedge.",
+        "meaning": "Lilies grow in the traditional Ace of Pentacles garden and are commonly read as purity of intention. They suggest that what grows here grows best from a clean motive: tending a thing for its own sake, not only for what it could return."
+      },
+      "uk": {
+        "name": "Лілії ліворуч",
+        "seen": "Високі лілії з розкритими зірчастими квітами й довгим загостреним листям ростуть гуртом ліворуч; вони вирізьблені у світлішому блакитному лазуриті й здіймаються над верхом живоплоту.",
+        "meaning": "Лілії ростуть у традиційному саду Туза Пентаклів, і їх зазвичай тлумачать як чистоту намірів. Вони підказують, що тут найкраще росте те, що плекають із чистим мотивом: дбати про справу заради неї самої, а не лише заради того, що вона може повернути."
+      }
+    },
+    {
+      "key": "rose",
+      "x": 75,
+      "y": 79,
+      "en": {
+        "name": "The roses on the right",
+        "seen": "Full, many-petalled roses among serrated leaves fill the bed on the right, carved in lighter lapis just above the hedge line and beside the right-hand tower.",
+        "meaning": "Roses stand for desire, love and cultivation. Paired with the lilies, as in the Magician’s garden, they balance clean intention with real wanting. Olivia gives each flower its own side, so the garden holds both motives in view."
+      },
+      "uk": {
+        "name": "Троянди праворуч",
+        "seen": "Пишні багатопелюсткові троянди серед зубчастого листя заповнюють грядку праворуч; вони вирізьблені у світлішому лазуриті трохи вище лінії живоплоту, поруч із правою вежею.",
+        "meaning": "Троянди означають бажання, любов і плекання. У парі з ліліями, як у саду Мага, вони врівноважують чистий намір справжнім бажанням. Olivia віддає кожній квітці свій бік, тож сад тримає в полі зору обидва мотиви."
+      }
+    },
+    {
+      "key": "arch",
+      "x": 49,
+      "y": 83,
+      "en": {
+        "name": "The arch in the hedge",
+        "seen": "A low, dense hedge of textured lapis crosses the foreground; at its centre it rises into a rounded arch wreathed with small carved roses, and the path passes through its opening.",
+        "meaning": "The hedge arch is a traditional threshold between the tended garden and the wider world. It marks the moment of stepping out with what you have been given, from safe cultivation into practical use, through an opening that is narrow but clearly there."
+      },
+      "uk": {
+        "name": "Арка в живоплоті",
+        "seen": "Низький густий живопліт із фактурного лазуриту перетинає передній план; посередині він здіймається округлою аркою, оповитою дрібними різьбленими трояндами, і стежка проходить крізь її отвір.",
+        "meaning": "Арка в живоплоті — традиційний поріг між доглянутим садом і ширшим світом. Вона позначає мить, коли ви виходите з тим, що вам дали: від безпечного плекання — до практичного вжитку, крізь прохід, який вузький, але цілком помітний."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Ace of Pentacles is a practical opening placed in your open hand: a resource, skill or chance that becomes real only when you tend it.",
+    "keywords": {
+      "upright": [
+        "tangible opportunity",
+        "new resource",
+        "grounded start",
+        "body and home",
+        "patient growth"
+      ],
+      "reversed": [
+        "missed opening",
+        "poor soil",
+        "scarcity thinking",
+        "unused skill",
+        "hoarding"
+      ]
+    },
+    "upright": [
+      "The Ace of Pentacles draws attention to something you can actually touch: an hour, a skill, a place, a sum of money, the body you live in. In Olivia’s carving a large ivory hand reaches in from a bank of cloud and holds out a thick, plain disc. There is no emblem worked across its face, only a single small gold star at the centre. The value is present, but most of the material is still unworked.",
+      "The hand does not grip. The disc rests on an open palm, so the card is less about ownership than about receiving and deciding what to do next. Far below, a garden lies between two towers: lilies on one side, roses on the other, a hedge with an arch, and a path winding out toward the mountains. The gift in the sky is meant for that ground. It asks to be planted, carried and used, not admired from a distance.",
+      "Upright, this Ace invites a modest, concrete beginning: clearing a corner to work in, booking the first lesson, walking the same route each morning, mending what you already own. Its strength is in the small scale. Ask what conditions you can offer this opening (time, attention, a little space) and begin with the step you could repeat next week as well as today."
+    ],
+    "reversed": [
+      "Ace of Pentacles reversed can show a practical opening that has not found its ground. The disc may be offered, but the soil is not ready: no time set aside, no space, no plan for the first step. Sometimes it points to a chance you passed over and still turn over in your mind, so that regret hides what is still available.",
+      "The reversal can also turn inward, toward holding too tightly. The open palm in the image becomes a closed fist: saving without living, or waiting for a perfect, certain start before you move. Look at what you already have in hand, however plain, and choose one small, sustainable way to put it to use."
+    ],
+    "number": "Aces are the root of a suit, the seed before any number unfolds it. In Pentacles, the suit of earth, that seed is material: a body, a place, an hour, a skill, a small sum, something with weight that can be held and tended. Where the Ace of Wands offers a spark and the Ace of Cups an overflow, this Ace offers raw substance. Everything that follows in the suit, the juggling of the Two and the craft of the Three through to the household of the Ten, grows from it.",
+    "tradition": "In the Golden Dawn system this card is the Root of the Powers of Earth, and each Ace stands for Kether, the crown of the Tree of Life, within its element. Aces take no decan: Book T places them at the north pole of the heavens, above the zodiac, as the roots of their elements. The suit descends from the Coins of Italian and Marseille decks, where the Ace is a single large ornamented coin; Waite-Smith calls the suit Pentacles and Crowley’s Thoth deck calls it Disks. Pamela Colman Smith’s 1909 design set the hand and cloud above a lily garden with an arched hedge and a path toward mountains.",
+    "areas": {
+      "love": "In love and close relationships, the Ace of Pentacles favours care you can see and touch: a regular evening kept free, a meal cooked together, a shared space made more comfortable. It can point to a bond ready to become more rooted in daily life. It also turns attention to how you tend yourself: sleep, food, rest and a home that supports you. Like the disc on the open palm, affection here is offered plainly and grows through steady practice.",
+      "work": "At work, in study and with money matters, this Ace can point to a practical opening: a new role, a course, a small commission, a skill that could become useful. It favours careful groundwork over large leaps. Write down what the opening requires in hours, tools and support, and what you can realistically give it. Any financial decision deserves proper advice; the card simply asks you to notice the resource and plan how to tend it.",
+      "self": "For your own life, the Ace of Pentacles invites you to take your body and your daily surroundings seriously as places where change begins. The garden in the image is hedged and tended, with a path leading out of it. Consider which small, repeated action would make your ground more fertile: a walk, a tidy desk, a set bedtime, a savings habit. Growth here is slow and physical, and it is built from ordinary days."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter turns on something tangible and within reach: a resource, skill or opening that needs practical tending rather than more thought.",
+      "challenge": "As a challenge, it can show an opportunity left in the open hand: undervalued because it looks plain, or delayed while you wait for conditions that feel completely certain.",
+      "advice": "As advice, it invites one small, physical first step you can repeat, such as setting aside an hour, clearing a space or starting a simple record of what you have."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "The Magician’s table traditionally holds a pentacle among the four suit tools, with roses and lilies framing the figure. Together the two cards ask how a skill you already have could be put to practical use."
+      },
+      {
+        "with": 67,
+        "text": "The Four of Pentacles traditionally shows a coin held tightly to the body. Beside this Ace’s open palm, the pair draws attention to the difference between keeping something safe and keeping it so close that it cannot grow."
+      },
+      {
+        "with": 73,
+        "text": "The Ten of Pentacles completes the suit that this Ace begins. Seen together they trace the long arc from a single coin in the hand to a settled home, and ask which small beginning could support a lasting structure."
+      }
+    ],
+    "questions": [
+      "What tangible resource, skill or opening is already resting in your hand, even if it looks plain?",
+      "What conditions of time, space or support would help this beginning take root?",
+      "Where might you be holding on so tightly to security that nothing new can grow?"
+    ],
+    "practice": "Choose one plain object that stands for a practical beginning, place it where you work, and each day for a week do one small thing that tends it."
+  },
+  "uk": {
+    "essence": "Туз Пентаклів — практична можливість, покладена вам на відкриту долоню: ресурс, навичка чи шанс, що стають справжніми лише тоді, коли ви про них дбаєте.",
+    "keywords": {
+      "upright": [
+        "відчутна можливість",
+        "новий ресурс",
+        "стійкий початок",
+        "тіло і дім",
+        "терпляче зростання"
+      ],
+      "reversed": [
+        "проґавлена нагода",
+        "неродючий ґрунт",
+        "мислення нестачі",
+        "невикористана навичка",
+        "надмірне накопичення"
+      ]
+    },
+    "upright": [
+      "Туз Пентаклів звертає увагу на те, чого можна справді торкнутися: годину, навичку, місце, певну суму грошей, тіло, в якому ви живете. У різьбленні Olivia велика рука зі слонової кістки з’являється з гряди хмар і простягає товстий гладкий диск. На його поверхні немає жодної емблеми — лише одна невелика золота зірка в центрі. Цінність уже тут, але більша частина матеріалу ще не оброблена.",
+      "Рука не стискає. Диск лежить на відкритій долоні, тож ідеться в карті не так про володіння, як про те, щоб прийняти дар і вирішити, що робити далі. Далеко внизу між двома вежами розкинувся сад: лілії з одного боку, троянди з другого, живопліт з аркою і стежка, що в’ється до гір. Дар у небі призначений саме для цієї землі. Він просить, щоб його посадили, понесли й пустили в діло, а не милувалися ним здалеку.",
+      "У прямому положенні цей Туз запрошує до скромного, конкретного початку: розчистити куточок для роботи, записатися на перше заняття, щоранку ходити тим самим маршрутом, полагодити те, що у вас уже є. Його сила — у малому масштабі. Запитайте себе, які умови ви можете створити для цієї можливості (час, увагу, трохи простору), і почніть із кроку, який зможете повторити й наступного тижня, а не лише сьогодні."
+    ],
+    "reversed": [
+      "Туз Пентаклів у перевернутому положенні може вказувати на практичну можливість, яка ще не знайшла свого ґрунту. Диск, можливо, і простягнуто, але земля не готова: немає відведеного часу, місця, плану першого кроку. Іноді карта вказує на шанс, який ви пропустили і до якого досі подумки повертаєтеся, — і жаль затуляє те, що досі доступне.",
+      "Перевернуте положення може звернути погляд і всередину — до звички тримати надто міцно. Відкрита долоня із зображення стискається в кулак: заощадження, яке витісняє саме життя, або очікування ідеального, певного старту, перш ніж зрушити з місця. Погляньте на те, що вже маєте в руках, хай яким простим воно здається, і оберіть один невеликий, посильний спосіб пустити це в діло."
+    ],
+    "number": "Тузи — корінь масті, зерно, якого ще не розгорнуло жодне наступне число. У Пентаклях, масті Землі, це зерно матеріальне: тіло, місце, година, навичка, невелика сума — щось вагоме, що можна тримати в руках і терпляче плекати. Якщо Туз Жезлів дає іскру, а Туз Кубків — перелив через край, то цей Туз дає сировину. Усе, що далі розгортається в масті, від жонглювання Двійки й ремесла Трійки до родинного дому Десятки, виростає саме з нього.",
+    "tradition": "У системі Золотої Зорі ця карта — Корінь Сил Землі, і кожен Туз представляє Кетер, корону Дерева Життя, у межах своєї стихії. Тузи не мають декана: «Книга Т» розміщує їх біля північного полюса неба, над зодіаком, як корені їхніх стихій. Масть походить від Монет італійських і марсельських колод, де Туз — одна велика оздоблена монета; колода Вейта–Сміт називає масть Пентаклями, а колода Тота Кроулі — Дисками. На карті Памели Колман Сміт 1909 року рука з хмарою розташована над садом із ліліями, аркою в живоплоті та стежкою до гір.",
+    "areas": {
+      "love": "У коханні та близьких стосунках Туз Пентаклів надає перевагу турботі, яку можна побачити й відчути на дотик: вечір, який ви регулярно лишаєте вільним, спільно приготована вечеря, затишніше облаштований спільний простір. Він може вказувати на зв’язок, готовий глибше вкоренитися в щоденному житті. Також він звертає увагу на те, як ви дбаєте про себе: сон, їжа, відпочинок і дім, що вас підтримує. Як диск на відкритій долоні, прихильність тут простягають просто, і вона росте з постійної практики.",
+      "work": "У роботі, навчанні та грошових справах цей Туз може вказувати на практичну можливість: нову посаду, курс, невелике замовлення, навичку, яка може стати в пригоді. Він надає перевагу ретельній підготовці перед великими стрибками. Запишіть, чого ця можливість потребує в годинах, інструментах і підтримці, і що ви реально можете їй дати. Будь-яке фінансове рішення варто ухвалювати з належною фаховою порадою; карта лише просить помітити ресурс і спланувати, як про нього дбати.",
+      "self": "У вашому власному житті Туз Пентаклів запрошує серйозно поставитися до тіла й щоденного оточення як до місць, де починаються зміни. Сад на зображенні обнесений живоплотом і доглянутий, а з нього веде стежка. Подумайте, яка невелика повторювана дія зробила б ваш ґрунт родючішим: прогулянка, прибраний стіл, постійний час відходу до сну, звичка відкладати гроші. Зростання тут повільне й тілесне, і складається воно зі звичайних днів."
+    },
+    "positions": {
+      "heart": "У центрі запитання ця карта підказує, що справа тримається на чомусь відчутному й досяжному: ресурсі, навичці чи можливості, які потребують практичного догляду, а не нових роздумів.",
+      "challenge": "Як виклик вона може показувати можливість, що лишилася на відкритій долоні: недооцінену, бо має непоказний вигляд, або відкладену, поки ви чекаєте умов, які здавалися б цілком певними.",
+      "advice": "Як порада вона запрошує до одного невеликого фізичного першого кроку, який можна повторювати: виділити годину, звільнити місце або почати простий облік того, що у вас є."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "На столі Мага традиційно лежить пентакль серед чотирьох знарядь мастей, а фігуру обрамлюють троянди й лілії. Разом ці дві карти запитують, як навичку, що вже у вас є, можна застосувати на практиці."
+      },
+      {
+        "with": 67,
+        "text": "Четвірка Пентаклів традиційно показує монету, міцно притиснуту до тіла. Поруч із відкритою долонею цього Туза пара звертає увагу на різницю між тим, щоб берегти щось, і тим, щоб тримати його так близько, що воно не може рости."
+      },
+      {
+        "with": 73,
+        "text": "Десятка Пентаклів завершує масть, яку починає цей Туз. Разом вони окреслюють довгу дугу від однієї монети в руці до усталеного дому й запитують, який невеликий початок міг би стати опорою для чогось тривкого."
+      }
+    ],
+    "questions": [
+      "Який відчутний ресурс, навичка чи можливість уже лежить у вас на долоні, навіть якщо має непоказний вигляд?",
+      "Які умови — час, простір чи підтримка — допомогли б цьому початку вкоренитися?",
+      "Де ви, можливо, так міцно тримаєтеся за безпеку, що нічому новому ніде вирости?"
+    ],
+    "practice": "Оберіть один простий предмет, що символізує практичний початок, покладіть його там, де працюєте, і щодня протягом тижня робіть одну невелику дію, яка плекає цей початок."
+  }
+}

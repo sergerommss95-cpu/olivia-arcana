@@ -1,0 +1,265 @@
+{
+  "id": 15,
+  "slug": "the-devil",
+  "artwork": {
+    "file": "15_the_devil.webp",
+    "sha256": "d035e3cf1ae5f8a2b2d409b284eecc224b1f84b98ae4678cf70d3f60cfb6add6"
+  },
+  "symbols": [
+    {
+      "key": "star",
+      "x": 50,
+      "y": 26,
+      "en": {
+        "name": "The gold star on the brow",
+        "seen": "A small star inlaid in gold sits in the centre of the Devil’s forehead, between two curved ivory horns and above a frowning brow. It has points straight up and straight down.",
+        "meaning": "The traditional Devil wears an inverted pentagram, commonly read as spirit placed beneath matter. Olivia’s star is not a pentagram: its points run both up and down. As the only gold on any figure, it suggests that something of real value sits inside the pattern, turned to the wrong purpose."
+      },
+      "uk": {
+        "name": "Золота зірка на чолі",
+        "seen": "Посеред чола Диявола, між двома вигнутими рогами зі слонової кістки й над насупленими бровами, інкрустовано невелику золоту зірку. Її промені спрямовані прямо вгору і прямо вниз.",
+        "meaning": "Традиційний Диявол має на чолі перевернуту пентаграму, яку зазвичай тлумачать як дух, поставлений нижче за матерію. Зірка Olivia — не пентаграма: її промені тягнуться і вгору, і вниз. Як єдине золото на фігурах карти, вона натякає, що всередині цього кола є щось справді цінне, тільки спрямоване не туди."
+      }
+    },
+    {
+      "key": "wings",
+      "x": 74,
+      "y": 24,
+      "en": {
+        "name": "The spread bat wings",
+        "seen": "Two broad ivory wings open across the upper card, one on each side of the horned head. They are bat wings: thin ribbed membrane stretched between long finger bones, with a small hooked claw at the top joint of each.",
+        "meaning": "Bat wings belong to a creature of night and caves, and they are traditionally set against the feathered wings of the angels in The Lovers and Temperance. They give the figure reach and a kind of grandeur, while keeping it a thing of the dark rather than of open sky."
+      },
+      "uk": {
+        "name": "Розгорнуті крила кажана",
+        "seen": "Два широкі крила зі слонової кістки розкриваються у верхній частині карти, по одному з кожного боку рогатої голови. Це крила кажана: тонка ребриста перетинка, натягнута між довгими кістками-пальцями й маленький гачкуватий кіготь на верхньому суглобі кожного.",
+        "meaning": "Крила кажана належать істоті ночі й печер, і їх традиційно протиставляють пернатим крилам ангелів із Закоханих і Помірності. Вони надають фігурі розмаху й певної величі, але лишають її створінням темряви, а не відкритого неба."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 31,
+      "y": 29,
+      "en": {
+        "name": "The raised open hand",
+        "seen": "The Devil’s right arm is lifted to the viewer’s left, bent at the elbow. The open palm faces outward, fingers held together and thumb apart, in front of the ribbed wing.",
+        "meaning": "The raised hand is traditionally read as the reverse of the Hierophant’s blessing: a gesture of authority that holds attention rather than teaches. Here it is almost a greeting or a signal to stop. Either way, it asks you to notice who, or what, you have allowed to set the terms."
+      },
+      "uk": {
+        "name": "Піднята відкрита долоня",
+        "seen": "Права рука Диявола піднята ліворуч від глядача й зігнута в лікті. Відкрита долоня повернута назовні, пальці зімкнені, великий палець відведений убік; позаду видно ребристе крило.",
+        "meaning": "Підняту руку традиційно тлумачать як протилежність благословення Ієрофанта: жест влади, що утримує увагу, а не навчає. Тут він скидається майже на привітання чи знак зупинитися. Хай як його тлумачити, він пропонує помітити, кому або чому ви дозволили встановлювати правила."
+      }
+    },
+    {
+      "key": "torch",
+      "x": 71,
+      "y": 42,
+      "en": {
+        "name": "The torch held low",
+        "seen": "The Devil’s left hand grips an ivory torch that slants down and outward to the viewer’s right, past the corner of the block. The flame burns at the lower end and curls upward in long tongues.",
+        "meaning": "The traditional Devil holds a torch turned toward the earth, commonly read as fire spent downward: desire and energy poured into matter instead of lighting the way. The flame still rises, which is the hopeful detail. The same heat that feeds a habit can be turned to something you choose."
+      },
+      "uk": {
+        "name": "Смолоскип, опущений донизу",
+        "seen": "Ліва рука Диявола стискає смолоскип зі слонової кістки, що похило спрямований униз і назовні, праворуч від глядача, за край постаменту. Полум’я горить на нижньому кінці й завивається вгору довгими язиками.",
+        "meaning": "Традиційний Диявол тримає смолоскип, звернений до землі; його зазвичай тлумачать як вогонь, витрачений донизу: бажання й енергію, вкладені в матерію замість того, щоб освітлювати шлях. Та полум’я все одно здіймається вгору, і це обнадійлива деталь. Той самий жар, що живить звичку, можна спрямувати на те, що ви обираєте самі."
+      }
+    },
+    {
+      "key": "chains",
+      "x": 52,
+      "y": 51,
+      "en": {
+        "name": "The ring and sagging chains",
+        "seen": "A dark iron ring is fixed to the front of the pale lapis block on which the Devil crouches. Two chains hang from it in sagging curves to grey metal collars around the necks of the pair below.",
+        "meaning": "The chains are the card’s central image of attachment. They are traditionally noted as loose enough to lift off, and here they sag rather than pull taut while every hand stays free. The binding is real, yet it depends partly on standing still and not reaching up."
+      },
+      "uk": {
+        "name": "Кільце і провислі ланцюги",
+        "seen": "Темне залізне кільце закріплене на передній грані блідого лазуритового постаменту, на якому присів Диявол. Від нього провислими дугами тягнуться два ланцюги до сірих металевих нашийників на шиях пари внизу.",
+        "meaning": "Ланцюги — головний образ прив’язаності в цій карті. Традиційно зауважують, що вони досить вільні, аби їх зняти; тут вони провисають, а не натягуються, і всі руки лишаються вільними. Ці пута справжні, але частково тримаються на тому, що ніхто не рухається й не тягнеться вгору."
+      }
+    },
+    {
+      "key": "couple",
+      "x": 51,
+      "y": 66,
+      "en": {
+        "name": "The horned, chained pair",
+        "seen": "Two ivory figures stand barefoot in front of the block, one on each side of the ring, each with small horns in the hair. One wears a drape over one shoulder, the other a full robe. Both bow their heads, eyes lowered.",
+        "meaning": "The pair traditionally repeats the lovers of card VI, now horned and tailed, bound instead of blessed. Smith drew them nude; Olivia drapes them, so they look less like people exposed than people who have settled in. Their bowed heads suggest resignation more than fear."
+      },
+      "uk": {
+        "name": "Рогата пара в ланцюгах",
+        "seen": "Дві фігури зі слонової кістки стоять босоніж перед постаментом, по обидва боки від кільця, з маленькими ріжками у волоссі. На одній — драпування через плече, на другій — довга шата. Обидві схилили голови й опустили очі.",
+        "meaning": "Традиційно ця пара повторює закоханих із карти VI, тепер рогатих і хвостатих, скутих, а не благословенних. Сміт зобразила їх оголеними; Olivia їх одягає, тож вони скидаються не так на беззахисних, як на тих, хто тут уже обжився. Схилені голови говорять радше про змирення, ніж про страх."
+      }
+    },
+    {
+      "key": "flame",
+      "x": 31,
+      "y": 70,
+      "en": {
+        "name": "The flame-tipped tail",
+        "seen": "The figure on the left has a slim ivory tail that curves out behind the thigh and ends in a small, upright tuft of flame, echoing the torch the Devil holds above.",
+        "meaning": "The flame tail is part of the traditional image and is commonly read as passion, anger or appetite that has become part of the body’s habits. Its fire matches the Devil’s torch, as if the figure now carries a small piece of that downward flame wherever it goes."
+      },
+      "uk": {
+        "name": "Хвіст із полум’ям",
+        "seen": "У фігури ліворуч тонкий хвіст зі слонової кістки, що вигинається позаду стегна й закінчується маленьким здійнятим язичком полум’я, що відлунює смолоскип, який Диявол тримає вгорі.",
+        "meaning": "Вогняний хвіст належить до традиційного образу; його зазвичай тлумачать як пристрасть, гнів чи жагу, що стали частиною тілесних звичок. Його вогонь перегукується зі смолоскипом Диявола, ніби фігура тепер усюди носить із собою часточку того полум’я, спрямованого донизу."
+      }
+    },
+    {
+      "key": "grapes",
+      "x": 74,
+      "y": 74,
+      "en": {
+        "name": "The grape-cluster tail",
+        "seen": "The figure on the right has a tail that curls out beside the robe and ends in a hanging bunch of ivory grapes, with two small vine leaves at the stem.",
+        "meaning": "Grapes traditionally stand for wine, pleasure and abundance. Ripening into a tail, they suggest comfort that has turned into dependence: something sweet that is now simply part of how you move. The same fruit, freely chosen, would mean celebration instead of need."
+      },
+      "uk": {
+        "name": "Хвіст-гроно винограду",
+        "seen": "У фігури праворуч хвіст вигинається збоку від шати й закінчується звислим гроном винограду зі слонової кістки з двома маленькими виноградними листками біля ніжки.",
+        "meaning": "Виноград традиційно означає вино, насолоду й достаток. Визріваючи на кінці хвоста, він натякає на комфорт, що обернувся залежністю: на щось солодке, що стало просто частиною того, як ви рухаєтеся. Той самий плід, обраний вільно, означав би свято, а не потребу."
+      }
+    },
+    {
+      "key": "cave",
+      "x": 28,
+      "y": 59,
+      "en": {
+        "name": "The grotto and its openings",
+        "seen": "The scene is set in a hollow of rough blue lapis. Two dark cave mouths open behind the pair, one each side of the block, and a round ringed disc is carved into the rocky floor.",
+        "meaning": "The traditional card places its figures against flat black; Olivia sets them underground, in the hidden place where old patterns live. Yet this chamber is not sealed: dark openings lead out on both sides, a quiet reminder that the enclosure has exits even when no one is looking at them."
+      },
+      "uk": {
+        "name": "Грот і його виходи",
+        "seen": "Сцена розгортається в заглибині з шорсткого синього лазуриту. Позаду пари, по обидва боки від постаменту, темніють два входи в печеру, а на кам’яній підлозі вирізьблено круглий диск з обідком.",
+        "meaning": "Традиційна карта розміщує фігури на пласкому чорному тлі; Olivia переносить їх під землю, у приховане місце, де живуть старі звички. Та ця зала не замкнена: темні проходи ведуть назовні з обох боків, тихо нагадуючи, що з цього простору є виходи, навіть коли ніхто на них не дивиться."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Devil draws attention to what holds you: habits, cravings and bargains that feel binding, and the slack in the chain that makes change possible.",
+    "keywords": {
+      "upright": [
+        "attachment",
+        "temptation",
+        "habit loop",
+        "shadow",
+        "material ties"
+      ],
+      "reversed": [
+        "loosening",
+        "awareness",
+        "reclaimed choice",
+        "hidden craving",
+        "detachment"
+      ]
+    },
+    "upright": [
+      "The Devil is a symbolic card about attachment, not a forecast and not a verdict on your character. It draws attention to a pattern that holds more of your time, energy or attention than you would freely give it: a habit, a craving, a relationship dynamic, a way of working, a story about what you cannot live without. The card is honest that such patterns have real pull. Its Devil is carved at full grandeur, bat wings spread wide, with a gold star on the brow that is the only gold on any figure. What binds you usually offers something genuinely valuable.",
+      "Look closely at the chains, though. Both hang from a single ring in sagging curves, and neither figure below lifts a hand to them; both heads are bowed, eyes lowered. The binding is real, yet part of its strength comes from not looking up. Even the tails, one ending in a flame and one in a bunch of grapes, show how an appetite can become so familiar that it feels like part of the body.",
+      "The card invites description before judgement. Name what the pattern gives you, what it costs, and which small part of it is within reach to change, while respecting the limits that are genuinely not yours to move. Behind the pair, the grotto has openings on both sides."
+    ],
+    "reversed": [
+      "The Devil reversed often points to a pattern you are beginning to see clearly, or a chain that is starting to loosen. You may notice the habit in the moment rather than afterwards, or feel both the pull of something and your wish to step back. That awareness is already movement, even when freedom still feels awkward to use.",
+      "The reversed card can also turn inward: a craving kept hidden, a compulsion that has moved somewhere quieter, or a swing into rigid self-denial that is its own kind of chain. Avoid replacing the pattern with self-blame. Ask what support would make one small change easier to sustain."
+    ],
+    "number": "The Devil is card XV, following Temperance and preceding The Tower. It opens the last row of seven Major Arcana, where the Fool meets forces larger than the personal self, and it begins with the shadow. After Temperance finds a measured blend, the Devil shows what happens when one ingredient takes over. Fifteen reduces to six, linking it with The Lovers: the same questions of desire and choice, now seen from inside the attachment. This step asks you to look directly at what holds you.",
+    "tradition": "In the Golden Dawn system The Devil is Atu XV, titled “The Lord of the Gates of Matter, the Child of the Forces of Time”. It carries the Hebrew letter Ayin, meaning eye, and the sign Capricorn, cardinal Earth, on the path joining Tiphareth and Hod on the Tree of Life. Marseille decks show a winged, horned figure on a pedestal with two smaller horned attendants tied to it at the neck. Pamela Colman Smith’s 1909 design drew on Éliphas Lévi’s goat-headed Baphomet and is widely read as a dark mirror of The Lovers: the same pair, now horned, tailed and chained.",
+    "areas": {
+      "love": "In close relationships The Devil draws attention to a dynamic that holds both people in place: jealousy, dependence, a familiar argument, a comfort that has quietly become a condition. It does not describe what another person feels or intends. It asks what your part of the pattern gives you and costs you, and whether the chain is as tight as it seems. With yourself, it can point to a harsh inner voice you keep obeying.",
+      "work": "At work or in study, The Devil can point to overwork that feels compulsory, a role you stay in only out of fear, or a reward system that keeps you busy without satisfying you. It invites a clear look at what you are trading for security. With money matters, it suggests noticing patterns of spending or saving that run on anxiety rather than choice, and reviewing them calmly, without drastic moves.",
+      "self": "For your own growth, The Devil asks you to meet your shadow with curiosity instead of shame. Which appetite, fear or old bargain has grown into a tail, part of how you move without thinking? The pair in the card bow their heads; the practice is to raise yours, look at the ring, and notice how much slack is in the chain before deciding what to do next."
+    },
+    "positions": {
+      "heart": "At the centre of a question, The Devil suggests the real subject is an attachment: something that holds you more than you hold it. Naming it plainly is the first step.",
+      "challenge": "As a challenge, The Devil can show a habit, craving or fear that keeps pulling you back, or a sense of being trapped that is partly real and partly habit.",
+      "advice": "As advice, The Devil invites you to look up at the chain: describe one pattern honestly, including its reward, and choose one small, reversible way to test the slack."
+    },
+    "pairs": [
+      {
+        "with": 6,
+        "text": "With The Lovers, the Devil’s mirror image, the same pair appears blessed and then bound. Together they ask whether a bond or desire in your life is freely chosen, or whether choice has quietly become compulsion."
+      },
+      {
+        "with": 5,
+        "text": "With The Hierophant, two raised hands meet: a blessing that teaches and a gesture that holds. Together they draw attention to the rules and authorities you follow, and which of them you have genuinely agreed to."
+      },
+      {
+        "with": 16,
+        "text": "With The Tower, the card that follows it, a held pattern meets sudden release. Together they turn attention to structures that have grown too tight, and to what a gentler, chosen loosening might look like."
+      }
+    ],
+    "questions": [
+      "What does this familiar pattern give you, and what does it quietly ask in return?",
+      "If you looked up at the ring instead of down, how much slack would you find in the chain?",
+      "Which appetite or fear has become so habitual that it now feels like part of you?"
+    ],
+    "practice": "For one day, each time a chosen habit pulls at you, pause for three breaths and write one word for what you were hoping it would give you."
+  },
+  "uk": {
+    "essence": "Диявол звертає увагу на те, що вас тримає: звички, потяги й угоди, що здаються обов’язковими, а також на слабину в ланцюзі, яка робить зміну можливою.",
+    "keywords": {
+      "upright": [
+        "прив’язаність",
+        "спокуса",
+        "коло звички",
+        "тінь",
+        "матеріальні пута"
+      ],
+      "reversed": [
+        "послаблення",
+        "усвідомлення",
+        "повернений вибір",
+        "прихований потяг",
+        "відсторонення"
+      ]
+    },
+    "upright": [
+      "Диявол — символічна карта про прив’язаність, а не прогноз і не вирок вашому характеру. Вона звертає увагу на звичне коло, що забирає більше вашого часу, сил чи уваги, ніж ви віддали б із власної волі: звичку, потяг, динаміку у стосунках, спосіб працювати, історію про те, без чого ви нібито не можете жити. Карта чесно визнає, що таке коло має справжню силу тяжіння. Її Диявол вирізьблений у всій величі, з широко розкинутими крилами кажана і золотою зіркою на чолі — єдиним золотом на всіх фігурах. Те, що вас зв’язує, зазвичай і справді дає щось цінне.",
+      "Утім, придивіться до ланцюгів. Обидва звисають з одного кільця провислими дугами, і жодна з фігур унизу не піднімає до них руки; обидві схилили голови й опустили очі. Пута справжні, але частина їхньої сили — у тому, що ніхто не підводить погляду. Навіть хвости, один із полум’ям на кінці, другий із гроном винограду, показують, як жага може стати настільки звичною, що здається частиною тіла.",
+      "Карта пропонує спершу описати, а вже потім оцінювати. Назвіть, що дає вам це коло, чого воно коштує і яку його невелику частину вам під силу змінити, шануючи межі, зрушити які справді не у вашій владі. Позаду пари грот має виходи з обох боків."
+    ],
+    "reversed": [
+      "Диявол у перевернутому положенні часто вказує на звичне коло, яке ви починаєте ясно бачити, або на ланцюг, що вже слабшає. Можливо, ви помічаєте звичку тієї ж миті, а не згодом, або відчуваєте водночас і тяжіння чогось, і бажання відступити. Це усвідомлення вже є рухом, навіть коли свободою ще незвично користуватися.",
+      "Перевернута карта може також звертати погляд усередину: прихований потяг, нав’язлива звичка, що перебралася кудись тихіше, або різкий перехід до суворого самообмеження, яке теж стає ланцюгом. Не замінюйте старе коло самозвинуваченням. Запитайте себе, яка підтримка допомогла б довше втримати одну невелику зміну."
+    ],
+    "number": "Диявол — карта XV, що йде після Помірності й перед Вежею. Вона відкриває останній ряд із семи Старших Арканів, де Блазень зустрічає сили, більші за особисте «я», і цей ряд починається з тіні. Після того як Помірність знаходить виважене поєднання, Диявол показує, що відбувається, коли один складник бере гору. П’ятнадцять зводиться до шести, і це пов’язує карту із Закоханими: ті самі теми бажання й вибору, тепер побачені зсередини прив’язаності. Цей крок пропонує прямо поглянути на те, що вас тримає.",
+    "tradition": "У системі Золотої Зорі Диявол — Ату XV під назвою «Володар Брам Матерії, Дитя Сил Часу». Карті відповідають єврейська літера Аїн, що означає «око», і Козеріг, кардинальний знак Землі; це шлях між Тіферет і Год на Дереві Життя. У марсельських колодах крилата рогата фігура стоїть на постаменті, а двоє менших рогатих прислужників прив’язані до неї за шию. Карта Памели Колман Сміт 1909 року спиралася на козлоголового Бафомета Еліфаса Леві, і її часто тлумачать як темне дзеркало Закоханих: та сама пара, тепер рогата, хвостата й закута в ланцюги.",
+    "areas": {
+      "love": "У близьких стосунках Диявол звертає увагу на динаміку, яка тримає на місці обох: ревнощі, залежність, знайому суперечку, затишок, що непомітно став умовою. Карта не описує, що відчуває чи чого прагне інша людина. Вона запитує, що дає і чого коштує вам ваша частина цього кола і чи справді ланцюг такий тугий, яким здається. У стосунках із собою вона може вказувати на суворий внутрішній голос, якому ви й досі підкоряєтеся.",
+      "work": "У роботі чи навчанні Диявол може вказувати на перевантаження, яке здається обов’язковим, на роль, у якій ви лишаєтеся лише зі страху, або на систему винагород, що тримає вас у постійній зайнятості, але не дає задоволення. Карта пропонує тверезо поглянути, що саме ви віддаєте в обмін на безпеку. Щодо грошей вона пропонує помітити звички витрачати чи заощаджувати, які живляться тривогою, а не вибором, і спокійно переглянути їх, без різких кроків.",
+      "self": "Для вашого власного зростання Диявол пропонує зустріти свою тінь із цікавістю, а не з соромом. Що саме — жага, страх чи давня угода — виросло у хвіст і стало частиною того, як ви рухаєтеся, не замислюючись? Пара на карті схиляє голови; ваша практика — підвести свою, поглянути на кільце й помітити, скільки слабини в ланцюзі, перш ніж вирішувати, що робити далі."
+    },
+    "positions": {
+      "heart": "У центрі запитання Диявол підказує, що справжня тема — прив’язаність: щось, що тримає вас міцніше, ніж ви тримаєте його. Назвати це прямо — перший крок.",
+      "challenge": "Як перешкода Диявол може показувати звичку, потяг чи страх, що раз у раз тягне вас назад, або відчуття пастки, яке почасти справжнє, а почасти — теж звичка.",
+      "advice": "Як порада Диявол пропонує підвести погляд до ланцюга: чесно описати одне звичне коло разом із його винагородою й обрати один невеликий крок, який легко скасувати, щоб перевірити, наскільки ланцюг провисає."
+    },
+    "pairs": [
+      {
+        "with": 6,
+        "text": "Із Закоханими, дзеркальним відображенням Диявола, та сама пара постає спершу благословенною, а потім скутою. Разом ці карти запитують, чи зв’язок або бажання у вашому житті обрані вільно, чи вибір непомітно перетворився на примус."
+      },
+      {
+        "with": 5,
+        "text": "З Ієрофантом зустрічаються дві підняті руки: благословення, що навчає, і жест, що утримує. Разом вони звертають увагу на правила й авторитети, яких ви дотримуєтеся, і на те, з якими з них ви справді погодилися."
+      },
+      {
+        "with": 16,
+        "text": "У парі з Вежею, наступною картою, усталене коло зустрічається з раптовим вивільненням. Разом вони звертають увагу на структури, що стали надто тісними, і на те, яким могло б бути м’якше, свідомо обране послаблення."
+      }
+    ],
+    "questions": [
+      "Що дає вам це знайоме коло і чого воно тихо просить натомість?",
+      "Якби ви поглянули вгору, на кільце, а не вниз, скільки слабини знайшли б у ланцюзі?",
+      "Які жага чи страх стали такими звичними, що тепер здаються частиною вас?"
+    ],
+    "practice": "Протягом одного дня щоразу, коли обрана звичка тягне вас до себе, зробіть три вдихи й запишіть одне слово: що ви сподівалися від неї отримати."
+  }
+}

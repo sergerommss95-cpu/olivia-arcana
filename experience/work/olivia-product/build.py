@@ -55,7 +55,7 @@ fonts = (p.parent / 'fonts-inline.css').read_text()
 style_names = ['motion-tokens.css', 'style.css', 'home-continuity.css', 'spread-layout.css', 'single-card-flow.css']
 if (p / 'practice.css').exists():
     style_names.append('practice.css')
-style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css', 'support-note.css', 'mobile-coherence.css'] if (p / name).exists())
+style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css', 'support-note.css', 'reread.css', 'survey.css', 'question-hint.css', 'sentence-first.css', 'today-pair.css', 'card-plan.css', 'pin-walk.css', 'mobile-coherence.css'] if (p / name).exists())
 styles = '\n'.join((p / name).read_text() for name in style_names)
 scripts = {
     'hero': (p / 'hero.js').read_text(),
@@ -72,11 +72,47 @@ def data(file):
     return 'data:image/webp;base64,' + base64.b64encode(file.read_bytes()).decode()
 
 
-def asset_script(back, major, minor, phone=None, back_phone=None):
+# Symbol Trails are fetched when the view first opens, one language at a time,
+# so their text never weighs on the homepage.
+trail_json = json.loads(subprocess.run([
+    'node', '--input-type=module', '-e',
+    "import {SYMBOL_TRAIL_DATA} from './symbol-trails-data.js';"
+    "const pick=l=>SYMBOL_TRAIL_DATA.map(t=>({id:t.id,group:t.group[l],...t[l],cards:t.cards.map(c=>({cardId:c.cardId,slug:c.slug,x:c.x,y:c.y,...c[l]}))}));"
+    "process.stdout.write(JSON.stringify({en:JSON.stringify(pick('en')),uk:JSON.stringify(pick('uk'))}));"
+], cwd=p, text=True, capture_output=True, check=True).stdout)
+trail_data = {language: 'data:application/json;base64,' + base64.b64encode(text.encode()).decode() for language, text in trail_json.items()}
+
+# Also fetched on first use, one language at a time: the question phrase bank
+# and the pair readings written on the card pages.
+learn_dir = root.parent / 'website/src/lib/learn'
+leaves_dir = root.parent / 'website/src/lib/academy/leaves'
+phrase_bank = json.loads((learn_dir / 'phrase-bank.json').read_text(encoding='utf8'))
+leaves = [json.loads(f.read_text(encoding='utf8')) for f in sorted(leaves_dir.glob('[0-9][0-9].json'))]
+
+
+def pair_texts(language):
+    pairs = {}
+    for leaf in leaves:
+        for pair in leaf[language]['pairs']:
+            a, b = sorted((leaf['id'], pair['with']))
+            pairs.setdefault(f'{a}-{b}', []).append({'from': leaf['id'], 'text': pair['text']})
+    return pairs
+
+
+lazy_json = {
+    'phrases': {language: json.dumps(phrase_bank[language], ensure_ascii=False, separators=(',', ':')) for language in ('en', 'uk')},
+    'pairs': {language: json.dumps(pair_texts(language), ensure_ascii=False, separators=(',', ':')) for language in ('en', 'uk')},
+    'cardQuestions': {language: json.dumps({leaf['id']: leaf[language]['questions'] for leaf in leaves}, ensure_ascii=False, separators=(',', ':')) for language in ('en', 'uk')},
+    'pins': {language: json.dumps({leaf['id']: [{'x': s['x'], 'y': s['y'], 'name': s[language]['name'], 'seen': s[language]['seen']} for s in leaf['symbols']] for leaf in leaves}, ensure_ascii=False, separators=(',', ':')) for language in ('en', 'uk')},
+}
+lazy_data = {kind: {language: 'data:application/json;base64,' + base64.b64encode(text.encode()).decode() for language, text in texts.items()} for kind, texts in lazy_json.items()}
+
+
+def asset_script(back, major, minor, trails, lazy, phone=None, back_phone=None):
     if phone is None:
         return (
             'const BACK_DATA=' + json.dumps(back) + ';const DETAIL_DATA=' + json.dumps(major)
-            + ';const MINOR_DATA=' + json.dumps(minor) + ';'
+            + ';const MINOR_DATA=' + json.dumps(minor) + ';const TRAILS_DATA=' + json.dumps(trails) + ';const LAZY_DATA=' + json.dumps(lazy) + ';'
         )
     # hero.js reads DETAIL_DATA and, below 700 px, draws every card at 512×1024.
     # Phones get that size directly; readings keep full artwork (DETAIL_FULL).
@@ -86,7 +122,8 @@ def asset_script(back, major, minor, phone=None, back_phone=None):
         'const PHONE_STAGE=((document.querySelector("#motion-stage")||{}).offsetWidth||innerWidth)<700;'
         + 'const BACK_DATA=PHONE_STAGE?' + json.dumps(back_phone) + ':' + json.dumps(back)
         + ';const DETAIL_FULL=' + json.dumps(major)
-        + ';const DETAIL_DATA=PHONE_STAGE?' + json.dumps(phone) + ':DETAIL_FULL;const MINOR_DATA=' + json.dumps(minor) + ';'
+        + ';const DETAIL_DATA=PHONE_STAGE?' + json.dumps(phone) + ':DETAIL_FULL;const MINOR_DATA=' + json.dumps(minor)
+        + ';const TRAILS_DATA=' + json.dumps(trails) + ';const LAZY_DATA=' + json.dumps(lazy) + ';'
     )
 
 
@@ -98,7 +135,7 @@ replacements = {
     '/*FONTS*/': fonts,
     '/*STYLE*/': styles,
     '/*BACK_IMG*/': data(back_file),
-    '/*ASSETS*/': asset_script(data(back_file), {key: data(file) for key, file in major_files.items()}, {key: data(file) for key, file in minor_files.items()}),
+    '/*ASSETS*/': asset_script(data(back_file), {key: data(file) for key, file in major_files.items()}, {key: data(file) for key, file in minor_files.items()}, trail_data, lazy_data),
     '/*HERO*/': inline_script(scripts['hero']),
     '/*APP*/': inline_script(scripts['app']),
     '/*BACKGROUND*/': inline_script(scripts['background']),
@@ -143,6 +180,8 @@ hosted_back_phone = emit_asset('card-back-phone', back_phone_file.read_bytes(), 
 hosted_major = {key: emit_asset(file.stem, file.read_bytes(), 'webp') for key, file in major_files.items()}
 hosted_minor = {key: emit_asset(file.stem, file.read_bytes(), 'webp') for key, file in minor_files.items()}
 hosted_phone = {key: emit_asset(file.stem + '-phone', file.read_bytes(), 'webp') for key, file in phone_files.items()}
+hosted_trails = {language: emit_asset('symbol-trails-' + language, text, 'json') for language, text in trail_json.items()}
+hosted_lazy = {kind: {language: emit_asset(f'{kind}-{language}', text, 'json') for language, text in texts.items()} for kind, texts in lazy_json.items()}
 font_number = 0
 
 
@@ -163,14 +202,16 @@ hosted_fonts = re.sub(r'url\(data:([^;]+);base64,([A-Za-z0-9+/=]+)\)', extract_f
 if not font_number or 'data:font/' in hosted_fonts:
     raise ValueError('Embedded fonts were not completely extracted.')
 css_url = emit_asset('experience', hosted_fonts + '\n' + styles, 'css')
-assets_url = emit_asset('card-assets', asset_script(hosted_back, hosted_major, hosted_minor, hosted_phone, hosted_back_phone)
-    + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA}};\n', 'js')
+assets_url = emit_asset('card-assets', asset_script(hosted_back, hosted_major, hosted_minor, hosted_trails, hosted_lazy, hosted_phone, hosted_back_phone)
+    + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA},trails:TRAILS_DATA,lazy:LAZY_DATA};\n', 'js')
 script_urls = {name: emit_asset(name, source, 'js') for name, source in scripts.items()}
 native_assets_url = emit_asset('native-card-assets', asset_script('/experience/' + hosted_back,
     {key: '/experience/' + value for key, value in hosted_major.items()},
     {key: '/experience/' + value for key, value in hosted_minor.items()},
+    {key: '/experience/' + value for key, value in hosted_trails.items()},
+    {kind: {language: '/experience/' + value for language, value in files.items()} for kind, files in hosted_lazy.items()},
     {key: '/experience/' + value for key, value in hosted_phone.items()}, '/experience/' + hosted_back_phone)
-    + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA}};\n', 'js')
+    + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA},trails:TRAILS_DATA,lazy:LAZY_DATA};\n', 'js')
 
 hosted = template
 hosted, style_count = re.subn(r'<style>\s*/\*FONTS\*/\s*/\*STYLE\*/\s*</style>',

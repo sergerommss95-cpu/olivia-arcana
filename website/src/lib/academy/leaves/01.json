@@ -1,0 +1,267 @@
+{
+  "id": 1,
+  "slug": "the-magician",
+  "artwork": {
+    "file": "01_the_magician.webp",
+    "sha256": "bd8501890bd9687d1d6702cdadfd312b21a5b2054b3fd5d973e96d0823dd8143"
+  },
+  "symbols": [
+    {
+      "key": "milky-way",
+      "x": 29,
+      "y": 12,
+      "en": {
+        "name": "The glittering Milky Way",
+        "seen": "A diagonal band of fine silvery sparkle runs from the top edge down to the left edge of the night sky, passing just beside the tip of the raised wand. It is far denser than the scattered gold star flecks.",
+        "meaning": "The traditional Magician stands against a plain yellow sky; Olivia sets the figure under the whole night instead. The wand is lifted into the same sky the galaxy crosses: a reminder that the Magician’s power comes from something larger and passes through one person."
+      },
+      "uk": {
+        "name": "Мерехтливий Чумацький Шлях",
+        "seen": "Діагональна смуга дрібних сріблястих іскор тягнеться від верхнього краю нічного неба до лівого й проходить поруч із кінчиком піднятого жезла. Вона значно густіша за розсипані золоті зірочки.",
+        "meaning": "Традиційний Маг стоїть на тлі однотонного жовтого неба; Olivia натомість ставить фігуру під усе нічне небо. Жезл здійнято в те саме небо, яке перетинає галактика: це нагадування, що сила Мага походить від чогось більшого й проходить крізь одну людину."
+      }
+    },
+    {
+      "key": "wand",
+      "x": 26,
+      "y": 22,
+      "en": {
+        "name": "The raised ivory wand",
+        "seen": "The figure’s right arm, on the viewer’s left, reaches up and out above the head, the fingers closed around a slender ivory rod held nearly upright, with a small grooved knob at its top end.",
+        "meaning": "The raised wand is the first half of the Magician’s gesture, commonly read as “as above, so below”: energy drawn from above in order to be brought down into form. It is a conductor rather than a weapon; held this high, it makes an intention visible before anything is made."
+      },
+      "uk": {
+        "name": "Піднятий жезл зі слонової кістки",
+        "seen": "Права рука фігури, ліворуч від глядача, тягнеться вгору й убік над головою. Пальці стискають тонкий стрижень зі слонової кістки, майже вертикальний, із невеликою рифленою головкою на верхньому кінці.",
+        "meaning": "Піднятий жезл — перша половина жесту Мага, яку зазвичай читають як «що вгорі, те й унизу»: енергію черпають згори, щоб утілити її у формі. Це провідник, а не зброя; піднятий так високо, він робить намір видимим ще до того, як щось створено."
+      }
+    },
+    {
+      "key": "infinity",
+      "x": 53,
+      "y": 26,
+      "en": {
+        "name": "The gold lemniscate",
+        "seen": "Above the head floats a horizontal figure of eight inlaid in gold, two smooth closed loops crossing at the centre. It is the largest piece of gold on the card, set against the pale blue field behind the figure.",
+        "meaning": "Pamela Colman Smith drew a lemniscate over the Magician and again over the figure in Strength, and Olivia keeps both in gold. The sign of infinity is commonly read as endless exchange: energy flowing out and returning. In a deck sparing with gold, it marks what does not run out: attention, renewed each time it is given."
+      },
+      "uk": {
+        "name": "Золота лемніската",
+        "seen": "Над головою ширяє горизонтальна вісімка, інкрустована золотом: дві плавні замкнені петлі перетинаються в центрі. Це найбільший золотий елемент на карті, і він вирізняється на світло-блакитному тлі за фігурою.",
+        "meaning": "Памела Колман Сміт намалювала лемніскату над Магом і ще раз над фігурою на карті «Сила», і Olivia зберігає обидві в золоті. Знак нескінченності зазвичай читають як безконечний обмін: енергія витікає й повертається. У колоді, скупій на золото, він позначає те, що не вичерпується: увагу, яка оновлюється щоразу, коли її віддають."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 58,
+      "y": 45,
+      "en": {
+        "name": "The ivory robe and mantle",
+        "seen": "A plain round-necked tunic under a heavy mantle draped over both shoulders, gathered in deep folds at the raised arm and falling in long folds behind the table. Both are carved in the same warm ivory.",
+        "meaning": "In the Waite-Smith card a red mantle is worn over a white robe, commonly read as desire worn over purity of purpose. Olivia removes the red: the whole figure is one ivory. Intention and wanting are not layered here but made of a single material."
+      },
+      "uk": {
+        "name": "Шата й мантія зі слонової кістки",
+        "seen": "Проста туніка з круглим вирізом, а поверх неї важка мантія, накинута на обидва плечі: біля піднятої руки вона збирається глибокими складками, а за столом спадає довгими. Обидва шари вирізьблено з тієї самої теплої слонової кістки.",
+        "meaning": "На карті Вейта–Сміт червону мантію вдягнено поверх білої шати, і це зазвичай читають як бажання, накинуте на чистоту задуму. Olivia прибирає червоне: уся фігура — з однієї слонової кістки. Намір і бажання тут не лежать шарами, а зроблені з одного матеріалу."
+      }
+    },
+    {
+      "key": "serpent",
+      "x": 53,
+      "y": 56,
+      "en": {
+        "name": "The serpent girdle",
+        "seen": "A scaled serpent carved in grey-blue lapis circles the waist as a belt and crosses over itself in a loop at the front. Its head rests on top of the loop, facing the viewer’s left, mouth closed.",
+        "meaning": "In the traditional image the Magician’s girdle is a serpent swallowing its own tail, the ouroboros of eternity and renewal. Olivia’s serpent is coiled but open: head raised on the coil, mouth empty. The cycle is still there, alert rather than sealed, like a skill kept ready close to the body."
+      },
+      "uk": {
+        "name": "Пояс у вигляді змія",
+        "seen": "Лускатий змій, вирізьблений із сіро-блакитного лазуриту, обвиває талію, мов пояс, і спереду перехрещується сам із собою, утворюючи петлю. Його голова лежить на цій петлі, повернута ліворуч від глядача, паща зімкнена.",
+        "meaning": "На традиційному зображенні пояс Мага — змій, що ковтає власний хвіст, уроборос вічності й оновлення. Змій Olivia згорнутий, але розімкнений: голова піднята над кільцем, паща порожня. Цикл нікуди не зник, але тут він пильний, а не замкнений: як навичка, яку тримають напоготові, близько до тіла."
+      }
+    },
+    {
+      "key": "mountain",
+      "x": 20,
+      "y": 55,
+      "en": {
+        "name": "The mountains and water",
+        "seen": "Behind the table on the left, a pale mountain range rises beyond a wide stretch of still water marked with fine horizontal lines, all carved in shallow relief in a lighter, greyer blue.",
+        "meaning": "The Waite-Smith Magician has no landscape, only a plain sky. Olivia opens a view behind the table: mountains for what is solid and distant, water for feeling and reflection. The Magician works in front of a real world, and the work is meant to reach it."
+      },
+      "uk": {
+        "name": "Гори й вода",
+        "seen": "За столом ліворуч світлий гірський хребет здіймається за широким плесом спокійної води, позначеної тонкими горизонтальними лініями. Усе вирізьблено неглибоким рельєфом у світлішому й сірішому відтінку синього.",
+        "meaning": "На карті Вейта–Сміт за Магом немає пейзажу, лише однотонне небо. Olivia відкриває краєвид за столом: гори — образ сталого й далекого, вода — почуттів і роздумів. Маг працює перед справжнім світом, і праця покликана до нього дійти."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 79,
+      "y": 62,
+      "en": {
+        "name": "The hand pointing down",
+        "seen": "The figure’s left arm, on the viewer’s right, extends down and outwards from the mantle. The index finger points firmly down towards the carved flowers at the foot of the card, the other fingers curled in.",
+        "meaning": "The second half of the gesture: what is drawn from above is directed into the earth. Together, the raised wand and the pointing finger make the figure a channel between two levels. They turn the card from inspiration into application: the idea has to land somewhere specific."
+      },
+      "uk": {
+        "name": "Рука, що вказує вниз",
+        "seen": "Ліва рука фігури, праворуч від глядача, витягнута з-під мантії вниз і вбік. Вказівний палець твердо спрямований униз, до вирізьблених квітів біля підніжжя карти, решта пальців підібгані.",
+        "meaning": "Друга половина жесту: те, що взято згори, спрямовують у землю. Разом піднятий жезл і вказівний палець перетворюють фігуру на канал між двома рівнями. Завдяки їм карта говорить уже не про натхнення, а про застосування: ідея має приземлитися в конкретному місці."
+      }
+    },
+    {
+      "key": "table",
+      "x": 44,
+      "y": 71,
+      "en": {
+        "name": "The four tools on the table",
+        "seen": "On a heavy lapis table with a moulded base stand, from left: a stemmed cup, a sword upright on its pommel with the point to the sky, a slim rod ending in a round knob, and a disc bearing a five-pointed star.",
+        "meaning": "The four suit emblems: wands for will and energy, cups for feeling, swords for thought, pentacles for the body and material things. Waite and Smith set them on the Magician’s table as the tools of all four elements. Here they are carved in the blue of the stone, not in ivory: resources within reach, not yet picked up."
+      },
+      "uk": {
+        "name": "Чотири знаряддя на столі",
+        "seen": "На масивному лазуритовому столі з профільованою підставою, зліва направо: келих на ніжці, меч, поставлений на навершя вістрям до неба, тонкий стрижень із круглою головкою та диск із п’ятикутною зіркою.",
+        "meaning": "Чотири емблеми мастей: Жезли — воля й енергія, Кубки — почуття, Мечі — думка, Пентаклі — тіло й матеріальне. Вейт і Сміт поклали їх на стіл Мага як знаряддя всіх чотирьох стихій. Тут їх вирізьблено в синяві каменю, а не в слоновій кістці: ресурси поруч, ще не взяті до рук."
+      }
+    },
+    {
+      "key": "garden",
+      "x": 50,
+      "y": 83,
+      "en": {
+        "name": "Roses and lilies below",
+        "seen": "Along the foot of the card, in front of the table, open roses, rosebuds and star-shaped lilies grow together among leaves, all carved in grey-blue lapis rather than ivory or red.",
+        "meaning": "The traditional card frames the Magician with red roses and white lilies: desire and pure intention, the cultivated passions the work serves. Olivia keeps both flowers but plants them only below, in the stone’s own blue: a garden growing from the ground the Magician points towards."
+      },
+      "uk": {
+        "name": "Троянди й лілії внизу",
+        "seen": "Уздовж нижнього краю карти, перед столом, серед листя разом ростуть розкриті троянди, бутони й зіркоподібні лілії. Усе вирізьблено в сіро-блакитному лазуриті, без слонової кістки й без червоного.",
+        "meaning": "Традиційна карта обрамлює Мага червоними трояндами й білими ліліями: бажанням і чистим наміром, плеканими пристрастями, яким служить ця праця. Olivia зберігає обидві квітки, але висаджує їх лише внизу, у власній синяві каменю: сад, що росте із землі, на яку вказує Маг."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Magician is the moment an intention finds its tools: one clear act that joins what you imagine with what you can actually reach.",
+    "keywords": {
+      "upright": [
+        "focused will",
+        "skill",
+        "resourcefulness",
+        "concentration",
+        "clear intention",
+        "first action"
+      ],
+      "reversed": [
+        "scattered effort",
+        "unused talent",
+        "performance over substance",
+        "hesitation to begin",
+        "misdirected skill"
+      ]
+    },
+    "upright": [
+      "The Magician stands where the Fool’s open possibility turns into a single, deliberate act. In Olivia’s carving the figure faces you directly, calm and level-eyed, one arm lifting an ivory wand towards the starry sky while the other hand points to the ground. Between those two gestures the whole card happens: something is drawn down from the level of ideas and directed into the world, precisely and on purpose.",
+      "Look at the table. The cup, the sword, the slim wand and the star-marked disc are all there, but they are carved in the same blue as the stone, not yet taken up. The card draws attention to what is already within reach: feeling, thought, energy and practical means. You rarely need a new resource so much as a decision about which one to use first, and for what.",
+      "Above the figure hangs the gold lemniscate, the largest piece of gold on the card, and around the waist a serpent lies coiled with its head raised. Both speak of energy that circulates rather than runs out. Upright, the Magician invites focused attention: one task, chosen clearly, done with the skill you have now. Readiness here is less a feeling than a practice, something you build by beginning."
+    ],
+    "reversed": [
+      "The Magician reversed turns attention to skill that is present but not yet connected to a clear purpose. The tools may sit on the table while the hands stay busy elsewhere: plans multiplied, talents kept in reserve, effort spent on looking capable rather than making something. It can also point to hesitation, a wish to feel completely ready before the first move.",
+      "Consider the gesture on the card: one hand up, one hand down. Reversed, that current can stall at either end, all vision and no landing, or constant activity with no direction behind it. Ask which end is weaker for you now. A smaller, more honest scope, or naming what support is missing, can reconnect the two."
+    ],
+    "number": "The Magician is card 1, the first station after the Fool in the Major Arcana. Where zero is pure potential, one is the first number that stands for something: a single point placed on an empty page. Here the traveller’s open possibility gathers into one will. This step asks you to choose a single intention and act on it, accepting that choosing also means setting other options aside for now.",
+    "tradition": "In the Golden Dawn system the Magician carries the title “The Magus of Power” and is attributed to the Hebrew letter Beth, “house”, and to the planet Mercury, on the twelfth path of the Tree of Life between Kether and Binah. Mercury, messenger and patron of skill, suits a card about traffic between levels. Italian decks came to call the card Il Bagatto, and the Marseille pattern Le Bateleur: a street conjurer at a table of cups, dice and small tools, part craftsman, part trickster. Waite and Pamela Colman Smith’s 1909 design turned the conjurer into a ceremonial figure, with the lemniscate overhead, the wand raised and the four suit emblems on the table.",
+    "areas": {
+      "love": "In love, the Magician asks what you actually bring to a relationship, rather than what you hope another person will supply. Attention, humour, patience and honest words are all tools on the table. The card can point to a moment for saying clearly what you want, or for taking the first practical step instead of rehearsing it. With yourself, it invites you to treat your own needs as something you can act on, not only wish about.",
+      "work": "At work or in study, the Magician draws attention to the gap between having abilities and using them on purpose. List what is already available: a skill, a contact, an hour, a draft. The card favours one concrete piece of work finished well over five started. If money is part of the question, the card turns attention to what you can see and check for yourself, such as a clear written plan, rather than hopeful guesses.",
+      "self": "For yourself, the Magician turns attention to concentration. The raised wand and the pointing hand describe a simple loop: notice an idea, then give it a place in the day. Where does your energy leak into busyness, and where does it actually produce something? The card invites small, repeatable acts of focus: one task named in the morning, one moment at night to see what was made. Skill grows from that repetition."
+    },
+    "positions": {
+      "heart": "At the centre of the question, the Magician suggests that the resources you need may already be largely present. The question can then become one of focus: which tool, used with what intention, comes first.",
+      "challenge": "As what complicates the matter, the Magician can point to talent scattered across too many aims, or to cleverness spent on looking busy. The effort may be there while the direction is missing.",
+      "advice": "As advice, the Magician invites you to choose one intention, gather what you already have, and take a single concrete step today that turns the idea into something visible."
+    },
+    "pairs": [
+      {
+        "with": 0,
+        "text": "The Fool is zero, pure possibility and a light pack; the Magician is one, the same energy gathered at a table with tools. Together they ask how an open beginning becomes a deliberate first act without losing its freshness."
+      },
+      {
+        "with": 2,
+        "text": "The Magician stands with every tool laid out in the open, wand raised; the High Priestess sits still, eyes closed, a scroll half hidden at the figure’s side. Together they draw attention to the balance of doing and knowing: action that grows from listening, and inner knowledge that eventually takes form."
+      },
+      {
+        "with": 8,
+        "text": "In Olivia’s deck, as in the Waite-Smith, the same gold lemniscate hangs in the sky of both cards. The Magician directs will through skill; Strength directs it through patience and gentleness. Together they ask whether your power works by sharp focus or by steady care."
+      }
+    ],
+    "questions": [
+      "Which tool already on your table have you not yet picked up, and what would using it look like?",
+      "What is one intention you could state in a single sentence and act on this week?",
+      "Where does your effort produce something real, and where does it only keep you busy?"
+    ],
+    "practice": "Write one intention at the top of a page, then note one resource you already have for each suit: energy, feeling, thought, practical means. Use one of them today."
+  },
+  "uk": {
+    "essence": "Маг — це мить, коли намір знаходить свої знаряддя: одна ясна дія, що поєднує уявлене з тим, до чого ви справді можете дотягнутися.",
+    "keywords": {
+      "upright": [
+        "зосереджена воля",
+        "майстерність",
+        "винахідливість",
+        "концентрація",
+        "ясний намір",
+        "перша дія"
+      ],
+      "reversed": [
+        "розпорошені зусилля",
+        "невикористаний талант",
+        "видимість замість суті",
+        "вагання перед початком",
+        "хибно спрямоване вміння"
+      ]
+    },
+    "upright": [
+      "Маг стоїть там, де відкрита можливість Блазня перетворюється на одну свідому дію. У різьбі Olivia фігура дивиться просто на вас спокійним, рівним поглядом; одна рука здіймає жезл зі слонової кістки до зоряного неба, а друга вказує на землю. Між цими двома жестами й відбувається вся карта: щось зводять униз із рівня ідей і спрямовують у світ — точно й навмисно.",
+      "Погляньте на стіл. Келих, меч, тонкий жезл і диск із зіркою — усі на місці, але вирізьблені в тому самому синьому, що й камінь, і ще не взяті до рук. Карта звертає увагу на те, що вже під рукою: почуття, думку, енергію й практичні засоби. Рідко бракує нового ресурсу; частіше потрібне рішення, який із наявних використати першим і навіщо.",
+      "Над фігурою висить золота лемніската, найбільший золотий елемент на карті, а довкола талії згорнувся змій із піднятою головою. Обидва говорять про енергію, що циркулює, а не вичерпується. У прямому положенні Маг запрошує до зосередженої уваги: одне завдання, ясно обране й виконане з тією майстерністю, яка у вас є зараз. Готовність тут — не так відчуття, як практика: її вибудовують, починаючи."
+    ],
+    "reversed": [
+      "Маг у перевернутому положенні звертає увагу на вміння, яке є, але ще не пов’язане з ясною метою. Знаряддя можуть лежати на столі, поки руки зайняті деінде: плани множаться, таланти лишаються про запас, зусилля йдуть на те, щоб здаватися спроможними, а не щось створити. Карта може вказувати й на вагання — бажання відчути цілковиту готовність ще до першого кроку.",
+      "Погляньте на жест на карті: одна рука вгорі, друга внизу. У перевернутому положенні цей струм може застрягнути на будь-якому з кінців: суцільне бачення без приземлення або безперервна діяльність без жодного спрямування. Запитайте себе, який кінець зараз слабший саме у вас. Щоб знову з’єднати обидва кінці, можна зменшити масштаб до чеснішого або назвати, якої підтримки бракує."
+    ],
+    "number": "Маг — карта 1, перша зупинка після Блазня у Старших Арканах. Якщо нуль — чиста можливість, то одиниця — перше число, яке щось позначає: одна точка на порожній сторінці. Тут відкрита можливість мандрівника збирається в єдину волю. Цей крок просить вас обрати один намір і діяти згідно з ним, визнаючи, що вибір водночас означає поки відкласти інші варіанти.",
+    "tradition": "У системі Золотої Зорі Маг має титул «Маг Сили» (The Magus of Power). Йому відповідають єврейська літера Бет, «дім», і планета Меркурій; він займає дванадцятий шлях Дерева Життя між сефірами Кетер і Біна. Меркурій, посланець і покровитель ремесла, пасує карті про рух між рівнями. Італійські колоди стали називати карту Il Bagatto, а марсельський зразок — Le Bateleur: вуличний штукар за столом із чашами, кубиками й дрібним реквізитом, почасти майстер, почасти пройдисвіт. Задум Вейта й Памели Колман Сміт 1909 року перетворив штукаря на церемоніальну фігуру з лемніскатою над головою, піднятим жезлом і чотирма емблемами мастей на столі.",
+    "areas": {
+      "love": "У коханні Маг запитує, що ви насправді приносите у стосунки, а не чого сподіваєтеся від іншої людини. Увага, гумор, терпіння й чесні слова — усе це знаряддя на столі. Карта може вказувати на слушну мить, щоб ясно сказати, чого ви хочете, або зробити перший практичний крок замість того, щоб подумки його репетирувати. У стосунках із собою вона запрошує бачити у власних потребах те, для чого можна щось зробити, а не лише те, про що ви мрієте.",
+      "work": "У роботі чи навчанні Маг звертає увагу на розрив між наявністю здібностей і свідомим їх використанням. Перелічіть, що вже доступне: навичка, знайомство, вільна година, чернетка. Карта віддає перевагу одній конкретній справі, добре завершеній, а не п’ятьом розпочатим. Якщо запитання стосується грошей, карта спрямовує увагу на те, що ви можете побачити й перевірити самі, як-от ясний письмовий план, а не на оптимістичні здогадки.",
+      "self": "Для вас самих Маг звертає увагу на зосередженість. Піднятий жезл і рука, що вказує вниз, описують просту петлю: помітити ідею, а тоді дати їй місце у своєму дні. Де ваша енергія розтікається в метушню, а де справді щось створює? Карта запрошує до невеликих повторюваних вправ на зосередження: одне завдання, назване вранці, одна хвилина ввечері, щоб побачити, що зроблено. Майстерність зростає саме з цього повторення."
+    },
+    "positions": {
+      "heart": "У центрі запитання Маг підказує, що потрібні ресурси, можливо, здебільшого вже є. Тоді йдеться про фокус: яке знаряддя, з яким наміром, варто пустити в хід першим.",
+      "challenge": "Як те, що ускладнює справу, Маг може вказувати на талант, розпорошений між надто багатьма цілями, або на кмітливість, витрачену на те, щоб здаватися зайнятими. Зусилля, можливо, є, а напрямку бракує.",
+      "advice": "У позиції поради Маг запрошує обрати один намір, зібрати те, що вже маєте, і сьогодні зробити один конкретний крок, який перетворить ідею на щось видиме."
+    },
+    "pairs": [
+      {
+        "with": 0,
+        "text": "Блазень — це нуль, чиста можливість і легка ноша; Маг — одиниця, та сама енергія, зібрана за столом зі знаряддями. Разом вони запитують, як відкритий початок стає свідомою першою дією, не втрачаючи своєї свіжості."
+      },
+      {
+        "with": 2,
+        "text": "Маг стоїть із усіма знаряддями на виду, піднявши жезл; Верховна Жриця сидить нерухомо із заплющеними очима, а збоку від фігури напівприхований сувій. Разом вони звертають увагу на рівновагу дії та знання: дію, що виростає зі слухання, і внутрішнє знання, яке згодом набуває форми."
+      },
+      {
+        "with": 8,
+        "text": "У колоді Olivia, як і в колоді Вейта–Сміт, та сама золота лемніската висить у небі обох карт. Маг спрямовує волю через майстерність; Сила — через терпіння й лагідність. Разом вони запитують, чи ваша сила діє через гостру зосередженість, чи через сталу турботу."
+      }
+    ],
+    "questions": [
+      "Яке знаряддя на вашому столі ви ще не взяли до рук і як би ви ним скористалися?",
+      "Який намір ви могли б висловити одним реченням і втілити вже цього тижня?",
+      "Де ваші зусилля створюють щось справжнє, а де лише тримають вас у метушні?"
+    ],
+    "practice": "Запишіть один намір угорі сторінки, а потім для кожної масті занотуйте один ресурс, який уже маєте: енергію, почуття, думку, практичні засоби. Скористайтеся одним із них сьогодні."
+  }
+}

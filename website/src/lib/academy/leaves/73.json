@@ -1,0 +1,267 @@
+{
+  "id": 73,
+  "slug": "ten-of-pentacles",
+  "artwork": {
+    "file": "73_ten_of_pentacles.webp",
+    "sha256": "1145241479b176bef4e8aafb09abad26d43d730fb9e775e035a40f04273933c7"
+  },
+  "symbols": [
+    {
+      "key": "pentacle",
+      "x": 50,
+      "y": 10,
+      "en": {
+        "name": "Discs framing the arch",
+        "seen": "Nine grey-blue discs, each carved with a line-drawn pentagram, frame the archway: one above its point and four stacked down each side, the lowest left one half hidden by the elder. Two more sit against the robe, eleven in all.",
+        "meaning": "Pentacles are the suit of earth: body, home, work and what can be kept. The traditional card floats ten discs in the pattern of the Tree of Life. Olivia’s card carries eleven, nine set into the stone like coins built into a family’s walls, a border that holds the household together."
+      },
+      "uk": {
+        "name": "Диски навколо арки",
+        "seen": "Дев’ять сіро-блакитних дисків із контурною пентаграмою обрамлюють арку: один над її вершиною і по чотири один над одним з обох боків; нижній лівий наполовину прихований за старійшиною. Ще два лежать на шатах, загалом одинадцять.",
+        "meaning": "Пентаклі — масть землі: тіло, дім, праця і те, що можна зберегти. На традиційній карті десять дисків розташовано у схемі Дерева Життя. На карті Olivia їх одинадцять, і дев’ять вмуровано в камінь, наче монети в стіни родинного дому: це облямівка, що згуртовує господу."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 30,
+      "y": 18,
+      "en": {
+        "name": "The glittering starry band",
+        "seen": "A diagonal band of fine sparkling flecks runs from beside the top disc down to the left, between the upper discs and past the left shoulder of the arch; small gold stars dot the surrounding blue.",
+        "meaning": "The Milky Way is Olivia’s addition, not part of the traditional image. On a card about lineage it reads as a long line of lights, one after another: the generations before and after you, each small alone, together forming a road across the dark."
+      },
+      "uk": {
+        "name": "Мерехтлива зоряна смуга",
+        "seen": "Діагональна смуга дрібних іскристих цяток тягнеться збоку від верхнього диска вниз ліворуч, між верхніми дисками й повз ліве плече арки; довкола на синьому тлі розсипано маленькі золоті зірки.",
+        "meaning": "Чумацький Шлях — доповнення Olivia, його немає в традиційному образі. На карті про рід він сприймається як довгий ряд вогників, один за одним: покоління до вас і після вас, кожне саме по собі мале, а разом — дорога крізь темряву."
+      }
+    },
+    {
+      "key": "arch",
+      "x": 51,
+      "y": 21,
+      "en": {
+        "name": "The arch of shields",
+        "seen": "A pointed Gothic arch carved in paler grey-blue lapis rises over the couple on two masonry pillars. Five heraldic shields are set into its band, a rampant lion on the central one, with fleur-de-lis finials along the outer edge.",
+        "meaning": "An archway bearing a coat of arms belongs to the traditional card too: the threshold of a house and the name a family carries. The shields make belonging visible. Standing beneath them, the couple is literally inside an inheritance, sheltered by it and framed by it."
+      },
+      "uk": {
+        "name": "Арка з гербовими щитами",
+        "seen": "Над парою на двох мурованих колонах здіймається стрілчаста готична арка, вирізьблена зі світлішого сіро-блакитного лазуриту. У її смугу вставлено п’ять гербових щитів, на центральному — лев, що зіп’явся дибки; по зовнішньому краю — навершя у вигляді геральдичних лілій.",
+        "meaning": "Арка з родовим гербом є й на традиційній карті: поріг дому та ім’я, яке несе родина. Щити роблять належність видимою. Стоячи під ними, пара буквально опиняється всередині спадку, що водночас прихищає й обрамлює її."
+      }
+    },
+    {
+      "key": "couple",
+      "x": 53,
+      "y": 50,
+      "en": {
+        "name": "The couple under the arch",
+        "seen": "Two standing figures carved in blue lapis face each other beneath the arch: one curly-haired, a cloak pinned at the shoulder; one veiled, in a long gown, an open hand raised mid-gesture.",
+        "meaning": "The traditional image places a couple in the gateway as the present generation, busy with the life of the household. Carved in the same blue as the walls and absorbed in conversation, they are the ones who currently hold what was handed down, and who hold it for the next."
+      },
+      "uk": {
+        "name": "Пара під аркою",
+        "seen": "Дві постаті, вирізьблені із синього лазуриту, стоять під аркою обличчям одна до одної: одна кучерява, у плащі, сколотому на плечі; друга — під покривалом, у довгій сукні, з відкритою долонею, піднятою в жесті.",
+        "meaning": "На традиційній карті пара в брамі — це теперішнє покоління, зайняте життям господи. Вирізьблені з того самого синього каменю, що й стіни, і захоплені розмовою, саме ці двоє тепер бережуть те, що їм передано, і бережуть це для наступних."
+      }
+    },
+    {
+      "key": "face",
+      "x": 34,
+      "y": 55,
+      "en": {
+        "name": "The ivory elder",
+        "seen": "The only ivory figure on the card sits at the lower left in profile, long wavy hair falling over the shoulders and a full beard down the chest, gazing right towards the couple.",
+        "meaning": "The old figure seated at the edge is the elder of the traditional card, often read as the ancestor or founder of the house. Carved in ivory while everyone else is blue stone, the elder becomes the one looking on: long experience watching what continues."
+      },
+      "uk": {
+        "name": "Старійшина зі слонової кістки",
+        "seen": "Єдина постать зі слонової кістки на карті сидить унизу ліворуч, у профіль: довге хвилясте волосся спадає на плечі, густа борода — на груди, погляд звернено праворуч, до пари.",
+        "meaning": "Літня постать, що сидить скраю, — старійшина з традиційної карти; у ній часто бачать предка чи засновника роду. Серед постатей із синього каменю лише старійшину вирізьблено зі слонової кістки, тож ця постать стає тією, хто спостерігає: багаторічний досвід, що стежить за тим, що триває далі."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 23,
+      "y": 67,
+      "en": {
+        "name": "Moons and grapes on the robe",
+        "seen": "The elder’s ivory mantle is covered in fine relief: crescent moons near the shoulder, clusters of grapes and winding vine scrollwork across drapery that pools down to the ground.",
+        "meaning": "In the traditional card the elder’s robe is patterned with grapes and other signs. Grapes stand for harvest and abundance ripened slowly; the crescent moons add the turning of months and years. The robe becomes a record worn on the body: seasons lived through, fruit gathered."
+      },
+      "uk": {
+        "name": "Місяці й грона на шатах",
+        "seen": "Мантію старійшини зі слонової кістки вкриває тонкий рельєф: серпики місяця біля плеча, грона винограду й звивисті лозяні завитки на драпіровці, що спадає до самої землі.",
+        "meaning": "На традиційній карті шати старійшини вкриті візерунком із винограду та інших знаків. Виноград означає врожай і достаток, що дозріває повільно; серпики місяця додають плин місяців і років. Шати стають літописом, який носять на тілі: прожиті сезони, зібрані плоди."
+      }
+    },
+    {
+      "key": "child",
+      "x": 80,
+      "y": 70,
+      "en": {
+        "name": "The child and the dog",
+        "seen": "At the right, beside the arch’s right pillar, a curly-haired child in a tunic, carved in lapis, rests one hand on the head of a slender standing dog and raises the other; the dog faces left, towards the elder.",
+        "meaning": "A child reaching for a dog appears in the traditional card as the youngest generation, curious and unhurried. Here the child stands at the far side from the elder, and the dog turns back across the scene, a thread of attention running from youngest to oldest."
+      },
+      "uk": {
+        "name": "Дитина і пес",
+        "seen": "Праворуч, біля правої колони арки, кучерява дитина в туніці, вирізьблена з лазуриту, тримає одну руку на голові стрункого пса, який стоїть поруч, а другу піднімає; пес дивиться ліворуч, на старійшину.",
+        "meaning": "На традиційній карті теж є дитина, що тягнеться до пса: наймолодше покоління, допитливе й неквапливе. Тут дитина стоїть на протилежному від старійшини краю, а пес озирається через усю сцену: нитка уваги тягнеться від наймолодших до найстарших."
+      }
+    },
+    {
+      "key": "dog",
+      "x": 30,
+      "y": 85,
+      "en": {
+        "name": "The seated greyhound",
+        "seen": "A greyhound-like dog carved in blue lapis sits at the elder’s knee, facing right, head raised beneath a resting ivory hand, its long tail curling on the ground; a second dog stands at the right beside the child.",
+        "meaning": "Dogs traditionally stand for loyalty, guardianship and domestic trust, and the traditional card shows them gathered near the elder. Here one receives the elder’s hand while the other receives the child’s, so the animals quietly join the two ends of the family through touch."
+      },
+      "uk": {
+        "name": "Сидячий хорт",
+        "seen": "Схожий на хорта пес із синього лазуриту сидить біля коліна старійшини, обернений праворуч, з піднятою головою, на якій спочиває рука зі слонової кістки; довгий хвіст завивається на землі. Другий пес стоїть праворуч, біля дитини.",
+        "meaning": "Собаки традиційно означають вірність, охорону й домашню довіру, і на традиційній карті вони зібралися біля старійшини. Тут одного пса торкається рука старійшини, а другого — рука дитини, тож тварини тихо поєднують дотиком два кінці роду."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 50,
+      "y": 90,
+      "en": {
+        "name": "The gold pentacle",
+        "seen": "Low against the robe, near the hem, a lapis disc bears a solid five-pointed star of worked gold, the only gilded emblem on the card; a grey disc with a line-drawn pentagram rests higher, against the elder’s lap.",
+        "meaning": "Gold is rare in Olivia’s deck and marks what matters. Of all eleven discs, only the one at the hem of the elder’s robe is golden, and its star is solid rather than drawn in line. It sits low, near the ground, as if what lasts is often humble and close at hand."
+      },
+      "uk": {
+        "name": "Золотий пентакль",
+        "seen": "Низько на шатах, біля подолу, на лазуритовому диску — суцільна п’ятикутна зірка з обробленого золота, єдина позолочена емблема на карті; сірий диск із контурною пентаграмою лежить вище, на колінах старійшини.",
+        "meaning": "Золото в колоді Olivia рідкісне й позначає те, що справді важить. З одинадцяти дисків золотий лише один, біля подолу шат старійшини, і його зірка суцільна, а не накреслена контуром. Він лежить низько, біля землі, ніби те, що триває, часто скромне й зовсім поруч."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Ten of Pentacles is what lasts beyond one lifetime: a home, a way of living and a set of values, shared across generations and chosen again.",
+    "keywords": {
+      "upright": [
+        "legacy",
+        "family roots",
+        "lasting security",
+        "belonging",
+        "tradition",
+        "long view"
+      ],
+      "reversed": [
+        "inherited burden",
+        "family tension",
+        "rigid custom",
+        "short-term thinking",
+        "disconnection"
+      ]
+    },
+    "upright": [
+      "The Ten of Pentacles turns attention to what outlasts a single season: a household, a set of skills, a way of doing things, the resources and habits that pass from one pair of hands to the next. In Olivia’s carving three generations share one scene. An elder in ivory sits at the lower left, watching a couple talk beneath a Gothic arch while a child at the right reaches for a slender dog. The arch is set with heraldic shields, a rampant lion at its centre: a name, a house, a place to belong.",
+      "Look at what the elder’s visible hand is doing: it rests on the head of a seated greyhound; nothing is being counted or guarded. The discs are already built into the stone around the arch, and the only golden one lies low at the hem of the robe, close to the ground. This is wealth in the older sense: not a windfall but continuity, the slow gathering of care, work and memory that makes a life feel held.",
+      "Upright, the card invites you to take the long view. What are you building that could support people beyond yourself, and what have you received that deserves thanks? It can point to steady roots, family or chosen, a secure base, and the quiet satisfaction of belonging to something larger than one generation."
+    ],
+    "reversed": [
+      "Ten of Pentacles reversed draws attention to an inheritance that has become heavy or tangled. The arch that shelters can also confine: expectations about how things are done, who owns what, or who is allowed to change it. Old arrangements may no longer fit the people living inside them, or short-term pressures may be crowding out the long view.",
+      "It can also point to a feeling of distance from your roots, as if you were watching the family scene from the edge, like the elder, without quite being part of it. Consider which traditions still earn their place, which conversations are overdue, and what you would keep if you were choosing freely."
+    ],
+    "number": "Ten completes the count, and with completion comes fullness, sometimes overload: the point where a cycle can go no further and hands over to a new one. In Pentacles, the suit of earth, body, work and home, that completion is material and generational. The seed of the Ace has grown into a house, a trade, a family story. Ten asks what happens to everything that has been gathered: whether it is kept, shared, renewed or passed on.",
+    "tradition": "In the Golden Dawn system the Ten of Pentacles, or Disks, is titled the Lord of Wealth. It is attributed to Mercury in Virgo, the third decan of that earth sign, and like every Ten it corresponds to Malkuth, the Kingdom, the sphere of the material world at the foot of the Tree of Life. Older Marseille-pattern decks show ten coins among foliage, with no scene. Pamela Colman Smith’s 1909 design for A. E. Waite’s deck arranges the ten pentacles in the pattern of the Tree of Life over an elder, a couple, a child and dogs at the gateway of a house, the scene Olivia’s carving follows.",
+    "areas": {
+      "love": "In close relationships the Ten of Pentacles asks what you are building together that could last: shared routines, a home, traditions of your own making. It can also bring family patterns into view, the ways of loving you learned under an older roof. Like the couple talking beneath the arch, notice which inherited habits shelter you both and which you have never actually chosen. With yourself, it invites the patience of someone tending a whole life, not a single season.",
+      "work": "At work or in study the card turns attention to durable foundations: skills passed on by mentors, institutions with long memories, knowledge that builds over years. It can point to the value of stability, good records, sound systems and craft that someone else could continue. In money matters it speaks of stewardship and plain planning, not speculation; where decisions involve other people’s shares or an inheritance, a qualified adviser can help with the practical detail.",
+      "self": "For your own growth the Ten of Pentacles invites a look at your roots without idealising them. The elder in ivory sits slightly apart, watching the others; you might take that seat for a moment and look at your life from its far end. What has been given to you in talent, place, language or example? And what do you want your ordinary daily choices to leave behind for others?"
+    },
+    "positions": {
+      "heart": "At the centre of your question, the Ten of Pentacles points to the long view: family, home, lasting resources, or what you are building for others. Ask how this situation fits into a larger story.",
+      "challenge": "As a challenge, it can show the weight of inherited expectations: a family’s or an institution’s way of doing things that makes change feel disloyal, or long-term security crowding out present life.",
+      "advice": "As advice, it invites you to think in generations: make the choice that someone later could build on, and talk openly with the people who share the house, literal or figurative."
+    },
+    "pairs": [
+      {
+        "with": 45,
+        "text": "The two Tens complete the picture of home: the Ten of Cups offers emotional fulfilment, the Ten of Pentacles the practical structure that keeps it standing. Together they ask whether feeling and foundation are both being tended."
+      },
+      {
+        "with": 72,
+        "text": "The Nine of Pentacles enjoys a garden won by personal effort; the Ten widens it into a household of many people. Together they draw attention to the step from self-sufficiency to sharing, from what you have made to what you hand on."
+      },
+      {
+        "with": 5,
+        "text": "The Hierophant keeps the traditions of a community; the Ten of Pentacles lives them at home. Side by side they turn attention to inherited rules and customs, asking which still carry meaning and which are kept only out of habit."
+      }
+    ],
+    "questions": [
+      "What have you received from those before you that you have never fully thanked them for?",
+      "Which inherited habit or expectation shapes your choices most, and would you choose it again today?",
+      "What would you like your everyday choices to make possible for someone who comes after you?"
+    ],
+    "practice": "Choose one object, recipe or skill you inherited, and write three lines about where it came from and what you would like to add to it."
+  },
+  "uk": {
+    "essence": "Десятка Пентаклів — це те, що триває довше за одне життя: дім, спосіб жити й цінності, які поділяють покоління і які щоразу обирають знову.",
+    "keywords": {
+      "upright": [
+        "спадок",
+        "родинне коріння",
+        "тривка безпека",
+        "належність",
+        "традиція",
+        "далекоглядність"
+      ],
+      "reversed": [
+        "спадковий тягар",
+        "родинна напруга",
+        "закостенілий звичай",
+        "короткозорість",
+        "відчуження"
+      ]
+    },
+    "upright": [
+      "Десятка Пентаклів звертає увагу на те, що триває довше за один сезон: господу, вміння, спосіб робити справи, ресурси й звички, які переходять з рук у руки. На різьбленні Olivia три покоління зібрано в одній сцені. Старійшина зі слонової кістки сидить унизу ліворуч і дивиться, як пара розмовляє під готичною аркою, а дитина праворуч тягнеться до стрункого пса. Арку прикрашають гербові щити, у центрі — лев, що стоїть дибки: ім’я, дім, місце, до якого належать.",
+      "Погляньте, що робить видима рука старійшини: вона лежить на голові хорта, що сидить поруч; тут нічого не лічать і не стережуть. Диски вже вмуровано в камінь довкола арки, а єдиний золотий лежить низько, біля подолу шат, близько до землі. Це багатство в давньому сенсі: не раптовий зиск, а тяглість, повільне накопичення турботи, праці й пам’яті, завдяки якому в житті є відчуття опори.",
+      "У прямому положенні карта запрошує вас дивитися далеко вперед. Що з того, що ви будуєте, могло б підтримати не лише вас? І що ви отримали такого, за що варто подякувати? Вона може вказувати на міцне коріння, родинне чи обране, надійну опору й тиху радість від належності до чогось більшого за одне покоління."
+    ],
+    "reversed": [
+      "Десятка Пентаклів у перевернутому положенні привертає увагу до спадку, що став важким або заплутаним. Арка, яка прихищає, може й обмежувати: очікуваннями щодо того, як заведено робити справи, кому що належить і кому дозволено це змінювати. Старі домовленості можуть уже не підходити людям, які живуть у їхніх межах, або тиск сьогодення може витісняти погляд наперед.",
+      "Вона також може вказувати на відчуття віддаленості від власного коріння, наче ви, як старійшина, дивитеся на родинну сцену збоку й не зовсім належите до неї. Подумайте, які традиції досі заслуговують на своє місце, які розмови давно назріли і що б ви зберегли, якби обирали вільно."
+    ],
+    "number": "Десять завершує лічбу, а із завершенням приходить повнота, часом і переповнення: точка, де цикл уже не може йти далі й передає естафету новому. У Пентаклях, масті землі, тіла, праці й дому, це завершення матеріальне й родове. Зерно Туза виросло в дім, ремесло, родинну історію. Десятка запитує, що буде з усім зібраним: чи його збережуть, поділять, оновлять чи передадуть далі.",
+    "tradition": "У системі Золотої Зорі Десятку Пентаклів, або Дисків, називають Володарем Багатства. Її пов’язують із Меркурієм у Діві, третім деканом цього земного знака, і, як кожна Десятка, вона відповідає Малхут, Царству, — сфері матеріального світу біля підніжжя Дерева Життя. Давніші колоди марсельського типу зображують десять монет серед листя, без жодної сцени. На малюнку Памели Колман Сміт 1909 року для колоди А. Е. Вейта десять пентаклів розміщено у схемі Дерева Життя над старійшиною, парою, дитиною й собаками біля брами дому; саме цю сцену й повторює різьба Olivia.",
+    "areas": {
+      "love": "У близьких стосунках Десятка Пентаклів запитує, що ви разом будуєте на довгі роки: спільний розпорядок, дім, власні традиції. Вона може також показати родинні сценарії — способи любити, яких ви навчилися під дахом старших. Подібно до пари, що розмовляє під аркою, придивіться, які успадковані звички прихищають вас обох, а яких ви насправді ніколи не обирали. У стосунках із собою карта запрошує до терпіння людини, яка дбає про ціле життя, а не про один сезон.",
+      "work": "У роботі чи навчанні карта звертає увагу на тривкі підвалини: вміння, передані наставниками, інституції з довгою пам’яттю, знання, що накопичуються роками. Вона може вказувати на цінність стабільності, ретельних записів, надійних систем і ремесла, яке хтось інший зміг би продовжити. У грошових справах ідеться про дбайливе господарювання й тверезе планування, а не спекуляції; коли рішення стосуються часток інших людей чи спадщини, з практичними деталями може допомогти кваліфікований консультант.",
+      "self": "Щодо особистого зростання Десятка Пентаклів запрошує поглянути на своє коріння, не ідеалізуючи його. Старійшина зі слонової кістки сидить трохи осторонь і спостерігає за іншими; ви можете на мить зайняти це місце й подивитися на своє життя з його далекого кінця. Що вам дано: який хист, яке місце, яку мову, який приклад? І що ви хотіли б залишити іншим своїми звичайними щоденними рішеннями?"
+    },
+    "positions": {
+      "heart": "У центрі вашого запитання Десятка Пентаклів спрямовує погляд далеко вперед: на родину, дім, тривкі ресурси або те, що ви будуєте для інших. Запитайте себе, як ця ситуація вписується в ширшу історію.",
+      "challenge": "У позиції виклику вона може показувати вагу успадкованих очікувань: заведений у родині чи установі спосіб робити справи, через який зміна здається зрадою, або довгострокову безпеку, що витісняє теперішнє життя.",
+      "advice": "У позиції поради вона запрошує мислити поколіннями: ухваліть рішення, на якому хтось згодом зможе будувати, і відверто поговоріть із тими, з ким ви ділите дім — у прямому чи переносному сенсі."
+    },
+    "pairs": [
+      {
+        "with": 45,
+        "text": "Дві Десятки завершують образ дому: Десятка Кубків дає емоційну наповненість, Десятка Пентаклів — практичну основу, на якій він тримається. Разом вони запитують, чи ви дбаєте і про почуття, і про фундамент."
+      },
+      {
+        "with": 72,
+        "text": "Дев’ятка Пентаклів тішиться садом, здобутим власними зусиллями; Десятка розширює його до господи багатьох людей. Разом вони привертають увагу до кроку від самодостатності до вміння ділитися, від того, що ви створили, до того, що передаєте далі."
+      },
+      {
+        "with": 5,
+        "text": "Ієрофант береже традиції спільноти; Десятка Пентаклів живе ними вдома. Поряд вони звертають увагу на успадковані правила й звичаї та запитують, які з них досі мають сенс, а яких дотримуються лише за звичкою."
+      }
+    ],
+    "questions": [
+      "За що з отриманого від тих, хто був до вас, ви досі сповна не подякували?",
+      "Що з успадкованого — звичка чи очікування — найбільше впливає на ваші рішення, і чи обрали б ви це сьогодні знову?",
+      "Що ви хотіли б уможливити своїми щоденними рішеннями для тих, хто прийде після вас?"
+    ],
+    "practice": "Оберіть одну річ, рецепт чи вміння, які ви успадкували, і запишіть три рядки про те, звідки вони походять і що ви хотіли б до них додати."
+  }
+}

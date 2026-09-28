@@ -1,0 +1,267 @@
+{
+  "id": 43,
+  "slug": "eight-of-cups",
+  "artwork": {
+    "file": "43_eight_of_cups.webp",
+    "sha256": "277052da9a6107388a1ce0c33d827590de97b79d884f014dba52833e3bc01458"
+  },
+  "symbols": [
+    {
+      "key": "moon",
+      "x": 76,
+      "y": 14,
+      "en": {
+        "name": "The moon with closed eyes",
+        "seen": "High on the right hangs a full, round moon carved in pale greyish blue lapis. Its face is turned slightly toward the left, eyes closed and lips shut, with small star shapes incised in the sky around it.",
+        "meaning": "The traditional image also gives this card a moon with a face, commonly read as an eclipse or a changing moon. Olivia shows a whole disc, asleep or inward. The traveller moves by night, without full daylight clarity, guided by feeling and quiet knowing rather than by proof."
+      },
+      "uk": {
+        "name": "Місяць із заплющеними очима",
+        "seen": "Високо праворуч висить повний круглий місяць, вирізьблений із блідого сірувато-блакитного лазуриту. Обличчя трохи повернуте ліворуч, очі заплющені, губи стулені, а довкола в небі врізано дрібні зірочки.",
+        "meaning": "На традиційному зображенні цієї карти теж є місяць з обличчям, який зазвичай тлумачать як затемнення або місяць, що змінює фазу. В Olivia це цілий диск, сонний чи зосереджений у собі. Мандрівник рухається вночі, без денної ясності, і веде його почуття й тихе знання, а не докази."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 44,
+      "y": 18,
+      "en": {
+        "name": "The glittering road overhead",
+        "seen": "A band of glittering pale mineral crosses the dark ultramarine sky diagonally, from the top edge near the centre down toward the left-hand hills, among scattered gold star flecks.",
+        "meaning": "The Milky Way is not part of the traditional card. In medieval tradition it was often called the Way of Saint James, the road pilgrims followed to Santiago. Here it runs above the traveller like a second path: the search has a direction, even when the ground is dark."
+      },
+      "uk": {
+        "name": "Мерехтлива дорога вгорі",
+        "seen": "Смуга блискучого блідого мінералу перетинає темне ультрамаринове небо навскіс: від верхнього краю біля центру вниз, до пагорбів ліворуч, серед розсипаних золотих цяток-зірок.",
+        "meaning": "Чумацького Шляху на традиційній карті немає. У середньовіччі його часто називали Дорогою святого Якова — шляхом, яким прочани йшли до Сантьяго. Тут він тягнеться над мандрівником, наче друга стежка: пошук має напрям, навіть коли земля темна."
+      }
+    },
+    {
+      "key": "cloak",
+      "x": 65,
+      "y": 51,
+      "en": {
+        "name": "The hooded ivory traveller",
+        "seen": "The only ivory figure on the card walks away from the viewer, up a rocky path. A hood covers the head and a heavy cloak falls in deep folds to the ankles. The feet are bare, one heel lifted mid-step.",
+        "meaning": "The departing figure is the heart of the traditional image: someone leaving what they have built. Olivia’s traveller is hooded and barefoot, closer to a pilgrim than a wanderer. We never see the face, so the card asks you to supply the reason for leaving yourself."
+      },
+      "uk": {
+        "name": "Постать зі слонової кістки в каптурі",
+        "seen": "Єдина постать зі слонової кістки на карті віддаляється від глядача кам’янистою стежкою вгору. Голову вкриває каптур, важкий плащ спадає глибокими складками до кісточок. Ноги босі, одна п’ята піднята на ходу.",
+        "meaning": "Постать, що йде геть, — серце традиційного образу: хтось залишає збудоване власними руками. Мандрівник Olivia в каптурі й босий, радше прочанин, ніж блукач. Обличчя ми так і не бачимо, тож карта пропонує вам самим назвати причину відходу."
+      }
+    },
+    {
+      "key": "staff",
+      "x": 55,
+      "y": 54,
+      "en": {
+        "name": "The long walking staff",
+        "seen": "The traveller grips a long, slender ivory staff in the right hand at chest height, its rounded knob above the hand and its foot planted on the rock just left of the walking feet.",
+        "meaning": "A staff also accompanies the traditional traveller. It belongs to pilgrims and hermits: support for a long road, carried by someone who means to keep going. It suggests that leaving here is considered and sustained, not a sudden flight from feeling."
+      },
+      "uk": {
+        "name": "Довгий дорожній посох",
+        "seen": "Мандрівник тримає правою рукою на рівні грудей довгий тонкий посох зі слонової кістки: закруглене навершя видніє над кистю, а нижній кінець упертий у камінь трохи ліворуч від ніг, що крокують.",
+        "meaning": "Посох супроводжує й традиційного мандрівника. Це атрибут прочан і відлюдників: опора в довгій дорозі для тих, хто має намір іти далі. Посох підказує, що цей відхід обдуманий і стійкий, а не раптова втеча від почуттів."
+      }
+    },
+    {
+      "key": "tree",
+      "x": 12,
+      "y": 60,
+      "en": {
+        "name": "Bare trees on the slopes",
+        "seen": "Leafless, finely branched trees are carved in low relief on the left-hand slopes and on the rocks to the right of the path, in the same blue lapis as the hills.",
+        "meaning": "The traditional image shows a barren landscape; Olivia adds trees stripped to their branches. Bare trees belong to late autumn and winter: a season when outward growth pauses and life withdraws to the roots. The search on this card is a dormant season, not a failure."
+      },
+      "uk": {
+        "name": "Голі дерева на схилах",
+        "seen": "Безлисті дерева з тонким гіллям вирізьблено низьким рельєфом на схилах ліворуч і на скелях праворуч від стежки, з того самого синього лазуриту, що й пагорби.",
+        "meaning": "На традиційному зображенні — безплідна місцевість; Olivia додає дерева, оголені до гілок. Голі дерева належать пізній осені й зимі: порі, коли зовнішнє зростання завмирає, а життя відходить у коріння. Пошук на цій карті — пора спокою, а не поразка."
+      }
+    },
+    {
+      "key": "river",
+      "x": 33,
+      "y": 64,
+      "en": {
+        "name": "The winding river",
+        "seen": "A river winds out of the hills on the left, runs behind the cups and breaks into white water over rocks at the lower right, between the cups and the traveller’s path.",
+        "meaning": "Water appears at the foot of the traditional image as well. Cups are Water, and here that water keeps moving past the cups rather than filling them. Feeling does not stay where it was poured; the river quietly separates what is kept from what is sought."
+      },
+      "uk": {
+        "name": "Звивиста річка",
+        "seen": "Річка витікає з пагорбів ліворуч, звивається позаду кубків і внизу праворуч розбивається білими бурунами об каміння, між кубками й стежкою мандрівника.",
+        "meaning": "Вода є і внизу традиційного зображення. Кубки — масть Води, і тут вода тече повз них, а не наповнює їх. Почуття не залишається там, куди його налили; річка тихо відокремлює те, що зберігають, від того, що шукають."
+      }
+    },
+    {
+      "key": "other",
+      "x": 57,
+      "y": 77,
+      "en": {
+        "name": "The gap in the row",
+        "seen": "The upper row holds three cups on the left and then stops. In the space where more cups could stand, the river and its white water show through the carved rocks.",
+        "meaning": "The traditional arrangement also leaves a space in the upper row, commonly read as what is missing. Here the gap opens onto moving water. Everything present is in order; what is absent is exactly the thing that sets the traveller walking."
+      },
+      "uk": {
+        "name": "Прогалина в ряду",
+        "seen": "У верхньому ряду ліворуч стоять три кубки, а далі ряд уривається. Там, де могли б стояти ще кубки, крізь вирізьблене каміння проглядають річка та її білі буруни.",
+        "meaning": "Традиційне розташування теж лишає порожнє місце у верхньому ряду, яке зазвичай читають як те, чого бракує. Тут прогалина відкривається на рухливу воду. Усе наявне на своєму місці; відсутнє ж — саме те, що змушує мандрівника рушити в дорогу."
+      }
+    },
+    {
+      "key": "cup",
+      "x": 40,
+      "y": 88,
+      "en": {
+        "name": "Eight cups in two rows",
+        "seen": "Eight stemmed cups, three in the upper row and five in the lower, are carved from the same blue lapis as the ground. All stand upright and unbroken, rims level, lined up close together.",
+        "meaning": "Cups hold feeling, relationship and what nourishes you. Nothing here is spilled, unlike the Five of Cups. These are real achievements, neatly arranged; carved from the landscape itself, they read as something established. The card’s question is why something so orderly no longer satisfies."
+      },
+      "uk": {
+        "name": "Вісім кубків у два ряди",
+        "seen": "Вісім кубків на ніжках — три у верхньому ряду й п’ять у нижньому — вирізьблено з того самого синього лазуриту, що й тло. Усі стоять рівно й цілі, вінця на одному рівні, щільно один біля одного.",
+        "meaning": "У кубках — почуття, стосунки й те, що вас живить. Тут нічого не розлито, на відміну від П’ятірки Кубків. Це справжні здобутки, охайно розставлені; вирізьблені з самого краєвиду, вони сприймаються як щось усталене. Карта запитує: чому такий лад більше не вдовольняє?"
+      }
+    },
+    {
+      "key": "fish",
+      "x": 13,
+      "y": 87,
+      "en": {
+        "name": "The gold fish",
+        "seen": "On the leftmost cup of the lower row a small fish in gold relief swims across the bowl, scales and fins detailed, facing right toward the river and the traveller.",
+        "meaning": "The fish is Olivia’s addition. Fish belong to Water and to Pisces, the sign the Golden Dawn gave this card. Gold in this deck marks what is precious: even in the cups left behind, something living and valuable remains, and it faces the direction the traveller has taken."
+      },
+      "uk": {
+        "name": "Золота риба",
+        "seen": "На крайньому лівому кубку нижнього ряду золотим рельєфом пливе невелика риба з ретельно вирізьбленими лускою й плавцями, повернута праворуч — до річки й мандрівника.",
+        "meaning": "Риба — доповнення Olivia. Вона пов’язана з Водою та знаком Риб, який Золота Зоря приписала цій карті. Золото в цій колоді позначає цінне: навіть у залишених кубках лишається щось живе й дорогоцінне, і воно дивиться туди, куди пішов мандрівник."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Eight of Cups turns attention to the moment when something built with care no longer nourishes you, and to the courage of looking for what does.",
+    "keywords": {
+      "upright": [
+        "walking away",
+        "honest dissatisfaction",
+        "search for meaning",
+        "outgrowing",
+        "inner pilgrimage",
+        "letting go"
+      ],
+      "reversed": [
+        "staying from duty",
+        "restless leaving",
+        "fear of change",
+        "unnamed longing",
+        "drifting"
+      ]
+    },
+    "upright": [
+      "The Eight of Cups describes a turning point that rarely looks dramatic from outside. Eight cups stand in two neat rows at the foot of the card, carved from the same blue stone as the ground, whole and upright. Nothing has been spilled or broken. Yet the only ivory figure on the card has turned its back on them and is walking uphill into the night, staff in hand. This is the card of leaving something that still works, because working is no longer enough.",
+      "The upper row holds three cups and then stops; where more might stand, the river shows through. That gap is the quiet centre of the card: a sense that something is missing even when everything visible is in order. The Eight asks you to take that sense seriously enough to understand it, rather than argue yourself out of it or act on it in a rush.",
+      "Above the traveller, the moon has closed its eyes, and a band of glittering stars runs across the sky like a road. The search happens by night: without full clarity, guided more by feeling than by proof. Upright, the card can point to emotional honesty, the maturity to outgrow an arrangement, and a search for meaning that begins with one step rather than a finished plan."
+    ],
+    "reversed": [
+      "Eight of Cups reversed can point to a leaving that cannot quite happen, or one that happens too often. You may notice yourself staying beside the cups out of habit, duty or fear of the dark hills, while the sense of something missing grows quieter but not smaller. Or the opposite: walking away from each arrangement just as it asks for patience, so that nothing has time to become fulfilling.",
+      "In both forms the card turns attention inward. Before deciding to stay or go, try to name what you are searching for. Sometimes another attempt is wise because something has genuinely changed; sometimes the honest step is simply to admit the gap out loud, to yourself first."
+    ],
+    "number": "Eight is the rank of movement after settling. The Seven’s many possibilities have been sorted, and the question now is what to do with what you know. In the Kabbalistic scheme used by the Golden Dawn, eights belong to Hod, Splendour, the sphere of reflection and discernment. In Cups, the suit of Water, feeling and relationship, that discernment turns on the heart itself: an honest review of what nourishes you and what has become routine. The Nine and Ten that follow speak of contentment; the Eight is the sorting that makes room for it.",
+    "tradition": "In the Golden Dawn system the Eight of Cups is the Lord of Abandoned Success. It rules the first decan of Pisces, Saturn in Pisces, and as an Eight it is placed in Hod within the suit of Water. Saturn’s heaviness in a fluid water sign is commonly read as the card’s tone: a success that has lost its savour. Aleister Crowley later titled his version Indolence. In Marseille-pattern decks the card shows only eight cups among formal ornament; the walking figure, the moon and the stacked cups with a gap come from Pamela Colman Smith’s 1909 design for the Waite-Smith deck.",
+    "areas": {
+      "love": "In love and close bonds, the Eight of Cups draws attention to a relationship that looks complete on paper, every cup in its place, while something important feels absent. It does not tell you to leave. It asks for an honest account of what is missing, spoken first to yourself and then, if you choose, to the other person. The same applies to your relationship with yourself: a habit of self-care that once helped may now be kept only out of loyalty.",
+      "work": "At work or in study, the card can point to a role, project or course that you built carefully and still do well, yet no longer find meaningful. The stacked cups are real achievements; the gap in the row is real too. Consider what exactly has stopped nourishing you: the task, the pace, the people or the direction. Where money is part of the picture, the card speaks of meaning rather than figures: it asks what the effort is for, not what it is worth.",
+      "self": "For your inner life, the Eight is a pilgrim’s card. The traveller goes barefoot and hooded, carrying only a staff, under a moon with closed eyes. It suggests a time for turning inward, travelling light and letting feeling lead where logic has run out. A long walk, a quiet retreat or simply an evening without distraction can help you hear what the dissatisfaction is trying to say before you decide anything."
+    },
+    "positions": {
+      "heart": "At the centre of your question, the Eight of Cups suggests that the real issue may be less what has gone wrong than what has quietly stopped mattering, and what you may now be looking for instead.",
+      "challenge": "As a complication, the card can point to difficulty leaving something familiar, or to a restlessness that walks away before understanding what is missing. Either way, the unnamed gap may make the choice harder.",
+      "advice": "As advice, the Eight invites you to name what is missing in one honest sentence, then take one small step toward it, keeping the way back open while you learn more."
+    },
+    "pairs": [
+      {
+        "with": 9,
+        "text": "With The Hermit, a second hooded ivory figure with a staff stands alone in the night, lantern held out. Together they draw attention to a withdrawal that is chosen and purposeful: stepping away from the familiar to listen for your own guidance rather than to escape."
+      },
+      {
+        "with": 18,
+        "text": "With The Moon, a moon with a face hangs above water and a path winding toward the mountains. The pair highlights a search made without full clarity, where intuition leads and it helps to move slowly and test each step."
+      },
+      {
+        "with": 39,
+        "text": "With the Four of Cups, dissatisfaction appears twice: first as withdrawal beside cups that no longer appeal, then as the decision to walk on. Together they ask whether you are ready to act on a feeling you have been sitting with."
+      }
+    ],
+    "questions": [
+      "What is missing from this situation, even though everything visible seems in order?",
+      "What are you searching for that the cups you have gathered cannot hold?",
+      "What is keeping you here: your own choice, loyalty or fear of the dark road?"
+    ],
+    "practice": "Draw eight small cups on a page with a gap in the top row, and write inside that gap, in a few words, what feels missing right now."
+  },
+  "uk": {
+    "essence": "Вісімка Кубків звертає увагу на мить, коли збудоване з турботою більше не живить вас, і на мужність шукати те, що живитиме.",
+    "keywords": {
+      "upright": [
+        "відхід",
+        "чесне невдоволення",
+        "пошук сенсу",
+        "переростання",
+        "внутрішнє прочанство",
+        "відпускання"
+      ],
+      "reversed": [
+        "лишатися з обов’язку",
+        "неспокійний відхід",
+        "страх змін",
+        "неназвана туга",
+        "плин за течією"
+      ]
+    },
+    "upright": [
+      "Вісімка Кубків описує поворотний момент, який ззовні рідко здається драматичним. Вісім кубків стоять двома рівними рядами внизу карти — вирізьблені з того самого синього каменю, що й земля, цілі й прямі. Нічого не розлито й не розбито. І все ж єдина постать зі слонової кістки повернулася до них спиною: з посохом у руці вона йде вгору, у ніч. Це карта відходу від того, що досі працює, бо просто працювати вже замало.",
+      "У верхньому ряду три кубки, а далі порожньо; там, де могли б стояти інші, проглядає річка. Ця прогалина — тихий центр карти: відчуття, що чогось бракує, навіть коли все видиме в порядку. Вісімка пропонує поставитися до цього відчуття досить серйозно, щоб його зрозуміти, а не переконувати себе, що його немає, і не діяти поспіхом.",
+      "Над мандрівником місяць заплющив очі, а смуга мерехтливих зірок тягнеться небом, наче дорога. Пошук триває вночі: без повної ясності, радше за покликом почуття, ніж за доказами. У прямому положенні карта може вказувати на емоційну чесність, зрілість, що дозволяє перерости усталений уклад, і пошук сенсу, який починається з одного кроку, а не з готового плану."
+    ],
+    "reversed": [
+      "Вісімка Кубків у перевернутому положенні може вказувати на відхід, який ніяк не вдається, або на той, що стається надто часто. Можливо, ви помічаєте, що лишаєтеся біля кубків зі звички, з обов’язку чи зі страху перед темними пагорбами, а відчуття нестачі стає тихішим, але не меншим. Або навпаки: ви йдете від кожного укладу саме тоді, коли він потребує терпіння, і ніщо не встигає по-справжньому вас наповнити.",
+      "В обох формах карта звертає погляд усередину. Перш ніж вирішувати, лишатися чи йти, спробуйте назвати, що саме ви шукаєте. Іноді варто спробувати ще раз, бо щось справді змінилося; іноді чесний крок — просто визнати прогалину вголос, насамперед перед собою."
+    ],
+    "number": "Вісімка — ранг руху після того, як усе влаштувалося. Численні можливості Сімки розібрано, і тепер ідеться про те, що робити з тим, що ви знаєте. У кабалістичній схемі, якою користувалася Золота Зоря, вісімки належать до Ходу (Пишноти) — сфери роздумів і розрізнення. У Кубках, масті Води, почуттів і стосунків, це розрізнення звернене на саме серце: чесний перегляд того, що вас живить, а що стало рутиною. Дев’ятка й Десятка, що йдуть слідом, говорять про вдоволення; Вісімка — це відбір, що звільняє для нього місце.",
+    "tradition": "У системі Золотої Зорі Вісімка Кубків має титул «Володар покинутого успіху». Вона править першим деканом Риб, Сатурном у Рибах, а як Вісімка належить Ходу в масті Води. Важкість Сатурна в текучому водному знаку зазвичай читають як тон карти: успіх, що втратив смак. Пізніше Алістер Кроулі назвав свою версію «Лінощі». У колодах марсельського типу карта показує лише вісім кубків серед стилізованого орнаменту; постать, що йде геть, місяць і складені кубки з прогалиною походять із малюнка Памели Колман Сміт 1909 року для колоди Вейта–Сміт.",
+    "areas": {
+      "love": "У коханні й близьких стосунках Вісімка Кубків звертає увагу на зв’язок, який на папері виглядає завершеним — кожен кубок на своєму місці, — а проте в ньому бракує чогось важливого. Карта не велить вам іти. Вона просить чесно назвати, чого не вистачає: спершу собі, а потім, якщо захочете, й іншій людині. Те саме стосується ваших стосунків із собою: звичка дбати про себе, яка колись допомагала, тепер може триматися лише з вірності.",
+      "work": "У роботі чи навчанні карта може вказувати на посаду, проєкт або курс, які ви вибудували старанно й досі ведете добре, але вже не бачите в них сенсу. Складені кубки — справжні здобутки; прогалина в ряду теж справжня. Подумайте, що саме перестало вас живити: завдання, темп, люди чи напрям. Коли йдеться про гроші, карта говорить про сенс, а не про цифри: вона запитує, заради чого ці зусилля, а не скільки вони варті.",
+      "self": "У внутрішньому житті Вісімка — карта прочанина. Мандрівник іде босоніж і в каптурі, маючи при собі тільки посох, під місяцем із заплющеними очима. Карта підказує: це час звернутися всередину, мандрувати налегко й дозволити почуттю вести там, де логіка вичерпалася. Довга прогулянка, тихе усамітнення чи просто вечір без відволікань можуть допомогти почути, що намагається сказати невдоволення, перш ніж ви щось вирішите."
+    },
+    "positions": {
+      "heart": "У центрі вашого запитання Вісімка Кубків підказує, що справжня суть може бути не в тому, що пішло не так, а в тому, що непомітно перестало мати значення, і в тому, що ви тепер, можливо, шукаєте натомість.",
+      "challenge": "Як ускладнення карта може вказувати на те, що важко залишити знайоме, або на неспокій, який змушує йти, ще не зрозумівши, чого бракує. Так чи інакше, неназвана прогалина може ускладнювати вибір.",
+      "advice": "Як порада Вісімка запрошує вас назвати те, чого бракує, одним чесним реченням, а потім зробити до нього один невеликий крок, лишаючи шлях назад відкритим, поки ви дізнаєтеся більше."
+    },
+    "pairs": [
+      {
+        "with": 9,
+        "text": "З Відлюдником: ще одна постать зі слонової кістки, у каптурі й з посохом, стоїть сама серед ночі, простягнувши ліхтар. Разом вони звертають увагу на усамітнення, обране свідомо й з метою: відступити від звичного, щоб почути власний внутрішній голос, а не щоб утекти."
+      },
+      {
+        "with": 18,
+        "text": "З Місяцем: місяць з обличчям висить над водою і стежкою, що в’ється до гір. Ця пара підкреслює пошук без повної ясності, коли веде інтуїція і варто рухатися повільно, перевіряючи кожен крок."
+      },
+      {
+        "with": 39,
+        "text": "З Четвіркою Кубків невдоволення з’являється двічі: спершу як відсторонення поруч із кубками, які вже не вабять, потім як рішення йти далі. Разом вони запитують, чи готові ви діяти, спираючись на почуття, яке давно носите в собі."
+      }
+    ],
+    "questions": [
+      "Чого бракує в цій ситуації, хоча все, що видно, здається в порядку?",
+      "Що ви шукаєте такого, чого не вмістять уже зібрані кубки?",
+      "Що вас тут тримає: власний вибір, вірність чи страх перед темною дорогою?"
+    ],
+    "practice": "Намалюйте на аркуші вісім маленьких кубків із прогалиною у верхньому ряду й запишіть у цій прогалині кількома словами, чого вам зараз бракує."
+  }
+}

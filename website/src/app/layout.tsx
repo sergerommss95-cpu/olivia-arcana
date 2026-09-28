@@ -127,7 +127,7 @@ export default function RootLayout({
     "operatingSystem": "Web",
     "description": "Tarot readings and a private, device-local journal for reflection.",
     "inLanguage": ["en", "uk"],
-    "featureList": ["78-card tarot deck", "Free one-card and three-card readings", "Card meanings", "Device-local reading journal"],
+    "featureList": ["78-card tarot deck", "Free one-, three-, five- and eight-card readings", "Card meanings", "Device-local reading journal"],
     "author": {
       "@type": "Organization",
       "name": "Olivia Arcana LLC",

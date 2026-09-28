@@ -1,0 +1,262 @@
+{
+  "id": 33,
+  "slug": "knight-of-wands",
+  "artwork": {
+    "file": "33_knight_of_wands.webp",
+    "sha256": "a3daf6b052f07bca12f6fe85c4f3bc0741cf16f88b1096976822f29e7c2e450c"
+  },
+  "symbols": [
+    {
+      "key": "flame",
+      "x": 87,
+      "y": 44,
+      "en": {
+        "name": "The gold flame",
+        "seen": "At the far end of the wand a gold flame rises in several curling tongues, bending slightly back as if in a headwind; with the scattered star flecks, it is the only gold on the card.",
+        "meaning": "Wands belong to fire, and as Fire of Fire this Knight is the suit’s element in its most concentrated court form. In the traditional image the rod sprouts green leaves; here it burns instead. The living growth has become open flame: energy at its most visible, and also at its least contained."
+      },
+      "uk": {
+        "name": "Золоте полум’я",
+        "seen": "На дальньому кінці жезла здіймається золоте полум’я кількома звивистими язиками, трохи відхиленими назад, ніби від зустрічного вітру; окрім розсипаних зоряних іскор, це єдине золото на карті.",
+        "meaning": "Жезли належать вогню, і як Вогонь Вогню цей Лицар — стихія масті в найзосередженішій придворній формі. На традиційному зображенні з палиці проростає зелене листя; тут вона натомість палає. Живий паросток став відкритим полум’ям: енергією в найпомітнішій і водночас найменш стриманій формі."
+      }
+    },
+    {
+      "key": "helmet",
+      "x": 48,
+      "y": 48,
+      "en": {
+        "name": "Plumed helmet, streaming back",
+        "seen": "The rider wears a close ivory helmet with a pointed crown and a small peak over curly hair; a long plume springs from the top and streams back towards the left in loose strands.",
+        "meaning": "The plume is a wind gauge. It tells you the horse is moving fast enough to pull everything backwards, and that the rider has chosen a direction and is already in it. The helmet is light, a travelling helmet rather than battle armour."
+      },
+      "uk": {
+        "name": "Шолом із розвіяним плюмажем",
+        "seen": "На постаті — щільний шолом зі слонової кістки з гострим верхом і невеликим козирком над кучерявим волоссям; довгий плюмаж здіймається з верхівки й розвівається назад, ліворуч, вільними пасмами.",
+        "meaning": "Плюмаж — наче флюгер. Він показує, що кінь мчить так швидко, що все відносить назад, і що напрям уже обрано, а рух уже триває. Шолом легкий: це дорожній шолом, а не бойовий обладунок."
+      }
+    },
+    {
+      "key": "wand",
+      "x": 78,
+      "y": 49,
+      "en": {
+        "name": "The bare wand, held forward",
+        "seen": "A long, smooth ivory wand is held out at the full stretch of one arm, angled upward over the horse’s head; it has no leaves or knots, only the flame at its tip.",
+        "meaning": "Waite describes a short wand, and in the 1909 card it sprouts fresh leaves. Olivia’s wand is bare and pointed ahead like a torch carried into the dark. It reads less as a weapon than as a direction: the arm says “there”, and the flame lights the way."
+      },
+      "uk": {
+        "name": "Голий жезл, винесений уперед",
+        "seen": "Довгий гладкий жезл зі слонової кістки винесено вперед у випростаній руці й спрямовано навскіс угору над головою коня; на ньому немає ні листя, ні сучків, лише полум’я на кінці.",
+        "meaning": "Вейт описує короткий жезл, а на карті 1909 року з нього пробивається свіже листя. Жезл Olivia голий і спрямований уперед, мов смолоскип, який несуть у темряву. Це радше вказівка напряму, ніж зброя: рука каже «туди», а полум’я освітлює шлях."
+      }
+    },
+    {
+      "key": "desert",
+      "x": 17,
+      "y": 59,
+      "en": {
+        "name": "Two pyramids behind",
+        "seen": "Two pyramids of paler, greyer lapis stand on the far left horizon, a larger one and a smaller one just to its right, with low ridges beyond and a flat, rippled plain stretching behind the horse.",
+        "meaning": "Waite described the rider passing mounds or pyramids, and the desert has long been read as the hot, dry country of the fire suit. Here the pyramids sit behind the Knight: ancient, patient structures being left in the dust by someone who has not stopped to look at them."
+      },
+      "uk": {
+        "name": "Дві піраміди позаду",
+        "seen": "Дві піраміди зі світлішого, сірішого лазуриту стоять на лівому краю обрію: більша й менша трохи праворуч від неї; далі видно низькі гряди, а за конем простягається пласка рівнина, вкрита брижами.",
+        "meaning": "Вейт описував, як постать на коні минає пагорби чи піраміди, а пустелю здавна читають як спекотний, сухий край вогняної масті. Тут піраміди лишаються позаду Лицаря: давні, терплячі споруди зникають у пилюці за тим, хто не зупинився на них поглянути."
+      }
+    },
+    {
+      "key": "horse",
+      "x": 81,
+      "y": 64,
+      "en": {
+        "name": "The horse’s bowed head",
+        "seen": "The ivory horse’s head is tucked down and in, ears pricked forward, eye calm; a carved bridle crosses the face and the reins run back to the rider’s other fist, held low near the belt.",
+        "meaning": "The horse is the Knight’s energy made into a body. In the traditional card it rears and strains; Olivia’s horse lifts its forelegs yet keeps its head collected. The rein hand matters: the fire is running, but one hand still asks it to listen."
+      },
+      "uk": {
+        "name": "Схилена голова коня",
+        "seen": "Кінь зі слонової кістки низько підібрав голову, вуха нашорошені вперед, око спокійне; морду перетинає різьблена вуздечка, а поводи тягнуться назад до другого кулака постаті, опущеного біля пояса.",
+        "meaning": "Кінь — це енергія Лицаря, що набула тіла. На традиційній карті він стає дибки й рветься вперед; кінь Olivia підіймає передні ноги, але тримає голову зібраною. Важлива рука з поводами: вогонь мчить, та одна рука все ще просить його слухатися."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 51,
+      "y": 67,
+      "en": {
+        "name": "Carved tunic motifs",
+        "seen": "The rider’s belted ivory tunic falls over the saddle in soft folds, carved with small low-relief motifs: curling forms with trailing tails, scattered across the chest and skirt.",
+        "meaning": "Pamela Colman Smith dressed this Knight in a tunic of salamanders, the creatures once believed to live unharmed in fire. Olivia carves the same idea quietly into the ivory: a temperament that feels at home in heat, and wears it as part of everyday clothing."
+      },
+      "uk": {
+        "name": "Візерунки на туніці",
+        "seen": "Підперезана туніка зі слонової кістки м’якими складками спадає на сідло; на ній вирізьблено дрібні рельєфні мотиви: звивисті фігурки з довгими хвостами, розсипані по грудях і подолу.",
+        "meaning": "Памела Колман Сміт убрала цього Лицаря в туніку із саламандрами — істотами, які, за давнім повір’ям, живуть у вогні неушкодженими. Olivia стримано вирізьблює ту саму ідею в кістці: вдачу, що почувається в жарі як удома й носить його як частину повсякденного вбрання."
+      }
+    },
+    {
+      "key": "horse",
+      "x": 84,
+      "y": 81,
+      "en": {
+        "name": "Forelegs in mid-leap",
+        "seen": "Both forelegs are lifted clear of the ground and folded at the knee, hooves hanging; the hind legs stretch back and down, hooves planted beside tufts of dry scrub.",
+        "meaning": "Waite noted that the motion of the horse is a key to the rider’s character. This is the moment of take-off: weight thrown onto the haunches, front end already in the air. It is the card’s whole temperament in one gesture, committed before the landing is known."
+      },
+      "uk": {
+        "name": "Передні ноги в стрибку",
+        "seen": "Обидві передні ноги відірвано від землі й зігнуто в колінах, копита звисають; задні ноги витягнуті назад і вниз, копитами впираються в землю поруч із пучками сухого чагарнику.",
+        "meaning": "Вейт зауважував, що рух коня — ключ до характеру того, хто в сідлі. Це мить відриву: вагу перенесено на задні ноги, передня частина вже в повітрі. У цьому одному жесті — вся вдача карти: рішення ухвалено ще до того, як відомо, де буде приземлення."
+      }
+    },
+    {
+      "key": "other",
+      "x": 61,
+      "y": 82,
+      "en": {
+        "name": "The spurred heel",
+        "seen": "Below a carved knee plate, the rider’s armoured shin ends in a pointed shoe with a strap across the instep; a small spur projects from the heel, below the horse’s belly and touching nothing.",
+        "meaning": "Spurs belong to the knightly world of urging a horse on. This one hangs free of the horse: the capacity to push harder is present, and in this instant it is not being used. Speed is available; it need not be forced."
+      },
+      "uk": {
+        "name": "Шпора на п’яті",
+        "seen": "Нижче різьбленого наколінника закута в обладунок гомілка постаті закінчується гостроносим черевиком із ремінцем через підйом; невелика шпора стирчить із п’яти під черевом коня й нічого не торкається.",
+        "meaning": "Шпори належать до лицарського світу, де коня підганяють. Ця шпора висить вільно: здатність натиснути сильніше є, але цієї миті нею не користуються. Швидкість доступна; силувати її не потрібно."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Knight of Wands is desire in motion: the leap towards what excites you, carrying real fire, and the question of whether you can steer while you ride.",
+    "keywords": {
+      "upright": [
+        "bold initiative",
+        "adventure",
+        "passionate drive",
+        "courage",
+        "momentum",
+        "spontaneity"
+      ],
+      "reversed": [
+        "impulsiveness",
+        "scattered energy",
+        "burnout",
+        "unfinished starts",
+        "restless delay"
+      ]
+    },
+    "upright": [
+      "The Knight of Wands draws attention to the moment when wanting becomes moving. In Olivia’s image nothing is still: the plume streams flat behind the helmet, the tail and cape fly back, and the horse has both forelegs off the ground in a leap. The rider’s arm is fully extended, holding a bare wand out ahead with a gold flame burning at its tip. It is a picture of someone who has already set off.",
+      "This card honours that kind of courage. It can point to an idea you are ready to act on, a trip, a pitch, a conversation you have been circling, or simply a return of appetite after a flat stretch. Fire of Fire in the old system, this Knight carries the suit’s energy at full heat: charm, daring and the ability to make things start.",
+      "Look closer, though, and the image holds a second truth. The horse’s head is bowed and collected, the reins are gathered firmly in one fist, and the spur touches nothing. The flame leads, but a hand still guides. Upright, the Knight invites you to move while the fire is real, and to choose a direction worth the speed."
+    ],
+    "reversed": [
+      "Knight of Wands reversed can point to fire that has lost its rider. Enthusiasm may be scattering into several directions at once, or a string of eager starts may be leaving little finished behind. It can also show the opposite: energy that wants to move but is held back by circumstance or hesitation, until it turns into restlessness, irritability or tiredness.",
+      "The image offers a counterweight. The flame is carried forward on a long wand, not clutched against the body, and one hand stays on the reins. Reversed, the invitation is to slow the horse without putting out the fire: pick one direction, set a modest next step, and notice whether impatience is pointing to a real need for change or only to the dull middle of good work."
+    ],
+    "number": "Knights are the movement of their suit: the rank that pursues, travels and carries the element out into the world. After the Page’s first spark of curiosity, the Knight of Wands rides with it. In Wands, the suit of fire, will and creative drive, that pursuit becomes adventure and initiative at their most intense. Before the Queen’s warm inner steadiness and the King’s directed vision, this rank shows fire as momentum: brave, contagious, and still learning how to last.",
+    "tradition": "In the Golden Dawn system this card is titled the Lord of the Flame and the Lightning, King of the Spirits of Fire: Fire of Fire. The Golden Dawn called its mounted court figure a King; the 1909 Waite and Smith deck renamed it Knight. Its zodiac span runs from 20° Scorpio to 20° Sagittarius, covering the decans of the Seven of Cups, Eight of Wands and Nine of Wands. Marseille decks show a Cavalier of Batons carrying a heavy club. Waite’s notes describe the rider on a journey rather than a warlike errand, passing mounds or pyramids; Pamela Colman Smith drew a rearing horse and a tunic patterned with salamanders.",
+    "court": {
+      "temperament": "As a temperament, the Knight of Wands is quick, warm and restless: the part of anyone that lights up at a new idea and wants to be on the road towards it by morning. This way of acting trusts instinct and momentum, speaks with conviction, and feels most alive at the start of things, when everything is still possible.",
+      "gifts": "The gifts here are courage, charisma and the ability to get something moving. This temperament can break a stalemate, rally a group, say yes to the unknown and make an idea feel exciting enough that other people join in. It brings heat to cold projects and the nerve to begin before every doubt has been answered.",
+      "shadow": "In shadow, speed replaces direction. You may leap from one plan to the next, take on more than you can carry, or lose interest when the work becomes ordinary. Impatience can come across as carelessness towards others. Olivia’s horse holds the balance: it leaps, yet its head is collected and the reins are held."
+    },
+    "areas": {
+      "love": "In love and close relationships, the Knight of Wands brings heat, spontaneity and a wish to be swept up in something alive. It can point to a vivid beginning, or to rekindling play in a familiar bond: an unplanned outing, a bold word said out loud. It also asks whether your enthusiasm leaves room to stay once the first blaze settles. With yourself, it invites you to notice what still genuinely excites you.",
+      "work": "At work, in study and with money, this card favours initiative: pitching the idea, starting the project, taking on the task nobody else will try. It can show a burst of energy that gets things off the ground. Consider pairing that speed with one simple structure, a deadline, a checklist or a partner who finishes well, so the flame at the tip of the wand lights a path rather than a series of abandoned starts.",
+      "self": "For your own life, the Knight of Wands turns attention to appetite and aliveness: what makes you want to move, travel, try, create. Like the rider holding the flame out ahead, you might name one thing you are drawn towards and take a real step in its direction. The self-knowledge here is about pace: noticing when fire energises you and when it quietly burns you out."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter may be about momentum: a desire or idea that is perhaps already moving, and the need to decide where that energy goes before it chooses for you.",
+      "challenge": "As a challenge, it can show haste or scattered enthusiasm: acting before listening, starting several things at once, or letting impatience with a slow middle stage pull you away from something worthwhile.",
+      "advice": "As advice, it invites one bold, concrete move towards what excites you, taken today, with one hand still on the reins: a clear aim and a small plan for what follows."
+    },
+    "pairs": [
+      {
+        "with": 7,
+        "text": "The Chariot and the Knight of Wands are both pictures of movement. The Chariot wins by holding opposing forces in check; the Knight wins by letting fire run. Together they ask whether this moment calls for control or for momentum."
+      },
+      {
+        "with": 29,
+        "text": "The Eight of Wands falls within this Knight’s zodiac span and shares its speed: messages, travel, things arriving at once. Side by side they draw attention to how quickly events can move, and to what you choose to do while they do."
+      },
+      {
+        "with": 75,
+        "text": "The Knight of Pentacles is commonly read as the slowest of the four Knights and the Knight of Wands as the fastest. Together they balance daring with endurance, and invite you to ask which pace your question actually needs."
+      }
+    ],
+    "questions": [
+      "What are you already moving towards, and have you chosen that direction or simply followed the heat?",
+      "Where would one hand on the reins make your enthusiasm more useful?",
+      "What will keep this fire alive once the exciting start is over?"
+    ],
+    "practice": "Write the one thing you most want to start, then beneath it one small action for today and one for a week from now, so the leap has a landing."
+  },
+  "uk": {
+    "essence": "Лицар Жезлів — це бажання в русі: стрибок до того, що вас запалює, зі справжнім вогнем у руці, і питання, чи вмієте ви керувати конем на повному скаку.",
+    "keywords": {
+      "upright": [
+        "смілива ініціатива",
+        "пригода",
+        "пристрасний порив",
+        "відвага",
+        "розгін",
+        "спонтанність"
+      ],
+      "reversed": [
+        "імпульсивність",
+        "розпорошена енергія",
+        "вигорання",
+        "незавершені починання",
+        "неспокійне зволікання"
+      ]
+    },
+    "upright": [
+      "Лицар Жезлів звертає увагу на мить, коли бажання стає рухом. На зображенні Olivia ніщо не стоїть на місці: плюмаж розвівається за шоломом, хвіст і плащ летять назад, а кінь у стрибку відірвав від землі обидві передні ноги. Постать випростала руку й тримає попереду голий жезл, на кінці якого горить золоте полум’я. Це образ того, хто вже вирушив у дорогу.",
+      "Карта шанує саме таку відвагу. Вона може вказувати на ідею, яку ви готові втілити, на поїздку, презентацію, розмову, до якої ви давно примірялися, або просто на апетит до життя, що повертається після млявого періоду. У давній системі цей Лицар — Вогонь Вогню, і він несе енергію масті в повному розпалі: чарівність, сміливість і здатність зрушувати справи з місця.",
+      "Та якщо придивитися, в образі криється й друга правда. Кінь схилив і підібрав голову, поводи міцно стиснуті в одному кулаці, а шпора нічого не торкається. Полум’я веде, але рука все ще скеровує. У прямому положенні Лицар запрошує рухатися, поки вогонь справжній, і обрати напрям, вартий такої швидкості."
+    ],
+    "reversed": [
+      "Лицар Жезлів у перевернутому положенні може вказувати на вогонь, який лишився без вершника. Ентузіазм, можливо, розсипається на кілька напрямів одразу, або низка палких починань залишає по собі мало завершеного. Карта може показати й протилежне: енергію, яка прагне руху, але її стримують обставини чи вагання, доки вона не обертається на неспокій, дратівливість чи втому.",
+      "Образ пропонує противагу. Полум’я несуть уперед на довгому жезлі, а не притискають до тіла, і одна рука лишається на поводах. У перевернутому положенні карта запрошує стримати коня, не гасячи вогню: оберіть один напрям, визначте скромний наступний крок і помітьте, чи вказує нетерплячість на справжню потребу змін, чи лише на нудну середину доброї роботи."
+    ],
+    "number": "Лицарі — це рух своєї масті: ранг, що переслідує мету, подорожує й виносить стихію у світ. Після першої іскри цікавості Пажа Лицар Жезлів мчить із нею далі. У Жезлах, масті вогню, волі й творчого поштовху, це прагнення стає пригодою та ініціативою в найнапруженішій формі. Попереду ще тепла внутрішня сталість Королеви та цілеспрямоване бачення Короля, а цей ранг показує вогонь як розгін: сміливий, заразливий, який ще вчиться не згасати.",
+    "tradition": "У системі Золотої Зорі ця карта має титул «Володар Полум’я та Блискавки, Король Духів Вогню»: Вогонь Вогню. Золота Зоря називала свою кінну придворну постать Королем; колода Вейта й Сміт 1909 року перейменувала її на Лицаря. Її зодіакальний відрізок простягається від 20° Скорпіона до 20° Стрільця й охоплює декани Сімки Кубків, Вісімки Жезлів і Дев’ятки Жезлів. Марсельські колоди показують Вершника Палиць із важкою булавою. Нотатки Вейта змальовують вершника, який мандрує, а не їде на війну, і минає пагорби чи піраміди; Памела Колман Сміт намалювала коня, що стає дибки, і туніку, поцятковану саламандрами.",
+    "court": {
+      "temperament": "Як вдача, Лицар Жезлів — це швидкість, тепло й неспокій: та частина будь-кого, що спалахує від нової ідеї й хоче вже зранку бути в дорозі до неї. Такий спосіб діяти довіряє інстинкту й розгону, говорить переконано й найповніше живе на початку справ, коли все ще можливо.",
+      "gifts": "Дари цієї вдачі — відвага, харизма й уміння зрушити справу з місця. Вона здатна розірвати глухий кут, згуртувати групу, сказати «так» невідомому й зробити ідею настільки захопливою, що до неї долучаються інші. Вона приносить жар у холодні проєкти й сміливість почати, перш ніж знайдено відповідь на кожен сумнів.",
+      "shadow": "У тіні швидкість заступає напрям. Ви можете перескакувати з одного плану на інший, брати на себе більше, ніж здатні подужати, або втрачати інтерес, щойно робота стає буденною. Нетерплячість може виглядати як неуважність до інших. Кінь Olivia тримає рівновагу: він стрибає, але голову підібрано, а поводи втримано."
+    },
+    "areas": {
+      "love": "У коханні та близьких стосунках Лицар Жезлів приносить жар, спонтанність і бажання, щоб вас захопило щось живе. Карта може вказувати на яскравий початок або на повернення грайливості в давні стосунки: незаплановану прогулянку, сміливе слово, сказане вголос. Вона також питає, чи залишить ваш ентузіазм простір, щоб бути поруч і тоді, коли перший спалах ущухне. У стосунках із собою карта запрошує помітити, що досі щиро вас запалює.",
+      "work": "У роботі, навчанні та грошових справах ця карта сприяє ініціативі: запропонувати ідею, розпочати проєкт, узятися за завдання, якого ніхто інший не пробує. Вона може показати сплеск енергії, що зрушує справи з місця. Подумайте, як поєднати цю швидкість з однією простою структурою — кінцевим терміном, списком справ або людиною, яка добре доводить справи до кінця, — щоб полум’я на кінці жезла освітлювало шлях, а не низку покинутих починань.",
+      "self": "У вашому власному житті Лицар Жезлів звертає увагу на апетит і жвавість: що спонукає вас рухатися, подорожувати, пробувати, творити. Як постать, що тримає полум’я попереду, ви можете назвати одну річ, яка вас вабить, і зробити до неї справжній крок. Самопізнання тут стосується темпу: помічати, коли вогонь наснажує вас, а коли тихо випалює."
+    },
+    "positions": {
+      "heart": "У серці запитання ця карта підказує, що справа може бути в розгоні: бажання чи ідея, можливо, уже в русі, і тоді варто вирішити, куди спрямувати цю енергію, поки вона не вибрала за вас.",
+      "challenge": "Як виклик вона може показувати поспіх чи розпорошений ентузіазм: ви дієте, не вислухавши, беретеся за кілька справ одночасно або через нетерплячість до повільного середнього етапу відходите від чогось вартісного.",
+      "advice": "Як порада карта запрошує до одного сміливого, конкретного кроку назустріч тому, що вас запалює, — сьогодні й з однією рукою на поводах: з ясною метою та невеликим планом на те, що буде далі."
+    },
+    "pairs": [
+      {
+        "with": 7,
+        "text": "Колісниця і Лицар Жезлів — два образи руху. Колісниця перемагає, стримуючи протилежні сили; Лицар перемагає, даючи вогню волю. Разом вони питають, чого вимагає ця мить: контролю чи розгону."
+      },
+      {
+        "with": 29,
+        "text": "Вісімка Жезлів припадає на зодіакальний відрізок цього Лицаря й поділяє його швидкість: звістки, подорожі, усе, що надходить водночас. Поруч вони звертають увагу на те, як швидко можуть розгортатися події, і на те, що ви обираєте робити, поки це відбувається."
+      },
+      {
+        "with": 75,
+        "text": "Лицаря Пентаклів зазвичай вважають найповільнішим із чотирьох Лицарів, а Лицаря Жезлів — найшвидшим. Разом вони врівноважують сміливість витривалістю й запрошують запитати себе, якого темпу насправді потребує ваше запитання."
+      }
+    ],
+    "questions": [
+      "До чого ви вже рухаєтеся — і чи ви самі обрали цей напрям, чи просто пішли за жаром?",
+      "Де одна рука на поводах зробила б ваш ентузіазм кориснішим?",
+      "Що підтримуватиме цей вогонь, коли захопливий початок мине?"
+    ],
+    "practice": "Запишіть одну річ, яку найбільше хочете почати, а під нею — одну маленьку дію на сьогодні й одну на тиждень уперед, щоб у стрибка було де приземлитися."
+  }
+}

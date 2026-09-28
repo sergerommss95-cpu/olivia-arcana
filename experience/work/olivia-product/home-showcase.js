@@ -1,4 +1,5 @@
 import {showArt} from './held-art.js';
+import {MEMBERSHIP_LIVE} from './membership.js';
 /** Lightweight, explicitly labelled product examples. No draws or records are created here. */
 const UK = {
   practiceKicker:'Особиста практика у трьох моментах', practiceTitle:'Залиште місце<br><em>для іншого погляду.</em>', begin:'Почніть зі свого запитання',
@@ -7,19 +8,20 @@ const UK = {
   smallStep:'МАЛЕНЬКИЙ НАСТУПНИЙ КРОК', exampleStep:'Трохи простору,<br>перш ніж ухвалити рішення.', returnLater:'ЗБЕРЕГТИ · ПОВЕРНУТИСЯ · ПОМІТИТИ', keepDiscovery:'Збережіть помічене.', keepCaption:'Думку, наступний крок і місце, куди можна повернутися.',
   illustratedExample:'Ілюстровані приклади · ваше читання починається з вашого запитання та власного вибору карти.',
   spreadKicker:'Форма запитання', spreadTitle:'Трохи ясності.<br><em>Або ширший погляд.</em>', spreadIntro:'Дайте кожній частині запитання своє місце на столі.', spreadTabs:'Переглянути розклади різного розміру', cardsWord:'карти', cardsWordFive:'карт',
-  positionSituation:'Ситуація', positionComplication:'Що ускладнює', positionStep:'Корисний наступний крок', tableHint:'Оберіть позицію карти, щоб побачити її запитання.', threePerspectives:'ОДНЕ ЗАПИТАННЯ · ТРИ ПЕРСПЕКТИВИ', clarity:'Трохи ясності', clarityDescription:'Ситуація, те, що її ускладнює, і один корисний крок уперед.', firstPosition:'01 / СИТУАЦІЯ', situationPrompt:'Який аспект ситуації потребує уваги?', exploreSpreads:'Дослідити розклади', freeThree:'Три карти — безкоштовно. П’ять і вісім — з членством.',
+  positionSituation:'Ситуація', positionComplication:'Що ускладнює', positionStep:'Корисний наступний крок', tableHint:'Оберіть позицію карти, щоб побачити її запитання.', threePerspectives:'ОДНЕ ЗАПИТАННЯ · ТРИ ПЕРСПЕКТИВИ', clarity:'Трохи ясності', clarityDescription:'Ситуація, те, що її ускладнює, і один корисний крок уперед.', firstPosition:'01 / СИТУАЦІЯ', situationPrompt:'Який аспект ситуації потребує уваги?', exploreSpreads:'Дослідити розклади', freeThree:MEMBERSHIP_LIVE?'Три карти — безкоштовно. П’ять і вісім — з членством.':'Безкоштовно — із власним запитанням.',
   sampleKicker:'Приклад, перш ніж почати', sampleTitle:'Одна карта.<br><em>Інший спосіб подивитися.</em>', exampleQuestionLabel:'ПРИКЛАД ЗАПИТАННЯ', sampleQuestion:'«Що потребує моєї уваги, поки я обмірковую зміни?»', hermitName:'IX / ВІДЛЮДНИК', hermitMeaning:'Трохи відстані від шуму. Відлюдник запрошує почути власні думки, перш ніж шукати ще одну пораду.', questionToKeep:'ЗАПИТАННЯ, ЯКЕ ВАРТО ЗБЕРЕГТИ', hermitPrompt:'Що ви вже знаєте, коли навколо тихо?', fullSample:'Прочитати приклад повністю', turnSample:'Відкрити карту-приклад', notYourDraw:'Приклад читання · це не ваша особиста карта.',
   hermitAlt:'Відлюдник — фігура кольору слонової кістки з ліхтарем на лазуритовому тлі', starAlt:'Зірка з колоди Olivia Arcana',
   memoryKicker:'Ваш альманах і жива колода', memoryTitle:'Читання завершується.<br><em>Значення зростає далі.</em>', memoryIntro:'Збережіть запитання. Запишіть, що сталося згодом. Нехай карта набуває значення, яке належить вам.', yourStory:'Ваша історія', livingDeck:'Ваша жива колода', sampleAlmanac:'ІЛЮСТРОВАНИЙ АЛЬМАНАХ · ПРИКЛАД ЗАПИСІВ', memoryTabs:'Переглянути, як змінюється приклад роздумів', dayOne:'День 01', daySeven:'День 07', dayTwentyOne:'День 21', theQuestion:'Запитання', aReturn:'Повернення', yourMeaning:'Ваше значення', keptReflection:'ЗБЕРЕЖЕНА ДУМКА', makingChange:'На порозі змін', memoryQuoteOne:'«Я весь час прошу поради. Можливо, спочатку варто почути себе».', memoryNextOne:'Тиха прогулянка. Без подкастів. Поки що без рішення.', localMemory:'Ваші власні записи зберігаються в цьому браузері на цьому пристрої.',
   lantern:'Ліхтар', veil:'Завіса', symbolsKicker:'Вчіться помічати', symbolsTitle:'Всередині зображення<br><em>є своя мова.</em>', symbolsIntro:'Ліхтар. Поріг. Відкрита долоня. Простежте символи в колоді й подивіться, що привертає вашу увагу.', exploreSymbols:'Дослідити мову символів',
-  footerThought:'Давні символи.<br>Ваше власне значення.', footerNav:'Дослідити Olivia', footerLegal:'Про Olivia і правові сторінки', footerAbout:'Про Olivia', footerPrivacy:'Приватність', footerTerms:'Умови', footerContact:'Контакти', drawCard:'Витягнути карту', guidedSpreads:'Розклади', dailyAlmanac:'Щоденний альманах', physicalCards:'Карти з вашої колоди', howWorks:'Як працює Olivia', membership:'Безкоштовно й з членством', backTop:'Повернутися до початку'
+  footerThought:'Давні символи.<br>Ваше власне значення.', footerNav:'Дослідити Olivia', footerLegal:'Про Olivia і правові сторінки', footerAbout:'Про Olivia', footerPrivacy:'Приватність', footerTerms:'Умови', footerContact:'Контакти', drawCard:'Витягнути карту', guidedSpreads:'Розклади', allCards:'Усі 78 карт', dailyAlmanac:'Щоденний альманах', physicalCards:'Карти з вашої колоди', howWorks:'Як працює Olivia', membership:MEMBERSHIP_LIVE?'Безкоштовно й з членством':'Безкоштовні читання', backTop:'Повернутися до початку'
 };
 
+const OPEN_ACCESS=['Free, with a question of your own.','Безкоштовно — із власним запитанням.'];
 const SPREAD_PREVIEWS = {
   3: {
     name:['A little clarity','Трохи ясності'], eyebrow:['ONE QUESTION · THREE PERSPECTIVES','ОДНЕ ЗАПИТАННЯ · ТРИ ПЕРСПЕКТИВИ'],
     description:['The situation, what complicates it, and one useful way forward.','Ситуація, те, що її ускладнює, і один корисний крок уперед.'],
-    access:['Three cards, freely. Five and eight with membership.','Три карти — безкоштовно. П’ять і вісім — з членством.'],
+    access:MEMBERSHIP_LIVE?['Three cards, freely. Five and eight with membership.','Три карти — безкоштовно. П’ять і вісім — з членством.']:OPEN_ACCESS,
     positions:[
       {label:['The situation','Ситуація'],question:['What aspect of the situation deserves attention?','Який аспект ситуації потребує уваги?'],x:19,y:48,r:-7},
       {label:['What complicates it','Що ускладнює'],question:['What tension or assumption deserves a closer look?','Яка напруга чи припущення потребує уважнішого погляду?'],x:50,y:41,r:0},
@@ -29,7 +31,7 @@ const SPREAD_PREVIEWS = {
   5: {
     name:['At a crossroads','На роздоріжжі'],eyebrow:['TWO POSSIBILITIES · ROOM TO CHOOSE','ДВІ МОЖЛИВОСТІ · ПРОСТІР ДЛЯ ВИБОРУ'],
     description:['Put two paths beside what matters to you. Notice what each asks, and what you want to understand before choosing.','Поставте два шляхи поруч із тим, що для вас важливе. Помітьте, чого вимагає кожен і що ви хочете зрозуміти перед вибором.'],
-    access:['Five-card personal readings are included with membership.','Особисті розклади на п’ять карт доступні із членством.'],
+    access:MEMBERSHIP_LIVE?['Five-card personal readings are included with membership.','Особисті розклади на п’ять карт доступні із членством.']:OPEN_ACCESS,
     positions:[
       {label:['At the heart','У центрі'],question:['What value or need matters most in this choice?','Яка цінність чи потреба найважливіша в цьому виборі?'],x:50,y:50,r:0},
       {label:['Path A','Шлях А'],question:['What quality or demand could you explore in your first option?','Яку рису чи вимогу варто дослідити у першому варіанті?'],x:18,y:50,r:-5},
@@ -41,7 +43,7 @@ const SPREAD_PREVIEWS = {
   8: {
     name:['The inner compass','Внутрішній компас'],eyebrow:['A LAYERED QUESTION · A WIDER VIEW','БАГАТОШАРОВЕ ЗАПИТАННЯ · ШИРШИЙ ПОГЛЯД'],
     description:['Explore the roots, influences, tension and support around a situation. Bring the whole picture back to one manageable step.','Дослідіть коріння, впливи, напругу й підтримку навколо ситуації. Поверніть цілу картину до одного посильного кроку.'],
-    access:['Eight-card personal readings are included with membership.','Особисті розклади на вісім карт доступні із членством.'],
+    access:MEMBERSHIP_LIVE?['Eight-card personal readings are included with membership.','Особисті розклади на вісім карт доступні із членством.']:OPEN_ACCESS,
     positions:[
       {label:['The situation','Ситуація'],question:['Which part of the whole deserves attention first?','Якій частині цілого варто приділити увагу спочатку?'],x:43,y:48,r:-2},
       {label:['At the root','У корені'],question:['What established pattern or assumption might be worth examining?','Яку звичну закономірність чи припущення варто розглянути?'],x:40,y:80,r:2},
@@ -118,6 +120,7 @@ export function initHomeShowcase({assets,locale='en',reduced=()=>false}={}) {
     $('#home-spread-panel').setAttribute('aria-labelledby',button.id);
     $('#home-spread-name').textContent=pick(spread.name);$('#home-spread-eyebrow').textContent=pick(spread.eyebrow);
     $('#home-spread-description').textContent=pick(spread.description);$('#home-spread-access').textContent=pick(spread.access);
+    const spreadLink=$('#home-spread-access')?.previousElementSibling;if(spreadLink?.matches('a.home-link'))spreadLink.href='#spreads/'+{3:'clarity3',5:'crossroads5',8:'compass8'}[count];
     board.dataset.count=String(count);board.replaceChildren();
     spread.positions.forEach((item,index)=>{
       const figure=document.createElement('figure');figure.className='home-table-card';
