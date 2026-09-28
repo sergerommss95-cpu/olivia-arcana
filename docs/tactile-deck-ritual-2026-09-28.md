@@ -72,3 +72,16 @@ The question entry now keeps the offered one-card format while typing or autofil
 Current follow-up checks: 296 product tests pass; product generation and the full website build pass. Desktop fan hover keeps the original Amielle palette. A 390×844 browser check covers selection, held card, drag, turn, explicit reading and no captured console errors. Safari material checks preserve the dark velvet at the strongest pointer light.
 
 Hosted follow-up: the new preview loads both decks; typing the sample question retained the one-card action and entered the correct fan. Safari also completed Olivia selection and held-card checks at its native desktop size. Both GitHub test/build jobs and Netlify header checks passed for `0e04ef1`.
+
+
+## Follow-up: touch-led artwork unveiling
+
+The one-card reveal now opens the actual selected front through its back, instead of adding another hover light. The camera first approaches for 1.2 seconds; a 5.2-second WebGL transition then begins at the visitor's contact point. Two irregular, carving-sensitive folds expand through the surface, with a narrow source-tinted edge, local refraction and shadow. Pointer movement bends the passing fold. Source colors are unchanged at both endpoints. Olivia and Amielle use their own original back/front assets, including reversed orientation.
+
+`card-unveiling.js` / `.css` own only this finite transition. `mountCardUnveiling(container, {image, reduced})` returns `reveal({front, duration, orientation, onStart, onProgress})`, `touch(x,y)`, `cancel()` and `destroy()`. `onStart` is awaited so camera movement completes before the artwork starts opening. Success leaves the final canvas visible until the caller swaps its original image and cancels the overlay. Unsupported WebGL, failed texture upload, context loss or reduced motion return control to the existing safe flip/immediate fallback. The transition stops its render loop at completion, pauses elapsed time in hidden tabs, and cancels stale work on route changes.
+
+On wide screens the completed card stays large, with the folded question and explicit **Read my card** control to its side. Phone layout reserves space for the same controls and hides the mobile masthead during unveiling. Tapping the actual held card or its **Unveil my card** button starts the sequence; dragging the held surface does not unveil, and the extraction gesture cannot double-trigger it. The original home hero remains unchanged.
+
+Validation for this follow-up: **311 product tests pass**, full product generation and website production build pass. New tests cover GPU fallback and failures, cancellation during an awaited camera approach, context loss, reduced motion, hidden-tab pause, final-frame handoff, cleanup, physical tap versus drag, compatibility click after extraction, and resize during fallback turning. Browser checks: Amielle contact-origin opening and matched reading at 390×844; Olivia contact-origin opening and enlarged inspection layout at 1280×800. Both original palettes remain intact. The local personal-reading service is unavailable, so these local checks used prepared card meanings; the reading service is unchanged.
+
+This remains a review branch, not a production release. The next review URL is recorded in the pull request after its build finishes.

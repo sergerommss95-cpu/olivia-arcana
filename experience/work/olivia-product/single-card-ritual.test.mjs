@@ -11,6 +11,9 @@ class Element{
  hasAttribute(name){return name in this.attributes;}
  addEventListener(type,fn){(this.listeners[type]??=[]).push(fn);}
  dispatch(type,event={}){for(const fn of this.listeners[type]||[])fn({...event,type});}
+ setPointerCapture(id){this.capturedPointer=id;}
+ hasPointerCapture(id){return this.capturedPointer===id;}
+ releasePointerCapture(id){if(this.capturedPointer===id)this.capturedPointer=null;}
  focus(){globalThis.document.activeElement=this;this.dispatch('focus');}
  getBoundingClientRect(){return {left:180,top:190,width:220,height:377};}
  querySelector(selector){return this.selectors?.[selector]||null;}
@@ -25,15 +28,16 @@ class Element{
 }
 function setup({reduced=true,decode=()=>Promise.resolve(),locale='en'}={}){
  const body=new Element('body');body.dataset.view='choose';const stage=new Element(),choices=new Element(),random=new Element('button'),destination=new Element('img'),title=new Element('h1'),source=new Element('button');source.dataset.slot='0';choices.append(source);choices.selectors={'[data-slot="0"]':source};
- const animations=[];
+ const animations=[],windowListeners={},documentListeners={},mediaListeners={};
+ const dispatch=(registry,type,event={})=>{for(const listener of registry[type]||[])listener(event);};
  Element.prototype.animate=function(){let resolve,reject;const finished=new Promise((res,rej)=>{resolve=res;reject=rej;});const animation={finished,currentTime:0,cancel(){reject(new Error('cancelled'));},finish:resolve,pause(){},play(){}};animations.push(animation);return animation;};
- const document={body,documentElement:{lang:locale},createElement:name=>new Element(name),addEventListener(){},querySelector:selector=>({'#motion-stage':stage,'#card-choices':choices,'#random-card':random,'#reading-image':destination,'#result-title':title}[selector]||null)};
+ const document={body,documentElement:{lang:locale},createElement:name=>new Element(name),addEventListener(type,fn){(documentListeners[type]??=[]).push(fn);},querySelector:selector=>({'#motion-stage':stage,'#card-choices':choices,'#random-card':random,'#reading-image':destination,'#result-title':title}[selector]||null)};
  const window={OLIVIA_LOCALE:locale,location:{pathname:'/',search:''},visualViewport:null};
- Object.assign(globalThis,{document,window,innerWidth:1280,innerHeight:900,addEventListener(){},matchMedia:()=>({matches:false,addEventListener(){}}),requestAnimationFrame:()=>1,cancelAnimationFrame(){},Image:class{naturalWidth=400;decode(){return decode();}}});
+ Object.assign(globalThis,{document,window,innerWidth:1280,innerHeight:900,addEventListener(type,fn){(windowListeners[type]??=[]).push(fn);},matchMedia:query=>({matches:false,addEventListener(type,fn){(mediaListeners[query]??=[]).push(fn);}}),requestAnimationFrame:()=>1,cancelAnimationFrame(){},Image:class{naturalWidth=400;decode(){return decode();}}});
  let chosen=0,read=0;const announcements=[],record={cardId:0,cardName:'The Fool',question:'What can I begin?',deckId:'space-between'};
  const flow=initSingleCardFlow({assets:{back:'back.png',cards:['face.png'],deckId:'space-between'},motion:()=>null,reduced:()=>reduced,choose:()=>{chosen++;return record;},onRead:()=>{read++;body.dataset.view='reading';return destination;},announce:value=>announcements.push(value)});
  const layer=body.children[0],card=layer.querySelector('.single-card-object'),image=card.querySelector('img'),actions=layer.querySelector('.single-card-actions'),button=actions.querySelector('button');
- return {flow,body,layer,card,surface:card.querySelector('.single-card-surface'),image,actions,button,animations,announcements,record,get chosen(){return chosen;},get read(){return read;}};
+ return {flow,body,layer,card,surface:card.querySelector('.single-card-surface'),image,actions,button,animations,announcements,record,resize(){dispatch(windowListeners,'resize');},setReduced(value){reduced=value;dispatch(mediaListeners,'(prefers-reduced-motion: reduce)',{matches:value});},get chosen(){return chosen;},get read(){return read;}};
 }
 
 test('the single card has one uninterrupted edge-on turn and settles flat',()=>{
@@ -45,7 +49,7 @@ test('the single card has one uninterrupted edge-on turn and settles flat',()=>{
 });
 
 test('turning holds the same card for inspection; only Read my card opens the reading',async()=>{
- const x=setup();await x.flow.pick(0,true);assert.equal(x.body.dataset.singleState,'held');assert.equal(x.button.textContent,'Turn my card');assert.equal(x.layer.dataset.deckId,'space-between');
+ const x=setup();await x.flow.pick(0,true);assert.equal(x.body.dataset.singleState,'held');assert.equal(x.button.textContent,'Unveil my card');assert.equal(x.layer.dataset.deckId,'space-between');
  x.button.dispatch('click');await flush();assert.equal(x.body.dataset.singleState,'revealed');assert.equal(x.image.src,'face.png');assert.equal(x.button.textContent,'Read my card');assert.equal(x.read,0);assert.equal(x.chosen,1);assert.equal(x.flow.busy,true);
  x.button.dispatch('click');await flush();assert.equal(x.read,1);assert.equal(x.chosen,1);assert.equal(x.layer.hidden,true);
 });
@@ -67,7 +71,7 @@ test('leaving during extraction or the physical turn cancels the active animatio
 });
 
 test('Ukrainian controls leave a visitor’s question untouched',async()=>{
- const x=setup({locale:'uk'});await x.flow.pick(0);assert.equal(x.button.textContent,'Перевернути карту');
+ const x=setup({locale:'uk'});await x.flow.pick(0);assert.equal(x.button.textContent,'Відкрити мою карту');
  const note=x.actions.querySelector('.single-card-note');assert.equal(note.querySelector('blockquote').textContent,'What can I begin?');
  x.button.dispatch('click');await flush();assert.equal(x.button.textContent,'Прочитати карту');assert.equal(x.read,0);
 });
@@ -101,6 +105,61 @@ test('reduced motion keeps the surface completely still while controls remain fu
  const x=setup();await x.flow.pick(0);const rest=x.surface.style.transform;
  x.card.dispatch('pointerdown',{pointerId:2,pointerType:'touch',button:0,clientX:220,clientY:230});
  x.card.dispatch('pointermove',{pointerId:2,pointerType:'touch',clientX:350,clientY:470});
- assert.equal(x.surface.style.transform,rest);assert.equal(x.animations.length,0);assert.equal(x.button.textContent,'Turn my card');
+ assert.equal(x.surface.style.transform,rest);assert.equal(x.animations.length,0);assert.equal(x.button.textContent,'Unveil my card');
  x.button.dispatch('click');await flush();assert.equal(x.body.dataset.singleState,'revealed');assert.equal(x.read,0);
+});
+
+test('a physical tap on the held card reveals the same draw without opening its reading',async()=>{
+ const x=setup();await x.flow.pick(0);
+ const pointer={pointerId:1,pointerType:'touch',button:0,clientX:280,clientY:300};
+ x.card.dispatch('pointerdown',pointer);x.card.dispatch('pointerup',pointer);x.card.dispatch('click',{detail:1});await flush();
+ assert.equal(x.body.dataset.singleState,'revealed');assert.equal(x.image.src,'face.png');assert.equal(x.chosen,1);assert.equal(x.read,0);assert.equal(x.button.textContent,'Read my card');
+});
+
+test('exploring the held surface does not become a reveal when the pointer is released',async()=>{
+ const x=setup({reduced:false}),picking=x.flow.pick(0);x.animations.at(-1).finish();await picking;
+ x.card.dispatch('pointerdown',{pointerId:1,pointerType:'touch',button:0,clientX:280,clientY:300});
+ x.card.dispatch('pointermove',{pointerId:1,pointerType:'touch',clientX:310,clientY:330});
+ x.card.dispatch('pointerup',{pointerId:1,pointerType:'touch',clientX:310,clientY:330});
+ x.card.dispatch('click',{detail:1});await flush();
+ assert.equal(x.body.dataset.singleState,'held');assert.equal(x.image.src,'back.png');assert.equal(x.chosen,1);assert.equal(x.read,0);
+});
+
+test('reduced motion and a quick release still distinguish a drag from a tap',async()=>{
+ for(const sendMove of [true,false]){
+  const x=setup();await x.flow.pick(0);
+  x.card.dispatch('pointerdown',{pointerId:1,pointerType:'touch',button:0,clientX:280,clientY:300});
+  if(sendMove)x.card.dispatch('pointermove',{pointerId:1,pointerType:'touch',clientX:330,clientY:350});
+  x.card.dispatch('pointerup',{pointerId:1,pointerType:'touch',clientX:330,clientY:350});
+  x.card.dispatch('click',{detail:1});await flush();
+  assert.equal(x.body.dataset.singleState,'held',sendMove?'reduced-motion drag must stay face down':'release displacement must count even without pointermove');
+  assert.equal(x.image.src,'back.png');assert.equal(x.chosen,1);
+ }
+});
+
+test('resizing during the fallback turn cannot strand the card with disabled controls',async()=>{
+ const x=setup({reduced:false}),picking=x.flow.pick(0);x.animations.at(-1).finish();await picking;
+ x.button.dispatch('click');await flush();assert.equal(x.body.dataset.singleState,'revealing');
+ x.resize();await flush();
+ // Let any replacement/remaining half of the physical turn finish.
+ for(let i=0;i<3;i++){x.animations.at(-1).finish();await flush();}
+ assert.equal(x.body.dataset.singleState,'revealed');assert.equal(x.button.disabled,false);assert.equal(x.actions.hidden,false);assert.equal(x.image.src,'face.png');assert.equal(x.read,0);
+});
+
+test('enabling reduced motion midway through the fallback turn completes without another animation',async()=>{
+ const x=setup({reduced:false}),picking=x.flow.pick(0);x.animations.at(-1).finish();await picking;
+ x.button.dispatch('click');await flush();const before=x.animations.length;
+ x.setReduced(true);await flush();
+ assert.equal(x.body.dataset.singleState,'revealed');assert.equal(x.animations.length,before);assert.equal(x.button.disabled,false);assert.equal(x.image.src,'face.png');assert.equal(x.chosen,1);assert.equal(x.read,0);
+});
+
+test('the click following a reduced-motion fan selection does not also unveil the held card',async()=>{
+ const x=setup();x.card.dataset.slot='0';
+ x.card.dispatch('pointerenter',{pointerType:'mouse',clientX:280,clientY:300});await flush();
+ assert.equal(x.body.dataset.singleState,'hover');
+ const pointer={pointerId:1,pointerType:'touch',button:0,clientX:280,clientY:300};
+ x.card.dispatch('pointerdown',pointer);x.card.dispatch('pointerup',pointer);await flush();
+ assert.equal(x.body.dataset.singleState,'held');assert.equal(x.chosen,1);
+ x.card.dispatch('click',{detail:1});await flush();
+ assert.equal(x.body.dataset.singleState,'held');assert.equal(x.image.src,'back.png');assert.equal(x.chosen,1);assert.equal(x.read,0);
 });

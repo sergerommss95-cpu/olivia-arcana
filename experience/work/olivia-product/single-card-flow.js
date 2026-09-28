@@ -1,6 +1,7 @@
 /* One physical card connects the deck, the reveal, and the reading. */
 import {singleCardTouchIntent,singleCardTouchAction,singleCardMobileLayout} from './single-card-mobile.js';
 import {mountCardMaterial} from './card-material.js';
+import {mountCardUnveiling} from './card-unveiling.js';
 import {getLocale,t} from './locale.js';
 const WIDTH=320,HEIGHT=WIDTH*12/7;
 const ease=t=>t*t*t*(10+t*(-15+6*t));
@@ -30,7 +31,7 @@ export function singleCardSurfaceTransform(x=.5,y=.5,active=true){
  return `perspective(1200px) translateZ(${active?9:0}px) rotateX(${-down*6}deg) rotateY(${across*7}deg)`;
 }
 export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce,onBrowse}){
- let phase='idle',slot=null,quad=null,targetMap=new Map(),generation=0,hoverTimer=0,hoverReturning=false,drag=null,selected=null,activeAnimation=null,quadAnimation=null,selectedByKeyboard=false,suppressClickUntil=0,surfaceAnimation=null,handPointer=null;
+ let phase='idle',slot=null,quad=null,targetMap=new Map(),generation=0,hoverTimer=0,hoverReturning=false,drag=null,selected=null,activeAnimation=null,quadAnimation=null,selectedByKeyboard=false,suppressClickUntil=0,surfaceAnimation=null,handPointer=null,handStart=null,handMoved=false;
  const words=(en,uk)=>getLocale()==='uk'?uk:en;
  const layer=document.createElement('div');layer.className='single-card-layer';layer.hidden=true;
  layer.innerHTML='<div class="single-card-object"><div class="single-card-surface"><img alt="" draggable="false"></div></div><div class="single-card-actions" hidden><p class="eyebrow"></p><details class="single-card-note" hidden><summary><span class="single-card-note-label"></span><span class="single-card-note-preview" data-no-translate="true"></span><span class="single-card-note-toggle" aria-hidden="true">+</span></summary><blockquote data-no-translate="true"></blockquote></details><button type="button" class="solid-action"></button><p class="single-card-hint" id="single-card-hint"></p></div><a href="#question" class="single-card-return" hidden><span aria-hidden="true">←</span><span></span></a>';
@@ -40,10 +41,11 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
  card.setAttribute('aria-hidden','true');
  reveal.setAttribute('aria-describedby','single-card-hint');
  const material=mountCardMaterial(surface,{image,getDeckId:()=>selected?.deckId||assets.deckId||'olivia',reduced,enabled:()=>['held','revealed'].includes(phase)});
+ const unveiling=mountCardUnveiling(surface,{image,reduced});
  function actionCopy(revealed=false,error=false){
   eyebrow.textContent=revealed?t(selected?.cardName||'Your card'):words('A moment with your card','Мить із вашою картою');
-  reveal.textContent=revealed?words('Read my card','Прочитати карту'):words('Turn my card','Перевернути карту');
-  hint.textContent=error?words('The artwork could not load. Your card is safe; try turning it again.','Зображення не завантажилося. Ваша карта збережена; спробуйте перевернути її знову.'):reduced()?words('Take your time. The card waits for you.','Не поспішайте. Карта чекає на вас.'):revealed?words('Explore its surface. Your reading can wait.','Торкніться її поверхні. Читання зачекає.'):words('Brush the card. Turn it when you are ready.','Проведіть пальцем по карті. Переверніть, коли будете готові.');
+  reveal.textContent=revealed?words('Read my card','Прочитати карту'):words('Unveil my card','Відкрити мою карту');
+  hint.textContent=error?words('The artwork could not load. Your card is safe; try again.','Зображення не завантажилося. Ваша карта збережена; спробуйте ще раз.'):reduced()?words('Take your time. The card waits for you.','Не поспішайте. Карта чекає на вас.'):revealed?words('Explore its surface. Your reading can wait.','Торкніться її поверхні. Читання зачекає.'):words('Touch the card when you feel ready.','Торкніться карти, коли будете готові.');
   hint.classList.toggle('has-error',error);
  }
  function prepareNote(){
@@ -74,7 +76,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
   surfaceAnimation=animation;
   animation.finished.then(()=>{if(surfaceAnimation===animation){animation.cancel();surfaceAnimation=null;}},()=>{});
  }
- function state(value){phase=value;document.body.dataset.singleState=value;layer.dataset.reducedMotion=String(reduced());layer.dataset.deckId=selected?.deckId||assets.deckId||'olivia';back.hidden=!['extracting','held','revealing','revealed'].includes(value);material.setActive(['held','revealed'].includes(value));if(!['held','revealed'].includes(value)){material.touch(.5,.5,false);resetSurface(value==='idle'||value==='hover');}else{surfaceAnimation?.cancel();surfaceAnimation=null;}}
+ function state(value){phase=value;if(value==='idle')delete layer.dataset.inspecting;document.body.dataset.singleState=value;layer.dataset.reducedMotion=String(reduced());layer.dataset.deckId=selected?.deckId||assets.deckId||'olivia';back.hidden=!['extracting','held','revealing','revealed'].includes(value);material.setActive(['held','revealed'].includes(value));if(!['held','revealed'].includes(value)){material.touch(.5,.5,false);resetSurface(value==='idle'||value==='hover');}else{surfaceAnimation?.cancel();surfaceAnimation=null;}}
  function put(points){quad=points;card.style.transform=cardQuadMatrix(points);}
  function sourcePoints(index){
   const t=targetMap.get(index),rect=stage().getBoundingClientRect(),fallback=choices().querySelector(`[data-slot="${index}"]`);
@@ -91,6 +93,12 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
   }
   if(!handheld()){
    delete layer.dataset.mobileLayout;
+   if(layer.dataset.inspecting==='true'&&width>=1040){
+    const h=Math.min(700,height*.78),w=h*7/12,cardLeft=left+width*.42-w/2,cardTop=top+(height-h)/2;
+    const actionLeft=cardLeft+w+Math.min(70,width*.05),actionWidth=Math.min(290,left+width-actionLeft-40);
+    apply({actions:{left:actionLeft,top:top+height*.33,width:actionWidth,maxHeight:height*.6}});
+    return quadForRect({left:cardLeft,top:cardTop,width:w,height:h});
+   }
    apply({actions:{left:left+(width-Math.min(340,width-48))/2,top:top+height*.76,width:Math.min(340,width-48),maxHeight:height-120}});
    const hidden=actions.hidden;actions.style.visibility='hidden';actions.hidden=false;
    const actionHeight=actions.offsetHeight||118;actions.hidden=hidden;actions.style.visibility='';
@@ -113,6 +121,12 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
   actions.hidden=hidden;actions.style.visibility=visibility;
   const layout=singleCardMobileLayout({...options,actionsHeight});apply(layout);
   return quadForRect(layout.card);
+ }
+ function unveilingQuad(){
+  const viewport=window.visualViewport,view=viewport&&viewport.scale===1?viewport:null;
+  const width=view?.width||innerWidth,height=view?.height||innerHeight,left=view?.offsetLeft||0,top=view?.offsetTop||0;
+  const h=Math.max(120,Math.min(760,height*.79,height-136,(width-40)*12/7)),w=h*7/12;
+  return quadForRect({left:left+(width-w)/2,top:top+Math.max(64,(height-h)/2-8),width:w,height:h});
  }
  function cancelAnimation(){if(activeAnimation&&quadAnimation){const {from,to,duration,lift}=quadAnimation,t=ease(clamp(Number(activeAnimation.currentTime||0)/duration,0,1)),arc=Math.sin(Math.PI*t)*lift;put(from.map(([x,y],j)=>[x+(to[j][0]-x)*t,y+(to[j][1]-y)*t-arc]));}activeAnimation?.cancel();activeAnimation=null;quadAnimation=null;}
  function hideSource(index){motion()?.hideChoice?.(index);for(const button of choices().children)button.toggleAttribute('data-lifted',Number(button.dataset.slot)===index);}
@@ -144,7 +158,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
  function hover(index,keyboard=false){if(!visible()||!['idle','hover'].includes(phase)||choices().inert||drag)return;clearTimeout(hoverTimer);if(phase==='hover'&&slot===index){if(hoverReturning)settleHover(index,true);return;}clearHover();slot=index;card.dataset.slot=index;selectedByKeyboard=keyboard;image.style.rotate='';image.src=assets.back;image.alt='';image.style.transform='';material.refresh();layer.hidden=false;actions.hidden=true;state('hover');put(sourcePoints(index));hideSource(index);settleHover(index,true);}
  function leave(index){if(drag||phase!=='hover'||slot!==index)return;clearTimeout(hoverTimer);hoverTimer=setTimeout(()=>settleHover(index),60);}
  function releasePointer(gesture){try{if(gesture?.button.hasPointerCapture(gesture.id))gesture.button.releasePointerCapture(gesture.id);}catch{/* The browser may release capture during a route or viewport change. */}}
- function cancel(){selectedByKeyboard=false;generation++;clearTimeout(hoverTimer);cancelAnimation();const previous=drag;drag=null;releasePointer(previous);selected=null;slot=null;quad=null;state('idle');layer.hidden=true;actions.hidden=true;note.open=false;image.style.transform='';image.style.visibility='';reveal.disabled=false;hideSource(null);document.body.classList.remove('single-reading-arrival');choices().inert=!visible();}
+ function cancel(){selectedByKeyboard=false;generation++;clearTimeout(hoverTimer);unveiling.cancel();delete layer.dataset.unveiling;delete layer.dataset.inspecting;cancelAnimation();const previous=drag;drag=null;releasePointer(previous);selected=null;slot=null;quad=null;state('idle');layer.hidden=true;actions.hidden=true;note.open=false;image.style.transform='';image.style.visibility='';reveal.disabled=false;hideSource(null);document.body.classList.remove('single-reading-arrival');choices().inert=!visible();}
  async function pick(index,keyboard=false){
   if(!visible()||!['idle','hover'].includes(phase)||choices().inert)return;
   clearTimeout(hoverTimer);selectedByKeyboard=keyboard||selectedByKeyboard;
@@ -184,6 +198,27 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
   }finally{clearTimeout(timeout);}
   if(token!==generation)return;
   actions.hidden=true;
+  let approach=null;
+  const unveiled=await unveiling.reveal({front:nextImage,orientation:selected.orientation,duration:5200,onStart:()=>{
+   layer.dataset.unveiling='true';
+   layer.dataset.revealCaption=words('Move gently across the card.','Проведіть по карті легким рухом.');
+   announce(words('Your card is opening. Move gently across its surface.','Ваша карта відкривається. Легко проведіть по її поверхні.'));
+   approach=animateQuad(unveilingQuad(),1200,0);
+   return approach;
+  }});
+  if(token!==generation)return;
+  if(approach)await approach;
+  if(token!==generation)return;
+  if(unveiled){
+   image.style.rotate=selected.orientation==='reversed'?'180deg':'';image.src=nextImage.src;
+   image.style.transform='';
+   unveiling.cancel();
+   delete layer.dataset.unveiling;layer.dataset.inspecting='true';
+   await animateQuad(stageQuad(),1150,0);
+   if(token!==generation)return;
+  }else{
+   unveiling.cancel();delete layer.dataset.unveiling;
+   if(approach)put(stageQuad());
   // One visible image swaps exactly edge-on. The two halves share angular speed.
   if(!reduced()){
    let animation=image.animate(singleCardTurnFrames(),{duration:840,easing:'linear',fill:'forwards'});activeAnimation=animation;
@@ -196,8 +231,9 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
     image.style.transform='';animation.cancel();activeAnimation=null;
    }else{image.style.transform='';activeAnimation=null;}
   }else{image.style.rotate=selected.orientation==='reversed'?'180deg':'';image.src=nextImage.src;}
+  }
   image.alt=t(selected.cardName);actionCopy(true);actions.hidden=false;reveal.disabled=false;put(stageQuad());
-  state('revealed');material.refresh();material.awaken?.();
+  state('revealed');material.refresh();if(!unveiled)material.awaken?.();
   announce(words(`${t(selected.cardName)}. Take your time. Read your card when you are ready.`,`${t(selected.cardName)}. Не поспішайте. Прочитайте карту, коли будете готові.`));
   if(selectedByKeyboard)reveal.focus({preventScroll:true});
  }
@@ -226,9 +262,12 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
  // The fixed outer card is the hit area; only its inner material leans.
  // CSS eases each gesture, then goes completely idle after settling.
  function touchSurface(event){
-  if(!['held','revealed'].includes(phase)||reduced()||document.hidden)return;
+  if(handStart&&Number.isFinite(event.clientX)&&Math.hypot(event.clientX-handStart.x,event.clientY-handStart.y)>8)handMoved=true;
+  if(!['held','revealing','revealed'].includes(phase)||reduced()||document.hidden)return;
   if(event.pointerType!=='mouse'&&handPointer!==event.pointerId)return;
   const box=card.getBoundingClientRect(),x=(event.clientX-box.left)/box.width,y=(event.clientY-box.top)/box.height;
+  unveiling.touch(clamp(x,0,1),clamp(y,0,1));
+  if(phase==='revealing')return;
   surface.dataset.settling='false';surface.style.transition='';
   surface.style.transform=singleCardSurfaceTransform(x,y);
   // Capture belongs to the stable outer card, so forward touch coordinates
@@ -236,18 +275,23 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
   material.touch(clamp(x,0,1),clamp(y,0,1),true);
  }
  card.addEventListener('pointerdown',event=>{
-  if(!['held','revealed'].includes(phase)||reduced()||event.button!==0||event.isPrimary===false)return;
+  if(!['held','revealing','revealed'].includes(phase)||event.button!==0||event.isPrimary===false)return;
   handPointer=event.pointerId;
+  handStart={x:event.clientX,y:event.clientY};handMoved=false;
   try{card.setPointerCapture(event.pointerId);}catch{}
   touchSurface(event);
  });
  card.addEventListener('pointermove',touchSurface);
  card.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse')touchSurface(event);});
  card.addEventListener('pointerleave',event=>{if(event.pointerType==='mouse'&&handPointer===null)resetSurface();});
- const releaseSurface=event=>{if(handPointer!==event.pointerId)return;resetSurface();};
+ const releaseSurface=event=>{if(handPointer!==event.pointerId)return;if(handStart&&Number.isFinite(event.clientX)&&Math.hypot(event.clientX-handStart.x,event.clientY-handStart.y)>8)handMoved=true;if(event.type==='pointercancel')handMoved=true;resetSurface();};
  card.addEventListener('pointerup',releaseSurface);
  card.addEventListener('pointercancel',releaseSurface);
  card.addEventListener('lostpointercapture',releaseSurface);
+ card.addEventListener('click',event=>{
+  if(phase==='held'&&handStart&&!handMoved&&event.detail!==0&&performance.now()>=suppressClickUntil)revealCard();
+  handStart=null;handMoved=false;
+ });
  // The finite light pass also serves keyboard users, without moving the card.
  function trackPointer(event){
   const dx=event.clientX-drag.startX,dy=event.clientY-drag.startY;
@@ -287,7 +331,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
  }
  // The lifted tip is also a hit area; source and clone share one guarded gesture.
  bind(card);
- const resize=()=>{resetSurface(true);if(drag)cancelPointer({pointerId:drag.id});if(phase==='hover')clearHover();else if(['held','revealing','revealed'].includes(phase))put(stageQuad());};
+ const resize=()=>{resetSurface(true);if(drag)cancelPointer({pointerId:drag.id});if(phase==='hover')clearHover();else if(['held','revealing','revealed'].includes(phase)){if(quadAnimation)cancelAnimation();put(layer.dataset.unveiling==='true'?unveilingQuad():stageQuad());}};
  addEventListener('resize',resize);
  window.visualViewport?.addEventListener('resize',resize);
  window.visualViewport?.addEventListener('scroll',()=>{if(handheld()&&['held','revealed'].includes(phase))put(stageQuad());});

@@ -90,3 +90,22 @@ body[data-view=choose][data-single-state=hover] .single-card-object:active{curso
 .single-card-layer .single-card-note :is(.single-card-note-label,.single-card-note-preview,blockquote){color:#283d47}
 
 body[data-view=choose]:is([data-single-state=held],[data-single-state=revealed]) .single-card-object:active{cursor:grabbing}
+
+/* A temporary close view, owned by the chosen card rather than the home hero. */
+.single-card-layer[data-unveiling=true]:before{opacity:.98!important}
+.single-card-layer[data-unveiling=true] .single-card-object{pointer-events:auto;touch-action:none;cursor:crosshair}
+.single-card-layer[data-unveiling=true]:after{content:attr(data-reveal-caption);position:fixed;bottom:max(22px,env(safe-area-inset-bottom));left:24px;right:24px;text-align:center;color:#d7cbb6;font:400 12px/1.6 'DM Sans','Onest',sans-serif;letter-spacing:.04em;pointer-events:none;animation:unveiling-caption-in 1.6s both}
+body:has(.single-card-layer[data-unveiling=true]) #cards{opacity:0!important}
+.single-card-layer[data-unveiling=true] .single-card-surface{transition:none;transform:none!important}
+@keyframes unveiling-caption-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.single-card-layer[data-unveiling=true]:after{animation:none}}
+
+body:has(.single-card-layer[data-unveiling=true]) .mobile-masthead{opacity:0;visibility:hidden;pointer-events:none}
+@media(min-width:1040px){
+ .single-card-layer[data-inspecting=true] .single-card-actions{text-align:left;animation:unveiling-caption-in 800ms both}
+ .single-card-layer[data-inspecting=true] .single-card-note{position:relative;inset:auto;width:100%;margin:22px 0 30px;transform:rotate(-3deg)}
+ .single-card-layer[data-inspecting=true] .single-card-actions>.eyebrow{font-size:13px;letter-spacing:.16em}
+ .single-card-layer[data-inspecting=true] .single-card-actions>.solid-action{width:100%}
+ .single-card-layer[data-inspecting=true] .single-card-hint{max-width:24ch;margin:16px 0 0}
+}
+@media(prefers-reduced-motion:reduce){.single-card-layer[data-inspecting=true] .single-card-actions{animation:none}}

@@ -1,0 +1,19 @@
+/* A finite artwork transition, clipped to the same surface as the real image. */
+.card-unveiling {
+  position:absolute;
+  display:block;
+  z-index:3;
+  margin:0;
+  padding:0;
+  border:0;
+  max-width:none;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-select:none;
+  backface-visibility:hidden;
+  contain:strict;
+}
+.card-unveiling[hidden] { display:none !important; }
+@media (prefers-reduced-motion:reduce) {
+  .card-unveiling { display:none !important; }
+}
