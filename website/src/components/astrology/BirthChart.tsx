@@ -37,8 +37,8 @@ const UI = {
     noTime: "Birth time not known: the chart uses midday.",
     threeTitle: "Your three cards", threeLead: "Your Sun, Moon and Rising sign, each with the Major Arcana card of its sign.",
     sun: "Sun", moon: "Moon", rising: "Rising", or: "or", atMidday: (sign: string) => `${sign} at midday`,
-    wheelTitle: "The wheel", wheelCaption: "The sky at your birth, set over the real stars of the zodiac. Whole-sign houses from the Rising sign on the left; gold pointers mark the Ascendant and Midheaven, threads the closest aspects. Rest on a planet to follow its threads.",
-    wheelCaptionNoTime: "The sky on the day of your birth, set over the real stars of the zodiac, from 0° Aries on the left. Houses and angles need a birth time.",
+    wheelTitle: "The wheel", wheelCaption: "The sky at your birth, dealt in cards: each sign is its Major Arcana card, and your Sun, Moon and Rising are lifted in gold. Inside lie the real stars of the zodiac, houses from the Rising sign on the left, and threads for the closest aspects. Rest on a planet to follow its threads.",
+    wheelCaptionNoTime: "The sky on the day of your birth, dealt in cards: each sign is its Major Arcana card, and your Sun and Moon are lifted in gold, from 0° Aries on the left. Houses and angles need a birth time.",
     wheelLabel: "Birth chart wheel", ledgerTitle: "Where everything stood", ledgerLead: "Open a line to read what it describes and a question to take with you.",
     house: "house", retrograde: "retrograde", aspectsTitle: "Conversations in the chart",
     aspectsLead: "The closest angles between planets. Each is a pairing to notice, not a verdict.", orb: "orb", method: "How this chart is made",
@@ -60,8 +60,8 @@ const UI = {
     noTime: "Час народження невідомий: карта розрахована на полудень.",
     threeTitle: "Ваші три карти", threeLead: "Ваше Сонце, Місяць і Асцендент, кожен із картою Старших Арканів свого знака.",
     sun: "Сонце", moon: "Місяць", rising: "Асцендент", or: "або", atMidday: (sign: string) => `опівдні: ${sign}`,
-    wheelTitle: "Коло", wheelCaption: "Небо в мить вашого народження на тлі справжніх зір зодіаку. Будинки за знаками, лічба від Асцендента ліворуч; золоті стрілки позначають Асцендент і Середину неба, нитки — найточніші аспекти. Наведіть на планету, щоб побачити її нитки.",
-    wheelCaptionNoTime: "Небо в день вашого народження на тлі справжніх зір зодіаку, від 0° Овна ліворуч. Для будинків і кутів потрібен час народження.",
+    wheelTitle: "Коло", wheelCaption: "Небо в мить вашого народження, розкладене картами: кожен знак — це його карта Старших Арканів, а ваші Сонце, Місяць і Асцендент підсвічено золотом. Усередині — справжні зорі зодіаку, будинки від Асцендента ліворуч і нитки найточніших аспектів. Наведіть на планету, щоб побачити її нитки.",
+    wheelCaptionNoTime: "Небо в день вашого народження, розкладене картами: кожен знак — це його карта Старших Арканів, а ваші Сонце й Місяць підсвічено золотом, від 0° Овна ліворуч. Для будинків і кутів потрібен час народження.",
     wheelLabel: "Коло натальної карти", ledgerTitle: "Де все стояло", ledgerLead: "Відкрийте рядок, щоб прочитати, що він описує, і запитання, яке варто взяти з собою.",
     house: "будинок", retrograde: "ретроградний", aspectsTitle: "Розмови в карті",
     aspectsLead: "Найточніші кути між планетами. Кожен — пара, яку варто помітити, а не вирок.", orb: "орбіс", method: "Як побудована ця карта",
@@ -333,6 +333,7 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
             <figure className={styles.figure}>
               <h2 className={styles.h2}>{t.wheelTitle}</h2>
               <ChartWheel bodies={chart.bodies} ascendant={chart.ascendant} midheaven={chart.midheaven} aspects={chart.aspects}
+                signCards={SIGN_CARDS.map((cardId) => ({ image: cards[cardId].image.replace("/cards/", "/cards/wheel/"), href: cards[cardId].href, name: cards[cardId].name }))}
                 labels={Object.fromEntries(chart.bodies.map((p) => [p.key, `${placedIn(locale, copy.bodies[p.key].name, p.sign, signName(p.sign))} · ${formatDegree(p.degree)}`]))}
                 title={t.wheelLabel} description={`${placedIn(locale, copy.bodies.sun.name, sun.sign, signName(sun.sign))}; ${placedIn(locale, copy.bodies.moon.name, moon.sign, signName(moon.sign))}${chart.ascendant ? `; ${placedIn(locale, t.rising, chart.ascendant.sign, signName(chart.ascendant.sign))}` : ""}.`} />
               <figcaption className={styles.caption}>{chart.ascendant ? t.wheelCaption : t.wheelCaptionNoTime}</figcaption>
