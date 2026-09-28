@@ -1,0 +1,267 @@
+{
+  "id": 68,
+  "slug": "five-of-pentacles",
+  "artwork": {
+    "file": "68_five_of_pentacles.webp",
+    "sha256": "f848e0fbc20986e7ee396327bff0cf3903a6780eef9174118dbb7cc54dcdfb78"
+  },
+  "symbols": [
+    {
+      "key": "star",
+      "x": 72,
+      "y": 17,
+      "en": {
+        "name": "The gold star above",
+        "seen": "At the crown of the window’s tracery, a solid five-pointed star inlaid in gold sits inside a carved roundel. Apart from small flecks in the night sky, it is the only gold on the card, set high above both figures.",
+        "meaning": "A star is traditionally a sign of orientation and hope, as in The Star. In the traditional image the whole window is bright stained glass; here the one bright point in the scene is this star, hanging above the walkers’ heads, unseen by either of them, and still there while they pass."
+      },
+      "uk": {
+        "name": "Золота зірка вгорі",
+        "seen": "На вершині віконного ажуру, у різьбленому медальйоні, розміщено суцільну п’ятикутну зірку, інкрустовану золотом. Окрім дрібних блискіток у нічному небі, це єдине золото на карті, і розміщене воно високо над обома постатями.",
+        "meaning": "Зірка традиційно означає орієнтир і надію, як у карті Зірка. У традиційному зображенні все вікно сяє вітражем; тут єдина світла точка сцени — ця зірка. Вона висить над головами подорожніх, жоден із них її не бачить, і вона залишається на місці, поки вони проходять повз."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 72,
+      "y": 31,
+      "en": {
+        "name": "Five pentacles in stone",
+        "seen": "Below the gold star, five pentagrams inside circles are carved in the lapis itself, arranged as a pair, then one, then another pair, all in the same cold blue as the wall.",
+        "meaning": "The five pentacles are the card’s number and the suit of earth: money, body, shelter, work. Here they are not gold but carved in the wall’s own blue, as if resources exist and are visible, yet belong to the building rather than to the hands of the people outside."
+      },
+      "uk": {
+        "name": "П’ять кам’яних пентаклів",
+        "seen": "Під золотою зіркою в самому лазуриті вирізьблено п’ять пентаграм у колах: пара, потім одна, потім ще пара, усі того самого холодного синього кольору, що й стіна.",
+        "meaning": "П’ять пентаклів — це число карти й масть землі: гроші, тіло, дах над головою, праця. Тут вони не золоті, а вирізьблені в синяві самої стіни, ніби ресурси існують і їх видно, але вони в стінах будівлі, а не в руках тих, хто лишився ззовні."
+      }
+    },
+    {
+      "key": "window",
+      "x": 72,
+      "y": 43,
+      "en": {
+        "name": "The unlit Gothic window",
+        "seen": "A tall pointed arch frames tracery shaped as a bare, leafless tree rising from a single trunk, with the pentacles held in its branches. No light shows through, and pale snow lines the sill.",
+        "meaning": "In the traditional image the window glows, so the figures pass warmth they do not notice. Olivia’s window is dark, which shifts the question: support may be built into the world around you without being obvious from outside. The winter branches still carry the pentacles: dormant, not dead."
+      },
+      "uk": {
+        "name": "Темне готичне вікно",
+        "seen": "Висока стрілчаста арка обрамлює ажур у формі голого безлистого дерева, що росте з одного стовбура; у його гілках тримаються пентаклі. Крізь вікно не пробивається світло, на підвіконні лежить блідий сніг.",
+        "meaning": "У традиційному зображенні вікно світиться, і постаті минають тепло, якого не помічають. Вікно Olivia темне, і це зміщує акцент: підтримка може бути частиною світу довкола вас, навіть якщо ззовні її не видно. Зимові гілки все одно тримають пентаклі: це сон, а не смерть."
+      }
+    },
+    {
+      "key": "veil",
+      "x": 73,
+      "y": 51,
+      "en": {
+        "name": "The shawled walker",
+        "seen": "A figure in warm cream ivory, shawl drawn over the head, walks to the right with head bowed and eyes cast down; both arms fold across the chest, one hand gripping the shawl.",
+        "meaning": "The shawled figure is commonly read as endurance, and sometimes as pride or shame about being in need. Arms folded over the heart close the body around itself: a protective, brave posture, and also one that makes it hard to reach out for anything, including help."
+      },
+      "uk": {
+        "name": "Постать у хустці",
+        "seen": "Постать із теплої кремової слонової кістки, у хустці, накинутій на голову, іде праворуч, похнюпившись і опустивши очі; обидві руки складені на грудях, одна стискає хустку.",
+        "meaning": "Постать у хустці зазвичай тлумачать як символ витривалості, а іноді як гордість чи сором через власну потребу. Руки, складені над серцем, замикають тіло в собі: це захисна й смілива постава, але з нею важко потягнутися до будь-чого, зокрема й до допомоги."
+      }
+    },
+    {
+      "key": "hood",
+      "x": 35,
+      "y": 52,
+      "en": {
+        "name": "The bowed, hooded head",
+        "seen": "Behind, on the left, a second figure in greyer, weathered ivory hunches forward under a deep hood, face shadowed and turned down towards the snow, a torn cloak trailing from the shoulders.",
+        "meaning": "The traditional image gives this walker injury and a hard road through snow. Here the hood and the lowered gaze matter most: neither figure looks up, so the gold star and the window go unseen. Hardship narrows attention to the next step, which is natural and also limiting."
+      },
+      "uk": {
+        "name": "Схилена голова в каптурі",
+        "seen": "Позаду, ліворуч, друга постать із сірішої, ніби вивітреної слонової кістки згорбилася під глибоким каптуром; обличчя в тіні й повернуте донизу, до снігу, з плечей спадає подертий плащ.",
+        "meaning": "У традиційному зображенні ця постать поранена й долає важку дорогу крізь сніг. Тут найважливіші каптур і опущений погляд: жодна з постатей не дивиться вгору, тож золота зірка й вікно лишаються непоміченими. Скрута звужує увагу до наступного кроку; це природно, але й обмежує."
+      }
+    },
+    {
+      "key": "house",
+      "x": 88,
+      "y": 65,
+      "en": {
+        "name": "The dark house",
+        "seen": "At the right edge, a small building is carved in shadowed lapis, its pitched roof edged with snow and its walls faintly marked; no lit window shows anywhere on it.",
+        "meaning": "Olivia’s carving adds a second shelter to the scene, and it repeats the theme: homes and buildings stand close by, closed and dark. It can point to places of belonging that are near in distance but far in feeling, and to the knock nobody has made yet."
+      },
+      "uk": {
+        "name": "Темний дім",
+        "seen": "Біля правого краю в затіненому лазуриті вирізьблено невеликий будинок: край двосхилого даху обведений снігом, стіни ледь позначені; у ньому не видно жодного освітленого вікна.",
+        "meaning": "Різьба Olivia додає до сцени ще один прихисток і повторює тему: оселі й будівлі стоять поруч, зачинені й темні. Це може вказувати на місця приналежності, близькі за відстанню, але далекі за відчуттям, і на стукіт у двері, на який ще ніхто не наважився."
+      }
+    },
+    {
+      "key": "staff",
+      "x": 37,
+      "y": 77,
+      "en": {
+        "name": "The two crutches",
+        "seen": "The hooded figure leans on two pale crutches with plain crossbars under the arms; both hands grip the handles halfway down, and the tips press into the snow on either side of the body.",
+        "meaning": "Crutches are the card’s plainest image of need, and of support already in use. The figure is carrying on with help, not without it. The Five of Pentacles often describes not having nothing, but having support that is thin, tiring or barely enough."
+      },
+      "uk": {
+        "name": "Дві милиці",
+        "seen": "Постать у каптурі спирається на дві світлі милиці з простими поперечинами під пахвами; обидві руки стискають руків’я посередині, а кінці милиць упираються в сніг обабіч тіла.",
+        "meaning": "Милиці — найпростіший образ потреби на цій карті й водночас підтримки, якою вже користуються. Постать іде далі з допомогою, а не без неї. П’ятірка Пентаклів часто описує не цілковиту відсутність усього, а підтримку хистку, виснажливу чи ледве достатню."
+      }
+    },
+    {
+      "key": "other",
+      "x": 23,
+      "y": 81,
+      "en": {
+        "name": "The bandaged foot",
+        "seen": "The one foot visible beneath the ragged trouser leg is bound in wrapped strips of cloth up to the shin, and steps forward into the snow between the two crutch tips.",
+        "meaning": "Bandages mark injury and the ongoing work of care. In a card of material trouble, the wrapped foot keeps the body in view: strain on health, rest and energy belongs to the Pentacles suit as much as money does, and it deserves practical attention, not only endurance."
+      },
+      "uk": {
+        "name": "Забинтована нога",
+        "seen": "Єдина нога, яку видно з-під подертої холоші, обмотана смугами тканини аж до гомілки; вона ступає вперед у сніг, поміж кінцями обох милиць.",
+        "meaning": "Бинти вказують на рану й на тривалий догляд за нею. У карті матеріальної скрути обмотана нога тримає тіло в полі зору: тиск на здоров’я, відпочинок і сили — така сама справа масті Пентаклів, як і гроші, і він потребує практичної уваги, а не лише витривалості."
+      }
+    },
+    {
+      "key": "path",
+      "x": 33,
+      "y": 86,
+      "en": {
+        "name": "Bare feet, footprints",
+        "seen": "The shawled figure walks barefoot over pale, frosted lapis; small hollow footprints are pressed into the snow behind and between the walkers, and a few low stones break the surface near the bottom edge.",
+        "meaning": "Bare feet on snow make the cold concrete: nothing stands between these walkers and the ground. The trail of prints also records that they keep moving. Hardship here is a passage crossed step by step, and the prints show how far they have already come."
+      },
+      "uk": {
+        "name": "Босі ноги, сліди",
+        "seen": "Постать у хустці йде босоніж по блідому, вкритому інеєм лазуриту; у снігу позаду подорожніх і поміж ними видно невеликі вдавлені сліди, а біля нижнього краю з поверхні виступає кілька низьких каменів.",
+        "meaning": "Босі ноги на снігу роблять холод відчутним: між цими подорожніми й землею немає нічого. Ланцюжок слідів водночас свідчить, що вони не зупиняються. Скрута тут — шлях, який долають крок за кроком, і сліди показують, скільки вже пройдено."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Five of Pentacles looks at material hardship and isolation, and at help that may be nearer than it seems from out in the cold.",
+    "keywords": {
+      "upright": [
+        "hardship",
+        "scarcity",
+        "feeling left out",
+        "endurance",
+        "bodily strain",
+        "unseen support"
+      ],
+      "reversed": [
+        "slow thaw",
+        "help within reach",
+        "shame about need",
+        "hard to ask",
+        "worry turned inward"
+      ]
+    },
+    "upright": [
+      "The Five of Pentacles is the card of being out in the cold: short of money, health, shelter or belonging, and feeling it in the body. In Olivia’s carving, two figures cross a field of frosted lapis at night. One leans on two crutches, the only visible foot wrapped in cloth; the other walks barefoot, shawl pulled over the head, arms folded tight across the chest. Both heads are bowed. The card does not judge the hardship or explain it away. It asks you to name it plainly: what is actually missing, and what is it costing you?",
+      "Above them rises a Gothic window. Where the traditional image sets bright stained glass above the snow, this window is unlit, its tracery a bare winter tree carrying five pentacles carved in the same cold blue as the wall. Only the star at its crown is gold, and neither figure looks up to see it. That is the card’s quiet point. Support, resources and people who care may be closer than they feel, yet hard to see when attention narrows to the next painful step.",
+      "So the Five of Pentacles invites two small acts: to acknowledge the strain without treating it as a verdict on your worth, and to lift your eyes once. Which door, service, friend or institution nearby could you approach, even if the window looks dark from where you stand?"
+    ],
+    "reversed": [
+      "Five of Pentacles reversed can point to the first signs of a thaw: a door opening, a practical offer, energy slowly returning. It can also describe the card’s inward form, when help is within reach but hard to accept. Tiredness, embarrassment or an old disappointment keep the arms folded across the chest, as on the shawled walker, and asking feels impossible.",
+      "Here the card invites you to notice whether hardship has become a habit of mind: a feeling of standing outside even when the door is no longer shut. Name one concrete need, make one approach, and let the response be whatever it is. Accepting support does not cancel your strength; it lets you stop carrying everything alone through the snow."
+    ],
+    "number": "Fives break the steadiness of the four. After the Four of Pentacles holds tight to what it has, the Five shows what happens when the grip fails or circumstances shift: something material is lost, stretched or suddenly insecure. In the earth suit, that disruption lands in practical life: income, home, health, work, the body’s reserves. The number asks for honesty about the gap rather than a show of stability, and it leans forward, since the Six of Pentacles turns to giving and receiving.",
+    "tradition": "In the Golden Dawn system the Five of Pentacles is titled Lord of Material Trouble and assigned to Mercury in Taurus, the first decan of that earth sign. As a Five it belongs to Geburah, the sphere of severity on the Tree of Life, here expressed in the material world, and the Order read it as strain and loss. Marseille-pattern decks show only five coins, four at the corners and one in the middle, among stylised foliage. Pamela Colman Smith’s 1909 design gave the card its lasting scene: two poor figures passing through snow beneath a stained-glass church window bearing five pentacles. Crowley’s Thoth deck later titled it Worry.",
+    "areas": {
+      "love": "In close relationships, including the one with yourself, the Five of Pentacles can point to feeling on the outside: two people walking the same cold road, one a few steps behind the other, without speaking, or a sense of being unwelcome where you hoped for warmth. Like the two figures on the card, you may be closer to support than it seems. The card invites you to say one plain thing about what you need, and to notice where pride or tiredness keeps your arms folded.",
+      "work": "At work, in study or around money, this card turns attention to strain that is real and practical: a shortfall, lost hours, a role that no longer holds you, exhaustion that limits what you can do. It is not a judgement of your ability. The card invites you to write the situation down in concrete terms, then look for the dark window nearby: a support service, a tutor, a colleague, an adviser, an entitlement you have not yet claimed.",
+      "self": "For your own wellbeing, the Five of Pentacles asks how you treat yourself when resources run low. Notice the bandaged foot and the bare feet on snow: the body carries hardship too, and rest, warmth and food are not luxuries here. The card invites you to separate what is happening to you from what it says about you, and to allow yourself one small comfort without first having to earn it."
+    },
+    "positions": {
+      "heart": "At the centre of your question sits a sense of lack or exclusion: something material, physical or social feels insufficient, and you may be walking past support without looking up.",
+      "challenge": "What complicates things may be the hardship itself, or reluctance to ask for help because of pride, shame or an earlier disappointment. Attention narrowed to getting through can miss a door that is open.",
+      "advice": "Name your most pressing practical need in one sentence, then approach one person, place or service that might help with part of it, before deciding the window is closed."
+    },
+    "pairs": [
+      {
+        "with": 69,
+        "text": "With the Six of Pentacles, the story continues: hardship meets giving and receiving. Together they draw attention to the balance of help in your life, where you need to receive support and where you might be able to offer it."
+      },
+      {
+        "with": 17,
+        "text": "With The Star, the small gold star over this window becomes the central image of a whole card. Together they ask where hope can return after strain, and invite you to lift your eyes towards what still guides you on a cold night."
+      },
+      {
+        "with": 67,
+        "text": "With the Four of Pentacles, you see both sides of scarcity: holding everything tight, and being left with too little. Together they ask whether fear of the cold is shaping your choices, and what a less clenched relationship with security could look like."
+      }
+    ],
+    "questions": [
+      "What exactly is missing right now, in money, health, shelter or company, when you name it without judging yourself?",
+      "Which source of help nearby have you walked past because asking felt too hard?",
+      "Where are your arms folded across your chest, protecting you and also keeping support out?"
+    ],
+    "practice": "Write your most pressing need in one sentence, list three people or places that could help with any part of it, and contact one of them this week."
+  },
+  "uk": {
+    "essence": "П’ятірка Пентаклів говорить про матеріальну скруту й ізоляцію, а також про допомогу, яка може бути ближчою, ніж здається тим, хто стоїть надворі на холоді.",
+    "keywords": {
+      "upright": [
+        "скрута",
+        "нестача",
+        "відчуття виключеності",
+        "витривалість",
+        "тілесне виснаження",
+        "непомічена підтримка"
+      ],
+      "reversed": [
+        "повільна відлига",
+        "допомога поруч",
+        "сором через потребу",
+        "важко просити",
+        "внутрішня тривога"
+      ]
+    },
+    "upright": [
+      "П’ятірка Пентаклів — це карта тих, хто опинився на холоді: бракує грошей, здоров’я, даху над головою чи відчуття приналежності, і ця нестача відчувається тілом. У різьбі Olivia дві постаті вночі перетинають поле вкритого інеєм лазуриту. Одна спирається на дві милиці, її єдина видима нога обмотана тканиною; інша йде босоніж, насунувши хустку на голову й міцно схрестивши руки на грудях. Обидві голови схилені. Карта не засуджує скруту й не применшує її. Вона просить вас назвати її прямо: чого насправді бракує і чого це вам коштує?",
+      "Над ними здіймається готичне вікно. Якщо в традиційному зображенні над снігом сяє яскравий вітраж, то це вікно темне, а його ажур — голе зимове дерево з п’ятьма пентаклями, вирізьбленими в тій самій холодній синяві, що й стіна. Золота лише зірка на вершині, і жодна з постатей не підводить очей, щоб її побачити. У цьому тиха суть карти. Підтримка, ресурси й люди, яким ви небайдужі, можуть бути ближче, ніж здається, але їх важко розгледіти, коли увага звужується до наступного болючого кроку.",
+      "Тож П’ятірка Пентаклів запрошує до двох невеликих дій: визнати напругу, не вважаючи її вироком вашій цінності, і хоча б раз підвести погляд. У які двері поблизу ви могли б постукати, до якої служби, друга чи установи звернутися, навіть якщо звідти, де ви стоїте, вікно здається темним?"
+    ],
+    "reversed": [
+      "П’ятірка Пентаклів у перевернутому положенні може вказувати на перші ознаки відлиги: відчиняються двері, з’являється практична пропозиція, повільно повертаються сили. Вона може описувати й внутрішню форму карти, коли допомога поруч, але її важко прийняти. Втома, ніяковість чи давнє розчарування тримають руки схрещеними на грудях, як у постаті в хустці, а попросити про допомогу видається неможливим.",
+      "Тут карта запрошує помітити, чи не стала скрута звичкою мислення: відчуттям, що ви стоїте надворі, навіть коли двері вже не зачинені. Назвіть одну конкретну потребу, зробіть одну спробу звернутися й прийміть відповідь такою, якою вона буде. Прийняти підтримку не означає зректися власної сили; це дає змогу не нести все самотужки крізь сніг."
+    ],
+    "number": "П’ятірки порушують стійкість четвірок. Якщо Четвірка Пентаклів міцно тримається за те, що має, то П’ятірка показує, що стається, коли втримати не вдається або обставини змінюються: щось матеріальне втрачено, розтягнуто до межі чи раптом стає ненадійним. У масті землі цей злам зачіпає практичне життя: дохід, житло, здоров’я, роботу, запаси сил тіла. Число просить чесно визнати прогалину, а не вдавати стабільність, і воно дивиться вперед, адже Шістка Пентаклів повертається до давання й отримання.",
+    "tradition": "У системі Золотої Зорі П’ятірка Пентаклів має титул «Володар матеріальної скрути» і пов’язана з Меркурієм у Тельці — першим деканом цього земного знака. Як П’ятірка вона належить до Гебури, сфери суворості на Дереві Життя, тут вираженої в матеріальному світі, і Орден тлумачив її як напругу й утрату. Колоди марсельського типу показують лише п’ять монет, чотири в кутах і одну посередині, серед стилізованого листя. Саме малюнок Памели Колман Сміт 1909 року закріпив за картою усталену сцену: двоє бідних людей бредуть крізь сніг під вітражним церковним вікном із п’ятьма пентаклями. Пізніше в колоді Тота Кроулі назвав її «Тривога».",
+    "areas": {
+      "love": "У близьких стосунках, зокрема у стосунках із собою, П’ятірка Пентаклів може вказувати на відчуття, що ви лишилися осторонь: двоє людей ідуть тією самою холодною дорогою, одна на кілька кроків позаду другої, і мовчать, або вам здається, що вам не раді там, де ви сподівалися на тепло. Як і дві постаті на карті, ви можете бути ближче до підтримки, ніж здається. Карта запрошує сказати одну просту річ про те, що вам потрібно, і помітити, де гордість чи втома тримають ваші руки схрещеними.",
+      "work": "У роботі, навчанні чи грошових справах ця карта звертає увагу на напругу, реальну й практичну: брак коштів, утрачені години, посаду, яка більше не дає опори, виснаження, що обмежує ваші можливості. Це не оцінка ваших здібностей. Карта запрошує записати ситуацію конкретними словами, а потім пошукати темне вікно поблизу: службу підтримки, репетитора, колегу, консультанта, пільгу, якою ви ще не скористалися.",
+      "self": "Коли йдеться про ваше самопочуття, П’ятірка Пентаклів запитує, як ви ставитеся до себе, коли ресурси вичерпуються. Зверніть увагу на забинтовану ногу й босі ступні на снігу: тіло теж несе скруту, і відпочинок, тепло та їжа тут не розкіш. Карта запрошує відокремити те, що з вами відбувається, від того, що це нібито говорить про вас, і дозволити собі одну маленьку втіху, не вимагаючи від себе спершу її заслужити."
+    },
+    "positions": {
+      "heart": "У центрі вашого запитання — відчуття нестачі чи виключеності: чогось матеріального, тілесного чи соціального бракує, і ви, можливо, проходите повз підтримку, не підводячи очей.",
+      "challenge": "Ускладнювати ситуацію може сама скрута або небажання просити про допомогу через гордість, сором чи колишнє розчарування. Увага, звужена до того, щоб якось витримати, може не помітити відчинених дверей.",
+      "advice": "Назвіть одним реченням свою найнагальнішу практичну потребу, а потім зверніться до однієї людини, місця чи служби, які можуть допомогти хоча б частково, перш ніж вирішити, що вікно зачинене."
+    },
+    "pairs": [
+      {
+        "with": 69,
+        "text": "Із Шісткою Пентаклів історія триває: скрута зустрічається з даванням і отриманням. Разом вони звертають увагу на рівновагу допомоги у вашому житті: де вам потрібно прийняти підтримку, а де ви могли б її запропонувати."
+      },
+      {
+        "with": 17,
+        "text": "Поруч із Зіркою маленька золота зірка над цим вікном розростається до центрального образу цілої карти. Разом вони запитують, де може повернутися надія після напруги, і запрошують підвести очі до того, що досі веде вас холодної ночі."
+      },
+      {
+        "with": 67,
+        "text": "Із Четвіркою Пентаклів ви бачите обидва боки нестачі: судомно триматися за все — і мати надто мало. Разом вони запитують, чи не страх холоду визначає ваші рішення і якими могли б бути спокійніші стосунки з безпекою."
+      }
+    ],
+    "questions": [
+      "Чого саме зараз бракує — грошей, здоров’я, даху над головою чи товариства, — якщо назвати це, не засуджуючи себе?",
+      "Повз яке джерело допомоги поруч ви пройшли, бо попросити здавалося надто важко?",
+      "Де ви тримаєте руки схрещеними на грудях, захищаючись і водночас не підпускаючи підтримку?"
+    ],
+    "practice": "Запишіть одним реченням свою найнагальнішу потребу, складіть список із трьох людей чи місць, які могли б допомогти хоча б частково, і зв’яжіться з одним із них цього тижня."
+  }
+}

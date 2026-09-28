@@ -9,6 +9,8 @@ import { TAROT_NOTES } from "@/lib/academy/tarot-notes";
 // Native Ukrainian notes (formal «ви»), shared with the reading experience.
 const NOTES = TAROT_NOTES.uk;
 import UkrainianLibraryShell from "../library-shell";
+import CardLeaf from "@/components/academy/CardLeaf";
+import { leafBySlug } from "@/lib/academy/leaf";
 import styles from "../card-library.module.css";
 
 export function generateStaticParams() { return CARD_SLUGS.map(slug => ({ slug })); }
@@ -19,8 +21,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!card) return {};
   const text = TAROT_UK[card.name];
   const note = NOTES[card.name];
-  const title = `${text.name}: пряме та перевернуте значення карти Таро | Olivia Arcana`;
-  const description = note.upright.meaning.length > 155 ? note.upright.meaning.slice(0, 154).replace(/\s+\S*$/, "") + "…" : note.upright.meaning;
+  const leaf = leafBySlug(slug);
+  const title = leaf ? `${text.name}: значення карти Таро, пряме й перевернуте положення, символи | Olivia Arcana` : `${text.name}: пряме та перевернуте значення карти Таро | Olivia Arcana`;
+  const source = leaf ? `${leaf.uk.essence} ${leaf.uk.upright[0]}` : note.upright.meaning;
+  const description = source.length > 155 ? source.slice(0, 154).replace(/\s+\S*$/, "") + "…" : source;
   const url = `https://oliviaarcana.com/uk/cards/${slug}/`;
   const english = `https://oliviaarcana.com/cards/${slug}/`;
   const image = `https://oliviaarcana.com${getCardImagePath(card)}`;
@@ -38,6 +42,24 @@ export default async function UkrainianCardPage({ params }: { params: Promise<{ 
   if (!card) notFound();
   const text = TAROT_UK[card.name];
   const note = NOTES[card.name];
+  const leaf = leafBySlug(slug);
+  if (leaf) {
+    const leafLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        { "@type": "Article", headline: `${text.name} — значення карти Таро`, inLanguage: "uk", description: leaf.uk.essence, image: `https://oliviaarcana.com${getCardImagePath(card)}`, mainEntityOfPage: `https://oliviaarcana.com/uk/cards/${slug}/`, author: { "@type": "Organization", name: "Olivia Arcana", url: "https://oliviaarcana.com/uk/" } },
+        { "@type": "FAQPage", inLanguage: "uk", mainEntity: [
+          { "@type": "Question", name: `Що означає карта ${text.name}?`, acceptedAnswer: { "@type": "Answer", text: leaf.uk.upright.join(" ") } },
+          { "@type": "Question", name: `Що означає ${text.name} у перевернутому положенні?`, acceptedAnswer: { "@type": "Answer", text: leaf.uk.reversed.join(" ") } },
+          { "@type": "Question", name: `Які символи на карті ${text.name}?`, acceptedAnswer: { "@type": "Answer", text: leaf.symbols.map((s) => `${s.uk.name}: ${s.uk.meaning}`).join(" ") } },
+        ] },
+      ],
+    };
+    return <UkrainianLibraryShell englishPath={`/cards/${slug}/`}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(leafLd).replace(/</g, "\\u003c") }} />
+      <CardLeaf leaf={leaf} locale="uk" ground="#091a29" />
+    </UkrainianLibraryShell>;
+  }
   const arcana = card.arcana === "major" ? "Старші Аркани" : `Молодші Аркани · ${suits[card.suit!]}`;
   const jsonLd = { "@context": "https://schema.org", "@type": "Article", headline: `${text.name} — значення карти Таро`, inLanguage: "uk", description: note.upright.meaning, image: `https://oliviaarcana.com${getCardImagePath(card)}`, mainEntityOfPage: `https://oliviaarcana.com/uk/cards/${slug}/`, author: { "@type": "Organization", name: "Olivia Arcana", url: "https://oliviaarcana.com/uk/" } };
   return <UkrainianLibraryShell englishPath={`/cards/${slug}/`}>

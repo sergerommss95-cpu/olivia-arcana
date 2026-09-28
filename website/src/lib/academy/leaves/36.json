@@ -1,0 +1,267 @@
+{
+  "id": 36,
+  "slug": "ace-of-cups",
+  "artwork": {
+    "file": "36_ace_of_cups.webp",
+    "sha256": "02faabd88f3be2f67f48cf2bb9dc3120f0ec3435e4a61832412f18fc1a6d5768"
+  },
+  "symbols": [
+    {
+      "key": "cloud",
+      "x": 50,
+      "y": 18,
+      "en": {
+        "name": "The ivory cloud and column",
+        "seen": "A billowing ivory cloud spreads across the upper sky, its edges drawn out into wisps on both sides; from its centre a smooth, rounded ivory column descends and ends at the dove’s tail.",
+        "meaning": "In the traditional image the hand itself emerges from the cloud. Here the cloud sends down only a shaft and the dove, while the hand enters from the side of the card. The gift from above and the human reach to receive it meet at the cup."
+      },
+      "uk": {
+        "name": "Хмара й колона зі слонової кістки",
+        "seen": "Пишна хмара зі слонової кістки розкинулася у верхній частині неба, її краї з обох боків витягуються в легкі пасма; з її центру спускається гладка заокруглена колона зі слонової кістки й закінчується біля хвоста голуба.",
+        "meaning": "На традиційному зображенні сама рука з’являється просто з хмари. Тут же хмара посилає вниз лише стовп і голуба, а рука входить у карту збоку. Дар, що приходить згори, і людський порух назустріч, щоб його прийняти, зустрічаються саме біля чаші."
+      }
+    },
+    {
+      "key": "dove",
+      "x": 50,
+      "y": 35,
+      "en": {
+        "name": "The dove with the wafer",
+        "seen": "An ivory dove dives head first beneath the column, wings spread wide, holding a small round wafer in its beak just above the cup; a thin glassy stream runs from beneath the wafer into the bowl.",
+        "meaning": "The descending dove with a wafer is a signature detail of Pamela Colman Smith’s 1909 Ace of Cups, drawn from Christian images of the Holy Spirit and the Eucharist. It speaks of grace: feeling that arrives as a gift, not an achievement. The traditional wafer bears a small cross; Olivia’s is plain."
+      },
+      "uk": {
+        "name": "Голуб з облаткою",
+        "seen": "Голуб зі слонової кістки пірнає вниз головою під колоною, широко розкинувши крила, і тримає в дзьобі невелику круглу облатку просто над чашею; з-під облатки в чашу стікає тонкий скляний струмінь.",
+        "meaning": "Голуб, що спускається з облаткою, — характерна деталь Туза Кубків Памели Колман Сміт 1909 року, запозичена з християнських зображень Святого Духа та Євхаристії. Він говорить про благодать: почуття, що приходить як дар, а не як здобуток. Традиційна облатка має маленький хрестик; в Olivia вона гладка."
+      }
+    },
+    {
+      "key": "star",
+      "x": 50,
+      "y": 48,
+      "en": {
+        "name": "The gold star on the bowl",
+        "seen": "Set on the front of the ivory bowl is a gold star with eight slender points, the only gold among the ivory carvings; beneath it runs a band of carved leaves.",
+        "meaning": "The traditional cup carries a letter-like mark, read variously as an M, a W or a Hebrew letter. Olivia replaces it with an eight-pointed gold star, the form of star associated with The Star card, so this first cup of feeling also carries a quiet sign of hope and renewal."
+      },
+      "uk": {
+        "name": "Золота зірка на чаші",
+        "seen": "На передньому боці чаші зі слонової кістки вміщено золоту зірку з вісьмома тонкими променями — єдине золото серед різьблення зі слонової кістки; під нею тягнеться пояс різьбленого листя.",
+        "meaning": "Традиційна чаша має знак, схожий на літеру: його прочитують як M, W або як єврейську літеру. Olivia замінює його золотою восьмипроменевою зіркою — саме такою, яку пов’язують із картою Зірка, тож ця перша чаша почуттів несе й тихий знак надії та оновлення."
+      }
+    },
+    {
+      "key": "cup",
+      "x": 43,
+      "y": 45,
+      "en": {
+        "name": "The ivory chalice",
+        "seen": "A wide, deep ivory chalice with a moulded rim, a carved knop on its stem and a broad lobed foot decorated in low relief, held upright at the centre of the card.",
+        "meaning": "The cup is the emblem of the suit of Water: a vessel for feeling, love, intuition and imagination. At the Ace it is a single open container, not yet shared or spilt. It suggests capacity: an inner space that can receive and hold what arrives."
+      },
+      "uk": {
+        "name": "Чаша зі слонової кістки",
+        "seen": "Широка глибока чаша зі слонової кістки з профільованими вінцями, різьбленим потовщенням на ніжці та широкою фігурною основою, оздобленою низьким рельєфом; її тримають прямо в центрі карти.",
+        "meaning": "Кубок — емблема масті Води: вмістилище для почуттів, любові, інтуїції та уяви. У Тузі це одна-єдина відкрита посудина, якою ще не поділилися й з якої ще нічого не пролилося. Вона натякає на місткість: внутрішній простір, здатний прийняти й утримати те, що надходить."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 45,
+      "y": 56,
+      "en": {
+        "name": "The hand from the left",
+        "seen": "An ivory forearm enters from the left, its far end fading softly into the lapis; the hand closes firmly around the stem just below the knop, and two streams of water run across the arm.",
+        "meaning": "In the Aces a hand offers the suit’s gift. Here it comes not from a cloud but from the side, at the height of the landscape, and grips the stem firmly. Receiving feeling is shown as an act you take part in: something held, steadied and kept upright."
+      },
+      "uk": {
+        "name": "Рука зліва",
+        "seen": "Передпліччя зі слонової кістки входить у карту зліва, його дальній край м’яко розчиняється в лазуриті; рука міцно обхоплює ніжку просто під потовщенням, а через передпліччя біжать два струмені води.",
+        "meaning": "У Тузах рука подає дар масті. Тут вона з’являється не з хмари, а збоку, на висоті краєвиду, і міцно тримає ніжку. Приймання почуття показано як дію, у якій ви берете участь: його тримають, вирівнюють і не дають перехилитися."
+      }
+    },
+    {
+      "key": "water-pouring",
+      "x": 50,
+      "y": 73,
+      "en": {
+        "name": "Five streams to the pool",
+        "seen": "Four glassy streams rise from inside the bowl and arch over the rim, two to each side; a fifth drops straight down the centre below the foot. All five reach the pool, with drops falling between them.",
+        "meaning": "The overflowing fountain is the heart of this card: more than the cup can hold, given freely. The five streams of the traditional image are commonly read as the five senses. Here the water falls in clean, steady lines and ripples where it lands, abundant but not flooding."
+      },
+      "uk": {
+        "name": "П’ять струменів у водойму",
+        "seen": "Чотири скляні струмені здіймаються зсередини чаші й дугою перекидаються через вінця, по два з кожного боку; п’ятий падає прямо вниз посередині, під основою. Усі п’ять досягають водойми, а між ними падають краплі.",
+        "meaning": "Фонтан, що переливається через край, — серце цієї карти: води більше, ніж здатна вмістити чаша, і її віддають щедро. П’ять струменів традиційного зображення зазвичай прочитують як п’ять чуттів. Тут вода падає чистими рівними лініями й розходиться брижами там, де торкається поверхні: рясно, але без повені."
+      }
+    },
+    {
+      "key": "lily",
+      "x": 38,
+      "y": 84,
+      "en": {
+        "name": "Lotuses on the pool",
+        "seen": "Pale carved lotus blossoms and flat round pads float on a rippled blue pool; rings spread where the streams strike the water, and banks of grey-blue cloud frame the pool at both lower corners.",
+        "meaning": "The Golden Dawn’s description of this card already places lotuses and water-lilies in the water below. The lotus rises from mud to open on the surface, so it is often read as emotional life flowering, and as feeling that has somewhere to settle and grow."
+      },
+      "uk": {
+        "name": "Лотоси на воді",
+        "seen": "Бліді різьблені квіти лотоса й пласкі круглі листки плавають на брижастій синій воді; там, де б’ють струмені, розходяться кола, а обабіч, у нижніх кутах, водойму обрамлюють гряди сіро-блакитних хмар.",
+        "meaning": "Уже в описі цієї карти, складеному Золотою Зорею, у воді внизу є лотоси й латаття. Лотос виростає з мулу й розкривається на поверхні, тож його часто прочитують як розквіт емоційного життя — і як почуття, якому є де осісти й прорости."
+      }
+    },
+    {
+      "key": "mountain",
+      "x": 85,
+      "y": 51,
+      "en": {
+        "name": "Blue peaks on either side",
+        "seen": "Jagged peaks carved in lighter blue lapis rise on both sides of the cup at mid-height, with a stand of small carved trees on the right-hand shore below them.",
+        "meaning": "The traditional Ace of Cups shows little land. Olivia adds high, sharp mountains, which in tarot often mean effort, distance or sober thought. Here they stand back and give the water its valley: feeling flowing freely, but held inside a real landscape with shores."
+      },
+      "uk": {
+        "name": "Сині вершини обабіч",
+        "seen": "Зубчасті вершини, вирізьблені у світлішому синьому лазуриті, здіймаються з обох боків чаші на середній висоті, а нижче, на правому березі, стоїть купка маленьких різьблених дерев.",
+        "meaning": "Традиційний Туз Кубків майже не показує суходолу. Olivia додає високі гострі гори, які в таро часто означають зусилля, відстань або тверезу думку. Тут вони стоять віддалік і лишають воді долину: почуття течуть вільно, але в межах справжнього краєвиду з берегами."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 17,
+      "y": 37,
+      "en": {
+        "name": "The glittering diagonal trail",
+        "seen": "Below the cloud’s left wing a trail of faceted, glittering crystals runs diagonally down to the left edge of the card, among small gold star flecks scattered across the dark lapis sky.",
+        "meaning": "This detail is Olivia’s own: what looks like a natural vein of crystals in the stone reads like a second overflow, light spilling from the sky as water spills from the cup. It hints that what the Ace offers can feel larger than one person, as wide as the night."
+      },
+      "uk": {
+        "name": "Мерехтливий діагональний слід",
+        "seen": "Під лівим крилом хмари смуга гранчастих мерехтливих кристалів тягнеться навскіс донизу аж до лівого краю карти, серед дрібних золотих зірочок, розсипаних по темному лазуритовому небу.",
+        "meaning": "Ця деталь належить саме Olivia: те, що нагадує природну жилу кристалів у камені, читається як друге переповнення — світло, що переливається з неба, як вода з чаші. Вона натякає, що дар Туза може відчуватися більшим за одну людину, широким, як ніч."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Ace of Cups is the first welling of feeling: love, tenderness, intuition or creative joy arriving as a gift, and an invitation to receive it.",
+    "keywords": {
+      "upright": [
+        "open heart",
+        "new feeling",
+        "receptivity",
+        "compassion",
+        "creative flow",
+        "intuition"
+      ],
+      "reversed": [
+        "held-back feeling",
+        "emotional overflow",
+        "hard to receive",
+        "running dry",
+        "inward tenderness"
+      ]
+    },
+    "upright": [
+      "The Ace of Cups draws attention to the moment feeling begins to rise: affection, tenderness, a new closeness, a surge of creativity, or a quiet sense that something inside has opened. As the root of the suit of Water, it concerns emotional life in its purest, least complicated form, before it is sorted, explained or shared out. Nothing in the card needs to be earned. The dove dives from the cloud with its wafer, and water pours from the cup in five clean streams: more than any single vessel can hold.",
+      "Olivia’s version adds two telling details. The cup is held by a hand that enters from the side of the card, gripping the stem firmly, so receiving is not passive; it is an act of steadying and keeping the vessel upright. And the cup carries a gold eight-pointed star in place of the traditional letter, linking this first feeling with the hope of The Star.",
+      "Upright, the card invites you to make room. Notice what is welling up, and let it exist for a while before you decide what it means or where it should go. The lotuses on the pool below suggest that feeling, given space, can take root and flower. You can welcome tenderness and still keep your judgement and your boundaries; the water here falls into a pool with shores."
+    ],
+    "reversed": [
+      "Ace of Cups reversed draws attention to feeling that cannot quite flow. It may be held back, for good reasons such as tiredness, caution or a need for privacy, or it may be hard to receive care when it is offered. Sometimes the reverse is true: emotion pours out faster than the cup can steady it, and you give more than you have.",
+      "Picture the chalice tipped: either the streams stop, or everything spills at once. This position asks where your own cup stands. Is it empty because you keep offering and rarely receive, or full because a feeling has been waiting to be named? A first step can be small: one feeling spoken, one kindness accepted, one moment of care turned toward yourself."
+    ],
+    "number": "Every Ace is a root: the whole potential of its suit before it divides into the choices and stories of the other numbers. In Cups, the suit of Water, that root is feeling itself: the capacity to love, to be moved, to sense and to imagine. The Ace holds this as a single overflowing vessel. Later numbers turn it toward another person (the Two) and toward shared contentment (the Ten), but here it is simply the first welling, whole and not yet asked to do anything.",
+    "tradition": "In the Golden Dawn system the Ace of Cups is titled the Root of the Powers of Water. The Aces were given no decans: each stands for its element in Kether, the crown of the Tree of Life, the seed from which its suit unfolds, and the order’s Book T set them around the north pole of the heavens, each ruling a quarter of the sky. Book T already describes a hand from clouds holding a cup, a fountain falling into calm water with lotuses and water-lilies. Pamela Colman Smith’s 1909 card added the dove and wafer, imagery commonly linked to the Holy Grail, a subject A. E. Waite wrote about at length. Marseille decks show a single tall, ornate vessel with no hand.",
+    "areas": {
+      "love": "In close relationships the Ace of Cups can point to affection that is new or newly felt: warmth toward someone, a rekindled tenderness, or simply a readiness to be close. It does not tell you what another person feels or what will follow. It asks about your own cup: can you receive care as well as give it? With yourself, it invites the same generosity you would offer a friend, poured in steady streams rather than all at once.",
+      "work": "At work or in study, this card often reflects creative flow and genuine care for what you are doing: an idea that moves you, a project with heart, kindness within a team. Notice where your interest wells up without being forced, and give it a little room. Where money or practical decisions are involved, let enthusiasm sit alongside clear information; a full cup is still worth holding with a steady hand.",
+      "self": "For your relationship with yourself, the Ace of Cups invites you to notice what is rising in you before you rush to explain it. Feeling here is shown as something given, falling from above and gathering in a pool where lotuses grow. Ask what would help it settle and root: rest, music, water, writing, a quiet walk. Tenderness toward yourself is not indulgence; it is how the cup stays upright."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Ace of Cups points to a feeling that is beginning or asking to be let in. What you feel may matter more here than what you plan.",
+      "challenge": "As a challenge, the card can show feeling held at arm’s length, care that is hard to accept, or an outpouring so strong that your own needs are forgotten.",
+      "advice": "As advice, it invites you to receive: let one kind gesture in, name one feeling honestly, and give your inner life a small, protected space to grow."
+    },
+    "pairs": [
+      {
+        "with": 17,
+        "text": "The Star pours water beneath an eight-pointed star, and Olivia’s Ace of Cups carries the same kind of gold star on its bowl. Together they turn attention to renewal: feeling that flows back after a hard season and brings quiet hope."
+      },
+      {
+        "with": 45,
+        "text": "The Ten of Cups completes what the Ace begins. Side by side they trace the suit from a single overflowing vessel to shared contentment, and ask what small, daily care helps a first feeling grow into something lasting."
+      },
+      {
+        "with": 40,
+        "text": "The Five of Cups dwells on what has spilt and been lost; the Ace shows water flowing freely. Together they draw attention to what is still full, and to the possibility of receiving again after grief."
+      }
+    ],
+    "questions": [
+      "What feeling is welling up in you right now that you have not yet named?",
+      "Where do you find it easier to give care than to receive it, and why might that be?",
+      "What would it look like to hold your own cup with a steady, gentle hand this week?"
+    ],
+    "practice": "Pour a glass of water slowly and, while you drink it, name one feeling you are ready to let in, without deciding what to do about it."
+  },
+  "uk": {
+    "essence": "Туз Кубків — перша хвиля почуття: любов, ніжність, інтуїція чи творча радість приходять як дар, а разом із ними — запрошення цей дар прийняти.",
+    "keywords": {
+      "upright": [
+        "відкрите серце",
+        "нове почуття",
+        "сприйнятливість",
+        "співчуття",
+        "творчий потік",
+        "інтуїція"
+      ],
+      "reversed": [
+        "стримані почуття",
+        "емоційне переповнення",
+        "важко приймати",
+        "виснаження",
+        "внутрішня ніжність"
+      ]
+    },
+    "upright": [
+      "Туз Кубків звертає увагу на мить, коли почуття починає підніматися: прихильність, ніжність, нова близькість, творчий порив або тихе відчуття, що всередині щось відкрилося. Як корінь масті Води, він стосується емоційного життя в найчистішій, найменш заплутаній формі — доки його не впорядкували, не пояснили й не розділили між іншими. У цій карті нічого не треба заслуговувати. Голуб пірнає з хмари зі своєю облаткою, а з чаші п’ятьма чистими струменями ллється вода: більше, ніж здатна вмістити будь-яка посудина.",
+      "Версія Olivia додає дві промовисті деталі. Чашу тримає рука, що входить у карту збоку й міцно обхоплює ніжку, тож приймання тут не пасивне: це дія, яка вирівнює посудину й не дає їй перехилитися. А на чаші замість традиційної літери сяє золота восьмипроменева зірка, що пов’язує це перше почуття з надією Зірки.",
+      "У прямому положенні карта запрошує вас звільнити місце. Помітьте, що у вас підіймається, і дозвольте цьому просто побути, перш ніж вирішувати, що воно означає і куди його спрямувати. Лотоси на воді внизу підказують: почуття, якому дали простір, може вкоренитися й розквітнути. Можна приймати ніжність і водночас зберігати тверезе судження та власні межі; вода тут падає у водойму з берегами."
+    ],
+    "reversed": [
+      "Туз Кубків у перевернутому положенні звертає увагу на почуття, яким не вдається вільно текти. Можливо, їх стримують, і з добрих причин, як-от утома, обережність чи потреба в особистому просторі, а можливо, важко прийняти турботу, коли її пропонують. Буває й навпаки: емоції ллються швидше, ніж чаша встигає їх утримати, і ви віддаєте більше, ніж маєте.",
+      "Уявіть чашу нахиленою: або струмені зупиняються, або все виливається водночас. Це положення запитує, як стоїть ваша власна чаша. Вона порожня, бо ви постійно віддаєте й рідко приймаєте, чи повна, бо якесь почуття давно чекає, щоб його назвали? Перший крок може бути маленьким: одне висловлене почуття, один прийнятий вияв доброти, одна мить турботи, звернена до себе."
+    ],
+    "number": "Кожен Туз — це корінь: увесь потенціал масті ще до того, як він розгалузиться на рішення та історії інших чисел. У Кубках, масті Води, цим коренем є саме почуття: здатність любити, бути зворушеними, відчувати й уявляти. Туз тримає все це як одну переповнену посудину. Наступні числа повертають його до іншої людини (Двійка) і до спільного вдоволення (Десятка), але тут це просто перша хвиля — цілісна, від якої ще нічого не вимагають.",
+    "tradition": "У системі Золотої Зорі Туз Кубків має назву «Корінь сил Води». Тузам не призначали деканів: кожен уособлює свою стихію в Кетер, короні Дерева Життя, — зерно, з якого розгортається масть, а «Книга Т» ордену розміщувала їх навколо північного полюса неба, де кожен править чвертю небосхилу. Уже «Книга Т» описує руку з хмар, що тримає чашу, і фонтан, який спадає в спокійну воду з лотосами й лататтям. Карта Памели Колман Сміт 1909 року додала голуба й облатку — образи, які зазвичай пов’язують зі Святим Граалем, темою, про яку А. Е. Вейт писав багато. Марсельські колоди показують одну високу оздоблену посудину без руки.",
+    "areas": {
+      "love": "У близьких стосунках Туз Кубків може вказувати на прихильність нову чи по-новому відчуту: тепло до когось, відроджену ніжність або просто готовність бути поруч. Він не говорить, що відчуває інша людина чи що буде далі. Він запитує про вашу власну чашу: чи вмієте ви приймати турботу, а не лише дарувати її? У стосунках із собою він запрошує до тієї самої щедрості, яку ви виявили б до близької людини, — рівними струменями, а не все одразу.",
+      "work": "У роботі чи навчанні ця карта часто відображає творчий потік і щиру небайдужість до того, що ви робите: ідею, що зворушує, проєкт із душею, доброту в команді. Помітьте, де ваш інтерес зринає без примусу, і дайте йому трохи простору. Коли йдеться про гроші чи практичні рішення, нехай захоплення йде поруч із ясною інформацією; повну чашу теж варто тримати твердою рукою.",
+      "self": "У стосунках із собою Туз Кубків запрошує помітити, що у вас підіймається, перш ніж поспішати це пояснювати. Почуття тут показане як дар: воно спадає згори й збирається у водоймі, де ростуть лотоси. Запитайте себе, що допомогло б йому осісти й укоренитися: відпочинок, музика, вода, письмо, тиха прогулянка. Ніжність до себе — не потурання; саме так чаша залишається рівною."
+    },
+    "positions": {
+      "heart": "У центрі запитання Туз Кубків вказує на почуття, яке тільки народжується або просить, щоб його впустили. Те, що ви відчуваєте, тут може важити більше, ніж те, що ви плануєте.",
+      "challenge": "У позиції виклику карта може показувати почуття, яке тримають на відстані витягнутої руки, турботу, яку важко прийняти, або такий сильний вилив емоцій, що власні потреби забуваються.",
+      "advice": "У позиції поради вона запрошує вас приймати: впустіть один добрий жест, чесно назвіть одне почуття й дайте своєму внутрішньому життю невеликий захищений простір для зростання."
+    },
+    "pairs": [
+      {
+        "with": 17,
+        "text": "Зірка ллє воду під восьмипроменевою зіркою, і Туз Кубків в Olivia несе на чаші таку саму золоту зірку. Разом вони звертають увагу на оновлення: почуття, що повертається після важкої пори й приносить тиху надію."
+      },
+      {
+        "with": 45,
+        "text": "Десятка Кубків завершує те, що починає Туз. Поставлені поруч, вони простежують масть від однієї переповненої посудини до спільного вдоволення й запитують, яка маленька щоденна турбота допомагає першому почуттю перерости в щось тривке."
+      },
+      {
+        "with": 40,
+        "text": "П’ятірка Кубків зосереджена на тому, що пролилося й загубилося; Туз показує воду, що тече вільно. Разом вони звертають увагу на те, що досі повне, і на можливість знову приймати після горя."
+      }
+    ],
+    "questions": [
+      "Яке почуття підіймається у вас саме зараз, але досі не має назви?",
+      "Де вам легше дарувати турботу, ніж приймати її, і чому так може бути?",
+      "Що означало б для вас цього тижня тримати власну чашу рівною, лагідною рукою?"
+    ],
+    "practice": "Повільно наливіть собі склянку води і, поки п’єте її, назвіть одне почуття, яке ви готові впустити, не вирішуючи, що саме з ним робити."
+  }
+}

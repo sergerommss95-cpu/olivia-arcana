@@ -1,0 +1,265 @@
+{
+  "id": 40,
+  "slug": "five-of-cups",
+  "artwork": {
+    "file": "40_five_of_cups.webp",
+    "sha256": "1d786ada9819cb21125319c15d21dc879b89396ebbdbf94b5e3103961fcef634"
+  },
+  "symbols": [
+    {
+      "key": "hood",
+      "x": 57,
+      "y": 46,
+      "en": {
+        "name": "The bowed ivory hood",
+        "seen": "A tall figure carved in warm ivory stands wrapped from head to ground in one heavy cloak. The hood is drawn far forward over the face, and the head bends low toward the right.",
+        "meaning": "The traditional mourner wears black; Olivia’s is pale ivory, the brightest thing on the card. Grief here is not darkness but the most visible, most human presence in the scene. The hood turns attention inward: a time to feel rather than to be seen or to explain."
+      },
+      "uk": {
+        "name": "Схилений каптур зі слонової кістки",
+        "seen": "Висока постать, вирізьблена з теплої слонової кістки, з голови до землі закутана в один важкий плащ. Каптур насунуто глибоко на обличчя, а голова низько схиляється праворуч.",
+        "meaning": "Традиційна скорботна постать вбрана в чорне; в Olivia вона блідо-кремова, найсвітліша на всій карті. Горе тут не темрява, а найпомітніша, найлюдяніша присутність у сцені. Каптур повертає увагу всередину: це час відчувати, а не показуватися чи пояснювати."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 56,
+      "y": 52,
+      "en": {
+        "name": "Hands held to the chest",
+        "seen": "The hands are drawn up and gathered at the breast inside the folds of the cloak, just below the hooded chin. Neither hand reaches toward any of the five cups.",
+        "meaning": "Hands clasped at the heart are a long-standing gesture of mourning and of self-comfort: they hold what hurts close. Because neither hand reaches out, the card shows the pause before any choice. The loss is being felt, and nothing yet is being picked up or put down."
+      },
+      "uk": {
+        "name": "Руки, притиснуті до грудей",
+        "seen": "Руки підняті й зібрані на грудях у складках плаща, трохи нижче від підборіддя, прихованого каптуром. Жодна з них не тягнеться ні до одного з п’яти кубків.",
+        "meaning": "Руки, складені біля серця, — давній жест жалоби й самоутішення: так пригортають до себе те, що болить. Оскільки жодна рука не простягається, карта показує паузу перед будь-яким вибором. Утрату відчувають, і поки що нічого не підіймають і нічого не відкладають."
+      }
+    },
+    {
+      "key": "cup",
+      "x": 31,
+      "y": 85,
+      "en": {
+        "name": "Three fallen cups",
+        "seen": "Three pale grey lapis goblets lie on their sides, one to the left of the figure and two in the foreground, their bowls carved with round, coiled ornament. Thin pale trickles run from the mouths of two of them.",
+        "meaning": "Three spilled cups are the heart of the traditional image: what has been lost, and what cannot be poured back. Here they are carved as finely as the cups still standing, a reminder that grief measures value; what has gone mattered because it was worth carrying."
+      },
+      "uk": {
+        "name": "Три перекинуті кубки",
+        "seen": "Три блідо-сірі лазуритові келихи лежать на боці: один ліворуч від постаті, два на передньому плані; на їхніх чашах вирізьблено округлий спіральний орнамент. З вінець двох із них стікають тонкі бліді цівки.",
+        "meaning": "Три розлиті кубки — серце традиційного зображення: те, що втрачено, і те, чого вже не налити назад. Тут вони вирізьблені так само тонко, як і кубки, що досі стоять, — нагадування, що горе вимірює цінність: те, що минуло, важило, бо його варто було нести."
+      }
+    },
+    {
+      "key": "heart",
+      "x": 79,
+      "y": 48,
+      "en": {
+        "name": "The gold-hearted cup",
+        "seen": "On a flat rock ledge to the right, a little further back than the figure, a tall goblet stands upright. A small heart of gold is set between two incised bands on its bowl.",
+        "meaning": "In the traditional card two cups still stand behind the mourner, commonly read as what remains. Olivia marks one of them with gold, the deck’s sign of what is precious. It stands in the direction the figure faces, but the bowed head has not yet lifted to see it."
+      },
+      "uk": {
+        "name": "Кубок із золотим серцем",
+        "seen": "На пласкому кам’яному виступі праворуч, трохи далі вглиб, ніж постать, стоїть високий келих. На його чаші між двома врізаними смугами вкладено маленьке золоте серце.",
+        "meaning": "На традиційній карті за спиною скорботної постаті стоять ще два кубки, які зазвичай читають як те, що лишилося. Olivia позначає один із них золотом — знаком цінного в цій колоді. Він стоїть там, куди звернена постать, але схилена голова ще не піднялася, щоб його побачити."
+      }
+    },
+    {
+      "key": "chalice",
+      "x": 43,
+      "y": 42,
+      "en": {
+        "name": "The far cup on the ridge",
+        "seen": "Higher and further away, on the far bank to the left, just behind the figure’s bowed shoulder, a second goblet stands upright: smaller than the gold-hearted cup, carved in the same grey-blue stone, with no gold.",
+        "meaning": "The second remaining cup stands behind the figure’s shoulder, outside its line of sight. It can stand for support, memories or resources that are present but not yet noticed: things that do not need to be looked at today, only known to be there."
+      },
+      "uk": {
+        "name": "Дальній кубок на гребені",
+        "seen": "Вище й далі, на протилежному березі ліворуч, одразу за схиленим плечем постаті, стоїть другий келих: менший за кубок із золотим серцем, вирізьблений із того самого сіро-блакитного каменю, без золота.",
+        "meaning": "Другий уцілілий кубок стоїть за плечем постаті, поза її полем зору. Він може означати підтримку, спогади чи ресурси, які є поруч, але ще не помічені: на них не треба дивитися сьогодні, досить знати, що вони є."
+      }
+    },
+    {
+      "key": "bridge",
+      "x": 33,
+      "y": 53,
+      "en": {
+        "name": "The arched bridge",
+        "seen": "Behind the figure a small stone bridge with a single rounded arch crosses the river, carved in muted blue lapis. Its far end disappears behind the ivory cloak.",
+        "meaning": "A bridge appears in the traditional image too, often read as the way across from grief toward what comes next. Here it lies at the figure’s back, partly hidden by the cloak: a crossing that exists, but that the moment of loss does not need to hurry toward."
+      },
+      "uk": {
+        "name": "Арочний міст",
+        "seen": "За постаттю річку перетинає невеликий кам’яний міст з однією округлою аркою, вирізьблений у приглушеному блакитному лазуриті. Його дальній край ховається за плащем зі слонової кістки.",
+        "meaning": "Міст є і на традиційному зображенні; його часто читають як шлях від горя до того, що буде далі. Тут він лежить за спиною постаті, частково прихований плащем: переправа існує, але мить утрати не мусить до неї поспішати."
+      }
+    },
+    {
+      "key": "castle",
+      "x": 77,
+      "y": 34,
+      "en": {
+        "name": "The castle on the hill",
+        "seen": "On a rocky hill at the right, beyond the river, stands a castle carved in paler lapis: a tall crenellated keep between round towers, one with a pointed roof, and arched doorways at its base.",
+        "meaning": "The traditional image places a building beyond the river, commonly read as home, shelter or the life that goes on. Here it is a full castle of several towers on its own hill, sturdy and intact above the water: a structure of safety the loss has not touched, still standing while the feeling takes its time."
+      },
+      "uk": {
+        "name": "Замок на пагорбі",
+        "seen": "На скелястому пагорбі праворуч, за річкою, височіє замок, вирізьблений у світлішому лазуриті: висока зубчаста центральна вежа між круглими вежами, одна з гостроверхим дахом, а біля підніжжя — арочні входи.",
+        "meaning": "На традиційному зображенні за річкою стоїть будівля, яку зазвичай читають як дім, прихисток або життя, що триває. Тут це цілий замок із кількома вежами на власному пагорбі, міцний і неушкоджений над водою: надійна опора, якої втрата не торкнулася і яка стоїть, поки почуття триває стільки, скільки йому потрібно."
+      }
+    },
+    {
+      "key": "pool",
+      "x": 56,
+      "y": 89,
+      "en": {
+        "name": "Puddles in the stone",
+        "seen": "Across the foreground the lapis ground is marked with shallow, irregular puddle shapes with raised pale rims, gathered around the fallen cups and running down to the bottom edge of the card.",
+        "meaning": "In the traditional card the overturned cups pour their contents onto the ground. Here most of the spill has already settled into small, still pools. What has been lost does not simply vanish; it soaks into the ground and becomes part of the landscape the figure stands on."
+      },
+      "uk": {
+        "name": "Калюжі в камені",
+        "seen": "По всьому передньому плану лазуритова земля поцяткована мілкими калюжами неправильної форми з блідими опуклими краями; вони збираються довкола перекинутих кубків і тягнуться до нижнього краю карти.",
+        "meaning": "На традиційній карті з перекинутих кубків на землю ллється їхній вміст. Тут більша частина розлитого вже зібралася в маленькі нерухомі калюжі. Утрачене не зникає безслідно: воно вбирається в землю й стає частиною краєвиду, на якому стоїть постать."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 33,
+      "y": 21,
+      "en": {
+        "name": "The Milky Way above",
+        "seen": "A glittering diagonal band of pale mineral runs from the left side of the sky up toward the top centre, among scattered gold star flecks on the deep ultramarine ground.",
+        "meaning": "Stars are not part of the traditional scene. Olivia sets this grief under a wide night full of them. The mourner does not look up, but the sky stays open overhead: a sense of scale large enough to hold sorrow without making it smaller than it is."
+      },
+      "uk": {
+        "name": "Чумацький Шлях угорі",
+        "seen": "Мерехтлива діагональна смуга блідого мінералу тягнеться від лівого краю неба вгору, до середини верхнього краю, серед розсипаних золотих зоряних іскор на глибокому ультрамариновому тлі.",
+        "meaning": "Зірок у традиційній сцені немає. Olivia вміщує це горе під широке нічне небо, повне зірок. Скорботна постать не підводить погляду, але небо над нею лишається відкритим: простір, достатньо великий, щоб умістити смуток, не применшуючи його."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Five of Cups gives loss its full weight, while quietly showing that something valued still stands, waiting until you are ready to turn toward it.",
+    "keywords": {
+      "upright": [
+        "grief",
+        "disappointment",
+        "regret",
+        "mourning",
+        "what remains"
+      ],
+      "reversed": [
+        "delayed grief",
+        "slow turning",
+        "acceptance",
+        "hidden sorrow",
+        "replayed regret"
+      ]
+    },
+    "upright": [
+      "The Five of Cups is the card of loss felt fully. Something that mattered has spilled: a hope, a plan, a relationship, a version of the future you were carrying. In Olivia’s carving a single figure stands wrapped from head to ground in an ivory cloak, hood drawn forward, head bent low. Both hands are held to the chest. Nothing is being reached for yet, and the card does not ask it to be.",
+      "Around the figure’s feet three goblets lie on their sides, thin trickles still running from two of their mouths toward small puddles in the stone. They are carved as finely as the cups that still stand, because grief measures value: it hurts this much because it mattered this much. Upright, the card invites you to name what was lost plainly, without rushing to replace the feeling with gratitude or a lesson.",
+      "Yet the card counts five, not three. Two cups remain upright: one on a ledge to the right, marked with a small gold heart, and one further back on a ridge behind the figure’s shoulder. A bridge still spans the river, and a castle stands intact on the hill beyond. The Five of Cups does not ask you to look at these yet. It holds both truths in one frame: what is gone, and what is still here when you are ready to turn."
+    ],
+    "reversed": [
+      "Five of Cups reversed draws attention to the slow turn from what was lost toward what still stands: the head beginning to lift, the eyes finding the gold-hearted cup, a first step toward the bridge. It can also point to grief that was set aside before it could be felt, or to regret replayed so often that it has become a place to live rather than a feeling to pass through.",
+      "Turning around does not mean the loss mattered less, and a sorrow that returns is not a sign that you have failed. The card asks what you have allowed yourself to feel and what you have skipped. Sometimes the kindest next step is to let the loss be real a little longer; sometimes it is to notice one cup that is still full."
+    ],
+    "number": "Five breaks the steady square of Four. After the stability of the Fours, every Five brings disruption, strain or loss that asks the suit to find its footing again. In Cups, the suit of Water and feeling, the disruption is emotional: the quiet withdrawal of the Four gives way to cups knocked over. Among the Fives, Wands meet in contest, Swords face a hollow victory and Pentacles endure hardship; the Five of Cups is the one that mourns. The Six that follows returns to kindness and memory.",
+    "tradition": "In the Golden Dawn system the Five of Cups is titled the Lord of Loss in Pleasure. It is assigned to Mars in Scorpio, the first decan of that sign (0 to 10 degrees), and to Geburah, Severity, the fifth Sephirah on the Tree of Life, expressed through the suit of Water. Mars, the planet of force and cutting away, in deep, fixed, watery Scorpio is commonly read as feeling that goes to the bone. Aleister Crowley titled the card Disappointment. Marseille-pattern decks show five cups among flowering ornament, with no scene; Pamela Colman Smith’s 1909 card introduced the cloaked mourner, three overturned cups, two still standing, a river, a bridge and a building beyond.",
+    "areas": {
+      "love": "In love and close friendship the Five of Cups draws attention to disappointment or loss: a relationship that ended, changed, or did not become what you hoped. It does not tell you what anyone else feels or intended. It asks you to let your own sorrow be real, and then, gently, to notice the two cups still standing: people who have stayed, care that continues, your own capacity to love. With yourself, it asks for the patience you would offer a grieving friend.",
+      "work": "At work or in study the card can point to a setback that stings: a project that fell through, a rejection, a result below what you hoped, a door that closed. Before the next plan, it invites an honest account of what was lost and what it cost you. Then look at what still stands, like the cups on the ledge and the ridge: skills gained, allies, work that survived. Where money is part of the setback, the card only asks you to notice how disappointment colours the way you see it.",
+      "self": "For your relationship with yourself, the hooded figure can stand for a part of you that is still mourning, perhaps quietly, beneath everything else you are doing. The hands held to the chest suggest self-comfort rather than self-reproach. The card invites you to stay with that part for a while without trying to fix it, and to notice that the bridge behind it does not disappear while it grieves. Regret softens when it is listened to, not argued with."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Five of Cups points to a loss or disappointment that shapes everything around it, and to what still stands nearby, not yet noticed.",
+      "challenge": "As a challenge, the card can show attention fixed so firmly on what spilled that the remaining cups, the bridge and the people nearby stay out of sight.",
+      "advice": "As advice, it invites you to name the loss honestly, allow the feeling its time, and then, when you are ready, turn your head toward one thing that remains."
+    },
+    "pairs": [
+      {
+        "with": 36,
+        "text": "The Ace of Cups shows one cup overflowing; the Five shows cups overturned. Together they draw attention to the whole arc of feeling, from the first open offering to the ache of loss, and to how the capacity to love outlasts any single spill."
+      },
+      {
+        "with": 41,
+        "text": "The Six of Cups follows the Five, turning from grief toward memory and simple kindness. In this deck the cup offered in the Six carries the same small gold heart as the cup still standing here: what remains, finally handed over and received."
+      },
+      {
+        "with": 43,
+        "text": "Both show an ivory-cloaked figure under the Milky Way: the Five stands still, bowed over what spilled; the Eight walks away from cups still standing. Together they ask whether this is a time to mourn in place or to leave with care."
+      }
+    ],
+    "questions": [
+      "What loss have you not yet allowed yourself to name plainly, even privately?",
+      "Which cup is still standing in your life, even if you have not looked at it lately?",
+      "What would help you feel this loss fully without making a home inside it?"
+    ],
+    "practice": "Write down one thing you lost and one sentence about why it mattered, then write one thing that still stands, and leave both lines side by side."
+  },
+  "uk": {
+    "essence": "П’ятірка Кубків визнає всю вагу втрати й водночас тихо показує, що щось цінне досі стоїть і чекає, коли ви будете готові обернутися до нього.",
+    "keywords": {
+      "upright": [
+        "горе",
+        "розчарування",
+        "жаль",
+        "жалоба",
+        "те, що лишилося"
+      ],
+      "reversed": [
+        "відкладене горе",
+        "повільний поворот",
+        "прийняття",
+        "прихований смуток",
+        "жаль по колу"
+      ]
+    },
+    "upright": [
+      "П’ятірка Кубків — карта втрати, відчутої сповна. Щось важливе розлилося: надія, задум, стосунки, версія майбутнього, яку ви несли в собі. У різьбі Olivia самотня постать стоїть, з голови до землі закутана в плащ зі слонової кістки: каптур насунуто, голову низько схилено. Обидві руки притиснуті до грудей. Постать ще ні до чого не тягнеться, і карта цього й не вимагає.",
+      "Довкола ніг постаті лежать на боці три келихи; з вінець двох досі стікають тонкі цівки до маленьких калюж у камені. Вони вирізьблені так само тонко, як і кубки, що стоять, бо горе вимірює цінність: болить так сильно, бо це так багато важило. У прямому положенні карта запрошує вас назвати втрачене прямо, не поспішаючи замінити почуття вдячністю чи уроком.",
+      "І все ж карта лічить п’ять, а не три. Два кубки досі стоять: один на виступі праворуч, позначений маленьким золотим серцем, другий далі, на гребені за плечем постаті. Міст і далі перекинуто через річку, а на пагорбі за нею височіє вцілілий замок. П’ятірка Кубків не просить вас дивитися на них уже зараз. Вона поєднує дві правди в одній сцені: те, що минуло, і те, що лишається тут, доки ви не будете готові обернутися."
+    ],
+    "reversed": [
+      "П’ятірка Кубків у перевернутому положенні звертає увагу на повільний поворот від утраченого до того, що досі стоїть: голова починає підводитися, погляд знаходить кубок із золотим серцем, постать робить перший крок до мосту. Вона також може вказувати на горе, відкладене, перш ніж його встигли відчути, або на жаль, прокручений стільки разів, що він став місцем, де живуть, а не почуттям, крізь яке проходять.",
+      "Обернутися не означає, що втрата важила менше, а смуток, який повертається, — не ознака вашої поразки. Карта питає, що ви дозволили собі відчути, а що оминули. Часом найдбайливіший наступний крок — дати втраті ще трохи побути справжньою; часом — помітити один кубок, який досі повний."
+    ],
+    "number": "П’ятірка руйнує стійкий квадрат Четвірки. Після стабільності Четвірок кожна П’ятірка приносить потрясіння, напругу чи втрату, і масті доводиться знову шукати опору. У Кубках, масті Води й почуттів, потрясіння емоційне: тихе усамітнення Четвірки змінюється перекинутими кубками. Серед П’ятірок Жезли сходяться у змаганні, Мечі стикаються з порожньою перемогою, Пентаклі переживають скруту; П’ятірка Кубків — та, що оплакує. Шістка, яка йде слідом, повертає до доброти й пам’яті.",
+    "tradition": "У системі Золотої Зорі П’ятірка Кубків має титул «Володар утрати в насолоді». Їй відповідають Марс у Скорпіоні, перший декан цього знака (від 0 до 10 градусів), і Ґебура, Суворість, п’ята сфіра Дерева Життя, виражена через масть Води. Марс, планету сили й відтинання, у глибокому, фіксованому, водному Скорпіоні зазвичай читають як почуття, що пронизує до кісток. Алістер Кроулі назвав карту «Розчарування». У колодах марсельського типу п’ять кубків оточує квітковий орнамент, без сюжетної сцени; карта Памели Колман Сміт 1909 року вперше показала закутану скорботну постать, три перекинуті кубки, два вцілілі, річку, міст і будівлю на тому березі.",
+    "areas": {
+      "love": "У коханні й близькій дружбі П’ятірка Кубків звертає увагу на розчарування або втрату: стосунки, що скінчилися, змінилися чи не стали тим, на що ви сподівалися. Вона не каже, що відчувають інші чи що вони мали на меті. Вона просить дозволити вашому смуткові бути справжнім, а потім лагідно помітити два кубки, що досі стоять: людей, які лишилися, турботу, що триває, вашу власну здатність любити. Щодо себе вона просить терпіння, яке ви подарували б близькій людині в жалобі.",
+      "work": "У роботі чи навчанні карта може вказувати на невдачу, що болить: проєкт, який зірвався, відмову, результат, нижчий за сподівання, двері, що зачинилися. Перш ніж будувати нові плани, вона запрошує чесно підсумувати, що саме втрачено і чого це вам коштувало. Потім погляньте на те, що досі стоїть, як-от кубки на виступі й на гребені: здобуті навички, союзників, роботу, що вціліла. Якщо частина невдачі стосується грошей, карта лише просить помітити, як розчарування забарвлює ваш погляд на них.",
+      "self": "У стосунках із собою постать у каптурі може означати частину вас, яка досі в жалобі, можливо, тихо, під усім іншим, що ви робите. Руки, притиснуті до грудей, говорять радше про самоутішення, ніж про самодокори. Карта запрошує побути з цією частиною якийсь час, не намагаючись щось у ній виправити, і помітити, що міст за її спиною не зникає, поки вона сумує. Жаль м’якшає, коли його вислуховують, а не сперечаються з ним."
+    },
+    "positions": {
+      "heart": "У центрі запитання П’ятірка Кубків вказує на втрату чи розчарування, що визначає все довкола, і на те, що досі стоїть поруч, ще не помічене.",
+      "challenge": "Як виклик карта може показувати увагу, так міцно прикуту до розлитого, що вцілілі кубки, міст і люди поруч лишаються поза полем зору.",
+      "advice": "Як порада вона запрошує чесно назвати втрату, дати почуттю його час, а потім, коли будете готові, повернути голову до чогось одного, що лишилося."
+    },
+    "pairs": [
+      {
+        "with": 36,
+        "text": "Туз Кубків показує один кубок, що переливається через край; П’ятірка — перекинуті кубки. Разом вони звертають увагу на всю дугу почуття, від першого відкритого дарунку до болю втрати, і на те, що здатність любити переживає будь-який розлитий кубок."
+      },
+      {
+        "with": 41,
+        "text": "Шістка Кубків іде за П’ятіркою, повертаючи від горя до пам’яті й простої доброти. У цій колоді кубок, який подають у Шістці, має таке саме маленьке золоте серце, як і вцілілий кубок тут: те, що лишилося, нарешті передане й прийняте."
+      },
+      {
+        "with": 43,
+        "text": "Обидві карти показують постать у плащі зі слонової кістки під Чумацьким Шляхом: у П’ятірці вона нерухомо стоїть, схилившись над розлитим; у Вісімці йде геть від кубків, що досі стоять. Разом вони запитують, чи зараз час лишитися й оплакувати, чи дбайливо піти."
+      }
+    ],
+    "questions": [
+      "Яку втрату ви ще не дозволили собі назвати прямо, навіть наодинці із собою?",
+      "Який кубок у вашому житті досі стоїть, навіть якщо ви давно на нього не дивилися?",
+      "Що допомогло б вам відчути цю втрату сповна, не оселяючись у ній?"
+    ],
+    "practice": "Запишіть одну річ, яку ви втратили, і одне речення про те, чому вона була важлива; потім запишіть одну річ, що досі стоїть, і залиште обидва рядки поруч."
+  }
+}

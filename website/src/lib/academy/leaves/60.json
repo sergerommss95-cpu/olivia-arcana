@@ -1,0 +1,242 @@
+{
+  "id": 60,
+  "slug": "page-of-swords",
+  "artwork": { "file": "60_page_of_swords.webp", "sha256": "70076f5d59d374df7b529ee02b96795e7ab62375fdd5b8701491409861c072df" },
+  "symbols": [
+    {
+      "key": "sword",
+      "x": 72, "y": 45,
+      "en": {
+        "name": "The ivory sword, gold hilt",
+        "seen": "A long, straight ivory blade with a faint central ridge slants up and to the right into the night sky. The crossguard and round pommel are gold; one hand grips above the crossguard, the other below it.",
+        "meaning": "Swords belong to air: thought, speech and the power to make distinctions. A Page’s sword is a learner’s tool. The traditional Page holds it upright; here it angles forward across the sky like a question pointed outward, and only the hilt, where the hands take hold, is gold."
+      },
+      "uk": {
+        "name": "Меч зі слонової кістки, золоте руків’я",
+        "seen": "Довге пряме лезо зі слонової кістки з ледь помітним ребром посередині скісно здіймається вгору й праворуч, у нічне небо. Хрестовина і кругле навершя золоті; одна рука охоплює меч над хрестовиною, друга — під нею.",
+        "meaning": "Мечі належать до стихії Повітря — стихії думки, мовлення й здатності розрізняти. Меч Пажа — знаряддя учня. Традиційний Паж тримає його вертикально; тут лезо навскіс перетинає небо, спрямоване вперед, наче запитання, звернене назовні, і золоте лише руків’я — там, де за нього беруться руки."
+      }
+    },
+    {
+      "key": "face",
+      "x": 52, "y": 41,
+      "en": {
+        "name": "The turned head",
+        "seen": "While the body is seen partly from behind, the ivory head turns into profile towards the viewer’s right, the gaze directed past the gripping hands. Short hair is tossed out on both sides by the wind.",
+        "meaning": "The traditional Page glances about alertly, watchful of the surroundings. Olivia’s figure turns the whole face one way, which gives that watchfulness a focus: the attention of someone who has noticed something particular and wants to understand it before moving on."
+      },
+      "uk": {
+        "name": "Повернута голова",
+        "seen": "Тіло видно частково зі спини, а голова зі слонової кістки повернута в профіль праворуч від глядача; погляд спрямований повз руки, що стискають меч. Коротке волосся вітер розкидає в обидва боки.",
+        "meaning": "Традиційний Паж пильно озирається, стежачи за довкіллям. Постать Olivia повертає все обличчя в один бік, і ця пильність стає зосередженою: це увага того, хто помітив щось конкретне й хоче це зрозуміти, перш ніж рушити далі."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 51, "y": 21,
+      "en": {
+        "name": "The Milky Way and stars",
+        "seen": "A glittering band of pale flecks crosses the lapis sky diagonally from the upper left towards the lower right, passing behind the upper blade. Small gold points of pyrite are scattered around it.",
+        "meaning": "The traditional Page stands under a daytime sky crowded with cloud. Olivia sets the scene at night, with the galaxy as a road of light. For the suit of air it suggests the wide field of possible thoughts, which the sword crosses as one chosen line of inquiry."
+      },
+      "uk": {
+        "name": "Чумацький Шлях і зорі",
+        "seen": "Мерехтлива смуга блідих цяток навскоси перетинає лазуритове небо, з лівого верхнього кута до правого нижнього, і проходить за верхньою частиною леза. Довкола розсипано дрібні золоті крапки піриту.",
+        "meaning": "Традиційний Паж стоїть під денним небом, щільно затягнутим хмарами. Olivia переносить сцену в ніч, і галактика стає дорогою світла. Для масті Повітря вона натякає на широке поле можливих думок, яке меч перетинає однією обраною лінією пошуку."
+      }
+    },
+    {
+      "key": "cloud",
+      "x": 22, "y": 32,
+      "en": {
+        "name": "Windswept clouds",
+        "seen": "Clouds carved in paler, greyer lapis gather on the upper left, their lower edges pulled out into long horizontal streaks, as though dragged sideways by a strong wind.",
+        "meaning": "Clouds recur across the suit of Swords as the weather of the mind: moods, rumours, thoughts that gather and disperse. In the traditional image they pile up wildly around the Page. Here they are pushed to one side, leaving clear sky around the figure and the blade."
+      },
+      "uk": {
+        "name": "Хмари, розвіяні вітром",
+        "seen": "Хмари, вирізьблені у світлішому, сіруватому лазуриті, скупчуються вгорі ліворуч; їхні нижні краї витягнуто в довгі горизонтальні пасма, ніби їх зносить убік сильний вітер.",
+        "meaning": "Хмари раз у раз з’являються в масті Мечів як погода розуму: настрої, чутки, думки, що збираються й розвіюються. На традиційному зображенні вони бурхливо громадяться довкола Пажа. Тут їх відтиснуто вбік, і навколо постаті та леза лишається чисте небо."
+      }
+    },
+    {
+      "key": "bird",
+      "x": 32, "y": 43,
+      "en": {
+        "name": "The scattered birds",
+        "seen": "Small pale birds with outstretched wings, carved in light lapis, fly in a loose trail across the sky above the trees on the left, with a few more on the right near the horizon.",
+        "meaning": "Birds belong to air and are commonly read as messages, news and thoughts in flight; a flock is traditional on this card. Scattered rather than in formation, they suggest ideas and information arriving from several directions at once, not yet gathered into one clear message."
+      },
+      "uk": {
+        "name": "Розпорошені птахи",
+        "seen": "Дрібні світлі птахи з розправленими крилами, вирізьблені у світлому лазуриті, летять небом вільною вервечкою над деревами ліворуч; ще кілька — праворуч, біля обрію.",
+        "meaning": "Птахи належать Повітрю і зазвичай читаються як послання, новини й думки в польоті; зграя — традиційна деталь цієї карти. Розпорошені, а не вишикувані, вони натякають на ідеї та відомості, що надходять з кількох боків водночас і ще не склалися в одне ясне послання."
+      }
+    },
+    {
+      "key": "tree",
+      "x": 19, "y": 57,
+      "en": {
+        "name": "Wind-bent trees",
+        "seen": "A stand of slender trees grows on a hill at the left edge, carved in pale blue lapis, their thin trunks leaning and their feathery crowns tossed by the wind.",
+        "meaning": "Trees bending under wind appear in several Swords cards and show that air, unseen, moves real things. Beside the Page they measure the pressure of the moment: the same wind that tosses the branches and hair leaves the figure’s stance steady."
+      },
+      "uk": {
+        "name": "Дерева, зігнуті вітром",
+        "seen": "На пагорбі біля лівого краю росте гайок тонких дерев, вирізьблених у блідо-блакитному лазуриті; їхні стовбури нахилені, а пір’ясті крони шарпає вітер.",
+        "meaning": "Дерева, що гнуться під вітром, з’являються на кількох картах Мечів і показують: невидиме повітря рухає цілком реальні речі. Поруч із Пажем вони показують, наскільки сильний тиск цієї миті: той самий вітер, що шарпає гілля й волосся, не порушує рівноваги постаті."
+      }
+    },
+    {
+      "key": "mountain",
+      "x": 83, "y": 59,
+      "en": {
+        "name": "The distant pinnacle",
+        "seen": "On the right horizon a single tall, narrow rock pinnacle rises from a plateau carved in low relief, standing apart from the flatter hills and plains around it.",
+        "meaning": "Mountains in tarot often stand for goals, difficulty or the heights of abstract thought. This lone spire stands in the direction of the stride, a clear marker on the horizon: a question worth walking towards, still far off and not yet reached."
+      },
+      "uk": {
+        "name": "Далекий скельний шпиль",
+        "seen": "На обрії праворуч над плато, вирізьбленим у низькому рельєфі, здіймається один високий вузький скельний шпиль, що вирізняється серед пологіших пагорбів і рівнин довкола.",
+        "meaning": "Гори в таро часто означають цілі, труднощі або висоти абстрактної думки. Цей самотній шпиль стоїть там, куди спрямований крок, — чіткий орієнтир на обрії: запитання, до якого варто йти, поки що далеке й не досягнуте."
+      }
+    },
+    {
+      "key": "rock",
+      "x": 51, "y": 79,
+      "en": {
+        "name": "Bare feet on rock",
+        "seen": "Both feet are bare. The back foot touches the rock only with its toes, heel lifted; the front foot is planted flat on rough, broken lapis. Fine thread-like strands wrap around both lower legs.",
+        "meaning": "The traditional Page walks over rugged ground. Here the ground is broken rock and the stride looks deliberate. In the Golden Dawn scheme this court is the earthy part of air, and the grounded feet give a quick mind something solid to test its ideas against."
+      },
+      "uk": {
+        "name": "Босі ноги на камені",
+        "seen": "Обидві ступні босі. Задня нога торкається каменю лише пальцями, п’ята піднята; передня стоїть усією ступнею на шорсткому, розколотому лазуриті. Тонкі, мов нитки, пасма обвивають обидві гомілки.",
+        "meaning": "Традиційний Паж іде нерівною місцевістю. Тут ґрунт — уламки скелі, а крок видається зваженим. У схемі Золотої Зорі ця придворна карта — земна частина Повітря, і твердо поставлені ноги дають швидкому розуму щось надійне, на чому можна перевірити свої ідеї."
+      }
+    },
+    {
+      "key": "spiral",
+      "x": 17, "y": 81,
+      "en": {
+        "name": "Spirals in the stone",
+        "seen": "Two concentric spirals are incised into the boulders at the lower left, like ancient rock carvings; the lower one is larger, with more turns, and the upper sits on a rounded stone.",
+        "meaning": "Spirals are not part of the traditional Page of Swords; they are Olivia’s addition. An ancient carved motif, often read as growth that comes back to the same point at a new level, they sit well beneath a student whose thinking is still circling towards clarity."
+      },
+      "uk": {
+        "name": "Спіралі в камені",
+        "seen": "Дві концентричні спіралі вирізьблено на брилах унизу ліворуч, наче давні петрогліфи; нижня більша й має більше витків, а верхня лежить на заокругленому камені.",
+        "meaning": "На традиційному Пажі Мечів спіралей немає; це доповнення Olivia. Цей давній різьблений мотив часто читають як зростання, що повертається до тієї самої точки вже на новому рівні; він пасує учневі, чия думка ще кружляє, поступово наближаючись до ясності."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Page of Swords is a quick, curious mind learning to hold a new idea: asking, testing and watching closely before it cuts.",
+    "keywords": {
+      "upright": ["curiosity", "alert attention", "honest questions", "fresh ideas", "careful study"],
+      "reversed": ["hasty judgement", "gossip", "suspicion", "scattered thinking", "untested ideas"]
+    },
+    "upright": [
+      "The Page of Swords is the moment a mind wakes up to a question and wants to test it. In Olivia’s image the figure is caught mid-stride on rough lapis rock, barefoot, the back heel lifted and the front foot planted. Both hands hold the sword forward and up across the night sky, the gold crossguard between them, while the head turns sharply to the right. The whole body is attention: looking, weighing, ready to move.",
+      "Wind runs through everything. Hair, tunic hem and the drape at the shoulder stream out behind, trees on the hill bend, and birds scatter across a sky crossed by the glittering Milky Way. Swords are the suit of air and thought, and this card shows thought at its freshest: quick, restless, still unsure of its own strength. The blade is plain ivory; only the hilt is gold. What is valuable here is not yet the cut but the grip, the choice of how to hold a new idea.",
+      "Upright, the card invites curiosity with care. Ask the extra question, read the source, notice what does not fit the story you have been told. Keep your observations light enough to revise. Being new to a subject is no obstacle to seeing clearly; it can help you notice what others stopped seeing long ago."
+    ],
+    "reversed": [
+      "Page of Swords reversed draws attention to a quick mind running ahead of its footing. A question hardens into a verdict before the facts arrive, or sharp words go out faster than they can be checked. Curiosity can also turn toward other people’s business, so that watching becomes gossip or a search for flaws. Sometimes the movement goes inward: a thought is turned over so many times that it never reaches the page or the conversation it needs.",
+      "The image offers a practical correction: both feet find rock before the sword moves. Look for your footing first. Check where a piece of information came from, and ask whether you would say it directly to the person it concerns."
+    ],
+    "number": "Pages are the students of their suit and, traditionally, its messengers. In Swords, the suit of air, what they study is thought itself: words, arguments, news and the edge of a clear distinction. The Page holds the same blade the King wields from a throne, but holds it as a learner does, testing its weight and angle. This rank asks for beginner’s attention: noticing sharply, speaking honestly, and learning when a question is ready to become a statement.",
+    "tradition": "In the Golden Dawn system the Page is the Princess, and this card is titled the Princess of the Rushing Winds, Lotus of the Palace of Air. It is Earth of Air: the element beginning to settle into form. Princesses carry no zodiac span; Book T instead makes each the Throne of its Ace and sets it over a quarter of the heavens around the pole, for Swords the quadrant above Capricorn, Aquarius and Pisces. The Marseille pattern shows a Valet d’Épée, a standing attendant with a drawn sword. Pamela Colman Smith’s 1909 design gave the Page a raised sword, rugged ground, wind-driven clouds and a flock of birds.",
+    "court": {
+      "temperament": "As a temperament, the Page of Swords is quick, watchful and inquisitive. This way of thinking notices details, asks why, and enjoys the first taste of a new subject. It moves easily between ideas and people, gathering information as it goes, and it is most alive when a problem has not yet been solved.",
+      "gifts": "The gifts here are sharp observation, candour and a readiness to learn in public. This Page can ask the obvious question others avoid, spot the inconsistency in a plan and carry a message clearly. Earth of Air gives the quality a practical turn: ideas that want testing, not only discussing.",
+      "shadow": "In shadow, alertness becomes suspicion and curiosity becomes intrusion. You may argue for the pleasure of winning, pass on what you have not checked, or keep watching a situation instead of stepping into it. The image offers a counterweight: the blade is raised high, yet nobody stands in its path."
+    },
+    "areas": {
+      "love": "In close relationships the Page of Swords asks for honest, curious conversation. You might ask a question you have been circling for weeks, or listen to an answer without preparing your reply. The card also turns attention to how information travels between you: messages read too quickly, tone guessed from a few words, checking in that slides into checking up. With yourself the same care applies: notice the stories you tell about your worth and ask where they came from.",
+      "work": "At work and in study this card favours research, first drafts, interviews, fact-checking and learning a skill from the ground up. It suits the stage where you gather information before committing to a plan. Ask the simple question in the meeting; test an assumption on a small sample before scaling it. In money matters it points towards reading the details and understanding the terms, and towards asking someone qualified where your own knowledge ends.",
+      "self": "For your own growth, the Page of Swords invites you to become a student of your own mind. Notice which thoughts arrive fast and loud, and which take longer to form. In the image the face, the stride and the blade all point the same way; you may find that your attention and your direction have drifted apart. A notebook helps: writing a thought down gives it somewhere to stand, like a bare foot on rock."
+    },
+    "positions": {
+      "heart": "At the centre of your question, this card points to an open, alert mind: something here is still being learned, and the most useful move may be a better question rather than a quick answer.",
+      "challenge": "As a challenge, the Page of Swords can show haste in thinking: conclusions drawn from partial information, words sharpened before they are understood, or so much watching that you stop acting.",
+      "advice": "As advice, gather one more piece of information before you decide. Ask a clear, open question, check a source you have been taking on trust, and let your first opinion stay provisional for now."
+    },
+    "pairs": [
+      { "with": 50, "text": "The Ace of Swords offers a single clear insight; the Page is the student learning to hold it, and in the Golden Dawn scheme its throne. Together they draw attention to a new idea in its first days, when it needs clarity and practice before confident use." },
+      { "with": 61, "text": "The Page tests the blade; the Knight of Swords charges with it. Side by side they draw attention to pace: whether a new line of thought needs more study or is ready for action, and what might be lost by rushing the step between them." },
+      { "with": 11, "text": "Justice weighs; the Page investigates. Together they point toward fair inquiry: gathering evidence before judging, hearing more than one side of a story, and letting what you find change your view when it honestly should." }
+    ],
+    "questions": [
+      "What question about this situation have you not yet asked out loud?",
+      "Where might you be treating a first impression as though it were a settled fact?",
+      "Which source of information do you rely on without having checked it recently?"
+    ],
+    "practice": "Write down one belief you hold about your situation, then note one fact that supports it and one fact that would change it, and go and check the second."
+  },
+  "uk": {
+    "essence": "Паж Мечів — це швидкий, допитливий розум, що вчиться тримати нову ідею: запитує, перевіряє і пильно придивляється, перш ніж розтинати.",
+    "keywords": {
+      "upright": [
+        "допитливість",
+        "пильна увага",
+        "чесні запитання",
+        "свіжі ідеї",
+        "уважне вивчення"
+      ],
+      "reversed": [
+        "поспішні судження",
+        "плітки",
+        "підозріливість",
+        "розпорошені думки",
+        "неперевірені ідеї"
+      ]
+    },
+    "upright": [
+      "Паж Мечів — це мить, коли розум стрепенеться від запитання й захоче його перевірити. На зображенні Olivia постать застигла посеред кроку на шорсткому лазуритовому камені: ноги босі, задня п’ята піднята, передня ступня стоїть твердо. Обидві руки тримають меч, спрямований уперед і вгору через нічне небо, між ними золота хрестовина, а голова різко повернута праворуч. Усе тіло — суцільна увага: дивиться, зважує, готове рушити.",
+      "Вітер пронизує все. Волосся, поділ туніки й драпування на плечі розвіваються позаду, дерева на пагорбі гнуться, а птахи розлітаються небом, яке перетинає мерехтливий Чумацький Шлях. Мечі — масть Повітря і думки, і ця карта показує думку зовсім свіжою: швидкою, неспокійною, ще не певною власної сили. Лезо з простої слонової кістки; золоте лише руків’я. Цінність тут поки що не в ударі, а в хваті — у виборі того, як тримати нову ідею.",
+      "У прямому положенні карта запрошує до допитливості, поєднаної з обережністю. Поставте додаткове запитання, прочитайте першоджерело, помітьте те, що не вкладається в розказану вам історію. Нехай ваші спостереження лишаються гнучкими, щоб їх можна було переглянути. Те, що тема для вас нова, не заважає бачити ясно; це може допомогти помітити те, чого інші давно перестали бачити."
+    ],
+    "reversed": [
+      "Паж Мечів у перевернутому положенні звертає увагу на швидкий розум, що забігає наперед, ще не відчувши опори під ногами. Запитання перетворюється на вирок ще до появи фактів, або гострі слова вилітають швидше, ніж їх можна перевірити. Допитливість може перекинутися й на чужі справи, і тоді спостереження переходить у плітки чи пошук вад. Іноді рух спрямовується всередину: думку прокручують у голові стільки разів, що вона так і не потрапляє на папір чи в розмову, якої потребує.",
+      "Зображення пропонує практичне виправлення: спершу ноги знаходять опору на камені, а вже потім рушає меч. Спершу знайдіть опору. Перевірте, звідки взялася інформація, і запитайте себе, чи сказали б ви це безпосередньо людині, якої вона стосується."
+    ],
+    "number": "Пажі — учні своєї масті й, за традицією, її вісники. У Мечах, масті Повітря, вони вивчають саму думку: слова, аргументи, новини й вістря чіткого розрізнення. Паж тримає той самий клинок, яким Король орудує з трону, але тримає його по-учнівськи, пробуючи його вагу й нахил. Цей ранг потребує уваги початківця: гостро помічати, чесно говорити і вчитися розпізнавати, коли запитання готове стати твердженням.",
+    "tradition": "У системі Золотої Зорі Пажеві відповідає Принцеса, а ця карта має титул «Принцеса Стрімких Вітрів, Лотос Палацу Повітря». Це Земля Повітря: стихія, що починає набувати форми. Принцеси не мають зодіакального проміжку; натомість «Книга Т» робить кожну з них Троном свого Туза і ставить над чвертю небес довкола полюса, для Мечів — над квадрантом від Козорога до Риб. У марсельському зразку зображено Valet d’Épée — слугу, що стоїть з оголеним мечем. У своєму дизайні 1909 року Памела Колман Сміт зобразила Пажа з піднятим мечем на нерівній місцевості, з гнаними вітром хмарами й зграєю птахів.",
+    "court": {
+      "temperament": "Як темперамент Паж Мечів — швидкий, пильний і допитливий. Такий спосіб мислення помічає подробиці, питає «чому» і смакує перше знайомство з новою темою. Такий розум легко переходить між ідеями та людьми, збираючи відомості дорогою, і найбільше оживає тоді, коли проблему ще не розв’язано.",
+      "gifts": "Дари тут — гостра спостережливість, відвертість і готовність учитися на людях. Цей Паж уміє поставити очевидне запитання, якого інші уникають, помітити неузгодженість у плані й чітко передати послання. Земля Повітря надає цій якості практичного спрямування: ідеї, які хочеться перевірити, а не лише обговорювати.",
+      "shadow": "У тіні пильність стає підозріливістю, а допитливість — втручанням. Ви можете сперечатися заради самої перемоги, переказувати неперевірене або й далі спостерігати за ситуацією замість того, щоб до неї долучитися. Зображення пропонує противагу: клинок піднято високо, проте на його шляху нікого немає."
+    },
+    "areas": {
+      "love": "У близьких стосунках Паж Мечів просить чесної, допитливої розмови. Можливо, варто поставити запитання, довкола якого ви кружляєте тижнями, або вислухати відповідь, не готуючи власної репліки. Карта також звертає увагу на те, як між вами мандрує інформація: повідомлення, прочитані надто швидко, тон, вгаданий з кількох слів, турботливі розпитування, що переростають у контроль. У стосунках із собою потрібна та сама уважність: помічайте історії, які ви розповідаєте про власну цінність, і запитуйте, звідки вони взялися.",
+      "work": "У роботі й навчанні ця карта сприяє дослідженням, першим чернеткам, інтерв’ю, перевірці фактів і опануванню навички з самих основ. Вона пасує етапу, коли ви збираєте інформацію, перш ніж зупинитися на певному плані. Поставте просте запитання на нараді; перевірте припущення на невеликій вибірці, перш ніж масштабувати. У грошових питаннях вона спрямовує до уважного читання деталей і розуміння умов, а там, де закінчуються ваші знання, — до поради кваліфікованого фахівця.",
+      "self": "Для вашого зростання Паж Мечів запрошує вивчати власний розум, як новий предмет. Помічайте, які думки приходять швидко й гучно, а яким потрібно більше часу, щоб сформуватися. На зображенні обличчя, крок і клинок спрямовані в один бік; можливо, ви виявите, що ваша увага й ваш напрямок розійшлися. Допомагає нотатник: записана думка отримує ґрунт під ногами, як боса ступня на камені."
+    },
+    "positions": {
+      "heart": "У центрі вашого запитання ця карта вказує на відкритий, пильний розум: тут ще є що вивчати, і найкориснішим кроком може бути краще запитання, а не швидка відповідь.",
+      "challenge": "Як перешкода Паж Мечів може вказувати на поспіх у мисленні: висновки з неповних даних, слова, нагострені раніше, ніж їх зрозуміли, або спостереження настільки тривале, що ви перестаєте діяти.",
+      "advice": "Як порада: з’ясуйте ще одну деталь, перш ніж вирішувати. Поставте ясне, відкрите запитання, перевірте джерело, якому досі вірили на слово, і нехай ваша перша думка поки що лишається попередньою."
+    },
+    "pairs": [
+      {
+        "with": 50,
+        "text": "Туз Мечів дає одне ясне прозріння; Паж — учень, що вчиться його тримати, а в схемі Золотої Зорі — його трон. Разом вони звертають увагу на нову ідею в перші дні, коли їй потрібні ясність і практика, перш ніж нею можна буде впевнено користуватися."
+      },
+      {
+        "with": 61,
+        "text": "Паж випробовує клинок; Лицар Мечів мчить із ним в атаку. Разом вони звертають увагу на темп: чи нова лінія думки потребує ще вивчення, чи вже готова до дії, і що можна втратити, поспіхом перескочивши крок між ними."
+      },
+      {
+        "with": 11,
+        "text": "Справедливість зважує; Паж досліджує. Разом вони вказують на неупереджене дослідження: зібрати докази, перш ніж судити, вислухати не одну сторону історії й дозволити знайденому змінити ваш погляд, коли це справді слушно."
+      }
+    ],
+    "questions": [
+      "Якого запитання про цю ситуацію ви ще не поставили вголос?",
+      "Де ви, можливо, сприймаєте перше враження як встановлений факт?",
+      "На яке джерело інформації ви покладаєтеся, хоча давно його не перевіряли?"
+    ],
+    "practice": "Запишіть одне своє переконання щодо ситуації, потім один факт, що його підтверджує, і один, що міг би його змінити, — а тоді перевірте другий."
+  }
+}

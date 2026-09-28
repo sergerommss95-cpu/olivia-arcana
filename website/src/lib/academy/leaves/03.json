@@ -1,0 +1,267 @@
+{
+  "id": 3,
+  "slug": "the-empress",
+  "artwork": {
+    "file": "03_the_empress.webp",
+    "sha256": "bbd4e50ad248167eb563c46b98df89d95309fd185762a61515eb90fbbbfbbe75"
+  },
+  "symbols": [
+    {
+      "key": "milky-way",
+      "x": 40,
+      "y": 20,
+      "en": {
+        "name": "The glittering sky band",
+        "seen": "Across the upper half, a pale band of glittering mineral runs diagonally from the top left down towards the treetops, set in dark lapis among scattered pinpoints and tiny carved stars of gold.",
+        "meaning": "The traditional Empress sits under a bright daytime sky; Olivia moves the scene into night, beneath a band like the Milky Way. It sets the card’s earthly abundance inside larger, slower cycles: seasons, nights and the long turning of the year, which no one can hurry."
+      },
+      "uk": {
+        "name": "Мерехтлива смуга неба",
+        "seen": "У верхній половині карти по темному лазуриту навскіс, від лівого верхнього кута до верхівок дерев, тягнеться бліда смуга мерехтливого мінералу серед розсипаних цяток і крихітних різьблених золотих зірочок.",
+        "meaning": "Традиційна Імператриця сидить під ясним денним небом; Olivia переносить сцену в ніч, під смугу, схожу на Чумацький Шлях. Так земний достаток карти опиняється всередині більших і повільніших циклів: пір року, ночей і довгого річного кола, якого ніхто не може пришвидшити."
+      }
+    },
+    {
+      "key": "stars-crown",
+      "x": 38,
+      "y": 44,
+      "en": {
+        "name": "Twelve stars and a crown",
+        "seen": "Around the bowed head, twelve small five-pointed ivory stars stand in a ring against the lapis, framing a pointed ivory crown worn over long, wavy hair that falls past the shoulder.",
+        "meaning": "In the Waite-Smith card the twelve stars sit on the crown itself and are commonly read as the twelve months or the twelve signs of the zodiac: the whole turning year. Olivia lifts them off the crown into a halo, so the year surrounds the figure rather than being worn as a jewel."
+      },
+      "uk": {
+        "name": "Дванадцять зірок і корона",
+        "seen": "Навколо схиленої голови на тлі лазуриту кільцем стоять дванадцять маленьких п’ятикутних зірок зі слонової кістки; вони обрамлюють гостроверху корону, теж зі слонової кістки, поверх довгого хвилястого волосся, що спадає нижче плеча.",
+        "meaning": "На карті Вейта–Сміт дванадцять зірок розміщені на самій короні, і їх зазвичай тлумачать як дванадцять місяців або дванадцять знаків зодіаку: цілий рік у його колообігу. Olivia знімає їх із корони й складає в німб, тож рік оточує постать, а не прикрашає її, наче коштовність."
+      }
+    },
+    {
+      "key": "tree",
+      "x": 52,
+      "y": 39,
+      "en": {
+        "name": "The moonlit wood",
+        "seen": "Behind the figure a wood rises along the horizon: tall, narrow conifers on the left and in the centre, rounder broadleaf trees to the right, all carved in shades of blue within the lapis.",
+        "meaning": "The Waite-Smith Empress sits before a grove of tall cypresses, a green enclosure for the scene. Olivia’s wood mixes evergreen spires with leafy trees: growth at different speeds, some constant through winter, some changing with the season, all rooted in the same ground."
+      },
+      "uk": {
+        "name": "Ліс у місячному світлі",
+        "seen": "За постаттю вздовж обрію підіймається ліс: високі вузькі хвойні дерева ліворуч і посередині, округлі листяні праворуч, і всі вони вирізьблені в самому лазуриті різними відтінками синього.",
+        "meaning": "Імператриця Вейта–Сміт сидить перед гаєм високих кипарисів, що зеленою огорожею замикають сцену. У лісі Olivia вічнозелені шпилі змішані з листяними деревами: зростання з різною швидкістю, щось незмінне навіть узимку, щось мінливе з порами року, але все вкорінене в ту саму землю."
+      }
+    },
+    {
+      "key": "waterfall",
+      "x": 81,
+      "y": 56,
+      "en": {
+        "name": "The waterfall and stream",
+        "seen": "At the right, a small waterfall spills between carved lapis rocks into a stream that runs forward across the middle ground, passing just beyond the tip of the outstretched rod.",
+        "meaning": "Running water flows through the Waite-Smith Empress too, commonly read as the life of feeling that keeps growth alive. Here the rod points straight at the stream, as though the Empress’s attention rests on what nourishes the field rather than on the harvest itself."
+      },
+      "uk": {
+        "name": "Водоспад і струмок",
+        "seen": "Праворуч між різьбленими лазуритовими каменями спадає невеликий водоспад і переходить у струмок, що біжить уперед через середній план і минає просто за кінчиком простягнутого жезла.",
+        "meaning": "Вода біжить і на карті Імператриці Вейта–Сміт; її зазвичай тлумачать як життя почуттів, що підтримує зростання. Тут жезл вказує просто на струмок, ніби увага Імператриці спочиває на тому, що живить поле, а не на самому врожаї."
+      }
+    },
+    {
+      "key": "sceptre",
+      "x": 71,
+      "y": 60,
+      "en": {
+        "name": "The star-tipped rod",
+        "seen": "The outstretched arm rests along the scrolled arm of the couch, its fingers loosely holding a slender ivory rod that ends in a small five-pointed star, angled down towards the water.",
+        "meaning": "Traditionally the Empress holds a sceptre topped with a globe, a sign of rule over the living world. Olivia gives a slender rod tipped with a star instead, held lightly, almost idly: authority exercised through attention and gentle direction, not through grip or command."
+      },
+      "uk": {
+        "name": "Жезл, увінчаний зіркою",
+        "seen": "Простягнута рука лежить уздовж завитого підлокітника кушетки, а пальці вільно тримають тонкий жезл зі слонової кістки, нахилений донизу, до води; на його кінці — маленька п’ятикутна зірка.",
+        "meaning": "Традиційно Імператриця тримає скіпетр, увінчаний кулею, знак влади над живим світом. В Olivia натомість тонкий жезл із зіркою на кінці, і тримають його легко, майже знічев’я: це влада, що діє через увагу й м’яке спрямування, а не через стиснуту руку чи наказ."
+      }
+    },
+    {
+      "key": "pomegranate",
+      "x": 66,
+      "y": 73,
+      "en": {
+        "name": "Pomegranates on the gown",
+        "seen": "The loose ivory gown pools over the knees and down to one foot on the paving; across its folds are scattered small raised pomegranates, each with a crowned top and a surface dotted with seeds.",
+        "meaning": "The Waite-Smith Empress also wears a robe patterned with pomegranates, the fruit carved on the veil behind Olivia’s High Priestess. There it hangs at the figure’s back; here it is worn on the body itself. Hundreds of seeds in one fruit: fertility, abundance and creative potential made visible."
+      },
+      "uk": {
+        "name": "Гранати на сукні",
+        "seen": "Вільна сукня зі слонової кістки спадає складками з колін аж до стопи на плитах; по складках розсипані невеликі опуклі гранати, кожен із коронкою вгорі й поверхнею, поцяткованою зернятками.",
+        "meaning": "Імператриця Вейта–Сміт також убрана в шату з візерунком гранатів, тих самих плодів, що вирізьблені на завісі за Верховною Жрицею Olivia. Там вони висять за спиною постаті; тут їх носять на самому тілі. Сотні зерен в одному плоді: родючість, достаток і творчий потенціал, які стали видимими."
+      }
+    },
+    {
+      "key": "throne",
+      "x": 42,
+      "y": 74,
+      "en": {
+        "name": "The cushioned couch",
+        "seen": "The Empress reclines on an ivory couch with deep cushions, a scrolled arm at each end, a lattice-carved base and a turned leg, set on a low platform of lapis paving stones.",
+        "meaning": "Where the Emperor sits upright on a stone throne, the Empress is traditionally shown on soft cushions in the open air. Olivia makes the seat almost a daybed: rest is not a pause from this power but part of it, the stillness in which things are allowed to ripen."
+      },
+      "uk": {
+        "name": "Кушетка з подушками",
+        "seen": "Імператриця напівлежить на кушетці зі слонової кістки з глибокими подушками, завитими підлокітниками з обох боків, ґратчастим різьбленим цоколем і точеною ніжкою; кушетка стоїть на низькому помості з лазуритових плит.",
+        "meaning": "Там, де Імператор сидить рівно на кам’яному троні, Імператрицю традиційно зображують на м’яких подушках просто неба. Olivia перетворює сидіння майже на денне ложе: відпочинок — не пауза в цій силі, а її частина, та тиша, у якій усьому дозволено дозріти."
+      }
+    },
+    {
+      "key": "heart",
+      "x": 23,
+      "y": 70,
+      "en": {
+        "name": "The heart with Venus’s sign",
+        "seen": "Leaning against the side of the couch is a heart-shaped shield of paler grey-blue lapis with a raised rim, bearing the circle-and-cross sign of Venus inlaid in gold.",
+        "meaning": "The Waite-Smith Empress rests a heart-shaped shield bearing the Venus symbol against the throne, naming the card’s planet. Olivia uses gold sparingly, and here it marks this sign: love, beauty and pleasure set down as a shield, protection that works through warmth rather than force."
+      },
+      "uk": {
+        "name": "Серце зі знаком Венери",
+        "seen": "Збоку до кушетки прихилено щит у формі серця з блідішого сіро-блакитного лазуриту з опуклим обідком; на ньому золотом інкрустовано знак Венери — коло з хрестом.",
+        "meaning": "Імператриця Вейта–Сміт спирає на трон щит у формі серця зі знаком Венери, що називає планету карти. Olivia ощадливо використовує золото, і тут воно позначає саме цей знак: любов, красу й насолоду, покладені як щит: захист, що діє теплом, а не силою."
+      }
+    },
+    {
+      "key": "wheat",
+      "x": 28,
+      "y": 88,
+      "en": {
+        "name": "The field of wheat",
+        "seen": "The whole lower third is filled with tall, ripe wheat carved in blue-grey relief, heavy ears bending in different directions, rising around the couch leg and the edge of the paving.",
+        "meaning": "Ripe grain grows before the Waite-Smith Empress as well, and wheat is the plant of Demeter and Ceres, goddesses of the harvest. It shows abundance as something grown over a season, not conjured: tended, waited for, then gathered. Here the field reaches right to the viewer’s edge."
+      },
+      "uk": {
+        "name": "Пшеничне поле",
+        "seen": "Усю нижню третину заповнює висока стигла пшениця, вирізьблена синьо-сірим рельєфом: важкі колоски хиляться в різні боки й підіймаються довкола ніжки кушетки та краю плит.",
+        "meaning": "Перед Імператрицею Вейта–Сміт теж росте стигле зерно, а пшениця — рослина Деметри й Церери, богинь урожаю. Вона показує, що достаток вирощують упродовж сезону, а не начаровують: його доглядають, чекають, а тоді збирають. Тут поле підступає до самого краю карти, упритул до глядача."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Empress is the care that lets things grow: patient nourishment, pleasure in the senses, and the willingness to let what you tend ripen in its own season.",
+    "keywords": {
+      "upright": [
+        "nurture",
+        "abundance",
+        "creativity",
+        "sensual pleasure",
+        "growth",
+        "rest"
+      ],
+      "reversed": [
+        "depletion",
+        "overgiving",
+        "creative block",
+        "self-neglect",
+        "smothering care"
+      ]
+    },
+    "upright": [
+      "The Empress sits at the point where care becomes growth. Olivia carves the figure at rest on a cushioned couch in a field of ripe wheat, eyes lowered, one hand in the lap and the other letting a star-tipped rod dip towards a stream. Nothing in the scene is being pushed. Upright, the card draws attention to the conditions that let something flourish: nourishment, time, a welcoming space, and your own willingness to enjoy what is growing rather than only manage it.",
+      "The details are generous in a quiet way. Pomegranates, each full of seeds, are scattered across the gown; twelve ivory stars ring the head like a year gathered around one person; the heart-shaped shield at the side carries the sign of Venus in gold. Together they point to creativity in the widest sense: a project, a garden, a friendship, a body cared for, a home made warm.",
+      "The Empress also gives pleasure a proper place. Beauty, touch, taste and good rest are not rewards for finishing; they are part of what keeps any growing thing alive, including you."
+    ],
+    "reversed": [
+      "The Empress reversed can point to care that has run dry or run over. On one side the well is empty: you have been giving attention, energy and warmth to everything but yourself, and creativity feels thin or stuck. On the other, care tightens into control, tending so closely that nothing has room to grow on its own terms. Both are the card’s nourishing quality, blocked or overextended.",
+      "Look at the figure in the carving: at rest, one hand open in the lap, the rod held lightly. Ask where you could loosen a grip or refill your own reserves. One ordinary comfort, taken without guilt, is often a better next step than working harder."
+    ],
+    "number": "The Empress carries three, the number that appears when two meet and something new is born. After the Magician’s one, the act of will, and the High Priestess’s two, the inner knowing, the Fool arrives in the Empress’s field: the world of the senses, of bodies, seasons and making. Three is growth and fertile combination. This step asks you to let an idea take form and to feed it patiently, before the Emperor at four gives it structure.",
+    "tradition": "In the Golden Dawn system the Empress bears the title “Daughter of the Mighty Ones”. The card is attributed to Daleth, the Hebrew letter whose name means “door”, and to the planet Venus, and it occupies the fourteenth path of the Tree of Life, joining Chokmah and Binah, wisdom and understanding. Some modern readers also connect the card with the element of Earth. The Marseille L’Impératrice sits facing forward with a sceptre and a shield bearing an eagle. In 1909 Pamela Colman Smith moved the figure outdoors among wheat, trees and falling water, with a heart-shaped Venus shield, a crown of twelve stars and a pomegranate robe; the stars are often compared with the crowned woman of Revelation 12.",
+    "areas": {
+      "love": "In love and close bonds, the Empress turns attention to how care actually moves between you. It can point to affection shown through ordinary things: food, touch, time, a room made comfortable. Notice whether care flows both ways, and whether you let yourself receive it as easily as you give it. With yourself, the card asks for the same generosity: the rest and pleasure you would offer someone you love. The loose hand in the carving is the model: holding, not gripping.",
+      "work": "In work and study, the Empress favours cultivation over pressure. It can point to creative projects, teaching, care work, anything that grows through steady tending, and to a pace that lets ideas mature. Like the wheat, results come from seasons of attention rather than a single push. With money matters, the card speaks of stewardship: noticing what sustains you and what drains you, keeping your own practical judgement, and asking whether your way of working could last.",
+      "self": "For your own growth, the Empress asks whether you treat yourself as ground worth tending. The figure in the carving rests in the middle of abundance, eyes lowered, in no hurry to harvest anything. Where have you made rest conditional on achievement? Pleasure, beauty and the body belong to self-knowledge too. Try noticing what restores you physically, and give it a place in your week as seriously as any task on your list."
+    },
+    "positions": {
+      "heart": "At the heart of a question, the Empress suggests that what matters most is nourishment: what this situation, relationship or project needs in order to grow, and whether it is being fed.",
+      "challenge": "As a challenge, the Empress can point to care out of balance: giving until you are depleted, or tending so closely that something cannot grow on its own terms.",
+      "advice": "As advice, the Empress invites you to feed what you want to grow, slowly and with some pleasure: one nourishing act and a little rest, rather than more effort."
+    },
+    "pairs": [
+      {
+        "with": 4,
+        "text": "The Empress and the Emperor sit at three and four: the living field and the walls that protect it. Together they draw attention to the balance between growth and structure, care and boundaries, what flourishes and what keeps it safe."
+      },
+      {
+        "with": 2,
+        "text": "Pomegranates link the Empress with the High Priestess: carved on the veil behind one figure, worn on the gown of the other. Together they draw attention to inner knowing becoming visible, a quiet idea ripening into something others can see."
+      },
+      {
+        "with": 72,
+        "text": "The Nine of Pentacles shows a figure at ease among laden vines, much as the Empress rests in the wheat. Together they draw attention to abundance you have grown yourself, and to the permission to enjoy it without apology."
+      }
+    ],
+    "questions": [
+      "What in your life is growing right now, and what does it need from you to keep growing?",
+      "Where do you give care freely but find it difficult to receive it in return?",
+      "What ordinary pleasure restores you, and when did you last allow yourself to enjoy it fully?"
+    ],
+    "practice": "Choose one thing you are tending, such as a plant, a project or a friendship, and give it ten unhurried minutes today; afterwards, write down one thing it seems to need."
+  },
+  "uk": {
+    "essence": "Імператриця — це турбота, яка дає всьому рости: терпляче живлення, чуттєва насолода й готовність дозволити тому, що ви плекаєте, дозріти у свій час.",
+    "keywords": {
+      "upright": [
+        "турбота",
+        "достаток",
+        "творчість",
+        "чуттєва насолода",
+        "зростання",
+        "відпочинок"
+      ],
+      "reversed": [
+        "виснаження",
+        "надмірна віддача",
+        "творчий застій",
+        "нехтування собою",
+        "задушлива опіка"
+      ]
+    },
+    "upright": [
+      "Імператриця — там, де турбота переходить у зростання. Olivia вирізьблює постать, що відпочиває на кушетці з подушками посеред стиглої пшениці: очі опущені, одна рука лежить на колінах, друга опускає жезл із зіркою до струмка. Тут ніхто нічого не підганяє. У прямому положенні карта звертає увагу на умови, за яких щось розквітає: живлення, час, привітний простір і вашу власну готовність тішитися тим, що росте, а не лише керувати ним.",
+      "Деталі тут щедрі, але тихі. Гранати, повні зерен, розсипані по сукні; дванадцять зірок зі слонової кістки оточують голову, мов рік, що зібрався довкола однієї людини; щит у формі серця збоку несе золотий знак Венери. Разом вони вказують на творчість у найширшому сенсі: проєкт, сад, дружбу, тіло, про яке дбають, дім, де стало тепло.",
+      "Імператриця також відводить насолоді належне місце. Краса, дотик, смак і добрий відпочинок — не нагорода за завершену справу; вони частина того, що підтримує життя в усьому, що росте, зокрема й у вас."
+    ],
+    "reversed": [
+      "Імператриця в перевернутому положенні може вказувати на турботу, що вичерпалася або перелилася через край. З одного боку, криниця порожня: ви віддаєте увагу, сили й тепло всьому, крім себе, і творчість здається виснаженою чи застряглою. З другого боку, турбота звужується до контролю, а опіка стає такою пильною, що ніщо не має простору рости по-своєму. В обох випадках це та сама живильна якість карти, заблокована або надмірна.",
+      "Подивіться на постать у різьбленні: постать у спокої, одна рука розкрита на колінах, жезл лежить у пальцях легко. Запитайте себе, де можна трохи розтиснути пальці або поповнити власні запаси. Одна звичайна втіха, прийнята без почуття провини, часто стає кращим наступним кроком, ніж працювати ще завзятіше."
+    ],
+    "number": "Імператриця несе число три — число, що з’являється, коли двоє зустрічаються і народжується щось нове. Після одиниці Мага, акту волі, і двійки Верховної Жриці, внутрішнього знання, Блазень приходить на поле Імператриці: у світ відчуттів, тіл, пір року й творення. Три — це зростання й плідне поєднання. Цей крок просить вас дозволити ідеї набути форми й терпляче її живити, перш ніж Імператор на четвірці дасть їй структуру.",
+    "tradition": "У системі Золотої Зорі Імператриця має титул «Донька Могутніх». Карту співвідносять із літерою Далет,, чия назва єврейською означає «двері», і з планетою Венерою; вона займає чотирнадцятий шлях Дерева Життя, що з’єднує Хокму і Біну, мудрість і розуміння. Деякі сучасні тарологи пов’язують карту також зі стихією Землі. Марсельська L’Impératrice сидить анфас зі скіпетром і щитом з орлом. 1909 року Памела Колман Сміт перенесла постать просто неба, серед пшениці, дерев і водоспаду, додавши щит у формі серця зі знаком Венери, вінець із дванадцяти зірок і шату з гранатами; ці зірки часто порівнюють із жінкою, увінчаною зорями, з 12-го розділу Об’явлення.",
+    "areas": {
+      "love": "У коханні та близьких стосунках Імператриця звертає увагу на те, як ви насправді обмінюєтеся турботою. Карта може вказувати на прихильність, виявлену через звичайні речі: їжу, дотик, час, затишно облаштовану кімнату. Зверніть увагу, чи турбота тече в обидва боки і чи дозволяєте ви собі приймати її так само легко, як даєте. Щодо стосунків із собою карта просить тієї самої щедрості: відпочинку й насолоди, які ви запропонували б тому, кого любите. Вільна рука в різьбленні — взірець: тримати, а не стискати.",
+      "work": "У роботі й навчанні Імператриця віддає перевагу плеканню, а не тиску. Карта може вказувати на творчі проєкти, викладання, роботу з доглядом за іншими, на все, що росте завдяки сталому піклуванню, і на темп, який дає ідеям дозріти. Як і пшениця, результат визріває за сезони уваги, а не за один ривок. У грошових справах карта говорить про дбайливе господарювання: помічати, що вас підтримує, а що виснажує, покладатися на власне практичне судження й запитувати себе, чи зможете ви довго працювати саме так.",
+      "self": "Для вашого власного зростання Імператриця запитує, чи ставитеся ви до себе як до ґрунту, вартого догляду. Постать у різьбленні відпочиває посеред достатку, з опущеними очима, і нікуди не поспішає зі збиранням урожаю. Де ви дозволяєте собі відпочинок лише після досягнень? Насолода, краса й тіло теж належать до самопізнання. Спробуйте помітити, що відновлює вас фізично, і відведіть цьому місце у своєму тижні так само серйозно, як будь-якому завданню зі списку."
+    },
+    "positions": {
+      "heart": "У центрі запитання Імператриця підказує, що найважливіше тут — живлення: чого потребує ця ситуація, ці стосунки чи цей проєкт, щоб рости, і чи цього досить.",
+      "challenge": "Як виклик Імператриця може вказувати на турботу, що втратила рівновагу: віддачу аж до виснаження або опіку настільки пильну, що щось не може рости по-своєму.",
+      "advice": "Як порада Імператриця запрошує живити те, що ви хочете виростити, повільно й із певною насолодою: один живильний крок і трохи відпочинку замість нових зусиль."
+    },
+    "pairs": [
+      {
+        "with": 4,
+        "text": "Імператриця та Імператор — це числа три й чотири: живе поле і стіни, що його захищають. Разом вони звертають увагу на рівновагу між зростанням і структурою, турботою й межами, тим, що розквітає, і тим, що його береже."
+      },
+      {
+        "with": 2,
+        "text": "Гранати пов’язують Імператрицю з Верховною Жрицею: вирізьблені на завісі за однією постаттю, вони прикрашають сукню другої. Разом ці карти звертають увагу на внутрішнє знання, що стає видимим: тиху ідею, яка дозріває в те, що можуть побачити інші."
+      },
+      {
+        "with": 72,
+        "text": "Дев’ятка Пентаклів показує постать, яка спокійно відпочиває серед лоз, обтяжених плодами, так само як Імператриця — серед пшениці. Разом вони звертають увагу на достаток, який ви виростили самі, і на дозвіл тішитися ним без виправдань."
+      }
+    ],
+    "questions": [
+      "Що у вашому житті росте саме зараз і чого воно потребує від вас, щоб рости далі?",
+      "Де ви щедро даруєте турботу, але вам важко приймати її у відповідь?",
+      "Яка звичайна насолода вас відновлює і коли ви востаннє дозволили собі насолодитися нею сповна?"
+    ],
+    "practice": "Оберіть одне, про що ви дбаєте, наприклад рослину, проєкт чи дружбу, і приділіть цьому сьогодні десять неквапливих хвилин; потім запишіть одну річ, якої воно, здається, потребує."
+  }
+}

@@ -1,0 +1,267 @@
+{
+  "id": 19,
+  "slug": "the-sun",
+  "artwork": {
+    "file": "19_the_sun.webp",
+    "sha256": "c30ce34d7e8fec13e9f5fdea78180e55160a9e5c31edbedb7fa1caaf063bac4d"
+  },
+  "symbols": [
+    {
+      "key": "sun",
+      "x": 50,
+      "y": 23,
+      "en": {
+        "name": "The gilded sun face",
+        "seen": "A large gold disc fills the upper sky, carved with a calm, frontal face whose eyes are closed. Broad straight rays, thin spikes and wavy, flame-like rays alternate all the way around it.",
+        "meaning": "The sun with a human face appears on both Marseille and Waite-Smith cards as the source of warmth and plain sight. Here it is by far the largest area of gold on the card, and its closed eyes suggest a light that rests rather than stares."
+      },
+      "uk": {
+        "name": "Позолочене обличчя сонця",
+        "seen": "Великий золотий диск заповнює верхню частину неба; на ньому вирізьблено спокійне обличчя анфас із заплющеними очима. Довкола чергуються широкі прямі промені, тонкі вістря та хвилясті промені, схожі на язики полум’я.",
+        "meaning": "Сонце з людським обличчям є і на марсельських картах, і в колоді Вейта–Сміт як джерело тепла та ясного бачення. Тут це найбільша ділянка золота на всій карті, а заплющені очі наводять на думку про світло, яке відпочиває, а не пильно вдивляється."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 38,
+      "y": 37,
+      "en": {
+        "name": "The band of stars",
+        "seen": "A diagonal band of glittering, silvery chips crosses the lapis sky from beside the sun’s lower left rays down to the right, fading out above the child, among scattered gold star flecks.",
+        "meaning": "The traditional Sun card shows a daylit sky; Olivia’s sun shines in a night full of stars. Day and night share one sky here, so the card’s light reads less as the end of darkness and more as clarity that can stand inside it."
+      },
+      "uk": {
+        "name": "Смуга зірок",
+        "seen": "Лазуритове небо навскіс перетинає смуга блискучих сріблястих вкраплень серед розсипаних золотих цяток-зірок: вона починається біля нижніх лівих променів сонця, спускається праворуч і згасає над дитиною.",
+        "meaning": "Традиційна карта Сонця показує денне небо, а сонце Olivia сяє в зоряній ночі. День і ніч тут поділяють одне небо, тож світло карти читається не як кінець темряви, а радше як ясність, здатна існувати й посеред неї."
+      }
+    },
+    {
+      "key": "sunflower",
+      "x": 14,
+      "y": 48,
+      "en": {
+        "name": "Four lapis sunflowers",
+        "seen": "Above the wall grow sunflowers carved in blue-grey lapis, not gold: two open blooms at the left, and at the right one open bloom beside a smaller head turned in towards the centre.",
+        "meaning": "Sunflowers follow the sun, and the Waite-Smith card sets them above its wall as signs of growth that leans towards light. Carved here in cool lapis rather than yellow, they feel quieter: most face out towards you instead of up at the gilded face."
+      },
+      "uk": {
+        "name": "Чотири лазуритові соняшники",
+        "seen": "Над муром ростуть соняшники, вирізьблені із синьо-сірого лазуриту, а не із золота: ліворуч два розкриті квіти, праворуч — розкритий квіт і поруч менша голівка, повернута до центру.",
+        "meaning": "Соняшники повертаються за сонцем, і на карті Вейта–Сміт вони височіють над муром як знак росту, що тягнеться до світла. Вирізьблені тут у прохолодному лазуриті, а не жовті, вони здаються тихішими: більшість дивиться на вас, а не вгору, на позолочене обличчя."
+      }
+    },
+    {
+      "key": "wreath",
+      "x": 51,
+      "y": 52,
+      "en": {
+        "name": "The wreath and feather",
+        "seen": "The child’s head is circled by a wreath of small ivory leaves and blossoms, with a single upright feather rising from its front. Beneath it the child’s eyes are closed, like the sun’s.",
+        "meaning": "The feather links the child to The Fool, who wears one in the Waite-Smith deck, and marks a return to simplicity near the end of the Major Arcana. Traditionally it is red; here it is ivory, part of the same pale figure, and the wreath adds a quiet sense of celebration."
+      },
+      "uk": {
+        "name": "Вінок і перо",
+        "seen": "Голову дитини оповиває вінок із дрібного листя та квіточок зі слонової кістки, а спереду з нього здіймається одне пряме перо. Під вінком очі дитини заплющені, як і в сонця.",
+        "meaning": "Перо пов’язує дитину з Блазнем, чий образ у колоді Вейта–Сміт теж має перо, і позначає повернення до простоти наприкінці Старших Арканів. Традиційно воно червоне; тут воно вирізьблене зі слонової кістки як частина тієї самої блідої постаті, а вінок додає тихої святковості."
+      }
+    },
+    {
+      "key": "child",
+      "x": 51,
+      "y": 62,
+      "en": {
+        "name": "The child with open arms",
+        "seen": "An ivory child sits bareback on the horse, a light ivory cloth hanging from the shoulders and gathered across the lap. One arm is flung wide with the palm open; the other hand grips the banner staff.",
+        "meaning": "The child is the Sun’s central image of trust: open to the light, unguarded, with nothing to prove. Where Marseille cards show two children beside a wall, the Waite-Smith card and Olivia’s carving focus on one child whose whole body turns outward in welcome."
+      },
+      "uk": {
+        "name": "Дитина з розкритими руками",
+        "seen": "Дитина зі слонової кістки сидить на коні без сідла; з плечей спадає легка тканина, теж зі слонової кістки, зібрана на колінах. Одна рука широко відкинута, долоня розкрита; друга міцно тримає древко прапора.",
+        "meaning": "Дитина — центральний образ довіри на карті Сонця: відкрита світлу, нічим не захищена, і їй нічого не треба доводити. Марсельські карти показують двох дітей біля муру, а карта Вейта–Сміт і різьба Olivia зосереджуються на одній дитині, чиє тіло повністю розкривається назустріч, ніби вітаючи."
+      }
+    },
+    {
+      "key": "banner",
+      "x": 77,
+      "y": 57,
+      "en": {
+        "name": "The ivory banner",
+        "seen": "From a slender staff topped with a round knob, a long, plain ivory banner streams out to the right of the rider, twisting in loose folds into forked, ribbon-like ends. It carries no emblem.",
+        "meaning": "In the Waite-Smith card the banner is red, the colour of vitality and action. Here it is the same ivory as the child, so it reads as an extension of the open gesture itself: energy made visible and carried lightly, not a flag of conquest."
+      },
+      "uk": {
+        "name": "Прапор зі слонової кістки",
+        "seen": "Від тонкого древка з круглим навершям праворуч від дитини струменить довгий гладенький прапор зі слонової кістки; вільними складками він закручується й закінчується роздвоєними кінцями, схожими на стрічки. Жодної емблеми на ньому немає.",
+        "meaning": "На карті Вейта–Сміт прапор червоний — колір життєвої сили та дії. Тут він того самого кольору слонової кістки, що й дитина, тож читається як продовження відкритого жесту: видима енергія, яку несуть легко, а не стяг завоювання."
+      }
+    },
+    {
+      "key": "wall",
+      "x": 10,
+      "y": 62,
+      "en": {
+        "name": "The lapis garden wall",
+        "seen": "A low wall of squared lapis blocks, paler and brighter blue than the sky, runs the full width of the card behind the horse, its top edge close to the child’s shoulders.",
+        "meaning": "The wall is commonly read as the edge of an enclosed garden: the child has come out beyond sheltered ground into open light. It can also suggest the safety that makes openness possible, a structure at your back rather than a barrier ahead."
+      },
+      "uk": {
+        "name": "Лазуритовий садовий мур",
+        "seen": "Низький мур із тесаних лазуритових блоків, блідіших і яскравіших за небо, тягнеться через усю ширину карти позаду коня; його верхній край майже на рівні плечей дитини.",
+        "meaning": "Мур зазвичай читають як межу замкненого саду: дитина вийшла із захищеного простору на відкрите світло. Він також може вказувати на безпеку, яка й робить відкритість можливою, — опору за спиною, а не перешкоду попереду."
+      }
+    },
+    {
+      "key": "horse",
+      "x": 67,
+      "y": 72,
+      "en": {
+        "name": "The white horse",
+        "seen": "A large ivory horse stands calmly facing left, all four hooves on the grassy ground. It wears a simple bridle but no saddle, and a slack rein runs back to the child’s waist, held by neither hand.",
+        "meaning": "A white horse is commonly read as strength that is willing and well directed. The child rides without a saddle and without holding the rein, so the card points to energy that cooperates with you instead of needing to be forced or steered."
+      },
+      "uk": {
+        "name": "Білий кінь",
+        "seen": "Великий кінь зі слонової кістки спокійно стоїть головою ліворуч, усіма чотирма копитами на трав’янистій землі. На ньому проста вуздечка, але немає сідла, а вільний повід тягнеться до пояса дитини, і жодна рука його не тримає.",
+        "meaning": "Білого коня зазвичай читають як силу, що діє охоче й має правильний напрямок. Дитина їде без сідла й не тримає повода, тож карта вказує на енергію, яка співпрацює з вами, а не потребує примусу чи постійного керування."
+      }
+    },
+    {
+      "key": "cherub",
+      "x": 28,
+      "y": 80,
+      "en": {
+        "name": "Two winged cherub heads",
+        "seen": "Level with the horse’s legs, two ivory cherub heads with small feathered wings and draped collars float against the lapis, one in front of the forelegs and one under the belly, between fore and hind legs.",
+        "meaning": "Cherub heads do not appear on the Waite-Smith card; they come from Renaissance art, where they mark a scene as blessed. Some early Italian Sun cards show a winged child holding up the sun. Here they suggest joy that is shared and quietly watched over."
+      },
+      "uk": {
+        "name": "Дві крилаті голівки херувимів",
+        "seen": "На рівні ніг коня на тлі лазуриту ширяють дві голівки херувимів зі слонової кістки, з маленькими пернатими крильцями й драпірованими комірцями: одна перед передніми ногами, друга під черевом, між передніми й задніми.",
+        "meaning": "На карті Вейта–Сміт голівок херувимів немає; вони прийшли з мистецтва Відродження, де позначають сцену як благословенну. На деяких ранніх італійських картах Сонця крилата дитина тримає сонце над головою. Тут вони натякають на радість, яку поділяють і яку тихо оберігають."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Sun is the card of plain daylight joy: feeling alive, seen and open, and letting something good be simply and fully good.",
+    "keywords": {
+      "upright": [
+        "joy",
+        "vitality",
+        "clarity",
+        "openness",
+        "warmth",
+        "confidence"
+      ],
+      "reversed": [
+        "muted joy",
+        "forced cheer",
+        "overexposure",
+        "dimmed confidence",
+        "delayed warmth"
+      ]
+    },
+    "upright": [
+      "The Sun comes after the long night of The Moon, and it asks for very little: to be seen, to feel warm, to let a good thing be good. On Olivia’s card a gilded face fills the upper sky, eyes closed and calm, and below it an ivory child rides a white horse with one arm flung open and the other carrying a pale banner. Nothing is hidden and nothing is held back. The card turns your attention towards what is working, what feels alive and what you can enjoy without apology.",
+      "Look at what the child is not doing. The rein runs slack from the bridle to the waist, and neither hand holds it; the horse stands steady anyway. Upright, the Sun can point to energy that cooperates instead of needing to be forced, and to confidence that comes from being at ease rather than in control. The child’s closed eyes echo the sun’s own: this is a joy felt from the inside, not performed for anyone watching.",
+      "Olivia also sets this sun in a night sky crossed by a band of stars. Clarity here does not require every shadow to be gone. You can recognise real warmth, a finished task, an honest conversation, a morning that feels light, while other parts of life are still unresolved."
+    ],
+    "reversed": [
+      "The Sun reversed keeps its light but turns it down, or pushes it outward too hard. It can point to joy muted by tiredness or by a feeling that you have not earned it yet, so good news passes without being felt. It can also draw attention to the opposite: brightness worn as a performance, optimism that leaves no room for an honest tired day, or overexposure, when being seen all the time stops feeling warm.",
+      "On this card the banner flies freely and the rein hangs loose. Reversed, it asks whether you are gripping something that could be carried lightly, or holding back an open gesture until conditions are perfect. A smaller, private kind of enjoyment is still the Sun: one clear moment, noticed and allowed."
+    ],
+    "number": "The Sun is number nineteen, the last of the three celestial cards after The Star and The Moon, and the step just before Judgement and The World. In the Fool’s journey it is the moment of coming out into daylight: after hope and after uncertainty, the traveller simply sees clearly and feels alive. Nineteen reduces to ten and then to one, and some readers link it to Wheel of Fortune and The Magician: a completed cycle turning into a fresh, confident start. It asks you to let your own strength show.",
+    "tradition": "In the Golden Dawn system The Sun is Atu XIX, titled “The Lord of the Fire of the World”. It is attributed to the Hebrew letter Resh, meaning head, and to the Sun itself among the planets, and it occupies the thirtieth path of the Tree of Life, joining Hod and Yesod. The painted Visconti-Sforza card shows a winged child holding up the sun, while the Marseille pattern has two children before a low wall beneath a face-sun shedding falling drops. Pamela Colman Smith’s 1909 design kept the wall, added sunflowers above it and set a single child on a white horse with a red banner.",
+    "areas": {
+      "love": "In love and close relationships the Sun draws attention to warmth that can be shown openly: affection said aloud, time together without an agenda, the ease of being liked as you are. Like the child riding with the rein slack, it can point to trust that does not need to check every step. With yourself, it invites plain appreciation of something you do well. If a relationship feels heavy, it asks where a little lightness, play or honest praise could return.",
+      "work": "At work or in study the Sun turns attention to visible effort: a project that is going well, a skill that is starting to show, credit you could accept instead of deflecting. The ivory banner carries no emblem, which can suggest confidence that does not need a title to feel real. In money matters it asks for clarity rather than wishful thinking: look at the actual figures in daylight, then notice what is genuinely steady.",
+      "self": "For your inner life the Sun invites vitality in simple forms: light, movement, rest that actually restores, laughter that surprises you. The child’s arm flung wide is a gesture of taking up space without shrinking. Notice where you have been waiting to feel glad until everything is sorted. Olivia’s sun shines in a starry night, so you can let one bright thing be true today, even while other questions stay open."
+    },
+    "positions": {
+      "heart": "At the centre of your question, the Sun suggests that something here is already clear, warm or working. Let yourself see it plainly before looking for the next problem.",
+      "challenge": "As a challenge, the Sun can point to pressure to stay cheerful, or to being so visible that there is no room to rest. Brightness itself may be what complicates things.",
+      "advice": "As advice, the Sun invites openness: say the good thing out loud, show your work, loosen your grip on the rein, and let enjoyment be specific and unhurried."
+    },
+    "pairs": [
+      {
+        "with": 18,
+        "text": "The Moon and The Sun sit side by side: uncertain night, then clear day. On Olivia’s card the sun already shines among stars. Together they draw attention to clarity that grows out of confusion rather than erasing it."
+      },
+      {
+        "with": 13,
+        "text": "Death and The Sun both show a white horse and a banner, and Olivia’s Death keeps a gold half-sun on its horizon. Together they can point to the renewed energy that follows a real release, the sun now fully risen."
+      },
+      {
+        "with": 0,
+        "text": "The Fool opens the Major Arcana as an open-hearted beginner; the Sun’s child shows that openness again near the end, now after experience. Together they ask how you can stay trusting and light without forgetting what you have learned."
+      }
+    ],
+    "questions": [
+      "What is going well right now that you have not yet let yourself enjoy?",
+      "Where are you gripping the rein when the horse would walk steadily on its own?",
+      "What would it look like to be seen as you are, without performing brightness?"
+    ],
+    "practice": "Step into daylight for five minutes today and name, aloud or on paper, one specific thing that is going well, without adding a “but”."
+  },
+  "uk": {
+    "essence": "Сонце — карта простої денної радості: відчувати себе живими, поміченими й відкритими та дозволити доброму бути просто й цілковито добрим.",
+    "keywords": {
+      "upright": [
+        "радість",
+        "життєва сила",
+        "ясність",
+        "відкритість",
+        "тепло",
+        "впевненість"
+      ],
+      "reversed": [
+        "приглушена радість",
+        "вимушена бадьорість",
+        "надмірна видимість",
+        "притлумлена впевненість",
+        "відкладене тепло"
+      ]
+    },
+    "upright": [
+      "Сонце приходить після довгої ночі Місяця і просить зовсім небагато: бути поміченими, відчути тепло, дозволити доброму бути добрим. На карті Olivia позолочене обличчя заповнює верхню частину неба, очі спокійно заплющені, а нижче дитина зі слонової кістки їде на білому коні, широко розкинувши одну руку, а в другій несучи блідий прапор. Нічого не сховано й нічого не стримано. Карта звертає вашу увагу на те, що вдається, що наповнює життям і чим можна тішитися, ні за що не вибачаючись.",
+      "Погляньте, чого дитина не робить. Повід вільно звисає від вуздечки до пояса, і жодна рука його не тримає, проте кінь і так стоїть спокійно. У прямому положенні Сонце може вказувати на енергію, яка співпрацює, а не потребує примусу, і на впевненість, що походить із невимушеності, а не з контролю. Заплющені очі дитини перегукуються з очима самого сонця: це радість, відчута зсередини, а не зіграна для глядачів.",
+      "Olivia також розміщує це сонце в нічному небі, яке перетинає смуга зірок. Ясність тут не вимагає, щоб зникла кожна тінь. Ви можете помітити справжнє тепло — завершену справу, чесну розмову, ранок, що здається легким, — навіть коли в інших сферах життя ще не все з’ясовано."
+    ],
+    "reversed": [
+      "Сонце в перевернутому положенні зберігає своє світло, але приглушує його — або ж надто наполегливо виставляє назовні. Воно може вказувати на радість, притлумлену втомою чи відчуттям, що ви її ще не заслужили, тож добра новина минає, а ви її так і не відчуваєте. А може привертати увагу до протилежного: яскравості як вистави, оптимізму, що не лишає місця для чесно втомленого дня, або надмірної видимості, коли постійно бути на виду вже не гріє.",
+      "На цій карті прапор майорить вільно, а повід вільно звисає. У перевернутому положенні карта запитує, чи не стискаєте ви те, що можна нести легко, і чи не стримуєте відкритий жест, доки умови не стануть ідеальними. Менша, особиста радість — теж Сонце: одна ясна мить, помічена й дозволена."
+    ],
+    "number": "Сонце має число дев’ятнадцять: це остання з трьох небесних карт після Зірки та Місяця і крок безпосередньо перед Судом і Світом. У мандрівці Блазня це мить виходу на денне світло: після надії та після непевності приходить просто ясний погляд і відчуття повноти життя. Дев’ятнадцять зводиться до десяти, а тоді до одиниці, і дехто пов’язує цю карту з Колесом Фортуни та Магом: завершений цикл обертається на свіжий, упевнений початок. Карта просить дозволити вашій силі бути помітною.",
+    "tradition": "У системі Золотої Зорі Сонце — це Ату XIX під назвою «Володар Вогню Світу». Йому відповідають єврейська літера Реш, що означає «голова», і саме Сонце серед планет; карта займає тридцятий шлях Дерева Життя, що з’єднує Год і Єсод. Мальована карта Вісконті-Сфорца показує крилату дитину, яка тримає сонце, а марсельський зразок — двох дітей перед низьким муром під сонцем з обличчям, від якого падають краплі. Памела Колман Сміт у 1909 році зберегла мур, додала над ним соняшники й посадила одну дитину на білого коня з червоним прапором.",
+    "areas": {
+      "love": "У коханні та близьких стосунках Сонце привертає увагу до тепла, яке можна виявляти відкрито: ніжності, сказаної вголос, часу разом без жодного плану, легкості, коли ви подобаєтеся такими, якими є. Як дитина, що їде з вільним поводом, карта може вказувати на довіру, якій не потрібно перевіряти кожен крок. У стосунках із собою карта запрошує просто визнати те, що вам добре вдається. Якщо стосунки здаються важкими, вона запитує, куди можна повернути трохи легкості, гри чи щирої похвали.",
+      "work": "У роботі чи навчанні Сонце звертає увагу на помітні зусилля: проєкт, що йде добре, навичку, яка починає проявлятися, визнання, яке можна прийняти, а не відмахуватися від нього. Прапор зі слонової кістки не має емблеми, і це може натякати на впевненість, якій не потрібен титул, щоб бути справжньою. У грошових справах карта просить ясно бачити, а не видавати бажане за дійсне: подивіться на реальні цифри при денному світлі, а тоді помітьте, що справді стабільне.",
+      "self": "У внутрішньому житті Сонце запрошує до життєвої сили в простих формах: світла, руху, відпочинку, що справді відновлює, сміху, який дивує вас самих. Широко розкинута рука дитини — це жест, яким займають простір, не зіщулюючись. Помітьте, де ви відкладаєте радість, доки все не буде владнано. Сонце Olivia сяє в зоряній ночі, тож сьогодні можна дозволити чомусь одному світлому бути правдою, навіть якщо інші запитання лишаються відкритими."
+    },
+    "positions": {
+      "heart": "У центрі вашого запитання Сонце підказує, що щось тут уже ясне, тепле чи добре працює. Дозвольте собі просто побачити це, перш ніж шукати наступну проблему.",
+      "challenge": "Як виклик Сонце може вказувати на тиск завжди лишатися бадьорими або на таку помітність, яка не лишає місця для відпочинку. Ускладнювати ситуацію може саме світло.",
+      "advice": "Як порада Сонце запрошує до відкритості: назвіть добре вголос, покажіть свою роботу, попустіть повід й дозвольте радості бути конкретною та неквапливою."
+    },
+    "pairs": [
+      {
+        "with": 18,
+        "text": "Місяць і Сонце стоять поруч: непевна ніч, а тоді ясний день. На карті Olivia сонце вже сяє серед зірок. Разом вони привертають увагу до ясності, що виростає з розгубленості, а не стирає її."
+      },
+      {
+        "with": 13,
+        "text": "Смерть і Сонце обидві показують білого коня й прапор, а на карті Смерть у колоді Olivia на обрії лишається золоте півсонце. Разом вони можуть вказувати на оновлену енергію, що приходить після справжнього відпускання, коли сонце вже зійшло повністю."
+      },
+      {
+        "with": 0,
+        "text": "Блазень відкриває Старші Аркани як щирий новачок; дитина Сонця знову показує цю відкритість наприкінці, але вже після досвіду. Разом вони запитують, як лишатися довірливими й легкими, не забуваючи того, чого ви навчилися."
+      }
+    ],
+    "questions": [
+      "Що зараз іде добре, а ви ще не дозволили собі цим потішитися?",
+      "Де ви стискаєте повід, хоча кінь і сам спокійно йшов би вперед?",
+      "Як би це було — бути поміченими такими, якими ви є, не вдаючи яскравості?"
+    ],
+    "practice": "Вийдіть сьогодні на п’ять хвилин на денне світло й назвіть уголос чи запишіть на папері одну конкретну річ, що йде добре, не додаючи жодного «але»."
+  }
+}

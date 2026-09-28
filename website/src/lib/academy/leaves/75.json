@@ -1,0 +1,279 @@
+{
+  "id": 75,
+  "slug": "knight-of-pentacles",
+  "artwork": {
+    "file": "75_knight_of_pentacles.webp",
+    "sha256": "e5f9550779123f11cc3f98ef4f7ffa6408c625f0d5fd8f1fe840d6bd0aed8a54"
+  },
+  "symbols": [
+    {
+      "key": "pentacle",
+      "x": 39,
+      "y": 39,
+      "en": {
+        "name": "The pentacle on an open palm",
+        "seen": "An ivory disc inlaid with a gold five-pointed star, drawn in a double line, rests upright on the rider’s flat, upturned palm, held out at chest height toward the horse’s head.",
+        "meaning": "The pentacle is the suit’s emblem of earth: body, money, time, skill and anything built up by effort. It is the only gold carved on the figure. Balanced on an open hand rather than gripped, it reads as something weighed and considered, a task examined before a single step is taken."
+      },
+      "uk": {
+        "name": "Пентакль на відкритій долоні",
+        "seen": "Диск зі слонової кістки з інкрустованою золотою п’ятикутною зіркою, прокресленою подвійною лінією, стоїть сторч на пласкій, повернутій догори долоні вершника, простягнутій на рівні грудей до кінської голови.",
+        "meaning": "Пентакль — емблема масті Землі: тіло, гроші, час, майстерність і все, що вибудовується зусиллям. Це єдине золото, вирізьблене на постаті. Диск не стиснуто в кулаці, а покладено на відкриту долоню, тож він читається як щось зважене й обдумане: справу роздивляються, перш ніж зробити бодай один крок."
+      }
+    },
+    {
+      "key": "helmet",
+      "x": 55,
+      "y": 34,
+      "en": {
+        "name": "The lowered visor",
+        "seen": "The rider’s rounded ivory helmet has its visor lowered over the eyes, leaving nose, mouth and chin bare above a collar of fine mail; the face is in profile, turned toward the disc.",
+        "meaning": "Helmets in the court cards speak of readiness and protection. This one is closed over the eyes yet open at the mouth, and the head inclines toward the pentacle rather than the road ahead. Attention is fixed on the work in hand: steady, and a little shut off from everything around it."
+      },
+      "uk": {
+        "name": "Опущене забрало",
+        "seen": "Забрало округлого шолома зі слонової кістки опущене на очі, а ніс, рот і підборіддя відкриті; нижче — комір із дрібної кольчуги. Обличчя, показане в профіль, повернуте до диска.",
+        "meaning": "Шоломи в придворних картах говорять про готовність і захист. Цей закриває очі, але лишає рот відкритим; голова ж схилена до пентакля, а не до дороги попереду. Увага прикута до справи в руках: зосереджена й трохи відгороджена від усього довкола."
+      }
+    },
+    {
+      "key": "leaves",
+      "x": 20,
+      "y": 43,
+      "en": {
+        "name": "Oak sprigs, helmet and bridle",
+        "seen": "A sprig of lobed ivory oak leaves rises from the crest of the helmet; a matching sprig in a paler, greyer tone is tucked into the horse’s headstall just in front of its ears.",
+        "meaning": "The traditional image decks helmet and bridle with sprigs of greenery, the living growth this Knight serves. Olivia carves them clearly as oak, the tree of slow growth and long endurance, so rider and horse wear the same emblem: one pace, one purpose."
+      },
+      "uk": {
+        "name": "Дубові гілочки на шоломі й вуздечці",
+        "seen": "З гребеня шолома здіймається гілочка лопатевого дубового листя зі слонової кістки; така сама гілочка, тільки блідішого, сіруватого тону, встромлена в оголів’я коня просто перед вухами.",
+        "meaning": "Традиційне зображення прикрашає шолом і вуздечку гілочками зелені — живою рослинністю, якій служить цей Лицар. В Olivia це безсумнівно дуб, дерево повільного росту й довгої витривалості, тож вершник і кінь носять однакову емблему: один темп, одна мета."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 49,
+      "y": 49,
+      "en": {
+        "name": "Reins held low and loose",
+        "seen": "The rider’s other ivory hand rests at waist height, just above the saddle, holding thin blue reins that sag in a soft curve along the neck to the bit.",
+        "meaning": "A knight’s reins usually show how hard the rider drives. Here there is no pull at all: the horse is neither urged on nor held back, only kept. It is control without strain, the ease of knowing exactly how fast this ground needs to be crossed."
+      },
+      "uk": {
+        "name": "Низько опущені вільні поводи",
+        "seen": "Друга рука вершника зі слонової кістки лежить на рівні пояса, трохи над сідлом, і тримає тонкі сині поводи, що м’якою дугою провисають уздовж шиї до вудил.",
+        "meaning": "Поводи лицаря зазвичай показують, наскільки сильно вершник жене коня. Тут немає жодного натягу: коня не підганяють і не стримують, лише ведуть. Це контроль без напруги: легкість, що походить із точного знання, як швидко треба перейти саме цю землю."
+      }
+    },
+    {
+      "key": "horse",
+      "x": 71,
+      "y": 59,
+      "en": {
+        "name": "The heavy, standing horse",
+        "seen": "A thick-necked, broad-bodied horse carved in mottled lapis stands side-on facing left, ears pricked; all four hooves rest flat on the furrows and its long tail hangs straight down.",
+        "meaning": "The other knights of the tradition ride out, even the Knight of Cups at a walk; this horse is traditionally heavy and still. Olivia keeps it planted and carves it in the same lapis as field and sky, so its strength seems drawn from the land it stands on."
+      },
+      "uk": {
+        "name": "Важкий нерухомий кінь",
+        "seen": "Кінь із товстою шиєю та широким тулубом, вирізьблений із плямистого лазуриту, стоїть боком, мордою ліворуч, нашорошивши вуха; усі чотири копита пласко спираються на борозни, а довгий хвіст звисає прямо донизу.",
+        "meaning": "Інші лицарі традиції вирушають у дорогу, навіть Лицар Кубків — ступою; цей кінь традиційно важкий і нерухомий. В Olivia він так само твердо стоїть на місці й вирізьблений з того самого лазуриту, що й поле та небо, тож його сила ніби походить із землі, на якій він стоїть."
+      }
+    },
+    {
+      "key": "armour",
+      "x": 51,
+      "y": 62,
+      "en": {
+        "name": "Armoured leg and spur",
+        "seen": "Below the ivory skirt, in front of a plain square saddle cloth, the rider’s leg shows mail at the thigh, then plate from knee to pointed foot; a small spur juts from the heel.",
+        "meaning": "Plate armour speaks of protection and of a long engagement rather than a skirmish. The spur is a knight’s tool for speed, and it is here, fixed and ready, yet the horse stands. The capacity to hurry exists; this card chooses not to use it."
+      },
+      "uk": {
+        "name": "Нога в латах і шпора",
+        "seen": "Нижче подолу зі слонової кістки, перед простим квадратним чепраком, нога вершника вкрита кольчугою на стегні, а від коліна до гострого носка — латами; з п’яти стирчить невелика шпора.",
+        "meaning": "Латні обладунки говорять про захист і про тривалу справу, а не про коротку сутичку. Шпора — лицарське знаряддя швидкості, і вона тут, закріплена й готова, проте кінь стоїть. Здатність поспішати є; ця карта вирішує нею не користуватися."
+      }
+    },
+    {
+      "key": "house",
+      "x": 14,
+      "y": 63,
+      "en": {
+        "name": "The farmhouse at the field’s edge",
+        "seen": "On the far left, beyond the furrows, a gabled farmhouse with a chimney, small windows and wide double doors stands in pale lapis among leafy trees, two to its left and one to its right.",
+        "meaning": "The traditional image centres on the ploughed field; Olivia sets a dwelling at its edge. It gives the Knight’s labour an address: the work serves a household, a store for winter, a place people return to. Reliability becomes something others live inside."
+      },
+      "uk": {
+        "name": "Садиба на краю поля",
+        "seen": "Далеко ліворуч, за борознами, у блідому лазуриті стоїть фермерський дім зі щипцевим дахом, комином, маленькими вікнами й широкими двостулковими дверима, серед листяних дерев: два ліворуч від нього, одне праворуч.",
+        "meaning": "Традиційне зображення зосереджене на зораному полі; Olivia ставить на його краю житло. Воно дає праці Лицаря адресу: робота служить домівці, запасам на зиму, місцю, куди люди повертаються. Надійність стає домом, у якому живуть інші."
+      }
+    },
+    {
+      "key": "other",
+      "x": 50,
+      "y": 82,
+      "en": {
+        "name": "The ploughed furrows",
+        "seen": "Deep, regular furrows carved in the lapis curve across the whole lower third of the card, ridge after ridge, with finer rows rolling back toward the hills; the horse stands directly on them.",
+        "meaning": "The ploughed field is the traditional ground of this Knight: land prepared but not yet harvested. Nothing grows here yet; the work is slow and mostly invisible. Olivia gives the furrows the whole lower third of the card, so preparation takes up more of the image than the rider does."
+      },
+      "uk": {
+        "name": "Зорані борозни",
+        "seen": "Глибокі рівні борозни, вирізьблені в лазуриті, вигинаються через усю нижню третину карти, гребінь за гребенем, а дрібніші ряди хвилями відступають удалину до пагорбів; кінь стоїть просто на них.",
+        "meaning": "Зоране поле — традиційний ґрунт цього Лицаря: земля підготовлена, але врожаю ще немає. Тут поки нічого не росте; робота повільна й здебільшого непомітна. Olivia віддає борознам усю нижню третину карти, тож підготовка займає на зображенні більше місця, ніж сам вершник."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 36,
+      "y": 22,
+      "en": {
+        "name": "Crossing veins of light",
+        "seen": "Two diagonal bands of tiny glittering mineral specks cross high in the dark lapis sky, up and to the left of the rider, forming a loose X among scattered round gold star flecks.",
+        "meaning": "This belongs to Olivia’s lapis sky rather than to the traditional image. Two paths of light cross overhead while the rider looks only at the disc. They can stand for the wider view: the larger pattern a steady worker keeps in mind, or forgets to look up at."
+      },
+      "uk": {
+        "name": "Перехресні жили світла",
+        "seen": "Дві діагональні смуги дрібних мерехтливих мінеральних крапинок перетинаються високо в темному лазуритовому небі, угорі ліворуч від вершника, утворюючи нечітку літеру X серед розсипаних круглих золотих зірочок.",
+        "meaning": "Цей елемент належить лазуритовому небу Olivia, а не традиційному зображенню. Угорі перетинаються два шляхи світла, а вершник дивиться лише на диск. Вони можуть означати ширший погляд: загальний задум, який сумлінна людина тримає в пам’яті за роботою, а часом забуває підвести до нього очі."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Knight of Pentacles is steady, patient effort: the unhurried work that prepares the ground, keeps its word and trusts slow results.",
+    "keywords": {
+      "upright": [
+        "patience",
+        "reliability",
+        "steady effort",
+        "method",
+        "diligence",
+        "groundwork"
+      ],
+      "reversed": [
+        "inertia",
+        "rigid routine",
+        "stagnation",
+        "boredom",
+        "perfectionism",
+        "excess caution"
+      ]
+    },
+    "upright": [
+      "The Knight of Pentacles draws attention to work that moves at the pace of the ground itself. Where the other knights of the tradition ride out, this horse stands still: all four hooves rest flat on the furrows, the reins hang in a slack curve and the rider sits upright, holding the gold-starred disc out on an open palm as if weighing it. Nothing is being chased. Something is being considered, carefully, before the next row is worked.",
+      "Pentacles are the suit of earth: bodies, homes, money, time and skill. This Knight carries that element as persistence. In Olivia’s carving the furrows fill the lower third of the card, ridge after ridge, land prepared but not yet green. The work they describe is repetitive and mostly unseen, the kind whose results arrive a season later. A farmhouse at the field’s edge shows who it is for: a household, a store, a place to come back to.",
+      "Upright, the card invites you to trust the dependable part of yourself: the part that shows up, does the next unglamorous step and keeps going when no one is watching. It favours a commitment small enough to keep and clear enough to check. Oak leaves crown both the helmet and the horse’s bridle, the tree of slow growth. The card asks what in your situation deserves that kind of patience, and whether you can give it without hurry."
+    ],
+    "reversed": [
+      "Knight of Pentacles reversed can point to steadiness that has slowed into inertia. The horse still stands, but no longer because the ground is being read; it stands because moving has begun to feel harder than staying. A routine may be followed so faithfully that no one asks whether it still serves the goal it was built for, or caution may keep a finished plan waiting for one more check.",
+      "Sometimes the reversal shows the opposite strain: dependable effort pushed to exhaustion, or perfectionism that makes every task twice as long. Look at the spur fixed to the rider’s heel. It is there to be used, gently, when the moment asks for it. Review your method as you would any tool, and change the one part that has stopped working."
+    ],
+    "number": "Knights stand second in the court sequence, after the Page and before the Queen and King. Where the Page studies the suit and carries its message, the Knight acts on it: this is the rank of movement, pursuit and commitment to one direction. In Pentacles, the suit of earth, movement takes the form of persistence. This Knight pursues a goal the way a farmer does, by returning to it daily. Progress is measured in finished rows, not in miles ridden.",
+    "tradition": "In the Golden Dawn system the mounted court figure of Pentacles, which corresponds to the Knight of Waite and Smith’s deck, is titled the Lord of the Wild and Fertile Land, King of the Spirits of Earth. The mounted figures carry the fiery part of each suit, so this card is Fire of Earth: the active, working force within matter. Its zodiac span runs from 20 degrees Leo to 20 degrees Virgo, covering the decans of the Seven of Wands and the Eight and Nine of Pentacles. Older Italian and Marseille decks show the Knight of Coins as a rider with a single coin. Pamela Colman Smith’s 1909 design set this Knight apart from the other three: a heavy horse standing still above ploughed land.",
+    "court": {
+      "temperament": "The Knight of Pentacles is the temperament of steady application: the part of anyone that finishes what it starts, checks the details and prefers a proven method to a bright idea. It moves slowly on purpose, weighing a task the way the rider weighs the disc, and rarely takes on more than it can carry.",
+      "gifts": "Its gifts are reliability, stamina and care for the unglamorous parts of work: maintenance, records, practice, the next row of the field. Others can build on this quality because it does what it said it would. It turns large aims into routines, and routines into results that last.",
+      "shadow": "In shadow, patience stiffens into stubbornness and caution into delay. The method becomes the point, change feels like a threat, and work continues long after anyone has asked what it is for. The lowered visor is a reminder that focus can close off the view as easily as it sharpens it."
+    },
+    "areas": {
+      "love": "In close relationships the Knight of Pentacles speaks of love shown through consistency: turning up when you said you would, remembering the small practical things, building trust one ordinary week at a time. It does not describe what another person feels. It asks whether your reliability is also warm, and whether routine leaves room for surprise. With yourself, it can mean keeping small commitments to your own body and rest as faithfully as you keep them for others.",
+      "work": "At work or in study, this card can reflect a phase of patient, methodical effort: practising a skill, maintaining a system, drafting and redrafting, building something week by week rather than chasing a quick result. It suits long projects whose progress is hard to see. Keep a simple record of rows finished, so the work becomes visible. In money matters, it draws attention to careful planning rather than bold moves; decisions with real stakes belong with a qualified adviser.",
+      "self": "For your relationship with yourself, the Knight of Pentacles draws attention to pace. Some things in you grow like oak rather than like grass, and cannot be hurried by effort or worry. Notice where you are asking for fast results from slow work. Notice too where steadiness has become a way of avoiding a decision. The rider holds the disc out in the open: look plainly at what you are tending."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Knight of Pentacles points to a matter that moves through steady, repeated effort: groundwork, maintenance and a commitment kept one ordinary day at a time.",
+      "challenge": "As a challenge, the card can show a pace that has become too slow for the situation, or a method followed so faithfully that it no longer fits the ground you are on.",
+      "advice": "As advice, it invites you to choose one small, clear task and do it thoroughly, then repeat it tomorrow, trusting accumulation over speed."
+    },
+    "pairs": [
+      {
+        "with": 61,
+        "text": "With the Knight of Swords the court’s two extremes of pace meet: one rider is traditionally shown charging into the wind, the other stands on ploughed earth. Together they ask what in your situation needs quick decision and what needs time to settle."
+      },
+      {
+        "with": 70,
+        "text": "The Seven of Pentacles traditionally shows a figure pausing over a crop that is already growing. Beside this Knight, who stands over furrows not yet green, the pair traces the long middle of any real effort: preparing, tending and waiting for results to show."
+      },
+      {
+        "with": 9,
+        "text": "The Hermit is attributed to Virgo, the sign that fills most of this Knight’s zodiac span in the Golden Dawn system. Both figures are solitary and unhurried; together they draw attention to careful work done quietly, without an audience."
+      }
+    ],
+    "questions": [
+      "What is one commitment small enough that you could keep it every day this month?",
+      "Where has a reliable routine quietly stopped serving the goal it was built for?",
+      "Which part of your work is still underground, and what would help you trust it?"
+    ],
+    "practice": "Choose one task you have been postponing and give it fifteen unhurried minutes at the same time each day this week, marking each session with a single stroke."
+  },
+  "uk": {
+    "essence": "Лицар Пентаклів — це стале, терпляче зусилля: неквапна праця, що готує ґрунт, тримає слово й довіряє повільним результатам.",
+    "keywords": {
+      "upright": [
+        "терпіння",
+        "надійність",
+        "стале зусилля",
+        "методичність",
+        "старанність",
+        "закладання основ"
+      ],
+      "reversed": [
+        "інертність",
+        "закостеніла рутина",
+        "застій",
+        "нудьга",
+        "перфекціонізм",
+        "надмірна обережність"
+      ]
+    },
+    "upright": [
+      "Лицар Пентаклів привертає увагу до праці, що рухається в ритмі самої землі. Там, де інші лицарі традиції вирушають у дорогу, цей кінь стоїть нерухомо: усі чотири копита твердо спираються на борозни, поводи провисають вільною дугою, а вершник сидить рівно й тримає диск із золотою зіркою на відкритій долоні, ніби зважуючи його. Тут ніхто ні за чим не женеться. Щось уважно обдумують, перш ніж узятися за наступний ряд.",
+      "Пентаклі — масть Землі: тіло, дім, гроші, час і майстерність. Цей Лицар втілює її стихію як наполегливість. У різьбленні Olivia борозни заповнюють нижню третину карти, гребінь за гребенем: земля підготовлена, але ще не зазеленіла. Праця, про яку вони розповідають, одноманітна й здебільшого невидима — така, чиї плоди з’являються аж через сезон. Садиба на краю поля показує, для кого ця праця: для домівки, для запасів, для місця, куди хочеться повертатися.",
+      "У прямому положенні карта запрошує вас довіритися надійній частині себе: тій, що з’являється, коли треба, робить наступний непоказний крок і не зупиняється, навіть коли ніхто не дивиться. Тут доречне зобов’язання, досить мале, щоб його дотримати, і досить ясне, щоб його перевірити. Дубове листя вінчає і шолом, і вуздечку коня: це дерево повільного росту. Карта запитує, що у вашій ситуації заслуговує на таке терпіння і чи зможете ви дати його без поспіху."
+    ],
+    "reversed": [
+      "Лицар Пентаклів у перевернутому положенні може вказувати на сталість, що сповільнилася до інертності. Кінь і далі стоїть, але вже не тому, що вчитується в землю, а тому, що рушити стало важче, ніж лишатися на місці. Рутину можуть виконувати так віддано, що ніхто не запитує, чи вона досі служить меті, заради якої її створили; або ж обережність змушує готовий план чекати ще однієї перевірки.",
+      "Іноді перевернута карта показує протилежну напругу: надійне зусилля, доведене до виснаження, або перфекціонізм, через який кожна справа триває вдвічі довше. Погляньте на шпору, закріплену на п’яті вершника. Вона тут для того, щоб нею скористатися — м’яко, коли момент цього потребує. Перегляньте свій метод, як переглядали б будь-який інструмент, і змініть ту одну частину, що перестала працювати."
+    ],
+    "number": "Лицарі стоять другими в послідовності придворних карт — після Пажа й перед Королевою та Королем. Якщо Паж вивчає масть і несе її звістку, то Лицар діє відповідно до неї: це ранг руху, прагнення й відданості одному напрямку. У Пентаклях, масті Землі, рух набуває форми наполегливості. Цей Лицар іде до мети так, як хлібороб: повертаючись до неї щодня. Поступ вимірюється завершеними рядами, а не подоланими милями.",
+    "tradition": "У системі Золотої Зорі кінна придворна фігура Пентаклів, що відповідає Лицареві з колоди Вейта й Сміт, має титул «Володар Дикої та Родючої Землі, Король Духів Землі». Кінні фігури уособлюють вогняну частину кожної масті, тож ця карта — Вогонь Землі: діяльна, робоча сила всередині матерії. Її зодіакальний проміжок — від 20 градусів Лева до 20 градусів Діви; він охоплює декани Сімки Жезлів, Вісімки та Дев’ятки Пентаклів. Давніші італійські колоди й колоди марсельського типу зображують Лицаря Монет вершником з однією монетою. Малюнок Памели Колман Сміт 1909 року вирізнив цього Лицаря з-поміж трьох інших: важкий кінь нерухомо стоїть над зораною землею.",
+    "court": {
+      "temperament": "Лицар Пентаклів — це вдача сталої старанності: та частина будь-кого з нас, що доводить почате до кінця, перевіряє деталі й віддає перевагу випробуваному методу перед яскравою ідеєю. Ця вдача свідомо рухається повільно, зважує завдання так, як вершник зважує диск, і рідко бере на себе більше, ніж здатна нести.",
+      "gifts": "Її дари — надійність, витривалість і турбота про непоказні частини роботи: підтримання в ладі, записи, практику, наступний ряд поля. Інші можуть спиратися на цю якість, бо вона робить те, що пообіцяла. Вона перетворює великі цілі на усталений розпорядок, а розпорядок — на тривкі результати.",
+      "shadow": "У тіні терпіння застигає у впертість, а обережність переходить у зволікання. Метод стає самоціллю, зміни здаються загрозою, а робота триває ще довго після того, як хтось востаннє запитав, навіщо вона. Опущене забрало нагадує: зосередженість може так само легко закрити огляд, як і загострити його."
+    },
+    "areas": {
+      "love": "У близьких стосунках Лицар Пентаклів говорить про любов, яку показують через сталість: приходити, коли пообіцяли, пам’ятати дрібні практичні речі, вибудовувати довіру тиждень за тижнем, у звичайних буднях. Карта не описує, що відчуває інша людина. Вона запитує, чи ваша надійність ще й тепла і чи лишає рутина місце для несподіванок. У стосунках із собою це може означати дотримуватися малих зобов’язань перед власним тілом і відпочинком так само віддано, як і перед іншими.",
+      "work": "У роботі чи навчанні ця карта може відображати етап терплячих, методичних зусиль: відпрацювання навички, підтримку системи, чернетку за чернеткою, побудову чогось тиждень за тижнем замість гонитви за швидким результатом. Вона пасує довгим проєктам, поступ яких важко побачити. Ведіть простий облік завершених рядів, щоб робота стала видимою. У грошових питаннях карта звертає увагу на ретельне планування, а не на сміливі кроки; рішення з реальними ставками варто обговорювати з кваліфікованим фахівцем.",
+      "self": "У стосунках із собою Лицар Пентаклів привертає увагу до темпу. Дещо у вас росте, як дуб, а не як трава, і його не пришвидшити ні зусиллям, ні тривогою. Помітьте, де ви вимагаєте швидких результатів від повільної роботи. Помітьте також, де сталість стала способом уникати рішення. Вершник тримає диск на видноті: подивіться прямо на те, про що ви дбаєте."
+    },
+    "positions": {
+      "heart": "У центрі запитання Лицар Пентаклів вказує на справу, що рухається завдяки сталим, повторюваним зусиллям: підготовці ґрунту, підтримці й зобов’язанню, якого дотримуються день у день, у звичайні будні.",
+      "challenge": "Як виклик карта може показувати темп, що став надто повільним для ситуації, або метод, якого дотримуються так віддано, що він уже не пасує ґрунту, на якому ви стоїте.",
+      "advice": "Як порада вона запрошує вас обрати одне невелике, ясне завдання й виконати його ретельно, а завтра повторити, довіряючи накопиченню більше, ніж швидкості."
+    },
+    "pairs": [
+      {
+        "with": 61,
+        "text": "З Лицарем Мечів зустрічаються дві крайнощі темпу серед придворних карт: одного вершника традиційно зображують у стрімкому наскоку проти вітру, другий стоїть на зораній землі. Разом вони запитують, що у вашій ситуації потребує швидкого рішення, а що — часу, щоб устоятися."
+      },
+      {
+        "with": 70,
+        "text": "Сімка Пентаклів традиційно показує постать, яка зупинилася над урожаєм, що вже росте. Поруч із цим Лицарем, який стоїть над ще не зазеленілими борознами, ця пара окреслює довгу середину будь-якого справжнього зусилля: підготовку, догляд і очікування, доки проявляться результати."
+      },
+      {
+        "with": 9,
+        "text": "Відлюдника пов’язують із Дівою — знаком, що займає більшу частину зодіакального проміжку цього Лицаря в системі Золотої Зорі. Обидві постаті самотні й неквапні; разом вони привертають увагу до ретельної праці, виконаної тихо, без глядачів."
+      }
+    ],
+    "questions": [
+      "Яке одне зобов’язання достатньо мале, щоб ви могли дотримуватися його щодня цього місяця?",
+      "Де надійна рутина непомітно перестала служити меті, заради якої її створили?",
+      "Яка частина вашої роботи ще під землею, і що допомогло б вам їй довіряти?"
+    ],
+    "practice": "Оберіть одну справу, яку ви відкладали, і цього тижня щодня в той самий час приділяйте їй п’ятнадцять неквапних хвилин, позначаючи кожне заняття однією рискою."
+  }
+}

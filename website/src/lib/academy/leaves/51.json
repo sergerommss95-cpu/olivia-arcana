@@ -1,0 +1,265 @@
+{
+  "id": 51,
+  "slug": "two-of-swords",
+  "artwork": {
+    "file": "51_two_of_swords.webp",
+    "sha256": "874937cf5699c839a0c9a689f39d73105305196094ecd0f29f99c1922100787d"
+  },
+  "symbols": [
+    {
+      "key": "blindfold",
+      "x": 50,
+      "y": 37,
+      "en": {
+        "name": "The ivory blindfold",
+        "seen": "A broad band of ivory is wrapped flat across the seated figure’s eyes. Long wavy hair, parted in the centre, falls to the shoulders; the mouth is closed and the face is level and calm.",
+        "meaning": "The blindfold is the card’s best-known sign: sight withheld, often read as a choice not to look yet. Here the face beneath it is composed rather than troubled, so the covered eyes suggest deliberate inward attention as much as avoidance: a mind turning away from outside noise to weigh something."
+      },
+      "uk": {
+        "name": "Пов’язка зі слонової кістки",
+        "seen": "Широка смуга слонової кістки пласко обгортає очі фігури, що сидить. Довге хвилясте волосся з проділом посередині спадає до плечей; вуста стулені, обличчя рівне й спокійне.",
+        "meaning": "Пов’язка — найвідоміший знак цієї карти: стриманий погляд, який часто читають як рішення поки що не дивитися. Та обличчя під нею зібране, а не стривожене, тож закриті очі свідчать про увагу, свідомо звернену всередину, не менше, ніж про уникання: розум відвертається від зовнішнього шуму, щоб щось зважити."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 33,
+      "y": 37,
+      "en": {
+        "name": "Two curving ivory swords",
+        "seen": "Two long ivory swords rise from the shoulders and bend outward like sabres, each ending in a small round knob. Each lower shaft carries two short crossbars before slanting down beneath the hands.",
+        "meaning": "Swords belong to Air: thought, judgement and words. In the traditional image two straight blades stand upright above the shoulders. Olivia’s blades curve away from each other, forming a wide V around the head, two lines of thought held in perfect symmetry, each pointing somewhere different, neither yet chosen."
+      },
+      "uk": {
+        "name": "Два вигнуті мечі",
+        "seen": "Два довгі мечі зі слонової кістки здіймаються від плечей і, мов шаблі, вигинаються назовні; кожен закінчується невеликою круглою головкою. Нижче на кожному мечі — дві короткі поперечини, а далі він навскіс іде під долоні.",
+        "meaning": "Мечі належать Повітрю: думці, судженню, слову. На традиційному зображенні два прямі клинки стоять над плечима вертикально. В Олівії клинки розходяться, утворюючи довкола голови широке V: дві лінії думки в досконалій симетрії, кожна вказує в інший бік, і жодну ще не обрано."
+      }
+    },
+    {
+      "key": "moon",
+      "x": 69,
+      "y": 26,
+      "en": {
+        "name": "The gold crescent moon",
+        "seen": "A slender crescent of gold hangs in the upper right, above the right-hand sword, its horns opening to the left. Small gold flecks scatter through the dark lapis sky around it.",
+        "meaning": "A crescent moon also appears in the traditional image, and it echoes the card’s Golden Dawn attribution, the Moon in Libra. The Moon is linked with feeling, instinct and tides, so a decision that looks purely mental is still moved by something quieter. It is the only large shape worked in gold here."
+      },
+      "uk": {
+        "name": "Золотий серпик місяця",
+        "seen": "Тонкий золотий серпик висить угорі праворуч, над правим мечем, ріжками ліворуч. Довкола нього темним лазуритовим небом розсипані дрібні золоті цятки.",
+        "meaning": "Серпик місяця є й на традиційному зображенні; він перегукується з відповідністю, яку карті приписує Золота Зоря, — Місяцем у Терезах. Місяць пов’язують із почуттями, інстинктом і припливами, тож навіть рішенням, що здається суто розумовим, рухає щось тихіше. Це єдина велика форма, виконана тут у золоті."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 43,
+      "y": 49,
+      "en": {
+        "name": "Arms crossed at the breast",
+        "seen": "The bare forearms cross over the chest, and each open hand lies flat against the opposite upper arm, fingers together. The hands grip nothing; the swords slip beneath them.",
+        "meaning": "Crossed arms are a gesture of guarding the heart and holding still. Traditionally the figure grips both hilts, so balance is effortful. Here the hands are empty and resting: the posture is closer to self-containment than to strain, a heart deliberately kept out of the argument for now."
+      },
+      "uk": {
+        "name": "Схрещені на грудях руки",
+        "seen": "Оголені передпліччя схрещено на грудях, і кожна розкрита долоня лежить пласко на плечі протилежної руки, пальці зімкнені. Руки нічого не стискають; мечі проходять під ними.",
+        "meaning": "Схрещені руки — жест, яким бережуть серце й зберігають нерухомість. Традиційно фігура стискає обидва руків’я, тож рівновага дається зусиллям. Тут руки порожні й спочивають: постава ближча до зібраності, ніж до напруги, а серце свідомо тримають поки що поза суперечкою."
+      }
+    },
+    {
+      "key": "circle",
+      "x": 51,
+      "y": 48,
+      "en": {
+        "name": "The medallion over the heart",
+        "seen": "A round raised disc sits on the breast of the gown, its lower edge meeting the crossed wrists, its face carved with concentric rings. The two sword shafts converge toward it.",
+        "meaning": "This medallion is not part of the traditional image; it is Olivia’s own detail. A circle is wholeness and a still centre. Placed at the point where both blades meet, it suggests that the two options are held from one place, and that the heart is present even while the mind keeps the choice open."
+      },
+      "uk": {
+        "name": "Медальйон над серцем",
+        "seen": "На грудях, поверх убрання, — круглий опуклий диск; його нижній край торкається схрещених зап’ясть, а поверхню вкривають концентричні кільця. Обидва мечі сходяться до нього.",
+        "meaning": "Цього медальйона немає на традиційному зображенні: це власна деталь Олівії. Коло означає цілісність і нерухомий центр. Розміщене там, де сходяться обидва клинки, воно підказує, що обидва варіанти тримають з одного місця і що серце присутнє, навіть поки розум залишає вибір відкритим."
+      }
+    },
+    {
+      "key": "sea",
+      "x": 73,
+      "y": 60,
+      "en": {
+        "name": "The sea behind the seat",
+        "seen": "Behind the figure a band of lighter blue lapis is carved as sea, its straight horizon at shoulder height and its surface scored with fine horizontal ripples from edge to edge of the scene.",
+        "meaning": "Water is the element of feeling. In the traditional image the sea lies at the figure’s back, and here too it stays out of view of the covered eyes. The calm, finely rippled surface can point to emotions that are present and moving, simply not being looked at yet."
+      },
+      "uk": {
+        "name": "Море за лавою",
+        "seen": "За фігурою смугу світлішого лазуриту вирізьблено як море: рівний обрій на висоті плечей, а поверхню від краю до краю сцени вкривають тонкі горизонтальні брижі.",
+        "meaning": "Вода — стихія почуттів. На традиційному зображенні море лежить за спиною фігури, і тут воно так само поза полем зору закритих очей. Спокійна, дрібно збрижена поверхня може вказувати на почуття, які є й рухаються, просто на них ще не дивляться."
+      }
+    },
+    {
+      "key": "island",
+      "x": 21,
+      "y": 57,
+      "en": {
+        "name": "Rocky islets with caves",
+        "seen": "Small craggy islets of grey-blue lapis rise from the water on both sides, three on the left and two on the right, each hollowed at its base by one or two dark arched openings.",
+        "meaning": "Rocks in the sea are commonly read as obstacles or hard facts that the tide of feeling moves around. Their hollowed arches are Olivia’s touch: even the solid facts have openings and passages in them, ways through that only become visible when the blindfold comes off."
+      },
+      "uk": {
+        "name": "Скелясті острівці з печерами",
+        "seen": "Обабіч із води здіймаються невеликі скелясті острівці із сіро-блакитного лазуриту, три ліворуч і два праворуч, і в основі кожного темніють один-два арочні отвори.",
+        "meaning": "Скелі в морі зазвичай читають як перешкоди або тверді факти, які хвиля почуттів обтікає. Видовбані арки — штрих Олівії: навіть у твердих фактах є отвори й проходи, шляхи крізь них, які стають видимими лише тоді, коли пов’язку знято."
+      }
+    },
+    {
+      "key": "other",
+      "x": 35,
+      "y": 63,
+      "en": {
+        "name": "The plain stone bench",
+        "seen": "The figure sits upright on a simple bench of pale grey-blue lapis, a flat slab on square legs, set on a low pale ledge. Beneath the draped gown both bare feet rest side by side.",
+        "meaning": "In the traditional image the bench also stands on the shore, with the sea behind. Its plainness matters: nothing ornate, nothing moving, just a firm place to sit. Both feet flat and together show a figure that is grounded, choosing stillness rather than being frozen by it."
+      },
+      "uk": {
+        "name": "Проста кам’яна лава",
+        "seen": "Фігура сидить рівно на простій лаві з блідого сіро-блакитного лазуриту: пласка плита на квадратних ніжках, поставлена на низький світлий уступ. З-під задрапованого вбрання видно обидві босі ступні, що стоять поруч.",
+        "meaning": "На традиційному зображенні лава так само стоїть на березі, а море позаду. Її простота важлива: нічого вишуканого, нічого рухомого, лише надійне місце, щоб сісти. Обидві ступні стоять пласко й поруч: фігура заземлена й обирає нерухомість, а не застигає в ній."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 33,
+      "y": 85,
+      "en": {
+        "name": "A glittering vein below",
+        "seen": "From just beneath the ledge a diagonal vein of pale, sparkling mineral runs down toward the lower left across the dark lapis, catching light in tiny blue and white points.",
+        "meaning": "This is the stone’s own marking rather than a traditional symbol. In a card about withheld sight, it adds a trail of light leading down and away from the seat, a quiet hint that there is a path out of the stillness once the figure is ready to take it."
+      },
+      "uk": {
+        "name": "Блискуча жилка внизу",
+        "seen": "Просто з-під уступу навскіс, униз ліворуч, по темному лазуриту тягнеться жилка світлого мінералу, що мерехтить і ловить світло крихітними блакитними й білими іскрами.",
+        "meaning": "Це власний візерунок каменю, а не традиційний символ. У карті про стримуваний погляд він додає світлий слід, що веде вниз і геть від лави, — тиху підказку, що зі стану нерухомості є вихід, щойно фігура буде готова ним скористатися."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Two of Swords holds two options in careful balance, eyes covered and heart guarded, and asks whether this pause still serves you.",
+    "keywords": {
+      "upright": [
+        "held decision",
+        "guarded balance",
+        "inner stillness",
+        "weighing options",
+        "truce"
+      ],
+      "reversed": [
+        "stalemate strain",
+        "information overload",
+        "avoidance",
+        "blindfold loosening",
+        "choosing a part"
+      ]
+    },
+    "upright": [
+      "The Two of Swords draws attention to the work of holding a decision still. Two options, two loyalties or two lines of thought are kept in perfect balance, and nothing is allowed to tip. In Olivia’s carving the figure sits blindfolded on a plain bench, and the two ivory swords curve away from each other in a wide V around the head, each pointing in its own direction. Neither blade is favoured. The mind has made a careful truce.",
+      "What makes this version distinctive is how quiet it is. The crossed hands grip nothing; they rest flat on the upper arms while the swords slip beneath them, and a carved medallion sits over the heart where the blades converge. This is a pause chosen from a still centre, not a panic. Upright, the card can point to the protective side of not deciding yet: gathering information, letting pressure drop, refusing to be rushed.",
+      "The card also asks what the blindfold is keeping out. Behind the figure lies the sea, the element of feeling, and a gold crescent moon hangs over one shoulder. Something beyond logic is moving while the choice stays suspended. Ask what would make this pause useful, and what small sign would tell you it is time to look again."
+    ],
+    "reversed": [
+      "Two of Swords reversed draws attention to a balance that is getting harder to keep. The truce may have gone on longer than it can comfortably hold, or so much information has gathered that the choice feels more tangled than before. You might notice the arms tightening instead of resting, or the swords growing heavier in the waiting.",
+      "Reversed, the blindfold may also be loosening: something you preferred not to see is coming into view. This need not force the whole decision at once. Name the trade-off plainly, set aside details that do not change it, and choose which small part to settle first. Taking the blindfold off is a step, not a verdict."
+    ],
+    "number": "Two is the first relationship: after the single point of the Ace, there is now something to compare, balance or choose between. In the suit of Swords, the suit of Air and thought, that doubling becomes two ideas held side by side. Where the Ace of Swords is one clear insight, the Two keeps two insights in equilibrium without yet committing to either. It is the stage of weighing, and it asks how long the weighing can stay honest before it turns into avoidance.",
+    "tradition": "In the Golden Dawn system the Two of Swords is titled the Lord of Peace Restored. It is assigned to the Moon in Libra, the first decan of that sign (0 to 10 degrees), and to Chokmah, Wisdom, the second Sephirah on the Tree of Life, expressed through the suit of Air. The Moon on Libra’s scales is commonly read as a balance kept by feeling as well as reason; Aleister Crowley shortened the title to Peace. Marseille decks show two curved blades crossing into an oval around a flower. The blindfolded, seated figure with crossed swords, a rocky sea and a crescent moon comes from Pamela Colman Smith’s 1909 design.",
+    "areas": {
+      "love": "In close relationships the Two of Swords can reflect a conversation postponed, a truce kept to avoid conflict, or a choice between two people, places or ways of living. It cannot tell you what another person feels. It asks what you are protecting by keeping your arms crossed, and whether the calm is real peace or only quiet. With yourself, it invites honesty about which feelings sit behind you like the sea, unseen but present.",
+      "work": "At work or in study, this card can point to a decision between two paths, two offers or two approaches that look equally reasonable on paper. The balance may be wise while facts are still arriving. Write down what each option would actually change, and what you are waiting to learn. Where money or contracts are involved, a qualified adviser can supply the information that makes the pause productive rather than endless.",
+      "self": "For your relationship with yourself, the Two of Swords invites a look at how you handle inner disagreement. The figure in this carving is not agitated: the face is calm, the feet rest flat and together, the hands are open. You can hold two truths at once without forcing a winner. Notice, though, whether stillness has become a way of not feeling, and let the moon’s quieter knowing into the room."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Two of Swords points to a decision held in suspension, with two sides kept in balance, and asks what the pause is protecting.",
+      "challenge": "As a challenge, the card can show a stalemate that has outlived its usefulness, or information and feelings kept out of view so the choice never has to be made.",
+      "advice": "As advice, it invites a deliberate pause: quiet the noise, weigh both sides fairly, and set a simple point at which you will look again and choose."
+    },
+    "pairs": [
+      {
+        "with": 11,
+        "text": "Justice belongs to Libra, the same sign as this card, and holds level scales and an upright sword. Beside the Two of Swords it draws attention to the difference between weighing a choice fairly and postponing it, and asks what a clear judgement would need."
+      },
+      {
+        "with": 2,
+        "text": "The High Priestess also sits still between two sides, eyes lowered and a crescent moon at the feet. Together they turn attention to inner knowing, and ask whether your silence is receptive listening or a way of not looking."
+      },
+      {
+        "with": 57,
+        "text": "The Eight of Swords repeats the covered eyes, but there the figure stands hemmed in by nine blades. Next to the Two it shows how a chosen pause can come to feel like a trap, and invites you to notice which one you are in."
+      }
+    ],
+    "questions": [
+      "What are you trying to protect by leaving this undecided for now?",
+      "If you took the blindfold off for one minute, what would you see first?",
+      "Which feeling sits behind you, like the sea, while your mind weighs the two options?"
+    ],
+    "practice": "Draw a line down a page, write each option at the top of one side, and list only what each would change this week; then choose a date to decide."
+  },
+  "uk": {
+    "essence": "Двійка Мечів тримає два варіанти в обережній рівновазі, із закритими очима й захищеним серцем, і запитує, чи ця пауза ще йде вам на користь.",
+    "keywords": {
+      "upright": [
+        "відкладене рішення",
+        "обережна рівновага",
+        "внутрішня тиша",
+        "зважування варіантів",
+        "перемир’я"
+      ],
+      "reversed": [
+        "напружений глухий кут",
+        "надлишок інформації",
+        "уникання",
+        "пов’язка слабне",
+        "рішення частинами"
+      ]
+    },
+    "upright": [
+      "Двійка Мечів звертає увагу на зусилля, потрібне, щоб утримати рішення в нерухомості. Два варіанти, дві прихильності чи дві лінії думки перебувають у досконалій рівновазі, і ніщо не має права переважити. У різьбленні Олівії фігура з пов’язкою на очах сидить на простій лаві, а два мечі зі слонової кістки широким V розходяться довкола голови, кожен у свій бік. Жодному клинку не віддано переваги. Розум уклав обережне перемир’я.",
+      "Ця версія вирізняється своєю тишею. Схрещені руки нічого не стискають: долоні пласко лежать на плечах, мечі проходять під ними, а над серцем, там, де сходяться клинки, вирізьблено медальйон. Це пауза, обрана з нерухомого центру, а не паніка. У прямому положенні карта може вказувати на захисний бік відкладеного рішення: зібрати інформацію, дати тиску послабнути, не дозволяти себе квапити.",
+      "Карта також запитує, чого саме не пропускає пов’язка. За фігурою лежить море, стихія почуттів, а над одним плечем висить золотий серпик місяця. Поки вибір лишається в підвішеному стані, рухається щось поза логікою. Запитайте себе, що зробило б цю паузу корисною і який невеликий знак підкаже, що час знову подивитися."
+    ],
+    "reversed": [
+      "Двійка Мечів у перевернутому положенні звертає увагу на рівновагу, яку дедалі важче втримати. Можливо, перемир’я триває довше, ніж може спокійно протриматися, або назбиралося стільки інформації, що вибір здається заплутанішим, ніж раніше. Ви можете помітити, що руки вже не спочивають, а стискаються, або що мечі важчають в очікуванні.",
+      "У перевернутому положенні пов’язка може й слабнути: у поле зору потрапляє те, чого ви воліли не бачити. Через це не обов’язково ухвалювати все рішення одразу. Прямо назвіть, чим доведеться поступитися, відкладіть деталі, які цього не змінюють, і оберіть, яку невелику частину вирішити першою. Зняти пов’язку — це крок, а не вирок."
+    ],
+    "number": "Двійка — перший зв’язок: після єдиної точки Туза з’являється те, що можна порівнювати, врівноважувати чи обирати. У масті Мечів, масті Повітря й думки, це подвоєння стає двома ідеями, що стоять поруч. Якщо Туз Мечів — одне ясне прозріння, то Двійка утримує два прозріння в рівновазі, ще не віддаючи переваги жодному. Це етап зважування, і він запитує, як довго зважування може лишатися чесним, перш ніж обернеться униканням.",
+    "tradition": "У системі Золотої Зорі Двійка Мечів має титул «Володар відновленого миру». Її пов’язують із Місяцем у Терезах, першим деканом цього знака (від 0 до 10 градусів), і з Хокмою, Мудрістю, другою сефірою Дерева Життя, втіленою в масті Повітря. Місяць на шальках Терезів зазвичай читають як рівновагу, яку тримають і почуття, і розум; Алістер Кроулі скоротив титул до «Мир». У марсельських колодах два вигнуті клинки перехрещуються, утворюючи овал довкола квітки. Фігура з пов’язкою, що сидить зі схрещеними мечами, скелясте море й серпик місяця походять із малюнка Памели Колман Сміт 1909 року.",
+    "areas": {
+      "love": "У близьких стосунках Двійка Мечів може віддзеркалювати відкладену розмову, перемир’я, яке зберігають, щоб уникнути конфлікту, або вибір між двома людьми, місцями чи способами жити. Вона не може сказати, що відчуває інша людина. Вона запитує, що ви бережете, тримаючи руки схрещеними, і чи цей спокій — справжній мир, чи лише тиша. Щодо себе карта запрошує чесно визнати, які почуття стоять у вас за спиною, як море: невидимі, але присутні.",
+      "work": "У роботі чи навчанні ця карта може вказувати на рішення між двома шляхами, двома пропозиціями чи двома підходами, які на папері здаються однаково розумними. Рівновага може бути мудрою, поки факти ще надходять. Запишіть, що насправді змінив би кожен варіант і на яку саме інформацію ви чекаєте. Коли йдеться про гроші чи договори, кваліфікований фахівець може дати ту інформацію, завдяки якій пауза стане продуктивною, а не безкінечною.",
+      "self": "У стосунках із собою Двійка Мечів запрошує придивитися, як ви даєте раду внутрішнім суперечностям. Фігура в цьому різьбленні не схвильована: обличчя спокійне, ступні стоять пласко й поруч, долоні розкриті. Ви можете тримати дві правди водночас, не змушуючи жодну з них перемогти. Та помічайте, чи не стала нерухомість способом не відчувати, і впустіть до кімнати тихіше знання місяця."
+    },
+    "positions": {
+      "heart": "У центрі запитання Двійка Мечів вказує на рішення в підвішеному стані: дві сторони врівноважені, а карта запитує, що саме захищає ця пауза.",
+      "challenge": "Як виклик карта може показувати глухий кут, що вже віджив своє, або інформацію й почуття, які тримають поза полем зору, щоб вибір так і не довелося робити.",
+      "advice": "Як порада вона запрошує до свідомої паузи: приглушіть шум, чесно зважте обидві сторони й призначте чіткий момент, коли знову подивитеся й оберете."
+    },
+    "pairs": [
+      {
+        "with": 11,
+        "text": "Справедливість належить Терезам, тому ж знаку, що й ця карта, і тримає врівноважені терези та вертикально піднятий меч. Поруч із Двійкою Мечів вона звертає увагу на різницю між чесним зважуванням вибору та його відкладанням і запитує, чого потребувало б ясне судження."
+      },
+      {
+        "with": 2,
+        "text": "Верховна Жриця так само сидить нерухомо між двома сторонами, з опущеним поглядом і серпиком місяця біля ніг. Разом вони звертають увагу на внутрішнє знання й запитують, чи ваша тиша — це уважне слухання, чи спосіб не дивитися."
+      },
+      {
+        "with": 57,
+        "text": "Вісімка Мечів повторює закриті очі, але там фігура стоїть, оточена дев’ятьма клинками. Поруч із Двійкою вона показує, як обрана пауза може почати відчуватися пасткою, і запрошує помітити, у якому з цих станів ви зараз."
+      }
+    ],
+    "questions": [
+      "Що ви намагаєтеся вберегти, залишаючи це поки що невирішеним?",
+      "Якби ви зняли пов’язку на одну хвилину, що впало б вам у вічі насамперед?",
+      "Яке почуття стоїть у вас за спиною, наче море, поки ваш розум зважує два варіанти?"
+    ],
+    "practice": "Проведіть на аркуші вертикальну лінію, напишіть угорі кожної половини по одному варіанту й перелічіть лише те, що кожен змінив би цього тижня; потім оберіть дату, коли вирішите."
+  }
+}

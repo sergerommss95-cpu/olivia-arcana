@@ -1,0 +1,267 @@
+{
+  "id": 4,
+  "slug": "the-emperor",
+  "artwork": {
+    "file": "04_the_emperor.webp",
+    "sha256": "ac76f66e26322ae475b4c315c060a09febb3c1afec65b70d8ca4d44ffc418811"
+  },
+  "symbols": [
+    {
+      "key": "milky-way",
+      "x": 47,
+      "y": 22,
+      "en": {
+        "name": "The river of stars",
+        "seen": "A diagonal band of glittering silver-grey speckle crosses the lapis sky from the upper right towards the left, among scattered gold pyrite flecks, and fades out above the mountains on the left.",
+        "meaning": "The traditional Emperor sits under a plain, warm-coloured sky; Olivia sets the ruler beneath the Milky Way instead. It places human authority inside a far larger and older order, a slow wheeling pattern that no throne commands and every throne sits beneath."
+      },
+      "uk": {
+        "name": "Зоряна ріка",
+        "seen": "Лазуритове небо навскоси перетинає смуга мерехтливих сріблясто-сірих цяточок: вона тягнеться з верхнього правого кута ліворуч серед розсипаних золотих піритових іскор і згасає над горами з лівого боку.",
+        "meaning": "Традиційний Імператор сидить під однотонним теплим небом; Olivia натомість розміщує володаря під Чумацьким Шляхом. Так людська влада опиняється всередині значно більшого й давнішого порядку — повільного кругообігу, яким не править жоден трон і під яким стоїть кожен."
+      }
+    },
+    {
+      "key": "mountain",
+      "x": 54,
+      "y": 38,
+      "en": {
+        "name": "The bare lapis peaks",
+        "seen": "Jagged mountains carved in paler grey-blue lapis rise behind the throne on both sides, their ridges sharply faceted; the tallest peak rises above the throne back, just to the right of the crown. Nothing grows on them, and no water runs below.",
+        "meaning": "The Waite-Smith Emperor also sits before bare mountains, commonly read as hard-won stability and the discipline of high, dry ground. A thin stream at their foot is traditional; Olivia leaves it out, so the scene holds only stone: firm footing, with little to soften it."
+      },
+      "uk": {
+        "name": "Голі лазуритові вершини",
+        "seen": "Позаду трону з обох боків здіймаються зубчасті гори зі світлішого сіро-блакитного лазуриту, їхні хребти гостро ограновані; найвищий пік підноситься над спинкою трону, трохи праворуч від корони. На горах нічого не росте, і внизу не тече вода.",
+        "meaning": "Імператор Вейта–Сміт також сидить на тлі голих гір, які зазвичай тлумачать як тяжко здобуту стабільність і дисципліну сухого високогір’я. Тонкий струмок біля підніжжя — традиційна деталь, але Olivia її прибирає, тож у сцені лишається тільки камінь: тверда опора, яку мало що пом’якшує."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 50,
+      "y": 44,
+      "en": {
+        "name": "The ivory crown",
+        "seen": "An ivory crown of upright points, the tallest at the top centre ending in a small ball, sits level on the Emperor’s head. Long wavy hair falls from beneath it to the shoulders.",
+        "meaning": "A crown marks an office rather than a person: a responsibility held for as long as it is carried. Carved in the same ivory as the face and robe, not in gold, it reads here as a role the figure wears, not a treasure put on display."
+      },
+      "uk": {
+        "name": "Корона зі слонової кістки",
+        "seen": "На голові Імператора рівно сидить корона зі слонової кістки з прямими зубцями; найвищий, посередині, завершується маленькою кулькою. З-під неї до плечей спадає довге хвилясте волосся.",
+        "meaning": "Корона позначає посаду, а не особу: відповідальність, яка триває, доки її несуть. Вирізьблена з тієї самої кістки, що й обличчя та шати, а не із золота, вона постає тут роллю, яку фігура носить, а не скарбом, виставленим напоказ."
+      }
+    },
+    {
+      "key": "face",
+      "x": 50,
+      "y": 49,
+      "en": {
+        "name": "The frontal bearded face",
+        "seen": "The Emperor looks straight out at the viewer, brows level, mouth closed behind a full beard that falls in carved waves to the collar. The head is held upright, neither tilted nor turned.",
+        "meaning": "The Marseille Emperor is usually shown in profile; the Waite-Smith figure turns to face you, white-bearded and composed. A long beard has long signified age and experience. Facing forward, the figure meets a situation directly, with attention that stays steady and does not drift."
+      },
+      "uk": {
+        "name": "Бородате обличчя анфас",
+        "seen": "Імператор дивиться просто на глядача: брови рівні, вуста стулені за густою бородою, що різьбленими хвилями спадає до коміра. Голову тримає прямо, не нахиляючи й не повертаючи.",
+        "meaning": "Марсельського Імператора зазвичай зображують у профіль; фігура Вейта–Сміт обернена до вас: біла борода, стримана постава. Довга борода здавна означала вік і досвід. Дивлячись уперед, фігура зустрічає ситуацію віч-на-віч, а її увага тримається рівно й не блукає."
+      }
+    },
+    {
+      "key": "ankh",
+      "x": 33,
+      "y": 45,
+      "en": {
+        "name": "The gold ankh sceptre",
+        "seen": "The Emperor’s right hand, on the viewer’s left, grips a long ivory staff headed by a gold ankh with a looped top and flared crossbar. Apart from the star flecks, it is the carving’s only gold.",
+        "meaning": "The Waite-Smith Emperor also holds an ankh-topped sceptre, the Egyptian sign of life. In a deck where gold is rare, making this the one gold object in the Emperor’s hands points to what authority is for: keeping life going, not merely keeping order."
+      },
+      "uk": {
+        "name": "Золотий скіпетр-анкх",
+        "seen": "Права рука Імператора, ліворуч від глядача, стискає довгий посох зі слонової кістки, увінчаний золотим анкхом із петлею вгорі та розширеною поперечиною. Окрім зоряних іскор, це єдине золото в усьому різьбленні.",
+        "meaning": "Імператор Вейта–Сміт теж тримає скіпетр з анкхом — єгипетським знаком життя. У колоді, де золото рідкісне, саме цей предмет у руках Імператора зроблено золотим, і це вказує, навіщо існує влада: щоб підтримувати життя, а не лише порядок."
+      }
+    },
+    {
+      "key": "ram",
+      "x": 71,
+      "y": 45,
+      "en": {
+        "name": "Four carved ram heads",
+        "seen": "Four curled-horned ram heads are carved in grey-blue lapis on the throne: one at each top corner of the high back and one at the front of each armrest, all turned outward.",
+        "meaning": "The ram is the sign of Aries, attributed to the Emperor in the Golden Dawn system, and the Waite-Smith throne carries ram heads too. Aries opens the zodiac at the spring equinox: drive, initiative, the will to begin and to lead. Carved into the seat, that force is contained and put to work."
+      },
+      "uk": {
+        "name": "Чотири різьблені баранячі голови",
+        "seen": "На троні вирізьблено із сіро-блакитного лазуриту чотири баранячі голови із закрученими рогами: по одній на верхніх кутах високої спинки й по одній спереду на кожному підлокітнику; усі звернені назовні.",
+        "meaning": "Баран — знак Овна, який у системі Золотої Зорі відповідає Імператорові; трон Вейта–Сміт теж прикрашають баранячі голови. Овен відкриває зодіак із весняним рівноденням: запал, ініціатива, воля починати й вести. Вирізьблена в троні, ця сила стримана й запряжена в роботу."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 46,
+      "y": 56,
+      "en": {
+        "name": "The draped mantle",
+        "seen": "A heavy ivory mantle falls from the shoulders and crosses the chest in one broad diagonal fold, over a tunic with a patterned collar, sleeve and belt; below, its folds cover the knees and fall almost to the boots.",
+        "meaning": "Beneath the robe, the Waite-Smith Emperor wears armour, a sign that this rule has been defended. No armour is clearly visible here: only cloth, a patterned tunic and soft boots. The emphasis shifts to authority held through presence and agreement rather than visible force."
+      },
+      "uk": {
+        "name": "Мантія в складках",
+        "seen": "Важка мантія зі слонової кістки спадає з плечей і перетинає груди однією широкою діагональною складкою поверх туніки з візерунчастим коміром, рукавом і поясом; нижче її складки вкривають коліна й сягають майже до чобіт.",
+        "meaning": "Під шатами Імператор Вейта–Сміт носить обладунок — знак того, що цю владу доводилося боронити. Тут обладунку чітко не видно: лише тканина, візерунчаста туніка й м’які чоботи. Наголос зміщується на владу, що тримається присутністю та згодою, а не явною силою."
+      }
+    },
+    {
+      "key": "orb",
+      "x": 60,
+      "y": 60,
+      "en": {
+        "name": "The orb with its cross",
+        "seen": "In the left hand, on the viewer’s right, the Emperor cradles a small ivory orb from beneath, fingers curled up around its side, a plain cross standing on its top.",
+        "meaning": "The globus cruciger, a sphere topped by a cross, is the old European emblem of rule over the world. Resting in an open palm rather than gripped, it suggests dominion understood as care: the whole of a situation held in view and in hand."
+      },
+      "uk": {
+        "name": "Держава з хрестом",
+        "seen": "У лівій руці, праворуч від глядача, Імператор підтримує знизу невелику кулю зі слонової кістки, пальці обхоплюють її збоку, а на верхівці стоїть простий хрест.",
+        "meaning": "Globus cruciger — куля, увінчана хрестом, — давня європейська емблема влади над світом. Вона лежить у відкритій долоні, а не в стиснутій руці, і це натякає на владу, зрозумілу як турбота: усю ситуацію тримають перед очима й у руках."
+      }
+    },
+    {
+      "key": "throne",
+      "x": 30,
+      "y": 74,
+      "en": {
+        "name": "The block-built lapis throne",
+        "seen": "The throne is carved from paler, veined lapis as a set of square blocks: a tall panelled back, armrest pillars with blind arched niches and a carved frieze, all standing on a broad, stepped base.",
+        "meaning": "The traditional throne is a squared block of grey stone, and four, the Emperor’s number, is the number of the square. Olivia builds it like architecture, from right angles and arches: structure made visible, stable and lasting, and, when overdone, hard to move."
+      },
+      "uk": {
+        "name": "Трон із лазуритових блоків",
+        "seen": "Трон вирізьблено зі світлішого прожилкуватого лазуриту у вигляді квадратних блоків: висока філенчаста спинка, стовпи підлокітників зі сліпими арковими нішами й різьбленим фризом, і все це стоїть на широкій ступінчастій основі.",
+        "meaning": "Традиційний трон — квадратна брила сірого каменю, а четвірка, число Імператора, — це число квадрата. Olivia зводить його як архітектуру, з прямих кутів та арок: структура, що стала видимою, стійка й тривка, а в надмірі — важка на підйом."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Emperor is the steady structure that lets things grow: clear agreements, fair boundaries and responsibility held calmly, without needing to control every detail.",
+    "keywords": {
+      "upright": [
+        "structure",
+        "responsibility",
+        "stability",
+        "clear boundaries",
+        "leadership",
+        "dependability"
+      ],
+      "reversed": [
+        "rigidity",
+        "overcontrol",
+        "shaky foundations",
+        "unclaimed authority",
+        "rules without purpose"
+      ]
+    },
+    "upright": [
+      "The Emperor sits at the point where ideas become arrangements. In Olivia’s carving the figure is set square to you on a throne built of lapis blocks, feet planted side by side on a broad base, bare mountains rising behind like a second wall. Nothing leans or hurries. Upright, the card draws attention to the structures that hold your life together: the routines, agreements, roles and boundaries that let effort add up instead of scattering.",
+      "Look at what the Emperor holds. In one hand, a tall sceptre crowned by a gold ankh, the sign of life; in the other, a small orb resting in an open palm. Authority here is not a fist. It is the responsibility to keep something living and whole, and the four ram heads on the throne show the drive of Aries harnessed to that task rather than let loose.",
+      "The card can point to a moment to set a clear rule, to take charge of a project that has drifted, or to say plainly what you will and will not carry. It asks you to be dependable more than impressive: to choose an arrangement you can explain, uphold fairly and revise when circumstances genuinely change."
+    ],
+    "reversed": [
+      "The Emperor reversed can point to structure that has lost its purpose. On one side is rigidity: a rule kept because it is the rule, control extended into details that do not need it, the throne’s right angles turned into walls. On the other is the empty seat: authority you hold but do not use, decisions left to drift, boundaries never quite stated. Both leave the orb unheld.",
+      "Ask which form is closer to your situation. If it is rigidity, name one rule and what it protects, and loosen it if the answer has changed. If it is absence, choose one small area where you can take responsibility clearly this week, and say so to the people it concerns."
+    ],
+    "number": "The Emperor carries four, the number of the square, the four directions and the four corners of a foundation; on this card, four ram heads mark the corners of the throne. In the Fool’s journey, the Empress at three has brought abundance and growth; the Emperor gives that growth a form it can live in. Next comes the Hierophant at five, where structure becomes shared tradition. This step asks you to build: to set the lines and agreements that let what you care about last.",
+    "tradition": "In the Golden Dawn system the Emperor bears the title “Sun of the Morning, Chief among the Mighty” (sometimes printed “Son of the Morning”). It is attributed to Heh, the fifth Hebrew letter, and to Aries, the cardinal fire sign ruled by Mars, on the fifteenth path of the Tree of Life joining Chokmah and Tiphareth. Aleister Crowley later exchanged the letters of the Emperor and the Star, giving the Emperor Tzaddi while keeping Aries. In the Marseille pattern L’Empereur sits in profile, legs crossed, beside a shield bearing an eagle. In 1909 Pamela Colman Smith turned the figure to face the viewer, armoured beneath a robe, on a ram-headed stone throne before bare mountains.",
+    "areas": {
+      "love": "In love and close bonds, the Emperor asks what holds the relationship steady: shared routines, kept commitments, boundaries both people understand. It can point to a need to say clearly what you can offer and what you cannot, or to notice where one person has quietly taken charge of everything. Structure in love is not coldness; the orb rests in an open palm, not a closed fist. With yourself, it can mean keeping the small commitments you make to your own rest.",
+      "work": "In work and study, the Emperor favours clear roles, realistic plans and decisions that someone actually owns. It can point to a moment to organise a project that has sprawled, to set a schedule you can keep, or to step into a responsibility you have been circling. In money matters, it supports orderly records and deliberate choices made with proper advice, not grand gestures. Ask whether your systems serve the work, or the work now serves the systems.",
+      "self": "For your own growth, the Emperor invites you to become someone you can rely on. Look at the carving: feet planted side by side, back upright against the throne, face turned straight towards what is in front of it. Self-discipline here is not punishment; it is a structure that frees attention for what matters. Which daily habit, kept steadily, would make the rest of your life easier to carry, and what small rule would protect it?"
+    },
+    "positions": {
+      "heart": "At the heart of a question, the Emperor suggests that what is really at stake is structure: who decides, what the agreements are, and whether the foundations can bear what you are building.",
+      "challenge": "As a challenge, the Emperor can point to control held too tightly, or to authority nobody is willing to take. Either way, the structure is no longer serving the people inside it.",
+      "advice": "As advice, the Emperor invites one clear decision: set a boundary, write down a plan or take ownership of a task, then keep to it steadily for a week before judging it."
+    },
+    "pairs": [
+      {
+        "with": 3,
+        "text": "The Empress at three and the Emperor at four are natural partners: growth, and the form that holds it. Together they draw attention to the balance between nurture and order, abundance and the structure that lets it last."
+      },
+      {
+        "with": 23,
+        "text": "In the Golden Dawn system the Two of Wands is Mars in Aries, the Emperor’s own sign, and its traditional figure also holds a small globe. Together they draw attention to authority looking outward: planning new ground from a secure base."
+      },
+      {
+        "with": 16,
+        "text": "The Emperor builds; the Tower shows a structure breaking open, as symbolic change rather than a forecast. Together they draw attention to foundations: which of your walls are load-bearing, and which have grown too rigid to bend when things shift."
+      }
+    ],
+    "questions": [
+      "Which agreement or routine, made clear, would make your situation easier to carry?",
+      "Where are you holding control more tightly than the task actually needs?",
+      "What responsibility have you been circling that you are ready to take up plainly?"
+    ],
+    "practice": "Write down one boundary you want to keep this week, with a single sentence on what it protects, and read it each morning before you begin."
+  },
+  "uk": {
+    "essence": "Імператор — це стійка структура, що дає змогу рости: ясні домовленості, справедливі межі й відповідальність, яку несуть спокійно, не прагнучи контролювати кожну дрібницю.",
+    "keywords": {
+      "upright": [
+        "структура",
+        "відповідальність",
+        "стабільність",
+        "ясні межі",
+        "лідерство",
+        "надійність"
+      ],
+      "reversed": [
+        "закостенілість",
+        "надмірний контроль",
+        "хиткий фундамент",
+        "незадіяна влада",
+        "правила без мети"
+      ]
+    },
+    "upright": [
+      "Імператор сидить там, де ідеї перетворюються на домовленості. У різьбленні Olivia фігура сидить рівно навпроти вас на троні з лазуритових блоків, ступні стоять поруч на широкій основі, а за спиною, мов друга стіна, здіймаються голі гори. Ніщо не хилиться й не поспішає. У прямому положенні карта привертає увагу до структур, на яких тримається ваше життя: розпорядку, домовленостей, ролей і меж, завдяки яким зусилля складаються в ціле, а не розпорошуються.",
+      "Погляньте, що тримає Імператор. В одній руці — високий скіпетр, увінчаний золотим анкхом, знаком життя; в іншій — невелика держава, що лежить на відкритій долоні. Влада тут — не кулак. Це відповідальність за те, щоб щось лишалося живим і цілим, а чотири баранячі голови на троні показують запал Овна, запряжений у цю справу, а не пущений напризволяще.",
+      "Карта може вказувати, що настав час установити ясне правило, узяти в руки проєкт, який пустили за течією, або прямо сказати, що ви понесете, а чого ні. Вона пропонує бути радше надійними, ніж ефектними: обрати такий устрій, який ви можете пояснити, чесно підтримувати й переглянути, коли обставини справді зміняться."
+    ],
+    "reversed": [
+      "Імператор у перевернутому положенні може вказувати на структуру, що втратила мету. З одного боку — закостенілість: правило, якого дотримуються лише тому, що це правило; контроль, поширений на дрібниці, які його не потребують; прямі кути трону, що стали стінами. З іншого — порожній трон: влада, яку ви маєте, але не застосовуєте, рішення, пущені на самоплив, межі, так і не проговорені вголос. В обох випадках державу ніхто не тримає.",
+      "Запитайте себе, яка з цих форм ближча до вашої ситуації. Якщо це закостенілість, назвіть одне правило й те, що воно захищає, і послабте його, якщо відповідь змінилася. Якщо це порожній трон, оберіть одну невелику ділянку, де цього тижня можете ясно взяти відповідальність на себе, і скажіть про це людям, яких це стосується."
+    ],
+    "number": "Імператор має число чотири — число квадрата, чотирьох сторін світу й чотирьох кутів фундаменту; на цій карті чотири баранячі голови позначають кути трону. У подорожі Блазня Імператриця під номером три принесла достаток і зростання; Імператор дає цьому зростанню форму, у якій воно може жити. Далі йде Ієрофант під номером п’ять, де структура стає спільною традицією. Цей крок пропонує вам будувати: окреслити межі й укласти домовленості, завдяки яким те, що вам дороге, зможе тривати.",
+    "tradition": "У системі Золотої Зорі Імператор має титул «Сонце Ранку, Перший серед Могутніх» (іноді друкують «Син Ранку»). Йому відповідають Хе, п’ята літера єврейського алфавіту, та Овен — кардинальний вогняний знак під орудою Марса; карта лежить на п’ятнадцятому шляху Дерева Життя, що з’єднує Хокму й Тіферет. Згодом Алістер Кроулі поміняв місцями літери Імператора й Зірки, віддавши Імператорові Цаді, але зберігши Овна. У марсельській традиції L’Empereur сидить у профіль, схрестивши ноги, поруч зі щитом, на якому зображено орла. 1909 року Памела Колман Сміт розвернула фігуру обличчям до глядача, вбрала в обладунок під мантією й посадила на кам’яний трон із баранячими головами на тлі голих гір.",
+    "areas": {
+      "love": "У коханні та близьких стосунках Імператор запитує, що тримає зв’язок стійким: спільний розпорядок, дотримані зобов’язання, межі, зрозумілі обом. Карта може вказувати на потребу ясно сказати, що ви можете дати, а чого ні, або помітити, де вся відповідальність непомітно перейшла до однієї людини. Структура в коханні — не холодність: держава лежить на відкритій долоні, а не в стиснутому кулаці. У стосунках із собою це може означати дотримуватися невеликих обіцянок, які ви даєте собі щодо відпочинку.",
+      "work": "У роботі й навчанні Імператор на боці ясних ролей, реалістичних планів і рішень, за які хтось справді відповідає. Карта може вказувати на час упорядкувати проєкт, що розрісся, скласти графік, якого ви зможете дотримуватися, або взяти відповідальність, довкола якої ви давно ходите. У грошових питаннях вона підтримує охайний облік і виважені рішення, ухвалені після фахової консультації, а не гучні жести. Запитайте себе, чи ваші системи служать справі, чи справа тепер служить системам.",
+      "self": "Для власного зростання Імператор пропонує стати людиною, на яку ви самі можете покластися. Погляньте на різьблення: ступні поставлені поруч, спина рівно спирається на трон, обличчя звернене просто до того, що попереду. Самодисципліна тут — не покарання, а структура, що звільняє увагу для важливого. Яка щоденна звичка, якщо неухильно її дотримуватися, полегшила б решту вашого життя, і яке невелике правило могло б її вберегти?"
+    },
+    "positions": {
+      "heart": "У центрі запитання Імператор підказує, що насправді йдеться про структуру: хто ухвалює рішення, які домовленості чинні й чи витримає фундамент те, що ви на ньому будуєте.",
+      "challenge": "Як перешкода Імператор може вказувати на надто міцно стиснутий контроль або на владу, яку ніхто не хоче брати. Так чи інакше, структура вже не служить людям, які в ній живуть.",
+      "advice": "Як порада Імператор пропонує одне ясне рішення: встановіть межу, запишіть план або візьміть завдання на себе, а тоді тиждень послідовно дотримуйтеся цього, перш ніж оцінювати результат."
+    },
+    "pairs": [
+      {
+        "with": 3,
+        "text": "Імператриця під номером три та Імператор під номером чотири — природні партнери: зростання й форма, що його тримає. Разом вони привертають увагу до рівноваги між турботою та порядком, між достатком і структурою, яка дає йому тривати."
+      },
+      {
+        "with": 23,
+        "text": "У системі Золотої Зорі Двійка Жезлів — це Марс в Овні, власному знаку Імператора, і традиційна фігура на ній теж тримає невеликий глобус. Разом вони привертають увагу до влади, зверненої назовні: до освоєння нових земель із надійного оплоту."
+      },
+      {
+        "with": 16,
+        "text": "Імператор будує; Вежа показує, як структура розламується, — це символічна зміна, а не прогноз. Разом вони привертають увагу до фундаменту: які з ваших стін несучі, а які стали надто жорсткими, щоб прогнутися, коли все зсувається."
+      }
+    ],
+    "questions": [
+      "Яку домовленість чи розпорядок варто прояснити, щоб вашу ситуацію стало легше нести?",
+      "Де ви тримаєте контроль міцніше, ніж насправді потребує справа?",
+      "Яку відповідальність ви давно обходите і тепер готові прямо взяти на себе?"
+    ],
+    "practice": "Запишіть одну межу, якої хочете дотримуватися цього тижня, додайте одне речення про те, що вона захищає, і перечитуйте її щоранку, перш ніж братися до справ."
+  }
+}

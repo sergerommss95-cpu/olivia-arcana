@@ -1,0 +1,275 @@
+{
+  "id": 49,
+  "slug": "king-of-cups",
+  "artwork": {
+    "file": "49_king_of_cups.webp",
+    "sha256": "35104212d39dadc832d4df8c710a3f724e091fb03daede9ec33f0d412381b55a"
+  },
+  "symbols": [
+    {
+      "key": "fish",
+      "x": 50,
+      "y": 44,
+      "en": {
+        "name": "The gold fish pendant",
+        "seen": "A small gold fish, its body covered in fine carved scales, hangs head up from a thin gold chain at the centre of the chest; fish and chain are the only gold on the ivory figure.",
+        "meaning": "A fish amulet belongs to the traditional King of Cups: a creature of the deep worn openly, feeling and imagination kept close rather than hidden. Olivia gilds nothing else on the figure but this fish and its chain, so the inner life becomes the King’s real treasure."
+      },
+      "uk": {
+        "name": "Золота рибка-підвіска",
+        "seen": "Невелика золота рибка з тонко вирізьбленою лускою висить головою догори на тонкому золотому ланцюжку посеред грудей; рибка й ланцюжок — єдине золото на всій постаті зі слонової кістки.",
+        "meaning": "Амулет у вигляді риби належить до традиційного образу Короля Кубків: істоту глибин носять відкрито, тож почуття й уява лишаються близько, а не ховаються. Olivia не золотить на постаті нічого, крім цієї рибки з ланцюжком, і справжнім скарбом Короля стає внутрішнє життя."
+      }
+    },
+    {
+      "key": "cup",
+      "x": 43,
+      "y": 46,
+      "en": {
+        "name": "The ivory cup, held level",
+        "seen": "The hand on the viewer’s left grips the stem of a plain ivory goblet with a deep, rounded bowl, a knop on the stem and a flared foot, holding it upright at chest height, close to the body.",
+        "meaning": "The cup is the suit’s emblem of water: feeling, love, imagination and receptivity. The traditional King holds it in the right hand, as here. Kept upright and level, nothing spills: emotion carried with care, available to others without being poured out over them."
+      },
+      "uk": {
+        "name": "Чаша зі слонової кістки, тримана рівно",
+        "seen": "Ліва від глядача рука стискає ніжку простого келиха зі слонової кістки з глибокою округлою чашею, потовщенням на ніжці та розширеною підставкою й тримає його прямо на рівні грудей, близько до тіла.",
+        "meaning": "Кубок — емблема масті й стихії Води: почуття, любов, уява, сприйнятливість. Традиційний Король тримає його в правій руці, як і тут. Кубок стоїть прямо й рівно, нічого не проливається: почуття, які несуть дбайливо, доступні іншим, але не виливаються на них."
+      }
+    },
+    {
+      "key": "sceptre",
+      "x": 68,
+      "y": 45,
+      "en": {
+        "name": "The lotus-topped sceptre",
+        "seen": "The other hand grips a short, slender ivory sceptre near its lower end; the shaft rises to a small collar and ends in a carved flower head of layered, pointed petals, like a lotus bud.",
+        "meaning": "A short sceptre in the left hand is traditional for this King: authority used lightly. Olivia crowns it with a lotus, the flower that roots in mud and opens on water, and the Golden Dawn’s Prince of Cups also holds a lotus. Leadership here grows out of depth."
+      },
+      "uk": {
+        "name": "Скіпетр із навершям-лотосом",
+        "seen": "Друга рука тримає короткий тонкий скіпетр зі слонової кістки ближче до нижнього кінця; держак піднімається до невеликого кільця й завершується різьбленою квіткою з кількох ярусів загострених пелюсток, схожою на бутон лотоса.",
+        "meaning": "Короткий скіпетр у лівій руці традиційний для цього Короля: влада, якою користуються легко. Olivia вінчає його лотосом — квіткою, що вкорінюється в мулі й розкривається на воді; лотос тримає і Принц Кубків Золотої Зорі. Лідерство тут виростає з глибини."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 50,
+      "y": 30,
+      "en": {
+        "name": "The ivory crown",
+        "seen": "An ivory crown with a decorated band and upright points ending in small trefoils, the tallest at the front centre, rests on long, wavy ivory hair; it is carved plain, without gold.",
+        "meaning": "The crown marks rule, but in the suit of Cups the realm is feeling and relationship. Olivia leaves the crown in ivory and gilds only the fish pendant and its chain, so status matters less here than what the King keeps close to the heart."
+      },
+      "uk": {
+        "name": "Корона зі слонової кістки",
+        "seen": "Корона зі слонової кістки з орнаментованим обручем і вертикальними зубцями, що завершуються маленькими трилисниками (найвищий — спереду посередині), лежить на довгому хвилястому волоссі; її вирізьблено просто, без золота.",
+        "meaning": "Корона позначає владу, але в масті Кубків володіння Короля — почуття й стосунки. Olivia залишає корону в слоновій кістці й золотить лише рибку-підвіску та ланцюжок, тож статус тут важить менше, ніж те, що Король тримає близько до серця."
+      }
+    },
+    {
+      "key": "throne",
+      "x": 32,
+      "y": 38,
+      "en": {
+        "name": "The scrolled blue throne",
+        "seen": "A throne carved in paler, greyer lapis rises behind the King, its arched back ending in spiral scrolls at both upper corners; the armrests and square side posts carry shallow carved panels.",
+        "meaning": "In the traditional image the throne is a heavy stone seat set out in the sea. Here it is cut from the same family of blues as the water and the sky: a steadiness that belongs to the element of feeling instead of standing against it."
+      },
+      "uk": {
+        "name": "Синій трон із завитками",
+        "seen": "Позаду Короля здіймається трон, вирізьблений у світлішому, сіруватому лазуриті; його аркова спинка закінчується спіральними завитками в обох верхніх кутах, а підлокітники й квадратні бічні стійки прикрашають неглибокі різьблені панелі.",
+        "meaning": "На традиційному зображенні трон — масивне кам’яне сидіння посеред моря. Тут його вирізано з тієї самої гами синіх відтінків, що й воду та небо: це стійкість, яка належить стихії почуттів, а не протистоїть їй."
+      }
+    },
+    {
+      "key": "fish",
+      "x": 16,
+      "y": 64,
+      "en": {
+        "name": "The leaping fish",
+        "seen": "At the left, a large scaled fish carved in grey-blue lapis arcs up out of the waves, tail still in the water, mouth open and head turned towards the throne.",
+        "meaning": "Waite describes a dolphin leaping on one side of the throne, commonly read as the vitality of the unconscious, feeling rising to the surface. Olivia carves a fish rather than a dolphin, echoing the gold pendant: the same creature worn close and alive in open water."
+      },
+      "uk": {
+        "name": "Риба, що вистрибує",
+        "seen": "Ліворуч велика луската риба із сіро-блакитного лазуриту вигинається дугою над хвилями: хвіст іще у воді, рот відкритий, голова повернута до трону.",
+        "meaning": "Вейт описує дельфіна, що вистрибує з одного боку трону; зазвичай це тлумачать як життєву силу несвідомого, почуття, що підіймаються на поверхню. Olivia вирізьблює рибу, а не дельфіна, і вона перегукується із золотою підвіскою: та сама істота — і біля серця, і жива у відкритій воді."
+      }
+    },
+    {
+      "key": "boat",
+      "x": 86,
+      "y": 64,
+      "en": {
+        "name": "The sailing ship",
+        "seen": "On the right, a tall ship with full, bellied sails and a pennant at the top of its highest mast rides the waves; raised decks and fine rigging lines are cut into the grey-blue lapis.",
+        "meaning": "A ship appears in the traditional card too: human skill carried safely across unstable water. Set opposite the leaping fish, it pairs instinct with navigation. The King sits between the two, able to honour the deep and still steer a course through it."
+      },
+      "uk": {
+        "name": "Вітрильник",
+        "seen": "Праворуч по хвилях іде високий корабель із повними, напнутими вітрилами й вимпелом на верхівці найвищої щогли; у сіро-блакитному лазуриті вирізано підняті палуби й тонкі лінії такелажу.",
+        "meaning": "Корабель є і на традиційній карті: людська майстерність, що безпечно переправляє через непевні води. Навпроти риби, що вистрибує, він поєднує інстинкт із навігацією. Король сидить між ними: можна шанувати глибину й водночас прокладати крізь неї курс."
+      }
+    },
+    {
+      "key": "rock",
+      "x": 50,
+      "y": 74,
+      "en": {
+        "name": "The round stepped dais",
+        "seen": "The throne stands on a round lapis plinth of two stepped tiers, pale blue and finely cracked, its lower edge lapped by carved waves; the King’s ivory feet rest on the upper tier.",
+        "meaning": "The traditional King’s throne rests on a stone block in the open sea, grounded in the middle of movement. Olivia turns it into a round, stepped dais rising clear of the waves: a stable place built on purpose, from which feeling can be met rather than avoided."
+      },
+      "uk": {
+        "name": "Круглий ступінчастий поміст",
+        "seen": "Трон стоїть на круглому лазуритовому постаменті з двох ярусів-сходинок, світло-блакитному й укритому дрібними тріщинками; його нижній край омивають різьблені хвилі, а ноги Короля зі слонової кістки спираються на верхній ярус.",
+        "meaning": "Трон традиційного Короля стоїть на кам’яній брилі у відкритому морі, заземлений посеред руху. Olivia перетворює цю брилу на круглий ступінчастий поміст, що підноситься над хвилями: стійке місце, збудоване свідомо, звідки почуття можна зустріти, а не уникати їх."
+      }
+    },
+    {
+      "key": "sea",
+      "x": 50,
+      "y": 81,
+      "en": {
+        "name": "The rolling waves",
+        "seen": "A broad band of sea in deep and pale blue lapis crosses the lower card, its crests curling into small spirals that break against the dais, above a plain dark lapis margin.",
+        "meaning": "Water is the suit’s element, and a restless sea around the throne is traditional for this King. The waves are active, even turbulent, while the figure sits still: the card concerns not the absence of strong feeling but a calm response in its presence."
+      },
+      "uk": {
+        "name": "Хвилі, що котяться",
+        "seen": "Широка смуга моря з темного й світлого лазуриту перетинає нижню частину карти; гребені закручуються в маленькі спіралі й розбиваються об поміст, а під ними лежить рівне темне лазуритове поле.",
+        "meaning": "Вода — стихія масті, і неспокійне море довкола трону традиційне для цього Короля. Хвилі рухливі, навіть бурхливі, а постать сидить нерухомо: карта не про відсутність сильних почуттів, а про спокійну відповідь, коли вони вирують поруч."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The King of Cups is steadiness in the presence of strong feeling: holding the cup level, keeping the heart close, and answering the waves with care.",
+    "keywords": {
+      "upright": [
+        "emotional balance",
+        "calm authority",
+        "diplomacy",
+        "compassionate counsel",
+        "steady care"
+      ],
+      "reversed": [
+        "emotional distance",
+        "held-back feeling",
+        "mood swings",
+        "caretaker fatigue",
+        "unspoken needs"
+      ]
+    },
+    "upright": [
+      "The King of Cups draws attention to a particular kind of maturity: remaining steady while the water moves. In Olivia’s carving the King sits facing forward on a scrolled throne of pale lapis, raised on a round, stepped dais in the middle of the sea. Below, the waves curl and break; a fish leaps on one side and a ship rides on the other. The King looks at neither. The ivory cup is held upright and level in one hand, the lotus-topped sceptre in the other, and nothing spills.",
+      "The only gold on the figure is a small fish hanging from a fine chain at the chest. It is worth noticing what Olivia chose to gild: not the crown, not the sceptre, but a creature of the deep worn over the heart. This King has feelings, and they are treasured, not denied. What makes the calm trustworthy is that it rests on real depth.",
+      "Upright, the card invites you to respond rather than react. It can point to a moment when your steadiness helps others, when listening, choosing your words and offering care in measured amounts serves better than a flood of emotion would. It also asks that calm include honesty: name what you feel, briefly and kindly, so that no one has to guess what the still surface holds."
+    ],
+    "reversed": [
+      "King of Cups reversed can show calm held so tightly that it turns into distance. The cup stays level, but no one is invited to drink from it; feelings are managed, explained away or saved for later, until they surface as sudden moods or a quiet withdrawal. The reversal can also point to the role of the one who holds everyone else’s feelings, with no room left for your own.",
+      "Look again at the gold fish on the chest: the deep is meant to be worn close, not locked away. Consider where you could let one feeling be known in plain words, and where caring for others might include a limit. Steadiness returns more easily when it no longer has to hide anything."
+    ],
+    "number": "Kings are the outward mastery of their suit: they hold its element as responsibility for a wider realm. In Cups, the suit of water, that means feeling, empathy and imagination put at the service of relationships and communities. The Page receives an intuition, the Knight follows it, the Queen knows water from within; the King has learned to hold feeling steady for others, to comfort, mediate and advise without being carried off by the tide.",
+    "tradition": "In the Golden Dawn system the seated King of the 1909 deck is usually matched with the Prince of the Chariot of the Waters: Air of Water, the moving, communicating part of the element. Its span runs from 20° Libra to 20° Scorpio, covering the decans of the Four of Swords, Five of Cups and Six of Cups. Book T pictures this Prince in an eagle-drawn chariot over the sea, holding a lotus and a cup from which a serpent rises. Some modern readers give the King the Golden Dawn King’s place instead, Fire of Water. Marseille decks show a crowned King holding a cup; Pamela Colman Smith set the throne in a rough sea between a ship and a leaping fish.",
+    "court": {
+      "temperament": "As a temperament, the King of Cups is warm, composed and attentive. This way of being feels things fully but does not act on the first wave; it listens, waits for the surface to settle, and then answers. It often becomes the steady presence in a room, the one others bring their troubles to, and it carries that trust seriously.",
+      "gifts": "The gifts here are emotional intelligence put to use: mediating a tense conversation, comforting without taking over, giving counsel that is kind and clear at once. This King can keep several people’s feelings in view, hold boundaries that are gentle but firm, and turn empathy and imagination into practical care, in a family, a team or a classroom.",
+      "shadow": "In shadow, composure becomes a mask. You may smooth over conflict instead of naming it, keep your own needs off the table, or let feelings build beneath the surface until they leak out as moods. Care can also slide into quiet control. The image offers a counterweight: the gold fish is worn on the outside, over the heart."
+    },
+    "areas": {
+      "love": "In love and close relationships, the King of Cups asks for warmth that is steady and honest. It can point to being the calm one when a partner, friend or family member is upset: listening before answering, without needing to fix everything at once. It also asks whether that calm leaves room for your own feelings to be spoken. With yourself, it invites the same patience: letting a strong emotion pass through without judging it.",
+      "work": "At work, in study and with money matters, this card favours emotional intelligence as a skill: reading the mood of a meeting, mediating between colleagues, giving feedback that someone can actually hear. It can point to roles that join care and responsibility, such as teaching, mentoring or leading a team. Consider where a measured response would serve better than a quick one, and where you might set a kind, clear limit on how much you absorb.",
+      "self": "For your own life, the King of Cups turns attention to how you hold your inner weather. Like the King raised on a dais above the waves, you might find a small, reliable place to stand when feelings run high: a walk, a notebook, a pause before replying. The card honours depth rather than detachment. Notice what you keep close to your heart, as the King keeps the gold fish, and whether it is allowed to be seen."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter turns on emotional steadiness: responding with care and composure while strong feelings, yours or other people’s, are moving around you.",
+      "challenge": "As a challenge, it can show calm that has become a lid: feelings managed instead of expressed, or so much care for others that your own needs go unheard.",
+      "advice": "As advice, it invites you to pause before answering, hold the feeling like a level cup, and then say something both kind and honest about what matters to you."
+    },
+    "pairs": [
+      {
+        "with": 13,
+        "text": "Death is given Scorpio and the Hebrew letter Nun, whose name means fish, and Scorpio falls within this King’s span. Together they draw attention to feeling that stays steady through symbolic endings and deep change, like the fish that lives on in any tide."
+      },
+      {
+        "with": 48,
+        "text": "The Queen of Cups is Water of Water, feeling at its most receptive and inward; this King is Air of Water, feeling that moves outward into words and relationships. Side by side they ask how what you sense privately can be shared with others."
+      },
+      {
+        "with": 40,
+        "text": "The Five of Cups, Mars in Scorpio, is one of the decans within this King’s span. The Five looks at what has spilled; the King holds the cup level. Together they ask how sorrow can be felt fully and then carried with steadiness."
+      }
+    ],
+    "questions": [
+      "Where could you respond instead of react, and what would a measured answer sound like?",
+      "What feeling are you holding level for others that might need to be spoken for yourself?",
+      "What do you keep close to your heart, like the gold fish, and who is allowed to see it?"
+    ],
+    "practice": "Before your next difficult conversation, take three slow breaths and write two sentences: one that names what you feel and one that names what you need."
+  },
+  "uk": {
+    "essence": "Король Кубків — це стійкість поряд із сильними почуттями: тримати чашу рівно, берегти те, що біля серця, і дбайливо відповідати на хвилі.",
+    "keywords": {
+      "upright": [
+        "емоційна рівновага",
+        "спокійний авторитет",
+        "дипломатія",
+        "співчутлива порада",
+        "стійка турбота"
+      ],
+      "reversed": [
+        "емоційна дистанція",
+        "стримані почуття",
+        "перепади настрою",
+        "втома від опікування",
+        "невисловлені потреби"
+      ]
+    },
+    "upright": [
+      "Король Кубків звертає увагу на особливу зрілість: залишатися стійкими, коли вода рухається. У різьбленні Olivia Король сидить обличчям до глядача на троні зі світлого лазуриту із завитками, піднятому на круглому ступінчастому помості посеред моря. Унизу хвилі закручуються й розбиваються; з одного боку вистрибує риба, з другого пливе корабель. Король не дивиться ні на те, ні на інше. В одній руці Король тримає прямо й рівно чашу зі слонової кістки, у другій — скіпетр із навершям-лотосом, і нічого не проливається.",
+      "Єдине золото на постаті — маленька рибка на тонкому ланцюжку на грудях. Варто помітити, що саме Olivia вирішила позолотити: не корону й не скіпетр, а істоту глибин, яку носять над серцем. Почуття в цього Короля є, і їх цінують, а не заперечують. Спокій заслуговує на довіру саме тому, що спирається на справжню глибину.",
+      "У прямому положенні карта запрошує вас відповідати, а не реагувати. Вона може вказувати на мить, коли ваша стійкість допомагає іншим: коли слухати, добирати слова й виважено пропонувати турботу корисніше, ніж дати волю потоку емоцій. Водночас вона просить, щоб спокій був чесним: назвіть те, що відчуваєте, коротко й лагідно, щоб нікому не доводилося вгадувати, що ховає нерухома поверхня."
+    ],
+    "reversed": [
+      "Король Кубків у перевернутому положенні може вказувати на спокій, який тримають так міцно, що він перетворюється на дистанцію. Чаша стоїть рівно, але з неї нікого не запрошують пити; почуття контролюють, знецінюють поясненнями чи відкладають на потім, доки вони не проступають раптовими перепадами настрою або тихим відстороненням. Перевернута карта може також вказувати на роль, у якій ви тримаєте почуття всіх довкола, а для власних місця вже не лишається.",
+      "Погляньте ще раз на золоту рибку на грудях: глибину носять біля серця, а не ховають під замок. Подумайте, де ви могли б дозволити одному почуттю прозвучати простими словами і де турбота про інших може мати межу. Стійкість повертається легше, коли їй більше нічого не доводиться ховати."
+    ],
+    "number": "Королі — зовнішня майстерність своєї масті: вони тримають її стихію як відповідальність за ширше коло. У Кубках, масті Води, це означає почуття, емпатію та уяву на службі стосунків і спільнот. Паж уловлює інтуїтивне відчуття, Лицар іде за ним, Королева знає воду зсередини, а Король уміє тримати почуття рівно заради інших — втішати, примиряти й радити, не даючи припливу себе понести.",
+    "tradition": "У системі Золотої Зорі сидячого Короля з колоди 1909 року зазвичай зіставляють із Принцом Колісниці Вод — Повітрям Води, рухливою, комунікативною частиною стихії. Цьому Принцові відводять проміжок від 20° Терезів до 20° Скорпіона, що охоплює декани Четвірки Мечів, П’ятірки Кубків і Шістки Кубків. «Книга Т» зображує Принца над морем у колісниці, запряженій орлом, з лотосом і кубком, з якого піднімається змія. Дехто із сучасних тарологів натомість пов’язує цього Короля з Королем Золотої Зорі — Вогнем Води. Марсельські колоди показують Короля в короні з кубком; Памела Колман Сміт розмістила трон у бурхливому морі між кораблем і рибою, що вистрибує.",
+    "court": {
+      "temperament": "Як тип вдачі Король Кубків — це теплота, зібраність і уважність. Така вдача відчуває все сповна, але не діє з першої хвилі: вона слухає, чекає, доки поверхня вляжеться, і лише тоді відповідає. Часто саме вона стає спокійною опорою в товаристві — до неї приходять зі своїми клопотами, — і цю довіру вона несе серйозно.",
+      "gifts": "Дари тут — емоційний інтелект у дії: примирити сторони напруженої розмови, втішити, не перебираючи все на себе, дати пораду, водночас лагідну і ясну. Цей Король здатен тримати в полі зору почуття кількох людей, берегти межі — м’які, але тверді — і перетворювати емпатію та уяву на практичну турботу в родині, команді чи класі.",
+      "shadow": "У тіні зібраність стає маскою. Ви можете згладжувати конфлікт замість того, щоб назвати його, не виносити власних потреб на обговорення або дозволяти почуттям накопичуватися під поверхнею, доки вони не прорвуться перепадами настрою. Турбота може непомітно перейти в тихий контроль. Зображення пропонує противагу: золоту рибку носять назовні, над серцем."
+    },
+    "areas": {
+      "love": "У коханні та близьких стосунках Король Кубків просить теплоти — стійкої й чесної. Карта може вказувати на те, що ви залишаєтеся спокійними, коли кохана людина, друзі чи рідні засмучені: спершу слухаєте, а потім відповідаєте, не намагаючись виправити все одразу. Вона також запитує, чи лишає цей спокій місце для ваших власних почуттів. Щодо себе карта запрошує до такого самого терпіння: дозволити сильній емоції пройти крізь вас, не засуджуючи її.",
+      "work": "У роботі, навчанні й грошових справах ця карта віддає перевагу емоційному інтелекту як навичці: відчути настрій зустрічі, примирити колег, дати відгук, який людина справді зможе почути. Вона може вказувати на ролі, що поєднують турботу й відповідальність, як-от викладання, наставництво чи керування командою. Подумайте, де виважена відповідь послужить краще за швидку і де варто встановити лагідну, чітку межу тому, скільки ви вбираєте в себе.",
+      "self": "У вашому власному житті Король Кубків звертає увагу на те, як ви даєте раду своїй внутрішній погоді. Як Король, піднятий на помості над хвилями, ви можете знайти невелике надійне місце, де можна встояти, коли почуття вирують: прогулянку, записник, паузу перед відповіддю. Карта шанує глибину, а не відстороненість. Помітьте, що ви тримаєте близько до серця, як Король — золоту рибку, і чи дозволяєте ви цьому бути на видноті."
+    },
+    "positions": {
+      "heart": "У центрі запитання ця карта підказує, що все залежить від емоційної стійкості: відповідати дбайливо й зібрано, поки довкола вирують сильні почуття — ваші чи чужі.",
+      "challenge": "Як перешкода карта може показувати спокій, що став кришкою: почуття не виражають, а контролюють, або стільки турботи віддають іншим, що ваших власних потреб уже не чути.",
+      "advice": "Як порада карта запрошує вас зробити паузу перед відповіддю, потримати почуття, як рівну чашу, а тоді сказати щось водночас лагідне й чесне про те, що для вас важливо."
+    },
+    "pairs": [
+      {
+        "with": 13,
+        "text": "Смерті відповідають Скорпіон і єврейська літера Нун, назва якої означає «риба», а Скорпіон входить до проміжку цього Короля. Разом ці карти звертають увагу на почуття, що лишаються стійкими крізь символічні завершення й глибокі зміни, як риба, що живе за будь-якого припливу."
+      },
+      {
+        "with": 48,
+        "text": "Королева Кубків — Вода Води, почуття в найсприйнятливішій, найбільш зверненій усередину формі; цей Король — Повітря Води, почуття, що виходять назовні, у слова й стосунки. Поруч вони запитують, як поділитися з іншими тим, що ви відчуваєте наодинці."
+      },
+      {
+        "with": 40,
+        "text": "П’ятірка Кубків, Марс у Скорпіоні, — один із деканів у проміжку цього Короля. П’ятірка дивиться на те, що пролилося; Король тримає чашу рівно. Разом вони запитують, як прожити смуток сповна, а тоді нести його зі стійкістю."
+      }
+    ],
+    "questions": [
+      "Де ви могли б відповісти, а не зреагувати, і як звучала б виважена відповідь?",
+      "Яке почуття ви тримаєте рівно заради інших, хоча, можливо, його варто висловити заради себе?",
+      "Що ви тримаєте близько до серця, як золоту рибку, і кому дозволено це бачити?"
+    ],
+    "practice": "Перед наступною складною розмовою зробіть три повільні вдихи й напишіть два речення: одне — про те, що ви відчуваєте, друге — про те, що вам потрібно."
+  }
+}

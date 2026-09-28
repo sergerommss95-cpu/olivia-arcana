@@ -1,0 +1,277 @@
+{
+  "id": 35,
+  "slug": "king-of-wands",
+  "artwork": {
+    "file": "35_king_of_wands.webp",
+    "sha256": "bb29e2f1812b1c6794f49a7776261848048397fc3518f9d3dd49b3c0d774aeda"
+  },
+  "symbols": [
+    {
+      "key": "lion",
+      "x": 34,
+      "y": 30,
+      "en": {
+        "name": "Lion heads on the throne",
+        "seen": "Two lion heads carved in greyed lapis sit on the top corners of the throne back, manes thick, facing away from each other, joined by a scrolling crest that rises to a central palmette.",
+        "meaning": "The lion is Leo’s animal and the classic image of fire carried with dignity; the traditional King of Wands also has lions on the throne. Turned outwards like guardians, they set the tone of the card: courage that watches over a territory rather than prowling for a fight."
+      },
+      "uk": {
+        "name": "Левові голови на троні",
+        "seen": "Дві левові голови, вирізьблені в сіруватому лазуриті, увінчують верхні кути спинки трону: густі гриви, погляди звернені в різні боки, а поєднує їх звивистий гребінь, що здіймається до центральної пальмети.",
+        "meaning": "Лев — тварина знака Лева і класичний образ вогню, який несуть із гідністю; на троні традиційного Короля Жезлів теж є леви. Повернуті назовні, мов вартові, вони задають тон карті: мужність, що стереже свою територію, а не нишпорить у пошуках сутички."
+      }
+    },
+    {
+      "key": "throne",
+      "x": 55,
+      "y": 35,
+      "en": {
+        "name": "Salamanders on the frieze",
+        "seen": "Below the crest, a carved band on the throne shows two lapis salamanders with curling tails and open mouths, one on each side of a round many-petalled rosette, both leaning in towards it.",
+        "meaning": "In older lore the salamander is the creature said to live unharmed in flame, and it is this King’s traditional emblem. Here the pair face a flower, so fire’s creatures guard something that grows: energy placed in the service of what it protects rather than spent for show."
+      },
+      "uk": {
+        "name": "Саламандри на фризі",
+        "seen": "Під гребенем трон перетинає різьблена смуга: дві лазуритові саламандри із закрученими хвостами й розтуленими пащами, по одній з кожного боку від круглої багатопелюсткової розетки, обидві схилені до неї.",
+        "meaning": "У давніх переказах саламандра — істота, яка нібито живе у вогні неушкодженою, і саме вона є традиційною емблемою цього Короля. Тут пара звернена до квітки, тож створіння вогню оберігають те, що росте: енергія служить тому, що захищає, а не витрачається напоказ."
+      }
+    },
+    {
+      "key": "bird",
+      "x": 53,
+      "y": 38,
+      "en": {
+        "name": "Bird in the carved panel",
+        "seen": "Behind the King’s head, the throne back is a lapis panel carved with leafy branches and a large open flower; a small bird perches on a slender stem near the top, facing left.",
+        "meaning": "Birds are commonly read as air, thought and messages on the wing, and a bird is not among this King’s traditional emblems. In the Golden Dawn scheme this court is Air of Fire, so a bird resting in fire’s flowering growth suits it: quick ideas settled where they can take root."
+      },
+      "uk": {
+        "name": "Птах у різьбленій панелі",
+        "seen": "За головою Короля спинка трону — лазуритова панель із різьбленим листяним гіллям і великою розкритою квіткою; маленький птах сидить на тонкому стеблі біля верхнього краю, повернувшись ліворуч.",
+        "meaning": "Птахів зазвичай тлумачать як повітря, думку й вісті на крилах, і серед традиційних емблем цього Короля птаха немає. У системі Золотої Зорі ця придворна карта — Повітря Вогню, тож птах, що спочиває серед квітучих пагонів вогню, їй пасує: швидкі думки осіли там, де можуть пустити коріння."
+      }
+    },
+    {
+      "key": "flame",
+      "x": 24,
+      "y": 41,
+      "en": {
+        "name": "The gold flame",
+        "seen": "At the top of the staff, above a small ivory cup of petals, a flame of polished gold rises in several tongues; it is the only gold on the figure and the throne.",
+        "meaning": "Wands are the suit of fire: will, creative drive, the spark that makes you begin. The traditional King holds a sprouting branch; Olivia sets living fire on its tip and turns the branch into a torch. Vision here is not kept private; it is a light others can see by."
+      },
+      "uk": {
+        "name": "Золоте полум’я",
+        "seen": "На верхівці палиці, над маленькою чашечкою пелюсток зі слонової кістки, кількома язиками здіймається полум’я з полірованого золота; це єдине золото на постаті й троні.",
+        "meaning": "Жезли — масть вогню: воля, творчий порив, іскра, що спонукає почати. Традиційний Король тримає гілку, яка пускає пагони; Olivia запалює на її кінці живий вогонь і перетворює гілку на смолоскип. Бачення тут не ховають для себе: це світло, яке допомагає бачити й іншим."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 63,
+      "y": 43,
+      "en": {
+        "name": "Crown of trefoil points",
+        "seen": "An ivory crown with five raised points, each tipped with a carved trefoil and the tallest at the centre, sits over long wavy hair; the bearded face is turned in profile to the right.",
+        "meaning": "The crown marks outward mastery: responsibility for a realm, not only for oneself. The traditional image often gives this King flame-like crown points; Olivia’s are leafy trefoils in plain ivory, so authority reads as growth rather than blaze, and the fire is kept for the wand."
+      },
+      "uk": {
+        "name": "Корона з трилисниками",
+        "seen": "Корона зі слонової кістки має п’ять піднятих зубців із різьбленими трилисниками на вершечках, найвищий — посередині; вона лежить на довгому хвилястому волоссі, а бородате обличчя повернуте в профіль праворуч.",
+        "meaning": "Корона позначає зовнішню майстерність: відповідальність за цілий край, а не лише за себе. На традиційному зображенні зубці корони цього Короля часто схожі на язики полум’я; в Olivia це листяні трилисники з простої слонової кістки, тож влада постає як ріст, а не пожежа, а вогонь лишається для жезла."
+      }
+    },
+    {
+      "key": "wand",
+      "x": 25,
+      "y": 50,
+      "en": {
+        "name": "The flowering staff",
+        "seen": "A tall ivory branch knotted with short side twigs rises from the front corner of the dais to above the King’s head; one hand grips it at arm’s length, and a small blossom and bud open near the top.",
+        "meaning": "The suit of Wands is drawn as living wood, cut yet still sprouting, so fire here means growth as well as heat. The King does not brandish it: the staff is planted and steadied, a vision held upright long enough for others to gather round."
+      },
+      "uk": {
+        "name": "Квітуча палиця",
+        "seen": "Висока вузлувата гілка зі слонової кістки з короткими бічними пагінцями здіймається від переднього кута помосту вище голови Короля; одна витягнута рука міцно її тримає, а вгорі розкриваються маленька квітка й бутон.",
+        "meaning": "Масть Жезлів зображують живим деревом: гілку зрізано, але вона й далі пускає пагони, тож вогонь тут означає і ріст, і жар. Король нею не розмахує: палицю поставлено й притримано, а бачення тримають прямо й досить довго, щоб довкола нього зібралися інші."
+      }
+    },
+    {
+      "key": "moon",
+      "x": 10,
+      "y": 64,
+      "en": {
+        "name": "Full moon over the valley",
+        "seen": "At the far left a full moon, carved as a pale lapis disc, hangs above low hills; a small flock of birds flies beside it and a river winds through the valley below.",
+        "meaning": "The moon is not among this King’s traditional emblems. By setting the scene at night, with the moon low on the horizon and the flame held high, Olivia makes the torch the working light of the card: reflected light below, kindled light in hand."
+      },
+      "uk": {
+        "name": "Повний місяць над долиною",
+        "seen": "На лівому краї повний місяць, вирізьблений блідим лазуритовим диском, висить над низькими пагорбами; поруч летить невелика зграйка птахів, а внизу долиною в’ється річка.",
+        "meaning": "Місяць не належить до традиційних емблем цього Короля. Переносячи сцену в ніч, де місяць стоїть низько над обрієм, а полум’я піднято високо, Olivia робить смолоскип робочим світлом карти: унизу — відбите світло, у руці — запалене."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 59,
+      "y": 65,
+      "en": {
+        "name": "Salamander-patterned robe",
+        "seen": "The ivory cloak and gown are incised with small creatures, most long-bodied and long-tailed like salamanders; the hems carry a patterned border and a round clasp fastens the cloak at the chest.",
+        "meaning": "Salamanders scattered over this King’s robe belong to the traditional design: the element worn as clothing. It suggests fire as temperament rather than costume, the suit’s drive carried into every room, not switched on only for grand occasions."
+      },
+      "uk": {
+        "name": "Мантія із саламандрами",
+        "seen": "Плащ і шату зі слонової кістки вкривають вирізані дрібні істоти, здебільшого довготілі й довгохвості, як саламандри; поли облямовані візерунком, а кругла застібка скріплює плащ на грудях.",
+        "meaning": "Саламандри, розсипані по мантії цього Короля, належать до традиційного задуму: стихія, яку носять як одяг. Це вказує на вогонь як темперамент, а не костюм: порив масті несуть у кожну кімнату, а не вмикають лише з урочистої нагоди."
+      }
+    },
+    {
+      "key": "other",
+      "x": 38,
+      "y": 80,
+      "en": {
+        "name": "The salamander on the dais",
+        "seen": "A small speckled salamander carved in grey-blue lapis crawls across the top of the dais, its tail curled round the foot of the staff and its head raised towards the King’s ivory shoes.",
+        "meaning": "The traditional card also places a small live salamander beside the throne, as if the robe’s emblems had come to life. Here it lies where staff and dais meet, as if the element kept the King company: steady fire at ground level, close to where decisions are carried out."
+      },
+      "uk": {
+        "name": "Саламандра на помості",
+        "seen": "Маленька цяткована саламандра, вирізьблена із сіро-блакитного лазуриту, повзе по верху помосту; хвіст обвився довкола підніжжя палиці, а голову піднято до черевиків Короля зі слонової кістки.",
+        "meaning": "На традиційній карті біля трону теж є маленька жива саламандра, наче емблеми з мантії ожили. Тут вона лежить там, де палиця торкається помосту, ніби стихія тримається поруч із Королем: рівний вогонь біля самої землі, поруч із місцем, де рішення втілюються в дію."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The King of Wands carries a vision as a steady, shared light: fire held with enough calm and responsibility that others can find their way by it.",
+    "keywords": {
+      "upright": [
+        "visionary leadership",
+        "steady conviction",
+        "creative direction",
+        "courage",
+        "responsibility",
+        "inspiring others"
+      ],
+      "reversed": [
+        "domineering",
+        "impatience",
+        "scattered vision",
+        "burnout",
+        "hesitant authority"
+      ]
+    },
+    "upright": [
+      "The King of Wands draws attention to fire that has learned to last. The Page finds the spark and the Knight chases it; the King holds it up and keeps it burning. In Olivia’s image the flowering staff is not waved in the air. Its foot rests near the front corner of the dais, one hand steadies it at arm’s length, and the gold flame at its tip is the only gold on the whole figure. The vision is the brightest thing here, brighter than the crown.",
+      "Look at the posture too. The King sits forward on the edge of the throne, one foot advanced across the dais and the other hand resting on a knee, as if ready to stand the moment it is needed. The face turns away from the flame towards the hills on the right: the torch is trusted, so attention can go to the horizon and to the people who will walk there.",
+      "Upright, this card invites you to lead from conviction without gripping. Where do you already know the direction? It may be time to say it clearly, set the pace, and take responsibility for the conditions others need in order to carry it out: time, resources, room to disagree. The lions on the throne face outwards like guardians; courage here protects a territory rather than hunting for a fight."
+    ],
+    "reversed": [
+      "King of Wands reversed can point to fire that has lost its steadiness. A vision may be pushed so hard that others have little room to shape it, or impatience may turn direction into demand. It can also show the opposite: a capacity to lead held back by doubt, so that decisions wait and energy scatters. Sometimes it simply marks tiredness, the torch carried too long without rest.",
+      "Return to the image: the staff is planted, not brandished, and the hand only steadies it. Reversed, the invitation is to set some of the weight down. Ask what your aim actually needs from others and from you, and whether the pace you are keeping is one anyone, yourself included, could sustain."
+    ],
+    "number": "Kings are the outward mastery of their suit: they hold its element as responsibility for a wider realm. In Wands, the suit of fire, that means will, vision and creative drive turned into a direction others can follow. The Page discovers the spark, the Knight carries it into motion, the Queen holds its warmth from within; the King stands for fire tested enough to be trusted, now asked to lead, decide and keep the flame alive for more than one person.",
+    "tradition": "In the Golden Dawn system the seated King of the 1909 deck is usually matched with the Prince of Wands, titled the Prince of the Chariot of Fire: Air of Fire, the swift, expansive part of the element. Its span runs from 20° Cancer to 20° Leo, covering the decans of the Four of Cups, Five of Wands and Six of Wands. Book T pictures this Prince in a chariot drawn by a lion, with a winged lion’s head as a crest. Some modern readers give the King the Golden Dawn King’s place instead, Fire of Fire. Italian and Marseille decks show a crowned King of Batons with a heavy club; Pamela Colman Smith gave the King lions and salamanders on the throne, robe and ground.",
+    "court": {
+      "temperament": "As a temperament, the King of Wands is warm, decisive and forward-looking. This way of acting sees the whole shape of an undertaking before the details, speaks with conviction, and prefers to move once the direction is clear. Its energy is steadier than the Knight’s: less a charge, more a torch held up for a long walk.",
+      "gifts": "The gifts here are vision and the courage to own it: naming what matters, making a decision others can organise around, and lending confidence to people who are unsure how to begin. This King is good at starting things that outlast a first burst of enthusiasm, and at recognising the fire in someone else.",
+      "shadow": "In shadow, conviction hardens into impatience or control. You may push a plan faster than people can follow, mistake your certainty for everyone’s agreement, or grow restless once a project needs tending instead of launching. The image offers a counterweight: the staff rests at the corner of the dais, steadied, not raised like a weapon."
+    },
+    "areas": {
+      "love": "In love and close relationships, the King of Wands brings warmth, generosity and a wish to build something together. It invites you to share where you want your life to go and to ask, just as sincerely, where the other person wants theirs to go. Fire can light a home or take up all the air in it. With yourself, it can mean taking your own ambitions seriously enough to give them time and a plan.",
+      "work": "At work, in study and with money matters, this card favours clear direction and ownership: proposing the plan, setting priorities, taking responsibility for a result. It can point to a moment to lead a project or start something of your own on a realistic footing. Check that your vision comes with resources, timelines and people who have room to contribute, so the flame becomes an undertaking others can trust.",
+      "self": "For your own life, the King of Wands turns attention to what you most want to create and whether you are carrying it well. Like the gold flame set on living wood, a vision needs roots as well as brightness. Notice where your energy lifts you and where it drives you past rest. Self-leadership here means keeping your own fire alight at a pace you can hold."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter turns on direction and ownership: a vision that needs to be held clearly, stated plainly and carried forward by someone willing to take responsibility for it.",
+      "challenge": "As a challenge, it can show fire outrunning the people around it: a plan pushed before others have caught up, or confidence that leaves little space for doubt, rest or other views.",
+      "advice": "As advice, it invites you to state your aim plainly, take one decisive step towards it, and make sure the people involved can see why it matters to you."
+    },
+    "pairs": [
+      {
+        "with": 8,
+        "text": "Strength and the King of Wands both keep company with lions and with Leo’s fire. Strength meets raw force with gentleness; the King directs it outward as leadership. Together they ask whether your courage is steady enough to be gentle as well as bold."
+      },
+      {
+        "with": 22,
+        "text": "The Ace of Wands holds up the living branch as a first spark, its gold tip still closed like a bud. The King carries the same wood with the gold opened into flame. Together they trace how an impulse becomes a sustained purpose."
+      },
+      {
+        "with": 34,
+        "text": "The Queen and King of Wands both sit on lion-guarded thrones. The Queen holds the suit’s fire inwardly, as warmth and self-assurance; the King turns it outward into direction and responsibility. Together they draw attention to balancing your own radiance with the work of leading others."
+      }
+    ],
+    "questions": [
+      "What vision are you holding that others need to hear stated clearly?",
+      "Where could your conviction make more room for other people’s judgement?",
+      "What would help your fire burn steadily rather than flare and fade?"
+    ],
+    "practice": "Write your aim in one sentence at the top of a page, then list three conditions others would need in order to help carry it out."
+  },
+  "uk": {
+    "essence": "Король Жезлів несе бачення як рівне, спільне світло: вогонь, який тримають із таким спокоєм і відповідальністю, що інші можуть знайти в його світлі дорогу.",
+    "keywords": {
+      "upright": [
+        "лідерство з баченням",
+        "тверда переконаність",
+        "творче спрямування",
+        "мужність",
+        "відповідальність",
+        "натхнення для інших"
+      ],
+      "reversed": [
+        "владність",
+        "нетерплячість",
+        "розпорошене бачення",
+        "вигорання",
+        "нерішуче керівництво"
+      ]
+    },
+    "upright": [
+      "Король Жезлів привертає увагу до вогню, що навчився горіти довго. Паж знаходить іскру, Лицар женеться за нею; Король піднімає її й не дає згаснути. На зображенні Olivia квітучою палицею не розмахують у повітрі. Нижній кінець палиці спирається біля переднього кута помосту, одна витягнута рука її притримує, а золоте полум’я на верхівці — єдине золото на всій постаті. Бачення — найяскравіше, що тут є, яскравіше навіть за корону.",
+      "Погляньте й на поставу. Король сидить на самому краю трону, подавшись уперед: одна нога висунута вперед на помості, друга рука лежить на коліні, наче Король готовий підвестися, щойно це знадобиться. Обличчя відвернуте від полум’я до пагорбів праворуч: смолоскипу довіряють, тож увагу можна звернути до обрію й до людей, які туди йтимуть.",
+      "У прямому положенні ця карта запрошує вас вести за собою з переконання, але без мертвої хватки. Де ви вже знаєте напрям? Можливо, саме час чітко його назвати, задати темп і взяти відповідальність за умови, потрібні іншим, щоб утілити задум: час, ресурси, простір для незгоди. Леви на троні дивляться назовні, мов вартові; мужність тут охороняє територію, а не шукає сутички."
+    ],
+    "reversed": [
+      "Король Жезлів у перевернутому положенні може вказувати на вогонь, що втратив стійкість. Бачення можуть проштовхувати так наполегливо, що іншим майже не лишається місця його формувати, або ж нетерплячість перетворює напрям на вимогу. Карта може показувати й протилежне: здатність вести, яку стримує сумнів, тож рішення відкладаються, а енергія розпорошується. Іноді вона просто позначає втому — смолоскип, який надто довго несли без перепочинку.",
+      "Поверніться до зображення: палицю встановлено, а не здійнято, як зброю, і рука лише її підтримує. У перевернутому положенні карта запрошує зняти з себе частину ноші. Запитайте себе, чого ваша мета насправді потребує від інших і від вас, і чи темп, якого ви тримаєтеся, під силу будь-кому, зокрема й вам самим."
+    ],
+    "number": "Королі — зовнішня майстерність своєї масті: вони тримають її стихію як відповідальність за ширший край. У Жезлах, масті вогню, це воля, бачення й творчий порив, перетворені на напрям, яким можуть іти інші. Паж відкриває іскру, Лицар приводить її в рух, Королева береже її тепло всередині; Король уособлює вогонь, досить випробуваний, щоб йому довіряли, і тепер покликаний вести, вирішувати й підтримувати полум’я не лише для однієї людини.",
+    "tradition": "У системі Золотої Зорі сидячого Короля з колоди 1909 року зазвичай зіставляють із Принцом Жезлів, що має титул «Принц Колісниці Вогню»: Повітря Вогню, швидка й розлога частина стихії. Він охоплює відрізок від 20° Рака до 20° Лева, тобто декани Четвірки Кубків, П’ятірки Жезлів і Шістки Жезлів. Книга Т зображує цього Принца в колісниці, запряженій левом, із головою крилатого лева на гребені. Деякі сучасні читачі натомість віддають Королю місце Короля Золотої Зорі — Вогонь Вогню. В італійських і марсельських колодах це коронований Король Палиць із важкою булавою; Памела Колман Сміт розмістила левів і саламандр на троні, мантії Короля та землі біля нього.",
+    "court": {
+      "temperament": "Як темперамент Король Жезлів — це тепло, рішучість і погляд, звернений уперед. Такий спосіб діяти бачить обриси всього задуму раніше, ніж деталі, говорить із переконанням і воліє рушати, щойно напрям зрозумілий. Його енергія рівніша, ніж у Лицаря: менше ривка, більше смолоскипа, піднятого на довгу дорогу.",
+      "gifts": "Дари тут — бачення й мужність за нього відповідати: назвати те, що важливо, ухвалити рішення, довкола якого інші можуть організуватися, і додати впевненості тим, хто не знає, з чого почати. Цей Король уміє починати справи, що переживають перший спалах ентузіазму, і розпізнавати вогонь в інших.",
+      "shadow": "У тіні переконаність твердне й переходить у нетерплячість чи контроль. Ви можете проштовхувати план швидше, ніж люди встигають за ним, плутати власну певність із загальною згодою або втрачати спокій, коли проєкт потребує догляду, а не запуску. Зображення пропонує противагу: палиця спирається на кут помосту, її підтримують, а не здіймають, як зброю."
+    },
+    "areas": {
+      "love": "У коханні й близьких стосунках Король Жезлів приносить тепло, щедрість і бажання будувати щось разом. Карта запрошує вас розповісти, куди ви хочете спрямувати своє життя, і так само щиро запитати, куди хоче спрямувати своє інша людина. Вогонь може освітити дім, а може забрати в ньому все повітря. У стосунках із собою це може означати ставитися до власних амбіцій досить серйозно, щоб дати їм час і план.",
+      "work": "У роботі, навчанні та грошових справах ця карта на боці чіткого напряму й відповідальності: запропонувати план, розставити пріоритети, відповідати за результат. Вона може вказувати на слушний час очолити проєкт або започаткувати щось своє на реалістичних засадах. Перевірте, чи має ваше бачення ресурси, строки й людей, які мають змогу долучитися, щоб полум’я стало справою, якій інші можуть довіряти.",
+      "self": "У вашому власному житті Король Жезлів привертає увагу до того, що ви найбільше хочете створити, і до того, чи добре ви це несете. Як золоте полум’я на живому дереві, бачення потребує не лише яскравості, а й коріння. Помічайте, де енергія вас підносить, а де жене повз відпочинок. Самолідерство тут означає підтримувати власний вогонь у темпі, який ви здатні витримати."
+    },
+    "positions": {
+      "heart": "У серці запитання ця карта підказує, що все тримається на напрямі й відповідальності: на баченні, яке треба чітко тримати, просто висловити й нести далі з готовністю за нього відповідати.",
+      "challenge": "Як виклик вона може показувати вогонь, що випереджає людей довкола: план, проштовхнутий раніше, ніж інші встигли наздогнати, або впевненість, яка лишає мало місця для сумніву, відпочинку чи інших поглядів.",
+      "advice": "Як порада карта запрошує вас прямо назвати свою мету, зробити до неї один рішучий крок і подбати, щоб причетні люди бачили, чому вона для вас важлива."
+    },
+    "pairs": [
+      {
+        "with": 8,
+        "text": "Сила й Король Жезлів однаково тримаються поруч із левами та вогнем знака Лева. Сила зустрічає грубу міць лагідністю; Король спрямовує її назовні як лідерство. Разом вони запитують, чи ваша мужність достатньо стійка, щоб бути і лагідною, і сміливою."
+      },
+      {
+        "with": 22,
+        "text": "Туз Жезлів піднімає живу гілку як першу іскру, її золотий кінчик ще закритий, мов бутон. Король несе те саме дерево, але золото на ньому розкрилося полум’ям. Разом вони показують, як порив стає тривалою метою."
+      },
+      {
+        "with": 34,
+        "text": "Королева Жезлів і Король Жезлів сидять на тронах, які стережуть леви. Королева тримає вогонь масті всередині, як тепло й упевненість у собі; Король спрямовує його назовні — у напрям і відповідальність. Разом вони привертають увагу до рівноваги між власним сяйвом і працею вести інших."
+      }
+    ],
+    "questions": [
+      "Яке ваше бачення варто чітко висловити, бо іншим важливо його почути?",
+      "Де ваша переконаність могла б залишити більше місця для суджень інших людей?",
+      "Що допомогло б вашому вогню горіти рівно, а не спалахувати й згасати?"
+    ],
+    "practice": "Запишіть свою мету одним реченням угорі сторінки, а під ним перелічіть три умови, які знадобилися б іншим, щоб допомогти її втілити."
+  }
+}

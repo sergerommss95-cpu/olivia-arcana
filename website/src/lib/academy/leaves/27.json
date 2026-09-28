@@ -1,0 +1,265 @@
+{
+  "id": 27,
+  "slug": "six-of-wands",
+  "artwork": {
+    "file": "27_six_of_wands.webp",
+    "sha256": "8c7d413a2d9a25d6f2faa578226363a653aa83057eb615263f4567eb7d55cb87"
+  },
+  "symbols": [
+    {
+      "key": "wreath",
+      "x": 56,
+      "y": 28,
+      "en": {
+        "name": "The wreath on the staff",
+        "seen": "At the top of the rider’s staff an open ring of pale, silvery laurel leaves rises against the night. A small sprig of gold leaves is tied where the ring meets the staff, on its left.",
+        "meaning": "The wreath on the staff is the card’s classic sign of victory: the prize lifted where everyone can see it. Olivia adds a single sprig of gold, the only gold in the carving, so the eye lands on one precious point of worth inside the public display."
+      },
+      "uk": {
+        "name": "Вінок на жезлі",
+        "seen": "На вершині жезла вершника на тлі нічного неба здіймається розімкнене кільце блідого, сріблястого лаврового листя. Там, де кільце сходиться з жезлом, ліворуч прив’язано невелику гілочку золотого листя.",
+        "meaning": "Вінок на жезлі — класичний знак перемоги в цій карті: нагороду піднято так, щоб її бачили всі. Olivia додає одну-єдину золоту гілочку, єдине золото в усьому різьбленні, тож погляд зупиняється на одній цінній точці посеред публічного тріумфу."
+      }
+    },
+    {
+      "key": "laurel",
+      "x": 63,
+      "y": 43,
+      "en": {
+        "name": "The laurel crown",
+        "seen": "A carved ivory crown of laurel leaves sits on the rider’s curled hair. The rider’s head is in profile, facing right and level, looking ahead rather than down at the crowd.",
+        "meaning": "Laurel was the ancient crown of victors and poets, and the traditional rider wears it too. Here the crowned head faces forward, past the applause. Recognition is worn, but the attention stays on the road ahead rather than on the people cheering."
+      },
+      "uk": {
+        "name": "Лавровий вінець",
+        "seen": "На кучерявій голові вершника — вирізьблений зі слонової кістки вінець із лаврового листя. Голову показано в профіль: вона повернута праворуч і тримається рівно, погляд спрямовано вперед, а не вниз, на натовп.",
+        "meaning": "Лавр був давнім вінцем переможців і поетів, і традиційний вершник теж його носить. Тут увінчана голова дивиться вперед, повз оплески. Вінець визнання на голові, але увага лишається на дорозі попереду, а не на юрбі, що вітає переможця."
+      }
+    },
+    {
+      "key": "wand",
+      "x": 37,
+      "y": 46,
+      "en": {
+        "name": "Wands raised by the crowd",
+        "seen": "Four staves rise among the walkers: two knotted staves slant back from the raised hands of the two rearmost walkers, one stands upright in a bearded walker’s fist, and a shorter one lifts behind it.",
+        "meaning": "Wands are the suit of Fire: will, drive and creative effort. The traditional card shows six staves, one of them the rider’s. Here five are visible, counting the rider’s, which suggests the effort being honoured was shared, carried by many hands and not only by the one in the saddle."
+      },
+      "uk": {
+        "name": "Жезли, підняті супроводом",
+        "seen": "Серед пішої ходи здіймаються чотири жезли: два вузлуваті, у піднятих руках двох задніх постатей, нахилені назад, один стоїть прямо в кулаці бородатої постаті, а коротший виринає позаду нього.",
+        "meaning": "Жезли — масть Вогню: воля, рушійна сила й творче зусилля. На традиційній карті шість жезлів, один із них — у вершника. Тут їх видно п’ять разом із жезлом вершника, і це натякає, що вшановане зусилля було спільним: його несло багато рук, а не лише постать у сідлі."
+      }
+    },
+    {
+      "key": "crowd",
+      "x": 22,
+      "y": 60,
+      "en": {
+        "name": "The walking companions",
+        "seen": "Five walkers follow on foot, stepping towards the right. Two are carved in ivory; the helmeted, capped and bare-headed figures set back are in grey-blue lapis. Faces turn up towards the rider; one raises an empty hand.",
+        "meaning": "The attendants are traditionally read as supporters and witnesses: victory needs someone to see it. By carving three walkers in the background stone, Olivia’s image can suggest how quickly helpers fade from view, and invites you to remember who walked beside your success."
+      },
+      "uk": {
+        "name": "Піші супутники",
+        "seen": "Позаду пішки йдуть п’ять постатей, ступаючи праворуч. Дві вирізьблено зі слонової кістки; постаті в шоломі, у шапочці та з непокритою головою, розміщені на задньому плані, — із сіро-блакитного лазуриту. Обличчя звернені вгору, до вершника; одна постать піднімає порожню руку.",
+        "meaning": "Супровід традиційно читають як прихильників і свідків: перемозі потрібен хтось, хто її побачить. Оскільки трьох супутників Olivia вирізьблює у фоновому камені, образ може нагадати, як швидко помічники зникають із поля зору, і запрошує вас згадати, хто йшов поруч із вашим успіхом."
+      }
+    },
+    {
+      "key": "horse",
+      "x": 83,
+      "y": 53,
+      "en": {
+        "name": "The white horse",
+        "seen": "An ivory horse, larger than any walker, carries the rider to the right. Its neck arches, a bridle and reins run to the rider’s lowered hand, and the front leg at the far right is lifted high.",
+        "meaning": "The white horse is traditional for this card: strength, momentum and a pure, clear success. Its raised foreleg shows a parade step, energy under control. The rider holds the reins lightly with one hand, guiding power rather than fighting it."
+      },
+      "uk": {
+        "name": "Білий кінь",
+        "seen": "Кінь зі слонової кістки, більший за будь-кого з пішого супроводу, несе вершника праворуч. Шия вигнута дугою, вуздечка й повід тягнуться до опущеної руки вершника, а передня нога біля самого правого краю високо піднята.",
+        "meaning": "Білий кінь — традиційна деталь цієї карти: сила, розгін і чистий, ясний успіх. Піднята передня нога — це парадний крок, енергія під контролем. Вершник легко тримає повід однією рукою, спрямовуючи силу, а не борючись із нею."
+      }
+    },
+    {
+      "key": "other",
+      "x": 69,
+      "y": 70,
+      "en": {
+        "name": "The rider’s bare foot",
+        "seen": "Below the tasselled saddle-cloth, with its embroidered border and roundel, the rider’s leg hangs relaxed and the foot is bare, toes pointing down towards the road, with no stirrup or boot.",
+        "meaning": "This is Olivia’s own detail rather than a fixed part of the tradition. The walkers wear soft boots, yet the honoured figure rides barefoot. It keeps the victor close to the ground and humanly vulnerable: the triumph is real, but the person inside it is unarmoured."
+      },
+      "uk": {
+        "name": "Боса нога вершника",
+        "seen": "Під сідельною попоною з китицями, вишитою облямівкою та медальйоном розслаблено звисає нога вершника. Стопа боса, пальці спрямовані вниз, до дороги; немає ні стремена, ні чобота.",
+        "meaning": "Це власна деталь Olivia, а не усталена частина традиції. Супутники взуті в м’які чоботи, а вшанована постать їде боса. Так вона лишається близькою до землі й по-людськи вразливою: тріумф справжній, але людина всередині нього — без обладунків."
+      }
+    },
+    {
+      "key": "city",
+      "x": 92,
+      "y": 43,
+      "en": {
+        "name": "Temples on the skyline",
+        "seen": "Carved in paler lapis behind the procession: on the left, low hills and a small pedimented temple between two columns; on the right, a larger colonnade with a broken roofline at the card’s edge.",
+        "meaning": "The traditional card has no fixed setting; this deck places the parade in a classical city of temples. A procession through a city can be read as a homecoming, a triumph witnessed by a community. The weathered colonnade adds that every public glory joins a longer history."
+      },
+      "uk": {
+        "name": "Храми на обрії",
+        "seen": "Позаду процесії, у світлішому лазуриті: ліворуч — невисокі пагорби й маленький храм із фронтоном між двома колонами; праворуч — більша колонада з обламаною лінією даху біля краю карти.",
+        "meaning": "Традиційна карта не має сталого місця дії; ця колода переносить парад до класичного міста храмів. Процесію містом можна прочитати як повернення додому, тріумф, засвідчений громадою. Обвітрена колонада додає, що кожна публічна слава вписується в довшу історію."
+      }
+    },
+    {
+      "key": "path",
+      "x": 50,
+      "y": 78,
+      "en": {
+        "name": "The cracked road",
+        "seen": "Every foot and hoof rests on one narrow road of pale, greyish lapis, crazed with cracks like old paving. Below it the deep blue stone continues to the card’s bottom edge, flecked with gold.",
+        "meaning": "The road turns the victory into a movement rather than a monument: the procession is passing through, not standing still. Its cracked surface suggests that success travels over ground worn by earlier efforts, and that the parade, too, moves on."
+      },
+      "uk": {
+        "name": "Потріскана дорога",
+        "seen": "Кожна нога й кожне копито стоять на одній вузькій дорозі з блідого сіруватого лазуриту, вкритій сіткою тріщин, мов стара бруківка. Нижче глибокий синій камінь тягнеться до нижнього краю карти, поцяткований золотом.",
+        "meaning": "Дорога перетворює перемогу на рух, а не на пам’ятник: процесія минає, а не стоїть на місці. Потріскана поверхня натякає, що успіх ступає ґрунтом, стертим попередніми зусиллями, і що парад теж рушає далі."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 46,
+      "y": 22,
+      "en": {
+        "name": "The glittering vein",
+        "seen": "A long band of glittering pale mineral crosses the sky diagonally from upper right to lower left, above the procession, among scattered gold flecks shaped like tiny stars.",
+        "meaning": "This is a feature of the stone, not of tarot tradition. Above the parade the night keeps a wider, older order. It quietly places the moment of applause inside a much larger sky, where one success is bright but not the whole picture."
+      },
+      "uk": {
+        "name": "Мерехтлива жилка",
+        "seen": "Довга смуга мерехтливого блідого мінералу перетинає небо навскіс, згори праворуч донизу ліворуч, над процесією, серед розсипаних золотих цяток, схожих на крихітні зорі.",
+        "meaning": "Це особливість каменю, а не тарологічної традиції. Над парадом ніч зберігає ширший, давніший лад. Жилка тихо вміщує мить оплесків у значно більше небо, де один успіх яскравий, але не становить усієї картини."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Six of Wands lets a good result be seen: it asks you to receive recognition fully, share its credit, and keep moving forward.",
+    "keywords": {
+      "upright": [
+        "recognition",
+        "public success",
+        "confidence",
+        "shared credit",
+        "momentum"
+      ],
+      "reversed": [
+        "unseen effort",
+        "approval-seeking",
+        "fear of visibility",
+        "hollow applause",
+        "stalled pride"
+      ]
+    },
+    "upright": [
+      "The Six of Wands draws attention to a moment when effort becomes visible. Something you have worked for reaches a point where others can see it, and the card asks you to let that be true. In Olivia’s image the rider sits easily on a white horse, a laurel crown on the curled head, holding up a staff topped by a wreath. The walkers lift staves and hands and look up. This is recognition in its simplest form: the work is done, and it is witnessed.",
+      "Look at where the rider’s eyes go. They do not turn down towards the cheering but stay level, facing the road ahead. The card invites a similar balance in you: to take in appreciation without shrinking it, and without letting it become the only reason to continue. The single sprig of gold at the base of the wreath marks what is precious here, and it is small. What this success means to you may matter more than how loudly it is praised.",
+      "Notice, too, how many hands carry staves. Success in this card is rarely solitary. It can point to a good moment to name the people, conditions and earlier attempts that made it possible, and to let shared credit steady your confidence."
+    ],
+    "reversed": [
+      "Six of Wands reversed can point to recognition that is blocked, delayed or out of proportion. Perhaps real progress has gone unnoticed, and the quiet leaves you doubting it. Perhaps praise has begun to matter more than the work, so that each result needs an audience before it feels real. Sometimes it is the opposite: you step back from visibility because being seen feels exposing.",
+      "The reversed card turns attention inward. Your progress is no less real without the parade. Ask what the effort taught you, who helped it happen, and what you would continue even if nobody were watching. From there, a smaller, steadier confidence can grow, one that rests on the road rather than on the crowd."
+    ],
+    "number": "Six in the Minor Arcana is the point of balance after Five’s disruption: harmony restored, generosity, a moment of equilibrium. In Wands, the suit of Fire, will and creative drive, that balance takes the form of recognition. The contest of the Five of Wands resolves, and the energy that was spent in struggle is now seen and honoured. Six stands just past the middle of the count from Ace to Ten, so the victory is real but not final; the road continues towards the Seven’s need to defend what has been won.",
+    "tradition": "In the Golden Dawn system the Six of Wands is titled the Lord of Victory. It is attributed to Jupiter in Leo, the second decan of that fixed Fire sign, and to Tiphareth, the sixth and central sephira of the Tree of Life, associated with harmony and beauty. Jupiter’s expansiveness in Leo’s pride and warmth fits the card’s theme of honour and public success. In older Marseille-pattern decks the Six of Batons shows only crossed staves with ornament and no scene. The mounted, laurel-crowned rider with a wreathed staff and attendants on foot comes from Pamela Colman Smith’s 1909 design for the Rider-Waite-Smith deck, which Olivia’s image follows in composition.",
+    "areas": {
+      "love": "In close relationships the Six of Wands invites you to let good things be seen and said. Perhaps a partner, friend or family member has done something that deserves open appreciation, or perhaps you are the one hoping to be noticed. The card turns attention towards how recognition flows between you. With yourself, it can point to acknowledging a change you have made, instead of moving straight on to the next thing to fix.",
+      "work": "At work or in study, this card can point to a finished project, a good result or a moment of visible progress. It invites you to accept acknowledgement plainly and to name who contributed, as the walkers with their own staves remind you. It also asks what the success means beyond approval: what you learned, what you now do better, and what you would like to build next from this footing.",
+      "self": "For your inner life, the Six of Wands asks where your confidence rests. If it rests only on applause, it tends to rise and fall with other people’s attention. If it rests on specific effort and learning, it can hold steady. Take a moment to recognise one thing you did well, in plain words, and notice whether you can let it stand without adding a qualification or a new demand."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Six of Wands points to recognition: a result, or a wish to be seen, that sits at the core of what you are asking.",
+      "challenge": "As a challenge, it can point to dependence on approval, or to discomfort with being visible, which makes it hard to value progress on its own terms.",
+      "advice": "As advice, it invites you to acknowledge a real achievement openly, thank those who helped, and choose your next step from that steady footing."
+    },
+    "pairs": [
+      {
+        "with": 26,
+        "text": "With the Five of Wands, the sequence is clear: scattered struggle, then recognition. Together they draw attention to how a period of friction or competition can resolve into a result that others acknowledge."
+      },
+      {
+        "with": 7,
+        "text": "With The Chariot, two images of forward movement and triumph meet. Together they ask how you steer your own energy, and whether the success rests on direction and discipline or on the crowd’s momentum."
+      },
+      {
+        "with": 28,
+        "text": "With the Seven of Wands, the victory is followed by a stand. Together they draw attention to what visibility brings: once your work is seen, you may also need to hold your ground for it."
+      }
+    ],
+    "questions": [
+      "Which recent achievement have you not yet allowed yourself to fully acknowledge?",
+      "Who carried part of this success with you, and how might you name their contribution?",
+      "What would you keep doing here even if nobody noticed or applauded?"
+    ],
+    "practice": "Write one sentence naming something you did well this week, then list two people or conditions that helped it happen, and read both aloud once."
+  },
+  "uk": {
+    "essence": "Шістка Жезлів дає доброму результату стати помітним: вона просить вас повною мірою прийняти визнання, поділитися заслугою й далі рухатися вперед.",
+    "keywords": {
+      "upright": [
+        "визнання",
+        "публічний успіх",
+        "впевненість",
+        "спільна заслуга",
+        "розгін"
+      ],
+      "reversed": [
+        "непомічене зусилля",
+        "пошук схвалення",
+        "страх видимості",
+        "порожні оплески",
+        "застигла гордість"
+      ]
+    },
+    "upright": [
+      "Шістка Жезлів звертає увагу на мить, коли зусилля стає видимим. Те, над чим ви працювали, доходить до точки, де його бачать інші, і карта просить вас не відмахуватися від цього. В образі Olivia вершник невимушено сидить на білому коні: на кучерявій голові — лавровий вінець, у піднятій руці — жезл, увінчаний вінком. Піші супутники здіймають жезли й руки та дивляться вгору. Це визнання в найпростішій формі: роботу зроблено, і вона має свідків.",
+      "Погляньте, куди дивиться вершник. Погляд не опускається до тих, хто вітає, а лишається рівним і спрямованим на дорогу попереду. Карта запрошує й вас до подібної рівноваги: прийняти вдячність, не применшуючи її, але й не даючи їй стати єдиною причиною йти далі. Єдина золота гілочка біля основи вінка позначає те, що тут справді цінне, і вона маленька. Те, що цей успіх означає для вас, може важити більше, ніж гучність похвали.",
+      "Зверніть увагу й на те, скільки рук несуть жезли. Успіх у цій карті рідко буває самотнім. Вона може вказувати на слушну мить, щоб назвати людей, обставини й попередні спроби, які його уможливили, і дозволити спільній заслузі зміцнити вашу впевненість."
+    ],
+    "reversed": [
+      "Шістка Жезлів у перевернутому положенні може вказувати на визнання, яке заблоковане, бариться або не відповідає масштабу зробленого. Можливо, справжній поступ лишився непоміченим, і тиша змушує вас у ньому сумніватися. Можливо, похвала почала важити більше за саму роботу, і кожен результат тепер потребує глядачів, щоб здаватися справжнім. Іноді буває навпаки: ви відступаєте в тінь, бо бути на виду означає почуватися незахищеними.",
+      "Перевернута карта спрямовує увагу всередину. Без параду ваш поступ не стає менш справжнім. Запитайте себе, чого навчило вас це зусилля, хто допоміг йому здійснитися і що ви робили б далі, навіть якби ніхто не дивився. Звідси може вирости менша, але стійкіша впевненість — та, що спирається на дорогу, а не на натовп."
+    ],
+    "number": "Шістка в Молодших Арканах — точка рівноваги після потрясіння П’ятірки: відновлена гармонія, щедрість, мить спокою. У Жезлах, масті Вогню, волі й творчого пориву, ця рівновага набуває форми визнання. Змагання П’ятірки Жезлів завершується, і енергію, витрачену на боротьбу, тепер бачать і вшановують. Шістка стоїть одразу за серединою рахунку від Туза до Десятки, тож перемога справжня, але не остаточна: дорога веде далі, до Сімки, якій доведеться захищати здобуте.",
+    "tradition": "У системі Золотої Зорі Шістка Жезлів має титул «Володар Перемоги». Їй відповідають Юпітер у Леві, другий декан цього фіксованого вогняного знака, і Тіферет, шоста й центральна сефіра Дерева Життя, пов’язана з гармонією та красою. Юпітерів розмах у гордості й теплі Лева пасує до теми карти — честі й публічного успіху. У давніших колодах марсельського типу Шістка Палиць показує лише схрещені палиці з орнаментом, без жодної сцени. Вершника на коні в лавровому вінці, з увінчаним вінком жезлом і пішим супроводом, дав карті малюнок Памели Колман Сміт 1909 року для колоди Райдера–Вейта–Сміт; саме цю композицію й наслідує образ Olivia.",
+    "areas": {
+      "love": "У близьких стосунках Шістка Жезлів запрошує вас дозволити добрим речам бути поміченими й названими вголос. Можливо, хтось близький — у парі, серед друзів чи в родині — зробив щось, що заслуговує на відкриту вдячність, а може, це ви сподіваєтеся, що вас помітять. Карта спрямовує увагу на те, як визнання рухається між вами. У стосунках із собою вона може підказувати визнати зміну, якої ви вже досягли, а не одразу братися за наступне, що треба виправити.",
+      "work": "У роботі чи навчанні ця карта може вказувати на завершений проєкт, добрий результат або мить помітного поступу. Вона запрошує просто прийняти визнання й назвати тих, хто долучився, — про це нагадують піші супутники з власними жезлами. А ще вона запитує, що означає цей успіх поза схваленням: чого ви навчилися, що тепер робите краще і що хотіли б збудувати далі на цьому ґрунті.",
+      "self": "Щодо вашого внутрішнього життя Шістка Жезлів запитує, на чому тримається ваша впевненість. Якщо лише на оплесках, вона зазвичай злітає й падає разом з увагою інших. Якщо на конкретних зусиллях і набутому досвіді, вона може лишатися стійкою. Приділіть хвилину, щоб простими словами визнати одну річ, яку ви зробили добре, і помітьте, чи вдається вам лишити це визнання без застережень і нових вимог."
+    },
+    "positions": {
+      "heart": "У центрі запитання Шістка Жезлів вказує на визнання: результат або бажання бути поміченими, що лежить в основі того, про що ви запитуєте.",
+      "challenge": "Як перешкода вона може вказувати на залежність від схвалення або на незручність бути на виду, через які важко цінувати поступ як такий.",
+      "advice": "Як порада вона запрошує вас відкрито визнати справжнє досягнення, подякувати тим, хто допоміг, і вибрати наступний крок, стоячи на цьому твердому ґрунті."
+    },
+    "pairs": [
+      {
+        "with": 26,
+        "text": "З П’ятіркою Жезлів послідовність очевидна: спершу розпорошена боротьба, потім визнання. Разом вони звертають увагу на те, як період тертя чи суперництва може завершитися результатом, який визнають інші."
+      },
+      {
+        "with": 7,
+        "text": "З Колісницею зустрічаються два образи руху вперед і тріумфу. Разом вони запитують, як ви керуєте власною енергією і на чому тримається успіх: на напрямку й дисципліні чи на розгоні натовпу."
+      },
+      {
+        "with": 28,
+        "text": "Із Сімкою Жезлів за перемогою настає час утримувати позицію. Разом вони звертають увагу на те, що приносить видимість: щойно вашу роботу побачили, вам може знадобитися її обстоювати."
+      }
+    ],
+    "questions": [
+      "Яке нещодавнє досягнення ви ще не дозволили собі повною мірою визнати?",
+      "Хто ніс частину цього успіху разом із вами і як ви могли б назвати їхній внесок?",
+      "Що ви й далі робили б тут, навіть якби ніхто цього не помічав і не аплодував?"
+    ],
+    "practice": "Напишіть одне речення про те, що вам цього тижня вдалося добре, потім назвіть двох людей чи дві обставини, які цьому допомогли, і один раз прочитайте обидва записи вголос."
+  }
+}

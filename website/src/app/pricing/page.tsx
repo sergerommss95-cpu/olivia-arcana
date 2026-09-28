@@ -5,26 +5,29 @@ import TariffActions from "@/components/almanac/TariffActions";
 import { ACCOUNTS_ENABLED, PAYMENTS_ENABLED } from "@/lib/service-status";
 import { socialImages, socialImageUrls } from "@/lib/social-images";
 
+const membershipReady = ACCOUNTS_ENABLED && PAYMENTS_ENABLED;
+const DESCRIPTION = membershipReady
+  ? "Explore Olivia’s free one-card and three-card readings, the personal almanac, and how deeper member spreads work."
+  : "Every Olivia reading is free for now: one card, three cards, and the five- and eight-card spreads, plus a personal almanac on your device.";
+
 export const metadata: Metadata = {
   title: "Free readings & membership — Olivia Arcana",
-  description: "Every Olivia reading is free for now: one card, three cards, and the five- and eight-card spreads, plus a personal almanac on your device.",
+  description: DESCRIPTION,
   alternates: { canonical: "https://oliviaarcana.com/pricing" },
   openGraph: {
     title: "Free readings & membership — Olivia Arcana",
-    description: "Start with a free reading. See what you can use today and how deeper member spreads work.",
+    description: DESCRIPTION,
     url: "https://oliviaarcana.com/pricing",
     type: "website",
     siteName: "Olivia Arcana",
     images: socialImages("en"),
   },
-  twitter: { card: "summary_large_image", title: "Free readings & membership — Olivia Arcana", description: "Start with a free reading. See what you can use today and how deeper member spreads work.", images: socialImageUrls("en") },
+  twitter: { card: "summary_large_image", title: "Free readings & membership — Olivia Arcana", description: DESCRIPTION, images: socialImageUrls("en") },
 };
-
-const membershipReady = ACCOUNTS_ENABLED && PAYMENTS_ENABLED;
 
 export default function PricingPage() {
   return (
-    <LegalShell title="Room to begin. Room to go deeper." updated="September 25, 2026">
+    <LegalShell title="Room to begin. Room to go deeper." updated="September 28, 2026">
       <p>
         Begin with a question and the full 78-card Olivia deck. A useful first
         reading, and a place to keep your own reflections, are free.

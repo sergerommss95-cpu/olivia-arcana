@@ -1,0 +1,252 @@
+{
+  "id": 67,
+  "slug": "four-of-pentacles",
+  "artwork": {
+    "file": "67_four_of_pentacles.webp",
+    "sha256": "59a3d940248fe1df042f8639a3059e88ceef8e41f79b7b711b74794b1d87d514"
+  },
+  "symbols": [
+    {
+      "key": "city",
+      "x": 62,
+      "y": 29,
+      "en": {
+        "name": "The walled city behind",
+        "seen": "Carved in paler lapis on the horizon, a walled city of crowded roofs and pointed towers rises to one tall keep with a conical roof; crenellated walls and an arched gate face the plain, a low hill to the left.",
+        "meaning": "The traditional card sets a city behind the seated figure: the settled, built world of trade and shelter that security makes possible. Here it lies far off across an empty plain, and the figure sits with its back to it, which sharpens the question of what all the holding is for."
+      },
+      "uk": {
+        "name": "Місто за мурами позаду",
+        "seen": "На обрії, вирізьблене у світлішому лазуриті, постає місто за мурами: тісні дахи й гострі вежі здіймаються до високого донжона з конічним дахом; зубчасті мури й арочна брама звернені до рівнини, ліворуч — невисокий пагорб.",
+        "meaning": "У традиційній карті за сидячою постаттю стоїть місто — облаштований, збудований світ торгівлі й прихистку, який уможливлює безпека. Тут воно далеко, за порожньою рівниною, а постать сидить до нього спиною, і від цього гостріше звучить запитання: заради чого все це тримати?"
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 50,
+      "y": 35,
+      "en": {
+        "name": "The star above the crown",
+        "seen": "A five-pointed star carved in pale blue lapis, with no disc around it, hangs just above the tallest point of the crown, separated from it by a narrow gap, against the foot of the city walls.",
+        "meaning": "In the traditional image a pentacle rests on the crowned head, commonly read as the mind fixed on possessions. Olivia lifts it clear of the crown and strips its disc, so it reads as a preoccupation hovering over every thought: close enough to shape them, not quite part of the head."
+      },
+      "uk": {
+        "name": "Зірка над короною",
+        "seen": "П’ятикутна зірка, вирізьблена з блідо-блакитного лазуриту, без диска довкола, висить просто над найвищим зубцем корони, відділена від нього вузьким проміжком, на тлі підніжжя міських мурів.",
+        "meaning": "На традиційному зображенні пентакль лежить на увінчаній голові, і це зазвичай читають як розум, прикутий до статків. Olivia підносить його над короною й позбавляє диска, тож він постає заклопотаністю, що нависає над усіма думками: досить близько, щоб їх визначати, і все ж не зовсім частина голови."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 50,
+      "y": 41,
+      "en": {
+        "name": "The crown and level gaze",
+        "seen": "An ivory crown of pointed tines, the tallest at the centre, sits on thick waves of hair; below it a bearded face looks straight out with drawn brows and a closed, unsmiling mouth.",
+        "meaning": "The crown marks this as a card of earthly power, which is its old Golden Dawn title. The steady frontal gaze commonly reads as watchfulness: something has been gained and is now being kept under guard. Authority here is spent on keeping, rather than on ruling, making or exploring."
+      },
+      "uk": {
+        "name": "Корона і прямий погляд",
+        "seen": "Корона зі слонової кістки з гострими зубцями, найвищий із яких — посередині, лежить на густих хвилях волосся; під нею бородате обличчя дивиться просто перед собою: брови насуплені, вуста стулені, без усмішки.",
+        "meaning": "Корона вказує, що це карта земної влади: так і звучить її давній титул у Золотій Зорі. Непорушний погляд просто вперед зазвичай читають як пильність: щось здобуто, і тепер його стережуть. Владу тут витрачають на збереження, а не на правління, творення чи пошук."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 51,
+      "y": 56,
+      "en": {
+        "name": "The gold star on the disc",
+        "seen": "Pressed flat against the chest, a large plain ivory disc carries a five-pointed star inlaid in textured gold, the only large piece of gold on the card; elsewhere gold appears as small flecks and tiny stars in the sky.",
+        "meaning": "This is the pentacle held close and the heart of the card: what is valued most, guarded against the body. It is the only one of the four still framed by its disc and the only one in gold, as if all the worth were gathered into the thing being clasped while the rest fade to plain stone."
+      },
+      "uk": {
+        "name": "Золота зірка на диску",
+        "seen": "На великому гладкому диску зі слонової кістки, щільно притиснутому до грудей, — п’ятикутна зірка, інкрустована фактурним золотом, єдина велика золота деталь на карті; деінде золото — лише дрібні вкраплення й крихітні зірки в небі.",
+        "meaning": "Це пентакль, який тримають найближче, і серце карти: найцінніше, яке стережуть, притиснувши до тіла. З чотирьох лише він досі в оправі диска і лише він золотий, ніби вся цінність зібралася в тому, що стискають у руках, а решта зблякла до простого каменю."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 49,
+      "y": 62,
+      "en": {
+        "name": "Hands clasped beneath the disc",
+        "seen": "Both ivory hands meet at the lower rim of the disc, one folded over the other, the forearms curving in from either side so that the arms form a closed ring around it against the body.",
+        "meaning": "The grip is the gesture readers watch on this card: security and clutching differ only in how tightly the hands close. Here the hands rest folded, not clawed, a calm and settled hold. It suggests a long habit of keeping rather than panic, which can be steadiness or a hold that no longer loosens."
+      },
+      "uk": {
+        "name": "Руки, складені під диском",
+        "seen": "Обидві руки зі слонової кістки сходяться біля нижнього краю диска, одна поверх іншої; передпліччя вигинаються до нього з обох боків, тож руки утворюють довкола диска замкнене кільце на тлі тіла.",
+        "meaning": "Саме на хватку зважають читці цієї карти: безпеку від чіпкості відрізняє лише те, наскільки міцно стиснуті руки. Тут руки складені, а не вчеплені, — тримання спокійне й усталене. Воно натякає радше на давню звичку берегти, ніж на паніку, і це може бути стійкість або хватка, що вже не слабне."
+      }
+    },
+    {
+      "key": "throne",
+      "x": 31,
+      "y": 74,
+      "en": {
+        "name": "The squared ivory block",
+        "seen": "The figure sits on a plain rectangular block of rough ivory, visible on both sides of the robe, with squared edges and a pitted, unornamented surface; the robe falls over its front to the ground.",
+        "meaning": "The traditional figure sits on a simple block or stool rather than a throne. The cube is a classic image of Earth and of the number four: square, four-sided, hard to move. Olivia leaves it rough and plain, so the seat of this power is solid but unadorned, built for staying put."
+      },
+      "uk": {
+        "name": "Квадратна брила зі слонової кістки",
+        "seen": "Постать сидить на простій прямокутній брилі з шорсткої слонової кістки, яку видно з обох боків одягу; краї в неї прямі, поверхня щербата, без жодних оздоб; спереду одяг спадає по ній до землі.",
+        "meaning": "Традиційна постать сидить на простій брилі чи ослінчику, а не на троні. Куб — класичний образ Землі й числа чотири: квадратний, чотиригранний, його важко зрушити. Olivia залишає його шорстким і простим, тож опора цієї влади міцна, але без прикрас: вона для того, щоб не рушати з місця."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 23,
+      "y": 80,
+      "en": {
+        "name": "The star at the left",
+        "seen": "On the pale lapis ground to the left of the seat stands a bevelled, five-pointed blue star, upright and apart from the figure; the ivory foot nearest to it rests on bare ground.",
+        "meaning": "Traditionally the two lower pentacles lie beneath the figure’s feet, holdings stood on so that nobody can shift them. Olivia sets them beside the seat instead, with both feet on bare ground. They read less as something pinned down and more as reserves placed within reach, guarded on either side."
+      },
+      "uk": {
+        "name": "Зірка ліворуч",
+        "seen": "На блідому лазуритовому ґрунті ліворуч від сидіння стоїть п’ятикутна синя зірка зі скошеними гранями — вертикально й окремо від постаті; найближча до неї ступня зі слонової кістки спирається на голу землю.",
+        "meaning": "Традиційно два нижні пентаклі лежать під ногами постаті — статки, на яких стоять, щоб ніхто їх не зрушив. Olivia натомість ставить їх обабіч сидіння, а обидві ступні — на голу землю. Вони читаються не як щось притиснуте, а радше як запаси під рукою, які стережуть з обох боків."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 77,
+      "y": 80,
+      "en": {
+        "name": "The star at the right",
+        "seen": "A matching bevelled blue star stands on the ground to the right of the seat, mirroring the left one, so that with the star overhead the three lapis stars frame the figure in a wide triangle.",
+        "meaning": "With the gold star held at its centre, the four pentacles build a guarded enclosure: one above, one on each side, the most precious in the middle. The symmetry is the point, since every side is covered. It is the architecture of safety, and also of a space that nothing new can easily enter."
+      },
+      "uk": {
+        "name": "Зірка праворуч",
+        "seen": "Така сама синя зірка зі скошеними гранями стоїть на землі праворуч від сидіння, дзеркально повторюючи ліву, тож разом із зіркою вгорі три лазуритові зірки обрамлюють постать широким трикутником.",
+        "meaning": "Разом із золотою зіркою в центрі чотири пентаклі складаються в захищену огорожу: один згори, по одному з боків, найцінніший — посередині. Суть саме в симетрії: кожен бік прикрито. Це архітектура безпеки — і водночас простору, куди нічому новому непросто потрапити."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Four of Pentacles turns attention to how you hold what keeps you safe: money, time, energy, and whether the grip still serves you.",
+    "keywords": {
+      "upright": [
+        "security",
+        "conserving",
+        "boundaries",
+        "stability",
+        "self-protection",
+        "control"
+      ],
+      "reversed": [
+        "tight grip",
+        "scarcity thinking",
+        "loosening hold",
+        "isolation",
+        "overcaution"
+      ]
+    },
+    "upright": [
+      "The Four of Pentacles is the card of holding on. In Olivia’s deck a crowned ivory figure sits squarely on a rough block, arms wrapped around a disc pressed to the chest, hands clasped beneath it. Its gold star is the only gold pentacle on the card. Three more stars, carved plainly in blue lapis, hover above the crown and stand on the ground at either side. Everything valued is gathered in, and every side is covered.",
+      "Pentacles belong to Earth: the body, money, home, work, time, the material means of a life. After the shared effort of the Three, the Four consolidates. Upright, it can point to healthy security: savings kept for a reason, a boundary around your energy, a firm no that protects something you have built. Where resources have been scarce, holding them carefully is often simply wise.",
+      "The card also asks what the holding costs. The walled city lies far behind across an empty plain, and the figure sits with its back to it, guarding rather than taking part. Notice whether your own grip is calm or tense, and whether it still serves the life you want. The question is not whether to let go, but what this security is for."
+    ],
+    "reversed": [
+      "Four of Pentacles reversed draws attention to a grip that has either tightened too far or started, sometimes abruptly, to loosen. The inward form is a quiet scarcity: counting and recounting, refusing help as well as refusing to give, keeping every door closed in case something is lost. The star above the crown can become a worry that never lifts.",
+      "The other form is the hold coming undone: spending energy, time or money faster than feels steady, or dropping a boundary to avoid seeming mean. Neither is a verdict. The reversed card invites a middle measure: name one thing you guard out of habit rather than need, and one thing that genuinely deserves protection, and hold each accordingly."
+    ],
+    "number": "Four is the number of structure: four walls, four corners, the square that does not tip over. After the seed of the Ace, the juggling of the Two and the shared craft of the Three, the Four secures what has been made. In the suit of Pentacles, where Earth already moves slowly, that stability doubles: a square seat, and pentacles set above, beside and at the heart of the figure. The risk of Four in Earth is stillness hardening into immobility before the loss and exposure of the Five.",
+    "tradition": "In the Golden Dawn system the Four of Pentacles is titled the Lord of Earthly Power. It is assigned to the Sun in Capricorn, the third decan of that sign (20 to 30 degrees), and to Chesed, Mercy, the fourth Sephirah on the Tree of Life, expressed in the suit of Earth. The Sun’s vitality in Capricorn’s orderly, ambitious sign is commonly read as power secured and consolidated. Aleister Crowley’s Thoth deck shortened the title to Power. Marseille decks show four coins at the corners around a central ornament. Pamela Colman Smith’s 1909 design gave the card its familiar crowned figure, one coin balanced on the crown, one clutched to the chest and two beneath the feet, with a city behind.",
+    "areas": {
+      "love": "In close relationships the Four of Pentacles can point to how safety is kept: guarded time, a private space, a reluctance to share plans or feelings before they feel secure. That can be a healthy boundary. It can also become a closed ring, like the arms around the disc, leaving little room for anyone to reach in. The card cannot tell you what another person wants. It asks what you are protecting, and whether one small opening would feel safe.",
+      "work": "At work or in study, this card often appears around keeping what has been built: a role, a budget, a method that works, knowledge you are reluctant to hand over. Protecting your capacity is legitimate, and so is saving effort for what matters. Notice where caution has become control: refusing to delegate, turning down useful risks, holding information others need. With money, the card simply invites clarity about what a reserve is for; the decisions stay yours.",
+      "self": "For your relationship with yourself, the Four of Pentacles asks where you feel secure and where you feel you must hold on. Notice the body’s version of the card: a clenched jaw, folded arms, hands laced tight. Security is often built from old scarcity, and a grip that once protected you can outlast its reason. You can honour the habit and still test it: loosen one small thing and see what actually happens, rather than what you fear."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Four of Pentacles points to security as the real concern: something valued is being protected, and the way it is held shapes everything else.",
+      "challenge": "As a challenge, the card can show a grip that has become too tight: caution that shuts out help, change or generosity, and a stillness that feels safer than any movement.",
+      "advice": "As advice, it invites you to protect what genuinely matters, name clearly what that protection is for, and allow a little more openness where the guard has become habit."
+    },
+    "pairs": [
+      {
+        "with": 4,
+        "text": "The Emperor is the Major Arcana’s four, a ruler seated in authority. Beside the Four of Pentacles the pair draws attention to structure and control: whether the order you keep is a foundation for others or a wall that holds them out."
+      },
+      {
+        "with": 68,
+        "text": "The Five of Pentacles follows in sequence, commonly showing loss and exposure in the cold. Next to the Four it asks whether fear of that hardship is driving the grip, and whether the grip itself keeps help out of reach."
+      },
+      {
+        "with": 69,
+        "text": "The Six of Pentacles commonly shows resources weighed and given. Together with the Four the pair turns attention to how resources flow: when keeping is wise, when sharing is possible, and what a fair measure looks like for you."
+      }
+    ],
+    "questions": [
+      "What are you holding closest to your chest right now, and what is it protecting?",
+      "Where does your caution feel calm and steady, and where has it become tense?",
+      "If you loosened your hold by one small step, what would you actually risk losing?"
+    ],
+    "practice": "Clasp your hands tightly for thirty seconds, then slowly unlace them; write down one thing you hold that way, and one small way to hold it more lightly."
+  },
+  "uk": {
+    "essence": "Четвірка Пентаклів звертає увагу на те, як ви тримаєте все, що дає вам безпеку: гроші, час, сили, — і чи ця хватка досі вам служить.",
+    "keywords": {
+      "upright": [
+        "безпека",
+        "збереження",
+        "межі",
+        "стабільність",
+        "самозахист",
+        "контроль"
+      ],
+      "reversed": [
+        "надто міцна хватка",
+        "відчуття нестачі",
+        "послаблення хватки",
+        "ізоляція",
+        "надмірна обережність"
+      ]
+    },
+    "upright": [
+      "Четвірка Пентаклів — карта утримання. У колоді Olivia увінчана постать зі слонової кістки міцно сидить на шорсткій брилі, обіймаючи диск, притиснутий до грудей, і склавши під ним руки. Його золота зірка — єдиний золотий пентакль на карті. Ще три зірки, без оздоб вирізьблені із синього лазуриту, нависають над короною і стоять на землі обабіч. Усе цінне зібрано докупи, і кожен бік прикрито.",
+      "Пентаклі належать Землі: тілу, грошам, дому, роботі, часу — матеріальним засобам життя. Після спільних зусиль Трійки Четвірка закріплює здобуте. У прямому положенні вона може вказувати на здорову безпеку: заощадження, відкладені з певною метою, межу довкола ваших сил, тверде «ні», що захищає збудоване вами. Там, де ресурсів бракувало, дбайливо їх берегти часто просто мудро.",
+      "Карта також запитує, чого коштує це утримання. Місто за мурами лежить далеко позаду, за порожньою рівниною, а постать сидить до нього спиною — стереже, а не бере участі. Зверніть увагу, чи ваша власна хватка спокійна, чи напружена, і чи досі вона служить життю, якого ви прагнете. Питання не в тому, чи відпускати, а в тому, для чого ця безпека."
+    ],
+    "reversed": [
+      "Четвірка Пентаклів у перевернутому положенні звертає увагу на хватку, яка або стала надто цупкою, або почала — іноді раптово — слабнути. Внутрішня форма — тиха нестача: лічити й перелічувати, відмовлятися і від допомоги, і від того, щоб давати, тримати зачиненими всі двері, аби нічого не втратити. Зірка над короною може стати тривогою, що ніколи не відступає.",
+      "Інша форма — хватка, що розтискається: витрачати сили, час чи гроші швидше, ніж дозволяє відчуття стійкості, або відмовлятися від межі, аби не видатися скупими. Жодна з цих форм не є вироком. Перевернута карта запрошує до середньої міри: назвіть одну річ, яку ви стережете зі звички, а не з потреби, і одну, що справді заслуговує на захист, і тримайте кожну з них так, як вона того потребує."
+    ],
+    "number": "Чотири — число структури: чотири стіни, чотири кути, квадрат, що не перекидається. Після зерна Туза, жонглювання Двійки та спільного ремесла Трійки Четвірка закріплює створене. У масті Пентаклів, де Земля й так рухається повільно, ця стабільність подвоюється: квадратне сидіння і пентаклі над постаттю, обабіч неї та в самому її осерді. Ризик Четвірки у стихії Землі в тому, що спокій закам’яніє в нерухомість ще до втрат і незахищеності П’ятірки.",
+    "tradition": "У системі Золотої Зорі Четвірка Пентаклів має титул «Володар земної влади». Їй відповідають Сонце в Козерозі, третій декан цього знака (від 20 до 30 градусів), і Хесед, Милосердя, четверта сефіра на Дереві Життя, виражена в масті Землі. Життєву силу Сонця в упорядкованому, честолюбному знаку Козерога зазвичай читають як владу, здобуту й закріплену. У колоді Тота Алістер Кроулі скоротив титул до слова «Влада». Марсельські колоди показують чотири монети по кутах довкола центрального орнаменту. Дизайн Памели Колман Сміт 1909 року дав карті знайому увінчану постать: одна монета тримається на короні, друга притиснута до грудей, дві — під ногами, а позаду — місто.",
+    "areas": {
+      "love": "У близьких стосунках Четвірка Пентаклів може вказувати на те, як зберігають безпеку: захищений час, особистий простір, небажання ділитися планами чи почуттями, поки вони не здаються надійними. Це може бути здорова межа. А може перетворитися й на замкнене коло, як руки довкола диска, лишаючи комусь мало змоги дотягнутися всередину. Карта не скаже вам, чого хоче інша людина. Вона запитує, що ви оберігаєте і чи почувалися б ви в безпеці, відкрившись бодай трохи.",
+      "work": "У роботі чи навчанні ця карта часто з’являється там, де йдеться про збереження збудованого: посади, бюджету, методу, що працює, знань, якими ви неохоче ділитеся. Берегти свої сили виправдано, як і заощаджувати зусилля для важливого. Зверніть увагу, де обережність перетворилася на контроль: відмова делегувати, відмова від корисного ризику, утримання інформації, потрібної іншим. Щодо грошей карта лише запрошує ясно побачити, для чого потрібен резерв; рішення лишаються за вами.",
+      "self": "У стосунках із собою Четвірка Пентаклів запитує, де ви почуваєтеся в безпеці, а де вам здається, що треба триматися. Помітьте тілесну версію карти: стиснуті щелепи, схрещені руки, міцно сплетені пальці. Безпеку часто будують із давньої нестачі, і хватка, що колись вас захищала, може пережити свою причину. Можна шанувати цю звичку й водночас перевірити її: послабте хватку в чомусь одному, дрібному, і подивіться, що станеться насправді, а не чого ви боїтеся."
+    },
+    "positions": {
+      "heart": "У центрі запитання Четвірка Пентаклів вказує, що насправді йдеться про безпеку: щось цінне оберігають, і те, як його тримають, визначає все інше.",
+      "challenge": "Як перешкода карта може показувати хватку, що стала надто цупкою: обережність, яка не пускає допомогу, зміни чи щедрість, і нерухомість, що здається безпечнішою за будь-який рух.",
+      "advice": "Як порада вона запрошує захищати те, що справді важливо, чітко назвати, для чого цей захист, і дозволити трохи більше відкритості там, де пильність стала звичкою."
+    },
+    "pairs": [
+      {
+        "with": 4,
+        "text": "Імператор — Старший Аркан під номером чотири, правитель, що сидить на престолі влади. Поруч із Четвіркою Пентаклів ця пара звертає увагу на структуру й контроль: чи порядок, який ви підтримуєте, є опорою для інших, чи стіною, що не пускає їх усередину."
+      },
+      {
+        "with": 68,
+        "text": "П’ятірка Пентаклів іде наступною і зазвичай показує втрату й незахищеність на холоді. Поруч із Четвіркою вона запитує, чи не страх перед цією скрутою змушує так міцно триматися — і чи не через саму цю хватку допомога лишається поза досяжністю."
+      },
+      {
+        "with": 69,
+        "text": "Шістка Пентаклів зазвичай показує ресурси, які зважують і роздають. Разом із Четвіркою ця пара звертає увагу на те, як рухаються ресурси: коли мудро берегти, коли можна ділитися і якою є справедлива міра саме для вас."
+      }
+    ],
+    "questions": [
+      "Що ви зараз тримаєте найближче до грудей — і що воно захищає?",
+      "Де ваша обережність спокійна й стійка, а де вона стала напруженою?",
+      "Якби ви послабили хватку на один невеликий крок, що б ви насправді ризикували втратити?"
+    ],
+    "practice": "Міцно зчепіть руки на тридцять секунд, потім повільно розплетіть пальці; запишіть одну річ, яку ви тримаєте саме так, і один невеликий спосіб тримати її легше."
+  }
+}

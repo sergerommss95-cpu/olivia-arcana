@@ -1,0 +1,267 @@
+{
+  "id": 2,
+  "slug": "the-high-priestess",
+  "artwork": {
+    "file": "02_the_high_priestess.webp",
+    "sha256": "6979a3327715d1ddb156244c040020020a061b38d1847ad37830af85fc0dc5ed"
+  },
+  "symbols": [
+    {
+      "key": "crown",
+      "x": 51,
+      "y": 43,
+      "en": {
+        "name": "The horned crown and gold disc",
+        "seen": "Two smooth ivory horns curve upward from a band across the veiled brow and cradle a round disc of textured gold, the only gold on the figure itself; elsewhere gold appears only as scattered flecks in the stone.",
+        "meaning": "The horned crown recalls the headdress of Isis and Hathor, where the disc between the horns was the sun; tarot readers usually see a full moon held between waxing and waning crescents. Olivia’s gold disc keeps both readings: lunar horns cradling a light that looks almost solar."
+      },
+      "uk": {
+        "name": "Рогата корона і золотий диск",
+        "seen": "Два гладкі роги зі слонової кістки вигинаються вгору від пов’язки на вкритому серпанком чолі й тримають круглий диск із фактурного золота — єдине золото на самій постаті; деінде воно лише розсипане іскрами в камені.",
+        "meaning": "Рогата корона нагадує головний убір Ісіди та Хатхор, де диск між рогами означав сонце; тарологи зазвичай бачать у ньому повний місяць між зростаючим і спадним серпами. Золотий диск у колоді Olivia зберігає обидва прочитання: місячні роги тримають світло, що здається майже сонячним."
+      }
+    },
+    {
+      "key": "face",
+      "x": 51,
+      "y": 49,
+      "en": {
+        "name": "The closed eyes",
+        "seen": "Beneath the crown the ivory face is calm and slightly lowered, eyelids closed, mouth at rest. A plain veil falls from the head band over both shoulders and down past the elbows.",
+        "meaning": "The traditional High Priestess looks straight out at the viewer. Olivia closes the eyes, turning a guardian who watches into a listener who attends inward. The knowledge of this card is not gathered by looking harder; it comes when outward looking is allowed to rest."
+      },
+      "uk": {
+        "name": "Заплющені очі",
+        "seen": "Під короною — спокійне, трохи схилене обличчя зі слонової кістки: повіки зімкнуті, вуста в спокої. Простий серпанок спадає з пов’язки на обидва плечі й нижче ліктів.",
+        "meaning": "Традиційна Верховна Жриця дивиться просто на глядача. Olivia заплющує постаті очі: пильна варта перетворюється на слухання, звернене всередину. Знання цієї карти не здобувають пильнішим вдивлянням: воно приходить, коли зовнішньому зорові дозволяють відпочити."
+      }
+    },
+    {
+      "key": "pomegranate",
+      "x": 36,
+      "y": 41,
+      "en": {
+        "name": "The pomegranate veil",
+        "seen": "Behind the figure hangs a lapis cloth gathered in swags along its upper rod, carved in low relief with round, crowned pomegranates and curling vines. Above it, a recessed arch opens onto gold-flecked night.",
+        "meaning": "The Waite-Smith veil is embroidered with palms and pomegranates; here pomegranates and vines remain. The pomegranate belongs to Persephone, who ate its seeds and so spent part of each year below: fertile knowledge that stays partly hidden, kept for whoever is ready to cross the threshold."
+      },
+      "uk": {
+        "name": "Завіса з гранатами",
+        "seen": "За постаттю висить лазуритова тканина, зібрана фестонами вздовж верхнього прута; на ній низьким рельєфом вирізьблено круглі гранати з коронками та звивисті лози. Над нею заглиблена арка відкривається в ніч, усіяну золотими іскрами.",
+        "meaning": "На завісі Вейта–Сміт вишито пальми й гранати; тут лишилися гранати й лози. Гранат належить Персефоні, яка скуштувала його зерен і тому частину кожного року проводить під землею: плідне знання, що лишається напівприхованим і чекає на тих, хто готовий переступити поріг."
+      }
+    },
+    {
+      "key": "pillar",
+      "x": 18,
+      "y": 57,
+      "en": {
+        "name": "The dark pillar",
+        "seen": "On the viewer’s left stands a column of deep ultramarine lapis with a rough, pitted shaft, a leafy capital with curled corner volutes and a stepped base. No letter is carved on it.",
+        "meaning": "In the Waite-Smith card this is Boaz, marked B, one of the two bronze pillars before Solomon’s Temple. It is commonly read as the receptive, unseen side of any polarity: night, rest, what has not yet been spoken. Olivia leaves it unlettered, so texture alone carries the contrast."
+      },
+      "uk": {
+        "name": "Темна колона",
+        "seen": "Ліворуч від глядача стоїть колона з глибокого ультрамаринового лазуриту: шорсткий, щербатий стовбур, листяна капітель із закрученими кутовими волютами й східчаста база. Жодної літери на ній не вирізано.",
+        "meaning": "У карті Вейта–Сміт це Боаз, позначений літерою B, — один із двох бронзових стовпів перед храмом Соломона. Його зазвичай читають як сприйнятливий, невидимий бік будь-якої полярності: ніч, спочинок, ще не сказане. Olivia лишає колону без літери, тож контраст несе сама фактура каменю."
+      }
+    },
+    {
+      "key": "pillar",
+      "x": 82,
+      "y": 57,
+      "en": {
+        "name": "The pale pillar",
+        "seen": "On the viewer’s right rises its twin in pale, cloudy blue lapis, polished smooth and faintly veined, with the same leafy capital and stepped base, in clearly lighter stone than its partner.",
+        "meaning": "This is Jachin, marked J in the Waite-Smith card: the light, active, visible side. The High Priestess sits exactly between the two, which is the card’s teaching in architecture: neither pole is chosen, and understanding lives in the space that holds both at once."
+      },
+      "uk": {
+        "name": "Світла колона",
+        "seen": "Праворуч від глядача здіймається її близнючка з блідого, хмаристо-блакитного лазуриту, гладко відполірована й ледь прожилкована, з такою самою листяною капітеллю та східчастою базою, — камінь помітно світліший, ніж у пари.",
+        "meaning": "Це Яхін, позначений літерою J у карті Вейта–Сміт: світлий, діяльний, видимий бік. Верховна Жриця сидить точно між двома колонами, і в цьому урок карти, висловлений мовою архітектури: жоден полюс не обрано, а розуміння живе в просторі, що вміщує обидва водночас."
+      }
+    },
+    {
+      "key": "circle",
+      "x": 51,
+      "y": 55,
+      "en": {
+        "name": "The round clasp",
+        "seen": "At the gathered neckline of the ivory gown, where fine pleats radiate outward, sits a small, smooth round boss like a clasp or a pearl. A narrow sash circles the high waist below.",
+        "meaning": "The Waite-Smith Priestess wears an equal-armed solar cross on the breast, often read as the balance of the four elements. Olivia replaces it with a plain circle: a quieter emblem of wholeness, the full moon repeated in miniature, a seal on what the heart keeps."
+      },
+      "uk": {
+        "name": "Кругла застібка",
+        "seen": "На зібраному вирізі сукні зі слонової кістки, звідки розходяться дрібні складки, видніється невелика гладка кругла опуклість, схожа на застібку чи перлину. Нижче завищену талію оперізує вузький пояс.",
+        "meaning": "Жриця Вейта–Сміт носить на грудях рівнораменний сонячний хрест, який часто читають як рівновагу всіх чотирьох стихій. Olivia замінює його простим колом — тихішою емблемою цілісності, повним місяцем у мініатюрі, печаткою на тому, що береже серце."
+      }
+    },
+    {
+      "key": "book",
+      "x": 49,
+      "y": 65,
+      "en": {
+        "name": "The closed tablet in the lap",
+        "seen": "Both ivory hands lie flat and relaxed in the lap, fingers loose, resting on a small closed rectangle like a book or tablet whose edge shows beneath the hand on the viewer’s left.",
+        "meaning": "The Marseille Papesse holds an open book; the Waite-Smith figure holds a half-hidden scroll. Here the hands rest on something shut. Nothing is being read aloud or taught. The gesture suggests knowledge already received and held in trust, not yet opened for anyone else."
+      },
+      "uk": {
+        "name": "Закрита табличка на колінах",
+        "seen": "Обидві руки зі слонової кістки лежать на колінах рівно й розслаблено, пальці вільні, на невеликому закритому прямокутнику, схожому на книгу чи табличку; його край видно з-під руки ліворуч від глядача.",
+        "meaning": "Марсельська Папеса тримає розгорнуту книгу; постать Вейта–Сміт — напівсхований сувій. Тут руки спочивають на чомусь закритому. Ніхто нічого не читає вголос і не навчає. Жест натякає на знання, уже отримане й дбайливо збережене, але ще не розгорнуте для інших."
+      }
+    },
+    {
+      "key": "scroll",
+      "x": 68,
+      "y": 74,
+      "en": {
+        "name": "The scroll set aside",
+        "seen": "Beside the knee on the viewer’s right, an ivory scroll rests upright against the gown and seat, its top rolled into a tight curl, its open length hanging towards the floor, faintly incised with lines of indistinct script.",
+        "meaning": "The Waite-Smith figure holds a scroll lettered TORA, partly covered by the mantle: the law only partly shown. Olivia moves it out of the hands and lets the writing show, yet the lines cannot be read. The teaching is present and close, but not given in words."
+      },
+      "uk": {
+        "name": "Відкладений сувій",
+        "seen": "Біля коліна праворуч від глядача сувій зі слонової кістки стоїть вертикально, спираючись на сукню й сидіння: верх щільно згорнутий, розгорнута частина звисає до підлоги, ледь позначена рядками нерозбірливого письма.",
+        "meaning": "Постать Вейта–Сміт тримає сувій із написом TORA, частково прикритий мантією: закон, показаний лише наполовину. Olivia виймає сувій із рук постаті й дає письму проступити, та рядків не прочитати. Учення тут, зовсім поруч, але його не передано словами."
+      }
+    },
+    {
+      "key": "moon",
+      "x": 52,
+      "y": 85,
+      "en": {
+        "name": "The crescent at the feet",
+        "seen": "At the hem of the pooled gown lies a large ivory crescent, horns turned upward, with the rounded tip of a foot resting inside its curve on the carved lapis floor.",
+        "meaning": "Kept from the Waite-Smith card, the crescent ties the High Priestess to the Moon, its Golden Dawn attribution, and is often compared with the figure in Revelation who has the moon underfoot. Resting on it, the figure is steadied by the cycle rather than ruled by it: tides, sleep, waxing and waning."
+      },
+      "uk": {
+        "name": "Серп біля ніг",
+        "seen": "Біля краю сукні, що розлилася складками, лежить великий серп зі слонової кістки рогами догори; у його вигині на різьбленій лазуритовій підлозі спочиває заокруглений кінчик стопи.",
+        "meaning": "Збережений із карти Вейта–Сміт, серп пов’язує Верховну Жрицю з Місяцем — її відповідністю в системі Золотої Зорі — і його часто порівнюють із постаттю з Одкровення, під ногами якої місяць. Постать спирається на нього, і цикл дає їй опору, а не владарює над нею: припливи, сон, наростання й спадання."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The High Priestess is knowledge that arrives in stillness: closed-eyed listening between two pillars, letting an answer form before you try to speak it.",
+    "keywords": {
+      "upright": [
+        "intuition",
+        "inner knowing",
+        "stillness",
+        "discretion",
+        "receptivity",
+        "patience"
+      ],
+      "reversed": [
+        "ignored intuition",
+        "guarded silence",
+        "withdrawal",
+        "inner noise",
+        "overinterpreting"
+      ]
+    },
+    "upright": [
+      "The High Priestess sits at the threshold between what is known and what is not yet ready to be said. In Olivia’s carving the figure is enthroned between a rough dark pillar and a polished pale one, eyes closed, hands resting on a closed tablet, with a veil of pomegranates hanging behind. Nothing moves. Upright, the card draws attention to a kind of knowing that does not come from gathering more information, but from staying still long enough for what you already sense to surface.",
+      "Look at what the carving withholds. The scroll beside the figure is inscribed, yet its lines cannot be read; the tablet in the lap stays shut. The traditional card lets a strip of water show past the veil; here the only opening is the arch of starry night above it. This is not secrecy for its own sake. It is discretion: the recognition that some impressions need time before they can bear the weight of words, or of other people’s opinions.",
+      "The High Priestess can point to a hunch worth writing down, a dream that keeps returning, a pause before replying to a message. It asks you to trust the quiet layer of your perception, and then to set it gently beside what you can actually observe."
+    ],
+    "reversed": [
+      "The High Priestess reversed can point to an inner voice that is being talked over, or one that has been left alone too long. On one side, the closed eyes open too early: you keep collecting opinions, checking and scrolling, until the quieter impression has no room to form. On the other, the veil is drawn so tightly that nothing passes through; a private sense hardens into certainty that is never tested against what you can see or ask.",
+      "Both are forms of the same listening, crowded out or sealed in. Ask which fits. If it is noise, find ten minutes of real silence before deciding. If it is secrecy, choose one trusted person, or one page of a notebook, and let the unread scroll be read aloud."
+    ],
+    "number": "The High Priestess carries the number two. After the Magician’s one, the single deliberate act, two brings the first pair: inner and outer, question and answer, the dark pillar and the pale. In the Fool’s journey this is the traveller’s first meeting with silence, the lesson that not every truth is reached by doing. Two is also the number of reflection, like the moon returning the sun’s light. It asks you to receive before you respond, and to let a question stay open for a while.",
+    "tradition": "In the Golden Dawn system the High Priestess bears the title “The Priestess of the Silver Star”. It is attributed to Gimel, the Hebrew letter whose name means camel, and to the Moon, and it occupies the thirteenth path of the Tree of Life, the central path running from Kether down to Tiphareth across the Abyss. The older Marseille pattern calls the card La Papesse, a papal figure with an open book, often linked with the legend of Pope Joan. In 1909 Pamela Colman Smith seated the Priestess between pillars lettered B and J, with a TORA scroll, a horned crown and a crescent underfoot. Olivia keeps crown and crescent, leaves the pillars unlettered and closes the eyes.",
+    "areas": {
+      "love": "In love and close bonds, the High Priestess asks for attention that listens more than it interprets. It can point to a connection where much is felt and little is said, or to feelings of your own that are still forming. Leave room for that. You cannot read another person’s closed tablet, and the card does not ask you to; it asks what you notice in yourself once you stop rehearsing the conversation. With yourself, it favours privacy: a feeling can be honoured before it is shared.",
+      "work": "In work and study, the High Priestess favours depth over display. It can point to research, patient reading, careful listening in a meeting, or a draft left overnight before it is sent. The scroll set beside the figure suggests expertise you already hold but have not yet voiced. With money matters, let an uneasy impression be a reason to look more closely at the figures and ask questions, never a substitute for them: intuition notices, evidence decides.",
+      "self": "For your own growth, the High Priestess invites a practice of quiet: time without input, where the mind can settle like still water. Look at the carved face: the eyes are closed, not in sleep but in attention. Dreams, bodily responses and recurring images can all be treated as information worth noting, without being taken as verdicts. The card asks you to become someone who can hold a question without rushing to close it."
+    },
+    "positions": {
+      "heart": "At the heart of a question, the High Priestess suggests that part of the answer is already known to you but not yet in words. What matters is the quiet impression beneath the obvious facts.",
+      "challenge": "As a challenge, the High Priestess can point to something unspoken that complicates things: information held back, a hunch you keep overruling, or a silence that has lasted longer than it serves you.",
+      "advice": "As advice, the High Priestess invites a pause before acting: sleep on it, write down what you sense, and let the question rest between the two pillars a little longer."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "The Magician at one and the High Priestess at two are the first pair of the Major Arcana: the raised wand and the resting hands. Together they draw attention to the balance between acting on what you know and listening for what you do not yet know."
+      },
+      {
+        "with": 5,
+        "text": "The High Priestess and the Hierophant both sit between two pillars, and their Marseille names, Popess and Pope, make them a pair. Together they draw attention to inner knowing and outer teaching, and to how each can test and deepen the other."
+      },
+      {
+        "with": 18,
+        "text": "The crescent at the Priestess’s feet grows into the whole sky of the Moon card, where a path runs between two towers. Together they draw attention to intuition and imagination: calm, attentive listening beside the vivid, uncertain images of the night."
+      }
+    ],
+    "questions": [
+      "What do you already sense about this situation that you have not yet put into words?",
+      "Whose opinions are you gathering right now, and what might you hear if you paused them for a day?",
+      "Which private impression would benefit from being shared, and which would benefit from more time?"
+    ],
+    "practice": "Tonight, before sleep, write one question on a slip of paper; in the morning, before checking your phone, write the first sentence that comes to you."
+  },
+  "uk": {
+    "essence": "Верховна Жриця — це знання, що приходить у тиші: слухання із заплющеними очима між двома колонами, коли відповідь встигає сформуватися, перш ніж ви спробуєте її вимовити.",
+    "keywords": {
+      "upright": [
+        "інтуїція",
+        "внутрішнє знання",
+        "тиша",
+        "стриманість",
+        "сприйнятливість",
+        "терпіння"
+      ],
+      "reversed": [
+        "знехтувана інтуїція",
+        "насторожена мовчанка",
+        "відсторонення",
+        "внутрішній шум",
+        "надмірне тлумачення"
+      ]
+    },
+    "upright": [
+      "Верховна Жриця перебуває на порозі між відомим і тим, що ще не готове бути сказаним. У різьбі Olivia постать сидить на престолі між шорсткою темною колоною та відполірованою світлою: очі заплющені, руки лежать на закритій табличці, позаду висить завіса з гранатами. Ніщо не рухається. У прямому положенні карта звертає увагу на знання, яке народжується не зі збирання нових відомостей, а з уміння лишатися нерухомими досить довго, щоб те, що ви вже відчуваєте, виринуло на поверхню.",
+      "Погляньте, чого різьба не показує. Сувій поруч із постаттю списаний, проте рядків не прочитати; табличка на колінах лишається закритою. Традиційна карта дає побачити за завісою смужку води; тут єдиний просвіт — арка зоряної ночі над нею. Це не таємничість заради таємничості. Це стриманість: розуміння того, що деяким враженням потрібен час, перш ніж вони зможуть витримати вагу слів або чужих думок.",
+      "Верховна Жриця може вказувати на здогад, який варто записати, на сон, що повертається знову й знову, на паузу перед відповіддю на повідомлення. Карта просить довіритися тихому шару вашого сприйняття, а потім дбайливо поставити його поряд із тим, що ви справді можете спостерігати."
+    ],
+    "reversed": [
+      "Верховна Жриця в перевернутому положенні може вказувати на внутрішній голос, який заглушують, або на той, що надто довго лишався на самоті. З одного боку, заплющені очі розплющуються зарано: ви знову й знову збираєте чужі думки, перевіряєте, гортаєте стрічку, аж поки тихому враженню не забракне місця, щоб сформуватися. З другого — завісу запнуто так щільно, що крізь неї нічого не проходить; особисте відчуття твердне до впевненості, яку ніколи не звіряють із тим, що можна побачити чи спитати.",
+      "Обидва випадки — те саме слухання, витіснене або замкнене. Запитайте себе, що ближче. Якщо це шум, знайдіть десять хвилин справжньої тиші, перш ніж вирішувати. Якщо це таємність — оберіть одну людину, якій довіряєте, або одну сторінку в записнику, і дайте непрочитаному сувою прозвучати вголос."
+    ],
+    "number": "Верховна Жриця має число два. Після одиниці Мага, єдиної свідомої дії, двійка приносить першу пару: внутрішнє й зовнішнє, запитання й відповідь, темну колону й світлу. У подорожі Блазня це перша зустріч мандрівника з тишею, урок того, що не кожну істину здобувають дією. Два — це й число віддзеркалення, як місяць, що повертає сонячне світло. Воно просить спершу прийняти, а тоді відповісти, і дати запитанню ще якийсь час побути відкритим.",
+    "tradition": "У системі Золотої Зорі Верховна Жриця має титул «Жриця Срібної Зорі». Їй відповідають Гімель — єврейська літера, чия назва означає «верблюд», — і Місяць; карта посідає тринадцятий шлях Дерева Життя, центральний, що веде від Кетер до Тіферет крізь Безодню. Давніший марсельський зразок називає карту La Papesse, Папеса: постать у папському вбранні з розгорнутою книгою, яку часто пов’язують із легендою про папесу Іоанну. 1909 року Памела Колман Сміт посадила Жрицю між колонами з літерами B і J, додавши сувій TORA, рогату корону й серп під ногами. Olivia зберігає корону й серп, лишає колони без літер і заплющує очі.",
+    "areas": {
+      "love": "У коханні й близьких стосунках Верховна Жриця просить уваги, яка більше слухає, ніж тлумачить. Вона може вказувати на зв’язок, де багато відчувається й мало говориться, або на ваші власні почуття, що ще формуються. Залиште для цього місце. Чужої закритої таблички вам не прочитати, і карта цього не вимагає; вона питає, що ви помічаєте в собі, коли перестаєте подумки репетирувати розмову. У стосунках із собою вона цінує приватність: почуття можна вшанувати, перш ніж ним ділитися.",
+      "work": "У роботі й навчанні Верховна Жриця віддає перевагу глибині, а не показовості. Вона може вказувати на дослідження, неквапне читання, уважне слухання на нараді чи чернетку, яку лишають до ранку, перш ніж надіслати. Сувій поруч із постаттю натякає на знання, яке у вас уже є, але ще не прозвучало. У грошових справах нехай тривожне враження стане приводом уважніше переглянути цифри й поставити запитання, але ніколи не заміною їм: інтуїція помічає, докази вирішують.",
+      "self": "Для вашого внутрішнього зростання Верховна Жриця пропонує практику тиші: час без нових вражень ззовні, коли розум може відстоятися, мов нерухома вода. Погляньте на різьблене обличчя: очі заплющені не від сну, а в зосередженні. Сни, тілесні відгуки й образи, що повертаються, можна сприймати як інформацію, варту запису, не роблячи з них вироків. Карта просить навчитися тримати запитання відкритим, не поспішаючи його закривати."
+    },
+    "positions": {
+      "heart": "У центрі запитання Верховна Жриця підказує, що частину відповіді ви вже знаєте, хоч іще не маєте для неї слів. Найбільше важить тихе враження, що лежить під очевидними фактами.",
+      "challenge": "Як виклик Верховна Жриця може вказувати на щось недомовлене, що все ускладнює: притримані відомості, здогад, який ви раз у раз відкидаєте, або мовчанку, що триває довше, ніж вам на користь.",
+      "advice": "Як порада Верховна Жриця пропонує паузу перед дією: відкласти рішення до ранку, записати, що ви відчуваєте, і дати запитанню ще трохи побути між двома колонами."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "Маг під номером один і Верховна Жриця під номером два — перша пара Старших Арканів: піднятий жезл і руки в спокої. Разом вони звертають увагу на рівновагу між дією, що спирається на знане, і прислуханням до того, чого ви ще не знаєте."
+      },
+      {
+        "with": 5,
+        "text": "І Верховна Жриця, і Ієрофант сидять між двома колонами, а їхні марсельські назви, Папеса й Папа, роблять їх парою. Разом вони звертають увагу на внутрішнє знання й зовнішнє навчання та на те, як одне може перевіряти й поглиблювати інше."
+      },
+      {
+        "with": 18,
+        "text": "Серп біля ніг Верховної Жриці розростається в усе небо карти Місяць, де стежка пролягає між двома вежами. Разом вони звертають увагу на інтуїцію та уяву: спокійне, уважне слухання поруч із яскравими, непевними образами ночі."
+      }
+    ],
+    "questions": [
+      "Що ви вже відчуваєте щодо цієї ситуації, але ще не висловили словами?",
+      "Чиї думки ви збираєте зараз і що могли б почути, якби відклали їх на день?",
+      "Яким особистим враженням варто поділитися, а якому — дати ще трохи часу?"
+    ],
+    "practice": "Сьогодні перед сном запишіть одне запитання на клаптику паперу; уранці, ще до того, як глянете в телефон, запишіть перше речення, що спаде на думку."
+  }
+}

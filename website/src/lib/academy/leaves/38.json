@@ -1,0 +1,267 @@
+{
+  "id": 38,
+  "slug": "three-of-cups",
+  "artwork": {
+    "file": "38_three_of_cups.webp",
+    "sha256": "866e1ae102a6620fd32ee3829edb8e99740a595a2f1039a1e7c91357a3cb21d2"
+  },
+  "symbols": [
+    {
+      "key": "heart",
+      "x": 49,
+      "y": 30,
+      "en": {
+        "name": "The gold heart",
+        "seen": "A small heart of inlaid gold sits on the bowl of the central cup; apart from the star flecks in the dark border, it is the only gold on the card and the brightest point at its centre.",
+        "meaning": "The traditional Three of Cups has no heart on it at all. Olivia marks the meeting point of the three cups with gold, the deck’s sparing sign of something precious: what is being raised here is shared feeling, the warmth that belongs to all three at once."
+      },
+      "uk": {
+        "name": "Золоте серце",
+        "seen": "Невелике серце з інкрустованого золота розміщене на чаші центрального кубка; окрім золотих зірочок у темному обрамленні, це єдине золото на карті й найяскравіша точка в її центрі.",
+        "meaning": "На традиційній Трійці Кубків серця немає взагалі. Olivia позначає золотом місце, де сходяться три кубки; колода вдається до золота рідко й береже його для чогось цінного: тут підносять спільне почуття, тепло, що належить усім трьом водночас."
+      }
+    },
+    {
+      "key": "cup",
+      "x": 42,
+      "y": 32,
+      "en": {
+        "name": "Three raised cups",
+        "seen": "Three ivory goblets on short knopped stems meet above the heads of the dancers, each held up by a single hand; the central one is larger and set slightly higher, the two outer cups close on either side.",
+        "meaning": "Cups are the suit of Water: feeling, love and relationship. Raised together they make a toast, the old gesture of pledging one another. Here the three bowls almost touch, so the image reads less as three separate drinks than as one shared celebration."
+      },
+      "uk": {
+        "name": "Три підняті кубки",
+        "seen": "Три кубки зі слонової кістки на коротких ніжках із потовщенням сходяться над головами фігур, кожен піднятий однією рукою; центральний більший і трохи вищий, два крайні — впритул обабіч нього.",
+        "meaning": "Кубки — масть Води: почуття, любові й стосунків. Підняті разом, вони складаються в тост — давній жест, яким п’ють одне за одного. Тут три чаші майже торкаються, тож це сприймається не як три окремі напої, а як одне спільне свято."
+      }
+    },
+    {
+      "key": "crowd",
+      "x": 51,
+      "y": 50,
+      "en": {
+        "name": "Three dancing figures",
+        "seen": "Three ivory figures in high-belted, flowing classical dresses turn in a loose ring, hair gathered up in carved curls, bare feet mid-step, the ivory threaded with fine gold-brown veins.",
+        "meaning": "The figures are often compared with the Three Graces of classical art, who stood for brightness, mirth and good cheer. Olivia carves them in the manner of an antique relief, so friendship appears as something old and recurring, a pattern people have always danced."
+      },
+      "uk": {
+        "name": "Три фігури в танці",
+        "seen": "Три фігури зі слонової кістки у вільних античних шатах із високо підв’язаним поясом кружляють невимушеним колом; волосся зібране в різьблені кучері, босі ноги на півкроці, слонову кістку пронизують тонкі золотаво-бурі прожилки.",
+        "meaning": "Ці фігури часто порівнюють із трьома Харитами античного мистецтва, що уособлювали сяйво, веселощі й добрий настрій. Olivia вирізьблює їх у манері старовинного рельєфу, тож дружба постає чимось давнім і повторюваним — фігурою танцю, яку люди виконують споконвіку."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 75,
+      "y": 54,
+      "en": {
+        "name": "The linking hands",
+        "seen": "Below the raised arms, free hands reach sideways at waist height: the central dancer’s hand rests on the right-hand dancer’s hip, and the left-hand dancer’s open hand reaches toward the central dancer’s side.",
+        "meaning": "Readings of this card usually centre on the raised cups. Olivia’s carving gives weight to a second, quieter gesture: touch at waist height, below the toast, joining the three into one turning chain. It suggests the celebration rests on steady contact, not only on the moment of raising the glass."
+      },
+      "uk": {
+        "name": "Руки, що єднають коло",
+        "seen": "Під піднятими руками вільні руки тягнуться вбік на рівні талії: рука центральної фігури лежить на стегні правої фігури, а відкрита долоня лівої фігури тягнеться до боку центральної.",
+        "meaning": "Тлумачення цієї карти зазвичай зосереджуються на піднятих кубках. Різьба Olivia надає ваги другому, тихішому жестові: дотику на рівні талії, під піднятими кубками, що з’єднує трьох в один ланцюг, який кружляє. Він підказує, що свято тримається на постійному дотику, а не лише на миті, коли піднімають келих."
+      }
+    },
+    {
+      "key": "moon",
+      "x": 32,
+      "y": 19,
+      "en": {
+        "name": "The crescent and two discs",
+        "seen": "High in the upper left of the paler oval sky, a slim silver-grey crescent is carved in relief, with a small round disc on either side of it, left and right.",
+        "meaning": "The traditional card is set in a garden by day. Olivia moves the gathering under a crescent moon, fitting for a card attributed to Cancer, the sign ruled by the Moon. The night setting turns the scene toward intimacy: celebration among people who can see you after dark."
+      },
+      "uk": {
+        "name": "Серп і два диски",
+        "seen": "Високо ліворуч у світлішому овальному небі рельєфом вирізьблено тонкий сріблясто-сірий серп, а обабіч нього, ліворуч і праворуч, — по невеликому круглому диску.",
+        "meaning": "Дія традиційної карти відбувається вдень у саду. Olivia переносить зустріч під місячний серп — доречно для карти, пов’язаної з Раком, знаком, яким керує Місяць. Нічна пора надає сцені інтимності: це свято серед людей, які бачать вас і після смеркання."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 60,
+      "y": 16,
+      "en": {
+        "name": "The river of stars",
+        "seen": "A glittering diagonal band of silvery flecks runs from the upper right of the dark border down into the lighter oval sky, toward the centre of the card.",
+        "meaning": "The Milky Way is an image of countless points of light belonging to one stream. Above three friends it widens the picture: each small circle of belonging sits inside a much larger human one, and both are part of what this card celebrates."
+      },
+      "uk": {
+        "name": "Зоряна ріка",
+        "seen": "Мерехтлива діагональна смуга сріблястих іскор тягнеться від верхнього правого краю темного обрамлення вниз, у світліше овальне небо, до центру карти.",
+        "meaning": "Чумацький Шлях — образ незліченних світлих точок, що належать одному потоку. Над трьома друзями він розширює картину: кожне мале коло приналежності міститься всередині значно більшого людського кола, і обидва є частиною того, що святкує ця карта."
+      }
+    },
+    {
+      "key": "castle",
+      "x": 78,
+      "y": 31,
+      "en": {
+        "name": "The castle by the water",
+        "seen": "On the right horizon, carved in pale grey-blue lapis, a turreted manor with many windows stands among trees above still water, crossed by an arched stone bridge; a single leafy tree answers it on the left hill.",
+        "meaning": "The traditional Three of Cups shows no buildings. Olivia’s distant castle and bridge suggest home and the way between places: the settled life each dancer returns to after the dance, and the crossings that friendship makes possible between separate lives."
+      },
+      "uk": {
+        "name": "Замок біля води",
+        "seen": "На правому обрії, вирізьблений у блідому сіро-блакитному лазуриті, серед дерев над тихою водою стоїть маєток із вежками й багатьма вікнами, а воду перетинає арковий кам’яний міст; на лівому пагорбі йому відповідає одне розлоге дерево.",
+        "meaning": "На традиційній Трійці Кубків будівель немає. Далекий замок і міст у Olivia натякають на дім і дорогу між місцями: на усталене життя, до якого після танцю повертається кожна з фігур, і на переходи між окремими життями, які уможливлює дружба."
+      }
+    },
+    {
+      "key": "fruit",
+      "x": 43,
+      "y": 84,
+      "en": {
+        "name": "The ring of gourds",
+        "seen": "Around the dancers’ feet an oval garland of round pumpkins and long curved gourds, with vine leaves and curling tendrils, is carved in greyish lapis, framing the lower half of the scene.",
+        "meaning": "Harvest produce lies at the dancers’ feet in the traditional image, marking this as a celebration of something that has ripened. Olivia turns it into a full garland enclosing the ring, so the abundance is not a backdrop but the ground the dance stands on."
+      },
+      "uk": {
+        "name": "Гірлянда з гарбузів",
+        "seen": "Довкола ніг фігур у сіруватому лазуриті вирізьблено овальну гірлянду з круглих гарбузів і довгих вигнутих тикв, із виноградним листям і закрученими вусиками; вона обрамлює нижню половину сцени.",
+        "meaning": "На традиційному зображенні біля ніг фігур лежать плоди врожаю, що позначають свято чогось дозрілого. Olivia перетворює їх на суцільну гірлянду, яка оточує коло, тож достаток стає не тлом, а ґрунтом, на якому стоїть танець."
+      }
+    },
+    {
+      "key": "grapes",
+      "x": 68,
+      "y": 83,
+      "en": {
+        "name": "Clusters of grapes",
+        "seen": "Several bunches of grapes, carved as tight beaded clusters in blue-grey lapis, sit among the gourds and vine leaves of the garland, the largest at its lower right, below the right-hand dancer’s feet.",
+        "meaning": "Grapes are an ancient sign of festivity and of wine shared at table. In a suit of Water they recall that feeling ferments and deepens with time, and gently hint that celebration is richest when it is not drunk too fast."
+      },
+      "uk": {
+        "name": "Грона винограду",
+        "seen": "Кілька грон винограду, вирізьблених щільними намистинами в синьо-сірому лазуриті, лежать серед гарбузів і листя гірлянди; найбільше — праворуч унизу, під ногами правої фігури.",
+        "meaning": "Виноград — давній знак свята й вина, яке ділять за столом. У масті Води він нагадує, що почуття, як вино, бродять і з часом глибшають, і м’яко підказує: свято найповніше тоді, коли його не п’ють надто поспіхом."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Three of Cups celebrates feeling that is shared: friendship, mutual support and the joy of being welcomed into a circle as you are.",
+    "keywords": {
+      "upright": [
+        "friendship",
+        "celebration",
+        "community",
+        "mutual support",
+        "shared joy",
+        "belonging"
+      ],
+      "reversed": [
+        "overindulgence",
+        "exclusion",
+        "gossip",
+        "social fatigue",
+        "drifting apart"
+      ]
+    },
+    "upright": [
+      "The Three of Cups is the moment feeling becomes company. Perhaps something good has happened, or simply the day is over, and you are among people who are glad to see you. In Olivia’s image three ivory dancers turn in a ring under a crescent moon, raising three cups so that they meet in the air above their heads. The central cup carries a small heart of inlaid gold, the only gold inside the carved oval: what is being celebrated belongs to all of them together.",
+      "Look lower and there is a second gesture. Below the raised arms, free hands rest on a neighbour’s hip or reach toward a neighbour’s side, linking the three bodies into one chain. Upright, this card draws attention to that double nature of friendship: the visible toast, and the ordinary support that holds people steady when no one is celebrating. It can point to a gathering, a reunion, a team that works well, or a group where you do not have to explain yourself.",
+      "The garland of gourds, vines and grapes at the dancers’ feet adds a note of harvest. Something has ripened, and it is worth marking. The card invites you to let good news be shared, to accept care as well as offer it, and to notice who makes your joys feel larger simply by being there."
+    ],
+    "reversed": [
+      "Three of Cups reversed turns attention toward a circle that has lost its ease. Shared fun can slide into overindulgence, or closeness can tip into talk about whoever is absent. A group can also begin to feel closed, so that belonging depends on laughing at the right jokes or hiding part of yourself. Sometimes the reversal is quieter: friendships drifting because no one has made the call.",
+      "In Olivia’s image the hands that link the dancers matter as much as the raised cups. Reversed, the card asks where the toasting continues but the steady touch has gone, or where you have been holding the cup alone. Notice which company restores you and which leaves you performing, and choose one friendship to tend in a small, direct way."
+    ],
+    "number": "Threes are the first growth after the meeting of a pair: something new appears between two, and a relationship opens into a small community. In Cups, the suit of Water and feeling, the Two of Cups is a bond between two people; the Three widens that bond into a circle where joy can be witnessed and shared. It is feeling finding expression outside yourself, the stage before the Four, where emotion turns inward again and begins to look at what it already has.",
+    "tradition": "In the Golden Dawn system the Three of Cups is titled the Lord of Abundance and attributed to Mercury in Cancer, the planet of exchange and speech in the second decan of a Water sign ruled by the Moon. Like all Threes it belongs to Binah, Understanding, on the Tree of Life. Aleister Crowley kept the title Abundance for his Thoth deck. Marseille-pattern decks show the card as three cups arranged among stylised flowering foliage, with no people. Pamela Colman Smith’s 1909 design shows three figures raising their cups in a garden with harvest produce at their feet, an image commonly compared with the classical Three Graces.",
+    "areas": {
+      "love": "In close relationships the Three of Cups points to love that has room for other people: friends who know you both, a family gathering that feels warm, or the pleasure of celebrating together. It does not describe what anyone else feels. It asks whether your connections are held within a wider circle of support, and whether that circle leaves each person free. With yourself, it invites you to count friendship as a form of love, not a lesser one.",
+      "work": "At work or in study, this card can draw attention to collaboration that feels easy, a team milestone worth marking, or peers who share what they know. It favours working with others over proving yourself alone. Notice where recognition could be shared more fairly, and where a small celebration would help a group see how far it has come. Where money is involved, the card suggests talking openly with the people it affects rather than deciding in isolation.",
+      "self": "For your relationship with yourself, the Three of Cups asks where you feel most yourself among others. The dancers turn at different angles yet move as one ring, each keeping a separate step. Notice the company in which you relax rather than perform, and the places where you have slipped into being only the host or the listener. Let yourself be the one who is celebrated for a moment."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Three of Cups points to friendship, shared joy or a supportive circle as the real subject, rather than a problem to solve alone.",
+      "challenge": "As a challenge, the card can show a social circle that has become tiring, exclusive or indulgent, or a need for support that you have been reluctant to ask for.",
+      "advice": "As advice, it invites you to share something good with people who care, or to reach out to a friend and make a small, specific plan to meet."
+    },
+    "pairs": [
+      {
+        "with": 52,
+        "text": "Two Threes of the Minor Arcana, both built around a heart: the Three of Swords shows the grief that can pass between people, the Three of Cups the joy. Together they ask which company helps you carry either one."
+      },
+      {
+        "with": 3,
+        "text": "The Empress, card number three, is abundance in one figure; the Three of Cups is abundance shared among many. Together they draw attention to harvest, nourishment and the pleasure of enjoying what has grown."
+      },
+      {
+        "with": 66,
+        "text": "The Three of Pentacles is shared skill at work; the Three of Cups is shared feeling at rest. Together they point to groups that build something well and also take time to celebrate it."
+      }
+    ],
+    "questions": [
+      "Who helps you feel included without asking you to perform or explain yourself?",
+      "What recent good thing in your life has not yet been shared or marked with anyone?",
+      "Where in your friendships do you mostly give support, and where do you let yourself receive it?"
+    ],
+    "practice": "Send a short message to one friend naming a specific moment you enjoyed together, and suggest a simple time to meet again."
+  },
+  "uk": {
+    "essence": "Трійка Кубків святкує почуття, яким діляться: дружбу, взаємну підтримку й радість бути прийнятими в коло такими, якими ви є.",
+    "keywords": {
+      "upright": [
+        "дружба",
+        "святкування",
+        "спільнота",
+        "взаємна підтримка",
+        "спільна радість",
+        "приналежність"
+      ],
+      "reversed": [
+        "надмірність",
+        "замкнене коло",
+        "плітки",
+        "соціальна втома",
+        "віддалення"
+      ]
+    },
+    "upright": [
+      "Трійка Кубків — мить, коли почуття стає товариством. Можливо, сталося щось добре, а можливо, просто минув день, і ви серед людей, які вам раді. На зображенні Olivia три фігури зі слонової кістки кружляють колом під місячним серпом і підносять три кубки так, що ті зустрічаються в повітрі над їхніми головами. На центральному кубку — невелике серце з інкрустованого золота, єдине золото всередині різьбленого овалу: те, що святкують, належить усім трьом разом.",
+      "Погляньте нижче — і побачите другий жест. Під піднятими руками вільні долоні лежать на стегні сусідньої фігури або тягнуться до її боку, з’єднуючи три тіла в один ланцюг. У прямому положенні карта привертає увагу до цієї подвійної природи дружби: до помітного тосту і до буденної підтримки, що дає людям опору, коли ніхто нічого не святкує. Вона може вказувати на зустріч, возз’єднання, команду, яка добре працює разом, або коло, де вам не треба нічого пояснювати про себе.",
+      "Гірлянда з гарбузів, виноградної лози й грон біля ніг фігур нагадує про врожай. Щось дозріло, і це варто відзначити. Карта запрошує поділитися доброю новиною, приймати турботу так само, як ви її даруєте, і помітити людей, чия сама присутність робить ваші радощі більшими."
+    ],
+    "reversed": [
+      "Трійка Кубків у перевернутому положенні звертає увагу на коло, яке втратило легкість. Спільні розваги можуть перейти в надмірність, а близькість — у розмови про відсутніх. Група може стати замкненою, і тоді приналежність залежить від того, чи смієтеся ви з «правильних» жартів і чи ховаєте частину себе. Іноді перевернута карта говорить тихіше: дружба згасає, бо ніхто не зателефонував першим.",
+      "На зображенні Olivia руки, що з’єднують фігури, важать не менше, ніж підняті кубки. У перевернутому положенні карта запитує, де тости тривають, а постійний дотик зник, або де ви тримаєте кубок на самоті. Зверніть увагу, яке товариство вас відновлює, а яке змушує грати роль, і оберіть одну дружбу, про яку подбаєте невеликим, але безпосереднім кроком."
+    ],
+    "number": "Трійки — перше зростання після зустрічі пари: між двома з’являється щось нове, і стосунок розкривається в невелику спільноту. У Кубках, масті Води й почуття, Двійка — це зв’язок між двома людьми; Трійка розширює його до кола, де радість можна засвідчити й розділити. Це почуття, що виходить назовні, — етап перед Четвіркою, коли емоція знову обертається всередину й починає придивлятися до того, що вже має.",
+    "tradition": "У системі Золотої Зорі Трійка Кубків має титул «Володар Достатку» й пов’язана з Меркурієм у Раку: планетою обміну й мовлення в другому декані водного знака, яким керує Місяць. Як і всі Трійки, вона належить Біні, Розумінню, на Дереві Життя. Алістер Кроулі зберіг назву «Достаток» у своїй колоді Тота. У колодах марсельського типу на карті зображено три кубки серед стилізованого квітучого листя, без людей. На малюнку Памели Колман Сміт 1909 року три фігури підносять кубки в саду, а біля їхніх ніг лежать плоди врожаю; цей образ часто порівнюють з трьома античними Харитами.",
+    "areas": {
+      "love": "У близьких стосунках Трійка Кубків указує на любов, у якій є місце для інших людей: друзів, які знають вас обох, теплих родинних зустрічей чи радості святкувати разом. Вона не описує, що відчуває хтось інший. Вона запитує, чи тримаються ваші зв’язки в ширшому колі підтримки і чи лишає це коло кожному свободу. У стосунках із собою карта запрошує вважати дружбу формою любові, а не чимось меншим.",
+      "work": "У роботі чи навчанні ця карта може привернути увагу до співпраці, що йде легко, до командного етапу, який варто відзначити, або до колег, які діляться знаннями. Вона віддає перевагу роботі з іншими, а не самотнім спробам довести, чого ви варті. Зверніть увагу, де визнання можна розділити справедливіше і де невелике свято допомогло б групі побачити, який шлях вона вже пройшла. Коли йдеться про гроші, карта підказує відверто поговорити з тими, кого це стосується, а не вирішувати наодинці.",
+      "self": "У стосунках із собою Трійка Кубків запитує, де серед інших ви найбільше почуваєтеся собою. Фігури обертаються під різними кутами, та рухаються одним колом, і кожна зберігає власний крок. Помітьте товариство, у якому ви розслабляєтеся, а не граєте роль, і місця, де ви непомітно почали лише приймати гостей чи слухати. Дозвольте собі на мить бути тими, кого святкують."
+    },
+    "positions": {
+      "heart": "У центрі запитання Трійка Кубків указує, що справжня тема — дружба, спільна радість чи коло підтримки, а не проблема, яку треба розв’язати самотужки.",
+      "challenge": "Як перешкода карта може вказувати на товариство, що стало виснажливим, замкненим чи надмірним, або на потребу в підтримці, про яку вам не хочеться просити.",
+      "advice": "Як порада вона запрошує поділитися чимось добрим із тими, кому ви небайдужі, або звернутися до когось із друзів і домовитися про конкретну невелику зустріч."
+    },
+    "pairs": [
+      {
+        "with": 52,
+        "text": "Дві Трійки Молодших Арканів, обидві побудовані довкола серця: Трійка Мечів показує горе, що буває між людьми, Трійка Кубків — радість. Разом вони запитують, яке товариство допомагає вам нести і те, і інше."
+      },
+      {
+        "with": 3,
+        "text": "Імператриця, карта номер три, — це достаток в одній постаті; Трійка Кубків — достаток, розділений між багатьма. Разом вони привертають увагу до врожаю, живлення й насолоди тим, що виросло."
+      },
+      {
+        "with": 66,
+        "text": "Трійка Пентаклів — це спільна майстерність у праці; Трійка Кубків — спільне почуття на відпочинку. Разом вони вказують на групи, які добре щось будують і водночас знаходять час це відсвяткувати."
+      }
+    ],
+    "questions": [
+      "Хто допомагає вам почуватися своїми, не вимагаючи грати роль чи пояснювати себе?",
+      "Яку недавню добру подію у своєму житті ви ще ні з ким не розділили й не відсвяткували?",
+      "Де у вашій дружбі ви здебільшого підтримуєте інших, а де дозволяєте підтримати себе?"
+    ],
+    "practice": "Надішліть коротке повідомлення комусь із друзів, назвавши конкретну спільну мить, що принесла вам радість, і запропонуйте простий час для нової зустрічі."
+  }
+}

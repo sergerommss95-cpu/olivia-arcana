@@ -1,0 +1,267 @@
+{
+  "id": 25,
+  "slug": "four-of-wands",
+  "artwork": {
+    "file": "25_four_of_wands.webp",
+    "sha256": "478c4175c4fafac75d4039b96b78157eb6a7e445347ac28cf73fb61965b727bb"
+  },
+  "symbols": [
+    {
+      "key": "wand",
+      "x": 89,
+      "y": 60,
+      "en": {
+        "name": "Four living wands",
+        "seen": "Four slender wands carved in blue lapis relief stand planted in the ground, two on each side of the dancers. Carved vines twist up every shaft, and each tip breaks into sprouting leaves against the night.",
+        "meaning": "Wands are the suit of Fire: will, drive and creative spark. In the traditional image four budding staves hold up a garland. Olivia winds each one with carved vine and lets its tip branch into leaves, so the structure built by effort stays alive rather than finished and fixed."
+      },
+      "uk": {
+        "name": "Чотири живі жезли",
+        "seen": "Чотири тонкі жезли, вирізьблені рельєфом у синьому лазуриті, встромлені в землю, по два з кожного боку від танцівників. Кожне держално обвивають різьблені лози, а верхівки розгалужуються молодим листям на тлі нічного неба.",
+        "meaning": "Жезли — масть Вогню: воля, рушійна сила й творча іскра. На традиційному зображенні чотири жезли з бруньками тримають гірлянду. Olivia обвиває кожен із них різьбленою лозою і дає верхівкам розгалузитися листям, тож те, що зведено зусиллям, лишається живим, а не завершеним і застиглим."
+      }
+    },
+    {
+      "key": "leaves",
+      "x": 12,
+      "y": 24,
+      "en": {
+        "name": "The golden leaf finial",
+        "seen": "High on the far-left wand, just above the knot that ties the garland, sits a three-lobed leaf ornament in gold. Apart from star flecks and a diagonal trail of pyrite in the sky, it is the only gold on the card.",
+        "meaning": "This detail is Olivia’s own rather than part of the traditional image. Gold in this deck is rare and marks what matters. Set on a single post of the frame, it suggests that one support, one person or one effort, deserves to be named and honoured when the work is celebrated."
+      },
+      "uk": {
+        "name": "Золотий листок-навершя",
+        "seen": "Високо на крайньому лівому жезлі, трохи вище вузла, яким прив’язано гірлянду, розміщено золоту прикрасу у формі трилопатевого листка. Окрім зоряних вкраплень і діагонального сліду піриту в небі, це єдине золото на карті.",
+        "meaning": "Ця деталь належить саме Olivia, а не традиційному зображенню. Золото в цій колоді трапляється рідко й позначає важливе. Розміщене на одному-єдиному стовпі рами, воно підказує: коли ви святкуєте зроблене, варто назвати й ушанувати одну опору, одну людину чи одне зусилля."
+      }
+    },
+    {
+      "key": "wreath",
+      "x": 50,
+      "y": 40,
+      "en": {
+        "name": "The fruited garland",
+        "seen": "A heavy garland of leaves and clustered round fruits, carved in lighter blue, is tied to the wands with knotted cords high on the posts and swags low across the middle, in front of the castle.",
+        "meaning": "The garland is the card’s central sign: the traditional Four shows greenery slung across four staves, like a canopy raised for a harvest home or a wedding. Heavy with fruit here, it marks something that has ripened through work and is now ready to be shared."
+      },
+      "uk": {
+        "name": "Гірлянда з плодами",
+        "seen": "Важка гірлянда з листя й грон круглих плодів, вирізьблена світлішим синім, прив’язана до жезлів шнурами з вузлами високо на стовпах і низько провисає посередині, перед замком.",
+        "meaning": "Гірлянда — головний знак карти: на традиційній Четвірці зелень перекинуто через чотири жезли, наче балдахін, піднятий на свято врожаю чи весілля. Тут вона обважніла від плодів і позначає те, що дозріло завдяки праці й тепер готове, щоб ним поділитися."
+      }
+    },
+    {
+      "key": "castle",
+      "x": 66,
+      "y": 34,
+      "en": {
+        "name": "The castle behind the canopy",
+        "seen": "Beyond the garland rises a walled castle carved low in greyish-blue lapis: round crenellated towers, some with pointed roofs, and in front, a small gabled house with an arched doorway beside an arched bridge.",
+        "meaning": "In the traditional image a castle stands behind the celebrants, the settled place the festivity belongs to. Here it sits back in pale stone, not gold: security as the backdrop that makes celebration possible, not the prize itself. The Four is homecoming as much as achievement."
+      },
+      "uk": {
+        "name": "Замок за балдахіном",
+        "seen": "За гірляндою здіймається обнесений мурами замок, неглибоко вирізьблений у сірувато-синьому лазуриті: круглі вежі із зубцями, деякі з гострими дахами, а попереду невеликий будиночок із двосхилим дахом і арковими дверима поруч з арковим мостом.",
+        "meaning": "На традиційному зображенні позаду святкувальників стоїть замок, осіле місце, до якого належить свято. Тут він відступає вглиб, у блідий камінь, а не в золото: безпека як тло, що робить святкування можливим, а не сама нагорода. Четвірка — це повернення додому не менше, ніж досягнення."
+      }
+    },
+    {
+      "key": "crowd",
+      "x": 29,
+      "y": 43,
+      "en": {
+        "name": "The gathering by the walls",
+        "seen": "Tiny carved figures stand in groups on the ground before the castle walls, beneath the left swag of the garland, with more near the bridge on the right; none is clearly detailed.",
+        "meaning": "The traditional image includes people gathered near the castle, often read as the community that recognises a milestone. Olivia keeps them small and indistinct in the background stone. Belonging here is a wider circle that holds the dancers without crowding them; recognition does not need an audience to be real."
+      },
+      "uk": {
+        "name": "Гурт біля мурів",
+        "seen": "Крихітні різьблені постаті стоять гуртами на землі перед мурами замку, під лівим вигином гірлянди, ще кілька видно біля мосту праворуч; жодну не виписано чітко.",
+        "meaning": "На традиційному зображенні біля замку збираються люди, яких часто читають як спільноту, що визнає важливий рубіж. Olivia лишає їх дрібними й невиразними, у глибині каменю. Належність тут — ширше коло, що обіймає танцівників, не тіснячи їх; визнанню не потрібні глядачі, щоб бути справжнім."
+      }
+    },
+    {
+      "key": "flowers",
+      "x": 66,
+      "y": 50,
+      "en": {
+        "name": "Two sprigs of blossom",
+        "seen": "The dancers lift two small sprigs of ivory blossom and leaves above their heads: one in the left dancer’s outer hand, stretching toward the joined hands, the other raised high in the right dancer’s outer hand.",
+        "meaning": "The traditional figures raise bouquets overhead. Olivia shrinks them to sprigs, the kind picked on the way rather than bought for an occasion. Held aloft, they turn a private gladness into a gesture others can see, and they echo the leaves sprouting from the wands."
+      },
+      "uk": {
+        "name": "Дві гілочки квітів",
+        "seen": "Танцівники здіймають над головами дві маленькі гілочки квітів і листя зі слонової кістки: одну тримає зовнішня рука постаті ліворуч, і гілочка тягнеться до з’єднаних рук, другу високо підносить зовнішня рука постаті праворуч.",
+        "meaning": "Традиційні постаті тримають над головою букети. Olivia зменшує їх до гілочок, які зривають дорогою, а не купують з нагоди. Піднесені вгору, вони перетворюють особисту радість на жест, який можуть побачити інші, і перегукуються з листям, що проростає з жезлів."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 49,
+      "y": 52,
+      "en": {
+        "name": "Hands meeting overhead",
+        "seen": "Both dancers raise both arms. At the top of the arc their inner hands meet and touch, the dancer on the right reaching across, while each outer hand holds a sprig aloft.",
+        "meaning": "In the traditional image the bouquets are raised separately. Here the two celebrants also make contact, forming an arch of arms that repeats the garland above and the frame of wands. The Four’s stability becomes relational: a shape made by people meeting, not by one person arriving."
+      },
+      "uk": {
+        "name": "Руки, що зустрілися вгорі",
+        "seen": "Обидві постаті підносять обидві руки. Угорі, на вершині дуги, їхні внутрішні долоні сходяться й торкаються, причому постать праворуч тягнеться назустріч; кожна зовнішня рука тримає гілочку високо вгорі.",
+        "meaning": "На традиційному зображенні букети піднято окремо. Тут двоє святкувальників ще й торкаються одне одного, утворюючи арку з рук, що повторює гірлянду вгорі та раму з жезлів. Стабільність Четвірки стає справою стосунків: формою, яку творять люди, що зустрілися, а не одна людина, яка дісталася мети."
+      }
+    },
+    {
+      "key": "laurel",
+      "x": 37,
+      "y": 54,
+      "en": {
+        "name": "The leafy circlet",
+        "seen": "The dancer on the left wears a small circlet of leaves over hair gathered up at the back; the dancer on the right has short, dense curls and no wreath. The two faces turn toward each other, smiling.",
+        "meaning": "A wreath of leaves is an ancient sign of festival and honour, from harvest rites to victors’ crowns. Worn by one dancer and not the other, it suggests recognition that can be passed around: today one is crowned, and both share the joy."
+      },
+      "uk": {
+        "name": "Листяний віночок",
+        "seen": "На постаті ліворуч — невеликий віночок із листя поверх волосся, зібраного на потилиці; постать праворуч, з короткими густими кучерями, без вінка. Обличчя повернуті одне до одного й усміхаються.",
+        "meaning": "Вінок із листя — давній знак свята й шани, від обрядів урожаю до вінців переможців. Його носить лише одна постать, тож він натякає на визнання, яке може переходити з рук у руки: сьогодні увінчано одну постать, а радість спільна для обох."
+      }
+    },
+    {
+      "key": "couple",
+      "x": 38,
+      "y": 68,
+      "en": {
+        "name": "Two barefoot dancers",
+        "seen": "Two ivory figures dance barefoot on rough lapis ground in the foreground, one in a long flowing gown, one in a short tunic tied with a sash, light drapes and hems lifting with the movement.",
+        "meaning": "The traditional figures stand and wave in greeting. Olivia sets them in motion, weight on the toes, cloth swinging. Celebration here is something done, not only watched. Bare feet on the ground keep it earthy: joy rooted in a real place and body rather than performed on a stage."
+      },
+      "uk": {
+        "name": "Двоє босих танцівників",
+        "seen": "Дві постаті зі слонової кістки босоніж танцюють на шорсткій лазуритовій землі на передньому плані: одна в довгій плинній сукні, друга в короткій туніці, підперезаній поясом; легкі драпування й поли злітають від руху.",
+        "meaning": "Традиційні постаті стоять і вітально махають. Olivia пускає їх у рух: вага на пальцях ніг, тканина розвівається. Святкування тут — дія, а не лише видовище. Босі ноги на землі роблять його земним: це радість, укорінена в справжньому місці й тілі, а не зіграна на сцені."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Four of Wands invites you to pause inside something you have built, and to celebrate it with the people and places that made it possible.",
+    "keywords": {
+      "upright": [
+        "celebration",
+        "homecoming",
+        "shared milestone",
+        "belonging",
+        "stable foundation",
+        "gratitude"
+      ],
+      "reversed": [
+        "unmarked milestone",
+        "feeling outside",
+        "unsettled home",
+        "postponed joy",
+        "performed festivity"
+      ]
+    },
+    "upright": [
+      "The Four of Wands is the card of a structure that finally holds. Four wands stand planted in the ground, a fruited garland is tied between them, and two figures dance barefoot beneath it. Something has been raised by effort, and now it is sturdy enough to gather under. In Olivia’s image the wands are still alive, wound with vines and sprouting leaves at the tips, so this is not an ending. It is a threshold: a moment to stop, look at what you have made, and let it be enough for today.",
+      "The card turns attention toward recognition, especially the kind that is shared. The dancers’ inner hands meet overhead and each lifts a small sprig of blossom, not a grand bouquet. Behind them the castle sits back in pale stone and the crowd is barely sketched. The emphasis falls on the ones who are dancing, not on status or spectators. A finished draft, a settled home, a repaired friendship, a term completed: the Four asks you to mark it in some modest, bodily way.",
+      "It also draws attention to foundations. Four is the number of the square and the frame, and a frame that is honoured tends to be tended. Notice the single gold ornament on one post. It asks who or what quietly held the whole structure up, and whether they have been thanked."
+    ],
+    "reversed": [
+      "Four of Wands reversed can point to a milestone that passes without being marked, because the next task arrived too fast or the moment did not feel big enough. It can also turn attention toward a gathering that looks festive while you feel at its edge, closer to the tiny figures by the castle wall than to the dancers. During a move, a change of role or a shift in a relationship, the sense of home may feel unsettled for a while.",
+      "Nothing here has to be fixed at once. The reversed Four invites you to lower the bar for celebration: one sprig rather than a bouquet. Name what has been reached, even privately, and ask where a small sense of belonging is already present."
+    ],
+    "number": "Four is the rank of structure. After the spark of the Ace, the choice of the Two and the widening view of the Three, the Four gives Fire a frame to burn in: four corners, a hearth, walls around the flame. In other suits a Four can feel static or withdrawn; in Wands the frame turns festive, because enthusiasm that has found a stable form can finally rest and be enjoyed. On the Tree of Life the Fours sit in Chesed, the sphere of mercy and generous order.",
+    "tradition": "In the Golden Dawn system the Four of Wands is titled “Lord of Perfected Work” and assigned to Venus in Aries, the third decan of that sign (20° to 30°), with all the Fours placed in Chesed on the Tree of Life. Venus softens the Martian fire of Aries into pleasure, grace and harmony, one reason this Four is among the gentlest cards of its suit. Crowley later retitled it “Completion”. Older Marseille-pattern decks show only four crossed batons with a flowering ornament; Pamela Colman Smith’s 1909 design for the Waite-Smith deck gave it the garland on four staves, two figures raising bouquets and a castle behind, the scene Olivia’s card follows.",
+    "areas": {
+      "love": "In love and close bonds, the Four of Wands draws attention to the relationship as a place you share rather than a problem to solve. It can point to a milestone worth marking: moving in, a year together, a reconciliation, a friendship that has lasted. Like the dancers whose hands meet overhead, it asks what you make together, not only what each of you gives. With yourself, it invites you to treat your own life as a home you are allowed to enjoy.",
+      "work": "At work or in study, the Four of Wands points to a stage that is genuinely complete: a launch, a submitted project, a team that has found its rhythm. It invites you to mark it before moving on, and to name the people whose effort held the frame up, like the single gold ornament on one post. With money matters, it turns attention toward what already feels secure enough to rest on, without passing any verdict on decisions.",
+      "self": "For your inner life, the Four of Wands asks where you feel at home: in a room, a routine, a body, a small circle of people. The wands in this image keep growing while they hold the garland, so stability and change are not opposites here. Notice what supports you that you have stopped seeing, and allow yourself a pause of plain gladness without first earning it by finishing everything else."
+    },
+    "positions": {
+      "heart": "At the centre of your question, the Four of Wands points to something that already holds: a shared foundation or a stage completed. It invites you to recognise it before asking what comes next.",
+      "challenge": "As a challenge, the Four can point to celebration postponed until everything feels perfect, or to belonging that depends on keeping up appearances. It asks what would still be worth marking now.",
+      "advice": "As advice, the Four of Wands suggests a modest ritual: thank someone who helped, share a meal, or pause in a place that feels like home before starting the next task."
+    },
+    "pairs": [
+      {
+        "with": 24,
+        "text": "With the Three of Wands, attention goes out toward distant horizons; with the Four, it returns to a garland and a home. Together they draw attention to the rhythm between reaching outward and coming back to where you are held."
+      },
+      {
+        "with": 38,
+        "text": "With the Three of Cups, both cards celebrate, but differently: the Cups honour feeling and friendship, while the Wands raise a structure and dance beneath it. Together they point to joy that is both heartfelt and built to last."
+      },
+      {
+        "with": 67,
+        "text": "With the Four of Pentacles, the same number shows two ways of holding what you have built. The Pentacles keep it close and guarded; the Wands open it up and share it. Together they ask whether your security feels like a fortress or a home."
+      }
+    ],
+    "questions": [
+      "What have you built recently that deserves to be marked before you move on?",
+      "Who helped hold up the frame of what you have now, and do they know it?",
+      "Where do you feel most at home, and what keeps that feeling alive?"
+    ],
+    "practice": "Choose one thing you have finished this month and mark it with a small ritual: a shared meal, a note of thanks, or ten minutes of music and movement."
+  },
+  "uk": {
+    "essence": "Четвірка Жезлів запрошує вас зупинитися всередині того, що ви збудували, і відсвяткувати це разом із людьми й місцями, завдяки яким воно стало можливим.",
+    "keywords": {
+      "upright": [
+        "святкування",
+        "повернення додому",
+        "спільний рубіж",
+        "належність",
+        "міцний фундамент",
+        "вдячність"
+      ],
+      "reversed": [
+        "непомічений рубіж",
+        "відчуття чужості",
+        "хиткий дім",
+        "відкладена радість",
+        "показне свято"
+      ]
+    },
+    "upright": [
+      "Четвірка Жезлів — карта конструкції, яка нарешті тримається. Чотири жезли встромлені в землю, між ними прив’язано гірлянду з плодами, а під нею босоніж танцюють дві постаті. Щось зведено зусиллям, і тепер воно досить міцне, щоб під ним зібратися. На зображенні Olivia жезли досі живі, обвиті лозами, з листям, що проростає на верхівках, тож це не кінець. Це поріг: мить, щоб зупинитися, подивитися на створене й визнати, що на сьогодні цього досить.",
+      "Карта звертає увагу на визнання, особливо спільне. Внутрішні руки танцівників сходяться вгорі, і кожна постать піднімає невелику гілочку квітів, а не пишний букет. Позаду замок відступає в блідий камінь, а натовп ледь окреслено. Наголос падає на тих, хто танцює, а не на статус чи глядачів. Завершена чернетка, облаштований дім, відновлена дружба, закінчений семестр: Четвірка просить вас відзначити це скромно, тілом і дією.",
+      "Вона також звертає увагу на підвалини. Чотири — число квадрата й рами, а раму, яку шанують, зазвичай і доглядають. Помітьте єдину золоту прикрасу на одній зі стійок. Вона запитує, хто чи що тихо тримали на собі всю конструкцію і чи їм подякували."
+    ],
+    "reversed": [
+      "Четвірка Жезлів у перевернутому положенні може вказувати на рубіж, що минає непоміченим, бо наступне завдання з’явилося надто швидко або мить не здалася досить значною. Вона може також звертати увагу на зібрання, яке має святковий вигляд, тоді як ви почуваєтеся на його краю, ближче до крихітних постатей біля замкового муру, ніж до танцівників. Під час переїзду, зміни ролі чи зсуву у стосунках відчуття дому може якийсь час бути хитким.",
+      "Тут нічого не треба виправляти негайно. Перевернута Четвірка запрошує вас знизити планку для святкування: одна гілочка замість букета. Назвіть те, чого досягнуто, хай навіть подумки, і запитайте себе, де невелике відчуття належності вже є."
+    ],
+    "number": "Четвірка — ранг структури. Після іскри Туза, вибору Двійки й ширшого погляду Трійки Четвірка дає Вогню раму, в якій горіти: чотири кути, вогнище, стіни довкола полум’я. В інших мастях Четвірка може здаватися статичною чи замкненою; у Жезлах рама стає святковою, бо запал, що знайшов сталу форму, нарешті може перепочити, і ним можна тішитися. На Дереві Життя Четвірки розташовані в Хесед, сфері милосердя й щедрого порядку.",
+    "tradition": "У системі Золотої Зорі Четвірка Жезлів має титул «Володар Довершеної Праці» і відповідає Венері в Овні, третьому декану цього знака (від 20° до 30°); усі Четвірки розміщено в Хесед на Дереві Життя. Венера пом’якшує марсіанський вогонь Овна до насолоди, грації й гармонії, і це одна з причин, чому ця Четвірка належить до найлагідніших карт масті. Пізніше Кроулі перейменував її на «Завершення». Давніші колоди марсельського типу показують лише чотири схрещені палиці з квітковим орнаментом; 1909 року Памела Колман Сміт у колоді Вейта–Сміт дала карті гірлянду на чотирьох жезлах, дві постаті з піднятими букетами й замок позаду. Саме цю сцену й наслідує карта Olivia.",
+    "areas": {
+      "love": "У коханні й близьких стосунках Четвірка Жезлів звертає увагу на стосунки як на спільне місце, а не на задачу, яку треба розв’язати. Вона може вказувати на рубіж, вартий відзначення: переїзд до спільного житла, рік разом, примирення, дружбу, що витримала час. Нагадуючи танцівників, чиї руки сходяться вгорі, вона запитує, що ви творите разом, а не лише що дає кожен із вас. Щодо стосунків із собою вона запрошує вас ставитися до власного життя як до дому, яким дозволено тішитися.",
+      "work": "У роботі чи навчанні Четвірка Жезлів вказує на справді завершений етап: запуск, зданий проєкт, команду, що знайшла свій ритм. Вона запрошує вас відзначити його, перш ніж рухатися далі, і назвати людей, чиє зусилля тримало раму, як єдина золота прикраса на одній зі стійок. У грошових питаннях вона звертає увагу на те, що вже здається досить надійним, щоб на нього спертися, але не оцінює жодних рішень.",
+      "self": "Щодо внутрішнього життя, Четвірка Жезлів запитує, де ви почуваєтеся вдома: у кімнаті, у звичному розпорядку, у тілі, у невеликому колі людей. Жезли на цьому зображенні ростуть і далі, тримаючи гірлянду, тож стабільність і зміна тут не протилежності. Помітьте опору, яку ви перестали бачити, і дозвольте собі паузу простої радості, не заслуговуючи її спершу завершенням усього іншого."
+    },
+    "positions": {
+      "heart": "У центрі вашого запитання Четвірка Жезлів вказує на те, що вже тримається: спільний фундамент або завершений етап. Вона запрошує вас визнати це, перш ніж питати, що далі.",
+      "challenge": "Як перешкода Четвірка може вказувати на свято, відкладене доти, доки все не стане досконалим, або на належність, яка тримається лише на зовнішній видимості. Вона запитує, що варто відзначити вже зараз.",
+      "advice": "Як порада Четвірка Жезлів пропонує скромний ритуал: подякувати людині, яка допомогла, розділити трапезу чи зупинитися там, де ви почуваєтеся вдома, перш ніж братися до наступного завдання."
+    },
+    "pairs": [
+      {
+        "with": 24,
+        "text": "З Трійкою Жезлів увага лине назовні, до далеких обріїв; з Четвіркою вона повертається до гірлянди й дому. Разом вони звертають увагу на ритм між пориванням назовні й поверненням туди, де ви маєте опору."
+      },
+      {
+        "with": 38,
+        "text": "Поряд із Трійкою Кубків святкують обидві карти, але по-різному: Кубки шанують почуття й дружбу, а Жезли зводять конструкцію й танцюють під нею. Разом вони вказують на радість, водночас щиру й збудовану надовго."
+      },
+      {
+        "with": 67,
+        "text": "Поряд із Четвіркою Пентаклів те саме число показує два способи тримати збудоване. Пентаклі тримають його при собі й стережуть; Жезли відкривають його й діляться ним. Разом вони запитують, чим для вас є ваша безпека: фортецею чи домом."
+      }
+    ],
+    "questions": [
+      "Що з нещодавно збудованого вами варто відзначити, перш ніж рухатися далі?",
+      "Хто допомагав тримати раму того, що ви маєте тепер, і чи знають ці люди про це?",
+      "Де ви найбільше почуваєтеся вдома і що не дає цьому відчуттю згаснути?"
+    ],
+    "practice": "Оберіть одну справу, яку ви завершили цього місяця, і відзначте її маленьким ритуалом: спільною трапезою, запискою з подякою чи десятьма хвилинами музики й руху."
+  }
+}

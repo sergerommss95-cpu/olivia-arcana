@@ -1,0 +1,250 @@
+{
+  "id": 28,
+  "slug": "seven-of-wands",
+  "artwork": {
+    "file": "28_seven_of_wands.webp",
+    "sha256": "4cfce304c4fde48e247e1eea214f54e7790f3c7b85ce8e6c8dd131a56307d71d"
+  },
+  "symbols": [
+    {
+      "key": "face",
+      "x": 49,
+      "y": 30,
+      "en": {
+        "name": "The turned head",
+        "seen": "The ivory figure’s head, crowned with short, tousled curls, turns in sharp profile toward the right edge of the card, jaw set, while chest and hips still face you.",
+        "meaning": "In the traditional image the defender looks down toward the staves rising from below. Here the gaze goes past them, level and out to the right. It reads as attention held on what matters, rather than locked on every challenger."
+      },
+      "uk": {
+        "name": "Повернута голова",
+        "seen": "Голова фігури зі слонової кістки, з короткими скуйовдженими кучерями, різко повернута в профіль до правого краю карти, щелепи стиснуті, а груди й стегна досі звернені до вас.",
+        "meaning": "У традиційному зображенні фігура, що обороняється, опускає погляд на жезли, які здіймаються знизу. Тут погляд іде повз них — рівно й праворуч. Це можна сприйняти як увагу, зосереджену на важливому, а не прикуту до кожного, хто кидає виклик."
+      }
+    },
+    {
+      "key": "flame",
+      "x": 21,
+      "y": 35,
+      "en": {
+        "name": "Gold flame on the staff",
+        "seen": "At the staff’s left-hand end, just beyond the left fist, a small crown of gold flame curls upward in several tongues. It is the only gold on the figure or the rock.",
+        "meaning": "Wands are the suit of Fire: will, conviction and creative drive. Traditional Wands are living wood, often sprouting leaves; this staff ends in a flame instead. What is being defended is not only ground but a fire of your own, kept close to the hand and behind the guard."
+      },
+      "uk": {
+        "name": "Золоте полум’я на жезлі",
+        "seen": "На лівому кінці жезла, одразу за лівим кулаком, кількома язиками в’ється вгору невелика золота корона полум’я. Це єдине золото на фігурі та скелі.",
+        "meaning": "Жезли — масть Вогню: воля, переконання і творчий порив. Традиційні жезли — живе дерево, часто з листям; цей жезл натомість завершується полум’ям. Тож захищають тут не лише територію, а й ваш власний вогонь, який тримають біля самої руки, за лінією оборони."
+      }
+    },
+    {
+      "key": "staff",
+      "x": 66,
+      "y": 37,
+      "en": {
+        "name": "The staff held crosswise",
+        "seen": "One long, smooth ivory staff is gripped overhand in both fists and held level across the chest, its plain far end reaching well past the shoulder on the right.",
+        "meaning": "The seventh wand is the one you actually hold. Held level, it works as a barrier and a balance bar at once, less a weapon than a line drawn. Its ivory matches the figure and sets it apart from the six stone wands around it."
+      },
+      "uk": {
+        "name": "Жезл поперек грудей",
+        "seen": "Обидва кулаки стискають згори один довгий гладенький жезл зі слонової кістки й тримають його горизонтально поперек грудей; його простий дальній кінець сягає далеко за плече праворуч.",
+        "meaning": "Сьомий жезл — той, який ви справді тримаєте. Коли його тримають горизонтально, він водночас і бар’єр, і балансир: радше проведена межа, ніж зброя. Він зі слонової кістки, як і фігура, і це відрізняє його від шести кам’яних жезлів довкола."
+      }
+    },
+    {
+      "key": "wand",
+      "x": 27,
+      "y": 51,
+      "en": {
+        "name": "Six wands of grey lapis",
+        "seen": "Six rough wands, three on each side, rise from behind the crag near the figure’s feet and fan outward. Carved in grey-blue lapis with knotted, twig-stubbed tips, all six lean away from the figure.",
+        "meaning": "Traditionally the six staves are pressures rising against one person: rivals, objections, demands. Olivia splits them evenly and carves them in the background stone, set back behind the ivory figure and below the held staff. Pressure surrounds but does not strike; some of it may be landscape rather than attack."
+      },
+      "uk": {
+        "name": "Шість жезлів із сірого лазуриту",
+        "seen": "Шість грубих жезлів, по три з кожного боку, здіймаються з-за скелі біля ніг фігури й розходяться віялом. Вирізьблені в сіро-блакитному лазуриті, з вузлуватими верхівками й обрубками сучків, усі шість відхиляються від фігури.",
+        "meaning": "Традиційно шість жезлів — це тиск, що здіймається проти однієї людини: суперники, заперечення, вимоги. Olivia ділить їх порівну й вирізьблює у фоновому камені, позаду фігури зі слонової кістки й нижче від її жезла. Тиск оточує, але не б’є; частина його може бути радше краєвидом, ніж нападом."
+      }
+    },
+    {
+      "key": "other",
+      "x": 61,
+      "y": 62,
+      "en": {
+        "name": "A shoe and a boot",
+        "seen": "The legs are planted wide with knees bent and weight low. The foot on the left wears a soft, low slipper; the foot on the right wears a calf boot beneath a rolled cuff of cloth.",
+        "meaning": "Mismatched footwear is a well-known detail of this card’s traditional image, often read as a stand taken in a hurry, before everything was ready. Olivia keeps it. Readiness is not the condition for courage; the braced, low stance does the work."
+      },
+      "uk": {
+        "name": "Черевичок і чобіт",
+        "seen": "Ноги широко розставлені, коліна зігнуті, центр ваги опущено. На нозі ліворуч — м’який низький черевичок; на нозі праворуч — чобіт до литки під підкоченим краєм тканини.",
+        "meaning": "Різне взуття — відома деталь традиційного зображення цієї карти, яку часто тлумачать як позицію, зайняту поспіхом, коли ще не все було готове. Olivia її зберігає. Щоб бути мужніми, не треба бути готовими; усе вирішує пружна, низька стійка."
+      }
+    },
+    {
+      "key": "rock",
+      "x": 50,
+      "y": 72,
+      "en": {
+        "name": "The cracked crag",
+        "seen": "The figure stands on the uneven top of a crag carved in mid-blue lapis with pale, worn edges, faceted and split by dark fissures, falling away steeply below; lower ridges show behind it on the left.",
+        "meaning": "High ground is the card’s oldest advantage: the defender is hard to reach. This rock is fractured rather than smooth, so the position is real but not permanent. It invites you to value your footing and to notice where it has begun to crack."
+      },
+      "uk": {
+        "name": "Потріскана скеля",
+        "seen": "Фігура стоїть на нерівній верхівці скелі, вирізьбленої з лазуриту середнього синього тону, з блідими, стертими краями; гранчаста, розколота темними тріщинами, скеля круто обривається вниз, а ліворуч позаду видніють нижчі гребені.",
+        "meaning": "Висота — найдавніша перевага цієї карти: до фігури важко дістатися. Ця скеля не гладенька, а розколота, тож позиція справжня, але не вічна. Карта запрошує вас цінувати свою опору й помічати, де вона вже почала тріскатися."
+      }
+    },
+    {
+      "key": "cloud",
+      "x": 69,
+      "y": 24,
+      "en": {
+        "name": "Wind-driven clouds",
+        "seen": "Behind the head and shoulders, clouds carved in lighter blue lapis curl and stream sideways, and fine wind lines run horizontally behind the figure’s arms and torso on both sides.",
+        "meaning": "In the Wands suit, air feeds fire as much as it tests it. These clouds add a headwind of opinion, noise and strain. The figure does not rise above the weather but stands inside it and keeps position anyway."
+      },
+      "uk": {
+        "name": "Хмари, гнані вітром",
+        "seen": "За головою й плечима хмари, вирізьблені у світлішому блакитному лазуриті, закручуються й линуть убік, а тонкі лінії вітру тягнуться горизонтально за руками й тулубом фігури з обох боків.",
+        "meaning": "У масті Жезлів повітря так само живить вогонь, як і випробовує його. Ці хмари додають зустрічного вітру: чужих думок, шуму й напруги. Фігура не підноситься над негодою, а стоїть усередині неї — і все одно тримає позицію."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 44,
+      "y": 15,
+      "en": {
+        "name": "Glittering vein across the sky",
+        "seen": "A long diagonal vein of glittering pale mineral crosses the dark lapis from the top edge down toward the left edge, passing just left of the clouds; small gold flecks are scattered across the whole sky.",
+        "meaning": "This is Olivia’s own detail, a feature of the stone rather than of tarot tradition. Above the contest the sky keeps its wider pattern: a quiet reminder that the stand you are taking is one moment within a much larger night."
+      },
+      "uk": {
+        "name": "Мерехтлива жилка в небі",
+        "seen": "Довга діагональна жилка мерехтливого блідого мінералу перетинає темний лазурит від верхнього краю вниз до лівого, проходячи трохи лівіше від хмар; дрібні золоті цятки розсипані по всьому небу.",
+        "meaning": "Це власна деталь Olivia, особливість каменю, а не традиції таро. Над протистоянням небо зберігає свій ширший візерунок: тихе нагадування, що позиція, яку ви обстоюєте, — лише одна мить значно більшої ночі."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Seven of Wands asks you to hold your ground for something that matters, and to choose which challenges truly deserve your strength.",
+    "keywords": {
+      "upright": [
+        "standing firm",
+        "conviction",
+        "courage under pressure",
+        "defending a boundary",
+        "perseverance"
+      ],
+      "reversed": [
+        "worn-down resolve",
+        "constant guardedness",
+        "yielding too soon",
+        "fighting every battle",
+        "doubted position"
+      ]
+    },
+    "upright": [
+      "The Seven of Wands is the card of a stand. One figure holds higher ground while six other wands rise around it, and the question is no longer whether you care about something but whether you will keep hold of it when it is questioned. In Olivia’s deck the defender is carved in ivory on a cracked crag of blue lapis, legs braced wide and knees bent, gripping a single staff level across the chest.",
+      "Look at what that staff carries. At its left-hand end a small gold flame burns, the only gold on the figure, so what is being defended here is a fire of your own: a conviction, a piece of work, a boundary, a way of living. The six surrounding wands are carved in grey stone and fanned outward, and all six lean away from the figure rather than toward it. The pressure is real, yet much of it stays at a distance.",
+      "Upright, the card invites steady courage rather than aggression. The figure’s head is turned in profile to the right, gaze level and above the wand tips rather than down at them. You do not need to answer every objection; name what you are protecting, hold it with both hands, and let the rest be weather. The mismatched shoe and boot suggest you may not feel ready. Readiness is not the test here; steadiness is."
+    ],
+    "reversed": [
+      "Seven of Wands reversed draws attention to a stand that has become tiring, or one that has hardened into habit. You may be gripping the staff so tightly that every question sounds like an attack, spending strength on positions that no longer need defending. Or the pressure may have worn you down until giving way feels easier than explaining yourself once more.",
+      "This position asks you to sort the six wands. Which of them actually reaches you, and which are part of the landscape? Keep the flame, and set down the arguments that do not protect it. Rest is not surrender, and changing your mind after honest thought is not defeat."
+    ],
+    "number": "Seven follows the balance of the Six with a test. In the Minor Arcana it often marks the point where something already gained has to be held, assessed or defended, and where you stand a little apart from the group. In Wands, the suit of Fire, will and conviction, the test is one of nerve: after the Six’s public victory, the Seven asks whether your fire holds when applause turns into challenge.",
+    "tradition": "In the Golden Dawn system the Seven of Wands is titled the Lord of Valour. It is assigned to Mars in Leo, the third decan of that sign (20 to 30 degrees), and to Netzach, Victory, the seventh Sephirah on the Tree of Life, expressed through the suit of Fire. Mars brings combative drive and Leo the heart of a fixed Fire sign, a pairing often read as courage under strain. Aleister Crowley kept the single title Valour. Marseille decks show only a pattern of crossed batons with one straight baton through the centre. Pamela Colman Smith’s 1909 design gave the card its familiar scene: a figure on a height, holding a staff against six raised from below.",
+    "areas": {
+      "love": "In close relationships the Seven of Wands can point to a boundary that keeps being tested, or a need you have had to restate more than once. It cannot tell you why anyone pushes against it. It asks what your flame is here, the value or need you are protecting, and whether you can state it calmly instead of defending it against every glance. With yourself, it can mean keeping a commitment you made to yourself when others find it inconvenient.",
+      "work": "At work or in study, this card often appears when an idea, a standard or a role you have earned is questioned by several people at once. Separate the challenges that raise real points from those that are simply noise; the six wands are not all the same wand. Answer the first kind carefully and let the second pass. Where money or contracts are involved, a qualified person’s view serves you better than holding out alone.",
+      "self": "For your relationship with yourself, notice where you hold your staff. The figure’s knees are bent and weight is low, a stance that can hold for a while but not indefinitely. The card invites you to check whether your guard is protecting something alive, like the gold flame, or has become a posture your body keeps out of habit. Let your shoulders drop once today and see what still feels worth defending."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Seven of Wands points to something you care about enough to defend. The real matter may be less the opposition than naming clearly what you are standing for.",
+      "challenge": "As a challenge, the card can show a guard held so long that every question feels like an attack, or pressure from several directions spreading your energy thin across too many small fights.",
+      "advice": "As advice, the card invites you to choose your ground: keep hold of what matters with both hands, answer the challenges that deserve it, and let the rest remain part of the landscape."
+    },
+    "pairs": [
+      {
+        "with": 27,
+        "text": "With the Six of Wands, this card shows the turn from recognition to responsibility. The Six rides in to acclaim; the Seven stands alone on the rise, asked to keep what was won when attention turns into questions."
+      },
+      {
+        "with": 30,
+        "text": "Paired with the Nine of Wands, the stand becomes a longer story. The Seven defends with fresh energy; the Nine leans on a gold-tipped staff after long strain. Together they draw attention to pacing your defence so it can last."
+      },
+      {
+        "with": 8,
+        "text": "With Strength, the Major Arcana card of Leo in the Golden Dawn system, the Seven’s courage is asked to soften into steadiness. Strength meets the lion with a calm hand; together they suggest that holding your ground rarely needs force, only presence."
+      }
+    ],
+    "questions": [
+      "What is the flame you are protecting, and can you name it in one sentence?",
+      "Which of the challenges around you raise real points, and which are only noise?",
+      "Where are you holding your guard out of habit rather than need?"
+    ],
+    "practice": "Write down the one thing you are standing for this week, then list the challenges to it and cross out every one you can let pass without answering."
+  },
+  "uk": {
+    "essence": "Сімка Жезлів просить вас утримати позицію заради того, що має значення, і вибрати, які виклики справді варті вашої сили.",
+    "keywords": {
+      "upright": [
+        "стійкість",
+        "переконаність",
+        "мужність під тиском",
+        "захист меж",
+        "наполегливість"
+      ],
+      "reversed": [
+        "виснажена рішучість",
+        "постійна настороженість",
+        "передчасна поступливість",
+        "усі битви одразу",
+        "позиція під сумнівом"
+      ]
+    },
+    "upright": [
+      "Сімка Жезлів — карта позиції, яку обстоюють. Одна фігура тримає висоту, а довкола здіймаються шість інших жезлів, і йдеться вже не про те, чи вам щось важливо, а про те, чи втримаєте ви це, коли в цьому засумніваються. У колоді Olivia фігуру, що тримає оборону, вирізьблено зі слонової кістки на потрісканій скелі із синього лазуриту: ноги широко розставлені, коліна зігнуті, обидві руки стискають єдиний жезл, тримаючи його горизонтально поперек грудей.",
+      "Погляньте, що несе цей жезл. На його лівому кінці горить невелике золоте полум’я, єдине золото на фігурі, тож захищають тут власний вогонь: переконання, справу, межу, спосіб життя. Шість жезлів довкола вирізьблено в сірому камені, вони розходяться віялом, і всі шість відхиляються від фігури, а не тягнуться до неї. Тиск справжній, та здебільшого він лишається на відстані.",
+      "У прямому положенні карта запрошує до спокійної мужності, а не до агресії. Голову фігури повернуто в профіль праворуч, погляд рівний і спрямований понад верхівками жезлів, а не вниз, на них. Не обов’язково відповідати на кожне заперечення: назвіть, що ви захищаєте, тримайте це обома руками, а решта хай буде просто негодою. Різне взуття, черевичок і чобіт, натякає, що ви можете не почуватися готовими. Але випробовують тут не готовність, а стійкість."
+    ],
+    "reversed": [
+      "Сімка Жезлів у перевернутому положенні звертає увагу на позицію, що стала виснажливою або скам’яніла у звичку. Можливо, ви стискаєте жезл так міцно, що кожне запитання звучить як напад, і витрачаєте сили на позиції, які вже не потребують захисту. Або ж тиск так вас вимотав, що поступитися здається легшим, ніж укотре пояснюватися.",
+      "Це положення просить вас перебрати шість жезлів. Котрі з них справді до вас дістають, а котрі — лише частина краєвиду? Збережіть полум’я, а суперечки, які його не захищають, відкладіть. Відпочинок — не капітуляція, а змінити думку після чесних роздумів — не поразка."
+    ],
+    "number": "Сімка приходить після рівноваги Шістки як випробування. У Молодших Арканах вона часто позначає мить, коли вже здобуте треба втримати, оцінити чи захистити і коли ви стоїте трохи осторонь гурту. У Жезлах, масті Вогню, волі й переконань, це випробування витримки: після публічної перемоги Шістки Сімка запитує, чи встоїть ваш вогонь, коли оплески змінюються викликом.",
+    "tradition": "У системі Золотої Зорі Сімка Жезлів має титул «Володар Звитяги». Їй відповідають Марс у Леві, третій декан цього знака (від 20 до 30 градусів), і Нецах (Перемога), сьома сефіра Дерева Життя, виражена через масть Вогню. Марс приносить войовничий запал, а Лев — серце фіксованого вогняного знака; це поєднання часто тлумачать як мужність під напругою. Алістер Кроулі зберіг єдиний титул — «Звитяга». Марсельські колоди показують лише візерунок схрещених палиць з однією прямою посередині. Малюнок Памели Колман Сміт 1909 року дав карті знайому сцену: фігура на висоті тримає палицю проти шести, піднятих знизу.",
+    "areas": {
+      "love": "У близьких стосунках Сімка Жезлів може вказувати на межу, яку раз у раз випробовують, або на потребу, яку вам довелося проговорювати не один раз. Вона не скаже, чому хтось на неї тисне. Вона запитує, що тут ваше полум’я, тобто цінністю чи потребою, яку ви захищаєте, і чи можете ви назвати її спокійно, а не обороняти від кожного погляду. У стосунках із собою це може означати дотримання обіцянки, яку ви дали собі, навіть коли іншим це незручно.",
+      "work": "У роботі чи навчанні ця карта часто з’являється, коли ідею, стандарт або заслужену вами роль водночас ставлять під сумнів кілька людей. Відокремте виклики зі слушними зауваженнями від тих, що є просто шумом: шість жезлів — не один і той самий жезл. На перші відповідайте уважно, другі пропустіть. Там, де йдеться про гроші чи договори, погляд кваліфікованого фахівця прислужиться вам краще, ніж самотня оборона.",
+      "self": "У стосунках із собою зверніть увагу, де ви тримаєте свій жезл. Коліна фігури зігнуті, вага низько: у такій стійці можна простояти якийсь час, але не безкінечно. Карта запрошує перевірити, чи ваша оборона захищає щось живе, як золоте полум’я, чи вже стала позою, яку тіло тримає за звичкою. Сьогодні хоч раз опустіть плечі й подивіться, що досі варто захищати."
+    },
+    "positions": {
+      "heart": "У центрі запитання Сімка Жезлів вказує на те, що для вас досить важливе, аби це захищати. Головне тут, можливо, не так протидія, як уміння чітко назвати, за що ви стоїте.",
+      "challenge": "Як виклик карта може показувати оборону, яку тримають так довго, що кожне запитання здається нападом, або тиск із кількох боків, що розпорошує вашу енергію на надто багато дрібних сутичок.",
+      "advice": "Як порада карта запрошує вас вибрати свою позицію: обома руками тримайте те, що важливо, відповідайте на виклики, які на це заслуговують, а решта хай лишається частиною краєвиду."
+    },
+    "pairs": [
+      {
+        "with": 27,
+        "text": "Разом із Шісткою Жезлів ця карта показує поворот від визнання до відповідальності. Шістка в’їжджає під оплески; Сімка стоїть сама на узвишші, і їй належить зберегти здобуте, коли увага обертається на запитання."
+      },
+      {
+        "with": 30,
+        "text": "У парі з Дев’яткою Жезлів ця позиція стає довшою історією. Сімка обороняється зі свіжою силою; Дев’ятка після тривалої напруги спирається на жезл із золотим навершям. Разом вони звертають увагу на темп оборони, щоб її вистачило надовго."
+      },
+      {
+        "with": 8,
+        "text": "Із Силою, картою Старших Арканів, яку система Золотої Зорі пов’язує з Левом, мужність Сімки покликана пом’якшитися до спокійної стійкості. Сила зустрічає лева спокійною рукою; разом вони підказують, що для утримання позиції рідко потрібен натиск — досить присутності."
+      }
+    ],
+    "questions": [
+      "Яке полум’я ви захищаєте, і чи можете назвати його одним реченням?",
+      "Які з викликів довкола вас містять слушні зауваження, а які є лише шумом?",
+      "Де ви тримаєте оборону за звичкою, а не з потреби?"
+    ],
+    "practice": "Запишіть одне, за що ви стоїте цього тижня, потім перелічіть усе, що ставить це під сумнів, і викресліть кожен пункт, який можна пропустити без відповіді."
+  }
+}

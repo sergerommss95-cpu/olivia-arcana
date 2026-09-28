@@ -1,0 +1,269 @@
+{
+  "id": 17,
+  "slug": "the-star",
+  "artwork": {
+    "file": "17_the_star.webp",
+    "sha256": "98eb02a074a74196baa71d836f83e5ad411ea3fdd96bb3d086a75cee4b5dd01f"
+  },
+  "symbols": [
+    {
+      "key": "milky-way",
+      "x": 32,
+      "y": 18,
+      "en": {
+        "name": "The Milky Way along the crack",
+        "seen": "A faint haze of white specks runs diagonally across the upper left sky, from near the top edge down toward the left pillar, following a fine crack in the lapis and dotted with gold flecks.",
+        "meaning": "The traditional Star has no Milky Way; this is Olivia’s addition. Because it follows a crack in the stone, light gathers along a break, which suits a card that comes straight after The Tower. Hope here is not the absence of damage; it grows along the line of it."
+      },
+      "uk": {
+        "name": "Чумацький Шлях уздовж тріщини",
+        "seen": "Ледь помітне марево білих цяточок, усіяне золотими вкрапинами, тягнеться навскіс лівою верхньою частиною неба: від верхнього краю вниз до лівої колони, уздовж тонкої тріщини в самому лазуриті.",
+        "meaning": "У традиційній Зірці Чумацького Шляху немає: це доповнення Olivia. Він пролягає вздовж тріщини в камені, тож світло збирається саме на розломі, і це пасує карті, що йде одразу після Вежі. Надія тут не означає, що ушкоджень немає: вона проростає вздовж їхньої лінії."
+      }
+    },
+    {
+      "key": "bird",
+      "x": 74,
+      "y": 19,
+      "en": {
+        "name": "The ibis in the tree",
+        "seen": "At the upper right a leafy tree, carved in pale grey-blue lapis, rises from a small hill. A long-legged bird with a long down-curved beak stands on one branch, facing left toward the stars.",
+        "meaning": "The bird in the tree is commonly read as an ibis, sacred to Thoth, the Egyptian god of writing and measure: thought at rest while the body works. It is carved in the same muted blue as the tree and stays in the background. Insight can wait on its branch until the pouring is done."
+      },
+      "uk": {
+        "name": "Ібіс на дереві",
+        "seen": "Угорі праворуч із невеликого пагорба здіймається листяне дерево, вирізьблене в блідому сіро-блакитному лазуриті. На одній гілці стоїть довгоногий птах із довгим, вигнутим донизу дзьобом, повернутий ліворуч, до зірок.",
+        "meaning": "Птаха на дереві зазвичай читають як ібіса, священного для Тота, єгипетського бога письма й міри: думка відпочиває, поки тіло працює. Його вирізьблено тим самим приглушеним синім, що й дерево, і він лишається на тлі. Прозріння може почекати на своїй гілці, доки не скінчиться робота з водою."
+      }
+    },
+    {
+      "key": "star",
+      "x": 50,
+      "y": 29,
+      "en": {
+        "name": "Seven silver stars",
+        "seen": "Seven small many-rayed stars are cut into the lapis in pale silvery blue, not gilded. They form a symmetrical arch around the gold star: one directly above it, three stepping down on each side.",
+        "meaning": "The seven smaller stars are commonly read as the seven classical planets, sometimes as the Pleiades. Olivia keeps their number but leaves them ungilded, so they read as company for the central light rather than rivals. Hope rarely arrives alone; smaller, steadier lights surround it."
+      },
+      "uk": {
+        "name": "Сім срібних зірок",
+        "seen": "Сім невеликих багатопроменевих зірок вирізано в лазуриті; вони блідо-сріблясті з блакитним відтінком, без позолоти. Вони утворюють симетричну дугу довкола золотої зірки: одна просто над нею, по три сходинками вниз з кожного боку.",
+        "meaning": "Сім менших зірок зазвичай читають як сім класичних планет, іноді як Плеяди. Olivia зберігає їхнє число, але не золотить їх, тож вони постають супутницями центрального світла, а не суперницями. Надія рідко приходить сама: її оточують менші, стійкіші вогні."
+      }
+    },
+    {
+      "key": "star",
+      "x": 50,
+      "y": 41,
+      "en": {
+        "name": "The great gold star",
+        "seen": "At the centre of the sky hangs a large eight-pointed star in raised gold, four long rays alternating with four shorter ones, set in a soft haze of gold dust above the bowed head.",
+        "meaning": "An eight-pointed star in tarot often recalls Venus as morning and evening star, the light seen at dusk and before dawn. It is the only carved element on this card picked out in gold, so the eye keeps returning to it. The figure does not look up: the light works whether watched or not."
+      },
+      "uk": {
+        "name": "Велика золота зірка",
+        "seen": "У центрі неба висить велика восьмипроменева зірка з рельєфного золота: чотири довгі промені чергуються з чотирма коротшими, а довкола неї, над схиленою головою, стелиться м’який серпанок золотого пилу.",
+        "meaning": "Восьмипроменева зірка в таро часто нагадує Венеру як ранкову й вечірню зорю — світло, яке видно в сутінках і перед світанком. Це єдиний вирізьблений елемент карти, виділений золотом, тож погляд раз у раз повертається до нього. Постать не дивиться вгору: світло діє незалежно від того, чи на нього дивляться."
+      }
+    },
+    {
+      "key": "water-pouring",
+      "x": 26,
+      "y": 52,
+      "en": {
+        "name": "The jug raised high",
+        "seen": "At the left, one ivory arm lifts a jug above shoulder height, the hand gripping its handle, and tips it so a single clear thread of water falls straight down into the pool, raising rings.",
+        "meaning": "In the traditional reading the water poured into the pool returns to its source: feeling and attention given back to the deep reserve they came from. The jug is lifted high and held steady. Refilling the source is shown as deliberate care, not an accident of overflow."
+      },
+      "uk": {
+        "name": "Високо піднятий глек",
+        "seen": "Ліворуч кістяна рука здіймає глек вище плеча, пальці стискають ручку й нахиляють його так, що одна прозора цівка води падає просто вниз у водойму, здіймаючи на ній кола.",
+        "meaning": "У традиційному прочитанні вода, що ллється у водойму, повертається до свого джерела: почуття й увага повертаються в глибокий запас, з якого прийшли. Глек піднятий високо, і рука тримає його твердо. Поповнення джерела показано як свідому турботу, а не випадкове переливання через край."
+      }
+    },
+    {
+      "key": "pillar",
+      "x": 13,
+      "y": 58,
+      "en": {
+        "name": "The two lapis pillars",
+        "seen": "Two slender columns of lighter, mottled lapis stand at the left and right edges on the grassy bank, each with a plain capital and base, framing the figure, the pool and the star between them.",
+        "meaning": "Paired pillars stand on The High Priestess and The Hierophant; the traditional Star kneels in open country. Olivia’s pair turns the landscape into a threshold, and the figure kneels between them. Renewal is set at a doorway: a passage back toward life rather than a place to stay."
+      },
+      "uk": {
+        "name": "Дві лазуритові колони",
+        "seen": "Дві стрункі колони зі світлішого, плямистого лазуриту стоять біля лівого й правого країв на трав’янистому березі, кожна з простою капітеллю й базою; між собою вони обрамлюють постать, водойму та зірку.",
+        "meaning": "Парні колони стоять на картах Верховна Жриця та Ієрофант; традиційна Зірка стоїть навколішки у відкритому полі. Пара колон Olivia перетворює краєвид на поріг, і постать схиляє коліно між ними. Оновлення відбувається на порозі: це прохід назад до життя, а не місце, де лишаються."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 47,
+      "y": 65,
+      "en": {
+        "name": "The draped kneeling figure",
+        "seen": "The ivory figure kneels on the bank in a thin, high-belted robe, hair gathered up with loose locks falling. The head bows toward the right-hand jug, eyes lowered, and one bare foot rests in the pool.",
+        "meaning": "The traditional Star figure is naked, commonly read as nothing left to hide after The Tower. Olivia drapes it, closer to the robed figure of the older Visconti-Sforza card. The kneeling pose and bowed head keep the humility; the cloth adds privacy. Openness here does not require exposure."
+      },
+      "uk": {
+        "name": "Задрапована постать навколішки",
+        "seen": "Кістяна постать стоїть навколішки на березі в тонкому вбранні з високим поясом; волосся зібране вгору, окремі пасма спадають. Голова схилена до правого глека, очі опущені, одна боса ступня занурена у водойму.",
+        "meaning": "Традиційна постать Зірки оголена, і це зазвичай читають так: після Вежі вже нема чого приховувати. Olivia вдягає її в драпіровку, ближче до вдягненої постаті давнішої карти Вісконті-Сфорца. Поза навколішки й схилена голова зберігають смирення; тканина оберігає особистий простір. Відкритість тут не вимагає оголеності."
+      }
+    },
+    {
+      "key": "water-pouring",
+      "x": 77,
+      "y": 79,
+      "en": {
+        "name": "The streams across the bank",
+        "seen": "At the right, a second jug held lower at arm’s length pours a stream that splits as it falls, landing as several thin, wavy rivulets that run across the grassy bank toward the pool.",
+        "meaning": "In the traditional image the water poured onto land divides into rivulets commonly read as the five senses: care given to ordinary, practical ground. One source feeds many channels. Olivia carves them winding back toward the pool, so what nourishes daily life still finds its way to the depths."
+      },
+      "uk": {
+        "name": "Струмки через берег",
+        "seen": "Праворуч другий глек, опущений нижче на витягнутій руці, ллє потік, що розділяється в падінні й спадає кількома тонкими звивистими струмочками, які біжать трав’янистим берегом до водойми.",
+        "meaning": "У традиційному зображенні вода, вилита на землю, розтікається струмками, які зазвичай читають як п’ять чуттів: турботу, віддану звичайному, практичному ґрунту. Одне джерело живить багато русел. Olivia вирізьблює їх так, що вони звиваються назад до водойми: те, що живить щоденне життя, усе ж знаходить дорогу до глибин."
+      }
+    },
+    {
+      "key": "pool",
+      "x": 31,
+      "y": 87,
+      "en": {
+        "name": "The pool and its crescent",
+        "seen": "The dark pool across the foot of the card is carved with rings of ripples where the falling water and the foot touch it. Left of centre, a small crescent moon is cut into its surface.",
+        "meaning": "The pool is the traditional image of the deep reserve the figure draws from and returns to, often read as the unconscious. The crescent is Olivia’s addition: a reflected moon with no moon in the sky above. It looks ahead to The Moon, where the same water grows harder to read."
+      },
+      "uk": {
+        "name": "Водойма та її півмісяць",
+        "seen": "Темну водойму внизу карти вкривають вирізьблені кола брижів у тих місцях, де її торкаються вода, що падає згори, і ступня. Ліворуч від центру на її поверхні вирізано невеликий півмісяць.",
+        "meaning": "Водойма — традиційний образ глибокого запасу, з якого постать черпає і куди повертає; її часто читають як несвідоме. Півмісяць — доповнення Olivia: відображений місяць, хоча в небі над ним місяця немає. Він відсилає наперед, до Місяця, де ту саму воду стає важче прочитати."
+      }
+    }
+  ],
+  "en": {
+    "essence": "After The Tower, the figure of The Star kneels by the water under a quiet light, pouring freely into the source and onto the ground: hope as steady replenishment.",
+    "keywords": {
+      "upright": [
+        "hope",
+        "renewal",
+        "replenishment",
+        "quiet faith",
+        "generosity",
+        "openness"
+      ],
+      "reversed": [
+        "depletion",
+        "discouragement",
+        "forced optimism",
+        "one-way giving",
+        "disconnection",
+        "dimmed hope"
+      ]
+    },
+    "upright": [
+      "The Star is the first calm after the lightning of The Tower. Nothing has been rebuilt yet, but the sky is open again, and the card turns attention toward what quietly restores you. In Olivia’s carving the figure kneels on a pale bank between two lapis pillars, head bowed, while a large gold star hangs overhead with seven smaller silver stars arched around it. The light is not chased or stared at. It is simply there, and the work goes on beneath it.",
+      "That work is pouring. One jug, lifted high, sends a single clear thread straight into the pool; the other, held lower, spills onto the bank, where the stream splits into rivulets that wind back toward the water. The card is generous in two directions at once: it refills the deep reserve and it waters ordinary ground. One bare foot rests in the pool while the body stays on land, so feeling and practical life are both touched.",
+      "Upright, The Star invites patient renewal: sleep, water, time outdoors, honest words, the small practices that make hope believable again. It can point to a period of healing or to a gentle, sincere openness with others. It does not ask you to feel optimistic on command, only to keep pouring what you can and to notice what begins to grow."
+    ],
+    "reversed": [
+      "The Star reversed draws attention to hope that feels far away, or to care that has been flowing in one direction only. The jugs may be pouring everything onto the bank for others while the pool, your own reserve, runs low. Or the pouring has stopped: after a hard season even small restoring habits can seem pointless, and optimism turns into something performed.",
+      "Consider which is closer. If you have been giving without refilling, one hour that asks nothing of you may matter more than any effort to feel hopeful. If the great light seems gone, look for the smaller stars: one friend, one routine, one place that still steadies you. Renewal can begin below the level of belief."
+    ],
+    "number": "Seventeen follows The Tower and opens the sequence of three lights: The Star, The Moon and The Sun. In the Fool’s journey it is the first quiet after collapse; the old structure is gone, and the traveller kneels to pour water before building anything new. Seventeen reduces to eight, one plus seven, linking the card to Strength in the Waite-Smith order, where gentleness also does the real work. This step asks for replenishment before ambition.",
+    "tradition": "In the Golden Dawn system The Star is trump XVII, titled “Daughter of the Firmament, Dweller between the Waters”. It carries the Hebrew letter Tzaddi and the sign Aquarius, fixed air and the water-bearer of the zodiac, and on the Tree of Life it is the path joining Netzach and Yesod. Aleister Crowley later exchanged the letters of The Star and The Emperor, a change some readers follow. The image is old: the Tarot de Marseille already shows a naked figure kneeling to pour from two jugs beneath one large star and seven smaller ones, with a bird in a tree. In the fifteenth-century Visconti-Sforza cards a robed figure simply holds up a star.",
+    "areas": {
+      "love": "In close relationships The Star asks what flows freely between you and what has quietly run dry. It favours sincerity over strategy: saying the true, kind thing plainly, without needing it to land a certain way. After a rupture it can describe the slow return of trust, one ordinary gesture at a time. Notice too whether you pour only outward. The figure fills the pool as well as the bank, and your own reserve counts as a relationship.",
+      "work": "At work or in study The Star suits recovery after a setback: a rebuilt routine, a returning interest, a project approached with fresh eyes instead of pressure. It favours long, sustainable effort over a single heroic push, and generosity with knowledge, such as mentoring or sharing drafts early. In money matters it invites a calm look at what actually sustains you, without treating hope as a plan and without making big decisions while exhausted.",
+      "self": "For your own practice The Star is a card of replenishment. Which habits truly refill you, and which only look restful? The figure kneels on solid ground with one foot in the water: stay practical while you let feeling back in. Sleep, walks, quiet music and time under an open sky all belong here. Hope need not be loud; the seven smaller stars suggest it is often built from many small, steady lights."
+    },
+    "positions": {
+      "heart": "At the centre of a question, The Star suggests that what matters most is restoring your own reserve and trusting a quieter, longer kind of hope than the situation seems to demand.",
+      "challenge": "As the challenge, the card can point to giving so much outward that your own pool runs low, or to a hope held so tightly that each small setback feels like proof against it.",
+      "advice": "As advice, choose one small practice that refills you and repeat it daily for a week, while offering one honest, generous gesture to someone or something you care about."
+    },
+    "pairs": [
+      {
+        "with": 16,
+        "text": "The Tower breaks what was false in a flash of lightning; The Star is the clear night that follows. Together they draw attention to how renewal begins after a collapse: not with rebuilding, but with rest, water and an open sky."
+      },
+      {
+        "with": 14,
+        "text": "Temperance pours water carefully between two cups; The Star pours freely from two jugs onto land and into a pool. Together they contrast measured blending with generous release, and ask whether your situation needs balance or simple replenishment."
+      },
+      {
+        "with": 18,
+        "text": "Olivia’s Star carries a small crescent in its pool. In The Moon, the next card, the crescent returns in the sky and a path climbs out of another pool into uncertain light. Together they ask how steady hope travels through what cannot yet be seen."
+      }
+    ],
+    "questions": [
+      "What quietly restores you, even on days when you do not feel hopeful?",
+      "Where are you pouring outward while your own reserve runs low?",
+      "Which small, steady lights are already around you in this situation?"
+    ],
+    "practice": "Pour a glass of water slowly and drink it, then write down one thing that restored you today and one thing you gave freely."
+  },
+  "uk": {
+    "essence": "Після Вежі постать Зірки стоїть навколішки біля води під тихим світлом і щедро ллє її в джерело та на землю: надія як рівне, постійне поповнення сил.",
+    "keywords": {
+      "upright": [
+        "надія",
+        "оновлення",
+        "поповнення сил",
+        "тиха віра",
+        "щедрість",
+        "відкритість"
+      ],
+      "reversed": [
+        "виснаження",
+        "зневіра",
+        "вимушений оптимізм",
+        "однобічна віддача",
+        "відірваність",
+        "пригасла надія"
+      ]
+    },
+    "upright": [
+      "Зірка — перший спокій після блискавки Вежі. Нічого ще не відбудовано, але небо знову відкрите, і карта звертає увагу на те, що тихо відновлює вас. У різьбленні Olivia постать стоїть навколішки на блідому березі між двома лазуритовими колонами, схиливши голову, а над нею висить велика золота зірка, довкола якої дугою розташувалися сім менших, срібних. За світлом не женуться й не вдивляються в нього. Воно просто є, а під ним триває робота.",
+      "Ця робота — лити воду. Один глек, піднятий високо, спрямовує прозору цівку просто у водойму; другий, опущений нижче, розливає воду на берег, де потік розпадається на струмки, що звиваються назад до води. Карта щедра у двох напрямках водночас: вона поповнює глибокий запас і напуває звичайну землю. Одна боса ступня занурена у водойму, а тіло лишається на землі, тож постать торкається і почуттів, і практичного життя.",
+      "У прямому положенні Зірка запрошує до терплячого оновлення: сон, вода, час просто неба, чесні слова — невеликі практики, завдяки яким надія знову стає переконливою. Вона може вказувати на період зцілення або на лагідну, щиру відкритість до інших. Вона не просить вас відчувати оптимізм на замовлення, лише далі лити те, що можете, і помічати, що починає рости."
+    ],
+    "reversed": [
+      "Зірка в перевернутому положенні звертає увагу на надію, що здається далекою, або на турботу, яка тече лише в один бік. Можливо, глеки виливають усе на берег для інших, тоді як водойма, ваш власний запас, міліє. Або вода вже не ллється: після важкої пори навіть дрібні відновлювальні звички можуть видаватися марними, а оптимізм перетворюється на виставу.",
+      "Подумайте, що з цього ближче. Якщо ви віддавали, не поповнюючи себе, одна година, яка нічого від вас не вимагає, може важити більше за будь-які зусилля відчути надію. Якщо велике світло наче згасло, пошукайте менші зірки: одну близьку людину, одну звичку, одне місце, яке досі дає вам опору. Оновлення може початися ще до того, як з’явиться віра."
+    ],
+    "number": "Сімнадцять іде за Вежею і відкриває послідовність трьох світил: Зірка, Місяць і Сонце. У подорожі Блазня це перша тиша після руйнування; стара будова зникла, і Блазень стає навколішки, щоб лити воду, перш ніж будувати щось нове. Сімнадцять зводиться до восьми, один плюс сім, що пов’язує карту із Силою в порядку Вейта–Сміт, де справжню роботу теж виконує лагідність. Цей крок просить поповнити сили, перш ніж давати волю амбіціям.",
+    "tradition": "У системі Золотої Зорі Зірка — аркан XVII з титулом «Дочка Небозводу, Та, що живе між Водами». Їй відповідають єврейська літера Цаді та знак Водоноса — фіксоване повітря, зодіакальний носій води, а на Дереві Життя це шлях між Нецахом і Єсодом. Згодом Алістер Кроулі поміняв місцями літери Зірки й Імператора, і дехто з практиків таро підхоплює цю заміну. Образ давній: Марсельське таро вже показує оголену постать, що навколішки ллє воду з двох глеків під однією великою зіркою та сімома меншими, з птахом на дереві. На картах Вісконті-Сфорца XV століття вбрана постать просто тримає зірку над собою.",
+    "areas": {
+      "love": "У близьких стосунках Зірка запитує, що вільно тече між вами, а що тихо пересохло. Вона надає перевагу щирості, а не стратегії: сказати правдиве, добре слово просто, не вимагаючи, щоб його сприйняли певним чином. Після розриву вона може описувати повільне повернення довіри, звичайний жест за жестом. Зверніть увагу й на те, чи не ллєте ви лише назовні. Постать наповнює і водойму, і берег, а ваш власний запас — це теж стосунки.",
+      "work": "У роботі чи навчанні Зірка пасує до відновлення після невдачі: відбудованого розпорядку, інтересу, що повертається, проєкту, до якого ви підходите зі свіжим поглядом, а не під тиском. Вона надає перевагу тривалим, сталим зусиллям перед одним героїчним ривком, а також щедрості зі знаннями — як-от наставництву чи звичці рано ділитися чернетками. У грошових справах вона запрошує спокійно подивитися, що насправді вас підтримує, не видаючи надію за план і не ухвалюючи великих рішень у стані виснаження.",
+      "self": "Для вашої власної практики Зірка — карта поповнення сил. Які звички справді вас наповнюють, а які лише здаються відпочинком? Постать стоїть навколішки на твердому ґрунті, занурівши одну ступню у воду: лишайтеся практичними, поки знову впускаєте почуття. Сон, прогулянки, тиха музика й час під відкритим небом — усе це тут доречне. Надія не мусить бути гучною; сім менших зірок підказують, що вона часто складається з багатьох маленьких, рівних вогнів."
+    },
+    "positions": {
+      "heart": "Коли Зірка стоїть у центрі запитання, вона підказує, що найважливіше тепер — відновити власний запас сил і довіритися тихішій і тривалішій надії, ніж та, якої, здається, вимагає ситуація.",
+      "challenge": "Як перешкода карта може вказувати на те, що ви віддаєте назовні стільки, що ваша власна водойма міліє, або на надію, за яку ви тримаєтеся так міцно, що кожна дрібна невдача здається доказом проти неї.",
+      "advice": "Як порада: оберіть одну невелику практику, що вас наповнює, і повторюйте її щодня протягом тижня, а також зробіть один чесний, щедрий жест для когось або чогось, що вам дороге."
+    },
+    "pairs": [
+      {
+        "with": 16,
+        "text": "Вежа спалахом блискавки руйнує фальшиве; Зірка — ясна ніч, що настає слідом. Разом вони звертають увагу на те, як починається оновлення після краху: не з відбудови, а з відпочинку, води й відкритого неба."
+      },
+      {
+        "with": 14,
+        "text": "Помірність обережно переливає воду між двома чашами; Зірка щедро ллє з двох глеків на землю та у водойму. Разом вони протиставляють виважене змішування вільній віддачі й запитують, чого потребує ваша ситуація: рівноваги чи простого поповнення."
+      },
+      {
+        "with": 18,
+        "text": "У водоймі Зірки Olivia є невеликий півмісяць. У Місяці, наступній карті, півмісяць повертається на небо, а стежка виходить з іншої водойми в непевне світло. Разом вони запитують, як стійка надія проходить крізь те, чого ще не видно."
+      }
+    ],
+    "questions": [
+      "Що тихо відновлює вас навіть у дні, коли надії ви не відчуваєте?",
+      "Де ви ллєте назовні, поки ваш власний запас міліє?",
+      "Які невеликі, стійкі вогні вже є довкола вас у цій ситуації?"
+    ],
+    "practice": "Повільно наллийте склянку води й випийте її, а потім запишіть одну річ, що сьогодні вас відновила, і одну, яку ви віддали щедро."
+  }
+}

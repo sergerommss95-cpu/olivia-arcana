@@ -1,0 +1,211 @@
+{
+  "id": 11,
+  "slug": "justice",
+  "artwork": { "file": "11_justice.webp", "sha256": "1d1c49b0a1c9164482d130f69f1941e4230fc743118972eb13f2ff149cb2fae6" },
+  "symbols": [
+    {
+      "key": "milky-way",
+      "x": 51, "y": 19,
+      "en": {
+        "name": "The slanting star drift",
+        "seen": "Above the pillars, a band of fine silvery-white flecks crosses the dark lapis sky on a diagonal, from just over the veil towards the upper right; a fainter drift crosses the left margin. Gold star points scatter around.",
+        "meaning": "The traditional Justice card has no night sky and no stars. Olivia sets the scene under an order far larger than any court. The drift runs on a slant while the scales below hang level: human fairness is a small, deliberate balance made inside a world that is rarely even."
+      },
+      "uk": {
+        "name": "Скісна зоряна смуга",
+        "seen": "Над колонами смуга дрібних сріблясто-білих іскор навскіс перетинає темне лазуритове небо: від точки просто над завісою вгору праворуч; блідіша смуга перетинає лівий край. Довкола розсипано золоті зоряні цятки.",
+        "meaning": "На традиційній карті Справедливості немає ні нічного неба, ні зірок. Olivia вписує сцену в порядок, значно більший за будь-який суд. Смуга лягає навскіс, а терези внизу висять рівно: людська справедливість — це невелика, свідомо встановлена рівновага посеред світу, який рідко буває рівним."
+      }
+    },
+    {
+      "key": "veil",
+      "x": 62, "y": 30,
+      "en": {
+        "name": "The swagged lapis veil",
+        "seen": "A plain cloth carved in lighter, greyish lapis is slung between the tops of the two pillars, sagging in a shallow curve and falling in soft vertical folds behind the figure’s crown and shoulders.",
+        "meaning": "A veil hangs behind the seated figure in the traditional card too, echoing the High Priestess. Unlike the Priestess’s veil, this one carries no pattern at all. Justice does not reveal hidden mysteries; it works in front of the curtain, with what can be seen, stated and weighed, and leaves the rest honestly unknown."
+      },
+      "uk": {
+        "name": "Провисла лазуритова завіса",
+        "seen": "Між верхівками двох колон перекинуто просту тканину, вирізьблену зі світлішого, сіруватого лазуриту; вона провисає неглибокою дугою й спадає м’якими вертикальними складками за короною та плечима постаті.",
+        "meaning": "Завіса за спиною сидячої постаті є й на традиційній карті — відлуння Верховної Жриці. Проте, на відміну від завіси Жриці, ця не має жодного візерунка. Справедливість не розкриває прихованих таємниць: вона працює перед завісою, з тим, що можна побачити, назвати й зважити, а решту чесно лишає невідомим."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 49, "y": 34,
+      "en": {
+        "name": "The pointed ivory crown",
+        "seen": "The figure wears an ivory crown whose tall central point is flanked by smaller points, the outer two flaring outwards; a row of small carved marks runs along the band above long, wavy hair.",
+        "meaning": "A crown marks authority; here, the authority of a principle rather than of a ruler. The traditional crown carries a small square jewel, often read as ordered thought. Olivia’s crown is plain; the square moves to the clasp at the collar. The eyes stay open: no blindfold, a level gaze."
+      },
+      "uk": {
+        "name": "Гостроверха корона зі слонової кістки",
+        "seen": "Постать увінчана короною зі слонової кістки: високий центральний зубець обрамлюють менші, а два крайні відхиляються назовні; уздовж обруча, над довгим хвилястим волоссям, тягнеться ряд дрібних різьблених позначок.",
+        "meaning": "Корона означає владу — тут радше владу принципу, ніж правителя. На традиційній короні є невеликий квадратний самоцвіт, який часто тлумачать як упорядковану думку. Корона Olivia проста: квадрат перенесено на застібку біля коміра. Очі відкриті — жодної пов’язки, лише рівний погляд."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 33, "y": 39,
+      "en": {
+        "name": "The upright ivory sword",
+        "seen": "Raised in the figure’s right hand, at the viewer’s left, a straight double-edged blade points upwards, its tip rising just above the crown. The fist closes just below a straight crossguard; a round pommel shows beneath it.",
+        "meaning": "The sword is discernment: the power to cut cleanly between what is true and what is merely comfortable. Held upright rather than swung, it is ready, not attacking. Its double edge is commonly read as a reminder that honest judgement cuts both ways, including towards the one who holds it."
+      },
+      "uk": {
+        "name": "Піднятий меч зі слонової кістки",
+        "seen": "У правій руці постаті, ліворуч від глядача, прямий двосічний клинок спрямовано вгору; його вістря здіймається трохи вище за корону. Кулак стискає руків’я одразу під прямою хрестовиною, а нижче виглядає кругле навершя.",
+        "meaning": "Меч — це проникливість: здатність чітко відокремити правдиве від того, що лише зручне. Його тримають вертикально, а не заносять для удару, тож він напоготові, але не нападає. Подвійне лезо зазвичай читають як нагадування, що чесне судження ріже в обидва боки, зокрема й у бік того, хто його тримає."
+      }
+    },
+    {
+      "key": "pillar",
+      "x": 21, "y": 47,
+      "en": {
+        "name": "Two fluted pillars",
+        "seen": "Left and right of the throne stand two tall pillars carved in the lighter lapis, with vertical grooves, moulded capitals and stepped bases; the veil hangs from just beneath their capitals.",
+        "meaning": "Paired pillars recur across the Major Arcana, most clearly around the High Priestess, and are often read as the two sides of any question. Justice sits between them and turns the pair of opposites into a frame: both sides stand, equal in height, and neither is allowed to fall."
+      },
+      "uk": {
+        "name": "Дві колони з канелюрами",
+        "seen": "Ліворуч і праворуч від трону стоять дві високі колони зі світлішого лазуриту, з вертикальними жолобками, профільованими капітелями й східчастими базами; завіса звисає просто з-під їхніх капітелей.",
+        "meaning": "Парні колони знову й знову з’являються у Старших Арканах, найвиразніше довкола Верховної Жриці, і їх часто тлумачать як два боки будь-якого запитання. Справедливість сидить між ними й перетворює пару протилежностей на раму: обидві сторони стоять, однакові заввишки, і жодній не дозволено впасти."
+      }
+    },
+    {
+      "key": "scales",
+      "x": 77, "y": 52,
+      "en": {
+        "name": "The gold-pan scales",
+        "seen": "The figure’s left hand, at the viewer’s right, pinches the ivory handle of a balance. From the knobbed ivory beam, three gold chains hang to each gold pan, and both pans sit at the same height.",
+        "meaning": "Scales are the oldest emblem of justice, weighing claim against claim, cause against effect. Gold is rare in this deck, and on the figure it appears only in the pans and chains: the act of weighing is what the card treasures most. The pans hang empty and even, ready, not yet decided."
+      },
+      "uk": {
+        "name": "Терези із золотими шальками",
+        "seen": "Ліва рука постаті, праворуч від глядача, тримає двома пальцями руків’я терезів зі слонової кістки. Від коромисла з кулястими виступами до кожної золотої шальки спускаються три золоті ланцюжки, і обидві шальки висять на однаковій висоті.",
+        "meaning": "Терези — найдавніша емблема правосуддя: вони зважують одне твердження проти іншого, причину — проти наслідку. Золото в цій колоді рідкісне, і на постаті воно з’являється лише в шальках і ланцюжках: найдорожче для карти — саме акт зважування. Шальки висять порожні й рівні — напоготові, рішення ще не ухвалено."
+      }
+    },
+    {
+      "key": "throne",
+      "x": 71, "y": 71,
+      "en": {
+        "name": "The pale stone throne",
+        "seen": "The figure sits on a low, square-cut throne of pale, whitish-blue stone with a moulded top edge and plain block sides, lighter than the pillars; the ivory robe spills over its front in heavy folds.",
+        "meaning": "Justice is seated, as in the traditional image: judgement that does not rush to act. This throne is plain block without ornament; the pillars and veil do the framing. Its simple, squared mass suggests stable ground, a place where a decision can rest before it is carried out."
+      },
+      "uk": {
+        "name": "Трон зі світлого каменю",
+        "seen": "Постать сидить на низькому прямокутному троні з блідого білясто-блакитного каменю, світлішому за колони, з профільованим верхнім краєм і гладкими боками-брилами; вбрання зі слонової кістки спадає на його передню частину важкими складками.",
+        "meaning": "Справедливість сидить, як і на традиційному зображенні: це судження, яке не поспішає діяти. Цей трон — проста брила без жодних оздоб; обрамлення творять колони й завіса. Його масивна квадратна форма натякає на тверду основу — місце, де рішення може відстоятися, перш ніж його втілять."
+      }
+    },
+    {
+      "key": "other",
+      "x": 42, "y": 77,
+      "en": {
+        "name": "One foot on the step",
+        "seen": "From beneath the hem of the ivory robe a single foot slips forward onto the top step, just left of centre from the viewer’s side; to its right, only the rounded toe of the other foot peeps from the folds.",
+        "meaning": "The traditional Justice card also shows one foot emerging from the robe, often read as a sign that judgement leads to action: a decision is complete only once it steps into the world. The other foot stays back, almost hidden. Weighing and acting remain a pair, one after the other."
+      },
+      "uk": {
+        "name": "Одна ступня на сходинці",
+        "seen": "З-під краю вбрання зі слонової кістки одна ступня висувається вперед на верхню сходинку, трохи лівіше від центру з боку глядача; праворуч від неї зі складок ледь визирає тільки заокруглений носок другої ноги.",
+        "meaning": "На традиційній карті Справедливості з-під вбрання теж виступає одна ступня; її часто тлумачать як знак того, що судження веде до дії: рішення завершене лише тоді, коли робить крок у світ. Друга нога лишається позаду, майже схована. Зважування й дія залишаються парою, одне за одним."
+      }
+    },
+    {
+      "key": "other",
+      "x": 50, "y": 83,
+      "en": {
+        "name": "Three broad lapis steps",
+        "seen": "Below the throne, three wide steps of lighter, faintly veined lapis descend towards the viewer, each broader than the one above, onto a flat stone floor that fills the base of the card.",
+        "meaning": "The steps raise the seat of judgement above the floor, so that it is approached by degrees, one level at a time. They also open the scene towards the viewer: this is a seat you are invited to walk up to and sit before, not a verdict handed down from out of reach."
+      },
+      "uk": {
+        "name": "Три широкі лазуритові сходинки",
+        "seen": "Під троном три широкі сходинки зі світлішого, ледь прожилкуватого лазуриту спускаються до глядача, кожна ширша за ту, що вище, і виходять на рівну кам’яну підлогу, яка заповнює низ карти.",
+        "meaning": "Сходинки підносять місце суду над підлогою, тож до нього наближаються поступово, рівень за рівнем. Водночас вони відкривають сцену до глядача: це місце, до якого вас запрошують піднятися й сісти навпроти, а не вирок, спущений з недосяжної висоти."
+      }
+    }
+  ],
+  "en": {
+    "essence": "Justice asks for an honest weighing: seeing a situation clearly, owning your part in it, and letting a fair decision follow from what is true.",
+    "keywords": {
+      "upright": ["truth", "fairness", "accountability", "clear judgement", "cause and effect", "balance"],
+      "reversed": ["self-justification", "uneven standards", "avoided responsibility", "harsh self-judgement", "rushed conclusions"]
+    },
+    "upright": [
+      "Justice is the card of the honest account. Olivia’s figure sits very upright between two lapis pillars, crowned, eyes open and looking straight out of the card. There is no blindfold here, as there is none in the traditional tarot image: this fairness depends on seeing clearly, not on refusing to look. The sword in the right hand points straight up, ready but still. The scales in the left hang with their gold pans at the same height, waiting for something to weigh.",
+      "The card draws attention to cause and effect, and to your own place in the chain. What actually happened? What did you choose, and what followed from it? Justice asks you to tell the story without leaning on the pans: including your part without taking on everyone’s, and naming the effect of another person’s actions without claiming to know what they intended. Its fairness is steady and a little cool. It prefers facts you can check to the version that feels best.",
+      "Gold is used sparingly in this deck, and on this figure it goes only to the scales. Weighing is the treasure here, more than the verdict. One ivory foot slips from under the robe onto the top step, as if a decision, once reached, is ready to move. Justice invites that sequence: look clearly, weigh fairly, then take one step you could explain to anyone involved."
+    ],
+    "reversed": [
+      "Justice reversed draws attention to a balance that has tipped, often quietly. One pan may be heavy with self-justification, so that your own actions get context while another person’s get a verdict. Or the weight falls the other way, into harsh self-judgement that holds you responsible for everything. It can also point to a conclusion reached before the facts were in, or a decision postponed because weighing it honestly feels uncomfortable.",
+      "Here the card invites a smaller act of fairness: check one fact, apply the same standard in both directions, or say plainly which part is yours and which is not. Balance can return one honest adjustment at a time."
+    ],
+    "number": "Justice is card XI in the Waite-Smith order, following the Wheel of Fortune. Where the Wheel shows forces nobody steers, Justice turns to what you can answer for: your choices and what follows from them. Eleven is ten plus one, a fresh start after a finished cycle, and it reduces to two, echoing the High Priestess, who also sits between pillars before a veil. The step it asks for is accountability: an honest look back before the Hanged Man turns the whole view upside down.",
+    "tradition": "In the Golden Dawn system Justice bears the title “Daughter of the Lords of Truth, the Ruler of the Balance”. It is assigned the Hebrew letter Lamed, usually glossed as ox-goad, and the sign Libra, cardinal Air, on the path joining Geburah and Tiphareth on the Tree of Life. In the Marseille pattern Justice was card VIII; the Golden Dawn exchanged it with Strength so that Leo would precede Libra, and Waite followed, making it XI. The figure itself is far older than these correspondences: it comes from the cardinal virtues of medieval and Renaissance art, and early Italian tarots already show Justice with sword and scales. Crowley later renamed the card Adjustment.",
+    "areas": {
+      "love": "In a close relationship, Justice turns attention to reciprocity: whether care, effort and apology travel in both directions. It invites an honest look at what you contribute and what you receive, without keeping a ledger to win an argument. You can name the effect of someone’s words on you without claiming to know why they said them. With yourself, the card can point to fairness turned inwards: the understanding you readily offer others may be something you could extend to yourself.",
+      "work": "At work or in study, Justice favours clear agreements, accurate records and decisions you could explain to anyone affected. It can point to a review, a fair division of tasks or a moment when credit and responsibility need sorting out. The sword asks for precision; the scales ask whether everyone is measured by the same rule. In money matters it simply suggests checking the figures and the terms before you commit, and seeking qualified advice where the stakes are real.",
+      "self": "For your inner life, Justice asks what an honest account of your recent choices would sound like, told by a fair witness rather than a prosecutor or a defender. Olivia’s figure looks straight out, eyes open, holding the sword still and the scales level. You might borrow that posture: neither excusing yourself nor piling on blame, simply seeing what happened and what followed. Clarity about your part is often a relief; it shows you what is actually yours to change."
+    },
+    "positions": {
+      "heart": "At the heart of your question, Justice suggests the matter turns on truth and fairness: what really happened, what you are responsible for, and what a balanced decision would need to take into account.",
+      "challenge": "As a challenge, Justice can point to an uneven standard, a fact you would rather not check, or judgement that has grown rigid. Fairness may be complicated by wanting to be right more than wanting to be clear.",
+      "advice": "As advice, Justice invites you to weigh before you act: gather the facts, hear more than one side, name your own part plainly, then take the step you could explain to everyone involved."
+    },
+    "pairs": [
+      { "with": 2, "text": "The High Priestess and Justice both sit enthroned between pillars before a veil. The Priestess keeps what lies behind it; Justice works in front of it, with what can be stated and weighed. Together they ask what you sense through intuition and what you can actually show." },
+      { "with": 10, "text": "The Wheel of Fortune turns on forces no one controls; Justice, the very next card, weighs the choices you can answer for. Together they invite you to separate circumstance from responsibility, and to act fairly within the part that is truly yours." },
+      { "with": 20, "text": "Justice weighs an action; Judgement answers a call to rise and begin again. Side by side they draw attention to accountability that does not end in a verdict but opens a way forward: owning what happened so that you can move past it." }
+    ],
+    "questions": [
+      "What would a fair account of this situation include, if it were told by someone with no side to take?",
+      "Where are you applying one standard to yourself and a different one to someone else?",
+      "What is truly your part in this, and what can you set down as not yours?"
+    ],
+    "practice": "Draw a line down a page: on one side list the facts you can check, on the other what you are assuming, then read both columns aloud."
+  },
+  "uk": {
+    "essence": "Справедливість просить чесного зважування: ясно побачити ситуацію, визнати в ній свою частку й дати справедливому рішенню вирости з того, що є правдою.",
+    "keywords": {
+      "upright": ["істина", "чесність", "відповідальність", "ясне судження", "причина і наслідок", "рівновага"],
+      "reversed": ["самовиправдання", "подвійні стандарти", "ухиляння від відповідальності", "суворе самоосудження", "поспішні висновки"]
+    },
+    "upright": [
+      "Справедливість — карта чесного звіту. Постать Olivia сидить дуже рівно між двома лазуритовими колонами, у короні, з відкритими очима, і дивиться прямо з карти. Пов’язки на очах тут немає, як немає її й на традиційному зображенні таро: така справедливість тримається на ясному погляді, а не на відмові дивитися. Меч у правій руці спрямований просто вгору — готовий, але нерухомий. Терези в лівій висять із золотими шальками на однаковій висоті й чекають, що їм дадуть зважити.",
+      "Карта звертає увагу на причину й наслідок і на ваше власне місце в цьому ланцюжку. Що насправді сталося? Що обрали ви і що з цього випливло? Справедливість просить розповісти цю історію, не натискаючи на шальки: визнати свою частку, не беручи на себе частки всіх інших, і назвати, як на вас вплинули дії іншої людини, не вдаючи, ніби вам відомі її наміри. Її чесність рівна й трохи прохолодна. Вона віддає перевагу фактам, які можна перевірити, а не версії, яка здається найприємнішою.",
+      "Золото в цій колоді використано ощадливо, і на цій постаті воно дісталося лише терезам. Скарб тут — саме зважування, більше, ніж вирок. Одна ступня зі слонової кістки висувається з-під вбрання на верхню сходинку, ніби рішення, щойно ухвалене, вже готове рушити. Справедливість запрошує до такої послідовності: подивитися ясно, зважити чесно, а тоді зробити один крок, який ви могли б пояснити будь-кому з причетних."
+    ],
+    "reversed": [
+      "У перевернутому положенні Справедливість звертає увагу на рівновагу, що порушилася, часто непомітно. Одна шалька може бути обтяжена самовиправданням: ваші власні вчинки отримують контекст, а вчинки іншої людини — вирок. Або вага зміщується в інший бік — у суворе самоосудження, яке покладає на вас відповідальність за все. Карта може вказувати й на висновок, зроблений раніше, ніж з’явилися факти, або на рішення, відкладене тому, що чесно зважити його незатишно.",
+      "Тут карта запрошує до невеликого вияву справедливості: перевірити один факт, застосувати ту саму мірку в обидва боки або прямо сказати, яка частина ваша, а яка ні. Рівновага може повертатися поступово, з кожним чесним виправленням."
+    ],
+    "number": "Справедливість — карта XI в порядку Вейта–Сміт, одразу після Колеса Фортуни. Якщо Колесо показує сили, якими ніхто не керує, то Справедливість звертається до того, за що ви можете відповісти: до ваших рішень та їхніх наслідків. Одинадцять — це десять плюс один, новий початок після завершеного циклу, а сума його цифр дає два й відлунює Верховну Жрицю, яка теж сидить між колонами перед завісою. Крок, якого вона просить, — відповідальність: чесний погляд назад, перш ніж Повішений переверне всю картину догори ногами.",
+    "tradition": "У системі Золотої Зорі Справедливість має титул «Донька Володарів Істини, Правителька Рівноваги». Їй відповідають єврейська літера Ламед, назву якої зазвичай тлумачать як «остень для волів», і знак Терезів, кардинальний знак Повітря; карта лежить на шляху, що з’єднує Гебуру й Тіферет на Дереві Життя. У марсельському зразку Справедливість мала номер VIII; Золота Зоря поміняла її місцями із Силою, щоб Лев ішов перед Терезами, а Вейт перейняв цей порядок і дав їй номер XI. Сама ж постать значно давніша за ці відповідності: вона походить від кардинальних чеснот у середньовічному й ренесансному мистецтві, і вже ранні італійські таро зображують Справедливість із мечем і терезами. Згодом Кроулі перейменував карту на «Урівноваження».",
+    "areas": {
+      "love": "У близьких стосунках Справедливість звертає увагу на взаємність: чи рухаються турбота, зусилля й вибачення в обидва боки. Вона запрошує чесно подивитися, що ви вкладаєте і що отримуєте, не ведучи рахунку, щоб виграти суперечку. Ви можете назвати, як на вас вплинули чиїсь слова, не вдаючи, ніби знаєте, чому їх сказано. Щодо стосунків із собою карта може вказувати на справедливість, звернену всередину: розуміння, яке ви охоче даруєте іншим, можна подарувати й собі.",
+      "work": "У роботі чи навчанні Справедливість віддає перевагу чітким домовленостям, точним записам і рішенням, які ви могли б пояснити кожному, кого вони стосуються. Вона може вказувати на перевірку результатів, справедливий розподіл завдань або момент, коли треба розібратися із заслугами й відповідальністю. Меч просить точності; терези запитують, чи всіх міряють однією міркою. У грошових справах карта лише пропонує перевірити цифри й умови, перш ніж брати зобов’язання, і звернутися по кваліфіковану пораду, коли йдеться про серйозні речі.",
+      "self": "Щодо внутрішнього життя Справедливість запитує, як звучав би чесний звіт про ваші недавні рішення, якби його дав неупереджений свідок, а не обвинувач чи захисник. Постать Olivia дивиться просто перед собою, з відкритими очима, тримаючи меч нерухомо, а терези рівно. Цю поставу можна запозичити: не виправдовувати себе й не нагромаджувати звинувачень, а просто побачити, що сталося і що з цього випливло. Ясність щодо власної частки часто приносить полегшення: вона показує, що саме у ваших силах змінити."
+    },
+    "positions": {
+      "heart": "У центрі вашого запитання Справедливість підказує, що все залежить від правди й чесності: що насправді сталося, за що відповідаєте ви і що мало б узяти до уваги виважене рішення.",
+      "challenge": "Як виклик Справедливість може вказувати на нерівну мірку, факт, який не хочеться перевіряти, або судження, що закам’яніло. Справедливості може заважати те, що мати рацію хочеться більше, ніж бачити ясно.",
+      "advice": "Як порада Справедливість запрошує зважити, перш ніж діяти: зібрати факти, вислухати більше ніж одну сторону, прямо назвати власну частку, а тоді зробити крок, який ви могли б пояснити кожному з причетних."
+    },
+    "pairs": [
+      { "with": 2, "text": "Верховна Жриця і Справедливість обидві сидять на троні між колонами перед завісою. Жриця оберігає те, що за нею; Справедливість працює перед нею, з тим, що можна висловити й зважити. Разом вони запитують, що ви відчуваєте інтуїтивно, а що справді можете показати." },
+      { "with": 10, "text": "Колесо Фортуни обертають сили, яких ніхто не контролює; Справедливість, наступна одразу за ним карта, зважує рішення, за які ви можете відповісти. Разом вони запрошують відділити обставини від відповідальності й діяти чесно в межах тієї частини, яка справді ваша." },
+      { "with": 20, "text": "Справедливість зважує вчинок; Суд відповідає на поклик піднятися й почати знову. Поряд вони звертають увагу на відповідальність, яка не закінчується вироком, а відкриває шлях уперед: визнати те, що сталося, щоб мати змогу піти далі." }
+    ],
+    "questions": [
+      "Що увійшло б до справедливої розповіді про цю ситуацію, якби її вів хтось, кому не треба ставати на жоден бік?",
+      "Де ви застосовуєте одну мірку до себе, а іншу — до когось іншого?",
+      "Що в цьому справді ваша частка, а що можна відкласти вбік як не ваше?"
+    ],
+    "practice": "Проведіть на аркуші вертикальну лінію: з одного боку випишіть факти, які можна перевірити, з другого — свої припущення, а тоді прочитайте обидві колонки вголос."
+  }
+}

@@ -2,22 +2,22 @@
   "schemaVersion": 1,
   "html": {
     "path": "index.html",
-    "bytes": 41362,
-    "sha256": "fff1e54e664b54bd53477f27029936e3f3b88604ad21f90e3881496fd674c12b"
+    "bytes": 41551,
+    "sha256": "dd06b673679dcd4e4bb5de7bbd9928fb82df5e8e779725248e960c5cbfa664c8"
   },
   "locales": {
     "en": "index.html",
     "uk": "index.uk.html"
   },
   "native": {
-    "assets": "assets/native-card-assets.aa42d1ce09150150.js",
+    "assets": "assets/native-card-assets.255e813d78a7b3b8.js",
     "scripts": {
       "hero": "assets/hero.ea5578949b2e2776.js",
       "background": "assets/background.3bba5aa61a93e616.js",
-      "app": "assets/app.e6a44d43b5155bea.js",
-      "app-en": "assets/app-en.1a3f19e2a23d5b5f.js"
+      "app": "assets/app.3111a589e34eb36e.js",
+      "app-en": "assets/app-en.e31fcf900eb29d11.js"
     },
-    "stylesheet": "assets/experience.29a4cb28c52df2a8.css"
+    "stylesheet": "assets/experience.c2f3c8d62c7a0cef.css"
   },
   "deck": {
     "major": 22,
@@ -433,6 +433,14 @@
       "bytes": 97418,
       "sha256": "991bf7dd6dfe51bb9d6c37fd0e24ee31eacaae8adf7d882afb99164554ca9746"
     },
+    "assets/symbol-trails-en.c72912dafdb59083.json": {
+      "bytes": 166768,
+      "sha256": "c72912dafdb59083ea7e2955ef2e489f5a132ab1f233576be3ead141820f9bab"
+    },
+    "assets/symbol-trails-uk.b01f1c9be7b693f5.json": {
+      "bytes": 288543,
+      "sha256": "b01f1c9be7b693f56b5f9a1cb1e69979a999854598fcf88bb84dd2f4dbbb1f08"
+    },
     "assets/font-1.f93443f1dec6edc5.woff2": {
       "bytes": 65232,
       "sha256": "f93443f1dec6edc5a813ad429d1d023e17428f551db803b0a8063c5c3aa571c4"
@@ -449,13 +457,13 @@
       "bytes": 6680,
       "sha256": "51adb4c8c5dc00b8a1974b32754665e5cc7522de621fdd3cb233e6834d98b480"
     },
-    "assets/experience.29a4cb28c52df2a8.css": {
-      "bytes": 351954,
-      "sha256": "29a4cb28c52df2a8f2e9a8c261db2c211ed9afdd140969b169940cc33c9ad868"
+    "assets/experience.c2f3c8d62c7a0cef.css": {
+      "bytes": 357685,
+      "sha256": "c2f3c8d62c7a0cefe95a226c55fc1667ea5ae3f26c79a0a7907eee43e5a33e8a"
     },
-    "assets/card-assets.838cf4b8ffe01587.js": {
-      "bytes": 5919,
-      "sha256": "838cf4b8ffe0158710d6f35e4b32a9bb04805fdfae38555c6045c8e189a23c23"
+    "assets/card-assets.cc04e41f9086ad69.js": {
+      "bytes": 6067,
+      "sha256": "cc04e41f9086ad69ec4bef13afc8847d4a9aca1d84a00f44b784005e769853df"
     },
     "assets/hero.ea5578949b2e2776.js": {
       "bytes": 33824,
@@ -465,17 +473,17 @@
       "bytes": 2534536,
       "sha256": "3bba5aa61a93e6167404df17e2e07c751255b869e163882841427bc3ba47c11b"
     },
-    "assets/app.e6a44d43b5155bea.js": {
-      "bytes": 808901,
-      "sha256": "e6a44d43b5155bea6aa6f293e7cbc2541f0d3d8681e56ef2ee3bcb3670c9d18d"
+    "assets/app.3111a589e34eb36e.js": {
+      "bytes": 797159,
+      "sha256": "3111a589e34eb36e5ea7a66dd77c82e7b3d5ecc822b4776106541b0f102d495b"
     },
-    "assets/app-en.1a3f19e2a23d5b5f.js": {
-      "bytes": 551268,
-      "sha256": "1a3f19e2a23d5b5f25429208901913c08558aa974091342044a2d6bb40af0cca"
+    "assets/app-en.e31fcf900eb29d11.js": {
+      "bytes": 539294,
+      "sha256": "e31fcf900eb29d113fad0d9ffcd8b8dce1ef37c9c0f60f0fc9aa0d803f3cedc8"
     },
-    "assets/native-card-assets.aa42d1ce09150150.js": {
-      "bytes": 7143,
-      "sha256": "aa42d1ce091501507ba3cf33b8a396d0798fc655e323050f6ad745a34ac68d58"
+    "assets/native-card-assets.255e813d78a7b3b8.js": {
+      "bytes": 7315,
+      "sha256": "255e813d78a7b3b8807274fc776ea146485f551c3caa57da89f98e5e5ca916c3"
     }
   },
   "cache": {

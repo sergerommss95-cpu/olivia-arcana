@@ -8,6 +8,12 @@ export const TAROT_CARDS = Object.freeze([
 ]);
 export const CARD_IDS = Object.freeze(TAROT_CARDS.map(card=>card.number));
 export const CARD_COUNT = TAROT_CARDS.length;
+/** The card's page in the website's card library (relative on the site, absolute in the portable copy). */
+export function cardPageHref(id, locale = 'en') {
+  const slug = TAROT_CARDS[id].name.toLowerCase().replace(/\s+/g, '-');
+  const site = typeof window !== 'undefined' && (window.OLIVIA_NATIVE === true || new URLSearchParams(window.location.search).get('site') === '1');
+  return `${site ? '' : 'https://oliviaarcana.com'}${locale === 'uk' ? '/uk' : ''}/cards/${slug}/`;
+}
 export function cardCaption(id) {
   const card=TAROT_CARDS[id];
   if(!card)throw new TypeError('Choose a card from the Olivia deck.');

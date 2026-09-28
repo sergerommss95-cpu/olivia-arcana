@@ -1,0 +1,265 @@
+{
+  "id": 71,
+  "slug": "eight-of-pentacles",
+  "artwork": {
+    "file": "71_eight_of_pentacles.webp",
+    "sha256": "74fa785208e2359e8d2a583381dd68179de52f152d7e641c01962b31709a1074"
+  },
+  "symbols": [
+    {
+      "key": "star",
+      "x": 63,
+      "y": 76,
+      "en": {
+        "name": "The gold star in progress",
+        "seen": "On the bench top lies an ivory disc whose five-pointed star is inlaid in gold; one hand sets a chisel against the star while the other raises a small square-headed hammer above it.",
+        "meaning": "The pentacle is the suit’s emblem of earth: work, body, money and made things. This is the only pentacle on the card with a gold star, and it is the one still being made. Olivia places the value of the card in the present attempt rather than the finished stock."
+      },
+      "uk": {
+        "name": "Золота зірка в роботі",
+        "seen": "На верхній дошці лави лежить диск зі слонової кістки з п’ятикутною зіркою, інкрустованою золотом; одна рука приставляє до зірки різець, а друга заносить над нею невеликий молоток із квадратним бойком.",
+        "meaning": "Пентакль — емблема масті землі: праця, тіло, гроші й створені речі. Це єдиний пентакль на карті із золотою зіркою, і саме його ще виготовляють. Для Olivia цінність карти — у теперішній спробі, а не в запасі готових виробів."
+      }
+    },
+    {
+      "key": "face",
+      "x": 55,
+      "y": 59,
+      "en": {
+        "name": "The bowed head",
+        "seen": "The craftsperson, carved in ivory with close curls, leans far forward on the bench, head bowed and eyes lowered to the disc; the sleeves are rolled and an apron is tied at the back with a bow.",
+        "meaning": "The lowered gaze is the posture of absorption. The traditional image shows an apprentice intent on the task, and here the whole body curves around the work. Nothing behind the figure draws a glance: attention is the craft’s first tool."
+      },
+      "uk": {
+        "name": "Схилена голова",
+        "seen": "Постать, вирізьблена зі слонової кістки, з дрібними кучерями низько схиляється над лавою: голову опущено, очі звернені до диска; рукави закочено, а фартух ззаду зав’язано бантом.",
+        "meaning": "Опущений погляд — це поза цілковитої заглибленості. Традиційне зображення показує учня, зосередженого на завданні, а тут усе тіло вигинається довкола роботи. Ніщо за спиною не притягує погляду: увага — перший інструмент ремесла."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 74,
+      "y": 47,
+      "en": {
+        "name": "Seven pentacles on the pillar",
+        "seen": "Seven finished ivory pentacles hang from small pegs down a square pillar of paler lapis beside the bench, five along its left edge and two staggered to the right; each star is cut in outline, not gold.",
+        "meaning": "Displayed work traditionally shows skill building up piece by piece, the pentacles made so far. The traditional image hangs them on a plain upright post; here they climb a stone pillar that rises above the horizon, so steady practice becomes something upright and lasting."
+      },
+      "uk": {
+        "name": "Сім пентаклів на стовпі",
+        "seen": "Сім готових пентаклів зі слонової кістки висять на невеликих кілочках уздовж квадратного стовпа зі світлішого лазуриту біля лави: п’ять по лівому краю і два уступами праворуч; зірки на них вирізьблено контуром, без золота.",
+        "meaning": "Виставлена робота традиційно показує вміння, що накопичується виріб за виробом: пентаклі, зроблені дотепер. На традиційному зображенні їх вішають на простий стовпчик; тут вони здіймаються кам’яним стовпом вище за лінію обрію, і стала практика перетворюється на щось пряме й тривке."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 22,
+      "y": 90,
+      "en": {
+        "name": "Two pentacles set down",
+        "seen": "At the lower left an ivory pentacle leans against the bench’s left leg on the rocky ground; a second leans against the bench’s right leg, both with outlined stars and no gold.",
+        "meaning": "With these two the card holds ten pentacles, not eight: seven hung, one in hand, two resting below. Olivia’s count departs from the title, as if more work has been done than is on show. Finished pieces set aside rather than displayed suggest practice for its own sake."
+      },
+      "uk": {
+        "name": "Два відкладені пентаклі",
+        "seen": "Унизу ліворуч пентакль зі слонової кістки спирається на ліву ніжку лави на кам’янистій землі; другий спирається на праву ніжку; обидва з контурними зірками, без золота.",
+        "meaning": "З цими двома на карті десять пентаклів, а не вісім: сім висять, один у руках, два стоять унизу. У Olivia лік розходиться з назвою, ніби зроблено більше, ніж виставлено. Готові вироби, відкладені, а не показані, натякають на практику заради самої практики."
+      }
+    },
+    {
+      "key": "moon",
+      "x": 49,
+      "y": 10,
+      "en": {
+        "name": "The moon with a face",
+        "seen": "High in the star-flecked sky a pale lapis disc carries a calm face with lowered eyes, edged on the left by a thin ivory crescent; a glittering diagonal band crosses the sky below it.",
+        "meaning": "A face in the moon belongs to The Moon card, with its uncertainty, dreams and restless feeling. The traditional Eight of Pentacles has no moon. Olivia sets the craft at night, under this light, so the work continues while the mind’s tides move around it."
+      },
+      "uk": {
+        "name": "Місяць з обличчям",
+        "seen": "Високо в небі із золотими цятками зір на блідому лазуритовому диску — спокійне обличчя з опущеними очима; ліворуч диск облямовує тонкий серп зі слонової кістки; нижче небо перетинає мерехтлива діагональна смуга.",
+        "meaning": "Обличчя в місяці належить карті Місяць з її невизначеністю, снами й неспокоєм. На традиційній Вісімці Пентаклів місяця немає. Olivia переносить ремесло в ніч, під це світло, тож робота триває, поки довкола здіймаються й спадають припливи думок."
+      }
+    },
+    {
+      "key": "city",
+      "x": 17,
+      "y": 43,
+      "en": {
+        "name": "The harbour town",
+        "seen": "At the left, carved in greyed lapis, a walled town with a tall spired tower rises from the water’s edge before a range of mountains; a single-masted sailboat floats on the bay below.",
+        "meaning": "A distant town appears in the traditional Eight of Pentacles too: the world of trade and community that the craftsperson works apart from. Its distance suggests that skill is built in private before it is carried back to be shared."
+      },
+      "uk": {
+        "name": "Містечко над гаванню",
+        "seen": "Ліворуч, у сіруватому лазуриті, біля самої води здіймається обнесене мурами містечко з високою гостроверхою вежею на тлі гірського пасма; нижче, в затоці, гойдається одномачтовий вітрильник.",
+        "meaning": "Далеке місто є й на традиційній Вісімці Пентаклів: світ торгівлі й громади, осторонь якого працює постать за лавою. Ця віддаленість підказує, що вміння спершу вибудовують на самоті, а вже потім несуть до людей, щоб ним поділитися."
+      }
+    },
+    {
+      "key": "pillar",
+      "x": 51,
+      "y": 43,
+      "en": {
+        "name": "Two columns at the shore",
+        "seen": "Two plain round columns with simple capitals stand on rocks at the water’s edge in the middle distance, framing the bay between them; both are carved in greyed lapis like the hills behind them.",
+        "meaning": "Paired columns echo the two towers of The Moon card, the gateway into the unknown. Placed behind the bench, the threshold stands at the craftsperson’s back: uncertain ground is present, but it is not where attention is turned."
+      },
+      "uk": {
+        "name": "Дві колони на березі",
+        "seen": "Дві прості круглі колони з нескладними капітелями стоять на скелях біля води на середньому плані й обрамлюють затоку між собою; обидві вирізьблено в сіруватому лазуриті, як і пагорби за ними.",
+        "meaning": "Парні колони відлунюють дві вежі карти Місяць, ворота в невідоме. Поставлені за лавою, вони лишають поріг за спиною постаті: хитка земля поруч, але увага звернена не туди."
+      }
+    },
+    {
+      "key": "wolf",
+      "x": 65,
+      "y": 49,
+      "en": {
+        "name": "The howling pair",
+        "seen": "Two canines sit on rocky ledges either side of the columns, muzzles raised to the sky: a smooth-coated, dog-like animal on the left and a shaggy wolf with a bushy tail on the right.",
+        "meaning": "The dog and the wolf of The Moon card are commonly read as the tamed and wild sides of instinct, both calling out in the dark. Here they howl behind the worker’s back, a picture of worry and distraction that the patient hands do not follow."
+      },
+      "uk": {
+        "name": "Двоє, що виють",
+        "seen": "Двоє псових сидять на скелястих виступах обабіч колон, задерши морди до неба: ліворуч гладкошерста тварина, схожа на пса, праворуч кошлатий вовк із пухнастим хвостом.",
+        "meaning": "Пса й вовка з карти Місяць зазвичай читають як приручений і дикий боки інстинкту: обидва кличуть у темряві. Тут вони виють за спиною того, хто працює: образ тривоги й розпорошеності, за якими терплячі руки не йдуть."
+      }
+    },
+    {
+      "key": "crayfish",
+      "x": 54,
+      "y": 51,
+      "en": {
+        "name": "The crayfish in the shallows",
+        "seen": "Between the two animals a crayfish lies in the rippled water near the shore, its head and claws turned to the left and its long antennae arching above, carved in shallow relief in the same blue as the waves.",
+        "meaning": "In The Moon card the crayfish climbs from the pool as something rising from the depths of the unconscious. Here it stays in the water, half-formed thought kept at a distance while the work in the foreground takes shape."
+      },
+      "uk": {
+        "name": "Рак на мілині",
+        "seen": "Між двома тваринами, у брижах води біля берега, лежить рак: голова й клешні повернуті ліворуч, довгі вусики вигинаються дугою вгорі; його вирізьблено неглибоким рельєфом у тій самій синяві, що й хвилі.",
+        "meaning": "На карті Місяць рак вибирається з водойми як щось, що підіймається з глибин несвідомого. Тут він лишається у воді: напівоформлена думка тримається віддалік, поки робота на передньому плані набуває форми."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Eight of Pentacles honours skill built through patient, repeated practice: attention returning to the task in front of you until the work improves.",
+    "keywords": {
+      "upright": [
+        "craft",
+        "diligence",
+        "deliberate practice",
+        "apprenticeship",
+        "attention to detail"
+      ],
+      "reversed": [
+        "mechanical repetition",
+        "perfectionism",
+        "distraction",
+        "stalled learning",
+        "burnout"
+      ]
+    },
+    "upright": [
+      "The Eight of Pentacles draws attention to skill made one piece at a time. In Olivia’s carving the craftsperson sits on a pale bench, head bowed and shoulders curved over the work: one hand raises a small hammer, the other sets a chisel against a pentacle whose star is being inlaid in gold. It is the only gold star among the card’s ten pentacles. Seven finished ones hang on the lapis pillar beside the bench, and two more rest against the bench legs below.",
+      "Behind the bench lies the landscape of The Moon: a moon with a calm face, two columns at the water’s edge, a dog and a wolf howling, a crayfish in the shallows. None of it has the figure’s attention. The night is full of pull and uncertainty, and the craft continues. This is what the card honours: attention that returns, again and again, to the next small task.",
+      "Upright, the card invites you to choose one skill and practise it with care. It can point to an apprenticeship, a course, a repeated routine or a piece of work that only improves by being done many times. Notice that the gold sits on the pentacle being worked now, not on the finished ones: the value lives in the present attempt, and the finished pieces simply show that it has happened before."
+    ],
+    "reversed": [
+      "Eight of Pentacles reversed can show practice that has lost its thread. The hands keep moving but attention has gone elsewhere, and repetition no longer teaches anything. Or the opposite: perfectionism that reworks the same pentacle while everything else waits, as if the gold star could never be finished.",
+      "Sometimes the reversal points to the howling landscape behind the bench: worry, comparison or noise pulling focus away from the work. Boredom can mean the challenge has gone; frustration, that the step has become too steep. Adjust the task, ask someone for feedback, or rest properly, then return to one clear detail you can improve today."
+    ],
+    "number": "Eight is the rank of practised motion. After the Seven’s pause to assess what has grown, the Eight gets back to work with a clearer sense of what matters. Eights often mark a change of pace after that reassessment: something is set going again, more deliberately. In Pentacles, the suit of earth, body, money and made things, that method is craft: learning with the hands, refining through repetition, and letting skill accumulate the way pentacles gather on the pillar, one finished piece at a time. The Nine that follows enjoys what such steady work has built.",
+    "tradition": "In the Golden Dawn system the Eight of Pentacles is the Lord of Prudence, attributed to the Sun in the first decan of Virgo and to Hod, Splendour, the eighth sephira on the Tree of Life. Book T pictures it without a working scene: a hand from a cloud holds a rose branch among the eight pentacles, with roses near the lower four and only leaves near the upper four. Pamela Colman Smith’s 1909 design turned this into an artisan at a bench, carving a pentacle while finished ones are displayed and a town stands in the distance. Aleister Crowley’s Thoth deck keeps the title Prudence, and older Marseille decks show eight coins with foliage and no scene.",
+    "areas": {
+      "love": "In love and close relationships, the Eight of Pentacles honours care as a practice rather than a grand gesture: remembering the small thing, repairing a small hurt, showing up in the same reliable way. It can point to a bond that deepens through attention to detail. With yourself, it asks whether you give your own growth the patience you would give an apprentice, and whether you notice the pieces already hanging finished on the pillar.",
+      "work": "At work, in study and with money matters, this card favours deliberate practice: the hour spent on the difficult passage, the draft revised once more, the budget checked line by line. It can point to training, a new qualification or a craft learned alongside other work. Consider which single skill would repay focused repetition now, and how you could get feedback on it rather than measuring only the hours you have put in.",
+      "self": "For your own life, the Eight of Pentacles turns attention to the quiet dignity of doing something well. Like the craftsperson bent over the bench while the dog and wolf howl in the moonlit landscape behind, you might notice how focus can steady you when other things feel uncertain. The card asks what you are making with your days, and invites you to let a craft, however humble, become a place where your attention can settle and grow."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter turns on steady practice: a skill to build, a detail to get right, or patient work that matters more than a quick result.",
+      "challenge": "As a challenge, it can show effort that has become mechanical, perfectionism that will not let a piece be finished, or focus so narrow that rest and feedback are left out.",
+      "advice": "As advice, it invites you to choose one specific thing to practise, give it your full attention for a set time, and notice honestly what has improved."
+    },
+    "pairs": [
+      {
+        "with": 18,
+        "text": "Olivia sets the Eight of Pentacles inside the landscape of The Moon: the face in the sky, the two columns, the howling pair and the crayfish. Together they draw attention to craft as an anchor, steady work that keeps you grounded when uncertainty rises."
+      },
+      {
+        "with": 66,
+        "text": "The Three of Pentacles shows skill recognised and shared within a working group; the Eight shows it being built alone at the bench. Together they ask how solitary practice and collaboration, focus and feedback, can feed each other."
+      },
+      {
+        "with": 9,
+        "text": "The Golden Dawn gives Virgo to both cards: the Hermit through its Hebrew letter Yod, the Eight through the Sun in the sign’s first decan. Both figures are solitary and absorbed; together they point to quiet, patient work that turns inward attention into something useful."
+      }
+    ],
+    "questions": [
+      "Which one skill would repay careful, repeated practice over the next month?",
+      "Where are you counting hours worked instead of noticing what you are actually learning?",
+      "What noise or worry keeps pulling your attention away from the work in front of you?"
+    ],
+    "practice": "Choose one small task, set a timer for twenty-five minutes and give it your whole attention; afterwards, write one sentence about what improved."
+  },
+  "uk": {
+    "essence": "Вісімка Пентаклів вшановує вміння, здобуте терплячою, повторюваною практикою: увагу, яка знову й знову повертається до завдання перед вами, доки робота не стає кращою.",
+    "keywords": {
+      "upright": [
+        "ремесло",
+        "старанність",
+        "свідома практика",
+        "учнівство",
+        "увага до деталей"
+      ],
+      "reversed": [
+        "механічне повторення",
+        "перфекціонізм",
+        "розпорошеність",
+        "застій у навчанні",
+        "вигорання"
+      ]
+    },
+    "upright": [
+      "Вісімка Пентаклів звертає увагу на вміння, яке твориться виріб за виробом. У різьбленні Olivia постать сидить на світлій лаві, голову схилено, плечі вигнуто над роботою: одна рука заносить невеликий молоток, друга приставляє різець до пентакля, у зірку якого саме інкрустують золото. Це єдина золота зірка серед десяти пентаклів карти. Сім готових висять на лазуритовому стовпі біля лави, ще два стоять унизу, спершись на її ніжки.",
+      "За лавою розкинувся краєвид карти Місяць: місяць зі спокійним обличчям, дві колони біля води, пес і вовк, що виють, рак на мілині. Ніщо з цього не забирає уваги постаті. Ніч сповнена поклику й невизначеності, а ремесло триває. Саме це карта й шанує: увагу, яка раз у раз повертається до наступного невеликого завдання.",
+      "У прямому положенні карта запрошує вас обрати одне вміння й практикувати його дбайливо. Вона може вказувати на учнівство, курс, усталений розпорядок або роботу, яка стає кращою лише тоді, коли її виконують багато разів. Зверніть увагу: золото лежить на пентаклі, над яким працюють зараз, а не на готових. Цінність живе в теперішній спробі, а готові вироби лише свідчать, що таке вже вдавалося раніше."
+    ],
+    "reversed": [
+      "Вісімка Пентаклів у перевернутому положенні може показувати практику, яка загубила нитку. Руки й далі рухаються, але увага вже деінде, і повторення більше нічого не вчить. Або навпаки: перфекціонізм, що без кінця переробляє той самий пентакль, поки все інше чекає, ніби золоту зірку ніколи не вдасться завершити.",
+      "Іноді перевернута карта вказує на краєвид за лавою, сповнений виття: тривогу, порівняння чи шум, що відтягують увагу від роботи. Нудьга може означати, що завдання вже не кидає виклику; роздратування — що крок став надто крутим. Змініть завдання, попросіть когось про відгук або як слід відпочиньте, а тоді поверніться до однієї чіткої деталі, яку можна покращити сьогодні."
+    ],
+    "number": "Вісімка — ранг відпрацьованого руху. Після паузи Сімки, коли оцінюють те, що виросло, Вісімка повертається до роботи, ясніше бачачи головне. Вісімки часто позначають зміну темпу після такого переосмислення: щось знову запускається, тепер свідоміше. У Пентаклях, масті землі, тіла, грошей і створених речей, цей метод — ремесло: вчитися руками, шліфувати повторенням і давати вмінню накопичуватися так, як пентаклі збираються на стовпі, один готовий виріб за іншим. Дев’ятка, що йде далі, тішиться тим, що збудувала така стала праця.",
+    "tradition": "У системі Золотої Зорі Вісімка Пентаклів має титул «Володар розсудливості»; її пов’язують із Сонцем у першому декані Діви та із сефірою Год (Слава), восьмою на Дереві Життя. «Книга Т» описує її без робочої сцени: рука з хмари тримає трояндову гілку серед восьми пентаклів, біля чотирьох нижніх — троянди, біля чотирьох верхніх — лише листя. Памела Колман Сміт у 1909 році перетворила це на постать ремісника за лавою, що вирізьблює пентакль, поки готові вироби виставлено, а вдалині стоїть місто. Колода Тота Алістера Кроулі зберігає назву «Розсудливість», а давніші марсельські колоди показують вісім монет із листям і без жодної сцени.",
+    "areas": {
+      "love": "У коханні та близьких стосунках Вісімка Пентаклів шанує турботу як практику, а не як гучний жест: пам’ятати дрібницю, загоїти невелику образу, незмінно й надійно бути поруч. Вона може вказувати на зв’язок, що поглиблюється завдяки увазі до деталей. Щодо стосунків із собою карта запитує, чи даєте ви власному зростанню стільки терпіння, скільки дали б учневі, і чи помічаєте пентаклі, що вже висять готові на стовпі.",
+      "work": "У роботі, навчанні та грошових справах ця карта на боці свідомої практики: година над складним фрагментом, чернетка, переписана ще раз, бюджет, перевірений рядок за рядком. Вона може вказувати на навчання, нову кваліфікацію чи ремесло, яке опановують паралельно з іншою роботою. Подумайте, яке одне вміння зараз віддячить за зосереджене повторення і як отримати на нього відгук, замість того щоб вимірювати поступ лише вкладеними годинами.",
+      "self": "У вашому власному житті Вісімка Пентаклів звертає увагу на тиху гідність добре зробленої справи. Як постать, схилена над лавою, поки в місячному краєвиді за нею виють пес і вовк, ви можете помітити, як зосередженість дає опору, коли все інше здається хитким. Карта запитує, що ви творите зі своїх днів, і запрошує дозволити ремеслу, хай навіть скромному, стати місцем, де ваша увага може вкоренитися й рости."
+    },
+    "positions": {
+      "heart": "У центрі запитання карта підказує, що все залежить від сталої практики: від уміння, яке треба вибудувати, деталі, яку слід довести до ладу, або терплячої праці, важливішої за швидкий результат.",
+      "challenge": "Як перешкода вона може показувати зусилля, що стали механічними, перфекціонізм, який не дає завершити річ, або зосередженість, таку вузьку, що в ній не лишається місця для відпочинку й відгуку.",
+      "advice": "Як порада вона запрошує обрати одну конкретну річ для практики, приділити їй усю увагу на визначений час і чесно помітити, що стало кращим."
+    },
+    "pairs": [
+      {
+        "with": 18,
+        "text": "Olivia розміщує Вісімку Пентаклів у краєвиді карти Місяць: обличчя в небі, дві колони, пес і вовк, що виють, рак на мілині. Разом ці карти звертають увагу на ремесло як якір — сталу працю, що тримає вас на землі, коли зростає невизначеність."
+      },
+      {
+        "with": 66,
+        "text": "Трійка Пентаклів показує вміння, визнане й спільне в робочій групі; Вісімка — вміння, яке вибудовують наодинці за лавою. Разом вони запитують, як самотня практика і співпраця, зосередженість і відгук можуть живити одне одного."
+      },
+      {
+        "with": 9,
+        "text": "Золота Зоря пов’язує з Дівою обидві карти: Відлюдника — через його єврейську літеру Йод, Вісімку — через Сонце в першому декані знака. Обидві постаті самотні й заглиблені; разом вони вказують на тиху, терплячу працю, що перетворює внутрішню увагу на щось корисне."
+      }
+    ],
+    "questions": [
+      "Яке одне вміння віддячило б за уважну, повторювану практику протягом наступного місяця?",
+      "Де ви лічите відпрацьовані години замість того, щоб помічати, чого насправді вчитеся?",
+      "Який шум чи тривога раз у раз відтягує вашу увагу від роботи, що перед вами?"
+    ],
+    "practice": "Оберіть одне невелике завдання, поставте таймер на двадцять п’ять хвилин і приділіть йому всю увагу; потім запишіть одне речення про те, що стало кращим."
+  }
+}

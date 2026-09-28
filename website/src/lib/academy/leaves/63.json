@@ -1,0 +1,275 @@
+{
+  "id": 63,
+  "slug": "king-of-swords",
+  "artwork": {
+    "file": "63_king_of_swords.webp",
+    "sha256": "254fd6fe165191b17333dd1c8e41b01029da7398bb2ff9f6a5bf8c8243669010"
+  },
+  "symbols": [
+    {
+      "key": "sword",
+      "x": 41,
+      "y": 63,
+      "en": {
+        "name": "The drawn ivory sword",
+        "seen": "A long ivory blade rises from the King’s right fist, leaning slightly towards the viewer’s left; the crossguard has a raised, ornamented centre and rounded flared ends, and a small carved pommel shows beneath the fist.",
+        "meaning": "The sword is the suit’s emblem of air: thought, speech, analysis and decision. The King holds it drawn but at rest, gripped rather than brandished, the way a judge holds an office. Its slight lean is worth noticing: a clear position, held without stiffness."
+      },
+      "uk": {
+        "name": "Оголений меч зі слонової кістки",
+        "seen": "Довгий клинок зі слонової кістки здіймається з правого кулака Короля, трохи нахилений ліворуч від глядача; у хрестовини опукла орнаментована середина й округлі розширені кінці, а під кулаком видно невелике різьблене навершя.",
+        "meaning": "Меч — емблема масті, знак повітря: думки, мови, аналізу й рішення. Король тримає його так, як суддя обіймає посаду: оголеним, але в спокої, міцно стиснутим, а не піднятим для удару. Варто помітити легкий нахил клинка: ясна позиція, яку тримають без скутості."
+      }
+    },
+    {
+      "key": "star",
+      "x": 35,
+      "y": 42,
+      "en": {
+        "name": "Gold star at the tip",
+        "seen": "Where the blade would normally narrow to a point, it ends instead in a small round cap set with a gold eight-pointed star, the one gold accent on the ivory figure and its sword.",
+        "meaning": "A star replaces the blade’s point, so the sword leads with a fixed light rather than an edge. Stars in tarot suggest guidance and orientation, as in The Star. This is Olivia’s departure from the traditional image, and it reads as judgement steered by a principle, not by the wish to wound."
+      },
+      "uk": {
+        "name": "Золота зірка на вістрі",
+        "seen": "Там, де клинок зазвичай звужується до вістря, він натомість завершується невеликою круглою головкою із золотою восьмипроменевою зіркою — єдиним золотим акцентом на фігурі зі слонової кістки та її мечі.",
+        "meaning": "Зірка стоїть на місці вістря, тож попереду меча — незмінне світло, а не лезо. У таро зірки пов’язують із дороговказом і орієнтиром, як у карті Зірка. Це відступ Olivia від традиційного зображення, і його можна прочитати як судження, яке спрямовує принцип, а не бажання поранити."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 49,
+      "y": 43,
+      "en": {
+        "name": "The ivory crown",
+        "seen": "The King, seated full-face and looking straight out of the card, wears an open ivory crown of pointed, knobbed tips over long hair; its band is carved with small ornament and the tallest tip stands at the centre.",
+        "meaning": "The crown marks the King as the suit’s outward ruler, responsible for decisions others live with. Carved in ivory rather than gold, it is made of the same material as the figure: authority that is part of the person, not a decoration. The frontal gaze, kept from the traditional image, meets you directly."
+      },
+      "uk": {
+        "name": "Корона зі слонової кістки",
+        "seen": "Король сидить анфас і дивиться просто з карти; на довгому волоссі — відкрита корона зі слонової кістки з гострими зубцями, увінчаними кульками; обідок укрито дрібним різьбленим орнаментом, найвищий зубець — посередині.",
+        "meaning": "Корона вказує, що Король — володар масті, звернений назовні, відповідальний за рішення, з якими житимуть інші. Вирізьблена зі слонової кістки, а не із золота, вона зроблена з того самого матеріалу, що й фігура: влада як частина особистості, а не прикраса. Прямий погляд, збережений із традиційного зображення, зустрічається з вашим."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 55,
+      "y": 70,
+      "en": {
+        "name": "The hand at rest",
+        "seen": "The King’s other hand lies on the lap near the knee, over the ivory robe, palm down with the fingers together and gently curved, while the sword hand stays closed around the grip beside it.",
+        "meaning": "One hand holds the instrument of judgement; the other does nothing at all. The resting hand can be read as composure and restraint, the capacity to decide without acting on every passing thought. Together the two hands show a mind that is ready but not restless."
+      },
+      "uk": {
+        "name": "Рука в спокої",
+        "seen": "Друга рука Короля лежить біля коліна, на шаті зі слонової кістки, долонею донизу, пальці зімкнені й м’яко зігнуті; рука з мечем поруч лишається стиснутою на руків’ї.",
+        "meaning": "Одна рука тримає знаряддя судження, друга не робить нічого. Руку в спокої можна прочитати як самовладання і стриманість: здатність ухвалювати рішення, не відповідаючи дією на кожну думку, що промайнула. Разом обидві руки показують розум, готовий до дії, але не метушливий."
+      }
+    },
+    {
+      "key": "butterfly",
+      "x": 65,
+      "y": 49,
+      "en": {
+        "name": "Six lapis butterflies",
+        "seen": "Six butterflies carved in pale grey-blue lapis are arranged in mirrored pairs inside the wreath: two beside the upper crescent, two larger ones level with the King’s head, and two small ones lower down.",
+        "meaning": "Butterflies are carved on the traditional throne of this King and recur on the Queen’s: creatures of air, commonly read as the soul, breath and transformation. Set here in symmetrical pairs, they suggest a mind that has changed through experience and now holds those changes in order."
+      },
+      "uk": {
+        "name": "Шість лазуритових метеликів",
+        "seen": "Шість метеликів, вирізьблених у блідому сіро-блакитному лазуриті, розміщено дзеркальними парами всередині вінка: два обабіч верхнього півмісяця, два більші на рівні голови Короля і два маленькі нижче.",
+        "meaning": "Метелики вирізьблено на традиційному троні цього Короля, і вони повторюються на троні Королеви: це істоти повітря, яких зазвичай тлумачать як символ душі, подиху й перетворення. Розміщені тут симетричними парами, вони вказують на розум, що змінився завдяки досвіду й тепер тримає ці зміни в ладі."
+      }
+    },
+    {
+      "key": "moon",
+      "x": 50,
+      "y": 30,
+      "en": {
+        "name": "Four gold crescents",
+        "seen": "Three pale gold crescent moons are set along the top block of the throne, the central one largest; a fourth crescent hangs inside the wreath directly above the crown.",
+        "meaning": "Crescent moons also belong to the traditional throne of this King. The moon stands for reflection, cycles and what is not yet fully seen; placed above the head of the suit’s most deliberate figure, it suggests that clear thinking still rests on intuition, rest and the slower tides of feeling."
+      },
+      "uk": {
+        "name": "Чотири золоті півмісяці",
+        "seen": "Три блідо-золоті півмісяці вставлено вздовж верхньої частини трону, центральний — найбільший; четвертий півмісяць висить усередині вінка просто над короною.",
+        "meaning": "Півмісяці також належать традиційному трону цього Короля. Місяць означає роздуми, цикли й те, що ще не видно до кінця; розміщений над головою найвиваженішої постаті масті, він підказує, що ясне мислення все ж спирається на інтуїцію, відпочинок і повільніші припливи почуттів."
+      }
+    },
+    {
+      "key": "wreath",
+      "x": 23,
+      "y": 51,
+      "en": {
+        "name": "The leafy wreath",
+        "seen": "A wide ring of overlapping pointed leaves, carved in lapis in low relief, encircles the King’s head and upper body against the throne back, enclosing all six butterflies and the fourth crescent.",
+        "meaning": "The wreath is Olivia’s addition. Leaf crowns have long honoured victory and recognised merit, and the ring frames the King like a seal or a medallion. It suggests authority that has been earned and conferred, a standing that depends on continuing to judge fairly."
+      },
+      "uk": {
+        "name": "Листяний вінок",
+        "seen": "Широке кільце з гострих листків, що заходять один на один, вирізьблене в лазуриті низьким рельєфом, оточує голову й верхню частину тіла Короля на тлі спинки трону; усередині нього — усі шість метеликів і четвертий півмісяць.",
+        "meaning": "Вінок — доповнення Olivia. Листяними вінками здавна вшановували перемогу й визнані заслуги, а це кільце обрамлює Короля, наче печатка чи медальйон. Воно вказує на владу, яку заслужено й надано: становище, що тримається, доки судження лишаються справедливими."
+      }
+    },
+    {
+      "key": "cypress",
+      "x": 31,
+      "y": 19,
+      "en": {
+        "name": "Twin cypresses",
+        "seen": "Two tall, narrow cypresses carved in lighter blue lapis rise behind the upper corners of the throne, each with a smaller tree beside it, framing the open sky above the crest.",
+        "meaning": "Trees shaken by wind recur through the suit of Swords as a picture of restless thought; here they are cypresses standing perfectly still. Evergreen and upright, cypresses are long associated with endurance and remembrance. Paired and symmetrical, they echo the King’s own balance."
+      },
+      "uk": {
+        "name": "Два кипариси",
+        "seen": "Два високі стрункі кипариси, вирізьблені у світлішому блакитному лазуриті, здіймаються за верхніми кутами трону, кожен із меншим деревом поруч, обрамлюючи відкрите небо над навершям трону.",
+        "meaning": "Дерева, які гне вітер, повторюються в масті Мечів як образ неспокійної думки; тут же кипариси стоять цілковито нерухомо. Вічнозелені й прямі, кипариси здавна пов’язують зі стійкістю й пам’яттю. Парні й симетричні, вони перегукуються з рівновагою самого Короля."
+      }
+    },
+    {
+      "key": "bird",
+      "x": 46,
+      "y": 18,
+      "en": {
+        "name": "Two birds in flight",
+        "seen": "Between the cypresses, two birds carved in grey-blue lapis fly one behind and below the other, wings raised, in the open strip of night sky above the throne’s crescent-topped crest.",
+        "meaning": "Birds belong to air, and a pair of birds flies in the sky of the traditional King of Swords, where the Queen has one. Two together can suggest thought that has a companion: reasoning tested against another view, a free mind that still keeps formation."
+      },
+      "uk": {
+        "name": "Два птахи в польоті",
+        "seen": "Між кипарисами два птахи, вирізьблені в сіро-блакитному лазуриті, летять один позаду й нижче за іншого, з піднятими крилами, у відкритій смузі нічного неба над увінчаним півмісяцями навершям трону.",
+        "meaning": "Птахи належать повітрю, і в небі традиційного Короля Мечів летить пара птахів, тоді як у Королеви — один. Два птахи разом можуть вказувати на думку, що має супутника: міркування, перевірене іншим поглядом, вільний розум, який усе ж тримає стрій."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The King of Swords is clear judgement held with calm authority: thinking a matter through, deciding fairly and standing by reasons that can be explained.",
+    "keywords": {
+      "upright": [
+        "clear judgement",
+        "fairness",
+        "principled authority",
+        "intellectual clarity",
+        "honest counsel"
+      ],
+      "reversed": [
+        "rigid thinking",
+        "cold detachment",
+        "authority without reasons",
+        "harsh criticism",
+        "second-guessing"
+      ]
+    },
+    "upright": [
+      "The King of Swords sits full-face on the throne and looks straight out of the card. Where the Queen of Swords sits in profile, this King faces you: among the Swords courts the Page observes, the Knight pursues, the Queen discerns, and the King decides. The sword is drawn and held firmly in one fist, while the other hand lies open and still on the robe. Upright, the card draws attention to thinking that has become a responsibility: weighing evidence, applying a standard fairly and taking ownership of a conclusion that affects others.",
+      "Look at the tip of the blade. Where a sword would normally narrow to a point, Olivia’s carving sets a gold eight-pointed star. It suggests that this King’s clarity is guided by something fixed, a principle or a stated standard, rather than by the wish to win the argument. The crescents on the throne and the butterflies within the wreath add a quieter note: good judgement also listens to intuition, and it has been shaped by change.",
+      "In a reading, the King of Swords can point to a decision you are ready to make, a boundary that needs a clear rationale, or the value of advice that is honest rather than comforting. It asks whether your reasoning could be followed by someone who disagrees, and whether the people who live with a decision have been considered in it."
+    ],
+    "reversed": [
+      "King of Swords reversed can show judgement that has hardened. A position may be defended because changing it feels like losing face, or authority may rest on status instead of on reasons anyone can examine. Clarity can turn into coldness, and precise words into criticism that leaves no room for reply.",
+      "The reversal can also turn inward: a mind that audits every choice until none can be made, or an inner judge harsher than any outside one. Return to the carving. The sword is held, not swung, and one hand rests open. Consider which decision needs its reasons written down, and where you could let new information change your view without treating that as defeat."
+    ],
+    "number": "Kings hold the outward mastery of their suit: the element used in the world, in service of others. In Swords, the suit of air, that mastery concerns thought, language and decision. The Page learns to observe, the Knight rushes to act on an idea, the Queen understands from within; the King brings all of this to bear on choices that affect other people. Here air becomes policy, principle and counsel: the mind made accountable.",
+    "tradition": "In the Golden Dawn system the court ran King, Queen, Prince and Princess, and the King of the 1909 Waite and Smith deck is usually matched with the Golden Dawn Prince of Swords, “Prince of the Chariots of the Winds”: Air of Air, the element in its purest form. Its zodiac span runs from 20° Capricorn to 20° Aquarius, covering the decans of the Four of Pentacles, Five of Swords and Six of Swords. Some readers instead link the card to the Golden Dawn King, “Lord of the Winds and Breezes”, Fire of Air. In the guide that accompanied that deck, Waite compared this seated figure with Justice among the Major Arcana, and Pamela Colman Smith drew the King facing straight out.",
+    "court": {
+      "temperament": "As a temperament, the King of Swords is analytical, composed and fair-minded. This way of acting gathers the facts, separates them from opinion, and reaches a conclusion that can be stated plainly and defended with reasons. It is comfortable with responsibility, and with the loneliness that sometimes comes from making the call others would rather avoid.",
+      "gifts": "Its gifts are impartial judgement, clear policy and honest counsel: the ability to shape a rule that is fair to everyone, to explain a hard decision without cruelty, and to advise from principle rather than from mood. Like the star on the blade, this King offers a fixed point others can orient by.",
+      "shadow": "In shadow, reason becomes a fortress. You might rank logic above every feeling, treat disagreement as disloyalty, or hold a verdict long after the evidence has moved. Judgement can turn into a habit of judging people. The carving offers a counterweight: the sword is held still, and the other hand rests open."
+    },
+    "areas": {
+      "love": "In love and close relationships, the King of Swords asks for fairness and clear communication. It can point to a conversation where you state your reasons instead of hinting, or to an agreement that would benefit from being spelled out. It also asks whether you stay reachable while being reasonable: a well-argued position can still leave the other person unheard. With yourself, it invites an inner voice that assesses your choices fairly, not harshly.",
+      "work": "At work, in study and with money matters, this card favours structured thinking: setting criteria before choosing, recording why a decision was made, and reviewing the evidence rather than the loudest opinion. It can point to roles that carry judgement, such as editor, assessor, mediator or team lead. Consider one decision in front of you and write down the standard you are applying; if you would not defend it openly, it may need rethinking.",
+      "self": "For your own life, the King of Swords turns attention to how you exercise authority over your own mind. Like the King sitting still with the sword drawn and the other hand at rest, you might practise holding a conclusion without gripping it. Notice which of your principles work like the star on the blade, steady points that orient you, and which have become rules you follow out of habit or fear of being wrong."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter turns on a clear, fair decision: naming the standard, weighing the evidence and taking responsibility for the conclusion.",
+      "challenge": "As a challenge, it can show judgement grown rigid or remote, a need to be right that crowds out listening, or authority that explains itself too little.",
+      "advice": "As advice, it invites you to decide on stated grounds: write down your reasons, check them against the facts, and share them with the people the decision affects."
+    },
+    "pairs": [
+      {
+        "with": 11,
+        "text": "With Justice, the drawn sword appears on two thrones, and Waite linked the cards directly. Together they draw attention to fairness as a practice: a standard applied consistently, and consequences weighed for everyone involved, including the one who judges."
+      },
+      {
+        "with": 62,
+        "text": "With the Queen of Swords, butterflies on both thrones and birds in both skies join the cards: one bird for the Queen, two for the King. One sits in profile, one faces you; together they ask whether you need inward discernment or an outward decision."
+      },
+      {
+        "with": 50,
+        "text": "With the Ace of Swords, the gold crown circling the Ace’s blade returns in ivory on the head of the one who holds the sword. The Ace brings a new idea or insight; the King asks how to govern it and use it responsibly over time."
+      }
+    ],
+    "questions": [
+      "Could someone who disagrees with you still follow the reasoning behind your decision?",
+      "What fixed principle, like the star at the tip of the blade, is guiding your judgement here?",
+      "Where are you holding a position out of habit or pride rather than because the evidence supports it?"
+    ],
+    "practice": "Before one decision this week, write the standard you are using in a single sentence, then check your choice against it before you act."
+  },
+  "uk": {
+    "essence": "Король Мечів — це ясне судження, підкріплене спокійною владою: продумати справу до кінця, вирішити справедливо й триматися підстав, які можна пояснити.",
+    "keywords": {
+      "upright": [
+        "ясне судження",
+        "справедливість",
+        "принципова влада",
+        "інтелектуальна ясність",
+        "чесна порада"
+      ],
+      "reversed": [
+        "закостеніле мислення",
+        "холодна відстороненість",
+        "влада без пояснень",
+        "різка критика",
+        "повсякчасні сумніви"
+      ]
+    },
+    "upright": [
+      "Король Мечів сидить на троні анфас і дивиться просто з карти. Королева Мечів сидить у профіль, а цей Король звернений до вас: серед придворних карт Мечів Паж спостерігає, Лицар мчить до мети, Королева розпізнає, а Король вирішує. Меч оголений і міцно стиснутий в одному кулаці, тоді як друга рука лежить на шаті розкрита й нерухома. У прямому положенні карта звертає увагу на мислення, що стало відповідальністю: зважувати докази, справедливо застосовувати мірило й відповідати за висновок, який зачіпає інших.",
+      "Погляньте на кінець клинка. Там, де меч зазвичай звужується до вістря, у різьбленні Olivia розміщено золоту восьмипроменеву зірку. Вона підказує, що ясність цього Короля спрямовує щось незмінне — принцип чи назване вголос мірило, — а не бажання виграти суперечку. Півмісяці на троні й метелики всередині вінка додають тихішу ноту: добре судження теж дослухається до інтуїції, і його сформували зміни.",
+      "У читанні Король Мечів може вказувати на рішення, до якого ви готові, на межу, що потребує ясного обґрунтування, або на цінність поради, яка чесна, а не втішна. Карта запитує, чи зміг би простежити ваші міркування той, хто з вами не згоден, і чи враховано в рішенні людей, яким із ним жити."
+    ],
+    "reversed": [
+      "Король Мечів у перевернутому положенні може показувати судження, яке затверділо. Позицію можна обстоювати лише тому, що змінити її здається принизливим, або ж влада може триматися на статусі, а не на аргументах, відкритих для будь-чиєї перевірки. Ясність може обернутися холодом, а точні слова — критикою, що не лишає місця для відповіді.",
+      "У перевернутому положенні карта може звертатися й усередину: розум перевіряє кожен вибір, аж поки жодного вже не можна зробити, або внутрішній суддя суворіший за будь-якого зовнішнього. Поверніться до різьблення. Меч тримають, а не заносять, і одна рука лежить розкрита. Подумайте, для якого рішення варто записати аргументи і де ви могли б дозволити новій інформації змінити ваш погляд, не вважаючи це поразкою."
+    ],
+    "number": "Королі втілюють зовнішню майстерність своєї масті: стихію, застосовану у світі, на службі іншим. У Мечах, масті повітря, ця майстерність стосується думки, мови й рішення. Паж учиться спостерігати, Лицар кидається втілювати ідею, Королева розуміє зсередини; Король спрямовує все це на вибір, що зачіпає інших людей. Тут повітря стає правилом, принципом і порадою: розумом, який відповідає за свої висновки.",
+    "tradition": "У системі Золотої Зорі до придворних карт належали Король, Королева, Принц і Принцеса, а Короля з колоди Вейта–Сміт 1909 року зазвичай зіставляють із Принцом Мечів Золотої Зорі, «Принцом Колісниць Вітрів»: Повітря Повітря, стихія в найчистішій формі. Його зодіакальний проміжок — від 20° Козорога до 20° наступного знака — охоплює декани Четвірки Пентаклів, П’ятірки Мечів і Шістки Мечів. Дехто натомість пов’язує карту з Королем Золотої Зорі, «Володарем Вітрів і Леготів», Вогнем Повітря. У посібнику до тієї колоди Вейт порівнював цю сидячу постать зі Справедливістю серед Старших Арканів, а Памела Колман Сміт намалювала Короля обличчям просто до глядача.",
+    "court": {
+      "temperament": "Як темперамент Король Мечів аналітичний, стриманий і неупереджений. Такий спосіб діяти збирає факти, відокремлює їх від думок і доходить висновку, який можна висловити просто й обстояти аргументами. Він спокійно бере на себе відповідальність — і витримує самотність, що часом приходить, коли доводиться ухвалювати рішення, якого інші воліли б уникнути.",
+      "gifts": "Його дари — неупереджене судження, ясні настанови й чесна порада: уміння створити правило, справедливе до всіх, пояснити важке рішення без жорстокості й радити, керуючись принципом, а не настроєм. Як зірка на клинку, цей Король пропонує незмінну точку, за якою можуть орієнтуватися інші.",
+      "shadow": "У тіні розум стає фортецею. Ви можете ставити логіку над будь-яким почуттям, сприймати незгоду як зраду або триматися вироку ще довго після того, як докази змінилися. Судження може перетворитися на звичку судити людей. Різьблення пропонує противагу: меч тримають нерухомо, а друга рука лежить розкрита."
+    },
+    "areas": {
+      "love": "У коханні й близьких стосунках Король Мечів просить справедливості та ясного спілкування. Він може вказувати на розмову, у якій ви прямо називаєте свої причини, а не натякаєте, або на домовленість, яку варто проговорити чітко. А ще запитує, чи лишаєтеся ви відкритими до розмови, коли дієте розсудливо: добре аргументована позиція все одно може залишити іншу людину невислуханою. У стосунках із собою карта запрошує плекати внутрішній голос, що оцінює ваш вибір справедливо, а не суворо.",
+      "work": "У роботі, навчанні й грошових справах ця карта сприяє структурованому мисленню: визначати критерії до вибору, записувати, чому ухвалено рішення, і зважати на докази, а не на найгучнішу думку. Вона може вказувати на ролі, пов’язані із судженням: редактор, оцінювач, медіатор чи керівник команди. Візьміть одне рішення, що стоїть перед вами, і запишіть мірило, яке застосовуєте; якщо ви не обстоювали б його відкрито, його, можливо, варто переглянути.",
+      "self": "У вашому власному житті Король Мечів звертає увагу на те, як ви розпоряджаєтеся владою над власним розумом. Як Король, що сидить нерухомо з оголеним мечем і рукою, яка спочиває, ви можете вчитися тримати висновок, не чіпляючись за нього. Помічайте, які з ваших принципів діють, як зірка на клинку, — сталі точки, що дають орієнтир, — а які стали правилами, яких ви дотримуєтеся за звичкою чи зі страху помилитися."
+    },
+    "positions": {
+      "heart": "В осерді запитання ця карта підказує, що все залежить від ясного й справедливого рішення: назвати мірило, зважити докази й узяти відповідальність за висновок.",
+      "challenge": "Як перешкода вона може показувати судження, що стало застиглим чи відстороненим, потребу мати рацію, яка витісняє вміння слухати, або владу, що надто мало себе пояснює.",
+      "advice": "Як порада вона запрошує вирішувати на названих підставах: запишіть свої аргументи, звірте їх із фактами й поділіться ними з людьми, яких рішення стосується."
+    },
+    "pairs": [
+      {
+        "with": 11,
+        "text": "Зі Справедливістю оголений меч з’являється на двох тронах, і Вейт прямо пов’язував ці карти. Разом вони звертають увагу на справедливість як практику: мірило, застосоване послідовно, і наслідки, зважені для всіх причетних, зокрема й для того, хто судить."
+      },
+      {
+        "with": 62,
+        "text": "З Королевою Мечів карти поєднують метелики на обох тронах і птахи в обох небесах: один птах у Королеви, два в Короля. Одна постать сидить у профіль, інша дивиться на вас; разом вони запитують, чого вам потрібно — внутрішнього розрізнення чи зовнішнього рішення."
+      },
+      {
+        "with": 50,
+        "text": "З Тузом Мечів золота корона, що оточує клинок Туза, повертається вже зі слонової кістки на голові того, хто тримає меч. Туз приносить нову ідею чи прозріння; Король запитує, як розпоряджатися ним і відповідально користуватися ним надалі."
+      }
+    ],
+    "questions": [
+      "Чи зміг би той, хто з вами не згоден, усе ж простежити міркування за вашим рішенням?",
+      "Який незмінний принцип, наче зірка на вістрі клинка, спрямовує ваше судження тут?",
+      "Де ви тримаєтеся позиції за звичкою чи з гордості, а не тому, що її підтримують докази?"
+    ],
+    "practice": "Перед одним рішенням цього тижня запишіть одним реченням мірило, яким користуєтеся, а потім звірте з ним свій вибір, перш ніж діяти."
+  }
+}

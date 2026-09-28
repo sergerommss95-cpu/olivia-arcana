@@ -1,0 +1,267 @@
+{
+  "id": 18,
+  "slug": "the-moon",
+  "artwork": {
+    "file": "18_the_moon.webp",
+    "sha256": "fab0fdd4f1eb6c28c5ca813be2152bf412a8c6208c8fbcee29bd0313035076ba"
+  },
+  "symbols": [
+    {
+      "key": "moon",
+      "x": 44,
+      "y": 28,
+      "en": {
+        "name": "The crescent in the disc",
+        "seen": "A large ivory disc fills the upper centre, ringed by alternating straight and wavy rays. Carved in raised relief inside it, a crescent curves around the upper left, its lower horn ending at the brow of a face.",
+        "meaning": "The traditional Moon shows full disc, crescent and face at once, ringed by rays: a light that is borrowed and always changing phase. Olivia keeps all three in one ivory disc. The alternating straight and wavy rays can be read as two kinds of light mixed together here, steady fact and moving feeling."
+      },
+      "uk": {
+        "name": "Серп у диску",
+        "seen": "Великий диск зі слонової кістки займає верхню середину карти; його оточують промені, прямі й хвилясті по черзі. Усередині диска рельєфом вирізьблено серп: він вигинається вгорі ліворуч, а його нижній ріг закінчується біля чола обличчя.",
+        "meaning": "На традиційній карті Місяця водночас зображено повний диск, серп і обличчя в оточенні променів: світло позичене й постійно змінює фази. Olivia поєднує всі три в одному диску зі слонової кістки. Прямі й хвилясті промені, що чергуються, можна прочитати як два види світла, що тут змішуються: сталий факт і рухливе почуття."
+      }
+    },
+    {
+      "key": "face",
+      "x": 57,
+      "y": 36,
+      "en": {
+        "name": "The sleeping face",
+        "seen": "Within the disc a calm face is carved in profile, turned toward the right, the one visible eye closed, lips together. Just below it, on the lower edge of the disc, sits a single raised teardrop.",
+        "meaning": "The face of the Moon is traditionally shown in profile, half turned away: a light that shows only part of itself. Here the eye is closed, as in sleep or dreaming, and Olivia adds a tear beneath it. The light of this card belongs to the inner, feeling world rather than to plain sight."
+      },
+      "uk": {
+        "name": "Обличчя уві сні",
+        "seen": "У диску вирізьблено спокійне обличчя в профіль, повернуте праворуч: єдине видиме око заплющене, губи стулені. Трохи нижче, на нижньому краї диска, опукло виступає одна-єдина сльоза.",
+        "meaning": "Обличчя Місяця традиційно зображують у профіль, наполовину відвернутим: це світло показує себе лише частково. Тут око заплющене, як уві сні чи в мріях, і Olivia додає під ним сльозу. Світло цієї карти належить радше внутрішньому світу почуттів, ніж звичайному зорові."
+      }
+    },
+    {
+      "key": "cloud",
+      "x": 26,
+      "y": 37,
+      "en": {
+        "name": "The clouds across the disc",
+        "seen": "Two soft ivory clouds drift at either side of the disc. The left one crosses the lower edge of the disc and its rays; the right one lies over the rays at the lower right.",
+        "meaning": "Clouds are Olivia’s addition; the traditional Moon hangs in a clear sky. They build partial cover into the image itself: some of the light is hidden, and nothing is wrong because of it. The card works with half-seen things, and the clouds make that literal."
+      },
+      "uk": {
+        "name": "Хмари довкола диска",
+        "seen": "Дві м’які хмари зі слонової кістки пливуть обабіч диска. Ліва перетинає нижній край диска та його промені; права лежить поверх променів унизу праворуч.",
+        "meaning": "Хмари — доповнення Olivia; традиційний Місяць висить на чистому небі. Так часткова прихованість стає частиною самого зображення: частину світла затулено, і в цьому немає нічого поганого. Карта має справу з напівбаченим, а хмари показують це буквально."
+      }
+    },
+    {
+      "key": "tears",
+      "x": 50,
+      "y": 52,
+      "en": {
+        "name": "Thirteen falling drops",
+        "seen": "Below the disc, thirteen small ivory teardrops hang in loose rows between the lowest rays and the mountain tops, pointed end up, rounded end down, shaped like the single tear carved on the disc.",
+        "meaning": "In the traditional image these drops are commonly drawn as Yods, small flame-shaped Hebrew letters, read as dew or light passing between moon and earth. Olivia shapes them as tears, matching the one beneath the sleeping face, so what falls on this landscape is feeling."
+      },
+      "uk": {
+        "name": "Тринадцять краплин, що падають",
+        "seen": "Під диском тринадцять маленьких сльозинок зі слонової кістки висять нещільними рядами між нижніми променями та вершинами гір: гострим кінцем догори, круглим донизу, формою такі самі, як сльоза на диску.",
+        "meaning": "На традиційному зображенні ці краплі зазвичай малюють як літери йод, маленькі, схожі на полум’я знаки єврейського письма, і читають як росу або світло, що переходить між місяцем і землею. Olivia надає їм форми сліз, як та, що під обличчям уві сні, тож на цей краєвид падає почуття."
+      }
+    },
+    {
+      "key": "castle",
+      "x": 26,
+      "y": 64,
+      "en": {
+        "name": "The two castles",
+        "seen": "On far hills to left and right stand two small castles carved in grey-blue lapis, each a cluster of towers with pointed roofs and battlements, facing each other across the winding path.",
+        "meaning": "The traditional card shows two plain towers, often read as a gateway at the edge of the known, cultivated world. Olivia turns them into two full castles, places of shelter and custom set well apart. The path runs between them and beyond: the familiar marks the threshold, not the destination."
+      },
+      "uk": {
+        "name": "Два замки",
+        "seen": "На далеких пагорбах ліворуч і праворуч стоять два невеликі замки, вирізьблені в сіро-блакитному лазуриті: кожен — це скупчення веж зі шпилястими дахами й зубцями; замки стоять один навпроти одного, по обидва боки звивистої стежки.",
+        "meaning": "На традиційній карті — дві прості вежі, які часто читають як браму на межі знайомого, обжитого світу. Olivia перетворює їх на два справжні замки, місця прихистку й звичаю, поставлені далеко один від одного. Стежка пролягає між ними й далі: знайоме позначає поріг, а не мету."
+      }
+    },
+    {
+      "key": "path",
+      "x": 53,
+      "y": 73,
+      "en": {
+        "name": "The gold path",
+        "seen": "A winding road of gold leaf starts in the pool, its gold spilling across the water, climbs between the two animals and the castles, narrows, and disappears into a gap in the mountains.",
+        "meaning": "The path between the towers is constant in the traditional Moon, commonly read as the way through uncertainty toward what cannot yet be seen. Olivia gilds it, the only carved element laid in gold, while the moon itself stays ivory. The route is clear even where its end is not."
+      },
+      "uk": {
+        "name": "Золота стежка",
+        "seen": "Звивиста дорога із сусального золота починається у ставку, де її золото розтікається водою, підіймається між двома тваринами й замками, звужується та зникає в проломі між горами.",
+        "meaning": "Стежка між вежами незмінно присутня на традиційній карті Місяця; її зазвичай читають як шлях крізь непевність до того, чого ще не видно. Olivia вкриває її золотом: це єдиний вирізьблений елемент у золоті, тоді як сам місяць лишається зі слонової кістки. Шлях ясний навіть там, де його кінця не видно."
+      }
+    },
+    {
+      "key": "wolf",
+      "x": 19,
+      "y": 80,
+      "en": {
+        "name": "The howling wolf",
+        "seen": "On a grassy ledge at the left edge of the water, a shaggy-coated wolf in grey-blue lapis stands with its head thrown back, muzzle raised to the moon, mouth open in a howl.",
+        "meaning": "The Waite-Smith Moon pairs a wolf with a dog, commonly read as the untamed and the domesticated sides of the animal self, both stirred by the same light. The wolf is instinct without a lead: old fears, hungers and alarms that rise at night and sound urgent."
+      },
+      "uk": {
+        "name": "Вовк, що виє",
+        "seen": "На трав’янистому виступі біля лівого краю води стоїть кошлатий вовк із сіро-блакитного лазуриту: голову закинуто, морду здійнято до місяця, паща розкрита у витті.",
+        "meaning": "Місяць Вейта–Сміт ставить поруч вовка й пса; їх зазвичай читають як неприручену й приручену сторони тваринної природи в людині, яких збурює те саме світло. Вовк — інстинкт без повідка: давні страхи, жадання й тривоги, що зринають уночі й здаються нагальними."
+      }
+    },
+    {
+      "key": "dog",
+      "x": 82,
+      "y": 80,
+      "en": {
+        "name": "The upward-gazing dog",
+        "seen": "Opposite the wolf, on a rocky bank at the right edge of the water, a smooth-coated dog with a drooping ear lifts its face to the moon, mouth only slightly open.",
+        "meaning": "The dog is the tamed partner of the wolf: habit, loyalty, the part of you that has learned the rules. Here it looks up rather than howls. The gold path runs between the two animals, as if the way forward passes between both kinds of response."
+      },
+      "uk": {
+        "name": "Пес, що дивиться вгору",
+        "seen": "Навпроти вовка, на скелястому березі біля правого краю води, гладкошерстий пес із обвислим вухом підводить морду до місяця, ледь розтуливши пащу.",
+        "meaning": "Пес — приручений відповідник вовка: звичка, вірність, та частина вас, що засвоїла правила. Тут він дивиться вгору, а не виє. Золота стежка пролягає між двома тваринами, ніби шлях уперед пролягає між двома способами реагувати."
+      }
+    },
+    {
+      "key": "crayfish",
+      "x": 50,
+      "y": 92,
+      "en": {
+        "name": "The crayfish in the pool",
+        "seen": "At the bottom centre, a crayfish carved in grey-blue lapis rests in the dark pool, both claws raised, its long feelers curving up along the gold where the path begins.",
+        "meaning": "The creature in the pool is one of the oldest features of the card, commonly read as something from the deep mind rising toward awareness: an early, half-formed feeling or memory. Olivia sets it at the very foot of the gold path, so the way through the night begins with what surfaces."
+      },
+      "uk": {
+        "name": "Рак у ставку",
+        "seen": "Унизу по центру в темному ставку лежить рак, вирізьблений у сіро-блакитному лазуриті: обидві клешні піднято, довгі вусики вигинаються вгору вздовж золота там, де починається стежка.",
+        "meaning": "Істота у ставку — одна з найдавніших деталей карти; її зазвичай читають як щось із глибин психіки, що підіймається до усвідомлення: раннє, ще не сформоване почуття чи спогад. Olivia розміщує рака біля самого початку золотої стежки, тож шлях крізь ніч починається з того, що спливає на поверхню."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Moon lights a night path by shifting, partial light, asking you to move carefully through fears, dreams and half-formed feelings without mistaking them for facts.",
+    "keywords": {
+      "upright": [
+        "intuition",
+        "dreams",
+        "uncertainty",
+        "imagination",
+        "deep feeling",
+        "the unknown"
+      ],
+      "reversed": [
+        "fear taking over",
+        "confusion lifting",
+        "ignored instinct",
+        "unchecked stories",
+        "hidden worry"
+      ]
+    },
+    "upright": [
+      "The Moon is the card of the night crossing: the stretch of a question where you cannot see far, and feeling, memory and imagination move faster than facts. In Olivia’s carving the great ivory disc holds a crescent and a sleeping face at once, eyes closed, a single tear carved just below. Clouds drift across its edge. This is light you can travel by, but it is partial, changing and full of mood.",
+      "Below, thirteen teardrops fall toward the land, and the scene divides into pairs: a wolf howling on the left, a dog gazing up on the right, a castle on each far hill. Between them runs the only carved element laid in gold, a narrow path that climbs from the pool into the mountains and vanishes into a gap. At its foot a crayfish rests in the dark water, claws raised, as if something from the depths has only just surfaced.",
+      "Upright, the card invites you to respect what you sense without treating it as proof. It can point to vivid dreams, strong intuition, anxiety that grows after dark, or a situation that is simply not clear yet. Keep to the part of the path you can see, one step at a time, and let the rest stay unresolved until more light arrives."
+    ],
+    "reversed": [
+      "The Moon reversed draws attention to the night in one of two forms. It can be confusion beginning to lift: a fear looked at in daylight turns out smaller, or a story you had been telling yourself no longer fits the facts. It can also be the Moon’s quality pressed inward, where worry is kept private for so long that it colours everything, or intuition is set aside because it cannot be explained.",
+      "In either form the crayfish is still in the pool. Ask what has been trying to surface, and give it a safe place to land: a page of writing, a conversation with someone you trust, a night of proper sleep. The path does not need to be seen to its end to be walked."
+    ],
+    "number": "Eighteen is the Moon’s place in the Fool’s journey, the middle of three celestial cards, after the Star and before the Sun. Having found hope again under the Star, the traveller now walks through a long night where that hope has to survive doubt and imagination. Eighteen reduces to nine, linking the card to the Hermit: both move through darkness by a limited light. This step asks for patience with not knowing, and trust in the ground underfoot.",
+    "tradition": "In the Golden Dawn system the Moon is trump XVIII, titled “Ruler of Flux and Reflux” and “Child of the Sons of the Mighty”. It carries the Hebrew letter Qoph, commonly glossed as the back of the head, and the sign Pisces, mutable water; on the Tree of Life it is the path joining Netzach and Malkuth. Some modern readers also link it to Neptune, the modern ruler of Pisces. The core image is old: Marseille-pattern decks already show the moon with drops, two dogs, two towers and a crayfish in a pool, while the fifteenth-century Visconti-Sforza card shows a single figure holding up a crescent. Where Marseille decks show two dogs, the 1909 Waite-Smith card shows a dog and a wolf.",
+    "areas": {
+      "love": "In close relationships the Moon draws attention to what is being imagined rather than known. When a message is late or a silence is hard to read, the mind can fill the gap with its oldest fears, the wolf’s howl. Notice the story you are telling, and check it gently before acting on it. With yourself, the card asks for tenderness toward feelings that arrive without clear reasons; they still deserve a hearing.",
+      "work": "At work or in study the Moon can describe a project where the brief is vague, information is missing or the direction keeps shifting. Separate what you have been told from what you are assuming, and ask the plain question that would clear one doubt. Creative work suits this card well: drafts, sketches and ideas that arrive half-formed. In money matters it suggests waiting for clear figures before any decision rather than acting on unease.",
+      "self": "For your own practice the Moon is a card of dreams, moods and the stories the mind tells at night. The crayfish at the foot of the gold path suggests that insight often starts as something small and awkward rising from below. Keep a notebook by the bed, notice what recurs, and treat strong night-time feelings as information to revisit in daylight, not as verdicts."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Moon suggests the situation is not yet clear, and that feelings, fears or imagination are shaping how it looks. The first task is telling impressions from evidence.",
+      "challenge": "As the challenge, the card can point to anxiety filling in missing facts, a story you have not checked, or intuition being dismissed because it cannot yet be put into words.",
+      "advice": "As advice, take only the next visible step. Write down what you know and what you fear as two separate lists, and let the rest wait for more light."
+    },
+    "pairs": [
+      {
+        "with": 17,
+        "text": "The Star is hope renewed under an open sky; the Moon is the night that follows, where hope meets doubt. In sequence they draw attention to what you trusted in clear light and now have to carry through the dark."
+      },
+      {
+        "with": 19,
+        "text": "Olivia’s Moon already wears a sun’s rays. The Sun is the morning after the long night, when what was half-seen becomes plain and simple. Together they ask what might change if you waited for daylight before deciding what something means."
+      },
+      {
+        "with": 2,
+        "text": "The High Priestess keeps the moon’s knowledge quietly, seated between two pillars with a crescent at the feet; the Moon lets that same knowledge loose across a whole landscape. Together they draw attention to the difference between calm intuition and anxious imagination, which can feel alike."
+      }
+    ],
+    "questions": [
+      "What do you actually know here, and what are you filling in because the picture is incomplete?",
+      "Which fear sounds loudest at night, and how does it look when you revisit it in daylight?",
+      "What small feeling or memory has been trying to surface lately, and where could it safely land?"
+    ],
+    "practice": "Before sleep, write one worry on the left side of a page and the facts you are sure of on the right, then reread both in the morning."
+  },
+  "uk": {
+    "essence": "Місяць освітлює нічну стежку мінливим, неповним світлом і просить обережно рухатися крізь страхи, сни й несформовані почуття, не сприймаючи їх як факти.",
+    "keywords": {
+      "upright": [
+        "інтуїція",
+        "сни",
+        "непевність",
+        "уява",
+        "глибокі почуття",
+        "невідоме"
+      ],
+      "reversed": [
+        "страх бере гору",
+        "туман розвіюється",
+        "знехтуваний інстинкт",
+        "неперевірені історії",
+        "прихована тривога"
+      ]
+    },
+    "upright": [
+      "Місяць — карта нічного переходу: того відрізку запитання, де далеко не видно, а почуття, пам’ять і уява випереджають факти. У різьбі Olivia великий диск зі слонової кістки вміщує водночас серп і обличчя уві сні із заплющеними очима, а трохи нижче вирізьблено одну сльозу. Краєм диска пливуть хмари. При такому світлі можна йти, але воно неповне, мінливе й сповнене настрою.",
+      "Нижче на землю падають тринадцять сльозинок, і сцена ділиться на пари: ліворуч виє вовк, праворуч дивиться вгору пес, на кожному далекому пагорбі стоїть замок. Між ними пролягає єдиний вирізьблений елемент у золоті — вузька стежка, що підіймається від ставка в гори й зникає в проломі. Біля її початку в темній воді лежить рак із піднятими клешнями, ніби щось із глибини щойно виринуло на поверхню.",
+      "У прямому положенні карта запрошує поважати те, що ви відчуваєте, не вважаючи це доказом. Вона може вказувати на яскраві сни, сильну інтуїцію, тривогу, що наростає з настанням темряви, або на ситуацію, яка просто ще не прояснилася. Тримайтеся тієї частини стежки, яку бачите, крок за кроком, а решта хай лишається нерозв’язаною, доки не з’явиться більше світла."
+    ],
+    "reversed": [
+      "Місяць у перевернутому положенні звертає увагу на ніч в одній із двох форм. Це може бути розгубленість, що починає розвіюватися: страх, на який глянули при денному світлі, насправді менший, ніж здавалося, або історія, яку ви собі розповідали, більше не збігається з фактами. А може бути, що якість Місяця звернена всередину: тривогу так довго тримають при собі, що вона забарвлює все довкола, або інтуїцію відкладають, бо її неможливо пояснити.",
+      "В обох випадках рак досі у ставку. Запитайте себе, що намагалося вийти на поверхню, і дайте йому безпечне місце, де воно зможе прозвучати: сторінку в записнику, розмову з людиною, якій довіряєте, ніч повноцінного сну. Щоб іти стежкою, не треба бачити її до кінця."
+    ],
+    "number": "Вісімнадцять — місце Місяця в подорожі Блазня: це середня з трьох небесних карт, після Зірки й перед Сонцем. Під Зіркою надію знайдено знову, а тепер шлях мандрівника веде крізь довгу ніч, де цій надії треба витримати сумнів і уяву. Вісімнадцять зводиться до дев’яти, і це пов’язує карту з Відлюдником: обидва рухаються темрявою при обмеженому світлі. Цей крок просить терпіння до незнання й довіри до ґрунту під ногами.",
+    "tradition": "У системі Золотої Зорі Місяць — козир XVIII із титулами «Володар припливу й відпливу» та «Дитя Синів Могутніх». Йому відповідають єврейська літера Коф, яку зазвичай тлумачать як потилицю, і знак Риб — мутабельний знак Води; на Дереві Життя це шлях, що з’єднує Нецах і Малкут. Дехто із сучасних тарологів пов’язує карту також із Нептуном, сучасним управителем Риб. Сам образ давній: колоди марсельського зразка вже показують місяць із краплями, двох собак, дві вежі й рака у ставку, тоді як карта Вісконті–Сфорца XV століття зображує одну постать, що тримає серп. Там, де в марсельських колодах двоє собак, на карті Вейта–Сміт 1909 року — пес і вовк.",
+    "areas": {
+      "love": "У близьких стосунках Місяць звертає увагу на те, що ви уявляєте, а не знаєте. Коли повідомлення запізнюється або мовчання важко прочитати, розум може заповнити прогалину найдавнішими страхами — це і є виття вовка. Помітьте історію, яку ви собі розповідаєте, і лагідно перевірте її, перш ніж діяти. У стосунках із собою карта просить ніжності до почуттів, що приходять без ясних причин: вони теж заслуговують, щоб їх вислухали.",
+      "work": "У роботі чи навчанні Місяць може описувати проєкт, де завдання сформульоване розмито, бракує інформації або напрям постійно змінюється. Відокремте те, що вам сказали, від того, що ви припускаєте, і поставте просте запитання, яке розвіє хоч один сумнів. Творчій роботі ця карта дуже пасує: чернеткам, ескізам та ідеям, що приходять напівсформованими. У грошових справах вона підказує дочекатися чітких цифр, перш ніж ухвалювати будь-яке рішення, а не діяти з тривоги.",
+      "self": "У вашій власній практиці Місяць — карта снів, настроїв та історій, які розум розповідає вночі. Рак біля початку золотої стежки підказує, що прозріння часто починається з чогось маленького й незграбного, що підіймається з глибини. Тримайте записник біля ліжка, помічайте, що повторюється, і сприймайте сильні нічні почуття як інформацію, до якої варто повернутися вдень, а не як вирок."
+    },
+    "positions": {
+      "heart": "У центрі запитання Місяць підказує, що ситуація ще не прояснилася, а почуття, страхи чи уява впливають на те, якою вона здається. Перше завдання — відрізнити враження від доказів.",
+      "challenge": "Як виклик карта може вказувати на тривогу, що заповнює брак фактів, на неперевірену історію або на інтуїцію, яку відкидають, бо її ще не вдається висловити словами.",
+      "advice": "Як порада: робіть лише наступний видимий крок. Запишіть окремими списками те, що ви знаєте, і те, чого боїтеся, а решта хай чекає, доки стане світліше."
+    },
+    "pairs": [
+      {
+        "with": 17,
+        "text": "Зірка — надія, оновлена під відкритим небом; Місяць — ніч, що настає слідом, де надія зустрічається із сумнівом. Поставлені поспіль, вони звертають увагу на те, чому ви довіряли при ясному світлі й що тепер доводиться нести крізь темряву."
+      },
+      {
+        "with": 19,
+        "text": "Місяць Olivia вже оточений сонячними променями. Сонце — ранок після довгої ночі, коли напівбачене стає простим і зрозумілим. Разом вони запитують, що могло б змінитися, якби ви дочекалися денного світла, перш ніж вирішувати, що щось означає."
+      },
+      {
+        "with": 2,
+        "text": "Верховна Жриця тихо зберігає місячне знання, сидячи між двома колонами із серпом біля ніг; Місяць розпускає те саме знання по всьому краєвиду. Разом вони звертають увагу на різницю між спокійною інтуїцією та тривожною уявою, які на відчуття бувають дуже схожими."
+      }
+    ],
+    "questions": [
+      "Що ви тут справді знаєте, а що домальовуєте, бо картина неповна?",
+      "Який страх звучить найгучніше вночі і яким він здається, коли ви повертаєтеся до нього вдень?",
+      "Яке невелике почуття чи спогад останнім часом намагається вийти на поверхню і де воно могло б знайти безпечний прихисток?"
+    ],
+    "practice": "Перед сном запишіть одну тривогу з лівого боку сторінки, а факти, у яких ви впевнені, — з правого, і вранці перечитайте обидва стовпчики."
+  }
+}

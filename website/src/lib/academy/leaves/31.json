@@ -1,0 +1,265 @@
+{
+  "id": 31,
+  "slug": "ten-of-wands",
+  "artwork": {
+    "file": "31_ten_of_wands.webp",
+    "sha256": "82fcc0dbe84dd8e70e51a417824723bd9ee41c8c6d01a5fb69e1636cf524f6bf"
+  },
+  "symbols": [
+    {
+      "key": "wand",
+      "x": 69,
+      "y": 21,
+      "en": {
+        "name": "The fanned ivory wands",
+        "seen": "Long ivory staves rise from the figure’s grip and fan out above and beyond the bowed head against the night sky. Eight rough tips are clearly visible, each shaft knotted with small cut-off twig stubs.",
+        "meaning": "Wands belong to Fire: drive, purpose and the energy to begin things. Ten of them together is every plan and commitment gathered into one armful. Their fan rises high over the bowed head and leans in the direction of travel, so the load stands taller than its carrier."
+      },
+      "uk": {
+        "name": "Віяло жезлів зі слонової кістки",
+        "seen": "Довгі жезли зі слонової кістки здіймаються з рук фігури й розходяться віялом над схиленою головою і далі, на тлі нічного неба. Чітко видно вісім шорстких верхівок, на кожному древку видно дрібні пеньки обрізаних сучків.",
+        "meaning": "Жезли належать до Вогню: це запал, мета й енергія, щоб розпочинати справи. Десять жезлів разом — це всі плани й зобов’язання, зібрані в один оберемок. Їхнє віяло здіймається високо над схиленою головою й хилиться в бік руху, тож ноша височіє над тим, хто її несе."
+      }
+    },
+    {
+      "key": "leaves",
+      "x": 62,
+      "y": 28,
+      "en": {
+        "name": "The gold sprig",
+        "seen": "A small sprig of gold leaves on a thin gold stem sprouts from among the upright wands, high above the figure’s head. It is the only gold on the carved figure and its load.",
+        "meaning": "Olivia sets one small living sprig of gold among the bare staves, echoing the leaves that bud on the Ace of Wands. Under all the weight, the original spark that made this worth carrying is still alive, if small."
+      },
+      "uk": {
+        "name": "Золота гілочка",
+        "seen": "Маленька гілочка із золотим листям на тонкому золотому стеблі проростає між вертикальними жезлами, високо над головою фігури. Це єдине золото на вирізьбленій фігурі та її ноші.",
+        "meaning": "Olivia розміщує серед голих жезлів одну маленьку живу гілочку із золота — відлуння листя, що пробивається на Тузі Жезлів. Під усією вагою первісна іскра, заради якої цю ношу варто було нести, досі жива, хоч і невелика."
+      }
+    },
+    {
+      "key": "face",
+      "x": 64,
+      "y": 43,
+      "en": {
+        "name": "The bowed, wrapped head",
+        "seen": "The head is wrapped in ivory cloth knotted at the crown and pulled low over the brow, so no eye shows; curls escape around the ear. Only nose, lips and chin appear, turned towards the ground.",
+        "meaning": "The traditional carrier cannot see past the bundle, a classic image of losing perspective under responsibility. Here the sight is covered in another way: the cloth hides the eyes and the face is turned to the ground, so the effort narrows attention to the next step and nothing else."
+      },
+      "uk": {
+        "name": "Схилена обв’язана голова",
+        "seen": "Голову обмотано тканиною зі слонової кістки, зав’язаною на тімені й насунутою низько на чоло, тож очей не видно; біля вуха з-під неї вибиваються кучері. Видно лише ніс, губи й підборіддя, звернені до землі.",
+        "meaning": "Традиційний носій не бачить нічого поза в’язанкою — класичний образ утраченої перспективи під тягарем відповідальності. Тут погляд закрито інакше: тканина ховає очі, а обличчя звернене до землі, тож зусилля звужує увагу лише до наступного кроку."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 51,
+      "y": 49,
+      "en": {
+        "name": "Two clutching hands",
+        "seen": "One hand grips the bundle just below the chin; the other, a closed fist on a bent arm, holds it lower against the chest. Below the grip, the lower ends of the staves splay out towards the viewer’s left.",
+        "meaning": "The staves are hugged, not balanced on a shoulder or tied with a cord. This is a load carried by holding on, which takes both hands and leaves none free. The splaying ends suggest a bundle that is already slipping from its own arrangement."
+      },
+      "uk": {
+        "name": "Дві стиснуті руки",
+        "seen": "Одна рука тримає в’язанку просто під підборіддям; друга — стиснутий кулак на зігнутій руці — притискає її нижче до грудей. Під руками нижні кінці жезлів розходяться врізнобіч ліворуч від глядача.",
+        "meaning": "Жезли тримають в обіймах, а не врівноважено на плечі чи перев’язано мотузкою. Цю ношу несуть, чіпляючись за неї, і на це йдуть обидві руки — вільної не лишається. Кінці, що розходяться врізнобіч, натякають: в’язанка вже розповзається сама собою."
+      }
+    },
+    {
+      "key": "city",
+      "x": 78,
+      "y": 56,
+      "en": {
+        "name": "The walled town ahead",
+        "seen": "On the right, carved in lighter blue lapis, a walled town rises among trees: an arched gateway, a tall tower with a pointed roof, clustered rooftops and low hills behind.",
+        "meaning": "Most readings place a destination in this card, a house or town where the load can finally be set down. Olivia makes it a gated town, a place of other people, work handed on and shelter. The end is near and visible, though the carrier is not looking."
+      },
+      "uk": {
+        "name": "Містечко за мурами попереду",
+        "seen": "Праворуч, вирізьблене у світлішому блакитному лазуриті, серед дерев постає обнесене мурами містечко: аркова брама, висока вежа з гострим дахом, скупчені дахи будинків і низькі пагорби позаду.",
+        "meaning": "Більшість тлумачень бачать у цій карті пункт призначення — дім чи місто, де ношу нарешті можна скласти. Olivia робить його містечком із брамою: місцем інших людей, роботи, яку можна передати далі, і прихистку. Кінець близько й на видноті, хоча носій туди не дивиться."
+      }
+    },
+    {
+      "key": "path",
+      "x": 68,
+      "y": 68,
+      "en": {
+        "name": "The winding road",
+        "seen": "A pale road winds up from the flat ground ahead of the figure’s front foot, curving between furrowed fields and trees until it reaches the arched gate of the town.",
+        "meaning": "The road is not straight: it winds in curves on its way to the gate. It adds a detail the traditional image leaves implicit, that the last stretch of a long effort often feels longer than it looks, and that the way still leads somewhere."
+      },
+      "uk": {
+        "name": "Звивиста дорога",
+        "seen": "Бліда дорога в’ється від рівної землі перед передньою ногою фігури, петляє між зораними полями й деревами, аж поки не сягає аркової брами містечка.",
+        "meaning": "Дорога не пряма: вона петляє, перш ніж дійти до брами. Це додає деталь, яку традиційне зображення лишає недомовленою: останній відтинок довгого зусилля часто здається довшим, ніж є насправді, і все ж шлях кудись веде."
+      }
+    },
+    {
+      "key": "other",
+      "x": 30,
+      "y": 73,
+      "en": {
+        "name": "The labouring stride",
+        "seen": "Bare, muscular legs step towards the right in soft boots slouched at the ankles. The back heel lifts off the ground, both knees bend, and the whole body leans far forward from the hips.",
+        "meaning": "The posture carries the card’s meaning before any symbol does. The figure is still moving, and still strong, but every step is paid for. The bent back and bent knees ask a practical question: how long can this particular way of carrying last?"
+      },
+      "uk": {
+        "name": "Натужний крок",
+        "seen": "Оголені м’язисті ноги ступають праворуч у м’яких чоботях, що зібгалися складками біля щиколоток. Задня п’ята відірвана від землі, обидва коліна зігнуті, а все тіло сильно нахилене вперед від стегон.",
+        "meaning": "Постава передає зміст карти раніше за будь-який символ. Фігура все ще рухається і все ще сильна, але кожен крок має свою ціну. Зігнута спина й зігнуті коліна ставлять практичне запитання: скільки ще можна нести саме так?"
+      }
+    },
+    {
+      "key": "house",
+      "x": 15,
+      "y": 64,
+      "en": {
+        "name": "The house left behind",
+        "seen": "Behind the figure on the left, a small farmhouse with a single chimney sits among bushes on a rise above ploughed fields, carved in the same muted blue lapis as the landscape.",
+        "meaning": "Olivia adds a home already passed. It can stand for the rest, ease or private life set aside while the load is carried, and for the fact that the carrier has come a long way from where the gathering began."
+      },
+      "uk": {
+        "name": "Дім, що лишився позаду",
+        "seen": "Позаду фігури ліворуч, на пагорбі над зораними полями, серед кущів стоїть невеликий хутірський будинок з одним димарем, вирізьблений у тому самому приглушеному блакитному лазуриті, що й краєвид.",
+        "meaning": "Olivia додає дім, повз який уже пройдено. Він може означати відпочинок, легкість чи особисте життя, відкладені на час, поки ношу несуть, — і те, що носій пройшов довгий шлях від місця, де почав збирати в’язанку."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 33,
+      "y": 28,
+      "en": {
+        "name": "Glittering vein and stars",
+        "seen": "A pale, glittering mineral vein crosses the dark lapis sky diagonally from the top edge down towards the left side, while small gold flecks are scattered across the sky like stars.",
+        "meaning": "The scene is set at night, unlike the daylight of the traditional image. The work has run past the end of the day. Yet the sky above the bowed head holds glittering points of light the carrier cannot see: rest and wider perspective are there, one look upward away."
+      },
+      "uk": {
+        "name": "Мерехтлива жила й зорі",
+        "seen": "Бліда мерехтлива мінеральна жила перетинає темне лазуритове небо навскоси, від верхнього краю вниз до лівого боку, а дрібні золоті вкраплення розсипано небом, наче зорі.",
+        "meaning": "Дія відбувається вночі, на відміну від денного світла традиційного зображення. Робота затяглася далеко за кінець дня. Та в небі над схиленою головою мерехтять цятки світла, яких носій не бачить: відпочинок і ширша перспектива поруч — варто лише звести очі вгору."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Ten of Wands shows a load that has grown too heavy to carry this way, and asks what can be set down, shared or rearranged.",
+    "keywords": {
+      "upright": [
+        "burden",
+        "overcommitment",
+        "responsibility",
+        "final stretch",
+        "hard work"
+      ],
+      "reversed": [
+        "setting down",
+        "delegating",
+        "collapse of effort",
+        "carrying alone",
+        "saying no"
+      ]
+    },
+    "upright": [
+      "The Ten of Wands draws attention to the moment when something you chose, and may still care about, has become a weight. Ten is the end of the suit’s count, and in Wands, the suit of Fire and drive, it can show enthusiasm that has turned into obligation: every yes you said, every task you picked up because you could, now gathered into one armful. In Olivia’s image the figure hugs the staves with both hands and walks bent almost double, the head bowed towards the ground and the cloth round it pulled so low that the eyes are hidden.",
+      "Look at where the wands go. They fan out high above the bowed head, leaning the way the figure walks, while on the right a walled town with an open gate waits at the end of a winding road. The destination is close, yet the figure cannot look up to see it. The card often points to this: nearly finished, but too absorbed in the effort to notice how near the end is, or how the carrying could change.",
+      "Olivia adds two quiet details. High among the staves a small gold sprig is still growing, the living spark of why you took this on. And the scene is set at night, under a sky scattered with small gold stars. Upright, the card invites you to name the whole load, honour what you have carried, and choose one thing to put down."
+    ],
+    "reversed": [
+      "Ten of Wands reversed can point to the load beginning to shift. Sometimes that is relief: you set part of it down, hand a task on, or say no, and the bundle becomes something you can hold with one arm. Letting go can feel like failing when you are used to being the dependable one; it can also be the first honest look at your limits.",
+      "In other readings the reversal turns the weight inward. The staves are still carried, but quietly and alone, refusing help because asking seems harder than struggling on. Or the bundle slips all at once because it was never rearranged. Either way, this position asks which burdens you hold out of habit, and what would change if you looked up at the town ahead."
+    ],
+    "number": "Ten completes the count of the pips: the seed of the Ace has grown through every stage and reached its fullest, heaviest form. In Wands, the suit of Fire, will and enterprise, completion means that energy has become structure, and structure has become weight. The single leafy wand of the Ace is now ten staves held in the arms. Ten also stands at a threshold: after it the suit turns to the Page, a fresh student’s start, as if the only way forward is to set something down.",
+    "tradition": "In the Golden Dawn system the Ten of Wands is titled the Lord of Oppression. It is assigned to Saturn in Sagittarius, the third decan of that sign (20 to 30 degrees), and to Malkuth, the Kingdom, the tenth Sephirah, in the suit of Fire. Saturn’s limiting weight laid on Sagittarius, the sign of wide horizons and far travel, is commonly read as ambition pressed down by duty. Aleister Crowley kept the single title Oppression. Marseille decks show the ten batons as an interlaced pattern with no figure. Pamela Colman Smith’s 1909 design gave the card a hunched figure carrying the whole bundle towards buildings in the distance, its view blocked by the staves.",
+    "areas": {
+      "love": "In close relationships the Ten of Wands can point to one person carrying most of the practical and emotional work: remembering, arranging, holding things together. It does not tell you what anyone else feels or intends. It asks what you are carrying that was never agreed, and whether it has been named aloud. With yourself, too, notice whether you treat care as another duty. The gold sprig among the staves is a reminder that love is the reason for the load, not the load itself.",
+      "work": "At work or in study this card often mirrors a full list: projects accepted one at a time until there is no room to think. Write everything down, as the staves would look laid out on the ground, and mark what is truly yours, what could be handed on, and what can wait. The town gate is near; finishing may take less than another push. Where money or contracts are involved, check options with a qualified person before taking on more.",
+      "self": "For your relationship with yourself the Ten of Wands asks about posture, literally and otherwise. Notice where you hold weight: shoulders, jaw, a bowed neck like the figure’s. The image is set at night, which can reflect effort that has run past the end of the day. Rest here is not a reward for finishing; it is part of how the carrying can continue. One look upward, at the stars in this sky, can change what the next step feels like."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Ten of Wands points to an accumulated load: responsibilities that each made sense but together have become too much. Seeing the whole bundle clearly may matter more than pushing on.",
+      "challenge": "As a challenge, the card can show a habit of carrying everything alone, head down, so absorbed in effort that you cannot see how close the end is, or who might help.",
+      "advice": "As advice, it invites you to set one stave down today: hand on a task, postpone something, or say no once, then notice how the rest of the load feels."
+    },
+    "pairs": [
+      {
+        "with": 22,
+        "text": "The Ace of Wands holds a single sprouting wand; the Ten holds the whole bundle. Together they trace the suit from spark to weight and ask whether the living leaves, like the gold sprig here, are still part of what you carry."
+      },
+      {
+        "with": 25,
+        "text": "The Four of Wands shows a garland strung between the staves and figures dancing before a walled town. Beside the Ten it turns attention to the town ahead: the place where the load is set down and effort becomes something shared and enjoyed."
+      },
+      {
+        "with": 30,
+        "text": "The Nine of Wands stands upright inside a ring of staves, holding just one; the Ten walks bent under the whole bundle. Both figures wear a cloth bound round the head. Together they ask when holding on stopped protecting you and began to wear you down."
+      }
+    ],
+    "questions": [
+      "If you laid out everything you are carrying, which piece would you put down first?",
+      "Which of these responsibilities did you choose, and which did you simply never refuse?",
+      "Where is the small living spark in this effort, and how can you keep it visible?"
+    ],
+    "practice": "List everything you are carrying this week, then circle one item to hand on, postpone or decline, and take that step before the day ends."
+  },
+  "uk": {
+    "essence": "Десятка Жезлів показує ношу, яку стало занадто важко нести так і далі, і запитує, що можна скласти, розділити з кимось чи перекласти інакше.",
+    "keywords": {
+      "upright": [
+        "тягар",
+        "перевантаження",
+        "відповідальність",
+        "фінішна пряма",
+        "тяжка праця"
+      ],
+      "reversed": [
+        "складена ноша",
+        "делегування",
+        "надрив сил",
+        "нести самотужки",
+        "уміння відмовити"
+      ]
+    },
+    "upright": [
+      "Десятка Жезлів звертає увагу на мить, коли те, що ви колись обрали й, можливо, досі цінуєте, стало тягарем. Десять — кінець рахунку масті, а в Жезлах, масті Вогню й запалу, ця карта може показувати ентузіазм, що обернувся обов’язком: кожне ваше «так», кожне завдання, яке ви взяли, бо могли, тепер зібрано в один оберемок. На зображенні Olivia фігура обіймає жезли обома руками й іде, зігнувшись майже вдвоє: голова схилена до землі, а тканину на ній насунуто так низько, що очей не видно.",
+      "Подивіться, куди спрямовані жезли. Вони розходяться віялом високо над схиленою головою, нахилені туди ж, куди йде фігура, а праворуч, наприкінці звивистої дороги, чекає обнесене мурами містечко з відчиненою брамою. Мета близько, але фігура не може підвести очей, щоб її побачити. Карта часто вказує саме на це: справу майже завершено, та ви надто поглинуті зусиллям, щоб помітити, як близько кінець або як інакше можна було б нести.",
+      "Olivia додає дві тихі деталі. Високо між жезлами досі росте маленька золота гілочка — жива іскра того, заради чого ви за це взялися. А дія відбувається вночі, під небом, усипаним дрібними золотими зорями. У прямому положенні карта запрошує вас назвати всю ношу, віддати належне тому, що ви вже пронесли, і вибрати щось одне, щоб його скласти."
+    ],
+    "reversed": [
+      "У перевернутому положенні Десятка Жезлів може вказувати на те, що ноша починає зсуватися. Іноді це полегшення: ви складаєте частину, передаєте комусь завдання чи кажете «ні», і в’язанку вже можна втримати однією рукою. Коли ви звикли, що на вас завжди можна покластися, відпустити щось може здаватися поразкою; але це може бути й перший чесний погляд на власні межі.",
+      "В інших читаннях перевернуте положення обертає вагу всередину. Жезли й далі несуть, але мовчки й самотою, відмовляючись від допомоги, бо попросити здається важче, ніж тягнути далі. Або в’язанка розсипається вся одразу, бо її так і не переклали. В обох випадках, це положення запитує, які тягарі ви тримаєте за звичкою і що змінилося б, якби ви підвели очі на містечко попереду."
+    ],
+    "number": "Десять завершує рахунок числових карт: зерно Туза пройшло всі етапи й досягло найповнішої, найважчої форми. У Жезлах, масті Вогню, волі й починань, завершення означає, що енергія стала структурою, а структура — вагою. Єдиний облиствений жезл Туза тепер обернувся десятьма древками в обіймах. Десять стоїть і на порозі: після нього масть переходить до Пажа, до свіжого учнівського початку, ніби рухатися далі можна, лише щось склавши.",
+    "tradition": "У системі Золотої Зорі Десятка Жезлів має титул «Володар Гноблення». Її пов’язують із Сатурном у Стрільці, третім деканом цього знака (від 20 до 30 градусів), і з Малкут, Царством, десятою сефірою, вираженою через масть Вогню. Обмежувальну вагу Сатурна, покладену на Стрільця — знак широких обріїв і далеких мандрів, — зазвичай тлумачать як амбіцію, придушену обов’язком. Алістер Кроулі залишив один титул — «Гноблення». У марсельських колодах десять жезлів утворюють переплетений візерунок без жодної фігури. Памела Колман Сміт у 1909 році дала карті згорблену фігуру, що несе всю в’язанку до будівель удалині, а жезли затуляють їй огляд.",
+    "areas": {
+      "love": "У близьких стосунках Десятка Жезлів може вказувати на те, що одна людина несе більшу частину практичної й емоційної роботи: пам’ятає, домовляється, тримає все докупи. Карта не каже, що хтось інший відчуває чи має на меті. Вона запитує, що ви несете без жодної домовленості і чи про це колись говорили вголос. І в стосунках із собою помітьте, чи не стає турбота ще одним обов’язком. Золота гілочка серед жезлів нагадує: любов — причина ноші, а не сама ноша.",
+      "work": "У роботі чи навчанні ця карта часто віддзеркалює переповнений список: проєкти, які ви брали один за одним, аж доки не забракло місця, щоб подумати. Запишіть усе, ніби розкладаєте жезли на землі, і позначте, що справді ваше, що можна передати, а що може почекати. Брама містечка близько; щоб завершити, може знадобитися менше, ніж іще один ривок. Коли йдеться про гроші чи договори, перш ніж братися за більше, обговоріть варіанти з кваліфікованим фахівцем.",
+      "self": "У стосунках із собою Десятка Жезлів запитує про поставу — буквально й не лише. Помітьте, де ви тримаєте вагу: у плечах, у щелепі, у схиленій шиї, як у фігури. Дія відбувається вночі, і це може відображати зусилля, що затяглося далеко за кінець дня. Відпочинок тут — не нагорода за завершення, а частина того, як можна нести далі. Один погляд угору, на зорі цього неба, може змінити те, яким відчувається наступний крок."
+    },
+    "positions": {
+      "heart": "У центрі запитання Десятка Жезлів вказує на накопичену ношу: обов’язки, кожен з яких мав сенс, але разом їх стало забагато. Ясно побачити всю в’язанку може бути важливіше, ніж тиснути далі.",
+      "challenge": "Як перешкода карта може показувати звичку нести все самотужки, з опущеною головою, так поринувши в зусилля, що не видно, як близько кінець чи хто міг би допомогти.",
+      "advice": "Як порада карта запрошує вас сьогодні скласти один жезл: передати завдання, щось відкласти або один раз сказати «ні», а тоді помітити, як відчувається решта ноші."
+    },
+    "pairs": [
+      {
+        "with": 22,
+        "text": "Туз Жезлів тримає один жезл, що пускає паростки; Десятка — усю в’язанку. Разом вони простежують шлях масті від іскри до ваги й запитують, чи живе листя, як ця золота гілочка, досі є частиною того, що ви несете."
+      },
+      {
+        "with": 25,
+        "text": "На Четвірці Жезлів між жезлами натягнуто гірлянду, а перед обнесеним мурами містечком танцюють фігури. Поруч із Десяткою вона звертає увагу на містечко попереду: місце, де ношу складають, а зусилля стає спільним і радісним."
+      },
+      {
+        "with": 30,
+        "text": "Дев’ятка Жезлів стоїть випроставшись у колі жезлів і тримає лише один; Десятка йде, зігнувшись під усією в’язанкою. В обох фігур голову пов’язано тканиною. Разом вони запитують, коли триматися перестало вас захищати й почало виснажувати."
+      }
+    ],
+    "questions": [
+      "Якби ви розклали перед собою все, що несете, що склали б першим?",
+      "Які з цих обов’язків ви обрали самі, а від яких просто ніколи не відмовилися?",
+      "Де в цьому зусиллі маленька жива іскра і як зберегти її на видноті?"
+    ],
+    "practice": "Запишіть усе, що несете цього тижня, обведіть один пункт, який можна передати, відкласти чи відхилити, і зробіть цей крок до кінця дня."
+  }
+}

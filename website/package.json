@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build && node scripts/postbuild.mjs",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prebuild": "node scripts/academy-leaves-index.mjs",
+    "predev": "node scripts/academy-leaves-index.mjs"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.11",

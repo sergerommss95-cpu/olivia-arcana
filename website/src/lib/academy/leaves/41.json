@@ -1,0 +1,267 @@
+{
+  "id": 41,
+  "slug": "six-of-cups",
+  "artwork": {
+    "file": "41_six_of_cups.webp",
+    "sha256": "120b6bcf93fe27a1a5f35f2aa490d7633a2b584036973b41b65580106cfc498f"
+  },
+  "symbols": [
+    {
+      "key": "milky-way",
+      "x": 37,
+      "y": 20,
+      "en": {
+        "name": "The gold Milky Way",
+        "seen": "A diagonal band of glittering gold and pale flecks crosses the sky from the upper left, passing over the carved frame and fading above the garden wall; small stars are carved at the frame’s upper left.",
+        "meaning": "The traditional card is set in a bright daytime garden; here the garden lies under a night sky, the hour of recollection. Gold is spent sparingly in this deck, and here it goes to starlight: light that is old by the time it arrives, like a memory, beautiful partly because it comes from far away."
+      },
+      "uk": {
+        "name": "Золотий Чумацький Шлях",
+        "seen": "Діагональна смуга мерехтливих золотих і блідих цяток перетинає небо від верхнього лівого кута, проходить над різьбленою рамкою й згасає над садовою стіною; у верхньому лівому куті рамки вирізьблено дрібні зірки.",
+        "meaning": "На традиційній карті сад осяяний денним світлом; тут він лежить під нічним небом, у годину спогадів. Золото в цій колоді витрачають ощадливо, і тут воно дісталося зоряному світлу: світлу, яке встигає постаріти, поки до нас дійде, — як спогад, прекрасний почасти тому, що приходить здалеку."
+      }
+    },
+    {
+      "key": "gate",
+      "x": 20,
+      "y": 34,
+      "en": {
+        "name": "Gatehouse and garden wall",
+        "seen": "At the upper left a small stone gatehouse with a round-arched doorway stands at the top of a rising path; a long wall of carved blocks closes the garden, with a grove of trees beyond it.",
+        "meaning": "The walled garden is an old image of protected, enclosed time, and childhood is often remembered exactly this way: safe, bounded, set apart. The wall shelters the scene and also cuts it off from the wider world, which is the double nature of nostalgia."
+      },
+      "uk": {
+        "name": "Брама і садова стіна",
+        "seen": "Угорі ліворуч, там, де стежка здіймається найвище, стоїть невелика кам’яна надбрамна будівля з напівкруглим арковим проходом; довга стіна з різьблених блоків замикає сад, а за нею видніє гай.",
+        "meaning": "Сад, обнесений стіною, — давній образ захищеного, відокремленого часу, і дитинство часто пам’ятається саме таким: безпечним, окресленим, відгородженим від решти. Стіна боронить цю сцену й водночас відтинає її від ширшого світу — у цьому подвійна природа ностальгії."
+      }
+    },
+    {
+      "key": "other",
+      "x": 24,
+      "y": 40,
+      "en": {
+        "name": "The guard walking away",
+        "seen": "A small helmeted figure in a short tunic, carved in lapis, walks up the path toward the arch with back turned, a round shield on the left arm and a tall spear in the right hand.",
+        "meaning": "A retreating guard appears in the traditional image too. It is often read as the watchful adult world that let a child feel safe, now moving off. The figure is leaving the scene: the present and its duties are elsewhere, and the moment inside the wall belongs to memory."
+      },
+      "uk": {
+        "name": "Вартовий, що віддаляється",
+        "seen": "Невелика постать у шоломі й короткій туніці, вирізьблена в лазуриті, іде стежкою вгору до арки, повернувшись до нас спиною; на лівій руці — круглий щит, у правій — високий спис.",
+        "meaning": "Вартовий, що відходить, є й на традиційному зображенні. Його часто тлумачать як пильний світ дорослих, завдяки якому дитина почувалася в безпеці і який тепер віддаляється. Постать покидає сцену: теперішнє з його обов’язками — деінде, а мить за стіною належить пам’яті."
+      }
+    },
+    {
+      "key": "pillar",
+      "x": 64,
+      "y": 45,
+      "en": {
+        "name": "The cup on the pillar",
+        "seen": "Right of centre a plain round column rises from the garden, carved in lapis and topped by a lapis cup holding a single five-petalled flower with two small leaves.",
+        "meaning": "A cup raised on a pedestal, echoing the cup set on a stone block in the traditional image, is kept rather than used: a keepsake or a small memorial. It stands for the past you honour, admired from a little distance, still in flower but no longer in anyone’s hands."
+      },
+      "uk": {
+        "name": "Кубок на колоні",
+        "seen": "Праворуч від центру просто з саду здіймається гладенька кругла колона, вирізьблена в лазуриті; її вінчає лазуритовий кубок, у якому стоїть одна п’ятипелюсткова квітка з двома маленькими листками.",
+        "meaning": "Кубок на постаменті перегукується з кубком на кам’яній брилі з традиційного зображення. Його бережуть, а не користуються ним: це пам’ятна річ, маленький меморіал. Він уособлює минуле, яке ви шануєте й яким милуєтеся трохи здалеку: воно ще квітне, але вже не в чиїхось руках."
+      }
+    },
+    {
+      "key": "cup",
+      "x": 53,
+      "y": 57,
+      "en": {
+        "name": "The gold-hearted cup",
+        "seen": "The standing figure bends forward and offers a plain ivory goblet with a rounded bowl, short stem and wide foot, holding it in both hands; a gold heart is inlaid on the front of the bowl.",
+        "meaning": "In the traditional card the cups brim with white flowers. Here the offered goblet holds no visible flowers at all, only a heart of gold: the gift is the feeling itself. It is the only gold on the figures, marking simple kindness as the treasure of the scene."
+      },
+      "uk": {
+        "name": "Кубок із золотим серцем",
+        "seen": "Постать, що стоїть, нахиляється вперед і обома руками простягає простий келих зі слонової кістки з округлою чашею, короткою ніжкою й широкою підставкою; спереду на чаші інкрустовано золоте серце.",
+        "meaning": "На традиційній карті кубки аж переповнені білими квітами. Тут у простягнутому келиху квітів не видно зовсім, лише золоте серце: дарунок — це саме почуття. Це єдине золото на постатях: воно позначає просту доброту як справжній скарб цієї сцени."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 56,
+      "y": 63,
+      "en": {
+        "name": "Open hands below",
+        "seen": "The kneeling figure lifts both hands just beneath the goblet, palms up and fingers spread, not yet touching it, while the face tilts upward toward the taller figure.",
+        "meaning": "Open, upturned palms are the classic gesture of receiving. The small gap between hands and cup holds the moment in suspense: the gift is offered, not taken. It draws attention to the part of you that still knows how to receive simply, without bargaining or suspicion."
+      },
+      "uk": {
+        "name": "Розкриті долоні внизу",
+        "seen": "Постать навколішках підносить обидві руки просто під келих, долонями догори й з розведеними пальцями, ще не торкаючись його, а обличчя звертає вгору, до вищої постаті.",
+        "meaning": "Розкриті, повернуті догори долоні — класичний жест прийняття. Невеликий проміжок між руками й келихом зупиняє мить на півдорозі: дарунок простягнуто, але ще не взято. Цей жест звертає увагу на ту частину вас, яка досі вміє приймати просто, без торгу й підозри."
+      }
+    },
+    {
+      "key": "child",
+      "x": 67,
+      "y": 66,
+      "en": {
+        "name": "The kneeling child",
+        "seen": "On the right a smaller ivory figure with long hair tied back kneels in a sleeveless gown with a draped sash, looking up toward the taller figure, who stands barefoot and bends down from the left.",
+        "meaning": "In the traditional image both children stand, one shorter than the other. Kneeling makes the difference in height the whole subject: one looks down with care, the other looks up with trust. The card is often linked with innocence and the inner child, the self who first learned what kindness feels like."
+      },
+      "uk": {
+        "name": "Дитина навколішках",
+        "seen": "Праворуч менша постать зі слонової кістки, з довгим волоссям, зібраним позаду, стоїть навколішки в довгому вбранні без рукавів, перехопленому задрапірованою перев’яззю, і дивиться вгору на вищу постать, що босоніж стоїть ліворуч і схиляється до неї.",
+        "meaning": "На традиційному зображенні обоє дітей стоять, одне нижче за друге. Тут одна постать опустилася навколішки, і різниця в зрості стає головною темою: одна дивиться вниз із турботою, інша — вгору з довірою. Карту часто пов’язують із невинністю та внутрішньою дитиною: тим «я», яке вперше відчуло, якою буває доброта."
+      }
+    },
+    {
+      "key": "flowers",
+      "x": 80,
+      "y": 48,
+      "en": {
+        "name": "Flowering cups at the edges",
+        "seen": "Four lapis cups stand in pairs down the two sides of the garden, each holding one carved five-petalled flower; with the pillar cup and the ivory goblet they make the card’s six.",
+        "meaning": "Flowers in cups are the traditional sign of this card: pleasure that grows out of feeling. Olivia carves them in the same blue as the garden, so they read as part of the remembered place rather than possessions. Their even spacing gives the garden a calm, tended rhythm."
+      },
+      "uk": {
+        "name": "Квітучі кубки обабіч",
+        "seen": "Чотири лазуритові кубки стоять парами вздовж обох боків саду, у кожному — одна різьблена п’ятипелюсткова квітка; разом із кубком на колоні та келихом зі слонової кістки вони складають шість кубків цієї карти.",
+        "meaning": "Квіти в кубках — традиційна прикмета цієї карти: насолода, що виростає з почуття. Olivia вирізьблює їх у тій самій синяві, що й сад, тож вони сприймаються як частина пригаданого місця, а не як чиєсь майно. Рівні проміжки між ними надають садові спокійного, доглянутого ритму."
+      }
+    },
+    {
+      "key": "rock",
+      "x": 51,
+      "y": 81,
+      "en": {
+        "name": "The cracked ivory ledge",
+        "seen": "Both figures rest on one ivory ledge that is cracked across into two pieces: the standing figure’s bare feet on the rougher left piece, the kneeling figure on the smoother right piece.",
+        "meaning": "The crack is a detail of this carving, not of the traditional image. A single ground broken in two suggests that giver and receiver, past and present, stand on pieces of the same stone that no longer quite meet. Memory spans the gap, yet the break stays visible, asking for an honest look at what time has changed."
+      },
+      "uk": {
+        "name": "Розколота плита зі слонової кістки",
+        "seen": "Обидві постаті спираються на одну й ту саму плиту зі слонової кістки, розколоту впоперек на дві частини: босі ноги постаті, що стоїть, — на шорсткішій лівій частині, постать навколішках — на гладенькій правій.",
+        "meaning": "Тріщина — деталь саме цього різьблення, а не традиційного зображення. Одна основа, розколота надвоє, підказує, що постать, яка дарує, і постать, яка приймає, минуле й теперішнє стоять на уламках одного каменя, які вже не зовсім сходяться. Пам’ять перекидає місток через цю щілину, проте розлам лишається видимим і кличе чесно подивитися на те, що змінив час."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Six of Cups turns attention to memory and simple kindness: a gift given and received without calculation, and the warmth of the past you still carry.",
+    "keywords": {
+      "upright": [
+        "nostalgia",
+        "childhood memory",
+        "innocence",
+        "kindness",
+        "simple gifts",
+        "reunion"
+      ],
+      "reversed": [
+        "idealised past",
+        "living in memory",
+        "outgrown roles",
+        "difficulty receiving",
+        "moving forward"
+      ]
+    },
+    "upright": [
+      "The Six of Cups is the card of memory and of kindness in its simplest form. In Olivia’s carving a taller figure bends from the left and holds out an ivory goblet in both hands, while a younger figure kneels on the right with palms open and face turned up. Nothing is being bargained for. The card draws attention to moments like this in your own life: care you were given, care you gave, and the places and people through which you first learned what warmth feels like.",
+      "Look at the cup itself. In the traditional image the cups overflow with flowers; here the offered goblet carries only a heart of inlaid gold, so the gift is the feeling. Around the pair, five more cups hold single blue flowers, and a guard walks away up the path toward the gate with back turned. The adult world is leaving the scene, and what remains is an enclosed garden at night beneath a gold river of stars.",
+      "Upright, the card can point to a reunion, an old friend or place revisited, a pleasure rediscovered, or a quality from childhood, such as curiosity, trust or play, that is asking to return. It invites you to let the past nourish you, and to notice where you might be the one holding out the cup."
+    ],
+    "reversed": [
+      "Six of Cups reversed draws attention to memory that has turned from nourishment into a place to hide. The past may be remembered more kindly than it was lived, or a longing to go back may make the present feel thin. It can also point to old roles that no longer fit: always the giver bending down, always the child waiting to be looked after.",
+      "Notice the crack in the ivory ledge beneath the figures. Reversed, the card asks you to look at that gap honestly: keep what was genuinely kind, name what was difficult, and bring one good thing forward into life as it is now. Sometimes the blocked form is simply trouble receiving; the open hands are a reminder that accepting care is a skill too."
+    ],
+    "number": "Six is the number of harmony regained. After the loss and upheaval of the Fives, the Sixes restore balance and exchange: the Six of Wands brings recognition, the Six of Swords a calmer passage, the Six of Pentacles giving and receiving in measure. In the suit of Cups, the suit of Water and feeling, that balance takes the form of emotional ease. After the spilled cups of the Five, the heart finds its way back to sweetness, often by way of memory and uncomplicated care.",
+    "tradition": "In the Golden Dawn system the Six of Cups is titled the Lord of Pleasure. It is assigned to the Sun in Scorpio, the second decan of that sign (10 to 20 degrees), and to Tiphareth, Beauty, the sixth Sephirah at the centre of the Tree of Life, expressed through the suit of Water. The Sun’s steady warmth in Scorpio’s deep water is commonly read as pleasure rooted in feeling. Aleister Crowley kept the title Pleasure. Marseille-pattern decks show six cups among flowering ornament, with no scene. Pamela Colman Smith’s 1909 card introduced two children in an old garden with cups full of flowers, the image through which the card became linked with childhood and the past.",
+    "areas": {
+      "love": "In love and friendship the Six of Cups turns attention to tenderness without conditions: the small gestures of care that make a bond feel safe. It can point to a reunion, a shared history, or the comfort of someone who knew you long ago. It does not say whether an old connection should be renewed; it asks what, in that history, was truly mutual. With yourself, it invites the patience the bending figure shows toward the younger one.",
+      "work": "At work or in study the card can point to returning to something you once loved doing, drawing on early skills, or working alongside people who know your story. It also highlights generous, uncomplicated help: mentoring, teaching, sharing what you know freely. Around money, it may bring old family habits and attitudes to the surface; for now it is enough to notice them with curiosity, as memories rather than rules.",
+      "self": "For your relationship with yourself, the kneeling figure with open hands can stand for your younger self, and the bending one for the adult you are now. The card invites the adult to offer what the child needed: attention, patience, a gift freely given. It also asks which pleasures from early life still feed you, and which old beliefs, formed inside that walled garden, might now be gently questioned."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Six of Cups points to the past’s part in the present: an old memory, relationship or place shaping how you feel, and a simple kindness waiting to be given or received.",
+      "challenge": "As a challenge, the card can show nostalgia that makes the present seem thinner than it is, an old role you keep playing, or difficulty accepting care when it is offered.",
+      "advice": "As advice, it invites one uncomplicated act of kindness, given or received, and one good quality from your past brought into today in a form that fits who you are now."
+    },
+    "pairs": [
+      {
+        "with": 40,
+        "text": "In the Five of Cups a grieving figure turns from three fallen cups while a gold-hearted cup still stands upright to one side; here a gold-hearted cup is placed in open hands. Together they draw attention to how care overlooked in grief can be offered again."
+      },
+      {
+        "with": 19,
+        "text": "The Sun’s child rides bareback in front of a garden wall, one arm flung wide beneath a gold sun; the Six of Cups keeps its child kneeling inside a walled garden at night. Together they turn attention to innocence and play, and to joy lived now and joy remembered."
+      },
+      {
+        "with": 69,
+        "text": "Both Sixes show a kneeling figure with open, upturned palms. The Six of Pentacles holds its scales up beside the gift; the Six of Cups gives from the heart with nothing weighed. Side by side they ask how you give and receive, and what changes when care comes with conditions."
+      }
+    ],
+    "questions": [
+      "Which memory of being cared for still warms you, and what exactly made that moment feel safe?",
+      "What quality from your childhood would you like to carry forward into the life you have now?",
+      "Where are you holding out a cup, and where might you let yourself simply receive one?"
+    ],
+    "practice": "Write down one small kindness someone showed you when you were young, then offer a similar kindness to someone this week, without mentioning why."
+  },
+  "uk": {
+    "essence": "Шістка Кубків звертає увагу на пам’ять і просту доброту: дарунок, який дають і приймають без жодного розрахунку, і тепло минулого, яке ви досі несете в собі.",
+    "keywords": {
+      "upright": [
+        "ностальгія",
+        "спогади дитинства",
+        "невинність",
+        "доброта",
+        "прості дарунки",
+        "зустріч після розлуки"
+      ],
+      "reversed": [
+        "ідеалізоване минуле",
+        "життя спогадами",
+        "застарілі ролі",
+        "труднощі з прийняттям",
+        "рух уперед"
+      ]
+    },
+    "upright": [
+      "Шістка Кубків — карта пам’яті й доброти в найпростішому її вияві. У різьбленні Olivia вища постать схиляється зліва й обома руками простягає келих зі слонової кістки, а молодша стоїть праворуч навколішки, з розкритими долонями й піднятим обличчям. Тут ніхто ні про що не торгується. Карта звертає увагу на такі миті у вашому житті: турботу, яку дарували вам, турботу, яку дарували ви, і місця та людей, завдяки яким ви вперше дізналися, яке воно — тепло.",
+      "Придивіться до самого кубка. На традиційному зображенні кубки переповнені квітами; тут простягнутий келих несе лише серце з інкрустованого золота, тож дарунок — це почуття. Довкола пари ще п’ять кубків тримають по одній синій квітці, а вартовий, повернувшись спиною, іде стежкою вгору до брами. Світ дорослих покидає сцену, і лишається обгороджений сад уночі під золотою рікою зірок.",
+      "У прямому положенні карта може вказувати на зустріч після розлуки, повернення до давнього друга чи знайомого місця, заново відкриту радість або дитячу якість — цікавість, довіру, гру, — яка проситься назад. Вона запрошує дозволити минулому живити вас і помітити, де кубок простягаєте саме ви."
+    ],
+    "reversed": [
+      "Шістка Кубків у перевернутому положенні звертає увагу на пам’ять, що з поживи перетворилася на схованку. Минуле може згадуватися лагіднішим, ніж було насправді, а туга за поверненням — робити теперішнє блідим. Карта також може вказувати на старі ролі, які вже не пасують: завжди нахилятися й давати або завжди по-дитячому чекати, що про вас подбають.",
+      "Зверніть увагу на тріщину в плиті зі слонової кістки під постатями. У перевернутому положенні карта просить чесно подивитися на цей розлам: зберегти те, що було справді добрим, назвати те, що було важким, і перенести одну добру річ у життя — таке, яким воно є зараз. Іноді заблокована форма карти — це просто труднощі з прийняттям; розкриті долоні нагадують, що приймати турботу — теж уміння."
+    ],
+    "number": "Шість — число відновленої гармонії. Після втрат і потрясінь П’ятірок Шістки повертають рівновагу й обмін: Шістка Жезлів приносить визнання, Шістка Мечів — спокійніший перехід, Шістка Пентаклів — мірне давання й отримання. У масті Кубків, масті Води й почуттів, ця рівновага набуває форми душевної легкості. Після розлитих кубків П’ятірки серце знову відкриває для себе ніжність — часто через пам’ять і просту турботу.",
+    "tradition": "У системі Золотої Зорі Шістка Кубків має титул «Володар Насолоди». Її пов’язують із Сонцем у Скорпіоні, другим деканом цього знака (від 10 до 20 градусів), і з Тіферет, Красою, шостою сефірою в центрі Дерева Життя, вираженою через масть Води. Рівне тепло Сонця в глибоких водах Скорпіона зазвичай тлумачать як насолоду, вкорінену в почутті. Алістер Кроулі зберіг назву «Насолода». У колодах марсельського зразка шість кубків зображено серед квітучого орнаменту, без сюжетної сцени. Карта Памели Колман Сміт 1909 року вперше показала двох дітей у старому саду з кубками, повними квітів, і саме через цей образ карту стали пов’язувати з дитинством і минулим.",
+    "areas": {
+      "love": "У коханні й дружбі Шістка Кубків звертає увагу на ніжність без умов: дрібні жести турботи, завдяки яким зв’язок відчувається безпечним. Вона може вказувати на зустріч після розлуки, спільну історію або розраду, яку дає людина, що знала вас дуже давно. Карта не каже, чи варто відновлювати давній зв’язок; вона питає, що в тій історії було справді взаємним. У стосунках із собою вона запрошує до терпіння, яке схилена постать виявляє до молодшої.",
+      "work": "У роботі чи навчанні карта може вказувати на повернення до справи, яку ви колись любили, на ранні навички, на які можна спертися, або на співпрацю з людьми, які знають вашу історію. Вона також наголошує на щедрій, невимушеній допомозі: наставництво, викладання, готовність вільно ділитися знаннями. У грошових питаннях вона може вивести на поверхню старі родинні звички й настанови; поки що досить помітити їх із цікавістю — як спогади, а не як правила.",
+      "self": "У стосунках із собою постать навколішках із розкритими долонями може уособлювати вас у дитинстві, а схилена — дорослу людину, якою ви є зараз. Карта запрошує вашу дорослу частину дати те, чого потребувала дитина: увагу, терпіння, дарунок без умов. Вона також питає, які радощі раннього життя досі вас живлять, а які давні переконання, що склалися в тому обгородженому саду, варто тепер лагідно переглянути."
+    },
+    "positions": {
+      "heart": "У центрі запитання Шістка Кубків вказує на роль минулого в теперішньому: давній спогад, стосунки чи місце, що впливають на ваші почуття, і просту доброту, яка чекає, щоб її подарували або прийняли.",
+      "challenge": "Як виклик карта може показувати ностальгію, через яку теперішнє здається біднішим, ніж є насправді, стару роль, яку ви й далі граєте, або труднощі з тим, щоб прийняти турботу, коли її пропонують.",
+      "advice": "Як порада вона запрошує до одного простого вияву доброти — від вас чи до вас — і до того, щоб перенести в сьогодення одну добру рису з минулого у формі, яка пасує тому, ким ви є тепер."
+    },
+    "pairs": [
+      {
+        "with": 40,
+        "text": "На П’ятірці Кубків скорботна постать відвертається від трьох перекинутих кубків, а збоку досі стоїть кубок із золотим серцем; тут кубок із золотим серцем подають у розкриті долоні. Разом вони звертають увагу на те, як турботу, непомічену в горі, можна запропонувати знову."
+      },
+      {
+        "with": 19,
+        "text": "Дитина на карті Сонце їде верхи без сідла перед садовою стіною, широко розкинувши руку під золотим сонцем; на Шістці Кубків дитина стоїть навколішках посеред нічного саду, обнесеного стіною. Разом вони звертають увагу на невинність і гру, на радість, прожиту зараз, і радість пригадану."
+      },
+      {
+        "with": 69,
+        "text": "Обидві Шістки показують постать навколішках із розкритими, повернутими догори долонями. На Шістці Пентаклів поруч із дарунком піднято терези; Шістка Кубків дає від серця, нічого не зважуючи. Поставлені поруч, вони питають, як ви даєте і приймаєте і що змінюється, коли турбота приходить з умовами."
+      }
+    ],
+    "questions": [
+      "Який спогад про те, як про вас дбали, досі вас зігріває, і що саме зробило ту мить безпечною?",
+      "Яку якість із дитинства вам хотілося б перенести в життя, яке ви маєте зараз?",
+      "Де ви простягаєте кубок, а де могли б дозволити собі просто його прийняти?"
+    ],
+    "practice": "Запишіть один невеликий добрий вчинок, який хтось зробив для вас у дитинстві, а цього тижня зробіть щось подібне для когось іншого, не пояснюючи чому."
+  }
+}

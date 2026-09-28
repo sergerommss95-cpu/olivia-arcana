@@ -1,0 +1,265 @@
+{
+  "id": 55,
+  "slug": "six-of-swords",
+  "artwork": {
+    "file": "55_six_of_swords.webp",
+    "sha256": "563d152d384f0bf5d20be390cc280e36b489214624cbf54655fa0665a926a079"
+  },
+  "symbols": [
+    {
+      "key": "sword",
+      "x": 31,
+      "y": 60,
+      "en": {
+        "name": "Six upright ivory swords",
+        "seen": "Six ivory swords stand in a close row in the left half of the boat, points hidden inside the hull, hilts rising above the passengers: knobbed pommels, straight crossguards, plain blades, the row fanning slightly apart.",
+        "meaning": "Swords are the suit of Air: thoughts, words and decisions. In the traditional image they ride upright in the boat, and here too nothing is thrown overboard. What was learned in difficulty comes along; standing clear of the passengers, the blades are carried, not wielded."
+      },
+      "uk": {
+        "name": "Шість вертикальних мечів зі слонової кістки",
+        "seen": "Шість мечів зі слонової кістки тісним рядом стоять у лівій половині човна: вістря сховані в корпусі, руків’я здіймаються над пасажирами. Кулясті навершя, прямі хрестовини, гладкі клинки; ряд ледь розходиться віялом.",
+        "meaning": "Мечі — масть Повітря: думки, слова й рішення. На традиційному зображенні вони стоять у човні сторч, і тут теж нічого не викинуто за борт. Усе, чого навчили труднощі, їде далі; клинки стоять окремо від пасажирів: їх везуть, а не пускають у хід."
+      }
+    },
+    {
+      "key": "hood",
+      "x": 52,
+      "y": 62,
+      "en": {
+        "name": "The hooded passenger and child",
+        "seen": "In the middle of the boat a seated figure, wrapped from head to knee in a hooded mantle, bows over a curly-haired child and holds the child close with both arms. The child’s face turns towards the viewer.",
+        "meaning": "The traditional card shows a huddled, cloaked passenger with a small child, often read as sorrow carried quietly and something tender protected on the way. Olivia’s passenger shelters rather than slumps: the bowed head reads as care, and the child’s face stays turned outward, towards the world beyond the boat."
+      },
+      "uk": {
+        "name": "Пасажир у каптурі й дитина",
+        "seen": "Посеред човна сидить постать, від голови до колін огорнута плащем із каптуром. Вона схиляється над кучерявою дитиною й обома руками пригортає її до себе. Обличчя дитини повернуте до глядача.",
+        "meaning": "На традиційній карті скулений пасажир у плащі везе маленьку дитину; це часто читають як смуток, який несуть мовчки, і щось ніжне, що його бережуть у дорозі. Постать в Olivia не згорблена, вона захищає: схилена голова читається як турбота, а обличчя дитини звернене назовні, до світу за бортом."
+      }
+    },
+    {
+      "key": "staff",
+      "x": 78,
+      "y": 56,
+      "en": {
+        "name": "The figure at the pole",
+        "seen": "At the right end of the boat a barefoot figure in a long tunic and wrapped headcloth leans forward towards the passengers, one raised hand gripping the top of a long pole that slants down past the stern into the water behind.",
+        "meaning": "The one who punts is the card’s helper, commonly read as assistance accepted: another person, or the steady part of you that keeps working while feeling rests. A pole pushes against the riverbed rather than cutting the water, so progress here comes from patient, repeated effort."
+      },
+      "uk": {
+        "name": "Постать із жердиною",
+        "seen": "На правому краю човна боса постать у довгій туніці й хустці, обмотаній навколо голови, нахиляється вперед, до пасажирів. Піднята рука стискає верхівку довгої жердини, що скісно йде повз корму у воду позаду.",
+        "meaning": "Постать, що штовхає човен жердиною, — помічник цієї карти; її зазвичай читають як прийняту допомогу: іншу людину або ту стійку частину вас, що працює далі, поки почуття відпочивають. Жердина не розтинає воду, а впирається в дно, тож рух тут дає терпляче, повторюване зусилля."
+      }
+    },
+    {
+      "key": "boat",
+      "x": 46,
+      "y": 70,
+      "en": {
+        "name": "The ivory boat in choppy water",
+        "seen": "A plain, long, shallow ivory boat with a raised prow at the left and a small crossbar near the stern. Pale-crested waves ripple around its hull; with the pole pushing back to the right, it travels left.",
+        "meaning": "A boat is tarot’s image of passage: crossing from one state to another with something to hold you up. Smith’s card is often read as moving from rough water towards smoother water. Here the chop surrounds the boat itself: the crossing happens inside the unsettled part, not after it."
+      },
+      "uk": {
+        "name": "Човен зі слонової кістки на хвилях",
+        "seen": "Простий, довгий і неглибокий човен зі слонової кістки з піднятим носом ліворуч і невеликою поперечкою біля корми. Довкола корпусу брижаться хвилі зі світлими гребенями; жердина відштовхує назад, праворуч, тож човен пливе ліворуч.",
+        "meaning": "Човен у таро — образ переправи: переходу з одного стану в інший, коли є те, що тримає вас на плаву. Карту Памели Колман Сміт часто читають як рух від бурхливої води до спокійнішої. Тут хвилі оточують сам човен: переправа відбувається посеред неспокою, а не після нього."
+      }
+    },
+    {
+      "key": "river",
+      "x": 62,
+      "y": 40,
+      "en": {
+        "name": "The gilded far shore",
+        "seen": "Beyond the boat the water lies flat and finely lined. Across it, a low bank of rounded lapis trees runs the width of the card, and a thin vein of gold traces the waterline along most of its length.",
+        "meaning": "In the traditional image the further shore is simply where the passage leads. Olivia marks it with the card’s one sustained line of gold, quietly and without drama. Calmer ground exists and is already visible across the water, even while the crossing is still under way in the chop."
+      },
+      "uk": {
+        "name": "Позолочений дальній берег",
+        "seen": "За човном вода лежить рівно, у тонких лініях. На тому боці через усю ширину карти тягнеться низький берег із округлими деревами з лазуриту, а тонка золота жилка майже на всю довжину позначає лінію води.",
+        "meaning": "На традиційному зображенні дальній берег — просто місце, куди веде переправа. Olivia позначає його єдиною суцільною золотою лінією на карті, тихо й без пафосу. Спокійніша земля існує, і її вже видно через воду, навіть поки переправа ще триває серед хвиль."
+      }
+    },
+    {
+      "key": "sun",
+      "x": 78,
+      "y": 11,
+      "en": {
+        "name": "Sun-face and crescent together",
+        "seen": "At the upper right a pale grey-blue disc with a calm, open-eyed face sends out long, straight rays; at the upper left a thin crescent moon curves in lighter lapis. Gold flecks glitter in a diagonal band below them.",
+        "meaning": "The traditional Six of Swords has a plain sky. Olivia sets day and night in one sky, a between-time that suits a crossing. The rayed face also recalls the disc of The Moon: a hint that this passage is travelled partly by feel, not only by map."
+      },
+      "uk": {
+        "name": "Сонце з обличчям і півмісяць",
+        "seen": "Угорі праворуч блідий сіро-блакитний диск зі спокійним обличчям і розплющеними очима розсилає довгі прямі промені; вгорі ліворуч вигинається тонкий півмісяць зі світлішого лазуриту. Нижче них діагональною смугою мерехтять золоті іскри.",
+        "meaning": "На традиційній Шістці Мечів небо порожнє. Olivia поєднує день і ніч на одному небі — проміжний час, що пасує переправі. Променистий лик також нагадує диск із карти Місяць: натяк на те, що цей шлях проходять почасти навпомацки, а не лише за мапою."
+      }
+    },
+    {
+      "key": "wolf",
+      "x": 83,
+      "y": 26,
+      "en": {
+        "name": "Wolves beneath the sun",
+        "seen": "Below the sun a seated wolf lifts its muzzle towards the rayed face. Lower down, two more wolves with bushy tails stand facing each other on the far bank, all carved in grey-blue lapis.",
+        "meaning": "Wolves are not part of the traditional Six of Swords; they come from The Moon, where a wolf and a dog howl at the sky. Here they suggest the wilder, instinctive voices of a transition: restless feeling calling out on the far side, heard but held at a distance by the water."
+      },
+      "uk": {
+        "name": "Вовки під сонцем",
+        "seen": "Під сонцем сидить вовк і задирає морду до променистого лику. Нижче, на дальньому березі, стоять ще двоє вовків із пухнастими хвостами, повернуті один до одного; усі вирізьблені з сіро-блакитного лазуриту.",
+        "meaning": "Вовків немає на традиційній Шістці Мечів; вони прийшли з карти Місяць, де вовк і собака виють до неба. Тут вони натякають на дикіші, інстинктивні голоси перехідної пори: неспокійне почуття кличе з дальнього берега — його чути, але вода тримає його на відстані."
+      }
+    },
+    {
+      "key": "dog",
+      "x": 8,
+      "y": 69,
+      "en": {
+        "name": "The dog on the rock",
+        "seen": "At the lower left a large seated dog in grey-blue lapis, tall pointed ears raised and mouth closed, sits upright on a rocky ledge at the water’s edge and faces the prow of the boat.",
+        "meaning": "In The Moon the dog is the tame counterpart of the wolf: instinct at peace with human company. Placed on the near shore, in the direction the boat is moving, it reads as calm, loyal company for the crossing, the steadier part of you already on solid ground."
+      },
+      "uk": {
+        "name": "Собака на скелі",
+        "seen": "Унизу ліворуч великий собака із сіро-блакитного лазуриту, з високо піднятими гострими вухами й закритою пащею, сидить рівно на скелястому виступі біля води, повернувшись до носа човна.",
+        "meaning": "На карті Місяць собака — свійський двійник вовка: інстинкт, що мирно уживається з людьми. Він сидить на ближньому березі, у тому напрямку, куди пливе човен, і читається як спокійний, вірний супутник переправи — стійкіша частина вас, що вже стоїть на твердій землі."
+      }
+    },
+    {
+      "key": "crayfish",
+      "x": 52,
+      "y": 88,
+      "en": {
+        "name": "The crayfish below",
+        "seen": "Beneath the waves, on dark rocky ground, a grey-blue crayfish lies angled from lower left to upper right, both claws held out and long antennae arching overhead; a small rounded stone lies to the left of its tail.",
+        "meaning": "The crayfish is another guest from The Moon, where it crawls out of a pool as feeling rising from deep, wordless places. Under this crossing it stays below the surface: some feelings travel underneath, and do not have to be hauled up into words for the boat to move."
+      },
+      "uk": {
+        "name": "Рак на дні",
+        "seen": "Під хвилями, на темному кам’янистому дні, лежить сіро-блакитний рак, скісно — від нижнього лівого кута до верхнього правого; обидві клешні виставлені вперед, довгі вуса дугою над ним. Ліворуч від хвоста — невеликий круглий камінь.",
+        "meaning": "Рак — ще один гість із карти Місяць, де він виповзає зі ставка, як почуття, що підіймається з глибин, де немає слів. Під цією переправою він лишається під поверхнею: деякі почуття пливуть глибше, і їх не треба витягати в слова, щоб човен рушив."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Six of Swords turns attention to a quiet crossing: leaving strain behind, accepting help, and carrying what you have learned towards calmer ground.",
+    "keywords": {
+      "upright": [
+        "transition",
+        "moving on",
+        "accepted help",
+        "calmer waters",
+        "quiet recovery"
+      ],
+      "reversed": [
+        "stalled crossing",
+        "unfinished business",
+        "carried baggage",
+        "refused help",
+        "clinging to shore"
+      ]
+    },
+    "upright": [
+      "The Six of Swords draws attention to a passage: a move away from a time of strain towards ground that may be easier to stand on. It is rarely a triumphant card. In Olivia’s carving a hooded passenger bows over a child in the middle of a plain ivory boat, and the whole scene has the hush of travel at night. Nothing is being fought here. Someone is simply getting across.",
+      "Look at who does the work. At the stern, a barefoot figure leans into a long pole, pushing against the riverbed so the boat can move. Upright, the card invites you to let that kind of help count, whether it comes from a person, a routine, or the part of you that keeps going steadily when feeling is heavy. Six ivory swords stand upright in the boat. They come along: the thoughts, lessons and hard-won clarity of what came before are carried, not dropped.",
+      "The water tells the rest. Around the hull it is choppy with pale crests; beyond, it lies flat and finely lined, with a thread of gold along the far shore. The crossing happens in the rough part, not after it. Olivia also borrows the dog, wolves and crayfish of The Moon, so this passage may be partly felt before it is understood. You do not need the whole map to take the next pole stroke."
+    ],
+    "reversed": [
+      "Six of Swords reversed draws attention to a crossing that has stalled, or to the discovery that some difficulties have come with you into a new setting. The boat may feel stuck in the chop, the pole finding little purchase. Perhaps help has been refused because accepting it feels like admitting how hard things were, or the swords feel heavier now than they did at the start.",
+      "This position does not mean the move was wrong. It asks what still needs tending before the passage can feel complete: a conversation left unfinished, a practical step postponed, a feeling kept below the surface like the crayfish. Take stock of what you are carrying, set down what is not yours to carry, and ask again for the help that makes movement possible."
+    ],
+    "number": "Six is the number of balance restored. After the upheaval of the Fives, the Sixes bring a return to harmony: generosity in Pentacles, remembered sweetness in Cups, recognition in Wands. In Swords, the suit of Air and mind, that harmony arrives as relief rather than victory: thought moving away from conflict towards calmer understanding. Sitting between the Ace’s single clear idea and the Ten’s overload, the Six asks for movement in company rather than solitary struggle.",
+    "tradition": "In the Golden Dawn system the Six of Swords is titled the Lord of Earned Success. It is assigned to Mercury in Aquarius, the second decan of that sign (10 to 20 degrees), and to Tiphareth, Beauty, the sixth Sephirah on the Tree of Life, expressed through the suit of Air. Mercury’s quick intelligence in detached, far-sighted Aquarius is often read as a mind regaining its balance after strain; Aleister Crowley titled the card Science. Marseille decks show only an interlaced pattern of curved blades. The ferry scene comes from Pamela Colman Smith’s 1909 design, and A. E. Waite’s brief description speaks of passengers carried in a punt to the further shore.",
+    "areas": {
+      "love": "In close relationships the Six of Swords can reflect a period of moving on from tension: leaving an argument behind, easing out of a pattern, or giving a connection some distance so it can settle. It does not tell you what anyone else feels. It asks who is holding the pole right now, and whether care is flowing both ways. Like the hooded passenger with the child, you may be protecting something tender while you travel. Let that be enough for this stretch.",
+      "work": "At work or in study, the card can point to a transition: a new role, a changed plan, or a quieter method after a period of friction. Bring the six swords with you: what the difficult time taught you about limits, communication and what you actually need. Accept practical help without apologising for it. Where money or contracts are involved, a qualified adviser serves better than trying to reach the other side in one push.",
+      "self": "For your relationship with yourself, the Six of Swords invites a gentler pace of recovery. The choppy water around the boat is honest: moving on can feel unsettled, and relief can arrive alongside sadness. Notice the dog sitting calmly on the rock, the steadier part of you that has not gone anywhere. Rest where you can, let someone else steer for a while if that is available, and measure progress in pole strokes rather than distances."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Six of Swords points to a transition already under way, quieter than it looks from outside, in which getting across matters more than arriving quickly.",
+      "challenge": "As a challenge, the card can show reluctance to leave familiar trouble, difficulty accepting help, or the hope that a new setting alone can settle what still needs attention.",
+      "advice": "As advice, it invites you to choose one steady step away from strain, let reliable help take some of the weight, and bring the lessons along without reliving them."
+    },
+    "pairs": [
+      {
+        "with": 18,
+        "text": "The Moon lends this card its dog, wolves and crayfish. Together they draw attention to a crossing made partly in the dark, where feeling runs ahead of understanding, and to trusting small, steady steps when the way is not fully visible."
+      },
+      {
+        "with": 54,
+        "text": "The Five of Swords shows the aftermath of conflict; the Six moves away from it. Together they trace a sequence and ask whether the moment has come to leave an argument behind rather than try to win it."
+      },
+      {
+        "with": 43,
+        "text": "The Eight of Cups also leaves something behind, walking away alone by night. Beside the Six of Swords the pair contrasts a solitary departure with an assisted passage, and asks which kind of moving on fits you now."
+      }
+    ],
+    "questions": [
+      "What are you moving away from, and what calmer ground would be enough for now?",
+      "Which of the swords you carry is worth keeping, and which could be set down on arrival?",
+      "Who, or what steady habit, is holding the pole for you at the moment?"
+    ],
+    "practice": "Write down one lesson from a hard stretch that you want to keep, then one small practical step that moves you a little further across this week."
+  },
+  "uk": {
+    "essence": "Шістка Мечів звертає увагу на тиху переправу: залишити напругу позаду, прийняти допомогу й донести те, чого ви навчилися, до спокійнішої землі.",
+    "keywords": {
+      "upright": [
+        "перехід",
+        "рух далі",
+        "прийнята допомога",
+        "спокійніші води",
+        "тихе відновлення"
+      ],
+      "reversed": [
+        "застрягла переправа",
+        "незавершені справи",
+        "вантаж минулого",
+        "відкинута допомога",
+        "чіпляння за берег"
+      ]
+    },
+    "upright": [
+      "Шістка Мечів звертає увагу на переправу: рух від часу напруги до землі, на якій, можливо, легше стояти. Це рідко тріумфальна карта. У різьбленні Olivia постать у каптурі схиляється над дитиною посеред простого човна зі слонової кістки, і вся сцена сповнена тиші нічної дороги. Тут ні з чим не борються. Хтось просто перебирається на інший бік.",
+      "Подивіться, хто виконує роботу. На кормі боса постать налягає на довгу жердину, відштовхуючись від дна, щоб човен рухався. У прямому положенні карта запрошує визнати цінність такої допомоги — від людини, від звичного ритму чи від тієї частини вас, що рівно йде далі, коли на серці важко. У човні сторч стоять шість мечів зі слонової кістки. Вони їдуть разом із вами: думки, уроки й тяжко здобута ясність минулого не покинуті, а взяті з собою.",
+      "Решту розповідає вода. Довкола корпусу вона збурена, зі світлими гребенями; далі лежить рівно, у тонких лініях, а вздовж дальнього берега тягнеться золота нитка. Переправа відбувається в неспокійній частині, а не після неї. Olivia також позичає собаку, вовків і рака з карти Місяць, тож цей шлях, можливо, спершу відчувають, а вже потім розуміють. Щоб зробити наступний поштовх жердиною, не потрібна вся мапа."
+    ],
+    "reversed": [
+      "Шістка Мечів у перевернутому положенні звертає увагу на переправу, що застрягла, або на відкриття, що деякі труднощі перебралися разом із вами на нове місце. Може здаватися, що човен загруз у хвилях, а жердина ледве знаходить опору. Можливо, від допомоги відмовилися, бо прийняти її — наче визнати, як важко було, або мечі тепер здаються важчими, ніж на початку.",
+      "Це положення не означає, що рух був помилкою. Воно запитує, про що ще треба подбати, щоб переправа відчувалася завершеною: незакінчена розмова, відкладений практичний крок, почуття, яке тримають під поверхнею, як рак. Перегляньте, що ви несете, відкладіть те, що не вам нести, і знову попросіть про допомогу, яка дає змогу рухатися."
+    ],
+    "number": "Шість — число відновленої рівноваги. Після потрясінь П’ятірок Шістки повертають гармонію: щедрість у Пентаклях, пригадану солодкість у Кубках, визнання в Жезлах. У Мечах, масті Повітря й розуму, ця гармонія приходить як полегшення, а не перемога: думка відходить від конфлікту до спокійнішого розуміння. Між єдиною ясною ідеєю Туза й перевантаженням Десятки Шістка просить рухатися разом з іншими, а не боротися наодинці.",
+    "tradition": "У системі Золотої Зорі Шістка Мечів має титул «Володар заслуженого успіху». Її пов’язують із Меркурієм у другому декані (від 10 до 20 градусів) одинадцятого знака зодіаку і з Тіферет, Красою, шостою сефірою Дерева Життя, вираженою через масть Повітря. Швидкий розум Меркурія в цьому відстороненому, далекоглядному знаку часто читають як думку, що повертає рівновагу після напруги; Алістер Кроулі назвав карту «Наука». У колодах Марсельського таро є лише переплетений візерунок вигнутих клинків. Сцена переправи походить із малюнка Памели Колман Сміт 1909 року, а короткий опис А. Е. Вейта говорить про пасажирів, яких на плоскодонці везуть до дальнього берега.",
+    "areas": {
+      "love": "У близьких стосунках Шістка Мечів може відображати період, коли ви відходите від напруги: лишаєте позаду сварку, поступово виходите з давнього сценарію або даєте зв’язку трохи відстані, щоб він устоявся. Вона не каже, що відчуває хтось інший. Вона запитує, хто зараз тримає жердину і чи турбота йде в обидва боки. Як пасажир у каптурі з дитиною, ви, можливо, бережете в дорозі щось ніжне. Нехай на цьому відтинку дороги цього вистачить.",
+      "work": "У роботі чи навчанні карта може вказувати на перехід: нову роль, змінений план або спокійніший метод після періоду тертя. Візьміть із собою шість мечів — те, чого складний час навчив вас про межі, спілкування і ваші справжні потреби. Приймайте практичну допомогу, не перепрошуючи за це. Коли йдеться про гроші чи договори, кваліфікований фахівець допоможе краще, ніж спроба дістатися іншого берега одним поштовхом.",
+      "self": "У стосунках із собою Шістка Мечів запрошує до лагіднішого темпу відновлення. Хвилі довкола човна чесні: рух далі може бути неспокійним, а полегшення — приходити разом зі смутком. Зверніть увагу на собаку, що спокійно сидить на скелі, — стійку частину вас, яка нікуди не зникла. Відпочивайте, де можете, дозвольте комусь іншому покермувати, якщо є така змога, і міряйте поступ поштовхами жердини, а не відстанями."
+    },
+    "positions": {
+      "heart": "У центрі запитання Шістка Мечів вказує на перехід, який уже триває: він тихіший, ніж здається збоку, і в ньому важливіше перебратися, ніж швидко дістатися мети.",
+      "challenge": "Як виклик карта може показувати небажання залишати звичні негаразди, труднощі з прийняттям допомоги або надію, що саме лише нове місце залагодить те, що ще потребує уваги.",
+      "advice": "Як порада вона запрошує обрати один рівний крок геть від напруги, дозволити надійній допомозі взяти частину ваги й забрати уроки з собою, не проживаючи їх знову."
+    },
+    "pairs": [
+      {
+        "with": 18,
+        "text": "Місяць позичає цій карті собаку, вовків і рака. Разом вони звертають увагу на переправу, яка почасти відбувається в темряві, де почуття випереджає розуміння, і на довіру до малих, рівних кроків, коли шлях видно не повністю."
+      },
+      {
+        "with": 54,
+        "text": "П’ятірка Мечів показує наслідки конфлікту; Шістка відходить від нього. Разом вони складають послідовність і запитують, чи не настав час залишити суперечку позаду замість того, щоб намагатися в ній перемогти."
+      },
+      {
+        "with": 43,
+        "text": "Вісімка Кубків теж залишає щось позаду, самотньо відходячи вночі. Поруч із Шісткою Мечів ця пара протиставляє самотній відхід переправі з підтримкою і запитує, який спосіб руху далі пасує вам зараз."
+      }
+    ],
+    "questions": [
+      "Від чого ви відходите і якої спокійнішої землі поки що було б досить?",
+      "Який із мечів, що ви везете, варто зберегти, а який можна відкласти після прибуття?",
+      "Хто — або яка стала звичка — тримає для вас жердину зараз?"
+    ],
+    "practice": "Запишіть один урок зі складного відтинку, який хочете зберегти, а потім один невеликий практичний крок, що цього тижня просуне вас трохи далі через воду."
+  }
+}

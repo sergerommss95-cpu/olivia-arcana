@@ -1,0 +1,254 @@
+{
+  "id": 30,
+  "slug": "nine-of-wands",
+  "artwork": {
+    "file": "30_nine_of_wands.webp",
+    "sha256": "fb3fb6aea549c6e2db43e98d3c25d82ce5ea6c0cfbcceb236f45fea0d278b5a2"
+  },
+  "symbols": [
+    {
+      "key": "milky-way",
+      "x": 45,
+      "y": 25,
+      "en": {
+        "name": "The Milky Way band",
+        "seen": "A pale diagonal drift of silvery flecks crosses the dark lapis sky from lower left to upper right, high above the figure, with small gold stars scattered on either side of it.",
+        "meaning": "Most traditional versions of this card show a plain sky. Olivia sets the scene at night beneath the Milky Way, so the card reads as a long watch kept through dark hours, and as a reminder that the sky is far wider than the small ring of ground below."
+      },
+      "uk": {
+        "name": "Смуга Чумацького Шляху",
+        "seen": "Бліда смуга сріблястих цяток навскіс перетинає темне лазуритове небо від лівого нижнього краю до правого верхнього, високо над фігурою; обабіч неї розсипано дрібні золоті зорі.",
+        "meaning": "У більшості традиційних версій цієї карти небо просте, без жодних деталей. Olivia переносить сцену в ніч під Чумацьким Шляхом, тож карта читається як довга варта крізь темні години і як нагадування, що небо значно ширше за маленьке коло землі внизу."
+      }
+    },
+    {
+      "key": "leaves",
+      "x": 57,
+      "y": 41,
+      "en": {
+        "name": "The gold sprig",
+        "seen": "At the tip of the figure’s own staff, just above the bandaged head, a small sprig of gold leaves opens upward, gleaming against the dark lapis night.",
+        "meaning": "In the traditional suit, wands sprout fresh leaves as a sign that Fire is still alive. Here only the figure’s own staff carries leaves, and they are gold. Whatever the watch has cost, what is being carried is still growing: this strength tends life as well as defending it."
+      },
+      "uk": {
+        "name": "Золота гілочка",
+        "seen": "На верхівці власного посоха фігури, просто над перев’язаною головою, розкривається догори невелика гілочка із золотим листям, що мерехтить на тлі темної лазуритової ночі.",
+        "meaning": "У традиційній масті жезли пускають свіже листя на знак того, що Вогонь досі живий. Тут листя має лише посох самої фігури, і воно золоте. Хоч чого б коштувала ця варта, те, що несе фігура, досі росте: ця сила не лише обороняє життя, а й плекає його."
+      }
+    },
+    {
+      "key": "other",
+      "x": 55,
+      "y": 47,
+      "en": {
+        "name": "The bandaged head",
+        "seen": "A cloth bandage is wound around the figure’s head and tied in a knot at the back, two loose ends trailing to the left. The bearded face is seen in profile, turned to the right, eyes open and watchful.",
+        "meaning": "The bandage is the traditional mark of this card: a wound already taken in earlier struggles. It says this strength is experienced, not naive. The sideways glance toward the staves on the right shows vigilance grown into habit, always checking whether the next challenge has arrived."
+      },
+      "uk": {
+        "name": "Перев’язана голова",
+        "seen": "Голову фігури обмотано полотняною пов’язкою з вузлом на потилиці; два вільні кінці звисають ліворуч. Бородате обличчя, повернене праворуч, видно в профіль; очі розплющені й пильні.",
+        "meaning": "Пов’язка — традиційна прикмета цієї карти: рана, отримана в попередніх сутичках. Вона свідчить, що ця сила досвідчена, а не наївна. Погляд убік, на жердини праворуч, показує пильність, що стала звичкою: постійну перевірку, чи не настав уже наступний виклик."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 57,
+      "y": 55,
+      "en": {
+        "name": "Both hands on the staff",
+        "seen": "Two ivory hands grip the staff one above the other, drawn close to the chest, the upper fist just below the bearded chin. The shoulders round forward over them.",
+        "meaning": "In the traditional image the figure clutches the wand as if ready for attack. Here the grip reads as support as much as guard: the staff is being leaned on. The card asks what is holding you up now, and whether you are gripping it harder than you need to."
+      },
+      "uk": {
+        "name": "Обидві руки на посоху",
+        "seen": "Дві руки зі слонової кістки стискають посох одна над одною, притиснувши його до грудей; верхній кулак — просто під бородатим підборіддям. Плечі згорбилися й подалися вперед над ними.",
+        "meaning": "У традиційному зображенні фігура тримає жезл так, ніби чекає нападу. Тут хват читається не лише як оборона, а й як опора: на посох спираються. Карта запитує, що зараз підтримує вас і чи не стискаєте ви цю опору сильніше, ніж потрібно."
+      }
+    },
+    {
+      "key": "wand",
+      "x": 27,
+      "y": 61,
+      "en": {
+        "name": "Twelve blue staves",
+        "seen": "Twelve knotted staves carved in the blue lapis itself, each with cut branch stubs, stand upright on the rim of the oval ground, six on either side of the figure, some nearer to us and some behind.",
+        "meaning": "Pamela Colman Smith’s 1909 card lines eight wands up behind the figure like a fence. Olivia sets twelve, more than the title’s nine, in a broken ring on both sides of the figure. That is the card’s double edge: a palisade protects, and it can also enclose the one who keeps it."
+      },
+      "uk": {
+        "name": "Дванадцять синіх жердин",
+        "seen": "Дванадцять вузлуватих жердин, вирізаних у самому синьому лазуриті, кожна зі зрізаними сучками, стоять вертикально по краю овалу землі, по шість обабіч фігури: одні ближче до нас, інші позаду.",
+        "meaning": "На карті Памели Колман Сміт 1909 року вісім жезлів вишикувано позаду фігури, мов паркан. Olivia ставить дванадцять, більше за дев’ять із назви, розірваним колом з обох боків. У цьому подвійність карти: частокіл захищає, але може й замкнути того, хто його береже."
+      }
+    },
+    {
+      "key": "mountain",
+      "x": 95,
+      "y": 60,
+      "en": {
+        "name": "The hills beyond",
+        "seen": "Beyond the ring, rolling hills and a low mountain ridge are carved in greyer lapis, with small bushes and rocks, running to the horizon on both sides behind the staves.",
+        "meaning": "Wands cards often place distant hills on the horizon as the next venture or a wider life beyond the present effort. Here open land lies just past the palisade, visible through its gaps: the watch is one part of the landscape, not the whole of it."
+      },
+      "uk": {
+        "name": "Пагорби вдалині",
+        "seen": "За колом у сірішому лазуриті вирізано хвилясті пагорби й низький гірський хребет із невеликими кущами та каменями; вони тягнуться до обрію з обох боків позаду жердин.",
+        "meaning": "У картах Жезлів далекі пагорби на обрії часто означають наступну справу або ширше життя поза теперішнім зусиллям. Тут відкрита земля лежить одразу за частоколом і видніє крізь його прогалини: варта — лише частина цього краєвиду, а не він увесь."
+      }
+    },
+    {
+      "key": "staff",
+      "x": 57,
+      "y": 74,
+      "en": {
+        "name": "The planted ivory staff",
+        "seen": "One pale ivory staff, unlike the blue ones, runs from the gold sprig past the figure’s tunic to the ground, its foot planted just beside the forward foot, with the figure leaning into it.",
+        "meaning": "In Wands the staff is will, drive and creative fire. The blue staves are the long struggle; this one is the figure’s own. Carved in ivory, the same material as the body, it makes a quiet point: the strength that remains belongs to you and is not another obstacle."
+      },
+      "uk": {
+        "name": "Посох зі слонової кістки",
+        "seen": "Єдиний світлий посох зі слонової кістки, на відміну від синіх, тягнеться від золотої гілочки повз туніку фігури до землі; його кінець упирається поруч із виставленою вперед ногою, а фігура налягає на нього.",
+        "meaning": "У Жезлах посох — це воля, напір і творчий вогонь. Сині жердини — довга боротьба; цей посох належить самій фігурі. Вирізаний зі слонової кістки, як і тіло, він тихо нагадує: сила, що лишилася, — ваша, а не ще одна перешкода."
+      }
+    },
+    {
+      "key": "circle",
+      "x": 66,
+      "y": 81,
+      "en": {
+        "name": "The trodden oval",
+        "seen": "The staves stand along the rim of an oval of ground set off from the lapis around it. Its surface is scored with curving, swirling lines, and the figure’s feet and staff rest inside it.",
+        "meaning": "The traditional image has no such worn ring of ground. It suggests ground walked over and over during a long watch, a perimeter held so long that it has shaped the earth. It invites a gentle question: how much of your energy now goes into patrolling your own edges?"
+      },
+      "uk": {
+        "name": "Витоптаний овал",
+        "seen": "Жердини стоять по краю овалу землі, що вирізняється на тлі лазуриту довкола. Його поверхню поорано вигнутими, закрученими лініями; ноги фігури й кінець посоха — всередині нього.",
+        "meaning": "У традиційному зображенні такого витоптаного кола землі немає. Воно наводить на думку про землю, сходжену знову й знову під час довгої варти, про межу, яку тримали так довго, що вона змінила ґрунт. Карта лагідно запитує: скільки вашої енергії нині йде на обхід власних меж?"
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Nine of Wands is the strength of having been tested and still standing: bandaged, watchful, a little weary, and still holding the line.",
+    "keywords": {
+      "upright": [
+        "resilience",
+        "perseverance",
+        "guarded strength",
+        "the last stretch",
+        "boundaries",
+        "hard-won experience"
+      ],
+      "reversed": [
+        "exhaustion",
+        "over-vigilance",
+        "defensiveness",
+        "depleted reserves",
+        "lowering the guard",
+        "asking for help"
+      ]
+    },
+    "upright": [
+      "The Nine of Wands shows strength after the struggle rather than before it. The figure at the centre of Olivia’s card has clearly been through something: a bandage is wound around the head and knotted at the back, and the whole body leans forward onto a single staff, both hands gripping it close to the chest. Yet the feet are planted and the eyes are open, turned sideways toward the staves on the right. This is endurance with memory in it. The card draws attention to what you have already come through, and to the steadiness that experience has given you.",
+      "Here the staves do not stand in a line behind the figure, as in the traditional image. Twelve of them, carved in the blue of the stone itself, stand in a broken ring on both sides, and the ground inside is an oval scored with curving lines. The picture holds both sides of the Nine at once: boundaries that protect, and a perimeter held so long that it has shaped the earth. Only the figure’s own staff is ivory, and at its tip a sprig of gold leaves is opening.",
+      "Upright, the card invites you to recognise your staying power, to keep going if the goal still matters, and to ask honestly which defences still serve you. The last stretch is often where rest, and a clear sense of what is worth guarding, help most."
+    ],
+    "reversed": [
+      "Nine of Wands reversed can point to a watch kept past the point of need, or to reserves worn so thin that one more demand feels like too much. The grip on the staff tightens, the glance keeps returning to the edge of the ring, and every approach starts to look like a challenge. Sometimes the reversal shows the opposite movement: a guard beginning to lower, with all the uncertainty that brings.",
+      "Neither is a failure of resilience. Vigilance learned in hard conditions deserves respect, and it can also be reviewed. This position asks where rest, shared effort or a clear no could take the place of constant bracing, and which gaps in the palisade you might open on purpose."
+    ],
+    "number": "Nine is the last step before the fullness of Ten: the stage where most of the work is done and the final effort feels heaviest. In Wands, the suit of Fire, will and drive, that means stamina tested by time. The Eight of Wands brings swift movement; the Nine stands still and holds its ground; the Ten shows the load carried to its limit. On the Tree of Life nine is Yesod, the Foundation, so this card asks what firm ground your effort now stands on, and whether it can hold you as well as your defences.",
+    "tradition": "In the Golden Dawn system the Nine of Wands is titled the Lord of Great Strength. It is attributed to the Moon in the second decan of Sagittarius (10 to 20 degrees), and to Yesod, the Foundation, the ninth Sephirah, expressed through the fiery suit of Wands. The Moon’s changing tides meeting Sagittarius’s restless fire are commonly read as strength that rises and falls yet keeps returning. Aleister Crowley later shortened the title to Strength. In Marseille-pattern decks the Nine of Batons is an ornamental arrangement of crossed and upright batons with no scene. Pamela Colman Smith’s 1909 design gave the card its familiar picture: a bandaged figure leaning on one wand, with eight more standing behind like a palisade.",
+    "areas": {
+      "love": "In close relationships the Nine of Wands can reflect a guard that went up for good reasons: an old hurt, or a long season of carrying things alone. It cannot tell you what another person intends. It asks what your own watchfulness is protecting, and whether it still lets anyone in through the gaps between the staves. With yourself, it invites the same fairness: respect for how much you have endured, and room to be met rather than only defended.",
+      "work": "At work or in study this card often appears in the last hard stretch of a project, a qualification or a long season of pressure. It honours persistence, and it also asks whether you are still responding to a threat that has passed. Notice which checks and safeguards are genuinely useful, and which have become a habit of bracing. Where money or practical risk is involved, the view of a qualified person is better support than carrying every decision alone.",
+      "self": "For your relationship with yourself, the card draws attention to the body that has done the holding. The figure in Olivia’s image leans in with rounded shoulders, both fists gripping the staff just below the chin: tiredness and resolve in a single posture. Notice where you carry that brace, whether in the jaw, the shoulders or the breath. The gold leaves at the tip of the staff are a reminder that what you have been guarding is still alive, and still growing."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Nine of Wands points to hard-won resilience and a watchfulness shaped by experience. What you have already come through is part of the answer.",
+      "challenge": "As a challenge, the card can show defences held so long that they now enclose you, or tiredness mistaken for weakness when it is simply the cost of a long watch.",
+      "advice": "As advice, it invites you to hold steady through the last stretch if the goal still matters, while choosing one protection to loosen and one form of rest or support to accept."
+    },
+    "pairs": [
+      {
+        "with": 28,
+        "text": "The Seven of Wands defends a position actively, still in the thick of it; the Nine keeps the watch after the fight. Together they ask whether the struggle is happening now, or whether you are guarding against a remembered one."
+      },
+      {
+        "with": 31,
+        "text": "In Olivia’s Ten of Wands the bandaged figure returns, bent under one bundle of pale staves with a gold sprig among them. After the Nine’s guarded ring, the pair draws attention to when holding everything becomes carrying everything."
+      },
+      {
+        "with": 8,
+        "text": "Strength calms the lion with open, gentle hands, while the Lord of Great Strength stands braced on a staff. Side by side they contrast force held tightly with strength that can soften, and ask which this situation needs."
+      }
+    ],
+    "questions": [
+      "Which of your defences still protect you, and which are you keeping out of habit?",
+      "What have you already come through that shows you how steady you can be?",
+      "If you rested for one evening, what could you trust to hold without your watch?"
+    ],
+    "practice": "Stand with your weight on both feet for one minute, let your shoulders drop, and name aloud one thing you no longer need to guard."
+  },
+  "uk": {
+    "essence": "Дев’ятка Жезлів — це сила людини, яка пройшла випробування й досі стоїть: з перев’язаною головою, пильна, трохи втомлена, та все ще тримає оборону.",
+    "keywords": {
+      "upright": [
+        "стійкість",
+        "витривалість",
+        "насторожена сила",
+        "останній відрізок",
+        "межі",
+        "тяжко здобутий досвід"
+      ],
+      "reversed": [
+        "виснаження",
+        "надмірна пильність",
+        "звичка оборонятися",
+        "вичерпані сили",
+        "послаблений захист",
+        "прохання про допомогу"
+      ]
+    },
+    "upright": [
+      "Дев’ятка Жезлів показує силу після боротьби, а не перед нею. Фігура в центрі карти Olivia явно щось пережила: голову обмотано пов’язкою з вузлом на потилиці, а все тіло подалося вперед і налягає на єдиний посох, обидві руки притискають його до грудей. Проте ноги стоять твердо, а очі розплющені й звернені вбік, до жердин праворуч. Це витривалість, у якій живе пам’ять. Карта привертає увагу до того, що ви вже подолали, і до стійкості, яку дав вам цей досвід.",
+      "Тут жердини не вишикувано в ряд позаду фігури, як у традиційному зображенні. Дванадцять жердин, вирізаних у синяві самого каменю, стоять розірваним колом з обох боків, а земля всередині — овал, поораний вигнутими лініями. Зображення поєднує обидві грані Дев’ятки водночас: межі, що захищають, і периметр, який тримали так довго, що він змінив ґрунт. Лише посох самої фігури — зі слонової кістки, і на його верхівці розкривається гілочка золотого листя.",
+      "У прямому положенні карта запрошує вас визнати свою витривалість, іти далі, якщо мета досі важлива, і чесно запитати себе, які способи захисту ще служать вам. На останньому відрізку часто найбільше допомагають відпочинок і ясне розуміння того, що справді варто берегти."
+    ],
+    "reversed": [
+      "Дев’ятка Жезлів у перевернутому положенні може вказувати на варту, яку несуть довше, ніж потрібно, або на запаси сил, виснажені настільки, що ще одна вимога здається непосильною. Руки міцніше стискають посох, погляд раз у раз повертається до краю кола, і кожен, хто наближається, починає скидатися на виклик. Іноді перевернута карта показує протилежний рух: захист поступово слабне, а разом із цим приходить непевність.",
+      "Ні те, ні інше не означає, що стійкість підвела. Пильність, набута в тяжких умовах, заслуговує на повагу, і водночас її можна переглянути. Перевернуте положення запитує, де відпочинок, спільне зусилля чи ясне «ні» могли б замінити постійну напругу і де в частоколі ви могли б навмисно відкрити прохід."
+    ],
+    "number": "Дев’ять — останній крок перед повнотою Десятки: етап, коли більшість роботи вже зроблено, а останнє зусилля здається найважчим. У Жезлах, масті Вогню, волі й напору, це витривалість, яку випробовує час. Вісімка Жезлів приносить стрімкий рух; Дев’ятка зупиняється й тримає позицію; Десятка показує ношу, донесену до межі. На Дереві Життя дев’ять — це Єсод, Основа, тож карта запитує, на якому твердому ґрунті стоїть нині ваше зусилля і чи здатен він утримати не лише ваш захист, а й вас самих.",
+    "tradition": "У системі Золотої Зорі Дев’ятка Жезлів має титул «Володар Великої Сили». Їй відповідають Місяць у другому декані Стрільця (від 10 до 20 градусів) і Єсод, Основа, дев’ята сефіра, виражена через вогняну масть Жезлів. Мінливі припливи Місяця в поєднанні з неспокійним вогнем Стрільця часто тлумачать як силу, що то зростає, то спадає, але щоразу повертається. Пізніше Алістер Кроулі скоротив титул до «Сили». У колодах марсельського типу Дев’ятка Палиць — орнаментальна композиція зі схрещених і прямих палиць без жодної сцени. Карта Памели Колман Сміт 1909 року дала їй знайомий сюжет: перев’язана фігура спирається на один жезл, а ще вісім стоять позаду, мов частокіл.",
+    "areas": {
+      "love": "У близьких стосунках Дев’ятка Жезлів може відображати захист, що з’явився недарма: через давній біль або через довгу пору, коли все доводилося нести самотужки. Вона не може сказати вам, що має на думці інша людина. Вона запитує, що саме береже ваша власна пильність і чи пропускає вона ще когось крізь прогалини між жердинами. Щодо себе карта запрошує до тієї самої справедливості: поваги до того, скільки ви витримали, і простору, де вас можуть зустріти, а не лише обороняти.",
+      "work": "У роботі чи навчанні ця карта часто з’являється на останньому важкому відрізку проєкту, здобуття кваліфікації або довгого періоду тиску. Вона шанує наполегливість і водночас запитує, чи не реагуєте ви досі на загрозу, яка вже минула. Зверніть увагу, які перевірки й запобіжники справді корисні, а які стали звичкою бути напоготові. Там, де йдеться про гроші чи практичні ризики, думка фахівця — краща опора, ніж нести тягар кожного рішення самотужки.",
+      "self": "У стосунках із собою карта привертає увагу до тіла, яке все це тримало. Фігура на зображенні Olivia подалася вперед, плечі згорблені, обидва кулаки стискають посох просто під підборіддям: утома й рішучість в одній поставі. Зауважте, де у вашому тілі тримається ця напруга — у щелепі, плечах чи диханні. Золоте листя на верхівці посоха нагадує: те, що ви так пильно берегли, досі живе й досі росте."
+    },
+    "positions": {
+      "heart": "У центрі запитання Дев’ятка Жезлів вказує на стійкість, здобуту тяжкою ціною, і на пильність, сформовану досвідом. Те, що ви вже подолали, — частина відповіді.",
+      "challenge": "Як перешкода карта може показувати захист, який тримали так довго, що тепер він замикає вас, або втому, яку легко сплутати зі слабкістю, хоча це лише ціна довгої варти.",
+      "advice": "Як порада карта запрошує вас вистояти на останньому відрізку, якщо мета досі важлива, і водночас обрати один захист, який можна послабити, та одну форму відпочинку чи підтримки, яку варто прийняти."
+    },
+    "pairs": [
+      {
+        "with": 28,
+        "text": "Сімка Жезлів активно обстоює позицію, досі в самому розпалі сутички; Дев’ятка стоїть на варті після бою. Разом вони запитують, чи боротьба триває зараз, чи ви захищаєтеся від тієї, що лишилася в пам’яті."
+      },
+      {
+        "with": 31,
+        "text": "У Десятці Жезлів колоди Olivia перев’язана фігура повертається, зігнута під в’язкою світлих жезлів, серед яких є золота гілочка. Після захищеного кола Дев’ятки ця пара привертає увагу до миті, коли «тримати все» перетворюється на «нести все»."
+      },
+      {
+        "with": 8,
+        "text": "Сила заспокоює лева відкритими, лагідними руками, а Володар Великої Сили стоїть, налягаючи на посох. Поруч вони протиставляють силу, стиснуту в кулак, і силу, здатну пом’якшитися, і запитують, якої з них потребує ця ситуація."
+      }
+    ],
+    "questions": [
+      "Що з вашого захисту досі вас оберігає, а що ви тримаєте лише за звичкою?",
+      "Що з уже пережитого показує вам, наскільки стійкими ви можете бути?",
+      "Якби ви відпочили один вечір, на що ви могли б покластися й без власної варти?"
+    ],
+    "practice": "Постійте хвилину, рівномірно перенісши вагу на обидві ноги, опустіть плечі й уголос назвіть одну річ, яку вам більше не потрібно стерегти."
+  }
+}

@@ -1,0 +1,267 @@
+{
+  "id": 0,
+  "slug": "the-fool",
+  "artwork": {
+    "file": "00_the_fool.webp",
+    "sha256": "66a8a40d3b15625549583068155b15b6ca65ec9184acc25972f1765d048f7ae8"
+  },
+  "symbols": [
+    {
+      "key": "star",
+      "x": 74,
+      "y": 21,
+      "en": {
+        "name": "The gold eight-pointed star",
+        "seen": "High in the upper right, a large eight-pointed star is inlaid in gold against the lapis night, far brighter than the scattered pyrite flecks around it. The Fool’s face is tipped straight towards it.",
+        "meaning": "Pamela Colman Smith gave the Fool a white sun; Olivia replaces it with a gold star, in a deck where gold is used sparingly. A star is a direction rather than a destination: something to steer by at night, when the ground ahead cannot yet be seen."
+      },
+      "uk": {
+        "name": "Золота восьмипроменева зірка",
+        "seen": "Угорі праворуч на лазуритовій ночі інкрустовано золотом велику восьмипроменеву зірку, значно яскравішу за розсипані довкола піритові іскри. Обличчя Блазня звернене просто до неї.",
+        "meaning": "Памела Колман Сміт дала Блазневі біле сонце; Olivia замінює його золотою зіркою — у колоді, де золото трапляється нечасто. Зірка — це напрямок, а не пункт призначення: за нею звіряють шлях уночі, коли землі попереду ще не видно."
+      }
+    },
+    {
+      "key": "swallow",
+      "x": 41,
+      "y": 23,
+      "en": {
+        "name": "Two swallows among clouds",
+        "seen": "Two small birds with long, pointed wings glide through the upper left of the sky between low bands of cloud. They are carved in the pale grey-blue of the lapis itself, not in ivory.",
+        "meaning": "Swallows do not appear in the Waite-Smith Fool; they are Olivia’s addition. They return with spring, and sailors wore them as emblems of homecoming, so they add a seasonal kind of beginning: travel that is also, in some way, a return."
+      },
+      "uk": {
+        "name": "Дві ластівки серед хмар",
+        "seen": "Дві невеликі пташки з довгими загостреними крилами ширяють у лівій верхній частині неба між низькими смугами хмар. Їх вирізьблено не зі слонової кістки, а в блідому сіро-блакитному тоні самого лазуриту.",
+        "meaning": "У Блазня Вейта–Сміт ластівок немає: це доповнення Olivia. Вони повертаються з весною, а моряки носили їх як знак повернення додому, тож початок набуває сезонного відтінку: мандрівка, яка певною мірою є й поверненням."
+      }
+    },
+    {
+      "key": "face",
+      "x": 62,
+      "y": 31,
+      "en": {
+        "name": "The upturned face",
+        "seen": "The Fool’s ivory head is tipped back in profile, wavy hair falling to the nape, eyes lifted towards the gold star. The gaze never drops to the rim a short step ahead.",
+        "meaning": "Smith’s Fool also looks up and away from the drop, and this is the classic reading of the card: attention given to the vision rather than the hazard. The gift of the card and its risk are held in one gesture."
+      },
+      "uk": {
+        "name": "Обличчя, звернене вгору",
+        "seen": "Кістяну голову Блазня, показану в профіль, закинуто назад, хвилясте волосся спадає на карк, очі підведено до золотої зірки. Погляд так і не опускається до краю, що лише за крок попереду.",
+        "meaning": "Блазень у Сміт теж дивиться вгору, геть від урвища, і це класичне прочитання карти: увага, віддана баченню, а не небезпеці. Дар цієї карти і її ризик уміщено в одному жесті."
+      }
+    },
+    {
+      "key": "bindle",
+      "x": 78,
+      "y": 35,
+      "en": {
+        "name": "The bundle on the staff",
+        "seen": "The forward hand grips a slender ivory staff slanting up to the right. Near its tip hangs a small, soft cloth bundle, cinched at the neck with a knotted bow.",
+        "meaning": "Waite called it a wallet; later readers see in it the experience and memory you carry, closed and unexamined for now. Here it is small and light: enough for the road, nothing that would shorten the stride."
+      },
+      "uk": {
+        "name": "Клунок на палиці",
+        "seen": "Передня рука стискає тонку кістяну палицю, що здіймається навскіс праворуч. Біля її кінця висить невеликий м’який клунок із тканини, перехоплений біля горловини вузлом-бантом.",
+        "meaning": "Вейт називав його гаманцем; пізніші тлумачі бачать у ньому досвід і пам’ять, які ви несете з собою, поки що зав’язані й не розібрані. Тут він маленький і легкий: досить для дороги, і нічого, що вкоротило б крок."
+      }
+    },
+    {
+      "key": "rose",
+      "x": 40,
+      "y": 47,
+      "en": {
+        "name": "The white rose",
+        "seen": "In the trailing hand, held low beside the wind-pulled robe, the Fool carries a single open ivory rose on a short stem with a few small leaves.",
+        "meaning": "Smith’s Fool also holds a white rose, commonly read as innocence and a desire free of grasping. One flower, not a bouquet: a single uncomplicated wish, held loosely enough that it does not slow the pace."
+      },
+      "uk": {
+        "name": "Біла троянда",
+        "seen": "У задній руці, опущеній поряд з одежею, яку розвіває вітер, Блазень тримає одну розкриту кістяну троянду на короткому стеблі з кількома дрібними листками.",
+        "meaning": "Блазень у Сміт теж тримає білу троянду, яку зазвичай тлумачать як невинність і бажання без жадібності. Одна квітка, а не букет: одне просте бажання, яке тримають так вільно, що воно не сповільнює ходи."
+      }
+    },
+    {
+      "key": "moon",
+      "x": 18,
+      "y": 58,
+      "en": {
+        "name": "The crescent and starry orb",
+        "seen": "On the rocky ground behind the Fool, at left, a pale silvery crescent cradles a disc of lapis set with small gold stars. Just above it, to the right, hangs an ivory sphere dotted with gold stars.",
+        "meaning": "Neither appears in the Waite-Smith Fool. The crescent belongs to the High Priestess and the Moon: cycles, the night mind, what is not yet known. The starry sphere reads as a small celestial globe. Both stay behind the traveller; the Fool carries neither."
+      },
+      "uk": {
+        "name": "Півмісяць і зоряна куля",
+        "seen": "На скелястій землі позаду Блазня, ліворуч, блідий сріблястий півмісяць обіймає лазуритовий диск із дрібними золотими зірками. Трохи вище й правіше висить кістяна куля, всіяна золотими зірками.",
+        "meaning": "Жодного з них немає в Блазня Вейта–Сміт. Півмісяць належить Верховній Жриці та Місяцю: цикли, нічна свідомість, те, чого ще не пізнано. Зоряна куля постає маленьким небесним глобусом. Усе це лишається позаду мандрівника; Блазень не бере з собою ні того, ні іншого."
+      }
+    },
+    {
+      "key": "dog",
+      "x": 71,
+      "y": 57,
+      "en": {
+        "name": "The leaping white dog",
+        "seen": "An ivory dog springs past the Fool’s leading leg in mid-leap, forepaws already out beyond the rim of the cliff, tail streaming behind, mouth open, head raised the same way as the traveller.",
+        "meaning": "In the Marseille pattern an animal tugs at the Fool’s clothing; Smith made it a small white dog jumping at the traveller’s side, often read as instinct or a friendly caution. Here it leaps first, out over the drop: instinct running ahead of thought, eager rather than alarmed."
+      },
+      "uk": {
+        "name": "Білий пес у стрибку",
+        "seen": "Кістяний пес у стрибку пролітає повз передню ногу Блазня: передні лапи вже за краєм скелі, хвіст розвівається позаду, паща відкрита, голова піднята туди ж, куди дивиться мандрівник.",
+        "meaning": "У марсельській традиції тварина смикає Блазня за одяг; Сміт зробила її маленьким білим песиком, що підстрибує поряд, і його часто тлумачать як інстинкт або дружню пересторогу. Тут він стрибає першим, просто над урвищем: інстинкт, що біжить поперед думки, із запалом, а не з тривогою."
+      }
+    },
+    {
+      "key": "cliff",
+      "x": 57,
+      "y": 71,
+      "en": {
+        "name": "The lapis cliff edge",
+        "seen": "The Fool strides barefoot across a flat-topped outcrop of lighter, veined lapis that breaks off in a sheer carved face to the right, the leading foot planted just short of the rim. Blue peaks rise far behind on the left.",
+        "meaning": "The precipice is the card’s defining risk: the moment the familiar ground runs out. Here the leading foot still rests on stone and the next stride is not yet taken, which leaves a moment for choice: a leap or a pause."
+      },
+      "uk": {
+        "name": "Край лазуритової скелі",
+        "seen": "Блазень босоніж крокує пласкою вершиною виступу зі світлішого, жилкуватого лазуриту, що праворуч обривається прямовисною різьбленою стіною; передня нога стоїть майже біля самого краю. Далеко позаду ліворуч здіймаються сині вершини.",
+        "meaning": "Урвище — визначальний ризик цієї карти: мить, коли звична земля закінчується. Тут передня нога ще спирається на камінь, а наступного кроку не зроблено, і це лишає час для вибору: стрибок чи пауза."
+      }
+    },
+    {
+      "key": "lily",
+      "x": 88,
+      "y": 68,
+      "en": {
+        "name": "The lily below the cliff",
+        "seen": "At the lower right, beneath the drop, a tall lily is carved in pale grey-blue with long, blade-like leaves, growing among grasses at the edge of a still, shallow pool.",
+        "meaning": "Lilies stand for purity of intention, as in the Magician’s garden. Olivia plants one below the cliff, beside water, which the Waite-Smith Fool does not show: the ground beneath the leap is not empty. Something living and calm grows where the Fool cannot yet look."
+      },
+      "uk": {
+        "name": "Лілія під скелею",
+        "seen": "Праворуч унизу, під обривом, серед трав на березі тихого мілкого ставка росте висока лілія, вирізьблена в блідому сіро-блакитному тоні, з довгим листям, схожим на леза.",
+        "meaning": "Лілії означають чистоту наміру, як у саду Мага. Olivia садить одну під скелею, біля води, чого Блазень Вейта–Сміт не показує: земля під стрибком не порожня. Щось живе і спокійне росте там, куди Блазень поки що не може поглянути."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Fool is the first step taken with open eyes and a light pack: curiosity trusted enough to move, before experience has drawn the map.",
+    "keywords": {
+      "upright": [
+        "beginnings",
+        "curiosity",
+        "openness",
+        "trust",
+        "travelling light",
+        "first steps"
+      ],
+      "reversed": [
+        "hesitation",
+        "recklessness",
+        "stalled start",
+        "scattered focus",
+        "fear of beginning"
+      ]
+    },
+    "upright": [
+      "The Fool stands at the moment before a story has a shape. In Olivia’s carving the traveller strides barefoot across a lapis outcrop, robe and scarf pulled back by the wind, face lifted to a gold star rather than lowered to the rim a short step ahead. Upright, the card draws attention to that forward lean: a readiness to begin without having every answer, carried by curiosity rather than by a plan.",
+      "Look at what the Fool takes along. A single white rose in one hand, a small tied bundle on the staff in the other: an uncomplicated wish and just enough provision. The swallows overhead and the dog already leaping ahead suggest that this is not isolation; instinct and good company travel too. The card can point to a new study, a move, a first conversation, a craft picked up for its own sake.",
+      "The Fool does not ask you to be careless. It asks whether caution is still protecting you or has quietly become a reason to wait. Starting small counts. So does admitting that you do not know yet, and going anyway, with your attention awake."
+    ],
+    "reversed": [
+      "The Fool reversed can point to a beginning that is held back, or one that rushes past its own ground. On one side is the traveller who keeps checking the bundle, rereading the map, waiting for a certainty no first step can give. On the other is the gaze fixed so firmly on the star that the rim underfoot goes unnoticed, while instinct, like the leaping dog, is already out over the drop. Both are forms of the same quality, turned inward or overextended.",
+      "Ask which one feels familiar right now. If it is hesitation, look for a trial small enough to feel safe. If it is haste, pause long enough to look down once, notice where your feet actually are, and then decide."
+    ],
+    "number": "The Fool carries zero, the number that sits outside the sequence. The Fool is the traveller who passes through every Major card, from the Magician at one to the World at twenty-one, which is why that sequence is often called the Fool’s journey. Zero is the open circle: nothing yet, and therefore everything possible. It asks you to meet a situation as a beginner, before you know what number it will become.",
+    "tradition": "In the Golden Dawn system the Fool bears the title “The Spirit of Æthyr”. It is attributed to Aleph, the first Hebrew letter and one of the three mother letters, and to the element of Air, and it occupies the eleventh path of the Tree of Life, joining Kether and Chokmah. Some modern readers add Uranus as a planetary correspondence. Older decks often left the card unnumbered: the Marseille Le Mat is a ragged wanderer with an animal pulling at his hose. In 1909 Pamela Colman Smith recast him as a bright youth at a precipice with a sun, a white rose and a small dog; Olivia keeps the rose and the dog but trades the sun for a star.",
+    "areas": {
+      "love": "In love and close bonds, the Fool invites you to meet someone, or yourself, without the script of past relationships. It can point to the early openness of a new connection, or to fresh air in a long one: an unplanned walk, a question you have never asked. The rose held loosely is the model here. Notice where you are waiting for reassurance before you let yourself be curious, and try one small, honest step instead.",
+      "work": "In work and study, the Fool favours apprenticeship over expertise. It can point to a new role, a course, a side project begun for interest rather than results. The bundle is small on purpose: bring what you need to begin, not everything you might need later. With money matters, keep the Fool’s lightness in your attitude and your judgement in the numbers; curiosity is a reason to learn, not a reason to skip due care.",
+      "self": "For your own growth, the Fool asks you to let yourself be a beginner again. Beginners feel clumsy, ask obvious questions and get things wrong; that is how the Fool learns anything at all. Look at the upturned face in the carving: it is not anxious, only attentive. Where could you trade the pressure to already know for the pleasure of finding out, and what would the first barefoot step look like?"
+    },
+    "positions": {
+      "heart": "At the heart of a question, the Fool suggests the situation is newer than it looks. What is really at stake is a beginning, and your willingness to take it without a finished map.",
+      "challenge": "As a challenge, the Fool can point to haste that skips the ground underfoot, or to endless preparation that keeps the first step always one day away. Notice which of the two is operating.",
+      "advice": "As advice, the Fool invites a small, real start: one step you can take this week with what you already carry, eyes lifted to what draws you and instincts kept close."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "The Fool at zero and the Magician at one sit side by side: pure possibility, then the first deliberate act. Together they draw attention to turning an open impulse into something you can hold, practise and use."
+      },
+      {
+        "with": 17,
+        "text": "In the Waite-Smith Star a great eight-pointed star shines over the pool; here the Fool already walks beneath one. Together they draw attention to a hope noticed at the start and trusted again after harder passages."
+      },
+      {
+        "with": 21,
+        "text": "The first and last Major cards frame the whole sequence. Paired with the World, the Fool can point to a completion that opens straight into a new beginning: the end of one cycle becomes the first step of the next."
+      }
+    ],
+    "questions": [
+      "What small beginning would let you learn something you cannot learn by waiting?",
+      "If you could take only what fits in the Fool’s small bundle, what would you pack?",
+      "Is your caution right now protecting something real, or postponing a step you already want to take?"
+    ],
+    "practice": "Choose one thing you have never tried and give it fifteen minutes today as a complete beginner, then write one sentence about what surprised you."
+  },
+  "uk": {
+    "essence": "Блазень — це перший крок із розплющеними очима й легким клунком: цікавість, якій довіряють достатньо, щоб рушити, ще до того, як досвід накреслить мапу.",
+    "keywords": {
+      "upright": [
+        "початки",
+        "цікавість",
+        "відкритість",
+        "довіра",
+        "легкий багаж",
+        "перші кроки"
+      ],
+      "reversed": [
+        "вагання",
+        "безрозсудність",
+        "загальмований початок",
+        "розпорошена увага",
+        "страх почати"
+      ]
+    },
+    "upright": [
+      "Блазень стоїть у мить, коли історія ще не має форми. У різьбленні Olivia мандрівник босоніж крокує лазуритовим виступом, вітер відкидає назад одежу й шарф, обличчя ж піднесене до золотої зірки, а не опущене до краю за крок попереду. У прямому положенні карта привертає увагу саме до цього нахилу вперед: до готовності почати, не маючи всіх відповідей, спираючись на цікавість, а не на план.",
+      "Погляньте, що Блазень бере з собою. Єдина біла троянда в одній руці, невеликий зав’язаний клунок на палиці в другій: нескладне бажання і рівно стільки припасів, скільки треба. Ластівки над головою і пес, що вже стрибає вперед, підказують, що це не самотність: інстинкт і добре товариство теж вирушають у дорогу. Карта може вказувати на нове навчання, переїзд, першу розмову, ремесло, за яке беруться заради нього самого.",
+      "Блазень не просить вас бути необачними. Він запитує, чи ваша обережність досі вас захищає, чи вже непомітно стала приводом чекати. Малий початок — теж початок. Так само важить чесно визнати, що ви ще не знаєте, і все одно вирушити, не приспавши уваги."
+    ],
+    "reversed": [
+      "Блазень у перевернутому положенні може вказувати на початок, який стримують, або на такий, що мчить уперед, не відчуваючи ґрунту під ногами. З одного боку — мандрівник, який раз у раз перевіряє клунок, перечитує мапу, чекає певності, якої жоден перший крок дати не може. З другого — погляд, настільки прикутий до зірки, що край під ногами лишається непоміченим, а інстинкт, мов пес у стрибку, вже над урвищем. Обидва — форми тієї самої якості, зверненої всередину або доведеної до крайності.",
+      "Запитайте себе, котра з цих форм зараз вам знайома. Якщо це вагання, пошукайте спробу настільки малу, щоб вона здавалася безпечною. Якщо це поспіх, зупиніться рівно настільки, щоб раз глянути вниз, помітити, де насправді стоять ваші ноги, і лише тоді вирішувати."
+    ],
+    "number": "Блазень має число нуль, яке стоїть поза послідовністю. Блазень — мандрівник, що проходить крізь усі Старші Аркани, від Мага під номером один до Світу під номером двадцять один; тому цю послідовність часто називають подорожжю Блазня. Нуль — відкрите коло: ще нічого, а отже, можливо все. Він пропонує вам підійти до ситуації як початківці, ще до того, як ви дізнаєтеся, яким числом вона стане.",
+    "tradition": "У системі Золотої Зорі Блазень має титул «Дух Етеру». Йому відповідають Алеф — перша літера єврейської абетки й одна з трьох материнських літер — і стихія Повітря; він займає одинадцятий шлях Дерева Життя, що з’єднує Кетер і Хокму. Дехто із сучасних тарологів додає Уран як планетну відповідність. Старі колоди часто лишали карту без номера: марсельський Le Mat — обшарпаний блукач, якого тварина смикає за штани. 1909 року Памела Колман Сміт переосмислила його як світлого юнака над урвищем із сонцем, білою трояндою та маленьким песиком; Olivia зберігає троянду й пса, але замінює сонце зіркою.",
+    "areas": {
+      "love": "У коханні та близьких взаєминах Блазень запрошує вас зустріти іншу людину (або себе) без сценарію минулих стосунків. Карта може вказувати на ранню відкритість нового зв’язку або на свіже повітря в давньому: незаплановану прогулянку, запитання, якого ви ніколи не ставили. Зразок тут — троянда, яку тримають вільно. Помітьте, де ви чекаєте запевнень, перш ніж дозволити собі цікавість, і натомість спробуйте зробити один невеликий чесний крок.",
+      "work": "У роботі й навчанні Блазень ставить учнівство вище за експертність. Він може вказувати на нову роль, курс, побічний проєкт, розпочатий з інтересу, а не заради результату. Клунок навмисно малий: беріть те, що потрібно, щоб почати, а не все, що може знадобитися згодом. У грошових справах зберігайте легкість Блазня у ставленні, а розсудливість — у цифрах; цікавість — привід учитися, а не привід нехтувати належною обачністю.",
+      "self": "Для вашого власного зростання Блазень пропонує дозволити собі знову бути початківцями. Початківці почуваються незграбно, ставлять очевидні запитання й помиляються; саме так Блазень будь-чого й навчається. Погляньте на підведене обличчя в різьбленні: воно не тривожне, а лише уважне. Де ви могли б проміняти тиск «уже знати» на радість дізнаватися, і яким був би перший крок босоніж?"
+    },
+    "positions": {
+      "heart": "У серці запитання Блазень підказує, що ситуація новіша, ніж здається. Насправді на кону — початок і ваша готовність зробити його без завершеної мапи.",
+      "challenge": "Як перешкода Блазень може вказувати на поспіх, який не помічає ґрунту під ногами, або на нескінченну підготовку, через яку перший крок завжди відкладається на завтра. Помітьте, котре з двох зараз діє.",
+      "advice": "Як порада Блазень запрошує до малого, але справжнього початку: одного кроку, який ви можете зробити цього тижня з тим, що вже несете, з поглядом, піднесеним до того, що вас вабить, і з інстинктами поруч."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "Блазень під нулем і Маг під одиницею стоять поруч: чиста можливість, а за нею перша свідома дія. Разом вони привертають увагу до того, як перетворити відкритий порив на щось, що можна втримати, відточувати й застосовувати."
+      },
+      {
+        "with": 17,
+        "text": "У Зірці Вейта–Сміт над ставком сяє велика восьмипроменева зірка; тут Блазень уже йде під такою самою. Разом вони привертають увагу до надії, поміченої на початку, якій знову довіряють після важчих відтинків шляху."
+      },
+      {
+        "with": 21,
+        "text": "Перша й остання карти Старших Арканів обрамлюють усю послідовність. У парі зі Світом Блазень може вказувати на завершення, що одразу переходить у новий початок: кінець одного циклу стає першим кроком наступного."
+      }
+    ],
+    "questions": [
+      "Який невеликий початок навчив би вас того, чого не навчитися, просто чекаючи?",
+      "Якби ви могли взяти лише те, що вміщується в маленький клунок Блазня, що б ви туди поклали?",
+      "Ваша обережність зараз захищає щось справжнє чи відкладає крок, який ви вже хочете зробити?"
+    ],
+    "practice": "Оберіть одну річ, якої ви ніколи не пробували, і приділіть їй сьогодні п’ятнадцять хвилин як цілковиті початківці, а потім запишіть одне речення про те, що вас здивувало."
+  }
+}

@@ -1,0 +1,1628 @@
+[
+ {
+  "id": "star",
+  "group": {
+   "en": "Sky and light",
+   "uk": "Небо й світло"
+  },
+  "keys": [
+   "star",
+   "stars-crown"
+  ],
+  "cards": [
+   {
+    "id": 0,
+    "symbol": 0
+   },
+   {
+    "id": 23,
+    "symbol": 7
+   },
+   {
+    "id": 3,
+    "symbol": 1
+   },
+   {
+    "id": 7,
+    "symbol": 1
+   },
+   {
+    "id": 63,
+    "symbol": 1
+   },
+   {
+    "id": 68,
+    "symbol": 0
+   },
+   {
+    "id": 17,
+    "symbol": 3
+   }
+  ],
+  "en": {
+   "name": "The star",
+   "title": "A light to steer by.",
+   "introduction": "Long before tarot, a star was something to steer by: the star that led the Magi, and the medieval title of Mary as Stella Maris, star of the sea, to whom sailors prayed. Marseille-pattern decks give The Star a great star ringed by seven smaller ones above a kneeling figure pouring water, and the Waite-Smith card keeps that arrangement. In the Golden Dawn and Waite-Smith lineage the card came to be read as hope and renewal after The Tower, while the Waite-Smith Empress wears twelve stars on the crown, often linked to the months or the zodiac. In reading practice a star rarely means arrival; it means orientation. The Olivia deck carves its stars in three ways: gold inlaid in the lapis night, ivory standing in relief, or plain lines cut into the stone. As you follow them, notice the material, where each star sits, and whether anyone looks up.",
+   "comparison": "The Fool’s face is tipped straight towards a large gold star, high in the upper right. In the Two of Wands the star comes down to earth: small, ungilded, cut into the wall just below bare feet. The Empress does not wear the stars on the crown, as in the Waite-Smith card; twelve ivory stars ring the bowed head instead. The Chariot sets a gold star on the crown’s finial, directly above the forward-facing face. The King of Swords carries one at the blade’s tip, in place of the point. In the Five of Pentacles a gold star sits in the window’s tracery, high above both walkers. The Star ends with the great gold star above a bowed head.",
+   "prompt": "Which light are you steering by at present, and do you still look up at it, or has it become part of the sky?"
+  },
+  "uk": {
+   "name": "Зірка",
+   "title": "Світло, за яким звіряють шлях.",
+   "introduction": "Задовго до таро за зіркою прокладали шлях: зірка вела волхвів, а в Середньовіччі Марію називали Stella Maris, Зорею моря, і до неї молилися моряки. У колодах марсельського зразка на карті Зірка велика зірка в оточенні семи менших сяє над постаттю, що стоїть навколішки й ллє воду, і карта Вейта–Сміт зберігає цю композицію. У традиції Золотої Зорі та Вейта–Сміт карту почали читати як надію й оновлення після Вежі, а Імператриця Вейта–Сміт носить на короні дванадцять зірок, які часто пов’язують із місяцями року чи знаками зодіаку. Під час читання зірка рідко означає прибуття; вона означає орієнтир. Колода Olivia вирізьблює свої зірки трьома способами: золотом, інкрустованим у лазуритову ніч, рельєфом зі слонової кістки або простими лініями, врізаними в камінь. Ідучи за ними, звертайте увагу на матеріал, на місце кожної зірки і на те, чи хтось підводить погляд.",
+   "comparison": "Обличчя Блазня звернене просто до великої золотої зірки високо вгорі праворуч. У Двійці Жезлів зірка спускається на землю: маленька, без позолоти, врізана в мур просто під босими ногами. Імператриця не носить зірок на короні, як на карті Вейта–Сміт: дванадцять зірок зі слонової кістки натомість оточують кільцем схилену голову. Колісниця ставить золоту зірку на навершя корони, просто над обличчям, зверненим уперед. Король Мечів несе зірку на кінці клинка замість вістря. У П’ятірці Пентаклів золота зірка вкладена в ажурне різьблення вікна, високо над обома подорожніми. Зірка завершує шлях великою золотою зіркою над схиленою головою.",
+   "prompt": "За яким світлом ви звіряєте шлях зараз — і чи ви ще підводите на нього очі, чи воно вже стало частиною неба?"
+  }
+ },
+ {
+  "id": "sun",
+  "group": {
+   "en": "Sky and light",
+   "uk": "Небо й світло"
+  },
+  "keys": [
+   "sun",
+   "sunflower"
+  ],
+  "cards": [
+   {
+    "id": 13,
+    "symbol": 3
+   },
+   {
+    "id": 14,
+    "symbol": 4
+   },
+   {
+    "id": 55,
+    "symbol": 5
+   },
+   {
+    "id": 6,
+    "symbol": 0
+   },
+   {
+    "id": 19,
+    "symbol": 0
+   },
+   {
+    "id": 34,
+    "symbol": 1
+   }
+  ],
+  "en": {
+   "name": "The sun",
+   "title": "Daylight that keeps the night.",
+   "introduction": "The sun is tarot’s plainest light. It has stood among the highest trumps since the fifteenth-century Italian decks, and medieval and Renaissance imagery used it for truth, clear sight and a warmth that reaches everyone alike. The Tarot de Marseille gives it a human face above two children and a low wall; the Golden Dawn assigned the card to the Sun itself, and the Waite-Smith image shows a single child on a white horse, with a banner and sunflowers. Readers commonly take it as clarity, vitality and joy that can be shared. Olivia gilds it in a deck that spends gold sparingly, yet some suns here are cool grey-blue lapis, and the sunflowers are lapis or ivory. Look, too, at what surrounds it: on every card of this trail, The Sun included, the sky is still a lapis night. The daylight does not erase the dark; it shines inside it. Follow where each sun sits and how much gold it receives.",
+   "comparison": "On Death the sun is a gold half-disc resting on the far hills between two slim towers: light at a threshold. On Temperance it reaches a single summit, carved in grey-blue lapis, a quiet dawn rather than a blaze. In the Six of Swords a pale, open-eyed sun shares the sky with a thin crescent moon. The Lovers raises it overhead in gold, eyes closed above the angel. On The Sun it fills the upper sky, a large gold face with closed eyes, a band of stars running beside it. Finally the Queen of Wands holds one ivory sunflower whose face turns towards you: light taken in hand and offered on.",
+   "prompt": "Where is there already enough light in your life to see clearly, and with whom could you share that warmth?"
+  },
+  "uk": {
+   "name": "Сонце",
+   "title": "Денне світло, що не проганяє ночі.",
+   "introduction": "Сонце — найпростіше світло таро. Від італійських колод XV століття воно стоїть серед найвищих козирів, а середньовічні й ренесансні образи пов’язували його з істиною, ясним баченням і теплом, яке дістається всім однаково. Марсельське таро дає сонцю людське обличчя над двома дітьми й низьким муром; Золота Зоря віднесла цю карту до самого Сонця, а на карті Вейта–Сміт одна дитина їде на білому коні, зі стягом і соняшниками. Його зазвичай тлумачать як ясність, життєву силу й радість, якою можна поділитися. Olivia золотить сонце в колоді, що ощадно витрачає золото, та деякі сонця тут вирізані з прохолодного сіро-блакитного лазуриту, а соняшники — з лазуриту або слонової кістки. Погляньте й на те, що його оточує: на кожній карті цього шляху, зокрема й на Сонці, небо лишається лазуритовою ніччю. Денне світло не стирає темряви, воно сяє всередині неї. Стежте, де стоїть кожне сонце і скільки золота йому дісталося.",
+   "comparison": "На карті Смерть сонце — золотий півдиск, що спочиває на далеких пагорбах між двома тонкими вежами: світло на порозі. У Помірності воно сягає однієї вершини, вирізане із сіро-блакитного лазуриту: тихий світанок, а не полум’я. У Шістці Мечів бліде сонце з розплющеними очима ділить небо з тонким півмісяцем. У Закоханих воно золоте, із заплющеними очима, і сяє високо над ангелом. На карті Сонце воно заповнює верхню частину неба: велике золоте обличчя із заплющеними очима, а поруч тягнеться смуга зірок. Наостанок Королева Жезлів тримає один соняшник зі слонової кістки, повернутий обличчям до вас: світло, взяте в руку й передане далі.",
+   "prompt": "Де у вашому житті вже досить світла, щоб бачити ясно, і з ким ви могли б поділитися цим теплом?"
+  }
+ },
+ {
+  "id": "moon",
+  "group": {
+   "en": "Sky and light",
+   "uk": "Небо й світло"
+  },
+  "keys": [
+   "moon"
+  ],
+  "cards": [
+   {
+    "id": 0,
+    "symbol": 5
+   },
+   {
+    "id": 2,
+    "symbol": 8
+   },
+   {
+    "id": 7,
+    "symbol": 2
+   },
+   {
+    "id": 51,
+    "symbol": 2
+   },
+   {
+    "id": 63,
+    "symbol": 5
+   },
+   {
+    "id": 43,
+    "symbol": 0
+   },
+   {
+    "id": 18,
+    "symbol": 0
+   }
+  ],
+  "en": {
+   "name": "The moon",
+   "title": "From the crescent underfoot to the full disc.",
+   "introduction": "Tarot’s moon comes from the old picture of the heavens, where the moon was the changeable light: linked with tides, moisture and growth, it waxed and waned while the sun stayed whole. The Marseille Moon shows a face above two towers, two dogs and a crayfish in a pool. The Golden Dawn gave the planet Moon to the High Priestess, and the Waite-Smith deck set a crescent at that figure’s feet, while its Moon card shows disc, crescent and face at once. In reading practice the moon points to cycles, dreams, instinct and what is not yet known. The Olivia deck carves it in ivory, pale lapis and gold. It is mostly a crescent, sometimes a full disc, and several times it appears on cards whose traditional image has no moon at all. As you follow it, notice its phase, its material and where it sits: behind, underfoot, worn or overhead.",
+   "comparison": "In The Fool a pale crescent cradling a starry lapis disc lies on the rock behind the traveller, left rather than carried. The High Priestess rests the tip of a foot inside a large ivory crescent, horns upward: the cycle as ground to stand on. In The Chariot it is worn, a gold crescent on each shoulder plate. The Two of Swords hangs a gold crescent above a blindfolded choice; the King of Swords repeats it four times, along the throne and above the crown. Then the phase fills: the Eight of Cups shows a full lapis moon with closed eyes over a hooded traveller, and The Moon holds crescent and face together in one ivory disc ringed with rays.",
+   "prompt": "What can you see only as a crescent so far, and what would it mean to let more of it show in its own time?"
+  },
+  "uk": {
+   "name": "Місяць",
+   "title": "Від серпа під ногами до повного диска.",
+   "introduction": "Місяць у Таро походить із давньої картини неба, де він був мінливим світилом: його пов’язували з припливами, вологою і ростом, він то ріс, то спадав, тоді як сонце лишалося цілим. Марсельська карта Місяць показує обличчя над двома вежами, двома собаками й раком у ставку. Золота Зоря віднесла планету Місяць до Верховної Жриці, а колода Вейта–Сміт поклала серп до ніг цієї постаті; її ж карта Місяць показує водночас диск, серп і обличчя. У практиці читання місяць вказує на цикли, сни, інстинкт і те, чого ще не пізнано. Колода Olivia вирізьблює його зі слонової кістки, блідого лазуриту й золота. Здебільшого це серп, іноді повний диск, і кілька разів він з’являється на картах, де в традиційному образі місяця немає зовсім. Ідучи за ним, помічайте його фазу, матеріал і місце: позаду, під ногами, на обладунку чи над головою.",
+   "comparison": "На карті Блазень блідий серп, що обіймає лазуритовий диск із зорями, лежить на скелі позаду мандрівника: його залишено, а не взято з собою. Верховна Жриця ставить кінчик стопи у вигин великого серпа зі слонової кістки, повернутого рогами догори: цикл як ґрунт під ногами. На карті Колісниця серп носять на собі: золотий серп на кожному наплічнику. Двійка Мечів підвішує золотий серп над вибором із зав’язаними очима; Король Мечів повторює його чотири рази, уздовж трону й над короною. Далі фаза наповнюється: Вісімка Кубків показує повний лазуритовий місяць із заплющеними очима над мандрівником у каптурі, а Місяць тримає серп і обличчя разом в одному диску зі слонової кістки, оточеному променями.",
+   "prompt": "Що ви поки бачите лише як серп і що означало б дати йому проявитися повніше у свій час?"
+  }
+ },
+ {
+  "id": "lapis-night",
+  "group": {
+   "en": "Sky and light",
+   "uk": "Небо й світло"
+  },
+  "keys": [
+   "milky-way"
+  ],
+  "cards": [
+   {
+    "id": 1,
+    "symbol": 0
+   },
+   {
+    "id": 17,
+    "symbol": 0
+   },
+   {
+    "id": 12,
+    "symbol": 3
+   },
+   {
+    "id": 74,
+    "symbol": 0
+   },
+   {
+    "id": 20,
+    "symbol": 3
+   },
+   {
+    "id": 36,
+    "symbol": 8
+   },
+   {
+    "id": 45,
+    "symbol": 8
+   },
+   {
+    "id": 51,
+    "symbol": 8
+   }
+  ],
+  "en": {
+   "name": "The Milky Way",
+   "title": "A road of stars carved in stone.",
+   "introduction": "The Milky Way is not a traditional tarot symbol. Marseille cards and the Waite-Smith deck give you individual stars, a moon and a sun; no card in them gives the galaxy’s band a meaning of its own. Its lore lives elsewhere: the Greek tale of Hera’s spilled milk and the Greek word for milk, gala, that gives us galaxy; the medieval name Way of Saint James, linked with the pilgrims’ road to Santiago. This trail follows the Olivia deck’s own language. Every card rises from lapis lazuli, the stone medieval and Renaissance painters ground into ultramarine, and the stone brings its own sky: gold flecks of pyrite, pale mineral veins, hairline cracks. On many cards these gather into a glittering band that reads as the Milky Way. As you follow it, notice where it runs, above the figure or below, gold or silver, whole or broken, and how its place changes the mood of the scene.",
+   "comparison": "Follow the band downwards. On The Magician it passes just beside the tip of the raised wand. On The Star it is a faint haze of white specks along a fine crack high in the sky. On The Hanged Man gold flecks slant down towards the bent knee and reappear below the halo. On the Page of Pentacles dense gold ends just beside the raised disc. On Judgement a narrow stream falls from beneath the clouds towards the mountains; on the Ace of Cups faceted crystals run down to the card’s edge. On the Ten of Cups it runs below the family, and on the Two of Swords it begins beneath the ledge that holds the seat.",
+   "prompt": "Where does the wider sky sit in your life right now: overhead and out of reach, or already under your feet?"
+  },
+  "uk": {
+   "name": "Чумацький Шлях",
+   "title": "Зоряна дорога, вирізьблена в камені.",
+   "introduction": "Чумацький Шлях — не традиційний символ таро. Марсельські карти й колода Вейта–Сміт показують окремі зорі, місяць і сонце; жодна карта в них не надає смузі Галактики власного значення. Її перекази живуть деінде: грецька оповідь про розлите молоко Гери і грецьке слово gala, «молоко», від якого походить «галактика»; середньовічна назва Шлях святого Якова, пов’язана з дорогою прочан до Сантьяго. Цей маршрут іде за власною мовою колоди Olivia. Кожна карта постає з лазуриту, каменю, який середньовічні й ренесансні художники розтирали на ультрамарин, і камінь приносить власне небо: золоті іскри піриту, світлі мінеральні жилки, тонкі тріщини. На багатьох картах вони збираються в мерехтливу смугу, у якій легко впізнати Чумацький Шлях. Стежачи за нею, зверніть увагу, де вона пролягає: над фігурою чи під нею, золота чи срібна, ціла чи уривчаста, і як її місце змінює настрій сцени.",
+   "comparison": "Простежте, як смуга спускається. Маг піднімає жезл так, що його вістря проходить просто біля смуги. Зірка показує її ледь помітною імлою білих цяток уздовж тонкої тріщини високо в небі. Повішений висить поруч із золотими іскрами: вони сходять навскіс до зігнутого коліна й знову з’являються під німбом. Паж Пентаклів тримає піднятий диск там, де закінчується щільне золото. Суд пускає вузький струмінь з-під хмар до гір, а Туз Кубків — огранені кристали аж до краю карти. Десятка Кубків кладе смугу нижче родини, а Двійка Мечів починає її під уступом, на якому стоїть лава.",
+   "prompt": "Де зараз у вашому житті ширше небо: над головою й поза досяжністю чи вже під ногами?"
+  }
+ },
+ {
+  "id": "flame",
+  "group": {
+   "en": "Sky and light",
+   "uk": "Небо й світло"
+  },
+  "keys": [
+   "flame",
+   "torch",
+   "lantern",
+   "candle"
+  ],
+  "cards": [
+   {
+    "id": 22,
+    "symbol": 0
+   },
+   {
+    "id": 32,
+    "symbol": 0
+   },
+   {
+    "id": 6,
+    "symbol": 2
+   },
+   {
+    "id": 28,
+    "symbol": 1
+   },
+   {
+    "id": 33,
+    "symbol": 0
+   },
+   {
+    "id": 35,
+    "symbol": 3
+   },
+   {
+    "id": 15,
+    "symbol": 3
+   },
+   {
+    "id": 9,
+    "symbol": 4
+   }
+  ],
+  "en": {
+   "name": "Flame",
+   "title": "A small fire, carried by hand.",
+   "introduction": "Fire came into tarot slowly. In Marseille-pattern decks the suit of Batons is drawn as wooden staves and clubs, though the Hermit already raises a lantern. The Hermetic Order of the Golden Dawn tied Wands firmly to Fire in the late nineteenth century, and the Waite-Smith deck of 1909 made the link visible: staves that sprout leaves, salamanders patterned on the Wands court, the creature that medieval bestiaries and later Paracelsus placed at home in flame. In readings, fire tends to stand for will, desire and the spark that makes you begin; what matters is what the flame is doing and who holds it. Olivia keeps its fire small and precious. On lapis and ivory it is most often a point of gold: at the tip of a staff, on the branches of a tree, inside a lantern. As you follow it, notice where the gold sits and which way the flame turns.",
+   "comparison": "The Ace of Wands shows a closed gold bud in ivory sepals; the Page of Wands raises a matching shape, half bud and half flame, above a tunic of salamanders. In The Lovers the flames multiply: eighteen gold flames on a blue tree. On the Seven of Wands a crown of flame rises beyond the fist; the Knight of Wands holds it forward, tongues bent back as if by a headwind. The King of Wands sets polished gold above an ivory cup of petals on a flowering staff. The Devil grips an ivory torch slanting down, its flame still curling upward, and in The Hermit the light is enclosed: a gold star in a lantern held out at chest height.",
+   "prompt": "Which fire are you carrying now: a closed bud, a flame held forward, a torch turned down, or a lantern for the next step?"
+  },
+  "uk": {
+   "name": "Полум’я",
+   "title": "Невеликий вогонь, який несуть у руці.",
+   "introduction": "Вогонь увійшов у таро поступово. У марсельських колодах масть Жезлів зображено як дерев’яні палиці й булави, хоча Відлюдник уже здіймає ліхтар. Герметичний орден Золотої Зорі наприкінці XIX століття міцно пов’язав Жезли з Вогнем, а колода Вейта–Сміт 1909 року зробила цей зв’язок видимим: жезли, що пускають листя, саламандри на вбранні придворних карт Жезлів — істота, яку середньовічні бестіарії, а згодом і Парацельс, вважали мешканцем полум’я. У читанні вогонь зазвичай означає волю, бажання та іскру, з якої все починається; важливо, що саме робить полум’я і хто його тримає. В Olivia вогонь невеликий і дорогоцінний. На лазуриті й слоновій кістці він найчастіше постає золотою точкою: на верхівці жезла, на гілках дерева, у ліхтарі. Ідучи за ним, помічайте, де розташоване золото і куди повернуте полум’я.",
+   "comparison": "На Тузі Жезлів вогонь — це закритий золотий бутон у чашолистках зі слонової кістки; Паж Жезлів здіймає схожу форму, наполовину бутон, наполовину полум’я, над тунікою із саламандрами. У Закоханих полум’я множиться: вісімнадцять золотих вогників на синьому дереві. На Сімці Жезлів корона полум’я палає одразу за кулаком; Лицар Жезлів тримає вогонь попереду, і язики відхиляються назад, наче від зустрічного вітру. У Короля Жезлів поліроване золото здіймається над кістяною чашечкою пелюсток на квітучому жезлі. Диявол стискає смолоскип зі слонової кістки, нахилений донизу, але полум’я все одно звивається вгору, а у Відлюдника світло замкнене: золота зірка в ліхтарі, простягнутому на рівні грудей.",
+   "prompt": "Який вогонь ви несете зараз: закритий бутон, полум’я, винесене вперед, опущений смолоскип чи ліхтар для наступного кроку?"
+  }
+ },
+ {
+  "id": "weather",
+  "group": {
+   "en": "Sky and light",
+   "uk": "Небо й світло"
+  },
+  "keys": [
+   "cloud",
+   "rain",
+   "lightning",
+   "rainbow"
+  ],
+  "cards": [
+   {
+    "id": 22,
+    "symbol": 3
+   },
+   {
+    "id": 64,
+    "symbol": 2
+   },
+   {
+    "id": 18,
+    "symbol": 2
+   },
+   {
+    "id": 28,
+    "symbol": 6
+   },
+   {
+    "id": 16,
+    "symbol": 0
+   },
+   {
+    "id": 52,
+    "symbol": 6
+   },
+   {
+    "id": 59,
+    "symbol": 6
+   },
+   {
+    "id": 45,
+    "symbol": 2
+   }
+  ],
+  "en": {
+   "name": "Weather",
+   "title": "Clouds that give, storms that clear.",
+   "introduction": "Weather has long been one of tarot’s ways of picturing what cannot be held. Renaissance emblem books often show a hand reaching out of the clouds, a sign of help or action from beyond human reach, and Marseille decks already give the Aces of Batons and Swords a hand from a cloud. In the Waite-Smith deck of 1909 all four Aces receive their gift from a cloud, lightning strikes the Tower, rain falls on the Three of Swords and a rainbow arches over the Ten of Cups. In the Golden Dawn system Swords belong to Air, so clouds on Swords cards are commonly read as the weather of the mind: moods, worries and thoughts that gather and pass. Olivia carves the clouds that give in ivory and the storm clouds in paler lapis, and sets the bolt in inlaid gold. As you follow the trail, notice whether the weather is giving, hiding, breaking or clearing.",
+   "comparison": "On the Ace of Wands an ivory cloud carved in tight spirals billows highest where the hand emerges; on the Ace of Pentacles a dense ivory bank releases the wrist. On The Moon two soft ivory clouds drift beside the disc and cover part of its rays. On the Seven of Wands lapis clouds curl and stream sideways behind the figure, among fine wind lines. The Tower’s gold bolt, symbolic change rather than a forecast, leaves the cloud and strikes the crown. On the Three of Swords rain slants around the blade points; on the Ten of Swords the clouds sit low beneath an open, starry night. The Ten of Cups closes with the rainbow carved as a stone arch.",
+   "prompt": "What weather is moving through your mind today, and what might it be carrying, hiding or clearing away?"
+  },
+  "uk": {
+   "name": "Погода",
+   "title": "Хмари, що дарують, і грози, що очищують.",
+   "introduction": "Погода здавна є одним зі способів, якими таро зображує те, чого не втримати в руках. У ренесансних книгах емблем часто трапляється рука, що простягається з хмар: знак допомоги чи дії, яка приходить з-поза меж людських сил, а в марсельських колодах рука з хмари є вже на Тузах Жезлів і Мечів. У колоді Вейта і Сміт 1909 року всі чотири Тузи отримують свій дар із хмари, блискавка б’є у Вежу, на Трійку Мечів падає дощ, а над Десяткою Кубків вигинається веселка. У системі Золотої Зорі Мечі належать до стихії Повітря, тож хмари на картах Мечів зазвичай читають як погоду розуму: настрої, тривоги й думки, що збираються і минають. Olivia вирізьблює хмари, які дарують, зі слонової кістки, грозові — зі світлішого лазуриту, а блискавку інкрустує золотом. Ідучи цим шляхом, зверніть увагу, чи погода дарує, приховує, руйнує чи прояснює.",
+   "comparison": "На Тузі Жезлів хмара зі слонової кістки, вкрита дрібними різьбленими спіралями, здіймається найвище там, де з’являється рука; на Тузі Пентаклів щільна хмара випускає зап’ястя. На карті «Місяць» дві м’які хмари зі слонової кістки пропливають обабіч диска й закривають частину його променів. На Сімці Жезлів лазуритові хмари закручуються й линуть убік за постаттю, серед тонких ліній вітру. Золота блискавка Вежі — образ символічної зміни, а не прогноз — виходить із хмари й влучає в корону. На Трійці Мечів дощ косо падає довкола вістрів; на Десятці Мечів хмари лежать низько під відкритим зоряним небом. Десятка Кубків завершує шлях веселкою, вирізьбленою як кам’яна арка.",
+   "prompt": "Яка погода панує сьогодні у ваших думках і що вона, можливо, приносить, приховує чи розвіює?"
+  }
+ },
+ {
+  "id": "water",
+  "group": {
+   "en": "Land and water",
+   "uk": "Земля й вода"
+  },
+  "keys": [
+   "sea",
+   "river",
+   "pool",
+   "waterfall",
+   "water-pouring",
+   "tears",
+   "fish",
+   "island",
+   "crayfish"
+  ],
+  "cards": [
+   {
+    "id": 14,
+    "symbol": 0
+   },
+   {
+    "id": 17,
+    "symbol": 4
+   },
+   {
+    "id": 36,
+    "symbol": 5
+   },
+   {
+    "id": 43,
+    "symbol": 5
+   },
+   {
+    "id": 47,
+    "symbol": 8
+   },
+   {
+    "id": 55,
+    "symbol": 4
+   },
+   {
+    "id": 49,
+    "symbol": 8
+   },
+   {
+    "id": 18,
+    "symbol": 8
+   }
+  ],
+  "en": {
+   "name": "Water",
+   "title": "From the measured pour to the night pool.",
+   "introduction": "Water is one of tarot’s oldest images. The figure of Temperance already pours between two vessels in fifteenth-century Italian decks; the Marseille Star kneels to empty two jugs onto the water, and a crayfish lies in the pool beneath The Moon. In the Golden Dawn system Cups belong to the element of Water, and once Pamela Colman Smith gave the numbered cards scenes in 1909, water spread across the whole deck: rivers, seas and pools that readers commonly take as feeling, intuition and the unconscious. In the Olivia deck water is carved, not painted. Poured water falls in smooth, pale, deliberate threads; rivers and seas are cut into the lapis in lighter blues, scored with ripples, while pools lie dark; gold touches it rarely, as a thin line along a far shore or the foot of a golden path. As you follow it, notice where water is held, where it moves freely and where it hides something below.",
+   "comparison": "In Temperance an ivory stream arcs from a raised goblet into a lower one: water measured and mixed. In The Star a raised jug returns a single thread to the pool. The Ace of Cups overflows, five glassy streams falling and rippling where they land. In the Eight of Cups a river runs past the cups instead of filling them, and in the Knight of Cups a row of stones lies across a stream. In the Six of Swords flat water leads to a far shore traced with gold. Around the King of Cups the sea curls into spirals against the dais, and in The Moon a crayfish rests in the dark pool where the gold path begins.",
+   "prompt": "Which water is closest to your life right now: the measured pour, the moving river, the wide sea or the pool at night?"
+  },
+  "uk": {
+   "name": "Вода",
+   "title": "Від виваженого струменя до нічного ставка.",
+   "introduction": "Вода — один із найдавніших образів таро. Постать Помірності переливає воду між двома посудинами вже в італійських колодах XV століття; на марсельській Зірці постать, ставши навколішки, спорожнює два глеки у воду, а внизу карти Місяць у ставку лежить рак. У системі Золотої Зорі Кубки належать стихії Води, а відколи Памела Колман Сміт 1909 року намалювала сцени на числових картах, вода розтеклася по всій колоді: річки, моря й ставки, які зазвичай тлумачать як почуття, інтуїцію та несвідоме. У колоді Olivia воду не намальовано, а вирізьблено. Вода, що ллється, спадає гладенькими світлими, неквапними цівками; річки й моря вирізано просто в лазуриті світлішими відтінками синього, з брижами на поверхні, а ставки лишаються темними; золото торкається води рідко: тонка лінія вздовж дальнього берега чи початок золотої стежки. Ідучи за водою, зверніть увагу, де її тримають, де вона тече вільно, а де ховає щось під собою.",
+   "comparison": "У Помірності струмінь зі слонової кістки дугою спадає з піднятого келиха в нижчий: воду відміряють і змішують. У Зірці піднятий глек повертає у ставок одну тонку цівку. Туз Кубків переповнюється: п’ять скляних струменів падають і розходяться колами там, де торкаються води. У Вісімці Кубків річка тече повз кубки, а не наповнює їх, а в Лицаря Кубків через потік лягає ряд каменів. У Шістці Мечів рівна вода веде до дальнього берега, позначеного золотом. Довкола Короля Кубків море закручується спіралями й розбивається об поміст, а в Місяці рак лежить у темному ставку там, де починається золота стежка.",
+   "prompt": "Яка вода зараз найближча до вашого життя: виважений струмінь, рухлива річка, широке море чи нічний ставок?"
+  }
+ },
+ {
+  "id": "mountain",
+  "group": {
+   "en": "Land and water",
+   "uk": "Земля й вода"
+  },
+  "keys": [
+   "mountain",
+   "rock",
+   "cliff",
+   "cave",
+   "desert"
+  ],
+  "cards": [
+   {
+    "id": 0,
+    "symbol": 7
+   },
+   {
+    "id": 59,
+    "symbol": 8
+   },
+   {
+    "id": 9,
+    "symbol": 2
+   },
+   {
+    "id": 4,
+    "symbol": 1
+   },
+   {
+    "id": 50,
+    "symbol": 7
+   },
+   {
+    "id": 74,
+    "symbol": 5
+   },
+   {
+    "id": 20,
+    "symbol": 4
+   }
+  ],
+  "en": {
+   "name": "Mountains",
+   "title": "From the cliff edge to the horizon.",
+   "introduction": "Mountains are rare in early tarot. Marseille-pattern cards mostly set their figures on a bare strip of ground, and the peaks most readers know were drawn by Pamela Colman Smith for the Waite-Smith deck of 1909: the Fool at a precipice, the Hermit on a snowy height, the Emperor before bare ranges. The image has an older echo. Since Hesiod, writers have placed Virtue at the top of a steep, hard road, and some Renaissance pictures of Hercules at the crossroads show that road climbing a rocky hill. In reading practice, mountains stand for aims still far off, hard facts that do not move, and ground firm enough to stand on. The Olivia deck carves its mountains in the lapis itself, in paler, greyer blues rather than ivory or gold: they are cut from the same stone as the night sky. As you follow them, watch the distance. Is the rock underfoot, behind the figure, or out on the horizon?",
+   "comparison": "The Fool strides across a veined outcrop that breaks off in a sheer face, the leading foot just short of the rim. On the Ten of Swords the figure lies on a broad, chipped ledge of bright blue lapis: rough, but solid. The Hermit stands on a pale shelf above a drop, with two snow-streaked peaks rising behind. Behind The Emperor, jagged peaks rise on both sides of the throne with nothing growing on them. In the Ace of Swords, the blade points down into the gap between two steep peaks. On the Page of Pentacles one broad peak sits far behind the figure, at waist height. On Judgement, a pale range stretches across the whole horizon beyond the sea.",
+   "prompt": "Which mountain in your life right now is ground to stand on, and which is a peak you are only looking at?"
+  },
+  "uk": {
+   "name": "Гори",
+   "title": "Від краю скелі до обрію.",
+   "introduction": "У ранньому таро гір мало. Марсельські колоди здебільшого ставлять постаті на голу смугу землі, а вершини, знайомі більшості читачів, намалювала Памела Колман Сміт для колоди Вейта–Сміт 1909 року: Блазень у неї стоїть над урвищем, Відлюдник — на засніженій висоті, Імператор — на тлі голих хребтів. У цього образу є давніший відгомін. Ще від Гесіода письменники ставили Чесноту на вершині крутої, важкої дороги, а деякі ренесансні зображення Геракла на роздоріжжі показують, як ця дорога здіймається кам’янистим пагорбом. У практиці читання гори означають далекі цілі, тверді факти, що не зрушуються з місця, і ґрунт, на якому можна встояти. Колода Olivia вирізьблює свої гори в самому лазуриті, світлішими й сірішими відтінками синього, а не в слоновій кістці чи золоті: вони з того самого каменю, що й нічне небо. Ідучи за ними, стежте за відстанню. Скеля під ногами, позаду постаті чи далеко на обрії?",
+   "comparison": "Блазень крокує кам’яним виступом із прожилками, який обривається прямовисною стіною; передня нога стоїть майже на самому краю. На Десятці Мечів постать лежить на широкому щербатому уступі з яскраво-синього лазуриту: шорсткому, але твердому. Відлюдник стоїть на блідому уступі над урвищем, а позаду здіймаються дві вершини в смугах снігу. Позаду Імператора з обох боків трону здіймаються зубчасті вершини, на яких нічого не росте. На Тузі Мечів лезо вказує вниз, у проміжок між двома крутими піками. У Пажа Пентаклів одна широка вершина видніється далеко позаду постаті, на рівні пояса. На карті Суд бліде пасмо гір тягнеться вздовж усього обрію за морем.",
+   "prompt": "Яка гора у вашому житті зараз є ґрунтом під ногами, а на яку вершину ви поки лише дивитеся?"
+  }
+ },
+ {
+  "id": "journey",
+  "group": {
+   "en": "Land and water",
+   "uk": "Земля й вода"
+  },
+  "keys": [
+   "path",
+   "boat",
+   "bridge"
+  ],
+  "cards": [
+   {
+    "id": 64,
+    "symbol": 4
+   },
+   {
+    "id": 24,
+    "symbol": 5
+   },
+   {
+    "id": 40,
+    "symbol": 5
+   },
+   {
+    "id": 55,
+    "symbol": 3
+   },
+   {
+    "id": 31,
+    "symbol": 5
+   },
+   {
+    "id": 13,
+    "symbol": 7
+   },
+   {
+    "id": 14,
+    "symbol": 5
+   },
+   {
+    "id": 18,
+    "symbol": 5
+   }
+  ],
+  "en": {
+   "name": "The way",
+   "title": "Roads that bend, boats that carry you across.",
+   "introduction": "Roads, boats and bridges are tarot’s grammar of passage. Older European imagery already used them this way: the pilgrim’s road, Hercules choosing between two ways, the storm-tossed ship of the Renaissance emblem books. In the Marseille pattern the numbered Minor cards are ornamental arrangements without landscape, so most of the roads, ships and bridges you meet in the suits arrive with Pamela Colman Smith’s scenes for A. E. Waite’s 1909 deck, where they became a reader’s shorthand for transition: leaving, crossing, carrying on. In the Olivia deck these routes are mostly carved into the lapis itself, in pale or greyish blue, so they read as part of the landscape rather than as ornament. Two exceptions stand out on this trail: the boat of the Six of Swords is ivory, and the road of The Moon is gold. As you follow it, notice where each way starts, whether you can see its end, and who is on it.",
+   "comparison": "On the Ace of Pentacles a path winds from the hedge arch towards the mountains: the way is only offered. In the Three of Wands three ships are already under sail. In the Five of Cups a small arched bridge stands behind the bowed figure, its far end hidden by the cloak. The Six of Swords is the crossing, an ivory boat in choppy water. In the Ten of Wands a pale road winds between fields to the town gate. Death sets a lone rower on a winding river. Temperance’s path winds up from the pool and disappears behind the figure; The Moon’s gold road climbs from the water into a gap in the mountains, its end out of sight.",
+   "prompt": "Which crossing are you in the middle of now, and what is holding you up while the water is still rough?"
+  },
+  "uk": {
+   "name": "Шлях",
+   "title": "Звивисті дороги й човни, що перевозять на той берег.",
+   "introduction": "Дороги, човни й мости — граматика переходу в таро. Давніша європейська образність уже користувалася ними саме так: дорога прочанина, Геракл, що обирає між двома шляхами, корабель у бурі з ренесансних збірок емблем. У марсельському таро нумеровані карти Молодших Арканів — орнаментальні композиції без краєвиду, тож більшість доріг, кораблів і мостів у мастях з’являється разом зі сценами Памели Колман Сміт для колоди А. Е. Вейта 1909 року. Там вони стали для читачів стислою мовою переходу: піти, переправитися, рухатися далі. У колоді Olivia ці шляхи здебільшого вирізьблені в самому лазуриті, блідо- або сірувато-блакитні, тож читаються як частина краєвиду, а не як оздоба. На цьому шляху вирізняються два винятки: човен у карті Шістка Мечів — зі слонової кістки, а дорога в карті Місяць — золота. Ідучи ним, помічайте, де починається кожна дорога, чи видно її кінець і хто на ній.",
+   "comparison": "У карті Туз Пентаклів стежка веде від арки в живоплоті до гір: шлях лише запропоновано. У карті Трійка Жезлів три кораблі вже пливуть під вітрилами. У карті П’ятірка Кубків за схиленою постаттю стоїть невеликий арковий міст, дальній кінець якого ховається за плащем. Шістка Мечів — це переправа: човен зі слонової кістки на неспокійній воді. У карті Десятка Жезлів бліда дорога звивається між полями до міської брами. Смерть показує самотнього весляра на звивистій річці. Стежка в карті Помірність підіймається від водойми й зникає за постаттю, а золота дорога в карті Місяць тягнеться від води до прогалини між горами, і її кінця не видно.",
+   "prompt": "Посеред якої переправи ви зараз і що тримає вас на плаву, поки вода ще неспокійна?"
+  }
+ },
+ {
+  "id": "flowers",
+  "group": {
+   "en": "Land and water",
+   "uk": "Земля й вода"
+  },
+  "keys": [
+   "rose",
+   "lily",
+   "flowers"
+  ],
+  "cards": [
+   {
+    "id": 64,
+    "symbol": 6
+   },
+   {
+    "id": 23,
+    "symbol": 8
+   },
+   {
+    "id": 5,
+    "symbol": 5
+   },
+   {
+    "id": 76,
+    "symbol": 0
+   },
+   {
+    "id": 8,
+    "symbol": 6
+   },
+   {
+    "id": 58,
+    "symbol": 5
+   },
+   {
+    "id": 0,
+    "symbol": 4
+   },
+   {
+    "id": 13,
+    "symbol": 0
+   }
+  ],
+  "en": {
+   "name": "Rose and lily",
+   "title": "From the tended garden to the white rose.",
+   "introduction": "In medieval and Renaissance images of the Virgin, painters often paired the rose and the lily: the lily of the Annunciation for purity, the rose for love. When Pamela Colman Smith painted Waite’s deck in 1909, she set roses and lilies around the Magician’s table, and Waite read them as flowers of the field changed into garden flowers: cultivated aspiration. Readers commonly take the rose as desire and love, the lily as purity of intention, and the pair as wanting something with a clean motive. Smith returned to the rose elsewhere, most memorably the white rose in the Fool’s hand and on Death’s banner. The Olivia deck carves these flowers in three materials: lapis roses and lilies in gardens and on robes, ivory roses held, worn or raised, and one rose inlaid in gold. As you follow them, notice the pair giving way to a single rose, and whether each flower is planted, worn, held or let go.",
+   "comparison": "In the Ace of Pentacles lilies grow on the left of the garden, roses on the right. In the Two of Wands a lapis rose and a paler lily cross their stems into an X. The Hierophant’s two kneelers carry the pair on their backs: roses on one robe, a lily on the other. Then the rose goes on alone. An arbour of roses arches over the throne of the Queen of Pentacles; in Strength an ivory chain of them slips off the gown. In the Nine of Swords one rose inlaid in gold lies below the hanging hand. The Fool carries a single ivory rose held low, and Death raises one, carved on a pale banner.",
+   "prompt": "Where in your life are desire and clear intention growing side by side, and where has one crowded out the other?"
+  },
+  "uk": {
+   "name": "Троянда й лілія",
+   "title": "Від доглянутого саду до білої троянди.",
+   "introduction": "На середньовічних і ренесансних зображеннях Богородиці художники часто поєднували троянду й лілію: лілія Благовіщення означала чистоту, а троянда — любов. Коли 1909 року Памела Колман Сміт малювала колоду Артура Едварда Вейта, вона оточила стіл Мага трояндами й ліліями, а Вейт прочитав їх як польові квіти, що стали садовими: прагнення, яке виплекали. Троянду зазвичай читають як бажання й любов, лілію — як чистоту наміру, а пару — як бажання, за яким стоять чисті спонуки. Сміт повернулася до троянди й на інших картах; найбільше запам’ятовується біла троянда в руці Блазня та на стязі Смерті. Колода Olivia вирізьблює ці квіти у трьох матеріалах: лазуритові троянди й лілії в садах і на шатах, троянди зі слонової кістки, які тримають, носять або здіймають, і одна троянда, інкрустована золотом. Ідучи за ними, зверніть увагу, як пара поступається місцем одній троянді і чи квітку садять, носять, тримають чи відпускають.",
+   "comparison": "У Тузі Пентаклів лілії ростуть ліворуч у саду, троянди — праворуч. У Двійці Жезлів лазуритова троянда й блідіша лілія схрещують стебла навхрест. На карті Ієрофант дві постаті навколішки несуть цю пару на спинах: троянди на одних шатах, лілію на других. Далі троянда йде сама. Над троном Королеви Пентаклів вигинається трояндова арка, а в Силі ланцюжок троянд зі слонової кістки сповзає із сукні. У Дев’ятці Мечів одна троянда, інкрустована золотом, лежить нижче звислої руки. Блазень несе одну троянду зі слонової кістки в опущеній руці, а Смерть здіймає свою, вирізьблену на світлому стязі.",
+   "prompt": "Де у вашому житті бажання і ясний намір ростуть поруч, а де одне витіснило інше?"
+  }
+ },
+ {
+  "id": "harvest",
+  "group": {
+   "en": "Land and water",
+   "uk": "Земля й вода"
+  },
+  "keys": [
+   "tree",
+   "leaves",
+   "grapes",
+   "fruit",
+   "pomegranate",
+   "wheat",
+   "cypress",
+   "garden",
+   "vine"
+  ],
+  "cards": [
+   {
+    "id": 12,
+    "symbol": 0
+   },
+   {
+    "id": 70,
+    "symbol": 5
+   },
+   {
+    "id": 3,
+    "symbol": 8
+   },
+   {
+    "id": 38,
+    "symbol": 8
+   },
+   {
+    "id": 72,
+    "symbol": 1
+   },
+   {
+    "id": 77,
+    "symbol": 6
+   }
+  ],
+  "en": {
+   "name": "Harvest",
+   "title": "Everything ripe was once waited for.",
+   "introduction": "Growing things have long served European art as images of time. The medieval Labours of the Months set reaping in summer and the grape harvest in autumn; Christian imagery read wheat and the vine as bread and wine, and wheat belonged to Ceres, Roman goddess of the harvest. The Tarot de Marseille decorates its numbered coins with stylised foliage rather than scenes, and hangs the Hanged Man between two lopped trees. The Golden Dawn titled the Seven of Pentacles “Success Unfulfilled”; the Waite-Smith deck planted whole gardens: a figure leaning on a hoe before a bush of discs, a lone figure in a vineyard, a King robed in grapes, the Empress behind ripe wheat. Readers commonly take these plants as growth that cannot be hurried. Here Olivia carves every plant in lapis, paler or greyer than the night, and saves its gold for other things. Follow the growth from cut wood to a harvest someone stands on.",
+   "comparison": "On The Hanged Man two living trees stand with their side branches sawn back to stubs: growth begins with something cut away. In the Seven of Pentacles a paler lapis bush has risen from worked soil above the figure’s head, while the figure leans on the spade, gaze turned upward. The Empress lets tall ripe wheat fill the whole lower third, heavy ears bending every way. In the Three of Cups grapes sit in beaded clusters in the garland beneath the dancers’ feet. The Nine of Pentacles rests one bare hand lightly above a heavy cluster, not picking it. Finally the King of Pentacles sets a sandalled foot on a vine covering the ground beneath the throne.",
+   "prompt": "What in your life is still ripening at its own pace, and what small tending could you offer it today?"
+  },
+  "uk": {
+   "name": "Урожай",
+   "title": "На все стигле колись чекали.",
+   "introduction": "Усе, що росте, здавна слугує європейському мистецтву образом часу. Середньовічні «Праці місяців» відводили жнива літу, а збір винограду — осені; християнська образність бачила в пшениці й лозі хліб і вино, а пшениця належала Церері, римській богині врожаю. Марсельське таро прикрашає числові карти Монет стилізованим листям, а не сценами, і підвішує Повішеного між двома деревами з обрубаним гіллям. Золота Зоря назвала Сімку Пентаклів «Нездійсненим успіхом», а колода Вейта–Сміт насадила цілі сади: постать спирається на мотику перед кущем із дисками, самотня постать стоїть у винограднику, Король убраний у грона, Імператриця за стиглою пшеницею. Ці рослини зазвичай тлумачать як зростання, яке не можна квапити. Тут Olivia вирізає кожну рослину з лазуриту, світлішого чи сірішого за ніч, а золото береже для іншого. Стежте за зростанням від обрізаного дерева до врожаю, на якому хтось стоїть.",
+   "comparison": "На карті Повішений обабіч фігури стоять два живі дерева, у яких бічне гілля спиляно до коротких обрубків: зростання починається з того, що відтято. У Сімці Пентаклів кущ зі світлішого лазуриту піднявся з обробленого ґрунту вище за голову фігури, а вона спирається на держак заступа й дивиться вгору. В Імператриці висока стигла пшениця заповнює всю нижню третину карти, а важкі колоски хиляться в різні боки. У Трійці Кубків грона лежать щільними намистинами в гірлянді під ногами трьох фігур, що танцюють. У Дев’ятці Пентаклів гола рука легко спочиває над важким гроном, не зриваючи його. Наостанок Король Пентаклів ставить стопу в сандалі на лозу, що вкриває землю під троном.",
+   "prompt": "Що у вашому житті ще дозріває у власному темпі, і як ви могли б трохи подбати про це сьогодні?"
+  }
+ },
+ {
+  "id": "thresholds",
+  "group": {
+   "en": "Built and worn",
+   "uk": "Збудоване й вбране"
+  },
+  "keys": [
+   "pillar",
+   "arch",
+   "gate",
+   "veil",
+   "curtain",
+   "window",
+   "wall"
+  ],
+  "cards": [
+   {
+    "id": 2,
+    "symbol": 3
+   },
+   {
+    "id": 5,
+    "symbol": 4
+   },
+   {
+    "id": 11,
+    "symbol": 1
+   },
+   {
+    "id": 44,
+    "symbol": 6
+   },
+   {
+    "id": 68,
+    "symbol": 2
+   },
+   {
+    "id": 17,
+    "symbol": 5
+   },
+   {
+    "id": 64,
+    "symbol": 8
+   },
+   {
+    "id": 19,
+    "symbol": 6
+   }
+  ],
+  "en": {
+   "name": "Thresholds",
+   "title": "What stands between, and the crossing.",
+   "introduction": "Tarot is full of doorways. Its paired columns go back to Jachin and Boaz, the two bronze pillars before Solomon’s Temple in the Book of Kings, which the Golden Dawn raised in its ritual hall; the Waite-Smith deck of 1909 letters them B and J beside the High Priestess. The Marseille Papesse already sits before a curtain, and in reading practice the veil is commonly taken as knowledge held back until you are ready for it. Walls, arches and windows draw on older images too: the enclosed garden of medieval devotion, or the Waite-Smith Five of Pentacles, two figures in snow beneath a stained-glass window. A threshold rarely asks which side is right; it asks where you are standing. Olivia carves these boundaries in lapis, cut from the same stone as the night around them, with the ivory figures set in front. Notice whether each one holds you, hides something or lets you through.",
+   "comparison": "The High Priestess sits between two pillars, and the dark, unlettered one is only half of the pair. The Hierophant has pillars at either side, no throne back carved between them. Justice sits before a plain greyish veil slung between the pillar tops; the Nine of Cups hangs a pale, tasselled curtain beneath its shelf of cups. On the Five of Pentacles a shawled figure walks past an unlit Gothic window, snow on its sill. On The Star the figure kneels between two slender columns framing the pool and star. The Ace of Pentacles opens a rose-wreathed arch in the hedge for the path, and on The Sun the lapis wall finally stands at the child’s back.",
+   "prompt": "Where are you standing right now: between two pillars, behind a curtain, or already stepping through the arch?"
+  },
+  "uk": {
+   "name": "Пороги",
+   "title": "Те, що розділяє, і мить переходу.",
+   "introduction": "У таро багато дверей і проходів. Парні колони походять від Яхина й Боаза, двох бронзових стовпів перед Соломоновим храмом, описаних у Книзі Царів; орден Золотої Зорі поставив їх у своїй ритуальній залі, а колода Вейта–Сміт 1909 року позначає їх літерами B і J обабіч Верховної Жриці. Папеса з Марсельського таро вже сидить перед завісою, а в практиці читання завісу зазвичай тлумачать як знання, яке притримують, доки ви не будете до нього готові. Мури, арки й вікна теж спираються на давніші образи: замкнений сад середньовічної побожності чи П’ятірка Пентаклів колоди Вейта–Сміт, де дві постаті йдуть снігом під вітражним вікном. Поріг рідко запитує, який бік правильний; він запитує, де стоїте ви. Olivia вирізьблює ці межі в лазуриті, з того самого каменю, що й ніч довкола, а постаті зі слонової кістки вміщено перед ними. Зверніть увагу, чи кожна межа тримає вас, щось приховує чи пропускає далі.",
+   "comparison": "Верховна Жриця сидить між двома колонами, і темна колона без жодної літери — лише половина пари. Ієрофант має обабіч дві колони, а спинки трону між ними не вирізьблено. Справедливість сидить перед простою сіруватою завісою, перекинутою між верхівками колон, а Дев’ятка Кубків показує бліду завісу з китицями під полицею з кубками. П’ятірка Пентаклів показує постать у хустці, що йде повз темне готичне вікно зі снігом на підвіконні. Зірка вміщує постать, що стоїть навколішки, між двома стрункими колонами, що обрамлюють водойму й зірку. Туз Пентаклів відкриває в живоплоті для стежки арку в трояндах, а Сонце нарешті лишає лазуритовий мур за спиною дитини.",
+   "prompt": "Де ви стоїте зараз: між двома колонами, за завісою чи вже проходите крізь арку?"
+  }
+ },
+ {
+  "id": "towers",
+  "group": {
+   "en": "Built and worn",
+   "uk": "Збудоване й вбране"
+  },
+  "keys": [
+   "tower",
+   "castle",
+   "city",
+   "house"
+  ],
+  "cards": [
+   {
+    "id": 22,
+    "symbol": 6
+   },
+   {
+    "id": 25,
+    "symbol": 3
+   },
+   {
+    "id": 77,
+    "symbol": 0
+   },
+   {
+    "id": 67,
+    "symbol": 0
+   },
+   {
+    "id": 16,
+    "symbol": 3
+   },
+   {
+    "id": 7,
+    "symbol": 4
+   },
+   {
+    "id": 40,
+    "symbol": 6
+   },
+   {
+    "id": 45,
+    "symbol": 3
+   }
+  ],
+  "en": {
+   "name": "Towers and houses",
+   "title": "What is built, defended and left behind.",
+   "introduction": "Buildings in tarot carry an old double sense. Medieval and Renaissance imagery made the tower a sign of both strength and pride: Saint Barbara holds one as her emblem, while the Tower of Babel stood for building too high. The Marseille pattern names its trump La Maison Dieu, the House of God, and shows its top struck off by fire from the sky; the Golden Dawn later linked the card to Mars. When the Waite-Smith deck of 1909 gave every Minor Arcana card a full scene, castles, towns and cottages filled its horizons, and readers commonly take them as what has been built: home, security, institutions, the life that goes on beyond the figure. Olivia carves every wall on this trail in lapis, often paler than the night sky and never in gold, so shelter reads as part of the setting, not as the prize. As you follow it, notice where each building stands: ahead, behind, overhead or broken.",
+   "comparison": "On the Ace of Wands the castle is small and far off on a hill, a goal not yet built. The Four of Wands sets round crenellated towers behind the garland, a backdrop for the dance. On the King of Pentacles the castle rises from the King’s shoulders. The Four of Pentacles puts a walled city across an empty plain, behind the figure’s back. The Tower keeps its fitted lapis walls standing while its top breaks, an image of symbolic change, not a forecast. The Chariot faces away from domes and walls on both sides. On the Five of Cups a castle stands intact beyond the river, and the Ten of Cups ends at a small thatched cottage inside the arch.",
+   "prompt": "Which structure in your life are you building, defending or ready to leave behind, and which one still stands?"
+  },
+  "uk": {
+   "name": "Вежі й оселі",
+   "title": "Те, що збудовано, захищено й залишено позаду.",
+   "introduction": "Будівлі в таро мають давнє подвійне значення. Середньовічні й ренесансні образи робили вежу знаком і сили, і гордині: свята Варвара тримає її як свій атрибут, а Вавилонська вежа стала образом будівництва, що сягає зависоко. Марсельське таро називає цей аркан La Maison Dieu, «Дім Божий», і показує, як вогонь із неба збиває верхівку; орден Золотої Зорі згодом пов’язав карту з Марсом. Коли колода Вейта–Сміт 1909 року дала кожній карті Молодших Арканів повну сцену, замки, міста й хатини заповнили її обрії, і їх зазвичай читають як збудоване: дім, безпеку, установи, життя, що триває поза постаттю. Olivia вирізьблює кожен мур цього шляху з лазуриту, часто блідішого за нічне небо, і ніколи не із золота, тож прихисток постає частиною тла, а не нагородою. Ідучи цим шляхом, зверніть увагу, де стоїть кожна будівля: попереду, позаду, угорі чи зруйнована.",
+   "comparison": "Туз Жезлів показує маленький замок далеко на пагорбі: мету, ще не збудовану. Четвірка Жезлів ставить круглі зубчасті вежі за гірляндою, тлом для танцю. На карті Король Пентаклів замок здіймається просто від пліч Короля. Четвірка Пентаклів відсуває обнесене мурами місто за порожню рівнину, за спину постаті. Вежа тримає щільно припасовані лазуритові стіни, поки ламається її верхівка: це образ символічної зміни, а не прогноз. Колісниця обернена спиною до бань і мурів з обох боків. На карті П’ятірка Кубків за річкою стоїть неушкоджений замок, а Десятка Кубків завершує шлях маленькою хатиною під солом’яною стріхою всередині арки.",
+   "prompt": "Яку споруду у своєму житті ви зараз будуєте, захищаєте чи готові залишити позаду, і яка досі стоїть?"
+  }
+ },
+ {
+  "id": "crown",
+  "group": {
+   "en": "Built and worn",
+   "uk": "Збудоване й вбране"
+  },
+  "keys": [
+   "crown",
+   "wreath",
+   "laurel",
+   "halo"
+  ],
+  "cards": [
+   {
+    "id": 4,
+    "symbol": 2
+   },
+   {
+    "id": 16,
+    "symbol": 2
+   },
+   {
+    "id": 23,
+    "symbol": 1
+   },
+   {
+    "id": 27,
+    "symbol": 0
+   },
+   {
+    "id": 77,
+    "symbol": 1
+   },
+   {
+    "id": 21,
+    "symbol": 1
+   }
+  ],
+  "en": {
+   "name": "Crowns and wreaths",
+   "title": "A crown is given; a wreath is won.",
+   "introduction": "Tarot took its crowns from the Italian courts where it began. In the Marseille pattern the Emperor and the Empress are crowned, the Pope wears the triple tiara, and crowns recur through the court cards. The wreath comes from antiquity: laurel crowned the victors of the Pythian games and Roman generals in triumph, and from the Marseille pattern on, an oval garland surrounds the dancer of The World. In the kabbalah the Golden Dawn taught, the summit of the Tree of Life is Kether, the Crown, and the Waite-Smith deck of 1909 set laurel on the head and the staff of its victorious rider in the Six of Wands. In readings a crown usually speaks of authority held, a wreath of something achieved. Olivia carves these crowns and wreaths in ivory or lapis, touches one with a single gold sprig, and keeps the fullest gold for The World’s wreath. Notice what each is made of, and who placed it there.",
+   "comparison": "The Emperor wears an ivory crown of upright points, set level on his head: an office worn. On The Tower a pointed lapis crown tips off the battlements where the bolt strikes: certainty unseated, symbolic change rather than a forecast. In the Two of Wands the crown turns to laurel: two lapis branches arch over the figure, their tips close but not joined. In the Six of Wands a ring of silvery laurel rises on the rider’s staff, one gold sprig tied where ring meets staff. The King of Pentacles wears laurel in place of a crown, and in The World a tall oval of gold laurel, bound with crossed ribbons, encloses the dancer.",
+   "prompt": "Where in your life are you wearing a crown that came with a role, and where a wreath you earned?"
+  },
+  "uk": {
+   "name": "Корони й вінки",
+   "title": "Корону дають, а вінок здобувають.",
+   "introduction": "Свої корони таро перейняло від італійських дворів, де воно зародилося. У марсельському взірці Імператор та Імператриця увінчані коронами, Папа носить потрійну тіару, а корони знову й знову трапляються серед придворних карт. Вінок походить з античності: лавром увінчували переможців Піфійських ігор і римських полководців під час тріумфу, а починаючи з марсельського взірця овальна гірлянда оточує танцівницю на карті Світ. У каббалі, яку викладала Золота Зоря, вершина Дерева Життя — це Кетер, Корона, а колода Вейта–Сміт 1909 року поклала лавр на голову й на жезл переможного вершника в Шістці Жезлів. У читанні корона зазвичай говорить про владу, яку тримають, а вінок — про те, чого досягли. Olivia вирізьблює ці корони й вінки зі слонової кістки або лазуриту, одну з них позначає єдиною золотою гілочкою, а найповніше золото зберігає для вінка Світу. Помічайте, з чого зроблено кожен знак і хто його поклав.",
+   "comparison": "Імператор носить корону зі слонової кістки з прямими зубцями, що рівно сидить на голові: знак посади, яку він обіймає. На Вежі загострена лазуритова корона зсувається з вершини мурів, куди б’є блискавка: похитнута певність, символічна зміна, а не передбачення. У Двійці Жезлів корона стає лавром: дві лазуритові гілки вигинаються над постаттю, їхні кінці зближуються, але не сходяться. У Шістці Жезлів на жезлі вершника здіймається кільце сріблястого лавра, а там, де воно сходиться з жезлом, прив’язано одну золоту гілочку. Король Пентаклів носить лавр замість корони, а на карті Світ високий овал золотого лавра, перев’язаний схрещеними стрічками, огортає танцівницю.",
+   "prompt": "Де у вашому житті ви носите корону, що прийшла разом із роллю, а де — вінок, який ви здобули?"
+  }
+ },
+ {
+  "id": "throne",
+  "group": {
+   "en": "Built and worn",
+   "uk": "Збудоване й вбране"
+  },
+  "keys": [
+   "throne",
+   "sceptre",
+   "orb",
+   "ankh",
+   "scales"
+  ],
+  "cards": [
+   {
+    "id": 67,
+    "symbol": 5
+   },
+   {
+    "id": 4,
+    "symbol": 8
+   },
+   {
+    "id": 3,
+    "symbol": 6
+   },
+   {
+    "id": 49,
+    "symbol": 2
+   },
+   {
+    "id": 23,
+    "symbol": 3
+   },
+   {
+    "id": 69,
+    "symbol": 3
+   },
+   {
+    "id": 11,
+    "symbol": 5
+   }
+  ],
+  "en": {
+   "name": "Throne and scales",
+   "title": "Power held, given and weighed.",
+   "introduction": "The seat and the sceptre are among tarot’s oldest images. The hand-painted Italian decks of the fifteenth century already give the Emperor and Empress the regalia of rule, and Justice a sword and scales, the familiar emblems of that cardinal virtue in medieval and Renaissance allegory. In the Marseille pattern both rulers hold sceptres topped with an orb and cross, the globus cruciger of European monarchy. The Waite-Smith deck of 1909, following Golden Dawn teaching, numbers Justice eleven, and its Six of Pentacles shows the giver holding scales, so that weighing becomes part of generosity. In readings these objects tend to ask how power is held: gripped, built, rested in, carried lightly or measured out. Olivia carves the seats in ivory or lapis and keeps gold for very few objects, most tellingly the pans of Justice’s scales. As you follow the trail, watch the hands: what they hold, and how tightly.",
+   "comparison": "On the Four of Pentacles the seat is a rough ivory block, square and plain, its surface pitted and unornamented. The Emperor turns the same square into architecture: a lapis throne with a panelled back, niched pillars and a stepped base. The Empress softens it into an ivory couch with deep cushions. The King of Cups keeps a throne but grips only a short ivory sceptre ending in a lotus bud. In the Two of Wands power becomes a small ivory globe cradled from beneath. The Six of Pentacles raises a pair of scales at shoulder height, empty pans on a beam close to level, and Justice pinches the balance by its ivory handle: gold chains, gold pans, both at the same height.",
+   "prompt": "Where does your power sit today: on a block you will not leave, in a sceptre held lightly, or in an even scale?"
+  },
+  "uk": {
+   "name": "Трон і терези",
+   "title": "Влада, яку тримають, віддають і зважують.",
+   "introduction": "Трон і скіпетр належать до найдавніших образів таро. Уже в італійських колодах XV століття, розписаних від руки, Імператор та Імператриця мають регалії влади, а Справедливість — меч і терези, звичні знаки цієї кардинальної чесноти в середньовічних і ренесансних алегоріях. У марсельських колодах обидва правителі тримають скіпетри, увінчані державою з хрестом, globus cruciger європейських монархів. Колода Вейта–Сміт 1909 року, услід за вченням Золотої Зорі, дає Справедливості номер одинадцять, а Шістка Пентаклів у ній показує дарувальника з терезами, тож зважування стає частиною щедрості. У читанні ці предмети зазвичай запитують, як тримають владу: стискають, вибудовують, спочивають у ній, несуть легко чи відмірюють. Olivia вирізає сидіння зі слонової кістки або лазуриту й лишає золото для небагатьох предметів, найпромовистіше — для шальок терезів Справедливості. Ідучи цим слідом, стежте за руками: що вони тримають і наскільки міцно.",
+   "comparison": "На Четвірці Пентаклів сидіння — груба брила слонової кістки, квадратна й проста, із щербатою поверхнею без оздоб. Імператор перетворює той самий квадрат на архітектуру: лазуритовий трон із філенчастою спинкою, колонами з нішами та ступінчастою основою. Імператриця пом’якшує його, і він стає ложем зі слонової кістки з глибокими подушками. Король Кубків зберігає трон, але стискає лише короткий скіпетр зі слонової кістки, що завершується бутоном лотоса. На Двійці Жезлів влада стає маленькою кулею зі слонової кістки, яку підтримують знизу. На Шістці Пентаклів терези піднято на рівень плеча, порожні шальки висять на майже рівному коромислі, а Справедливість тримає свої терези двома пальцями за ручку зі слонової кістки: золоті ланцюжки, золоті шальки, обидві на однаковій висоті.",
+   "prompt": "Де сьогодні ваша влада: на брилі, з якої ви не хочете зійти, у скіпетрі, який ви тримаєте легко, чи в терезах, що стоять рівно?"
+  }
+ },
+ {
+  "id": "veiled",
+  "group": {
+   "en": "Built and worn",
+   "uk": "Збудоване й вбране"
+  },
+  "keys": [
+   "hood",
+   "blindfold",
+   "cloak",
+   "mask"
+  ],
+  "cards": [
+   {
+    "id": 51,
+    "symbol": 0
+   },
+   {
+    "id": 57,
+    "symbol": 0
+   },
+   {
+    "id": 40,
+    "symbol": 0
+   },
+   {
+    "id": 68,
+    "symbol": 4
+   },
+   {
+    "id": 55,
+    "symbol": 1
+   },
+   {
+    "id": 43,
+    "symbol": 2
+   },
+   {
+    "id": 9,
+    "symbol": 3
+   },
+   {
+    "id": 24,
+    "symbol": 3
+   }
+  ],
+  "en": {
+   "name": "Veiled sight",
+   "title": "What stays hidden until you look.",
+   "introduction": "The Marseille Hermit is already a cowled elder with a lantern, dressed like a monk or pilgrim. Blindfolds came from allegorical art: medieval sculptors bound the eyes of Synagoga, and Renaissance images blindfolded Cupid, Fortune and, later, Justice. The Marseille pips of Swords show only blades; the blindfolded Two and Eight familiar today come from the Waite-Smith deck of 1909, made by two members of the Golden Dawn. Pamela Colman Smith drew one figure seated with crossed swords and another bound among eight, and dressed the Five of Cups mourner in a black cloak. In reading, a hood or blindfold rarely means deceit; it marks attention held back: from a decision, from grief, from a crowd, or from a view not yet taken in. Olivia carves every hood and cloak here in ivory against the lapis night, and lays one blindfold in gold. At each card, ask whether the covering is chosen, imposed or ready to fall.",
+   "comparison": "The Two of Swords wraps a flat ivory band across a calm, level face: sight set aside for now. On the Eight of Swords the band turns to gold and the head bows. The Five of Cups draws its hood forward over a mourner bent low, and in the Five of Pentacles a greyer hood shadows a face turned down to the snow, away from the gold star. The Six of Swords bows its hood over a child whose face looks out. The Eight of Cups shows only a hooded back, climbing. The Hermit bows a hooded head, eyes cast down past the outstretched hand, and the Three of Wands lets the hood rest at the neck of a figure facing the sea.",
+   "prompt": "What are you choosing not to look at yet, and what would help you lift the covering a little?"
+  },
+  "uk": {
+   "name": "Прихований погляд",
+   "title": "Те, що приховане, доки ви не подивитеся.",
+   "introduction": "Уже в Марсельському таро Відлюдник — старець у каптурі, з ліхтарем, убраний як чернець чи прочанин. Пов’язки на очах прийшли з алегоричного мистецтва: середньовічні скульптори зав’язували очі Синагозі, а ренесансні зображення закривали очі Купідонові, Фортуні, а згодом і Справедливості. Марсельські числові карти Мечів показують лише клинки; знайомі нам Двійка й Вісімка із зав’язаними очима походять із колоди Вейта–Сміт 1909 року, яку створили двоє членів ордену Золотої Зорі. Памела Колман Сміт намалювала одну постать, що сидить зі схрещеними мечами, іншу, зв’язану серед восьми, а скорботну постать П’ятірки Кубків убрала в чорний плащ. У читанні каптур чи пов’язка рідко означає обман. Вони позначають стриману увагу: від рішення, від горя, від натовпу чи від картини, яку ще не охопив погляд. Olivia вирізьблює тут кожен каптур і плащ зі слонової кістки на тлі лазуритової ночі, а одну пов’язку викладає золотом. На кожній карті запитайте себе, чи цей покрив обраний, накинутий чи ось-ось спаде.",
+   "comparison": "Двійка Мечів кладе пласку смугу слонової кістки на спокійне, рівне обличчя: погляд поки що відкладено. У Вісімці Мечів смуга стає золотою, а голова схиляється. П’ятірка Кубків насуває каптур на обличчя скорботної постаті, що низько схилилася, а в П’ятірці Пентаклів сіріший каптур затіняє обличчя, звернене до снігу й відвернене від золотої зірки. Шістка Мечів схиляє каптур над дитиною, чиє обличчя звернене назовні. Вісімка Кубків показує лише спину в каптурі, що йде вгору. Відлюдник схиляє голову в каптурі, опустивши погляд повз простягнуту руку, а Трійка Жезлів лишає каптур зібраним біля шиї постаті, що дивиться на море.",
+   "prompt": "На що ви поки вирішуєте не дивитися і що допомогло б вам трохи підняти цей покрив?"
+  }
+ },
+ {
+  "id": "hand",
+  "group": {
+   "en": "Body and beings",
+   "uk": "Тіло й постаті"
+  },
+  "keys": [
+   "hand"
+  ],
+  "cards": [
+   {
+    "id": 64,
+    "symbol": 1
+   },
+   {
+    "id": 31,
+    "symbol": 3
+   },
+   {
+    "id": 8,
+    "symbol": 5
+   },
+   {
+    "id": 5,
+    "symbol": 1
+   },
+   {
+    "id": 37,
+    "symbol": 7
+   },
+   {
+    "id": 41,
+    "symbol": 5
+   },
+   {
+    "id": 69,
+    "symbol": 5
+   }
+  ],
+  "en": {
+   "name": "The open hand",
+   "title": "What is given, held and let go.",
+   "introduction": "Early Christian and medieval artists, reluctant to picture God directly, often showed only a hand reaching out of a cloud, the Dextera Domini, to bless, to crown or to give. Tarot kept that hand. Marseille-pattern decks set a hand from a cloud on the Aces of Wands and Swords; in the Golden Dawn lineage it appears on all four Aces, as in the 1909 deck Pamela Colman Smith drew for A. E. Waite, so that every suit begins as something offered. Other cards carry gestures older than tarot: two fingers raised in blessing, palms turned up to receive, fists closed to keep. In reading practice a hand shows how a card relates to its gift: taken, clutched, shared or released. Olivia carves these hands in ivory against lapis and keeps gold for what passes between them: a star on a disc, a heart on a cup. As you follow them, watch whether the fingers open or close.",
+   "comparison": "In the Ace of Pentacles a large palm reaches from the cloud and holds the disc without closing over it. In the Ten of Wands both hands clutch the bundle to the chest. Strength holds another way: one hand flat on the mane, the other’s fingers resting between the jaws without strain. The Hierophant lifts two fingers with the palm turned out, a hand that speaks rather than takes. In the Two of Cups two hands reach, a thin band of lapis still between the fingertips. In the Six of Cups the kneeling figure opens both palms beneath the goblet, not yet touching it. The Six of Pentacles ends with a giver’s hand that has already let go.",
+   "prompt": "What are your hands doing at present with what you have been given: holding it out, holding on, or letting it go?"
+  },
+  "uk": {
+   "name": "Відкрита долоня",
+   "title": "Дароване, втримане, відпущене.",
+   "introduction": "Ранньохристиянські та середньовічні митці, не наважуючись зображати Бога прямо, часто показували лише руку, що простягається з хмари, — Dextera Domini, правицю Господню, яка благословляє, вінчає або дарує. Таро зберегло цю руку. У колодах марсельського зразка рука з хмари з’являється на Тузах Жезлів і Мечів, а в традиції Золотої Зорі — на всіх чотирьох Тузах, як і в колоді 1909 року, яку Памела Колман Сміт намалювала для А. Е. Вейта, тож кожна масть починається як дар. На інших картах — жести, давніші за таро: два пальці, підняті для благословення, долоні, розкриті, щоб прийняти, кулаки, стиснуті, щоб утримати. У практиці читання рука показує, як карта ставиться до свого дару: бере, стискає, ділиться чи відпускає. Olivia вирізьблює ці руки зі слонової кістки на лазуриті, а золото лишає для того, що переходить між ними: зірки на диску, серця на кубку. Ідучи за ними, зважайте, розкриваються пальці чи стискаються.",
+   "comparison": "У Тузі Пентаклів велика долоня виходить із хмари й тримає диск, не стискаючи його. У Десятці Жезлів обидві руки притискають оберемок до грудей. Сила тримає інакше: одна рука лежить на гриві, а пальці другої без напруження спочивають між щелепами. Ієрофант підносить два пальці, повернувши долоню назовні: ця рука говорить, а не бере. У Двійці Кубків дві руки тягнуться одна до одної, і між кінчиками пальців ще лишається смужка лазуриту. У Шістці Кубків постать, що стоїть навколішки, розкриває обидві долоні під келихом, ще не торкаючись його. Шістка Пентаклів завершує шлях рукою постаті, що дає: ця рука вже відпустила свій дар.",
+   "prompt": "Що зараз роблять ваші руки з тим, що вам дано: простягають його, тримаються за нього чи відпускають?"
+  }
+ },
+ {
+  "id": "heart",
+  "group": {
+   "en": "Body and beings",
+   "uk": "Тіло й постаті"
+  },
+  "keys": [
+   "heart"
+  ],
+  "cards": [
+   {
+    "id": 52,
+    "symbol": 0
+   },
+   {
+    "id": 40,
+    "symbol": 3
+   },
+   {
+    "id": 48,
+    "symbol": 1
+   },
+   {
+    "id": 37,
+    "symbol": 8
+   },
+   {
+    "id": 3,
+    "symbol": 7
+   },
+   {
+    "id": 38,
+    "symbol": 0
+   },
+   {
+    "id": 44,
+    "symbol": 1
+   },
+   {
+    "id": 45,
+    "symbol": 0
+   }
+  ],
+  "en": {
+   "name": "The heart",
+   "title": "A heart pierced, kept, then raised.",
+   "introduction": "The pierced heart is older than tarot reading. Late medieval devotion showed the Virgin of Sorrows with swords in her breast, and the Sola Busca deck of about 1490 already sets a heart run through by three blades on its Three of Swords, an image Pamela Colman Smith took up for the Waite-Smith deck of 1909. The Marseille card has none. Waite-Smith adds one more: a heart-shaped shield bearing Venus’s sign beside The Empress. Cups, the Golden Dawn’s suit of Water, came to stand for feeling, and cartomancers paired them with playing-card hearts. Olivia carves the heart three ways: once as an anatomical organ in ivory, once as a lapis shield bearing Venus’s sign in gold, and six times as a small gold heart inlaid on a cup. Gold is rare in this deck, so each gold heart marks what is precious. Follow it and notice who holds it, and whether it is wounded, kept close or raised.",
+   "comparison": "The Three of Swords carves a real ivory organ, three blades meeting inside, gold seams like mended cracks: a picture of hurt, not a forecast. On the Five of Cups a gold heart marks a goblet on a ledge, in the direction the bowed head turns, still unseen. The Queen of Cups keeps hers on a lidded vessel, turned towards you but closed. The Two of Cups holds it low at the waist. The Empress sets hers down: a lapis shield with Venus’s sign against the couch. The Three of Cups raises it high, the Nine of Cups lifts it to the peak of the arc, and the Ten of Cups sets it at the keystone of the arch.",
+   "prompt": "Where is your heart resting today: pierced, kept in a closed vessel, held low at the waist, or raised with others?"
+  },
+  "uk": {
+   "name": "Серце",
+   "title": "Серце пронизане, збережене, а тоді піднесене.",
+   "introduction": "Пронизане серце старше за читання таро. Пізньосередньовічні побожні образи показували Скорботну Богородицю з мечами в грудях, а колода Сола-Буска близько 1490 року вже показує на Трійці Мечів серце, пробите трьома клинками; цей образ Памела Колман Сміт перейняла для колоди Вейта–Сміт 1909 року. Марсельська карта серця не має. Вейт–Сміт додає ще одне: щит у формі серця зі знаком Венери поруч з Імператрицею. Кубки, масть Води в системі Золотої Зорі, стали означати почуття, а картомантія зіставляла їх із чирвами гральних карт. Olivia вирізьблює серце трьома способами: один раз як анатомічний орган зі слонової кістки, один раз як лазуритовий щит із золотим знаком Венери і шість разів як маленьке золоте серце, інкрустоване в кубок. Золото в цій колоді рідкісне, тож кожне золоте серце позначає те, що цінне. Ідучи за ним, помічайте, хто його тримає і чи воно поранене, дбайливо збережене чи піднесене.",
+   "comparison": "Трійка Мечів показує справжній орган зі слонової кістки: усередині сходяться три клинки, а поверхнею біжать золоті шви, мов полагоджені тріщини; це образ болю, а не прогноз. На П’ятірці Кубків золоте серце позначає келих на виступі скелі: голова схилена в його бік, але погляд ще не піднявся до нього. Королева Кубків береже своє на посудині з кришкою: воно повернуте до вас, але закрите. Двійка Кубків тримає серце низько, біля пояса. Імператриця відкладає своє: лазуритовий щит зі знаком Венери, прихилений до ложа. Трійка Кубків підносить серце високо, Дев’ятка Кубків — на вершину дуги, а Десятка Кубків ставить його в замковий камінь арки.",
+   "prompt": "Де сьогодні спочиває ваше серце: пронизане, сховане в закритій посудині, опущене до пояса чи піднесене разом з іншими?"
+  }
+ },
+ {
+  "id": "child",
+  "group": {
+   "en": "Body and beings",
+   "uk": "Тіло й постаті"
+  },
+  "keys": [
+   "child"
+  ],
+  "cards": [
+   {
+    "id": 13,
+    "symbol": 6
+   },
+   {
+    "id": 41,
+    "symbol": 6
+   },
+   {
+    "id": 19,
+    "symbol": 4
+   },
+   {
+    "id": 20,
+    "symbol": 6
+   },
+   {
+    "id": 21,
+    "symbol": 7
+   },
+   {
+    "id": 45,
+    "symbol": 6
+   },
+   {
+    "id": 73,
+    "symbol": 6
+   }
+  ],
+  "en": {
+   "name": "The child",
+   "title": "Small hands at every threshold.",
+   "introduction": "Children entered tarot early. Some fifteenth-century Italian World cards show two putti holding up a globe, and on the Marseille Sun two children stand before a wall beneath the sun’s rays. Renaissance painters and carvers often used such small figures for love, play and plenty. The numbered Marseille Minor Arcana, though, show arranged suit signs rather than scenes; the children of the Six and Ten of Cups and the Ten of Pentacles belong to the illustrated Waite-Smith deck of 1909, which places a child inside memory, household joy and a family line. Readers commonly take the child as a beginning: openness before habit, trust before proof, and whatever one life hands on to the next. Olivia carves most of its children in ivory, like the adults beside them; on this trail one is pale grey-blue and one is lapis. As you follow them, notice what each child holds, where each stands beside the grown figures, and which way each one faces.",
+   "comparison": "On Death the child is small and pale grey-blue, walking barefoot beneath the horse and holding up a flower in both hands. In the Six of Cups an ivory child kneels and looks up at a taller figure bending down. The Sun sets one child alone on the horse, riding bareback, one arm flung wide, palm open. Judgement turns the child away from you, arms raised in a wide V. On The World two small children dance on rocky ledges, each lifting a tiny gold wand. In the Ten of Cups two children dance hand in hand. The Ten of Pentacles ends in lapis: a child rests a hand on the head of a slender dog that faces left, towards the elder.",
+   "prompt": "What was handed on to you when you were small, and what would you like to hand on in turn?"
+  },
+  "uk": {
+   "name": "Дитина",
+   "title": "Маленькі долоні на кожному порозі.",
+   "introduction": "Діти з’явилися в таро рано. На деяких італійських картах Світ XV століття двоє путті тримають глобус, а на марсельській карті Сонце двоє дітей стоять перед муром під променями світила. Ренесансні художники й різьбярі часто втілювали в таких маленьких постатях любов, гру та достаток. Проте числові карти Молодших Арканів у марсельських колодах показують упорядковані знаки мастей, а не сцени; діти Шістки й Десятки Кубків і Десятки Пентаклів належать ілюстрованій колоді Вейта–Сміт 1909 року, яка вміщує дитину в спогад, у домашню радість і в родовід. Дитину зазвичай тлумачать як початок: відкритість, що передує звичці, довіру, що не чекає доказів, і все, що одне життя передає наступному. Olivia вирізає більшість своїх дітей зі слонової кістки, як і дорослих поруч; на цьому шляху одна дитина сіро-блакитна, а ще одна лазуритова. Стежачи за ними, зверніть увагу, що тримає кожна дитина, де вона стоїть щодо дорослих і в який бік обернена.",
+   "comparison": "На карті Смерть маленька дитина блідого сіро-блакитного відтінку босоніж іде під конем і обома руками підносить квітку. У Шістці Кубків дитина зі слонової кістки стоїть навколішки й дивиться вгору на вищу постать, що схиляється до неї. Сонце садовить на коня одну дитину: вона їде без сідла, одну руку широко розкинуто, долоня відкрита. У Суді дитина стоїть спиною до вас, руки здійнято широкою літерою V. На карті Світ двоє маленьких дітей танцюють на скелястих уступах, і кожна підносить крихітний золотий жезл. У Десятці Кубків двоє дітей танцюють, узявшись за руки. Десятка Пентаклів завершує шлях у лазуриті: дитина кладе руку на голову стрункого собаки, оберненого ліворуч, до старця.",
+   "prompt": "Що передали вам, коли ви були малі, і що ви хотіли б передати далі?"
+  }
+ },
+ {
+  "id": "angels",
+  "group": {
+   "en": "Body and beings",
+   "uk": "Тіло й постаті"
+  },
+  "keys": [
+   "angel",
+   "wings",
+   "cherub"
+  ],
+  "cards": [
+   {
+    "id": 48,
+    "symbol": 5
+   },
+   {
+    "id": 76,
+    "symbol": 1
+   },
+   {
+    "id": 19,
+    "symbol": 8
+   },
+   {
+    "id": 10,
+    "symbol": 0
+   },
+   {
+    "id": 6,
+    "symbol": 1
+   },
+   {
+    "id": 14,
+    "symbol": 3
+   },
+   {
+    "id": 20,
+    "symbol": 0
+   }
+  ],
+  "en": {
+   "name": "Angels and wings",
+   "title": "Messengers between the sky and the ground.",
+   "introduction": "The word angel comes from the Greek for messenger, and in medieval and Renaissance art a winged figure marked a meeting of heaven and earth. Marseille-pattern decks show a winged figure pouring between two vessels on Temperance and an angel sounding a trumpet over the rising dead on Judgement; on the Marseille Lovers the figure above is a Cupid with a bow, which the Waite-Smith deck turned into a great angel with open arms. Renaissance painters also recast the fearsome cherubim of the Bible as winged children’s heads, and in the Waite-Smith deck they are carved into several Queens’ thrones. In readings a winged figure often points to guidance, a wider view, or a call from beyond the scene. The Olivia deck carves most of its angels from the same grey-blue lapis as the night sky, while its cherubs appear in ivory or blue stone. Follow them from ornament to messenger, and notice how much sky each one fills.",
+   "comparison": "In the Queen of Cups a plump winged cherub is carved in lapis on the throne’s lower panel, one arm reaching up the frame. The Queen of Pentacles lifts two into the rose vine beside the arch: one looks down, one turns its face towards you. In The Sun two ivory cherub heads float by the horse’s legs. Wheel of Fortune seats a winged figure on a cloud in a corner, bowed over an open book. In The Lovers the angel rises from lapis clouds, wings across most of the card’s width, hands open. Temperance is the angel: ivory wings from head to hip. Judgement ends with wings spread towards both upper corners, a hand at the mouthpiece, eyes lowered.",
+   "prompt": "Which kind of guidance reaches you most easily at present: a small watcher close by, or a call from far above?"
+  },
+  "uk": {
+   "name": "Ангели й крила",
+   "title": "Вісники між небом і землею.",
+   "introduction": "Слово «ангел» походить від грецького «вісник», і в мистецтві Середньовіччя та Відродження крилата постать позначала зустріч неба й землі. У колодах марсельського зразка крилата постать на карті Помірність переливає рідину між двома посудинами, а на Суді ангел сурмить над мертвими, що підводяться; на марсельських Закоханих угорі натомість Купідон із луком, якого колода Вейта–Сміт перетворила на великого ангела з розкритими руками. Митці Відродження також надали грізним біблійним херувимам вигляду крилатих дитячих голівок, а в колоді Вейта–Сміт їх вирізьблено на тронах кількох Королев. Під час читання крилата постать часто вказує на настанову, ширший погляд або поклик із-поза меж сцени. Колода Olivia вирізьблює більшість своїх ангелів із того самого сіро-блакитного лазуриту, що й нічне небо, а херувими постають зі слонової кістки або синього каменю. Простежте шлях від орнаменту до вісника й зверніть увагу, скільки неба заповнює кожен.",
+   "comparison": "У Королеві Кубків пухкого крилатого херувима вирізьблено з лазуриту на нижній панелі трону, одну руку він тягне вгору вздовж рами. У Королеві Пентаклів двоє херувимів піднялися в трояндову лозу обабіч арки: один дивиться вниз, другий обертає обличчя до вас. У Сонці дві голівки херувимів зі слонової кістки ширяють біля ніг коня. У Колесі Фортуни крилата постать сидить на хмарі в кутку, схилившись над розгорнутою книгою. У Закоханих ангел здіймається з лазуритових хмар, крила майже на всю ширину карти, долоні розкриті. Помірність і є ангелом: крила зі слонової кістки сягають від голови до стегон. Суд завершує шлях крилами, розкинутими до обох верхніх кутів: рука біля мундштука сурми, очі опущені.",
+   "prompt": "Яка настанова зараз доходить до вас найлегше: маленький вартовий поруч чи поклик із далекої висоти?"
+  }
+ },
+ {
+  "id": "lion",
+  "group": {
+   "en": "Creatures and signs",
+   "uk": "Істоти й знаки"
+  },
+  "keys": [
+   "lion",
+   "sphinx",
+   "cat"
+  ],
+  "cards": [
+   {
+    "id": 8,
+    "symbol": 7
+   },
+   {
+    "id": 7,
+    "symbol": 7
+   },
+   {
+    "id": 34,
+    "symbol": 2
+   },
+   {
+    "id": 35,
+    "symbol": 0
+   },
+   {
+    "id": 37,
+    "symbol": 1
+   },
+   {
+    "id": 53,
+    "symbol": 6
+   },
+   {
+    "id": 10,
+    "symbol": 3
+   },
+   {
+    "id": 21,
+    "symbol": 5
+   }
+  ],
+  "en": {
+   "name": "The lion",
+   "title": "The wild, held in an open hand.",
+   "introduction": "The lion entered tarot as a virtue. Some early painted decks show Fortitude as a Hercules-like man raising a club over a lion; the Marseille pattern settles on a woman calmly holding its jaws. Saint Mark’s lion, one of the four creatures of Ezekiel and Revelation, holds a corner of the Marseille World. In the nineteenth century Eliphas Lévi gave the Chariot two sphinxes in place of horses, and the Golden Dawn tied Strength to Leo; the Waite-Smith deck of 1909 set lions on the Wands thrones and a black cat at the Queen’s feet. In readings the great cat stands for courage, appetite and instinct; what matters is how they are held. Olivia carves most lions in lapis, the stone of the night, so the wild belongs to the landscape; ivory is kept for a sphinx, a cat and a resting lion. Follow them from a lion met hand to jaw to one keeping a corner of the whole.",
+   "comparison": "In Strength the lapis lion lifts its open mouth to the figure: the wild met, not beaten. The Chariot’s ivory and lapis sphinxes face opposite ways, held by no reins, only by the figure above. On the Queen of Wands a pale cat sits upright by the Queen’s foot: instinct kept close. The King of Wands turns two lion heads outward like guardians. In the Two of Cups a winged lion’s head hovers above the couple. The Four of Swords lays an ivory lion at the sleeping knight’s feet; on the Wheel of Fortune a sphinx reclines, a sword across its forelegs. In The World a maned lion rests its forepaws on a cloud, one fixed corner of the whole.",
+   "prompt": "Where is your own lion right now: met hand to jaw, pulling two ways, sitting quietly at your feet, or keeping watch?"
+  },
+  "uk": {
+   "name": "Лев",
+   "title": "Дика сила у відкритій долоні.",
+   "introduction": "Лев прийшов у таро як чеснота. У деяких ранніх мальованих колодах Мужність постає чоловіком, що замахується на лева палицею, як Геракл; у марсельському взірці це вже жінка, яка спокійно тримає його пащу. Лев святого Марка, одна з чотирьох істот із книг Єзекіїля та Об’явлення, займає кут марсельського Світу. У XIX столітті Еліфас Леві поставив у Колісницю двох сфінксів замість коней, а Золота Зоря пов’язала Силу зі знаком Лева; колода Вейта–Сміт 1909 року посадила левів на трони Жезлів, а біля ніг Королеви — чорного кота. У читанні велика кішка означає мужність, апетит та інстинкт; важливо, як саме їх тримають. Olivia вирізьблює більшість левів із лазуриту, каменю ночі, тож дике належить пейзажеві; слонову кістку лишено для сфінкса, кота й лева, що відпочиває. Ідіть за ними від лева, якого зустрічають рукою біля пащі, до того, що стереже один із кутів цілого.",
+   "comparison": "У Силі лазуритовий лев підводить розкриту пащу до постаті: дике зустріли, а не перемогли. Сфінкси Колісниці, зі слонової кістки та з лазуриту, дивляться в різні боки; віжок немає, їх утримує лише постать угорі. У Королеви Жезлів світлий кіт сидить рівно біля ноги Королеви: інстинкт тримають поруч. Король Жезлів повертає назовні дві левові голови, мов вартових. У Двійці Кубків крилата левова голова ширяє над парою. Четвірка Мечів кладе лева зі слонової кістки біля ніг сплячого лицаря; на Колесі Фортуни сфінкс лежить, поклавши меч поперек передніх лап. У Світі гривастий лев спирається передніми лапами на хмару — один із нерухомих кутів цілого.",
+   "prompt": "Де зараз ваш власний лев: ви зустрічаєте його рукою біля пащі, він тягне у два боки, тихо сидить біля ваших ніг чи стоїть на варті?"
+  }
+ },
+ {
+  "id": "horse",
+  "group": {
+   "en": "Creatures and signs",
+   "uk": "Істоти й знаки"
+  },
+  "keys": [
+   "horse"
+  ],
+  "cards": [
+   {
+    "id": 61,
+    "symbol": 3
+   },
+   {
+    "id": 33,
+    "symbol": 6
+   },
+   {
+    "id": 47,
+    "symbol": 4
+   },
+   {
+    "id": 75,
+    "symbol": 4
+   },
+   {
+    "id": 27,
+    "symbol": 4
+   },
+   {
+    "id": 13,
+    "symbol": 2
+   },
+   {
+    "id": 19,
+    "symbol": 7
+   }
+  ],
+  "en": {
+   "name": "The horse",
+   "title": "From the charge to the free rein.",
+   "introduction": "The horse is tarot’s image of energy that can be carried. Renaissance Italian decks already set each suit’s Knight on horseback, and medieval art, following the pale horse of the Book of Revelation, often showed Death riding. The Tarot de Marseille keeps horses for its Knights and The Chariot. The Waite-Smith deck, shaped within the Golden Dawn lineage, puts a white horse under Death, under the child of The Sun and under the victor of the Six of Wands, and gives each Knight’s horse its own pace. Readers commonly take the horse as vitality and drive, and the rider as the will that guides it. On this trail Olivia carves four horses in ivory, two in the same lapis as the land around them and one in both stones; none is gilded. As you follow it, watch the legs slow from leap to standstill across the four Knights, then watch the rein loosen until no hand holds it.",
+   "comparison": "The Knight of Swords’ horse charges, mouth open around the bit and both forelegs off the ground, ivory to the chest and lapis from the shoulder. The Knight of Wands’ horse is caught mid-leap, hind hooves planted, front end in the air. The Knight of Cups slows to a walk on a greyer lapis horse, head bowed, one foreleg lifted by the water. The Knight of Pentacles’ horse stands in mottled lapis, all four hooves on the furrows. In the Six of Wands an ivory horse steps high, reins in the rider’s one lowered hand. Death’s pale horse walks evenly on a slack rein. The Sun’s horse stands saddleless, its rein held by neither hand: strength that needs no steering.",
+   "prompt": "What energy in your life are you still holding on a tight rein, and what might it carry if you loosened your grip?"
+  },
+  "uk": {
+   "name": "Кінь",
+   "title": "Від галопу до вільного поводу.",
+   "introduction": "Кінь — образ енергії, яка здатна нести. Уже в ренесансних італійських колодах Лицар кожної масті сидить верхи, а середньовічне мистецтво, услід за блідим конем із Книги Одкровення, часто зображало Смерть вершником. Марсельське таро лишає коней Лицарям і Колісниці. Колода Вейта–Сміт, що постала в традиції Золотої Зорі, садовить на білого коня Смерть, дитину на карті Сонце та переможця в Шістці Жезлів, а коневі кожного Лицаря дає власний крок. Коня зазвичай тлумачать як життєву силу й порив, а вершника — як волю, що ним керує. На цьому шляху Olivia вирізьблює чотирьох коней зі слонової кістки, двох — із того самого лазуриту, що й земля довкола, а одного — з обох каменів; жодного не позолочено. Ідучи ним, стежте, як у чотирьох Лицарів ноги сповільнюються від стрибка до нерухомості, а потім — як попускається повід, аж поки його вже не тримає жодна рука.",
+   "comparison": "Кінь Лицаря Мечів мчить із розтуленим на вудилах ротом, обидві передні ноги відірвані від землі; до грудей він зі слонової кістки, від плеча — з лазуриту. Кінь Лицаря Жезлів завмер у стрибку: задні копита впираються в землю, передні вже в повітрі. Лицар Кубків сповільнюється до кроку на сіруватому лазуритовому коні: голову схилено, одна передня нога піднята біля води. Кінь Лицаря Пентаклів стоїть, вирізаний із плямистого лазуриту, усі чотири копита на ріллі. У Шістці Жезлів кінь зі слонової кістки високо ступає, повід в одній опущеній руці вершника. Блідий кінь Смерті рівно йде на вільному поводі. Кінь Сонця стоїть без сідла, і повода не тримає жодна рука: сила, якою не треба правити.",
+   "prompt": "Яку силу у своєму житті ви досі тримаєте на тугому поводі і що вона могла б нести, якби ви його попустили?"
+  }
+ },
+ {
+  "id": "birds",
+  "group": {
+   "en": "Creatures and signs",
+   "uk": "Істоти й знаки"
+  },
+  "keys": [
+   "bird",
+   "dove",
+   "swallow",
+   "eagle",
+   "owl",
+   "butterfly"
+  ],
+  "cards": [
+   {
+    "id": 0,
+    "symbol": 1
+   },
+   {
+    "id": 36,
+    "symbol": 1
+   },
+   {
+    "id": 60,
+    "symbol": 4
+   },
+   {
+    "id": 17,
+    "symbol": 1
+   },
+   {
+    "id": 72,
+    "symbol": 0
+   },
+   {
+    "id": 62,
+    "symbol": 4
+   },
+   {
+    "id": 63,
+    "symbol": 4
+   },
+   {
+    "id": 21,
+    "symbol": 4
+   }
+  ],
+  "en": {
+   "name": "Birds and butterflies",
+   "title": "From the swallow’s flight to the eagle’s view.",
+   "introduction": "Winged creatures have carried meaning in tarot since its early printed decks. The Marseille Star shows a small bird perched in a tree beside the kneeling figure, and the Marseille World gives the eagle of John the Evangelist one corner among the four living creatures. Christian art gave the dove to the Holy Spirit, and the Greek word psyche meant both soul and butterfly. In the Golden Dawn system Swords belong to Air, and in 1909 Pamela Colman Smith filled that suit’s court cards with birds and butterflies; on her Ace of Cups a dove descends with a wafer. Readers commonly take birds as thought, news and spirit, and butterflies as change. In the Olivia deck most of these creatures are cut into the lapis, pale grey-blue against the night; a few are raised in ivory, and gold appears only on the Queen of Swords’ crown. As you follow them, notice which fly free, which rest and which are held.",
+   "comparison": "The order moves from flight through stillness to the widest view. In The Fool two lapis swallows glide between low bands of cloud. In the Ace of Cups an ivory dove dives head first, a round wafer in its beak. Above the Page of Swords pale birds scatter in a loose trail. In The Star a long-legged bird, commonly read as an ibis, stands on its branch facing the stars. In the Nine of Pentacles a hooded ivory falcon perches on a gloved hand. On the Queen of Swords’ throne butterflies are scattered behind her head; on the King of Swords’ they sit in mirrored pairs. In The World a lapis eagle lifts its wings on a bank of cloud.",
+   "prompt": "Which winged creature is closest to your mind today: the swallow setting out, the falcon that waits, or the eagle that sees the whole?"
+  },
+  "uk": {
+   "name": "Птахи й метелики",
+   "title": "Від польоту ластівки до погляду орла.",
+   "introduction": "Крилаті істоти несуть значення в таро ще з ранніх друкованих колод. На марсельській Зірці маленький птах сидить на дереві поруч із постаттю, що стоїть навколішки, а марсельський Світ відводить орлові євангеліста Івана один із кутів серед чотирьох живих істот. Християнське мистецтво пов’язало голуба зі Святим Духом, а грецьке слово «психе» означало і душу, і метелика. У системі ордену Золотої Зорі Мечі належать Повітрю, і 1909 року Памела Колман Сміт наповнила придворні карти цієї масті птахами й метеликами; на її Тузі Кубків голуб спускається з облаткою. Птахів зазвичай читають як думку, звістку й дух, а метеликів — як зміну. У колоді Olivia більшість цих істот вирізьблено в лазуриті, блідою сіро-синьою барвою на тлі ночі; кілька зроблено зі слонової кістки, а золото є лише на короні Королеви Мечів. Ідучи за ними, зверніть увагу, які летять вільно, які відпочивають, а яких тримають.",
+   "comparison": "Послідовність веде від польоту через спокій до найширшого погляду. На карті Блазень дві лазуритові ластівки ковзають між низькими смугами хмар. У Тузі Кубків голуб зі слонової кістки пірнає головою донизу з круглою облаткою в дзьобі. Над Пажем Мечів бліді птахи розлітаються нещільною вервечкою. На Зірці довгоногий птах, якого зазвичай тлумачать як ібіса, стоїть на гілці, повернувшись до зір. У Дев’ятці Пентаклів сокіл зі слонової кістки в каптурі сидить на руці в рукавичці. На троні Королеви Мечів метелики розкидані позаду її голови; на троні Короля Мечів вони сидять дзеркальними парами. У Світі лазуритовий орел здіймає крила на гряді хмар.",
+   "prompt": "Яка крилата істота сьогодні найближча до ваших думок: ластівка, що вирушає в путь, сокіл, що чекає, чи орел, що охоплює поглядом усе?"
+  }
+ },
+ {
+  "id": "circle",
+  "group": {
+   "en": "Creatures and signs",
+   "uk": "Істоти й знаки"
+  },
+  "keys": [
+   "circle",
+   "wheel",
+   "infinity",
+   "spiral",
+   "serpent"
+  ],
+  "cards": [
+   {
+    "id": 51,
+    "symbol": 4
+   },
+   {
+    "id": 1,
+    "symbol": 2
+   },
+   {
+    "id": 8,
+    "symbol": 1
+   },
+   {
+    "id": 65,
+    "symbol": 3
+   },
+   {
+    "id": 37,
+    "symbol": 2
+   },
+   {
+    "id": 60,
+    "symbol": 8
+   },
+   {
+    "id": 10,
+    "symbol": 4
+   }
+  ],
+  "en": {
+   "name": "The circle",
+   "title": "Loops that close and open again.",
+   "introduction": "The circle is the plainest shape of return. Medieval and Renaissance imagery set Fortune beside a turning wheel, with figures rising on one side and falling on the other, and the tarot trump kept that picture; in the Marseille pattern half-animal figures ride a wheel turned by a crank. Alchemical manuscripts drew the ouroboros, a serpent biting its own tail, for what ends and begins again. The Waite-Smith lineage, shaped by the Golden Dawn, made these signs explicit: a lemniscate over the Magician and over Strength, a serpent belt on the Magician, a wheel written over with letters and alchemical symbols. Readers commonly take them as continuity, exchange and renewal. Olivia sets the lemniscates and the wheel in gold, a metal it spends sparingly, and carves the other loops in ivory or lapis. As you follow the trail, notice whether each loop is closed or open, still or turning, held close to the body or set free in the sky.",
+   "comparison": "On the Two of Swords a medallion of concentric rings rests on the breast, the sword shafts converging toward it: the circle as a still centre. The Magician opens it into a gold lemniscate of two closed loops. Strength lifts the same figure into the night sky. The Two of Pentacles loosens it into an ivory ribbon of open loops, swinging from one disc to the other. In the Two of Cups the line doubles into two serpents twining around a staff, heads raised to face each other. On the Page of Swords spirals are incised into boulders like ancient carvings. The Wheel of Fortune ends with a bare gold wheel of eight spokes, a circle built to turn.",
+   "prompt": "Which cycle in your life keeps bringing you back to the same place, and what is different about you each time you return?"
+  },
+  "uk": {
+   "name": "Коло",
+   "title": "Петлі, що замикаються і знову відкриваються.",
+   "introduction": "Коло — найпростіша форма повернення. Середньовічні й ренесансні образи ставили Фортуну поруч із колесом, що обертається: з одного боку постаті піднімаються, з другого падають, і козир таро зберіг цю картину; у марсельському зразку напівзвірині постаті сидять на колесі, яке крутять рукояттю. Алхімічні рукописи зображували уробороса, змія, що кусає власний хвіст, як знак того, що закінчується й починається знову. Лінія Вейта–Сміт, сформована Золотою Зорею, зробила ці знаки явними: лемніската над Магом і над Силою, пояс-змій на Магові, колесо, списане літерами й алхімічними символами. Їх зазвичай тлумачать як тяглість, обмін і оновлення. Лемніскати й колесо Olivia втілює в золоті, яке витрачає ощадно, а інші петлі вирізає зі слонової кістки чи лазуриту. Ідучи цим шляхом, зверніть увагу, чи кожна петля замкнена, чи відкрита, нерухома чи в русі, притиснута до тіла чи відпущена в небо.",
+   "comparison": "Двійка Мечів носить на грудях медальйон із концентричними кільцями, і мечі сходяться до нього: коло як нерухомий центр. Маг розкриває його в золоту лемніскату з двох замкнених петель. Сила підносить ту саму фігуру в нічне небо. Двійка Пентаклів розпускає її у стрічку зі слонової кістки з відкритими петлями, що тягнеться від одного диска до другого. Двійка Кубків подвоює лінію: дві змії обвивають жезл і здіймають голови назустріч одна одній. На карті Паж Мечів спіралі врізано у валуни, наче давні наскельні знаки. Колесо Фортуни завершує шлях голим золотим колесом із вісьмома спицями, колом, створеним, щоб обертатися.",
+   "prompt": "Який цикл у вашому житті знову й знову повертає вас на те саме місце, і чим ви щоразу інші, коли повертаєтеся?"
+  }
+ },
+ {
+  "id": "wand",
+  "group": {
+   "en": "The four suits",
+   "uk": "Чотири масті"
+  },
+  "keys": [
+   "wand",
+   "staff"
+  ],
+  "cards": [
+   {
+    "id": 1,
+    "symbol": 1
+   },
+   {
+    "id": 22,
+    "symbol": 1
+   },
+   {
+    "id": 23,
+    "symbol": 0
+   },
+   {
+    "id": 25,
+    "symbol": 0
+   },
+   {
+    "id": 26,
+    "symbol": 3
+   },
+   {
+    "id": 29,
+    "symbol": 0
+   },
+   {
+    "id": 30,
+    "symbol": 4
+   },
+   {
+    "id": 31,
+    "symbol": 0
+   }
+  ],
+  "en": {
+   "name": "The wand",
+   "title": "From living branch to heavy armful.",
+   "introduction": "Before it was a wand it was a club. Italian decks call the suit Bastoni, the Tarot de Marseille Bâtons: cut staves or cudgels, drawn on the numbered cards as interlaced bars with no scene. The Hermetic Order of the Golden Dawn assigned Wands to Fire in the late nineteenth century, and Pamela Colman Smith, drawing the Waite-Smith deck of 1909, turned the bars into living wood that still puts out leaves and gave every number its own scene. Readers have since followed the suit as a story of will and drive: spark, plan, structure, contest, load. Olivia carves many of its wands in ivory like the figures, cuts others into the lapis ground, and saves gold for the few points where a leaf or flame breaks out. Begin with the Magician’s raised wand, then follow the staff from Ace to Ten: notice who holds it, how many there are, and whether they grow, stand or weigh down.",
+   "comparison": "The Magician raises one slender ivory rod high above the head. On the Ace of Wands a single ivory staff, knotted like a cut branch, sprouts leaves above and below the fist. The Two of Wands carves it in grey-blue lapis, its tip opening in gilded leaves. The Four of Wands plants four lapis wands, vines twisting up every shaft. The Five of Wands multiplies smooth ivory staves until at least seven tips cross above the heads. The Eight of Wands releases eight ivory wands in parallel flight. In the Nine of Wands twelve blue staves stand six on either side of the figure, and the Ten of Wands gathers ivory staves into one armful fanned over a bowed head.",
+   "prompt": "Which of these wands looks most like your own drive right now: raised, sprouting, planted, crossing others, in flight, or carried as a load?"
+  },
+  "uk": {
+   "name": "Жезл",
+   "title": "Від живої гілки до важкої ноші.",
+   "introduction": "Перш ніж стати жезлом, він був кийком. В італійських колодах ця масть зветься Bastoni, у марсельському таро — Bâtons: обтесані палиці чи кийки, які на числових картах зображено як переплетені бруски без жодної сцени. Герметичний орден Золотої Зорі наприкінці XIX століття пов’язав Жезли з Вогнем, а Памела Колман Сміт, малюючи колоду Вейта–Сміт 1909 року, перетворила бруски на живе дерево, яке ще пускає листя, і дала кожному числу власну сцену. Відтоді в читаннях цю масть розглядають як історію волі й рушійної сили: іскра, задум, опора, змагання, ноша. Olivia вирізьблює багато жезлів зі слонової кістки, як і постаті, інші вирізає просто в лазуритовому тлі, а золото приберігає для кількох місць, де проривається листок чи полум’я. Почніть із піднятого жезла Мага, а тоді йдіть за жезлом від Туза до Десятки: помічайте, хто його тримає, скільки їх і чи вони ростуть, стоять або тиснуть донизу.",
+   "comparison": "Маг високо над головою підносить один тонкий жезл зі слонової кістки. На Тузі Жезлів єдиний жезл зі слонової кістки, вузлуватий, як зрізана гілка, пускає листя над кулаком і під ним. Двійка Жезлів вирізьблює його із сіро-блакитного лазуриту, і верхівка розкривається позолоченим листям. Четвірка Жезлів ставить у землю чотири лазуритові жезли, і лоза обвиває кожен із них. П’ятірка Жезлів множить гладкі жезли зі слонової кістки, аж над головами схрещуються щонайменше сім верхівок. Вісімка Жезлів відпускає вісім жезлів зі слонової кістки в паралельний політ. У Дев’ятці Жезлів дванадцять синіх жезлів стоять по шість обабіч постаті, а Десятка Жезлів збирає жезли зі слонової кістки в один оберемок, віялом піднятий над схиленою головою.",
+   "prompt": "На який із цих жезлів зараз найбільше схожа ваша рушійна сила: піднятий, зелений від пагонів, укопаний, схрещений з іншими, випущений у політ чи взятий на плечі як ноша?"
+  }
+ },
+ {
+  "id": "cup",
+  "group": {
+   "en": "The four suits",
+   "uk": "Чотири масті"
+  },
+  "keys": [
+   "cup",
+   "chalice"
+  ],
+  "cards": [
+   {
+    "id": 36,
+    "symbol": 3
+   },
+   {
+    "id": 38,
+    "symbol": 1
+   },
+   {
+    "id": 39,
+    "symbol": 0
+   },
+   {
+    "id": 40,
+    "symbol": 2
+   },
+   {
+    "id": 41,
+    "symbol": 4
+   },
+   {
+    "id": 43,
+    "symbol": 7
+   },
+   {
+    "id": 44,
+    "symbol": 0
+   },
+   {
+    "id": 45,
+    "symbol": 1
+   }
+  ],
+  "en": {
+   "name": "The cup",
+   "title": "From one chalice to an arch of ten.",
+   "introduction": "Cups are among the oldest suit signs in the pack: Italian playing cards took them from Mamluk cards by the late fourteenth century. The Marseille pattern set them out as ornate vessels arranged by number, with a towering, architectural cup on the Ace. In the Golden Dawn system Cups belong to Water, and when Pamela Colman Smith painted a scene into every pip for A. E. Waite in 1909, the cup became a story: visited by a dove, raised in a toast, ignored, spilled, lined up and left, strung along a rainbow. Readers take it as feeling, love, imagination and what nourishes you. The Olivia deck carves it in two materials: ivory in human hands, grey-blue lapis when it stands in the landscape or is offered from a cloud. Gold is rare and chosen: an eight-pointed star, a small heart. As you follow the suit, notice who holds the cup and where the gold falls.",
+   "comparison": "In the Ace of Cups one hand holds a wide ivory chalice upright. In the Three of Cups three ivory goblets meet above the dancers’ heads, a gold heart on the central bowl. The Four of Cups offers a star-marked lapis cup from a cloud, while the seated figure looks down at the grass. In the Five of Cups three goblets lie on their sides, two of them trickling. The Six of Cups offers a plain ivory goblet in both hands, a gold heart on its bowl. The Eight of Cups leaves eight unbroken cups in two rows. The Nine of Cups sets nine out in an arc, and the Ten of Cups carves ten star-marked goblets along an arch.",
+   "prompt": "Where is your cup today: held open, raised with others, overlooked, spilled, offered, or set out in a full row?"
+  },
+  "uk": {
+   "name": "Кубок",
+   "title": "Від однієї чаші до арки з десяти кубків.",
+   "introduction": "Кубки — одна з найдавніших мастей колоди: італійські гральні карти перейняли їх від мамлюцьких уже наприкінці XIV століття. Марсельське таро розставило кубки за числом як пишні посудини, увінчавши Туз високим кубком, схожим на споруду. У системі Золотої Зорі Кубки належать стихії Води, і коли 1909 року Памела Колман Сміт для А. Е. Вейта вписала сцену в кожну числову карту, кубок став історією: до нього спускається голуб, його здіймають у тості, його не помічають, розливають, вишиковують і залишають, розставляють уздовж веселки. Його читають як почуття, любов, уяву й те, що вас живить. У колоді Olivia кубок вирізьблено з двох матеріалів: зі слонової кістки в людських руках і з сіро-блакитного лазуриту, коли він стоїть серед краєвиду або його простягають із хмари. Золото тут рідкісне й дібране: восьмипроменева зірка, маленьке серце. Ідучи за мастю, зверніть увагу, хто тримає кубок і куди лягає золото.",
+   "comparison": "У Тузі Кубків рука тримає прямо одну широку чашу зі слонової кістки. У Трійці Кубків три келихи зі слонової кістки сходяться над головами постатей, що танцюють, а на центральній чаші — золоте серце. У Четвірці Кубків із хмари простягають лазуритовий кубок із золотою зіркою, а постать, що сидить, дивиться вниз, на траву. У П’ятірці Кубків три келихи лежать на боці, і з двох із них стікають цівки. У Шістці Кубків простий келих зі слонової кістки із золотим серцем подають обома руками. У Вісімці Кубків лишаються вісім цілих кубків у два ряди. У Дев’ятці Кубків дев’ять кубків вишикувано дугою, а в Десятці Кубків уздовж арки вирізьблено десять келихів, позначених зірками.",
+   "prompt": "Де ваш кубок сьогодні: відкритий, піднятий разом з іншими, непомічений, розлитий, простягнутий чи виставлений у повний ряд?"
+  }
+ },
+ {
+  "id": "sword",
+  "group": {
+   "en": "The four suits",
+   "uk": "Чотири масті"
+  },
+  "keys": [
+   "sword"
+  ],
+  "cards": [
+   {
+    "id": 50,
+    "symbol": 1
+   },
+   {
+    "id": 52,
+    "symbol": 2
+   },
+   {
+    "id": 53,
+    "symbol": 3
+   },
+   {
+    "id": 54,
+    "symbol": 1
+   },
+   {
+    "id": 55,
+    "symbol": 0
+   },
+   {
+    "id": 57,
+    "symbol": 2
+   },
+   {
+    "id": 59,
+    "symbol": 0
+   },
+   {
+    "id": 11,
+    "symbol": 3
+   }
+  ],
+  "en": {
+   "name": "The sword",
+   "title": "The blade lowered, laid down, then raised upright.",
+   "introduction": "The sword entered European cards with the first packs of the late fourteenth century, one of four suits inherited from Mamluk playing cards. Medieval and Renaissance allegory already gave it meaning: Justice held a sword beside the scales, and the Marseille Justice still does. The Marseille pips weave curved blades into an oval, while their Ace raises one straight sword through a crown. The Golden Dawn tied Swords to Air, the element of thought, speech and judgement, and Pamela Colman Smith’s scenes for the Waite-Smith deck of 1909 turned each number into a moment: grief, rest, defeat, a crossing. In readings the blade is clarity that can also wound. Olivia carves most blades in ivory; as the suit darkens, more are cut from lapis and held by no one, and gold touches a Page’s hilt and a Knight’s blade. As you follow it, notice who holds the sword, and which way its point faces.",
+   "comparison": "On the Ace of Swords the ivory blade hangs point down from a hand in a cloud, aimed at mountains and travellers. The Three of Swords drives its centre sword straight into a carved heart: a picture of hurt, not a forecast. The Four of Swords lays three lapis swords flat on a chapel wall, held by no one. The Five of Swords hugs two blades to the chest, owned but not used. The Six of Swords carries six upright across the water. The Eight of Swords plants lapis blades beside and behind a figure, none in front. The Ten of Swords sets nine in a row along a back, with no blood. Justice raises one ivory blade upright again.",
+   "prompt": "Which sword are you holding at the moment: one aimed at real ground, one hugged as proof, one carried across, or one held upright?"
+  },
+  "uk": {
+   "name": "Меч",
+   "title": "Клинок опущений, покладений, тоді піднятий угору.",
+   "introduction": "Меч прийшов у європейські карти з найдавнішими колодами кінця XIV століття як одна з чотирьох мастей, успадкованих від мамлюкських гральних карт. Середньовічна й ренесансна алегорія вже наділила його змістом: Справедливість тримала меч поруч із терезами, і марсельська Справедливість тримає його досі. Марсельські числові карти сплітають вигнуті клинки в овал, а їхній Туз підносить один прямий меч крізь корону. Золота Зоря пов’язала Мечі з Повітрям, стихією думки, мовлення й судження, а сцени Памели Колман Сміт для колоди Вейта–Сміт 1909 року перетворили кожне число на мить: горе, спочинок, поразку, переправу. У практиці читання клинок — це ясність, яка може й поранити. Olivia вирізьблює більшість клинків зі слонової кістки; коли масть темнішає, дедалі більше мечів вирізано з лазуриту, і їх ніхто не тримає, а золото торкається руків’я Пажа й клинка Лицаря. Ідучи за мечем, помічайте, хто його тримає і куди спрямоване вістря.",
+   "comparison": "На Тузі Мечів клинок зі слонової кістки звисає вістрям донизу з руки в хмарі, спрямований до гір і мандрівників. Трійка Мечів устромляє центральний меч просто в різьблене серце: це образ болю, а не прогноз. Четвірка Мечів розкладає три лазуритові мечі горизонтально на стіні каплиці: їх ніхто не тримає. П’ятірка Мечів притискає два клинки до грудей: ними володіють, але не користуються. Шістка Мечів перевозить шість мечів сторч через воду. Вісімка Мечів устромляє лазуритові клинки в землю обабіч і позаду постаті, і жоден не стоїть попереду. Десятка Мечів ставить дев’ять у ряд уздовж спини, без крові. Справедливість знову здіймає вгору один клинок зі слонової кістки.",
+   "prompt": "Який меч ви тримаєте зараз: спрямований на справжню землю, притиснутий до грудей як доказ, перевезений через воду чи піднятий угору?"
+  }
+ },
+ {
+  "id": "pentacle",
+  "group": {
+   "en": "The four suits",
+   "uk": "Чотири масті"
+  },
+  "keys": [
+   "pentacle"
+  ],
+  "cards": [
+   {
+    "id": 64,
+    "symbol": 0
+   },
+   {
+    "id": 66,
+    "symbol": 0
+   },
+   {
+    "id": 67,
+    "symbol": 3
+   },
+   {
+    "id": 69,
+    "symbol": 6
+   },
+   {
+    "id": 70,
+    "symbol": 0
+   },
+   {
+    "id": 71,
+    "symbol": 2
+   },
+   {
+    "id": 73,
+    "symbol": 8
+   }
+  ],
+  "en": {
+   "name": "The pentacle",
+   "title": "A gold star from open palm to hem.",
+   "introduction": "The pentacle began as a coin. Italian and Marseille-pattern decks call the suit Coins: round discs set among stylised foliage, with the Ace drawn as a single large ornamented coin. The Golden Dawn called the suit Pentacles and tied it to the element of earth, and the Waite-Smith deck of 1909 carried that name into wide use. Pamela Colman Smith drew a five-pointed star within each disc and gave most numbered cards a scene: a sculptor at work in a church, a worker beside a bush of discs, a family beneath an archway. In reading practice the pentacle stands for what is tangible: body, money, work, home, time. Olivia cuts the disc in ivory or in lapis and keeps gold for very few stars, often a single one on a card. Follow that gold as the suit counts upward, from one seed of value to what a household keeps and hands on.",
+   "comparison": "On the Ace of Pentacles a plain ivory disc rests on an open palm, one small gold star near its centre: value as a seed. In the Three of Pentacles the gold star crowns the arch above two lapis outlines, a shared aim. The Four of Pentacles presses a large gold-starred disc against the chest. In the Six of Pentacles one gold-starred disc hangs between the giver’s hand and upturned palms. The Seven of Pentacles gilds only the bush’s highest disc. The Eight of Pentacles hangs seven finished discs on a pillar, stars in outline; its only gold lies on the bench, under the chisel. The Ten of Pentacles sets its gold low, near the hem of the elder’s robe.",
+   "prompt": "Where in your life is value still a seed, and where is it ready to be held, shared or handed on?"
+  },
+  "uk": {
+   "name": "Пентакль",
+   "title": "Золота зірка від розкритої долоні до подолу.",
+   "introduction": "Пентакль починався як монета. В італійських колодах і колодах марсельського зразка ця масть зветься Монетами: круглі диски серед стилізованого листя, а Туз — одна велика оздоблена монета. Орден Золотої Зорі назвав масть Пентаклями й пов’язав її зі стихією землі, а колода Вейта–Сміт 1909 року зробила цю назву загальновживаною. Памела Колман Сміт намалювала в кожному диску п’ятикутну зірку, а більшості числових карт дала сцену: скульптор за роботою в церкві, трудівник біля куща з дисками, родина під аркою. У практиці читання пентакль означає відчутне: тіло, гроші, працю, дім, час. Olivia вирізає диск зі слонової кістки або лазуриту, а золото приберігає для зовсім небагатьох зірок, часто для однієї на карті. Стежте за цим золотом, поки числа масті зростають: від однієї зернини цінності до того, що дім зберігає й передає далі.",
+   "comparison": "У Тузі Пентаклів простий диск зі слонової кістки лежить на розкритій долоні, біля його центру — маленька золота зірка: цінність як зернина. У Трійці Пентаклів золота зірка вінчає арку над двома лазуритовими контурами: це спільна мета. Четвірка Пентаклів притискає до грудей великий диск із золотою зіркою. У Шістці Пентаклів диск із золотою зіркою висить між рукою того, хто дає, і підставленими долонями. Сімка Пентаклів позолочує лише найвищий диск на кущі. Вісімка Пентаклів вішає сім готових дисків на стовп, зірки на них вирізано контуром, а єдине золото лежить на лаві, під різцем. Десятка Пентаклів кладе своє золото низько, біля подолу вбрання старця.",
+   "prompt": "Де у вашому житті цінність ще тільки зернина, а де її вже можна тримати, ділити чи передавати далі?"
+  }
+ }
+]

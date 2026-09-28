@@ -1,0 +1,267 @@
+{
+  "id": 20,
+  "slug": "judgement",
+  "artwork": {
+    "file": "20_judgement.webp",
+    "sha256": "83d473ed7ae0495ca7f120048b5f28e993b78c9cd30d76796b84512192480dee"
+  },
+  "symbols": [
+    {
+      "key": "angel",
+      "x": 51,
+      "y": 17,
+      "en": {
+        "name": "The trumpeting angel",
+        "seen": "Carved in pale grey-blue lapis rather than ivory, the angel leans out of the clouds with wings spread towards both upper corners, head bowed, eyes lowered, one hand at the mouthpiece and the other lower on the shaft.",
+        "meaning": "The angel of Judgement is commonly identified as Gabriel, the messenger whose call wakes the sleeping. Olivia carves it from the same blue stone as the night rather than from ivory, so the call reads as part of the sky itself, sounded with lowered eyes towards the figures below."
+      },
+      "uk": {
+        "name": "Ангел із сурмою",
+        "seen": "Ангела вирізьблено не зі слонової кістки, а з блідого сіро-блакитного лазуриту. Розкинувши крила до обох верхніх кутів, ангел вихиляється з хмар: голова схилена, очі опущені, одна рука біля мундштука, друга — нижче на сурмі.",
+        "meaning": "Ангела Суду зазвичай ототожнюють із Гавриїлом — вісником, чий поклик будить сплячих. Olivia вирізьблює ангела не зі слонової кістки, а з того самого синього каменю, що й ніч, тож поклик сприймається як частина самого неба: ангел сурмить до постатей унизу, опустивши очі."
+      }
+    },
+    {
+      "key": "trumpet",
+      "x": 49,
+      "y": 38,
+      "en": {
+        "name": "The gold trumpet",
+        "seen": "A long, straight gold trumpet runs from the angel’s lips down through the clouds and ends in a wide flared bell turned straight down towards the three figures, the broadest stretch of gold in the scene.",
+        "meaning": "The trumpet is the call itself: a sound that does not need to be understood before it is answered. In a deck that uses gold sparingly, it draws the eye down the whole card, commonly read as the moment a half-known truth becomes impossible to sleep through."
+      },
+      "uk": {
+        "name": "Золота сурма",
+        "seen": "Довга пряма золота сурма тягнеться від вуст ангела вниз крізь хмари й закінчується широким розтрубом, оберненим просто вниз, до трьох постатей. Це найбільша смуга золота в усій сцені.",
+        "meaning": "Сурма — це сам поклик: звук, який не треба розуміти, щоб на нього відповісти. У колоді, де золота обмаль, вона веде погляд донизу через усю карту; її зазвичай читають як мить, коли напівусвідомлену правду вже неможливо проспати."
+      }
+    },
+    {
+      "key": "banner",
+      "x": 49,
+      "y": 44,
+      "en": {
+        "name": "The banner with the cross",
+        "seen": "Two fine cords hang from the rim of the bell and hold a short rod with gold ends. From it hangs a small ivory banner with a wavy lower edge, marked with a simple cross outlined in gold.",
+        "meaning": "In the traditional image a banner with a cross hangs from the trumpet, echoing the pennant of the risen Christ in Resurrection paintings and commonly read as life that has passed through death. Here the cross is a gold outline on ivory: quieter, more a mark of consecration than a flag."
+      },
+      "uk": {
+        "name": "Корогва з хрестом",
+        "seen": "З краю розтруба звисають два тонкі шнури, що тримають коротку жердинку із золотими кінцями. На ній висить невелика корогва зі слонової кістки з хвилястим нижнім краєм і простим хрестом, обведеним золотом.",
+        "meaning": "У традиційному зображенні із сурми звисає корогва з хрестом — відлуння стяга воскреслого Христа на картинах Воскресіння; її зазвичай читають як життя, що пройшло крізь смерть. Тут хрест — золотий контур на слоновій кістці: тихіший, радше позначка освячення, ніж прапор."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 18,
+      "y": 40,
+      "en": {
+        "name": "The falling trail of light",
+        "seen": "Left of the trumpet, a narrow diagonal stream of silver and gold chips runs from beneath the clouds down towards the mountain peaks on the left, denser and brighter than the scattered star flecks around it.",
+        "meaning": "This glittering band is Olivia’s addition, not part of the traditional card. It reads like a shooting star or a stretch of the Milky Way pouring towards the earth, echoing the trumpet: a line of light joining the sounding sky to the waiting ground."
+      },
+      "uk": {
+        "name": "Спадний слід світла",
+        "seen": "Ліворуч від сурми вузький діагональний потік срібних і золотих крихт спускається з-під хмар до гірських вершин ліворуч; він густіший і яскравіший за зоряні іскри, розсипані довкола.",
+        "meaning": "Ця мерехтлива смуга — доповнення Olivia, на традиційній карті її немає. Вона схожа на падучу зорю чи відтинок Чумацького Шляху, що ллється до землі, і вторує сурмі: лінія світла з’єднує небо, що сурмить, із землею, що чекає."
+      }
+    },
+    {
+      "key": "mountain",
+      "x": 85,
+      "y": 46,
+      "en": {
+        "name": "The pale mountain range",
+        "seen": "Beyond the sea, a range of pale grey-blue peaks carved in the lapis stretches across the whole horizon, rising highest near each side of the card and dipping low behind the banner.",
+        "meaning": "Mountains in tarot are commonly read as height, abstract thought and the long view. On Judgement they belong to the traditional scene as the horizon that waking reveals: once the call is heard, the view reaches much further than it did from inside the coffin."
+      },
+      "uk": {
+        "name": "Бліде гірське пасмо",
+        "seen": "За морем бліді сіро-блакитні вершини, вирізьблені в лазуриті, тягнуться вздовж усього обрію; найвище вони здіймаються біля обох країв карти, а за корогвою низько опускаються.",
+        "meaning": "Гори в таро зазвичай читають як висоту, абстрактну думку й далеку перспективу. У Суді вони належать до традиційної сцени як обрій, що відкривається з пробудженням: щойно поклик почуто, погляд сягає значно далі, ніж зсередини труни."
+      }
+    },
+    {
+      "key": "other",
+      "x": 20,
+      "y": 64,
+      "en": {
+        "name": "The bearded figure stepping out",
+        "seen": "On the left, an ivory figure with curly hair and a full beard looks up towards the angel. Both arms hang open with palms turned upward, and one bare foot steps forward over the coffin’s front rim.",
+        "meaning": "In the traditional image the risen figures are naked and grey. Olivia robes them in warm, draped ivory, so the waking looks less like an escape from death and more like a return to life. This gesture is receptive rather than pleading: palms open, already half out."
+      },
+      "uk": {
+        "name": "Бородата постать робить крок",
+        "seen": "Ліворуч постать зі слонової кістки, з кучерявим волоссям і густою бородою, дивиться вгору на ангела. Обидві руки опущені й розкриті долонями догори, а одна боса нога вже переступає передній край труни.",
+        "meaning": "У традиційному зображенні воскреслі постаті голі й сірі. Olivia вбирає їх у теплі драпіровані шати зі слонової кістки, тож пробудження скидається не так на втечу від смерті, як на повернення до життя. Цей жест радше приймає, ніж благає: долоні розкриті, постать уже наполовину назовні."
+      }
+    },
+    {
+      "key": "child",
+      "x": 51,
+      "y": 67,
+      "en": {
+        "name": "The child with raised arms",
+        "seen": "At the centre, a curly-haired child in a short ivory tunic stands with back to the viewer, both arms raised high in a wide V, fingers spread, bare feet planted on the floor of the coffin.",
+        "meaning": "The child seen from behind is a traditional detail, and it places you where the child stands: facing the call. Raised arms are the plainest answer to it, open and unguarded. The child is not stepping anywhere yet, only saying yes with the whole body."
+      },
+      "uk": {
+        "name": "Дитина з піднятими руками",
+        "seen": "У центрі кучерява дитина в короткій туніці зі слонової кістки стоїть спиною до глядача: обидві руки високо здійняті широкою літерою V, пальці розчепірені, босі ноги впираються в дно труни.",
+        "meaning": "Дитина, показана зі спини, — традиційна деталь, і вона ставить вас на її місце: обличчям до поклику. Підняті руки — найпростіша відповідь на нього, відкрита й беззахисна. Дитина ще нікуди не ступає, лише каже «так» усім тілом."
+      }
+    },
+    {
+      "key": "other",
+      "x": 77,
+      "y": 65,
+      "en": {
+        "name": "The long-haired figure turning upward",
+        "seen": "On the right, an ivory figure with long wavy hair, seen in profile, lifts the face towards the angel. The arms open low and wide, and the robe falls to one bare foot inside the coffin.",
+        "meaning": "With the figure on the left and the child, this one completes the card’s traditional trio, commonly read as different parts of one person answering a single call. Both adults look up but neither reaches: the waking asks for attention before it asks for effort."
+      },
+      "uk": {
+        "name": "Довговолоса постать, звернена вгору",
+        "seen": "Праворуч постать зі слонової кістки з довгим хвилястим волоссям, показана в профіль, підводить обличчя до ангела. Руки розкриті низько й широко, а шата спадає до однієї босої ноги всередині труни.",
+        "meaning": "Разом із постаттю ліворуч і дитиною вона завершує традиційну трійку карти, яку зазвичай читають як різні частини однієї людини, що відповідають на один поклик. Обидві дорослі постаті дивляться вгору, але жодна не тягнеться: пробудження спершу просить уваги, а вже потім зусиль."
+      }
+    },
+    {
+      "key": "sea",
+      "x": 50,
+      "y": 89,
+      "en": {
+        "name": "Open coffins on the sea",
+        "seen": "The sea is scattered with many open, lidless coffins of pale grey-blue lapis, floating out to the horizon. The three nearest are larger and each holds a standing figure; the child’s sits squarely at the centre.",
+        "meaning": "The Marseille card shows a single tomb in the ground; Pamela Colman Smith’s card sets many coffins adrift on water, commonly read as feeling and the unconscious. Every coffin here is open and empty or being left: the card is about what you climb out of."
+      },
+      "uk": {
+        "name": "Відкриті труни на морі",
+        "seen": "Море всіяне безліччю відкритих трун без віка з блідого сіро-блакитного лазуриту, що пливуть аж до обрію. Три найближчі більші, і в кожній стоїть постать; труна дитини — рівно посередині.",
+        "meaning": "На марсельській карті — одна гробниця в землі; на карті Памели Колман Сміт багато трун дрейфують водою, яку зазвичай читають як почуття й несвідоме. Кожна труна тут відкрита й порожня або саме зараз порожніє: ця карта про те, з чого ви вибираєтеся."
+      }
+    }
+  ],
+  "en": {
+    "essence": "Judgement is the moment a call reaches you clearly enough to answer: an honest reckoning with the past that frees you to rise into what comes next.",
+    "keywords": {
+      "upright": [
+        "awakening",
+        "reckoning",
+        "a clear call",
+        "renewal",
+        "honest review",
+        "answering"
+      ],
+      "reversed": [
+        "self-criticism",
+        "unanswered call",
+        "hesitation",
+        "reopening the past",
+        "inner reckoning"
+      ]
+    },
+    "upright": [
+      "Judgement is a card about being called awake. Above a sea of open coffins, a blue angel leans out of the clouds and sounds a long gold trumpet, its bell turned straight down at the figures below. Nothing here is a verdict handed down from a bench. The card draws attention to something you can no longer sleep through: a truth about your life, a value you have neglected, a direction that keeps returning until you answer it.",
+      "Look at how the three figures respond. None of them is dragged out. The bearded figure on the left already has one bare foot over the rim; the long-haired figure on the right turns the face upward with hands open; the child in the centre, seen from behind, raises both arms high. Judgement invites this kind of response: not anxious self-examination, but a whole-hearted yes to what you now recognise.",
+      "The reckoning is honest but not punitive. You look back clearly, take in what the past has taught you, and let it shape your next choice rather than define who you are. The coffins are open and emptying for a reason: this card asks what you are ready to climb out of, and what you would like to rise into."
+    ],
+    "reversed": [
+      "Judgement reversed points to a call you can hear but are not yet answering. You may be replaying old decisions as if in a courtroom, reviewing the past so thoroughly that you never step out of the coffin, or waiting for certainty before you respond. Sometimes the reversed card turns the trumpet inward, into a harsh inner voice that judges rather than wakes.",
+      "It can also describe a quieter, private reckoning that is not ready to be shared. The card invites you to separate the call from the criticism: keep the part that asks you to grow, and set down the verdict you keep passing on yourself. One small answering step is enough to begin."
+    ],
+    "number": "Judgement is card XX, the second to last of the Major Arcana. Twenty doubles the completion of ten, and in the Fool’s journey this is where the clear light of The Sun, card XIX, becomes a summons: what has been seen now asks to be answered. It is the last step before The World, card XXI, where the cycle becomes whole. The step asks you to gather everything the journey has taught you and rise with it, rather than start again from nothing.",
+    "tradition": "In the Golden Dawn system Judgement is Atu XX, titled “The Spirit of the Primal Fire”. It is assigned the Hebrew letter Shin, meaning tooth, whose three strokes the order read as tongues of flame; its element is Fire, and it also stands for Spirit. It lies on the path joining Hod and Malkuth on the Tree of Life. Some modern readers link it with Pluto. The image comes from Last Judgement art: the Tarot de Marseille shows an angel sounding a trumpet over figures rising from a tomb. Pamela Colman Smith’s 1909 design set grey figures in coffins floating on water beneath mountains, with a cross-marked banner on the trumpet. Aleister Crowley later renamed the card The Aeon.",
+    "areas": {
+      "love": "In close relationships Judgement draws attention to an honest review of how you have been loving and being loved. It may ask you to stop re-arguing an old grievance and hear what it is really calling for: an apology, a boundary, a new agreement. Like the figures rising in their open coffins, you can leave behind a version of the bond that no longer fits without condemning who you were then. With yourself, it asks for fairness rather than a verdict.",
+      "work": "At work or in study, Judgement can point to a clear call about direction: a vocation you keep circling, feedback you finally understand, a role you have outgrown. It invites a proper review of what your experience adds up to, the kind you might write before a new application or a changed plan. With money matters, it invites looking honestly at past choices to learn from them, rather than making a sudden move to escape them.",
+      "self": "For your own growth, Judgement asks you to listen for what keeps returning: the interest you never dropped, the regret that still teaches, the quiet sense that another way of living is possible. The child at the centre answers with raised arms before taking a single step. Notice whether your inner review sounds more like a trumpet that wakes you or a judge that keeps you lying down, and give more room to the first."
+    },
+    "positions": {
+      "heart": "At the centre of a question, Judgement suggests the real subject is a call you already hear. The question may be less about what to decide and more about whether you are ready to answer.",
+      "challenge": "As a challenge, Judgement can show a review that has turned into self-condemnation, or a call you keep postponing. Circling the past can keep you standing inside the coffin.",
+      "advice": "As advice, Judgement invites you to name what you have learned, forgive what needs forgiving, and take one visible step that shows you have heard the call."
+    },
+    "pairs": [
+      {
+        "with": 13,
+        "text": "With Death, the two halves of a passage appear: first the ending, then the waking. Here both carry an ivory banner marked in gold, a rose and a cross. Together they draw attention to what you have already let go of, and what now asks to rise in its place."
+      },
+      {
+        "with": 19,
+        "text": "With The Sun, the card before it, clarity meets response; both cards centre an ivory child with arms lifted high. Together they suggest that what you now see plainly is asking you to act on it."
+      },
+      {
+        "with": 21,
+        "text": "With The World, the card that follows, Judgement’s call leads into completion. Together they ask whether you are answering something new or finishing a cycle begun long ago, and invite you to gather its lessons before stepping into the whole."
+      }
+    ],
+    "questions": [
+      "What call keeps returning to you, however often you set it aside?",
+      "Which old decision are you still judging, and what did it actually teach you?",
+      "What would it look like to step out of your coffin with open hands, as these figures do?"
+    ],
+    "practice": "Write a short letter from your future self naming one lesson from the past year, then choose one small action this week that answers it."
+  },
+  "uk": {
+    "essence": "Суд — це мить, коли поклик лунає досить ясно, щоб на нього відповісти: чесний розрахунок із минулим, який звільняє вас і дає піднятися до того, що попереду.",
+    "keywords": {
+      "upright": [
+        "пробудження",
+        "розрахунок",
+        "ясний поклик",
+        "оновлення",
+        "чесне переосмислення",
+        "відповідь"
+      ],
+      "reversed": [
+        "самокритика",
+        "поклик без відповіді",
+        "вагання",
+        "повернення до минулого",
+        "внутрішній розрахунок"
+      ]
+    },
+    "upright": [
+      "Суд — карта про те, як вас кличуть прокинутися. Над морем відкритих трун синій ангел вихиляється з хмар і дме в довгу золоту сурму, розтруб якої обернений просто вниз, до постатей. Тут ніхто не виносить вироку із суддівського крісла. Карта звертає увагу на те, що вже неможливо проспати: правду про ваше життя, занедбану цінність, напрям, який повертається знову й знову, доки ви не відповісте.",
+      "Погляньте, як відповідають три постаті. Нікого з них не витягають силоміць. Бородата постать ліворуч уже переступила край однією босою ногою; довговолоса праворуч підводить обличчя, розкривши долоні; дитина в центрі, яку видно зі спини, високо здіймає обидві руки. Суд запрошує саме до такої відповіді: не до тривожного самокопання, а до щирого «так» тому, що ви тепер упізнаєте.",
+      "Розрахунок тут чесний, але не каральний. Ви тверезо озираєтеся назад, засвоюєте науку минулого й дозволяєте їй впливати на наступний вибір, а не визначати, хто ви є. Труни відкриті й порожніють не випадково: ця карта запитує, з чого ви готові вибратися і до чого хотіли б піднятися."
+    ],
+    "reversed": [
+      "Суд у перевернутому положенні вказує на поклик, який ви чуєте, але на який ще не відповідаєте. Можливо, ви раз у раз переглядаєте давні рішення, ніби в залі суду, розбираєте минуле так ретельно, що ніяк не вийдете з труни, або чекаєте певності, перш ніж відгукнутися. Іноді перевернута карта обертає сурму всередину, і вона стає різким внутрішнім голосом, що судить, а не будить.",
+      "Вона може описувати й тихіший, особистий розрахунок, яким ще не час ділитися. Карта запрошує відокремити поклик від критики: зберегти те, що кличе вас рости, і відкласти вирок, який ви знову й знову виносите собі. Щоб почати, досить одного маленького кроку у відповідь."
+    ],
+    "number": "Суд — карта XX, передостання серед Старших Арканів. Двадцять подвоює завершеність десятки, і в мандрівці Блазня саме тут ясне світло Сонця, карти XIX, стає покликом: побачене тепер просить відповіді. Це останній крок перед Світом, картою XXI, де цикл стає цілісним. Цей крок просить зібрати все, чого навчила мандрівка, і піднятися разом із цим, а не починати знову з нуля.",
+    "tradition": "У системі Золотої Зорі Суд — Ату XX з титулом «Дух Первісного Вогню». Йому відповідає єврейська літера Шин, що означає «зуб»; її три штрихи орден тлумачив як язики полум’я. Стихія карти — Вогонь, і водночас вона уособлює Дух. Карта лежить на шляху, що з’єднує Ход і Малкут на Дереві Життя. Дехто із сучасних читців пов’язує її з Плутоном. Образ походить із мистецтва Страшного суду: марсельське таро показує ангела, що сурмить над постатями, які встають із гробниці. У дизайні Памели Колман Сміт 1909 року сірі постаті стоять у трунах, що пливуть водою під горами, а на сурмі висить корогва з хрестом. Пізніше Алістер Кроулі перейменував карту на «Еон».",
+    "areas": {
+      "love": "У близьких стосунках Суд звертає увагу на чесний перегляд того, як ви любите і як люблять вас. Він може запропонувати припинити знову й знову сперечатися через давню образу й почути, до чого вона насправді кличе: до вибачення, межі, нової домовленості. Як постаті, що встають у відкритих трунах, ви можете залишити позаду ту форму зв’язку, яка вже не пасує, не засуджуючи себе тодішніх. У стосунках із собою карта просить справедливості, а не вироку.",
+      "work": "У роботі чи навчанні Суд може вказувати на ясний поклик щодо напряму: покликання, довкола якого ви все кружляєте, відгук, який нарешті зрозуміли, роль, із якої виросли. Він запрошує ґрунтовно переглянути, що в сумі дає ваш досвід, — так, як ви зробили б це перед новою заявкою чи зміною планів. У грошових питаннях карта запрошує чесно поглянути на минулі рішення, щоб навчитися з них, а не робити різкий крок, аби від них утекти.",
+      "self": "Для вашого зростання Суд просить прислухатися до того, що повертається знову: інтересу, який ви так і не покинули, жалю, що досі чогось навчає, тихого відчуття, що можна жити інакше. Дитина в центрі відповідає піднятими руками ще до першого кроку. Помітьте, на що більше схожий ваш внутрішній перегляд — на сурму, що будить, чи на суддю, що не дає підвестися, — і дайте більше місця першому."
+    },
+    "positions": {
+      "heart": "У центрі запитання Суд підказує, що справжня тема — поклик, який ви вже чуєте. Можливо, йдеться не так про те, що вирішити, як про те, чи готові ви відповісти.",
+      "challenge": "Як перешкода Суд може показувати перегляд, що перетворився на самоосуд, або поклик, який ви весь час відкладаєте. Кружляння довкола минулого може не випускати вас із труни.",
+      "advice": "Як порада Суд запрошує назвати те, чого ви навчилися, пробачити те, що потребує прощення, і зробити один помітний крок, який покаже, що поклик почуто."
+    },
+    "pairs": [
+      {
+        "with": 13,
+        "text": "Зі Смертю постають дві половини одного переходу: спершу завершення, потім пробудження. У колоді Olivia обидві карти мають корогву зі слонової кістки із золотим знаком: на одній — троянда, на другій — хрест. Разом вони звертають увагу на те, що ви вже відпустили, і на те, що тепер просить піднятися на його місці."
+      },
+      {
+        "with": 19,
+        "text": "Із Сонцем, картою перед нею, ясність зустрічається з відповіддю; у центрі обох карт — дитина зі слонової кістки з високо піднятими руками. Разом вони підказують: те, що ви тепер бачите ясно, просить вас діяти."
+      },
+      {
+        "with": 21,
+        "text": "Зі Світом, картою, що йде слідом, поклик Суду веде до завершення. Разом вони запитують, чи відповідаєте ви на щось нове, чи завершуєте цикл, розпочатий давно, і запрошують зібрати його уроки, перш ніж ступити в цілісність."
+      }
+    ],
+    "questions": [
+      "Який поклик повертається до вас, хоч скільки разів ви його відкладаєте?",
+      "Яке давнє рішення ви досі судите і чого воно насправді вас навчило?",
+      "Яким був би для вас вихід зі своєї труни з розкритими долонями, як у цих постатей?"
+    ],
+    "practice": "Напишіть короткий лист від себе майбутніх, у якому назвете один урок минулого року, а потім оберіть одну маленьку дію на цей тиждень, що стане відповіддю на нього."
+  }
+}

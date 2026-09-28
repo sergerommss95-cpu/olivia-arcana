@@ -37,6 +37,8 @@ body[data-view=question] #question-view{padding-top:8.2rem;width:min(40rem,58%)}
 .spread-size-choice input:checked+span :is(b,small){color:inherit}
 .spread-size-choice input:focus-visible+span{outline:2px solid #f2d8a1;outline-offset:3px}
 .spread-size-choice label:active span{translate:0 1px}
+.spread-size-choice span{height:100%;box-sizing:border-box}
+@media(forced-colors:active){.spread-size-choice span{border:1px solid CanvasText}.spread-size-choice input:checked+span{outline:3px solid Highlight;outline-offset:-3px}}
 @media(hover:hover){.spread-size-choice label:hover input:not(:checked)+span{background:#24445ccc}}
 @media(prefers-reduced-motion:reduce){.spread-size-choice span{transition:none}}
 .other-spreads{border-top:1px solid var(--rule);margin-top:2.5rem;padding-top:.5rem}.other-spreads>summary{padding:1.25rem 0;cursor:pointer;color:#d5c39e;font-size:.9rem}.other-spreads .spread-collection{margin:1rem 0 3rem}.other-spreads .spread-entry-actions .solid-action{font-size:.78rem}

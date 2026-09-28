@@ -1,0 +1,277 @@
+{
+  "id": 61,
+  "slug": "knight-of-swords",
+  "artwork": {
+    "file": "61_knight_of_swords.webp",
+    "sha256": "36ce51b851473b7bf6754d648c0ab03a3f07aafc8d22dddd12237e4ed56e6a75"
+  },
+  "symbols": [
+    {
+      "key": "sword",
+      "x": 68,
+      "y": 30,
+      "en": {
+        "name": "The raised gilded sword",
+        "seen": "A long, straight gold blade with a central groove, raised high above the rider’s head and angled back toward the upper right; its crossguard with knobbed ends, grip and round pommel are ivory.",
+        "meaning": "The sword is the emblem of Air: intellect, speech, decision and the cutting edge of truth. Raised and drawn back mid-stride, it is a thought about to become an act. Olivia gilds this blade alone among the carved objects, so the card’s worth rests on the idea itself, and on where it is aimed."
+      },
+      "uk": {
+        "name": "Піднятий позолочений меч",
+        "seen": "Довгий прямий золотий клинок із долом посередині здійнято високо над головою вершника й відведено назад, до верхнього правого кута; гарда з потовщеними кінцями, руків’я та кругле навершя — зі слонової кістки.",
+        "meaning": "Меч — емблема Повітря: розуму, мовлення, рішення й гострого леза правди. Піднятий і відведений назад на повному скаку, він — думка, що ось-ось стане дією. Серед різьблених предметів Olivia позолочує лише цей клинок, тож цінність карти — у самій ідеї та в тому, куди її спрямовано."
+      }
+    },
+    {
+      "key": "helmet",
+      "x": 45,
+      "y": 43,
+      "en": {
+        "name": "The helmeted, leaning rider",
+        "seen": "An ivory figure in a rounded helmet, face in profile, leans over the horse’s neck, one fist on the reins, the other lifting the sword. From the waist down the armour is lapis, a scabbard hanging at the hip.",
+        "meaning": "Knights are the movers of each suit, carrying its element out into the world. The forward lean shows full commitment: the whole body follows the head. The helmet leaves the face open, so the charge stays a matter of one mind’s judgement rather than anonymous force."
+      },
+      "uk": {
+        "name": "Нахилений вершник у шоломі",
+        "seen": "Постать зі слонової кістки в округлому шоломі, обличчям у профіль, схиляється над кінською шиєю: один кулак тримає повід, інший здіймає меч. Нижче пояса обладунок — із лазуриту, при стегні висять піхви.",
+        "meaning": "Лицарі — рушійна сила кожної масті: вони виносять її стихію у світ. Нахил уперед свідчить про цілковиту відданість: усе тіло рухається за головою. Шолом лишає обличчя відкритим, тож натиск залишається справою одного розуму й одного судження, а не безликою силою."
+      }
+    },
+    {
+      "key": "cloak",
+      "x": 72,
+      "y": 45,
+      "en": {
+        "name": "The cloak streaming back",
+        "seen": "A heavy ivory cloak flies out behind the rider’s shoulders in long folds, its end curling open toward the right edge, between the two banks of wind-torn cloud.",
+        "meaning": "A cloak often speaks of shelter, warmth or concealment. Here it is pulled straight back by speed and wind, covering nothing. It makes momentum visible, and hints at what gets left behind at this pace: comfort, cover and perhaps a second look."
+      },
+      "uk": {
+        "name": "Плащ, що розвівається позаду",
+        "seen": "Важкий плащ зі слонової кістки довгими складками розвівається за плечима вершника; його кінець, завиваючись, розкривається до правого краю карти, між двома пасмами пошматованих вітром хмар.",
+        "meaning": "Плащ часто означає прихисток, тепло чи приховування. Тут швидкість і вітер тягнуть його прямо назад, і він нічого не вкриває. Він робить розгін видимим і натякає на те, що лишається позаду в такому темпі: затишок, захист, а може, й змогу ще раз придивитися."
+      }
+    },
+    {
+      "key": "horse",
+      "x": 25,
+      "y": 53,
+      "en": {
+        "name": "Horse of ivory and lapis",
+        "seen": "The horse’s head, neck, mane and chest are ivory; from the shoulder the stone turns to blue lapis for body, legs and tail. Its mouth is open around the bit, both forelegs bent and lifted clear of the ground.",
+        "meaning": "The horse carries the knight’s force and mirrors the rider’s temper. Here ivory is kept for the upper parts of horse and rider, and everything below turns to lapis, as if the thinking part leads while the rest still belongs to the night it rushes through."
+      },
+      "uk": {
+        "name": "Кінь зі слонової кістки й лазуриту",
+        "seen": "Голова, шия, грива й груди коня — зі слонової кістки; від плеча камінь переходить у синій лазурит: тулуб, ноги й хвіст. Рот розтулений довкола вудил, обидві передні ноги зігнуті й відірвані від землі.",
+        "meaning": "Кінь несе силу лицаря й віддзеркалює норов вершника. Тут слонову кістку відведено лише верхнім частинам коня та вершника, а все нижче переходить у лазурит, наче веде та частина, що мислить, а решта ще належить ночі, крізь яку вони мчать."
+      }
+    },
+    {
+      "key": "butterfly",
+      "x": 37,
+      "y": 63,
+      "en": {
+        "name": "Butterflies and birds on the chest",
+        "seen": "On the lapis of the horse’s chest, just below a thin raised line curving across it, sit four small pale grey reliefs in a row: butterfly, bird, butterfly, bird, all with wings open.",
+        "meaning": "Butterflies and birds are creatures of Air, and the traditional image commonly decorates this horse’s trappings with them as the suit’s signature. The butterfly also carries the old sense of psyche, the soul or mind. Their delicacy sits strikingly against the charge: lightness carried into battle."
+      },
+      "uk": {
+        "name": "Метелики й птахи на грудях",
+        "seen": "На лазуриті кінських грудей, одразу під тонкою опуклою лінією, що вигинається через них, рядком розташовано чотири маленькі блідо-сірі рельєфи: метелик, птах, метелик, птах — усі з розкритими крилами.",
+        "meaning": "Метелики й птахи — створіння Повітря, і в традиційному зображенні ними зазвичай прикрашають збрую цього коня як знак масті. Метелик також несе давнє значення психеї — душі чи розуму. Їхня тендітність разюче контрастує з атакою: легкість, яку несуть у бій."
+      }
+    },
+    {
+      "key": "bird",
+      "x": 37,
+      "y": 33,
+      "en": {
+        "name": "Three birds in flight",
+        "seen": "Three small birds carved in pale grey-blue lapis cross the sky with wings spread: two to the left of the raised arm, one to the right, just below the line of the blade.",
+        "meaning": "Birds belong to the sky and so to the suit of Air: messages, thoughts in flight, news carried on the wind. Small and scattered, they show how quickly ideas travel here, and how a thought, once released, moves beyond your reach."
+      },
+      "uk": {
+        "name": "Три птахи в польоті",
+        "seen": "Три невеликі птахи, вирізьблені в блідому сіро-блакитному лазуриті, з розкритими крилами перетинають небо: два ліворуч від піднятої руки, один праворуч, трохи нижче лінії клинка.",
+        "meaning": "Птахи належать небу, а отже, й масті Повітря: вісті, думки в польоті, новини, які несе вітер. Маленькі й розпорошені, вони показують, як швидко тут мандрують ідеї і як думка, раз відпущена, виходить з-під вашої влади."
+      }
+    },
+    {
+      "key": "cloud",
+      "x": 85,
+      "y": 39,
+      "en": {
+        "name": "Wind-torn clouds",
+        "seen": "Two banks of greyish-blue clouds are carved along the right side of the card, stretched into long horizontal streaks with ragged edges, as though dragged across the sky by a strong wind.",
+        "meaning": "Clouds in the Swords suit usually mark the weather of the mind: unsettled, changing, sometimes obscuring. These are not heavy storm clouds but fast ones, pulled thin. They set the card’s tempo and suggest conditions that shift as quickly as the rider moves."
+      },
+      "uk": {
+        "name": "Пошматовані вітром хмари",
+        "seen": "Дві гряди сірувато-блакитних хмар вирізьблено вздовж правого боку карти; вони розтягнуті в довгі горизонтальні смуги з рваними краями, ніби сильний вітер протягнув їх небом.",
+        "meaning": "Хмари в масті Мечів зазвичай позначають погоду розуму: неспокійну, мінливу, часом таку, що затуляє видноколо. Це не важкі грозові хмари, а швидкі, витягнуті в тонкі пасма. Вони задають темп карти й натякають на обставини, що змінюються так само швидко, як рухається вершник."
+      }
+    },
+    {
+      "key": "tree",
+      "x": 44,
+      "y": 81,
+      "en": {
+        "name": "Bare trees bent by wind",
+        "seen": "Leafless trees in lighter blue lapis lean hard, their branches swept toward the right; the one below the horse grips the sloping ground with spread, exposed roots. The rider gallops the other way, toward the left.",
+        "meaning": "Wind-bent trees are a traditional feature of this card, showing Air at full strength. Here they reveal something more: the rider charges straight into the wind, against the direction everything else is pushed. That is courage and resistance at once, and it costs effort."
+      },
+      "uk": {
+        "name": "Голі дерева, зігнуті вітром",
+        "seen": "Безлисті дерева зі світлішого блакитного лазуриту сильно нахилені, їхнє гілля віднесене праворуч; те, що під конем, чіпляється за схил розкинутим оголеним корінням. Вершник мчить у протилежний бік, ліворуч.",
+        "meaning": "Зігнуті вітром дерева — традиційна деталь цієї карти, що показує Повітря на повну силу. Тут вони відкривають і більше: вершник мчить просто проти вітру, наперекір напрямку, у якому гнеться все інше. Це водночас мужність і опір, і це коштує зусиль."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 50,
+      "y": 16,
+      "en": {
+        "name": "Glittering vein across the sky",
+        "seen": "A long diagonal band of tiny pale, glittering mineral specks crosses the dark lapis from the upper right toward the left, high above the sword, among scattered gold star flecks.",
+        "meaning": "This belongs to Olivia’s lapis sky, not to the traditional image. The band rises the same way the blade points, a path of light above the charge. It can be read as the wider view: the whole sky the rider does not stop to look at."
+      },
+      "uk": {
+        "name": "Мерехтлива жилка через небо",
+        "seen": "Довга діагональна смуга дрібних блідих мерехтливих мінеральних крапинок перетинає темний лазурит від правого верхнього кута ліворуч, високо над мечем, серед розсипаних золотих зірочок.",
+        "meaning": "Це частина лазуритового неба Olivia, а не традиційного зображення. Смуга здіймається в той самий бік, куди вказує клинок, — світлий шлях над атакою. Її можна прочитати як ширший погляд: усе небо, на яке вершник не зупиняється, щоб подивитися."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Knight of Swords is a thought at full gallop: sharp conviction, quick words and decisive action, asking whether your speed still serves your aim.",
+    "keywords": {
+      "upright": [
+        "decisive action",
+        "directness",
+        "sharp focus",
+        "conviction",
+        "speed of thought",
+        "courage of mind"
+      ],
+      "reversed": [
+        "haste",
+        "scattered urgency",
+        "harsh words",
+        "tunnel vision",
+        "restless mind"
+      ]
+    },
+    "upright": [
+      "The Knight of Swords draws attention to a mind that has made itself up and is already moving. An idea, a principle or a truth you feel sure of has become action: you speak, you write, you decide, and you do it now. In Olivia’s carving the rider leans forward over the horse’s neck, the gilded blade raised and drawn back, the ivory cloak dragged straight out behind. Every line of the body points the same way.",
+      "Swords are the suit of Air, and this Knight is Air in motion: quick thinking, clear argument, the courage to name what others avoid. Look at the trees below the horse: bare, bent hard to the right by the wind, while the rider gallops left, straight into it. The card often turns attention to the energy it takes to hold a position against resistance, and to the clarity that makes that possible.",
+      "Upright, it invites you to trust a well-tested conclusion and act on it cleanly. It also asks one small thing before the charge: that the blade is aimed at a problem, not a person, and that the speed serves the purpose. Only the upper parts of horse and rider are ivory; everything below is still night-blue lapis. A quick look at what you have not yet seen is part of acting well."
+    ],
+    "reversed": [
+      "Knight of Swords reversed can point to a charge that has lost its target. The mind still races, but the energy scatters into urgency, argument or a string of quick decisions that do not add up to a direction. Words may come out sharper than the moment needs, or a conclusion may be defended simply because it was reached first.",
+      "Sometimes the reversal turns inward: a restless mind replaying the same case at night, running at full speed while going nowhere. This position invites you to rein in, not to stop. Loosen your grip on the sword for a moment, check your facts and your aim, and let someone else answer before you ride on."
+    ],
+    "number": "Knights stand second in the court sequence, after the Page and before the Queen and King. Where the Page receives and carries a message, the Knight acts on it: this is the rank of movement, pursuit and commitment to one direction. In Swords, the suit of Air, what moves is thought itself: an argument, a decision, a truth spoken aloud. Here the mind stops weighing options and chooses one, with all the force and all the risk that brings.",
+    "tradition": "In the Golden Dawn system the mounted court figure of Swords, which corresponds to the Knight of Waite and Smith’s deck, is titled the Lord of the Wind and the Breezes, King of the Spirits of Air. These mounted figures carry the fiery part of each suit, so this card is Fire of Air: the swiftest, most forceful expression of the element. It is given the zodiac from 20 degrees Taurus to 20 degrees Gemini, the last decan of Taurus and the first two of Gemini. Older Italian and Marseille decks show the Knight of Swords as an armoured rider. Pamela Colman Smith’s 1909 design set the rider at full gallop beneath wind-driven clouds and bent trees, and Waite described the charge as if scattering enemies.",
+    "court": {
+      "temperament": "The Knight of Swords is the temperament of the swift, principled mind: the part of anyone that sees the point, names it and moves on it before the moment passes. It is impatient with fog and vagueness, happiest with a clear question, and ready to argue for what seems true.",
+      "gifts": "Its gifts are courage of speech and speed of decision. This quality cuts through confusion, defends an idea or a person when that is needed, and keeps a project from drowning in deliberation. Like the rider leaning into the wind, it can hold a line against real resistance.",
+      "shadow": "In shadow, the same drive rides over people and details. Words become weapons, certainty hardens before the facts are in, and speed turns into a way of avoiding doubt. The cloak streaming behind the rider is a reminder of how much gets left behind at full gallop."
+    },
+    "areas": {
+      "love": "In close relationships the Knight of Swords can point to honesty spoken quickly: a truth you need to say, a boundary you are ready to state, a conversation rehearsed until it feels urgent. It does not tell you how another person will hear it. It asks whether your words are aimed at the problem or at the person, and whether you are leaving room for a reply. With yourself, notice the inner voice that charges in with verdicts, and ask it to slow its horse.",
+      "work": "At work or in study, this card can reflect a phase of fast decisions, sharp analysis and the energy to push a stalled project forward. It suits debate, writing, presenting an idea or fixing a clearly defined problem. Before you commit, check the one assumption your plan rests on, and let colleagues catch up with your reasoning. Where money is involved, the card turns attention to your pace rather than to any particular choice.",
+      "self": "For your relationship with yourself, the Knight of Swords draws attention to the pace of your thinking. Notice when the mind runs ahead of the body, like the ivory head and chest of this horse leading a body still made of night-blue stone. Speed can feel like clarity without being it. Ask what you know, what you assume, and whether a short pause, a walk or a night’s sleep would make the charge cleaner."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Knight of Swords points to a conviction that wants to become action, and to the speed and force with which you are ready to move.",
+      "challenge": "As a challenge, the card can show haste outrunning understanding: a quick conclusion defended too hard, or sharp words that win the point and lose the conversation.",
+      "advice": "As advice, it invites you to act on what you have clearly thought through, speak plainly, and check your aim once before you ride."
+    },
+    "pairs": [
+      {
+        "with": 60,
+        "text": "With the Page of Swords the pair traces a sequence in the suit: the alert student who watches, questions and tests an idea, then the rider who carries it at full speed. Together they ask whether your idea is ready for the charge."
+      },
+      {
+        "with": 75,
+        "text": "The Knight of Pentacles is traditionally the most unhurried of the knights. Beside the Knight of Swords the two show opposite paces, and together they draw attention to what in your situation needs speed and what needs steady ground."
+      },
+      {
+        "with": 7,
+        "text": "The Chariot also shows driven forward motion, held by will and balance rather than speed alone. With the Knight of Swords it turns attention toward direction: where your energy is going, and who is really steering."
+      }
+    ],
+    "questions": [
+      "What conclusion are you acting on, and when did you last check it?",
+      "Where is your speed serving your purpose, and where is it replacing reflection?",
+      "If your words were a blade, what exactly would you want them to cut?"
+    ],
+    "practice": "Before you send the message or make the call, write your aim in one line and read it aloud; then wait ten minutes and decide whether to ride."
+  },
+  "uk": {
+    "essence": "Лицар Мечів — це думка на повному скаку: гостра переконаність, швидкі слова й рішучі дії, а разом із ними запитання, чи ваша швидкість досі служить вашій меті.",
+    "keywords": {
+      "upright": [
+        "рішучі дії",
+        "прямота",
+        "чітке зосередження",
+        "переконаність",
+        "швидкість думки",
+        "сміливість думки"
+      ],
+      "reversed": [
+        "поспіх",
+        "гарячкова метушня",
+        "різкі слова",
+        "тунельне бачення",
+        "неспокійний розум"
+      ]
+    },
+    "upright": [
+      "Лицар Мечів привертає увагу до розуму, який уже все вирішив і рушив у дорогу. Ідея, принцип чи правда, у якій ви впевнені, стала дією: ви говорите, пишете, ухвалюєте рішення — і робите це зараз. У різьбленні Olivia вершник схиляється вперед над кінською шиєю, позолочений клинок піднятий і відведений назад, а плащ зі слонової кістки витягнувся прямо позаду. Кожна лінія тіла вказує в один бік.",
+      "Мечі — масть Повітря, і цей Лицар — Повітря в русі: швидке мислення, чітка аргументація, сміливість назвати те, чого інші уникають. Погляньте на дерева під конем: голі, сильно зігнуті вітром праворуч, тоді як вершник мчить ліворуч, просто назустріч вітру. Карта часто привертає увагу до енергії, якої потребує утримання позиції всупереч опору, і до ясності, що робить це можливим.",
+      "У прямому положенні вона запрошує довіритися добре перевіреному висновку й діяти за ним чітко, без зайвого. І просить про одну дрібницю перед атакою: щоб клинок був спрямований на проблему, а не на людину, і щоб швидкість служила меті. Зі слонової кістки лише верхні частини коня та вершника; усе нижче досі — нічно-синій лазурит. Короткий погляд на те, чого ви ще не побачили, — теж частина вміння діяти добре."
+    ],
+    "reversed": [
+      "Лицар Мечів у перевернутому положенні може вказувати на атаку, що втратила ціль. Думки досі мчать, але енергія розпорошується на поспіх, суперечки чи низку швидких рішень, які не складаються в напрямок. Слова можуть звучати гостріше, ніж вимагає мить, а висновок — обстоюватися лише тому, що до нього дійшли першим.",
+      "Іноді перевернуте положення обертається всередину: неспокійний розум уночі знову й знову прокручує ту саму справу, мчить на повній швидкості й нікуди не просувається. Таке положення запрошує притримати коня, а не зупинитися. Ненадовго послабте хватку на мечі, перевірте факти й приціл і дайте комусь іншому відповісти, перш ніж рушати далі."
+    ],
+    "number": "Лицарі стоять другими в послідовності придворних карт — після Пажа й перед Королевою та Королем. Якщо Паж отримує й несе вістку, то Лицар утілює її в дію: це ранг руху, гонитви й відданості одному напрямку. У Мечах, масті Повітря, рухається сама думка: аргумент, рішення, правда, сказана вголос. Тут розум перестає зважувати варіанти й обирає один — з усією силою й усім ризиком, які це несе.",
+    "tradition": "У системі Золотої Зорі вершника масті Мечів, який відповідає Лицареві колоди Вейта й Сміт, називають Володарем Вітру й Вітерців, Королем Духів Повітря. Ці вершники несуть вогняну частину кожної масті, тож ця карта — Вогонь Повітря: найстрімкіший і найпотужніший вияв стихії. Їй відводять відрізок зодіаку від 20 градусів Тельця до 20 градусів Близнят — останню декаду Тельця й перші дві декади Близнят. Старіші італійські та марсельські колоди зображують Лицаря Мечів як вершника в обладунку. У дизайні 1909 року Памела Колман Сміт показала вершника на повному скаку під гнаними вітром хмарами й зігнутими деревами, а Вейт описав цю атаку так, ніби вершник розганяє ворогів.",
+    "court": {
+      "temperament": "Лицар Мечів — це темперамент швидкого й принципового розуму: та частина будь-кого, що бачить суть, називає її й діє, доки мить не минула. Ця якість не терпить туману й розмитості, найкраще почувається з чітким запитанням і готова сперечатися за те, що здається правдою.",
+      "gifts": "Його дари — сміливість мовлення й швидкість рішень. Ця якість розтинає плутанину, захищає ідею чи людину, коли це потрібно, і не дає проєкту потонути в нескінченних обговореннях. Як вершник, що схиляється проти вітру, вона здатна тримати позицію під справжнім тиском.",
+      "shadow": "У тіні той самий порив топче людей і деталі. Слова стають зброєю, упевненість твердне ще до того, як з’являться факти, а швидкість перетворюється на спосіб уникнути сумнівів. Плащ, що лине за вершником, нагадує, скільки лишається позаду на повному скаку."
+    },
+    "areas": {
+      "love": "У близьких стосунках Лицар Мечів може вказувати на чесність, висловлену швидко: правду, яку вам треба сказати, межу, яку ви готові окреслити, розмову, що її ви стільки разів подумки проговорювали, аж вона здається невідкладною. Карта не каже, як її почує інша людина. Вона запитує, чи ваші слова спрямовані на проблему, чи на людину, і чи лишаєте ви місце для відповіді. Щодо себе зверніть увагу на внутрішній голос, що влітає з вироками, і попросіть його притримати коня.",
+      "work": "У роботі чи навчанні ця карта може відображати період швидких рішень, гострого аналізу й енергії, здатної зрушити проєкт, що застряг. Вона добре підходить для дебатів, письма, презентації ідеї чи розв’язання чітко окресленої проблеми. Перш ніж брати на себе зобов’язання, перевірте те одне припущення, на якому тримається ваш план, і дайте колегам наздогнати ваші міркування. Коли йдеться про гроші, карта привертає увагу до вашого темпу, а не на якийсь конкретний вибір.",
+      "self": "У стосунках із собою Лицар Мечів привертає увагу до темпу вашого мислення. Помічайте, коли розум забігає поперед тіла, як голова й груди цього коня зі слонової кістки ведуть тулуб, досі вирізаний із нічно-синього каменю. Швидкість може здаватися ясністю, хоча нею не є. Запитайте себе, що ви знаєте, що припускаєте і чи не зробить атаку чистішою коротка пауза, прогулянка або ніч доброго сну."
+    },
+    "positions": {
+      "heart": "У центрі запитання Лицар Мечів вказує на переконання, що прагне стати дією, а також на швидкість і силу, з якими ви готові рушити.",
+      "challenge": "Як виклик карта може показувати поспіх, що випереджає розуміння: швидкий висновок, який обстоюють надто завзято, або гострі слова, що виграють суперечку, але програють розмову.",
+      "advice": "Як порада вона запрошує діяти відповідно до того, що ви ясно обміркували, говорити прямо й один раз перевірити приціл, перш ніж рушати."
+    },
+    "pairs": [
+      {
+        "with": 60,
+        "text": "У парі з Пажем Мечів вимальовується послідовність масті: уважний учень, що спостерігає, запитує й випробовує ідею, а потім вершник, який несе її на повному скаку. Разом вони запитують, чи готова ваша ідея до атаки."
+      },
+      {
+        "with": 75,
+        "text": "Лицар Пентаклів традиційно найнеквапливіший із лицарів. Поруч із Лицарем Мечів вони показують протилежні темпи й разом привертають увагу до того, що у вашій ситуації потребує швидкості, а що — твердого ґрунту."
+      },
+      {
+        "with": 7,
+        "text": "Колісниця теж показує рух уперед, який тримається на волі й рівновазі, а не на самій лише швидкості. Разом із Лицарем Мечів вона привертає увагу до напрямку: куди йде ваша енергія і хто насправді кермує."
+      }
+    ],
+    "questions": [
+      "На якому висновку ґрунтуються ваші дії і коли ви востаннє його перевіряли?",
+      "Де ваша швидкість служить вашій меті, а де підміняє роздуми?",
+      "Якби ваші слова були клинком, що саме ви хотіли б ними розтяти?"
+    ],
+    "practice": "Перш ніж надіслати повідомлення чи зателефонувати, запишіть свою мету одним рядком і прочитайте її вголос; потім зачекайте десять хвилин і вирішіть, чи рушати."
+  }
+}

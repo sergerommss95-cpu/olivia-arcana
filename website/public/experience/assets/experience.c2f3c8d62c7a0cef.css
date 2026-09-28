@@ -862,7 +862,9 @@ summary:focus-visible {
 @media(max-width:800px){.calendar-reminder{grid-template-columns:minmax(0,1fr);gap:1.1rem;margin-top:2.2rem;padding:2rem 0}.calendar-reminder-form{grid-column:1;grid-row:auto;justify-self:start;max-width:100%;margin:.5rem 0}.calendar-reminder>p{max-width:65ch}}
 /* Make room for the language route alongside the product navigation. */
 @media (max-width: 1450px) { .site-header .header-note { display: none; } }
-@media (max-width: 750px) { .site-header .spreads-nav { display: none; } }
+/* :not() matches the specificity of the pill rule in action-surfaces.css, which loads later. */
+@media (max-width: 750px) { .site-header nav a.spreads-nav:not(.nav-reading) { display: none; } }
+@media (max-width: 980px) { .site-header nav a.cards-nav:not(.nav-reading) { display: none; } }
 @media (max-width: 420px) { .site-header .language-link { font-size: .58rem; padding-inline: .4rem; } }
 
 /* Optional question help stays quieter than the reading's primary action. */
@@ -1046,6 +1048,61 @@ body[data-view=symbols] #hero-region{display:none}
 .st-continue{display:block;width:fit-content;max-width:100%;padding:16px 22px;min-height:48px;text-align:left;line-height:1.65;font-size:12px;background:var(--st-paper);color:#132638;margin-top:28px;transition:background 160ms ease,transform 160ms ease}
 .st-continue:hover{background:#fff2d5;transform:translateY(-2px)}.st-study-copy>.st-text-link{font-size:11px;opacity:.85}
 @media(prefers-reduced-motion:reduce){.st-continue:hover{transform:none}}
+
+/* ——— v2: an index of symbols, each shown as a magnified detail of its card ——— */
+@property --lx{syntax:"<number>";inherits:false;initial-value:50}
+@property --ly{syntax:"<number>";inherits:false;initial-value:50}
+.st-loupe{display:block;flex:none;border-radius:50%;background-color:#102235;background-repeat:no-repeat;box-shadow:0 0 0 1px #d4c39d59,0 10px 26px #03101e66,inset 0 0 0 1px #0003}
+.st-trail-index{max-width:1380px;margin:0 auto;display:grid;gap:26px;padding-bottom:40px;border-bottom:1px solid var(--st-line)}
+.st-trail-group-title{margin:0 0 12px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--st-gold)}
+.st-trail-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:12px}
+.st-trail-tile{display:flex;align-items:center;gap:14px;min-height:84px;padding:12px 14px;border-radius:16px;background:#162c40cc;box-shadow:inset 0 1px 0 #c9d7d81a;text-align:left;color:var(--st-muted);transition:background-color var(--dur-control) var(--ease-control),color var(--dur-control) var(--ease-control),translate var(--dur-press) var(--ease-control)}
+.st-tile-loupe{width:58px;height:58px;transition:transform var(--dur-arrive) var(--ease-settle),box-shadow var(--dur-arrive) var(--ease-settle)}
+.st-trail-words{display:grid;gap:3px;min-width:0}
+.st-trail-name{font:400 23px/1.1 'Cormorant Garamond',Georgia,serif;color:var(--st-paper);overflow-wrap:anywhere}
+.st-trail-count{font-size:10px;letter-spacing:.08em;color:var(--st-gold)}
+.st-trail-tile[aria-pressed=true]{background:#eddfc2;color:#172d3d;box-shadow:inset 0 1px 0 #fff5de,0 6px 18px #0003}
+.st-trail-tile[aria-pressed=true] .st-trail-name{color:#172d3d}
+.st-trail-tile[aria-pressed=true] .st-trail-count{color:#6d5a35}
+.st-trail-tile:active{translate:0 1px}
+@media(hover:hover){.st-trail-tile:hover:not([aria-pressed=true]){background:#1f3a52;color:var(--st-paper)}.st-trail-tile:hover .st-tile-loupe{transform:scale(1.06)}}
+.st-trail-heading>div>.eyebrow{margin:0 0 10px}
+.st-loading{min-height:40vh;display:grid;place-content:center;justify-items:center;gap:18px;text-align:center;color:var(--st-muted);font-size:14px}
+.st-study-copy .st-reflection>p{font:400 clamp(21px,1.75vw,25px)/1.48 'Cormorant Garamond',Georgia,serif;max-width:540px}
+.st-study-copy>.st-continue+.st-text-link{margin-left:12px;font-size:13px}
+
+/* The chosen card: a lens settles on the symbol, a pin marks its centre. */
+.st-artwork{overflow:hidden;border-radius:2.1%/1.2%}
+.st-lens{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at calc(var(--lx)*1%) calc(var(--ly)*1%),transparent 0,transparent 12%,#030b18a8 32%);animation:st-lens-in 900ms var(--ease-glide) both}
+.st-pin{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:1px solid #f0dcaecc;box-shadow:0 0 0 6px #e6cf9e1f,0 0 26px #e6cf9e59;pointer-events:none;animation:st-pin-in 900ms var(--ease-glide) 120ms both}
+@keyframes st-lens-in{from{opacity:0}to{opacity:1}}
+@keyframes st-pin-in{from{opacity:0;transform:scale(1.8)}to{opacity:1;transform:none}}
+.st-card-choice{grid-template-columns:40px 1fr 18px}
+.st-choice-loupe{width:34px;height:34px}
+
+/* See it change: the same symbol, magnified, card after card. */
+.st-loupe-row{list-style:none;margin:0 auto;padding:0;max-width:1180px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,210px));justify-content:center;gap:34px 26px}
+.st-loupe-card{display:grid;justify-items:center;gap:10px;width:100%;text-align:center;color:var(--st-paper);padding:0}
+.st-compare-loupe{width:min(150px,100%);height:auto;aspect-ratio:1;transition:transform var(--dur-arrive) var(--ease-settle),box-shadow var(--dur-arrive) var(--ease-settle)}
+.st-loupe-card-name{font:400 24px/1.15 'Cormorant Garamond',Georgia,serif}
+.st-loupe-symbol{font-size:11px;letter-spacing:.06em;color:var(--st-gold)}
+.st-loupe-seen{margin:10px 0 0;font-size:12px;line-height:1.75;color:var(--st-muted);text-align:center}
+@media(hover:hover){.st-loupe-card:hover .st-compare-loupe{transform:scale(1.05);box-shadow:0 0 0 1px #e6cf9e99,0 14px 32px #03101e80}}
+@media(max-width:680px){
+ .st-trail-index{gap:20px;padding-bottom:28px}
+ .st-trail-tiles{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:22px;gap:10px;margin-inline:-22px;padding:0 22px 4px;scrollbar-width:none}
+ .st-trail-tile{flex:0 0 auto;scroll-snap-align:start;min-height:74px;padding:10px 14px 10px 10px}
+ .st-tile-loupe{width:50px;height:50px}
+ .st-trail-name{font-size:21px}
+ .st-choice-loupe{width:30px;height:30px}
+ .st-loupe-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 14px}
+ .st-loupe-card-name{font-size:20px}
+ .st-pin{width:26px;height:26px;margin:-13px 0 0 -13px}
+ .st-card-nav{display:flex;flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:22px;gap:14px;margin-inline:-22px;padding:0 22px 6px;scrollbar-width:none;border-top:0}
+ .st-card-choice{flex:0 0 auto;width:92px;scroll-snap-align:start;border-bottom:0}
+}
+@media(prefers-reduced-motion:reduce){.st-lens,.st-pin{animation:none}}
+@media(forced-colors:active){.st-trail-tile{border:1px solid ButtonText}.st-trail-tile[aria-pressed=true]{outline:3px solid Highlight;outline-offset:2px}.st-pin{border-color:Highlight}}
 
 /* A visual introduction to the real practice. Everything is scoped below the locked hero. */
 #home-content.home-showcase{--home-ink:#eee5d4;--home-copy:#bdc8ce;--home-gold:#c7b28c;--home-rule:#c7b28c36;background:#0b192a;color:var(--home-ink);overflow:clip}
@@ -1331,6 +1388,8 @@ body[data-view=question] #question-view{padding-top:8.2rem;width:min(40rem,58%)}
 .spread-size-choice input:checked+span :is(b,small){color:inherit}
 .spread-size-choice input:focus-visible+span{outline:2px solid #f2d8a1;outline-offset:3px}
 .spread-size-choice label:active span{translate:0 1px}
+.spread-size-choice span{height:100%;box-sizing:border-box}
+@media(forced-colors:active){.spread-size-choice span{border:1px solid CanvasText}.spread-size-choice input:checked+span{outline:3px solid Highlight;outline-offset:-3px}}
 @media(hover:hover){.spread-size-choice label:hover input:not(:checked)+span{background:#24445ccc}}
 @media(prefers-reduced-motion:reduce){.spread-size-choice span{transition:none}}
 .other-spreads{border-top:1px solid var(--rule);margin-top:2.5rem;padding-top:.5rem}.other-spreads>summary{padding:1.25rem 0;cursor:pointer;color:#d5c39e;font-size:.9rem}.other-spreads .spread-collection{margin:1rem 0 3rem}.other-spreads .spread-entry-actions .solid-action{font-size:.78rem}

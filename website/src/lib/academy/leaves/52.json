@@ -1,0 +1,250 @@
+{
+  "id": 52,
+  "slug": "three-of-swords",
+  "artwork": {
+    "file": "52_three_of_swords.webp",
+    "sha256": "c4b7af895aa0b300ba5ff09d0e2a394c6cbb8e556a8d0600debd6c2b782a8534"
+  },
+  "symbols": [
+    {
+      "key": "heart",
+      "x": 50,
+      "y": 59,
+      "en": {
+        "name": "The carved ivory heart",
+        "seen": "An anatomical heart carved in ivory, not a stylised valentine: the great vessels rise from its top, its chambers swell in soft relief, and all three blades meet inside it.",
+        "meaning": "In tarot the heart stands for feeling, attachment and whatever you hold dear. Pamela Colman Smith drew a flat red emblem; Olivia’s is a real organ, heavy and alive, so the hurt reads as something bodily and lived, not a symbol kept at a distance."
+      },
+      "uk": {
+        "name": "Різьблене серце зі слонової кістки",
+        "seen": "Анатомічне серце, вирізьблене зі слонової кістки, а не стилізоване сердечко з листівки: зверху здіймаються великі судини, камери м’яко випинаються рельєфом, а всі три клинки сходяться всередині нього.",
+        "meaning": "У таро серце означає почуття, прив’язаність і все, що вам дороге. Памела Колман Сміт намалювала пласку червону емблему; в Olivia це справжній орган, важкий і живий, тож біль сприймається як щось тілесне й прожите, а не як символ, який тримають на відстані."
+      }
+    },
+    {
+      "key": "seam",
+      "x": 40,
+      "y": 56,
+      "en": {
+        "name": "Gold seams across the heart",
+        "seen": "Thin rivers of gold run over the ivory heart, pooling on its upper left shoulder and branching down through its centre like veins or mended cracks.",
+        "meaning": "Classic versions of this card carry no gold on the heart. Here it recalls kintsugi, the Japanese craft of joining broken pottery with gold. Repair is already part of the picture: a wound, once tended, can become a visible line of strength rather than something to hide."
+      },
+      "uk": {
+        "name": "Золоті шви на серці",
+        "seen": "Тонкі золоті струмочки біжать по серцю зі слонової кістки: збираються на його верхньому лівому виступі й розгалужуються донизу через середину, мов вени чи полагоджені тріщини.",
+        "meaning": "У класичних версіях цієї карти на серці немає золота. Тут воно нагадує кінцуґі — японське ремесло, у якому розбиту кераміку склеюють золотом. Відновлення вже є частиною зображення: рана, про яку подбали, може стати видимою лінією сили, а не тим, що треба ховати."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 50,
+      "y": 33,
+      "en": {
+        "name": "The upright centre sword",
+        "seen": "The central ivory sword stands exactly vertical, its flared, fluted pommel and bound grip high among the clouds, its crossguard ending in rounded knobs, its blade driving straight down into the heart.",
+        "meaning": "Swords belong to Air: thought, words and clear understanding. The straight middle blade is the plain fact of what happened, the one line that does not bend. Its symmetry keeps the image from chaos; the pain has a clear axis you can name."
+      },
+      "uk": {
+        "name": "Прямий центральний меч",
+        "seen": "Центральний меч зі слонової кістки стоїть рівно вертикально: розширене рифлене навершя й обмотане руків’я високо серед хмар, кінці гарди завершуються круглими кульками, а клинок іде прямо вниз у серце.",
+        "meaning": "Мечі належать стихії Повітря: думки, слова й ясного розуміння. Прямий середній клинок — це простий факт того, що сталося, та єдина лінія, що не гнеться. Його симетрія не дає зображенню перетворитися на хаос: біль має чітку вісь, яку можна назвати."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 30,
+      "y": 43,
+      "en": {
+        "name": "Two slanting side swords",
+        "seen": "Two matching ivory swords lean inward from left and right, their pommels roughly level with the centre sword’s crossguard, their blades entering the heart’s upper shoulders on either side of the vessels.",
+        "meaning": "The side blades can stand for the explanations, memories and replayed words that gather around a hurt, each arriving from its own angle and meeting at one point. Three thoughts converge where one would have been bearable."
+      },
+      "uk": {
+        "name": "Два косі бічні мечі",
+        "seen": "Два однакові мечі зі слонової кістки нахиляються всередину зліва й справа; їхні навершя приблизно на рівні гарди центрального меча, а клинки входять у верхню частину серця обабіч судин.",
+        "meaning": "Бічні клинки можуть уособлювати пояснення, спогади й слова, що знову й знову звучать у голові, що збираються довкола болю: кожне приходить зі свого боку, і всі сходяться в одній точці. Три думки зустрічаються там, де одну ще можна було б витримати."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 50,
+      "y": 77,
+      "en": {
+        "name": "Three points below",
+        "seen": "Beneath the heart three clean, pale points fan out. The side blades cross inside the heart, so the left-hand sword’s point emerges lower right, the right-hand sword’s lower left; the centre point drops straight down.",
+        "meaning": "The swords pass through rather than stopping inside, and, as in Smith’s 1909 card, there is no blood. The spreading points hint that thoughts which met in pain can leave in different directions: the moment of piercing is not the whole story."
+      },
+      "uk": {
+        "name": "Три вістря внизу",
+        "seen": "Під серцем віялом розходяться три чисті бліді вістря. Бічні клинки перетинаються всередині серця, тож вістря лівого меча виходить унизу праворуч, правого — унизу ліворуч, а центральне падає прямо вниз.",
+        "meaning": "Мечі проходять наскрізь, а не застрягають усередині, і, як на карті Сміт 1909 року, крові немає. Вістря, що розходяться, натякають: думки, які зустрілися в болю, можуть піти різними шляхами, і мить, коли клинок пронизує, — ще не вся історія."
+      }
+    },
+    {
+      "key": "cloud",
+      "x": 62,
+      "y": 21,
+      "en": {
+        "name": "Storm clouds in grey lapis",
+        "seen": "Heavy, billowing clouds carved in lighter greyish blue lapis bank behind the hilts across the upper half of the card, and reach down on both sides to the level of the heart.",
+        "meaning": "Clouds in the Swords suit usually mark troubled or clouded thinking. Smith hung this card’s heart in a storm sky; here the clouds stay above and behind the blades, the weather of the mind that surrounds a sorrow without being the sorrow itself."
+      },
+      "uk": {
+        "name": "Грозові хмари із сірого лазуриту",
+        "seen": "Важкі клубчасті хмари, вирізьблені у світлішому сірувато-синьому лазуриті, громадяться за руків’ями через усю верхню половину карти й спускаються з обох боків до рівня серця.",
+        "meaning": "У масті Мечів хмари зазвичай позначають тривожне чи затьмарене мислення. Сміт підвісила серце на цій карті в грозовому небі; тут хмари лишаються над клинками й позаду них: це негода в думках, що оточує смуток, але не є самим смутком."
+      }
+    },
+    {
+      "key": "rain",
+      "x": 80,
+      "y": 75,
+      "en": {
+        "name": "Slanting incised rain",
+        "seen": "Fine pale lines are scratched into the lapis below the cloud line, slanting from upper right to lower left and filling both sides of the lower card around the blade points.",
+        "meaning": "Rain is the classic weather of this card, often read as tears and as release. Rain also washes and waters. Its steady slant gives the image movement: grief falling through, not frozen in place, which is where the card’s quiet hope begins."
+      },
+      "uk": {
+        "name": "Косий врізаний дощ",
+        "seen": "Тонкі бліді лінії видряпано в лазуриті під межею хмар; вони йдуть навскіс згори праворуч униз ліворуч і заповнюють обидва боки нижньої частини карти довкола кінців клинків.",
+        "meaning": "Дощ — класична погода цієї карти, його часто читають як сльози й вивільнення. А ще дощ омиває й напуває. Його рівний нахил додає зображенню руху: горе протікає, а не застигає на місці, і саме тут починається тиха надія карти."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 32,
+      "y": 12,
+      "en": {
+        "name": "Glittering vein and gold flecks",
+        "seen": "In the upper left a diagonal vein of pale, glittering mineral crosses the dark lapis like a thread of stars, while small gold flecks sit near all four corners of the card.",
+        "meaning": "This detail is Olivia’s own. Swords belong to the sky, and above the storm the stone keeps its stars. It is a small reminder that clarity has not gone, only been covered for a while, and that the night is larger than the clouds."
+      },
+      "uk": {
+        "name": "Мерехтлива жилка й золоті крапинки",
+        "seen": "Угорі ліворуч діагональна жилка блідого мерехтливого мінералу перетинає темний лазурит, мов нитка зір, а дрібні золоті крапинки розсипані біля всіх чотирьох кутів карти.",
+        "meaning": "Ця деталь — власна знахідка Olivia. Мечі належать небу, і над бурею камінь зберігає свої зорі. Це маленьке нагадування: ясність нікуди не зникла, її лише на якийсь час затулили хмари, а ніч більша за хмари."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Three of Swords names a hurt plainly: a painful truth, a loss or a grief felt in the heart, and the first honest step toward tending it.",
+    "keywords": {
+      "upright": [
+        "heartache",
+        "painful truth",
+        "grief",
+        "release through tears",
+        "honest naming"
+      ],
+      "reversed": [
+        "lingering hurt",
+        "pain kept quiet",
+        "slow mending",
+        "replaying the story",
+        "easing sorrow"
+      ]
+    },
+    "upright": [
+      "The Three of Swords is one of the most recognisable images in tarot, and one of the most honest. It draws attention to a hurt that has already arrived: a painful truth heard or understood, a separation, a disappointment, a grief that sits in the chest. In Olivia’s deck the heart is not a flat emblem but an anatomical heart carved in ivory, vessels and all, so the card speaks of pain as something your body knows, not only an idea you are thinking about.",
+      "Swords are the suit of Air, of words and understanding, and this card often turns attention to the moment when knowing something hurts. Three ivory blades meet inside the heart, yet their points come out clean below it and fan apart, while the rain slants steadily across the lower card. Nothing here is frozen; sorrow is moving through.",
+      "What makes this version distinctive is the gold. Fine gold seams run across the heart like mended cracks, the way broken pottery is repaired with gold in kintsugi. Upright, the card invites you to name the hurt plainly, without adding the harshest possible story about what it means for your worth. Let it be felt, let support in, and notice that tending a wound is already part of the picture. As always in Olivia’s practice, this is symbolic language for a feeling, not a forecast of events."
+    ],
+    "reversed": [
+      "Three of Swords reversed draws attention to hurt that is either slowly easing or being kept out of sight. The rain may be thinning: you may notice more room around an old sorrow, and the gold seams may matter more to you now than the blades. Or the pain may have turned inward, carried quietly because naming it feels like too much, or replayed until the story grows sharper than the event.",
+      "This position asks what the hurt still needs. Sometimes it is a conversation or a written page; sometimes it is simply permission to stop rehearsing the harshest explanation. Easing does not mean forgetting, and privacy does not mean failing to cope. Let support in at a pace that feels manageable."
+    ],
+    "number": "Three is the first number that makes a shape: after the single point of the Ace and the held tension of the Two, something new takes form. In Swords, the suit of Air and mind, that new form is understanding, and understanding can hurt. Where the Two of Swords keeps a difficult choice in suspension, the Three is where the truth lands and is felt. It marks the point where thought becomes emotion, and where honest grieving can begin.",
+    "tradition": "In the Golden Dawn system the Three of Swords is titled the Lord of Sorrow. It is assigned to Saturn in Libra, the second decan of that sign (10 to 20 degrees), and to Binah, Understanding, the third Sephirah on the Tree of Life, expressed through the suit of Air. Saturn’s weight on the scales of Libra is often read as a hard truth that has to be accepted; Aleister Crowley kept the single title Sorrow. Marseille decks show only a pattern of curved and straight blades. The pierced heart appears in the Sola Busca tarot of about 1490, which Pamela Colman Smith is thought to have seen before her 1909 design, and it echoes devotional images of a heart pierced by swords.",
+    "areas": {
+      "love": "In close relationships the Three of Swords can point to words that cut, a separation, or a disappointment that has not yet been spoken about. It does not tell you what another person feels or intends. It asks what you know about your own hurt, and whether you can say it simply, first to yourself and then, if it feels right, to someone you trust. The gold seams on the heart are a reminder that closeness, including with yourself, can be mended without pretending nothing broke.",
+      "work": "At work or in study, this card can reflect criticism that stung, a plan that fell through, or a hard truth about a project you cared about. Swords ask for clarity, so separate what was actually said or decided from the conclusions you have drawn about your ability. Give yourself a short pause before responding. Where money or practical matters are involved, the view of a qualified person serves better than rehearsing the worst case alone at night.",
+      "self": "For your relationship with yourself, the card invites grief to be felt instead of managed. The anatomical heart in this image is a reminder that sorrow lives in the body too: in the breath, in the chest, in tiredness. Notice where you hold it. The rain in the lower card keeps falling in one direction, and tears have their own movement. Give them room, then notice what small kindness, rest or company would help you tend what hurts."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Three of Swords points to a hurt or hard truth that sits beneath everything else. Naming it plainly may matter more than solving it straight away.",
+      "challenge": "As a challenge, the card can show pain replayed until it hardens into a story about your worth, or sorrow pushed away so firmly that it cannot move through.",
+      "advice": "As advice, it invites you to acknowledge the hurt in simple words, give it a little time, and let one trusted person or practice help you begin tending it."
+    },
+    "pairs": [
+      {
+        "with": 51,
+        "text": "With the Two of Swords the pair traces a sequence: a truth held at a distance, then felt. Together they ask whether avoiding something has only delayed the moment it lands, and what honest attention would look like now."
+      },
+      {
+        "with": 38,
+        "text": "The Three of Cups celebrates friendship and shared joy; beside the Three of Swords the two threes show both sides of connection. Together they draw attention to the people who can hold your sorrow as well as your gladness."
+      },
+      {
+        "with": 17,
+        "text": "The Star is the card of renewal and quiet hope after upheaval. Next to the Three of Swords it turns attention toward healing after hurt, and toward the stars this card already keeps above its storm clouds."
+      }
+    ],
+    "questions": [
+      "What hurt, named plainly in one sentence, is asking for your attention right now?",
+      "Which part of this pain is what happened, and which part is the story you have added?",
+      "If this crack were mended with gold, what would the mending look like for you?"
+    ],
+    "practice": "Write the hurt in one plain sentence, then underneath write one small thing that would tend it today, and do only that."
+  },
+  "uk": {
+    "essence": "Трійка Мечів прямо називає біль: болісну правду, втрату чи горе, що відчувається серцем, і перший чесний крок до того, щоб про нього подбати.",
+    "keywords": {
+      "upright": [
+        "сердечний біль",
+        "болісна правда",
+        "горе",
+        "сльози як вивільнення",
+        "чесне називання"
+      ],
+      "reversed": [
+        "затяжний біль",
+        "прихований біль",
+        "повільне загоєння",
+        "прокручування історії",
+        "смуток, що вщухає"
+      ]
+    },
+    "upright": [
+      "Трійка Мечів — один із найвпізнаваніших образів таро і один із найчесніших. Вона звертає увагу на біль, який уже прийшов: болісну правду, почуту чи усвідомлену, розлуку, розчарування, горе, що осіло в грудях. У колоді Olivia серце — не пласка емблема, а анатомічне серце, вирізьблене зі слонової кістки, разом із судинами, тож карта говорить про біль як про те, що знає ваше тіло, а не лише як про думку, яку ви обмірковуєте.",
+      "Мечі — масть Повітря, слів і розуміння, і ця карта часто спрямовує увагу на мить, коли знання ранить. Три клинки зі слонової кістки сходяться всередині серця, проте їхні вістря виходять під ним чистими й розходяться віялом, а дощ рівно січе навскіс нижню частину карти. Ніщо тут не застигло: смуток не стоїть на місці, а минає.",
+      "Цю версію вирізняє золото. Тонкі золоті шви перетинають серце, мов полагоджені тріщини, — так у кінцуґі розбиту кераміку лагодять золотом. У прямому положенні карта запрошує назвати біль просто, не добудовуючи до нього найжорсткішої історії про те, що він означає для вашої цінності. Дозвольте собі його відчути, прийміть підтримку й помітьте, що турбота про рану — вже частина зображення. Як завжди в практиці Olivia, це символічна мова почуття, а не прогноз подій."
+    ],
+    "reversed": [
+      "Трійка Мечів у перевернутому положенні звертає увагу на біль, який або повільно вщухає, або ховається від чужих очей. Можливо, дощ рідшає: довкола давнього смутку стає більше простору, і золоті шви тепер важать для вас більше, ніж клинки. А можливо, біль обернувся всередину: його носять у собі мовчки, бо назвати його здається непосильним, або прокручують, доки історія не стає гострішою за саму подію.",
+      "Це положення запитує, чого біль іще потребує. Інколи це розмова чи записана сторінка; інколи — просто дозвіл перестати прокручувати найжорсткіше пояснення. Полегшення не означає забуття, а бажання тримати все при собі не означає, що ви не даєте собі ради. Приймайте підтримку в темпі, який вам під силу."
+    ],
+    "number": "Три — перше число, що утворює фігуру: після єдиної точки Туза й утримуваної напруги Двійки постає щось нове. У Мечах, масті Повітря й розуму, ця нова форма — розуміння, а розуміння може ранити. Якщо Двійка Мечів тримає важкий вибір у підвішеному стані, то Трійка — це мить, коли правда влучає й відчувається. Вона позначає точку, де думка стає почуттям і де може початися чесне горювання.",
+    "tradition": "У системі Золотої Зорі Трійка Мечів має титул «Володар Смутку». Її пов’язують із Сатурном у Терезах, другим деканом цього знака (від 10 до 20 градусів), і з Біною, Розумінням, третьою сефірою Дерева Життя, вираженою через масть Повітря. Вагу Сатурна на шальках Терезів часто читають як тверду правду, яку треба прийняти; Алістер Кроулі залишив один титул — «Смуток». Марсельські колоди показують лише візерунок із вигнутих і прямих клинків. Пронизане серце трапляється в таро Сола-Буска (близько 1490 року), яке Памела Колман Сміт, імовірно, бачила перед створенням свого дизайну 1909 року, і воно перегукується з побожними зображеннями серця, пронизаного мечами.",
+    "areas": {
+      "love": "У близьких стосунках Трійка Мечів може вказувати на слова, що ранять, розлуку чи розчарування, про яке ще не сказано вголос. Вона не каже вам, що відчуває чи замислює інша людина. Вона запитує, що ви знаєте про власний біль і чи можете сказати про нього просто: спершу собі, а тоді, якщо відчуваєте, що це доречно, людині, якій довіряєте. Золоті шви на серці нагадують, що близькість, зокрема із самими собою, можна відновити, не вдаючи, ніби нічого не розбилося.",
+      "work": "У роботі чи навчанні ця карта може відображати критику, що зачепила, план, який не вдався, або важку правду про проєкт, який був вам небайдужий. Мечі просять ясності, тож відокремте те, що справді сказали чи вирішили, від висновків, які ви зробили про свої здібності. Дайте собі коротку паузу, перш ніж відповідати. Коли йдеться про гроші чи практичні справи, думка кваліфікованого фахівця допоможе більше, ніж самотньо прокручувати вночі найгірший сценарій.",
+      "self": "У стосунках із собою карта запрошує проживати горе, а не керувати ним. Анатомічне серце на цьому зображенні нагадує, що смуток живе й у тілі: у диханні, у грудях, у втомі. Помітьте, де ви його тримаєте. Дощ у нижній частині карти падає в одному напрямку, і сльози теж мають свій рух. Дайте їм місце, а тоді помітьте, яка маленька доброта, відпочинок чи чиєсь товариство допомогли б вам подбати про те, що болить."
+    },
+    "positions": {
+      "heart": "У центрі запитання Трійка Мечів указує на біль або важку правду, що лежить під усім іншим. Назвати це просто може бути важливіше, ніж одразу розв’язати.",
+      "challenge": "Як перешкода карта може показувати біль, прокручений стільки разів, що він застигає в історію про вашу цінність, або смуток, відштовхнутий так рішуче, що не може пройти крізь вас.",
+      "advice": "Як порада вона запрошує визнати біль простими словами, дати йому трохи часу й дозволити одній людині, якій ви довіряєте, чи одній практиці допомогти вам почати про нього дбати."
+    },
+    "pairs": [
+      {
+        "with": 51,
+        "text": "Із Двійкою Мечів ця пара простежує послідовність: правду спершу тримають на відстані, а потім відчувають. Разом вони запитують, чи не відклало уникання лише ту мить, коли правда влучить, і якою була б чесна увага зараз."
+      },
+      {
+        "with": 38,
+        "text": "Трійка Кубків святкує дружбу й спільну радість; поруч із Трійкою Мечів дві трійки показують обидва боки зв’язку. Разом вони звертають увагу на людей, які можуть розділити з вами і смуток, і радість."
+      },
+      {
+        "with": 17,
+        "text": "Зірка — карта оновлення й тихої надії після потрясінь. Поруч із Трійкою Мечів вона спрямовує увагу на зцілення після болю і на зорі, які ця карта вже зберігає над своїми грозовими хмарами."
+      }
+    ],
+    "questions": [
+      "Який біль, названий просто одним реченням, просить вашої уваги саме зараз?",
+      "Яка частина цього болю — те, що сталося, а яка — історія, яку ви додали?",
+      "Якби цю тріщину скріпили золотом, яким було б це відновлення для вас?"
+    ],
+    "practice": "Запишіть біль одним простим реченням, під ним — одну маленьку річ, яка допомогла б подбати про нього сьогодні, і зробіть лише її."
+  }
+}

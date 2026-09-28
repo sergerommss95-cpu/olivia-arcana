@@ -1,0 +1,267 @@
+{
+  "id": 70,
+  "slug": "seven-of-pentacles",
+  "artwork": {
+    "file": "70_seven_of_pentacles.webp",
+    "sha256": "b4e9f6213dcf04e47c0644bd51de04ddd7aae29cb170536c21eb8550cfdb8f28"
+  },
+  "symbols": [
+    {
+      "key": "pentacle",
+      "x": 72,
+      "y": 20,
+      "en": {
+        "name": "The gilded top pentacle",
+        "seen": "At the crown of the bush, higher than every other disc, one grey-blue pentacle carries a five-pointed star outlined and partly filled in gold; the six discs below it show only incised stars.",
+        "meaning": "The pentacle is the suit’s coin and seed: earth, body, resources and the value of work. Gilding only the highest disc is Olivia’s own touch. It reads as the result still ripening at the top of the plant, the part of the harvest that is visible and wished for but not yet within reach."
+      },
+      "uk": {
+        "name": "Позолочений верхній пентакль",
+        "seen": "На верхівці куща, вище за всі інші диски, сіро-блакитний пентакль із п’ятикутною зіркою, обведеною й частково заповненою золотом; на шести дисках нижче зірки лише вирізьблені.",
+        "meaning": "Пентакль — монета й зерно масті: земля, тіло, ресурси, цінність праці. Позолотити лише найвищий диск — власний штрих Olivia. Цей диск можна прочитати як результат, що досі дозріває на верхівці рослини: ту частину врожаю, яку видно й якої прагнуть, але до якої ще не дотягтися."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 69,
+      "y": 37,
+      "en": {
+        "name": "Five plain discs",
+        "seen": "Five grey-blue discs, each incised with an outlined pentagram, sit at different heights among the branches, clustered near the top and trailing down the right side of the bush.",
+        "meaning": "The pentacles grow on the plant like fruit, which is the card’s central image: value that has to mature in its own season. Scattered unevenly rather than set in a pattern, they suggest a crop at different stages, some parts of the work further along than others."
+      },
+      "uk": {
+        "name": "П’ять простих дисків",
+        "seen": "П’ять сіро-блакитних дисків, на кожному з яких вирізьблено контур пентаграми, розташовані на різній висоті серед гілок: вони скупчені біля верхівки й спускаються вздовж правого боку куща.",
+        "meaning": "Пентаклі ростуть на рослині, мов плоди, — це центральний образ карти: цінність, що має визріти у свій сезон. Розкидані нерівно, а не впорядковано, вони нагадують урожай на різних стадіях: одні частини роботи вже просунулися далі, ніж інші."
+      }
+    },
+    {
+      "key": "face",
+      "x": 44,
+      "y": 39,
+      "en": {
+        "name": "The upturned gaze",
+        "seen": "The curly-haired ivory figure tilts the head back, chin propped on the hands, and lifts the eyes up and to the right, towards the higher discs and the top of the bush.",
+        "meaning": "The traditional worker is commonly shown looking at the crop, measuring it. Here the look is lifted upward, closer to hope or wondering than inspection. It invites you to notice whether you are assessing what has grown or gazing at what you still want."
+      },
+      "uk": {
+        "name": "Погляд угору",
+        "seen": "Кучерява фігура зі слонової кістки закидає голову, спирається підборіддям на руки й підводить очі вгору й праворуч — до вищих дисків і верхівки куща.",
+        "meaning": "Традиційно робітник на цій карті дивиться на врожай, ніби його оцінює. Тут погляд піднесено вгору: це ближче до надії чи задуми, ніж до оцінювання. Карта запрошує помітити, чи ви оцінюєте те, що виросло, чи задивляєтеся на те, чого ще хочете."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 51,
+      "y": 45,
+      "en": {
+        "name": "Hands folded on the handle",
+        "seen": "Both hands are stacked on the top end of the long ivory handle, and the figure’s chin rests on them, so the weight of the upper body leans onto the tool.",
+        "meaning": "Leaning on the tool is the classic gesture of this card: work set down for a moment, not abandoned. The resting chin adds tiredness and thought together. It is the pause in which effort becomes review, and the body is allowed to stop before deciding what comes next."
+      },
+      "uk": {
+        "name": "Руки, складені на держаку",
+        "seen": "Обидві руки лежать одна на одній на верхньому кінці довгого держака зі слонової кістки, а підборіддя фігури спочиває на них, тож фігура всією вагою тулуба спирається на знаряддя.",
+        "meaning": "Спиратися на знаряддя — класичний жест цієї карти: роботу відкладено на мить, а не покинуто. Підборіддя на руках додає водночас утоми й задуми. Це пауза, у якій зусилля стає переглядом, а тілу дозволено зупинитися, перш ніж вирішити, що далі."
+      }
+    },
+    {
+      "key": "staff",
+      "x": 63,
+      "y": 87,
+      "en": {
+        "name": "The long-handled spade",
+        "seen": "An ivory spade with a long straight shaft runs diagonally from the figure’s hands down to the right; its flat blade, narrowing to a blunt point, is set into the soil beside the bush.",
+        "meaning": "The traditional worker leans on a hoe. Olivia gives a spade, the tool for digging and planting, and its blade touches the ground rather than hanging idle. The work that produced this crop is close at hand, ready to be taken up again or put away."
+      },
+      "uk": {
+        "name": "Заступ із довгим держаком",
+        "seen": "Заступ зі слонової кістки з довгим прямим держаком тягнеться навскіс від рук фігури донизу праворуч; його пласке лезо, що звужується до тупого вістря, встромлене в ґрунт біля куща.",
+        "meaning": "Традиційний робітник спирається на сапу. Olivia дає фігурі заступ — знаряддя, щоб копати й садити, — і його лезо торкається землі, а не висить без діла. Праця, що виростила цей урожай, зовсім поруч: її можна знову взяти до рук або відкласти."
+      }
+    },
+    {
+      "key": "leaves",
+      "x": 67,
+      "y": 56,
+      "en": {
+        "name": "The tall pale-blue bush",
+        "seen": "A branching bush carved in lighter lapis rises from the soil at the right to above the figure’s head, its stems covered in deeply cut, serrated leaves; a smaller sprig grows behind the figure’s back.",
+        "meaning": "The plant is the long investment itself: something that grew slowly from ground that was worked. Traditionally it is green; here it is carved from the same blue stone as the night, only paler, a living thing half merged with its background, as growth often is when you are standing close to it."
+      },
+      "uk": {
+        "name": "Високий блідо-блакитний кущ",
+        "seen": "Розлогий кущ, вирізьблений у світлішому лазуриті, здіймається з ґрунту праворуч вище за голову фігури; стебла вкриті глибоко врізаним зубчастим листям, а менша гілочка росте за спиною фігури.",
+        "meaning": "Рослина — це і є довге вкладення: те, що повільно виросло з обробленої землі. Традиційно вона зелена; тут її вирізано з того самого синього каменю, що й ніч, лише блідішого. Жива рослина наполовину зливається з тлом — так часто буває з ростом, коли дивитися на нього зблизька."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 81,
+      "y": 85,
+      "en": {
+        "name": "The disc at the root",
+        "seen": "The seventh pentacle sits low at the base of the bush, almost on the soil, framed by leaves a short distance to the right of the spade blade.",
+        "meaning": "Set apart from the six above, this disc can be read as what is already gathered, or the first return close to the ground where the work happened. It asks you to count what has actually come in, not only what still hangs out of reach."
+      },
+      "uk": {
+        "name": "Диск біля коріння",
+        "seen": "Сьомий пентакль лежить низько біля основи куща, майже на ґрунті, в обрамленні листя, трохи праворуч від леза заступа.",
+        "meaning": "Відокремлений від шести верхніх, цей диск можна прочитати як уже зібране — або як першу віддачу близько до землі, де й точилася праця. Він просить полічити те, що справді надійшло, а не лише те, що досі висить поза досяжністю."
+      }
+    },
+    {
+      "key": "garden",
+      "x": 25,
+      "y": 92,
+      "en": {
+        "name": "Tilled soil and seedlings",
+        "seen": "The whole lower band is dug soil carved in rough, furrowed lapis; the figure stands on it barefoot, and tiny seedlings are cut into the ground along the bottom edge.",
+        "meaning": "Earth is the element of Pentacles, and this ground has plainly been worked. The small seedlings show a second crop already started beneath the ripening one: cultivation continues in cycles. Bare feet on the soil keep the figure in direct contact with the work and its season."
+      },
+      "uk": {
+        "name": "Скопаний ґрунт і паростки",
+        "seen": "Уся нижня смуга — скопаний ґрунт, вирізьблений у шорсткому, зораному борознами лазуриті; фігура стоїть на ньому босоніж, а вздовж нижнього краю в землі вирізано крихітні паростки.",
+        "meaning": "Земля — стихія Пентаклів, і цей ґрунт явно обробляли. Маленькі паростки показують, що під урожаєм, що дозріває, уже почато другий: обробіток триває циклами. Босі ноги на ґрунті тримають фігуру в безпосередньому зв’язку з працею та її сезоном."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 34,
+      "y": 16,
+      "en": {
+        "name": "The river of stars",
+        "seen": "A band of fine glittering flecks crosses the night sky diagonally from the top edge down towards the left, among scattered gold stars, on the side away from the figure’s gaze.",
+        "meaning": "The Milky Way is not part of the traditional image; Olivia sets this harvest scene at night. Stars move on slow, reliable cycles, and the sky gives the card’s patience a larger measure of time: some growth is counted in seasons, not days."
+      },
+      "uk": {
+        "name": "Ріка зірок",
+        "seen": "Смуга дрібних мерехтливих вкраплень перетинає нічне небо навскіс від верхнього краю донизу ліворуч, серед розсипаних золотих зірок, — з боку, протилежного до погляду фігури.",
+        "meaning": "Чумацького Шляху немає в традиційному образі; Olivia переносить цю сцену врожаю в ніч. Зорі рухаються повільними, надійними циклами, і небо дає терпінню карти ширшу міру часу: дещо росте сезонами, а не днями."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Seven of Pentacles is the pause inside long work: leaning on the tool, looking honestly at what has grown, and choosing where your care goes next.",
+    "keywords": {
+      "upright": [
+        "patience",
+        "assessment",
+        "long-term effort",
+        "cultivation",
+        "taking stock",
+        "slow growth"
+      ],
+      "reversed": [
+        "impatience",
+        "restless checking",
+        "stalled effort",
+        "drifting on habit",
+        "unclear return"
+      ]
+    },
+    "upright": [
+      "The Seven of Pentacles draws attention to the moment in any long effort when you stop working and look. In Olivia’s carving an ivory figure in a short tunic leans on a long-handled spade, both hands stacked on the top of the shaft and the chin resting on them. Beside the figure a tall bush of pale-blue leaves has grown higher than the figure’s head, and seven pentacles sit among its branches and at its root. The labour has clearly happened; the ground underfoot is dug and furrowed.",
+      "What is unusual here is the gaze. The figure is not bent over the crop but looking up and to the right, towards the higher discs, and the highest of them, above the last leaves, carries a star picked out in gold. It is the only gilded disc on the plant. The card holds both halves of patience in one image: the honest reckoning of what has grown so far, and the longing for the result that is not yet within reach. Neither is wrong, but they are different activities, and it helps to know which one you are doing.",
+      "Upright, the Seven asks for a fair review rather than a verdict. It can point to a project, a skill, a relationship or a savings habit that has had real care and now needs to be looked at plainly: what is thriving, what has cost more than it returned, what simply needs more time. Tiny seedlings carved along the bottom edge are a reminder that another crop is already started. Rest here is part of the work."
+    ],
+    "reversed": [
+      "Seven of Pentacles reversed can show the pause going wrong in one of two directions. Impatience may pull you to check the plant every hour, dig up what has barely rooted, or abandon an effort because the gilded result at the top has not yet arrived. Or the pause stretches into drift: leaning on the spade so long that the review never happens and the same work continues out of habit.",
+      "Both are hard to see from the inside. Look again at the disc at the root of the bush: something has usually come in already, even if it is smaller than hoped. Choose one fair measure and a date to look again, and let that date, rather than your mood on a given day, decide whether to keep tending, change the crop or rest."
+    ],
+    "number": "Sevens stand past the balance of the Six, at the point where a suit’s work meets its first real test and has to be assessed. In Pentacles, the suit of earth, bodies, money, skill and time, that test is slow growth: the effort is visible, the full return is not. The Seven asks the question every gardener knows halfway through a season: is this working, and is it worth continuing? It is a checkpoint, not a finish line; the Eight returns to the bench and the practice.",
+    "tradition": "In the Golden Dawn system the Seven of Pentacles is the Lord of Success Unfulfilled. It is attributed to Saturn in Taurus, the third decan of Taurus (20° to 30°), and, like every Seven, to Netzach, the seventh sephirah, here in the suit of earth. Readers have long connected Saturn’s slowness in a fixed earth sign with labour whose fruit is delayed. Marseille decks show only seven coins arranged among stylised foliage, with no scene. Pamela Colman Smith’s 1909 design gave the now familiar image of a worker leaning on a hoe beside a bush hung with pentacles; Olivia keeps that pose, swaps the hoe for a spade and turns the gaze upward.",
+    "areas": {
+      "love": "In love and close relationships, the Seven of Pentacles looks at what has been planted over time: routines, trust, shared plans. It can point to a relationship that needs an honest review rather than more effort poured in blindly. Notice what is growing well and what you keep waiting on. With yourself, it asks whether you allow slow change the same patience you would give a friend, instead of checking for proof every day.",
+      "work": "At work, in study and with money matters, this card belongs to the middle of long projects: a course half finished, a business in its second year, a skill that has stopped feeling new. It favours a review with real numbers and real observations over a mood. Decide what a fair return on your time looks like, look at what the evidence shows, and adjust the plan without discarding the growth already there.",
+      "self": "For your own life, the Seven of Pentacles honours the pause itself. Like the figure leaning on the spade with chin on hands, you are allowed to stop and simply look at what your effort has made. It turns attention toward the difference between reflection and rumination: the first notices, weighs and chooses; the second circles. Tiredness after sustained care is not failure; it is information about pace."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter is a long investment of care that has reached a point of review: something has grown, and it is time to look at it clearly.",
+      "challenge": "As a challenge, it can show impatience with slow results, or the opposite: waiting so long that an effort continues on habit and hope without anyone checking whether it still serves.",
+      "advice": "As advice, it invites a deliberate pause: set the tool down, count what has actually come in, name what the work still needs, and choose a date to look again."
+    },
+    "pairs": [
+      {
+        "with": 71,
+        "text": "The Eight of Pentacles follows and picks the tools back up: in Olivia’s deck the gold star that hangs out of reach here appears on the disc under the worker’s chisel. Together they describe a craft’s rhythm: pause and assess, then return to patient practice."
+      },
+      {
+        "with": 12,
+        "text": "The Hanged Man also stops and waits, suspended rather than leaning. Beside the Seven, the pair draws attention to productive waiting: a pause that changes how you see the work, so that what looked like delay starts to look like ripening."
+      },
+      {
+        "with": 42,
+        "text": "In the Seven of Cups a figure also looks upward, at cups of imagined outcomes resting on clouds; here the gaze rises from one real plant growing out of dug ground. Together they ask you to separate the harvest you picture from the one actually in front of you."
+      }
+    ],
+    "questions": [
+      "What has actually grown from the effort you have put in so far?",
+      "Are you reviewing this work fairly, or gazing past it at the result you want?",
+      "What would a fair measure of progress look like here, and when will you check it?"
+    ],
+    "practice": "Write down one long effort in three columns: what has grown, what it has cost, what it still needs. Then choose one date to look again."
+  },
+  "uk": {
+    "essence": "Сімка Пентаклів — це пауза посеред довгої праці: спертися на знаряддя, чесно подивитися на те, що виросло, і вибрати, куди далі спрямувати свою турботу.",
+    "keywords": {
+      "upright": [
+        "терпіння",
+        "оцінка",
+        "тривалі зусилля",
+        "плекання",
+        "підбиття підсумків",
+        "повільний ріст"
+      ],
+      "reversed": [
+        "нетерплячість",
+        "безперервні перевірки",
+        "застій у зусиллях",
+        "інерція звички",
+        "неясна віддача"
+      ]
+    },
+    "upright": [
+      "Сімка Пентаклів звертає увагу на ту мить у будь-якому тривалому зусиллі, коли ви припиняєте працювати й дивитеся. У різьбі Olivia фігура зі слонової кістки в короткій туніці спирається на заступ із довгим держаком: обидві руки складено одна на одну на верхівці держака, а підборіддя спочиває на них. Поруч високий кущ із блідо-блакитним листям виріс вище за голову фігури, і сім пентаклів розміщено серед його гілок і біля коріння. Роботу тут явно виконано: ґрунт під ногами скопаний і зораний борознами.",
+      "Незвичним тут є погляд. Фігура не схилилася над урожаєм, а дивиться вгору й праворуч, на вищі диски, і найвищий із них, над останнім листям, має зірку, виділену золотом. Це єдиний позолочений диск на рослині. Карта поєднує в одному образі обидві половини терпіння: чесний облік того, що вже виросло, і тугу за результатом, до якого ще не дотягтися. Жодна з них не хибна, але це різні заняття, і корисно знати, яким саме ви зараз зайняті.",
+      "У прямому положенні Сімка просить справедливого перегляду, а не вироку. Вона може вказувати на проєкт, навичку, стосунки чи звичку заощаджувати, у які вклали справжню турботу і на які тепер варто подивитися тверезо: що процвітає, що коштувало більше, ніж повернуло, а чому просто потрібно більше часу. Крихітні паростки, вирізьблені вздовж нижнього краю, нагадують, що наступний урожай уже почато. Відпочинок тут — частина праці."
+    ],
+    "reversed": [
+      "Сімка Пентаклів у перевернутому положенні може показувати, що пауза пішла не так — в один із двох боків. Нетерплячість може спонукати вас перевіряти рослину щогодини, викопувати те, що ледь прижилося, або кидати зусилля, бо позолочений результат на верхівці ще не з’явився. Або ж пауза затягується, і все пливе за течією: ви так довго спираєтеся на заступ, що перегляд так і не відбувається, а та сама робота триває за звичкою.",
+      "Обидва варіанти важко побачити зсередини. Погляньте ще раз на диск біля коріння куща: щось зазвичай уже надійшло, навіть якщо менше, ніж сподівалися. Виберіть одну справедливу міру і дату, коли подивитеся знову, і нехай саме ця дата, а не настрій того чи іншого дня, вирішує, чи доглядати далі, змінити культуру, чи відпочити."
+    ],
+    "number": "Сімки стоять уже по той бік рівноваги Шістки, там, де робота масті вперше зустрічає справжню перевірку і її треба оцінити. У Пентаклях, масті землі, тіла, грошей, майстерності й часу, ця перевірка — повільний ріст: зусилля видно, повної віддачі — ще ні. Сімка ставить запитання, знайоме кожному садівникові посеред сезону: чи це працює і чи варто продовжувати? Це контрольна точка, а не фініш; Вісімка повертається до верстата й до практики.",
+    "tradition": "У системі Золотої Зорі Сімка Пентаклів має назву «Володар нездійсненого успіху». Її співвідносять із Сатурном у Тельці, третім деканом Тельця (від 20° до 30°), а також, як і кожну Сімку, з Нецахом, сьомою сефірою, тут — у масті землі. Тарологи здавна пов’язують повільність Сатурна у фіксованому земному знаку з працею, плоди якої дозрівають із запізненням. Колоди Марсельського таро показують лише сім монет серед стилізованого листя, без сюжету. Малюнок Памели Колман Сміт 1909 року задав нині звичний образ робітника, що спирається на сапу біля куща з пентаклями; Olivia зберігає цю позу, замінює сапу на заступ і спрямовує погляд угору.",
+    "areas": {
+      "love": "У коханні та близьких стосунках Сімка Пентаклів дивиться на те, що садили протягом довгого часу: звички, довіру, спільні плани. Вона може вказувати на стосунки, яким потрібен чесний перегляд, а не нові зусилля, вкладені наосліп. Зверніть увагу, що росте добре, а на що ви все ще чекаєте. Щодо вас самих карта запитує, чи даєте ви повільним змінам те саме терпіння, яке дали б близькій людині, а не шукаєте щодня доказів.",
+      "work": "У роботі, навчанні та грошових справах ця карта належить до середини довгих проєктів: курс, пройдений наполовину, бізнес на другому році, навичка, що вже не здається новою. Вона віддає перевагу перегляду зі справжніми цифрами й справжніми спостереженнями, а не настрою. Визначте, що для вас означає справедлива віддача на вкладений час, подивіться, що показують факти, і скоригуйте план, не відкидаючи того, що вже виросло.",
+      "self": "У вашому власному житті Сімка Пентаклів шанує саму паузу. Як фігура, що спирається на заступ, поклавши підборіддя на руки, ви маєте право зупинитися й просто подивитися на те, що створили ваші зусилля. Карта звертає увагу на різницю між роздумом і прокручуванням думок: роздум помічає, зважує й вибирає, а прокручування ходить по колу. Утома після тривалої турботи — не поразка, а інформація про темп."
+    },
+    "positions": {
+      "heart": "У центрі запитання ця карта підказує, що йдеться про довге вкладення турботи, яке дійшло до точки перегляду: щось виросло, і настав час подивитися на нього ясно.",
+      "challenge": "Як виклик вона може показувати нетерплячість до повільних результатів — або протилежне: чекання таке довге, що зусилля тримається лише на звичці й надії, і ніхто не перевіряє, чи воно досі корисне.",
+      "advice": "Як порада вона запрошує до свідомої паузи: відкладіть знаряддя, полічіть, що справді надійшло, назвіть, чого праця ще потребує, і виберіть дату, коли подивитеся знову."
+    },
+    "pairs": [
+      {
+        "with": 71,
+        "text": "Вісімка Пентаклів іде слідом і знову бере до рук знаряддя: у колоді Olivia золота зірка, що тут висить поза досяжністю, з’являється на диску під різцем робітника. Разом вони описують ритм ремесла: пауза й оцінка, а потім повернення до терплячої практики."
+      },
+      {
+        "with": 12,
+        "text": "Повішений теж зупиняється й чекає — підвішений, а не спертий на знаряддя. Поруч із Сімкою ця пара звертає увагу на плідне чекання: паузу, що змінює ваш погляд на працю, тож те, що здавалося затримкою, починає скидатися на визрівання."
+      },
+      {
+        "with": 42,
+        "text": "У Сімці Кубків фігура теж дивиться вгору — на кубки уявних результатів, що лежать на хмарах; тут погляд піднімається від однієї справжньої рослини, що росте зі скопаної землі. Разом вони просять відрізнити врожай, який ви уявляєте, від того, що справді перед вами."
+      }
+    ],
+    "questions": [
+      "Що насправді виросло із зусиль, які ви вже вклали?",
+      "Ви чесно оцінюєте цю працю чи дивитеся повз неї на бажаний результат?",
+      "Якою тут була б справедлива міра поступу і коли ви її перевірите?"
+    ],
+    "practice": "Запишіть одне тривале зусилля у три колонки: що виросло, чого це коштувало, чого воно ще потребує. Потім виберіть одну дату, коли подивитеся знову."
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "id": 26,
+  "slug": "five-of-wands",
+  "artwork": {
+    "file": "26_five_of_wands.webp",
+    "sha256": "8f6b20d90906d443ca053d8a9505fa6675dd0fc1f724fc111ea19520dfb4b3b1"
+  },
+  "symbols": [
+    {
+      "key": "milky-way",
+      "x": 41,
+      "y": 22,
+      "en": {
+        "name": "The Milky Way band",
+        "seen": "A glittering drift of silvery flecks crosses the upper sky diagonally, from lower left to upper right, with small gold star flecks scattered on either side in the dark lapis.",
+        "meaning": "Most versions of this card set the contest under a plain daylight sky. Olivia moves it to night beneath the Milky Way: one continuous river of light above many scattered efforts, a wider order that the scuffle below cannot see from inside itself."
+      },
+      "uk": {
+        "name": "Смуга Чумацького Шляху",
+        "seen": "Мерехтливий шлейф сріблястих цяток перетинає верхню частину неба навскоси, знизу ліворуч угору праворуч; обабіч у темному лазуриті розсипані дрібні золоті зоряні цятки.",
+        "meaning": "Здебільшого суперечку на цій карті зображують під звичайним денним небом. Olivia переносить її в ніч, під Чумацький Шлях: одна безперервна ріка світла над безліччю розрізнених зусиль — ширший лад, якого сутичка внизу не може розгледіти зсередини."
+      }
+    },
+    {
+      "key": "flame",
+      "x": 66,
+      "y": 33,
+      "en": {
+        "name": "The gold flame",
+        "seen": "At the tip of the tallest staff, higher than every other, a small flame worked in gold burns upward against the night. Apart from the star flecks, it is the only gold on the card.",
+        "meaning": "Wands are the suit of Fire, yet the traditional Five shows only staves and no flame. Here one staff has caught light. It can be read as the shared aim or bright idea all this energy is circling: the thing worth contesting, and the thing a struggle can forget."
+      },
+      "uk": {
+        "name": "Золоте полум’я",
+        "seen": "На вершечку найвищого жезла, над усіма іншими, маленьке золоте полум’я здіймається вгору на тлі нічного неба. Окрім зоряних цяток, це єдине золото на карті.",
+        "meaning": "Жезли — масть Вогню, проте на традиційній П’ятірці є лише палиці, без полум’я. Тут один жезл зайнявся. Це полум’я можна прочитати як спільну мету чи яскраву ідею, довкола якої кружляє вся ця енергія: те, за що варто змагатися, і те, про що боротьба здатна забути."
+      }
+    },
+    {
+      "key": "moon",
+      "x": 21,
+      "y": 43,
+      "en": {
+        "name": "The pale crescent",
+        "seen": "Low in the sky on the left, a thin crescent moon carved in paler lapis opens to the right, resting just above a bank of rounded clouds on the horizon.",
+        "meaning": "The traditional card has no moon. In tarot the Moon stands for tides, moods and what is only half seen. A crescent over the contest suggests a phase rather than a permanent state: tempers, like tides, rise and then ebb."
+      },
+      "uk": {
+        "name": "Блідий серп",
+        "seen": "Низько в небі ліворуч тонкий місячний серп, вирізаний у блідішому лазуриті, відкритий праворуч; він лежить просто над грядою округлих хмар на обрії.",
+        "meaning": "На традиційній карті місяця немає. У таро Місяць означає припливи, настрої та те, що видно лише наполовину. Серп над суперечкою натякає на фазу, а не на сталий стан: пристрасті, як і вода під час припливу, наростають, а потім спадають."
+      }
+    },
+    {
+      "key": "wand",
+      "x": 51,
+      "y": 51,
+      "en": {
+        "name": "The crossing staves",
+        "seen": "Long, smooth ivory staves cross and recross above the heads, pointing every way at once. At least seven separate upper tips can be counted against the sky, more than the five of the title.",
+        "meaning": "The traditional image gives each of five youths a single wand. Olivia multiplies them until it is hard to tell whose staff is whose. That is the texture of the Five: energy everywhere, crossing rather than aligned. Crossed staves can be a clash, or the frame of something being built together."
+      },
+      "uk": {
+        "name": "Схрещені жезли",
+        "seen": "Довгі гладенькі жезли зі слонової кістки знову й знову перехрещуються над головами, спрямовані водночас на всі боки. На тлі неба можна налічити щонайменше сім окремих верхніх кінців — більше за п’ять, про які йдеться в назві.",
+        "meaning": "На традиційному зображенні кожен із п’ятьох молодих людей тримає по одному жезлу. Olivia множить їх так, що важко розібрати, де чий. Це і є фактура П’ятірки: енергія всюди, вона перехрещується, а не шикується в одну лінію. Схрещені жезли можуть бути зіткненням — або каркасом того, що будують разом."
+      }
+    },
+    {
+      "key": "face",
+      "x": 77,
+      "y": 55,
+      "en": {
+        "name": "The upturned face",
+        "seen": "At the right, the rearmost figure stretches one arm high to grip a staff near where several cross, and lifts the face upward and to the left, toward the crossing staves rather than toward any other figure.",
+        "meaning": "The other figures look across at one another or into the tangle. This face is lifted above the other heads, toward the crossing staves with the flame rising beyond them. It offers the card’s quiet alternative: taking full part in the contest while remembering what the effort is for."
+      },
+      "uk": {
+        "name": "Обличчя, звернене вгору",
+        "seen": "Праворуч найвіддаленіша фігура високо тягне руку й стискає жезл біля місця, де схрещуються кілька жезлів, а обличчя підводить угору й ліворуч — до перехрестя жезлів, а не до інших фігур.",
+        "meaning": "Інші фігури дивляться одна на одну або в сплетіння жезлів. Це обличчя підняте вище за решту голів і звернене до схрещених жезлів, за якими здіймається полум’я. У ньому — тиха альтернатива, яку пропонує карта: повною мірою брати участь у змаганні й водночас пам’ятати, заради чого ці зусилля."
+      }
+    },
+    {
+      "key": "crowd",
+      "x": 52,
+      "y": 66,
+      "en": {
+        "name": "Five young figures",
+        "seen": "Five barefoot, curly-haired youths in short belted ivory tunics lunge and lean inward from both sides, arms raised, shoulders overlapping. Their faces are calm and intent rather than angry.",
+        "meaning": "The traditional image shows five youths with staves raised, commonly read as mock battle, a game or rough practice as much as a real fight. Olivia keeps them young and unarmoured, with no wound and no fallen figure: this is friction among equals, not war."
+      },
+      "uk": {
+        "name": "П’ять юних фігур",
+        "seen": "П’ятеро босих кучерявих молодих людей у коротких підперезаних туніках зі слонової кістки з обох боків роблять випади й хиляться до середини: руки підняті, плечі заходять одне за одне. Обличчя спокійні й зосереджені, а не розлючені.",
+        "meaning": "Традиційне зображення показує п’ятьох молодих людей із піднятими палицями; його часто читають як удаваний бій, гру чи жорстке тренування так само, як і справжню бійку. Olivia лишає їх юними й без обладунків, тут немає ні ран, ні поваленої фігури — це тертя між рівними, а не війна."
+      }
+    },
+    {
+      "key": "mountain",
+      "x": 9,
+      "y": 66,
+      "en": {
+        "name": "The low hills",
+        "seen": "Behind the group, low peaks and ridges carved in greyer lapis run along the horizon at both the left and right edges, beneath rounded banks of lighter blue cloud.",
+        "meaning": "Distant hills recur across the Wands suit as the wider terrain beyond the present effort. Here they sit at the far edges, well away from the contest: the larger landscape is waiting, and none of the figures is looking at it yet."
+      },
+      "uk": {
+        "name": "Низькі пагорби",
+        "seen": "Позаду гурту низькі вершини й хребти, вирізані в сірішому лазуриті, тягнуться вздовж обрію і біля лівого, і біля правого краю, під округлими грядами світліших блакитних хмар.",
+        "meaning": "Далекі пагорби з’являються на картах усієї масті Жезлів як ширший краєвид за межами теперішнього зусилля. Тут вони лежать на самих краях, далеко від суперечки: ширший краєвид чекає, і жодна з фігур поки на нього не дивиться."
+      }
+    },
+    {
+      "key": "other",
+      "x": 42,
+      "y": 83,
+      "en": {
+        "name": "Bare feet, open ground",
+        "seen": "Every visible foot is bare. Legs brace in wide lunges, one leg bent and one stretched behind, on rough, scored lapis ground that shows no path, grass or marked boundary.",
+        "meaning": "Wands are embodied drive, and these wide stances put effort through the whole body. The open ground has no line drawn on it: no one has yet agreed where the game begins and ends. It invites you to notice whether the rules of your own contest have been named."
+      },
+      "uk": {
+        "name": "Босі ноги, відкрита земля",
+        "seen": "Усі видимі ступні босі. Ноги розставлені в широких випадах — одна зігнута, друга відставлена назад — на шорсткій, посіченій рисками лазуритовій землі без стежки, трави чи позначеної межі.",
+        "meaning": "Жезли — це тілесний порив, і ці широкі стійки пропускають зусилля крізь усе тіло. На відкритій землі не проведено жодної лінії: ще ніхто не домовився, де гра починається і де закінчується. Вона запрошує вас помітити, чи названо правила вашого власного змагання."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Five of Wands is lively friction: many hands, many directions, one shared fire, and the question of whether the contest sharpens you or simply scatters you.",
+    "keywords": {
+      "upright": [
+        "competition",
+        "friction",
+        "healthy rivalry",
+        "many voices",
+        "testing ideas",
+        "rough practice"
+      ],
+      "reversed": [
+        "avoided conflict",
+        "quiet tension",
+        "conflict fatigue",
+        "scattered effort",
+        "finding common aim",
+        "stepping back"
+      ]
+    },
+    "upright": [
+      "The Five of Wands brings several strong wills into the same small space. In Olivia’s card five barefoot youths in short belted tunics press in from both sides, and their staves cross and recross above their heads until it is hard to tell whose is whose: at least seven tips can be counted against the night. Nothing is broken and no one has fallen. The faces are intent rather than furious, and the scene sits somewhere between a skirmish, a game and a rehearsal. That is the card’s territory: friction that is energetic, untidy and not yet decided.",
+      "What makes this version distinctive is the gold flame burning at the tip of the tallest staff, above the whole tangle. Arms reach toward the place where the staves meet, and the rearmost figure on the right lifts the face toward that crossing rather than toward any rival. The card draws attention to what the contest is really about. Rivalry can sharpen skill, test an idea and bring out voices that politeness would keep quiet; it can also turn into motion for its own sake.",
+      "Upright, the Five invites you to take part fully while staying curious: name the shared aim, agree a few rules, and let the differences do useful work."
+    ],
+    "reversed": [
+      "Five of Wands reversed can point to friction that has gone underground: disagreements smoothed over rather than settled, or a contest you keep stepping away from because it feels exhausting. It can also show the opposite movement, a scuffle kept going by habit long after the flame at its centre has been forgotten. Either way, energy that could build something goes into managing tension.",
+      "This position asks which differences deserve an open, well-held conversation and which you could simply set down. Sometimes the useful move is to lower your staff for a moment and ask what everyone is reaching for. Sometimes it is to step into a debate you have been avoiding, knowing that disagreement among equals need not become a fight."
+    ],
+    "number": "Five is the rank of disruption. After the settled celebration of the Four, the Five breaks the balance so that something can grow again. In Wands, the suit of Fire, will and creative drive, that disruption takes the form of competing energies: many people, or many impulses within one person, each wanting to lead. On the Tree of Life five is Geburah, Severity, the sphere of strength and testing. The Six of Wands shows the rider who comes through; the Five is the rough practice that makes it possible.",
+    "tradition": "In the Golden Dawn system the Five of Wands is titled the Lord of Strife. It is attributed to Saturn in the first decan of Leo (0 to 10 degrees), and to Geburah, the fifth Sephirah, expressed through the fiery suit of Wands. Saturn’s weight and limits meeting Leo’s proud fire are commonly read as ambition pressing against resistance. Aleister Crowley kept the single word Strife for his Thoth card. In Marseille-pattern decks the Five of Batons is an ornamental arrangement of crossed batons with no human scene. Pamela Colman Smith’s 1909 design gave the card a scene of five youths brandishing staves, which Arthur Edward Waite called mimic warfare, as if in sport or strife.",
+    "areas": {
+      "love": "In close relationships the Five of Wands often reflects lively, repeating friction: the same small argument about plans, chores or who decides, with everyone reaching for the same flame from a different angle. It cannot tell you what another person feels or intends. It asks whether the disagreement is about the aim, the method or the wish to be heard. With yourself, the card can show competing wants pulling at once, each deserving a turn rather than a winner.",
+      "work": "At work or in study this card often appears in brainstorms, group projects, competitive applications or teams with unclear roles. The crossing staves in Olivia’s image show energy that is real but not yet aligned. Useful friction needs a little structure: a stated goal, a turn for each voice, an agreed way of deciding. Where money is part of the contest, the card offers no verdict on figures; it asks only whether the outcome is being shaped by clear agreement or by whoever pushes hardest.",
+      "self": "For your relationship with yourself, the Five can describe an inner committee: ambition, doubt, loyalty and curiosity each grabbing for the same staff. Olivia’s image offers a way through in the figure at the right who, still gripping a staff, lifts the face above the other heads toward the crossing staves and the flame beyond. You need not silence the inner debate. Try naming each voice, noticing what each is protecting, and asking which one stands closest to the fire you actually care about."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Five of Wands points to energetic friction among several wills or wishes. The contest itself is not the problem; what matters is what it is for.",
+      "challenge": "As a challenge, the card can show effort scattered in too many directions, a debate that has become a test of stamina, or reluctance to speak where a clear voice is needed.",
+      "advice": "As advice, it invites you to name the shared aim before arguing about the method, agree a few simple rules, and treat disagreement as practice rather than as a threat."
+    },
+    "pairs": [
+      {
+        "with": 27,
+        "text": "The Six of Wands lifts one wreathed rider above the crowd. After the Five’s tangle of staves, the pair draws attention to how contest turns into recognition, and to what, or whom, the struggle helped bring forward."
+      },
+      {
+        "with": 54,
+        "text": "Both Fives show conflict, in different keys. The Five of Swords pictures a contest won at a cost, with others turning away; the Five of Wands is rough play among equals where no one has lost yet. Together they ask how to disagree without leaving wreckage."
+      },
+      {
+        "with": 7,
+        "text": "The Chariot holds two opposing forces steady and moves in one chosen direction. Beside the Five of Wands, where energies cross with no one steering, the pair draws attention to will that organises friction rather than simply adding to it."
+      }
+    ],
+    "questions": [
+      "Is this disagreement about the aim, the method, or the wish to be heard?",
+      "Where is friction sharpening your skill, and where is it only using up your energy?",
+      "If everyone involved looked up at the same flame, what would that flame be?"
+    ],
+    "practice": "Write one current disagreement’s shared aim in a single sentence, then list each voice involved, including your own, and what it is reaching for."
+  },
+  "uk": {
+    "essence": "П’ятірка Жезлів — це жваве тертя: багато рук, багато напрямків, один спільний вогонь — і питання, чи змагання вас гартує, чи просто розпорошує.",
+    "keywords": {
+      "upright": [
+        "змагання",
+        "тертя",
+        "здорове суперництво",
+        "багато голосів",
+        "перевірка ідей",
+        "тренувальна сутичка"
+      ],
+      "reversed": [
+        "уникання конфлікту",
+        "прихована напруга",
+        "втома від суперечок",
+        "розпорошені зусилля",
+        "пошук спільної мети",
+        "крок назад"
+      ]
+    },
+    "upright": [
+      "П’ятірка Жезлів зводить кілька сильних воль в одному тісному просторі. На карті Olivia п’ятеро босих молодих людей у коротких підперезаних туніках напирають з обох боків, а їхні жезли перехрещуються над головами знову й знову, так що важко розібрати, де чий: на тлі ночі можна налічити щонайменше сім кінців. Нічого не зламано, ніхто не впав. Обличчя зосереджені, а не люті, а сама сцена — щось середнє між сутичкою, грою та репетицією. Це і є територія карти: тертя енергійне, безладне й досі не розв’язане.",
+      "Цю версію вирізняє золоте полум’я на вершечку найвищого жезла, над усім сплетінням. Руки тягнуться туди, де сходяться жезли, а найвіддаленіша фігура праворуч підводить обличчя до цього перехрестя, а не до когось із суперників. Карта привертає увагу до того, про що насправді це змагання. Суперництво може відточити майстерність, випробувати ідею й дати прозвучати голосам, які ввічливість змусила б мовчати; але воно може й перетворитися на рух заради руху.",
+      "У прямому положенні П’ятірка запрошує вас повною мірою брати участь, зберігаючи цікавість: назвіть спільну мету, домовтеся про кілька правил і нехай відмінності працюють на користь справи."
+    ],
+    "reversed": [
+      "П’ятірка Жезлів у перевернутому положенні може вказувати на тертя, що пішло в підпілля: розбіжності згладили, а не розв’язали, або змагання, від якого ви раз у раз відступаєте, бо воно виснажує. Карта може показувати й протилежний рух: сутичку, яку підтримує звичка ще довго після того, як про полум’я в її центрі забули. Так чи інакше, енергія, що могла б щось збудувати, іде на те, щоб тримати напругу під контролем.",
+      "Це положення питає, які розбіжності заслуговують на відкриту й дбайливо проведену розмову, а які можна просто облишити. Іноді корисний крок — на мить опустити свій жезл і запитати, до чого тягнуться всі. Іноді — вступити в суперечку, якої ви уникали, пам’ятаючи, що незгода між рівними не мусить переростати в бійку."
+    ],
+    "number": "П’ять — ранг порушеної рівноваги. Після усталеного свята Четвірки П’ятірка руйнує баланс, щоб щось могло рости знову. У Жезлах, масті Вогню, волі й творчого поштовху, це порушення набуває форми енергій, що змагаються: багато людей або багато поривів в одній людині, і кожен хоче вести перед. На Дереві Життя п’ять — це Гебура, Суворість, сфера сили й випробування. Шістка Жезлів показує вершника, який витримав випробування; П’ятірка — це жорстке тренування, що робить це можливим.",
+    "tradition": "У системі Золотої Зорі П’ятірка Жезлів має титул Володар Чвар. Її пов’язують із Сатурном у першому декані Лева (від 0 до 10 градусів) і з Гебурою, п’ятою сефірою, вираженою через вогняну масть Жезлів. Зустріч ваги й обмежень Сатурна з гордим вогнем Лева зазвичай тлумачать як амбіцію, що наштовхується на опір. Алістер Кроулі зберіг для своєї карти в колоді Тота одне слово — «Чвари». У колодах марсельського типу П’ятірка Палиць — це орнаментальна композиція зі схрещених палиць без жодної сцени з людьми. У своєму дизайні 1909 року Памела Колман Сміт зобразила на карті п’ятьох молодих людей, що розмахують жезлами; Артур Едвард Вейт назвав цю сцену удаваною битвою, ніби в забаві чи в чварах.",
+    "areas": {
+      "love": "У близьких стосунках П’ятірка Жезлів часто відбиває жваве, повторюване тертя: та сама дрібна суперечка про плани, хатні справи чи про те, хто вирішує, і кожен тягнеться до того самого полум’я з іншого боку. Карта не може сказати вам, що відчуває чи задумує інша людина. Вона питає, про що ця незгода: про мету, про спосіб чи про бажання бути почутими. У стосунках із собою карта може показувати кілька бажань, що тягнуть у різні боки водночас, і кожне з них заслуговує на свою чергу, а не на поділ на переможців і переможених.",
+      "work": "На роботі чи в навчанні ця карта часто з’являється під час мозкових штурмів, групових проєктів, конкурсних заявок або в командах із нечіткими ролями. Схрещені жезли на зображенні Olivia показують енергію справжню, але ще не узгоджену. Корисному тертю потрібна невелика структура: названа мета, черга для кожного голосу, погоджений спосіб ухвалювати рішення. Якщо в змаганні йдеться про гроші, карта не виносить вердикту щодо цифр; вона лише питає, чи результат формує ясна домовленість, чи той, хто тисне найсильніше.",
+      "self": "У стосунках із собою П’ятірка може описувати внутрішній комітет: амбіція, сумнів, вірність і цікавість — усі хапаються за той самий жезл. Зображення Olivia підказує вихід: фігура праворуч, досі стискаючи жезл, підводить обличчя над іншими головами — до схрещених жезлів і полум’я за ними. Внутрішню суперечку не обов’язково глушити. Спробуйте назвати кожен голос, помітити, що саме він захищає, і запитати себе, який із них стоїть найближче до вогню, що справді для вас важливий."
+    },
+    "positions": {
+      "heart": "У центрі запитання П’ятірка Жезлів вказує на енергійне тертя між кількома волями чи бажаннями. Проблема не в самому змаганні; важливо, заради чого воно.",
+      "challenge": "Як виклик карта може показувати зусилля, розпорошені в надто багатьох напрямках, суперечку, що перетворилася на перевірку витривалості, або небажання заговорити там, де потрібен чіткий голос.",
+      "advice": "Як порада вона запрошує вас назвати спільну мету, перш ніж сперечатися про спосіб, домовитися про кілька простих правил і сприймати незгоду як тренування, а не як загрозу."
+    },
+    "pairs": [
+      {
+        "with": 27,
+        "text": "Шістка Жезлів підносить одного вершника у вінку над натовпом. Після сплетіння жезлів П’ятірки ця пара привертає увагу до того, як змагання перетворюється на визнання, і до того, що — або кого — боротьба допомогла висунути вперед."
+      },
+      {
+        "with": 54,
+        "text": "Обидві П’ятірки показують конфлікт, але в різних тональностях. П’ятірка Мечів зображує перемогу, здобуту дорогою ціною, від якої інші відвертаються; П’ятірка Жезлів — це жорстка гра між рівними, де ще ніхто не програв. Разом вони питають, як сперечатися, не лишаючи по собі руїн."
+      },
+      {
+        "with": 7,
+        "text": "Колісниця втримує дві протилежні сили в рівновазі й рухається в одному обраному напрямку. Поруч із П’ятіркою Жезлів, де енергії перехрещуються і ніхто не кермує, ця пара привертає увагу до волі, що впорядковує тертя, а не просто примножує його."
+      }
+    ],
+    "questions": [
+      "Про що ця незгода: про мету, про спосіб чи про бажання бути почутими?",
+      "Де тертя відточує вашу майстерність, а де лише витрачає вашу енергію?",
+      "Якби всі причетні підвели очі до того самого полум’я, яким було б це полум’я?"
+    ],
+    "practice": "Запишіть одним реченням спільну мету якоїсь нинішньої незгоди, а потім перелічіть усі голоси, причетні до неї, зокрема й ваш, і те, до чого тягнеться кожен."
+  }
+}

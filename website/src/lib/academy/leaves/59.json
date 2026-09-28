@@ -1,0 +1,267 @@
+{
+  "id": 59,
+  "slug": "ten-of-swords",
+  "artwork": {
+    "file": "59_ten_of_swords.webp",
+    "sha256": "9cb25155986c12314864481437f3a6c74fc10718894426effa77ad05a9b0cd78"
+  },
+  "symbols": [
+    {
+      "key": "sword",
+      "x": 47,
+      "y": 61,
+      "en": {
+        "name": "Nine lapis swords",
+        "seen": "A close row of swords carved in greyish blue lapis, not ivory, stands upright above the figure’s back. Counted carefully there are nine, each with a round ball pommel, a straight crossguard and a groove down the blade.",
+        "meaning": "The traditional card shows ten blades, the full count of the suit, and swords stand for thought, words and judgement. Olivia’s image shows nine on a card named Ten. One way to read the gap: the last blade is missing because this is the point where the adding finally stops."
+      },
+      "uk": {
+        "name": "Дев’ять лазуритових мечів",
+        "seen": "Щільний ряд мечів, вирізьблених із сірувато-блакитного лазуриту, а не зі слонової кістки, стоїть сторч над спиною фігури. Якщо уважно полічити, їх дев’ять; кожен має кулясте навершя, пряму гарду й дол уздовж клинка.",
+        "meaning": "На традиційному зображенні — десять клинків, повний рахунок масті, а мечі означають думки, слова й судження. Olivia показує дев’ять мечів на карті, що зветься Десяткою. Цей пропуск можна прочитати так: останнього клинка бракує, бо саме тут додавання нарешті припиняється."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 46,
+      "y": 69,
+      "en": {
+        "name": "Blades along the spine",
+        "seen": "The blades enter the ivory back in an even line from the lower back to the shoulders. The middle blades stand almost straight while the outermost lean slightly outward. No blood is carved anywhere.",
+        "meaning": "Blades in the back are often read as what arrives from behind: what you did not see coming, or what you kept carrying without turning to look at it. The tidy row and the absence of blood keep the image symbolic: a limit reached, not an injury."
+      },
+      "uk": {
+        "name": "Клинки вздовж хребта",
+        "seen": "Клинки входять у кістяну спину рівною лінією від попереку до плечей. Середні стоять майже прямо, а крайні трохи відхиляються назовні. Крові ніде не вирізьблено.",
+        "meaning": "Клинки в спині часто читають як те, що приходить ззаду: те, чого ви не передбачили, або те, що ви довго несли, так і не обернувшись, щоб роздивитися. Рівний ряд і відсутність крові лишають образ символічним: це досягнута межа, а не рана."
+      }
+    },
+    {
+      "key": "face",
+      "x": 69,
+      "y": 75,
+      "en": {
+        "name": "The resting face",
+        "seen": "The ivory head, with short curled hair, lies turned toward the viewer, the cheek pillowed on the crook of a folded arm. The eyes are closed; brow and mouth are relaxed.",
+        "meaning": "The traditional image usually keeps the figure’s face hidden against the ground, which is often read as finality. Here the face is visible and composed, nearer to sleep than to struggle. It turns the card toward exhaustion and surrender: the moment effort stops and the body rests."
+      },
+      "uk": {
+        "name": "Спокійне обличчя",
+        "seen": "Кістяна голова з коротким кучерявим волоссям лежить, обернена до глядача, щокою на згині складеної руки. Очі заплющені; чоло й вуста розслаблені.",
+        "meaning": "Традиційне зображення зазвичай ховає обличчя фігури, притиснуте до землі, і це часто читають як остаточність. Тут обличчя видно, і воно спокійне — ближче до сну, ніж до боротьби. Так карта звертається до виснаження й капітуляції: до миті, коли зусилля припиняється і тіло відпочиває."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 89,
+      "y": 76,
+      "en": {
+        "name": "Two extended fingers",
+        "seen": "At the end of the long outstretched arm, the ivory hand rests on the rock with the index and middle fingers extended and held apart, the remaining fingers curled in toward the palm.",
+        "meaning": "In the traditional image the hand makes a gesture commonly read as a blessing, echoing the raised hand of The Hierophant: even at the lowest point something in the figure still reaches outward. Olivia keeps the gesture and turns it toward the side where gold light lies on the horizon."
+      },
+      "uk": {
+        "name": "Два випростані пальці",
+        "seen": "На кінці довгої простягнутої руки кістяна кисть лежить на камені: вказівний і середній пальці випростані й розведені, решта підібгані до долоні.",
+        "meaning": "На традиційному зображенні рука складається в жест, який зазвичай читають як благословення й відлуння піднятої руки Ієрофанта: навіть у найнижчій точці щось у фігурі досі тягнеться назовні. Olivia зберігає цей жест і повертає його в бік, де на обрії лежить золоте світло."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 20,
+      "y": 76,
+      "en": {
+        "name": "The ivory drapery",
+        "seen": "A thin ivory cloth covers the hips and legs in soft, deep folds and spills over the rock. The back, shoulders and arms are bare; the covered legs run to the card’s left edge.",
+        "meaning": "The traditional card lays a red cloth over the figure, often linked with spent passion or life force. Olivia’s cloth is the same pale ivory as the body, so it reads less as a wound and more as a sheet drawn over someone resting: covering, quieting, protecting."
+      },
+      "uk": {
+        "name": "Кістяна драпіровка",
+        "seen": "Тонка тканина кольору слонової кістки м’якими глибокими складками вкриває стегна й ноги та спадає на камінь. Спина, плечі й руки оголені; вкриті ноги тягнуться до лівого краю карти.",
+        "meaning": "На традиційній карті фігуру вкриває червона тканина, яку часто пов’язують із вичерпаною пристрастю чи життєвою силою. У Olivia тканина така ж блідо-кістяна, як тіло, тож читається не як рана, а радше як простирадло, накинуте на того, хто відпочиває: вона вкриває, заспокоює, оберігає."
+      }
+    },
+    {
+      "key": "sea",
+      "x": 88,
+      "y": 65,
+      "en": {
+        "name": "Gold dawn on the horizon",
+        "seen": "Behind the figure a calm sea runs flat to a straight horizon. On the right a thin band of gold light lies along the horizon line, with fainter gold glints reflected on the water below it.",
+        "meaning": "The traditional image places a strip of yellow light beneath a dark sky, commonly read as the worst of the night ending. Gold is used sparingly in this deck, so its placement matters: the strongest gold below the sky lies on the side toward which the figure’s hand reaches."
+      },
+      "uk": {
+        "name": "Золотий світанок на обрії",
+        "seen": "За фігурою спокійне море рівно тягнеться до прямої лінії обрію. Праворуч уздовж обрію лежить тонка смуга золотого світла, а нижче на воді мерехтять слабші золоті відблиски.",
+        "meaning": "На традиційному зображенні під темним небом тягнеться смуга жовтого світла, яку зазвичай читають як кінець найгіршої частини ночі. У цій колоді золото вжито ощадно, тож важливо, де воно розташоване: найяскравіше золото під небом лежить саме з того боку, куди тягнеться рука фігури."
+      }
+    },
+    {
+      "key": "cloud",
+      "x": 28,
+      "y": 47,
+      "en": {
+        "name": "Low bank of clouds",
+        "seen": "Heavy, billowing clouds carved in lighter greyish blue lapis fill the middle band of the card behind the sword hilts, rising highest on the left and thinning toward the horizon on the right.",
+        "meaning": "Clouds in the Swords suit usually mark a troubled or overworked mind. Here they sit low, between the sea and the open sky, as if the storm has already passed over and settled behind the scene. Above them the night is clear."
+      },
+      "uk": {
+        "name": "Низька гряда хмар",
+        "seen": "Важкі клубчасті хмари, вирізьблені зі світлішого сірувато-блакитного лазуриту, заповнюють середню смугу карти за руків’ями мечів: ліворуч вони здіймаються найвище, а праворуч, ближче до обрію, рідшають.",
+        "meaning": "У масті Мечів хмари зазвичай позначають стривожений або перевтомлений розум. Тут вони лежать низько, між морем і відкритим небом, ніби буря вже пройшла й осіла позаду сцени. Над ними ніч ясна."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 68,
+      "y": 24,
+      "en": {
+        "name": "A sky full of stars",
+        "seen": "Most of the upper card is open night: scattered gold flecks, a pale glittering band running diagonally from the upper right toward the centre, and one brighter rayed star on the right.",
+        "meaning": "The traditional sky on this card is solid black. Olivia’s sky is wide and starred, and it fills the whole upper part of the image. The ending below looks small against it: the mind’s hardest night is not the whole of the sky."
+      },
+      "uk": {
+        "name": "Небо, повне зірок",
+        "seen": "Більшу частину верху карти займає відкрита ніч: розсипані золоті іскри, бліда мерехтлива смуга, що діагонально тягнеться від верхнього правого кута до центру, і одна яскравіша промениста зірка праворуч.",
+        "meaning": "На традиційній карті небо суцільно чорне. Небо в Olivia широке й зоряне, воно заповнює всю верхню частину зображення. Кінець унизу здається малим на його тлі: найтяжча ніч розуму — ще не все небо."
+      }
+    },
+    {
+      "key": "rock",
+      "x": 50,
+      "y": 84,
+      "en": {
+        "name": "The lapis rock ledge",
+        "seen": "The figure lies on a broad, flat ledge of rough, bright blue lapis, its surface chipped and textured with lighter veins, dropping away to darker, cracked stone along the bottom of the card.",
+        "meaning": "The ledge is the Ten’s literal bottom: there is nowhere lower to fall. In the Golden Dawn scheme the tens belong to Malkuth, the Kingdom, the most solid level of the Tree of Life, and this stone makes that concrete. A floor is also something to stand up from."
+      },
+      "uk": {
+        "name": "Лазуритовий скельний виступ",
+        "seen": "Фігура лежить на широкому пласкому виступі шорсткого яскраво-синього лазуриту: поверхня щербата й фактурна, зі світлішими прожилками, а внизу карти вона обривається в темніший потрісканий камінь.",
+        "meaning": "Цей виступ — буквальне дно Десятки: нижче падати нікуди. У системі Золотої Зорі десятки належать Малкут, Царству, найщільнішому рівню Дерева Життя, і цей камінь робить це відчутним. А від дна можна ще й відштовхнутися, щоб підвестися."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Ten of Swords marks the point where a painful line of thought, effort or situation has gone as far as it can go, and stops.",
+    "keywords": {
+      "upright": [
+        "reaching the limit",
+        "exhaustion",
+        "ending",
+        "rock bottom",
+        "letting go",
+        "first light"
+      ],
+      "reversed": [
+        "slow recovery",
+        "reopening old wounds",
+        "resisting the ending",
+        "getting up again",
+        "lingering fatigue"
+      ]
+    },
+    "upright": [
+      "The Ten of Swords is often the most dramatic image in its suit, and it is best read as a picture of a limit, not an event to fear. It draws attention to the place where a worry, an argument with yourself, a job or a way of coping has been carried until there is nothing left to carry it with. In Olivia’s deck the figure lies prone on a ledge of lapis with blades in a row along the back, yet the face, turned toward you and resting on a folded arm, is calm, eyes closed, closer to sleep than to struggle.",
+      "Swords are the suit of Air, of thoughts and words, and Ten is the end of the count. Look closely and there are nine blades, not ten. However you read the missing one, the image shows that the adding has stopped. There may be nothing more to think through for now; the mind has done all it can in this form.",
+      "What the card offers is the view beyond the figure. A thin band of gold rests on the horizon, on the side toward which the outstretched hand reaches, and above the low clouds the sky is wide and full of stars. Upright, the Ten invites you to admit that something is finished, to rest without demanding meaning from it straight away, and to notice the first light. This is symbolic language for an ending, not a forecast."
+    ],
+    "reversed": [
+      "Ten of Swords reversed draws attention to the slow work of getting up after something has ended, or to the pull to go back and lie down under the same blades. Recovery may have begun: you may notice more room to breathe, or small signs of energy returning, while the body still feels the weight. Or the ending may be resisted: replaying what happened, reopening a closed matter, or treating one exhausting chapter as proof of who you are.",
+      "This position asks for patience with an uneven return. Getting up does not have to be one movement. Attend first to rest, nourishment and a trusted person, and let the larger story wait until you are steadier. The gold on the horizon does not need to be reached today; it only needs to be noticed."
+    ],
+    "number": "Ten is the end of a suit’s count: the seed of the Ace has grown through every stage until there is more of it than can be held. In Swords, the suit of Air and mind, that surplus is thought itself: analysis, worry and argument taken past the point where they help. Where the Nine of Swords sits up awake with its fears, the Ten is where the thinking finally stops. After Ten the count returns to the Ace, a single clear idea.",
+    "tradition": "In the Golden Dawn system the Ten of Swords is titled the Lord of Ruin. It is assigned to the Sun in Gemini, the third decan of that sign (20 to 30 degrees), and to Malkuth, the Kingdom, the tenth Sephirah on the Tree of Life, expressed through the suit of Air. The Sun’s full light in quick, doubling Gemini can be read as a mind that has analysed a matter to exhaustion; Aleister Crowley kept the single title Ruin. Marseille decks show only an ornamental pattern of blades. Pamela Colman Smith’s 1909 design gave the number a body: a figure lying face down under ten swords, a black sky above and yellow light at the horizon.",
+    "areas": {
+      "love": "In close relationships the Ten of Swords can point to a pattern gone over so many times that it has worn you out: the same conversation, the same hurt, the same explanation. It does not say what anyone else feels or intends, and it does not decide the future of a bond. It asks whether a particular way of relating has reached its limit, and what rest and honesty would look like for you now, including in how you speak to yourself.",
+      "work": "At work or in study, this card can reflect a project, role or effort that has taken more than it gave, or a plan that has plainly run its course. Swords ask for clarity, so name what is actually finished and what only feels finished because you are exhausted. Before any large decision, rest. Where money or contracts are involved, a qualified person’s view serves better than deciding alone at your lowest point.",
+      "self": "For your relationship with yourself, the Ten invites you to stop carrying the whole weight of a hard stretch at once. The figure on the card is lying down; the body has made the decision the mind would not. Notice where you are tired and let that be information, not failure. The hand on the rock still keeps two fingers extended, and the horizon keeps its gold: something in you remains open even now."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Ten of Swords points to something that has already reached its end. Acknowledging that plainly may matter more than any new plan or explanation.",
+      "challenge": "As a challenge, the card can show exhaustion treated as a verdict on your worth, or an ending you keep reopening because stopping feels harder than continuing to struggle.",
+      "advice": "As advice, it invites you to let a finished matter be finished, rest before deciding anything large, and turn your attention toward the first small signs of light."
+    },
+    "pairs": [
+      {
+        "with": 58,
+        "text": "The Nine of Swords sits up awake with its fears; the Ten lies down. Together they trace a sequence from sleepless worry to the moment the worrying finally stops, and ask what rest could give you that vigilance never did."
+      },
+      {
+        "with": 50,
+        "text": "The Ace of Swords is one clear ivory blade held upright; the Ten is nine blue blades laid into a resting body. Side by side they turn attention to the cycle of the mind: once thought is exhausted, a single fresh idea has room to rise."
+      },
+      {
+        "with": 13,
+        "text": "Death shows change moving through a whole landscape; the Ten of Swords shows the same threshold inside the mind. Both keep a gold light on the horizon. Together they draw attention to an ending that asks for acceptance rather than resistance, and to what can begin afterwards."
+      }
+    ],
+    "questions": [
+      "What in your life has reached its limit, and are you ready to call it finished?",
+      "Which thought have you gone over so often that it no longer tells you anything new?",
+      "If you let yourself rest here for a moment, what first small light might you notice?"
+    ],
+    "practice": "Tonight, write down one thing that is finished, draw a line under it, and beneath the line write one small kindness for tomorrow morning."
+  },
+  "uk": {
+    "essence": "Десятка Мечів позначає точку, де болісна думка, зусилля чи ситуація зайшли так далеко, як тільки могли, — і зупинилися.",
+    "keywords": {
+      "upright": [
+        "досягнута межа",
+        "виснаження",
+        "завершення",
+        "дно",
+        "відпускання",
+        "перше світло"
+      ],
+      "reversed": [
+        "повільне одужання",
+        "роз’ятрені старі рани",
+        "опір завершенню",
+        "знову на ноги",
+        "тривала втома"
+      ]
+    },
+    "upright": [
+      "Десятка Мечів — часто найдраматичніше зображення своєї масті, і найкраще читати її як картину межі, а не як подію, якої слід боятися. Вона привертає увагу до місця, де тривогу, суперечку із собою, роботу чи спосіб давати собі раду несли доти, доки не забракло сил нести. У колоді Olivia фігура лежить ниць на лазуритовому виступі з рядом клинків уздовж спини, проте обличчя, обернене до вас і покладене на складену руку, спокійне: очі заплющені, і це ближче до сну, ніж до боротьби.",
+      "Мечі — масть Повітря, думок і слів, а Десятка — кінець рахунку. Придивіться: клинків дев’ять, а не десять. Хоч би як ви прочитали відсутній клинок, зображення показує, що додавання припинилося. Можливо, поки що більше нічого обмірковувати; розум зробив у цій формі все, що міг.",
+      "Те, що пропонує карта, — це погляд за межі фігури. Тонка смуга золота лежить на обрії, з того боку, куди тягнеться простягнена рука, а над низькими хмарами небо широке й повне зірок. У прямому положенні Десятка запрошує визнати, що щось завершилося, відпочити, не вимагаючи від цього сенсу негайно, і помітити перше світло. Це символічна мова завершення, а не прогноз."
+    ],
+    "reversed": [
+      "Десятка Мечів у перевернутому положенні привертає увагу до повільної праці підйому після того, як щось закінчилося, або до потягу повернутися й знову лягти під ті самі клинки. Відновлення, можливо, вже почалося: ви помічаєте, що дихати стало вільніше, що потроху повертаються сили, хоча тіло ще відчуває вагу. Або ж ви, можливо, опираєтеся завершенню: прокручуєте в думках те, що сталося, знову відкриваєте закриту справу чи сприймаєте один виснажливий розділ як доказ того, ким ви є.",
+      "Це положення просить терпляче поставитися до нерівного повернення. Підвестися не обов’язково одним рухом. Спершу подбайте про відпочинок, харчування й людину, якій довіряєте, а більша історія нехай зачекає, доки ви не станете стійкішими. Золота на обрії не треба досягати сьогодні; його досить просто помітити."
+    ],
+    "number": "Десятка — кінець рахунку масті: зерно Туза проросло через усі етапи, аж доки його стало більше, ніж можна втримати. У Мечах, масті Повітря й розуму, цей надлишок — сама думка: аналіз, тривога й суперечка, доведені далі тієї межі, де вони ще допомагають. Якщо Дев’ятка Мечів сидить без сну зі своїми страхами, то Десятка — місце, де думки нарешті вщухають. Після Десятки рахунок повертається до Туза, до однієї ясної ідеї.",
+    "tradition": "У системі Золотої Зорі Десятка Мечів має титул «Володар Руїни». Її пов’язують із Сонцем у Близнятах, третім деканом цього знака (від 20 до 30 градусів), і з Малкут, Царством, десятою сефірою Дерева Життя, вираженою через масть Повітря. Повне світло Сонця у швидких, подвійних Близнятах можна прочитати як розум, що аналізував справу до виснаження; Алістер Кроулі залишив коротку назву «Руїна». Марсельські колоди показують лише орнаментальний візерунок клинків. Дизайн Памели Колман Сміт 1909 року дав числу тіло: фігура лежить обличчям донизу під десятьма мечами, над нею чорне небо, а на обрії — жовте світло.",
+    "areas": {
+      "love": "У близьких стосунках Десятка Мечів може вказувати на сценарій, який проходили стільки разів, що він вас виснажив: та сама розмова, той самий біль, те саме пояснення. Карта не каже, що відчуває чи чого прагне хтось інший, і не вирішує майбутнього зв’язку. Вона запитує, чи певний спосіб бути поруч дійшов своєї межі і якими для вас зараз були б відпочинок і чесність — зокрема в тому, як ви говорите із собою.",
+      "work": "У роботі чи навчанні ця карта може відбивати проєкт, роль чи зусилля, що забрали більше, ніж дали, або план, який явно вичерпав себе. Мечі просять ясності, тож назвіть, що справді завершено, а що лише здається завершеним, бо ви виснажені. Перш ніж ухвалювати будь-яке велике рішення, відпочиньте. Коли йдеться про гроші чи договори, думка фахівця прислужиться краще, ніж рішення, ухвалене наодинці в найтяжчу мить.",
+      "self": "У стосунках із собою Десятка запрошує не нести всю вагу важкого періоду одразу. Фігура на карті лежить; тіло ухвалило рішення, на яке не зважувався розум. Помітьте, де ви втомилися, і нехай це буде інформацією, а не поразкою. Рука на камені досі тримає два пальці випростаними, а обрій зберігає своє золото: щось у вас лишається відкритим навіть тепер."
+    },
+    "positions": {
+      "heart": "У центрі запитання Десятка Мечів вказує на те, що вже дійшло свого кінця. Просто визнати це може важити більше, ніж будь-який новий план чи пояснення.",
+      "challenge": "Як виклик карта може показувати виснаження, яке ви сприймаєте як вирок власній цінності, або завершення, до якого ви раз у раз повертаєтеся, бо зупинитися здається важче, ніж і далі боротися.",
+      "advice": "Як порада вона запрошує дати завершеній справі бути завершеною, відпочити, перш ніж вирішувати щось велике, і звернути увагу на перші маленькі ознаки світла."
+    },
+    "pairs": [
+      {
+        "with": 58,
+        "text": "Дев’ятка Мечів сидить без сну зі своїми страхами; Десятка лягає. Разом вони простежують шлях від безсонної тривоги до миті, коли тривога нарешті вщухає, і запитують, що може дати вам відпочинок такого, чого ніколи не давала пильність."
+      },
+      {
+        "with": 50,
+        "text": "Туз Мечів — один ясний кістяний клинок, піднятий сторч; Десятка — дев’ять синіх клинків, устромлених у тіло, що відпочиває. Поруч вони звертають увагу на цикл розуму: коли думку вичерпано, одна свіжа ідея має простір, щоб піднятися."
+      },
+      {
+        "with": 13,
+        "text": "Смерть показує зміну, що проходить крізь цілий краєвид; Десятка Мечів показує той самий поріг усередині розуму. Обидві зберігають золоте світло на обрії. Разом вони привертають увагу до завершення, яке просить прийняття, а не опору, і до того, що може початися потім."
+      }
+    ],
+    "questions": [
+      "Що у вашому житті дійшло межі — і чи готові ви назвати це завершеним?",
+      "Яку думку ви обмірковували так часто, що вона вже не каже вам нічого нового?",
+      "Якщо дозволити собі на мить відпочити тут, яке перше маленьке світло ви могли б помітити?"
+    ],
+    "practice": "Сьогодні ввечері запишіть одну річ, яка завершилася, проведіть під нею риску, а під рискою напишіть одну маленьку турботу про себе на завтрашній ранок."
+  }
+}

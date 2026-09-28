@@ -1,0 +1,265 @@
+{
+  "id": 53,
+  "slug": "four-of-swords",
+  "artwork": {
+    "file": "53_four_of_swords.webp",
+    "sha256": "f3a31da9780dc03323543ada9d906447b10be35b85c2377685541c4404f80d7f"
+  },
+  "symbols": [
+    {
+      "key": "window",
+      "x": 50,
+      "y": 23,
+      "en": {
+        "name": "The gold devotional niche",
+        "seen": "High in the centre, a pointed niche holds the card’s only gold figures: a haloed standing figure holding an open book and a cross-topped staff, and a smaller figure kneeling before it, palms pressed together.",
+        "meaning": "The traditional image includes a stained-glass window of a kneeling figure before a haloed one, commonly read as blessing or sanctuary for the one who rests. Olivia sets that scene in gold at the centre, so quiet comfort above the sleeper becomes the card’s brightest point."
+      },
+      "uk": {
+        "name": "Золота ніша з молитвою",
+        "seen": "Високо в центрі, у стрілчастій ніші, — єдині золоті фігури на карті: постать із німбом тримає розгорнуту книгу й посох, увінчаний хрестом, а менша постать стоїть перед нею навколішки, склавши долоні.",
+        "meaning": "У традиційному зображенні є вітраж: постать навколішках перед іншою, увінчаною німбом; його зазвичай читають як благословення чи прихисток для постаті, що спочиває. Olivia втілює цю сцену в золоті й ставить її в центр, тож тиха розрада над сплячою постаттю стає найяскравішою точкою карти."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 31,
+      "y": 14,
+      "en": {
+        "name": "The glittering night vein",
+        "seen": "Across the upper left a diagonal band of pale, sparkling mineral runs through the dark lapis, and small gold stars are scattered above the arches and below the tomb.",
+        "meaning": "The traditional image is set indoors with no sky at all. Olivia lets the night show above and around the chapel, which suits a card of sleep. The mind of the Swords suit belongs to the air and the sky; here it has gone quiet under the stars."
+      },
+      "uk": {
+        "name": "Мерехтлива нічна жилка",
+        "seen": "У верхній лівій частині карти крізь темний лазурит навскіс тягнеться смуга світлого іскристого мінералу, а над арками й під гробницею розсипано дрібні золоті зорі.",
+        "meaning": "Традиційна сцена розгортається в приміщенні, де неба немає зовсім. Olivia відкриває ніч над каплицею і довкола неї, і це личить карті сну. Розум масті Мечів належить Повітрю й небу; тут він затих під зорями."
+      }
+    },
+    {
+      "key": "arch",
+      "x": 23,
+      "y": 31,
+      "en": {
+        "name": "Two pointed Gothic arches",
+        "seen": "Carved in paler lapis, two pointed arches with ribbed vaults stand left and right on slender clustered columns with leafy capitals; small arched windows are cut into their side walls.",
+        "meaning": "The church setting is traditional for this card: a sheltered, consecrated place where striving is set aside. The paired arches frame the tomb like a side chapel, giving rest a protected space of its own rather than a stolen moment in the open."
+      },
+      "uk": {
+        "name": "Дві стрілчасті готичні арки",
+        "seen": "Дві стрілчасті арки з ребристими склепіннями, вирізьблені зі світлішого лазуриту, стоять ліворуч і праворуч на тонких пучкових колонах із листяними капітелями; у їхніх бічних стінах прорізано маленькі арочні вікна.",
+        "meaning": "Церковний інтер’єр — традиційне тло цієї карти: захищене, освячене місце, де зусилля відкладають убік. Парні арки обрамлюють гробницю, наче бічна каплиця, і дають відпочинку власний захищений простір, а не миті, украдені просто неба."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 51,
+      "y": 48,
+      "en": {
+        "name": "Three swords on the wall",
+        "seen": "Three lapis swords lie horizontally one above another across the back wall, points to the left, hilts to the right with disc pommels and straight crossguards; the lowest is set furthest right.",
+        "meaning": "In the traditional image three swords hang point down above the sleeper, the troubles of the Three of Swords hung up for now. Olivia lays them flat and level, which reads even more like a truce: the weapons are stored, not threatening, and nobody is holding them."
+      },
+      "uk": {
+        "name": "Три мечі на стіні",
+        "seen": "Три лазуритові мечі лежать горизонтально один над одним на задній стіні: вістрями ліворуч, руків’ями праворуч, із дископодібними навершями й прямими хрестовинами; нижній зсунуто найдалі праворуч.",
+        "meaning": "У традиційному зображенні три мечі висять вістрями донизу над сплячою постаттю: негаразди Трійки Мечів поки що повішено на стіну. Olivia кладе їх пласко й рівно, і це ще більше скидається на перемир’я: зброю складено, вона не загрожує, і ніхто її не тримає."
+      }
+    },
+    {
+      "key": "armour",
+      "x": 37,
+      "y": 59,
+      "en": {
+        "name": "The sleeping ivory knight",
+        "seen": "An ivory effigy in full plate armour lies on its back, head on a cushion at the left, long hair spread, eyes closed, hands joined palm to palm on the chest.",
+        "meaning": "The effigy is the heart of this card: a fighter lying still with the armour still on. It is usually read as rest and recovery, not death. Prayerful hands turn the pause into something chosen and tended, a withdrawal made with intention."
+      },
+      "uk": {
+        "name": "Спляча лицарська постать",
+        "seen": "Надгробна фігура зі слонової кістки в повних латах лежить на спині: голова на подушці ліворуч, довге волосся розсипане, очі заплющені, долоні складені одна до одної на грудях.",
+        "meaning": "Ця постать — серце карти: після битви вона лежить нерухомо, так і не знявши обладунку. Зазвичай її читають як відпочинок і відновлення, а не смерть. Складені для молитви руки перетворюють паузу на свідомий вибір, про який дбають: це відступ із наміром."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 28,
+      "y": 62,
+      "en": {
+        "name": "The ivory sword alongside",
+        "seen": "An ivory sword lies along the front edge of the slab: pommel beyond the cushion, curled crossguard just below the head, blade running beneath the bent arm. A shorter sheathed blade hangs at the hip.",
+        "meaning": "The traditional image has four swords; Olivia adds this fifth, carved in the same ivory as the figure. Kept within reach but not held, it reads as a capacity set aside rather than surrendered, ready for the return once rest has done its work."
+      },
+      "uk": {
+        "name": "Меч зі слонової кістки поруч",
+        "seen": "Уздовж переднього краю плити лежить меч зі слонової кістки: навершя — за подушкою, закручена хрестовина — одразу під головою, клинок проходить під зігнутою рукою. При стегні висить коротший клинок у піхвах.",
+        "meaning": "У традиційному зображенні мечів чотири; Olivia додає цей п’ятий, вирізьблений з тієї ж слонової кістки, що й постать. Він лежить під рукою, але його не тримають, тож читається як сила, яку відклали, а не здали: вона готова до повернення, коли відпочинок зробить свою справу."
+      }
+    },
+    {
+      "key": "lion",
+      "x": 78,
+      "y": 61,
+      "en": {
+        "name": "The lion at the feet",
+        "seen": "At the right end of the slab a small maned ivory lion lies with forepaws stretched out and head turned toward the viewer, the effigy’s pointed armoured feet resting just above it.",
+        "meaning": "The traditional tarot image has no lion. On medieval tombs a lion at the feet commonly stood for courage and steadfastness. Olivia adds it as a quiet guardian: strength does not vanish during rest, it lies down and keeps watch."
+      },
+      "uk": {
+        "name": "Лев біля ніг",
+        "seen": "На правому краю плити лежить невеликий гривастий лев зі слонової кістки: передні лапи витягнуті, голова повернута до глядача, а просто над ним спочивають гострі закуті в лати стопи надгробної постаті.",
+        "meaning": "У традиційному зображенні таро лева немає. На середньовічних надгробках лев біля ніг зазвичай означав мужність і стійкість. Olivia додає його як тихого вартового: під час відпочинку сила не зникає, вона лягає поруч і пильнує."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 50,
+      "y": 67,
+      "en": {
+        "name": "The sword on the tomb",
+        "seen": "Carved in lapis along the front of the tomb chest, a long sword lies horizontally with its disc pommel and crossguard at the left and its point toward the right.",
+        "meaning": "In the traditional image one sword lies along the side of the tomb beneath the resting figure. Here it points the opposite way to the three on the wall, so the carved lapis blades answer each other across the chapel: a small balance that holds the rest steady."
+      },
+      "uk": {
+        "name": "Меч на гробниці",
+        "seen": "Уздовж передньої стінки саркофага в лазуриті вирізьблено довгий меч: він лежить горизонтально, дископодібне навершя й хрестовина — ліворуч, вістря спрямоване праворуч.",
+        "meaning": "У традиційному зображенні один меч лежить уздовж бічної стінки гробниці, під постаттю, що спочиває. Тут він спрямований протилежно до трьох мечів на стіні, тож лазуритові клинки перегукуються через усю каплицю: маленька рівновага, що тримає спокій."
+      }
+    },
+    {
+      "key": "crowd",
+      "x": 32,
+      "y": 75,
+      "en": {
+        "name": "Ten hooded mourners",
+        "seen": "Below the tomb sword a frieze of hooded, robed figures with hands joined runs along the chest in two groups of five, each group turned toward the centre, a gap between them.",
+        "meaning": "These weepers are Olivia’s addition, borrowed from Gothic tomb carving, where rows of hooded mourners keep vigil. They suggest that rest is held by others too: a quiet company keeping watch so the sleeper does not have to."
+      },
+      "uk": {
+        "name": "Десятеро плакальників у каптурах",
+        "seen": "Під мечем на гробниці вздовж саркофага тягнеться фриз постатей у каптурах і довгому вбранні зі складеними руками: дві групи по п’ять, кожна обернена до центру, а між ними проміжок.",
+        "meaning": "Ці плакальники — додаток Olivia, запозичений із готичної надгробної різьби, де ряди постатей у каптурах несуть скорботну варту. Вони натякають, що відпочинок оберігають й інші: тиха спільнота вартує, тож постать, що спить, може не пильнувати."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Four of Swords asks for a deliberate pause: laying down effort, letting a tired mind go quiet, and trusting that rest is part of the work.",
+    "keywords": {
+      "upright": [
+        "rest",
+        "recovery",
+        "truce",
+        "quiet retreat",
+        "contemplation"
+      ],
+      "reversed": [
+        "restlessness",
+        "postponed rest",
+        "avoidance",
+        "slow return",
+        "burnout signals"
+      ]
+    },
+    "upright": [
+      "The Four of Swords turns attention toward rest after strain. In Olivia’s deck the scene is a Gothic side chapel carved in lapis: an ivory knight lies on a tomb, eyes closed, hands joined on the chest, the armour still on. This is not an ending but a pause taken in the middle of things. The card commonly follows the hurt of the Three of Swords, and it asks whether the next useful step is not more effort but recovery.",
+      "Swords are the suit of Air, of thought, argument and decision, and this card shows the mind choosing to stop. Three lapis swords lie flat and level on the wall above the sleeper, stored rather than raised, and a fourth is carved along the tomb itself. Olivia adds a fifth, in ivory, lying at the effigy’s side within reach but not held. Nothing has been thrown away; it has simply been put down for a while.",
+      "Olivia adds two guardians the traditional image does not have: a lion resting at the knight’s feet and a frieze of hooded mourners keeping vigil below. Above them all, the gold niche with its kneeling figure is the brightest thing on the card. Upright, the card invites you to give rest a real shape: a closed door, an agreed hour, a quiet place. Rest does not need to produce an insight to be worthwhile."
+    ],
+    "reversed": [
+      "Four of Swords reversed draws attention to rest that keeps being postponed, or to a retreat that has quietly turned into avoidance. The swords may feel as if they are still in your hands: the mind keeps rehearsing, even in bed, and stillness feels impossible although you are tired. Or the pause has stretched on, and the chapel has become a place to hide rather than recover.",
+      "Either way, the card asks for a clearer shape. If rest keeps slipping, protect one small block of time and treat it as seriously as a meeting. If a retreat has lasted longer than it helps, choose one modest, scheduled step back toward the world, rather than waiting to feel fully ready. The lion at the knight’s feet is a reminder that strength is still there."
+    ],
+    "number": "Four is the number of structure and stability: four walls, four corners, a table that stands on four legs. After the single point of the Ace, the tension of the Two and the sorrow of the Three, the Four builds a steady base. In the suit of Swords, where Air and thought rarely sit still, that stability looks like a mind at rest. The Four of Swords is a consolidation, a pause that lets understanding settle before the movement of the Five.",
+    "tradition": "In the Golden Dawn system the Four of Swords is titled the Lord of Rest from Strife. It is assigned to Jupiter in Libra, the third decan of that sign (20 to 30 degrees), and to Chesed, Mercy, the fourth Sephirah on the Tree of Life, expressed through the suit of Air. Jupiter’s generosity on Libra’s scales is commonly read as a truce, balance restored after the sorrow of the Three; Aleister Crowley’s Thoth deck shortened the title to Truce. Marseille decks show only four curved blades interlaced around a small flower. Pamela Colman Smith’s 1909 design turned the card into an effigy on a tomb inside a church, with three swords hanging above, one along the tomb and a stained-glass window.",
+    "areas": {
+      "love": "In close relationships the Four of Swords can point to a need for breathing space: a pause in a heated conversation, an evening without problem-solving, or time alone that is not a rejection. It does not tell you what another person feels. It asks whether a short, agreed truce would help more than another round of talking. With yourself, it invites gentleness: the lion at the knight’s feet rests too, and care can be quiet.",
+      "work": "At work or in study, this card often appears when effort has stopped paying off: rereading the same page, rewriting the same email. It invites a deliberate interval, a real break, a lighter week, or stepping back from a decision until your head is clearer. Swords like to keep fighting, so name when you will return. Where money or practical matters are involved, a pause to gather information can be wiser than acting while exhausted.",
+      "self": "For your relationship with yourself, the Four of Swords asks what rest actually looks like for you, beyond stopping work. Notice what the effigy’s posture suggests: lying down, closing the eyes, hands at peace, the sword put aside. Sleep, silence, prayer, meditation or a slow walk can all be forms of this card. Notice, too, whether you allow rest only once you have earned it, and what would change if you did not."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Four of Swords points to tiredness beneath the surface. Recovery may be the real issue, and a pause may help more than any new plan.",
+      "challenge": "As a challenge, the card can show a mind that will not lay its swords down, or a retreat that has lasted so long it has begun to feel safer than returning.",
+      "advice": "As advice, it invites you to schedule a genuine pause, protect it from interruption, and decide in advance when and how you will pick things up again."
+    },
+    "pairs": [
+      {
+        "with": 52,
+        "text": "With the Three of Swords the pair traces a sequence: a hurt is felt, then rested. Together they ask whether you have given yourself time to recover after something painful, or rushed straight back into the fight."
+      },
+      {
+        "with": 12,
+        "text": "The Hanged Man also shows a figure deliberately still. Beside the Four of Swords the two cards draw attention to a pause that changes perspective, a surrender of effort that lets something new come into view."
+      },
+      {
+        "with": 39,
+        "text": "The Four of Cups shows a figure withdrawn and turned inward. Next to the Four of Swords the two fours ask whether your stepping back is nourishing rest or a quieter kind of disengagement that needs noticing."
+      }
+    ],
+    "questions": [
+      "Which sword are you still holding that could safely be laid on the wall for now?",
+      "What would a pause look like if you gave it a clear beginning and end?",
+      "Who or what keeps watch for you while you rest, like the lion and the mourners?"
+    ],
+    "practice": "Set a timer for ten minutes, lie down or sit still with your eyes closed, and let each thought pass without following it until the timer ends."
+  },
+  "uk": {
+    "essence": "Четвірка Мечів просить свідомої паузи: відкласти зусилля, дати втомленому розуму затихнути й довіритися тому, що відпочинок — теж частина роботи.",
+    "keywords": {
+      "upright": [
+        "відпочинок",
+        "відновлення",
+        "перемир’я",
+        "тихий відступ",
+        "споглядання"
+      ],
+      "reversed": [
+        "неспокій",
+        "відкладений відпочинок",
+        "уникання",
+        "повільне повернення",
+        "ознаки вигорання"
+      ]
+    },
+    "upright": [
+      "Четвірка Мечів звертає увагу на відпочинок після напруги. У колоді Olivia це готична бічна каплиця, вирізьблена в лазуриті: на гробниці лежить лицарська постать зі слонової кістки — очі заплющені, руки складені на грудях, обладунок не знятий. Це не кінець, а пауза посеред справ. Карта часто йде слідом за болем Трійки Мечів і запитує, чи не варто наступним кроком обрати відновлення, а не нові зусилля.",
+      "Мечі — масть Повітря, думки, суперечки й рішення, і ця карта показує розум, який вирішує зупинитися. Три лазуритові мечі лежать пласко й рівно на стіні над сплячою постаттю: їх відклали, а не підняли. Четвертий вирізьблено на самій гробниці. Olivia додає п’ятий, зі слонової кістки: він лежить біля постаті, під рукою, але його не тримають. Нічого не викинуто; усе лише відкладено на якийсь час.",
+      "Olivia додає двох охоронців, яких немає в традиційному зображенні: лева, що спочиває біля ніг лицаря, і фриз плакальників у каптурах, які несуть варту внизу. Над ними всіма — золота ніша з постаттю навколішках, найяскравіше місце на карті. У прямому положенні карта запрошує надати відпочинку справжню форму: зачинені двері, домовлена година, тихе місце. Відпочинок не мусить приносити осяяння, щоб мати цінність."
+    ],
+    "reversed": [
+      "Четвірка Мечів у перевернутому положенні звертає увагу на відпочинок, який знову й знову відкладається, або на відступ, що непомітно перетворився на уникання. Може здаватися, що мечі досі у ваших руках: розум і в ліжку прокручує те саме, і спокій видається неможливим, хоча ви втомлені. Або ж пауза затягнулася, і каплиця стала місцем, де ховаються, а не відновлюються.",
+      "Хай там як, карта просить чіткішої форми. Якщо відпочинок постійно вислизає, захистіть один невеликий проміжок часу й поставтеся до нього так само серйозно, як до зустрічі. Якщо відступ триває довше, ніж допомагає, оберіть один скромний запланований крок, що поверне вас до світу, замість того щоб чекати, поки відчуєте повну готовність. Лев біля ніг лицаря нагадує: сила нікуди не поділася."
+    ],
+    "number": "Чотири — число структури й стійкості: чотири стіни, чотири кути, стіл, що стоїть на чотирьох ніжках. Після єдиної точки Туза, напруги Двійки й смутку Трійки Четвірка будує надійну основу. У масті Мечів, де Повітря й думка рідко бувають у спокої, така стійкість має вигляд розуму, що відпочиває. Четвірка Мечів — це закріплення: пауза, за яку розуміння встигає улягтися, перш ніж почнеться рух П’ятірки.",
+    "tradition": "У системі Золотої Зорі Четвірка Мечів має титул «Володар Відпочинку після Боротьби». Її пов’язують із Юпітером у Терезах, третім деканом цього знака (від 20 до 30 градусів), і з Хесед, Милосердям, четвертою сефірою Дерева Життя, вираженою через масть Повітря. Щедрість Юпітера на шальках Терезів часто читають як перемир’я — рівновагу, відновлену після смутку Трійки; Алістер Кроулі в колоді Тота скоротив титул до «Перемир’я». Марсельські колоди показують лише чотири вигнуті клинки, переплетені довкола маленької квітки. У версії 1909 року Памела Колман Сміт зобразила на карті надгробну фігуру на саркофазі в церкві: три мечі висять угорі, один лежить уздовж гробниці, а поруч — вітраж.",
+    "areas": {
+      "love": "У близьких стосунках Четвірка Мечів може вказувати на потребу в просторі, щоб перевести подих: паузу в гарячій розмові, вечір без розв’язування проблем або час на самоті, який не означає відштовхування. Вона не каже, що відчуває інша людина. Вона запитує, чи коротке домовлене перемир’я не допоможе більше, ніж іще одне коло розмов. У стосунках із собою карта запрошує до лагідності: лев біля ніг лицаря теж відпочиває, а турбота може бути тихою.",
+      "work": "У роботі чи навчанні ця карта часто з’являється, коли зусилля перестали давати результат: ви перечитуєте ту саму сторінку, переписуєте той самий лист. Вона запрошує до свідомої перерви: справжнього відпочинку, легшого тижня або паузи перед рішенням, доки голова не проясниться. Мечі люблять битися й далі, тож визначте, коли повернетеся. Якщо йдеться про гроші чи практичні справи, пауза, щоб зібрати інформацію, може бути мудрішою, ніж дії у стані виснаження.",
+      "self": "У стосунках із собою Четвірка Мечів запитує, який вигляд має відпочинок саме для вас, окрім простого припинення роботи. Зверніть увагу, що підказує поза надгробної постаті: лягти, заплющити очі, дати рукам спокій, відкласти меч. Сон, тиша, молитва, медитація чи повільна прогулянка — усе це можуть бути форми цієї карти. Помітьте також, чи дозволяєте ви собі відпочинок лише тоді, коли його заробили, і що змінилося б, якби він не потребував заслуг."
+    },
+    "positions": {
+      "heart": "У центрі запитання Четвірка Мечів указує на втому під поверхнею. Можливо, справжня суть — у відновленні, і пауза допоможе більше, ніж будь-який новий план.",
+      "challenge": "Як виклик карта може показувати розум, що не хоче скласти мечі, або відступ, який затягнувся настільки, що вже здається безпечнішим за повернення.",
+      "advice": "Як порада вона запрошує запланувати справжню паузу, подбати, щоб ніщо її не перервало, і заздалегідь вирішити, коли й як ви повернетеся до справ."
+    },
+    "pairs": [
+      {
+        "with": 52,
+        "text": "У парі з Трійкою Мечів вимальовується послідовність: спершу біль відчувають, потім дають собі від нього відпочити. Разом вони запитують, чи дали ви собі час відновитися після чогось болісного, чи одразу кинулися назад у бій."
+      },
+      {
+        "with": 12,
+        "text": "Повішений теж показує постать, що свідомо завмерла. Поруч із Четвіркою Мечів ці дві карти звертають увагу на паузу, яка змінює погляд, — на відмову від зусиль, що дає змогу побачити щось нове."
+      },
+      {
+        "with": 39,
+        "text": "Четвірка Кубків показує постать, яка відсторонилася й заглибилася в себе. Поруч із Четвіркою Мечів дві четвірки запитують, чи ваш відступ — це живильний відпочинок, чи тихіша форма відстороненості, яку варто помітити."
+      }
+    ],
+    "questions": [
+      "Який меч ви досі тримаєте, хоча його можна безпечно покласти на стіну — бодай на якийсь час?",
+      "Який вигляд мала б пауза, якби ви дали їй чіткий початок і кінець?",
+      "Хто чи що вартує замість вас, поки ви відпочиваєте, — як лев і плакальники?"
+    ],
+    "practice": "Поставте таймер на десять хвилин, ляжте або сядьте нерухомо із заплющеними очима й відпускайте кожну думку, не йдучи за нею, доки таймер не продзвенить."
+  }
+}

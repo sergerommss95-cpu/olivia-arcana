@@ -1,0 +1,269 @@
+{
+  "id": 16,
+  "slug": "the-tower",
+  "artwork": {
+    "file": "16_the_tower.webp",
+    "sha256": "fc02f2abc9e37e7081653f1c89f8aa7f3775335fed738ad5e223b645834b4223"
+  },
+  "symbols": [
+    {
+      "key": "lightning",
+      "x": 52,
+      "y": 22,
+      "en": {
+        "name": "The gold lightning bolt",
+        "seen": "A bolt of inlaid gold leaves the underside of the cloud, zigzags down to the right and strikes the crown at the tower’s summit, where a thread of gold runs on into a crack in its band.",
+        "meaning": "Lightning is the classic image of a sudden insight or a truth that arrives from outside a closed system. It is the brightest gold on this card and it touches only the crown, so the strike is aimed at what sits on top: a claim, a certainty, a pretence of control."
+      },
+      "uk": {
+        "name": "Золота блискавка",
+        "seen": "Блискавка з інкрустованого золота виривається з-під хмари, зигзагом спускається праворуч і влучає в корону на вершині вежі; тонка золота нитка тягнеться далі, у тріщину на обручі корони.",
+        "meaning": "Блискавка — класичний образ раптового прозріння або правди, що приходить ззовні в замкнену систему. Це найяскравіше золото на карті, і воно торкається лише корони: удар спрямовано на те, що нагорі: на претензію, певність, удаваний контроль."
+      }
+    },
+    {
+      "key": "cloud",
+      "x": 34,
+      "y": 13,
+      "en": {
+        "name": "The heavy storm cloud",
+        "seen": "Across the upper left, a large cloud is carved in raised, lighter blue lapis, its rounded billows stacked in layers. The bolt emerges from its lower edge rather than from open sky.",
+        "meaning": "Storm cloud and bolt are commonly read together: tension that gathers slowly and out of sight, then discharges in a single instant. The cloud is a reminder that whatever breaks the tower does not come from nowhere; it has been building for a while."
+      },
+      "uk": {
+        "name": "Важка грозова хмара",
+        "seen": "У верхній лівій частині вирізьблено велику хмару з опуклого, світлішого лазуриту; її округлі клуби лягають шарами. Блискавка виходить з її нижнього краю, а не з відкритого неба.",
+        "meaning": "Грозову хмару й блискавку зазвичай читають разом: напруга збирається повільно й непомітно, а тоді розряджається за одну мить. Хмара нагадує, що те, що руйнує вежу, не береться нізвідки: воно назрівало вже якийсь час."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 67,
+      "y": 34,
+      "en": {
+        "name": "The crown knocked askew",
+        "seen": "At the summit a pointed crown of grey-blue lapis tips sideways off the battlements where the bolt hits it. Beside it, a cracked, crenellated fragment of the tower’s top breaks away to the right.",
+        "meaning": "The crown lifted off the tower is a traditional detail, commonly read as authority or certainty placed on top of a structure rather than built into it. Here the crown is stone, not gold: it looked like sovereignty but was made of the same material as the walls."
+      },
+      "uk": {
+        "name": "Збита набік корона",
+        "seen": "На вершині, куди влучає блискавка, гостроверха корона із сіро-блакитного лазуриту з’їжджає набік із зубців. Поруч, праворуч, відламується потрісканий зубчастий уламок верхівки вежі.",
+        "meaning": "Корона, зірвана з вежі, — традиційна деталь; її зазвичай читають як владу чи певність, поставлену на споруду згори, а не вбудовану в неї. Тут корона кам’яна, не золота: вона видавалася владою, але зроблена з того самого матеріалу, що й стіни."
+      }
+    },
+    {
+      "key": "tower",
+      "x": 77,
+      "y": 39,
+      "en": {
+        "name": "The lapis tower",
+        "seen": "A tall tower of fitted lapis blocks rises on the right, topped with battlements. Its walls are carved stone by stone, and a dark arched opening sits low on its wall, half hidden by rock.",
+        "meaning": "The tower is the classic image of any structure built to protect or impress: a belief, a role, a way of arranging life. It is often compared with the Tower of Babel. Here, as in the traditional image, the walls still stand; what breaks is the top, which keeps attention on what was placed above the foundations."
+      },
+      "uk": {
+        "name": "Лазуритова вежа",
+        "seen": "Праворуч здіймається висока вежа з припасованих одна до одної лазуритових брил, увінчана зубцями. Її стіни вирізьблено камінь за каменем, а внизу темніє арковий отвір, наполовину схований за скелею.",
+        "meaning": "Вежа — класичний образ будь-якої споруди, зведеної, щоб захищати чи вражати: переконання, ролі, способу облаштувати життя. Її часто порівнюють із Вавилонською вежею. Тут, як і на традиційному зображенні, стіни ще стоять; руйнується верх, і це тримає увагу на тому, що поставили над фундаментом."
+      }
+    },
+    {
+      "key": "flame",
+      "x": 56,
+      "y": 44,
+      "en": {
+        "name": "The scattered tongues of flame",
+        "seen": "Small copper-gold flames, shaped like teardrops with flickering tips, are scattered across the dark sky between the tower and the falling figures, most to the left of the walls, a few to the right.",
+        "meaning": "In the Waite-Smith lineage these drops are usually drawn in the shape of the Hebrew letter Yod, often read as a spark of divine or creative fire; Olivia carves them as plain flames rather than letter shapes. Scattered like embers, they suggest insight arriving in pieces, gathered one at a time."
+      },
+      "uk": {
+        "name": "Розсипані язики полум’я",
+        "seen": "Дрібні мідно-золоті вогники у формі краплин із мерехтливими кінчиками розсипані темним небом між вежею та фігурами, що падають: більшість ліворуч від стін, кілька — праворуч.",
+        "meaning": "У традиції Вейта–Сміт ці краплі зазвичай малюють у формі єврейської літери йод і часто читають як іскру божественного чи творчого вогню; Olivia вирізьблює їх як звичайне полум’я, а не як літери. Розсипані, мов жаринки, вони натякають на прозріння, що приходить частинами, які збирають одну за одною."
+      }
+    },
+    {
+      "key": "window",
+      "x": 82,
+      "y": 55,
+      "en": {
+        "name": "Fire in the windows",
+        "seen": "Four arched windows on the tower’s face are lit from within by copper-gold flames, one spilling out over its sill. The lower arched opening, near the rock, stays dark.",
+        "meaning": "Fire inside the windows shows that the change is not only a blow from outside: something within the structure is already alight. Flame is traditionally linked with will and energy, and here it burns through the openings, the places where the inside meets the world."
+      },
+      "uk": {
+        "name": "Вогонь у вікнах",
+        "seen": "Чотири аркові вікна на фасаді вежі освітлені зсередини мідно-золотим полум’ям, і з одного воно вихлюпується через підвіконня. Нижній арковий отвір, біля скелі, лишається темним.",
+        "meaning": "Вогонь у вікнах показує, що зміна — не лише удар ззовні: щось усередині споруди вже горить. Полум’я традиційно пов’язують з волею та енергією, і тут воно проривається крізь отвори — місця, де внутрішнє зустрічається зі світом."
+      }
+    },
+    {
+      "key": "other",
+      "x": 29,
+      "y": 56,
+      "en": {
+        "name": "The crowned falling figure",
+        "seen": "On the left, an ivory figure falls head first with long hair streaming and a small gold-tinged crown still on the head. One arm stretches out, the other reaches down; the robe billows above bare feet.",
+        "meaning": "Two figures fall in the traditional card, and one is crowned, commonly read as the part of you that ruled from the top of the tower. Here the crown has stayed on through the fall, as if a title or identity is the last thing to let go."
+      },
+      "uk": {
+        "name": "Коронована фігура в падінні",
+        "seen": "Ліворуч фігура зі слонової кістки падає головою вниз; довге волосся розвівається, на голові досі тримається маленька корона із золотавим відтінком. Одна рука витягнута вбік, друга тягнеться донизу; шата здіймається над босими ногами.",
+        "meaning": "На традиційній карті падають дві фігури, і одна з них у короні; її зазвичай читають як ту частину вас, що правила з вершини вежі. Тут корона втрималася навіть під час падіння, ніби титул чи ідентичність — це те, що відпускають найостанніше."
+      }
+    },
+    {
+      "key": "other",
+      "x": 48,
+      "y": 64,
+      "en": {
+        "name": "The bareheaded falling figure",
+        "seen": "Below and to the right, a second ivory figure with short curled hair falls head first, arms flung wide and hands open, legs lifted high. Cloth bands gather at both wrists.",
+        "meaning": "The second figure has no crown and falls with open hands, not grasping. It can be read as the ordinary self that simply lived inside the tower. The spread arms can look like surrender or like the first shape of flight; the card leaves that open."
+      },
+      "uk": {
+        "name": "Простоволоса фігура в падінні",
+        "seen": "Нижче й праворуч друга фігура зі слонової кістки, з коротким кучерявим волоссям, падає головою вниз: руки розкинуті, долоні розкриті, ноги високо підняті. На обох зап’ястях зібрані смуги тканини.",
+        "meaning": "Друга фігура без корони, і вона падає з розкритими долонями, ні за що не чіпляючись. Її можна прочитати як звичайне «я», що просто жило у вежі. Розкинуті руки можна сприйняти і як капітуляцію, і як перший обрис польоту; карта залишає це відкритим."
+      }
+    },
+    {
+      "key": "rock",
+      "x": 80,
+      "y": 79,
+      "en": {
+        "name": "The jagged crag",
+        "seen": "The tower stands on a steep, faceted crag of paler blue lapis that fills the lower right and runs to the card’s bottom edge, its planes cut sharply and crossed by fine cracks.",
+        "meaning": "A tower on a lonely peak is the traditional image of height reached at the cost of isolation. The crag here is broad and solid, larger than the tower itself, and it invites the thought that what lies beneath your structures may be sturdier than the structures are."
+      },
+      "uk": {
+        "name": "Зубчаста скеля",
+        "seen": "Вежа стоїть на стрімкій гранчастій скелі зі світлішого блакитного лазуриту, що займає нижню праву частину й сягає нижнього краю карти; її площини різко зрізані й перетяті тонкими тріщинами.",
+        "meaning": "Вежа на самотній вершині — традиційний образ висоти, здобутої ціною ізоляції. Скеля тут широка й міцна, більша за саму вежу, і вона підводить до думки: те, що лежить під вашими спорудами, може бути надійнішим за самі споруди."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Tower marks a sudden break in a structure you relied on, when a flash of truth knocks off whatever was balanced on top.",
+    "keywords": {
+      "upright": [
+        "sudden change",
+        "revelation",
+        "breakthrough",
+        "collapse of pretence",
+        "release",
+        "clearing"
+      ],
+      "reversed": [
+        "resisted change",
+        "inner upheaval",
+        "slow crumbling",
+        "fear of collapse",
+        "delayed truth",
+        "aftershock"
+      ]
+    },
+    "upright": [
+      "The Tower is a symbolic card about sudden change, not a forecast of disaster. It draws attention to a structure you have been living inside, a plan, a belief, an arrangement, a self-image, at the moment a flash of truth reaches it. Look at where the gold lightning lands in Olivia’s image: not at the foundations but at the crown, which tips off the battlements while a fragment of stone breaks away beside it. The walls still stand. What falls first is whatever was placed on top: an assumption, a claim to control, a story that everything was fine.",
+      "Inside, fire already shows at the arched windows, and loose flames scatter through the sky like embers. The change is not only a blow from outside; something within the structure had been burning for a while. Two ivory figures fall head first beside the tower, one still wearing a small crown, the other bareheaded with open hands. The card does not ask you to pretend this is comfortable. It asks what the flash has made visible that you could not see before.",
+      "Below everything, the crag is broad and solid, larger than the tower itself. The Tower invites you to notice what remains standing after a shock, and to build your next step on that rather than on the part that has already fallen."
+    ],
+    "reversed": [
+      "The Tower reversed points to upheaval that is resisted, delayed or happening mostly inside. You may sense the crack in a structure but keep propping it up, spending energy to keep the crown balanced on walls that have already shifted. Or the change may be taking place quietly, as a private loss of belief that nobody else can see yet.",
+      "It can also describe the aftermath: the flash has passed and you are standing among the pieces, unsure what to rebuild. The reversed card asks for honesty in small doses. Name one thing you already know is no longer true, and let that single piece come down gently rather than holding the whole weight in place."
+    ],
+    "number": "The Tower is card XVI. It follows The Devil, where two figures stand chained by habit, and breaks that stillness from above. It also opens the celestial run of the Major Arcana: after the Tower come The Star, The Moon and The Sun, cards named for lights in the sky rather than for buildings. Sixteen reduces to seven, the number of The Chariot, where a victory is built and driven forward; here that constructed triumph is tested. The step asks you to let a false shelter go so that the sky can be seen.",
+    "tradition": "In the Golden Dawn system The Tower is Atu XVI, titled “The Lord of the Hosts of the Mighty”. It is assigned the Hebrew letter Peh, meaning mouth, and the planet Mars, on the path joining Netzach and Hod on the Tree of Life. Marseille decks call it La Maison Dieu, the House of God, while early Italian sources name it the Arrow or the Lightning. It is one of the cards missing from the surviving Visconti-Sforza decks. Pamela Colman Smith’s 1909 design shows a crown struck from a tower on a peak, two figures falling, one crowned, and Yod-shaped flames in the air: the pattern Olivia’s image follows.",
+    "areas": {
+      "love": "In close relationships The Tower draws attention to a pattern held up by something unspoken: a role, an agreement nobody questions, a picture of the bond that no longer matches daily life. It does not say a relationship is ending. It asks what a sudden honest moment has already shown you, and what could be rebuilt on that. With yourself, it may mean letting a flattering self-image fall so that a truer one has room to breathe.",
+      "work": "At work or in study, The Tower can point to a plan, method or position that has been kept standing mostly by habit or by appearances. A changed brief, a piece of feedback or a mistake may have exposed its weak point. The card invites you to separate what actually failed from what still works. In money matters, it suggests checking assumptions calmly and slowly, rather than answering the shock with sudden moves.",
+      "self": "For your own growth, The Tower asks which certainty you have been wearing like the crown on its summit: being the capable one, never needing help, always knowing the plan. When such a certainty is knocked loose, fear and relief can arrive together. Notice both. The broad crag beneath the tower is a reminder to look for the ground that remains once a story about yourself has fallen."
+    },
+    "positions": {
+      "heart": "At the centre of a question, The Tower suggests that something has already shifted: a truth is out, or a structure has shown its crack. The question may be about what to do with what you now see.",
+      "challenge": "As a challenge, The Tower can show the effort of holding up something that no longer stands on its own, or the shock of a change that has not yet been absorbed.",
+      "advice": "As advice, The Tower invites you to let one false support go deliberately: correct a story, admit a mistake, drop a pretence. A small break you choose is easier to rebuild from."
+    },
+    "pairs": [
+      {
+        "with": 15,
+        "text": "With The Devil, the card before it, the chains of habit meet the lightning that breaks them. Together they ask whether the structure now shaking is one that kept you safe, or one that kept you bound."
+      },
+      {
+        "with": 17,
+        "text": "With The Star, which follows, the storm clears into open sky. Together they draw attention to the calm after a break: the small gold stars already scattered across this card’s night point quietly toward the next card."
+      },
+      {
+        "with": 13,
+        "text": "With Death, two paces of change meet: the Tower’s sudden flash and Death’s slow transition, carried at a horse’s walk. Together they invite you to notice whether something is ending all at once or gradually, and how you want to meet each."
+      }
+    ],
+    "questions": [
+      "What structure in your life has been held up mostly by habit, appearance or hope?",
+      "If a crown is being knocked loose right now, what certainty or role does it stand for?",
+      "After the shock, what still stands under you as solidly as the crag beneath this tower?"
+    ],
+    "practice": "Draw a simple tower, write one belief that no longer holds on its crown, then write on its base one thing you know is still true."
+  },
+  "uk": {
+    "essence": "Вежа позначає раптовий злам у структурі, на яку ви спиралися, коли спалах правди збиває все, що трималося згори.",
+    "keywords": {
+      "upright": [
+        "раптова зміна",
+        "прозріння",
+        "прорив",
+        "крах удавання",
+        "вивільнення",
+        "розчищення"
+      ],
+      "reversed": [
+        "опір змінам",
+        "внутрішнє потрясіння",
+        "повільне руйнування",
+        "страх краху",
+        "відкладена правда",
+        "відлуння удару"
+      ]
+    },
+    "upright": [
+      "Вежа — символічна карта раптових змін, а не прогноз катастрофи. Вона привертає увагу до структури, всередині якої ви живете, — плану, переконання, домовленості, уявлення про себе — у мить, коли її досягає спалах правди. Подивіться, куди влучає золота блискавка на зображенні Olivia: не у фундамент, а в корону, що з’їжджає із зубців, поки поруч відламується кам’яний уламок. Стіни досі стоять. Першим падає те, що поставили згори: припущення, претензія на контроль, історія про те, що все гаразд.",
+      "Усередині, в аркових вікнах, уже видно вогонь, а небом, мов жаринки, розлітаються окремі язики полум’я. Зміна — не лише удар ззовні: щось усередині споруди горіло вже якийсь час. Поруч із вежею головою вниз падають дві фігури зі слонової кістки: одна досі в маленькій короні, друга простоволоса, з розкритими долонями. Карта не просить вас удавати, що це комфортно. Вона запитує, що саме спалах зробив видимим — те, чого ви не могли побачити раніше.",
+      "Під усім цим — скеля, широка й міцна, більша за саму вежу. Вежа запрошує помітити, що лишається стояти після потрясіння, і робити наступний крок, спираючись саме на це, а не на те, що вже впало."
+    ],
+    "reversed": [
+      "Вежа в перевернутому положенні вказує на потрясіння, якому опираються, яке відкладають або яке відбувається здебільшого всередині. Ви можете відчувати тріщину в структурі, але й далі її підпирати, витрачаючи сили, щоб утримати корону на стінах, які вже зсунулися. Або зміна може відбуватися тихо — як особиста втрата віри в щось, якої ще ніхто не помічає.",
+      "Карта може описувати й те, що настає згодом: спалах минув, і ви стоїте серед уламків, не знаючи, що відбудовувати. Перевернута карта просить чесності малими дозами. Назвіть одну річ, яка, як ви вже знаєте, більше не відповідає дійсності, і дайте цьому одному уламкові м’яко опуститися, замість того щоб тримати на місці всю вагу."
+    ],
+    "number": "Вежа — карта XVI. Вона йде після Диявола, де дві фігури стоять, скуті звичкою, і руйнує цю нерухомість згори. Вона також відкриває небесний ряд Старших Арканів: після Вежі йдуть Зірка, Місяць і Сонце — карти, що носять імена небесних світил, а не будівель. Шістнадцять зводиться до семи, числа Колісниці, де перемогу вибудовують і ведуть уперед; тут ця збудована перемога проходить випробування. Цей крок просить вас відпустити хибний прихисток, щоб стало видно небо.",
+    "tradition": "У системі Золотої Зорі Вежа — Atu XVI під назвою «Володар воїнств могутніх». Їй відповідають єврейська літера пе, що означає «уста», і планета Марс, на шляху між Нецахом і Годом на Дереві Життя. Марсельські колоди називають її La Maison Dieu, «Дім Божий», а ранні італійські джерела — Стрілою або Блискавкою. Її немає серед карт, що збереглися з колод Вісконті–Сфорца. На малюнку Памели Колман Сміт 1909 року з вежі на скелястій вершині злітає збита корона, падають дві фігури, одна з них у короні, а в повітрі — полум’я у формі літери йод: саме цю схему повторює зображення Olivia.",
+    "areas": {
+      "love": "У близьких стосунках Вежа привертає увагу до усталеного порядку, що тримається на чомусь невисловленому: на ролі, на домовленості, яку ніхто не ставить під сумнів, на уявленні про зв’язок, що вже не збігається з буденним життям. Вона не каже, що стосунки завершуються. Вона запитує, що вам уже показала раптова чесна мить і що можна відбудувати на цьому. У стосунках із собою це може означати дозволити впасти лестивому образу себе, щоб правдивішому стало просторіше дихати.",
+      "work": "У роботі чи навчанні Вежа може вказувати на план, метод або позицію, що трималися здебільшого на звичці чи на зовнішньому враженні. Змінене завдання, відгук або помилка могли оголити їхнє слабке місце. Карта запрошує відокремити те, що справді не спрацювало, від того, що досі працює. У грошових питаннях вона підказує спокійно й неквапливо перевірити свої припущення, а не відповідати на потрясіння різкими кроками.",
+      "self": "Щодо вашого особистого зростання Вежа запитує, яку певність ви носили, мов корону на її вершині: бути людиною, яка з усім дає раду, ніколи не потребувати допомоги, завжди знати план. Коли таку певність збито, страх і полегшення можуть прийти разом. Помітьте і те, і те. Широка скеля під вежею нагадує: шукайте ґрунт, що лишається, коли історія про вас самих уже впала."
+    },
+    "positions": {
+      "heart": "У центрі запитання Вежа підказує, що щось уже зрушило: правда вийшла назовні або структура показала свою тріщину. Можливо, ваше запитання стосується того, що робити з побаченим.",
+      "challenge": "Як виклик Вежа може показувати зусилля, з яким ви підпираєте те, що вже не стоїть самостійно, або шок від зміни, яку ще не встигли осмислити.",
+      "advice": "Як порада Вежа запрошує свідомо відпустити одну хибну опору: виправити історію, визнати помилку, відмовитися від удавання. Від невеликого зламу, який ви обрали самі, легше відбудовуватися."
+    },
+    "pairs": [
+      {
+        "with": 15,
+        "text": "З Дияволом, картою перед нею, ланцюги звички зустрічаються з блискавкою, що їх розбиває. Разом вони запитують: структура, яка зараз хитається, берегла вас чи тримала в неволі?"
+      },
+      {
+        "with": 17,
+        "text": "Із Зіркою, що йде слідом, буря вщухає, відкриваючи чисте небо. Разом вони привертають увагу до спокою після зламу: дрібні золоті зірки, вже розсипані нічним небом цієї карти, тихо вказують на наступну."
+      },
+      {
+        "with": 13,
+        "text": "Зі Смертю зустрічаються два темпи змін: раптовий спалах Вежі й повільний перехід Смерті, що рухається кінським кроком. Разом вони запрошують помітити, чи щось завершується одразу, чи поступово, і як вам хотілося б зустріти кожен із цих випадків."
+      }
+    ],
+    "questions": [
+      "Яка структура у вашому житті трималася здебільшого на звичці, зовнішньому враженні чи надії?",
+      "Якщо саме зараз якусь корону збивають набік, яку певність чи роль вона уособлює?",
+      "Що після потрясіння досі стоїть під вами так само міцно, як скеля під цією вежею?"
+    ],
+    "practice": "Намалюйте просту вежу, напишіть на її короні одне переконання, яке більше не тримається, а на основі — одну річ, яка, як ви знаєте, досі правдива."
+  }
+}
