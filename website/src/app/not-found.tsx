@@ -3,8 +3,20 @@
  * so it speaks both languages. Next marks the response noindex.
  */
 
+import type { Metadata } from "next";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
 import TransitionLink from "@/components/transitions/TransitionLink";
+import { socialImages, socialImageUrls } from "@/lib/social-images";
+
+// No canonical or og:url: this page answers for whichever address was missing.
+const title = "Page not found · Сторінку не знайдено | Olivia Arcana";
+const description = "This page is not in the deck. Такої сторінки немає в колоді.";
+export const metadata: Metadata = {
+  title,
+  description,
+  openGraph: { title, description, type: "website", siteName: "Olivia Arcana", locale: "en_GB", images: socialImages("en") },
+  twitter: { card: "summary_large_image", title, description, images: socialImageUrls("en") },
+};
 
 const block = {
   display: "flex",

@@ -1,9 +1,16 @@
 import LegalShell from "@/components/legal/LegalShell";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Disclaimer — Olivia Arcana",
-  description: "Astrology and tarot readings on Olivia Arcana are for entertainment and self-reflection.",
+import type { Metadata } from "next";
+import { shareMeta } from "@/lib/learn/share-meta";
+
+const url = "https://oliviaarcana.com/disclaimer/";
+const description = "Astrology and tarot readings on Olivia Arcana are for entertainment and self-reflection.";
+export const metadata: Metadata = {
+  title: "Disclaimer | Olivia Arcana",
+  description,
+  alternates: { canonical: url },
+  ...shareMeta({ title: "Disclaimer", description, url, locale: "en", translated: false }),
 };
 
 export default function DisclaimerPage() {

@@ -1,8 +1,15 @@
 import LegalShell from "@/components/legal/LegalShell";
 
-export const metadata = {
-  title: "DMCA Policy — Olivia Arcana",
-  description: "How to file a DMCA copyright takedown notice with Olivia Arcana.",
+import type { Metadata } from "next";
+import { shareMeta } from "@/lib/learn/share-meta";
+
+const url = "https://oliviaarcana.com/dmca/";
+const description = "How to file a DMCA copyright takedown notice with Olivia Arcana.";
+export const metadata: Metadata = {
+  title: "DMCA Policy | Olivia Arcana",
+  description,
+  alternates: { canonical: url },
+  ...shareMeta({ title: "DMCA Policy", description, url, locale: "en", translated: false }),
 };
 
 export default function DmcaPage() {

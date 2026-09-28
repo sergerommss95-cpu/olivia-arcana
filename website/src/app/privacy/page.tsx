@@ -1,9 +1,16 @@
 import Link from "next/link";
 import LegalShell from "@/components/legal/LegalShell";
 
-export const metadata = {
-  title: "Privacy Policy — Olivia Arcana",
-  description: "What Olivia Arcana keeps on your device, what is sent when you ask for a personal reading, and who processes it.",
+import type { Metadata } from "next";
+import { shareMeta } from "@/lib/learn/share-meta";
+
+const url = "https://oliviaarcana.com/privacy/";
+const description = "What Olivia Arcana keeps on your device, what is sent when you ask for a personal reading, and who processes it.";
+export const metadata: Metadata = {
+  title: "Privacy Policy | Olivia Arcana",
+  description,
+  alternates: { canonical: url },
+  ...shareMeta({ title: "Privacy Policy", description, url, locale: "en", translated: false }),
 };
 
 export default function PrivacyPage() {

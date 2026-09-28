@@ -2,9 +2,16 @@ import LegalShell from "@/components/legal/LegalShell";
 import Link from "next/link";
 import { TELEGRAM_BOT_ENABLED, TELEGRAM_CHANNEL_ENABLED, TELEGRAM_BOT_URL, TELEGRAM_CHANNEL_URL } from "@/lib/service-status";
 
-export const metadata = {
-  title: "Contact — Olivia Arcana",
-  description: "How to reach Olivia Arcana — support, press, partnerships, legal.",
+import type { Metadata } from "next";
+import { shareMeta } from "@/lib/learn/share-meta";
+
+const url = "https://oliviaarcana.com/contact/";
+const description = "How to reach Olivia Arcana: support, press, partnerships and legal questions.";
+export const metadata: Metadata = {
+  title: "Contact | Olivia Arcana",
+  description,
+  alternates: { canonical: url },
+  ...shareMeta({ title: "Contact Olivia Arcana", description, url, locale: "en", translated: false, type: "website" }),
 };
 
 export default function ContactPage() {

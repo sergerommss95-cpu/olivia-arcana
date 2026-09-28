@@ -1,6 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./studies.module.css";
+import type { Metadata } from "next";
+import { shareMeta } from "@/lib/learn/share-meta";
+
+const url = "https://oliviaarcana.com/studies/";
+const description = "Two interactive studies in attention: an illustrated tarot ritual and an engraved map of the sky.";
+export const metadata: Metadata = {
+  title: "The Night Collection | Olivia Arcana",
+  description,
+  alternates: { canonical: url },
+  ...shareMeta({ title: "The Night Collection", description, url, locale: "en", translated: false, type: "website" }),
+};
 
 function SkyEngraving() {
   // An editorial constellation specimen, not an observer chart.

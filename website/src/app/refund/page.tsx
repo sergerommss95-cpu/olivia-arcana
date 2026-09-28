@@ -1,9 +1,16 @@
 import Link from "next/link";
 import LegalShell from "@/components/legal/LegalShell";
 
-export const metadata = {
-  title: "Refund Policy — Olivia Arcana",
-  description: "When and how Olivia Arcana issues refunds for subscriptions and one-time readings.",
+import type { Metadata } from "next";
+import { shareMeta } from "@/lib/learn/share-meta";
+
+const url = "https://oliviaarcana.com/refund/";
+const description = "When and how Olivia Arcana issues refunds for subscriptions and one-time readings.";
+export const metadata: Metadata = {
+  title: "Refund Policy | Olivia Arcana",
+  description,
+  alternates: { canonical: url },
+  ...shareMeta({ title: "Refund Policy", description, url, locale: "en", translated: false }),
 };
 
 export default function RefundPage() {

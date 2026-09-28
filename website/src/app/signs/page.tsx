@@ -6,11 +6,17 @@
 
 import Link from "next/link";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
+import type { Metadata } from "next";
+import { shareMeta } from "@/lib/learn/share-meta";
 import { SIGN_PAGES } from "../../lib/sign-data";
 
-export const metadata = {
-  title: "All 12 Zodiac Signs — Complete Guide | Olivia Arcana",
-  description: "Explore all 12 zodiac signs with detailed personality profiles, compatibility, career guidance, and more. Aries through Pisces — your complete astrological reference.",
+const url = "https://oliviaarcana.com/signs/";
+const description = "Explore all 12 zodiac signs with detailed personality profiles, compatibility, career guidance and more: a complete astrological reference from Aries to Pisces.";
+export const metadata: Metadata = {
+  title: "All 12 Zodiac Signs: Complete Guide | Olivia Arcana",
+  description,
+  alternates: { canonical: url },
+  ...shareMeta({ title: "All 12 zodiac signs", description, url, locale: "en", cardId: 21, alt: "The World from the Olivia Arcana deck", translated: false, type: "website" }),
 };
 
 const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];

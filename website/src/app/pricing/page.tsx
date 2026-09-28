@@ -3,26 +3,19 @@ import Link from "next/link";
 import LegalShell from "@/components/legal/LegalShell";
 import TariffActions from "@/components/almanac/TariffActions";
 import { ACCOUNTS_ENABLED, PAYMENTS_ENABLED } from "@/lib/service-status";
-import { socialImages, socialImageUrls } from "@/lib/social-images";
+import { shareMeta } from "@/lib/learn/share-meta";
 
 const membershipReady = ACCOUNTS_ENABLED && PAYMENTS_ENABLED;
 const DESCRIPTION = membershipReady
   ? "Explore Olivia’s free one-card and three-card readings, the personal almanac, and how deeper member spreads work."
   : "Every Olivia reading is free for now: one card, three cards, and the five- and eight-card spreads, plus a personal almanac on your device.";
 
+const url = "https://oliviaarcana.com/pricing/";
 export const metadata: Metadata = {
-  title: "Free readings & membership — Olivia Arcana",
+  title: "Free readings & membership | Olivia Arcana",
   description: DESCRIPTION,
-  alternates: { canonical: "https://oliviaarcana.com/pricing" },
-  openGraph: {
-    title: "Free readings & membership — Olivia Arcana",
-    description: DESCRIPTION,
-    url: "https://oliviaarcana.com/pricing",
-    type: "website",
-    siteName: "Olivia Arcana",
-    images: socialImages("en"),
-  },
-  twitter: { card: "summary_large_image", title: "Free readings & membership — Olivia Arcana", description: DESCRIPTION, images: socialImageUrls("en") },
+  alternates: { canonical: url },
+  ...shareMeta({ title: "Free readings and membership", description: DESCRIPTION, url, locale: "en", translated: false, type: "website" }),
 };
 
 export default function PricingPage() {

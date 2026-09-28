@@ -1,9 +1,16 @@
 import LegalShell from "@/components/legal/LegalShell";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Cookies Policy — Olivia Arcana",
-  description: "Olivia Arcana sets no cookies. What the site stores in your browser, and how to remove it.",
+import type { Metadata } from "next";
+import { shareMeta } from "@/lib/learn/share-meta";
+
+const url = "https://oliviaarcana.com/cookies/";
+const description = "Olivia Arcana sets no cookies. What the site stores in your browser, and how to remove it.";
+export const metadata: Metadata = {
+  title: "Cookies Policy | Olivia Arcana",
+  description,
+  alternates: { canonical: url },
+  ...shareMeta({ title: "Cookies Policy", description, url, locale: "en", translated: false }),
 };
 
 export default function CookiesPage() {
