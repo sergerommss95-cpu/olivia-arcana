@@ -128,9 +128,9 @@ export function initSpreads({assets,names,show,goto,reduced,announce,onComplete=
  };
  for(const [i,s] of SPREADS.entries()){
   const article=el('article','spread-option');article.dataset.spread=s.id;
-  const b=el('button','spread-option-select');b.type='button';b.setAttribute('aria-pressed','false');b.setAttribute('aria-label',`Choose ${s.name}, ${s.count} cards`);
+  const b=el('button','spread-option-select');b.type='button';b.setAttribute('aria-pressed','false');b.setAttribute('aria-label',getLocale()==='uk'?`Обрати: ${t(s.name)}, ${cardCount(s.count)}`:`Choose ${s.name}, ${s.count} cards`);
   const number=el('span','spread-option-number',String(s.count).padStart(2,'0'));number.setAttribute('aria-hidden','true');
-  const copy=el('span','spread-option-copy');copy.append(el('span','eyebrow',s.kicker+(MEMBERSHIP_LIVE?(s.id==='clarity3'?' · Free':' · Membership'):'')),el('h2','',s.name),el('p','',s.description));
+  const copy=el('span','spread-option-copy');copy.append(el('span','eyebrow',t(s.kicker)+(MEMBERSHIP_LIVE?(s.id==='clarity3'?' · Free':' · Membership'):'')),el('h2','',t(s.name)),el('p','',t(s.description)));
   const arrow=el('span','spread-option-arrow','↗');arrow.setAttribute('aria-hidden','true');b.append(number,copy,arrow);
   b.addEventListener('click',()=>chooseDefinition(s.id));article.append(b);$('#spread-options').append(article);
  }
@@ -140,8 +140,8 @@ export function initSpreads({assets,names,show,goto,reduced,announce,onComplete=
    const img=el('img','showcase-card');img.loading='lazy';img.decoding='async';img.src=p.face===undefined?assets.back:assets.cards[previewIds[s.id][p.face]];img.alt='';img.style.cssText=`--cx:${p.x}%;--cy:${p.y}%;--cr:${p.r}deg;--cw:${p.w}%;z-index:${p.face===0?9:i+1}`;art.append(img);
    if(animate&&!reduced())runAnimation(img,[{opacity:0,transform:`translate(-50%,calc(-50% + 28px)) rotate(${p.r-5}deg)`},{opacity:1,transform:`translate(-50%,-50%) rotate(${p.r}deg)`}],{duration:1100,delay:i*65,easing:'cubic-bezier(.18,.72,.2,1)',fill:'backwards'});
   }
-  $('#showcase-count').textContent=`${s.count} cards · ${s.goodFor}`;
-  $('#showcase-invitation').textContent=spreadEditorial(s.id).invitation;
+  $('#showcase-count').textContent=copy(`${s.count} cards · ${s.goodFor}`,`${cardCount(s.count)} · ${t(s.goodFor)}`);
+  $('#showcase-invitation').textContent=t(spreadEditorial(s.id).invitation);
   $('#preview-current').textContent=copy('Try a sample ↗','Спробувати приклад ↗');
  }
  function chooseDefinition(id){const changed=current!==id;current=id;if(changed){approvedPlan=null;clearCardSource();}if(questionCoach){questionCoach.element.hidden=id!=='clarity3';if(changed)questionCoach.reset();}$('#spread-paths').hidden=id!=='crossroads5';for(const input of $('#spread-paths').querySelectorAll('input'))input.required=id==='crossroads5';for(const a of document.querySelectorAll('.spread-option')){const checked=a.dataset.spread===id;a.classList.toggle('selected',checked);a.querySelector('button').setAttribute('aria-pressed',String(checked));}$('#begin-spread').textContent=`Begin ${selected().name} ↗`;if(changed)showComposition(selected(),current!==null);updateRecommendation();renderAccess();}

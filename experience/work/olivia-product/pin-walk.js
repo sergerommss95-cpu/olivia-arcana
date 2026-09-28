@@ -4,7 +4,7 @@ import {loadLazy} from './lazy-json.js';
 
 const COPY = {
   en: { open: 'Look closer at the carving', next: 'Next detail →', close: 'Close', of: (i, n) => `Detail ${i} of ${n}`, pin: name => `Detail: ${name}` },
-  uk: { open: 'Роздивитися різьблення', next: 'Наступна деталь →', close: 'Закрити', of: (i, n) => `Деталь ${i} з ${n}`, pin: name => `Деталь: ${name}` },
+  uk: { open: 'Роздивитися різьблення', next: 'Наступна деталь →', close: 'Закрити', of: (i, n) => `Деталь ${i} / ${n}`, pin: name => `Деталь: ${name}` },
 };
 
 /** Pin positions in percent of the artwork; a reversed card is shown turned, so its pins turn with it. */
