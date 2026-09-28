@@ -27,7 +27,7 @@ Paths below are relative to the repository root.
 
 ## Material limitation
 
-The light response is derived from luminance gradients and approximate color masks in the existing card image. Ivory, antique metal and the darker ground receive different responses; Amielle adds a restrained velvet-like response. This is an image-derived relief approximation, not authored geometry, a physical depth scan or a true material/normal map. It cannot infer the real depth or material of every painted detail. The original full-resolution image remains the visible surface, with no displacement or replacement artwork.
+The light response is derived from luminance gradients and approximate color masks in the existing card image. The ivory and antique-metal details receive source-tinted light; the dark velvet is excluded. The earlier broad velvet response was removed after it washed Amielle into lavender. This is an image-derived relief approximation, not authored geometry, a physical depth scan or a true material/normal map. It cannot infer the real depth or material of every painted detail. The original full-resolution image remains the visible surface, with no displacement or replacement artwork.
 
 ## Kept words and local data
 
@@ -41,7 +41,7 @@ Deleting a single-card reading removes its associated kept words and private que
 
 ## Verification at this handoff
 
-- Product suite: **288 tests passed**. Service suite: **59 tests passed**.
+- Product suite: **296 tests passed**. Service suite: **59 tests passed**.
 - Focused coverage includes uninterrupted turn/read separation, failed face loading, cancellation, Ukrainian control labels, sentence provenance, persistence, bounds, backup validation and atomic removal/import rollback.
 - Browser: Amielle’s complete flow checked at **390 × 844**, including saved-word persistence. Its **1080 × 1920 PNG** was exported and visually checked.
 - Browser: Olivia’s desktop keyboard draw, turn and explicit reading action checked. Its keepsake was saved, exported as a 1080 × 1920 PNG, and visually checked.
@@ -58,5 +58,15 @@ Deleting a single-card reading removes its associated kept words and private que
 - Pull request: https://github.com/sergerommss95-cpu/olivia-arcana/pull/11
 - GitHub branch and pull-request test/build checks passed.
 - Public deck page returns 200, loads both decks, and has no captured browser console errors.
-- To try this specific one-card sequence: select a deck, begin a reading, enter a question, then choose **A fresh perspective · One card** under **Change the reading** (or the phone’s second step). Typing a question otherwise recommends the existing three-card spread.
+- To try this specific one-card sequence: select a deck, begin a reading, enter a question, then choose **A fresh perspective · One card** under **Change the reading** (or the phone’s second step). One card is now the stable initial choice; typing a question does not change it. Three cards require an explicit selection or an accepted coached plan.
 - The public reading endpoint is configured/available, and the hosted personal-reading check above completed successfully. Production has not been replaced; this is a review preview.
+
+## Follow-up: color fidelity and card-in-hand motion
+
+The fan hover now uses only the original card image, lift and shadow. Material lighting is enabled only after extraction or reveal. The softened relief calculation no longer amplifies fine velvet grain into metallic noise. Explicit premultiplied compositing and an ivory/gold mask preserve the source palette.
+
+A finite 3.2-second grazing light passes across the carving after the card settles and after it turns. The image and lighting canvas share one inner surface: pointer/touch movement tilts them together, bounded to 6°/7°, followed by an 850ms settle. The outer extraction path and hit area remain stable. The desktop held card is larger; phone sizing still reserves space for the question and action. Reduced motion skips the extra surface motion and lighting. No continuous animation frame loop runs after settling.
+
+The question entry now keeps the offered one-card format while typing or autofilling; choosing three cards remains explicit. Four new entry tests cover English/Ukrainian, typed/autofilled questions and accepted question plans. Four further ritual tests cover bounded tilt, shared surface, release/cancel and reduced motion.
+
+Current follow-up checks: 296 product tests pass; product generation and the full website build pass. Desktop fan hover keeps the original Amielle palette. A 390×844 browser check covers selection, held card, drag, turn, explicit reading and no captured console errors. Safari material checks preserve the dark velvet at the strongest pointer light.

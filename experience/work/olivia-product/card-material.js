@@ -12,67 +12,61 @@ void main() {
 }`;
 
 const FRAGMENT = `
-precision mediump float;
+precision highp float;
 uniform sampler2D u_art;
 uniform vec2 u_texel;
 uniform vec2 u_pointer;
 uniform float u_velvet;
 uniform float u_strength;
+uniform float u_awaken;
 varying vec2 v_uv;
 float luminance(vec3 c) { return dot(c, vec3(.299, .587, .114)); }
 float heightAt(vec2 uv) {
-  float value = luminance(texture2D(u_art, clamp(uv, 0.0, 1.0)).rgb);
-  return pow(value, .82);
+  // Read the broader carving. Fine velvet grain is colour, not metallic relief.
+  vec2 d = u_texel * 2.6;
+  float h = luminance(texture2D(u_art, uv).rgb) * .40;
+  h += luminance(texture2D(u_art, uv + vec2(d.x, 0.0)).rgb) * .15;
+  h += luminance(texture2D(u_art, uv - vec2(d.x, 0.0)).rgb) * .15;
+  h += luminance(texture2D(u_art, uv + vec2(0.0, d.y)).rgb) * .15;
+  h += luminance(texture2D(u_art, uv - vec2(0.0, d.y)).rgb) * .15;
+  return h;
 }
 void main() {
   vec2 uv = v_uv;
   vec4 source = texture2D(u_art, uv);
   vec3 c = source.rgb;
   float lum = luminance(c);
-  // Warm ivory and antique metal reflect more than lapis or aubergine.
-  float ivory = smoothstep(.24, .72, lum) * smoothstep(-.035, .075, c.r - c.b);
-  float metal = smoothstep(.075, .20, c.r - c.b) * smoothstep(.006, .09, c.r - c.g);
-  metal *= 1.0 - smoothstep(.68, .88, lum);
-  float ground = 1.0 - smoothstep(.13, .39, lum);
-  vec2 fine = u_texel * 1.15;
-  vec2 broad = u_texel * 3.2;
-  vec2 slope = vec2(
-    heightAt(uv - vec2(fine.x, 0.0)) - heightAt(uv + vec2(fine.x, 0.0)),
-    heightAt(uv - vec2(0.0, fine.y)) - heightAt(uv + vec2(0.0, fine.y))
-  );
-  slope += .48 * vec2(
-    heightAt(uv - vec2(broad.x, 0.0)) - heightAt(uv + vec2(broad.x, 0.0)),
-    heightAt(uv - vec2(0.0, broad.y)) - heightAt(uv + vec2(0.0, broad.y))
-  );
-  vec3 normal = normalize(vec3(slope * 3.8, 1.0));
-  vec3 lamp = normalize(vec3((u_pointer - .5) * vec2(1.85, 1.45) + vec2(-.14, -.20), .82));
-  vec3 halfLight = normalize(lamp + vec3(0.0, 0.0, 1.0));
-  // Subtract the response of a flat plane: a flat rectangle never flashes.
-  float carved = dot(normal, lamp) - lamp.z;
-  float satin = pow(max(dot(normal, halfLight), 0.0), 32.0) - pow(halfLight.z, 32.0);
-  float polished = pow(max(dot(normal, halfLight), 0.0), 68.0) - pow(halfLight.z, 68.0);
-  vec2 distanceToHand = (uv - u_pointer) * vec2(.9, 1.18);
-  float reach = .52 + .48 * exp(-dot(distanceToHand, distanceToHand) * 2.1);
-  float relief = carved * (.055 + ivory * .30 + metal * .15);
-  relief += satin * ivory * .072 + polished * metal * .12;
-  relief *= reach;
-  // Velvet has a broad nap, interrupted by its actual grain and marble veins.
-  // Its quieter, coloured grazing response is confined to the dark material.
-  float napPosition = uv.x - u_pointer.x + (uv.y - .5) * .13;
-  float nap = exp(-napPosition * napPosition * 8.0);
-  float grazing = .36 + .64 * abs(u_pointer.x - .5) * 2.0;
-  float grain = clamp(.35 + lum * 3.0 + length(slope) * 1.8, .35, 1.0);
-  float velvet = u_velvet * ground * nap * grazing * grain * .050;
-  float stone = (1.0 - u_velvet) * ground * max(carved, 0.0) * .025;
-  float light = clamp(relief + stone, -.16, .18);
-  vec3 lightColour = mix(vec3(.92, .93, .91), vec3(.99, .91, .74), clamp(ivory * .65 + metal, 0.0, 1.0));
-  vec3 darkColour = mix(vec3(.019, .035, .057), vec3(.036, .018, .030), u_velvet);
-  float positive = max(light, 0.0);
-  float negative = max(-light, 0.0);
-  // Compose the coloured textile response beneath the relief response.
-  vec3 colour = (lightColour * positive + darkColour * negative + vec3(.39, .28, .35) * velvet) / max(positive + negative + velvet, .0001);
-  float opacity = (positive + negative + velvet) * u_strength;
-  gl_FragColor = vec4(colour, opacity * source.a);
+  float warm = smoothstep(-.018, .065, c.r - c.b);
+  float carving = smoothstep(.25, .64, lum) * warm;
+  float metal = smoothstep(.075, .20, c.r - c.b) * smoothstep(.012, .09, c.r - c.g);
+  metal *= smoothstep(.18, .38, lum) * (1.0 - smoothstep(.68, .88, lum));
+  vec2 d = u_texel * 4.0;
+  vec2 slope = vec2(heightAt(uv - vec2(d.x,0.0)) - heightAt(uv + vec2(d.x,0.0)),
+                    heightAt(uv - vec2(0.0,d.y)) - heightAt(uv + vec2(0.0,d.y)));
+  vec3 normal = normalize(vec3(slope * 1.25, 1.0));
+  vec3 lamp = normalize(vec3((u_pointer - .5) * vec2(1.3,1.0), .95));
+  vec3 halfLight = normalize(lamp + vec3(0.0,0.0,1.0));
+  float carvingLight = dot(normal,lamp) - lamp.z;
+  float softSpecular = pow(max(dot(normal,halfLight),0.0),12.0) - pow(halfLight.z,12.0);
+  float material = max(carving, metal * .8);
+  float response = (carvingLight * .28 + softSpecular * .045) * material;
+  // One warm sweep crosses the actual pale carving, leaving velvet unlit.
+  // The dark spaces between leaves stay dark: there is no luminous rectangle.
+  float sweepAt = mix(-.18, 1.42, clamp(u_awaken,0.0,1.0));
+  float sweepDistance = (uv.y + uv.x * .20 - sweepAt) / .095;
+  float sweep = exp(-sweepDistance * sweepDistance);
+  float envelope = smoothstep(0.0,.12,u_awaken) * (1.0-smoothstep(.86,1.0,u_awaken));
+  response += sweep * envelope * (.34 * carving + .40 * metal);
+  response *= mix(1.0,.85,u_velvet);
+  // Keep the original colour. Even the strongest glint cannot bleach the card.
+  float positive = clamp(response,0.0,.32);
+  float negative = clamp(-response,0.0,.055);
+  float opacity = (positive + negative) * u_strength * source.a;
+  vec3 light = min(c * 1.32 + vec3(.09,.075,.045) * material, vec3(1.0));
+  vec3 shade = c * .38;
+  vec3 colour = response >= 0.0 ? light : shade;
+  // Explicit premultiplication keeps compositing consistent through 3D transforms.
+  gl_FragColor = vec4(colour * opacity, opacity);
 }`;
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
@@ -93,7 +87,7 @@ export function mountCardMaterial(container, {
   enabled = true
 } = {}) {
   if (!container || !image || image.parentElement !== container) {
-    return {refresh: noop, setActive: noop, touch: noop, destroy: noop};
+    return {refresh: noop, setActive: noop, touch: noop, awaken: noop, destroy: noop};
   }
   const doc = container.ownerDocument;
   const win = doc.defaultView;
@@ -114,13 +108,13 @@ export function mountCardMaterial(container, {
   let intersecting = true, pointerInside = false, generation = 0, frame = 0, lastTime = 0;
   let currentSource = '', requestedSource = '', uploadedSource = '', blockedSource = '', pendingImage = null;
   let deck = 0, strength = 0, x = .5, y = .5, tx = .5, ty = .5;
-  let imageWidth = 0, imageHeight = 0;
+  let imageWidth = 0, imageHeight = 0, awakening = false, awakenStart = 0, awakenProgress = -1;
 
   const allowed = () => !destroyed && !failed && !lost && active && !doc.hidden &&
     intersecting && !media?.matches && !valueOf(reduced) && valueOf(enabled) !== false;
   const sourceURL = () => image.currentSrc || image.src || '';
   const stopFrame = () => { if (frame) win.cancelAnimationFrame(frame); frame = 0; lastTime = 0; };
-  const hide = () => { stopFrame(); strength = 0; canvas.hidden = true; };
+  const hide = () => { stopFrame(); strength = 0; awakening = false; awakenStart = 0; awakenProgress = -1; canvas.hidden = true; };
   function cancelPending() {
     if (!pendingImage) return;
     pendingImage.onload = pendingImage.onerror = null;
@@ -152,7 +146,7 @@ export function mountCardMaterial(container, {
     let vertex = null, fragment = null;
     try {
       gl = canvas.getContext('webgl', {
-        alpha: true, premultipliedAlpha: false, antialias: false,
+        alpha: true, premultipliedAlpha: true, antialias: false,
         depth: false, stencil: false, preserveDrawingBuffer: false,
         powerPreference: 'low-power'
       });
@@ -175,7 +169,7 @@ export function mountCardMaterial(container, {
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      uniforms = Object.fromEntries(['art','texel','pointer','velvet','strength'].map(name => [name, gl.getUniformLocation(program, `u_${name}`)]));
+      uniforms = Object.fromEntries(['art','texel','pointer','velvet','strength','awaken'].map(name => [name, gl.getUniformLocation(program, `u_${name}`)]));
       gl.uniform1i(uniforms.art, 0);
       gl.disable(gl.DEPTH_TEST); gl.disable(gl.BLEND);
       return true;
@@ -209,6 +203,7 @@ export function mountCardMaterial(container, {
     gl.uniform2f(uniforms.pointer, x, y);
     gl.uniform1f(uniforms.velvet, deck);
     gl.uniform1f(uniforms.strength, strength);
+    gl.uniform1f(uniforms.awaken, awakenProgress);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
     canvas.hidden = strength < .001;
   }
@@ -217,15 +212,20 @@ export function mountCardMaterial(container, {
     if (!allowed() || !ready) { hide(); return; }
     const dt = lastTime ? Math.min(48, time - lastTime) : 16;
     lastTime = time;
-    const target = pointerInside ? 1 : 0;
-    const follow = 1 - Math.exp(-dt / 78), fade = 1 - Math.exp(-dt / (target ? 80 : 65));
+    if (awakening) {
+      if (!awakenStart) awakenStart = time;
+      awakenProgress = Math.min(1, (time - awakenStart) / 3200);
+      if (awakenProgress >= 1) awakening = false;
+    }
+    const target = pointerInside || awakening ? 1 : 0;
+    const follow = 1 - Math.exp(-dt / 130), fade = 1 - Math.exp(-dt / (target ? 190 : 260));
     x += (tx - x) * follow; y += (ty - y) * follow;
     strength += (target - strength) * fade;
     const moving = Math.abs(tx - x) + Math.abs(ty - y) > .0008;
     const fading = Math.abs(target - strength) > .002;
     if (!moving && !fading) { x = tx; y = ty; strength = target; }
     draw();
-    if (moving || fading) frame = win.requestAnimationFrame(tick);
+    if (moving || fading || awakening) frame = win.requestAnimationFrame(tick);
     else lastTime = 0;
   }
   function schedule() {
@@ -370,6 +370,12 @@ export function mountCardMaterial(container, {
   return {
     refresh,
     touch,
+    awaken() {
+      if (!allowed()) return;
+      if (!ready) refresh();
+      awakening = true; awakenStart = 0; awakenProgress = 0;
+      schedule();
+    },
     setActive(next) {
       active = !!next;
       if (!active) { pointerInside = false; generation++; cancelPending(); hide(); }

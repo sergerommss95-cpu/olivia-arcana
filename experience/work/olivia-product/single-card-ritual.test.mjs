@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {initSingleCardFlow,singleCardTurnFrames} from './single-card-flow.js';
+import {initSingleCardFlow,singleCardTurnFrames,singleCardSurfaceTransform} from './single-card-flow.js';
 
 const flush=async()=>{for(let i=0;i<8;i++)await Promise.resolve();};
 class Element{
@@ -17,9 +17,9 @@ class Element{
  get lastElementChild(){return this.children.at(-1);}
  set innerHTML(value){
   if(!value.includes('single-card-object'))return;
-  const card=new Element(),image=new Element('img'),actions=new Element(),button=new Element('button'),eyebrow=new Element('p'),hint=new Element('p'),note=new Element('details'),summary=new Element('summary'),label=new Element('span'),preview=new Element('span'),toggle=new Element('span'),quote=new Element('blockquote'),back=new Element('a');
+  const card=new Element(),surface=new Element(),image=new Element('img'),actions=new Element(),button=new Element('button'),eyebrow=new Element('p'),hint=new Element('p'),note=new Element('details'),summary=new Element('summary'),label=new Element('span'),preview=new Element('span'),toggle=new Element('span'),quote=new Element('blockquote'),back=new Element('a');
   // The material renderer is tested separately; this DOM double has no canvas host.
-  card.selectors={img:image};actions.selectors={button,'.eyebrow':eyebrow,'.single-card-hint':hint,'.single-card-note':note};note.selectors={summary,'.single-card-note-label':label,'.single-card-note-preview':preview,'.single-card-note-toggle':toggle,blockquote:quote};back.append(new Element('span'),new Element('span'));
+  card.selectors={img:image,'.single-card-surface':surface};surface.selectors={img:image};actions.selectors={button,'.eyebrow':eyebrow,'.single-card-hint':hint,'.single-card-note':note};note.selectors={summary,'.single-card-note-label':label,'.single-card-note-preview':preview,'.single-card-note-toggle':toggle,blockquote:quote};back.append(new Element('span'),new Element('span'));
   this.selectors={'.single-card-object':card,'.single-card-actions':actions,'.single-card-return':back};
  }
 }
@@ -33,7 +33,7 @@ function setup({reduced=true,decode=()=>Promise.resolve(),locale='en'}={}){
  let chosen=0,read=0;const announcements=[],record={cardId:0,cardName:'The Fool',question:'What can I begin?',deckId:'space-between'};
  const flow=initSingleCardFlow({assets:{back:'back.png',cards:['face.png'],deckId:'space-between'},motion:()=>null,reduced:()=>reduced,choose:()=>{chosen++;return record;},onRead:()=>{read++;body.dataset.view='reading';return destination;},announce:value=>announcements.push(value)});
  const layer=body.children[0],card=layer.querySelector('.single-card-object'),image=card.querySelector('img'),actions=layer.querySelector('.single-card-actions'),button=actions.querySelector('button');
- return {flow,body,layer,image,actions,button,animations,announcements,record,get chosen(){return chosen;},get read(){return read;}};
+ return {flow,body,layer,card,surface:card.querySelector('.single-card-surface'),image,actions,button,animations,announcements,record,get chosen(){return chosen;},get read(){return read;}};
 }
 
 test('the single card has one uninterrupted edge-on turn and settles flat',()=>{
@@ -70,4 +70,37 @@ test('Ukrainian controls leave a visitor’s question untouched',async()=>{
  const x=setup({locale:'uk'});await x.flow.pick(0);assert.equal(x.button.textContent,'Перевернути карту');
  const note=x.actions.querySelector('.single-card-note');assert.equal(note.querySelector('blockquote').textContent,'What can I begin?');
  x.button.dispatch('click');await flush();assert.equal(x.button.textContent,'Прочитати карту');assert.equal(x.read,0);
+});
+
+
+test('the hand surface bounds the lean and returns to a neutral card',()=>{
+ assert.equal(singleCardSurfaceTransform(-5,8),singleCardSurfaceTransform(0,1));
+ assert.match(singleCardSurfaceTransform(0,1),/rotateX\(-6deg\) rotateY\(-7deg\)/);
+ assert.equal(singleCardSurfaceTransform(.5,.5,false),'perspective(1200px) translateZ(0px) rotateX(0deg) rotateY(0deg)');
+});
+
+test('touch explores the chosen card without changing its outer path or drawing again',async()=>{
+ const x=setup({reduced:false});const picking=x.flow.pick(0);x.animations.at(-1).finish();await picking;
+ const path=x.card.style.transform;
+ x.card.dispatch('pointerdown',{pointerId:7,pointerType:'touch',button:0,clientX:350,clientY:470});
+ x.card.dispatch('pointermove',{pointerId:7,pointerType:'touch',clientX:220,clientY:230});
+ assert.match(x.surface.style.transform,/rotateX\([^0]/);assert.equal(x.card.style.transform,path);assert.equal(x.chosen,1);assert.equal(x.read,0);
+ x.card.dispatch('pointerup',{pointerId:7,pointerType:'touch'});
+ assert.equal(x.surface.style.transform,singleCardSurfaceTransform(.5,.5,false));assert.equal(x.surface.dataset.settling,'true');assert.equal(x.body.dataset.singleState,'held');
+});
+
+test('turning or cancelling releases the touch surface before the next physical motion',async()=>{
+ const x=setup({reduced:false});const picking=x.flow.pick(0);x.animations.at(-1).finish();await picking;
+ x.card.dispatch('pointermove',{pointerId:1,pointerType:'mouse',clientX:210,clientY:225});
+ assert.notEqual(x.surface.style.transform,singleCardSurfaceTransform(.5,.5,false));
+ x.button.dispatch('click');await flush();assert.equal(x.surface.style.transform,singleCardSurfaceTransform(.5,.5,false));
+ x.flow.cancel();assert.equal(x.surface.style.transition,'none');assert.equal(x.layer.hidden,true);
+});
+
+test('reduced motion keeps the surface completely still while controls remain functional',async()=>{
+ const x=setup();await x.flow.pick(0);const rest=x.surface.style.transform;
+ x.card.dispatch('pointerdown',{pointerId:2,pointerType:'touch',button:0,clientX:220,clientY:230});
+ x.card.dispatch('pointermove',{pointerId:2,pointerType:'touch',clientX:350,clientY:470});
+ assert.equal(x.surface.style.transform,rest);assert.equal(x.animations.length,0);assert.equal(x.button.textContent,'Turn my card');
+ x.button.dispatch('click');await flush();assert.equal(x.body.dataset.singleState,'revealed');assert.equal(x.read,0);
 });

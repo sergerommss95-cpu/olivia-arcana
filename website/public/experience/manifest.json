@@ -3,7 +3,7 @@
   "html": {
     "path": "index.html",
     "bytes": 41551,
-    "sha256": "1a15f3c9be3256fe93d7f36ded88e853ab99d0104635fb799f166bb1f3dda196"
+    "sha256": "ff9feb84592020b76304ef62dba311bf28790cf8f0be4f4fd14d8067247f2557"
   },
   "locales": {
     "en": "index.html",
@@ -14,10 +14,10 @@
     "scripts": {
       "hero": "assets/hero.571dbb5283ae03b8.js",
       "background": "assets/background.3bba5aa61a93e616.js",
-      "app": "assets/app.cf5e8b3c63d34247.js",
-      "app-en": "assets/app-en.74838d7b6a16b6bd.js"
+      "app": "assets/app.8d80c444f825a982.js",
+      "app-en": "assets/app-en.b19d109967aab54c.js"
     },
-    "stylesheet": "assets/experience.054251fcd6b80e3d.css"
+    "stylesheet": "assets/experience.79e9892587c934f9.css"
   },
   "deck": {
     "major": 22,
@@ -973,9 +973,9 @@
       "bytes": 6680,
       "sha256": "51adb4c8c5dc00b8a1974b32754665e5cc7522de621fdd3cb233e6834d98b480"
     },
-    "assets/experience.054251fcd6b80e3d.css": {
-      "bytes": 396094,
-      "sha256": "054251fcd6b80e3dcb766d96013fe55dd1880021801c5b09a3f2fcd99a4f240e"
+    "assets/experience.79e9892587c934f9.css": {
+      "bytes": 396706,
+      "sha256": "79e9892587c934f900a53ee268ffd661c3d25f1fca0973d0abb83c0eae7dc6ce"
     },
     "assets/card-assets.fca1b13b39dcb256.js": {
       "bytes": 10942,
@@ -989,13 +989,13 @@
       "bytes": 2534536,
       "sha256": "3bba5aa61a93e6167404df17e2e07c751255b869e163882841427bc3ba47c11b"
     },
-    "assets/app.cf5e8b3c63d34247.js": {
-      "bytes": 924101,
-      "sha256": "cf5e8b3c63d342473d6bedc9e685c5fbe55d5e0b649446ca7dbc8a58b726deb8"
+    "assets/app.8d80c444f825a982.js": {
+      "bytes": 925547,
+      "sha256": "8d80c444f825a98280e4a54aed846229aa03301368324e0167168c43d87db3a0"
     },
-    "assets/app-en.74838d7b6a16b6bd.js": {
-      "bytes": 666236,
-      "sha256": "74838d7b6a16b6bdfeb505d9a0188005b94d98bd52944cfdbf2f61f1c646f244"
+    "assets/app-en.b19d109967aab54c.js": {
+      "bytes": 667682,
+      "sha256": "b19d109967aab54caa6e9a025fac8bf82b4768162dd99a3ad6e714ac7735bb6c"
     },
     "assets/native-card-assets.238c6e27affe27ba.js": {
       "bytes": 13234,
