@@ -1,0 +1,252 @@
+{
+  "id": 39,
+  "slug": "four-of-cups",
+  "artwork": {
+    "file": "39_four_of_cups.webp",
+    "sha256": "3a46ff39e96bfba1edd55b721a3489ab76a1d367b81e1790f2a73659aabb361a"
+  },
+  "symbols": [
+    {
+      "key": "cup",
+      "x": 71,
+      "y": 29,
+      "en": {
+        "name": "The star-marked fourth cup",
+        "seen": "Held out in mid-air at the upper right, a stemmed cup of grey-blue lapis carries a small gold star with eight slender points on its bowl, the only gold set into any cup on the card.",
+        "meaning": "In the traditional image the fourth cup is plain, a gift from outside that the figure does not see. Olivia marks it with the same eight-pointed gold star that shines on the Ace of Cups: what is offered here is a fresh beginning of feeling, not simply one more of the same."
+      },
+      "uk": {
+        "name": "Четвертий кубок із зіркою",
+        "seen": "Угорі праворуч, просто в повітрі, простягнуто кубок на ніжці із сірувато-блакитного лазуриту; на його чаші — невелика золота зірка з вісьмома тонкими променями. Жоден інший кубок на карті не має золота.",
+        "meaning": "На традиційному зображенні четвертий кубок простий: це дар ззовні, якого фігура не помічає. Olivia позначає його тією самою золотою восьмипроменевою зіркою, що сяє на Тузі Кубків: тут пропонують новий початок почуття, а не просто ще один такий самий кубок."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 78,
+      "y": 32,
+      "en": {
+        "name": "The hand from the cloud",
+        "seen": "An ivory hand with a plain cuff at the wrist reaches out of a billowing lapis cloud at the right edge, fingers and thumb closed around the cup’s stem just beneath the bowl.",
+        "meaning": "A hand from a cloud is the tarot’s old sign of something given rather than earned, as on the traditional Aces. It holds the cup steady. Yet it sits high above and to the right of the figure’s bowed head, outside the line of sight, and that gap is the whole tension of the card."
+      },
+      "uk": {
+        "name": "Рука з хмари",
+        "seen": "Рука зі слонової кістки з простою манжетою на зап’ясті простягається з пишної клубчастої лазуритової хмари біля правого краю; пальці й великий палець охоплюють ніжку кубка просто під чашею.",
+        "meaning": "Рука з хмари — давній знак таро: щось дароване, а не заслужене, як на традиційних Тузах. Вона тримає кубок рівно. Проте розташована вона високо над схиленою головою фігури й праворуч від неї, поза полем зору, — і в цьому розриві вся напруга карти."
+      }
+    },
+    {
+      "key": "tree",
+      "x": 33,
+      "y": 22,
+      "en": {
+        "name": "The sheltering tree",
+        "seen": "A broad tree carved in pale grey-blue lapis rises at the left, its canopy of narrow pointed leaves arching over the scene; the seated figure leans against its trunk, where thick roots spread into the grass.",
+        "meaning": "The traditional image also seats the figure beneath a tree, which some readers compare with the Bodhi tree. Here the tree is support and shelter: the figure rests against something steady. Its outermost leaves reach out toward the offered cup, as if the tree reaches where the figure does not."
+      },
+      "uk": {
+        "name": "Дерево-прихисток",
+        "seen": "Ліворуч здіймається широке дерево, вирізьблене з блідого сірувато-блакитного лазуриту; його крона з вузького загостреного листя вигинається над сценою. Фігура сидить, прихилившись до стовбура, а товсте коріння розходиться в траві.",
+        "meaning": "На традиційному зображенні фігура теж сидить під деревом, яке дехто порівнює з деревом Бодхі. Тут дерево — опора й прихисток: фігура спирається на щось стійке. Його крайнє листя тягнеться до простягнутого кубка, ніби дерево сягає туди, куди фігура не тягнеться."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 54,
+      "y": 44,
+      "en": {
+        "name": "The glittering diagonal band",
+        "seen": "A band of tiny pale, glittering crystals runs diagonally from beneath the tree’s canopy down to the right, fading out above the mountain’s right-hand slope, passing above and right of the figure’s head among gold star flecks.",
+        "meaning": "This band is Olivia’s addition; the traditional card has a plain sky. A river of stars flows just over the figure, unseen. It widens the scene: while attention is turned inward, the night keeps moving, and there is more present than the three cups on the grass."
+      },
+      "uk": {
+        "name": "Мерехтлива діагональна смуга",
+        "seen": "Смуга дрібних блідих мерехтливих кристалів тягнеться навскіс з-під крони дерева вниз праворуч і згасає над правим схилом гори, проходячи над головою фігури й правіше від неї, серед золотих зіркових вкраплень.",
+        "meaning": "Ця смуга — доповнення Olivia; на традиційній карті небо порожнє. Просто над головою фігури пливе ріка зір, а фігура її не бачить. Вона розширює сцену: поки увага звернена всередину, ніч рухається далі, і довкола є більше, ніж три кубки на траві."
+      }
+    },
+    {
+      "key": "face",
+      "x": 38,
+      "y": 49,
+      "en": {
+        "name": "The bowed head",
+        "seen": "The ivory figure’s head tilts down and slightly to the right, eyelids lowered, lips closed, short hair carved in soft waves; the gaze falls toward the grass, not up toward the offered cup.",
+        "meaning": "The lowered head is the card’s core gesture: attention withdrawn from the world and turned inward. Read gently, it is contemplation; held for too long, it can become a habit of not looking. The face is calm, not anguished, which keeps the mood closer to reflection or boredom than to grief."
+      },
+      "uk": {
+        "name": "Схилена голова",
+        "seen": "Голова фігури зі слонової кістки схилена донизу й трохи праворуч, повіки опущені, губи зімкнені, коротке волосся вирізьблене м’якими хвилями; погляд падає в траву, а не вгору, на простягнутий кубок.",
+        "meaning": "Опущена голова — головний жест карти: увага, відведена від світу й звернена всередину. Якщо читати м’яко, це споглядання; якщо ця поза затягується, вона може стати звичкою не дивитися. Обличчя спокійне, без муки, тож настрій ближчий до роздумів чи нудьги, ніж до горя."
+      }
+    },
+    {
+      "key": "other",
+      "x": 35,
+      "y": 60,
+      "en": {
+        "name": "Arms folded across the chest",
+        "seen": "Both forearms cross over the chest, the fingers of one hand resting on the opposite arm, while the figure sits cross-legged in a long, loose tunic that falls in soft folds, bare feet showing.",
+        "meaning": "Folded arms are commonly read as closure: nothing reaching out, nothing let in. With the crossed legs, the whole body forms a closed loop. It can be self-protection after too much, or simply rest; the card asks which, rather than assuming refusal or ingratitude."
+      },
+      "uk": {
+        "name": "Руки, схрещені на грудях",
+        "seen": "Обидва передпліччя схрещені на грудях, пальці однієї руки лежать на протилежній руці; фігура сидить, схрестивши ноги, у довгій вільній туніці, що спадає м’якими складками, а з-під неї видно босі ступні.",
+        "meaning": "Схрещені руки зазвичай читають як закритість: ніщо не тягнеться назовні, ніщо не проникає всередину. Разом зі схрещеними ногами все тіло утворює замкнене коло. Це може бути самозахист після надміру або просто відпочинок; карта запитує, що саме, а не поспішає з висновком про відмову чи невдячність."
+      }
+    },
+    {
+      "key": "mountain",
+      "x": 58,
+      "y": 59,
+      "en": {
+        "name": "The single blue peak",
+        "seen": "Behind the figure’s shoulder a broad mountain of lighter blue lapis rises to one soft summit, with lower hills running off to the left behind the tree trunk and to the right behind the cups.",
+        "meaning": "Mountains in tarot often stand for distant aims or difficulty still to be faced. Here the peak is quiet and far off, and the diagonal band of stars flows down toward it. It hints at a direction beyond the present mood, there whenever the figure lifts their eyes."
+      },
+      "uk": {
+        "name": "Самотня блакитна вершина",
+        "seen": "За плечем фігури здіймається широка гора зі світлішого блакитного лазуриту з однією м’якою вершиною; нижчі пагорби тягнуться ліворуч за стовбур дерева й праворуч за кубки.",
+        "meaning": "Гори в таро часто означають далекі цілі або труднощі, що ще попереду. Тут вершина тиха й далека, а діагональна смуга зір стікає до неї. Вона натякає на напрямок поза теперішнім настроєм — він відкривається щоразу, коли фігура підводить очі."
+      }
+    },
+    {
+      "key": "cup",
+      "x": 71,
+      "y": 70,
+      "en": {
+        "name": "Three cups on the grass",
+        "seen": "Three identical stemmed cups of plain grey-blue lapis stand evenly spaced in a row on the grassy mound, to the right of the figure’s drawn-in feet, in the same grey-blue as the hill behind them.",
+        "meaning": "In the traditional image three cups stand before the seated figure, often read as what is already possessed: pleasures and bonds already won. Here they stand beside rather than in front. They are neither refused nor enjoyed; simply there, familiar enough to be overlooked, plain enough to feel flat."
+      },
+      "uk": {
+        "name": "Три кубки на траві",
+        "seen": "Три однакові кубки на ніжках із простого сірувато-блакитного лазуриту стоять рівним рядом на трав’янистому пагорбі праворуч від підібганих ніг фігури — того самого сірувато-блакитного кольору, що й пагорб позаду.",
+        "meaning": "На традиційному зображенні три кубки стоять перед фігурою, і їх часто читають як уже здобуте: насолоди й зв’язки, що вже є. Тут вони стоять збоку, а не попереду. Від них не відмовилися, але й не тішаться ними; вони просто є — настільки звичні, що їх легко не помітити, і настільки прості, що здаються прісними."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Four of Cups draws attention to a pause in feeling: turning inward, weary of what is familiar, and not yet noticing what is quietly being offered.",
+    "keywords": {
+      "upright": [
+        "contemplation",
+        "withdrawal",
+        "apathy",
+        "reassessment",
+        "emotional pause",
+        "unnoticed offer"
+      ],
+      "reversed": [
+        "renewed interest",
+        "looking up",
+        "deepened withdrawal",
+        "restlessness",
+        "clear refusal"
+      ]
+    },
+    "upright": [
+      "The Four of Cups is the card of a pause in feeling. After the celebration of the Three, something goes quiet. In Olivia’s carving an ivory figure sits cross-legged against a tree, arms folded across the chest, head bowed so that the eyes rest on the grass. Nothing here is broken or lost. It is the flatness that can follow plenty, when what you have no longer moves you and what might come next is hard to imagine.",
+      "Three plain lapis cups stand in a neat row beside the figure, familiar and unremarkable. Above and behind, out of the line of sight, a hand reaches from a cloud with a fourth cup, and on its bowl shines a small gold eight-pointed star, like the star Olivia sets on the bowl of the Ace of Cups. What is offered is not more of the same but a new beginning of feeling. Between them a glittering band of stars flows overhead, also unseen.",
+      "Upright, the card does not scold you for ingratitude. Withdrawal can be wise: a needed rest, a boundary after too much giving, an honest admission that old sources have run dry. It asks you to look at the quality of your stillness. Is it contemplation, where something is slowly clarifying, or a habit of not looking up? The invitation is simply to notice what is within reach before deciding it holds nothing for you."
+    ],
+    "reversed": [
+      "Four of Cups reversed can point to interest stirring again after a flat stretch: the head lifting, the arms loosening, a first glance toward the cup held out from the cloud. You may find yourself curious about something you had dismissed, or ready to accept an invitation you kept turning down. Go slowly; a returning appetite does not need to be tested all at once.",
+      "It can also show the opposite movement: withdrawal that has settled in deeper than you meant, so that even rest no longer restores you. If very little reaches you for a long time, that deserves to be taken seriously and shared with someone you trust or a qualified professional, rather than treated as a failure of gratitude."
+    ],
+    "number": "Four is the number of structure: four corners, four walls, a square that holds still. After the overflowing celebration of the Three, the Four of Cups settles feeling into something stable, and stability in the suit of Water can tip into stagnation. On this card every cup is standing and none has spilled; the difficulty is that nothing moves. Among the Fours, Wands celebrate a home, Swords rest after conflict and Pentacles hold on tight; here contentment slides quietly into indifference.",
+    "tradition": "In the Golden Dawn system the Four of Cups is titled the Lord of Blended Pleasure. It is assigned to the Moon in Cancer, the third decan of that sign (20 to 30 degrees), and to Chesed, Mercy, the fourth Sephirah on the Tree of Life, expressed through Water. The Moon rules Cancer, so feeling is thoroughly at home here, even to the point of surfeit: pleasure mixed with a trace of weariness. Aleister Crowley named the card Luxury. Marseille-pattern decks show four cups arranged among foliage, with no figures; Pamela Colman Smith’s 1909 card gave it the now familiar scene: a seated figure beneath a tree, arms folded, three cups on the grass and a fourth offered from a cloud.",
+    "areas": {
+      "love": "In love and close relationships, the Four of Cups draws attention to the flatness that can creep into familiar bonds: the same cups in the same row, valued in principle and hardly felt. It cannot tell you what another person feels. It asks whether you have stopped looking up, and whether an offer of closeness, a small gesture or an invitation, has gone unnoticed. With yourself, it invites patience with a numb season rather than a verdict on the whole relationship.",
+      "work": "At work or in study, the card can point to boredom with a role that once felt rewarding, or a habit of dismissing opportunities before looking at them. The three cups on the grass stand for what you already have: skills, a post, a routine. Before chasing something new or refusing it outright, notice what the offer actually contains. Where money is involved, the card says nothing about the decision itself; it only asks whether flatness or restlessness is doing the choosing.",
+      "self": "For your relationship with yourself, the figure resting against the tree is a picture of rest that is allowed. You do not have to be interested in everything. The card asks you to tell the difference between a pause that restores and a withdrawal that numbs. The body can help: in this carving the arms are folded and the eyes are down. What happens to your mood when you unfold your arms and look at the sky for a minute?"
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Four of Cups points to a pause in feeling: interest may have dimmed, and something may be on offer that you have not yet looked at properly.",
+      "challenge": "As a challenge, the card can show dismissing options before examining them, staying inside a familiar dissatisfaction, or mistaking tiredness for a final answer about what you want.",
+      "advice": "As advice, it invites you to rest without shutting the door: take the pause you need, then lift your eyes once and look honestly at anything that may be held out to you."
+    },
+    "pairs": [
+      {
+        "with": 36,
+        "text": "The gold eight-pointed star on the offered cup is the star set on the bowl of the Ace of Cups. Together they draw attention to a fresh beginning of feeling that may be available again, and to whether you are ready to look up and receive it."
+      },
+      {
+        "with": 40,
+        "text": "In the Five of Cups a hooded figure bows over spilled cups; here the figure bows away from a cup held out. In both, one gold-marked cup stands outside the gaze. Together they ask where your attention has settled, and what still stands upright nearby."
+      },
+      {
+        "with": 12,
+        "text": "The Hanged Man chooses a suspended pause in order to see differently; the Four of Cups drifts into one. Side by side they invite you to make your stillness deliberate: to ask what this pause is for, and what new view it could open."
+      }
+    ],
+    "questions": [
+      "What is your lack of interest asking for: rest, a boundary, or a different kind of possibility?",
+      "Which of your cups have become so familiar that you no longer notice what they hold?",
+      "What might be held out to you right now that you have not yet looked up to see?"
+    ],
+    "practice": "Sit for five minutes with your arms unfolded and your eyes raised, then write down one thing within reach today that you have been overlooking."
+  },
+  "uk": {
+    "essence": "Четвірка Кубків привертає увагу до паузи в почуттях: погляд обернено всередину, звичне втомлює, а те, що тихо пропонують, досі лишається непоміченим.",
+    "keywords": {
+      "upright": [
+        "споглядання",
+        "відстороненість",
+        "апатія",
+        "переоцінка",
+        "емоційна пауза",
+        "непомічена пропозиція"
+      ],
+      "reversed": [
+        "відновлений інтерес",
+        "погляд угору",
+        "глибша відстороненість",
+        "неспокій",
+        "чітка відмова"
+      ]
+    },
+    "upright": [
+      "Четвірка Кубків — карта паузи в почуттях. Після свята Трійки щось стихає. У різьбленні Olivia фігура зі слонової кістки сидить, схрестивши ноги, під деревом і спирається на стовбур; руки схрещені на грудях, голова схилена так, що погляд спочиває на траві. Тут ніщо не зламано й не втрачено. Це прісність, яка може настати після достатку, коли те, що ви маєте, вже не зворушує, а те, що могло б прийти далі, важко уявити.",
+      "Три прості лазуритові кубки стоять рівним рядом поруч із фігурою — звичні й непримітні. Вище й позаду, поза полем зору, рука з хмари простягає четвертий кубок, і на його чаші сяє невелика золота восьмипроменева зірка — така сама, як та, що Olivia ставить на чашу Туза Кубків. Пропонують не більше того самого, а новий початок почуття. Між ними над головою пливе мерехтлива смуга зір, теж непомічена.",
+      "У прямому положенні карта не дорікає вам невдячністю. Відсторонення може бути мудрим: потрібний відпочинок, межа після того, як ви забагато віддавали, чесне визнання, що старі джерела пересохли. Карта просить придивитися до природи вашого спокою. Чи це споглядання, у якому щось поволі прояснюється, чи звичка не підводити очей? Запрошення просте: помітити, що є в межах досяжності, перш ніж вирішити, що там для вас нічого немає."
+    ],
+    "reversed": [
+      "Четвірка Кубків у перевернутому положенні може вказувати на інтерес, що знову прокидається після прісного, млявого періоду: голова підводиться, руки розслабляються, перший погляд падає на кубок, простягнутий із хмари. Можливо, ви помічаєте в собі цікавість до того, що раніше відкидали, або готовність прийняти запрошення, від якого досі відмовлялися. Не поспішайте: бажання, що повертається, не треба одразу випробовувати на повну.",
+      "Вона може показувати й протилежний рух: відсторонення, що вкоренилося глибше, ніж ви хотіли, тож навіть відпочинок уже не відновлює. Якщо дуже мало що зворушує вас протягом тривалого часу, це варто сприйняти серйозно й поділитися цим із людиною, якій довіряєте, або звернутися по фахову допомогу, а не вважати це браком вдячності."
+    ],
+    "number": "Четвірка — число структури: чотири кути, чотири стіни, квадрат, що стоїть нерухомо. Після щедрого, переповненого свята Трійки Четвірка Кубків укладає почуття в щось стабільне, а стабільність у водній масті може перейти в застій. На цій карті кожен кубок стоїть і жоден не перекинуто; складність у тому, що ніщо не рухається. Серед інших Четвірок Жезли святкують дім, Мечі відпочивають після конфлікту, а Пентаклі міцно тримають своє; тут задоволення тихо сповзає в байдужість.",
+    "tradition": "У системі Золотої Зорі Четвірка Кубків має титул «Володар Змішаної Насолоди». Її пов’язують із Місяцем у Раку, третім деканом цього знака (від 20 до 30 градусів), і з Хеседом, Милосердям, четвертою сефірою Дерева Життя, вираженою через стихію Води. Місяць керує Раком, тож почуття тут цілком удома — аж до пересичення: насолода з домішкою втоми. Алістер Кроулі назвав карту «Розкіш». У колодах марсельського типу зображено чотири кубки серед листя, без фігур; карта Памели Колман Сміт 1909 року дала їй нині знайому сцену: фігура сидить під деревом зі схрещеними руками, три кубки стоять на траві, а четвертий простягають із хмари.",
+    "areas": {
+      "love": "У коханні й близьких стосунках Четвірка Кубків звертає увагу на прісність, що може закрастися у звичні зв’язки: ті самі кубки в тому самому ряду — цінні в принципі, але майже не відчутні. Карта не може сказати, що відчуває інша людина. Вона запитує, чи не перестали ви підводити очі і чи не лишилася непоміченою пропозиція близькості — маленький жест чи запрошення. Вона запрошує вас бути терплячими до себе в пору заціпеніння, а не виносити вирок усім стосункам.",
+      "work": "У роботі чи навчанні карта може вказувати на нудьгу від ролі, яка колись приносила задоволення, або на звичку відкидати можливості, навіть не придивившись до них. Три кубки на траві — це те, що у вас уже є: навички, посада, розпорядок. Перш ніж гнатися за новим чи навідріз відмовлятися, помітьте, що насправді містить пропозиція. Коли йдеться про гроші, карта нічого не каже про саме рішення; вона лише запитує, чи не млявість або неспокій вибирають за вас.",
+      "self": "У стосунках із собою фігура, що спирається на дерево, — образ дозволеного відпочинку. Вам не обов’язково цікавитися всім. Карта пропонує розрізнити паузу, що відновлює, і відсторонення, що притуплює. Тіло може допомогти: у цьому різьбленні руки схрещені, а очі опущені. Що відбувається з вашим настроєм, коли ви розводите схрещені руки й хвилину дивитеся на небо?"
+    },
+    "positions": {
+      "heart": "У центрі запитання Четвірка Кубків вказує на паузу в почуттях: інтерес міг потьмяніти, і, можливо, вам пропонують щось, на що ви ще як слід не подивилися.",
+      "challenge": "Як виклик карта може показувати звичку відкидати варіанти, не розглянувши їх, залишатися в знайомому невдоволенні або плутати втому з остаточною відповіддю про те, чого ви хочете.",
+      "advice": "Як порада карта запрошує відпочити, не зачиняючи дверей: візьміть потрібну паузу, а тоді хоч раз підведіть очі й чесно подивіться на те, що вам, можливо, простягають."
+    },
+    "pairs": [
+      {
+        "with": 36,
+        "text": "Золота восьмипроменева зірка на простягнутому кубку — та сама, що сяє на чаші Туза Кубків. Разом вони звертають увагу на новий початок почуття, який, можливо, знову доступний, і на те, чи готові ви підвести очі й прийняти його."
+      },
+      {
+        "with": 40,
+        "text": "На П’ятірці Кубків фігура в каптурі схиляється над розлитими кубками; тут фігура схиляє голову, відвертаючись від простягнутого кубка. В обох картах один позначений золотом кубок лишається поза поглядом. Разом вони запитують, де осіла ваша увага і що досі стоїть неперекинутим поруч."
+      },
+      {
+        "with": 12,
+        "text": "Повішений свідомо обирає зависання, щоб побачити інакше; Четвірка Кубків поволі сповзає в паузу. Поставлені поруч, вони запрошують зробити вашу нерухомість свідомим вибором: запитати, для чого ця пауза і який новий погляд вона може відкрити."
+      }
+    ],
+    "questions": [
+      "Чого просить ваша байдужість — відпочинку, межі чи зовсім іншої можливості?",
+      "Які з ваших кубків стали такими звичними, що ви вже не помічаєте, що в них?",
+      "Що вам, можливо, простягають просто зараз, а ви ще не підвели очей, щоб це побачити?"
+    ],
+    "practice": "Посидьте п’ять хвилин, не схрещуючи рук і підвівши очі, а тоді запишіть одну річ, яка сьогодні поруч, але яку ви досі не помічали."
+  }
+}

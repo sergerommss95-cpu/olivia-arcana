@@ -1,0 +1,151 @@
+{
+  "slug": "when-a-card-does-not-fit",
+  "path": "spreads",
+  "order": 5,
+  "tool": null,
+  "cards": [
+    42,
+    43,
+    67
+  ],
+  "en": {
+    "title": "When a card does not fit",
+    "dek": "Work through a card you cannot place by restating its position, reading it with its neighbour, drawing one honest clarifier, and leaving it open without re-drawing.",
+    "minutes": 5,
+    "sections": [
+      {
+        "heading": "A stuck card is information",
+        "body": [
+          "Sooner or later a card lands in a position and nothing happens. You know its meaning, you can see the question, and the two refuse to meet. The temptation is to shuffle it back and try again. Before you do anything, notice which kind of stuck this is.",
+          "There are two, and they need different care. Sometimes you cannot place the card: it seems to speak to another question, or to no question at all. Sometimes you can place it perfectly well and simply do not like where it points. The steps below are for the first kind. The second kind is not a problem to solve; it may be the most useful card in the spread, and the honest move is to read it as it stands and write down what you would rather it had said."
+        ]
+      },
+      {
+        "heading": "Ask the position again",
+        "body": [
+          "Most cards that will not fit are being read meaning first. You recalled what the card is about and went looking for a place to put it. Reverse the order. Read the position aloud as its question, then ask it again in smaller, plainer words. “What tension or assumption deserves a closer look?” becomes “What, this week, makes this harder than it needs to be?”",
+          "Then answer with one thing you can see, not with the card’s summary. Open its page and pick a single detail from the image: where a hand is, what is held, what is missing. A detail is easier to aim at a question than a whole meaning is, and it keeps you close to the card you actually drew. The card page also carries a short text for the card in each kind of position; read it as a starting point, not a verdict."
+        ]
+      },
+      {
+        "heading": "Read it with its neighbour",
+        "body": [
+          "A card that cannot stand alone may make sense beside another. Look at the card next to it in the spread and read the two as a pair: the stuck card says what, the neighbour says how. Or look for something the images share and follow it.",
+          "Say the Seven of Cups sits in the middle of A little clarity and the Eight of Cups follows it as the next step. On Olivia’s cards, the only gold among the seven cups is a small eight-pointed star on a veiled figure’s bowl; on the Eight, a small fish in gold relief swims across the bowl of one cup while the traveller walks away up the path. In both cards, gold picks out one cup among many. The pair turns attention to which of many hopes is really yours, and what quietly leaving the rest behind would look like."
+        ]
+      },
+      {
+        "heading": "One clarifier, honestly",
+        "body": [
+          "If the position and the neighbour both leave you empty, you may draw one clarifier. Take it from the remaining deck, lay it across or beside the card you cannot place, and read it as an adjective for that card. It adds a shade. It never overrides, and it is not a second answer to the position.",
+          "Keep the limits: one clarifier per position, and no more than two in a whole reading. Draw one only for a card you cannot place, never for a card you dislike; a clarifier drawn to escape a card turns reflection into a lottery. If the clarifier is opaque too, stop. Write the question you are left holding in your notebook. That question is often the most useful thing the reading produced."
+        ]
+      },
+      {
+        "heading": "Leave it open, do not re-draw",
+        "body": [
+          "Do not ask the same question again on the same day. Drawing until a card pleases you trains you to treat the deck as a machine for verdicts, and it teaches you nothing about the card that would not settle. A reading can end with one position unanswered. That is not a failed reading; it is an honest one.",
+          "Write the card, its position and your open question in the journal, and come back in a week with what has changed. A card that would not fit on the day can read quite differently later, because the situation has moved while the image has stayed still."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "The Seven of Cups, clarified once",
+      "cards": [
+        42,
+        67
+      ],
+      "body": [
+        "In A little clarity, the second position asks “What tension or assumption deserves a closer look?” The card is the Seven of Cups, and the reader cannot place it. Restated smaller, the question still returns only “many options”, which describes the situation rather than a friction. Read beside its neighbours, it still will not settle.",
+        "Look first at the dreamer. On Olivia’s card the figure is seen from behind, one hand raised with the palm open towards the clouds, the other arm reaching low to the side, palm open and empty. Seven visions rise from their cups, and none of them is held.",
+        "The reader draws one clarifier: the Four of Pentacles. Here both hands meet at the lower rim of a large disc pressed to the chest, and the arms form a closed ring around it.",
+        "Read as an adjective: many possibilities, held tightly. The dreamer’s open, reaching hands and the Four’s closed ring together suggest the complication: reaching towards every option while releasing none. The question to carry: “Which option am I holding only so I do not have to let it go?”"
+      ]
+    },
+    "tryThis": {
+      "heading": "Try this",
+      "steps": [
+        "Find a past reading in your notebook with a card you could not place, and write its position as a smaller, plainer question.",
+        "Open that card’s page on Olivia, choose one visible detail from the image, and answer the plain question with that detail alone.",
+        "Read the card beside its neighbour in the spread, first as what and how, then by looking for one image they share.",
+        "If it is still opaque, draw one clarifier from the remaining deck and read it only as a shade of the original card.",
+        "Write whatever question remains, date it, and return to it in a week without drawing again."
+      ]
+    },
+    "remember": [
+      "Cannot place and do not like are different; only the first earns a clarifier.",
+      "Restate the position, then read one detail and the neighbour before drawing anything.",
+      "One clarifier per position at most; an open question is an honest ending."
+    ]
+  },
+  "uk": {
+    "title": "Коли карта не вписується",
+    "dek": "Ви навчитеся працювати з картою, яку не вдається прилаштувати: переформулювати її позицію, читати її разом із сусідньою, чесно витягнути одну уточнювальну карту й лишити запитання відкритим без повторного витягування.",
+    "minutes": 5,
+    "sections": [
+      {
+        "heading": "Застрягла карта теж щось повідомляє",
+        "body": [
+          "Рано чи пізно карта лягає в позицію — і нічого не відбувається. Ви знаєте її значення, бачите запитання, але вони ніяк не сходяться. Кортить повернути карту в колоду, перетасувати й спробувати ще раз. Перш ніж щось робити, з’ясуйте, як саме карта застрягла.",
+          "Таких випадків два, і кожен потребує свого підходу. Іноді карту не вдається прилаштувати: здається, вона відповідає на якесь інше запитання або взагалі ні на яке. А іноді прилаштувати її зовсім легко, просто вам не подобається, куди вона вказує. Кроки нижче — для першого випадку. Другий — не проблема, яку треба розв’язати: можливо, це найкорисніша карта в розкладі, і чесний крок — прочитати її такою, якою вона є, а тоді записати, що ви воліли б від неї почути."
+        ]
+      },
+      {
+        "heading": "Поверніться до запитання позиції",
+        "body": [
+          "Коли карта не вписується, найчастіше її читають від значення. Ви пригадали, про що ця карта, і пішли шукати, куди її прилаштувати. Змініть порядок. Прочитайте позицію вголос як запитання, а потім поставте його ще раз, коротше й простіше. «Яка напруга чи припущення потребує уважнішого погляду?» перетворюється на «Що цього тижня ускладнює справу більше, ніж потрібно?»",
+          "А тоді відповідайте чимось одним, що видно на карті, а не переказом її значення. Відкрийте її сторінку й виберіть одну деталь зображення: де рука, що в ній, чого бракує. Деталь легше спрямувати на запитання, ніж ціле значення, і вона тримає вас поруч із картою, яку ви справді витягнули. На сторінці карти є й короткий текст для кожного типу позиції; сприймайте його як відправну точку, а не як вирок."
+        ]
+      },
+      {
+        "heading": "Прочитайте її разом із сусідньою",
+        "body": [
+          "Карта, незрозуміла сама по собі, може прояснитися поруч з іншою. Погляньте на сусідню карту в розкладі й прочитайте обидві як пару: застрягла карта відповідає на «що», сусідня — на «як». Або знайдіть щось спільне в зображеннях і простежте його.",
+          "Припустімо, у розкладі «Трохи ясності» посередині стоїть Сімка Кубків, а за нею, у позиції «Корисний наступний крок», — Вісімка Кубків. На картах Olivia єдине золото серед семи кубків — маленька восьмипроменева зірка на чаші, з якої постає голова під покривалом; на Вісімці через чашу одного з кубків пливе невелика золота рельєфна риба, а постать тим часом віддаляється стежкою вгору. На обох картах золото виокремлює один кубок серед багатьох. Пара звертає увагу на те, яка з багатьох надій справді ваша і як це було б — тихо залишити решту позаду."
+        ]
+      },
+      {
+        "heading": "Одна чесна уточнювальна карта",
+        "body": [
+          "Якщо ні позиція, ні сусідня карта нічого не дають, можна витягнути одну уточнювальну карту. Візьміть її з решти колоди, покладіть навхрест або поруч із картою, яку не вдається прилаштувати, і читайте як означення до неї. Уточнювальна карта додає відтінок. Вона ніколи не підміняє первісну й не стає другою відповіддю на запитання позиції.",
+          "Дотримуйтеся меж: одна уточнювальна карта на позицію й не більше двох на все читання. Витягуйте її лише для карти, яку не вдається прилаштувати, і ніколи — для карти, яка вам не подобається: уточнювальна карта, витягнута, щоб утекти від іншої, перетворює роздум на лотерею. Якщо й вона лишається непрозорою, зупиніться. Запишіть у щоденник запитання, з яким ви залишилися. Часто саме воно — найкорисніше, що дало це читання."
+        ]
+      },
+      {
+        "heading": "Залиште запитання відкритим, не витягуйте знову",
+        "body": [
+          "Не ставте те саме запитання вдруге того самого дня. Витягуючи карти, доки якась не сподобається, ви привчаєтеся бачити в колоді автомат для вироків і нічого не дізнаєтеся про карту, яка так і не знайшла свого місця. Читання може завершитися з однією позицією без відповіді. Це не невдале читання, а чесне.",
+          "Запишіть у щоденник карту, її позицію й своє відкрите запитання, а за тиждень поверніться до них із тим, що змінилося. Карта, яка того дня не вписувалася, згодом може читатися зовсім інакше, бо ситуація змінилася, а зображення лишилося тим самим."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Сімка Кубків і одна уточнювальна карта",
+      "cards": [
+        42,
+        67
+      ],
+      "body": [
+        "У розкладі «Трохи ясності» друга позиція запитує: «Яка напруга чи припущення потребує уважнішого погляду?» Тут лежить Сімка Кубків, і прилаштувати її не вдається. Навіть коротше й простіше сформульоване запитання дає лише «багато варіантів», що описує ситуацію, а не тертя. Поруч із сусідніми картами вона теж не знаходить свого місця.",
+        "Спершу погляньте на постать, що мріє. На карті Olivia її видно зі спини: одна рука піднята, долоня розкрита назустріч хмарам, друга простягнута низько вбік, долоня відкрита й порожня. Сім видінь підіймаються з кубків, і жодного з них постать не тримає.",
+        "Витягнуто одну уточнювальну карту — Четвірку Пентаклів. Тут обидві руки сходяться біля нижнього краю великого диска, притиснутого до грудей, і утворюють довкола нього замкнене кільце.",
+        "Прочитайте її як означення: безліч можливостей, міцно стиснутих у руках. Розкриті, простягнуті руки на Сімці й замкнене кільце Четвірки разом підказують, у чому ускладнення: тягнутися до кожного варіанта й не відпускати жодного. Запитання, яке ви візьмете з собою: «Який варіант я тримаю лише для того, щоб не довелося його відпускати?»"
+      ]
+    },
+    "tryThis": {
+      "heading": "Спробуйте",
+      "steps": [
+        "Знайдіть у щоденнику одне з минулих читань з картою, яку не вдалося прилаштувати, і запишіть її позицію як коротше й простіше запитання.",
+        "Відкрийте сторінку цієї карти в Olivia, виберіть одну видиму деталь зображення й відповідайте на просте запитання лише нею.",
+        "Прочитайте карту поруч із сусідньою в розкладі: спершу як «що» і «як», потім шукаючи одну деталь, спільну для обох зображень.",
+        "Якщо карта й далі непрозора, витягніть із решти колоди одну уточнювальну карту й читайте її лише як відтінок первісної.",
+        "Запишіть запитання, що залишилося, поставте дату й поверніться до нього за тиждень, не витягуючи нових карт."
+      ]
+    },
+    "remember": [
+      "«Не вдається прилаштувати» і «не подобається» — різні речі; на уточнювальну карту заслуговує лише перше.",
+      "Переформулюйте позицію, прочитайте одну деталь і сусідню карту — і лише тоді щось витягуйте.",
+      "Щонайбільше одна уточнювальна карта на позицію; відкрите запитання — чесне завершення."
+    ]
+  }
+}

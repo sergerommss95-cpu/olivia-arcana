@@ -1,0 +1,265 @@
+{
+  "id": 69,
+  "slug": "six-of-pentacles",
+  "artwork": {
+    "file": "69_six_of_pentacles.webp",
+    "sha256": "c59aa2b411d5ea6fad1ad6c04a01523d39d036eced660ce0b6586feb09e7f89c"
+  },
+  "symbols": [
+    {
+      "key": "pentacle",
+      "x": 50,
+      "y": 15,
+      "en": {
+        "name": "Five pentacles in the sky",
+        "seen": "Five round lapis discs, each with a raised rim and a carved five-pointed star, form an arch over the giver’s head: one at the top, two higher at the sides, two lower.",
+        "meaning": "Pentacles are the suit of earth: money, work, the body and everything that can be held and shared. Five of the six stay here in the stone of the sky, carved in plain blue without gold. Resources exist before anyone hands them on; what the card watches is how they move."
+      },
+      "uk": {
+        "name": "П’ять пентаклів у небі",
+        "seen": "П’ять круглих лазуритових дисків, кожен з опуклим обідком і вирізьбленою п’ятикутною зіркою, утворюють арку над головою постаті, що дає: один угорі, два вище з боків, два нижче.",
+        "meaning": "Пентаклі — масть землі: гроші, праця, тіло й усе, що можна тримати в руках і чим можна ділитися. П’ять із шести пентаклів лишаються тут, у камені неба, вирізьблені простою синню, без золота. Ресурси існують ще до того, як хтось їх передає; карта ж стежить за тим, як вони рухаються."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 45,
+      "y": 21,
+      "en": {
+        "name": "The glittering diagonal band",
+        "seen": "A band of fine pale sparkling flecks runs diagonally across the dark lapis from the lower left towards the upper right, passing between the carved pentacles; small gold stars are scattered around it.",
+        "meaning": "The Milky Way is not part of the traditional image; Olivia adds it to this card. A river of stars passing through the pentacles suggests circulation on a scale larger than one gift: what reaches you has come from somewhere, and can travel on."
+      },
+      "uk": {
+        "name": "Мерехтлива діагональна смуга",
+        "seen": "Смуга дрібних блідих іскристих вкраплень перетинає темний лазурит навскоси — від нижнього лівого краю до верхнього правого, проходячи між вирізьбленими пентаклями; довкола розсипані маленькі золоті зірки.",
+        "meaning": "Чумацького Шляху немає в традиційному зображенні: його додає до цієї карти Olivia. Зоряна річка, що тече крізь пентаклі, натякає на обіг, масштабніший за один дарунок: те, що доходить до вас, звідкись прийшло — і може рушити далі."
+      }
+    },
+    {
+      "key": "wall",
+      "x": 26,
+      "y": 44,
+      "en": {
+        "name": "Crenellated walls and tower",
+        "seen": "Behind the figures, a battlemented town wall is carved in paler lapis across the card; on the left it rises into a square tower with a small window, and the wall continues on the right.",
+        "meaning": "Walled towns recur through the suit of Pentacles as the settled, built world: property, community, the structures that decide who is inside. Here the giving happens outside the wall, on open ground, where help has to cross a boundary to reach the one who needs it."
+      },
+      "uk": {
+        "name": "Зубчасті мури й вежа",
+        "seen": "За постатями через усю карту тягнеться міський мур із зубцями, вирізьблений у світлішому лазуриті; ліворуч він здіймається квадратною вежею з маленьким віконцем, а праворуч мур іде далі.",
+        "meaning": "Обнесені мурами міста раз у раз з’являються в масті Пентаклів як усталений, збудований світ: власність, громада, устрої, що визначають, хто всередині. Тут дарування відбувається за мурами, на відкритій землі, де допомога мусить перетнути межу, щоб дістатися того, хто її потребує."
+      }
+    },
+    {
+      "key": "scales",
+      "x": 75,
+      "y": 48,
+      "en": {
+        "name": "The raised balance scales",
+        "seen": "The giver’s left hand holds a pair of scales by the top of its upright pointer, at shoulder height; two shallow, empty ivory pans hang on cords from a beam that is close to level.",
+        "meaning": "The scales belong to the traditional design and are the key to the card: generosity that is measured, fair and proportionate. The pans here are empty, so the weighing is not of coins but of judgement itself: what is needed, what can be given, and on what terms."
+      },
+      "uk": {
+        "name": "Піднесені терези",
+        "seen": "Лівою рукою постать, що дає, тримає терези за верхівку вертикальної стрілки, на рівні плеча; дві мілкі порожні шальки зі слонової кістки звисають на шнурах із коромисла, що стоїть майже рівно.",
+        "meaning": "Терези належать до традиційного зображення і є ключем до карти: щедрість зважена, чесна й співмірна. Шальки тут порожні, тож зважують не монети, а саме судження: що потрібно, що можна дати і на яких умовах."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 72,
+      "y": 53,
+      "en": {
+        "name": "The sword at the hip",
+        "seen": "A sword hilt carved in grey-blue stone, with a round pommel and a slanted crossguard, shows at the giver’s left hip beside the nearer scale pan; a short length of blade runs down along the robe.",
+        "meaning": "A sword is not usually part of this card’s traditional image. At rest and half hidden, it adds a quiet note about power: the one who gives also holds the means to refuse or to protect. Generosity here comes from someone who has authority, and the card asks how it is used."
+      },
+      "uk": {
+        "name": "Меч при стегні",
+        "seen": "Руків’я меча, вирізьблене із сіро-блакитного каменю, з круглим навершям і скошеною гардою, видніє при лівому стегні постаті, що дає, поруч із ближчою шалькою; короткий відрізок леза спускається вздовж шати.",
+        "meaning": "Меч зазвичай не входить до традиційного зображення цієї карти. Нерухомий і напівприхований, він додає тиху ноту про владу: той, хто дає, має й засоби відмовити чи захистити. Щедрість тут походить від того, хто має повноваження, і карта запитує, як ними користуються."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 36,
+      "y": 54,
+      "en": {
+        "name": "The giver’s lowered hand",
+        "seen": "The giver’s right hand reaches down and outwards from a wide sleeve with an embroidered cuff, fingers pointing down and loosely curled, directly above the gold pentacle; the giver’s gaze is lowered towards it.",
+        "meaning": "In the traditional image coins drop from the giver’s hand into waiting palms. Here the hand has already let go and stays open and relaxed, neither grasping nor pushing. It shows giving as release: the gift leaves the giver’s control the moment it is offered."
+      },
+      "uk": {
+        "name": "Опущена рука, що дає",
+        "seen": "Права рука постаті, що дає, тягнеться вниз і вбік із широкого рукава з вишитою манжетою; пальці спрямовані додолу й злегка зігнуті, просто над золотим пентаклем; погляд постаті опущений до нього.",
+        "meaning": "У традиційному зображенні монети падають із руки в підставлені долоні. Тут рука вже відпустила дарунок і лишається відкритою й розслабленою: не хапає і не штовхає. Вона показує дарування як відпускання: дарунок виходить з-під контролю того, хто дає, щойно його запропоновано."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 37,
+      "y": 63,
+      "en": {
+        "name": "The gold-starred pentacle",
+        "seen": "A sixth disc, paler grey-blue with a raised rim, carries a five-pointed star inlaid in gold; it hangs in the air between the giver’s hand and the upturned palms below.",
+        "meaning": "Gold is rare in this deck, and of the six pentacles only the one in motion carries it. The value is shown at the moment of exchange, not while it sits in the sky. What makes a resource precious, the carving suggests, is that it reaches someone who needs it."
+      },
+      "uk": {
+        "name": "Пентакль із золотою зіркою",
+        "seen": "Шостий диск, блідіший, сіро-блакитний, з опуклим обідком, на ньому — інкрустована золотом п’ятикутна зірка; він висить у повітрі між рукою постаті, що дає, і підставленими долонями внизу.",
+        "meaning": "Золото в цій колоді рідкісне, і з шести пентаклів його має лише той, що в русі. Цінність показано в мить обміну, а не тоді, коли пентакль лишається в небі. Різьба ніби підказує: ресурс стає коштовним тоді, коли доходить до того, кому він потрібен."
+      }
+    },
+    {
+      "key": "hood",
+      "x": 83,
+      "y": 61,
+      "en": {
+        "name": "The hooded kneeler",
+        "seen": "On the right, a figure in a hooded cloak kneels with face turned up towards the giver; both hands are raised, fingers spread and empty, close to the giver’s robe; a bare foot shows behind.",
+        "meaning": "The traditional image also shows two people in need, with only one receiving at that moment, so one of them waits. This figure’s empty, raised hands keep the card honest: no single gift reaches everyone, and choosing whom to help is part of what the scales weigh."
+      },
+      "uk": {
+        "name": "Постать у каптурі навколішки",
+        "seen": "Праворуч постать у плащі з каптуром стоїть навколішки, обличчя звернене вгору до постаті, що дає; обидві руки піднесені, пальці розведені, долоні порожні, біля самої шати постаті, що дає; позаду видно босу ступню.",
+        "meaning": "Традиційне зображення теж показує двох людей у нужді, і в цю мить отримує лише одна з них, тож інша чекає. Порожні піднесені руки цієї постаті не дають карті лукавити: жоден дарунок не дістається всім, і вибір, кому допомогти, — теж частина того, що зважують терези."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 38,
+      "y": 69,
+      "en": {
+        "name": "The cupped, upturned palms",
+        "seen": "On the left, a barefoot figure in a ragged tunic with a torn hem, head bound with a cloth band, kneels on one knee and holds both palms cupped together beneath the gold pentacle.",
+        "meaning": "The receiver’s cupped hands are as important as the giver’s open one: receiving takes readiness and some humility. Looking up rather than at the coin, this figure points to the relationship in any exchange, where dignity matters as much as what changes hands."
+      },
+      "uk": {
+        "name": "Долоні, складені пригорщею",
+        "seen": "Ліворуч боса постать у пошарпаній туніці з порваним подолом і пов’язкою з тканини на голові стоїть на одному коліні й тримає під золотим пентаклем обидві долоні, складені пригорщею.",
+        "meaning": "Складені пригорщею руки того, хто отримує, означають не менше, ніж відкрита рука того, хто дає: щоб отримувати, потрібні готовність і трохи смирення. Ця постать дивиться вгору, а не на монету, і вказує на стосунки в будь-якому обміні, де гідність важить стільки ж, скільки те, що переходить із рук у руки."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Six of Pentacles is about the terms of an exchange: giving and receiving help in a way that stays fair, proportionate and respectful to everyone involved.",
+    "keywords": {
+      "upright": [
+        "generosity",
+        "fair exchange",
+        "sharing resources",
+        "receiving help",
+        "proportion"
+      ],
+      "reversed": [
+        "strings attached",
+        "overgiving",
+        "uneven power",
+        "difficulty receiving",
+        "debt and obligation"
+      ]
+    },
+    "upright": [
+      "The Six of Pentacles draws attention to the moment a resource changes hands. In Olivia’s carving a robed figure stands between two kneeling people, head wrapped in folded cloth, gaze lowered. One hand hangs open, fingers pointing down; just beneath it a single pentacle with a gold star hangs in the air above a pair of cupped palms. Five more pentacles are carved into the blue stone of the sky above. Only the one in motion is gold.",
+      "In the giver’s other hand hangs a pair of scales, pans empty, beam close to level. This is the card’s quiet argument: generosity works best when it is weighed. What is actually needed here? What can you give without emptying yourself? Is the help offered in a way that leaves the other person their dignity? The scales measure judgement, not coins.",
+      "Upright, the card can point to support you are offering, support you are receiving, or both at once. It honours the fact that people move between these positions across a life, and that accepting help can be as meaningful as giving it. You are invited to look at one exchange in your life, of time, money, care or attention, and to ask whether its terms are clear, kind and fair."
+    ],
+    "reversed": [
+      "Six of Pentacles reversed can show an exchange that has lost its balance. Help may come with conditions nobody has named, or giving may have gone beyond what you can sustain, so that generosity starts to feel like depletion or resentment. The scales tip when one side holds all the power and the other feels only gratitude or debt.",
+      "The reversal can also point inward: difficulty accepting what is offered, or a habit of always being the giver because receiving feels exposed. Look at the second kneeler, hands raised and still empty. Notice where you are waiting without asking, where you are keeping score, and what a fairer arrangement might look like for everyone involved."
+    ],
+    "number": "Six is the number of harmony regained after disruption. In the suit of Pentacles, the element of earth, money, work and the body, the Five shows loss and exclusion. The Six answers it with circulation: resources flow again, and the question becomes how they are shared. It is balance in practice rather than in theory, the point in the suit where having something and passing it on become a matter of relationship.",
+    "tradition": "In the Golden Dawn system the Six of Pentacles is titled the Lord of Material Success and is attributed to the Moon in Taurus, the second decan of the sign, where the Moon was traditionally considered exalted. Book T describes a hand holding a rose branch among six pentacles and speaks of success and gain in material undertakings. Earlier Marseille decks show only six coins arranged with flowering stems and no scene. Pamela Colman Smith’s 1909 design shows a figure with scales giving to two kneeling people in need, and this scene is a large part of why modern readers treat the card as one of generosity and fair exchange.",
+    "areas": {
+      "love": "In love and close relationships, the Six of Pentacles turns attention to balance: who gives time, care and attention, and who receives it. A relationship can hold uneven seasons, but it helps when the imbalance is visible and chosen. This card may invite you to offer something freely, or to let someone support you without apologising. It also asks how generous you are with yourself: whether you let yourself receive rest, praise or help.",
+      "work": "At work, in study and with money matters, this card can point to mentoring, sharing knowledge, asking for support, or arrangements such as loans, grants or fees where terms need to be clear. The scales suggest writing down what is being exchanged and why. Consider where you are giving unpaid effort that has gone unnoticed, or where accepting help would let a project move. Fairness includes fairness to your own capacity.",
+      "self": "For your own life, the Six of Pentacles asks how you relate to having and needing. Some people find it easier to be the one standing, others the one kneeling. Both positions are human and temporary. You might notice which role feels familiar and which feels uncomfortable, and what that says about your sense of worth. The gold pentacle in mid-air is a reminder that value lives in the passing on."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter turns on an exchange: what is being given or received, on what terms, and whether both sides can keep their dignity.",
+      "challenge": "As a challenge, it can show help with hidden conditions, a power imbalance in who gives and who receives, or giving that has gone beyond your capacity.",
+      "advice": "As advice, it invites you to weigh one exchange honestly: offer what you can sustain, ask for what you need, and make the terms visible."
+    },
+    "pairs": [
+      {
+        "with": 68,
+        "text": "The Five of Pentacles shows need and exclusion; the Six answers with help. Together they draw attention to the step between hardship and support, and to how asking and offering can open a door that seemed closed."
+      },
+      {
+        "with": 11,
+        "text": "Justice also holds scales. Beside the Six of Pentacles, the pair turns attention to fairness in material life: whether an arrangement is balanced, and whether generosity and accountability can live in the same decision."
+      },
+      {
+        "with": 67,
+        "text": "The Four of Pentacles holds its coins close; the Six lets one go. Together they ask about the line between healthy security and holding on, and what becomes possible when a resource is allowed to circulate."
+      }
+    ],
+    "questions": [
+      "In which exchange in your life are the terms unclear, and what would make them visible?",
+      "Where is it easier for you to give than to receive, and why?",
+      "What could you offer this week that you can genuinely sustain?"
+    ],
+    "practice": "List three things you gave and three things you received this week, of time, care or money, then notice which list was easier to write."
+  },
+  "uk": {
+    "essence": "Шістка Пентаклів — про умови обміну: як давати й отримувати допомогу так, щоб обмін лишався чесним, співмірним і шанобливим до всіх його учасників.",
+    "keywords": {
+      "upright": [
+        "щедрість",
+        "чесний обмін",
+        "ділитися ресурсами",
+        "прийняття допомоги",
+        "міра"
+      ],
+      "reversed": [
+        "приховані умови",
+        "надмірне дарування",
+        "нерівність сил",
+        "труднощі з прийняттям",
+        "борг і зобов’язання"
+      ]
+    },
+    "upright": [
+      "Шістка Пентаклів привертає увагу до миті, коли ресурс переходить із рук у руки. У різьбленні Olivia постать у довгій шаті стоїть між двома людьми, що схилили коліна. Голова постаті обгорнута складеною тканиною, погляд опущено. Одна рука звисає розкритою, пальці спрямовані вниз; просто під нею в повітрі висить пентакль із золотою зіркою — над парою долонь, складених пригорщею. Ще п’ять пентаклів вирізьблено в синьому камені неба. Золотий лише той, що в русі.",
+      "В іншій руці постать тримає терези: шальки порожні, коромисло майже рівне. У цьому тихий аргумент карти: щедрість діє найкраще, коли її зважено. Що тут насправді потрібно? Що ви можете дати, не спустошивши себе? Чи запропоновано допомогу так, щоб інша людина зберегла гідність? Терези вимірюють судження, а не монети.",
+      "У прямому положенні карта може вказувати на підтримку, яку ви даєте, на підтримку, яку отримуєте, або на те й інше водночас. Вона визнає, що впродовж життя люди переходять з однієї ролі в іншу і що прийняти допомогу може бути так само значущо, як її надати. Карта запрошує вас поглянути на один обмін у вашому житті — часом, грошима, турботою чи увагою — і запитати себе, чи його умови ясні, добрі й чесні."
+    ],
+    "reversed": [
+      "Шістка Пентаклів у перевернутому положенні може показувати обмін, що втратив рівновагу. Допомога може мати умови, яких ніхто не назвав, або дарування могло вийти за межі того, що ви здатні витримати, — і щедрість починає відчуватися як виснаження чи образа. Терези перехиляються, коли вся влада на одному боці, а інший відчуває лише вдячність або борг.",
+      "Перевернуте положення може вказувати й усередину: на труднощі з тим, щоб прийняти запропоноване, чи на звичку завжди лише давати, бо, отримуючи, ви почуваєтеся беззахисно. Погляньте на другу постать навколішки: руки піднесені й досі порожні. Помітьте, де ви чекаєте, не просячи, де ведете рахунок і якою могла б бути чесніша домовленість для всіх, кого це стосується."
+    ],
+    "number": "Шість — число гармонії, відновленої після потрясіння. У масті Пентаклів — масті землі, грошей, праці й тіла — П’ятірка показує втрату й відчуження. Шістка відповідає їй обігом: ресурси знову течуть, і йдеться вже про те, як ними ділитися. Це рівновага на практиці, а не в теорії — та точка в масті, де мати щось і передавати його далі стає справою стосунків.",
+    "tradition": "У системі Золотої Зорі Шістка Пентаклів має титул «Володар матеріального успіху» і пов’язана з Місяцем у Тельці, другим деканом знака, де Місяць, за традицією, перебуває в екзальтації. «Книга Т» описує руку, що тримає трояндову гілку серед шести пентаклів, і говорить про успіх і здобуток у матеріальних справах. Давніші марсельські колоди показують лише шість монет поміж квітучих стебел, без жодної сцени. Памела Колман Сміт у 1909 році зобразила постать із терезами, яка подає двом людям у нужді, що стоять навколішки, — і саме ця сцена багато в чому пояснює, чому сучасні практики таро сприймають карту як карту щедрості й чесного обміну.",
+    "areas": {
+      "love": "У коханні та близьких стосунках Шістка Пентаклів звертає увагу на рівновагу: хто дає час, турботу й увагу, а хто їх отримує. Стосунки можуть витримати нерівні періоди, але легше, коли нерівновагу видно і її обрано свідомо. Карта може запрошувати вас щось запропонувати безкорисливо або дозволити комусь підтримати вас, не перепрошуючи. Вона також запитує, наскільки ви щедрі до себе: чи дозволяєте собі отримувати відпочинок, похвалу чи допомогу.",
+      "work": "У роботі, навчанні та грошових справах ця карта може вказувати на наставництво, обмін знаннями, прохання про підтримку чи домовленості на кшталт позик, грантів або гонорарів, де умови мають бути ясними. Терези підказують записати, що саме обмінюють і навіщо. Подумайте, де ви вкладаєте неоплачені зусилля, яких ніхто не помітив, або де прийнята допомога дала б проєктові зрушити з місця. Чесність охоплює й чесність щодо власних сил.",
+      "self": "У вашому власному житті Шістка Пентаклів запитує, які у вас стосунки з тим, щоб мати і потребувати. Комусь легше бути тим, хто стоїть, комусь — тим, хто на колінах. Обидві ролі людські й тимчасові. Можна помітити, яка роль вам знайома, а яка незручна, і що це каже про ваше відчуття власної цінності. Золотий пентакль у повітрі нагадує: цінність живе в тому, що передається далі."
+    },
+    "positions": {
+      "heart": "У центрі запитання ця карта вказує, що все обертається навколо обміну: що дають чи отримують, на яких умовах і чи можуть обидві сторони зберегти гідність.",
+      "challenge": "Як перешкода вона може показувати допомогу з прихованими умовами, нерівність сил між тим, хто дає, і тим, хто отримує, або дарування, що перевищило ваші можливості.",
+      "advice": "Як порада карта запрошує чесно зважити один обмін: пропонувати те, що вам під силу давати й надалі, просити того, чого потребуєте, і робити умови видимими."
+    },
+    "pairs": [
+      {
+        "with": 68,
+        "text": "П’ятірка Пентаклів показує нужду й відчуження; Шістка відповідає допомогою. Разом вони звертають увагу на крок між скрутою та підтримкою і на те, як прохання й пропозиція можуть відчинити двері, що здавалися зачиненими."
+      },
+      {
+        "with": 11,
+        "text": "Справедливість теж тримає терези. Поруч із Шісткою Пентаклів ця пара звертає увагу на чесність у матеріальному житті: чи збалансована домовленість і чи можуть щедрість і відповідальність ужитися в одному рішенні."
+      },
+      {
+        "with": 67,
+        "text": "Четвірка Пентаклів тримає свої монети при собі; Шістка відпускає одну. Разом вони запитують про межу між здоровою безпекою та чіплянням за своє і про те, що стає можливим, коли ресурсу дозволено обертатися."
+      }
+    ],
+    "questions": [
+      "У якому обміні у вашому житті умови неясні — і що зробило б їх видимими?",
+      "Де вам легше давати, ніж отримувати, і чому так?",
+      "Що ви могли б запропонувати цього тижня, не виходячи за межі своїх справжніх сил?"
+    ],
+    "practice": "Запишіть три речі, які ви дали цього тижня, і три, які отримали, — час, турботу чи гроші, — а потім помітьте, який список було легше скласти."
+  }
+}

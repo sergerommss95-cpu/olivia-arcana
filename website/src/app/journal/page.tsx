@@ -619,7 +619,7 @@ export default function JournalPage() {
           align-items: baseline;
           padding: 0.9rem 1.1rem;
           border-left: 2px solid var(--ox);
-          background: rgba(250, 246, 236, 0.6);
+          background: rgba(238, 230, 212, 0.04);
         }
 
         .j-prompt-mark {
@@ -735,7 +735,7 @@ export default function JournalPage() {
 
         .alm-gate :global(.glass-card button) {
           background: var(--ink) !important;
-          color: #f6f1e5 !important;
+          color: #0b1c2c !important;
           border: none !important;
           box-shadow: none !important;
           text-shadow: none !important;

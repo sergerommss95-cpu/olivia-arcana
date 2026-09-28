@@ -132,37 +132,17 @@ export default function TarotEncyclopediaPage() {
                   ))}
                 </div>
 
-                {/* Upright */}
-                <div className="enc-section">
-                  <p className="alm-caption enc-label">{t("academy_upright")}</p>
-                  <p className="enc-body">{selected.upright}</p>
-                </div>
-
-                {/* Reversed */}
-                <div className="enc-section">
-                  <p className="alm-caption enc-label enc-label-ox">{t("academy_reversed")}</p>
-                  <p className="enc-body">{selected.reversed}</p>
-                </div>
-
-                {/* Advice */}
-                <div className="enc-advice">
-                  <p className="alm-caption enc-label enc-label-ox">{t("academy_advice")}</p>
-                  <p className="enc-advice-text">{selected.advice}</p>
-                </div>
-
-                {/* Correspondences */}
-                <div className="enc-corr">
-                  {[
-                    { l: t("academy_astrology_label"), v: selected.astrology },
-                    { l: t("academy_element_label"), v: selected.element },
-                    { l: t("academy_yesno_label"), v: selected.yesNo },
-                  ].map(({ l, v }) => (
-                    <div key={l} className="enc-corr-cell">
-                      <span className="alm-caption enc-corr-label">{l}</span>
-                      <span className="enc-corr-value">{v}</span>
-                    </div>
-                  ))}
-                </div>
+                <p className="enc-body enc-more-line">
+                  {locale === "uk"
+                    ? "Повна сторінка карти: пряме й перевернуте значення, кожен символ зображення, число, традиція й карта в розкладі."
+                    : "The card’s full page: upright and reversed, every symbol of its image, its number, its tradition and how it reads in a spread."}
+                </p>
+                <Link
+                  href={`${locale === "uk" ? "/uk" : ""}/cards/${selected.name.toLowerCase().replace(/\s+/g, "-")}/`}
+                  className="alm-btn enc-more"
+                >
+                  {locale === "uk" ? "Відкрити сторінку карти ↗" : "Open the card’s page ↗"}
+                </Link>
               </div>
             ) : (
               <div className="enc-empty alm-card">
@@ -269,7 +249,8 @@ export default function TarotEncyclopediaPage() {
           gap: 0.3rem;
           padding: 0.85rem 0.6rem;
           border: 1px solid var(--hairline);
-          background: rgba(250, 246, 236, 0.6);
+          /* Lapis page: a faint lift, not the earlier light-paper tile. */
+          background: rgba(238, 230, 212, 0.04);
           text-align: center;
           cursor: pointer;
           transition: border-color 200ms var(--ease), background 200ms var(--ease);
@@ -277,6 +258,7 @@ export default function TarotEncyclopediaPage() {
 
         .enc-card:hover {
           border-color: rgba(224, 183, 104, 0.45);
+          background: rgba(238, 230, 212, 0.07);
         }
 
         .enc-card.on {
@@ -352,6 +334,10 @@ export default function TarotEncyclopediaPage() {
           color: var(--ink-soft);
           font-size: 0.84rem;
           line-height: 1.65;
+        }
+
+        .enc-more-line {
+          margin: 1.4rem 0 1.2rem;
         }
 
         .enc-advice {

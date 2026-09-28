@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef, createContext, useContext } from "react";
-import { getSession } from "@/lib/supabase";
+import { ACCOUNTS_ENABLED } from "@/lib/service-status";
 import {
   getSubscriptionStatus,
   createCheckoutSession,
@@ -57,8 +57,14 @@ export function SubscriptionProvider({ children }: { children: React.ReactNode }
     setIsLoading(true);
     setError(null);
     try {
+      // No accounts, no membership to verify: every visitor is on the free tier,
+      // and the Supabase client is never downloaded.
+      if (!ACCOUNTS_ENABLED) {
+        setData(null);
+        return;
+      }
       const token = typeof window !== "undefined" ? localStorage.getItem(TOKEN_KEY) : null;
-      const session = token ? null : await getSession();
+      const session = token ? null : await (await import("@/lib/supabase")).getSession();
       if (requestId !== requestSequence.current.value) return;
       if (!token && !session?.access_token) {
         setData(null);

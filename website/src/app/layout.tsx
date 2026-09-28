@@ -1,19 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant, Cormorant_Garamond, IBM_Plex_Mono } from "next/font/google";
+import { Cormorant, Cormorant_Garamond, IBM_Plex_Mono, Onest } from "next/font/google";
 import localFont from "next/font/local";
 import ClientShell from "@/components/ClientShell";
+import { socialImages, socialImageUrls } from "@/lib/social-images";
 import InteractivePerimeters from "@/components/InteractivePerimeters";
 import "./globals.css";
 import "./interactive-perimeter.css";
 
 // Variable cut (wght 300–700, Latin + Cyrillic) — the display face whose
 // weight responds to the reader's hand on the hero.
+// Root-layout fonts preload on every route, including the homepage, which sets
+// its own type. Only the small body face is preloaded; inner pages fetch the rest
+// on first use (display: swap with metric-matched fallbacks).
 const cormorantVar = Cormorant({
   variable: "--font-display",
   subsets: ["latin", "cyrillic"],
   style: ["normal"],
   display: "swap",
-  preload: true,
+  preload: false,
 });
 
 const cormorant = Cormorant_Garamond({
@@ -22,23 +26,37 @@ const cormorant = Cormorant_Garamond({
   weight: ["300", "400", "500", "600"],
   style: ["normal", "italic"],
   display: "swap",
-  preload: true,
+  preload: false,
 });
 
 // Keep the working variable font local so a Google-font fetch cannot block a build.
+// DM Sans has no Cyrillic, so it carries no metric fallback of its own: an
+// Arial-based fallback in the same stack would set Ukrainian text before Onest.
 const dmSans = localFont({
   src: "./fonts/dm-sans-latin-variable.woff2",
-  variable: "--font-body",
+  variable: "--font-body-latin",
   weight: "100 1000",
   style: "normal",
   display: "swap",
   preload: true,
+  adjustFontFallback: false,
+});
+
+// Ukrainian text: Onest, the reading experience's Cyrillic companion. Its
+// unicode-range means English pages never download it.
+const onest = Onest({
+  variable: "--font-body-cyrillic",
+  subsets: ["cyrillic"],
+  display: "swap",
+  preload: false,
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
   variable: "--font-mono",
   subsets: ["latin", "cyrillic"],
   weight: ["400"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -55,21 +73,13 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Olivia Arcana",
     locale: "en_US",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Olivia Arcana — a tarot card showing the Wheel of Seven sigil, with the wordmark 'Olivia Arcana' in editorial italic typography",
-        type: "image/png",
-      },
-    ],
+    images: socialImages("en"),
   },
   twitter: {
     card: "summary_large_image",
     title: "Olivia Arcana — A different perspective",
     description: "Choose a card, explore its meaning, and keep what you notice.",
-    images: ["/og-image.png"],
+    images: socialImageUrls("en"),
   },
   robots: { index: true, follow: true },
   manifest: "/manifest.json",
@@ -117,7 +127,7 @@ export default function RootLayout({
     "operatingSystem": "Web",
     "description": "Tarot readings and a private, device-local journal for reflection.",
     "inLanguage": ["en", "uk"],
-    "featureList": ["78-card tarot deck", "Free one-card and three-card readings", "Card meanings", "Device-local reading journal"],
+    "featureList": ["78-card tarot deck", "Free one-, three-, five- and eight-card readings", "Card meanings", "Device-local reading journal"],
     "author": {
       "@type": "Organization",
       "name": "Olivia Arcana LLC",
@@ -128,22 +138,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${cormorantVar.variable} ${dmSans.variable} ${ibmPlexMono.variable} antialiased`}
+      // /uk/ pages are exported with lang="uk" (scripts/postbuild.mjs).
+      suppressHydrationWarning
+      className={`${cormorant.variable} ${cormorantVar.variable} ${dmSans.variable} ${onest.variable} ${ibmPlexMono.variable} antialiased`}
     >
       <head>
-        {/* Performance: preconnect to third-party domains used at hot paths */}
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://cdn.paddle.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://checkout.paddle.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://api.elevenlabs.io" />
-        <link rel="dns-prefetch" href="https://api.anthropic.com" />
-        
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen">
+      {/* The homepage's first-frame script marks phones on <body> before hydration. */}
+      <body className="min-h-screen" suppressHydrationWarning>
         {/* Skip to main content — accessibility */}
         <a href="#main-content" className="skip-link">
           Skip to main content

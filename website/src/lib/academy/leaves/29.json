@@ -1,0 +1,250 @@
+{
+  "id": 29,
+  "slug": "eight-of-wands",
+  "artwork": {
+    "file": "29_eight_of_wands.webp",
+    "sha256": "c5f4d5c66753bd3ff3fd7b6ec2c858404cfd9df1834694f999f2854e9ce87b08"
+  },
+  "symbols": [
+    {
+      "key": "wand",
+      "x": 54,
+      "y": 49,
+      "en": {
+        "name": "Eight wands in parallel flight",
+        "seen": "Eight ivory wands, each with a rounded bud-like head and a slimmer knobbed foot, slant together across the lapis sky from upper right to lower left, closely spaced and parallel, none crossing another.",
+        "meaning": "Wands are the suit of Fire: will, energy and creative intent. Eight moving in one direction make the card’s whole statement, many efforts travelling at once and in agreement. No figure holds or throws them here; the effort has already been released and is under way."
+      },
+      "uk": {
+        "name": "Вісім жезлів у паралельному льоті",
+        "seen": "Вісім жезлів зі слонової кістки, кожен з округлою, схожою на бруньку головкою й тоншим кінцем із вузликом, разом скісно перетинають лазуритове небо від правого верхнього краю до лівого нижнього: щільно, паралельно, жоден не перехрещує іншого.",
+        "meaning": "Жезли — масть Вогню: воля, енергія, творчий намір. Вісім жезлів, що летять в одному напрямку, і становлять суть усієї карти: багато зусиль рухаються водночас і в злагоді. Тут їх ніхто не тримає й не кидає — зусилля вже випущене й у дорозі."
+      }
+    },
+    {
+      "key": "leaves",
+      "x": 67,
+      "y": 18,
+      "en": {
+        "name": "Leaves behind the heads",
+        "seen": "Just behind the rounded heads of several wands, short twigs put out small clusters of almond-shaped ivory leaves, carved with fine central veins; other wands carry only small bare nubs, or nothing at all.",
+        "meaning": "In the Waite-Smith lineage wands are drawn as living branches that sprout leaves, a sign that this suit’s fire is growth rather than destruction. Here the leaves survive the flight: what travels fast is still alive, and can take root where it comes down."
+      },
+      "uk": {
+        "name": "Листя за головками",
+        "seen": "Одразу за округлими головками кількох жезлів короткі пагінці пускають невеликі грона мигдалеподібних листочків зі слонової кістки з тонко вирізьбленими центральними жилками; на інших жезлах — лише дрібні голі наростки або взагалі нічого.",
+        "meaning": "У традиції Вейта–Сміт жезли зображують живими гілками, що пускають листя: знак того, що вогонь цієї масті — це зростання, а не руйнування. Тут листя вціліло в польоті: те, що мчить швидко, досі живе й може вкоренитися там, де опуститься."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 27,
+      "y": 26,
+      "en": {
+        "name": "The band of starlight",
+        "seen": "A diagonal band of glittering pale mineral crosses the upper left of the dark lapis, slanting down to the left like the wands, while small gold flecks are scattered like stars across the whole sky.",
+        "meaning": "The traditional image sets the staves against a clear, empty sky. Olivia’s night sky adds a road of stars, and the wands travel alongside it. The movement has a route already traced above it: speed with a direction, rather than scatter."
+      },
+      "uk": {
+        "name": "Смуга зоряного світла",
+        "seen": "Діагональна смуга мерехтливого світлого мінералу перетинає ліву верхню частину темного лазуриту, знижуючись ліворуч, як і жезли, а дрібні золоті цятки, наче зорі, розсипані по всьому небу.",
+        "meaning": "На традиційному зображенні палиці летять на тлі ясного порожнього неба. Нічне небо Olivia додає зоряний шлях, і жезли летять уздовж нього. Над рухом уже прокреслено маршрут: це швидкість із напрямком, а не розпорошення."
+      }
+    },
+    {
+      "key": "wand",
+      "x": 53,
+      "y": 43,
+      "en": {
+        "name": "The shorter bare wand",
+        "seen": "One wand is shorter than the rest: its rounded head stops near the centre of the card, well to the left of the other heads, and its whole shaft carries no leaves.",
+        "meaning": "This is Olivia’s own touch; in the traditional image the staves read as a matching set. It suggests that not every part of a fast-moving situation travels the same distance, and that a plainer, quieter effort still belongs to the flight."
+      },
+      "uk": {
+        "name": "Коротший голий жезл",
+        "seen": "Один жезл коротший за інші: його округла головка сягає лише центру карти, помітно лівіше від решти головок, і на всьому його держаку немає жодного листка.",
+        "meaning": "Це власний штрих Olivia: у традиційному зображенні палиці сприймаються як однаковий набір. Цей жезл підказує, що не кожна частина стрімкої ситуації долає ту саму відстань і що простіше, тихіше зусилля теж є частиною цього льоту."
+      }
+    },
+    {
+      "key": "leaves",
+      "x": 18,
+      "y": 73,
+      "en": {
+        "name": "Three gold leaves",
+        "seen": "At the lower-left end of the longest wand, three leaves of gold spread outward like an arrowhead, hovering just above the ridge of the hills. They are the only carved gold on the card.",
+        "meaning": "Gold in this deck is rare and marks what matters. Placing it on the lowest tip, closest to the ground, turns attention to arrival: the moment a message lands or a plan meets real life. The Eight is often read as matters coming down to earth."
+      },
+      "uk": {
+        "name": "Три золоті листки",
+        "seen": "На лівому нижньому кінці найдовшого жезла три золоті листки розходяться назовні, наче вістря стріли, і зависають просто над гребенем пагорбів. Це єдине різьблене золото на карті.",
+        "meaning": "Золото в цій колоді рідкісне й позначає важливе. Розміщене на найнижчому кінчику, найближчому до землі, воно звертає увагу на прибуття: мить, коли звістка доходить або задум зустрічається з реальним життям. У Вісімці часто бачать справи, що опускаються на землю."
+      }
+    },
+    {
+      "key": "house",
+      "x": 70,
+      "y": 79,
+      "en": {
+        "name": "The cottage on the hillside",
+        "seen": "Carved in pale grey-blue lapis on a slope right of centre, a gabled cottage with a chimney and a many-paned window sits among rounded trees, below a higher peak.",
+        "meaning": "The Waite-Smith card shows open country with a river and a small building on a rise. Here the dwelling gives the flight a scale and a destination: all this movement is meant to reach ordinary life, a door, a table, a place where messages are read."
+      },
+      "uk": {
+        "name": "Хатина на схилі",
+        "seen": "На схилі праворуч від центру, вирізьблена в блідому сіро-блакитному лазуриті, стоїть хатина з двосхилим дахом, комином і вікном на багато шибок, серед округлих дерев, під вищою вершиною.",
+        "meaning": "На карті Вейта–Сміт видно відкриту місцевість із річкою та невеликою будівлею на пагорбі. Тут оселя надає льоту масштабу й мети: увесь цей рух має дістатися звичайного життя — дверей, столу, місця, де читають звістки."
+      }
+    },
+    {
+      "key": "bridge",
+      "x": 49,
+      "y": 85,
+      "en": {
+        "name": "Bridge and small waterfall",
+        "seen": "Below and left of the cottage, a stream passes a small arched bridge and spills over a low fall into a wider pool, all carved in the lighter blue of the landscape.",
+        "meaning": "A bridge traditionally marks connection and crossing from one side to another, fitting for a card of messages and travel. The little fall shows water quickening at one point and then settling again, a quiet echo of the wands above."
+      },
+      "uk": {
+        "name": "Місток і невеликий водоспад",
+        "seen": "Нижче й ліворуч від хатини потічок протікає повз невеликий арковий місток і спадає низьким порогом у ширшу заводь; усе це вирізьблено світлішою блакиттю краєвиду.",
+        "meaning": "Міст традиційно позначає зв’язок і перехід з одного берега на інший, що личить карті звісток і подорожей. Маленький водоспад показує воду, яка в одному місці пришвидшується, а потім знову заспокоюється, — тихий відгук жезлів угорі."
+      }
+    },
+    {
+      "key": "river",
+      "x": 54,
+      "y": 90,
+      "en": {
+        "name": "The river in the foreground",
+        "seen": "A broad stretch of water fills the lower centre, its surface scored with fine horizontal lines, held between smooth rounded banks, with a dark foreground slope in front of it.",
+        "meaning": "Water runs through the landscape beneath the flight in the traditional Eight of Wands too. Its slow breadth balances the speed above: fire moves in straight lines, water finds its way around things. The card holds both paces and asks which one each part of your life needs."
+      },
+      "uk": {
+        "name": "Річка на передньому плані",
+        "seen": "Широке плесо займає нижню частину центру; його поверхню порізано тонкими горизонтальними лініями, воду тримають гладкі округлі береги, а перед нею темніє схил переднього плану.",
+        "meaning": "І на традиційній Вісімці Жезлів під цим льотом крізь краєвид тече вода. Її повільна широчінь урівноважує швидкість угорі: вогонь рухається прямими лініями, вода оминає перешкоди. Карта поєднує обидва темпи й запитує, якого з них потребує кожна частина вашого життя."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Eight of Wands is energy released: messages, plans and decisions moving quickly and together, and an invitation to aim that speed where you want it to land.",
+    "keywords": {
+      "upright": [
+        "swiftness",
+        "momentum",
+        "messages in motion",
+        "aligned action",
+        "quick progress"
+      ],
+      "reversed": [
+        "delay",
+        "crossed messages",
+        "hurried decisions",
+        "scattered energy",
+        "stalled plans"
+      ]
+    },
+    "upright": [
+      "The Eight of Wands has no figure in it, only movement. Eight ivory wands cross a night sky of lapis in one steady slant, close together and parallel, none tangled with another. The card draws attention to pace: messages, decisions and pieces of work that begin to arrive together, plans that were stuck and now move, a stretch of time when things answer quickly.",
+      "Wands are the suit of Fire, of drive and intention, and here that fire has been let go. Look closely at the wands themselves: several still put out small leaves behind their rounded heads, so they are living branches, not bare sticks. What moves fast in this card is something alive that you have grown, not noise. The longest wand reaches furthest down toward the hills, and its tip carries the only carved gold on the card, three gold leaves just above the ridge line: the point where movement meets the ground.",
+      "Upright, the card invites you to go with the momentum while keeping your aim. Speed serves you best when you know where it is heading. Below the flight the landscape stays calm: a cottage, a small bridge, a river moving at its own pace. Answer quickly where quickness helps, and keep the rest of your life steady enough to receive what arrives."
+    ],
+    "reversed": [
+      "Eight of Wands reversed draws attention to momentum that is either held up or running ahead of itself. Plans may feel grounded before they are airborne: replies come slowly, a project waits on someone else, and the energy you gathered has nowhere to go. Or the opposite: so much is in the air that messages cross, decisions are made in a hurry and nobody stops to confirm what was agreed.",
+      "Both forms ask the same thing: where is this wand meant to land? A delay can be time to check your direction; a rush can be eased with one clarifying question. Notice the single shorter, bare wand in this flight, keeping its own length among the others. Not everything in your life has to move at the speed of the rest."
+    ],
+    "number": "Eight is the number of movement after effort. In Wands, the suit of Fire, will and creative drive, the Seven has held its ground under pressure; the Eight lets that tension go, and everything that was waiting moves at once. Eights across the Minor Arcana often concern a change of pace or direction, and here the change is acceleration. It is the point in the suit where plans stop being argued for and start travelling, before the Nine counts the cost and the Ten feels the full weight.",
+    "tradition": "In the Golden Dawn system the Eight of Wands is titled the Lord of Swiftness. It is assigned to Mercury in Sagittarius, the first decan of that sign (0 to 10 degrees), and to Hod, Splendour, the eighth Sephirah on the Tree of Life, expressed through the suit of Fire. Mercury, the messenger planet, travelling through the archer’s sign is often read as thought sent quickly toward a distant target; Aleister Crowley kept the single title Swiftness. Marseille decks show eight batons woven into a pattern. Pamela Colman Smith’s 1909 card is one of the few Waite-Smith pips with no human figure: eight staves in flight over open country, and Waite’s notes include “the arrows of love”.",
+    "areas": {
+      "love": "In close relationships the Eight of Wands can point to a quickening: messages exchanged more often, plans made faster, feelings that seem to arrive all at once. It does not tell you what another person feels or intends. It asks whether the pace suits you both, and whether words sent in a rush say what you mean. With yourself, it may show an enthusiasm that deserves room, alongside the reminder that a reply can wait until you are ready to give it.",
+      "work": "At work or in study, this card often reflects a busy stretch: several tasks, emails or deadlines in flight together. The wands in this image travel in parallel without crossing, which is a useful picture for planning. Sort what needs a quick answer from what needs a considered one, and make each handover clear. Where money is involved, speed is not a reason to skip checking the details or asking a qualified person first.",
+      "self": "For your relationship with yourself, the Eight of Wands turns attention to how you move when life speeds up. Some people come alive in momentum; others feel scattered by it. Notice which is true for you this week. The leaves still growing on the flying wands suggest that a good pace is one that lets things keep growing. Choose one area where you can follow the energy fully, and one where you deliberately slow down."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Eight of Wands can point to movement that may already be under way: things may be in the air, and the real question could be less whether to act than how to steer what is moving.",
+      "challenge": "As a challenge, the card can show pace outrunning clarity: too many messages, too many starts, or a hurry that leaves no time to check where anything is landing.",
+      "advice": "As advice, it invites you to act while the energy is there: send the message, take the step, and name clearly where you want it to arrive."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "The Golden Dawn links both cards to Mercury. With The Magician, the Eight of Wands draws attention to skill and speed together: the ability to shape an intention, and the moment that intention leaves your hands and travels."
+      },
+      {
+        "with": 14,
+        "text": "Temperance carries Sagittarius, the sign of this card’s decan. Side by side they set speed against measure, asking how quick movement can still be blended, paced and guided toward a place you actually want to reach."
+      },
+      {
+        "with": 57,
+        "text": "Two eights, two opposite experiences: the Eight of Swords is traditionally a card of feeling hemmed in, while the Eight of Wands is nothing but open sky. Together they ask what separates feeling stuck from moving freely, and how much of it lives in the mind."
+      }
+    ],
+    "questions": [
+      "What in your life is already moving, and where do you want it to land?",
+      "Which messages or tasks truly need a quick answer this week, and which can wait?",
+      "What would help you keep your aim steady while everything around you speeds up?"
+    ],
+    "practice": "Write down everything currently “in the air” for you, then mark one item to send forward today and one to set down for later."
+  },
+  "uk": {
+    "essence": "Вісімка Жезлів — це вивільнена енергія: звістки, плани й рішення рухаються швидко й разом, а карта запрошує спрямувати цю швидкість туди, де ви хочете, щоб вона приземлилася.",
+    "keywords": {
+      "upright": [
+        "стрімкість",
+        "розгін",
+        "звістки в русі",
+        "злагоджені дії",
+        "швидкий поступ"
+      ],
+      "reversed": [
+        "затримка",
+        "плутанина у звістках",
+        "поспішні рішення",
+        "розпорошена енергія",
+        "застряглі плани"
+      ]
+    },
+    "upright": [
+      "У Вісімці Жезлів немає жодної фігури — лише рух. Вісім жезлів зі слонової кістки перетинають нічне лазуритове небо під одним рівним нахилом, близько один до одного й паралельно, і жоден не переплітається з іншим. Карта привертає увагу до темпу: звістки, рішення й робочі справи починають надходити разом; плани, що застрягли, рушають з місця; настає період, коли все відгукується швидко.",
+      "Жезли — масть Вогню, напору й наміру, і тут цей вогонь уже випущено. Придивіться до самих жезлів: кілька з них досі пускають дрібне листя за округлими головками, тож це живі гілки, а не голі палиці. Те, що мчить на цій карті, — не шум, а щось живе, що ви самі виростили. Найдовший жезл сягає найнижче, до пагорбів, і на його кінчику — єдине різьблене золото на карті: три золоті листки просто над лінією гребеня, точка, де рух зустрічається із землею.",
+      "У прямому положенні карта запрошує вас іти за розгоном, не втрачаючи цілі. Швидкість найкраще служить вам тоді, коли ви знаєте, куди вона веде. Під льотом краєвид лишається спокійним: хатина, невеликий місток, річка, що тече у власному темпі. Відповідайте швидко там, де швидкість допомагає, і тримайте решту життя досить усталеною, щоб прийняти те, що надходить."
+    ],
+    "reversed": [
+      "Вісімка Жезлів у перевернутому положенні привертає увагу до розгону, який або загальмувався, або випереджає сам себе. Плани ніби приземлилися ще до злету: відповіді надходять повільно, проєкт чекає на когось іншого, а зібраній енергії нікуди подітися. Або навпаки: у повітрі стільки всього, що звістки розминаються, рішення ухвалюють поспіхом і ніхто не зупиняється, щоб підтвердити, про що домовилися.",
+      "Обидві форми ставлять те саме запитання: де має приземлитися цей жезл? Затримка може стати часом звірити напрямок, а поспіх можна пом’якшити одним уточнювальним запитанням. Зверніть увагу на єдиний коротший і голий жезл у цьому льоті: серед інших він зберігає власну довжину. Не все у вашому житті мусить рухатися зі швидкістю решти."
+    ],
+    "number": "Вісім — число руху після зусилля. У Жезлах, масті Вогню, волі й творчого напору, Сімка втримувала позицію під тиском; Вісімка відпускає цю напругу, і все, що чекало, рушає водночас. Вісімки в Молодших Арканах часто стосуються зміни темпу чи напрямку, і тут ця зміна — прискорення. Це та точка масті, де плани вже не треба відстоювати: вони вирушають у дорогу, ще до того, як Дев’ятка підрахує ціну, а Десятка відчує всю вагу.",
+    "tradition": "У системі Золотої Зорі Вісімка Жезлів має титул «Володар Швидкості». Їй відповідають Меркурій у Стрільці, перший декан цього знака (від 0 до 10 градусів), і Ход (Пишнота), восьма сефіра Дерева Життя, що діє через масть Вогню. Меркурій, планету-посланця, що мандрує знаком лучника, часто тлумачать як думку, швидко вислану до далекої цілі; Алістер Кроулі зберіг лише одне слово — «Швидкість». У марсельських колодах зображено вісім палиць, сплетених у візерунок. Карта Памели Колман Сміт 1909 року — одна з небагатьох числових карт Вейта–Сміт без людської фігури: вісім палиць летять над відкритою місцевістю, а в нотатках Вейта згадано «стріли кохання».",
+    "areas": {
+      "love": "У близьких стосунках Вісімка Жезлів може вказувати на пожвавлення: повідомлення частішають, плани складаються швидше, почуття ніби надходять усі водночас. Вона не каже, що відчуває чи має на меті інша людина. Вона запитує, чи пасує цей темп вам обом і чи слова, надіслані поспіхом, передають те, що ви маєте на увазі. У стосунках із собою вона може показати захоплення, якому варто дати простір, і водночас нагадати, що відповідь може зачекати, доки ви будете готові її дати.",
+      "work": "У роботі чи навчанні ця карта часто відбиває насичений період: кілька завдань, листів або термінів водночас у польоті. Жезли на цьому зображенні летять паралельно й не перетинаються — корисний образ для планування. Відокремте те, що потребує швидкої відповіді, від того, що потребує виваженої, і чітко передавайте кожну справу далі. Коли йдеться про гроші, швидкість — не причина оминати перевірку деталей або попередню консультацію з фахівцем.",
+      "self": "У стосунках із собою Вісімка Жезлів звертає увагу на те, як ви рухаєтеся, коли життя пришвидшується. Одні оживають у розгоні, інших він розпорошує. Зауважте, що з цього правдиве для вас цього тижня. Листя, яке досі росте на летючих жезлах, підказує: добрий темп — той, що дає речам і далі рости. Оберіть одну сферу, де можна повністю піти за енергією, і одну, де ви свідомо сповільнитеся."
+    },
+    "positions": {
+      "heart": "У центрі запитання Вісімка Жезлів може вказувати на рух, що, можливо, вже триває: усе ніби в повітрі, і справжнє запитання може стосуватися не стільки того, чи діяти, скільки того, як скерувати те, що рухається.",
+      "challenge": "Як виклик карта може показувати темп, що випереджає ясність: забагато повідомлень, забагато починань або поспіх, який не лишає часу перевірити, де що приземляється.",
+      "advice": "Як порада вона запрошує діяти, поки є енергія: надішліть повідомлення, зробіть крок і чітко назвіть, куди саме це має дійти."
+    },
+    "pairs": [
+      {
+        "with": 1,
+        "text": "Золота Зоря пов’язує обидві карти з Меркурієм. Поруч із Магом Вісімка Жезлів привертає увагу до вміння й швидкості разом: до здатності надати наміру форми — і до миті, коли цей намір виходить із ваших рук і вирушає в дорогу."
+      },
+      {
+        "with": 14,
+        "text": "Помірності відповідає Стрілець — знак, до якого належить декан цієї карти. Поруч вони протиставляють швидкість і міру, запитуючи, як стрімкий рух і далі можна змішувати, розмірювати й скеровувати туди, куди ви справді хочете дістатися."
+      },
+      {
+        "with": 57,
+        "text": "Дві вісімки, два протилежні досвіди: Вісімку Мечів традиційно читають як карту скутості, тоді як Вісімка Жезлів — суцільне відкрите небо. Разом вони запитують, що відділяє відчуття застряглості від вільного руху і скільки з цього живе в думках."
+      }
+    ],
+    "questions": [
+      "Що у вашому житті вже рухається і де ви хочете, щоб воно приземлилося?",
+      "Які повідомлення чи завдання цього тижня справді потребують швидкої відповіді, а які можуть зачекати?",
+      "Що допомогло б вам тримати приціл рівно, коли все довкола пришвидшується?"
+    ],
+    "practice": "Запишіть усе, що зараз для вас «у повітрі», а тоді позначте одну справу, яку сьогодні відправите далі, і одну, яку відкладете на потім."
+  }
+}

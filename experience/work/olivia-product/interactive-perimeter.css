@@ -25,7 +25,7 @@
   user-select: none;
   z-index: 2;
   opacity: var(--oa-edge-opacity);
-  transition: opacity .28s cubic-bezier(.22,1,.36,1);
+  transition: opacity .28s var(--ease-settle);
 }
 /* Mask the centre completely: the highlight never washes across text or art. */
 @supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {

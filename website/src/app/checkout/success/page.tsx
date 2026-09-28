@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
 import TransitionLink from "@/components/transitions/TransitionLink";
 import { useSubscription } from "@/hooks/useSubscription";
+import MembershipClosed from "@/components/almanac/MembershipClosed";
+import { PAYMENTS_ENABLED } from "@/lib/service-status";
 import { PENDING_CHECKOUT_KEY } from "@/components/CheckoutButton";
 import {
   ADDONS,
@@ -91,6 +93,8 @@ export default function CheckoutSuccessPage() {
   const [purchased, setPurchased] = useState<string | null>(null);
 
   useEffect(() => {
+    // Nothing can have been bought while payments are closed; don't poll a ledger that isn't there.
+    if (!PAYMENTS_ENABLED) return;
     let cancelled = false;
     const key = resolvePriceKey();
 
@@ -132,7 +136,9 @@ export default function CheckoutSuccessPage() {
         <div className="ck-card alm-card">
           <div className="ck-mark" aria-hidden>✦</div>
 
-          {phase === "confirmed" ? (
+          {!PAYMENTS_ENABLED ? (
+            <MembershipClosed />
+          ) : phase === "confirmed" ? (
             <>
               <h1 className="alm-h1 ck-title">Order Confirmed</h1>
               <p className="ck-body">
@@ -198,7 +204,7 @@ export default function CheckoutSuccessPage() {
           width: 100%;
           max-width: 28rem;
           padding: clamp(2rem, 5vw, 2.8rem) clamp(1.5rem, 4vw, 2.2rem);
-          background: #0f1240;
+          background: #10273a;
           text-align: center;
         }
 

@@ -49,12 +49,20 @@ For the native website, sync the hosted output into `website/public/experience/`
 - `almanac-backup.js`: backup preview, validation, import and recovery.
 - `followup-reminder.js`, `lunar-checkin.js`: private calendar check-ins and opt-in lunar dates. Astronomy Engine is pinned to 2.1.19, MIT; phase calculations follow its [SearchMoonPhase documentation](https://github.com/cosinekitty/astronomy/blob/master/source/js/README.md#searchmoonphasetargetlon-datestart-limitdays--astrotime--null).
 - `home-showcase.js/.css`: illustrated homepage examples; no draw or storage side effects.
+- `mobile-coherence.css`: the phone composition from v4 onward — action vocabulary, pending artwork, keyboard compose, save order, spread header/receipt, almanac, Today and landscape-touch choose. It is loaded last; put phone layout fixes here.
+- `save-state.js`: keep/update/reflection/saved labels and states shared by one-card readings and spreads, plus the persistent-storage request and the Safari storage note.
+- `mobile-experience.js`, `mobile-question.js`, `mobile-reading.js`: the phone shell, two-step question and reading rearrangement, reusing the original nodes and restoring them on widening.
 - `question-history.js/.css`: explicit question links, dated observations and backup merge validation.
 - `first-impression.js/.css`: original observations, immutable once saved.
 - `reading-removal.js`: coordinated deletion and recovery with rollback.
 - `symbol-trails.js/.css`: curated artwork observations and reflective comparisons.
-- `hero.js`, `background.js`, `preset.js`: approved animation and card-matched shader.
-- `build.py`: reproducible hosted and embedded builds, including resource and artwork validation.
+- `hero.js`, `background.js`, `preset.js`: approved animation and card-matched shader. Below 700 px the asset map gives `hero.js` the pre-sized textures in `../hero-v12/assets/public/cards-portal-phone/` (made by `../tools/phone-art.mjs`); `hero.js` itself is unchanged.
+- `build.py`: reproducible hosted and embedded builds, including resource and artwork validation. It prunes asset files from earlier builds.
+- `bundle-app.mjs`: bundles `app.js` twice, as the full build (`app`, for Ukrainian pages and the portable file) and an English build without the Ukrainian data (`app-en`).
+- `content.js`, `minor-content.js`, `minor-reversed.js`: curated English card notes; each Minor Arcana card has its own reversed reflection.
+- `card-notes-uk.js`: native Ukrainian card notes in the formal «ви» (voice guide `UK-VOICE.md`). `locale-uk.js` keeps the interface dictionary and card names and keywords. After editing any card notes, run `node ../tools/sync-card-notes.mjs` to refresh the website copy used by the AI service and `/uk/cards/`.
+- `support-note.js/.css`: the crisis-support note, shown for clear self-harm or danger language at the question and on single and spread readings.
+- `motion-tokens.css`: the easing and duration vocabulary for all product CSS (loaded first). The hero keeps its own timing.
 
 ## Service and release boundaries
 

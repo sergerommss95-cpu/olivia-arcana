@@ -2350,7 +2350,8 @@ export function t<K extends keyof Translations>(locale: Locale, key: K): Transla
 /** Get default locale from browser */
 export function detectLocale(): Locale {
   if (typeof window === "undefined") return "en";
-  const stored = localStorage.getItem("olivia-locale") as Locale;
+  let stored: Locale | null = null;
+  try { stored = localStorage.getItem("olivia-locale") as Locale; } catch { /* storage blocked: fall back to the browser language */ }
   if (stored && TRANSLATIONS[stored]) return stored;
   const browserLang = navigator.language.split("-")[0] as Locale;
   if (TRANSLATIONS[browserLang]) return browserLang;
@@ -2359,5 +2360,5 @@ export function detectLocale(): Locale {
 
 /** Save locale preference */
 export function setLocale(locale: Locale): void {
-  localStorage.setItem("olivia-locale", locale);
+  try { localStorage.setItem("olivia-locale", locale); } catch { /* storage blocked: the choice lasts for this page only */ }
 }

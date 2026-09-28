@@ -1,0 +1,157 @@
+{
+  "slug": "a-card-game",
+  "path": "history",
+  "order": 1,
+  "tool": null,
+  "cards": [
+    0,
+    1,
+    6,
+    8,
+    10,
+    11,
+    13,
+    14,
+    15,
+    16,
+    18,
+    19,
+    21
+  ],
+  "en": {
+    "title": "Tarot began as a fifteenth-century card game",
+    "dek": "Trace tarot back to the card tables of Renaissance Italy, and read any Major with its first life as a trump card clearly in view.",
+    "minutes": 6,
+    "sections": [
+      {
+        "heading": "Cards before readings",
+        "body": [
+          "Playing cards reach Europe in the late 1370s, arriving from the Islamic world through Mamluk lands. The earliest European packs already have four suits of numbered cards with a small court at the top of each: cups, coins, swords and staves, close cousins of the Mamluk suits of cups, coins, swords and polo sticks. Olivia’s Cups and Swords keep those names; Wands descend from the staves, and Pentacles from the coins.",
+          "Tarot itself appears some sixty years later, and for roughly three centuries the surviving record shows it as something people played, not something they consulted. Account books, letters and city regulations mention it as a pastime. Readings with tarot cards are documented only from the eighteenth century. When you shuffle an Olivia deck, you are holding the descendant of a game."
+        ]
+      },
+      {
+        "heading": "A fifth suit of triumphs",
+        "body": [
+          "By the early 1440s, records in Florence and at the court of Ferrara mention cards called trionfi, ‘triumphs’, and the ruling family of Milan was having sets painted. They are an extra series of picture cards added to the four suits, and they outrank every suit card in play. Many historians connect the name to the triumphal processions of Renaissance art and poetry, in which one figure overcomes the one before it. The English word ‘trump’ comes from the same root.",
+          "The pictures on these cards were not secret emblems. A fifteenth-century player recognised them at a glance: the cardinal virtues Justice, Fortitude and Temperance, Love, Death, the Wheel, the Sun, the Moon, the World. These are the stock images of Italian painting and sermons, set in a rising order. Around 1500 the word tarocchi appears for the whole pack, and ‘tarot’ is its later French form."
+        ]
+      },
+      {
+        "heading": "How the game is played",
+        "body": [
+          "Tarot is a trick-taking game, a family that includes whist and bridge. Each player lays one card and the highest takes the trick. You must follow the suit that was led; if you cannot, you must play a trump, and any trump beats any suit card. Early trumps carried no numbers, so players learnt the order by heart, and cities did not agree on it. The order Olivia follows descends from the Milanese one, which the Marseille pattern later fixed, with one later swap you will meet in the example below.",
+          "In the Italian game the Fool was not a trump. It was the Excuse: you could play it instead of following suit, and it usually went back to its owner. That is why older decks leave it unnumbered, outside the sequence. The Magician, under the name Il Bagatto, was the lowest trump. The game is still alive: French Tarot is widely played in France, and Tarock games thrive in Austria, Hungary and Slovenia, usually with packs whose trumps show everyday or rural scenes rather than allegories. Michael Dummett, a philosopher and historian of card games, set out the evidence for tarot’s game origin in The Game of Tarot (1980)."
+        ]
+      },
+      {
+        "heading": "The Visconti-Sforza cards",
+        "body": [
+          "The oldest cards to survive in quantity were painted by hand for the ruling families of Milan in the mid-fifteenth century, the Visconti and the Sforza. They are luxury objects, laid with gold leaf and usually attributed to the workshop of Bonifacio Bembo. The best-known set is now divided between collections in New York and Bergamo, and some of its cards are lost, among them The Devil and The Tower.",
+          "These decks show how unsettled the design still was. One of them, now at Yale, has six court cards in each suit, with a mounted lady and a maid beside the knight and page, and trumps for Faith, Hope and Charity that later packs dropped. Even the four courts belong to this world of play: ordinary Italian packs had a king, a mounted knight and a jack on foot, and the tarot pack added a Queen."
+        ]
+      },
+      {
+        "heading": "What the history gives a reader",
+        "body": [
+          "Knowing that tarot began as a game does not make reading with it less worthwhile. It changes where you look. The images were made to be understood by eye, by people who knew what a virtue or a triumph looked like. Reading closely from what a card shows is faithful to how these pictures began. The meanings layered on later, from the eighteenth century onward, are traditions of reading, and Olivia’s card pages present them as history.",
+          "It also frees the numbers. A card’s number was first its rank in play, and ranks moved from city to city. When a card page tells you that Strength and Justice traded places, you are watching a convention change, not a hidden truth being revealed."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Strength, read in three layers",
+      "cards": [
+        8,
+        11
+      ],
+      "body": [
+        "Open Strength’s card page. On Olivia’s card a figure bows the head steeply over a lion carved in greyish-blue lapis. One hand rests flat on the crown of the mane; the other slips relaxed fingers between the open jaws, with no strain in the wrist or arm.",
+        "Now set the card back on the table where it began. Italian players knew it as Fortitude, one of the cardinal virtues, and the Visconti-Sforza painter showed a figure with a raised club, usually identified as Hercules, against a lion. In play it was a middling trump, taking any suit card and losing to every higher trump. Its number moved as well: the Marseille pattern set it at XI and Justice at VIII, the Golden Dawn swapped the two, Waite followed, and so Olivia’s card is VIII.",
+        "Three layers are now visible: a virtue from Renaissance art, a rank that was a rule of play, and a number fixed much later by a Victorian magical order. Begin from the virtue and the picture in front of you. Olivia’s card keeps Fortitude but has no club: courage here is a steady, open hand. The question to carry: “Where does courage in your situation look like a steady hand rather than a raised arm?”"
+      ]
+    },
+    "tryThis": {
+      "heading": "Try this",
+      "steps": [
+        "Open Justice’s card page, read its tradition section, and copy into your notebook the one detail that goes back to fifteenth-century Italy.",
+        "Write the twenty-two Major titles in your notebook in order, then mark the three cardinal virtues and the one card that stands outside the sequence.",
+        "Choose one Major and describe its picture as a Renaissance player might: which virtue, figure or heavenly body it shows, before any meaning.",
+        "Draw one card in Olivia and write two lines: what the picture itself shows, and what later tradition has added to it."
+      ]
+    },
+    "remember": [
+      "Tarot began as a trick-taking game; readings with it are documented from the eighteenth century.",
+      "The Major images come from Renaissance allegory, virtues and triumphs, not from a secret doctrine.",
+      "A card’s number was first its rank in play, and cities ranked the trumps differently."
+    ]
+  },
+  "uk": {
+    "title": "Таро почалося як карткова гра XV століття",
+    "dek": "Простежте історію таро аж до ігрових столів ренесансної Італії й читайте будь-який Старший Аркан, пам’ятаючи про його перше життя як козиря.",
+    "minutes": 6,
+    "sections": [
+      {
+        "heading": "Карти до читань",
+        "body": [
+          "Гральні карти потрапляють до Європи наприкінці 1370-х років: вони приходять з ісламського світу через мамлюцькі землі. Найдавніші європейські колоди вже мають чотири масті числових карт, і кожну масть вінчає невеликий двір: кубки, монети, мечі й палиці. Це близькі родичі мамлюцьких мастей, де були кубки, монети, мечі та палиці для поло. У колоді Olivia Кубки й Мечі зберегли ці назви, Жезли походять від палиць, а Пентаклі — від монет.",
+          "Власне таро з’являється приблизно через шістдесят років, і близько трьох століть збережені джерела показують його як гру: у таро грали, а не зверталися до нього по пораду. Рахункові книги, листи й міські постанови згадують його як розвагу. Читання карт таро засвідчені лише від XVIII століття. Коли ви тасуєте колоду Olivia, у ваших руках — нащадок гри."
+        ]
+      },
+      {
+        "heading": "П’ята масть тріумфів",
+        "body": [
+          "На початку 1440-х років документи Флоренції та феррарського двору згадують карти, які називали тріумфами (trionfi), а правлячий рід Мілана замовляв собі розписані набори. Це додатковий ряд карт із зображеннями, доданий до чотирьох мастей, і в грі ці карти старші за будь-яку карту масті. Багато істориків пов’язують цю назву з тріумфальними процесіями в мистецтві й поезії Відродження, де кожна наступна постать долає попередню. З того самого кореня походить англійське слово trump, «козир».",
+          "Зображення на цих картах не були таємними емблемами. Гравці XV століття впізнавали їх з першого погляду: кардинальні чесноти Справедливість, Стійкість і Помірність, Кохання, Смерть, Колесо Фортуни, Сонце, Місяць, Світ. Це звичні образи італійського живопису й проповідей, вишикувані у висхідному порядку. Близько 1500 року для всієї колоди з’являється слово tarocchi, а «таро» — його пізніша французька форма."
+        ]
+      },
+      {
+        "heading": "Як грають у таро",
+        "body": [
+          "Таро — карткова гра на взятки, з тієї самої родини, що віст і бридж. Гравці по черзі кладуть по одній карті, і найстарша карта бере взятку. Ви мусите ходити в масть, з якої зайшли; якщо такої карти у вас немає, треба покласти козир, а будь-який козир б’є будь-яку карту масті. Ранні козирі не мали номерів, тож гравці вивчали їхній порядок напам’ять, а різні міста впорядковували їх по-різному. Порядок, якого дотримується Olivia, походить від міланського, згодом закріпленого марсельським зразком, з однією пізнішою перестановкою — ви побачите її в прикладі нижче.",
+          "В італійській грі Блазень не був козирем. Його називали «Вибаченням»: цю карту можна було зіграти замість того, щоб ходити в масть, і зазвичай вона залишалася за тим, хто нею зіграв. Тому старі колоди подають її без номера, поза послідовністю. Маг, якого тоді називали Il Bagatto, був наймолодшим козирем. Гра живе й досі: у Франції широко грають у французьке таро, а в Австрії, Угорщині та Словенії процвітають ігри тарок, зазвичай із колодами, де на козирях замість алегорій зображено побутові чи сільські сцени. Майкл Даммет, філософ та історик карткових ігор, виклав докази ігрового походження таро в книжці The Game of Tarot (1980)."
+        ]
+      },
+      {
+        "heading": "Карти Вісконті-Сфорца",
+        "body": [
+          "Найдавніші карти, що збереглися у великій кількості, у середині XV століття розписали вручну для правлячих родин Мілана — Вісконті та Сфорца. Це предмети розкоші, вкриті сусальним золотом; їх зазвичай приписують майстерні Боніфаціо Бембо. Найвідоміший набір нині розділений між зібраннями в Нью-Йорку та Бергамо, а частину його карт утрачено, серед них Диявола й Вежу.",
+          "Ці колоди показують, як мало ще усталився тоді вигляд колоди. В одній із них, яка зберігається в Єльському університеті, кожна масть має шість придворних карт: поряд із лицарем і пажем є вершниця та служниця, а ще козирі Віра, Надія й Любов, від яких пізніші колоди відмовилися. Навіть чотири придворні карти належать цьому світові гри: звичайні італійські колоди мали короля, лицаря на коні й пішого валета, а колода таро додала Королеву."
+        ]
+      },
+      {
+        "heading": "Що історія дає читанню",
+        "body": [
+          "Знання про те, що таро почалося як гра, не робить читання таро менш вартісним. Воно змінює, куди ви дивитеся. Ці зображення створювали, щоб їх розуміли з першого погляду люди, які знали, який вигляд має чеснота чи тріумф. Уважне читання, що спирається на зображення, вірне тому, як ці картини народилися. Значення, нашаровані пізніше, від XVIII століття, — це традиції читання, і сторінки карт Olivia подають їх як історію.",
+          "Ця історія також звільняє числа. Номер карти спершу був її рангом у грі, а ранги змінювалися від міста до міста. Коли сторінка карти розповідає, що Сила й Справедливість помінялися місцями, ви спостерігаєте, як змінюється домовленість, а не як відкривається прихована істина."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Сила у трьох шарах",
+      "cards": [
+        8,
+        11
+      ],
+      "body": [
+        "Відкрийте сторінку карти Сила. На карті Olivia постать низько схиляє голову над левом, вирізьбленим із сірувато-блакитного лазуриту. Одна рука лежить усією долонею на маківці гриви; друга просуває розслаблені пальці між розкритими щелепами, без жодної напруги в зап’ясті чи руці.",
+        "Тепер поверніть карту на стіл, де вона почала своє життя. Італійські гравці знали її як Стійкість, одну з кардинальних чеснот, а художник колоди Вісконті-Сфорца зобразив постать із піднятою палицею у двобої з левом; зазвичай у ній упізнають Геракла. У грі це був козир середнього рангу: він брав будь-яку карту масті й поступався кожному старшому козирю. Мінявся й номер: марсельський зразок поставив цю карту під XI, а Справедливість — під VIII, Золота Зоря поміняла їх місцями, Вейт пішов слідом, тож на карті Olivia стоїть VIII.",
+        "Тепер видно три шари: чесноту з мистецтва Відродження, ранг, що був правилом гри, і номер, який значно пізніше закріпив вікторіанський магічний орден. Почніть із чесноти й зображення перед вами. Карта Olivia зберігає Стійкість, але палиці на ній немає: мужність тут — спокійна, розкрита рука. Запитання, яке ви візьмете з собою: «Де мужність у вашій ситуації схожа на спокійну руку, а не на підняту руку?»"
+      ]
+    },
+    "tryThis": {
+      "heading": "Спробуйте",
+      "steps": [
+        "Відкрийте сторінку карти Справедливість, прочитайте розділ про традицію й перепишіть у щоденник одну деталь, що сягає Італії XV століття.",
+        "Запишіть у щоденник назви двадцяти двох Старших Арканів по порядку, а тоді позначте три кардинальні чесноти й карту, що стоїть поза послідовністю.",
+        "Оберіть один Старший Аркан і опишіть його зображення так, як це зробили б гравці доби Відродження: яку чесноту, постать чи небесне світило воно показує, ще до будь-якого значення.",
+        "Витягніть одну карту в Olivia й запишіть два рядки: що показує саме зображення і що додала до нього пізніша традиція."
+      ]
+    },
+    "remember": [
+      "Таро почалося як карткова гра на взятки; читання з ним засвідчені від XVIII століття.",
+      "Образи Старших Арканів походять з ренесансної алегорії — чеснот і тріумфів, — а не з таємного вчення.",
+      "Номер карти спершу був її рангом у грі, і різні міста впорядковували козирі по-різному."
+    ]
+  }
+}

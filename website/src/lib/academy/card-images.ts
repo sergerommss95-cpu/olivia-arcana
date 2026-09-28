@@ -25,6 +25,11 @@ export function getCardImagePath(card: TarotCard): string {
   return `/cards/${padded}_${slugify(card.name)}.webp`;
 }
 
+/** A 120 px wide thumbnail of the same artwork, for card lists (public/cards/thumbs/). */
+export function getCardThumbPath(card: TarotCard): string {
+  return getCardImagePath(card).replace("/cards/", "/cards/thumbs/");
+}
+
 /**
  * "Portal" variant — same figure, flat indigo backdrop removed so the card
  * can sit over a nebula gradient (matching the card back's atmosphere).

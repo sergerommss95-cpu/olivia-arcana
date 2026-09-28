@@ -2,21 +2,22 @@
   "schemaVersion": 1,
   "html": {
     "path": "index.html",
-    "bytes": 34136,
-    "sha256": "a51ca058e3f577a9957c35a3b4f5a9ef3ae6085a8a40c4971759b161811a0295"
+    "bytes": 41551,
+    "sha256": "435d27ccbe51205aaed2cc6a194253786f3036167f9f23d0907753704e6d99e6"
   },
   "locales": {
     "en": "index.html",
     "uk": "index.uk.html"
   },
   "native": {
-    "assets": "assets/native-card-assets.dea986411ad84997.js",
+    "assets": "assets/native-card-assets.238c6e27affe27ba.js",
     "scripts": {
       "hero": "assets/hero.571dbb5283ae03b8.js",
-      "background": "assets/background.09dbdd3a4214ffb9.js",
-      "app": "assets/app.b3e974809d1cba6b.js"
+      "background": "assets/background.3bba5aa61a93e616.js",
+      "app": "assets/app.811b03e4e3f72425.js",
+      "app-en": "assets/app-en.7265feeeb5601eb6.js"
     },
-    "stylesheet": "assets/experience.041fa02ab44453f8.css"
+    "stylesheet": "assets/experience.03dffb6567f95569.css"
   },
   "deck": {
     "major": 22,
@@ -195,6 +196,10 @@
     "assets/card-back.ce80d77b8f0d78be.webp": {
       "bytes": 426444,
       "sha256": "ce80d77b8f0d78bea7ea2e7fbb851e40f3afcf39bdad8692fa13a3b27a723c50"
+    },
+    "assets/card-back-phone.1742ebc0ff8a7430.webp": {
+      "bytes": 129172,
+      "sha256": "1742ebc0ff8a74309e4a54d39cd3df5a1d9dd97c675171af89fafe16e9f506d5"
     },
     "assets/00-the-fool.66a8a40d3b156255.webp": {
       "bytes": 227896,
@@ -824,41 +829,177 @@
       "bytes": 185646,
       "sha256": "d31c2f7dc9bf7e9413fa484f0e21640993976687ffc29ff2e08e7b3595e51bbb"
     },
-    "assets/font-1.0b9a8a33cfaa624d.ttf": {
-      "bytes": 293036,
-      "sha256": "0b9a8a33cfaa624d30f70f9b6686da769b319b8c37a55af16e29fef690108bbf"
+    "assets/00-the-fool-phone.b2e00bf996805eb0.webp": {
+      "bytes": 66842,
+      "sha256": "b2e00bf996805eb06d206a4e265530b2d8954ec967694fd60e85b486e0bbb023"
     },
-    "assets/font-2.6d37a86241a25d63.ttf": {
-      "bytes": 290236,
-      "sha256": "6d37a86241a25d63f8fe6018b4c083449886b7165c1acb15edd0f574f690ecf7"
+    "assets/01-the-magician-phone.a002a6a8c00ff54e.webp": {
+      "bytes": 70956,
+      "sha256": "a002a6a8c00ff54ea70ee14b247582616a8643b09b653ea193e136da214754f1"
     },
-    "assets/font-3.b0ae3e89a7d3ef2b.ttf": {
-      "bytes": 48280,
-      "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9"
+    "assets/02-the-high-priestess-phone.4e770f74b8830a27.webp": {
+      "bytes": 54914,
+      "sha256": "4e770f74b8830a279fa27d1aa6639105641c431353d7865d0d5279634b4eb8db"
     },
-    "assets/experience.041fa02ab44453f8.css": {
-      "bytes": 331596,
-      "sha256": "041fa02ab44453f829350cbfe8fb371ceac8159440b82012245ec43902c7c8cc"
+    "assets/03-the-empress-phone.9236dcf1b997a6b0.webp": {
+      "bytes": 83870,
+      "sha256": "9236dcf1b997a6b0e07d43b646476672a5b8afd4f6c007904a8a9dcb0d1d26d3"
     },
-    "assets/card-assets.b007558dfa892d5f.js": {
-      "bytes": 8849,
-      "sha256": "b007558dfa892d5fb773b093a0a546324ef1504a6d3d9d6637ae80df685dfc59"
+    "assets/04-the-emperor-phone.390cdaf192addce8.webp": {
+      "bytes": 72968,
+      "sha256": "390cdaf192addce8e2818a708f6e59ec54cca11554696fbdbe6ded6a91d4c6b6"
+    },
+    "assets/05-the-hierophant-phone.6cf448bce45e2ca0.webp": {
+      "bytes": 55998,
+      "sha256": "6cf448bce45e2ca0aee52b8928b8eeef9dd0becd26630f44dab4957638986284"
+    },
+    "assets/06-the-lovers-phone.1dac36325651ba04.webp": {
+      "bytes": 88214,
+      "sha256": "1dac36325651ba048ad773915f4598165de584b02ff93021731a456dbd6f1f79"
+    },
+    "assets/07-the-chariot-phone.5decf2f024500502.webp": {
+      "bytes": 59810,
+      "sha256": "5decf2f0245005021098a89d6df2022287d5f69c654f3e26ac87ecba713f692a"
+    },
+    "assets/08-strength-phone.6edd0bbbd55e940a.webp": {
+      "bytes": 79670,
+      "sha256": "6edd0bbbd55e940ae11d648683bb1c7d087324fd956632a7947dc1ac737df46d"
+    },
+    "assets/09-the-hermit-phone.fc360028c8d01ba1.webp": {
+      "bytes": 51830,
+      "sha256": "fc360028c8d01ba1782d9623f4e3109b5af3b8735fb6d434e76fdb9b8b378b3a"
+    },
+    "assets/10-wheel-of-fortune-phone.1f8ecefd084727d1.webp": {
+      "bytes": 86356,
+      "sha256": "1f8ecefd084727d122ac361f3debda99511a8ea52f0f64c95b0b5ae4643932f0"
+    },
+    "assets/11-justice-phone.f4afabc8d03e641d.webp": {
+      "bytes": 63440,
+      "sha256": "f4afabc8d03e641df50ce485e7611bfe9559a8d6573ae04ac106d827c377dc43"
+    },
+    "assets/12-the-hanged-man-phone.cbd5525cb22cc604.webp": {
+      "bytes": 67520,
+      "sha256": "cbd5525cb22cc60489ddbe15e0d5686b0478329022dd11b1a6c5dd74599503db"
+    },
+    "assets/13-death-phone.ac1a69c2096842c5.webp": {
+      "bytes": 65476,
+      "sha256": "ac1a69c2096842c5110569e0c8509f71b6888bb6c805260bbc1c9b629c222a0b"
+    },
+    "assets/14-temperance-phone.534d6df080072297.webp": {
+      "bytes": 77280,
+      "sha256": "534d6df080072297a899d5ae1564c987ba2d210ef5a9cd1ba79da136d589009b"
+    },
+    "assets/15-the-devil-phone.3ee5420af1b18611.webp": {
+      "bytes": 70066,
+      "sha256": "3ee5420af1b18611180dfc313d4c783a1a6aca7ddea454e3ab04c281633aefce"
+    },
+    "assets/16-the-tower-phone.a08d3c333b670590.webp": {
+      "bytes": 52074,
+      "sha256": "a08d3c333b670590bb776e68079b643a34a0ed6900140b4e80e7c09fcadeb7c0"
+    },
+    "assets/17-the-star-phone.92dde8fa3bfd60dc.webp": {
+      "bytes": 59016,
+      "sha256": "92dde8fa3bfd60dc73e79b6a0f3307952865105d186575cc727c50410b7a28ca"
+    },
+    "assets/18-the-moon-phone.388895fce9b31df9.webp": {
+      "bytes": 89800,
+      "sha256": "388895fce9b31df91ac86897be7bbb2283e2e7542689a562e696ac6ad765fb0d"
+    },
+    "assets/19-the-sun-phone.93e09c084efc3add.webp": {
+      "bytes": 69788,
+      "sha256": "93e09c084efc3add361792aa1a1bd2749bf16d9566be34fa7f2f9e3d4a6fdd88"
+    },
+    "assets/20-judgement-phone.1040965e3ecc6239.webp": {
+      "bytes": 101846,
+      "sha256": "1040965e3ecc6239a2532fdccaf4805b0cd0b1001ae09992541b436723ca4cec"
+    },
+    "assets/21-the-world-phone.991bf7dd6dfe51bb.webp": {
+      "bytes": 97418,
+      "sha256": "991bf7dd6dfe51bb9d6c37fd0e24ee31eacaae8adf7d882afb99164554ca9746"
+    },
+    "assets/symbol-trails-en.c72912dafdb59083.json": {
+      "bytes": 166768,
+      "sha256": "c72912dafdb59083ea7e2955ef2e489f5a132ab1f233576be3ead141820f9bab"
+    },
+    "assets/symbol-trails-uk.b01f1c9be7b693f5.json": {
+      "bytes": 288543,
+      "sha256": "b01f1c9be7b693f56b5f9a1cb1e69979a999854598fcf88bb84dd2f4dbbb1f08"
+    },
+    "assets/phrases-en.75b75d31f402583a.json": {
+      "bytes": 24773,
+      "sha256": "75b75d31f402583a022a4ba392693e795727f687e6af8d009ab60e825fb53c4a"
+    },
+    "assets/phrases-uk.7f2196588883c151.json": {
+      "bytes": 36147,
+      "sha256": "7f2196588883c151483b24be1385c34418d2fda5e0b8965ace1b511d94818a4b"
+    },
+    "assets/pairs-en.505066748fbb920d.json": {
+      "bytes": 61785,
+      "sha256": "505066748fbb920d4fd1aa5617dc9bfdc916c01a970225768c2876599daa6e02"
+    },
+    "assets/pairs-uk.55d4db7c932c7dc5.json": {
+      "bytes": 106009,
+      "sha256": "55d4db7c932c7dc566196f5c50cff7a3d61072471a6c79b7d2642382282080f8"
+    },
+    "assets/cardquestions-en.1c62801183cd52cc.json": {
+      "bytes": 20157,
+      "sha256": "1c62801183cd52cc2b8a36d2a827830cf08055f1b4880f487a1959fe8233ef1d"
+    },
+    "assets/cardquestions-uk.ded66dfe86ac6a43.json": {
+      "bytes": 33500,
+      "sha256": "ded66dfe86ac6a436ad98198ed3f7e845111f841823f3e1a64aee5bcedc33a7a"
+    },
+    "assets/pins-en.b9dbaa74ae05c930.json": {
+      "bytes": 167410,
+      "sha256": "b9dbaa74ae05c93029197730e8088143fe653f8eed9d095a6edf446979919e32"
+    },
+    "assets/pins-uk.9c48fbbb806632b3.json": {
+      "bytes": 294974,
+      "sha256": "9c48fbbb806632b3c77ff11839437754a0c0a17aedd451d5fb2ade7c771dae20"
+    },
+    "assets/font-1.f93443f1dec6edc5.woff2": {
+      "bytes": 65232,
+      "sha256": "f93443f1dec6edc5a813ad429d1d023e17428f551db803b0a8063c5c3aa571c4"
+    },
+    "assets/font-2.2c606d97554f1fb6.woff2": {
+      "bytes": 63512,
+      "sha256": "2c606d97554f1fb665339d52e5306713bec2a6bbf1844e669cbdf6eb1f9cf6cf"
+    },
+    "assets/font-3.f37c9b2da331dbd5.woff2": {
+      "bytes": 19144,
+      "sha256": "f37c9b2da331dbd5116b1815976fa450f9968a8abaf5e2c4cabae47f7b85ef19"
+    },
+    "assets/font-4.51adb4c8c5dc00b8.woff2": {
+      "bytes": 6680,
+      "sha256": "51adb4c8c5dc00b8a1974b32754665e5cc7522de621fdd3cb233e6834d98b480"
+    },
+    "assets/experience.03dffb6567f95569.css": {
+      "bytes": 383804,
+      "sha256": "03dffb6567f955697d7e3eddb3b4800cbf97bee6feb4e92f33676b8df1564276"
+    },
+    "assets/card-assets.fca1b13b39dcb256.js": {
+      "bytes": 10942,
+      "sha256": "fca1b13b39dcb256e893217800fc9b0d20e08bcb7108da586d0681a00f537ca6"
     },
     "assets/hero.571dbb5283ae03b8.js": {
       "bytes": 34852,
       "sha256": "571dbb5283ae03b8ebc7d9bafe5c323d000121ac3996692e186667a2f1ec9e1e"
     },
-    "assets/background.09dbdd3a4214ffb9.js": {
-      "bytes": 2535765,
-      "sha256": "09dbdd3a4214ffb90dd101a6a2a8bdbb191316d9d1512231840dd21790513333"
+    "assets/background.3bba5aa61a93e616.js": {
+      "bytes": 2534536,
+      "sha256": "3bba5aa61a93e6167404df17e2e07c751255b869e163882841427bc3ba47c11b"
     },
-    "assets/app.b3e974809d1cba6b.js": {
-      "bytes": 950421,
-      "sha256": "b3e974809d1cba6b7ae11b3be32eecc240bdd269fc683848207a6010cf546dc3"
+    "assets/app.811b03e4e3f72425.js": {
+      "bytes": 888535,
+      "sha256": "811b03e4e3f7242597498a5b590c4b252d7f1a980aac19d43bc9ea37e3d69d64"
     },
-    "assets/native-card-assets.dea986411ad84997.js": {
-      "bytes": 10745,
-      "sha256": "dea986411ad84997b24d6a05c84a4643964816604e4033553131f5b5cff80cea"
+    "assets/app-en.7265feeeb5601eb6.js": {
+      "bytes": 630670,
+      "sha256": "7265feeeb5601eb65cede925439d1664a8b9966ce8cd90495510d913c81d516b"
+    },
+    "assets/native-card-assets.238c6e27affe27ba.js": {
+      "bytes": 13234,
+      "sha256": "238c6e27affe27ba0be201c2ab509e6da26686d22788786b3c57a74d32e71eda"
     }
   },
   "cache": {

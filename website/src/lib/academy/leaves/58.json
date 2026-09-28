@@ -1,0 +1,265 @@
+{
+  "id": 58,
+  "slug": "nine-of-swords",
+  "artwork": {
+    "file": "58_nine_of_swords.webp",
+    "sha256": "41ad1c72fe7ba7d1f1aa77192ec5ef43f57b77a594c3eb3e4a57aba2a676c8b9"
+  },
+  "symbols": [
+    {
+      "key": "hand",
+      "x": 57,
+      "y": 45,
+      "en": {
+        "name": "Hands over the face",
+        "seen": "The ivory figure’s head is bowed forward into the palms; long fingers spread across brow and eyes so that no face can be seen, and wavy hair falls loose down the back.",
+        "meaning": "This gesture is the heart of the traditional card: dread that cannot be looked at and cannot be looked away from. Covering the eyes also shuts out the room, so the mind’s pictures fill the dark without being checked against what is actually there."
+      },
+      "uk": {
+        "name": "Долоні на обличчі",
+        "seen": "Голова фігури зі слонової кістки схилилася вперед, у долоні; довгі пальці розпростерлися на чолі й очах, тож обличчя не видно, а хвилясте волосся вільно спадає на спину.",
+        "meaning": "Цей жест — серце традиційної карти: страх, на який неможливо дивитися і від якого неможливо відвести погляд. Закриті очі відгороджують і від кімнати, тож образи, які творить розум, заповнюють темряву, не звірені з тим, що є насправді."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 47,
+      "y": 29,
+      "en": {
+        "name": "Eight carved lapis swords",
+        "seen": "Eight swords, counted blade by blade, lie horizontally one above another across a tall panel, carved in pale grey-blue lapis, every point aimed left. None touches the figure; the lowest passes behind the bowed head.",
+        "meaning": "The traditional card shows nine swords, the suit’s thoughts stacked like bars in the dark. Olivia’s carving shows eight. You may read the missing blade as the one the worried mind supplies itself: the worst-case thought no one else can see, added at night."
+      },
+      "uk": {
+        "name": "Вісім лазуритових мечів",
+        "seen": "Мечів вісім, пораховано лезо за лезом. Вони лежать горизонтально один над одним на високій панелі, вирізьблені зі світлого сіро-блакитного лазуриту, усі вістрям ліворуч. Жоден не торкається фігури; найнижчий проходить позаду схиленої голови.",
+        "meaning": "Традиційна карта показує дев’ять мечів — думки цієї масті, складені рядами, мов ґрати в темряві. На різьбі Olivia їх вісім. Відсутнє лезо можна прочитати як те, що стривожений розум додає сам: найгіршу думку, якої не бачить ніхто інший, дописану вночі."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 62,
+      "y": 33,
+      "en": {
+        "name": "Staggered hilts and pommels",
+        "seen": "On the right the crossguards and round pommels do not line up: each hilt sits a little further in or out than its neighbour, and several round pommels jut past the panel’s right edge onto the starry lapis.",
+        "meaning": "A hilt is where a sword is held, so the hilts suggest where a thought can be taken up and handled. Their uneven rhythm reads like thoughts arriving out of order, and the pommels crossing the panel’s edge like worry spilling past the frame it was given."
+      },
+      "uk": {
+        "name": "Нерівні руків’я та навершя",
+        "seen": "Праворуч гарди й круглі навершя не вишиковуються в одну лінію: кожне руків’я трохи зсунуте всередину чи назовні відносно сусіднього, а кілька круглих наверш виступають за правий край панелі, на зоряний лазурит.",
+        "meaning": "За руків’я меч тримають, тож руків’я підказують, де думку можна взяти в руки й дати їй раду. Їхній нерівний ритм нагадує думки, що приходять безладно, а навершя, які виходять за край панелі, — тривогу, що вихлюпується за відведену їй рамку."
+      }
+    },
+    {
+      "key": "wall",
+      "x": 45,
+      "y": 12,
+      "en": {
+        "name": "The tall panelled wall",
+        "seen": "Behind the bed rises a tall panel carved in the lapis, crowned with a moulded cornice and set with recessed frames, like a shut door or shutter; the swords are mounted across it.",
+        "meaning": "In the traditional image the swords hang against plain darkness. Here they hang on something built, closer to a closed door or window than to open night. It gives the fear an architecture: a room of the mind with its shutters closed, while the starry sky carries on beside it."
+      },
+      "uk": {
+        "name": "Висока стіна з панелями",
+        "seen": "За ліжком здіймається висока панель, вирізьблена в лазуриті, увінчана профільованим карнизом і поділена заглибленими рамками, наче зачинені двері чи віконниця; поперек неї закріплено мечі.",
+        "meaning": "На традиційному зображенні мечі висять на тлі порожньої темряви. Тут вони висять на чомусь збудованому, ближчому до зачинених дверей чи вікна, ніж до відкритої ночі. Страх набуває архітектури: це кімната розуму із зачиненими віконницями, тоді як зоряне небо поруч живе своїм життям."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 45,
+      "y": 57,
+      "en": {
+        "name": "Sitting up in bed",
+        "seen": "The figure sits upright among the bedclothes in a loose ivory gown with gathered long sleeves, torso slumped forward over the quilt, one forearm lying slack across it with the hand hanging loose.",
+        "meaning": "Traditionally the figure has just woken, upright at the hour when rest should come. The slack forearm on the quilt shows exhaustion as much as fear: the body is spent while the mind keeps running, a familiar shape of sleepless worry."
+      },
+      "uk": {
+        "name": "Фігура сидить у ліжку",
+        "seen": "Фігура сидить у постелі у вільній нічній сорочці зі слонової кістки з довгими присобраними рукавами; тулуб похилився вперед над ковдрою, одне передпліччя безвільно лежить на ній, а кисть звисає.",
+        "meaning": "За традицією фігура щойно прокинулася й сидить у ліжку саме тієї години, коли мав би настати спочинок. Безвільне передпліччя на ковдрі говорить про виснаження не менше, ніж про страх: тіло знесилене, а думки все біжать — знайомий обрис безсонної тривоги."
+      }
+    },
+    {
+      "key": "rose",
+      "x": 69,
+      "y": 72,
+      "en": {
+        "name": "The single gold rose",
+        "seen": "On the quilt, a little below the hanging hand, one rose is inlaid in gold with a short stem and two leaves. It is the only gold anywhere on the bed or bedclothes.",
+        "meaning": "Roses in tarot speak of beauty, love and what still blooms. The traditional quilt carries many roses; Olivia gilds just one. Close to the resting hand, it quietly marks something precious and intact that the covered eyes are not yet seeing."
+      },
+      "uk": {
+        "name": "Єдина золота троянда",
+        "seen": "На ковдрі, трохи нижче від звислої кисті, інкрустовано золотом одну троянду з коротким стеблом і двома листками. Це єдине золото на ліжку й постелі.",
+        "meaning": "Троянди в таро говорять про красу, любов і те, що досі квітне. Традиційна ковдра вкрита безліччю троянд; Olivia золотить лише одну. Поруч із розслабленою рукою вона тихо позначає щось цінне й неушкоджене, чого закриті очі ще не бачать."
+      }
+    },
+    {
+      "key": "flowers",
+      "x": 58,
+      "y": 80,
+      "en": {
+        "name": "A quilt of carved roses",
+        "seen": "The lighter blue quilt spills over the bed’s edge in heavy folds, stitched into a diamond lattice with a small carved rose in every compartment, repeated across the whole cover.",
+        "meaning": "The traditional quilt mixes roses with astrological signs, a hint of a wider order around the sleeper. Here the pattern is roses only: steady, repeated, soft. The bed still offers warmth and comfort; the distress lies in the mind, not in what surrounds it."
+      },
+      "uk": {
+        "name": "Ковдра з різьблених троянд",
+        "seen": "Світліша блакитна ковдра важкими складками спадає з краю ліжка; вона простьобана ромбами, і в кожній комірці вирізьблено маленьку троянду — візерунок повторюється по всьому покриву.",
+        "meaning": "Традиційна ковдра поєднує троянди з астрологічними знаками — натяк на ширший порядок довкола сплячої людини. Тут візерунок складається лише з троянд: рівний, повторюваний, м’який. Ліжко досі дарує тепло й затишок; неспокій живе в думках, а не в тому, що довкола."
+      }
+    },
+    {
+      "key": "other",
+      "x": 26,
+      "y": 70,
+      "en": {
+        "name": "The carved duel",
+        "seen": "On the bed’s end panel at lower left, two small figures in tunics are carved in low relief, one swinging a sword overhead, the other stepping in with a raised blade.",
+        "meaning": "The traditional bed carries a scene of one figure overcoming another, often read as an old conflict replayed while you lie awake. It is carved small and low, into the furniture: the fight is a memory worked into the bed, not an event in the room."
+      },
+      "uk": {
+        "name": "Різьблений двобій",
+        "seen": "На бильці ліжка, внизу ліворуч, низьким рельєфом вирізьблено дві маленькі фігури в туніках: одна заносить меч над головою, друга ступає назустріч із піднятим лезом.",
+        "meaning": "На традиційному ліжку зображено сцену, де одна фігура долає іншу; її часто читають як давній конфлікт, що прокручується знову, поки ви лежите без сну. Сцену вирізьблено дрібно й неглибоко, просто в меблях: бій — це спогад, закладений у саме ліжко, а не подія в кімнаті."
+      }
+    },
+    {
+      "key": "star",
+      "x": 62,
+      "y": 7,
+      "en": {
+        "name": "Gold stars beyond the panel",
+        "seen": "Small gold flecks and a few tiny starbursts are scattered across the dark lapis around the panel and the bed, from the top corners down to the lower edge.",
+        "meaning": "The traditional card sets its swords against a black night. Olivia’s night keeps its stars, just outside the panel where the swords hang. The larger sky has not vanished; worry narrows the view, and the room it narrows to is smaller than the night."
+      },
+      "uk": {
+        "name": "Золоті зорі за панеллю",
+        "seen": "Дрібні золоті вкраплення й кілька крихітних променистих зірочок розсипані по темному лазуриту довкола панелі й ліжка, від верхніх кутів аж до нижнього краю.",
+        "meaning": "Традиційна карта розміщує мечі на тлі чорної ночі. Ніч Olivia зберігає свої зорі — одразу за панеллю, де висять мечі. Ширше небо нікуди не зникло; тривога звужує погляд, а кімната, до якої вона його звужує, менша за ніч."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Nine of Swords gives shape to worry at its loudest: the sleepless hour when thoughts multiply and fear feels larger than anything in the room.",
+    "keywords": {
+      "upright": [
+        "anxiety",
+        "sleepless worry",
+        "overthinking",
+        "night fears",
+        "mental overload"
+      ],
+      "reversed": [
+        "fear loosening",
+        "worry kept secret",
+        "reaching out",
+        "morning perspective",
+        "stuck in rumination"
+      ]
+    },
+    "upright": [
+      "The Nine of Swords is the card of the three o’clock in the morning mind. It draws attention to worry that has grown larger than its occasion: thoughts that replay, sharpen and multiply once the lights are out and nothing can be done about them. In Olivia’s deck the ivory figure sits up in bed with hands pressed over the face while a slack forearm lies across the quilt. It is a picture of a body that is exhausted and a mind that will not stop.",
+      "Look closely at where the swords are. They hang in horizontal rows on a tall panel behind the bed, grey-blue lapis on blue, and not one of them touches the figure. Their hilts sit unevenly, like thoughts arriving out of order. The card is commonly read this way: the distress is real, but much of it lives in anticipation and replay, not in what is happening in the room. Count them and you find eight carved blades; the ninth may be the one the worried mind adds for itself.",
+      "Upright, the card invites you to take the fear seriously enough to look at it. Covering the eyes keeps out the room as well as the dread. Write the thought down, separate what you know from what you imagine, and notice the gold rose on the quilt, close to the resting hand. Distress this persistent also deserves company: a trusted person, or professional support if sleeplessness and anxiety are weighing on you. This is symbolic language for a state of mind, not a forecast."
+    ],
+    "reversed": [
+      "Nine of Swords reversed draws attention to worry that is either beginning to loosen or being held more tightly out of sight. You may notice the first grey light of perspective: a fear spoken aloud shrinks, a night passes, and the rows of swords look more like furniture than threats. Or the anxiety may have gone underground, carried privately because it feels shameful or too much to explain, so it circles without the check of another view.",
+      "Either way, this position asks what would let a little daylight in. Sharing part of the worry with someone you trust, writing it down or seeking support are not signs of failing to cope. You do not have to reason your way through the night alone."
+    ],
+    "number": "Nine is the last single number, the fullness of a suit just before the Ten tips it into completion or overload. In Wands that fullness is stamina, in Cups contentment, in Pentacles self-sufficiency. In Swords, the suit of Air and thought, it means a mind with no room left: every idea examined, every outcome rehearsed. The Nine asks you to notice when thinking has stopped solving and started circling, and to meet that saturation with rest, words and company rather than more thought.",
+    "tradition": "In the Golden Dawn system the Nine of Swords is titled the Lord of Despair and Cruelty. It is assigned to Mars in Gemini, the third decan of that sign (20 to 30 degrees), and to Yesod, the Foundation, the ninth Sephirah, linked with the Moon, dreams and imagination, here expressed through Air. Mars’s sharpness in quick, doubling Gemini is often read as thought turning on itself. Aleister Crowley shortened the title to Cruelty. Marseille decks show only an interlaced pattern of blades. Pamela Colman Smith’s 1909 design introduced the now familiar scene: a figure sitting up in bed, face in hands, beneath nine horizontal swords, with roses and astrological signs on the quilt and a carved combat on the bed.",
+    "areas": {
+      "love": "In close relationships the Nine of Swords often points to worry about a bond more than to anything the bond has actually shown: replaying a message, imagining what another person must be thinking, rehearsing a painful conversation at night. The card cannot tell you what someone else feels. It asks you to notice which fears are built from evidence and which from the dark, and whether a calm daytime conversation, or simply reassurance from yourself, would serve better than another sleepless draft.",
+      "work": "At work or in study, the card can reflect a deadline, a mistake or a decision that has taken over the hours meant for rest. Swords ask for clarity, so turn the swirl into a list: what is actually due, what is within your control, what can wait until morning. Where money or practical matters are weighing on you, a conversation with a qualified person usually helps more than running figures through the night alone.",
+      "self": "For your relationship with yourself, this card turns attention to how you treat your own mind when it is frightened. The figure’s covered face and slack arm show both fear and tiredness, and both deserve care. Notice the patterns of your worry: the hour it comes, the phrases it repeats. If anxiety or sleeplessness has become a steady companion, it is worth speaking to a doctor or counsellor; asking for help is part of looking after yourself."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Nine of Swords can point to worry that may have grown larger than the situation itself. Separating the fear from the facts may be the real work here.",
+      "challenge": "As a challenge, the card can show a mind that rehearses the worst outcome over and over, or distress kept private until it crowds out sleep, perspective and the people who could help.",
+      "advice": "As advice, it invites you to write the fear down, check it against what you know by daylight, and share a part of it with someone you trust."
+    },
+    "pairs": [
+      {
+        "with": 57,
+        "text": "With the Eight of Swords the pair traces a sequence of the mind: first blindfolded and loosely bound among blades, then awake beneath them in bed. Olivia’s carvings swap the counts, nine blades around the Eight and eight above the Nine, a quiet reminder that fear rarely counts accurately."
+      },
+      {
+        "with": 18,
+        "text": "The Moon belongs to night, dreams and uncertain shapes, and in the Golden Dawn system the Nine of Swords sits in Yesod, the sphere linked with the Moon. Together they ask which fears come from the dark itself rather than from what is really there."
+      },
+      {
+        "with": 44,
+        "text": "The Nine of Cups shows fullness as satisfaction; the Nine of Swords shows fullness as a mind with no room left. Side by side the two nines ask what you are filling yourself with, and what contentment would need from your thoughts."
+      }
+    ],
+    "questions": [
+      "Which part of this worry rests on something you know, and which part on something you imagine?",
+      "What does this fear usually say to you at night, and how does it sound in daylight?",
+      "Who could you trust with even a small part of what keeps you awake?"
+    ],
+    "practice": "Before sleep, write the worry in one sentence on paper, add one thing you know to be true, then close the notebook until morning."
+  },
+  "uk": {
+    "essence": "Дев’ятка Мечів дає тривозі форму в найгучнішу її пору: у безсонну годину, коли думки множаться, а страх здається більшим за будь-що в кімнаті.",
+    "keywords": {
+      "upright": [
+        "тривога",
+        "безсонний неспокій",
+        "прокручування думок",
+        "нічні страхи",
+        "перевантажений розум"
+      ],
+      "reversed": [
+        "послаблення страху",
+        "прихована тривога",
+        "пошук підтримки",
+        "ранкова ясність",
+        "замкнене коло думок"
+      ]
+    },
+    "upright": [
+      "Дев’ятка Мечів — карта розуму о третій годині ночі. Вона звертає увагу на тривогу, що переросла свій привід: думки, які повторюються, загострюються й множаться, щойно згасне світло і вже нічого не можна вдіяти. У колоді Olivia фігура зі слонової кістки сидить у ліжку, притиснувши долоні до обличчя, а безвільне передпліччя лежить на ковдрі. Це образ виснаженого тіла й розуму, що не може зупинитися.",
+      "Придивіться, де саме розташовані мечі. Вони висять горизонтальними рядами на високій панелі за ліжком, сіро-блакитний лазурит на синьому, і жоден не торкається фігури. Їхні руків’я стоять нерівно, наче думки, що приходять безладно. Саме так карту зазвичай і читають: страждання справжнє, але чимала його частина живе в очікуванні й повторах, а не в тому, що відбувається в кімнаті. Порахуйте їх — і знайдете вісім вирізьблених лез; дев’яте, можливо, стривожений розум додає сам.",
+      "У прямому положенні карта запрошує поставитися до страху настільки серйозно, щоб на нього подивитися. Закриті очі відгороджують не лише від жаху, а й від кімнати. Запишіть думку, відокремте те, що ви знаєте, від того, що уявляєте, і помітьте золоту троянду на ковдрі, поруч із розслабленою рукою. Така затяжна тривога теж заслуговує на товариство: людину, якій ви довіряєте, або фахову підтримку, якщо безсоння й неспокій лягають на вас тягарем. Це символічна мова внутрішнього стану, а не прогноз."
+    ],
+    "reversed": [
+      "Перевернута Дев’ятка Мечів звертає увагу на тривогу, яка або починає відпускати, або ще міцніше ховається від чужих очей. Можливо, ви помітите, як сіріє світанок і ширшає погляд: страх, промовлений уголос, меншає, ніч минає, а ряди мечів уже більше скидаються на меблі, ніж на загрозу. Або ж неспокій пішов углиб: ви носите його в собі, бо він здається чимось соромним або надто складним, щоб пояснювати, і тому кружляє, не звіряючись із поглядом збоку.",
+      "Хай там як, перевернута карта питає, що могло б впустити сюди трохи денного світла. Поділитися частиною тривоги з людиною, якій ви довіряєте, записати її чи звернутися по підтримку — не ознака того, що ви не даєте собі ради. Ніч не обов’язково долати наодинці й лише силою роздумів."
+    ],
+    "number": "Дев’ять — останнє однозначне число, повнота масті перед тим, як Десятка переведе її в завершення чи перевантаження. У Жезлах ця повнота — витривалість, у Кубках — вдоволення, у Пентаклях — самодостатність. У Мечах, масті Повітря й думки, вона означає розум, у якому не лишилося місця: кожну ідею розглянуто, кожен можливий результат прокручено в уяві. Дев’ятка просить помітити, коли мислення перестало розв’язувати й почало ходити колами, і відповісти на це перенасичення відпочинком, словами й товариством, а не новими думками.",
+    "tradition": "У системі Золотої Зорі Дев’ятка Мечів має титул Володар Відчаю і Жорстокості. Її пов’язують із Марсом у Близнятах, третім деканатом цього знака (від 20 до 30 градусів), і з Єсодом, Основою, дев’ятою сефірою, яку асоціюють із Місяцем, снами й уявою, — тут вони виражені через Повітря. Гостроту Марса у швидких, подвійних Близнятах часто читають як думку, що обертається проти самої себе. Алістер Кроулі скоротив назву до «Жорстокості». Марсельські колоди показують лише переплетений візерунок лез. Дизайн Памели Колман Сміт 1909 року запровадив нині знайому сцену: фігуру, що сидить у ліжку, сховавши обличчя в долонях, під дев’ятьма горизонтальними мечами, з трояндами й астрологічними знаками на ковдрі та різьбленим двобоєм на ліжку.",
+    "areas": {
+      "love": "У близьких стосунках Дев’ятка Мечів часто вказує радше на тривогу за зв’язок, ніж на те, що цей зв’язок справді показав: ви перечитуєте повідомлення, уявляєте, що, мабуть, думає інша людина, вночі репетируєте болючу розмову. Карта не може сказати, що відчуває хтось інший. Вона просить помітити, які страхи збудовано з фактів, а які — з темряви, і чи не допоможе спокійна розмова вдень — або просто слова підтримки, які ви можете сказати собі самі, — більше, ніж ще одна безсонна чернетка.",
+      "work": "На роботі чи в навчанні карта може відбивати кінцевий строк, помилку чи рішення, що захопили години, призначені для відпочинку. Мечі просять ясності, тож перетворіть цей вир на список: що справді треба зробити, що залежить від вас, що може почекати до ранку. Коли вас гнітять фінансові чи практичні питання, розмова з кваліфікованим фахівцем зазвичай допомагає більше, ніж цілу ніч наодинці прокручувати цифри.",
+      "self": "У стосунках із собою ця карта звертає увагу на те, як ви поводитеся з власним розумом, коли йому страшно. Закрите обличчя й безвільна рука фігури показують і страх, і втому, і обидва заслуговують на турботу. Придивіться до закономірностей своєї тривоги: о котрій годині вона приходить, які фрази повторює. Якщо неспокій чи безсоння стали постійними супутниками, варто поговорити з лікарем або психологом; попросити про допомогу — теж частина турботи про себе."
+    },
+    "positions": {
+      "heart": "У центрі запитання Дев’ятка Мечів може вказувати на тривогу, що, можливо, переросла саму ситуацію. Справжня робота тут може полягати в тому, щоб відокремити страх від фактів.",
+      "challenge": "У ролі перешкоди карта може вказувати на розум, що знову й знову прокручує найгірший сценарій, або на тривогу, яку тримають у таємниці, доки вона не витіснить сон, тверезий погляд і людей, які могли б допомогти.",
+      "advice": "Як порада вона запрошує записати страх, звірити його з тим, що ви знаєте при денному світлі, і поділитися його частиною з людиною, якій ви довіряєте."
+    },
+    "pairs": [
+      {
+        "with": 57,
+        "text": "У парі з Вісімкою Мечів ця карта простежує послідовність станів розуму: спершу пов’язка на очах і нещільні пута серед лез, потім безсонне пробудження під ними в ліжку. Різьба Olivia міняє числа місцями: дев’ять лез довкола Вісімки й вісім над Дев’яткою — тихе нагадування, що страх рідко рахує точно."
+      },
+      {
+        "with": 18,
+        "text": "Місяць належить ночі, снам і непевним обрисам, а в системі Золотої Зорі Дев’ятка Мечів пов’язана з Єсодом — сферою Місяця. Разом вони питають, які страхи походять від самої темряви, а не від того, що є насправді."
+      },
+      {
+        "with": 44,
+        "text": "Дев’ятка Кубків показує повноту як вдоволення; Дев’ятка Мечів — як розум, де не лишилося місця. Поставлені поруч, ці дві дев’ятки питають, чим ви себе наповнюєте і чого вдоволення потребувало б від ваших думок."
+      }
+    ],
+    "questions": [
+      "Яка частина цієї тривоги спирається на те, що ви знаєте, а яка — на те, що ви уявляєте?",
+      "Що цей страх зазвичай говорить вам уночі і як це звучить при денному світлі?",
+      "Кому ви могли б довірити бодай невелику частину того, що не дає вам спати?"
+    ],
+    "practice": "Перед сном запишіть тривогу одним реченням на папері, додайте одну річ, яку ви точно знаєте, а тоді закрийте записник до ранку."
+  }
+}

@@ -43,3 +43,7 @@ body[data-view=choose][data-single-state=hover] .single-card-object:active{curso
 #choice-range{font-size:.65rem;letter-spacing:.1em;color:var(--muted);font-variant-numeric:tabular-nums}
 @media(max-width:650px){.single-deck-navigation{width:13rem;margin-bottom:.25rem}.choose-footer{bottom:3%}.choose-footer #choose-status{max-width:20rem;font-size:.65rem}.choose-footer .text-action{min-height:36px}}
 @media(max-width:650px){body[data-view=choose] #motion-stage{bottom:26%}}
+/* Reveal light (single-card-flow.js revealLight): one soft pass across the turned face. */
+.single-card-object .reveal-sheen{position:absolute;inset:0;border-radius:3.8%/2.2%;overflow:hidden;pointer-events:none;opacity:0}
+.single-card-object .reveal-sheen b{position:absolute;top:-12%;bottom:-12%;left:-30%;width:34%;background:linear-gradient(100deg,#fff8e600,#fff6df26 38%,#fffaf05c 50%,#fff6df26 62%,#fff8e600);transform:translateX(-40%) skewX(-12deg);mix-blend-mode:screen}
+@media(prefers-reduced-motion:reduce){.single-card-object .reveal-sheen{display:none}}

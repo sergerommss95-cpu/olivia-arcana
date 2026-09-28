@@ -347,7 +347,11 @@ export default async function SignDetailPage({ params }: { params: Promise<{ sig
         .sign-share button {
           background: var(--ink) !important;
           border-color: var(--ink) !important;
-          color: #f6f1e5 !important;
+          color: #0b1c2c !important;
+        }
+
+        .sign-share button span {
+          color: inherit !important;
         }
 
         .sign-section {

@@ -1,3 +1,5 @@
+import { MINOR_REVERSED } from './minor-reversed.js';
+
 // Authored Minor Arcana reflections. Stable IDs follow Wands, Cups, Swords,
 // Pentacles, each ordered Ace–Ten, Page, Knight, Queen, King. Court cards
 // describe qualities to explore, not a person's gender or a predicted visitor.
@@ -630,11 +632,9 @@ export const MINOR_NOTES = Object.fromEntries(entries.map(card => [card.id, {
 }]));
 
 // A reversal changes the angle of reflection; it is not a prediction of harm.
-// Each card retains its own tension, release and practical response.
+// Each card has its own authored reversed note (minor-reversed.js).
 export const MINOR_REVERSED_NOTES = Object.fromEntries(entries.map(card => [card.id, {
-  meaning: `${card.name} reversed turns attention toward ${card.friction}. Notice whether the quality of ${card.gift} feels difficult to access, has become excessive, or needs a different expression. You can explore this without deciding that anything is wrong with you. Consider loosening ${card.release}; a useful response may be to ${card.action}.`,
-  prompt: `Where do you recognise ${card.friction}, and what would a more workable response look like?`,
-  practice: sentence(card.action),
+  ...MINOR_REVERSED[card.id],
   learn: card.learn
 }]));
 

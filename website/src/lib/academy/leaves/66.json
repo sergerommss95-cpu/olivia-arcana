@@ -1,0 +1,267 @@
+{
+  "id": 66,
+  "slug": "three-of-pentacles",
+  "artwork": {
+    "file": "66_three_of_pentacles.webp",
+    "sha256": "06d383055313e14fa4887a81d066d2fd934f8f7d6946ee6a3ce0a1e78338530d"
+  },
+  "symbols": [
+    {
+      "key": "pentacle",
+      "x": 51,
+      "y": 18,
+      "en": {
+        "name": "The gold pentacle above",
+        "seen": "At the apex of the pointed arch, inside a moulded circle, a solid five-pointed star is inlaid in gold; it is the only gold on the carved architecture and sits above the other two.",
+        "meaning": "The pentacle is the suit’s emblem of earth: body, material, money, work made real. Setting the one gold star at the top of the triangle suggests a shared aim held above the individual contributions, the standard everyone is working towards rather than any one person’s share."
+      },
+      "uk": {
+        "name": "Золотий пентакль угорі",
+        "seen": "На самій вершині стрілчастої арки, всередині профільованого кола, золотом інкрустовано суцільну п’ятикутну зірку. Це єдине золото на всій різьбленій архітектурі, і зірка розміщена вище за два інші пентаклі.",
+        "meaning": "Пентакль — емблема масті, знак стихії Землі: тіло, матеріал, гроші, робота, що набула відчутної форми. Єдина золота зірка на вершині трикутника вказує на спільну мету, поставлену вище за окремі внески: на стандарт, до якого прагнуть усі, а не на частку когось одного."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 35,
+      "y": 26,
+      "en": {
+        "name": "Two lapis pentacles",
+        "seen": "Lower left and lower right of the gold star, two pentagrams are cut into the lapis inside raised circles of matching size, drawn in outline with their inner lines and left in the stone’s own blue.",
+        "meaning": "The traditional image carves the three pentacles into the church stonework. Here two are uncoloured outlines and one is solid gold, so the triangle reads as two hands of work supporting a single finished value: contribution first, recognition shared."
+      },
+      "uk": {
+        "name": "Два пентаклі з лазуриту",
+        "seen": "Ліворуч і праворуч, трохи нижче від золотої зірки, у лазурит врізано дві пентаграми в опуклих колах однакового розміру. Їх накреслено лише контуром, з усіма внутрішніми лініями, і залишено у власній синяві каменю.",
+        "meaning": "У традиційному зображенні три пентаклі вирізьблено в камені церковної кладки. Тут два з них — лише контури без позолоти, а один — суцільне золото, тож трикутник постає як дві робочі руки, що підтримують одну завершену цінність: спершу внесок, а тоді спільне визнання."
+      }
+    },
+    {
+      "key": "rose",
+      "x": 51,
+      "y": 25,
+      "en": {
+        "name": "The carved five-petalled flower",
+        "seen": "Between the two lower pentacles and directly beneath the gold one, a single five-petalled flower with a round centre and small leaves at either side is carved in the lapis of the arch.",
+        "meaning": "A five-petalled rose echoes the pentacle’s five points and is commonly read as beauty that is cultivated rather than found. The Golden Dawn set this card’s pentacles on a rose branch; Olivia carves a single rose as the quiet place where skill turns into grace."
+      },
+      "uk": {
+        "name": "Різьблена п’ятипелюсткова квітка",
+        "seen": "Між двома нижніми пентаклями, точно під золотим, у лазуриті арки вирізьблено одну-єдину квітку з п’ятьма пелюстками, круглою серединкою та невеликими листочками з обох боків від неї.",
+        "meaning": "П’ятипелюсткова троянда перегукується з п’ятьма променями пентакля; її зазвичай читають як красу, яку плекають, а не просто знаходять. У Золотій Зорі пентаклі цієї карти розміщували на трояндовій гілці; Olivia вирізьблює одну троянду — тихе місце, де вміння стає витонченістю."
+      }
+    },
+    {
+      "key": "arch",
+      "x": 62,
+      "y": 44,
+      "en": {
+        "name": "The Gothic doorway",
+        "seen": "A tall pointed arch, carved in pale lapis, rests on clustered columns with carved capitals; within its inner arch a church façade with spires, tracery windows and a statue in a niche is cut in shallow relief.",
+        "meaning": "The church or cathedral setting is the classic sign of this card: a building no single person could raise, made over years by many trades. Olivia carves the whole building in the background, so the small repair in front is shown as one part of a much larger work."
+      },
+      "uk": {
+        "name": "Готичний портал",
+        "seen": "Висока стрілчаста арка з блідого лазуриту спирається на пучкові колони з різьбленими капітелями. Усередині її внутрішньої арки неглибоким рельєфом вирізано фасад церкви: шпилі, вікна з ажурним різьбленням і статую в ніші.",
+        "meaning": "Церква чи собор — класична прикмета цієї карти: будівля, яку не звести одній людині, бо її роками творять майстри багатьох ремесел. Olivia вирізьблює всю споруду на тлі, тож дрібний ремонт на передньому плані постає лише частиною значно більшої праці."
+      }
+    },
+    {
+      "key": "other",
+      "x": 44,
+      "y": 39,
+      "en": {
+        "name": "Hammer and chisel",
+        "seen": "The curly-haired ivory worker raises a block-headed hammer in one hand and sets a chisel against the wall with the other; fine cracks run through the lapis around the chisel’s point.",
+        "meaning": "The mason at work is the heart of the traditional image: skill applied, not merely possessed. The cracks in the stone suggest this may be mending as much as making, careful attention to an existing structure. The worker faces the stone, absorbed, while the others look up."
+      },
+      "uk": {
+        "name": "Молоток і різець",
+        "seen": "Кучерява постать майстра зі слонової кістки однією рукою здіймає молоток із прямокутним бойком, а другою приставляє до стіни різець; навколо вістря різця лазурит перетинають тонкі тріщини.",
+        "meaning": "Каменяр за роботою — серце традиційного зображення: вміння, яке застосовують, а не лише мають. Тріщини в камені підказують, що це може бути не лише творення, а й лагодження, уважна турбота про вже наявну споруду. Майстер зосереджено дивиться на камінь, а решта — вгору."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 36,
+      "y": 57,
+      "en": {
+        "name": "The tonsured figure’s joined hands",
+        "seen": "On the left, a figure in an ivory monastic habit with a tonsured head looks up at the worker, palms pressed together at the chest; a lowered hood lies around the shoulders.",
+        "meaning": "A monk traditionally stands for the institution, the tradition or the client whose purpose the work serves. The joined hands add reverence: the onlooker honours the skill rather than directing it, a picture of respect flowing towards expertise."
+      },
+      "uk": {
+        "name": "Складені долоні постаті з тонзурою",
+        "seen": "Ліворуч постать у чернечій рясі зі слонової кістки, з тонзурою на голові, дивиться вгору на майстра, притиснувши складені долоні до грудей; опущений каптур лежить довкола плечей.",
+        "meaning": "Чернець традиційно уособлює інституцію, традицію або замовника, чиїй меті служить робота. Складені долоні додають шанобливості: спостерігач вшановує майстерність, а не керує нею. Це образ поваги, спрямованої до фаховості."
+      }
+    },
+    {
+      "key": "hood",
+      "x": 74,
+      "y": 52,
+      "en": {
+        "name": "The hooded onlooker",
+        "seen": "On the right, a figure in a long ivory robe with the hood raised over the head looks up at the worker in profile, holding the right corner of the open sheet at chest height.",
+        "meaning": "The second observer is commonly read as the patron, architect or keeper of the plan. With face turned upward and hands occupied, this figure is both supporter and custodian: the one who keeps the vision while another shapes the stone."
+      },
+      "uk": {
+        "name": "Постать у каптурі",
+        "seen": "Праворуч постать у довгій шаті зі слонової кістки, з накинутим на голову каптуром, у профіль дивиться вгору на майстра й тримає правий кут розгорнутого аркуша на рівні грудей.",
+        "meaning": "Другого спостерігача зазвичай тлумачать як мецената, архітектора чи хранителя задуму. Обличчя звернене вгору, руки зайняті: ця постать водночас підтримує і береже. Вона тримає бачення цілого, поки хтось інший надає форму каменю."
+      }
+    },
+    {
+      "key": "scroll",
+      "x": 50,
+      "y": 66,
+      "en": {
+        "name": "The plan held open",
+        "seen": "A broad, blank ivory sheet is held open by its upper corners between the two onlookers, hanging in front of the worker’s waist and thighs; nothing is drawn on its visible face.",
+        "meaning": "The plan or drawing in the traditional image stands for design, agreement and a common standard. Olivia leaves the sheet blank, so the card turns attention to the fact that a plan is shared and held open, and leaves its contents to your own question."
+      },
+      "uk": {
+        "name": "Розгорнутий план",
+        "seen": "Широкий чистий аркуш зі слонової кістки тримають розгорнутим за верхні кути двоє спостерігачів; він звисає перед поясом і стегнами майстра, а на його видимому боці нічого не накреслено.",
+        "meaning": "План чи креслення в традиційному зображенні означає задум, домовленість і спільний стандарт. Olivia залишає аркуш порожнім, тож карта звертає увагу на сам факт: план спільний і його тримають розгорнутим, а зміст карта лишає вашому власному запитанню."
+      }
+    },
+    {
+      "key": "other",
+      "x": 53,
+      "y": 83,
+      "en": {
+        "name": "The carved bench",
+        "seen": "The worker stands on a low ivory bench whose front opens in an arch with three carved tracery panels above it; a folded cloth lies on its top beneath the feet.",
+        "meaning": "Standing on a bench to reach the work is part of the traditional image: the worker is raised, literally, by the task. Here the bench repeats the arch of the building, as if the tools and supports of the craft are made in the same spirit as the work itself."
+      },
+      "uk": {
+        "name": "Різьблена лава",
+        "seen": "Майстер стоїть на низькій лаві зі слонової кістки; її передня стінка відкривається аркою, над якою вирізьблено три ажурні панелі, а зверху на лаві під ногами лежить складена тканина.",
+        "meaning": "Лава, на яку майстер стає, щоб дотягтися до роботи, — частина традиційного зображення: саме завдання буквально підносить того, хто працює. Тут лава повторює арку будівлі, ніби інструменти й опори ремесла створено в тому самому дусі, що й саму працю."
+      }
+    }
+  ],
+  "en": {
+    "essence": "Skill becomes something lasting when it meets a shared plan: the Three of Pentacles honours craft, feedback and the respect that makes collaboration work.",
+    "keywords": {
+      "upright": [
+        "craftsmanship",
+        "collaboration",
+        "shared standards",
+        "learning by doing",
+        "earned respect",
+        "building together"
+      ],
+      "reversed": [
+        "unclear roles",
+        "working in isolation",
+        "credit disputes",
+        "cutting corners",
+        "plan without skill"
+      ]
+    },
+    "upright": [
+      "The Three of Pentacles is the card of work that needs more than one kind of skill. In Olivia’s carving, a worker stands on a bench inside a Gothic doorway, hammer raised and chisel set against the stone, while two robed figures look up and hold a plan open between them. Nobody here does everything. One shapes, one keeps the design, one brings purpose and blessing. The card draws attention to what becomes possible when each part is done well and each person knows where their part fits.",
+      "Look at where the gold falls. Of the three pentacles carved into the arch, only the highest is gilded, while the two below stay in the stone’s own blue. The card invites you to notice the common standard that sits above everyone’s individual contribution, and to let that standard, not status, guide the conversation. It can point to a stage where your competence is visible and worth offering, and where specific feedback from people who see the whole plan sharpens it.",
+      "This is also a card of learning inside real work: an apprenticeship, a first professional project, a group that teaches as it builds. Behind the worker, a whole cathedral façade is carved in the lapis, far larger than the patch of wall being worked on. Your piece matters because it joins something bigger, and the card asks you to give it your best attention."
+    ],
+    "reversed": [
+      "Three of Pentacles reversed turns attention to shared work that has lost its common plan. Roles may be blurred, so effort is duplicated while something important falls between the gaps; or one person does the shaping while others hold a plan nobody has explained. It can also point to skill kept to yourself, when asking for or offering feedback would make the result stronger.",
+      "In its inward form, the reversal can describe doubting your own craft so much that you never step up onto the bench, or polishing a private piece that no one else is allowed to see. Before pushing harder, it invites you to check three things: whether everyone is working to the same standard, who is responsible for what, and whose contribution has not yet been credited."
+    ],
+    "number": "Threes follow the meeting of two with a first result: something now exists that neither part could make alone. In Pentacles, the suit of earth, body and practical life, that result is tangible: the first real product of skill, a piece of work others can see, use and judge. Where the Two of Pentacles juggles resources, the Three commits them to a plan. It asks for the patience of a craftsperson who knows this is a foundation stage, and for openness to the standards and eyes of other people.",
+    "tradition": "In the Golden Dawn system the Three of Pentacles is titled Lord of Material Works and assigned to Mars in Capricorn, the second decan of that earth sign. Mars is traditionally exalted in Capricorn, so the attribution pairs raw energy with discipline and structure. As a Three it belongs to Binah, the sphere of understanding and form. The Order’s own description placed three pentacles on a rose branch held by an angelic hand. Marseille-pattern decks show three coins among stylised foliage. Pamela Colman Smith’s 1909 design gave the card a scene: a sculptor working in a church arch while two onlookers, one holding a plan, look on, which is why it is read today as skill and collaboration. Crowley’s Thoth deck later named it Work.",
+    "areas": {
+      "love": "In close relationships, including the one with yourself, the Three of Pentacles looks at what you are building together and how you divide the work of it. It invites you to name each person’s strengths plainly, to share the plan instead of assuming it, and to show appreciation for care that is practical: the repair done, the meal made, the routine kept. Respect for how each of you contributes can matter as much as how you feel.",
+      "work": "At work, in study or in handling money, this card favours clear roles, a shared standard and honest feedback on concrete work. It can point to a moment for showing your skill to people who can judge it well, for seeking a mentor, or for a project where your craft meets someone else’s plan. Ask what finished looks like, who decides it is good enough, and how each contribution will be credited.",
+      "self": "For your own growth, the Three of Pentacles asks you to treat a skill as something practised in company. Where could you let a more experienced eye look at your work, or offer yours to someone learning? The card honours humble, repeated effort, the chisel set against the same stone again and again, and invites you to take your competence seriously without needing it to be finished or perfect."
+    },
+    "positions": {
+      "heart": "At the centre of your question may sit a piece of work that needs several people or several skills. The card draws attention to how well the plan, the craft and the purpose are joined.",
+      "challenge": "What complicates things may be unclear roles, a plan nobody has fully shared, or skill that is not yet being seen or credited. It can also be hesitancy to ask for feedback.",
+      "advice": "Show a concrete piece of your work to someone who understands the whole plan, and ask for one specific improvement. Agree who is responsible for what before going further."
+    },
+    "pairs": [
+      {
+        "with": 71,
+        "text": "With the Eight of Pentacles, the same hammer, chisel and bench appear, first in company, then alone. Together they draw attention to how skill grows: through repetition on your own bench, then through testing it against a shared plan and other people’s eyes."
+      },
+      {
+        "with": 5,
+        "text": "With The Hierophant, both cards show robed figures, tradition and teaching. Together they can point to learning inside an institution or lineage, and ask how you honour established knowledge while still bringing your own hand to the work."
+      },
+      {
+        "with": 68,
+        "text": "With the Five of Pentacles, both show Gothic stonework crowned by a single gold pentacle: here people work inside the arch, there two figures pass outside the window in the snow. Together they ask who is included in a shared project, and who could be invited in."
+      }
+    ],
+    "questions": [
+      "Whose skill or perspective would improve this work if you made clear room for it?",
+      "What would a shared standard for “good enough” look like here, and who needs to agree it?",
+      "Where are you ready to show your craft to someone whose judgement you respect?"
+    ],
+    "practice": "Choose one piece of your current work and ask one person you trust for a single, specific piece of feedback; write down what you change as a result."
+  },
+  "uk": {
+    "essence": "Уміння стає чимось тривким, коли зустрічає спільний задум: Трійка Пентаклів вшановує ремесло, відгук і повагу, завдяки яким співпраця вдається.",
+    "keywords": {
+      "upright": [
+        "майстерність",
+        "співпраця",
+        "спільні стандарти",
+        "навчання на практиці",
+        "заслужена повага",
+        "будувати разом"
+      ],
+      "reversed": [
+        "розмиті ролі",
+        "робота наодинці",
+        "суперечки про заслуги",
+        "робота абияк",
+        "план без уміння"
+      ]
+    },
+    "upright": [
+      "Трійка Пентаклів — карта роботи, якій потрібні різні вміння. У різьбленні Olivia майстер стоїть на лаві всередині готичного порталу: молоток піднятий, різець приставлений до каменю, а двоє постатей у шатах дивляться вгору й тримають між собою розгорнутий план. Ніхто тут не робить усього сам. Одна постать надає форму, друга береже задум, третя приносить мету й благословення. Карта звертає увагу на те, що стає можливим, коли кожну частину виконано добре і всі знають, яке місце в цілому посідає їхня частина.",
+      "Подивіться, куди падає золото. З трьох пентаклів, вирізьблених в арці, позолочено лише найвищий, а два нижні залишено у власній синяві каменю. Карта запрошує помітити спільний стандарт, що стоїть над індивідуальним внеском кожного, і дати саме йому, а не статусу, скеровувати розмову. Вона може вказувати на етап, коли вашу компетентність видно і нею варто поділитися, а конкретний відгук людей, які бачать увесь план, її відточує.",
+      "Це також карта навчання всередині справжньої роботи: учнівства, першого професійного проєкту, команди, яка вчить, поки будує. За спиною майстра в лазуриті вирізьблено цілий фасад собору, значно більший за ділянку стіни, над якою триває праця. Ваш внесок важливий, бо входить у щось більше, і карта просить приділити їй найкращу увагу."
+    ],
+    "reversed": [
+      "Трійка Пентаклів у перевернутому положенні звертає увагу на спільну роботу, яка втратила спільний план. Ролі можуть розмиватися: зусилля дублюються, а щось важливе випадає з поля зору; або одна людина надає форму, тоді як інші тримають план, якого ніхто не пояснив. Карта може вказувати й на вміння, яке ви тримаєте при собі, хоча результат став би міцнішим, якби ви попросили про відгук чи поділилися власним.",
+      "У внутрішній формі перевернута карта може описувати такі сумніви у власному ремеслі, що ви так і не стаєте на лаву, або шліфування приватної роботи, яку нікому не дозволено бачити. Перш ніж докладати ще більше зусиль, вона запрошує перевірити три речі: чи всі працюють за одним стандартом, хто за що відповідає і чий внесок досі не визнано."
+    ],
+    "number": "Трійки приходять після зустрічі двох і дають перший результат: з’являється те, чого жодна з частин не створила б сама. У Пентаклях, масті землі, тіла й практичного життя, цей результат відчутний: перший справжній плід уміння, робота, яку інші можуть побачити, використати й оцінити. Якщо Двійка Пентаклів жонглює ресурсами, то Трійка вкладає їх у план. Вона просить терпіння ремісника, який знає, що це етап фундаменту, і відкритості до стандартів і поглядів інших людей.",
+    "tradition": "У системі Золотої Зорі Трійка Пентаклів має титул «Володар матеріальних праць» і пов’язана з Марсом у Козорозі, другим деканом цього земного знака. Традиційно Марс у Козорозі екзальтований, тож ця відповідність поєднує неприборкану енергію з дисципліною і структурою. Як Трійка карта належить до Біни, сфери розуміння й форми. В описі самого Ордену три пентаклі розміщено на трояндовій гілці, яку тримає ангельська рука. Колоди марсельського типу показують три монети серед стилізованого листя. Памела Колман Сміт у дизайні 1909 року дала карті сцену: скульптор працює в церковній арці, а двоє спостерігачів, один із яких тримає план, дивляться на роботу, тому сьогодні її читають як майстерність і співпрацю. Згодом у колоді Тота Кроулі назвав її «Робота».",
+    "areas": {
+      "love": "У близьких стосунках, зокрема у стосунках із собою, Трійка Пентаклів дивиться на те, що ви будуєте разом, і на те, як ви ділите цю роботу. Вона запрошує прямо назвати сильні сторони кожного, ділитися планом, а не вважати його само собою зрозумілим, і цінувати практичну турботу: зроблений ремонт, приготовану вечерю, дотриманий розпорядок. Повага до того, як робить свій внесок кожен із вас, може важити не менше, ніж почуття.",
+      "work": "У роботі, навчанні чи грошових справах ця карта на боці чітких ролей, спільного стандарту й чесного відгуку на конкретну роботу. Вона може вказувати на момент, щоб показати своє вміння людям, які здатні добре його оцінити, пошукати наставника або взятися за проєкт, де ваше ремесло зустрічається з чужим планом. Запитайте, що означає «готово», хто вирішує, що це достатньо добре, і як буде визнано внесок кожного.",
+      "self": "Для вашого власного зростання Трійка Пентаклів пропонує сприймати вміння як те, що практикують разом з іншими. Де ви могли б дозволити досвідченішому погляду оцінити вашу роботу або запропонувати свій погляд тому, хто вчиться? Карта шанує скромне, повторюване зусилля — різець, знову і знову приставлений до того самого каменю, — і запрошує серйозно ставитися до своєї компетентності, не вимагаючи від неї завершеності чи досконалості."
+    },
+    "positions": {
+      "heart": "У центрі вашого запитання може бути робота, для якої потрібні кілька людей або кілька вмінь. Карта звертає увагу на те, наскільки добре поєднані план, ремесло і мета.",
+      "challenge": "Ускладнювати ситуацію можуть розмиті ролі, план, яким ніхто повністю не поділився, або вміння, яке ще не помітили й не визнали. Це може бути й нерішучість, коли треба попросити про відгук.",
+      "advice": "Покажіть конкретну частину своєї роботи тому, хто розуміє весь план, і попросіть про одне конкретне покращення. Домовтеся, хто за що відповідає, перш ніж рухатися далі."
+    },
+    "pairs": [
+      {
+        "with": 71,
+        "text": "З Вісімкою Пентаклів з’являються ті самі молоток, різець і лава: спершу серед людей, потім наодинці. Разом вони звертають увагу на те, як росте вміння: через повторення на власній лаві, а потім через перевірку спільним планом і поглядами інших."
+      },
+      {
+        "with": 5,
+        "text": "З Ієрофантом обидві карти показують постаті в шатах, традицію та навчання. Разом вони можуть вказувати на навчання всередині інституції чи традиції і запитують, як ви шануєте усталене знання, водночас вкладаючи в роботу власну руку."
+      },
+      {
+        "with": 68,
+        "text": "З П’ятіркою Пентаклів обидві карти показують готичну кам’яну кладку, увінчану єдиним золотим пентаклем: тут люди працюють усередині арки, там двоє постатей минають вікно зовні, у снігу. Разом вони запитують, кого включено до спільного проєкту і кого можна запросити."
+      }
+    ],
+    "questions": [
+      "Чиє вміння чи погляд покращили б цю роботу, якби ви чітко звільнили для них місце?",
+      "Яким тут був би спільний стандарт «достатньо добре» і хто має його погодити?",
+      "Де ви готові показати своє ремесло людині, чиє судження поважаєте?"
+    ],
+    "practice": "Оберіть одну частину своєї поточної роботи й попросіть людину, якій довіряєте, про один конкретний відгук; запишіть, що ви змінюєте завдяки йому."
+  }
+}

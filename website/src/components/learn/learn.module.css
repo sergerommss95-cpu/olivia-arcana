@@ -1,0 +1,248 @@
+/* Learn to read: hub, lessons and tools. Tokens match card-leaf.module.css so
+   shared components (the position practice) render the same here. */
+.hub, .lesson {
+  --ink: #eee6d4;
+  --body: rgba(238, 230, 212, 0.86);
+  --soft: rgba(196, 205, 208, 0.78);
+  --faint: rgba(181, 196, 199, 0.6);
+  --rule: rgba(181, 196, 199, 0.18);
+  --gold: #c9b182;
+  --gold-bright: #e6cf9e;
+  --panel: #10263a;
+  --panel-rim: rgba(201, 215, 216, 0.1);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--ink);
+}
+.hub { max-width: 1120px; margin: 0 auto; }
+.lesson { max-width: 1040px; margin: 0 auto; }
+.crumb ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.55rem; margin: 0 0 2.2rem; padding: 0; font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); }
+.crumb a { color: var(--soft); text-decoration: none; }
+.crumb a:hover { color: var(--gold); }
+.kicker, .toolKicker, .label { margin: 0 0 0.9rem; color: var(--gold); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.64rem; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 400; }
+.label { color: var(--faint); }
+.h1 { margin: 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: clamp(2.6rem, 6.4vw, 4.8rem); line-height: 1; letter-spacing: -0.015em; text-wrap: balance; }
+.dek { margin: 1.3rem 0 0; max-width: 40rem; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-style: italic; font-size: clamp(1.25rem, 2.2vw, 1.6rem); line-height: 1.38; color: var(--ink); }
+.meta { margin: 1rem 0 0; color: var(--faint); font-size: 0.8rem; }
+.lessonHead { max-width: 44rem; margin: 0 auto; }
+.body { max-width: 44rem; margin: 0 auto; }
+.section { margin-top: clamp(2.4rem, 6vw, 3.4rem); }
+.h2 { margin: 0 0 0.9rem; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: clamp(1.7rem, 3.2vw, 2.2rem); line-height: 1.12; }
+.section p, .example p:not(.label) { margin: 0 0 1.05rem; color: var(--body); font-size: 1.05rem; line-height: 1.82; }
+.example { margin-top: clamp(2.6rem, 6vw, 3.6rem); padding: 1.6rem 1.7rem 0.6rem; border-radius: 18px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim), 0 22px 50px rgba(2, 8, 18, 0.25); }
+.exampleTitle { margin: 0 0 1rem; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: 1.6rem; color: var(--gold-bright); }
+.exampleCards { list-style: none; display: flex; flex-wrap: wrap; gap: 0.9rem; margin: 0 0 1.2rem; padding: 0; }
+.exampleCards a { display: grid; justify-items: center; gap: 0.35rem; width: 84px; text-decoration: none; color: var(--soft); font-size: 0.74rem; text-align: center; line-height: 1.3; }
+.exampleCards img { width: 64px; height: auto; border-radius: 6px; box-shadow: 0 10px 22px rgba(2, 8, 14, 0.5), 0 0 0 1px rgba(216, 196, 156, 0.2); transition: transform 300ms var(--ease); }
+.exampleCards a:hover img { transform: translateY(-3px) rotate(-1.5deg); }
+.exampleCards a:hover { color: var(--gold-bright); }
+
+.tool { max-width: 1040px; margin: clamp(3rem, 7vw, 4.4rem) auto 0; padding: clamp(1.4rem, 3vw, 2.2rem); border-radius: 22px; background: linear-gradient(180deg, rgba(16, 38, 58, 0.72), rgba(10, 26, 42, 0.55)); box-shadow: inset 0 1px 0 var(--panel-rim), 0 0 0 1px rgba(201, 177, 130, 0.14); }
+.toolTitle { margin: 0 0 1.2rem; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: clamp(1.7rem, 3vw, 2.2rem); }
+.toolLabel { margin: 0 0 0.6rem; font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); }
+.cardPicker { display: flex; gap: 0.6rem; overflow-x: auto; padding: 0.2rem 0.1rem 0.8rem; margin-bottom: 0.8rem; scrollbar-width: thin; }
+.cardPick { flex: none; display: grid; justify-items: center; gap: 0.35rem; width: 84px; padding: 0.5rem 0.3rem 0.6rem; border: 0; border-radius: 12px; background: transparent; color: var(--soft); font: inherit; font-size: 0.72rem; line-height: 1.25; cursor: pointer; transition: background-color 200ms var(--ease); }
+.cardPick img { width: 52px; height: auto; border-radius: 5px; box-shadow: 0 8px 18px rgba(2, 8, 14, 0.45); }
+.cardPick[aria-checked="true"] { background: #eddfc2; color: #172d3d; }
+.cardPick:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 2px; }
+
+.tryThis { margin-top: clamp(2.8rem, 6vw, 3.8rem); }
+.tryThis ol { margin: 0; padding: 0; list-style: none; counter-reset: step; display: grid; gap: 0.7rem; }
+.tryThis li { counter-increment: step; position: relative; padding: 1rem 1.2rem 1rem 3.2rem; border-radius: 14px; background: var(--panel); color: var(--body); font-size: 1rem; line-height: 1.65; }
+.tryThis li::before { content: counter(step); position: absolute; left: 1.2rem; top: 0.9rem; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.5rem; line-height: 1; color: var(--gold); }
+.remember { margin-top: clamp(2.4rem, 5vw, 3.2rem); padding-top: 1.4rem; border-top: 1px solid var(--rule); }
+.remember ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.8rem; }
+.remember li { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-style: italic; font-size: clamp(1.2rem, 2vw, 1.4rem); line-height: 1.4; color: var(--ink); padding-left: 1.4rem; position: relative; }
+.remember li::before { content: "✦"; position: absolute; left: 0; top: 0.2rem; font-style: normal; font-size: 0.7rem; color: var(--gold); }
+
+.pager { max-width: 44rem; margin: clamp(3.4rem, 7vw, 4.6rem) auto 0; padding-top: 1.4rem; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.pagerLink { display: grid; gap: 0.3rem; text-decoration: none; color: var(--ink); font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.2rem; line-height: 1.25; }
+.pagerLink span { font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.pagerLink:hover { color: var(--gold-bright); }
+.pagerNext { text-align: right; }
+
+/* Hub */
+.hubHead { max-width: 46rem; }
+.hubLead { margin: 1.3rem 0 0; color: var(--soft); font-size: 1.05rem; line-height: 1.75; }
+.paths { margin-top: clamp(2.6rem, 6vw, 3.8rem); display: grid; gap: clamp(3rem, 7vw, 5rem); }
+.path { scroll-margin-top: 6rem; display: grid; grid-template-columns: minmax(0, 290px) minmax(0, 1fr); gap: clamp(1.4rem, 4vw, 3.4rem); align-items: start; }
+.pathHead { position: sticky; top: 6.5rem; display: grid; gap: 0.6rem; padding-top: 0.4rem; }
+.pathNo { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 3.4rem; line-height: 0.9; color: var(--gold); }
+.pathTitle { margin: 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: clamp(1.9rem, 3.2vw, 2.5rem); line-height: 1.05; }
+.pathLead { margin: 0; color: var(--soft); font-size: 0.92rem; line-height: 1.7; }
+.lessonList { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--rule); }
+.lessonList li { border-top: 1px solid var(--rule); }
+.lessonRow { display: grid; grid-template-columns: 46px minmax(0, 1fr) auto; gap: 1.1rem; align-items: start; padding: 1.15rem 0.8rem; border-radius: 12px; text-decoration: none; color: var(--ink); transition: background-color 250ms var(--ease); }
+.lessonRow:hover { background: rgba(16, 38, 58, 0.75); }
+.lessonRow:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 2px; }
+.lessonThumb { width: 46px; height: auto; border-radius: 5px; box-shadow: 0 8px 18px rgba(2, 8, 14, 0.45), 0 0 0 1px rgba(216, 196, 156, 0.16); transition: transform 300ms var(--ease); }
+.lessonRow:hover .lessonThumb { transform: translateY(-2px) rotate(-2deg); }
+.lessonText { display: grid; gap: 0.3rem; }
+.lessonNo { font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+.lessonTitle { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.45rem; line-height: 1.15; }
+.lessonDek { color: var(--soft); font-size: 0.88rem; line-height: 1.6; max-width: 40rem; }
+.lessonMeta { display: grid; justify-items: end; gap: 0.4rem; padding-top: 0.1rem; font-size: 0.72rem; color: var(--faint); white-space: nowrap; }
+.instruments { margin-top: clamp(2.2rem, 5vw, 3rem); }
+.instruments ul { list-style: none; margin: 0.8rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem; }
+.instrument { display: grid; grid-template-columns: 74px minmax(0, 1fr); grid-template-rows: auto 1fr; gap: 0.35rem 1rem; height: 100%; padding: 1.1rem 1.2rem; border-radius: 16px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim); text-decoration: none; color: var(--ink); transition: background-color 250ms var(--ease); }
+.instrument:hover { background: #163049; }
+.instrument:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+.instrumentArt { grid-row: span 2; position: relative; height: 84px; }
+.instrumentArt img { position: absolute; top: 0; width: 46px; height: auto; border-radius: 5px; box-shadow: 0 10px 20px rgba(2, 8, 14, 0.5); transition: transform 300ms var(--ease); }
+.instrumentArt img:first-child { left: 0; transform: rotate(-6deg); }
+.instrumentArt img:last-child { left: 24px; transform: rotate(5deg); }
+.instrument:hover .instrumentArt img:first-child { transform: rotate(-9deg) translateX(-2px); }
+.instrument:hover .instrumentArt img:last-child { transform: rotate(8deg) translateX(2px); }
+.instrumentTitle { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.3rem; line-height: 1.15; color: var(--gold-bright); }
+.instrumentText { color: var(--soft); font-size: 0.84rem; line-height: 1.55; }
+@media (max-width: 900px) {
+  .path { grid-template-columns: 1fr; }
+  .pathHead { position: static; }
+  .instruments ul { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .lessonRow { grid-template-columns: 38px minmax(0, 1fr); padding-inline: 0.2rem; }
+  .lessonThumb { width: 38px; }
+  .lessonMeta { grid-column: 2; justify-items: start; display: flex; gap: 0.6rem; }
+}
+.badge { padding: 0.15rem 0.55rem; border-radius: 999px; background: rgba(230, 207, 158, 0.14); color: var(--gold-bright); }
+
+@media (max-width: 700px) {
+  .pager { grid-template-columns: 1fr; }
+  .pagerNext { text-align: left; }
+  .example { padding: 1.3rem 1.2rem 0.4rem; }
+}
+@media (prefers-reduced-motion: reduce) { .lessonRow, .lessonThumb, .instrument, .instrumentArt img, .exampleCards img { transition: none; } }
+
+/* ——— Tools ——— */
+.sectionLead { margin: -0.3rem 0 1.3rem; max-width: 42rem; color: var(--soft); font-size: 0.95rem; line-height: 1.7; }
+.primary, .secondary, .primaryLink { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.6rem 1.2rem; border: 0; border-radius: 999px; font: inherit; font-size: 0.88rem; cursor: pointer; text-decoration: none; transition: background-color 200ms var(--ease), transform 200ms var(--ease); }
+.primary, .primaryLink { background: #eddfc2; color: #172d3d; box-shadow: inset 0 1px 0 #fff5de, 0 4px 14px rgba(0, 0, 0, 0.22); }
+.primary:hover, .primaryLink:hover { background: #fff1d4; transform: translateY(-1px); }
+.primary:disabled { opacity: 0.45; cursor: default; transform: none; }
+.secondary { background: rgba(230, 207, 158, 0.12); color: var(--gold-bright); }
+.secondary:hover { background: rgba(230, 207, 158, 0.2); }
+.primary:focus-visible, .secondary:focus-visible, .primaryLink:focus-visible, .textLink:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+.textLink { color: var(--gold); font-size: 0.86rem; text-decoration: none; border-bottom: 1px solid rgba(201, 177, 130, 0.35); }
+.drillActions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; margin: 0.9rem 0 0; }
+.writeField { display: grid; gap: 0.4rem; margin-top: 1rem; }
+.writeField span { font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); }
+.writeField textarea { width: 100%; resize: vertical; padding: 0.75rem 0.9rem; border: 1px solid rgba(201, 215, 216, 0.16); border-radius: 12px; background: rgba(4, 14, 26, 0.55); color: var(--ink); font: inherit; font-size: 0.95rem; line-height: 1.6; }
+.writeField textarea:focus { outline: 2px solid var(--gold-bright); outline-offset: 1px; }
+.chips { list-style: none; margin: 0.8rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.chips li { padding: 0.35rem 0.8rem; border-radius: 999px; background: var(--panel); color: var(--body); font-size: 0.8rem; }
+.lensTabs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.2rem 0 0.8rem; }
+.lensTabs button { padding: 0.5rem 0.9rem; border: 0; border-radius: 999px; background: var(--panel); color: var(--soft); font: inherit; font-size: 0.82rem; cursor: pointer; }
+.lensTabs button[aria-selected="true"] { background: #eddfc2; color: #172d3d; }
+.lensPrompt { margin: 0.4rem 0 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-style: italic; font-size: clamp(1.2rem, 2vw, 1.45rem); line-height: 1.4; color: var(--ink); max-width: 44rem; }
+.lensPrompt .toolLabel { display: block; font-style: normal; }
+.versions { margin-top: 1.2rem; padding: 1.1rem 1.3rem; border-left: 2px solid var(--gold); border-radius: 4px 14px 14px 4px; background: var(--panel); }
+.versions figure { margin: 0 0 0.9rem; }
+.versions blockquote { margin: 0; }
+.versions blockquote p, .notesText { margin: 0; color: var(--body); font-size: 1rem; line-height: 1.75; }
+.versions figcaption { margin-top: 0.4rem; font-size: 0.75rem; color: var(--faint); }
+.lensPrompt + .sectionLead { margin-top: 0.8rem; }
+.bigQuote { margin: 0 0 1.2rem; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: clamp(1.3rem, 2.4vw, 1.7rem); line-height: 1.35; color: var(--ink); }
+
+.demoControls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.4rem; margin-bottom: 1rem; }
+.segment { display: inline-flex; gap: 0.3rem; padding: 0.25rem; border-radius: 999px; background: var(--panel); }
+.segment button { min-width: 2.6rem; padding: 0.45rem 0.8rem; border: 0; border-radius: 999px; background: transparent; color: var(--soft); font: inherit; cursor: pointer; }
+.segment button[aria-checked="true"] { background: #eddfc2; color: #172d3d; }
+.check { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--soft); font-size: 0.86rem; }
+.dealt { list-style: none; margin: 0 0 1.2rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.dealt li { display: grid; justify-items: center; gap: 0.35rem; width: 76px; text-align: center; font-size: 0.7rem; line-height: 1.25; color: var(--soft); animation: deal-in 520ms var(--ease) both; }
+.dealt img { width: 60px; height: auto; border-radius: 6px; box-shadow: 0 10px 20px rgba(2, 8, 14, 0.45); transition: transform 300ms var(--ease); }
+.dealt img[data-reversed="true"], .workedCards img[data-reversed="true"] { transform: rotate(180deg); }
+@keyframes deal-in { from { opacity: 0; transform: translateY(10px) rotate(-3deg); } to { opacity: 1; transform: none; } }
+.surveyList { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.8rem; }
+.surveyList li { padding: 0.15rem 0 0.15rem 0.9rem; border-left: 1px solid var(--rule); }
+.surveyList li[data-notable="true"] { border-left: 2px solid var(--gold-bright); }
+.surveyFact { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.7rem; font-size: 0.95rem; color: var(--ink); }
+.surveyFact strong { font-weight: 500; }
+.surveyFact span { font-size: 0.74rem; color: var(--faint); }
+.surveyList li[data-notable="true"] .surveyFact span { color: var(--gold-bright); }
+.surveyAsk { margin: 0.25rem 0 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-style: italic; font-size: 1.15rem; line-height: 1.4; color: var(--body); }
+.surveyLoupes { display: flex; gap: 0.5rem; margin: 0.5rem 0 0.2rem; }
+.surveyLoupe { width: 52px; height: 52px; border-radius: 50%; background-repeat: no-repeat; background-color: #102235; box-shadow: 0 0 0 1px rgba(212, 195, 157, 0.35), 0 8px 18px rgba(3, 16, 30, 0.4); }
+
+.drillCards { display: flex; gap: 1rem; margin-bottom: 0.4rem; }
+.drillCard { display: grid; justify-items: center; gap: 0.45rem; width: 150px; text-decoration: none; color: var(--ink); font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.1rem; text-align: center; }
+.drillCard img { width: 130px; height: auto; border-radius: 10px; box-shadow: 0 16px 36px rgba(2, 8, 18, 0.5), 0 0 0 1px rgba(216, 196, 156, 0.18); transition: transform 400ms var(--ease); }
+.drillCard:first-child img { transform: rotate(-3deg); }
+.drillCard:last-child img { transform: rotate(3deg); }
+.drillCard:hover img { transform: translateY(-4px) rotate(0); }
+
+.numberRow { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1rem; }
+.numberRow button { width: 2.6rem; height: 2.6rem; border: 0; border-radius: 50%; background: var(--panel); color: var(--soft); font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.2rem; cursor: pointer; }
+.numberRow button[aria-checked="true"] { background: #eddfc2; color: #172d3d; }
+.tableRow { list-style: none; margin: 0 0 0.6rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.9rem; }
+.tableRow li { display: grid; justify-items: start; gap: 0.4rem; font-size: 0.85rem; color: var(--ink); }
+.tableRow img, .faceDown { width: 92px; height: auto; aspect-ratio: 120 / 206; border-radius: 8px; box-shadow: 0 12px 26px rgba(2, 8, 14, 0.45); }
+.faceDown { display: block; background: repeating-linear-gradient(45deg, #183a55 0 6px, #122d44 6px 12px); box-shadow: inset 0 0 0 1px rgba(216, 196, 156, 0.4), 0 12px 26px rgba(2, 8, 14, 0.45); }
+.tableText { margin: 0.2rem 0 0; color: var(--body); font-size: 0.86rem; line-height: 1.6; animation: deal-in 420ms var(--ease) both; }
+
+.courtGrid { display: grid; grid-template-columns: 5.5rem repeat(4, minmax(0, 1fr)); gap: 0.4rem; max-width: 430px; margin-bottom: 1rem; }
+.courtRow { display: contents; }
+.courtHead { align-self: center; font-size: 0.72rem; letter-spacing: 0.06em; color: var(--faint); text-align: center; }
+.courtRow .courtHead { text-align: left; }
+.courtPick { padding: 0.25rem; border: 0; border-radius: 10px; background: transparent; cursor: pointer; transition: background-color 200ms var(--ease); }
+.courtPick img { width: 100%; height: auto; border-radius: 6px; opacity: 0.7; transition: opacity 200ms var(--ease), transform 200ms var(--ease); }
+.courtPick[aria-pressed="true"] { background: #eddfc2; }
+.courtPick[aria-pressed="true"] img, .courtPick:hover img { opacity: 1; }
+.courtPick:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 2px; }
+.councilCards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-top: 1.2rem; }
+.councilCards article { padding: 1.2rem 1.3rem; border-radius: 16px; background: var(--panel); }
+.councilCards h3 { margin: 0 0 0.6rem; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: 1.4rem; color: var(--gold-bright); }
+.councilCards p, .walkList p { margin: 0 0 0.7rem; color: var(--body); font-size: 0.9rem; line-height: 1.65; }
+.councilCards p span, .walkList p span { display: block; font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); }
+
+.walk { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: clamp(1.2rem, 4vw, 2.6rem); align-items: start; }
+.walkPlate { position: relative; margin: 0; }
+.walkPlate img { display: block; width: 100%; height: auto; border-radius: 14px; box-shadow: 0 24px 50px rgba(2, 8, 18, 0.5); }
+.walkPin { position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; border: 1px solid rgba(230, 207, 158, 0.9); background: rgba(8, 20, 36, 0.7); color: var(--gold-bright); font-size: 0.66rem; line-height: 24px; text-align: center; animation: deal-in 420ms var(--ease) both; }
+.walkPin[data-latest="true"] { background: var(--gold-bright); color: #0b1c2c; box-shadow: 0 0 0 5px rgba(230, 207, 158, 0.22); }
+.walkList { list-style: none; margin: 1.2rem 0 0; padding: 0; display: grid; gap: 1rem; }
+.walkList strong { display: block; margin-bottom: 0.3rem; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: 1.2rem; color: var(--ink); }
+
+.workedCards { list-style: none; margin: 1rem 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 0.8rem; }
+.workedCards li { display: grid; gap: 0.3rem; font-size: 0.72rem; line-height: 1.3; color: var(--soft); opacity: 0.55; transition: opacity 300ms var(--ease); }
+.workedCards li[data-focus="true"] { opacity: 1; color: var(--ink); }
+.workedCards img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 10px 22px rgba(2, 8, 14, 0.45); }
+.workedCards li[data-focus="true"] img { box-shadow: 0 0 0 2px var(--gold-bright), 0 14px 30px rgba(2, 8, 14, 0.5); }
+.workedPos { font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+.workedStep { margin-top: 1rem; padding: 1.2rem 1.4rem; border-radius: 16px; background: rgba(16, 38, 58, 0.6); }
+.workedStep h3 { margin: 0 0 0.3rem; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: 1.5rem; }
+
+.labNotes { display: grid; gap: 0.8rem; margin-top: 0.9rem; }
+.labOpen { margin: 0; padding: 0.8rem 1rem; border-radius: 12px; background: rgba(230, 207, 158, 0.1); color: var(--gold-bright); font-size: 0.92rem; }
+.labNote { padding: 0.9rem 1.1rem; border-radius: 14px; background: var(--panel); border-left: 2px solid var(--gold); }
+.labNote p { margin: 0 0 0.4rem; color: var(--body); font-size: 0.92rem; line-height: 1.6; }
+.labExample { color: var(--ink) !important; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-style: italic; font-size: 1.1rem !important; }
+.labExample span { font-family: var(--font-body, system-ui), sans-serif; font-style: normal; font-size: 0.78rem; color: var(--faint); }
+.labExamples ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.labExamples button { padding: 0.45rem 0.85rem; border: 0; border-radius: 999px; background: var(--panel); color: var(--soft); font: inherit; font-size: 0.82rem; cursor: pointer; }
+.labExamples button:hover { color: var(--gold-bright); }
+.labExamples { margin-top: 1rem; }
+.labCards { list-style: none; margin: 1.2rem 0 0; padding: 0; display: grid; gap: 0.9rem; }
+.labCards li { display: grid; grid-template-columns: 64px 1fr; gap: 1rem; align-items: start; padding: 0.9rem 1rem; border-radius: 14px; background: var(--panel); animation: deal-in 480ms var(--ease) both; }
+.labCards img { width: 64px; height: auto; border-radius: 6px; }
+.labCards strong { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: 1.25rem; }
+.labCards p { margin: 0.3rem 0 0; color: var(--body); font-size: 0.9rem; line-height: 1.6; }
+.labAsk { color: var(--gold-bright) !important; font-style: italic; }
+
+.sentenceCards { list-style: none; margin: 0 0 0.6rem; padding: 0; display: flex; gap: 0.8rem; transition: filter 400ms var(--ease), opacity 400ms var(--ease); }
+.sentenceCards li { display: grid; justify-items: center; gap: 0.35rem; width: 86px; font-size: 0.72rem; text-align: center; color: var(--soft); }
+.sentenceCards img { width: 70px; height: auto; border-radius: 6px; box-shadow: 0 10px 22px rgba(2, 8, 14, 0.45); }
+.sentenceCards[data-covered="true"] { filter: blur(14px); opacity: 0.25; }
+.helper { margin-top: 0.7rem; display: grid; gap: 0.2rem; font-size: 0.84rem; color: var(--soft); }
+.helper p { margin: 0; }
+.helper p[data-over="true"] { color: var(--gold-bright); }
+.returnTool { display: grid; gap: 0.6rem; justify-items: start; }
+
+@media (max-width: 700px) {
+  .walk { grid-template-columns: 1fr; }
+  .walkPlate { max-width: 260px; }
+  .courtGrid { grid-template-columns: 4rem repeat(4, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) { .dealt li, .walkPin, .tableText, .labCards li { animation: none; } }
+.lensTabs button:focus-visible, .segment button:focus-visible, .numberRow button:focus-visible, .labExamples button:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .primary, .primaryLink, .drillCard img, .courtPick img, .walkPin, .sentenceCards { transition: none; } .primary:hover, .primaryLink:hover { transform: none; } }

@@ -10,11 +10,11 @@
  */
 
 import TransitionLink from "@/components/transitions/TransitionLink";
+import AlmanacMasthead from "@/components/almanac/AlmanacMasthead";
 import InkCursor from "@/components/almanac/InkCursor";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import MagnetRig from "@/components/almanac/MagnetRig";
 import { useLocale } from "@/lib/i18n/useLocale";
-import { ACCOUNTS_ENABLED } from "@/lib/service-status";
 
 interface AlmanacShellProps {
   children: React.ReactNode;
@@ -24,16 +24,6 @@ interface AlmanacShellProps {
 
 const CHROME = {
   en: {
-    nav: [
-      { label: "My almanac", href: "/?experience=journal" },
-      { label: "Spreads", href: "/?experience=spreads" },
-      { label: "The cards", href: "/cards" },
-      { label: "Membership", href: "/pricing" },
-      // Appears only once the account backend is back (build-time flag).
-      ...(ACCOUNTS_ENABLED ? [{ label: "Account", href: "/profile/" }] : []),
-    ],
-    cta: "Begin a reading",
-    mastTitle: "A personal practice of tarot",
     colophonLinks: [
       ["About", "/about"],
       ["Contact", "/contact"],
@@ -46,16 +36,6 @@ const CHROME = {
     line: "© 2026 Olivia Arcana — Tarot, thoughtfully personal.",
   },
   uk: {
-    nav: [
-      { label: "Мій альманах", href: "/uk/?experience=journal" },
-      { label: "Розклади", href: "/uk/?experience=spreads" },
-      { label: "Карти", href: "/uk/cards" },
-      { label: "Підписка", href: "/pricing" },
-      // Appears only once the account backend is back (build-time flag).
-      ...(ACCOUNTS_ENABLED ? [{ label: "Кабінет", href: "/profile/" }] : []),
-    ],
-    cta: "Почати читання",
-    mastTitle: "Особиста практика таро",
     colophonLinks: [
       ["Про нас", "/about"],
       ["Контакт", "/contact"],
@@ -78,32 +58,7 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
       <InkCursor />
       <MagnetRig />
       <div className="alm-atmosphere" aria-hidden="true" />
-      <header className="alm-masthead">
-        <div className="alm-rule" aria-hidden />
-        <div className="alm-mast-row">
-          <TransitionLink href={locale === "uk" ? "/uk/" : "/"} className="alm-wordmark">
-            Olivia <span>Arcana</span>
-          </TransitionLink>
-          <nav className="alm-mast-nav" aria-label={locale === "uk" ? "Головна навігація" : "Primary"}>
-            {chrome.nav.map((item) => (
-              <TransitionLink key={item.href} href={item.href} className="alm-mast-link">
-                {item.label}
-              </TransitionLink>
-            ))}
-            <TransitionLink href={locale === "uk" ? "/uk/?experience=question" : "/?experience=question"} className="alm-mast-cta">
-              {chrome.cta}
-            </TransitionLink>
-          </nav>
-        </div>
-        {/* INK RISE — the mast title rises once through its line mask
-            on page-open (.oa-line/.oa-line-in from globals.css). */}
-        <p className="alm-mast-title">
-          <span className="oa-line">
-            <span className="oa-line-in">{chrome.mastTitle}</span>
-          </span>
-        </p>
-        <div className="alm-rule oxford" aria-hidden />
-      </header>
+      <AlmanacMasthead />
 
       <main id="main-content" className={`alm-main ${narrow ? "alm-narrow" : ""}`}>
         {children}
@@ -193,92 +148,12 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           );
         }
 
-        .alm-masthead {
-          padding: 1.1rem clamp(1.1rem, 4vw, 3rem) 0;
-        }
-
-        .alm-mast-row {
-          display: flex;
-          align-items: baseline;
-          justify-content: space-between;
-          gap: 1.5rem;
-          padding: 0.85rem 0;
-        }
-
-        .alm-wordmark {
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-size: 2rem;
-          font-weight: 400;
-          color: var(--ink);
-          text-decoration: none;
-          white-space: nowrap;
-        }
-
-        .alm-wordmark span {
-          margin-left: 0.55rem;
-          font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.56rem;
-          font-weight: 500;
-          letter-spacing: 0.28em;
-          text-transform: uppercase;
-        }
-
         .alm-page > .alm-atmosphere {
           position: absolute;
           inset: 0;
           z-index: 0;
           pointer-events: none;
           background: radial-gradient(ellipse at 20% 0%, rgba(84, 113, 135, 0.2), transparent 48%), radial-gradient(ellipse at 100% 35%, rgba(164, 144, 105, 0.06), transparent 45%);
-        }
-
-        .alm-mast-nav {
-          display: flex;
-          align-items: center;
-          gap: clamp(0.9rem, 2.5vw, 1.8rem);
-        }
-
-        .alm-mast-link {
-          color: var(--ink-soft);
-          font-size: 0.78rem;
-          font-weight: 600;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          text-decoration: none;
-          transition: color 200ms var(--ease);
-        }
-
-        .alm-mast-link:hover {
-          color: var(--ox);
-        }
-
-        .alm-mast-cta {
-          color: var(--ox);
-          font-size: 0.78rem;
-          font-weight: 700;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          text-decoration: none;
-          border: 1px solid rgba(193, 171, 124, 0.45);
-          border-radius: 4px;
-          padding: 0.5rem 1.05rem;
-          transition: all 250ms var(--ease);
-          white-space: nowrap;
-        }
-
-        .alm-mast-cta:hover {
-          background: var(--ox);
-          color: #0b1c2c;
-          border-color: var(--ox);
-        }
-
-        .alm-mast-title {
-          margin: 0 0 0.6rem;
-          text-align: center;
-          color: var(--ink-faint);
-          font-family: var(--font-mono, ui-monospace), monospace;
-          font-size: 0.62rem;
-          letter-spacing: 0.5em;
-          text-transform: uppercase;
         }
 
         .alm-main {
@@ -579,79 +454,6 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           text-transform: uppercase;
         }
 
-        /* ── page-open: every room opens on the Ephemeris clock ───
-           HAIRLINE DRAW: the masthead rules draw origin-left on the
-           wipe curve. INK RISE: the mast title rises once through its
-           line mask on the engrave curve. Hidden states are declared
-           ONLY under no-preference, so reduced motion renders
-           everything instantly and honestly. */
-        @media (prefers-reduced-motion: no-preference) {
-          .alm-masthead .alm-rule {
-            transform: scaleX(0);
-            transform-origin: left center;
-            animation: alm-rule-draw 800ms var(--ease-wipe, cubic-bezier(0.645, 0.045, 0.355, 1)) 60ms forwards;
-          }
-          .alm-masthead .alm-rule.oxford {
-            animation-delay: 200ms;
-          }
-          .alm-mast-row {
-            opacity: 0;
-            animation: alm-ink-in 520ms var(--ease) 140ms forwards;
-          }
-          .alm-mast-title .oa-line-in {
-            animation: oa-ink-rise var(--dur-reveal, 0.9s) var(--ease-engrave, cubic-bezier(0.625, 0.05, 0, 1)) 240ms both;
-          }
-        }
-        @keyframes alm-rule-draw {
-          to {
-            transform: scaleX(1);
-          }
-        }
-        @keyframes alm-ink-in {
-          from {
-            opacity: 0;
-            transform: translateY(6px);
-          }
-          to {
-            opacity: 1;
-            transform: none;
-          }
-        }
-        @keyframes oa-ink-rise {
-          from {
-            transform: translateY(110%);
-          }
-          to {
-            transform: translateY(0);
-          }
-        }
-
-        @media (max-width: 640px) {
-          /* the four links survive as a compact second row — a site
-             with no navigation is not a site (audit: mobile/high) */
-          .alm-mast-row {
-            flex-wrap: wrap;
-            row-gap: 0.15rem;
-          }
-          .alm-mast-nav {
-            flex-basis: 100%;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.15rem clamp(0.7rem, 4vw, 1.2rem);
-            padding-bottom: 0.55rem;
-          }
-          .alm-mast-nav .alm-mast-link {
-            font-size: 0.66rem;
-            padding: 0.45rem 0;
-            white-space: nowrap;
-          }
-          .alm-mast-nav .alm-mast-cta {
-            font-size: 0.66rem;
-            padding: 0.4rem 0.75rem;
-            white-space: nowrap;
-          }
-        }
-
         /* the twelve glyphs stay ONE unbroken row at every width —
            tighter set on narrow leaves, never an orphaned sign */
         @media (max-width: 420px) {
@@ -666,9 +468,7 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
 
         @media (prefers-reduced-motion: reduce) {
           .alm-btn,
-          .alm-link,
-          .alm-mast-link,
-          .alm-mast-cta {
+          .alm-link {
             transition: none !important;
           }
         }

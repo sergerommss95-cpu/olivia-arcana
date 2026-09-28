@@ -1,0 +1,265 @@
+{
+  "id": 56,
+  "slug": "seven-of-swords",
+  "artwork": {
+    "file": "56_seven_of_swords.webp",
+    "sha256": "bb5f7913d07cf93d88c4a7b52afbc08b938c2a7987a6e65e5d01c280d64c0c0e"
+  },
+  "symbols": [
+    {
+      "key": "face",
+      "x": 48,
+      "y": 47,
+      "en": {
+        "name": "The sidelong smiling glance",
+        "seen": "The ivory figure’s curly head turns three-quarters toward the viewer, lips curved in a small, knowing smile, eyes glancing sideways out of the card while the body keeps moving to the left.",
+        "meaning": "In the traditional image the figure glances back toward the camp, a look commonly read as checking whether anyone has noticed. Olivia’s figure looks at you instead, and that changes the card: you become the only witness. The smile can read as mischief or as quiet confidence, and the card asks which belongs to your own plan."
+      },
+      "uk": {
+        "name": "Лукава усмішка скоса",
+        "seen": "Кучерява голова фігури зі слонової кістки повернута до глядача на три чверті: губи складаються в ледь помітну, багатозначну усмішку, очі дивляться скоса, за межі карти, а тіло й далі рухається ліворуч.",
+        "meaning": "У традиційному зображенні фігура озирається на табір, і цей погляд зазвичай читають як перевірку, чи ніхто не помітив. Фігура Olivia натомість дивиться на вас, і це змінює карту: ви стаєте єдиним свідком. Усмішку можна прочитати як пустотливість або як тиху впевненість, і карта запитує, котре з двох пасує вашому власному задуму."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 69,
+      "y": 46,
+      "en": {
+        "name": "The armful of swords",
+        "seen": "Above the shoulder three ivory hilts with ball pommels and crossguards rise among three bare, upturned points; below the forward arm, three blade ends slant downward, one greyer than the rest. The bundle crosses the back diagonally.",
+        "meaning": "The traditional image shows the taken swords carried together as one armful. Here hilts and points both rise over the shoulder, a tangle that is hard to count and awkward to hold. Carried plans and secrets are often like that: sharp at both ends, and never quite as tidy as they looked at the start."
+      },
+      "uk": {
+        "name": "Оберемок мечів",
+        "seen": "Над плечем здіймаються три руків’я зі слонової кістки з кулястими навершями й хрестовинами, а поміж них — три голі вістря, спрямовані вгору; під передньою рукою три кінці лез скошені донизу, один сіріший за інші. В’язка перетинає спину навскіс.",
+        "meaning": "У традиційному зображенні забрані мечі несуть разом, одним оберемком. Тут над плечем здіймаються і руків’я, і вістря: плутанина, яку важко перелічити й незручно тримати. Задуми й таємниці, які доводиться нести, часто саме такі: гострі з обох кінців і ніколи не такі охайні, якими здавалися на початку."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 42,
+      "y": 62,
+      "en": {
+        "name": "The outstretched open hand",
+        "seen": "The forward arm swings out to the left, fingers spread and loosely curled, the open hand hovering in the direction of the two planted swords. The other arm bends behind the back, its hand resting at the waist with fingers loosely curled.",
+        "meaning": "Traditional images of this card dwell on what is taken. This reaching hand adds a sense of wanting more: balance kept on tiptoe, or a reach toward the last two blades. It fits the Golden Dawn title, Lord of Unstable Effort: an attempt stretched a little too far."
+      },
+      "uk": {
+        "name": "Простягнута розкрита долоня",
+        "seen": "Передня рука відведена ліворуч, пальці розведені й вільно зігнуті, а розкрита долоня зависає в напрямку двох устромлених у землю мечів. Друга рука зігнута за спиною, а її кисть лежить на поясі, пальці злегка підібгані.",
+        "meaning": "Традиційні зображення цієї карти зосереджені на тому, що забрано. Ця простягнута рука додає відчуття, що хочеться більшого: рівновага, втримана навшпиньки, або спроба дотягтися до двох останніх лез. Це пасує до титулу, який дала карті Золота Зоря, — «Володар Нестійкого Зусилля»: спроба, що зайшла трохи задалеко."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 22,
+      "y": 60,
+      "en": {
+        "name": "Two swords left planted",
+        "seen": "Two grey-blue swords carved in the lapis itself stand point-down in the ground on the left, side by side, with ball pommels and flared crossguards. Cracks in the stone run through the ground beneath them.",
+        "meaning": "Two swords always stay behind in this card: the part of the task left undone, or what could not be carried. Here they are grey stone, not ivory, as if they still belong to the camp. They ask what you are leaving behind, and whether it will be noticed."
+      },
+      "uk": {
+        "name": "Два мечі, що лишилися",
+        "seen": "Два сіро-блакитні мечі, вирізьблені в самому лазуриті, стоять ліворуч, пліч-о-пліч, вістрями в землі, з кулястими навершями й розширеними на кінцях хрестовинами. Під ними ґрунтом біжать тріщини каменю.",
+        "meaning": "У цій карті два мечі завжди лишаються позаду: частина справи, яку не завершено, або те, чого не вдалося забрати. Тут вони із сірого каменю, а не зі слонової кістки, ніби досі належать таборові. Вони запитують, що ви залишаєте позаду і чи хтось це помітить."
+      }
+    },
+    {
+      "key": "crowd",
+      "x": 86,
+      "y": 60,
+      "en": {
+        "name": "Soldiers at the campfire",
+        "seen": "On the right, four small figures carved in grey-blue lapis gather round a fire flickering with gold: two stand, a third leans in just behind the flames, a fourth sits in front. All four face the fire.",
+        "meaning": "The camp shows the group the figure is leaving or working around, and their attention on the fire is what makes slipping away possible. The card can ask what you do while others are not looking, and whether acting alone serves everyone involved or only you."
+      },
+      "uk": {
+        "name": "Воїни біля багаття",
+        "seen": "Праворуч чотири невеликі фігури, вирізьблені в сіро-блакитному лазуриті, зібралися довкола вогню, що мерехтить золотом: дві стоять, третя схилилася просто за полум’ям, четверта сидить попереду. Усі чотири дивляться на вогонь.",
+        "meaning": "Табір — це гурт, який фігура покидає або обходить, і саме увага воїнів до вогню дає змогу непомітно вислизнути. Карта може запитати, що ви робите, коли інші не дивляться, і чи дія наодинці служить усім причетним, чи лише вам."
+      }
+    },
+    {
+      "key": "banner",
+      "x": 38,
+      "y": 29,
+      "en": {
+        "name": "The gold pennant",
+        "seen": "A swallow-tailed pennant of glittering gold streams to the right from a slender pole with a knob at its tip, set on the peak of the largest tent. It is the largest patch of gold on the card.",
+        "meaning": "Pennants mark whose camp this is and which way the wind blows; in the suit of Air the wind is thought itself. The flag streams right while the figure walks left, against it. Gold is rare in Olivia’s deck, and here it marks belonging and standing, not the blades."
+      },
+      "uk": {
+        "name": "Золотий прапорець",
+        "seen": "На шпилі найбільшого намету, на тонкому древку з кулькою на вершечку, майорить праворуч прапорець із мерехтливого золота з роздвоєним, мов ластівчин хвіст, краєм. Це найбільша золота пляма на карті.",
+        "meaning": "Прапорці позначають, чий це табір і куди дме вітер; у масті Повітря вітер — це сама думка. Прапорець тріпоче праворуч, а фігура йде ліворуч, проти вітру. Золото в колоді Olivia рідкісне, і тут воно позначає належність і становище, а не леза."
+      }
+    },
+    {
+      "key": "other",
+      "x": 30,
+      "y": 41,
+      "en": {
+        "name": "The tents of the camp",
+        "seen": "Four peaked tents in lighter blue lapis stretch across the middle of the card. The largest has a scalloped valance; one is cut off at the left edge, another stands behind the fireside group.",
+        "meaning": "The camp stands for the group: its shared rules and resources, the place you belong to or are leaving. In the traditional image the camp is simply close at hand; here the tents fill the horizon, a reminder that even a solo strategy happens inside a community with its own claims."
+      },
+      "uk": {
+        "name": "Намети табору",
+        "seen": "Чотири шпичасті намети зі світлішого блакитного лазуриту тягнуться через середину карти. Найбільший облямований фестонами; один обрізаний лівим краєм, ще один стоїть за гуртом біля багаття.",
+        "meaning": "Табір означає гурт: його спільні правила й ресурси, місце, до якого ви належите або яке покидаєте. У традиційному зображенні табір просто поруч; тут намети заповнюють увесь обрій, нагадуючи, що навіть одноосібна стратегія розгортається всередині спільноти з власними вимогами."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 52,
+      "y": 19,
+      "en": {
+        "name": "The Milky Way overhead",
+        "seen": "A broad diagonal band of pale, glittering mineral crosses the upper lapis sky from the upper left toward the lower right, with scattered gold flecks like stars above the tents.",
+        "meaning": "Olivia moves this scene from the traditional daylight into night. The Golden Dawn placed this card under the Moon in Aquarius, and darkness is what the plan depends on. Yet the sky is anything but blind: the stars see clearly what the camp does not."
+      },
+      "uk": {
+        "name": "Чумацький Шлях угорі",
+        "seen": "Широка смуга блідого мерехтливого мінералу навскіс перетинає верхнє лазуритове небо, від лівого верхнього кута донизу праворуч, а над наметами розсипані золоті цятки, наче зорі.",
+        "meaning": "Olivia переносить цю сцену з традиційного денного світла в ніч. Золота Зоря пов’язувала цю карту з Місяцем у Водоносі, і задум тримається саме на темряві. Проте небо зовсім не сліпе: зорі ясно бачать те, чого не помічає табір."
+      }
+    },
+    {
+      "key": "other",
+      "x": 71,
+      "y": 88,
+      "en": {
+        "name": "Feet on tiptoe",
+        "seen": "Both bare feet point left, a thin band at the front ankle. The rear foot rises high on its toes, heel lifted, while the front foot touches down toes first on the uneven lapis ground.",
+        "meaning": "Tiptoeing is the classic body language of this card: movement that wants to make no sound. Nothing here is running; the stride is long, careful and deliberate. It suggests a strategy still in motion and reversible at every step, and the steady effort it takes to stay quiet."
+      },
+      "uk": {
+        "name": "Хода навшпиньки",
+        "seen": "Обидві босі ступні спрямовані ліворуч, на передній щиколотці тонкий обідок. Задня нога високо зіп’ялася на пальці, п’яту відірвано від землі, а передня торкається нерівного лазуритового ґрунту спершу пальцями.",
+        "meaning": "Хода навшпиньки — класична мова тіла цієї карти: рух, що не хоче видати ані звуку. Тут ніхто не біжить; крок довгий, обережний і виважений. Він указує на стратегію, яка ще триває і яку на кожному кроці можна змінити, і на постійне зусилля, якого вимагає тиша."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Seven of Swords looks at strategy and stealth: going around rather than through, and whether a clever workaround serves your integrity or quietly costs it.",
+    "keywords": {
+      "upright": [
+        "strategy",
+        "discretion",
+        "going it alone",
+        "clever workaround",
+        "evasion"
+      ],
+      "reversed": [
+        "coming clean",
+        "plan unravelling",
+        "self-deception",
+        "overreaching",
+        "second thoughts"
+      ]
+    },
+    "upright": [
+      "The Seven of Swords draws attention to a way of acting that goes around rather than through. In Olivia’s carving it is night: the Milky Way glitters across the lapis sky, tents stand in lighter blue, and an ivory figure in a short belted tunic moves on tiptoe with an armful of swords held against the back. The soldiers at the campfire on the right face the flames; no one in the camp is watching. Only you are, because the figure turns a sidelong smile out of the card and meets your eye.",
+      "Swords belong to Air, to thought, words and plans, and this card often points to strategy: keeping something to yourself, finding a workaround, acting alone because the group would slow you down or say no. None of that is wrong in itself. Discretion can protect a fragile idea, and a quiet exit is sometimes the wisest one. The card asks what your cleverness is serving.",
+      "What makes this version telling is where the figure is heading. The outstretched hand reaches toward the two swords still planted in the ground, as if the bundle were not quite enough. The Golden Dawn called this card the Lord of Unstable Effort, and the image shows why: a plan that depends on not being seen can end up carrying more than it can comfortably hold. Upright, the card invites an honest look at your own strategy, not a verdict on anyone else’s honesty."
+    ],
+    "reversed": [
+      "Seven of Swords reversed draws attention to a strategy that is becoming hard to sustain. The armful of blades grows heavy, the tiptoe step tires, and the story you have told yourself about why the direct route was impossible may be wearing thin. This position can also bring relief: a secret you are ready to set down, a plan you choose to bring into the open, something borrowed that you decide to return.",
+      "Sometimes the reversal turns inward, toward quieter forms of self-deception: saying you are fine when you are not, or calling avoidance a strategy. The card offers no evidence about anyone else’s honesty. It asks what a plainer conversation would require, and what you would no longer need to carry once you had it."
+    ],
+    "number": "Seven follows the balance of Six and unsettles it. In the Minor Arcana sevens often bring a test: a position to defend, a choice to weigh, a moment when you act alone rather than with the group. In Swords, the suit of Air, thought and words, that test becomes strategy. After the Six of Swords crosses quiet water, the Seven works on dry land and by night, choosing cleverness over confrontation. It asks whether your plan is careful or merely evasive, and how much of it can hold.",
+    "tradition": "In the Golden Dawn system the Seven of Swords is titled the Lord of Unstable Effort. It is assigned to the Moon in Aquarius, the third decan of that sign (20 to 30 degrees), and to Netzach, Victory, the seventh Sephirah on the Tree of Life, expressed through the suit of Air. The changeable Moon in a detached, idea-led sign is often read as effort that starts brilliantly and then wavers. Aleister Crowley renamed the card Futility. Marseille decks show curved blades woven around a single straight sword; the scene of a figure slipping out of a camp with an armful of swords comes from Pamela Colman Smith’s 1909 design, which Olivia moves from daylight into night.",
+    "areas": {
+      "love": "In close relationships the Seven of Swords can point to what goes unsaid: a feeling held back, a need handled alone, a hard conversation avoided by a clever detour. It does not tell you whether anyone is being dishonest with you, and it is not evidence of that. It asks about your own part. Is privacy protecting something tender, or has discretion turned into distance? The figure in this carving smiles only at the viewer; notice who, if anyone, is allowed to see the whole of you, yourself included.",
+      "work": "At work or in study this card can reflect independent tactics: working around a slow process, keeping an idea private until it is ready, quietly taking on more than your share. Swords ask for clarity, so check which of your shortcuts are genuinely efficient and which leave something unfinished for someone else to find. Where agreements, credit for work or money matters are involved, a transparent record and, when needed, a qualified person’s view serve better than a clever workaround.",
+      "self": "For your relationship with yourself, the card turns attention to the stories you tell to avoid discomfort. The swords ride on the figure’s back, out of its own sight, behind a bent arm: some burdens are easiest to carry when you do not look at them. Notice what you are managing privately, and whether it still needs to stay hidden. Honesty with yourself can be small and gentle: one true sentence, written only for you."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Seven of Swords can point to a strategy or a secret that may shape everything around it. Looking at it honestly may matter more than perfecting the plan.",
+      "challenge": "As a challenge, the card can show a workaround that has become a habit, effort spread too thin, or avoidance presented to yourself as cleverness. The bundle may already be heavier than it looks.",
+      "advice": "As advice, it invites discretion used with care: keep a plan quiet if it needs protecting, act on your own judgement, and check that nothing you carry belongs to someone else."
+    },
+    "pairs": [
+      {
+        "with": 18,
+        "text": "The Moon rules this card’s decan in the Golden Dawn system, and both images take place at night. Together they draw attention to what is hidden or half-seen, and to the difference between keeping a secret and being misled by your own fears."
+      },
+      {
+        "with": 11,
+        "text": "Justice weighs actions and their consequences in plain view. Beside the Seven of Swords it turns attention to accountability: which of your choices you would be willing to explain openly, and what fairness would ask of the plan you are keeping quiet."
+      },
+      {
+        "with": 57,
+        "text": "The Eight of Swords follows the Seven: a figure standing bound among blades after a figure slipping away with them. Together they ask whether evasion is building the very constraints you hoped to avoid, and which of those constraints are really fixed."
+      }
+    ],
+    "questions": [
+      "Which part of your current plan depends on no one noticing, and why?",
+      "What are you carrying that might be easier to set down than to keep hidden?",
+      "If you took the direct route here, what would your first honest sentence be?"
+    ],
+    "practice": "Write down one thing you are handling quietly on your own, then name one person or place where it could safely be said aloud."
+  },
+  "uk": {
+    "essence": "Сімка Мечів придивляється до стратегії й потайності: обхідний шлях замість прямого і те, чи хитрий обхід служить вашій цілісності, чи тихо її підточує.",
+    "keywords": {
+      "upright": [
+        "стратегія",
+        "обачність",
+        "діяти самотужки",
+        "хитрий обхід",
+        "ухильність"
+      ],
+      "reversed": [
+        "відвертість",
+        "задум розпадається",
+        "самообман",
+        "замах понад сили",
+        "вагання"
+      ]
+    },
+    "upright": [
+      "Сімка Мечів звертає увагу на спосіб дії, що обходить перешкоду, а не йде крізь неї. У різьбленні Olivia — ніч: Чумацький Шлях мерехтить у лазуритовому небі, намети вирізьблено світлішою блакиттю, а фігура зі слонової кістки в короткій підперезаній туніці ступає навшпиньки, притискаючи до спини оберемок мечів. Воїни біля багаття праворуч дивляться на полум’я; ніхто в таборі не пильнує. Пильнуєте лише ви, бо фігура повертає до вас лукаву усмішку й зустрічається з вами поглядом.",
+      "Мечі належать Повітрю — думкам, словам і задумам, — і ця карта часто вказує на стратегію: тримати щось при собі, шукати обхідний шлях, діяти самотужки, бо гурт сповільнив би вас або сказав би «ні». Саме по собі в цьому немає нічого поганого. Стриманість може вберегти крихку ідею, а тихий вихід часом найрозумніший. Карта запитує, чому служить ваша кмітливість.",
+      "Особливо промовисто в цій версії те, куди прямує фігура. Простягнута рука тягнеться до двох мечів, що досі стирчать із землі, ніби оберемка ще замало. Золота Зоря називала цю карту Володарем Нестійкого Зусилля, і зображення показує чому: задум, який тримається на тому, щоб лишатися непоміченим, може змусити нести більше, ніж зручно втримати. У прямому положенні карта запрошує чесно поглянути на власну стратегію, а не виносити вирок чужій чесності."
+    ],
+    "reversed": [
+      "Сімка Мечів у перевернутому положенні звертає увагу на стратегію, яку дедалі важче підтримувати. Оберемок лез важчає, хода навшпиньки втомлює, а історія, яку ви розповідали собі про те, чому прямий шлях був неможливий, може вже втрачати переконливість. Це положення може принести й полегшення: таємницю, яку ви готові зняти з плечей, задум, який вирішуєте винести на світло, щось позичене, що вирішуєте повернути.",
+      "Іноді перевернута карта звертається всередину, до тихіших форм самообману: казати, що все гаразд, коли це не так, або називати уникання стратегією. Карта не дає жодних доказів щодо чужої чесності. Вона запитує, чого вимагала б відвертіша розмова і що вам більше не довелося б нести, коли вона відбудеться."
+    ],
+    "number": "Сімка йде слідом за рівновагою Шістки й розхитує її. У Молодших Арканах сімки часто приносять випробування: позицію, яку треба захищати, вибір, який слід зважити, мить, коли ви дієте самотужки, а не разом із гуртом. У Мечах, масті Повітря, думок і слів, це випробування стає стратегією. Після того як Шістка Мечів перетинає тиху воду, Сімка діє на твердій землі й уночі, обираючи кмітливість замість протистояння. Вона запитує, чи ваш задум обачний, чи лише ухильний, і яка його частина здатна втриматися.",
+    "tradition": "У системі Золотої Зорі Сімка Мечів має титул «Володар Нестійкого Зусилля». Її пов’язують із Місяцем у Водоносі, третім деканом цього знака (від 20 до 30 градусів), і з Нецах, Перемогою, сьомою сефірою Дерева Життя, вираженою через масть Повітря. Мінливий Місяць у відстороненому знаку, що живе ідеями, часто читають як зусилля, яке блискуче починається, а потім вагається. Алістер Кроулі перейменував карту на «Марність». Марсельські колоди показують вигнуті леза, сплетені довкола одного прямого меча; сцена, де фігура вислизає з табору з оберемком мечів, походить із малюнка Памели Колман Сміт 1909 року, і Olivia переносить її з дня в ніч.",
+    "areas": {
+      "love": "У близьких стосунках Сімка Мечів може вказувати на недомовлене: стримане почуття, потребу, з якою ви даєте собі раду наодинці, важку розмову, оминуту хитрими манівцями. Вона не каже, чи хтось нещирий із вами, і не є доказом цього. Вона запитує про вашу власну роль. Чи особистий простір оберігає щось ніжне, чи стриманість уже перетворилася на віддаленість? Фігура в цьому різьбленні всміхається лише глядачеві; помітьте, кому, якщо взагалі комусь, дозволено бачити вас цілком, зокрема й вам самим.",
+      "work": "У роботі чи навчанні ця карта може відображати самостійну тактику: обійти повільну процедуру, притримати ідею, доки вона не дозріє, мовчки взяти на себе більше, ніж припадає на вас. Мечі просять ясності, тож перевірте, які з ваших коротких шляхів справді ефективні, а які лишають щось незавершене, на що згодом натрапить хтось інший. Коли йдеться про домовленості, визнання чиєїсь праці чи гроші, прозорі записи, а за потреби думка кваліфікованого фахівця прислужаться краще, ніж хитрий обхід.",
+      "self": "У стосунках із собою карта звертає увагу на історії, які ви розповідаєте, щоб уникнути дискомфорту. Мечі лежать на спині фігури, поза її власним полем зору, за зігнутою рукою: деякий тягар найлегше нести, коли на нього не дивитися. Помітьте, з чим ви даєте собі раду наодинці і чи це досі мусить лишатися прихованим. Чесність із собою може бути маленькою й лагідною: одне правдиве речення, написане лише для вас."
+    },
+    "positions": {
+      "heart": "У центрі запитання Сімка Мечів може вказувати на стратегію чи таємницю, яка, можливо, формує все, що відбувається довкола. Чесний погляд на неї може важити більше, ніж подальше шліфування самого задуму.",
+      "challenge": "Як виклик карта може показувати обхідний шлях, що став звичкою, надто розпорошені зусилля, або уникання, яке ви подаєте собі як кмітливість. В’язка, можливо, вже важча, ніж здається.",
+      "advice": "Як порада вона запрошує до обачної стриманості: притримайте задум, якщо його треба вберегти, дійте на власний розсуд і перевірте, чи не належить щось із того, що ви несете, комусь іншому."
+    },
+    "pairs": [
+      {
+        "with": 18,
+        "text": "У системі Золотої Зорі Місяць править деканом цієї карти, і обидва зображення розгортаються вночі. Разом вони звертають увагу на приховане чи напівпобачене і на різницю між тим, щоб берегти таємницю, і тим, щоб піддатися оманам власних страхів."
+      },
+      {
+        "with": 11,
+        "text": "Справедливість зважує вчинки та їхні наслідки на видноті. Поруч із Сімкою Мечів вона звертає увагу на відповідальність: які свої рішення ви готові пояснити відкрито і чого вимагало б справедливе ставлення від задуму, який ви тримаєте в таємниці."
+      },
+      {
+        "with": 57,
+        "text": "Вісімка Мечів іде за Сімкою: фігура, що стоїть зв’язана серед лез, після фігури, що вислизає з ними. Разом вони запитують, чи не вибудовує ухильність саме ті обмеження, яких ви прагнули уникнути, і які з цих обмежень справді незмінні."
+      }
+    ],
+    "questions": [
+      "Яка частина вашого теперішнього задуму тримається на тому, що ніхто не помітить, і чому?",
+      "Що з того, що ви несете, можливо, легше відкласти, ніж і далі приховувати?",
+      "Якби ви обрали тут прямий шлях, яким було б ваше перше чесне речення?"
+    ],
+    "practice": "Запишіть одну справу, з якою ви мовчки даєте собі раду самотужки, а тоді назвіть одну людину чи місце, де про неї можна безпечно сказати вголос."
+  }
+}

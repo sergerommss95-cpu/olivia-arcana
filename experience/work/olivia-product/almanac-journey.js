@@ -1,5 +1,5 @@
 import {getLocale,t,localizeCardNotes} from './locale.js';
-import {TAROT_CARDS} from './deck-catalog.js';
+import {TAROT_CARDS,cardPageHref} from './deck-catalog.js';
 import {CARD_NOTES} from './content.js';
 import {mountCheckInReminder} from './followup-reminder.js';
 import {saveMetadata,METADATA_KEY,localDate} from './practice-core.js';
@@ -124,7 +124,7 @@ export function initAlmanacJourney({assets,show,openReading,openSpread,storage=(
  function renderCard(id){
   const history=cardHistory(state.entries,id),card=TAROT_CARDS[id],meaningful=history.some(e=>e.memory.meaningful),notes=localizeCardNotes(id,CARD_NOTES[id]);
   deck.append(link(c().back,'#my-deck','aj-back'));const composition=node('div','aj-card-composition'),art=node('figure','aj-card-portrait');art.classList.toggle('is-meaningful',meaningful);art.append(image(id));if(meaningful)art.append(node('figcaption','aj-gold-caption','◆ '+c().gold));
-  const copy=node('div','aj-card-copy'),title=node('h1','',t(card.name));title.id='my-deck-title';title.tabIndex=-1;copy.append(node('p','eyebrow',String(id).padStart(2,'0')+' / OLIVIA ARCANA'),title,node('h2','aj-small-heading',c().original),node('p','aj-original-meaning',notes.meaning));
+  const copy=node('div','aj-card-copy'),title=node('h1','',t(card.name));title.id='my-deck-title';title.tabIndex=-1;copy.append(node('p','eyebrow',String(id).padStart(2,'0')+' / OLIVIA ARCANA'),title,node('h2','aj-small-heading',c().original),node('p','aj-original-meaning',notes.meaning));const library=link(getLocale()==='uk'?'Усе про цю карту: символи, число, традиція ↗':'Everything about this card: symbols, number, tradition ↗',cardPageHref(id,getLocale()),'aj-link aj-library-link');if(window.OLIVIA_NATIVE!==true)library.target='_top';copy.append(library);
   const personal=node('section','aj-personal-meanings');personal.append(node('h2','',c().yourMeaning));const confirmed=history.filter(e=>e.association);
   if(!confirmed.length)personal.append(node('p','aj-unwritten',c().noAssociations));
   for(const entry of confirmed){const quote=node('blockquote');quote.append(privateText('p','',entry.association));const source=button(c().source+' · '+dateText(entry.record.createdAt),()=>open(entry),'aj-source');quote.append(source);personal.append(quote);}

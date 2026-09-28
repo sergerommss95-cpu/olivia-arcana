@@ -17,5 +17,7 @@
 @media(max-width:800px){.calendar-reminder{grid-template-columns:minmax(0,1fr);gap:1.1rem;margin-top:2.2rem;padding:2rem 0}.calendar-reminder-form{grid-column:1;grid-row:auto;justify-self:start;max-width:100%;margin:.5rem 0}.calendar-reminder>p{max-width:65ch}}
 /* Make room for the language route alongside the product navigation. */
 @media (max-width: 1450px) { .site-header .header-note { display: none; } }
-@media (max-width: 750px) { .site-header .spreads-nav { display: none; } }
+/* :not() matches the specificity of the pill rule in action-surfaces.css, which loads later. */
+@media (max-width: 750px) { .site-header nav a.spreads-nav:not(.nav-reading) { display: none; } }
+@media (max-width: 980px) { .site-header nav a.cards-nav:not(.nav-reading) { display: none; } }
 @media (max-width: 420px) { .site-header .language-link { font-size: .58rem; padding-inline: .4rem; } }

@@ -1,0 +1,277 @@
+{
+  "id": 32,
+  "slug": "page-of-wands",
+  "artwork": {
+    "file": "32_page_of_wands.webp",
+    "sha256": "0b84f0fc47abcd30556657a834d4b9db888de4bf26fd024bb1b8a7e898f37f28"
+  },
+  "symbols": [
+    {
+      "key": "flame",
+      "x": 40,
+      "y": 39,
+      "en": {
+        "name": "The gold flame-bud",
+        "seen": "At the tip of the staff, two upward-curving ivory sepals cup a pointed shape of gold, half bud and half flame; it is the brightest point on the card.",
+        "meaning": "In the traditional image the Page’s wand sprouts green leaves, a sign of living growth. Here the staff is bare and ends in a closed gold bud that is also a flame, the same bud that crowns Olivia’s Ace of Wands: the spark is real and precious, but has not yet opened."
+      },
+      "uk": {
+        "name": "Золотий бутон-полум’я",
+        "seen": "На самій верхівці палиці два вигнуті догори кістяні чашолистки обіймають загострену золоту форму — чи то бутон, чи то язик полум’я; саме вона найяскравіше світиться на всій карті.",
+        "meaning": "У традиційному зображенні жезл Пажа пускає зелене листя — знак живого росту. Тут палиця гола й закінчується закритим золотим бутоном, який водночас є полум’ям; той самий бутон вінчає і Туз Жезлів у колоді Olivia: іскра тут справжня й цінна, але поки ще не розкрилася."
+      }
+    },
+    {
+      "key": "face",
+      "x": 55,
+      "y": 50,
+      "en": {
+        "name": "The upturned face",
+        "seen": "The ivory figure is carved in profile, head tipped back and chin lifted, eyes raised toward the gold tip of the staff and the sky beyond it.",
+        "meaning": "Pages are the suit’s students, and this one learns by looking up. The lifted gaze is wonder before skill: attention caught by something bright and not yet understood. It suggests curiosity as the first form that desire takes."
+      },
+      "uk": {
+        "name": "Обличчя, звернене вгору",
+        "seen": "Кістяну постать вирізьблено в профіль: голову закинуто назад, підборіддя піднято, а погляд спрямовано до золотої верхівки палиці й до неба, що розкинулося над нею.",
+        "meaning": "Пажі — учні своєї масті, і тут навчання починається з погляду вгору. Піднятий погляд — це подив, що передує вмінню: увагу захопило щось яскраве й ще не збагнене. Так допитливість постає першою формою, якої набуває бажання."
+      }
+    },
+    {
+      "key": "other",
+      "x": 62,
+      "y": 47,
+      "en": {
+        "name": "The feather in the cap",
+        "seen": "A single carved feather rises from a small ornament on the band of a rounded ivory cap and sweeps back toward the right, above a cluster of tight curls at the nape.",
+        "meaning": "A plume on a cap is an old sign of the messenger, the herald who runs ahead with news. Light and lifted by air, it also hints at how quickly a Page of Fire can move from one enthusiasm to the next."
+      },
+      "uk": {
+        "name": "Перо на шапочці",
+        "seen": "Одне різьблене перо здіймається з маленької прикраси на обідку округлої кістяної шапочки й плавно відкидається назад, у правий бік, над щільними дрібними кучерями біля самої потилиці.",
+        "meaning": "Плюмаж на шапці — давня ознака посланця, герольда, що біжить попереду з новиною. Легке, підхоплене повітрям перо натякає ще й на те, як швидко Паж масті Вогню може перескакувати від одного захоплення до іншого."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 42,
+      "y": 25,
+      "en": {
+        "name": "The glittering sky band",
+        "seen": "A diagonal band of silvery-blue crystalline sparkle crosses the upper lapis sky from the upper left down toward the right, scattered with tiny gold star flecks around it.",
+        "meaning": "The traditional Page of Wands stands under a plain daylight sky. Olivia sets the scene at night beneath a river of stars, so the Page’s small flame looks up into something vast: a beginner’s spark measured against everything there is still to explore."
+      },
+      "uk": {
+        "name": "Мерехтлива смуга неба",
+        "seen": "Навскіс верхньою частиною лазуритового неба, від лівого верхнього кута вниз праворуч, тягнеться смуга сріблясто-блакитного кристалічного мерехтіння, а довкола неї розсипано крихітні золоті зоряні цятки.",
+        "meaning": "Традиційний Паж Жезлів стоїть під простим денним небом. Olivia переносить сцену в ніч, під ріку зірок, тож маленьке полум’я Пажа звернене до чогось неосяжного: іскра початківця поруч з усім тим простором, який ще лишається відкритим для дослідження."
+      }
+    },
+    {
+      "key": "star",
+      "x": 69,
+      "y": 6,
+      "en": {
+        "name": "Gold star flecks",
+        "seen": "Small points of gold are scattered across the dark lapis sky, most of them round flecks, a few with tiny pointed rays that catch the light like miniature stars.",
+        "meaning": "Stars in tarot often stand for orientation and hope. Here the gold of the stars matches the gold at the tip of the staff, as if the Page carried one small piece of that distant light close at hand."
+      },
+      "uk": {
+        "name": "Золоті зоряні цятки",
+        "seen": "По всьому темному лазуритовому небу розсипано дрібні золоті цятки: більшість із них круглі, а кілька мають крихітні гострі промені й ловлять світло, наче мініатюрні зірки.",
+        "meaning": "Зорі в таро часто означають орієнтир і надію. Тут золото далеких зірок перегукується із золотом на верхівці палиці, ніби Паж тримає зовсім поруч маленький уламок того далекого світла."
+      }
+    },
+    {
+      "key": "wand",
+      "x": 41,
+      "y": 66,
+      "en": {
+        "name": "The tall ivory staff",
+        "seen": "A straight, slender ivory staff, taller than the figure, rests its foot on the ground just left of the feet; the raised hand grips it at about head height, the other lower down, above the belt.",
+        "meaning": "The wand is the suit’s emblem of Fire: will, desire and creative drive. Held upright and grounded, it is not yet used for anything. The Page is still discovering what this energy is and what it can do."
+      },
+      "uk": {
+        "name": "Висока кістяна палиця",
+        "seen": "Пряма тонка кістяна палиця, вища за постать, спирається кінцем на землю трохи ліворуч від ніг; піднята рука тримає її приблизно на рівні голови, а друга — нижче, над поясом.",
+        "meaning": "Жезл — емблема масті Вогню: волі, бажання й творчого поштовху. Його тримають прямо, упертим у землю, і поки ні для чого не застосовують. Паж лише відкриває, що це за енергія і на що вона здатна."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 52,
+      "y": 70,
+      "en": {
+        "name": "The tunic of salamanders",
+        "seen": "The short ivory tunic, with a V-neck border, banded cuffs, a round-buckled belt and a sash knotted at the hip, is scattered with small curling lizard-like creatures incised in pale gold-brown.",
+        "meaning": "The traditional Page of Wands wears salamanders, the creatures of Fire that old lore said could live in flame. Worn on the clothing, the element is part of this figure’s identity: enthusiasm carried on the body before it is mastered."
+      },
+      "uk": {
+        "name": "Туніка із саламандрами",
+        "seen": "Коротку кістяну туніку з V-подібним вирізом, облямованими манжетами, поясом із круглою пряжкою та шарфом, зав’язаним вузлом на стегні, вкривають дрібні звивисті створіння, схожі на ящірок, вирізьблені в блідих золотаво-коричневих тонах.",
+        "meaning": "Традиційний Паж Жезлів носить саламандр — створінь Вогню, які, за давніми переказами, могли жити в полум’ї. Стихія, перенесена на одяг, стає частиною того, ким є ця постать: ентузіазм, який носять на тілі ще до того, як його опановано."
+      }
+    },
+    {
+      "key": "triangle",
+      "x": 80,
+      "y": 76,
+      "en": {
+        "name": "Two carved pyramids",
+        "seen": "On the right horizon two pyramids are cut in greyish lapis, one larger in front and a smaller one set behind it to the right, their faces lightly lined.",
+        "meaning": "Pyramids appear behind the Page and Knight of Wands in the traditional deck, tying the suit to the hot, dry land of Fire and to ancient learning. For a Page they suggest how old and deep the thing is that a beginner has just discovered."
+      },
+      "uk": {
+        "name": "Дві різьблені піраміди",
+        "seen": "На обрії праворуч у сіруватому лазуриті вирізано дві піраміди: більша стоїть попереду, менша — трохи позаду неї, праворуч; їхні грані ледь помітно помережані тонкими лініями.",
+        "meaning": "У традиційній колоді піраміди видніються за Пажем і Лицарем Жезлів, пов’язуючи масть зі спекотною сухою землею Вогню та з давнім знанням. Для Пажа вони підказують, наскільки давнє й глибоке те, що початківець щойно для себе відкрив."
+      }
+    },
+    {
+      "key": "desert",
+      "x": 17,
+      "y": 80,
+      "en": {
+        "name": "The blue dune ground",
+        "seen": "Low rolling dunes are carved across the lower card in paler, textured blue lapis, their crests running in soft horizontal ridges behind and beneath the standing figure.",
+        "meaning": "The desert is Fire’s landscape: open, dry, without shelter or signposts. It gives the Page room to roam, and a reminder that a new spark needs tending in a place where nothing else yet grows."
+      },
+      "uk": {
+        "name": "Сині дюни",
+        "seen": "Низькі пологі дюни вирізьблено через усю нижню частину карти в блідішому фактурному синьому лазуриті; їхні гребені м’якими горизонтальними хвилями тягнуться позаду й під постаттю, що стоїть.",
+        "meaning": "Пустеля — краєвид Вогню: відкритий, сухий, без прихистку й дороговказів. Вона дає Пажеві простір для мандрів і нагадує, що нова іскра потребує догляду там, де більше ще нічого не росте."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Page of Wands is the first spark of a new enthusiasm: curiosity that looks up, picks something bright and wants to find out what it can become.",
+    "keywords": {
+      "upright": [
+        "enthusiasm",
+        "curiosity",
+        "exploration",
+        "creative spark",
+        "good news",
+        "free spirit"
+      ],
+      "reversed": [
+        "fading interest",
+        "scattered starts",
+        "self-consciousness",
+        "impatience",
+        "hidden idea"
+      ]
+    },
+    "upright": [
+      "The Page of Wands is the moment an interest catches fire. Something appears that you want to know more about: an idea, a craft, a place, a person’s work, a question you cannot put down. In Olivia’s image the figure stands in a night desert, head tipped back, gazing up at the tip of a tall staff where a small gold bud of flame sits in an ivory calyx. It is the brightest point on the card, and it has not opened yet.",
+      "Pages are students and messengers. Upright, this card invites you to follow a spark far enough to learn what it actually feels like, without deciding in advance that it must become a career, a talent or a permanent part of who you are. The figure holds the staff upright and grounded, one hand high and one low, not yet swinging it at any task. This is a time for trying, asking and playing.",
+      "Notice the salamander-like creatures on the tunic and the river of stars overhead. Fire is already part of this figure, and the sky is enormous. The card draws attention to the freshness of not knowing, and to the good news that can arrive simply because you went looking. Let an exploratory attempt stay an attempt."
+    ],
+    "reversed": [
+      "Page of Wands reversed draws attention to a spark that is struggling to catch. Curiosity may fade at the first clumsy attempt, or several new interests may flare at once so that none gets the tending it needs. Sometimes the idea is there but kept hidden, in case it looks naive or unfinished to others.",
+      "Being a beginner can feel uncomfortable, especially when competence comes easily elsewhere in your life. The gold bud on the staff is small and closed; it does not need an audience to be real. Lower the stakes: choose one spark, give it a short and private session of play, and see whether it is still warm afterwards."
+    ],
+    "number": "Pages are the students and messengers of the tarot court: the stage of hearing about something and wanting to learn it. In Wands, the suit of Fire, the thing being learned is desire itself: what excites you, what gives you energy, what you would do for the pleasure of it. Where the Ace of Wands is the raw spark, the Page is the first person to pick it up and look at it with wonder, before the Knight rushes off with it.",
+    "tradition": "In the Golden Dawn system this card is the Princess of Wands, titled the Princess of the Shining Flame and the Rose of the Palace of Fire, and it is attributed to Earth of Fire: fire made concrete enough to hold. The Princesses have no span of the zodiac; instead each rules a quarter of the heavens around the north pole, the throne of its suit’s Ace, and for Wands this is the quarter centred on Leo. Waite’s deck returned to the older court title Page, the Valet of Marseille decks, a standing figure with a large club. Pamela Colman Smith’s 1909 design placed the Page in a desert with pyramids behind, wearing a tunic patterned with salamanders.",
+    "court": {
+      "temperament": "As a temperament, the Page of Wands is eager, spontaneous and openly curious. This way of being lights up at anything new, asks questions out loud and starts before the plan is finished. Its energy is more wonder than ambition: the pleasure is in discovering, not in arriving or being seen to be good.",
+      "gifts": "The gifts here are enthusiasm that spreads to others, a willingness to look foolish while learning, and the courage to try something without a guarantee. This Page brings fresh news and fresh eyes, and can remind a tired group or a tired self why the work once felt exciting.",
+      "shadow": "In shadow, enthusiasm burns fast and goes out. You may collect beginnings without finishing any, talk about ideas more than trying them, or drop an interest the moment it asks for patience. The image offers a counterweight: the staff rests firmly on the ground, and the gold bud is still closed."
+    },
+    "areas": {
+      "love": "In close relationships the Page of Wands can point to flirtation, playfulness or the fresh curiosity of getting to know someone, or of seeing a familiar person with new eyes. It does not tell you what another person feels. It asks what excites you in this connection, and whether you can share that openly and lightly. With yourself, it invites you to notice what makes you feel alive, and to give it a little time.",
+      "work": "At work or in study, this card often turns attention to a new idea, a first project, a course, or a message that stirs your interest. Treat it as a beginning: gather information, ask the people who already know, make a rough first version. The Page is not yet the expert, and does not need to be. Where money or contracts are involved, pair the enthusiasm with a practical check before committing.",
+      "self": "For your relationship with yourself, the Page of Wands asks what you would explore if you did not have to be good at it yet. The figure looks up with open wonder, not self-judgement. Notice the interests you have set aside because they seemed childish, impractical or too late. One of them may be the small gold bud worth tending now."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Page of Wands points to a fresh spark of interest or a new beginning that wants exploring before it is judged or planned.",
+      "challenge": "As a challenge, the card can show enthusiasm scattered across too many starts, or a promising idea abandoned the moment it becomes awkward or slow.",
+      "advice": "As advice, it invites you to follow your curiosity one small step: ask the question, sign up for the first session, or make a playful, imperfect attempt."
+    },
+    "pairs": [
+      {
+        "with": 22,
+        "text": "The Ace of Wands is the raw spark; the Page is the first to pick it up and study it. In Olivia’s deck the same closed gold bud tops both staffs, and together they draw attention to a new creative energy and what learning it asks of you."
+      },
+      {
+        "with": 0,
+        "text": "The Fool and the Page of Wands both tip their heads back in profile toward gold above them, a star for one and a flame-bud for the other. Together they point to beginnings taken for the joy of discovery rather than for a result."
+      },
+      {
+        "with": 74,
+        "text": "The Page of Pentacles is the patient student of practical things, while the Page of Wands learns by catching fire. Together they ask how excitement and steady practice can support each other."
+      }
+    ],
+    "questions": [
+      "What would you explore if you did not have to be good at it yet?",
+      "Which small spark of interest have you been keeping hidden in case it looks naive?",
+      "How could you tell a lasting enthusiasm from one that simply feels new and bright?"
+    ],
+    "practice": "Choose one thing you are curious about and spend twenty minutes playing with it, with no audience and nothing to produce, then note how it felt."
+  },
+  "uk": {
+    "essence": "Паж Жезлів — це перша іскра нового захоплення: допитливість, яка дивиться вгору, помічає щось яскраве й хоче з’ясувати, чим воно може стати.",
+    "keywords": {
+      "upright": [
+        "ентузіазм",
+        "допитливість",
+        "дослідження",
+        "творча іскра",
+        "добрі новини",
+        "вільний дух"
+      ],
+      "reversed": [
+        "згасання інтересу",
+        "розпорошені починання",
+        "ніяковість",
+        "нетерплячість",
+        "прихована ідея"
+      ]
+    },
+    "upright": [
+      "Паж Жезлів — це мить, коли інтерес спалахує. З’являється щось, про що хочеться знати більше: ідея, ремесло, місце, чиясь робота, запитання, від якого неможливо відірватися. На зображенні Olivia постать стоїть у нічній пустелі, закинувши голову, і дивиться на верхівку високої палиці, де в кістяній чашечці сидить маленький золотий бутон полум’я. Це найяскравіша точка карти, і вона ще не розкрилася.",
+      "Пажі — учні й посланці. У прямому положенні ця карта запрошує вас іти за іскрою достатньо далеко, щоб відчути, якою вона є насправді, не вирішуючи наперед, що вона мусить стати кар’єрою, талантом чи незмінною частиною вашої особистості. Постать тримає палицю прямо, упертою в землю, одною рукою високо, другою нижче, і ще не береться нею до жодного завдання. Це час пробувати, питати й гратися.",
+      "Зверніть увагу на схожих на саламандр створінь на туніці та на ріку зірок угорі. Вогонь уже є частиною цієї постаті, а небо — безмежне. Карта привертає увагу до свіжості незнання і до добрих новин, які можуть прийти просто тому, що ви вирушили на пошуки. Дозвольте спробі залишитися спробою."
+    ],
+    "reversed": [
+      "Паж Жезлів у перевернутому положенні звертає увагу на іскру, якій важко розгорітися. Допитливість може згаснути після першої незграбної спроби, або ж кілька нових захоплень спалахують одночасно, і жодне не отримує потрібного догляду. Буває, що ідея є, але її ховають, аби вона не здалася іншим наївною чи недоробленою.",
+      "Бути початківцем буває незатишно, особливо коли в інших сферах життя вміння даються вам легко. Золотий бутон на палиці малий і закритий; йому не потрібні глядачі, щоб бути справжнім. Знизьте ставки: оберіть одну іскру, приділіть їй коротку гру наодинці й подивіться, чи вона ще тепла після цього."
+    ],
+    "number": "Пажі — учні й посланці серед придворних карт таро: етап, коли ви про щось чуєте й хочете цього навчитися. У Жезлах, масті Вогню, предмет навчання — саме бажання: що вас захоплює, що дає вам енергію, що ви робили б заради самого задоволення. Якщо Туз Жезлів — це сира іскра, то Паж першим бере її до рук і роздивляється з подивом, перш ніж Лицар Жезлів помчить із нею вперед.",
+    "tradition": "У системі Золотої Зорі ця карта — Принцеса Жезлів із титулами «Принцеса Сяйливого Полум’я» та «Троянда Палацу Вогню»; їй відповідає Земля Вогню — вогонь, що став достатньо відчутним, аби його можна було втримати. Принцесам не відведено відрізка зодіаку: натомість кожна править чвертю небес довкола північного полюса, престолом Туза своєї масті, і для Жезлів це чверть із центром у Леві. Колода Вейта повернула давніший придворний титул Паж, що відповідає Валету марсельських колод, — постаті, яка стоїть із великою булавою. У дизайні 1909 року Памела Колман Сміт помістила Пажа в пустелю з пірамідами позаду й убрала в туніку з візерунком саламандр.",
+    "court": {
+      "temperament": "Як темперамент Паж Жезлів — палкий, спонтанний і відкрито допитливий. Така вдача спалахує від усього нового, ставить запитання вголос і починає ще до того, як план готовий. У цій енергії більше подиву, ніж амбіцій: радість — у самому відкритті, а не в досягненні мети чи в тому, щоб здаватися вправними.",
+      "gifts": "Дари цього Пажа — ентузіазм, що передається іншим, готовність здаватися недолугими, поки триває навчання, і сміливість пробувати без жодних гарантій. Цей Паж приносить свіжі новини та свіжий погляд і може нагадати втомленій команді чи вам самим, коли ви втомилися, чому колись ця справа так захоплювала.",
+      "shadow": "У тіні ентузіазм швидко спалахує й так само швидко гасне. Ви можете збирати початки, не завершуючи жодного, більше говорити про ідеї, ніж пробувати їх, або кидати захоплення, щойно воно вимагає терпіння. Зображення пропонує противагу: палиця міцно стоїть на землі, а золотий бутон ще закритий."
+    },
+    "areas": {
+      "love": "У близьких стосунках Паж Жезлів може вказувати на флірт, грайливість чи свіжу цікавість, коли ви з кимось знайомитеся або бачите давно знайому людину новими очима. Карта не каже, що відчуває інша людина. Вона запитує, що саме захоплює вас у цьому зв’язку і чи можете ви поділитися цим відкрито й легко. У стосунках із собою вона запрошує помітити, що наповнює вас життям, і приділити цьому трохи часу.",
+      "work": "У роботі чи навчанні ця карта часто звертає увагу на нову ідею, перший проєкт, курс або повідомлення, яке пробуджує ваш інтерес. Сприймайте це як початок: збирайте відомості, розпитуйте тих, хто вже знається на справі, зробіть першу чорнову версію. Паж ще не експерт — і не мусить ним бути. Якщо йдеться про гроші чи угоди, доповніть ентузіазм практичною перевіркою, перш ніж брати на себе зобов’язання.",
+      "self": "У стосунках із собою Паж Жезлів запитує, що ви досліджували б, якби вам не треба було одразу бути в цьому вправними. Постать дивиться вгору з відкритим подивом, без самоосуду. Зверніть увагу на захоплення, які ви відклали, бо вони здавалися дитячими, непрактичними чи запізнілими. Одне з них, можливо, і є тим маленьким золотим бутоном, який варто плекати саме зараз."
+    },
+    "positions": {
+      "heart": "Опинившись у центрі запитання, Паж Жезлів вказує на свіжу іскру інтересу чи новий початок, який просить спершу його дослідити, а вже потім оцінювати або планувати.",
+      "challenge": "Як перешкода карта може показувати ентузіазм, розпорошений на надто багато починань, або перспективну ідею, покинуту тієї миті, коли робота над нею стає незграбною чи повільною.",
+      "advice": "Як порада карта запрошує вас зробити один маленький крок за своєю допитливістю: поставити запитання, записатися на перше заняття чи зробити грайливу, недосконалу спробу."
+    },
+    "pairs": [
+      {
+        "with": 22,
+        "text": "Туз Жезлів — сира іскра; Паж першим підхоплює її й уважно вивчає. У колоді Olivia обидві палиці вінчає той самий закритий золотий бутон, і разом ці карти звертають увагу на нову творчу енергію та на те, чого вимагає від вас її опанування."
+      },
+      {
+        "with": 0,
+        "text": "Блазень і Паж Жезлів, обидва зображені в профіль, закидають голови назад, до золота над собою: один — до зірки, другий — до бутона-полум’я. Разом ці карти вказують на початки, які обирають заради самої радості відкриття, а не заради результату."
+      },
+      {
+        "with": 74,
+        "text": "Паж Пентаклів — терплячий учень практичних, відчутних справ, тоді як Паж Жезлів навчається, коли спалахує інтересом. Разом ці карти запитують, як захват і стала практика можуть підтримувати одне одного."
+      }
+    ],
+    "questions": [
+      "Що б ви досліджували, якби вам не треба було одразу бути в цьому вправними?",
+      "Яку маленьку іскру інтересу ви ховаєте, боячись, що вона здасться наївною?",
+      "Як відрізнити тривке захоплення від того, що просто здається новим і яскравим?"
+    ],
+    "practice": "Оберіть щось одне, що вас цікавить, і двадцять хвилин погравтеся з цим без глядачів і без потреби щось створити, а потім запишіть, які відчуття це викликало."
+  }
+}

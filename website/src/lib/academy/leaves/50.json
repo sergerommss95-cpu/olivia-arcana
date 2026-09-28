@@ -1,0 +1,267 @@
+{
+  "id": 50,
+  "slug": "ace-of-swords",
+  "artwork": {
+    "file": "50_ace_of_swords.webp",
+    "sha256": "13cbe88ba61ee9c936c3b4a29c7c7950042b93f7b7b7a57dec2052ef77be0987"
+  },
+  "symbols": [
+    {
+      "key": "hand",
+      "x": 52,
+      "y": 30,
+      "en": {
+        "name": "The hand from the cloud",
+        "seen": "A carved ivory hand emerges from a billowing ivory cloud, its wrist vanishing into the cloud on the right, its fist closed round the bound grip, thumb folded over the fingers, holding the sword vertically.",
+        "meaning": "In the traditional deck a hand from a cloud offers each Ace, commonly read as a gift arriving from beyond ordinary effort: an insight you did not have to manufacture. Here hand and cloud share one warm ivory, so clarity feels given rather than seized, and the grip is steady, not raised to strike."
+      },
+      "uk": {
+        "name": "Рука з хмари",
+        "seen": "Рука зі слонової кістки виринає з клубчастої хмари з того самого матеріалу; зап’ястя ховається в хмарі праворуч, кулак стискає обмотане руків’я прямовисного меча, великий палець лежить поверх інших.",
+        "meaning": "У традиційній колоді рука з хмари подає кожен Туз, і це зазвичай читають як дар, що приходить поза звичайним зусиллям: прозріння, яке не довелося створювати власними силами. Тут рука й хмара мають однаковий теплий відтінок кістки, тож ясність відчувається подарованою, а не вирваною, а рука тримає меч упевнено й не заносить його для удару."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 51,
+      "y": 65,
+      "en": {
+        "name": "The blade pointing down",
+        "seen": "Below a three-lobed pommel and a crossguard whose ends curl into round scrolls, the long ivory blade hangs point downward, a fine central ridge running to its sharp tip above the mountains.",
+        "meaning": "Swords belong to Air: thought, speech and the power to tell one thing from another. The traditional Ace raises its blade point upward into a crown. Olivia turns it toward the earth, the mountains and the travellers, so this clarity is aimed at lived ground: an idea brought down to where it can be used."
+      },
+      "uk": {
+        "name": "Лезо вістрям донизу",
+        "seen": "Нижче трипелюсткового навершя та гарди, кінці якої закручуються в круглі завитки, довге лезо зі слонової кістки звисає вістрям донизу; тонке центральне ребро тягнеться до гострого кінчика над горами.",
+        "meaning": "Мечі належать Повітрю: думці, мові та здатності відрізняти одне від іншого. Традиційний Туз підносить лезо вістрям угору, у корону. Olivia спрямовує його до землі, гір і мандрівників, тож ця ясність звернена до реального життя: ідею опущено туди, де нею можна скористатися."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 51,
+      "y": 48,
+      "en": {
+        "name": "The gold crown on the blade",
+        "seen": "An open circlet of gold, the one large piece of gold on this card, is threaded onto the blade below the crossguard; the ring is seen in perspective, and its points end in small beads, the central point taller than the rest.",
+        "meaning": "In the classic image the crown sits on the sword’s tip and is commonly read as mastery or a truth that rules; the Golden Dawn linked every Ace to Kether, the Crown. Here it rings the blade like a halo, authority that clear thinking passes through and must carry, rather than a prize at the end."
+      },
+      "uk": {
+        "name": "Золота корона на лезі",
+        "seen": "Відкритий золотий обідок, єдина велика золота деталь на цій карті, нанизаний на лезо під гардою; кільце видно в перспективі, його зубці закінчуються маленькими кульками, а центральний зубець вищий за інші.",
+        "meaning": "На класичному зображенні корона увінчує вістря меча, і її зазвичай читають як майстерність або істину, що панує; Золота Зоря пов’язувала кожен Туз із Кетер, Короною. Тут вона оперізує лезо, мов німб: це влада, крізь яку проходить ясна думка і яку вона мусить нести, а не нагорода наприкінці."
+      }
+    },
+    {
+      "key": "leaves",
+      "x": 27,
+      "y": 44,
+      "en": {
+        "name": "The palm frond, left",
+        "seen": "On the viewer’s left a long palm frond, carved in paler grey-blue lapis, sweeps up and outward from a stem that ends beside the blade just below the crown, its fine leaflets angled toward its tip.",
+        "meaning": "Golden Dawn descriptions of this Ace pair the palm with suffering, and older Christian art gives it to martyrs as a sign of victory won through hardship. Beside the sword it admits that clarity can cost something: a true word may involve a loss before it brings relief."
+      },
+      "uk": {
+        "name": "Пальмова гілка ліворуч",
+        "seen": "Ліворуч від глядача довга пальмова гілка, вирізьблена в блідішому сіро-блакитному лазуриті, здіймається вгору й назовні від стебла, що закінчується біля леза трохи нижче корони; її тонкі листочки скошені до кінчика.",
+        "meaning": "В описах цього Туза, прийнятих у Золотій Зорі, пальма пов’язана зі стражданням, а давнє християнське мистецтво віддає її мученикам як знак перемоги, здобутої ціною випробувань. Поруч із мечем вона визнає, що ясність може чогось коштувати: правдиве слово інколи несе втрату, перш ніж принести полегшення."
+      }
+    },
+    {
+      "key": "leaves",
+      "x": 71,
+      "y": 43,
+      "en": {
+        "name": "The olive branch, right",
+        "seen": "On the right an olive sprig in the same pale lapis rises from beside the blade toward the upper right, with slender pointed leaves and small round olives along its stem, mirroring the palm across the sword.",
+        "meaning": "The olive has stood for peace since antiquity, and Golden Dawn texts name this one the olive branch of peace. Set opposite the palm, it balances the pair: the same edge that separates can also settle a quarrel, when a clear word ends confusion instead of prolonging it."
+      },
+      "uk": {
+        "name": "Оливкова гілка праворуч",
+        "seen": "Праворуч оливкова гілочка з того самого блідого лазуриту здіймається від леза вгору праворуч; на стеблі тонке загострене листя й дрібні круглі оливки, а сама вона дзеркально відповідає пальмі по інший бік меча.",
+        "meaning": "Олива з давніх часів символізує мир, і тексти Золотої Зорі називають цю гілку оливковою гілкою миру. Навпроти пальми вона врівноважує пару: те саме лезо, що розділяє, може й залагодити сварку, коли ясне слово кладе край плутанині, а не затягує її."
+      }
+    },
+    {
+      "key": "rain",
+      "x": 68,
+      "y": 57,
+      "en": {
+        "name": "Five falling blue drops",
+        "seen": "Five teardrop shapes in smooth, pale blue lapis hang in the air below the branches, three to the left of the blade and two to the right, each pointed at the top and rounded below.",
+        "meaning": "Traditional versions scatter six small golden yods, flame-like drops, around the sword, often read as grace or spirit descending into matter. Olivia makes them five cool blue drops instead, closer to rain or tears: insight arriving quietly, sometimes with feeling attached, settling rather than blazing."
+      },
+      "uk": {
+        "name": "П’ять блакитних крапель",
+        "seen": "П’ять краплеподібних форм із гладкого блідо-блакитного лазуриту висять у повітрі під гілками: три ліворуч від леза і дві праворуч, кожна загострена вгорі й заокруглена внизу.",
+        "meaning": "Традиційні версії розсипають навколо меча шість маленьких золотих йодів, схожих на язички полум’я, які часто читають як благодать чи дух, що сходить у матерію. Olivia перетворює їх на п’ять прохолодних блакитних крапель, ближчих до дощу чи сліз: прозріння приходить тихо, часом разом із почуттям, і осідає, а не палає."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 17,
+      "y": 58,
+      "en": {
+        "name": "A glittering band of stars",
+        "seen": "At mid-left a diagonal vein of pale, sparkling mineral crosses the dark lapis like a band of stars, while gold flecks, one larger and star-shaped near the upper left, are scattered across the whole sky.",
+        "meaning": "This is Olivia’s own detail, not part of the traditional card. Swords belong to the sky, and the vein reads like the Milky Way on a clear night: a reminder that clear thought can widen the view as well as narrowing it to a single point."
+      },
+      "uk": {
+        "name": "Мерехтлива смуга зір",
+        "seen": "Посередині лівого краю діагональна жилка блідого іскристого мінералу перетинає темний лазурит, наче смуга зір, а по всьому небу розсипані золоті вкраплення; одне з них, більше й зірчасте, — біля верхнього лівого кута.",
+        "meaning": "Це власна деталь Olivia, якої немає на традиційній карті. Мечі належать небу, і ця жилка схожа на Чумацький Шлях ясної ночі: нагадування, що ясна думка може не лише звужувати погляд до однієї точки, а й розширювати його."
+      }
+    },
+    {
+      "key": "mountain",
+      "x": 31,
+      "y": 76,
+      "en": {
+        "name": "Twin peaks in lapis",
+        "seen": "Two steep, faceted peaks rise in the lower third in lighter blue lapis, with smaller ridges at either edge and a level horizon behind; the sword’s tip points into the gap between them.",
+        "meaning": "Mountains also sit below the sword in Pamela Colman Smith’s version of this Ace, commonly read as hard facts, difficulty and the heights thought can reach. Here the blade points into the gap between two peaks: the passage through a problem rather than a view over it."
+      },
+      "uk": {
+        "name": "Дві вершини з лазуриту",
+        "seen": "У нижній третині здіймаються дві стрімкі гранчасті вершини зі світлішого блакитного лазуриту, з меншими хребтами обабіч і рівним обрієм позаду; вістря меча вказує в прогалину між ними.",
+        "meaning": "Гори лежать під мечем і на версії цього Туза, яку створила Памела Колман Сміт; їх зазвичай читають як тверді факти, труднощі й висоти, яких сягає думка. Тут лезо спрямоване в прогалину між двома вершинами: це прохід крізь проблему, а не погляд на неї згори."
+      }
+    },
+    {
+      "key": "other",
+      "x": 50,
+      "y": 83,
+      "en": {
+        "name": "Travellers in the valley",
+        "seen": "Between the peaks, tiny low-relief figures in muted blue: a hooded, robed walker beside a four-legged animal, and a fainter figure higher up the left-hand slope behind them.",
+        "meaning": "Another of Olivia’s additions; the traditional Ace shows no people. The travellers give the sword’s clarity a human scale. A bright idea in the sky means little until it reaches someone walking a real road, and these walkers are small, patient and still moving."
+      },
+      "uk": {
+        "name": "Мандрівники в долині",
+        "seen": "Між вершинами крихітні низькорельєфні постаті приглушеного блакитного кольору: постать у каптурі й довгому вбранні йде поруч із чотириногою твариною, а ще одна, ледь помітна, видніється вище на лівому схилі позаду них.",
+        "meaning": "Ще одне доповнення Olivia: на традиційному Тузі людей немає. Мандрівники надають ясності меча людського масштабу. Яскрава ідея в небі мало що важить, доки не дійде до того, хто йде справжньою дорогою, а ці подорожні маленькі, терплячі й досі в русі."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Ace of Swords is the first clear edge of thought: a truth seen plainly, a question sharpened, a word that cuts through confusion with care.",
+    "keywords": {
+      "upright": [
+        "clarity",
+        "truth",
+        "breakthrough",
+        "clear decision",
+        "honest words",
+        "fresh idea"
+      ],
+      "reversed": [
+        "clouded thinking",
+        "harsh words",
+        "overthinking",
+        "hasty conclusions",
+        "unspoken truth"
+      ]
+    },
+    "upright": [
+      "The Ace of Swords draws attention to the moment a thought comes clear. Swords are the suit of Air, of words, reasoning and discernment, and their Ace is that suit at its seed: one idea, one honest sentence, one distinction that suddenly makes a muddle make sense. In Olivia’s deck an ivory hand reaches out of an ivory cloud and holds the sword in a closed, steady grip, as if the insight has been handed to you whole.",
+      "What sets this version apart is the direction of the blade. The traditional Ace of Swords lifts its blade toward the sky; here it points down, between five falling blue drops, toward two mountains and small travellers in the valley below. Clarity in this card is not meant to stay abstract. It asks to be brought down to real ground: said aloud, written down, tested against the facts of your day.",
+      "The gold crown threaded on the blade, with a palm frond on one side and an olive branch on the other, keeps the edge honest. A true word can bring relief and a small cost together, peace and a little grief. Upright, the card invites you to name what you now see as simply as you can, and to use that edge to clarify rather than to wound."
+    ],
+    "reversed": [
+      "Ace of Swords reversed can point to clarity that has not yet come down from the cloud. Thoughts may circle without landing, or a question may be too broad to answer. Sometimes the reversal shows the opposite: a conclusion reached so fast and held so tightly that it cuts before it has been checked, the blade swung rather than held.",
+      "This position asks you to slow the edge. Separate what you know from what you have assumed, and let one precise sentence replace ten anxious ones. If words are needed, choose their timing and tone with care. A truth offered gently usually travels further than one delivered as a verdict."
+    ],
+    "number": "Every Ace is a root: the whole of its suit held in a single point before it divides into two, three and onward. In Swords, the suit of Air, that root is the first clear act of mind, the idea before the argument, the word before the debate. Nothing has been weighed or defended yet; the Ace simply offers the edge. The Two of Swords asks what to do with it once choices appear. The Ace invites you to notice the clarity itself while it is still fresh.",
+    "tradition": "In the Golden Dawn system the Ace of Swords is titled the Root of the Powers of Air. Aces take no decan: each is assigned to Kether, the Crown, first Sephirah of the Tree of Life, in its own element, and is said to rule a quarter of the heavens around the pole. The order’s Book T describes a white hand from clouds grasping a sword that supports a crown, with the olive branch of peace on one side, the palm of suffering on the other, and Hebrew letters falling from the point. Marseille decks already show a hand from a cloud raising a crowned sword; Pamela Colman Smith’s 1909 card keeps the crown at the tip, above distant mountains.",
+    "areas": {
+      "love": "In close relationships the Ace of Swords can point to a conversation that clears the air, or to finally understanding what you need and being able to say it. It cannot show what another person thinks or intends; it turns attention to your own clarity. The olive and the palm on either side of this blade suggest that an honest word may bring peace and a little pain together. Say one true thing kindly, and let the other person answer in their own time.",
+      "work": "At work or in study, this card can reflect a breakthrough: the plan that finally makes sense, the argument that holds, the question that reframes a whole project. Write it down while it is sharp. The downward blade in this image is a reminder to test the idea against real conditions before building on it. Where money or contracts are involved, clear thinking includes asking a qualified person to check the details.",
+      "self": "For your relationship with yourself, the Ace of Swords invites honesty without harshness. Notice the story you tell about a situation, and ask whether one clearer sentence would describe it better. The small travellers at the foot of these mountains are a reminder that insight is meant to be walked with, a step at a time. Clarity about yourself can arrive as a quiet recognition rather than a verdict, and it can be revised as you learn more."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Ace of Swords can point to a clear truth or idea that is ready to be seen. Naming it simply may matter more than acting on it straight away.",
+      "challenge": "As a challenge, the card can show sharpness turned against yourself or others: a conclusion held too hard, or honest words spoken without regard for timing and care.",
+      "advice": "As advice, it invites you to find the one distinction that makes the situation clearer, write it as a single sentence, and test it before you act on it."
+    },
+    "pairs": [
+      {
+        "with": 11,
+        "text": "Justice holds its sword point upward beside a pair of scales, while this Ace lowers its blade toward the ground. Together they turn attention to fairness as well as clarity: seeing the truth plainly, then weighing it before any decision is made."
+      },
+      {
+        "with": 36,
+        "text": "The two Aces set head and heart side by side. Together they ask whether a fresh understanding and a fresh feeling are pointing the same way, and what each could learn from the other."
+      },
+      {
+        "with": 51,
+        "text": "The Two of Swords shows a mind holding two options in suspension. After the Ace, the pair traces what happens when a single clear idea meets real choices, and asks what would help you keep that first clarity."
+      }
+    ],
+    "questions": [
+      "What single distinction would make this situation easier to think about?",
+      "Which truth do you already see clearly but have not yet said aloud?",
+      "How could you say what you know in a way that clarifies rather than cuts?"
+    ],
+    "practice": "Write your situation in one sentence of no more than fifteen words, then read it aloud and change any word that is vaguer or harsher than the truth."
+  },
+  "uk": {
+    "essence": "Туз Мечів — перше чітке лезо думки: ясно побачена істина, загострене запитання, слово, що дбайливо прорізає плутанину.",
+    "keywords": {
+      "upright": [
+        "ясність",
+        "істина",
+        "прорив",
+        "ясне рішення",
+        "чесні слова",
+        "свіжа ідея"
+      ],
+      "reversed": [
+        "затуманене мислення",
+        "різкі слова",
+        "надмірне обмірковування",
+        "поспішні висновки",
+        "невисловлена правда"
+      ]
+    },
+    "upright": [
+      "Туз Мечів звертає увагу на мить, коли думка стає ясною. Мечі — масть Повітря, слів, міркувань і розрізнення, а їхній Туз — ця масть у зародку: одна ідея, одне чесне речення, одне розрізнення, завдяки якому плутанина раптом набуває сенсу. У колоді Olivia рука зі слонової кістки простягається з такої самої хмари й упевнено стискає меч у кулаці, наче прозріння вручають вам цілком.",
+      "Цю версію вирізняє напрям леза. Традиційний Туз Мечів підносить лезо до неба; тут воно вказує донизу, поміж п’ятьма блакитними краплями, що падають, до двох гір і маленьких мандрівників у долині. Ясність цієї карти не має лишатися абстрактною. Вона просить опустити її на справжню землю: промовити вголос, записати, звірити з фактами вашого дня.",
+      "Золота корона на лезі, пальмова гілка з одного боку й оливкова з другого стережуть чесність цього леза. Правдиве слово може водночас принести полегшення й чогось коштувати, дати мир і трохи смутку. У прямому положенні карта запрошує назвати те, що ви тепер бачите, якомога простіше, і скористатися цим лезом, щоб прояснити, а не поранити."
+    ],
+    "reversed": [
+      "Туз Мечів у перевернутому положенні може вказувати на ясність, яка ще не спустилася з хмари. Думки кружляють, не знаходячи опори, або запитання надто широке, щоб на нього відповісти. Інколи перевернута карта показує протилежне: висновок, зроблений так швидко й утримуваний так міцно, що ріже раніше, ніж його перевірили, — лезом замахуються, а не тримають його.",
+      "Це положення просить сповільнити лезо. Відділіть те, що ви знаєте, від того, що ви припустили, і нехай одне точне речення замінить десять тривожних. Якщо слова потрібні, дбайливо оберіть для них час і тон. Правда, висловлена м’яко, зазвичай сягає далі, ніж правда, оголошена як вирок."
+    ],
+    "number": "Кожен Туз — корінь: уся масть, зібрана в одній точці, перш ніж розділитися на два, три й далі. У Мечах, масті Повітря, цей корінь — перший ясний порух розуму: ідея до суперечки, слово до дискусії. Ще нічого не зважено й не обстоєно; Туз просто подає лезо. Двійка Мечів запитує, що з ним робити, коли з’являється вибір. Туз запрошує помітити саму ясність, доки вона ще свіжа.",
+    "tradition": "У системі Золотої Зорі Туз Мечів має титул «Корінь сил Повітря». Тузи не мають декана: кожен віднесено до Кетер, Корони, першої сефіри Дерева Життя, у власній стихії, і кожному приписують владу над чвертю небес навколо полюса. «Книга Т» ордену описує білу руку з хмар, що стискає меч, який підтримує корону; з одного боку оливкова гілка миру, з другого — пальма страждання, а з вістря падають єврейські літери. Уже в марсельських колодах рука з хмари підносить увінчаний короною меч; карта Памели Колман Сміт 1909 року зберігає корону на вістрі, над далекими горами.",
+    "areas": {
+      "love": "У близьких стосунках Туз Мечів може вказувати на розмову, яка розряджає атмосферу, або на мить, коли ви нарешті розумієте, чого потребуєте, і можете про це сказати. Він не показує, що думає чи має на меті інша людина; він звертає увагу на вашу власну ясність. Олива й пальма обабіч цього леза підказують, що чесне слово може принести водночас мир і трохи болю. Скажіть щось одне правдиве, але лагідно, і дайте іншій людині відповісти у свій час.",
+      "work": "У роботі чи навчанні ця карта може відображати прорив: план, який нарешті має сенс, аргумент, що витримує перевірку, запитання, яке по-новому окреслює весь проєкт. Запишіть це, доки думка гостра. Лезо, спрямоване донизу, нагадує: перевірте ідею в реальних умовах, перш ніж на ній будувати. Коли йдеться про гроші чи договори, ясне мислення означає також попросити кваліфікованого фахівця перевірити деталі.",
+      "self": "У стосунках із собою Туз Мечів запрошує до чесності без жорсткості. Помітьте історію, яку ви розповідаєте про ситуацію, і запитайте себе, чи не описало б її краще одне ясніше речення. Маленькі мандрівники біля підніжжя цих гір нагадують, що з прозрінням ідуть далі, крок за кроком. Ясність щодо себе може прийти як тихе впізнавання, а не як вирок, і її можна переглядати, коли ви дізнаєтеся більше."
+    },
+    "positions": {
+      "heart": "У центрі запитання Туз Мечів може вказувати на ясну істину чи ідею, яка готова стати видимою. Просто назвати її може бути важливіше, ніж одразу діяти.",
+      "challenge": "Як перешкода карта може показувати гостроту, звернену проти себе чи інших: висновок, за який тримаються надто міцно, або чесні слова, сказані не на часі й без дбайливості.",
+      "advice": "Як порада вона запрошує знайти одне розрізнення, що робить ситуацію яснішою, записати його одним реченням і перевірити, перш ніж на його основі діяти."
+    },
+    "pairs": [
+      {
+        "with": 11,
+        "text": "Справедливість тримає меч вістрям угору поруч із терезами, а цей Туз опускає лезо до землі. Разом вони звертають увагу і на справедливість, і на ясність: спершу просто побачити правду, а тоді зважити її, перш ніж ухвалювати будь-яке рішення."
+      },
+      {
+        "with": 36,
+        "text": "Два Тузи ставлять поруч голову й серце. Разом вони запитують, чи свіже розуміння і свіже почуття вказують в одному напрямку і чого кожне з них могло б навчитися в іншого."
+      },
+      {
+        "with": 51,
+        "text": "Двійка Мечів показує розум, що тримає два варіанти, не схиляючись до жодного. Після Туза ця пара простежує, що відбувається, коли одна ясна ідея зустрічає справжній вибір, і запитує, що допомогло б вам зберегти ту першу ясність."
+      }
+    ],
+    "questions": [
+      "Яке одне розрізнення допомогло б легше обміркувати цю ситуацію?",
+      "Яку правду ви вже бачите ясно, але ще не промовили вголос?",
+      "Як сказати те, що ви знаєте, щоб це прояснювало, а не ранило?"
+    ],
+    "practice": "Опишіть свою ситуацію одним реченням, не довшим за п’ятнадцять слів, потім прочитайте його вголос і замініть кожне слово, яке розмитіше чи різкіше за правду."
+  }
+}

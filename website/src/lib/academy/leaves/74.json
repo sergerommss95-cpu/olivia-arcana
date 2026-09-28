@@ -1,0 +1,277 @@
+{
+  "id": 74,
+  "slug": "page-of-pentacles",
+  "artwork": {
+    "file": "74_page_of_pentacles.webp",
+    "sha256": "8c02e97e036d9555fec81fdca54cd85e0cc80cf4eb505b0408a4b9d30376fc88"
+  },
+  "symbols": [
+    {
+      "key": "milky-way",
+      "x": 40,
+      "y": 27,
+      "en": {
+        "name": "The river of gold flecks",
+        "seen": "Across the dark lapis sky, a diagonal band of dense gold flecks, with a few paler specks over a faint haze, runs from the upper right down towards the left, ending just left of the raised disc.",
+        "meaning": "The traditional Page stands under a plain daylit sky. Olivia sets the scene at night and threads a stream of gold through the stone, so the small gold star in the Page’s hands reads as one grain of a much larger field: the vast made studiable, one piece at a time."
+      },
+      "uk": {
+        "name": "Ріка золотих цяток",
+        "seen": "Темним лазуритовим небом по діагоналі тягнеться смуга густих золотих цяточок, серед яких є й кілька блідіших над ледь помітним серпанком; вона спускається від правого верхнього краю ліворуч і закінчується трохи лівіше від піднятого диска.",
+        "meaning": "Традиційний Паж стоїть під простим денним небом. Olivia переносить сцену в ніч і пропускає крізь камінь потік золота, тож маленька золота зірка в руках Пажа читається як одна зернина величезного поля: неосяжне стає тим, що можна вивчати, частинка за частинкою."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 40,
+      "y": 41,
+      "en": {
+        "name": "The ivory disc",
+        "seen": "A thick ivory disc with a raised rim, held at eye level; a five-pointed star is incised in thin lines within an inner circle, and only a small solid star at its centre is gold.",
+        "meaning": "The pentacle is the suit’s emblem of earth: body, skill, money, time and the things you can make. Here most of it is plain ivory, drawn in outline like a diagram, with gold only at the core. It is something to be learned before it can be spent."
+      },
+      "uk": {
+        "name": "Диск зі слонової кістки",
+        "seen": "Товстий диск зі слонової кістки з опуклим обідком, піднятий на рівень очей; у внутрішньому колі тонкими лініями вирізьблено п’ятикутну зірку, і золота лише маленька суцільна зірочка в її центрі.",
+        "meaning": "Пентакль — емблема цієї масті й знак землі: тіло, вміння, гроші, час і все, що можна створити. Тут він майже весь із простої слонової кістки, накреслений контуром, наче схема, і золото є тільки в осерді. Його треба спершу вивчити, а вже потім витрачати."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 46,
+      "y": 43,
+      "en": {
+        "name": "Two hands, two jobs",
+        "seen": "The ivory hand further from the viewer cups the disc from below, palm up; the nearer hand rests along its side with fingers spread, steadying it rather than gripping.",
+        "meaning": "In the traditional image the coin seems to hover just above the Page’s raised palms. Olivia gives the hands contact and a division of labour, one supporting and one steadying, the posture of someone handling a new tool carefully enough to learn its weight."
+      },
+      "uk": {
+        "name": "Дві руки, дві справи",
+        "seen": "Дальша від глядача рука зі слонової кістки підтримує диск знизу, долонею догори; ближча лежить уздовж його краю з розчепіреними пальцями й притримує його, а не стискає.",
+        "meaning": "На традиційному зображенні монета ніби зависає просто над піднятими долонями Пажа. В Olivia руки торкаються диска й розподіляють роботу: одна підтримує, друга втримує рівновагу. Так обережно тримають новий інструмент, коли вчаться відчувати його вагу."
+      }
+    },
+    {
+      "key": "face",
+      "x": 58,
+      "y": 41,
+      "en": {
+        "name": "The level, absorbed gaze",
+        "seen": "The head is carved in clean profile, facing left, with short tight curls and no hat; the eyes look straight across at the disc, lips closed, face calm and unhurried.",
+        "meaning": "The Page is commonly read as the card of study and application, and the whole face is given to one object. The traditional figure wears a soft cap; Olivia leaves the head bare, so nothing competes with the line of sight between the eyes and the star."
+      },
+      "uk": {
+        "name": "Рівний, зосереджений погляд",
+        "seen": "Голову вирізьблено в чіткому профілі, обличчям ліворуч, з короткими тугими кучерями й без головного убору; очі дивляться просто на диск, губи стулені, обличчя спокійне й неквапливе.",
+        "meaning": "Пажа зазвичай тлумачать як карту навчання й застосування, і все обличчя тут віддане одному предмету. На традиційному зображенні фігура носить м’який берет; Olivia залишає голову непокритою, тож ніщо не відволікає від лінії погляду між очима й зіркою."
+      }
+    },
+    {
+      "key": "tree",
+      "x": 15,
+      "y": 57,
+      "en": {
+        "name": "The grove on the left",
+        "seen": "Behind the figure and to the left, a grove of rounded trees is carved in pale lapis relief on the horizon, one taller tree with a slender, forked trunk standing in front.",
+        "meaning": "A grove of trees belongs to the traditional image of this card. Trees are slow wealth: years of growth you can stand under. Set behind the student, the grove suggests where patient learning leads, a place that is grown rather than bought."
+      },
+      "uk": {
+        "name": "Гай ліворуч",
+        "seen": "Позаду фігури, ліворуч, на обрії вирізьблено гай округлих дерев у блідому лазуритовому рельєфі; перед ним стоїть одне вище дерево зі струнким роздвоєним стовбуром.",
+        "meaning": "Гай належить до традиційного зображення цієї карти. Дерева — повільне багатство: роки росту, під кроною яких можна стояти. Розташований позаду учня, гай натякає, куди веде терпляче навчання: до місця, яке вирощують, а не купують."
+      }
+    },
+    {
+      "key": "mountain",
+      "x": 84,
+      "y": 61,
+      "en": {
+        "name": "A single distant peak",
+        "seen": "On the right, low hills rise to one broad peak carved in greyer lapis, with a thin band of cloud above it; it sits far behind the figure, at the level of the waist.",
+        "meaning": "A distant mountain is part of the traditional scene, and in tarot mountains often stand for an aim that takes effort to reach. Here it is small and far off, behind the Page, while the gaze stays on the disc: mastery exists, but today’s work is closer."
+      },
+      "uk": {
+        "name": "Одна далека вершина",
+        "seen": "Праворуч низькі пагорби здіймаються до однієї широкої вершини, вирізьбленої в сірішому лазуриті, з тонкою смугою хмар над нею; вона стоїть далеко позаду фігури, на рівні пояса.",
+        "meaning": "Далека гора — частина традиційної сцени, і в таро гори часто означають мету, до якої треба докласти зусиль. Тут вона маленька й віддалена, позаду Пажа, а погляд лишається на диску: майстерність існує, але сьогоднішня робота ближча."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 57,
+      "y": 64,
+      "en": {
+        "name": "The classical ivory drape",
+        "seen": "A thin garment clings to the chest, leaving the arms bare; below it, heavier cloth is gathered in a roll at the waist and falls in deep vertical folds to the calves.",
+        "meaning": "The traditional Page wears a belted tunic, a soft cap and shoes, clothing for an errand. Olivia drapes the figure like a classical statue, which shifts the emphasis from the messenger’s task to the student’s attention, simple and unadorned."
+      },
+      "uk": {
+        "name": "Класична драпіровка зі слонової кістки",
+        "seen": "Тонке вбрання облягає груди, залишаючи руки оголеними; нижче важча тканина зібрана валиком на поясі й спадає глибокими вертикальними складками до литок.",
+        "meaning": "Традиційний Паж носить підперезану туніку, м’який берет і взуття — одяг для доручення. Olivia драпірує фігуру, наче класичну статую, і це зміщує наголос із завдання посланця на увагу учня, просту й без прикрас."
+      }
+    },
+    {
+      "key": "other",
+      "x": 20,
+      "y": 76,
+      "en": {
+        "name": "The ploughed field",
+        "seen": "Across the left half of the ground and up behind the feet, many parallel furrows sweep in long curving arcs, carved in ridged lapis that catches the light along each crest.",
+        "meaning": "A freshly ploughed field appears in the traditional image too. Ploughed ground is prepared but not yet sown or harvested, the exact moment of the Page: the work of readiness is done, and what grows next depends on what you plant and tend."
+      },
+      "uk": {
+        "name": "Зоране поле",
+        "seen": "Лівою половиною землі й далі вгору за ногами фігури тягнуться численні паралельні борозни, що вигинаються довгими дугами; ребристий лазурит ловить світло вздовж кожного гребеня.",
+        "meaning": "Свіжозоране поле є й на традиційному зображенні. Зорана земля підготовлена, але ще не засіяна і врожаю не дала — це саме мить Пажа: підготовчу роботу завершено, а те, що виросте далі, залежить від того, що ви посієте й доглядатимете."
+      }
+    },
+    {
+      "key": "other",
+      "x": 60,
+      "y": 83,
+      "en": {
+        "name": "Bare feet in the grass",
+        "seen": "Both ivory feet are bare and planted on grass carved with small tufts; one is set ahead of the other, heels down, in a slow step towards the left.",
+        "meaning": "The traditional Page walks slowly, absorbed in the coin. Olivia keeps the unhurried step and leaves the feet bare, so the student learns earth with the soles as well as the eyes: direct contact with the ground the suit is named for."
+      },
+      "uk": {
+        "name": "Босі ноги в траві",
+        "seen": "Обидві ступні зі слонової кістки босі й стоять на траві, вирізьбленій дрібними пучками; одна виставлена перед другою, п’яти на землі, у повільному кроці ліворуч.",
+        "meaning": "Традиційний Паж іде повільно, захоплений монетою. Olivia зберігає неквапливий крок і залишає ноги босими, тож учень пізнає землю не лише очима, а й підошвами: прямий дотик до ґрунту, стихії, якій належить ця масть."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Page of Pentacles is the patient student of the practical world: curious about how things work and willing to learn them slowly, by hand.",
+    "keywords": {
+      "upright": [
+        "study",
+        "apprenticeship",
+        "practical curiosity",
+        "a new skill",
+        "steady application",
+        "first steps"
+      ],
+      "reversed": [
+        "endless preparation",
+        "scattered focus",
+        "procrastination",
+        "impatience with basics",
+        "perfectionism"
+      ]
+    },
+    "upright": [
+      "The Page of Pentacles draws attention to the beginning of competence: the stage where something practical has caught your interest and you want to understand it properly. In Olivia’s image the figure holds the disc at eye level and looks at nothing else. The star on it is mostly drawn in thin incised lines, like a diagram in a workbook, and only its small centre is gold. That is how learning often feels: the outline is visible long before the value is fully yours.",
+      "Notice the hands. One cups the disc from underneath while the other steadies its edge with spread fingers, the way you might hold a new tool or an unfamiliar instrument to feel its weight. Nothing is being displayed or traded yet. The feet are bare on the grass, one step ahead of the other, and the field behind is freshly ploughed: ground prepared, not yet sown.",
+      "Upright, this card invites you to treat a practical matter as something worth studying: a craft, a course, a body of knowledge, the way your money or your health actually works. It favours small, regular sessions over grand plans, and honest questions over looking already expert. The gold river in the sky above suggests how much there is to know; the Page answers by attending to one star at a time."
+    ],
+    "reversed": [
+      "Page of Pentacles reversed can point to study that never turns into practice. Research, tools, timetables and courses may keep accumulating while the first real attempt waits for a better moment. It can also show the opposite: impatience with the dull basics, a wish to skip straight to results, or attention scattered across too many beginnings at once.",
+      "Look again at the image: the Page holds one disc, close, with both hands. Reversed, the invitation is to put some of the preparation down and pick up a single, unimpressive exercise you can do today. Let it be clumsy. Ask whether perfectionism is protecting you from the ordinary awkwardness of learning."
+    ],
+    "number": "Pages are the students and messengers of the tarot court: the stage of first encountering something and wanting to understand it. In Pentacles, the suit of earth, what they study is the tangible world: materials, skills, bodies, money and time. The Ace of Pentacles offers the coin as a seed; the Page is the first to hold it up and look at it closely, with no hurry to spend it. The Knight of Pentacles then carries that knowledge into steady, repeated work.",
+    "tradition": "In the Golden Dawn system the Page is the Princess, and this card is titled the Princess of the Echoing Hills, Rose of the Palace of Earth. It is Earth of Earth: the element at its most concentrated and physical. Princesses carry no zodiac span; each is the Throne of its Ace and rules a quadrant of the heavens around the north pole, for Pentacles the quadrant of Aries, Taurus and Gemini. Marseille decks call this card the Valet de Deniers, a standing attendant with a coin. Arthur Edward Waite described the figure moving slowly, absorbed in the pentacle, and Pamela Colman Smith’s 1909 design set the Page in a green meadow beside a grove and a ploughed field.",
+    "court": {
+      "temperament": "As a temperament, the Page of Pentacles is curious, careful and quietly persistent. This way of being wants to know how things are made and why they work, and prefers to find out by doing. It is comfortable being a beginner, asks practical questions, and does not mind that progress is slow as long as it is real.",
+      "gifts": "The gifts here are focus, diligence and respect for material things. This approach reads the manual, practises the scale, keeps the notebook and turns up again the next day. It notices details others skip, learns from what the material itself shows, and builds a foundation solid enough for later skill to stand on.",
+      "shadow": "In shadow, study becomes a way of never starting. You may collect information, equipment or qualifications without using them, or become so absorbed in one small task that the wider situation slips out of view. The opposite shadow is impatience, abandoning a skill before it has had time to settle into the hands."
+    },
+    "areas": {
+      "love": "In love and close relationships, the Page of Pentacles suggests learning another person the way you would learn a craft: through attention, small consistent gestures and questions asked because you genuinely want the answer. It can describe a connection that grows slowly and practically. With yourself, it invites curiosity about your own habits and needs, studied kindly, as something you are still getting to know rather than something already decided.",
+      "work": "At work, in study and with money, this card favours apprenticeship: a new skill, a course, a first project or a closer look at how your finances actually move. It suggests starting modestly and keeping records, so that effort becomes visible. Consider which practical knowledge would make your situation steadier, and what the smallest regular session of learning it could look like in the week ahead.",
+      "self": "For your own life, the Page of Pentacles turns attention to the body and the hands: learning by making, walking, cooking, mending or growing something. Like the barefoot figure on the grass, you might find that direct contact teaches more than reading about it. Self-worth here comes from competence slowly earned, and from giving one ordinary thing your full attention."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter is about learning something practical: the situation asks for study, patience and real-world information more than for a quick decision.",
+      "challenge": "As a challenge, it can show preparation that keeps postponing action, a focus so narrow that the wider picture is missed, or frustration with how slowly a new skill develops.",
+      "advice": "As advice, it invites you to choose one concrete thing to learn and give it a short, regular session this week, holding it close enough to see how it actually works."
+    },
+    "pairs": [
+      {
+        "with": 64,
+        "text": "With the Ace of Pentacles, the coin passes from offer to study. The Ace is the opportunity held out; the Page is the one who takes it in both hands and looks closely. Together they ask what you will do with a practical beginning."
+      },
+      {
+        "with": 71,
+        "text": "The Eight of Pentacles is the apprentice at the bench, repeating the same work until it is right. Beside the Page, it turns curiosity into practice and draws attention to the hours that turn an interest into a skill."
+      },
+      {
+        "with": 75,
+        "text": "The Knight of Pentacles holds the same gold-starred disc out on one flat palm, astride a horse standing on ploughed furrows. Beside the Page, it draws attention to the step from studying something closely to working it steadily, season after season."
+      }
+    ],
+    "questions": [
+      "What practical skill or subject keeps drawing your attention back, and what would it mean to study it properly?",
+      "Where might preparation be standing in for the first real attempt?",
+      "What could you learn this week through your hands rather than through reading?"
+    ],
+    "practice": "Choose one everyday object and study it for five minutes as if for an exam: how it is made, what it weighs, how it wears. Write down three things you had never noticed."
+  },
+  "uk": {
+    "essence": "Паж Пентаклів — терплячий учень практичного світу: цікавість до того, як усе влаштовано, і готовність опановувати це повільно, власними руками.",
+    "keywords": {
+      "upright": [
+        "навчання",
+        "учнівство",
+        "практична цікавість",
+        "нова навичка",
+        "послідовна праця",
+        "перші кроки"
+      ],
+      "reversed": [
+        "нескінченна підготовка",
+        "розпорошена увага",
+        "відкладання на потім",
+        "нетерплячість щодо основ",
+        "перфекціонізм"
+      ]
+    },
+    "upright": [
+      "Паж Пентаклів привертає увагу до початку вправності: етап, коли щось практичне зачепило вашу цікавість і вам хочеться розібратися в цьому як слід. На зображенні Olivia фігура тримає диск на рівні очей і більше ні на що не дивиться. Зірку на ньому здебільшого накреслено тонкими вирізьбленими лініями, наче схему в робочому зошиті, і лише її маленький центр золотий. Саме так часто відчувається навчання: обриси видно задовго до того, як цінність стає по-справжньому вашою.",
+      "Придивіться до рук. Одна підтримує диск знизу, а друга притримує його край розчепіреними пальцями — так тримають новий інструмент чи незнайомий прилад, щоб відчути його вагу. Диск ще не виставляють напоказ і не пускають в обмін. Ноги босі на траві, одна на крок попереду другої, а поле позаду щойно зоране: земля підготовлена, але ще не засіяна.",
+      "У прямому положенні ця карта запрошує поставитися до практичної справи як до того, що варто вивчати: ремесла, курсу, галузі знань, того, як насправді влаштовані ваші гроші чи ваше здоров’я. Вона надає перевагу коротким регулярним заняттям перед грандіозними планами і чесним запитанням перед удаваною обізнаністю. Золота ріка в небі над фігурою натякає, скільки всього можна пізнати; Паж відповідає на це тим, що вивчає по одній зірці."
+    ],
+    "reversed": [
+      "Паж Пентаклів у перевернутому положенні може вказувати на навчання, яке так і не переходить у практику. Дослідження, інструменти, графіки й курси можуть накопичуватися, а перша справжня спроба все чекає слушнішої миті. Карта може показувати й протилежне: нетерплячість щодо нудних основ, бажання одразу перестрибнути до результатів або увагу, розпорошену між надто багатьма початками водночас.",
+      "Погляньте на зображення ще раз: Паж тримає один диск, близько, обома руками. У перевернутому положенні карта запрошує відкласти частину підготовки й узятися за одну непоказну вправу, яку можна зробити сьогодні. Нехай вона вийде незграбною. Запитайте себе, чи не захищає вас перфекціонізм від звичайної ніяковості навчання."
+    ],
+    "number": "Пажі — учні й посланці серед придворних карт таро: етап першої зустрічі з чимось і бажання це зрозуміти. У Пентаклях, масті землі, предмет їхнього навчання — відчутний світ: матеріали, навички, тіло, гроші й час. Туз Пентаклів пропонує монету як зерно; Паж першим піднімає її й уважно роздивляється, не поспішаючи витрачати. Лицар Пентаклів потім переносить ці знання в сталу, повторювану працю.",
+    "tradition": "У системі Золотої Зорі Пажеві відповідає Принцеса, і ця карта має титул «Принцеса Відлунних Пагорбів, Троянда Палацу Землі». Це Земля Землі: стихія в найзгущенішому, найтілеснішому вигляді. Принцеси не мають зодіакального проміжку; кожна є Троном свого Туза й править квадрантом неба довкола північного полюса, для Пентаклів — квадрантом Овна, Тельця і Близнят. У марсельських колодах ця карта зветься Valet de Deniers: слуга, що стоїть із монетою. Артур Едвард Вейт описував фігуру, яка повільно рухається, заглиблена в пентакль, а Памела Колман Сміт у 1909 році помістила Пажа на зеленій луці поруч із гаєм і зораним полем.",
+    "court": {
+      "temperament": "Як темперамент Паж Пентаклів — це допитливість, ретельність і тиха наполегливість. Така вдача прагне знати, як речі зроблено і чому вони працюють, і воліє з’ясовувати це на ділі. Їй легко бути початківцем, ставити практичні запитання й миритися з повільним поступом, аби лише він був справжнім.",
+      "gifts": "Дари цієї карти — зосередженість, сумлінність і повага до матеріального. Такий підхід читає інструкцію, відпрацьовує гами, веде нотатник і назавтра повертається знову. Він помічає деталі, які інші пропускають, вчиться з того, що показує сам матеріал, і закладає фундамент, достатньо міцний, щоб на ньому трималася майбутня майстерність.",
+      "shadow": "У тіні навчання стає способом так і не почати. Ви можете збирати інформацію, спорядження чи дипломи, не користуючись ними, або так поринути в одне дрібне завдання, що ширша ситуація випаде з поля зору. Протилежна тінь — нетерплячість: покинути навичку раніше, ніж вона встигне осісти в руках."
+    },
+    "areas": {
+      "love": "У коханні й близьких стосунках Паж Пентаклів пропонує пізнавати іншу людину так, як опановують ремесло: через увагу, дрібні послідовні жести й запитання, які ставлять, бо справді хочуть почути відповідь. Карта може описувати зв’язок, що росте повільно й практично. У стосунках із собою вона запрошує з цікавістю придивитися до власних звичок і потреб: доброзичливо вивчати себе як людину, яку ви ще пізнаєте, а не як щось уже визначене.",
+      "work": "У роботі, навчанні та грошових справах ця карта підтримує учнівство: нову навичку, курс, перший проєкт або уважніший погляд на те, як насправді рухаються ваші фінанси. Вона пропонує почати скромно й вести записи, щоб зусилля ставали видимими. Подумайте, яке практичне знання зробило б вашу ситуацію стабільнішою і яким могло б бути найменше регулярне заняття, щоб опановувати його найближчого тижня.",
+      "self": "У вашому власному житті Паж Пентаклів спрямовує увагу на тіло й руки: вчитися, роблячи щось, гуляючи, готуючи, лагодячи чи вирощуючи. Як і боса фігура на траві, ви, можливо, помітите, що прямий дотик навчає більше, ніж читання про нього. Відчуття власної цінності тут походить від повільно здобутої вправності й від того, що ви віддаєте одній звичайній речі всю свою увагу."
+    },
+    "positions": {
+      "heart": "У центрі запитання ця карта підказує, що справа стосується опанування чогось практичного: ситуація потребує навчання, терпіння й реальної інформації більше, ніж швидкого рішення.",
+      "challenge": "Як перешкода карта може вказувати на підготовку, що раз у раз відкладає дію, на зосередженість, настільки вузьку, що ширша картина вислизає, або на розчарування тим, як повільно розвивається нова навичка.",
+      "advice": "Як порада вона запрошує обрати одну конкретну річ для навчання й присвятити їй коротке регулярне заняття цього тижня, тримаючи її достатньо близько, щоб побачити, як вона насправді працює."
+    },
+    "pairs": [
+      {
+        "with": 64,
+        "text": "З Тузом Пентаклів монета переходить від пропозиції до вивчення. Туз — це простягнута нагода; Паж — той, хто бере її обома руками й уважно роздивляється. Разом вони запитують, що ви зробите з практичним початком."
+      },
+      {
+        "with": 71,
+        "text": "Вісімка Пентаклів — це учень за верстаком, що повторює ту саму роботу, доки вона не вийде як слід. Поруч із Пажем вона перетворює цікавість на практику й привертає увагу до годин, які роблять із захоплення навичку."
+      },
+      {
+        "with": 75,
+        "text": "Лицар Пентаклів тримає такий самий диск із золотою зіркою на розкритій долоні, сидячи верхи на коні, що стоїть на зораних борознах. Поруч із Пажем ця карта привертає увагу до кроку від уважного вивчення до сталої праці, сезон за сезоном."
+      }
+    ],
+    "questions": [
+      "Яка практична навичка чи тема раз у раз повертає до себе вашу увагу, і що означало б вивчити її як слід?",
+      "Де підготовка, можливо, підміняє першу справжню спробу?",
+      "Чого ви могли б навчитися цього тижня руками, а не з книжок?"
+    ],
+    "practice": "Оберіть один повсякденний предмет і вивчайте його п’ять хвилин, наче до іспиту: як його зроблено, скільки він важить, як зношується. Запишіть три речі, яких ви раніше не помічали."
+  }
+}

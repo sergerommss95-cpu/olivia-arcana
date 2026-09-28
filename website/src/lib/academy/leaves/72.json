@@ -1,0 +1,252 @@
+{
+  "id": 72,
+  "slug": "nine-of-pentacles",
+  "artwork": {
+    "file": "72_nine_of_pentacles.webp",
+    "sha256": "d6c9ea6740c1600f34282a0e74c31f8e5e4aaf7a8a4aa1a166e5899471ea0c7c"
+  },
+  "symbols": [
+    {
+      "key": "bird",
+      "x": 27,
+      "y": 39,
+      "en": {
+        "name": "The hooded falcon",
+        "seen": "An ivory falcon perches on the raised hand at left, talons gripping a fitted glove with a flared cuff. A small hood with a loop on top covers its head; its long tail hangs down beside the wrist.",
+        "meaning": "The hooded falcon is the card’s best-known emblem: a wild, swift creature trained to wait and to return. It is commonly read as discipline turned into freedom, instinct brought under calm control. The figure’s eyes are lowered elsewhere; the bird no longer needs watching."
+      },
+      "uk": {
+        "name": "Сокіл у клобучку",
+        "seen": "Сокіл зі слонової кістки сидить на піднятій руці ліворуч, учепившись кігтями в щільно припасовану рукавицю з розширеною манжетою. Голову птаха вкриває невеликий клобучок із петелькою вгорі; довгий хвіст звисає біля зап’ястя.",
+        "meaning": "Сокіл у клобучку — найвідоміша емблема цієї карти: дикий, стрімкий птах, навчений чекати й повертатися. Його зазвичай читають як дисципліну, що стала свободою, як інстинкт під спокійним контролем. Очі постаті опущені й дивляться деінде: за птахом більше не треба стежити."
+      }
+    },
+    {
+      "key": "grapes",
+      "x": 69,
+      "y": 67,
+      "en": {
+        "name": "The bare hand on the grapes",
+        "seen": "The other hand hangs ungloved at right, fingertips resting lightly on the vine stem just above a heavy cluster of grapes. The veiled head is bowed, eyes lowered, looking at neither bird nor fruit.",
+        "meaning": "Grapes are the classic Pentacles sign of harvest and slow-ripened pleasure: wine takes seasons. One hand is gloved for discipline, the other bare for enjoyment. The touch is light; the figure is not picking or counting, only appreciating what has grown."
+      },
+      "uk": {
+        "name": "Гола рука на винограді",
+        "seen": "Друга рука, без рукавиці, опущена праворуч; кінчики пальців легко торкаються стебла лози трохи вище важкого грона винограду. Голова під покривалом схилена, очі опущені: постать не дивиться ні на птаха, ні на плоди.",
+        "meaning": "Виноград — класичний знак Пентаклів: урожай і насолода, що дозрівала неквапом, адже вино потребує не одного сезону. Одна рука в рукавиці — для дисципліни, друга гола — для втіхи. Дотик легкий: постать не зриває й не лічить грона, лише милується тим, що виросло."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 22,
+      "y": 75,
+      "en": {
+        "name": "Nine grey-blue discs",
+        "seen": "Counted disc by disc, nine grey-blue lapis pentacles with incised five-pointed stars sit among the vine leaves: six stacked beside the gown at left, three spaced down the right edge.",
+        "meaning": "The traditional card shows nine pentacles growing among the vines, wealth that has become part of the landscape. Here they are carved from the same blue stone as the leaves, almost camouflaged. Resources at this stage are not piled up or displayed; they have been grown into a life."
+      },
+      "uk": {
+        "name": "Дев’ять сіро-блакитних дисків",
+        "seen": "Серед виноградного листя, якщо лічити диск за диском, — дев’ять сіро-блакитних пентаклів із ляпіс-лазурі з вирізьбленими п’ятикутними зірками: шість складено один над одним біля сукні ліворуч, три розставлено вниз уздовж правого краю.",
+        "meaning": "Традиційна карта показує дев’ять пентаклів, що ростуть серед лози: багатство, яке стало частиною краєвиду. Тут вони вирізьблені з того самого синього каменю, що й листя, і майже зливаються з ним. На цьому етапі ресурси не складають у купу й не виставляють напоказ: вони вросли в саме життя."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 74,
+      "y": 75,
+      "en": {
+        "name": "A tenth disc in gold",
+        "seen": "Just below the grape cluster at right, one further disc carries a five-pointed star inlaid in gold, the only gilded pentacle on the card. With it, the discs number ten.",
+        "meaning": "The traditional card counts nine pentacles. Olivia adds a tenth and gilds it, close to the resting hand. You may read it as the worth that enjoyment adds: the same wealth, noticed. It can also hint at the Ten of Pentacles ahead, where a private garden becomes a shared inheritance."
+      },
+      "uk": {
+        "name": "Десятий диск, золотий",
+        "seen": "Праворуч, одразу під виноградним гроном, на ще одному диску — п’ятикутна зірка, інкрустована золотом; це єдиний позолочений пентакль на карті. З ним дисків стає десять.",
+        "meaning": "Традиційна карта налічує дев’ять пентаклів. Olivia додає десятий і вкриває його золотом — поруч із рукою, що спочиває. Його можна прочитати як цінність, яку додає насолода: те саме багатство, але помічене. Він може натякати й на Десятку Пентаклів попереду, де приватний сад стає спільною спадщиною."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 50,
+      "y": 62,
+      "en": {
+        "name": "The flowered ivory gown",
+        "seen": "The figure wears a long ivory gown with a deep V neck, a sash at the high waist and full elbow-length sleeves, carved all over with small flower sprays; a veil drapes over the head, long hair falling beneath it.",
+        "meaning": "The traditional robe is also patterned with flowers, in which some readers see the glyph of Venus, the planet assigned to this card. Here the blossoms are carved into the ivory itself, as if the garden has grown into the clothing: refinement that has become second nature."
+      },
+      "uk": {
+        "name": "Квітчаста сукня зі слонової кістки",
+        "seen": "Постать убрана в довгу сукню зі слонової кістки з глибоким V-подібним вирізом, поясом-стрічкою на високій талії й широкими рукавами до ліктя, всуціль укриту дрібними квітковими гілочками; на голові покривало, з-під якого спадає довге волосся.",
+        "meaning": "Традиційне вбрання теж усіяне квітами, і дехто бачить у них знак Венери, планети, яку приписують цій карті. Тут квіти вирізьблено в самій кістці, ніби сад проріс в одяг: вишуканість, що стала другою натурою."
+      }
+    },
+    {
+      "key": "house",
+      "x": 76,
+      "y": 31,
+      "en": {
+        "name": "The manor among trees",
+        "seen": "Far off at upper right, a gabled manor house with tall chimneys and mullioned windows is carved in pale blue lapis, sheltered by tall trees on softly rolling ground.",
+        "meaning": "A house in the distance belongs to the traditional card: the estate the garden is part of. It suggests security that has been built and can be returned to, yet the figure has chosen to stand out among the vines. Comfort is the base here, not the destination."
+      },
+      "uk": {
+        "name": "Садиба серед дерев",
+        "seen": "Далеко вгорі праворуч — садиба з гостроверхими фронтонами, високими димарями й вікнами з середниками, вирізьблена в блідо-блакитній ляпіс-лазурі, під захистом високих дерев на м’яко хвилястих пагорбах.",
+        "meaning": "Будинок удалині є й на традиційній карті: це маєток, до якого належить сад. Він натякає на безпеку, яку вже збудовано і до якої можна повернутися, проте постать вирішила стояти тут, серед лози. Затишок тут — основа, а не мета."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 28,
+      "y": 18,
+      "en": {
+        "name": "The glittering Milky Way",
+        "seen": "A broad diagonal band of crushed, sparkling fragments, silver and pale blue, runs from the top centre down towards the left horizon, among scattered gold star flecks in the dark lapis sky.",
+        "meaning": "The traditional Nine of Pentacles is set in golden daylight. Olivia moves the garden into a clear night with the Milky Way arching over it. Solitude here feels spacious rather than lonely: the figure stands alone, but under a sky full of company, at ease in a quiet hour."
+      },
+      "uk": {
+        "name": "Мерехтливий Чумацький Шлях",
+        "seen": "Широка діагональна смуга з подрібнених іскристих уламків, сріблястих і блідо-блакитних, тягнеться від середини верхнього краю вниз до обрію ліворуч, серед розсипаних золотих цяточок-зірок на темному лазуритовому небі.",
+        "meaning": "Традиційна Дев’ятка Пентаклів залита золотим денним світлом. Olivia переносить сад у ясну ніч, над якою аркою вигинається Чумацький Шлях. Самотність тут відчувається як простір, а не як покинутість: постать стоїть сама, але під небом, повним товариства, спокійна в цю тиху годину."
+      }
+    },
+    {
+      "key": "other",
+      "x": 63,
+      "y": 95,
+      "en": {
+        "name": "The small snail",
+        "seen": "On the bare ground just below the hem, a small snail with a spiralled shell is carved in pale grey stone, horns raised, moving towards the right.",
+        "meaning": "The traditional card also sets a snail in the foreground. It is commonly read as patience and self-containment: a creature that carries its home and moves at its own pace. It recalls that this abundance was built slowly, and that the slowness was part of the craft."
+      },
+      "uk": {
+        "name": "Маленький равлик",
+        "seen": "На голій землі одразу під подолом — маленький равлик зі спіральною мушлею, вирізьблений із блідо-сірого каменю; ріжки підняті, він повзе праворуч.",
+        "meaning": "На традиційній карті теж є равлик на передньому плані. Його зазвичай читають як терпіння й самодостатність: істоту, що несе свій дім із собою й рухається у власному темпі. Він нагадує, що цей достаток будувався повільно і що сама повільність була частиною майстерності."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Nine of Pentacles pictures self-sufficiency that has ripened into pleasure: a life tended patiently enough that you can now stand in it and enjoy it.",
+    "keywords": {
+      "upright": [
+        "self-sufficiency",
+        "cultivated comfort",
+        "refined pleasure",
+        "discipline",
+        "independence",
+        "earned leisure"
+      ],
+      "reversed": [
+        "isolation",
+        "overwork",
+        "comfort on display",
+        "dependence",
+        "joyless achievement"
+      ]
+    },
+    "upright": [
+      "The Nine of Pentacles is the card of a garden that has come into its own. After the planting, the craft and the waiting of the earlier Pentacles, it draws attention to the moment when what you have tended can hold you in return. In Olivia’s deck the ivory figure stands alone in a vineyard at night, grapes heavy on every side, a manor house far off among the trees and the Milky Way crossing the sky. There is no crowd and no audience, and nothing in the scene looks lacking.",
+      "Look at the two hands. The raised one wears a gauntlet and carries a hooded falcon, a wild creature trained to patience; the other is bare and rests lightly on the vine above the grapes, while the bowed head looks at neither. Discipline and enjoyment each have a hand. Among the vines, nine discs are carved in the same blue stone as the leaves, almost part of the garden, and a tenth shines in gold just below the resting hand, as though value becomes visible once it is noticed.",
+      "Upright, the card invites you to recognise what you have built, whether a skill, a home, a routine or steadier footing, and to let yourself live in it rather than immediately planning the next harvest. Independence here is not coldness: it is enough ease in your own company that being with others becomes a choice."
+    ],
+    "reversed": [
+      "Nine of Pentacles reversed draws attention to self-sufficiency that has tipped out of balance. It can point to independence that has hardened into isolation, a garden kept so carefully that no one is invited in, or to comfort that never quite arrives because there is always one more task to finish first. It can also show the opposite pull: a sense of security that rests on someone else’s approval or support, so that your own ground feels thin.",
+      "Sometimes the falcon has slipped its hood: restlessness where calm discipline used to be, or pleasure kept up for display rather than felt. The card asks what would let you step back into your own garden, even briefly, and enjoy one thing already made without earning it again."
+    ],
+    "number": "Nine is the last single number before the Ten completes the cycle and hands it on; it is a suit’s fullness held by one person. In Pentacles, the suit of Earth, body, craft, resources and daily care, that fullness is self-sufficiency: the patient work of the Eight has become a way of life. The Nine asks you to notice that enough has been reached, and to enjoy it for its own sake before the Ten turns private ease into something shared, inherited or passed on.",
+    "tradition": "In the Golden Dawn system the Nine of Pentacles, there called the Nine of Disks, is titled the Lord of Material Gain. It is assigned to Venus in Virgo, the second decan of that sign (10 to 20 degrees), and to Yesod, the Foundation, the ninth Sephirah, here expressed in the world of Earth. Venus brings pleasure and beauty, careful Virgo brings refinement and method, so the pairing is often read as enjoyment earned through diligence. Aleister Crowley shortened the title to Gain. Marseille decks show nine coins set among stylised flowering stems. Pamela Colman Smith’s 1909 design gave it the familiar scene: a figure alone in a vineyard of pentacles, a hooded bird on a gloved hand, a distant house and a snail.",
+    "areas": {
+      "love": "In close relationships the Nine of Pentacles turns attention to what you bring as a whole person rather than as someone waiting to be completed. The figure stands alone in the garden by choice, and that ease can make closeness freer: you can share a life without handing over its care. The card may also ask how you treat your relationship with yourself, and whether you offer yourself the patience and pleasure you would offer someone you love.",
+      "work": "At work, in study or in money matters, the card can reflect a point where effort has become competence: skills that no longer strain, routines that run, resources built with care. It invites you to notice this and let it support a little more freedom, in time, choice or quality of life. This is not guidance on spending or investing; it is a prompt to recognise the ground you have already made under your own feet.",
+      "self": "For your relationship with yourself, this card asks whether you can enjoy what you have tended without having to justify it. The gloved hand and the bare hand suggest both are needed: self-discipline that holds steady, and a willingness to reach for the grapes. Notice where you feel most at home in your own company, and whether comfort has room in your days or keeps being postponed until the next milestone."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Nine of Pentacles can point to something you have patiently built that may be ready to be lived in and enjoyed, not only maintained or improved.",
+      "challenge": "As a challenge, the card can show self-reliance that has become a wall, or comfort you never let yourself feel because the next harvest always seems to come first.",
+      "advice": "As advice, it invites you to pause, recognise what is already yours, and enjoy one part of it deliberately, the way the bare hand rests on the grapes."
+    },
+    "pairs": [
+      {
+        "with": 3,
+        "text": "The Empress, assigned to Venus in the Golden Dawn system, is traditionally set in a fertile landscape of trees and ripening wheat. The Nine of Pentacles shows that abundance held by one person in a cultivated space; together they ask how pleasure and nurture can grow from your own care."
+      },
+      {
+        "with": 68,
+        "text": "The Five of Pentacles traditionally shows figures outside in the cold; the Nine shows a figure at ease within the garden. Together they draw attention to how security and belonging are built, and to how the one inside might open a gate for others."
+      },
+      {
+        "with": 73,
+        "text": "The Ten of Pentacles is the next step: in the traditional image the private garden becomes a household of several generations gathered at the threshold of home. Together the pair asks what you have built for yourself, and what of it you would like to share or pass on."
+      }
+    ],
+    "questions": [
+      "What have you tended long enough that it could now hold you in return?",
+      "Which part of your independence feels like freedom, and which part feels like managing alone?",
+      "What would it look like to enjoy something you have made without first earning it again?"
+    ],
+    "practice": "Choose one thing you have built or cared for, a plant, a skill or a room, and spend ten unhurried minutes simply enjoying it without improving anything."
+  },
+  "uk": {
+    "essence": "Дев’ятка Пентаклів зображує самодостатність, що дозріла до насолоди: життя, яке ви плекали досить терпляче, щоб тепер стояти в ньому й тішитися ним.",
+    "keywords": {
+      "upright": [
+        "самодостатність",
+        "плеканий затишок",
+        "вишукана насолода",
+        "дисципліна",
+        "незалежність",
+        "заслужене дозвілля"
+      ],
+      "reversed": [
+        "ізоляція",
+        "перевтома",
+        "затишок напоказ",
+        "залежність",
+        "безрадісне досягнення"
+      ]
+    },
+    "upright": [
+      "Дев’ятка Пентаклів — карта саду, що нарешті розквітнув повною мірою. Після садіння, ремесла й очікування попередніх Пентаклів вона звертає увагу на мить, коли те, що ви плекали, може у відповідь стати опорою для вас. У колоді Olivia постать зі слонової кістки стоїть сама в нічному винограднику: з усіх боків звисають важкі грона, далеко серед дерев видніється садиба, а небо перетинає Чумацький Шлях. Тут немає ні натовпу, ні глядачів, і в цій сцені ніби нічого не бракує.",
+      "Погляньте на дві руки. Піднята рука — у рукавиці, на ній сидить сокіл у клобучку, дикий птах, навчений терпінню; друга гола й легко спочиває на лозі над виноградом, а схилена голова не дивиться ні на те, ні на інше. У дисципліни й насолоди — по руці. Серед лози дев’ять дисків вирізьблено з того самого синього каменю, що й листя, — вони майже частина саду, а десятий сяє золотом просто під рукою, що спочиває, ніби цінність стає видимою, щойно її помічають.",
+      "У прямому положенні карта запрошує вас визнати те, що ви збудували, — навичку, дім, розпорядок чи твердіший ґрунт під ногами — і дозволити собі жити в цьому, а не одразу планувати наступний урожай. Незалежність тут не означає холодності: це така невимушеність наодинці з собою, що бути з іншими стає вибором."
+    ],
+    "reversed": [
+      "Дев’ятка Пентаклів у перевернутому положенні звертає увагу на самодостатність, що втратила рівновагу. Вона може вказувати на незалежність, яка переросла в ізоляцію, на сад, який доглядають так ретельно, що нікого туди не запрошують, або на затишок, що ніяк не настає, бо спершу завжди треба закінчити ще одну справу. Вона може показати й протилежне тяжіння: відчуття безпеки, яке тримається на чужому схваленні чи підтримці, тож власний ґрунт здається хитким.",
+      "Іноді сокіл скидає клобучок: неспокій там, де раніше була спокійна дисципліна, або насолода, яку вдають напоказ, а не відчувають. Карта запитує, що допомогло б вам повернутися до власного саду, хоч ненадовго, і насолодитися чимось уже створеним, не заслуговуючи на нього знову."
+    ],
+    "number": "Дев’ять — останнє однозначне число перед Десяткою, яка завершує цикл і передає його далі; це повнота масті, яку тримає одна людина. У Пентаклях, масті Землі, тіла, ремесла, ресурсів і щоденного догляду, ця повнота — самодостатність: терпляча праця Вісімки стала способом життя. Дев’ятка просить вас помітити, що ви вже маєте досить, і насолодитися цим заради самої насолоди, перш ніж Десятка перетворить приватний затишок на щось спільне, успадковане чи передане далі.",
+    "tradition": "У системі Золотої Зорі Дев’ятка Пентаклів, що там називалася Дев’яткою Дисків, має титул «Володар матеріального здобутку». Її пов’язують із Венерою в Діві, другим деканом цього знака (від 10 до 20 градусів), і з Єсод, Основою, дев’ятою сефірою, вираженою тут у світі Землі. Венера приносить насолоду й красу, ретельна Діва — вишуканість і метод, тож це поєднання часто читають як радість, заслужену старанністю. Алістер Кроулі скоротив назву до «Здобуток». У марсельських колодах — дев’ять монет серед стилізованих квітучих стебел. У 1909 році Памела Колман Сміт дала карті знайому сцену: самотня постать у винограднику пентаклів, птах у клобучку на руці в рукавиці, будинок удалині й равлик.",
+    "areas": {
+      "love": "У близьких стосунках Дев’ятка Пентаклів звертає увагу на те, що ви приносите в них як цілісна людина, а не в очікуванні, що хтось вас доповнить. Постать стоїть у саду сама, з власного вибору, і ця легкість може зробити близькість вільнішою: можна ділити життя, не передаючи іншим турботу про нього. Карта може також запитати, як ви ставитеся до стосунків із собою і чи даруєте собі те терпіння й ту насолоду, які подарували б людині, яку любите.",
+      "work": "У роботі, навчанні чи грошових справах карта може відображати момент, коли зусилля стали вмінням: навички більше не виснажують, розпорядок працює, ресурси накопичено дбайливо. Вона запрошує помітити це й дозволити цьому подарувати вам трохи більше свободи — у часі, виборі чи якості життя. Це не порада щодо витрат чи інвестицій, а нагадування визнати ґрунт, який ви вже створили під власними ногами.",
+      "self": "У стосунках із собою ця карта запитує, чи можете ви насолоджуватися тим, що плекали, не виправдовуючись. Рука в рукавиці й гола рука підказують, що потрібні обидві: самодисципліна, яка тримає рівновагу, і готовність потягтися до винограду. Зверніть увагу, де вам найзатишніше у власному товаристві і чи є затишку місце у ваших днях, чи ви постійно відкладаєте його до наступного рубежу."
+    },
+    "positions": {
+      "heart": "У центрі запитання Дев’ятка Пентаклів може вказувати на те, що ви терпляче збудували і що, можливо, вже готове до того, щоб у ньому жити й ним насолоджуватися, а не лише підтримувати чи вдосконалювати.",
+      "challenge": "Як виклик карта може показувати опору на себе, що перетворилася на стіну, або затишок, якого ви ніяк не дозволяєте собі відчути, бо наступний урожай завжди здається важливішим.",
+      "advice": "Як порада вона запрошує зупинитися, визнати те, що вже ваше, і свідомо насолодитися однією його частиною — так, як гола рука спочиває на винограді."
+    },
+    "pairs": [
+      {
+        "with": 3,
+        "text": "Імператрицю, яку в системі Золотої Зорі пов’язують із Венерою, традиційно зображують серед родючого краєвиду з деревами й достиглою пшеницею. Дев’ятка Пентаклів показує цей достаток у руках однієї людини, у плеканому просторі; разом вони запитують, як насолода й плекання можуть вирости з вашої власної турботи."
+      },
+      {
+        "with": 68,
+        "text": "П’ятірка Пентаклів традиційно показує постаті надворі, на холоді; Дев’ятка — постать, якій спокійно всередині саду. Разом вони звертають увагу на те, як будуються безпека й належність, і на те, як, опинившись усередині, можна відчинити хвіртку для інших."
+      },
+      {
+        "with": 73,
+        "text": "Десятка Пентаклів — наступний крок: на традиційному зображенні приватний сад стає домом кількох поколінь, що зібралися на порозі. Разом ця пара запитує, що ви збудували для себе і чим із цього хотіли б поділитися чи що передати далі."
+      }
+    ],
+    "questions": [
+      "Що ви плекали так довго, що тепер воно могло б у відповідь стати опорою для вас?",
+      "Яка частина вашої незалежності відчувається як свобода, а яка — як необхідність справлятися самотужки?",
+      "Якою була б для вас насолода тим, що ви створили, без потреби спершу знову на це заслужити?"
+    ],
+    "practice": "Оберіть одну річ, яку ви збудували чи доглядали, — рослину, навичку чи кімнату — і проведіть десять неквапливих хвилин, просто насолоджуючись нею й нічого не вдосконалюючи."
+  }
+}

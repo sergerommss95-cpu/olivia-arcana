@@ -24,6 +24,12 @@ export function initMobileQuestion({locale='en'}={}) {
  next.addEventListener('click',()=>change('prepare'));edit.addEventListener('click',()=>change('compose'));back.addEventListener('click',()=>change('compose'));
  form.addEventListener('submit',event=>{if(mq.matches&&phase==='compose'){event.preventDefault();event.stopImmediatePropagation();change('prepare');}},{capture:true});
  const observer=new MutationObserver(()=>{const current=document.body.dataset.view;if(current==='question'&&previousView!=='question')change('compose',{focus:false});previousView=current;});observer.observe(document.body,{attributes:true,attributeFilter:['data-view']});
+ // With the keyboard open, the compact compose layout fits above it. Keep the
+ // question and Continue in view rather than leaving the action beneath the keys.
+ globalThis.visualViewport?.addEventListener('resize',()=>{
+  if(!mq.matches||phase!=='compose'||document.activeElement!==input||document.body.dataset.mobileKeyboard!=='true')return;
+  globalThis.requestAnimationFrame?.(()=>globalThis.scrollTo?.({top:0,behavior:'instant'}));
+ });
  mq.addEventListener('change',render);render();
  return {getPhase:()=>phase};
 }

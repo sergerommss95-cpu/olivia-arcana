@@ -1,0 +1,73 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "site_name": "olivia-arcana",
+  "revision": "phone-arrival-v6",
+  "date": "2026-09-27",
+  "branch": "claude/peaceful-clarke-scrh06",
+  "commit": "0889b9e",
+  "previous_revision": "site-wide v5, commit c19bdeb",
+  "scope": "Section 1 of award-plan-2026-09-27.md, approved by the owner on 27 September 2026 (all five items; option B, a fixed button, for the second question step)",
+  "production_deployed": false,
+  "production_reference": {
+    "deploy_id": "6ab7b1eb2e3eb145b023937a",
+    "note": "Production is still v3."
+  },
+  "preview": {
+    "url": "https://deploy-preview-4--olivia-arcana.netlify.app/",
+    "url_uk": "https://deploy-preview-4--olivia-arcana.netlify.app/uk/",
+    "deploy_id": "6ab92b77b5d4da00084b874f",
+    "deploy_permalink": "https://6ab92b77b5d4da00084b874f--olivia-arcana.netlify.app/",
+    "pull_request": "https://github.com/sergerommss95-cpu/olivia-arcana/pull/4"
+  },
+  "ci": {"workflow": ".github/workflows/ci.yml", "commit": "0889b9e", "result": "success"},
+  "assets": {
+    "stylesheet": "assets/experience.9fcb833eb04c4a39.css",
+    "app_en": "assets/app-en.526c498c6e397903.js",
+    "hero": "assets/hero.ea5578949b2e2776.js",
+    "native_card_assets": "assets/native-card-assets.aa42d1ce09150150.js",
+    "phone_card_back": "assets/card-back-phone.1742ebc0ff8a7430.webp"
+  },
+  "review": "qa-v6/review.md",
+  "changes": {
+    "first_frame": "first-frame.js inlined at the top of <body>: below 701 px the phone composition and masthead exist before the first paint; mobile-experience.js adopts the masthead (mobile-masthead.js)",
+    "white_flash": "none found: 0 white frames from a magenta previous page (v5 and v6, local and live); the filmstrip tool now starts from a grey page",
+    "entrance": "CSS from the first paint, about 2 s: lapis, wordmark letters and the card back, line, button, then controls and menu; reduced motion shows the final state at once",
+    "opening_card": "the poster stands where hero.js draws the first card (hero.js camera and opening pose in CSS 3D); the WebGL card fades in over it",
+    "safari_heights": "card clears ARCANA up to 740 px tall; the opening fits at 600 px and less (iPhone SE in Safari)",
+    "question_step": "Choose my card fixed at the bottom of the second question step (option B), with scroll padding; back in the form while typing",
+    "first_load": "phone section art waits for the first scroll (held-art.js, showArt); phones use a 768 px card back; the 22 phone textures re-encoded at the same fidelity, 12% smaller"
+  },
+  "phone_homepage_transfer_until_network_quiet": {
+    "method": "live preview, 390x844, iPhone user agent, new browser profile, no throttling, Netlify's preview toolbar blocked",
+    "production_v3_en": "7.53 MB over the wire",
+    "v5_en": "3.57 MB over the wire",
+    "v6_en": "2.43-2.48 MB over the wire (2.35 MB of distinct files)",
+    "v6_uk": "2.56 MB over the wire",
+    "target": "2.5 MB (met in English; Ukrainian 0.06 MB over)"
+  },
+  "arrival_filmstrip_live": {
+    "phone_en": {"fcp_ms": 1140, "cls": 0},
+    "phone_uk": {"fcp_ms": 1092, "cls": 0},
+    "desktop_en": {"fcp_ms": 584, "cls": 0},
+    "desktop_uk": {"fcp_ms": 748, "cls": 0},
+    "v5_phone_cls": {"en": 0.068, "uk": 0.081}
+  },
+  "verification": {
+    "product_tests": 238,
+    "mobile_question_checks": 7,
+    "website_and_service_tests": 51,
+    "clean_rebuild_reproduces_snapshot": true,
+    "hero_js_sha256_unchanged": true,
+    "desktop_pixel_identical_to_v5": "hero at five journey positions and UK/1024: at most 6 of 1.3 million pixels (motion-bar noise); full homepages in reduced motion: 0 pixels",
+    "phone_sections_after_scroll": "identical to v5 except card backs drawn from the 768 px file",
+    "poster_alignment": "within 1-3 device pixels of the WebGL card at seven phone sizes (IoU 0.953-0.967)",
+    "phone_journeys": ["390x844 en", "375x812 uk"],
+    "physical_iphone_tested": false,
+    "webgpu_background_seen": false
+  },
+  "needs_owner": [
+    "iPhone and Android check of the arrival (item 6 of the plan)",
+    "whether to close the last 0.06 MB for Ukrainian (softer textures, AVIF, or a lighter Next runtime on the homepage)",
+    "the open decisions in the handoff"
+  ]
+}

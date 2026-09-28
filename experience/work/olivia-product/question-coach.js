@@ -172,13 +172,41 @@ function text(value, name, limit, required = false) {
   return value;
 }
 
+/** A three-card reading asked through one card's own three questions. */
+export const CARD_PLAN = freeze({
+  en: {
+    labels: ['The situation', 'What complicates it', 'A helpful next step'],
+    name: card => `${card}: three questions`,
+    ritual: card => ({
+      gesture: 'Three questions from one card.',
+      invitation: `The questions written for ${card} guide the three positions. The cards you draw answer them in their own way.`,
+      arrival: 'Three questions, three cards. Turn the first card when you are ready.',
+      chapters: ['The situation and its tension', 'A way forward'],
+    }),
+  },
+  uk: {
+    labels: ['Ситуація', 'Що її ускладнює', 'Корисний наступний крок'],
+    name: card => `${card}: три запитання`,
+    ritual: card => ({
+      gesture: 'Три запитання однієї карти.',
+      invitation: `Запитання, написані для карти «${card}», ведуть три позиції. Карти, які ви витягнете, відповідають на них по-своєму.`,
+      arrival: 'Три запитання, три карти. Переверніть першу, коли будете готові.',
+      chapters: ['Ситуація та її напруга', 'Шлях уперед'],
+    }),
+  },
+});
+const isCardId = value => Number.isInteger(value) && value >= 0 && value < 78;
+
 /** A serializable, immutable snapshot. Old saved prompts are preserved, not regenerated. */
 export function validateQuestionPlan(value) {
-  if (!isObject(value) || value.schemaVersion !== QUESTION_PLAN_VERSION || value.source !== 'editorial' || !['en', 'uk'].includes(value.locale) || !Object.hasOwn(QUESTION_DIRECTIONS.en, value.direction) || value.spreadId !== 'clarity3') throw new TypeError('Invalid question plan.');
+  const fromCard = isObject(value) && value.source === 'card';
+  if (!isObject(value) || value.schemaVersion !== QUESTION_PLAN_VERSION || !['en', 'uk'].includes(value.locale) || value.spreadId !== 'clarity3') throw new TypeError('Invalid question plan.');
+  if (fromCard ? value.direction !== 'card' || !isCardId(value.cardId) || typeof value.cardName !== 'string' : value.source !== 'editorial' || !Object.hasOwn(QUESTION_DIRECTIONS.en, value.direction)) throw new TypeError('Invalid question plan.');
   if (typeof value.approvedAt !== 'string' || !/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(value.approvedAt) || !Number.isFinite(Date.parse(value.approvedAt)) || new Date(value.approvedAt).toISOString() !== value.approvedAt) throw new TypeError('Invalid question plan approval date.');
   if (!Array.isArray(value.positions) || value.positions.length !== 3 || value.positions.some((position, index) => !isObject(position) || position.id !== POSITION_IDS[index])) throw new TypeError('Question plan positions must retain their original order.');
   return freeze({
-    schemaVersion: QUESTION_PLAN_VERSION, source: 'editorial', locale: value.locale, direction: value.direction,
+    schemaVersion: QUESTION_PLAN_VERSION, source: fromCard ? 'card' : 'editorial', locale: value.locale, direction: value.direction,
+    ...(fromCard ? { cardId: value.cardId, cardName: text(value.cardName, 'card name', 120, true) } : {}),
     originalQuestion: text(value.originalQuestion, 'original question', QUESTION_LIMIT),
     question: text(value.question, 'approved question', QUESTION_LIMIT),
     spreadId: 'clarity3', spreadName: text(value.spreadName, 'spread name', 160, true), approvedAt: value.approvedAt,
@@ -192,11 +220,24 @@ export function createQuestionPlan({ originalQuestion = '', question = originalQ
   return validateQuestionPlan({ schemaVersion: QUESTION_PLAN_VERSION, source: 'editorial', locale, originalQuestion, question, direction, spreadId: 'clarity3', spreadName: definition.name, positions: definition.positions, approvedAt });
 }
 
+/** A plan whose three prompts are one card's own questions, in that card's order. */
+export function createCardPlan({ cardId, cardName, questions, originalQuestion = '', question = originalQuestion, locale = 'en', approvedAt = new Date().toISOString() } = {}) {
+  const language = locale === 'uk' ? 'uk' : 'en', card = CARD_PLAN[language];
+  if (!Array.isArray(questions) || questions.length !== 3) throw new TypeError('A card spread needs the card\u2019s three questions.');
+  return validateQuestionPlan({
+    schemaVersion: QUESTION_PLAN_VERSION, source: 'card', direction: 'card', cardId, cardName, locale: language, originalQuestion, question,
+    spreadId: 'clarity3', spreadName: card.name(cardName), approvedAt,
+    positions: POSITION_IDS.map((id, index) => ({ id, label: card.labels[index], prompt: questions[index] })),
+  });
+}
+
+const planEditorial = plan => plan.source === 'card' ? CARD_PLAN[plan.locale].ritual(plan.cardName) : QUESTION_DIRECTIONS[plan.locale][plan.direction].ritual;
+
 /** The drawing layout and stable position IDs remain those of the canonical spread. */
 export function applyQuestionPlan(spread, plan) {
   const snapshot = validateQuestionPlan(plan);
   if (spread?.id !== snapshot.spreadId || spread.count !== 3 || spread.positions?.some((position, index) => position.id !== POSITION_IDS[index]) || spread.positions?.length !== 3) throw new TypeError('This question plan belongs to the three-card clarity spread.');
-  return { ...spread, name: snapshot.spreadName, readingPlan: snapshot, questionEditorial: QUESTION_DIRECTIONS[snapshot.locale][snapshot.direction].ritual, positions: spread.positions.map((position, index) => ({ ...position, ...snapshot.positions[index] })) };
+  return { ...spread, name: snapshot.spreadName, readingPlan: snapshot, questionEditorial: planEditorial(snapshot), positions: spread.positions.map((position, index) => ({ ...position, ...snapshot.positions[index] })) };
 }
 
 let coachId = 0;
@@ -279,7 +320,7 @@ export function initQuestionCoach({ container, input, locale = globalThis.OLIVIA
     open() { root.open = true; onInput(); heading.focus({ preventScroll: true }); },
     close() { root.open = false; },
     reset() { direction = approvedDirection = 'original'; syncSource(); renderDirection(); root.open = false; wording.open = false; preview.open = false; summaryHint.textContent = c.sub; },
-    restore(value) { const plan = validateQuestionPlan(value); direction = approvedDirection = plan.direction; syncSource(); renderDirection(); root.open = true; wording.open = false; preview.open = false; },
+    restore(value) { const plan = validateQuestionPlan(value); if (plan.source === 'card') { this.reset(); return; } direction = approvedDirection = plan.direction; syncSource(); renderDirection(); root.open = true; wording.open = false; preview.open = false; },
     getPlan() { return createQuestionPlan({ originalQuestion: input.value, question: focus.value, direction, locale: language }); },
     destroy() { input.removeEventListener('input', onInput); root.remove(); },
   };
@@ -291,7 +332,7 @@ export function mountQuestionPlan(container, value, locale = globalThis.OLIVIA_L
   if (!value) return;
   const plan = validateQuestionPlan(value), c = copy[locale === 'uk' ? 'uk' : 'en'];
   const details = document.createElement('details'); details.className = 'question-plan-snapshot'; details.dataset.noTranslate = 'true';
-  const summary = document.createElement('summary'); summary.textContent = `${c.saved} · ${QUESTION_DIRECTIONS[plan.locale][plan.direction].label}`; details.append(summary);
+  const summary = document.createElement('summary'); summary.textContent = plan.source === 'card' ? plan.spreadName : `${c.saved} · ${QUESTION_DIRECTIONS[plan.locale][plan.direction].label}`; details.append(summary);
   const body = document.createElement('div');
   if (plan.originalQuestion && plan.originalQuestion !== plan.question) {
     const label = document.createElement('p'); label.className = 'eyebrow'; label.textContent = c.starting;

@@ -1,0 +1,252 @@
+{
+  "id": 24,
+  "slug": "three-of-wands",
+  "artwork": {
+    "file": "24_three_of_wands.webp",
+    "sha256": "29165a5ea841be3e936baa3cf369ce8e73a74ac1d5ceef68eb059b61a16dd500"
+  },
+  "symbols": [
+    {
+      "key": "leaves",
+      "x": 64,
+      "y": 33,
+      "en": {
+        "name": "Two gold leaves",
+        "seen": "Near the top of the middle wand, two small gold leaves grow from opposite sides of the lapis branch, the right one slightly lower. Apart from the star flecks, they are the only gold on the card.",
+        "meaning": "In the traditional image the wands of this suit sprout small leaves, a sign of living fire. Here only one wand has leaves, and they are gold, the deck’s mark of what matters. The growth sits on the wand the figure holds: what you keep hold of is what is still alive and growing."
+      },
+      "uk": {
+        "name": "Два золоті листки",
+        "seen": "Біля верхівки середнього жезла, з протилежних боків лазуритової гілки, проростають два маленькі золоті листки; правий розташований трохи нижче. Окрім зоряних вкраплень, це єдине золото на всій карті.",
+        "meaning": "У традиційному образі жезли цієї масті пускають дрібне листя — знак живого вогню. Тут листя є лише на одному жезлі, і воно золоте: так колода позначає те, що справді важливо. Листя росте саме на тому жезлі, який тримає постать: те, за що ви тримаєтеся, досі живе й росте."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 45,
+      "y": 21,
+      "en": {
+        "name": "The band of stars",
+        "seen": "A pale, glittering band of mineral crosses the dark lapis sky diagonally from the upper right toward the left, passing behind the left wand, with small gold flecks scattered like stars around it.",
+        "meaning": "The traditional Three of Wands is set under a bright daytime sky. Olivia moves the scene to night and lays a band of stars across it; stars were the navigator’s old guide. It suggests foresight that works beyond what is plainly visible, and a direction to steer by while results are still at sea."
+      },
+      "uk": {
+        "name": "Зоряна смуга",
+        "seen": "Бліда мерехтлива мінеральна смуга навскоси перетинає темне лазуритове небо від верхнього правого краю ліворуч і проходить за лівим жезлом; довкола неї, наче зорі, розсипані дрібні золоті вкраплення.",
+        "meaning": "Традиційна Трійка Жезлів розгортається під ясним денним небом. Olivia переносить сцену в ніч і прокладає крізь неї зоряну смугу; зорі здавна вели мореплавців. Це натяк на далекоглядність, що сягає за межі очевидного, і на орієнтир, за яким можна тримати курс, поки результати ще в морі."
+      }
+    },
+    {
+      "key": "wand",
+      "x": 27,
+      "y": 53,
+      "en": {
+        "name": "Three planted wands",
+        "seen": "Three wands of grey-blue lapis, knotted with short broken-off side shoots, stand upright with their feet in the rock. The figure fills the wide gap between the left and middle wands; the right wand stands nearer the middle.",
+        "meaning": "Wands carry the suit’s Fire: will, drive and intent. Three set in stone read as work that has taken hold, the “established strength” of the card’s old title. Two stand on their own, needing no hand: efforts already in place, which leave attention free for the view."
+      },
+      "uk": {
+        "name": "Три жезли в скелі",
+        "seen": "Три жезли із сіро-блакитного лазуриту, вузлуваті, з короткими обламаними бічними пагонами, стоять прямо, закріплені основою в скелі. Постать займає широкий проміжок між лівим і середнім жезлами; правий стоїть ближче до середнього.",
+        "meaning": "Жезли несуть Вогонь масті: волю, завзяття і намір. Три жезли, закріплені в камені, — це праця, що вже прижилася, та сама «утверджена сила» зі старої назви карти. Два стоять самі, без підтримки руки: зусилля, які вже на своєму місці й звільняють увагу для погляду вдалину."
+      }
+    },
+    {
+      "key": "cloak",
+      "x": 51,
+      "y": 60,
+      "en": {
+        "name": "The figure seen from behind",
+        "seen": "An ivory figure with short curled hair stands with its back to the viewer, wrapped in a long, heavy cloak with a hood gathered at the neck; the hem falls to the feet on the rock.",
+        "meaning": "The turned back is the card’s classic gesture: attention given wholly to what lies ahead. It invites you to stand where the figure stands rather than meet its gaze. The plain, weighty cloak suggests patience and readiness for a long watch rather than display."
+      },
+      "uk": {
+        "name": "Постать, що стоїть спиною",
+        "seen": "Постать зі слонової кістки, з коротким кучерявим волоссям, стоїть спиною до глядача, загорнута в довгий важкий плащ із каптуром, зібраним біля шиї; поділ спадає до самих ніг на скелі.",
+        "meaning": "Поворот спиною — класичний жест цієї карти: уся увага віддана тому, що попереду. Карта запрошує вас стати там, де стоїть постать, а не шукати її погляду. Простий важкий плащ натякає на терпіння й готовність до довгої варти, а не про показність."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 63,
+      "y": 51,
+      "en": {
+        "name": "The hand on the wand",
+        "seen": "The figure’s right arm comes out from under the cloak, and its hand closes around the middle wand a little below shoulder height. It is the only wand the figure touches.",
+        "meaning": "In the traditional image the figure also keeps one staff in hand. The grip here is light but steady, support rather than struggle. It suggests staying connected to one living thread of your work while the rest has been released into the world."
+      },
+      "uk": {
+        "name": "Рука на жезлі",
+        "seen": "Права рука постаті виходить з-під плаща, і долоня охоплює середній жезл трохи нижче рівня плеча. Це єдиний із трьох жезлів, якого постать торкається.",
+        "meaning": "У традиційному образі постать теж тримає в руці одне древко. Рука тримає легко, але впевнено: це опора, а не боротьба. Цей жест підказує не втрачати зв’язку з однією живою ниткою вашої справи, поки решта вже вирушила у світ."
+      }
+    },
+    {
+      "key": "boat",
+      "x": 35,
+      "y": 64,
+      "en": {
+        "name": "Three ships under sail",
+        "seen": "On the sea below, three small ships carved in pale lapis sail with canvas set: one further out, between the left wand and the figure, and two nearer the viewer, close to the left and right edges.",
+        "meaning": "Ships are the card’s traditional picture of ventures sent out: trade, messages, plans travelling toward distant shores. Seen from above, they are already under way. They invite patience with a process that no longer needs you at the helm, and attention to what may come back."
+      },
+      "uk": {
+        "name": "Три кораблі під вітрилами",
+        "seen": "Унизу морем пливуть три невеликі кораблі, вирізьблені зі світлого лазуриту, з напнутими вітрилами: один далі, між лівим жезлом і постаттю, а два ближче до глядача, біля лівого й правого країв.",
+        "meaning": "Кораблі — традиційний для цієї карти образ починань, відпущених у світ: торгівлі, звісток, планів, що прямують до далеких берегів. Згори видно, що вони вже в дорозі. Вони запрошують терпляче ставитися до процесу, якому ви вже не потрібні за штурвалом, і уважно стежити за тим, що може повернутися."
+      }
+    },
+    {
+      "key": "sea",
+      "x": 89,
+      "y": 74,
+      "en": {
+        "name": "The sea and far shores",
+        "seen": "A wide sea, finely lined with ripples, runs to a straight horizon that crosses behind the figure at about mid-back, with rocky headlands and hills carved in paler lapis on both sides of the card.",
+        "meaning": "Water between the watcher and the far coasts gives distance a shape: the space between effort and return. The shores on either side mark places not yet reached. The card asks you to measure that distance honestly, neither shrinking it nor letting it discourage you."
+      },
+      "uk": {
+        "name": "Море й далекі береги",
+        "seen": "Широке море, дрібно покреслене брижами, тягнеться до рівного обрію, що проходить за постаттю приблизно на рівні середини спини; з обох боків карти — скелясті миси й пагорби, вирізьблені зі світлішого лазуриту.",
+        "meaning": "Вода між тим, хто спостерігає, і далекими узбережжями надає відстані форму: це простір між зусиллям і віддачею. Береги з обох боків позначають місця, яких ще не досягнуто. Карта просить чесно виміряти цю відстань — не применшуючи її і не дозволяючи їй вас знеохотити."
+      }
+    },
+    {
+      "key": "rock",
+      "x": 50,
+      "y": 87,
+      "en": {
+        "name": "The high rock",
+        "seen": "The figure and all three wands stand on a broad, flat-topped outcrop of faceted lapis that fills the lower quarter of the card, its carved faces dropping steeply toward the sea.",
+        "meaning": "The traditional figure stands on a cliff or ridge above the water. Height gives perspective and rock gives footing: this card’s strength is established, not improvised. From firm ground you can look a long way without losing your balance."
+      },
+      "uk": {
+        "name": "Висока скеля",
+        "seen": "Постать і всі три жезли стоять на широкому виступі гранчастого лазуриту з пласкою верхівкою, що заповнює нижню чверть карти; його різьблені грані круто спадають до моря.",
+        "meaning": "Традиційна постать стоїть на кручі чи гребені над водою. Висота дає перспективу, а скеля — опору: сила цієї карти утверджена, а не імпровізована. З твердого ґрунту можна дивитися далеко, не втрачаючи рівноваги."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Three of Wands looks out over what your effort has set in motion: a pause on high ground to watch, prepare and widen your horizon.",
+    "keywords": {
+      "upright": [
+        "expansion",
+        "foresight",
+        "first results",
+        "wider horizons",
+        "preparation",
+        "enterprise"
+      ],
+      "reversed": [
+        "impatience",
+        "delayed returns",
+        "narrowed view",
+        "rigid plans",
+        "staying ashore"
+      ]
+    },
+    "upright": [
+      "The Three of Wands shows the moment after the first move. A single ivory figure stands on a high lapis rock with its back to you, cloak falling from the shoulders, looking out across a calm sea toward distant shores. Three wands are planted in the stone beside it. Something has been started, sent or offered, and now the view opens: ships are already under sail below, and the question becomes what this beginning could grow into.",
+      "Wands are the suit of Fire: will, drive, creative intent. In the Three, that fire turns into foresight. Look at where the figure’s hand rests: on the middle wand, the only one of the three that has put out leaves, and those two leaves are gold. The staff you keep hold of is the one still growing. The other two stand planted and bare, like work already set in place that no longer needs holding.",
+      "Upright, the card invites you to lift your eyes from the task to the horizon. It draws attention to expansion, trade and partnerships at a distance, study that widens your map, and the patience to let efforts travel before they return. The night sky here, crossed by a pale band of stars, suggests seeing further than daylight allows: a longer view, and the calm to prepare while you wait."
+    ],
+    "reversed": [
+      "Three of Wands reversed draws attention to a view that has narrowed, or a wait that has become hard to bear. Replies may be slow, a plan may be taking longer to reach its shore, and impatience can tempt you to call everything back to land. The inward form is quieter: plans kept so private that they never meet the wider world, or held so tightly that nothing coming back is allowed to change them.",
+      "Delay is not a verdict on the effort you made. The card asks what you can prepare while the ships are still out, which assumption could be checked, and whether the one living wand in your hand needs care closer to home before you look any further."
+    ],
+    "number": "Three is the number of first growth: the seed of the Ace and the choice of the Two produce something that can be seen. In Wands, the suit of Fire and will, the Two holds a plan and weighs the world; the Three has acted on it and watches the first results travel out. Threes across the Minor Arcana often concern collaboration and a first structure. Here the structure is literal, three wands set in rock, and the next step, the Four, celebrates something established.",
+    "tradition": "In the Golden Dawn system the Three of Wands is titled the Lord of Established Strength. It is assigned to the Sun in Aries, the second decan of that sign (10 to 20 degrees), and to Binah, Understanding, the third Sephirah on the Tree of Life, expressed through the suit of Fire. The Sun is exalted in Aries, and the pairing is commonly read as vitality with a secure footing; Aleister Crowley titled the card Virtue. Marseille decks show three batons as an ornamental pattern with foliage and no scene. Pamela Colman Smith’s 1909 card gives it a scene: a figure seen from behind on high ground, watching ships out at sea, a composition Olivia’s card follows.",
+    "areas": {
+      "love": "In close relationships the Three of Wands can point to a bond that is widening: plans made further ahead, distance bridged, a shared life reaching toward new places or people. It does not tell you what another person feels or will do. It asks whether you are both looking toward the same horizon, and whether you leave room for each other to sail at your own pace. With yourself, it may show a readiness to want more than the familiar shore.",
+      "work": "At work or in study, this card often reflects the stage after launch: a proposal sent, an application submitted, a project handed to others. The figure stands still yet keeps a hand on one wand, which is a useful picture: stay connected to what matters most while results travel. Use the interval to prepare the next stage, widen your contacts or learn something that broadens the map. Where money is involved, keep timelines realistic and seek qualified advice before committing further.",
+      "self": "For your relationship with yourself, the Three of Wands turns attention to perspective. From high ground you can see how far you have already come and how much sea remains. Notice whether you measure progress only by what has arrived, rather than by what is under way. The gold leaves on the held wand suggest that growth continues while you wait. Give yourself credit for what you have set in motion, and let your horizon be a little wider than last month."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Three of Wands can point to something that may already be in motion: the real question could be how you wait, prepare and widen your view while the first results travel.",
+      "challenge": "As a challenge, the card can show impatience with distance: wanting returns before the ships are home, or looking so far ahead that the ground under your feet is neglected.",
+      "advice": "As advice, it invites you to step back and survey the whole situation: name what you have started, prepare one next step, and reach toward a wider circle than usual."
+    },
+    "pairs": [
+      {
+        "with": 23,
+        "text": "In Olivia’s Two of Wands the figure holds a globe and faces a wand whose tip has budded in gold. In the Three the figure turns to the sea, and the gold has opened into two leaves. Together they trace the step from planning to watching a plan travel."
+      },
+      {
+        "with": 4,
+        "text": "The Emperor carries Aries, the sign of this card’s decan. Side by side they set structure beside expansion, asking how firm foundations and clear authority over your own choices can support a wider reach rather than limit it."
+      },
+      {
+        "with": 19,
+        "text": "The Golden Dawn places the Sun in this card’s decan. With The Sun, the Three of Wands draws attention to confidence and visibility: letting your work be seen in open daylight after the quieter night watch of this card."
+      }
+    ],
+    "questions": [
+      "What have you already set in motion that you could now watch with more patience?",
+      "Which horizon would you look toward if you trusted the ground you stand on?",
+      "Which single wand do you want to keep hold of while other efforts travel?"
+    ],
+    "practice": "Write down three things you have set in motion recently, then note one small way to prepare for each one’s return this week."
+  },
+  "uk": {
+    "essence": "Трійка Жезлів дивиться на те, що ваше зусилля вже привело в рух: це пауза на висоті, щоб спостерігати, готуватися й розширювати свій обрій.",
+    "keywords": {
+      "upright": [
+        "розширення",
+        "далекоглядність",
+        "перші результати",
+        "ширші обрії",
+        "підготовка",
+        "підприємливість"
+      ],
+      "reversed": [
+        "нетерпіння",
+        "запізніла віддача",
+        "звужений погляд",
+        "негнучкі плани",
+        "лишатися на березі"
+      ]
+    },
+    "upright": [
+      "Трійка Жезлів показує мить після першого кроку. Постать зі слонової кістки стоїть на високій лазуритовій скелі спиною до вас: плащ спадає з пліч, погляд звернений через спокійне море до далеких берегів. Поруч у камені закріплено три жезли. Щось уже розпочато, надіслано чи запропоновано, і тепер перед вами відкривається краєвид: унизу вже пливуть кораблі під вітрилами, і важливим стає інше — у що може вирости цей початок.",
+      "Жезли — масть Вогню: волі, завзяття, творчого наміру. У Трійці цей вогонь стає далекоглядністю. Подивіться, де лежить рука постаті: на середньому жезлі, єдиному з трьох, що пустив листя, і ці два листки золоті. Жезл, за який ви тримаєтеся, — той, що досі росте. Два інші стоять у камені голі, мов праця, яку вже поставлено на своє місце і яку більше не треба тримати.",
+      "У прямому положенні карта запрошує підвести очі від завдання до обрію. Вона звертає увагу на розширення, торгівлю й партнерства на відстані, навчання, що робить вашу мапу ширшою, і терпіння, яке дає зусиллям помандрувати, перш ніж вони повернуться. Нічне небо, перетяте блідою зоряною смугою, підказує, що можна бачити далі, ніж дозволяє денне світло: це ширший погляд і спокій, щоб готуватися, поки ви чекаєте."
+    ],
+    "reversed": [
+      "Трійка Жезлів у перевернутому положенні звертає увагу на погляд, що звузився, або на очікування, яке стало важко витримувати. Відповіді можуть надходити повільно, план може довше пливти до свого берега, а нетерпіння — спокушати повернути все назад на сушу. Внутрішня форма тихіша: плани, які тримають у такій таємниці, що вони так і не зустрічаються з ширшим світом, або стискають так міцно, що ніщо з того, що повертається, не має права їх змінити.",
+      "Затримка — не вирок зусиллю, яке ви доклали. Карта запитує, що можна підготувати, поки кораблі ще в морі, яке припущення варто перевірити і чи не потребує єдиний живий жезл у вашій руці турботи ближче до дому, перш ніж дивитися ще далі."
+    ],
+    "number": "Три — число першого зростання: зерно Туза й вибір Двійки дають щось видиме. У Жезлах, масті Вогню й волі, Двійка тримає план і зважує світ; Трійка вже діяла і спостерігає, як перші результати вирушають у дорогу. Трійки в Молодших Арканах часто стосуються співпраці та першої структури. Тут структура буквальна — три жезли в скелі, — а наступний крок, Четвірка, святкує те, що вже утвердилося.",
+    "tradition": "У системі Золотої Зорі Трійка Жезлів має титул «Володар утвердженої сили». Її пов’язують із Сонцем в Овні, другою декадою цього знака (від 10 до 20 градусів), і з Біною, Розумінням, третьою сефірою Дерева Життя, вираженою через масть Вогню. Сонце в Овні перебуває в екзальтації, і це поєднання зазвичай читають як життєву силу з надійною опорою; Алістер Кроулі назвав карту «Чеснота». Марсельські колоди зображують три палиці як орнамент із листям, без сцени. У 1909 році Памела Колман Сміт дала карті сцену: постать, що стоїть спиною на висоті й дивиться на кораблі в морі, — цю композицію наслідує карта Olivia.",
+    "areas": {
+      "love": "У близьких стосунках Трійка Жезлів може вказувати на зв’язок, що розширюється: плани на довшу перспективу, подолану відстань, спільне життя, яке тягнеться до нових місць чи людей. Вона не каже, що відчуває чи зробить інша людина. Вона запитує, чи дивитеся ви обоє на той самий обрій і чи лишаєте одне одному простір пливти у власному темпі. У стосунках із собою вона може показувати готовність хотіти більшого, ніж знайомий берег.",
+      "work": "У роботі чи навчанні ця карта часто відображає етап після запуску: пропозицію надіслано, заявку подано, проєкт передано іншим. Постать стоїть нерухомо, але тримає руку на одному жезлі, і це корисний образ: лишайтеся на зв’язку з найважливішим, поки результати в дорозі. Використайте цей проміжок, щоб підготувати наступний етап, розширити коло контактів або навчитися чогось, що робить вашу мапу ширшою. Якщо йдеться про гроші, тримайтеся реалістичних строків і зверніться по кваліфіковану пораду, перш ніж брати на себе нові зобов’язання.",
+      "self": "У стосунках із собою Трійка Жезлів звертає увагу на перспективу. З висоти видно, який шлях ви вже подолали і скільки моря ще попереду. Помітьте, чи не міряєте ви поступ лише тим, що вже прибуло, а не тим, що в дорозі. Золоті листки на жезлі в руці підказують: зростання триває, поки ви чекаєте. Віддайте собі належне за те, що ви вже привели в рух, і дозвольте своєму обрію стати трохи ширшим, ніж минулого місяця."
+    },
+    "positions": {
+      "heart": "У центрі запитання Трійка Жезлів може вказувати на те, що, можливо, вже приведено в рух: справжнє запитання може полягати в тому, як ви чекаєте, готуєтеся й розширюєте погляд, поки перші результати в дорозі.",
+      "challenge": "Як виклик карта може показувати нетерпіння щодо відстані: бажання отримати віддачу раніше, ніж кораблі повернуться додому, або погляд, спрямований так далеко вперед, що ґрунт під ногами лишається без уваги.",
+      "advice": "Як порада вона запрошує відступити на крок і оглянути всю ситуацію: назвати те, що ви розпочали, підготувати один наступний крок і потягнутися до ширшого кола, ніж зазвичай."
+    },
+    "pairs": [
+      {
+        "with": 23,
+        "text": "У Двійці Жезлів колоди Olivia постать тримає глобус і дивиться на жезл, верхівка якого вкрилася золотою брунькою. У Трійці постать обертається до моря, і золото розкрилося двома листками. Разом вони простежують крок від планування до спостереження за тим, як план вирушає в дорогу."
+      },
+      {
+        "with": 4,
+        "text": "Імператор несе знак Овна, до якого належить декада цієї карти. Поруч вони зіставляють структуру й розширення та запитують, як міцні підвалини й чітка влада над власним вибором можуть підтримати ширше охоплення, а не обмежити його."
+      },
+      {
+        "with": 19,
+        "text": "У системі Золотої Зорі декаду цієї карти пов’язано із Сонцем. Поруч із картою Сонце Трійка Жезлів звертає увагу на впевненість і видимість: дозволити своїй праці стати видимою при ясному денному світлі після тихішої нічної варти цієї карти."
+      }
+    ],
+    "questions": [
+      "Що ви вже привели в рух і за чим тепер могли б спостерігати терплячіше?",
+      "На який обрій ви дивилися б, якби довіряли ґрунту, на якому стоїте?",
+      "Який один жезл ви хочете втримати в руці, поки інші зусилля в дорозі?"
+    ],
+    "practice": "Запишіть три речі, які ви нещодавно привели в рух, а потім біля кожної занотуйте один невеликий спосіб підготуватися до її повернення цього тижня."
+  }
+}

@@ -1,0 +1,267 @@
+{
+  "id": 10,
+  "slug": "wheel-of-fortune",
+  "artwork": {
+    "file": "10_wheel_of_fortune.webp",
+    "sha256": "34382f1c3a536513ff5318c4078bc3d1d2dfc36c926b49c236d7e5b93743ed76"
+  },
+  "symbols": [
+    {
+      "key": "angel",
+      "x": 18,
+      "y": 14,
+      "en": {
+        "name": "The reading angel",
+        "seen": "In the upper left corner a winged figure is seated on a cloud, head bowed over an open book held in both hands. It is carved in the grey-blue of the lapis itself, not in ivory.",
+        "meaning": "The four winged creatures come from Ezekiel’s vision and the Book of Revelation, and later stood for the four evangelists. Among the fixed signs the human face is linked with Aquarius. Here, as in the traditional image, the creature reads: steadiness found in study while the wheel turns below."
+      },
+      "uk": {
+        "name": "Ангел, що читає",
+        "seen": "У верхньому лівому куті на хмарі сидить крилата постать: голову схилено над розгорнутою книгою, яку вона тримає обома руками. Її вирізьблено із сіро-блакитного лазуриту, а не зі слонової кістки.",
+        "meaning": "Чотири крилаті істоти походять із видіння Єзекіїля та з Книги Одкровення, а згодом стали символами чотирьох євангелістів. Серед фіксованих знаків людське обличчя пов’язують з одинадцятим знаком зодіаку, який зображують як людину з глеком води. Тут, як і в традиційному образі, істота читає: стійкість, знайдена в навчанні, поки внизу обертається колесо."
+      }
+    },
+    {
+      "key": "eagle",
+      "x": 81,
+      "y": 13,
+      "en": {
+        "name": "The eagle with its book",
+        "seen": "In the upper right an eagle spreads both wings on a low cloud, talons planted, head turned to the left. An open book stands propped at its side, carved in paler blue stone.",
+        "meaning": "The eagle stands for the fixed sign Scorpio in its highest form and is the emblem of John the evangelist. It adds a view from above: the ability to see a whole cycle at once, rather than only the stretch you are living through."
+      },
+      "uk": {
+        "name": "Орел із книгою",
+        "seen": "У верхньому правому куті орел розправив обидва крила на низькій хмарі; кігті впираються в неї, голову повернуто ліворуч. Біля нього стоїть прихилена розгорнута книга, вирізьблена зі світлішого блакитного каменю.",
+        "meaning": "Орел уособлює фіксований знак Скорпіона в його найвищій формі й є емблемою євангеліста Іоанна. Він додає погляд згори: здатність охопити весь цикл одразу, а не лише той відтинок, який ви зараз проживаєте."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 34,
+      "y": 25,
+      "en": {
+        "name": "The river of stars",
+        "seen": "A diagonal band of pale blue and white glitter with gold flecks runs from the top centre down towards the left edge, passing above and left of the sphinx, far denser than the scattered gold flecks elsewhere in the night.",
+        "meaning": "The traditional card sets its wheel among clouds; Olivia sets it beside a band that reads as the Milky Way, which wheels across the sky through the night and the year. It places the card’s cycle inside a larger, slower motion that no single turn can hurry."
+      },
+      "uk": {
+        "name": "Зоряна ріка",
+        "seen": "Діагональна смуга блідо-блакитних і білих іскор із золотими вкрапленнями спускається від середини верхнього краю до лівого краю, проходячи вище й лівіше від сфінкса. Вона значно густіша за золоті цятки, розсипані рештою нічного неба.",
+        "meaning": "На традиційній карті колесо оточують хмари; Olivia ставить його поруч зі смугою, у якій легко впізнати Чумацький Шлях, що обертається небом упродовж ночі й року. Так цикл карти опиняється всередині більшого, повільнішого руху, якого жоден окремий оберт не пришвидшить."
+      }
+    },
+    {
+      "key": "sphinx",
+      "x": 55,
+      "y": 28,
+      "en": {
+        "name": "The sphinx and sword",
+        "seen": "An ivory sphinx with a striped headdress and a raised feathered wing lies along the top of the wheel, forepaws on the rim, a cross-hilted sword laid across its forelegs, point to the right.",
+        "meaning": "In the Waite-Smith card a seated sphinx holding an upright sword crowns the wheel, commonly read as the still point of judgement above constant motion. Olivia’s sphinx reclines, calm rather than alert: the part of you that can watch a change without being spun by it."
+      },
+      "uk": {
+        "name": "Сфінкс і меч",
+        "seen": "Сфінкс зі слонової кістки у смугастому головному уборі, з піднятим пернатим крилом, лежить уздовж верхівки колеса, спершись передніми лапами на обід; поперек лап покладено меч із хрестоподібним руків’ям, вістрям праворуч.",
+        "meaning": "На карті Вейта–Сміт колесо вінчає сфінкс, що сидить із мечем, піднятим угору; його зазвичай читають як нерухому точку судження над безперервним рухом. Сфінкс Olivia лежить, радше спокійний, ніж насторожений: це та частина вас, яка може спостерігати зміну, не даючи їй себе закрутити."
+      }
+    },
+    {
+      "key": "wheel",
+      "x": 50,
+      "y": 53,
+      "en": {
+        "name": "The bare gold wheel",
+        "seen": "A large gold wheel fills the centre: a heavy outer rim around a band of paler lapis, an inner ring over a darker field, and a small ringed hub with a raised boss, joined by eight gold spokes.",
+        "meaning": "The traditional wheel is written over with letters and alchemical signs; here it is left bare, with no inscription to decode. Gold is used sparingly in this deck, so the turning itself is what is precious: the cycle as a real force, not a riddle to solve."
+      },
+      "uk": {
+        "name": "Золоте колесо без написів",
+        "seen": "Велике золоте колесо заповнює центр: масивний зовнішній обід довкола смуги світлішого лазуриту, внутрішнє кільце над темнішим полем і невелика маточина в кільці з опуклою серединою, з’єднані вісьмома золотими спицями.",
+        "meaning": "Традиційне колесо вкрите літерами й алхімічними знаками; тут воно лишається чистим, без жодного напису для розшифрування. Золото в цій колоді вжито ощадливо, тож коштовним є саме обертання: цикл як справжня сила, а не загадка, яку слід розгадати."
+      }
+    },
+    {
+      "key": "other",
+      "x": 77,
+      "y": 55,
+      "en": {
+        "name": "The jackal-headed guardian",
+        "seen": "To the right an ivory figure with a jackal’s head, striped headdress and pleated kilt stands on a small lapis ledge facing the wheel, gripping a tall knob-topped staff and holding a short rod low.",
+        "meaning": "Traditionally this is Hermanubis, the jackal-headed guide who rises with the wheel’s upward turn. Olivia’s figure does not ride the rim; it stands beside it on its own ground. It suggests the steady attention you keep while circumstances rise and fall."
+      },
+      "uk": {
+        "name": "Страж із головою шакала",
+        "seen": "Праворуч фігура зі слонової кістки з головою шакала, у смугастому головному уборі й плісированій короткій спідниці стоїть на невеликому лазуритовому виступі обличчям до колеса, стискаючи високий жезл із кулястим навершям і тримаючи внизу короткий стрижень.",
+        "meaning": "Традиційно це Германубіс, провідник із головою шакала, що підіймається разом із висхідним обертом колеса. Фігура Olivia не рухається разом з ободом: вона стоїть поруч, на власному ґрунті. Вона нагадує про стійку увагу, яку ви зберігаєте, поки обставини то злітають, то падають."
+      }
+    },
+    {
+      "key": "serpent",
+      "x": 21,
+      "y": 66,
+      "en": {
+        "name": "The descending serpent",
+        "seen": "An ivory serpent loops over the left side of the rim and slides downward, head low at the lower left with a forked tongue showing, tail curling away beneath the wheel.",
+        "meaning": "The serpent on the descending side is usually named Typhon, a figure of destructive force: the downward pull of the wheel, loss, things coming apart. A serpent also sheds its skin, so the descent can be read as a necessary letting go."
+      },
+      "uk": {
+        "name": "Змій, що сповзає донизу",
+        "seen": "Змій зі слонової кістки петлею перекидається через лівий бік обода й сповзає вниз: голова низько, в лівій нижній частині, видно роздвоєний язик, а хвіст закручується під колесом.",
+        "meaning": "Змія на низхідному боці зазвичай називають Тифоном, образом руйнівної сили: це тяжіння колеса донизу, втрата, розпад. Але змій ще й скидає шкіру, тож спуск можна прочитати як необхідне відпускання."
+      }
+    },
+    {
+      "key": "bull",
+      "x": 19,
+      "y": 87,
+      "en": {
+        "name": "The winged bull",
+        "seen": "In the lower left corner a winged bull with curved horns lies on a cloud, head turned towards an open book set beside its forelegs. Like the other corner creatures, it is carved in lapis.",
+        "meaning": "The bull is Taurus among the fixed signs and the emblem of Luke. It brings the earthy virtue a turning wheel needs: patience, stamina, the slow work of tending what matters while the season changes around it."
+      },
+      "uk": {
+        "name": "Крилатий бик",
+        "seen": "У нижньому лівому куті на хмарі лежить крилатий бик із вигнутими рогами; голову повернуто до розгорнутої книги біля передніх ніг. Як і інших істот у кутах, його вирізьблено з лазуриту.",
+        "meaning": "Бик відповідає Тельцю серед фіксованих знаків і є емблемою Луки. Він приносить земну чесноту, якої потребує колесо в русі: терпіння, витривалість, повільну працю турботи про важливе, поки довкола змінюються пори року."
+      }
+    },
+    {
+      "key": "lion",
+      "x": 77,
+      "y": 87,
+      "en": {
+        "name": "The winged lion",
+        "seen": "In the lower right corner a winged lion with a thick mane lies on a cloud, one forepaw resting on the top of an open book, tail curled up behind its body.",
+        "meaning": "The lion is Leo among the fixed signs and the emblem of Mark. With the angel, eagle and bull it completes the four fixed signs, the stable points of the zodiac. Their calm reading frames the whole card: the wheel turns, the corners hold."
+      },
+      "uk": {
+        "name": "Крилатий лев",
+        "seen": "У нижньому правому куті на хмарі лежить крилатий лев із густою гривою; одна передня лапа лежить на верху розгорнутої книги, хвіст закручено вгору за тілом.",
+        "meaning": "Лев відповідає знаку Лева серед фіксованих знаків і є емблемою Марка. Разом з ангелом, орлом і биком він завершує четвірку фіксованих знаків, стійких точок зодіаку. Їхнє спокійне читання обрамлює всю карту: колесо обертається, кути лишаються непорушними."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Wheel of Fortune is the turning of circumstances larger than you: cycles rise and fall, and your part is how you meet each turn.",
+    "keywords": {
+      "upright": [
+        "cycles",
+        "turning point",
+        "change",
+        "timing",
+        "perspective",
+        "adaptability"
+      ],
+      "reversed": [
+        "resisting change",
+        "repeated patterns",
+        "clinging on",
+        "delayed turn",
+        "feeling powerless"
+      ]
+    },
+    "upright": [
+      "The Wheel of Fortune turns attention from a single moment to the cycle it belongs to. In Olivia’s carving a large gold wheel hangs in the lapis night, eight spokes meeting at a small ringed hub, while a band of stars runs down the sky above it. Nothing is written on its rim. Upright, the card draws attention to change that is already under way: a season ending, a pattern returning, circumstances moving in ways no single person set in motion.",
+      "Look at who surrounds the wheel. The serpent slides down the left side; the jackal-headed guardian stands at the right on its own small ledge, watching rather than riding; the sphinx rests on top, sword laid across its forelegs, unhurried. These are three ways of being inside a turning situation: carried down, keeping your footing, holding still enough to see. The card can point to a change of role, a move, a relationship finding a new rhythm, or the return of an old lesson in a new form.",
+      "In the four corners the angel, eagle, bull and lion each rest on a cloud with an open book. None of them tries to stop the wheel. The card asks you to separate what is turning from what you can steady: your attention, your preparation, the response you choose when the next spoke comes round."
+    ],
+    "reversed": [
+      "Wheel of Fortune reversed can point to a turn that is resisted, delayed or repeated. You may be holding on at the top, gripping the rim so it cannot carry you down, or feel caught at the bottom, circling the same difficulty with the same response. Sometimes the reversal is inward: a change has already happened around you, and the inner adjustment has not caught up.",
+      "Look at the serpent and the guardian again. One is carried by the motion; the other stands beside it on steady ground. Ask which part of the pattern is outside your reach, and which part is the response you keep choosing. Changing that response, even slightly, is often where a stuck cycle begins to move."
+    ],
+    "number": "The Wheel carries ten, the first number of two digits and the completion of a count from one. Reduced, ten becomes one again: the Magician’s single act, now seen as part of a larger cycle. In the Fool’s journey the Wheel follows the Hermit. After withdrawing to find an inner light, the Fool steps back into a world of time and circumstance, and learns that personal will moves inside forces it did not choose. Ten asks you to notice where one cycle closes and the next begins.",
+    "tradition": "In the Golden Dawn system the Wheel of Fortune bears the title “Lord of the Forces of Life”. It is attributed to Kaph, the Hebrew letter meaning the palm of the hand, and to the planet Jupiter, and it occupies the twenty-first path of the Tree of Life, joining Chesed and Netzach. The image is far older than these correspondences: in the fifteenth-century Visconti-Sforza cards a blindfolded Fortuna sits at the hub while small figures rise, reign and fall around the rim. For the 1909 Waite-Smith deck, Pamela Colman Smith drew on Éliphas Lévi’s wheel of sphinx, Hermanubis and Typhon, rendered Typhon as a serpent, and set the four living creatures in the corners.",
+    "areas": {
+      "love": "In love and close bonds, the Wheel draws attention to rhythm. Every relationship, including the one with yourself, has seasons of closeness and distance, ease and effort, and a hard stretch is not proof that something is finished. Notice whether you are reading one turn of the wheel as the whole story. The sphinx’s calm is useful here: stay present with what is actually happening now, and let a pattern show itself over time before you name it.",
+      "work": "In work and study, the Wheel can point to shifting conditions: a team reorganised, a field changing, a project reaching the end of its cycle. The card favours preparation over prediction. Keep your skills, notes and working relationships in good order so you can meet the next turn from steady ground, as the guardian does on its ledge. In money matters, treat the Wheel as a reminder that conditions change, and base any decision on careful information rather than a feeling that the timing is right.",
+      "self": "For your own growth, the Wheel asks you to recognise your recurring cycles: the month when energy dips, the kind of situation that always unsettles you, the lesson that keeps returning in new clothes. Seeing a cycle is not the same as being trapped in it. The four creatures in the corners keep their books open while the wheel turns. Keep your own record, and notice what you do differently the next time the same spoke comes round."
+    },
+    "positions": {
+      "heart": "At the heart of a question, the Wheel suggests you may be in the middle of a turn. If the situation is moving, understanding the cycle matters more than fixing one moment in place.",
+      "challenge": "As a challenge, the Wheel can point to change you did not choose, or to a pattern repeating because the response to it has stayed the same. Notice which of the two is operating.",
+      "advice": "As advice, the Wheel invites you to meet the turn from steady ground: prepare what you can, loosen your grip on what you cannot, and watch for the moment to act."
+    },
+    "pairs": [
+      {
+        "with": 9,
+        "text": "The Hermit at nine withdraws with a lamp; the Wheel at ten turns outward into a world of moving circumstances. Together they draw attention to how clarity found in quiet holds up once life starts turning again."
+      },
+      {
+        "with": 11,
+        "text": "Olivia’s sphinx rests a sword across its forelegs, and Justice traditionally holds one upright beside the scales. Together they draw attention to the difference between what circumstances hand you and what you are accountable for: chance meets consequence, and choice lives in between."
+      },
+      {
+        "with": 21,
+        "text": "The angel, eagle, bull and lion in these corners traditionally frame the World as well. On the Wheel they watch a cycle turning; on the World they surround one completed. Together they trace the path from being carried by a cycle to understanding it whole."
+      }
+    ],
+    "questions": [
+      "What in your life is clearly turning right now, and what is holding steady beneath it?",
+      "Which pattern keeps coming back to you, and what response do you usually bring to it?",
+      "Where are you gripping the top of the wheel, or waiting at the bottom, instead of meeting the turn?"
+    ],
+    "practice": "Draw a simple wheel with eight spokes and write one recurring moment of your year on each; mark the ones you can prepare for."
+  },
+  "uk": {
+    "essence": "Колесо Фортуни — це обертання обставин, більших за вас: цикли злітають і спадають, а від вас залежить те, як ви зустрінете кожен оберт.",
+    "keywords": {
+      "upright": [
+        "цикли",
+        "поворотний момент",
+        "зміни",
+        "слушний час",
+        "ширший погляд",
+        "гнучкість"
+      ],
+      "reversed": [
+        "опір змінам",
+        "повторювані сценарії",
+        "чіпляння за старе",
+        "відкладений поворот",
+        "відчуття безсилля"
+      ]
+    },
+    "upright": [
+      "Колесо Фортуни переводить увагу з окремої миті на цикл, до якого вона належить. У різьбі Olivia велике золоте колесо висить у лазуритовій ночі: вісім спиць сходяться до невеликої маточини в кільці, а над ним небом тече смуга зірок. На ободі нічого не написано. У прямому положенні карта звертає увагу на зміну, яка вже триває: пору, що добігає кінця, сценарій, що повертається, обставини, які рухаються так, як жодна окрема людина їх не спрямовувала.",
+      "Погляньте, хто оточує колесо. Змій сповзає лівим боком; страж із головою шакала стоїть праворуч на власному невеликому виступі й спостерігає, а не рухається разом з ободом; сфінкс спочиває нагорі, поклавши меч на передні лапи, і нікуди не поспішає. Це три способи бути всередині ситуації, що обертається: коли вас несе донизу, коли ви тримаєте рівновагу, коли ви досить нерухомі, щоб бачити. Карта може вказувати на зміну ролі, переїзд, стосунки, що знаходять новий ритм, або на повернення давнього уроку в новій формі.",
+      "У чотирьох кутах ангел, орел, бик і лев спочивають кожен на своїй хмарі з розгорнутою книгою. Ніхто з них не намагається зупинити колесо. Карта просить вас відрізнити те, що обертається, від того, що ви можете втримати в рівновазі: вашу увагу, вашу підготовку, відповідь, яку ви оберете, коли підійде наступна спиця."
+    ],
+    "reversed": [
+      "Колесо Фортуни в перевернутому положенні може вказувати на поворот, якому опираються, який затримується або повторюється. Можливо, ви тримаєтеся нагорі, вчепившись в обід, щоб він не поніс вас донизу, або почуваєтеся застряглими внизу, кружляючи довкола тих самих труднощів із тією самою відповіддю. Іноді перевернуте положення звернене всередину: довкола вас усе вже змінилося, а внутрішнє налаштування ще не встигло наздогнати.",
+      "Погляньте ще раз на змія і стража. Одного несе рух; другий стоїть поруч на твердому ґрунті. Запитайте себе, яка частина сценарію поза вашим впливом, а яка — це відповідь, яку ви раз у раз обираєте. Саме зміна цієї відповіді, хай навіть невелика, часто зрушує з місця цикл, що застряг."
+    ],
+    "number": "Колесу відповідає число десять — перше двоцифрове число й завершення лічби від одиниці. Якщо скласти цифри, десять знову стає одиницею: єдиною дією Мага, тепер побаченою як частина більшого циклу. У подорожі Блазня Колесо йде за Відлюдником. Відійшовши, щоб знайти внутрішнє світло, Блазень повертається у світ часу й обставин і дізнається, що особиста воля рухається всередині сил, яких вона не обирала. Десятка просить вас помітити, де один цикл завершується, а наступний починається.",
+    "tradition": "У системі Золотої Зорі Колесо Фортуни має титул «Володар Сил Життя». Йому відповідають Каф, єврейська літера, що означає «долоня», і планета Юпітер; карта посідає двадцять перший шлях Дерева Життя, що з’єднує Хесед і Нецах. Проте сам образ набагато давніший за ці відповідності: у колоді Вісконті-Сфорца XV століття Фортуна із зав’язаними очима сидить у центрі колеса, а маленькі постаті довкола обода підіймаються, панують і падають. Для колоди Вейта–Сміт 1909 року Памела Колман Сміт спиралася на колесо Еліфаса Леві зі сфінксом, Германубісом і Тифоном, зобразила Тифона змієм і розмістила в кутах чотири живі істоти.",
+    "areas": {
+      "love": "У коханні й близьких зв’язках Колесо звертає увагу на ритм. Кожні стосунки, зокрема й із самими собою, мають пори близькості й віддалення, легкості й зусиль, і важкий відтинок ще не доводить, що щось скінчилося. Помітьте, чи не сприймаєте ви один оберт колеса як усю історію. Тут стане в пригоді спокій сфінкса: залишайтеся з тим, що відбувається саме зараз, і дайте закономірності виявитися з часом, перш ніж давати їй назву.",
+      "work": "У роботі й навчанні Колесо може вказувати на мінливі умови: команду реорганізовано, галузь змінюється, проєкт добігає кінця свого циклу. Карта ставить підготовку вище за передбачення. Тримайте в порядку свої навички, нотатки й робочі стосунки, щоб зустріти наступний оберт із твердого ґрунту, як страж на своєму виступі. У грошових питаннях сприймайте Колесо як нагадування, що умови змінюються, і ухвалюйте будь-яке рішення на основі ретельно зібраної інформації, а не на відчуття, що час слушний.",
+      "self": "Для вашого власного зростання Колесо просить розпізнати свої повторювані цикли: місяць, коли спадає енергія, тип ситуації, що завжди вибиває вас із рівноваги, урок, який щоразу повертається в новому вбранні. Бачити цикл — не те саме, що бути в ньому ув’язненими. Чотири істоти в кутах тримають книги розгорнутими, поки колесо обертається. Ведіть і ви власні записи й помічайте, що робите інакше, коли та сама спиця знову підійде."
+    },
+    "positions": {
+      "heart": "В осерді запитання Колесо підказує, що ви, можливо, посеред оберту. Якщо ситуація рухається, зрозуміти цикл тут важливіше, ніж закріпити на місці одну мить.",
+      "challenge": "Як виклик Колесо може вказувати на зміну, якої ви не обирали, або на сценарій, що повторюється, бо відповідь на нього лишається тією самою. Зверніть увагу, яке з цих двох діє зараз.",
+      "advice": "Як порада Колесо запрошує вас зустріти оберт із твердого ґрунту: підготуйте те, що можете, менше чіпляйтеся за те, чого не можете, і пильнуйте слушну мить для дії."
+    },
+    "pairs": [
+      {
+        "with": 9,
+        "text": "Відлюдник під числом дев’ять усамітнюється з ліхтарем; Колесо під числом десять обертається назовні, у світ рухливих обставин. Разом вони звертають увагу на те, чи встоїть ясність, знайдена в тиші, коли життя знову почне обертатися."
+      },
+      {
+        "with": 11,
+        "text": "Сфінкс Olivia тримає меч поперек передніх лап, а Справедливість традиційно тримає свій прямо, поруч із терезами. Разом вони звертають увагу на різницю між тим, що дають вам обставини, і тим, за що ви відповідаєте: випадок зустрічається з наслідком, а вибір живе між ними."
+      },
+      {
+        "with": 21,
+        "text": "Ангел, орел, бик і лев у цих кутах традиційно обрамлюють і Світ. На Колесі вони спостерігають за циклом, що обертається; на Світі — оточують завершений. Разом вони показують шлях від стану, коли цикл вас несе, до розуміння всього кола."
+      }
+    ],
+    "questions": [
+      "Що у вашому житті зараз помітно обертається, а що лишається стійким під цим рухом?",
+      "Який сценарій постійно до вас повертається і з якою відповіддю ви зазвичай його зустрічаєте?",
+      "Де ви вчепилися у верх колеса або чекаєте внизу, замість того щоб зустріти оберт?"
+    ],
+    "practice": "Намалюйте просте колесо з вісьмома спицями й на кожній запишіть одну мить, що повторюється у вашому році; позначте ті, до яких можна підготуватися."
+  }
+}

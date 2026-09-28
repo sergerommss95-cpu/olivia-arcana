@@ -1,0 +1,277 @@
+{
+  "id": 76,
+  "slug": "queen-of-pentacles",
+  "artwork": {
+    "file": "76_queen_of_pentacles.webp",
+    "sha256": "003c8f2da6916e643b40bb4dc7c04b06f3d0cf1d8ed3767a834629a947d9f238"
+  },
+  "symbols": [
+    {
+      "key": "rose",
+      "x": 55,
+      "y": 21,
+      "en": {
+        "name": "The rose arbour",
+        "seen": "A lapis rose vine climbs from both sides of the throne and meets in an arch above it, carved with open roses, tight buds and serrated leaves in paler blue relief against the starred night.",
+        "meaning": "Roses in the suit of Pentacles speak of cultivated beauty: something grown, pruned and tended over seasons rather than bought. The arbour frames the Queen as the keeper of a garden, so the care this card describes reads as ongoing work, not a single gift."
+      },
+      "uk": {
+        "name": "Трояндова арка",
+        "seen": "Лазуритова трояндова лоза підіймається з обох боків трону й сходиться аркою над ним: розкриті троянди, тугі пуп’янки й зубчасте листя вирізьблено світлішим блакитним рельєфом на тлі зоряної ночі.",
+        "meaning": "Троянди в масті Пентаклів говорять про плекану красу: те, що вирощують, обрізають і доглядають сезон за сезоном, а не купують. Арка обрамлює Королеву як хранительку саду, тож турбота, про яку йдеться в цій карті, — тривала праця, а не одноразовий дарунок."
+      }
+    },
+    {
+      "key": "cherub",
+      "x": 73,
+      "y": 23,
+      "en": {
+        "name": "Two winged cherubs",
+        "seen": "Two cherub heads with small feathered wings nestle in the rose vine, one on each side of the arch; the left one looks down, the right one turns its round face out towards the viewer.",
+        "meaning": "In Pamela Colman Smith’s design, cherubs are carved into the throne itself, a sign of love and innocence held within material comfort. Here they have moved up into the living roses, so tenderness sits inside the growing world, not only in its furniture."
+      },
+      "uk": {
+        "name": "Два крилаті херувими",
+        "seen": "Дві голівки херувимів із невеликими пернатими крильцями туляться в трояндовій лозі, по одній з кожного боку арки; лівий херувим дивиться вниз, правий повертає кругле личко до глядача.",
+        "meaning": "У задумі Памели Колман Сміт херувими вирізьблені на самому троні — знак любові й невинності, що живуть усередині матеріального затишку. Тут вони піднялися в живі троянди, тож ніжність оселилася в самому світі, що росте, а не лише в його меблях."
+      }
+    },
+    {
+      "key": "goat",
+      "x": 46,
+      "y": 31,
+      "en": {
+        "name": "The goat’s head crest",
+        "seen": "A lapis goat’s head with ridged, backward-curving horns and a short beard crowns the top of the throne back, midway between the two pear-topped posts and just above the Queen’s crown.",
+        "meaning": "The goat is Capricorn’s animal, the sign where most of this Queen’s zodiac span lies, and it stands for patient, sure-footed climbing. Pamela Colman Smith’s 1909 card carves a goat’s head on the throne’s arm; Olivia lifts it to the top of the throne, where it reads almost as a crest."
+      },
+      "uk": {
+        "name": "Навершя з головою козла",
+        "seen": "Лазуритова голова козла з ребристими, закрученими назад рогами й короткою борідкою вінчає спинку трону посередині між двома стовпами з грушами, просто над короною Королеви.",
+        "meaning": "Козел — тварина Козорога, знака, на який припадає більша частина зодіакального відрізка цієї Королеви; він означає терпляче й упевнене сходження вгору. На карті Памели Колман Сміт 1909 року голову козла вирізьблено на підлокітнику; Olivia піднімає її на верх трону, де вона постає майже як геральдичне навершя."
+      }
+    },
+    {
+      "key": "fruit",
+      "x": 32,
+      "y": 34,
+      "en": {
+        "name": "Pears on the throne posts",
+        "seen": "Two plump carved pears sit on top of each throne post, four in all, their stalks upright; the posts beneath them are cut with fine scrollwork in the same greyed lapis as the throne.",
+        "meaning": "Fruit carved on the 1909 throne points to ripeness and harvest: resources that come from patient growing. Set at the top of the posts like finials, the pears make abundance part of the structure that holds the Queen up, not an ornament added afterwards."
+      },
+      "uk": {
+        "name": "Груші на стовпах трону",
+        "seen": "На кожному стовпі трону сидять дві налиті вирізьблені груші, усього чотири, хвостиками догори; самі стовпи, з того ж сіруватого лазуриту, що й трон, укриті тонким різьбленим орнаментом із завитків.",
+        "meaning": "Плоди, вирізьблені на троні 1909 року, вказують на стиглість і врожай: ресурси, які дає терпляче вирощування. Увінчуючи стовпи, наче фіали, груші роблять достаток частиною самої конструкції, що тримає Королеву, а не прикрасою, доданою згодом."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 53,
+      "y": 39,
+      "en": {
+        "name": "Ivory crown, lowered gaze",
+        "seen": "The Queen wears a low ivory crown with small points over long wavy hair drawn forward over one shoulder; the head tilts down and the eyes rest on the disc in the lap.",
+        "meaning": "Waite described this Queen as contemplating the suit’s symbol, and Olivia keeps that downward look: attention rather than display. The crown stays ivory, not gold; the one gold object is the disc being tended, so authority here rests in the quality of attention given to it."
+      },
+      "uk": {
+        "name": "Кістяна корона, опущений погляд",
+        "seen": "На Королеві низька корона зі слонової кістки з дрібними зубцями; довге хвилясте волосся перекинуто наперед через плече; голова схилена, а очі спочивають на диску, що лежить на колінах.",
+        "meaning": "Вейт описував цю Королеву як таку, що споглядає символ своєї масті, і Olivia зберігає цей погляд униз — увагу, а не демонстрацію. Корона лишається кістяною, не золотою; єдиний золотий предмет — диск, про який тут дбають, тож влада тут — у тому, наскільки уважно про нього дбають."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 58,
+      "y": 59,
+      "en": {
+        "name": "The gold pentacle",
+        "seen": "An ivory disc rests in the Queen’s lap, cradled by both hands, one beneath it and one at its edge; a gold five-pointed star of interlaced lines is inlaid on it, its field flecked with gold.",
+        "meaning": "The pentacle is the suit’s emblem of earth: body, home, money, time and skill made tangible. Held low and close to the body, it is tended like bread rising rather than displayed. It is the only gold on the figure, and the brightest gold on the card."
+      },
+      "uk": {
+        "name": "Золотий пентакль",
+        "seen": "На колінах Королеви лежить диск зі слонової кістки, підтриманий обома руками: одна під ним, друга біля краю; на ньому інкрустовано золоту п’ятипроменеву зірку з переплетених ліній, а поле всіяне золотими крапинками.",
+        "meaning": "Пентакль — емблема масті Землі: тіло, дім, гроші, час і вміння, що стали відчутними. Його тримають низько й близько до тіла, доглядають, як тісто, що підходить, а не виставляють напоказ. Це єдине золото на постаті й найяскравіше золото на карті."
+      }
+    },
+    {
+      "key": "river",
+      "x": 84,
+      "y": 63,
+      "en": {
+        "name": "River through the valley",
+        "seen": "Beyond the right arm of the throne a river winds out of a valley between wooded slopes, below a peaked mountain; more hills rise on the left behind the throne, all carved in soft lapis.",
+        "meaning": "Water flowing through earth echoes this Queen’s Golden Dawn attribution, Water of Earth: feeling that moistens and feeds practical life. The river keeps the valley green, a quiet picture of how steady care, not force, makes land yield."
+      },
+      "uk": {
+        "name": "Річка в долині",
+        "seen": "За правим підлокітником трону річка звивається з долини між лісистими схилами, під гостроверхою горою; ліворуч за троном теж здіймаються пагорби, і все це вирізьблено м’яким лазуритом.",
+        "meaning": "Вода, що тече крізь землю, перегукується з тим, як Золота Зоря визначає цю Королеву, — Вода Землі: почуття, що зволожує й живить практичне життя. Завдяки річці долина зеленіє: це тиха картина того, як сталий догляд, а не сила, робить землю родючою."
+      }
+    },
+    {
+      "key": "rabbit",
+      "x": 22,
+      "y": 81,
+      "en": {
+        "name": "The leaping rabbit",
+        "seen": "A grey-blue rabbit carved in lapis stretches in mid-leap across the grass at the lower left, ears raised, facing the ivory hem of the Queen’s gown.",
+        "meaning": "The rabbit is a traditional image of fertility and quick, abundant life. Pamela Colman Smith put it in the lower right corner; Olivia moves it to the left and sets it running towards the Queen, so the small, lively creature approaches the Queen rather than lingering in the margin."
+      },
+      "uk": {
+        "name": "Кролик у стрибку",
+        "seen": "Сіро-блакитний кролик, вирізьблений у лазуриті, витягнувся в стрибку над травою в лівому нижньому куті: вуха підняті, мордочка звернена до кістяного подолу сукні Королеви.",
+        "meaning": "Кролик — традиційний образ родючості та швидкого, щедрого життя. Памела Колман Сміт розмістила його в правому нижньому куті; Olivia переносить його ліворуч і пускає бігти до Королеви, тож маленьке жваве створіння наближається до неї, а не тримається краю картини."
+      }
+    },
+    {
+      "key": "garden",
+      "x": 66,
+      "y": 84,
+      "en": {
+        "name": "Berry plants underfoot",
+        "seen": "The ground around the throne is dense with carved foliage: broad-leaved plants and stems heavy with round berries fill the foreground on both sides of the ivory hem and the two shoe tips.",
+        "meaning": "The Queen sits in growth, not on bare ground. The lap holds the emblem and the soil holds the harvest; the berries repeat the pears above, so abundance runs from the top of the throne down to the tended earth."
+      },
+      "uk": {
+        "name": "Ягідні рослини під ногами",
+        "seen": "Земля навколо трону густо вкрита різьбленим листям: широколисті рослини й стебла, обважнілі круглими ягодами, заповнюють передній план обабіч кістяного подолу й двох носків черевиків.",
+        "meaning": "Королева сидить серед рослин, а не на голій землі. Коліна тримають емблему, а ґрунт — урожай; ягоди перегукуються з грушами вгорі, тож достаток тягнеться від верхівки трону аж до доглянутої землі."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Queen of Pentacles is practical care made visible: tending body, home, work and resources steadily, so that what you look after can keep growing.",
+    "keywords": {
+      "upright": [
+        "practical care",
+        "nourishment",
+        "resourcefulness",
+        "steady abundance",
+        "hospitality",
+        "grounded presence"
+      ],
+      "reversed": [
+        "overgiving",
+        "self-neglect",
+        "smothering",
+        "scarcity worry",
+        "neglected basics"
+      ]
+    },
+    "upright": [
+      "The Queen of Pentacles draws attention to care you can touch: a meal, a mended routine, a budget that actually fits, a room that makes rest possible. In Olivia’s image the pentacle is not held up for show. It is cradled low in the lap with both hands, and the Queen’s eyes rest on it the way you might watch bread rise or check a seedling you planted. The gold is on the disc and nowhere else on the figure; even the crown is plain ivory. Authority here is attention.",
+      "Everything around the throne grows. Roses arch overhead, pears sit ripe on the posts, berries crowd the ground and a river feeds the valley behind. None of this arrived at once. The card honours the slow kind of abundance that comes from tending: watering, pruning, noticing what needs doing before it becomes urgent.",
+      "Upright, the Queen asks you to bring that quality to your own question. What is the most practical, kind thing you could do here? Often it is small: preparing something ahead, making a space more comfortable, writing a number on paper instead of carrying it as worry. The care includes the one who gives it. The rabbit leaping towards the ivory hem is a reminder that life gathers where things feel nourished and safe."
+    ],
+    "reversed": [
+      "Queen of Pentacles reversed can point to care that has tipped out of balance. Provision may have become constant, leaving little for the person doing the providing, or concern for comfort and security may crowd out the people it was meant to serve. It can also turn inward as worry about resources: a sense that nothing is quite enough, however much is tended.",
+      "Look at the image again: the disc rests in the lap, supported from beneath rather than gripped. Reversed, the invitation is to loosen a hold that has become anxious, or to pick up basics that have slid: sleep, food, a bill, one tidy corner. Ask what could be simplified, shared or allowed to be good enough, and whether your own needs are on the list."
+    ],
+    "number": "Queens are the inward mastery of their suit: they hold its element as a way of being rather than a task to pursue. In Pentacles, the suit of earth, that means knowing materials, bodies, money and time from the inside. After the Page’s careful study and the Knight’s slow, patient labour, the Queen receives what has grown and keeps it alive. This mastery shows as fit: the right amount, at the right moment, for real needs.",
+    "tradition": "In the Golden Dawn system this card is titled the Queen of the Thrones of Earth, Water of Earth: the receptive, nourishing side of the element. Its zodiac span runs from 20° Sagittarius to 20° Capricorn, covering the decans of the Ten of Wands, Two of Pentacles and Three of Pentacles, which helps explain the goat, Capricorn’s animal, in its imagery; Book T gives this Queen a winged goat’s head as a crest. Older Italian and Marseille decks show a crowned Queen of Coins holding a single coin. Pamela Colman Smith’s 1909 design set the Queen beneath a bower of roses, with a rabbit in the lower corner and a fertile landscape beyond.",
+    "court": {
+      "temperament": "As a temperament, the Queen of Pentacles is calm, observant and hands-on. This way of being notices the physical conditions of a situation first: whether people have eaten, whether the chair is comfortable, whether the plan fits the budget and the hours available. Its patience is practical, trusting what grows at its own pace and tending it daily.",
+      "gifts": "The gifts here are resourcefulness and hospitality: making much from little, turning a house into a place where people can rest, keeping accounts that let everyone breathe. This Queen is at ease with bodies, plants, food, materials and routines, and helps others feel physically safe without making a fuss about it.",
+      "shadow": "In shadow, care becomes control or depletion. You may give until your own reserves run dry, measure love by provision, or smother others with comfort they did not ask for. Worry about security can harden into holding on too tightly. The image offers a counterweight: gold cradled in the lap, not clutched."
+    },
+    "areas": {
+      "love": "In love and close relationships, the Queen of Pentacles speaks the language of practical care: a warm meal, a remembered appointment, a home that feels good to come back to. It invites you to notice how affection is shown in deeds as well as words, and to ask whether that care flows both ways. With yourself, it can mean treating your body and your rest as worth tending, not only as tools for looking after others.",
+      "work": "At work, in study and with money, this card favours steady stewardship over dramatic moves. It can point to a project that needs tending rather than reinventing, or to the value of well-kept records, a realistic schedule and a workspace that supports you. Consider where small, regular attention would make resources go further, and where your practical skill is quietly holding things together and deserves to be named.",
+      "self": "For your own life, the Queen of Pentacles turns attention to the body and the everyday: sleep, food, movement, the state of the room you wake up in. Like the Queen looking down at the disc, you might look closely at one ordinary thing you already have and ask how to care for it well. Self-worth here is grounded and quiet, built from how you treat your own time and hands."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter is about sustaining something real: a household, a body, a project or a relationship that needs regular, practical attention more than a big decision.",
+      "challenge": "As a challenge, it can show care stretched too thin, or comfort and security taking up so much room that there is no space left for change, rest, or other people’s own way of doing things.",
+      "advice": "As advice, it invites one practical act of care today, for someone else and for yourself: prepare, tidy, nourish or budget, and let that small act count as enough."
+    },
+    "pairs": [
+      {
+        "with": 3,
+        "text": "With The Empress, the theme of nurture doubles. The Empress is abundance as a force of nature; the Queen of Pentacles is the one who harvests, stores and serves it. Together they ask how growth becomes everyday nourishment."
+      },
+      {
+        "with": 15,
+        "text": "The Devil shares this Queen’s goat and Capricorn’s earth. Side by side they draw attention to your relationship with material things: held with care and generosity, or gripped from fear and habit. Which one describes the pentacle in your lap?"
+      },
+      {
+        "with": 72,
+        "text": "The Nine of Pentacles is the suit’s picture of self-sufficiency and cultivated ease. With the Queen, the pair balances enjoying your own resources and sharing them: tending your garden well enough that others can rest in it too."
+      }
+    ],
+    "questions": [
+      "What in your life is asking to be tended regularly rather than fixed once?",
+      "Where are you giving care in a way that no longer includes you?",
+      "Which practical comfort would make the coming week easier for you or someone close?"
+    ],
+    "practice": "Choose one ordinary object you use daily, such as a cup, a pan or a notebook, and clean, mend or arrange it with full attention, noticing how care changes it."
+  },
+  "uk": {
+    "essence": "Королева Пентаклів — це практична турбота, яку видно: сталий догляд за тілом, домом, роботою й ресурсами, щоб те, про що ви дбаєте, могло рости далі.",
+    "keywords": {
+      "upright": [
+        "практична турбота",
+        "живлення",
+        "винахідливість",
+        "сталий достаток",
+        "гостинність",
+        "заземлена присутність"
+      ],
+      "reversed": [
+        "надмірна віддача",
+        "нехтування собою",
+        "задушлива опіка",
+        "тривога про нестачу",
+        "занедбані основи"
+      ]
+    },
+    "upright": [
+      "Королева Пентаклів привертає увагу до турботи, до якої можна доторкнутися: страва, налагоджений розпорядок, бюджет, що справді сходиться, кімната, де можна відпочити. На зображенні Olivia пентакль не піднято напоказ. Його тримають низько на колінах обома руками, а погляд Королеви спочиває на ньому так, як ви стежили б за тістом, що підходить, чи за паростком, який самі посадили. Золото — лише на диску й більше ніде на постаті; навіть корона — проста, зі слонової кістки. Влада тут — це увага.",
+      "Усе довкола трону росте. Троянди вигинаються аркою над головою, стиглі груші сидять на стовпах, ягоди тісняться на землі, а річка живить долину позаду. Ніщо з цього не з’явилося одразу. Карта вшановує повільний достаток, що народжується з догляду: поливу, обрізання, уміння помітити, що треба зробити, ще до того, як це стане терміновим.",
+      "У прямому положенні Королева запрошує вас застосувати цю якість до власного запитання. Що найпрактичніше й найдобріше ви могли б тут зробити? Часто це щось невелике: підготувати щось заздалегідь, зробити простір затишнішим, записати число на папері, а не носити його в собі як тривогу. Турбота охоплює й людину, яка її дає. Кролик, що стрибає до кістяного подолу, нагадує: життя збирається там, де відчуваються ситість і безпека."
+    ],
+    "reversed": [
+      "Королева Пентаклів у перевернутому положенні може вказувати на турботу, що втратила рівновагу. Піклування про потреби інших могло стати безперервним і майже нічого не лишати людині, яка піклується; або ж клопіт про комфорт і безпеку витісняє тих, кому мав служити. Це може обернутися й усередину — тривогою про ресурси: відчуттям, що всього ніколи не досить, хоч як старанно ви про все дбаєте.",
+      "Погляньте на зображення ще раз: диск лежить на колінах, підтриманий знизу, а не стиснутий. У перевернутому положенні карта запрошує послабити хватку, що стала тривожною, або повернутися до базових речей, що відійшли на другий план: сон, їжа, рахунок, один прибраний куточок. Запитайте себе, що можна спростити, розділити з іншими чи залишити просто достатньо добрим — і чи є у списку ваші власні потреби."
+    ],
+    "number": "Королеви — це внутрішня майстерність своєї масті: вони тримають її стихію як спосіб буття, а не як завдання, яке треба виконати. У Пентаклях, масті Землі, це означає знати матеріали, тіло, гроші й час зсередини. Після уважного навчання Пажа й повільної терплячої праці Лицаря Королева приймає те, що виросло, і підтримує в ньому життя. Ця майстерність постає як доречність: стільки, скільки треба, тоді, коли треба, і для справжніх потреб.",
+    "tradition": "У системі Золотої Зорі ця карта має титул «Королева Престолів Землі», Вода Землі: сприйнятлива, живильна сторона стихії. Її зодіакальний відрізок простягається від 20° Стрільця до 20° Козорога й охоплює декани Десятки Жезлів, Двійки Пентаклів і Трійки Пентаклів; це допомагає пояснити козла, тварину Козорога, в її образності, а «Книга Т» дає цій Королеві навершя з головою крилатого козла. Давніші італійські та марсельські колоди зображують Королеву Монет у короні, з однією монетою в руці. Памела Колман Сміт у 1909 році розмістила Королеву під склепінням із троянд, з кроликом у нижньому куті й родючим краєвидом позаду.",
+    "court": {
+      "temperament": "Як темперамент Королева Пентаклів — це спокій, спостережливість і вміння все робити власними руками. Такий спосіб буття насамперед помічає фізичні умови ситуації: чи люди поїли, чи зручний стілець, чи вкладається план у бюджет і наявний час. Його терпіння практичне: воно довіряє тому, що росте власним темпом, і щодня про це дбає.",
+      "gifts": "Дари тут — винахідливість і гостинність: робити багато з малого, перетворювати дім на місце, де люди можуть відпочити, вести рахунки так, щоб усім дихалося вільніше. Цій Королеві легко з тілом, рослинами, їжею, матеріалами й розпорядком, і вона допомагає іншим відчути фізичну безпеку без жодного галасу.",
+      "shadow": "У тіні турбота перетворюється на контроль або виснаження. Ви можете віддавати, доки не вичерпаються власні запаси, міряти любов забезпеченням або душити інших комфортом, про який вони не просили. Тривога про безпеку може перерости в надто міцну хватку. Зображення пропонує противагу: золото, яке тримають на колінах, а не стискають."
+    },
+    "areas": {
+      "love": "У коханні та близьких стосунках Королева Пентаклів говорить мовою практичної турботи: тепла страва, не забута домовленість, дім, куди приємно повертатися. Вона запрошує помітити, як прихильність показують у вчинках, а не лише в словах, і запитати, чи тече ця турбота в обидва боки. У стосунках із собою це може означати ставлення до свого тіла й відпочинку як до того, що варте догляду, а не лише як до знарядь піклування про інших.",
+      "work": "У роботі, навчанні та грошових справах ця карта надає перевагу сталому господарюванню, а не різким крокам. Вона може вказувати на проєкт, який треба доглядати, а не винаходити заново, або на цінність охайних записів, реалістичного графіка й робочого місця, що вас підтримує. Подумайте, де невелика регулярна увага допомогла б ресурсам служити довше і де ваше практичне вміння тихо тримає все вкупі та заслуговує, щоб його назвали вголос.",
+      "self": "У вашому власному житті Королева Пентаклів привертає увагу до тіла й повсякдення: сон, їжу, рух, стан кімнати, у якій ви прокидаєтеся. Як Королева, що дивиться на диск, ви можете уважно придивитися до однієї звичайної речі, яка у вас уже є, і запитати, як добре про неї подбати. Самоцінність тут заземлена й тиха, збудована з того, як ви ставитеся до власного часу й власних рук."
+    },
+    "positions": {
+      "heart": "У центрі запитання ця карта підказує, що йдеться про підтримку чогось справжнього: господарства, тіла, проєкту чи стосунків, яким регулярна практична увага потрібна більше, ніж велике рішення.",
+      "challenge": "Як виклик вона може показувати турботу, розпорошену на надто багато всього, або комфорт і безпеку, які займають так багато місця, що не лишається простору для змін, відпочинку чи права інших людей робити по-своєму.",
+      "advice": "Як порада вона запрошує сьогодні до одного практичного вияву турботи про когось іншого й про себе: підготувати, прибрати, нагодувати чи розписати бюджет. І нехай цей малий вчинок буде достатнім."
+    },
+    "pairs": [
+      {
+        "with": 3,
+        "text": "З Імператрицею тема плекання подвоюється. Імператриця — це достаток як сила природи; Королева Пентаклів збирає його, зберігає й подає на стіл. Разом вони запитують, як зростання стає щоденною поживою."
+      },
+      {
+        "with": 15,
+        "text": "Диявол ділить із цією Королевою козла й землю Козорога. Поруч вони привертають увагу до ваших стосунків із матеріальним: чи тримаєте ви його з турботою й щедрістю, чи стискаєте зі страху та звички. Що з цього описує пентакль на ваших колінах?"
+      },
+      {
+        "with": 72,
+        "text": "Дев’ятка Пентаклів — образ самодостатності й плеканої легкості в цій масті. Разом із Королевою вона врівноважує насолоду власними ресурсами і вміння ними ділитися: доглядати свій сад так добре, щоб і інші могли в ньому відпочити."
+      }
+    ],
+    "questions": [
+      "Що у вашому житті просить регулярного догляду, а не одноразового ремонту?",
+      "Де ви дбаєте про інших так, що самі вже не входите в коло цієї турботи?",
+      "Який практичний затишок полегшив би найближчий тиждень вам чи комусь близькому?"
+    ],
+    "practice": "Оберіть одну звичайну річ, якою користуєтеся щодня, — чашку, сковорідку чи блокнот — і почистьте, полагодьте або впорядкуйте її з повною увагою, помічаючи, як її змінює турбота."
+  }
+}

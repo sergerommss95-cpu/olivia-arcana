@@ -1,0 +1,146 @@
+{
+  "slug": "the-four-elements",
+  "path": "asking",
+  "order": 4,
+  "tool": null,
+  "cards": [
+    1,
+    22,
+    36,
+    50,
+    64,
+    51,
+    58,
+    74
+  ],
+  "en": {
+    "title": "Fire, Water, Air and Earth",
+    "dek": "Read the four suits as four qualities, notice which of them gather or go missing in a spread, and turn what you notice into a better question.",
+    "minutes": 6,
+    "sections": [
+      {
+        "heading": "Four tools on one table",
+        "body": [
+          "Look at The Magician in Olivia’s deck. On a heavy lapis table stand four objects: a stemmed cup, a sword upright on its pommel, a slim rod ending in a round knob, and a disc bearing a five-pointed star. They match the four suits of the Minor Arcana, set out side by side before any one of them is picked up. Each suit has fourteen cards, and each carries one of four elements: Wands are Fire, Cups are Water, Swords are Air and Pentacles are Earth.",
+          "The elements are older than tarot. Greek philosophers used Fire, Water, Air and Earth to sort the world, and occult readers in the nineteenth century, the Golden Dawn above all, attached them to the suits. Nobody now thinks a sword is made of air. The element is a lens: a way of asking which part of a life a card is talking about, so that fifty-six small scenes gather into four kinds of attention."
+        ]
+      },
+      {
+        "heading": "What each element holds",
+        "body": [
+          "Fire, the Wands, is desire, energy, initiative and creative drive: what you want and the push to go after it. On the Ace of Wands a gold bud shaped like a single flame tops a staff that is still sprouting leaves. Water, the Cups, is feeling, relationship and imagination. On the Ace of Cups, four streams rise from the bowl and arch over the rim, a fifth falls from beneath its foot, and all five reach the pool below.",
+          "Air, the Swords, is thought, speech, decisions and conflict: the mind naming things, weighing them and sometimes cutting too deep. The Ace of Swords is one long blade held vertically, point down, aimed into the gap between two peaks. Earth, the Pentacles, is the body, work, money, time and material conditions. On the Ace of Pentacles a plain disc rests on an open palm, and nothing closes over it.",
+          "Each element has an easy form and a harder one. Fire warms and drives, and it can also rush or burn out. Water connects, and it can flood. Air clarifies, and it can keep turning a thought long after the thought has stopped helping. Earth steadies, and it can settle into a rut. The element names the territory; the card shows you which form it takes in this reading."
+        ]
+      },
+      {
+        "heading": "Counting the suits in a spread",
+        "body": [
+          "Before you read any position, turn every card face up and count the suits. A leading suit tells you which of the four the question is being lived in. Three Swords in a spread about a new job say that, for now, the job lives mostly as thinking: pros and cons, conversations rehearsed, a decision turned over at night. The same question with three Pentacles lives in hours, pay and the daily work itself.",
+          "An absent suit becomes a question of its own. No Cups can ask: where are my feelings in how I am thinking about this? No Pentacles: what would this look like on an ordinary Tuesday? Hold these lightly, and weigh a pattern by how often it turns up by chance. In three cards at least one suit is always missing, so absence says very little. In eight cards some suit is missing about six times in ten. A crowd is rarer: four or more cards of one suit in eight turn up in roughly one draw in eight, uncommon enough to note, not rare enough to build a reading on."
+        ]
+      },
+      {
+        "heading": "A lens, not a law",
+        "body": [
+          "The element decides nothing. A spread full of Fire is not a forecast of action, and a spread without Water does not mean feeling has left your life. It is not astrology either: the element belongs to the card on the table, not to the person holding the deck. It points your attention somewhere; what you find there is yours to name.",
+          "In Golden Dawn attribution the court cards and many of the Major Arcana carry elements too; the lesson on elemental dignities follows them there. Traditions also differ at the edges. Some readers and decks swap two suits, giving Wands to Air and Swords to Fire. Olivia follows the Golden Dawn pairing, which most modern decks share. Whichever you use, choose one and keep it, so that your notes from one month still make sense the next."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Covered eyes and one level gaze",
+      "cards": [
+        51,
+        58,
+        74
+      ],
+      "body": [
+        "A reader asks: “What would help me decide whether to change my course of study?” The three cards are the Two of Swords, the Nine of Swords and the Page of Pentacles.",
+        "Count first. Two Swords and one Pentacle: Air leads, Earth answers, and Fire and Water are absent, which in three cards is ordinary and says little. The question is being lived mostly in the mind.",
+        "Now look at what the images show. On the Two of Swords a seated figure wears a broad blindfold, arms crossed at the breast, two swords rising from the shoulders. On the Nine of Swords a figure sits up in bed with the head bowed into the palms, fingers spread across the eyes. In both Air cards the eyes are covered, by cloth in one and by hands in the other. The one Earth card is different: the Page of Pentacles holds a disc at eye level and looks straight at it, bare feet planted in the grass, a ploughed field behind.",
+        "The elements turn that contrast into a question to carry: “What could I hold, visit or try with my own hands this week that would tell me more than another night of weighing it up?”"
+      ]
+    },
+    "tryThis": {
+      "heading": "Try this",
+      "steps": [
+        "Lay out At a crossroads in Olivia and, before reading any position, count the Wands, Cups, Swords and Pentacles. Leave the Majors aside for now.",
+        "Name the leading element in one line of your notebook, for example: “This question is living mostly in Air, as thinking.”",
+        "If a suit is missing, write it down as an open question, such as “Where is my body in this?” for absent Pentacles.",
+        "Open the card page for each of the four Aces and note the one detail that, for you, best shows its element.",
+        "Over a week of daily cards in Olivia, keep a tally of suits and see which element your questions return to most."
+      ]
+    },
+    "remember": [
+      "Wands are Fire, Cups Water, Swords Air, Pentacles Earth: four kinds of attention.",
+      "Count the suits before reading positions; a leading suit shows where the question lives.",
+      "Weigh patterns by chance: a missing suit in three cards says almost nothing."
+    ]
+  },
+  "uk": {
+    "title": "Вогонь, Вода, Повітря і Земля",
+    "dek": "Ви навчитеся читати чотири масті як чотири якості, помічати, які з них збираються в розкладі, а яких бракує, і перетворювати помічене на краще запитання.",
+    "minutes": 6,
+    "sections": [
+      {
+        "heading": "Чотири знаряддя на одному столі",
+        "body": [
+          "Погляньте на Мага в колоді Olivia. На масивному лазуритовому столі стоять чотири предмети: келих на ніжці, меч, поставлений на навершя вістрям угору, тонкий стрижень із круглою головкою і диск із п’ятикутною зіркою. Вони відповідають чотирьом мастям Молодших Арканів і розкладені поруч, поки жодного з них ще не взято до рук. Кожна масть має чотирнадцять карт і несе одну з чотирьох стихій: Жезли — це Вогонь, Кубки — Вода, Мечі — Повітря, а Пентаклі — Земля.",
+          "Стихії старші за таро. Грецькі філософи впорядковували світ за допомогою Вогню, Води, Повітря і Землі, а окультні тарологи XIX століття, передусім із Золотої Зорі, пов’язали їх із мастями. Сьогодні ніхто не вважає, що меч зроблено з повітря. Стихія — це призма: спосіб запитати, про яку частину життя говорить карта, щоб п’ятдесят шість невеликих сцен зібралися в чотири види уваги."
+        ]
+      },
+      {
+        "heading": "Що тримає в собі кожна стихія",
+        "body": [
+          "Вогонь, стихія Жезлів, означає бажання, енергію, ініціативу й творчий порив: те, чого ви хочете, і поштовх, щоб цього домогтися. На Тузі Жезлів золотий бутон, схожий на єдиний язик полум’я, вінчає палицю, на якій досі проростає листя. Вода, стихія Кубків, означає почуття, стосунки й уяву. На Тузі Кубків чотири струмені здіймаються з чаші й дугою перекидаються через вінця, п’ятий падає з-під ніжки, і всі п’ять досягають водойми внизу.",
+          "Повітря, стихія Мечів, означає думку, мовлення, рішення й конфлікт: розум, який називає речі, зважує їх і часом ріже надто глибоко. Туз Мечів — це одне довге прямовисне лезо вістрям донизу, спрямоване в прогалину між двома вершинами. Земля, стихія Пентаклів, означає тіло, роботу, гроші, час і матеріальні умови. На Тузі Пентаклів простий диск лежить на відкритій долоні, і ніщо його не накриває.",
+          "Кожна стихія має легшу форму і важчу. Вогонь зігріває й рухає вперед, але може й гнати стрімголов або перегоріти. Вода поєднує, але може й затопити. Повітря прояснює, але може й прокручувати думку ще довго після того, як вона перестала допомагати. Земля дає опору, але може й застрягнути в колії. Стихія називає територію, а карта показує, якої форми вона набуває в цьому читанні."
+        ]
+      },
+      {
+        "heading": "Підрахунок мастей у розкладі",
+        "body": [
+          "Перш ніж читати будь-яку позицію, переверніть усі карти лицем догори й порахуйте масті. Переважна масть підказує, у якій із чотирьох стихій ви проживаєте запитання. Якщо в розкладі про нову роботу три карти Мечів, то поки що ця робота живе здебільшого як думка: аргументи «за» і «проти», подумки відрепетирувані розмови, рішення, яке ви обмірковуєте ночами. Те саме запитання з трьома картами Пентаклів живе в годинах, зарплаті й самій щоденній роботі.",
+          "Відсутня масть стає окремим запитанням. Коли немає Кубків, можна запитати: «Де мої почуття в тому, як я про це думаю?» Коли немає Пентаклів: «Як це виглядало б у звичайний вівторок?» Не надавайте таким запитанням забагато ваги й оцінюйте кожну закономірність за базовою частотою, тобто за тим, як часто вона трапляється випадково. У трьох картах принаймні однієї масті бракує завжди, тож її відсутність майже нічого не означає. У восьми картах якоїсь масті бракує приблизно в шести випадках із десяти. Скупчення трапляється рідше: чотири чи більше карт однієї масті серед восьми трапляються приблизно в одному витягуванні з восьми. Це досить незвично, щоб це відзначити, але не настільки рідко, щоб будувати на цьому читання."
+        ]
+      },
+      {
+        "heading": "Призма, а не закон",
+        "body": [
+          "Стихія нічого не вирішує. Розклад, повний Вогню, не прогнозує дій, а розклад без Води не означає, що почуття зникли з вашого життя. І це не астрологія: стихія належить карті на столі, а не людині, яка тримає колоду. Вона спрямовує вашу увагу, а назвати те, що ви там знайдете, можете лише ви.",
+          "У відповідностях Золотої Зорі стихії мають також придворні карти й багато Старших Арканів; далі за ними простежить урок про стихійні гідності, тобто про те, як стихії сусідніх карт посилюють або послаблюють одна одну. Традиції різняться й у деталях. Деякі тарологи та колоди міняють дві масті місцями й віддають Жезли Повітрю, а Мечі — Вогню. Olivia дотримується відповідностей Золотої Зорі, які поділяє більшість сучасних колод. Хоч який варіант вам ближчий, оберіть один і тримайтеся його, щоб нотатки цього місяця були зрозумілі й наступного."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Затулені очі й один прямий погляд",
+      "cards": [
+        51,
+        58,
+        74
+      ],
+      "body": [
+        "Людина запитує: «Що допомогло б мені вирішити, чи змінювати напрям навчання?» Випадають три карти: Двійка Мечів, Дев’ятка Мечів і Паж Пентаклів.",
+        "Спершу порахуйте. Дві карти Мечів і одна Пентаклів: Повітря веде, Земля відповідає, а Вогню й Води немає, що для трьох карт цілком звичайно й мало про що свідчить. Запитання живе здебільшого в голові.",
+        "Тепер погляньте, що показують зображення. На Двійці Мечів постать сидить із широкою пов’язкою на очах, руки схрещено на грудях, від плечей здіймаються два мечі. На Дев’ятці Мечів постать сидить у постелі, схиливши голову на долоні, а розчепірені пальці затуляють очі. На обох картах Повітря очі затулені: на одній — тканиною, на другій — руками. Єдина карта Землі інша: Паж Пентаклів тримає диск на рівні очей і дивиться просто на нього, босі ноги твердо стоять на траві, а позаду тягнеться зоране поле.",
+        "Стихії перетворюють цей контраст на запитання, яке ви візьмете з собою: «Що цього тижня можна потримати, відвідати чи спробувати власноруч, аби це сказало мені більше, ніж ще одна ніч зважування „за“ і „проти“?»"
+      ]
+    },
+    "tryThis": {
+      "heading": "Спробуйте",
+      "steps": [
+        "Викладіть у Olivia розклад «На роздоріжжі» і, перш ніж читати будь-яку позицію, порахуйте Жезли, Кубки, Мечі й Пентаклі. Старші Аркани поки не враховуйте.",
+        "Запишіть у щоденнику одним рядком, яка стихія переважає, наприклад: «Це запитання живе здебільшого в Повітрі, як думка».",
+        "Якщо якоїсь масті бракує, запишіть це як відкрите запитання, наприклад «Де в цьому моє тіло?», коли немає Пентаклів.",
+        "Відкрийте сторінки карт усіх чотирьох Тузів і для кожного запишіть одну деталь, яка, на вашу думку, найкраще показує його стихію.",
+        "Протягом тижня витягуйте в Olivia карту дня, ведіть підрахунок мастей і погляньте, до якої стихії ваші запитання повертаються найчастіше."
+      ]
+    },
+    "remember": [
+      "Жезли — Вогонь, Кубки — Вода, Мечі — Повітря, Пентаклі — Земля: чотири види уваги.",
+      "Рахуйте масті, перш ніж читати позиції: переважна масть показує, де живе запитання.",
+      "Зважайте на випадковість: відсутня масть у трьох картах майже нічого не означає."
+    ]
+  }
+}

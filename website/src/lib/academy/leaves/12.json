@@ -1,0 +1,265 @@
+{
+  "id": 12,
+  "slug": "the-hanged-man",
+  "artwork": {
+    "file": "12_the_hanged_man.webp",
+    "sha256": "b66848e2df739ad1ce924c7471581f6a912ccb26a29d47ddf4f0d31d0fc8ef7d"
+  },
+  "symbols": [
+    {
+      "key": "tree",
+      "x": 21,
+      "y": 40,
+      "en": {
+        "name": "Two pruned living trees",
+        "seen": "Two lapis trunks rise on either side of the figure, their side branches sawn back to round stubs. At the top each trunk forks into a Y that holds the beam, one arm ending in a ringed, cut stump.",
+        "meaning": "Marseille decks hang the figure between two trees with lopped branches; the Waite-Smith card uses a single T-shaped tree in leaf. Olivia returns to the pair. Cut back yet still alive, the trees suggest pruning: something taken away so that growth can go elsewhere."
+      },
+      "uk": {
+        "name": "Два підрізані живі дерева",
+        "seen": "Обабіч фігури здіймаються два лазуритові стовбури; їхнє бічне гілля спиляно до круглих пеньків. Угорі кожен стовбур розходиться рогаткою, що тримає поперечину; одна з гілок рогатки закінчується зрізаним пеньком із річними кільцями.",
+        "meaning": "У марсельських колодах фігура висить між двома деревами з обрубаним гіллям; на карті Вейта–Сміт це одне Т-подібне дерево з листям. Olivia повертається до пари. Підрізані, але живі, ці дерева нагадують про обрізування саду: щось прибирають, щоб ріст міг спрямуватися деінде."
+      }
+    },
+    {
+      "key": "leaves",
+      "x": 22,
+      "y": 6,
+      "en": {
+        "name": "Leaves on sawn wood",
+        "seen": "Small sprigs of pale grey-blue leaves grow from the top of the beam above each trunk and from the sides of both trees, carved lighter than the dark lapis around them.",
+        "meaning": "The Hanged Man’s gallows is traditionally living wood, commonly read as a sign that this suspension belongs to life rather than to punishment. Here leaves sprout even from the cut beam: a pause that looks like dead time can still be quietly growing."
+      },
+      "uk": {
+        "name": "Листя на спиляному дереві",
+        "seen": "Невеликі пагони блідого сіро-блакитного листя проростають із верху поперечини над кожним стовбуром і з боків обох дерев; вони вирізьблені світлішим тоном, ніж темний лазурит довкола.",
+        "meaning": "Шибеницю Повішеного традиційно зображують із живого дерева, і це зазвичай тлумачать як знак того, що це зависання належить життю, а не покаранню. Тут листя пробивається навіть зі зрізаної поперечини: пауза, схожа на змарнований час, усе ще може тихо рости."
+      }
+    },
+    {
+      "key": "other",
+      "x": 52,
+      "y": 13,
+      "en": {
+        "name": "The single cord",
+        "seen": "A thin pale cord is wrapped around the middle of the beam, knotted just below it, and drops straight down to a narrow loop tied around the ankle of the raised leg.",
+        "meaning": "Nothing else holds the figure: one cord, one foot, no chains or guard. The light binding is commonly read as a hanging accepted rather than imposed, a stop agreed to rather than a capture. The knot asks what is really keeping you in place, and who tied it."
+      },
+      "uk": {
+        "name": "Єдина мотузка",
+        "seen": "Тонка бліда мотузка обмотана довкола середини поперечини, зав’язана вузлом трохи нижче від неї й прямовисно падає донизу, до вузької петлі, затягнутої на щиколотці піднятої ноги.",
+        "meaning": "Більше ніщо не тримає фігуру: одна мотузка, одна нога, ні ланцюгів, ні варти. Легку прив’язь зазвичай тлумачать як зависання, прийняте, а не накинуте ззовні, — зупинку, на яку погодилися, а не полон. Вузол запитує, що насправді тримає вас на місці і хто його зав’язав."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 37,
+      "y": 22,
+      "en": {
+        "name": "The river of stars",
+        "seen": "A band of gold flecks enters at the top edge, slants down to the left towards the bent knee, and reappears below the halo, trailing away towards the lower right.",
+        "meaning": "The traditional image sets the figure against a plain ground; Olivia hangs it across the Milky Way. Upside down, the figure sees the stars inverted, yet the band still runs on behind the body: the larger order is still there, simply seen from a new angle."
+      },
+      "uk": {
+        "name": "Ріка зірок",
+        "seen": "Смуга золотих цяток заходить у карту від верхнього краю, скісно спускається ліворуч, до зігнутого коліна, а потім знову проступає під німбом і тягнеться далі, до нижнього правого кута.",
+        "meaning": "На традиційному зображенні фігура висить на однотонному тлі; Olivia підвішує її поперек Чумацького Шляху. Догори ногами фігура бачить зорі перевернутими, але смуга й далі тече за тілом: більший лад нікуди не зник, його просто видно під новим кутом."
+      }
+    },
+    {
+      "key": "cross",
+      "x": 52,
+      "y": 33,
+      "en": {
+        "name": "Legs in a figure four",
+        "seen": "The tied leg stays straight. The other bends at the knee, which points to the left, and its shin passes behind the straight leg so that the bare foot emerges on the right.",
+        "meaning": "The crossed legs make the shape of a 4, or a cross turned over, long read as the fourfold world of the elements set upside down. The dancer of The World traditionally crosses the legs the same way, upright and free: a hint of where this stillness leads."
+      },
+      "uk": {
+        "name": "Ноги у формі четвірки",
+        "seen": "Прив’язана нога лишається прямою. Друга зігнута в коліні, що дивиться ліворуч; її гомілка проходить позаду прямої ноги, тож боса ступня виринає вже з правого боку.",
+        "meaning": "Схрещені ноги утворюють цифру 4, або перевернутий хрест; цю форму здавна читають як чотириелементний світ, перевернутий догори ногами. Постать, що танцює на карті Світ, традиційно схрещує ноги так само, але прямо й вільно: натяк на те, куди веде ця нерухомість."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 51,
+      "y": 44,
+      "en": {
+        "name": "The draped loincloth",
+        "seen": "An ivory cloth wraps the hips in soft, heavy folds, gathered and tucked at the waist. It is the only covering on an otherwise bare ivory body.",
+        "meaning": "The traditional figure is fully dressed in tunic and hose, often in red and blue. Olivia strips the figure almost bare, closer to images of saints and martyrs. Little is left to protect or display: the surrender is plain, and so is the vulnerability it takes."
+      },
+      "uk": {
+        "name": "Драпована пов’язка",
+        "seen": "Вирізьблена зі слонової кістки тканина огортає стегна м’якими важкими складками, зібраними й підіткнутими на талії. Це єдине вбрання на тілі, що в усьому іншому лишається оголеним.",
+        "meaning": "Традиційна фігура повністю вдягнена в туніку й панчохи, часто червоні й сині. Olivia майже роздягає її, наближаючи до образів святих і мучеників. Тут майже нема чого захищати чи виставляти напоказ: прийняття просте й неприкрите, як і вразливість, якої воно потребує."
+      }
+    },
+    {
+      "key": "triangle",
+      "x": 39,
+      "y": 52,
+      "en": {
+        "name": "Arms folded behind",
+        "seen": "The elbows bend outward at the sides of the torso and the forearms turn in behind the back. The hands stay out of sight; nothing is held or reached for.",
+        "meaning": "Here, as in the traditional image, the two elbows and the lowered head make a point-down triangle beneath the crossed legs, often read as spirit descending into matter. Hands out of sight also mean that doing has stopped."
+      },
+      "uk": {
+        "name": "Руки, заведені за спину",
+        "seen": "Лікті розведені в боки обабіч тулуба, а передпліччя заходять за спину. Кистей не видно; фігура нічого не тримає й ні до чого не тягнеться.",
+        "meaning": "Тут, як і на традиційному зображенні, два лікті й опущена голова утворюють трикутник вершиною донизу під схрещеними ногами; його часто читають як образ духу, що сходить у матерію. Сховані руки означають і те, що дія зупинилася."
+      }
+    },
+    {
+      "key": "halo",
+      "x": 52,
+      "y": 69,
+      "en": {
+        "name": "The gold halo",
+        "seen": "Behind the head, which hangs lowest of all, a gold disc is incised with short radiating rays. The face is calm, eyes lowered and almost closed, hair in close ivory curls.",
+        "meaning": "The halo in Pamela Colman Smith’s 1909 design is commonly read as illumination rather than suffering. Here it is the only solid gold on the card, set at the head, the lowest point of the body: understanding gathers where you might least think to look."
+      },
+      "uk": {
+        "name": "Золотий німб",
+        "seen": "За головою, що звисає нижче за все інше, — золотий диск із короткими врізаними променями, які розходяться від центру. Обличчя спокійне, очі опущені й майже заплющені, волосся — щільні кучері зі слонової кістки.",
+        "meaning": "Німб на малюнку Памели Колман Сміт 1909 року зазвичай тлумачать як осяяння, а не страждання. Тут це єдине суцільне золото на карті, і воно лежить біля голови, найнижчої точки тіла: розуміння збирається там, куди ви навряд чи здогадалися б подивитися."
+      }
+    },
+    {
+      "key": "tree",
+      "x": 45,
+      "y": 95,
+      "en": {
+        "name": "Roots reaching inward",
+        "seen": "At the foot of each trunk long roots spread across a pebbled lapis ground. The longest of them snake towards the centre from both sides, almost meeting beneath the figure.",
+        "meaning": "Olivia’s frame shows the roots of the gallows trees, and they suggest that the stillness above is anchored: the two posts draw from one ground and reach for each other below. A pause holds when it is rooted in something steady rather than left hanging on nerves alone."
+      },
+      "uk": {
+        "name": "Коріння, що тягнеться досередини",
+        "seen": "Біля підніжжя кожного стовбура довге коріння розповзається по лазуритовій землі, всіяній камінцями. Найдовші корені звиваються до центру з обох боків і майже сходяться під фігурою.",
+        "meaning": "Olivia показує коріння дерев, що правлять за шибеницю, і воно підказує, що нерухомість угорі має опору: обидва стовпи живляться з однієї землі й тягнуться одне до одного внизу. Пауза тримається, коли вкорінена в щось стійке, а не висить на самих лише нервах."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Hanged Man invites a chosen pause: stop pushing, let the whole frame turn upside down, and see what the old angle kept hidden.",
+    "keywords": {
+      "upright": [
+        "chosen pause",
+        "new perspective",
+        "surrender",
+        "letting go",
+        "patience"
+      ],
+      "reversed": [
+        "stalling",
+        "empty sacrifice",
+        "resisting change",
+        "restless waiting",
+        "martyrdom"
+      ]
+    },
+    "upright": [
+      "The Hanged Man is the card of the deliberate stop. In Olivia’s image the figure hangs from one pale cord tied around a single ankle, with nothing else holding it: no chains, no guard, no struggle. The face set against the gold halo is calm, eyes lowered, as though the strangeness of being upside down has already been accepted. This is not a capture. It is an agreement to stay still long enough to see differently.",
+      "Upright, the card draws attention to what shifts when you stop pushing. Effort repeated from the same angle tends to return the same result; turning the whole frame around lets another reading of the situation appear. Here a river of gold stars runs on behind the hanging figure, a reminder that the larger order has not gone anywhere. Only the viewpoint has changed, and that change is the gift.",
+      "The card can also point to an exchange: setting down something small, such as speed, certainty or the need to be right, in return for understanding. The two trees are pruned, their branches sawn to stubs, yet leaves still sprout from the cut wood. Something is set aside so that something else can grow. The Hanged Man asks you to make that exchange on purpose, and to know what your pause is for."
+    ],
+    "reversed": [
+      "The Hanged Man reversed turns the figure the right way up, and the pause can lose its purpose. It can point to waiting that has become a habit, a sacrifice made so often that nobody, including you, remembers why, or a quiet refusal to look at the question from any other side. The cord is still tied, but no new view is arriving.",
+      "It can also show the opposite strain: restlessness, forcing a decision because stillness feels unbearable. Ask what you are waiting to learn. If you can name it, the pause may still be useful. If you cannot, a small experiment or a changed routine may offer the fresh view that hanging on has not."
+    ],
+    "number": "Twelve is a number of full cycles: twelve months, twelve signs of the zodiac, twelve hours on the face of a clock. In the Waite-Smith order The Hanged Man follows Justice, where a matter is weighed, and comes just before Death, where something ends. Between verdict and ending sits this suspension. The step it asks is strange for a traveller who has walked since The Fool: stop on purpose, let the world turn over, and wait for the new angle before choosing again.",
+    "tradition": "In the Golden Dawn system The Hanged Man is titled the Spirit of the Mighty Waters. It carries the Hebrew letter Mem, meaning water, one of the three mother letters, and is attributed to the element of Water, on the path joining Geburah to Hod on the Tree of Life. Some modern readers assign Neptune instead. Early Italian sources call the card the Traitor, echoing the shame paintings that showed traitors hung by one foot. Marseille decks hang Le Pendu between two lopped trees; Pamela Colman Smith’s 1909 design gave the figure a halo and a single living tree. Olivia’s frame returns to the two trees.",
+    "areas": {
+      "love": "In close relationships The Hanged Man invites you to stop arguing your side for a while and look at the pattern from another place: the other person’s view, or no one’s in particular. It does not ask you to give way on what matters. It asks what a pause would show you: a repeated quarrel, a role you keep playing, a need left unspoken. With yourself, it can mean resting from self-improvement long enough to notice what already works.",
+      "work": "At work or in study the card can point to a project that has stalled, and to the chance that the stall holds information. Before adding more hours, turn the problem over: explain it to someone outside the field, read the brief backwards, question the assumption everyone shares. A delay in a money matter or a decision can be a time to gather facts rather than force an outcome. The Hanged Man favours the patient review over the heroic push.",
+      "self": "For your inner life this card is permission to be unproductive on purpose. The figure’s hands are folded out of sight; nothing is held or reached for. Try the same: a stretch of time with no goal, no screen and no plan, to see what surfaces when you stop managing. The card also asks you to notice where you give things up too readily, and whether that giving still reflects your values or has simply become routine."
+    },
+    "positions": {
+      "heart": "At the centre of your question The Hanged Man suggests the next insight lies not in more effort but in a changed angle. Something here may ask to be looked at upside down before you act.",
+      "challenge": "As what complicates the question, the card can point to a pause that has gone on too long, or a sacrifice that no longer serves anyone. Waiting may have become a place to hide from choosing.",
+      "advice": "As a next step, stop for a set time, drop your preferred outcome for a moment, and write the situation as a stranger would describe it. Decide once the new view has arrived."
+    },
+    "pairs": [
+      {
+        "with": 13,
+        "text": "The Hanged Man and Death sit side by side in the sequence. Together they draw attention to a two-step change: first the voluntary pause that loosens your grip, then the ending that becomes possible once you have stopped holding on."
+      },
+      {
+        "with": 21,
+        "text": "The dancer of The World traditionally crosses the legs in the same figure four, but upright and free. Together the two cards trace one posture from suspension to completion: the same shape, first held in stillness, then danced."
+      },
+      {
+        "with": 53,
+        "text": "The Four of Swords is rest taken to recover; The Hanged Man is rest taken to see. Paired, they ask whether your pause is for healing or for insight, and invite you to give it the conditions that purpose needs."
+      }
+    ],
+    "questions": [
+      "What might you see if you set aside your preferred outcome for one week?",
+      "Which effort have you repeated from the same angle, hoping for a different result?",
+      "What are you actually waiting to learn, and how will you know when you have learned it?"
+    ],
+    "practice": "Write your question at the top of a page, turn the page upside down, and describe the situation from the viewpoint of whoever or whatever you have been overlooking."
+  },
+  "uk": {
+    "essence": "Повішений запрошує до свідомої паузи: перестати тиснути, дозволити всій картині перевернутися догори дриґом і побачити те, що ховав старий кут зору.",
+    "keywords": {
+      "upright": [
+        "свідома пауза",
+        "новий погляд",
+        "прийняття",
+        "відпускання",
+        "терпіння"
+      ],
+      "reversed": [
+        "зволікання",
+        "порожня жертва",
+        "опір змінам",
+        "неспокійне чекання",
+        "мучеництво"
+      ]
+    },
+    "upright": [
+      "Повішений — карта свідомої зупинки. На зображенні Olivia фігура висить на одній блідій мотузці, прив’язаній до однієї щиколотки, і ніщо інше її не тримає: ні ланцюгів, ні варти, ні боротьби. Обличчя на тлі золотого німба спокійне, очі опущені, наче дивність перевернутого становища вже прийнято. Це не полон. Це згода завмерти досить надовго, щоб побачити інакше.",
+      "У прямому положенні карта звертає увагу на те, що змінюється, коли ви перестаєте тиснути. Зусилля, повторюване під тим самим кутом, зазвичай дає той самий результат; якщо ж перевернути всю картину, з’являється інше прочитання ситуації. Тут за фігурою, що висить, і далі тече ріка золотих зірок — нагадування, що більший лад нікуди не подівся. Змінилася лише точка зору, і саме ця зміна — дарунок.",
+      "Карта може вказувати й на обмін: відкласти щось невелике — швидкість, упевненість чи потребу мати рацію — і отримати натомість розуміння. Обидва дерева підрізані, їхні гілки спиляно до пеньків, але зі зрізаної деревини все одно пробивається листя. Щось відкладають, щоб могло вирости інше. Повішений просить вас здійснити цей обмін свідомо і знати, для чого ваша пауза."
+    ],
+    "reversed": [
+      "У перевернутому положенні Повішений ставить фігуру на ноги, і пауза може втратити сенс. Карта може вказувати на чекання, що стало звичкою; на жертву, яку приносять так часто, що вже ніхто, навіть ви, не пам’ятає навіщо; або на тиху відмову поглянути на запитання з будь-якого іншого боку. Мотузка досі зав’язана, але новий погляд не приходить.",
+      "Карта може показувати й протилежну напругу: неспокій, спробу силоміць ухвалити рішення лише тому, що нерухомість здається нестерпною. Запитайте себе, що саме ви чекаєте дізнатися. Якщо можете це назвати, пауза ще може бути корисною. Якщо ні, невеликий експеримент чи змінений розпорядок можуть дати той свіжий погляд, якого не дало саме лише очікування."
+    ],
+    "number": "Дванадцять — число повних циклів: дванадцять місяців, дванадцять знаків зодіаку, дванадцять годин на циферблаті. У порядку Вейта–Сміт Повішений іде після Справедливості, де справу зважують, і безпосередньо перед Смертю, де щось завершується. Між вироком і завершенням лежить це зависання. Крок, про який воно просить, дивний для мандрівника, що йде від самого Блазня: свідомо зупинитися, дати світові перевернутися і дочекатися нового кута зору, перш ніж знову обирати.",
+    "tradition": "У системі Золотої Зорі Повішений має титул «Дух Могутніх Вод». Йому відповідають єврейська літера Мем, що означає «вода», — одна з трьох материнських літер, — і стихія Води; карта лежить на шляху, що з’єднує Гебуру з Ходом на Дереві Життя. Дехто із сучасних тарологів натомість пов’язує її з Нептуном. Ранні італійські джерела називають карту Зрадником — відлунням так званих ганебних зображень, де зрадників зображували підвішеними за одну ногу. Марсельські колоди підвішують Le Pendu між двома обрубаними деревами; у задумі Памели Колман Сміт 1909 року фігура отримала німб і одне живе дерево. Композиція Olivia повертається до двох дерев.",
+    "areas": {
+      "love": "У близьких стосунках Повішений запрошує на якийсь час перестати відстоювати свій бік і поглянути на цю повторювану схему з іншого місця: з погляду іншої людини або з погляду, що не належить нікому зокрема. Карта не просить вас поступатися тим, що важливо. Вона запитує, що показала б пауза: сварку, яка повторюється, роль, яку ви постійно граєте, потребу, що лишилася невисловленою. Щодо стосунків із собою карта може означати перепочинок від самовдосконалення, досить довгий, щоб помітити, що вже добре працює.",
+      "work": "У роботі чи навчанні карта може вказувати на проєкт, що застряг, і на те, що сама затримка може містити інформацію. Перш ніж додавати години, переверніть задачу: поясніть її комусь поза вашою галуззю, прочитайте технічне завдання з кінця, поставте під сумнів припущення, яке поділяють усі. Затримка в грошових справах чи з рішенням може стати часом, щоб зібрати факти, а не силоміць домагатися результату. Повішений віддає перевагу терплячому перегляду, а не героїчному ривку.",
+      "self": "Для внутрішнього життя ця карта — дозвіл свідомо бути непродуктивними. Руки фігури заведені за спину й сховані; вона нічого не тримає й ні до чого не тягнеться. Спробуйте так само: проміжок часу без мети, без екрана й без плану, щоб побачити, що спливе, коли ви перестанете все контролювати. Карта також просить помітити, де ви надто легко від чогось відмовляєтеся, і чи ця відмова досі відображає ваші цінності, чи просто стала звичкою."
+    },
+    "positions": {
+      "heart": "У центрі вашого запитання Повішений підказує, що наступне прозріння криється не в більших зусиллях, а в зміні кута зору. Можливо, тут щось просить, щоб на нього поглянули догори ногами, перш ніж ви почнете діяти.",
+      "challenge": "Як те, що ускладнює ваше запитання, карта може вказувати на паузу, яка надто затяглася, або на жертву, що вже нікому не служить. Можливо, чекання стало місцем, де можна сховатися від вибору.",
+      "advice": "Як наступний крок: зупиніться на визначений час, на мить відкладіть бажаний результат і опишіть ситуацію так, як описала б її стороння людина. Вирішуйте, коли прийде новий погляд."
+    },
+    "pairs": [
+      {
+        "with": 13,
+        "text": "Повішений і Смерть стоять у послідовності поруч. Разом вони звертають увагу на зміну у два кроки: спершу добровільна пауза, що допомагає розтиснути пальці, потім завершення, яке стає можливим, щойно ви перестаєте триматися."
+      },
+      {
+        "with": 21,
+        "text": "Постать на карті Світ традиційно схрещує ноги в ту саму четвірку, але прямо й вільно. Разом ці дві карти простежують одну позу від зависання до завершеності: та сама форма спершу втримана в нерухомості, а потім — у танці."
+      },
+      {
+        "with": 53,
+        "text": "Четвірка Мечів — відпочинок, щоб відновитися; Повішений — відпочинок, щоб побачити. У парі вони запитують, для чого ваша пауза — для зцілення чи для прозріння, — і запрошують створити для неї умови, яких потребує ця мета."
+      }
+    ],
+    "questions": [
+      "Що ви могли б побачити, якби на тиждень відклали бажаний результат?",
+      "Яке зусилля ви повторюєте під тим самим кутом, сподіваючись на інший результат?",
+      "Що саме ви чекаєте дізнатися і як зрозумієте, що вже це дізналися?"
+    ],
+    "practice": "Запишіть своє запитання вгорі аркуша, переверніть аркуш догори дриґом і опишіть ситуацію з погляду того, кого чи що ви досі оминали увагою."
+  }
+}

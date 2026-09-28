@@ -8,6 +8,8 @@ Selected by the user on 2026-09-23: **10 — Olive lattice**.
 - Rebuild: `python3 work/hero-v10/build.py`.
 - Selection record: `olivia-card-back-selection.json`.
 
+- Phone copy (27 September 2026): `olivia-card-back-phone.webp`, 768 × 1319, resized from `olivia-card-back.webp` and encoded by `work/tools/phone-art.mjs` (129 KB instead of 426 KB). It is a derived file, not a new selection: phones show the back at most 768 pixels wide, and desktop keeps the original.
+
 The source is byte-identical to the user's `Downloads/10-olive-lattice.png` attachment. The master PNG remains unchanged. The card back is selected; this does not select a standalone logo. There has been no live-site deployment.
 
 The artwork was generated with the built-in image-generation tool. Its original prompt is study 10 in `olivia-weave-reimagined/prompts.json`.

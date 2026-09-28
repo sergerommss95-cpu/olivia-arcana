@@ -1,0 +1,250 @@
+{
+  "id": 57,
+  "slug": "eight-of-swords",
+  "artwork": {
+    "file": "57_eight_of_swords.webp",
+    "sha256": "84a744e224eafae3c645052f21650f305d2f0adb040a5775ce78eb33c9dcf4dc"
+  },
+  "symbols": [
+    {
+      "key": "blindfold",
+      "x": 49,
+      "y": 41,
+      "en": {
+        "name": "The gold blindfold",
+        "seen": "A wide band of textured gold covers the eyes and wraps around the head, set into the ivory like gold leaf. The head bows forward and a little to the viewer’s left; the mouth is calm.",
+        "meaning": "The blindfold is this card’s oldest sign of limited sight: the situation is judged from inside, without the full view. Traditional versions use plain cloth. Olivia makes it gold, so what blocks the view is also something valued, a belief worth examining gently rather than tearing away."
+      },
+      "uk": {
+        "name": "Золота пов’язка",
+        "seen": "Широка смуга рельєфного золота, вкладена у слонову кістку, мов сусальне золото, закриває очі й огортає голову. Голова схилена вперед і трохи ліворуч від глядача; вуста спокійні.",
+        "meaning": "Пов’язка на очах — найдавніший у цій карті знак обмеженого погляду: ситуацію оцінюють зсередини, не бачачи її цілком. У традиційних версіях це проста тканина. Olivia робить пов’язку золотою, тож те, що закриває огляд, водночас має цінність: це переконання, яке варто дбайливо роздивитися, а не зривати."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 32,
+      "y": 57,
+      "en": {
+        "name": "Four blades on the left",
+        "seen": "Four dark blue swords carved in the lapis stand point-down in the ground on the viewer’s left, each with a round pommel and a straight crossguard, leaning at slightly different angles and heights.",
+        "meaning": "Swords are the suit of Air: thoughts, words and judgements. Planted around a figure, they are commonly read as the ideas that fence a person in. Here they are cut from the same dark stone as the sky and ground, part of the landscape rather than weapons anyone is holding."
+      },
+      "uk": {
+        "name": "Чотири леза ліворуч",
+        "seen": "Чотири темно-сині мечі, вирізьблені в лазуриті, стоять вістрями в землі ліворуч від глядача; у кожного кругле навершя і пряма гарда, а нахил і висота трохи різняться.",
+        "meaning": "Мечі — масть Повітря: думки, слова й судження. Встромлені довкола фігури, їх зазвичай тлумачать як ідеї, що обгороджують людину. Тут їх вирізано з того самого темного каменю, що й небо та земля: вони — частина краєвиду, а не зброя в чиїхось руках."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 81,
+      "y": 52,
+      "en": {
+        "name": "Five blades on the right",
+        "seen": "Five more swords of the same dark lapis stand on the viewer’s right against the rocky slope, at staggered heights. Nine blades in all flank the figure; none touches it, and none stands in front.",
+        "meaning": "The traditional card shows eight swords, matching its number. Olivia’s carving shows nine, while this deck’s Nine of Swords carves eight, as if the two cards had traded counts. What matters more is the open ground: every blade stands behind or beside the figure, and the way forward is clear."
+      },
+      "uk": {
+        "name": "П’ять лез праворуч",
+        "seen": "Ще п’ять мечів із такого самого темного лазуриту стоять праворуч від глядача на тлі скелястого схилу, на різній висоті. Загалом дев’ять лез обступають фігуру; жодне не торкається фігури і жодне не стоїть попереду.",
+        "meaning": "На традиційній карті вісім мечів — за її числом. У різьбі Olivia їх дев’ять, а на Дев’ятці Мечів цієї колоди — вісім, ніби дві карти помінялися кількістю лез. Важливіше інше — відкритий простір: кожне лезо стоїть позаду або обабіч фігури, і шлях уперед вільний."
+      }
+    },
+    {
+      "key": "belt",
+      "x": 58,
+      "y": 63,
+      "en": {
+        "name": "The loosely knotted sash",
+        "seen": "A long ivory sash wraps under the chest and around the arm on the viewer’s right, crosses the gown diagonally, loops into a loose knot at the right hip and trails a frayed end.",
+        "meaning": "In the traditional image the figure’s upper body and arms are wrapped tight in binding. Olivia’s binding is a single sash, loosely knotted, its end hanging free: a constraint real enough to feel, yet already slack, and one that could be worked loose from within."
+      },
+      "uk": {
+        "name": "Вільно зав’язаний пояс",
+        "seen": "Довгий пояс зі слонової кістки обвиває тіло під грудьми й руку праворуч від глядача, навскіс перетинає шату, зав’язується слабким вузлом на правому стегні й звисає пошарпаним кінцем.",
+        "meaning": "На традиційному зображенні верхню частину тіла й руки фігури щільно обмотано путами. У Olivia пута — один-єдиний пояс, вільно зав’язаний, із кінцем, що звисає: обмеження досить реальне, щоб його відчувати, але вже ослаблене, і його можна розпустити зсередини."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 40,
+      "y": 61,
+      "en": {
+        "name": "The free hand",
+        "seen": "On the viewer’s left the arm hangs down at the side, and the ivory hand rests against the gown at thigh level, fingers relaxed. The other arm bends back behind the body, wrapped by the sash.",
+        "meaning": "This departs from the fully bound figure of the traditional card. One hand is free, simply not in use. It gives the image its quiet question: which limits are tied fast, and which stay in place only because the free hand has not yet moved?"
+      },
+      "uk": {
+        "name": "Вільна рука",
+        "seen": "Ліворуч від глядача рука опущена вздовж тіла, а кисть зі слонової кістки лежить на шаті на рівні стегна, пальці розслаблені. Друга рука зігнута й заведена за спину, обвита поясом.",
+        "meaning": "Тут зображення відходить від повністю зв’язаної фігури традиційної карти. Одна рука вільна — просто нею не користуються. Саме вона ставить тихе запитання цієї карти: які межі зав’язані міцно, а які тримаються лише тому, що вільна рука ще не поворухнулася?"
+      }
+    },
+    {
+      "key": "castle",
+      "x": 76,
+      "y": 27,
+      "en": {
+        "name": "The castle on the crag",
+        "seen": "High on the right, a many-towered castle carved in paler blue lapis crowns a steep, fissured crag whose slope falls away behind the swords on the viewer’s right.",
+        "meaning": "A castle on a height stands behind the figure in the traditional Eight of Swords too. It is commonly read as authority, home or the rules and expectations that shaped the situation. It is present in the picture, but distant: not the ground under the figure’s feet."
+      },
+      "uk": {
+        "name": "Замок на скелі",
+        "seen": "Високо праворуч багатовежний замок, вирізьблений у світлішому блакитному лазуриті, вінчає стрімку, порізану тріщинами скелю, схил якої спадає за мечами праворуч від глядача.",
+        "meaning": "Замок на висоті стоїть позаду фігури й на традиційній Вісімці Мечів. Його зазвичай тлумачать як владу, дім або правила й очікування, що сформували ситуацію. Він присутній на картині, але віддалений: це не та земля, на якій стоїть фігура."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 37,
+      "y": 20,
+      "en": {
+        "name": "The river of stars",
+        "seen": "A diagonal drift of pale, glittering specks crosses the dark sky from the upper left down toward the crag and the bowed head, with small gold stars scattered separately across the sky.",
+        "meaning": "The traditional card sets this scene under a plain grey sky. Olivia’s night is wide and lit, and its band of stars slants toward a head that cannot see it. The larger view has not gone; it is simply out of sight for now."
+      },
+      "uk": {
+        "name": "Зоряна ріка",
+        "seen": "Діагональний розсип блідих мерехтливих цяток перетинає темне небо з лівого верхнього кута вниз, до скелі й схиленої голови; окремо по небу розкидано дрібні золоті зорі.",
+        "meaning": "Традиційна карта розгортає цю сцену під рівним сірим небом. Ніч Olivia широка й світла, а зоряна смуга хилиться до голови, яка не може її побачити. Ширший погляд нікуди не зник; просто зараз він поза полем зору."
+      }
+    },
+    {
+      "key": "pool",
+      "x": 28,
+      "y": 78,
+      "en": {
+        "name": "Pools in cracked ground",
+        "seen": "The foreground is carved as cracked plates of lighter lapis broken by shallow, darker, polished hollows like standing water. The bare ivory feet stand on a paler patch between them.",
+        "meaning": "Pools of water at the figure’s feet belong to the traditional image and are often read as feeling with nowhere to flow. Here they lie scattered and shallow; the figure stands upright and barefoot among them, in touch with the ground rather than sinking into it."
+      },
+      "uk": {
+        "name": "Калюжі в потрісканій землі",
+        "seen": "Передній план вирізьблено як потріскані плити світлішого лазуриту, поміж якими темніють неглибокі поліровані западини, схожі на стоячу воду. Босі ноги зі слонової кістки стоять на світлішій ділянці між ними.",
+        "meaning": "Калюжі біля ніг фігури належать до традиційного образу; їх часто тлумачать як почуття, яким нікуди текти. Тут вони розкидані й мілкі; фігура стоїть серед них прямо й босоніж, спираючись на землю, а не грузнучи в ній."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Eight of Swords shows a mind hemmed in by its own reading of a situation, and asks which limits are truly fixed and which are already loosening.",
+    "keywords": {
+      "upright": [
+        "feeling trapped",
+        "self-limiting thoughts",
+        "restricted view",
+        "indecision",
+        "waiting for rescue"
+      ],
+      "reversed": [
+        "loosening bonds",
+        "fresh perspective",
+        "self-release",
+        "lingering inner critic",
+        "fear of freedom"
+      ]
+    },
+    "upright": [
+      "The Eight of Swords draws attention to a feeling of being hemmed in: a situation where every direction seems to carry a cost, and thinking about it only tightens the circle. In Olivia’s carving a barefoot figure stands in a gold blindfold, head bowed, with nine dark lapis swords planted in the ground behind and on either side. The picture is precise about what limits sight. It is not the swords but the band across the eyes.",
+      "Swords belong to Air, the suit of thought, and this card often points to constraints that are partly made of interpretation: the worst-case story, the rule never questioned, the fear of choosing wrongly. Yet the image is generous with evidence that the hold is looser than it feels. The sash that binds the figure is loosely knotted and trails a free end, one hand hangs open at the side, and the ground in front of the figure is clear of blades.",
+      "Upright, the card invites a patient kind of honesty. Some limits are real and ask to be respected, planned around or shared with someone who can help. Others soften when you name them, test them or gather one more piece of information. You do not need to see the whole way out; one step, taken with the hand that is already free, is enough to begin."
+    ],
+    "reversed": [
+      "Eight of Swords reversed draws attention to a restriction that is beginning to loosen, or to one that has moved inward. You may notice the knot giving way: a clearer view of the situation, a conversation that opens a door, a limit you realise can be renegotiated. The blindfold can slip before the whole landscape comes into focus, and partial sight is still progress.",
+      "The reversed card can also point to an inner critic that insists nothing can change even as outer conditions ease, or to hesitation about leaving a constraint that has become familiar. Move at a pace that feels safe. Freedom that arrives slowly is still freedom, and it asks for no self-blame about the time it has taken."
+    ],
+    "number": "Eight is the number of pattern and movement after the upheaval of Seven: energy that has found a structure and now runs along it. In Swords, the suit of Air and mind, that structure is a pattern of thought. Where the Seven of Swords tries to slip past difficulty through strategy, the Eight shows the mind caught in its own design, each idea a fence post. The step this rank asks for is re-examination: seeing the pattern clearly enough to choose another way through it.",
+    "tradition": "In the Golden Dawn system the Eight of Swords is titled the Lord of Shortened Force. It is assigned to Jupiter in Gemini, the first decan of that sign (0 to 10 degrees), and to Hod, Splendour, the eighth Sephirah on the Tree of Life, expressed through the suit of Air. Jupiter’s expansiveness in quick, many-sided Gemini is often read as energy scattered across too many thoughts, so that force is cut short; Aleister Crowley titled the card Interference. Marseille decks show only a pattern of curved blades around a central flower. Pamela Colman Smith’s 1909 design gave the pip a scene: a bound, blindfolded figure among planted swords, with a castle on a distant height.",
+    "areas": {
+      "love": "In close relationships the Eight of Swords can point to feeling stuck between options that each seem to cost too much: speaking or staying quiet, moving closer or stepping back. It does not tell you what anyone else feels or intends. It asks which rules you are following without having chosen them, and what you already know but have not let yourself see. With yourself, it invites the same gentleness: a knot to loosen, not a verdict on your worth.",
+      "work": "At work or in study, the card can reflect a sense that every route is blocked by a rule, a deadline or someone’s expectations. Swords ask for clear thinking, so separate the constraints that are written down from the ones that are assumed. Ask one question you have been avoiding, or look for one resource you have not yet used. Where money, contracts or legal matters are involved, a qualified person’s view can show which limits are fixed and which have room.",
+      "self": "For your relationship with yourself, the Eight of Swords turns attention to the stories that keep you still: “I can’t”, “I shouldn’t”, “it’s too late”. The figure in this image stands upright and barefoot, in contact with the ground, with one hand free. Notice where tension gathers in your own body when you think about the situation, and let one small, safe movement follow: a slower breath, a short walk, a sentence written down."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Eight of Swords can point to a limit that is felt strongly but perhaps not yet examined. Seeing which parts are real and which are assumed may matter most.",
+      "challenge": "As a challenge, the card can show a habit of waiting for the whole way out to be visible before moving, or a worst-case story repeated until it feels like a wall.",
+      "advice": "As advice, it invites one small test of a limit you have taken for granted: a question asked, a fact checked, a first step taken with the hand that is already free."
+    },
+    "pairs": [
+      {
+        "with": 51,
+        "text": "The Two of Swords also shows a blindfolded figure holding a decision at bay; in this deck its band is ivory, here gold. Beside the Eight, the pair asks whether putting off a choice has slowly turned into feeling unable to make one."
+      },
+      {
+        "with": 58,
+        "text": "The Nine of Swords follows the Eight: restriction turns into sleepless worry, and in this deck the two even trade counts, nine blades here and eight there. Together they draw attention to circling thoughts, and to how naming them in daylight can lighten them."
+      },
+      {
+        "with": 15,
+        "text": "The Devil’s chains fall in slack loops around the necks of the pair; here the sash is loosely knotted, its end hanging free. Together the two cards ask which bonds are held in place more by belief and habit than by anything that truly cannot move."
+      }
+    ],
+    "questions": [
+      "Which of the limits around you are fixed, and which have you simply never tested?",
+      "How would you describe this situation if you left out its worst-case ending?",
+      "Where is your free hand: what small movement is already within reach?"
+    ],
+    "practice": "List the limits you feel in this situation, mark each one “known” or “assumed”, and choose one assumed limit to check gently this week."
+  },
+  "uk": {
+    "essence": "Вісімка Мечів показує розум, замкнений у власному тлумаченні ситуації, і запитує, які межі справді незмінні, а які вже слабшають.",
+    "keywords": {
+      "upright": [
+        "відчуття пастки",
+        "самообмежувальні думки",
+        "звужений погляд",
+        "нерішучість",
+        "очікування порятунку"
+      ],
+      "reversed": [
+        "ослаблення пут",
+        "свіжий погляд",
+        "самовизволення",
+        "невідступний внутрішній критик",
+        "страх свободи"
+      ]
+    },
+    "upright": [
+      "Вісімка Мечів звертає увагу на відчуття, що вас обступили: ситуацію, де кожен напрямок, здається, має свою ціну, а думки про неї лише стягують коло. У різьбі Olivia боса фігура стоїть у золотій пов’язці, зі схиленою головою, а дев’ять темних лазуритових мечів устромлено в землю позаду й обабіч. Зображення точно показує, що саме обмежує зір. Не мечі, а смуга на очах.",
+      "Мечі належать Повітрю, масті думки, і ця карта часто вказує на обмеження, почасти зіткані з тлумачень: найгірший сценарій, правило, яке ніхто не ставив під сумнів, страх помилитися з вибором. Проте зображення щедро свідчить, що обмеження тримає слабше, ніж здається. Пояс, що обвиває фігуру, зав’язано слабким вузлом, і кінець його звисає; одна рука вільно звисає вздовж тіла з розкритою долонею; а землі попереду не перетинає жодне лезо.",
+      "У прямому положенні карта запрошує до терплячої чесності. Деякі межі реальні: їх варто поважати, враховувати в планах або розділити з кимось, хто може допомогти. Інші слабшають, коли ви їх називаєте, перевіряєте чи здобуваєте ще одну крихту інформації. Вам не потрібно бачити весь шлях до виходу; щоб почати, досить одного кроку, зробленого рукою, яка вже вільна."
+    ],
+    "reversed": [
+      "Вісімка Мечів у перевернутому положенні звертає увагу на обмеження, яке починає слабшати, або на таке, що стало внутрішнім. Можливо, ви помічаєте, як вузол піддається: ясніше бачите ситуацію, розмова відчиняє двері, ви усвідомлюєте, що межу можна переглянути. Пов’язка може зісковзнути раніше, ніж увесь краєвид стане чітким, і часткове бачення — теж поступ.",
+      "Перевернута карта може вказувати й на внутрішнього критика, який наполягає, що нічого не зміниться, навіть коли зовнішні обставини стають м’якшими, або на вагання перед тим, як покинути обмеження, що стало звичним. Рухайтеся в темпі, у якому вам безпечно. Свобода, що приходить повільно, — однаково свобода, і вона не вимагає докоряти собі за витрачений час."
+    ],
+    "number": "Вісім — число візерунка й руху після потрясінь Сімки: енергія, що знайшла структуру й тепер тече нею. У Мечах, масті Повітря й розуму, ця структура — візерунок думок. Якщо Сімка Мечів намагається обійти труднощі хитрістю, то Вісімка показує розум, що заплутався у власному задумі, де кожна ідея — стовпчик огорожі. Крок, якого просить це число, — переосмислення: побачити візерунок досить ясно, щоб обрати інший шлях крізь нього.",
+    "tradition": "У системі Золотої Зорі Вісімка Мечів має титул Володар Скороченої Сили. Її пов’язують із Юпітером у Близнятах, першим деканатом цього знака (від 0 до 10 градусів), і з Ход, Пишнотою, восьмою сефірою на Дереві Життя, тут вираженою через масть Повітря. Розмах Юпітера у швидких, багатогранних Близнятах часто читають як енергію, розпорошену між надто багатьма думками, тож сила уривається; Алістер Кроулі назвав карту «Втручання». Марсельські колоди показують лише візерунок вигнутих лез довкола квітки в центрі. У дизайні Памели Колман Сміт 1909 року ця числова карта отримала сцену: зв’язану фігуру з пов’язкою на очах серед устромлених мечів і замок на далекій висоті.",
+    "areas": {
+      "love": "У близьких стосунках Вісімка Мечів може вказувати на відчуття, що ви застрягли між варіантами, кожен з яких здається надто дорогим: заговорити чи змовчати, наблизитися чи відступити. Вона не каже, що відчуває чи має на меті хтось інший. Вона запитує, яких правил ви дотримуєтеся, не обравши їх, і що ви вже знаєте, але не дозволили собі побачити. У стосунках із собою карта запрошує до тієї самої лагідності: це вузол, який можна розпустити, а не вирок вашій цінності.",
+      "work": "У роботі чи навчанні карта може відображати відчуття, що кожен шлях перекрито правилом, терміном або чиїмись очікуваннями. Мечі просять ясного мислення, тож відокремте обмеження, записані чорним по білому, від тих, які лише припускають. Поставте одне запитання, якого ви уникали, або знайдіть один ресурс, яким ще не скористалися. Якщо йдеться про гроші, договори чи юридичні справи, думка людини з відповідною кваліфікацією може показати, які межі незмінні, а де є простір.",
+      "self": "У стосунках із собою Вісімка Мечів звертає увагу на історії, що тримають вас на місці: «я не можу», «мені не слід», «уже запізно». Фігура на цьому зображенні стоїть прямо й босоніж, торкаючись землі, з однією вільною рукою. Помітьте, де у вашому тілі збирається напруга, коли ви думаєте про ситуацію, і дозвольте собі один маленький безпечний рух: повільніший вдих, коротку прогулянку, записане речення."
+    },
+    "positions": {
+      "heart": "У центрі запитання Вісімка Мечів може вказувати на межу, яку відчувають гостро, але, можливо, ще не дослідили. Найважливішим може бути розрізнити, що в ній реальне, а що лише припущене.",
+      "challenge": "Як перешкода карта може показувати звичку чекати, доки стане видно весь вихід, перш ніж рушити, або найгірший сценарій, який повторюють, доки він не почне здаватися стіною.",
+      "advice": "Як порада карта запрошує перевірити одну межу, яку ви вважали даністю: поставити запитання, звірити факт, зробити перший крок рукою, яка вже вільна."
+    },
+    "pairs": [
+      {
+        "with": 51,
+        "text": "Двійка Мечів теж показує фігуру з пов’язкою на очах, що відкладає рішення; у цій колоді там пов’язка зі слонової кістки, а тут — золота. Поруч із Вісімкою ця пара запитує, чи не перетворилося відкладання вибору поступово на відчуття, що обрати ви не здатні."
+      },
+      {
+        "with": 58,
+        "text": "Дев’ятка Мечів іде слідом за Вісімкою: обмеження переходить у безсонну тривогу, а в цій колоді дві карти навіть ніби помінялися кількістю лез: тут дев’ять, там вісім. Разом вони звертають увагу на думки, що ходять колом, і на те, як їх можна полегшити, назвавши при денному світлі."
+      },
+      {
+        "with": 15,
+        "text": "Ланцюги Диявола вільними петлями звисають на шиях пари; тут пояс зав’язано слабким вузлом, а кінець його звисає. Разом ці дві карти запитують, які пута тримаються більше на переконаннях і звичці, ніж на чомусь справді непорушному."
+      }
+    ],
+    "questions": [
+      "Які з меж довкола вас незмінні, а які ви просто ніколи не перевіряли?",
+      "Як би ви описали цю ситуацію, якби прибрали з неї найгірший фінал?",
+      "Де ваша вільна рука: який маленький рух уже в межах досяжності?"
+    ],
+    "practice": "Запишіть межі, які ви відчуваєте в цій ситуації, позначте кожну як «відома» чи «припущена» і цього тижня дбайливо перевірте одну з припущених."
+  }
+}

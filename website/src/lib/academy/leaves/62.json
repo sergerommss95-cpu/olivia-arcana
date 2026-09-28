@@ -1,0 +1,275 @@
+{
+  "id": 62,
+  "slug": "queen-of-swords",
+  "artwork": {
+    "file": "62_queen_of_swords.webp",
+    "sha256": "19d3a3d09f8383b4c7fa3bce841fab35ca2fc1fc0ba4de49a7e1692ee05579e8"
+  },
+  "symbols": [
+    {
+      "key": "sword",
+      "x": 32,
+      "y": 34,
+      "en": {
+        "name": "The upright ivory sword",
+        "seen": "A long, straight ivory blade stands vertical at arm’s length ahead of the Queen’s face, its point rising higher than the crown; a closed fist grips it below a crossguard with a raised centre and flared ends, above a round pommel.",
+        "meaning": "The sword is the suit’s emblem of air: thought, language, discernment and truth. Held perfectly upright, it is neither threatening nor lowered, a sign of judgement kept straight. Here it is held out in a closed fist, well ahead of the body, so clarity is actively held rather than set aside."
+      },
+      "uk": {
+        "name": "Прямий меч зі слонової кістки",
+        "seen": "Довгий прямий клинок зі слонової кістки стоїть вертикально на відстані витягнутої руки перед обличчям Королеви, і його вістря здіймається вище за корону; стиснутий кулак тримає його під хрестовиною з піднятою серединою та розширеними кінцями, над круглим навершям.",
+        "meaning": "Меч — емблема масті, знак повітря: думки, мови, розрізнення та істини. Піднятий строго вертикально, меч нікому не загрожує, але й не опущений — це знак судження, яке тримають рівно. Тут його виставлено вперед у стиснутому кулаці, далеко перед тілом: ясність не відкладено вбік, її активно тримають."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 57,
+      "y": 32,
+      "en": {
+        "name": "Crown of gold butterflies",
+        "seen": "The Queen, in profile facing left, wears a gold-rimmed crown whose points are gold butterflies, one large at the front and smaller ones beside it, over curling ivory hair gathered at the nape.",
+        "meaning": "Butterflies crown this Queen in the traditional image too: the soul, breath and transformation, creatures that live on air. In Olivia’s carving the crown is the one worked gold on the figure, so what is honoured here is a mind that has changed through experience."
+      },
+      "uk": {
+        "name": "Корона із золотих метеликів",
+        "seen": "Королева, зображена в профіль обличчям ліворуч, носить корону із золотим обідком; її зубці — золоті метелики: один великий спереду, менші обабіч. Під короною — кучеряве волосся зі слонової кістки, зібране на потилиці.",
+        "meaning": "Метелики вінчають цю Королеву і на традиційному зображенні: це душа, подих і перетворення, істоти, що живуть повітрям. У різьбленні Olivia корона — єдине оброблене золото на фігурі, тож тут ушановано розум, який змінився завдяки досвіду."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 21,
+      "y": 45,
+      "en": {
+        "name": "Open hand, tasselled cord",
+        "seen": "The other arm reaches forward at shoulder height, palm open and fingers raised; a knotted ivory cord is tied loosely around the wrist, its long end hanging down to a tassel.",
+        "meaning": "The raised open hand is commonly read as invitation and candour: the Queen holds a blade yet offers an empty palm. The cord at the wrist, as in the traditional image, can suggest a tie or a grief that has been lived with and no longer binds."
+      },
+      "uk": {
+        "name": "Відкрита долоня, шнур із китицею",
+        "seen": "Друга рука простягнута вперед на рівні плеча, долоня відкрита, пальці підняті; на зап’ясті вільно зав’язано вузлуватий шнур зі слонової кістки, довгий кінець якого звисає до китиці.",
+        "meaning": "Піднята відкрита долоня зазвичай тлумачать як запрошення й щирість: Королева тримає клинок, але простягає порожню долоню. Шнур на зап’ясті, як і на традиційному зображенні, може натякати на зв’язок чи горе, які вже прожито і які більше не сковують."
+      }
+    },
+    {
+      "key": "cherub",
+      "x": 68,
+      "y": 20,
+      "en": {
+        "name": "The child’s head crest",
+        "seen": "A curly-haired child’s head carved in pale lapis crowns the top of the throne back, shown in profile and looking left, the same way as the Queen; no wings are visible.",
+        "meaning": "The Golden Dawn gave this Queen a winged child’s head as a crest, and a winged cherub appears on the traditional throne. Here the child is wingless and faces where the Queen faces, as if an earlier, more innocent self keeps watch alongside adult judgement."
+      },
+      "uk": {
+        "name": "Дитяча голівка на вершині",
+        "seen": "Кучерява дитяча голівка, вирізьблена у блідому лазуриті, вінчає верх спинки трону; її показано в профіль, і вона дивиться ліворуч, туди ж, куди й Королева; крил не видно.",
+        "meaning": "Золота Зоря увінчала цю Королеву крилатою дитячою головою, а на традиційному троні є крилатий херувим. Тут дитина безкрила й дивиться туди ж, куди дивиться Королева, ніби колишнє, невинніше «я» пильнує поруч із дорослим судженням."
+      }
+    },
+    {
+      "key": "butterfly",
+      "x": 71,
+      "y": 30,
+      "en": {
+        "name": "Butterflies on the throne",
+        "seen": "Several butterflies of different sizes are carved in shallow relief on the tall lapis throne back, scattered behind the Queen’s crown, head and shoulders; another rests on the side panel below the armrest.",
+        "meaning": "Repeated from crown to throne, butterflies make transformation the ground this Queen sits on, not only an ornament worn. Carved in the same greyed blue as the throne rather than gold, they are the quieter, settled form of the change the crown celebrates."
+      },
+      "uk": {
+        "name": "Метелики на троні",
+        "seen": "Кілька метеликів різного розміру вирізьблено неглибоким рельєфом на високій лазуритовій спинці трону; вони розсипані позаду корони, голови й плечей Королеви, а ще один сидить на бічній панелі під підлокітником.",
+        "meaning": "Метелики, що повторюються і на короні, і на троні, роблять перетворення опорою цієї Королеви, а не лише прикрасою на голові. Вирізьблені тим самим сіруватим синім, що й трон, а не золотом, вони втілюють тихішу, усталену форму змін, які славить корона."
+      }
+    },
+    {
+      "key": "bird",
+      "x": 89,
+      "y": 45,
+      "en": {
+        "name": "The lone bird",
+        "seen": "A single bird with outspread wings flies in the open night to the right of the throne, carved in grey-blue lapis, heading left towards the Queen’s back.",
+        "meaning": "Birds belong to air, and a single high-flying bird appears in the traditional Queen of Swords as an image of the free, far-seeing mind. Its solitude matches the Queen’s: independence and perspective gained partly by standing a little apart."
+      },
+      "uk": {
+        "name": "Самотній птах",
+        "seen": "Один птах із розпростертими крилами летить у відкритому нічному небі праворуч від трону; вирізьблений у сіро-блакитному лазуриті, він прямує ліворуч, до спини Королеви.",
+        "meaning": "Птахи належать повітрю, і самотній птах високо в небі з’являється на традиційному зображенні Королеви Мечів як образ вільного, далекоглядного розуму. Його самотність вторує самотності Королеви: незалежність і ширший погляд почасти приходять разом зі звичкою стояти трохи осторонь."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 58,
+      "y": 15,
+      "en": {
+        "name": "The glittering diagonal band",
+        "seen": "A band of fine sparkling flecks crosses the deep blue sky diagonally from the top edge above the throne down towards the left, passing behind the upper blade; gold stars are scattered around it.",
+        "meaning": "The starry band is not part of the traditional image; it belongs to the night skies of Olivia’s deck. Here it crosses behind the raised blade, and a clear sky suits a Queen of clear seeing: the view opens when the weather of feeling settles."
+      },
+      "uk": {
+        "name": "Мерехтлива діагональна смуга",
+        "seen": "Смуга дрібних іскристих вкраплень перетинає глибоке синє небо по діагоналі — від верхнього краю над троном униз ліворуч — і проходить позаду верхньої частини клинка; довкола розсипано золоті зорі.",
+        "meaning": "Зоряної смуги немає на традиційному зображенні; вона належить нічним небесам колоди Olivia. Тут вона проходить позаду піднятого клинка, а ясне небо пасує Королеві ясного бачення: обрій відкривається, коли негода почуттів ущухає."
+      }
+    },
+    {
+      "key": "tree",
+      "x": 91,
+      "y": 63,
+      "en": {
+        "name": "Wind-bent trees",
+        "seen": "A stand of slender trees at the lower right is carved in dark lapis, their crowns blown sharply to the left and their trunks curving under the force of the wind.",
+        "meaning": "Wind is the element of Swords made visible, and wind-blown trees appear elsewhere among the Swords court cards as a picture of unsettled thought. Here the trees bend while the Queen sits upright, so the card separates the turbulence around a situation from the steadiness of the one judging it."
+      },
+      "uk": {
+        "name": "Зігнуті вітром дерева",
+        "seen": "Гайок тонких дерев унизу праворуч вирізьблено в темному лазуриті; їхні крони різко відкинуті вітром ліворуч, а стовбури вигинаються під його силою.",
+        "meaning": "Вітер — це стихія Мечів, що стала видимою, а дерева під вітром трапляються й на інших придворних картах Мечів як образ неспокійної думки. Тут дерева гнуться, а Королева сидить рівно, тож карта відділяє бурю довкола ситуації від спокою того, хто її оцінює."
+      }
+    },
+    {
+      "key": "cloud",
+      "x": 14,
+      "y": 85,
+      "en": {
+        "name": "Clouds beneath the throne",
+        "seen": "Heaped cumulus clouds carved in lapis fill the bottom of the card, rising around the ivory hem and the throne’s square legs; smaller clouds are cut into the blue cloak draped over the armrest.",
+        "meaning": "Grey cumulus clouds beneath the throne come from the Golden Dawn description of this Queen, and clouds recur throughout the suit as the weather of the mind. The throne rises out of them, and the cloak draped over its arm carries them too: thought acknowledged, not ruling."
+      },
+      "uk": {
+        "name": "Хмари під троном",
+        "seen": "Громаддя купчастих хмар, вирізьблених у лазуриті, заповнює низ карти й здіймається довкола поділу зі слонової кістки та квадратних ніжок трону; менші хмари вирізано на синьому плащі, перекинутому через підлокітник.",
+        "meaning": "Сірі купчасті хмари під троном походять з опису цієї Королеви в системі Золотої Зорі, а хмари повторюються в усій масті як погода розуму. Трон здіймається над ними, і плащ, перекинутий через його підлокітник, теж їх несе: думку визнано, але вона не панує."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Queen of Swords is clarity that has been earned: seeing plainly, speaking honestly and keeping a boundary without losing the open hand.",
+    "keywords": {
+      "upright": [
+        "discernment",
+        "honest speech",
+        "clear boundaries",
+        "independence",
+        "perspective"
+      ],
+      "reversed": [
+        "coldness",
+        "cutting words",
+        "blurred boundaries",
+        "guarded grief",
+        "overthinking"
+      ]
+    },
+    "upright": [
+      "The Queen of Swords draws attention to a quality of mind that has been tested and come out clear. In Olivia’s carving the Queen sits in strict profile on a tall lapis throne, the ivory sword held upright in the fist so that its point rises above the crown. The blade does not threaten anyone. It marks a line: this is what is true, as far as it can be seen. The other hand is raised and open, a knotted cord with a tassel tied loosely at the wrist. Precision and candour are offered together.",
+      "The crown is made of gold butterflies, and more butterflies are carved into the throne behind. Air is the element of this suit, and butterflies live on it; they are also old images of the soul and of change. This Queen’s clarity did not arrive untouched. It grew through experience, some of it painful, and that is why it can be trusted. At the lower right, trees bend hard in the wind while the Queen sits still above the clouds.",
+      "Upright, the card asks you to separate what you know from what you fear or assume, and to say it simply. It can point to a boundary that needs naming, a conversation that needs one honest sentence, or a decision that becomes easier once you stop negotiating with your own doubts. Clear does not have to mean cold: keep the hand open."
+    ],
+    "reversed": [
+      "Queen of Swords reversed can show clarity that has turned sharp or turned inward. Words may cut more than the moment needs, or judgement may harden into a distance that keeps everyone, including you, at arm’s length. Sometimes the edge protects an old hurt that has not yet been spoken.",
+      "The reversal can also point the other way: a boundary blurred to avoid discomfort, or a mind circling the same thought without reaching a conclusion. Look again at the image. The sword is upright and the hand is open; both are needed. Ask what you actually need to say, then find the plainest, kindest way to say it, and notice where overthinking has taken the place of a simple decision."
+    ],
+    "number": "Queens hold the inward mastery of their suit: the element lived as a way of being rather than a task to pursue. In Swords, the suit of air, that means mastery of thought and speech from the inside. After the Page’s watchful curiosity and the Knight’s headlong charge, the Queen has learned when a word is needed and when it is not. This mastery shows as discernment: telling fact from interpretation, and a boundary from a wall.",
+    "tradition": "In the Golden Dawn system this card is the Queen of the Thrones of the Air, Water of Air: the receptive, reflecting side of the element. Its zodiac span runs from 20° Virgo to 20° Libra, covering the decans of the Ten of Pentacles and the Two and Three of Swords. Book T describes a crowned Queen above grey cumulus clouds, crested with a winged child’s head, holding a drawn sword and a severed head. Pamela Colman Smith’s 1909 card keeps the upright sword and the clouds, shows an open, raised hand where Book T has the severed head, and decorates crown and throne with butterflies. Older Marseille decks show a crowned Queen holding a sword.",
+    "court": {
+      "temperament": "As a temperament, the Queen of Swords is perceptive, direct and self-possessed. This way of being listens for what is actually being said, notices the gap between a claim and the evidence, and prefers a clear answer to a comfortable one. It is independent without being aloof, and it has usually learned its steadiness by living through something difficult.",
+      "gifts": "The gifts here are honest speech and clean boundaries: naming a problem without drama, giving feedback that helps, saying no without apology or punishment. This Queen can hold complexity, sort a tangled situation into what is known and unknown, and offer others a clear mirror when they are ready to look.",
+      "shadow": "In shadow, clarity becomes coldness or armour. You may judge quickly, keep feeling out of every conversation, or use accuracy as a way to stay unreachable. Old sorrow can sit behind a sharp tongue. The image offers a counterweight: the sword stays upright, but the other hand stays open."
+    },
+    "areas": {
+      "love": "In love and close relationships, the Queen of Swords asks for honesty spoken with care. It can point to a boundary that needs saying out loud, or to the relief of stating plainly what you want instead of hoping it is guessed. It also draws attention to how you speak to yourself: whether your inner voice is clear and fair, or quick to cut. Warmth and truth can share the same sentence.",
+      "work": "At work, in study and with money matters, this card favours clear thinking: reading the fine print, separating evidence from opinion, writing the email that says exactly what is needed. It can point to a role as editor, analyst or honest adviser. Consider where a plain question would save a week of assumption, and where you could state a limit on your time or scope without softening it into vagueness.",
+      "self": "For your own life, the Queen of Swords turns attention to the stories you tell about what has happened to you. Like the Queen looking straight ahead in profile, you might look at one situation directly and name it without exaggeration or dismissal. This card honours the independence that comes from knowing your own mind, and the tenderness that remains in someone who has been through sorrow and still keeps a hand open."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter turns on seeing clearly and saying so: a truth to name, a boundary to set, or an assumption to test against the facts.",
+      "challenge": "As a challenge, it can show judgement grown too sharp or too distant, or a habit of analysing a feeling instead of letting yourself feel it.",
+      "advice": "As advice, it invites one honest, precise sentence: say what you mean, distinguish what you know from what you guess, and keep your tone open enough to be heard."
+    },
+    "pairs": [
+      {
+        "with": 11,
+        "text": "Justice also holds a sword upright, and Libra, the sign of scales, falls within this Queen’s zodiac span. Together they draw attention to fairness: a judgement that weighs the evidence and still remembers the person on the other side."
+      },
+      {
+        "with": 52,
+        "text": "The Three of Swords sits within the Queen’s Golden Dawn span, and the pair links grief and clarity. The Three is the wound; the Queen is what can grow from having lived through it: perspective, honesty and a steadier voice."
+      },
+      {
+        "with": 48,
+        "text": "The Queen of Cups is Water of Water, feeling at its most receptive, beside this Queen’s Water of Air. Side by side they ask how feeling and clear thought can support each other in the same conversation."
+      }
+    ],
+    "questions": [
+      "What do you actually know here, and what are you assuming or fearing?",
+      "Which boundary could you state plainly without turning it into a punishment?",
+      "Where has sharpness been protecting an old hurt that could now be spoken?"
+    ],
+    "practice": "Write one sentence that states a truth about your situation as plainly as possible, then read it aloud and adjust the tone until it is both clear and kind."
+  },
+  "uk": {
+    "essence": "Королева Мечів — це ясність, здобута досвідом: бачити прямо, говорити чесно й тримати межу, лишаючи долоню відкритою.",
+    "keywords": {
+      "upright": [
+        "проникливість",
+        "правдиве слово",
+        "чіткі межі",
+        "незалежність",
+        "ширший погляд"
+      ],
+      "reversed": [
+        "холодність",
+        "гострі слова",
+        "розмиті межі",
+        "затаєне горе",
+        "надмірні роздуми"
+      ]
+    },
+    "upright": [
+      "Королева Мечів звертає увагу на розум, який пройшов випробування й вийшов із нього ясним. У різьбленні Olivia Королева, показана строго в профіль, сидить на високому лазуритовому троні й тримає в кулаці вертикальний меч зі слонової кістки так, що його вістря здіймається над короною. Клинок нікому не загрожує. Він прокреслює межу: ось що є правдою, наскільки це можна побачити. Друга рука піднята й відкрита, на зап’ясті вільно зав’язано вузлуватий шнур із китицею. Точність і щирість Королева пропонує разом.",
+      "Корону утворюють золоті метелики, а ще більше метеликів вирізьблено на троні позаду. Повітря — стихія цієї масті, і метелики живуть ним; до того ж це давні образи душі та змін. Ясність цієї Королеви не далася їй без втрат. Вона виросла з досвіду, почасти болісного, і саме тому їй можна довіряти. Унизу праворуч дерева гнуться під сильним вітром, а Королева непорушно сидить над хмарами.",
+      "У прямому положенні карта пропонує вам відокремити те, що ви знаєте, від того, чого боїтеся або що припускаєте, і сказати це просто. Вона може вказувати на межу, яку варто назвати, на розмову, якій бракує одного чесного речення, або на рішення, що стає легшим, щойно ви перестаєте торгуватися з власними сумнівами. Бути ясною не означає бути холодною: тримайте долоню відкритою."
+    ],
+    "reversed": [
+      "Королева Мечів у перевернутому положенні може показувати ясність, що стала різкою або замкнулася в собі. Слова можуть ранити сильніше, ніж того потребує мить, або судження може затвердіти й перетворитися на дистанцію, яка тримає всіх, зокрема й вас, на відстані витягнутої руки. Іноді гостре лезо захищає давній біль, про який ще не сказано вголос.",
+      "Перевернута карта може вказувати й на протилежне: межу, розмиту, щоб уникнути незручності, або думку, що кружляє довкола одного й того самого, так і не доходячи до висновку. Погляньте на зображення ще раз. Меч стоїть прямо, а долоня відкрита; потрібне і те, і інше. Запитайте себе, що вам насправді треба сказати, тоді знайдіть найпростіший і найдобріший спосіб це сказати, і зауважте, де надмірні роздуми заступили просте рішення."
+    ],
+    "number": "Королеви втілюють внутрішню майстерність своєї масті: стихію, прожиту як спосіб буття, а не як завдання, яке треба виконати. У Мечах, масті повітря, це майстерність думки й мови зсередини. Після пильної допитливості Пажа й стрімкого натиску Лицаря Королева навчилася відчувати, коли слово потрібне, а коли ні. Ця майстерність — це вміння розрізняти: відрізняти факт від тлумачення, а межу — від стіни.",
+    "tradition": "У системі Золотої Зорі ця карта — Королева Тронів Повітря, Вода Повітря: сприйнятлива, віддзеркалювальна сторона стихії. Її зодіакальний проміжок — від 20° Діви до 20° Терезів; він охоплює декани Десятки Пентаклів, Двійки та Трійки Мечів. Book T описує Королеву над сірими купчастими хмарами, увінчану крилатою дитячою головою, з оголеним мечем і відрубаною головою в руках. Карта Памели Колман Сміт 1909 року зберігає вертикальний меч і хмари, показує відкриту підняту долоню там, де в Book T відрубана голова, і прикрашає корону й трон метеликами. На старіших марсельських колодах зображено Королеву в короні з мечем.",
+    "court": {
+      "temperament": "Як темперамент Королева Мечів — це проникливість, прямота й самовладання. Цей темперамент прислухається до того, що насправді сказано, помічає розрив між твердженням і доказами та віддає перевагу ясній відповіді перед зручною. Він незалежний, але не зверхній, і свою стійкість здебільшого здобув, переживши щось важке.",
+      "gifts": "Дари тут — чесна мова й чисті межі: назвати проблему без драми, дати відгук, який справді допомагає, сказати «ні» без вибачень і без покарання. Ця Королева здатна втримати складність, розкласти заплутану ситуацію на відоме й невідоме та запропонувати іншим ясне дзеркало, коли вони готові в нього подивитися.",
+      "shadow": "У тіні ясність стає холодністю чи бронею. Ви можете судити поспіхом, не пускати почуття в жодну розмову або вдаватися до точності, щоб залишатися недосяжними. За гострим язиком може ховатися давній смуток. Зображення пропонує противагу: меч стоїть прямо, але друга рука лишається відкритою."
+    },
+    "areas": {
+      "love": "У коханні та близьких стосунках Королева Мечів просить чесності, висловленої з турботою. Вона може вказувати на межу, яку варто промовити вголос, або на полегшення, коли ви прямо кажете, чого хочете, замість того щоб сподіватися, що це вгадають. Карта також звертає увагу на те, як ви говорите із собою: чи ваш внутрішній голос ясний і справедливий, чи швидкий на різкість. Тепло й правда можуть уміститися в одному реченні.",
+      "work": "У роботі, навчанні та грошових справах ця карта на боці ясного мислення: прочитати дрібний шрифт, відділити факти від думок, написати лист, у якому сказано рівно те, що потрібно. Вона може вказувати на роль того, хто редагує, аналізує чи чесно радить. Подумайте, де одне просте запитання заощадило б тиждень здогадок і де ви могли б окреслити межі свого часу чи обсягу роботи, не розмиваючи їх до невизначеності.",
+      "self": "Для вас особисто Королева Мечів звертає увагу на історії, які ви розповідаєте про те, що з вами сталося. Як Королева, що в профіль дивиться прямо перед собою, ви можете поглянути на одну ситуацію впритул і назвати її без перебільшення і без знецінення. Ця карта вшановує незалежність, що приходить, коли ви знаєте, що думаєте самі, і ніжність, яка лишається в тому, хто пройшов крізь смуток і досі тримає долоню відкритою."
+    },
+    "positions": {
+      "heart": "У центрі запитання ця карта підказує, що все залежить від того, чи вдасться ясно побачити й прямо про це сказати: назвати правду, встановити межу або перевірити припущення фактами.",
+      "challenge": "Як виклик вона може показувати судження, що стало надто гострим чи надто відстороненим, або звичку аналізувати почуття замість того, щоб дозволити собі його відчути.",
+      "advice": "Як порада вона запрошує до одного чесного й точного речення: кажіть те, що маєте на увазі, відрізняйте знане від здогадів і тримайте тон достатньо відкритим, щоб вас почули."
+    },
+    "pairs": [
+      {
+        "with": 11,
+        "text": "Справедливість теж тримає меч вертикально, а Терези, знак ваг, припадають на зодіакальний проміжок цієї Королеви. Разом вони звертають увагу на неупередженість: судження, яке зважує докази й водночас пам’ятає про людину по інший бік."
+      },
+      {
+        "with": 52,
+        "text": "Трійка Мечів припадає на проміжок Королеви за системою Золотої Зорі, і ця пара пов’язує горе з ясністю. Трійка — це рана; Королева — те, що може вирости з пережитого: ширший погляд, чесність і стійкіший голос."
+      },
+      {
+        "with": 48,
+        "text": "Королева Кубків — Вода Води, почуття в найсприйнятливішій формі, поруч із Водою Повітря цієї Королеви. Разом вони запитують, як почуття і ясна думка можуть підтримувати одне одного в одній і тій самій розмові."
+      }
+    ],
+    "questions": [
+      "Що ви тут насправді знаєте, а що припускаєте чи чого боїтеся?",
+      "Яку межу ви могли б назвати прямо, не перетворюючи її на покарання?",
+      "Де різкість захищала давній біль, про який тепер можна сказати вголос?"
+    ],
+    "practice": "Напишіть одне речення, яке якомога простіше називає правду про вашу ситуацію, прочитайте його вголос і змінюйте тон, доки воно не стане водночас ясним і добрим."
+  }
+}

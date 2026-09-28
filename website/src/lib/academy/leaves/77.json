@@ -1,0 +1,247 @@
+{
+  "id": 77,
+  "slug": "king-of-pentacles",
+  "artwork": {
+    "file": "77_king_of_pentacles.webp",
+    "sha256": "f6b18df195c1dcbb94aa48ae1779911661abf884bc57b7dcfe8867019182ef07"
+  },
+  "symbols": [
+    {
+      "key": "castle",
+      "x": 71,
+      "y": 26,
+      "en": {
+        "name": "The lapis castle",
+        "seen": "A castle carved in greyed lapis fills the space behind the throne: crenellated walls, conical-roofed towers and small arched windows rise from the King’s shoulders to well above the laurel wreath.",
+        "meaning": "In the suit of Pentacles a castle stands for what has been built and secured over time: property, institutions, a household that outlasts one season. The traditional image sets it in the distance; here it rises directly behind the throne, so the achievement backs the King up."
+      },
+      "uk": {
+        "name": "Лазуритовий замок",
+        "seen": "Замок, вирізьблений у сіруватому лазуриті, заповнює простір за троном: зубчасті мури, вежі з конічними дахами й маленькі аркові вікна здіймаються від плечей Короля високо над лавровим вінком.",
+        "meaning": "У масті Пентаклів замок означає те, що збудовано й убезпечено з часом: власність, установи, господарство, яке переживе не один сезон. На традиційному зображенні він стоїть удалині; тут замок здіймається просто за троном, тож здобуте стоїть у Короля за спиною як опора."
+      }
+    },
+    {
+      "key": "laurel",
+      "x": 50,
+      "y": 29,
+      "en": {
+        "name": "The laurel wreath",
+        "seen": "In place of a crown, a wreath of pointed ivory laurel leaves circles the King’s head above long wavy hair; the calm face looks straight out at the viewer.",
+        "meaning": "Laurel was the classical wreath of victory and honour, given for something accomplished. The traditional King of Pentacles wears a crown; Olivia’s King wears a wreath instead, so the authority reads as earned through work rather than inherited, recognition rather than rank."
+      },
+      "uk": {
+        "name": "Лавровий вінок",
+        "seen": "Замість корони голову Короля над довгим хвилястим волоссям оперізує вінок із загострених лаврових листків зі слонової кістки; спокійне обличчя дивиться просто на глядача.",
+        "meaning": "Лавр був класичним вінком перемоги й шани, яким нагороджували за звершене. Традиційний Король Пентаклів носить корону; у колоді Олівії Король натомість увінчаний вінком, тож ця влада читається як заслужена працею, а не успадкована: визнання, а не титул."
+      }
+    },
+    {
+      "key": "bull",
+      "x": 81,
+      "y": 43,
+      "en": {
+        "name": "Four bulls’ heads",
+        "seen": "Four horned bulls’ heads carved in blue lapis project from the throne: two at the top corners of its back at shoulder height, two lower at the front corners of the seat, level with the King’s knees.",
+        "meaning": "The bull is Taurus, the fixed earth sign inside this card’s Golden Dawn span, and an old image of strength, fertility and patient labour. The 1909 design also carved bulls’ heads on the throne; set here at all four corners, they make the seat itself a statement of grounded power."
+      },
+      "uk": {
+        "name": "Чотири бичачі голови",
+        "seen": "Із трону виступають чотири рогаті бичачі голови із синього лазуриту: дві — у верхніх кутах спинки на рівні плечей, ще дві нижче — на передніх кутах сидіння, на рівні колін Короля.",
+        "meaning": "Бик — це Телець, фіксований земний знак у межах відрізка цієї карти за системою Золотої Зорі, а також давній образ сили, родючості й терплячої праці. На малюнку 1909 року бичачі голови теж прикрашали трон; тут, у всіх чотирьох кутах, вони перетворюють саме сидіння на заяву про силу, що твердо стоїть на землі."
+      }
+    },
+    {
+      "key": "sceptre",
+      "x": 39,
+      "y": 45,
+      "en": {
+        "name": "The ivory sceptre",
+        "seen": "The King’s right hand, on the viewer’s left, holds an ivory sceptre by its shaft, angled up past the shoulder; it ends in a knobbed, three-lobed finial above a ringed collar, with a rounded knob below the fist.",
+        "meaning": "A sceptre is the emblem of lawful authority, the right to decide and direct. In the traditional image this King’s sceptre is topped with an orb, the world held in hand; Olivia’s simpler finial keeps the rule practical and local, authority used to manage what is actually here."
+      },
+      "uk": {
+        "name": "Скіпетр зі слонової кістки",
+        "seen": "Права рука Короля, ліворуч від глядача, тримає за стрижень скіпетр зі слонової кістки, піднятий навскіс повз плече; угорі він завершується вузлуватим трилопатевим навершям над кільцевим пояском, а під кулаком — заокругленою головкою.",
+        "meaning": "Скіпетр — емблема законної влади, права вирішувати й спрямовувати. На традиційному зображенні скіпетр цього Короля увінчаний кулею-державою, тобто світом у руці; простіше навершя в Олівії лишає владу практичною й місцевою: вона потрібна, щоб порядкувати тим, що справді є поруч."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 50,
+      "y": 48,
+      "en": {
+        "name": "Robe carved with grapes",
+        "seen": "The ivory robe is carved with bunches of grapes, vine leaves and tendrils down the front and along the hem, with a band of flowers and a central rosette across the shoulders.",
+        "meaning": "Grapes are the traditional pattern of this King’s robe: the harvest worn as clothing. Fruit on the garment suggests abundance that has become part of how the King lives and moves, grown into character rather than locked away in a vault."
+      },
+      "uk": {
+        "name": "Шати з виноградом",
+        "seen": "Шати зі слонової кістки вкриває різьблення: грона винограду, виноградне листя й вусики спускаються передом і тягнуться вздовж подолу, а через плечі йде смуга квітів із розеткою посередині.",
+        "meaning": "Виноград — традиційний візерунок на шатах цього Короля: урожай, який носять як одяг. Плоди на вбранні натякають на достаток, що став частиною того, як Король живе й рухається: достаток, який вріс у характер, а не лежить замкнений у сховищі."
+      }
+    },
+    {
+      "key": "pentacle",
+      "x": 66,
+      "y": 49,
+      "en": {
+        "name": "The gold pentacle",
+        "seen": "An ivory disc with a raised rim stands upright on the King’s lap at the left side, on the viewer’s right; a gold five-pointed star with incised inner lines is inlaid on it, and the left hand rests along its top edge.",
+        "meaning": "The pentacle is the suit’s emblem of earth: money, body, work, home and time made solid. Its star is the one gilded element of the carved figure and throne. The hand lies over the rim instead of gripping it, which is the card’s quiet lesson: resources held securely and without fear."
+      },
+      "uk": {
+        "name": "Золотий пентакль",
+        "seen": "Диск зі слонової кістки з рельєфним обідком стоїть вертикально на колінах Короля з лівого боку, праворуч від глядача; його інкрустовано золотою п’ятикутною зіркою з вирізаними внутрішніми лініями, а ліва рука лежить уздовж верхнього краю.",
+        "meaning": "Пентакль — емблема масті Землі: гроші, тіло, праця, дім і час, що набули відчутної форми. Його зірка — єдиний позолочений елемент різьбленої постаті й трону. Рука лежить на обідку, а не стискає його, і в цьому тихий урок карти: ресурси тримають надійно й без страху."
+      }
+    },
+    {
+      "key": "grapes",
+      "x": 49,
+      "y": 86,
+      "en": {
+        "name": "The vine underfoot",
+        "seen": "A lapis grapevine spreads across the raised ground beneath the throne, heavy with grape clusters and broad lobed leaves; tendrils climb both sides of the seat, and one sandalled ivory foot rests on the vine-covered ground.",
+        "meaning": "Grapes stand for harvest that takes years: vines are planted long before they bear fruit. Spread under the King’s foot, they show a life standing on cultivated plenty. The same vine runs through robe, throne and ground, so figure, seat and earth share one harvest."
+      },
+      "uk": {
+        "name": "Виноградна лоза під ногами",
+        "seen": "Лазуритова виноградна лоза стелиться узвишшям під троном, обтяжена гронами й широким лопатевим листям; вусики в’ються обабіч сидіння, а одна стопа зі слонової кістки в сандалії спирається на вкриту лозою землю.",
+        "meaning": "Виноград означає врожай, що визріває роками: лозу садять задовго до перших плодів. Лоза, розстелена під стопою Короля, показує життя, яке стоїть на вирощеному достатку. Та сама лоза проходить крізь шати, трон і землю, тож постать, сидіння й земля мають один спільний урожай."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The King of Pentacles is steady, generous stewardship: building something solid enough to last, then using it to hold up the people and work around you.",
+    "keywords": {
+      "upright": [
+        "stewardship",
+        "practical leadership",
+        "reliability",
+        "earned security",
+        "generosity",
+        "patient building"
+      ],
+      "reversed": [
+        "control",
+        "hoarding",
+        "rigid routine",
+        "status worry",
+        "overwork"
+      ]
+    },
+    "upright": [
+      "The King of Pentacles draws attention to what it means to be responsible for something that works. Where the Queen of the suit tends, the King sustains: the household, the business, the long project, the account others quietly rely on. In Olivia’s image the King sits squarely on a throne carved with four bulls’ heads, a lapis castle rising behind, and looks straight out at you. Nothing in the pose hurries. This is authority that has already been built, not one still being argued for.",
+      "Look at the hands. One holds an ivory sceptre angled up past the shoulder; the other rests lightly along the top rim of the disc, fingers curled over its edge rather than clutching it. The gold star is the brightest thing on the card, yet it stands at the King’s side, steady and open to view. Resources are present, counted and cared for, and they are not gripped.",
+      "Grapes are carved everywhere: on the robe, up the sides of the throne, across the ground beneath the sandalled foot. The card honours the harvest that comes from seasons of patient work. Upright, it asks how you can be dependable in a way that lets others grow too: keep the commitment you made, finish the practical task, set up the structure someone else will lean on. The laurel on the King’s head is a wreath for effort already given."
+    ],
+    "reversed": [
+      "King of Pentacles reversed can point to stewardship that has narrowed into control. Security may have become a goal in itself, measured by what can be counted, owned or protected, so that the resources meant to support a life begin to run it. The King’s steadiness can also turn into stubbornness: the same method applied long after conditions have changed, or work filling every hour because stopping feels unsafe.",
+      "Return to the hand resting on the disc. Reversed, the invitation is to loosen a grip: to ask whom your resources actually serve, to let someone else have a say in how they are used, or to spend a little of what you have kept on rest, pleasure or another person. Something stable can stay stable and still bend."
+    ],
+    "number": "Kings are the outward mastery of their suit: they carry its element into the world as responsibility, decision and example. In Pentacles, the suit of earth, that means knowing how things are made to last: money, bodies, buildings, routines, commitments of time. After the Page’s careful study, the Knight’s slow labour and the Queen’s tending, the King holds the whole estate and answers for it. This mastery shows as reliability that others can build on.",
+    "tradition": "In the Golden Dawn system the seated King of the 1909 deck is usually matched with the Prince of Pentacles, the Prince of the Chariot of Earth: Air of Earth, the part of the element that plans, weighs and circulates. Its span runs from 20° Aries to 20° Taurus, covering the decans of the Four of Wands, Five of Pentacles and Six of Pentacles. Book T pictures this Prince in a chariot drawn by a bull. Some modern readers give the King the Golden Dawn King’s place instead, Fire of Earth, 20° Leo to 20° Virgo. Older Marseille decks show a seated King of Coins holding a single coin; Pamela Colman Smith surrounded the King with bulls’ heads, grapevines and a castle.",
+    "court": {
+      "temperament": "As a temperament, the King of Pentacles is steady, patient and practical. This way of acting prefers proven methods to bright ideas, thinks in seasons rather than days, and measures success by what is still standing later. It stays calm under pressure because it has usually planned for the lean months, and it speaks through what it provides and maintains.",
+      "gifts": "The gifts here are reliability, sound judgement about resources and a generous practicality. This King knows what things cost in time, money and effort, and can build structures that let other people get on with their work: a workable budget, a fair workplace, a home that holds. Its generosity is concrete, sharing means, skills and shelter rather than only advice.",
+      "shadow": "In shadow, steadiness hardens into control, and security becomes a goal that is never quite reached. You may measure worth, your own or other people’s, by output and possessions, resist every change as a risk, or carry every responsibility alone because delegating feels unsafe. The resting hand on the disc is the counterweight: hold what you have without gripping."
+    },
+    "areas": {
+      "love": "In love and close relationships, the King of Pentacles shows care as reliability: turning up, keeping the household running, remembering the practical things that make shared life easier. It invites you to notice how steadiness is given and received between you, and whether the practical side has crowded out tenderness or play. With yourself, it can mean becoming someone you can rely on, keeping small commitments to your own body, rest and time.",
+      "work": "At work, in study and with money, this card favours sound structures over quick wins: a clear budget, a realistic plan, systems that keep running when you are not watching them. It can point to a moment for taking responsibility for something that has grown, or for passing on skills you learned slowly. Consider what you are building to last, and whom it is meant to support.",
+      "self": "For your own life, the King of Pentacles turns attention to what you have already built: habits, skills, reserves of energy, a home, a body you have looked after. Like the laurel on the King’s head, it asks you to recognise effort that has borne fruit before rushing on to the next task. Self-worth here is solid and unshowy, drawn from what your hands and time have made."
+    },
+    "positions": {
+      "heart": "At the heart of a question, this card suggests the matter concerns responsibility for something substantial: a household, a project, resources or a role that others depend on, and how to steward it well over time.",
+      "challenge": "As a challenge, it can show security or routine taking up so much room that change feels threatening, or a sense that everything rests on your shoulders and cannot be shared.",
+      "advice": "As advice, it invites one steady, practical step: review what you hold, maintain what already works, and decide how some of it could support someone or something beyond yourself."
+    },
+    "pairs": [
+      {
+        "with": 4,
+        "text": "With The Emperor, two enthroned rulers meet, and the Emperor’s sign, Aries, opens this King’s Golden Dawn span. The Emperor builds order and sets the rules; the King of Pentacles fills that order with harvest. Together they ask whether the structures you keep also feed the people inside them."
+      },
+      {
+        "with": 73,
+        "text": "The Ten of Pentacles shows the suit completed as a household and a legacy across generations. With the King, whose castle rises behind the throne, the pair draws attention to what you are building and who will live with it after you."
+      },
+      {
+        "with": 67,
+        "text": "The Four of Pentacles is the suit’s picture of holding on tightly. Beside the King, whose hand rests lightly on the rim of the disc, the pair shows the difference between security that serves a life and security that confines it."
+      }
+    ],
+    "questions": [
+      "What are you building now that you would like to see still standing in ten years?",
+      "Where does your sense of security depend on control rather than trust?",
+      "Whom or what could your resources, skills or time quietly support this month?"
+    ],
+    "practice": "Write down three things you have built or maintained over the past year, however ordinary, and beside each one name a person or purpose it supports."
+  },
+  "uk": {
+    "essence": "Король Пентаклів — це спокійне, щедре господарювання: збудувати щось досить міцне, щоб воно стояло довго, а тоді зробити його опорою для людей і справ довкола вас.",
+    "keywords": {
+      "upright": [
+        "дбайливе господарювання",
+        "практичне лідерство",
+        "надійність",
+        "заслужена безпека",
+        "щедрість",
+        "терпляче будівництво"
+      ],
+      "reversed": [
+        "контроль",
+        "накопичування",
+        "жорстка рутина",
+        "тривога за статус",
+        "надмірна праця"
+      ]
+    },
+    "upright": [
+      "Король Пентаклів звертає увагу на те, що означає відповідати за щось, що справді працює. Там, де Королева Пентаклів плекає, Король підтримує: господарство, справу, довгий проєкт, рахунок, на який інші тихо покладаються. На зображенні Олівії Король сидить прямо й твердо на троні з чотирма бичачими головами, позаду здіймається лазуритовий замок, а погляд звернений просто на вас. У цій позі немає поспіху. Це влада, яку вже збудовано, а не та, яку ще треба відстоювати.",
+      "Погляньте на руки. Одна тримає скіпетр зі слонової кістки, піднятий навскіс повз плече; друга легко лежить уздовж верхнього обідка диска: пальці огортають край, а не стискають його. Золота зірка — найяскравіше, що є на карті, проте вона стоїть збоку від Короля, спокійно й на видноті. Ресурси є, їх пораховано й доглянуто, але ніхто не стискає їх у кулаці.",
+      "Виноград вирізьблено всюди: на шатах, уздовж боків трону, на землі під стопою в сандалії. Карта вшановує врожай, що приходить після сезонів терплячої праці. У прямому положенні вона запитує, як вам бути надійними так, щоб поруч могли рости й інші: дотримати взятого зобов’язання, завершити практичну справу, вибудувати структуру, на яку спиратиметься хтось іще. Лавр на голові Короля — вінок за зусилля, які вже докладено."
+    ],
+    "reversed": [
+      "Король Пентаклів у перевернутому положенні може вказувати на господарювання, що звузилося до контролю. Безпека, можливо, стала метою сама по собі й вимірюється тим, що можна перелічити, мати у власності чи захистити, тож ресурси, покликані підтримувати життя, починають ним керувати. Стійкість Короля може обернутися й упертістю: той самий метод застосовують ще довго після того, як умови змінилися, або праця заповнює кожну годину, бо зупинитися здається небезпечним.",
+      "Поверніться до руки, що лежить на диску. У перевернутому положенні карта запрошує послабити хватку: запитати себе, кому насправді служать ваші ресурси, дати комусь іще право голосу в тому, як ними розпоряджатися, або витратити трохи збереженого на відпочинок, задоволення чи іншу людину. Стійке може лишатися стійким і водночас гнучким."
+    ],
+    "number": "Королі — це зовнішня майстерність своєї масті: вони виносять її стихію у світ як відповідальність, рішення й приклад. У Пентаклях, масті Землі, це означає знати, як зробити речі тривкими: гроші, тіло, будівлі, розпорядок, зобов’язання, яким віддано час. Після уважного навчання Пажа, повільної праці Лицаря й дбайливості Королеви Король тримає в руках усе господарство й відповідає за нього. Ця майстерність проступає в надійності, на яку можуть спиратися інші.",
+    "tradition": "У системі Золотої Зорі Короля, що сидить на троні в колоді 1909 року, зазвичай зіставляють із Принцом Пентаклів, «Принцом Колісниці Землі»: це Повітря Землі, та частина стихії, що планує, зважує й пускає в обіг. Його відрізок простягається від 20° Овна до 20° Тельця й охоплює декани Четвірки Жезлів, П’ятірки Пентаклів і Шістки Пентаклів. «Книга Т» зображує цього Принца в колісниці, запряженій биком. Дехто із сучасних практиків натомість відводить Королю місце Короля Золотої Зорі — Вогонь Землі, від 20° Лева до 20° Діви. Давніші марсельські колоди показують Короля Монет на троні з однією монетою; Памела Колман Сміт оточила Короля бичачими головами, виноградною лозою й замком.",
+    "court": {
+      "temperament": "Як темперамент Король Пентаклів — це стійкість, терпіння й практичність. Такий спосіб дії віддає перевагу перевіреним методам перед яскравими ідеями, мислить сезонами, а не днями, і міряє успіх тим, що й згодом усе ще стоїть. Під тиском такий темперамент не втрачає спокою, бо зазвичай заздалегідь подбав про скрутні місяці, і промовляє через те, що забезпечує й підтримує.",
+      "gifts": "Дари тут — надійність, тверезе судження про ресурси й щедра практичність. Цей Король знає, чого коштують речі в часі, грошах і зусиллях, і вміє будувати структури, які дають іншим людям спокійно робити свою справу: реалістичний бюджет, справедливе робоче місце, дім, що дає опору. Ця щедрість конкретна: вона ділиться засобами, навичками й прихистком, а не лише порадами.",
+      "shadow": "У тіньовому прояві стійкість твердне й стає контролем, а безпека стає метою, якої ніколи не вдається досягти до кінця. Ви можете міряти цінність, свою чи чужу, продуктивністю й майном, опиратися кожній зміні як ризику або нести всю відповідальність самотужки, бо делегувати здається небезпечним. Противагою є рука, що спокійно лежить на диску: тримайте те, що маєте, не стискаючи."
+    },
+    "areas": {
+      "love": "У коханні й близьких стосунках Король Пентаклів виявляє турботу через надійність: бути поруч, коли треба, підтримувати лад у домі, пам’ятати практичні дрібниці, що полегшують спільне життя. Карта запрошує помітити, як ви даруєте одне одному стійкість і приймаєте її і чи не витіснив практичний бік ніжність або гру. У стосунках із собою карта може означати, що ви стаєте людиною, на яку можна покластися: дотримуєтеся малих зобов’язань перед власним тілом, відпочинком і часом.",
+      "work": "У роботі, навчанні й грошових справах ця карта надає перевагу надійним структурам перед швидкими перемогами: зрозумілий бюджет, реалістичний план, системи, що працюють, навіть коли ви за ними не стежите. Вона може вказувати на слушний момент, щоб узяти відповідальність за щось, що розрослося, або передати навички, яких ви вчилися повільно. Подумайте, що ви будуєте надовго і кого це має підтримувати.",
+      "self": "У вашому власному житті Король Пентаклів звертає увагу на те, що ви вже збудували: звички, навички, запаси сил, дім, тіло, про яке ви дбали. Як лавр на голові Короля, карта запрошує визнати зусилля, що вже принесли плоди, перш ніж поспішати до наступного завдання. Відчуття власної цінності тут міцне й непоказне: воно живиться тим, що створили ваші руки й ваш час."
+    },
+    "positions": {
+      "heart": "У центрі запитання ця карта підказує, що йдеться про відповідальність за щось вагоме: господарство, проєкт, ресурси чи роль, від яких залежать інші, і про те, як дбайливо розпоряджатися цим упродовж часу.",
+      "challenge": "Як перешкода вона може вказувати на безпеку чи рутину, що займають стільки місця, аж будь-яка зміна здається загрозою, або на відчуття, що все тримається на ваших плечах і цим тягарем не можна поділитися.",
+      "advice": "Як порада вона запрошує до одного стійкого практичного кроку: перегляньте, що маєте, підтримайте те, що вже працює, і вирішіть, як частина цього могла б послужити комусь чи чомусь поза вами."
+    },
+    "pairs": [
+      {
+        "with": 4,
+        "text": "З Імператором зустрічаються двоє правителів на тронах, а знак Імператора, Овен, відкриває відрізок цього Короля в системі Золотої Зорі. Імператор будує порядок і встановлює правила; Король Пентаклів наповнює цей порядок урожаєм. Разом вони запитують, чи ті структури, які ви підтримуєте, годують і людей усередині них."
+      },
+      {
+        "with": 73,
+        "text": "Десятка Пентаклів показує масть завершеною: як господарство й спадок, що переходять із покоління в покоління. Поруч із Королем, за чиїм троном здіймається замок, ця пара звертає увагу на те, що ви будуєте і хто житиме з цим після вас."
+      },
+      {
+        "with": 67,
+        "text": "Четвірка Пентаклів — образ того, як масть міцно тримається за своє. Поруч із Королем, чия рука легко лежить на обідку диска, ця пара показує різницю між безпекою, яка служить життю, і безпекою, яка його обмежує."
+      }
+    ],
+    "questions": [
+      "Що з того, що ви будуєте зараз, ви хотіли б бачити й через десять років?",
+      "Де ваше відчуття безпеки тримається на контролі, а не на довірі?",
+      "Кого чи що ваші ресурси, навички або час могли б тихо підтримати цього місяця?"
+    ],
+    "practice": "Запишіть три речі, які ви збудували чи підтримували протягом минулого року, хай навіть буденні, і біля кожної назвіть людину чи мету, якій вона служить."
+  }
+}

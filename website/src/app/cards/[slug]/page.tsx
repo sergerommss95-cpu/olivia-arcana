@@ -9,6 +9,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
+import CardLeaf from "@/components/academy/CardLeaf";
+import { leafBySlug } from "@/lib/academy/leaf";
 import {
   CARD_SLUGS,
   cardNumeral,
@@ -36,8 +38,11 @@ export async function generateMetadata({
   const card = getCardBySlug(slug);
   if (!card) return {};
   const url = `https://oliviaarcana.com/cards/${slug}/`;
-  const title = `${card.name} Tarot Card Meaning: Upright & Reversed | Olivia Arcana`;
-  const description = card.upright.slice(0, 155) + "…";
+  const leaf = leafBySlug(slug);
+  const title = leaf
+    ? `${card.name} Tarot Card Meaning: Upright, Reversed & Symbols | Olivia Arcana`
+    : `${card.name} Tarot Card Meaning: Upright & Reversed | Olivia Arcana`;
+  const description = leaf ? clip(leaf.en.essence + " " + leaf.en.upright[0], 158) : card.upright.slice(0, 155) + "…";
   const image = `https://oliviaarcana.com${getCardImagePath(card)}`;
   return {
     title,
@@ -74,6 +79,11 @@ export async function generateMetadata({
   };
 }
 
+function clip(text: string, max: number): string {
+  if (text.length <= max) return text;
+  return text.slice(0, max - 1).replace(/\s+\S*$/, "") + "…";
+}
+
 function Section({
   no,
   title,
@@ -105,6 +115,38 @@ export default async function CardDetailPage({
 
   const url = `https://oliviaarcana.com/cards/${slug}/`;
   const image = `https://oliviaarcana.com${getCardImagePath(card)}`;
+  const leaf = leafBySlug(slug);
+  if (leaf) {
+    const leafLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          headline: `${card.name} Tarot Card Meaning: Upright, Reversed & Symbols`,
+          description: leaf.en.essence,
+          image,
+          inLanguage: "en",
+          author: { "@type": "Organization", name: "Olivia Arcana", url: "https://oliviaarcana.com/" },
+          publisher: { "@type": "Organization", name: "Olivia Arcana" },
+          mainEntityOfPage: url,
+        },
+        {
+          "@type": "FAQPage",
+          mainEntity: [
+            { "@type": "Question", name: `What does ${card.name} mean?`, acceptedAnswer: { "@type": "Answer", text: leaf.en.upright.join(" ") } },
+            { "@type": "Question", name: `What does ${card.name} reversed mean?`, acceptedAnswer: { "@type": "Answer", text: leaf.en.reversed.join(" ") } },
+            { "@type": "Question", name: `What are the symbols on ${card.name}?`, acceptedAnswer: { "@type": "Answer", text: leaf.symbols.map((s) => `${s.en.name}: ${s.en.meaning}`).join(" ") } },
+          ],
+        },
+      ],
+    };
+    return (
+      <AlmanacShell>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(leafLd).replace(/</g, "\\u003c") }} />
+        <CardLeaf leaf={leaf} locale="en" />
+      </AlmanacShell>
+    );
+  }
   const love = loveMeaning(card);
   const career = careerMeaning(card);
   const yesNo = yesNoProse(card);

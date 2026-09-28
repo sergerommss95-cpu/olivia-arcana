@@ -10,6 +10,7 @@
  */
 
 import TransitionLink from "@/components/transitions/TransitionLink";
+import AlmanacMasthead from "@/components/almanac/AlmanacMasthead";
 
 interface LegalShellProps {
   title: string;
@@ -21,33 +22,7 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
   return (
     <div className="almanac alm-page">
       <div className="alm-atmosphere" aria-hidden="true" />
-      <header className="alm-masthead">
-        <div className="alm-rule" aria-hidden />
-        <div className="alm-mast-row">
-          <TransitionLink href="/" className="alm-wordmark">
-            Olivia <span>Arcana</span>
-          </TransitionLink>
-          <nav className="alm-mast-nav" aria-label="Primary">
-            <TransitionLink href="/?experience=journal" className="alm-mast-link">
-              My almanac
-            </TransitionLink>
-            <TransitionLink href="/?experience=spreads" className="alm-mast-link">
-              Spreads
-            </TransitionLink>
-            <TransitionLink href="/cards" className="alm-mast-link">
-              The cards
-            </TransitionLink>
-            <TransitionLink href="/pricing" className="alm-mast-link">
-              Membership
-            </TransitionLink>
-            <TransitionLink href="/?experience=question" className="alm-mast-cta">
-              Begin a reading
-            </TransitionLink>
-          </nav>
-        </div>
-        <p className="alm-mast-title">A personal practice of tarot</p>
-        <div className="alm-rule oxford" aria-hidden />
-      </header>
+      <AlmanacMasthead />
 
       <main id="main-content" className="alm-main">
         <article className="alm-article">
@@ -131,101 +106,12 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
           background: var(--hairline);
         }
 
-        .alm-masthead {
-          padding: 1.1rem clamp(1.1rem, 4vw, 3rem) 0;
-        }
-
-        .alm-mast-row {
-          display: flex;
-          align-items: baseline;
-          justify-content: space-between;
-          gap: 1.5rem;
-          padding: 0.85rem 0;
-        }
-
-        .alm-wordmark {
-          font-family: var(--font-heading, "Cormorant Garamond"), serif;
-          font-size: 2rem;
-          font-weight: 400;
-          color: var(--ink);
-          text-decoration: none;
-          white-space: nowrap;
-        }
-
-        .alm-wordmark span {
-          margin-left: 0.55rem;
-          font-family: var(--font-body, system-ui), sans-serif;
-          font-size: 0.56rem;
-          font-weight: 500;
-          letter-spacing: 0.28em;
-          text-transform: uppercase;
-        }
         .alm-page > .alm-atmosphere {
           position: absolute;
           inset: 0;
           z-index: 0;
           pointer-events: none;
           background: radial-gradient(ellipse at 20% 0%, rgba(84, 113, 135, 0.2), transparent 48%), radial-gradient(ellipse at 100% 35%, rgba(164, 144, 105, 0.06), transparent 45%);
-        }
-
-        .alm-mast-nav {
-          display: flex;
-          align-items: center;
-          gap: clamp(0.9rem, 2.5vw, 1.8rem);
-        }
-
-        .alm-mast-link {
-          color: var(--ink-soft);
-          font-size: 0.78rem;
-          font-weight: 600;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          text-decoration: none;
-          transition: color 200ms var(--ease);
-        }
-
-        .alm-mast-link:hover {
-          color: var(--ox);
-        }
-
-        .alm-mast-cta {
-          color: var(--ox);
-          font-size: 0.78rem;
-          font-weight: 700;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          text-decoration: none;
-          border: 1px solid rgba(193, 171, 124, 0.45);
-          border-radius: 2px;
-          padding: 0.5rem 1.05rem;
-          white-space: nowrap;
-          /* the house ink-flood: gilt rises from the baseline with a
-             darker meniscus at its crest — never an instant swap */
-          background-image: linear-gradient(to top, #eee6d4 0%, #eee6d4 calc(100% - 3px), #c1ab7c 100%);
-          background-repeat: no-repeat;
-          background-position: 0 100%;
-          background-size: 100% 0%;
-          transition:
-            background-size 300ms var(--ease),
-            color 200ms var(--ease),
-            border-color 200ms var(--ease);
-        }
-
-        .alm-mast-cta:hover,
-        .alm-mast-cta:focus-visible {
-          background-size: 100% 100%;
-          color: #0b1c2c;
-          border-color: var(--ox);
-        }
-
-        .alm-mast-title {
-          margin: 0 0 0.6rem;
-          text-align: center;
-          color: var(--ink-faint);
-          font-family: var(--font-mono, ui-monospace), monospace;
-          font-size: 0.62rem;
-          letter-spacing: 0.5em;
-          text-transform: uppercase;
         }
 
         .alm-main {
@@ -410,77 +296,6 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
           outline-offset: 4px;
         }
 
-        /* ── page-load reveal: identical to AlmanacShell, so every
-           room of the edition opens the same way. Hidden states only
-           under no-preference: reduced motion renders instantly. */
-        @media (prefers-reduced-motion: no-preference) {
-          .alm-masthead .alm-rule {
-            transform: scaleX(0);
-            transform-origin: 50% 50%;
-            animation: alm-rule-draw 700ms var(--ease) 60ms forwards;
-          }
-          .alm-masthead .alm-rule.oxford {
-            animation-delay: 180ms;
-          }
-          .alm-mast-row {
-            opacity: 0;
-            animation: alm-ink-in 520ms var(--ease) 140ms forwards;
-          }
-          .alm-mast-title {
-            opacity: 0;
-            animation: alm-track-in 640ms var(--ease) 240ms forwards;
-          }
-        }
-        @keyframes alm-rule-draw {
-          to {
-            transform: scaleX(1);
-          }
-        }
-        @keyframes alm-ink-in {
-          from {
-            opacity: 0;
-            transform: translateY(6px);
-          }
-          to {
-            opacity: 1;
-            transform: none;
-          }
-        }
-        @keyframes alm-track-in {
-          from {
-            opacity: 0;
-            letter-spacing: 0.62em;
-          }
-          to {
-            opacity: 1;
-            letter-spacing: 0.5em;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .alm-mast-row {
-            flex-wrap: wrap;
-            row-gap: 0.15rem;
-          }
-          .alm-mast-nav {
-            flex-basis: 100%;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.15rem clamp(0.7rem, 4vw, 1.2rem);
-            padding-bottom: 0.55rem;
-          }
-          .alm-mast-nav .alm-mast-link {
-            font-size: 0.66rem;
-            padding: 0.45rem 0;
-            white-space: nowrap;
-          }
-          .alm-mast-nav .alm-mast-cta {
-            font-size: 0.66rem;
-            padding: 0.4rem 0.75rem;
-            white-space: nowrap;
-          }
-        }
-
         @media print {
           html,
           body {
@@ -493,8 +308,7 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
           .alm-page::before {
             display: none !important;
           }
-          .alm-page nav,
-          .alm-mast-cta {
+          .alm-page nav {
             display: none !important;
           }
           .legal-prose a {

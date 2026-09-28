@@ -1,0 +1,252 @@
+{
+  "id": 5,
+  "slug": "the-hierophant",
+  "artwork": {
+    "file": "05_the_hierophant.webp",
+    "sha256": "16d2107791c00209b8b56e367b3b8d261cc0352e2c0fb26ed192597726c6ece5"
+  },
+  "symbols": [
+    {
+      "key": "crown",
+      "x": 50,
+      "y": 32,
+      "en": {
+        "name": "The three-tiered crown",
+        "seen": "A tall ivory tiara rises in three stacked tiers, each rimmed with a row of small raised points, and ends in a round knob. A soft cloth falls from beneath it on both sides, framing a calm, level face.",
+        "meaning": "The triple crown comes from papal regalia and is commonly read as authority over three worlds: body, mind and spirit. It tells you this teacher holds an office, not only wisdom: knowledge that has been given a structure, a title and a place to be handed down from."
+      },
+      "uk": {
+        "name": "Триярусна корона",
+        "seen": "Висока тіара зі слонової кістки здіймається трьома ярусами, кожен облямований рядом дрібних випуклих зубців, і завершується круглою маківкою. З-під неї обабіч спадає м’яка тканина, обрамлюючи спокійне, врівноважене обличчя.",
+        "meaning": "Потрійна корона походить із папських регалій, і її зазвичай тлумачать як владу над трьома світами: тілом, розумом і духом. Вона підказує, що постать, яка навчає, обіймає посаду, а не лише має мудрість: знання отримало структуру, титул і місце, звідки його передають далі."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 41,
+      "y": 36,
+      "en": {
+        "name": "The hand raised in blessing",
+        "seen": "The figure’s right hand, on your left, lifts to shoulder height, palm turned outward, index and middle fingers raised straight while the others fold down. The sleeve falls back from the wrist in heavy ivory folds.",
+        "meaning": "This is the old sign of blessing and teaching from Christian art, and the traditional Hierophant makes the same gesture. It is a hand that speaks rather than seizes: authority offered outward, on behalf of something larger than the one who raises it."
+      },
+      "uk": {
+        "name": "Рука, піднята для благословення",
+        "seen": "Права рука фігури, ліворуч від вас, піднята до рівня плеча долонею назовні: вказівний і середній пальці випрямлені, решта загнуті. Рукав відкриває зап’ястя, спадаючи важкими складками зі слонової кістки.",
+        "meaning": "Це давній жест благословення й навчання з християнського мистецтва, і традиційний Ієрофант робить так само. Ця рука промовляє, а не хапає: влада, звернена назовні від імені чогось більшого, ніж той, хто її підносить."
+      }
+    },
+    {
+      "key": "staff",
+      "x": 59,
+      "y": 35,
+      "en": {
+        "name": "The triple-cross staff",
+        "seen": "The other hand, on your right, grips a slender ivory staff at waist height. At its head, three crossbars grow longer as they descend, capped by a small knob, with a rounded knop on the shaft below.",
+        "meaning": "The three-barred papal cross appears in the Marseille Pope and in the Waite-Smith Hierophant alike, and is often read, like the crown, as rule across three worlds. Held upright and perfectly still, it marks the teacher as the keeper of a lineage rather than its inventor."
+      },
+      "uk": {
+        "name": "Посох із потрійним хрестом",
+        "seen": "Друга рука, праворуч від вас, стискає тонкий посох зі слонової кістки на рівні пояса. На його вершині три поперечини, що довшають донизу, згори — маленька кулька, а нижче на древку — заокруглене потовщення.",
+        "meaning": "Трираменний папський хрест є і в марсельського Папи, і в Ієрофанта Вейта–Сміт; його, як і корону, часто тлумачать як владу над трьома світами. Посох тримають прямо й цілком нерухомо: він позначає того, хто навчає, як хранителя спадкоємності, а не її творця."
+      }
+    },
+    {
+      "key": "robe",
+      "x": 50,
+      "y": 42,
+      "en": {
+        "name": "The layered vestments",
+        "seen": "A full ivory robe falls to the feet beneath a cape draped in deep folds over both arms. A V-shaped collar opens at the throat, and a narrow band runs straight down the chest to the lap.",
+        "meaning": "Vestments make an office visible, and the hanging band recalls the stole or pallium clergy wear as a sign of their charge. The traditional image dresses the Hierophant in red; Olivia carves every layer in ivory, so the role and the person are made of one pale material."
+      },
+      "uk": {
+        "name": "Багатошарове облачення",
+        "seen": "Широка ряса зі слонової кістки спадає до ніг, а поверх неї глибокими складками на обидві руки лягає накидка. Біля горла розкривається V-подібний комір, а вузька смуга збігає прямо по грудях до колін.",
+        "meaning": "Облачення робить посаду видимою, а ця смуга нагадує столу чи паліум, які духовенство носить на знак свого служіння. Традиційного Ієрофанта вбирають у червоне; Olivia вирізьблює кожен шар зі слонової кістки, тож роль і людину вирізьблено з того самого світлого матеріалу."
+      }
+    },
+    {
+      "key": "pillar",
+      "x": 26,
+      "y": 45,
+      "en": {
+        "name": "Two lapis pillars",
+        "seen": "Two blue columns stand at either side, carved in the lapis itself, with scrolled capitals and stepped bases. The left shaft catches more light than the right. No throne back is carved between them.",
+        "meaning": "Pillars mark the threshold of a temple, and the traditional Hierophant sits between a grey pair that echoes the High Priestess’s. Here they stand well apart from the figure, framing an open space: the doorway of an institution, a place where knowledge is kept and entered."
+      },
+      "uk": {
+        "name": "Дві лазуритові колони",
+        "seen": "Обабіч стоять дві сині колони, вирізьблені в самому лазуриті, із завитими капітелями та ступінчастими базами. Ліва колона освітлена яскравіше за праву. Спинки трону між ними не вирізьблено.",
+        "meaning": "Колони позначають поріг храму, і традиційний Ієрофант сидить між двома сірими колонами — відлунням колон Верховної Жриці. Тут вони стоять далеко від фігури, обрамлюючи відкритий простір: вхід до інституції, місце, де знання зберігається і куди можна увійти."
+      }
+    },
+    {
+      "key": "rose",
+      "x": 31,
+      "y": 58,
+      "en": {
+        "name": "The kneeler with roses",
+        "seen": "At the lower left a figure kneels with back turned, carved in pale blue lapis. Two roses with leaves are incised in fine light lines across the robe’s back; the soles of both feet show beneath the hem.",
+        "meaning": "In the traditional image the two ministers wear roses and lilies, the flowers of the Magician’s garden. The rose is commonly read as desire and love. Here the student carries it on the back: the longing that brings someone to a teaching, seen more clearly by others than by oneself."
+      },
+      "uk": {
+        "name": "Постать на колінах із трояндами",
+        "seen": "Унизу ліворуч спиною до вас стоїть на колінах постать, вирізьблена з блідо-блакитного лазуриту. На спині вбрання тонкими світлими лініями вирізано дві троянди з листям; з-під подолу видно підошви обох ніг.",
+        "meaning": "На традиційному зображенні двоє служителів носять троянди й лілеї — квіти із саду Мага. Троянду зазвичай тлумачать як бажання й любов. Тут той, хто навчається, несе її на спині: прагнення, яке приводить людину до вчення, іншим видно ясніше, ніж їй самій."
+      }
+    },
+    {
+      "key": "lily",
+      "x": 68,
+      "y": 59,
+      "en": {
+        "name": "The kneeler with a lily",
+        "seen": "At the lower right a second pale blue figure kneels, back to you, facing the seated teacher. A single open lily on a long stem with slender leaves is incised in fine lines on the robe.",
+        "meaning": "The lily is commonly read as purity of intention and clear thought, the rose’s partner. Two students, two temperaments: one who comes to learning through feeling, one through clarity. Both are carved in the same blue stone as the pillars, part of the structure in which they kneel."
+      },
+      "uk": {
+        "name": "Постать на колінах із лілеєю",
+        "seen": "Унизу праворуч стоїть на колінах друга блідо-блакитна постать, спиною до вас і обличчям до постаті на троні, що навчає. На вбранні тонкими лініями вирізано одну розкриту лілею на довгому стеблі з тонким листям.",
+        "meaning": "Лілею зазвичай тлумачать як чистоту намірів і ясність думки; вона — пара троянді. Двоє учнів, два темпераменти: хтось приходить до знання через почуття, хтось — через ясність. Обидві постаті вирізьблено з того самого синього каменю, що й колони: вони частина структури, у якій стоять навколішки."
+      }
+    },
+    {
+      "key": "key",
+      "x": 50,
+      "y": 67,
+      "en": {
+        "name": "The crossed gold keys",
+        "seen": "Just below the low ledge where the seated figure’s feet rest, two keys cross in an X, toothed bits pointing up and outward, round bows at the bottom. Apart from the pyrite flecks, they are the only gold on the card.",
+        "meaning": "Crossed keys are the emblem of Saint Peter; in papal heraldry one is gold and one silver, for heaven and earth. Olivia makes both gold, a material this deck uses sparingly. Commonly read as access to hidden knowledge, they lie here between the students: within reach, not yet taken up."
+      },
+      "uk": {
+        "name": "Схрещені золоті ключі",
+        "seen": "Одразу під низьким виступом, на який спираються ноги сидячої фігури, навхрест лежать два ключі: зубчасті борідки спрямовані вгору й назовні, круглі кільця — внизу. Окрім пиритових вкраплень, це єдине золото на карті.",
+        "meaning": "Схрещені ключі — емблема святого Петра; у папській геральдиці один ключ золотий, другий срібний: для неба і для землі. Olivia робить обидва золотими, а цей матеріал колода використовує ощадливо. Їх зазвичай тлумачать як доступ до прихованого знання; тут вони лежать між учнями — досяжні, але ще не взяті."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Hierophant is knowledge passed from hand to hand: the teachings, rituals and institutions that hold what others learned, offered to you to understand, keep or question.",
+    "keywords": {
+      "upright": [
+        "tradition",
+        "teaching",
+        "mentorship",
+        "shared ritual",
+        "belonging",
+        "inherited wisdom"
+      ],
+      "reversed": [
+        "rigid rules",
+        "empty ritual",
+        "blind conformity",
+        "reflexive rebellion",
+        "self-made path"
+      ]
+    },
+    "upright": [
+      "The Hierophant is the card of what is taught. In Olivia’s carving a single ivory figure sits between two lapis pillars, a three-tiered crown on the head, one hand raised in blessing, the other holding a staff topped with a triple cross. Below, two figures kneel with their backs to you, carved in the same blue stone as the pillars, so the students seem made of the institution itself while the teacher alone is ivory. Upright, the card draws attention to the structures that carry knowledge from one person to the next: a school, a craft, a faith, a family’s way of doing things.",
+      "Look at what lies between the kneeling figures: two keys crossed in gold, the only gold carving on the card. Keys open doors, but someone has to hand them over. The card can point to a season for learning inside a form rather than inventing one: finding a mentor, joining a practice, taking a course seriously, following a recipe exactly before you change it.",
+      "The Hierophant does not ask for obedience. It asks what a tradition is for, and whether you have understood it well enough to carry it. The raised hand here is a blessing, not a command; learning received in that spirit leaves your judgement intact."
+    ],
+    "reversed": [
+      "The Hierophant reversed can point to teaching that has hardened, or to a refusal to be taught at all. On one side is the rule followed because it has always been followed: a ritual kept after its meaning has gone, a qualification valued above the understanding it was meant to show, an authority no one questions any more. On the other is reflexive rebellion, which dismisses every tradition before finding out what it holds. Both leave the gold keys lying unused.",
+      "Reversed, the card can also turn inward: a time to write your own rule, practise a faith or craft in your own way, or look for a teacher who welcomes questions. Notice which inherited belief you are testing, and whether you are testing it or only reacting to it."
+    ],
+    "number": "The Hierophant is card five. In the Fool’s journey it follows the Empress at three and the Emperor at four, who give the world its body and its order; at five the traveller meets a teacher and learns that meaning, too, is handed down. Five breaks the settled square of four by adding one point, much as the minor fives bring friction into their suits. Here the added point is a question: what are the rules for? It asks you to learn a form well enough to understand it, then decide what you keep.",
+    "tradition": "In the Golden Dawn system the Hierophant bears the title “The Magus of the Eternal”. It is attributed to Vav, the Hebrew letter meaning nail or hook, and to Taurus, the fixed earth sign, on the sixteenth path of the Tree of Life, joining Chokmah and Chesed. “Hierophant” was the title of the priest who revealed the sacred rites at Eleusis; the Golden Dawn also gave it to the officer presiding over its initiations. Marseille decks call the card the Pope (Le Pape), with two tonsured clerics in the foreground; the Besançon pattern replaced the Pope with Jupiter. The Waite-Smith card of 1909 kept the triple crown, triple cross and crossed keys, all carved again here.",
+    "areas": {
+      "love": "In love and close bonds, the Hierophant turns attention to the shared forms that hold a relationship: rituals, vows, family customs, the unspoken rules each of you brought from home. It can point to a wish for commitment, or for a public shape to give a private feeling. It can also show where a script inherited from others is quietly doing the choosing. Talk about which customs you each want to keep. With yourself, notice which of your own rules you follow out of care and which out of habit.",
+      "work": "In work and study, the Hierophant favours apprenticeship, qualifications and the slow learning of a discipline from people who know it well. It can point to a mentor, a training programme, an exam, or joining an organisation whose standards shape how you work. Learn the conventions properly before you bend them; that is how they become yours. With money matters, it leans towards established, well-understood approaches and qualified guidance over improvised shortcuts, while the decision remains yours.",
+      "self": "For your own growth, the Hierophant asks where your beliefs came from. Many were handed to you, like the keys laid below the teacher’s feet: by parents, schools, a religion, a culture. Some are still good keys and open real doors. Others belong to rooms you no longer live in. The card invites you to become a thoughtful student of your inheritance: to examine it, keep what holds, and give yourself a practice or ritual that is chosen rather than assumed."
+    },
+    "positions": {
+      "heart": "At the heart of a question, the Hierophant suggests the matter turns on a tradition, a rule or an institution: what you were taught, who holds the keys, and whether you trust them.",
+      "challenge": "As a challenge, the Hierophant can point to a convention followed without thought, pressure to conform, or authority given more weight than your own understanding. It can equally point to rejecting useful guidance too quickly.",
+      "advice": "As advice, the Hierophant invites you to seek a teacher, a proven method or a shared practice, and to learn it properly, keeping your questions open and your judgement your own."
+    },
+    "pairs": [
+      {
+        "with": 2,
+        "text": "The High Priestess also sits between two pillars, a scroll half-hidden at the side. Together the two cards draw attention to two kinds of knowing: the private, intuitive kind and the kind that is spoken, taught and shared. Each keeps the other honest."
+      },
+      {
+        "with": 6,
+        "text": "The Lovers follow the Hierophant directly. Together they draw attention to the step from received values to chosen ones: learning what a community holds sacred, then deciding in your own relationships what you will commit to."
+      },
+      {
+        "with": 15,
+        "text": "The Devil is often read as a dark mirror of the Hierophant: a raised hand, two figures below, a structure of authority. Together they ask whether a bond or a belief is freely held or has become a chain you no longer notice."
+      }
+    ],
+    "questions": [
+      "Which belief or habit did you inherit that you have never examined for yourself?",
+      "Who has taught you something that lasted, and what made their teaching trustworthy?",
+      "Where would learning a form properly give you more freedom than inventing your own?"
+    ],
+    "practice": "Write down one rule you live by, then note who taught it to you and whether you would still choose it today."
+  },
+  "uk": {
+    "essence": "Ієрофант — це знання, що переходить із рук у руки: вчення, ритуали та інституції, які вміщують досвід інших і пропонують його вам, щоб зрозуміти, зберегти чи поставити під сумнів.",
+    "keywords": {
+      "upright": [
+        "традиція",
+        "навчання",
+        "наставництво",
+        "спільний ритуал",
+        "приналежність",
+        "успадкована мудрість"
+      ],
+      "reversed": [
+        "жорсткі правила",
+        "порожній ритуал",
+        "сліпий конформізм",
+        "рефлекторний бунт",
+        "власний шлях"
+      ]
+    },
+    "upright": [
+      "Ієрофант — карта того, чого навчають. У різьбленні Olivia одна фігура зі слонової кістки сидить між двома лазуритовими колонами: на голові триярусна корона, одна рука піднята для благословення, друга тримає посох, увінчаний потрійним хрестом. Нижче, спиною до вас, стоять на колінах дві постаті з того самого синього каменю, що й колони, тож учні ніби створені з матеріалу самої інституції, і лише вчитель — зі слонової кістки. У прямому положенні карта звертає увагу на структури, які передають знання від людини до людини: школу, ремесло, віру, родинний уклад.",
+      "Погляньте, що лежить між постатями на колінах: два схрещені ключі із золота, єдине золоте різьблення на карті. Ключі відчиняють двері, але хтось мусить їх передати. Карта може вказувати на пору, коли варто вчитися в межах наявної форми, а не вигадувати власну: знайти, у кого вчитися, долучитися до практики, серйозно поставитися до курсу, точно дотриматися рецепта, перш ніж його змінювати.",
+      "Ієрофант не вимагає послуху. Карта запитує, навіщо існує традиція і чи зрозуміли ви її досить добре, щоб нести далі. Піднята рука тут — благословення, а не наказ; знання, прийняте в такому дусі, лишає ваше судження вільним."
+    ],
+    "reversed": [
+      "Перевернутий Ієрофант може вказувати на вчення, що закам’яніло, або на відмову вчитися взагалі. З одного боку — правило, якого дотримуються, бо так було завжди: ритуал, що пережив свій сенс, диплом, який цінують вище за розуміння, що він мав засвідчувати, авторитет, якого ніхто вже не ставить під сумнів. З другого — рефлекторний бунт, що відкидає кожну традицію, не з’ясувавши, що вона береже. І в тому, і в іншому разі золоті ключі лишаються невикористаними.",
+      "У перевернутому положенні карта може звертатися й усередину: це час написати власне правило, практикувати віру чи ремесло по-своєму або пошукати навчання, де запитанням раді. Зауважте, яке успадковане переконання ви перевіряєте, і чи справді перевіряєте, чи лише реагуєте на нього."
+    ],
+    "number": "Ієрофант — п’ята карта. У мандрівці Блазня вона йде після Імператриці (три) та Імператора (чотири), які дають світові тіло й лад; на п’ятому кроці Блазень зустрічає того, хто навчає, і дізнається, що сенс теж передають від покоління до покоління. П’ятірка порушує усталений квадрат четвірки, додаючи одну точку, так само як п’ятірки Молодших Арканів вносять тертя у свої масті. Тут додана точка — запитання: для чого існують правила? Карта пропонує вам опанувати форму досить добре, щоб її зрозуміти, а тоді вирішити, що залишити.",
+    "tradition": "У системі Золотої Зорі Ієрофант має титул «Маг Вічного». Карту пов’язують із Вав — єврейською літерою, що означає «цвях» або «гак», — і з Тельцем, фіксованим знаком Землі, на шістнадцятому шляху Дерева Життя між Хокмою та Хеседом. Ієрофантом називали жерця, який відкривав священні обряди в Елевсіні; Золота Зоря дала цей титул і посадовцю, що головував на її посвяченнях. Марсельські колоди називають карту Папою (Le Pape) і ставлять на передньому плані двох клириків із тонзурами; безансонський тип замінив Папу Юпітером. Карта Вейта–Сміт 1909 року зберегла потрійну корону, потрійний хрест і схрещені ключі — усі вони знову вирізьблені тут.",
+    "areas": {
+      "love": "У коханні та близьких стосунках Ієрофант звертає увагу на спільні форми, що тримають стосунки: ритуали, обітниці, родинні звичаї, неписані правила, які ви обоє принесли з дому. Карта може вказувати на бажання закріпити стосунки зобов’язаннями або на прагнення дати приватному почуттю публічну форму. Вона також може показати, де сценарій, успадкований від інших, тихо обирає за вас. Поговоріть про те, які звичаї ви обоє хочете зберегти. Щодо стосунків із собою — зауважте, яких власних правил ви дотримуєтеся з турботи, а яких — за звичкою.",
+      "work": "У роботі й навчанні Ієрофант віддає перевагу учнівству, кваліфікаціям і неквапливому опануванню дисципліни в людей, які добре її знають. Карта може вказувати на наставництво, програму підготовки, іспит або вступ до організації, чиї стандарти формують вашу роботу. Опануйте усталені правила як слід, перш ніж їх змінювати: саме так вони стають вашими. У грошових питаннях карта схиляється до усталених, добре зрозумілих підходів і кваліфікованих порад, а не до імпровізованих обхідних шляхів; рішення при цьому лишається за вами.",
+      "self": "Щодо вашого власного зростання Ієрофант запитує, звідки взялися ваші переконання. Чимало з них вам передали, як ключі, покладені під ногами постаті на троні: батьки, школа, релігія, культура. Деякі й досі добрі ключі, що відчиняють справжні двері. Інші — від кімнат, у яких ви вже не живете. Карта запрошує вас стати уважними учнями власної спадщини: дослідити її, зберегти те, що витримує перевірку, і дати собі практику чи ритуал, обрані свідомо, а не прийняті як даність."
+    },
+    "positions": {
+      "heart": "У центрі запитання Ієрофант підказує, що справа обертається довкола традиції, правила чи інституції: чого вас навчили, у кого ключі і чи довіряєте ви цим людям.",
+      "challenge": "Як виклик Ієрофант може вказувати на звичай, якого дотримуються бездумно, на тиск, що змушує підлаштовуватися, або на авторитет, якому надають більшої ваги, ніж власному розумінню. А може вказувати й на надто поспішну відмову від корисних порад.",
+      "advice": "Як порада Ієрофант запрошує вас шукати наставництва, перевіреного методу чи спільної практики й опанувати їх як слід, залишаючи запитання відкритими, а судження — своїм."
+    },
+    "pairs": [
+      {
+        "with": 2,
+        "text": "Верховна Жриця теж сидить між двома колонами, а збоку в неї напівприхований сувій. Разом ці дві карти звертають увагу на два види знання: особисте, інтуїтивне — і те, що його промовляють, передають і поділяють. Кожен оберігає інший від самообману."
+      },
+      {
+        "with": 6,
+        "text": "Закохані йдуть одразу після Ієрофанта. Разом вони звертають увагу на крок від отриманих цінностей до обраних: дізнатися, що спільнота вважає священним, а тоді вирішити у власних стосунках, яких зобов’язань ви готові триматися."
+      },
+      {
+        "with": 15,
+        "text": "Диявола часто тлумачать як темне дзеркало Ієрофанта: піднята рука, дві постаті внизу, структура влади. Разом вони запитують, чи тримається зв’язок або переконання на вільному виборі, чи вже стало ланцюгом, якого ви не помічаєте."
+      }
+    ],
+    "questions": [
+      "Яке переконання чи яку звичку ви успадкували й ніколи не перевіряли самі?",
+      "Хто навчив вас чогось, що лишилося з вами надовго, і що зробило це навчання гідним довіри?",
+      "Де ґрунтовне опанування форми дало б вам більше свободи, ніж вигадування власної?"
+    ],
+    "practice": "Запишіть одне правило, за яким живете, а тоді зазначте, хто вас йому навчив і чи обрали б ви його сьогодні."
+  }
+}

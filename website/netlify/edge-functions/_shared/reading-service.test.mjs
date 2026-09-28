@@ -4,7 +4,9 @@ import { createHandler, validateReading, readingContext } from './reading-servic
 import { providerConfig, DEFAULT_MODEL } from './provider-service.ts';
 
 const valid = { question: 'Should I leave my job for a smaller company?', locale: 'en', spreadId: 'clarity3', cards: [{id:0,orientation:'upright'},{id:8,orientation:'reversed'},{id:29,orientation:'upright'}] };
-const request = (value = valid, headers = {}) => new Request('https://oliviaarcana.com/api/reading', {method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify(value)});
+// Browser requests from the page carry the site's Origin.
+const request = (value = valid, headers = {}) => new Request('https://oliviaarcana.com/api/reading', {method:'POST',headers:{'Content-Type':'application/json',Origin:'https://oliviaarcana.com',...headers},body:JSON.stringify(value)});
+const bare = (value = valid, headers = {}) => new Request('https://oliviaarcana.com/api/reading', {method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify(value)});
 const success = () => Response.json({ content:[{type:'text',text:'A response grounded in your question.'}],stop_reason:'end_turn' });
 const env = (extra = {}) => key => ({ ANTHROPIC_API_KEY: 'test-secret', ...extra })[key];
 const statusRequest = () => new Request('https://oliviaarcana.com/api/reading');
@@ -22,6 +24,16 @@ test('all 78 cards resolve to trusted names and selected orientation, never clie
 });
 test('question, locale, unique card identity and spread size are validated', () => {
   for (const bad of [ {...valid,question:''}, {...valid,question:'q'.repeat(1601)}, {...valid,locale:'ru'}, {...valid,spreadId:'__proto__'}, {...valid,cards:valid.cards.slice(0,2)}, {...valid,cards:[valid.cards[0],valid.cards[0],valid.cards[2]]}, {...valid,cards:[{id:78,orientation:'upright'},...valid.cards.slice(1)]}, {...valid,cards:[{id:0,orientation:'sideways'},...valid.cards.slice(1)]} ]) assert.throws(()=>validateReading(bad));
+});
+test('larger spreads carry counted patterns with honest odds; single cards do not', () => {
+  const eight=readingContext(validateReading({...valid,spreadId:'compass8',cards:[22,24,26,28,30,35,50,60].map(id=>({id,orientation:'upright'}))}));
+  const wands=eight.spreadPatterns.find(p=>p.observation.startsWith('Wands'));
+  assert.equal(wands.worthNoticing,true);
+  assert.match(wands.howOftenInRandomDraw,/1 in \d+/);
+  assert.ok(eight.spreadPatterns.some(p=>p.worthNoticing===false));
+  assert.equal(readingContext(validateReading({...valid,spreadId:'single',cards:[{id:0,orientation:'upright'}]})).spreadPatterns,undefined);
+  const uk=readingContext(validateReading({...valid,locale:'uk'}));
+  assert.match(uk.spreadPatterns[0].observation,/Старші Аркани/);
 });
 test('Ukrainian uses translated card names and meanings', () => {
   const context=readingContext(validateReading({...valid,locale:'uk'}));
@@ -51,6 +63,8 @@ test('foreign origins, oversized bodies and malformed requests are refused befor
   let calls=0;
   const handler=createHandler('reading',{env:env(),fetch:async()=>{calls++;return success();}});
   assert.equal((await handler(request(valid,{Origin:'https://other.example'}))).status,403);
+  assert.equal((await handler(bare())).status,403);
+  assert.equal((await handler(bare(valid,{'Sec-Fetch-Site':'cross-site'}))).status,403);
   assert.equal((await handler(request({question:'x'.repeat(19000)}))).status,413);
   assert.equal((await handler(request({...valid,cards:[]}))).status,400);
   assert.equal(calls,0);
@@ -305,4 +319,18 @@ test('approved question directions use trusted bilingual positions and preserve 
 test('question direction validation cannot introduce arbitrary positions or mismatched spreads',()=>{
   for(const extra of [{questionDirection:'__proto__',originalQuestion:''},{questionDirection:'invented',originalQuestion:''},{questionDirection:'decision',originalQuestion:'x'.repeat(1601)},{questionDirection:'decision'},{originalQuestion:'unselected context'},{questionDirection:'decision',originalQuestion:'',spreadId:'single',cards:[valid.cards[0]]}]) assert.throws(()=>validateReading({...valid,...extra}));
   assert.equal(validateReading({...valid,questionDirection:'original',originalQuestion:''}).originalQuestion,'');
+});
+test('a same-origin browser request without an Origin header is still served', async()=>{
+  const handler=createHandler('reading',{env:env(),fetch:async()=>success()});
+  assert.equal((await handler(bare(valid,{'Sec-Fetch-Site':'same-origin'}))).status,200);
+});
+test('the AI receives the curated, non-predictive card reflections in both languages', () => {
+  const en = readingContext(validateReading({...valid,spreadId:'single',cards:[{id:0,orientation:'upright'}]}));
+  assert.match(en.cards[0].symbolicMeaning,/^The Fool opens a conversation about beginnings/);
+  const uk = readingContext(validateReading({...valid,locale:'uk',spreadId:'single',cards:[{id:0,orientation:'reversed'}]}));
+  assert.match(uk.cards[0].symbolicMeaning,/^Перевернутий Блазень/);
+  for (const locale of ['en','uk']) for (let id=0; id<78; id++) for (const orientation of ['upright','reversed']) {
+    const meaning = readingContext(validateReading({...valid,locale,spreadId:'single',cards:[{id,orientation}]})).cards[0].symbolicMeaning;
+    assert.doesNotMatch(meaning,/\bthe universe\b|Всесвіт|(^|[\s«])(ти|тебе|тобі|твій|твоя|твоє|твої)([\s,.!?»]|$)/i,`${locale} ${id} ${orientation}`);
+  }
 });

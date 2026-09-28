@@ -1,13 +1,18 @@
 {
-  "name": "Olivia Arcana — Written in Your Stars",
+  "name": "Olivia Arcana — A personal practice of tarot",
   "short_name": "Olivia Arcana",
-  "description": "Personalized astrology readings calculated from your exact planetary positions. Real cosmic guidance — written by hand, not templates.",
+  "description": "Bring a question, choose your cards from the full 78-card deck, and keep a private almanac of your readings on this device. Card meanings are prepared reflections; optional personal readings are AI-assisted.",
+  "lang": "en",
+  "dir": "ltr",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#06031a",
-  "theme_color": "#d4af37",
+  "background_color": "#0b192a",
+  "theme_color": "#0b192a",
   "orientation": "portrait-primary",
-  "categories": ["lifestyle", "entertainment", "astrology"],
+  "categories": [
+    "lifestyle",
+    "entertainment"
+  ],
   "icons": [
     {
       "src": "/favicon.ico",

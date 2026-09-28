@@ -1,0 +1,265 @@
+{
+  "id": 54,
+  "slug": "five-of-swords",
+  "artwork": {
+    "file": "54_five_of_swords.webp",
+    "sha256": "928d2dca4a83092f531564415f846174eaa071a0464c1f2ab41b09ce65f54a42"
+  },
+  "symbols": [
+    {
+      "key": "face",
+      "x": 60,
+      "y": 50,
+      "en": {
+        "name": "The smile over the shoulder",
+        "seen": "The ivory figure in the foreground has close curls and a calm profile. The head turns back toward the two figures behind, and the mouth lifts in a small, pleased smile.",
+        "meaning": "Traditionally the central figure of the Five of Swords wears a look of scorn or triumph. Olivia’s carving keeps it quieter: a satisfied half-smile. It asks what winning feels like from the inside, and what it costs to keep looking back at those who lost."
+      },
+      "uk": {
+        "name": "Усмішка через плече",
+        "seen": "Постать зі слонової кістки на передньому плані має щільні кучері й спокійний профіль. Голова обернена назад, до двох постатей позаду, а куточки вуст піднімаються в легкій вдоволеній усмішці.",
+        "meaning": "Традиційно центральна постать П’ятірки Мечів дивиться зневажливо чи тріумфально. Різьба Olivia тихіша: лише вдоволена напівусмішка. Карта запитує, якою перемога є зсередини і чого коштує раз у раз озиратися на тих, хто програв."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 63,
+      "y": 56,
+      "en": {
+        "name": "Two swords hugged close",
+        "seen": "Two ivory swords are clasped diagonally against the chest by one crossed arm, blades rising past the shoulder to just above the horizon, hilts low on the chest at the viewer’s left: one crossguard and two round pommels.",
+        "meaning": "Swords belong to Air: thought, argument, the words you choose. Two blades hugged to the body suggest arguments collected and kept as proof. The grip is possessive rather than ready; these swords are not being used, only owned, and that is the card’s question about victory."
+      },
+      "uk": {
+        "name": "Два мечі, притиснуті до грудей",
+        "seen": "Два мечі зі слонової кістки навскіс притиснуті до грудей рукою, перекинутою через тіло; клинки здіймаються повз плече трохи вище за обрій, а руків’я лежать низько на грудях, ліворуч від глядача: одна хрестовина й два круглі навершя.",
+        "meaning": "Мечі належать Повітрю: думкам, суперечкам, словам, які ви добираєте. Два клинки, притулені до тіла, нагадують зібрані аргументи, які зберігають як доказ. Хват тут власницький, а не бойовий: цими мечами не користуються, ними лише володіють, і саме в цьому запитання карти про перемогу."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 81,
+      "y": 82,
+      "en": {
+        "name": "The sword held point down",
+        "seen": "In the other hand, on the right of the card, a third sword with a lobed pommel hangs point down and outward, gripped just below the crossguard, its tip reaching almost to the lower corner of the relief.",
+        "meaning": "A lowered sword is commonly read as a contest that has ended: the point no longer threatens anyone. Yet it is still carried, not set aside. With the two at the shoulder, three of the card’s five swords now belong to one person."
+      },
+      "uk": {
+        "name": "Меч вістрям донизу",
+        "seen": "У другій руці, праворуч на карті, третій меч із фігурним навершям звисає вістрям донизу й назовні; його стискають одразу під хрестовиною, а кінчик сягає майже нижнього кута рельєфу.",
+        "meaning": "Опущений меч зазвичай читають як знак завершеного двобою: вістря вже нікому не загрожує. Проте його досі несуть, а не відкладають. Разом із двома мечами біля плеча три з п’яти мечів карти тепер належать одній постаті."
+      }
+    },
+    {
+      "key": "sword",
+      "x": 28,
+      "y": 74,
+      "en": {
+        "name": "Two blades on the stones",
+        "seen": "Two ivory swords lie parallel on the blue lapis rocks at the lower left, points toward the card’s edge, crossguards and round pommels to the right, close to the hem of the foreground figure’s robe.",
+        "meaning": "In the traditional image two swords lie on the ground, surrendered or not yet gathered. They mark what the losing side could not keep: arguments, standing, perhaps pride. The card leaves open whether the victor will pick these up as well, or let them lie."
+      },
+      "uk": {
+        "name": "Два клинки на каменях",
+        "seen": "Два мечі зі слонової кістки лежать паралельно на синіх лазуритових скелях унизу ліворуч, вістрями до краю карти, хрестовинами й круглими навершями праворуч, поруч із подолом одягу постаті на передньому плані.",
+        "meaning": "На традиційному зображенні два мечі лежать на землі: здані або ще не підібрані. Вони позначають те, чого не змогла втримати сторона, що програла: аргументи, становище, можливо, гордість. Карта лишає відкритим, чи переможець підбере й ці мечі, чи залишить їх лежати."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 28,
+      "y": 50,
+      "en": {
+        "name": "The face hidden from view",
+        "seen": "The farther of the two figures behind, in a short belted tunic and soft boots, bends forward on the rocky slope, one arm raised and a hand pressed over the face.",
+        "meaning": "Covering the face is one of the oldest gestures of grief and shame, and a figure with head in hand belongs to this card’s traditional image too. It is the other side of the smile in the foreground: the same event, felt as humiliation rather than success."
+      },
+      "uk": {
+        "name": "Обличчя, сховане від очей",
+        "seen": "Дальша з двох постатей позаду, у короткій підперезаній туніці та м’яких чоботях, схиляється вперед на кам’янистому схилі; одна рука піднята, долоня притиснута до обличчя.",
+        "meaning": "Закрите обличчя — один із найдавніших жестів горя й сорому, а постать, що тримається за голову, належить і до традиційного зображення цієї карти. Це зворотний бік усмішки на передньому плані: та сама подія, пережита як приниження, а не як успіх."
+      }
+    },
+    {
+      "key": "other",
+      "x": 37,
+      "y": 56,
+      "en": {
+        "name": "The bowed figure",
+        "seen": "Nearer the foreground, a second figure in a matching tunic walks toward the cliffs with head sunk low, arms hanging loose and empty at the sides, the back heel lifted mid-step on the rocks.",
+        "meaning": "In the traditional image the defeated pair walk away. Where one figure grieves, this one simply goes, unarmed and deflated. Many readers see here the choice to leave a fight that cannot be won fairly: walking away can be defeat, and also the first dignified act after one."
+      },
+      "uk": {
+        "name": "Постать із похиленою головою",
+        "seen": "Ближче до переднього плану друга постать у такій самій туніці йде до скель, низько опустивши голову; руки звисають уздовж тіла, вільні й порожні, а задня п’ята піднята посеред кроку по каменях.",
+        "meaning": "На традиційному зображенні переможена пара відходить. Тоді як одна постать горює, ця просто йде — беззбройна й спустошена. Багато хто бачить тут вибір залишити бій, який не можна виграти чесно: піти може означати поразку, а може стати й першим гідним учинком після неї."
+      }
+    },
+    {
+      "key": "sea",
+      "x": 84,
+      "y": 60,
+      "en": {
+        "name": "The carved sea",
+        "seen": "Behind all three figures a sea carved in rippled blue lapis stretches to a straight horizon, its small waves incised as fine pale lines across the middle of the card.",
+        "meaning": "In the traditional image the quarrel also takes place beside water. Water is the element of feeling, which argument does not reach. The sea here stays wide and untroubled by who won, a reminder that emotions left over after a conflict still need somewhere to go."
+      },
+      "uk": {
+        "name": "Різьблене море",
+        "seen": "За всіма трьома постатями море, вирізьблене у хвилястому синьому лазуриті, тягнеться до рівного обрію; дрібні хвилі прорізані тонкими світлими лініями через середину карти.",
+        "meaning": "На традиційному зображенні сварка теж відбувається біля води. Вода — стихія почуттів, до яких суперечка не дотягується. Море тут лишається широким і спокійним, байдужим до того, хто переміг, і нагадує: почуття, що лишилися після конфлікту, теж потребують виходу."
+      }
+    },
+    {
+      "key": "cloud",
+      "x": 40,
+      "y": 14,
+      "en": {
+        "name": "Gold clouds torn apart",
+        "seen": "High in the dark lapis sky, ragged streaks of gold stretch sideways like clouds pulled apart by wind, with small gold four-pointed stars scattered around them.",
+        "meaning": "The traditional card shows jagged clouds racing across the sky, the weather of a quarrel. Olivia turns them to gold: the storm of a conflict still holds something of value. What is torn apart can also show you what mattered enough to fight over."
+      },
+      "uk": {
+        "name": "Розірвані золоті хмари",
+        "seen": "Високо в темному лазуритовому небі рвані золоті смуги тягнуться вбік, мов хмари, розшматовані вітром, а довкола розсипані дрібні золоті чотирипроменеві зірочки.",
+        "meaning": "Традиційна карта показує зубчасті хмари, що мчать небом, — погоду сварки. Olivia робить їх золотими: навіть буря конфлікту містить щось цінне. Те, що розірване, може показати вам, що важило настільки, аби за це боротися."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 48,
+      "y": 29,
+      "en": {
+        "name": "A glittering diagonal vein",
+        "seen": "A pale vein of glittering mineral runs diagonally through the lapis, from beneath the right end of the gold clouds down toward the cliffs above the two figures behind, like a trail of fine stars.",
+        "meaning": "This detail belongs to the stone, not to the traditional design, yet on this card it reads like a slanting path of light reaching toward those who lost. Even over defeat, the sky is not empty, and another direction is already drawn in."
+      },
+      "uk": {
+        "name": "Мерехтлива діагональна жилка",
+        "seen": "Світла жилка мерехтливого мінералу перетинає лазурит навскіс: з-під правого краю золотих хмар донизу, до скель над двома постатями позаду, наче слід із дрібних зір.",
+        "meaning": "Ця деталь належить каменю, а не традиційному зображенню, проте на цій карті вона читається як скісна стежка світла, що тягнеться до переможених. Навіть над поразкою небо не порожнє, і вже накреслено інший напрямок."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Five of Swords asks what a win really costs: a quarrel ends, one side gathers the swords, and the others are left diminished.",
+    "keywords": {
+      "upright": [
+        "conflict",
+        "hollow victory",
+        "costly win",
+        "pride",
+        "scorekeeping"
+      ],
+      "reversed": [
+        "making amends",
+        "setting swords down",
+        "lingering resentment",
+        "walking away",
+        "old grievances"
+      ]
+    },
+    "upright": [
+      "The Five of Swords shows the moment just after a conflict, when the result is clear but its meaning is not. In Olivia’s carving one ivory figure holds three of the five swords, two hugged against the chest and a third hanging point down, and looks back over a shoulder with a small, pleased smile. Behind, on the rocky shore, one figure bends forward with a hand pressed over the face and another walks with head bowed. Two swords lie on the stones, dropped or not yet gathered.",
+      "Swords are the suit of Air: words, reasoning, argument. Upright, this card draws attention to a contest of that kind, a debate won, a point proved, a position held, and asks honestly what the win has bought. Sometimes it describes standing up for yourself when that was needed. Often it points to a victory that leaves the room colder: the last word secured while trust quietly leaves.",
+      "The card can also show you on the other side of the picture, as one of the figures behind. It does not ask you to decide who was right. It invites you to notice where you stand in the scene, what each sword represents, and whether any of them is worth carrying further. Above it all the clouds are torn, but they are gold: even a bruising exchange can show you what you truly value."
+    ],
+    "reversed": [
+      "Five of Swords reversed turns attention to the aftermath. The swords may be coming down: a wish to make amends, to stop keeping score, or to step back from a contest that no longer serves anyone. Or the conflict may have gone underground, with resentment kept polished long after the argument ended, like the figure in the foreground still clutching blades nobody is fighting over.",
+      "Repair usually needs willingness on more than one side, and you cannot supply that for anyone else. What you can decide is what you are ready to own, what you need, and whether a respectful distance would serve better than another round. Laying down a single sword, a grudge or a rehearsed reply, is already a change."
+    ],
+    "number": "Five breaks the balance that Four built. In every suit it brings disturbance: strife in Wands, loss in Cups, hardship in Pentacles. In Swords, the suit of Air and mind, the disturbance is a clash of ideas and words. The Four of Swords lay in stillness and recovery; the Five is what happens when that rest ends in contention and someone insists on winning. Halfway through the count from Ace to Ten, it asks how you meet difference, not whether difference arrives.",
+    "tradition": "In the Golden Dawn system the Five of Swords is titled the Lord of Defeat. It is assigned to Venus in Aquarius, the first decan of that sign (0 to 10 degrees), and to Geburah, Severity, the fifth Sephirah on the Tree of Life, expressed through the suit of Air. Venus, the planet of harmony and relating, placed in cool, detached Aquarius is often read as affection weakened by argument or pride. Aleister Crowley kept the single title Defeat. Marseille decks show only a pattern of curved blades around one straight sword; Pamela Colman Smith’s 1909 design gave the pip its now familiar scene of one figure gathering swords while two others turn away under a wind-torn sky.",
+    "areas": {
+      "love": "In close relationships the Five of Swords often appears around an argument that someone won and nobody enjoyed. It does not tell you what another person feels or intends. It asks about your part: are you collecting proof, replaying the exchange in search of the winning line, or standing with your face in your hands? The card invites a simpler goal than victory. Name what you actually need, and consider whether being understood matters more than being right, including in the arguments you have with yourself.",
+      "work": "At work or in study, this card can reflect a meeting where a point was forced through, a rivalry, or a competitive setting where colleagues start to feel like opponents. Swords ask for clear thinking, so separate the issue itself from the scorekeeping around it. A win that costs cooperation can cost more than it first appears. Where a real dispute over pay, contracts or rights is involved, a qualified adviser serves better than another round of argument.",
+      "self": "For your relationship with yourself, notice the inner voice that keeps score. It is possible to be every figure on this card at once: the part that wins each internal argument, and the part that bows its head and says nothing. The two swords left on the stones can stand for things you have stopped trying to defend. Ask whether they need picking up again, or whether leaving them where they lie is its own quiet relief."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Five of Swords can point to a conflict or recent quarrel whose outcome is known but whose cost has not yet been counted.",
+      "challenge": "As a challenge, it can show the need to win or to have the last word, or a grievance carried long after the argument itself has ended.",
+      "advice": "As advice, it invites you to choose which sword is worth holding: stand firm where it truly matters, and set down the arguments that only feed pride."
+    },
+    "pairs": [
+      {
+        "with": 26,
+        "text": "The Five of Wands shows a lively contest in which everyone is still playing. Beside the Five of Swords the pair contrasts friction that sharpens people with conflict that divides them, and asks which of the two you are in."
+      },
+      {
+        "with": 55,
+        "text": "The Six of Swords carries its figures across water toward calmer shores. After the Five, with its carved sea behind the defeated pair, it turns attention toward what follows leaving a fight: a quiet crossing, with the swords still aboard."
+      },
+      {
+        "with": 11,
+        "text": "Justice holds a single upright sword and level scales. Next to the Five of Swords it asks whether a win was also fair, and what a just outcome would look like for everyone involved, including you."
+      }
+    ],
+    "questions": [
+      "What would you gain, and what would you lose, by winning this particular argument?",
+      "Which of the swords you are carrying could you set down today?",
+      "If you are one of the figures turning away, what do you need to take with you, and what can stay behind?"
+    ],
+    "practice": "After your next disagreement, write the one sentence you most wanted to win with, then write underneath it what you actually needed."
+  },
+  "uk": {
+    "essence": "П’ятірка Мечів запитує, чого насправді коштує перемога: сварка скінчилася, одна сторона збирає мечі, а інші відходять ослабленими.",
+    "keywords": {
+      "upright": [
+        "конфлікт",
+        "порожня перемога",
+        "виграш дорогою ціною",
+        "гордість",
+        "підрахунок перемог"
+      ],
+      "reversed": [
+        "спроба примирення",
+        "відкладені мечі",
+        "затяжна образа",
+        "відступ",
+        "давні кривди"
+      ]
+    },
+    "upright": [
+      "П’ятірка Мечів показує мить одразу після конфлікту, коли результат уже очевидний, а його сенс — ще ні. У різьбі Olivia одна постать зі слонової кістки тримає три з п’яти мечів: два притискає до грудей, третій несе вістрям донизу — і озирається через плече з невеликою вдоволеною усмішкою. Позаду, на кам’янистому березі, одна постать схиляється вперед, притиснувши долоню до обличчя, а інша йде, похиливши голову. Два мечі лежать на каменях — кинуті або ще не підібрані.",
+      "Мечі — масть Повітря: слів, міркувань, суперечок. У прямому положенні карта звертає увагу саме на таке змагання — виграну дискусію, доведену думку, відстояну позицію — і чесно запитує, що ця перемога принесла. Іноді йдеться про те, щоб постояти за себе, коли це справді було необхідно. Часто ж вона вказує на перемогу, після якої в кімнаті стає холодніше: останнє слово здобуто, а довіра тим часом тихо йде геть.",
+      "Карта може показати вас і з іншого боку сцени — як одну з постатей позаду. Вона не просить вас вирішувати, хто мав рацію. Вона запрошує помітити, де ви стоїте в цій сцені, що означає кожен меч і чи варто нести котрийсь із них далі. Над усім цим хмари розірвані, але золоті: навіть болісна суперечка може показати, що для вас справді цінне."
+    ],
+    "reversed": [
+      "П’ятірка Мечів у перевернутому положенні звертає увагу на наслідки. Можливо, мечі опускаються: з’являється бажання загладити провину, перестати вести рахунок або відступити від змагання, яке вже нікому не йде на користь. А можливо, конфлікт пішов у тінь: образу старанно полірують ще довго після того, як суперечка скінчилася, — як постать на передньому плані, що досі стискає клинки, за які ніхто вже не бореться.",
+      "Примирення зазвичай потребує готовності більш ніж з одного боку, і ви не можете забезпечити її за когось іншого. Та ви можете вирішити, за що готові взяти відповідальність, чого потребуєте і чи не краще зберегти шанобливу дистанцію, ніж іти на ще один раунд. Відкласти бодай один меч — образу чи заготовлену відповідь — уже зміна."
+    ],
+    "number": "П’ять порушує рівновагу, яку збудувала Четвірка. У кожній масті це число приносить неспокій: суперництво в Жезлах, втрату в Кубках, скруту в Пентаклях. У Мечах, масті Повітря й розуму, неспокій — це зіткнення ідей і слів. Четвірка Мечів лежала в тиші й відновлювала сили; П’ятірка — те, що стається, коли цей відпочинок завершується суперечкою і хтось неодмінно хоче виграти. На півдорозі від Туза до Десятки вона запитує не про те, чи з’являться розбіжності, а про те, як ви їх зустрічаєте.",
+    "tradition": "У системі Золотої Зорі П’ятірка Мечів має титул «Володар Поразки». Її пов’язують із Венерою у Водоносі, першим деканом цього знака (від 0 до 10 градусів), і з Гебурою, Суворістю, п’ятою сефірою Дерева Життя, вираженою через масть Повітря. Венеру, планету гармонії та стосунків, у прохолодному, відстороненому Водоносі часто читають як прихильність, ослаблену суперечкою чи гордістю. Алістер Кроулі залишив один титул — «Поразка». Марсельські колоди показують лише візерунок із вигнутих клинків довкола одного прямого меча; дизайн Памели Колман Сміт 1909 року дав цій карті нині звичну сцену: одна постать збирає мечі, а дві інші відвертаються під небом, пошматованим вітром.",
+    "areas": {
+      "love": "У близьких стосунках П’ятірка Мечів часто випадає, коли йдеться про суперечку, яку хтось виграв, але ніхто не мав від неї радості. Вона не каже вам, що відчуває чи має на меті інша людина. Вона запитує про вашу роль: ви збираєте докази, прокручуєте розмову в пошуках переможної репліки чи стоїте, закривши обличчя руками? Карта пропонує простішу мету, ніж перемога. Назвіть, чого ви насправді потребуєте, і подумайте, чи бути зрозумілими не важливіше, ніж мати рацію, — зокрема й у суперечках із самими собою.",
+      "work": "У роботі чи навчанні ця карта може відбивати нараду, де думку продавили силою, суперництво або конкурентне середовище, у якому колеги починають здаватися супротивниками. Мечі вимагають ясного мислення, тож відокремте саму суть справи від підрахунку перемог довкола неї. Перемога, яка коштує співпраці, може обійтися дорожче, ніж здається спершу. Якщо йдеться про справжню суперечку щодо оплати, договорів чи прав, кваліфікований фахівець допоможе краще, ніж ще один раунд сперечань.",
+      "self": "У стосунках із собою помітьте внутрішній голос, що веде рахунок. Можна бути всіма постатями цієї карти водночас: тією частиною, що виграє кожну внутрішню суперечку, і тією, що похиляє голову й мовчить. Два мечі, залишені на каменях, можуть означати те, що ви перестали боронити. Запитайте себе, чи варто підбирати їх знову, чи, можливо, саме в тому, щоб лишити їх там, де вони лежать, і є тихе полегшення."
+    },
+    "positions": {
+      "heart": "У центрі запитання П’ятірка Мечів може вказувати на конфлікт чи недавню сварку, результат якої відомий, а ціну ще не підраховано.",
+      "challenge": "Як виклик вона може показувати потребу виграти чи залишити за собою останнє слово — або образу, яку носять ще довго після того, як сама суперечка скінчилася.",
+      "advice": "Як порада вона запрошує вибрати, який меч варто тримати: стояти твердо там, де це справді важливо, і відкласти суперечки, що лише живлять гордість."
+    },
+    "pairs": [
+      {
+        "with": 26,
+        "text": "П’ятірка Жезлів показує жваве змагання, у якому всі ще грають. Поруч із П’ятіркою Мечів ця пара протиставляє тертя, що гартує людей, конфліктові, що їх роз’єднує, і запитує, у якому з них ви зараз перебуваєте."
+      },
+      {
+        "with": 55,
+        "text": "Шістка Мечів везе свої постаті через воду до спокійніших берегів. Після П’ятірки, з її різьбленим морем за спинами переможених, вона звертає увагу на те, що настає, коли бій залишено: тиха переправа, а мечі все ще на борту."
+      },
+      {
+        "with": 11,
+        "text": "Справедливість тримає один прямий меч і рівні терези. Поруч із П’ятіркою Мечів вона запитує, чи була перемога ще й чесною і яким був би справедливий результат для всіх причетних, зокрема й для вас."
+      }
+    ],
+    "questions": [
+      "Що ви здобудете і що втратите, якщо виграєте саме цю суперечку?",
+      "Який із мечів, що ви несете, ви могли б відкласти вже сьогодні?",
+      "Якщо ви — одна з постатей, що відвертаються, що вам потрібно взяти з собою, а що може залишитися позаду?"
+    ],
+    "practice": "Після наступної суперечки запишіть одне речення, яким вам найбільше хотілося перемогти, а під ним — те, чого ви насправді потребували."
+  }
+}

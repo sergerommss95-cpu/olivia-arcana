@@ -4,7 +4,7 @@ import { useSubscription } from "@/hooks/useSubscription";
 import { shouldRefreshSubscription, subscriptionRequestId, subscriptionState } from "@/lib/experience-subscription";
 
 declare global { interface Window { oliviaNativeBoot?: HTMLElement; OLIVIA_NATIVE?: boolean; OLIVIA_LOCALE?: "en" | "uk"; } }
-export default function NativeExperienceRuntime({scripts, locale, entry = "home"}: {scripts: string[]; locale: "en" | "uk"; entry?: "home" | "decks"}) {
+export default function NativeExperienceRuntime({scripts, atmosphere, locale, entry = "home"}: {scripts: string[]; atmosphere: string; locale: "en" | "uk"; entry?: "home" | "decks"}) {
   const {data, isLoading, error, refresh} = useSubscription();
   const lastRequest = useRef<string | null>(null);
   const mounted = useRef(false);
@@ -66,19 +66,30 @@ export default function NativeExperienceRuntime({scripts, locale, entry = "home"
     if (!location.hash && ["question","journal","spreads","today","decks"].includes(requestedEntry || ""))
       history.replaceState(null, "", location.pathname + location.search + "#" + requestedEntry);
     let cancelled = false;
-    let pendingScript: HTMLScriptElement | null = null;
+    const pendingScripts = new Set<HTMLScriptElement>();
+    const active = () => !cancelled && !!host?.isConnected && window.oliviaNativeBoot === host;
+    // async=false keeps execution in insertion order while the files download in parallel.
+    const load = (src: string) => new Promise<void>((resolve, reject) => {
+      const script = document.createElement("script");
+      pendingScripts.add(script);
+      script.src = src; script.async = false;
+      script.onload = () => { pendingScripts.delete(script); resolve(); };
+      script.onerror = () => { pendingScripts.delete(script); reject(new Error("Experience could not load")); };
+      document.body.append(script);
+    });
     async function boot() {
-      for (const src of scripts) {
-        if (cancelled || !host?.isConnected || window.oliviaNativeBoot !== host) return;
-        await new Promise<void>((resolve, reject) => {
-          const script = document.createElement("script");
-          pendingScript = script;
-          script.src = src; script.async = false;
-          script.onload = () => { pendingScript = null; resolve(); };
-          script.onerror = () => { pendingScript = null; reject(new Error("Experience could not load")); };
-          document.body.append(script);
-        });
-      }
+      if (!active()) return;
+      await Promise.all(scripts.map(load));
+      if (!active()) return;
+      // The living atmosphere needs a working WebGPU adapter. Elsewhere the static
+      // palette is the designed fallback, so the 2.5 MB shader bundle is never fetched.
+      const canvas = document.getElementById("atmosphere");
+      const staticBackground = new URLSearchParams(location.search).get("background") === "static";
+      const gpu = (navigator as Navigator & { gpu?: { requestAdapter(): Promise<unknown> } }).gpu;
+      const adapter = !staticBackground && gpu ? await gpu.requestAdapter().catch(() => null) : null;
+      if (!active()) return;
+      if (adapter) await load(atmosphere).catch(() => {});
+      else if (canvas) { canvas.dataset.state = "fallback"; document.documentElement.classList.add("atmosphere-fallback"); }
     }
     void boot().catch(() => {
       if (cancelled || !host.isConnected) return;
@@ -95,14 +106,15 @@ export default function NativeExperienceRuntime({scripts, locale, entry = "home"
       queueMicrotask(() => {
         if (host.isConnected) return;
         cancelled = true;
-        if (pendingScript) {
-          pendingScript.onload = null;
-          pendingScript.onerror = null;
-          pendingScript.remove();
+        for (const script of pendingScripts) {
+          script.onload = null;
+          script.onerror = null;
+          script.remove();
         }
+        pendingScripts.clear();
         if (window.oliviaNativeBoot === host) location.reload();
       });
     };
-  }, [scripts, locale, entry]);
+  }, [scripts, atmosphere, locale, entry]);
   return null;
 }

@@ -1,0 +1,265 @@
+{
+  "id": 13,
+  "slug": "death",
+  "artwork": {
+    "file": "13_death.webp",
+    "sha256": "5e08de210841c9d3b9cc070b2d1fbedef45c7afd618cf9b66efef17404a2147a"
+  },
+  "symbols": [
+    {
+      "key": "rose",
+      "x": 51,
+      "y": 44,
+      "en": {
+        "name": "The rose on the banner",
+        "seen": "A long ivory banner hangs from a crossbar on a staff whose tip rises above it like a cross. In its lower half a single full-blown rose is carved in relief, with four leaves on its stem.",
+        "meaning": "Death’s banner traditionally carries a white rose, commonly read as purity and life that continues through change. Smith set it on a black flag; here banner and rose are the same pale ivory, so the flag reads less as mourning and more as a standard of quiet renewal."
+      },
+      "uk": {
+        "name": "Троянда на стязі",
+        "seen": "Довгий стяг зі слонової кістки звисає з поперечини на древку, верхівка якого здіймається над ним, мов хрест. У нижній половині стяга рельєфом вирізьблено одну пишно розкриту троянду з чотирма листками на стеблі.",
+        "meaning": "Стяг Смерті традиційно несе білу троянду, яку зазвичай тлумачать як чистоту й життя, що триває крізь зміни. Сміт помістила її на чорний прапор; тут і стяг, і троянда однаково світлі, кольору слонової кістки, тож прапор читається не як жалоба, а як знамено тихого оновлення."
+      }
+    },
+    {
+      "key": "skeleton",
+      "x": 53,
+      "y": 57,
+      "en": {
+        "name": "The hooded skeleton rider",
+        "seen": "An ivory skull looks out from a deep ivory hood whose cloak falls over the horse’s back. Beneath it the body is armoured in grey plate; both ivory hands grip the banner staff, one above the other.",
+        "meaning": "The skeleton is what remains when everything changeable has gone: the structure beneath appearances. Armour makes the rider steady rather than cruel. Olivia gives it a soft hood instead of a plumed helmet, which lends the figure the stillness of a pilgrim more than a conqueror."
+      },
+      "uk": {
+        "name": "Скелет-вершник у каптурі",
+        "seen": "З глибокого каптура визирає череп, обидва вирізьблені зі слонової кістки; плащ спадає на спину коня. Під плащем тіло закуте в сірі латні обладунки; обидві руки зі слонової кістки стискають древко стяга, одна над одною.",
+        "meaning": "Скелет — це те, що лишається, коли зникло все мінливе: кістяк, прихований під зовнішнім. Обладунки роблять вершника стійким, а не жорстоким. Olivia вдягає фігуру в м’який каптур замість шолома з плюмажем, і це надає їй спокою паломництва, а не завоювання."
+      }
+    },
+    {
+      "key": "horse",
+      "x": 31,
+      "y": 67,
+      "en": {
+        "name": "The pale walking horse",
+        "seen": "A large ivory horse walks towards the left at an even pace, the near foreleg lifted. The bridle is plain, the rein runs in a slack curve from the bit up to the rider’s hands, and the eye is calm.",
+        "meaning": "A white horse is traditionally a carrier of purity and strength, and here it walks rather than charges. The loose rein matters: nothing is being driven or forced. Change in this card moves at the pace of a steady walk, which is why it cannot be hurried or outrun."
+      },
+      "uk": {
+        "name": "Блідий кінь, що йде кроком",
+        "seen": "Великий кінь зі слонової кістки рівним кроком іде ліворуч, ближню передню ногу піднято. Вуздечка проста, повід провисає м’якою дугою від вудил до рук вершника, а око коня спокійне.",
+        "meaning": "Білий кінь традиційно уособлює чистоту й силу, і тут він іде кроком, а не мчить. Важливий і вільний повід: нікого не підганяють і ні до чого не змушують. Зміна в цій карті рухається в темпі рівного кроку, тому її не можна ні підганяти, ні втекти від неї."
+      }
+    },
+    {
+      "key": "sun",
+      "x": 38,
+      "y": 54,
+      "en": {
+        "name": "The gold half-sun",
+        "seen": "On the far horizon, left of the banner staff, a gold half-disc rests on the line of the hills. Two slim lapis towers stand on the skyline, one near each side of the card.",
+        "meaning": "The sun on the horizon between two towers is a classic detail of this card, read as a threshold: light that is either leaving or arriving. It is the largest piece of gold on this card, set in the distance on the side the horse is walking towards."
+      },
+      "uk": {
+        "name": "Золоте півсонце",
+        "seen": "На далекому обрії, ліворуч від древка стяга, золотий півдиск лежить на лінії пагорбів. На тлі неба стоять дві стрункі лазуритові вежі, по одній ближче до кожного краю карти.",
+        "meaning": "Сонце на обрії між двома вежами — класична деталь цієї карти, яку читають як поріг: світло, що або згасає, або приходить. Це найбільша золота деталь на карті, і розміщено її вдалині, саме з того боку, куди йде кінь."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 27,
+      "y": 90,
+      "en": {
+        "name": "The fallen King",
+        "seen": "At lower left a figure carved in grey-blue lapis lies full length, cheek to the earth and eyes open, one hand resting before the face. The pale crown is still on, just below the horse’s lifted hoof.",
+        "meaning": "The fallen King is the traditional sign that no rank or authority stands outside change. The crown has not been taken off; it simply no longer holds anything up. It invites a gentle question about which of your own titles and roles have finished their work."
+      },
+      "uk": {
+        "name": "Повалений Король",
+        "seen": "Унизу ліворуч постать, вирізьблена із сіро-блакитного лазуриту, лежить на весь зріст, щокою до землі, з розплющеними очима, одна рука перед обличчям. Світла корона досі на голові, просто під піднятим копитом коня.",
+        "meaning": "Повалений Король — традиційний знак того, що жоден сан і жодна влада не стоять поза змінами. Корону не зняли; вона просто вже нічого не підтримує. Карта м’яко запрошує запитати себе, які з ваших власних титулів і ролей уже виконали свою роботу."
+      }
+    },
+    {
+      "key": "other",
+      "x": 88,
+      "y": 70,
+      "en": {
+        "name": "The figures at prayer",
+        "seen": "At the right edge, carved in blue lapis, a tall mitred bishop stands with palms pressed together, facing the rider. Below, a long-haired figure kneels with hands clasped at the chest and head bowed.",
+        "meaning": "The bishop meeting Death with folded hands is a traditional image of acceptance through faith or ritual; the kneeling figure turns inward instead. Together they show two ways of standing before an ending: facing it directly, or quietly bowing to what cannot be argued with."
+      },
+      "uk": {
+        "name": "Постаті в молитві",
+        "seen": "Біля правого краю стоїть вирізьблений із синього лазуриту високий єпископ у митрі зі складеними долонями, обличчям до вершника. Нижче постать із довгим волоссям стоїть навколішки, руки складено біля грудей, голову схилено.",
+        "meaning": "Єпископ, що зустрічає Смерть зі складеними руками, — традиційний образ прийняття через віру чи обряд; постать навколішках натомість заглиблюється в себе. Разом вони показують два способи стояти перед завершенням: дивитися йому просто у вічі або тихо схилитися перед тим, що неможливо заперечити."
+      }
+    },
+    {
+      "key": "child",
+      "x": 53,
+      "y": 89,
+      "en": {
+        "name": "The child with a flower",
+        "seen": "Beneath the horse’s belly, between its front and hind legs, a small barefoot child in a short tunic, carved in pale grey-blue, steps forward and holds up a small flower in both hands.",
+        "meaning": "A child is part of the traditional crowd around Death, commonly read as innocence that meets change without fear. Here the child is on foot beneath the horse, walking the same way it goes, and the small flower held up answers the rose on the banner above."
+      },
+      "uk": {
+        "name": "Дитина з квіткою",
+        "seen": "Під черевом коня, між передніми й задніми ногами, маленька боса дитина в короткій туніці, вирізьблена з блідого сіро-блакитного каменю, ступає вперед і обома руками підносить маленьку квітку.",
+        "meaning": "Дитина — частина традиційного гурту довкола Смерті; її зазвичай тлумачать як невинність, що зустрічає зміну без страху. Тут дитина йде пішки під конем, у той самий бік, що й він, а квітка, яку вона підносить, перегукується з трояндою на стязі вгорі."
+      }
+    },
+    {
+      "key": "boat",
+      "x": 13,
+      "y": 74,
+      "en": {
+        "name": "The river and boat",
+        "seen": "A river winds from the horizon down the left side of the card in pale, rippled lapis. Near the lower bend a small boat carries one seated figure holding an oar.",
+        "meaning": "The river and boat of the traditional image are often compared with the crossing to the far shore in older myths. Water keeps moving without losing itself, and the lone rower suggests that every passage through change is made one stroke at a time."
+      },
+      "uk": {
+        "name": "Річка й човен",
+        "seen": "Річка з блідого брижастого лазуриту звивається від обрію вниз уздовж лівого боку карти. Біля нижнього вигину в невеликому човні сидить одна постать із веслом.",
+        "meaning": "Річку й човен традиційного образу часто порівнюють із переправою на той берег у давніх міфах. Вода тече далі, не втрачаючи себе, а самотня постать із веслом нагадує, що кожен перехід крізь зміну долають гребок за гребком."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 33,
+      "y": 22,
+      "en": {
+        "name": "The glittering sky band",
+        "seen": "A diagonal band of bright, pale blue and silvery chips runs from the top edge down towards the left, passing to the upper left of the banner among small gold star flecks.",
+        "meaning": "This band of light is Olivia’s addition, not part of the traditional card. Several cultures pictured the Milky Way as a road for souls, so it lifts the scene beyond one ending: the passage below mirrors a much larger, continuous movement overhead."
+      },
+      "uk": {
+        "name": "Мерехтлива смуга в небі",
+        "seen": "Діагональна смуга яскравих блідо-блакитних і сріблястих крихт тягнеться від верхнього краю вниз і ліворуч, проходячи вище й лівіше від стяга, серед дрібних золотих зірочок.",
+        "meaning": "Ця смуга світла — доповнення Olivia, на традиційній карті її немає. Чимало культур уявляли Чумацький Шлях дорогою душ, тож смуга виводить сцену за межі одного завершення: перехід унизу віддзеркалює значно більший, безперервний рух угорі."
+      }
+    }
+  ],
+  "en": {
+    "essence": "Death marks the natural end of a form, a role or a chapter, and the steady, unhurried passage that clears room for what can follow.",
+    "keywords": {
+      "upright": [
+        "ending",
+        "transformation",
+        "release",
+        "transition",
+        "clearing space"
+      ],
+      "reversed": [
+        "resistance",
+        "lingering",
+        "stagnation",
+        "delayed release",
+        "inner change"
+      ]
+    },
+    "upright": [
+      "Death is a symbolic card about change, not a forecast of anyone’s death. It draws attention to something that has reached the end of its current form: a habit, a role, a way of relating, a story you have been telling about yourself. Look at how Olivia pictures that ending. The ivory horse walks with a loose rein, one foreleg lifted, and the armoured rider carries a banner, not a weapon. The change here is not violent; it is simply unstoppable, moving at the pace of a walk.",
+      "Around the rider, each figure meets the same moment differently. The King lies full length on the ground with the crown still on, as if authority had quietly stopped holding anything up. The bishop faces the rider with folded hands, a second figure kneels with head bowed, and a small child walks alongside holding a flower. The card asks which of these postures is closest to yours right now, and whether another one might serve you better.",
+      "Above them hangs the banner with its single ivory rose, and on the horizon a gold half-sun rests between two towers. Endings in this card are thresholds. The card invites you to honour what is finishing, including any grief or relief it brings, while turning some attention toward the light that is already on the horizon."
+    ],
+    "reversed": [
+      "Death reversed points to change that is slowed, resisted or happening mostly inside. You may be holding on to a form that has already finished its work, like a crown kept on after the reign is over, or pushing an ending faster than you can absorb it. Neither is a failure; both suggest the transition wants more honesty or more time.",
+      "The reversed card can also describe a quiet inner shedding that nobody else can see yet. Ask what you are still carrying out of habit, and what small step would let the rider keep walking at a pace you can bear."
+    ],
+    "number": "Death is card XIII, arriving directly after The Hanged Man. Twelve completes a cycle, like months in a year or signs of the zodiac; thirteen steps beyond it into what cannot be counted in the old way. In the Fool’s journey this is the point where the surrender practised in suspension becomes actual release: something is let go so that Temperance, card XIV, can begin mixing a new balance. The step asks you to stop negotiating with what has already ended.",
+    "tradition": "In the Golden Dawn system Death is Atu XIII, titled “The Child of the Great Transformers, Lord of the Gate of Death”. It is assigned the Hebrew letter Nun, meaning fish, and the sign Scorpio, fixed Water, on the path joining Tiphareth and Netzach on the Tree of Life. Many older Marseille decks printed the number with no name, showing a skeleton mowing a field of heads and hands with a scythe. Pamela Colman Smith’s 1909 design replaced the reaper with an armoured rider on a white horse carrying a banner with a white rose, meeting a fallen king, a bishop, a kneeling figure and a child.",
+    "areas": {
+      "love": "In close relationships Death draws attention to a pattern that has run its course: an old argument, a role you keep playing, a version of the bond that no longer fits. It does not say a relationship is over. It asks what form is ending, so that something more honest can take its place. With yourself, it can mean letting go of an old self-image, as gently as the rider’s loose rein.",
+      "work": "At work or in study, Death can point to a project, method or identity that has quietly finished. You might notice that effort goes into maintaining a structure rather than the actual task. The card invites a clear look at what to close, archive or hand over, and what to keep. With money matters, it suggests reviewing old commitments and habits calmly, rather than making sudden moves.",
+      "self": "For your own growth, Death asks where you are carrying something past its natural end: a grievance, a label, a rule you set for yourself years ago. The figures around the rider offer choices: lie still like the fallen King, pray like the bishop, bow like the kneeling figure, or walk forward with a flower like the child. Notice which comes naturally, and which you would like to practise."
+    },
+    "positions": {
+      "heart": "At the centre of a question, Death can point to an ending as the real subject, perhaps one already under way. The question may be less about what to start and more about what to let finish.",
+      "challenge": "As a challenge, Death can show resistance to a change that may already be moving, or grief that has not yet been given room. Holding the old form in place may be taking energy.",
+      "advice": "As advice, Death invites you to name one thing that has finished and close it deliberately: a conversation, a file, a habit. Clearing a little space lets the next step become visible."
+    },
+    "pairs": [
+      {
+        "with": 12,
+        "text": "With The Hanged Man, the sequence becomes clear: first a pause and a change of view, then the actual release. Together they ask whether you are still waiting, or whether the letting go has quietly begun."
+      },
+      {
+        "with": 14,
+        "text": "With Temperance, the card that follows it, Death’s clearing is followed by patient mixing and repair. Together they suggest giving an ending time to settle before blending old and new into a steadier balance."
+      },
+      {
+        "with": 16,
+        "text": "With The Tower, two kinds of change meet: Death’s slow, walking transition and the Tower’s sudden break. Together they invite you to notice whether something is ending gradually or all at once, and how to meet each pace."
+      }
+    ],
+    "questions": [
+      "What in your life has already ended, even if you are still acting as though it continues?",
+      "Which figure around the rider is closest to how you are meeting this change right now?",
+      "What would you like to carry through this transition, like the rose on the banner?"
+    ],
+    "practice": "Write down one role, habit or belief that has finished its work, thank it for one thing it gave you, then fold the paper away."
+  },
+  "uk": {
+    "essence": "Смерть позначає природне завершення форми, ролі чи розділу життя — і рівний, неквапний перехід, що звільняє місце для того, що може прийти слідом.",
+    "keywords": {
+      "upright": [
+        "завершення",
+        "трансформація",
+        "звільнення",
+        "перехід",
+        "розчищення місця"
+      ],
+      "reversed": [
+        "опір",
+        "затягування",
+        "застій",
+        "відкладене відпускання",
+        "внутрішня зміна"
+      ]
+    },
+    "upright": [
+      "Смерть — символічна карта про зміну, а не прогноз чиєїсь смерті. Вона привертає увагу до того, що дійшло до кінця своєї теперішньої форми: до звички, ролі, способу будувати стосунки, історії, яку ви розповідаєте про себе. Погляньте, як Olivia зображує це завершення. Кінь зі слонової кістки іде на вільному поводі, піднявши одну передню ногу, а вершник в обладунках несе стяг, а не зброю. Зміна тут не насильницька; вона просто невідворотна й рухається в темпі кроку.",
+      "Довкола вершника кожна постать зустрічає ту саму мить по-своєму. Король лежить на землі на весь зріст, не знявши корони, ніби влада тихо перестала будь-що підтримувати. Єпископ стоїть обличчям до вершника зі складеними руками, інша постать навколішках схиляє голову, а маленька дитина йде поруч із квіткою в руках. Карта запитує, який із цих способів найближчий вам зараз і чи не підійшов би вам краще інший.",
+      "Над ними висить стяг із єдиною трояндою зі слонової кістки, а на обрії між двома вежами лежить золоте півсонце. Завершення в цій карті — це пороги. Карта запрошує вшанувати те, що закінчується, разом із сумом чи полегшенням, які воно приносить, і водночас повернути частину уваги до світла, що вже з’явилося на обрії."
+    ],
+    "reversed": [
+      "Смерть у перевернутому положенні вказує на зміну, що сповільнюється, наштовхується на опір або відбувається здебільшого всередині. Можливо, ви тримаєтеся за форму, яка вже виконала свою роботу, — як за корону, яку не знімають, коли правління скінчилося, — або підганяєте завершення швидше, ніж встигаєте його прожити. Ні те, ні інше не є поразкою; обидва випадки підказують, що перехід потребує більше чесності або більше часу.",
+      "Перевернута карта може описувати й тихе внутрішнє звільнення від старого, якого поки не помічає ніхто інший. Запитайте себе, що ви досі несете за звичкою і який маленький крок дозволив би вершникові йти далі в темпі, який вам під силу."
+    ],
+    "number": "Смерть — карта XIII, що йде одразу після Повішеного. Дванадцять завершує цикл, як дванадцять місяців року чи знаків зодіаку; тринадцять виходить за його межі, у те, що вже неможливо полічити по-старому. У подорожі Блазня це мить, коли смирення, якого вчилися в підвішеному стані, стає справжнім відпусканням: щось відпускають, щоб Помірність, карта XIV, могла почати складати нову рівновагу. Цей крок просить вас перестати торгуватися з тим, що вже скінчилося.",
+    "tradition": "У системі Золотої Зорі Смерть — Ату XIII з титулом «Дитя Великих Перетворювачів, Владар Брами Смерті». Їй відповідають єврейська літера Нун, що означає «риба», і Скорпіон, фіксований знак Води; карта лежить на шляху, що з’єднує Тіферет і Нецах на Дереві Життя. Багато давніх марсельських колод друкували номер без назви й показували скелет, що косою косить поле голів і рук. 1909 року Памела Колман Сміт замінила косаря вершником в обладунках на білому коні зі стягом, на якому біла троянда; його зустрічають повалений король, єпископ, постать навколішках і дитина.",
+    "areas": {
+      "love": "У близьких стосунках Смерть привертає увагу до звичного сценарію, що вичерпав себе: давньої суперечки, ролі, яку ви й далі граєте, версії зв’язку, яка вже не пасує. Вона не каже, що стосунки скінчилися. Вона запитує, яка форма завершується, щоб на її місце могло прийти щось чесніше. У стосунках із собою це може означати відпустити старий образ себе так само м’яко, як вершник тримає вільний повід.",
+      "work": "У роботі чи навчанні Смерть може вказувати на проєкт, метод або професійну ідентичність, що тихо вичерпали себе. Ви можете помітити, що зусилля йдуть на підтримку структури, а не на саму справу. Карта запрошує тверезо подивитися, що закрити, заархівувати чи передати, а що залишити. У грошових питаннях вона підказує спокійно переглянути давні зобов’язання й звички замість різких кроків.",
+      "self": "Коли йдеться про ваше власне зростання, Смерть запитує, де ви несете щось і після того, як воно природно скінчилося: образу, ярлик, правило, яке встановили собі багато років тому. Постаті довкола вершника пропонують вибір: лежати нерухомо, як повалений Король, молитися, як єпископ, схилитися, як постать навколішках, або йти вперед із квіткою, як дитина. Помітьте, що дається вам природно, а чого хотілося б повчитися."
+    },
+    "positions": {
+      "heart": "У центрі запитання Смерть може вказувати на завершення як на справжню тему, і, можливо, воно вже триває. Запитання може бути не стільки про те, що почати, скільки про те, чому дати скінчитися.",
+      "challenge": "Як виклик Смерть може показувати опір зміні, що, можливо, вже рухається, або сум, якому ще не дали місця. Утримання старої форми на місці може забирати сили.",
+      "advice": "Як порада Смерть запрошує назвати одну річ, що вже скінчилася, і свідомо її закрити: розмову, файл, звичку. Трохи звільненого місця допомагає розгледіти наступний крок."
+    },
+    "pairs": [
+      {
+        "with": 12,
+        "text": "Поруч із Повішеним стає зрозумілою послідовність: спершу пауза й зміна погляду, потім справжнє відпускання. Разом вони запитують, чи ви ще чекаєте, чи відпускання вже тихо почалося."
+      },
+      {
+        "with": 14,
+        "text": "З Помірністю, картою, що йде слідом, за розчищенням Смерті приходять терпляче змішування й відновлення. Разом вони підказують дати завершенню час улягтися, перш ніж поєднувати старе й нове в стійкішу рівновагу."
+      },
+      {
+        "with": 16,
+        "text": "З Вежею зустрічаються два види змін: повільний перехід Смерті, що йде кроком й раптовий злам Вежі. Разом вони запрошують помітити, чи щось завершується поступово, чи все одразу, і як зустріти кожен із цих темпів."
+      }
+    ],
+    "questions": [
+      "Що у вашому житті вже скінчилося, навіть якщо ви досі поводитеся так, ніби воно триває?",
+      "Яка постать довкола вершника найближча до того, як ви зустрічаєте цю зміну зараз?",
+      "Що вам хотілося б пронести крізь цей перехід, як троянду на стязі?"
+    ],
+    "practice": "Запишіть одну роль, звичку чи переконання, що вже виконали свою роботу, подякуйте їм за одну річ, яку вони дали, а потім складіть аркуш і відкладіть його."
+  }
+}

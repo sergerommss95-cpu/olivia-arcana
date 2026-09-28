@@ -10,7 +10,7 @@ export function createDeckController({original,collections={},storage}){
  try{const saved=storage?.getItem(DECK_PREFERENCE_KEY);if(DECK_IDS.includes(saved)&&complete(saved))preferred=saved;}catch{}
  let active=preferred;
  const get=id=>registry[resolveDeckId(id)]||original;
- const assets={get back(){return get(active).back;},get cards(){return get(active).cards;},get deckId(){return active;},forRecord(record){return get(record?.deckId);}};
+ const assets={...original,get back(){return get(active).back;},get cards(){return get(active).cards;},get deckId(){return active;},forRecord(record){return get(record?.deckId);}};
  return {assets,original,get,getSelectedId:()=>preferred,getActiveId:()=>active,
   availableIds:()=>DECK_IDS.filter(complete),
   use(id){active=complete(resolveDeckId(id))?resolveDeckId(id):DEFAULT_DECK_ID;return get(active);},

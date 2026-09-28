@@ -1,0 +1,653 @@
+{
+  "flags": "iu",
+  "en": {
+    "closed": [
+      {
+        "id": "yes-no",
+        "pattern": "\\byes\\s*(?:or|/|-)\\s*no\\b|\\bno\\s+or\\s+yes\\b|\\btrue\\s+or\\s+false\\b|\\bor\\s+not(?=[\\s?.!…]*$)",
+        "note": "A yes or no leaves most of the 78 cards with nothing useful to say. An open “What…” or “How…” lets any card speak.",
+        "example": {
+          "from": "Yes or no: should I take the offer?",
+          "to": "What do I need to understand before I answer the offer?"
+        }
+      },
+      {
+        "id": "when",
+        "pattern": "\\bwhen\\s+(?:will|would|shall|should|can|could|might|may)\\b(?!\\s+you\\b)|\\bwhen[’']ll\\b|\\bwhen\\s+(?:is|am|are)\\s+(?:it|this|that|i|we|he|she|they|things)\\s+(?:ever\\s+)?(?:going\\s+to|gonna)\\b|\\bwhen\\s+(?:is|[’']s)\\s+(?:the\\s+)?(?:right|best|good)\\s+(?:time|moment)\\b|\\bhow\\s+soon\\b|\\bhow\\s+long\\s+(?:until|till|before|will|must\\s+i\\s+wait|do\\s+i\\s+(?:have\\s+to\\s+)?wait)\\b|\\bby\\s+when\\b|\\b(?:what|which)\\s+(?:date|day|month|year|season)\\s+(?:will|would|should|is|does)\\b|\\bany\\s+time\\s+soon\\b",
+        "note": "Timing questions ask the cards for a date they cannot give. Asking what would help now gives every card something to offer.",
+        "example": {
+          "from": "When will I meet someone?",
+          "to": "What would help me be open to connection right now?"
+        }
+      },
+      {
+        "id": "what-will-happen",
+        "pattern": "\\bwhat(?:\\s+will|\\s+would|\\s+is\\s+going\\s+to|\\s+is\\s+gonna|[’']s\\s+going\\s+to|[’']s\\s+gonna|[’']ll)\\s+happen\\b|\\bwhat\\s+(?:awaits|lies\\s+ahead|is\\s+(?:ahead|in\\s+store|coming)|the\\s+future\\s+(?:holds|brings))\\b|\\bwhat[’']s\\s+(?:ahead|in\\s+store|coming|next\\s+for)\\b|\\bwhat\\s+(?:does\\s+)?(?:my|our|the)\\s+future\\s+(?:holds?|looks?\\s+like|brings?)\\b|\\bhow\\s+(?:will|would)\\s+(?:it|this|that|things|everything|we|they)\\s+(?:all\\s+)?(?:end|turn\\s+out|go|play\\s+out|work\\s+out)\\b|\\bhow\\s+(?:is|[’']s)\\s+(?:it|this|that|everything)\\s+(?:going\\s+to|gonna)\\s+(?:end|turn\\s+out|go|play\\s+out)\\b",
+        "note": "This asks the cards to forecast. Asking what you want, and which part is yours to shape, gives any card something to say.",
+        "example": {
+          "from": "What will happen with my relationship?",
+          "to": "What do I want this relationship to feel like, and which part is mine to shape?"
+        }
+      },
+      {
+        "id": "is-it-going-to",
+        "pattern": "(?<=^\\s*|[.!?;:,(“\"—–]\\s*|\\b(?:and|but|or|so|then|also|honestly|really|tell\\s+me|i\\s+wonder)\\s+)(?:is|isn[’']t|are|aren[’']t)\\s+(?:it|this|that|things|everything|he|she|they|my\\s+\\w+|our\\s+\\w+|the\\s+\\w+)\\s+(?:ever\\s+|really\\s+|actually\\s+|still\\s+)?(?:going\\s+to|gonna)\\b(?!\\s+(?:the|a|an|my|your|his|her|their|our|school|bed|church|town|see)\\b|\\s+work\\b(?!\\s+out))",
+        "note": "This asks for a forecast, so most cards seem to miss. Ask what would help it go well and what is within your reach.",
+        "example": {
+          "from": "Is it going to work out?",
+          "to": "What would help this go well, and what is within my reach this week?"
+        }
+      },
+      {
+        "id": "am-i-going-to",
+        "pattern": "(?<=^\\s*|[.!?;:,(“\"—–]\\s*|\\b(?:and|but|or|so|then|also|honestly|really|tell\\s+me|i\\s+wonder)\\s+)(?:am|aren[’']t)\\s+i\\s+(?:ever\\s+|really\\s+|actually\\s+|still\\s+)?(?:going\\s+to|gonna)\\b(?!\\s+(?:the|a|an|my|your|his|her|their|our|school|bed|church|town|see)\\b|\\s+work\\b(?!\\s+out))|(?<=^\\s*|[.!?;:,(“\"—–]\\s*|\\b(?:and|but|or|so|then|also|honestly|really|tell\\s+me|i\\s+wonder)\\s+)(?:are|aren[’']t)\\s+we\\s+(?:ever\\s+|really\\s+|actually\\s+|still\\s+)?(?:going\\s+to|gonna)\\b(?!\\s+(?:the|a|an|my|your|his|her|their|our|school|bed|church|town|see)\\b|\\s+work\\b(?!\\s+out))",
+        "note": "This asks the cards to foretell your part. Ask what would prepare you or make the next step easier, and any card can answer.",
+        "example": {
+          "from": "Am I going to pass my exams?",
+          "to": "What one change would make my revision easier to begin tomorrow?"
+        }
+      },
+      {
+        "id": "will",
+        "pattern": "(?<!\\b(?:what|how|which|where|who|whom|whose|why)\\b[^.?!]*)\\b(?:will|won[’']t|shall)\\s+(?:i|we|he|she|they|it|this|that|there|things|everything|anything|someone|anyone|my|our|his|her|their|the)\\b|(?<!\\b(?:what|how|which|where|who|whom|whose|why)\\b[^.?!]*)\\b(?:if|whether)\\s+(?:i|we|he|she|they|it|this|that|things|everything|my\\s+\\w+|our\\s+\\w+)(?:\\s+will|\\s+won[’']t|[’']ll)\\b",
+        "note": "“Will…?” asks for a forecast, and most cards leave that unanswered. Ask what you can notice, shape or bring instead.",
+        "example": {
+          "from": "Will I get the job?",
+          "to": "What am I underplaying about what I bring?"
+        }
+      },
+      {
+        "id": "should-i",
+        "gentle": true,
+        "pattern": "(?<!\\b(?:what|how|which|where|who|whom|whose|why)\\b[^.?!]*)\\bshould\\s+(?:i|we)\\b|(?<!\\b(?:what|how|which|where|who|whom|whose|why)\\b[^.?!]*)\\b(?:whether|if)\\s+(?:or\\s+not\\s+)?(?:i|we)\\s+should\\b|(?<!\\b(?:what|how|which|where|who|whom|whose|why)\\b[^.?!]*)\\b(?:do|would)\\s+you\\s+(?:think|say|advise)\\s+(?:that\\s+)?(?:i|we)\\s+should\\b",
+        "note": "“Should I…?” quietly hands your choice to the cards. Asking what you need to understand before choosing keeps the decision with you.",
+        "example": {
+          "from": "Should I leave?",
+          "to": "What do I need to understand before choosing whether to stay or go?"
+        }
+      },
+      {
+        "id": "meant-to-be",
+        "pattern": "\\b(?:am|are|is|was|were)\\s+(?:i|we|he|she|they|it|this|that|you)\\s+(?:really\\s+|truly\\s+)?(?:meant|destined|fated)\\s+(?:to|for)\\b|\\b(?:is|are|was|were)\\s+(?:he|she|they|this\\s+\\w+|my\\s+\\w+)\\s+(?:the\\s+one|my\\s+(?:soul\\s*mate|twin\\s+flame|person))\\b|\\bmeant\\s+to\\s+be\\s+(?:together|with)\\b|\\bsoul\\s*mates?\\b|\\btwin\\s+flames?\\b",
+        "note": "“Meant to be” and “the one” ask for a verdict. Ask what you want from closeness, and where you already see it.",
+        "example": {
+          "from": "Are we meant to be together?",
+          "to": "What am I looking for in closeness, and where do I already see it?"
+        }
+      },
+      {
+        "id": "is-he-she-they",
+        "pattern": "(?<=^\\s*|[.!?;:,(“\"—–]\\s*|\\b(?:and|but|or|so|then|also|honestly|really|tell\\s+me|i\\s+wonder)\\s+)(?:is|isn[’']t|are|aren[’']t|was|wasn[’']t|were|weren[’']t|has|hasn[’']t|have|haven[’']t)\\s+(?:he|she|they|someone|somebody|(?:my|our)\\s+(?:ex|partner|boyfriend|girlfriend|husband|wife|spouse|fianc[eé]e?|crush|lover|date|boss|manager|colleague|co-?worker|friend|best\\s+friend|mother|father|mum|mom|dad|parents?|sister|brother|son|daughter|child|children|kids?|family|in-laws|teacher|client|landlord|neighbou?r|flatmate|roommate)|(?:this|that|the)\\s+(?:person|man|woman|guy|girl|boy))\\b",
+        "note": "This asks for a fact about someone else. Turn it towards what you can observe and what you would like to ask them directly.",
+        "example": {
+          "from": "Is he serious about us?",
+          "to": "What would I like to ask directly about where we stand?"
+        }
+      },
+      {
+        "id": "does-do",
+        "pattern": "(?<=^\\s*|[.!?;:,(“\"—–]\\s*|\\b(?:and|but|or|so|then|also|honestly|really|tell\\s+me|i\\s+wonder)\\s+)(?:does|doesn[’']t|do|don[’']t|did|didn[’']t)\\s+(?:i|we|he|she|they|it|this|that|my|our|his|her|their|the|(?:he|she|they|someone|somebody|(?:my|our)\\s+(?:ex|partner|boyfriend|girlfriend|husband|wife|spouse|fianc[eé]e?|crush|lover|date|boss|manager|colleague|co-?worker|friend|best\\s+friend|mother|father|mum|mom|dad|parents?|sister|brother|son|daughter|child|children|kids?|family|in-laws|teacher|client|landlord|neighbou?r|flatmate|roommate)|(?:this|that|the)\\s+(?:person|man|woman|guy|girl|boy)))\\b|(?<!\\b(?:what|how|which|where|who|whom|whose|why)\\b[^.?!]*)\\b(?:do|does)\\s+(?:you|the\\s+cards?)\\s+(?:think|see|know|say|feel)\\b",
+        "note": "“Does…?” and “Do…?” invite a yes or no. Turning it into “What…” or “How…” about your own part lets any card answer.",
+        "example": {
+          "from": "Does this job suit me?",
+          "to": "Which parts of this job feel like mine, and which feel borrowed?"
+        }
+      },
+      {
+        "id": "is-it",
+        "pattern": "(?<=^\\s*|[.!?;:,(“\"—–]\\s*|\\b(?:and|but|or|so|then|also|honestly|really|tell\\s+me|i\\s+wonder)\\s+)(?:is|isn[’']t|was|wasn[’']t|are|aren[’']t|were|weren[’']t)\\s+(?:it|this|that|there|these|those|now|today|the|my|our)\\b",
+        "note": "“Is it…?” asks the cards to confirm or deny. Ask which needs or values are involved, and every card has something to say.",
+        "example": {
+          "from": "Is this the right decision?",
+          "to": "Which values does this decision serve, and which does it set aside?"
+        }
+      },
+      {
+        "id": "am-i",
+        "pattern": "(?<=^\\s*|[.!?;:,(“\"—–]\\s*|\\b(?:and|but|or|so|then|also|honestly|really|tell\\s+me|i\\s+wonder)\\s+)am\\s+i\\b|\\b(?:aren[’']t\\s+i|am\\s+i\\s+not)(?=\\s*\\?)",
+        "note": "“Am I…?” asks for a verdict on yourself. Ask what you notice, or what would help, and the reading has room to move.",
+        "example": {
+          "from": "Am I making a mistake?",
+          "to": "What am I afraid of getting wrong, and how could I check it?"
+        }
+      },
+      {
+        "id": "can-could",
+        "pattern": "(?<=^\\s*|[.!?;:,(“\"—–]\\s*|\\b(?:and|but|or|so|then|also|honestly|really|tell\\s+me|i\\s+wonder)\\s+)(?:can|can[’']t|cannot|could|couldn[’']t|would|wouldn[’']t|might)\\s+(?:i|we|he|she|they|it|this|that|things|(?:he|she|they|someone|somebody|(?:my|our)\\s+(?:ex|partner|boyfriend|girlfriend|husband|wife|spouse|fianc[eé]e?|crush|lover|date|boss|manager|colleague|co-?worker|friend|best\\s+friend|mother|father|mum|mom|dad|parents?|sister|brother|son|daughter|child|children|kids?|family|in-laws|teacher|client|landlord|neighbou?r|flatmate|roommate)|(?:this|that|the)\\s+(?:person|man|woman|guy|girl|boy)))\\b",
+        "note": "“Can…?” and “Could…?” ask whether something is possible. Ask what would make it more possible, and any card can offer a step.",
+        "example": {
+          "from": "Could this work?",
+          "to": "What would help this work, and what is within my reach this week?"
+        }
+      }
+    ],
+    "thirdParty": [
+      {
+        "id": "what-they-think",
+        "pattern": "\\bwhat\\s+(?:does|do|did|is|are|was|were|will|would)\\s+(?:he|she|they|someone|somebody|(?:my|our)\\s+(?:ex|partner|boyfriend|girlfriend|husband|wife|spouse|fianc[eé]e?|crush|lover|date|boss|manager|colleague|co-?worker|friend|best\\s+friend|mother|father|mum|mom|dad|parents?|sister|brother|son|daughter|child|children|kids?|family|in-laws|teacher|client|landlord|neighbou?r|flatmate|roommate)|(?:this|that|the)\\s+(?:person|man|woman|guy|girl|boy))\\s+(?:really\\s+|secretly\\s+|honestly\\s+|actually\\s+|truly\\s+|still\\s+)?(?:think|thinking|feel|feeling|want|wanting|need|wish|mean|meant|plan|planning|intend|intending|expect|expecting|hide|hiding|see\\s+in\\s+me)\\b|\\bhow\\s+(?:does|do|did|is|are|will|would)\\s+(?:he|she|they|someone|somebody|(?:my|our)\\s+(?:ex|partner|boyfriend|girlfriend|husband|wife|spouse|fianc[eé]e?|crush|lover|date|boss|manager|colleague|co-?worker|friend|best\\s+friend|mother|father|mum|mom|dad|parents?|sister|brother|son|daughter|child|children|kids?|family|in-laws|teacher|client|landlord|neighbou?r|flatmate|roommate)|(?:this|that|the)\\s+(?:person|man|woman|guy|girl|boy))\\s+(?:really\\s+|secretly\\s+|honestly\\s+|actually\\s+|truly\\s+|still\\s+)?(?:feel|feeling|see|think\\s+(?:of|about))\\b|\\bwhat[’']s\\s+(?:(?:going\\s+)?on\\s+(?:in\\s+)?(?:his|her|their)\\s+(?:mind|head)|(?:he|she)\\s+(?:thinking|feeling|planning|hiding))\\b|\\bwhat\\s+(?:does|did)\\s+(?!(?:i|we|you|it|this|that|life|work|death|justice|strength|temperance|judgement|judgment|tower|star|moon|sun|world|fool|magician|lovers|chariot|hermit|devil|empress|emperor|hierophant)\\b)[a-z][\\w’'-]*\\s+(?:really\\s+|secretly\\s+|honestly\\s+|actually\\s+|truly\\s+|still\\s+)?(?:think|feel|want|need|mean)\\s+(?:of|about|for|towards|toward|from|with)\\s+me\\b",
+        "note": "No reading can see inside someone else’s mind. Ask what you notice, what you feel, and what you would like to ask them.",
+        "example": {
+          "from": "What does he think of me?",
+          "to": "What do I notice, what do I feel, and what would I like to ask directly?"
+        }
+      },
+      {
+        "id": "loves-me",
+        "pattern": "\\b(?:does|do|did|doesn[’']t|don[’']t|didn[’']t|will|would|could)\\s+(?!(?:i|we|you|it|this|that|things|everything|anything|life|work|help|make|let|death|justice|strength|temperance|judgement|judgment|tower|star|moon|sun|world|fool|magician|lovers|chariot|hermit|devil|empress|emperor|hierophant|the\\s+(?:cards?|reading|spread|death|justice|strength|temperance|judgement|judgment|tower|star|moon|sun|world|fool|magician|lovers|chariot|hermit|devil|empress|emperor|hierophant))\\b)[a-z][\\w’'-]*(?:\\s+(?!me\\b|you\\b|us\\b)[a-z][\\w’'-]*)?\\s+(?:really\\s+|secretly\\s+|honestly\\s+|actually\\s+|truly\\s+|still\\s+)?(?:love|like|miss|want|fancy|care\\s+(?:about|for)|think\\s+(?:about|of)|hate|trust|need|respect|notice|remember|forgive|choose|see)\\s+me\\b|\\b(?:is|are)\\s+(?:he|she|they|someone|somebody|(?:my|our)\\s+(?:ex|partner|boyfriend|girlfriend|husband|wife|spouse|fianc[eé]e?|crush|lover|date|boss|manager|colleague|co-?worker|friend|best\\s+friend|mother|father|mum|mom|dad|parents?|sister|brother|son|daughter|child|children|kids?|family|in-laws|teacher|client|landlord|neighbou?r|flatmate|roommate)|(?:this|that|the)\\s+(?:person|man|woman|guy|girl|boy))\\s+(?:really\\s+|secretly\\s+|honestly\\s+|actually\\s+|truly\\s+|still\\s+)?(?:in\\s+love\\s+with|into|attracted\\s+to|thinking\\s+(?:of|about)|over|missing|jealous\\s+of|angry\\s+with|mad\\s+at)\\s+me\\b",
+        "note": "Another person’s feelings are theirs to share. Ask what you want this bond to feel like, and which part is yours to shape.",
+        "example": {
+          "from": "Does she love me?",
+          "to": "What do I want this relationship to feel like, and which part is mine to shape?"
+        }
+      },
+      {
+        "id": "come-back",
+        "pattern": "\\b(?:will|would|could|is|are|does|do)\\s+(?!(?:i|we|you|it|this|that|things|everything|anything|life|work|help|make|let|death|justice|strength|temperance|judgement|judgment|tower|star|moon|sun|world|fool|magician|lovers|chariot|hermit|devil|empress|emperor|hierophant|the\\s+(?:cards?|reading|spread|death|justice|strength|temperance|judgement|judgment|tower|star|moon|sun|world|fool|magician|lovers|chariot|hermit|devil|empress|emperor|hierophant))\\b)[a-z][\\w’'-]*(?:\\s+(?!me\\b|you\\b|us\\b)[a-z][\\w’'-]*)?\\s+(?:ever\\s+|still\\s+|really\\s+|going\\s+to\\s+|gonna\\s+)*(?:come\\s+back|coming\\s+back|return|returning|reach\\s+out|text|call|message|write|contact\\s+me|apologi[sz]e|leave\\s+(?:him|her|them|his|their)|get\\s+back\\s+(?:together|with\\s+me))\\b|\\b(?:get|getting|be|come|coming)\\s+back\\s+together\\b",
+        "note": "Someone else’s next move is theirs to make. Ask what you need now, and what you would like to say if they reach out.",
+        "example": {
+          "from": "Will they come back?",
+          "to": "What do I need right now, whatever they choose?"
+        }
+      },
+      {
+        "id": "hiding",
+        "pattern": "\\b(?:is|are|was|were|has|have|isn[’']t|aren[’']t)\\s+(?!i\\b|we\\b|you\\b|it\\b)(?:[a-z][\\w’'-]*\\s+){1,2}?(?:been\\s+)?(?:hiding|cheating|lying|seeing\\s+some(?:one|body)(?:\\s+else)?|having\\s+an\\s+affair|unfaithful|two-timing|using\\s+me|playing\\s+me|honest\\s+with\\s+me|faithful)\\b|\\bwhat[’']s\\s+(?:he|she|they)\\s+hiding\\b|\\b(?:he|she|they)(?:\\s+is|\\s+are|[’']s|[’']re)\\s+(?:secretly\\s+)?(?:cheating|lying|hiding)\\b",
+        "note": "The cards can’t reveal what someone keeps private. Ask what you know, what you feel, and what you would like to ask directly.",
+        "example": {
+          "from": "What is he hiding?",
+          "to": "What do I know, what do I feel, and what would I like to ask directly?"
+        }
+      },
+      {
+        "id": "their-feelings",
+        "pattern": "\\b(?:his|her|their)\\s+(?:true\\s+|real\\s+|hidden\\s+|secret\\s+)?(?:feelings|intentions|motives|thoughts|plans)\\s+(?:for|towards|toward|about|with)\\s+(?:me|us)\\b|\\bwhat\\s+(?:are|were)\\s+(?:his|her|their)\\s+(?:true\\s+|real\\s+)?(?:feelings|intentions|motives)\\b|\\bhow\\s+(?:he|she|they|someone|somebody|(?:my|our)\\s+(?:ex|partner|boyfriend|girlfriend|husband|wife|spouse|fianc[eé]e?|crush|lover|date|boss|manager|colleague|co-?worker|friend|best\\s+friend|mother|father|mum|mom|dad|parents?|sister|brother|son|daughter|child|children|kids?|family|in-laws|teacher|client|landlord|neighbou?r|flatmate|roommate)|(?:this|that|the)\\s+(?:person|man|woman|guy|girl|boy))\\s+(?:really\\s+|secretly\\s+|honestly\\s+|actually\\s+|truly\\s+|still\\s+)?(?:feels?|sees?|thinks?)\\s+(?:about|of)\\s+(?:me|us)\\b|\\bread\\s+(?:his|her|their)\\s+(?:mind|heart|energy|feelings|intentions)\\b|\\b(?:his|her|their)\\s+energy\\s+(?:towards?|for|around)\\s+me\\b",
+        "note": "Olivia never claims to know another person’s feelings or motives. Ask about your side: what you observe, want and could say.",
+        "example": {
+          "from": "I want to know how she feels about me.",
+          "to": "What would I like to say about how I feel?"
+        }
+      }
+    ],
+    "sensitive": [
+      {
+        "id": "self-harm",
+        "support": true,
+        "pattern": "\\b(?:suicid(?:e|al|es)|kill(?:ing)?\\s+my\\s*self|end(?:ing)?\\s+(?:my\\s+(?:own\\s+)?life|it\\s+all)|take\\s+my\\s+(?:own\\s+)?life|(?:want|wanted|wanna)\\s+(?:to\\s+)?die|wish\\s+(?:that\\s+)?i\\s+(?:was|were)\\s+dead|better\\s+off\\s+(?:dead|without\\s+me)|(?:don[’']t|do\\s+not)\\s+want\\s+to\\s+(?:live|be\\s+alive|exist|be\\s+here|wake\\s+up)|no\\s+reason\\s+to\\s+(?:live|go\\s+on)|self[-\\s]?harm(?:ing)?|(?:hurt|hurting|harm|harming)\\s+my\\s*self|cut(?:ting)?\\s+my\\s*self(?!\\s+off)|overdos(?:e|ed|ing)|not\\s+be\\s+here\\s+anymore)\\b",
+        "note": "You matter more than any reading. Olivia pauses here and shows support lines you can reach now. If you are in immediate danger, call your local emergency number."
+      },
+      {
+        "id": "safety",
+        "support": true,
+        "pattern": "\\b(?:abus(?:e|es|ed|ive|ing|er)|(?:he|she|they|partner|husband|wife|boyfriend|girlfriend|dad|father|mum|mom|mother|parent|ex)\\s+(?:hits?|beats?|hurts?|chokes?|kicks?|slaps?|push(?:es)?|shoves?|threatens?)\\s+me|threaten(?:s|ed|ing)?\\s+(?:me|to\\s+(?:hurt|kill|take))|stalk(?:s|ed|ing|er|ers)?|violen(?:t|ce)|(?:i\\s+am|i[’']m|i\\s+feel|we\\s+are|we[’']re)\\s+(?:not\\s+safe|unsafe|in\\s+danger)|(?:am\\s+i|are\\s+we|my\\s+(?:life|kids?|children)\\s+(?:is|are))\\s+in\\s+danger|not\\s+safe\\s+(?:at\\s+home|with\\s+(?:him|her|them))|(?:scared|afraid|frightened|terrified)\\s+(?:of\\s+(?:him|her|them)(?=\\s*[.?!,…]|\\s*$)|for\\s+my\\s+(?:life|safety))|coercive|controlling\\s+(?:partner|husband|wife|boyfriend|girlfriend|relationship)|rape[ds]?|(?:sexual(?:ly)?\\s+)?assault(?:ed)?)\\b",
+        "note": "Your safety comes first. Olivia shows support contacts you can reach now. If you are in immediate danger, please call your local emergency number."
+      },
+      {
+        "id": "health",
+        "pattern": "\\b(?:ill(?:ness|nesses)?|sick(?:ness)?(?!\\s+(?:of|and\\s+tired))|disease|diagnos(?:is|es|ed|e)|cancer|tumou?rs?|surgery|biopsy|symptoms?|medication|medicines?|meds|prescription|chemo(?:therapy)?|radiotherapy|blood\\s+tests?|scan\\s+results?|mri|x-?rays?|hospital|clinic|gp|(?:see|call|visit|ask|tell|consult)\\s+(?:a|my|the)\\s+doctor|doctor[’']s|mental\\s+health|depression|bipolar|adhd|autis(?:m|tic)|eating\\s+disorder|anorexi[ac]|bulimi[ac]|covid|infection|heart\\s+attack|stroke(?!\\s+of)|chronic\\s+(?:pain|illness|fatigue)|injur(?:y|ies|ed)|lump(?!\\s+sum)|my\\s+health|health\\s+(?:scare|problem|issue|condition|results?))\\b",
+        "note": "Health questions belong with a doctor or another qualified professional. A reading can hold the reflective side, such as what support would help you through this period.",
+        "offer": "What support would help me through this period?"
+      },
+      {
+        "id": "pregnancy",
+        "pattern": "\\b(?:pregnan(?:t|cy|cies)|conceiv(?:e|ing|ed)|fertil(?:e|ity)|infertil(?:e|ity)|ivf|miscarr(?:y|iage|iages|ied)|(?:have|having|get|getting)\\s+(?:a\\s+)?(?:baby|babies|child|children|kids)|expecting\\s+(?:a\\s+)?(?:baby|child)|baby\\s+(?:boy|girl)|boy\\s+or\\s+(?:a\\s+)?girl|due\\s+date|trying\\s+for\\s+a\\s+baby)\\b",
+        "note": "Pregnancy and fertility are for a doctor or midwife to talk through with you. A reading can hold the gentler side: what you need while this is uncertain.",
+        "offer": "What do I need while this feels uncertain?"
+      },
+      {
+        "id": "legal",
+        "pattern": "\\b(?:courts?(?!\\s+cards?)|lawsuit|sue|suing|sued|lawyers?|solicitors?|attorneys?|barristers?|legal(?:ly)?|custody|visa|immigration|deport(?:ed|ation)?|asylum|arrest(?:ed)?|police|criminal|charged\\s+with|press\\s+charges|trial(?!\\s+(?:period|and\\s+error|run|version|lesson|class|shift|week|month|day))|tribunal|probate|inheritance|contract\\s+dispute|restraining\\s+order|parole|prison|jail)\\b",
+        "note": "For legal matters, a solicitor, lawyer or advice service is the right guide. A reading can hold a reflective question alongside, such as what would steady you.",
+        "offer": "What would help me feel steadier while this is decided?"
+      },
+      {
+        "id": "money",
+        "pattern": "\\b(?:invest(?:ing|ed|ment|ments|or|ors)?(?!\\s+(?:(?:so\\s+much|more)\\s+)?(?:my\\s+)?(?:time|energy|effort|heart|feelings|love|attention|myself)\\b|\\s+in\\s+(?:myself|me|us|people|friendships?|(?:this|my|our)\\s+(?:relationship|friendship|marriage|health|family))\\b)|stocks|stock\\s+(?:market|price|tip|pick)s?|(?:buy|sell|buying|selling)\\s+(?:the\\s+|my\\s+)?shares|share\\s+price|crypto(?:currency|currencies)?|bitcoin|ethereum|nfts?|forex|day\\s+trading|trading\\s+(?:stocks|crypto|forex)|lottery|lotto|scratch\\s*cards?|gambl(?:e|ing|er)|betting|casino|bookies?|mortgage|loans?|debts?|bankrupt(?:cy)?|pension|savings|tax(?:es)?|(?:buy|sell|buying|selling)\\s+(?:a\\s+|the\\s+|my\\s+)?(?:house|flat|property|home))\\b",
+        "note": "Olivia doesn’t give financial or investment advice; a qualified adviser can. A reading can explore how money feels to you and what matters most.",
+        "offer": "What do I want money to make possible for me?"
+      },
+      {
+        "id": "death",
+        "pattern": "\\b(?:die(?![-\\s]hard)|dies|dying(?!\\s+to\\b)|died|pass(?:es|ed)?\\s+away|passing\\s+away|(?:my|his|her|their|our|your)\\s+(?:own\\s+)?death|death\\s+of\\s+(?:my|his|her|their|our|a)|[a-z]+[’']s\\s+death|how\\s+long\\s+(?:do|does|will|have)\\s+(?:i|he|she|they|we|my\\s+\\w+)\\s+(?:have\\s+|got\\s+)?(?:left|to\\s+live)|life\\s+expectancy|terminal(?:ly)?\\s+(?:ill|illness|diagnosis|cancer)|funeral|end\\s+of\\s+(?:my|his|her|their)\\s+life|lifespan)\\b",
+        "note": "No reading can speak to when or whether anyone dies. If you are grieving or afraid, a counsellor or someone close can stay with you in it.",
+        "offer": "What would help me carry this, and who could I lean on?"
+      }
+    ],
+    "swaps": [
+      {
+        "from": "will",
+        "to": "could",
+        "pattern": "(?<!\\b(?:free|good|ill|own|the|a|my|your|his|her|their|our|of)\\s)\\bwill\\b(?![-\\s]?power)"
+      },
+      {
+        "from": "won’t",
+        "to": "might not",
+        "pattern": "\\bwon[’']t\\b"
+      },
+      {
+        "from": "is going to",
+        "to": "might",
+        "pattern": "\\b(?:is|are|am)\\s+(?:going\\s+to|gonna)\\b(?!\\s+(?:the|a|an|my|your|his|her|their|our|school|bed|church|town|see)\\b|\\s+work\\b(?!\\s+out))|[’'](?:s|re|m)\\s+(?:going\\s+to|gonna)\\b(?!\\s+(?:the|a|an|my|your|his|her|their|our|school|bed|church|town|see)\\b|\\s+work\\b(?!\\s+out))"
+      },
+      {
+        "from": "outcome",
+        "to": "what could grow",
+        "pattern": "\\boutcomes?\\b"
+      },
+      {
+        "from": "result",
+        "to": "what could follow",
+        "pattern": "\\bresults?\\b"
+      },
+      {
+        "from": "destiny",
+        "to": "what you can shape",
+        "pattern": "\\bdestin(?:y|ies|ed)\\b"
+      },
+      {
+        "from": "fate",
+        "to": "what you can shape",
+        "pattern": "\\b(?:fate|fates|fated|fateful)\\b"
+      },
+      {
+        "from": "sign",
+        "to": "something to notice",
+        "pattern": "(?<!\\b(?:star|sun|moon|rising|zodiac|stop|road|exit|warning|dollar|plus|minus|equals)\\s)\\bsigns?\\b(?!\\s+(?:up|in|out|off|language|of\\s+the\\s+zodiac|the|a|my|this|that|contract|papers)\\b)"
+      },
+      {
+        "from": "the cards say",
+        "to": "one way to read this",
+        "pattern": "\\bthe\\s+(?:cards?|spread|reading|tarot|deck)\\s+(?:says?|said|tells?|told|shows?|showed|predicts?|predicted|knows?|decides?|reveals?|revealed|confirms?|confirmed|wants?)\\b"
+      },
+      {
+        "from": "warns",
+        "to": "draws attention to",
+        "pattern": "\\bwarn(?:s|ed|ing|ings)?\\b"
+      },
+      {
+        "from": "must",
+        "to": "could",
+        "pattern": "\\bmust\\b"
+      },
+      {
+        "from": "should",
+        "to": "could",
+        "pattern": "\\bshould\\b"
+      },
+      {
+        "from": "always",
+        "to": "often",
+        "pattern": "\\balways\\b"
+      },
+      {
+        "from": "never",
+        "to": "not yet",
+        "pattern": "\\bnever\\b"
+      },
+      {
+        "from": "luck",
+        "to": "what is within reach",
+        "pattern": "\\b(?:(?:good|bad)\\s+)?luck(?:y|ily|ier|iest)?\\b|\\bunlucky\\b"
+      },
+      {
+        "from": "the universe",
+        "to": "what you notice",
+        "pattern": "\\bthe\\s+universe\\b"
+      },
+      {
+        "from": "predicts",
+        "to": "points to",
+        "pattern": "\\bpredict(?:s|ed|ing|ion|ions)?\\b"
+      },
+      {
+        "from": "definitely",
+        "to": "perhaps",
+        "pattern": "\\b(?:definitely|certainly|surely|guaranteed|guarantees?|for\\s+sure|without\\s+(?:a\\s+)?doubt)\\b"
+      },
+      {
+        "from": "promises",
+        "to": "invites",
+        "pattern": "(?<=\\b(?:card|cards|spread|reading|it|this|that|star|sun|moon|tower|world)\\s)promis(?:e|es|ed)\\b"
+      },
+      {
+        "from": "expect",
+        "to": "might notice",
+        "pattern": "\\bexpect(?:s|ed)?\\b"
+      },
+      {
+        "from": "manifest",
+        "to": "work towards",
+        "pattern": "\\bmanifest(?:s|ed|ing|ation)?\\b"
+      },
+      {
+        "from": "meant to be",
+        "to": "what you choose",
+        "pattern": "\\bmeant\\s+to\\s+be\\b(?=\\s+(?:together|with|mine|yours)\\b|\\s*[.?!,…]|\\s*$)"
+      }
+    ],
+    "avoid": [
+      "destiny",
+      "destined",
+      "fate",
+      "fated",
+      "luck",
+      "lucky",
+      "bad luck",
+      "the universe",
+      "a sign",
+      "sign from above",
+      "will happen",
+      "is going to",
+      "expect",
+      "promises",
+      "warns",
+      "warning",
+      "guarantee",
+      "predict",
+      "outcome",
+      "yes or no",
+      "the cards say",
+      "manifest",
+      "karma",
+      "meant to be",
+      "soulmate",
+      "twin flame",
+      "doom",
+      "curse",
+      "omen"
+    ]
+  },
+  "uk": {
+    "closed": [
+      {
+        "id": "tak-chy-ni",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])так\\s*(?:чи|або|/|-)\\s*ні(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])ні\\s+чи\\s+так(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:чи|або)\\s+ні(?=[\\s?.!…]*$)",
+        "note": "На «так» чи «ні» більшість із 78 карт не має що відповісти. Відкрите запитання з «Що…» або «Як…» дає слово будь-якій карті.",
+        "example": {
+          "from": "Так чи ні: чи варто мені брати цю пропозицію?",
+          "to": "Що мені треба зрозуміти, перш ніж відповісти на цю пропозицію?"
+        }
+      },
+      {
+        "id": "koly",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])коли\\s+(?:(?:ж|саме|нарешті|вже)\\s+)*(?:(?:я|ми|він|вона|вони|це|все|усе|у\\s+мене|в\\s+мене|у\\s+нас|в\\s+нас|моє|мій|моя|мої)\\s+)?(?:(?:ж|нарешті|вже)\\s+)*(?:буде|будуть|буду|будемо|станеться|стане|настане|прийде|прийдуть|з[’ʼ']?явиться|зустріну|зустрінемо|знайду|знайдемо|отримаю|отримаємо|вийду|вийде|повернеться|повернуться|напише|подзвонить|закінчиться|скінчиться|почнеться|зміниться|минеться|мине|пройде|налагодиться|покращиться|(?:[а-яіїєґёыэъ’ʼ']+(?:тиму|тимемо|тиметься|тиме|тимуть)))(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])коли\\s+(?:мені|нам)\\s+(?:варто|краще|слід|треба|потрібно)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:як\\s+скоро|наскільки\\s+скоро|через\\s+скільки(?:\\s+часу)?|скільки\\s+(?:ще\\s+)?(?:мені\\s+|нам\\s+)?(?:чекати|часу\\s+до)|до\\s+якого\\s+(?:часу|числа|місяця|року)|(?:в|у)\\s+якому\\s+(?:місяці|році)|якого\\s+(?:числа|місяця|року))(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Запитання про терміни просить у карт дату, якої вони не дають. Запитайте, що допоможе вже зараз, і будь-яка карта матиме що сказати.",
+        "example": {
+          "from": "Коли я зустріну кохання?",
+          "to": "Що допоможе мені відкритися до близькості зараз?"
+        }
+      },
+      {
+        "id": "shcho-chekaie",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])що\\s+(?:(?:мене|нас|його|її|їх)\\s+)?(?:на\\s+(?:мене|нас)\\s+)?(?:чекає|чекатиме|очікує)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])що\\s+(?:буде|станеться|трапиться|відбудеться)(?=\\s*(?:(?:далі|потім|з|зі|між)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?:у|в)\\s+майбутньому|,\\s*(?:якщо|коли)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|[?.!…]|$))|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:чим|як)\\s+(?:(?:усе|все|це)\\s+)?(?:закінчиться|скінчиться|обернеться|завершиться|складеться)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])що\\s+(?:мені\\s+)?(?:готує|принесе)\\s+(?:майбутнє|цей\\s+рік|наступний\\s+рік|[а-яіїєґёыэъ’ʼ'-]+\\s+рік)(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Таке запитання просить у карт прогнозу. Запитайте, чого ви хочете і яка частина у ваших руках: тоді кожна карта матиме що сказати.",
+        "example": {
+          "from": "Що буде з нашими стосунками?",
+          "to": "Якими я хочу бачити ці стосунки і яка частина залежить від мене?"
+        }
+      },
+      {
+        "id": "chy-varto",
+        "gentle": true,
+        "pattern": "(?<=^\\s*|[.!?;:,…(«\"“—–-]\\s*|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:і|й|та|а|але|то|отже|скажіть|цікаво|чесно|ну)\\s+)(?<!(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:що|як|яка|який|яке|які|якою|яким|якій|якого|якої|яку|чому|навіщо|де|куди|звідки|скільки|кого|кому|ким|чого|чим|котрий|котра|котре)(?![а-яіїєґёыэъ’ʼ'a-z0-9])[^.?!]*)чи\\s+(?:(?:мені|нам|вам)\\s+)?(?:варто|варт|слід|треба|потрібно|краще|можна|мушу|маю|повинні|повинна|повинен)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<=^\\s*|[.!?;:,…(«\"“—–-]\\s*|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:і|й|та|а|але|то|отже|скажіть|цікаво|чесно|ну)\\s+)(?:мені|нам)\\s+(?:варто|слід|краще|треба)(?![а-яіїєґёыэъ’ʼ'a-z0-9])(?=[^.?!]*\\?)",
+        "note": "Запитання «Чи варто…?» тихо передає ваш вибір картам. Запитайте, що вам треба зрозуміти перед рішенням, і вибір залишиться за вами.",
+        "example": {
+          "from": "Чи варто мені звільнятися?",
+          "to": "Що мені треба зрозуміти, перш ніж вирішувати, залишатися чи йти?"
+        }
+      },
+      {
+        "id": "chy-vin-vona",
+        "pattern": "(?<=^\\s*|[.!?;:,…(«\"“—–-]\\s*|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:і|й|та|а|але|то|отже|скажіть|цікаво|чесно|ну)\\s+)(?<!(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:що|як|яка|який|яке|які|якою|яким|якій|якого|якої|яку|чому|навіщо|де|куди|звідки|скільки|кого|кому|ким|чого|чим|котрий|котра|котре)(?![а-яіїєґёыэъ’ʼ'a-z0-9])[^.?!]*)чи\\s+(?:[а-яіїєґёыэъ’ʼ'-]+\\s+){0,2}?(?:він|вона|вони|його|її|їх|йому|їй|їм|мій\\s+[а-яіїєґёыэъ’ʼ'-]+|моя\\s+[а-яіїєґёыэъ’ʼ'-]+|мої\\s+[а-яіїєґёыэъ’ʼ'-]+|мого\\s+[а-яіїєґёыэъ’ʼ'-]+|моєї\\s+[а-яіїєґёыэъ’ʼ'-]+|колишн[а-яіїєґёыэъ’ʼ']*|партнер[а-яіїєґёыэъ’ʼ']*|чоловік[а-яіїєґёыэъ’ʼ']*|дружин[а-яіїєґёыэъ’ʼ']*|хлопец[а-яіїєґёыэъ’ʼ']*|хлопц[а-яіїєґёыэъ’ʼ']*|дівчин[а-яіїєґёыэъ’ʼ']*|начальник[а-яіїєґёыэъ’ʼ']*|керівник[а-яіїєґёыэъ’ʼ']*|кохан[а-яіїєґёыэъ’ʼ']*)(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Таке запитання шукає факт про іншу людину. Поверніть його до того, що ви можете помітити, і до того, про що хочете спитати прямо.",
+        "example": {
+          "from": "Чи він серйозно ставиться до нас?",
+          "to": "Про що я хочу прямо спитати, щоб зрозуміти, де ми зараз?"
+        }
+      },
+      {
+        "id": "chy-bude",
+        "pattern": "(?<=^\\s*|[.!?;:,…(«\"“—–-]\\s*|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:і|й|та|а|але|то|отже|скажіть|цікаво|чесно|ну)\\s+)(?<!(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:що|як|яка|який|яке|які|якою|яким|якій|якого|якої|яку|чому|навіщо|де|куди|звідки|скільки|кого|кому|ким|чого|чим|котрий|котра|котре)(?![а-яіїєґёыэъ’ʼ'a-z0-9])[^.?!]*)чи\\s+(?:(?:я|ми|у\\s+мене|в\\s+мене|у\\s+нас|в\\s+нас|мені|нам|це|все|усе)\\s+)?(?:(?:ще|колись|взагалі|нарешті|коли-небудь)\\s+)*(?:буде|будуть|буду|будемо|станеться|стане|вийде|вийдуть|вдасться|складеться|налагодиться|зміниться|отримаю|отримаємо|знайду|знайдемо|зустріну|зустрінемо|зможу|зможемо|вийду|здам|складу|пройду|виграю|переможу|поверну|пощастить|поталанить|досягну|впораюся|впораюсь|(?:[а-яіїєґёыэъ’ʼ']+(?:тиму|тимемо|тиметься|тиме|тимуть)))(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Запитання «Чи буде…?» чекає прогнозу, і більшість карт на нього не відповідає. Запитайте, що ви можете помітити, змінити чи принести.",
+        "example": {
+          "from": "Чи отримаю я цю роботу?",
+          "to": "Що я недооцінюю в тому, що можу запропонувати?"
+        }
+      },
+      {
+        "id": "ya-kolys",
+        "pattern": "(?<=^\\s*|[.!?;:,…(«\"“—–-]\\s*|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:і|й|та|а|але|то|отже|скажіть|цікаво|чесно|ну)\\s+)(?:я|ми)\\s+(?:колись|коли-небудь|взагалі)\\s+[а-яіїєґёыэъ’ʼ'-]+(?:\\s+[а-яіїєґёыэъ’ʼ'-]+)?[^.?!]*\\?|(?<=^\\s*|[.!?;:,…(«\"“—–-]\\s*|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:і|й|та|а|але|то|отже|скажіть|цікаво|чесно|ну)\\s+)(?:я|ми)\\s+(?:отримаю|знайду|зустріну|здам|складу|виграю|переїду|отримаємо|знайдемо|будемо|буду)(?![а-яіїєґёыэъ’ʼ'a-z0-9])[^.?!]*\\?",
+        "note": "Таке запитання просить карти вгадати ваше майбутнє. Запитайте, що допоможе підготуватися чи полегшить наступний крок, і відповість будь-яка карта.",
+        "example": {
+          "from": "Я колись знайду своє місце?",
+          "to": "Що допоможе мені відчути себе на своєму місці вже цього місяця?"
+        }
+      },
+      {
+        "id": "sudzheno",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:судилося|суджено|приречен(?:і|а|ий|о)|(?:моя|мою|моєю)\\s+(?:половинк[а-яіїєґёыэъ’ʼ']*|доля|долю|людина|людину)|друга\\s+половинка|споріднен(?:а|у|ою)\\s+душ(?:а|у|ею)|та\\s+сама\\s+людина|той\\s+самий\\s+(?:чоловік|хлопець)|та\\s+сама\\s+(?:жінка|дівчина)|кармічн[а-яіїєґёыэъ’ʼ']*\\s+(?:зв[’ʼ']?яз[а-яіїєґёыэъ’ʼ']*|партнер[а-яіїєґёыэъ’ʼ']*|стосунк[а-яіїєґёыэъ’ʼ']*))(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Таке запитання просить вироку про цілі стосунки. Запитайте, чого ви хочете від близькості і де вже це бачите.",
+        "example": {
+          "from": "Нам судилося бути разом?",
+          "to": "Чого я хочу від близькості і де вже бачу це в наших стосунках?"
+        }
+      },
+      {
+        "id": "chy",
+        "pattern": "(?<=^\\s*|[.!?;:,…(«\"“—–-]\\s*|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:і|й|та|а|але|то|отже|скажіть|цікаво|чесно|ну)\\s+)(?<!(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:що|як|яка|який|яке|які|якою|яким|якій|якого|якої|яку|чому|навіщо|де|куди|звідки|скільки|кого|кому|ким|чого|чим|котрий|котра|котре)(?![а-яіїєґёыэъ’ʼ'a-z0-9])[^.?!]*)чи(?![а-яіїєґёыэъ’ʼ'a-z0-9])(?!\\s+(?:ні|то)(?![а-яіїєґёыэъ’ʼ'a-z0-9]))",
+        "note": "Запитання з «Чи…» чекає на «так» чи «ні». Почніть із «Що…» або «Як…» про вашу частину, і відповість будь-яка карта.",
+        "example": {
+          "from": "Чи правильне це рішення?",
+          "to": "Яким цінностям служить це рішення, а які відсуває?"
+        }
+      }
+    ],
+    "thirdParty": [
+      {
+        "id": "shcho-vin-dumaie",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])що\\s+(?:(?!(?:мені|нам|вам|ця|цей|це|моя|мій|моє|мої)\\s+(?:карт|розклад|ситуац|серц|тіл|душ|інтуїц|житт|робот))(?!(?:мені|нам|вам|карт|розклад|ситуац|серц|тіл|душ|інтуїц|житт|робот))[а-яіїєґёыэъ’ʼ'-]+\\s+){0,2}(?:(?:насправді|зараз|досі|справді|потай)\\s+|(?:до|про)\\s+мене\\s+)*(?:думає|думають|відчуває|відчувають|хоче|хочуть|приховує|приховують|планує|планують|задумав|задумала|задумали|має\\s+на\\s+увазі|мають\\s+на\\s+увазі)(?![а-яіїєґёыэъ’ʼ'a-z0-9])(?![^.?!]*(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:карт|розклад|ситуац|серц|тіл|душ|інтуїц|житт))",
+        "note": "Жодне читання не бачить думок іншої людини. Запитайте, що ви помічаєте, що відчуваєте і про що хотіли б спитати прямо.",
+        "example": {
+          "from": "Що він думає про мене?",
+          "to": "Що я помічаю, що відчуваю і про що хочу спитати прямо?"
+        }
+      },
+      {
+        "id": "yoho-pochuttia",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:його|її|їхні|їхнє|їхня|їх)\\s+(?:(?:справжні|істинні|приховані)\\s+)?(?:почуття|наміри|думки|мотиви|ставлення)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:у|в)\\s+(?:нього|неї|них)\\s+на\\s+(?:думці|душі|серці|умі)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:у|в)\\s+(?:нього|неї|них)\\s+(?:(?:справжні|серйозні)\\s+)?(?:наміри|почуття|плани)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])як\\s+(?:він|вона|вони|мій\\s+[а-яіїєґёыэъ’ʼ'-]+|моя\\s+[а-яіїєґёыэъ’ʼ'-]+|мої\\s+[а-яіїєґёыэъ’ʼ'-]+)\\s+(?:насправді\\s+)?(?:до\\s+мене\\s+)?(?:ставиться|ставляться|сприймає|сприймають)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:прочитати|прочитайте)\\s+(?:його|її|їхні|їхню)\\s+(?:думки|енергію|почуття)(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Olivia ніколи не вдає, що знає почуття чи наміри іншої людини. Запитайте про свій бік: що ви бачите, чого хочете, що могли б сказати.",
+        "example": {
+          "from": "Які його справжні почуття?",
+          "to": "Що я бачу в цих стосунках і що хочу сказати про свої почуття?"
+        }
+      },
+      {
+        "id": "kokhaie-mene",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:кохає|кохають|любить|люблять|сумує|сумують|скучає|скучають|згадує|згадують|цінує|цінують|поважає|поважають|ревнує|ревнують|хоче|хочуть|пробачить|пробачать|обере|оберуть)(?:\\s+[а-яіїєґёыэъ’ʼ'-]+){0,2}?\\s+(?:мене|за\\s+мною)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:мене|за\\s+мною)(?:\\s+[а-яіїєґёыэъ’ʼ'-]+){0,2}?\\s+(?:кохає|кохають|любить|люблять|сумує|сумують|скучає|скучають|згадує|згадують|цінує|цінують|поважає|поважають|ревнує|ревнують|хоче|хочуть|пробачить|пробачать|обере|оберуть)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])подобаю(?:ся|сь)\\s+(?:я\\s+)?(?:йому|їй|їм)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:йому|їй|їм)\\s+(?:я\\s+)?подобаю(?:ся|сь)(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Почуття іншої людини належать їй. Запитайте, якими ви хочете бачити ці стосунки і яка частина залежить від вас.",
+        "example": {
+          "from": "Чи кохає він мене?",
+          "to": "Якими я хочу бачити ці стосунки і яка частина залежить від мене?"
+        }
+      },
+      {
+        "id": "povernetsia",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:повернеться|повернуться|напише|напишуть|подзвонить|подзвонять|зателефонує|зателефонують|озветься|озвуться|помириться|помиряться|пробачить|пробачать|вибачиться|вибачаться|піде\\s+від\\s+(?:неї|нього|них|дружини|чоловіка)|розлучиться|розійдуться|залишить\\s+(?:її|його|свою|свого|сім[’ʼ']?ю))(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:знову\\s+разом|разом\\s+знову|зійдемося|зійдемось|помиримося|помиримось)(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Наступний крок іншої людини залежить від неї. Запитайте, що вам потрібно зараз і що ви хотіли б сказати, якщо вона озветься.",
+        "example": {
+          "from": "Колишній повернеться?",
+          "to": "Що мені потрібно зараз, щоб подбати про себе?"
+        }
+      },
+      {
+        "id": "pryhovuie",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:приховує|приховують|зраджує|зраджують|зрадить|зрадять|зрадив|зрадила|зрадили|бреше|брешуть|обманює|обманюють|використовує\\s+мене|грає\\s+зі\\s+мною)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:має|мають)\\s+(?:(?:він|вона|вони)\\s+)?(?:когось|іншу|іншого|інших|коханку|коханця)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])зустрічається\\s+з\\s+(?:кимось|іншою|іншим)(?![а-яіїєґёыэъ’ʼ'a-z0-9])|(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:він|вона|вони)\\s+(?:мені\\s+)?(?:вірн(?:ий|а|і)|чесн(?:ий|а|і)\\s+зі\\s+мною)(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Карти не розкривають того, що людина тримає в собі. Запитайте, що ви знаєте, що відчуваєте і про що хочете спитати прямо.",
+        "example": {
+          "from": "Що він приховує?",
+          "to": "Що я знаю, що відчуваю і про що хочу спитати прямо?"
+        }
+      }
+    ],
+    "sensitive": [
+      {
+        "id": "self-harm",
+        "support": true,
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:самогубств[а-яіїєґёыэъ’ʼ']*|суїцид[а-яіїєґёыэъ’ʼ']*|(?:вбити|убити|вб[’ʼ']?ю|уб[’ʼ']?ю)\\s+себе|покінч[а-яіїєґёыэъ’ʼ']*\\s+(?:з|із)\\s+(?:собою|життям)|наклас[а-яіїєґёыэъ’ʼ']*\\s+на\\s+себе\\s+руки|не\\s+хочу\\s+(?:більше\\s+)?(?:жити|прокидатися|існувати)|(?:хочу|хотів|хотіла|хочеться)\\s+(?:померти|вмерти)|(?:завдати|заподіяти|завдаю|заподіюю)\\s+собі\\s+(?:шкоди|шкоду|болю|біль)|(?:ріжу|порізати|порізала|порізав|різати)\\s+себе|самоушкодж[а-яіїєґёыэъ’ʼ']*|(?:всім|усім|їм|вам)\\s+(?:буде\\s+)?краще\\s+без\\s+мене|краще\\s+б\\s+мене\\s+не\\s+було|нема(?:є)?\\s+сенсу\\s+жити|передоз[а-яіїєґёыэъ’ʼ']*)(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Ви важливіші за будь-яке читання. Olivia зупиняється тут і показує лінії підтримки, куди можна звернутися зараз. Якщо ви в безпосередній небезпеці, телефонуйте на місцевий екстрений номер."
+      },
+      {
+        "id": "safety",
+        "support": true,
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:(?:б[’ʼ']?є|б[’ʼ']?ють|бив|била|били)\\s+мене(?!\\s+(?:дрож|лихоманк|струм|пропасниц))|мене\\s+(?:б[’ʼ']?є|б[’ʼ']?ють|бив|била|били)(?!\\s+(?:дрож|лихоманк|струм|пропасниц))|погрожу[а-яіїєґёыэъ’ʼ']*|насильств[а-яіїєґёыэъ’ʼ']*|насильник[а-яіїєґёыэъ’ʼ']*|знуща[а-яіїєґёыэъ’ʼ']*|знущанн[а-яіїєґёыэъ’ʼ']*|кривдник[а-яіїєґёыэъ’ʼ']*|кривдить|(?:він|вона|вони|колишн[а-яіїєґёыэъ’ʼ']*)\\s+(?:мене\\s+)?(?:переслідує|переслідують)|стежить\\s+за\\s+мною|сталкер[а-яіїєґёыэъ’ʼ']*|я\\s+(?:в|у)\\s+небезпеці|(?:мені|нам)\\s+(?:страшно|небезпечно)\\s+(?:вдома|з\\s+ним|з\\s+нею|з\\s+ними|повертатися\\s+додому)|мені\\s+небезпечно|боюся\\s+(?:його|її|їх)(?=\\s*[.?!,…]|\\s*$)|боюся\\s+за\\s+(?:своє|моє)\\s+життя|з?ґвалтува[а-яіїєґёыэъ’ʼ']*|згвалтува[а-яіїєґёыэъ’ʼ']*|контролює\\s+(?:мене|кожен\\s+мій\\s+крок))(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Ваша безпека понад усе. Olivia показує контакти підтримки, куди можна звернутися вже зараз. Якщо ви в безпосередній небезпеці, телефонуйте на місцевий екстрений номер."
+      },
+      {
+        "id": "health",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:хвороб[а-яіїєґёыэъ’ʼ']*|хворі(?:ю|єте|є|ють)|хвор(?:ий|а|і|ого|ому)|діагноз[а-яіїєґёыэъ’ʼ']*|онколог[а-яіїєґёыэъ’ʼ']*|пухлин[а-яіїєґёыэъ’ʼ']*|рак\\s+(?:груд|леген|шкір|кров|шлунк|кишк|простат|яєчник|матк)[а-яіїєґёыэъ’ʼ']*|хірург[а-яіїєґёыэъ’ʼ']*|лікар(?:я|ю|і|ів|ні|ня|ню|нею|ням|нях)|ліки|ліків|лік(?:ами|ах)|лікуванн[а-яіїєґёыэъ’ʼ']*|симптом[а-яіїєґёыэъ’ʼ']*|аналіз(?:и|ів|ами|ах)|обстеженн[а-яіїєґёыэъ’ʼ']*|терапі[а-яіїєґёыэъ’ʼ']*|хіміотерапі[а-яіїєґёыэъ’ʼ']*|депресі[а-яіїєґёыэъ’ʼ']*|психічн(?:е|ого|им|ому)\\s+здоров[а-яіїєґёыэъ’ʼ']*|(?:мо(?:є|єму|їм)|його|її|їхн[а-яіїєґёыэъ’ʼ']*|мамин[а-яіїєґёыэъ’ʼ']*|татов[а-яіїєґёыэъ’ʼ']*|стан|стану|проблем[а-яіїєґёыэъ’ʼ']*\\s+(?:зі|з|із))\\s+здоров[’ʼ']?(?:я|ям|ю)|ковід[а-яіїєґёыэъ’ʼ']*|інфекці[а-яіїєґёыэъ’ʼ']*|біль\\s+(?:у|в)|хронічн[а-яіїєґёыэъ’ʼ']*|травм(?:а|и|у|ою)|інсульт[а-яіїєґёыэъ’ʼ']*|інфаркт[а-яіїєґёыэъ’ʼ']*|розлад[а-яіїєґёыэъ’ʼ']*\\s+харчуванн[а-яіїєґёыэъ’ʼ']*)(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Теми здоров’я краще обговорити з лікарем чи іншим фахівцем. Читання може підтримати рефлексію: яка підтримка допоможе вам у цей період.",
+        "offer": "Яка підтримка допоможе мені в цей період?"
+      },
+      {
+        "id": "pregnancy",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:вагітн[а-яіїєґёыэъ’ʼ']*|завагітн[а-яіїєґёыэъ’ʼ']*|зачат[а-яіїєґёыэъ’ʼ']*|зачну|зачати|безпліддя|безплідн[а-яіїєґёыэъ’ʼ']*|викидн[а-яіїєґёыэъ’ʼ']*|екз|народжу|народити\\s+дитину|матиму\\s+дитину|(?:буде|будуть)\\s+(?:(?:в|у)\\s+(?:мене|нас)\\s+)?(?:дитина|діти|малюк)|стать\\s+дитини|хлопчик\\s+чи\\s+дівчинка|фертильн[а-яіїєґёыэъ’ʼ']*)(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Вагітність і фертильність варто обговорити з лікарем. Читання може бути про інше: що вам потрібно, поки все невизначено.",
+        "offer": "Що мені потрібно, поки все невизначено?"
+      },
+      {
+        "id": "legal",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:(?:до|через|у|в)\\s+суд(?:у|і)?|суд(?:ом|ові|ів|ах|ами|и)|судов[а-яіїєґёыэъ’ʼ']*|судитис[а-яіїєґёыэъ’ʼ']*|судиться|позов[а-яіїєґёыэъ’ʼ']*|адвокат[а-яіїєґёыэъ’ʼ']*|юрист[а-яіїєґёыэъ’ʼ']*|нотаріус[а-яіїєґёыэъ’ʼ']*|аліменти|аліментів|опік(?:а|и|у)\\s+над|позбавленн[а-яіїєґёыэъ’ʼ']*\\s+батьківськ[а-яіїєґёыэъ’ʼ']*|віз(?:а|и|у|ою)|візов[а-яіїєґёыэъ’ʼ']*|і(?:м)?міграц[а-яіїєґёыэъ’ʼ']*|депортац[а-яіїєґёыэъ’ʼ']*|політичн[а-яіїєґёыэъ’ʼ']*\\s+притул[а-яіїєґёыэъ’ʼ']*|поліці[а-яіїєґёыэъ’ʼ']*|арешт[а-яіїєґёыэъ’ʼ']*|кримінальн[а-яіїєґёыэъ’ʼ']*|звинуваченн[а-яіїєґёыэъ’ʼ']*|апеляці[а-яіїєґёыэъ’ʼ']*|спадщин[а-яіїєґёыэъ’ʼ']*|спадок|спадку|заповіт[а-яіїєґёыэъ’ʼ']*|юридичн[а-яіїєґёыэъ’ʼ']*|правов[а-яіїєґёыэъ’ʼ']*\\s+(?:питанн|справ)[а-яіїєґёыэъ’ʼ']*)(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "У правових справах найкраще допоможе юрист чи служба правової допомоги. Читання може бути поруч із рефлексією: що допоможе вам почуватися стійкіше.",
+        "offer": "Що допоможе мені почуватися стійкіше, поки це вирішується?"
+      },
+      {
+        "id": "money",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:інвест[а-яіїєґёыэъ’ʼ']*(?!\\s+(?:(?:свій|мій)\\s+)?(?:час|себе|сили|енергі[а-яіїєґёыэъ’ʼ']*|(?:у|в)\\s+(?:себе|стосунк[а-яіїєґёыэъ’ʼ']*|дружб[а-яіїєґёыэъ’ʼ']*|людей)))|(?:купити|продати|купувати|продавати)\\s+акці[а-яіїєґёыэъ’ʼ']*|акці(?:ї|й)\\s+компані[а-яіїєґёыэъ’ʼ']*|крипт[а-яіїєґёыэъ’ʼ']*|біткоїн[а-яіїєґёыэъ’ʼ']*|біткойн[а-яіїєґёыэъ’ʼ']*|форекс[а-яіїєґёыэъ’ʼ']*|трейдинг[а-яіїєґёыэъ’ʼ']*|біржа|біржі|біржу|лотере[а-яіїєґёыэъ’ʼ']*|казино|ставк(?:и|у|а)\\s+на\\s+спорт|азартн[а-яіїєґёыэъ’ʼ']*|кредит(?:у|ом|и|ів)?|позик[а-яіїєґёыэъ’ʼ']*|борг(?:и|ів|ами|ах)|в\\s+борг|іпотек[а-яіїєґёыэъ’ʼ']*|банкрут[а-яіїєґёыэъ’ʼ']*|пенсі[а-яіїєґёыэъ’ʼ']*|заощадженн[а-яіїєґёыэъ’ʼ']*|податк[а-яіїєґёыэъ’ʼ']*|(?:купити|продати|купувати|продавати)\\s+(?:квартир[а-яіїєґёыэъ’ʼ']*|будин[а-яіїєґёыэъ’ʼ']*|житло|нерухомість))(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Olivia не дає фінансових чи інвестиційних порад, для цього є кваліфіковані консультанти. Читання може дослідити, що для вас означають гроші і що найважливіше.",
+        "offer": "Що я хочу, щоб гроші давали мені?"
+      },
+      {
+        "id": "death",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:помр(?:у|е|уть|емо|ете|еш)|помер(?:ти|ла|ли)?|вмр(?:у|е|уть)|вмер(?:ти|ла|ли)?|загин(?:е|уть|ула|ув|уло|ули)|(?:моя|його|її|їхня|мамина|батькова|татова)\\s+смерть|смерт(?:ь|і|ю)\\s+(?:мого|моєї|моїх|батька|мами|матері|тата|брата|сестри|чоловіка|дружини|бабусі|дідуся|друга|подруги|дитини|сина|доньки|близьк[а-яіїєґёыэъ’ʼ']*)|скільки\\s+(?:мені|йому|їй|їм)\\s+(?:залишилося|лишилося)|скільки\\s+(?:я|він|вона|вони)\\s+(?:проживу|проживе|проживуть)|тривалість\\s+життя|похорон[а-яіїєґёыэъ’ʼ']*|невиліковн[а-яіїєґёыэъ’ʼ']*|передсмертн[а-яіїєґёыэъ’ʼ']*)(?![а-яіїєґёыэъ’ʼ'a-z0-9])",
+        "note": "Жодне читання не говорить про те, коли і чи помре людина. Якщо ви в горі чи вам страшно, підтримати можуть психолог або близька людина.",
+        "offer": "Що допоможе мені нести це, і на кого я можу спертися?"
+      }
+    ],
+    "swaps": [
+      {
+        "from": "буде",
+        "to": "може бути",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])буде(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "станеться",
+        "to": "може статися",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:станеться|стануться|(?:має|мусить)\\s+статися)(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "обов’язково",
+        "to": "можливо",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])обов[’ʼ']?язков(?:о|ий|а|е|і)(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "результат",
+        "to": "те, що може вирости",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])результат(?:у|ом|і|и|ів|ам|ами|ах)?(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "доля",
+        "to": "те, що ви можете творити",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])дол(?:я|і|ю|ею)(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "знак",
+        "to": "те, що варто помітити",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])знак(?:и|у|ом|ів|ам|ами|ах|а)?(?![а-яіїєґёыэъ’ʼ'a-z0-9])(?!\\s+зодіак)"
+      },
+      {
+        "from": "карти кажуть",
+        "to": "один зі способів прочитати це",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:карт(?:и|а)|розклад|таро)\\s+(?:кажуть|каже|говорять|говорить|показують|показує|передбачають|передбачає|знають|знає|радять|радить|вирішують|вирішує|підтверджують|підтверджує|обіцяють|обіцяє|хочуть|хоче)(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "попереджає",
+        "to": "звертає увагу на",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:попереджа(?:є|ють|ла|в|ли)|попередженн(?:я|ям|і))(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "мусите",
+        "to": "можете",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:мус(?:ите|ить|ять|имо|иш)|мушу)(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "повинні",
+        "to": "можете",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])повин(?:ні|на|ен|но)(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "завжди",
+        "to": "часто",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])завжди(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "ніколи",
+        "to": "поки що ні",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])ніколи(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "удача",
+        "to": "те, що у ваших руках",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:удач(?:а|і|у|ею)|пощастить|поталанить|везіння|невезіння|везе|таланить)(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "всесвіт",
+        "to": "те, що ви помічаєте",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])всесвіт(?:у|ом|і)?(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "передбачає",
+        "to": "вказує на",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:передбача(?:є|ють|ла|в|ли|ти)|передбаченн(?:я|ям|і)|пророку(?:є|ють)|пророцтв(?:о|а|ом))(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "обіцяє",
+        "to": "запрошує",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])обіця(?:є|ють)(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "неодмінно",
+        "to": "можливо",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:неодмінно|безумовно|гарантовано|точно\\s+(?:буде|станеться|вийде))(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "судилося",
+        "to": "те, що ви обираєте",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])(?:судилося|суджено|приречен(?:і|а|ий|о))(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      },
+      {
+        "from": "маніфестувати",
+        "to": "працювати над",
+        "pattern": "(?<![а-яіїєґёыэъ’ʼ'a-z0-9])маніфест(?:увати|ую|уєте|ує|ують|ація|ації|ацію|ацією)(?![а-яіїєґёыэъ’ʼ'a-z0-9])"
+      }
+    ],
+    "avoid": [
+      "доля",
+      "удача",
+      "всесвіт",
+      "станеться",
+      "результат",
+      "знак",
+      "знак згори",
+      "обов’язково станеться",
+      "карта обіцяє",
+      "карта попереджає",
+      "карма",
+      "судилося",
+      "передбачення",
+      "так чи ні",
+      "маніфестувати",
+      "прокляття",
+      "пророцтво",
+      "везіння"
+    ]
+  }
+}

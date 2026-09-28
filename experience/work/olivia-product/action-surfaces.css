@@ -1,5 +1,5 @@
 /* Tactile controls: surfaces carry the invitation; light is a finishing detail. */
-:root{--control-radius:14px;--control-light:#f4e6c9;--control-blue:#213d53;--control-shadow:0 5px 14px #020a1738;--control-ease:cubic-bezier(.2,.7,.2,1)}
+:root{--control-radius:14px;--control-light:#f4e6c9;--control-blue:#213d53;--control-shadow:0 5px 14px #020a1738;--control-ease:var(--ease-control)}
 :is(.reading-link,.solid-action,.text-action,.home-link,.nav-reading,.journey-control,.art-look){cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .22s var(--control-ease),box-shadow .22s var(--control-ease),translate .22s var(--control-ease),border-color .22s var(--control-ease)}
 :is(.reading-link,.solid-action){border-radius:var(--control-radius);background:linear-gradient(155deg,#f8efd9,#e6d5b2);border:1px solid #fff1ce;color:#142a3a;min-height:56px;padding:16px 23px;font:500 14px/1.4 'DM Sans',sans-serif;box-shadow:inset 0 1px 0 #fff9e8,0 3px 0 #a8997b,0 9px 24px #020a1745;--oa-edge-opacity:.22}
 .reading-link i{border:0;width:28px;height:28px;flex-basis:28px;padding:0;background:#2332470b;border-radius:50%;font-size:21px}.reading-link>span{border:0}
@@ -71,5 +71,22 @@ textarea,select,input:not([type=checkbox]):not([type=radio]):not([type=range]):n
 .home-memory-tabs button[aria-selected=true]{background:#eddfc2;color:#172d3d;box-shadow:inset 0 1px 0 #fff5de,0 3px 10px #0002}
 .home-memory-tabs button[aria-selected=true] :is(b,span){color:inherit}
 .home-memory-tabs button:after,.home-spread-tabs button:after{display:none}
+/* The timeline rides above the filled tabs: one node per day, aligned with its
+   label, and a gilt line that advances to the chosen day. Phones hide it. */
+@media(min-width:701px){
+ .home-memory-tabs{padding-top:24px;isolation:isolate}
+ .home-memory-tabs:before,.home-memory-tabs:after{content:'';position:absolute;top:5px;left:25.5px;height:1px;z-index:0}
+ .home-memory-tabs:before{right:25.5px;background:#c7b28c3d}
+ .home-memory-tabs:after{width:0;background:linear-gradient(90deg,#c7b28c,#e6cf9e);transition:width var(--dur-ritual) var(--ease-glide)}
+ .home-memory-tabs:has(>button:nth-child(2)[aria-selected=true]):after{width:calc(50% - 25.5px)}
+ .home-memory-tabs:has(>button:nth-child(3)[aria-selected=true]):after{width:calc(100% - 51px)}
+ .home-memory-tabs button{z-index:1;padding:14px 20px}
+ .home-memory-tabs button:before{top:-24px;left:20px;box-sizing:border-box;border:1px solid #b3a27f;background:#0f1d2c;transition:background-color var(--dur-arrive) var(--ease-settle),box-shadow var(--dur-arrive) var(--ease-settle)}
+ .home-memory-tabs button:nth-child(2):before{left:calc(50% - 5.5px)}
+ .home-memory-tabs button:last-child:before{left:auto;right:20px}
+ .home-memory-tabs button:has(~button[aria-selected=true]):before{background:#c7b28c}
+ .home-memory-tabs button[aria-selected=true]:before{background:#e6cf9e;border-color:#e6cf9e;box-shadow:0 0 0 4px #c7b28c24,0 0 14px #e6cf9e40}
+}
+@media(min-width:701px) and (prefers-reduced-motion:reduce){.home-memory-tabs:after,.home-memory-tabs button:before{transition:none}}
 @media(hover:hover){.home-sample-reveal:hover>.home-reveal-caption{background:#fff1d4;translate:0 -2px;box-shadow:inset 0 1px 0 #fff9e8,0 3px 0 #a8997b,0 12px 26px #0004}}
 @media(prefers-reduced-motion:reduce){.home-sample-reveal>.home-reveal-caption{transition:none;translate:none!important}}

@@ -1,0 +1,267 @@
+{
+  "id": 44,
+  "slug": "nine-of-cups",
+  "artwork": {
+    "file": "44_nine_of_cups.webp",
+    "sha256": "8cf6c1282bf8f9f725747ea4d6421d4d5c89f22ab1218d9f4e4c397182e50987"
+  },
+  "symbols": [
+    {
+      "key": "cup",
+      "x": 31,
+      "y": 36,
+      "en": {
+        "name": "Nine cups in an arc",
+        "seen": "Nine stemmed goblets stand in a shallow arc along a curved ledge, each carved from grey-blue lapis with a fluted lower bowl and a rounded knop on the stem. The row dips lower toward both ends.",
+        "meaning": "Nine is the fullest number before the Ten, and the arc of cups is traditionally read as emotional abundance on display: everything wished for, gathered and set out. Carved from the same blue stone as the sky, these cups belong to the scene rather than glittering apart from it."
+      },
+      "uk": {
+        "name": "Дев’ять кубків дугою",
+        "seen": "Дев’ять келихів на ніжках стоять пологою дугою вздовж вигнутої полиці; кожен вирізьблено із сіро-блакитного лазуриту, з рифленим низом чаші й округлим потовщенням на ніжці. До обох країв ряд опускається нижче.",
+        "meaning": "Дев’ять — найповніше число перед Десяткою, і дугу кубків традиційно читають як виставлений напоказ емоційний достаток: усе бажане зібрано й розставлено. Вирізьблені з того самого синього каменю, що й небо, ці кубки належать сцені, а не сяють окремо від неї."
+      }
+    },
+    {
+      "key": "heart",
+      "x": 50,
+      "y": 33,
+      "en": {
+        "name": "Gold heart on the centre cup",
+        "seen": "The fifth cup, at the peak of the arc and directly above the figure’s head, carries a small inlaid heart of bright gold on its bowl. The other cups show only scattered, irregular gold flecks.",
+        "meaning": "The heart is Olivia’s addition; the traditional card marks no single cup. Placed at the top of the row and aligned with the smiling face, it suggests that among many satisfactions one matters most: the wish that is really your own, not the ones collected for show."
+      },
+      "uk": {
+        "name": "Золоте серце на центральному кубку",
+        "seen": "На чаші п’ятого кубка, що на вершині дуги й просто над головою постаті, інкрустовано маленьке серце з яскравого золота. На решті кубків видно лише розсипані золоті цятки неправильної форми.",
+        "meaning": "Серце — доповнення Olivia; на традиційній карті жоден кубок не виокремлено. Розміщене на вершині ряду й на одній лінії з усміхненим обличчям, воно підказує, що серед багатьох утіх одна важить найбільше: бажання, яке справді ваше, а не ті, що зібрані напоказ."
+      }
+    },
+    {
+      "key": "table",
+      "x": 50,
+      "y": 42,
+      "en": {
+        "name": "The draped curved shelf",
+        "seen": "The cups rest on a curved ledge covered with a cloth whose edge falls in swags with a scalloped fringe and small pendant drops, with tassels hanging near each end, all in pale lapis.",
+        "meaning": "The traditional image also sets the cups on a cloth-covered, arching counter behind the seated figure. The dressed shelf turns simple possession into presentation: a display, almost a stage. It asks gently whether contentment is being lived or arranged to be seen."
+      },
+      "uk": {
+        "name": "Задрапована вигнута полиця",
+        "seen": "Кубки стоять на вигнутому виступі, накритому тканиною: її край спадає фестонами із зубчастою бахромою та дрібними підвісками, а біля обох кінців звисають китиці. Усе вирізьблено з блідого лазуриту.",
+        "meaning": "На традиційному зображенні кубки теж стоять на вкритому тканиною дугастому прилавку позаду постаті, що сидить. Прибрана полиця перетворює просте володіння на показ: вітрину, майже сцену. Вона м’яко запитує, чи вдоволення справді проживають, чи лише розставляють, щоб його бачили."
+      }
+    },
+    {
+      "key": "face",
+      "x": 51,
+      "y": 52,
+      "en": {
+        "name": "The smiling face and cap",
+        "seen": "The ivory figure’s round face is creased by a broad smile, eyes narrowed almost shut, cheeks full. Short curls show beneath a small rounded cap with a narrow brim.",
+        "meaning": "The traditional figure of the Nine of Cups is commonly read as someone well fed and pleased with life. Olivia’s carving leans toward warmth rather than smugness: the smile reaches the eyes. The card invites you to recognise ordinary, bodily pleasure as real satisfaction."
+      },
+      "uk": {
+        "name": "Усміхнене обличчя й шапочка",
+        "seen": "Широка усмішка збирає зморшки на круглому обличчі постаті зі слонової кістки; очі примружені майже до щілинок, щоки повні. З-під маленької округлої шапочки з вузькими крисами виглядають короткі кучері.",
+        "meaning": "Традиційну постать Дев’ятки Кубків зазвичай читають як ситу, задоволену життям людину. Різьба Olivia схиляється радше до тепла, ніж до самовдоволення: усміхаються й очі. Карта запрошує визнати звичайну тілесну насолоду справжнім вдоволенням."
+      }
+    },
+    {
+      "key": "hand",
+      "x": 50,
+      "y": 61,
+      "en": {
+        "name": "Arms folded high",
+        "seen": "Both arms are folded high across the chest in thick, rounded sleeves; the fingers of one hand show against the opposite upper arm. Nothing is held; the cups stand behind the figure, out of reach.",
+        "meaning": "Folded arms are commonly read two ways in this card: as the ease of someone with nothing left to chase, or as a closed, self-satisfied guard. Both readings are traditional, and the card asks which is true for you: settled contentment, or holding everything at a distance."
+      },
+      "uk": {
+        "name": "Високо схрещені руки",
+        "seen": "Обидві руки в товстих округлих рукавах високо схрещено на грудях; пальці однієї долоні видно на протилежному плечі. Постать нічого не тримає; кубки стоять позаду, так, що їх не дістати.",
+        "meaning": "Схрещені руки в цій карті зазвичай читають двояко: як легкість, коли вже нема за чим гнатися, або як закриту, самовдоволену оборону. Обидва прочитання традиційні, і карта запитує, яке з них правдиве для вас: спокійне вдоволення чи звичка тримати все на відстані."
+      }
+    },
+    {
+      "key": "belt",
+      "x": 51,
+      "y": 70,
+      "en": {
+        "name": "The knotted rope belt",
+        "seen": "A plain cord circles the waist of the long ivory tunic and ties in a loose knot at the centre, its two ends hanging down over the lap and fraying into small tassels.",
+        "meaning": "A simple cord rather than a jewelled belt gives the figure a homely, almost monastic plainness: plenty worn lightly. A knot is also a traditional sign of something bound and secured. Here satisfaction is tied loosely, easy to undo, not locked shut."
+      },
+      "uk": {
+        "name": "Мотузяний пояс із вузлом",
+        "seen": "Проста мотузка оперізує довгу туніку зі слонової кістки й зав’язана посередині вільним вузлом; два її кінці звисають на коліна й розпускаються дрібними китицями.",
+        "meaning": "Проста мотузка замість самоцвітного пояса надає постаті домашньої, майже чернечої простоти: достаток, який носять легко. Вузол — ще й традиційний знак чогось зв’язаного й закріпленого. Тут удоволення зав’язане вільно: його легко розв’язати, воно не замкнене намертво."
+      }
+    },
+    {
+      "key": "curtain",
+      "x": 27,
+      "y": 57,
+      "en": {
+        "name": "The curtain behind the seat",
+        "seen": "Behind the figure hangs a pale blue lapis curtain gathered in swags beneath the shelf, its side lengths falling to cords that end in tassels level with the figure’s elbows.",
+        "meaning": "The curtain is Olivia’s own staging; the traditional card sets the figure against a plain ground. A curtain frames and also hides. Behind the display of plenty something is kept private, which leaves room to ask what the pleased surface covers, and whether anything behind it needs attention."
+      },
+      "uk": {
+        "name": "Завіса за сидінням",
+        "seen": "Позаду постаті висить блідо-блакитна лазуритова завіса, зібрана фестонами під полицею; її бічні полотнища спадають до шнурів, що закінчуються китицями на рівні ліктів постаті.",
+        "meaning": "Завіса — власна сценографія Olivia; традиційна карта ставить постать на простому тлі. Завіса обрамлює, але й приховує. За показом достатку щось лишається приватним, і це дає змогу запитати, що прикриває вдоволена поверхня і чи не потребує уваги щось за нею."
+      }
+    },
+    {
+      "key": "window",
+      "x": 14,
+      "y": 64,
+      "en": {
+        "name": "Arched windows on the land",
+        "seen": "Two tall round-arched openings flank the seat. Through the left one, in low relief, a tree stands on a hillside above still water, with a mountain beyond; the right shows rolling slopes and a distant ridge.",
+        "meaning": "The windows are not part of the traditional image. They open the enclosed room of pleasure onto wider country: water, hills and a tree that keeps growing whether anyone watches or not. Contentment here is not sealed off; the larger world stays visible from the comfortable seat."
+      },
+      "uk": {
+        "name": "Арочні вікна з краєвидом",
+        "seen": "Обабіч сидіння — два високі отвори з напівкруглими арками. Крізь лівий у низькому рельєфі видно дерево на схилі над тихою водою й гору вдалині; у правому — пологі пагорби й далекий хребет.",
+        "meaning": "Вікон на традиційному зображенні немає. Вони відкривають замкнену кімнату насолоди у ширший простір: вода, пагорби й дерево, яке росте, дивиться на нього хтось чи ні. Вдоволення тут не замкнене в собі; із затишного сидіння видно більший світ."
+      }
+    },
+    {
+      "key": "milky-way",
+      "x": 44,
+      "y": 20,
+      "en": {
+        "name": "Milky Way above the cups",
+        "seen": "Above the cups a glittering band of pale mineral crosses the dark ultramarine sky diagonally, running from the upper left down toward the row of cups, among scattered small gold stars.",
+        "meaning": "The Golden Dawn gave this card to Jupiter in Pisces, a planet of increase in a sign of boundless water. The Milky Way, a river of light in many old traditions, echoes that: the small room of plenty sits beneath something far larger, which no display could hold."
+      },
+      "uk": {
+        "name": "Чумацький Шлях над кубками",
+        "seen": "Над кубками темне ультрамаринове небо навскіс перетинає мерехтлива смуга блідого мінералу: від верхнього лівого краю вниз до ряду кубків, серед розсипаних маленьких золотих зірок.",
+        "meaning": "Золота Зоря пов’язала цю карту з Юпітером у Рибах, планетою примноження в знаку безмежних вод. Чумацький Шлях, у багатьох давніх традиціях ріка світла, відлунює це: маленька кімната достатку стоїть під чимось незмірно більшим, чого не вмістить жодна вітрина."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Nine of Cups turns attention to satisfaction: the moment a wish is met, enough is recognised as enough, and pleasure can be enjoyed without apology.",
+    "keywords": {
+      "upright": [
+        "contentment",
+        "wish fulfilled",
+        "enjoyment",
+        "gratitude",
+        "ease",
+        "sensual pleasure"
+      ],
+      "reversed": [
+        "hollow satisfaction",
+        "complacency",
+        "overindulgence",
+        "display over feeling",
+        "private contentment"
+      ]
+    },
+    "upright": [
+      "The Nine of Cups is the card of enough. Many readers call it the wish card, and it draws attention to the moment when something you hoped for has arrived, or when you notice that much of what you need is already here. In Olivia’s carving a round-faced ivory figure sits squarely on a plain bench, arms folded, smiling with the whole face. Behind and above, nine grey-blue goblets stand in an arc along a draped shelf, like a row of well-earned toasts.",
+      "The cup at the top of the arc carries a heart of gold, set directly above the figure’s head. This detail is Olivia’s own, and it changes the question. Among all the satisfactions on display, one is marked as truly precious. Upright, the card invites you to enjoy what is good without justifying it through usefulness or applause, and to name which pleasure actually matters to you rather than which one looks best on the shelf.",
+      "Notice, too, what surrounds the scene: a curtain hung behind the seat, arched windows opening onto water and hills, the Milky Way crossing the sky. The comfort is real, and it sits inside a much wider world. Contentment here is a way of resting, not a way of shutting the door."
+    ],
+    "reversed": [
+      "Nine of Cups reversed draws attention to the gap that can open between having and enjoying. A wish may have been met in form but not in feeling, or pleasure may have tipped into excess: one more cup set on a shelf that is already full. The folded arms can read as a guard rather than ease, and the draped display as something arranged for others to see.",
+      "It can also turn inward in a gentler way: a satisfaction kept private, or a quiet contentment you have not yet allowed yourself to name. This is useful information, not ingratitude. The card asks what the gold-hearted cup would hold if you chose it for yourself, and what enough would feel like on your own terms."
+    ],
+    "number": "Nine is the last step before the Ten: the fullest point of a suit before completion tips into overflow or a new cycle. In Cups, the suit of Water, feeling and relationship, that fullness is emotional. After the loss of the Five, the memories of the Six, the choices of the Seven and the leaving of the Eight, the Nine arrives at satisfaction held close. The Ten will share it with a household; the Nine keeps it near. Among the Nines, the Nine of Pentacles enjoys self-made comfort, while the Nines of Wands and Swords hold vigilance and worry.",
+    "tradition": "In the Golden Dawn system the Nine of Cups is titled the Lord of Material Happiness. It is assigned to Jupiter in Pisces, the second decan of that sign (10 to 20 degrees), and to Yesod, Foundation, the ninth Sephirah on the Tree of Life. Jupiter was the traditional ruler of Pisces, so the planet of increase stands here in its own sign, commonly read as generous, easy plenty. Aleister Crowley’s Thoth deck uses the single title Happiness. Marseille-pattern decks show the nine cups alone, with no figure; Pamela Colman Smith’s 1909 card added the contented seated figure with folded arms before an arched row of cups on a draped counter. Some modern readers link Pisces with Neptune.",
+    "areas": {
+      "love": "In love and close friendship the Nine of Cups draws attention to the pleasure of being together as things are, without a next milestone to reach: a shared meal, an easy evening, the relief of not having to perform. It cannot tell you what another person feels. It asks whether the contentment you show is the contentment you feel, and invites you to say plainly what you enjoy. With yourself, it welcomes comfort you do not have to earn.",
+      "work": "At work or in study the card can point to a goal reached, praise received, or a stretch where things are simply going well. The arc of cups invites you to pause and register it before reaching for the next target. It also asks whether your satisfaction depends on how the results look to others. Around money, it invites you to notice what is already sufficient before measuring it against the next target.",
+      "self": "For your relationship with yourself, the smiling figure with folded arms is a portrait of ease worth practising. Notice what brings you real bodily pleasure: rest, warmth, taste, a good laugh. The gold heart on one cup asks you to tell apart the wishes that are truly yours from those inherited or collected for show. The curtain behind the seat is a reminder that not every contentment needs an audience."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Nine of Cups points to satisfaction that may already be present or within reach, and to what enough honestly means for you here.",
+      "challenge": "As a challenge, the card can show contentment used as a guard, comfort that has slipped into complacency, or a wish met in form that still feels empty inside.",
+      "advice": "As advice, it invites you to pause and enjoy one good thing fully, then name which wish on your shelf is truly your own."
+    },
+    "pairs": [
+      {
+        "with": 45,
+        "text": "The Nine of Cups keeps satisfaction close; the Ten of Cups opens it to a household and a shared life. Together they turn attention to the difference between private contentment and happiness held in common, and to what you would like to share."
+      },
+      {
+        "with": 39,
+        "text": "In Olivia’s Four of Cups a figure sits with folded arms, eyes lowered, beside cups that fail to tempt; the Nine repeats the gesture with a broad smile beside plenty that is plainly enjoyed. Together they ask whether folded arms mean refusal or rest."
+      },
+      {
+        "with": 72,
+        "text": "Both Nines show a figure at ease amid their own plenty, and in both one of the nine emblems is marked in gold. The Nine of Pentacles savours comfort built through steady work, the Nine of Cups feeling and pleasure. Together they ask how you let yourself enjoy what you have."
+      }
+    ],
+    "questions": [
+      "What does enough feel like for you right now, in your body and not only on paper?",
+      "Which wish on your shelf is truly your own, and which did you collect to be seen?",
+      "Where could you let yourself enjoy something fully this week, without earning it first?"
+    ],
+    "practice": "Tonight, before sleep, write down three pleasures from the day, however small, and underline the one you would choose again if nobody ever knew."
+  },
+  "uk": {
+    "essence": "Дев’ятка Кубків звертає увагу на вдоволення: мить, коли бажання здійснилося, достатнє визнано достатнім, а насолоді можна віддатися без виправдань.",
+    "keywords": {
+      "upright": [
+        "вдоволення",
+        "здійснене бажання",
+        "насолода",
+        "вдячність",
+        "легкість",
+        "тілесна втіха"
+      ],
+      "reversed": [
+        "порожнє вдоволення",
+        "самовдоволеність",
+        "надмірність",
+        "показ замість почуття",
+        "потаємне вдоволення"
+      ]
+    },
+    "upright": [
+      "Дев’ятка Кубків — карта достатнього. Багато хто називає її картою бажань, і вона звертає увагу на мить, коли те, на що ви сподівалися, нарешті здійснилося, або коли ви помічаєте, що чимало потрібного вже поруч. У різьбі Olivia кругловида постать зі слонової кістки впевнено сидить на простій лаві, схрестивши руки, й усміхається всім обличчям. Позаду й вище дев’ять сіро-блакитних келихів стоять дугою на задрапованій полиці, наче ряд заслужених тостів.",
+      "Кубок на вершині дуги прикрашає золоте серце, розміщене просто над головою постаті. Ця деталь — власна знахідка Olivia, і вона змінює саме запитання. Серед усіх виставлених утіх одна позначена як справді цінна. У прямому положенні карта запрошує тішитися добрим, не виправдовуючи його користю чи оплесками, і назвати, яка насолода справді важлива для вас, а не яка найефектніше стоїть на полиці.",
+      "Зверніть увагу й на те, що оточує сцену: завіса за сидінням, арочні вікна з видом на воду й пагорби, Чумацький Шлях через усе небо. Затишок справжній, і він уміщений у значно ширший світ. Вдоволення тут — спосіб відпочити, а не спосіб зачинити двері."
+    ],
+    "reversed": [
+      "Дев’ятка Кубків у перевернутому положенні звертає увагу на розрив, що може виникнути між «мати» і «тішитися». Бажання, можливо, здійснилося за формою, але не за відчуттям, або насолода перейшла в надмір: ще один кубок на полиці, яка й так повна. Схрещені руки тоді читаються як оборона, а не легкість, а задрапована вітрина — як щось, влаштоване для чужих очей.",
+      "Карта може звернутися й усередину, м’якше: вдоволення, яке ви тримаєте при собі, або тиха радість, яку ви ще не дозволили собі назвати. Це корисна інформація, а не невдячність. Карта запитує, що містив би кубок із золотим серцем, якби ви обрали його для себе, і яким було б «досить» на ваших власних умовах."
+    ],
+    "number": "Дев’ять — останній крок перед Десяткою: найповніша точка масті, перш ніж завершеність переллється через край або почнеться новий цикл. У Кубках, масті Води, почуттів і стосунків, ця повнота емоційна. Після втрати П’ятірки, спогадів Шістки, виборів Сімки й відходу Вісімки Дев’ятка доходить до вдоволення, яке тримають близько. Десятка поділиться ним із домом; Дев’ятка тримає його при собі. Серед Дев’яток Дев’ятка Пентаклів тішиться затишком, створеним власними руками, а Дев’ятки Жезлів і Мечів несуть пильність і тривогу.",
+    "tradition": "У системі Золотої Зорі Дев’ятка Кубків має титул «Володар матеріального щастя». Її віднесено до Юпітера в Рибах, другого декана цього знака (від 10 до 20 градусів), і до Єсоду, Основи, дев’ятої сефіри Дерева Життя. Юпітер був традиційним управителем Риб, тож планета примноження стоїть тут у власному знаку, що зазвичай читають як щедрий, невимушений достаток. Колода Тота Алістера Кроулі має коротку назву «Щастя». Колоди марсельського типу показують лише дев’ять кубків, без постаті; карта Памели Колман Сміт 1909 року додала вдоволену постать, що сидить зі схрещеними руками перед дугою кубків на задрапованому прилавку. Дехто із сучасних читачів пов’язує Риби з Нептуном.",
+    "areas": {
+      "love": "У коханні й близькій дружбі Дев’ятка Кубків звертає увагу на радість бути разом такими, як є, без наступного рубежу попереду: спільна вечеря, невимушений вечір, полегшення від того, що не треба грати роль. Вона не може сказати вам, що відчуває інша людина. Вона запитує, чи вдоволення, яке ви показуєте, — те саме, що ви відчуваєте, і запрошує прямо сказати, що вам приємно. У стосунках із собою вона вітає затишок, який не треба заробляти.",
+      "work": "У роботі чи навчанні карта може вказувати на досягнуту мету, отриману похвалу або період, коли все просто йде добре. Дуга кубків запрошує зупинитися й помітити це, перш ніж тягнутися до наступної цілі. Карта також запитує, чи залежить ваше вдоволення від того, якими результати здаються іншим. Щодо грошей вона запрошує помітити, чого вже досить, перш ніж міряти це наступною планкою.",
+      "self": "У стосунках із собою усміхнена постать зі схрещеними руками — портрет легкості, яку варто практикувати. Помічайте, що дає вам справжню тілесну насолоду: відпочинок, тепло, смак, добрий сміх. Золоте серце на одному з кубків просить відрізнити бажання, справді ваші, від успадкованих чи зібраних напоказ. Завіса за сидінням нагадує, що не кожне вдоволення потребує глядачів."
+    },
+    "positions": {
+      "heart": "У центрі запитання Дев’ятка Кубків вказує на вдоволення, яке, можливо, вже є або досяжне, і на те, що для вас тут чесно означає «досить».",
+      "challenge": "Як виклик карта може показувати вдоволення, що стало обороною, затишок, який сповз у самовдоволеність, або бажання, здійснене за формою, яке всередині досі відчувається порожнім.",
+      "advice": "Як порада вона запрошує зупинитися й сповна насолодитися чимось одним добрим, а тоді назвати, яке бажання на вашій полиці справді ваше."
+    },
+    "pairs": [
+      {
+        "with": 45,
+        "text": "Дев’ятка Кубків тримає вдоволення близько; Десятка Кубків відкриває його для дому й спільного життя. Разом вони звертають увагу на різницю між приватним вдоволенням і щастям, яке поділяють, і на те, чим ви хотіли б поділитися."
+      },
+      {
+        "with": 39,
+        "text": "На Четвірці Кубків Olivia постать сидить зі схрещеними руками й опущеним поглядом біля кубків, які не ваблять; Дев’ятка повторює цей жест із широкою усмішкою поруч із достатком, яким відверто тішаться. Разом вони запитують, що означають схрещені руки: відмову чи відпочинок."
+      },
+      {
+        "with": 72,
+        "text": "Обидві Дев’ятки показують постать, спокійну серед власного достатку, і в обох одну з дев’яти емблем позначено золотом. Дев’ятка Пентаклів смакує затишок, збудований сталою працею, Дев’ятка Кубків — почуття й насолоду. Разом вони запитують, як ви дозволяєте собі тішитися тим, що маєте."
+      }
+    ],
+    "questions": [
+      "Яким є «досить» для вас зараз — у тілі, а не лише на папері?",
+      "Яке бажання на вашій полиці справді ваше, а яке ви зібрали, щоб його бачили?",
+      "Де цього тижня ви могли б дозволити собі сповна чимось насолодитися, не заслуговуючи на це заздалегідь?"
+    ],
+    "practice": "Сьогодні ввечері, перед сном, запишіть три насолоди дня, хай навіть дрібні, і підкресліть ту, яку обрали б знову, навіть якби про це ніхто ніколи не дізнався."
+  }
+}

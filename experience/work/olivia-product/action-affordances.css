@@ -5,7 +5,7 @@
   --action-ink: #122638;
   --action-lapis: #162c40;
   --action-edge: #c8b58b99;
-  --action-ease: cubic-bezier(.22, .7, .2, 1);
+  --action-ease: var(--ease-control);
 }
 
 .reading-link,

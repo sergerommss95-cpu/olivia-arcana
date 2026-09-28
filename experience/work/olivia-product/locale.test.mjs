@@ -2,17 +2,33 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { TAROT_CARDS } from './deck-catalog.js';
 import { UK_CARDS } from './locale-uk.js';
+import { UK_NOTES } from './card-notes-uk.js';
 import { t, translateMarkup, localizeCardNotes, localizeSpreadReading } from './locale.js';
 import { SPREADS, buildSpreadReading } from './spread-content.js';
 import { createSpreadSession, selectSpreadCard, revealAll, createSpreadRecord } from './spread-core.js';
 
 test('every stable deck identity has complete Ukrainian core content', () => {
   assert.equal(TAROT_CARDS.length, 78);
-  for (const card of TAROT_CARDS) {
-    const uk = UK_CARDS[card.name];
+  for (const [id, card] of TAROT_CARDS.entries()) {
+    const uk = UK_CARDS[card.name], note = UK_NOTES[id];
     assert.ok(uk, card.name);
-    for (const field of ['name', 'upright', 'reversed', 'advice']) assert.match(uk[field], /[А-Яа-яІіЇїЄєҐґ]/u, `${card.name}: ${field}`);
+    assert.match(uk.name, /[А-Яа-яІіЇїЄєҐґ]/u, `${card.name}: name`);
     assert.ok(uk.keywords.length >= 2);
+    for (const [field, value] of Object.entries({ ...note, reversed: undefined, ...Object.fromEntries(Object.entries(note.reversed).map(([k, v]) => ['reversed ' + k, v])) })) {
+      if (value === undefined) continue;
+      assert.match(value, /[А-Яа-яІіЇїЄєҐґ]/u, `${card.name}: ${field}`);
+    }
+  }
+});
+
+test('Ukrainian card notes keep the formal «ви» voice and never predict', () => {
+  const informal = /(^|[\s«(—-])(ти|Ти|тебе|Тебе|тобі|Тобі|твій|Твій|твоя|Твоя|твоє|Твоє|твої|Твої)(?=[\s,.!?»)—:;]|$)/u;
+  for (const [id, note] of Object.entries(UK_NOTES)) {
+    const text = JSON.stringify(note);
+    assert.doesNotMatch(text, informal, `card ${id} uses informal address`);
+    assert.doesNotMatch(text, /Всесвіт|[а-яіїєґ]'[а-яіїєґ]/iu, `card ${id} voice or apostrophe`);
+    assert.match(note.prompt, /\?$/u);
+    assert.match(note.reversed.prompt, /\?$/u);
   }
 });
 
@@ -40,7 +56,8 @@ test('localization preserves the draw and explicitly uses reversed meaning when 
   const note = { meaning: 'English meaning', prompt: 'English prompt' };
   assert.equal(localizeCardNotes(18, note, { locale: 'en' }), note);
   const localized = localizeCardNotes(18, note, { locale: 'uk', reversed: true });
-  assert.equal(localized.meaning, UK_CARDS['The Moon'].reversed);
+  assert.equal(localized.meaning, UK_NOTES[18].reversed.meaning);
+  assert.equal(localized.learn, UK_NOTES[18].learn);
   for (const definition of SPREADS) {
     const ids = Array.from({ length: definition.count }, (_, i) => i + 20);
     const source = { ...buildSpreadReading(definition, ids), question: 'My own exact question' };

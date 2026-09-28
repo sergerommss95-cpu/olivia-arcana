@@ -1,0 +1,275 @@
+{
+  "id": 48,
+  "slug": "queen-of-cups",
+  "artwork": {
+    "file": "48_queen_of_cups.webp",
+    "sha256": "48074c0fff3310fcef2fff8e8e8a7f87910cac966ef8ff8d76d2a2de7da14ac8"
+  },
+  "symbols": [
+    {
+      "key": "cup",
+      "x": 33,
+      "y": 39,
+      "en": {
+        "name": "The covered cup",
+        "seen": "An ivory cup with a domed, leaf-carved lid, a spired finial and a fluted lower bowl; two winged figures form its handles, their bodies tapering into curled tails. One hand grips the stem, the other cradles the foot.",
+        "meaning": "In the traditional image this is often noted as the only closed cup of the suit, commonly read as feeling and imagination kept within rather than spilled. Olivia keeps the lid and the winged handle figures, whose bodies curl away into tail-like scrolls, as if the vessel belonged half to the air and half to the water."
+      },
+      "uk": {
+        "name": "Кубок із кришкою",
+        "seen": "Кубок зі слонової кістки: куполоподібна кришка з різьбленим листям і шпилястим навершям, рифлена нижня чаша; ручками слугують дві крилаті фігурки, чиї тіла звужуються в закручені хвости. Одна рука стискає ніжку, друга підтримує підставку.",
+        "meaning": "На традиційному зображенні цей кубок часто називають єдиним закритим у масті й зазвичай читають як почуття та уяву, що зберігаються всередині, а не розхлюпуються. Olivia лишає кришку й крилаті фігурки-ручки, чиї тіла згортаються в хвостоподібні завитки, ніби посудина належить наполовину повітрю, а наполовину воді."
+      }
+    },
+    {
+      "key": "heart",
+      "x": 34,
+      "y": 44,
+      "en": {
+        "name": "The gold heart",
+        "seen": "A small heart of gold is set into the smooth upper band of the bowl, just below the lid and facing the viewer; apart from the flecks in the sky, it is the only gold on the card.",
+        "meaning": "The traditional card has no heart on the cup; this is Olivia’s own addition. It names what the closed vessel protects: love and care that are real and precious, kept safe rather than displayed. Gold, used sparingly in this deck, marks the heart as the point of value."
+      },
+      "uk": {
+        "name": "Золоте серце",
+        "seen": "Невелике золоте серце вправлене в гладкий верхній пояс чаші, одразу під кришкою, і звернене до глядача; окрім іскор у небі, це єдине золото на карті.",
+        "meaning": "На традиційній карті серця на кубку немає; це власне доповнення Olivia. Воно називає те, що оберігає закрита посудина: справжню й дорогоцінну любов і турботу, які бережуть, а не виставляють напоказ. Золото, до якого ця колода вдається ощадливо, позначає серце як найцінніше місце."
+      }
+    },
+    {
+      "key": "face",
+      "x": 51,
+      "y": 39,
+      "en": {
+        "name": "The bowed head",
+        "seen": "The Queen’s head bends toward the cup, eyelids lowered and mouth closed; long wavy hair falls over the shoulders, and a mantle is knotted at the throat above a gown tied at the waist.",
+        "meaning": "Traditionally the Queen of Cups gazes into the cup, commonly read as reverie, intuition and imagination at work. Here the lowered eyes make that attention inward and unhurried: this Queen is listening rather than searching, and gives feeling the time it needs to become clear."
+      },
+      "uk": {
+        "name": "Схилена голова",
+        "seen": "Голова Королеви схилена до кубка, повіки опущені, вуста зімкнені; довге хвилясте волосся спадає на плечі, а мантію зав’язано під горлом, над сукнею, перехопленою на талії.",
+        "meaning": "Традиційно Королева Кубків вдивляється в кубок, і це зазвичай читають як мрійливість, інтуїцію та уяву, що працює. Тут опущені очі роблять цю увагу внутрішньою й неквапною: ця Королева радше слухає, ніж шукає, і дає почуттю стільки часу, скільки потрібно, щоб воно проясніло."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 50,
+      "y": 33,
+      "en": {
+        "name": "The cross-tipped crown",
+        "seen": "An open ivory crown rests on the Queen’s hair, its band edged with small beads and its tall points tipped with little trefoil crosses, carved in the same pale material as the figure and the cup.",
+        "meaning": "A crown marks authority that has been accepted rather than seized. Carved in the same ivory as the cup, it suggests that this Queen’s rule and this Queen’s feeling are one substance: authority grounded in the depth and reliability of care, not in command over others."
+      },
+      "uk": {
+        "name": "Корона з хрестиками",
+        "seen": "Відкрита корона зі слонової кістки лежить на волоссі Королеви: обідок облямований дрібними намистинами, а високі зубці увінчані маленькими трилисними хрестиками, вирізьбленими з того самого світлого матеріалу, що й постать і кубок.",
+        "meaning": "Корона позначає владу, яку прийняли, а не захопили. Вирізьблена з тієї самої слонової кістки, що й кубок, вона натякає, що влада і почуття цієї Королеви мають одну природу: авторитет, який спирається на глибину й надійність турботи, а не на панування над іншими."
+      }
+    },
+    {
+      "key": "throne",
+      "x": 65,
+      "y": 29,
+      "en": {
+        "name": "The scallop-shell throne",
+        "seen": "Behind the Queen, a tall throne carved in lighter blue lapis rises to a rounded arch filled by a large scallop shell, with a smaller shell at its base and two small cherubs perched on the arch.",
+        "meaning": "Shells tie the throne to the sea, and the scallop is an old emblem of Venus, born from the waves. The traditional throne is also decorated with a shell and small sea-children. Carved in the blue of the water rather than in ivory, Olivia’s throne makes the sea itself the Queen’s seat."
+      },
+      "uk": {
+        "name": "Трон із мушлею-гребінцем",
+        "seen": "Позаду Королеви височіє трон, вирізьблений зі світлішого блакитного лазуриту; він здіймається до округлої арки, яку заповнює велика мушля-гребінець, з меншою мушлею біля основи та двома маленькими херувимами на арці.",
+        "meaning": "Мушлі пов’язують трон із морем, а гребінець — давня емблема Венери, народженої з хвиль. Традиційний трон теж прикрашений мушлею та маленькими морськими дітьми. Вирізьблений у синяві води, а не зі слонової кістки, трон Olivia робить саме море престолом Королеви."
+      }
+    },
+    {
+      "key": "cherub",
+      "x": 71,
+      "y": 72,
+      "en": {
+        "name": "Cherubs on the throne base",
+        "seen": "On the lower panel of the throne, carved in blue lapis, a plump winged cherub faces the viewer and reaches one arm up the frame, while a second small head peeps out behind it; leafy scrolls fill the panel.",
+        "meaning": "The small childlike figures on this Queen’s throne are commonly read as undines, spirits of water, and as the playful, imaginative side of feeling. Olivia carves them as cherubs that echo the winged handles of the cup, so tenderness appears in the seat as well as in the Queen’s hands."
+      },
+      "uk": {
+        "name": "Херувими на підніжжі трону",
+        "seen": "На нижній панелі трону, вирізьбленій у синьому лазуриті, пухкий крилатий херувим обернений до глядача й тягне руку вгору вздовж рами, а позаду визирає друга маленька голівка; решту панелі заповнюють листяні завитки.",
+        "meaning": "Маленькі дитячі постаті на троні цієї Королеви зазвичай читають як ундин, духів води, і як грайливий, мрійливий бік почуття. Olivia вирізьблює їх херувимами, що перегукуються з крилатими ручками кубка, тож ніжність присутня і в престолі, і в руках Королеви."
+      }
+    },
+    {
+      "key": "moon",
+      "x": 27,
+      "y": 30,
+      "en": {
+        "name": "Crescent and sky shells",
+        "seen": "At upper left, a thin crescent moon is carved in pale lapis, with small scallop shells floating beside and below it in the sky, above low carved clouds and the flat line of the sea.",
+        "meaning": "The traditional Queen of Cups sits under a pale daytime sky. Olivia moves the card into night and adds a crescent, the moon of tides, commonly linked with intuition and the rhythms of feeling. Shells drifting among the stars make sea and sky read as one element."
+      },
+      "uk": {
+        "name": "Серп і небесні мушлі",
+        "seen": "Угорі ліворуч тонкий серп місяця вирізьблено у світлому лазуриті; поруч і нижче в небі пливуть маленькі мушлі-гребінці, над низькими різьбленими хмарами та рівною лінією моря.",
+        "meaning": "Традиційна Королева Кубків сидить під блідим денним небом. Olivia переносить карту в ніч і додає серп — місяць припливів, який зазвичай пов’язують з інтуїцією та ритмами почуттів. Мушлі, що дрейфують серед зірок, дають змогу прочитати море й небо як одну стихію."
+      }
+    },
+    {
+      "key": "star",
+      "x": 78,
+      "y": 12,
+      "en": {
+        "name": "Gold stars in the night",
+        "seen": "Gold flecks are scattered across the deep ultramarine sky, a few larger ones rayed like small stars; a glittering diagonal vein crosses the upper sky from the top right down toward the left edge.",
+        "meaning": "Stars are commonly read as guidance and hope that show best in the dark. Here they share their gold only with the heart on the cup, so the night sky and the Queen’s care are made of one precious material: a quiet light, not dazzling, but enough to see by."
+      },
+      "uk": {
+        "name": "Золоті зорі в ночі",
+        "seen": "Золоті іскри розсипані по глибокому ультрамариновому небу, кілька більших мають промені, мов маленькі зорі; мерехтлива діагональна жилка перетинає верхню частину неба від правого верхнього кута вниз до лівого краю.",
+        "meaning": "Зорі зазвичай читають як дороговказ і надію, які найкраще видно в темряві. Тут вони діляться своїм золотом лише із серцем на кубку, тож нічне небо й турбота Королеви зроблені з одного дорогоцінного матеріалу: тихе світло, не сліпуче, але його досить, щоб бачити."
+      }
+    },
+    {
+      "key": "rock",
+      "x": 39,
+      "y": 82,
+      "en": {
+        "name": "The pebbled shore",
+        "seen": "The Queen sits on a low shelf of rounded, polished pebbles; water curls around its left edge in carved ripples, a bare foot shows beneath the hem, and sea plants grow at lower right.",
+        "meaning": "The traditional Queen sits at the water’s edge, touched by the sea yet on land. Olivia keeps that meeting point and makes it tactile: bare foot, wet stones, moving water. The card’s balance lives here, close enough to feel every current, grounded enough not to be carried off."
+      },
+      "uk": {
+        "name": "Берег із гальки",
+        "seen": "Королева сидить на низькому уступі з округлої відполірованої гальки; вода огинає його лівий край різьбленими брижами, з-під подолу видно босу ногу, а праворуч унизу ростуть морські рослини.",
+        "meaning": "Традиційна Королева сидить біля самої кромки води: на суші, але в досяжності моря. Olivia зберігає цю точку зустрічі й робить її відчутною на дотик: боса нога, мокре каміння, рухлива вода. Рівновага карти живе саме тут: досить близько, щоб відчувати кожну течію, і досить міцно на суші, щоб течія не віднесла."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Queen of Cups is feeling held with care: patient, intuitive attention to emotion, your own and other people’s, kept close without being spilled or sealed away.",
+    "keywords": {
+      "upright": [
+        "compassion",
+        "intuition",
+        "emotional safety",
+        "attentive listening",
+        "calm care"
+      ],
+      "reversed": [
+        "blurred boundaries",
+        "absorbed moods",
+        "over-giving",
+        "sealed feelings",
+        "self-neglect"
+      ]
+    },
+    "upright": [
+      "The Queen of Cups draws attention to feeling that has been given a place to rest. In Olivia’s card the Queen sits at the very edge of the sea, bowed over a lidded cup held in both hands: one hand closes around the stem, the other supports the foot from below. The whole figure turns toward that vessel. This is the suit of Water at its most inward, the capacity to stay with an emotion, yours or someone else’s, long enough to understand its shape before doing anything with it.",
+      "The cup is closed, and that matters. Its contents are not on display, and the Queen attends to them without prising the lid open. The gold heart on the bowl, the only gold on the card beyond the stars, marks what the image values: care that is real but held, not poured out for everyone who asks. Behind the Queen a scallop shell crowns the throne, and the water curls right up to the pebbles beneath a bare foot. Feeling surrounds this figure; it does not sweep the figure away.",
+      "Upright, the card can point to compassionate listening, trustworthy intuition and emotional steadiness, including the steadiness to hear another person without deciding what they feel for them. It invites you to notice what your own cup holds today, and to treat that with the same quiet respect."
+    ],
+    "reversed": [
+      "Queen of Cups reversed draws attention to empathy that has lost its edges. The lid comes off too far: other people’s moods begin to set your own, and the patient attention the Queen gives to feeling turns into absorbing it, fixing it or reading more into it than is there. Sometimes the movement runs the other way, and the lid stays shut on your own emotions while you keep caring for everyone else.",
+      "Either form asks for some of that listening to turn inward. Sensitivity does not oblige you to carry what others feel or to interpret it for them. Notice where you end and another person begins, and let the cup hold what is actually yours."
+    ],
+    "number": "Queens are the third court rank, the rank of inward mastery: they hold their suit’s element from within, while Kings direct it outward. In Cups, the suit of Water, feeling, relationship and intuition, inward mastery is the ability to stay with emotion without being carried off by it. The Page brings a feeling as a surprising message and the Knight follows it as a quest; the Queen sits down beside it and listens, so that sensitivity becomes a steady source of care.",
+    "tradition": "In the Golden Dawn system the Queen of Cups is titled the Queen of the Thrones of the Waters. Queens carry the Water aspect of their suit, so this card is Water of Water, the element doubled, and it rules from 20 degrees Gemini to 20 degrees Cancer, the last decan of Gemini and the first two of Cancer. The Golden Dawn description gives this Queen a cup from which a crayfish rises and an ibis as crest, details Crowley’s Thoth deck keeps. Pamela Colman Smith’s 1909 card shows instead an ornate covered cup with angel handles, and Waite’s note describes the Queen as dreamy, one who sees visions in the cup, yet also one who acts.",
+    "court": {
+      "temperament": "As a temperament, the Queen of Cups describes a way of acting anyone can have: receptive, patient and quietly perceptive, more at home listening than speaking. The Queen bows toward the cup instead of lifting it high; this temperament meets feeling up close, slowly, and gives it time to settle before naming it.",
+      "gifts": "The gifts are compassion that does not rush, an ear people trust, and intuition grounded in careful attention. This temperament notices mood and nuance, makes a room feel safer, and can hold a difficult conversation without needing to win it or end it too soon. Imagination and artistic sensitivity often belong here too.",
+      "shadow": "In shadow, receptivity can blur into absorbing everyone else’s weather, or into rescuing, mind-reading and quiet self-sacrifice. It can also withdraw behind the lid: feelings kept so private that no one is let in, or moods left to drift like water with no shore to meet."
+    },
+    "areas": {
+      "love": "In love and close relationships, the Queen of Cups asks for presence more than solutions. It can point to a moment for listening fully, asking before assuming, and letting someone’s feelings be theirs rather than something you must fix or decode. The closed cup is also a reminder that intimacy includes privacy, yours and theirs. In your relationship with yourself, the card invites the same gentleness you offer others, especially toward feelings you usually hurry past.",
+      "work": "At work or in study, the Queen of Cups draws attention to emotional intelligence as a real skill: reading the mood of a meeting, mentoring, caring for clients, or creative work that depends on sensitivity. It can also ask whether you have become the person everyone brings their feelings to, without that labour being seen or shared. In money matters, it suggests noticing the feelings attached to a decision before you act on it.",
+      "self": "For your own practice, this card turns attention toward inner listening. The Queen sits at the water’s edge, near enough to feel the tide, yet seated on solid, pebbled ground. That is the balance it invites: contact with emotion and intuition without drowning in either. Journalling, a slow walk by water, or naming what you feel in one honest sentence can all be ways of lifting your own cup to look at it."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Queen of Cups points to feeling as the real subject: what you sense, what you care about, and how carefully you are holding it.",
+      "challenge": "As a challenge, the card can show empathy stretched too thin, other people’s moods setting your own, or your own feelings kept under a lid while you look after everyone else.",
+      "advice": "As advice, it invites you to listen before acting: to someone else without deciding for them, and to yourself with the same patience, then to respond from that calmer place."
+    },
+    "pairs": [
+      {
+        "with": 36,
+        "text": "The Ace of Cups offers feeling as an overflowing gift; the Queen of Cups shows what mastery of that gift looks like. In Olivia’s deck both cups carry a small gold mark on the bowl. Together they show openness maturing into care that is steady and chosen."
+      },
+      {
+        "with": 2,
+        "text": "Olivia’s High Priestess sits with a crescent moon at the feet; this Queen has one in the sky. Together they turn attention toward intuition: the Priestess keeps that knowing still and private, while the Queen carries it into relationship and everyday care."
+      },
+      {
+        "with": 49,
+        "text": "The King of Cups holds the same element outwardly, guiding feeling rather than receiving it. Together the two rulers of Cups ask how you balance listening with steering, and whether the calm you show outside matches the care you hold within."
+      }
+    ],
+    "questions": [
+      "What is my own cup holding right now, beneath the feelings I pick up from others?",
+      "Where could I listen more fully, without deciding what someone else feels?",
+      "Which feelings do I keep under a lid, and with whom might I safely share them?"
+    ],
+    "practice": "Before you answer someone today, take three slow breaths and name silently what you feel, and what you sense belongs to them rather than to you."
+  },
+  "uk": {
+    "essence": "Королева Кубків — це почуття, яке тримають дбайливо: терпляча, інтуїтивна увага до емоцій, ваших власних і чужих, що лишаються поруч — не розхлюпані й не замкнені.",
+    "keywords": {
+      "upright": [
+        "співчуття",
+        "інтуїція",
+        "емоційна безпека",
+        "уважне слухання",
+        "спокійна турбота"
+      ],
+      "reversed": [
+        "розмиті межі",
+        "перейняті настрої",
+        "надмірна віддача",
+        "замкнені почуття",
+        "нехтування собою"
+      ]
+    },
+    "upright": [
+      "Королева Кубків звертає увагу на почуття, якому дали місце для спочинку. На карті Olivia Королева сидить на самому краю моря, схилившись над кубком із кришкою, який тримає обома руками: одна рука обхоплює ніжку, друга підтримує підставку знизу. Уся постать обернена до цієї посудини. Це масть Води, звернена найглибше всередину: здатність залишатися з емоцією, вашою чи чужою, досить довго, щоб зрозуміти її обриси, перш ніж щось із нею робити.",
+      "Кубок закритий, і це важливо. Його вміст не виставлено напоказ, і Королева дослухається до нього, не відкриваючи кришку силоміць. Золоте серце на чаші — єдине золото на карті, крім зірок, — позначає те, що цінує це зображення: справжню турботу, яку бережуть, а не розливають кожному, хто попросить. Позаду Королеви трон вінчає мушля-гребінець, а вода підступає до самої гальки під босою ногою. Почуття оточують цю постать, але не зносять її з місця.",
+      "У прямому положенні карта може вказувати на співчутливе слухання, інтуїцію, якій можна довіряти, та емоційну стійкість, зокрема здатність вислухати іншу людину, не вирішуючи за неї, що вона відчуває. Вона запрошує вас помітити, що сьогодні тримає ваш власний кубок, і поставитися до цього з тією самою тихою повагою."
+    ],
+    "reversed": [
+      "Королева Кубків у перевернутому положенні звертає увагу на емпатію, яка втратила межі. Кришка відкривається надто широко: чужі настрої починають визначати ваш власний, а терпляча увага, яку Королева дарує почуттям, перетворюється на поглинання, виправити або вичитати в них більше, ніж там є. Інколи рух іде у зворотний бік: кришка щільно закрита над вашими власними емоціями, поки ви й далі дбаєте про всіх інших.",
+      "Обидві форми просять повернути частину цього слухання всередину. Чутливість не зобов’язує вас нести те, що відчувають інші, чи тлумачити це за них. Помітьте, де закінчуєтеся ви і починається інша людина, і нехай кубок тримає те, що справді ваше."
+    ],
+    "number": "Королеви — третій придворний ранг, ранг внутрішньої майстерності: вони тримають стихію своєї масті зсередини, тоді як Королі спрямовують її назовні. У Кубках, масті Води, почуттів, стосунків та інтуїції, внутрішня майстерність — це здатність залишатися з емоцією й не дати їй себе понести. Паж приносить почуття як несподівану звістку, Лицар вирушає за ним на пошуки; Королева сідає поруч і слухає, тож чутливість стає сталим джерелом турботи.",
+    "tradition": "У системі Золотої Зорі Королеву Кубків називають Королевою Престолів Вод. Королеви несуть водний аспект своєї масті, тож ця карта — Вода Води, подвоєна стихія, і вона править від 20 градусів Близнят до 20 градусів Рака: останньою декадою Близнят і двома першими декадами Рака. В описі Золотої Зорі ця Королева тримає кубок, з якого виринає річковий рак, а нашоломником їй слугує ібіс; ці деталі зберігає колода Тота Кроулі. Натомість на карті Памели Колман Сміт 1909 року — оздоблений кубок із кришкою та ручками-ангелами, а в примітці Вейта йдеться про мрійливість і видіння в кубку, але водночас і про дію.",
+    "court": {
+      "temperament": "Як темперамент Королева Кубків описує спосіб дії, доступний кожному: сприйнятливий, терплячий і тихо проникливий, якому затишніше слухати, ніж говорити. Королева схиляється до кубка, а не здіймає його високо; цей темперамент зустрічає почуття зблизька, повільно, і дає йому час улягтися, перш ніж його назвати.",
+      "gifts": "Його дари — співчуття, яке не поспішає, вухо, якому люди довіряють, та інтуїція, що спирається на уважне спостереження. Цей темперамент помічає настрої й нюанси, поруч із ним у кімнаті стає безпечніше, і здатен витримати складну розмову, не прагнучи її виграти чи завершити зарано. Уява та художня чутливість теж часто належать сюди.",
+      "shadow": "У тіні сприйнятливість може розмитися до поглинання чужої «погоди» або перейти в рятівництво, спроби читати думки й тиху самопожертву. Вона може й сховатися під кришкою: почуття стають такими приватними, що нікого не підпускають, або настрої дрейфують, мов вода, якій нема до якого берега прибитися."
+    },
+    "areas": {
+      "love": "У коханні та близьких стосунках Королева Кубків просить радше присутності, ніж рішень. Карта може вказувати на мить, щоб вислухати до кінця, запитати, а не припускати, і дозволити почуттям іншої людини залишатися її власними, а не тим, що ви мусите виправити чи розшифрувати. Закритий кубок нагадує й про те, що в близькості є місце для приватності — вашої та іншої людини. У стосунках із собою карта запрошує до тієї самої лагідності, яку ви даруєте іншим, особливо щодо почуттів, повз які ви зазвичай проходите поспіхом.",
+      "work": "На роботі чи в навчанні Королева Кубків звертає увагу на емоційний інтелект як справжню навичку: відчувати настрій наради, наставляти, дбати про клієнтів або займатися творчістю, що тримається на чутливості. Карта також може запитати, чи не стали ви тим, до кого всі несуть свої почуття, хоча цю працю ніхто не помічає й не розділяє. У грошових питаннях вона пропонує помітити почуття, пов’язані з рішенням, перш ніж діяти.",
+      "self": "Для вашої власної практики ця карта спрямовує увагу на внутрішнє слухання. Королева сидить біля кромки води, досить близько, щоб відчувати приплив, але на твердому, всипаному галькою ґрунті. Саме до такої рівноваги карта запрошує: бути в контакті з емоціями та інтуїцією, не тонучи ні в тих, ні в інших. Щоденник, повільна прогулянка біля води чи одне чесне речення про те, що ви відчуваєте, — усе це способи підняти власний кубок і придивитися до нього."
+    },
+    "positions": {
+      "heart": "У центрі запитання Королева Кубків показує, що справжня тема — почуття: що ви відчуваєте, що для вас важливе і наскільки дбайливо ви це тримаєте.",
+      "challenge": "Як виклик карта може показувати емпатію, розпорошену надто широко, чужі настрої, що визначають ваш власний, або ваші почуття під кришкою, поки ви дбаєте про всіх інших.",
+      "advice": "Як порада карта запрошує слухати, перш ніж діяти: іншу людину — не вирішуючи за неї, себе — з тим самим терпінням, а тоді відповідати вже зі спокійнішого стану."
+    },
+    "pairs": [
+      {
+        "with": 36,
+        "text": "Туз Кубків пропонує почуття як дар, що переливається через край; Королева Кубків показує, яким є майстерне володіння цим даром. У колоді Olivia обидва кубки мають невелику золоту позначку на чаші. Разом вони показують, як відкритість дозріває до турботи, сталої й свідомо обраної."
+      },
+      {
+        "with": 2,
+        "text": "Верховна Жриця в Olivia сидить із серпом місяця біля ніг; у цієї Королеви серп — у небі. Разом вони звертають увагу на інтуїцію: Жриця зберігає це знання нерухомим і прихованим, а Королева несе його у стосунки та щоденну турботу."
+      },
+      {
+        "with": 49,
+        "text": "Король Кубків спрямовує ту саму стихію назовні, скеровуючи почуття, а не приймаючи їх. Разом двоє правителів Кубків запитують, як ви поєднуєте слухання з керуванням і чи відповідає спокій, який ви показуєте назовні, турботі, яку тримаєте всередині."
+      }
+    ],
+    "questions": [
+      "Що тримає мій власний кубок саме зараз, під почуттями, які я переймаю від інших?",
+      "Де мені варто слухати уважніше, не вирішуючи, що відчуває інша людина?",
+      "Які почуття я тримаю під кришкою і з ким можна було б безпечно ними поділитися?"
+    ],
+    "practice": "Сьогодні, перш ніж комусь відповісти, зробіть три повільні вдихи й подумки назвіть, що відчуваєте ви, а що, як вам здається, належить іншій людині, а не вам."
+  }
+}

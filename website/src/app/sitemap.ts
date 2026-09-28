@@ -1,11 +1,19 @@
 import type { MetadataRoute } from "next";
 import legacyUrls from "@/lib/sitemap-legacy.json";
 import { CARD_SLUGS } from "./cards/card-pages";
+import { allLessons, lessonHref } from "@/lib/learn/lessons";
+import { allPairs } from "@/lib/academy/pairs";
 
 export const dynamic = "force-static";
 
 const ORIGIN = "https://oliviaarcana.com";
-const translatedPaths = ["/", "/decks/", "/cards/", ...CARD_SLUGS.map((slug) => `/cards/${slug}/`)];
+const translatedPaths = [
+  "/", "/decks/", "/ask/", "/cards/", ...CARD_SLUGS.map((slug) => `/cards/${slug}/`),
+  "/cards/pairs/", "/cards/pairs/lab/", ...allPairs().map((pair) => `/cards/pairs/${pair.slug}/`),
+  "/learn/", ...allLessons("uk").map((lesson) => lessonHref(lesson, "en")),
+];
+// Gate pages with no content of their own are marked noindex; don't advertise them.
+const NOINDEX = new Set(["/oracle-letter/", "/timing/", "/transits/"].map((path) => `${ORIGIN}${path}`));
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const paired = new Map<string, { en: string; uk: string; "x-default": string }>();
@@ -16,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     paired.set(en, languages);
     paired.set(uk, languages);
   }
-  return [...new Set([...legacyUrls, ...paired.keys()])].map((url) => ({
+  return [...new Set([...legacyUrls, ...paired.keys()])].filter((url) => !NOINDEX.has(url)).map((url) => ({
     url,
     changeFrequency: url === `${ORIGIN}/` || url === `${ORIGIN}/uk/` ? "weekly" : "monthly",
     ...(paired.has(url) ? { alternates: { languages: paired.get(url)! } } : {}),

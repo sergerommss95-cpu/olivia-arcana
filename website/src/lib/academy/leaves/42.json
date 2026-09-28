@@ -1,0 +1,267 @@
+{
+  "id": 42,
+  "slug": "seven-of-cups",
+  "artwork": {
+    "file": "42_seven_of_cups.webp",
+    "sha256": "b622c12fc93eb19bfb6e08fd0f487570b0cd09c6874c7aa56b4a93755e41ae4b"
+  },
+  "symbols": [
+    {
+      "key": "hand",
+      "x": 71,
+      "y": 48,
+      "en": {
+        "name": "The dreamer’s open hands",
+        "seen": "The ivory figure is seen from behind, face turned up in profile toward the cups. The right hand is raised, palm open toward the clouds; the left arm reaches out low to the side, palm open and empty.",
+        "meaning": "The traditional image shows this figure as a dark silhouette. Olivia carves it in bright ivory, the most solid thing on the card, while the visions stay stone-grey. Neither hand has taken hold of anything yet: this is a moment of wonder, not of choosing."
+      },
+      "uk": {
+        "name": "Розкриті долоні фігури",
+        "seen": "Фігуру зі слонової кістки видно зі спини; обличчя в профіль звернене вгору, до кубків. Права рука піднята, долоня розкрита назустріч хмарам; ліва простягнута низько вбік, долоня відкрита й порожня.",
+        "meaning": "У традиційному зображенні ця постать — темний силует. Olivia вирізьблює її з яскравої слонової кістки: це найвідчутніша річ на карті, тоді як видіння лишаються сіро-кам’яними. Жодна рука ще нічого не взяла: це мить зачудування, а не вибору."
+      }
+    },
+    {
+      "key": "face",
+      "x": 14,
+      "y": 36,
+      "en": {
+        "name": "The calm head, far left",
+        "seen": "From the leftmost cup, an ornate bowl carved with scrollwork, rises a serene face with long hair falling to the rim. It looks straight out of the card rather than toward the dreamer.",
+        "meaning": "A head in a cup belongs to the traditional image too, often read as a longed-for companion or as your own flattering reflection. Its steady outward gaze makes it the one vision that seems to look back, which is exactly how an idealised person can feel."
+      },
+      "uk": {
+        "name": "Спокійне обличчя з лівого краю",
+        "seen": "З крайнього лівого кубка, оздобленої завитками чаші, постає безтурботне обличчя з довгим волоссям, що спадає до вінця. Воно дивиться просто з карти, а не на фігуру внизу.",
+        "meaning": "Голова в кубку є й у традиційному зображенні; її часто читають як омріяну близьку людину або як ваше власне лестиве відображення. Рівний погляд назовні робить її єдиним видінням, що ніби дивиться у відповідь, — саме так може відчуватися ідеалізована людина."
+      }
+    },
+    {
+      "key": "serpent",
+      "x": 25,
+      "y": 32,
+      "en": {
+        "name": "The rising serpent",
+        "seen": "From a plain stemmed cup a serpent lifts its body in a tall S-curve, scales finely incised, mouth open with a thin tongue flicking toward the glowing figure in the next cup.",
+        "meaning": "The serpent is commonly read as desire, temptation or envy, and in older lore also as secret wisdom and healing. Here it leans toward the veiled light, as if appetite and insight stood side by side and could easily be mistaken for one another."
+      },
+      "uk": {
+        "name": "Змія, що здіймається",
+        "seen": "Із простого кубка на ніжці змія підіймає тіло високим S-подібним вигином; луска дрібно насічена, паща відкрита, а тонкий язик тягнеться до сяйливої постаті в сусідньому кубку.",
+        "meaning": "Змію зазвичай читають як бажання, спокусу чи заздрість, а в давніших переказах — ще й як потаємну мудрість і зцілення. Тут вона схиляється до світла під покривалом, ніби жага й прозріння стоять поруч і їх легко сплутати одне з одним."
+      }
+    },
+    {
+      "key": "veil",
+      "x": 36,
+      "y": 28,
+      "en": {
+        "name": "The veiled figure of light",
+        "seen": "A veiled head and shoulders rise from the third cup, ringed by fine radiating lines of light. On the plain bowl beneath is set a small eight-pointed star of gold, the only gold among the cups.",
+        "meaning": "In the traditional card the shrouded, glowing figure is often read as the higher self or a spiritual calling, a truth not yet revealed. Olivia marks it with gold, the deck’s sign of what is precious, yet keeps it veiled: its value is real, but it cannot be seen whole."
+      },
+      "uk": {
+        "name": "Сяйлива постать під покривалом",
+        "seen": "З третього кубка постають голова й плечі під покривалом, оточені тонкими променями світла. На простій чаші під ними — маленька восьмипроменева золота зірка, єдине золото серед усіх кубків.",
+        "meaning": "У традиційній карті закутану сяйливу постать часто читають як вище «я» чи духовне покликання, ще не відкриту істину. Olivia позначає її золотом, знаком цінного в цій колоді, але лишає під покривалом: її цінність справжня, та побачити її цілком неможливо."
+      }
+    },
+    {
+      "key": "wreath",
+      "x": 50,
+      "y": 26,
+      "en": {
+        "name": "Laurel crowning a skull",
+        "seen": "The central cup, set highest of the seven on the crest of the cloud, holds a skull in its bowl, framed by a laurel wreath whose two branches arch up behind it and stay open at the top.",
+        "meaning": "The laurel wreath of victory and fame belongs to the traditional image, where many readers notice a faint skull on its cup. Olivia sets the skull inside the wreath itself: the most elevated vision is success that carries a cost, or a reminder of what winning is for."
+      },
+      "uk": {
+        "name": "Лавр, що вінчає череп",
+        "seen": "Центральний кубок, найвищий із семи, стоїть на гребені хмари; у його чаші — череп в обрамленні лаврового вінка, дві гілки якого вигинаються за ним угору й лишаються розімкненими нагорі.",
+        "meaning": "Лавровий вінок перемоги й слави належить традиційному зображенню, де багато хто помічає на кубку ледь видимий череп. Olivia вміщує череп у сам вінок: найвище видіння — це успіх, що має свою ціну, або нагадування, заради чого взагалі перемагати."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 65,
+      "y": 29,
+      "en": {
+        "name": "Heaped jewels and a crown",
+        "seen": "A wide bowl carved with a lily-like emblem is piled high with smooth, rounded jewels, and a small crown rests at the front of the heap, facing the viewer.",
+        "meaning": "Jewels in a cup are traditionally read as wealth, comfort and status. The crown added here turns riches into rank. It stands next to the laurel skull, so reward and its price appear side by side, only one cup apart."
+      },
+      "uk": {
+        "name": "Купа коштовностей і корона",
+        "seen": "Широка чаша з вирізьбленою лілієподібною емблемою доверху наповнена гладкими округлими коштовностями, а спереду на купі лежить маленька корона, звернена до глядача.",
+        "meaning": "Коштовності в кубку традиційно читають як багатство, затишок і статус. Додана тут корона перетворює багатство на високе становище. Вона стоїть поруч із черепом у лаврах, тож винагорода та її ціна постають пліч-о-пліч, у сусідніх кубках."
+      }
+    },
+    {
+      "key": "other",
+      "x": 76,
+      "y": 35,
+      "en": {
+        "name": "The winged dragon",
+        "seen": "A small cup, set lower than its neighbours just right of the jewels, holds a winged dragon with open jaws and one clawed forefoot raised, its wings spread wide against the dark lapis sky.",
+        "meaning": "The dragon in the traditional image is commonly read as fear, hidden danger, or raw power that thrills from a safe distance. Here it is the vision set nearest the dreamer’s raised hand, a quiet suggestion that fear can feel like the closest option of all."
+      },
+      "uk": {
+        "name": "Крилатий дракон",
+        "seen": "У невеликому кубку, що стоїть нижче за сусідні одразу праворуч від коштовностей, — крилатий дракон із роззявленою пащею й піднятою пазуристою передньою лапою; його крила широко розгорнуті на тлі темного лазуритового неба.",
+        "meaning": "Дракона в традиційному зображенні зазвичай читають як страх, приховану небезпеку або неприборкану силу, що захоплює з безпечної відстані. Тут це видіння найближче до піднятої руки фігури — тиха підказка, що страх може здаватися найближчим варіантом із усіх."
+      }
+    },
+    {
+      "key": "tower",
+      "x": 89,
+      "y": 27,
+      "en": {
+        "name": "The tower on the crag",
+        "seen": "At the far right a tall square tower with a pointed roof, arched door and narrow windows stands on rocks inside a cup, which is itself perched on a jagged lapis mountain.",
+        "meaning": "The castle in the traditional card speaks of security, ambition or a home of your own. Here it is a single lookout tower raised on rock at the card’s edge: safety pictured as height and distance, solid-looking, yet still standing on a vision."
+      },
+      "uk": {
+        "name": "Вежа на скелі",
+        "seen": "Біля правого краю в кубку на скелях стоїть висока квадратна вежа з гострим дахом, арковими дверима й вузькими вікнами; сам кубок височить на зубчастій лазуритовій горі.",
+        "meaning": "Замок у традиційній карті говорить про безпеку, амбіції чи власний дім. Тут це одна-єдина дозорна вежа на скелі біля краю карти: безпека, уявлена як висота й відстань, на вигляд міцна, але все одно збудована на видінні."
+      }
+    },
+    {
+      "key": "cloud",
+      "x": 17,
+      "y": 49,
+      "en": {
+        "name": "The bank of cloud",
+        "seen": "Five cups stand on a long band of billowing cloud carved in lighter blue lapis. The leftmost cup rests on a low hill with small shrubs, the rightmost on a jagged rocky slope.",
+        "meaning": "Clouds are the traditional ground of this card: the cups float rather than stand, marking these options as imagined and untested. Here the two outermost cups touch hill and rock, as if firm ground were near, but only at the edges of the vision."
+      },
+      "uk": {
+        "name": "Гряда хмар",
+        "seen": "П’ять кубків стоять на довгій смузі клубчастих хмар, вирізьблених зі світлішого блакитного лазуриту. Крайній лівий кубок спирається на низький пагорб із кущиками, крайній правий — на зубчастий скелястий схил.",
+        "meaning": "Хмари — традиційне підґрунтя цієї карти: кубки ширяють, а не стоять, тож ці варіанти — уявні й неперевірені. Тут два крайні кубки торкаються пагорба й скелі, ніби твердий ґрунт уже близько, але лише на краях видіння."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Seven of Cups turns attention to a crowd of imagined possibilities and asks you to tell what you truly want from what only glitters from afar.",
+    "keywords": {
+      "upright": [
+        "imagination",
+        "many options",
+        "daydreams",
+        "desire",
+        "possibility",
+        "sorting choices"
+      ],
+      "reversed": [
+        "clarity returning",
+        "disillusion",
+        "option fatigue",
+        "private fantasy",
+        "grounded choice"
+      ]
+    },
+    "upright": [
+      "The Seven of Cups is the card of the imagination at full tide. Seven cups rise along a bank of cloud, each holding a different vision, and a single figure stands below, looking up at them. It draws attention to a moment when options multiply faster than you can test them: paths of work, relationships, plans, versions of yourself. None of this is wrong. Imagination is how you learn what you want. The card simply asks you to notice that visions and choices are not yet the same thing.",
+      "Olivia’s carving makes that difference visible. The figure is solid ivory, lit and weighted, standing on a narrow pale ledge; the cups are carved in greyer lapis, the same stone as the clouds and the night. Read from left to right, the visions run from a calm face to a serpent, a veiled light, a skull crowned with laurel, a heap of jewels under a small crown, a dragon and a tower on a crag. Some are tender, some grand, some frightening, and they sit shoulder to shoulder, so appeal and cost are hard to tell apart from below.",
+      "Only one cup carries gold: the small star on the bowl beneath the veiled figure. The most precious thing on the shelf is the one you cannot see clearly. Upright, the card invites you to name each option plainly, notice which ones draw you because they dazzle and which because they matter, and bring one of them down to earth for a closer look."
+    ],
+    "reversed": [
+      "Seven of Cups reversed can point to the moment the clouds thin. A vision that seemed dazzling begins to look ordinary, and that can feel like loss as much as relief. It may also show the opposite tiredness: so many possibilities kept open that none receives real attention, or daydreams turned inward and kept private because testing them feels exposing. Sometimes the reversal resembles the dreamer’s low, outstretched hand: open, but no longer reaching up.",
+      "The card does not ask you to stop imagining. It asks you to let one possibility become real enough to try, and to allow the others to rest as what they are, pictures in the clouds, without treating their release as failure."
+    ],
+    "number": "Seven follows the harmony of the Six with a test. In the Minor Arcana the Sevens tend to ask how you hold what you have gained once things become less simple: the Seven of Wands defends a position, the Seven of Swords weighs strategy, the Seven of Pentacles pauses to assess growth. In Cups, the suit of Water, feeling and imagination, the test is inward. Where the Six of Cups looks back into memory, the Seven looks forward into fantasy, and the question becomes which feelings can bear the weight of a real choice.",
+    "tradition": "In the Golden Dawn system the Seven of Cups is titled the Lord of Illusionary Success. It is assigned to Venus in Scorpio, the third decan of that sign (20 to 30 degrees), and to Netzach, Victory, the seventh Sephirah on the Tree of Life, expressed through the suit of Water. Venus, planet of attraction and pleasure, in the intense and secretive sign of Scorpio is commonly read as desire that runs deep and can cloud judgement. Aleister Crowley’s Thoth deck later titled the card Debauch. Marseille-pattern decks show seven cups in an ornamental arrangement; Pamela Colman Smith’s 1909 design filled the cups with visions floating on clouds before a figure seen from behind.",
+    "areas": {
+      "love": "In love and close relationships the Seven of Cups draws attention to the difference between a person and a picture. The calm face in the leftmost cup looks straight out, perfectly composed, as idealised images do. The card cannot tell you what anyone else feels or intends. It asks whether you are relating to someone as they are or to a hoped-for version of them, and, with yourself, whether you are waiting to become an imagined self before you allow closeness.",
+      "work": "At work or in study the card can point to too many plans at once: courses, roles, side projects, ideas that all shine from a distance. The heaped jewels and the laurel-crowned skull sit side by side here, reward next to its cost. Write each option down with its ordinary demands: hours, skills, money, the people involved. For money decisions, gather the facts and take qualified advice rather than choosing by glow.",
+      "self": "For your inner life, the seven cups can be read as seven parts of your own imagination: longing, appetite, spirit, ambition, comfort, fear and shelter. None is foolish; each shows you something you value or dread. The card invites curiosity rather than judgement. Notice which vision you return to when you are tired, which when you are hopeful, and which, like the gold-starred veiled figure, you sense matters but cannot yet see."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Seven of Cups points to many possibilities held at once, and to the task of sorting what you truly want from what simply dazzles.",
+      "challenge": "As a challenge, the card can show options multiplying instead of narrowing, a fantasy that stands in for a first step, or a decision postponed while every door stays open.",
+      "advice": "As advice, it invites you to pick one vision, bring it down to earth, and test a single concrete detail of it before imagining anything new."
+    },
+    "pairs": [
+      {
+        "with": 18,
+        "text": "The Moon and the Seven of Cups both show imagination under night light, where shapes are not quite what they seem. Together they turn attention to feelings that need time and daylight before you act on them."
+      },
+      {
+        "with": 6,
+        "text": "The Lovers asks for a choice made from your values; the Seven of Cups shows many possible choices still floating in cloud. Side by side they ask which option you would still choose once its glitter is set aside."
+      },
+      {
+        "with": 43,
+        "text": "In sequence, the Seven of Cups gazes up at many visions and the Eight of Cups walks away from eight cups in two rows; in each, one cup carries gold. Together they ask how clarity about what does not satisfy can become a quiet departure."
+      }
+    ],
+    "questions": [
+      "Which of the possibilities in front of you still appeals once you include its ordinary demands?",
+      "What vision do you keep returning to, and what feeling is it really offering you?",
+      "Which option are you avoiding looking at closely, and what might one small test show you?"
+    ],
+    "practice": "Write down every option you are considering, one per line, and beside each one note a single concrete fact you could check this week."
+  },
+  "uk": {
+    "essence": "Сімка Кубків звертає увагу на юрбу уявних можливостей і просить відрізнити те, чого ви справді хочете, від того, що лише виблискує здалеку.",
+    "keywords": {
+      "upright": [
+        "уява",
+        "безліч варіантів",
+        "мрії наяву",
+        "бажання",
+        "можливість",
+        "розбір варіантів"
+      ],
+      "reversed": [
+        "повернення ясності",
+        "розчарування",
+        "втома від вибору",
+        "потаємна фантазія",
+        "тверезий вибір"
+      ]
+    },
+    "upright": [
+      "Сімка Кубків — карта уяви в час її повноводдя. Сім кубків здіймаються вздовж гряди хмар, у кожному — інше видіння, а внизу стоїть одна фігура й дивиться на них угору. Карта звертає увагу на мить, коли варіанти множаться швидше, ніж ви встигаєте їх перевірити: шляхи в роботі, стосунки, плани, різні версії себе. У цьому немає нічого поганого. Саме через уяву ви дізнаєтеся, чого хочете. Карта лише просить помітити, що видіння і вибір — ще не одне й те саме.",
+      "Різьблення Olivia робить цю різницю видимою. Фігура — суцільна слонова кістка, освітлена й вагома, і стоїть вона на вузькому блідому виступі; кубки ж вирізьблені із сірішого лазуриту, з того самого каменю, що й хмари та ніч. Якщо читати зліва направо, видіння йдуть одне за одним: спокійне обличчя, змія, світло під покривалом, череп у лавровому вінку, купа коштовностей під маленькою короною, дракон і вежа на скелі. Одні ніжні, інші величні, треті лякають, і всі вони стоять пліч-о-пліч, тож знизу привабливість і ціну важко розрізнити.",
+      "Золото є лише на одному кубку: маленька зірка на чаші під постаттю в покривалі. Найцінніше на цій полиці — саме те, чого не видно чітко. У прямому положенні карта запрошує назвати кожен варіант простими словами, помітити, які з них ваблять вас блиском, а які — тим, що справді важливі, і спустити один із них на землю, щоб роздивитися ближче."
+    ],
+    "reversed": [
+      "Сімка Кубків у перевернутому положенні може вказувати на мить, коли хмари рідшають. Видіння, що здавалося сліпучим, починає видаватися буденним, і це може відчуватися і як утрата, і як полегшення. Карта може показувати й протилежну втому: стільки можливостей лишається відкритими, що жодна не отримує справжньої уваги; або мрії звернені всередину й заховані, бо перевірка змушує почуватися беззахисними. Іноді перевернута карта нагадує низько простягнуту руку фігури: відкриту, але вже не звернену вгору.",
+      "Карта не просить вас перестати уявляти. Вона просить дозволити одній можливості стати досить реальною, щоб її спробувати, а іншим — спокійно лишитися тим, чим вони є, — картинами в хмарах, і не вважати відмову від них поразкою."
+    ],
+    "number": "Сімка приходить після гармонії Шістки як випробування. У Молодших Арканах Сімки зазвичай запитують, як утримати здобуте, коли все стає не так просто: Сімка Жезлів обстоює позицію, Сімка Мечів зважує стратегію, Сімка Пентаклів зупиняється, щоб оцінити зростання. У Кубках, масті Води, почуттів і уяви, випробування внутрішнє. Шістка Кубків звертається до спогадів, а Сімка дивиться вперед, у фантазію, і запитання звучить так: які почуття здатні витримати вагу справжнього вибору?",
+    "tradition": "У системі Золотої Зорі Сімка Кубків має титул «Володар ілюзорного успіху». Її пов’язують із Венерою у Скорпіоні, третім деканом цього знака (від 20 до 30 градусів), і з Нецах, Перемогою, сьомою сефірою Дерева Життя, вираженою через масть Води. Венеру, планету притягання й насолоди, в напруженому та потайному Скорпіоні зазвичай читають як глибоке бажання, що може затьмарювати судження. Згодом у колоді Тота Алістера Кроулі карта дістала назву «Розпуста». У колодах марсельського типу сім кубків складено в орнаментальну композицію; Памела Колман Сміт у дизайні 1909 року наповнила кубки видіннями, що пливуть на хмарах перед постаттю, яку видно зі спини.",
+    "areas": {
+      "love": "У коханні та близьких стосунках Сімка Кубків звертає увагу на різницю між людиною та картинкою. Спокійне обличчя в крайньому лівому кубку дивиться просто перед собою, бездоганно зібране, як це властиво ідеалізованим образам. Карта не може сказати, що відчуває чи задумує хтось інший. Вона запитує, чи ставитеся ви до людини такої, якою вона є, чи до її омріяної версії, а щодо себе — чи не чекаєте ви, доки станете уявною версією себе, щоб дозволити собі близькість.",
+      "work": "У роботі чи навчанні карта може вказувати на забагато планів водночас: курси, посади, сторонні проєкти, ідеї — і все це сяє здалеку. Купа коштовностей і череп у лавровому вінку стоять тут поруч: винагорода поряд зі своєю ціною. Запишіть кожен варіант із його буденними вимогами: години, навички, гроші, залучені люди. Коли йдеться про гроші, зберіть факти й зверніться по кваліфіковану пораду, а не обирайте за блиском.",
+      "self": "Щодо внутрішнього життя, сім кубків можна прочитати як сім частин вашої уяви: тугу, жагу, дух, амбіцію, затишок, страх і прихисток. Жодна з них не безглузда; кожна показує щось, що ви цінуєте або чого боїтеся. Карта запрошує до цікавості, а не до осуду. Помітьте, до якого видіння ви повертаєтеся, коли втомлені, до якого — коли сповнені надії, і яке, як постать під покривалом із золотою зіркою, здається вам важливим, але його ви ще не можете роздивитися."
+    },
+    "positions": {
+      "heart": "У центрі запитання Сімка Кубків вказує на безліч можливостей, які ви тримаєте водночас, і на завдання відокремити те, чого ви справді хочете, від того, що просто сліпить.",
+      "challenge": "Як виклик карта може показувати, що варіанти множаться замість звужуватися, що фантазія підміняє перший крок або що рішення відкладається, поки всі двері лишаються відчиненими.",
+      "advice": "Як порада вона запрошує обрати одне видіння, спустити його на землю й перевірити одну конкретну деталь, перш ніж уявляти щось нове."
+    },
+    "pairs": [
+      {
+        "with": 18,
+        "text": "Місяць і Сімка Кубків обидві показують уяву в нічному світлі, де обриси не зовсім такі, якими здаються. Разом вони звертають увагу на почуття, яким потрібні час і денне світло, перш ніж діяти, спираючись на них."
+      },
+      {
+        "with": 6,
+        "text": "Закохані просять вибору, що спирається на ваші цінності; Сімка Кубків показує безліч можливих виборів, що досі пливуть у хмарах. Поставлені поруч, вони запитують, який варіант ви обрали б і тоді, коли відкладете вбік його блиск."
+      },
+      {
+        "with": 43,
+        "text": "У послідовності Сімка Кубків дивиться вгору на безліч видінь, а Вісімка Кубків іде геть від восьми кубків, складених у два ряди; в обох картах один кубок має золото. Разом вони запитують, як ясність щодо того, що не задовольняє, може стати тихим відходом."
+      }
+    ],
+    "questions": [
+      "Яка з можливостей перед вами досі вабить, коли ви враховуєте її буденні вимоги?",
+      "До якого видіння ви постійно повертаєтеся і яке почуття воно насправді вам пропонує?",
+      "Який варіант ви уникаєте роздивлятися зблизька і що могла б показати одна невелика перевірка?"
+    ],
+    "practice": "Запишіть усі варіанти, які ви розглядаєте, по одному в рядку, а біля кожного — один конкретний факт, який можна перевірити цього тижня."
+  }
+}

@@ -28,9 +28,9 @@
 #spreads-view.is-choosing #spread-pick-label{position:relative;margin:.8rem 0 0;color:#d9c6a3;font-size:.57rem;z-index:2}
 #spreads-view.is-choosing .spread-deck{width:100%;max-width:none;margin:0 auto;perspective:1600px;isolation:auto;height:var(--fan-height);z-index:2}
 #spreads-view.is-choosing .spread-deck:before{content:'';position:absolute;left:18%;right:18%;top:28%;height:75%;background:radial-gradient(ellipse,#020b1365,transparent 70%);pointer-events:none;transform:scaleY(.7)}
-#spreads-view.is-choosing .spread-deck-card{top:46px;transition:transform .85s cubic-bezier(.22,.72,.18,1),opacity .4s;will-change:auto;box-shadow:none!important;overflow:visible!important;outline:0}
+#spreads-view.is-choosing .spread-deck-card{top:46px;transition:transform .85s var(--ease-control),opacity .4s;will-change:auto;box-shadow:none!important;overflow:visible!important;outline:0}
 #spreads-view.is-choosing .spread-deck-card[data-in-view="false"]{opacity:0;pointer-events:none;visibility:hidden}
-#spreads-view.is-choosing .spread-deck-card img{pointer-events:auto;border-radius:3.5%/2.1%;box-shadow:0 0 0 1px #d2bd8d80,1px 1px 0 #b19a74,2px 3px 0 #796d59,3px 5px 0 #172631,9px 18px 27px #02080eb0;transition:transform .5s cubic-bezier(.16,1,.3,1),filter .5s;filter:brightness(.86);object-fit:cover}
+#spreads-view.is-choosing .spread-deck-card img{pointer-events:auto;border-radius:3.5%/2.1%;box-shadow:0 0 0 1px #d2bd8d80,1px 1px 0 #b19a74,2px 3px 0 #796d59,3px 5px 0 #172631,9px 18px 27px #02080eb0;transition:transform .5s var(--ease-glide),filter .5s;filter:brightness(.86);object-fit:cover}
 #spreads-view.is-choosing .spread-deck-card:not(:disabled):hover{z-index:200}
 #spreads-view.is-choosing .spread-deck-card:not(:disabled):hover img,#spreads-view.is-choosing .spread-deck-card:focus-visible img{transform:translateY(-42px) rotate(calc(var(--fan-angle)*-.55));filter:brightness(1.08);box-shadow:0 0 0 1px #e1cfa2,2px 3px 0 #82715b,14px 26px 34px #02080e9c}
 #spreads-view.is-choosing .spread-deck-card:focus-visible{z-index:200}

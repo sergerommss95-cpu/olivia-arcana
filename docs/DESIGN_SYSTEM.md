@@ -1,3 +1,5 @@
+> **Superseded (26 September 2026).** This document describes the earlier astrology-era product. The current brand and design rules are in [BRAND.md](../BRAND.md). Keep this file only as history.
+
 # Olivia Arcana — Brand Design System
 
 > Five distinct visual identities for the Olivia Arcana brand. Each is a complete, implementable design system — not a mood board. One will be selected as the primary brand; the others serve as seasonal variants or market-specific alternatives.

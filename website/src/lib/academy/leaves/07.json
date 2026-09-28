@@ -1,0 +1,267 @@
+{
+  "id": 7,
+  "slug": "the-chariot",
+  "artwork": {
+    "file": "07_the_chariot.webp",
+    "sha256": "53a0d7c8331a18d4355091ceae4cbe99811c60d1461b294fc922ffd0121e4f11"
+  },
+  "symbols": [
+    {
+      "key": "arch",
+      "x": 50,
+      "y": 27,
+      "en": {
+        "name": "The starry arch",
+        "seen": "Above the charioteer, rows of small pale stars carved in the lapis fan out in an arc over rounded arches. The arches spring from four carved lapis columns, two on each side of the chariot.",
+        "meaning": "The traditional Chariot rides under a starry canopy on four posts, commonly read as the heavens the charioteer answers to. Olivia opens it into an arcade of sky: the vehicle travels under a larger order, with a ceiling of stars rather than a roof."
+      },
+      "uk": {
+        "name": "Зоряна арка",
+        "seen": "Над фігурою в колісниці ряди дрібних блідих зірок, вирізьблених у лазуриті, розходяться дугою над заокругленими арками. Арки спираються на чотири різьблені лазуритові колони, по дві з кожного боку колісниці.",
+        "meaning": "У традиційному образі Колісниця їде під зоряним балдахіном на чотирьох стовпах; його зазвичай читають як небеса, перед якими відповідає фігура, що править. Olivia розгортає його в небесну аркаду: колісниця рухається в межах більшого порядку, і над нею стеля із зірок, а не дах."
+      }
+    },
+    {
+      "key": "star",
+      "x": 50,
+      "y": 35,
+      "en": {
+        "name": "The gold star on the crown",
+        "seen": "A small eight-pointed gold star rises from a finial at the centre of the ivory crown. It stands against the lapis just beneath the starry arch, directly above the calm, forward-facing face.",
+        "meaning": "A star over the head is commonly read as the aim that steers the will: the charioteer is guided from above the crown, not by the crown itself. In a deck that uses gold sparingly, it crowns the card’s central axis, lined up above the gold disc on the car."
+      },
+      "uk": {
+        "name": "Золота зірка на короні",
+        "seen": "Невелика восьмипроменева золота зірка здіймається з навершя в центрі корони зі слонової кістки. Вона вирізняється на лазуриті просто під зоряною аркою, прямо над спокійним обличчям, зверненим уперед.",
+        "meaning": "Зірку над головою зазвичай читають як мету, що скеровує волю: фігурою керує те, що над короною, а не сама корона. У колоді, де золота вжито скупо, ця зірка вінчає центральну вісь карти й стоїть на одній лінії із золотим диском на колісниці."
+      }
+    },
+    {
+      "key": "moon",
+      "x": 45,
+      "y": 44,
+      "en": {
+        "name": "Gold crescents on the shoulders",
+        "seen": "Each rounded shoulder plate of the ivory armour bears a gold crescent moon, both opening upward. Beneath them the breastplate is worked with fine carved ornament and a belt.",
+        "meaning": "Crescents on the shoulder plates belong to the traditional image and tie the card to the Moon and to Cancer, its sign in the Golden Dawn system. They suggest that this armour protects something tender and changeable rather than hiding it: strength shaped around feeling."
+      },
+      "uk": {
+        "name": "Золоті півмісяці на плечах",
+        "seen": "На обох заокруглених наплічниках обладунку зі слонової кістки — по золотому півмісяцю, розкритому догори. Нижче нагрудник укритий тонким різьбленим орнаментом і підперезаний поясом.",
+        "meaning": "Півмісяці на наплічниках належать до традиційного образу й пов’язують карту з Місяцем і з Раком — її знаком у системі Золотої Зорі. Вони підказують, що цей обладунок оберігає щось ніжне й мінливе, а не ховає його: це сила, вибудувана довкола почуття."
+      }
+    },
+    {
+      "key": "sceptre",
+      "x": 40,
+      "y": 47,
+      "en": {
+        "name": "The staff without reins",
+        "seen": "The charioteer’s hand on the viewer’s left, bent at the elbow, grips a long plain staff with a small rounded knob at the top. The other hand hangs relaxed and empty. No reins appear anywhere.",
+        "meaning": "Like the traditional charioteer, this one steers without reins: direction held by will and attention rather than by pulling. The staff is plain, a tool of command rather than decoration, and the empty, relaxed hand on the other side shows control that does not clench."
+      },
+      "uk": {
+        "name": "Посох без віжок",
+        "seen": "Рука фігури з лівого від глядача боку, зігнута в лікті, стискає довгий простий посох із невеликим заокругленим навершям. Друга рука розслаблено звисає, порожня. Віжок ніде немає.",
+        "meaning": "Як і в традиційному образі, ця фігура править без віжок: напрям тримається волею та увагою, а не натягуванням віжок. Посох простий — знаряддя керування, а не прикраса, а порожня, розслаблена рука з іншого боку показує контроль, який не стискається в кулак."
+      }
+    },
+    {
+      "key": "city",
+      "x": 21,
+      "y": 51,
+      "en": {
+        "name": "The walled city behind",
+        "seen": "Behind the columns, domed buildings, towers and walls are carved in paler lapis on both sides, with hills beyond. On the left a broad road curves out from the city in a long bend towards the chariot.",
+        "meaning": "In the traditional image a walled city stands behind the Chariot: the settled life the traveller has left, or the ground already won. Here it lies behind on both sides, so the card faces forward, away from everything familiar, along the curving way out."
+      },
+      "uk": {
+        "name": "Місто в мурах позаду",
+        "seen": "За колонами з обох боків блідішим лазуритом вирізьблено будівлі з банями, вежі й мури, а далі — пагорби. Ліворуч широка дорога довгим вигином виходить із міста до колісниці.",
+        "meaning": "У традиційному образі позаду Колісниці стоїть обнесене мурами місто: усталене життя, що лишилося позаду, або вже здобута земля. Тут воно лежить позаду з обох боків, тож карта дивиться вперед, геть від усього знайомого, туди, куди виводить вигнута дорога."
+      }
+    },
+    {
+      "key": "sun",
+      "x": 50,
+      "y": 61,
+      "en": {
+        "name": "The winged gold disc",
+        "seen": "Across the front of the plain, angled ivory chariot body, a gold disc spreads two long feathered wings, with two small shapes hanging beneath it. It is the largest gold element on the card.",
+        "meaning": "The winged sun disc is an Egyptian emblem of protection and divine rule, and a winged globe marks the front of the traditional Chariot too. Olivia gives it the largest share of the card’s gold: the vehicle is carried by a purpose that is lifted and bright."
+      },
+      "uk": {
+        "name": "Крилатий золотий диск",
+        "seen": "На передній стінці простого гранчастого корпусу колісниці зі слонової кістки золотий диск розправляє два довгі оперені крила, а під ним звисають дві невеликі деталі. Це найбільший золотий елемент карти.",
+        "meaning": "Крилатий сонячний диск — єгипетська емблема захисту й божественної влади, а крилата куля прикрашає й передок традиційної Колісниці. Olivia віддає йому найбільшу частку золота на карті: колісницю несе мета, піднесена й світла."
+      }
+    },
+    {
+      "key": "wheel",
+      "x": 38,
+      "y": 66,
+      "en": {
+        "name": "Two spoked wheels",
+        "seen": "Two ivory wheels with raised hubs and straight spokes sit at the lower corners of the veined ivory car, their lower rims just behind the crouching sphinxes. Nothing is harnessed to them or pulling them.",
+        "meaning": "Wheels are the card’s capacity for motion, yet here the chariot stands still on a ledge. The traditional Chariot is also often read as poised rather than racing: movement available and gathered, waiting for a decision about which way to go."
+      },
+      "uk": {
+        "name": "Два колеса зі шпицями",
+        "seen": "Два колеса зі слонової кістки з опуклими маточинами й прямими шпицями стоять у нижніх кутах прожилкуватого кістяного корпусу; їхні нижні ободи ховаються просто за приниклими сфінксами. До них нічого не запряжено, і ніщо їх не тягне.",
+        "meaning": "Колеса — це здатність карти рухатися, проте тут колісниця стоїть нерухомо на виступі. Традиційну Колісницю теж часто читають як завмерлу напоготові, а не в шаленому бігу: рух уже зібраний і можливий, він чекає рішення, куди рушити."
+      }
+    },
+    {
+      "key": "sphinx",
+      "x": 30,
+      "y": 70,
+      "en": {
+        "name": "The ivory sphinx",
+        "seen": "On the left, an ivory sphinx lies with forepaws stretched out and tail curled round its haunch, a small wing carved on its shoulder and a wreath in its hair. Its face turns outward, left.",
+        "meaning": "Eliphas Lévi replaced the Chariot’s horses with two sphinxes, one light and one dark, and the Waite-Smith card kept them. The light sphinx is commonly read as one of two opposing drives: here it looks firmly away from its partner, towards its own side."
+      },
+      "uk": {
+        "name": "Сфінкс зі слонової кістки",
+        "seen": "Ліворуч лежить сфінкс зі слонової кістки, витягнувши передні лапи й обгорнувши хвіст довкола стегна; на плечі вирізьблено невелике крило, у волоссі — вінок. Обличчя обернене назовні, ліворуч.",
+        "meaning": "Еліфас Леві замінив коней Колісниці двома сфінксами, світлим і темним, і карта Вейта–Сміт їх зберегла. Світлого сфінкса зазвичай читають як одну з двох протилежних сил: тут він рішуче дивиться геть від свого двійника, у свій бік."
+      }
+    },
+    {
+      "key": "sphinx",
+      "x": 69,
+      "y": 69,
+      "en": {
+        "name": "The lapis sphinx",
+        "seen": "Its twin on the right is carved from blue lapis in the same crouching pose, almost a mirror image, with a leafy band in its hair and its face turned outward to the right, away from the other.",
+        "meaning": "Traditionally the second sphinx is black; Olivia carves it from the same blue stone as the ground and the night. The two face opposite ways with nothing binding them to the car, so holding them together is left entirely to the figure standing above."
+      },
+      "uk": {
+        "name": "Лазуритовий сфінкс",
+        "seen": "Його двійник праворуч вирізьблений із синього лазуриту в тій самій приниклій позі, майже дзеркальне відображення, з листяною пов’язкою у волоссі; обличчя обернене назовні, праворуч, геть від першого.",
+        "meaning": "Традиційно другий сфінкс чорний; Olivia вирізьблює його з того самого синього каменю, що й тло та ніч. Обидва дивляться в протилежні боки, і ніщо не прив’язує їх до колісниці, тож утримувати їх разом лишається тільки фігурі, що стоїть над ними."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Chariot is will that holds two pulling forces steady and chooses one direction, moving forward by focus and self-command rather than force.",
+    "keywords": {
+      "upright": [
+        "direction",
+        "willpower",
+        "self-command",
+        "focus",
+        "momentum",
+        "resolve"
+      ],
+      "reversed": [
+        "scattered effort",
+        "forcing",
+        "stalled progress",
+        "rigid control",
+        "lost aim"
+      ]
+    },
+    "upright": [
+      "The Chariot is the card of a decision put into motion. In Olivia’s carving an armoured ivory figure stands upright in a plain chariot under an arch of stars, a gold star rising from the crown, a long staff held in one hand and the other hand empty. There are no reins. What keeps the car on course is not a grip on the animals but the figure’s own steadiness, and that is the heart of the card: direction held from the inside.",
+      "Look at what that steadiness has to manage. Below the car two sphinxes lie haunch to haunch, one ivory and one lapis, each gazing outward towards its own side. Neither is harnessed. The card draws attention to the competing pulls in your situation, perhaps two goals, two obligations or two parts of yourself, and asks whether you can hold both in view while choosing a single way forward.",
+      "Upright, the Chariot favours focus over speed. The winged gold disc on the car suggests that the drive works best when it serves something worth carrying, and the city left behind shows that moving forward means leaving a familiar place. It can point to a project gathering momentum, a boundary kept, or a commitment you are ready to steer."
+    ],
+    "reversed": [
+      "The Chariot reversed can point to movement without a clear aim, or to control that costs more than it gives. The two sphinxes still look in opposite directions, but no one is holding the line between them: effort goes out in several ways at once and little arrives. The other form is the reverse: gripping so tightly that the armour becomes a shell and every change of route feels like defeat.",
+      "Ask which pull has taken over, and what you are trying to control that is not yours to steer. A slower pace, a smaller aim or one honest choice about priorities can let the wheels turn again."
+    ],
+    "number": "The Chariot carries seven, the last card of the first row if the Major Arcana is read in three rows of seven. The Fool has met the Magician’s skill, the High Priestess’s inner knowing, the ordering of Empress, Emperor and Hierophant, and made a personal choice in the Lovers. Seven is where all of this becomes movement: the traveller leaves home in a vehicle of their own making. It asks you to act on what you have chosen.",
+    "tradition": "In the Golden Dawn system the Chariot bears the title “The Child of the Powers of the Waters; the Lord of the Triumph of Light”. It is attributed to Cheth, the Hebrew letter often glossed as a fence or enclosure, and to the sign of Cancer, whose crab carries its armour as a shell; it occupies the eighteenth path of the Tree of Life, joining Binah and Geburah. Early Italian decks such as the Visconti-Sforza show a triumphal car drawn by horses. Eliphas Lévi replaced the horses with a white and a black sphinx, and Pamela Colman Smith kept them in 1909. Olivia turns the pair to ivory and lapis.",
+    "areas": {
+      "love": "In love and close bonds, the Chariot asks what you are steering towards together, and whether both of you are facing the same way. Like the two sphinxes, people in a relationship can pull in different directions without either being wrong. The card favours clear, kind intention over pressure: saying what you want, keeping a boundary, choosing a shared next step. With yourself, it invites you to notice when your armour protects you and when it keeps closeness out.",
+      "work": "In work and study, the Chariot supports focused effort towards a named goal: a deadline, an application, a project that has been circling without landing. It asks you to pick the direction first and let speed follow. Notice where two priorities are cancelling each other out and decide, for now, which one leads. With money matters, the card points to discipline and a clear plan; any decisions still deserve careful checking of the details.",
+      "self": "For your own growth, the Chariot turns attention to self-command: the capacity to feel competing wishes and still act on what matters most. The figure in the carving is calm, one hand holding the staff, the other empty and relaxed. Consider where you steer by clenching and where you could steer by attention instead. Self-discipline here is not harshness; it is loyalty to a direction you have chosen for good reasons."
+    },
+    "positions": {
+      "heart": "At the heart of a question, the Chariot suggests the real issue is direction: two forces pulling apart and a choice about which one leads. What matters is steering, not speed.",
+      "challenge": "As a challenge, the Chariot can point to effort split between competing aims, or to a grip so tight that it leaves no room to adjust the route when the ground changes.",
+      "advice": "As advice, the Chariot invites you to name one direction, hold it steadily for a set time, and let the other pulls wait their turn without pretending they are gone."
+    },
+    "pairs": [
+      {
+        "with": 6,
+        "text": "The Lovers make a choice; the Chariot puts it into motion. Together they draw attention to whether a decision has actually been acted upon, or is still being weighed while nothing moves."
+      },
+      {
+        "with": 8,
+        "text": "Both cards are about mastering a powerful force. The Chariot steers it through will and focus; Strength calms it through patience and gentleness. Together they ask which kind of mastery the moment needs."
+      },
+      {
+        "with": 10,
+        "text": "Sphinxes and wheels appear in both cards. The Chariot shows wheels steered by a chosen direction; the Wheel of Fortune shows a turning that no one steers. Together they help separate what is yours to direct from what simply moves."
+      }
+    ],
+    "questions": [
+      "Which two forces in your life are pulling in different directions right now, and what does each one want?",
+      "Where are you steering by gripping tighter, when steadier attention might carry you further?",
+      "If you committed to one direction for the next month, what would you leave behind?"
+    ],
+    "practice": "Write your two strongest competing aims side by side, choose which one leads this week, and write one action that moves it forward."
+  },
+  "uk": {
+    "essence": "Колісниця — це воля, що втримує в рівновазі дві протилежні сили й обирає один напрям, рухаючись уперед завдяки зосередженості й самовладанню, а не натиску.",
+    "keywords": {
+      "upright": [
+        "напрям",
+        "сила волі",
+        "самовладання",
+        "зосередженість",
+        "рух уперед",
+        "рішучість"
+      ],
+      "reversed": [
+        "розпорошені зусилля",
+        "натиск",
+        "застій",
+        "жорсткий контроль",
+        "втрачена мета"
+      ]
+    },
+    "upright": [
+      "Колісниця — карта рішення, що перетворюється на рух. У різьбленні Olivia фігура в обладунку зі слонової кістки стоїть випроставшись у простій колісниці під аркою зірок: з корони здіймається золота зірка, в одній руці довгий посох, друга порожня. Віжок немає. Колісницю тримає на курсі не хватка, що стримує тварин, а власна стійкість фігури, і в цьому серце карти: напрям, що тримається зсередини.",
+      "Погляньте, з чим має впоратися ця стійкість. Під колісницею лежать два сфінкси, стегно до стегна, один зі слонової кістки, другий із лазуриту, і кожен дивиться назовні, у свій бік. Жоден не запряжений. Карта звертає увагу на протилежні сили у вашій ситуації — можливо, дві мети, два обов’язки чи дві частини вас самих — і запитує, чи здатні ви тримати в полі зору обидві, обираючи один шлях уперед.",
+      "У прямому положенні Колісниця віддає перевагу зосередженості над швидкістю. Крилатий золотий диск на колісниці підказує, що рушійна сила працює найкраще, коли служить чомусь, що варто нести, а місто позаду показує: рух уперед означає залишити знайоме місце. Карта може вказувати на проєкт, що набирає обертів, на збережену межу або на зобов’язання, яке ви готові вести."
+    ],
+    "reversed": [
+      "Колісниця в перевернутому положенні може вказувати на рух без чіткої мети або на контроль, що забирає більше, ніж дає. Два сфінкси й далі дивляться в протилежні боки, але ніхто не втримує їх разом: зусилля розходяться в кількох напрямах одночасно, а до мети доходить мало. Інша форма — протилежна: хватка така міцна, що обладунок стає панциром, а кожна зміна маршруту відчувається як поразка.",
+      "Запитайте себе, яка із сил узяла гору і що ви намагаєтеся контролювати, хоча це не у вашій владі. Повільніший темп, скромніша мета чи один чесний вибір щодо пріоритетів можуть знову зрушити колеса."
+    ],
+    "number": "Колісниця має число сім — це остання карта першого ряду, якщо читати Старші Аркани трьома рядами по сім. Блазень уже зустрів майстерність Мага, внутрішнє знання Верховної Жриці, упорядкованість Імператриці, Імператора та Ієрофанта і зробив особистий вибір у Закоханих. На сімці все це стає рухом: Блазень вирушає з дому в колісниці, збудованій власноруч. Карта просить діяти відповідно до того, що ви обрали.",
+    "tradition": "У системі Золотої Зорі Колісниця має титул «Дитя Сил Вод; Владар Тріумфу Світла». Її пов’язують із Хет — літерою івриту, яку часто тлумачать як огорожу чи загороду, — та зі знаком Рака, чий краб носить свій обладунок як панцир; на Дереві Життя вона займає вісімнадцятий шлях, що з’єднує Біну та Ґебуру. Ранні італійські колоди, як-от Вісконті-Сфорца, зображують тріумфальну колісницю, запряжену кіньми. Еліфас Леві замінив коней білим і чорним сфінксами, а Памела Колман Сміт зберегла їх 1909 року. Olivia вирізьблює цю пару зі слонової кістки й лазуриту.",
+    "areas": {
+      "love": "У коханні й близьких стосунках Колісниця запитує, куди ви спрямовуєтеся разом і чи дивитеся в один бік. Як двоє сфінксів, люди в стосунках можуть тягнути в різні боки, і ніхто з них не помиляється. Карта віддає перевагу ясному, доброзичливому наміру, а не тиску: сказати, чого ви хочете, зберегти межу, обрати спільний наступний крок. У стосунках із собою вона запрошує помітити, коли обладунок вас захищає, а коли тримає близькість на відстані.",
+      "work": "У роботі й навчанні Колісниця підтримує зосереджені зусилля заради названої мети: кінцевого строку, заявки, проєкту, що давно кружляє, так і не приземлившись. Вона просить спершу обрати напрям, а швидкість нехай прийде слідом. Помітьте, де два пріоритети гасять один одного, і вирішіть, який із них поки що веде. У грошових справах карта вказує на дисципліну та чіткий план; а будь-яке рішення все одно варто ретельно перевірити в деталях.",
+      "self": "Для особистого зростання Колісниця звертає увагу на самовладання: здатність відчувати суперечливі бажання й усе ж діяти на користь найважливішого. Фігура в різьбленні спокійна: одна рука тримає посох, друга порожня й розслаблена. Поміркуйте, де ви кермуєте силою хватки, а де могли б кермувати увагою. Самодисципліна тут — не суворість, а вірність напряму, який ви обрали з вагомих причин."
+    },
+    "positions": {
+      "heart": "У центрі запитання Колісниця підказує, що справжня тема — напрям: дві сили тягнуть у різні боки, і треба вибрати, котра з них поведе. Значення має кермування, а не швидкість.",
+      "challenge": "Як перешкода Колісниця може вказувати на зусилля, розпорошені між суперечливими цілями, або на хватку, таку міцну, що не лишає змоги скоригувати маршрут, коли змінюється ґрунт під колесами.",
+      "advice": "Як порада Колісниця запрошує назвати один напрям і стійко тримати його протягом визначеного часу, а інші сили нехай чекають своєї черги — без удавання, що їх немає."
+    },
+    "pairs": [
+      {
+        "with": 6,
+        "text": "Закохані роблять вибір; Колісниця втілює його в рух. Разом вони звертають увагу на те, чи рішення справді перейшло в дію, чи його досі зважують, поки ніщо не рухається."
+      },
+      {
+        "with": 8,
+        "text": "Обидві карти — про те, як опанувати потужну силу. Колісниця спрямовує її волею та зосередженістю; Сила приборкує її терпінням і лагідністю. Разом вони запитують, якого опанування потребує ця мить."
+      },
+      {
+        "with": 10,
+        "text": "Сфінкси й колеса є на обох картах. Колісниця показує колеса, якими керує обраний напрям; Колесо Фортуни — обертання, яким не керує ніхто. Разом вони допомагають відрізнити те, що вам під силу спрямувати, від того, що просто рухається."
+      }
+    ],
+    "questions": [
+      "Які дві сили у вашому житті зараз тягнуть у різні боки і чого хоче кожна з них?",
+      "Де ви намагаєтеся кермувати, стискаючи дедалі міцніше, хоча стійка увага могла б провести вас далі?",
+      "Якби ви на місяць присвятили себе одному напряму, що довелося б залишити позаду?"
+    ],
+    "practice": "Запишіть поруч дві свої найсильніші мети, що суперечать одна одній, виберіть, котра з них веде цього тижня, і запишіть одну дію, що просуне її вперед."
+  }
+}

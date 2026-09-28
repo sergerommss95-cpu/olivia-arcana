@@ -1,0 +1,275 @@
+{
+  "id": 34,
+  "slug": "queen-of-wands",
+  "artwork": {
+    "file": "34_queen_of_wands.webp",
+    "sha256": "c926b162e06c38a5c0494dd5a213a589714772a4ed323be8eb4adc44cb88dfb2"
+  },
+  "symbols": [
+    {
+      "key": "wand",
+      "x": 21,
+      "y": 38,
+      "en": {
+        "name": "The wand with gold leaves",
+        "seen": "On the viewer’s left, the Queen’s right hand grips an ivory wand whose foot rests on the dais; small budding stubs knot the shaft, which ends in three gilded leaves, the only gilded carving on the card.",
+        "meaning": "Wands in the traditional deck are living wood that still puts out leaves: creative will that keeps growing. Olivia gilds the growing tip, so the card’s only gilded carving marks the place where new life appears. The Queen holds it upright and without strain: energy kept firmly in hand."
+      },
+      "uk": {
+        "name": "Жезл із золотим листям",
+        "seen": "Ліворуч від глядача права рука Королеви стискає жезл зі слонової кістки, що нижнім кінцем упирається в поміст; держак укритий вузликами бруньок, а вгорі — три позолочені листки, єдина позолочена різьба на карті.",
+        "meaning": "У традиційній колоді Жезли — живе дерево, що досі випускає листя: творча воля, яка не перестає рости. Olivia золотить саме верхівку, тож єдина позолочена різьба на карті позначає місце, де з’являється нове життя. Королева тримає жезл прямо й без напруги: енергія, яку міцно тримають у руці."
+      }
+    },
+    {
+      "key": "sunflower",
+      "x": 75,
+      "y": 47,
+      "en": {
+        "name": "The sunflower in hand",
+        "seen": "In the Queen’s left hand, on the viewer’s right, a single ivory sunflower rises on a slender stalk with two broad leaves, its open face turned toward the viewer.",
+        "meaning": "The sunflower follows the sun and is commonly read as warmth, loyalty to what gives life, and joy that others can see. In the traditional card sunflowers appear in the Queen’s hand and on the throne; here one is held alone, a chosen, personal brightness rather than decoration."
+      },
+      "uk": {
+        "name": "Соняшник у руці",
+        "seen": "У лівій руці Королеви, праворуч від глядача, на тонкому стеблі з двома широкими листками здіймається один соняшник зі слонової кістки; його розкрита квітка повернута до глядача.",
+        "meaning": "Соняшник тягнеться за сонцем, і його зазвичай читають як тепло, вірність тому, що дає життя, і радість, яку бачать інші. У традиційній карті соняшники є і в руці Королеви, і на троні; тут у руці лише один — особисте, обране світло, а не прикраса."
+      }
+    },
+    {
+      "key": "cat",
+      "x": 54,
+      "y": 84,
+      "en": {
+        "name": "The pale seated cat",
+        "seen": "An ivory cat sits upright at the front of the dais beside the Queen’s visible foot, eyes open and facing the viewer, its tail curled forward along the step.",
+        "meaning": "The black cat of the traditional Queen of Wands is commonly read as intuition, independence and ease with what is hidden. Olivia carves the cat in the same pale ivory as the Queen, so the instinct it stands for looks less secret: self-possession that is simply part of the figure, calm and awake."
+      },
+      "uk": {
+        "name": "Світлий кіт на сходинці",
+        "seen": "Кіт зі слонової кістки сидить рівно на передньому краї помосту, поруч із видимою стопою Королеви; очі розплющені й дивляться на глядача, хвіст загнутий уперед уздовж сходинки.",
+        "meaning": "Чорного кота традиційної Королеви Жезлів зазвичай читають як інтуїцію, незалежність і спокійне ставлення до прихованого. Olivia вирізьблює кота з тієї самої світлої слонової кістки, що й Королеву, тож інстинкт, який він уособлює, здається менш таємним: самовладання, що просто є частиною постаті, спокійне й пильне."
+      }
+    },
+    {
+      "key": "crown",
+      "x": 50,
+      "y": 34,
+      "en": {
+        "name": "Crown and temple spirals",
+        "seen": "An open ivory crown of tall points with a leaf-shaped central spike and a round boss on its band; a small carved spiral sits at each side of the head, just above the long hair.",
+        "meaning": "A crown marks authority that has been accepted rather than seized. The spirals at the temples are this deck’s own detail, not part of the traditional image; they suggest energy that circles and returns, fitting for a Queen whose fire is steady rather than spent in a single burst."
+      },
+      "uk": {
+        "name": "Корона і спіралі на скронях",
+        "seen": "Відкрита корона зі слонової кістки з високими зубцями, центральним шпилем у формі листка й круглою опуклістю на обручі; по обидва боки голови, трохи вище довгого волосся, — по маленькій вирізьбленій спіралі.",
+        "meaning": "Корона позначає владу, яку прийняли, а не захопили. Спіралі на скронях — власна деталь цієї колоди, якої немає в традиційному образі; вони натякають на енергію, що кружляє й повертається. Це пасує Королеві, чий вогонь рівний, а не витрачений одним спалахом."
+      }
+    },
+    {
+      "key": "lion",
+      "x": 37,
+      "y": 22,
+      "en": {
+        "name": "Four lions of the throne",
+        "seen": "Two lions rear on their hind legs inside the arch, facing each other across a carved sun; two more sit upright on the tops of the square pillars, all cut in lighter blue lapis.",
+        "meaning": "Lions belong to Leo and to Fire, and they guard this Queen’s throne in the traditional card too. They show courage and appetite held in good order: the rearing pair carries energy, the seated pair carries poise. The Queen shares a lion’s fire without needing to roar."
+      },
+      "uk": {
+        "name": "Чотири леви трону",
+        "seen": "Два леви стоять дибки всередині арки, повернуті один до одного через вирізьблене сонце; ще два сидять рівно на верхівках квадратних колон — усі вирізані у світлішому синьому лазуриті.",
+        "meaning": "Леви пов’язані із зодіакальним Левом і стихією Вогню, і в традиційній карті вони теж стережуть трон цієї Королеви. Вони показують мужність і жагу, які тримають у належному порядку: пара, що стоїть дибки, несе енергію, пара, що сидить, — рівновагу. Королева поділяє левиний вогонь, і для цього не треба ревіти."
+      }
+    },
+    {
+      "key": "sun",
+      "x": 50,
+      "y": 17,
+      "en": {
+        "name": "The carved sun in the arch",
+        "seen": "At the peak of the rounded arch a many-rayed sun is carved in lapis, its pointed rays spreading like petals, set between the two rearing lions and directly above the crown.",
+        "meaning": "The sun is the source Fire draws on: life, warmth and visibility. In the traditional image sunflowers and lions decorate the throne back; here a single sun crowns the arch, so the Queen sits beneath a steady light and does not have to produce all of that warmth alone."
+      },
+      "uk": {
+        "name": "Вирізьблене сонце в арці",
+        "seen": "На вершині заокругленої арки в лазуриті вирізьблено сонце з безліччю гострих променів, що розходяться, мов пелюстки; воно розташоване між двома левами, що стоять дибки, просто над короною.",
+        "meaning": "Сонце — джерело, з якого черпає Вогонь: життя, тепло й видимість. У традиційному образі соняшники й леви прикрашають спинку трону; тут арку вінчає одне сонце, тож Королева сидить під рівним світлом і не мусить власними силами створювати все це тепло."
+      }
+    },
+    {
+      "key": "moon",
+      "x": 22,
+      "y": 11,
+      "en": {
+        "name": "Full moon and two crescents",
+        "seen": "Above the leafy crest of the throne, a full moon in pale grey-blue lapis hangs at upper left with a thin crescent beside it; a second crescent sits at upper right among small bright flecks.",
+        "meaning": "The traditional Queen of Wands sits in open daylight. Olivia places this fiery court card under a night sky with the moon in more than one phase, a quiet echo of the Queen’s Golden Dawn nature as the Water of Fire: warmth that is also receptive, rhythmic and inward."
+      },
+      "uk": {
+        "name": "Повний місяць і два серпи",
+        "seen": "Над листяним гребенем трону, вгорі ліворуч, висить повний місяць зі світлого сіро-блакитного лазуриту, поруч із ним — тонкий серп; другий серп видніється вгорі праворуч серед дрібних яскравих цяток.",
+        "meaning": "Традиційна Королева Жезлів сидить при ясному денному світлі. Olivia розміщує цю вогняну придворну карту під нічним небом, де місяць постає в кількох фазах, — тихий відгомін природи Королеви в системі Золотої Зорі як Води Вогню: тепла, що водночас сприйнятливе, ритмічне й звернене всередину."
+      }
+    },
+    {
+      "key": "sea",
+      "x": 36,
+      "y": 42,
+      "en": {
+        "name": "Sea, boat and trees",
+        "seen": "Behind the Queen, carved in pale lapis, calm water carries a small sailing boat on the left, with a leafy tree on each shore and low mountains rising beyond.",
+        "meaning": "Behind this fiery throne Olivia opens a view onto calm water and a boat under sail, a picture of fire moving easily through feeling. It echoes the Queen’s Golden Dawn place as the Water part of Fire: warmth that can adapt, travel and reach others."
+      },
+      "uk": {
+        "name": "Море, човен і дерева",
+        "seen": "Позаду Королеви, вирізьблена у світлому лазуриті, спокійна вода несе ліворуч маленький вітрильник; на кожному березі росте листяне дерево, а далі здіймаються невисокі гори.",
+        "meaning": "За цим вогняним троном Olivia відкриває краєвид зі спокійною водою й човном під вітрилом — образ вогню, що легко рухається крізь почуття. Це перегукується з місцем Королеви в системі Золотої Зорі як водної частини Вогню: тепла, що вміє пристосовуватися, мандрувати й досягати інших."
+      }
+    },
+    {
+      "key": "leaves",
+      "x": 18,
+      "y": 81,
+      "en": {
+        "name": "Leaves carved into the throne",
+        "seen": "Leafy sprigs are carved in relief on the tall panels at the base of both throne pillars, and a row of broad leaves runs along the top of the arch, all in blue lapis.",
+        "meaning": "In the traditional deck, leaves sprouting from the Wands show that the suit’s energy is alive and still growing. Here growth is carved into the throne itself, not only the wand: this Queen’s seat of authority is framed in foliage, a rooted vitality that surrounds the fire and steadies it."
+      },
+      "uk": {
+        "name": "Листя, вирізьблене на троні",
+        "seen": "Листяні гілочки вирізьблено рельєфом на високих панелях біля основи обох колон трону, а вздовж верху арки тягнеться ряд широкого листя — усе в синьому лазуриті.",
+        "meaning": "У традиційній колоді листя, що проростає з Жезлів, показує: енергія масті жива й досі росте. Тут ріст вирізьблено в самому троні, а не лише в жезлі: престол влади цієї Королеви обрамлений листям — укорінена життєва сила, що оточує вогонь і врівноважує його."
+      }
+    }
+  ],
+  "en": {
+    "essence": "The Queen of Wands is fire held with ease: warmth, confidence and creative presence that others can feel, kept steady from the inside rather than performed.",
+    "keywords": {
+      "upright": [
+        "confidence",
+        "warmth",
+        "creative presence",
+        "independence",
+        "generous attention"
+      ],
+      "reversed": [
+        "dimmed warmth",
+        "performed confidence",
+        "comparison",
+        "scattered energy",
+        "hidden interests"
+      ]
+    },
+    "upright": [
+      "The Queen of Wands draws attention to fire that has become a way of being. Where the Page of Wands carries an exciting message and the Knight rides after it, the Queen has sat down with it. In Olivia’s card the Queen faces you directly from a lion-guarded throne, the gold-tipped wand held upright in one hand and a sunflower in the other: energy and warmth, held at the same time and with the same calm grip.",
+      "Upright, this card invites confidence that includes other people. It can point to a season when your interests, humour and conviction are visible and useful, when you can host, lead a project or simply say what you like without apology. The warmth here does not ask for control of every room; it makes room.",
+      "What makes this version distinctive is its night. The traditional Queen sits in bright daylight; Olivia sets the throne beneath a full moon and two crescents, with calm water and a small boat behind. The pale cat at the Queen’s feet sits awake and unhurried. Together they suggest that lasting warmth has an inward source: rest, instinct and feeling feed the fire you show."
+    ],
+    "reversed": [
+      "Queen of Wands reversed draws attention to warmth that has slipped out of balance. It may be turned down: an interest kept quiet, a preference left unsaid, a talent hidden to avoid being looked at. Or it may be turned up too far, with confidence performed so constantly that it becomes tiring to sustain and leaves no room for how you actually feel. Comparison with others often feeds both.",
+      "This position asks where the fire is really coming from today. The wand in this image is held, not waved, and the cat sits still. You could take up a little more room honestly, or let yourself have a quieter day without treating it as a failure. Visibility need not be all or nothing."
+    ],
+    "number": "Queens are the third court rank, the rank of inward mastery: they hold their suit’s element from within, while Kings direct it outward. In Wands, the suit of Fire, will and creative spark, that inward mastery looks like steady warmth. The Page carries the first spark as news and the Knight chases it at speed; the Queen keeps it burning at a heat that can be sustained, so that energy becomes presence rather than a single burst.",
+    "tradition": "In the Golden Dawn system the Queen of Wands is titled the Queen of the Thrones of Flame. Queens carry the Water aspect of their suit, so this card is Water of Fire, and it rules from 20 degrees Pisces to 20 degrees Aries, bridging the last decan of Pisces and the first two of Aries. The Golden Dawn description gives the Queen a leopard, which Crowley’s Thoth deck keeps. Pamela Colman Smith’s 1909 design shows a black cat at the foot of the throne instead, with sunflowers and lions, details many readers now treat as the card’s core imagery. Earlier Marseille queens simply hold a large club.",
+    "court": {
+      "temperament": "As a temperament, the Queen of Wands describes a way of acting anyone can have: warm, direct and self-possessed, comfortable being seen and generous with attention. The energy is steady rather than restless; this Queen sits facing forward, holding both wand and flower, present in the room without needing to fill it.",
+      "gifts": "The gifts are encouragement, hospitality and creative confidence. This temperament notices what others are good at and says so, starts things and invites people in, and keeps enthusiasm alive through the unglamorous middle of a project. Like the sunflower in hand, its brightness is personal and freely shared.",
+      "shadow": "In shadow, the same fire can turn into performance, impatience or rivalry: needing to be the brightest presence in the room, or feeling threatened by someone else’s shine. It can also dim into hiding, when the fear of being too much keeps warmth and opinions out of sight."
+    },
+    "areas": {
+      "love": "In close relationships the Queen of Wands brings warmth that is visible and unfussy: affection shown, plans suggested, humour offered. It invites you to let people see what delights you, rather than waiting to be drawn out. It does not tell you what anyone else feels. With yourself, the card asks whether you extend the same generosity inward, keeping a little fire for your own interests, as the Queen keeps one hand for the wand and one for the flower.",
+      "work": "At work or in study, this card can point to leadership through enthusiasm: setting the tone, starting the shared plan, remembering to credit others. It invites you to put your ideas forward plainly and to take on visible work you genuinely enjoy. Keep an eye on pace; the Queen’s fire is steady, not a sprint. Where money or contracts are involved, pair your confidence with the view of a qualified person.",
+      "self": "For your relationship with yourself, the Queen of Wands asks where your warmth comes from. The throne is set under a night sky, with the moon above and still water behind: the fire in this card is fed by rest, instinct and time alone, like the cat sitting calmly awake at the Queen’s feet. Notice what refills you, and let being seen be a choice you make freely."
+    },
+    "positions": {
+      "heart": "At the centre of a question, the Queen of Wands points to confident warmth: your own interests, humour and conviction, and how freely you let them be seen.",
+      "challenge": "As a challenge, the card can show confidence performed to cover tiredness, comparison with other people’s brightness, or warmth held back so that you are not noticed.",
+      "advice": "As advice, it invites you to take up a little more room honestly: share one idea, one enthusiasm or one invitation, and let it be warm rather than perfect."
+    },
+    "pairs": [
+      {
+        "with": 8,
+        "text": "Strength also sets a calm figure beside a lion. With the Queen of Wands, the two cards draw attention to courage that works through gentleness, and to fire that is guided with patience rather than forced into shape."
+      },
+      {
+        "with": 19,
+        "text": "The Sun is the Major card of open joy and visibility, and sunflowers belong to both images. Together they turn attention toward warmth you can share without hiding, and the simple pleasure of being seen as you are."
+      },
+      {
+        "with": 48,
+        "text": "In the Golden Dawn system the Queen of Cups is Water of Water and the Queen of Wands is Water of Fire. Together they ask how feeling and enthusiasm support each other, and whether the warmth you show matches what you notice inside."
+      }
+    ],
+    "questions": [
+      "Where would you take up a little more room if you trusted your warmth to be welcome?",
+      "Which of your enthusiasms have you kept quiet, and what would sharing one of them look like?",
+      "What refills your fire on the days when nobody is watching?"
+    ],
+    "practice": "Tell one person today, plainly and specifically, something you genuinely enjoy or admire in their work, then notice how offering that warmth feels in you."
+  },
+  "uk": {
+    "essence": "Королева Жезлів — це вогонь, який тримають без зусилля: тепло, впевненість і творча присутність, які відчувають інші і які тримаються рівно зсередини, а не напоказ.",
+    "keywords": {
+      "upright": [
+        "впевненість",
+        "тепло",
+        "творча присутність",
+        "незалежність",
+        "щедра увага"
+      ],
+      "reversed": [
+        "притлумлене тепло",
+        "показна впевненість",
+        "порівняння",
+        "розпорошена енергія",
+        "приховані захоплення"
+      ]
+    },
+    "upright": [
+      "Королева Жезлів звертає увагу на вогонь, що став способом буття. Якщо Паж Жезлів приносить захопливу звістку, а Лицар Жезлів мчить їй навздогін, то Королева вже влаштувалася поруч із нею. На карті Olivia Королева дивиться просто на вас із трону, який стережуть леви: в одній руці — піднятий жезл із золотою верхівкою, у другій — соняшник. Енергія й тепло, які тримають водночас і однаково спокійно.",
+      "У прямому положенні ця карта запрошує до впевненості, у якій є місце для інших людей. Вона може вказувати на пору, коли ваші захоплення, гумор і переконання помітні й корисні, коли ви можете приймати гостей, вести проєкт або просто без вибачень казати, що вам подобається. Тепло тут не прагне панувати в кожній кімнаті; воно звільняє простір.",
+      "Особливою цю версію робить ніч. Традиційна Королева сидить при яскравому денному світлі; Olivia ставить трон під повний місяць і два серпи, зі спокійною водою й маленьким човном позаду. Світлий кіт біля ніг Королеви сидить пильно й неквапливо. Разом вони натякають, що тривале тепло має внутрішнє джерело: відпочинок, інстинкт і почуття живлять вогонь, який ви показуєте."
+    ],
+    "reversed": [
+      "Королева Жезлів у перевернутому положенні звертає увагу на тепло, що втратило рівновагу. Його може бути притишено: захоплення, про яке ви мовчите, вподобання, якого ви не висловили, хист, який ви ховаєте, щоб на вас не дивилися. Або ж, навпаки, його розпалено надто сильно: впевненість доводиться показувати так постійно, що підтримувати її виснажливо, і вже не лишається місця для того, що ви насправді відчуваєте. Обидва стани часто підживлює порівняння з іншими.",
+      "Це положення питає, звідки насправді береться вогонь сьогодні. Жезл на цьому зображенні тримають, а не розмахують ним, і кіт сидить нерухомо. Можна чесно зайняти трохи більше місця — або дозволити собі тихіший день, не вважаючи його поразкою. Бути на видноті не обов’язково за принципом «усе або нічого»."
+    ],
+    "number": "Королеви — третій придворний ранг, ранг внутрішньої майстерності: вони тримають стихію своєї масті зсередини, тоді як Королі спрямовують її назовні. У Жезлах, масті Вогню, волі й творчої іскри, ця внутрішня майстерність постає як рівне тепло. Паж несе першу іскру як звістку, Лицар женеться за нею щодуху; Королева підтримує вогонь із таким жаром, який можна витримувати довго, — і енергія стає присутністю, а не одиничним спалахом.",
+    "tradition": "У системі Золотої Зорі Королева Жезлів має титул Королеви Престолів Полум’я. Королеви втілюють водний аспект своєї масті, тож ця карта — Вода Вогню; вона править від 20 градусів Риб до 20 градусів Овна, поєднуючи останній декан Риб і два перші декани Овна. В описі Золотої Зорі Королеві дано леопарда, і колода Тота Кроулі його зберігає. У дизайні Памели Колман Сміт 1909 року натомість біля підніжжя трону сидить чорний кіт, а поруч — соняшники й леви; нині багато практиків вважають ці деталі основою образу карти. Давніші марсельські королеви просто тримають велику палицю.",
+    "court": {
+      "temperament": "Як темперамент Королева Жезлів описує спосіб діяти, доступний будь-кому: теплий, прямий і зібраний, коли легко бути на видноті й не шкода уваги для інших. Енергія тут рівна, а не неспокійна; ця Королева сидить обличчям уперед, тримаючи і жезл, і квітку: присутність Королеви відчутна, але не мусить заповнювати собою всю кімнату.",
+      "gifts": "Дари цього темпераменту — підбадьорення, гостинність і творча впевненість. Він помічає, у чому інші сильні, і каже про це вголос, починає справи й запрошує людей долучитися, підтримує запал крізь непоказну середину проєкту. Як соняшник у руці, його яскравість особиста, і нею щедро діляться.",
+      "shadow": "У тіні той самий вогонь може обернутися виставою, нетерплячістю чи суперництвом: потребою бути найяскравішою присутністю в кімнаті або відчуттям загрози від чужого сяйва. Він може й пригаснути, сховатися, коли страх бути «занадто» тримає тепло й думки поза полем зору."
+    },
+    "areas": {
+      "love": "У близьких стосунках Королева Жезлів приносить тепло, помітне й невибагливе: прихильність, яку виявляють, плани, які пропонують, гумор, яким діляться. Карта запрошує вас дозволити людям бачити, що вас захоплює, а не чекати, поки вас розговорять. Вона не каже, що відчуває хтось інший. Щодо вас самих карта питає, чи ви так само щедрі до себе: чи лишаєте трохи вогню для власних захоплень, як Королева тримає одну руку для жезла, а другу для квітки.",
+      "work": "У роботі чи навчанні ця карта може вказувати на лідерство через ентузіазм: задавати тон, започатковувати спільний план, не забувати віддавати належне іншим. Вона запрошує вас прямо висувати свої ідеї й братися за помітну роботу, яка вам справді до душі. Стежте за темпом: вогонь Королеви рівний, це не спринт. Коли йдеться про гроші чи договори, поєднуйте впевненість із думкою кваліфікованих фахівців.",
+      "self": "У стосунках із собою Королева Жезлів питає, звідки береться ваше тепло. Трон стоїть під нічним небом, з місяцем угорі й тихою водою позаду: вогонь цієї карти живлять відпочинок, інстинкт і час наодинці — про це нагадує і кіт, що спокійно й пильно сидить біля ніг Королеви. Помічайте, що вас наповнює, і нехай бути на видноті буде вашим вільним вибором."
+    },
+    "positions": {
+      "heart": "У центрі запитання Королева Жезлів вказує на впевнене тепло: ваші власні захоплення, гумор і переконання — і на те, наскільки вільно ви дозволяєте їх бачити.",
+      "challenge": "Як виклик карта може показувати впевненість, яку ви вдаєте, щоб приховати втому, порівняння з чужою яскравістю або тепло, яке ви стримуєте, щоб вас не помітили.",
+      "advice": "Як порада вона запрошує вас чесно зайняти трохи більше місця: поділитися однією ідеєю, одним захопленням чи одним запрошенням — і дозволити цьому бути теплим, а не бездоганним."
+    },
+    "pairs": [
+      {
+        "with": 8,
+        "text": "Сила теж ставить спокійну постать поруч із левом. Разом із Королевою Жезлів ці карти звертають увагу на мужність, що діє через лагідність, і на вогонь, яким керують терпляче, а не втискають у форму силоміць."
+      },
+      {
+        "with": 19,
+        "text": "Сонце — Старший Аркан відкритої радості й видимості, і соняшники є на обох зображеннях. Разом вони звертають увагу на тепло, яким можна ділитися, не ховаючись, і на просту втіху бути побаченими такими, якими ви є."
+      },
+      {
+        "with": 48,
+        "text": "У системі Золотої Зорі Королева Кубків — це Вода Води, а Королева Жезлів — Вода Вогню. Разом вони питають, як почуття й ентузіазм підтримують одне одного і чи збігається тепло, яке ви показуєте, з тим, що ви помічаєте всередині."
+      }
+    ],
+    "questions": [
+      "Де б ви зайняли трохи більше місця, якби вірили, що вашому теплу раді?",
+      "Про які свої захоплення ви мовчите і як би ви могли поділитися одним із них?",
+      "Що підживлює ваш вогонь у дні, коли ніхто не дивиться?"
+    ],
+    "practice": "Скажіть сьогодні комусь одному, просто й конкретно, що вам справді подобається або що ви цінуєте в роботі цієї людини, а потім зверніть увагу, що ви відчуваєте, даруючи це тепло."
+  }
+}
