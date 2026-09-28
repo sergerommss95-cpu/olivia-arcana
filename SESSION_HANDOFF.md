@@ -1,6 +1,6 @@
 # Start here — Olivia Arcana session handoff
 
-Updated 27 September 2026, second session: the live preview check, research for the award plan, and the phone arrival (v6, section 1 of the award plan). At the owner's request, v6 was then merged into `main` and deployed to production. After that, the owner asked what would give users best-in-class value and said to start on what is best. That became v7 (check-ins, Ukrainian About and Contact, the reading shown as it is written), which is on the branch and not deployed. Earlier that day: the arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
+Updated 27 September 2026, second session: the live preview check, research for the award plan, and the phone arrival (v6, section 1 of the award plan). At the owner's request, v6 was then merged into `main` and deployed to production. After that, the owner asked what would give users best-in-class value and said to start on what is best. That became v7 (check-ins, Ukrainian About and Contact, the reading shown as it is written), which is on the branch and not deployed. On 28 September the owner asked for a motion film of the product for the website, then for an Apple-style version of it; both are made and neither is on the site yet. Earlier that day: the arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
 
 For work across earlier Olivia tasks, start with [the project history index](history/README.md), [decision history](history/DECISIONS.md), and [Git coverage audit](history/git-coverage-2026-09-26.md). Historical artifacts are separate from current source. The archive preserves recoverable files and documented decisions; it is not a complete recording of every unsaved edit or every conversation.
 
@@ -12,7 +12,7 @@ For work across earlier Olivia tasks, start with [the project history index](his
     - Checked in production: `experience/outputs/qa-v6/review.md`, "In production".
   - **Every push to `main` goes live.** Netlify built and published the merge about 80 seconds after it. Work on a branch, open a pull request for a deploy preview, and merge only with the owner's approval.
   - **Rollback:** publish the v3 deploy `6ab7b1eb2e3eb145b023937a` again in Netlify's deploy list, or revert `c822edd` on `main`.
-  - `claude/peaceful-clarke-scrh06` was restarted from `main` after the merge. It carries the production record and **v7** (`bdae5c1`, `e95c563`, `9143a47`, plus its record), none of it in `main` yet. There is no open pull request for it; one is needed for a deploy preview.
+  - `claude/peaceful-clarke-scrh06` was restarted from `main` after the merge. It carries the production record and **v7** (`bdae5c1`, `e95c563`, `9143a47`, plus its record), none of it in `main` yet. Draft PR #5 (https://github.com/sergerommss95-cpu/olivia-arcana/pull/5) gives it a deploy preview; merge it only with the owner's approval.
   - Earlier builds, kept for comparison:
     - v6 (`0889b9e`): https://6ab92b77b5d4da00084b874f--olivia-arcana.netlify.app/
     - v5 (`c19bdeb`): https://6ab820e030b21a0008ba98f9--olivia-arcana.netlify.app/
@@ -32,7 +32,8 @@ For work across earlier Olivia tasks, start with [the project history index](his
     - These three take a URL or `website/out`.
     - `checkin-journey.mjs` (v7) checks the whole check-in cycle on phone and desktop: `website/out`, an output folder, `en` or `uk`.
     - `stream-reading.mjs` (v7) runs the real reading service with a fake provider behind the static export and checks the reading as it is written, with no paid call: `website/out`, an output folder, `en` or `uk`, then `ok` or `break`.
-- **Done on 27 September (second session).**
+    - `how-it-works/` makes the "How it works" films from real footage of `website/out`: capture, cut, render, encode. Its README has the steps. It needs `ffmpeg` (`apt-get install -y ffmpeg`).
+- **Done on 27–28 September (second session).**
   1. **Live preview check of v5:** `experience/outputs/qa-v5/review.md` ("Live preview check") and `olivia-v5-release.json` (`live_check`).
   2. **Research** added to [the award plan](experience/outputs/award-plan-2026-09-27.md) ("What 2026 winners do in their first seconds"): recent winners open with no loader or a brief text one, lose most points on usability and accessibility, and BRRRANDING features studio-made identities only.
   3. **Section 1 of the award plan, approved by the owner, built as v6** (below; QA `experience/outputs/qa-v6/review.md`).
@@ -45,8 +46,13 @@ For work across earlier Olivia tasks, start with [the project history index](his
      - Check-ins after keeping, "How did it turn out?" when the day comes, and quiet signs that one is waiting.
      - Ukrainian About and Contact pages.
      - The personal reading shown as it is written.
+  6. **"How it works" films** (28 September; `experience/work/tools/how-it-works/README.md`). Both are silent, in EN and UK, landscape 1920×1080 and portrait 1080×1350 (plus a 720×900 web cut), with MP4, WebM and a poster.
+     - **The product film** (`film.html`, about 64 s) is the one to publish. The phone moves in 3D, the product's own surfaces lift out of the screen, a deck fans out and one card turns once. Kinetic headlines carry the story from the question to the almanac.
+     - **The walkthrough** (`stage.html`) shows the same journey plainly, with step captions.
+     - The films are not committed and not on the site. Rebuild them with the README's steps (about 25 minutes with two render lanes).
 - **Next.**
-  - The owner decides whether to deploy v7: open a pull request from this branch for a deploy preview, try it on a phone, then merge.
+  - The owner decides whether to deploy v7: try deploy preview 5 on a phone, then approve the merge.
+  - The owner chooses where the film goes. Suggested: the product's How Olivia works view (`#method`), lazy-loaded and muted, with a pause control and the poster until it plays. The homepage stays unchanged unless the owner asks, because first visits must stay identical. Publish it together with v7, since it shows check-ins.
   - Before or right after deploying, one paid personal reading on the preview (with the owner's approval) confirms the live stream through Netlify's edge runtime. The fake provider shows the page and service agree, but a real stream has not been seen.
   - The owner checks the site with an iPhone and an Android phone (plan item 6): the arrival, the WebGPU background's smoothness and battery use, text contrast over it, and the fixed button on the question step.
   - Whether to close the last 0.06 MB for Ukrainian: softer textures, AVIF, or a lighter Next runtime on the homepage.

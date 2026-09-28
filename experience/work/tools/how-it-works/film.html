@@ -1,0 +1,482 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Olivia — the film</title>
+<link rel="stylesheet" href="fonts-inline.css">
+<style>
+:root { --lapis:#0b192a; --ink:#ede4d2; --muted:#b7c4ce; --gold:#c9b07e; --serif:'Cormorant Garamond',serif; --sans:'DM Sans',sans-serif; }
+* { box-sizing:border-box; margin:0; padding:0; }
+html, body { background:var(--lapis); overflow:hidden; }
+#film { position:relative; width:var(--w); height:var(--h); overflow:hidden; background:var(--lapis); color:var(--ink); font-family:var(--sans); }
+body.landscape { --w:1920px; --h:1080px; }
+body.portrait { --w:1080px; --h:1350px; }
+#bg { position:absolute; inset:-10%; }
+/* #fore has the same camera as #world and is always drawn over it: the opening card lands on the phone, never through it. */
+#world, #fore { position:absolute; inset:0; perspective:2400px; perspective-origin:50% 48%; transform-style:preserve-3d; }
+/* No will-change here: it flattens the 3D and hides the card's face. */
+.obj { position:absolute; left:50%; top:50%; transform-style:preserve-3d; }
+
+/* The phone */
+#phone { border-radius:56px; background:linear-gradient(150deg,#1d2b3b,#0a1420 55%,#060d15); box-shadow:0 70px 160px #01060dcc, 0 20px 44px #0107109e, inset 0 0 0 1.5px #c9d7d82e, inset 0 0 0 6px #0a131e; }
+#screen { position:absolute; left:13px; top:13px; border-radius:44px; overflow:hidden; background:var(--lapis); }
+#screen img { position:absolute; inset:0; width:100%; height:100%; display:block; }
+#dim { position:absolute; inset:0; background:#050d17; opacity:0; }
+.tap { position:absolute; width:46px; height:46px; margin:-23px 0 0 -23px; border-radius:50%; background:#fff8eb3d; box-shadow:inset 0 0 0 1.5px #fff8ebc4, 0 0 22px #fff8eb33; opacity:0; }
+#ring { position:absolute; width:40px; height:40px; margin:-20px 0 0 -20px; border-radius:50%; box-shadow:inset 0 0 0 2px #e3c98f, 0 0 18px #e3c98f88; opacity:0; }
+
+/* Cards */
+.card { width:var(--cw); height:var(--ch); }
+.card .face { position:absolute; inset:0; border-radius:4.2%/2.45%; overflow:hidden; backface-visibility:hidden; box-shadow:0 34px 80px #01060da6, 0 8px 22px #0106108c; background:#0b192a center/cover no-repeat; }
+.card .front { transform:rotateY(180deg); }
+.card .shine { position:absolute; inset:-20% -60%; background:linear-gradient(105deg, transparent 38%, #fff5dc30 46%, #fff8e87a 50%, #fff5dc30 54%, transparent 62%); mix-blend-mode:screen; opacity:0; }
+
+/* Words */
+.head { position:absolute; will-change:opacity; }
+.landscape .head { left:150px; width:700px; top:50%; transform:translateY(-50%); }
+.portrait .head { left:70px; right:70px; top:88px; text-align:center; }
+.head h1 { font-family:var(--serif); font-weight:400; letter-spacing:-.022em; color:var(--ink); text-wrap:balance; }
+.landscape .head h1 { font-size:94px; line-height:1.0; }
+.portrait .head h1 { font-size:82px; line-height:1.0; }
+.head p { font-family:var(--sans); color:var(--muted); text-wrap:balance; }
+.landscape .head p { font-size:29px; line-height:1.5; margin-top:28px; max-width:600px; }
+.portrait .head p { font-size:34px; line-height:1.42; margin-top:22px; }
+.w { display:inline-block; white-space:pre; will-change:transform, opacity, filter; }
+#open { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-family:var(--serif); letter-spacing:-.02em; }
+.landscape #open { font-size:128px; line-height:1.02; }
+.portrait #open { font-size:104px; line-height:1.04; padding:0 60px; }
+#open .l2 { font-style:italic; }
+
+/* Pop-outs: the product's own surfaces, lifted out of the screen */
+.glass { background:linear-gradient(150deg,#22405ae6,#12293ff2); border-radius:26px; box-shadow:0 44px 100px #01060d8c, 0 10px 26px #0106107a, inset 0 1px 0 #c9d7d82e; backdrop-filter:blur(16px); }
+.eyebrow { font-family:var(--sans); letter-spacing:.24em; text-transform:uppercase; color:var(--gold); }
+#quote { width:620px; padding:36px 42px 40px; }
+#quote .eyebrow, #prompt .eyebrow, #chosen .eyebrow, #banner .eyebrow, #kept .eyebrow { font-size:17px; }
+#quote p { margin-top:16px; font-family:var(--serif); font-style:italic; font-size:48px; line-height:1.12; color:var(--ink); }
+.tile { width:230px; height:214px; padding:24px 22px; border-radius:20px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(150deg,#27465fe8,#152d44f2); box-shadow:0 40px 90px #01060d8c, inset 0 1px 0 #c9d7d830; }
+.tile i { position:absolute; left:22px; top:22px; width:26px; height:26px; border-radius:50%; box-shadow:inset 0 0 0 2px #c9d7d880; }
+.tile.on i { box-shadow:inset 0 0 0 2px #e8d3a6; background:radial-gradient(circle, #e8d3a6 0 5px, transparent 6px); }
+.tile strong { font-family:var(--serif); font-weight:400; font-size:34px; line-height:1.05; color:var(--ink); }
+.tile small { margin-top:10px; font-size:17px; color:#b9c5cc; }
+.tile .ring { position:absolute; inset:0; border-radius:20px; box-shadow:inset 0 0 0 2.5px #e3c98f, 0 0 60px #e3c98f40; opacity:0; }
+#saved { display:flex; align-items:center; gap:22px; height:78px; padding:0 22px 0 34px; border-radius:39px; font-size:27px; color:var(--ink); background:linear-gradient(150deg,#2b4a61f0,#193249f5); box-shadow:0 36px 80px #01060d8c, inset 0 1px 0 #c9d7d833; }
+#saved b { display:grid; place-items:center; width:46px; height:46px; border-radius:50%; background:#e9d7b42e; color:#f3e6c8; font-weight:500; }
+.chip { display:flex; align-items:center; gap:12px; height:68px; padding:0 30px; border-radius:34px; font-size:23px; white-space:nowrap; color:#f1e8d5; background:linear-gradient(150deg,#2c4a61ee,#1b344bf5); box-shadow:0 26px 60px #01060d80, inset 0 1px 0 #f3e6c826; }
+.chip.on { background:linear-gradient(150deg,#f3e6c8,#dccaab); color:#13283b; box-shadow:0 30px 70px #01060d80, 0 0 60px #e3c98f55; }
+.chip .disc { width:20px; height:20px; border-radius:50%; box-shadow:inset 0 0 0 1.5px #ccbc94; }
+.chip .disc.full { background:#e2d6b8; box-shadow:inset -3px -2px 0 #ae9d79; }
+.chip .disc.new { background:#091827; box-shadow:inset 2px 0 0 #c2ad7d, inset 0 0 0 1.5px #ccbc94; }
+#chosen { width:600px; padding:34px 40px 38px; }
+#chosen h3 { margin-top:14px; font-family:var(--serif); font-weight:400; font-size:60px; line-height:1.02; color:var(--ink); text-wrap:balance; }
+#prompt { width:640px; padding:36px 42px 42px; }
+#prompt p { margin-top:18px; font-family:var(--serif); font-size:46px; line-height:1.14; color:var(--ink); }
+#banner { width:600px; display:flex; align-items:center; gap:24px; padding:24px 28px; border-radius:30px; }
+#banner .seal { flex:none; width:64px; height:64px; border-radius:16px; background:#0b192a center/cover; box-shadow:inset 0 0 0 1px #c9d7d833; }
+#banner strong { display:block; margin-top:8px; font-family:var(--serif); font-weight:400; font-size:38px; line-height:1; color:var(--ink); }
+#banner em { margin-left:auto; font-style:normal; color:#e3cfa3; font-size:26px; }
+#kept { width:560px; padding:34px 40px 38px; }
+#kept h3 { margin-top:14px; font-family:var(--serif); font-weight:400; font-size:54px; line-height:1.04; color:var(--ink); text-wrap:balance; }
+#kept p { margin-top:14px; font-size:21px; line-height:1.5; color:#b9c5cc; }
+#entry { width:600px; display:flex; align-items:center; gap:28px; padding:26px 34px 26px 26px; border-radius:26px; }
+#entry .seal { flex:none; width:92px; height:158px; border-radius:9px; background:#0b192a center/cover; box-shadow:0 12px 28px #01060d99, inset 0 0 0 1px #c9d7d833; }
+#entry .eyebrow { font-size:16px; }
+#entry strong { display:block; margin-top:10px; font-family:var(--serif); font-weight:400; font-size:46px; line-height:1; color:var(--ink); }
+#entry p { margin-top:12px; font-family:var(--serif); font-style:italic; font-size:27px; line-height:1.2; color:#dcd4c4; }
+
+/* A week later */
+#week { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; opacity:0; }
+#week .later { font-family:var(--serif); font-style:italic; color:#e6ddca; }
+.landscape #week .later { font-size:52px; }
+.portrait #week .later { font-size:58px; }
+#week .rule { width:56px; height:1px; background:var(--gold); margin:30px auto 34px; }
+#week .dates { position:relative; height:1.25em; width:100%; overflow:hidden; font-family:var(--serif); letter-spacing:-.02em; }
+.landscape #week .dates { font-size:112px; }
+.portrait #week .dates { font-size:88px; }
+#week .dates span { position:absolute; left:0; right:0; top:0; white-space:nowrap; }
+
+/* End */
+#end { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; opacity:0; }
+#end .word { font-family:var(--serif); font-size:124px; line-height:.9; letter-spacing:-.025em; }
+#end .arcana { margin:24px 0 0 .5em; font-size:17px; letter-spacing:.5em; color:#d9ceb6; }
+#end .promise { margin-top:54px; font-family:var(--serif); }
+.landscape #end .promise { font-size:50px; line-height:1.28; }
+.portrait #end .promise { font-size:56px; line-height:1.24; padding:0 60px; }
+#end .promise span { display:block; text-wrap:balance; }
+#end .site { margin-top:50px; font-size:19px; letter-spacing:.32em; text-transform:uppercase; color:var(--gold); }
+.portrait #end .site { font-size:24px; }
+</style>
+</head>
+<body>
+<div id="film">
+ <div id="bg"></div>
+ <div id="world">
+  <div class="obj" id="fan"></div>
+  <div class="obj" id="phone"><div id="screen"><img id="frameA" alt=""><img id="frameB" alt=""><div id="dim"></div><div id="ring"></div></div></div>
+  <div class="obj glass" id="quote"><div class="eyebrow" id="quoteEyebrow"></div><p id="quoteText"></p></div>
+  <div class="obj tile" id="tile1"><i></i><strong></strong><small></small><span class="ring"></span></div>
+  <div class="obj tile" id="tile2"><i></i><strong></strong><small></small><span class="ring"></span></div>
+  <div class="obj" id="saved"><span></span><b>✓</b></div>
+  <div class="obj glass" id="prompt"><div class="eyebrow"></div><p></p></div>
+  <div class="obj glass" id="chosen"><div class="eyebrow"></div><h3></h3></div>
+  <div class="obj glass" id="banner"><div class="seal"></div><div><div class="eyebrow"></div><strong></strong></div><em>↗</em></div>
+  <div class="obj glass" id="kept"><div class="eyebrow"></div><h3></h3><p></p></div>
+  <div class="obj glass" id="entry"><div class="seal"></div><div><div class="eyebrow"></div><strong></strong><p></p></div></div>
+ </div>
+ <div id="fore"><div class="obj card" id="openCard"><div class="face back"></div><div class="face front"></div></div></div>
+ <div id="open"><div class="l1"></div><div class="l2"></div></div>
+ <div id="heads"></div>
+ <div id="week"><div class="later"></div><div class="rule"></div><div class="dates"><span id="dateA"></span><span id="dateB"></span></div></div>
+ <div id="end"><div class="word">Olivia</div><div class="arcana">ARCANA</div><p class="promise"></p><p class="site"></p></div>
+</div>
+<script>
+const params = new URLSearchParams(location.search);
+const layout = params.get('layout') || 'landscape', dir = params.get('footage') || 'footage-en';
+const LAND = layout === 'landscape';
+document.body.className = layout;
+const $ = s => document.querySelector(s);
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const glide = k => { k = clamp(k); return k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; };
+const settle = k => 1 - Math.pow(1 - clamp(k), 3.4);
+const spring = k => { k = clamp(k); return k === 1 ? 1 : 1 - Math.exp(-6.2 * k) * Math.cos(8.6 * k); };
+const range = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const mix = (a, b, k) => typeof a === 'number' ? lerp(a, b, k) : Object.fromEntries(Object.keys({...a, ...b}).map(key => [key, lerp(a[key] ?? b[key], b[key] ?? a[key], k)]));
+// Keyframes: [[time, value, easing into this key], ...]
+function track(t, keys) {
+ if (t <= keys[0][0]) return keys[0][1];
+ for (let i = 1; i < keys.length; i++) {
+  const [t1, v1, ease = glide] = keys[i], [t0, v0] = keys[i - 1];
+  if (t <= t1) return mix(v0, v1, t1 === t0 ? 1 : ease((t - t0) / (t1 - t0)));
+ }
+ return keys.at(-1)[1];
+}
+const shadow = (el, k) => { el.style.boxShadow = `0 ${34 * k}px ${80 * k}px rgba(1,6,13,${.65 * k}), 0 ${8 * k}px ${22 * k}px rgba(1,6,16,${.55 * k})`; };
+const place = (el, p, fade = 1) => {
+ el.style.transform = `translate(-50%,-50%) translate3d(${p.x ?? 0}px,${p.y ?? 0}px,${p.z ?? 0}px) rotateX(${p.rx ?? 0}deg) rotateY(${p.ry ?? 0}deg) rotateZ(${p.rz ?? 0}deg) scale(${p.s ?? 1})`;
+ const o = (p.o ?? 1) * fade;
+ // Opacity on a 3D card would flatten it and show both faces, so a card fades its faces.
+ if (el.classList.contains('card')) for (const face of el.children) face.style.opacity = o;
+ else el.style.opacity = o;
+ el.style.visibility = o <= .001 ? 'hidden' : 'visible';
+};
+const words = (el, text) => { el.innerHTML = text.split(/(\n|[ \t]+)/).map(w => w === '\n' ? '<br>' : /^[ \t]+$/.test(w) ? w : w ? `<span class="w">${w}</span>` : '').join(''); return [...el.querySelectorAll('.w')]; };
+function revealWords(list, t, t0, gap = .065, dur = .7, out = null) {
+ list.forEach((w, i) => {
+  const k = settle(range(t, t0 + i * gap, t0 + i * gap + dur));
+  const o = out ? 1 - glide(range(t, out, out + .4)) : 1;
+  w.style.opacity = Math.min(k, o);
+  w.style.transform = `translateY(${(1 - k) * 34 - (1 - o) * 18}px)`;
+  w.style.filter = `blur(${(1 - k) * 10 + (1 - o) * 6}px)`;
+ });
+}
+
+let F, S, SW, SH, cue, P0;
+const FAN = 11, HERO = 6;
+async function setup() {
+ F = await (await fetch(`${dir}/film.json`)).json();
+ document.documentElement.lang = F.lang;
+ S = LAND ? .9479 : .87;
+ SW = F.viewport.width * S; SH = F.viewport.height * S;
+ Object.assign($('#phone').style, {width: `${SW + 26}px`, height: `${SH + 26}px`});
+ Object.assign($('#screen').style, {width: `${SW}px`, height: `${SH}px`});
+ cue = (name, i = 0) => (F.cues[name] || [])[i];
+ P0 = LAND ? {x: 430, y: 10} : {x: 0, y: 190};
+ const W = F.words;
+ // Cards
+ const back = 'card-back.webp', face = 'card-face.webp';
+ const card = (el, withFace) => { el.style.setProperty('--cw', LAND ? '360px' : '340px'); el.style.setProperty('--ch', LAND ? '618px' : '584px'); el.querySelector('.back').style.backgroundImage = `url(${back})`; const f = el.querySelector('.front'); if (withFace) { f.style.backgroundImage = `url(${face})`; f.insertAdjacentHTML('beforeend', '<div class="shine"></div>'); } else f.remove(); };
+ card($('#openCard'), false);
+ $('#openCard .back').insertAdjacentHTML('beforeend', '<div class="shine"></div>');
+ for (let i = 0; i < FAN; i++) {
+  const el = document.createElement('div'); el.className = 'obj card fancard'; el.innerHTML = '<div class="face back"></div><div class="face front"></div>';
+  $('#fan').append(el); card(el, i === HERO); el.style.setProperty('--cw', LAND ? '250px' : '230px'); el.style.setProperty('--ch', LAND ? '429px' : '395px');
+ }
+ // Words
+ [['.l1', W.open[0]], ['.l2', W.open[1]]].forEach(([s, text]) => words($('#open ' + s), text));
+ for (const [id, [title, sub]] of Object.entries(W.shots)) {
+  const el = document.createElement('div'); el.className = 'head'; el.dataset.id = id;
+  el.innerHTML = '<h1></h1><p></p>'; words(el.querySelector('h1'), title); words(el.querySelector('p'), sub); $('#heads').append(el);
+ }
+ const snap = F.snaps;
+ // Dates never break between the day and the month: “5 жовтня”, “October 5”.
+ const day = text => F.lang === 'uk' ? text.replace(/(\d) /g, '$1\u00a0') : text.replace(/ (\d)/g, '\u00a0$1');
+ const quoted = text => F.lang === 'uk' ? `«${text}»` : `“${text}”`, asked = snap.question.field[0].text;
+ $('#quoteEyebrow').textContent = snap.question.title[0].text.replace(/\s+/g, ' ');
+ $('#quoteText').textContent = quoted(asked);
+ ['#tile1', '#tile2'].forEach((sel, i) => { $(sel + ' strong').textContent = snap.prepare.names[i].text; $(sel + ' small').textContent = snap.prepare.details[i].text; });
+ $('#saved span').textContent = W.saved;
+ $('#prompt .eyebrow').textContent = snap.prompt.eyebrow[0].text;
+ $('#prompt p').textContent = snap.prompt.text[0].text;
+ $('#chosen .eyebrow').textContent = snap.chosen.eyebrow[0].text;
+ $('#chosen h3').textContent = day(snap.chosen.title[0].text);
+ $('#banner .eyebrow').textContent = snap.waiting.eyebrow[0].text;
+ $('#banner strong').textContent = snap.waiting.name[0].text;
+ $('#banner .seal').style.backgroundImage = `url(${face})`;
+ $('#kept .eyebrow').textContent = snap.return.eyebrow[0].text;
+ $('#kept h3').textContent = snap.kept.title[0].text;
+ $('#kept p').textContent = snap.kept.note[0].text;
+ const entry = snap.almanac.row[0].text, name = snap.reading.title[0].text;
+ $('#entry .eyebrow').textContent = entry.slice(0, entry.indexOf(name)).trim();
+ $('#entry strong').textContent = name;
+ $('#entry p').textContent = quoted(asked);
+ $('#entry .seal').style.backgroundImage = `url(${face})`;
+ const chips = snap.chooser.chips;
+ chips.forEach((c, i) => {
+  const el = document.createElement('div'); el.className = 'obj chip'; el.dataset.i = i;
+  const moon = /Full|Повня/.test(c.text) ? 'full' : /New|Молодик/.test(c.text) ? 'new' : '';
+  el.innerHTML = (moon ? `<span class="disc ${moon}"></span>` : '') + `<span>${c.text}</span>`;
+  $('#world').append(el);
+ });
+ $('#week .later').textContent = W.week; $('#dateA').textContent = F.roll[0]; $('#dateB').textContent = F.roll[1];
+ $('#end .promise').innerHTML = W.promise.map(() => '<span></span>').join('');
+ $('#end .promise').querySelectorAll('span').forEach((s, i) => { s.textContent = W.promise[i]; });
+ $('#end .site').textContent = W.site;
+ F.taps.forEach(() => $('#screen').insertAdjacentHTML('beforeend', '<div class="tap"></div>'));
+ $('#screen').append($('#dim'), $('#ring'));
+ await Promise.all([back, face].map(src => { const img = new Image(); img.src = src; return img.decode().catch(() => {}); }));
+ await document.fonts.ready;
+ build();
+ return {duration: F.duration, fps: F.fps};
+}
+
+// Positions of things inside the phone, in world pixels, for a phone at p (no rotation).
+const inPhone = (p, rect) => ({x: p.x + ((rect.x + rect.w / 2) - F.viewport.width / 2) * S * p.s, y: p.y + ((rect.y + rect.h / 2) - F.viewport.height / 2) * S * p.s});
+// A phone scaled by s about a point of its screen, with that point placed at (tx, ty).
+const aimAt = (rect, s, tx, ty, extra = {}) => ({x: tx - ((rect.x + rect.w / 2) - F.viewport.width / 2) * S * s, y: ty - ((rect.y + rect.h / 2) - F.viewport.height / 2) * S * s, s, ...extra});
+
+let K = {};
+function build() {
+ const sh = F.shots.reduce((m, s) => ({...m, [s.id]: s}), {}), sn = F.snaps, L = LAND;
+ const home = {x: P0.x, y: P0.y, z: 0, rx: 0, ry: 0, rz: 0, s: 1, o: 1};
+ const turned = L ? {...home, ry: -11, rx: 2} : {...home, rx: 4, ry: 0};
+ const op = sh.open, q = sh.question, pr = sh.prepare, dk = sh.deck, tn = sh.turn, rd = sh.read, kp = sh.keep, wk = sh.week, rt = sh.return, al = sh.almanac, en = sh.end;
+ // Pop-outs rest in front of the phone's near edge (landscape) or over its upper half (portrait).
+ const rest = (x, y, extra = {}) => L ? {x: P0.x - 320 + x, y, z: 240, rx: 0, ry: 10, rz: 0, s: 1, o: 1, ...extra} : {x: 0, y: y + 20, z: 240, rx: 0, ry: 0, rz: 0, s: 1, o: 1, ...extra, ry: 0};
+ // Phone: position, rotation, scale, opacity.
+ const field = sn.question.field[0], art = sn.reading.art[0], menu = sn.dot.menu[0], panel = sn.return.panel[0];
+ const push = L ? aimAt(field, 1.62, 360, 40, {z: 60, rx: 0, ry: -5, rz: 0, o: 1}) : aimAt(field, 1.4, 0, 250, {z: 60, rx: 0, ry: 0, rz: 0, o: 1});
+ const dotIn = L ? aimAt(menu, 2.2, 760, -250, {z: 80, rx: 0, ry: -4, rz: 0, o: 1}) : aimAt(menu, 2.2, 300, 90, {z: 80, rx: 0, ry: 0, rz: 0, o: 1});
+ const panelIn = L ? aimAt(panel, 1.28, 420, 70, {z: 40, rx: 0, ry: -6, rz: 0, o: 1}) : aimAt(panel, 1.18, 0, 230, {z: 40, rx: 0, ry: 0, rz: 0, o: 1});
+ const offRight = {...home, x: P0.x + (L ? 520 : 0), y: P0.y + (L ? 0 : 700), ry: L ? -24 : 0, rx: L ? 0 : 14, o: 0};
+ K.phone = [
+  [0, offRight],
+  [op.end - 1.25, offRight],
+  [op.end - .3, home, settle],
+  [q.start + .9, home],
+  [q.start + 1.8, turned],
+  [cue('tap:field') - .35, turned],
+  [cue('tap:field') + .45, push, glide],
+  [cue('snap:question') + .1, push],
+  [cue('snap:question') + .9, turned, glide],
+  [pr.start + .25, home],
+  [dk.start, home],
+  [dk.start + .7, {...home, z: 900, s: 1.6, o: 0}, (k => k * k)],
+  [tn.end - 1.5, {...home, x: P0.x + (L ? 600 : 0), y: P0.y + (L ? 0 : 620), ry: L ? -20 : 0, o: 0}],
+  [tn.end - .5, home, settle],
+  [rd.start + 1.2, home],
+  [rd.start + 2.2, turned],
+  [kp.start - .2, turned],
+  [kp.start + .6, home],
+  [wk.start, home],
+  [wk.start + .5, {...home, y: P0.y + 40, z: -400, o: 0}],
+  [rt.start - .05, {...home, y: P0.y + (L ? 420 : 520), z: 0, o: 0}],
+  [rt.start + .7, home, settle],
+  [rt.start + 1.0, home],
+  [rt.start + 1.9, dotIn, glide],
+  [cue('tap:draw', 1) - .75, dotIn],
+  [cue('tap:draw', 1) - .05, home, glide],
+  [cue('snap:return') - .1, home],
+  [cue('snap:return') + .7, panelIn, glide],
+  [cue('snap:kept') + .2, panelIn],
+  [cue('snap:kept') + 1.0, turned, glide],
+  [al.end - .4, turned],
+  [en.start + .2, {...turned, x: P0.x + (L ? 40 : 0), s: .9}],
+  [en.start + 1.0, {...turned, x: P0.x + (L ? 80 : 0), y: P0.y + (L ? 0 : 120), s: .86, o: 0}],
+ ];
+ K.dim = [[0, 0], [pr.start + .3, 0], [cue('snap:prepare') - .6, .45], [cue('tap:choose') - .5, .45], [cue('tap:choose') - .1, 0], [cue('snap:chooser') - .4, 0], [cue('snap:chooser') + .2, .4], [cue('snap:chosen') + 1.2, .4], [kp.end - .3, 0]];
+ // Opening: the words, then the card rises from the dark, turns in the light and lands on the card in the phone.
+ K.openWords = {start: .3, leave: op.end - 2.65};
+ const homeCard = sn.home.card[0], land = inPhone(home, homeCard);
+ const landS = (0.26834 * (F.viewport.height - 106) * S) / (L ? 360 : 340);
+ const landing = {x: land.x, y: land.y, z: 0, rx: 6.9, ry: -19.5, rz: 5.7, s: landS};
+ K.openCard = [
+  [0, {x: 0, y: L ? 140 : 160, z: -700, rx: 16, ry: -34, rz: -4, s: 1.1, o: 0}],
+  [op.end - 2.4, {x: 0, y: L ? 140 : 160, z: -700, rx: 16, ry: -34, rz: -4, s: 1.1, o: 0}],
+  [op.end - 1.55, {x: 0, y: L ? 20 : 40, z: -120, rx: 7, ry: -16, rz: -2, s: 1.1, o: 1}, settle],
+  [op.end - 1.1, {x: L ? 50 : 0, y: 0, z: 0, rx: 5, ry: -8, rz: 2, s: 1.04, o: 1}],
+  [op.end - .35, {...landing, o: 1}, glide],
+  [op.end, {...landing, o: 0}],
+ ];
+ K.openShine = [[0, -1], [op.end - 1.9, -1], [op.end - .95, 1.2, glide]];
+ // A landing card's shadow fades, so it does not darken the screen it lands on.
+ K.openShadow = [[0, 1], [op.end - 1.1, 1], [op.end - .35, 0, glide]];
+ // The deck: a fan of backs; one lifts, turns once, and returns into the phone.
+ const fanAt = L ? {x: 360, y: 140} : {x: 0, y: 250};
+ const R = L ? 1000 : 900, pivot = L ? 800 : 720, spread = L ? 20 : 23;
+ const heroFront = L ? {x: 330, y: 0, z: 160, rx: 0, ry: 0, rz: 0, s: 1.5, o: 1} : {x: 0, y: 190, z: 160, rx: 0, ry: 0, rz: 0, s: 1.45, o: 1};
+ const readingArt = inPhone(home, art);
+ const artS = (art.w * S) / (L ? 250 : 230);
+ K.fanGroup = [[0, {x: fanAt.x, y: fanAt.y, rx: 16, ry: -10, o: 0}], [dk.start + .2, {x: fanAt.x, y: fanAt.y, rx: 16, ry: -10, o: 0}], [dk.start + .8, {x: fanAt.x, y: fanAt.y, rx: 14, ry: -7, o: 1}], [dk.end - .6, {x: fanAt.x, y: fanAt.y, rx: 10, ry: 4, o: 1}, (k => k)], [tn.start + .8, {x: 0, y: 0, rx: 0, ry: 0, o: 1}]];
+ K.fanCards = [...Array(FAN)].map((_, i) => {
+  const a = -spread + (2 * spread * i) / (FAN - 1), rad = a * Math.PI / 180;
+  const arc = {x: R * Math.sin(rad), y: pivot - R * Math.cos(rad), z: -Math.abs(i - HERO) * 6, rx: 0, ry: 0, rz: a, s: 1, o: 1};
+  const stack = {x: 0, y: pivot - R, z: i * 1.5, rx: 0, ry: 0, rz: 0, s: 1, o: 0};
+  const open = dk.start + .5 + Math.abs(i - (FAN - 1) / 2) * .05;
+  if (i !== HERO) return [[0, stack], [open - .2, stack], [open + .15, {...stack, o: 1}], [open + 1.2, arc, spring], [dk.end - 1.4, arc], [dk.end - .6, {...arc, z: arc.z - 120, o: .5}], [tn.start + .8, {...arc, z: arc.z - 520, o: 0}]];
+  // The hero's arc is in the fan's frame; its later keys are in the world's (the fan group flattens to the origin by then).
+  const lift = {...arc, y: arc.y - 110, z: 190, s: 1.1};
+  const onArt = {x: readingArt.x, y: readingArt.y, z: 2, rx: 0, ry: 180, rz: 0, s: artS};
+  const turnKeys = [[tn.start + .8, heroFront], [tn.start + 1.2, heroFront], [tn.start + 2.5, {...heroFront, ry: 180, z: 240}, glide], [tn.end - 1.4, {...heroFront, ry: 180, z: 200}], [tn.end - .35, {...onArt, o: 1}, glide], [tn.end + .05, {...onArt, o: 0}]];
+  return [[0, stack], [open - .2, stack], [open + .15, {...stack, o: 1}], [open + 1.2, arc, spring], [dk.end - 1.5, arc], [dk.end - .7, lift, settle], ...turnKeys];
+ });
+ K.shine = [[0, -1], [tn.start + 2.4, -1], [tn.start + 3.4, 1.2, glide]];
+ K.heroShadow = [[0, 1], [tn.end - 1.4, 1], [tn.end - .35, 0, glide]];
+ // Pop-outs: each leaves the screen where it is on the phone and comes to rest in the air.
+ const fieldAt = inPhone(push, field);
+ const quoteAt = rest(40, 190, {z: 120, ry: 8, s: .92});
+ K.quote = [[0, {...fieldAt, z: 0, s: .5, o: 0}], [cue('snap:question') - .05, {...fieldAt, z: 0, s: .5, o: 0}], [cue('snap:question') + .15, {...fieldAt, z: 80, s: .62, o: 1}], [cue('snap:question') + 1.0, quoteAt, settle], [pr.start + .2, quoteAt], [pr.start + .7, {...quoteAt, y: quoteAt.y + 40, z: 60, s: .86, o: 0}]];
+ const tileKeys = i => {
+  const r = sn.prepare.options[i], from = {...inPhone(home, r), z: 0, s: .72, o: 0};
+  const out = L ? {x: P0.x + (i ? 175 : -175), y: -40 + (i ? 30 : 0), z: 260 - i * 60, ry: i ? -14 : 12, rz: i ? 2 : -2, s: 1, o: 1} : {x: i ? 160 : -160, y: 170 + (i ? 30 : 0), z: 260 - i * 60, ry: i ? -12 : 12, rz: i ? 2 : -2, s: 1, o: 1};
+  const t0 = cue('snap:prepare') - .75 + i * .1;
+  return [[0, from], [t0, from], [t0 + .15, {...from, o: 1}], [t0 + .95, out, spring], [cue('tap:choose') - .75, out], [cue('tap:choose') - .15, {...from, o: 0}, glide]];
+ };
+ K.tile1 = tileKeys(0); K.tile2 = tileKeys(1);
+ K.tileRing = [[0, 0], [cue('tap:one-card') - .05, 0], [cue('tap:one-card') + .25, 1], [cue('tap:choose') - .5, 1], [cue('tap:choose') - .2, 0]];
+ const btn = sn.saved.button[0], btnAt = inPhone(home, btn), savedFrom = {...btnAt, z: 0, s: .6, o: 0};
+ const savedAt = L ? {x: P0.x - 290, y: btnAt.y - 40, z: 260, rz: -3, s: 1, o: 1} : {x: 0, y: btnAt.y - 150, z: 260, rz: -3, s: 1, o: 1};
+ K.saved = [[0, savedFrom], [cue('tap:keep') + .1, savedFrom], [cue('tap:keep') + .25, {...savedFrom, o: 1}], [cue('tap:keep') + .95, savedAt, spring], [cue('snap:chooser') - .1, savedAt], [cue('snap:chooser') + .4, {...savedAt, y: savedAt.y - 70, z: 200, s: .94, o: 0}]];
+ const cloud = L
+  ? [[-40, -210], [140, -130], [-60, -50], [150, 30], [-90, 110], [120, 190]].map(([x, y]) => ({x: P0.x - 320 + x, y}))
+  : [[-250, -60], [40, -110], [250, -40], [-170, 40], [190, 70], [-10, 150]].map(([x, y]) => ({x, y: y + 60}));
+ K.chips = sn.chooser.chips.map((c, i) => {
+  const from = {...inPhone(home, c), z: 0, rx: 0, ry: 0, rz: 0, s: .64, o: 0};
+  const out = {...cloud[i], z: 220 + (i % 3) * 50, rx: 0, ry: L ? 12 : 0, rz: [-4, 3, -2, 4, -3, 2][i], s: 1, o: 1};
+  const t0 = cue('snap:chooser') - .35 + i * .07, week = cue('tap:week');
+  const keys = [[0, from], [t0, from], [t0 + .1, {...from, o: 1}], [t0 + .9, out, spring], [week - .05, out]];
+  if (i === 1) return [...keys, [week + .25, {...out, s: 1.14, z: out.z + 60}, settle], [week + .7, {...out, s: 1.14, z: out.z + 60}], [week + 1.0, {...out, s: .9, z: out.z + 20, o: 0}]];
+  return [...keys, [week + .6, {...out, y: out.y + 160, z: out.z - 200, o: 0}, glide]];
+ });
+ K.chipOn = [[0, 0], [cue('tap:week') - .02, 0], [cue('tap:week') + .05, 1]];
+ const chosenAt = rest(0, -20, {z: 260});
+ const chosenFrom = {...cloud[1], z: 280, s: .4, o: 0};
+ K.chosen = [[0, chosenFrom], [cue('tap:week') + .75, chosenFrom], [cue('tap:week') + .9, {...chosenFrom, o: 1}], [cue('tap:week') + 1.6, chosenAt, spring], [kp.end - .2, chosenAt], [kp.end + .3, {...chosenAt, z: 120, o: 0}]];
+ const promptRect = sn.prompt.prompt[0], promptFrom = {...inPhone(turned, promptRect), z: 0, s: .56, o: 0};
+ const promptAt = rest(40, 190, {z: 140, ry: 8, s: .92});
+ K.prompt = [[0, promptFrom], [cue('snap:prompt') - .1, promptFrom], [cue('snap:prompt') + .1, {...promptFrom, o: 1}], [cue('snap:prompt') + 1.0, promptAt, settle], [rd.end - .2, promptAt], [rd.end + .3, {...promptAt, y: promptAt.y + 40, o: 0}]];
+ const row = sn.waiting.row[0], rowAt = inPhone(home, row);
+ const bannerAt = L ? {x: P0.x - 40, y: -400, z: 240, rx: 4, s: 1, o: 1} : {x: 0, y: -150, z: 240, rx: 4, s: 1, o: 1};
+ const bannerFrom = {...bannerAt, y: bannerAt.y - 420, o: 0};
+ const tb = cue('tap:waiting');
+ K.banner = [[0, bannerFrom], [tb - 2.0, bannerFrom], [tb - 1.2, bannerAt, spring], [tb - .15, bannerAt], [tb + .35, {...rowAt, z: 0, rx: 0, s: .55, o: 0}, glide]];
+ const dotRect = sn.dot.dot[0], ringFrom = rt.start + 1.9, ringTo = cue('tap:draw', 1) - .8;
+ K.ring = t => {
+  const on = t > ringFrom && t < ringTo, k = ((t - ringFrom) % 1.1) / 1.1;
+  return {x: (dotRect.x + dotRect.w / 2) * S, y: (dotRect.y + dotRect.h / 2) * S, s: .45 + 1.1 * settle(k), o: on ? (1 - k) * .95 * clamp((ringTo - t) / .3) : 0};
+ };
+ const keptAt = rest(-10, -60, {z: 260});
+ const keptFrom = {...inPhone(panelIn, sn.kept.title[0]), z: 20, s: .5, o: 0};
+ K.kept = [[0, keptFrom], [cue('snap:kept') - .25, keptFrom], [cue('snap:kept') - .05, {...keptFrom, o: 1}], [cue('snap:kept') + .8, keptAt, spring], [al.start + 1.0, keptAt], [al.start + 1.5, {...keptAt, y: keptAt.y - 30, z: 120, o: 0}]];
+ const entryFrom = {...inPhone(turned, sn.almanac.row[0]), z: 0, s: .6, o: 0}, entryAt = rest(0, 150, {z: 240});
+ K.entry = [[0, entryFrom], [al.start + 2.1, entryFrom], [al.start + 2.25, {...entryFrom, o: 1}], [al.start + 3.0, entryAt, spring], [en.start + .2, entryAt], [en.start + .7, {...entryAt, y: entryAt.y + 30, z: 100, o: 0}]];
+ // Headlines: each shot's words arrive after it starts and leave as the next arrive.
+ const order = ['question', 'prepare', 'deck', 'turn', 'read', 'keep', 'return', 'almanac'];
+ const arrive = id => id === 'turn' ? tn.start + .9 : id === 'almanac' ? al.start + 1.4 : sh[id].start + .25;
+ K.heads = order.map((id, i) => {
+  const next = order[i + 1];
+  const leave = id === 'keep' ? wk.start : id === 'almanac' ? en.start + .1 : arrive(next) - .35;
+  return {id, start: arrive(id), leave};
+ });
+}
+
+// Screen: the footage frame for any moment, with a short cross-fade between clips.
+const frameAt = (c, s) => { let file = c.frames[0][1]; for (const [time, f] of c.frames) { if (time <= s) file = f; else break; } return `${dir}/${file}`; };
+function screenAt(t) {
+ const C = F.clips;
+ for (let i = 0; i < C.length; i++) {
+  const c = C[i], n = C[i + 1];
+  if (t >= c.out[0] && t < c.out[1]) return {a: frameAt(c, c.speed ? c.src[0] + (t - c.out[0]) * c.speed : c.src[0])};
+  if (n && t >= c.out[1] && t < n.out[0]) return {a: frameAt(c, c.src[1]), b: frameAt(n, n.src[0]), k: glide(range(t, c.out[1], n.out[0]))};
+ }
+ const last = C.at(-1); return {a: frameAt(last, last.src[1])};
+}
+async function show(img, src) { if (img.dataset.src === src) return; img.dataset.src = src; img.src = src; try { await img.decode(); } catch {} }
+
+window.render = async function (t) {
+ const sh = id => F.shots.find(s => s.id === id);
+ // Background: lapis with a slow drift of light.
+ const gx = LAND ? 60 + 12 * Math.sin(t / 9) : 50 + 10 * Math.sin(t / 9), gy = 46 + 8 * Math.cos(t / 11);
+ $('#bg').style.background = `radial-gradient(ellipse 60% 70% at ${gx}% ${gy}%, #1f3d5ad9 0%, #13283f70 45%, transparent 75%), radial-gradient(ellipse 50% 50% at ${100 - gx}% 20%, #16304a50 0%, transparent 70%), #0b192a`;
+ // Opening words, then the card with a light passing over it.
+ revealWords([...document.querySelectorAll('#open .w')], t, K.openWords.start, .09, .9, K.openWords.leave);
+ $('#open').style.display = t < K.openWords.leave + .5 ? 'flex' : 'none';
+ place($('#openCard'), track(t, K.openCard));
+ const openShine = track(t, K.openShine);
+ $('#openCard .shine').style.opacity = openShine > -1 && openShine < 1.2 ? .8 : 0;
+ $('#openCard .shine').style.transform = `translateX(${openShine * 60}%)`;
+ shadow($('#openCard .back'), track(t, K.openShadow));
+ // Phone and screen.
+ const p = track(t, K.phone);
+ place($('#phone'), p);
+ if (p.o > .001) {
+  const s = screenAt(t), A = $('#frameA'), B = $('#frameB');
+  await Promise.all([show(A, s.a), s.b ? show(B, s.b) : null]);
+  B.style.opacity = s.b ? s.k : 0;
+ }
+ $('#dim').style.opacity = track(t, K.dim);
+ document.querySelectorAll('.tap').forEach((dot, i) => {
+  const tap = F.taps[i], k = t - tap.t;
+  if (k < -.28 || k > .6 || p.o < .05) { dot.style.opacity = 0; return; }
+  const a = settle(range(k, -.28, 0)), r = range(k, .06, .6);
+  dot.style.left = `${tap.x * S}px`; dot.style.top = `${tap.y * S}px`;
+  dot.style.opacity = k < 0 ? .95 * a : .95 * (1 - r);
+  dot.style.transform = `scale(${k < 0 ? .7 + .3 * a : k < .06 ? 1 - .15 * range(k, 0, .06) : .85 + 1.1 * settle(r)})`;
+ });
+ // Deck.
+ const g = track(t, K.fanGroup);
+ $('#fan').style.transform = `translate(-50%,-50%) translate3d(${g.x}px,${g.y}px,0) rotateX(${g.rx}deg) rotateY(${g.ry}deg)`;
+ $('#fan').style.visibility = g.o <= .001 ? 'hidden' : 'visible';
+ document.querySelectorAll('.fancard').forEach((el, i) => place(el, track(t, K.fanCards[i]), g.o));
+ const shine = $('.fancard .shine'); const sk = track(t, K.shine);
+ if (shine) { shine.style.opacity = sk > -1 && sk < 1.2 ? .95 : 0; shine.style.transform = `translateX(${sk * 60}%)`; }
+ shadow($('.fancard .front'), track(t, K.heroShadow));
+ // Pop-outs.
+ place($('#quote'), track(t, K.quote));
+ place($('#tile1'), track(t, K.tile1)); place($('#tile2'), track(t, K.tile2));
+ const ring = track(t, K.tileRing); $('#tile1 .ring').style.opacity = ring; $('#tile1').classList.toggle('on', ring > .5); $('#tile2').classList.toggle('on', ring <= .5);
+ place($('#saved'), track(t, K.saved));
+ document.querySelectorAll('.chip').forEach((el, i) => { place(el, track(t, K.chips[i])); el.classList.toggle('on', i === 1 && track(t, K.chipOn) > .5); });
+ place($('#chosen'), track(t, K.chosen));
+ place($('#prompt'), track(t, K.prompt));
+ place($('#banner'), track(t, K.banner));
+ const r = K.ring(t), dot = $('#ring');
+ Object.assign(dot.style, {left: `${r.x}px`, top: `${r.y}px`, transform: `scale(${r.s})`, opacity: r.o});
+ place($('#kept'), track(t, K.kept));
+ place($('#entry'), track(t, K.entry));
+ // Headlines.
+ document.querySelectorAll('.head').forEach(el => {
+  const h = K.heads.find(x => x.id === el.dataset.id);
+  const visible = t > h.start - .05 && t < h.leave + .5;
+  el.style.display = visible ? 'block' : 'none';
+  if (!visible) return;
+  revealWords([...el.querySelectorAll('h1 .w')], t, h.start, .07, .75, h.leave);
+  revealWords([...el.querySelectorAll('p .w')], t, h.start + .35, .025, .6, h.leave);
+ });
+ // A week later.
+ const wk = sh('week'), week = $('#week');
+ const wo = Math.min(settle(range(t, wk.start + .15, wk.start + .7)), 1 - glide(range(t, wk.end - .35, wk.end + .05)));
+ week.style.opacity = wo; week.style.display = wo > .001 ? 'flex' : 'none';
+ const roll = glide(range(t, wk.start + 1.0, wk.start + 1.65));
+ $('#dateA').style.transform = `translateY(${-roll * 110}%)`; $('#dateA').style.opacity = 1 - roll; $('#dateA').style.filter = `blur(${roll * 8}px)`;
+ $('#dateB').style.transform = `translateY(${(1 - roll) * 110}%)`; $('#dateB').style.opacity = roll; $('#dateB').style.filter = `blur(${(1 - roll) * 8}px)`;
+ // End.
+ const en = sh('end'), end = $('#end');
+ const eo = Math.min(settle(range(t, en.start + .9, en.start + 1.7)), 1 - glide(range(t, F.duration - .5, F.duration)));
+ end.style.opacity = eo; end.style.display = eo > .001 ? 'flex' : 'none';
+ end.querySelectorAll('.promise span').forEach((s, i) => { const k = settle(range(t, en.start + 1.3 + i * .25, en.start + 2.1 + i * .25)); s.style.opacity = k; s.style.transform = `translateY(${(1 - k) * 22}px)`; s.style.filter = `blur(${(1 - k) * 8}px)`; });
+ end.querySelector('.site').style.opacity = settle(range(t, en.start + 2.0, en.start + 2.7));
+};
+window.ready = setup();
+</script>
+</body>
+</html>
