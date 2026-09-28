@@ -28,3 +28,27 @@ function visit(directory) {
 }
 visit(ukRoot);
 console.log(`Marked ${changed} exported Ukrainian pages with lang="uk".`);
+
+// Deck selection must ship with the native routes and complete artwork together.
+// A production build from a divergent branch previously dropped these pages.
+for (const route of ['decks', 'uk/decks']) {
+  const file = path.join(out, route, 'index.html');
+  if (!fs.existsSync(file)) throw new Error(`Missing required route: /${route}/`);
+  const html = fs.readFileSync(file, 'utf8');
+  if (!html.includes('Amielle') || !html.includes('<h1')) {
+    throw new Error(`Deck collection was not rendered in /${route}/`);
+  }
+}
+const manifest = JSON.parse(fs.readFileSync(path.join(out, 'experience/manifest.json'), 'utf8'));
+for (const id of ['olivia', 'space-between']) {
+  const deck = manifest.decks?.[id];
+  if (!deck?.back || Object.keys(deck.cards || {}).length !== 78) {
+    throw new Error(`Incomplete exported deck: ${id}`);
+  }
+  for (const asset of [deck.back, ...Array.from({ length: 78 }, (_, card) => deck.cards[card])]) {
+    if (!asset || !manifest.assets[asset] || !fs.existsSync(path.join(out, 'experience', asset))) {
+      throw new Error(`Missing exported artwork for ${id}: ${asset}`);
+    }
+  }
+}
+console.log('Verified both Decks routes and two complete 78-card decks.');

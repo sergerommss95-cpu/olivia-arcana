@@ -48,6 +48,11 @@ phone_files = card_files(p.parent / 'hero-v12/assets/public/cards-portal-phone',
 minor_files = card_files(p / 'assets/minor-arcana', range(22, 78))
 assert len(major_files.keys() | minor_files.keys()) == 78
 back_file = root / 'outputs/olivia-card-back.webp'
+special_dir = p / 'assets/decks/space-between'
+special_cards = {i: special_dir / f'{i:02d}.webp' for i in range(78)}
+special_back = special_dir / 'back.webp'
+for file in [special_back, *special_cards.values()]:
+    if not file.is_file(): raise ValueError(f'Missing specialist deck asset: {file}')
 # 768 px wide, made by work/tools/phone-art.mjs: the most any phone view shows.
 back_phone_file = root / 'outputs/olivia-card-back-phone.webp'
 template = (p / 'template.html').read_text()
@@ -55,7 +60,7 @@ fonts = (p.parent / 'fonts-inline.css').read_text()
 style_names = ['motion-tokens.css', 'style.css', 'home-continuity.css', 'spread-layout.css', 'single-card-flow.css']
 if (p / 'practice.css').exists():
     style_names.append('practice.css')
-style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css', 'support-note.css', 'reread.css', 'survey.css', 'question-hint.css', 'sentence-first.css', 'today-pair.css', 'card-plan.css', 'pin-walk.css', 'mobile-coherence.css'] if (p / name).exists())
+style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css', 'support-note.css', 'reread.css', 'survey.css', 'question-hint.css', 'sentence-first.css', 'today-pair.css', 'card-plan.css', 'pin-walk.css', 'mobile-coherence.css', 'deck-library.css', 'deck-selection.css'] if (p / name).exists())
 styles = '\n'.join((p / name).read_text() for name in style_names)
 scripts = {
     'hero': (p / 'hero.js').read_text(),
@@ -108,11 +113,12 @@ lazy_json = {
 lazy_data = {kind: {language: 'data:application/json;base64,' + base64.b64encode(text.encode()).decode() for language, text in texts.items()} for kind, texts in lazy_json.items()}
 
 
-def asset_script(back, major, minor, trails, lazy, phone=None, back_phone=None):
+def asset_script(back, major, minor, trails, lazy, phone=None, back_phone=None, specialist=None):
+    deck_script = ('window.OLIVIA_DECK_ASSETS=' + json.dumps({'space-between': specialist}) + ';') if specialist else ''
     if phone is None:
         return (
             'const BACK_DATA=' + json.dumps(back) + ';const DETAIL_DATA=' + json.dumps(major)
-            + ';const MINOR_DATA=' + json.dumps(minor) + ';const TRAILS_DATA=' + json.dumps(trails) + ';const LAZY_DATA=' + json.dumps(lazy) + ';'
+            + ';const MINOR_DATA=' + json.dumps(minor) + ';const TRAILS_DATA=' + json.dumps(trails) + ';const LAZY_DATA=' + json.dumps(lazy) + ';' + deck_script
         )
     # hero.js reads DETAIL_DATA and, below 700 px, draws every card at 512×1024.
     # Phones get that size directly; readings keep full artwork (DETAIL_FULL).
@@ -123,7 +129,7 @@ def asset_script(back, major, minor, trails, lazy, phone=None, back_phone=None):
         + 'const BACK_DATA=PHONE_STAGE?' + json.dumps(back_phone) + ':' + json.dumps(back)
         + ';const DETAIL_FULL=' + json.dumps(major)
         + ';const DETAIL_DATA=PHONE_STAGE?' + json.dumps(phone) + ':DETAIL_FULL;const MINOR_DATA=' + json.dumps(minor)
-        + ';const TRAILS_DATA=' + json.dumps(trails) + ';const LAZY_DATA=' + json.dumps(lazy) + ';'
+        + ';const TRAILS_DATA=' + json.dumps(trails) + ';const LAZY_DATA=' + json.dumps(lazy) + ';' + deck_script
     )
 
 
@@ -135,7 +141,7 @@ replacements = {
     '/*FONTS*/': fonts,
     '/*STYLE*/': styles,
     '/*BACK_IMG*/': data(back_file),
-    '/*ASSETS*/': asset_script(data(back_file), {key: data(file) for key, file in major_files.items()}, {key: data(file) for key, file in minor_files.items()}, trail_data, lazy_data),
+    '/*ASSETS*/': asset_script(data(back_file), {key: data(file) for key, file in major_files.items()}, {key: data(file) for key, file in minor_files.items()}, trail_data, lazy_data, specialist={'back': data(special_back), 'cards': {key: data(file) for key, file in special_cards.items()}}),
     '/*HERO*/': inline_script(scripts['hero']),
     '/*APP*/': inline_script(scripts['app']),
     '/*BACKGROUND*/': inline_script(scripts['background']),
@@ -179,6 +185,7 @@ hosted_back = emit_asset('card-back', back_file.read_bytes(), 'webp')
 hosted_back_phone = emit_asset('card-back-phone', back_phone_file.read_bytes(), 'webp')
 hosted_major = {key: emit_asset(file.stem, file.read_bytes(), 'webp') for key, file in major_files.items()}
 hosted_minor = {key: emit_asset(file.stem, file.read_bytes(), 'webp') for key, file in minor_files.items()}
+hosted_special = {'back': emit_asset('space-between-back', special_back.read_bytes(), 'webp'), 'cards': {key: emit_asset(f'space-between-{key:02d}', file.read_bytes(), 'webp') for key, file in special_cards.items()}}
 hosted_phone = {key: emit_asset(file.stem + '-phone', file.read_bytes(), 'webp') for key, file in phone_files.items()}
 hosted_trails = {language: emit_asset('symbol-trails-' + language, text, 'json') for language, text in trail_json.items()}
 hosted_lazy = {kind: {language: emit_asset(f'{kind}-{language}', text, 'json') for language, text in texts.items()} for kind, texts in lazy_json.items()}
@@ -202,7 +209,7 @@ hosted_fonts = re.sub(r'url\(data:([^;]+);base64,([A-Za-z0-9+/=]+)\)', extract_f
 if not font_number or 'data:font/' in hosted_fonts:
     raise ValueError('Embedded fonts were not completely extracted.')
 css_url = emit_asset('experience', hosted_fonts + '\n' + styles, 'css')
-assets_url = emit_asset('card-assets', asset_script(hosted_back, hosted_major, hosted_minor, hosted_trails, hosted_lazy, hosted_phone, hosted_back_phone)
+assets_url = emit_asset('card-assets', asset_script(hosted_back, hosted_major, hosted_minor, hosted_trails, hosted_lazy, hosted_phone, hosted_back_phone, hosted_special)
     + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA},trails:TRAILS_DATA,lazy:LAZY_DATA};\n', 'js')
 script_urls = {name: emit_asset(name, source, 'js') for name, source in scripts.items()}
 native_assets_url = emit_asset('native-card-assets', asset_script('/experience/' + hosted_back,
@@ -210,7 +217,8 @@ native_assets_url = emit_asset('native-card-assets', asset_script('/experience/'
     {key: '/experience/' + value for key, value in hosted_minor.items()},
     {key: '/experience/' + value for key, value in hosted_trails.items()},
     {kind: {language: '/experience/' + value for language, value in files.items()} for kind, files in hosted_lazy.items()},
-    {key: '/experience/' + value for key, value in hosted_phone.items()}, '/experience/' + hosted_back_phone)
+    {key: '/experience/' + value for key, value in hosted_phone.items()}, '/experience/' + hosted_back_phone,
+    {'back': '/experience/' + hosted_special['back'], 'cards': {key: '/experience/' + value for key, value in hosted_special['cards'].items()}})
     + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_FULL,...MINOR_DATA},trails:TRAILS_DATA,lazy:LAZY_DATA};\n', 'js')
 
 hosted = template
@@ -298,7 +306,7 @@ for label, document in [('portable HTML', portable), ('hosted HTML', hosted), ('
 
 for url in [assets_url, *script_urls.values()]:
     validate_script((hosted_dir / url).read_text(), url)
-for url in [hosted_back, hosted_back_phone, *hosted_major.values(), *hosted_minor.values(), *hosted_phone.values()]:
+for url in [hosted_back, hosted_back_phone, *hosted_major.values(), *hosted_minor.values(), *hosted_phone.values(), hosted_special['back'], *hosted_special['cards'].values()]:
     local_reference(url, hosted_dir)
 for match in re.finditer(r'url\(\s*[\'"]?([^\)\'"\s]+)[\'"]?\s*\)', hosted_fonts + '\n' + styles):
     local_reference(match.group(1), assets_dir)
@@ -315,6 +323,7 @@ manifest = {
     'locales': {'en': 'index.html', 'uk': 'index.uk.html'},
     'native': {'assets': native_assets_url, 'scripts': script_urls, 'stylesheet': css_url},
     'deck': {'major': 22, 'minor': 56, 'total': 78},
+    'decks': {'olivia': {'back': hosted_back, 'cards': {**hosted_major, **hosted_minor}}, 'space-between': hosted_special},
     'assets': manifest_assets,
     'cache': {'index.html': 'no-cache', 'index.uk.html': 'no-cache', 'assets/*': 'public, max-age=31536000, immutable'},
 }

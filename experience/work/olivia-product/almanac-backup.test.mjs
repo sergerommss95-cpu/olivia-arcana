@@ -49,3 +49,23 @@ test('forged or dangling history references and quota-interrupted history import
  value.questionHistory.threads[0].readings[0].snapshot.question='A forged question';assert.throws(()=>prepareAlmanacImport(target,JSON.stringify(value)),/history does not match/);assert.equal(target.map.size,0);
  const valid=JSON.stringify(exportJourneyBackup(source)),plan=prepareAlmanacImport(target,valid);const set=target.setItem;target.setItem=(k,v)=>{if(k===QUESTION_HISTORY_KEY)throw Error('quota');set(k,v);};assert.throws(()=>applyAlmanacImport(target,plan),/restored/);assert.equal(target.map.size,0);
 });
+
+test('full backups preserve the chosen deck and reject a history snapshot of another deck',()=>{
+ const source=storage(),r={...record(),deckId:'space-between'};saveRecord(source,r);
+ createQuestionThread(source,{title:'A reading with this deck',kind:'single',id:r.id});
+ const target=storage(),value=exportJourneyBackup(source);
+ applyAlmanacImport(target,prepareAlmanacImport(target,JSON.stringify(value)));
+ assert.equal(loadRecords(target)[0].deckId,'space-between');
+ assert.equal(loadQuestionHistory(target)[0].readings[0].snapshot.deckId,'space-between');
+ const forged=structuredClone(value);forged.questionHistory.threads[0].readings[0].snapshot.deckId='olivia';
+ const empty=storage();assert.throws(()=>prepareAlmanacImport(empty,JSON.stringify(forged)),/history does not match/);assert.equal(empty.map.size,0);
+ const before=new Map(target.map),conflicting=structuredClone(value);conflicting.oneCardReadings.records[0].deckId='olivia';conflicting.questionHistory.threads[0].readings[0].snapshot.deckId='olivia';
+ assert.throws(()=>prepareAlmanacImport(target,JSON.stringify(conflicting)),/different questions or draws/);assert.deepEqual(target.map,before);
+});
+
+test('legacy backups normalize both reading and question snapshot to the original deck',()=>{
+ const source=storage(),r=record();saveRecord(source,r);createQuestionThread(source,{title:'An earlier reading',kind:'single',id:r.id});
+ const value=exportJourneyBackup(source);delete value.oneCardReadings.records[0].deckId;delete value.questionHistory.threads[0].readings[0].snapshot.deckId;
+ const target=storage();applyAlmanacImport(target,prepareAlmanacImport(target,JSON.stringify(value)));
+ assert.equal(loadRecords(target)[0].deckId,'olivia');assert.equal(loadQuestionHistory(target)[0].readings[0].snapshot.deckId,'olivia');
+});

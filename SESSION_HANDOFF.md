@@ -4,7 +4,15 @@ Updated 28 September 2026: fixes, the card academy and Learn to read, merged int
 
 For work across earlier Olivia tasks, start with [the project history index](history/README.md), [decision history](history/DECISIONS.md), and [Git coverage audit](history/git-coverage-2026-09-26.md). Historical artifacts are separate from current source. The archive preserves recoverable files and documented decisions; it is not a complete recording of every unsaved edit or every conversation.
 
-## Next session — start here (27 September 2026)
+## Deployment integration — 28 September 2026
+
+The Decks release was published manually at 16:45 UTC (`6aba987a183c0d45b862fe07`), but it existed only on `codex/session-handoff-2026-09-26`. At 16:54 UTC, `main` commit `e241dee` automatically deployed without those changes (`6aba9b6e59e42c000828ed78`), making `/decks/` and `/uk/decks/` return 404. This was a source-branch divergence, not browser cache.
+
+The repair combines the Decks work with current `main` before publishing, retaining the phone arrival, learning pages and production fixes. Publish from the integrated `main` history: do not promote old standalone branch builds over it. Build with `python3 experience/build.py` followed by `npm --prefix website run build`; the postbuild check requires both Decks routes and both complete 78-card asset sets.
+
+The specialist deck is **Amielle** in both languages, with the **Hidden Garden** reverse. Keep its internal `space-between` ID stable for saved readings and preferences. See [Decks implementation](experience/DECK_LIBRARY.md) and [release record](experience/outputs/olivia-deck-library-release.json). Historical production statements below are dated snapshots; this integration section takes precedence.
+
+## Archived continuation notes (27 September 2026)
 
 - **State.**
   - Branch `claude/peaceful-clarke-scrh06`, draft PR #4 into `main`: https://github.com/sergerommss95-cpu/olivia-arcana/pull/4. CI (`.github/workflows/ci.yml`) is green and the PR merges cleanly. **Never merge without the owner's approval.**

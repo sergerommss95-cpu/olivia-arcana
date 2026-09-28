@@ -74,7 +74,7 @@ test('existing v1 Major Arcana readings and new minor readings round-trip togeth
   const store = memoryStorage();
   const legacyEnvelope = JSON.stringify({ schemaVersion: 1, records: [legacySingle] });
   store.setItem(STORAGE_KEY, legacyEnvelope);
-  const migratedSingle = { ...legacySingle, orientation: 'upright' };
+  const migratedSingle = { ...legacySingle, orientation: 'upright', deckId: 'olivia' };
   assert.deepEqual(loadRecords(store), [migratedSingle]);
   assert.equal(store.getItem(STORAGE_KEY), legacyEnvelope, 'reading must not rewrite existing storage');
   const session = chooseCard(createSession({}, [77]), 0);

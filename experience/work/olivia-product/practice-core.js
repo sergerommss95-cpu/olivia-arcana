@@ -232,7 +232,7 @@ export function loadDraft(storage) {
 /** Save/replace the current draft; edits to one reading may not change its chosen card. */
 export function saveDraft(storage, value) {
   const record = singleRecord(value), previous = loadDraft(storage);
-  if (previous?.id === record.id && ['cardId', 'orientation', 'createdAt', 'question', 'intention'].some(key => previous[key] !== record[key])) {
+  if (previous?.id === record.id && ['deckId', 'cardId', 'orientation', 'createdAt', 'question', 'intention'].some(key => previous[key] !== record[key])) {
     fail('An existing draft cannot be replaced by a different draw.');
   }
   return write(storage, DRAFT_KEY, 'record', record);

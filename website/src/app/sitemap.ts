@@ -8,7 +8,7 @@ export const dynamic = "force-static";
 
 const ORIGIN = "https://oliviaarcana.com";
 const translatedPaths = [
-  "/", "/ask/", "/cards/", ...CARD_SLUGS.map((slug) => `/cards/${slug}/`),
+  "/", "/decks/", "/ask/", "/cards/", ...CARD_SLUGS.map((slug) => `/cards/${slug}/`),
   "/cards/pairs/", "/cards/pairs/lab/", ...allPairs().map((pair) => `/cards/pairs/${pair.slug}/`),
   "/learn/", ...allLessons("uk").map((lesson) => lessonHref(lesson, "en")),
 ];

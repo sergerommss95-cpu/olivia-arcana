@@ -24,7 +24,7 @@ const COPY = {
   },
 };
 
-export function mountTodayPair({ after, entries, today, daily, images, nameOf, locale }) {
+export function mountTodayPair({ after, entries, today, daily, images, artFor, nameOf, locale }) {
   after.parentElement?.querySelector('.today-pair')?.remove();
   if (!daily) return null;
   const earlier = previousDaily(entries, today, daily.cardId);
@@ -32,17 +32,24 @@ export function mountTodayPair({ after, entries, today, daily, images, nameOf, l
   const language = locale === 'uk' ? 'uk' : 'en', c = COPY[language];
   const make = (tag, className, text) => { const node = document.createElement(tag); if (className) node.className = className; if (text !== undefined) node.textContent = text; return node; };
   const a = earlier.record.cardId, b = daily.cardId, fa = cardFacts(a), fb = cardFacts(b);
-  const symbolsOf = id => CARD_SYMBOLS[id] || [];
+  // Symbol coordinates and carved-pair essays belong to the original artwork.
+  const originalArtwork = [earlier.record, daily].every(record => !record.deckId || record.deckId === 'olivia');
+  const symbolsOf = id => originalArtwork ? CARD_SYMBOLS[id] || [] : [];
   const facts = pairFacts(a, b, symbolsOf(a).map(s => s.k), symbolsOf(b).map(s => s.k));
   const shared = facts.sharedSymbols.map(key => symbolsOf(a).find(s => s.k === key)?.[language]).filter(Boolean);
   const quote = name => language === 'uk' ? `«${name}»` : `“${name}”`;
   const lenses = pairLenses(facts, { nameA: nameOf(a), nameB: nameOf(b), suitA: fa.suit, elementA: fa.element, elementB: fb.element, number: fa.number, sharedNames: shared.map(quote) }, language);
 
+  if (!originalArtwork) lenses.find(lens => lens.id === 'bridge').prompt = language === 'uk'
+    ? 'Пошукайте жест, напрям руху чи колір, спільний для обох зображень. Що змінюється від однієї карти до іншої?'
+    : 'Look for a gesture, a direction or a colour the two images have in common. What changes from one card to the other?';
+
   const panel = make('section', 'today-pair'); panel.dataset.noTranslate = 'true';
   panel.append(make('p', 'eyebrow', c.eyebrow), make('h2', 'today-pair-title', c.title(whenLabel(earlier.date, earlier.gap, language))));
   const cards = make('div', 'today-pair-cards');
-  for (const [id, label] of [[a, dayCaption(earlier.date, earlier.gap, language)], [b, c.today]]) {
-    const figure = make('figure'), img = make('img'); img.src = images[id]; img.alt = ''; img.loading = 'lazy';
+  for (const [record, label] of [[earlier.record, dayCaption(earlier.date, earlier.gap, language)], [daily, c.today]]) {
+    const id = record.cardId;
+    const figure = make('figure'), img = make('img'); img.src = artFor?.(record)?.cards?.[id] || images[id]; img.alt = ''; img.loading = 'lazy';
     const caption = make('figcaption'); caption.append(make('span', '', label), make('strong', '', nameOf(id)));
     figure.append(img, caption); cards.append(figure);
   }
@@ -74,7 +81,7 @@ export function mountTodayPair({ after, entries, today, daily, images, nameOf, l
   after.after(panel);
 
   const [low, high] = a < b ? [a, b] : [b, a];
-  loadLazy('pairs', language).then(pairs => {
+  if (originalArtwork) loadLazy('pairs', language).then(pairs => {
     const readings = pairs[`${low}-${high}`];
     if (!readings?.length || !panel.isConnected) return;
     const details = make('details', 'today-pair-version'); details.append(make('summary', '', c.version));

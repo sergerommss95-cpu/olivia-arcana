@@ -1,0 +1,52 @@
+{
+  "date": "2026-09-28",
+  "status": "production-verified",
+  "preview_url": "https://6aba987a183c0d45b862fe07--olivia-arcana.netlify.app/decks/",
+  "deploy_id": "6aba987a183c0d45b862fe07",
+  "production_updated": true,
+  "routes": [
+    "/decks/",
+    "/uk/decks/"
+  ],
+  "decks": {
+    "olivia": 78,
+    "space-between": 78
+  },
+  "selected_specialist_reverse": "The Hidden Garden",
+  "checks": {
+    "product_tests": 225,
+    "website_tests": 49,
+    "native_build": "passed",
+    "reference_motion_tests": "passed",
+    "desktop_1440x1000": "passed",
+    "mobile_390x844_en_uk": "passed",
+    "question_preserved_across_deck_library": "passed",
+    "single_card_selected_art": "passed",
+    "spread_hand_selection_and_reveal": "passed",
+    "saved_spread_reopened_after_preference_change": "passed",
+    "language_switch": "passed",
+    "browser_console_errors": 0,
+    "remote_routes": {
+      "/decks/": 200,
+      "/uk/decks/": 200
+    },
+    "edge_reading_available": true,
+    "edge_chat_available": true,
+    "remote_browser_render": "passed",
+    "rename_targeted_tests": 9,
+    "production_manifest_matches_build": true
+  },
+  "limits": [
+    "Physical iPhone review still needed; phone checks used browser viewport.",
+    "AI synthesis unchanged; no paid personal-reading request was made in this QA.",
+    "Deck preference is browser-local, not cross-device account sync."
+  ],
+  "deployment_note": "User authorized production deployment. Promoted the checked Amielle build. Live homepage, both deck pages and edge availability verified; live experience manifest matches the checked build.",
+  "production_url": "https://oliviaarcana.com/decks/",
+  "published_at": "2026-09-28T16:45:20.394Z",
+  "deck_display_names": {
+    "olivia": "Olivia",
+    "space-between": "Amielle"
+  },
+  "previous_draft_deploy_id": "6aba91b29e3a832d20ea7cb8"
+}
