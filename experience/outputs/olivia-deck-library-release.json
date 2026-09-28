@@ -1,8 +1,8 @@
 {
   "date": "2026-09-28",
   "status": "production-verified",
-  "preview_url": "https://6aba987a183c0d45b862fe07--olivia-arcana.netlify.app/decks/",
-  "deploy_id": "6aba987a183c0d45b862fe07",
+  "preview_url": "https://6abaa3ee429a9c000868986c--olivia-arcana.netlify.app/decks/",
+  "deploy_id": "6abaa4d61e3d900008f70a08",
   "production_updated": true,
   "routes": [
     "/decks/",
@@ -14,8 +14,8 @@
   },
   "selected_specialist_reverse": "The Hidden Garden",
   "checks": {
-    "product_tests": 225,
-    "website_tests": 49,
+    "product_tests": 264,
+    "website_tests": 59,
     "native_build": "passed",
     "reference_motion_tests": "passed",
     "desktop_1440x1000": "passed",
@@ -34,19 +34,25 @@
     "edge_chat_available": true,
     "remote_browser_render": "passed",
     "rename_targeted_tests": 9,
-    "production_manifest_matches_build": true
+    "production_manifest_matches_build": true,
+    "ci": "passed",
+    "export_route_and_artwork_guard": "passed; missing route negative check also passed"
   },
   "limits": [
     "Physical iPhone review still needed; phone checks used browser viewport.",
     "AI synthesis unchanged; no paid personal-reading request was made in this QA.",
     "Deck preference is browser-local, not cross-device account sync."
   ],
-  "deployment_note": "User authorized production deployment. Promoted the checked Amielle build. Live homepage, both deck pages and edge availability verified; live experience manifest matches the checked build.",
+  "deployment_note": "Repair for divergent source deployments: merged Decks and Amielle with current main, preserving mobile and learning fixes. Netlify automatically built and published main after PR #10. Both deck routes, homepage, Learn and reading/chat availability verified. Future production builds include Decks in the main history.",
   "production_url": "https://oliviaarcana.com/decks/",
-  "published_at": "2026-09-28T16:45:20.394Z",
+  "published_at": "2026-09-28T17:35:52.635Z",
   "deck_display_names": {
     "olivia": "Olivia",
     "space-between": "Amielle"
   },
-  "previous_draft_deploy_id": "6aba91b29e3a832d20ea7cb8"
+  "previous_draft_deploy_id": "6aba91b29e3a832d20ea7cb8",
+  "superseded_manual_deploy_id": "6aba987a183c0d45b862fe07",
+  "production_source_commit": "800aae38bf48b054f486c8edaaa0e08179ecd652",
+  "production_branch": "main",
+  "pull_request": "https://github.com/sergerommss95-cpu/olivia-arcana/pull/10"
 }

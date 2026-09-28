@@ -6,6 +6,8 @@ For work across earlier Olivia tasks, start with [the project history index](his
 
 ## Deployment integration — 28 September 2026
 
+**Live and verified:** PR #10 merged to `main` as `800aae38bf48b054f486c8edaaa0e08179ecd652`. Netlify published production deploy `6abaa4d61e3d900008f70a08` at 17:35:52 UTC. Both Decks routes return 200, the live manifest matches the checked build, and reading/chat services are available. Product tests 264/264; website/service tests 59/59; GitHub CI passed.
+
 The Decks release was published manually at 16:45 UTC (`6aba987a183c0d45b862fe07`), but it existed only on `codex/session-handoff-2026-09-26`. At 16:54 UTC, `main` commit `e241dee` automatically deployed without those changes (`6aba9b6e59e42c000828ed78`), making `/decks/` and `/uk/decks/` return 404. This was a source-branch divergence, not browser cache.
 
 The repair combines the Decks work with current `main` before publishing, retaining the phone arrival, learning pages and production fixes. Publish from the integrated `main` history: do not promote old standalone branch builds over it. Build with `python3 experience/build.py` followed by `npm --prefix website run build`; the postbuild check requires both Decks routes and both complete 78-card asset sets.

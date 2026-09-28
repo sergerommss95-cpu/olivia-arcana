@@ -23,3 +23,19 @@ Physical iPhone review remains valuable. AI generation was not exercised or chan
 ## Production — Amielle rename
 
 The user approved **Amielle**, then explicitly requested deployment. Renamed all active EN/UK display names and metadata, keeping the persistent ID stable. Nine targeted tests and the native build passed. Published deploy `6aba987a183c0d45b862fe07` at 2026-09-28T16:45:20.394Z. Verified the live home, /decks/, /uk/decks/, interactive browser rendering, both AI service availability endpoints, and exact live manifest equality with the checked build. No AI generation request was made.
+
+
+## Production integration repair — 28 September 2026
+
+The manually published Decks build was replaced by an automatic build of divergent `main`, which did not contain either Decks route. Merged current production changes into the Decks source and merged PR #10 to `main` as `800aae38bf48b054f486c8edaaa0e08179ecd652`. The combined preview is `6abaa3ee429a9c000868986c`.
+
+- 264 product checks and 59 website/service checks pass; GitHub CI passes.
+- Both `/decks/` and `/uk/decks/` return 200 on the preview; its manifest exactly matches the rebuilt source.
+- The native export now validates both Decks pages and all 78 images plus reverse for each deck. Verified it rejects an export with a missing Decks route.
+- Desktop collection boots and loads both decks; no console errors.
+- Phone 390×844: Amielle selection → question → manual choice → held card → reveal → saved reading, with Amielle artwork and no horizontal overflow.
+- Ukrainian phone collection renders all artwork and translated controls without horizontal overflow.
+- Main's phone arrival, learning resources and static-export language fix are retained. Shared lazy resources survive deck switching. Mixed-deck daily pairs resolve each historical artwork independently, and artwork-specific tours remain attached to their original artwork.
+- Hero choreography is unchanged. Physical-device verification and paid AI calls were not repeated.
+
+Production verification: deploy `6abaa4d61e3d900008f70a08` from main commit `800aae3` published at 17:35:52 UTC. `/decks/`, `/uk/decks/`, `/`, `/learn/` return 200; production manifest matches the checked build; safe GET checks confirm reading and chat availability.
