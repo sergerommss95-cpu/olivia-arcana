@@ -5,8 +5,10 @@
  */
 
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { shareMeta } from "@/lib/learn/share-meta";
 import { SIGN_PAGES } from "../../../lib/sign-data";
 import ShareSignButton from "../../../components/ShareSignButton";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
@@ -33,12 +35,12 @@ export function generateStaticParams() {
   return Object.keys(SIGN_PAGES).map(sign => ({ sign }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ sign: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ sign: string }> }): Promise<Metadata> {
   const { sign } = await params;
   const data = SIGN_PAGES[sign?.toLowerCase()];
   if (!data) return {};
   const url = `https://oliviaarcana.com/signs/${sign.toLowerCase()}/`;
-  const title = `${data.name} ${data.glyph} — Zodiac Sign Guide | Olivia Arcana`;
+  const title = `${data.name} ${data.glyph}: Zodiac Sign Guide | Olivia Arcana`;
   const description = data.description.slice(0, 155) + "…";
   return {
     title,
@@ -53,31 +55,18 @@ export async function generateMetadata({ params }: { params: Promise<{ sign: str
       `${data.name} compatibility`,
     ],
     alternates: { canonical: url },
-    openGraph: {
-      title,
-      description,
-      url,
-      type: "article",
-      siteName: "Olivia Arcana",
-      images: [
-        {
-          // Per-sign social card, rendered as an engraved almanac plate at
-          // public/og/signs/<sign>.png (1200x630).
-          url: `https://oliviaarcana.com/og/signs/${sign.toLowerCase()}.png`,
-          secureUrl: `https://oliviaarcana.com/og/signs/${sign.toLowerCase()}.png`,
-          width: 1200,
-          height: 630,
-          alt: `${data.name} ${data.glyph} — ${data.motto}. ${data.element} ${data.modality} sign ruled by ${data.ruler}.`,
-          type: "image/png",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [`https://oliviaarcana.com/og/signs/${sign.toLowerCase()}.png`],
-    },
+    ...shareMeta({
+      title, description, url, locale: "en", translated: false,
+      // Per-sign social card, rendered as an engraved almanac plate at
+      // public/og/signs/<sign>.png.
+      image: {
+        url: `https://oliviaarcana.com/og/signs/${sign.toLowerCase()}.png`,
+        width: 1200,
+        height: 630,
+        alt: `${data.name} ${data.glyph}: ${data.motto}. ${data.element} ${data.modality} sign ruled by ${data.ruler}.`,
+        type: "image/png",
+      },
+    }),
   };
 }
 

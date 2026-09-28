@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import ClientShell from "@/components/ClientShell";
 import { socialImages, socialImageUrls } from "@/lib/social-images";
 import InteractivePerimeters from "@/components/InteractivePerimeters";
+import SkipLink from "@/components/SkipLink";
 import "./globals.css";
 import "./interactive-perimeter.css";
 
@@ -150,10 +151,8 @@ export default function RootLayout({
       </head>
       {/* The homepage's first-frame script marks phones on <body> before hydration. */}
       <body className="min-h-screen" suppressHydrationWarning>
-        {/* Skip to main content — accessibility */}
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
+        {/* Skip to main content — accessibility; the text follows the page's language */}
+        <SkipLink />
 
         {/* Single client boundary for all global overlays + page transitions */}
         <ClientShell>

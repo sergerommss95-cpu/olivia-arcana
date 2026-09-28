@@ -1,9 +1,16 @@
 import Link from "next/link";
 import LegalShell from "@/components/legal/LegalShell";
 
-export const metadata = {
-  title: "Terms of Service — Olivia Arcana",
-  description: "The agreement between you and Olivia Arcana when you use the Service.",
+import type { Metadata } from "next";
+import { shareMeta } from "@/lib/learn/share-meta";
+
+const url = "https://oliviaarcana.com/terms/";
+const description = "The agreement between you and Olivia Arcana when you use the Service.";
+export const metadata: Metadata = {
+  title: "Terms of Service | Olivia Arcana",
+  description,
+  alternates: { canonical: url },
+  ...shareMeta({ title: "Terms of Service", description, url, locale: "en", translated: false }),
 };
 
 export default function TermsPage() {

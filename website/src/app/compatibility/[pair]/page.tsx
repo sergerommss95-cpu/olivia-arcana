@@ -7,7 +7,9 @@
  */
 
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { shareMeta } from "@/lib/learn/share-meta";
 import { notFound } from "next/navigation";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
 import { SIGNS, getAllPairSlugs, getPair, pairSlug, pairScore } from "@/lib/compatibility-pairs";
@@ -18,11 +20,11 @@ export function generateStaticParams() {
   return getAllPairSlugs().map((pair) => ({ pair }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ pair: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ pair: string }> }): Promise<Metadata> {
   const { pair } = await params;
   const data = getPair(pair);
   if (!data) return {};
-  const title = `${data.a.name} and ${data.b.name} Compatibility — ${data.score}% | Olivia Arcana`;
+  const title = `${data.a.name} and ${data.b.name} Compatibility: ${data.score}% | Olivia Arcana`;
   const canonicalUrl = `https://oliviaarcana.com/compatibility/${data.canonicalSlug}/`;
   return {
     title,
@@ -36,18 +38,15 @@ export async function generateMetadata({ params }: { params: Promise<{ pair: str
       "sun sign compatibility",
     ],
     alternates: { canonical: canonicalUrl },
-    openGraph: {
-      title,
+    ...shareMeta({
+      title: `${data.a.name} and ${data.b.name} compatibility: ${data.score}%`,
       description: data.metaDescription,
       url: canonicalUrl,
-      type: "article",
-      siteName: "Olivia Arcana",
-    },
-    twitter: {
-      card: "summary",
-      title,
-      description: data.metaDescription,
-    },
+      locale: "en",
+      cardId: 6,
+      alt: "The Lovers from the Olivia Arcana deck",
+      translated: false,
+    }),
   };
 }
 

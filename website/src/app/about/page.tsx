@@ -1,10 +1,16 @@
 import Link from "next/link";
 import LegalShell from "@/components/legal/LegalShell";
 
-export const metadata = {
-  title: "About — Olivia Arcana",
-  description: "A personal practice of tarot. Learn how Olivia Arcana’s cards, interpretations, AI assistance and private journal work.",
-  alternates: { canonical: "/about" },
+import type { Metadata } from "next";
+import { shareMeta } from "@/lib/learn/share-meta";
+
+const url = "https://oliviaarcana.com/about/";
+const description = "A personal practice of tarot. Learn how Olivia Arcana’s cards, interpretations, AI assistance and private journal work.";
+export const metadata: Metadata = {
+  title: "About | Olivia Arcana",
+  description,
+  alternates: { canonical: url },
+  ...shareMeta({ title: "About Olivia Arcana", description, url, locale: "en", translated: false, type: "website" }),
 };
 
 export default function AboutPage() {

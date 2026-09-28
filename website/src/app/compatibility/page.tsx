@@ -7,13 +7,18 @@
 
 import Link from "next/link";
 import AlmanacShell from "@/components/almanac/AlmanacShell";
+import type { Metadata } from "next";
+import { shareMeta } from "@/lib/learn/share-meta";
 import { SIGNS, pairSlug, pairScore } from "@/lib/compatibility-pairs";
 
-export const metadata = {
-  title: "Zodiac Compatibility — All 144 Sign Pairings | Olivia Arcana",
-  description:
-    "The complete concordance of sun-sign compatibility: every pairing of the 12 zodiac signs scored and read — element, modality, ruling planets, and the aspect between the suns.",
-  alternates: { canonical: "https://oliviaarcana.com/compatibility/" },
+const url = "https://oliviaarcana.com/compatibility/";
+const description =
+  "The complete concordance of sun-sign compatibility: every pairing of the 12 zodiac signs scored and read through element, modality, ruling planets and the aspect between the suns.";
+export const metadata: Metadata = {
+  title: "Zodiac Compatibility: All 144 Sign Pairings | Olivia Arcana",
+  description,
+  alternates: { canonical: url },
+  ...shareMeta({ title: "Zodiac compatibility: all 144 pairings", description, url, locale: "en", cardId: 6, alt: "The Lovers from the Olivia Arcana deck", translated: false, type: "website" }),
 };
 
 export default function CompatibilityIndex() {
