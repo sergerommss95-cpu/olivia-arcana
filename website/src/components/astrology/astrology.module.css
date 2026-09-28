@@ -81,27 +81,72 @@
 .cardName a:hover { color: var(--gold-bright); text-decoration: underline; }
 
 .figure { margin: clamp(3rem, 7vw, 4.4rem) 0 0; }
-.wheel { display: block; width: 100%; max-width: 640px; height: auto; margin: 1.2rem auto 0; overflow: visible; }
-.wheel line, .wheel circle, .wheel polyline { fill: none; stroke: rgba(238, 230, 212, 0.55); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.wheel text { fill: var(--ink); stroke: none; }
-.wheel .wheelFaint { stroke: rgba(238, 230, 212, 0.2); }
-.wheelSigns text { font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; font-size: 21px; fill: rgba(238, 230, 212, 0.85); }
-.wheelHouses text { font-family: var(--font-mono, ui-monospace), monospace; font-size: 11px; fill: var(--faint); letter-spacing: 0.08em; }
-.wheel .chordEase { stroke: rgba(238, 230, 212, 0.34); }
-.wheel .chordTension { stroke: rgba(201, 177, 130, 0.6); }
-.wheelAngles line { stroke: var(--gold); stroke-width: 1.2; }
-.wheelAngles text { font-family: var(--font-mono, ui-monospace), monospace; font-size: 12px; letter-spacing: 0.14em; fill: var(--gold); }
-.wheelBodies polyline { stroke: rgba(238, 230, 212, 0.32); }
-.wheelBodies circle { fill: var(--ink); stroke: none; }
-.wheelBodies text { font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; font-size: 20px; }
-.wheelRetro { font-family: var(--font-mono, ui-monospace), monospace; font-size: 10px; fill: var(--gold); }
-.wheel > g { animation: inkIn 900ms var(--ease) both; }
-.wheel > g:nth-of-type(2) { animation-delay: 120ms; }
-.wheel > g:nth-of-type(3) { animation-delay: 220ms; }
-.wheel > g:nth-of-type(4) { animation-delay: 420ms; }
-.wheel > g:nth-of-type(5) { animation-delay: 320ms; }
-.wheel > g:nth-of-type(6) { animation-delay: 520ms; }
-@keyframes inkIn { from { opacity: 0; } to { opacity: 1; } }
+.wheel { display: block; width: 100%; max-width: 760px; height: auto; margin: 1.4rem auto 0; overflow: visible; }
+.wheel text { text-anchor: middle; dominant-baseline: central; stroke: none; }
+
+/* Night and the real stars */
+.milky circle { fill: #eee6d4; }
+.field circle { fill: rgba(238, 230, 212, 0.5); }
+.constellations polyline { fill: none; stroke: rgba(230, 207, 158, 0.24); stroke-width: 0.7; }
+.stars circle { fill: #f7f0df; }
+.twinkle { animation: twinkle 5.5s ease-in-out infinite alternate; }
+@keyframes twinkle { from { opacity: 0.55; } to { opacity: 1; } }
+.sky { animation: fadeIn 1.8s var(--ease) both; }
+
+/* The rosette at the ecliptic pole */
+.rosette line, .rosette path { fill: none; stroke: rgba(201, 177, 130, 0.75); stroke-width: 0.9; }
+.rosette circle { fill: #e6cf9e; }
+.rosette { transform-box: view-box; transform-origin: 50% 50%; animation: rosetteIn 1.4s var(--ease) 0.5s both; }
+@keyframes rosetteIn { from { opacity: 0; transform: rotate(-45deg) scale(0.6); } to { opacity: 1; transform: none; } }
+
+/* Aspect threads */
+.chordRing { fill: none; stroke: rgba(238, 230, 212, 0.12); stroke-width: 0.8; }
+.threads line { stroke-width: 0.8; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.1s var(--ease) both; transition: opacity 260ms var(--ease); }
+.threadEase { stroke: rgba(238, 230, 212, 0.36); }
+.threadTension { stroke: #d4b97f; opacity: 0.55; }
+.threads .dim { opacity: 0.07; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* The carved ivory zodiac */
+.rete { transform-box: view-box; transform-origin: 50% 50%; animation: setRete 2s var(--ease) both; }
+@keyframes setRete { from { opacity: 0; transform: rotate(-28deg); } 30% { opacity: 1; } to { opacity: 1; transform: none; } }
+.rimLine { fill: none; stroke: rgba(216, 196, 156, 0.55); stroke-width: 1; }
+.rimFaint { fill: none; stroke: rgba(238, 230, 212, 0.16); stroke-width: 0.8; }
+.band { filter: drop-shadow(0 8px 22px rgba(2, 8, 18, 0.6)); }
+.bevelLight { fill: none; stroke: rgba(255, 251, 238, 0.95); stroke-width: 1.3; }
+.bevelDark { fill: none; stroke: rgba(88, 68, 38, 0.5); stroke-width: 1.4; }
+.groove { fill: none; stroke: rgba(110, 88, 52, 0.4); stroke-width: 0.8; }
+.tick { stroke: rgba(70, 56, 34, 0.42); stroke-width: 0.6; }
+.tickMajor { stroke: rgba(70, 56, 34, 0.62); stroke-width: 0.9; }
+.carve { stroke: rgba(76, 58, 30, 0.6); stroke-width: 1.2; }
+.carveLight { stroke: rgba(255, 251, 238, 0.85); stroke-width: 0.8; }
+.glyphCarved, .glyphLight { font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; font-size: 25px; }
+.glyphCarved { fill: #1d3651; }
+.glyphLight { fill: rgba(255, 251, 238, 0.95); }
+
+/* Houses */
+.houses text { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 13px; letter-spacing: 0.08em; fill: rgba(230, 207, 158, 0.78); }
+.houses { animation: fadeIn 1.2s var(--ease) 0.8s both; }
+
+/* Angles */
+.angles line { stroke: #c9b182; stroke-width: 1.1; }
+.angles .angleFaint { opacity: 0.4; }
+.pointer { fill: #e6cf9e; }
+.angles text { font-family: var(--font-mono, ui-monospace), monospace; font-size: 12px; letter-spacing: 0.22em; fill: #e6cf9e; }
+.angles { animation: fadeIn 1.2s var(--ease) 1s both; }
+
+/* Planets */
+.planet { transform-box: fill-box; transform-origin: 50% 50%; animation: settle 900ms var(--ease) both; cursor: default; transition: opacity 260ms var(--ease); }
+@keyframes settle { from { opacity: 0; } to { opacity: 1; } }
+.wheel[data-focus] .planet:not(.planetActive) { opacity: 0.45; }
+.leader { fill: none; stroke: rgba(230, 207, 158, 0.5); stroke-width: 0.75; }
+.degreeMark { fill: #e6cf9e; }
+.medallion { stroke: rgba(88, 68, 38, 0.55); stroke-width: 0.9; filter: drop-shadow(0 4px 7px rgba(2, 8, 18, 0.65)); transition: stroke 200ms var(--ease); }
+.planetActive .medallion { stroke: #e6cf9e; stroke-width: 1.6; }
+.planetGlyph { font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; font-size: 17px; fill: #1d3651; pointer-events: none; }
+.retro { font-family: var(--font-mono, ui-monospace), monospace; font-size: 10px; fill: #e6cf9e; }
+.tag { font: 500 13px var(--font-body), sans-serif; fill: #f6eddb; paint-order: stroke; stroke: #0b1e31 !important; stroke-width: 5px; stroke-linejoin: round; pointer-events: none; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .caption { max-width: 40rem; margin: 1.2rem auto 0; color: var(--faint); font-size: 0.84rem; line-height: 1.65; text-align: center; }
 
 /* Ledger rows (BRAND.md disclosure: filled row with a +/− chip) */
@@ -175,13 +220,17 @@
   .row summary::after { grid-column: 3; grid-row: 1 / 3; }
   .rowBody { padding-left: 1.2rem; }
   .door { grid-template-columns: 1fr; }
-  /* The wheel scales to about half size on phones: keep its marks at 12 px or more. */
-  .wheelSigns text, .wheelBodies text { font-size: 25px; }
-  .wheelHouses text { font-size: 17px; }
-  .wheelAngles text { font-size: 22px; }
-  .wheelRetro { font-size: 17px; }
+  /* The wheel scales to about half size on phones: keep its marks legible. */
+  .wheel { width: calc(100% + 2rem); max-width: none; margin-left: -1rem; }
+  .glyphCarved, .glyphLight { font-size: 30px; }
+  .planetGlyph { font-size: 21px; }
+  .medallion { r: 17px; }
+  .houses text { font-size: 19px; }
+  .angles text { font-size: 19px; }
+  .retro { font-size: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .wheel > g { animation: none; }
+  .rete, .sky, .rosette, .houses, .angles, .planet, .twinkle { animation: none; }
+  .threads line { animation: none; stroke-dashoffset: 0; }
   .primary, .threeArt img, .doorArt img, .signCell img { transition: none; }
 }
