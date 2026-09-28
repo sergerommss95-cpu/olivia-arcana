@@ -53,8 +53,8 @@ Deleting a single-card reading removes its associated kept words and private que
 
 ## Review build
 
-- Preview: https://6abab5b0abf93700088bbf7f--olivia-arcana.netlify.app/decks/#decks
-- Deployed code commit: `0b07e55`
+- Preview: https://6abac253bc5d54000828e751--olivia-arcana.netlify.app/decks/#decks
+- Deployed code commit: `0e04ef1`
 - Pull request: https://github.com/sergerommss95-cpu/olivia-arcana/pull/11
 - GitHub branch and pull-request test/build checks passed.
 - Public deck page returns 200, loads both decks, and has no captured browser console errors.
@@ -70,3 +70,5 @@ A finite 3.2-second grazing light passes across the carving after the card settl
 The question entry now keeps the offered one-card format while typing or autofilling; choosing three cards remains explicit. Four new entry tests cover English/Ukrainian, typed/autofilled questions and accepted question plans. Four further ritual tests cover bounded tilt, shared surface, release/cancel and reduced motion.
 
 Current follow-up checks: 296 product tests pass; product generation and the full website build pass. Desktop fan hover keeps the original Amielle palette. A 390×844 browser check covers selection, held card, drag, turn, explicit reading and no captured console errors. Safari material checks preserve the dark velvet at the strongest pointer light.
+
+Hosted follow-up: the new preview loads both decks; typing the sample question retained the one-card action and entered the correct fan. Safari also completed Olivia selection and held-card checks at its native desktop size. Both GitHub test/build jobs and Netlify header checks passed for `0e04ef1`.
