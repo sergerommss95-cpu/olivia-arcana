@@ -39,6 +39,38 @@ function splitLead(paragraph, locale) {
 }
 
 /**
+ * A reading that is still being written: its complete paragraphs so far, in the
+ * order written. "## " lines become titles and a first paragraph before any title
+ * is the lead. Text after the last blank line may be unfinished and waits. The
+ * blocks of a longer text always extend those of a shorter one, so the page can
+ * append them; readingSections arranges the finished reading.
+ */
+export function streamBlocks(text) {
+ if (typeof text !== 'string') return [];
+ const normal = text.replace(/\r\n?/g, '\n'), cut = normal.lastIndexOf('\n\n');
+ if (cut < 0) return [];
+ const blocks = [];
+ let lines = [], heading = false;
+ const flush = () => {
+  const paragraph = displayText(lines.join(' '));
+  lines = [];
+  if (paragraph) blocks.push({ kind: heading || blocks.length ? 'paragraph' : 'lead', text: paragraph });
+ };
+ for (const line of normal.slice(0, cut).split('\n')) {
+  const match = line.match(/^\s*##\s+(.+?)\s*$/);
+  const title = match ? displayText(match[1]) : '';
+  if (match && title && title.length <= MAX_TITLE_LENGTH && title.split(/\s+/).length <= MAX_TITLE_WORDS) {
+   flush();
+   heading = true;
+   blocks.push({ kind: 'heading', text: title });
+  } else if (!line.trim()) flush();
+  else lines.push(match ? match[1] : line);
+ }
+ flush();
+ return blocks;
+}
+
+/**
  * Make a reading scannable without rewriting or discarding its interpretation.
  * New readings use a short opening followed by ## headings. Older saved readings
  * receive neutral section labels. Render every returned string with textContent.

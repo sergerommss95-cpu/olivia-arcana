@@ -1,0 +1,130 @@
+{
+  "target": "https://oliviaarcana.com",
+  "date": "2026-09-27T17:00:55.759Z",
+  "results": [
+    {
+      "lang": "en",
+      "viewport": "390x844",
+      "passed": true,
+      "steps": [
+        {
+          "step": "home",
+          "ok": true
+        },
+        {
+          "step": "crisis-note",
+          "ok": true
+        },
+        {
+          "step": "prepare",
+          "detail": {
+            "aiServiceAvailable": true
+          },
+          "ok": true
+        },
+        {
+          "step": "choose",
+          "detail": {
+            "visibleCards": 5
+          },
+          "ok": true
+        },
+        {
+          "step": "hold",
+          "ok": true
+        },
+        {
+          "step": "reveal",
+          "detail": {
+            "card": "Ten of Cups",
+            "orientation": "Upright"
+          },
+          "ok": true
+        },
+        {
+          "step": "keep",
+          "detail": {
+            "label": "Saved ✓"
+          },
+          "ok": true
+        },
+        {
+          "step": "almanac",
+          "ok": true
+        },
+        {
+          "step": "revisit",
+          "detail": {
+            "view": "reading"
+          },
+          "ok": true
+        }
+      ],
+      "aiRequestsAttempted": [],
+      "consoleErrors": [],
+      "blocked": []
+    },
+    {
+      "lang": "uk",
+      "viewport": "375x812",
+      "passed": true,
+      "steps": [
+        {
+          "step": "home",
+          "ok": true
+        },
+        {
+          "step": "crisis-note",
+          "ok": true
+        },
+        {
+          "step": "prepare",
+          "detail": {
+            "aiServiceAvailable": true
+          },
+          "ok": true
+        },
+        {
+          "step": "choose",
+          "detail": {
+            "visibleCards": 5
+          },
+          "ok": true
+        },
+        {
+          "step": "hold",
+          "ok": true
+        },
+        {
+          "step": "reveal",
+          "detail": {
+            "card": "Четвірка Пентаклів",
+            "orientation": "Пряме положення"
+          },
+          "ok": true
+        },
+        {
+          "step": "keep",
+          "detail": {
+            "label": "Збережено ✓"
+          },
+          "ok": true
+        },
+        {
+          "step": "almanac",
+          "ok": true
+        },
+        {
+          "step": "revisit",
+          "detail": {
+            "view": "reading"
+          },
+          "ok": true
+        }
+      ],
+      "aiRequestsAttempted": [],
+      "consoleErrors": [],
+      "blocked": []
+    }
+  ]
+}

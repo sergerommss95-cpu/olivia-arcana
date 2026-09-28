@@ -1,17 +1,23 @@
 # Start here — Olivia Arcana session handoff
 
-Updated 27 September 2026, second session: the live preview check, research for the award plan, and the phone arrival (v6, section 1 of the award plan). Earlier that day: the arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
+Updated 27 September 2026, second session: the live preview check, research for the award plan, and the phone arrival (v6, section 1 of the award plan). At the owner's request, v6 was then merged into `main` and deployed to production. After that, the owner asked what would give users best-in-class value and said to start on what is best. That became v7 (check-ins, Ukrainian About and Contact, the reading shown as it is written), which is on the branch and not deployed. On 28 September the owner asked for a motion film of the product for the website, then for an Apple-style version of it. The owner then asked for it in the How Olivia works FAQ: it is now the first answer there, on the branch with v7, and not deployed. Earlier that day: the arrival findings and the award plan, after the site-wide pass v5 on top of the v4 mobile pass. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes. Brand and design rules: [BRAND.md](BRAND.md).
 
 For work across earlier Olivia tasks, start with [the project history index](history/README.md), [decision history](history/DECISIONS.md), and [Git coverage audit](history/git-coverage-2026-09-26.md). Historical artifacts are separate from current source. The archive preserves recoverable files and documented decisions; it is not a complete recording of every unsaved edit or every conversation.
 
 ## Next session — start here (27 September 2026)
 
 - **State.**
-  - Branch `claude/peaceful-clarke-scrh06`, draft PR #4 into `main`: https://github.com/sergerommss95-cpu/olivia-arcana/pull/4. CI (`.github/workflows/ci.yml`) is green and the PR merges cleanly. **Never merge without the owner's approval.**
-  - Production is still v3.
-  - Preview of this branch: https://deploy-preview-4--olivia-arcana.netlify.app/ (and `/uk/`), now v6. The v6 build of `0889b9e`: https://6ab92b77b5d4da00084b874f--olivia-arcana.netlify.app/. The v5 build of `c19bdeb`: https://6ab820e030b21a0008ba98f9--olivia-arcana.netlify.app/.
+  - **Production is v6** (https://oliviaarcana.com/ and `/uk/`), since 27 September 2026.
+    - The owner asked for the deploy, and PR #4 (https://github.com/sergerommss95-cpu/olivia-arcana/pull/4) was merged into `main` as `c822edd`. PR #3 was on the same branch and was merged with it. CI is green on `main`.
+    - Checked in production: `experience/outputs/qa-v6/review.md`, "In production".
+  - **Every push to `main` goes live.** Netlify built and published the merge about 80 seconds after it. Work on a branch, open a pull request for a deploy preview, and merge only with the owner's approval.
+  - **Rollback:** publish the v3 deploy `6ab7b1eb2e3eb145b023937a` again in Netlify's deploy list, or revert `c822edd` on `main`.
+  - `claude/peaceful-clarke-scrh06` was restarted from `main` after the merge. It carries the production record and **v7** (`bdae5c1`, `e95c563`, `9143a47`, plus its record), none of it in `main` yet. Draft PR #5 (https://github.com/sergerommss95-cpu/olivia-arcana/pull/5) gives it a deploy preview; merge it only with the owner's approval.
+  - Earlier builds, kept for comparison:
+    - v6 (`0889b9e`): https://6ab92b77b5d4da00084b874f--olivia-arcana.netlify.app/
+    - v5 (`c19bdeb`): https://6ab820e030b21a0008ba98f9--olivia-arcana.netlify.app/
   - Pushes that change nothing under `website/` cancel the Netlify build. That is expected.
-  - One session works on this branch. The earlier session's check-in on PR #4 was switched off at the owner's request; it can be re-enabled in the owner's Routines.
+  - The earlier session's check-in on PR #4 was switched off at the owner's request.
 - **Network and tools** (checked 27 September).
   - The preview, `oliviaarcana.com` and `www.brrranding.com` answer from the container.
   - `www.awwwards.com` resets the TLS handshake after the proxy opens the tunnel. That is the far end, not the environment's policy. WebFetch and web search still reach Awwwards pages.
@@ -21,10 +27,13 @@ For work across earlier Olivia tasks, start with [the project history index](his
     `mkdir -p experience/work/tools/node_modules && ln -sfn /opt/node22/lib/node_modules/playwright experience/work/tools/node_modules/playwright`
   - `experience/work/tools/`:
     - `arrival-filmstrip.mjs` films the first seconds (phone on 4G with a 4× CPU, and desktop).
-    - `phone-journey.mjs` walks the one-card phone journey (EN 390×844, UK 375×812), declining the AI reading.
+    - `phone-journey.mjs` walks the one-card phone journey (EN 390×844, UK 375×812), declining the AI reading, and keeps a check-in in a week.
     - `phone-art.mjs` regenerates the phone textures and phone card back (it needs `npm --prefix website ci` for sharp).
-    - All three take a URL or `website/out`.
-- **Done on 27 September (second session).**
+    - These three take a URL or `website/out`.
+    - `checkin-journey.mjs` (v7) checks the whole check-in cycle on phone and desktop: `website/out`, an output folder, `en` or `uk`.
+    - `stream-reading.mjs` (v7) runs the real reading service with a fake provider behind the static export and checks the reading as it is written, with no paid call: `website/out`, an output folder, `en` or `uk`, then `ok` or `break`.
+    - `how-it-works/` makes the "How it works" films from real footage of `website/out`: capture, cut, render, encode. Its README has the steps. It needs `ffmpeg` (`apt-get install -y ffmpeg`).
+- **Done on 27–28 September (second session).**
   1. **Live preview check of v5:** `experience/outputs/qa-v5/review.md` ("Live preview check") and `olivia-v5-release.json` (`live_check`).
   2. **Research** added to [the award plan](experience/outputs/award-plan-2026-09-27.md) ("What 2026 winners do in their first seconds"): recent winners open with no loader or a brief text one, lose most points on usability and accessibility, and BRRRANDING features studio-made identities only.
   3. **Section 1 of the award plan, approved by the owner, built as v6** (below; QA `experience/outputs/qa-v6/review.md`).
@@ -32,8 +41,21 @@ For work across earlier Olivia tasks, start with [the project history index](his
      - The opening card stands where `hero.js` draws it.
      - The opening and the second question step fit Safari's visible height.
      - A phone homepage is 2.43–2.48 MB over the wire in English, and 2.56 MB in Ukrainian (v5: 3.57 MB and 3.65 MB).
+  4. **Deployed v6 to production** at the owner's request, and checked it there: assets, headers, the reading service's guards, phone journeys, filmstrip and weight.
+  5. **v7, staying with the question** (below; QA `experience/outputs/qa-v7/review.md`, record `olivia-v7-release.json`). Not deployed.
+     - Check-ins after keeping, "How did it turn out?" when the day comes, and quiet signs that one is waiting.
+     - Ukrainian About and Contact pages.
+     - The personal reading shown as it is written.
+  6. **"How it works" films** (28 September; `experience/work/tools/how-it-works/README.md`). Both are silent, in EN and UK, landscape 1920×1080 and portrait 1080×1350 (plus a 720×900 web cut), with MP4, WebM and a poster.
+     - **The product film** (`film.html`, about 64 s) is the one to publish. The phone moves in 3D, the product's own surfaces lift out of the screen, a deck fans out and one card turns once. Kinetic headlines carry the story from the question to the almanac.
+     - **The walkthrough** (`stage.html`) shows the same journey plainly, with step captions.
+     - Footage, masters and deliverables are not committed. Rebuild them with the README's steps (about 25 minutes with two render lanes).
+  7. **The film on How Olivia works** (28 September, at the owner's request). "What happens in a reading?" is the first answer in the `#method` FAQ, across the whole grid and open. It shows the product film in the page's language: 4:5 on phones, 16:9 otherwise. See the rules below.
 - **Next.**
-  - The owner checks v6 on an iPhone and an Android phone (plan item 6): the arrival, the WebGPU background's smoothness and battery use, text contrast over it, and the fixed button on the question step.
+  - The owner decides whether to deploy v7: try deploy preview 5 on a phone, then approve the merge.
+  - The film goes live with v7, since it shows check-ins. Try it on deploy preview 5, under How Olivia works.
+  - Before or right after deploying, one paid personal reading on the preview (with the owner's approval) confirms the live stream through Netlify's edge runtime. The fake provider shows the page and service agree, but a real stream has not been seen.
+  - The owner checks the site with an iPhone and an Android phone (plan item 6): the arrival, the WebGPU background's smoothness and battery use, text contrast over it, and the fixed button on the question step.
   - Whether to close the last 0.06 MB for Ukrainian: softer textures, AVIF, or a lighter Next runtime on the homepage.
   - Then the owner chooses from sections 2 to 5 of the award plan. Nothing there is approved yet.
 - **Owner decisions still open:**
@@ -43,9 +65,31 @@ For work across earlier Olivia tasks, start with [the project history index](his
   - The channel for inviting people back.
   - A named editor.
 
-## Newest work: the phone arrival (v6), not yet in production
+## Newest work: staying with the question (v7), on the branch, not deployed
 
-- Same branch and draft PR #4, commit `0889b9e`, on top of v5. QA: `experience/outputs/qa-v6/review.md`. Record: `experience/outputs/olivia-v6-release.json`. Preview build: https://6ab92b77b5d4da00084b874f--olivia-arcana.netlify.app/.
+- Commits `bdae5c1` (check-ins), `e95c563` (Ukrainian About and Contact) and `9143a47` (the reading as it is written), on top of production v6. QA: `experience/outputs/qa-v7/review.md`. Record: `experience/outputs/olivia-v7-release.json`.
+- **Check-ins** (`checkins.js`, `checkins.css`).
+  - After keeping, choose when to look again: 3 days, a week, a month, the next new or full moon, or a date.
+  - On the day, the reading opens with "How did it turn out?", which saves `outcome` and `reviewedAt`.
+  - Waiting check-ins show as a gold dot on Today (dock, menu button, desktop header), the phone menu's Today line, a row on the question step and the desktop home's return link.
+  - First visits are pixel-identical to production.
+- **Ukrainian pages.** `/uk/about/` and `/uk/contact/`. `LegalShell` follows the route language, and the Ukrainian footer and colophon link the Ukrainian pages.
+- **The reading as it is written.**
+  - `/api/reading` streams NDJSON when the page asks (`Accept: application/x-ndjson`), and the provider is called with `stream: true`.
+  - The page shows complete paragraphs as they arrive (`streamBlocks`) and discards them on an error. Only a complete `end_turn` reply is confirmed.
+- Rules to keep:
+  - **The How Olivia works film** (`method-film.js`, `method-film.css`).
+    - Its published files live in `experience/outputs/film/`, and `build.py` publishes them as `window.OLIVIA_ASSETS.film`. `experience/work/tools/how-it-works/README.md` ("On the site") has the steps for a new cut.
+    - Nothing loads until the film nears the screen. It plays muted only in view with its answer open, never with reduced motion or data saving, and it stays paused once the visitor pauses.
+    - The portable single file has no film, and the answer is then left out.
+  - **Name modules so Git keeps them.** `experience/.gitignore` ignores `check-*.js` and `*.bundle.js`; that is why the module is `checkins.js`.
+  - **The check-in date has one home: the panel in `checkins.js`.** The practice editor keeps topic and return notes and listens for `olivia:check-in-change`. Write check-ins only through practice metadata (`saveMetadata`) so backups, imports and removal keep working.
+  - **Nothing about check-ins may appear on a first visit.** Signs appear only when a kept reading's check-in is due.
+  - **A streamed reading is never confirmed early.** Only the service's "done" line, sent after `end_turn`, makes a reading final. The page must discard partial text on any "error" line, a broken stream or a timeout.
+
+## Previous: the phone arrival (v6), in production since 27 September
+
+- Branch `claude/peaceful-clarke-scrh06` and PR #4 (merged as `c822edd`), commit `0889b9e`, on top of v5. QA: `experience/outputs/qa-v6/review.md`. Record: `experience/outputs/olivia-v6-release.json`. Preview build: https://6ab92b77b5d4da00084b874f--olivia-arcana.netlify.app/.
 - What v6 changes. Phones only; `hero.js` and desktop are unchanged, and desktop is pixel-identical to v5.
   - **First frame.** `first-frame.js` is inlined at the top of `<body>` by `build.py`; `NativeExperienceHome.tsx` keeps it (`data-first-frame`). Below 701 px it sets `body.mobile-experience`, `data-view="home"` and `data-mobile-immersive`, and draws the masthead, before the first paint. `mobile-experience.js` adopts the masthead; its markup lives in `mobile-masthead.js`. `<body>` has `suppressHydrationWarning` for these pre-hydration changes.
   - **Entrance and opening card.** The entrance is CSS from the first paint (about 2 s). The poster `<img>` is placed where `hero.js` draws the first card, using `hero.js`'s camera and opening pose in CSS 3D (`mobile-coherence.css`, "The phone arrival"), and the WebGL card fades in over it.
@@ -59,10 +103,10 @@ For work across earlier Olivia tasks, start with [the project history index](his
   - **Regenerate the phone art with `phone-art.mjs`** whenever a Major Arcana image or the card back changes. It uses Chromium's default canvas resize, then sharp at WebP quality 81 and effort 6.
   - **Test phone journeys with taps.** A mouse click leaves a pointer over the deck, which triggers the desktop hover lift.
 
-## Previous: site-wide pass (v5), not yet in production
+## Previous: site-wide pass (v5), in production with v6
 
-- Same branch, `claude/peaceful-clarke-scrh06` (draft PR #4 into `main`; do not merge without the owner's approval). v5 works through `experience/outputs/olivia-gap-audit-2026-09-26.md`. QA: `experience/outputs/qa-v5/review.md`. Record: `experience/outputs/olivia-v5-release.json`.
-- **Production is still v3.** v5 is built and tested on this branch only.
+- Same branch, `claude/peaceful-clarke-scrh06` (PR #4, merged on 27 September). v5 works through `experience/outputs/olivia-gap-audit-2026-09-26.md`. QA: `experience/outputs/qa-v5/review.md`. Record: `experience/outputs/olivia-v5-release.json`.
+- **In production since 27 September, as part of v6.**
 - **Preview (v5):** https://deploy-preview-4--olivia-arcana.netlify.app/ (UK: `/uk/`) follows the PR head. The build of the tested commit `c19bdeb` is https://6ab820e030b21a0008ba98f9--olivia-arcana.netlify.app/ (deploy `6ab820e030b21a0008ba98f9`). Netlify's checks reported it published (3543 files uploaded, all 5 header rules processed). GitHub Actions CI passed on its first runs for the same commit. The session that built v5 could not open `*.netlify.app`; a later session loaded and checked the preview on 27 September (`qa-v5/review.md`, "Live preview check").
 - What v5 changes:
   - **Speed.** Parallel ordered scripts, and the WebGPU background only with an adapter. Phone-sized hero textures (`cards-portal-phone/`, `hero.js` unchanged). WOFF2 fonts, UTF-8 bundles and an English-only app bundle. Lazy spread previews, immutable caching, stale builds pruned. Supabase and the night-room chrome are out of the shared website bundle. A phone's first 5 s drop from 8.5 MB to 4.9 MB.
@@ -74,23 +118,23 @@ For work across earlier Olivia tasks, start with [the project history index](his
   - **Tooling.** CI in `.github/workflows/ci.yml`.
 - Protected and verified: `hero.js` is byte-identical. The desktop hero and desktop homepage sections match v4 pixel for pixel (only the footer gains a legal row). Phone hero frames show no visible change with the pre-sized textures.
 
-## Previous: mobile coherence pass (v4), not yet in production
+## Previous: mobile coherence pass (v4), in production with v6
 
 - Branch: `claude/peaceful-clarke-scrh06`, built on `codex/session-handoff-2026-09-26` at `89ef292`. Continue from this branch; it contains everything below plus the v4 pass.
 - Built assets: `experience.7aa05041408b09f0.css`, `app.ff457a817c7fbc31.js`, `font-4.51adb4c8c5dc00b8.woff2`. Record: `experience/outputs/olivia-mobile-v4-release.json`. QA: `experience/outputs/qa-mobile-v4/review.md`.
-- **Production is still v3** (below). v4 was built and tested on this branch; it is not deployed to production.
+- **In production since 27 September, as part of v6.** Until then production was v3 (below).
 - **Preview (v4):** the same PR preview URL showed v4 until v5 was pushed. Netlify built it for draft PR #4 (https://github.com/sergerommss95-cpu/olivia-arcana/pull/4, into `main`, not to be merged without the owner's approval). The build of the tested commit `6c9854d` is https://6ab7ea87917b4400080cbbc3--olivia-arcana.netlify.app/. Netlify's checks reported it published. The build container could not open `*.netlify.app` itself, and whether personal readings work there depends on the deploy-preview environment variables.
 - What v4 changes: the drawn card stays on screen while a personal reading is prepared (a CSS specificity bug hid it on phones); the question step stays usable with the keyboard open; one filled action vocabulary covers the whole phone journey (secondary rows, +/− disclosure rows, press states); keep/saved states are correct (the first keep is never "Save updated reading"); the spread header and chosen-card receipt are legible; home symbol captions sit below the art; the almanac and Today are recomposed; a landscape touch fix covers the choose step; and Ukrainian UI text gets a designed Cyrillic face (Onest, OFL) instead of the system fallback, because DM Sans has no Cyrillic.
 - Protected and verified unchanged: `hero.js` (SHA-256 `ea5578949b2e…`), the approved motion reference (`100608f7d72a…`), card artwork, the Olive Lattice back, selection/reveal handlers and the reading service. The EN desktop homepage is pixel-identical to v3.
 - New source files: `mobile-coherence.css` (all v4 phone composition; loaded last), `save-state.js` and its tests, `mobile-reading.test.mjs`, `experience/work/onest-OFL.txt`.
 
-## Current production state (v3)
+## Earlier production state (v3, replaced by v6 on 27 September)
 
 - Base branch: `codex/session-handoff-2026-09-26`.
-- Current production: https://oliviaarcana.com/?revision=mobile-surfaces#discover
+- Production until 27 September: https://oliviaarcana.com/?revision=mobile-surfaces#discover
 - Exact deployment: https://6ab7b1eb2e3eb145b023937a--olivia-arcana.netlify.app/
 - Ukrainian production: https://oliviaarcana.com/uk/
-- Production deploy ID: `6ab7b1eb2e3eb145b023937a`; Netlify site ID: `6a67384f-4d46-451e-ac61-f8108015fbfd`.
+- v3 deploy ID (publish it again to roll back): `6ab7b1eb2e3eb145b023937a`; Netlify site ID: `6a67384f-4d46-451e-ac61-f8108015fbfd`.
 - Mobile v3 is deployed to production. The user's latest iPhone screenshots showed the old production mobile v1; v2 had existed only on a separate preview. This release promotes the v2 work and repairs the remaining cross-section frames and button surfaces. The user has not yet reviewed v3 on a physical iPhone.
 - This branch includes local predecessor commits `433ffb0` and `9510387`, previously ahead of origin/main, plus the current source/integration. It is a continuation snapshot, not a claim that every proposed feature is launch-ready.
 
@@ -128,6 +172,7 @@ Repeated pain points to avoid reintroducing:
 | Card texts | EN: `content.js`, `minor-content.js`, `minor-reversed.js`. UK: `card-notes-uk.js` (voice guide `UK-VOICE.md`). After editing, run `node experience/work/tools/sync-card-notes.mjs` to refresh `website/src/lib/academy/tarot-notes.ts` (used by the AI service and `/uk/cards/`) |
 | Inner-page header | `website/src/components/almanac/AlmanacMasthead.tsx` (used by `AlmanacShell` and `LegalShell`) |
 | Motion vocabulary | `experience/work/olivia-product/motion-tokens.css` |
+| How it works film | Made in `experience/work/tools/how-it-works/`; published files in `experience/outputs/film/`; on the page through `method-film.js` and `method-film.css` |
 
 The product was originally edited outside this Git repository. This branch brings its editable source, all build inputs, references, and docs into `experience/`, retaining their relative paths. Do not edit generated hashed files as the primary source. Do not restore the old iframe homepage.
 
@@ -205,7 +250,7 @@ node --test website/src/lib/*.test.mjs website/netlify/edge-functions/_shared/*.
 
 No secrets are required for static build or local prepared readings. Optional AI needs the server environment described in `website/netlify/edge-functions/_shared/README-reading.md`. Never copy `.env` contents into Git or a handoff. Account/payment flags are intentionally separate; do not turn them on simply to make a demo appear complete.
 
-`website/out/` is the native static export. Publish with the site's Netlify edge-function configuration; uploading static HTML alone omits the personal-reading service. A Git push to the handoff branch is not a production deployment. Inspect current Netlify settings before merging to main because historical project notes describe automatic deployment there.
+`website/out/` is the native static export. Publish with the site's Netlify edge-function configuration; uploading static HTML alone omits the personal-reading service. A push to a feature branch is not a production deployment. A push to `main` is: the v6 merge on 27 September was built and published automatically within about 80 seconds.
 
 ### Local Netlify worktree caveat
 
@@ -226,13 +271,14 @@ v6 (this branch; details in `qa-v6/review.md`):
   - The arrival filmstrip shows phone CLS 0 in both languages.
   - No white frames.
   - A phone homepage is 2.43–2.48 MB (EN) and 2.56 MB (UK) over the wire.
-- **Not tested on a physical phone and not deployed to production.** Safari's heights are modelled. The WebGPU background has never been seen from a container.
+- In production (27 September): the same checks pass on oliviaarcana.com. Phone CLS is 0 in English and 0.008 in Ukrainian. The weights are 2.48 MB (EN) and 2.56 MB (UK). `hero.js` is served unchanged, and the homepages carry no noindex header.
+- **Not tested on a physical phone.** Safari's heights are modelled. The WebGPU background has never been seen from a container.
 
 v5 (this branch):
 - 225/225 product tests, 7/7 mobile-question checks, 51/51 website and service tests. `experience/build.py` and `npm --prefix website run build` succeed. A rebuild from an empty output directory reproduces the 116 snapshot files byte for byte.
 - Pixel comparison with v4: desktop hero at five journey positions within renderer noise; desktop homepage sections 0 pixels changed apart from the added footer row; phone hero frames (including mid-journey "Watch the journey") show no visible change.
 - Phone journeys on the native export with a synthetic delayed reading, EN 390×844, UK 375×812 and 320×740: pending hides every interpretation and keeps the card; AI label; keep → "Saved ✓"; almanac with the Safari note; revisit; crisis note at the question and on single and spread readings. Reduced motion, desktop keyboard-only (UK) and inner pages at 390/1440 were checked. No overflow, no console errors.
-- **Not tested on a physical iPhone, not deployed to production, and live AI generation not run.** The build session had no API key or route to the preview. The live check on 27 September requested no reading: the preview's service is configured, so every valid request is paid. The animated WebGPU background has never been seen from a container.
+- **Not tested on a physical iPhone, and live AI generation not run.** Deployed to production with v6 on 27 September. The build session had no API key or route to the preview. The live check on 27 September requested no reading: the preview's service is configured, so every valid request is paid. The animated WebGPU background has never been seen from a container.
 - The deployed preview was checked from a container on 27 September: assets, headers, the reading service's origin and validation guards, phone journeys (EN 390×844, UK 375×812), transfer sizes against production, and the arrival filmstrip (`qa-v5/review.md`).
 
 v4:

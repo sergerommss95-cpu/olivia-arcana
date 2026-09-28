@@ -91,7 +91,11 @@ export const UK_TEXT = {
   'A reading changes when you bring your own experience back to it.': 'Читання набуває нового змісту, коли ви повертаєтеся до нього з власним досвідом.',
   'Open your almanac ↗': 'Відкрити свій альманах ↗', 'Our approach': 'Наш підхід', 'A symbol.': 'Символ.', 'Your perspective.': 'Ваш погляд.',
   'Olivia Arcana is a place to reflect with tarot. The meaning becomes personal through what you notice, write, and choose to do.': 'Olivia Arcana — простір для роздумів із Таро. Значення стає особистим завдяки тому, що ви помічаєте, записуєте й вирішуєте зробити.',
-  // Method FAQ: provenance and privacy live here, outside the reading ritual.
+  // Method FAQ: the film first (method-film.js), then provenance and privacy, outside the reading ritual.
+  "What happens in a reading?": "Як відбувається читання?",
+  "The whole journey in a minute: bring a question, choose your card, keep what you notice, and return to see what changed.": "Увесь шлях за хвилину: поставте запитання, оберіть карту, збережіть те, що помітили, і поверніться, щоб побачити, що змінилося.",
+  "How Olivia works, a one-minute film": "Як працює Olivia — хвилинне відео",
+  "Play the film": "Відтворити відео", "Pause the film": "Призупинити відео", "Play the film again": "Переглянути відео ще раз",
   "How is my personal reading created?": "Як створюється моє особисте читання?",
   "Olivia uses Claude, an AI model from Anthropic, to read your chosen cards together in the context of your question. It considers traditional meanings, spread positions, reversed cards, and the relationships between them. The interpretation is generated for your reading and can make mistakes.": "Olivia використовує Claude — модель штучного інтелекту від Anthropic, — щоб прочитати обрані карти разом у контексті вашого запитання. Враховуються традиційні значення, позиції в розкладі, перевернуті карти та зв’язки між ними. Тлумачення створюється для вашого читання й може містити помилки.",
   "What is sent for a personal reading?": "Що надсилається для особистого читання?",

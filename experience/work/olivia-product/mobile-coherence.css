@@ -329,6 +329,8 @@
 /* The shortest (an iPhone SE in Safari, about 553 px): the opening fits the
    visible screen, with Draw your card and Watch the journey in reach. */
 @media (max-width:700px) and (max-height:600px) {
+ /* The first question step's Continue ends above the fold on an iPhone SE in Safari. */
+ .mobile-experience #question-view[data-mobile-question=compose] #question-form textarea {min-height:128px}
  body.mobile-experience[data-view=home]:not(.cinema) #hero-region {min-height:480px}
  body.mobile-experience[data-view=home]:not(.cinema) .identity {top:50px}
  body.mobile-experience[data-view=home]:not(.cinema) .wordmark-name {font-size:56px}

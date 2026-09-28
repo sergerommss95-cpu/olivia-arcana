@@ -5,11 +5,12 @@ import { TELEGRAM_BOT_ENABLED, TELEGRAM_CHANNEL_ENABLED, TELEGRAM_BOT_URL, TELEG
 export const metadata = {
   title: "Contact — Olivia Arcana",
   description: "How to reach Olivia Arcana — support, press, partnerships, legal.",
+  alternates: { canonical: "/contact", languages: { en: "/contact", uk: "/uk/contact", "x-default": "/contact" } },
 };
 
 export default function ContactPage() {
   return (
-    <LegalShell title="Contact" updated="April 25, 2026">
+    <LegalShell title="Contact" updated="September 27, 2026" alternateHref="/uk/contact">
       <p>
         We read every message. Pick the address that fits — you&apos;ll get a real
         human, usually within two business days.
@@ -17,7 +18,7 @@ export default function ContactPage() {
 
       <h2>Support</h2>
       <p>
-        Account, billing, refunds, bugs, broken readings.<br />
+        Readings, your almanac, bugs — anything that isn’t working.<br />
         <a href="mailto:support@oliviaarcana.com">support@oliviaarcana.com</a>
       </p>
 

@@ -27,5 +27,6 @@ export function initMobileExperience({locale='en'}={}) {
  function viewport(){if(!mq.matches)return;const vv=window.visualViewport,editing=!!document.activeElement?.matches('textarea,input:not([type=radio]):not([type=checkbox]),[contenteditable=true]'),keyboard=editing&&vv&&innerHeight-vv.height>130;body.dataset.mobileKeyboard=String(!!keyboard);document.documentElement.style.setProperty('--mobile-viewport-height',`${vv?.height||innerHeight}px`);sync();}
  const observer=new MutationObserver(sync);observer.observe(body,{attributes:true,attributeFilter:['data-view','class']});for(const element of [document.querySelector('#reading-view'),document.querySelector('#spreads-view'),originalMotion].filter(Boolean))observer.observe(element,{attributes:true,attributeFilter:['data-guidance-state','aria-pressed']});
  mq.addEventListener('change',()=>{viewport();sync();});window.visualViewport?.addEventListener('resize',viewport);window.visualViewport?.addEventListener('scroll',viewport);addEventListener('resize',viewport);document.addEventListener('focusin',viewport);document.addEventListener('focusout',()=>requestAnimationFrame(viewport));addEventListener('hashchange',close);viewport();sync();
+ dispatchEvent(new Event('olivia:shell-ready'));
  return {close};
 }

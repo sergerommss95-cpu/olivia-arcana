@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readingSections } from './reading-sections.js';
+import { readingSections, streamBlocks } from './reading-sections.js';
 
 test('a new reading keeps its concise opening and authored sections as plain text', () => {
  const result = readingSections('The cards favour **a thoughtful change**.\n\n## Ambition meets commitment\nThe Devil and the King of Wands *suggest* a tension.\n\nJustice asks for a clear agreement.\n\n## One conversation to begin\nAsk what the role gives you room to create.');
@@ -80,4 +80,19 @@ test('plain punctuation, underscores inside identifiers, and unpaired emphasis a
  assert.equal(result.lead, 'Choose carefully.');
  assert.equal(result.sections[0].paragraphs[0], 'Keep project_name and 2 * 3 unchanged; a lone * is text.');
  assert.equal(result.sections[1].paragraphs[0], 'Try one clear step.');
+});
+
+test('a reading being written shows only its complete paragraphs, in order, and only grows', () => {
+ const reading = 'The cards favour **a thoughtful change**.\n\n## Ambition meets commitment\nThe Devil and the King of Wands suggest a tension.\n\nJustice asks for a clear agreement.\n\n## One conversation to begin\nAsk what the role gives you room to create.';
+ assert.deepEqual(streamBlocks('The cards favour'), []);
+ assert.deepEqual(streamBlocks('The cards favour **a thoughtful change**.\n\n## Ambi'), [{ kind: 'lead', text: 'The cards favour a thoughtful change.' }]);
+ let previous = [];
+ for (let end = 1; end <= reading.length; end++) {
+  const blocks = streamBlocks(reading.slice(0, end));
+  assert.deepEqual(blocks.slice(0, previous.length), previous, `blocks changed at ${end}`);
+  previous = blocks;
+ }
+ assert.deepEqual(streamBlocks(reading + '\n\n').map(block => block.kind), ['lead', 'heading', 'paragraph', 'paragraph', 'heading', 'paragraph']);
+ assert.deepEqual(streamBlocks('## Starts with a title\nFirst words.\n\n').map(block => block.kind), ['heading', 'paragraph']);
+ assert.deepEqual(streamBlocks(null), []);
 });

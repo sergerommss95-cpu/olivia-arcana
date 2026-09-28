@@ -1,6 +1,6 @@
 // Walk the one-card phone journey end to end, as a visitor who declines the AI
 // reading: home, the crisis note while typing, question, one card, choose, hold,
-// reveal, reading, keep, almanac (with the Safari note) and revisit. English runs
+// reveal, reading, keep, a check-in in a week, almanac (with the Safari note) and revisit. English runs
 // at 390×844 and Ukrainian at 375×812, with an iPhone user agent and touch.
 // Run with Playwright's Chromium available:
 //   node experience/work/tools/phone-journey.mjs website/out /tmp/journey
@@ -137,6 +137,17 @@ for (const run of runs) {
     const label = (await page.locator('#save-reading').innerText()).replace(/\s+/g, ' ').trim();
     if (!label.startsWith(run.saved)) throw new Error(`unexpected save label "${label}"`);
     return {label};
+  })
+  && await step('check-in', async () => {
+    const week = page.locator('.check-in-next .check-in-choice[data-days="7"]');
+    await week.waitFor({state: 'visible', timeout: 5000});
+    await week.scrollIntoViewIfNeeded();
+    await week.tap();
+    await page.waitForFunction(() => document.querySelector('.check-in-next')?.dataset.state === 'upcoming', null, {timeout: 5000});
+    const date = await page.evaluate(() => JSON.parse(localStorage.getItem('olivia-arcana-practice-metadata-v1')).entries[0]?.revisitDate);
+    const expected = await page.evaluate(() => { const d = new Date(); d.setDate(d.getDate() + 7); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; });
+    if (date !== expected) throw new Error(`the check-in was kept for ${date}, not ${expected}`);
+    return {checkIn: date, shown: (await page.locator('.check-in-next h3').textContent()).trim()};
   })
   && await step('almanac', async () => {
     await page.locator('.mobile-dock a[data-mobile-route=journal]').tap();

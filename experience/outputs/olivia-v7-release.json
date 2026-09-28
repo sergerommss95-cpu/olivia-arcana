@@ -1,0 +1,70 @@
+{
+  "site_id": "6a67384f-4d46-451e-ac61-f8108015fbfd",
+  "site_name": "olivia-arcana",
+  "revision": "staying-with-the-question-v7",
+  "date": "2026-09-27",
+  "branch": "claude/peaceful-clarke-scrh06",
+  "commits": ["bdae5c1", "e95c563", "9143a47", "8e0adec"],
+  "previous_revision": "production v6, merge commit c822edd",
+  "scope": "The owner asked what gives users best-in-class value, then said to start on what is best: check-ins that return to a kept reading, Ukrainian About and Contact pages, and the personal reading shown as it is written",
+  "production_deployed": false,
+  "note": "Every push to main deploys production. Merge only with the owner's approval.",
+  "assets": {
+    "stylesheet": "assets/experience.2c9638249617b7dc.css",
+    "app_en": "assets/app-en.cc75f858210e38eb.js",
+    "app_uk": "assets/app.fab4fe15f21cee13.js",
+    "hero": "assets/hero.ea5578949b2e2776.js",
+    "film": [
+      "assets/film-en-phone-poster.c420aa27e05ed294.webp",
+      "assets/film-en-phone.1039c066ff1b349d.webm",
+      "assets/film-en-phone.b0c9a4843ea4adda.mp4",
+      "assets/film-en-wide-poster.da522487b3cab41a.webp",
+      "assets/film-en-wide.2fefdc02a4d91726.mp4",
+      "assets/film-en-wide.7ab67d4ea917fbfd.webm",
+      "assets/film-uk-phone-poster.840847ca9d6427c5.webp",
+      "assets/film-uk-phone.42a17699ae94a243.webm",
+      "assets/film-uk-phone.52be5e10683fe6fc.mp4",
+      "assets/film-uk-wide-poster.d0f210af6587071a.webp",
+      "assets/film-uk-wide.16611ed44ab633a9.webm",
+      "assets/film-uk-wide.b66b398b33f15eec.mp4"
+    ]
+  },
+  "review": "qa-v7/review.md",
+  "changes": {
+    "check_ins": "after keeping: 3 days, a week, a month, the next new or full moon, or a date; on the day, 'How did it turn out?' with the question and next step; outcome and reviewedAt in the practice metadata; 'Not yet' moves it a week (checkins.js, checkins.css)",
+    "waiting_signs": "gold dot on Today (phone dock, phone menu button, desktop header), the phone menu's Today line, a row on the question step (below Continue on phones), the desktop home's return link; none on a first visit",
+    "editor": "the practice editor's date field, moon picks and calendar file moved into the check-in panel; topic and return notes stay and follow it",
+    "iphone_se_question_step": "Continue on the first question step ends at 537 px at 375x553 (was 569)",
+    "uk_pages": "/uk/about/ and /uk/contact/ in the formal «ви», hreflang pairs, sitemap, Ukrainian footer and colophon links; LegalShell follows the route language; Terms, Privacy and Disclaimer marked EN",
+    "english_contact": "support line no longer mentions accounts and billing",
+    "streamed_reading": "opt-in NDJSON stream from /api/reading (Accept: application/x-ndjson, provider stream: true); complete paragraphs appear with the AI label; only a complete end_turn reply ends in 'done'; errors remove the partial text; JSON answer unchanged for other pages and /api/chat",
+    "how_olivia_works_film": "the product film is the first answer in the How Olivia works FAQ ('What happens in a reading?'), in the page's language: 4:5 720x900 on phones, 16:9 1920x1080 otherwise, WebM then MP4; loads only near the screen, plays muted in view with its answer open, never with reduced motion or data saving, stays paused once paused; method-film.js, method-film.css; files in experience/outputs/film/"
+  },
+  "verification": {
+    "product_tests": 259,
+    "mobile_question_checks": 7,
+    "website_and_service_tests": 58,
+    "ci": {"bdae5c1": "success", "e95c563": "success"},
+    "clean_rebuild_reproduces_snapshot": true,
+    "hero_js_sha256_unchanged": true,
+    "first_visit_homepage_vs_production_v6": "0 pixels differ (EN and UK, 1440x900 and 390x844, reduced motion)",
+    "phone_journeys": {"390x844 en": "pass", "375x812 uk": "pass", "includes": "a check-in in a week"},
+    "checkin_journey": "tools/checkin-journey.mjs, EN and UK, phone and desktop: pass; spreads checked with a seeded three-card reading",
+    "stream_reading": "tools/stream-reading.mjs with the real service and a fake provider: first paragraph after 0.5-0.8 s of a 2.7 s reading, EN and UK; a broken stream removes the partial text",
+    "live_provider_stream_tested": false,
+    "physical_phone_tested": false,
+    "film": {
+      "checks": "29/29 in Chromium: no film on a first visit; first answer, open; right language and cut play muted in view; stays paused after a pause; pauses out of view; one cut loads; reduced motion shows the poster and the play button",
+      "first_visit_vs_build_before_film": "0 pixels differ (EN and UK, 1440x900 and 390x844, reduced motion)",
+      "portable_file": "answer left out, no page errors",
+      "deploy_preview_5": "the same 29 checks pass on https://deploy-preview-5--olivia-arcana.netlify.app; videos are served with 206 ranges, video/webm and video/mp4, immutable caching and noindex; CI green on 8e0adec",
+      "safari_tested": false
+    }
+  },
+  "needs_owner": [
+    "approval to deploy v7 (merge into main)",
+    "one paid personal reading on a preview to confirm the live stream through Netlify",
+    "a check on a real iPhone and Android phone",
+    "the operator named on the Contact pages, and legal review before Terms and Privacy are translated"
+  ]
+}

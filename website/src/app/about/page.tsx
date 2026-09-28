@@ -4,12 +4,12 @@ import LegalShell from "@/components/legal/LegalShell";
 export const metadata = {
   title: "About — Olivia Arcana",
   description: "A personal practice of tarot. Learn how Olivia Arcana’s cards, interpretations, AI assistance and private journal work.",
-  alternates: { canonical: "/about" },
+  alternates: { canonical: "/about", languages: { en: "/about", uk: "/uk/about", "x-default": "/about" } },
 };
 
 export default function AboutPage() {
   return (
-    <LegalShell title="A personal practice of tarot" updated="September 25, 2026">
+    <LegalShell title="A personal practice of tarot" updated="September 25, 2026" alternateHref="/uk/about">
       <p>
         Olivia Arcana is a space to bring a question, choose your cards, and spend
         time with what they suggest. The purpose is to help you look at a situation

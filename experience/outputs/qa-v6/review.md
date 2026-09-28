@@ -2,7 +2,7 @@
 
 Branch `claude/peaceful-clarke-scrh06`, commit `0889b9e`, on top of v5. This is section 1 of [the award plan](../award-plan-2026-09-27.md). The owner approved all five items on 27 September and chose option B (a fixed button) for the second question step.
 
-Not deployed to production. The deploy preview of draft PR #4 is https://deploy-preview-4--olivia-arcana.netlify.app/ (UK `/uk/`); the build of `0889b9e` is https://6ab92b77b5d4da00084b874f--olivia-arcana.netlify.app/. `hero.js` is byte-identical (SHA-256 `ea5578949b2e…`), and desktop is pixel-identical to v5.
+**In production since 27 September 2026.** The owner asked for the deploy, and PR #4 was merged into `main` as `c822edd` (see "In production" below). Before that, the deploy preview of PR #4 was https://deploy-preview-4--olivia-arcana.netlify.app/ (UK `/uk/`); the build of `0889b9e` is https://6ab92b77b5d4da00084b874f--olivia-arcana.netlify.app/. `hero.js` is byte-identical (SHA-256 `ea5578949b2e…`), and desktop is pixel-identical to v5.
 
 Evidence in this folder:
 
@@ -11,6 +11,37 @@ Evidence in this folder:
 - `question-step-pinned-action.jpg`: the second question step at 390×664 and 375×553, at the top and at the end of the step.
 - `opening-card-webgl-vs-poster.jpg`: the WebGL card and the CSS poster, each rendered alone.
 - `journey-summary-live.json`: the phone journeys on the preview.
+- `arrival-phone-en-production.png`, `arrival-phone-uk-production.png`, `arrival-desktop-en-production.png`, `journey-summary-production.json`: the same checks on oliviaarcana.com after the deploy.
+
+## In production — 27 September 2026
+
+- **Deploy.**
+  - The owner asked for the deploy after the preview. PR #4 was marked ready and merged into `main` at 16:58 UTC with a merge commit, `c822edd`, which keeps every commit named in these notes. PR #3 (`codex/session-handoff-2026-09-26`) was part of the branch, and GitHub marked it merged too.
+  - CI passed on `c822edd`.
+  - Netlify published it about 80 seconds after the merge. Pushes to `main` deploy production automatically.
+  - To roll back, publish the v3 deploy `6ab7b1eb2e3eb145b023937a` again in Netlify's deploy list, or revert the merge on `main`.
+- **Assets.**
+  - `/` serves `experience.9fcb833eb04c4a39.css` and `app-en.526c498c6e397903.js`.
+  - `/uk/` serves the same stylesheet with `app.926cd875e85c3725.js` and `<html lang="uk">`.
+  - Both carry the inline first-frame script. The served `hero.ea5578949b2e2776.js` is byte-identical to `hero.js`.
+- **Headers.**
+  - Hashed assets, including the phone card back, are cached for a year as immutable.
+  - `/` and `/uk/` have no `X-Robots-Tag`, and their robots meta is `index, follow`. `/experience/` sends `noindex` and `/animation/` sends `noindex, nofollow`. This separates the rule from the header Netlify adds to every preview page, which the preview check could not do.
+  - HSTS, `X-Frame-Options`, `nosniff`, and the referrer and permissions policies are present. `robots.txt` allows the site and names the sitemap.
+- **Pages.**
+  - `manifest.json`, `sitemap.xml`, `/about/`, `/privacy/`, `/terms/`, `/cookies/`, `/contact/`, `/cards/`, `/uk/cards/` and `/ask/` return 200. An unknown path returns 404.
+  - There is no Ukrainian About, Privacy, Terms or Contact page. The export has none, and no page links to one.
+- **Reading service.** No model was called.
+  - `GET /api/reading` and `/api/chat` report the service as configured.
+  - A cross-site POST, or one with neither `Origin` nor `Sec-Fetch-Site`, gets 403.
+  - A same-origin POST with an invalid body gets 400 with the validation message.
+- **Phone journeys** (EN 390×844, UK 375×812, AI declined): both pass. There were no console errors, and no request to `/api/*` other than GET was attempted.
+- **Arrival filmstrip** (4G, 4× CPU):
+  - Phone EN: FCP 1.30 s, LCP 1.60 s, CLS 0.
+  - Phone UK: FCP 1.08 s, LCP 1.40 s, CLS 0.008. That is well under the 0.1 threshold for good, and no frame shows movement.
+  - Desktop EN: FCP 0.76 s, CLS 0. Desktop UK: FCP 1.00 s, CLS 0.
+  - The frames match the preview's.
+- **Phone weight until the network is quiet:** 2.48 MB over the wire in English, 2.56 MB in Ukrainian. These are the preview's figures.
 
 ## What changed
 
@@ -109,3 +140,4 @@ Evidence in this folder:
 - A physical iPhone or Android phone. The Safari heights are modelled from its toolbars (390×664, 375×635, 375×553), and the real toolbar collapse, safe areas and gesture feel still need a device.
 - The WebGPU background on a real device: its smoothness, battery cost and text contrast (item 6 of the plan).
 - Firefox and Safari engines: every check ran in Chromium.
+- Live AI generation: no personal reading was requested, in the preview or in production, because every valid request is a paid call.

@@ -1,6 +1,6 @@
 # An award-level arrival: findings and plan — 27 September 2026
 
-**Status: section 1 done (v6, on the branch, not in production); sections 2 to 5 proposed.** The owner asked what is left for a site worthy of Awwwards and BRRRANDING, with "the strongest, most memorable and magical experience for a customer when they arrive".
+**Status: section 1 done (v6, in production since 27 September 2026); sections 2 to 5 proposed.** The owner asked what is left for a site worthy of Awwwards and BRRRANDING, with "the strongest, most memorable and magical experience for a customer when they arrive".
 
 - The owner approved section 1 on 27 September, including option B for the question step.
 - It is implemented in commit `0889b9e`, recorded in [qa-v6/review.md](qa-v6/review.md). Only its item 6, the real-device check, remains.
