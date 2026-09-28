@@ -326,6 +326,11 @@
 .alsoRead a:hover { color: var(--gold-bright); }
 .alsoRead .allPairsLink { color: var(--gold); }
 
+.askThem { display: grid; gap: 0.3rem; margin: 1.2rem 0 0; }
+.askThem a { justify-self: start; color: var(--gold-bright); font-size: 0.95rem; text-decoration: none; border-bottom: 1px solid rgba(230, 207, 158, 0.4); }
+.askThem a:hover { border-bottom-color: var(--gold-bright); }
+.askThem a:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+.askThem span { color: var(--soft); font-size: 0.82rem; }
 .questions { list-style: none; counter-reset: q; margin: 0; padding: 0; }
 .questions li {
   counter-increment: q;

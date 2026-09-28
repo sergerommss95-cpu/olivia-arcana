@@ -63,20 +63,47 @@
 /* Hub */
 .hubHead { max-width: 46rem; }
 .hubLead { margin: 1.3rem 0 0; color: var(--soft); font-size: 1.05rem; line-height: 1.75; }
-.paths { margin-top: clamp(2.6rem, 6vw, 3.8rem); display: grid; gap: clamp(2.8rem, 6vw, 4rem); }
-.path { scroll-margin-top: 6rem; }
-.pathHead { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1.2rem; align-items: baseline; padding-bottom: 1rem; border-bottom: 1px solid var(--rule); margin-bottom: 1.2rem; }
-.pathNo { grid-row: span 2; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 2.6rem; line-height: 1; color: var(--gold); }
-.pathTitle { margin: 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: clamp(1.8rem, 3.4vw, 2.4rem); }
-.pathLead { margin: 0; color: var(--soft); font-size: 0.95rem; line-height: 1.65; max-width: 42rem; }
-.lessonGrid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.9rem; }
-.lessonCard { display: grid; gap: 0.5rem; height: 100%; padding: 1.2rem 1.3rem 1.3rem; border-radius: 16px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim); text-decoration: none; color: var(--ink); transition: background-color 250ms var(--ease), transform 250ms var(--ease); }
-.lessonCard:hover { background: #163049; transform: translateY(-2px); }
-.lessonCard:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
-.lessonNo { font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.6rem; letter-spacing: 0.18em; color: var(--gold); }
-.lessonTitle { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.4rem; line-height: 1.15; }
-.lessonDek { color: var(--soft); font-size: 0.86rem; line-height: 1.55; }
-.lessonMeta { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: auto; font-size: 0.72rem; color: var(--faint); }
+.paths { margin-top: clamp(2.6rem, 6vw, 3.8rem); display: grid; gap: clamp(3rem, 7vw, 5rem); }
+.path { scroll-margin-top: 6rem; display: grid; grid-template-columns: minmax(0, 290px) minmax(0, 1fr); gap: clamp(1.4rem, 4vw, 3.4rem); align-items: start; }
+.pathHead { position: sticky; top: 6.5rem; display: grid; gap: 0.6rem; padding-top: 0.4rem; }
+.pathNo { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 3.4rem; line-height: 0.9; color: var(--gold); }
+.pathTitle { margin: 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: clamp(1.9rem, 3.2vw, 2.5rem); line-height: 1.05; }
+.pathLead { margin: 0; color: var(--soft); font-size: 0.92rem; line-height: 1.7; }
+.lessonList { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--rule); }
+.lessonList li { border-top: 1px solid var(--rule); }
+.lessonRow { display: grid; grid-template-columns: 46px minmax(0, 1fr) auto; gap: 1.1rem; align-items: start; padding: 1.15rem 0.8rem; border-radius: 12px; text-decoration: none; color: var(--ink); transition: background-color 250ms var(--ease); }
+.lessonRow:hover { background: rgba(16, 38, 58, 0.75); }
+.lessonRow:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 2px; }
+.lessonThumb { width: 46px; height: auto; border-radius: 5px; box-shadow: 0 8px 18px rgba(2, 8, 14, 0.45), 0 0 0 1px rgba(216, 196, 156, 0.16); transition: transform 300ms var(--ease); }
+.lessonRow:hover .lessonThumb { transform: translateY(-2px) rotate(-2deg); }
+.lessonText { display: grid; gap: 0.3rem; }
+.lessonNo { font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+.lessonTitle { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.45rem; line-height: 1.15; }
+.lessonDek { color: var(--soft); font-size: 0.88rem; line-height: 1.6; max-width: 40rem; }
+.lessonMeta { display: grid; justify-items: end; gap: 0.4rem; padding-top: 0.1rem; font-size: 0.72rem; color: var(--faint); white-space: nowrap; }
+.instruments { margin-top: clamp(2.2rem, 5vw, 3rem); }
+.instruments ul { list-style: none; margin: 0.8rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem; }
+.instrument { display: grid; grid-template-columns: 74px minmax(0, 1fr); grid-template-rows: auto 1fr; gap: 0.35rem 1rem; height: 100%; padding: 1.1rem 1.2rem; border-radius: 16px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim); text-decoration: none; color: var(--ink); transition: background-color 250ms var(--ease); }
+.instrument:hover { background: #163049; }
+.instrument:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+.instrumentArt { grid-row: span 2; position: relative; height: 84px; }
+.instrumentArt img { position: absolute; top: 0; width: 46px; height: auto; border-radius: 5px; box-shadow: 0 10px 20px rgba(2, 8, 14, 0.5); transition: transform 300ms var(--ease); }
+.instrumentArt img:first-child { left: 0; transform: rotate(-6deg); }
+.instrumentArt img:last-child { left: 24px; transform: rotate(5deg); }
+.instrument:hover .instrumentArt img:first-child { transform: rotate(-9deg) translateX(-2px); }
+.instrument:hover .instrumentArt img:last-child { transform: rotate(8deg) translateX(2px); }
+.instrumentTitle { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.3rem; line-height: 1.15; color: var(--gold-bright); }
+.instrumentText { color: var(--soft); font-size: 0.84rem; line-height: 1.55; }
+@media (max-width: 900px) {
+  .path { grid-template-columns: 1fr; }
+  .pathHead { position: static; }
+  .instruments ul { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .lessonRow { grid-template-columns: 38px minmax(0, 1fr); padding-inline: 0.2rem; }
+  .lessonThumb { width: 38px; }
+  .lessonMeta { grid-column: 2; justify-items: start; display: flex; gap: 0.6rem; }
+}
 .badge { padding: 0.15rem 0.55rem; border-radius: 999px; background: rgba(230, 207, 158, 0.14); color: var(--gold-bright); }
 
 @media (max-width: 700px) {
@@ -84,7 +111,7 @@
   .pagerNext { text-align: left; }
   .example { padding: 1.3rem 1.2rem 0.4rem; }
 }
-@media (prefers-reduced-motion: reduce) { .lessonCard, .exampleCards img { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .lessonRow, .lessonThumb, .instrument, .instrumentArt img, .exampleCards img { transition: none; } }
 
 /* ——— Tools ——— */
 .sectionLead { margin: -0.3rem 0 1.3rem; max-width: 42rem; color: var(--soft); font-size: 0.95rem; line-height: 1.7; }

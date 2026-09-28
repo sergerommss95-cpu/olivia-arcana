@@ -1,0 +1,7 @@
+.card-plan-note{margin:.9rem 0 0}
+.card-plan-note[hidden]{display:none}
+.card-plan-questions{list-style:none;margin:0 0 .7rem;padding:0;display:grid;gap:.55rem}
+.card-plan-questions li{display:grid;gap:.15rem;padding-left:.8rem;border-left:1px solid #d4c39d59}
+.card-plan-questions span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#97a8b2}
+.card-plan-questions em{font:italic 400 17px/1.35 'Cormorant Garamond',Georgia,serif;color:#efe6d3}
+.card-plan-note .quiet-link{font-size:12px}

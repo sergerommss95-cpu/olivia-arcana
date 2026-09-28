@@ -6,7 +6,8 @@ import {simplifyPreferences,simplifySaving,readingSteps} from './journey-entry.j
 import {mountFirstImpression} from './first-impression.js';
 import {getLocale,t,localizeSpreadReading,localizeEditorialLine,localizePositionPrompt} from './locale.js';
 import {bindDeckGesture} from './deck-gesture.js';
-import {initQuestionCoach,validateQuestionPlan,applyQuestionPlan,mountQuestionPlan,QUESTION_LIMIT} from './question-coach.js';
+import {initQuestionCoach,validateQuestionPlan,applyQuestionPlan,mountQuestionPlan,createCardPlan,CARD_PLAN,QUESTION_LIMIT} from './question-coach.js';
+import {loadLazy} from './lazy-json.js';
 import {SPREADS,buildSpreadReading} from './spread-content.js';
 import {MEMBERSHIP_LIVE,isSpreadFree} from './membership.js';
 import {surveySpread} from '../../../website/src/lib/learn/spread-survey.js';
@@ -108,6 +109,7 @@ export function initSpreads({assets,names,show,goto,reduced,announce,onComplete=
   radio.addEventListener('change',()=>{if(radio.checked)chooseDefinition(s.id);});
  }
  recommendation.append(el('p','eyebrow',copy('YOUR READING','ВАШЕ ЧИТАННЯ')),sizeChoice,el('h3'),el('p'));$('#spread-question').after(recommendation);$('#spread-question').placeholder=copy('What would I like to see more clearly?','Що я хочу побачити ясніше?');
+ let cardSource=null;const cardNote=el('div','card-plan-note');cardNote.dataset.noTranslate='true';cardNote.hidden=true;recommendation.append(cardNote);
  const spreadConsentHost=el('div');$('#spread-access').before(spreadConsentHost);const spreadConsentChoice=mountGuidanceChoice(spreadConsentHost,{locale:getLocale()});spreadConsentChoice.input.addEventListener('change',()=>{if(questionEntry.parentElement===questionPanel&&session&&!spreadConsentChoice.input.checked)guidanceConsents.delete(session.id);});
  const sampleShortcut=el('button','quiet-link',copy('Just exploring? Try a sample','Хочете спробувати? Відкрийте приклад'));sampleShortcut.type='button';sampleShortcut.onclick=()=>start(selected(),true);questionEntry.append(sampleShortcut);
  const updateRecommendation=()=>{const s=selected();for(const r of sizeChoice.querySelectorAll('input'))r.checked=r.value===s.id;recommendation.querySelector('h3').textContent=t(s.name)+' · '+cardCount(s.count);recommendation.querySelector('p:not(.eyebrow)').textContent=t(s.description)+(MEMBERSHIP_LIVE?' '+(s.count===3?copy('Free.','Безкоштовно.'):copy('Included with membership.','Входить у підписку.')):'');};
@@ -142,7 +144,7 @@ export function initSpreads({assets,names,show,goto,reduced,announce,onComplete=
   $('#showcase-invitation').textContent=spreadEditorial(s.id).invitation;
   $('#preview-current').textContent=copy('Try a sample ↗','Спробувати приклад ↗');
  }
- function chooseDefinition(id){const changed=current!==id;current=id;if(changed)approvedPlan=null;if(questionCoach){questionCoach.element.hidden=id!=='clarity3';if(changed)questionCoach.reset();}$('#spread-paths').hidden=id!=='crossroads5';for(const input of $('#spread-paths').querySelectorAll('input'))input.required=id==='crossroads5';for(const a of document.querySelectorAll('.spread-option')){const checked=a.dataset.spread===id;a.classList.toggle('selected',checked);a.querySelector('button').setAttribute('aria-pressed',String(checked));}$('#begin-spread').textContent=`Begin ${selected().name} ↗`;if(changed)showComposition(selected(),current!==null);updateRecommendation();renderAccess();}
+ function chooseDefinition(id){const changed=current!==id;current=id;if(changed){approvedPlan=null;clearCardSource();}if(questionCoach){questionCoach.element.hidden=id!=='clarity3';if(changed)questionCoach.reset();}$('#spread-paths').hidden=id!=='crossroads5';for(const input of $('#spread-paths').querySelectorAll('input'))input.required=id==='crossroads5';for(const a of document.querySelectorAll('.spread-option')){const checked=a.dataset.spread===id;a.classList.toggle('selected',checked);a.querySelector('button').setAttribute('aria-pressed',String(checked));}$('#begin-spread').textContent=`Begin ${selected().name} ↗`;if(changed)showComposition(selected(),current!==null);updateRecommendation();renderAccess();}
  $('#preview-membership').addEventListener('click',event=>{if(spreadOpen(definition)){event.preventDefault();openQuestionEditor();}});
  $('#preview-current').addEventListener('click',()=>start(selected(),true));
  chooseDefinition(SPREADS[0].id);
@@ -286,6 +288,21 @@ export function initSpreads({assets,names,show,goto,reduced,announce,onComplete=
   if(!preview)questionSetup={question:s.id==='crossroads5'?$('#spread-question').value:next.question,pathA:$('#spread-path-a').value,pathB:$('#spread-path-b').value};
   preserve();halt();if(session&&!record){dirty.delete(session.id);unsaved=dirty.size>0;}firstImpressions=[];impressionSeen.clear();definition=s;chooseDefinition(s.id);isPreview=preview;record=null;active=-1;session=next;reading=null;history.replaceState(null,'','#spreads');prepareView();status(preview?`Choose ${s.count} cards for this example question. The deck waits for you.`:`Choose ${s.count} cards, one at a time, or let the deck choose.`);
  }
+ // A spread from one card: its three questions become the three positions' prompts.
+ function clearCardSource(){if(!cardSource&&cardNote.hidden)return;cardSource=null;cardNote.hidden=true;cardNote.replaceChildren();updateRecommendation();}
+ async function openCardSpread(cardId){
+  chooseDefinition('clarity3');library();
+  const language=getLocale()==='uk'?'uk':'en';let questions=null;
+  try{questions=(await loadLazy('cardQuestions',language))[cardId];}catch{}
+  if(!Array.isArray(questions)||questions.length!==3||current!=='clarity3')return;
+  approvedPlan=null;questionCoach?.reset();
+  const cardName=t(names[cardId]);cardSource={cardId,cardName,questions,locale:language};
+  recommendation.querySelector('h3').textContent=CARD_PLAN[language].name(cardName);
+  recommendation.querySelector('p:not(.eyebrow)').textContent=copy('Each position asks one of this card’s own questions.','Кожна позиція ставить одне із запитань цієї карти.');
+  const list=el('ol','card-plan-questions');questions.forEach((q,i)=>{const li=el('li');li.append(el('span','',CARD_PLAN[language].labels[i]),el('em','',q));list.append(li);});
+  const reset=el('button','quiet-link',copy('Use the usual three positions','Повернути звичайні три позиції'));reset.type='button';reset.addEventListener('click',()=>{clearCardSource();$('#spread-question').focus({preventScroll:true});});
+  cardNote.replaceChildren(list,reset);cardNote.hidden=false;
+ }
  function startPlan(value,{intention='open',reversals=false,guidanceConsent=false}={}){
   const plan=validateQuestionPlan(value),spread=applyQuestionPlan(SPREADS.find(item=>item.id===plan.spreadId),plan);
   return start(spread,false,{plan,intention,reversals,guidanceConsent});
@@ -296,11 +313,11 @@ export function initSpreads({assets,names,show,goto,reduced,announce,onComplete=
   return {...value,cards:value.cards.map((card,index)=>({...card,label:definition.positions[index].label,prompt:definition.positions[index].prompt}))};
  }
  const coachHost=el('div');$('#spread-access').before(coachHost);
- questionCoach=initQuestionCoach({container:coachHost,input:$('#spread-question'),locale:getLocale(),onApprove:plan=>{ $('#spread-question').value=plan.question;approvedPlan=plan;questionCoach.close();recommendation.querySelector('h3').textContent=plan.spreadName||copy('Your three-card reading','Ваш розклад із трьох карт');recommendation.querySelector('p:not(.eyebrow)').textContent=plan.positions.map(p=>p.label).join(' · ');renderAccess();$('#begin-spread').focus({preventScroll:true});},onSkip:()=>{renderAccess();$('#begin-spread').focus({preventScroll:true});}});
+ questionCoach=initQuestionCoach({container:coachHost,input:$('#spread-question'),locale:getLocale(),onApprove:plan=>{ clearCardSource();$('#spread-question').value=plan.question;approvedPlan=plan;questionCoach.close();recommendation.querySelector('h3').textContent=plan.spreadName||copy('Your three-card reading','Ваш розклад із трьох карт');recommendation.querySelector('p:not(.eyebrow)').textContent=plan.positions.map(p=>p.label).join(' · ');renderAccess();$('#begin-spread').focus({preventScroll:true});},onSkip:()=>{renderAccess();$('#begin-spread').focus({preventScroll:true});}});
  questionCoach.element.addEventListener('toggle',renderAccess);
  mountQuestionHint($('#spread-question'),getLocale);
  const planHost=el('div');$('#spread-held-question').after(planHost);
- $('#spread-question-form').addEventListener('submit',e=>{e.preventDefault();try{if(current==='clarity3'&&approvedPlan?.question===$('#spread-question').value.trim())startPlan(approvedPlan,{intention:new FormData(e.currentTarget).get('spread-intention'),reversals:$('#spread-reversals').checked,guidanceConsent:spreadConsentChoice.getConsent()});else start(selected(),false);}catch(error){$('#spread-access').textContent=error instanceof TypeError?error.message:t('The deck could not be opened. Please try again.');}});
+ $('#spread-question-form').addEventListener('submit',e=>{e.preventDefault();try{const typed=$('#spread-question').value.trim();if(current==='clarity3'&&cardSource)startPlan(createCardPlan({...cardSource,question:typed,originalQuestion:typed}),{intention:new FormData(e.currentTarget).get('spread-intention'),reversals:$('#spread-reversals').checked,guidanceConsent:spreadConsentChoice.getConsent()});else if(current==='clarity3'&&approvedPlan?.question===typed)startPlan(approvedPlan,{intention:new FormData(e.currentTarget).get('spread-intention'),reversals:$('#spread-reversals').checked,guidanceConsent:spreadConsentChoice.getConsent()});else start(selected(),false);}catch(error){$('#spread-access').textContent=error instanceof TypeError?error.message:t('The deck could not be opened. Please try again.');}});
  function initialCopy(){
   const container=$('#spread-position-copy'),editorial=definition.questionEditorial||spreadEditorial(definition.id);
   container.replaceChildren(el('p','eyebrow','Take a moment'),el('h2','',editorial.gesture),el('p','spread-invitation',editorial.invitation));
@@ -477,5 +494,5 @@ addEventListener('olivia:guidance-save',event=>receiveSavedSpreadGuidance(event.
  $('#spread-question-form a[href="#question"]').addEventListener('click',event=>{event.preventDefault();const options={question:$('#spread-question').value,intention:new FormData($('#spread-question-form')).get('spread-intention'),reversals:$('#spread-reversals').checked,guidanceConsent:spreadConsentChoice.getConsent()};spreadConsentChoice.reset();onSingleQuestion(options);});
  function prepareQuestion({question='',intention='open',reversals=false,guidanceConsent=false}={}){library();$('#spread-question').value=question;for(const input of $('#spread-question-form').querySelectorAll('[name="spread-intention"]'))input.checked=input.value===intention;$('#spread-reversals').checked=reversals;spreadConsentChoice.setConsent(guidanceConsent);otherSpreads.open=true;history.replaceState(null,'','#spreads');$('#spread-question').focus({preventScroll:true});}
  function startPersonal({question='',intention='open',reversals=false,guidanceConsent=false}={}){chooseDefinition('clarity3');$('#spread-question').value=question;for(const input of $('#spread-question-form').querySelectorAll('[name="spread-intention"]'))input.checked=input.value===intention;$('#spread-reversals').checked=reversals;return start(SPREADS.find(s=>s.id==='clarity3'),false,{intention,reversals,guidanceConsent});}
- return {leave,library,startPlan,startPersonal,prepareQuestion,renderJournal,getRecord(id){return record?.id===id?record:drafts.get(id);},exportJournal(){const all=new Map(loadSpreadRecords(localStorage).map(r=>[r.id,r]));for(const [id,r]of drafts)if(!all.has(id)||dirty.has(id))all.set(id,r);return JSON.parse(exportSpreadRecords([...all.values()]));},open(id){if(SPREADS.some(s=>s.id===id))chooseDefinition(id);library();},restore};
+ return {leave,library,startPlan,startPersonal,prepareQuestion,renderJournal,getRecord(id){return record?.id===id?record:drafts.get(id);},exportJournal(){const all=new Map(loadSpreadRecords(localStorage).map(r=>[r.id,r]));for(const [id,r]of drafts)if(!all.has(id)||dirty.has(id))all.set(id,r);return JSON.parse(exportSpreadRecords([...all.values()]));},open(id){const fromCard=/^card-(\d{1,2})$/.exec(id||'');if(fromCard&&+fromCard[1]<78){openCardSpread(+fromCard[1]);return;}if(SPREADS.some(s=>s.id===id))chooseDefinition(id);library();},restore};
 }

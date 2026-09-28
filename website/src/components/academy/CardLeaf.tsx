@@ -33,7 +33,7 @@ const COPY = {
     spread: "In a spread", heart: "The situation", challenge: "What complicates it", advice: "A helpful next step",
     positionQuestions: { heart: "What aspect of the situation deserves attention?", challenge: "What tension or assumption deserves a closer look?", advice: "What small action could help you understand or respond?" },
     prism: { lead: "Read the card through each position before you look at Olivia’s version. A position is a question, and the same card answers each one differently.", yours: "Your reading", placeholder: "One or two sentences…", show: "Show Olivia’s reading", hide: "Hide Olivia’s reading", olivia: "Olivia’s reading", showAll: "Just show all three", swapTitle: "The swap test", swapBody: "Could any two of your sentences trade places? If so, one of them has not yet read its position. Rewrite the one that could live anywhere.", tryIt: "Try this card in a three-card reading ↗" },
-    pairs: "In conversation with", alsoRead: "Also read with", allPairs: "All pairs ↗", questions: "Questions to keep", practice: "A small practice",
+    pairs: "In conversation with", alsoRead: "Also read with", allPairs: "All pairs ↗", questions: "Questions to keep", askThem: "Ask them with three cards ↗", askNote: "A three-card reading in which each position asks one of these questions.", practice: "A small practice",
     shared: "Cards that share its symbols", sharedVia: "Shares", ask: "Bring your own question ↗",
     askLine: "A meaning on a page is a map. The card you draw for your own question is the territory.",
     all: "All 78 cards", trail: "Follow this symbol through the deck ↗",
@@ -52,7 +52,7 @@ const COPY = {
     spread: "У розкладі", heart: "Ситуація", challenge: "Що ускладнює", advice: "Корисний наступний крок",
     positionQuestions: { heart: "Який аспект ситуації потребує уваги?", challenge: "Яка напруга чи припущення потребує уважнішого погляду?", advice: "Яка маленька дія допоможе краще зрозуміти ситуацію або відповісти на неї?" },
     prism: { lead: "Прочитайте карту через кожну позицію, перш ніж дивитися на версію Olivia. Позиція — це запитання, і та сама карта відповідає на кожне по-своєму.", yours: "Ваше читання", placeholder: "Одне-два речення…", show: "Показати читання Olivia", hide: "Сховати читання Olivia", olivia: "Читання Olivia", showAll: "Просто показати всі три", swapTitle: "Перевірка обміном", swapBody: "Чи могли б якісь два ваші речення помінятися місцями? Якщо так, одне з них ще не прочитало своєї позиції. Перепишіть те, що підійшло б будь-куди.", tryIt: "Спробувати цю карту в розкладі на три карти ↗" },
-    pairs: "У розмові з іншими картами", alsoRead: "Також читали разом із", allPairs: "Усі пари ↗", questions: "Запитання, які варто зберегти", practice: "Невелика практика",
+    pairs: "У розмові з іншими картами", alsoRead: "Також читали разом із", allPairs: "Усі пари ↗", questions: "Запитання, які варто зберегти", askThem: "Розкласти три карти з цими запитаннями ↗", askNote: "Читання з трьох карт, у якому кожна позиція ставить одне з цих запитань.", practice: "Невелика практика",
     shared: "Карти зі спільними символами", sharedVia: "Спільне", ask: "Принести своє запитання ↗",
     askLine: "Значення на сторінці — це мапа. Карта, яку ви витягнете для власного запитання, — це вже сама місцевість.",
     all: "Усі 78 карт", trail: "Простежити цей символ у колоді ↗",
@@ -214,6 +214,10 @@ export default function CardLeaf({ leaf, locale, ground }: { leaf: Leaf; locale:
         <ol className={styles.questions}>
           {text.questions.map((q) => <li key={q}>{q}</li>)}
         </ol>
+        <p className={styles.askThem}>
+          <a href={`${locale === "uk" ? "/uk/" : "/"}#spreads/card-${leaf.id}`}>{c.askThem}</a>
+          <span>{c.askNote}</span>
+        </p>
         <div className={styles.practice}>
           <h3>{c.practice}</h3>
           <p>{text.practice}</p>

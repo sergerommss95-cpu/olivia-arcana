@@ -55,7 +55,7 @@ fonts = (p.parent / 'fonts-inline.css').read_text()
 style_names = ['motion-tokens.css', 'style.css', 'home-continuity.css', 'spread-layout.css', 'single-card-flow.css']
 if (p / 'practice.css').exists():
     style_names.append('practice.css')
-style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css', 'support-note.css', 'reread.css', 'survey.css', 'question-hint.css', 'sentence-first.css', 'today-pair.css', 'mobile-coherence.css'] if (p / name).exists())
+style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css', 'support-note.css', 'reread.css', 'survey.css', 'question-hint.css', 'sentence-first.css', 'today-pair.css', 'card-plan.css', 'pin-walk.css', 'mobile-coherence.css'] if (p / name).exists())
 styles = '\n'.join((p / name).read_text() for name in style_names)
 scripts = {
     'hero': (p / 'hero.js').read_text(),
@@ -102,6 +102,8 @@ def pair_texts(language):
 lazy_json = {
     'phrases': {language: json.dumps(phrase_bank[language], ensure_ascii=False, separators=(',', ':')) for language in ('en', 'uk')},
     'pairs': {language: json.dumps(pair_texts(language), ensure_ascii=False, separators=(',', ':')) for language in ('en', 'uk')},
+    'cardQuestions': {language: json.dumps({leaf['id']: leaf[language]['questions'] for leaf in leaves}, ensure_ascii=False, separators=(',', ':')) for language in ('en', 'uk')},
+    'pins': {language: json.dumps({leaf['id']: [{'x': s['x'], 'y': s['y'], 'name': s[language]['name'], 'seen': s[language]['seen']} for s in leaf['symbols']] for leaf in leaves}, ensure_ascii=False, separators=(',', ':')) for language in ('en', 'uk')},
 }
 lazy_data = {kind: {language: 'data:application/json;base64,' + base64.b64encode(text.encode()).decode() for language, text in texts.items()} for kind, texts in lazy_json.items()}
 

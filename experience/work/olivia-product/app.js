@@ -13,6 +13,7 @@ import {initPhysicalReading} from './physical-reading.js';
 import {initAlmanacJourney} from './almanac-journey.js';
 import {initQuestionCoach} from './question-coach.js';
 import {mountQuestionHint} from './question-hint.js';
+import {mountPinWalk} from './pin-walk.js';
 import {initAlmanacImport} from './almanac-backup.js';
 import {consumeQuestionHandoff} from './question-handoff.js';
 import {getLocale,t,initLocale,localizeCardNotes} from './locale.js';
@@ -117,6 +118,7 @@ function renderReading(record,isSample,{connected=false}={}){
  syncSupportNote($('#reading-view .page-top'),isSample?'':record.question,getLocale());
  text('#intention-frame',record.intention==='open'?'':INTENTION_NOTES[record.intention]||'');$('#intention-frame').hidden=!$('#intention-frame').textContent;
  $('#reading-image').dataset.orientation=record.orientation||'upright';$('#reading-image').src=assets.cards[id];$('#reading-image').alt=`${record.cardName} — Olivia Arcana tarot artwork`;text('#card-index',cardCaption(id)+(record.orientation==='reversed'?' · Reversed':' · Upright'));
+ mountPinWalk({art:$('.reading-art'),holder:$('#reveal-card'),cardId:id,orientation:record.orientation||'upright',locale:getLocale()});
  $('#reflection').value=record.note||'';$('#save-section .reading-notes').open=!!record.note;$('#save-section').hidden=isSample;$('#sample-cta').hidden=!isSample;$('#view-saved').hidden=true;$('#save-status').textContent='';
  let kept=null;try{kept=isSample?null:loadRecords(storage()).find(r=>r.id===record.id)||null;}catch{}
  const dirty=dirtyIds.has(record.id),sameNote=!!kept&&(kept.note||'')===(record.note||''),noteChanged=kept?!sameNote:!!record.note;
