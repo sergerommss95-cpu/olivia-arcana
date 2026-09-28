@@ -51,58 +51,56 @@ void main() {
   if (u_progress <= 0.0) { gl_FragColor = vec4(back.rgb*back.a,back.a); return; }
   if (u_progress >= 1.0) { gl_FragColor = vec4(front.rgb*front.a,front.a); return; }
 
-  // An opening begins at the actual touch. Two winding fissures travel away
-  // from that point through the artwork, then open sideways like soft folds.
-  // The contour is a branching aperture, never an expanding circular rim.
+  // A seam grows along the grain, then two unequal folds part. The tips taper
+  // continuously: there are no horizontal caps or rectangular aperture corners.
+  // Finish the material passage early enough to leave a quiet full-art hold.
+  float t = min(1.0,u_progress/.88);
   vec2 contact = clamp(u_origin,vec2(.025),vec2(.975));
-  vec2 fromContact = uv-contact;
-  float along = fromContact.y;
-  float stem = contact.x + sin(along*5.8)*.065;
-  float branch = stem + sin(along*4.2)*.155;
-  vec2 river = vec2(uv.x+sin(along*5.8)*.08,uv.y);
-  float warp = silk(river*vec2(3.2,5.5)+contact*3.0);
-  float tributaries = silk(vec2(river.x*8.0+warp*2.5,river.y*11.0));
-  float away = smoothstep(0.0,.22,length(fromContact));
-  float ivory = smoothstep(.23,.69,luminance(back.rgb));
-  float transverse = min(abs(uv.x-stem),abs(uv.x-branch));
-  transverse += ((warp-.5)*.065+(tributaries-.5)*.025-ivory*.018)*away;
-  float longitudinal = abs(along) + (warp-.5)*.028*away;
-  // Visible response starts immediately. The fissure travels before it widens,
-  // leaving time to see the emerging scene rather than holding then rushing.
-  float t = pow(u_progress,.88);
-  float reach = (max(contact.y,1.0-contact.y)+.055)*min(1.0,t*2.3);
-  float opening = (max(contact.x,1.0-contact.x)+.105)*pow(t,1.06);
-  float distance = max(longitudinal-reach,transverse-opening);
-  // Touch bows the existing fold toward the finger; there is no pointer halo.
-  vec2 touchDistance = (uv-u_pointer)*vec2(1.35,1.0);
-  float touchPull = exp(-dot(touchDistance,touchDistance)*7.5);
-  float touchEnvelope = smoothstep(0.0,.10,u_progress)*(1.0-smoothstep(.90,1.0,u_progress));
-  distance -= touchPull*.075*touchEnvelope;
-  float aperture = 1.0 - smoothstep(-.014,.014,distance);
-  float seam = gaussian(distance/.023);
-  float thread = gaussian(distance/.0045);
-  float envelope = smoothstep(.035,.15,u_progress) * (1.0-smoothstep(.85,.98,u_progress));
-  seam *= envelope;
-  thread *= envelope;
-
-  // The last sliver of the back curls over the opening. Refraction stays at this
-  // narrow moving fold; the illustration on either side remains perfectly still.
-  vec2 curl = vec2(.013 * sin(uv.y*14.0 + warp*4.0), -.018);
-  curl *= seam * (1.0 + clamp(length(u_pointer-.5),0.0,.7)*.16);
-  vec4 foldedBack = texture2D(u_back,clamp(uv+curl,0.0,1.0));
-  vec4 revealedFront = faceAt(clamp(uv-curl*.23,0.0,1.0));
+  float along = uv.y-contact.y;
+  float opening = smoothstep(.045,1.0,t);
+  float reach = .008 + 1.65*pow(t,.72);
+  float tip = pow(max(0.0,1.0-(along/reach)*(along/reach)),.78);
+  float release = smoothstep(.71,1.0,t);
+  float life = smoothstep(0.0,.08,t)*(1.0-release);
+  // The hand bends the broad fold itself; it never paints a spot onto the card.
+  float hand = exp(-((uv.y-u_pointer.y)*(uv.y-u_pointer.y))*12.0);
+  float pull = clamp(u_pointer.x-contact.x,-.45,.45)*hand*life;
+  float stem = contact.x + sin(along*5.2)*.072*life + pull*.16;
+  float leftWidth = (contact.x+.26)*pow(opening,1.62)*tip;
+  float rightWidth = (1.0-contact.x+.26)*pow(opening,1.82)*tip;
+  // A little extra fullness at opposite heights gives each side its own weight.
+  leftWidth *= 1.0 + sin(along*4.6)*.12*life;
+  rightWidth *= 1.0 - sin(along*5.4+.6)*.13*life;
+  float left = stem-leftWidth;
+  float right = stem+rightWidth;
+  float side = uv.x<stem ? -1.0 : 1.0;
+  float edge = uv.x<stem ? left : right;
+  float distance = (uv.x-edge)*side;
+  float material = silk(uv*vec2(4.0,7.0));
+  // Microscopic grain belongs to the material, not to the silhouette.
+  float grain = (material-.5)*.0025*life;
+  distance += grain;
+  float aperture = (1.0-smoothstep(-.0028,.0028,distance))*step(abs(along),reach);
+  float foldWidth = (.014+.021*sin(t*3.14159265))*life;
+  float fold = gaussian(distance/max(.001,foldWidth));
+  float lip = gaussian((distance-.010)/max(.003,foldWidth*.52));
+  float shadow = gaussian((distance+.023)/.029)*life;
+  // Compression near the edge makes the actual carving turn away as a fold.
+  // Outside that narrow band both illustrations retain their original detail.
+  float gathered = (1.0-smoothstep(0.0,.28,max(0.0,distance)))*life;
+  float tension = min(.12,opening*.25);
+  vec2 displacement = vec2(side*tension,side*.006)*gathered;
+  displacement += vec2(side*.016,0.0)*fold*life;
+  vec2 backUV = clamp(uv-displacement,0.0,1.0);
+  vec4 foldedBack = texture2D(u_back,backUV);
+  float carving = smoothstep(.20,.73,luminance(foldedBack.rgb));
+  foldedBack.rgb *= 1.0-.32*fold*life;
+  foldedBack.rgb += foldedBack.rgb*lip*life*(.18+carving*.24);
+  vec4 revealedFront = front;
+  revealedFront.rgb *= 1.0-shadow*.29;
   vec4 art = mix(foldedBack,revealedFront,aperture);
-  // A thin dark lip lends the crossing physical depth. No blanket colour wash.
-  float shadow = gaussian((distance+.024)/.026) * envelope;
-  art.rgb *= 1.0 - shadow * .24;
-  float carving = max(smoothstep(.25,.68,luminance(foldedBack.rgb)),
-                      smoothstep(.25,.68,luminance(revealedFront.rgb)));
-  vec3 ivoryLight = vec3(.97,.88,.68);
-  vec3 sourceLight = min(mix(foldedBack.rgb,revealedFront.rgb,.50) * 1.45 + vec3(.08,.055,.025),vec3(1.0));
-  vec3 rim = mix(sourceLight,ivoryLight,.54);
-  // A hairline edge can cross velvet; the wider grazing light belongs only to
-  // pale relief. This is finite light at the opening, never a glowing rectangle.
-  art.rgb = mix(art.rgb,rim,thread*.66 + seam*carving*.17);
+  // Clear the final corner remnants and any shading before the still hold.
+  art = mix(art,front,smoothstep(.93,1.0,t));
   gl_FragColor = vec4(art.rgb*art.a,art.a);
 }`;
 

@@ -30,7 +30,7 @@ export function singleCardSurfaceTransform(x=.5,y=.5,active=true){
  const across=(clamp(x,0,1)-.5)*2,down=(clamp(y,0,1)-.5)*2;
  return `perspective(1200px) translateZ(${active?9:0}px) rotateX(${-down*6}deg) rotateY(${across*7}deg)`;
 }
-export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce,onBrowse}){
+export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce,onBrowse,unveilingFactory=mountCardUnveiling}){
  let phase='idle',slot=null,quad=null,targetMap=new Map(),generation=0,hoverTimer=0,hoverReturning=false,drag=null,selected=null,activeAnimation=null,quadAnimation=null,selectedByKeyboard=false,suppressClickUntil=0,surfaceAnimation=null,handPointer=null,handStart=null,handMoved=false;
  const words=(en,uk)=>getLocale()==='uk'?uk:en;
  const layer=document.createElement('div');layer.className='single-card-layer';layer.hidden=true;
@@ -41,7 +41,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
  card.setAttribute('aria-hidden','true');
  reveal.setAttribute('aria-describedby','single-card-hint');
  const material=mountCardMaterial(surface,{image,getDeckId:()=>selected?.deckId||assets.deckId||'olivia',reduced,enabled:()=>['held','revealed'].includes(phase)});
- const unveiling=mountCardUnveiling(surface,{image,reduced});
+ const unveiling=unveilingFactory(surface,{image,reduced});
  function actionCopy(revealed=false,error=false){
   eyebrow.textContent=revealed?t(selected?.cardName||'Your card'):words('A moment with your card','Мить із вашою картою');
   reveal.textContent=revealed?words('Read my card','Прочитати карту'):words('Unveil my card','Відкрити мою карту');
@@ -158,7 +158,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
  function hover(index,keyboard=false){if(!visible()||!['idle','hover'].includes(phase)||choices().inert||drag)return;clearTimeout(hoverTimer);if(phase==='hover'&&slot===index){if(hoverReturning)settleHover(index,true);return;}clearHover();slot=index;card.dataset.slot=index;selectedByKeyboard=keyboard;image.style.rotate='';image.src=assets.back;image.alt='';image.style.transform='';material.refresh();layer.hidden=false;actions.hidden=true;state('hover');put(sourcePoints(index));hideSource(index);settleHover(index,true);}
  function leave(index){if(drag||phase!=='hover'||slot!==index)return;clearTimeout(hoverTimer);hoverTimer=setTimeout(()=>settleHover(index),60);}
  function releasePointer(gesture){try{if(gesture?.button.hasPointerCapture(gesture.id))gesture.button.releasePointerCapture(gesture.id);}catch{/* The browser may release capture during a route or viewport change. */}}
- function cancel(){selectedByKeyboard=false;generation++;clearTimeout(hoverTimer);unveiling.cancel();delete layer.dataset.unveiling;delete layer.dataset.inspecting;cancelAnimation();const previous=drag;drag=null;releasePointer(previous);selected=null;slot=null;quad=null;state('idle');layer.hidden=true;actions.hidden=true;note.open=false;image.style.transform='';image.style.visibility='';reveal.disabled=false;hideSource(null);document.body.classList.remove('single-reading-arrival');choices().inert=!visible();}
+ function cancel(){selectedByKeyboard=false;generation++;clearTimeout(hoverTimer);unveiling.cancel();delete layer.dataset.unveiling;delete layer.dataset.unveilingRest;delete layer.dataset.inspecting;cancelAnimation();const previous=drag;drag=null;releasePointer(previous);selected=null;slot=null;quad=null;state('idle');layer.hidden=true;actions.hidden=true;note.open=false;image.style.transform='';image.style.visibility='';reveal.disabled=false;hideSource(null);document.body.classList.remove('single-reading-arrival');choices().inert=!visible();}
  async function pick(index,keyboard=false){
   if(!visible()||!['idle','hover'].includes(phase)||choices().inert)return;
   clearTimeout(hoverTimer);selectedByKeyboard=keyboard||selectedByKeyboard;
@@ -166,6 +166,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
   generation++;cancelAnimation();const token=generation;
   try{selected=choose(index);}catch(error){cancel();announce(words('The card could not be drawn. Please try again.','Не вдалося витягнути карту. Спробуйте ще раз.'));return;}
   if(!selected){cancel();return;}
+  unveiling.touch(.46,.62);
   actionCopy();prepareNote();hideSource(index);state('extracting');layer.hidden=false;actions.hidden=true;choices().inert=true;document.querySelector('#random-card').disabled=true;
   liftSurface();
   if(!await animateQuad(stageQuad(),1450,28)||token!==generation)return;
@@ -174,6 +175,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
  function restoreHeld(record,index){
   cancel();if(!record||!Number.isInteger(index))return;
   selected=record;slot=index;card.dataset.slot=index;selectedByKeyboard=true;
+  unveiling.touch(.46,.62);
   image.style.rotate='';image.src=assets.back;image.alt=words('Your chosen card, face down','Ваша обрана карта, сорочкою догори');image.style.transform='';
   actionCopy();prepareNote();layer.hidden=false;put(stageQuad());state('held');hideSource(index);material.refresh();
   choices().inert=true;document.querySelector('#random-card').disabled=true;actions.hidden=false;reveal.disabled=false;
@@ -199,12 +201,14 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
   if(token!==generation)return;
   actions.hidden=true;
   let approach=null;
-  const unveiled=await unveiling.reveal({front:nextImage,orientation:selected.orientation,duration:5200,onStart:()=>{
+  const unveiled=await unveiling.reveal({front:nextImage,orientation:selected.orientation,duration:5000,onStart:()=>{
    layer.dataset.unveiling='true';
    layer.dataset.revealCaption=words('Move gently across the card.','Проведіть по карті легким рухом.');
    announce(words('Your card is opening. Move gently across its surface.','Ваша карта відкривається. Легко проведіть по її поверхні.'));
-   approach=animateQuad(unveilingQuad(),1200,0);
+   approach=animateQuad(unveilingQuad(),1000,0);
    return approach;
+  },onProgress:progress=>{
+   if(token===generation)layer.dataset.unveilingRest=progress>=.88?'true':'false';
   }});
   if(token!==generation)return;
   if(approach)await approach;
@@ -213,11 +217,11 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
    image.style.rotate=selected.orientation==='reversed'?'180deg':'';image.src=nextImage.src;
    image.style.transform='';
    unveiling.cancel();
-   delete layer.dataset.unveiling;layer.dataset.inspecting='true';
+   delete layer.dataset.unveiling;delete layer.dataset.unveilingRest;layer.dataset.inspecting='true';
    await animateQuad(stageQuad(),1150,0);
    if(token!==generation)return;
   }else{
-   unveiling.cancel();delete layer.dataset.unveiling;
+   unveiling.cancel();delete layer.dataset.unveiling;delete layer.dataset.unveilingRest;
    if(approach)put(stageQuad());
   // One visible image swaps exactly edge-on. The two halves share angular speed.
   if(!reduced()){

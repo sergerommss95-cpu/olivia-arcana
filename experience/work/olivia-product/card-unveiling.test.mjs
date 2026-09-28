@@ -282,3 +282,63 @@ test('unavailable 2D context or denied pixel readback falls back without startin
     x.renderer.destroy();
   }
 });
+
+test('cancelling from a progress callback wins even on the final artwork frame', async () => {
+  for (const stopAt of [.5, 1]) {
+    const x = fixture(); let reports = 0;
+    const result = x.renderer.reveal({front: x.front, duration: 1000, onProgress: progress => {
+      reports++; if (progress >= stopAt) x.renderer.cancel();
+    }});
+    await flush(); x.advance(100); x.advance(100 + stopAt * 1000);
+    assert.equal(await result, false);
+    assert.ok(x.canvas.hidden); assert.equal(x.frames.size, 0); assert.equal(reports, 1);
+    x.advance(5000); assert.equal(reports, 1);
+    x.renderer.destroy();
+  }
+});
+
+test('a replacement started inside onProgress owns the surface and animation clock', async () => {
+  for (const replaceAt of [.5, 1]) {
+    const x = fixture(); let replacement, oldReports = 0;
+    const original = x.renderer.reveal({front: x.front, duration: 1000, onProgress: progress => {
+      oldReports++;
+      if (progress >= replaceAt) replacement = x.renderer.reveal({front: x.front, duration: 800});
+    }});
+    await flush(); x.advance(100); x.advance(100 + replaceAt * 1000);
+    assert.equal(await original, false); await flush();
+    assert.equal(x.canvas.hidden, false, 'finishing the old callback must not hide its replacement');
+    assert.equal(x.frames.size, 1, 'the old reveal must not schedule another frame');
+    x.advance(2000); x.advance(2800);
+    assert.equal(await replacement, true); assert.equal(oldReports, 1); assert.equal(x.frames.size, 0);
+    x.renderer.destroy();
+  }
+});
+
+test('a camera approach finishing in a hidden tab waits for visibility before starting time', async () => {
+  const x = fixture(), progress = []; let approachReady;
+  const result = x.renderer.reveal({front: x.front, duration: 1000,
+    onStart: () => new Promise(resolve => { approachReady = resolve; }),
+    onProgress: value => progress.push(value)});
+  await flush(); assert.equal(x.frames.size, 0);
+  x.doc.hidden = true; x.doc.dispatch('visibilitychange');
+  approachReady(); await flush();
+  assert.equal(x.frames.size, 0);
+  x.advance(60000); assert.equal(progress.length, 0);
+  x.doc.hidden = false; x.doc.dispatch('visibilitychange');
+  x.advance(60016); x.advance(60116);
+  assert.equal(progress.at(-1), .1, 'background time must not consume the reveal');
+  x.renderer.cancel(); assert.equal(await result, false); x.renderer.destroy();
+});
+
+test('cancelling a completed-art hold cannot be revived by visibility or context restoration', async () => {
+  const x = fixture(); let reports = 0;
+  const result = x.renderer.reveal({front: x.front, duration: 1000, onProgress: () => reports++});
+  await flush(); x.advance(100); x.advance(1100); assert.equal(await result, true);
+  x.renderer.cancel();
+  x.doc.hidden = true; x.doc.dispatch('visibilitychange');
+  x.doc.hidden = false; x.doc.dispatch('visibilitychange');
+  x.canvas.dispatch('webglcontextlost', {preventDefault() {}}); x.canvas.dispatch('webglcontextrestored');
+  x.advance(5000);
+  assert.ok(x.canvas.hidden); assert.equal(x.frames.size, 0); assert.equal(reports, 1);
+  x.renderer.destroy();
+});

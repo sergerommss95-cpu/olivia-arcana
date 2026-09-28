@@ -26,7 +26,7 @@ class Element{
   this.selectors={'.single-card-object':card,'.single-card-actions':actions,'.single-card-return':back};
  }
 }
-function setup({reduced=true,decode=()=>Promise.resolve(),locale='en'}={}){
+function setup({reduced=true,decode=()=>Promise.resolve(),locale='en',unveilingFactory}={}){
  const body=new Element('body');body.dataset.view='choose';const stage=new Element(),choices=new Element(),random=new Element('button'),destination=new Element('img'),title=new Element('h1'),source=new Element('button');source.dataset.slot='0';choices.append(source);choices.selectors={'[data-slot="0"]':source};
  const animations=[],windowListeners={},documentListeners={},mediaListeners={};
  const dispatch=(registry,type,event={})=>{for(const listener of registry[type]||[])listener(event);};
@@ -35,7 +35,7 @@ function setup({reduced=true,decode=()=>Promise.resolve(),locale='en'}={}){
  const window={OLIVIA_LOCALE:locale,location:{pathname:'/',search:''},visualViewport:null};
  Object.assign(globalThis,{document,window,innerWidth:1280,innerHeight:900,addEventListener(type,fn){(windowListeners[type]??=[]).push(fn);},matchMedia:query=>({matches:false,addEventListener(type,fn){(mediaListeners[query]??=[]).push(fn);}}),requestAnimationFrame:()=>1,cancelAnimationFrame(){},Image:class{naturalWidth=400;decode(){return decode();}}});
  let chosen=0,read=0;const announcements=[],record={cardId:0,cardName:'The Fool',question:'What can I begin?',deckId:'space-between'};
- const flow=initSingleCardFlow({assets:{back:'back.png',cards:['face.png'],deckId:'space-between'},motion:()=>null,reduced:()=>reduced,choose:()=>{chosen++;return record;},onRead:()=>{read++;body.dataset.view='reading';return destination;},announce:value=>announcements.push(value)});
+ const flow=initSingleCardFlow({assets:{back:'back.png',cards:['face.png'],deckId:'space-between'},motion:()=>null,reduced:()=>reduced,choose:()=>{chosen++;return record;},onRead:()=>{read++;body.dataset.view='reading';return destination;},announce:value=>announcements.push(value),unveilingFactory});
  const layer=body.children[0],card=layer.querySelector('.single-card-object'),image=card.querySelector('img'),actions=layer.querySelector('.single-card-actions'),button=actions.querySelector('button');
  return {flow,body,layer,card,surface:card.querySelector('.single-card-surface'),image,actions,button,animations,announcements,record,resize(){dispatch(windowListeners,'resize');},setReduced(value){reduced=value;dispatch(mediaListeners,'(prefers-reduced-motion: reduce)',{matches:value});},get chosen(){return chosen;},get read(){return read;}};
 }
@@ -162,4 +162,27 @@ test('the click following a reduced-motion fan selection does not also unveil th
  assert.equal(x.body.dataset.singleState,'held');assert.equal(x.chosen,1);
  x.card.dispatch('click',{detail:1});await flush();
  assert.equal(x.body.dataset.singleState,'held');assert.equal(x.image.src,'back.png');assert.equal(x.chosen,1);assert.equal(x.read,0);
+});
+
+test('fresh and restored cards start from a neutral origin while current-card touch still guides its reveal',async()=>{
+ for(const nextCard of ['pick','restore']){
+  let pointer=[.46,.62];const origins=[];
+  const x=setup({reduced:false,unveilingFactory:()=>({
+   touch(x,y){pointer=[x,y];},cancel(){},
+   reveal(){origins.push([...pointer]);return Promise.resolve(false);}
+  })});
+  let picking=x.flow.pick(0,true);x.animations.at(-1).finish();await picking;
+  x.card.dispatch('pointermove',{pointerId:1,pointerType:'mouse',clientX:213,clientY:491.6});
+  x.button.dispatch('click');await flush();
+  assert.ok(Math.abs(origins[0][0]-.15)<1e-8&&Math.abs(origins[0][1]-.8)<1e-8,'the active card must open from its own latest touch');
+  x.flow.cancel();
+  if(nextCard==='pick'){
+   picking=x.flow.pick(0,true);x.animations.at(-1).finish();await picking;
+  }else x.flow.restoreHeld(x.record,0);
+  // A keyboard/button activation should not inherit a previous card’s corner.
+  x.button.dispatch('click');await flush();
+  assert.deepEqual(origins[1],[.46,.62]);
+  assert.equal(x.chosen,nextCard==='pick'?2:1);assert.equal(x.read,0);
+  x.flow.cancel();
+ }
 });
