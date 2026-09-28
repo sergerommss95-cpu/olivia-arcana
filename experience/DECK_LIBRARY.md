@@ -1,6 +1,6 @@
 # Deck library — implementation handoff
 
-Updated 28 September 2026. This describes the current source addition, not a production deployment. See the latest release record for deployment and browser QA status.
+Updated 28 September 2026. Live on oliviaarcana.com. See the latest release record for deployment and browser QA status.
 
 ## Product decision
 
@@ -9,7 +9,7 @@ The collection gives a reader a choice of visual world before drawing, without a
 | ID | Deck | Role | Reverse |
 |---|---|---|---|
 | `olivia` | Olivia | General use: daily life, work and change | Existing lapis/ivory Olive Lattice |
-| `space-between` | The Space Between / Простір між нами | Connection, intimacy and boundaries | **The Hidden Garden**: ivory and plum marble olive leaves, restrained gold olives, aubergine velvet |
+| `space-between` | Amielle (both languages) | Connection, intimacy and boundaries | **The Hidden Garden**: ivory and plum marble olive leaves, restrained gold olives, aubergine velvet |
 
 The user explicitly corrected an earlier selection: **Hidden Garden is selected, not The Silk Seal**. Do not substitute the pleated ivory fans or the old oversized twisted-marble reverse.
 
@@ -82,6 +82,8 @@ node --test website/src/lib/*.test.mjs website/netlify/edge-functions/_shared/*.
 The product suite passed **225/225** on 28 September after the schema/backup compatibility fixes. New coverage includes `deck-library.test.mjs` and `deck-identity.test.mjs`; existing question-history, backup, draft and legacy-deck tests were extended. Approved motion regression tests remained green in that run. This test count is a dated observation, not a substitute for rerunning the current tree.
 
 Before release, visually exercise both routes and languages on desktop and phone; change decks before single and spread draws; reopen records from the other deck; inspect artwork/reverse toggles; check reduced motion, selected-state focus and mobile card bounds. Verify a backup round trip and daily-card preservation. Browser QA and final build/deployment evidence belong in the release record; they are not implied by unit-test success.
+
+The user chose the name **Amielle** on 28 September 2026, replacing “The Space Between”. Keep the internal `space-between` ID and asset paths stable so existing preferences, readings and backups continue to work. The display name is Amielle in both languages.
 
 ## Extending the collection
 

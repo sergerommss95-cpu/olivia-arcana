@@ -6,13 +6,13 @@ For work across earlier Olivia tasks, start with [the project history index](his
 
 ## Current state
 
-- New source work on 28 September adds the bilingual **Decks** collection and persistent choice between Olivia and The Space Between. Read [the deck-library implementation handoff](experience/DECK_LIBRARY.md) before continuing this feature. The selected specialist reverse is **The Hidden Garden**, not The Silk Seal. A draft preview was created; see [deck-library release evidence](experience/outputs/olivia-deck-library-release.json) and [browser QA](experience/outputs/qa-deck-library/review.md). The draft preview and both edge availability endpoints were verified after a temporary DNS failure cleared. Production details below remain the last recorded 26 September release.
+- New source work on 28 September adds the bilingual **Decks** collection and persistent choice between Olivia and Amielle. Read [the deck-library implementation handoff](experience/DECK_LIBRARY.md) before continuing this feature. The selected specialist reverse is **The Hidden Garden**, not The Silk Seal. Published to production on 28 September; see [deck-library release evidence](experience/outputs/olivia-deck-library-release.json) and [browser QA](experience/outputs/qa-deck-library/review.md). The user named the specialist deck **Amielle**. Its internal `space-between` ID stays stable to preserve saved data. Both live language routes and edge availability endpoints are verified.
 
 - Branch: `codex/session-handoff-2026-09-26`.
-- Current production: https://oliviaarcana.com/?revision=mobile-surfaces#discover
-- Exact deployment: https://6ab7b1eb2e3eb145b023937a--olivia-arcana.netlify.app/
+- Current production: https://oliviaarcana.com/
+- Exact deployment: https://6aba987a183c0d45b862fe07--olivia-arcana.netlify.app/
 - Ukrainian production: https://oliviaarcana.com/uk/
-- Production deploy ID: `6ab7b1eb2e3eb145b023937a`; Netlify site ID: `6a67384f-4d46-451e-ac61-f8108015fbfd`.
+- Production deploy ID: `6aba987a183c0d45b862fe07`; Netlify site ID: `6a67384f-4d46-451e-ac61-f8108015fbfd`.
 - Mobile v3 is deployed to production. The user's latest iPhone screenshots showed the old production mobile v1; v2 had existed only on a separate preview. This release promotes the v2 work and repairs the remaining cross-section frames and button surfaces. The user has not yet reviewed v3 on a physical iPhone.
 - This branch includes local predecessor commits `433ffb0` and `9510387`, previously ahead of origin/main, plus the current source/integration. It is a continuation snapshot, not a claim that every proposed feature is launch-ready.
 
@@ -20,7 +20,7 @@ For work across earlier Olivia tasks, start with [the project history index](his
 
 A beautiful, cinematic and mysterious tarot product, with tactile card selection and an unmistakably personal experience. Mobile should use the phone format rather than compress desktop. Keep the approved lapis/navy, ivory, restrained antique gold, card artwork and Olive Lattice back.
 
-The original deck remains the general-use and homepage identity. The newer **The Space Between** deck adds aubergine velvet and marble for connection/relationship readings. A reader may choose it for their own ritual; that choice must not replace the approved homepage hero or alter artwork in previously saved readings.
+The original deck remains the general-use and homepage identity. The newer **Amielle** deck adds aubergine velvet and marble for connection/relationship readings. A reader may choose it for their own ritual; that choice must not replace the approved homepage hero or alter artwork in previously saved readings.
 
 Repeated pain points to avoid reintroducing:
 

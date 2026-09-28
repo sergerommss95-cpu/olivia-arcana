@@ -1,9 +1,9 @@
 {
   "date": "2026-09-28",
-  "status": "draft-preview-verified",
-  "preview_url": "https://6aba91b29e3a832d20ea7cb8--olivia-arcana.netlify.app/decks/",
-  "deploy_id": "6aba91b29e3a832d20ea7cb8",
-  "production_updated": false,
+  "status": "production-verified",
+  "preview_url": "https://6aba987a183c0d45b862fe07--olivia-arcana.netlify.app/decks/",
+  "deploy_id": "6aba987a183c0d45b862fe07",
+  "production_updated": true,
   "routes": [
     "/decks/",
     "/uk/decks/"
@@ -32,12 +32,21 @@
     },
     "edge_reading_available": true,
     "edge_chat_available": true,
-    "remote_browser_render": "passed"
+    "remote_browser_render": "passed",
+    "rename_targeted_tests": 9,
+    "production_manifest_matches_build": true
   },
   "limits": [
     "Physical iPhone review still needed; phone checks used browser viewport.",
     "AI synthesis unchanged; no paid personal-reading request was made in this QA.",
     "Deck preference is browser-local, not cross-device account sync."
   ],
-  "deployment_note": "Initial DNS failure cleared. Both pages and edge availability verified after recovery. Production unchanged."
+  "deployment_note": "User authorized production deployment. Promoted the checked Amielle build. Live homepage, both deck pages and edge availability verified; live experience manifest matches the checked build.",
+  "production_url": "https://oliviaarcana.com/decks/",
+  "published_at": "2026-09-28T16:45:20.394Z",
+  "deck_display_names": {
+    "olivia": "Olivia",
+    "space-between": "Amielle"
+  },
+  "previous_draft_deploy_id": "6aba91b29e3a832d20ea7cb8"
 }
