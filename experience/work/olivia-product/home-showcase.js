@@ -1,4 +1,5 @@
 import {showArt} from './held-art.js';
+import {MEMBERSHIP_LIVE} from './membership.js';
 /** Lightweight, explicitly labelled product examples. No draws or records are created here. */
 const UK = {
   practiceKicker:'Особиста практика у трьох моментах', practiceTitle:'Залиште місце<br><em>для іншого погляду.</em>', begin:'Почніть зі свого запитання',
@@ -15,11 +16,12 @@ const UK = {
   footerThought:'Давні символи.<br>Ваше власне значення.', footerNav:'Дослідити Olivia', footerLegal:'Про Olivia і правові сторінки', footerAbout:'Про Olivia', footerPrivacy:'Приватність', footerTerms:'Умови', footerContact:'Контакти', drawCard:'Витягнути карту', guidedSpreads:'Розклади', dailyAlmanac:'Щоденний альманах', physicalCards:'Карти з вашої колоди', howWorks:'Як працює Olivia', membership:'Безкоштовно й з членством', backTop:'Повернутися до початку'
 };
 
+const OPEN_ACCESS=['Free, with a question of your own.','Безкоштовно — із власним запитанням.'];
 const SPREAD_PREVIEWS = {
   3: {
     name:['A little clarity','Трохи ясності'], eyebrow:['ONE QUESTION · THREE PERSPECTIVES','ОДНЕ ЗАПИТАННЯ · ТРИ ПЕРСПЕКТИВИ'],
     description:['The situation, what complicates it, and one useful way forward.','Ситуація, те, що її ускладнює, і один корисний крок уперед.'],
-    access:['Three cards, freely. Five and eight with membership.','Три карти — безкоштовно. П’ять і вісім — з членством.'],
+    access:MEMBERSHIP_LIVE?['Three cards, freely. Five and eight with membership.','Три карти — безкоштовно. П’ять і вісім — з членством.']:OPEN_ACCESS,
     positions:[
       {label:['The situation','Ситуація'],question:['What aspect of the situation deserves attention?','Який аспект ситуації потребує уваги?'],x:19,y:48,r:-7},
       {label:['What complicates it','Що ускладнює'],question:['What tension or assumption deserves a closer look?','Яка напруга чи припущення потребує уважнішого погляду?'],x:50,y:41,r:0},
@@ -29,7 +31,7 @@ const SPREAD_PREVIEWS = {
   5: {
     name:['At a crossroads','На роздоріжжі'],eyebrow:['TWO POSSIBILITIES · ROOM TO CHOOSE','ДВІ МОЖЛИВОСТІ · ПРОСТІР ДЛЯ ВИБОРУ'],
     description:['Put two paths beside what matters to you. Notice what each asks, and what you want to understand before choosing.','Поставте два шляхи поруч із тим, що для вас важливе. Помітьте, чого вимагає кожен і що ви хочете зрозуміти перед вибором.'],
-    access:['Five-card personal readings are included with membership.','Особисті розклади на п’ять карт доступні із членством.'],
+    access:MEMBERSHIP_LIVE?['Five-card personal readings are included with membership.','Особисті розклади на п’ять карт доступні із членством.']:OPEN_ACCESS,
     positions:[
       {label:['At the heart','У центрі'],question:['What value or need matters most in this choice?','Яка цінність чи потреба найважливіша в цьому виборі?'],x:50,y:50,r:0},
       {label:['Path A','Шлях А'],question:['What quality or demand could you explore in your first option?','Яку рису чи вимогу варто дослідити у першому варіанті?'],x:18,y:50,r:-5},
@@ -41,7 +43,7 @@ const SPREAD_PREVIEWS = {
   8: {
     name:['The inner compass','Внутрішній компас'],eyebrow:['A LAYERED QUESTION · A WIDER VIEW','БАГАТОШАРОВЕ ЗАПИТАННЯ · ШИРШИЙ ПОГЛЯД'],
     description:['Explore the roots, influences, tension and support around a situation. Bring the whole picture back to one manageable step.','Дослідіть коріння, впливи, напругу й підтримку навколо ситуації. Поверніть цілу картину до одного посильного кроку.'],
-    access:['Eight-card personal readings are included with membership.','Особисті розклади на вісім карт доступні із членством.'],
+    access:MEMBERSHIP_LIVE?['Eight-card personal readings are included with membership.','Особисті розклади на вісім карт доступні із членством.']:OPEN_ACCESS,
     positions:[
       {label:['The situation','Ситуація'],question:['Which part of the whole deserves attention first?','Якій частині цілого варто приділити увагу спочатку?'],x:43,y:48,r:-2},
       {label:['At the root','У корені'],question:['What established pattern or assumption might be worth examining?','Яку звичну закономірність чи припущення варто розглянути?'],x:40,y:80,r:2},
@@ -118,6 +120,7 @@ export function initHomeShowcase({assets,locale='en',reduced=()=>false}={}) {
     $('#home-spread-panel').setAttribute('aria-labelledby',button.id);
     $('#home-spread-name').textContent=pick(spread.name);$('#home-spread-eyebrow').textContent=pick(spread.eyebrow);
     $('#home-spread-description').textContent=pick(spread.description);$('#home-spread-access').textContent=pick(spread.access);
+    const spreadLink=$('#home-spread-access')?.previousElementSibling;if(spreadLink?.matches('a.home-link'))spreadLink.href='#spreads/'+{3:'clarity3',5:'crossroads5',8:'compass8'}[count];
     board.dataset.count=String(count);board.replaceChildren();
     spread.positions.forEach((item,index)=>{
       const figure=document.createElement('figure');figure.className='home-table-card';

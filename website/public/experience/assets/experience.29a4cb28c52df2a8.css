@@ -1318,7 +1318,21 @@ body[data-view=question] #question-view{padding-top:8.2rem;width:min(40rem,58%)}
 #question-form>.privacy-note{max-width:100%}.other-reading-ways{margin-top:1rem;border-top:1px solid var(--rule);max-width:40rem}.other-reading-ways>a{display:block;font-size:.72rem;padding:.6rem 0;line-height:1.7}
 #question-view>a[href='#spreads']{display:none}
 #spread-library>.spread-entry{padding-top:2.5rem;border:0;gap:2rem 5vw;margin:0 0 2rem;align-items:start}.spread-entry>.reading-steps{grid-column:1/-1;margin-bottom:.4rem}.spread-entry>div:first-of-type{position:sticky;top:3rem}.spread-entry h2{max-width:25rem}.spread-entry>form{min-width:0}.spread-entry>button{grid-column:2;text-align:left;justify-self:start;font-size:.8rem}.spread-entry .reading-preferences{margin-top:1rem}
-.spread-recommendation{padding:1rem 0;margin:1rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}.spread-recommendation .quiet-link{font-size:.7rem;margin-top:.6rem}
+.spread-recommendation{padding:1rem 0;margin:1rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+/* How many cards: all three spreads stay in view, chosen in place. */
+.spread-size-choice{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.55rem;margin:.75rem 0 1rem;padding:0;border:0;min-width:0}
+.spread-size-choice label{position:relative;display:block;min-width:0;cursor:pointer}
+.spread-size-choice input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.spread-size-choice span{display:grid;grid-template-columns:auto 1fr;align-items:baseline;column-gap:.4rem;min-height:66px;padding:.75rem .9rem .7rem;border-radius:12px;background:#1c374bcc;box-shadow:inset 0 1px 0 #c9d7d820;color:#bccbd3;transition:background-color var(--dur-control) var(--ease-control),color var(--dur-control) var(--ease-control),box-shadow var(--dur-control) var(--ease-control),translate var(--dur-press) var(--ease-control)}
+.spread-size-choice b{font:400 2rem/1 'Cormorant Garamond',serif;color:#d8c59c}
+.spread-size-choice em{font-style:normal;font-size:.72rem;letter-spacing:.02em}
+.spread-size-choice small{grid-column:1/-1;margin-top:.35rem;font-size:.66rem;line-height:1.35;color:#9fb0ba;overflow-wrap:anywhere}
+.spread-size-choice input:checked+span{background:#eddfc2;color:#172d3d;box-shadow:inset 0 1px 0 #fff5de,0 3px 10px #0002}
+.spread-size-choice input:checked+span :is(b,small){color:inherit}
+.spread-size-choice input:focus-visible+span{outline:2px solid #f2d8a1;outline-offset:3px}
+.spread-size-choice label:active span{translate:0 1px}
+@media(hover:hover){.spread-size-choice label:hover input:not(:checked)+span{background:#24445ccc}}
+@media(prefers-reduced-motion:reduce){.spread-size-choice span{transition:none}}
 .other-spreads{border-top:1px solid var(--rule);margin-top:2.5rem;padding-top:.5rem}.other-spreads>summary{padding:1.25rem 0;cursor:pointer;color:#d5c39e;font-size:.9rem}.other-spreads .spread-collection{margin:1rem 0 3rem}.other-spreads .spread-entry-actions .solid-action{font-size:.78rem}
 .spread-ritual-head{flex-wrap:wrap}.spread-ritual-head>.reading-steps{flex-basis:100%;margin:0 0 1rem}
 .reading-observation{margin:1.5rem 0;border-bottom:1px solid var(--rule)}
@@ -2358,6 +2372,23 @@ textarea,select,input:not([type=checkbox]):not([type=radio]):not([type=range]):n
 .home-memory-tabs button[aria-selected=true]{background:#eddfc2;color:#172d3d;box-shadow:inset 0 1px 0 #fff5de,0 3px 10px #0002}
 .home-memory-tabs button[aria-selected=true] :is(b,span){color:inherit}
 .home-memory-tabs button:after,.home-spread-tabs button:after{display:none}
+/* The timeline rides above the filled tabs: one node per day, aligned with its
+   label, and a gilt line that advances to the chosen day. Phones hide it. */
+@media(min-width:701px){
+ .home-memory-tabs{padding-top:24px;isolation:isolate}
+ .home-memory-tabs:before,.home-memory-tabs:after{content:'';position:absolute;top:5px;left:25.5px;height:1px;z-index:0}
+ .home-memory-tabs:before{right:25.5px;background:#c7b28c3d}
+ .home-memory-tabs:after{width:0;background:linear-gradient(90deg,#c7b28c,#e6cf9e);transition:width var(--dur-ritual) var(--ease-glide)}
+ .home-memory-tabs:has(>button:nth-child(2)[aria-selected=true]):after{width:calc(50% - 25.5px)}
+ .home-memory-tabs:has(>button:nth-child(3)[aria-selected=true]):after{width:calc(100% - 51px)}
+ .home-memory-tabs button{z-index:1;padding:14px 20px}
+ .home-memory-tabs button:before{top:-24px;left:20px;box-sizing:border-box;border:1px solid #b3a27f;background:#0f1d2c;transition:background-color var(--dur-arrive) var(--ease-settle),box-shadow var(--dur-arrive) var(--ease-settle)}
+ .home-memory-tabs button:nth-child(2):before{left:calc(50% - 5.5px)}
+ .home-memory-tabs button:last-child:before{left:auto;right:20px}
+ .home-memory-tabs button:has(~button[aria-selected=true]):before{background:#c7b28c}
+ .home-memory-tabs button[aria-selected=true]:before{background:#e6cf9e;border-color:#e6cf9e;box-shadow:0 0 0 4px #c7b28c24,0 0 14px #e6cf9e40}
+}
+@media(min-width:701px) and (prefers-reduced-motion:reduce){.home-memory-tabs:after,.home-memory-tabs button:before{transition:none}}
 @media(hover:hover){.home-sample-reveal:hover>.home-reveal-caption{background:#fff1d4;translate:0 -2px;box-shadow:inset 0 1px 0 #fff9e8,0 3px 0 #a8997b,0 12px 26px #0004}}
 @media(prefers-reduced-motion:reduce){.home-sample-reveal>.home-reveal-caption{transition:none;translate:none!important}}
 
@@ -2853,6 +2884,9 @@ textarea,select,input:not([type=checkbox]):not([type=radio]):not([type=range]):n
     consent row into a block and butt the checkbox against its words. */
  .mobile-experience .spread-entry .guidance-choice>label[for] {display:flex;align-items:center;gap:12px;margin:0}
  .mobile-experience .spread-entry #begin-spread {display:flex;justify-content:space-between;width:100%;border-radius:29px}
+ .mobile-experience .spread-size-choice {gap:8px}
+ .mobile-experience .spread-size-choice span {min-height:64px;padding:10px 11px;border-radius:14px}
+ .mobile-experience .spread-size-choice small {font-size:11px}
  .mobile-experience #spreads-view .other-spreads {margin-top:8px;border:0!important;padding:0}
  .mobile-experience #spreads-view .other-spreads>summary {
   display:flex;align-items:center;justify-content:space-between;gap:14px;list-style:none;width:100%;min-height:56px;box-sizing:border-box;
