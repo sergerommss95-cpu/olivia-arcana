@@ -5,7 +5,7 @@ import { CARD_SLUGS } from "./cards/card-pages";
 export const dynamic = "force-static";
 
 const ORIGIN = "https://oliviaarcana.com";
-const translatedPaths = ["/", "/cards/", ...CARD_SLUGS.map((slug) => `/cards/${slug}/`)];
+const translatedPaths = ["/", "/decks/", "/cards/", ...CARD_SLUGS.map((slug) => `/cards/${slug}/`)];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const paired = new Map<string, { en: string; uk: string; "x-default": string }>();

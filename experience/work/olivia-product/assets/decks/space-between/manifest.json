@@ -1,0 +1,1290 @@
+{
+  "deck": "space-between",
+  "name": "The Space Between",
+  "selectedBack": "The Hidden Garden",
+  "format": "webp",
+  "encoding": {
+    "width": 768,
+    "quality": 90,
+    "method": 6,
+    "resampling": "Lanczos",
+    "mode": "RGB"
+  },
+  "frontCount": 78,
+  "totalImages": 79,
+  "totalBytes": 13229266,
+  "mapping": {
+    "00-21": "Major Arcana: The Fool through The World",
+    "22-35": "Wands: Ace through King",
+    "36-49": "Cups: Ace through King",
+    "50-63": "Swords: Ace through King",
+    "64-77": "Pentacles: Ace through King",
+    "back": "Chosen Hidden Garden reverse"
+  },
+  "assets": [
+    {
+      "id": "00",
+      "file": "00.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/00-the-fool.png",
+      "sourceSha256": "5df9c34f22b0dbe93a33a49e94e14b9ad6f06c5951060c58c4f0183a26f2046c",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 157814,
+      "sha256": "534a2a47a75cf4f7d8bbc5e60cb503ccf02e50492faf14398a9d15f6750e8a1f"
+    },
+    {
+      "id": "01",
+      "file": "01.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/01-the-magician.png",
+      "sourceSha256": "059450d912d4b8df26b841a40380c498bf306169b61ce4da35e6898eee1df0f1",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 165636,
+      "sha256": "889d25fb8f909c1adbe1face294713150ebe1a14a6096f8e347768073cecf199"
+    },
+    {
+      "id": "02",
+      "file": "02.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/02-the-high-priestess.png",
+      "sourceSha256": "b710bc3ce1c2570e44629ed6796a436d3c9b332ec38ca213393c2277e927eb50",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 172158,
+      "sha256": "fb1657746bee202837a54953b70a39b66423b56cc925bd0ffff7e7faa71e1afa"
+    },
+    {
+      "id": "03",
+      "file": "03.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/03-the-empress.png",
+      "sourceSha256": "a244767cdb9cc240fe015f76e35fa76fa5efef930a190cb04b53825e64a3a7d4",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 161912,
+      "sha256": "4b15a13406757f0c0d82a7437a0578f3581a3b3bd87c21722ca11eb1cff6dfd3"
+    },
+    {
+      "id": "04",
+      "file": "04.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/04-the-emperor.png",
+      "sourceSha256": "28ca366c0a134fabffa179186851e96458b0e893d2e0327aa416d955066c2591",
+      "sourceDimensions": [
+        957,
+        1643
+      ],
+      "dimensions": [
+        768,
+        1319
+      ],
+      "bytes": 185144,
+      "sha256": "4ca38313449386d88b4e3dad9a337260c940d9c550316d143f3729da417dc8d1"
+    },
+    {
+      "id": "05",
+      "file": "05.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/05-the-hierophant.png",
+      "sourceSha256": "e2f855914d3cf9984625e51bef00574c6700ea986a3d54da8f3c7ead79dd0a70",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 186050,
+      "sha256": "4705914d54069326755d9e7626ab2de2f72ce1078971a2fde4ec4f86ac6fd82b"
+    },
+    {
+      "id": "06",
+      "file": "06.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/06-the-lovers.png",
+      "sourceSha256": "ec2c93070b8658b22e5c6d98a85af4e3a9cf1aa614f41d17bfa5adde7dbd8f0e",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 196940,
+      "sha256": "24f3a9e3e58be5f274b333074aa47da180c8f3a61c0a4a759c41c443b4e959cf"
+    },
+    {
+      "id": "07",
+      "file": "07.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/07-the-chariot.png",
+      "sourceSha256": "aa004438030b4ab6a39638537bc7d6ed011054b430004f32639c18db48a85771",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 191260,
+      "sha256": "f23e201cbaa66aaef90a6dbd25f6a9752ab5d60fc6765f547f7e596f45335882"
+    },
+    {
+      "id": "08",
+      "file": "08.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/08-strength.png",
+      "sourceSha256": "af93672583745af173b650d976128be9ea2f8c0a6e228fb1643a1a308f15611e",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 164868,
+      "sha256": "44e9821cc0ceb6380ee4571859e0519aa52c16931ef3efcbd148151c69fd515f"
+    },
+    {
+      "id": "09",
+      "file": "09.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/09-the-hermit.png",
+      "sourceSha256": "5191f387b6ff098b753da8e2fa217530fd9fc94cec4718f210cb7501697d733d",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 180070,
+      "sha256": "6cde7e84736b741321149f7098752b5d7bb869ce37961da4056667e473811b5d"
+    },
+    {
+      "id": "10",
+      "file": "10.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/10-wheel-of-fortune.png",
+      "sourceSha256": "730e135b5fedef9751fa1e920dae73129a81d94bda3d3f3a9c6d1d08a6f73e85",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 149272,
+      "sha256": "6fc302076e6e99f41d5d0e7d4fbd691d0bf02924c79c1850e495951f8433f099"
+    },
+    {
+      "id": "11",
+      "file": "11.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/11-justice.png",
+      "sourceSha256": "ba332ca5ada321b37a1c0c6a3fd698e7899e6d0a292190e49cba7caffc0364e2",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 174644,
+      "sha256": "07039ec51a38138d75e5fba30edeba27c3102172e818adb9f80a125057de2cea"
+    },
+    {
+      "id": "12",
+      "file": "12.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/12-the-hanged-man.png",
+      "sourceSha256": "fc9ec33b9c3d3ba05ac216e718e423485c89a7ad77f1305e443b148a2ea9076f",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 115740,
+      "sha256": "9ead13c77bc2e26f739f19950eab25c83d01d2a016daf777cd43dd2ec9febbfd"
+    },
+    {
+      "id": "13",
+      "file": "13.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/13-death.png",
+      "sourceSha256": "1fcfb2708e239f341dfa2595369cc834b2197f0abe8a6f9222c604a5496f9a77",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 211548,
+      "sha256": "231bd63e898108709bdc760aacdb40023fd0d06214c616cdcaf718cc80d7a630"
+    },
+    {
+      "id": "14",
+      "file": "14.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/14-temperance.png",
+      "sourceSha256": "074e265cb15ac51f6c070f51cfb6ae7fcc2e0c347addafcf7bf70bd86b2f0e08",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 202476,
+      "sha256": "421ae7ce3f8c9e52123c09dcc7882858864ff2d33ed156856054438d06afb80e"
+    },
+    {
+      "id": "15",
+      "file": "15.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/15-the-devil.png",
+      "sourceSha256": "af8cc86dbd1ce16ed51cb3807c1396420ed5c7c87efafceead67d05e6ed95e62",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 174222,
+      "sha256": "055a324bd0ef53228d4f2c24d759e71d7000cc6f73b3a07cfd8f401c3b6425b4"
+    },
+    {
+      "id": "16",
+      "file": "16.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/16-the-tower.png",
+      "sourceSha256": "aa3aba0448c001c653e68893e0ac3d7b64f89e31a01dc11470e321901deb78a1",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 120464,
+      "sha256": "5fb58c7beccda647f87c9bee8ffba492a1ad6347ac9a160c1ca9b6b5701a930a"
+    },
+    {
+      "id": "17",
+      "file": "17.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/17-the-star.png",
+      "sourceSha256": "c6ea8059a9e27fc9edb95f26dbfad065e8d910af1f6701fde77ef885cd680b4c",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 209340,
+      "sha256": "160ed4d6ef86c8d7f5f01276d52a2132ef11df6b1aa2130e88dab821754a8c31"
+    },
+    {
+      "id": "18",
+      "file": "18.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/18-the-moon.png",
+      "sourceSha256": "5c96b105e244fcc52ad33bd8d049fb7614d8d60f659102cce864a68a63906af7",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 164244,
+      "sha256": "be1285c8228e0981be3e4195a5ad6e32fed3ac8ae2d516c763177af93e5882aa"
+    },
+    {
+      "id": "19",
+      "file": "19.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/19-the-sun.png",
+      "sourceSha256": "4a70a553aa4e336a9a4ede6e3ce3dd99f59da7b0e18df3ab283dccb0d95e98ce",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 185842,
+      "sha256": "246674f34b817b52a2d4e6162e96e29514ce09ffe6c1f1ba34e4d84224278823"
+    },
+    {
+      "id": "20",
+      "file": "20.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/20-judgement.png",
+      "sourceSha256": "7cc8628c67cb3f907222c891673b8e8a33284c3fbd01cefa94f96a7f2cbd683a",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 163196,
+      "sha256": "1f61febfefe1f1fd0881d7a37752ca3168fa24b8ca992b9bf0e4c6c69f6f0829"
+    },
+    {
+      "id": "21",
+      "file": "21.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/21-the-world.png",
+      "sourceSha256": "6d5e5be145b1a527ee71f4073409af7334f8806212087b3c131a0dce4952ffae",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 164818,
+      "sha256": "456201d48729a881ebc5dcef6243bc1721bbe0a3c9f0593eb2efb3e480470b56"
+    },
+    {
+      "id": "22",
+      "file": "22.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/22-ace-of-wands.png",
+      "sourceSha256": "682c140c993fd95971b7944ca21651e80d7b1999c155f3701dda7b3922dac9bd",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 94178,
+      "sha256": "21c08894d884ab1ff63bac516ea19ab5d7cceb755dd368b588c70ada64958e61"
+    },
+    {
+      "id": "23",
+      "file": "23.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/23-two-of-wands.png",
+      "sourceSha256": "73ace0f11ca40a9bb925afd2a7cd754d66aff38c3c49276f1d10ce97c992c783",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 160522,
+      "sha256": "2b15505b1aed23452da90c2b9b7e1bd3d96a3755f089cb7cd27afe75eb486db1"
+    },
+    {
+      "id": "24",
+      "file": "24.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/24-three-of-wands.png",
+      "sourceSha256": "8cade4c87edba69e930448fcfc86019b0e5d458f744d9208671eb8e52ebba3b4",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 153356,
+      "sha256": "a20264c523df8e642e30b065927c3a036fe57d17d89d1a8071efe489bce03a6a"
+    },
+    {
+      "id": "25",
+      "file": "25.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/25-four-of-wands.png",
+      "sourceSha256": "ae44c0eab28f9bc961c397da1b96ed2ccce1db65696bbc7c22bac01b8cea5d03",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 164708,
+      "sha256": "96e70bb2cce54babd8c45d8a0c7df98582f12b5bd5ec2ddd88f9987658225e43"
+    },
+    {
+      "id": "26",
+      "file": "26.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/26-five-of-wands.png",
+      "sourceSha256": "e6dfb1dadb70d28ac955edfe8754391bfb1e53ee0278838f507120ab5827e0de",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 203128,
+      "sha256": "7165d5e155a1dc3853aa09dd2b4c510ad94570871b1cde8400f4e9c57bab4f65"
+    },
+    {
+      "id": "27",
+      "file": "27.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/27-six-of-wands.png",
+      "sourceSha256": "27cfb56213792e29f296712ccf2b4d09699b9ca84febf8a895f3d4bf31a1eb09",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 173838,
+      "sha256": "1a1a67c0a838d7181a9ecdacb9449ff3377d53dc8da603887055b618559d03d7"
+    },
+    {
+      "id": "28",
+      "file": "28.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/28-seven-of-wands.png",
+      "sourceSha256": "fc4e9b4a7689f024e677c478c9c2739584a6af423d25a3331bc73ff2336ffba8",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 116456,
+      "sha256": "045a519cc4fd3a99387280909f3e150fbb4dac50928c0d602deb4623073147b1"
+    },
+    {
+      "id": "29",
+      "file": "29.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/29-eight-of-wands.png",
+      "sourceSha256": "10df93065f893628ec1b37b139305734c23da5ef203e77f48299863f380791d3",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 146804,
+      "sha256": "05f0538a455ca36b3350acc4cc8fa6d847b41cc38615b02dfdb8f1e68972b04e"
+    },
+    {
+      "id": "30",
+      "file": "30.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/30-nine-of-wands.png",
+      "sourceSha256": "1f241b11bafff94d165d72e87a832e436f0d53fc4b5da05767ad37344ee6f5e6",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 153522,
+      "sha256": "0564a0de515b6940f8ed856ec049ad421c8ed6f949186bed145d34ae82721416"
+    },
+    {
+      "id": "31",
+      "file": "31.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/31-ten-of-wands.png",
+      "sourceSha256": "1e6a60b78cfb16cffe29c280b78d71866670628725a0e4a4e48f7c4a92cd287b",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 131026,
+      "sha256": "385543a1907a5fe66b1b65c4532196f2cd57b0cc2dfdda0123a16469216b9118"
+    },
+    {
+      "id": "32",
+      "file": "32.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/32-page-of-wands.png",
+      "sourceSha256": "c65536226cf2dd4f04a5a95fab44672e4182f386a78353fd6c9604a21e6a2a77",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 153914,
+      "sha256": "b953d06a7f4c06b3ee368937c20d809481cdba7f2a7bad622e7ee4a1a1d7e76f"
+    },
+    {
+      "id": "33",
+      "file": "33.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/33-knight-of-wands.png",
+      "sourceSha256": "2c732bcd1ab12b06aab271b422d8dc852387a9215c20e689d82b83dea1b4a04c",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 183860,
+      "sha256": "5cc88da4f2ff7f1fc0988653b0281b2893cf6b6bd59df589816883bfab69f682"
+    },
+    {
+      "id": "34",
+      "file": "34.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/34-queen-of-wands.png",
+      "sourceSha256": "9b3adbc79d9aa0efdd3a154b4a083526f02b7a1894f2d30efa3c762f6f7734a2",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 192194,
+      "sha256": "0b8797793eb99afbf5acdf2b1f6885fb77486335c6fd08d540f38669b362772c"
+    },
+    {
+      "id": "35",
+      "file": "35.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/35-king-of-wands.png",
+      "sourceSha256": "e41abd18bf806e56448c3651d941cf135ffd29369928a776a1ad9b1a3b9bddd8",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 168674,
+      "sha256": "0b9fd6b97219c37d2b4bac7cb616ef7b3c378fba8dd4046f82598c62dfa174af"
+    },
+    {
+      "id": "36",
+      "file": "36.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/36-ace-of-cups.png",
+      "sourceSha256": "c44b5cf89ffea7ecc91bce6e6a3445a0ee67975ad40cc555d4a97981ccac0739",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 131214,
+      "sha256": "947d4f1db3b57d4b5f59e13a4ce090eec7ec5f3fb734825afb1dd5a87ffd949d"
+    },
+    {
+      "id": "37",
+      "file": "37.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/37-two-of-cups.png",
+      "sourceSha256": "f0e0540ee56525ad0b0966ef776b48d29d2edbe39eca1441ebadedb5dbdd6966",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 147464,
+      "sha256": "29b0906178e31b41916b6f37b6446eebf695d68b220d47e5f659413851676c09"
+    },
+    {
+      "id": "38",
+      "file": "38.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/38-three-of-cups.png",
+      "sourceSha256": "5c6a41d3ca2112bfcf9c9b505778f7c41ce55200b79c0f0a109f5c2048e3d10a",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 183288,
+      "sha256": "8d3ab7d121a1d3d3210d422adda590199b8f908371e2376b4ee022c6301c774d"
+    },
+    {
+      "id": "39",
+      "file": "39.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/39-four-of-cups.png",
+      "sourceSha256": "8959ffb896847103fcb36f2233285f4a6c31c5dac476a662725fa821e34cc72e",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 129864,
+      "sha256": "3f2ae13dff732751f89e8d3e5bcb19a026d8dda2851b21665811f44b807b1d97"
+    },
+    {
+      "id": "40",
+      "file": "40.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/40-five-of-cups.png",
+      "sourceSha256": "5adaed4932e3943b379b8fbef9a2759714adbdfaf147a3b43f2780653ee46623",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 177916,
+      "sha256": "d539f64a58bf0b78e1af4ed96fb3dce3e1ca04b2ec02b4495a330829433afde9"
+    },
+    {
+      "id": "41",
+      "file": "41.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/41-six-of-cups.png",
+      "sourceSha256": "95534b7ae511b1a5535d6704f607f0b259573c41aa6038c18ec61d588e53b21b",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 198092,
+      "sha256": "ffef5a0f07926872f63097407665041ed5b2c38f81d36ad403da479133c23a4b"
+    },
+    {
+      "id": "42",
+      "file": "42.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/42-seven-of-cups.png",
+      "sourceSha256": "51a9305f67f58c77d1c95a644f6f69dec20c83fb69541081b3f95aefe205c4e8",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 141240,
+      "sha256": "0d142c940859678ed88986d570b85e33f04980402e95f50e049b9f4f26f56ac1"
+    },
+    {
+      "id": "43",
+      "file": "43.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/43-eight-of-cups.png",
+      "sourceSha256": "af8dd0480fa0b258e532d67b1c41c7fddff721ec6cb3393a5835f50623e32607",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 184108,
+      "sha256": "fad3c81d56904046113407a31043180419a0aa514e69de9efdc3bbad465598c4"
+    },
+    {
+      "id": "44",
+      "file": "44.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/44-nine-of-cups.png",
+      "sourceSha256": "46d996412dcaf13352418cfbbd92473bd6686ae953a5857fe4db6e57c66b819d",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 130850,
+      "sha256": "adaf6896379e37a1671f418e442f3d194ff315a75ab61383ce1abaa073312367"
+    },
+    {
+      "id": "45",
+      "file": "45.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/45-ten-of-cups.png",
+      "sourceSha256": "c010ff43e185fc72897169ca41c9d5862fbe7a149171f42f14443237d0046534",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 205680,
+      "sha256": "92c6951ce9bebfe7bca03947e3d41cb24e0e7a079b5e848ccab6976bb437e065"
+    },
+    {
+      "id": "46",
+      "file": "46.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/46-page-of-cups.png",
+      "sourceSha256": "624c7c9044790937be8eea57c67dc88b580fabe0793f382f6d0c4c64b92a9b86",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 148926,
+      "sha256": "78581ee766d16260a59b7bd2ddf5507319b9a96e99e7ea5c3849b0583a4e9a1b"
+    },
+    {
+      "id": "47",
+      "file": "47.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/47-knight-of-cups.png",
+      "sourceSha256": "c74f816f43372646900402e7fd6665a58dddc459f06407fbb087cebbe21dfd58",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 217154,
+      "sha256": "08bcfed7fc65c8254e2e21bd71c5c8ebbc379b8b04708a6f475889df434b98e9"
+    },
+    {
+      "id": "48",
+      "file": "48.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/48-queen-of-cups.png",
+      "sourceSha256": "906ad0af4632b5bf3f075581b14a8ebff68048077b848549407d462433d3957b",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 146438,
+      "sha256": "552f7eb5850aec45ed01a0cc60c338dcbb11a15f8bd77e3cd68d56186e3dac0b"
+    },
+    {
+      "id": "49",
+      "file": "49.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/49-king-of-cups.png",
+      "sourceSha256": "4fce83e7909fce7120e1e6e1f534010a997498499ff5dfa2899c992a61bb14d0",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 227252,
+      "sha256": "87d484e0ba8dbafbe69fc154e1443d651ff25174e4dce6ffb83a32c11b0dbdf9"
+    },
+    {
+      "id": "50",
+      "file": "50.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/50-ace-of-swords.png",
+      "sourceSha256": "f6811a5f6dc1d60ebf5b78b8b5da50a318728edcd85c925e470fd07b5911dab6",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 100200,
+      "sha256": "7a8fc8edc418bdb5f1ed8960b7b5b23710c6f091a521c0bcce5bb280fe5f1667"
+    },
+    {
+      "id": "51",
+      "file": "51.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/51-two-of-swords.png",
+      "sourceSha256": "89efeb54d3567eaaf52506c3712f372eabd5c31169947702083f57b211c04261",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 154042,
+      "sha256": "9f9f5bf2840b5bcbdd2bbc47fde8f3034c2854f7c66c767d5db573f70a337849"
+    },
+    {
+      "id": "52",
+      "file": "52.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/52-three-of-swords.png",
+      "sourceSha256": "102246c9e206c47e5debc91ff3927a8d1bcd693044c96058eee9b34163d527b0",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 79062,
+      "sha256": "d04775ed439a4eaed85abb9d622af6b03f7520f1c3419ed9b8d0d6ed03ef3e82"
+    },
+    {
+      "id": "53",
+      "file": "53.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/53-four-of-swords.png",
+      "sourceSha256": "b19ae778a47f21bfa9fbd53ff831477439df543014873aeee9d07949fc517f69",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 131582,
+      "sha256": "9e5e33aa395c71f324b60dfecbcc3c0358d6e3480d3ffd484ad7de51f639bff8"
+    },
+    {
+      "id": "54",
+      "file": "54.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/54-five-of-swords.png",
+      "sourceSha256": "70467a80f60053d138241b010d6bed1e7c22acaa899f080f7968d08fe99c0705",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 199910,
+      "sha256": "5fb9c85270ca33107213d744d29d4b13849dab618a507d1805c495ec997a6e8a"
+    },
+    {
+      "id": "55",
+      "file": "55.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/55-six-of-swords.png",
+      "sourceSha256": "629b13d6b67386c8c9c2e8be6cc3fb284100d9333542d3d091df9e20377db47e",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 145670,
+      "sha256": "4e270f8de450a959326025454126f4d4f3ff4fffe26cfe402a22cb6a3636a81f"
+    },
+    {
+      "id": "56",
+      "file": "56.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/56-seven-of-swords.png",
+      "sourceSha256": "82e6c64530f7deed351f74756ccaf8413eecbd3d65e51d56bd78bbf2d4911fba",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 145384,
+      "sha256": "bcf8bc2c99262a7baa9839afdfcfc6fc0e74bbc1744b0528be64af9d92bab1b4"
+    },
+    {
+      "id": "57",
+      "file": "57.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/57-eight-of-swords.png",
+      "sourceSha256": "68f2736798a145d73e1cedac537fbe32ad63e63e1fb09ce4d16a57718d99c362",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 201044,
+      "sha256": "71b2740b799f02671f32e71e856246bf25e412545e547985b4bf18b363c92fb7"
+    },
+    {
+      "id": "58",
+      "file": "58.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/58-nine-of-swords.png",
+      "sourceSha256": "c34061c9782eb10ceba9891d0c3e9daa7cbec4e86992188622fd82cbfbd542c9",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 123208,
+      "sha256": "78f02a7a3b2f0caee72af8dfbd18cf50765c5e7716dd61453c51ae0dd9a058d0"
+    },
+    {
+      "id": "59",
+      "file": "59.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/59-ten-of-swords.png",
+      "sourceSha256": "2e962deafb138c04029f76d2b465b462b03e7a2129ce3f75c99bf401299c285b",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 123508,
+      "sha256": "b9ec02919e6eec5e7a081d04d0f5a8e89155bcced290b5e639315c3483aea451"
+    },
+    {
+      "id": "60",
+      "file": "60.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/60-page-of-swords.png",
+      "sourceSha256": "87adf0b3ecde445d3eedbce2bdbfe10bbbf1f1db632a399e54df077aecd1121a",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 156918,
+      "sha256": "36211754aa97ae7ad12422c45140e2fdf3135125a0078fec1403524921e37645"
+    },
+    {
+      "id": "61",
+      "file": "61.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/61-knight-of-swords.png",
+      "sourceSha256": "d3dd00211c816aaa8679fb18efb55cd5ff4f882096912d6d32408257ca9b65fc",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 168946,
+      "sha256": "ec10a55853a12b4a1e33e7ff1698a60be48cbc46b3356ba413c73fa34cc3409a"
+    },
+    {
+      "id": "62",
+      "file": "62.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/62-queen-of-swords.png",
+      "sourceSha256": "c4a7f95e105d6ac3be7a3ea3afe4b6b841662c924ac2a5a43ceadb0b434ddcc7",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 159474,
+      "sha256": "d43f69ac952e37dea0545c22165a9efd73dd7067436cb3e81c6ab0265e352c9a"
+    },
+    {
+      "id": "63",
+      "file": "63.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/63-king-of-swords.png",
+      "sourceSha256": "53dcc77cd311e280bb9d25b60396c77ad74feeae45535b2f026f6aeeb0bf80b9",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 151054,
+      "sha256": "7304a9c96b4be44e79b4b2b7cb9f37f20a36b61e0bf6f32c6e795aab21fa98f1"
+    },
+    {
+      "id": "64",
+      "file": "64.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/64-ace-of-pentacles.png",
+      "sourceSha256": "5053778c5816eb004059c20d4c11a035c16332d999fc8ac9d04c8d5a787bd77d",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 175788,
+      "sha256": "c7fa0974277241f2a0d4e42a6a6e05e2ba6c8be7620d139e5442be5e2fdd0bbc"
+    },
+    {
+      "id": "65",
+      "file": "65.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/65-two-of-pentacles.png",
+      "sourceSha256": "5ac9dbf01bcd836dd35842c16531f027eefca9fc2e1a6895e70b14e10bde8e97",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 157806,
+      "sha256": "df4b5fce8ffd7e3388f8cea1ebc80893510a6286094f66367a66befaa996bec5"
+    },
+    {
+      "id": "66",
+      "file": "66.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/66-three-of-pentacles.png",
+      "sourceSha256": "dd87b8d14c13da322918d63a9206c5ba4132eb528893fa8fd84c1b5f4a9309f6",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 195368,
+      "sha256": "aa84ae4761bf5f60c49705873dee1fa591cd0bf175d58df9367a49415175441d"
+    },
+    {
+      "id": "67",
+      "file": "67.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/67-four-of-pentacles.png",
+      "sourceSha256": "e59e363c0b3df3b839fb4c9d79eb4f83733f042420e10cf7f0734980372762d7",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 154654,
+      "sha256": "e71c9b22fa619d20af31af9aa518b068d4caa55b4f2644920d6d2c64309e57e5"
+    },
+    {
+      "id": "68",
+      "file": "68.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/68-five-of-pentacles.png",
+      "sourceSha256": "4c56ba934fa6527e78b89203f5a2ecab1e7d59dcbdd7fd75d7bb7cf6ffc8dbb5",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 196172,
+      "sha256": "22467f9ce925a3f208a5c08b96812d51d6a876d60b92e6285cd3597b81a283a5"
+    },
+    {
+      "id": "69",
+      "file": "69.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/69-six-of-pentacles.png",
+      "sourceSha256": "5ba90bd3d4901ea297bc90ba6ee01324edd34cfd7d166b77b3fcb71e6560f1e7",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 185390,
+      "sha256": "ff1d5c435e1196ff0a69396cc3fcd5df699e4b3610c15dfd80aaf84c794a2d04"
+    },
+    {
+      "id": "70",
+      "file": "70.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/70-seven-of-pentacles.png",
+      "sourceSha256": "04f68106e5367f1e7651dab96e6d401e2afbc16882cd63217736bca18ae1b97c",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 153810,
+      "sha256": "218b219b8ee9467c56a5b816fb3aca0e44823f962064a2e8056635fe8c650ebe"
+    },
+    {
+      "id": "71",
+      "file": "71.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/71-eight-of-pentacles.png",
+      "sourceSha256": "d5b076d7ac8edc2120ee0194ea0da847e3d8ad4076a87dd8ef613aa24a9ce278",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 196556,
+      "sha256": "dbc12d1cd0c49c75b652f979c2a357a92c9cfef9518465d217ce877f69ffa8fb"
+    },
+    {
+      "id": "72",
+      "file": "72.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/72-nine-of-pentacles.png",
+      "sourceSha256": "763ac4d40c3021b9b4e3c6dd401b5313ce14b4b56da3270d65ab185afeb189e0",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 165418,
+      "sha256": "de0fd19f2f4cf8ea9e5602911c081a210fb5e56dc65869ef43ce8a496c17abaa"
+    },
+    {
+      "id": "73",
+      "file": "73.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/73-ten-of-pentacles.png",
+      "sourceSha256": "52582226ad221534060b7e7ed11d08b09139e6a012944e6c7e8e31f90903dde4",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 241504,
+      "sha256": "5d7ebef4c4d9b5bac6c782e92fc9edd6b44c14e63de316b8807fbfc4206aa103"
+    },
+    {
+      "id": "74",
+      "file": "74.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/74-page-of-pentacles.png",
+      "sourceSha256": "27b956a55496725418f4216ce2d8b11826d037996076932241e9ceafbd8d4023",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 186240,
+      "sha256": "2e6a1148c447dfd6be4b5940243466a7e7689798991cefdb0917869e821935c5"
+    },
+    {
+      "id": "75",
+      "file": "75.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/75-knight-of-pentacles.png",
+      "sourceSha256": "0ea3cd7d7a0afa12deefe3993e5b929e8f49bbabe07290e03dc858d55cdc3a92",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 188926,
+      "sha256": "67019e184bfd224932b96af3f3afec4af19e09a90efb92892a084a4ffdd67b6a"
+    },
+    {
+      "id": "76",
+      "file": "76.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/76-queen-of-pentacles.png",
+      "sourceSha256": "8417905dc383bd38aedbe3093812872d19f0c48c49e6a33b7617b3c3deaec66d",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 204128,
+      "sha256": "dd1aea9a16e646da95411b8c2df879e5857c1d09c9fb76e01219da6f9589bae7"
+    },
+    {
+      "id": "77",
+      "file": "77.webp",
+      "source": "olivia-space-between-78-2026-09-28/cards/77-king-of-pentacles.png",
+      "sourceSha256": "826362185f4a2b392af26cfee8c5cb54c499b3dbded551b2dbf0a222e2f42a32",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 185646,
+      "sha256": "d31c2f7dc9bf7e9413fa484f0e21640993976687ffc29ff2e08e7b3595e51bbb"
+    },
+    {
+      "id": "back",
+      "file": "back.webp",
+      "source": "olivia-space-between-backs-2026-09-28/02-the-hidden-garden.png",
+      "sourceSha256": "b4cb41d792d82084b33a13f6fa53838d556272ef0e15d01f0c09f12d97d30a90",
+      "sourceDimensions": [
+        958,
+        1642
+      ],
+      "dimensions": [
+        768,
+        1316
+      ],
+      "bytes": 238534,
+      "sha256": "c3119214d07c72b8e890fcd1ed1922288e0c55cf59cef2591da9a9443c62e4ad"
+    }
+  ]
+}

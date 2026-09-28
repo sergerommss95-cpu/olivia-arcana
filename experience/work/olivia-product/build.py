@@ -44,12 +44,17 @@ major_files = card_files(p.parent / 'hero-v12/assets/public/cards-portal', range
 minor_files = card_files(p / 'assets/minor-arcana', range(22, 78))
 assert len(major_files.keys() | minor_files.keys()) == 78
 back_file = root / 'outputs/olivia-card-back.webp'
+special_dir = p / 'assets/decks/space-between'
+special_cards = {i: special_dir / f'{i:02d}.webp' for i in range(78)}
+special_back = special_dir / 'back.webp'
+for file in [special_back, *special_cards.values()]:
+    if not file.is_file(): raise ValueError(f'Missing specialist deck asset: {file}')
 template = (p / 'template.html').read_text()
 fonts = (p.parent / 'fonts-inline.css').read_text()
 style_names = ['style.css', 'home-continuity.css', 'spread-layout.css', 'single-card-flow.css']
 if (p / 'practice.css').exists():
     style_names.append('practice.css')
-style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css'] if (p / name).exists())
+style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css', 'deck-library.css', 'deck-selection.css'] if (p / name).exists())
 styles = '\n'.join((p / name).read_text() for name in style_names)
 scripts = {
     'hero': (p / 'hero.js').read_text(),
@@ -65,10 +70,11 @@ def data(file):
     return 'data:image/webp;base64,' + base64.b64encode(file.read_bytes()).decode()
 
 
-def asset_script(back, major, minor):
+def asset_script(back, major, minor, specialist=None):
     return (
         'const BACK_DATA=' + json.dumps(back) + ';const DETAIL_DATA=' + json.dumps(major)
         + ';const MINOR_DATA=' + json.dumps(minor) + ';'
+        + ('window.OLIVIA_DECK_ASSETS=' + json.dumps({'space-between':specialist}) + ';' if specialist else '')
     )
 
 
@@ -80,7 +86,7 @@ replacements = {
     '/*FONTS*/': fonts,
     '/*STYLE*/': styles,
     '/*BACK_IMG*/': data(back_file),
-    '/*ASSETS*/': asset_script(data(back_file), {key: data(file) for key, file in major_files.items()}, {key: data(file) for key, file in minor_files.items()}),
+    '/*ASSETS*/': asset_script(data(back_file), {key: data(file) for key, file in major_files.items()}, {key: data(file) for key, file in minor_files.items()}, {'back':data(special_back),'cards':{key:data(file) for key,file in special_cards.items()}}),
     '/*HERO*/': inline_script(scripts['hero']),
     '/*APP*/': inline_script(scripts['app']),
     '/*BACKGROUND*/': inline_script(scripts['background']),
@@ -119,6 +125,7 @@ def emit_asset(label, content, extension):
 hosted_back = emit_asset('card-back', back_file.read_bytes(), 'webp')
 hosted_major = {key: emit_asset(file.stem, file.read_bytes(), 'webp') for key, file in major_files.items()}
 hosted_minor = {key: emit_asset(file.stem, file.read_bytes(), 'webp') for key, file in minor_files.items()}
+hosted_special = {'back':emit_asset('space-between-back',special_back.read_bytes(),'webp'),'cards':{key:emit_asset(f'space-between-{key:02d}',file.read_bytes(),'webp') for key,file in special_cards.items()}}
 font_number = 0
 
 
@@ -139,12 +146,13 @@ hosted_fonts = re.sub(r'url\(data:([^;]+);base64,([A-Za-z0-9+/=]+)\)', extract_f
 if not font_number or 'data:font/' in hosted_fonts:
     raise ValueError('Embedded fonts were not completely extracted.')
 css_url = emit_asset('experience', hosted_fonts + '\n' + styles, 'css')
-assets_url = emit_asset('card-assets', asset_script(hosted_back, hosted_major, hosted_minor)
+assets_url = emit_asset('card-assets', asset_script(hosted_back, hosted_major, hosted_minor, hosted_special)
     + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_DATA,...MINOR_DATA}};\n', 'js')
 script_urls = {name: emit_asset(name, source, 'js') for name, source in scripts.items()}
 native_assets_url = emit_asset('native-card-assets', asset_script('/experience/' + hosted_back,
     {key: '/experience/' + value for key, value in hosted_major.items()},
-    {key: '/experience/' + value for key, value in hosted_minor.items()})
+    {key: '/experience/' + value for key, value in hosted_minor.items()},
+    {'back':'/experience/'+hosted_special['back'],'cards':{key:'/experience/'+value for key,value in hosted_special['cards'].items()}})
     + '\nwindow.OLIVIA_ASSETS={back:BACK_DATA,cards:{...DETAIL_DATA,...MINOR_DATA}};\n', 'js')
 
 hosted = template
@@ -242,6 +250,7 @@ manifest = {
     'locales': {'en': 'index.html', 'uk': 'index.uk.html'},
     'native': {'assets': native_assets_url, 'scripts': script_urls, 'stylesheet': css_url},
     'deck': {'major': 22, 'minor': 56, 'total': 78},
+    'decks': {'olivia':{'back':hosted_back,'cards':{**hosted_major,**hosted_minor}},'space-between':hosted_special},
     'assets': manifest_assets,
     'cache': {'index.html': 'no-cache', 'index.uk.html': 'no-cache', 'assets/*': 'public, max-age=31536000, immutable'},
 }

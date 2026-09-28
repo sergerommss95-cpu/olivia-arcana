@@ -35,7 +35,7 @@ export function prepareAlmanacImport(storage,raw){
  const conflicting=new Set();
  for(let i=0;i<2;i++)for(const record of incoming[i]){
   const prior=current[i].find(v=>v.id===record.id);if(!prior)continue;
-  const fields=i===0?['createdAt','question','intention','cardId','orientation','source']:['createdAt','question','intention','spreadId','cardIds','readingPlan'];
+  const fields=i===0?['createdAt','question','intention','deckId','cardId','orientation','source']:['createdAt','question','intention','deckId','spreadId','cardIds','readingPlan'];
   if(fields.some(key=>JSON.stringify(prior[key])!==JSON.stringify(record[key])) || i===1 && JSON.stringify(prior.cards.map(({cardId,orientation,positionId,label})=>({cardId,orientation,positionId,label})))!==JSON.stringify(record.cards.map(({cardId,orientation,positionId,label})=>({cardId,orientation,positionId,label}))))conflicting.add(JSON.stringify([i===0?'single':'spread',record.id]));
  }
  if(conflicting.size)fail('This backup contains reading identifiers that belong to different questions or draws. No data was imported.');
@@ -55,8 +55,10 @@ export function prepareAlmanacImport(storage,raw){
  const originalReadings=new Map([...incoming[0].map(v=>[JSON.stringify(['single',v.id]),v]),...incoming[1].map(v=>[JSON.stringify(['spread',v.id]),v])]);
  for(const thread of incoming[4])for(const link of thread.readings){
   const original=originalReadings.get(JSON.stringify([link.kind,link.id]));
-  const expected=original&&{question:original.question,createdAt:original.createdAt,cardIds:link.kind==='single'?[original.cardId]:original.cardIds,orientations:link.kind==='single'?[original.orientation]:original.cards.map(c=>c.orientation)};
-  if(!original||JSON.stringify(link.snapshot)!==JSON.stringify(expected))fail('A question history does not match its saved reading. No data was imported.');
+  const expected=original&&{question:original.question,createdAt:original.createdAt,deckId:original.deckId,cardIds:link.kind==='single'?[original.cardId]:original.cardIds,orientations:link.kind==='single'?[original.orientation]:original.cards.map(c=>c.orientation)};
+  // Both sides have been schema-normalized, including legacy deck defaults.
+  // Compare all identity fields without depending on object property order.
+  if(!original||Object.keys(expected).some(key=>JSON.stringify(link.snapshot[key])!==JSON.stringify(expected[key])))fail('A question history does not match its saved reading. No data was imported.');
  }
  const next=new Map(specs.map((spec,i)=>[spec.key,JSON.stringify({schemaVersion:1,[spec.field]:merged[i]})]));
  return {added,kept,memories:incoming[3].length,previous,next};

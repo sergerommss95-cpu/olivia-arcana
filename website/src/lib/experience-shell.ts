@@ -2,5 +2,5 @@
 export function ownsExperienceStage(pathname: string | null): boolean {
   if (pathname === null) return false;
   const path = pathname.replace(/\/+$/, "") || "/";
-  return path === "/" || path === "/index.html" || path === "/uk" || path === "/uk/index.html";
+  return path === "/decks" || path === "/decks/index.html" || path === "/uk/decks" || path === "/uk/decks/index.html" || path === "/" || path === "/index.html" || path === "/uk" || path === "/uk/index.html";
 }

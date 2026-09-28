@@ -186,7 +186,7 @@ test('draft edits keep the chosen draw and targeted clear cannot remove a newer 
   const updated = { ...first, note: 'A thought to keep.' };
   assert.deepEqual(saveDraft(storage, updated), updated);
   assert.deepEqual(loadDraft(storage), updated);
-  for (const patch of [{ cardId: 1 }, { orientation: 'reversed' }, { question: 'A new question' }, { intention: 'change' }, { createdAt: '2020-01-01T00:00:00.000Z' }]) {
+  for (const patch of [{ deckId: 'space-between' }, { cardId: 1 }, { orientation: 'reversed' }, { question: 'A new question' }, { intention: 'change' }, { createdAt: '2020-01-01T00:00:00.000Z' }]) {
     assert.throws(() => saveDraft(storage, { ...updated, ...patch }), codeIs('VALIDATION'));
     assert.deepEqual(loadDraft(storage), updated);
   }

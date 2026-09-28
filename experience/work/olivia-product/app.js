@@ -1,3 +1,5 @@
+import {createDeckController,deckInfo,deckLibraryItems} from './deck-library.js';
+import {initDeckLibrary} from './deck-library-ui.js';
 import {initMobileQuestion} from './mobile-question.js';
 import {initMobileExperience} from './mobile-experience.js';
 import {initMobileReading} from './mobile-reading.js';
@@ -22,7 +24,10 @@ import {initSpreads} from './spread-ui.js';
 import {initSingleCardFlow} from './single-card-flow.js';
 import {createSession,chooseCard,createRecord,loadRecords,saveRecord,removeRecord,exportRecords,getLastRecord} from './core.js';
 import {CARD_NOTES,cardNotesForOrientation,INTENTION_NOTES,SAMPLE} from './content.js';
-const $=s=>document.querySelector(s), assets=window.OLIVIA_ASSETS;
+const $=s=>document.querySelector(s);
+let deckStorage;try{deckStorage=window.localStorage;}catch{}
+const deckController=createDeckController({original:window.OLIVIA_ASSETS,collections:window.OLIVIA_DECK_ASSETS,storage:deckStorage}),assets=deckController.assets;
+let deckLibrary=null,deckReturnView='question';
 const cards=TAROT_CARDS,names=cards.map(card=>card.name);
 let choiceStart=0,choiceCount=13;
 let cardFlow=null,practice=null,dailyMode=false;
@@ -38,7 +43,7 @@ const storage=()=>window.localStorage;
 const text=(selector,value)=>$(selector).textContent=selector==='#reading-question'?value:t(value);
 const readableDate=value=>new Intl.DateTimeFormat(getLocale()==='uk'?'uk-UA':undefined,{day:'numeric',month:'long',year:'numeric'}).format(new Date(value));
 const errorText=error=>error.code==='STORAGE_CORRUPT'?'The saved almanac could not be read. Your existing data has been left untouched. You can still download this reading.':error.code==='STORAGE_LIMIT'?'This browser’s almanac is full. Download this reading to keep it.':'This browser could not save the reading. Download a copy to keep it.';
-$('#sample-art').src=assets.cards[9];
+$('#sample-art').src=deckController.original.cards[9];
 if(window.OLIVIA_NATIVE||new URLSearchParams(location.search).get('site')==='1')document.querySelectorAll('[data-site]').forEach(a=>{a.href=getLocale()==='uk'&&a.dataset.site==='/academy'?'/uk/cards/':a.dataset.site;a.target='_top';});
 function refreshReturn(){try{const last=getLastRecord(loadRecords(storage()));$('#resume-link').hidden=!last;if(last){$('#resume-link').textContent=getLocale()==='uk'?`Повернутися до карти «${t(last.cardName)}» ↗`:`Return to ${last.cardName.replace(/^The /,'the ')} ↗`;$('#resume-link').dataset.record=last.id;}}catch{}}
 function preserveNote(){if(!sample&&currentRecord&&view==='reading'){currentRecord={...currentRecord,note:$('#reflection').value};drafts.set(currentRecord.id,currentRecord);try{saveDraft(storage(),currentRecord);}catch{}}}
@@ -71,7 +76,10 @@ function setView(next,{focus=true,keepCard=false}={}){
  if(view==='spreads'&&next!=='spreads')spreads.leave();
  preserveNote();transition++;motion()?.stopJourney();document.body.classList.remove('cinema');$('#leave-cinema').hidden=true;
  view=next;document.body.dataset.view=next;
- for(const id of ['question','choose','reading','journal','spreads','today','method','membership','journey','my-deck','physical','symbols'])$(`#${id}-view`).hidden=next!==id&&!(id==='reading'&&next==='sample');
+ if(next==='home')deckController.use('olivia');else if(next==='question'||next==='today'||next==='journal'||next==='my-deck'||next==='journey')deckController.use(deckController.getSelectedId());else if(next==='choose')deckController.use(session?.deckId);
+ if(['home','question','choose'].includes(next))void motion()?.setDeckArt?.({...assets,id:assets.deckId});
+ refreshDeckSwitchers();
+ for(const id of ['question','choose','reading','journal','spreads','today','method','membership','journey','my-deck','physical','symbols','decks'])$(`#${id}-view`).hidden=next!==id&&!(id==='reading'&&next==='sample');
  $('#card-choices').hidden=next!=='choose';window.scrollTo({top:0,behavior:'instant'});
  if(next==='home'||next==='question')motion()?.setProgress(0);if(next==='home')motion()?.resumeHome();if(['home','question','choose'].includes(next))motion()?.resize();
  $('#opening-type').inert=next!=='home';$('#intro').inert=next!=='home';
@@ -81,6 +89,7 @@ function goto(next){if(next==='reading'&&currentRecord)next+='/' + currentRecord
 function route(){const [next,readingId]=location.hash.slice(1).split('?')[0].split('/');
  if(next.startsWith('p=')){setView('home',{focus:false});const progress=Number(new URLSearchParams(location.hash.slice(1)).get('p'));if(Number.isFinite(progress))motion()?.setProgress(Math.max(0,Math.min(1,progress)));}
  else if(next==='spreads'){spreads.open(readingId);}
+ else if(next==='decks'){setView('decks');deckLibrary.render();}
  else if(next==='physical'){physical.render();}
  else if(next==='symbols'){symbols.render(readingId);}
  else if(next==='journey'){journey.renderJourney();}
@@ -98,10 +107,11 @@ function showSample(){const note=CARD_NOTES[SAMPLE.cardId];renderReading({cardId
 function renderReading(record,isSample,{connected=false}={}){
  for(const node of document.querySelectorAll('[data-impression-hidden]')){node.hidden=node.dataset.impressionHidden==='true';delete node.dataset.impressionHidden;}
  $('#single-impression')?.remove();preserveNote();record=drafts.get(record.id)||record;setView(isSample?'sample':'reading',{focus:!connected,keepCard:connected});sample=isSample;if(!isSample)currentRecord=record;
+ deckController.use(record.deckId);
  const id=record.cardId,notes=localizeCardNotes(id,record.interpretation,{orientation:record.orientation});
  text('#reading-kind',isSample?'A sample reading':record.source==='physical'?(getLocale()==='uk'?'З вашої фізичної колоди':'From your physical deck'):'Your one-card reading');text('#reading-question',record.question?`“${record.question}”`:'An open reading');text('#result-title',record.cardName);const sentences=notes.meaning.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g)||[notes.meaning];text('#meaning',sentences.slice(0,2).join('').trim());text('#full-reflection',sentences.slice(2).join('').trim());$('#full-reflection-details').hidden=sentences.length<=2;$('#full-reflection-details').open=false;text('#reflection-prompt',notes.prompt);text('#practice',notes.practice);text('#card-lesson',notes.learn||CARD_NOTES[id].learn);
  text('#intention-frame',record.intention==='open'?'':INTENTION_NOTES[record.intention]||'');$('#intention-frame').hidden=!$('#intention-frame').textContent;
- $('#reading-image').dataset.orientation=record.orientation||'upright';$('#reading-image').src=assets.cards[id];$('#reading-image').alt=`${record.cardName} — Olivia Arcana tarot artwork`;text('#card-index',cardCaption(id)+(record.orientation==='reversed'?' · Reversed':' · Upright'));
+ $('#reading-image').dataset.orientation=record.orientation||'upright';$('#reading-image').src=assets.forRecord(record).cards[id];$('#reading-image').alt=`${record.cardName} — Olivia Arcana tarot artwork`;text('#card-index',cardCaption(id)+(record.orientation==='reversed'?' · Reversed':' · Upright'));$('#card-index').append(' · '+deckInfo(record.deckId,getLocale()).name);
  $('#reflection').value=record.note||'';$('#save-section .reading-notes').open=!!record.note;$('#save-section').hidden=isSample;$('#sample-cta').hidden=!isSample;$('#view-saved').hidden=true;$('#save-status').textContent='';$('#save-reading').firstChild.textContent='Keep this reading ';saveDirty=dirtyIds.size>0;if(dirtyIds.has(record.id))text('#save-status','Unsaved reflection.');
  if(!isSample&&!dirtyIds.has(record.id)){try{const saved=loadRecords(storage()).find(r=>r.id===record.id);if(saved&&saved.note===(record.note||'')){text('#save-status','Kept in your almanac, on this device.');$('#save-reading').firstChild.textContent=t('Saved')+' ';$('#view-saved').hidden=false;}}catch{}}
  practice?.attachSingle(record,isSample);
@@ -172,11 +182,11 @@ function browseChoices(direction){
 $('#choice-previous').addEventListener('click',()=>browseChoices(-1));
 $('#choice-next').addEventListener('click',()=>browseChoices(1));
 
-async function openDeck(){choiceStart=0;cardFlow.cancel();$('#choice-navigation').hidden=true;const generation=++transition;const start=motion()?.inspect().p||0,finish=.235;$('#choose-status').textContent='The deck is opening…';$('#random-card').disabled=true;$('#card-choices').inert=true;
+async function openDeck(){choiceStart=0;cardFlow.cancel();$('#choice-navigation').hidden=true;const generation=++transition;await motion()?.setDeckArt?.({...deckController.use(session?.deckId),id:session?.deckId||'olivia'});if(generation!==transition)return;const start=motion()?.inspect().p||0,finish=.235;$('#choose-status').textContent='The deck is opening…';$('#random-card').disabled=true;$('#card-choices').inert=true;
  if(!reduced()&&motion()?.inspect().ready){await new Promise(resolve=>{let first;function tick(time){if(generation!==transition){resolve();return;}first??=time;const t=Math.min(1,(time-first)/2600),u=t*t*t*(10+t*(-15+6*t));motion().setProgress(start+(finish-start)*u);if(t<1)requestAnimationFrame(tick);else resolve();}requestAnimationFrame(tick);});}else motion()?.setProgress(finish);
  if(generation!==transition)return;const targets=motion()?.inspect().ready?motion().targets():[];syncTargets(targets);if(!targets.length&&!mobileSingleDeck())fallbackSingleDeck();$('#card-choices').inert=false;$('#random-card').disabled=false;syncChoiceNavigation();if(document.activeElement===$('#choose-title'))$('#card-choices button')?.focus({preventScroll:true});$('#choose-status').textContent='Pull a card upwards, or select it with a click. Then turn it when you are ready.';announce('The deck is open. Choose a card, or choose one for me.');
 }
-$('#question-form').addEventListener('submit',e=>{e.preventDefault();try{preserveNote();if(readingEntry?.getCount()===3){dailyMode=false;const options={question:$('#question').value,intention:new FormData(e.currentTarget).get('intention'),reversals:$('#allow-reversals').checked,guidanceConsent:guidanceChoice?.getConsent()===true};if(approvedQuestionPlan?.question===$('#question').value.trim())spreads.startPlan(approvedQuestionPlan,options);else spreads.startPersonal(options);guidanceChoice.reset();return;}session=createSession({question:$('#question').value,intention:new FormData(e.currentTarget).get('intention'),reversals:$('#allow-reversals').checked},cards.map(c=>c.number));if(guidanceChoice?.getConsent())guidanceConsents.add(session.id);guidanceChoice?.reset();currentRecord=null;heldRecord=null;setView('choose');history.replaceState(null,'','#choose');openDeck();}catch(error){announce('The deck could not be opened in this browser. Please try again.');$('#choose-status').textContent=String(error.message);}});
+$('#question-form').addEventListener('submit',e=>{e.preventDefault();try{preserveNote();if(readingEntry?.getCount()===3){dailyMode=false;const options={question:$('#question').value,intention:new FormData(e.currentTarget).get('intention'),reversals:$('#allow-reversals').checked,guidanceConsent:guidanceChoice?.getConsent()===true};if(approvedQuestionPlan?.question===$('#question').value.trim())spreads.startPlan(approvedQuestionPlan,options);else spreads.startPersonal(options);guidanceChoice.reset();return;}session=createSession({deckId:deckController.getSelectedId(),question:$('#question').value,intention:new FormData(e.currentTarget).get('intention'),reversals:$('#allow-reversals').checked},cards.map(c=>c.number));if(guidanceChoice?.getConsent())guidanceConsents.add(session.id);guidanceChoice?.reset();currentRecord=null;heldRecord=null;setView('choose');history.replaceState(null,'','#choose');openDeck();}catch(error){announce('The deck could not be opened in this browser. Please try again.');$('#choose-status').textContent=String(error.message);}});
 cardFlow=initSingleCardFlow({assets,motion,reduced,announce,onBrowse:browseChoices,choose(slot){
  if(view!=='choose'||!session||session.cardId!==null)return null;
  session=chooseCard(session,choiceStart+slot);const card=cards[session.cardId],notes=localizeCardNotes(card.number,cardNotesForOrientation(card.number,session.orientation),{orientation:session.orientation});
@@ -192,7 +202,7 @@ $('#download-reading').addEventListener('click',()=>{if(!currentRecord)return;pr
 $('#export-journal').addEventListener('click',()=>{try{const all=new Map(loadRecords(storage()).map(r=>[r.id,r]));for(const [id,draft] of drafts)if(!all.has(id)||dirtyIds.has(id))all.set(id,draft);download('olivia-almanac.json',JSON.stringify({schemaVersion:1,oneCardReadings:JSON.parse(exportRecords([...all.values()])),guidedSpreads:spreads.exportJournal(),practice:practice.exportMetadata(),journey:journey.exportData(),questionHistory:serializeQuestionHistory(loadQuestionHistory(storage()))},null,2));}catch(error){text('#journal-status',errorText(error));}});
 function renderJournal(){const list=$('#journal-list');list.replaceChildren();text('#journal-status','');let records;try{records=loadRecords(storage());}catch(error){text('#journal-status',errorText(error));$('#export-journal').disabled=true;return;}const savedIds=new Set(records.map(r=>r.id));const merged=new Map(records.map(r=>[r.id,r]));for(const [id,draft] of drafts){if(!merged.has(id)||dirtyIds.has(id))merged.set(id,draft);}records=[...merged.values()].sort((a,b)=>b.createdAt.localeCompare(a.createdAt));$('#export-journal').disabled=false;/* A backup may contain question observations even after its last reading is removed. */
  if(!records.length){const section=document.createElement('section');section.className='empty-journal';const h=document.createElement('h2');h.textContent='Your first page is waiting.';const p=document.createElement('p');p.textContent='Draw a card and keep a thought. Your reading will be here when you return.';const a=document.createElement('a');a.href='#question';a.className='solid-action';a.textContent='Draw your first card ↗';section.append(h,p,a);list.append(section);spreads.renderJournal();return;}
- records.forEach(record=>{const button=document.createElement('button');button.className='journal-row';button.type='button';const img=document.createElement('img');img.src=assets.cards[record.cardId];img.alt='';img.loading='lazy';const info=document.createElement('div'),date=document.createElement('time'),h=document.createElement('h2'),p=document.createElement('p'),arrow=document.createElement('span');date.dateTime=record.createdAt;date.textContent=readableDate(record.createdAt)+(!savedIds.has(record.id)?' · Unsaved draft':dirtyIds.has(record.id)?' · Unsaved changes':'');h.textContent=record.cardName;p.textContent=record.question||record.note||'An open reading';arrow.textContent='↗';info.append(date,h,p);button.append(img,info,arrow);button.addEventListener('click',()=>{preserveNote();currentRecord=drafts.get(record.id)||record;goto('reading');});const row=document.createElement('div');row.className='journal-entry';row.append(button);const remove=document.createElement('button');remove.type='button';remove.className='quiet-link remove-entry';remove.textContent='Remove';remove.setAttribute('aria-label','Remove '+record.cardName+' reading');remove.addEventListener('click',()=>{try{const practiceData=practice.remove('single',record.id,record);dispatchEvent(new Event('olivia:journal-change'));lastRemoved={record,practiceData};if(currentRecord?.id===record.id)currentRecord=null;if(heldRecord?.id===record.id)heldRecord=null;drafts.delete(record.id);dirtyIds.delete(record.id);saveDirty=dirtyIds.size>0;renderJournal();text('#journal-status','Reading removed.');const undo=document.createElement('button');undo.className='quiet-link';undo.textContent='Undo';undo.addEventListener('click',()=>{try{practice.restore(lastRemoved.practiceData);dispatchEvent(new Event('olivia:journal-change'));lastRemoved=null;renderJournal();refreshReturn();}catch(error){text('#journal-status',error.message||errorText(error));}});$('#journal-status').append(' ',undo);refreshReturn();}catch(error){text('#journal-status',error.message||errorText(error));}});row.append(remove);list.append(row);});
+ records.forEach(record=>{const button=document.createElement('button');button.className='journal-row';button.type='button';const img=document.createElement('img');img.src=assets.forRecord(record).cards[record.cardId];img.alt='';img.loading='lazy';const info=document.createElement('div'),date=document.createElement('time'),h=document.createElement('h2'),p=document.createElement('p'),arrow=document.createElement('span');date.dateTime=record.createdAt;date.textContent=readableDate(record.createdAt)+(!savedIds.has(record.id)?' · Unsaved draft':dirtyIds.has(record.id)?' · Unsaved changes':'');h.textContent=record.cardName;p.textContent=record.question||record.note||'An open reading';arrow.textContent='↗';info.append(date,h,p);button.append(img,info,arrow);button.addEventListener('click',()=>{preserveNote();currentRecord=drafts.get(record.id)||record;goto('reading');});const row=document.createElement('div');row.className='journal-entry';row.append(button);const remove=document.createElement('button');remove.type='button';remove.className='quiet-link remove-entry';remove.textContent='Remove';remove.setAttribute('aria-label','Remove '+record.cardName+' reading');remove.addEventListener('click',()=>{try{const practiceData=practice.remove('single',record.id,record);dispatchEvent(new Event('olivia:journal-change'));lastRemoved={record,practiceData};if(currentRecord?.id===record.id)currentRecord=null;if(heldRecord?.id===record.id)heldRecord=null;drafts.delete(record.id);dirtyIds.delete(record.id);saveDirty=dirtyIds.size>0;renderJournal();text('#journal-status','Reading removed.');const undo=document.createElement('button');undo.className='quiet-link';undo.textContent='Undo';undo.addEventListener('click',()=>{try{practice.restore(lastRemoved.practiceData);dispatchEvent(new Event('olivia:journal-change'));lastRemoved=null;renderJournal();refreshReturn();}catch(error){text('#journal-status',error.message||errorText(error));}});$('#journal-status').append(' ',undo);refreshReturn();}catch(error){text('#journal-status',error.message||errorText(error));}});row.append(remove);list.append(row);});
  spreads.renderJournal();
 }
 $('#resume-link').addEventListener('click',e=>{try{const last=getLastRecord(loadRecords(storage()));if(last){e.preventDefault();preserveNote();currentRecord=drafts.get(last.id)||last;goto('reading');}}catch{}});
@@ -205,14 +215,14 @@ $('.brand').addEventListener('click',e=>{e.preventDefault();goto('home');});docu
 addEventListener('olivia:practice-save',event=>{if(event.detail.kind!=='single')return;const record=event.detail.record;currentRecord=record;drafts.set(record.id,record);dirtyIds.delete(record.id);saveDirty=dirtyIds.size>0;text('#save-status','Kept in your almanac, on this device.');$('#save-reading').firstChild.textContent='Saved ';$('#view-saved').hidden=false;try{clearDraft(storage(),record.id);}catch{}});
 addEventListener('olivia:guidance-save',event=>receiveSavedSingleGuidance(event.detail));
 addEventListener('hashchange',route);addEventListener('storage',()=>{for(const id of drafts.keys())if(!dirtyIds.has(id))drafts.delete(id);refreshReturn();if(view==='journal'){renderJournal();}});addEventListener('beforeunload',e=>{if(saveDirty){e.preventDefault();e.returnValue='';}});
-const spreads=initSpreads({assets,names,show:setView,goto,reduced,announce,onSingleQuestion(options){$('#question').value=options.question;for(const input of $('#question-form').querySelectorAll('[name="intention"]'))input.checked=input.value===options.intention;$('#allow-reversals').checked=options.reversals;guidanceChoice.setConsent(options.guidanceConsent);readingEntry.setCount(1);goto('question');},onComplete:(record,{guidanceConsent=false,onGuidanceState,onGuidanceResult}={})=>{practice?.attachSpread(record);mountQuestionGuidance($('#spread-synthesis-copy-guidance'),record,{showActions:false,autoRequest:guidanceConsent,onState:onGuidanceState,onResult:onGuidanceResult});},removePractice:(kind,id,record)=>practice.remove(kind,id,record),restorePractice:snapshot=>practice.restore(snapshot)});
+const spreads=initSpreads({deckController,assets,names,show:setView,goto,reduced,announce,onSingleQuestion(options){$('#question').value=options.question;for(const input of $('#question-form').querySelectorAll('[name="intention"]'))input.checked=input.value===options.intention;$('#allow-reversals').checked=options.reversals;guidanceChoice.setConsent(options.guidanceConsent);readingEntry.setCount(1);goto('question');},onComplete:(record,{guidanceConsent=false,onGuidanceState,onGuidanceResult}={})=>{practice?.attachSpread(record);mountQuestionGuidance($('#spread-synthesis-copy-guidance'),record,{showActions:false,autoRequest:guidanceConsent,onState:onGuidanceState,onResult:onGuidanceResult});},removePractice:(kind,id,record)=>practice.remove(kind,id,record),restorePractice:snapshot=>practice.restore(snapshot)});
 practice=initPractice({assets,show:setView,goto,getRecord(kind,id){return kind==='spread'?spreads.getRecord(id):(currentRecord?.id===id?currentRecord:drafts.get(id));},openReading(record){preserveNote();try{const draft=loadDraft(storage());if(draft?.id===record.id)record=draft;}catch{}currentRecord=drafts.get(record.id)||record;drafts.set(record.id,currentRecord);goto('reading');},openSpread:record=>spreads.restore(record),startDaily(){
- try{const held=loadDaily(storage());if(held){currentRecord=held;goto('reading');return;}dailyMode=true;preserveNote();session=createSession({question:t('What could I pay attention to today?'),intention:'open'},cards.map(c=>c.number));currentRecord=null;heldRecord=null;setView('choose');history.replaceState(null,'','#choose');openDeck();}catch(error){announce(errorText(error));}
+ try{const held=loadDaily(storage());if(held){currentRecord=held;goto('reading');return;}dailyMode=true;preserveNote();session=createSession({deckId:deckController.getSelectedId(),question:t('What could I pay attention to today?'),intention:'open'},cards.map(c=>c.number));currentRecord=null;heldRecord=null;setView('choose');history.replaceState(null,'','#choose');openDeck();}catch(error){announce(errorText(error));}
 }});
 const physical=initPhysicalReading({assets,show:setView,locale:getLocale(),onComplete(record){saveRecord(storage(),record);preserveNote();currentRecord=record;drafts.set(record.id,record);dispatchEvent(new Event('olivia:journal-change'));goto('reading');}});
 const symbolRoot=document.createElement('main');symbolRoot.id='symbols-view';symbolRoot.hidden=true;document.body.append(symbolRoot);
 const symbols=initSymbolTrails({assets,show:setView,locale:getLocale()});
-initHomeShowcase({assets,locale:getLocale(),reduced});
+initHomeShowcase({assets:deckController.original,locale:getLocale(),reduced});
 const journey=initAlmanacJourney({assets,show:setView,openReading(record){preserveNote();currentRecord=drafts.get(record.id)||record;goto('reading');},openSpread:record=>spreads.restore(record)});
 const entryCoach=initQuestionCoach({container:$('#question-coach'),input:$('#question'),locale:getLocale(),onApprove(plan){$('#question').value=plan.question;approvedQuestionPlan=plan;readingEntry.setPlan(plan);entryCoach.close();$('#question-form button[type=submit]').focus({preventScroll:true});},onSkip(){}});
 
@@ -233,8 +243,32 @@ try{const draft=loadDraft(storage());if(draft){currentRecord=draft;drafts.set(dr
 const coachConversation=document.createElement('a');coachConversation.className='quiet-link';coachConversation.href=(window.OLIVIA_NATIVE?'':'https://oliviaarcana.com')+(getLocale()==='uk'?'/uk/ask/':'/ask/');coachConversation.dataset.noTranslate='true';coachConversation.textContent=getLocale()==='uk'?'Спершу обміркувати запитання з ШІ ↗':'Think through your question with AI first ↗';coachConversation.addEventListener('click',event=>{const question=$('#question').value.trim();if(!question)return;try{sessionStorage.setItem('olivia-question-handoff-v1',JSON.stringify({schemaVersion:1,question,createdAt:Date.now()}));}catch{event.preventDefault();announce(getLocale()==='uk'?'Скопіюйте запитання перед переходом. Браузер не зміг його перенести.':'Copy your question before continuing. This browser could not carry it across.');}});$('#question-view').append(coachConversation);
 const physicalLink=document.createElement('a');physicalLink.href='#physical';physicalLink.className='quiet-link';physicalLink.dataset.noTranslate='true';physicalLink.textContent=getLocale()==='uk'?'Витягнули карту з власної колоди? Запишіть її ↗':'Already drawn from your own deck? Log your card ↗';$('#question-view').append(physicalLink);
 const moreWays=document.createElement('details');moreWays.className='other-reading-ways';const moreSummary=document.createElement('summary');moreSummary.textContent=getLocale()==='uk'?'Інші способи почати':'Other ways to begin';moreWays.append(moreSummary,coachConversation,physicalLink);questionIntro.append($('#question-view>[data-home]'));$('#question-form .question-entry-extras').append(moreWays);
+
+// The library can be visited without losing the question under preparation.
+function refreshDeckSwitchers(){
+ for(const host of document.querySelectorAll('.reading-deck-switch')){
+  const info=deckInfo(deckController.getSelectedId(),getLocale());
+  host.querySelector('img').src=deckController.get(info.id).back;
+  host.querySelector('strong').textContent=info.name;
+ }
+}
+function addDeckSwitcher(form,returnView){
+ const host=document.createElement('div');host.className='reading-deck-switch';host.dataset.noTranslate='true';
+ const uk=getLocale()==='uk';host.innerHTML=`<img alt=""><span><small>${uk?'ВАША КОЛОДА':'YOUR DECK'}</small><strong></strong></span><button type="button">${uk?'Змінити':'Change deck'} <span aria-hidden="true">↗</span></button>`;
+ host.querySelector('button').addEventListener('click',()=>{deckReturnView=returnView;goto('decks');});form.prepend(host);
+}
+deckLibrary=initDeckLibrary({decks:deckLibraryItems(deckController,getLocale()),locale:getLocale(),getSelectedId:deckController.getSelectedId,
+ onSelect(id){const selected=deckController.select(id);refreshDeckSwitchers();return selected;},
+ onBegin(id){if(!deckController.select(id))return;refreshDeckSwitchers();goto(deckReturnView);}
+});
+addDeckSwitcher($('#question-form'),'question');addDeckSwitcher($('#spread-question-form'),'spreads');refreshDeckSwitchers();
+const deckNav=document.createElement('a');deckNav.className='decks-nav';deckNav.dataset.noTranslate='true';deckNav.textContent=getLocale()==='uk'?'Колоди':'Decks';deckNav.href=window.OLIVIA_NATIVE?(getLocale()==='uk'?'/uk/decks/':'/decks/'):'#decks';$('.spreads-nav').before(deckNav);
+const deckFooter=deckNav.cloneNode(true);$('.home-footer nav').append(deckFooter);
+const deckAlmanac=deckNav.cloneNode(true);deckAlmanac.href='#decks';$('#almanac-links').prepend(deckAlmanac);
+if(!location.hash&&/\/decks\/?$/.test(location.pathname))history.replaceState(null,'',location.pathname+location.search+'#decks');
+
 const requestedEntry=new URLSearchParams(location.search).get('experience');
-if(!location.hash&&['question','journal','spreads','today'].includes(requestedEntry))history.replaceState(null,'',location.pathname+location.search+'#'+requestedEntry);
+if(!location.hash&&['question','journal','spreads','today','decks'].includes(requestedEntry))history.replaceState(null,'',location.pathname+location.search+'#'+requestedEntry);
 // The root always opens the hero; returning readers have Today and the resume link.
 initLocale(document.body);
 initMobileExperience({locale:getLocale()});
@@ -242,3 +276,5 @@ initMobileQuestion({locale:getLocale()});
 initMobileReading();
 initInteractivePerimeters();
 refreshReturn();route();
+document.getElementById('deck-library-entry')?.remove();
+document.getElementById('native-experience')?.setAttribute('data-ready','true');

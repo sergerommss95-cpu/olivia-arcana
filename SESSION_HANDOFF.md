@@ -1,10 +1,12 @@
 # Start here — Olivia Arcana session handoff
 
-Updated 26 September 2026. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes.
+Updated 28 September 2026. This is the authoritative continuation document for this branch. Read it before older research, release notes, or archived prototypes.
 
 For work across earlier Olivia tasks, start with [the project history index](history/README.md), [decision history](history/DECISIONS.md), and [Git coverage audit](history/git-coverage-2026-09-26.md). Historical artifacts are separate from current source. The archive preserves recoverable files and documented decisions; it is not a complete recording of every unsaved edit or every conversation.
 
 ## Current state
+
+- New source work on 28 September adds the bilingual **Decks** collection and persistent choice between Olivia and The Space Between. Read [the deck-library implementation handoff](experience/DECK_LIBRARY.md) before continuing this feature. The selected specialist reverse is **The Hidden Garden**, not The Silk Seal. A draft preview was created; see [deck-library release evidence](experience/outputs/olivia-deck-library-release.json) and [browser QA](experience/outputs/qa-deck-library/review.md). Remote verification is pending due to DNS failures after upload. Production details below remain the last recorded 26 September release.
 
 - Branch: `codex/session-handoff-2026-09-26`.
 - Current production: https://oliviaarcana.com/?revision=mobile-surfaces#discover
@@ -17,6 +19,8 @@ For work across earlier Olivia tasks, start with [the project history index](his
 ## What the user wants
 
 A beautiful, cinematic and mysterious tarot product, with tactile card selection and an unmistakably personal experience. Mobile should use the phone format rather than compress desktop. Keep the approved lapis/navy, ivory, restrained antique gold, card artwork and Olive Lattice back.
+
+The original deck remains the general-use and homepage identity. The newer **The Space Between** deck adds aubergine velvet and marble for connection/relationship readings. A reader may choose it for their own ritual; that choice must not replace the approved homepage hero or alter artwork in previously saved readings.
 
 Repeated pain points to avoid reintroducing:
 
@@ -42,6 +46,7 @@ Repeated pain points to avoid reintroducing:
 | Account/payment source repairs | `backend/` and corresponding website clients |
 | Immutable approved motion reference | `experience/outputs/olivia-approved-motion-2026-09-24.html` |
 | Latest release record and QA | `experience/outputs/olivia-mobile-v3-release.json`, `experience/outputs/qa-mobile-v3/review.md` |
+| Deck collection integration, artwork mapping and history guarantees | `experience/DECK_LIBRARY.md` |
 
 The product was originally edited outside this Git repository. This branch brings its editable source, all build inputs, references, and docs into `experience/`, retaining their relative paths. Do not edit generated hashed files as the primary source. Do not restore the old iframe homepage.
 
@@ -66,6 +71,7 @@ Main recent files: `mobile-question.js`, `mobile-experience.js/.css`, `mobile-ri
 ## Product already implemented in this accumulated session
 
 - Complete 78-card catalogue, all original images, optional reversals.
+- New Decks collection source: `/decks/` and `/uk/decks/`, two complete selectable decks, artwork/reverse previews, remembered browser preference, deck controls in question entry, and deck identity retained in readings/history/backups. Both decks are available without a deck-specific paid gate. See the dated [implementation and verification notes](experience/DECK_LIBRARY.md).
 - Manual single-card and 3/5/8-card spread flows, explicit sample experiences and verified-membership gates for larger personal spreads.
 - Question preparation and approved spread positions, question-aware synthesis, structured readable sections, pending-state gate, saving and downloading readings.
 - Daily practice, local almanac, next steps, topics, revisit dates, observations/outcomes, question histories, living-deck marks and personal meanings.
