@@ -1,5 +1,7 @@
 import {createDeckController,deckInfo,deckLibraryItems} from './deck-library.js';
 import {initDeckLibrary} from './deck-library-ui.js';
+import {mountReadingTouch} from './reading-touch.js';
+import {loadReadingKeepsakes} from './reading-keepsake.js';
 import {initMobileQuestion} from './mobile-question.js';
 import {initMobileExperience} from './mobile-experience.js';
 import {initMobileReading} from './mobile-reading.js';
@@ -36,6 +38,7 @@ let deckLibrary=null,deckReturnView='question';
 const cards=TAROT_CARDS,names=cards.map(card=>card.name);
 let choiceStart=0,choiceCount=13;
 let cardFlow=null,practice=null,dailyMode=false;
+let readingTouch=null;
 let view='home',session=null,currentRecord=null,heldRecord=null,sample=false,transition=0,saveDirty=false,lastRemoved=null; const drafts=new Map(),dirtyIds=new Set();
 const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches||new URLSearchParams(location.search).get('motion')==='reduce';
 const motion=()=>window.motionStudy;
@@ -86,6 +89,7 @@ function settleView(previous,next,keepCard){
 }
 function setView(next,{focus=true,keepCard=false}={}){
  const previous=view;
+ if(readingTouch){readingTouch.destroy();readingTouch=null;}
  if(!keepCard)cardFlow?.cancel();
  if(['reading','sample'].includes(view)&&!['reading','sample'].includes(next))unmountQuestionGuidance($('#reading-copy-guidance'));
  if(view==='spreads'&&next!=='spreads')spreads.leave();
@@ -139,9 +143,16 @@ function renderReading(record,isSample,{connected=false}={}){
  if(!isSample&&!dirty&&sameNote){text('#save-status','Kept in your almanac, on this device.');$('#view-saved').hidden=false;}
  practice?.attachSingle(record,isSample);
  singleReference.setState('idle');$('#reading-view').dataset.guidanceState='idle';
+ readingTouch=mountReadingTouch({record,assets,locale:getLocale(),reduced,getText:()=>{
+  const answer=$('#reading-copy-guidance .guidance-result');
+  if(answer&&!answer.hidden)return [...answer.querySelectorAll('p')].map(p=>p.textContent).join('\n\n');
+  return [notes.meaning,notes.practice].filter(Boolean).join('\n\n');
+ }});
+ readingTouch.setState('idle',record);
  mountQuestionGuidance($('#reading-copy-guidance'),isSample?null:record,{showActions:false,autoRequest:!isSample&&connected&&guidanceConsents.delete(record.id),onState:(state,{focused=false}={})=>{
   if(!isSample&&currentRecord?.id!==record.id)return;
   singleReference.setState(state);$('#reading-view').dataset.guidanceState=state;
+  readingTouch?.setState(state,currentRecord?.id===record.id?currentRecord:record);
   if(state==='pending')requestAnimationFrame(()=>{if(view==='reading'&&currentRecord?.id===record.id&&$('#reading-view').dataset.guidanceState==='pending')$('#reading-view .reading-loader')?.focus({preventScroll:true});});
   if(focused&&view==='reading'&&state!=='pending'&&matchMedia('(max-width:800px)').matches)$('#reading-copy-guidance').scrollIntoView({behavior:'instant',block:'start'});
  },onResult:guidance=>receiveSingleGuidance(record.id,guidance)});
@@ -222,7 +233,7 @@ $('#reflection').addEventListener('input',()=>{preserveNote();saveDirty=true;if(
 $('#save-reading').addEventListener('click',()=>{if(!currentRecord||sample)return;currentRecord={...currentRecord,note:$('#reflection').value,updatedAt:new Date().toISOString()};try{saveRecord(storage(),currentRecord);clearDraft(storage(),currentRecord.id);drafts.set(currentRecord.id,currentRecord);dirtyIds.delete(currentRecord.id);saveDirty=dirtyIds.size>0;text('#save-status','Kept in your almanac, on this device.');setSaveState($('#save-reading'),'saved');$('#view-saved').hidden=false;dispatchEvent(new Event('olivia:journal-change'));refreshReturn();}catch(error){text('#save-status',errorText(error));}});
 function download(name,content){const url=URL.createObjectURL(new Blob([content],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 $('#download-reading').addEventListener('click',()=>{if(!currentRecord)return;preserveNote();download('olivia-reading.json',exportRecords([currentRecord]));});
-$('#export-journal').addEventListener('click',()=>{try{const all=new Map(loadRecords(storage()).map(r=>[r.id,r]));for(const [id,draft] of drafts)if(!all.has(id)||dirtyIds.has(id))all.set(id,draft);download('olivia-almanac.json',JSON.stringify({schemaVersion:1,oneCardReadings:JSON.parse(exportRecords([...all.values()])),guidedSpreads:spreads.exportJournal(),practice:practice.exportMetadata(),journey:journey.exportData(),questionHistory:serializeQuestionHistory(loadQuestionHistory(storage()))},null,2));}catch(error){text('#journal-status',errorText(error));}});
+$('#export-journal').addEventListener('click',()=>{try{const all=new Map(loadRecords(storage()).map(r=>[r.id,r]));for(const [id,draft] of drafts)if(!all.has(id)||dirtyIds.has(id))all.set(id,draft);download('olivia-almanac.json',JSON.stringify({schemaVersion:1,oneCardReadings:JSON.parse(exportRecords([...all.values()])),guidedSpreads:spreads.exportJournal(),practice:practice.exportMetadata(),journey:journey.exportData(),questionHistory:serializeQuestionHistory(loadQuestionHistory(storage())),keepsakes:{version:1,entries:loadReadingKeepsakes(storage())}},null,2));}catch(error){text('#journal-status',errorText(error));}});
 function renderJournal(){const list=$('#journal-list');list.replaceChildren();text('#journal-status','');let records;try{records=loadRecords(storage());}catch(error){text('#journal-status',errorText(error));$('#export-journal').disabled=true;return;}const savedIds=new Set(records.map(r=>r.id));const merged=new Map(records.map(r=>[r.id,r]));for(const [id,draft] of drafts){if(!merged.has(id)||dirtyIds.has(id))merged.set(id,draft);}records=[...merged.values()].sort((a,b)=>b.createdAt.localeCompare(a.createdAt));$('#export-journal').disabled=false;/* A backup may contain question observations even after its last reading is removed. */
  if(!records.length){const section=document.createElement('section');section.className='empty-journal';const h=document.createElement('h2');h.textContent='Your first page is waiting.';const p=document.createElement('p');p.textContent='Draw a card and keep a thought. Your reading will be here when you return.';const a=document.createElement('a');a.href='#question';a.className='solid-action';a.textContent='Draw your first card ↗';section.append(h,p,a);list.append(section);spreads.renderJournal();return;}
  records.forEach(record=>{const button=document.createElement('button');button.className='journal-row';button.type='button';const img=document.createElement('img');img.src=assets.forRecord(record).cards[record.cardId];img.alt='';img.loading='lazy';const info=document.createElement('div'),date=document.createElement('time'),h=document.createElement('h2'),p=document.createElement('p'),arrow=document.createElement('span');date.dateTime=record.createdAt;date.textContent=readableDate(record.createdAt)+(!savedIds.has(record.id)?' · Unsaved draft':dirtyIds.has(record.id)?' · Unsaved changes':'');h.textContent=record.cardName;p.textContent=record.question||record.note||'An open reading';arrow.textContent='↗';info.append(date,h,p);button.append(img,info,arrow);button.addEventListener('click',()=>{preserveNote();currentRecord=drafts.get(record.id)||record;goto('reading');});const row=document.createElement('div');row.className='journal-entry';row.append(button);const remove=document.createElement('button');remove.type='button';remove.className='quiet-link remove-entry';remove.textContent='Remove';remove.setAttribute('aria-label','Remove '+record.cardName+' reading');remove.addEventListener('click',()=>{try{const practiceData=practice.remove('single',record.id,record);dispatchEvent(new Event('olivia:journal-change'));lastRemoved={record,practiceData};if(currentRecord?.id===record.id)currentRecord=null;if(heldRecord?.id===record.id)heldRecord=null;drafts.delete(record.id);dirtyIds.delete(record.id);saveDirty=dirtyIds.size>0;renderJournal();text('#journal-status','Reading removed.');const undo=document.createElement('button');undo.className='quiet-link';undo.textContent='Undo';undo.addEventListener('click',()=>{try{practice.restore(lastRemoved.practiceData);dispatchEvent(new Event('olivia:journal-change'));lastRemoved=null;renderJournal();refreshReturn();}catch(error){text('#journal-status',error.message||errorText(error));}});$('#journal-status').append(' ',undo);refreshReturn();}catch(error){text('#journal-status',error.message||errorText(error));}});row.append(remove);list.append(row);});

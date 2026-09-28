@@ -1,0 +1,73 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {initSingleCardFlow,singleCardTurnFrames} from './single-card-flow.js';
+
+const flush=async()=>{for(let i=0;i<8;i++)await Promise.resolve();};
+class Element{
+ constructor(name='div'){this.name=name;this.children=[];this.dataset={};this.hidden=false;this.listeners={};this.attributes={};this.style={setProperty(){}};this.classList={add(){},remove(){},toggle(){}};this.offsetHeight=120;this.scrollHeight=120;this.offsetWidth=220;this.inert=false;this.textContent='';}
+ append(...nodes){this.children.push(...nodes);}
+ setAttribute(name,value){this.attributes[name]=value;}
+ toggleAttribute(name,value){if(value)this.attributes[name]='';else delete this.attributes[name];}
+ hasAttribute(name){return name in this.attributes;}
+ addEventListener(type,fn){(this.listeners[type]??=[]).push(fn);}
+ dispatch(type,event={}){for(const fn of this.listeners[type]||[])fn({...event,type});}
+ focus(){globalThis.document.activeElement=this;this.dispatch('focus');}
+ getBoundingClientRect(){return {left:180,top:190,width:220,height:377};}
+ querySelector(selector){return this.selectors?.[selector]||null;}
+ get lastElementChild(){return this.children.at(-1);}
+ set innerHTML(value){
+  if(!value.includes('single-card-object'))return;
+  const card=new Element(),image=new Element('img'),actions=new Element(),button=new Element('button'),eyebrow=new Element('p'),hint=new Element('p'),note=new Element('details'),summary=new Element('summary'),label=new Element('span'),preview=new Element('span'),toggle=new Element('span'),quote=new Element('blockquote'),back=new Element('a');
+  // The material renderer is tested separately; this DOM double has no canvas host.
+  card.selectors={img:image};actions.selectors={button,'.eyebrow':eyebrow,'.single-card-hint':hint,'.single-card-note':note};note.selectors={summary,'.single-card-note-label':label,'.single-card-note-preview':preview,'.single-card-note-toggle':toggle,blockquote:quote};back.append(new Element('span'),new Element('span'));
+  this.selectors={'.single-card-object':card,'.single-card-actions':actions,'.single-card-return':back};
+ }
+}
+function setup({reduced=true,decode=()=>Promise.resolve(),locale='en'}={}){
+ const body=new Element('body');body.dataset.view='choose';const stage=new Element(),choices=new Element(),random=new Element('button'),destination=new Element('img'),title=new Element('h1'),source=new Element('button');source.dataset.slot='0';choices.append(source);choices.selectors={'[data-slot="0"]':source};
+ const animations=[];
+ Element.prototype.animate=function(){let resolve,reject;const finished=new Promise((res,rej)=>{resolve=res;reject=rej;});const animation={finished,currentTime:0,cancel(){reject(new Error('cancelled'));},finish:resolve,pause(){},play(){}};animations.push(animation);return animation;};
+ const document={body,documentElement:{lang:locale},createElement:name=>new Element(name),addEventListener(){},querySelector:selector=>({'#motion-stage':stage,'#card-choices':choices,'#random-card':random,'#reading-image':destination,'#result-title':title}[selector]||null)};
+ const window={OLIVIA_LOCALE:locale,location:{pathname:'/',search:''},visualViewport:null};
+ Object.assign(globalThis,{document,window,innerWidth:1280,innerHeight:900,addEventListener(){},matchMedia:()=>({matches:false,addEventListener(){}}),requestAnimationFrame:()=>1,cancelAnimationFrame(){},Image:class{naturalWidth=400;decode(){return decode();}}});
+ let chosen=0,read=0;const announcements=[],record={cardId:0,cardName:'The Fool',question:'What can I begin?',deckId:'space-between'};
+ const flow=initSingleCardFlow({assets:{back:'back.png',cards:['face.png'],deckId:'space-between'},motion:()=>null,reduced:()=>reduced,choose:()=>{chosen++;return record;},onRead:()=>{read++;body.dataset.view='reading';return destination;},announce:value=>announcements.push(value)});
+ const layer=body.children[0],card=layer.querySelector('.single-card-object'),image=card.querySelector('img'),actions=layer.querySelector('.single-card-actions'),button=actions.querySelector('button');
+ return {flow,body,layer,image,actions,button,animations,announcements,record,get chosen(){return chosen;},get read(){return read;}};
+}
+
+test('the single card has one uninterrupted edge-on turn and settles flat',()=>{
+ const close=singleCardTurnFrames(),open=singleCardTurnFrames(true),angle=f=>Number(f.transform.match(/rotateY\((.*?)deg\)/)[1]),lift=f=>Number(f.transform.match(/translateY\((.*?)px\)/)[1]);
+ assert.equal(angle(close[0]),0);assert.equal(angle(close.at(-1)),90);assert.equal(angle(open[0]),-90);assert.equal(angle(open.at(-1)),0);
+ assert.equal(lift(close.at(-1)),lift(open[0]));assert.ok(lift(close.at(-1))<0);
+ assert.ok(Math.abs((90-angle(close.at(-2)))-(angle(open[1])+90))<1e-8,'angular speed remains continuous at the swap');
+ for(const frames of [close,open])for(let i=1;i<frames.length;i++)assert.ok(angle(frames[i])>=angle(frames[i-1]));
+});
+
+test('turning holds the same card for inspection; only Read my card opens the reading',async()=>{
+ const x=setup();await x.flow.pick(0,true);assert.equal(x.body.dataset.singleState,'held');assert.equal(x.button.textContent,'Turn my card');assert.equal(x.layer.dataset.deckId,'space-between');
+ x.button.dispatch('click');await flush();assert.equal(x.body.dataset.singleState,'revealed');assert.equal(x.image.src,'face.png');assert.equal(x.button.textContent,'Read my card');assert.equal(x.read,0);assert.equal(x.chosen,1);assert.equal(x.flow.busy,true);
+ x.button.dispatch('click');await flush();assert.equal(x.read,1);assert.equal(x.chosen,1);assert.equal(x.layer.hidden,true);
+});
+
+test('an unreadable face leaves the back and allows a retry without a second draw',async()=>{
+ let fails=true;const x=setup({decode:()=>fails?Promise.reject(new Error('offline')):Promise.resolve()});await x.flow.pick(0);
+ x.button.dispatch('click');await flush();assert.equal(x.body.dataset.singleState,'held');assert.equal(x.image.src,'back.png');assert.equal(x.button.disabled,false);assert.match(x.announcements.at(-1),/could not load/);assert.equal(x.read,0);
+ fails=false;x.button.dispatch('click');await flush();assert.equal(x.body.dataset.singleState,'revealed');assert.equal(x.chosen,1);
+});
+
+test('leaving while a face decodes never reveals or opens a stale card',async()=>{
+ let ready;const x=setup({decode:()=>new Promise(resolve=>{ready=resolve;})});await x.flow.pick(0);x.button.dispatch('click');await flush();assert.equal(x.body.dataset.singleState,'revealing');
+ x.flow.cancel();ready();await flush();assert.equal(x.body.dataset.singleState,'idle');assert.equal(x.layer.hidden,true);assert.equal(x.image.src,'back.png');assert.equal(x.read,0);
+});
+
+test('leaving during extraction or the physical turn cancels the active animation',async()=>{
+ const x=setup({reduced:false});const picking=x.flow.pick(0);assert.equal(x.body.dataset.singleState,'extracting');x.flow.cancel();await picking;assert.equal(x.layer.hidden,true);assert.equal(x.body.dataset.singleState,'idle');
+ const pickingAgain=x.flow.pick(0);x.animations.at(-1).finish();await pickingAgain;x.button.dispatch('click');await flush();assert.equal(x.body.dataset.singleState,'revealing');x.flow.cancel();await flush();assert.equal(x.body.dataset.singleState,'idle');assert.equal(x.layer.hidden,true);assert.equal(x.read,0);
+});
+
+test('Ukrainian controls leave a visitor’s question untouched',async()=>{
+ const x=setup({locale:'uk'});await x.flow.pick(0);assert.equal(x.button.textContent,'Перевернути карту');
+ const note=x.actions.querySelector('.single-card-note');assert.equal(note.querySelector('blockquote').textContent,'What can I begin?');
+ x.button.dispatch('click');await flush();assert.equal(x.button.textContent,'Прочитати карту');assert.equal(x.read,0);
+});

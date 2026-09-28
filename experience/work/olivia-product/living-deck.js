@@ -1,4 +1,5 @@
 import {QUESTION_HISTORY_KEY,loadQuestionHistory,serializeQuestionHistory} from './question-history.js';
+import {KEEPSAKE_STORAGE_KEY,loadReadingKeepsakes} from './reading-keepsake.js';
 /** User-confirmed memories. Reading records and their original draws remain untouched. */
 import {ReadingError,loadRecords,STORAGE_KEY} from './core.js';
 import {loadSpreadRecords,SPREAD_STORAGE_KEY} from './spread-core.js';
@@ -86,14 +87,14 @@ export function saveAssociation(storage,{kind,id,cardId,text}){
 /** Recovery copies preserve exact bytes, including malformed envelopes and unknown fields. */
 export function exportJourneyRecovery(storage){
  storageReady(storage);const stores={};
- for(const key of [STORAGE_KEY,SPREAD_STORAGE_KEY,METADATA_KEY,MEMORY_KEY,QUESTION_HISTORY_KEY]){
+ for(const key of [STORAGE_KEY,SPREAD_STORAGE_KEY,METADATA_KEY,MEMORY_KEY,QUESTION_HISTORY_KEY,KEEPSAKE_STORAGE_KEY]){
   try{stores[key]=storage.getItem(key);}catch(cause){throw new ReadingError('STORAGE_UNAVAILABLE','The browser could not prepare a recovery copy.',cause);}
  }
  return {format:'olivia-journey-recovery',schemaVersion:1,exportedAt:new Date().toISOString(),stores};
 }
 /** The same importable envelope as the almanac's main download, without unsaved drafts. */
 export function exportJourneyBackup(storage){
- return {schemaVersion:1,oneCardReadings:{schemaVersion:1,records:loadRecords(storage)},guidedSpreads:{schemaVersion:1,records:loadSpreadRecords(storage)},practice:loadMetadata(storage),journey:{schemaVersion:1,entries:loadMemories(storage)},questionHistory:serializeQuestionHistory(loadQuestionHistory(storage))};
+ return {schemaVersion:1,oneCardReadings:{schemaVersion:1,records:loadRecords(storage)},guidedSpreads:{schemaVersion:1,records:loadSpreadRecords(storage)},practice:loadMetadata(storage),journey:{schemaVersion:1,entries:loadMemories(storage)},questionHistory:serializeQuestionHistory(loadQuestionHistory(storage)),keepsakes:{version:1,entries:loadReadingKeepsakes(storage)}};
 }
 /** Non-destructive import: conflicting readings must be reconciled explicitly elsewhere. */
 export function mergeMemories(storage,envelope){
