@@ -1,4 +1,5 @@
 /** Server wrapper: gives the Question lab each card's name, thumbnail and one-line essence. */
+import { SUPPORT } from "./SupportLines";
 import { ALL_CARDS } from "@/lib/academy/tarot-cards";
 import { getCardThumbPath } from "@/lib/academy/card-images";
 import { leafById } from "@/lib/academy/leaf";
@@ -12,5 +13,5 @@ const LABELS = {
 
 export default function QuestionLabTool({ locale }: { locale: "en" | "uk" }) {
   const cards = ALL_CARDS.map((card, id) => ({ name: cardName(id, locale), thumb: getCardThumbPath(card), essence: leafById(id)![locale].essence }));
-  return <QuestionLab locale={locale} cards={cards} labels={LABELS[locale]} />;
+  return <QuestionLab locale={locale} cards={cards} labels={{ ...LABELS[locale], support: SUPPORT[locale] }} />;
 }

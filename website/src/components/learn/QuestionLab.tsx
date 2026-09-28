@@ -10,10 +10,11 @@ import { useMemo, useState } from "react";
 import { checkQuestion } from "@/lib/learn/phrase-check";
 import BANK from "@/lib/learn/phrase-bank.json";
 import styles from "./learn.module.css";
+import SupportLines, { type SupportLabels } from "./SupportLines";
 
 interface Card { name: string; thumb: string; essence: string }
-interface Labels { yours: string; placeholder: string; open: string; closed: string; mind: string; care: string; tryInstead: string; deal: string; again: string; ask: string; examples: string; empty: string }
-type Entry = { id: string; note: string; example?: { from: string; to: string } };
+interface Labels { yours: string; placeholder: string; open: string; closed: string; mind: string; care: string; support: SupportLabels; tryInstead: string; deal: string; again: string; ask: string; examples: string; empty: string }
+type Entry = { id: string; note: string; support?: boolean; example?: { from: string; to: string } };
 
 export default function QuestionLab({ locale, cards, labels }: { locale: "en" | "uk"; cards: Card[]; labels: Labels }) {
   const [question, setQuestion] = useState("");
@@ -46,7 +47,7 @@ export default function QuestionLab({ locale, cards, labels }: { locale: "en" | 
             <p className={styles.toolLabel}>{title}</p>
             {entries.map((entry) => (
               <div key={entry.id}>
-                <p>{entry.note}</p>
+                {entry.support ? <SupportLines labels={labels.support} /> : <p>{entry.note}</p>}
                 {entry.example && <p className={styles.labExample}><span>{labels.tryInstead}</span>{quote(entry.example.to)}</p>}
               </div>
             ))}

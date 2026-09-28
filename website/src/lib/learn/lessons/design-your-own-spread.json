@@ -2,7 +2,7 @@
   "slug": "design-your-own-spread",
   "path": "practice",
   "order": 5,
-  "tool": null,
+  "tool": "spread-builder",
   "cards": [
     9,
     38

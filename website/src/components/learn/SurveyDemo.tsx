@@ -38,6 +38,8 @@ export default function SurveyDemo({ locale, names, thumbs, images, labels }: {
   const [reversals, setReversals] = useState(false);
   const [cards, setCards] = useState<{ id: number; reversed: boolean }[]>([]);
   const deal = useCallback(() => setCards(draw(size, reversals)), [size, reversals]);
+  // Deal only after mount: a random deal during render would differ from the server HTML.
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- dealing is the external (random) event
   useEffect(() => { deal(); }, [deal]);
   const symbols = (id: number) => (SYMBOLS[id] || []).map((s) => ({ key: s.k, name: s[locale], x: s.x, y: s.y }));
   const { facts } = cards.length ? surveySpread(cards, { locale, reversals, symbols }) : { facts: [] };

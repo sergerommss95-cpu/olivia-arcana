@@ -2,7 +2,7 @@
   "slug": "the-celtic-cross-honestly",
   "path": "history",
   "order": 5,
-  "tool": null,
+  "tool": "celtic-cross",
   "cards": [
     65,
     42,

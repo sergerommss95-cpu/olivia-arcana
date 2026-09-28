@@ -244,3 +244,5 @@
   .courtGrid { grid-template-columns: 4rem repeat(4, minmax(0, 1fr)); }
 }
 @media (prefers-reduced-motion: reduce) { .dealt li, .walkPin, .tableText, .labCards li { animation: none; } }
+.lensTabs button:focus-visible, .segment button:focus-visible, .numberRow button:focus-visible, .labExamples button:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .primary, .primaryLink, .drillCard img, .courtPick img, .walkPin, .sentenceCards { transition: none; } .primary:hover, .primaryLink:hover { transform: none; } }

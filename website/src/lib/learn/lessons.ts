@@ -10,7 +10,8 @@ export type Locale = "en" | "uk";
 
 export type ToolId =
   | "question-lab" | "pin-walk" | "position-prism" | "survey-demo" | "sentence"
-  | "worked-readings" | "pair-drill" | "deck-table" | "court-council" | "return";
+  | "worked-readings" | "pair-drill" | "deck-table" | "court-council" | "return"
+  | "celtic-cross" | "spread-builder";
 
 export interface LessonText {
   title: string;

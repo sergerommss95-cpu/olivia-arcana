@@ -22,6 +22,8 @@ import PinWalk from "./PinWalk";
 import WorkedReading, { type WorkedData } from "./WorkedReading";
 import QuestionLabTool from "./QuestionLabTool";
 import SentenceTool from "./SentenceTool";
+import CelticCrossTool from "./CelticCrossTool";
+import SpreadBuilderTool from "./SpreadBuilderTool";
 import styles from "./learn.module.css";
 
 const TITLES: Record<ToolId, { en: string; uk: string }> = {
@@ -35,6 +37,8 @@ const TITLES: Record<ToolId, { en: string; uk: string }> = {
   "deck-table": { en: "Practice: the deck laid out", uk: "Практика: уся колода на столі" },
   "court-council": { en: "Practice: a council of courts", uk: "Практика: рада придворних карт" },
   return: { en: "Return to a reading", uk: "Поверніться до читання" },
+  "celtic-cross": { en: "Practice: the Celtic Cross, without an outcome", uk: "Практика: Кельтський хрест без «результату»" },
+  "spread-builder": { en: "Practice: design a spread", uk: "Практика: створіть власний розклад" },
 };
 
 export function cardName(id: number, locale: Locale) {
@@ -66,7 +70,7 @@ const L = {
     prism: { lead: "Оберіть карту й прочитайте її через кожну позицію, перш ніж дивитися на версію Olivia.", yours: "Ваше читання", placeholder: "Одне-два речення…", show: "Показати читання Olivia", hide: "Сховати читання Olivia", olivia: "Читання Olivia", showAll: "Просто показати всі три", swapTitle: "Перевірка обміном", swapBody: "Чи могли б якісь два ваші речення помінятися місцями? Якщо так, одне з них ще не прочитало своєї позиції. Перепишіть те, що підійшло б будь-куди.", tryIt: "Спробувати розклад на три карти ↗" },
     choose: "Оберіть карту",
     survey: { size: "Кількість карт", deal: "Розкласти карти", again: "Розкласти ще раз", worth: "Варто помітити", lead: "Розкладіть карти з усієї колоди й подивіться на них як на одну картину. Спробуйте кілька разів: помітьте, як часто те, що здається вражаючим, насправді звичайне.", reversals: "Із перевернутими картами" },
-    drill: { lens: "Оберіть оптику", yours: "Ваше читання пари", placeholder: "Одне-два речення крізь цю оптику…", reveal: "Показати одну з версій", hide: "Сховати", version: "Одна з версій читання", from: "Написано для сторінки карти «{name}»", another: "Інша пара", open: "Відкрити сторінку пари ↗" },
+    drill: { lens: "Оберіть призму", yours: "Ваше читання пари", placeholder: "Одне-два речення крізь цю призму…", reveal: "Показати одну з версій", hide: "Сховати", version: "Одна з версій читання", from: "Написано для сторінки карти «{name}»", another: "Інша пара", open: "Відкрити сторінку пари ↗" },
     table: { ace: "Т", numbers: "Одне число, чотири масті", missing: "Пропущений крок", pick: "Оберіть число", yours: "Що ви помічаєте", placeholder: "Що спільного в цих карт? Що кожна масть робить із цим числом?", reveal: "Показати, що означає число кожної карти", hide: "Сховати", question: "{rank}: одна ідея у Вогні, Воді, Повітрі й Землі. Що в них спільного і що кожна масть робить із нею?", ranks: ["", "Тузи", "Двійки", "Трійки", "Четвірки", "П’ятірки", "Шістки", "Сімки", "Вісімки", "Дев’ятки", "Десятки"], missingAsk: "Один крок масті лежить сорочкою догори. Що має бути між цими двома картами і що воно додало б?", another: "Інший пропуск", suits: ["Жезли · Вогонь", "Кубки · Вода", "Мечі · Повітря", "Пентаклі · Земля"] },
     council: { choose: "Оберіть до трьох придворних карт", ask: "Читайте їх як якості, якими можна скористатися, а не як людей. Яка якість веде? Якої бракує? Якою ви користуєтеся надто часто?", yours: "Ваше читання", placeholder: "Кілька речень…", reveal: "Показати їхні темпераменти", hide: "Сховати", temperament: "Темперамент", gifts: "Сильні сторони", shadow: "Тінь", ranks: ["Паж", "Лицар", "Королева", "Король"], suits: ["Жезли", "Кубки", "Мечі", "Пентаклі"] },
     walk: { choose: "Оберіть карту", yours: "Що ви бачите", placeholder: "До трьох простих рядків: що вирізьблено, де, що робить постать…", start: "Показати першу мітку", next: "Показати наступну мітку", meanings: "Тепер прочитайте, що вони несуть", seen: "Що вирізьблено", meaning: "Що це несе", again: "Спробувати іншу карту", open: "Уся сторінка карти ↗" },
@@ -154,6 +158,8 @@ export default function LessonTool({ tool, locale }: { tool: ToolId; locale: Loc
 
   if (tool === "question-lab") body = <QuestionLabTool locale={locale} />;
   if (tool === "sentence") body = <SentenceTool locale={locale} />;
+  if (tool === "celtic-cross") body = <CelticCrossTool locale={locale} />;
+  if (tool === "spread-builder") body = <SpreadBuilderTool locale={locale} />;
 
   if (tool === "return") {
     body = (

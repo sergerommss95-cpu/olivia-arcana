@@ -50,7 +50,7 @@ export function structureLine(facts: Facts, ctx: PairContext, locale: Locale): s
     : "Дві карти Старших Арканів: дві великі теми поруч. Яка з них — ґрунт, а яка — рух?";
   if (facts.majorWithMinor) return en
     ? "A Major and a Minor: the Major can name the theme, the Minor shows where it turns up in ordinary days."
-    : "Старший і Молодший аркан: Старший може назвати тему, а Молодший — показати, де вона з’являється в буденних днях.";
+    : "Старший і Молодший Аркан: Старший може назвати тему, а Молодший — показати, де вона з’являється в буденних днях.";
   if (facts.elements === "contrary" && ctx.elementA && ctx.elementB) return en
     ? `${ELEMENT.en[ctx.elementA as keyof typeof ELEMENT.en]} and ${ELEMENT.en[ctx.elementB as keyof typeof ELEMENT.en]}: contrary elements in the Golden Dawn lens, often read as friction worth working with.`
     : `${ELEMENT.uk[ctx.elementA as keyof typeof ELEMENT.uk]} і ${ELEMENT.uk[ctx.elementB as keyof typeof ELEMENT.uk]}: протилежні стихії в системі Золотої Зорі; це тертя часто читають як таке, з яким варто працювати.`;

@@ -9,8 +9,8 @@ import { cardName } from "./PairPage";
 import styles from "./pair-page.module.css";
 
 const COPY = {
-  en: { home: "Home", cards: "Cards", crumb: "Breadcrumb", kicker: "Cards in conversation", title: "Tarot card pairs", lead: (n: number) => `${n} pairs written for the Olivia deck. Choose a card to see who it has been read with, then open a pair to read the two images together.`, lesson: "How to read two cards together ↗" },
-  uk: { home: "Головна", cards: "Карти Таро", crumb: "Навігаційний шлях", kicker: "Карти в розмові", title: "Пари карт Таро", lead: (n: number) => `Пар, написаних для колоди Olivia: ${n}. Оберіть карту, щоб побачити, з якими картами її читали, і відкрийте пару, щоб прочитати два зображення разом.`, lesson: "Як читати дві карти разом ↗" },
+  en: { home: "Home", cards: "Cards", crumb: "Breadcrumb", kicker: "Cards in conversation", title: "Tarot card pairs", lead: (n: number) => `${n} pairs written for the Olivia deck. Choose a card to see who it has been read with, then open a pair to read the two images together.`, lesson: "How to read two cards together ↗", lab: "Pair lab: read any two cards ↗" },
+  uk: { home: "Головна", cards: "Карти Таро", crumb: "Навігаційний шлях", kicker: "Карти в розмові", title: "Пари карт Таро", lead: (n: number) => `Пар, написаних для колоди Olivia: ${n}. Оберіть карту, щоб побачити, з якими картами її читали, і відкрийте пару, щоб прочитати два зображення разом.`, lesson: "Як читати дві карти разом ↗", lab: "Лабораторія пар: будь-які дві карти ↗" },
 };
 
 export default function PairsIndex({ locale }: { locale: LeafLocale }) {
@@ -25,7 +25,7 @@ export default function PairsIndex({ locale }: { locale: LeafLocale }) {
         <p className={styles.kicker}>{c.kicker}</p>
         <h1 className={styles.h1}>{c.title}</h1>
         <p className={styles.lead}>{c.lead(allPairs().length)}</p>
-        <p className={styles.cardLinks}><Link href={`${locale === "uk" ? "/uk" : ""}/learn/combinations/two-cards-five-ways/`}>{c.lesson}</Link></p>
+        <p className={styles.cardLinks}><Link href={`${locale === "uk" ? "/uk" : ""}/learn/combinations/two-cards-five-ways/`}>{c.lesson}</Link><Link href={`${library}pairs/lab/`}>{c.lab}</Link></p>
       </header>
       <ul className={styles.indexList}>
         {ALL_CARDS.map((card, id) => (

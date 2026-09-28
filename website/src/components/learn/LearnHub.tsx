@@ -9,7 +9,7 @@ import styles from "./learn.module.css";
 const COPY = {
   en: { home: "Home", crumb: "Breadcrumb", kicker: "After the card meanings", title: "Learn to read", lead: "Knowing what each card means is the start. These lessons teach the craft of reading: asking a question the cards can meet, reading a spread as a whole, letting cards talk to each other, and keeping a practice that grows with you. Most of them end with something to try.", minutes: (m: number) => `${m} min`, interactive: "Interactive", lesson: (n: number) => `Lesson ${n}`,
     toolsKicker: "To use beside the lessons", tools: [
-      { href: "/cards/pairs/lab/", cards: [17, 58], title: "Pair Lab", text: "Choose any two cards and read them together through five lenses." },
+      { href: "/cards/pairs/lab/", cards: [17, 58], title: "Pair lab", text: "Choose any two cards and read them together through five lenses." },
       { href: "/cards/", cards: [9, 38], title: "A spread from any card", text: "Every card page ends with three questions of its own. Ask them with three cards from the deck." },
       { href: "/#symbols", cards: [18, 0], title: "The language of symbols", text: "Follow one carved symbol from card to card and watch its meaning shift." },
     ] },
