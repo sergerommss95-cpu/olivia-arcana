@@ -4,7 +4,7 @@
   "revision": "staying-with-the-question-v7",
   "date": "2026-09-27",
   "branch": "claude/peaceful-clarke-scrh06",
-  "commits": ["bdae5c1", "e95c563", "9143a47"],
+  "commits": ["bdae5c1", "e95c563", "9143a47", "8e0adec"],
   "previous_revision": "production v6, merge commit c822edd",
   "scope": "The owner asked what gives users best-in-class value, then said to start on what is best: check-ins that return to a kept reading, Ukrainian About and Contact pages, and the personal reading shown as it is written",
   "production_deployed": false,
@@ -57,6 +57,7 @@
       "checks": "29/29 in Chromium: no film on a first visit; first answer, open; right language and cut play muted in view; stays paused after a pause; pauses out of view; one cut loads; reduced motion shows the poster and the play button",
       "first_visit_vs_build_before_film": "0 pixels differ (EN and UK, 1440x900 and 390x844, reduced motion)",
       "portable_file": "answer left out, no page errors",
+      "deploy_preview_5": "the same 29 checks pass on https://deploy-preview-5--olivia-arcana.netlify.app; videos are served with 206 ranges, video/webm and video/mp4, immutable caching and noindex; CI green on 8e0adec",
       "safari_tested": false
     }
   },

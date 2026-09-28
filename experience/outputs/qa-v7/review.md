@@ -1,6 +1,6 @@
 # Staying with the question (v7) — 27 September 2026
 
-Branch `claude/peaceful-clarke-scrh06`, commits `bdae5c1`, `e95c563` and `9143a47`, on top of production v6 (`c822edd`). **Not deployed:** production is v6, and a push to `main` would deploy this. `hero.js` is byte-identical, and a first visit is pixel-identical to production.
+Branch `claude/peaceful-clarke-scrh06`, commits `bdae5c1`, `e95c563` and `9143a47`, plus the film on How Olivia works (`8e0adec`), on top of production v6 (`c822edd`). **Not deployed:** production is v6, and a push to `main` would deploy this. `hero.js` is byte-identical, and a first visit is pixel-identical to production.
 
 Why: the owner asked what would give users best-in-class value, then said to start on what is best. The brand promise ends "keep what you notice, and return to see what changed" (`BRAND.md`). The product could already keep a check-in date, but the date sat two collapsed sections deep and nothing invited a return. The same pass adds the Ukrainian About and Contact pages. It also shows the personal reading as it is written, instead of after a wait.
 
@@ -94,6 +94,7 @@ The owner asked for the "How it works" film in one of the How Olivia works FAQ s
   - only one cut loads;
   - in reduced motion there is no autoplay, and the play button works.
   - The portable file leaves the answer out, with no page errors. The phone and check-in journeys still pass.
+  - On deploy preview 5, the same 29 checks pass. The videos are served with byte ranges (206), `video/webm` and `video/mp4`, immutable caching and `noindex`. CI passed on `8e0adec`.
 - **Phone journeys** (`phone-journey.mjs`, now with a check-in step): EN 390×844 and UK 375×812 pass.
 - **Check-ins** (`tools/checkin-journey.mjs`, EN and UK; phone, then desktop):
   - the chooser is hidden until the reading is kept;
