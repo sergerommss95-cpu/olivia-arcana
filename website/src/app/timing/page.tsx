@@ -412,7 +412,7 @@ export default function TimingPage() {
             <p className="alm-kicker">{copy.kicker}</p>
             <h1 className="alm-h1">{copy.title}</h1>
             <p className="alm-lead tm-nochart-body">{copy.noChartBody}</p>
-            <TransitionLink href="/portrait" className="alm-btn">
+            <TransitionLink href="/astrology/birth-chart/" className="alm-btn">
               {copy.noChartCta}
             </TransitionLink>
           </div>

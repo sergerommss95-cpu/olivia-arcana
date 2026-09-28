@@ -1,0 +1,187 @@
+/* Olivia Astrology. Tokens match learn.module.css and the card leaves. */
+.page {
+  --ink: #eee6d4;
+  --body: rgba(238, 230, 212, 0.86);
+  --soft: rgba(196, 205, 208, 0.78);
+  --faint: rgba(181, 196, 199, 0.6);
+  --rule: rgba(181, 196, 199, 0.18);
+  --gold: #c9b182;
+  --gold-bright: #e6cf9e;
+  --panel: #10263a;
+  --panel-deep: #0c2033;
+  --panel-rim: rgba(201, 215, 216, 0.1);
+  --hairline: rgba(216, 196, 156, 0.29);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 1120px;
+  margin: 0 auto;
+  color: var(--ink);
+}
+.page a { color: inherit; }
+.page a:focus-visible, .page button:focus-visible, .page summary:focus-visible, .page input:focus-visible, .page select:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+
+.crumb ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.55rem; margin: 0 0 2.2rem; padding: 0; font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); }
+.crumb a { color: var(--soft); text-decoration: none; }
+.crumb a:hover { color: var(--gold); }
+.kicker { display: block; margin: 0 0 0.9rem; padding: 0; color: var(--gold); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.64rem; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 400; }
+.head { max-width: 46rem; }
+.h1 { margin: 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: clamp(2.6rem, 6.4vw, 4.8rem); line-height: 1; letter-spacing: -0.015em; text-wrap: balance; }
+.lead { margin: 1.4rem 0 0; max-width: 42rem; color: var(--body); font-size: 1.08rem; line-height: 1.8; }
+.h2 { margin: 0 0 0.7rem; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: clamp(1.8rem, 3.4vw, 2.5rem); line-height: 1.1; }
+.h3 { margin: 0 0 0.35rem; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: clamp(1.45rem, 2.4vw, 1.75rem); line-height: 1.15; }
+.blockLead { margin: 0 0 1.6rem; max-width: 40rem; color: var(--soft); font-size: 0.98rem; line-height: 1.7; }
+.note { margin: 0.6rem 0 0; color: var(--body); font-size: 1rem; line-height: 1.72; }
+.hint { margin: 0.45rem 0 0; color: var(--faint); font-size: 0.84rem; line-height: 1.6; }
+.question { margin: 0.9rem 0 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-style: italic; font-size: 1.2rem; line-height: 1.4; color: var(--ink); }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.srOnly:focus { outline: none; }
+
+/* Actions (BRAND.md: ivory primary, 14 px radius, at least 44 px tall) */
+.primary { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 1.5rem; border: 0; border-radius: 14px; background: linear-gradient(180deg, #f2e5c8, #dccaab); color: #183043; font: 500 0.95rem/1 var(--font-body), sans-serif; text-decoration: none; cursor: pointer; transition: transform 200ms var(--ease), box-shadow 200ms var(--ease); box-shadow: 0 10px 26px rgba(2, 8, 18, 0.32); }
+.primary:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(2, 8, 18, 0.4); }
+.primary:active { transform: translateY(0); }
+.textButton { margin: 0.9rem 0 0; padding: 0.4rem 0; border: 0; background: none; color: var(--soft); font: inherit; font-size: 0.88rem; text-decoration: underline; text-decoration-color: var(--hairline); text-underline-offset: 0.3em; cursor: pointer; }
+.textButton:hover { color: var(--gold-bright); }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.4rem; margin-top: 1.6rem; }
+.actions .textButton { margin: 0; }
+
+/* Form */
+.form { margin-top: clamp(2.4rem, 6vw, 3.4rem); max-width: 46rem; padding: clamp(1.4rem, 3vw, 2.2rem); border-radius: 22px; background: linear-gradient(180deg, rgba(16, 38, 58, 0.72), rgba(10, 26, 42, 0.55)); box-shadow: inset 0 1px 0 var(--panel-rim), 0 0 0 1px rgba(201, 177, 130, 0.14); }
+.form fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.fieldRow { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem 1.2rem; }
+.field { display: grid; gap: 0.45rem; margin-top: 1rem; color: var(--soft); font-size: 0.86rem; }
+.fieldRow .field { margin-top: 0; }
+.field input, .field select { width: 100%; min-height: 48px; padding: 0 0.95rem; border: 1px solid var(--hairline); border-radius: 12px; background: var(--panel-deep); color: var(--ink); font: 1rem var(--font-body), sans-serif; color-scheme: dark; }
+.field input:disabled { opacity: 0.45; }
+.check { display: flex; align-items: center; gap: 0.6rem; margin-top: 1rem; color: var(--body); font-size: 0.94rem; cursor: pointer; }
+.check input { width: 18px; height: 18px; accent-color: var(--gold); }
+.combo { position: relative; }
+.options { position: absolute; z-index: 5; inset: calc(100% + 6px) 0 auto; max-height: 18rem; overflow-y: auto; margin: 0; padding: 0.35rem; list-style: none; border-radius: 14px; background: #0d2236; box-shadow: 0 0 0 1px var(--hairline), 0 18px 40px rgba(2, 8, 18, 0.5); }
+.options li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.7rem 0.8rem; border-radius: 10px; color: var(--ink); cursor: pointer; }
+.options li[aria-selected="true"] { background: #eddfc2; color: #172d3d; }
+.options li[aria-selected="true"] .optionMeta { color: #3d5263; }
+.optionMeta { color: var(--faint); font-size: 0.82rem; }
+.error { margin: 1rem 0 0; color: #f0c9a6; font-size: 0.92rem; }
+
+/* Results */
+.results { margin-top: clamp(3rem, 8vw, 4.6rem); }
+.resolved { margin: 0; padding-bottom: 1rem; border-bottom: 1px solid var(--rule); color: var(--soft); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.7rem; letter-spacing: 0.08em; line-height: 1.8; }
+.notice { margin: 1rem 0 0; padding: 0.9rem 1.1rem; border-radius: 14px; background: var(--panel); color: var(--body); font-size: 0.94rem; line-height: 1.65; }
+.block { margin-top: clamp(3rem, 7vw, 4.4rem); }
+
+.three { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.4rem, 3vw, 2.4rem); }
+.threeItem { display: flex; flex-direction: column; }
+.threeArt { display: block; margin-bottom: 1.1rem; }
+.threeArt img, .threeBack { display: block; width: 100%; max-width: 260px; height: auto; aspect-ratio: 448 / 768; border-radius: 12px; box-shadow: 0 24px 56px rgba(2, 8, 18, 0.45), 0 0 0 1px rgba(216, 196, 156, 0.2); transition: transform 360ms var(--ease); }
+.threeArt:hover img { transform: translateY(-4px) rotate(-1deg); }
+.threeBack { position: relative; margin-bottom: 1.1rem; background: var(--panel-deep); box-shadow: inset 0 0 0 1px var(--hairline), inset 0 0 0 7px var(--panel-deep), inset 0 0 0 8px rgba(216, 196, 156, 0.14); }
+.threeBack::after { content: "AC"; position: absolute; inset: 0; display: grid; place-items: center; color: var(--gold); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.8rem; letter-spacing: 0.3em; opacity: 0.7; }
+.threeMissing .note { color: var(--soft); }
+.cardName { margin: 0; color: var(--gold); font-size: 0.86rem; }
+.cardName a { text-decoration: none; }
+.cardName a:hover { color: var(--gold-bright); text-decoration: underline; }
+
+.figure { margin: clamp(3rem, 7vw, 4.4rem) 0 0; }
+.wheel { display: block; width: 100%; max-width: 640px; height: auto; margin: 1.2rem auto 0; overflow: visible; }
+.wheel line, .wheel circle, .wheel polyline { fill: none; stroke: rgba(238, 230, 212, 0.55); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.wheel text { fill: var(--ink); stroke: none; }
+.wheel .wheelFaint { stroke: rgba(238, 230, 212, 0.2); }
+.wheelSigns text { font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; font-size: 21px; fill: rgba(238, 230, 212, 0.85); }
+.wheelHouses text { font-family: var(--font-mono, ui-monospace), monospace; font-size: 11px; fill: var(--faint); letter-spacing: 0.08em; }
+.wheel .chordEase { stroke: rgba(238, 230, 212, 0.34); }
+.wheel .chordTension { stroke: rgba(201, 177, 130, 0.6); }
+.wheelAngles line { stroke: var(--gold); stroke-width: 1.2; }
+.wheelAngles text { font-family: var(--font-mono, ui-monospace), monospace; font-size: 12px; letter-spacing: 0.14em; fill: var(--gold); }
+.wheelBodies polyline { stroke: rgba(238, 230, 212, 0.32); }
+.wheelBodies circle { fill: var(--ink); stroke: none; }
+.wheelBodies text { font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; font-size: 20px; }
+.wheelRetro { font-family: var(--font-mono, ui-monospace), monospace; font-size: 10px; fill: var(--gold); }
+.wheel > g { animation: inkIn 900ms var(--ease) both; }
+.wheel > g:nth-of-type(2) { animation-delay: 120ms; }
+.wheel > g:nth-of-type(3) { animation-delay: 220ms; }
+.wheel > g:nth-of-type(4) { animation-delay: 420ms; }
+.wheel > g:nth-of-type(5) { animation-delay: 320ms; }
+.wheel > g:nth-of-type(6) { animation-delay: 520ms; }
+@keyframes inkIn { from { opacity: 0; } to { opacity: 1; } }
+.caption { max-width: 40rem; margin: 1.2rem auto 0; color: var(--faint); font-size: 0.84rem; line-height: 1.65; text-align: center; }
+
+/* Ledger rows (BRAND.md disclosure: filled row with a +/− chip) */
+.ledger { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.row { border-radius: 14px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim); }
+.row summary { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto 28px; align-items: center; gap: 0.9rem; min-height: 52px; padding: 0.6rem 0.9rem 0.6rem 1rem; list-style: none; cursor: pointer; }
+.row summary::-webkit-details-marker { display: none; }
+.row summary::after { content: "+"; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: rgba(238, 230, 212, 0.08); color: var(--gold); font-size: 1rem; line-height: 1; }
+.row[open] summary::after { content: "−"; }
+.row summary:hover .rowName { color: var(--gold-bright); }
+.glyph { font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; font-size: 1.3rem; color: var(--gold); text-align: center; }
+.rowName { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.25rem; line-height: 1.25; transition: color 200ms var(--ease); }
+.rowMeta { color: var(--soft); font-size: 0.82rem; text-align: right; white-space: nowrap; }
+.rowBody { padding: 0 1.2rem 1.2rem 3.9rem; }
+.rowBody p { margin: 0.6rem 0 0; color: var(--body); font-size: 0.98rem; line-height: 1.7; }
+.rowBody strong { color: var(--ink); font-weight: 500; }
+.rowBody .question { font-size: 1.15rem; }
+
+.method { margin-top: clamp(3rem, 7vw, 4.4rem); max-width: 44rem; padding-top: 1.4rem; border-top: 1px solid var(--rule); }
+.method p { margin: 0 0 0.9rem; color: var(--soft); font-size: 0.94rem; line-height: 1.75; }
+.boundary { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-style: italic; font-size: 1.25rem !important; color: var(--ink) !important; }
+
+/* Hub */
+.door { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(1.4rem, 4vw, 2.6rem); align-items: center; margin-top: clamp(2.4rem, 6vw, 3.4rem); padding: clamp(1.4rem, 3vw, 2.2rem); border-radius: 22px; background: linear-gradient(180deg, rgba(16, 38, 58, 0.72), rgba(10, 26, 42, 0.55)); box-shadow: inset 0 1px 0 var(--panel-rim), 0 0 0 1px rgba(201, 177, 130, 0.14); text-decoration: none; }
+.doorArt { display: flex; }
+.doorArt img { width: clamp(62px, 9vw, 92px); height: auto; border-radius: 7px; box-shadow: 0 14px 30px rgba(2, 8, 14, 0.5), 0 0 0 1px rgba(216, 196, 156, 0.2); transition: transform 360ms var(--ease); }
+.doorArt img + img { margin-left: -1.4rem; }
+.doorArt img:nth-child(1) { transform: rotate(-6deg); }
+.doorArt img:nth-child(3) { transform: rotate(6deg); }
+.door:hover .doorArt img:nth-child(1) { transform: rotate(-9deg) translateX(-4px); }
+.door:hover .doorArt img:nth-child(3) { transform: rotate(9deg) translateX(4px); }
+.doorText { display: grid; justify-items: start; gap: 0.2rem; }
+.doorTitle { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: clamp(1.8rem, 3.4vw, 2.4rem); line-height: 1.1; }
+.doorText .note { margin: 0.3rem 0 1rem; max-width: 34rem; }
+
+.tonight { margin-top: clamp(3rem, 7vw, 4.4rem); }
+.tonightGrid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(1.6rem, 4vw, 3rem); align-items: start; min-height: 22rem; }
+.moonPanel { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 1.4rem; align-items: start; padding: 1.4rem; border-radius: 18px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim); }
+.moonDisc { width: 100%; height: auto; }
+.moonDark { fill: #081727; }
+.moonLit { fill: #ede4d2; }
+.moonRim { fill: none; stroke: rgba(216, 196, 156, 0.4); stroke-width: 1; }
+.moonDates { margin: 1rem 0 0; display: grid; gap: 0.6rem; }
+.moonDates div { display: grid; gap: 0.1rem; }
+.moonDates dt { font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); }
+.moonDates dd { margin: 0; color: var(--ink); font-size: 0.95rem; }
+.skyList { list-style: none; margin: 0; padding: 0; display: grid; }
+.skyList li { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto 9.5rem; align-items: center; gap: 0.9rem; padding: 0.55rem 0; border-bottom: 1px solid var(--rule); }
+.skyCard { display: flex; align-items: center; gap: 0.6rem; color: var(--soft); font-size: 0.82rem; text-decoration: none; }
+.skyCard img { width: 26px; height: auto; border-radius: 3px; box-shadow: 0 0 0 1px rgba(216, 196, 156, 0.2); }
+.skyCard:hover { color: var(--gold-bright); }
+
+.signGrid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0.8rem; }
+.signCell { display: grid; grid-template-columns: 52px minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 1rem; row-gap: 0.15rem; height: 100%; padding: 1rem; border-radius: 16px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim); text-decoration: none; transition: background-color 240ms var(--ease); }
+.signCell img { grid-row: 1 / 4; width: 52px; height: auto; border-radius: 5px; box-shadow: 0 8px 18px rgba(2, 8, 14, 0.45); transition: transform 300ms var(--ease); }
+.signCell:hover { background: #132d44; }
+.signCell:hover img { transform: translateY(-2px) rotate(-1.5deg); }
+.signName { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.3rem; line-height: 1.15; }
+.signEssence { margin-top: 0.3rem; color: var(--soft); font-size: 0.84rem; line-height: 1.55; }
+
+@media (max-width: 760px) {
+  .three { grid-template-columns: 1fr; }
+  .threeItem { display: grid; grid-template-columns: 7.2rem minmax(0, 1fr); column-gap: 1.1rem; }
+  .threeItem > * { grid-column: 2; }
+  .threeArt, .threeBack { grid-column: 1 !important; grid-row: 1 / span 6; }
+  .tonightGrid { grid-template-columns: 1fr; min-height: 0; }
+  .skyList li { grid-template-columns: 1.6rem minmax(0, 1fr) auto; }
+  .skyCard { grid-column: 2 / 4; }
+  .row summary { grid-template-columns: 1.6rem minmax(0, 1fr) 28px; }
+  .rowMeta { grid-column: 2; grid-row: 2; text-align: left; white-space: normal; }
+  .row summary::after { grid-column: 3; grid-row: 1 / 3; }
+  .rowBody { padding-left: 1.2rem; }
+  .door { grid-template-columns: 1fr; }
+  /* The wheel scales to about half size on phones: keep its marks at 12 px or more. */
+  .wheelSigns text, .wheelBodies text { font-size: 25px; }
+  .wheelHouses text { font-size: 17px; }
+  .wheelAngles text { font-size: 22px; }
+  .wheelRetro { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wheel > g { animation: none; }
+  .primary, .threeArt img, .doorArt img, .signCell img { transition: none; }
+}

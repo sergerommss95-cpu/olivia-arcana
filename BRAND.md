@@ -1,12 +1,19 @@
 # Olivia Arcana — brand and design rules
 
-Current as of 26 September 2026. This page replaces the astrology-era documents `website/DESIGN.md`, `website/DESIGN_BRIEF.md` and `docs/DESIGN_SYSTEM.md`, which are kept only as history. When a rule here and the product disagree, the approved product wins and this page should be corrected.
+Current as of 28 September 2026. This page replaces the astrology-era documents `website/DESIGN.md`, `website/DESIGN_BRIEF.md` and `docs/DESIGN_SYSTEM.md`, which are kept only as history. When a rule here and the product disagree, the approved product wins and this page should be corrected.
 
 ## What Olivia is
 
 A personal practice of tarot. You bring a question, choose your own cards from the full 78-card deck, turn them yourself, read what they suggest (with an optional AI-assisted reading of your question), and keep it in a private almanac to return to.
 
-It is not astrology, fortune-telling or a human psychic. It does not predict, promise or count streaks.
+It is not fortune-telling or a human psychic. It does not predict, promise or count streaks.
+
+**Olivia Astrology** (owner decision, 28 September 2026) is the second practice, read the same way as the cards: reflection and self-knowledge, never forecasts. It lives at `/astrology/` and `/uk/astrology/`:
+
+- Every sign and planet is shown with its Major Arcana card (Golden Dawn correspondences, as in `tarot-cards.ts`), so the sky and the deck speak one language.
+- The birth chart is computed on the reader's device (`website/src/lib/astrology/chart.js`, checked against Swiss Ephemeris). Birth details stay in the browser and are kept only if the reader asks.
+- Whole-sign houses. No horoscopes, compatibility scores, fate, luck or "what's coming". Outer planets are described honestly as generational.
+- Astrology is free. (Paddle does not allow horoscopes; nothing here is sold as one.)
 
 **The promise, in one line**
 
@@ -76,4 +83,4 @@ One vocabulary everywhere (the v4 rules):
 
 ## Decisions still open (owner)
 
-The logo and app icon; the future of the astrology pages; the paid offer and payment provider; how people are invited back (email, Telegram or push); and whether a named editor stands behind the readings.
+The logo and app icon; what happens to the older astrology pages (signs, compatibility, daily, synastry, transits, timing, cosmos), which predate Olivia Astrology; the paid offer and payment provider; how people are invited back (email, Telegram or push); and whether a named editor stands behind the readings.

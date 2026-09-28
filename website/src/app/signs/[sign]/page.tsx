@@ -231,7 +231,7 @@ export default async function SignDetailPage({ params }: { params: Promise<{ sig
 
         {/* CTAs */}
         <div className="sign-ctas">
-          <a href="/portrait" className="alm-btn">
+          <a href="/astrology/birth-chart/" className="alm-btn">
             Get Your {data.name} Portrait
           </a>
           <a href="/daily" className="alm-link">

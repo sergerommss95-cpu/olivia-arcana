@@ -558,7 +558,7 @@ export default function DailyPage() {
 
               {/* CTA */}
               <div className="cta-row">
-                <a href="/portrait" className="alm-btn">
+                <a href="/astrology/birth-chart/" className="alm-btn">
                   {t("daily_get_portrait")}
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden style={{ marginLeft: "0.5rem" }}>
                     <path d="M5 12h14M12 5l7 7-7 7" />
