@@ -35,11 +35,11 @@ function toEcliptic(raHours: number, decDeg: number) {
   return { lon: ((lambda / DEG) % 360 + 360) % 360, lat: beta / DEG };
 }
 
-type Sky = { stars: { lon: number; lat: number; r: number; bright: boolean }[]; lines: { lon: number; lat: number }[][]; milky: { lon: number; lat: number; w: number }[]; field: { lon: number; lat: number; w: number }[] };
+type Sky = { stars: { lon: number; lat: number; r: number }[]; lines: { lon: number; lat: number }[][]; milky: { lon: number; lat: number; w: number }[]; field: { lon: number; lat: number; w: number }[] };
 let skyCache: Sky | null = null;
 function sky(): Sky {
   if (skyCache) return skyCache;
-  const stars = STARS.map((s) => ({ ...toEcliptic(s.ra, s.dec), r: Math.max(0.7, 2.6 - 0.55 * s.mag), bright: s.mag < 1.2 }));
+  const stars = STARS.map((s) => ({ ...toEcliptic(s.ra, s.dec), r: Math.max(0.7, 2.6 - 0.55 * s.mag) }));
   const lines = CONSTELLATIONS.flatMap((c) => c.lines.filter((run) => run.length > 1).map((run) => run.map((i) => ({ lon: stars[i].lon, lat: stars[i].lat }))));
   const milky = milkyWay(2200).map((m) => ({ ...toEcliptic(m.ra, m.dec), w: m.w }));
   const field = fieldStars(360).map((m) => ({ ...toEcliptic(m.ra, m.dec), w: m.w }));
@@ -60,9 +60,11 @@ type Props = {
   description: string;
   /** Short hover label per body key, e.g. "Venus in Taurus · 18°47′". */
   labels: Record<string, string>;
+  /** Which of the Sun, Moon and Rising cards have been turned (all when omitted). */
+  revealed?: string[];
 };
 
-export default function ChartWheel({ bodies, ascendant, midheaven, aspects, signCards, title, description, labels }: Props) {
+export default function ChartWheel({ bodies, ascendant, midheaven, aspects, signCards, title, description, labels, revealed }: Props) {
   const uid = useId().replace(/:/g, "");
   const [focus, setFocus] = useState<string | null>(null);
   const start = ascendant?.longitude ?? 0;
@@ -81,9 +83,10 @@ export default function ChartWheel({ bodies, ascendant, midheaven, aspects, sign
   const roles = new Map<number, string[]>();
   const mark = (index: number, glyph: string) => roles.set(index, [...(roles.get(index) ?? []), glyph]);
   const sun = bodies.find((b) => b.key === "sun"), moon = bodies.find((b) => b.key === "moon");
-  if (sun) mark(sun.index, "☉");
-  if (moon) mark(moon.index, "☽");
-  if (ascendant) mark(ascendant.index, "AC");
+  const lit = new Set(revealed ?? ["sun", "moon", "ascendant"]);
+  if (sun && lit.has("sun")) mark(sun.index, "☉");
+  if (moon && lit.has("moon")) mark(moon.index, "☽");
+  if (ascendant && lit.has("ascendant")) mark(ascendant.index, "AC");
   // Deal from the Rising sign (or Aries) round the wheel.
   const dealFrom = ascendant?.index ?? 0;
 
@@ -120,6 +123,11 @@ export default function ChartWheel({ bodies, ascendant, midheaven, aspects, sign
           <stop offset="0" stopColor="#e6cf9e" stopOpacity="0.45" />
           <stop offset="1" stopColor="#e6cf9e" stopOpacity="0" />
         </radialGradient>
+        <linearGradient id={`${uid}-sheen`} x1="0" y1="0" x2="1" y2="0.35">
+          <stop offset="0.3" stopColor="#fff8e4" stopOpacity="0" />
+          <stop offset="0.5" stopColor="#fff8e4" stopOpacity="0.5" />
+          <stop offset="0.7" stopColor="#fff8e4" stopOpacity="0" />
+        </linearGradient>
         <clipPath id={`${uid}-disc`}><circle cx={C} cy={C} r={R.sky} /></clipPath>
         <clipPath id={`${uid}-card`}><rect x={-CARD.w / 2} y={-CARD.h / 2} width={CARD.w} height={CARD.h} rx={6} /></clipPath>
       </defs>
@@ -147,6 +155,10 @@ export default function ChartWheel({ bodies, ascendant, midheaven, aspects, sign
               <g transform={`translate(${f(at.x)} ${f(at.y)})`}>
                 {role && <ellipse cx={0} cy={0} rx={CARD.w * 0.95} ry={CARD.h * 0.72} fill={`url(#${uid}-halo)`} />}
                 <image href={card.image} x={-CARD.w / 2} y={-CARD.h / 2} width={CARD.w} height={CARD.h} clipPath={`url(#${uid}-card)`} preserveAspectRatio="xMidYMid slice" />
+                {role && (
+                  // The clip stays put on the group while the light travels across inside it.
+                  <g clipPath={`url(#${uid}-card)`}><rect x={-CARD.w / 2} y={-CARD.h / 2} width={CARD.w} height={CARD.h} fill={`url(#${uid}-sheen)`} className={styles.cardSheen} /></g>
+                )}
                 <rect x={-CARD.w / 2} y={-CARD.h / 2} width={CARD.w} height={CARD.h} rx={6} className={styles.cardEdge} />
                 {role && (
                   <g transform={`translate(0 ${-CARD.h / 2 - 2})`} className={styles.roleChip}>
@@ -176,18 +188,16 @@ export default function ChartWheel({ bodies, ascendant, midheaven, aspects, sign
       {/* Night: the disc and the real stars around the ecliptic */}
       <circle cx={C} cy={C} r={R.sky} fill={`url(#${uid}-night)`} />
       <g className={styles.sky} clipPath={`url(#${uid}-disc)`} aria-hidden>
-        <g className={styles.milky}>
-          {stars.milky.map((m, i) => { const p = skyPoint(m.lon, m.lat); return <circle key={i} cx={f(p.x)} cy={f(p.y)} r={1.3} opacity={f(0.05 + 0.12 * m.w)} />; })}
-        </g>
-        <g className={styles.field}>
-          {stars.field.map((m, i) => { const p = skyPoint(m.lon, m.lat); return <circle key={i} cx={f(p.x)} cy={f(p.y)} r={f(0.35 + 0.45 * m.w)} />; })}
-        </g>
+        {/* Dots merged into a few paths: thousands of circles repaint too slowly to animate beside. */}
+        {[0, 1, 2, 3].map((bucket) => (
+          <path key={bucket} className={styles.milky} opacity={0.05 + bucket * 0.035}
+            d={stars.milky.filter((m) => Math.min(3, Math.floor(m.w * 4)) === bucket).map((m) => dot(skyPoint(m.lon, m.lat), 1.3)).join("")} />
+        ))}
+        <path className={styles.field} d={stars.field.map((m) => dot(skyPoint(m.lon, m.lat), 0.35 + 0.45 * m.w)).join("")} />
         <g className={styles.constellations}>
           {stars.lines.map((run, i) => <polyline key={i} points={run.map((s) => { const p = skyPoint(s.lon, s.lat); return `${f(p.x)},${f(p.y)}`; }).join(" ")} />)}
         </g>
-        <g className={styles.stars}>
-          {stars.stars.map((s, i) => { const p = skyPoint(s.lon, s.lat); return <circle key={i} cx={f(p.x)} cy={f(p.y)} r={f(s.r)} className={s.bright ? styles.twinkle : undefined} style={s.bright ? { animationDelay: `${(i % 7) * 0.9}s` } : undefined} />; })}
-        </g>
+        <path className={styles.stars} d={stars.stars.map((s) => dot(skyPoint(s.lon, s.lat), s.r)).join("")} />
       </g>
 
       {/* Thin carved ivory degree ring */}
@@ -283,6 +293,11 @@ export default function ChartWheel({ bodies, ascendant, midheaven, aspects, sign
       </g>
     </svg>
   );
+}
+
+/** A filled circle as path data. */
+function dot(p: { x: number; y: number }, r: number): string {
+  return `M${(p.x - r).toFixed(1)},${p.y.toFixed(1)}a${r.toFixed(2)},${r.toFixed(2)} 0 1,0 ${(2 * r).toFixed(2)},0a${r.toFixed(2)},${r.toFixed(2)} 0 1,0 ${(-2 * r).toFixed(2)},0`;
 }
 
 /** Nudges crowded medallions apart so none sit closer than `gap` degrees; keeps order. */

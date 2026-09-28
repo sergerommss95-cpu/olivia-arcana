@@ -15,6 +15,7 @@ import { placedIn } from "@/lib/astrology/grammar";
 import type { AstroCopy } from "@/lib/astrology/copy";
 import type { MajorCard } from "@/lib/astrology/deck";
 import ChartWheel from "./ChartWheel";
+import ThreeCards, { type Dealt } from "./ThreeCards";
 import styles from "./astrology.module.css";
 
 type Locale = "en" | "uk";
@@ -102,7 +103,8 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
   const [remember, setRemember] = useState(true);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
-  const [result, setResult] = useState<{ chart: Chart; place: Place; date: string; time: string | null } | null>(null);
+  const [result, setResult] = useState<{ chart: Chart; place: Place; date: string; time: string | null; id: number } | null>(null);
+  const [revealed, setRevealed] = useState<string[]>([]);
   const resultsRef = useRef<HTMLHeadingElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -112,7 +114,9 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
 
   function show(birthDate: string, birthTime: string | null, birthPlace: Place, focus: boolean) {
     const chart = birthChart({ date: birthDate, time: birthTime, zone: birthPlace.zone, latitude: birthPlace.lat, longitude: birthPlace.lon }) as Chart;
-    setResult({ chart, place: birthPlace, date: birthDate, time: birthTime });
+    setResult({ chart, place: birthPlace, date: birthDate, time: birthTime, id: Date.now() });
+    // A fresh chart is dealt face down; one reopened from this device arrives turned.
+    setRevealed(focus ? [] : ["sun", "moon", "ascendant"]);
     if (focus) requestAnimationFrame(() => resultsRef.current?.focus());
   }
 
@@ -298,41 +302,24 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
             <section className={styles.block} aria-labelledby={`${id}-three`}>
               <h2 id={`${id}-three`} className={styles.h2}>{t.threeTitle}</h2>
               <p className={styles.blockLead}>{t.threeLead}</p>
-              <ol className={styles.three}>
-                {three.map((item) => {
+              <ThreeCards key={result.id} locale={locale} faceUp={revealed} onTurn={(key) => setRevealed((now) => [...now, key])}
+                dealt={three.map((item): Dealt => {
                   const major = card(SIGN_CARDS[item.placement.index]);
                   const subject = item.key === "ascendant" ? t.rising : copy.bodies[item.key].name;
                   const alt = "alternative" in item && item.alternative ? item.alternative : null;
-                  return (
-                    <li key={item.key} className={styles.threeItem}>
-                      <a href={major.href} className={styles.threeArt}>
-                        {/* eslint-disable-next-line @next/next/no-img-element -- static card art */}
-                        <img src={major.image} alt={major.name} width={448} height={768} loading="lazy" />
-                      </a>
-                      <p className={styles.kicker}>{item.label}</p>
-                      <h3 className={styles.h3}>
-                        {alt ? `${placedIn(locale, subject, alt[0], signName(alt[0]))} ${t.or} ${signName(alt[1])}` : placedIn(locale, subject, item.placement.sign, signName(item.placement.sign))}
-                      </h3>
-                      <p className={styles.cardName}><a href={major.href}>{major.name}</a> · {alt ? t.atMidday(signName(item.placement.sign)) : formatDegree(item.placement.degree)}</p>
-                      <p className={styles.note}>{item.note}</p>
-                      {alt && <p className={styles.hint}>{copy.ui.timeUnknownMoon}</p>}
-                      <p className={styles.question}>{major.question}</p>
-                    </li>
-                  );
+                  return {
+                    key: item.key as Dealt["key"], label: item.label, note: item.note, card: major,
+                    title: alt ? `${placedIn(locale, subject, alt[0], signName(alt[0]))} ${t.or} ${signName(alt[1])}` : placedIn(locale, subject, item.placement.sign, signName(item.placement.sign)),
+                    degree: alt ? t.atMidday(signName(item.placement.sign)) : formatDegree(item.placement.degree),
+                    aside: alt ? copy.ui.timeUnknownMoon : undefined,
+                  };
                 })}
-                {!chart.ascendant && (
-                  <li className={`${styles.threeItem} ${styles.threeMissing}`}>
-                    <div className={styles.threeBack} aria-hidden />
-                    <p className={styles.kicker}>{t.rising}</p>
-                    <p className={styles.note}>{copy.ui.timeUnknownRising}</p>
-                  </li>
-                )}
-              </ol>
+                missing={chart.ascendant ? undefined : { label: t.rising, text: copy.ui.timeUnknownRising }} />
             </section>
 
             <figure className={styles.figure}>
               <h2 className={styles.h2}>{t.wheelTitle}</h2>
-              <ChartWheel bodies={chart.bodies} ascendant={chart.ascendant} midheaven={chart.midheaven} aspects={chart.aspects}
+              <ChartWheel revealed={revealed} bodies={chart.bodies} ascendant={chart.ascendant} midheaven={chart.midheaven} aspects={chart.aspects}
                 signCards={SIGN_CARDS.map((cardId) => ({ image: cards[cardId].image.replace("/cards/", "/cards/wheel/"), href: cards[cardId].href, name: cards[cardId].name }))}
                 labels={Object.fromEntries(chart.bodies.map((p) => [p.key, `${placedIn(locale, copy.bodies[p.key].name, p.sign, signName(p.sign))} · ${formatDegree(p.degree)}`]))}
                 title={t.wheelLabel} description={`${placedIn(locale, copy.bodies.sun.name, sun.sign, signName(sun.sign))}; ${placedIn(locale, copy.bodies.moon.name, moon.sign, signName(moon.sign))}${chart.ascendant ? `; ${placedIn(locale, t.rising, chart.ascendant.sign, signName(chart.ascendant.sign))}` : ""}.`} />

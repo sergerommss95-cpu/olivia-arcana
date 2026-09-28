@@ -3,11 +3,12 @@
 /** The sky at this moment: the Moon's phase and sign, and where each planet stands, with its sign's card. */
 
 import { useEffect, useState } from "react";
-import { moonNow, skyAt, BODY_GLYPHS, SIGN_CARDS } from "@/lib/astrology/chart.js";
-import { formatDegree, type Placement } from "@/lib/astrology/types";
+import { aspectsBetween, moonNow, skyAt, BODY_GLYPHS, SIGN_CARDS } from "@/lib/astrology/chart.js";
+import { formatDegree, type AspectFound, type Placement } from "@/lib/astrology/types";
 import { placedIn } from "@/lib/astrology/grammar";
 import type { AstroCopy } from "@/lib/astrology/copy";
 import type { MajorCard } from "@/lib/astrology/deck";
+import ChartWheel from "./ChartWheel";
 import styles from "./astrology.module.css";
 
 const UI = {
@@ -15,13 +16,15 @@ const UI = {
     kicker: "Tonight", title: "The sky right now", computed: "Worked out for this moment on your device.",
     nextNew: "Next new Moon", nextFull: "Next full Moon", retrograde: "retrograde", lit: (p: number) => `${p}% lit`,
     phases: { new: "New Moon", "waxing-crescent": "Waxing crescent", "first-quarter": "First quarter", "waxing-gibbous": "Waxing gibbous", full: "Full Moon", "waning-gibbous": "Waning gibbous", "last-quarter": "Last quarter", "waning-crescent": "Waning crescent" } as Record<string, string>,
-    moonIn: "The Moon is", dates: "en-GB",
+    moonIn: "The Moon is", dates: "en-GB", wheel: "The sky right now, dealt in cards",
+    caption: "Each sign is its Major Arcana card; the Sun and Moon light theirs. Inside, the real stars of the zodiac and where every planet stands at this moment, from 0° Aries on the left. Rest on a planet to follow its threads.",
   },
   uk: {
     kicker: "Сьогодні", title: "Небо просто зараз", computed: "Розраховано для цієї миті на вашому пристрої.",
     nextNew: "Наступний молодик", nextFull: "Наступна повня", retrograde: "ретроградний", lit: (p: number) => `освітлено ${p}%`,
     phases: { new: "Молодик", "waxing-crescent": "Молодий серп", "first-quarter": "Перша чверть", "waxing-gibbous": "Місяць, що росте", full: "Повня", "waning-gibbous": "Місяць, що спадає", "last-quarter": "Остання чверть", "waning-crescent": "Старий серп" } as Record<string, string>,
-    moonIn: "Місяць зараз", dates: "uk-UA",
+    moonIn: "Місяць зараз", dates: "uk-UA", wheel: "Небо просто зараз, розкладене картами",
+    caption: "Кожен знак — це його карта Старших Арканів; Сонце й Місяць підсвічують свої. Усередині — справжні зорі зодіаку й те, де стоїть кожна планета цієї миті, від 0° Овна ліворуч. Наведіть на планету, щоб побачити її нитки.",
   },
 };
 
@@ -46,7 +49,9 @@ export default function TonightSky({ locale, copy, cards }: { locale: "en" | "uk
     return () => { clearTimeout(first); clearInterval(every); };
   }, []);
 
-  const sky = now ? (skyAt(now) as Placement[]).filter((body) => body.key !== "node") : [];
+  const all = now ? (skyAt(now) as Placement[]) : [];
+  const sky = all.filter((body) => body.key !== "node");
+  const aspects = (now ? aspectsBetween(sky) : []) as AspectFound[];
   const moon = now ? moonNow(now) : null;
   const moonPlace = sky.find((body) => body.key === "moon");
   const day = new Intl.DateTimeFormat(t.dates, { weekday: "long", day: "numeric", month: "long" });
@@ -56,6 +61,15 @@ export default function TonightSky({ locale, copy, cards }: { locale: "en" | "uk
     <section className={styles.tonight} aria-labelledby="tonight-title">
       <p className={styles.kicker}>{t.kicker}</p>
       <h2 id="tonight-title" className={styles.h2}>{t.title}</h2>
+      <figure className={styles.skyFigure} aria-busy={!now}>
+        {now ? (
+          <ChartWheel bodies={all} ascendant={null} midheaven={null} aspects={aspects} title={t.wheel}
+            description={sky.map((body) => placedIn(locale, copy.bodies[body.key].name, body.sign, signName(body.sign))).join("; ")}
+            signCards={SIGN_CARDS.map((id) => ({ image: cards[id].image.replace("/cards/", "/cards/wheel/"), href: cards[id].href, name: cards[id].name }))}
+            labels={Object.fromEntries(all.map((body) => [body.key, `${placedIn(locale, copy.bodies[body.key].name, body.sign, signName(body.sign))} · ${formatDegree(body.degree)}`]))} />
+        ) : <div className={styles.wheelPlaceholder} />}
+        <figcaption className={styles.caption}>{t.caption}</figcaption>
+      </figure>
       <div className={styles.tonightGrid} aria-busy={!now}>
         <div className={styles.moonPanel}>
           <svg viewBox="0 0 100 100" className={styles.moonDisc} role="img" aria-label={moon ? `${t.phases[moon.phase]}, ${t.lit(Math.round(moon.lit * 100))}` : ""}>
