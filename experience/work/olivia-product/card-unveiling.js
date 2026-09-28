@@ -39,6 +39,7 @@ float silk(vec2 p) {
   return f + .15 * noise(p);
 }
 float luminance(vec3 c) { return dot(c,vec3(.299,.587,.114)); }
+float gaussian(float x) { return exp(-(x*x)); }
 vec4 faceAt(vec2 uv) {
   return texture2D(u_front, mix(uv, vec2(1.0)-uv, u_reversed));
 }
@@ -78,8 +79,8 @@ void main() {
   float touchEnvelope = smoothstep(0.0,.10,u_progress)*(1.0-smoothstep(.90,1.0,u_progress));
   distance -= touchPull*.075*touchEnvelope;
   float aperture = 1.0 - smoothstep(-.014,.014,distance);
-  float seam = exp(-pow(distance/.023,2.0));
-  float thread = exp(-pow(distance/.0045,2.0));
+  float seam = gaussian(distance/.023);
+  float thread = gaussian(distance/.0045);
   float envelope = smoothstep(.035,.15,u_progress) * (1.0-smoothstep(.85,.98,u_progress));
   seam *= envelope;
   thread *= envelope;
@@ -92,7 +93,7 @@ void main() {
   vec4 revealedFront = faceAt(clamp(uv-curl*.23,0.0,1.0));
   vec4 art = mix(foldedBack,revealedFront,aperture);
   // A thin dark lip lends the crossing physical depth. No blanket colour wash.
-  float shadow = exp(-pow((distance+.024)/.026,2.0)) * envelope;
+  float shadow = gaussian((distance+.024)/.026) * envelope;
   art.rgb *= 1.0 - shadow * .24;
   float carving = max(smoothstep(.25,.68,luminance(foldedBack.rgb)),
                       smoothstep(.25,.68,luminance(revealedFront.rgb)));
@@ -230,19 +231,22 @@ export function mountCardUnveiling(container, {
     // Small screens never upload a full print-resolution artwork to the GPU.
     const maximum = Math.min(1536,Number(gl.getParameter(gl.MAX_TEXTURE_SIZE)) || 1536);
     const ratio = Math.min(1,maximum/source.naturalWidth,maximum/source.naturalHeight);
-    let bitmap = source;
-    if (ratio < 1) {
-      bitmap = doc.createElement('canvas');
-      bitmap.width = Math.max(1,Math.round(source.naturalWidth*ratio));
-      bitmap.height = Math.max(1,Math.round(source.naturalHeight*ratio));
-      const context = bitmap.getContext('2d');
-      if (!context) throw new Error('Unveiling artwork unavailable');
-      context.drawImage(source,0,0,bitmap.width,bitmap.height);
-    }
+    // Safari can corrupt a displayed/reused WebP when its decoded image surface
+    // is uploaded directly. Copy both artworks to explicit, tightly packed RGBA
+    // pixels, including images already below the size limit. This happens only
+    // once per face, before animation; no pixel readback occurs during frames.
+    const bitmap = doc.createElement('canvas');
+    bitmap.width = Math.max(1,Math.round(source.naturalWidth*ratio));
+    bitmap.height = Math.max(1,Math.round(source.naturalHeight*ratio));
+    const context = bitmap.getContext('2d');
+    if (!context) throw new Error('Unveiling artwork unavailable');
+    context.drawImage(source,0,0,bitmap.width,bitmap.height);
+    const pixels = context.getImageData(0,0,bitmap.width,bitmap.height);
     gl.activeTexture(unit); gl.bindTexture(gl.TEXTURE_2D,target);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT,1);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);
     gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,false);
-    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,bitmap);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,bitmap.width,bitmap.height,0,gl.RGBA,gl.UNSIGNED_BYTE,pixels.data);
     if (gl.getError() !== gl.NO_ERROR) throw new Error('Unveiling artwork unavailable');
   }
   function draw(progress) {

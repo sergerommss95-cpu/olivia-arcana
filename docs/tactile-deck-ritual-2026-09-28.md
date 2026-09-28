@@ -95,3 +95,11 @@ This remains a review branch, not a production release. The next review URL is r
 - Hosted Amielle manual choice and unveiling completed with the same chosen card and no captured console errors.
 - Ukrainian reduced-motion entry, held pause, immediate face handoff and **Прочитати карту** were also checked in the browser; the unveiling canvas stayed hidden.
 - Local visual proof: `outputs/touch-unveiling-2026-09-28/` in the original Codex workspace. Images show the real running experience, not design mockups.
+
+## Safari correction: striped card back during unveiling
+
+The user reported horizontal static across Amielle's back on Safari. This was reproduced in the full native Safari reading flow, including the approach frame at progress zero. The earlier Chromium unveiling checks did not catch it. The small isolated renderer fixture did not reproduce it either; full-flow Safari testing is required for this regression.
+
+`card-unveiling.js` now copies both decoded artworks to bounded 2D canvases and uploads explicit RGBA pixel buffers with width, height and unpack alignment. It no longer passes a displayed/reused WebP image directly to WebGL. This removes the corruption in the actual Safari flow while preserving artwork colors and the original reveal choreography. The copy/readback happens twice before the transition, never per frame. If it is unavailable or blocked, the existing physical flip fallback remains available. The shader also replaces three signed-base `pow(x, 2)` expressions with multiplication, avoiding undefined GLSL behavior.
+
+Validation: **314 product tests pass**, product generation and full website build pass. Native Safari captures confirm Amielle's intact back at approach and mid-opening, followed by the selected Judgement face; Olivia's reveal also preserves its lapis and ivory artwork. Regression tests cover explicit pixel uploads at native size, bounded proportional downsampling, hardware texture limits, pixel order, and safe fallback on missing 2D context or denied readback. Local Safari before/after proof is in `outputs/safari-unveiling-fix-2026-09-28/` in the original workspace. This correction updates PR #11; it is not a production deployment.

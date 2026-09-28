@@ -17,8 +17,8 @@ class Events {
 
 // This is a lifecycle double, not a GLSL emulator. Browser review covers the
 // artwork, colour, shape, registration and visual orientation of the effect.
-function fixture({reduced = false, webgl = true, compile = true, uploadError = false} = {}) {
-  const frames = new Map(), calls = [], deleted = [], observers = [];
+function fixture({reduced = false, webgl = true, compile = true, uploadError = false, canvas2d = true, readbackError = false, size = [800, 1368], maxTextureSize = 4096} = {}) {
+  const frames = new Map(), calls = [], deleted = [], observers = [], bitmapDraws = [], readbacks = [];
   let frameId = 0, now = 0, contexts = 0;
   const constants = new Map();
   const gl = new Proxy({
@@ -26,6 +26,7 @@ function fixture({reduced = false, webgl = true, compile = true, uploadError = f
     getProgramParameter: () => true,
     getAttribLocation: () => 0,
     getUniformLocation: (_, name) => name,
+    getParameter: () => maxTextureSize,
     getError: () => uploadError ? 1282 : 0,
     createShader: () => ({}), createProgram: () => ({}),
     createBuffer: () => ({}), createTexture: () => ({}),
@@ -66,17 +67,33 @@ function fixture({reduced = false, webgl = true, compile = true, uploadError = f
     removeAttribute(name) { delete this.attributes[name]; }
     querySelector(selector) { return selector === 'img' ? this.children.find(child => child.tagName === 'IMG') : null; }
     getBoundingClientRect() { return {left: 0, top: 0, width: this.offsetWidth, height: this.offsetHeight}; }
-    getContext(kind) { if (kind !== 'webgl') return null; contexts++; return webgl ? gl : null; }
+    getContext(kind) {
+      if (kind === 'webgl') { contexts++; return webgl ? gl : null; }
+      if (kind !== '2d' || !canvas2d) return null;
+      const canvas = this;
+      return {
+        drawImage(...args) { bitmapDraws.push({canvas, args}); },
+        getImageData(...args) {
+          if (readbackError) { const error = new Error('Cross-origin pixels are unavailable'); error.name = 'SecurityError'; throw error; }
+          const [, , width, height] = args;
+          const data = new Uint8ClampedArray(width * height * 4);
+          // Distinct corners make it possible to detect changed order or data
+          // when handing the already decoded RGBA buffer over to WebGL.
+          data.set([23, 41, 79, 255], 0); data.set([237, 226, 201, 255], data.length - 4);
+          const result = {data, width, height}; readbacks.push({canvas, args, result}); return result;
+        },
+      };
+    }
   }
   doc.createElement = tag => new Element(tag);
   const container = new Element(), image = new Element('img'), front = new Element('img');
-  Object.assign(image, {src: 'back.webp', currentSrc: 'back.webp', naturalWidth: 800, naturalHeight: 1368, complete: true});
-  Object.assign(front, {src: 'front.webp', currentSrc: 'front.webp', naturalWidth: 800, naturalHeight: 1368, complete: true});
+  Object.assign(image, {src: 'back.webp', currentSrc: 'back.webp', naturalWidth: size[0], naturalHeight: size[1], complete: true});
+  Object.assign(front, {src: 'front.webp', currentSrc: 'front.webp', naturalWidth: size[0], naturalHeight: size[1], complete: true});
   container.append(image);
   const renderer = mountCardUnveiling(container, {image});
   const canvas = container.children.find(child => child.tagName === 'CANVAS');
   return {
-    renderer, container, image, front, canvas, doc, win, media, frames, calls, deleted, observers,
+    renderer, container, image, front, canvas, doc, win, media, frames, calls, deleted, observers, bitmapDraws, readbacks, gl,
     get contexts() { return contexts; },
     advance(time) { now = time; const pending = [...frames.values()]; frames.clear(); for (const fn of pending) fn(time); },
     setReduced(value) { media.matches = value; media.dispatch('change', {matches: value}); },
@@ -212,4 +229,56 @@ test('loading different artwork cancels the old effect without overwriting that 
   assert.ok(x.canvas.hidden);
   assert.equal(x.image.src, 'another-back.webp');
   x.renderer.destroy();
+});
+
+test('ordinary artwork uploads decoded RGBA pixels at its exact native size', async () => {
+  const x = fixture({size: [768, 1316]});
+  const result = x.renderer.reveal({front: x.front}); await flush();
+  const uploads = x.calls.filter(call => call.name === 'texImage2D');
+  assert.equal(uploads.length, 2);
+  assert.equal(x.bitmapDraws.length, 2, 'both images must use the decoded pixel path, even without resizing');
+  for (const [index, source] of [x.image, x.front].entries()) {
+    const drawing = x.bitmapDraws[index], readback = x.readbacks[index], args = uploads[index].args;
+    assert.deepEqual(drawing.args, [source, 0, 0, 768, 1316]);
+    assert.deepEqual(readback.args, [0, 0, 768, 1316]);
+    assert.equal(drawing.canvas.width, 768); assert.equal(drawing.canvas.height, 1316);
+    assert.deepEqual(args.slice(0, 8), [x.gl.TEXTURE_2D, 0, x.gl.RGBA, 768, 1316, 0, x.gl.RGBA, x.gl.UNSIGNED_BYTE]);
+    assert.equal(args.length, 9, 'use the explicit pixel-buffer overload, never the DOM-source overload');
+    assert.ok(ArrayBuffer.isView(args[8]));
+    assert.equal(args[8].buffer, readback.result.data.buffer);
+    assert.deepEqual([...args[8].slice(0, 4)], [23, 41, 79, 255]);
+    assert.deepEqual([...args[8].slice(-4)], [237, 226, 201, 255]);
+  }
+  assert.ok(x.calls.some(call => call.name === 'pixelStorei' && call.args[0] === x.gl.UNPACK_ALIGNMENT && call.args[1] === 1));
+  assert.ok(x.calls.some(call => call.name === 'pixelStorei' && call.args[0] === x.gl.UNPACK_FLIP_Y_WEBGL && call.args[1] === false));
+  x.renderer.cancel(); assert.equal(await result, false); x.renderer.destroy();
+});
+
+test('print-resolution artwork is proportionally bounded before pixel readback and upload', async () => {
+  for (const [maximum, expected] of [[4096, [896, 1536]], [1024, [597, 1024]]]) {
+    const x = fixture({size: [4200, 7200], maxTextureSize: maximum});
+    const result = x.renderer.reveal({front: x.front}); await flush();
+    const uploads = x.calls.filter(call => call.name === 'texImage2D');
+    assert.equal(uploads.length, 2);
+    for (let i = 0; i < 2; i++) {
+      assert.deepEqual(x.bitmapDraws[i].args.slice(1), [0, 0, ...expected]);
+      assert.deepEqual(x.readbacks[i].args, [0, 0, ...expected]);
+      assert.deepEqual(uploads[i].args.slice(3, 5), expected);
+      assert.equal(uploads[i].args[8].byteLength, expected[0] * expected[1] * 4);
+    }
+    x.renderer.cancel(); assert.equal(await result, false); x.renderer.destroy();
+  }
+});
+
+test('unavailable 2D context or denied pixel readback falls back without starting the reveal', async () => {
+  for (const options of [{canvas2d: false}, {readbackError: true}]) {
+    const x = fixture(options); let starts = 0;
+    const result = x.renderer.reveal({front: x.front, onStart: () => starts++});
+    assert.equal(await result, false);
+    assert.equal(starts, 0); assert.equal(x.frames.size, 0); assert.ok(x.canvas.hidden);
+    assert.equal(x.image.src, 'back.webp');
+    assert.equal(x.calls.filter(call => call.name === 'texImage2D').length, 0);
+    assert.ok(x.deleted.length > 0, 'failed readback releases the resources already allocated');
+    x.renderer.destroy();
+  }
 });
