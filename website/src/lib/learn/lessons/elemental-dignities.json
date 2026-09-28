@@ -1,0 +1,152 @@
+{
+  "slug": "elemental-dignities",
+  "path": "combinations",
+  "order": 6,
+  "tool": null,
+  "cards": [
+    0,
+    1,
+    2,
+    4,
+    9,
+    12,
+    13,
+    17,
+    20,
+    24,
+    33,
+    46,
+    48,
+    56
+  ],
+  "en": {
+    "title": "Elemental dignities, as history",
+    "dek": "Learn the Golden Dawn way of weighing a card by the elements of its neighbours, and use it as one optional lens for noticing ease and friction.",
+    "minutes": 6,
+    "sections": [
+      {
+        "heading": "A method from Book T",
+        "body": [
+          "Golden Dawn readers in late Victorian London did not read cards reversed. Their teaching papers of the late 1880s and 1890s, above all the document known as Book T, judged a card instead by the cards on either side of it. A card was strengthened or weakened by its neighbours according to their elements, and this was called its dignity, a word borrowed from astrology, where a planet is well or ill dignified by the sign it stands in. Many readers of the Thoth deck, which grew out of the same school, still work this way.",
+          "Olivia teaches the method as history and as one optional lens, not as a rule the cards obey. It is worth learning because it trains a habit every good reader needs: looking at a card together with the cards that touch it. Olivia’s card pages give reversed readings, and dignities answer the same need another way, by noticing when a quality comes through with ease and when it meets friction. Choose one of the two before you shuffle, so that when a card reads harder you know which rule made it so."
+        ]
+      },
+      {
+        "heading": "Friendly, contrary and the same",
+        "body": [
+          "The Golden Dawn rules are short. Cards of the same suit or element on either side strengthen a card greatly. Contrary elements weaken each other, and there are two contrary pairs: Fire and Water, Air and Earth. Every other meeting is friendly: Fire with Air and with Earth, Water with Earth and with Air.",
+          "The pattern matches a scheme older than tarot. In the classical account of the elements Fire is hot and dry, Air hot and moist, Water cold and moist, Earth cold and dry. Contrary pairs share no quality at all; friendly pairs share one. Many modern readers refine this into three tiers. Fire and Air, the two warm and rising elements, stay friendly, and so do Water and Earth, the two cool and settling ones. Fire with Earth and Water with Air become neutral, neither helping nor hindering. Either table works. Choose one and keep it, so that your notebook means the same thing from one month to the next."
+        ]
+      },
+      {
+        "heading": "Reading the card in the middle",
+        "body": [
+          "In Olivia’s spreads, neighbours are the cards next to each other in layout order. Read a card first through its position, then look to either side. Friendly neighbours let its quality come through easily, in its more constructive form: the card is well-dignified. Contrary neighbours make it ill-dignified: the quality arrives with friction, weakened, or in its harder form. A card flanked by its own element gets more of itself, for better and for worse; three Swords in a row put thinking at full volume, clear and also restless. In a row of three, only the middle card has two neighbours, so it carries the clearest verdict; the end cards are read with the one neighbour they have.",
+          "One rule is easy to miss. When the two neighbours are contrary to each other, say the Knight of Wands on one side and the Queen of Cups on the other, their pulls cancel out, and the card between them, a Seven of Swords for instance, is barely touched. Read it plainly.",
+          "Above all, dignity describes how easily a quality is expressed. It never marks a good or a bad result. An ill-dignified card of feeling is not a closed heart; it is feeling that has to push against something to be felt."
+        ]
+      },
+      {
+        "heading": "Majors and courts",
+        "body": [
+          "Majors take their elements from the astrology the Golden Dawn attached to them. The Emperor carries Aries and so is Fire; Death carries Scorpio and is Water; The Star carries Aquarius and is Air; The Hermit carries Virgo and is Earth. Each of these card pages names its sign in the note on tradition. Three Majors carry an element outright: The Fool is Air, The Hanged Man Water and Judgement Fire. The planetary Majors, such as The Magician with Mercury and The High Priestess with the Moon, are handled inconsistently from one reader to the next, and the simplest course is to treat them as neutral.",
+          "Courts carry two elements, their suit and their rank, so the Queen of Cups is Water of Water. Pages are Earth and Queens are Water in both common conventions. The Golden Dawn lineage makes Knights Fire and Kings Air; the common modern convention swaps them, because the Golden Dawn’s mounted King became the Waite-Smith Knight. Book T’s neighbour rules work by suit, so the suit is enough; rank is a finer shading for later. Whichever table you use, write it once inside the cover of your notebook and keep to it."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "A bowed head between two fires",
+      "cards": [
+        24,
+        46,
+        33
+      ],
+      "body": [
+        "A reader asks: “What would help me make room for painting again?” Three cards fall in a row: the Three of Wands, the Page of Cups and the Knight of Wands.",
+        "Elements first: both Wands are Fire, the Page of Cups is Water. Fire and Water are contrary in either table, so the Page is ill-dignified: its quality comes through with friction.",
+        "On the Three of Wands a cloaked figure stands with its back to you on a lapis outcrop, a hand closed round the middle wand, facing a wide sea where three small ships sail. On the Knight of Wands the horse’s forelegs are lifted clear of the ground, and a flaming wand is held out at the full stretch of an arm. Between them the Page of Cups bows over a stemless bowl held in both hands, eyes nearly closed, while a gold fish rises from it.",
+        "Both neighbours point away from themselves, toward open water or along a wand angled up over the horse’s head; the middle card bends in, over what it holds. The dignity does not say tender attention fails, only that it works against the pull of plans and momentum. A question to carry: “Where does my slower, quieter way of looking get crowded out by the wish to be moving already?”"
+      ]
+    },
+    "tryThis": {
+      "heading": "Try this",
+      "steps": [
+        "Before your next reading, write in your notebook whether you will read reversals or dignities this time, and which dignity table you will use.",
+        "Lay a Three-Card Spread in Olivia and write the element of each card, treating the planetary Majors as neutral.",
+        "Mark the middle card strengthened, well-dignified, ill-dignified or barely touched, and write down the rule that decided it.",
+        "Open the middle card’s page: lean on its upright section if it is well-dignified, its reversed section if ill-dignified, and write one open question.",
+        "After a week of these rows, read your notes back and circle any dignity that showed you something you would otherwise have missed."
+      ]
+    },
+    "remember": [
+      "In Book T, Fire and Water, Air and Earth are contrary; every other meeting is friendly.",
+      "Dignity shows how easily a quality comes through, never a good or bad result.",
+      "A Golden Dawn method, taught as history: choose it or reversals before you shuffle."
+    ]
+  },
+  "uk": {
+    "title": "Стихійні гідності як історичний метод",
+    "dek": "Ви опануєте метод Золотої Зорі, який оцінює карту за стихіями сусідніх карт, і користуватиметеся ним як однією з необов’язкових призм, щоб помічати легкість і тертя.",
+    "minutes": 6,
+    "sections": [
+      {
+        "heading": "Метод із Книги Т",
+        "body": [
+          "Тарологи Золотої Зорі в пізньовікторіанському Лондоні не читали перевернутих карт. Їхні навчальні тексти кінця 1880-х і 1890-х років, передусім документ, відомий як Книга Т, оцінювали карту інакше — за картами обабіч неї. Від стихій сусідніх карт залежало, посилена карта чи ослаблена, і це називали її гідністю. Звідси й назва методу — стихійні гідності: як стихії сусідніх карт посилюють або послаблюють одна одну. Слово запозичене з астрології, де планета буває підсиленою чи ослабленою залежно від знака, у якому перебуває. Так досі працює чимало тарологів, які читають колоду Тота, адже вона виросла з тієї самої школи.",
+          "Olivia подає цей метод як історію і як одну з необов’язкових призм, а не як правило, якому підкоряються карти. Його варто вивчити, бо він виховує звичку, без якої не буває доброго читання: дивитися на карту разом із картами, яких вона торкається. Сторінки карт Olivia подають прочитання для перевернутого положення, а гідності відповідають на ту саму потребу інакше: помічають, коли якість розкривається легко, а коли натрапляє на тертя. Оберіть один із двох підходів ще до тасування, щоб, коли карта читається важче, знати, яке саме правило зробило її такою."
+        ]
+      },
+      {
+        "heading": "Дружня, протилежна чи та сама стихія",
+        "body": [
+          "Правила Золотої Зорі короткі. Карти тієї самої масті чи стихії обабіч карти значно її посилюють. Протилежні стихії послаблюють одна одну, і таких пар дві: Вогонь і Вода, Повітря і Земля. Усі інші поєднання дружні: Вогонь із Повітрям і з Землею, Вода із Землею і з Повітрям.",
+          "Ця схема збігається з іншою, старшою за таро. У класичному вченні про стихії Вогонь гарячий і сухий, Повітря гаряче й вологе, Вода холодна й волога, Земля холодна й суха. Протилежні пари не мають жодної спільної якості, дружні мають одну. Багато сучасних тарологів розвивають це в систему з трьох рівнів. Вогонь і Повітря, дві теплі стихії, що здіймаються вгору, лишаються дружніми, так само як Вода й Земля, дві прохолодні, що осідають донизу. Вогонь із Землею і Вода з Повітрям стають нейтральними стихіями: вони не допомагають і не заважають. Годиться будь-яка з двох таблиць. Оберіть одну й дотримуйтеся її, щоб записи у вашому щоденнику означали те саме і цього місяця, і наступного."
+        ]
+      },
+      {
+        "heading": "Як читати середню карту",
+        "body": [
+          "У розкладах Olivia сусідні карти — це ті, що лежать поруч у порядку викладання. Спершу прочитайте карту через її позицію, потім погляньте обабіч. Дружні сусідні карти дають її якості легко розкритися, у конструктивнішій формі: карта підсилена. Протилежні роблять її ослабленою: якість приходить із тертям, слабшає або набуває важчої форми. Карта між двома картами власної стихії стає ще більшою мірою собою, і на краще, і на гірше; три карти Мечів поспіль вмикають мислення на повну гучність: воно ясне, але й неспокійне. У ряду з трьох карт дві сусідні карти має лише середня, тож висновок щодо неї найчіткіший; крайні карти читають за єдиною сусідньою картою, яка в них є.",
+          "Одне правило легко пропустити. Коли дві сусідні карти протилежні одна одній, скажімо, Лицар Жезлів з одного боку й Королева Кубків з другого, їхні впливи гасять один одного, і на карту між ними, наприклад Сімку Мечів, вони майже не діють. Читайте її без поправок на гідність.",
+          "Найголовніше: гідність описує, наскільки легко розкривається якість. Вона ніколи не позначає доброго чи поганого результату. Ослаблена карта почуттів — це не закрите серце, а почуття, якому доводиться проштовхуватися крізь опір, щоб його відчули."
+        ]
+      },
+      {
+        "heading": "Старші Аркани й придворні карти",
+        "body": [
+          "Старші Аркани отримують стихії від астрології, яку їм приписала Золота Зоря. Імператор пов’язаний з Овном, тож це Вогонь; Смерть — зі Скорпіоном, отже, Вода; Зірка — з Водоносом, тобто Повітря; Відлюдник — із Дівою, тобто Земля. На сторінці кожної з цих карт знак названо в розділі про традицію. Три Старші Аркани пов’язані зі стихією напряму: Блазень — Повітря, Повішений — Вода, а Суд — Вогонь. Планетарні Старші Аркани, як-от Маг із Меркурієм чи Верховна Жриця з Місяцем, різні тарологи трактують по-різному, і найпростіше вважати їх нейтральними.",
+          "Придворні карти мають дві стихії, стихію масті й стихію рангу, тож Королева Кубків — це Вода Води. Пажі належать Землі, а Королеви Воді в обох поширених системах. У традиції Золотої Зорі Лицарі — Вогонь, а Королі — Повітря; поширена сучасна система міняє їх місцями, бо Король-вершник Золотої Зорі став Лицарем у колоді Вейта–Сміт. Правила сусідства з Книги Т працюють за мастями, тож масті досить, а ранг — тонший відтінок на потім. Хоч якою таблицею ви користуєтеся, запишіть її один раз на внутрішньому боці обкладинки щоденника й дотримуйтеся її."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Схилена голова між двома вогнями",
+      "cards": [
+        24,
+        46,
+        33
+      ],
+      "body": [
+        "Людина запитує: «Що допомогло б мені знову знайти в житті місце для живопису?» Три карти лягають у ряд: Трійка Жезлів, Паж Кубків і Лицар Жезлів.",
+        "Спершу стихії: обидві карти Жезлів — Вогонь, Паж Кубків — Вода. Вогонь і Вода протилежні в будь-якій таблиці, тож карта Пажа ослаблена: її якість розкривається з тертям.",
+        "На Трійці Жезлів постать у плащі стоїть спиною до вас на лазуритовому виступі, долоня охоплює середній жезл, а попереду — широке море, яким пливуть три невеликі кораблі. На Лицарі Жезлів передні ноги коня відірвано від землі, а жезл із полум’ям на кінці винесено вперед у випростаній руці. Між ними, на Пажі Кубків, постать схиляється над чашею без ніжки, яку тримає обома руками, очі майже заплющені, а з чаші виринає золота риба.",
+        "Обидві сусідні карти спрямовані назовні — до відкритої води або вздовж жезла, піднятого навскіс над головою коня; середня карта схиляється досередини, над тим, що тримає. Гідність не означає, що дбайлива увага не спрацює, лише те, що їй доводиться долати тягу планів і розгону. Запитання, яке ви візьмете з собою: «Де бажання вже бути в русі витісняє мій повільніший, тихіший погляд на речі?»"
+      ]
+    },
+    "tryThis": {
+      "heading": "Спробуйте",
+      "steps": [
+        "Перед наступним читанням запишіть у щоденнику, чим цього разу користуватиметеся, перевернутими картами чи гідностями, і якою таблицею гідностей.",
+        "Викладіть в Olivia розклад на три карти й запишіть стихію кожної карти, вважаючи планетарні Старші Аркани нейтральними.",
+        "Позначте, яка середня карта: посилена власною стихією, підсилена, ослаблена чи майже не зазнає впливу, — і запишіть правило, яке це визначило.",
+        "Відкрийте сторінку середньої карти: якщо вона підсилена, спирайтеся на розділ про пряме положення, якщо ослаблена — на розділ про перевернуте, і запишіть одне відкрите запитання.",
+        "Після тижня таких рядів перечитайте нотатки й обведіть кожну гідність, яка показала вам те, що інакше ви б пропустили."
+      ]
+    },
+    "remember": [
+      "У Книзі Т Вогонь і Вода, Повітря і Земля протилежні; усі інші поєднання дружні.",
+      "Гідність показує, наскільки легко розкривається якість, і ніколи не означає доброго чи поганого результату.",
+      "Це метод Золотої Зорі, поданий як історія: оберіть його чи перевернуті карти ще до тасування."
+    ]
+  }
+}

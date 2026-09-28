@@ -201,7 +201,7 @@
       }
     ],
     "questions": [
-      "Could someone who disagrees with you still follow the reasoning behind your decision?",
+      "What would someone who disagrees with you need in order to follow the reasoning behind your decision?",
       "What fixed principle, like the star at the tip of the blade, is guiding your judgement here?",
       "Where are you holding a position out of habit or pride rather than because the evidence supports it?"
     ],
@@ -266,7 +266,7 @@
       }
     ],
     "questions": [
-      "Чи зміг би той, хто з вами не згоден, усе ж простежити міркування за вашим рішенням?",
+      "Чого потребував би той, хто з вами не згоден, щоб простежити міркування за вашим рішенням?",
       "Який незмінний принцип, наче зірка на вістрі клинка, спрямовує ваше судження тут?",
       "Де ви тримаєтеся позиції за звичкою чи з гордості, а не тому, що її підтримують докази?"
     ],

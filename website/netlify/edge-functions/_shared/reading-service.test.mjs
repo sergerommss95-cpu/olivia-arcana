@@ -25,6 +25,16 @@ test('all 78 cards resolve to trusted names and selected orientation, never clie
 test('question, locale, unique card identity and spread size are validated', () => {
   for (const bad of [ {...valid,question:''}, {...valid,question:'q'.repeat(1601)}, {...valid,locale:'ru'}, {...valid,spreadId:'__proto__'}, {...valid,cards:valid.cards.slice(0,2)}, {...valid,cards:[valid.cards[0],valid.cards[0],valid.cards[2]]}, {...valid,cards:[{id:78,orientation:'upright'},...valid.cards.slice(1)]}, {...valid,cards:[{id:0,orientation:'sideways'},...valid.cards.slice(1)]} ]) assert.throws(()=>validateReading(bad));
 });
+test('larger spreads carry counted patterns with honest odds; single cards do not', () => {
+  const eight=readingContext(validateReading({...valid,spreadId:'compass8',cards:[22,24,26,28,30,35,50,60].map(id=>({id,orientation:'upright'}))}));
+  const wands=eight.spreadPatterns.find(p=>p.observation.startsWith('Wands'));
+  assert.equal(wands.worthNoticing,true);
+  assert.match(wands.howOftenInRandomDraw,/1 in \d+/);
+  assert.ok(eight.spreadPatterns.some(p=>p.worthNoticing===false));
+  assert.equal(readingContext(validateReading({...valid,spreadId:'single',cards:[{id:0,orientation:'upright'}]})).spreadPatterns,undefined);
+  const uk=readingContext(validateReading({...valid,locale:'uk'}));
+  assert.match(uk.spreadPatterns[0].observation,/Старші Аркани/);
+});
 test('Ukrainian uses translated card names and meanings', () => {
   const context=readingContext(validateReading({...valid,locale:'uk'}));
   assert.equal(context.cards[0].name,'Блазень');

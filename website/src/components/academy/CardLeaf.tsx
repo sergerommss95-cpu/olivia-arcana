@@ -11,7 +11,9 @@ import { TAROT_UK } from "@/lib/academy/tarot-cards-uk";
 import { getCardImagePath, getCardThumbPath } from "@/lib/academy/card-images";
 import { cardsSharingSymbols, type Leaf, type LeafLocale } from "@/lib/academy/leaf";
 import { symbolTrailFor } from "@/lib/academy/symbol-trails";
+import { pairHref, pairsForCard, pairSlug, pairBySlug } from "@/lib/academy/pairs";
 import SymbolPlate from "./SymbolPlate";
+import PositionPrism from "./PositionPrism";
 import styles from "./card-leaf.module.css";
 
 const NUMERALS = ["0", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI"];
@@ -28,8 +30,10 @@ const COPY = {
     number: "The number", tradition: "The tradition", court: "As a temperament",
     temperament: "Temperament", gifts: "Gifts", shadow: "Shadow",
     areas: "Love, work and self", love: "Love", work: "Work", self: "Self",
-    spread: "In a spread", heart: "At the heart of a question", challenge: "As what complicates it", advice: "As a next step",
-    pairs: "In conversation with", questions: "Questions to keep", practice: "A small practice",
+    spread: "In a spread", heart: "The situation", challenge: "What complicates it", advice: "A helpful next step",
+    positionQuestions: { heart: "What aspect of the situation deserves attention?", challenge: "What tension or assumption deserves a closer look?", advice: "What small action could help you understand or respond?" },
+    prism: { lead: "Read the card through each position before you look at Olivia’s version. A position is a question, and the same card answers each one differently.", yours: "Your reading", placeholder: "One or two sentences…", show: "Show Olivia’s reading", hide: "Hide Olivia’s reading", olivia: "Olivia’s reading", showAll: "Just show all three", swapTitle: "The swap test", swapBody: "Could any two of your sentences trade places? If so, one of them has not yet read its position. Rewrite the one that could live anywhere.", tryIt: "Try this card in a three-card reading ↗" },
+    pairs: "In conversation with", alsoRead: "Also read with", allPairs: "All pairs ↗", questions: "Questions to keep", practice: "A small practice",
     shared: "Cards that share its symbols", sharedVia: "Shares", ask: "Bring your own question ↗",
     askLine: "A meaning on a page is a map. The card you draw for your own question is the territory.",
     all: "All 78 cards", trail: "Follow this symbol through the deck ↗",
@@ -45,8 +49,10 @@ const COPY = {
     number: "Число", tradition: "Традиція", court: "Як темперамент",
     temperament: "Темперамент", gifts: "Сильні сторони", shadow: "Тінь",
     areas: "Стосунки, робота й ви самі", love: "Стосунки", work: "Робота", self: "Ви самі",
-    spread: "У розкладі", heart: "У центрі запитання", challenge: "Як те, що ускладнює", advice: "Як наступний крок",
-    pairs: "У розмові з іншими картами", questions: "Запитання, які варто зберегти", practice: "Невелика практика",
+    spread: "У розкладі", heart: "Ситуація", challenge: "Що ускладнює", advice: "Корисний наступний крок",
+    positionQuestions: { heart: "Який аспект ситуації потребує уваги?", challenge: "Яка напруга чи припущення потребує уважнішого погляду?", advice: "Яка маленька дія допоможе краще зрозуміти ситуацію або відповісти на неї?" },
+    prism: { lead: "Прочитайте карту через кожну позицію, перш ніж дивитися на версію Olivia. Позиція — це запитання, і та сама карта відповідає на кожне по-своєму.", yours: "Ваше читання", placeholder: "Одне-два речення…", show: "Показати читання Olivia", hide: "Сховати читання Olivia", olivia: "Читання Olivia", showAll: "Просто показати всі три", swapTitle: "Перевірка обміном", swapBody: "Чи могли б якісь два ваші речення помінятися місцями? Якщо так, одне з них ще не прочитало своєї позиції. Перепишіть те, що підійшло б будь-куди.", tryIt: "Спробувати цю карту в розкладі на три карти ↗" },
+    pairs: "У розмові з іншими картами", alsoRead: "Також читали разом із", allPairs: "Усі пари ↗", questions: "Запитання, які варто зберегти", practice: "Невелика практика",
     shared: "Карти зі спільними символами", sharedVia: "Спільне", ask: "Принести своє запитання ↗",
     askLine: "Значення на сторінці — це мапа. Карта, яку ви витягнете для власного запитання, — це вже сама місцевість.",
     all: "Усі 78 карт", trail: "Простежити цей символ у колоді ↗",
@@ -87,6 +93,7 @@ export default function CardLeaf({ leaf, locale, ground }: { leaf: Leaf; locale:
   const kicker = card.arcana === "major" ? `${c.major} · ${NUMERALS[leaf.id]}` : `${c.minor} · ${SUITS[locale][card.suit!]}`;
   const image = getCardImagePath(card);
   const shared = cardsSharingSymbols(leaf, 4);
+  const others = pairsForCard(leaf.id).filter((p) => !p.readings.some((r) => r.from === leaf.id));
   let n = 0;
   const next = () => ++n;
 
@@ -170,22 +177,18 @@ export default function CardLeaf({ leaf, locale, ground }: { leaf: Leaf; locale:
       </Section>
 
       <Section no={next()} title={c.spread} id="in-a-spread" wide>
-        <ol className={styles.positions}>
-          {(["heart", "challenge", "advice"] as const).map((key, i) => (
-            <li key={key}>
-              <span className={styles.positionNo} aria-hidden>{["I", "II", "III"][i]}</span>
-              <h3>{c[key]}</h3>
-              <p>{text.positions[key]}</p>
-            </li>
-          ))}
-        </ol>
+        <PositionPrism
+          positions={(["heart", "challenge", "advice"] as const).map((key) => ({ key, label: c[key], question: c.positionQuestions[key], text: text.positions[key] }))}
+          labels={c.prism}
+          tryHref={`${locale === "uk" ? "/uk/" : "/"}#spreads/clarity3`}
+        />
       </Section>
 
       <Section no={next()} title={c.pairs} id="pairs" wide>
         <ul className={styles.pairs}>
           {text.pairs.map((pair) => (
             <li key={pair.with}>
-              <Link href={cardHref(pair.with, locale)} className={styles.pairCard}>
+              <Link href={pairHref(pairBySlug(pairSlug(leaf.id, pair.with))!, locale)} className={styles.pairCard}>
                 <span className={styles.pairThumbs} aria-hidden>
                   <Image src={getCardThumbPath(card)} alt="" width={120} height={206} />
                   <Image src={getCardThumbPath(ALL_CARDS[pair.with])} alt="" width={120} height={206} />
@@ -196,6 +199,15 @@ export default function CardLeaf({ leaf, locale, ground }: { leaf: Leaf; locale:
             </li>
           ))}
         </ul>
+        {others.length > 0 && (
+          <p className={styles.alsoRead}>
+            <span>{c.alsoRead}</span>
+            {others.map((p) => (
+              <Link key={p.slug} href={pairHref(p, locale)}>{cardName(p.a === leaf.id ? p.b : p.a, locale)}</Link>
+            ))}
+            <Link href={`${locale === "uk" ? "/uk" : ""}/cards/pairs/`} className={styles.allPairsLink}>{c.allPairs}</Link>
+          </p>
+        )}
       </Section>
 
       <Section no={next()} title={c.questions} id="questions">

@@ -1,0 +1,134 @@
+{
+  "slug": "reversed-cards",
+  "path": "asking",
+  "order": 5,
+  "tool": null,
+  "cards": [
+    67,
+    12
+  ],
+  "en": {
+    "title": "Reversed cards: choose your approach",
+    "dek": "Learn the main ways readers interpret an upside-down card, choose one before you shuffle, and apply it consistently, or read every card upright with confidence.",
+    "minutes": 5,
+    "sections": [
+      {
+        "heading": "A reversal is a decision",
+        "body": [
+          "When a card comes up upside down, nothing on it has changed. The figure, the stars and the colours are exactly as they were. What changes is a decision you make about what “upside down” means, and readers have made that decision differently for more than two centuries.",
+          "Etteilla’s fortune-telling system gave cards reversed meanings in the 1780s; S. L. MacGregor Mathers listed them in his booklet The Tarot in 1888, and Waite printed them again in 1910. Many Marseille readers never read reversals at all, and most Thoth readers set them aside in favour of elemental dignities. Mary K. Greer’s The Complete Book of Tarot Reversals (2002) gathers many approaches side by side. So there is no single correct meaning of a reversed card. There is the approach you chose, applied the same way every time."
+        ]
+      },
+      {
+        "heading": "Upright only is a real choice",
+        "body": [
+          "Reading every card upright is not a beginner’s shortcut. Experienced readers work this way, and the nuance a reversal would add comes instead from the position, the neighbouring cards and the question. A Four of Pentacles in the challenge position already points to a grip that has become too tight, without being turned.",
+          "If you are new, or if reversals make every spread feel like a list of problems, start here. In Olivia, some cards in a spread fall turned. If you read upright only, simply read them upright: you lose nothing essential."
+        ]
+      },
+      {
+        "heading": "Four ways to read upside down",
+        "body": [
+          "If you do read reversals, these four approaches keep the card’s quality intact and change only how it moves. Blocked: the quality is present but obstructed, wanted and not quite reached. Turned inward: it works privately rather than openly, in thought rather than in the room. Too much or too little: the quality is overdone or missing, and the position usually tells you which. Not fully expressed: it is still forming, or already fading; this is Olivia’s version of the older “delay”, and it never becomes a date.",
+          "Each approach has a habit to watch. Blocked can make every reversal sound like an obstacle. Too much or too little asks you to decide which one, not to keep both. Not fully expressed slides easily into timing, so keep it about readiness, never the calendar. Older books also offer “reversed means the opposite”; it is best left aside, because it splits every card into a good half and a bad half and throws away most of the image.",
+          "Any of the four pairs well with an image read: turn the card and describe what you literally see. The Hanged Man reversed stands the figure the right way up, the cord still tied to the ankle. The question it raises is plain: did the pause end before its new view arrived, or was it refused?"
+        ]
+      },
+      {
+        "heading": "Choose before you shuffle",
+        "body": [
+          "Choose one approach, or a pair such as blocked plus image read, before you shuffle. Write it at the top of the journal page and keep it for a month. If you pick the approach after the card appears, you will pick the one that says what you hoped; switching after the draw is how readers argue themselves into the reading they wanted.",
+          "With a paper deck, turn half the cards round while you shuffle so that orientation is random, and set every card upright again between readings. In Olivia, decide before you draw whether a turned card will count as reversed. Each card page carries a reversed section and reversed keywords, written as blocked, excessive, inward or still-forming versions of the card, never as bad news. After a month, look back: did your approach make the readings sharper or vaguer? Then keep it, or change it on purpose."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "The Four of Pentacles reversed, four ways",
+      "cards": [
+        67
+      ],
+      "body": [
+        "Suppose you ask, “What is my caution about this new role asking me to see?” and the Four of Pentacles lands reversed in the challenge position. First describe it upright: in Olivia’s image a crowned ivory figure sits on a rough block, arms closed in a ring around a gold-starred disc pressed to the chest, with a walled city far behind. The quality is holding on.",
+        "Now read it through each approach. Blocked: you want to feel secure and cannot; the holding brings no calm. Turned inward: the grip is private, a refusal to spend or to say that nobody else sees. Too much or too little: rigid guarding, or no boundary at all; in a challenge position, too much is the likelier reading. Not fully expressed: a need for security you have not admitted, or a grip already starting to loosen.",
+        "An image read adds one more lens: turn the card and the three lapis stars now form a triangle pointing down, with the walled city hanging at the top edge. Only one of these readings belongs in your journal: the one you chose before you shuffled."
+      ]
+    },
+    "tryThis": {
+      "heading": "Try this",
+      "steps": [
+        "Before your next spread, write one line in your notebook: “Reversals: upright only”, or name a single approach, such as blocked.",
+        "Open the Four of Pentacles card page and read its upright and reversed sections side by side; label which of the four approaches each reversed sentence uses.",
+        "Open The Hanged Man card page on your phone, lock rotation, turn the phone upside down, and describe only what you see before reading.",
+        "Draw a three-card spread in Olivia and read each turned card through your chosen approach alone, or upright if you chose upright only.",
+        "After a month, reread those journal pages and note whether the approach made your readings clearer or vaguer."
+      ]
+    },
+    "remember": [
+      "A reversal means what your chosen approach says, and you choose before shuffling.",
+      "Reading every card upright is a complete, respected way to read.",
+      "A reversed card keeps its quality; only the way that quality moves changes."
+    ]
+  },
+  "uk": {
+    "title": "Перевернуті карти: оберіть свій підхід",
+    "dek": "Познайомтеся з основними підходами тарологів до перевернутої карти, оберіть один іще до тасування й застосовуйте його послідовно — або впевнено читайте кожну карту в прямому положенні.",
+    "minutes": 5,
+    "sections": [
+      {
+        "heading": "Перевернута карта — це рішення",
+        "body": [
+          "Коли карта лягає догори ногами, на ній нічого не змінюється. Постать, зірки й кольори точнісінько такі самі, як були. Змінюється лише ваше рішення про те, що означає це «догори ногами», а тарологи ухвалюють його по-різному вже понад два століття.",
+          "Перевернуті значення з’явилися у ворожильній системі Еттейли в 1780-х роках; С. Л. Мак-Грегор Мазерс навів їх у брошурі «The Tarot» 1888 року, а 1910 року їх знову надрукував Вейт. Чимало тарологів, які працюють із марсельськими колодами, узагалі не читають перевернутих карт, а більшість тих, хто працює з колодою Тота, відкладає їх на користь стихійних гідностей — того, як стихії сусідніх карт посилюють або послаблюють одна одну. Книжка Мері К. Грір «The Complete Book of Tarot Reversals» (2002) зводить поруч багато підходів. Тож єдиного правильного значення перевернутої карти не існує. Є підхід, який обрали ви, і ви щоразу застосовуєте його однаково."
+        ]
+      },
+      {
+        "heading": "Лише пряме положення — повноцінний вибір",
+        "body": [
+          "Читати кожну карту в прямому положенні — не спрощення для початківців. Так працюють і досвідчені тарологи, а відтінки, які додала б перевернута карта, дають натомість позиція, сусідні карти й запитання. Четвірка Пентаклів у позиції «Що ускладнює» й без перевертання вже вказує на хватку, що стала надто міцною.",
+          "Якщо ви тільки починаєте або якщо через перевернуті карти кожен розклад перетворюється на перелік проблем, почніть саме звідси. У розкладах Olivia деякі карти лягають перевернутими. Якщо ви читаєте лише пряме положення, просто читайте їх як прямі: нічого суттєвого ви не втрачаєте."
+        ]
+      },
+      {
+        "heading": "Чотири способи читати перевернуту карту",
+        "body": [
+          "Якщо ж ви читаєте перевернуті карти, ці чотири підходи не порушують якості карти і змінюють лише те, як вона діє. Заблокована якість: вона присутня, але їй щось заважає; її прагнуть, та не зовсім досягають. Внутрішній вияв: якість діє приховано, а не відкрито, у думках, а не на людях. Надлишок або нестача: якості забагато або її бракує, і що саме, зазвичай підказує позиція. Ще не сформована або вже згасає: якість не виявилася повністю; так Olivia переосмислює давнішу «затримку», і вона ніколи не перетворюється на дату.",
+          "У кожного підходу є своя пастка. Із підходом «заблокована якість» кожна перевернута карта може звучати як перешкода. Підхід «надлишок або нестача» вимагає вирішити, що саме, а не залишати обидва варіанти. «Ще не сформована або вже згасає» легко сповзає в розмову про терміни, тож говоріть про готовність, а не про календар. Старі книжки пропонують ще й протилежне значення; його краще відкласти, бо воно розколює кожну карту на добру й погану половини і відкидає більшу частину зображення.",
+          "Будь-який із чотирьох добре поєднується з прочитанням зображення: переверніть карту й опишіть те, що буквально бачите. Повішений у перевернутому положенні ставить постать на ноги, а мотузка досі зав’язана на щиколотці. Запитання тут просте: пауза скінчилася раніше, ніж з’явився новий погляд, чи від неї відмовилися?"
+        ]
+      },
+      {
+        "heading": "Оберіть до тасування",
+        "body": [
+          "Оберіть один підхід або пару, скажімо заблоковану якість разом із прочитанням зображення, ще до того, як перетасуєте колоду. Запишіть його вгорі сторінки щоденника й тримайтеся його протягом місяця. Якщо обирати підхід уже після того, як карта ляже, ви оберете той, що скаже те, на що ви сподівалися; саме так тарологи, змінюючи підхід після витягування, переконують себе, що правильне те читання, якого вони хотіли.",
+          "Тасуючи паперову колоду, розверніть половину карт, щоб положення було випадковим, а між читаннями знову повертайте всі карти в пряме положення. В Olivia ще до витягування вирішіть, чи матиме для вас значення перевернуте положення карти. На кожній сторінці карти є розділ і ключові слова для перевернутого положення, написані як заблокована, надмірна, внутрішня чи ще не сформована версія карти, і ніколи як погана новина. Через місяць озирніться: ваш підхід зробив читання точнішими чи розмитішими? Тоді залиште його або змініть, але свідомо."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Четвірка Пентаклів у перевернутому положенні: чотири прочитання",
+      "cards": [
+        67
+      ],
+      "body": [
+        "Припустімо, ви запитуєте: «На що моя обережність щодо цієї нової посади просить мене звернути увагу?» — і Четвірка Пентаклів лягає перевернутою в позиції «Що ускладнює». Спершу опишіть її в прямому положенні: на зображенні Olivia увінчана постать зі слонової кістки сидить на шорсткій брилі, руки замкненим кільцем охоплюють диск із золотою зіркою, притиснутий до грудей, а далеко позаду стоїть місто за мурами. Якість карти — утримання.",
+        "Тепер прочитайте її через кожен підхід. Заблокована якість: ви хочете почуватися в безпеці й не можете; утримання не приносить спокою. Внутрішній вияв: хватка прихована, це відмова витрачати чи говорити, якої ніхто інший не бачить. Надлишок або нестача: застигла оборона або жодної межі взагалі; у позиції «Що ускладнює» ймовірнішим прочитанням буде надлишок. Ще не сформована або вже згасає: потреба в безпеці, у якій ви собі ще не зізналися, або хватка, що вже починає слабнути.",
+        "Прочитання зображення додає ще одну призму: переверніть карту, і три лазуритові зірки складуться в трикутник вершиною донизу, а місто за мурами повисне біля верхнього краю. Та до щоденника варто записати лише одне з цих прочитань — те, яке ви обрали до тасування."
+      ]
+    },
+    "tryThis": {
+      "heading": "Спробуйте",
+      "steps": [
+        "Перед наступним розкладом запишіть у щоденнику один рядок: «Перевернуті карти: лише пряме положення» — або назвіть один підхід, наприклад заблоковану якість.",
+        "Відкрийте сторінку Четвірки Пентаклів і прочитайте поруч розділи про пряме й перевернуте положення; позначте, який із чотирьох підходів використовує кожне речення про перевернуте положення.",
+        "Відкрийте на телефоні сторінку Повішеного, заблокуйте поворот екрана, переверніть телефон догори ногами і, перш ніж читати, опишіть лише те, що бачите.",
+        "Викладіть в Olivia розклад на три карти й прочитайте кожну перевернуту карту лише через обраний підхід, а якщо ви обрали лише пряме положення, то як пряму.",
+        "Через місяць перечитайте ці сторінки щоденника й запишіть, чи зробив підхід ваші читання яснішими, чи розмитішими."
+      ]
+    },
+    "remember": [
+      "Перевернута карта означає те, що каже обраний вами підхід, а обираєте його ви до тасування.",
+      "Читати кожну карту в прямому положенні — повноцінний і шанований спосіб читання.",
+      "Перевернута карта зберігає свою якість; змінюється лише те, як ця якість діє."
+    ]
+  }
+}

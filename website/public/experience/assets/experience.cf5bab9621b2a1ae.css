@@ -2762,6 +2762,85 @@ textarea,select,input:not([type=checkbox]):not([type=radio]):not([type=range]):n
 #question-form .support-note,#spread-question-form .support-note{margin:1rem 0 .4rem}
 @media(max-width:700px){.support-note{font-size:.9rem;padding:1rem 1rem 1.05rem}.support-note .support-note-title{font-size:1.2rem}}
 
+.reread-panel{margin:0 0 2rem;padding:1.4rem 1.5rem 1.2rem;border-radius:18px;background:linear-gradient(160deg,#1a3448,#11263a);box-shadow:inset 0 1px 0 #c9d7d81f,0 0 0 1px #d4c39d33}
+.reread-panel h2{margin:.3rem 0 .6rem;font:400 clamp(26px,2.6vw,34px)/1.1 'Cormorant Garamond',Georgia,serif;color:#f1e6cf}
+.reread-lead{margin:0 0 1rem;font-size:14px;line-height:1.75;color:#c9d2d6;max-width:36rem}
+.reread-field{display:grid;gap:.4rem;margin-bottom:.9rem}
+.reread-field span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#bda77a}
+.reread-field textarea{width:100%;min-height:84px;resize:vertical;padding:.75rem .85rem;border-radius:12px;border:1px solid #c9d7d82e;background:#0a1a2acc;color:#efe6d3;font:inherit;font-size:14px;line-height:1.6}
+.reread-note{margin:.8rem 0 0;font-size:12px;line-height:1.6;color:#98a9b3}
+.reread-status{margin:.5rem 0 0;font-size:13px;color:#e6cf9e}
+.reread-earlier{margin-top:1rem}
+.reread-list{list-style:none;margin:.5rem 0 .8rem;padding:0;display:grid;gap:.7rem}
+.reread-list li{padding-left:.9rem;border-left:1px solid #c9b18266}
+.reread-list time{display:block;font-size:11px;letter-spacing:.06em;color:#bda77a}
+.reread-list p{margin:.2rem 0 0;font-size:14px;line-height:1.6;color:#e2dccd}
+
+.survey-panel{margin:0 0 2rem;padding:1.3rem 1.4rem 1.1rem;border-radius:18px;background:#10263acc;box-shadow:inset 0 1px 0 #c9d7d81c,0 0 0 1px #d4c39d26}
+.survey-lead{margin:.2rem 0 1rem;font-size:13px;line-height:1.7;color:#aebdc5;max-width:34rem}
+.survey-list{list-style:none;margin:0 0 1rem;padding:0;display:grid;gap:.8rem}
+.survey-list li{padding:.2rem 0 .2rem .9rem;border-left:1px solid #c9d7d82e}
+.survey-list li[data-notable=true]{border-left:2px solid #e6cf9e}
+.survey-fact{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .7rem;font-size:14px;color:#efe6d3}
+.survey-fact strong{font-weight:500}
+.survey-odds{font-size:11px;letter-spacing:.03em;color:#97a8b2}
+.survey-list li[data-notable=true] .survey-odds{color:#e6cf9e}
+.survey-ask{margin:.3rem 0 0;font:italic 400 17px/1.4 'Cormorant Garamond',Georgia,serif;color:#e2dccd}
+.survey-loupes{display:flex;gap:8px;margin:.5rem 0 .2rem}
+.survey-loupe{width:46px;height:46px;border-radius:50%;background-repeat:no-repeat;background-color:#102235;box-shadow:0 0 0 1px #d4c39d59,0 8px 18px #03101e66}
+
+.question-hint{margin:.55rem 0 .9rem;padding:.75rem .95rem;border-left:2px solid rgba(230,207,158,.7);border-radius:3px 12px 12px 3px;background:rgba(230,207,158,.07);animation:question-hint-in 320ms ease-out both}
+.question-hint[hidden]{display:none}
+.question-hint-note+.question-hint-note{margin-top:.6rem;padding-top:.6rem;border-top:1px solid rgba(230,207,158,.14)}
+.question-hint p{margin:0}
+.question-hint-kind{margin:0!important;color:#d7bd84}
+.question-hint-text{margin-top:.25rem!important;font-size:.88rem;line-height:1.55;color:rgba(236,231,219,.86)}
+.question-hint-example{margin-top:.35rem!important;font-size:.82rem;line-height:1.5;color:rgba(236,231,219,.62)}
+.question-hint-example s{text-decoration-color:rgba(236,231,219,.35)}
+.question-hint-example em{color:rgba(246,236,214,.92)}
+.question-hint .quiet-link{display:inline-block;margin-top:.45rem;font-size:.8rem}
+@keyframes question-hint-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.question-hint{animation:none}}
+[hidden]+.question-hint{display:none}
+
+.sentence-panel{margin:0 0 2rem;padding:1.2rem 1.4rem;border-radius:18px;background:#0f2436b3;box-shadow:inset 0 1px 0 #c9d7d81a,0 0 0 1px #d4c39d24}
+.sentence-lead{margin:.25rem 0 .8rem;font:italic 400 19px/1.4 'Cormorant Garamond',Georgia,serif;color:#e8e0cf;max-width:34rem}
+.sentence-label{display:block;margin:.4rem 0 .35rem;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#97a8b2}
+.sentence-field{width:100%;box-sizing:border-box;resize:vertical;padding:.75rem .9rem;border:1px solid #c9d7d829;border-radius:12px;background:#040e1a8c;color:#f1eadb;font:inherit;font-size:15px;line-height:1.6}
+.sentence-field:focus{outline:2px solid #e6cf9e;outline-offset:1px}
+.sentence-helper{display:grid;gap:.15rem;margin:.55rem 0 0;font-size:13px;color:#aebdc5}
+.sentence-helper p{margin:0}
+.sentence-helper p[data-over=true]{color:#e6cf9e}
+.sentence-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.2rem;margin:.9rem 0 .4rem}
+.sentence-learn{font-size:12px}
+.sentence-quote{margin:.3rem 0 .6rem;padding:0 0 0 .9rem;border-left:2px solid #e6cf9e}
+.sentence-quote-label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#97a8b2}
+.sentence-quote p{margin:.25rem 0 0;font:italic 400 20px/1.4 'Cormorant Garamond',Georgia,serif;color:#f1e6cf}
+.sentence-status{margin:.3rem 0 0;font-size:12px;color:#aebdc5}
+
+.today-pair{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:clamp(1.4rem,4vw,3rem);align-items:start;margin:0 0 3rem;padding:clamp(1.3rem,3vw,2rem);border-radius:22px;background:linear-gradient(160deg,#16304466,#0d1f3099);box-shadow:inset 0 1px 0 #c9d7d81a,0 0 0 1px #d4c39d24}
+.today-pair>.eyebrow,.today-pair-title{grid-column:1/-1;margin:0}
+.today-pair-title{margin-top:-.8rem;font:400 clamp(26px,3vw,38px)/1.1 'Cormorant Garamond',Georgia,serif;color:#f1e6cf;max-width:30ch}
+.today-pair-cards{display:flex;gap:14px}
+.today-pair-cards figure{margin:0;flex:1;display:grid;gap:.5rem}
+.today-pair-cards img{width:100%;aspect-ratio:896/1536;object-fit:cover;border-radius:10px;box-shadow:0 18px 36px #02081480,0 0 0 1px #d8c49c2e}
+.today-pair-cards figure:first-child img{transform:rotate(-2.5deg);opacity:.9}
+.today-pair-cards figure:last-child img{transform:rotate(2deg)}
+.today-pair-cards figcaption{display:grid;gap:.1rem;font-size:12px;color:#97a8b2}
+.today-pair-cards figcaption strong{font:400 17px/1.2 'Cormorant Garamond',Georgia,serif;color:#efe6d3}
+.today-pair-chips{list-style:none;margin:0 0 1.1rem;padding:0;display:flex;flex-wrap:wrap;gap:.4rem}
+.today-pair-chips li{padding:.35rem .8rem;border-radius:999px;background:#c9d7d812;color:#d9d2c3;font-size:12.5px}
+.today-pair-lenses{display:flex;flex-wrap:wrap;gap:.35rem;margin:.4rem 0 .9rem}
+.today-pair-lenses button{padding:.5rem .85rem;border:0;border-radius:999px;background:#c9d7d812;color:#b9c6cd;font:inherit;font-size:12.5px;cursor:pointer}
+.today-pair-lenses button[aria-selected=true]{background:#eddfc2;color:#172d3d}
+.today-pair-lenses button:focus-visible{outline:2px solid #e6cf9e;outline-offset:2px}
+.today-pair-prompt{margin:0 0 1.1rem;font:italic 400 clamp(19px,2vw,23px)/1.4 'Cormorant Garamond',Georgia,serif;color:#f1e6cf;max-width:36rem}
+.today-pair-version{margin:0 0 1rem;padding:.8rem 1rem;border-left:2px solid #d4c39d;border-radius:3px 12px 12px 3px;background:#c9d7d80d}
+.today-pair-version summary{cursor:pointer;font-size:13px;color:#e6cf9e}
+.today-pair-version p{margin:.6rem 0 0;font-size:14px;line-height:1.7;color:#d9d2c3}
+.today-pair-links{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem}
+@media (max-width:700px){.today-pair{grid-template-columns:1fr}.today-pair-cards{max-width:260px}}
+
 /* Mobile coherence — one action vocabulary for the whole phone journey.
    Filled surfaces carry every invitation; artwork keeps its own space; each state,
    from choosing a card to keeping the reading, continues from the one before.

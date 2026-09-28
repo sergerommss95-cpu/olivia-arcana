@@ -1,0 +1,166 @@
+{
+  "slug": "suit-walks",
+  "path": "combinations",
+  "order": 3,
+  "tool": "deck-table",
+  "cards": [
+    40,
+    41,
+    42,
+    43,
+    22,
+    23,
+    24,
+    51,
+    53,
+    57,
+    58,
+    59,
+    67,
+    69,
+    46,
+    47,
+    48,
+    49
+  ],
+  "en": {
+    "title": "Suit walks and the missing step",
+    "dek": "Read cards of one suit as steps in a single story, and turn the step a spread leaves out into the question worth asking.",
+    "minutes": 6,
+    "sections": [
+      {
+        "heading": "Ten numbers, one story",
+        "body": [
+          "A suit is not ten separate cards that happen to share a symbol. Read in order, it is one element passing through ten stages. The Ace offers the whole element as a seed, still unformed. The Two pairs and chooses, the Three grows and expresses, the Four settles into structure. The Five tests that structure, the Six restores balance through exchange, the Seven stops to assess or imagine. The Eight moves or rearranges, the Nine holds the element at full strength, and the Ten completes it, with the full load that completion carries.",
+          "Set any card against that ladder and it becomes a step with a before and an after. In Cups, the suit of Water, feeling and imagination, the Five spills, the Six remembers and offers, the Seven dreams, and the Eight walks away from cups still standing. Knowing where a card sits in its suit tells you what it has come through, and what the next step asks of it."
+        ]
+      },
+      {
+        "heading": "Reading a run",
+        "body": [
+          "When two or three consecutive numbers of one suit land in a spread, read them together as a small story before you read them one by one. The Ace, Two and Three of Wands become spark, plan and first reaching out: a desire noticed, a direction chosen, a first move made towards the wider world. The Eight, Nine and Ten of Swords become feeling trapped by a thought, worry in the small hours, and the end of that line of thinking. A run gives you a verb where single cards give you nouns.",
+          "Read the run in suit order first. If the cards land on the table as Ten, Nine, Eight, you can also read it as unwinding: start where things feel finished and work back to the point where they first felt stuck. Neither direction is a timeline. A run shows the shape of a process you are inside, and the useful question is which step you are standing on now."
+        ]
+      },
+      {
+        "heading": "The missing step",
+        "body": [
+          "Sometimes a spread holds two cards of one suit with a single number missing between them: the Four and the Six of Pentacles, the Two and the Four of Swords, the Six and the Eight of Cups. Look hard at the card that is absent. It names the stage the story seems to skip, and a skipped stage is often exactly where a reading has something to offer.",
+          "Bring the missing card in as a question, not as a card you ought to have drawn. Open its page, read its essence line, and ask whether that step happened quietly, whether it is still open to you, or whether you went round it. Do not pull it from the deck to fill the gap. The gap is the finding; filling it with a fresh card turns a clear question back into noise.",
+          "Keep this to one missing step. With two or more numbers between the cards the thread grows too thin to follow, and each card is better read through its own position."
+        ]
+      },
+      {
+        "heading": "Walking the whole suit",
+        "body": [
+          "The surest way to learn a suit’s story is to walk it once, slowly. Open the Ace to the Ten of one suit in order and tell its story in ten sentences, one per card, each beginning where the last one ended. Write it in your own words. When a sentence will not come, that card is the one you do not yet know from the inside, and it deserves a second visit.",
+          "Then add the four courts as four ways of carrying the same element. In Cups, the Page meets a feeling that surfaces unasked, with curiosity rather than judgement; the Knight sets feeling in motion at a walking pace; the Queen holds it close with patient attention; the King stays steady in its presence, however strong it runs. These are temperaments anyone can use, not people arriving in your life. Notice which of the four you reach for, and which you rarely try."
+        ]
+      },
+      {
+        "heading": "Hold the ladder lightly",
+        "body": [
+          "The number ladder is a teaching device with a history. Readers of Marseille-pattern decks, whose number cards show only a count of cups or swords with no scene, work largely from number and suit. Golden Dawn writers linked each number, Ace to Ten, to one of the ten Sephiroth of the Kabbalistic Tree of Life, and Pamela Colman Smith’s 1909 scenes gave every step a picture. Olivia’s card pages keep these traditions as history, card by card.",
+          "So walk the suit, but do not march to it. A run describes a shape, not a schedule, and a missing step points to where you might look, not to something that must follow. Where the story in the suit and the story you know from your own life part company, trust your life and let the cards sharpen the question."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "The Seven between the Six and the Eight",
+      "cards": [
+        41,
+        42,
+        43
+      ],
+      "body": [
+        "Someone draws the Six of Cups and the Eight of Cups in one spread, with nothing between them. Describe first. In Olivia’s Six, a tall figure bends to offer a plain ivory goblet with a gold heart on its bowl; a kneeling child lifts open hands beneath it, not yet touching, while a small helmeted figure with spear and shield walks up the path, back turned. In the Eight, a hooded traveller with a long staff walks up a rocky path, away from eight unbroken cups in two rows. The upper row stops after three, and the river shows through the gap.",
+        "Read it as a run with a hole: from care offered and remembered to leaving what still stands. The absent Seven shows a dreamer seen from behind, face turned up to seven cups along cloud and rock, holding among other things a serpent, a heap of jewels, a skull framed in laurel and a tower on rocks. It is the step of sorting what you want. Notice where gold is set on the cups: a heart on the Six’s goblet, a small star on the Seven’s third cup, the only gold among its seven, a fish on the Eight’s leftmost cup. The question to carry: “Did I look at what I actually wanted, or leave before looking?”"
+      ]
+    },
+    "tryThis": {
+      "heading": "Try this",
+      "steps": [
+        "Open the card pages for the Ace to the Ten of Cups in order and write one sentence for each, beginning where the last one ended.",
+        "Follow the Symbol Trail called The cup, and note on each card who holds, offers or turns away from the cups.",
+        "Add the Page, Knight, Queen and King of Cups, and write which way of carrying feeling you use most.",
+        "Look back through your notebook for two cards of one suit with exactly one number missing between them; open the missing card’s page and write its question.",
+        "Walk a suit you find harder, and circle the card where your sentences stopped coming."
+      ]
+    },
+    "remember": [
+      "Read consecutive cards of one suit as one small story, not separate notes.",
+      "A single missing step between two cards of a suit becomes your question.",
+      "A suit walk shows the shape of a process, never a timetable."
+    ]
+  },
+  "uk": {
+    "title": "Прохід мастю й пропущений крок",
+    "dek": "Читайте карти однієї масті як кроки єдиної історії, а крок, якого бракує в розкладі, перетворюйте на запитання, яке варто поставити.",
+    "minutes": 6,
+    "sections": [
+      {
+        "heading": "Десять чисел, одна історія",
+        "body": [
+          "Масть — це не десять окремих карт, які випадково мають спільний символ. Якщо читати її по порядку, це одна стихія, що проходить десять етапів. Туз пропонує стихію цілком, як зерно, що ще не набуло форми. Двійка поєднує в пару й обирає, Трійка росте й виявляє себе, Четвірка набуває сталої структури. П’ятірка випробовує цю структуру, Шістка відновлює рівновагу завдяки обміну, Сімка зупиняється, щоб оцінити чи уявити. Вісімка рушає з місця або перебудовує, Дев’ятка тримає стихію в повній силі, а Десятка завершує її — з усією ношею, яку несе завершення.",
+          "Прикладіть будь-яку карту до цієї драбини — і вона стане кроком, у якого є «до» й «після». У Кубках, масті Води, почуттів та уяви, П’ятірка проливає, Шістка згадує й дарує, Сімка мріє, а Вісімка йде геть від кубків, які досі стоять. Знаючи, де карта стоїть у своїй масті, ви бачите, через що вона вже пройшла і чого від неї вимагає наступний крок."
+        ]
+      },
+      {
+        "heading": "Як читати послідовність",
+        "body": [
+          "Коли в розклад потрапляють два чи три послідовні числа однієї масті, спершу прочитайте їх разом, як маленьку історію, а вже потім — кожну карту окремо. Туз, Двійка й Трійка Жезлів стають іскрою, задумом і першим кроком назовні: бажання помічено, напрям обрано, перший рух до ширшого світу зроблено. Вісімка, Дев’ятка й Десятка Мечів стають відчуттям пастки, у яку заганяє думка, тривогою серед ночі й кінцем цього ходу думок. Окремі карти дають вам іменники, а послідовність — дієслово.",
+          "Спершу читайте послідовність у порядку масті. Якщо карти лягли на стіл як Десятка, Дев’ятка, Вісімка, її можна прочитати й як розплутування: почніть там, де все здається завершеним, і рухайтеся назад, до точки, де вперше з’явилося відчуття, що ви застрягли. Жоден із цих напрямків — не часова шкала. Послідовність показує обриси процесу, усередині якого ви перебуваєте, а корисне запитання таке: на якому кроці ви стоїте зараз?"
+        ]
+      },
+      {
+        "heading": "Пропущений крок",
+        "body": [
+          "Іноді в розкладі опиняються дві карти однієї масті, між якими бракує лише одного числа: Четвірка й Шістка Пентаклів, Двійка й Четвірка Мечів, Шістка й Вісімка Кубків. Уважно погляньте на карту, якої немає. Вона називає етап, який історія ніби пропускає, а саме в пропущеному етапі читання часто й має що вам запропонувати.",
+          "Залучіть відсутню карту як запитання, а не як карту, яку ви мали б витягнути. Відкрийте її сторінку, прочитайте рядок про її суть і запитайте себе: чи цей крок відбувся непомітно, чи він для вас ще відкритий, чи ви його оминули. Не витягайте цю карту з колоди, щоб заповнити прогалину. Прогалина і є знахідкою; заповнивши її новою картою, ви знову перетворите ясне запитання на шум.",
+          "Обмежтеся одним пропущеним кроком. Коли між картами бракує двох чи більше чисел, нитка стає надто тонкою, щоб за нею йти, і кожну карту краще читати через її власну позицію."
+        ]
+      },
+      {
+        "heading": "Прохід усією мастю",
+        "body": [
+          "Найпевніший спосіб вивчити історію масті — один раз повільно пройти нею. Відкрийте по порядку карти однієї масті від Туза до Десятки й розкажіть її історію в десяти реченнях, по одному на карту, так, щоб кожне починалося там, де закінчилося попереднє. Пишіть власними словами. Якщо речення не складається, це та карта, якої ви ще не знаєте зсередини, і до неї варто повернутися ще раз.",
+          "Потім додайте чотири придворні карти як чотири способи нести ту саму стихію. У Кубках Паж зустрічає з цікавістю, а не з осудом, почуття, що виринає непрохано; Лицар рушає з почуттям у дорогу ступою; Королева тримає його близько, з терплячою увагою; Король лишається врівноваженим поруч із ним, хоч би як сильно воно вирувало. Це темпераменти, доступні кожному, а не люди, які прийдуть у ваше життя. Помітьте, до якого з чотирьох способів ви звично вдаєтеся, а який пробуєте рідко."
+        ]
+      },
+      {
+        "heading": "Тримайте драбину легко",
+        "body": [
+          "Числова драбина — навчальний прийом зі своєю історією. Тарологи, які працюють із колодами марсельського типу, де на числових картах лише відповідна кількість кубків чи мечів без жодної сцени, спираються здебільшого на число й масть. Автори Золотої Зорі пов’язували кожне число, від Туза до Десятки, з однією з десяти сефір кабалістичного Дерева Життя, а сцени Памели Колман Сміт 1909 року дали кожному крокові зображення. Сторінки карт Olivia зберігають ці традиції як історію, карта за картою.",
+          "Тож проходьте мастю, але не маршируйте нею. Послідовність описує обриси, а не графік, і пропущений крок вказує, куди можна поглянути, а не на те, що мусить статися далі. Там, де історія масті розходиться з історією вашого власного життя, довіртеся своєму життю, а карти нехай загострять запитання."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Сімка між Шісткою й Вісімкою",
+      "cards": [
+        41,
+        42,
+        43
+      ],
+      "body": [
+        "Людина витягує в одному розкладі Шістку Кубків і Вісімку Кубків, і між ними нічого немає. Спершу опишіть. На Шістці Olivia висока постать нахиляється, простягаючи простий келих зі слонової кістки із золотим серцем на чаші; дитина навколішках підносить під нього розкриті долоні, ще не торкаючись, а невелика постать у шоломі, зі списом і щитом, іде стежкою вгору, спиною до нас. На Вісімці постать у каптурі, з довгим посохом, іде кам’янистою стежкою вгору, геть від восьми цілих кубків, що стоять двома рядами. Верхній ряд уривається після третього кубка, і в прогалині видніє річка.",
+        "Прочитайте це як послідовність із прогалиною: від турботи, яку дарують і пам’ятають, до відходу від того, що досі стоїть. Відсутня Сімка показує постать, яку видно зі спини: обличчя звернене вгору, до семи кубків на хмарах і скелях, а в них, серед іншого, змія, купа коштовностей, череп у лавровому вінку й вежа на скелях. Це крок, на якому ви розбираєтеся, чого хочете. Зверніть увагу, де на кубках є золото: серце на келиху Шістки; маленька зірка на третьому кубку Сімки, єдине золото серед усіх семи; риба на крайньому лівому кубку Вісімки. Запитання, яке ви візьмете з собою: «Чи роздивляюся я, чого мені насправді хочеться, чи йду, так і не поглянувши?»"
+      ]
+    },
+    "tryThis": {
+      "heading": "Спробуйте",
+      "steps": [
+        "Відкрийте по порядку сторінки карт від Туза до Десятки Кубків і напишіть до кожної одне речення, що починається там, де закінчилося попереднє.",
+        "Пройдіть стежкою «Кубок» у «Мові символів» і занотуйте для кожної карти, хто тримає кубки, хто їх дарує, а хто від них відвертається.",
+        "Додайте Пажа, Лицаря, Королеву й Короля Кубків і запишіть, яким способом нести почуття ви користуєтеся найчастіше.",
+        "Перегляньте свій щоденник і знайдіть дві карти однієї масті, між якими бракує рівно одного числа; відкрийте сторінку відсутньої карти й запишіть її запитання.",
+        "Пройдіть мастю, яка дається вам важче, і обведіть карту, на якій речення перестали складатися."
+      ]
+    },
+    "remember": [
+      "Читайте послідовні карти однієї масті як одну маленьку історію, а не як окремі нотатки.",
+      "Один пропущений крок між двома картами однієї масті стає вашим запитанням.",
+      "Прохід мастю показує обриси процесу, але ніколи не графік подій."
+    ]
+  }
+}

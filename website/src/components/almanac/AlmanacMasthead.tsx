@@ -21,6 +21,7 @@ const MAST = {
       { label: "My almanac", href: "/?experience=journal" },
       { label: "Spreads", href: "/?experience=spreads" },
       { label: "The cards", href: "/cards" },
+      { label: "Learn", href: "/learn" },
       ...(MEMBERSHIP_READY ? [{ label: "Membership", href: "/pricing" }] : []),
       // Appears only once the account backend is back (build-time flag).
       ...(ACCOUNTS_ENABLED ? [{ label: "Account", href: "/profile/" }] : []),
@@ -36,6 +37,7 @@ const MAST = {
       { label: "Мій альманах", href: "/uk/?experience=journal" },
       { label: "Розклади", href: "/uk/?experience=spreads" },
       { label: "Карти", href: "/uk/cards" },
+      { label: "Навчання", href: "/uk/learn" },
       ...(MEMBERSHIP_READY ? [{ label: "Підписка", href: "/pricing" }] : []),
       ...(ACCOUNTS_ENABLED ? [{ label: "Кабінет", href: "/profile/" }] : []),
     ],

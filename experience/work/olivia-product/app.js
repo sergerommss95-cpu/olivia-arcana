@@ -12,6 +12,7 @@ import {initSymbolTrails} from './symbol-trails.js';
 import {initPhysicalReading} from './physical-reading.js';
 import {initAlmanacJourney} from './almanac-journey.js';
 import {initQuestionCoach} from './question-coach.js';
+import {mountQuestionHint} from './question-hint.js';
 import {initAlmanacImport} from './almanac-backup.js';
 import {consumeQuestionHandoff} from './question-handoff.js';
 import {getLocale,t,initLocale,localizeCardNotes} from './locale.js';
@@ -233,6 +234,7 @@ const symbols=initSymbolTrails({assets,show:setView,locale:getLocale()});
 initHomeShowcase({assets,locale:getLocale(),reduced});
 const journey=initAlmanacJourney({assets,show:setView,openReading(record){preserveNote();currentRecord=drafts.get(record.id)||record;goto('reading');},openSpread:record=>spreads.restore(record)});
 const entryCoach=initQuestionCoach({container:$('#question-coach'),input:$('#question'),locale:getLocale(),onApprove(plan){$('#question').value=plan.question;approvedQuestionPlan=plan;readingEntry.setPlan(plan);entryCoach.close();$('#question-form button[type=submit]').focus({preventScroll:true});},onSkip(){}});
+mountQuestionHint($('#question'),getLocale);
 
 simplifySaving($('#save-section'),$('#reflection'),getLocale());
 simplifyPreferences($('#question-form'),$('#allow-reversals'),getLocale());

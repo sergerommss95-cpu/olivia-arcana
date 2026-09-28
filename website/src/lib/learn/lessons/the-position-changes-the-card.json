@@ -1,0 +1,137 @@
+{
+  "slug": "the-position-changes-the-card",
+  "path": "spreads",
+  "order": 1,
+  "tool": "position-prism",
+  "cards": [
+    16,
+    59,
+    41
+  ],
+  "en": {
+    "title": "The position changes the card",
+    "dek": "Read each place in a spread as a question, so one card gives a different, fitting answer wherever it lands, and check your reading with the swap test.",
+    "minutes": 5,
+    "sections": [
+      {
+        "heading": "A position is a question",
+        "body": [
+          "Every place in a spread asks something. In A little clarity, the first place, The situation, asks “What aspect of the situation deserves attention?” The second, What complicates it, asks “What tension or assumption deserves a closer look?” The third, A helpful next step, asks “What small action could help you understand or respond?” Before you turn a card, read its position aloud as that question. Then let the card answer it.",
+          "Most new readers work the other way round. They turn the card, recite what they know about it, and only then look for somewhere to put it. The result is three card meanings standing side by side, each true in general and none of them aimed at anything. A reading begins when the question comes first and the card supplies the words for one answer."
+        ]
+      },
+      {
+        "heading": "Scope, stance and tone",
+        "body": [
+          "A position sets three things at once. Scope: which part of the situation the card speaks to, so you are not asking one image to explain your whole life. Stance: whether it asks about what already is, or about what you could do. The situation describes; a next step proposes, and it should propose something small and reversible. Tone: a position about resources draws out a card’s gift, while a position about tension draws out its friction.",
+          "Hold those three in mind and a single card starts to behave like a prism: the same quality splits into different colours depending on where the light enters. A useful shape for each sentence is the position’s question, then “this card draws attention to…”, then one specific thing to look at."
+        ]
+      },
+      {
+        "heading": "No card is bad in a position",
+        "body": [
+          "A hard card in a helpful position is read for what it can offer. Take the Ten of Swords as a next step. On Olivia’s card the figure’s eyes are closed and the brow is relaxed, and behind it a thin band of gold light runs along the horizon. Asked “What small action could help?”, it can mean permission to stop: let a finished matter be finished, rest before deciding anything large, and notice the first small signs of light. It is a symbolic ending, not a forecast.",
+          "A gentle card in a tension position is read for where its quality becomes too much or too little. In the Six of Cups a standing figure offers an ivory goblet with a gold heart to a kneeling one whose hands are raised but not yet touching it. As what complicates things, that tenderness can point to nostalgia used as shelter, an old role you keep playing, or difficulty accepting care when it is offered."
+        ]
+      },
+      {
+        "heading": "The swap test",
+        "body": [
+          "When you have written one sentence per position, cover the labels and read the sentences back. Could any two of them trade places without anyone noticing? If they could, the position was not read. The card was.",
+          "Fix the lens, not the card. Go back to the position’s question and ask it again, more literally. A sentence that passes carries the question’s fingerprints: a situation sentence names something already in view, a complication names a friction or an untested assumption, and a next step names an action you could take today and undo tomorrow if it does not help."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "The Tower in three positions",
+      "cards": [
+        16
+      ],
+      "body": [
+        "On Olivia’s card a gold bolt leaves the underside of a storm cloud and strikes the crown at the tower’s summit. The crown tips off the battlements and a cracked fragment of the top breaks away, yet the tower of fitted stone still stands, and fire glows in its windows.",
+        "As the situation, it draws attention to what sits on top: something may already have shifted, and the question is what to do with what you can now see. Look at the certainty balanced on your plan rather than at the plan itself.",
+        "As what complicates it, the same image points to effort: holding up something that no longer stands on its own, or building a new decision on a claim you have not checked. The lit windows suggest the pressure is not only coming from outside.",
+        "As a helpful next step, it invites you to let one false support go on purpose: correct a story, admit a mistake. A small break you choose is easier to rebuild from.",
+        "Swap any two of these and each reads wrong: a description where an action belongs, an action where a friction belongs."
+      ]
+    },
+    "tryThis": {
+      "heading": "Try this",
+      "steps": [
+        "Open the page of a card you know well, go to “In a spread”, and write your own sentence for each position before showing Olivia’s.",
+        "Draw A little clarity for a real question, and read each position aloud as a question before you turn its card.",
+        "Write one sentence per card in your notebook: the position’s question, what the card draws attention to, and one thing to look at.",
+        "Cover the position labels, run the swap test, and rewrite any sentence that could sit comfortably in another place.",
+        "Note in your notebook which position was hardest to answer, and what the card had to become to answer it."
+      ]
+    },
+    "remember": [
+      "A position is a question; the card answers it, not the other way round.",
+      "No card is bad in a position: the position chooses its gift or its friction.",
+      "If two readings could trade places, go back and read the position again."
+    ]
+  },
+  "uk": {
+    "title": "Позиція змінює карту",
+    "dek": "Ви навчитеся читати кожну позицію розкладу як запитання, щоб та сама карта в кожній позиції давала іншу й доречну відповідь, а також випробовувати своє читання перевіркою обміном.",
+    "minutes": 5,
+    "sections": [
+      {
+        "heading": "Позиція — це запитання",
+        "body": [
+          "Кожна позиція в розкладі про щось запитує. У розкладі «Трохи ясності» перша позиція, «Ситуація», запитує: «Який аспект ситуації потребує уваги?» Друга, «Що ускладнює»: «Яка напруга чи припущення потребує уважнішого погляду?» Третя, «Корисний наступний крок»: «Яка маленька дія допоможе краще зрозуміти ситуацію або відповісти на неї?» Перш ніж перевернути карту, прочитайте її позицію вголос саме як це запитання. А тоді дайте карті на нього відповісти.",
+          "Початківці здебільшого роблять навпаки: перевертають карту, переказують усе, що про неї знають, і лише потім шукають, куди її прилаштувати. У результаті три значення карт стоять пліч-о-пліч: кожне правдиве загалом, і жодне ні в що не влучає. Читання починається тоді, коли першим звучить запитання, а карта дає слова для однієї відповіді."
+        ]
+      },
+      {
+        "heading": "Межі, ракурс і тон",
+        "body": [
+          "Позиція задає одразу три речі. Межі: якої частини ситуації стосується карта, щоб ви не вимагали від одного зображення пояснити все ваше життя. Ракурс: чи запитує позиція про те, що вже є, чи про те, що ви могли б зробити. «Ситуація» описує, наступний крок пропонує, і пропонувати він має щось невелике, що можна скасувати. Тон: позиція про ресурси виявляє дар карти, а позиція про напругу — її тертя.",
+          "Тримайте в голові ці три речі, і одна й та сама карта почне поводитися як призма: та сама якість розкладається на різні кольори залежно від того, звідки падає світло. Кожне речення зручно будувати так: запитання позиції, далі «ця карта звертає увагу на…», далі одна конкретна річ, на яку варто поглянути."
+        ]
+      },
+      {
+        "heading": "Поганих карт у позиції не буває",
+        "body": [
+          "У важкій карті в позиції, що має допомогти, шукають те, що вона може запропонувати. Візьміть Десятку Мечів у позиції наступного кроку. На карті Olivia очі постаті заплющені, чоло розслаблене, а позаду неї вздовж обрію лежить тонка смуга золотого світла. У відповідь на запитання «Яка маленька дія допоможе?» вона може означати дозвіл зупинитися: дати завершеній справі бути завершеною, відпочити, перш ніж вирішувати щось велике, і помітити перші маленькі ознаки світла. Це символічне завершення, а не прогноз.",
+          "У лагідній карті в позиції напруги шукають місце, де її якості стає забагато або замало. На Шістці Кубків постать, що стоїть, простягає келих зі слонової кістки із золотим серцем постаті навколішках; її руки підняті, але ще не торкаються келиха. У позиції «Що ускладнює» ця ніжність може вказувати на ностальгію як прихисток, на стару роль, яку ви й далі граєте, або на те, як важко прийняти турботу, коли її пропонують."
+        ]
+      },
+      {
+        "heading": "Перевірка обміном",
+        "body": [
+          "Коли для кожної позиції написано по одному реченню, закрийте назви позицій і перечитайте написане. Чи могли б якісь два речення помінятися місцями так, щоб ніхто цього не помітив? Якщо так, ви прочитали не позицію. Ви прочитали карту.",
+          "Виправляйте не карту, а призму. Поверніться до запитання позиції й поставте його ще раз, буквальніше. На реченні, яке проходить перевірку, лишаються відбитки запитання: речення про ситуацію називає те, що вже перед очима, речення про ускладнення — тертя або неперевірене припущення, а наступний крок — дію, яку можна зробити сьогодні й скасувати завтра, якщо вона не допоможе."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Вежа в трьох позиціях",
+      "cards": [
+        16
+      ],
+      "body": [
+        "На карті Olivia золота блискавка виривається з-під грозової хмари й влучає в корону на вершині вежі. Корона з’їжджає із зубців, потрісканий уламок верхівки відламується, але вежа з припасованих одна до одної кам’яних брил досі стоїть, а в її вікнах світиться полум’я.",
+        "У позиції «Ситуація» карта звертає увагу на те, що лежить на самій верхівці: щось, можливо, уже зрушило, і питання в тому, що робити з тим, що тепер видно. Погляньте не на сам план, а на впевненість, яка на ньому балансує.",
+        "У позиції «Що ускладнює» те саме зображення вказує на зусилля: ви підпираєте те, що вже не стоїть самостійно, або будуєте нове рішення на твердженні, якого не перевірили. Освітлені вікна підказують, що тиск іде не лише ззовні.",
+        "У позиції «Корисний наступний крок» карта запрошує свідомо відпустити одну хибну опору: виправити історію, визнати помилку. Від невеликого зламу, який ви обрали самі, легше відбудовуватися.",
+        "Поміняйте будь-які два прочитання місцями, і кожне звучатиме хибно: опис там, де має бути дія, дія там, де має бути тертя."
+      ]
+    },
+    "tryThis": {
+      "heading": "Спробуйте",
+      "steps": [
+        "Відкрийте сторінку карти, яку добре знаєте, перейдіть до розділу «У розкладі» й напишіть власне речення для кожної позиції, перш ніж дивитися на версію Olivia.",
+        "Викладіть розклад «Трохи ясності» для справжнього запитання й прочитайте кожну позицію вголос як запитання, перш ніж перевернути її карту.",
+        "Запишіть у щоденник по одному реченню на кожну карту: запитання позиції, на що карта звертає увагу, і одну річ, на яку варто поглянути.",
+        "Закрийте назви позицій, проведіть перевірку обміном і перепишіть кожне речення, яке могло б спокійно стояти в іншій позиції.",
+        "Запишіть у щоденник, на яку позицію відповісти було найважче і якою мусила стати карта, щоб на неї відповісти."
+      ]
+    },
+    "remember": [
+      "Позиція — це запитання; карта відповідає на нього, а не навпаки.",
+      "Поганих карт у позиції не буває: позиція обирає дар карти або її тертя.",
+      "Якщо два прочитання могли б помінятися місцями, поверніться й прочитайте позицію ще раз."
+    ]
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "slug": "numbers-across-the-suits",
+  "path": "combinations",
+  "order": 2,
+  "tool": "deck-table",
+  "cards": [
+    26,
+    40,
+    54,
+    68,
+    5,
+    4,
+    14,
+    44,
+    58
+  ],
+  "en": {
+    "title": "One number, four suits",
+    "dek": "Read a number card by its rank first and its suit second, so that any Five or Nine tells you what kind of moment it is, and where.",
+    "minutes": 6,
+    "sections": [
+      {
+        "heading": "Rank first, then suit",
+        "body": [
+          "Every number card in the Minor Arcana answers two questions at once. The suit says where something is happening: in drive and desire for Wands, in feeling for Cups, in thought and speech for Swords, in body, work and money for Pentacles. The number says what kind of moment it is: a beginning, a pause, a test, a completion. Learn ten ranks and you hold forty cards in outline before you have memorised a single one.",
+          "Readers of Marseille-pattern decks developed this method out of necessity. Their number cards had no scenes, only a count of cups or coins set out in a pattern, so a reading had to come from rank and suit together. Olivia’s minors are full carved scenes, and the scenes matter. The number still sits under each picture, and it stops you reading forty cards as forty unrelated stories."
+        ]
+      },
+      {
+        "heading": "Ten steps from seed to load",
+        "body": [
+          "The ladder runs in a rough arc. The Ace is the element offered whole and unformed, a seed not yet planted. Two brings a pair: a choice, a balance, something weighed. Three is first growth, when an idea takes a shape other people can see. Four builds a structure and settles into it.",
+          "Five breaks that settled square: something tests what Four built. Six restores a balance through exchange, giving and receiving. Seven steps back to assess, plan or imagine. Eight is movement and dedication, or its absence, the feeling of being held in place. Nine is the element at full intensity, near the end of its run. Ten is completion: the full load, carried or handed on.",
+          "Treat the ladder as a scaffold, not a dictionary. It tells you which question to ask of a card; the suit and the picture tell you how this card answers. The Nine of Cups and the Nine of Swords both show their element at full strength, and they feel nothing alike: one is contentment held close, the other a mind with no room left."
+        ]
+      },
+      {
+        "heading": "Four Fives, one disruption",
+        "body": [
+          "Lay the four Fives side by side and the method becomes visible. On the Five of Wands, five barefoot youths lunge inward, long staves crossing above their heads, their faces calm and intent rather than angry: Fire tested as competing effort, many wills in one space. On the Five of Cups, a hooded figure bends its head low above three goblets lying on their sides, while two more stand upright further back and neither hand reaches toward any of them: Water tested as loss.",
+          "On the Five of Swords, a figure holding three swords turns back with a small, pleased smile toward two others, one with a hand pressed over the face, the other walking away with empty arms: Air tested as a quarrel someone has won. On the Five of Pentacles, two figures pass through snow beneath a tall window where no light shows, one of them leaning on crutches: Earth tested as material strain.",
+          "Each Five asks the same thing, what happens when a settled arrangement is shaken, and each suit shows where the shaking lands. Olivia’s card pages for all four Fives open their number sections with that shared idea before turning it toward their own element."
+        ]
+      },
+      {
+        "heading": "When a number repeats",
+        "body": [
+          "When two or more cards in a spread share a number, read the number as the theme and the suits as the places it is happening. Two Fours might ask where you are building and where you are holding on. A Three of Cups beside a Three of Swords might ask what is being shared with others, and what hurt is asking to be named.",
+          "Weigh the pattern honestly. In a five-card spread, two number cards share a rank in roughly one draw in five; in a ten-card spread, more often than not. Three cards of one rank are rarer: about one draw in two hundred with five cards, about six in a hundred with ten. The rarer the repeat, the more attention it earns.",
+          "The Major Arcana join in by number too. The Hierophant is card V, and its own page reads it beside the minor Fives: one point added to the Emperor’s square of four. Some modern teachers also add a Major’s digits together, so Temperance, XIV, joins the Hierophant’s family of fives. Take these links as a teaching device, one lens among several, never a law."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Three fives around a team",
+      "cards": [
+        26,
+        40,
+        5
+      ],
+      "body": [
+        "A reader asks: “What would help me think clearly about the new way my team is being asked to work?” Three cards come up: the Five of Wands, the Five of Cups and The Hierophant.",
+        "Survey first. Two number cards sharing a rank in three draws happens about six times in a hundred, and here a Major of the same number joins them. Five is loud in this spread, so start there: something settled is being tested.",
+        "Then let the suits give the addresses. In Fire, the youths lunge inward from both sides, staves crossing overhead, faces calm and intent: people competing over how things should be done, not enemies. In Water, the hooded figure stands head bowed above the spilled goblets and does not reach for the two still standing: something about the old way is missed. The Hierophant carries the theme into belief. A teacher raises two fingers before two kneeling figures, with crossed gold keys below: a rule handed down, and people receiving it.",
+        "Read together, the fives suggest one arrangement argued over in action and grieved in feeling, with a rule underneath both. A question to carry: “Which part of the old way do I actually miss, and which rule am I defending out of habit?”"
+      ]
+    },
+    "tryThis": {
+      "heading": "Try this",
+      "steps": [
+        "Open the card pages for the four Fives, read each number section, and copy the phrase that names how the disruption lands in that suit.",
+        "Choose another rank, such as the Eights, and write one line per suit: what the number does, and where it lands.",
+        "In your next spread of five or more cards, check for a shared number before you read any position.",
+        "When a number repeats, write one question that names the theme once and each suit as a place it is happening.",
+        "Pick a rank you drew this week, open its Major (Fours with The Emperor, Fives with The Hierophant) and read both number sections side by side."
+      ]
+    },
+    "remember": [
+      "The number says what kind of moment it is; the suit says where it lands.",
+      "Learn ten ranks once, and forty number cards arrive already in outline.",
+      "A shared number earns attention in proportion to how rarely it happens by chance."
+    ]
+  },
+  "uk": {
+    "title": "Одне число, чотири масті",
+    "dek": "Читайте числову карту спершу за числом, а тоді за мастю, і будь-яка П’ятірка чи Дев’ятка підкаже, що це за момент і де він розгортається.",
+    "minutes": 6,
+    "sections": [
+      {
+        "heading": "Спершу число, потім масть",
+        "body": [
+          "Кожна числова карта Молодших Арканів відповідає одразу на два запитання. Масть показує, де щось відбувається: у пориві й бажанні — Жезли, у почуттях — Кубки, у думці й мові — Мечі, у тілі, праці та грошах — Пентаклі. Число показує, що це за момент: початок, пауза, випробування, завершення. Вивчіть десять чисел — і ви знатимете обриси сорока карт, ще не запам’ятавши жодної.",
+          "Тарологи, які працювали з колодами марсельського типу, виробили цей метод із потреби. На їхніх числових картах не було сцен, лише певна кількість кубків чи монет, викладених візерунком, тож читання доводилося будувати на числі й масті разом. Молодші Аркани Olivia — повноцінні різьблені сцени, і ці сцени важливі. Та під кожним зображенням і далі стоїть число, і воно не дає вам читати сорок карт як сорок не пов’язаних між собою історій."
+        ]
+      },
+      {
+        "heading": "Десять кроків від зерна до ноші",
+        "body": [
+          "Числова драбина описує приблизну дугу. Туз — це стихія, яку простягають цілою й неоформленою, зерно, яке ще не посіяли. Двійка приносить пару: вибір, рівновагу, щось, що зважують. Трійка — перше зростання, коли задум набуває форми, яку можуть побачити інші. Четвірка будує структуру й обживається в ній.",
+          "П’ятірка ламає цей усталений квадрат: щось випробовує збудоване Четвіркою. Шістка відновлює рівновагу завдяки обміну, у якому і дають, і отримують. Сімка відступає, щоб оцінити, спланувати чи уявити. Вісімка — це рух і відданість справі або їхня відсутність, відчуття, ніби вас тримають на місці. Дев’ятка — стихія на повну силу, неподалік кінця свого шляху. Десятка — завершення: повна ноша, яку несуть далі або передають іншим.",
+          "Сприймайте драбину як риштування, а не як словник. Вона підказує, яке запитання поставити карті; масть і зображення показують, як саме ця карта на нього відповідає. І Дев’ятка Кубків, і Дев’ятка Мечів показують свою стихію на повну силу, але настрій у них зовсім різний: одна — вдоволення, яке тримають близько до серця, друга — розум, у якому не лишилося вільного місця."
+        ]
+      },
+      {
+        "heading": "Чотири П’ятірки, одне потрясіння",
+        "body": [
+          "Викладіть чотири П’ятірки поруч — і метод стане наочним. На П’ятірці Жезлів п’ятеро босих молодих людей роблять випади до середини, довгі жезли перехрещуються над їхніми головами, а обличчя спокійні й зосереджені, а не розлючені: Вогонь, випробуваний суперництвом зусиль, багато воль в одному просторі. На П’ятірці Кубків постать у каптурі низько схиляє голову над трьома келихами, що лежать на боці, а ще два стоять рівно трохи позаду, і жодна рука не тягнеться до жодного з них: Вода, випробувана втратою.",
+          "На П’ятірці Мечів постать із трьома мечами озирається з легкою вдоволеною усмішкою на дві інші постаті: одна притискає долоню до обличчя, друга йде геть із порожніми руками. Це Повітря, випробуване сваркою, у якій хтось переміг. На П’ятірці Пентаклів дві постаті бредуть снігом під високим вікном, у якому не видно жодного світла; одна з них спирається на милиці: Земля, випробувана матеріальною скрутою.",
+          "Кожна П’ятірка ставить те саме запитання — що відбувається, коли усталений лад похитнувся, — а кожна масть показує, куди припадає цей поштовх. На сторінках усіх чотирьох П’ятірок у колоді Olivia розділ про число починається з цієї спільної думки, а вже потім повертає її до своєї стихії."
+        ]
+      },
+      {
+        "heading": "Коли число повторюється",
+        "body": [
+          "Коли дві чи більше карт у розкладі мають однакове число, читайте число як тему, а масті — як місця, де вона розгортається. Дві Четвірки можуть запитати, де ви будуєте, а де за щось чіпляєтеся. Трійка Кубків поруч із Трійкою Мечів може запропонувати подумати, чим ви ділитеся з іншими і який біль просить, щоб його назвали.",
+          "Оцінюйте такий збіг чесно. У розкладі на п’ять карт дві числові карти з однаковим числом трапляються приблизно в одному випадку з п’яти, а в розкладі на десять карт — більш ніж у половині випадків. Три карти одного числа трапляються рідше: приблизно в одному розкладі з двохсот, якщо карт п’ять, і приблизно в шести зі ста, якщо їх десять. Що рідший повтор, то більшої уваги він вартий.",
+          "Старші Аркани теж долучаються за числом. Ієрофант — карта V, і на його сторінці цю карту розглянуто поруч із П’ятірками Молодших Арканів: одна точка, додана до усталеного квадрата четвірки, яку уособлює Імператор (IV). Деякі сучасні викладачі ще й додають цифри номера Старшого Аркана, тож Помірність (XIV) приєднується до родини п’ятірок, до якої належить Ієрофант. Сприймайте ці зв’язки як навчальний прийом, одну призму з кількох, а ніколи не як закон."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Три п’ятірки довкола команди",
+      "cards": [
+        26,
+        40,
+        5
+      ],
+      "body": [
+        "Людина, яка запитує, ставить таке запитання: «Що допоможе мені ясно подумати про новий спосіб роботи, якого тепер чекають від моєї команди?» Витягнуто три карти: П’ятірку Жезлів, П’ятірку Кубків та Ієрофанта.",
+        "Спершу огляньте розклад. Дві числові карти з однаковим числом серед трьох витягнутих трапляються приблизно в шести розкладах зі ста, а тут до них ще й долучається Старший Аркан із тим самим числом. Число п’ять звучить у цьому розкладі гучно, тож почніть із нього: щось усталене проходить випробування.",
+        "Далі нехай масті підкажуть адреси. У Вогні молоді люди роблять випади з обох боків, жезли перехрещуються над головами, обличчя спокійні й зосереджені: люди змагаються за те, як слід робити справу, але вони не вороги. У Воді постать у каптурі стоїть, схиливши голову над перекинутими келихами, і не тягнеться до двох, що досі стоять: чогось зі старого способу бракує. Ієрофант переносить тему у сферу переконань. Постать, що навчає, підносить два пальці перед двома постатями, що стоять на колінах, а внизу навхрест лежать золоті ключі: правило, передане від попередників, і люди, які його приймають.",
+        "Прочитані разом, п’ятірки вказують на один лад: за нього сперечаються в дії, за ним сумують у почуттях, а в основі обох лежить правило. Запитання, яке ви візьмете з собою: «Якої частини старого способу мені справді бракує, а яке правило я захищаю за звичкою?»"
+      ]
+    },
+    "tryThis": {
+      "heading": "Спробуйте",
+      "steps": [
+        "Відкрийте сторінки карт чотирьох П’ятірок, прочитайте в кожній розділ про число й випишіть фразу, яка називає, як потрясіння проявляється в цій масті.",
+        "Оберіть інше число, наприклад Вісімки, і запишіть по рядку для кожної масті: що робить число і де воно розгортається.",
+        "У наступному розкладі на п’ять або більше карт перевірте, чи є спільне число, ще до того, як читати будь-яку позицію.",
+        "Коли число повторюється, запишіть одне запитання, у якому тему названо один раз, а кожну масть — як місце, де вона розгортається.",
+        "Візьміть число, яке ви витягнули цього тижня, відкрийте сторінку відповідного Старшого Аркана (Четвірки — Імператор, П’ятірки — Ієрофант) і прочитайте розділи про число обох карт поруч."
+      ]
+    },
+    "remember": [
+      "Число показує, що це за момент; масть — де він розгортається.",
+      "Вивчіть десять чисел один раз — і сорок числових карт постануть перед вами вже в обрисах.",
+      "Спільне число варте уваги тим більше, чим рідше воно трапляється випадково."
+    ]
+  }
+}

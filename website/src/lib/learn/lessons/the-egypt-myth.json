@@ -1,0 +1,149 @@
+{
+  "slug": "the-egypt-myth",
+  "path": "history",
+  "order": 2,
+  "tool": null,
+  "cards": [
+    0,
+    1,
+    2
+  ],
+  "en": {
+    "title": "How tarot became occult",
+    "dek": "Trace how a fifteenth-century card game acquired an Egyptian past and Hebrew letters, and learn to sort documented history from origin myth when you read.",
+    "minutes": 5,
+    "sections": [
+      {
+        "heading": "A pastor watches a game",
+        "body": [
+          "In 1781 a Protestant pastor and scholar in Paris, Antoine Court de Gébelin, published the eighth volume of his vast work Le Monde primitif. In it he described visiting friends who were playing tarot, then an ordinary card game. Within a quarter of an hour, he wrote, the pack had been gone through, explained and declared Egyptian.",
+          "His argument was bold. The trumps, he said, were the remains of the Book of Thoth, the wisdom of Egyptian priests, hidden inside a game so that it would survive. He even derived the word “tarot” from supposed Egyptian roots meaning “royal road”. In the same volume the Comte de Mellet added two ideas of his own: that the twenty-two trumps matched the twenty-two letters of the Hebrew alphabet, and that the cards had been used for divination."
+        ]
+      },
+      {
+        "heading": "Why the Egypt story fails",
+        "body": [
+          "No one in 1781 could read Egyptian writing. Hieroglyphs were not deciphered until Champollion’s work in 1822, so Court de Gébelin was matching pictures to a language nobody understood. When Egyptian texts could finally be read, nothing in them resembled the tarot. No Egyptian deck, and no ancient description of one, has ever been found.",
+          "What the record does show is plainer. The picture cards appear in the courts of northern Italy by the early 1440s, added as trionfi to an ordinary four-suit pack, and the game spread across Europe from there. Later origin stories follow the same pattern: the claim that Romani travellers carried tarot from the East, spread by occult writers such as Papus in 1889, has no evidence behind it either."
+        ]
+      },
+      {
+        "heading": "Etteilla builds a reading deck",
+        "body": [
+          "The Egypt story did not stay in a scholar’s book. Within a few years, a Parisian card reader who called himself Etteilla, his own surname Alliette spelled backwards, took it up. In the 1780s he published a method for reading tarot and later a deck redesigned for the purpose, which he presented as the Book of Thoth restored to its true order.",
+          "Etteilla’s history was invented, but his practical legacy was real. His was the first deck made for reading rather than for play, and he gave cards distinct meanings when they fell upside down. Every reader who pauses over an upside-down card is drawing, knowingly or not, on a habit that Etteilla did more than anyone to put into print."
+        ]
+      },
+      {
+        "heading": "Lévi and the Hebrew letters",
+        "body": [
+          "De Mellet’s passing idea became a system in the hands of Éliphas Lévi, a French writer on magic whose Dogme et rituel de la haute magie appeared in 1854 and 1856. Lévi joined each trump to a Hebrew letter and set the whole deck inside the Kabbalah, the Jewish mystical tradition. For him the tarot was a universal key to ancient knowledge.",
+          "Later readers kept the idea but changed the details. The Hermetic Order of the Golden Dawn, founded in 1888, reassigned the letters, and those are the attributions you find on Olivia’s card pages. That the systems disagree is itself the lesson: the letters are a reading tradition built between 1781 and the 1880s, rich and worth knowing, not an original code uncovered."
+        ]
+      },
+      {
+        "heading": "Three piles, not one",
+        "body": [
+          "When you meet a claim about tarot, sort it into one of three piles. The first is documented history: printed books, surviving decks, dates. The second is origin myth: stories about where the cards came from that the record does not support. The third is reading tradition: meanings and correspondences that people chose and handed on, which you may use freely as long as you know whose they are.",
+          "This is why Olivia’s card pages say “in the Golden Dawn system” rather than “the card means”. A tradition is a lens you pick up on purpose. It can sharpen what you see, but it cannot tell you where the pictures came from, and it never outranks what is actually carved on the card in front of you."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "One card, two letters",
+      "cards": [
+        1,
+        0,
+        2
+      ],
+      "body": [
+        "Open the Magician’s card page. The carving shows a figure with one arm raised, holding a slender ivory rod nearly upright, while the other hand points firmly down towards the flowers at the foot of the card. A gold figure of eight floats above the head, and on the table stand a cup, an upright sword, a slim rod and a disc bearing a five-pointed star.",
+        "Now read the tradition note: in the Golden Dawn system the Magician is Beth, “house”. Lévi, writing about thirty years earlier, gave this same card Aleph, the first letter, because it is the first numbered trump. The Golden Dawn moved Aleph to the Fool instead, whose page gives it that letter along with Air.",
+        "The letter comes from a book, not from the carving. The High Priestess makes the point quietly: in 1909 Pamela Colman Smith lettered her pillars B and J, while Olivia leaves both columns plain. So describe the raised rod and the pointing hand first. Then, if you like, add Beth, and say whose idea it is."
+      ]
+    },
+    "tryThis": {
+      "heading": "Try this",
+      "steps": [
+        "Open the Magician’s card page and read its tradition note, marking each claim as documented history, origin myth or reading tradition.",
+        "Choose one Major from the card pages and write three things its carving shows before you read any letter, planet or title.",
+        "Then read its Golden Dawn attribution and write one sentence on what the letter adds that the picture did not already give you.",
+        "Start a notebook page headed “Myth or document” and add each origin story you meet, with the earliest date anyone can show for it."
+      ]
+    },
+    "remember": [
+      "The Egyptian origin was a 1781 theory, made before anyone could read hieroglyphs.",
+      "The Hebrew letters were added from 1781 on, and their own authors disagreed.",
+      "Hold every tradition as a lens you choose, never as proof of origin."
+    ]
+  },
+  "uk": {
+    "title": "Як таро стало окультним",
+    "dek": "Простежте, як карткова гра XV століття набула єгипетського минулого та єврейських літер, і навчіться під час читання відрізняти задокументовану історію від міфу про походження.",
+    "minutes": 5,
+    "sections": [
+      {
+        "heading": "Пастор спостерігає за грою",
+        "body": [
+          "1781 року в Парижі протестантський пастор і вчений Антуан Кур де Жеблен видав восьмий том своєї величезної праці «Le Monde primitif» («Первісний світ»). У ньому він розповів, як завітав до друзів, що саме грали в таро — тоді звичайну карткову гру. За його словами, не минуло й чверті години, як колоду переглянули, пояснили й оголосили єгипетською.",
+          "Його твердження було сміливим. Козирі, писав він, — це рештки Книги Тота, мудрості єгипетських жерців, яку сховали в грі, щоб вона вціліла. Навіть слово «таро» він виводив із нібито єгипетських коренів зі значенням «царський шлях». У тому самому томі граф де Мелле додав дві власні ідеї: що двадцять два козирі відповідають двадцяти двом літерам єврейської абетки і що картами колись ворожили."
+        ]
+      },
+      {
+        "heading": "Чому єгипетська версія не витримує перевірки",
+        "body": [
+          "1781 року ніхто не вмів читати єгипетського письма. Ієрогліфи вдалося розшифрувати лише завдяки праці Шампольйона 1822 року, тож Кур де Жеблен зіставляв зображення з мовою, якої ніхто не розумів. Коли єгипетські тексти нарешті змогли прочитати, нічого схожого на таро в них не знайшлося. Жодної єгипетської колоди, як і жодного давнього її опису, досі не виявлено.",
+          "Документи ж показують простішу картину. Карти із зображеннями з’являються при дворах Північної Італії не пізніше початку 1440-х років: їх додали як тріумфи (trionfi) до звичайної колоди з чотирьох мастей, і звідти гра поширилася Європою. З пізнішими історіями про походження так само: твердження, ніби таро принесли зі Сходу роми, яке поширювали окультні автори, як-от Папюс 1889 року, теж нічим не підтверджене."
+        ]
+      },
+      {
+        "heading": "Еттейла створює колоду для читання",
+        "body": [
+          "Єгипетська історія не залишилася на сторінках ученої книжки. Уже за кілька років її підхопив паризький таролог, який називав себе Еттейлою, — це його справжнє прізвище Alliette, прочитане задом наперед. У 1780-х роках він видав метод читання таро, а згодом і колоду, перероблену саме для цього, яку подавав як Книгу Тота, повернуту до її справжнього порядку.",
+          "Історію Еттейла вигадав, але його практичний спадок цілком реальний. Його колода стала першою, створеною для читання, а не для гри, і він надав окремі значення картам, що випадають у перевернутому положенні. Щоразу, коли ви затримуєтеся над перевернутою картою, ви, свідомо чи ні, спираєтеся на звичку, яку саме Еттейла більше за будь-кого закріпив у друкованому слові."
+        ]
+      },
+      {
+        "heading": "Леві та єврейські літери",
+        "body": [
+          "Побіжна думка де Мелле стала системою в руках Еліфаса Леві, французького автора праць про магію, чия книга «Dogme et rituel de la haute magie» («Догма і ритуал вищої магії») вийшла у 1854 та 1856 роках. Леві пов’язав кожен козир з єврейською літерою і вписав усю колоду в Каббалу — єврейську містичну традицію. Для нього таро було універсальним ключем до давнього знання.",
+          "Пізніші тарологи зберегли ідею, але змінили подробиці. Герметичний орден Золотої Зорі, заснований 1888 року, розподілив літери по-іншому, і саме ці відповідності ви знайдете на сторінках карт Olivia. Уже те, що системи між собою не згоджуються, і є уроком: літери є традицією читання, складеною між 1781 роком і 1880-ми роками, багатою й вартою того, щоб її знати, а не первісним шифром, який нарешті розгадали."
+        ]
+      },
+      {
+        "heading": "Три купки, а не одна",
+        "body": [
+          "Коли ви натрапляєте на якесь твердження про таро, покладіть його в одну з трьох купок. Перша — задокументована історія: друковані книжки, колоди, що збереглися, дати. Друга — міф про походження: розповіді про те, звідки взялися карти, яких документи не підтверджують. Третя — традиція читання: значення й відповідності, які люди обрали й передали далі; ними можна вільно користуватися, якщо ви знаєте, чиї вони.",
+          "Тому на сторінках карт Olivia написано «у системі Золотої Зорі», а не «карта означає». Традиція — це призма, яку ви свідомо берете до рук. Вона може загострити ваш погляд, але не скаже, звідки взялися зображення, і ніколи не важить більше, ніж те, що справді вирізьблено на карті перед вами."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Одна карта, дві літери",
+      "cards": [
+        1,
+        0,
+        2
+      ],
+      "body": [
+        "Відкрийте сторінку Мага. На різьбленні постать тримає в піднятій руці тонкий стрижень зі слонової кістки, майже вертикальний, а другою рукою твердо вказує вниз, на квіти біля підніжжя карти. Над головою ширяє золота вісімка, а на столі стоять келих, меч вістрям догори, тонкий стрижень і диск із п’ятикутною зіркою.",
+        "Тепер прочитайте розділ «Традиція»: у системі Золотої Зорі Магові відповідає Бет, «дім». Леві, який писав приблизно на тридцять років раніше, дав цій самій карті Алеф, першу літеру, бо це перший нумерований козир. Золота Зоря натомість віддала Алеф Блазневі, і на його сторінці ця літера стоїть поруч зі стихією Повітря.",
+        "Літера походить із книжки, а не з різьблення. Верховна Жриця тихо нагадує про це: 1909 року Памела Колман Сміт позначила її колони літерами B і J, а Olivia лишає обидві колони без літер. Тож спершу опишіть піднятий стрижень і руку, що вказує вниз. А потім, якщо хочете, додайте Бет і скажіть, чия це ідея."
+      ]
+    },
+    "tryThis": {
+      "heading": "Спробуйте",
+      "steps": [
+        "Відкрийте сторінку Мага, прочитайте розділ «Традиція» й позначте кожне твердження: задокументована історія, міф про походження чи традиція читання.",
+        "Оберіть на сторінках карт один Старший Аркан і запишіть три речі, які показує його різьблення, перш ніж читати про літеру, планету чи титул.",
+        "Потім прочитайте його відповідність у системі Золотої Зорі й напишіть одне речення про те, що додає літера понад те, що вже дало зображення.",
+        "Почніть у щоденнику сторінку із заголовком «Міф чи документ» і записуйте туди кожну історію про походження, яка вам трапиться, разом із найранішою датою, яку для неї можна підтвердити."
+      ]
+    },
+    "remember": [
+      "Єгипетське походження таро — теорія 1781 року, висунута тоді, коли ієрогліфів ще ніхто не вмів читати.",
+      "Єврейські літери додавали від 1781 року, і самі їхні автори між собою не згоджувалися.",
+      "Сприймайте кожну традицію як призму, яку обираєте ви, а не як доказ походження."
+    ]
+  }
+}

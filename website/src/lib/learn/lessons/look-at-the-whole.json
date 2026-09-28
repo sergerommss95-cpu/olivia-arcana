@@ -1,0 +1,159 @@
+{
+  "slug": "look-at-the-whole",
+  "path": "spreads",
+  "order": 2,
+  "tool": "survey-demo",
+  "cards": [
+    76,
+    56,
+    42,
+    18,
+    71
+  ],
+  "en": {
+    "title": "Look at the whole first",
+    "dek": "Survey a spread as one picture before reading any position: count what the draw holds, weigh it against ordinary odds, and turn patterns into questions.",
+    "minutes": 6,
+    "sections": [
+      {
+        "heading": "One picture before many",
+        "body": [
+          "Beginners read a spread one card at a time, from the first position to the last, and by the fifth card the first has faded. Experienced readers do something slower first: they look at the whole layout as a single picture. Before any card answers its position, the layout as a whole can already show you the shape of the question.",
+          "So turn every card face up and look for thirty seconds without thinking about positions at all. Then open your notebook and write down a handful of counts before you interpret anything: how many Majors, how many of each suit, which numbers repeat, how many courts, how many reversals. It feels like bookkeeping. It is also the step that keeps you from building a whole reading on the first card that catches your eye."
+        ]
+      },
+      {
+        "heading": "Scale, roles and direction",
+        "body": [
+          "Start with the Majors. The twenty-two Majors name broad, long-running themes such as values, identity or a change in outlook; the Minors give the everyday address: tasks, conversations, moods, money. Several Majors suggest the question may touch something larger than its wording, so ask “What is this really about?” Few or none place it at the scale of practical choices within your reach. Older fortune-telling read a crowd of Majors as forces beyond the querent’s control. Olivia keeps the reading of scale and leaves the fatalism behind.",
+          "Next, the courts. They are ways of acting, not people arriving in your life. A single court often shows how the reading asks you to act. Several courts put several roles in play: notice which you use, which you over-use and which the situation lacks.",
+          "If you read reversals, count them as well. About half reversed is ordinary, and even four of five reversed turns up in nearly one draw in five. A strong majority can suggest the question is in an inward, stuck or still-forming phase; hold that as a question, not a finding. With a paper deck, turn every card upright after each reading, or the count will only record how you last put the cards away."
+        ]
+      },
+      {
+        "heading": "Suits, numbers and gaps",
+        "body": [
+          "Each suit carries an element and a territory. Wands are Fire: desire, energy, initiative. Cups are Water: feeling, relationship, imagination. Swords are Air: thought, speech, decisions, conflict. Pentacles are Earth: body, work, money, time. A suit that dominates shows which of these the question is being lived in.",
+          "An absent suit is often more useful than a crowded one, because it names what the picture leaves out. With no Cups, ask where feeling sits in the way you are thinking about this. With no Pentacles, ask what the plan would cost in hours, money or energy. Then look at numbers. Two cards sharing a number is common, so note it lightly; three or more of one number is a theme worth following."
+        ]
+      },
+      {
+        "heading": "Weigh a pattern by its frequency",
+        "body": [
+          "Here is the honest part. A random draw produces patterns all the time, and most of them are ordinary. A five-card spread holds about 1.4 Majors on average, and roughly one five-card draw in five has none at all. Some suit is missing from nine five-card spreads in ten, and from six eight-card spreads in ten. Two number cards share a number in almost half of all eight-card draws.",
+          "Other patterns are genuinely uncommon. Four or more cards of one suit in an eight-card spread turn up in about one draw in eight, and three number cards sharing a number in about 3%. In five cards, three or more Majors come up in about 13% of draws, and three or more courts in about 6%. Give weight in proportion: a missing suit in eight cards is a note in the margin, four Pentacles in eight is a heading. If you chose your cards face up on purpose, the counts describe your choices, which is worth noticing in its own right."
+        ]
+      },
+      {
+        "heading": "Patterns become questions",
+        "body": [
+          "Two last looks. Notice where the figures face: towards a neighbouring card, away from it, out at you or inward. Olivia’s images follow the traditional compositions closely but not always, so check the symbol pins on each card page before relying on a direction. And notice echoes: when a symbol returns across cards, such as water, a moon or a raised hand, follow it with its Symbol Trail.",
+          "Then write each pattern as a question, never as a verdict. “No Wands” is not a message; “Where is my appetite for this?” is something you can look into. A pattern tells you where to point your attention, not what comes next. Only when the survey is written down do you read the positions one by one."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Surveying At a crossroads",
+      "cards": [
+        76,
+        56,
+        42,
+        18,
+        71
+      ],
+      "body": [
+        "Someone lays out At a crossroads with reversals off: the Queen of Pentacles at the heart, the Seven of Swords as Path A, the Seven of Cups as Path B, The Moon in What to look at again, and the Eight of Pentacles as A grounded next step.",
+        "One Major in five is ordinary. Pentacles two, Swords one, Cups one, Wands none. No Wands happens in a little over a third of five-card draws, so it is a note rather than a headline, yet it still asks where desire sits in this choice. Both paths are Sevens; some shared number turns up in about a fifth of five-card draws, so note lightly that each path arrives as something to weigh. One court, the Queen of Pentacles, gives the manner: calm, hands-on care.",
+        "Then an echo that belongs to this deck. Olivia’s Eight of Pentacles carves a moon with a face into its sky, a dog and a shaggy wolf with muzzles raised, and a crayfish in the shallows: the cast of The Moon, with dog and wolf on swapped sides. The question to carry: what patient piece of work could go on while the picture is still unclear?"
+      ]
+    },
+    "tryThis": {
+      "heading": "Try this",
+      "steps": [
+        "Lay out At a crossroads or The inner compass and turn every card face up before reading a single position.",
+        "Write five counts in your notebook: Majors, each suit, repeated numbers, courts and reversals.",
+        "Compare each count with the figures in this lesson and mark only the patterns that are genuinely unusual.",
+        "Open each card page to check where the figures look and which symbols return across the spread.",
+        "Rewrite your two strongest patterns as open questions in your notebook, and only then read the positions one by one."
+      ]
+    },
+    "remember": [
+      "Survey the whole spread and write the counts before interpreting any card.",
+      "Weigh each pattern by how often a random draw produces it.",
+      "A pattern becomes a question to look into, never a verdict."
+    ]
+  },
+  "uk": {
+    "title": "Спершу погляньте на розклад цілком",
+    "dek": "Ви навчитеся оглядати розклад як одну картину, ще не читаючи жодної позиції: рахувати, що є у витягуванні, зіставляти це зі звичайними частотами й перетворювати візерунки на запитання.",
+    "minutes": 6,
+    "sections": [
+      {
+        "heading": "Спершу одна картина, потім багато",
+        "body": [
+          "Початківці читають розклад по одній карті, від першої позиції до останньої, і поки доходять до п’ятої карти, перша вже тьмяніє в пам’яті. Досвідчені тарологи спершу роблять дещо повільніше: дивляться на весь розклад як на одну картину. Ще до того, як котрась карта відповість на запитання своєї позиції, розклад як ціле вже може показати вам обриси самого запитання.",
+          "Тож переверніть усі карти зображенням догори й тридцять секунд просто дивіться, зовсім не думаючи про позиції. Потім розгорніть щоденник і, ще нічого не тлумачачи, запишіть кілька підрахунків: скільки Старших Арканів, скільки карт кожної масті, які числа повторюються, скільки придворних карт, скільки перевернутих карт. Це скидається на бухгалтерію. А ще саме цей крок не дає вам збудувати все читання на першій карті, що впала в око."
+        ]
+      },
+      {
+        "heading": "Масштаб, ролі й напрям",
+        "body": [
+          "Почніть зі Старших Арканів. Двадцять два Старші Аркани називають широкі, тривалі теми, як-от цінності, ідентичність, зміну погляду на світ; Молодші Аркани вказують повсякденну адресу: справи, розмови, настрої, гроші. Кілька Старших Арканів підказують, що запитання може зачіпати щось більше, ніж видно з його формулювання, тож запитайте себе: «Про що це насправді?» Якщо їх мало або немає зовсім, масштаб запитання — практичний вибір, який вам під силу. Давнє ворожіння бачило в скупченні Старших Арканів сили, яких людина, яка запитує, не може контролювати. Olivia зберігає це прочитання масштабу, а фаталізм лишає позаду.",
+          "Далі придворні карти. Це способи діяти, а не люди, які з’являться у вашому житті. Одна придворна карта часто показує, як читання пропонує вам діяти. Кілька придворних карт виводять на сцену кілька ролей: помітьте, до якої ви вдаєтеся, якою зловживаєте і якої бракує ситуації.",
+          "Якщо ви читаєте перевернуті карти, порахуйте й їх. Коли перевернута приблизно половина карт, це звичайна річ, і навіть чотири перевернуті карти з п’яти трапляються майже в кожному п’ятому витягуванні. Явна більшість перевернутих карт може підказувати, що запитання зараз звернене всередину, застрягло або ще формується; сприймайте це як запитання, а не як висновок. Якщо колода паперова, після кожного читання повертайте всі карти в пряме положення, інакше підрахунок фіксуватиме лише те, як ви востаннє складали колоду."
+        ]
+      },
+      {
+        "heading": "Масті, числа й прогалини",
+        "body": [
+          "Кожна масть має свою стихію і свою територію. Жезли — це Вогонь: бажання, енергія, ініціатива. Кубки — Вода: почуття, стосунки, уява. Мечі — Повітря: думка, мовлення, рішення, конфлікт. Пентаклі — Земля: тіло, робота, гроші, час. Переважна масть показує, на якій із цих територій розгортається запитання.",
+          "Відсутня масть часто корисніша за переповнену, бо називає те, що лишилося поза картиною. Немає Кубків — запитайте себе, яке місце посідає почуття в тому, як ви про це думаєте. Немає Пентаклів — запитайте, скільки коштуватиме план у годинах, грошах чи силах. Потім погляньте на числа. Дві карти з однаковим числом — звична річ, тож позначте це побіжно; три або більше карт з одним числом — тема, яку варто простежити."
+        ]
+      },
+      {
+        "heading": "Зважуйте візерунок за частотою",
+        "body": [
+          "Тепер чесна частина. Випадкове витягування постійно складається у візерунки, і більшість із них звичайні. У розкладі на п’ять карт у середньому 1,4 Старшого Аркана, і приблизно в кожному п’ятому витягуванні п’яти карт їх немає зовсім. Якоїсь масті бракує в дев’яти розкладах на п’ять карт із десяти й у шести розкладах на вісім карт із десяти. Майже в половині всіх витягувань восьми карт дві числові карти мають однакове число.",
+          "Інші візерунки справді рідкісні. Чотири або більше карт однієї масті в розкладі на вісім карт трапляються приблизно в одному витягуванні з восьми, а три числові карти з однаковим числом — приблизно в 3 % випадків. Серед п’яти карт три або більше Старших Арканів з’являються приблизно в 13 % витягувань, а три або більше придворних карт — приблизно в 6 %. Надавайте вагу пропорційно: відсутня масть у восьми картах — нотатка на полях, чотири Пентаклі з восьми карт — заголовок. Якщо ви обирали карти свідомо, дивлячись на зображення, підрахунки описують ваш вибір, і це саме по собі варто помітити."
+        ]
+      },
+      {
+        "heading": "Візерунки стають запитаннями",
+        "body": [
+          "Наостанок ще два погляди. Помітьте, куди дивляться постаті: на сусідню карту чи від неї, прямо на вас чи вглиб себе. Зображення Olivia близько тримаються традиційних композицій, але не завжди, тож перш ніж спиратися на напрям погляду, перевірте позначки символів на сторінці кожної карти. І помічайте відлуння: коли символ повертається з карти на карту, як-от вода, місяць чи піднята рука, простежте його відповідною стежкою в «Мові символів».",
+          "Потім запишіть кожен візерунок як запитання і ніколи — як вирок. «Немає Жезлів» — це не послання; «Куди поділося моє бажання цим займатися?» — це те, що можна дослідити. Візерунок показує, куди спрямувати увагу, а не що буде далі. Лише коли огляд розкладу записано, читайте позиції одну за одною."
+        ]
+      }
+    ],
+    "example": {
+      "heading": "Огляд розкладу «На роздоріжжі»",
+      "cards": [
+        76,
+        56,
+        42,
+        18,
+        71
+      ],
+      "body": [
+        "Хтось викладає розклад «На роздоріжжі» без перевернутих карт: Королева Пентаклів у позиції «У центрі», Сімка Мечів як «Шлях А», Сімка Кубків як «Шлях Б», Місяць у позиції «На що поглянути ще раз» і Вісімка Пентаклів як «Практичний наступний крок».",
+        "Один Старший Аркан на п’ять карт — звичайна річ. Пентаклів дві карти, Мечів одна, Кубків одна, Жезлів жодної. Жезлів немає трохи частіше, ніж у третині витягувань п’яти карт, тож це нотатка, а не заголовок, і все ж вона ставить запитання, яке місце в цьому виборі посідає бажання. Обидва шляхи — Сімки; якесь спільне число з’являється приблизно в кожному п’ятому витягуванні п’яти карт, тож лише побіжно позначте, що кожен шлях постає як щось, що треба зважити. Одна придворна карта, Королева Пентаклів, задає манеру: спокійну, дієву турботу.",
+        "А тепер відлуння, властиве саме цій колоді. На Вісімці Пентаклів у колоді Olivia в небі вирізьблено місяць з обличчям, нижче сидять пес і кошлатий вовк із задертими мордами, а на мілині лежить рак: це дійові особи Місяця, тільки пес і вовк помінялися боками. Запитання, яке ви візьмете з собою: яка терпляча робота могла б тривати, поки картина ще не прояснилася?"
+      ]
+    },
+    "tryThis": {
+      "heading": "Спробуйте",
+      "steps": [
+        "Викладіть розклад «На роздоріжжі» або «Внутрішній компас» і переверніть усі карти зображенням догори, перш ніж читати бодай одну позицію.",
+        "Запишіть у щоденник п’ять підрахунків: Старші Аркани, кожна масть, повторювані числа, придворні карти й перевернуті карти.",
+        "Порівняйте кожен підрахунок із частотами з цього уроку й позначте лише ті візерунки, що справді незвичні.",
+        "Відкрийте сторінку кожної карти й перевірте, куди дивляться постаті та які символи повторюються в розкладі.",
+        "Перепишіть у щоденник два найсильніші візерунки як відкриті запитання, і лише тоді читайте позиції одну за одною."
+      ]
+    },
+    "remember": [
+      "Огляньте весь розклад і запишіть підрахунки, перш ніж тлумачити бодай одну карту.",
+      "Зважуйте кожен візерунок за тим, як часто його дає випадкове витягування.",
+      "Візерунок — це запитання, яке варто дослідити, а ніколи не вирок."
+    ]
+  }
+}

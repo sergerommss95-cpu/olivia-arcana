@@ -59,6 +59,10 @@ export function leafById(id: number): Leaf | undefined {
   return BY_ID.get(id);
 }
 
+export function allLeaves(): readonly Leaf[] {
+  return LEAVES;
+}
+
 /** Cards that share the most symbol keys with this one, strongest first. */
 export function cardsSharingSymbols(leaf: Leaf, limit = 4): { id: number; shared: string[] }[] {
   const own = new Set(leaf.symbols.map((s) => s.key).filter((k) => k !== "other"));

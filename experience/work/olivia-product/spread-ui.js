@@ -9,6 +9,11 @@ import {bindDeckGesture} from './deck-gesture.js';
 import {initQuestionCoach,validateQuestionPlan,applyQuestionPlan,mountQuestionPlan,QUESTION_LIMIT} from './question-coach.js';
 import {SPREADS,buildSpreadReading} from './spread-content.js';
 import {MEMBERSHIP_LIVE,isSpreadFree} from './membership.js';
+import {surveySpread} from '../../../website/src/lib/learn/spread-survey.js';
+import {loupeBackground} from '../../../website/src/lib/learn/loupe.js';
+import CARD_SYMBOLS from '../../../website/src/lib/learn/card-symbols.json' with { type: 'json' };
+import {mountQuestionHint} from './question-hint.js';
+import {mountSentenceFirst} from './sentence-first.js';
 import {dealMotion,revealMotion,holdDuration,deckBrowseMotion} from './spread-motion.js';
 import {spreadEditorial,cardEditorial} from './spread-editorial.js';
 import {createSpreadSession,selectSpreadCard,revealNext,revealAll,createSpreadRecord,loadSpreadRecords,saveSpreadRecord,removeSpreadRecord,exportSpreadRecords} from './spread-core.js';
@@ -293,6 +298,7 @@ export function initSpreads({assets,names,show,goto,reduced,announce,onComplete=
  const coachHost=el('div');$('#spread-access').before(coachHost);
  questionCoach=initQuestionCoach({container:coachHost,input:$('#spread-question'),locale:getLocale(),onApprove:plan=>{ $('#spread-question').value=plan.question;approvedPlan=plan;questionCoach.close();recommendation.querySelector('h3').textContent=plan.spreadName||copy('Your three-card reading','Ваш розклад із трьох карт');recommendation.querySelector('p:not(.eyebrow)').textContent=plan.positions.map(p=>p.label).join(' · ');renderAccess();$('#begin-spread').focus({preventScroll:true});},onSkip:()=>{renderAccess();$('#begin-spread').focus({preventScroll:true});}});
  questionCoach.element.addEventListener('toggle',renderAccess);
+ mountQuestionHint($('#spread-question'),getLocale);
  const planHost=el('div');$('#spread-held-question').after(planHost);
  $('#spread-question-form').addEventListener('submit',e=>{e.preventDefault();try{if(current==='clarity3'&&approvedPlan?.question===$('#spread-question').value.trim())startPlan(approvedPlan,{intention:new FormData(e.currentTarget).get('spread-intention'),reversals:$('#spread-reversals').checked,guidanceConsent:spreadConsentChoice.getConsent()});else start(selected(),false);}catch(error){$('#spread-access').textContent=error instanceof TypeError?error.message:t('The deck could not be opened. Please try again.');}});
  function initialCopy(){
@@ -399,12 +405,38 @@ export function initSpreads({assets,names,show,goto,reduced,announce,onComplete=
   // The reflection is always available; chapters let the reader control the pace.
   runAnimation(box,[{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],{duration:500,easing:'ease-out'});
  }
+ // Look at the whole: counts, honest odds for a random draw, and a question for each pattern.
+ function renderSurvey(){
+  root.querySelector('.survey-panel')?.remove();
+  const host=$('.spread-synthesis-copy');if(!host||!session?.cardIds?.length)return;
+  const locale=getLocale()==='uk'?'uk':'en';
+  const cards=session.cardIds.map((id,i)=>({id,reversed:(session.orientations?.[i]||'upright')==='reversed'}));
+  const symbols=id=>(CARD_SYMBOLS[id]||[]).map(s=>({key:s.k,name:s[locale],x:s.x,y:s.y}));
+  const {facts}=surveySpread(cards,{locale,reversals:!!session.reversals,symbols});
+  const panel=el('section','survey-panel');panel.dataset.noTranslate='true';
+  panel.append(el('p','eyebrow',copy('Look at the whole','Подивіться на ціле')),el('p','survey-lead',copy('Before reading card by card: what this spread shows as one picture, and how often that happens in a random draw.','Перш ніж читати карту за картою: що цей розклад показує як одна картина і як часто таке трапляється у випадковому розкладі.')));
+  const list=el('ul','survey-list');
+  for(const fact of facts){
+   const item=el('li');item.dataset.notable=String(!!fact.notable);
+   const head=el('p','survey-fact');head.append(el('strong','',fact.label));
+   if(fact.odds)head.append(el('span','survey-odds',(fact.notable?copy('Worth noticing · ','Варто помітити · '):'')+fact.odds));
+   item.append(head);
+   if(fact.id==='echo'&&fact.cards){const row=el('span','survey-loupes');for(const id of fact.cards){const s=symbols(id).find(v=>v.key===fact.key);if(!s)continue;const loupe=el('span','survey-loupe');const {size,position}=loupeBackground(s);loupe.style.backgroundImage=`url("${assets.cards[id]}")`;loupe.style.backgroundSize=size;loupe.style.backgroundPosition=position;loupe.title=`${names[id]||''}`;row.append(loupe);}item.append(row);}
+   item.append(el('p','survey-ask',fact.ask));list.append(item);
+  }
+  panel.append(list);
+  const learn=el('a','quiet-link',copy('How to read a spread as a whole ↗','Як читати розклад цілісно ↗'));
+  learn.href=`${window.OLIVIA_NATIVE===true?'':'https://oliviaarcana.com'}${locale==='uk'?'/uk':''}/learn/spreads/look-at-the-whole/`;if(window.OLIVIA_NATIVE!==true)learn.target='_top';
+  panel.append(learn);host.prepend(panel);
+ }
  function complete(){
   if(!record&&!isPreview){record={...createSpreadRecord(session,definition,reading),firstImpressions:[...firstImpressions]};drafts.set(record.id,record);}
   const nav=$('#synthesis-tabs');nav.replaceChildren();nav.hidden=true;$('#synthesis-next').hidden=true;
   renderConnection(0);$('#synthesis-next').hidden=true;
   const paragraphs=$('#spread-paragraphs');paragraphs.replaceChildren();
   for(const [i,value] of reading.synthesis.paragraphs.entries()){const section=el('section','reading-connection');section.append(el('h3','',chapterTitles()[i]),el('p','',value));paragraphs.append(section);}
+  renderSurvey();
+  mountSentenceFirst({host:$('.spread-synthesis-copy'),paragraphs:$('#spread-paragraphs'),reflection:$('#spread-reflection'),cardNames:session.cardIds.map(id=>t(names[id])),locale:getLocale()});
   $('#spread-synthesis').hidden=false;
   spreadReference.setState('idle');root.dataset.guidanceState='idle';
   const completedId=record?.id,completedGeneration=generation;
