@@ -8,8 +8,8 @@ for lang in en uk; do
   for layout in landscape portrait; do
     master="$masters/$lang-$layout.mp4"
     [ -f "$master" ] || { echo "missing $master"; continue; }
-    # The poster is the card turned face up, after the light has passed over it.
-    poster_t=$(node -e "const f = JSON.parse(require('fs').readFileSync('footage-$lang/film.json', 'utf8')); console.log((f.shots.find(s => s.id === 'turn').start + 3.15).toFixed(2))")
+    # The poster is the card turned face up, after the light has passed over it and before the phone returns.
+    poster_t=$(node -e "const f = JSON.parse(require('fs').readFileSync('footage-$lang/film.json', 'utf8')); console.log((f.shots.find(s => s.id === 'turn').start + 3).toFixed(2))")
     if [ "$layout" = landscape ]; then size=1920x1080; scale="scale=1920:1080"; else size=720x900; scale="scale=720:900:flags=lanczos"; fi
     name="$out/olivia-how-it-works-$lang-$size"
     ffmpeg -y -loglevel error -i "$master" -vf "$scale,format=yuv420p" -c:v libx264 -preset slow -crf 25 -profile:v high -tune film -movflags +faststart -an "$name.mp4"
