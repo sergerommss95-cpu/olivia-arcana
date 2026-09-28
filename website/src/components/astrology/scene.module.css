@@ -1,0 +1,109 @@
+/* The sky dealt in cards: a CSS 3D scene. Units inside the stage are a 1000-unit square. */
+.scene {
+  --tilt: 60deg;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  height: calc(var(--k, 1) * 760px); /* replaced by the measured height once mounted */
+  overflow: hidden;
+  isolation: isolate;
+}
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Silk light over lapis, as in the hero */
+.silk { position: absolute; inset: 0; pointer-events: none; z-index: -1; }
+/* One soft light from above, pooling on the ring */
+.scene::before { content: ""; position: absolute; left: 50%; top: -10%; width: min(1100px, 90vw); height: 90%; transform: translateX(-50%); background: radial-gradient(closest-side, rgba(238, 226, 200, 0.1), rgba(238, 226, 200, 0.03) 55%, rgba(238, 226, 200, 0)); pointer-events: none; z-index: -1; }
+.silk span { position: absolute; border-radius: 50%; filter: blur(70px); background: radial-gradient(closest-side, rgba(84, 122, 176, 0.55), rgba(84, 122, 176, 0)); animation: drift 40s ease-in-out infinite alternate; }
+.silk span:nth-child(1) { width: 62vw; height: 46vw; left: -12vw; top: -8%; }
+.silk span:nth-child(2) { width: 54vw; height: 40vw; right: -14vw; top: 22%; animation-duration: 52s; animation-delay: -12s; background: radial-gradient(closest-side, rgba(120, 146, 186, 0.3), rgba(120, 146, 186, 0)); }
+.silk span:nth-child(3) { width: 70vw; height: 30vw; left: 12vw; bottom: -10%; animation-duration: 60s; animation-delay: -24s; background: radial-gradient(closest-side, rgba(46, 86, 140, 0.4), rgba(46, 86, 140, 0)); }
+@keyframes drift { to { transform: translate(6vw, 3vw) rotate(8deg) scale(1.08); } }
+
+.fit { position: absolute; left: 50%; top: var(--shift, 0px); width: 1000px; height: 1000px; transform: translateX(-50%) scale(var(--k, 1)); transform-origin: 50% 0; }
+.stage { position: absolute; inset: 0; perspective: 1150px; perspective-origin: 50% 12%; }
+.plane {
+  position: absolute; inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--tilt) + var(--lean-x, 0deg))) rotateZ(var(--lean-z, 0deg));
+  transition: transform 900ms var(--ease);
+}
+.plate { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 60px rgba(70, 130, 200, 0.28)); }
+
+/* The plane's drawing */
+.tableRing { fill: none; stroke: rgba(238, 230, 212, 0.1); stroke-width: 1; }
+.milky { fill: #eee6d4; }
+.fieldStars { fill: rgba(238, 230, 212, 0.55); }
+.constellation { fill: none; stroke: rgba(230, 207, 158, 0.28); stroke-width: 0.9; }
+.brightStars { fill: #f7f0df; }
+.tick { stroke: rgba(70, 56, 34, 0.45); stroke-width: 0.8; }
+.tickMajor { stroke: rgba(70, 56, 34, 0.75); stroke-width: 1.2; }
+.rosette line, .rosette path { fill: none; stroke: rgba(201, 177, 130, 0.8); stroke-width: 1; }
+.rosette circle { fill: #e6cf9e; }
+.axis { stroke: #c9b182; stroke-width: 1.4; opacity: 0.7; }
+.leaders line { stroke: rgba(230, 207, 158, 0.35); stroke-width: 0.9; }
+.leaders circle { fill: #e6cf9e; }
+.threads line { stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.2s var(--ease) forwards; transition: opacity 300ms var(--ease); }
+.threadEase { stroke: rgba(238, 230, 212, 0.34); }
+.threadTension { stroke: #d4b97f; opacity: 0.5; }
+.scene[data-focus] .threads line:not(.dim) { opacity: 1; stroke-width: 1.6; }
+.threads .dim { opacity: 0.06; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* Anything that stands up from the plane: a zero-size slot at its foot, counter-rotated to face the viewer */
+.slot { position: absolute; width: 0; height: 0; transform-style: preserve-3d; }
+.stand {
+  position: absolute; left: 0; top: 0;
+  transform-style: preserve-3d; transform-origin: 0 0;
+  transform: rotateZ(calc(-1 * var(--lean-z, 0deg))) rotateX(calc(-1 * (var(--tilt) + var(--lean-x, 0deg))));
+  transition: transform 900ms var(--ease);
+}
+
+/* Cards */
+.dealt { animation: deal 1200ms var(--ease) var(--delay, 0s) backwards; }
+@keyframes deal { from { translate: var(--dx) var(--dy) 260px; opacity: 0; } 40% { opacity: 1; } }
+.card { position: absolute; left: -62px; top: -212px; width: 124px; height: 212px; display: block; transform-origin: 50% 100%; transition: transform 500ms var(--ease), filter 500ms var(--ease); filter: brightness(0.72) saturate(0.85); outline: none; }
+.art { position: absolute; inset: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 22px 34px rgba(2, 8, 18, 0.55), 0 0 0 1px rgba(216, 196, 156, 0.3); }
+.art img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(155deg, rgba(255, 250, 235, 0.18), rgba(255, 250, 235, 0) 38%, rgba(4, 12, 24, 0.3)); pointer-events: none; }
+.card:hover, .card:focus-visible { filter: none; transform: translateY(-16px); }
+.card:focus-visible .art { box-shadow: 0 22px 34px rgba(2, 8, 18, 0.55), 0 0 0 2px #e6cf9e; }
+.cardLit { filter: none; transform: translateY(-64px) scale(1.22); animation: float 7s ease-in-out 2.4s infinite alternate; }
+.cardLit .art { box-shadow: 0 46px 70px rgba(2, 8, 18, 0.62), 0 0 0 1.6px #e6cf9e, 0 0 60px rgba(230, 207, 158, 0.45), 0 0 140px rgba(230, 207, 158, 0.16); }
+@keyframes float { from { transform: translateY(-64px) scale(1.22); } to { transform: translateY(-78px) scale(1.22); } }
+.role { position: absolute; left: 50%; top: -38px; transform: translateX(-50%); padding: 3px 12px; border-radius: 999px; background: #0b192a; border: 1px solid #e6cf9e; color: #e6cf9e; font: 17px/1.3 "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-mono, ui-monospace), monospace; letter-spacing: 0.08em; white-space: nowrap; }
+.cardBound { position: absolute; left: -62px; top: -300px; width: 124px; height: 300px; visibility: hidden; }
+.shadow { position: absolute; width: 170px; height: 80px; margin: -40px 0 0 -85px; border-radius: 50%; background: radial-gradient(closest-side, rgba(2, 6, 14, 0.6), rgba(2, 6, 14, 0)); pointer-events: none; }
+.shadowLit { opacity: 0.45; transform: scale(0.75); }
+
+/* Sign seals */
+.seal { position: absolute; left: -17px; top: -36px; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: #0b192a; border: 1px solid rgba(216, 196, 156, 0.55); color: #efe4cc; font: 19px/1 "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; box-shadow: 0 6px 12px rgba(2, 8, 18, 0.5); animation: fadeIn 900ms var(--ease) 1.2s backwards; }
+.angle { position: absolute; transform: translate(-50%, -110%); color: #e6cf9e; font: 14px/1 var(--font-mono, ui-monospace), monospace; letter-spacing: 0.24em; white-space: nowrap; text-shadow: 0 2px 8px rgba(2, 8, 18, 0.8); animation: fadeIn 900ms var(--ease) 1.4s backwards; }
+@keyframes fadeIn { from { opacity: 0; } }
+
+/* Planets */
+.orbWrap { position: absolute; left: 0; top: 0; animation: rise 900ms var(--ease) var(--delay, 1.5s) backwards; transition: opacity 300ms var(--ease); }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+.scene[data-focus] .orbWrap:not(.orbFocus) { opacity: 0.4; }
+.orb { position: absolute; left: -18px; top: -76px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fffaf0, #e9dcc0 60%, #bca885); color: #1d3651; font: 20px/1 "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; box-shadow: 0 8px 16px rgba(2, 8, 18, 0.6), 0 0 18px rgba(238, 230, 212, 0.22); cursor: default; transition: transform 300ms var(--ease), box-shadow 300ms var(--ease); }
+.orbSun { background: radial-gradient(circle at 35% 30%, #f8e9c2, #d7bd83 60%, #9c7f4c); box-shadow: 0 8px 16px rgba(2, 8, 18, 0.6), 0 0 34px rgba(230, 207, 158, 0.6); }
+.orbFocus .orb { transform: scale(1.18); box-shadow: 0 8px 16px rgba(2, 8, 18, 0.6), 0 0 0 1.5px #e6cf9e, 0 0 30px rgba(230, 207, 158, 0.5); }
+.pin { position: absolute; left: -0.5px; top: -40px; width: 1px; height: 40px; background: linear-gradient(to top, rgba(230, 207, 158, 0.75), rgba(230, 207, 158, 0)); }
+.retro { position: absolute; right: -9px; bottom: -7px; color: #e6cf9e; font: 11px/1 var(--font-mono, ui-monospace), monospace; }
+.tag { position: absolute; left: 0; top: -124px; transform: translateX(-50%); padding: 7px 13px; border-radius: 10px; background: rgba(11, 25, 42, 0.92); border: 1px solid rgba(216, 196, 156, 0.4); color: #f6eddb; font: 500 15px/1.2 var(--font-body), sans-serif; white-space: nowrap; pointer-events: none; }
+
+@media (max-width: 760px) {
+  /* Phones: the ring fills the width; cards, seals and orbs grow so the art still reads. */
+  .scene { --tilt: 54deg; }
+  .card, .cardBound { scale: 1.3; transform-origin: 50% 100%; }
+  .seal { transform: scale(1.6); }
+  .orb { transform: scale(1.45); }
+  .angle { font-size: 24px; }
+  .role { font-size: 24px; top: -52px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .silk span, .dealt, .cardLit, .seal, .angle, .orbWrap { animation: none; }
+  .threads line { animation: none; stroke-dashoffset: 0; }
+  .plane, .stand, .card { transition: none; }
+}

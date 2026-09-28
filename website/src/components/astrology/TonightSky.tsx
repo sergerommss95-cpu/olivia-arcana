@@ -8,7 +8,7 @@ import { formatDegree, type AspectFound, type Placement } from "@/lib/astrology/
 import { placedIn } from "@/lib/astrology/grammar";
 import type { AstroCopy } from "@/lib/astrology/copy";
 import type { MajorCard } from "@/lib/astrology/deck";
-import ChartWheel from "./ChartWheel";
+import SkyScene from "./SkyScene";
 import styles from "./astrology.module.css";
 
 const UI = {
@@ -63,11 +63,11 @@ export default function TonightSky({ locale, copy, cards }: { locale: "en" | "uk
       <h2 id="tonight-title" className={styles.h2}>{t.title}</h2>
       <figure className={styles.skyFigure} aria-busy={!now}>
         {now ? (
-          <ChartWheel bodies={all} ascendant={null} midheaven={null} aspects={aspects} title={t.wheel}
+          <SkyScene bodies={all} ascendant={null} midheaven={null} aspects={aspects}
             description={sky.map((body) => placedIn(locale, copy.bodies[body.key].name, body.sign, signName(body.sign))).join("; ")}
             signCards={SIGN_CARDS.map((id) => ({ image: cards[id].image.replace("/cards/", "/cards/wheel/"), href: cards[id].href, name: cards[id].name }))}
             labels={Object.fromEntries(all.map((body) => [body.key, `${placedIn(locale, copy.bodies[body.key].name, body.sign, signName(body.sign))} · ${formatDegree(body.degree)}`]))} />
-        ) : <div className={styles.wheelPlaceholder} />}
+        ) : <div className={styles.scenePlaceholder} />}
         <figcaption className={styles.caption}>{t.caption}</figcaption>
       </figure>
       <div className={styles.tonightGrid} aria-busy={!now}>
