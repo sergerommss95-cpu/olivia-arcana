@@ -47,6 +47,16 @@ Deleting a single-card reading removes its associated kept words and private que
 - Browser: Olivia’s desktop keyboard draw, turn and explicit reading action checked. Its keepsake was saved, exported as a 1080 × 1920 PNG, and visually checked.
 - Browser: Ukrainian Amielle draw, held note, turn, explicit reading and reading/keepsake copy checked at 375 × 812 with `?motion=reduce`. The face appeared immediately and waited for the explicit reading action.
 - Corrected a shared disclosure style that darkened the folded question note; the final phone check shows legible ivory paper and ink.
-- Local static servers do not provide personal AI readings; local interaction checks used the curated reading. The existing service tests cover personal-reading integration; no new model call or generated answer was introduced.
+- Local static servers do not provide personal AI readings; local interaction checks used curated readings. On the public preview, one synthetic creative-practice question was submitted through the normal personal-reading flow and completed successfully. The keepsake choices were verified against the resulting personal answer, with no captured console errors.
 - Production build passed and verified both deck routes and 78 cards in each deck.
 - No production deployment is confirmed by this handoff.
+
+## Review build
+
+- Preview: https://6abab5b0abf93700088bbf7f--olivia-arcana.netlify.app/decks/#decks
+- Deployed code commit: `0b07e55`
+- Pull request: https://github.com/sergerommss95-cpu/olivia-arcana/pull/11
+- GitHub branch and pull-request test/build checks passed.
+- Public deck page returns 200, loads both decks, and has no captured browser console errors.
+- To try this specific one-card sequence: select a deck, begin a reading, enter a question, then choose **A fresh perspective · One card** under **Change the reading** (or the phone’s second step). Typing a question otherwise recommends the existing three-card spread.
+- The public reading endpoint is configured/available, and the hosted personal-reading check above completed successfully. Production has not been replaced; this is a review preview.
