@@ -10,6 +10,7 @@ import type { AstroCopy } from "@/lib/astrology/copy";
 import type { MajorCard } from "@/lib/astrology/deck";
 import MoonDisc from "./MoonDisc";
 import SkyScene from "./SkyScene";
+import { SCENE_STRINGS, aspectNames, sceneBodies, sceneSigns } from "./scene-data";
 import styles from "./astrology.module.css";
 
 const UI = {
@@ -18,14 +19,14 @@ const UI = {
     nextNew: "Next new Moon", nextFull: "Next full Moon", retrograde: "retrograde", lit: (p: number) => `${p}% lit`,
     phases: { new: "New Moon", "waxing-crescent": "Waxing crescent", "first-quarter": "First quarter", "waxing-gibbous": "Waxing gibbous", full: "Full Moon", "waning-gibbous": "Waning gibbous", "last-quarter": "Last quarter", "waning-crescent": "Waning crescent" } as Record<string, string>,
     moonIn: "The Moon is", dates: "en-GB", wheel: "The sky right now, dealt in cards", sun: "Sun", moon: "Moon", tonight: "The Moon tonight",
-    caption: "Twelve Major Arcana cards are laid round the sky, one for each sign; the Sun’s and the Moon’s stand up in gold. At the centre lie the real stars of the zodiac and every planet where it stands at this moment, from 0° Aries on the left. Rest on a planet to follow its threads.",
+    caption: "Twelve Major Arcana cards are laid round the sky, one for each sign; the Sun’s and the Moon’s stand up in gold. At the centre lie the real stars of the zodiac and every planet where it stands at this moment, from 0° Aries on the left.",
   },
   uk: {
     kicker: "Сьогодні", title: "Небо просто зараз", computed: "Розраховано для цієї миті на вашому пристрої.",
     nextNew: "Наступний молодик", nextFull: "Наступна повня", retrograde: "ретроградний", lit: (p: number) => `освітлено ${p}%`,
     phases: { new: "Молодик", "waxing-crescent": "Молодий серп", "first-quarter": "Перша чверть", "waxing-gibbous": "Місяць, що росте", full: "Повня", "waning-gibbous": "Місяць, що спадає", "last-quarter": "Остання чверть", "waning-crescent": "Старий серп" } as Record<string, string>,
     moonIn: "Місяць зараз", dates: "uk-UA", wheel: "Небо просто зараз, розкладене картами", sun: "Сонце", moon: "Місяць", tonight: "Місяць сьогодні",
-    caption: "Навколо неба розкладено дванадцять карт Старших Арканів, по одній на кожен знак; карти Сонця й Місяця встають у золоті. У центрі — справжні зорі зодіаку й кожна планета там, де вона стоїть цієї миті, від 0° Овна ліворуч. Наведіть на планету, щоб побачити її нитки.",
+    caption: "Навколо неба розкладено дванадцять карт Старших Арканів, по одній на кожен знак; карти Сонця й Місяця встають у золоті. У центрі — справжні зорі зодіаку й кожна планета там, де вона стоїть цієї миті, від 0° Овна ліворуч.",
   },
 };
 
@@ -81,9 +82,10 @@ export default function TonightSky({ locale, copy, cards }: { locale: "en" | "uk
       <h2 id="tonight-title" className={styles.h2}>{t.title}</h2>
       <figure className={styles.skyFigure} aria-busy={!now}>
         {now ? (
-          <SkyScene bodies={all} ascendant={null} midheaven={null} aspects={aspects} roleNames={{ sun: t.sun, moon: t.moon }}
+          <SkyScene locale={locale} bodies={all} ascendant={null} midheaven={null} aspects={aspects} roleNames={{ sun: t.sun, moon: t.moon }}
             description={sky.map((body) => placedIn(locale, copy.bodies[body.key].name, body.sign, signName(body.sign))).join("; ")}
-            signCards={SIGN_CARDS.map((id) => ({ image: cards[id].image.replace("/cards/", "/cards/wheel/"), href: cards[id].href, name: cards[id].name }))}
+            signCards={sceneSigns(copy, cards)} strings={SCENE_STRINGS[locale]} aspectNames={aspectNames(copy)}
+            bodyInfo={sceneBodies(locale, copy, all, { retrograde: t.retrograde, rising: "" })}
             labels={Object.fromEntries(all.map((body) => [body.key, `${placedIn(locale, copy.bodies[body.key].name, body.sign, signName(body.sign))} · ${formatDegree(body.degree)}`]))} />
         ) : <div className={styles.scenePlaceholder} />}
         <figcaption className={styles.caption}>{t.caption}</figcaption>

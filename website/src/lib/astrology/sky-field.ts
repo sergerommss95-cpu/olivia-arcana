@@ -16,6 +16,8 @@ export type SkyField = {
   lines: Point[][];
   milky: (Point & { w: number })[];
   field: (Point & { w: number })[];
+  /** Where to write each constellation's name: the circular mean of its stars. */
+  names: (Point & { en: string; uk: string })[];
 };
 
 /** J2000 RA (hours) / Dec (degrees) → ecliptic longitude and latitude, degrees. */
@@ -33,7 +35,13 @@ export function skyField(): SkyField {
   const lines = CONSTELLATIONS.flatMap((c) => c.lines.filter((run) => run.length > 1).map((run) => run.map((i) => ({ lon: stars[i].lon, lat: stars[i].lat }))));
   const milky = milkyWay(2400).map((m) => ({ ...toEcliptic(m.ra, m.dec), w: m.w }));
   const field = fieldStars(420).map((m) => ({ ...toEcliptic(m.ra, m.dec), w: m.w }));
-  cache = { stars, lines, milky, field };
+  const names = CONSTELLATIONS.map((c) => {
+    const members = [...new Set(c.lines.flat())].map((i) => stars[i]);
+    const x = members.reduce((sum, m) => sum + Math.cos(m.lon * DEG), 0), y = members.reduce((sum, m) => sum + Math.sin(m.lon * DEG), 0);
+    const lon = ((Math.atan2(y, x) / DEG) % 360 + 360) % 360;
+    return { lon, lat: members.reduce((sum, m) => sum + m.lat, 0) / members.length, en: c.name, uk: c.nameUk };
+  });
+  cache = { stars, lines, milky, field, names };
   return cache;
 }
 

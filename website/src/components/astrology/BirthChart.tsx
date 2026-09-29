@@ -16,6 +16,7 @@ import { placedIn } from "@/lib/astrology/grammar";
 import type { AstroCopy } from "@/lib/astrology/copy";
 import type { MajorCard } from "@/lib/astrology/deck";
 import SkyScene from "./SkyScene";
+import { SCENE_STRINGS, aspectNames, sceneBodies, sceneSigns } from "./scene-data";
 import ThreeCards, { type Dealt } from "./ThreeCards";
 import styles from "./astrology.module.css";
 
@@ -39,7 +40,7 @@ const UI = {
     noTime: "Birth time not known: the chart uses midday.",
     threeTitle: "Your three cards", threeLead: "Your Sun, Moon and Rising sign, each with the Major Arcana card of its sign.",
     sun: "Sun", moon: "Moon", rising: "Rising", or: "or", atMidday: (sign: string) => `${sign} at midday`,
-    wheelTitle: "Your sky, dealt in cards", wheelCaption: "Twelve Major Arcana cards are laid round the sky, one for each sign, and your Sun, Moon and Rising cards stand up from the spread in gold. At the centre lie the real stars of the zodiac; the planets hover over their degrees and threads join the closest aspects. Rest on a planet to follow its threads.",
+    wheelTitle: "Your sky, dealt in cards", wheelCaption: "Twelve Major Arcana cards are laid round the sky, one for each sign, and your Sun, Moon and Rising cards stand up from the spread in gold. At the centre lie the real stars of the zodiac; the planets hover over their degrees and threads join the closest aspects.",
     wheelCaptionNoTime: "Twelve Major Arcana cards are laid round the sky, one for each sign, from 0° Aries on the left; your Sun and Moon cards stand up from the spread in gold. At the centre lie the real stars of the zodiac, with the planets over their degrees. The Rising sign needs a birth time.",
     wheelLabel: "Birth chart wheel", ledgerTitle: "Where everything stood", ledgerLead: "Open a line to read what it describes and a question to take with you.",
     house: "house", retrograde: "retrograde", aspectsTitle: "Conversations in the chart",
@@ -62,7 +63,7 @@ const UI = {
     noTime: "Час народження невідомий: карта розрахована на полудень.",
     threeTitle: "Ваші три карти", threeLead: "Ваше Сонце, Місяць і Асцендент, кожен із картою Старших Арканів свого знака.",
     sun: "Сонце", moon: "Місяць", rising: "Асцендент", or: "або", atMidday: (sign: string) => `опівдні: ${sign}`,
-    wheelTitle: "Ваше небо, розкладене картами", wheelCaption: "Навколо неба розкладено дванадцять карт Старших Арканів, по одній на кожен знак, а карти вашого Сонця, Місяця й Асцендента встають над розкладом у золоті. У центрі — справжні зорі зодіаку; планети зависають над своїми градусами, а нитки поєднують найточніші аспекти. Наведіть на планету, щоб побачити її нитки.",
+    wheelTitle: "Ваше небо, розкладене картами", wheelCaption: "Навколо неба розкладено дванадцять карт Старших Арканів, по одній на кожен знак, а карти вашого Сонця, Місяця й Асцендента встають над розкладом у золоті. У центрі — справжні зорі зодіаку; планети зависають над своїми градусами, а нитки поєднують найточніші аспекти.",
     wheelCaptionNoTime: "Навколо неба розкладено дванадцять карт Старших Арканів, по одній на кожен знак, від 0° Овна ліворуч; карти вашого Сонця й Місяця встають над розкладом у золоті. У центрі — справжні зорі зодіаку й планети над своїми градусами. Для Асцендента потрібен час народження.",
     wheelLabel: "Коло натальної карти", ledgerTitle: "Де все стояло", ledgerLead: "Відкрийте рядок, щоб прочитати, що він описує, і запитання, яке варто взяти з собою.",
     house: "будинок", retrograde: "ретроградний", aspectsTitle: "Розмови в карті",
@@ -356,8 +357,9 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
 
             <figure className={styles.figure}>
               <h2 className={styles.h2}>{t.wheelTitle}</h2>
-              <SkyScene revealed={revealed} roleNames={{ sun: t.sun, moon: t.moon, ascendant: t.rising }} bodies={chart.bodies} ascendant={chart.ascendant} midheaven={chart.midheaven} aspects={chart.aspects}
-                signCards={SIGN_CARDS.map((cardId) => ({ image: cards[cardId].image.replace("/cards/", "/cards/wheel/"), href: cards[cardId].href, name: cards[cardId].name }))}
+              <SkyScene locale={locale} revealed={revealed} roleNames={{ sun: t.sun, moon: t.moon, ascendant: t.rising }} bodies={chart.bodies} ascendant={chart.ascendant} midheaven={chart.midheaven} aspects={chart.aspects}
+                signCards={sceneSigns(copy, cards, chart.ascendant?.index)} strings={SCENE_STRINGS[locale]} aspectNames={aspectNames(copy)}
+                bodyInfo={sceneBodies(locale, copy, ledger, { retrograde: t.retrograde, rising: t.rising, houses: true, questions: true })}
                 labels={Object.fromEntries(chart.bodies.map((p) => [p.key, `${placedIn(locale, copy.bodies[p.key].name, p.sign, signName(p.sign))} · ${formatDegree(p.degree)}`]))}
                 description={`${placedIn(locale, copy.bodies.sun.name, sun.sign, signName(sun.sign))}; ${placedIn(locale, copy.bodies.moon.name, moon.sign, signName(moon.sign))}${chart.ascendant ? `; ${placedIn(locale, t.rising, chart.ascendant.sign, signName(chart.ascendant.sign))}` : ""}.`} />
               <figcaption className={styles.caption}>{chart.ascendant ? t.wheelCaption : t.wheelCaptionNoTime}</figcaption>
