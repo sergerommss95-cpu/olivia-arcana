@@ -38,11 +38,13 @@ type Props = {
   labels: Record<string, string>;
   /** Which of the Sun, Moon and Rising cards have been turned (all when omitted). */
   revealed?: string[];
+  /** Words for the standing cards' roles, e.g. { sun: "Sun", moon: "Moon", ascendant: "Rising" }. */
+  roleNames: Partial<Record<"sun" | "moon" | "ascendant", string>>;
   /** Screen-reader summary of the scene. */
   description: string;
 };
 
-export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCards, labels, revealed, description }: Props) {
+export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCards, labels, revealed, roleNames, description }: Props) {
   const uid = useId().replace(/:/g, "");
   const sceneRef = useRef<HTMLDivElement>(null);
   const planeRef = useRef<HTMLDivElement>(null);
@@ -61,11 +63,11 @@ export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCa
 
   const lit = new Set(revealed ?? ["sun", "moon", "ascendant"]);
   const roles = new Map<number, string[]>();
-  const mark = (index: number, glyph: string) => roles.set(index, [...(roles.get(index) ?? []), glyph]);
+  const mark = (index: number, role: "sun" | "moon" | "ascendant") => roles.set(index, [...(roles.get(index) ?? []), `${role === "ascendant" ? "" : BODY_GLYPHS[role] + TEXT} ${roleNames[role] ?? ""}`.trim()]);
   const sun = bodies.find((b) => b.key === "sun"), moon = bodies.find((b) => b.key === "moon");
-  if (sun && lit.has("sun")) mark(sun.index, "☉");
-  if (moon && lit.has("moon")) mark(moon.index, "☽");
-  if (ascendant && lit.has("ascendant")) mark(ascendant.index, "AC");
+  if (sun && lit.has("sun")) mark(sun.index, "sun");
+  if (moon && lit.has("moon")) mark(moon.index, "moon");
+  if (ascendant && lit.has("ascendant")) mark(ascendant.index, "ascendant");
   // Slots that may stand, turned or not, so the fit leaves room for them from the start
   const destined = new Set([sun?.index, moon?.index, ascendant?.index].filter((index) => index !== undefined));
   const dealFrom = ascendant?.index ?? 0;
@@ -154,9 +156,6 @@ export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCa
                 const a = point(d, R.sky), b = point(d, R.sky + len), c = point(d, R.ring - len), e = point(d, R.ring);
                 return <path key={d} d={`M${f(a.x)},${f(a.y)}L${f(b.x)},${f(b.y)}M${f(c.x)},${f(c.y)}L${f(e.x)},${f(e.y)}`} className={styles.tick} />;
               })}
-              <g className={styles.signGlyphs}>
-                {SIGN_GLYPHS.map((glyph, i) => { const p = point(i * 30 + 15, R.glyphs); return <text key={glyph} x={f(p.x)} y={f(p.y)} dominantBaseline="central">{glyph + TEXT}</text>; })}
-              </g>
               <g className={styles.rosette}>
                 {Array.from({ length: 16 }, (_, i) => {
                   const a = (i * 22.5) * DEG, long = i % 2 === 0, len = long ? 40 : 26;
@@ -169,9 +168,7 @@ export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCa
               </g>
               {ascendant && midheaven && [ascendant, midheaven].map((angle) => {
                 const a = point(angle.longitude, R.sky), b = point(angle.longitude + 180, R.sky);
-                const label = point(angle.longitude, R.sky - 22);
-                return <g key={angle.key}><line x1={f(a.x)} y1={f(a.y)} x2={f(b.x)} y2={f(b.y)} className={styles.axis} />
-                  <text x={f(label.x)} y={f(label.y)} dominantBaseline="central" className={styles.angleMark}>{angle.key === "ascendant" ? "AC" : "MC"}</text></g>;
+                return <line key={angle.key} x1={f(a.x)} y1={f(a.y)} x2={f(b.x)} y2={f(b.y)} className={styles.axis} />;
               })}
               {/* Where each planet stands exactly, and the thread to its orb */}
               <g className={styles.leaders}>
@@ -191,6 +188,13 @@ export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCa
                 })}
               </g>
             </svg>
+
+            {/* Engraved on the plane: the signs on the ivory rim, AC and MC inside it. HTML rather than SVG
+                text, which Chrome can paint out of place inside a 3D-transformed layer. */}
+            {SIGN_GLYPHS.map((glyph, i) => <span key={glyph} className={styles.engraved} style={place(point(i * 30 + 15, R.glyphs))} aria-hidden>{glyph + TEXT}</span>)}
+            {ascendant && midheaven && [ascendant, midheaven].map((angle) => (
+              <span key={`mark-${angle.key}`} className={styles.angleMark} style={place(point(angle.longitude, R.sky - 22))} aria-hidden>{angle.key === "ascendant" ? "AC" : "MC"}</span>
+            ))}
 
             {/* Invisible, unanimated stand-ins for the cards: what the scene measures to fit itself */}
             {signCards.map((_, i) => (
@@ -215,7 +219,7 @@ export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCa
                   style={{ ...place(at), ["--dx" as string]: `${f(C - at.x)}px`, ["--dy" as string]: `${f(C - at.y)}px`, ["--delay" as string]: `${0.2 + order * 0.11}s` }}>
                   <span className={`${styles.hinge} ${role ? styles.rise : styles.lie}`}>
                     <a href={card.href} className={`${styles.card} ${role ? styles.cardLit : ""}`} aria-label={card.name}>
-                      {role && <span className={styles.role}>{role.map((glyph) => glyph + TEXT).join(" ")}</span>}
+                      {role && <span className={styles.role}>{role.join(" · ")}</span>}
                       <span className={styles.art}>
                         {/* eslint-disable-next-line @next/next/no-img-element -- static card art */}
                         <img src={card.image} alt="" width={256} height={439} draggable={false} />

@@ -1,9 +1,10 @@
 "use client";
 
 /**
- * Birth chart: the form, then three cards (Sun, Moon, Rising), the wheel,
- * where everything stood and the closest aspects. Everything is computed
- * here in the browser; the details are kept only if the reader asks.
+ * Birth chart: the form (folded to one line once a chart is showing), then
+ * three cards (Sun, Moon, Rising), the sky dealt in cards, where everything
+ * stood and the closest aspects. Everything is computed here in the
+ * browser; the details are kept only if the reader asks.
  */
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
@@ -30,7 +31,7 @@ const UI = {
     noMatch: "No match. Try another spelling, or enter coordinates.", coords: "Enter coordinates instead", list: "Choose from the list instead",
     lat: "Latitude", lon: "Longitude", zone: "Time zone", remember: "Remember on this device",
     rememberHint: "Kept only in this browser. Nothing is sent to us.", submit: "Read my chart", forget: "Forget my details", forgotten: "Your details have been removed from this browser.",
-    change: "Change details", needPlace: "Choose a place from the list, or enter coordinates.", needDate: "Enter a date between 1800 and 2100.",
+    change: "Change details", cancel: "Keep these details", born: "Born", needPlace: "Choose a place from the list, or enter coordinates.", needDate: "Enter a date between 1800 and 2100.",
     needCoords: "Enter a latitude between −90 and 90 and a longitude between −180 and 180.",
     summer: "summer time", localIs: (local: string, utc: string) => `${local} local time is ${utc} UTC`,
     skipped: (time: string, shifted: string) => `The clocks went forward that night, so ${time} never happened there. The chart reads it as ${shifted}; please check the certificate.`,
@@ -53,7 +54,7 @@ const UI = {
     noMatch: "Нічого не знайдено. Спробуйте інше написання або введіть координати.", coords: "Ввести координати", list: "Обрати зі списку",
     lat: "Широта", lon: "Довгота", zone: "Часовий пояс", remember: "Запам’ятати на цьому пристрої",
     rememberHint: "Зберігається лише в цьому браузері. Нам нічого не надсилається.", submit: "Прочитати мою карту", forget: "Забути мої дані", forgotten: "Ваші дані видалено з цього браузера.",
-    change: "Змінити дані", needPlace: "Оберіть місце зі списку або введіть координати.", needDate: "Введіть дату між 1800 і 2100 роками.",
+    change: "Змінити дані", cancel: "Залишити ці дані", born: "Народження", needPlace: "Оберіть місце зі списку або введіть координати.", needDate: "Введіть дату між 1800 і 2100 роками.",
     needCoords: "Введіть широту від −90 до 90 і довготу від −180 до 180.",
     summer: "літній час", localIs: (local: string, utc: string) => `${local} за місцевим часом — це ${utc} UTC`,
     skipped: (time: string, shifted: string) => `Тієї ночі годинники перевели вперед, тож часу ${time} там не було. Карта читає його як ${shifted}; перевірте, будь ласка, свідоцтво.`,
@@ -70,6 +71,8 @@ const UI = {
 };
 
 const pad = (n: number) => String(n).padStart(2, "0");
+const ASPECT_GLYPHS: Record<string, string> = { conjunction: "☌", sextile: "⚹", square: "□", trine: "△", opposition: "☍" };
+const TEXT = "︎"; // text presentation: glyphs never become emoji
 function offsetLabel(minutes: number): string {
   const sign = minutes < 0 ? "−" : "+";
   const abs = Math.abs(minutes);
@@ -105,7 +108,10 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
   const [notice, setNotice] = useState("");
   const [result, setResult] = useState<{ chart: Chart; place: Place; date: string; time: string | null; id: number } | null>(null);
   const [revealed, setRevealed] = useState<string[]>([]);
+  const [editing, setEditing] = useState(false);
   const resultsRef = useRef<HTMLHeadingElement>(null);
+  const dateRef = useRef<HTMLInputElement>(null);
+  const changeRef = useRef<HTMLButtonElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   const placeName = (p: Place) => (locale === "uk" ? p.uk : p.en);
@@ -174,12 +180,25 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
     setError("");
     const birthTime = timeUnknown || !time ? null : time;
     if (remember) saveProfile({ v: 1, date, time: birthTime, place: birthPlace });
+    setEditing(false);
     show(date, birthTime, birthPlace, true);
+  }
+
+  function edit() {
+    setEditing(true);
+    requestAnimationFrame(() => { formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); dateRef.current?.focus({ preventScroll: true }); });
+  }
+
+  function cancel() {
+    if (!result) return;
+    setDate(result.date); setTime(result.time ?? ""); setTimeUnknown(!result.time); setPlace(result.place); setQuery(placeName(result.place));
+    setCoords(false); setError(""); setEditing(false);
+    requestAnimationFrame(() => changeRef.current?.focus());
   }
 
   function forget() {
     forgetProfile();
-    setResult(null); setDate(""); setTime(""); setTimeUnknown(false); setPlace(null); setQuery(""); setLat(""); setLon("");
+    setResult(null); setEditing(false); setDate(""); setTime(""); setTimeUnknown(false); setPlace(null); setQuery(""); setLat(""); setLon("");
     setNotice(t.forgotten);
   }
 
@@ -187,6 +206,12 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
   const body = (key: string) => result?.chart.bodies.find((b) => b.key === key) as Placement;
   const signName = (sign: string) => copy.signs[sign].name;
   const listId = `${id}-places`;
+  const longDate = (iso: string) => new Intl.DateTimeFormat(locale === "uk" ? "uk-UA" : "en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(`${iso}T00:00:00Z`));
+  const resolved = (chart: Chart, birth: { place: Place; time: string | null }) => {
+    const local = birth.time ?? "12:00", offset = chart.moment.offsetMinutes;
+    const utc = `${pad(chart.moment.utc.getUTCHours())}:${pad(chart.moment.utc.getUTCMinutes())}`;
+    return `${offsetLabel(offset)}${isSummer(birth.place.zone, chart.moment.utc, offset) ? ` (${t.summer})` : ""} · ${chart.moment.timeKnown ? t.localIs(local, utc) : t.noTime}`;
+  };
 
   return (
     <div className={styles.page} lang={locale}>
@@ -203,13 +228,31 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
         <p className={styles.lead}>{t.lead}</p>
       </header>
 
-      <form ref={formRef} className={styles.form} onSubmit={submit} noValidate>
+      {result && !editing && (
+        <div className={styles.birthStrip}>
+          <div>
+            <p className={styles.kicker}>{t.born}</p>
+            <p className={styles.birthLine}>
+              {longDate(result.date)}{result.time ? `, ${result.time}` : ""}
+              <span aria-hidden> · </span><span className={styles.birthPlace}>{placeName(result.place)}{countryName(result.place) ? `, ${countryName(result.place)}` : ""}</span>
+            </p>
+            <p className={styles.resolved}>{resolved(result.chart, result)}</p>
+          </div>
+          <div className={styles.stripActions}>
+            <button ref={changeRef} type="button" className={styles.textButton} onClick={edit}>{t.change}</button>
+            <button type="button" className={styles.textButton} onClick={forget}>{t.forget}</button>
+          </div>
+        </div>
+      )}
+      {notice && !result && <p className={styles.hint} role="status">{notice}</p>}
+
+      {(!result || editing) && <form ref={formRef} className={styles.form} onSubmit={submit} noValidate>
         <fieldset>
           <legend className={styles.kicker}>{t.legend}</legend>
           <div className={styles.fieldRow}>
             <label className={styles.field}>
               <span>{t.date}</span>
-              <input type="date" required min="1800-01-01" max="2100-12-31" value={date} onChange={(e) => setDate(e.target.value)} />
+              <input ref={dateRef} type="date" required min="1800-01-01" max="2100-12-31" value={date} onChange={(e) => setDate(e.target.value)} />
             </label>
             <label className={styles.field}>
               <span>{t.time}</span>
@@ -269,17 +312,15 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
           {error && <p className={styles.error} role="alert">{error}</p>}
           <div className={styles.actions}>
             <button type="submit" className={styles.primary}>{t.submit}</button>
-            {result && <button type="button" className={styles.textButton} onClick={forget}>{t.forget}</button>}
+            {result && <button type="button" className={styles.textButton} onClick={cancel}>{t.cancel}</button>}
           </div>
-          {notice && <p className={styles.hint} role="status">{notice}</p>}
         </fieldset>
-      </form>
+      </form>}
 
       {result && (() => {
         const { chart } = result;
         const sun = body("sun"), moon = body("moon");
         const local = result.time ?? "12:00";
-        const utc = `${pad(chart.moment.utc.getUTCHours())}:${pad(chart.moment.utc.getUTCMinutes())}`;
         const offset = chart.moment.offsetMinutes;
         const shiftedWall = new Date(chart.moment.utc.getTime() + offset * 60_000);
         const shifted = `${pad(shiftedWall.getUTCHours())}:${pad(shiftedWall.getUTCMinutes())}`;
@@ -292,10 +333,6 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
         return (
           <section className={styles.results} aria-labelledby={`${id}-results`}>
             <h2 id={`${id}-results`} ref={resultsRef} tabIndex={-1} className={styles.srOnly}>{t.title}</h2>
-            <p className={styles.resolved}>
-              {placeName(result.place)}{countryName(result.place) ? `, ${countryName(result.place)}` : ""} · {offsetLabel(offset)}
-              {isSummer(result.place.zone, chart.moment.utc, offset) ? ` (${t.summer})` : ""} · {chart.moment.timeKnown ? t.localIs(local, utc) : t.noTime}
-            </p>
             {chart.moment.status === "skipped" && <p className={styles.notice}>{t.skipped(local, shifted)}</p>}
             {chart.moment.status === "repeated" && <p className={styles.notice}>{t.repeated(local)}</p>}
 
@@ -319,7 +356,7 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
 
             <figure className={styles.figure}>
               <h2 className={styles.h2}>{t.wheelTitle}</h2>
-              <SkyScene revealed={revealed} bodies={chart.bodies} ascendant={chart.ascendant} midheaven={chart.midheaven} aspects={chart.aspects}
+              <SkyScene revealed={revealed} roleNames={{ sun: t.sun, moon: t.moon, ascendant: t.rising }} bodies={chart.bodies} ascendant={chart.ascendant} midheaven={chart.midheaven} aspects={chart.aspects}
                 signCards={SIGN_CARDS.map((cardId) => ({ image: cards[cardId].image.replace("/cards/", "/cards/wheel/"), href: cards[cardId].href, name: cards[cardId].name }))}
                 labels={Object.fromEntries(chart.bodies.map((p) => [p.key, `${placedIn(locale, copy.bodies[p.key].name, p.sign, signName(p.sign))} · ${formatDegree(p.degree)}`]))}
                 description={`${placedIn(locale, copy.bodies.sun.name, sun.sign, signName(sun.sign))}; ${placedIn(locale, copy.bodies.moon.name, moon.sign, signName(moon.sign))}${chart.ascendant ? `; ${placedIn(locale, t.rising, chart.ascendant.sign, signName(chart.ascendant.sign))}` : ""}.`} />
@@ -333,11 +370,12 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
                 {ledger.map((p) => {
                   const text = copy.bodies[p.key];
                   const house = p.house ? copy.houses[String(p.house)] : null;
+                  const major = card(SIGN_CARDS[p.index]);
                   return (
                     <li key={p.key}>
                       <details className={styles.row}>
                         <summary>
-                          <span className={styles.glyph} aria-hidden>{BODY_GLYPHS[p.key] + "︎"}</span>
+                          <span className={styles.glyph} aria-hidden>{BODY_GLYPHS[p.key] + TEXT}</span>
                           <span className={styles.rowName}>{placedIn(locale, text.name, p.sign, signName(p.sign))}</span>
                           <span className={styles.rowMeta}>
                             {formatDegree(p.degree)}{house ? ` · ${house.name}` : ""}{p.retrograde ? ` · ${t.retrograde}` : ""}
@@ -348,6 +386,11 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
                           <p>{copy.signs[p.sign].essence}</p>
                           {house && <p><strong>{house.area}.</strong> {house.essence}</p>}
                           <p className={styles.question}>{text.question}</p>
+                          <a href={major.href} className={styles.rowCard}>
+                            {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized thumbnail */}
+                            <img src={major.thumb} alt="" width={120} height={206} loading="lazy" />
+                            <span><span className={styles.rowCardSign}>{signName(p.sign)}</span>{major.name}</span>
+                          </a>
                         </div>
                       </details>
                     </li>
@@ -360,14 +403,14 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
               <section className={styles.block} aria-labelledby={`${id}-aspects`}>
                 <h2 id={`${id}-aspects`} className={styles.h2}>{t.aspectsTitle}</h2>
                 <p className={styles.blockLead}>{t.aspectsLead}</p>
-                <ul className={styles.ledger}>
+                <ul className={`${styles.ledger} ${styles.aspectRows}`}>
                   {chart.aspects.slice(0, 8).map((found) => {
                     const name = (key: string) => (key === "ascendant" ? t.rising : copy.bodies[key].name);
                     return (
                       <li key={`${found.a}-${found.b}`}>
                         <details className={styles.row}>
                           <summary>
-                            <span className={styles.glyph} aria-hidden>{BODY_GLYPHS[found.a] + "︎"}</span>
+                            <span className={`${styles.glyph} ${styles.pair}`} aria-hidden>{BODY_GLYPHS[found.a] + TEXT}<span className={styles.aspectGlyph}>{ASPECT_GLYPHS[found.aspect] + TEXT}</span>{BODY_GLYPHS[found.b] + TEXT}</span>
                             <span className={styles.rowName}>{name(found.a)} · {copy.aspects[found.aspect].name.toLowerCase()} · {name(found.b)}</span>
                             <span className={styles.rowMeta}>{t.orb} {formatDegree(found.orb)}</span>
                           </summary>
@@ -384,7 +427,7 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
               <h2 id={`${id}-method`} className={styles.kicker}>{t.method}</h2>
               <p>{copy.ui.method}</p>
               <p className={styles.boundary}>{copy.ui.boundary}</p>
-              <button type="button" className={styles.textButton} onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}>{t.change}</button>
+              <button type="button" className={styles.textButton} onClick={edit}>{t.change}</button>
             </section>
           </section>
         );

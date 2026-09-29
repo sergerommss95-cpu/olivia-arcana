@@ -11,7 +11,9 @@
   --panel-deep: #0c2033;
   --panel-rim: rgba(201, 215, 216, 0.1);
   --hairline: rgba(216, 196, 156, 0.29);
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1); /* --ease-glide */
+  --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-control: cubic-bezier(0.2, 0.7, 0.2, 1);
   max-width: 1120px;
   margin: 0 auto;
   color: var(--ink);
@@ -61,6 +63,16 @@
 .options li[aria-selected="true"] .optionMeta { color: #3d5263; }
 .optionMeta { color: var(--faint); font-size: 0.82rem; }
 .error { margin: 1rem 0 0; color: #f0c9a6; font-size: 0.92rem; }
+
+/* A kept chart: the birth details folded to one line */
+.birthStrip { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem 2rem; margin-top: clamp(2.2rem, 5vw, 3rem); padding-bottom: 1.3rem; border-bottom: 1px solid var(--rule); animation: settle var(--dur-arrive, 340ms) var(--ease-settle) both; }
+.birthStrip .kicker { margin-bottom: 0.6rem; }
+.birthLine { margin: 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: clamp(1.35rem, 2.6vw, 1.75rem); line-height: 1.25; }
+.birthPlace { color: var(--body); }
+.birthStrip .resolved { margin-top: 0.55rem; padding: 0; border: 0; }
+.stripActions { display: flex; flex-wrap: wrap; gap: 0.2rem 1.4rem; }
+.stripActions .textButton { margin: 0; }
+@keyframes settle { from { opacity: 0; } }
 
 /* Results */
 .results { margin-top: clamp(3rem, 8vw, 4.6rem); }
@@ -124,6 +136,16 @@ button.flipInner:hover, button.flipInner:focus-visible { transform: translateY(-
 .rowBody p { margin: 0.6rem 0 0; color: var(--body); font-size: 0.98rem; line-height: 1.7; }
 .rowBody strong { color: var(--ink); font-weight: 500; }
 .rowBody .question { font-size: 1.15rem; }
+.rowCard { display: inline-flex; align-items: center; gap: 0.8rem; margin-top: 1rem; color: var(--gold); font-size: 0.88rem; text-decoration: none; }
+.rowCard img { width: 34px; height: auto; border-radius: 4px; box-shadow: 0 6px 14px rgba(2, 8, 14, 0.45), 0 0 0 1px rgba(216, 196, 156, 0.22); transition: transform var(--dur-control, 220ms) var(--ease-control); }
+.rowCard > span { display: grid; gap: 0.1rem; }
+.rowCardSign { color: var(--faint); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.rowCard:hover { color: var(--gold-bright); }
+.rowCard:hover img { transform: translateY(-2px) rotate(-1.5deg); }
+/* Aspects: the two bodies and the angle between them */
+.aspectRows .row summary { grid-template-columns: 4.8rem minmax(0, 1fr) auto 28px; }
+.pair { display: inline-flex; align-items: center; justify-content: flex-start; gap: 0.3rem; font-size: 1.15rem; white-space: nowrap; }
+.aspectGlyph { color: var(--faint); font-size: 0.95rem; }
 
 .method { margin-top: clamp(3rem, 7vw, 4.4rem); max-width: 44rem; padding-top: 1.4rem; border-top: 1px solid var(--rule); }
 .method p { margin: 0 0 0.9rem; color: var(--soft); font-size: 0.94rem; line-height: 1.75; }
@@ -142,49 +164,83 @@ button.flipInner:hover, button.flipInner:focus-visible { transform: translateY(-
 .doorTitle { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: clamp(1.8rem, 3.4vw, 2.4rem); line-height: 1.1; }
 .doorText .note { margin: 0.3rem 0 1rem; max-width: 34rem; }
 
-.tonight { margin-top: clamp(3rem, 7vw, 4.4rem); }
-.skyFigure { margin: 0 0 clamp(2rem, 5vw, 3rem); }
-.scenePlaceholder { height: min(80vw, 800px); }
-.tonightGrid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(1.6rem, 4vw, 3rem); align-items: start; }
-.moonPanel { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 1.4rem; align-items: start; padding: 1.4rem; border-radius: 18px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim); }
-.moonDisc { width: 100%; height: auto; }
-.moonDark { fill: #081727; }
-.moonLit { fill: #ede4d2; }
-.moonRim { fill: none; stroke: rgba(216, 196, 156, 0.4); stroke-width: 1; }
-.moonDates { margin: 1rem 0 0; display: grid; gap: 0.6rem; }
-.moonDates div { display: grid; gap: 0.1rem; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(15rem, 19rem); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+.moonHero { display: grid; justify-items: center; text-align: center; }
+.moonArt { display: block; width: min(100%, 17.5rem); height: auto; margin: -2.2rem 0 -1.6rem; }
+.moonText { display: grid; justify-items: center; }
+.moonPhase { margin: 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: clamp(1.5rem, 2.4vw, 1.8rem); line-height: 1.1; }
+.moonWhere { margin: 0.45rem 0 0; color: var(--soft); font-size: 0.9rem; line-height: 1.6; text-wrap: balance; }
+.moonWhere a { color: var(--gold); text-decoration: none; }
+.moonWhere a:hover { color: var(--gold-bright); text-decoration: underline; text-underline-offset: 0.25em; }
+.moonDates { margin: 1.1rem 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 1.8rem; }
+.moonDates div { display: grid; gap: 0.2rem; }
 .moonDates dt { font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); }
 .moonDates dd { margin: 0; color: var(--ink); font-size: 0.95rem; }
-.skyList { list-style: none; margin: 0; padding: 0; display: grid; }
-.skyList li { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto 9.5rem; align-items: center; gap: 0.9rem; padding: 0.55rem 0; border-bottom: 1px solid var(--rule); }
-.skyCard { display: flex; align-items: center; gap: 0.6rem; color: var(--soft); font-size: 0.82rem; text-decoration: none; }
-.skyCard img { width: 26px; height: auto; border-radius: 3px; box-shadow: 0 0 0 1px rgba(216, 196, 156, 0.2); }
-.skyCard:hover { color: var(--gold-bright); }
 
-.signGrid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0.8rem; }
-.signCell { display: grid; grid-template-columns: 52px minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 1rem; row-gap: 0.15rem; height: 100%; padding: 1rem; border-radius: 16px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim); text-decoration: none; transition: background-color 240ms var(--ease); }
-.signCell img { grid-row: 1 / 4; width: 52px; height: auto; border-radius: 5px; box-shadow: 0 8px 18px rgba(2, 8, 14, 0.45); transition: transform 300ms var(--ease); }
-.signCell:hover { background: #132d44; }
-.signCell:hover img { transform: translateY(-2px) rotate(-1.5deg); }
-.signName { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.3rem; line-height: 1.15; }
-.signEssence { margin-top: 0.3rem; color: var(--soft); font-size: 0.84rem; line-height: 1.55; }
+.tonight { margin-top: clamp(2.6rem, 6vw, 4rem); }
+.skyFigure { margin: 0 0 clamp(2rem, 5vw, 3rem); }
+.scenePlaceholder { height: min(80vw, 800px); }
+/* The planets now, as a two-column ledger under hairlines */
+.skyList { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(2rem, 5vw, 4rem); border-top: 1px solid var(--rule); }
+.skyList li { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; align-items: center; gap: 0.9rem; padding: 0.8rem 0; border-bottom: 1px solid var(--rule); }
+.skyWhere { display: grid; gap: 0.15rem; }
+.skyMeta { color: var(--faint); font-size: 0.8rem; }
+.skyCard { display: flex; align-items: center; gap: 0.65rem; color: var(--soft); font-size: 0.84rem; text-decoration: none; }
+.skyCard img { width: 28px; height: auto; border-radius: 3px; box-shadow: 0 0 0 1px rgba(216, 196, 156, 0.2); transition: transform var(--dur-control, 220ms) var(--ease-control); }
+.skyCard:hover { color: var(--gold-bright); }
+.skyCard:hover img { transform: translateY(-2px); }
+
+/* The twelve signs as the classical table: elements down, modes across */
+.modeHeads { display: grid; grid-template-columns: 8.5rem repeat(3, minmax(0, 1fr)); column-gap: clamp(1rem, 2.5vw, 2rem); padding-bottom: 0.9rem; border-bottom: 1px solid var(--rule); }
+.modeHeads::before { content: ""; }
+.modeHeads p { margin: 0; color: var(--faint); font-size: 0.84rem; }
+.modeHeads span { display: block; margin-bottom: 0.3rem; color: var(--gold); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.62rem; letter-spacing: 0.26em; text-transform: uppercase; }
+.elementRow { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); column-gap: clamp(1rem, 2.5vw, 2rem); padding: 1.7rem 0; border-bottom: 1px solid var(--rule); }
+.elementName { margin: 0.2rem 0 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-style: italic; font-size: clamp(1.6rem, 2.6vw, 2.05rem); line-height: 1; color: var(--ink); }
+.elementRow ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 2rem); }
+.signCell { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 1rem; align-items: start; text-decoration: none; }
+.signCell img { width: 76px; height: auto; border-radius: 6px; box-shadow: 0 14px 30px rgba(2, 8, 14, 0.5), 0 0 0 1px rgba(216, 196, 156, 0.2); transition: transform 360ms var(--ease), box-shadow 360ms var(--ease); }
+.signCell:hover img, .signCell:focus-visible img { transform: translateY(-4px) rotate(-1.5deg); box-shadow: 0 18px 34px rgba(2, 8, 14, 0.55), 0 0 0 1px rgba(230, 207, 158, 0.5); }
+.signText { display: grid; gap: 0.15rem; min-width: 0; }
+.signMode { display: none; }
+.signName { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.35rem; line-height: 1.15; transition: color var(--dur-control, 220ms) var(--ease-control); }
+.signCell:hover .signName { color: var(--gold-bright); }
+.signCard { color: var(--gold); font-size: 0.84rem; }
+.signEssence { margin-top: 0.4rem; color: var(--soft); font-size: 0.84rem; line-height: 1.55; }
 
 @media (max-width: 760px) {
   .three { grid-template-columns: 1fr; }
   .threeItem { display: grid; grid-template-columns: 7.2rem minmax(0, 1fr); column-gap: 1.1rem; }
   .threeItem > * { grid-column: 2; }
   .flip, .threeBack { grid-column: 1 !important; grid-row: 1 / span 6; }
-  .tonightGrid { grid-template-columns: 1fr; min-height: 0; }
+  .hero { grid-template-columns: 1fr; gap: 1.6rem; }
+  .moonHero { grid-template-columns: 8.5rem minmax(0, 1fr); align-items: center; gap: 1rem; justify-items: start; text-align: left; }
+  .moonArt { width: 8.5rem; margin: -1.2rem 0 -1.2rem -1rem; }
+  .moonText { justify-items: start; }
+  .moonDates { justify-content: flex-start; }
+  .skyList { grid-template-columns: 1fr; }
   .skyList li { grid-template-columns: 1.6rem minmax(0, 1fr) auto; }
-  .skyCard { grid-column: 2 / 4; }
+  .skyCard span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .modeHeads { display: none; }
+  .elementRow { grid-template-columns: 1fr; row-gap: 1rem; padding: 1.4rem 0; }
+  .elementRow ul { gap: 0.75rem; }
+  .signCell { grid-template-columns: 1fr; gap: 0.6rem; }
+  .signCell img { width: 100%; }
+  .signMode { display: block; color: var(--faint); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; }
+  .signName { font-size: 1.12rem; }
+  .signCard { font-size: 0.76rem; }
+  .signEssence { display: none; }
   .row summary { grid-template-columns: 1.6rem minmax(0, 1fr) 28px; }
   .rowMeta { grid-column: 2; grid-row: 2; text-align: left; white-space: normal; }
   .row summary::after { grid-column: 3; grid-row: 1 / 3; }
   .rowBody { padding-left: 1.2rem; }
+  .aspectRows .row summary { grid-template-columns: 4.4rem minmax(0, 1fr) 28px; }
+  .birthStrip { align-items: flex-start; }
   .door { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
   button.flipInner::after { animation: none; }
-  .primary, .doorArt img, .signCell img, .flipInner { transition: none; }
-  .turning, .flat .sheen, .threeItem, .revealText, button.flipInner { animation: none; }
+  .primary, .doorArt img, .signCell img, .skyCard img, .flipInner { transition: none; }
+  .turning, .flat .sheen, .threeItem, .revealText, button.flipInner, .birthStrip { animation: none; }
+  .rowCard img { transition: none; }
 }
