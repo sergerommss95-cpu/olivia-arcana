@@ -3,10 +3,11 @@
 /**
  * The sky dealt in cards, as a scene. A plane of real stars (the ecliptic
  * seen from above its north pole, so the stars share the chart's
- * longitudes) lies tilted away from the viewer; the twelve sign cards stand
- * upright round its edge, dealt in from the centre; the Sun, Moon and
- * Rising cards float in gold; the planets hover as pearl orbs pinned above
- * their degree; threads join the closest aspects. The plane leans a little
+ * longitudes) lies tilted away from the viewer, the signs engraved on its
+ * ivory rim; the twelve sign cards are dealt round it and lie face up like a
+ * spread on a table; the Sun, Moon and Rising cards stand up from it in
+ * gold (each rises as it is turned); the planets hover as pearl orbs pinned
+ * above their degree; threads join the closest aspects. The plane leans a little
  * towards the pointer. Rising sign on the left, as charts are drawn;
  * 0° Aries on the left without a birth time. CSS 3D, no WebGL.
  */
@@ -19,7 +20,7 @@ import styles from "./scene.module.css";
 
 const SIZE = 1000;
 const C = SIZE / 2;
-const R = { sky: 330, ring: 342, chips: 384, cards: 448, planet: 262, chord: 200 };
+const R = { sky: 330, glyphs: 349, ring: 368, cards: 468, planet: 244, chord: 190 };
 const TEXT = "︎"; // text presentation: glyphs never become emoji
 const HARMONIOUS = new Set(["trine", "sextile"]);
 const DEG = Math.PI / 180;
@@ -53,7 +54,7 @@ export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCa
   };
   const skyPoint = (lon: number, lat: number) => point(lon, (R.sky * (90 - lat)) / 90);
   const field = skyField();
-  const spread = useMemo(() => spreadLongitudes(bodies.map((b) => b.longitude), 12), [bodies]);
+  const spread = useMemo(() => spreadLongitudes(bodies.map((b) => b.longitude), 14), [bodies]);
   const byKey = new Map([...bodies, ...(ascendant ? [ascendant] : []), ...(midheaven ? [midheaven] : [])].map((p) => [p.key, p]));
   const threads = aspects.filter((found) => found.aspect !== "conjunction").slice(0, 12);
   const f = (n: number) => n.toFixed(1);
@@ -65,6 +66,8 @@ export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCa
   if (sun && lit.has("sun")) mark(sun.index, "☉");
   if (moon && lit.has("moon")) mark(moon.index, "☽");
   if (ascendant && lit.has("ascendant")) mark(ascendant.index, "AC");
+  // Slots that may stand, turned or not, so the fit leaves room for them from the start
+  const destined = new Set([sun?.index, moon?.index, ascendant?.index].filter((index) => index !== undefined));
   const dealFrom = ascendant?.index ?? 0;
 
   // Fit the scene: measure the projected bounds of the ring (static markers, so the
@@ -146,10 +149,14 @@ export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCa
               <path d={`M ${C - R.ring},${C} a ${R.ring},${R.ring} 0 1,0 ${R.ring * 2},0 a ${R.ring},${R.ring} 0 1,0 ${-R.ring * 2},0 M ${C - R.sky},${C} a ${R.sky},${R.sky} 0 1,1 ${R.sky * 2},0 a ${R.sky},${R.sky} 0 1,1 ${-R.sky * 2},0 Z`}
                 fill={`url(#${uid}-ivory)`} fillRule="evenodd" />
               {Array.from({ length: 72 }, (_, k) => {
-                const d = k * 5, major = d % 30 === 0;
-                const a = point(d, R.sky), b = point(d, major ? R.ring : R.sky + (d % 10 === 0 ? 8 : 5));
-                return <line key={d} x1={f(a.x)} y1={f(a.y)} x2={f(b.x)} y2={f(b.y)} className={major ? styles.tickMajor : styles.tick} />;
+                const d = k * 5, major = d % 30 === 0, len = d % 10 === 0 ? 6 : 4;
+                if (major) { const a = point(d, R.sky), b = point(d, R.ring); return <line key={d} x1={f(a.x)} y1={f(a.y)} x2={f(b.x)} y2={f(b.y)} className={styles.tickMajor} />; }
+                const a = point(d, R.sky), b = point(d, R.sky + len), c = point(d, R.ring - len), e = point(d, R.ring);
+                return <path key={d} d={`M${f(a.x)},${f(a.y)}L${f(b.x)},${f(b.y)}M${f(c.x)},${f(c.y)}L${f(e.x)},${f(e.y)}`} className={styles.tick} />;
               })}
+              <g className={styles.signGlyphs}>
+                {SIGN_GLYPHS.map((glyph, i) => { const p = point(i * 30 + 15, R.glyphs); return <text key={glyph} x={f(p.x)} y={f(p.y)} dominantBaseline="central">{glyph + TEXT}</text>; })}
+              </g>
               <g className={styles.rosette}>
                 {Array.from({ length: 16 }, (_, i) => {
                   const a = (i * 22.5) * DEG, long = i % 2 === 0, len = long ? 40 : 26;
@@ -162,7 +169,9 @@ export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCa
               </g>
               {ascendant && midheaven && [ascendant, midheaven].map((angle) => {
                 const a = point(angle.longitude, R.sky), b = point(angle.longitude + 180, R.sky);
-                return <line key={angle.key} x1={f(a.x)} y1={f(a.y)} x2={f(b.x)} y2={f(b.y)} className={styles.axis} />;
+                const label = point(angle.longitude, R.sky - 22);
+                return <g key={angle.key}><line x1={f(a.x)} y1={f(a.y)} x2={f(b.x)} y2={f(b.y)} className={styles.axis} />
+                  <text x={f(label.x)} y={f(label.y)} dominantBaseline="central" className={styles.angleMark}>{angle.key === "ascendant" ? "AC" : "MC"}</text></g>;
               })}
               {/* Where each planet stands exactly, and the thread to its orb */}
               <g className={styles.leaders}>
@@ -186,7 +195,8 @@ export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCa
             {/* Invisible, unanimated stand-ins for the cards: what the scene measures to fit itself */}
             {signCards.map((_, i) => (
               <span key={`bound-${i}`} className={styles.slot} style={place(point(i * 30 + 15, R.cards))} aria-hidden>
-                <span className={styles.stand}><span className={styles.cardBound} data-bound /></span>
+                <span className={`${styles.hinge} ${styles.lie} ${styles.still}`}><span className={styles.cardBound} data-bound /></span>
+                {destined.has(i) && <span className={`${styles.hinge} ${styles.rise} ${styles.still}`}><span className={styles.cardBoundTall} data-bound /></span>}
               </span>
             ))}
 
@@ -195,14 +205,7 @@ export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCa
               <span key={`shadow-${i}`} className={`${styles.shadow} ${roles.has(i) ? styles.shadowLit : ""}`} style={place(point(i * 30 + 15, R.cards))} aria-hidden />
             ))}
 
-            {/* Sign seals, standing just inside the cards */}
-            {SIGN_GLYPHS.map((glyph, i) => (
-              <span key={glyph} className={styles.slot} style={place(point(i * 30 + 15, R.chips))} aria-hidden>
-                <span className={styles.stand}><span className={styles.seal}>{glyph + TEXT}</span></span>
-              </span>
-            ))}
-
-            {/* The twelve sign cards, dealt from the centre, upright round the ring */}
+            {/* The twelve sign cards, dealt from the centre: face up on the plane, or standing when lit */}
             {signCards.map((card, i) => {
               const at = point(i * 30 + 15, R.cards);
               const role = roles.get(i);
@@ -210,7 +213,7 @@ export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCa
               return (
                 <span key={card.href} className={`${styles.slot} ${styles.dealt}`}
                   style={{ ...place(at), ["--dx" as string]: `${f(C - at.x)}px`, ["--dy" as string]: `${f(C - at.y)}px`, ["--delay" as string]: `${0.2 + order * 0.11}s` }}>
-                  <span className={styles.stand}>
+                  <span className={`${styles.hinge} ${role ? styles.rise : styles.lie}`}>
                     <a href={card.href} className={`${styles.card} ${role ? styles.cardLit : ""}`} aria-label={card.name}>
                       {role && <span className={styles.role}>{role.map((glyph) => glyph + TEXT).join(" ")}</span>}
                       <span className={styles.art}>
@@ -222,13 +225,6 @@ export default function SkyScene({ bodies, ascendant, midheaven, aspects, signCa
                 </span>
               );
             })}
-
-            {/* Ascendant and Midheaven labels at the rim */}
-            {ascendant && midheaven && [ascendant, midheaven].map((angle) => (
-              <span key={`label-${angle.key}`} className={styles.slot} style={place(point(angle.longitude, R.ring + 16))} aria-hidden>
-                <span className={styles.stand}><span className={styles.angle}>{angle.key === "ascendant" ? "ASC" : "MC"}</span></span>
-              </span>
-            ))}
 
             {/* Planets: pearl orbs (the Sun gold) pinned above their degree */}
             {bodies.map((body, i) => {
