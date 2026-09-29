@@ -105,6 +105,16 @@ export default function SkyScene(props: Props) {
   const byKey = new Map([...bodies, ...(ascendant ? [ascendant] : []), ...(midheaven ? [midheaven] : [])].map((p) => [p.key, p]));
   const threads = aspects.filter((found) => found.aspect !== "conjunction").slice(0, 12);
   const f = (n: number) => n.toFixed(1);
+  /** An eight-pointed star as the cards engrave it: four long rays, four short, a slender waist. */
+  const star = (x: number, y: number, size: number) => {
+    let d = "";
+    for (let k = 0; k < 16; k++) {
+      const r = k % 2 ? size * 0.2 : (k / 2) % 2 ? size * 0.55 : size;
+      const angle = (k * Math.PI) / 8 - Math.PI / 2;
+      d += `${k ? "L" : "M"}${f(x + r * Math.cos(angle))},${f(y + r * Math.sin(angle))}`;
+    }
+    return d + "Z";
+  };
 
   const lit = new Set(revealed ?? ["sun", "moon", "ascendant"]);
   const roles = new Map<number, string[]>();
@@ -404,14 +414,11 @@ export default function SkyScene(props: Props) {
           <div className={styles.camera} style={{ transform: `translate(${f(camera.x)}px, ${f(camera.y)}px) scale(${camera.z.toFixed(3)})` }}>
             <div className={styles.stage}>
               <div className={styles.plane} ref={planeRef}>
-                {/* The plane itself: night, the real stars, the degree ring, the rosette, the aspect threads */}
+                {/* The plane itself, in the deck's own materials: a disc of lapis with its flecks and fractures,
+                    set under an ivory rim; the Milky Way as a drift of calcite; the brightest stars engraved as the
+                    cards draw them, the pole among them; the aspects as gold threads */}
                 <svg className={styles.plate} viewBox={`0 0 ${SIZE} ${SIZE}`} aria-hidden data-bound>
                   <defs>
-                    <radialGradient id={`${uid}-night`} cx="50%" cy="50%" r="50%">
-                      <stop offset="0" stopColor="#1a3b5c" />
-                      <stop offset="0.72" stopColor="#0d2238" />
-                      <stop offset="1" stopColor="#081828" />
-                    </radialGradient>
                     <radialGradient id={`${uid}-pool`} cx="50%" cy="50%" r="50%">
                       <stop offset="0.6" stopColor="#2a5680" stopOpacity="0.28" />
                       <stop offset="1" stopColor="#0b192a" stopOpacity="0" />
@@ -421,59 +428,82 @@ export default function SkyScene(props: Props) {
                       <stop offset="0.5" stopColor="#e7d8b6" />
                       <stop offset="1" stopColor="#bfa87e" />
                     </linearGradient>
+                    {/* The disc sits inset: darker towards the rim, a little light from above */}
+                    <radialGradient id={`${uid}-inset`} cx="50%" cy="50%" r="50%">
+                      <stop offset="0.55" stopColor="#020812" stopOpacity="0" />
+                      <stop offset="0.9" stopColor="#020812" stopOpacity="0.32" />
+                      <stop offset="1" stopColor="#020812" stopOpacity="0.7" />
+                    </radialGradient>
+                    <radialGradient id={`${uid}-light`} cx="44%" cy="30%" r="62%">
+                      <stop offset="0" stopColor="#dfe8f5" stopOpacity="0.1" />
+                      <stop offset="1" stopColor="#dfe8f5" stopOpacity="0" />
+                    </radialGradient>
+                    <radialGradient id={`${uid}-halo`}>
+                      <stop offset="0" stopColor="#e8eef8" stopOpacity="0.55" />
+                      <stop offset="1" stopColor="#e8eef8" stopOpacity="0" />
+                    </radialGradient>
+                    <filter id={`${uid}-drift`} x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="7" /></filter>
                     <clipPath id={`${uid}-disc`}><circle cx={C} cy={C} r={R.sky} /></clipPath>
                   </defs>
                   <circle cx={C} cy={C} r={R.cards + 60} fill={`url(#${uid}-pool)`} />
                   <circle cx={C} cy={C} r={R.cards} className={styles.tableRing} />
-                  <circle cx={C} cy={C} r={R.sky} fill={`url(#${uid}-night)`} />
                   <g clipPath={`url(#${uid}-disc)`}>
+                    <rect x={C - R.sky} y={C - R.sky} width={R.sky * 2} height={R.sky * 2} fill="#0a1832" />
+                    <image href="/astrology/lapis.webp" x={C - R.sky} y={C - R.sky} width={R.sky * 2} height={R.sky * 2} preserveAspectRatio="xMidYMid slice" />
+                    {/* The Milky Way: a soft drift, and the grain of it */}
+                    <path className={styles.milkyDrift} filter={`url(#${uid}-drift)`} d={field.milky.filter((m) => m.w > 0.35).map((m) => dot(skyPoint(m.lon, m.lat), 4 + m.w * 5)).join("")} />
                     {[0, 1, 2, 3].map((bucket) => (
-                      <path key={bucket} className={styles.milky} opacity={0.06 + bucket * 0.04}
-                        d={field.milky.filter((m) => Math.min(3, Math.floor(m.w * 4)) === bucket).map((m) => dot(skyPoint(m.lon, m.lat), 1.5)).join("")} />
+                      <path key={bucket} className={styles.milky} opacity={0.05 + bucket * 0.035}
+                        d={field.milky.filter((m) => Math.min(3, Math.floor(m.w * 4)) === bucket).map((m) => dot(skyPoint(m.lon, m.lat), 1.1)).join("")} />
                     ))}
-                    <path className={styles.fieldStars} d={field.field.map((m) => dot(skyPoint(m.lon, m.lat), 0.4 + 0.55 * m.w)).join("")} />
+                    <path className={styles.fieldStars} d={field.field.map((m) => dot(skyPoint(m.lon, m.lat), 0.35 + 0.5 * m.w)).join("")} />
                     {field.lines.map((run, i) => <polyline key={i} className={styles.constellation} points={run.map((s) => { const p = skyPoint(s.lon, s.lat); return `${f(p.x)},${f(p.y)}`; }).join(" ")} />)}
-                    <path className={styles.brightStars} d={field.stars.map((s) => dot(skyPoint(s.lon, s.lat), s.r)).join("")} />
+                    {/* Bright stars: a halo each; the brightest engraved as the cards' eight-pointed stars */}
+                    {field.stars.map((s, i) => { const p = skyPoint(s.lon, s.lat); return <circle key={`h${i}`} cx={f(p.x)} cy={f(p.y)} r={f(s.r * 4.2)} fill={`url(#${uid}-halo)`} opacity={Math.min(0.9, s.r / 3)} />; })}
+                    <path className={styles.brightStars} d={field.stars.filter((s) => s.r < 2.2).map((s) => dot(skyPoint(s.lon, s.lat), s.r * 0.85)).join("")} />
+                    <path className={styles.starShadow} d={field.stars.filter((s) => s.r >= 2.2).map((s) => { const p = skyPoint(s.lon, s.lat); return star(p.x + 0.9, p.y + 1.1, s.r * 2.7); }).join("")} />
+                    <path className={styles.starCut} d={field.stars.filter((s) => s.r >= 2.2).map((s) => { const p = skyPoint(s.lon, s.lat); return star(p.x, p.y, s.r * 2.7); }).join("")} />
+                    <circle cx={C} cy={C} r={R.sky} fill={`url(#${uid}-light)`} />
+                    <circle cx={C} cy={C} r={R.sky} fill={`url(#${uid}-inset)`} />
                   </g>
+                  {/* A beaded edge where the lapis meets the rim */}
+                  <path className={styles.beads} d={Array.from({ length: 120 }, (_, k) => dot(point(k * 3, R.sky - 5), 0.9)).join("")} />
                   <path d={`M ${C - R.ring},${C} a ${R.ring},${R.ring} 0 1,0 ${R.ring * 2},0 a ${R.ring},${R.ring} 0 1,0 ${-R.ring * 2},0 M ${C - R.sky},${C} a ${R.sky},${R.sky} 0 1,1 ${R.sky * 2},0 a ${R.sky},${R.sky} 0 1,1 ${-R.sky * 2},0 Z`}
                     fill={`url(#${uid}-ivory)`} fillRule="evenodd" />
+                  <circle cx={C} cy={C} r={R.sky} className={styles.rimShade} />
                   {Array.from({ length: 72 }, (_, k) => {
                     const d = k * 5, major = d % 30 === 0, len = d % 10 === 0 ? 6 : 4;
                     if (major) { const a = point(d, R.sky), b = point(d, R.ring); return <line key={d} x1={f(a.x)} y1={f(a.y)} x2={f(b.x)} y2={f(b.y)} className={styles.tickMajor} />; }
                     const a = point(d, R.sky), b = point(d, R.sky + len), c = point(d, R.ring - len), e = point(d, R.ring);
                     return <path key={d} d={`M${f(a.x)},${f(a.y)}L${f(b.x)},${f(b.y)}M${f(c.x)},${f(c.y)}L${f(e.x)},${f(e.y)}`} className={styles.tick} />;
                   })}
-                  <g className={styles.rosette}>
-                    {Array.from({ length: 16 }, (_, i) => {
-                      const a = (i * 22.5) * DEG, long = i % 2 === 0, len = long ? 40 : 26;
-                      const x2 = C + len * Math.cos(a), y2 = C - len * Math.sin(a);
-                      if (long) return <line key={i} x1={C} y1={C} x2={f(x2)} y2={f(y2)} />;
-                      const mx = C + (len / 2) * Math.cos(a) + 3.5 * Math.cos(a + Math.PI / 2), my = C - (len / 2) * Math.sin(a) - 3.5 * Math.sin(a + Math.PI / 2);
-                      return <path key={i} d={`M${C},${C} Q${f(mx)},${f(my)} ${f(x2)},${f(y2)}`} />;
-                    })}
-                    <circle cx={C} cy={C} r={4.5} />
-                  </g>
                   {ascendant && midheaven && [ascendant, midheaven].map((angle) => {
-                    const a = point(angle.longitude, R.sky), b = point(angle.longitude + 180, R.sky);
+                    const a = point(angle.longitude, R.sky - 12), b = point(angle.longitude + 180, R.sky - 12);
                     return <line key={angle.key} x1={f(a.x)} y1={f(a.y)} x2={f(b.x)} y2={f(b.y)} className={styles.axis} />;
                   })}
                   {/* Where each planet stands exactly, and the thread to its orb */}
                   <g className={styles.leaders}>
                     {bodies.map((body, i) => {
                       const exact = point(body.longitude, R.sky - 2), at = point(spread[i], R.planet);
-                      return <g key={body.key}><line x1={f(exact.x)} y1={f(exact.y)} x2={f(at.x)} y2={f(at.y)} /><circle cx={f(exact.x)} cy={f(exact.y)} r={3} /></g>;
+                      return <g key={body.key}><line x1={f(exact.x)} y1={f(exact.y)} x2={f(at.x)} y2={f(at.y)} /><circle cx={f(exact.x)} cy={f(exact.y)} r={2.4} /></g>;
                     })}
                   </g>
+                  {/* Aspects: gold threads bowed towards the centre, quiet until a planet is touched */}
                   <g className={styles.threads}>
                     {threads.map((found, i) => {
                       const a = byKey.get(found.a), b = byKey.get(found.b);
                       if (!a || !b) return null;
                       const p = point(a.longitude, R.chord), q = point(b.longitude, R.chord);
-                      const on = !lightKey || found.a === lightKey || found.b === lightKey;
-                      return <line key={`${found.a}-${found.b}`} x1={f(p.x)} y1={f(p.y)} x2={f(q.x)} y2={f(q.y)} pathLength={1}
-                        className={`${HARMONIOUS.has(found.aspect) ? styles.threadEase : styles.threadTension} ${on ? "" : styles.dim}`} style={{ animationDelay: `${1.8 + i * 0.08}s` }} />;
+                      const bow = { x: C + ((p.x + q.x) / 2 - C) * 0.3, y: C + ((p.y + q.y) / 2 - C) * 0.3 };
+                      const on = !!lightKey && (found.a === lightKey || found.b === lightKey);
+                      return <path key={`${found.a}-${found.b}`} d={`M${f(p.x)},${f(p.y)} Q${f(bow.x)},${f(bow.y)} ${f(q.x)},${f(q.y)}`} pathLength={1}
+                        className={`${HARMONIOUS.has(found.aspect) ? styles.threadEase : styles.threadTension} ${on ? styles.threadOn : lightKey ? styles.dim : ""}`} style={{ animationDelay: `${1.8 + i * 0.08}s` }} />;
                     })}
                   </g>
+                  {/* The pole of the ecliptic: an engraved star (the Sun alone is gold) */}
+                  <circle cx={C} cy={C} r={26} fill={`url(#${uid}-halo)`} opacity={0.5} />
+                  <path d={star(C + 0.8, C + 1.1, 13)} className={styles.starShadow} />
+                  <path d={star(C, C, 13)} className={styles.poleStar} />
                 </svg>
 
                 {/* Engraved on the plane: the signs on the ivory rim, AC and MC inside it, and the constellations'
@@ -536,8 +566,13 @@ export default function SkyScene(props: Props) {
                           onClick={(event) => bring({ kind: "body", key: body.key }, event.currentTarget)}>
                           {hover === body.key && !focus && labels[body.key] && <span className={styles.tag}>{labels[body.key]}</span>}
                           <span className={`${styles.orb} ${body.key === "sun" ? styles.orbSun : ""}`}>
-                            {glyph(body.key)}
-                            {body.retrograde && <span className={styles.retro}>R</span>}
+                            {body.key === "sun" ? (
+                              <svg className={styles.sunStar} viewBox="-28 -28 56 56">
+                                <defs><linearGradient id={`${uid}-sun`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fdebb8" /><stop offset="0.5" stopColor="#dfb866" /><stop offset="1" stopColor="#a47a37" /></linearGradient></defs>
+                                <path d={star(0, 0, 24)} fill={`url(#${uid}-sun)`} stroke="rgba(92, 62, 24, 0.5)" strokeWidth="0.6" />
+                              </svg>
+                            ) : glyph(body.key)}
+                            {body.retrograde && <span className={styles.retro}>℞</span>}
                           </span>
                           <span className={styles.pin} />
                         </span>

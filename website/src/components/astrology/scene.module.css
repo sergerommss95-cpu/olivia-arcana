@@ -44,11 +44,18 @@
 
 /* The plane's drawing */
 .tableRing { fill: none; stroke: rgba(238, 230, 212, 0.07); stroke-width: 1; }
-.milky { fill: #eee6d4; }
-.fieldStars { fill: rgba(238, 230, 212, 0.55); }
-.constellation { fill: none; stroke: rgba(230, 207, 158, 0.28); stroke-width: 0.9; transition: stroke 600ms var(--ease); }
-.scene[data-view="stars"] .constellation { stroke: rgba(230, 207, 158, 0.55); }
-.brightStars { fill: #f7f0df; }
+.milkyDrift { fill: #cbd8ee; opacity: 0.085; }
+.milky { fill: #e9eef8; }
+.fieldStars { fill: rgba(226, 234, 246, 0.6); }
+/* Constellations engraved as fine pale lines, as on an old atlas; clearer when looking down into them */
+.constellation { fill: none; stroke: rgba(190, 206, 228, 0.24); stroke-width: 0.7; stroke-linejoin: round; transition: stroke 600ms var(--ease); }
+.scene[data-view="stars"] .constellation { stroke: rgba(205, 218, 236, 0.5); }
+.brightStars { fill: #f3f6fb; }
+.starCut { fill: #dfe7f3; }
+.starShadow { fill: rgba(2, 8, 18, 0.7); }
+.poleStar { fill: #e9eef7; stroke: rgba(201, 177, 130, 0.55); stroke-width: 0.7; }
+.beads { fill: rgba(238, 230, 212, 0.34); }
+.rimShade { fill: none; stroke: rgba(60, 44, 22, 0.38); stroke-width: 1.4; }
 .tick { fill: none; stroke: rgba(70, 56, 34, 0.45); stroke-width: 0.8; }
 .tickMajor { stroke: rgba(70, 56, 34, 0.6); stroke-width: 1; }
 /* Engraved marks lie on the plane and turn back against the sky's turn, so they stay upright */
@@ -57,16 +64,16 @@
 .angleMark { color: #e6cf9e; font: 17px/1 var(--font-mono, ui-monospace), monospace; letter-spacing: 0.18em; }
 .starName { color: rgba(238, 230, 212, 0.85); font: italic 400 19px/1 var(--font-heading, "Cormorant Garamond"), serif; letter-spacing: 0.02em; white-space: nowrap; text-shadow: 0 0 8px rgba(8, 24, 40, 0.9); opacity: 0; }
 .scene[data-view="stars"] .starName { opacity: 1; }
-.rosette line, .rosette path { fill: none; stroke: rgba(201, 177, 130, 0.8); stroke-width: 1; }
-.rosette circle { fill: #e6cf9e; }
-.axis { stroke: #c9b182; stroke-width: 1.4; opacity: 0.7; }
-.leaders line { stroke: rgba(230, 207, 158, 0.35); stroke-width: 0.9; }
+.axis { stroke: #c9b182; stroke-width: 0.9; opacity: 0.42; stroke-dasharray: 2 5; stroke-linecap: round; }
+.leaders line { stroke: rgba(230, 207, 158, 0.3); stroke-width: 0.8; }
 .leaders circle { fill: #e6cf9e; }
-.threads line { stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.2s var(--ease) forwards; transition: opacity 300ms var(--ease); }
-.threadEase { stroke: rgba(238, 230, 212, 0.34); }
-.threadTension { stroke: #d4b97f; opacity: 0.5; }
-.scene[data-light] .threads line:not(.dim) { opacity: 1; stroke-width: 1.6; }
-.threads .dim { opacity: 0.06; }
+/* Aspect threads: drawn in, then quiet; the ones a touched planet holds come up bright */
+.threads path { fill: none; stroke-width: 1.1; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.4s var(--ease) forwards; transition: opacity 400ms var(--ease), stroke-width 400ms var(--ease); }
+.threadEase { stroke: #e9eef8; opacity: 0.16; }
+.threadTension { stroke: #d9b56c; opacity: 0.3; }
+.threads .threadOn { opacity: 0.95; stroke-width: 1.8; }
+.threads .dim { opacity: 0.04; }
+.scene[data-view="stars"] .threads path { opacity: 0; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 
 /* Anything that stands up from the plane: a zero-size slot at its foot, counter-rotated to face the viewer */
@@ -114,12 +121,16 @@
 .orbWrap { position: absolute; left: 0; top: 0; cursor: pointer; animation: rise 900ms var(--ease) var(--delay, 1.5s) backwards; transition: opacity 300ms var(--ease); }
 @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
 .scene[data-light] .orbWrap:not(.orbFocus) { opacity: 0.4; }
-.orb { position: absolute; left: -18px; top: -76px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fffaf0, #e9dcc0 60%, #bca885); color: #1d3651; font: 20px/1 "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; box-shadow: 0 8px 16px rgba(2, 8, 18, 0.6), 0 0 18px rgba(238, 230, 212, 0.22); transition: transform 300ms var(--ease), box-shadow 300ms var(--ease); }
-.orbSun { background: radial-gradient(circle at 35% 30%, #f8e9c2, #d7bd83 60%, #9c7f4c); box-shadow: 0 8px 16px rgba(2, 8, 18, 0.6), 0 0 34px rgba(230, 207, 158, 0.6); }
-.orbFocus .orb { transform: scale(1.18); box-shadow: 0 8px 16px rgba(2, 8, 18, 0.6), 0 0 0 1.5px #e6cf9e, 0 0 30px rgba(230, 207, 158, 0.5); }
+/* Each planet an ivory relief medallion in a gold bezel, its glyph cut into it */
+.orb { position: absolute; left: -18px; top: -76px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle at 38% 30%, #fffaf0, #efe3c8 46%, #cbb78d 100%); color: #1b3352; font: 19px/1 "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6), 0 -0.5px 0 rgba(40, 30, 14, 0.25); box-shadow: inset 0 -3px 5px rgba(96, 74, 40, 0.35), inset 0 2px 2px rgba(255, 255, 255, 0.85), 0 0 0 1.5px #c9a867, 0 0 0 2.5px rgba(40, 28, 10, 0.35), 0 8px 16px rgba(2, 8, 18, 0.6); transition: transform 300ms var(--ease), box-shadow 300ms var(--ease); }
+/* The Sun is the gold star of the Star card */
+.orbSun { background: none; box-shadow: none; }
+.sunStar { position: absolute; left: -10px; top: -10px; width: 56px; height: 56px; overflow: visible; filter: drop-shadow(0 0 7px rgba(240, 204, 120, 0.75)) drop-shadow(0 4px 6px rgba(2, 8, 18, 0.5)); }
+.orbFocus .orb { transform: scale(1.18); box-shadow: inset 0 -3px 5px rgba(96, 74, 40, 0.35), inset 0 2px 2px rgba(255, 255, 255, 0.85), 0 0 0 1.5px #e6cf9e, 0 0 26px rgba(230, 207, 158, 0.55), 0 8px 16px rgba(2, 8, 18, 0.6); }
+.orbFocus .orbSun { box-shadow: none; }
 .pin { position: absolute; left: -0.5px; top: -40px; width: 1px; height: 40px; background: linear-gradient(to top, rgba(230, 207, 158, 0.75), rgba(230, 207, 158, 0)); }
-.retro { position: absolute; right: -9px; bottom: -7px; color: #e6cf9e; font: 11px/1 var(--font-mono, ui-monospace), monospace; }
-.tag { position: absolute; left: 0; top: -124px; transform: translateX(-50%); padding: 7px 13px; border-radius: 10px; background: rgba(11, 25, 42, 0.92); border: 1px solid rgba(216, 196, 156, 0.4); color: #f6eddb; font: 500 15px/1.2 var(--font-body), sans-serif; white-space: nowrap; pointer-events: none; }
+.retro { position: absolute; right: -11px; bottom: -8px; color: #e6cf9e; font: 13px/1 "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", serif; text-shadow: 0 1px 4px rgba(2, 8, 18, 0.9); }
+.tag { position: absolute; left: 0; top: -122px; transform: translateX(-50%); padding: 8px 14px 9px; border-radius: 12px; background: linear-gradient(180deg, rgba(16, 39, 58, 0.96), rgba(10, 26, 42, 0.96)); box-shadow: inset 0 1px 0 rgba(201, 215, 216, 0.1), 0 0 0 1px rgba(216, 196, 156, 0.32), 0 10px 22px rgba(2, 8, 18, 0.5); color: #f6eddb; font: 400 17px/1.2 var(--font-heading, "Cormorant Garamond"), serif; white-space: nowrap; pointer-events: none; }
 
 /* Controls: filled lapis, quiet until needed (BRAND.md secondary) */
 .controls { position: absolute; top: 18px; right: max(16px, calc(50vw - 560px)); z-index: 2; display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px; max-width: calc(100vw - 32px); cursor: auto; }
