@@ -25,7 +25,8 @@ import styles from "./scene.module.css";
 
 const SIZE = 1000;
 const C = SIZE / 2;
-const R = { sky: 330, glyphs: 349, ring: 368, cards: 468, planet: 244, chord: 190 };
+const R = { sky: 330, glyphs: 349, ring: 368, cards: 468, planet: 244, chord: 190, now: 150 };
+const ASPECT_ANGLES: [string, number][] = [["conjunction", 0], ["sextile", 60], ["square", 90], ["trine", 120], ["opposition", 180]];
 const TEXT = "︎"; // text presentation: glyphs never become emoji
 const HARMONIOUS = new Set(["trine", "sextile"]);
 const DEG = Math.PI / 180;
@@ -83,7 +84,45 @@ type Props = {
   roleNames: Partial<Record<"sun" | "moon" | "ascendant", string>>;
   /** Screen-reader summary of the scene. */
   description: string;
+  /** Another moment's planets laid over these (today's, or any day since birth): a silver inner ring. */
+  transits?: Placement[] | null;
+  transitLabels?: Record<string, string>;
 };
+
+export type Contact = { now: string; natal: string; aspect: string; orb: number };
+
+/** Where another moment's planets meet these ones: the closest aspects within a tight orb, closest first. */
+export function contactsBetween(transits: Placement[], natal: Placement[], limit = 8): Contact[] {
+  const found: Contact[] = [];
+  for (const t of transits) {
+    if (t.key === "node") continue;
+    for (const n of natal) {
+      const gap = Math.abs(((t.longitude - n.longitude + 540) % 360) - 180);
+      const separation = 180 - gap;
+      for (const [aspect, angle] of ASPECT_ANGLES) {
+        const orb = Math.abs(separation - angle);
+        if (orb <= (t.key === "moon" ? 4 : 2.5)) found.push({ now: t.key, natal: n.key, aspect, orb });
+      }
+    }
+  }
+  return found.sort((a, b) => a.orb - b.orb).slice(0, limit);
+}
+
+/** The other moment's ring and the lines from its planets to the ones they meet. */
+const NowLayer = memo(function NowLayer({ start, transits, natal, contacts }: { start: number; transits: Placement[]; natal: Record<string, number>; contacts: Contact[] }) {
+  const point = pointer(start);
+  const at = Object.fromEntries(transits.map((t) => [t.key, t.longitude]));
+  return (
+    <svg className={`${styles.plate} ${styles.threadLayer}`} viewBox={`0 0 ${SIZE} ${SIZE}`} aria-hidden>
+      <circle cx={C} cy={C} r={R.now} className={styles.nowRing} />
+      {contacts.map((c) => {
+        if (at[c.now] === undefined || natal[c.natal] === undefined) return null;
+        const p = point(at[c.now], R.now), q = point(natal[c.natal], R.chord + 40);
+        return <line key={`${c.now}-${c.natal}-${c.aspect}`} x1={f(p.x)} y1={f(p.y)} x2={f(q.x)} y2={f(q.y)} className={styles.contact} />;
+      })}
+    </svg>
+  );
+});
 
 type Focus = { kind: "sign"; index: number } | { kind: "body"; key: string } | null;
 
@@ -205,7 +244,7 @@ const Threads = memo(function Threads({ start, threads, longitudes, lightKey }: 
 });
 
 export default function SkyScene(props: Props) {
-  const { locale, bodies, ascendant, midheaven, aspects, signCards, labels, bodyInfo, aspectNames, strings, revealed, roleNames, description } = props;
+  const { locale, bodies, ascendant, midheaven, aspects, signCards, labels, bodyInfo, aspectNames, strings, revealed, roleNames, description, transits, transitLabels } = props;
   const uid = useId().replace(/:/g, "");
   const sceneRef = useRef<HTMLDivElement>(null);
   const planeRef = useRef<HTMLDivElement>(null);
@@ -235,6 +274,9 @@ export default function SkyScene(props: Props) {
   const spread = useMemo(() => spreadLongitudes(bodies.map((b) => b.longitude), 14), [bodies]);
   const byKey = new Map([...bodies, ...(ascendant ? [ascendant] : []), ...(midheaven ? [midheaven] : [])].map((p) => [p.key, p]));
   const threads = useMemo(() => aspects.filter((found) => found.aspect !== "conjunction").slice(0, 12), [aspects]);
+  const nowList = useMemo(() => (transits ?? []).filter((t) => t.key !== "node"), [transits]);
+  const nowSpread = useMemo(() => spreadLongitudes(nowList.map((t) => t.longitude), 17), [nowList]);
+  const contacts = useMemo(() => contactsBetween(nowList, [...bodies, ...(ascendant ? [ascendant] : []), ...(midheaven ? [midheaven] : [])]), [nowList, bodies, ascendant, midheaven]);
   const longitudes = useMemo(() => Object.fromEntries([...bodies, ...(ascendant ? [ascendant] : []), ...(midheaven ? [midheaven] : [])].map((p) => [p.key, p.longitude])), [bodies, ascendant, midheaven]);
 
   const lit = new Set(revealed ?? ["sun", "moon", "ascendant"]);
@@ -559,7 +601,7 @@ export default function SkyScene(props: Props) {
   return (
     <div className={styles.wrap} onKeyDown={onKey}>
       <div className={styles.scene} ref={sceneRef} data-light={lightKey ? "" : undefined} data-view={stars ? "stars" : undefined}
-        data-close={focus ? "" : undefined} data-touched={touched ? "" : undefined}>
+        data-close={focus ? "" : undefined} data-touched={touched ? "" : undefined} data-now={nowList.length ? "" : undefined}>
         <div className={styles.silk} aria-hidden><span /><span /><span /></div>
         <p className={styles.srOnly}>{description}</p>
         <div className={styles.fit}>
@@ -568,6 +610,7 @@ export default function SkyScene(props: Props) {
               <div className={styles.plane} ref={planeRef}>
                 <Plate uid={uid} start={start} bodies={bodies} spread={spread} ascendant={ascendant} midheaven={midheaven} />
                 <Threads start={start} threads={threads} longitudes={longitudes} lightKey={lightKey} />
+                {nowList.length > 0 && <NowLayer start={start} transits={nowList} natal={longitudes} contacts={contacts} />}
 
                 {/* Invisible, unanimated stand-ins for the cards, lying and standing at every place (the sky
                     turns, and any card may stand at the front): what the scene measures to fit itself */}
@@ -639,6 +682,23 @@ export default function SkyScene(props: Props) {
                               {body.retrograde && <span className={styles.retro}>℞</span>}
                             </span>
                             <span className={styles.pin} />
+                          </span>
+                        </span>
+                      </span>
+                    );
+                  })}
+
+                  {/* The other moment's planets: small silver medallions on the inner ring */}
+                  {nowList.map((body, i) => {
+                    const at = point(nowSpread[i], R.now);
+                    return (
+                      <span key={`now-${body.key}`} className={styles.slot} style={place(at)}>
+                        <span className={styles.stand}>
+                          <span className={`${styles.orbWrap} ${styles.nowWrap}`} aria-hidden
+                            onPointerEnter={() => setHover(`now-${body.key}`)} onPointerLeave={() => setHover(null)}>
+                            {hover === `now-${body.key}` && transitLabels?.[body.key] && <span className={styles.tag}>{transitLabels[body.key]}</span>}
+                            <span className={`${styles.orb} ${styles.orbNow}`}>{glyph(body.key)}</span>
+                            <span className={`${styles.pin} ${styles.pinNow}`} />
                           </span>
                         </span>
                       </span>

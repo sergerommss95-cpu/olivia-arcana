@@ -39,6 +39,7 @@
 
 /* Actions (BRAND.md: ivory primary, 14 px radius, at least 44 px tall) */
 .primary { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 1.5rem; border: 0; border-radius: 14px; background: linear-gradient(180deg, #f2e5c8, #dccaab); color: #183043; font: 500 0.95rem/1 var(--font-body), sans-serif; text-decoration: none; cursor: pointer; transition: transform 200ms var(--ease), box-shadow 200ms var(--ease); box-shadow: 0 10px 26px rgba(2, 8, 18, 0.32); }
+.page .primary { color: #183043; } /* over the page's inherited link colour */
 .primary:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(2, 8, 18, 0.4); }
 .primary:active { transform: translateY(0); }
 .textButton { margin: 0.9rem 0 0; padding: 0.4rem 0; border: 0; background: none; color: var(--soft); font: inherit; font-size: 0.88rem; text-decoration: underline; text-decoration-color: var(--hairline); text-underline-offset: 0.3em; cursor: pointer; }
@@ -119,6 +120,9 @@ button.flipInner:hover, button.flipInner:focus-visible { transform: translateY(-
 .cardName a:hover { color: var(--gold-bright); text-decoration: underline; }
 
 .figure { margin: clamp(3rem, 7vw, 4.4rem) 0 0; }
+.skyNudge { margin: 1rem 0 0; text-align: center; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-style: italic; font-size: clamp(1.2rem, 2.2vw, 1.45rem); }
+.skyNudge a { color: var(--gold-bright); text-decoration: none; border-bottom: 1px solid var(--hairline); padding-bottom: 2px; }
+.skyNudge a:hover { border-color: var(--gold-bright); }
 .caption { max-width: 40rem; margin: 1.2rem auto 0; color: var(--faint); font-size: 0.84rem; line-height: 1.65; text-align: center; }
 
 /* Ledger rows (BRAND.md disclosure: filled row with a +/− chip) */
@@ -208,7 +212,68 @@ button.flipInner:hover, button.flipInner:focus-visible { transform: translateY(-
 .signCard { color: var(--gold); font-size: 0.84rem; }
 .signEssence { margin-top: 0.4rem; color: var(--soft); font-size: 0.84rem; line-height: 1.55; }
 
+/* Carry the chart into a reading: one row per turned card, then sharing */
+.secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 1.4rem; border: 0; border-radius: 14px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim), 0 0 0 1px rgba(216, 196, 156, 0.22); color: var(--ink); font: 500 0.95rem/1 var(--font-body), sans-serif; text-decoration: none; cursor: pointer; transition: background-color var(--dur-control, 220ms) var(--ease-control); }
+.secondary:hover:not(:disabled) { background: #163450; }
+.secondary:disabled { opacity: 0.5; cursor: default; }
+.carryList { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
+.carryRow { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 1.2rem; align-items: start; padding: 1.1rem 1.2rem; border-radius: 18px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim); }
+.carryRow img { width: 64px; height: auto; border-radius: 6px; box-shadow: 0 10px 22px rgba(2, 8, 14, 0.45), 0 0 0 1px rgba(216, 196, 156, 0.22); }
+.carryLocked { opacity: 0.72; }
+.carryText { display: grid; gap: 0.35rem; min-width: 0; }
+.carryRole { margin: 0; color: var(--gold); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.carryQuestion { margin: 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-style: italic; font-size: clamp(1.2rem, 2vw, 1.4rem); line-height: 1.4; color: var(--ink); }
+.carryActions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.3rem; margin-top: 0.6rem; }
+.carrySpread { color: var(--soft); font-size: 0.9rem; text-decoration: underline; text-decoration-color: var(--hairline); text-underline-offset: 0.3em; }
+.carrySpread:hover { color: var(--gold-bright); }
+.shareBar { display: grid; justify-items: start; gap: 0.2rem; margin-top: 1.4rem; }
+
+/* Today over your chart: the switch and the dial under the scene, then the day's reading */
+.nowBar { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.8rem 1.4rem; margin: 0.6rem auto 0; max-width: 46rem; }
+.walk { display: grid; grid-template-columns: auto minmax(10rem, 1fr) auto; align-items: center; gap: 0.4rem 0.9rem; flex: 1 1 22rem; }
+.walk .kicker { margin: 0; }
+.walk input[type="range"] { width: 100%; accent-color: #c9d6e8; }
+.walkDate { color: var(--ink); font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.15rem; white-space: nowrap; }
+.walk .textButton { grid-column: 1 / -1; justify-self: center; margin: 0; }
+.todayList, .meetList { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.todayRow, .meetList li { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: 1rem; align-items: start; padding: 1.1rem 1.2rem; border-radius: 16px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim); }
+.todayGlyph, .meetGlyphs { color: #c9d6e8; font: 1.5rem/1.2 "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; text-align: center; }
+.meetList li { grid-template-columns: 3.4rem minmax(0, 1fr); }
+.meetGlyphs { font-size: 1.2rem; white-space: nowrap; }
+.todayKicker { margin: 0 0 0.3rem; color: var(--gold); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.todayTitle { margin: 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.3rem; line-height: 1.25; color: var(--ink); }
+.todayText { margin: 0.4rem 0 0; color: var(--body); font-size: 0.95rem; line-height: 1.65; }
+.todayRow .question { margin-top: 0.5rem; }
+
+/* The sky you were born under: a star map held overhead, beside the Moon of that night */
+.birthSky { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(1.6rem, 4vw, 3.4rem); align-items: center; }
+.birthMap { display: block; width: 100%; height: auto; filter: drop-shadow(0 30px 60px rgba(2, 8, 18, 0.5)); }
+.mapTick { stroke: rgba(70, 56, 34, 0.55); stroke-width: 1.2; }
+.mapDirection { fill: #3d2f1a; font: 600 17px/1 var(--font-mono, ui-monospace), monospace; letter-spacing: 0.08em; }
+.mapMilky { fill: #cbd8ee; opacity: 0.1; }
+.mapMilkyGrain { fill: #e9eef8; opacity: 0.16; }
+.mapField { fill: rgba(226, 234, 246, 0.7); }
+.mapAltitude { fill: none; stroke: rgba(190, 206, 228, 0.14); stroke-width: 1; stroke-dasharray: 2 6; }
+.mapEcliptic { fill: none; stroke: rgba(217, 181, 108, 0.5); stroke-width: 1.2; stroke-dasharray: 6 6; }
+.mapLine { fill: none; stroke: rgba(205, 218, 236, 0.42); stroke-width: 1.1; stroke-linejoin: round; }
+.mapStar { fill: #f3f6fb; }
+.mapBright { fill: #e4ebf5; stroke: rgba(2, 8, 18, 0.5); stroke-width: 0.8; }
+.mapName { fill: rgba(238, 230, 212, 0.8); font: italic 400 22px/1 var(--font-heading, "Cormorant Garamond"), serif; }
+.mapZenith { stroke: rgba(238, 230, 212, 0.35); stroke-width: 1; }
+.mapSun { stroke: rgba(92, 62, 24, 0.5); stroke-width: 0.8; }
+.mapPlanet circle { fill: #f3ead6; stroke: #c9a867; stroke-width: 1.6; }
+.mapPlanet text { fill: #1b3352; font: 18px/1 "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", serif; }
+.mapHorizon { fill: none; stroke: rgba(60, 44, 22, 0.5); stroke-width: 2; }
+.birthSkyNotes { display: grid; justify-items: start; gap: 0.2rem; }
+.birthMoon { width: 11rem; margin: -1.6rem 0 -1rem -1.6rem; }
+.birthMoonLine { margin: 0.4rem 0 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: clamp(1.25rem, 2vw, 1.45rem); line-height: 1.3; }
+.horizonList { margin: 1.2rem 0 0; display: grid; gap: 0.8rem; }
+.horizonList div { display: grid; gap: 0.2rem; }
+.horizonList dt { color: var(--faint); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.horizonList dd { margin: 0; color: var(--body); font-size: 0.95rem; line-height: 1.55; }
+
 @media (max-width: 760px) {
+  .birthSky { grid-template-columns: 1fr; }
   .three { grid-template-columns: 1fr; }
   .threeItem { display: grid; grid-template-columns: 7.2rem minmax(0, 1fr); column-gap: 1.1rem; }
   .threeItem > * { grid-column: 2; }

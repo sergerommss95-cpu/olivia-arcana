@@ -3,7 +3,7 @@
 import { SIGN_CARDS, SIGNS } from "@/lib/astrology/chart.js";
 import { formatDegree, type Placement } from "@/lib/astrology/types";
 import { placedIn } from "@/lib/astrology/grammar";
-import type { AstroCopy } from "@/lib/astrology/copy";
+import { specificReading, splitQuestion, type AstroCopy } from "@/lib/astrology/copy";
 import type { MajorCard } from "@/lib/astrology/deck";
 import type { SceneBody, SceneCard, SceneStrings } from "./SkyScene";
 
@@ -48,8 +48,13 @@ export function sceneBodies(
       name,
       title: placedIn(locale, name, p.sign, copy.signs[p.sign].name),
       meta: [formatDegree(p.degree), house, p.retrograde ? options.retrograde : undefined].filter(Boolean).join(" · "),
-      essence: copy.bodies[p.key].essence,
-      question: options.questions ? copy.bodies[p.key].question : undefined,
+      // In a chart, the reading written for this placement; for the sky of the moment, what the planet describes
+      ...(() => {
+        const specific = options.questions ? specificReading(copy, p.key, p.sign) : undefined;
+        if (!specific) return { essence: copy.bodies[p.key].essence, question: options.questions ? copy.bodies[p.key].question : undefined };
+        const [essence, question] = splitQuestion(specific);
+        return { essence, question };
+      })(),
     }];
   }));
 }

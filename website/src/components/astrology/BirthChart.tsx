@@ -8,13 +8,16 @@
  */
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { birthChart, zoneOffsetMinutes, SIGN_CARDS, BODY_GLYPHS } from "@/lib/astrology/chart.js";
+import { birthChart, skyAt, zoneOffsetMinutes, SIGN_CARDS, BODY_GLYPHS } from "@/lib/astrology/chart.js";
 import { customPlace, fixedOffsetZone, loadPlaces, searchPlaces, type Place } from "@/lib/astrology/places";
 import { forgetProfile, legacyBirth, loadProfile, saveProfile } from "@/lib/astrology/profile";
 import { formatDegree, type Chart, type Placement } from "@/lib/astrology/types";
 import { placedIn } from "@/lib/astrology/grammar";
-import type { AstroCopy } from "@/lib/astrology/copy";
+import { specificReading, splitQuestion, type AstroCopy } from "@/lib/astrology/copy";
 import type { MajorCard } from "@/lib/astrology/deck";
+import BirthSky from "./BirthSky";
+import CarryIntoReading from "./CarryIntoReading";
+import SkyToday from "./SkyToday";
 import SkyScene from "./SkyScene";
 import { SCENE_STRINGS, aspectNames, sceneBodies, sceneSigns } from "./scene-data";
 import ThreeCards, { type Dealt } from "./ThreeCards";
@@ -44,6 +47,7 @@ const UI = {
     wheelCaptionNoTime: "Twelve Major Arcana cards are laid round the sky, one for each sign, from 0° Aries on the left; your Sun and Moon cards stand up from the spread in gold. At the centre lie the real stars of the zodiac, with the planets over their degrees. The Rising sign needs a birth time.",
     wheelLabel: "Birth chart wheel", ledgerTitle: "Where everything stood", ledgerLead: "Open a line to read what it describes and a question to take with you.",
     house: "house", retrograde: "retrograde", aspectsTitle: "Conversations in the chart",
+    overlay: "Lay today’s sky over yours", overlayOff: "Hide the other sky", walk: "Walk the years", today: "Today", backToday: "Back to today", dates: "en-GB",
     aspectsLead: "The closest angles between planets. Each is a pairing to notice, not a verdict.", orb: "orb", method: "How this chart is made",
   },
   uk: {
@@ -67,6 +71,7 @@ const UI = {
     wheelCaptionNoTime: "Навколо неба розкладено дванадцять карт Старших Арканів, по одній на кожен знак, від 0° Овна ліворуч; карти вашого Сонця й Місяця встають над розкладом у золоті. У центрі — справжні зорі зодіаку й планети над своїми градусами. Для Асцендента потрібен час народження.",
     wheelLabel: "Коло натальної карти", ledgerTitle: "Де все стояло", ledgerLead: "Відкрийте рядок, щоб прочитати, що він описує, і запитання, яке варто взяти з собою.",
     house: "будинок", retrograde: "ретроградний", aspectsTitle: "Розмови в карті",
+    overlay: "Накласти сьогоднішнє небо на ваше", overlayOff: "Сховати інше небо", walk: "Пройдіть роками", today: "Сьогодні", backToday: "Повернутися до сьогодні", dates: "uk-UA",
     aspectsLead: "Найточніші кути між планетами. Кожен — пара, яку варто помітити, а не вирок.", orb: "орбіс", method: "Як побудована ця карта",
   },
 };
@@ -110,6 +115,9 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
   const [result, setResult] = useState<{ chart: Chart; place: Place; date: string; time: string | null; id: number } | null>(null);
   const [revealed, setRevealed] = useState<string[]>([]);
   const [editing, setEditing] = useState(false);
+  const [overlay, setOverlay] = useState(false);
+  const [today] = useState(() => Date.now());
+  const [when, setWhen] = useState<number | null>(null); // null: today
   const resultsRef = useRef<HTMLHeadingElement>(null);
   const dateRef = useRef<HTMLInputElement>(null);
   const changeRef = useRef<HTMLButtonElement>(null);
@@ -207,6 +215,9 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
   const body = (key: string) => result?.chart.bodies.find((b) => b.key === key) as Placement;
   const signName = (sign: string) => copy.signs[sign].name;
   const listId = `${id}-places`;
+  const whenMs = when ?? today;
+  const transits = useMemo(() => (result ? (skyAt(new Date(whenMs)) as Placement[]) : []), [result, whenMs]);
+  const dayLabel = (ms: number) => new Intl.DateTimeFormat(t.dates, { day: "numeric", month: "long", year: "numeric" }).format(new Date(ms));
   const longDate = (iso: string) => new Intl.DateTimeFormat(locale === "uk" ? "uk-UA" : "en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(`${iso}T00:00:00Z`));
   const resolved = (chart: Chart, birth: { place: Place; time: string | null }) => {
     const local = birth.time ?? "12:00", offset = chart.moment.offsetMinutes;
@@ -355,15 +366,38 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
                 missing={chart.ascendant ? undefined : { label: t.rising, text: copy.ui.timeUnknownRising }} />
             </section>
 
+            <CarryIntoReading locale={locale} revealed={revealed}
+              items={three.map((item) => ({ key: item.key, role: item.label, sign: signName(item.placement.sign), card: card(SIGN_CARDS[item.placement.index]), text: item.note }))} />
+
             <figure className={styles.figure}>
               <h2 className={styles.h2}>{t.wheelTitle}</h2>
               <SkyScene locale={locale} revealed={revealed} roleNames={{ sun: t.sun, moon: t.moon, ascendant: t.rising }} bodies={chart.bodies} ascendant={chart.ascendant} midheaven={chart.midheaven} aspects={chart.aspects}
                 signCards={sceneSigns(copy, cards, chart.ascendant?.index)} strings={SCENE_STRINGS[locale]} aspectNames={aspectNames(copy)}
                 bodyInfo={sceneBodies(locale, copy, ledger, { retrograde: t.retrograde, rising: t.rising, houses: true, questions: true })}
                 labels={Object.fromEntries(chart.bodies.map((p) => [p.key, `${placedIn(locale, copy.bodies[p.key].name, p.sign, signName(p.sign))} · ${formatDegree(p.degree)}`]))}
-                description={`${placedIn(locale, copy.bodies.sun.name, sun.sign, signName(sun.sign))}; ${placedIn(locale, copy.bodies.moon.name, moon.sign, signName(moon.sign))}${chart.ascendant ? `; ${placedIn(locale, t.rising, chart.ascendant.sign, signName(chart.ascendant.sign))}` : ""}.`} />
+                description={`${placedIn(locale, copy.bodies.sun.name, sun.sign, signName(sun.sign))}; ${placedIn(locale, copy.bodies.moon.name, moon.sign, signName(moon.sign))}${chart.ascendant ? `; ${placedIn(locale, t.rising, chart.ascendant.sign, signName(chart.ascendant.sign))}` : ""}.`}
+                transits={overlay ? transits : null}
+                transitLabels={Object.fromEntries(transits.map((p) => [p.key, `${placedIn(locale, copy.bodies[p.key].name, p.sign, signName(p.sign))} · ${formatDegree(p.degree)}`]))} />
+              <div className={styles.nowBar}>
+                <button type="button" className={styles.secondary} aria-pressed={overlay} onClick={() => setOverlay((on) => !on)}>{overlay ? t.overlayOff : t.overlay}</button>
+                {overlay && (
+                  <label className={styles.walk}>
+                    <span className={styles.kicker}>{t.walk}</span>
+                    <input type="range" min={Math.floor(chart.moment.utc.getTime() / 86_400_000) * 86_400_000} max={today} step={86_400_000} value={whenMs}
+                      onChange={(e) => { const v = Number(e.target.value); setWhen(today - v < 86_400_000 ? null : v); }} aria-valuetext={when === null ? t.today : dayLabel(whenMs)} />
+                    <span className={styles.walkDate}>{when === null ? t.today : dayLabel(whenMs)}</span>
+                    {when !== null && <button type="button" className={styles.textButton} onClick={() => setWhen(null)}>{t.backToday}</button>}
+                  </label>
+                )}
+              </div>
               <figcaption className={styles.caption}>{chart.ascendant ? t.wheelCaption : t.wheelCaptionNoTime}</figcaption>
             </figure>
+
+            <SkyToday locale={locale} copy={copy} natal={chart.bodies} ascendant={chart.ascendant} transits={transits}
+              dateLabel={when === null ? null : dayLabel(whenMs)} prompts={copy.today} />
+
+            <BirthSky locale={locale} moment={chart.moment.utc} latitude={result.place.lat} longitude={result.place.lon} timeKnown={chart.moment.timeKnown}
+              bodies={chart.bodies} bodyNames={Object.fromEntries(chart.bodies.map((b) => [b.key, copy.bodies[b.key].name]))} place={placeName(result.place)} />
 
             <section className={styles.block} aria-labelledby={`${id}-ledger`}>
               <h2 id={`${id}-ledger`} className={styles.h2}>{t.ledgerTitle}</h2>
@@ -384,10 +418,17 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
                           </span>
                         </summary>
                         <div className={styles.rowBody}>
-                          <p>{text.essence}</p>
-                          <p>{copy.signs[p.sign].essence}</p>
-                          {house && <p><strong>{house.area}.</strong> {house.essence}</p>}
-                          <p className={styles.question}>{text.question}</p>
+                          {(() => {
+                            const specific = specificReading(copy, p.key, p.sign);
+                            const [reading, question] = specific ? splitQuestion(specific) : [copy.signs[p.sign].essence, text.question];
+                            return (
+                              <>
+                                <p>{reading}</p>
+                                {house && <p><strong>{house.area}.</strong> {house.essence}</p>}
+                                <p className={styles.question}>{question}</p>
+                              </>
+                            );
+                          })()}
                           <a href={major.href} className={styles.rowCard}>
                             {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized thumbnail */}
                             <img src={major.thumb} alt="" width={120} height={206} loading="lazy" />

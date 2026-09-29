@@ -18,14 +18,14 @@ const UI = {
     kicker: "Tonight", title: "The sky right now", computed: "Worked out for this moment on your device.",
     nextNew: "Next new Moon", nextFull: "Next full Moon", retrograde: "retrograde", lit: (p: number) => `${p}% lit`,
     phases: { new: "New Moon", "waxing-crescent": "Waxing crescent", "first-quarter": "First quarter", "waxing-gibbous": "Waxing gibbous", full: "Full Moon", "waning-gibbous": "Waning gibbous", "last-quarter": "Last quarter", "waning-crescent": "Waning crescent" } as Record<string, string>,
-    moonIn: "The Moon is", dates: "en-GB", wheel: "The sky right now, dealt in cards", sun: "Sun", moon: "Moon", tonight: "The Moon tonight",
+    moonIn: "The Moon is", dates: "en-GB", yours: "This is the sky now. See the sky you were born under",  wheel: "The sky right now, dealt in cards", sun: "Sun", moon: "Moon", tonight: "The Moon tonight",
     caption: "Twelve Major Arcana cards are laid round the sky, one for each sign; the Sun’s and the Moon’s stand up in gold. At the centre lie the real stars of the zodiac and every planet where it stands at this moment, from 0° Aries on the left.",
   },
   uk: {
     kicker: "Сьогодні", title: "Небо просто зараз", computed: "Розраховано для цієї миті на вашому пристрої.",
     nextNew: "Наступний молодик", nextFull: "Наступна повня", retrograde: "ретроградний", lit: (p: number) => `освітлено ${p}%`,
     phases: { new: "Молодик", "waxing-crescent": "Молодий серп", "first-quarter": "Перша чверть", "waxing-gibbous": "Місяць, що росте", full: "Повня", "waning-gibbous": "Місяць, що спадає", "last-quarter": "Остання чверть", "waning-crescent": "Старий серп" } as Record<string, string>,
-    moonIn: "Місяць зараз", dates: "uk-UA", wheel: "Небо просто зараз, розкладене картами", sun: "Сонце", moon: "Місяць", tonight: "Місяць сьогодні",
+    moonIn: "Місяць зараз", dates: "uk-UA", yours: "Це небо зараз. Подивіться на небо, під яким ви народилися",  wheel: "Небо просто зараз, розкладене картами", sun: "Сонце", moon: "Місяць", tonight: "Місяць сьогодні",
     caption: "Навколо неба розкладено дванадцять карт Старших Арканів, по одній на кожен знак; карти Сонця й Місяця встають у золоті. У центрі — справжні зорі зодіаку й кожна планета там, де вона стоїть цієї миті, від 0° Овна ліворуч.",
   },
 };
@@ -89,6 +89,7 @@ export default function TonightSky({ locale, copy, cards }: { locale: "en" | "uk
             labels={Object.fromEntries(all.map((body) => [body.key, `${placedIn(locale, copy.bodies[body.key].name, body.sign, signName(body.sign))} · ${formatDegree(body.degree)}`]))} />
         ) : <div className={styles.scenePlaceholder} />}
         <figcaption className={styles.caption}>{t.caption}</figcaption>
+        <p className={styles.skyNudge}><a href={`${locale === "uk" ? "/uk" : ""}/astrology/birth-chart/`}>{t.yours}<span aria-hidden> →</span></a></p>
       </figure>
       <ul className={styles.skyList} aria-busy={!now}>
         {sky.map((body) => {
