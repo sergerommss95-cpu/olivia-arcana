@@ -19,9 +19,7 @@ test('start parameters open the matching screen; anything else opens Today', () 
   assert.equal(route('spreads'), 'spreads');
   assert.equal(route('journal'), 'journal');
   assert.equal(route('card_17'), 'spreads/card-17');
-  assert.equal(route('card_78'), 'today');
-  assert.equal(route('card_1x'), 'today');
-  assert.equal(route('%3Cscript%3E'), 'today');
+  for (const other of ['card_78', 'card_1x', '%3Cscript%3E', 'constructor', '__proto__', 'toString', 'hasOwnProperty']) assert.equal(route(other), 'today', other);
 });
 
 test('links: Mini App routes stay inside, the rest of the site opens in the browser', () => {
@@ -34,5 +32,18 @@ test('links: Mini App routes stay inside, the rest of the site opens in the brow
   assert.deepEqual(oliviaTelegramLink('https://oliviaarcana.com/learn/', origin, 'en'), { type: 'external', url: 'https://oliviaarcana.com/learn/' });
   assert.deepEqual(oliviaTelegramLink('https://t.me/OliviaArcanaBot', origin, 'en'), { type: 'telegram', url: 'https://t.me/OliviaArcanaBot' });
   assert.deepEqual(oliviaTelegramLink('tel:7333', origin, 'uk'), { type: 'ignore' });
-  assert.deepEqual(oliviaTelegramLink('javascript:alert(1)', origin, 'en'), { type: 'ignore' });
+});
+
+test('Ukrainian users reach the Ukrainian library; the deck page language link switches pages', () => {
+  const origin = 'https://oliviaarcana.com';
+  assert.deepEqual(oliviaTelegramLink('https://oliviaarcana.com/cards/the-star/', origin, 'uk'), { type: 'external', url: 'https://oliviaarcana.com/uk/cards/the-star/' });
+  assert.deepEqual(oliviaTelegramLink('https://oliviaarcana.com/uk/learn/', origin, 'uk'), { type: 'external', url: 'https://oliviaarcana.com/uk/learn/' });
+  assert.deepEqual(oliviaTelegramLink('https://oliviaarcana.com/cards/the-star/', origin, 'en'), { type: 'external', url: 'https://oliviaarcana.com/cards/the-star/' });
+  assert.deepEqual(oliviaTelegramLink('/tg/en/?r=today&lang=uk#decks', origin, 'en'), { type: 'language', language: 'uk', route: 'decks' });
+  assert.deepEqual(oliviaTelegramLink('/tg/uk/?lang=uk#decks', origin, 'uk'), { type: 'ignore' });
+});
+
+test('script-like and data links are blocked, not passed through', () => {
+  const origin = 'https://oliviaarcana.com';
+  for (const href of ['javascript:alert(1)', 'data:text/html,<b>x</b>', 'vbscript:msgbox(1)']) assert.deepEqual(oliviaTelegramLink(href, origin, 'en'), { type: 'block' }, href);
 });

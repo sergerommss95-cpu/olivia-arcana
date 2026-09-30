@@ -21,7 +21,7 @@ function oliviaLaunchTarget(search, hash, storedLanguage) {
   }
   var start = (query.get('tgWebAppStartParam') || query.get('startapp') || '').slice(0, 64);
   var screens = { today: 'today', question: 'question', spreads: 'spreads', journal: 'journal', sample: 'sample', symbols: 'symbols' };
-  var route = screens[start] || 'today';
+  var route = Object.prototype.hasOwnProperty.call(screens, start) ? screens[start] : 'today';
   var card = /^card_(\d{1,2})$/.exec(start);
   if (card && Number(card[1]) < 78) route = 'spreads/card-' + Number(card[1]);
   return '/tg/' + language + '/?r=' + encodeURIComponent(route) + (hash || '');

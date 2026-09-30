@@ -7,6 +7,7 @@ WebGPU backdrop: in Telegram the app opens on Today."""
 from pathlib import Path
 import json
 import re
+import shutil
 
 here = Path(__file__).resolve().parent
 public = here.parent.parent / 'website/public'
@@ -33,6 +34,7 @@ def telegram_page(html, label):
     if swapped != 1:
         raise ValueError(f'{label}: expected one asset map script, found {swapped}')
     html = re.sub(r'(\s(?:src|href|srcset)=")assets/', r'\1/experience/assets/', html)
+    html = re.sub(r'(,\s*)assets/', r'\1/experience/assets/', html)
     head = ('<meta name="theme-color" content="#0b192a">\n  <meta name="robots" content="noindex">\n  '
             + SDK + '\n  <script>' + inline('adapter.js') + '</script>')
     html, count = re.subn(r'<meta name="theme-color" content="#0b192a">', lambda m: head, html, count=1)
@@ -41,7 +43,8 @@ def telegram_page(html, label):
     for reference in re.findall(r'(?:src|href|srcset)="(/experience/assets/[^"\s]+)', html):
         if not (public / reference.lstrip('/')).is_file():
             raise ValueError(f'{label}: missing asset {reference}')
-    if re.search(r'(?:src|href|srcset)="assets/', html):
+    markup = re.sub(r'<script>[\s\S]*?</script>', '', html)
+    if re.search(r'(?<![/\w.-])assets/', markup):
         raise ValueError(f'{label}: relative asset reference left behind')
     return html
 
@@ -67,10 +70,18 @@ BOOTSTRAP = '''<!doctype html>
 </html>
 '''
 
+# launch.js and adapter.js know exactly these two languages.
+if set(manifest['locales']) != {'en', 'uk'}:
+    raise ValueError(f"The Telegram pages support en and uk; the manifest lists {sorted(manifest['locales'])}")
+# Build and validate every page before writing any, so a failure never leaves a mixed set.
+pages = {f'{language}/index.html': telegram_page((experience / source).read_text(), f'/tg/{language}/')
+         for language, source in manifest['locales'].items()}
+pages['index.html'] = BOOTSTRAP.replace('__LAUNCH__', inline('launch.js'))
 out.mkdir(exist_ok=True)
-for language, source in manifest['locales'].items():
-    page = telegram_page((experience / source).read_text(), f'/tg/{language}/')
-    (out / language).mkdir(exist_ok=True)
-    (out / language / 'index.html').write_text(page)
-(out / 'index.html').write_text(BOOTSTRAP.replace('__LAUNCH__', inline('launch.js')))
+for stale in out.iterdir():
+    if stale.is_dir() and stale.name not in manifest['locales']:
+        shutil.rmtree(stale)
+for name, page in pages.items():
+    (out / name).parent.mkdir(parents=True, exist_ok=True)
+    (out / name).write_text(page)
 print(f"Wrote the Telegram Mini App pages into website/public/tg ({', '.join(manifest['locales'])}).")
