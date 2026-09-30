@@ -71,13 +71,13 @@ export default function Surface({
   let look: React.CSSProperties = {};
   if (variant === "solid") {
     look = {
-      background: raised ? "rgba(21, 18, 48, 0.95)" : "rgba(14, 11, 36, 0.98)",
+      background: raised ? "rgba(11, 25, 42, 0.95)" : "rgba(7, 21, 34, 0.98)",
       border: "1px solid rgba(255, 255, 255, 0.12)",
       boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
     };
   } else if (variant === "veil") {
     look = {
-      background: "rgba(13, 16, 77, 0.65)",
+      background: "rgba(11, 25, 42, 0.65)",
       border: "1px solid rgba(255, 255, 255, 0.15)",
       backdropFilter: "blur(8px) ",
       WebkitBackdropFilter: "blur(8px) ",

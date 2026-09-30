@@ -307,7 +307,7 @@ export default function ProfilePage() {
         }
 
         .user-card {
-          background: #0f1240;
+          background: #091725;
           margin-bottom: 1.5rem;
         }
 

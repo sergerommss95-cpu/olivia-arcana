@@ -154,7 +154,7 @@ export default function CosmicProfile({ profile }: Props) {
   }, [profile.name, energy]);
 
   const glass: React.CSSProperties = {
-    background: "rgba(14, 17, 70, 0.95)",
+    background: "rgba(9, 23, 37, 0.95)",
     border: "1px solid rgba(255, 255, 255, 0.12)",
     borderRadius: "1rem",
     backdropFilter: "blur(8px)",

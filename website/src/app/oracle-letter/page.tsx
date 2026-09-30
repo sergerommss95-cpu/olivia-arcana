@@ -213,9 +213,9 @@ export default function OracleLetterRoute() {
           margin: 1.6rem auto 0;
           max-width: 40rem;
           padding: clamp(2rem, 5vw, 3.2rem) clamp(1.4rem, 4vw, 2.6rem) clamp(1.8rem, 4vw, 2.6rem);
-          background: #0f1240;
+          background: #091725;
           border: 1px solid var(--hairline);
-          box-shadow: 0 1.4rem 2.8rem rgba(4, 6, 32, 0.12);
+          box-shadow: 0 1.4rem 2.8rem rgba(4, 9, 16, 0.12);
           text-align: center;
         }
 

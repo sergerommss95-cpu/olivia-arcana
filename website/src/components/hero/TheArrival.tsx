@@ -777,8 +777,8 @@ export default function TheArrival(p: Props) {
       </section>
 
       <style jsx>{`
-        .tide-seq { position: relative; background: var(--lg-night, #10134d); }
-        .tide-stage { position: relative; height: 100svh; min-height: 700px; overflow: hidden; isolation: isolate; background: #131b76; }
+        .tide-seq { position: relative; background: var(--lg-night, #0b192a); }
+        .tide-stage { position: relative; height: 100svh; min-height: 700px; overflow: hidden; isolation: isolate; background: #132a46; }
         :global(.tide-seq.enhanced) .tide-stage { position: sticky; top: 0; }
         .tide-world, .tide-shade { position: absolute; inset: 0; }
         .tide-poster, .tide-canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
@@ -786,11 +786,11 @@ export default function TheArrival(p: Props) {
         :global(.tide-canvas.ready) { opacity: 1; }
         .tide-src { display: none; }
         .tide-seam { position: absolute; left: 0; right: 0; bottom: 0; height: 30%; pointer-events: none;
-          background: linear-gradient(0deg, #10134d 0%, rgba(16, 19, 77, 0.82) 34%, rgba(16, 19, 77, 0.3) 68%, transparent 100%);
+          background: linear-gradient(0deg, #0b192a 0%, rgba(11, 25, 42, 0.82) 34%, rgba(11, 25, 42, 0.3) 68%, transparent 100%);
           opacity: calc(var(--progress, 0)); }
         .tide-shade { pointer-events: none; opacity: var(--shade, 1); background:
-          linear-gradient(90deg, rgba(8, 15, 71, 0.55), rgba(12, 20, 82, 0.30) 30%, rgba(14, 24, 90, 0.10) 45%, transparent 55%),
-          linear-gradient(180deg, rgba(6, 12, 58, 0.45), transparent 22%); }
+          linear-gradient(90deg, rgba(10, 24, 39, 0.55), rgba(13, 30, 48, 0.30) 30%, rgba(15, 34, 55, 0.10) 45%, transparent 55%),
+          linear-gradient(180deg, rgba(8, 18, 30, 0.45), transparent 22%); }
         /* ── THE PLATE FRAME — double hairline, engraved furniture ── */
         .tide-plate-frame { position: absolute; inset: 0; z-index: 2; pointer-events: none;
           --pfi: clamp(14px, 1.8vw, 26px); }
@@ -814,28 +814,28 @@ export default function TheArrival(p: Props) {
         /* The top captions belong to the plate, not the masthead: they
            surface only as the masthead yields to the tide. */
         .pf-title { top: calc(var(--pfi) - 4px); left: calc(var(--pfi) + 18px); transform: translateY(-50%);
-          padding: 0 10px; background: rgba(7, 10, 46, 0.85);
+          padding: 0 10px; background: rgba(7, 15, 25, 0.85);
           opacity: clamp(0, (var(--tide-progress, 0) - 0.32) * 4, 1) !important; }
         .pf-ed { top: calc(var(--pfi) - 4px); right: calc(var(--pfi) + 18px); transform: translateY(-50%);
-          padding: 0 10px; background: rgba(7, 10, 46, 0.85);
+          padding: 0 10px; background: rgba(7, 15, 25, 0.85);
           opacity: clamp(0, (var(--tide-progress, 0) - 0.32) * 4, 1) !important; }
         /* The reveal's self-caption — gilt letterpress with its own pool of
            night behind it, so the painting can never strike the claim. */
         .pf-sky { position: absolute; left: 30.5%; top: 21.5%; padding: 8px 2px;
           font-size: 9.5px; letter-spacing: 0.2em; line-height: 2.1; text-align: left;
           color: rgba(228, 195, 128, 0.98);
-          text-shadow: 0 1px 3px rgba(7, 10, 46, 0.95), 0 0 14px rgba(7, 10, 46, 0.9), 0 0 30px rgba(7, 10, 46, 0.7);
+          text-shadow: 0 1px 3px rgba(7, 15, 25, 0.95), 0 0 14px rgba(7, 15, 25, 0.9), 0 0 30px rgba(7, 15, 25, 0.7);
           border-top: 1px solid rgba(214, 178, 118, 0.5);
           border-bottom: 1px solid rgba(214, 178, 118, 0.5);
           opacity: var(--skycap, 0) !important; transition: none;
           transform: translateY(calc((1 - var(--skycap, 0)) * 8px)); }
         .pf-sky::before { content: ""; position: absolute; inset: -34% -18%; z-index: -1;
-          background: radial-gradient(70% 80% at 50% 50%, rgba(7, 10, 46, 0.78), rgba(7, 10, 46, 0.35) 62%, transparent 82%); }
+          background: radial-gradient(70% 80% at 50% 50%, rgba(7, 15, 25, 0.78), rgba(7, 15, 25, 0.35) 62%, transparent 82%); }
         /* The margin inscription runs vertically along the left rule,
            the way engraved plates sign their method. */
         .pf-note { left: calc(var(--pfi) - 4px); top: 50%;
           transform: translate(-50%, -50%) rotate(180deg); writing-mode: vertical-rl;
-          padding: 12px 0; background: rgba(7, 10, 46, 0.85); font-size: 8px; letter-spacing: 0.26em; }
+          padding: 12px 0; background: rgba(7, 15, 25, 0.85); font-size: 8px; letter-spacing: 0.26em; }
         @media (max-width: 900px) {
           .pf-note { display: none; } .pf-title { font-size: 8px; } .pf-ed { font-size: 8px; }
         }
@@ -903,20 +903,20 @@ export default function TheArrival(p: Props) {
         :global(.tide-stage.is-entered .tide-kicker::before) { transform: none; }
         .tide-line { position: absolute; z-index: 2; left: clamp(24px, 5.25vw, 104px); top: 27%; max-width: 460px;
           opacity: 0; pointer-events: none;
-          text-shadow: 0 1px 4px rgba(10, 13, 56, 0.9), 0 0 26px rgba(10, 13, 56, 0.8), 0 0 60px rgba(10, 13, 56, 0.6); }
+          text-shadow: 0 1px 4px rgba(7, 21, 34, 0.9), 0 0 26px rgba(7, 21, 34, 0.8), 0 0 60px rgba(7, 21, 34, 0.6); }
         .tide-line::before { content: ""; position: absolute; inset: -12% -18%; z-index: -1;
-          background: radial-gradient(60% 55% at 40% 45%, rgba(10, 13, 56, 0.55), transparent 75%); }
+          background: radial-gradient(60% 55% at 40% 45%, rgba(7, 21, 34, 0.55), transparent 75%); }
         .tide-threshold { opacity: var(--threshold, 0); }
         .tide-passage { opacity: var(--passage, 0); top: 34%; }
         .tide-arrival { opacity: var(--arrival, 0); left: 46%; top: 33%; transform: translateX(-50%); text-align: center; }
         /* The closing words own their dark sky pocket — no painted star may
            punctuate them. */
         .tide-arrival::before { inset: -18% -24%;
-          background: radial-gradient(62% 58% at 50% 46%, rgba(10, 13, 56, 0.72), transparent 78%); }
+          background: radial-gradient(62% 58% at 50% 46%, rgba(7, 21, 34, 0.72), transparent 78%); }
         .tide-arrival :global(.tide-arr-cta) { display: inline-flex; align-items: center; gap: 10px;
           margin-top: 26px; min-height: 46px; padding: 0 24px;
           border: 1px solid rgba(224, 183, 104, 0.85); border-radius: 999px;
-          background: rgba(10, 13, 56, 0.62); color: #e0b768; text-decoration: none;
+          background: rgba(7, 21, 34, 0.62); color: #e0b768; text-decoration: none;
           font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
           opacity: var(--arr-t, 0); pointer-events: none;
           transition: background 0.3s var(--lg-ease), color 0.3s var(--lg-ease); }
@@ -941,7 +941,7 @@ export default function TheArrival(p: Props) {
         .tide-controls { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0;
           display: grid; grid-template-columns: 1fr minmax(300px, 430px) 1fr; align-items: end; gap: 30px;
           padding: 22px clamp(24px, 5.25vw, 104px) 20px;
-          background: linear-gradient(0deg, rgba(10, 13, 56, 0.5), rgba(10, 13, 56, 0.14) 60%, transparent 88%);
+          background: linear-gradient(0deg, rgba(7, 21, 34, 0.5), rgba(7, 21, 34, 0.14) 60%, transparent 88%);
           font-family: var(--font-mono), monospace; }
         :global(.tide-stage.is-scrolled) .tide-hint { opacity: 0; transition: opacity 600ms var(--lg-ease); }
         /* At arrival the frame concedes: one voice — the door. */
@@ -961,14 +961,14 @@ export default function TheArrival(p: Props) {
         .tide-track { height: 1px; margin: 10px 0 8px; background: rgba(232, 233, 255, 0.22); }
         .tide-fill { display: block; height: 100%; background: #e0b768; transform: scaleX(0); transform-origin: left; }
         .tide-hint { margin: 0; text-align: center; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-          color: rgba(183, 188, 233, 0.8); padding: 0 10px; background: rgba(7, 10, 46, 0.85);
+          color: rgba(183, 188, 233, 0.8); padding: 0 10px; background: rgba(7, 15, 25, 0.85);
           width: fit-content; margin-inline: auto; }
         .tide-reading { position: relative; overflow: hidden; min-height: 88svh; background: transparent;
           display: grid; grid-template-columns: 1fr 1fr; gap: 55px;
           padding: 110px clamp(24px, 5.25vw, 104px) 90px; }
         .tide-reading::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 44vh;
           z-index: 0; pointer-events: none;
-          background: linear-gradient(180deg, rgba(52, 62, 176, 0.6) 0%, rgba(31, 38, 140, 0.34) 34%, rgba(24, 29, 122, 0.16) 62%, transparent 100%); }
+          background: linear-gradient(180deg, rgba(41, 78, 122, 0.6) 0%, rgba(28, 54, 85, 0.34) 34%, rgba(18, 40, 61, 0.16) 62%, transparent 100%); }
         /* The watermark stays out of the grid flow — one accidental
            'position: relative' here once seated it as a giant first
            cell and shoved the whole room diagonal. */
@@ -1042,7 +1042,7 @@ export default function TheArrival(p: Props) {
         .tide-q { margin: 0 0 34px; font-family: var(--font-heading), serif; font-size: 26px; color: #e8e9ff; }
         .tide-r-actions { display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
         .tide-r-actions :global(.tide-oracle) { display: inline-flex; align-items: center; gap: 14px;
-          min-height: 54px; padding: 0 24px; border-radius: 2px; background: #e0b768; color: #15174c;
+          min-height: 54px; padding: 0 24px; border-radius: 2px; background: #e0b768; color: #183043;
           font-size: 14px; font-weight: 500; text-decoration: none;
           transition: background 0.3s var(--lg-ease), transform 0.3s var(--lg-ease); }
         .tide-r-actions :global(.tide-oracle:hover) { background: #edca8b; transform: translateY(-2px); }

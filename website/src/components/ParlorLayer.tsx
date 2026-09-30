@@ -383,7 +383,7 @@ const PARLOR_CSS = `
   position:fixed;left:50%;transform:translateX(-50%);
   bottom:calc(14px + env(safe-area-inset-bottom,0px));
   z-index:95;display:flex;align-items:baseline;gap:14px;
-  padding:10px 18px 9px;background:#10134d;
+  padding:10px 18px 9px;background:#0b192a;
   border-top:1px solid rgba(232,233,255,0.16);
   font:10px/1.6 ${MONO};letter-spacing:.16em;white-space:nowrap;
   color:#b7bce9;

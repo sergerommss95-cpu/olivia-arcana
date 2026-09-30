@@ -584,7 +584,7 @@ export default function TransitsPage() {
 
         /* ── Paywall gate, re-inked ─────────────────────────── */
         .alm-gate :global(.glass-card) {
-          background: #0f1240 !important;
+          background: #091725 !important;
           border: 1px solid var(--hairline) !important;
           border-radius: 0 !important;
           box-shadow: none !important;

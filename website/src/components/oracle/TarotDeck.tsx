@@ -125,7 +125,7 @@ export default function TarotDeck() {
 
               {/* FRONT FACE (Gilt Slot) */}
               <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-xl bg-[#e0b768] shadow-2xl flex items-center justify-center">
-                <div className="text-[#15174c] font-mono text-xs tracking-widest uppercase">
+                <div className="text-[#183043] font-mono text-xs tracking-widest uppercase">
                   FRAGMENT {selectedCards.indexOf(i) + 1}
                 </div>
               </div>
@@ -142,9 +142,9 @@ function CardBackSVG() {
     <svg className="w-full h-full" viewBox="0 0 360 540" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <radialGradient id="card-grad" cx="50%" cy="38%" r="70%">
-          <stop offset="0%" stopColor="#181d7a" />
-          <stop offset="55%" stopColor="#10134d" />
-          <stop offset="100%" stopColor="#0a0d38" />
+          <stop offset="0%" stopColor="#12283d" />
+          <stop offset="55%" stopColor="#0b192a" />
+          <stop offset="100%" stopColor="#071522" />
         </radialGradient>
       </defs>
       <rect width="360" height="540" fill="url(#card-grad)" />

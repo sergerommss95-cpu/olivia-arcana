@@ -1,4 +1,4 @@
-.page { --ink: #daceb8; --muted: #a49e8f; --gold: #d6b276; --line: #2b2f66; --night: #0a0d38; --ease: cubic-bezier(.22, 1, .36, 1); min-height: 100svh; background: var(--night); color: var(--ink); padding: 0 clamp(1.25rem, 4vw, 4rem); font-family: var(--font-body), sans-serif; }
+.page { --ink: #daceb8; --muted: #a49e8f; --gold: #d6b276; --line: #1c3553; --night: #071522; --ease: cubic-bezier(.22, 1, .36, 1); min-height: 100svh; background: var(--night); color: var(--ink); padding: 0 clamp(1.25rem, 4vw, 4rem); font-family: var(--font-body), sans-serif; }
 .page * { box-sizing: border-box; }
 .page a { color: inherit; text-decoration: none; }
 .page button, .page input, .page textarea { font: inherit; }
@@ -46,7 +46,7 @@
 .question textarea { display: block; width: 100%; resize: vertical; min-height: 72px; max-height: 180px; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: .2rem 0 .65rem; color: var(--ink); background: transparent; font-family: var(--font-heading), serif; font-size: 1.13rem; line-height: 1.5; }
 .question textarea::placeholder { color: #8b8677; }
 .privacy { margin: -.9rem 0 -.25rem; color: var(--muted); font-size: .6rem; line-height: 1.5; }
-.primary { display: flex; align-items: center; justify-content: space-between; gap: 2rem; min-height: 50px; padding: .8rem 1.2rem; border: 1px solid var(--gold); color: #0a0d38; background: var(--gold); font-size: .78rem; font-weight: 500; transition: background 160ms ease; }
+.primary { display: flex; align-items: center; justify-content: space-between; gap: 2rem; min-height: 50px; padding: .8rem 1.2rem; border: 1px solid var(--gold); color: #183043; background: var(--gold); font-size: .78rem; font-weight: 500; transition: background 160ms ease; }
 .primary > span { font-size: 1.2rem; }
 .primary:hover { background: #e0c28a; }
 .textButton { display: inline-flex; align-items: center; justify-content: space-between; gap: 2rem; min-height: 44px; padding: .5rem 0; border: 0; border-bottom: 1px solid #d6b27665; color: var(--gold); background: transparent; font-size: .78rem; }
@@ -63,12 +63,12 @@
 .steps li[aria-current="step"] { color: var(--gold); }
 .status { min-height: 54px; margin: 0; padding-top: 1.2rem; color: var(--muted); font-family: var(--font-heading), serif; font-size: 1.08rem; text-align: center; line-height: 1.45; }
 .tableSurface { position: relative; min-height: 450px; isolation: isolate; }
-.tableSurface::before { content: ""; position: absolute; inset: 6% 1% 0; z-index: -1; border: 1px solid #232759; border-radius: 50% 50% 0 0 / 36% 36% 0 0; pointer-events: none; }
+.tableSurface::before { content: ""; position: absolute; inset: 6% 1% 0; z-index: -1; border: 1px solid #142d4a; border-radius: 50% 50% 0 0 / 36% 36% 0 0; pointer-events: none; }
 .tableMark { position: absolute; top: 13%; left: 50%; display: flex; align-items: center; gap: .65rem; transform: translateX(-50%); color: #a68f5e; font-family: var(--font-heading), serif; font-size: .7rem; opacity: .7; }
 .tableMark i { display: block; width: 20px; height: 1px; background: currentColor; }
 .fan { position: relative; width: 100%; height: 280px; perspective: 1000px; }
 .fanPosition { position: absolute; top: 68px; left: 50%; width: clamp(108px, 10.1vw, 155px); aspect-ratio: 136 / 225; transform: translateX(calc(-50% + var(--n) * clamp(22px, 2.45vw, 37px))) translateY(var(--arc-y)) rotate(var(--card-angle)); transform-origin: 50% 110%; }
-.fanCard { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 1px solid #d6b27670; border-radius: 5px; background: #12164a; box-shadow: -5px 10px 20px #04081d80; transition: translate 200ms var(--ease), border-color 160ms ease; }
+.fanCard { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 1px solid #d6b27670; border-radius: 5px; background: #10273a; box-shadow: -5px 10px 20px #040a1180; transition: translate 200ms var(--ease), border-color 160ms ease; }
 .fanCard:disabled { opacity: 1; }
 .cardBack { position: absolute; inset: 0; display: block; border-radius: 4px; background: var(--card-back) center / 100% 100%; backface-visibility: hidden; }
 .fanNumber { position: absolute; left: 7px; top: 10px; color: #daceb8; font-size: .48rem; letter-spacing: .02em; }
@@ -84,9 +84,9 @@
 .selectedCard { position: relative; width: 100%; aspect-ratio: 136 / 225; border-radius: 5px; }
 .revealButton { position: absolute; inset: 0; display: block; width: 100%; height: 100%; padding: 0; border: 0; border-radius: 5px; background: transparent; perspective: 1000px; }
 .revealButton:disabled, .revealButton[aria-disabled="true"] { opacity: 1; cursor: default; }
-.flip { position: absolute; inset: 0; display: block; border: 1px solid #d6b27685; border-radius: 5px; transform-style: preserve-3d; transition: transform 600ms var(--ease); box-shadow: 0 14px 24px #05081765; }
+.flip { position: absolute; inset: 0; display: block; border: 1px solid #d6b27685; border-radius: 5px; transform-style: preserve-3d; transition: transform 600ms var(--ease); box-shadow: 0 14px 24px #04091065; }
 .revealButton[data-revealed="true"] .flip { transform: rotateY(180deg); }
-.cardFace { position: absolute; inset: 0; display: block; overflow: hidden; border-radius: 4px; transform: rotateY(180deg); backface-visibility: hidden; background: #10134d; }
+.cardFace { position: absolute; inset: 0; display: block; overflow: hidden; border-radius: 4px; transform: rotateY(180deg); backface-visibility: hidden; background: #0b192a; }
 .cardFace img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .cardFace img.reversed { transform: rotate(180deg); }
 .slotName { margin-top: .8rem; color: var(--muted); font-size: .61rem; line-height: 1.5; }
@@ -104,7 +104,7 @@
 .deckControls { display: flex; align-items: center; justify-content: center; gap: 2rem; padding-top: 1.2rem; }
 .deckControls > button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; color: var(--gold); background: transparent; font-size: 1.1rem; }
 .deckControls > button:hover:not(:disabled) { border-color: var(--gold); }
-.deckControls > button:disabled { color: #63678f; border-color: #232759; }
+.deckControls > button:disabled { color: #63678f; border-color: #142d4a; }
 .deckControls > div { min-width: 115px; text-align: center; }
 .deckControls > div > span { color: var(--ink); font-family: var(--font-heading), serif; font-size: 1.15rem; }
 .deckControls i { padding-left: .2rem; color: var(--muted); font-style: normal; }
@@ -115,7 +115,7 @@
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* Interpretation settles onto paper: a tonal change with a practical purpose. */
-.reading { --gold: #d6b276; --ink: #daceb8; --muted: #a49e8f; --line: #2b2f66; position: relative; margin: 0 calc(-1 * clamp(1.25rem, 4vw, 4rem)); padding: clamp(3rem, 6vw, 6rem) clamp(1.25rem, 6vw, 6rem); color: var(--ink); background: #10134d; border-block: 1px solid #d6b27635; box-shadow: 0 -30px 60px #04081d80, 0 30px 60px #04081d80; }
+.reading { --gold: #d6b276; --ink: #daceb8; --muted: #a49e8f; --line: #1c3553; position: relative; margin: 0 calc(-1 * clamp(1.25rem, 4vw, 4rem)); padding: clamp(3rem, 6vw, 6rem) clamp(1.25rem, 6vw, 6rem); color: var(--ink); background: #0b192a; border-block: 1px solid #d6b27635; box-shadow: 0 -30px 60px #040a1180, 0 30px 60px #040a1180; }
 .readingHeading { display: grid; grid-template-columns: .6fr 1fr; column-gap: 3rem; max-width: 1160px; margin: 0 auto 3rem; }
 .readingHeading > .eyebrow { padding-top: .7rem; }
 .readingHeading h2 { margin: 0; font-family: var(--font-heading), serif; font-size: clamp(2.8rem, 5.6vw, 5rem); font-weight: 400; line-height: 1; letter-spacing: -.045em; scroll-margin-top: 3rem; outline: none; }

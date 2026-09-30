@@ -277,7 +277,7 @@ export default function OnboardingPage() {
           width: 100%;
           max-width: 27rem;
           padding: clamp(1.8rem, 4vw, 2.5rem) clamp(1.4rem, 3vw, 2rem);
-          background: #0f1240;
+          background: #091725;
           opacity: 0;
         }
 
@@ -330,7 +330,7 @@ export default function OnboardingPage() {
         }
 
         .onb-date :global(option) {
-          background: #0f1240 !important;
+          background: #091725 !important;
           color: var(--ink) !important;
         }
 

@@ -152,7 +152,7 @@ export default function CompatibilityIndex() {
           z-index: 1;
           padding: 0.5rem 0.9rem 0.5rem 0.6rem;
           border-bottom: 1px solid var(--hairline);
-          background: var(--paper, #10134d);
+          background: var(--paper, #0b192a);
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
           font-size: 0.98rem;
           font-weight: 600;

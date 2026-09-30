@@ -83,9 +83,9 @@ export default function RegisterPage() {
           max-width: 24rem;
           padding: 0 2rem 2.2rem;
           text-align: center;
-          background: #0f1240;
+          background: #091725;
           border: 1px solid var(--hairline);
-          box-shadow: 0 1.4rem 2.8rem rgba(4, 6, 32, 0.1);
+          box-shadow: 0 1.4rem 2.8rem rgba(4, 9, 16, 0.1);
         }
 
         .auth-oxford {

@@ -112,7 +112,7 @@ export default function TarotDeck3D() {
       </Center>
 
       {/* ── LIGHTING (THE SECRET SAUCE) ── */}
-      <ambientLight intensity={0.08} color="#20279b" />
+      <ambientLight intensity={0.08} color="#1e3a5b" />
 
       <spotLight
         position={[2, 4, 3]}
@@ -132,7 +132,7 @@ export default function TarotDeck3D() {
       <pointLight
         position={[0, -1, 2]}
         intensity={0.5}
-        color="#181d7a"
+        color="#12283d"
       />
 
       {/* ── POST-PROCESSING ── */}

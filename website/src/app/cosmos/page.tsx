@@ -240,7 +240,7 @@ export default function CosmosPage() {
 
   if (!mounted) {
     // Static night ground so the route paints before hydration.
-    return <div aria-hidden style={{ minHeight: "100vh", background: "#10134d" }} />;
+    return <div aria-hidden style={{ minHeight: "100vh", background: "#0b192a" }} />;
   }
 
   const moon = getMoonPhase(new Date());
@@ -625,7 +625,7 @@ export default function CosmosPage() {
           align-items: center;
           justify-content: center;
           padding: 1.2rem;
-          background: rgba(10, 13, 56, 0.88);
+          background: rgba(7, 21, 34, 0.88);
           overflow-y: auto;
         }
 
@@ -634,7 +634,7 @@ export default function CosmosPage() {
           max-width: 34rem;
           max-height: min(86vh, 100%);
           overflow-y: auto;
-          box-shadow: 0 1.4rem 3rem rgba(10, 13, 56, 0.6);
+          box-shadow: 0 1.4rem 3rem rgba(7, 21, 34, 0.6);
         }
 
         .cosmos-sheet-head {

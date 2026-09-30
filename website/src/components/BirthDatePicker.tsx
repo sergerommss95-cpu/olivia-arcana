@@ -31,7 +31,7 @@ const selectStyle: React.CSSProperties = {
   fontSize: "0.95rem",
   letterSpacing: "0.04em",
   color: "#e8e9ff",
-  background: "rgba(16,19,77,0.6)",
+  background: "rgba(11,25,42,0.6)",
   border: "1px solid rgba(232,233,255,0.16)",
   borderRadius: "4px",
   outline: "none",
@@ -101,9 +101,9 @@ export default function BirthDatePicker({ value, onChange }: Props) {
             borderColor: month ? "rgba(232,233,255,0.2)" : "rgba(232,233,255,0.12)",
           }}
         >
-          <option value="" style={{ background: "#10134d", color: "rgba(183,188,233,0.7)" }}>Month</option>
+          <option value="" style={{ background: "#0b192a", color: "rgba(183,188,233,0.7)" }}>Month</option>
           {MONTHS.map((name, i) => (
-            <option key={i} value={String(i + 1)} style={{ background: "#10134d", color: "#e8e9ff" }}>
+            <option key={i} value={String(i + 1)} style={{ background: "#0b192a", color: "#e8e9ff" }}>
               {name}
             </option>
           ))}
@@ -121,9 +121,9 @@ export default function BirthDatePicker({ value, onChange }: Props) {
             borderColor: day ? "rgba(232,233,255,0.2)" : "rgba(232,233,255,0.12)",
           }}
         >
-          <option value="" style={{ background: "#10134d", color: "rgba(183,188,233,0.7)" }}>Day</option>
+          <option value="" style={{ background: "#0b192a", color: "rgba(183,188,233,0.7)" }}>Day</option>
           {DAYS.filter(d => d <= maxDay).map(d => (
-            <option key={d} value={String(d)} style={{ background: "#10134d", color: "#e8e9ff" }}>
+            <option key={d} value={String(d)} style={{ background: "#0b192a", color: "#e8e9ff" }}>
               {d}
             </option>
           ))}
@@ -141,9 +141,9 @@ export default function BirthDatePicker({ value, onChange }: Props) {
             borderColor: year ? "rgba(232,233,255,0.2)" : "rgba(232,233,255,0.12)",
           }}
         >
-          <option value="" style={{ background: "#10134d", color: "rgba(183,188,233,0.7)" }}>Year</option>
+          <option value="" style={{ background: "#0b192a", color: "rgba(183,188,233,0.7)" }}>Year</option>
           {YEARS.map(y => (
-            <option key={y} value={String(y)} style={{ background: "#10134d", color: "#e8e9ff" }}>
+            <option key={y} value={String(y)} style={{ background: "#0b192a", color: "#e8e9ff" }}>
               {y}
             </option>
           ))}
