@@ -1,7 +1,7 @@
 import {validateFirstImpressions,mergeFirstImpressions} from './first-impression.js';
 import {validateGuidance} from './saved-guidance.js';
 /** Pure spread selection and device-local persistence. Entitlements belong upstream. */
-import { ReadingError, shuffleDeck, INTENTIONS, normalizeOrientation, createDeckOrientations, deckOrientations, normalizeDeckId, normalizeArtwork } from './core.js';
+import { ReadingError, shuffleDeck, INTENTIONS, normalizeOrientation, createDeckOrientations, deckOrientations, normalizeDeckId, normalizeArtwork, normalizeOrigin } from './core.js';
 import { CARD_IDS, CARD_COUNT } from './deck-catalog.js';
 import { validateQuestionPlan, QUESTION_LIMIT } from './question-coach.js';
 
@@ -73,7 +73,7 @@ function immutableSession(session) {
   });
 }
 
-export function createSpreadSession({ question = '', intention: chosenIntention = 'open', spreadId, count, reversals = false, readingPlan, deckId, artworkEdition, artworkVariant } = {}, ids = CARD_IDS, randomUint32) {
+export function createSpreadSession({ question = '', intention: chosenIntention = 'open', spreadId, count, reversals = false, readingPlan, deckId, artworkEdition, artworkVariant, origin } = {}, ids = CARD_IDS, randomUint32) {
   text(question, 'Your question', QUESTION_LIMIT);
   intention(chosenIntention);
   const chosenDeck = normalizeDeckId(deckId);
@@ -83,7 +83,7 @@ export function createSpreadSession({ question = '', intention: chosenIntention 
   if (deck.length < count) fail('The deck does not contain enough cards for this spread.');
   const plan = questionPlan(readingPlan, spreadId, question);
   return immutableSession({
-    id: id(), createdAt: new Date().toISOString(), question, intention: chosenIntention, deckId: chosenDeck, ...normalizeArtwork({deckId:chosenDeck,artworkEdition,artworkVariant}),
+    id: id(), createdAt: new Date().toISOString(), question, intention: chosenIntention, deckId: chosenDeck, ...normalizeArtwork({deckId:chosenDeck,artworkEdition,artworkVariant}), ...normalizeOrigin(origin),
     spreadId, count, deck: shuffleDeck(deck, randomUint32), selectedSlots: [], cardIds: [], revealedCount: 0,
     reversals, deckOrientations: createDeckOrientations(deck.length, reversals, randomUint32), orientations: [],
     ...(plan ? { readingPlan: plan } : {}),
@@ -99,6 +99,7 @@ function validateSession(session) {
   intention(session.intention);
   normalizeDeckId(session.deckId);
   normalizeArtwork(session);
+  normalizeOrigin(session.origin);
   const count = spreadCount(session.spreadId);
   if (session.count !== count) fail('The card count does not match this spread.');
   const deck = cardIds(session.deck);
@@ -174,7 +175,7 @@ function validateRecord(value) {
     updatedAt: timestamp(value.updatedAt, 'Updated date'),
     question: text(value.question, 'Your question', QUESTION_LIMIT),
     intention: intention(value.intention),
-    deckId: normalizeDeckId(value.deckId), ...normalizeArtwork(value),
+    deckId: normalizeDeckId(value.deckId), ...normalizeArtwork(value), ...normalizeOrigin(value.origin),
     spreadId: value.spreadId,
     spreadName: text(value.spreadName, 'Spread name', 160, true),
     cardIds: ids,
@@ -209,7 +210,7 @@ export function createSpreadRecord(session, spread, reading, note = '') {
     schemaVersion: SPREAD_SCHEMA_VERSION,
     id: session.id, createdAt: session.createdAt,
     updatedAt: new Date(Math.max(Date.now(), Date.parse(session.createdAt))).toISOString(),
-    question: session.question, intention: session.intention, deckId: normalizeDeckId(session.deckId), ...normalizeArtwork(session),
+    question: session.question, intention: session.intention, deckId: normalizeDeckId(session.deckId), ...normalizeArtwork(session), ...normalizeOrigin(session.origin),
     ...(session.readingPlan ? { readingPlan: session.readingPlan } : {}),
     spreadId: session.spreadId, spreadName: spread.name,
     cardIds: session.cardIds, revealedCount: session.revealedCount,
@@ -268,7 +269,7 @@ export function saveSpreadRecord(storage, value) {
     records.push(record);
   } else {
     const prior = records[index];
-    if (prior.artworkEdition !== record.artworkEdition || prior.artworkVariant !== record.artworkVariant || prior.deckId !== record.deckId || prior.spreadId !== record.spreadId || prior.createdAt !== record.createdAt || prior.question !== record.question || prior.intention !== record.intention || JSON.stringify(prior.readingPlan) !== JSON.stringify(record.readingPlan) || prior.cardIds.some((id, i) => id !== record.cardIds[i]) || prior.cards.some((card, i) => card.orientation !== record.cards[i].orientation || card.positionId !== record.cards[i].positionId || card.label !== record.cards[i].label)) {
+    if (JSON.stringify(prior.origin) !== JSON.stringify(record.origin) || prior.artworkEdition !== record.artworkEdition || prior.artworkVariant !== record.artworkVariant || prior.deckId !== record.deckId || prior.spreadId !== record.spreadId || prior.createdAt !== record.createdAt || prior.question !== record.question || prior.intention !== record.intention || JSON.stringify(prior.readingPlan) !== JSON.stringify(record.readingPlan) || prior.cardIds.some((id, i) => id !== record.cardIds[i]) || prior.cards.some((card, i) => card.orientation !== record.cards[i].orientation || card.positionId !== record.cards[i].positionId || card.label !== record.cards[i].label)) {
       fail('An existing spread cannot be replaced by a different draw or position order.');
     }
     if(prior.firstImpressions||record.firstImpressions){try{record.firstImpressions=mergeFirstImpressions(prior.firstImpressions,record.firstImpressions,record.cardIds);}catch(error){fail(error.message);}}
@@ -290,4 +291,17 @@ export function exportSpreadRecords(records) {
 
 export function getLastSpreadRecord(records) {
   return validateRecords(records)[0] ?? null;
+}
+
+/** Reconstitute an interrupted draw without shuffling or choosing any new card. */
+export function restoreSpreadSession(value) {
+  validateSession(value);
+  return immutableSession({
+    id:value.id,createdAt:value.createdAt,question:value.question,intention:value.intention,
+    deckId:normalizeDeckId(value.deckId),...normalizeArtwork(value),...normalizeOrigin(value.origin),
+    spreadId:value.spreadId,count:value.count,deck:value.deck,selectedSlots:value.selectedSlots,
+    cardIds:value.cardIds,revealedCount:value.revealedCount,reversals:Boolean(value.reversals),
+    deckOrientations:deckOrientations(value),orientations:value.orientations,
+    ...(value.readingPlan?{readingPlan:value.readingPlan}:{})
+  });
 }

@@ -38,11 +38,20 @@
       </h1>
     </div>
 
+    <figure id="art-led-hero" class="art-led-hero" aria-label="Amielle illustrated tarot collection">
+      <div class="art-orbit" aria-hidden="true"><span>AMIELLE</span><i></i></div>
+      <button class="art-fan" id="art-fan" type="button" aria-label="Open the illustrated collection" aria-expanded="false">
+        <img class="art-wing art-wing-left" src="/*AMIELLE_CARD_9*/" alt="The Hermit, carved in ivory marble" width="840" height="1440">
+        <img class="art-wing art-wing-right" src="/*AMIELLE_CARD_17*/" alt="The Star, carved in ivory marble" width="840" height="1440">
+        <img class="art-heart" src="/*AMIELLE_CARD_6*/" alt="The Lovers, two ivory figures meeting against aubergine velvet" width="840" height="1440" fetchpriority="high">
+      </button>
+      <figcaption><span>SCULPTED SYMBOLS. YOUR OWN MEANING.</span><p>An illustrated collection · not your personal draw</p></figcaption>
+    </figure>
     <section class="intro" id="intro" aria-label="An invitation">
-      <h2>For the questions<br>that <em>stay with you.</em></h2>
-      <p class="intro-body">One card. A thoughtful interpretation.<br>A space to hear yourself more clearly.</p>
-      <a class="reading-link" href="#question"><span>Draw your card</span><i aria-hidden="true">↗</i></a>
-    <p class="reading-facts">78 cards · Major &amp; Minor Arcana</p><a id="resume-link" class="quiet-link" href="#journal" hidden>Return to your last reflection ↗</a></section>
+      <p class="art-invitation">A MOMENT TO SEE YOURSELF</p><h2>A different<br>light on<br><em>your life.</em></h2>
+      <p class="intro-body">Tarot and astrology for reflection.<br>Leave with your own perspective, one small step,<br>and a place to return.</p>
+      <a class="reading-link" href="#question"><span>Begin a reflection</span><i aria-hidden="true">↗</i></a>
+    <p class="reading-facts">Free prepared readings · No account needed</p><div class="hero-secondary-actions"><a class="home-example-link quiet-link" href="#home-sample-title">See an example <span aria-hidden="true">↗</span></a><a id="resume-link" class="quiet-link" href="#journal" hidden>Return to your last reflection ↗</a></div></section>
 
     <div class="deck-caption" id="deck-caption" aria-hidden="true"><span class="caption-rule"></span><span>The Olivia deck<br><em>Olive, ivory &amp; lapis.</em></span></div>
     <aside class="moon-caption" id="intertitle" aria-hidden="true"><span class="eyebrow">The Moon</span><p>A different light.</p></aside>
@@ -74,6 +83,14 @@
     <section id="choose-view" hidden aria-labelledby="choose-title"><div class="choose-heading"><p class="eyebrow">Let your attention settle</p><h2 id="choose-title" tabindex="-1">One card.<br><em>Yours to discover.</em></h2><p>Choose a card that draws your eye.</p></div><div class="choose-footer"><nav class="single-deck-navigation" id="choice-navigation" aria-label="Browse the full deck" hidden><button type="button" class="quiet-link" id="choice-previous" aria-label="Previous cards">←</button><span id="choice-range" aria-live="polite"></span><button type="button" class="quiet-link" id="choice-next" aria-label="Next cards">→</button></nav><button id="random-card" class="text-action">Choose one for me <span>↗</span></button><button class="quiet-link" id="change-question">← Your question</button><p id="choose-status" role="status"></p></div></section>
   </main></div>
   <div id="home-content" class="home-showcase" data-no-translate="true">
+    <section id="home-return" class="home-return" aria-label="Your earlier reflection" hidden></section>
+    <section class="home-sample" aria-labelledby="home-sample-title">
+      <div class="home-sample-copy"><p class="home-kicker" data-home-copy="sampleKicker">A sample, before you begin</p><h2 id="home-sample-title" data-home-copy="sampleTitle">One card.<br><em>Another way to look.</em></h2><div class="home-sample-question"><span class="home-mini-label" data-home-copy="exampleQuestionLabel">EXAMPLE QUESTION</span><blockquote data-home-copy="sampleQuestion">“What deserves my attention while I consider a change?”</blockquote></div></div>
+      <div class="home-sample-stage"><span class="home-sample-number" aria-hidden="true">IX</span><button id="home-sample-reveal" type="button" class="home-sample-reveal" aria-expanded="true" aria-controls="home-sample-insight" aria-label="Turn the sample card" data-home-aria="turnSample"><span class="home-sample-card"><img class="home-sample-back" src="/*BACK_IMG*/" data-home-art="back" alt="" loading="lazy"><img class="home-sample-face" id="sample-art" src="/*HOME_CARD_9*/" data-home-art="9" alt="The Hermit, an ivory figure carrying a lantern against lapis blue" data-home-alt="hermitAlt" loading="lazy"></span><span class="home-reveal-caption"><span id="home-reveal-label" data-home-copy="turnSample">Turn the sample card</span><i aria-hidden="true">↗</i></span></button><p class="home-sample-caption" data-home-copy="notYourDraw">An example reading · not your personal draw.</p></div>
+
+      <div class="home-sample-response"><div id="home-sample-insight"><p class="home-mini-label" data-home-copy="hermitName">IX / THE HERMIT</p><p class="home-sample-meaning" data-home-copy="hermitMeaning">A little distance from the noise. The Hermit invites you to hear your own thoughts before gathering another opinion.</p><div class="home-sample-prompt"><span data-home-copy="questionToKeep">A QUESTION TO KEEP</span><p data-home-copy="hermitPrompt">What do you already know, when things are quiet?</p></div></div><div class="home-sample-next"><span class="home-mini-label" data-home-copy="smallStep">A SMALL NEXT STEP</span><p data-home-copy="sampleNextStep">Take a quiet walk before asking for another opinion. Notice the thought you want to keep.</p></div><a class="home-link" href="#sample"><span data-home-copy="fullSample">Read the complete sample</span><i aria-hidden="true">↗</i></a></div>
+    </section>
+
     <section id="discover" class="home-practice" aria-labelledby="home-practice-title">
       <div class="home-section-heading"><div><p class="home-kicker" data-home-copy="practiceKicker">A personal practice, in three moments</p><h2 id="home-practice-title" data-home-copy="practiceTitle">Make room for<br><em>a different perspective.</em></h2></div><a class="home-link" href="#question"><span data-home-copy="begin">Begin with your question</span><i aria-hidden="true">↗</i></a></div>
       <ol class="home-ritual-scenes">
@@ -91,13 +108,6 @@
         </div>
         <div class="home-spread-copy"><p class="home-mini-label" id="home-spread-eyebrow" data-home-copy="threePerspectives">ONE QUESTION · THREE PERSPECTIVES</p><h3 id="home-spread-name" data-home-copy="clarity">A little clarity</h3><p id="home-spread-description" class="home-body" data-home-copy="clarityDescription">The situation, what complicates it, and one useful way forward.</p><div class="home-position-preview" aria-live="polite" aria-atomic="true"><span class="home-mini-label" id="home-position-label" data-home-copy="firstPosition">01 / THE SITUATION</span><p id="home-position-question" data-home-copy="situationPrompt">What aspect of the situation deserves attention?</p></div><a class="home-link" href="#spreads"><span data-home-copy="exploreSpreads">Explore guided spreads</span><i aria-hidden="true">↗</i></a><p class="home-access-note" id="home-spread-access" data-home-copy="freeThree">Free, with a question of your own.</p></div>
       </div>
-    </section>
-
-    <section class="home-sample" aria-labelledby="home-sample-title">
-      <div class="home-sample-copy"><p class="home-kicker" data-home-copy="sampleKicker">A sample, before you begin</p><h2 id="home-sample-title" data-home-copy="sampleTitle">One card.<br><em>Another way to look.</em></h2><div class="home-sample-question"><span class="home-mini-label" data-home-copy="exampleQuestionLabel">EXAMPLE QUESTION</span><blockquote data-home-copy="sampleQuestion">“What deserves my attention while I consider a change?”</blockquote></div></div>
-      <div class="home-sample-stage"><span class="home-sample-number" aria-hidden="true">IX</span><button id="home-sample-reveal" type="button" class="home-sample-reveal" aria-expanded="true" aria-controls="home-sample-insight" aria-label="Turn the sample card" data-home-aria="turnSample"><span class="home-sample-card"><img class="home-sample-back" src="/*BACK_IMG*/" data-home-art="back" alt="" loading="lazy"><img class="home-sample-face" id="sample-art" src="/*HOME_CARD_9*/" data-home-art="9" alt="The Hermit, an ivory figure carrying a lantern against lapis blue" data-home-alt="hermitAlt" loading="lazy"></span><span class="home-reveal-caption"><span id="home-reveal-label" data-home-copy="turnSample">Turn the sample card</span><i aria-hidden="true">↗</i></span></button><p class="home-sample-caption" data-home-copy="notYourDraw">An example reading · not your personal draw.</p></div>
-    
-      <div class="home-sample-response"><div id="home-sample-insight"><p class="home-mini-label" data-home-copy="hermitName">IX / THE HERMIT</p><p class="home-sample-meaning" data-home-copy="hermitMeaning">A little distance from the noise. The Hermit invites you to hear your own thoughts before gathering another opinion.</p><div class="home-sample-prompt"><span data-home-copy="questionToKeep">A QUESTION TO KEEP</span><p data-home-copy="hermitPrompt">What do you already know, when things are quiet?</p></div></div><a class="home-link" href="#sample"><span data-home-copy="fullSample">Read the complete sample</span><i aria-hidden="true">↗</i></a></div>
     </section>
 
     <section class="home-memory" aria-labelledby="home-memory-title">

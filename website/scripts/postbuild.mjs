@@ -40,7 +40,7 @@ for (const route of ['decks', 'uk/decks']) {
   }
 }
 const manifest = JSON.parse(fs.readFileSync(path.join(out, 'experience/manifest.json'), 'utf8'));
-for (const id of ['olivia', 'space-between', 'amielle-relationships-v1']) {
+for (const id of ['olivia', 'space-between', 'amielle-relationships-v1', 'amielle-relationships-v2']) {
   const deck = manifest.decks?.[id];
   if (!deck?.back || Object.keys(deck.cards || {}).length !== 78) {
     throw new Error(`Incomplete exported deck: ${id}`);
@@ -53,6 +53,7 @@ for (const id of ['olivia', 'space-between', 'amielle-relationships-v1']) {
 }
 console.log('Verified both Decks routes and two complete 78-card decks.');
 
-const edition=manifest.decks['amielle-relationships-v1'];
+for(const edition of [manifest.decks['amielle-relationships-v1'],manifest.decks['amielle-relationships-v2']]){
 for(const variant of ['men','women'])for(const id of [6,15,25]){const asset=edition.variants?.[variant]?.[id];if(!asset||!manifest.assets[asset]||!fs.existsSync(path.join(out,'experience',asset)))throw new Error(`Missing Amielle alternative: ${variant}/${id}`);}
+}
 console.log('Verified versioned Amielle artwork and six couple alternatives.');

@@ -19,6 +19,19 @@ test('single artwork edition survives draw, save, note edit, reload and export; 
 test('spread artwork edition persists across choices, reveal, journal and export',()=>{
  const definition={id:'clarity3',count:3,name:'Clarity',positions:['situation','complication','next-step'].map(id=>({id,label:id}))};let s=createSpreadSession({...choice,spreadId:definition.id,count:3},[6,9,11],()=>0);for(let i=0;i<3;i++)s=selectSpreadCard(s,i);s=revealAll(s);const r=createSpreadRecord(s,definition,{cards:s.cardIds.map((cardId,i)=>({...notes,cardId,positionId:definition.positions[i].id,label:definition.positions[i].label})),synthesis:{paragraphs:['Together'],prompt:'What now?'}});const storage=memory();saveSpreadRecord(storage,r);const loaded=loadSpreadRecords(storage)[0];assert.equal(loaded.artworkVariant,'men');assert.equal(JSON.parse(exportSpreadRecords([loaded])).records[0].artworkEdition,AMIELLE_EDITION);assert.throws(()=>saveSpreadRecord(storage,{...r,artworkVariant:'women'}));
 });
-test('all 22 Majors and two studies have bilingual upright and reversed readings; unfinished Minors use fallback',()=>{
- assert.deepEqual(AMIELLE_READINGS.map(c=>c.id),[...Array.from({length:22},(_,i)=>i),25,43]);for(const c of AMIELLE_READINGS)for(const l of ['en','uk']){const upright=amiellePreparedMeaning(c.id,false,l),reverse=amiellePreparedMeaning(c.id,true,l);assert.ok(upright.meaning.length>100);assert.ok(reverse.meaning.length>100);assert.notEqual(upright.meaning,reverse.meaning);assert.ok(upright.prompt.length>10);}assert.equal(amiellePreparedMeaning(22),null);
+test('all 78 new-edition cards have bilingual upright and reversed readings; legacy Minors retain fallback',()=>{
+ assert.deepEqual(AMIELLE_READINGS.map(c=>c.id),Array.from({length:78},(_,i)=>i));
+ for(const c of AMIELLE_READINGS)for(const l of ['en','uk']){const upright=amiellePreparedMeaning(c.id,false,l),reverse=amiellePreparedMeaning(c.id,true,l);assert.ok(upright.meaning.length>100);assert.ok(reverse.meaning.length>100);assert.notEqual(upright.meaning,reverse.meaning);assert.ok(upright.prompt.length>10);}
+ assert.equal(amiellePreparedMeaning(22,false,'en','amielle-relationships-v1'),null);
+ assert.ok(amiellePreparedMeaning(25,false,'uk','amielle-relationships-v1'));
+});
+
+test('completing the deck preserves legacy saved Minor images and selects new art only for new draws',()=>{
+ const original=art('olivia'),legacy=art('original-minors'),v1=art('saved-v1'),v2=art('complete-v2');
+ const d=createDeckController({original,collections:{'space-between':legacy,'amielle-relationships-v1':v1,[AMIELLE_EDITION]:v2},storage:memory()});
+ d.select('space-between');
+ assert.equal(d.getChoice().artworkEdition,AMIELLE_EDITION);
+ assert.equal(d.assets.forRecord({deckId:'space-between',artworkEdition:'amielle-relationships-v1',artworkVariant:'original'}).cards[22],'saved-v1/22');
+ assert.equal(d.assets.forRecord({...d.getChoice()}).cards[22],'complete-v2/22');
+ assert.equal(d.assets.forRecord({deckId:'space-between'}).cards[22],'original-minors/22');
 });

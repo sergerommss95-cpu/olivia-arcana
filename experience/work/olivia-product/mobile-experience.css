@@ -218,3 +218,17 @@
  .mobile-experience #spreads-view.is-choosing .deck-dock .deck-browse-hint{font-size:13px;line-height:1.5;max-width:100%}
  .mobile-experience #spreads-view.is-choosing .deck-dock #deal-spread{font-size:12px}
 }
+
+/* The invitation explains what a first visit gives before the draw begins. */
+.home-example-link {display:inline-flex;min-height:44px;align-items:center;margin-top:8px;gap:8px}
+@media(max-width:700px){
+ body.mobile-experience[data-view=home]:not(.cinema) #intro .intro-body {display:block;font-size:13px;line-height:1.55;margin:0 0 14px}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro .reading-facts {display:block;font-size:11px;line-height:1.4;margin:10px 0 0}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro h2 {font-size:28px;margin-bottom:12px}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro .home-example-link {font-size:12px;margin-top:0}
+}
+
+.home-sample-next{margin:1.5rem 0;padding:1rem 0;border-top:1px solid var(--rule)}.home-sample-next p{font-size:.875rem;line-height:1.7;max-width:32rem}
+
+.home-return:not([hidden]){display:flex;align-items:start;gap:2rem;margin:2rem auto;padding:2rem 5vw;max-width:1050px;border-block:1px solid var(--rule)}.home-return img{width:84px;height:auto;flex-shrink:0;border-radius:4px}.home-return h2{font:400 clamp(1.8rem,3vw,2.6rem)/1.15 'Cormorant Garamond';overflow-wrap:anywhere}.home-return blockquote{margin:1rem 0;font-style:italic;overflow-wrap:anywhere}.home-return p{font-size:.875rem;line-height:1.7}.home-return .text-action{min-height:44px}
+@media(max-width:700px){.home-return:not([hidden]){gap:1rem;padding:1.5rem 24px}.home-return img{width:56px}}

@@ -115,3 +115,8 @@ body:has(.single-card-layer:is([data-unveiling=true],[data-inspecting=true])) :i
 .single-card-layer[data-unveiling=true]:after{transition:opacity 420ms ease}
 .single-card-layer[data-unveiling-rest=true]:after{opacity:0;animation:none}
 @media(prefers-reduced-motion:reduce){.single-card-layer[data-unveiling=true]:after{transition:none}}
+
+/* The ritual is optional; this control stays outside the moving artwork. */
+.single-card-skip{position:fixed;right:24px;bottom:calc(20px + env(safe-area-inset-bottom));min-width:44px;min-height:44px;max-width:calc(100vw - 48px);pointer-events:auto;z-index:5;background:rgba(24,22,30,.94);padding:10px 16px;border-radius:6px}
+.single-card-skip[hidden]{display:none}
+.single-card-skip:focus-visible{outline:2px solid #d4c498;outline-offset:4px}

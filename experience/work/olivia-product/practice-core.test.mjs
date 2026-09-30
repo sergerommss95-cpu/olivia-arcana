@@ -25,7 +25,7 @@ function record(cardId = 0) {
   });
 }
 const codeIs = code => error => error instanceof ReadingError && error.code === code;
-const sampleMetadata = (id, extra = {}) => ({ id, kind: 'single', topic: '', nextStep: '', revisitDate: '', outcome: '', reviewedAt: null, ...extra });
+const sampleMetadata = (id, extra = {}) => ({ id, kind: 'single', topic: '', nextStep: '', revisitDate: '', outcome: '', reviewedAt: null, title: '', response: '', resonance: '', originalResponse: '', originalNextStep: '', followups: [], ...extra });
 
 test('practice is empty initially and is separate from existing single/spread journals', () => {
   const storage = memoryStorage();

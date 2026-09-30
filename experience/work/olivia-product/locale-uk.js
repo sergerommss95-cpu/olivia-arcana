@@ -1,5 +1,27 @@
 // Ukrainian card text uses the same stable English identities as the website library.
 export const UK_TEXT = {
+ 'A different':'Інше світло', 'light on':'на', 'your life.':'Ваше життя.',
+ 'Tarot and astrology for reflection.':'Таро й астрологія для розмірковувань.',
+ 'Leave with your own perspective, one small step,':'Ваш власний погляд, один невеликий крок',
+ 'and a place to return.':'і місце, куди можна повернутися.',
+
+ 'A MOMENT TO SEE YOURSELF':'МИТЬ, ЩОБ ПОБАЧИТИ СЕБЕ',
+ 'A different<br>light on<br><em>your life.</em>':'Інше світло<br>на <em>Ваше<br>життя.</em>',
+ 'Tarot and astrology for reflection.<br>Leave with your own perspective, one small step,<br>and a place to return.':'Таро й астрологія для розмірковувань.<br>Ваш власний погляд, один невеликий крок<br>і місце, куди можна повернутися.',
+ 'SCULPTED SYMBOLS. YOUR OWN MEANING.':'СКУЛЬПТУРНІ СИМВОЛИ. ВАШ ВЛАСНИЙ СЕНС.',
+ 'An illustrated collection · not your personal draw':'Ілюстрована колекція · не Ваше особисте читання',
+ 'Amielle illustrated tarot collection':'Ілюстрована колекція Таро Amielle',
+ 'Open the illustrated collection':'Відкрити ілюстровану колекцію',
+ 'The Hermit, carved in ivory marble':'Відлюдник, вирізьблений у мармурі кольору слонової кістки',
+ 'The Star, carved in ivory marble':'Зірка, вирізьблена у мармурі кольору слонової кістки',
+ 'The Lovers, two ivory figures meeting against aubergine velvet':'Закохані, дві фігури кольору слонової кістки на тлі баклажанового оксамиту',
+
+  'Explore a question. Find another perspective.': 'Дослідіть запитання. Відкрийте інший погляд.',
+  'Keep one thought to return to.': 'Збережіть думку, до якої можна повернутися.',
+  'Begin a reflection': 'Почати роздуми',
+  'Free prepared readings · No account needed': 'Безкоштовні тлумачення · Без реєстрації',
+  'See an example': 'Переглянути приклад',
+
   'Rooted in tarot symbolism. Your choices remain yours.': 'В основі — символіка Таро. Вибір залишається за вами.',
   'Prepared card meanings are included. Your question stays here unless you choose AI guidance.': 'Значення карт уже доступні. Ваше запитання залишається тут, якщо ви не оберете підказку ШІ.',
   'Explore all reading formats ↗': 'Усі формати читання ↗',
