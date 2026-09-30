@@ -26,6 +26,8 @@
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
 # Content-addressed files (hash in the name) never change: cache them for a year.
+# Missing paths under these two prefixes are answered by
+# netlify/functions/missing-asset.mts with no-store, so a 404 never inherits this.
 [[headers]]
   for = "/experience/assets/*"
   [headers.values]
