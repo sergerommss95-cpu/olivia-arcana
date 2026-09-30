@@ -40,6 +40,9 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
  back.setAttribute('aria-label',words('Return to your question','Повернутися до запитання'));back.lastElementChild.textContent=words('Your question','До запитання');
  card.setAttribute('aria-hidden','true');
  reveal.setAttribute('aria-describedby','single-card-hint');
+ const skip=document.createElement('button');skip.type='button';skip.className='single-card-skip quiet-link';skip.hidden=true;skip.textContent=words('Show my card now','Показати мою карту зараз');layer.append(skip);
+ let skipRequested=false,completedReveals=0;
+ try{completedReveals=Number(window.sessionStorage?.getItem('olivia-reveal-count'))||0;}catch{}
  const material=mountCardMaterial(surface,{image,getDeckId:()=>selected?.deckId||assets.deckId||'olivia',reduced,enabled:()=>['held','revealed'].includes(phase)});
  const unveiling=unveilingFactory(surface,{image,reduced});
  function actionCopy(revealed=false,error=false){
@@ -76,7 +79,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
   surfaceAnimation=animation;
   animation.finished.then(()=>{if(surfaceAnimation===animation){animation.cancel();surfaceAnimation=null;}},()=>{});
  }
- function state(value){phase=value;if(value==='idle')delete layer.dataset.inspecting;document.body.dataset.singleState=value;layer.dataset.reducedMotion=String(reduced());layer.dataset.deckId=selected?.deckId||assets.deckId||'olivia';back.hidden=!['extracting','held','revealing','revealed'].includes(value);material.setActive(['held','revealed'].includes(value));if(!['held','revealed'].includes(value)){material.touch(.5,.5,false);resetSurface(value==='idle'||value==='hover');}else{surfaceAnimation?.cancel();surfaceAnimation=null;}}
+ function state(value){phase=value;skip.hidden=value!=='revealing';if(value==='idle')delete layer.dataset.inspecting;document.body.dataset.singleState=value;layer.dataset.reducedMotion=String(reduced());layer.dataset.deckId=selected?.deckId||assets.deckId||'olivia';back.hidden=!['extracting','held','revealing','revealed'].includes(value);material.setActive(['held','revealed'].includes(value));if(!['held','revealed'].includes(value)){material.touch(.5,.5,false);resetSurface(value==='idle'||value==='hover');}else{surfaceAnimation?.cancel();surfaceAnimation=null;}}
  function put(points){quad=points;card.style.transform=cardQuadMatrix(points);}
  function sourcePoints(index){
   const t=targetMap.get(index),rect=stage().getBoundingClientRect(),fallback=choices().querySelector(`[data-slot="${index}"]`);
@@ -132,7 +135,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
  function hideSource(index){motion()?.hideChoice?.(index);for(const button of choices().children)button.toggleAttribute('data-lifted',Number(button.dataset.slot)===index);}
  async function animateQuad(to,duration=1000,lift=0){
   const token=generation;cancelAnimation();const from=quad;
-  if(reduced()){put(to);return token===generation;}
+  if(reduced()||duration<=0){put(to);return token===generation;}
   const frames=Array.from({length:33},(_,i)=>{const t=ease(i/32),arc=Math.sin(Math.PI*t)*lift;return {offset:i/32,transform:cardQuadMatrix(from.map(([x,y],j)=>[x+(to[j][0]-x)*t,y+(to[j][1]-y)*t-arc]))};});
   const animation=card.animate(frames,{duration,easing:'linear',fill:'both'});activeAnimation=animation;quadAnimation={from,to,duration,lift};
   try{await animation.finished;}catch{return false;}if(token!==generation)return false;put(to);animation.cancel();if(activeAnimation===animation){activeAnimation=null;quadAnimation=null;}return true;
@@ -183,7 +186,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
  }
  async function revealCard(){
   if(phase!=='held')return;
-  const token=generation;state('revealing');reveal.disabled=true;
+  const token=generation;skipRequested=false;state('revealing');reveal.disabled=true;
   reveal.textContent=words('Preparing your card…','Готуємо вашу карту…');
   // Keep the back in place until the face is decoded. A failed image is retryable.
   const nextImage=new Image();let timeout;
@@ -201,11 +204,11 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
   if(token!==generation)return;
   actions.hidden=true;
   let approach=null;
-  const unveiled=await unveiling.reveal({front:nextImage,orientation:selected.orientation,duration:5000,onStart:()=>{
+  const unveiled=!skipRequested&&await unveiling.reveal({front:nextImage,orientation:selected.orientation,duration:completedReveals?1800:4200,onStart:()=>{
    layer.dataset.unveiling='true';
    layer.dataset.revealCaption=words('Move gently across the card.','Проведіть по карті легким рухом.');
    announce(words('Your card is opening. Move gently across its surface.','Ваша карта відкривається. Легко проведіть по її поверхні.'));
-   approach=animateQuad(unveilingQuad(),1000,0);
+   approach=animateQuad(unveilingQuad(),completedReveals?450:800,0);
    return approach;
   },onProgress:progress=>{
    if(token===generation)layer.dataset.unveilingRest=progress>=.88?'true':'false';
@@ -218,24 +221,25 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
    image.style.transform='';
    unveiling.cancel();
    delete layer.dataset.unveiling;delete layer.dataset.unveilingRest;layer.dataset.inspecting='true';
-   await animateQuad(stageQuad(),1150,0);
+   await animateQuad(stageQuad(),skipRequested?0:completedReveals?450:850,0);
    if(token!==generation)return;
   }else{
    unveiling.cancel();delete layer.dataset.unveiling;delete layer.dataset.unveilingRest;
    if(approach)put(stageQuad());
   // One visible image swaps exactly edge-on. The two halves share angular speed.
-  if(!reduced()){
+  if(!reduced()&&!skipRequested){
    let animation=image.animate(singleCardTurnFrames(),{duration:840,easing:'linear',fill:'forwards'});activeAnimation=animation;
    try{await animation.finished;}catch{return;}if(token!==generation)return;
    image.style.transform=singleCardTurnFrames(true)[0].transform;
    image.style.rotate=selected.orientation==='reversed'?'180deg':'';image.src=nextImage.src;animation.cancel();
-   if(!reduced()){
+   if(!reduced()&&!skipRequested){
     animation=image.animate(singleCardTurnFrames(true),{duration:840,easing:'linear',fill:'forwards'});activeAnimation=animation;
     try{await animation.finished;}catch{return;}if(token!==generation)return;
     image.style.transform='';animation.cancel();activeAnimation=null;
    }else{image.style.transform='';activeAnimation=null;}
   }else{image.style.rotate=selected.orientation==='reversed'?'180deg':'';image.src=nextImage.src;}
   }
+  completedReveals++;try{window.sessionStorage?.setItem('olivia-reveal-count',String(completedReveals));}catch{}
   image.alt=t(selected.cardName);actionCopy(true);actions.hidden=false;reveal.disabled=false;put(stageQuad());
   state('revealed');material.refresh();if(!unveiled)material.awaken?.();
   announce(words(`${t(selected.cardName)}. Take your time. Read your card when you are ready.`,`${t(selected.cardName)}. Не поспішайте. Прочитайте карту, коли будете готові.`));
@@ -257,6 +261,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
   if(!reduced())document.querySelector('.reading-copy')?.animate([{opacity:0},{opacity:1}],{duration:850,easing:'cubic-bezier(.16,1,.3,1)'});
   if(selectedByKeyboard)(document.querySelector('#reading-view[data-guidance-state="pending"] .reading-loader')||document.querySelector('#result-title'))?.focus({preventScroll:true});
  }
+ skip.addEventListener('click',()=>{if(phase!=='revealing')return;skipRequested=true;skip.hidden=true;unveiling.cancel();activeAnimation?.finish();});
  reveal.addEventListener('click',()=>{if(phase==='held')revealCard();else if(phase==='revealed')readCard();});
  note.addEventListener('toggle',()=>{
   note.querySelector('.single-card-note-toggle').textContent=note.open?'−':'+';

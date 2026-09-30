@@ -186,3 +186,36 @@ test('fresh and restored cards start from a neutral origin while current-card to
   x.flow.cancel();
  }
 });
+
+test('skip during image decoding shows the same card immediately once its artwork is ready',async()=>{
+ let ready;const x=setup({reduced:false,decode:()=>new Promise(resolve=>{ready=resolve;})});
+ x.flow.restoreHeld(x.record,0);x.button.dispatch('click');await flush();
+ const skip=x.layer.children.find(child=>child.className==='single-card-skip quiet-link');
+ assert.equal(skip.hidden,false);skip.dispatch('click');ready();await flush();
+ assert.equal(x.body.dataset.singleState,'revealed');assert.equal(x.image.src,'face.png');assert.equal(x.read,0);assert.equal(skip.hidden,true);
+ assert.equal(x.animations.length,0,'skip must not replace the shader with an obligatory turn');
+});
+
+test('skip cancels an active material opening and never starts a fallback turn',async()=>{
+ let release;const x=setup({reduced:false,unveilingFactory:()=>({touch(){},cancel(){release?.(false);},reveal(){return new Promise(resolve=>{release=resolve;});}})});
+ x.flow.restoreHeld(x.record,0);x.button.dispatch('click');await flush();
+ const skip=x.layer.children.find(child=>child.className==='single-card-skip quiet-link');skip.dispatch('click');await flush();
+ assert.equal(x.body.dataset.singleState,'revealed');assert.equal(x.image.src,'face.png');assert.equal(x.animations.length,0);assert.equal(x.read,0);
+});
+
+test('repeat reveals shorten the material passage without redrawing or auto-opening the reading',async()=>{
+ const durations=[];const x=setup({reduced:false,unveilingFactory:()=>({touch(){},cancel(){},reveal(options){durations.push(options.duration);return Promise.resolve(false);}})});
+ for(let i=0;i<2;i++){
+  x.flow.restoreHeld(x.record,0);x.button.dispatch('click');await flush();
+  x.animations.at(-1).finish();await flush();x.animations.at(-1).finish();await flush();
+  assert.equal(x.body.dataset.singleState,'revealed');
+ }
+ assert.deepEqual(durations,[4200,1800]);assert.equal(x.read,0);
+});
+
+test('skip during the camera approach finishes its clock and cannot resume the cancelled reveal',async()=>{
+ let release,approach;const x=setup({reduced:false,unveilingFactory:()=>({touch(){},cancel(){release?.(false);},reveal(options){approach=options.onStart();return new Promise(resolve=>{release=resolve;});}})});
+ x.flow.restoreHeld(x.record,0);x.button.dispatch('click');await flush();assert.equal(x.animations.length,1);
+ x.layer.children.find(child=>child.className==='single-card-skip quiet-link').dispatch('click');await flush();await approach;await flush();
+ assert.equal(x.body.dataset.singleState,'revealed');assert.equal(x.image.src,'face.png');assert.equal(x.animations.length,1);assert.equal(x.read,0);
+});

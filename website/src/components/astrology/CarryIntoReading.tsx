@@ -21,8 +21,10 @@ const UI = {
     title: "Carry your sky into a reading",
     lead: "Each of your cards carries a question. Begin a reading with one and choose your own cards from the full deck, or lay out that card’s own spread.",
     ask: "Begin a reading with this question", spread: (name: string) => `A spread built on ${name}`,
+    continuity: "Your question joins the same reflection journal as your tarot readings. Save your own words there and return to see what changed. Birth details stay on this device.",
     locked: "Turn this card to see its question.",
     share: "Share your three cards", making: "Making your image…", saved: "Saved to your device.", failed: "The image could not be made on this device.",
+    transferFailed: "This browser could not carry your question. Copy it and open a reading to enter it yourself.",
     shareNote: "The image shows your signs and cards only, never your birth details.",
     shareTitle: "My sky, dealt in cards", site: "oliviaarcana.com/astrology", turnFirst: "Turn all your cards to share them.",
   },
@@ -30,8 +32,10 @@ const UI = {
     title: "Перенесіть своє небо в розклад",
     lead: "Кожна з ваших карт несе своє запитання. Почніть розклад з одним із них і оберіть власні карти з повної колоди або розкладіть власний розклад цієї карти.",
     ask: "Почати розклад із цим запитанням", spread: (name: string) => `Розклад на основі карти «${name}»`,
+    continuity: "Ваше запитання продовжиться в тому самому щоденнику, що й розклади Таро. Збережіть там власні слова й поверніться, щоб побачити зміни. Дані про народження залишаються на цьому пристрої.",
     locked: "Переверніть цю карту, щоб побачити її запитання.",
     share: "Поділитися трьома картами", making: "Створюємо зображення…", saved: "Зображення збережено на пристрої.", failed: "На цьому пристрої не вдалося створити зображення.",
+    transferFailed: "Цей браузер не зміг перенести запитання. Скопіюйте його й відкрийте розклад, щоб ввести самостійно.",
     shareNote: "На зображенні лише ваші знаки й карти, без даних про народження.",
     shareTitle: "Моє небо, розкладене картами", site: "oliviaarcana.com/uk/astrology", turnFirst: "Переверніть усі карти, щоб поділитися ними.",
   },
@@ -62,6 +66,7 @@ export default function CarryIntoReading({ locale, items, revealed }: { locale: 
     <section className={styles.block} aria-labelledby="carry-title">
       <h2 id="carry-title" className={styles.h2}>{t.title}</h2>
       <p className={styles.blockLead}>{t.lead}</p>
+      <p className={styles.hint}>{t.continuity}</p>
       <ul className={styles.carryList}>
         {items.map((item) => {
           const open = revealed.includes(item.key);
@@ -76,8 +81,9 @@ export default function CarryIntoReading({ locale, items, revealed }: { locale: 
                 {open && (
                   <div className={styles.carryActions}>
                     <a className={styles.primary} href={`${base}?experience=question`}
-                      onClick={() => { try { writeQuestionHandoff(sessionStorage, question); } catch { /* the reading still opens; the question can be typed */ } }}>{t.ask}</a>
-                    <a className={styles.carrySpread} href={`${base}#spreads/card-${item.card.id}`}>{t.spread(item.card.name)}</a>
+                      onClick={(event) => { try { writeQuestionHandoff(sessionStorage, question, Date.now(), { practice: "astrology", cardId: item.card.id, role: item.role }); } catch { event.preventDefault(); setStatus(t.transferFailed); } }}>{t.ask}</a>
+                    <a className={styles.carrySpread} href={`${base}#spreads/card-${item.card.id}`}
+                      onClick={(event) => { try { writeQuestionHandoff(sessionStorage, question, Date.now(), { practice: "astrology", cardId: item.card.id, role: item.role }); } catch { event.preventDefault(); setStatus(t.transferFailed); } }}>{t.spread(item.card.name)}</a>
                   </div>
                 )}
               </div>

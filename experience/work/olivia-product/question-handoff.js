@@ -1,10 +1,8 @@
-/** A question crosses pages in this tab only, never in a URL or analytics event. */
-export const QUESTION_HANDOFF_KEY='olivia-question-handoff-v1';
+/** Shared tab-local handoff; astrology context never contains birth details. */
+import {QUESTION_HANDOFF_KEY,readQuestionHandoff,clearQuestionHandoff} from '../../../website/src/lib/question-handoff.ts';
+export {QUESTION_HANDOFF_KEY,readQuestionHandoffOrigin,writeQuestionHandoff} from '../../../website/src/lib/question-handoff.ts';
 export function consumeQuestionHandoff(storage,now=Date.now()){
- let raw;try{raw=storage.getItem(QUESTION_HANDOFF_KEY);if(raw!==null)storage.removeItem(QUESTION_HANDOFF_KEY);}catch{return null;}
- if(raw===null)return null;
- try{const value=JSON.parse(raw);
-  if(value.schemaVersion!==1||typeof value.question!=='string'||!value.question.trim()||value.question.length>1600||!Number.isFinite(value.createdAt)||value.createdAt>now||now-value.createdAt>30*60*1000)return null;
-  return value.question.trim();
- }catch{return null;}
+ const question=readQuestionHandoff(storage,now);
+ try{clearQuestionHandoff(storage);}catch{return null;}
+ return question?.trim()||null;
 }

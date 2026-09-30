@@ -16,6 +16,7 @@ export const SPREAD_POSITIONS = {
 } as const;
 export type ReadingRequest = {
   deckId?: 'olivia' | 'space-between';
+  artworkEdition?: 'amielle-relationships-v1' | 'amielle-relationships-v2';
   question: string;
   locale: ReadingLocale;
   spreadId: keyof typeof SPREAD_POSITIONS;
@@ -42,6 +43,7 @@ export function validateReading(value: unknown): ReadingRequest {
   const body = record(value);
   if (body.locale !== 'en' && body.locale !== 'uk') throw new RequestError('Choose English or Ukrainian.');
   if(body.deckId!==undefined&&body.deckId!=='olivia'&&body.deckId!=='space-between')throw new RequestError('Choose a supported deck.');
+  if(body.artworkEdition!==undefined&&(body.deckId!=='space-between'||!['amielle-relationships-v1','amielle-relationships-v2'].includes(String(body.artworkEdition))))throw new RequestError('Choose a supported artwork edition.');
   const spreadId = body.spreadId;
   if (typeof spreadId !== 'string' || !Object.hasOwn(SPREAD_POSITIONS, spreadId)) throw new RequestError('Choose a supported spread.');
   const slots = SPREAD_POSITIONS[spreadId as keyof typeof SPREAD_POSITIONS];
@@ -60,7 +62,7 @@ export function validateReading(value: unknown): ReadingRequest {
     if (typeof body.originalQuestion !== 'string' || body.originalQuestion.length > 1600) throw new RequestError('Keep the original question within 1,600 characters.');
     plan = { questionDirection: body.questionDirection as QuestionDirection, originalQuestion: body.originalQuestion.trim() };
   } else if (body.originalQuestion !== undefined) throw new RequestError('Include a supported question direction with the original question.');
-  return { ...(body.deckId?{deckId:body.deckId as ReadingRequest['deckId']} : {}), question: text(body.question, 1600), locale: body.locale, spreadId: spreadId as ReadingRequest['spreadId'], cards, ...plan };
+  return { ...(body.deckId?{deckId:body.deckId as ReadingRequest['deckId']} : {}), ...(body.artworkEdition?{artworkEdition:body.artworkEdition as ReadingRequest['artworkEdition']}:{}), question: text(body.question, 1600), locale: body.locale, spreadId: spreadId as ReadingRequest['spreadId'], cards, ...plan };
 }
 /** Counted patterns across the whole draw, each with how often it happens in a random draw. */
 function spreadPatterns(input: ReadingRequest) {
@@ -85,7 +87,7 @@ export function readingContext(input: ReadingRequest) {
         position: plan ? plan[index].label : SPREAD_POSITIONS[input.spreadId][index],
         ...(plan ? { positionId: plan[index].id, positionPrompt: plan[index].prompt } : {}), keywords: card.keywords,
         // The product's curated, non-predictive reflection for this card and orientation.
-        symbolicMeaning: (input.deckId==='space-between'?amiellePreparedMeaning(selection.id,selection.orientation==='reversed',input.locale)?.meaning:null)||TAROT_NOTES[input.locale][original.name][selection.orientation].meaning,
+        symbolicMeaning: (input.deckId==='space-between'?amiellePreparedMeaning(selection.id,selection.orientation==='reversed',input.locale,input.artworkEdition||'amielle-relationships-v1')?.meaning:null)||TAROT_NOTES[input.locale][original.name][selection.orientation].meaning,
       };
     }),
     ...(patterns.length ? { spreadPatterns: patterns } : {}),

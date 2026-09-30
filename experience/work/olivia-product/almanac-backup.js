@@ -39,7 +39,7 @@ export function prepareAlmanacImport(storage,raw){
  const conflicting=new Set();
  for(let i=0;i<2;i++)for(const record of incoming[i]){
   const prior=current[i].find(v=>v.id===record.id);if(!prior)continue;
-  const fields=i===0?['createdAt','question','intention','deckId','cardId','orientation','source']:['createdAt','question','intention','deckId','spreadId','cardIds','readingPlan'];
+  const fields=i===0?['createdAt','question','intention','deckId','artworkEdition','artworkVariant','origin','cardId','orientation','source']:['createdAt','question','intention','deckId','artworkEdition','artworkVariant','origin','spreadId','cardIds','readingPlan'];
   if(fields.some(key=>JSON.stringify(prior[key])!==JSON.stringify(record[key])) || i===1 && JSON.stringify(prior.cards.map(({cardId,orientation,positionId,label})=>({cardId,orientation,positionId,label})))!==JSON.stringify(record.cards.map(({cardId,orientation,positionId,label})=>({cardId,orientation,positionId,label}))))conflicting.add(JSON.stringify([i===0?'single':'spread',record.id]));
  }
  if(conflicting.size)fail('This backup contains reading identifiers that belong to different questions or draws. No data was imported.');

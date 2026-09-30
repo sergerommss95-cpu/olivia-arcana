@@ -548,6 +548,11 @@ body:has(.single-card-layer:is([data-unveiling=true],[data-inspecting=true])) :i
 .single-card-layer[data-unveiling-rest=true]:after{opacity:0;animation:none}
 @media(prefers-reduced-motion:reduce){.single-card-layer[data-unveiling=true]:after{transition:none}}
 
+/* The ritual is optional; this control stays outside the moving artwork. */
+.single-card-skip{position:fixed;right:24px;bottom:calc(20px + env(safe-area-inset-bottom));min-width:44px;min-height:44px;max-width:calc(100vw - 48px);pointer-events:auto;z-index:5;background:rgba(24,22,30,.94);padding:10px 16px;border-radius:6px}
+.single-card-skip[hidden]{display:none}
+.single-card-skip:focus-visible{outline:2px solid #d4c498;outline-offset:4px}
+
 body[data-view=today] #hero-region,body[data-view=method] #hero-region,body[data-view=membership] #hero-region{display:none}
 .practice-page{background:radial-gradient(ellipse at 82% 22%,#28456366,transparent 55%),#0b192a}
 .practice-page .page-top,.practice-bottom{max-width:1320px;margin:auto}.practice-page nav{gap:2rem}
@@ -569,6 +574,11 @@ body[data-view=today] #hero-region,body[data-view=method] #hero-region,body[data
 .practice-return.is-empty{grid-template-columns:1fr 1fr;padding:2.5rem 0}.practice-return.is-empty h2{font-size:2.4rem}.practice-return.is-empty>div>p:last-child:not(.return-empty){display:none}.practice-return.is-empty #today-revisits{align-self:center}
 .practice-more{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:.5rem 0 1.25rem}.practice-more>summary{min-height:46px;font-size:.75rem;color:var(--muted);padding:.85rem 0}.practice-more>.practice-pair{padding-top:.6rem}.practice-more .reviewed-check{margin-bottom:.7rem}.practice-editor .practice-more[open]>summary>span{transform:none}
 @media(max-width:600px){.practice-return.is-empty{display:block}.practice-return.is-empty>div:first-child{margin-bottom:1rem}}
+/* A person's words accompany the artwork; the return keeps its original context. */
+.practice-fields select{display:block;width:100%;min-height:44px;background:#081625;color:var(--ink);border:1px solid var(--rule);padding:.8rem;margin:.6rem 0 1.3rem;font:inherit}.practice-fields select:focus-visible{outline:1px solid var(--gold);outline-offset:3px}.personal-response{border-bottom:1px solid var(--rule);margin-bottom:1.4rem}.then-now-next{padding:1.5rem 0;border-top:1px solid var(--rule)}.then-now-next h3{font:400 2rem 'Cormorant Garamond';margin:0 0 1rem}.then-now-next blockquote{margin:.8rem 0 1rem;padding-left:1rem;border-left:2px solid var(--gold);white-space:pre-wrap;font-size:.875rem;line-height:1.8;overflow-wrap:anywhere}.then-now-next>p,.followup-history p{font-size:.8125rem;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}.followup-history{list-style:none;padding:0}.followup-history li{border-top:1px solid var(--rule);padding:1rem 0}.followup-history time{font-size:.7rem;color:var(--gold)}.journal-art{width:72px;height:124px;object-fit:cover;float:left;margin:0 1.5rem 1rem 0;border-radius:4px}#journal-retrospective{padding:.8rem 0;border-bottom:1px solid var(--rule)}
+@media(max-width:600px){.journal-art{width:56px;height:96px;margin-right:1rem}.then-now-next h3{font-size:1.7rem}}
+
+.journal-row .journal-art{float:none;margin:0;width:84px;height:auto;aspect-ratio:7/12;object-fit:cover;flex-shrink:0}.journal-origin{display:block;margin:0 0 1rem;color:var(--muted);font-size:.75rem}.practice-fields select{display:block;max-width:100%;padding:.7rem;background:#0b192a;color:var(--ink);border:1px solid var(--rule);font:inherit}.practice-fields select:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 
 /* One native scroll journey, followed by the rest of the same page. */
 body[data-view="home"] #hero-region { height: 1050svh; }
@@ -1958,6 +1968,20 @@ html .reading-link[data-olivia-edge]{padding-inline:1rem}
  .mobile-experience #spreads-view.is-choosing .deck-dock .deck-browse-hint{font-size:13px;line-height:1.5;max-width:100%}
  .mobile-experience #spreads-view.is-choosing .deck-dock #deal-spread{font-size:12px}
 }
+
+/* The invitation explains what a first visit gives before the draw begins. */
+.home-example-link {display:inline-flex;min-height:44px;align-items:center;margin-top:8px;gap:8px}
+@media(max-width:700px){
+ body.mobile-experience[data-view=home]:not(.cinema) #intro .intro-body {display:block;font-size:13px;line-height:1.55;margin:0 0 14px}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro .reading-facts {display:block;font-size:11px;line-height:1.4;margin:10px 0 0}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro h2 {font-size:28px;margin-bottom:12px}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro .home-example-link {font-size:12px;margin-top:0}
+}
+
+.home-sample-next{margin:1.5rem 0;padding:1rem 0;border-top:1px solid var(--rule)}.home-sample-next p{font-size:.875rem;line-height:1.7;max-width:32rem}
+
+.home-return:not([hidden]){display:flex;align-items:start;gap:2rem;margin:2rem auto;padding:2rem 5vw;max-width:1050px;border-block:1px solid var(--rule)}.home-return img{width:84px;height:auto;flex-shrink:0;border-radius:4px}.home-return h2{font:400 clamp(1.8rem,3vw,2.6rem)/1.15 'Cormorant Garamond';overflow-wrap:anywhere}.home-return blockquote{margin:1rem 0;font-style:italic;overflow-wrap:anywhere}.home-return p{font-size:.875rem;line-height:1.7}.home-return .text-action{min-height:44px}
+@media(max-width:700px){.home-return:not([hidden]){gap:1rem;padding:1.5rem 24px}.home-return img{width:56px}}
 
 /* On a phone the ritual is a single object, held in space. */
 .mobile-position-title {display:none}

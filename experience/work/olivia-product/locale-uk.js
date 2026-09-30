@@ -1,5 +1,11 @@
 // Ukrainian card text uses the same stable English identities as the website library.
 export const UK_TEXT = {
+  'Explore a question. Find another perspective.': 'Дослідіть запитання. Відкрийте інший погляд.',
+  'Keep one thought to return to.': 'Збережіть думку, до якої можна повернутися.',
+  'Begin a reflection': 'Почати роздуми',
+  'Free prepared readings · No account needed': 'Безкоштовні тлумачення · Без реєстрації',
+  'See an example': 'Переглянути приклад',
+
   'Rooted in tarot symbolism. Your choices remain yours.': 'В основі — символіка Таро. Вибір залишається за вами.',
   'Prepared card meanings are included. Your question stays here unless you choose AI guidance.': 'Значення карт уже доступні. Ваше запитання залишається тут, якщо ви не оберете підказку ШІ.',
   'Explore all reading formats ↗': 'Усі формати читання ↗',
