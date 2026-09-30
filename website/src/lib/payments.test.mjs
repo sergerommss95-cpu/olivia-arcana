@@ -74,38 +74,13 @@ test("unavailable storage and server rendering are treated as signed out", t => 
   assert.equal(getPaymentSessionToken(), null);
 });
 
-for (const [label, entries, token] of [
-  ["legacy", [["olivia-token", "legacy-session"]], "legacy-session"],
-  ["current Supabase", [["sb-project-auth-token", JSON.stringify({ access_token: "current-session" })]], "current-session"],
-  ["nested Supabase", [["sb-project-auth-token", JSON.stringify({ currentSession: { access_token: "nested-session" } })]], "nested-session"],
-]) {
-  test(`checkout forwards the ${label} session as authorization`, async t => {
-    useBrowser(t, entries);
-    const calls = [];
-    t.mock.method(globalThis, "fetch", async (url, options) => {
-      calls.push({ url, options });
-      return new Response(JSON.stringify({ checkout_url: "https://checkout.example/session" }));
-    });
-    assert.equal(await createCheckoutSession("insight_monthly"), "https://checkout.example/session");
-    assert.equal(calls.length, 1);
-    assert.equal(new URL(calls[0].url).pathname, "/api/payments/paddle/checkout");
-    assert.equal(calls[0].options.method, "POST");
-    assert.equal(calls[0].options.headers.Authorization, `Bearer ${token}`);
-    assert.deepEqual(JSON.parse(calls[0].options.body), {
-      price_key: "insight_monthly",
-      success_url: "https://checkout.example/checkout/success/",
-      cancel_url: "https://checkout.example/checkout/cancel/",
-    });
-  });
-}
-
-test("a signed-out request never sends a fabricated authorization header", async t => {
-  useBrowser(t);
-  let headers;
-  t.mock.method(globalThis, "fetch", async (_url, options) => {
-    headers = options.headers;
-    return new Response(JSON.stringify({ tier: "free" }));
-  });
-  assert.deepEqual(await getSubscriptionStatus(), { tier: "free" });
-  assert.equal(Object.hasOwn(headers, "Authorization"), false);
+test("blocked payment requests and repeated clicks never contact any provider", async t => {
+ useBrowser(t, [["olivia-token", "existing-session"]]);
+ let calls = 0;
+ t.mock.method(globalThis, "fetch", async () => { calls++; throw new Error("must not contact provider"); });
+ for (let i = 0; i < 3; i++) {
+  await assert.rejects(createCheckoutSession("insight_monthly"), /paused/);
+  await assert.rejects(getSubscriptionStatus(), /paused/);
+ }
+ assert.equal(calls, 0);
 });

@@ -1,3 +1,4 @@
+import { assertAccountsAvailable } from "./launch-policy.js";
 /**
  * api.ts — API client for backend auth + data
  *
@@ -49,6 +50,7 @@ export interface AuthResponse {
 // ── Auth endpoints ──
 
 export async function register(email: string, password: string, name?: string): Promise<AuthResponse> {
+  assertAccountsAvailable();
   const res = await fetch(`${API_URL}/api/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -64,6 +66,7 @@ export async function register(email: string, password: string, name?: string): 
 }
 
 export async function login(email: string, password: string): Promise<AuthResponse> {
+  assertAccountsAvailable();
   const res = await fetch(`${API_URL}/api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -79,6 +82,7 @@ export async function login(email: string, password: string): Promise<AuthRespon
 }
 
 export async function getMe(): Promise<AuthUser> {
+  assertAccountsAvailable();
   const token = getToken();
   if (!token) throw new Error("Not logged in");
   const res = await fetch(`${API_URL}/api/auth/me`, {
@@ -89,6 +93,7 @@ export async function getMe(): Promise<AuthUser> {
 }
 
 export async function updateBirthData(data: Record<string, unknown>): Promise<void> {
+  assertAccountsAvailable();
   const token = getToken();
   if (!token) throw new Error("Not logged in");
   const res = await fetch(`${API_URL}/api/auth/me/birth-data`, {
