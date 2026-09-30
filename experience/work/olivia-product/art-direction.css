@@ -85,3 +85,21 @@ body[data-view=home]:not(.cinema) #intro{top:19%}
  body[data-view=home]:not(.cinema) .art-led-hero{top:19%;height:65%}
  body[data-view=home]:not(.cinema) .experience-controls{bottom:8px}
 }
+
+/* Ivory is a complete surface theme, including inherited utility text. */
+#reading-view #save-section{--ink:#272432;--muted:#62545d;--gold:#725238;--rule:#a99a88;color:#272432}
+#reading-view #save-section :is(label,label span,.eyebrow,summary,.practice-save-status,#save-status,.privacy-note,.reading-notes,.practice-more,.reviewed-check,.then-now-next,.followup-history,.followup-history time,.quiet-link,.text-action){color:#403541}
+#reading-view #save-section :is(p,small,.first-impression-help,.checkin-note){color:#594a55}
+#reading-view #save-section :is(input,textarea,select){color:#272432;background:#fbf5ea;border-color:#857361;accent-color:#725238}
+#reading-view #save-section :is(input,textarea)::placeholder{color:#6a5b65;opacity:1}
+#reading-view #save-section :is(button,a,summary,input,textarea,select):focus-visible{outline:2px solid #705038;outline-offset:4px}
+#reading-view #save-section .solid-action{background:#272432;color:#f0e6d4;border-color:#272432}
+#reading-view #save-section .solid-action:hover{background:#433647;color:#fff8ec}
+#reading-view #save-section :is(button,input,textarea,select):disabled{opacity:1;color:#5b4e59;background:#ded5c8;border-color:#a99a88;cursor:not-allowed;box-shadow:none}
+#reading-view #save-section [aria-invalid=true]{border:2px solid #923c37}
+#reading-view #save-section :is(.has-error,[data-state=error],[data-status=error],[role=alert]){color:#87342f}
+body[data-view=home]:not(.cinema) #intro .hero-secondary-actions{display:flex;align-items:center;flex-wrap:wrap;gap:0 22px;margin-top:4px}
+body[data-view=home]:not(.cinema) #intro .hero-secondary-actions :is(a,#resume-link){display:inline-flex;align-items:center;min-height:44px;margin:0;max-width:100%;font-size:12px;line-height:1.5;padding:8px 0;white-space:normal;gap:8px}
+body[data-view=home]:not(.cinema) #intro .hero-secondary-actions [hidden]{display:none}
+body[data-view=home]:not(.cinema) #intro .hero-secondary-actions a:focus-visible{outline:2px solid #eadfc9;outline-offset:3px}
+@media(min-width:701px) and (max-height:700px){body[data-view=home]:not(.cinema) #hero-region:has(#resume-link:not([hidden])),body[data-view=home]:not(.cinema) #hero-region:has(#resume-link:not([hidden])) #stage{min-height:680px}}
