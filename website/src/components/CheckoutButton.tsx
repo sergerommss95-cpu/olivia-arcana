@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useSubscription } from "@/hooks/useSubscription";
-import { getPaymentSessionToken, telegramStarsLink, type PriceKey } from "@/lib/payments";
+import { getPaymentSessionToken, type PriceKey } from "@/lib/payments";
 import { isNativeShell, externalUpgradeUrl } from "@/lib/platform";
 import MagneticButton from "@/components/MagneticButton";
+import { useLocale } from "@/lib/i18n/useLocale";
 import { PAYMENTS_ENABLED } from "@/lib/service-status";
 
 /**
@@ -29,6 +30,7 @@ export default function CheckoutButton({
   className = "",
   children,
 }: CheckoutButtonProps) {
+  const { locale } = useLocale();
   const { subscribe, isVip, manageSubscription, error } = useSubscription();
   const [loading, setLoading] = useState(false);
   const [native, setNative] = useState(false);
@@ -38,14 +40,7 @@ export default function CheckoutButton({
   useEffect(() => { setNative(isNativeShell()); }, []);
 
   const handleClick = async () => {
-    // Paddle checkout goes through the reading API, which is currently down.
-    // The Telegram bot bills independently and still works, so send buyers
-    // there rather than into a request that cannot succeed. The deep-link
-    // carries ?start=pay_<priceKey> so the bot opens on the right invoice.
-    if (!PAYMENTS_ENABLED) {
-      window.open(telegramStarsLink(priceKey), "_blank", "noopener,noreferrer");
-      return;
-    }
+    if (!PAYMENTS_ENABLED) return;
 
     // Inside iOS/Android native shell: Apple/Google bills 30% of any digital
     // sale. Send the user to the open web to subscribe via Paddle (5%).
@@ -91,10 +86,7 @@ export default function CheckoutButton({
     );
   }
 
-  // Inside the native shell, frame the CTA as an outbound link, not a buy.
-  // Apple's App Store guidelines (3.1.3) allow "out-of-app" pricing links;
-  // we are explicit about the destination.
-  const label = !PAYMENTS_ENABLED ? "Continue in Telegram →" : native ? "Continue on web →" : null;
+  const label = !PAYMENTS_ENABLED ? (locale === "uk" ? "Платні послуги поки недоступні" : "Paid services are not available yet") : native ? "Continue on web →" : null;
 
   return (
     <>
@@ -103,7 +95,7 @@ export default function CheckoutButton({
         size={size}
         className={className}
         onClick={handleClick}
-        disabled={loading}
+        disabled={loading || !PAYMENTS_ENABLED}
       >
         {loading ? (
           <span className="flex items-center gap-2">

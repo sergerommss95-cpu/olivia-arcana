@@ -206,7 +206,10 @@ export default function BirthChart({ locale, copy, cards }: { locale: Locale; co
   }
 
   function forget() {
-    forgetProfile();
+    if (!forgetProfile()) {
+      setError(locale === "uk" ? "Не вдалося видалити збережені дані. Перевірте доступ до сховища браузера та спробуйте ще раз." : "Saved details could not be fully deleted. Check browser storage access and try again.");
+      return;
+    }
     setResult(null); setEditing(false); setDate(""); setTime(""); setTimeUnknown(false); setPlace(null); setQuery(""); setLat(""); setLon("");
     setNotice(t.forgotten);
   }

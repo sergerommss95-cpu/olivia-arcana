@@ -1,3 +1,4 @@
+import { assertAccountsAvailable } from "./launch-policy.js";
 /**
  * supabase.ts — Supabase client for auth
  *
@@ -19,6 +20,7 @@ export const isSupabaseConfigured = Boolean(
 let _client: SupabaseClient | null = null;
 
 function getClient(): SupabaseClient {
+  assertAccountsAvailable();
   if (!_client) {
     _client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   }

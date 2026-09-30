@@ -1,3 +1,4 @@
+import { forgetBirthData } from "../birth-storage.js";
 /**
  * The reader's birth details, kept only in this browser.
  * One versioned key; the older chart pages' key is read once as a fallback.
@@ -33,8 +34,8 @@ export function saveProfile(profile: BirthProfile): void {
   try { localStorage.setItem(KEY, JSON.stringify({ ...profile, place })); } catch { /* private mode */ }
 }
 
-export function forgetProfile(): void {
-  try { localStorage.removeItem(KEY); } catch { /* nothing to forget */ }
+export function forgetProfile(): boolean {
+  try { return forgetBirthData(localStorage); } catch { return false; }
 }
 
 /**

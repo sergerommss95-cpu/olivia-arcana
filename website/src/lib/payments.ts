@@ -1,10 +1,5 @@
-/**
- * payments.ts — Paddle (web) + Telegram Stars (in-bot) payment client.
- *
- * Stripe is BANNED for tarot/psychic/occult per Paddle MoR strategy
- * documented in the LLC guide. All web checkout goes through Paddle;
- * in-Telegram-bot purchases use Telegram Stars.
- */
+/** Legacy payment contracts retained for migration. No provider is approved. */
+import { assertPaymentsAvailable } from "./launch-policy.js";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://olivia-api.up.railway.app";
 
@@ -89,6 +84,7 @@ export function getPaymentSessionToken(): string | null {
 }
 
 async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
+  assertPaymentsAvailable();
   const token = getPaymentSessionToken();
   const res = await fetch(`${API_URL}${path}`, {
     ...options,
@@ -128,6 +124,7 @@ export async function createCheckoutSession(priceKey: PriceKey): Promise<string>
  * Used by users who prefer crypto-adjacent / no-card flow.
  */
 export function telegramStarsLink(priceKey: PriceKey): string {
+  assertPaymentsAvailable();
   return `https://t.me/OliviaArcanaBot?start=pay_${priceKey}`;
 }
 

@@ -1,3 +1,4 @@
+import { forgetBirthData } from "./birth-storage.js";
 /**
  * user-store.ts — Persistent user birth data across all pages
  *
@@ -59,10 +60,8 @@ export function loadChart(): NatalChart | null {
 }
 
 /** Clear stored user data */
-export function clearUser(): void {
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-  } catch {}
+export function clearUser(): boolean {
+  try { return forgetBirthData(localStorage); } catch { return false; }
 }
 
 /** Check if user has saved data */
