@@ -334,3 +334,13 @@ test('the AI receives the curated, non-predictive card reflections in both langu
     assert.doesNotMatch(meaning,/\bthe universe\b|Всесвіт|(^|[\s«])(ти|тебе|тобі|твій|твоя|твоє|твої)([\s,.!?»]|$)/i,`${locale} ${id} ${orientation}`);
   }
 });
+
+test('Amielle receives trusted relationship meanings in both languages without transmitting artwork preferences',()=>{
+ for(const locale of ['en','uk']){
+  const request=validateReading({...valid,locale,deckId:'space-between',spreadId:'single',cards:[{id:6,orientation:'upright'}],artworkVariant:'men'});
+  assert.equal(request.deckId,'space-between');assert.equal(request.artworkVariant,undefined);
+  const context=readingContext(request);assert.equal(context.deck,'Amielle');assert.ok(context.cards[0].symbolicMeaning.length>100);assert.match(context.perspective,/Do not infer identity/);
+  assert.notEqual(context.cards[0].symbolicMeaning,readingContext(validateReading({...valid,locale,spreadId:'single',cards:[{id:6,orientation:'upright'}]})).cards[0].symbolicMeaning);
+ }
+ assert.throws(()=>validateReading({...valid,deckId:'unknown'}));
+});

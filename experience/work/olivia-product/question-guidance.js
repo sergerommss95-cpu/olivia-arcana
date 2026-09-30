@@ -54,7 +54,7 @@ const copy = {
  }
 };
 export function guidancePayload(record,locale='en') {
- return {question:record.question,locale:locale==='uk'?'uk':'en',spreadId:record.spreadId||'single',...(record.readingPlan&&record.readingPlan.source!=='card'?{questionDirection:record.readingPlan.direction,originalQuestion:record.readingPlan.originalQuestion}:{}),cards:record.cardIds?record.cardIds.map((id,i)=>({id,orientation:record.orientations?.[i]||record.cards?.[i]?.orientation||'upright'})):[{id:record.cardId,orientation:record.orientation||'upright'}]};
+ return {...(record.deckId==='space-between'?{deckId:'space-between'}:{}),question:record.question,locale:locale==='uk'?'uk':'en',spreadId:record.spreadId||'single',...(record.readingPlan&&record.readingPlan.source!=='card'?{questionDirection:record.readingPlan.direction,originalQuestion:record.readingPlan.originalQuestion}:{}),cards:record.cardIds?record.cardIds.map((id,i)=>({id,orientation:record.orientations?.[i]||record.cards?.[i]?.orientation||'upright'})):[{id:record.cardId,orientation:record.orientation||'upright'}]};
 }
 async function isAvailable(){
  if(!availability)availability=fetch('/api/reading',{headers:{Accept:'application/json'},signal:AbortSignal.timeout(8000)}).then(r=>r.ok?r.json():null).then(r=>r?.available===true).catch(()=>false);
@@ -143,7 +143,7 @@ export function mountQuestionGuidance(container, record, {locale=window.OLIVIA_L
   const actions=make('div','','guidance-actions');
   const download=make('button',c.download,'quiet-link');download.type='button';
   download.onclick=()=>{
-   const url=URL.createObjectURL(new Blob([JSON.stringify({question:record.question,cards:payload.cards,source:'ai',synthesis:text,locale:payload.locale},null,2)],{type:'application/json'}));
+   const url=URL.createObjectURL(new Blob([JSON.stringify({...record,question:record.question,cards:payload.cards,source:'ai',synthesis:text,locale:payload.locale},null,2)],{type:'application/json'}));
    const a=document.createElement('a');a.href=url;a.download='olivia-interpretation.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
   };
   const keep=make('button',kept?c.kept:c.keep,'solid-action');keep.type='button';keep.disabled=kept;

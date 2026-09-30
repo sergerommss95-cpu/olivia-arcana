@@ -148,3 +148,5 @@ body[data-view="decks"] #hero-region{display:none}
 }
 @media(max-width:360px){#decks-view{padding-inline:20px}#decks-view h1{font-size:44px}#decks-view .dl-current{font-size:9px}}
 @media(prefers-reduced-motion:reduce){#decks-view *,#decks-view *:before,#decks-view *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}#decks-view .dl-scene:hover .dl-card-main{transform:rotate(3deg)}}
+
+.dl-artwork-choice{border:0;padding:0;margin:24px 0}.dl-artwork-choice legend{font-size:18px}.dl-artwork-choice p{font-size:14px;line-height:1.5}.dl-artwork-options{display:flex;gap:10px}.dl-artwork-options button{flex:1;min-width:0;border:1px solid transparent;border-radius:14px;background:#352936;color:inherit;padding:10px;min-height:44px}.dl-artwork-options img{width:100%;height:auto;aspect-ratio:7/12;object-fit:contain;display:block;margin-bottom:8px}.dl-artwork-options button[aria-pressed=true]{border-color:#c6ae7f;background:#55404c}.dl-artwork-options button:focus-visible{outline:2px solid #ede4d2;outline-offset:4px}

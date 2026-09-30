@@ -1,3 +1,4 @@
+import {normalizeArtwork} from './core.js';
 /** A sentence chosen by the reader, kept separately from the reading itself. */
 export const KEEPSAKE_STORAGE_KEY='olivia-reading-keepsakes-v1';
 export const KEEPSAKE_LIMIT=48;
@@ -37,8 +38,8 @@ export function readingSentenceChoices(value,locale='en'){
 }
 function normalizeEntry(entry){
  if(!entry||typeof entry!=='object'||!validRecord({id:entry.readingId,cardId:entry.cardId})||!['olivia','space-between'].includes(entry.deckId)||!['en','uk'].includes(entry.locale)||!validDate(entry.createdAt)||!validDate(entry.updatedAt)||typeof entry.question!=='string'||entry.question.length>4000||typeof entry.cardName!=='string'||!entry.cardName||entry.cardName.length>140)fail('STORAGE_CORRUPT');
- let text;try{text=normalizeKeepsakeText(entry.text);}catch{fail('STORAGE_CORRUPT');}
- return {readingId:entry.readingId,deckId:entry.deckId,cardId:entry.cardId,cardName:clean(entry.cardName),question:clean(entry.question),locale:entry.locale,text,createdAt:entry.createdAt,updatedAt:entry.updatedAt};
+ let text,artwork;try{text=normalizeKeepsakeText(entry.text);artwork=normalizeArtwork(entry);}catch{fail('STORAGE_CORRUPT');}
+ return {...artwork,readingId:entry.readingId,deckId:entry.deckId,cardId:entry.cardId,cardName:clean(entry.cardName),question:clean(entry.question),locale:entry.locale,text,createdAt:entry.createdAt,updatedAt:entry.updatedAt};
 }
 export function loadReadingKeepsakes(storage){
  let raw;try{raw=storage.getItem(KEEPSAKE_STORAGE_KEY);}catch{fail('STORAGE');}
@@ -58,7 +59,7 @@ export function saveReadingKeepsake(storage,{record,text,locale='en',now=new Dat
  const words=normalizeKeepsakeText(text),entries=loadReadingKeepsakes(storage),index=entries.findIndex(entry=>entryIdentity(entry)===identity(record));
  if(index<0&&entries.length>=KEEPSAKE_LIMIT)fail('STORAGE_LIMIT');
  const timestamp=now.toISOString();
- const entry=normalizeEntry({readingId:record.id,deckId:deckOf(record),cardId:record.cardId,cardName:clean(record.cardName)||COPY[locale==='uk'?'uk':'en'].card,question:clean(record.question),locale:locale==='uk'?'uk':'en',text:words,createdAt:index<0?timestamp:entries[index].createdAt,updatedAt:timestamp});
+ const entry=normalizeEntry({...normalizeArtwork(record),readingId:record.id,deckId:deckOf(record),cardId:record.cardId,cardName:clean(record.cardName)||COPY[locale==='uk'?'uk':'en'].card,question:clean(record.question),locale:locale==='uk'?'uk':'en',text:words,createdAt:index<0?timestamp:entries[index].createdAt,updatedAt:timestamp});
  if(index<0)entries.push(entry);else entries[index]=entry;
  writeEntries(storage,entries);return entry;
 }

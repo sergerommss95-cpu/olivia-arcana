@@ -34,6 +34,12 @@ export function normalizeDeckId(value) {
   return value;
 }
 
+export function normalizeArtwork(value = {}) {
+ if(value.artworkEdition===undefined&&value.artworkVariant===undefined)return {};
+ if(value.deckId!=='space-between'||value.artworkEdition!=='amielle-relationships-v1'||!['woman-man','men','women'].includes(value.artworkVariant))fail('Choose a supported artwork edition.');
+ return {artworkEdition:value.artworkEdition,artworkVariant:value.artworkVariant};
+}
+
 function string(value, name, max, required = false) {
   if (typeof value !== 'string' || value.length > max || (required && !value.trim())) {
     fail(`${name} must be ${required ? 'a non-empty string' : 'text'} of at most ${max} characters.`);
@@ -121,7 +127,7 @@ function uniqueId() {
   return Array.from({ length: 4 }, () => secureUint32().toString(16).padStart(8, '0')).join('');
 }
 
-export function createSession({ question = '', intention = 'open', reversals = false, deckId } = {}, ids = CARD_IDS, randomUint32 = secureUint32) {
+export function createSession({ question = '', intention = 'open', reversals = false, deckId, artworkEdition, artworkVariant } = {}, ids = CARD_IDS, randomUint32 = secureUint32) {
   string(question, 'Your question', 1600);
   validateIntention(intention);
   const chosenDeck = normalizeDeckId(deckId);
@@ -132,6 +138,7 @@ export function createSession({ question = '', intention = 'open', reversals = f
     question,
     intention,
     deckId: chosenDeck,
+    ...normalizeArtwork({deckId:chosenDeck,artworkEdition,artworkVariant}),
     deck: Object.freeze(deck),
     reversals,
     deckOrientations: createDeckOrientations(deck.length, reversals, randomUint32),
@@ -148,6 +155,7 @@ function validateSession(session) {
   string(session.question, 'Your question', 1600);
   validateIntention(session.intention);
   normalizeDeckId(session.deckId);
+  normalizeArtwork(session);
   validateIds(session.deck);
   const orientations = deckOrientations(session);
   if (session.cardId === null && session.selectedSlot === null) {
@@ -190,6 +198,7 @@ function validateRecord(value) {
     question: string(value.question, 'Your question', 1600),
     intention: validateIntention(value.intention),
     deckId: normalizeDeckId(value.deckId),
+    ...normalizeArtwork(value),
     cardId: value.cardId,
     orientation: normalizeOrientation(value.orientation),
     cardName: string(value.cardName, 'Card name', 120, true),
@@ -217,6 +226,7 @@ export function createRecord(session, card, interpretation, note = '') {
     question: session.question,
     intention: session.intention,
     deckId: normalizeDeckId(session.deckId),
+    ...normalizeArtwork(session),
     cardId,
     orientation: normalizeOrientation(session.orientation),
     cardName: card.name,
@@ -283,7 +293,7 @@ export function saveRecord(storage, value) {
   } else {
     // Editing a note must not turn one saved draw into a different card/session.
     const prior = records[existing];
-    if (record.deckId !== prior.deckId || record.cardId !== prior.cardId || record.orientation !== prior.orientation || record.createdAt !== prior.createdAt || record.question !== prior.question || record.intention !== prior.intention || record.source !== prior.source) {
+    if (record.artworkEdition !== prior.artworkEdition || record.artworkVariant !== prior.artworkVariant || record.deckId !== prior.deckId || record.cardId !== prior.cardId || record.orientation !== prior.orientation || record.createdAt !== prior.createdAt || record.question !== prior.question || record.intention !== prior.intention || record.source !== prior.source) {
       fail('An existing reading cannot be replaced by a different draw.');
     }
     if(prior.firstImpressions||record.firstImpressions){try{record.firstImpressions=mergeFirstImpressions(prior.firstImpressions,record.firstImpressions,[record.cardId]);}catch(error){fail(error.message);}}
